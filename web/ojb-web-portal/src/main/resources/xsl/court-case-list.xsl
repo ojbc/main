@@ -89,9 +89,9 @@
 	    						}).fail(ojbc.displayIncidentDetailFailMessage);
     						
     						}).hover(function () {
-    								$(this).addClass("incidentHover");
+    								$(this).addClass("hover");
     							}, function () {
-    								$(this).removeClass("incidentHover");
+    								$(this).removeClass("hover");
     							});
     						});
     					</script>

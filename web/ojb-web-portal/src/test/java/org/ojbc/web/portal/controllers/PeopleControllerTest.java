@@ -273,10 +273,9 @@ public class PeopleControllerTest {
 		when(searchResultConverter.convertDetailSearchResult("some details xml", "mySystem", null)).thenReturn(
 				"converted details xml");
 		
-		String expectedView = unit.incidentDetails(servletRequest, "mySystem", detailsRequest, model);
+		String expectedResponse = unit.instanceDetails(servletRequest, "mySystem", detailsRequest, model);
 		
-		assertThat(expectedView, is("people/_incidentDetails"));
-		assertThat((String) model.get("searchContent"), is("converted details xml"));
+		assertThat(expectedResponse, is("converted details xml"));
 		
 	}
 

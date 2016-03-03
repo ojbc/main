@@ -25,8 +25,6 @@ import org.apache.commons.lang.StringUtils;
  * This class uses a Camel header named "WSAddressingReplyTo" to lookup an endpoint to send
  * a response to in the 'endpointReplyToMap' hashmap 
  * 
- * @author yogeshchawla
- *
  */
 public class WSAddressingEndpointProcessor {
 

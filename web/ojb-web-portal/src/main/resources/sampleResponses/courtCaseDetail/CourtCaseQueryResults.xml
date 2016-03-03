@@ -17,18 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ccq-res-doc:CourtCaseQueryResults
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange.xsd"
-	xmlns:ccq-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0"
-	xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
-	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
-	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
-	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
-	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ccq-res-doc:CourtCaseQueryResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange.xsd" xmlns:ccq-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0" xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0" xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:DocumentCreationDate>
 		<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 	</nc:DocumentCreationDate>
@@ -64,7 +53,8 @@
 		<j:CaseAugmentation>
 			<j:CaseAmendedCharge>
 				<j:ChargeCountQuantity>2</j:ChargeCountQuantity>
-				<j:ChargeDescriptionText>charge description </j:ChargeDescriptionText>
+				<j:ChargeDescriptionText>charge description
+				</j:ChargeDescriptionText>
 				<j:ChargeFilingDate>
 					<nc:Date>2001-12-17</nc:Date>
 				</j:ChargeFilingDate>
@@ -83,8 +73,10 @@
 					<nc:DispositionDate>
 						<nc:Date>2001-12-17</nc:Date>
 					</nc:DispositionDate>
-					<nc:DispositionDescriptionText>finding </nc:DispositionDescriptionText>
-					<j:ChargeDispositionOtherText>other finding </j:ChargeDispositionOtherText>
+					<nc:DispositionDescriptionText>finding
+					</nc:DispositionDescriptionText>
+					<j:ChargeDispositionOtherText>other finding
+					</j:ChargeDispositionOtherText>
 				</j:ChargeDisposition>
 				<j:ChargeFilingDate>
 					<nc:Date>2001-12-17</nc:Date>
@@ -103,7 +95,8 @@
 						<nc:Date>2001-12-17</nc:Date>
 					</nc:ActivityDate>
 					<nc:ActivityStatus>
-						<nc:StatusDescriptionText>sentence status </nc:StatusDescriptionText>
+						<nc:StatusDescriptionText>sentence status
+						</nc:StatusDescriptionText>
 					</nc:ActivityStatus>
 					<j:SentenceCharge>
 						<j:ChargeStatute>
@@ -122,8 +115,10 @@
 					<ccq-res-ext:SentenceDeferredDate>
 						<nc:Date>2001-12-17</nc:Date>
 					</ccq-res-ext:SentenceDeferredDate>
-					<ccq-res-ext:SentenceConfinementCategoryText>confinement type </ccq-res-ext:SentenceConfinementCategoryText>
-					<ccq-res-ext:SentenceConfinementComment>confinement comment </ccq-res-ext:SentenceConfinementComment>
+					<ccq-res-ext:SentenceConfinementCategoryText>confinement type
+					</ccq-res-ext:SentenceConfinementCategoryText>
+					<ccq-res-ext:SentenceConfinementComment>confinement comment
+					</ccq-res-ext:SentenceConfinementComment>
 					<ccq-res-ext:SentenceWorkReleaseIndicator>true
 					</ccq-res-ext:SentenceWorkReleaseIndicator>
 				</j:ChargeSentence>
@@ -131,7 +126,8 @@
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
 						<nc:IdentificationID>charge statute</nc:IdentificationID>
-						<nc:IdentificationCategoryDescriptionText>charge statute description
+						<nc:IdentificationCategoryDescriptionText>charge statute
+							description
 						</nc:IdentificationCategoryDescriptionText>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
@@ -143,8 +139,10 @@
 					<nc:DispositionDate>
 						<nc:Date>2001-12-17</nc:Date>
 					</nc:DispositionDate>
-					<nc:DispositionDescriptionText>finding </nc:DispositionDescriptionText>
-					<j:ChargeDispositionOtherText>other finding </j:ChargeDispositionOtherText>
+					<nc:DispositionDescriptionText>finding
+					</nc:DispositionDescriptionText>
+					<j:ChargeDispositionOtherText>other finding
+					</j:ChargeDispositionOtherText>
 				</j:ChargeDisposition>
 				<j:ChargeFilingDate>
 					<nc:Date>2001-12-17</nc:Date>
@@ -153,7 +151,8 @@
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
 						<nc:IdentificationID>charge statute</nc:IdentificationID>
-						<nc:IdentificationCategoryDescriptionText>charge statute description
+						<nc:IdentificationCategoryDescriptionText>charge statute
+							description
 						</nc:IdentificationCategoryDescriptionText>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
@@ -174,7 +173,8 @@
 				<nc:ActivityDate>
 					<nc:Date>2001-12-17</nc:Date>
 				</nc:ActivityDate>
-				<nc:ActivityDescriptionText>case court event description </nc:ActivityDescriptionText>
+				<nc:ActivityDescriptionText>case court event description
+				</nc:ActivityDescriptionText>
 				<nc:ActivityName>case court event name</nc:ActivityName>
 				<j:CourtEventJudge>
 					<nc:RoleOfPerson>
@@ -189,14 +189,17 @@
 						<nc:Date>2001-12-17</nc:Date>
 					</j:CourtAppearanceDate>
 				</ccq-res-ext:FirstCourtAppearance>
-				<ccq-res-ext:CourtEventCommentsText>String </ccq-res-ext:CourtEventCommentsText>
+				<ccq-res-ext:CourtEventCommentsText>String
+				</ccq-res-ext:CourtEventCommentsText>
 			</j:CaseCourtEvent>
-			<j:CaseDefendantSelfRepresentationIndicator>true </j:CaseDefendantSelfRepresentationIndicator>
+			<j:CaseDefendantSelfRepresentationIndicator>true
+			</j:CaseDefendantSelfRepresentationIndicator>
 			<j:CaseDefendantParty>
 				<nc:EntityOrganization>
 					<nc:OrganizationName>String</nc:OrganizationName>
 				</nc:EntityOrganization>
-				<nc:EntityPerson structures:ref="Person_01"> </nc:EntityPerson>
+				<nc:EntityPerson structures:ref="Person_01">
+				</nc:EntityPerson>
 			</j:CaseDefendantParty>
 			<j:CaseDefenseAttorney>
 				<nc:RoleOfPerson>
@@ -205,7 +208,8 @@
 					</nc:PersonName>
 				</nc:RoleOfPerson>
 			</j:CaseDefenseAttorney>
-			<j:CaseDomesticViolenceIndicator>true </j:CaseDomesticViolenceIndicator>
+			<j:CaseDomesticViolenceIndicator>true
+			</j:CaseDomesticViolenceIndicator>
 			<j:CaseHearing>
 				<nc:ActivityIdentification>
 					<nc:IdentificationID>hearing ID</nc:IdentificationID>
@@ -219,11 +223,13 @@
 						<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 					</nc:EndDate>
 				</nc:ActivityDateRange>
-				<nc:ActivityDescriptionText>hearing description </nc:ActivityDescriptionText>
+				<nc:ActivityDescriptionText>hearing description
+				</nc:ActivityDescriptionText>
 				<nc:ActivityName>hearing name</nc:ActivityName>
 				<nc:ActivityReasonText>hearing reason</nc:ActivityReasonText>
 				<nc:ActivityDisposition>
-					<nc:DispositionDescriptionText>hearing results </nc:DispositionDescriptionText>
+					<nc:DispositionDescriptionText>hearing results
+					</nc:DispositionDescriptionText>
 				</nc:ActivityDisposition>
 				<j:CourtEventJudge>
 					<nc:RoleOfPerson>
@@ -238,7 +244,7 @@
 			<j:CaseJudge>
 				<nc:RoleOfPerson>
 					<nc:PersonName>
-						<nc:PersonFullName>Judge Name</nc:PersonFullName>
+						<nc:PersonFullName>String</nc:PersonFullName>
 					</nc:PersonName>
 				</nc:RoleOfPerson>
 				<j:JudicialOfficialBarMembership>
@@ -266,7 +272,8 @@
 						<nc:IdentificationID>String</nc:IdentificationID>
 					</j:JudicialOfficialBarIdentification>
 				</j:JudicialOfficialBarMembership>
-				<j:JudicialOfficialCategoryText>attorney type </j:JudicialOfficialCategoryText>
+				<j:JudicialOfficialCategoryText>attorney type
+				</j:JudicialOfficialCategoryText>
 			</j:CaseProsecutionAttorney>
 			<j:CaseTrial>
 				<ccq-res-ext:SpeedyTrialDate>
@@ -275,15 +282,18 @@
 			</j:CaseTrial>
 		</j:CaseAugmentation>
 		<ccq-res-ext:CaseAugmentation>
-			<ccq-res-ext:CaseSealedIndicator>true </ccq-res-ext:CaseSealedIndicator>
+			<ccq-res-ext:CaseSealedIndicator>true
+			</ccq-res-ext:CaseSealedIndicator>
 			<ccq-res-ext:RemandDate>
 				<nc:Date>2001-12-17</nc:Date>
 			</ccq-res-ext:RemandDate>
 			<ccq-res-ext:CaseUnderAdvisementDate>
 				<nc:Date>2001-12-17</nc:Date>
 			</ccq-res-ext:CaseUnderAdvisementDate>
-			<ccq-res-ext:JuryRequestedIndicator>true </ccq-res-ext:JuryRequestedIndicator>
-			<ccq-res-ext:JuryVerdictIndicator>true </ccq-res-ext:JuryVerdictIndicator>
+			<ccq-res-ext:JuryRequestedIndicator>true
+			</ccq-res-ext:JuryRequestedIndicator>
+			<ccq-res-ext:JuryVerdictIndicator>true
+			</ccq-res-ext:JuryVerdictIndicator>
 			<ccq-res-ext:FailureToPayHoldDate>
 				<nc:Date>2001-12-17</nc:Date>
 			</ccq-res-ext:FailureToPayHoldDate>
@@ -328,7 +338,8 @@
 			<nc:FullTelephoneNumber>
 				<nc:TelephoneNumberFullID>String</nc:TelephoneNumberFullID>
 			</nc:FullTelephoneNumber>
-			<nc:TelephoneNumberCategoryText>String </nc:TelephoneNumberCategoryText>
+			<nc:TelephoneNumberCategoryText>String
+			</nc:TelephoneNumberCategoryText>
 		</nc:ContactTelephoneNumber>
 		<ccq-res-ext:ElectronicContactIdentification>
 			<nc:IdentificationID>electronic ID</nc:IdentificationID>
@@ -346,8 +357,10 @@
 			</nc:ActivityDate>
 			<nc:IncidentLocation>
 				<nc:Address>
-					<nc:AddressSecondaryUnitText>apartment number </nc:AddressSecondaryUnitText>
-					<nc:AddressDeliveryPointID>street number </nc:AddressDeliveryPointID>
+					<nc:AddressSecondaryUnitText>apartment number
+					</nc:AddressSecondaryUnitText>
+					<nc:AddressDeliveryPointID>street number
+					</nc:AddressDeliveryPointID>
 					<nc:LocationStreet>
 						<nc:StreetName>street name</nc:StreetName>
 						<nc:StreetCategoryText>street type</nc:StreetCategoryText>
@@ -355,15 +368,19 @@
 					<nc:LocationCountyName>county</nc:LocationCountyName>
 				</nc:Address>
 				<nc:AddressCrossStreet>
-					<nc:CrossStreetDescriptionText>intersection </nc:CrossStreetDescriptionText>
+					<nc:CrossStreetDescriptionText>intersection
+					</nc:CrossStreetDescriptionText>
 				</nc:AddressCrossStreet>
 				<nc:LocationDescriptionText>location description</nc:LocationDescriptionText>
 				<nc:LocationName>String</nc:LocationName>
 			</nc:IncidentLocation>
 			<ccq-res-ext:ViolationAugmentation>
-				<ccq-res-ext:DrivingPointNumberText>String </ccq-res-ext:DrivingPointNumberText>
-				<ccq-res-ext:DrivingPointNumberReducedText>String </ccq-res-ext:DrivingPointNumberReducedText>
-				<ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>true </ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>
+				<ccq-res-ext:DrivingPointNumberText>String
+				</ccq-res-ext:DrivingPointNumberText>
+				<ccq-res-ext:DrivingPointNumberReducedText>String
+				</ccq-res-ext:DrivingPointNumberReducedText>
+				<ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>true
+				</ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>
 				<j:PersonBloodAlcoholContentNumberText>String
 				</j:PersonBloodAlcoholContentNumberText>
 			</ccq-res-ext:ViolationAugmentation>
@@ -375,11 +392,15 @@
 			<ccq-res-ext:VehicleOverweightMeasure>
 				<nc:MeasureValueText>String</nc:MeasureValueText>
 			</ccq-res-ext:VehicleOverweightMeasure>
-			<ccq-res-ext:CourtAppearanceRequiredIndicator>true </ccq-res-ext:CourtAppearanceRequiredIndicator>
+			<ccq-res-ext:CourtAppearanceRequiredIndicator>true
+			</ccq-res-ext:CourtAppearanceRequiredIndicator>
 			<ccq-res-ext:InjuryIndicator>true</ccq-res-ext:InjuryIndicator>
-			<ccq-res-ext:SchoolZoneIndicator>true </ccq-res-ext:SchoolZoneIndicator>
-			<ccq-res-ext:ConstructionZoneIndicator>true </ccq-res-ext:ConstructionZoneIndicator>
-			<ccq-res-ext:LicenseSurrenderedIndicator>true </ccq-res-ext:LicenseSurrenderedIndicator>
+			<ccq-res-ext:SchoolZoneIndicator>true
+			</ccq-res-ext:SchoolZoneIndicator>
+			<ccq-res-ext:ConstructionZoneIndicator>true
+			</ccq-res-ext:ConstructionZoneIndicator>
+			<ccq-res-ext:LicenseSurrenderedIndicator>true
+			</ccq-res-ext:LicenseSurrenderedIndicator>
 			<ccq-res-ext:FatalityIndicator>true</ccq-res-ext:FatalityIndicator>
 		</ccq-res-ext:CitationAugmentation>
 	</j:Citation>
@@ -520,7 +541,8 @@
 					<nc:PersonFullName>Probation Officer</nc:PersonFullName>
 				</nc:PersonName>
 			</nc:EntityPerson>
-			<ccq-res-ext:LicenseSurrenderedIndicator>true </ccq-res-ext:LicenseSurrenderedIndicator>
+			<ccq-res-ext:LicenseSurrenderedIndicator>true
+			</ccq-res-ext:LicenseSurrenderedIndicator>
 		</nc:SupervisionSupervisor>
 		<j:SupervisionAugmentation>
 			<j:SupervisionReleaseDate>
@@ -570,8 +592,7 @@
 			<nc:PersonFullName>String</nc:PersonFullName>
 		</nc:PersonName>
 		<nc:PersonPhysicalFeature>
-			<nc:PhysicalFeatureDescriptionText>Scars Marks
-				Tattoos</nc:PhysicalFeatureDescriptionText>
+			<nc:PhysicalFeatureDescriptionText>Scars Marks Tattoos</nc:PhysicalFeatureDescriptionText>
 		</nc:PersonPhysicalFeature>
 		<nc:PersonRaceText>String</nc:PersonRaceText>
 		<nc:PersonSexText>String</nc:PersonSexText>
@@ -593,7 +614,8 @@
 				<j:DriverLicenseIssueDate>
 					<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 				</j:DriverLicenseIssueDate>
-				<j:DriverLicenseCommercialClassText>String </j:DriverLicenseCommercialClassText>
+				<j:DriverLicenseCommercialClassText>String
+				</j:DriverLicenseCommercialClassText>
 				<j:DriverLicenseNonCommercialClassText>String
 				</j:DriverLicenseNonCommercialClassText>
 			</j:DriverLicense>
@@ -610,7 +632,8 @@
 	</nc:Person>
 	<nc:Location structures:id="Location_01">
 		<nc:Address>
-			<nc:AddressSecondaryUnitText>address line 2 </nc:AddressSecondaryUnitText>
+			<nc:AddressSecondaryUnitText>address line 2
+			</nc:AddressSecondaryUnitText>
 			<nc:LocationStreet>
 				<nc:StreetFullText>address line 1</nc:StreetFullText>
 			</nc:LocationStreet>

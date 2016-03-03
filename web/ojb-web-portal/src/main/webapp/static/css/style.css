@@ -1021,11 +1021,13 @@ a.grayButton:hover {
 	background-color: #ffffff;
 }
 
-.detailsTable tr.incidentSelected {
+.detailsTable tr.incidentSelected, 
+.detailsTable tr.selected {
 	background-color: #edf2f8;
 }
 
-.detailsTable tr.incidentHover {
+.detailsTable tr.incidentHover,
+.detailsTable tr.hover {
 	background-color: #ccdff6;
 	cursor: pointer;
 }
@@ -1341,4 +1343,11 @@ text-shadow: 0 1px #fff; */
 	text-align: left;} 
 .detailTable th label{
 	color:gray; } 
+.detailDataTable {
+	font-size: 11px;
+}	
+
+.detailDataTable thead th{
+	font-weight: bold;
+}
 	
