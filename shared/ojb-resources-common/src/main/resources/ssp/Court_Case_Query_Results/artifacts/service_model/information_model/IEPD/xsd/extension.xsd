@@ -157,6 +157,7 @@
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
 					<xsd:element ref="j:CourtAppearanceDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:OffenseDomesticViolenceIndicator" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ccq-res-ext:VehicleOverweightMeasure" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ccq-res-ext:CourtAppearanceRequiredIndicator" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ccq-res-ext:InjuryIndicator" minOccurs="0" maxOccurs="unbounded"/>
@@ -164,6 +165,8 @@
 					<xsd:element ref="ccq-res-ext:ConstructionZoneIndicator" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ccq-res-ext:LicenseSurrenderedIndicator" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="ccq-res-ext:FatalityIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:HazardousMaterialsIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ccq-res-ext:NuclearMaterialsIndicator" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -383,9 +386,19 @@
 	<xsd:element name="ConstructionZoneIndicator" type="xsd:boolean"
 		substitutionGroup="nc:EntityAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if an incident occured within a school zone;
-				false otherwise.
-			</xsd:documentation>
+			<xsd:documentation>True if an incident occured within a school zone; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="HazardousMaterialsIndicator" type="xsd:boolean"
+		substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an incident included hazardous materials; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NuclearMaterialsIndicator" type="xsd:boolean"
+		substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an incident included nuclear materials; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="LicenseSurrenderedIndicator" type="xsd:boolean"
