@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<EntitiesDescriptor
+    xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
+    xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+    xmlns:shibmd="urn:mace:shibboleth:metadata:1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:oasis:names:tc:SAML:2.0:metadata saml-2.0-os-xsd/saml-schema-metadata-2.0.xsd" Name="Demostate Federation CTF" validUntil="2020-12-31T12:00:00">
+
+	<!-- This is just a place-holder signature for now -->
+    <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:SignedInfo>
+            <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+            <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <ds:Reference URI="#_23d6237f-48fa-4fbd-976b-b127f7fcf735">
+                <ds:Transforms>
+                    <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+                </ds:Transforms>
+                <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <ds:DigestValue>xdZHdA19eSX+dZ5DmXGpXd21D1V0dGjc8fNfKaL4suo=</ds:DigestValue>
+            </ds:Reference>
+        </ds:SignedInfo>
+        <ds:SignatureValue>ex4nZZeERvvl3q2G1gWAGlUrpU0gIFfHMIl9NBTDY7c563443XKXVMw6iuRcgwChGjyQ/fUSnuzJjXOBhK1TFZL942aItMirsTpo1WC8LHGXRtxhTOABPt3Rf3Sic0OClHm9rqpE40LgX068f70w2mmi/3UTOdSaEdjQmzxmqZAf58Qe9ZcCdIoWKB1rUdT5ESqlGEi+g5qgwnmbK4rbY7/9ltqMPn16NxwfoeaT1z9/N1wm9vhcqp35KDVcosHsnasTiyVVkR2ZhnUWmCQe7bh7mzY+Y0kteGxl64aRp129dgtVYkWTVGwXCiZZKFRIUwIknhhnKiRxoDzm03Y3WA==</ds:SignatureValue>
+        <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <X509Data>
+                <X509Certificate>MIIC7jCCAdagAwIBAgIQIoDZ2tCJNI9H4Eh7SojPLTANBgkqhkiG9w0BAQsFADAzMTEwLwYDVQQDEyhBREZTIFNpZ25pbmcgLSBPV0VOU0VSVkVSLm9qYmMtbG9jYWwub3JnMB4XDTEyMDUzMTE0MzIwMFoXDTEzMDUzMTE0MzIwMFowMzExMC8GA1UEAxMoQURGUyBTaWduaW5nIC0gT1dFTlNFUlZFUi5vamJjLWxvY2FsLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALwVhZcBZGU7kqKYTOWsBEgAi4kFGWjDyZPLRvDJngP3aDhkrOgaILHx5JpHFTD8zoRvAOv1lyO/WQ04DJY6NWFa6xv3/+GF7euJYo/GL7HmTUkqLLmx65jjedGRjTUl0Q6tEEpKqh5fJDOvvGlzJSRmXkQl3T9NDAh5PECe7/tKRWmmONQ6ujOjZNQTXriAprxnqh/si3EpXkRraw6F+GPvAGJ+DgWr9jgc5F4g/gLM2jAhzmGHSN2y6IWqs4WtUqvsO4GGgIjRR6InJIcEhZsyAnbVcO+UH3mUEsKvmG9dPPf74gRrZs1GVCo2vxdYt8s2Dpy6jDeLsdRzvMFMZBMCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAKNMj6RxZgSZjtd97xMnBF2UrVP4b5ehT/OtLSf6KzJumatNUd8lejyCXKHyNpwCDGXn/T/Tegur8N34yx3Cxghdry5FtXQaiW4DSsWiL+XhZM9UcSlp808v9r/wf9wLBpv4Nfrs1xGTEXFT66xJbBnWz7sM3tXfMtdmd/Czs7R4rXV9DXgNG5f2nxYb3Y4dW4+umATFAWQUHFpBIImCC7ohdD8IncRJwNT6cJdZDJeNT5EWyKoB56qMkIoXXfjjyhs9pkYsCqTqSk9v9r1d7+xtfj5XktqbwffGh//vEIh8G3nyVopTW/3YfKHvEcdf1XkqKoufAz8wr4TW/FtTcww==</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </ds:Signature>
+    
+	<!-- Identity Provider -->
+
+    <EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" entityID="https://secure-resource.search.org/idp/shibboleth">
+
+        <Extensions xmlns:alg="urn:oasis:names:tc:SAML:metadata:algsupport">
+            <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+        </Extensions>
+
+        <IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" WantAuthnRequestsSigned="true">
+
+            <Extensions>
+                <shibmd:Scope regexp="false">secure-resource.search.org</shibmd:Scope>
+            </Extensions>
+
+            <KeyDescriptor>
+                <ds:KeyInfo>
+                    <ds:X509Data>
+                        <ds:X509Certificate>MIIDJDCCAgygAwIBAgIVALSXAPOqPAAMLPS9ycIKWvxjsavoMA0GCSqGSIb3DQEBCwUAMBkxFzAV
+BgNVBAMMDmlkcC5vamJjLmxvY2FsMB4XDTE1MTIxODAwNTQzMFoXDTM1MTIxODAwNTQzMFowGTEX
+MBUGA1UEAwwOaWRwLm9qYmMubG9jYWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCG
+ulECauoAZ2gri8IGArFIKhLB8FwKWnWF/pp88SLIxvftUfBcKKofyh+fADmmHr4YDndtn6lTmwlW
+5W8h2ZXTU1P7oOQzQU4c0TUsGmraLJJPSk2bvpQTDgOTIShnltbfWxAX9DUMxCXqwf+y4gjK2D0v
+29X6q65WBCg5uaeeXkQjb8hdSDuU7OouB0ZtG35+fCA5tLAx1Nd8VwPhnnecT926/MJC/p1vkYVK
+tOY+6QuoZG/w3SPAqJZo3ygYUr8YaS4yQnjoIwNCQTpoX/zUcRyDuFw6IR+rxqBBl4a38IdrD4B2
+g308RqvuEviwnnQVAXCRb2ShC3KPRXEPjcYTAgMBAAGjYzBhMB0GA1UdDgQWBBT6ZzkfkKdpmTuI
+GaGGsa9ojUdYYTBABgNVHREEOTA3gg5pZHAub2piYy5sb2NhbIYlaHR0cHM6Ly9pZHAub2piYy5s
+b2NhbC9pZHAvc2hpYmJvbGV0aDANBgkqhkiG9w0BAQsFAAOCAQEAHiE2S5bX2yk2uYHtszy0j8A7
+vCvFZowE5ZcnWUMYZpLVQGe7NtLkYvUmu99FZkjc8JDZQaMMb0ZkyRfbXcBTs/GqOJwvX3Wmng6m
+sKqY38Ls6sCG0xM1gkSSKuhtYKPsMz37wUz6PG2fJpI4Dy3v/o6urbN/sV3FYLtJY9XDQSE6t0SS
+TFxd1xfhm4NGwVp7y2GZwMNZJfK6mUpdDQT1OvSHvxNHM6I1di+LfQ7UqybtLUq0SjmFlSZspPRD
+kixFLAjg3gQL395Tfm4c3HpNH/uguTcRCaQOlAzTQHzKKp55dJxWiX10AjT/QvVZQvuU4P0C/rRT
+m0hS7SkJpU+uSw==
+                        </ds:X509Certificate>
+                    </ds:X509Data>
+                </ds:KeyInfo>
+            </KeyDescriptor>
+
+            <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</NameIDFormat>
+            <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+
+            <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://secure-resource.search.org:9443/idp/profile/SAML2/POST/SSO"/>
+
+            <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://secure-resource.search.org:9443/idp/profile/SAML2/Redirect/SSO"/>
+
+        </IDPSSODescriptor>
+
+        <ContactPerson contactType="technical">
+            <GivenName>Technical</GivenName>
+            <SurName>Contact</SurName>
+            <Company>OJBC</Company>
+            <EmailAddress>info@ojbc,org</EmailAddress>
+            <TelephoneNumber>916-555-1212</TelephoneNumber>
+        </ContactPerson>
+
+    </EntityDescriptor>
+
+    <!-- Service Provider -->
+
+    <EntityDescriptor ID="_a0dc09018e3c07e954c620cd34e5ec575f24db51" entityID="https://secure-resource.search.org/shibboleth">
+
+        <Extensions xmlns:alg="urn:oasis:names:tc:SAML:metadata:algsupport">
+            <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+        </Extensions>
+
+        <SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" WantAssertionsSigned="true">
+
+            <Extensions>
+                <idpdisc:DiscoveryResponse xmlns:idpdisc="urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol" Binding="urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol" Location="https://secure-resource.search.org/Shibboleth.sso/Login" index="1"/>
+            </Extensions>
+
+            <KeyDescriptor>
+
+                <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                    <ds:KeyName>demoserver</ds:KeyName>
+                    <ds:X509Data>
+                        <ds:X509Certificate>MIICzTCCAbWgAwIBAgIJAKHE2DUzINUaMA0GCSqGSIb3DQEBBQUAMA0xCzAJBgNV
+BAMTAmR3MB4XDTE0MDkyNTE0MzUzNFoXDTI0MDkyMjE0MzUzNFowDTELMAkGA1UE
+AxMCZHcwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDUNwgzQq9gGDlC
+UB8GHQaEKU2aeq6E6ifmXMQz2zar1+nKGNDSvtU1PkozCnB/3nbV+ENAuR7o+Wi2
+2ld7Wgaf0w+2mNUbugkPLFWK944FgoUnvW39NZzNsT/UbQ/YLVKXHzRJd9RpPRw3
+UXcOXlUfqDdbyYVKDJ+wjBj+HFZq0QkbfcX1K0wr6ldTw+vHCNJlvSZoMh6WLlve
+dszbmMljgtAQ01n4FNNdYY3mc0pIO5bBiOlajEGJZoxm1Wf0xbTMJ6QvzZ0P/fkK
+aFIzQhxaqGY9nuMXsysJDD43UZg0aU/BMAt2u9KG+cDiqhzSnfHejoietsqKVdB/
+PnxMQPubAgMBAAGjMDAuMA0GA1UdEQQGMASCAmR3MB0GA1UdDgQWBBQgrEvgZn5R
+uquDYYO6VBuL7v712DANBgkqhkiG9w0BAQUFAAOCAQEAwlOGOptwAdY3EgCyzR5L
+SbUDgvsxnFHh7Dt9/MFVlTs8+BF+tCGDaYtownl7Im0aNmSsPlB6LxQZSDLdPbb5
+WDEQ+yckkqMrLbWgi9MVkBLMqdU2RcscFVxIJJSWSEiolm6mSh51TjFUnrWTxWfj
+C16sNw7RA/H091OsGFw9a3RNjbXo3Vc6bQcjAs4zFA/NSDUe/qx0glMKL/5Ugzu7
+b85H27+aniDnRHE9WUCG4c0eUzHQ3MFRNjelKCk4qc01dykhpvoNlMjO1CngxkOm
+S4fzlim8pRr1XjugRddJx6GOPHpYysRGTDQwLWpqRZS1gu2fuEYeza+A3qt2EbZI
+Mw==
+                        </ds:X509Certificate>
+                    </ds:X509Data>
+                </ds:KeyInfo>
+
+                <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
+                <EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#aes256-gcm"/>
+
+            </KeyDescriptor>
+
+            <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</NameIDFormat>
+            <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+
+            <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://secure-resource.search.org/Shibboleth.sso/SAML2/POST" index="1"/>
+
+        </SPSSODescriptor>
+
+        <ContactPerson contactType="technical">
+            <GivenName>Technical</GivenName>
+            <SurName>Contact</SurName>
+            <Company>OJBC</Company>
+            <EmailAddress>info@ojbc,org</EmailAddress>
+            <TelephoneNumber>916-555-1212</TelephoneNumber>
+        </ContactPerson>
+
+    </EntityDescriptor>
+    
+</EntitiesDescriptor>
