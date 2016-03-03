@@ -45,8 +45,7 @@
 
 	<xsl:template match="/ccq-res-doc:CourtCaseQueryResults">
 		<script type="text/javascript">
-	
-	$(function () {
+			$(function () {
 		 			$('#courtCaseDetailTabs').tabs({
 						activate: function( event, ui ) {
 							var modalIframe = $("#modalIframe", parent.document);
