@@ -17,10 +17,10 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<war-doc:WarrantAcceptedReport
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WarrantAcceptedReport/1.0 ../xsd/WarrantAcceptedReport.xsd"
+<wrr-doc:WarrantRejectedReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0 ../xsd/WarrantRejectedReport.xsd"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:war-doc="http://ojbc.org/IEPD/Exchange/WarrantAcceptedReport/1.0"
+	xmlns:wrr-doc="http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0"
 	xmlns:wir-ext="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -34,17 +34,7 @@
 					<nc:IdentificationID>758075800</nc:IdentificationID>
 				</j:OrganizationORIIdentification>
 			</j:OrganizationAugmentation>
-				<wir-ext:AgencyRecordIdentification>
-					<nc:IdentificationID>OCA4576</nc:IdentificationID>
-				</wir-ext:AgencyRecordIdentification>
 		</j:CourtOrderEnforcementAgency>
-		<j:CourtOrderRequestEntity>
-			<nc:EntityPerson>
-				<wir-ext:PersonEmployeeIdentification>
-					<nc:IdentificationID>ID45656768</nc:IdentificationID>
-				</wir-ext:PersonEmployeeIdentification>
-			</nc:EntityPerson>
-		</j:CourtOrderRequestEntity>
 	</j:Warrant>
 	<nc:Person structures:id="Person_01">
 		<nc:PersonBirthDate>
@@ -56,7 +46,10 @@
 			<nc:PersonSurName>Jones</nc:PersonSurName>
 			<nc:PersonNameSuffixText>Jr</nc:PersonNameSuffixText>
 		</nc:PersonName>
-		<j:PersonRaceCode>A</j:PersonRaceCode>
-		<j:PersonSexCode>M</j:PersonSexCode>
+		<nc:PersonRaceText>A</nc:PersonRaceText>
+		<nc:PersonSexText>M</nc:PersonSexText>
+		<wir-ext:PersonRecordIdentification>
+			<nc:IdentificationID>R69458998</nc:IdentificationID>
+		</wir-ext:PersonRecordIdentification>
 	</nc:Person>
-</war-doc:WarrantAcceptedReport>
+</wrr-doc:WarrantRejectedReport>
