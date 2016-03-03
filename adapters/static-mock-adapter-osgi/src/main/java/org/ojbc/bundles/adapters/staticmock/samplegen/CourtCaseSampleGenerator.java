@@ -369,7 +369,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		courtAprncDatValElement.setTextContent(CURRENT_DATE);
 		
 		Element courtEventCommentsTxtElement = XmlUtils.appendElement(caseCourtEventElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "CourtEventCommentsText");		
-		courtEventCommentsTxtElement.setTextContent("TODO");
+		courtEventCommentsTxtElement.setTextContent(randomString("A lot of commotion", "Many reporters present", "Lawyers making up stories"));
 		
 		Element defendantSelfRepIndicElement = XmlUtils.appendElement(caseAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CaseDefendantSelfRepresentationIndicator");		
 		defendantSelfRepIndicElement.setTextContent(getRandomBooleanString());
@@ -379,7 +379,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		Element defendantEntOrgElement = XmlUtils.appendElement(caseDefendantPartyElement, OjbcNamespaceContext.NS_NC_30, "EntityOrganization");
 		
 		Element entOrgNameElement = XmlUtils.appendElement(defendantEntOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
-		entOrgNameElement.setTextContent(randomString("TODO", "TODO"));
+		entOrgNameElement.setTextContent(randomString("Police", "Fire Department", "EMS", "Public Safety"));
 		
 		Element entPersonElement = XmlUtils.appendElement(caseDefendantPartyElement, OjbcNamespaceContext.NS_NC_30, "EntityPerson");
 		
@@ -393,7 +393,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		Element defenseAtrnyPersonNameElement = XmlUtils.appendElement(defenseAttortyPersonRoleElement, OjbcNamespaceContext.NS_NC_30, "PersonName");;
 		
 		Element defenseAtrnyFullNameElement = XmlUtils.appendElement(defenseAtrnyPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");
-		defenseAtrnyFullNameElement.setTextContent("TODO");
+		defenseAtrnyFullNameElement.setTextContent(getRandomName());
 		
 		Element caseDomViolenceElement = XmlUtils.appendElement(caseAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CaseDomesticViolenceIndicator");
 		caseDomViolenceElement.setTextContent(getRandomBooleanString());
@@ -406,8 +406,9 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		
 		caseHearActivIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
 		
-		Element activCatTxtElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityCategoryText");		
-		activCatTxtElement.setTextContent("TODO");
+		Element activCatTxtElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityCategoryText");
+		
+		activCatTxtElement.setTextContent(randomString("Prosecution", "Defense", "Evidence Presentation"));
 		
 		Element caseHearingActivDateRangeElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityDateRange");
 		
@@ -422,18 +423,18 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		caseHearingEndDateValElement.setTextContent(CURRENT_DATE);
 		
 		Element activDescTxtElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityDescriptionText");
-		activDescTxtElement.setTextContent("TODO");
+		activDescTxtElement.setTextContent(randomString("Jury Deciding Verdict", "Jury meeting"));
 		
 		Element hearingActivNameElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityName");
-		hearingActivNameElement.setTextContent(randomString("TODO", ""));
+		hearingActivNameElement.setTextContent(randomString("Jury", "Trial by Jury"));
 		
 		 Element activReasonElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityReasonText");
-		 activReasonElement.setTextContent(randomString("TODO", "", ""));
+		 activReasonElement.setTextContent(randomString("Defendant requested trial", "Sherif requesetd trial", "LAPD requested trial"));
 		 
 		Element activDispElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityDisposition");
 		
 		Element activDispDescTxtElement = XmlUtils.appendElement(activDispElement, OjbcNamespaceContext.NS_NC_30, "DispositionDescriptionText");		
-		activDispDescTxtElement.setTextContent(randomString("TODO", ""));
+		activDispDescTxtElement.setTextContent(randomString("Guilty", "Not Guilty", "Deciding Verdict"));
 		
 		
 		Element caseHearingCourtEventJudgeElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_JXDM_51, "CourtEventJudge");
@@ -444,11 +445,11 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		
 		Element caseJudgeFullNameElement = XmlUtils.appendElement(caseHearingJudgeNameElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");
 		
-		caseJudgeFullNameElement.setTextContent("TODO");
+		caseJudgeFullNameElement.setTextContent(getRandomName());
 		
 		Element caseHearingCommentsTxtElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "CourtEventCommentsText");
 		
-		caseHearingCommentsTxtElement.setTextContent("TODO");
+		caseHearingCommentsTxtElement.setTextContent(randomString("Trial really long", "Hard to find entrance"));
 		
 		Element caseJudgeElement = XmlUtils.appendElement(caseAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CaseJudge");
 		
@@ -524,19 +525,22 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		Element idPersonDobValElement = XmlUtils.appendElement(idPersonDobElement, OjbcNamespaceContext.NS_NC_30, "Date");		
 		idPersonDobValElement.setTextContent(CURRENT_DATE);
 		
+		
+		PersonElementWrapper samplePerson = getRandomIdentity(null);
+		
 		Element idPersonNameElement = XmlUtils.appendElement(idPersonRepElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
 		Element idPersonGivenName = XmlUtils.appendElement(idPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");		
-		idPersonGivenName.setTextContent("TODO");
+		idPersonGivenName.setTextContent(samplePerson.firstName);
 		
 		Element idPersonMiddleName = XmlUtils.appendElement(idPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
-		idPersonMiddleName.setTextContent("TODO");
+		idPersonMiddleName.setTextContent(samplePerson.middleName);
 		
 		Element idPersonSurNameElement = XmlUtils.appendElement(idPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName"); 
-		idPersonSurNameElement.setTextContent("TODO");
+		idPersonSurNameElement.setTextContent(samplePerson.lastName);
 		
 		Element idPersonFullNameElement = XmlUtils.appendElement(idPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");
-		idPersonFullNameElement.setTextContent("TODO");
+		idPersonFullNameElement.setTextContent(samplePerson.firstName + " " + samplePerson.middleName + " " + samplePerson.lastName);
 		
 		Element idPersonSsnElement = XmlUtils.appendElement(idPersonRepElement, OjbcNamespaceContext.NS_NC_30, "PersonSSNIdentification");
 		
@@ -561,7 +565,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		electContactIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
 		
 		Element electContactIdCatDescTxtElement = XmlUtils.appendElement(elecContactIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
-		electContactIdCatDescTxtElement.setTextContent(randomString("TODO", ""));
+		electContactIdCatDescTxtElement.setTextContent(randomString("ID Card", "Passport", "Driver License"));
 		
 		Element citationElement = XmlUtils.appendElement(rootCourtCaseElement, OjbcNamespaceContext.NS_JXDM_51, "Citation");
 		XmlUtils.addAttribute(citationElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Citation_01");
@@ -584,35 +588,35 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		Element incidentAddressElement = XmlUtils.appendElement(incidentLocationElement, OjbcNamespaceContext.NS_NC_30, "Address");
 		
 		Element incidentAddressUnitElement = XmlUtils.appendElement(incidentAddressElement, OjbcNamespaceContext.NS_NC_30, "AddressSecondaryUnitText");
-		incidentAddressUnitElement.setTextContent("TODO");
+		incidentAddressUnitElement.setTextContent(randomString("APT 123", "Suite 456", "St 789", "P.O. Box 4528"));
 		
 		Element addressPointElement = XmlUtils.appendElement(incidentAddressElement, OjbcNamespaceContext.NS_NC_30, "AddressDeliveryPointID");
-		addressPointElement.setTextContent("TODO");
+		addressPointElement.setTextContent(randomString("doorstep", "mailbox", "PO box"));
 		
 		Element incidentLocStreetElement = XmlUtils.appendElement(incidentAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationStreet");
 		
 		Element locStreetNameElement = XmlUtils.appendElement(incidentLocStreetElement, OjbcNamespaceContext.NS_NC_30, "StreetName");
-		locStreetNameElement.setTextContent("TODO");
+		locStreetNameElement.setTextContent(samplePerson.addressStreetName);
 		
 		Element locStreetCatTxtElement = XmlUtils.appendElement(incidentLocStreetElement, OjbcNamespaceContext.NS_NC_30, "StreetCategoryText");
-		locStreetCatTxtElement.setTextContent("TODO");
+		locStreetCatTxtElement.setTextContent(randomString("Small Road", "Cul de Sac", "Highway", "Interstate"));
 		
 		Element locCountyNameElement = XmlUtils.appendElement(incidentAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationCountyName");
-		locCountyNameElement.setTextContent("TODO");
+		locCountyNameElement.setTextContent(randomString("Rowan", "Pickens", "Union", "Dorchester"));
 		
 		Element locDescTxtElement = XmlUtils.appendElement(incidentLocationElement, OjbcNamespaceContext.NS_NC_30, "LocationDescriptionText");
-		locDescTxtElement.setTextContent("TODO");
+		locDescTxtElement.setTextContent(randomString("NY", "LA", "UT", "FL"));
 		
 		Element locNameElement = XmlUtils.appendElement(incidentLocationElement, OjbcNamespaceContext.NS_NC_30, "LocationName");
-		locNameElement.setTextContent("TODO");
+		locNameElement.setTextContent(randomString("40N 70W", "City", "County"));
 		
 		Element violationAugmentElement = XmlUtils.appendElement(citationViolationElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "ViolationAugmentation");
 		
 		Element drivingPointNumTxtElement = XmlUtils.appendElement(violationAugmentElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "DrivingPointNumberText");
-		drivingPointNumTxtElement.setTextContent("TODO");
+		drivingPointNumTxtElement.setTextContent(RandomStringUtils.randomNumeric(2));
 		
 		Element drivingPointReducedTxtElement = XmlUtils.appendElement(violationAugmentElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "DrivingPointNumberReducedText");
-		drivingPointReducedTxtElement.setTextContent("TODO");
+		drivingPointReducedTxtElement.setTextContent(RandomStringUtils.randomNumeric(2));
 		
 		Element bacTestRefusedElement = XmlUtils.appendElement(violationAugmentElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "PersonBloodAlcoholContentTestRefusedIndicator");
 		bacTestRefusedElement.setTextContent(getRandomBooleanString());
@@ -635,7 +639,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		XmlUtils.addAttribute(drivingIncElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Incident_01");
 		
 		Element incidentDescTxtElement = XmlUtils.appendElement(drivingIncElement, OjbcNamespaceContext.NS_NC_30, "ActivityDescriptionText");
-		incidentDescTxtElement.setTextContent(randomString("TODO", "TODO"));
+		incidentDescTxtElement.setTextContent(randomString("Speeding", "Driving too slow", "Spinning Out", "Tailgating", "Blowing horn"));
 		
 		Element driverSpeedElement = XmlUtils.appendElement(drivingIncElement, OjbcNamespaceContext.NS_JXDM_51, "DrivingIncidentRecordedSpeedRateMeasure");
 		
@@ -679,7 +683,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		Element arrestLocElement = XmlUtils.appendElement(arrestElement, OjbcNamespaceContext.NS_JXDM_51, "ArrestLocation");
 		
 		Element arrestLocDescTxtElement = XmlUtils.appendElement(arrestLocElement, OjbcNamespaceContext.NS_NC_30, "LocationDescriptionText");		
-		arrestLocDescTxtElement.setTextContent("TODO");
+		arrestLocDescTxtElement.setTextContent(randomString("NY", "LA", "SF", "FL", "ATL"));
 		
 		Element arrestOfficialElement = XmlUtils.appendElement(arrestElement, OjbcNamespaceContext.NS_JXDM_51, "ArrestOfficial");		
 		XmlUtils.addAttribute(arrestOfficialElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Officer_01");
@@ -694,7 +698,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		Element leEnforcUnitElement = XmlUtils.appendElement(arrestOfficialElement, OjbcNamespaceContext.NS_JXDM_51, "EnforcementOfficialUnit");
 		
 		Element leEnforceUnitNameElement = XmlUtils.appendElement(leEnforcUnitElement, OjbcNamespaceContext.NS_JXDM_51, "EnforcementUnitName");		
-		leEnforceUnitNameElement.setTextContent(randomString("TODO", ""));
+		leEnforceUnitNameElement.setTextContent(randomString("LAPD", "NYPD", "Walker Texas Ranger"));
 		
 		Element detentionElement = XmlUtils.appendElement(drivingIncElement, OjbcNamespaceContext.NS_JXDM_51, "Detention");
 		XmlUtils.addAttribute(detentionElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Detention_01");
@@ -706,14 +710,14 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		detActivIdElement.setTextContent(RandomStringUtils.randomNumeric(8));
 				
 		Element detActivCatTxtElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_NC_30, "ActivityCategoryText");
-		detActivCatTxtElement.setTextContent(randomString("TODO", "TODO"));
+		detActivCatTxtElement.setTextContent(randomString("Jail", "Prison", "Community Service"));
 		
 		Element detActivDatRangeElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_NC_30, "ActivityDateRange");
 		
 		Element detStartDateElement = XmlUtils.appendElement(detActivDatRangeElement, OjbcNamespaceContext.NS_NC_30, "StartDate");
 		
 		Element detStartDateValElement = XmlUtils.appendElement(detStartDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
-		detStartDateValElement.setTextContent("TODO");
+		detStartDateValElement.setTextContent(CURRENT_DATE);
 		
 		Element detEndDateElement = XmlUtils.appendElement(detActivDatRangeElement, OjbcNamespaceContext.NS_NC_30, "EndDate");
 		
@@ -723,7 +727,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		Element superviseCustStatus = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_NC_30, "SupervisionCustodyStatus");
 		
 	 	Element superviseStatDescTxtElement = XmlUtils.appendElement(superviseCustStatus, OjbcNamespaceContext.NS_NC_30, "StatusDescriptionText");		
-	 	superviseStatDescTxtElement.setTextContent(randomString("TODO", ""));
+	 	superviseStatDescTxtElement.setTextContent(randomString("Parents Watching", "Big Brother Custody", "Homeless Shelter"));
 	 	
 	 	Element supervisFacElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_NC_30, "SupervisionFacility");
 		
@@ -741,7 +745,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	bailBondActivIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
 	 	
 	 	Element bailBondActivCatTxtElement = XmlUtils.appendElement(bailBondElement, OjbcNamespaceContext.NS_NC_30, "ActivityCategoryText");
-	 	bailBondActivCatTxtElement.setTextContent(randomString("TODO", ""));
+	 	bailBondActivCatTxtElement.setTextContent(randomString("Large Price", "Small Price", "Bond across street"));
 	 	
 	 	Element bailBondAmountElement = XmlUtils.appendElement(bailBondElement, OjbcNamespaceContext.NS_JXDM_51, "BailBondAmount");
 	 	
@@ -756,7 +760,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	
 	 	Element bondOrgNameElement = XmlUtils.appendElement(bondEntOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
 	 	
-	 	bondOrgNameElement.setTextContent(randomString("TODO", ""));
+	 	bondOrgNameElement.setTextContent(randomString("Bonds 4 Cheap", "25% Bonds", "24hr Bonding", "Bonds Advance"));
 	 	
 	 	Element vehicleElement = XmlUtils.appendElement(drivingIncElement, OjbcNamespaceContext.NS_NC_30, "Vehicle");	 	
 	 	XmlUtils.addAttribute(vehicleElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Vehicle_01");
@@ -773,7 +777,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	vehicleMakeCode.setTextContent(RandomStringUtils.randomNumeric(3));
 	 	
 	 	Element vehicleModelElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_JXDM_51, "VehicleModelCode");
-	 	vehicleModelElement.setTextContent(randomString("TODO", "", ""));
+	 	vehicleModelElement.setTextContent(randomString("Chevy", "Ford", "GM", "Ferari", "Pontiac", "Kia", "VW"));
 	 	
 	 	Element personElement = XmlUtils.appendElement(drivingIncElement, OjbcNamespaceContext.NS_NC_30, "Person");	 	
 	 	XmlUtils.addAttribute(personElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Person_01");
@@ -784,52 +788,57 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	dobValElement.setTextContent(CURRENT_DATE);
 	 	
 	 	Element personDescElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonDescriptionText");
-	 	personDescElement.setTextContent(randomString("", "TODO"));
+	 	personDescElement.setTextContent(randomString("Really Tall", "Short white female", "Tall black male", "Thin Asian female", "Very Large"));
 	 	
 	 	Element ethnicityElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonEthnicityText");
-	 	ethnicityElement.setTextContent("TODO");
+	 	ethnicityElement.setTextContent(randomString("W", "B", "A", "L"));
 	 	
 	 	Element eyeColorElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonEyeColorCode");
-	 	eyeColorElement.setTextContent(randomString("", "TODO"));
+	 	eyeColorElement.setTextContent(randomString("BLU", "BWN", "GRN", "BLK"));
 	 	
 	 	Element hairElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonHairColorCode");
-	 	hairElement.setTextContent(randomString("TODO", ""));
+	 	hairElement.setTextContent(randomString("BLO", "BWN", "RED"));
 	 	
 	 	Element heightElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonHeightMeasure");
 	 	
 	 	Element heightValueElement = XmlUtils.appendElement(heightElement, OjbcNamespaceContext.NS_NC_30, "MeasureValueText");	 	
-	 	heightValueElement.setTextContent(randomString("", "TODO"));
+	 	heightValueElement.setTextContent(RandomStringUtils.randomNumeric(2));
 	 	
 	 	Element heightUnitElement = XmlUtils.appendElement(heightElement, OjbcNamespaceContext.NS_NC_30, "MeasureUnitText");
-	 	heightUnitElement.setTextContent(randomString("", "TODO"));
+	 	heightUnitElement.setTextContent(randomString("in", "cm", "mm", "me", "ft"));
+	 	
+	 	
+	 	PersonElementWrapper samplePerson2 = getRandomIdentity(null);
 	 	
 	 	Element personNameElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 	 	
 	 	Element givenNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");
-	 	
-	 	String sampleGivenName = (String)getRandomIdentity(null).firstName;	 	
-	 	givenNameElement.setTextContent(sampleGivenName);
+	 		 		 	
+	 	givenNameElement.setTextContent(samplePerson2.firstName);
 	 		 	
 	 	Element middleNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
-	 	String sampleMiddleName = (String)getRandomIdentity(null).middleName;	 	
-	 	middleNameElement.setTextContent(sampleMiddleName);
+	 	
+	 	middleNameElement.setTextContent(samplePerson2.middleName);
 	 	
 	 	Element surNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
-	 	surNameElement.setTextContent("TODO");
+	 	
+	 	surNameElement.setTextContent(samplePerson2.lastName);
 	 	
 	 	Element personFullNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");
-	 	personFullNameElement.setTextContent("TODO");
+	 		 		 	
+	 	personFullNameElement.setTextContent(samplePerson2.firstName + " " + samplePerson2.middleName + " " + samplePerson2.lastName);
 	 	
 	 	Element personRaceElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonRaceText");
-	 	personRaceElement.setTextContent(randomString("", "TODO"));
+	 	
+	 	personRaceElement.setTextContent(randomString("WHT", "BLK", "ASN", "LAT", "PAC"));
 	 	
 	 	Element personSexCodeElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonSexText");
-	 	personSexCodeElement.setTextContent("TODO");
+	 	personSexCodeElement.setTextContent(samplePerson2.sex);
 	 		 	
 	 	Element ssnElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonSSNIdentification");
 
 	 	Element ssnValElement = XmlUtils.appendElement(ssnElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");	 	
-	 	ssnValElement.setTextContent("TODO");
+	 	ssnValElement.setTextContent(RandomStringUtils.randomNumeric(9));
 	 	
 	 	Element weightElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonWeightMeasure");
 	 	
@@ -847,7 +856,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	drivLicIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
 	 	
 	 	Element drivLicIdSrcElement = XmlUtils.appendElement(drivLicIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText");
-	 	drivLicIdSrcElement.setTextContent(randomString("", "TODO"));
+	 	drivLicIdSrcElement.setTextContent(randomString("SC", "NC", "GA", "FL", "ME", "MA", "VT", "TX"));
 	 	
 	 	Element drivLicExpDateElement = XmlUtils.appendElement(drivLicElement, OjbcNamespaceContext.NS_JXDM_51, "DriverLicenseExpirationDate");
 	 	
@@ -861,7 +870,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	drivLicIssDatValElement.setTextContent(CURRENT_DATE);
 	 	
 	 	Element drivLicClassElement = XmlUtils.appendElement(drivLicElement, OjbcNamespaceContext.NS_JXDM_51, "DriverLicenseNonCommercialClassText");	 	
-	 	drivLicClassElement.setTextContent(randomString("", "TODO"));
+	 	drivLicClassElement.setTextContent(randomString("C", "M", "L", "D", "S"));
 	 	
 	 	Element fbiElement = XmlUtils.appendElement(personAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "PersonFBIIdentification");
 	 	
@@ -880,25 +889,25 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	Element locAddressElement = XmlUtils.appendElement(locElement, OjbcNamespaceContext.NS_NC_30, "Address");
 	 	
 	 	Element addressUnitElement = XmlUtils.appendElement(locAddressElement, OjbcNamespaceContext.NS_NC_30, "AddressSecondaryUnitText");
-	 	addressUnitElement.setTextContent("TODO");
+	 	addressUnitElement.setTextContent(randomString("APT 234", "STE 567", "PO Box 789", "2nd Floor", "Door on left"));
 	 	
 	 	Element locStreetElement = XmlUtils.appendElement(locAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationStreet");
 	 	
 	 	Element locStreetFullElement = XmlUtils.appendElement(locStreetElement, OjbcNamespaceContext.NS_NC_30, "StreetFullText");
 	 	
-	 	locStreetFullElement.setTextContent("TODO");
+	 	locStreetFullElement.setTextContent(samplePerson2.addressStreetName);
 	 	
 	 	Element locCityElement = XmlUtils.appendElement(locAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationCityName");
-	 	locCityElement.setTextContent("TODO");
+	 	locCityElement.setTextContent(samplePerson2.city);
 	 	
 	 	Element locStateElement = XmlUtils.appendElement(locAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationStateName");
-	 	locStateElement.setTextContent("TODO");
+	 	locStateElement.setTextContent(samplePerson2.state);
 	 	
 	 	Element locZipElement = XmlUtils.appendElement(locAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationPostalCode");
-	 	locZipElement.setTextContent("TODO");
+	 	locZipElement.setTextContent(samplePerson2.zipCode);
 	 	
 	 	Element locCatTxtElement = XmlUtils.appendElement(locElement, OjbcNamespaceContext.NS_NC_30, "LocationCategoryText");
-	 	locCatTxtElement.setTextContent("TODO");
+	 	locCatTxtElement.setTextContent(randomString("around corner", "North", "East", "South", "West"));
 	 	
 	 	Element activCaseAssocElement = XmlUtils.appendElement(drivingIncElement, OjbcNamespaceContext.NS_JXDM_51, "ActivityCaseAssociation");
 	 	
@@ -969,18 +978,20 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	XmlUtils.addAttribute(aliasIdentElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Identity_01");
 	 	
 	 	Element srcSysNamTxtElement = XmlUtils.appendElement(drivingIncElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "SourceSystemNameText");
-	 	srcSysNamTxtElement.setTextContent("TODO");
+
+	 	//TODO correct sys name values
+	 	srcSysNamTxtElement.setTextContent(randomString("Court Case System", "Court Case DB", "Court Case Lookup"));
 	 		 	
 	 	Element queryResCatTxtElement = XmlUtils.appendElement(drivingIncElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "QueryResultCategoryText");
-	 	queryResCatTxtElement.setTextContent("TODO");
+	 	queryResCatTxtElement.setTextContent(randomString("Results", "Result List", "Results Returned"));
 	 	
 	 	Element infoOwnOrgElement = XmlUtils.appendElement(drivingIncElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "InformationOwningOrganization");
 	 	
 	 	Element orgBranchNameElement = XmlUtils.appendElement(infoOwnOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationBranchName");
-	 	orgBranchNameElement.setTextContent(randomString("", ""));
+	 	orgBranchNameElement.setTextContent(randomString("Large Search Company", "Acme", "Acme Search Finder", "Acme people lookup finder", "Cops", "Walker Texas Ranger"));
 	 	
 	 	Element orgNameElement = XmlUtils.appendElement(infoOwnOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
-	 	orgNameElement.setTextContent(randomString("", ""));
+	 	orgNameElement.setTextContent(randomString("COPS", "Walker Texas Ranger", "Matlock"));
 	 		 	
 	 	Element metadataElement = XmlUtils.appendElement(drivingIncElement, OjbcNamespaceContext.NS_NC_30, "Metadata");
 	 	
@@ -998,16 +1009,16 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	infoAccessDenialIndicElement.setTextContent(getRandomBooleanString());
 	 		 	
 	 	Element infoAccessDenySysTxtElement = XmlUtils.appendElement(infoAccessDenialElement, OjbcNamespaceContext.NS_IAD, "InformationAccessDenyingSystemNameText");
-	 	infoAccessDenySysTxtElement.setTextContent("TODO");
+	 	infoAccessDenySysTxtElement.setTextContent(randomString("BG Checker", "Background Checkers", "Rapback Deniers", "FBI", "Clearance Beakers"));
 	 	
 	 	Element infoAccDenySysNamElement = XmlUtils.appendElement(infoAccessDenialElement, OjbcNamespaceContext.NS_IAD, "InformationAccessDenialReasonText");
-	 	infoAccDenySysNamElement.setTextContent("TODO");
+	 	infoAccDenySysNamElement.setTextContent(randomString("On deny list", "On no-fly list", "Gossips", "Sells info to others", "Can't keep a secret"));
 	 	
 	 		 	
 	 	Element queryRequestErrorElement = XmlUtils.appendElement(queryRestMetaElement, OjbcNamespaceContext.NS_QRER, "QueryRequestError");
 	 	
 	 	Element errorTxtElement = XmlUtils.appendElement(queryRequestErrorElement, OjbcNamespaceContext.NS_QRER, "ErrorText");
-	 	errorTxtElement.setTextContent(randomString("", "TODO"));
+	 	errorTxtElement.setTextContent(randomString("Can't do that query", "Can't find anyone", "Looked too long"));
 	 	
 	 	Element queryReqIdElement = XmlUtils.appendElement(queryRequestErrorElement, OjbcNamespaceContext.NS_QRER, "QueryRequestIdentification");
 	 	
@@ -1015,10 +1026,10 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	queryReqIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
 	 	
 	 	Element idCatDescElment = XmlUtils.appendElement(queryReqIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
-	 	idCatDescElment.setTextContent(randomString("", "TODO"));
+	 	idCatDescElment.setTextContent(randomString("Driver License", "Gvmt Id", "Passport", "Concealed Weapons Permit"));
 	 	
 	 	Element idSrcTxtElement = XmlUtils.appendElement(queryReqIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText");
-	 	idSrcTxtElement.setTextContent("TODO");
+	 	idSrcTxtElement.setTextContent(samplePerson.state);
 	 	
 		
 		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
