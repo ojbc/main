@@ -17,7 +17,18 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ccq-res-doc:CourtCaseQueryResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange.xsd" xmlns:ccq-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0" xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0" xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ccq-res-doc:CourtCaseQueryResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange.xsd" 
+xmlns:ccq-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0" 
+xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0" 
+xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
+xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" 
+xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" 
+xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" 
+xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
+xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
+xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:DocumentCreationDate>
 		<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 	</nc:DocumentCreationDate>
@@ -574,11 +585,6 @@
 		</nc:ObligationPaidAmount>
 	</nc:DisciplinaryActionRestitution>
 	<nc:Person structures:id="Person_01">
-		<cyfs:PersonAugmentation>
-			<cyfs:StudentIdentifiation>
-				
-			</cyfs:StudentIdentifiation>
-		</cyfs:PersonAugmentation>
 		<nc:PersonBirthDate>
 			<nc:Date>2001-12-17</nc:Date>
 		</nc:PersonBirthDate>
@@ -611,7 +617,11 @@
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>nc:MeasureValueText</nc:MeasureValueText>
 		</nc:PersonWeightMeasure>
-		<
+		<cyfs:PersonAugmentation>
+			<cyfs:StudentIdentification>
+				<nc:IdentificationID>Juvenile ID</nc:IdentificationID>
+			</cyfs:StudentIdentification>
+		</cyfs:PersonAugmentation>
 		<intel:PersonAugmentation>
 			<intel:PersonSystemIdentification>
 				<nc:IdentificationID>Party ID</nc:IdentificationID>
