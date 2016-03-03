@@ -22,7 +22,7 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/"
-	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
 	xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
 	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
@@ -30,6 +30,8 @@
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
 		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.1/"
+		schemaLocation="./Subset/niem/domains/cyfs/3.1/cyfs.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/"
 		schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
