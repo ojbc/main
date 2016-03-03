@@ -121,16 +121,50 @@
 				<p><xsl:apply-templates select="." mode="victims"/></p>
 			</div>
 			<div id="defenseAttorneyTab">
-				<p>defenseAttorneyTab</p>
+				<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation/j:CaseDefenseAttorney"></xsl:apply-templates></p>
 			</div>
 			<div id="prosecutorTab">
-				<p>prosecutorTab</p>
+				<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation" mode="prosecutors"></xsl:apply-templates></p>
 			</div>
 		</div>
 	</xsl:template>
 	
 	<xsl:template match="qrer:QueryRequestError">
 		<span class="error">System Name: <xsl:value-of select="nc:SystemName" /><br/> Error: <xsl:value-of select="qrer:ErrorText"/></span><br />
+	</xsl:template>
+	
+	<xsl:template match="j:CaseAugmentation" mode="prosecutors">
+		<table class="detailDataTable display">
+			<thead>
+				<tr>
+					<th>Attorney Name</th>
+					<th>Attorney Bar Number</th>
+					<th>Attorney Type</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates select="j:CaseProsecutionAttorney"/>
+			</tbody>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="j:CaseProsecutionAttorney">
+		<tr>
+			<td><xsl:value-of select="nc:RoleOfPerson/nc:PersonName/nc:PersonFullName"/></td>
+			<td><xsl:value-of select="j:JudicialOfficialBarMembership/j:JudicialOfficialBarIdentification/nc:IdentificationID"/></td>
+			<td><xsl:value-of select="j:JudicialOfficialCategoryText"/></td>
+		</tr>
+	</xsl:template>
+	
+	<xsl:template match="j:CaseDefenseAttorney">
+		<table class="detailTable">
+			<tr>
+				<th>
+					<label>Lead Attorney: </label>
+					<xsl:value-of select="nc:RoleOfPerson/nc:PersonName/nc:PersonFullName" />
+				</th>
+			</tr>
+		</table>
 	</xsl:template>
 	
 	<xsl:template match="ccq-res-doc:CourtCaseQueryResults" mode="victims">
