@@ -24,8 +24,11 @@
   xmlns:census="http://release.niem.gov/niem/codes/census_uscounty/3.0/"
   xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
   xmlns:ucr="http://release.niem.gov/niem/codes/fbi_ucr/3.0/"
+  xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
   xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
   xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/">
+  <w:Element w:name="intel:PhysicalFeatureCategoryCodeText"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:ActivityWarrantAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:BailBond" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CaseAugmentation" w:isReference="false" w:nillable="true"/>
@@ -74,7 +77,9 @@
   <w:Element w:name="nc:ExpirationDate" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Identity" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ItemStyle" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:ItemStyleText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:JurisdictionText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:LocationCategoryText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LocationCountyCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LocationCountyName" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LocationStateName" w:isReference="false" w:nillable="false"/>
@@ -92,6 +97,7 @@
   <w:Element w:name="nc:PersonEthnicityText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonEyeColorText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonHairColorText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:PersonRaceText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonSexText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonSkinToneText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Vehicle" w:isReference="false" w:nillable="true"/>
@@ -3725,6 +3731,10 @@
   <w:Type w:name="nc:ItemType" w:isRequested="true">
     <w:ElementInType w:name="nc:ItemColor" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:ItemMakeName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:ItemModelName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ItemModelYearDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ItemStyle" w:isReference="false"
@@ -3735,6 +3745,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:LocationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:LocationCategory" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:LocationDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
