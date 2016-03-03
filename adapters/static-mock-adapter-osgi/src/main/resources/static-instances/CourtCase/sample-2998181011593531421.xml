@@ -1,0 +1,525 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<ccq-res-doc:CourtCaseQueryResults xmlns:ccq-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0"
+                                   xmlns:intel31="http://release.niem.gov/niem/domains/intelligence/3.1/"
+                                   xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+                                   xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
+                                   xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
+                                   xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
+                                   xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+                                   xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+                                   xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0">
+   <nc30:DocumentCreationDate>
+      <nc30:DateTime>2016-03-03T15:36:28</nc30:DateTime>
+   </nc30:DocumentCreationDate>
+   <nc30:DocumentIdentification>
+      <nc30:IdentificationID>31057414</nc30:IdentificationID>
+   </nc30:DocumentIdentification>
+   <intel31:SystemIdentification>
+      <nc30:IdentificationID>75107598</nc30:IdentificationID>
+      <nc30:SystemName>CourtCaseFinder</nc30:SystemName>
+   </intel31:SystemIdentification>
+   <nc30:Case s30:id="Case_01">
+      <nc30:ActivityIdentification>
+         <nc30:IdentificationID>09355344</nc30:IdentificationID>
+      </nc30:ActivityIdentification>
+      <nc30:ActivityStatus>
+         <nc30:StatusDescriptionText>Early</nc30:StatusDescriptionText>
+      </nc30:ActivityStatus>
+      <nc30:CaseDisposition>
+         <nc30:DispositionDate>
+            <nc30:Date>1965-04-30T00:00:00</nc30:Date>
+         </nc30:DispositionDate>
+      </nc30:CaseDisposition>
+      <nc30:CaseGeneralCategoryText>Arrest</nc30:CaseGeneralCategoryText>
+      <nc30:CaseTrackingID>48484293</nc30:CaseTrackingID>
+      <nc30:CaseDocketID>North vs South</nc30:CaseDocketID>
+      <nc30:CaseFiling>
+         <nc30:DocumentCreationDate>
+            <nc30:DateTime>1929-12-31T00:00:00</nc30:DateTime>
+         </nc30:DocumentCreationDate>
+      </nc30:CaseFiling>
+      <jxdm51:CaseAugmentation>
+         <jxdm51:CaseAmendedCharge>
+            <jxdm51:ChargeCountQuantity>77</jxdm51:ChargeCountQuantity>
+            <jxdm51:ChargeDescriptionText>Speeding</jxdm51:ChargeDescriptionText>
+            <jxdm51:ChargeFilingDate>
+               <nc30:Date>1948-06-02T00:00:00</nc30:Date>
+            </jxdm51:ChargeFilingDate>
+            <jxdm51:ChargeStatute>
+               <jxdm51:StatuteCodeIdentification>
+                  <nc30:IdentificationID>207364</nc30:IdentificationID>
+                  <nc30:IdentificationCategoryDescriptionText>Concealed Weapon Permit</nc30:IdentificationCategoryDescriptionText>
+               </jxdm51:StatuteCodeIdentification>
+            </jxdm51:ChargeStatute>
+         </jxdm51:CaseAmendedCharge>
+         <jxdm51:CaseCharge>
+            <jxdm51:ChargeCountQuantity>0</jxdm51:ChargeCountQuantity>
+            <jxdm51:ChargeDescriptionText>Not using headlights</jxdm51:ChargeDescriptionText>
+            <jxdm51:ChargeDisposition>
+               <nc30:DispositionDate>
+                  <nc30:Date>1956-07-30T00:00:00</nc30:Date>
+               </nc30:DispositionDate>
+               <nc30:DispositionDescriptionText>Plea agreement</nc30:DispositionDescriptionText>
+               <jxdm51:ChargeDispositionOtherText>Threw neighbor's cat</jxdm51:ChargeDispositionOtherText>
+            </jxdm51:ChargeDisposition>
+            <jxdm51:ChargeFilingDate>
+               <nc30:Date>1986-03-09T00:00:00</nc30:Date>
+               <jxdm51:ChargePlea>
+                  <nc30:ActivityDate>
+                     <nc30:Date>1933-01-08T00:00:00</nc30:Date>
+                  </nc30:ActivityDate>
+                  <jxdm51:PleaCategoryCode>m</jxdm51:PleaCategoryCode>
+               </jxdm51:ChargePlea>
+               <jxdm51:ChargeSentence>
+                  <nc30:ActivityIdentification>
+                     <nc30:IdentificationID>39580783</nc30:IdentificationID>
+                  </nc30:ActivityIdentification>
+                  <nc30:ActivityDate>
+                     <nc30:Date>1978-10-15T00:00:00</nc30:Date>
+                  </nc30:ActivityDate>
+                  <nc30:ActivityStatus>
+                     <nc30:StatusDescriptionText>Final Decision</nc30:StatusDescriptionText>
+                  </nc30:ActivityStatus>
+                  <jxdm51:SentenceCharge>
+                     <jxdm51:ChargeStatute>
+                        <jxdm51:StatuteCodeIdentification>
+                           <nc30:IdentificationID>27689167</nc30:IdentificationID>
+                        </jxdm51:StatuteCodeIdentification>
+                     </jxdm51:ChargeStatute>
+                  </jxdm51:SentenceCharge>
+                  <jxdm51:SentenceTerm>
+                     <jxdm51:TermMaximumDuration>P4Y7M8DT10H30M0S</jxdm51:TermMaximumDuration>
+                     <jxdm51:TermMinimumDuration>P2Y4M3DT08H30M0S</jxdm51:TermMinimumDuration>
+                  </jxdm51:SentenceTerm>
+                  <jxdm51:SupervisionFineAmount>
+                     <nc30:Amount>25.70</nc30:Amount>
+                  </jxdm51:SupervisionFineAmount>
+               </jxdm51:ChargeSentence>
+               <jxdm51:ChargeSequenceID>35</jxdm51:ChargeSequenceID>
+               <jxdm51:ChargeStatute>
+                  <jxdm51:StatuteCodeIdentification>
+                     <nc30:IdentificationID>90067440</nc30:IdentificationID>
+                     <nc30:IdentificationCategoryDescriptionText>Drinking</nc30:IdentificationCategoryDescriptionText>
+                  </jxdm51:StatuteCodeIdentification>
+               </jxdm51:ChargeStatute>
+            </jxdm51:ChargeFilingDate>
+         </jxdm51:CaseCharge>
+         <jxdm51:CaseCharge>
+            <jxdm51:ChargeCountQuantity>4</jxdm51:ChargeCountQuantity>
+            <jxdm51:ChargeDescriptionText>Swerving</jxdm51:ChargeDescriptionText>
+            <jxdm51:ChargeDisposition>
+               <nc30:DispositionDate>
+                  <nc30:Date>1961-12-30T00:00:00</nc30:Date>
+               </nc30:DispositionDate>
+               <nc30:DispositionDescriptionText>Assault on a Police Officer</nc30:DispositionDescriptionText>
+               <jxdm51:ChargeDispositionOtherText>Tailgating someone</jxdm51:ChargeDispositionOtherText>
+            </jxdm51:ChargeDisposition>
+            <jxdm51:ChargeFilingDate>
+               <nc30:Date>1981-07-05T00:00:00</nc30:Date>
+            </jxdm51:ChargeFilingDate>
+            <jxdm51:ChargeSequenceID>29317227</jxdm51:ChargeSequenceID>
+            <jxdm51:ChargeStatute>
+               <jxdm51:StatuteCodeIdentification>
+                  <nc30:IdentificationID>32476237</nc30:IdentificationID>
+                  <nc30:IdentificationCategoryDescriptionText>Concealed Weapons Permit</nc30:IdentificationCategoryDescriptionText>
+               </jxdm51:StatuteCodeIdentification>
+            </jxdm51:ChargeStatute>
+         </jxdm51:CaseCharge>
+         <jxdm51:CaseCourt>
+            <jxdm51:OrganizationAugmentation>
+               <jxdm51:OrganizationJurisdiction>
+                  <nc30:JurisdictionText>Highway Patrol</nc30:JurisdictionText>
+               </jxdm51:OrganizationJurisdiction>
+            </jxdm51:OrganizationAugmentation>
+            <jxdm51:CourtName>Matlock</jxdm51:CourtName>
+            <jxdm51:CourtDivisionText>County</jxdm51:CourtDivisionText>
+         </jxdm51:CaseCourt>
+         <jxdm51:CaseCourtEvent>
+            <nc30:ActivityIdentification>
+               <nc30:IdentificationID>49574413</nc30:IdentificationID>
+            </nc30:ActivityIdentification>
+            <nc30:ActivityDate>
+               <nc30:Date>1967-05-31T00:00:00</nc30:Date>
+            </nc30:ActivityDate>
+            <nc30:ActivityDescriptionText>Swerving</nc30:ActivityDescriptionText>
+            <nc30:ActivityName>Speaking Falsehood</nc30:ActivityName>
+            <jxdm51:CourtEventJudge>
+               <nc30:RoleOfPerson>
+                  <nc30:PersonName>
+                     <nc30:PersonFullName>Cathy J Gardenhire</nc30:PersonFullName>
+                  </nc30:PersonName>
+               </nc30:RoleOfPerson>
+            </jxdm51:CourtEventJudge>
+            <ccq-res-ext:FirstCourtAppearance>
+               <jxdm51:CourtAppearanceDate>
+                  <nc30:Date>1961-11-19T00:00:00</nc30:Date>
+               </jxdm51:CourtAppearanceDate>
+            </ccq-res-ext:FirstCourtAppearance>
+            <ccq-res-ext:CourtEventCommentsText>Many reporters present</ccq-res-ext:CourtEventCommentsText>
+         </jxdm51:CaseCourtEvent>
+         <jxdm51:CaseDefendantSelfRepresentationIndicator>true</jxdm51:CaseDefendantSelfRepresentationIndicator>
+         <jxdm51:CaseDefendantParty>
+            <nc30:EntityOrganization>
+               <nc30:OrganizationName>Public Safety</nc30:OrganizationName>
+            </nc30:EntityOrganization>
+            <nc30:EntityPerson s30:ref="Person_01"/>
+         </jxdm51:CaseDefendantParty>
+         <jxdm51:CaseDefenseAttorney>
+            <nc30:RoleOfPerson>
+               <nc30:PersonName>
+                  <nc30:PersonFullName>David V Meek</nc30:PersonFullName>
+               </nc30:PersonName>
+            </nc30:RoleOfPerson>
+         </jxdm51:CaseDefenseAttorney>
+         <jxdm51:CaseDomesticViolenceIndicator>true</jxdm51:CaseDomesticViolenceIndicator>
+         <jxdm51:CaseHearing>
+            <nc30:ActivityIdentification>
+               <nc30:IdentificationID>00954981</nc30:IdentificationID>
+            </nc30:ActivityIdentification>
+            <nc30:ActivityCategoryText>Evidence Presentation</nc30:ActivityCategoryText>
+            <nc30:ActivityDateRange>
+               <nc30:StartDate>
+                  <nc30:DateTime>1960-10-01T00:00:00</nc30:DateTime>
+               </nc30:StartDate>
+               <nc30:EndDate>
+                  <nc30:DateTime>1941-02-21T00:00:00</nc30:DateTime>
+               </nc30:EndDate>
+            </nc30:ActivityDateRange>
+            <nc30:ActivityDescriptionText>Jury Deciding Verdict</nc30:ActivityDescriptionText>
+            <nc30:ActivityName>Trial by Jury</nc30:ActivityName>
+            <nc30:ActivityReasonText>Defendant requested trial</nc30:ActivityReasonText>
+            <nc30:ActivityDisposition>
+               <nc30:DispositionDescriptionText>Guilty</nc30:DispositionDescriptionText>
+            </nc30:ActivityDisposition>
+            <jxdm51:CourtEventJudge>
+               <nc30:RoleOfPerson>
+                  <nc30:PersonName>
+                     <nc30:PersonFullName>Lois W Andrews</nc30:PersonFullName>
+                  </nc30:PersonName>
+               </nc30:RoleOfPerson>
+            </jxdm51:CourtEventJudge>
+            <ccq-res-ext:CourtEventCommentsText>Hard to find entrance</ccq-res-ext:CourtEventCommentsText>
+         </jxdm51:CaseHearing>
+         <jxdm51:CaseJudge>
+            <nc30:RoleOfPerson>
+               <nc30:PersonName>
+                  <nc30:PersonFullName>David E Lee</nc30:PersonFullName>
+               </nc30:PersonName>
+            </nc30:RoleOfPerson>
+            <jxdm51:JudicialOfficialBarMembership>
+               <jxdm51:JudicialOfficialBarIdentification>
+                  <nc30:IdentificationID>33034386</nc30:IdentificationID>
+               </jxdm51:JudicialOfficialBarIdentification>
+            </jxdm51:JudicialOfficialBarMembership>
+         </jxdm51:CaseJudge>
+         <jxdm51:CaseLineageCase>
+            <nc30:CaseTrackingID>67711055</nc30:CaseTrackingID>
+         </jxdm51:CaseLineageCase>
+         <jxdm51:CaseProsecutionAttorney>
+            <nc30:RoleOfPerson>
+               <nc30:PersonName>
+                  <nc30:PersonFullName>Cary L Newell</nc30:PersonFullName>
+               </nc30:PersonName>
+            </nc30:RoleOfPerson>
+            <jxdm51:JudicialOfficialBarMembership>
+               <jxdm51:JudicialOfficialBarIdentification>
+                  <nc30:IdentificationID>29588580</nc30:IdentificationID>
+               </jxdm51:JudicialOfficialBarIdentification>
+            </jxdm51:JudicialOfficialBarMembership>
+         </jxdm51:CaseProsecutionAttorney>
+      </jxdm51:CaseAugmentation>
+      <ccq-res-ext:CaseAugmentation>
+         <ccq-res-ext:CaseSealedIndicator>false</ccq-res-ext:CaseSealedIndicator>
+         <ccq-res-ext:RemandDate>
+            <nc30:Date>1993-08-23T00:00:00</nc30:Date>
+         </ccq-res-ext:RemandDate>
+      </ccq-res-ext:CaseAugmentation>
+   </nc30:Case>
+   <jxdm51:AppellateCase s30:id="Appel_Case_01">
+      <nc30:CaseTrackingID>66152502</nc30:CaseTrackingID>
+      <nc30:CaseFiling>
+         <nc30:DocumentCreationDate>
+            <nc30:Date>1941-06-11T00:00:00</nc30:Date>
+         </nc30:DocumentCreationDate>
+      </nc30:CaseFiling>
+   </jxdm51:AppellateCase>
+   <nc30:Identity s30:id="Identity_01">
+      <nc30:IdentityPersonRepresentation>
+         <nc30:PersonBirthDate>
+            <nc30:Date>1990-05-12T00:00:00</nc30:Date>
+         </nc30:PersonBirthDate>
+         <nc30:PersonName>
+            <nc30:PersonGivenName>Michael</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>V</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Paul</nc30:PersonSurName>
+            <nc30:PersonFullName>Michael V Paul</nc30:PersonFullName>
+         </nc30:PersonName>
+         <nc30:PersonSSNIdentification>
+            <nc30:IdentificationID>20668430</nc30:IdentificationID>
+         </nc30:PersonSSNIdentification>
+      </nc30:IdentityPersonRepresentation>
+   </nc30:Identity>
+   <nc30:ContactInformation s30:id="CI_01">
+      <nc30:ContactTelephoneNumber>
+         <nc30:FullTelephoneNumber>
+            <nc30:TelephoneNumberFullID>712-428-3708</nc30:TelephoneNumberFullID>
+         </nc30:FullTelephoneNumber>
+      </nc30:ContactTelephoneNumber>
+      <ccq-res-ext:ElectronicContactIdentification>
+         <nc30:IdentificationID>48408351</nc30:IdentificationID>
+         <nc30:IdentificationCategoryDescriptionText>ID Card</nc30:IdentificationCategoryDescriptionText>
+      </ccq-res-ext:ElectronicContactIdentification>
+   </nc30:ContactInformation>
+   <jxdm51:Citation s30:id="Citation_01">
+      <nc30:ActivityIdentification>
+         <nc30:IdentificationID>55235353</nc30:IdentificationID>
+      </nc30:ActivityIdentification>
+      <jxdm51:CitationViolation>
+         <nc30:ActivityDate>
+            <nc30:Date>1948-07-28T00:00:00</nc30:Date>
+         </nc30:ActivityDate>
+         <nc30:IncidentLocation>
+            <nc30:Address>
+               <nc30:AddressSecondaryUnitText>Suite 456</nc30:AddressSecondaryUnitText>
+               <nc30:AddressDeliveryPointID>mailbox</nc30:AddressDeliveryPointID>
+               <nc30:LocationStreet>
+                  <nc30:StreetName>Fulton Street</nc30:StreetName>
+                  <nc30:StreetCategoryText>Interstate</nc30:StreetCategoryText>
+               </nc30:LocationStreet>
+               <nc30:LocationCountyName>Rowan</nc30:LocationCountyName>
+            </nc30:Address>
+            <nc30:LocationDescriptionText>NY</nc30:LocationDescriptionText>
+            <nc30:LocationName>County</nc30:LocationName>
+         </nc30:IncidentLocation>
+         <ccq-res-ext:ViolationAugmentation>
+            <ccq-res-ext:DrivingPointNumberText>17</ccq-res-ext:DrivingPointNumberText>
+            <ccq-res-ext:DrivingPointNumberReducedText>74</ccq-res-ext:DrivingPointNumberReducedText>
+            <ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>true</ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>
+         </ccq-res-ext:ViolationAugmentation>
+      </jxdm51:CitationViolation>
+      <ccq-res-ext:CitationAugmentation>
+         <jxdm51:CourtAppearanceDate>
+            <nc30:DateTime>1943-11-01T00:00:00</nc30:DateTime>
+         </jxdm51:CourtAppearanceDate>
+         <ccq-res-ext:CourtAppearanceRequiredIndicator>false</ccq-res-ext:CourtAppearanceRequiredIndicator>
+         <ccq-res-ext:LicenseSurrenderedIndicator>false</ccq-res-ext:LicenseSurrenderedIndicator>
+      </ccq-res-ext:CitationAugmentation>
+   </jxdm51:Citation>
+   <jxdm51:DrivingIncident s30:id="Incident_01">
+      <nc30:ActivityDescriptionText>Spinning Out</nc30:ActivityDescriptionText>
+      <jxdm51:DrivingIncidentRecordedSpeedRateMeasure>
+         <nc30:MeasureValueText>020</nc30:MeasureValueText>
+         <nc30:MeasureUnitText>kph</nc30:MeasureUnitText>
+      </jxdm51:DrivingIncidentRecordedSpeedRateMeasure>
+      <jxdm51:DrivingIncidentLegalSpeedRateMeasure>
+         <nc30:MeasureValueText>11</nc30:MeasureValueText>
+         <nc30:MeasureUnitText>kph</nc30:MeasureUnitText>
+      </jxdm51:DrivingIncidentLegalSpeedRateMeasure>
+      <jxdm51:Arrest s30:id="Arrest_01">
+         <nc30:ActivityDate>
+            <nc30:Date>1968-10-04T00:00:00</nc30:Date>
+         </nc30:ActivityDate>
+         <jxdm51:ArrestAgencyRecordIdentification>
+            <nc30:IdentificationID>82308775</nc30:IdentificationID>
+         </jxdm51:ArrestAgencyRecordIdentification>
+         <jxdm51:ArrestCharge>
+            <jxdm51:ChargeStatute>
+               <jxdm51:StatuteCodeIdentification>
+                  <nc30:IdentificationID>77495362</nc30:IdentificationID>
+               </jxdm51:StatuteCodeIdentification>
+            </jxdm51:ChargeStatute>
+         </jxdm51:ArrestCharge>
+         <jxdm51:ArrestLocation>
+            <nc30:LocationDescriptionText>SF</nc30:LocationDescriptionText>
+         </jxdm51:ArrestLocation>
+         <jxdm51:ArrestOfficial s30:id="Officer_01">
+            <nc30:RoleOfPerson>
+               <nc30:PersonName>
+                  <nc30:PersonFullName>Ronald N Nolting</nc30:PersonFullName>
+               </nc30:PersonName>
+            </nc30:RoleOfPerson>
+            <jxdm51:EnforcementOfficialUnit>
+               <jxdm51:EnforcementUnitName>LAPD</jxdm51:EnforcementUnitName>
+            </jxdm51:EnforcementOfficialUnit>
+         </jxdm51:ArrestOfficial>
+      </jxdm51:Arrest>
+      <jxdm51:Detention s30:id="Detention_01">
+         <nc30:ActivityIdentification>
+            <nc30:IdentificationID>83961739</nc30:IdentificationID>
+         </nc30:ActivityIdentification>
+         <nc30:ActivityCategoryText>Prison</nc30:ActivityCategoryText>
+         <nc30:ActivityDateRange>
+            <nc30:StartDate>
+               <nc30:Date>1960-12-08T00:00:00</nc30:Date>
+            </nc30:StartDate>
+            <nc30:EndDate>
+               <nc30:Date>1946-12-10T00:00:00</nc30:Date>
+            </nc30:EndDate>
+         </nc30:ActivityDateRange>
+         <nc30:SupervisionCustodyStatus>
+            <nc30:StatusDescriptionText>Parents Watching</nc30:StatusDescriptionText>
+         </nc30:SupervisionCustodyStatus>
+         <nc30:SupervisionFacility>
+            <nc30:FacilityIdentification>
+               <nc30:IdentificationID>35959241</nc30:IdentificationID>
+            </nc30:FacilityIdentification>
+         </nc30:SupervisionFacility>
+      </jxdm51:Detention>
+      <jxdm51:BailBond s30:id="Bond_01">
+         <nc30:ActivityIdentification>
+            <nc30:IdentificationID>84525341</nc30:IdentificationID>
+         </nc30:ActivityIdentification>
+         <nc30:ActivityCategoryText>Large Price</nc30:ActivityCategoryText>
+         <jxdm51:BailBondAmount>
+            <nc30:Amount>4586</nc30:Amount>
+         </jxdm51:BailBondAmount>
+         <jxdm51:BailBondIssuerEntity>
+            <nc30:EntityOrganization>
+               <nc30:OrganizationName>Bonds Advance</nc30:OrganizationName>
+            </nc30:EntityOrganization>
+         </jxdm51:BailBondIssuerEntity>
+      </jxdm51:BailBond>
+      <nc30:Vehicle s30:id="Vehicle_01">
+         <nc30:VehicleCMVIndicator>true</nc30:VehicleCMVIndicator>
+         <nc30:VehicleIdentification>
+            <nc30:IdentificationID>79407218</nc30:IdentificationID>
+         </nc30:VehicleIdentification>
+         <jxdm51:VehicleMakeCode>715</jxdm51:VehicleMakeCode>
+         <jxdm51:VehicleModelCode>GM</jxdm51:VehicleModelCode>
+      </nc30:Vehicle>
+      <nc30:Person s30:id="Person_01">
+         <nc30:PersonBirthDate>
+            <nc30:Date>1990-10-09T00:00:00</nc30:Date>
+         </nc30:PersonBirthDate>
+         <nc30:PersonDescriptionText>Thin Asian female</nc30:PersonDescriptionText>
+         <nc30:PersonEthnicityText>A</nc30:PersonEthnicityText>
+         <jxdm51:PersonEyeColorCode>BLU</jxdm51:PersonEyeColorCode>
+         <jxdm51:PersonHairColorCode>RED</jxdm51:PersonHairColorCode>
+         <nc30:PersonHeightMeasure>
+            <nc30:MeasureValueText>55</nc30:MeasureValueText>
+            <nc30:MeasureUnitText>mm</nc30:MeasureUnitText>
+         </nc30:PersonHeightMeasure>
+         <nc30:PersonName>
+            <nc30:PersonGivenName>Margaret</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>T</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Johnson</nc30:PersonSurName>
+            <nc30:PersonFullName>Margaret T Johnson</nc30:PersonFullName>
+         </nc30:PersonName>
+         <nc30:PersonRaceText>LAT</nc30:PersonRaceText>
+         <nc30:PersonSexText>female</nc30:PersonSexText>
+         <nc30:PersonSSNIdentification>
+            <nc30:IdentificationID>518423715</nc30:IdentificationID>
+         </nc30:PersonSSNIdentification>
+         <nc30:PersonWeightMeasure>
+            <nc30:MeasureValueText>836</nc30:MeasureValueText>
+         </nc30:PersonWeightMeasure>
+         <jxdm51:PersonAugmentation>
+            <jxdm51:DriverLicense>
+               <jxdm51:DriverLicenseIdentification>
+                  <nc30:IdentificationID>40783977</nc30:IdentificationID>
+                  <nc30:IdentificationSourceText>VT</nc30:IdentificationSourceText>
+               </jxdm51:DriverLicenseIdentification>
+               <jxdm51:DriverLicenseExpirationDate>
+                  <nc30:DateTime>1929-10-17T00:00:00</nc30:DateTime>
+               </jxdm51:DriverLicenseExpirationDate>
+               <jxdm51:DriverLicenseIssueDate>
+                  <nc30:DateTime>1974-09-02T00:00:00</nc30:DateTime>
+               </jxdm51:DriverLicenseIssueDate>
+               <jxdm51:DriverLicenseNonCommercialClassText>D</jxdm51:DriverLicenseNonCommercialClassText>
+            </jxdm51:DriverLicense>
+            <jxdm51:PersonFBIIdentification>
+               <nc30:IdentificationID>67445850</nc30:IdentificationID>
+            </jxdm51:PersonFBIIdentification>
+            <jxdm51:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>15218068</nc30:IdentificationID>
+            </jxdm51:PersonStateFingerprintIdentification>
+         </jxdm51:PersonAugmentation>
+      </nc30:Person>
+      <nc30:Location s30:id="Location_01">
+         <nc30:Address>
+            <nc30:AddressSecondaryUnitText>STE 567</nc30:AddressSecondaryUnitText>
+            <nc30:LocationStreet>
+               <nc30:StreetFullText>Poe Road</nc30:StreetFullText>
+            </nc30:LocationStreet>
+            <nc30:LocationCityName>Myrtle Beach</nc30:LocationCityName>
+            <nc30:LocationStateName>SC</nc30:LocationStateName>
+            <nc30:LocationPostalCode>29577</nc30:LocationPostalCode>
+         </nc30:Address>
+         <nc30:LocationCategoryText>North</nc30:LocationCategoryText>
+      </nc30:Location>
+      <jxdm51:ActivityCaseAssociation>
+         <nc30:Activity s30:ref="Citation_01"/>
+         <nc30:Activity s30:ref="Arrest_01"/>
+         <nc30:Activity s30:ref="Detention_01"/>
+         <nc30:Activity s30:ref="Bond_01"/>
+         <nc30:Case s30:ref="Case_01"/>
+      </jxdm51:ActivityCaseAssociation>
+      <nc30:RelatedCaseAssociation>
+         <nc30:Activity s30:ref="Case_01"/>
+         <nc30:Activity s30:ref="Appel_Case_01"/>
+      </nc30:RelatedCaseAssociation>
+      <jxdm51:ActivityIncidentAssociation>
+         <nc30:Activity s30:ref="Citation_01"/>
+         <nc30:Incident s30:ref="Incident_01"/>
+      </jxdm51:ActivityIncidentAssociation>
+      <nc30:ContactInformationAssociation>
+         <nc30:ContactEntity s30:ref="Person_01"/>
+         <nc30:ContactInformation s30:ref="CI_01"/>
+      </nc30:ContactInformationAssociation>
+      <nc30:PersonConveyanceAssociation>
+         <nc30:Person s30:ref="Person_01"/>
+         <nc30:Conveyance s30:ref="Vehicle_01"/>
+      </nc30:PersonConveyanceAssociation>
+      <nc30:PersonResidenceAssociation>
+         <nc30:Person s30:ref="Person_01"/>
+         <nc30:Location s30:ref="Location_01"/>
+      </nc30:PersonResidenceAssociation>
+      <nc30:PersonAliasIdentityAssociation>
+         <nc30:Person s30:ref="Person_01"/>
+         <nc30:Identity s30:ref="Identity_01"/>
+      </nc30:PersonAliasIdentityAssociation>
+      <ccq-res-ext:SourceSystemNameText>Court Case Lookup</ccq-res-ext:SourceSystemNameText>
+      <ccq-res-ext:QueryResultCategoryText>Results Returned</ccq-res-ext:QueryResultCategoryText>
+      <ccq-res-ext:InformationOwningOrganization>
+         <nc30:OrganizationBranchName>Walker Texas Ranger</nc30:OrganizationBranchName>
+         <nc30:OrganizationName>Walker Texas Ranger</nc30:OrganizationName>
+      </ccq-res-ext:InformationOwningOrganization>
+      <nc30:Metadata>
+         <nc30:LastUpdatedDate>
+            <nc30:Date>1965-10-25T00:00:00</nc30:Date>
+         </nc30:LastUpdatedDate>
+      </nc30:Metadata>
+      <qrm:QueryResultsMetadata>
+         <iad:InformationAccessDenial>
+            <iad:InformationAccessDenialIndicator>true</iad:InformationAccessDenialIndicator>
+            <iad:InformationAccessDenyingSystemNameText>Background Checkers</iad:InformationAccessDenyingSystemNameText>
+            <iad:InformationAccessDenialReasonText>Gossips</iad:InformationAccessDenialReasonText>
+         </iad:InformationAccessDenial>
+         <qrer:QueryRequestError>
+            <qrer:ErrorText>Can't find anyone</qrer:ErrorText>
+            <qrer:QueryRequestIdentification>
+               <nc30:IdentificationID>57136744</nc30:IdentificationID>
+               <nc30:IdentificationCategoryDescriptionText>Driver License</nc30:IdentificationCategoryDescriptionText>
+               <nc30:IdentificationSourceText>WV</nc30:IdentificationSourceText>
+            </qrer:QueryRequestIdentification>
+         </qrer:QueryRequestError>
+      </qrm:QueryResultsMetadata>
+   </jxdm51:DrivingIncident>
+</ccq-res-doc:CourtCaseQueryResults>

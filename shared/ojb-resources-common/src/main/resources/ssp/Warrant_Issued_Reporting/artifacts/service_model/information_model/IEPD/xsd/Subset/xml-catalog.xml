@@ -26,6 +26,7 @@
   <uri name="http://release.niem.gov/niem/codes/fbi_ucr/3.0/" uri="niem/codes/fbi_ucr/3.0/fbi_ucr.xsd"/>
   <uri name="http://release.niem.gov/niem/codes/iso_3166-1/3.0/" uri="niem/codes/iso_3166-1/3.0/iso_3166-1.xsd"/>
   <uri name="http://release.niem.gov/niem/conformanceTargets/3.0/" uri="niem/conformanceTargets/3.0/conformanceTargets.xsd"/>
+  <uri name="http://release.niem.gov/niem/domains/intelligence/3.1/" uri="niem/domains/intelligence/3.1/intelligence.xsd"/>
   <uri name="http://release.niem.gov/niem/domains/jxdm/5.1/" uri="niem/domains/jxdm/5.1/jxdm.xsd"/>
   <uri name="http://release.niem.gov/niem/localTerminology/3.0/" uri="niem/localTerminology/3.0/localTerminology.xsd"/>
   <uri name="http://release.niem.gov/niem/niem-core/3.0/" uri="niem/niem-core/3.0/niem-core.xsd"/>

@@ -26,6 +26,8 @@
   xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
   xmlns:core_misc="http://release.niem.gov/niem/codes/core_misc/3.0/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.1/">
   <w:Element w:name="cyfs:PersonAugmentation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="intel:IdentificationAugmentation"
+    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="intel:PersonAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="intel:SystemIdentification" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityArrestAssociation" w:isReference="false" w:nillable="true"/>
@@ -40,7 +42,11 @@
   <w:Element w:name="j:CaseAugmentation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CaseCourt" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CaseHearing" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:ChargePlea" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:ChargeSentence" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Citation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ConveyanceAugmentation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ConveyanceColorPrimaryCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CourtAppearanceDate" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Detention" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:DriverLicenseCommercialClassText"
@@ -84,6 +90,8 @@
   <w:Element w:name="nc:Date" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:DateTime" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:DisciplinaryAction" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:DisciplinaryActionRestitution"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:EntityOrganization" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:EntityPerson" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Facility" w:isReference="false" w:nillable="true"/>
@@ -114,12 +122,14 @@
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonSexText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Program" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:ProgramCondition" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:RelatedCaseAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:StatusDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Supervision" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:TelephoneNumberCategoryText"
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Vehicle" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:YearDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="scr:InmateNumberID" w:isReference="false" w:nillable="true"/>
   <w:Type w:name="core_misc:PleaCategoryCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="A"/>
@@ -133,6 +143,12 @@
   </w:Type>
   <w:Type w:name="cyfs:PersonAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="cyfs:StudentIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="intel:IdentificationAugmentationType" w:isRequested="false">
+    <w:ElementInType w:name="intel:IdentificationIssuingStateName"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="intel:IdentificationIssuingLocalityText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="intel:PersonAugmentationType" w:isRequested="false">
@@ -260,6 +276,10 @@
     <w:ElementInType w:name="j:CitationAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:ConveyanceAugmentationType" w:isRequested="false">
+    <w:ElementInType w:name="j:ModelYearRange" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:ConveyanceRegistrationType" w:isRequested="true">
     <w:ElementInType
       w:name="j:ConveyanceRegistrationPlateIdentification"
@@ -382,6 +402,8 @@
   <w:Type w:name="j:PleaType" w:isRequested="false">
     <w:ElementInType w:name="j:PleaDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:PleaRecommendationText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:PleaCategory" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -476,6 +498,10 @@
     <w:ElementInType w:name="nc:CaseAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:ConditionType" w:isRequested="false">
+    <w:ElementInType w:name="nc:ConditionAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:ContactInformationAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Contact" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -488,7 +514,10 @@
     <w:ElementInType w:name="nc:ContactInformationAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:ConveyanceType" w:isRequested="true"/>
+  <w:Type w:name="nc:ConveyanceType" w:isRequested="true">
+    <w:ElementInType w:name="nc:ConveyanceAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:CrossStreetType" w:isRequested="false">
     <w:ElementInType w:name="nc:CrossStreetDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -554,6 +583,10 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:IncidentAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:ItemType" w:isRequested="true">
+    <w:ElementInType w:name="nc:ItemColor" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:JurisdictionType" w:isRequested="false">
     <w:ElementInType w:name="nc:JurisdictionAbstract"
@@ -723,6 +756,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:VehicleModel" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:VehicleAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="ncic:EYECodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="BLK"/>
@@ -751,6 +786,44 @@
     <w:Facet w:facet="enumeration" w:value="SDY"/>
     <w:Facet w:facet="enumeration" w:value="WHI"/>
     <w:Facet w:facet="enumeration" w:value="XXX"/>
+  </w:Type>
+  <w:Type w:name="ncic:VCOCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="AME"/>
+    <w:Facet w:facet="enumeration" w:value="BGE"/>
+    <w:Facet w:facet="enumeration" w:value="BLK"/>
+    <w:Facet w:facet="enumeration" w:value="BLU"/>
+    <w:Facet w:facet="enumeration" w:value="BRO"/>
+    <w:Facet w:facet="enumeration" w:value="BRZ"/>
+    <w:Facet w:facet="enumeration" w:value="CAM"/>
+    <w:Facet w:facet="enumeration" w:value="COM"/>
+    <w:Facet w:facet="enumeration" w:value="COM"/>
+    <w:Facet w:facet="enumeration" w:value="CPR"/>
+    <w:Facet w:facet="enumeration" w:value="CRM"/>
+    <w:Facet w:facet="enumeration" w:value="CRM"/>
+    <w:Facet w:facet="enumeration" w:value="DBL"/>
+    <w:Facet w:facet="enumeration" w:value="DGR"/>
+    <w:Facet w:facet="enumeration" w:value="GLD"/>
+    <w:Facet w:facet="enumeration" w:value="GRN"/>
+    <w:Facet w:facet="enumeration" w:value="GRY"/>
+    <w:Facet w:facet="enumeration" w:value="LAV"/>
+    <w:Facet w:facet="enumeration" w:value="LBL"/>
+    <w:Facet w:facet="enumeration" w:value="LGR"/>
+    <w:Facet w:facet="enumeration" w:value="MAR"/>
+    <w:Facet w:facet="enumeration" w:value="MAR"/>
+    <w:Facet w:facet="enumeration" w:value="MUL/COL"/>
+    <w:Facet w:facet="enumeration" w:value="MVE"/>
+    <w:Facet w:facet="enumeration" w:value="ONG"/>
+    <w:Facet w:facet="enumeration" w:value="PLE"/>
+    <w:Facet w:facet="enumeration" w:value="PNK"/>
+    <w:Facet w:facet="enumeration" w:value="RED"/>
+    <w:Facet w:facet="enumeration" w:value="SIL"/>
+    <w:Facet w:facet="enumeration" w:value="SIL"/>
+    <w:Facet w:facet="enumeration" w:value="TAN"/>
+    <w:Facet w:facet="enumeration" w:value="TEA"/>
+    <w:Facet w:facet="enumeration" w:value="TPE"/>
+    <w:Facet w:facet="enumeration" w:value="TRQ"/>
+    <w:Facet w:facet="enumeration" w:value="WHI"/>
+    <w:Facet w:facet="enumeration" w:value="YEL"/>
   </w:Type>
   <w:Type w:name="ncic:VMACodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="AAA"/>
