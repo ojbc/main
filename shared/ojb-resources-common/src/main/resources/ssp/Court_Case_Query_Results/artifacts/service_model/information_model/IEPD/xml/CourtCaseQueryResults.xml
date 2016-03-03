@@ -98,6 +98,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 						<nc:Date>2001-12-17</nc:Date>
 					</nc:ActivityDate>
 					<j:PleaCategoryCode>A</j:PleaCategoryCode>
+					
 				</j:ChargePlea>
 				<j:ChargeSentence>
 					<nc:ActivityIdentification>
@@ -107,8 +108,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 						<nc:Date>2001-12-17</nc:Date>
 					</nc:ActivityDate>
 					<nc:ActivityStatus>
-						<nc:StatusDescriptionText>sentence status
-						</nc:StatusDescriptionText>
+						<nc:StatusDescriptionText>sentence status</nc:StatusDescriptionText>
 					</nc:ActivityStatus>
 					<j:SentenceCharge>
 						<j:ChargeStatute>
@@ -127,20 +127,15 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<ccq-res-ext:SentenceDeferredDate>
 						<nc:Date>2001-12-17</nc:Date>
 					</ccq-res-ext:SentenceDeferredDate>
-					<ccq-res-ext:SentenceConfinementCategoryText>confinement type
-					</ccq-res-ext:SentenceConfinementCategoryText>
-					<ccq-res-ext:SentenceConfinementComment>confinement comment
-					</ccq-res-ext:SentenceConfinementComment>
-					<ccq-res-ext:SentenceWorkReleaseIndicator>true
-					</ccq-res-ext:SentenceWorkReleaseIndicator>
+					<ccq-res-ext:SentenceConfinementCategoryText>confinement type</ccq-res-ext:SentenceConfinementCategoryText>
+					<ccq-res-ext:SentenceConfinementComment>confinement comment</ccq-res-ext:SentenceConfinementComment>
+					<ccq-res-ext:SentenceWorkReleaseIndicator>true</ccq-res-ext:SentenceWorkReleaseIndicator>
 				</j:ChargeSentence>
 				<j:ChargeSequenceID>2</j:ChargeSequenceID>
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
 						<nc:IdentificationID>charge statute</nc:IdentificationID>
-						<nc:IdentificationCategoryDescriptionText>charge statute
-							description
-						</nc:IdentificationCategoryDescriptionText>
+						<nc:IdentificationCategoryDescriptionText>charge statute description</nc:IdentificationCategoryDescriptionText>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
 			</j:CaseCharge>
@@ -151,10 +146,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<nc:DispositionDate>
 						<nc:Date>2001-12-17</nc:Date>
 					</nc:DispositionDate>
-					<nc:DispositionDescriptionText>finding
-					</nc:DispositionDescriptionText>
-					<j:ChargeDispositionOtherText>other finding
-					</j:ChargeDispositionOtherText>
+					<nc:DispositionDescriptionText>finding</nc:DispositionDescriptionText>
+					<j:ChargeDispositionOtherText>other finding</j:ChargeDispositionOtherText>
 				</j:ChargeDisposition>
 				<j:ChargeFilingDate>
 					<nc:Date>2001-12-17</nc:Date>
@@ -163,9 +156,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
 						<nc:IdentificationID>charge statute</nc:IdentificationID>
-						<nc:IdentificationCategoryDescriptionText>charge statute
-							description
-						</nc:IdentificationCategoryDescriptionText>
+						<nc:IdentificationCategoryDescriptionText>charge statute description</nc:IdentificationCategoryDescriptionText>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
 			</j:CaseCharge>
@@ -387,33 +378,28 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				<nc:LocationName>String</nc:LocationName>
 			</nc:IncidentLocation>
 			<ccq-res-ext:ViolationAugmentation>
-				<ccq-res-ext:DrivingPointNumberText>String
-				</ccq-res-ext:DrivingPointNumberText>
-				<ccq-res-ext:DrivingPointNumberReducedText>String
-				</ccq-res-ext:DrivingPointNumberReducedText>
-				<ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>true
-				</ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>
-				<j:PersonBloodAlcoholContentNumberText>String
-				</j:PersonBloodAlcoholContentNumberText>
+				<ccq-res-ext:DrivingPointNumberText>String</ccq-res-ext:DrivingPointNumberText>
+				<ccq-res-ext:DrivingPointNumberReducedText>String</ccq-res-ext:DrivingPointNumberReducedText>
+				<ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>true	</ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>
+				<j:PersonBloodAlcoholContentNumberText>String</j:PersonBloodAlcoholContentNumberText>
 			</ccq-res-ext:ViolationAugmentation>
 		</j:CitationViolation>
 		<ccq-res-ext:CitationAugmentation>
 			<j:CourtAppearanceDate>
 				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 			</j:CourtAppearanceDate>
+			<j:OffenseDomesticViolenceIndicator>false</j:OffenseDomesticViolenceIndicator>
 			<ccq-res-ext:VehicleOverweightMeasure>
 				<nc:MeasureValueText>String</nc:MeasureValueText>
 			</ccq-res-ext:VehicleOverweightMeasure>
-			<ccq-res-ext:CourtAppearanceRequiredIndicator>true
-			</ccq-res-ext:CourtAppearanceRequiredIndicator>
+			<ccq-res-ext:CourtAppearanceRequiredIndicator>true</ccq-res-ext:CourtAppearanceRequiredIndicator>
 			<ccq-res-ext:InjuryIndicator>true</ccq-res-ext:InjuryIndicator>
-			<ccq-res-ext:SchoolZoneIndicator>true
-			</ccq-res-ext:SchoolZoneIndicator>
-			<ccq-res-ext:ConstructionZoneIndicator>true
-			</ccq-res-ext:ConstructionZoneIndicator>
-			<ccq-res-ext:LicenseSurrenderedIndicator>true
-			</ccq-res-ext:LicenseSurrenderedIndicator>
+			<ccq-res-ext:SchoolZoneIndicator>true</ccq-res-ext:SchoolZoneIndicator>
+			<ccq-res-ext:ConstructionZoneIndicator>true</ccq-res-ext:ConstructionZoneIndicator>
+			<ccq-res-ext:LicenseSurrenderedIndicator>true</ccq-res-ext:LicenseSurrenderedIndicator>
 			<ccq-res-ext:FatalityIndicator>true</ccq-res-ext:FatalityIndicator>
+			<ccq-res-ext:HazardousMaterialsIndicator>true</ccq-res-ext:HazardousMaterialsIndicator>
+			<ccq-res-ext:NuclearMaterialsIndicator>true</ccq-res-ext:NuclearMaterialsIndicator>
 		</ccq-res-ext:CitationAugmentation>
 	</j:Citation>
 	<j:DrivingIncident structures:id="Incident_01">
@@ -465,6 +451,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				<j:EnforcementUnitName>String</j:EnforcementUnitName>
 			</j:EnforcementOfficialUnit>
 		</j:ArrestOfficial>
+		<j:ArrestProbableCauseText>probable cause statement</j:ArrestProbableCauseText>
 	</j:Arrest>
 	<j:Detention structures:id="Detention_01">
 		<nc:ActivityIdentification>
@@ -569,7 +556,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		</j:SupervisionAugmentation>
 	</j:Probation>
 	<j:Victim structures:id="Victim_01">
-		<nc:RoleOfPerson>
+		<nc:RoleOfPerson structures:id="PersonVictim_01">
 			<nc:PersonName>
 				<nc:PersonFullName>String</nc:PersonFullName>
 			</nc:PersonName>
@@ -603,6 +590,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<nc:PersonNameSuffixText>String</nc:PersonNameSuffixText>
 			<nc:PersonFullName>String</nc:PersonFullName>
 		</nc:PersonName>
+		<nc:PersonOtherIdentification>
+			<nc:IdentificationID>Other ID</nc:IdentificationID>
+		</nc:PersonOtherIdentification>
 		<nc:PersonPhysicalFeature>
 			<nc:PhysicalFeatureDescriptionText>Scars Marks Tattoos</nc:PhysicalFeatureDescriptionText>
 		</nc:PersonPhysicalFeature>
@@ -696,6 +686,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<j:ObligationPersonAssociation>
 		<nc:Obligation structures:ref="Restitution_01"/>
 		<nc:Person structures:ref="Person_01"/>
+		<nc:Person structures:ref="PersonVictim_01"/>
 	</j:ObligationPersonAssociation>
 	<nc:ContactInformationAssociation>
 		<nc:ContactEntity structures:ref="Person_01"/>
