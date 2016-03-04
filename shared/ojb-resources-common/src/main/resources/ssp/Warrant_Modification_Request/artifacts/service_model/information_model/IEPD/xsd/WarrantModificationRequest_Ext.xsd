@@ -24,8 +24,8 @@
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
 	xmlns:scr="http://release.niem.gov/niem/domains/screening/3.1/"
-	xmlns:wir-ext="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0"
-	targetNamespace="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0"
+	xmlns:wm-req-ext="http://ojbc.org/IEPD/Extensions/WarrantModificationRequestExtension/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/WarrantModificationRequestExtension/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
 		schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
@@ -39,9 +39,9 @@
 		schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/domains/screening/3.1/"
 		schemaLocation="./Subset/niem/domains/screening/3.1/screening.xsd" />	
-	<xsd:complexType name="WarrantIssuedReportType">
+	<xsd:complexType name="WarrantModificationRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a warrant issued report.
+			<xsd:documentation>A data type for a warrant modification request.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
@@ -50,21 +50,11 @@
 					<xsd:element ref="nc:Case" />
 					<xsd:element ref="j:Warrant" />
 					<xsd:element ref="nc:Person" />
-					<xsd:element ref="nc:Identity" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:Vehicle" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:ConveyanceRegistration" minOccurs="0"
-						maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0"
 						maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformationAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:ConveyanceRegistrationAssociation"
-						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:PersonConveyanceAssociation"
-						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityWarrantAssociation"
-						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:PersonAliasIdentityAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -106,20 +96,21 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="nc:ExpirationDate" minOccurs="0" />
-					<xsd:element ref="wir-ext:PersonRecordIdentification"
+					<xsd:element ref="wm-req-ext:PersonRecordIdentification"
 						minOccurs="0" />
-					<xsd:element ref="wir-ext:ExtraditionIndicator"
+					<xsd:element ref="wm-req-ext:ExtraditionIndicator"
 						minOccurs="0" />
-					<xsd:element ref="wir-ext:ExtradictionLimitsCodeText"
+					<xsd:element ref="wm-req-ext:ExtradictionLimitsCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="wir-ext:SubjectPickupRadiusCodeText"
+					<xsd:element ref="wm-req-ext:SubjectPickupRadiusCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="wir-ext:WarrantBroadcastCodeText"
-						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="wir-ext:CriminalTrackingNumber"
+					<xsd:element ref="wm-req-ext:WarrantBroadcastCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="scr:TransactionControlNumberIdentification"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="wm-req-ext:WarrantAdditionalInformationText"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="wm-req-ext:WarrantEntryCategoryCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -153,28 +144,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="VehicleRecordIdentification" type="nc:IdentificationType"
-		substitutionGroup="nc:VehicleAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a vehicle
-				record.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="VehicleRecordExpirationDate" type="nc:DateType"
-		substitutionGroup="nc:VehicleAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>The expiration date of a vehicle record.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="VehicleAdditionalInformationText" type="nc:TextType"
-		substitutionGroup="nc:VehicleAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>Additional information about a vehicle.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="WarrantAugmentation" type="wir-ext:WarrantAugmentationType"
+	<xsd:element name="WarrantAugmentation" type="wm-req-ext:WarrantAugmentationType"
 		substitutionGroup="j:WarrantAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a warrant.
@@ -185,12 +155,6 @@
 		<xsd:annotation>
 			<xsd:documentation>True if a person can be extradited; false
 				otherwise.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="CriminalTrackingNumber" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>A code assigned to a warrant record by
-				prosecution.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonEmployeeIdentification" type="nc:IdentificationType"
@@ -250,6 +214,18 @@
 		substitutionGroup="nc:OrganizationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Originating Case Agency number (OCA).</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="WarrantAdditionalInformationText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a warrant.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="WarrantEntryCategoryCodeText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A type of warrant entry.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
