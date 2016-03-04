@@ -1330,7 +1330,8 @@ text-shadow: 0 1px #fff; */
 	width:12%; 
 	border-right:0;}
  
-#courtCaseDetailTabs li a {
+#courtCaseDetailTabs li a,
+#custodyDetailTabs li a {
 	font-size: 11px!important; 
 	white-space:normal;} 
 

@@ -28,6 +28,8 @@
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	exclude-result-prefixes="#all">
 	
 	<xsl:import href="_formatters.xsl" />
@@ -43,8 +45,7 @@
 
 	<xsl:template match="/ccq-res-doc:CourtCaseQueryResults">
 		<script type="text/javascript">
-	
-	$(function () {
+			$(function () {
 		 			$('#courtCaseDetailTabs').tabs({
 						activate: function( event, ui ) {
 							var modalIframe = $("#modalIframe", parent.document);
@@ -110,25 +111,142 @@
 				<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation" mode="ROA"/></p>
 			</div>
 			<div id="criminalWarrantTab">
-				<p>criminalWarrantTab</p>
+				<p><xsl:apply-templates select="." mode="warrants"/></p>
 			</div>
 			<div id="criminalBondTab">
-				<p>criminalBondTab</p>
+				<p><xsl:apply-templates select="." mode="bonds"/></p>
 			</div>
 			<div id="victimTab">
-				<p>victimTab</p>
+				<p><xsl:apply-templates select="." mode="victims"/></p>
 			</div>
 			<div id="defenseAttorneyTab">
-				<p>defenseAttorneyTab</p>
+				<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation/j:CaseDefenseAttorney"></xsl:apply-templates></p>
 			</div>
 			<div id="prosecutorTab">
-				<p>prosecutorTab</p>
+				<p><xsl:apply-templates select="nc:Case/j:CaseAugmentation" mode="prosecutors"></xsl:apply-templates></p>
 			</div>
 		</div>
 	</xsl:template>
 	
 	<xsl:template match="qrer:QueryRequestError">
 		<span class="error">System Name: <xsl:value-of select="nc:SystemName" /><br/> Error: <xsl:value-of select="qrer:ErrorText"/></span><br />
+	</xsl:template>
+	
+	<xsl:template match="j:CaseAugmentation" mode="prosecutors">
+		<table class="detailDataTable display">
+			<thead>
+				<tr>
+					<th>Attorney Name</th>
+					<th>Attorney Bar Number</th>
+					<th>Attorney Type</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates select="j:CaseProsecutionAttorney"/>
+			</tbody>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="j:CaseProsecutionAttorney">
+		<tr>
+			<td><xsl:value-of select="nc:RoleOfPerson/nc:PersonName/nc:PersonFullName"/></td>
+			<td><xsl:value-of select="j:JudicialOfficialBarMembership/j:JudicialOfficialBarIdentification/nc:IdentificationID"/></td>
+			<td><xsl:value-of select="j:JudicialOfficialCategoryText"/></td>
+		</tr>
+	</xsl:template>
+	
+	<xsl:template match="j:CaseDefenseAttorney">
+		<table class="detailTable">
+			<tr>
+				<th>
+					<label>Lead Attorney: </label>
+					<xsl:value-of select="nc:RoleOfPerson/nc:PersonName/nc:PersonFullName" />
+				</th>
+			</tr>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="ccq-res-doc:CourtCaseQueryResults" mode="victims">
+		<table class="detailDataTable display">
+			<thead>
+				<tr>
+					<th>Victim Name</th>
+					<th>Victim Restitution</th>
+					<th>Restitution Adjustment</th>
+					<th>Restitution Paid</th>
+					<th>Restitution Available</th>
+					<th>Balance</th>
+					<th>Restitution Hold Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates select="j:Victim"/>
+			</tbody>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="j:Victim">
+		<xsl:variable name="personVictimId"><xsl:value-of select="nc:RoleOfPerson/@structures:id"/></xsl:variable>
+		<xsl:variable name="restitutionId"><xsl:value-of select="/ccq-res-doc:CourtCaseQueryResults/j:ObligationPersonAssociation[contains(string-join(nc:Person/@structures:ref,'|'), $personVictimId)]/nc:Obligation/@structures:ref"/></xsl:variable>
+		<tr>
+			<td><xsl:value-of select="nc:RoleOfPerson/nc:PersonName/nc:PersonFullName"/></td>
+			<td><xsl:value-of select="j:VictimSeeksRestitutionDescriptionText"/></td>
+			<td>No Mapping</td>
+			<td><xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/nc:DisciplinaryActionRestitution[@structures:id=$restitutionId]/nc:ObligationPaidAmount/nc:Amount"/></td>
+			<td>No Mapping</td>
+			<td><xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/nc:DisciplinaryActionRestitution[@structures:id=$restitutionId]/nc:ObligationDueAmount/nc:Amount"/></td>
+			<td>No Mapping</td>
+		</tr>	
+	</xsl:template>
+	
+	<xsl:template match="ccq-res-doc:CourtCaseQueryResults" mode="bonds">
+		<table class="detailDataTable display">
+			<thead>
+				<tr>
+					<th>Bond Type</th>
+					<th>Bond Number</th>
+					<th>Bond Amount</th>
+					<th>Bonding Agency</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates select="j:BailBond"/>
+			</tbody>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="j:BailBond">
+		<tr>
+			<td><xsl:value-of select="nc:ActivityCategoryText"/></td>
+			<td><xsl:value-of select="nc:ActivityIdentification/nc:IdentificationID"/></td>
+			<td><xsl:value-of select="j:BailBondAmount/nc:Amount"/></td>
+			<td><xsl:value-of select="j:BailBondIssuerEntity/nc:EntityOrganization/nc:OrganizationName"/></td>
+		</tr>	
+	</xsl:template>
+	
+	<xsl:template match="ccq-res-doc:CourtCaseQueryResults" mode="warrants">
+		<table class="detailDataTable display">
+			<thead>
+				<tr>
+					<th>Warrant Number</th>
+					<th>Warrant Type</th>
+					<th>Issue Date</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates select="j:Warrant"/>
+			</tbody>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="j:Warrant">
+		<tr>
+			<td><xsl:value-of select="nc:ActivityIdentification/nc:IdentificationID"/></td>
+			<td><xsl:value-of select="j:WarrantCategoryText"/></td>
+			<td><xsl:apply-templates select="j:CourtOrderIssuingDate/nc:DateTime" mode="formatDateTimeAsMMDDYYYY"/></td>
+			<td><xsl:value-of select="nc:ActivityDescriptionText"/></td>
+		</tr>	
 	</xsl:template>
 	
 	<xsl:template match="j:CaseAugmentation" mode="ROA">
@@ -188,7 +306,7 @@
 			<td><xsl:value-of select="nc:ActivityReasonText"/></td>
 			<td><xsl:value-of select="nc:ActivityName"/></td>
 			<td><xsl:value-of select="j:CourtEventJudge/nc:RoleOfPerson/nc:PersonName/nc:PersonFullName"/></td>
-			<td>No Mapping</td>
+			<td><xsl:value-of select="j:CourtEventAppearance/j:CourtAppearanceCourt/j:CourtName"/></td>
 			<td><xsl:apply-templates select="nc:ActivityDateRange/nc:StartDate/nc:DateTime" mode="formatDateTime"/></td>
 			<td><xsl:apply-templates select="nc:ActivityDateRange/nc:EndDate/nc:DateTime" mode="formatDateTime"/></td>
 			<td><xsl:value-of select="ccq-res-ext:CourtEventCommentsText"/></td>
@@ -334,13 +452,15 @@
 				<th colspan="2"/>
 			</tr>
 			<tr>
-				<th><label>Next Appearance: </label>
-				No Mapping</th>
+				<th>
+					<label>Next Appearance: </label>
+					<xsl:apply-templates select="j:CaseAugmentation/j:CaseCourtEvent/nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+				</th>
 				<th colspan="2"/>
 			</tr>
 			<tr>
 				<th><label>Trial By: </label>
-				No Mapping</th>
+					<xsl:value-of select="j:CaseAugmentation/j:CaseTrial/ccq-res-ext:TrialByText"></xsl:value-of></th>
 				<th><label>Custody Status: </label>
 					<xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/j:Detention/nc:SupervisionCustodyStatus/nc:StatusDescriptionText"/></th>
 			</tr>
@@ -348,7 +468,7 @@
 				<th><label>Speedy Trial: </label>
 				<xsl:apply-templates select="j:CaseAugmentation/j:CaseTrial/ccq-res-ext:SpeedyTrialDate/nc:Date" mode="formatDateAsMMDDYYYY"/></th>
 				<th><label>FTP Hold Indefinite: </label>
-					No Mapping</th>
+					<xsl:value-of select="ccq-res-ext:CaseAugmentation/ccq-res-ext:FailureToPayHoldIndefiniteIndicator"></xsl:value-of></th>
 			</tr>
 			<tr>
 				<th><label>FTA Hold Date: </label>
@@ -471,13 +591,19 @@
 					<xsl:value-of select="nc:PersonHeightMeasure/nc:MeasureUnitText"></xsl:value-of>
 				</th>
 				<th><label>Language: </label>
-					No Mapping</th>
+					<xsl:value-of select="nc:PersonPrimaryLanguage/nc:LanguageName"></xsl:value-of>
+				</th>
 			<tr>
 				<th><label>Race: </label>
 					<xsl:value-of select="nc:PersonEthnicityText"></xsl:value-of>	
 				</th>
 				<th colspan="2"><label>Juvenile: </label>
-					No Mapping</th>
+					<xsl:call-template name="getJuvenileIndicator">
+						<xsl:with-param name="birthDate" select="nc:PersonBirthDate/nc:Date"/>
+						<xsl:with-param name="violationDate" 
+							select="parent::ccq-res-doc:CourtCaseQueryResults/j:Citation/j:CitationViolation/nc:ActivityDate/nc:Date"/>
+					</xsl:call-template>	
+				</th>
 			</tr>
 		</table>
 	</xsl:template>
@@ -517,18 +643,18 @@
 			<tr>
 				<th colspan="3">
 					<label>Party ID: </label>
-					No Mapping
+					<xsl:value-of select="intel:PersonAugmentation/intel:PersonSystemIdentification/nc:IdentificationID"/>
 				</th>
 			</tr>
 			<tr>
 				<th><label>Juvenile ID: </label>
-					No Mapping
+					<xsl:value-of select="cyfs:PersonAugmentation/cyfs:StudentIdentifiation/nc:IdentificationID"></xsl:value-of>
 				</th>
 				<th><label>Inmate ID: </label>
 					<xsl:value-of select="ccq-res-ext:PersonInmateIdentification/nc:IdentificationID"></xsl:value-of>
 				</th>
 				<th><label>Other ID: </label>
-					No Mapping
+					<xsl:value-of select="nc:PersonOtherIdentification/nc:IdentificationID"></xsl:value-of>
 				</th>
 			</tr>
 		</table>
@@ -544,11 +670,29 @@
 			</tr>
 			<tr>
 				<th>
-					<label>General Comments: </label>
-					No Mapping
+					<label>Clerk Comments: </label>
+					<xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/nc:Case/j:CaseAugmentation/j:CaseCourtEvent/ccq-res-ext:CommentsForCourtClerk"></xsl:value-of>
 				</th>
 			</tr>
 		</table>
 	</xsl:template>
 		
+	<xsl:template name="getJuvenileIndicator">
+		<xsl:param name="birthDate"/>
+		<xsl:param name="violationDate"/>
+		
+		<xsl:variable name="age" as="xs:integer">
+			<xsl:choose>
+				<xsl:when test="month-from-date($violationDate) > month-from-date($birthDate) or month-from-date($violationDate) = month-from-date($birthDate) 
+					and day-from-date($violationDate) >= day-from-date($birthDate)">
+					<xsl:value-of select="year-from-date($violationDate) - year-from-date($birthDate)" />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="year-from-date($violationDate) - year-from-date($birthDate) - 1" />
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		
+		<xsl:value-of select="$age &lt; xs:integer(18)"/>
+	</xsl:template>
 </xsl:stylesheet>
