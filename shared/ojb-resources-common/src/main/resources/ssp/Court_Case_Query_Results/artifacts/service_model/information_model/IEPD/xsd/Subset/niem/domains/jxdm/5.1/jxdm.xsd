@@ -806,6 +806,11 @@
       <xs:documentation>A single, upper-most, front-most, or majority color of a vehicle.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ConveyanceRegistration" type="j:ConveyanceRegistrationType">
+    <xs:annotation>
+      <xs:documentation>A registration of a conveyance with an authority.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ConveyanceRegistrationPlateIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An identification on a metal plate fixed to a conveyance.</xs:documentation>
