@@ -47,6 +47,7 @@
   <w:Element w:name="j:Citation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ConveyanceAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ConveyanceColorPrimaryCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:ConveyanceRegistration" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CourtAppearanceDate" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Detention" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:DriverLicenseCommercialClassText"
