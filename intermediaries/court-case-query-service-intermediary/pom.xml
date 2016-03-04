@@ -30,6 +30,12 @@
 	<name>OJB :: court-case-query-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
+	<parent>
+		<groupId>org.ojbc.build</groupId>
+		<artifactId>ojb-intermediaries-aggregate</artifactId>
+		<version>1.0.0</version>
+	</parent>	
+
 	<properties>
 		<camel-version>2.14.4</camel-version>
 		<slf4j-version>1.7.10</slf4j-version>
