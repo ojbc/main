@@ -23,6 +23,7 @@
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:scr="http://release.niem.gov/niem/domains/screening/3.1/"
 	xmlns:wir-ext="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0"
 	elementFormDefault="qualified">
@@ -36,6 +37,8 @@
 		schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.1/"
 		schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/screening/3.1/"
+		schemaLocation="./Subset/niem/domains/screening/3.1/screening.xsd" />	
 	<xsd:complexType name="WarrantIssuedReportType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a warrant issued report.
@@ -104,8 +107,6 @@
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
 					<xsd:element ref="nc:ExpirationDate" minOccurs="0" />
-					<xsd:element ref="wir-ext:PersonRecordIdentification"
-						minOccurs="0" />
 					<xsd:element ref="wir-ext:ExtraditionIndicator"
 						minOccurs="0" />
 					<xsd:element ref="wir-ext:ExtradictionLimitsCodeText"
@@ -114,19 +115,18 @@
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="wir-ext:WarrantBroadcastCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="wir-ext:ProsecutionWarrantCodeText"
+					<xsd:element ref="wir-ext:CriminalTrackingNumber"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="scr:TransactionControlNumberIdentification"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="wir-ext:WarrantAdditionalInformationText"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="wir-ext:WarrantEntryCategoryCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="PersonRecordIdentification" type="nc:IdentificationType"
-		substitutionGroup="nc:PersonAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a person
-				record.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="PersonMiscellaneousRecordIdentification"
 		type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
@@ -145,20 +145,6 @@
 		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A cautionary code for a person.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="VehicleRecordIdentification" type="nc:IdentificationType"
-		substitutionGroup="nc:VehicleAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a vehicle
-				record.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="VehicleRecordExpirationDate" type="nc:DateType"
-		substitutionGroup="nc:VehicleAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>The expiration date of a vehicle record.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -182,7 +168,7 @@
 				otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ProsecutionWarrantCodeText" type="nc:TextType">
+	<xsd:element name="CriminalTrackingNumber" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A code assigned to a warrant record by
 				prosecution.</xsd:documentation>
@@ -239,6 +225,24 @@
 		substitutionGroup="nc:AddressAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A type of address.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AgencyRecordIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:OrganizationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Originating Case Agency number (OCA).</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="WarrantAdditionalInformationText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a warrant.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="WarrantEntryCategoryCodeText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A type of warrant entry.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
