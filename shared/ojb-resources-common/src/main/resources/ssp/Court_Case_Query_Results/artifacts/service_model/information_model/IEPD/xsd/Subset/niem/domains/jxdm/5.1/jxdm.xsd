@@ -214,6 +214,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="ConveyanceAugmentationType">
+    <xs:annotation>
+      <xs:documentation>A data type for additional information about a conveyance.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:AugmentationType">
+        <xs:sequence>
+          <xs:element ref="j:ModelYearRange" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ConveyanceRegistrationType">
     <xs:annotation>
       <xs:documentation>A data type for a registration of a conveyance with an authority.</xs:documentation>
@@ -459,6 +471,7 @@
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
           <xs:element ref="j:PleaDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:PleaRecommendationText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:PleaCategory" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -748,7 +761,7 @@
       <xs:documentation>A unique identification number assigned to a particular charge by an arresting agency, prosecuting attorney, or a court for case management purposes.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="ChargePlea" type="j:PleaType" nillable="true">
+  <xs:element name="ChargePlea" type="j:PleaType">
     <xs:annotation>
       <xs:documentation>An answer which a defendant in an action at law makes in response to a charge.</xs:documentation>
     </xs:annotation>
@@ -781,6 +794,21 @@
   <xs:element name="CitationViolation" type="nc:IncidentType" nillable="true">
     <xs:annotation>
       <xs:documentation>An activity that is a violation of a law or ordinance that results in a subject being given a citation.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceAugmentation" type="j:ConveyanceAugmentationType" substitutionGroup="nc:ConveyanceAugmentationPoint" nillable="true">
+    <xs:annotation>
+      <xs:documentation>Additional information about a conveyance.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceColorPrimaryCode" type="ncic:VCOCodeType" substitutionGroup="nc:ItemColor">
+    <xs:annotation>
+      <xs:documentation>A single, upper-most, front-most, or majority color of a vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceRegistration" type="j:ConveyanceRegistrationType">
+    <xs:annotation>
+      <xs:documentation>A registration of a conveyance with an authority.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ConveyanceRegistrationPlateIdentification" type="nc:IdentificationType" nillable="true">
@@ -968,6 +996,11 @@
       <xs:documentation>A kind of judicial official.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ModelYearRange" type="nc:DateRangeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An model year range for an item.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ObligationPersonAssociation" type="j:ObligationPersonAssociationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An association between an obligation and a person.</xs:documentation>
@@ -1031,6 +1064,11 @@
   <xs:element name="PleaDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A description of a plea.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PleaRecommendationText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A recommended plea agreement for violent, most serious, or armed offenses.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Probation" type="nc:SupervisionType">
