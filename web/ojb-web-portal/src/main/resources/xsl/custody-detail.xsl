@@ -32,7 +32,6 @@
     xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
     xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
     xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
-    xmlns:fo="http://www.w3.org/1999/XSL/Format"
     exclude-result-prefixes="#all">
 	<xsl:import href="_formatters.xsl" />
 	
@@ -120,10 +119,6 @@
 	</xsl:template>
 	
 	<xsl:template match="j:Booking">
-		<xsl:variable name="base64Image">
-			<xsl:text>data:image/jpg;base64,</xsl:text>
-			<xsl:value-of select="parent::cq-res-ext:Custody/nc:Person[@structures:id=parent::cq-res-ext:Custody/j:Booking/j:BookingSubject/nc:RoleOfPerson/@structures:ref]/nc:PersonDigitalImage/nc:Base64BinaryObject"></xsl:value-of>
-		</xsl:variable>
 		<table class="detailTable">
 			<tr>
 				<th>
@@ -138,9 +133,13 @@
 				</th>
 			</tr>
 			<tr>
-				<th>
+				<th valign="top">
 					<label>Booking Image: </label>
-					<fo:external-graphic src="{$base64Image}"/>
+					<img>
+						<xsl:attribute name="src">
+							<xsl:value-of select="concat('data:image/jpg;base64,', parent::cq-res-ext:Custody/nc:Person[@structures:id=parent::cq-res-ext:Custody/j:Booking/j:BookingSubject/nc:RoleOfPerson/@structures:ref]/nc:PersonDigitalImage/nc:Base64BinaryObject)"></xsl:value-of>
+						</xsl:attribute>
+					</img>
 				</th>
 			</tr>
 		</table>
