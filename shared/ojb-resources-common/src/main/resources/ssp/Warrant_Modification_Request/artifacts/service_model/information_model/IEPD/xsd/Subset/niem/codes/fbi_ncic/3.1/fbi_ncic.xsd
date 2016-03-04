@@ -286,12 +286,12 @@ https://www.leo.gov</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="AE">
         <xs:annotation>
-          <xs:documentation>Anguilla (dependent territory of United Kingdom)</xs:documentation>
+          <xs:documentation>Saint Kitts - Anguilla (now separate)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="AE">
         <xs:annotation>
-          <xs:documentation>Saint Kitts - Anguilla (now separate)</xs:documentation>
+          <xs:documentation>Anguilla (dependent territory of United Kingdom)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="AF">
@@ -909,12 +909,12 @@ Indian Reservation, Arizona</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="FC">
         <xs:annotation>
-          <xs:documentation>Fond du Lac</xs:documentation>
+          <xs:documentation>Fond Du Lac Band of Lake Superior Chippewa, Minnesota</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="FC">
         <xs:annotation>
-          <xs:documentation>Fond Du Lac Band of Lake Superior Chippewa, Minnesota</xs:documentation>
+          <xs:documentation>Fond du Lac</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="FD">
@@ -1501,12 +1501,12 @@ Sikkim</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="KB">
         <xs:annotation>
-          <xs:documentation>Ellice - Gilbert Islands now Kiribati</xs:documentation>
+          <xs:documentation>Kiribati (formerly Gilbert Islands)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="KB">
         <xs:annotation>
-          <xs:documentation>Kiribati (formerly Gilbert Islands)</xs:documentation>
+          <xs:documentation>Ellice - Gilbert Islands now Kiribati</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="KB">
@@ -2845,12 +2845,12 @@ Sikkim (See India)--FOR REFERENCE ONLY</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="UV">
         <xs:annotation>
-          <xs:documentation>Burkina Faso (known as Burkina, formerly Upper Volta)</xs:documentation>
+          <xs:documentation>Upper Volta (now Burkina Faso)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="UV">
         <xs:annotation>
-          <xs:documentation>Upper Volta (now Burkina Faso)</xs:documentation>
+          <xs:documentation>Burkina Faso (known as Burkina, formerly Upper Volta)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="UW">
@@ -3872,16 +3872,6 @@ Sikkim (See India)--FOR REFERENCE ONLY</xs:documentation>
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
-  <xs:complexType name="LITCodeType">
-    <xs:annotation>
-      <xs:documentation>A data type for License Type.</xs:documentation>
-    </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="ncic:LITCodeSimpleType">
-        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
   <xs:simpleType name="POBCodeSimpleType">
     <xs:annotation>
       <xs:documentation>A data type for Place of Birth.</xs:documentation>
@@ -11063,16 +11053,6 @@ Sikkim (See India)--FOR REFERENCE ONLY</xs:documentation>
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
-  <xs:complexType name="VCOCodeType">
-    <xs:annotation>
-      <xs:documentation>A data type for Vehicle Color.</xs:documentation>
-    </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="ncic:VCOCodeSimpleType">
-        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
   <xs:simpleType name="VMACodeSimpleType">
     <xs:annotation>
       <xs:documentation>A data type for Vehicle Make.</xs:documentation>
@@ -50919,16 +50899,6 @@ Neighborhood Electric Vehicles</xs:documentation>
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
-  <xs:complexType name="VMACodeType">
-    <xs:annotation>
-      <xs:documentation>A data type for Vehicle Make.</xs:documentation>
-    </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="ncic:VMACodeSimpleType">
-        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
   <xs:simpleType name="VMOCodeSimpleType">
     <xs:annotation>
       <xs:documentation>A data type for Vehicle Model.</xs:documentation>
@@ -59985,16 +59955,6 @@ Neighborhood Electric Vehicles</xs:documentation>
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
-  <xs:complexType name="VMOCodeType">
-    <xs:annotation>
-      <xs:documentation>A data type for Vehicle Model.</xs:documentation>
-    </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="ncic:VMOCodeSimpleType">
-        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
   <xs:simpleType name="VSTCodeSimpleType">
     <xs:annotation>
       <xs:documentation>A data type for Vehicle Style.</xs:documentation>
@@ -60882,14 +60842,4 @@ Neighborhood Electric Vehicles</xs:documentation>
       </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
-  <xs:complexType name="VSTCodeType">
-    <xs:annotation>
-      <xs:documentation>A data type for Vehicle Style.</xs:documentation>
-    </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="ncic:VSTCodeSimpleType">
-        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
 </xs:schema>

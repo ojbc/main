@@ -33,16 +33,6 @@
   <w:Element w:name="j:ActivityWarrantAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:BailBond" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CaseAugmentation" w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="j:ConveyanceColorPrimaryCode" w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="j:ConveyanceColorSecondaryCode"
-    w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="j:ConveyanceRegistration" w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="j:ConveyanceRegistrationAssociation"
-    w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="j:ConveyanceRegistrationPlateCategoryCode"
-    w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="j:ConveyanceRegistrationPlateCategoryText"
-    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:JurisdictionNCICLISCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:OrganizationAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:OrganizationORIIdentification"
@@ -57,10 +47,6 @@
   <w:Element w:name="j:PersonSkinToneCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PhysicalFeatureCategoryCode"
     w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="j:Subject" w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="j:VehicleMakeCode" w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="j:VehicleModelCode" w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="j:VehicleStyleCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Warrant" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Case" w:isReference="false" w:nillable="true"/>
@@ -69,16 +55,8 @@
   <w:Element w:name="nc:ContactInformationAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ContactMailingAddress" w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="nc:ConveyanceColorPrimaryText"
-    w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="nc:ConveyanceColorSecondaryText"
-    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Date" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:EntityPerson" w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="nc:ExpirationDate" w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="nc:Identity" w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="nc:ItemStyle" w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="nc:ItemStyleText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:JurisdictionText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LocationCategoryText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LocationCountyCode" w:isReference="false" w:nillable="false"/>
@@ -88,20 +66,15 @@
   <w:Element w:name="nc:MeasureUnitText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:MeasureValueText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Person" w:isReference="false" w:nillable="true"/>
-  <w:Element w:name="nc:PersonAliasIdentityAssociation"
-    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonCitizenshipISO3166Alpha2Code"
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonCitizenshipText" w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="nc:PersonConveyanceAssociation"
-    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonEthnicityText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonEyeColorText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonHairColorText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonRaceText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonSexText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonSkinToneText" w:isReference="false" w:nillable="false"/>
-  <w:Element w:name="nc:Vehicle" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="scr:TransactionControlNumberIdentification"
     w:isReference="false" w:nillable="true"/>
   <w:Type w:name="census:USCountyCodeSimpleType" w:isRequested="false">
@@ -3616,13 +3589,6 @@
     <w:ElementInType w:name="j:ChargeAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="j:ConveyanceRegistrationType" w:isRequested="false">
-    <w:ElementInType
-      w:name="j:ConveyanceRegistrationPlateIdentification"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="j:ConveyanceRegistrationPlateCategory"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
   <w:Type w:name="j:CourtOrderType" w:isRequested="true">
     <w:ElementInType w:name="j:CourtOrderDesignatedSubject"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -3639,12 +3605,6 @@
   <w:Type w:name="j:DriverLicenseType" w:isRequested="false">
     <w:ElementInType w:name="j:DriverLicenseCardIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
-  <w:Type w:name="j:ItemRegistrationAssociationType" w:isRequested="false">
-    <w:ElementInType w:name="j:ItemRegistration" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:Item" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:OrganizationAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:OrganizationIdentification"
@@ -3712,7 +3672,6 @@
     <w:ElementInType w:name="nc:ContactMeans" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:ConveyanceType" w:isRequested="true"/>
   <w:Type w:name="nc:DateType" w:isRequested="false">
     <w:ElementInType w:name="nc:DateRepresentation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -3726,22 +3685,6 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:IdentificationJurisdiction"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
-  <w:Type w:name="nc:IdentityType" w:isRequested="false">
-    <w:ElementInType w:name="nc:IdentityPersonRepresentation"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
-  <w:Type w:name="nc:ItemType" w:isRequested="true">
-    <w:ElementInType w:name="nc:ItemColor" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:ItemMakeName" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:ItemModelName" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:ItemModelYearDate" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:ItemStyle" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:JurisdictionType" w:isRequested="false">
     <w:ElementInType w:name="nc:JurisdictionAbstract"
@@ -3762,18 +3705,6 @@
   <w:Type w:name="nc:OrganizationType" w:isRequested="true">
     <w:ElementInType w:name="nc:OrganizationAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
-  <w:Type w:name="nc:PersonConveyanceAssociationType" w:isRequested="false">
-    <w:ElementInType w:name="nc:Person" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:Conveyance" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
-  <w:Type w:name="nc:PersonIdentityAssociationType" w:isRequested="false">
-    <w:ElementInType w:name="nc:Person" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:Identity" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:PersonNameType" w:isRequested="false">
     <w:ElementInType w:name="nc:PersonGivenName" w:isReference="false"
@@ -3832,16 +3763,6 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:StreetName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
-  <w:Type w:name="nc:VehicleType" w:isRequested="true">
-    <w:ElementInType w:name="nc:VehicleIdentification"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:VehicleMake" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:VehicleModel" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:VehicleAugmentationPoint"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="ncic:EYECodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="BLK"/>
