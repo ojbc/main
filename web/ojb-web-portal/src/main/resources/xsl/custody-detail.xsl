@@ -78,10 +78,10 @@
 						<p><xsl:apply-templates select="cq-res-ext:Custody/j:BailBond[@structures:id = parent::cq-res-ext:Custody/j:BailBondChargeAssociation/j:BailBond/@structures:ref]"/></p>	
 					</div>
 					<div id="booking">
-						<p><xsl:apply-templates select="cq-res-ext:Custody/j:Booking[@structures:id= parent::cq-res-ext:Custody/j:ActivityChargeAssociation/nc:Activity/@structures:ref]"/></p>	
+						<p><xsl:apply-templates select="cq-res-ext:Custody/j:Booking[contains(string-join(parent::cq-res-ext:Custody/j:ActivityChargeAssociation/nc:Activity/@structures:ref, '|'), @structures:id)]"/></p>	
 					</div>
 					<div id="nextCourtEvent">
-						<p>nextCourtEvent</p>
+						<p><xsl:apply-templates select="cq-res-ext:Custody/cyfs:NextCourtEvent[contains(string-join(parent::cq-res-ext:Custody/j:ActivityChargeAssociation/nc:Activity/@structures:ref, '|'), @structures:id) ]"/></p>
 					</div>
 					<div id="charge">
 						<p>charge</p>
@@ -95,6 +95,23 @@
 		
 	</xsl:template>
 	
+	<xsl:template match="cyfs:NextCourtEvent">
+		<table class="detailTable">
+			<tr>
+				<th>
+					<label>Court Name: </label>
+					<xsl:value-of select="j:CourtEventCourt/j:CourtName"></xsl:value-of>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>Next Court Date: </label>
+					<xsl:apply-templates select="nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+				</th>
+			</tr>
+		</table>
+	</xsl:template>
+
 	<xsl:template match="j:BailBond">
 		<table class="detailTable">
 			<tr>
