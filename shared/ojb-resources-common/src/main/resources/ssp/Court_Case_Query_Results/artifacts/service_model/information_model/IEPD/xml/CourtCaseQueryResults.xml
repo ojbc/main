@@ -97,7 +97,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<nc:ActivityDate>
 						<nc:Date>2001-12-17</nc:Date>
 					</nc:ActivityDate>
-					<j:PleaDescriptionText>condtions of plea agreement</j:PleaDescriptionText>
+					<j:PleaDescriptionText>conditions of plea agreement</j:PleaDescriptionText>
 					<j:PleaRecommendationText>charges resulting from plea</j:PleaRecommendationText>
 					<j:PleaCategoryCode>A</j:PleaCategoryCode>
 				</j:ChargePlea>
