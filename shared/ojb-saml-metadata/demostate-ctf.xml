@@ -92,7 +92,11 @@ m0hS7SkJpU+uSw==
             <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://secure-resource.search.org:9443/idp/profile/SAML2/Redirect/SSO"/>
 
         </IDPSSODescriptor>
-
+		<Organization>
+			<OrganizationName>OJBC</OrganizationName>
+			<OrganizationDisplayName>OJBC Demostate</OrganizationDisplayName>
+			<OrganizationURL>www.ojbc.org</OrganizationURL>
+		</Organization>
         <ContactPerson contactType="technical">
             <GivenName>Technical</GivenName>
             <SurName>Contact</SurName>
