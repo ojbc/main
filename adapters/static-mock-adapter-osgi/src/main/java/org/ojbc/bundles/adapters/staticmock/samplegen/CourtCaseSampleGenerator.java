@@ -182,10 +182,10 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		caseCourtOrgAutJurisdicTxtElement.setTextContent(randomString("Highway Patrol", "Sheriff", "City Police", "Mall Cop"));
 		
 		Element caseCourtNameElement = XmlUtils.appendElement(caseCourtElement, OjbcNamespaceContext.NS_JXDM_51, "CourtName");
-		caseCourtNameElement.setTextContent(randomString("Judge Judy", "Matlock"));
+		caseCourtNameElement.setTextContent(randomString("Thornton Municipal Court", "Adams County Court", "Adams District Court", "Aura Municipal Court"));
 		
 		Element caseCourtDivTxtElement = XmlUtils.appendElement(caseCourtElement, OjbcNamespaceContext.NS_JXDM_51, "CourtDivisionText");
-		caseCourtDivTxtElement.setTextContent(randomString("County", "State", "Highway Patrol", "Sherif"));
+		caseCourtDivTxtElement.setTextContent(randomString("District Court DIV A", "County Court DIV 1", "County Court DIV 7", "County Court DIV 2"));
 		
 		
 		Element caseCourtEventElement = XmlUtils.appendElement(caseAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "CaseCourtEvent");
@@ -234,7 +234,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		Element defendantEntOrgElement = XmlUtils.appendElement(caseDefendantPartyElement, OjbcNamespaceContext.NS_NC_30, "EntityOrganization");
 		
 		Element entOrgNameElement = XmlUtils.appendElement(defendantEntOrgElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");
-		entOrgNameElement.setTextContent(randomString("Police", "Fire Department", "EMS", "Public Safety"));
+		entOrgNameElement.setTextContent(randomString("123 Roofing", "DisneyLand", "Moe's Junk Yard", "Lorax Cleaning"));
 		
 		Element entPersonElement = XmlUtils.appendElement(caseDefendantPartyElement, OjbcNamespaceContext.NS_NC_30, "EntityPerson");
 		
@@ -281,15 +281,15 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		activDescTxtElement.setTextContent(randomString("Jury Deciding Verdict", "Jury meeting"));
 		
 		Element hearingActivNameElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityName");
-		hearingActivNameElement.setTextContent(randomString("Jury", "Trial by Jury"));
+		hearingActivNameElement.setTextContent(randomString("Pre-Trial Hearing", "Plea Hearing", "Sentence Hearing"));
 		
 		 Element activReasonElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityReasonText");
-		 activReasonElement.setTextContent(randomString("Defendant requested trial", "Sherif requested trial", "LAPD requested trial"));
+		 activReasonElement.setTextContent(randomString("evidence review", "hear plea agreement", "review presentence investigation report"));
 		 
 		Element activDispElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_NC_30, "ActivityDisposition");
 		
 		Element activDispDescTxtElement = XmlUtils.appendElement(activDispElement, OjbcNamespaceContext.NS_NC_30, "DispositionDescriptionText");		
-		activDispDescTxtElement.setTextContent(randomString("Guilty", "Not Guilty", "Deciding Verdict"));
+		activDispDescTxtElement.setTextContent(randomString("Guilty", "Not Guilty", "Hung"));
 		
 		
 		Element caseHearingCourtEventJudgeElement = XmlUtils.appendElement(caseHearingElement, OjbcNamespaceContext.NS_JXDM_51, "CourtEventJudge");
@@ -420,7 +420,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		electContactIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
 		
 		Element electContactIdCatDescTxtElement = XmlUtils.appendElement(elecContactIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
-		electContactIdCatDescTxtElement.setTextContent(randomString("ID Card", "Passport", "Driver License"));
+		electContactIdCatDescTxtElement.setTextContent(randomString("Email", "Facebook", "SkypeID"));
 		
 		Element citationElement = XmlUtils.appendElement(rootCourtCaseElement, OjbcNamespaceContext.NS_JXDM_51, "Citation");
 		XmlUtils.addAttribute(citationElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Citation_01");
@@ -600,7 +600,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	bailBondActivIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
 	 	
 	 	Element bailBondActivCatTxtElement = XmlUtils.appendElement(bailBondElement, OjbcNamespaceContext.NS_NC_30, "ActivityCategoryText");
-	 	bailBondActivCatTxtElement.setTextContent(randomString("Large Price", "Small Price", "Bond across street"));
+	 	bailBondActivCatTxtElement.setTextContent(randomString("Bond", "Bail", "Recognizance"));
 	 	
 	 	Element bailBondAmountElement = XmlUtils.appendElement(bailBondElement, OjbcNamespaceContext.NS_JXDM_51, "BailBondAmount");
 	 	
@@ -835,7 +835,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	Element srcSysNamTxtElement = XmlUtils.appendElement(drivingIncElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "SourceSystemNameText");
 
 	 	//TODO correct sys name values
-	 	srcSysNamTxtElement.setTextContent(randomString("Court Case System", "Court Case DB", "Court Case Lookup"));
+	 	srcSysNamTxtElement.setTextContent(randomString("Thornton Municipal FullCourt", "Adams County County Court FullCourt", "Pima County District Court Tyler Odysee"));
 	 		 	
 	 	Element queryResCatTxtElement = XmlUtils.appendElement(drivingIncElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "QueryResultCategoryText");
 	 	queryResCatTxtElement.setTextContent(randomString("Results", "Result List", "Results Returned"));
@@ -880,6 +880,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	Element queryReqIdValElement = XmlUtils.appendElement(queryReqIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");	 	
 	 	queryReqIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
 	 	
+	 	//TODO I think this is the description of the query request from the portal
 	 	Element idCatDescElment = XmlUtils.appendElement(queryReqIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
 	 	idCatDescElment.setTextContent(randomString("Driver License", "Gvmt Id", "Passport", "Concealed Weapons Permit"));
 	 	
