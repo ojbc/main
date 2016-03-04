@@ -52,7 +52,11 @@
 								modalIframe.height(modalIframe.contents().find("body").height() + 16);
 							}
 						}); 
-					
+						
+						$('.detailDataTable').DataTable({
+							"dom": 'rt' 
+						});
+						
 					});
 				</script>
 				<div id="custodyDetailTabs">
@@ -84,15 +88,92 @@
 						<p><xsl:apply-templates select="cq-res-ext:Custody/cyfs:NextCourtEvent[contains(string-join(parent::cq-res-ext:Custody/j:ActivityChargeAssociation/nc:Activity/@structures:ref, '|'), @structures:id) ]"/></p>
 					</div>
 					<div id="charge">
-						<p>charge</p>
+						<p><xsl:apply-templates select="cq-res-ext:Custody" mode="charge"/></p>
 					</div>
 					<div id="detention">
-						<p>detention</p>
+						<p><xsl:apply-templates select="cq-res-ext:Custody/j:Detention[contains(string-join(parent::cq-res-ext:Custody/j:ActivityChargeAssociation/nc:Activity/@structures:ref, '|'), @structures:id)]"></xsl:apply-templates></p>
 					</div>
 				</div>
 			</xsl:otherwise>
 		</xsl:choose>
-		
+	</xsl:template>
+	
+	<xsl:template match="cq-res-ext:Custody" mode="charge">
+		<table class="detailDataTable display">
+			<thead>
+				<tr>
+					<th>Charge Sequence</th>
+					<th>Charge Description</th>
+					<th>Statute/Ordinance #</th>
+					<th>Charge Category</th>
+					<th>Highest Charge Indicator</th>
+				</tr>
+			</thead>
+			<tbody>
+				<xsl:apply-templates select="j:Charge[contains(string-join(parent::cq-res-ext:Custody/j:ActivityChargeAssociation/j:Charge/@structures:ref, '|'), @structures:id)]"></xsl:apply-templates>
+			</tbody>
+		</table>
+	</xsl:template>
+	
+	<xsl:template match="j:Charge">
+		<tr>
+			<td><xsl:value-of select="j:ChargeSequenceID"/></td>
+			<td><xsl:value-of select="j:ChargeDescriptionText"/></td>
+			<td><xsl:value-of select="j:ChargeStatute/j:StatuteCodeSectionIdentification/nc:IdentificationID"/></td>
+			<td><xsl:value-of select="j:ChargeCategoryDescriptionText"/></td>
+			<td><xsl:value-of select="j:ChargeHighestIndicator"/></td>
+		</tr>	
+	</xsl:template>
+	
+	<xsl:template match="j:Detention">
+		<table class="detailTable">
+			<tr>
+				<th>
+					<label>Release Date/Time: </label>
+					<xsl:apply-templates select="j:SupervisionAugmentation/j:SupervisionReleaseDate/nc:DateTime" mode="formatDateTime"></xsl:apply-templates>
+				</th>
+				<th>
+					<label>Commit Date: </label>
+					<xsl:apply-templates select="nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"></xsl:apply-templates>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>Holding for Agency: </label>
+					<xsl:value-of select="cq-res-ext:HoldForAgency/nc:OrganizationName"/>
+				</th>
+				<th>
+					<label>Immigration Hold: </label>
+					<xsl:value-of select="cq-res-ext:DetentiontImmigrationHoldIndicator"/>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>Pretrial Status: </label>
+					<xsl:value-of select="nc:SupervisionCustodyStatus/ac-bkg-codes:PreTrialCategoryCode"></xsl:value-of>
+				</th>
+				<th>
+					<label>Judicial Status: </label>
+					<xsl:value-of select="nc:SupervisionCustodyStatus/nc:StatusDescriptionText"></xsl:value-of>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>Inmate Work Release Indicator: </label>
+					<xsl:value-of select="cq-res-ext:InmateWorkReleaseIndicator"></xsl:value-of>
+				</th>
+				<th>
+					<label>Inmate Worker Indicator: </label>
+					<xsl:value-of select="cq-res-ext:InmateWorkerIndicator"></xsl:value-of>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>Supervision Release Date: </label>
+					<xsl:apply-templates select="j:SupervisionAugmentation/j:SupervisionReleaseDate/nc:DateTime" mode="formatDateTime"></xsl:apply-templates>
+				</th>
+			</tr>
+		</table>
 	</xsl:template>
 	
 	<xsl:template match="cyfs:NextCourtEvent">
