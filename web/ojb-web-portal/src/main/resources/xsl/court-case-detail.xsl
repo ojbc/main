@@ -172,11 +172,8 @@
 				<tr>
 					<th>Victim Name</th>
 					<th>Victim Restitution</th>
-					<th>Restitution Adjustment</th>
 					<th>Restitution Paid</th>
-					<th>Restitution Available</th>
 					<th>Balance</th>
-					<th>Restitution Hold Date</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -191,11 +188,8 @@
 		<tr>
 			<td><xsl:value-of select="nc:RoleOfPerson/nc:PersonName/nc:PersonFullName"/></td>
 			<td><xsl:value-of select="j:VictimSeeksRestitutionDescriptionText"/></td>
-			<td>No Mapping</td>
 			<td><xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/nc:DisciplinaryActionRestitution[@structures:id=$restitutionId]/nc:ObligationPaidAmount/nc:Amount"/></td>
-			<td>No Mapping</td>
 			<td><xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/nc:DisciplinaryActionRestitution[@structures:id=$restitutionId]/nc:ObligationDueAmount/nc:Amount"/></td>
-			<td>No Mapping</td>
 		</tr>	
 	</xsl:template>
 	
