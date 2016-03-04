@@ -106,34 +106,33 @@
 			</j:CourtEventCourt>
 		</cyfs:NextCourtEvent>
 		<nc:Person structures:id="Person_01">
+			<j:PersonAugmentation>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>CO0120010324</nc:IdentificationID>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
+			<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
+			<j:PersonRaceCode>A</j:PersonRaceCode>
+			<j:PersonSexCode>F</j:PersonSexCode>
 			<nc:PersonBirthDate>
 				<nc:Date>1968-12-17</nc:Date>
 			</nc:PersonBirthDate>
 			<nc:PersonDigitalImage>
 				<nc:Base64BinaryObject>ETUYYKURTJUO</nc:Base64BinaryObject>
 			</nc:PersonDigitalImage>
-			<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
 			<nc:PersonName>
 				<nc:PersonGivenName>Otis</nc:PersonGivenName>
 				<nc:PersonMiddleName>H.</nc:PersonMiddleName>
 				<nc:PersonSurName>Strong</nc:PersonSurName>
 			</nc:PersonName>
-			<j:PersonRaceCode>A</j:PersonRaceCode>
 			<nc:PersonResidentText>Residence</nc:PersonResidentText>
-			<j:PersonSexCode>F</j:PersonSexCode>
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
-			<j:PersonAugmentation>
-				<j:PersonStateFingerprintIdentification>
-					<nc:IdentificationID>CO0120010324</nc:IdentificationID>
-				</j:PersonStateFingerprintIdentification>
-			</j:PersonAugmentation>
 		</nc:Person>
 		<nc:Location structures:id="Loc_01">
 			<nc:Address>
-				<nc:AddressFullText>30 Main Street Denton, Colorada
-				</nc:AddressFullText>
+				<nc:AddressFullText>30 Main Street Denton, Colorada</nc:AddressFullText>
 			</nc:Address>
 		</nc:Location>
 		<j:ActivityChargeAssociation>
