@@ -129,7 +129,7 @@
 		<table class="detailTable">
 			<tr>
 				<th>
-					<label>Release Date/Time: </label>
+					<label>Release Date: </label>
 					<xsl:apply-templates select="j:SupervisionAugmentation/j:SupervisionReleaseDate/nc:DateTime" mode="formatDateTime"></xsl:apply-templates>
 				</th>
 				<th>
@@ -165,12 +165,6 @@
 				<th>
 					<label>Inmate Worker Indicator: </label>
 					<xsl:value-of select="cq-res-ext:InmateWorkerIndicator"></xsl:value-of>
-				</th>
-			</tr>
-			<tr>
-				<th>
-					<label>Supervision Release Date: </label>
-					<xsl:apply-templates select="j:SupervisionAugmentation/j:SupervisionReleaseDate/nc:DateTime" mode="formatDateTime"></xsl:apply-templates>
 				</th>
 			</tr>
 		</table>
