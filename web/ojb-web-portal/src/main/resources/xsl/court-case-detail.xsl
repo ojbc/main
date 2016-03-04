@@ -172,11 +172,8 @@
 				<tr>
 					<th>Victim Name</th>
 					<th>Victim Restitution</th>
-					<th>Restitution Adjustment</th>
 					<th>Restitution Paid</th>
-					<th>Restitution Available</th>
 					<th>Balance</th>
-					<th>Restitution Hold Date</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -191,11 +188,8 @@
 		<tr>
 			<td><xsl:value-of select="nc:RoleOfPerson/nc:PersonName/nc:PersonFullName"/></td>
 			<td><xsl:value-of select="j:VictimSeeksRestitutionDescriptionText"/></td>
-			<td>No Mapping</td>
 			<td><xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/nc:DisciplinaryActionRestitution[@structures:id=$restitutionId]/nc:ObligationPaidAmount/nc:Amount"/></td>
-			<td>No Mapping</td>
 			<td><xsl:value-of select="parent::ccq-res-doc:CourtCaseQueryResults/nc:DisciplinaryActionRestitution[@structures:id=$restitutionId]/nc:ObligationDueAmount/nc:Amount"/></td>
-			<td>No Mapping</td>
 		</tr>	
 	</xsl:template>
 	
@@ -606,6 +600,66 @@
 				</th>
 			</tr>
 		</table>
+		
+		<xsl:if test="$locationId">
+			<pre>
+				
+			</pre>
+			<table class="detailDataTable display">
+				<thead>
+					<tr>
+						<th>Address Type</th>
+						<th>Address</th>
+						<th>Address Line 2</th>
+						<th>City</th>
+						<th>State</th>
+						<th>Zip</th>
+					</tr>
+				</thead>
+				<tbody>
+					<xsl:apply-templates select="parent::ccq-res-doc:CourtCaseQueryResults/nc:Location[contains(string-join($locationId, '|'), @structures:id)]"/>
+				</tbody>
+			</table>
+		</xsl:if>
+		
+		<xsl:if test="$contactInfoId">
+			<pre>
+				
+			</pre>
+			<table class="detailDataTable display">
+				<thead>
+					<tr>
+						<th>Telephone #</th>
+						<th>Type of #</th>
+						<th>Electronic Contact Type</th>
+						<th>Electronic Contact</th>
+					</tr>
+				</thead>
+				<tbody>
+					<xsl:apply-templates select="parent::ccq-res-doc:CourtCaseQueryResults/nc:ContactInformation[contains(string-join($contactInfoId, '|'), @structures:id)]"/>
+				</tbody>
+			</table>
+		</xsl:if>
+	</xsl:template>
+	
+	<xsl:template match="nc:Location">
+		<tr>
+			<td><xsl:value-of select="nc:LocationCategoryText"/></td>
+			<td><xsl:value-of select="nc:Address/nc:LocationStreet/nc:StreetFullText"/></td>
+			<td><xsl:value-of select="nc:Address/nc:AddressSecondaryUnitText"/></td>
+			<td><xsl:value-of select="nc:Address/nc:LocationCityName"/></td>
+			<td><xsl:value-of select="nc:Address/nc:LocationStateName"/></td>
+			<td><xsl:value-of select="nc:Address/nc:LocationPostalCode"/></td>
+		</tr>
+	</xsl:template>
+	
+	<xsl:template match="nc:ContactInformation">
+		<tr>
+			<td><xsl:value-of select="nc:ContactTelephoneNumber/nc:FullTelephoneNumber/nc:TelephoneNumberFullID"/></td>
+			<td><xsl:value-of select="nc:ContactTelephoneNumber/nc:TelephoneNumberCategoryText"/></td>
+			<td><xsl:value-of select="ccq-res-ext:ElectronicContactIdentification/nc:IdentificationCategoryDescriptionText"/></td>
+			<td><xsl:value-of select="ccq-res-ext:ElectronicContactIdentification/nc:IdentificationID"/></td>
+		</tr>
 	</xsl:template>
 	
 	<xsl:template match="j:DriverLicense">
