@@ -23,7 +23,9 @@
     
   <groupId>org.ojbc.bundles.intermediaries</groupId>
   <artifactId>charge-referral-reporting-service-intermediary</artifactId>
+  <packaging>bundle</packaging>
   <version>1.0.0</version>
+  
   <name>OJB :: charge-referral-reporting-service-intermediary :: intermediary</name>
   <url>http://maven.apache.org</url>	 
   
