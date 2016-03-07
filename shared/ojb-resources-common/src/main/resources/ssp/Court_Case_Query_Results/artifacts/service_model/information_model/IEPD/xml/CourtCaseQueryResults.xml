@@ -1,34 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2015 Open Justice Broker Consortium
-
--->
-<ccq-res-doc:CourtCaseQueryResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange.xsd" 
-xmlns:ccq-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0" 
-xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0" 
-xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
-xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" 
-xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" 
-xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" 
-xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
-xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
-xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
-xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!-- Unless explicitly acquired and licensed from Licensor under another 
+	license, the contents of this file are subject to the Reciprocal Public License 
+	("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You 
+	may not copy or use this file in either source code or executable form, except 
+	in compliance with the terms and conditions of the RPL All software distributed 
+	under the RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY 
+	OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL 
+	SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, 
+	FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See 
+	the RPL for specific language governing rights and limitations under the 
+	RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2015 Open Justice 
+	Broker Consortium -->
+<ccq-res-doc:CourtCaseQueryResults
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange.xsd"
+	xmlns:ccq-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0"
+	xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:DocumentCreationDate>
 		<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 	</nc:DocumentCreationDate>
@@ -67,14 +61,16 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<j:CaseAugmentation>
 			<j:CaseAmendedCharge>
 				<j:ChargeCountQuantity>2</j:ChargeCountQuantity>
-				<j:ChargeDescriptionText>charge description	</j:ChargeDescriptionText>
+				<j:ChargeDescriptionText>charge description
+				</j:ChargeDescriptionText>
 				<j:ChargeFilingDate>
 					<nc:Date>2001-12-17</nc:Date>
 				</j:ChargeFilingDate>
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
 						<nc:IdentificationID>String</nc:IdentificationID>
-						<nc:IdentificationCategoryDescriptionText>String</nc:IdentificationCategoryDescriptionText>
+						<nc:IdentificationCategoryDescriptionText>String
+						</nc:IdentificationCategoryDescriptionText>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
 			</j:CaseAmendedCharge>
@@ -97,8 +93,10 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<nc:ActivityDate>
 						<nc:Date>2001-12-17</nc:Date>
 					</nc:ActivityDate>
-					<j:PleaDescriptionText>conditions of plea agreement</j:PleaDescriptionText>
-					<j:PleaRecommendationText>charges resulting from plea</j:PleaRecommendationText>
+					<j:PleaDescriptionText>conditions of plea agreement
+					</j:PleaDescriptionText>
+					<j:PleaRecommendationText>charges resulting from plea
+					</j:PleaRecommendationText>
 					<j:PleaCategoryCode>A</j:PleaCategoryCode>
 				</j:ChargePlea>
 				<j:ChargeSentence>
@@ -109,7 +107,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 						<nc:Date>2001-12-17</nc:Date>
 					</nc:ActivityDate>
 					<nc:ActivityStatus>
-						<nc:StatusDescriptionText>sentence status</nc:StatusDescriptionText>
+						<nc:StatusDescriptionText>sentence status
+						</nc:StatusDescriptionText>
 					</nc:ActivityStatus>
 					<j:SentenceCharge>
 						<j:ChargeStatute>
@@ -128,15 +127,19 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<ccq-res-ext:SentenceDeferredDate>
 						<nc:Date>2001-12-17</nc:Date>
 					</ccq-res-ext:SentenceDeferredDate>
-					<ccq-res-ext:SentenceConfinementCategoryText>confinement type</ccq-res-ext:SentenceConfinementCategoryText>
-					<ccq-res-ext:SentenceConfinementComment>confinement comment</ccq-res-ext:SentenceConfinementComment>
-					<ccq-res-ext:SentenceWorkReleaseIndicator>true</ccq-res-ext:SentenceWorkReleaseIndicator>
+					<ccq-res-ext:SentenceConfinementCategoryText>confinement type
+					</ccq-res-ext:SentenceConfinementCategoryText>
+					<ccq-res-ext:SentenceConfinementComment>confinement comment
+					</ccq-res-ext:SentenceConfinementComment>
+					<ccq-res-ext:SentenceWorkReleaseIndicator>true
+					</ccq-res-ext:SentenceWorkReleaseIndicator>
 				</j:ChargeSentence>
 				<j:ChargeSequenceID>2</j:ChargeSequenceID>
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
 						<nc:IdentificationID>charge statute</nc:IdentificationID>
-						<nc:IdentificationCategoryDescriptionText>charge statute description</nc:IdentificationCategoryDescriptionText>
+						<nc:IdentificationCategoryDescriptionText>charge statute
+							description</nc:IdentificationCategoryDescriptionText>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
 			</j:CaseCharge>
@@ -147,8 +150,10 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<nc:DispositionDate>
 						<nc:Date>2001-12-17</nc:Date>
 					</nc:DispositionDate>
-					<nc:DispositionDescriptionText>finding</nc:DispositionDescriptionText>
-					<j:ChargeDispositionOtherText>other finding</j:ChargeDispositionOtherText>
+					<nc:DispositionDescriptionText>finding
+					</nc:DispositionDescriptionText>
+					<j:ChargeDispositionOtherText>other finding
+					</j:ChargeDispositionOtherText>
 				</j:ChargeDisposition>
 				<j:ChargeFilingDate>
 					<nc:Date>2001-12-17</nc:Date>
@@ -157,7 +162,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
 						<nc:IdentificationID>charge statute</nc:IdentificationID>
-						<nc:IdentificationCategoryDescriptionText>charge statute description</nc:IdentificationCategoryDescriptionText>
+						<nc:IdentificationCategoryDescriptionText>charge statute
+							description</nc:IdentificationCategoryDescriptionText>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
 			</j:CaseCharge>
@@ -177,7 +183,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				<nc:ActivityDate>
 					<nc:Date>2001-12-17</nc:Date>
 				</nc:ActivityDate>
-				<nc:ActivityDescriptionText>case court event description</nc:ActivityDescriptionText>
+				<nc:ActivityDescriptionText>case court event description
+				</nc:ActivityDescriptionText>
 				<nc:ActivityName>case court event name</nc:ActivityName>
 				<j:CourtEventJudge>
 					<nc:RoleOfPerson>
@@ -186,13 +193,14 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 						</nc:PersonName>
 					</nc:RoleOfPerson>
 				</j:CourtEventJudge>
-				<ccq-res-ext:CommentsForCourtClerk/>
+				<ccq-res-ext:CommentsForCourtClerk />
 				<ccq-res-ext:FirstCourtAppearance>
 					<j:CourtAppearanceDate>
 						<nc:Date>2001-12-17</nc:Date>
 					</j:CourtAppearanceDate>
 				</ccq-res-ext:FirstCourtAppearance>
-				<ccq-res-ext:CourtEventCommentsText>String</ccq-res-ext:CourtEventCommentsText>
+				<ccq-res-ext:CourtEventCommentsText>String
+				</ccq-res-ext:CourtEventCommentsText>
 			</j:CaseCourtEvent>
 			<j:CaseDefendantSelfRepresentationIndicator>true
 			</j:CaseDefendantSelfRepresentationIndicator>
@@ -210,7 +218,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					</nc:PersonName>
 				</nc:RoleOfPerson>
 			</j:CaseDefenseAttorney>
-			<j:CaseDomesticViolenceIndicator>true</j:CaseDomesticViolenceIndicator>
+			<j:CaseDomesticViolenceIndicator>true
+			</j:CaseDomesticViolenceIndicator>
 			<j:CaseHearing>
 				<nc:ActivityIdentification>
 					<nc:IdentificationID>hearing ID</nc:IdentificationID>
@@ -244,7 +253,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 						</nc:PersonName>
 					</nc:RoleOfPerson>
 				</j:CourtEventJudge>
-				<ccq-res-ext:CourtEventCommentsText>hearing minutes</ccq-res-ext:CourtEventCommentsText>
+				<ccq-res-ext:CourtEventCommentsText>hearing minutes
+				</ccq-res-ext:CourtEventCommentsText>
 			</j:CaseHearing>
 			<j:CaseJudge>
 				<nc:RoleOfPerson>
@@ -288,16 +298,20 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			</j:CaseTrial>
 		</j:CaseAugmentation>
 		<ccq-res-ext:CaseAugmentation>
-			<ccq-res-ext:CaseSealedIndicator>true</ccq-res-ext:CaseSealedIndicator>
+			<ccq-res-ext:CaseSealedIndicator>true
+			</ccq-res-ext:CaseSealedIndicator>
 			<ccq-res-ext:RemandDate>
 				<nc:Date>2001-12-17</nc:Date>
 			</ccq-res-ext:RemandDate>
 			<ccq-res-ext:CaseUnderAdvisementDate>
 				<nc:Date>2001-12-17</nc:Date>
 			</ccq-res-ext:CaseUnderAdvisementDate>
-			<ccq-res-ext:JuryRequestedIndicator>true</ccq-res-ext:JuryRequestedIndicator>
-			<ccq-res-ext:JuryVerdictIndicator>true</ccq-res-ext:JuryVerdictIndicator>
-			<ccq-res-ext:FailureToPayHoldIndefiniteIndicator>true</ccq-res-ext:FailureToPayHoldIndefiniteIndicator>
+			<ccq-res-ext:JuryRequestedIndicator>true
+			</ccq-res-ext:JuryRequestedIndicator>
+			<ccq-res-ext:JuryVerdictIndicator>true
+			</ccq-res-ext:JuryVerdictIndicator>
+			<ccq-res-ext:FailureToPayHoldIndefiniteIndicator>true
+			</ccq-res-ext:FailureToPayHoldIndefiniteIndicator>
 			<ccq-res-ext:FailureToPayHoldDate>
 				<nc:Date>2001-12-17</nc:Date>
 			</ccq-res-ext:FailureToPayHoldDate>
@@ -379,28 +393,39 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				<nc:LocationName>String</nc:LocationName>
 			</nc:IncidentLocation>
 			<ccq-res-ext:ViolationAugmentation>
-				<ccq-res-ext:DrivingPointNumberText>String</ccq-res-ext:DrivingPointNumberText>
-				<ccq-res-ext:DrivingPointNumberReducedText>String</ccq-res-ext:DrivingPointNumberReducedText>
-				<ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>true	</ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>
-				<j:PersonBloodAlcoholContentNumberText>String</j:PersonBloodAlcoholContentNumberText>
+				<ccq-res-ext:DrivingPointNumberText>String
+				</ccq-res-ext:DrivingPointNumberText>
+				<ccq-res-ext:DrivingPointNumberReducedText>String
+				</ccq-res-ext:DrivingPointNumberReducedText>
+				<ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>true
+				</ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator>
+				<j:PersonBloodAlcoholContentNumberText>String
+				</j:PersonBloodAlcoholContentNumberText>
 			</ccq-res-ext:ViolationAugmentation>
 		</j:CitationViolation>
 		<ccq-res-ext:CitationAugmentation>
 			<j:CourtAppearanceDate>
 				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 			</j:CourtAppearanceDate>
-			<j:OffenseDomesticViolenceIndicator>false</j:OffenseDomesticViolenceIndicator>
+			<j:OffenseDomesticViolenceIndicator>false
+			</j:OffenseDomesticViolenceIndicator>
 			<ccq-res-ext:VehicleOverweightMeasure>
 				<nc:MeasureValueText>String</nc:MeasureValueText>
 			</ccq-res-ext:VehicleOverweightMeasure>
-			<ccq-res-ext:CourtAppearanceRequiredIndicator>true</ccq-res-ext:CourtAppearanceRequiredIndicator>
+			<ccq-res-ext:CourtAppearanceRequiredIndicator>true
+			</ccq-res-ext:CourtAppearanceRequiredIndicator>
 			<ccq-res-ext:InjuryIndicator>true</ccq-res-ext:InjuryIndicator>
-			<ccq-res-ext:SchoolZoneIndicator>true</ccq-res-ext:SchoolZoneIndicator>
-			<ccq-res-ext:ConstructionZoneIndicator>true</ccq-res-ext:ConstructionZoneIndicator>
-			<ccq-res-ext:LicenseSurrenderedIndicator>true</ccq-res-ext:LicenseSurrenderedIndicator>
+			<ccq-res-ext:SchoolZoneIndicator>true
+			</ccq-res-ext:SchoolZoneIndicator>
+			<ccq-res-ext:ConstructionZoneIndicator>true
+			</ccq-res-ext:ConstructionZoneIndicator>
+			<ccq-res-ext:LicenseSurrenderedIndicator>true
+			</ccq-res-ext:LicenseSurrenderedIndicator>
 			<ccq-res-ext:FatalityIndicator>true</ccq-res-ext:FatalityIndicator>
-			<ccq-res-ext:HazardousMaterialsIndicator>true</ccq-res-ext:HazardousMaterialsIndicator>
-			<ccq-res-ext:NuclearMaterialsIndicator>true</ccq-res-ext:NuclearMaterialsIndicator>
+			<ccq-res-ext:HazardousMaterialsIndicator>true
+			</ccq-res-ext:HazardousMaterialsIndicator>
+			<ccq-res-ext:NuclearMaterialsIndicator>true
+			</ccq-res-ext:NuclearMaterialsIndicator>
 		</ccq-res-ext:CitationAugmentation>
 	</j:Citation>
 	<j:DrivingIncident structures:id="Incident_01">
@@ -506,6 +531,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		</nc:ObligationPaidDate>
 	</nc:Fee>
 	<nc:Vehicle structures:id="Vehicle_01">
+		<j:ConveyanceColorPrimaryCode>BLK</j:ConveyanceColorPrimaryCode>
 		<j:ConveyanceAugmentation>
 			<j:ModelYearRange>
 				<nc:StartDate>
@@ -513,18 +539,20 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				</nc:StartDate>
 			</j:ModelYearRange>
 		</j:ConveyanceAugmentation>
-		<j:ConveyanceColorPrimaryCode>BLK</j:ConveyanceColorPrimaryCode>
+
 		<nc:VehicleCMVIndicator>true</nc:VehicleCMVIndicator>
 		<nc:VehicleIdentification>
-			<j:ConvenyanceRegistrationPlateIdendification>
-				<nc:IdentificationID>plate1</nc:IdentificationID>
-				<nc:IdentificationSourceText>Montana</nc:IdentificationSourceText>
-			</j:ConvenyanceRegistrationPlateIdendification>
 			<nc:IdentificationID>VIN number</nc:IdentificationID>
 		</nc:VehicleIdentification>
 		<j:VehicleMakeCode>AAA</j:VehicleMakeCode>
 		<j:VehicleModelCode>002</j:VehicleModelCode>
 	</nc:Vehicle>
+	<j:ConveyanceRegistration>
+		<j:ConveyanceRegistrationPlateIdentification>
+			<nc:IdentificationID>plate1</nc:IdentificationID>
+			<nc:IdentificationSourceText>Montana</nc:IdentificationSourceText>
+		</j:ConveyanceRegistrationPlateIdentification>
+	</j:ConveyanceRegistration>
 	<nc:Program structures:id="Program_01">
 		<nc:ActivityName>String</nc:ActivityName>
 		<nc:ProgramCondition>
@@ -576,7 +604,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		</nc:RoleOfPerson>
 		<j:VictimSeeksRestitutionDescriptionText>String</j:VictimSeeksRestitutionDescriptionText>
 	</j:Victim>
-	<nc:DisciplinaryActionRestitution structures:id="Restitution_01">
+	<nc:DisciplinaryActionRestitution
+		structures:id="Restitution_01">
 		<nc:ObligationDueAmount>
 			<nc:Amount>0.0</nc:Amount>
 		</nc:ObligationDueAmount>
@@ -642,8 +671,10 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				<j:DriverLicenseIssueDate>
 					<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 				</j:DriverLicenseIssueDate>
-				<j:DriverLicenseCommercialClassText>String</j:DriverLicenseCommercialClassText>
-				<j:DriverLicenseNonCommercialClassText>String</j:DriverLicenseNonCommercialClassText>
+				<j:DriverLicenseCommercialClassText>String
+				</j:DriverLicenseCommercialClassText>
+				<j:DriverLicenseNonCommercialClassText>String
+				</j:DriverLicenseNonCommercialClassText>
 			</j:DriverLicense>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
@@ -670,52 +701,52 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<nc:LocationCategoryText>address type</nc:LocationCategoryText>
 	</nc:Location>
 	<j:ActivityCaseAssociation>
-		<nc:Activity structures:ref="Citation_01"/>
-		<nc:Activity structures:ref="Arrest_01"/>
-		<nc:Activity structures:ref="Detention_01"/>
-		<nc:Activity structures:ref="Bond_01"/>
-		<nc:Activity structures:ref="Warrant_01"/>
-		<nc:Activity structures:ref="Program_01"/>
-		<nc:Activity structures:ref="Probation_01"/>
-		<nc:Activity structures:ref="Citation_01"/>
-		<nc:Case structures:ref="Case_01"/>
+		<nc:Activity structures:ref="Citation_01" />
+		<nc:Activity structures:ref="Arrest_01" />
+		<nc:Activity structures:ref="Detention_01" />
+		<nc:Activity structures:ref="Bond_01" />
+		<nc:Activity structures:ref="Warrant_01" />
+		<nc:Activity structures:ref="Program_01" />
+		<nc:Activity structures:ref="Probation_01" />
+		<nc:Activity structures:ref="Citation_01" />
+		<nc:Case structures:ref="Case_01" />
 	</j:ActivityCaseAssociation>
 	<nc:RelatedCaseAssociation>
-		<nc:Activity structures:ref="Case_01"/>
-		<nc:Activity structures:ref="Appel_Case_01"/>
+		<nc:Activity structures:ref="Case_01" />
+		<nc:Activity structures:ref="Appel_Case_01" />
 	</nc:RelatedCaseAssociation>
 	<j:ActivityFeeAssociation>
-		<nc:Activity structures:ref="Case_01"/>
-		<nc:Fee structures:ref="Fee_01"/>
+		<nc:Activity structures:ref="Case_01" />
+		<nc:Fee structures:ref="Fee_01" />
 	</j:ActivityFeeAssociation>
 	<j:ActivityVictimAssociation>
-		<nc:Activity structures:ref="Case_01"/>
-		<j:Victim structures:ref="Victim_01"/>
+		<nc:Activity structures:ref="Case_01" />
+		<j:Victim structures:ref="Victim_01" />
 	</j:ActivityVictimAssociation>
 	<j:ActivityIncidentAssociation>
-		<nc:Activity structures:ref="Citation_01"/>
-		<nc:Incident structures:ref="Incident_01"/>
+		<nc:Activity structures:ref="Citation_01" />
+		<nc:Incident structures:ref="Incident_01" />
 	</j:ActivityIncidentAssociation>
 	<j:ObligationPersonAssociation>
-		<nc:Obligation structures:ref="Restitution_01"/>
-		<nc:Person structures:ref="Person_01"/>
-		<nc:Person structures:ref="PersonVictim_01"/>
+		<nc:Obligation structures:ref="Restitution_01" />
+		<nc:Person structures:ref="Person_01" />
+		<nc:Person structures:ref="PersonVictim_01" />
 	</j:ObligationPersonAssociation>
 	<nc:ContactInformationAssociation>
-		<nc:ContactEntity structures:ref="Person_01"/>
-		<nc:ContactInformation structures:ref="CI_01"/>
+		<nc:ContactEntity structures:ref="Person_01" />
+		<nc:ContactInformation structures:ref="CI_01" />
 	</nc:ContactInformationAssociation>
 	<nc:PersonConveyanceAssociation>
-		<nc:Person structures:ref="Person_01"/>
-		<nc:Conveyance structures:ref="Vehicle_01"/>
+		<nc:Person structures:ref="Person_01" />
+		<nc:Conveyance structures:ref="Vehicle_01" />
 	</nc:PersonConveyanceAssociation>
 	<nc:PersonResidenceAssociation>
-		<nc:Person structures:ref="Person_01"/>
-		<nc:Location structures:ref="Location_01"/>
+		<nc:Person structures:ref="Person_01" />
+		<nc:Location structures:ref="Location_01" />
 	</nc:PersonResidenceAssociation>
 	<nc:PersonAliasIdentityAssociation>
-		<nc:Person structures:ref="Person_01"/>
-		<nc:Identity structures:ref="Identity_01"/>
+		<nc:Person structures:ref="Person_01" />
+		<nc:Identity structures:ref="Identity_01" />
 	</nc:PersonAliasIdentityAssociation>
 	<ccq-res-ext:SourceSystemNameText>Alpha Court System </ccq-res-ext:SourceSystemNameText>
 	<ccq-res-ext:QueryResultCategoryText>Criminal History</ccq-res-ext:QueryResultCategoryText>
