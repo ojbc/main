@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -33,6 +34,7 @@
     <module>arrest-reporting-service-intermediary</module>
     <module>booking-reporting-service-intermediary</module>
     <module>case-filing-decision-reporting-service-intermediary</module>
+    <module>charge-referral-reporting-service-intermediary</module>
     <module>court-case-search-service-intermediary</module>
     <module>court-case-query-service-intermediary</module>
     <module>criminal-history-update-reporting-service-intermediary</module>
@@ -60,5 +62,6 @@
     <module>subscription-notification-service-intermediary-common</module>
     <module>subscription-notification-service-intermediary</module>
     <module>vehicle-search-request-service-intermediary</module>
+    <module>warrant-issued-reporting-intermediary-service</module>
   </modules>
 </project>
