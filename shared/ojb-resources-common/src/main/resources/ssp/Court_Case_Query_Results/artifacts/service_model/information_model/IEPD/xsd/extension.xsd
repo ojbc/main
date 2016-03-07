@@ -71,6 +71,7 @@
 					<xsd:element ref="j:Warrant" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Fee" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Vehicle" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ConveyanceRegistration" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Program" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Probation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Victim" minOccurs="0" maxOccurs="unbounded" />
