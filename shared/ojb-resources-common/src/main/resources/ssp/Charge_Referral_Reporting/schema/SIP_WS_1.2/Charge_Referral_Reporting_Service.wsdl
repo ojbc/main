@@ -40,8 +40,19 @@ targetNamespace="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.
 			<wsdl:input name="ChargeReferralReport" message="tns:ChargeReferralReport"/>
 		</wsdl:operation>
 	</wsdl:portType>
-	<!-- Secure, GFIPM-conforming binding -->
 	<wsdl:binding name="Charge-Referral-Reporting-ServiceSOAPBinding" type="tns:Charge-Referral-Reporting-Service">
+		<soap:binding style="document"
+		transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsaw:UsingAddressing wsdl:required="true" />
+		<wsdl:operation name="ReportChargeReferral">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0/ReportChargeReferral" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<!-- Secure, GFIPM-conforming binding -->
+	<wsdl:binding name="Charge-Referral-Reporting-Secure-ServiceSOAPBinding" type="tns:Charge-Referral-Reporting-Service">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<wsp:PolicyReference URI="#GFIPMSystemToSystem"/>
 		<wsdl:operation name="ReportChargeReferral">
@@ -54,6 +65,9 @@ targetNamespace="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.
 	<wsdl:service name="Charge-Referral-Reporting-ServiceService">
 		<wsdl:port name="Charge-Referral-Reporting-Service" binding="tns:Charge-Referral-Reporting-ServiceSOAPBinding">
 			<soap:address location="http://localhost"/>
+		</wsdl:port>
+		<wsdl:port name="Charge-Referral-Reporting-Secure-Service" binding="tns:Charge-Referral-Reporting-Secure-ServiceSOAPBinding">
+			<soap:address location="http://localhost/secure"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>
