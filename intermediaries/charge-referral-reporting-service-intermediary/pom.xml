@@ -27,7 +27,7 @@
   <version>1.0.0</version>
   
   <name>OJB :: charge-referral-reporting-service-intermediary :: intermediary</name>
-  <url>http://maven.apache.org</url>	 
+  <url>http://www.search.org</url>	 
   
   <parent>
     <groupId>org.ojbc.build</groupId>
