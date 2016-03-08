@@ -24,6 +24,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -62,7 +64,7 @@ public class StaticMockQuery {
 	private static final String CUSTODY_SAMPLES_DIRECTORY = "static-instances/Custody";
 	
 	private static final String COURT_CASE_SAMPLES_DIRECTORY = "static-instances/CourtCase";
-	
+
 	private static final String VEHICLE_CRASH_SAMPLES_DIRECTORY = "static-instances/VehicleCrash";
 
 	
@@ -71,9 +73,13 @@ public class StaticMockQuery {
 	
 	public static final String CRIMINAL_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History";
 	
+	public static final String CUSTODY_PERSON_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Jail";
+	
 	public static final String CUSTODY_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest";	
 	
 	public static final String CUSTODY_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}SubmitCustodyQueryRequest";
+	
+	public static final String COURT_CASE_PERSON_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court";
 	
 	public static final String COURT_CASE_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest";
 	
@@ -1590,10 +1596,10 @@ public class StaticMockQuery {
 			} else if (JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
 				rDocList.addAll(personSearchJuvenileHistoryDocuments(personSearchRequestMessage, baseDate));
 				
-			}else if(CUSTODY_SEARCH_SYSTEM_ID.equals(systemId)){
+			}else if(CUSTODY_PERSON_SEARCH_SYSTEM_ID.equals(systemId)){
 				rDocList.addAll(custodySearchCustodyDocuments(personSearchRequestMessage, baseDate));
 				
-			}else if(COURT_CASE_SEARCH_SYSTEM_ID.equals(systemId)){
+			}else if(COURT_CASE_PERSON_SEARCH_SYSTEM_ID.equals(systemId)){
 				rDocList.addAll(courtCaseSearchCourtCaseDocuments(personSearchRequestMessage, baseDate));
 				
 			}else if(VEHICLE_CRASH_SEARCH_SYSTEM_ID.equals(systemId)){
@@ -1811,7 +1817,7 @@ public class StaticMockQuery {
 		xPaths.heightXPath = null;
 		xPaths.weightXPath = null;		
 		xPaths.searchSystemId = CUSTODY_SEARCH_SYSTEM_ID;		
-		xPaths.systemName = "//intel31:SystemIdentification/nc30:SystemName";		
+		xPaths.systemName = "Custody";		
 		xPaths.recordType = "Custody";						
 		
 		return xPaths;
@@ -1839,7 +1845,7 @@ public class StaticMockQuery {
 		xPaths.weightXPath = "//nc30:PersonWeightMeasure/nc30:MeasureValueText";	
 		
 		xPaths.searchSystemId = COURT_CASE_SEARCH_SYSTEM_ID;
-		xPaths.systemName = "//intel31:SystemIdentification/nc30:SystemName";
+		xPaths.systemName = "Court Case";
 		xPaths.recordType = "Court Case";		
 		
 		return xPaths;
@@ -1941,6 +1947,8 @@ public class StaticMockQuery {
 			SearchValueXPaths xPaths, ClasspathXmlDataSource dataSource) throws Exception {
 
 		PersonSearchParameters psp = new StaticMockQuery.PersonSearchParameters(personSearchRequestMessage);
+		LOG.info("PersonSearchParameters: " + psp.toString());
+		
 		List<IdentifiableDocumentWrapper> matches = new ArrayList<IdentifiableDocumentWrapper>();
 
 		for (IdentifiableDocumentWrapper dw : dataSource.getDocuments()) {
@@ -2660,6 +2668,10 @@ public class StaticMockQuery {
 		public String getSystemIdentifier(IdentifiableDocumentWrapper documentWrapper) {
 			return documentWrapper.getId();
 		}
+	}
+	
+	public String toString(){
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 
 }
