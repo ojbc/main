@@ -263,7 +263,7 @@
    <nc30:Identity s30:id="Identity_01">
       <nc30:IdentityPersonRepresentation>
          <nc30:PersonBirthDate>
-            <nc30:Date>1928-08-22T00:00:00</nc30:Date>
+            <nc30:Date>1928-08-22</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonName>
             <nc30:PersonGivenName>Gene</nc30:PersonGivenName>

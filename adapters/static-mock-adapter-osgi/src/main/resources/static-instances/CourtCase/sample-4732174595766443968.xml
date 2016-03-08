@@ -294,7 +294,7 @@
    <nc30:Identity s30:id="Identity_01">
       <nc30:IdentityPersonRepresentation>
          <nc30:PersonBirthDate>
-            <nc30:Date>1971-12-10T00:00:00</nc30:Date>
+            <nc30:Date>1971-12-10</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonName>
             <nc30:PersonGivenName>Richard</nc30:PersonGivenName>

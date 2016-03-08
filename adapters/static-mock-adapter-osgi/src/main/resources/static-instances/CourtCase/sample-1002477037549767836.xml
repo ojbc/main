@@ -44,7 +44,7 @@
       </nc30:ActivityStatus>
       <nc30:CaseDisposition>
          <nc30:DispositionDate>
-            <nc30:Date>1956-01-10T00:00:00</nc30:Date>
+            <nc30:Date>1956-01-10</nc30:Date>
          </nc30:DispositionDate>
       </nc30:CaseDisposition>
       <nc30:CaseGeneralCategoryText>Debate</nc30:CaseGeneralCategoryText>
@@ -52,7 +52,7 @@
       <nc30:CaseDocketID>SC vs NC</nc30:CaseDocketID>
       <nc30:CaseFiling>
          <nc30:DocumentCreationDate>
-            <nc30:DateTime>1946-03-18T00:00:00</nc30:DateTime>
+            <nc30:DateTime>1946-03-18</nc30:DateTime>
          </nc30:DocumentCreationDate>
       </nc30:CaseFiling>
       <jxdm51:CaseAugmentation>
@@ -60,7 +60,7 @@
             <jxdm51:ChargeCountQuantity>53</jxdm51:ChargeCountQuantity>
             <jxdm51:ChargeDescriptionText>Turn Signal Broken</jxdm51:ChargeDescriptionText>
             <jxdm51:ChargeFilingDate>
-               <nc30:Date>1980-06-15T00:00:00</nc30:Date>
+               <nc30:Date>1980-06-15</nc30:Date>
             </jxdm51:ChargeFilingDate>
             <jxdm51:ChargeStatute>
                <jxdm51:StatuteCodeIdentification>
@@ -74,16 +74,16 @@
             <jxdm51:ChargeDescriptionText>Not wearing seatbelt</jxdm51:ChargeDescriptionText>
             <jxdm51:ChargeDisposition>
                <nc30:DispositionDate>
-                  <nc30:Date>1932-09-08T00:00:00</nc30:Date>
+                  <nc30:Date>1932-09-08</nc30:Date>
                </nc30:DispositionDate>
                <nc30:DispositionDescriptionText>Plea agreement</nc30:DispositionDescriptionText>
                <jxdm51:ChargeDispositionOtherText>Threw neighbor's cat</jxdm51:ChargeDispositionOtherText>
             </jxdm51:ChargeDisposition>
             <jxdm51:ChargeFilingDate>
-               <nc30:Date>1942-05-22T00:00:00</nc30:Date>
+               <nc30:Date>1942-05-22</nc30:Date>
                <jxdm51:ChargePlea>
                   <nc30:ActivityDate>
-                     <nc30:Date>1971-07-16T00:00:00</nc30:Date>
+                     <nc30:Date>1971-07-16</nc30:Date>
                   </nc30:ActivityDate>
                   <jxdm51:PleaCategoryCode>P</jxdm51:PleaCategoryCode>
                </jxdm51:ChargePlea>
@@ -92,7 +92,7 @@
                      <nc30:IdentificationID>45466065</nc30:IdentificationID>
                   </nc30:ActivityIdentification>
                   <nc30:ActivityDate>
-                     <nc30:Date>1977-05-15T00:00:00</nc30:Date>
+                     <nc30:Date>1977-05-15</nc30:Date>
                   </nc30:ActivityDate>
                   <nc30:ActivityStatus>
                      <nc30:StatusDescriptionText>Descision Pending</nc30:StatusDescriptionText>
@@ -135,7 +135,7 @@
                <nc30:IdentificationID>07833465</nc30:IdentificationID>
             </nc30:ActivityIdentification>
             <nc30:ActivityDate>
-               <nc30:Date>1955-06-11T00:00:00</nc30:Date>
+               <nc30:Date>1955-06-11</nc30:Date>
             </nc30:ActivityDate>
             <nc30:ActivityDescriptionText>Speeding</nc30:ActivityDescriptionText>
             <nc30:ActivityName>Burglary</nc30:ActivityName>
@@ -148,7 +148,7 @@
             </jxdm51:CourtEventJudge>
             <ccq-res-ext:FirstCourtAppearance>
                <jxdm51:CourtAppearanceDate>
-                  <nc30:Date>1985-11-21T00:00:00</nc30:Date>
+                  <nc30:Date>1985-11-21</nc30:Date>
                </jxdm51:CourtAppearanceDate>
             </ccq-res-ext:FirstCourtAppearance>
             <ccq-res-ext:CourtEventCommentsText>A lot of commotion</ccq-res-ext:CourtEventCommentsText>
@@ -175,10 +175,10 @@
             <nc30:ActivityCategoryText>Prosecution</nc30:ActivityCategoryText>
             <nc30:ActivityDateRange>
                <nc30:StartDate>
-                  <nc30:DateTime>1967-06-14T00:00:00</nc30:DateTime>
+                  <nc30:DateTime>1967-06-14</nc30:DateTime>
                </nc30:StartDate>
                <nc30:EndDate>
-                  <nc30:DateTime>1989-12-14T00:00:00</nc30:DateTime>
+                  <nc30:DateTime>1989-12-14</nc30:DateTime>
                </nc30:EndDate>
             </nc30:ActivityDateRange>
             <nc30:ActivityDescriptionText>Jury meeting</nc30:ActivityDescriptionText>
@@ -227,7 +227,7 @@
       <ccq-res-ext:CaseAugmentation>
          <ccq-res-ext:CaseSealedIndicator>false</ccq-res-ext:CaseSealedIndicator>
          <ccq-res-ext:RemandDate>
-            <nc30:Date>1933-06-22T00:00:00</nc30:Date>
+            <nc30:Date>1933-06-22</nc30:Date>
          </ccq-res-ext:RemandDate>
       </ccq-res-ext:CaseAugmentation>
    </nc30:Case>
@@ -235,14 +235,14 @@
       <nc30:CaseTrackingID>99847510</nc30:CaseTrackingID>
       <nc30:CaseFiling>
          <nc30:DocumentCreationDate>
-            <nc30:Date>1964-04-20T00:00:00</nc30:Date>
+            <nc30:Date>1964-04-20</nc30:Date>
          </nc30:DocumentCreationDate>
       </nc30:CaseFiling>
    </jxdm51:AppellateCase>
    <nc30:Identity s30:id="Identity_01">
       <nc30:IdentityPersonRepresentation>
          <nc30:PersonBirthDate>
-            <nc30:Date>1942-04-21T00:00:00</nc30:Date>
+            <nc30:Date>1942-04-21</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonName>
             <nc30:PersonGivenName>Robert</nc30:PersonGivenName>
@@ -272,7 +272,7 @@
       </nc30:ActivityIdentification>
       <jxdm51:CitationViolation>
          <nc30:ActivityDate>
-            <nc30:Date>1953-07-08T00:00:00</nc30:Date>
+            <nc30:Date>1953-07-08</nc30:Date>
          </nc30:ActivityDate>
          <nc30:IncidentLocation>
             <nc30:Address>
@@ -295,7 +295,7 @@
       </jxdm51:CitationViolation>
       <ccq-res-ext:CitationAugmentation>
          <jxdm51:CourtAppearanceDate>
-            <nc30:DateTime>1963-02-26T00:00:00</nc30:DateTime>
+            <nc30:DateTime>1963-02-26</nc30:DateTime>
          </jxdm51:CourtAppearanceDate>
          <ccq-res-ext:CourtAppearanceRequiredIndicator>true</ccq-res-ext:CourtAppearanceRequiredIndicator>
          <ccq-res-ext:LicenseSurrenderedIndicator>true</ccq-res-ext:LicenseSurrenderedIndicator>
@@ -313,7 +313,7 @@
       </jxdm51:DrivingIncidentLegalSpeedRateMeasure>
       <jxdm51:Arrest s30:id="Arrest_01">
          <nc30:ActivityDate>
-            <nc30:Date>1966-07-25T00:00:00</nc30:Date>
+            <nc30:Date>1966-07-25</nc30:Date>
          </nc30:ActivityDate>
          <jxdm51:ArrestAgencyRecordIdentification>
             <nc30:IdentificationID>98730468</nc30:IdentificationID>
@@ -346,10 +346,10 @@
          <nc30:ActivityCategoryText>Jail</nc30:ActivityCategoryText>
          <nc30:ActivityDateRange>
             <nc30:StartDate>
-               <nc30:Date>1928-07-19T00:00:00</nc30:Date>
+               <nc30:Date>1928-07-19</nc30:Date>
             </nc30:StartDate>
             <nc30:EndDate>
-               <nc30:Date>1941-04-01T00:00:00</nc30:Date>
+               <nc30:Date>1941-04-01</nc30:Date>
             </nc30:EndDate>
          </nc30:ActivityDateRange>
          <nc30:SupervisionCustodyStatus>
@@ -385,7 +385,7 @@
       </nc30:Vehicle>
       <nc30:Person s30:id="Person_01">
          <nc30:PersonBirthDate>
-            <nc30:Date>1946-12-26T00:00:00</nc30:Date>
+            <nc30:Date>1946-12-26</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonDescriptionText>Tall black male</nc30:PersonDescriptionText>
          <nc30:PersonEthnicityText>A</nc30:PersonEthnicityText>
@@ -416,10 +416,10 @@
                   <nc30:IdentificationSourceText>VT</nc30:IdentificationSourceText>
                </jxdm51:DriverLicenseIdentification>
                <jxdm51:DriverLicenseExpirationDate>
-                  <nc30:DateTime>1956-10-29T00:00:00</nc30:DateTime>
+                  <nc30:DateTime>1956-10-29</nc30:DateTime>
                </jxdm51:DriverLicenseExpirationDate>
                <jxdm51:DriverLicenseIssueDate>
-                  <nc30:DateTime>1954-11-15T00:00:00</nc30:DateTime>
+                  <nc30:DateTime>1954-11-15</nc30:DateTime>
                </jxdm51:DriverLicenseIssueDate>
                <jxdm51:DriverLicenseNonCommercialClassText>C</jxdm51:DriverLicenseNonCommercialClassText>
             </jxdm51:DriverLicense>
@@ -482,7 +482,7 @@
       </ccq-res-ext:InformationOwningOrganization>
       <nc30:Metadata>
          <nc30:LastUpdatedDate>
-            <nc30:Date>1937-07-19T00:00:00</nc30:Date>
+            <nc30:Date>1937-07-19</nc30:Date>
          </nc30:LastUpdatedDate>
       </nc30:Metadata>
       <qrm:QueryResultsMetadata>

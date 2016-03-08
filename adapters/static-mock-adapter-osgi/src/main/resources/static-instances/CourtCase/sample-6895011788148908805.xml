@@ -263,7 +263,7 @@
    <nc30:Identity s30:id="Identity_01">
       <nc30:IdentityPersonRepresentation>
          <nc30:PersonBirthDate>
-            <nc30:Date>1941-03-04T00:00:00</nc30:Date>
+            <nc30:Date>1941-03-04</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonName>
             <nc30:PersonGivenName>Geneva</nc30:PersonGivenName>
