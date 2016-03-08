@@ -29,9 +29,9 @@ public class OJBCWebServiceURIs {
 	public static final String VEHICLE_TO_INCIDENT = "{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest";
 	public static final String JUVENILE_HISTORY = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory";
 	public static final String JUVENILE_HISTORY_SEARCH = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory";
-	public static final String COURT_CASE = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-Court";
-	public static final String JAIL = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-Jail";
-	public static final String COURT_CASE_DETAIL = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-CourtDetail";
-	public static final String JAIL_DETAIL = "{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JailDetail";
+	public static final String COURT_CASE = "{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest";
+	public static final String JAIL = "{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest";
+	public static final String COURT_CASE_DETAIL = "{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}/SubmitCourtCaseQueryRequest";
+	public static final String JAIL_DETAIL = "{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}SubmitCustodyQueryRequest";
 	
 }
