@@ -20,20 +20,20 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-    
-  <groupId>org.ojbc.bundles.intermediaries</groupId>
-  <artifactId>charge-referral-reporting-service-intermediary</artifactId>
-  <packaging>bundle</packaging>
-  <version>1.0.0</version>
-  
-  <name>OJB :: charge-referral-reporting-service-intermediary :: intermediary</name>
-  <url>http://www.search.org</url>	 
   
   <parent>
     <groupId>org.ojbc.build</groupId>
     <artifactId>ojb-intermediaries-aggregate</artifactId>
     <version>1.0.0</version>
-  </parent>  
+  </parent>
+  
+  <groupId>org.ojbc.bundles.intermediaries</groupId>
+  <artifactId>warrant-issued-reporting-intermediary-service</artifactId>
+  <packaging>bundle</packaging>
+  <version>1.0.0</version>
+  
+  <name>OJB :: warrant-issued-reporting-intermediary-service :: intermediary</name>
+  <url>http://www.search.org</url>
   
 	<properties>
 		<camel-version>2.14.4</camel-version>
