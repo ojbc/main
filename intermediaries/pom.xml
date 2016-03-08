@@ -32,7 +32,7 @@
 
   <modules>
     <module>arrest-reporting-service-intermediary</module>
-    <module>behavior-health-evaluation-reporting-service-intermediary</module>
+    <module>behavioral-health-evaluation-reporting-service-intermediary</module>
     <module>booking-reporting-service-intermediary</module>
     <module>case-filing-decision-reporting-service-intermediary</module>
     <module>charge-referral-reporting-service-intermediary</module>
