@@ -908,6 +908,9 @@ public class StaticMockQuery {
 				xPaths = getJuvenileHistoryXPaths();
 				
 			}else if(OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXCH_DOC.equals(rootNamespace) && "CustodyQueryResults".equals(rootLocalName)){
+				
+				LOG.info("\n\n\n ****** \n\n personSearchDocuments(...) found CustodyQueryResults  \n\n ****** \n\n\n");
+				
 				xPaths = getCustodyXPaths();
 				
 			}else if(OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC.equals(rootNamespace) && "CourtCaseQueryResults".equals(rootLocalName)){
@@ -1597,7 +1600,13 @@ public class StaticMockQuery {
 				rDocList.addAll(personSearchJuvenileHistoryDocuments(personSearchRequestMessage, baseDate));
 				
 			}else if(CUSTODY_PERSON_SEARCH_SYSTEM_ID.equals(systemId)){
+				
+				LOG.info("\n\n\n ***** \n\n   personSearchDocumentsAsList(....) sysId match for CUSTODY   \n\n ******* \n\n\n");
+				
 				rDocList.addAll(custodySearchCustodyDocuments(personSearchRequestMessage, baseDate));
+				
+				LOG.info("\n\n\n  rDocList size ==  " + rDocList == null ? null : String.valueOf(rDocList.size()) + "\n\n\n");
+				
 				
 			}else if(COURT_CASE_PERSON_SEARCH_SYSTEM_ID.equals(systemId)){
 				rDocList.addAll(courtCaseSearchCourtCaseDocuments(personSearchRequestMessage, baseDate));
