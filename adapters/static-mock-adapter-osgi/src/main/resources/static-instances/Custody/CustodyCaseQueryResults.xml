@@ -45,7 +45,7 @@
       <nc:PersonMiddleName>nc:PersonMiddleName</nc:PersonMiddleName>
       <nc:PersonSurName>nc:PersonSurName</nc:PersonSurName>
     </nc:PersonName>
-    <nc:PersonRaceText>nc:PersonRaceText</nc:PersonRaceText>
+    <j:PersonRaceCode>W</j:PersonRaceCode>
     <nc:PersonSexText>nc:PersonSexText</nc:PersonSexText>
     <nc:PersonSSNIdentification>
       <nc:IdentificationID>123-45-6789</nc:IdentificationID>

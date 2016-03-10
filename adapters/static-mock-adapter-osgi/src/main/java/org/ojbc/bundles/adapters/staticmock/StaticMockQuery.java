@@ -907,10 +907,7 @@ public class StaticMockQuery {
 			} else if (OjbcNamespaceContext.NS_JUVENILE_HISTORY_CONTAINER.equals(rootNamespace) && "JuvenileHistoryContainer".equals(rootLocalName)) {
 				xPaths = getJuvenileHistoryXPaths();
 				
-			}else if(OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXCH_DOC.equals(rootNamespace) && "CustodyQueryResults".equals(rootLocalName)){
-				
-				LOG.info("\n\n\n ****** \n\n personSearchDocuments(...) found CustodyQueryResults  \n\n ****** \n\n\n");
-				
+			}else if(OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXCH_DOC.equals(rootNamespace) && "CustodyQueryResults".equals(rootLocalName)){								
 				xPaths = getCustodyXPaths();
 				
 			}else if(OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC.equals(rootNamespace) && "CourtCaseQueryResults".equals(rootLocalName)){
@@ -980,6 +977,7 @@ public class StaticMockQuery {
 				Element e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonRaceCode");
 				e.setTextContent(raceElement.getTextContent());
 			}
+			
 			Element sexElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.sexXPath);
 			if (sexElement != null) {
 				Element e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonSexCode");
@@ -1820,9 +1818,9 @@ public class StaticMockQuery {
 		xPaths.middleNameXPath = "//nc30:PersonName/nc30:PersonMiddleName";
 		xPaths.firstNameXPath = "//nc30:PersonName/nc30:PersonGivenName";
 		xPaths.eyeColorXPath = null;
-		xPaths.hairColorXPath = null;
-		xPaths.raceXPath = "//nc30:PersonRaceText";
-		xPaths.sexXPath = "//nc30:PersonSexText";
+		xPaths.hairColorXPath = null;		
+		xPaths.raceXPath = "//jxdm51:PersonRaceCode";  
+		xPaths.sexXPath =  "//jxdm51:PersonSexCode"; 		
 		xPaths.heightXPath = null;
 		xPaths.weightXPath = null;		
 		xPaths.searchSystemId = CUSTODY_SEARCH_SYSTEM_ID;		
@@ -1840,9 +1838,9 @@ public class StaticMockQuery {
 		xPaths.birthdateXPath = "//nc30:PersonBirthDate";
 		xPaths.ssnXPath = "//nc30:PersonSSNIdentification/nc30:IdentificationID";
 		xPaths.sidXPath = "//nc30:PersonStateIdentification/nc30:IdentificationID";
-		xPaths.fbiXPath = "//nc30:PersonFBIIdentification/nc30:IdentificationID";
-		xPaths.dlXPath = null;
-		xPaths.dlJurisdictionXPath = null;
+		xPaths.fbiXPath = "//nc30:PersonFBIIdentification/nc30:IdentificationID";		
+		xPaths.dlXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc30:IdentificationID";
+		xPaths.dlJurisdictionXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc30:IdentificationSourceText";				
 		xPaths.lastNameXPath = "//nc30:PersonSurName";
 		xPaths.middleNameXPath = "//nc30:PersonMiddleName";
 		xPaths.firstNameXPath = "//nc30:PersonGivenName";
@@ -2011,7 +2009,7 @@ public class StaticMockQuery {
 				}
 			}
 
-			boolean checkLastName = checkStringFieldMatches(d, psp.lastName, xPaths.lastNameXPath, psp.lastNameSearchStartsWith);
+			boolean checkLastName = checkStringFieldMatches(d, psp.lastName, xPaths.lastNameXPath, psp.lastNameSearchStartsWith);										
 			boolean checkFirstName = checkStringFieldMatches(d, psp.firstName, xPaths.firstNameXPath, psp.firstNameSearchStartsWith);
 			boolean checkEyeColor = checkFieldEqual(d, psp.eyeColor, xPaths.eyeColorXPath);
 			boolean checkHairColor = checkFieldEqual(d, psp.hairColor, xPaths.hairColorXPath);
@@ -2142,6 +2140,7 @@ public class StaticMockQuery {
 			Element documentElement = (Element) XmlUtils.xPathNodeSearch(d, xPath);
 			if (documentElement != null) {
 				String documentValue = documentElement.getTextContent();
+								
 				if (documentValue != null) {
 					String valueS = value.toString().toUpperCase();
 					ret = documentValue.toUpperCase().startsWith(valueS);
