@@ -1426,7 +1426,7 @@ public class SearchTest extends AbstractStaticMockTest {
             }
             
             if(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID.equals(sourceSysNameText)){            	
-            	courtCaseResult = e;
+            	courtCaseResult = e;            	
             }
             
             if(StaticMockQuery.VEHICLE_CRASH_SEARCH_SYSTEM_ID.equals(sourceSysNameText)){
@@ -1528,17 +1528,14 @@ public class SearchTest extends AbstractStaticMockTest {
         String sCourtCaseDrivLicId = XmlUtils.xPathStringSearch(courtCaseResult, 
         		"psres:Person/jxdm41:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID");
         assertEquals("4567", sCourtCaseDrivLicId);
-        
-        
-          String sCourtCaseDrivLicSrcTxt = XmlUtils.xPathStringSearch(courtCaseResult, 
+                
+        String sCourtCaseDrivLicSrcTxt = XmlUtils.xPathStringSearch(courtCaseResult, 
         		  "psres:Person/jxdm41:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationSourceText");
         assertEquals("MO", sCourtCaseDrivLicSrcTxt);
         
-        
-        
-        
-        //TODO COURT CASE ASSERT - FBI ID
-        
+        String sCourtCaseFbiId = XmlUtils.xPathStringSearch(courtCaseResult, "psres:Person/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
+        assertEquals("4320", sCourtCaseFbiId);
+                
         
         // incidentResult
         

@@ -547,6 +547,9 @@
 				<j:DriverLicenseCommercialClassText>String</j:DriverLicenseCommercialClassText>
 				<j:DriverLicenseNonCommercialClassText>String</j:DriverLicenseNonCommercialClassText>
 			</j:DriverLicense>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>4320</nc:IdentificationID>
+			</j:PersonFBIIdentification>			
 		</j:PersonAugmentation>
 		<ccq-res-ext:PersonInmateIdentification>
 			<nc:IdentificationID>1234</nc:IdentificationID>

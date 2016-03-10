@@ -1017,7 +1017,8 @@ public class StaticMockQuery {
 					Element e = XmlUtils.appendElement(personAugElement, OjbcNamespaceContext.NS_JXDM_41, "PersonFBIIdentification");
 					e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
 					e.setTextContent(fbiElement.getTextContent());
-				}
+				}				
+				
 				if (sidElement != null) {
 					Element e = XmlUtils.appendElement(personAugElement, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");
 					e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
@@ -1597,14 +1598,8 @@ public class StaticMockQuery {
 			} else if (JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
 				rDocList.addAll(personSearchJuvenileHistoryDocuments(personSearchRequestMessage, baseDate));
 				
-			}else if(CUSTODY_PERSON_SEARCH_SYSTEM_ID.equals(systemId)){
-				
-				LOG.info("\n\n\n ***** \n\n   personSearchDocumentsAsList(....) sysId match for CUSTODY   \n\n ******* \n\n\n");
-				
-				rDocList.addAll(custodySearchCustodyDocuments(personSearchRequestMessage, baseDate));
-				
-				LOG.info("\n\n\n  rDocList size ==  " + rDocList == null ? null : String.valueOf(rDocList.size()) + "\n\n\n");
-				
+			}else if(CUSTODY_PERSON_SEARCH_SYSTEM_ID.equals(systemId)){								
+				rDocList.addAll(custodySearchCustodyDocuments(personSearchRequestMessage, baseDate));								
 				
 			}else if(COURT_CASE_PERSON_SEARCH_SYSTEM_ID.equals(systemId)){
 				rDocList.addAll(courtCaseSearchCourtCaseDocuments(personSearchRequestMessage, baseDate));
@@ -1838,7 +1833,7 @@ public class StaticMockQuery {
 		xPaths.birthdateXPath = "//nc30:PersonBirthDate";
 		xPaths.ssnXPath = "//nc30:PersonSSNIdentification/nc30:IdentificationID";
 		xPaths.sidXPath = "//nc30:PersonStateIdentification/nc30:IdentificationID";
-		xPaths.fbiXPath = "//nc30:PersonFBIIdentification/nc30:IdentificationID";		
+		xPaths.fbiXPath = "//jxdm51:PersonFBIIdentification/nc30:IdentificationID";		
 		xPaths.dlXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc30:IdentificationID";
 		xPaths.dlJurisdictionXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc30:IdentificationSourceText";				
 		xPaths.lastNameXPath = "//nc30:PersonSurName";
