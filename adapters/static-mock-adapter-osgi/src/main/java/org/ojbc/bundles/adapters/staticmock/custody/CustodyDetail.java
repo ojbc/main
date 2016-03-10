@@ -26,6 +26,7 @@ public class CustodyDetail {
 	private String personMiddleName;
 	private String personSurName;
 	private String personSex;
+	private String personRace;
 	private String personSsn;
 	private String personStateId;
 	private String fingerprintDate;
@@ -189,6 +190,12 @@ public class CustodyDetail {
 	}
 	public void setLastUpdatedDate(String lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
+	}
+	public String getPersonRace() {
+		return personRace;
+	}
+	public void setPersonRace(String personRace) {
+		this.personRace = personRace;
 	}
 
 }
