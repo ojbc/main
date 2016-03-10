@@ -535,6 +535,9 @@
 
 			<removeHeaders pattern="emailBody" />
 
+			<!-- Update last notification sent timestamp here -->
+			<camel:to uri="bean:notificationsSentStrategy?method=updateNotificationSentTimestamp" />
+
 			<camel:choice>
 				<camel:when>
 					<method ref="sendEmailNotificationsByConfigurationProcessor" method="sendEmailNotificationsToRecipients" />
@@ -544,6 +547,31 @@
 					<camel:log message="No email will be sent, email property sendEmailNotifications set to false"></camel:log>
 				</camel:otherwise>
 			</camel:choice>
+		</camel:route>
+		
+		<camel:route id="checkNotificationsSentRoute" autoStartup="{{publishSubscribe.checkForNotifications}}">
+			<camel:from uri="quartz://subscriptionNotification/notificationsSentTimer?cron={{publishSubscribe.checkForNotificationsSentCronTimer}}"/>			
+			
+			<camel:log message="Entering route to check when last notifications were sent" />
+			
+			<filter>
+				<method ref="notificationsSentStrategy" method="hasNotificationBeenSent" />
+				<camel:log message="Notification sent in defined interval, stop route" />
+				<camel:stop />
+			</filter>
+		
+			<!-- If we get here the route was not stopped by the filter -->
+		
+			<camel:setHeader headerName="to">
+				<constant>{{publishSubscribe.notificationAlertToEmailAddress}}</constant>
+			</camel:setHeader>
+		
+			<camel:setHeader headerName="subject">
+				<constant>Check subscription notification intermediary.  Notifications not sent in defined interval</constant>
+			</camel:setHeader>
+		
+			<to uri="smtpEndpoint" />
+			
 		</camel:route>
 
 		<!-- Criminal History Consolidation Request flow -->
