@@ -65,6 +65,8 @@
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonEyeColorCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PersonHairColorCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PersonRaceCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PersonSexCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PleaCategoryCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Probation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:SupervisionAugmentation" w:isReference="false" w:nillable="true"/>
@@ -787,6 +789,18 @@
     <w:Facet w:facet="enumeration" w:value="SDY"/>
     <w:Facet w:facet="enumeration" w:value="WHI"/>
     <w:Facet w:facet="enumeration" w:value="XXX"/>
+  </w:Type>
+  <w:Type w:name="ncic:RACCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="A"/>
+    <w:Facet w:facet="enumeration" w:value="B"/>
+    <w:Facet w:facet="enumeration" w:value="I"/>
+    <w:Facet w:facet="enumeration" w:value="U"/>
+    <w:Facet w:facet="enumeration" w:value="W"/>
+  </w:Type>
+  <w:Type w:name="ncic:SEXCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="F"/>
+    <w:Facet w:facet="enumeration" w:value="M"/>
+    <w:Facet w:facet="enumeration" w:value="U"/>
   </w:Type>
   <w:Type w:name="ncic:VCOCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="AME"/>
