@@ -163,5 +163,14 @@
 			<bean class="org.ojbc.intermediaries.sn.dao.DefaultValidationDueDateStrategy" />
 		</constructor-arg>
 	</bean>
-	
+
+	<bean id="notificationsSentStrategy" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="notificationsSentStrategy" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.intermediaries.sn.notification.DefaultNotificationsSentStrategy">
+				<property name="maxHoursBetweenNotifications" value="24"/>
+			</bean>
+		</constructor-arg>
+	</bean>	
 </beans>
