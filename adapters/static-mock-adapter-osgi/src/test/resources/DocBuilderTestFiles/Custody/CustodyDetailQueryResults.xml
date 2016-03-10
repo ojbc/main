@@ -48,8 +48,8 @@
 			<nc:PersonMiddleName>Jay</nc:PersonMiddleName>
 			<nc:PersonSurName>Simpson</nc:PersonSurName>
 		</nc:PersonName>
-		<nc:PersonRaceText>A</nc:PersonRaceText>
-		<nc:PersonSexText>M</nc:PersonSexText>
+		<j:PersonRaceCode>A</j:PersonRaceCode>
+		<j:PersonSexCode>M</j:PersonSexCode>
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>123-45-6789</nc:IdentificationID>
 		</nc:PersonSSNIdentification>

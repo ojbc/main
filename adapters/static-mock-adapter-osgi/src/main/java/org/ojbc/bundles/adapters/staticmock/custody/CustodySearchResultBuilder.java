@@ -146,11 +146,11 @@ public class CustodySearchResultBuilder {
 		
 		if(StringUtils.isNotBlank(sPersonSex)){
 			
-			Element personSexTxt = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonSexText");
+			Element personSexCodeEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
 			
 			sPersonSex = sPersonSex.trim();
 			
-			personSexTxt.setTextContent(sPersonSex);			
+			personSexCodeEl.setTextContent(sPersonSex);			
 		}
 		
 		
@@ -447,8 +447,10 @@ public class CustodySearchResultBuilder {
 		String surNameVal = XmlUtils.xPathStringSearch(custodyDetailDoc, "//nc30:PersonName/nc30:PersonSurName");
 		rCustodyDetail.setPersonSurName(surNameVal);
 		
-		String personSexVal = XmlUtils.xPathStringSearch(custodyDetailDoc, "//nc30:PersonSexText");
+		String personSexVal = XmlUtils.xPathStringSearch(custodyDetailDoc, "//jxdm51:PersonSexCode");
 		rCustodyDetail.setPersonSex(personSexVal);
+		
+		//TODO RACE
 		
 		String ssnVal = XmlUtils.xPathStringSearch(custodyDetailDoc, "//nc30:PersonSSNIdentification/nc30:IdentificationID");
 		rCustodyDetail.setPersonSsn(ssnVal);

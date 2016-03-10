@@ -1485,7 +1485,7 @@ public class SearchTest extends AbstractStaticMockTest {
         String sCustodyPersonSid = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
         assertEquals("abc123", sCustodyPersonSid);
         
-        String sCustodyPersonRaceCode = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/nc:PersonRaceCode");
+        String sCustodyPersonRaceCode = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/nc:PersonRaceCode");                
         assertEquals("A", sCustodyPersonRaceCode);
         
         String sCustodyPersonSexCode = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/nc:PersonSexCode");

@@ -279,10 +279,7 @@ public abstract class AbstractStaticMockTest {
 				OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");	
 		
 		vehicleCrashSourceSystemElement.setTextContent(StaticMockQuery.VEHICLE_CRASH_SEARCH_SYSTEM_ID);
-		
-		XmlUtils.printNode(personSearchRequestMessage);
-	
-		
+				
 		return personSearchRequestMessage;
 	}
 
