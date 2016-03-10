@@ -142,6 +142,17 @@ public class CustodySearchResultBuilder {
 			
 		}
 				
+		String sPersonRaceCode = custodyDetail.getPersonRace();
+		
+		if(StringUtils.isNotBlank(sPersonRaceCode)){
+			
+			Element personRaceCodeElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonRaceCode");
+			
+			sPersonRaceCode = sPersonRaceCode.trim();
+			
+			personRaceCodeElement.setTextContent(sPersonRaceCode);			
+		}		
+		
 		String sPersonSex = custodyDetail.getPersonSex();
 		
 		if(StringUtils.isNotBlank(sPersonSex)){
@@ -152,8 +163,7 @@ public class CustodySearchResultBuilder {
 			
 			personSexCodeEl.setTextContent(sPersonSex);			
 		}
-		
-		
+						
 		String sPersonSSNId = custodyDetail.getPersonSsn();
 		
 		if(StringUtils.isNotBlank(sPersonSSNId)){
@@ -450,7 +460,8 @@ public class CustodySearchResultBuilder {
 		String personSexVal = XmlUtils.xPathStringSearch(custodyDetailDoc, "//jxdm51:PersonSexCode");
 		rCustodyDetail.setPersonSex(personSexVal);
 		
-		//TODO RACE
+		String sPersonRaceCode = XmlUtils.xPathStringSearch(custodyDetailDoc, "//jxdm51:PersonRaceCode");
+		rCustodyDetail.setPersonRace(sPersonRaceCode);
 		
 		String ssnVal = XmlUtils.xPathStringSearch(custodyDetailDoc, "//nc30:PersonSSNIdentification/nc30:IdentificationID");
 		rCustodyDetail.setPersonSsn(ssnVal);

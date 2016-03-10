@@ -39,6 +39,7 @@
             <nc30:PersonMiddleName>Jay</nc30:PersonMiddleName>
             <nc30:PersonSurName>Simpson</nc30:PersonSurName>
          </nc30:PersonName>
+         <jxdm51:PersonRaceCode>A</jxdm51:PersonRaceCode>         
          <jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
          <nc30:PersonSSNIdentification>
             <nc30:IdentificationID>123-45-6789</nc30:IdentificationID>
