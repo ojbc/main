@@ -1525,7 +1525,19 @@ public class SearchTest extends AbstractStaticMockTest {
         assertEquals("123ABC", sCourtCasePersonSid);
         
         
-        //TODO COURT CASE ASSERT - FBI ID, DL, DL SRC TXT
+        String sCourtCaseDrivLicId = XmlUtils.xPathStringSearch(courtCaseResult, 
+        		"psres:Person/jxdm41:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID");
+        assertEquals("4567", sCourtCaseDrivLicId);
+        
+        
+          String sCourtCaseDrivLicSrcTxt = XmlUtils.xPathStringSearch(courtCaseResult, 
+        		  "psres:Person/jxdm41:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationSourceText");
+        assertEquals("MO", sCourtCaseDrivLicSrcTxt);
+        
+        
+        
+        
+        //TODO COURT CASE ASSERT - FBI ID
         
         
         // incidentResult
