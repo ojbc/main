@@ -32,6 +32,7 @@
   <w:Element w:name="j:BailBond" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:BailBondChargeAssociation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Booking" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:CaseAugmentation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Charge" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ChargeCategoryDescriptionText"
     w:isReference="false" w:nillable="true"/>
@@ -53,11 +54,15 @@
   <w:Element w:name="nc:Address" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Agency" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Base64BinaryObject" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:Case" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Date" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:DateTime" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:EmployeeOccupationCategoryText"
     w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:LanguageName" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Location" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:Location2DGeospatialCoordinate"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Metadata" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Person" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonResidentText" w:isReference="false" w:nillable="false"/>
@@ -95,6 +100,10 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:BookingAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:CaseAugmentationType" w:isRequested="false">
+    <w:ElementInType w:name="j:CaseCourt" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:ChargeType" w:isRequested="true">
     <w:ElementInType w:name="j:ChargeCategoryDescriptionText"
@@ -168,6 +177,10 @@
     <w:ElementInType w:name="nc:BinaryObject" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:CaseType" w:isRequested="false">
+    <w:ElementInType w:name="nc:CaseAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:DateRangeType" w:isRequested="false">
     <w:ElementInType w:name="nc:StartDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -197,8 +210,24 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ImageType" w:isRequested="true"/>
+  <w:Type w:name="nc:LatitudeCoordinateType" w:isRequested="false">
+    <w:ElementInType w:name="nc:LatitudeDegreeValue"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:Location2DGeospatialCoordinateType" w:isRequested="false">
+    <w:ElementInType w:name="nc:GeographicCoordinateLatitude"
+      w:isReference="false" w:minOccurs="1" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:GeographicCoordinateLongitude"
+      w:isReference="false" w:minOccurs="1" w:maxOccurs="1"/>
+  </w:Type>
   <w:Type w:name="nc:LocationType" w:isRequested="false">
     <w:ElementInType w:name="nc:LocationAddressAbstract"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:LocationGeospatialCoordinate"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:LongitudeCoordinateType" w:isRequested="false">
+    <w:ElementInType w:name="nc:LongitudeDegreeValue"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:MetadataType" w:isRequested="false">
@@ -213,6 +242,10 @@
     <w:ElementInType w:name="nc:OrganizationBranchName"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:PersonLanguageType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Language" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:PersonNameType" w:isRequested="false">
@@ -238,6 +271,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonPrimaryLanguage"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonRace" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonResident" w:isReference="false"

@@ -81,6 +81,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="CaseType">
+    <xs:annotation>
+      <xs:documentation>A data type for an aggregation of information about a set of related activities and events.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="nc:CaseAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="DateRangeType">
     <xs:annotation>
       <xs:documentation>A data type for a range of dates.</xs:documentation>
@@ -153,6 +165,58 @@
       <xs:extension base="nc:BinaryType"/>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="LatitudeCoordinateType">
+    <xs:annotation>
+      <xs:documentation>A data type for a measurement of the angular distance between a point on the Earth and the Equator.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:LatitudeDegreeValue" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="LatitudeDegreeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for a degree of latitude.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:maxInclusive value="90">
+        <xs:annotation>
+          <xs:documentation>The maximum value for a latitude degree.</xs:documentation>
+        </xs:annotation>
+      </xs:maxInclusive>
+      <xs:minInclusive value="-90">
+        <xs:annotation>
+          <xs:documentation>The minimum value for a latitude degree.</xs:documentation>
+        </xs:annotation>
+      </xs:minInclusive>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="LatitudeDegreeType">
+    <xs:annotation>
+      <xs:documentation>A data type for a degree of latitude.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="nc:LatitudeDegreeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="Location2DGeospatialCoordinateType">
+    <xs:annotation>
+      <xs:documentation>A data type for a location identified by latitude and longitude.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:GeographicCoordinateLatitude" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="nc:GeographicCoordinateLongitude" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="LocationType">
     <xs:annotation>
       <xs:documentation>A data type for geospatial location.</xs:documentation>
@@ -161,9 +225,49 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:LocationAddressAbstract" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:LocationGeospatialCoordinate" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LongitudeCoordinateType">
+    <xs:annotation>
+      <xs:documentation>A data type for a measurement of the angular distance between a point on the Earth and the Prime Meridian.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:LongitudeDegreeValue" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="LongitudeDegreeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for a degree of longitude.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:maxExclusive value="180">
+        <xs:annotation>
+          <xs:documentation>The maximum value for a longitude degree.</xs:documentation>
+        </xs:annotation>
+      </xs:maxExclusive>
+      <xs:minInclusive value="-180">
+        <xs:annotation>
+          <xs:documentation>The minimum value for a longitude degree.</xs:documentation>
+        </xs:annotation>
+      </xs:minInclusive>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="LongitudeDegreeType">
+    <xs:annotation>
+      <xs:documentation>A data type for a degree of longitude.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="nc:LongitudeDegreeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="MetadataType">
     <xs:annotation>
@@ -198,6 +302,18 @@
         <xs:sequence>
           <xs:element ref="nc:OrganizationBranchName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PersonLanguageType">
+    <xs:annotation>
+      <xs:documentation>A data type for a language capability of a person.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:Language" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -238,6 +354,7 @@
           <xs:element ref="nc:PersonEthnicity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonMilitarySummary" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonPrimaryLanguage" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonRace" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonResident" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonSex" minOccurs="0" maxOccurs="unbounded"/>
@@ -370,6 +487,16 @@
       <xs:documentation>A data concept for a binary encoding of data.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="Case" type="nc:CaseType">
+    <xs:annotation>
+      <xs:documentation>An aggregation of information about a set of related activities and events.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CaseType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Date" type="niem-xs:date" substitutionGroup="nc:DateRepresentation">
     <xs:annotation>
       <xs:documentation>A full date.</xs:documentation>
@@ -415,6 +542,16 @@
       <xs:documentation>An identification assigned to a facility.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="GeographicCoordinateLatitude" type="nc:LatitudeCoordinateType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A measurement of the angular distance between a point on the Earth and the Equator.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="GeographicCoordinateLongitude" type="nc:LongitudeCoordinateType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A measurement of the angular distance between a point on the Earth and the Prime Meridian.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="IdentificationAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for IdentificationType.</xs:documentation>
@@ -430,9 +567,24 @@
       <xs:documentation>An identifier.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="Language" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a system of words or symbols used for communication.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LanguageName" type="nc:TextType" substitutionGroup="nc:Language">
+    <xs:annotation>
+      <xs:documentation>A name of a system of words or symbols used for communication.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="LastUpdatedDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date information was last modified.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LatitudeDegreeValue" type="nc:LatitudeDegreeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A value that specifies the degree of a latitude. The value comes from a restricted range between -90 (inclusive) and +90 (inclusive).</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Location" type="nc:LocationType" nillable="true">
@@ -440,9 +592,24 @@
       <xs:documentation>A geospatial location.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="Location2DGeospatialCoordinate" type="nc:Location2DGeospatialCoordinateType" substitutionGroup="nc:LocationGeospatialCoordinate">
+    <xs:annotation>
+      <xs:documentation>A location identified by a latitude and longitude.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="LocationAddressAbstract" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a set of information, such as postal information, used to describe a location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationGeospatialCoordinate" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a geospatial location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LongitudeDegreeValue" type="nc:LongitudeDegreeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A value that specifies the degree of a longitude. The value comes from a restricted range between -180 (inclusive) and +180 (exclusive).</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Metadata" type="nc:MetadataType" nillable="true" appinfo:appliesToTypes="structures:ObjectType structures:AssociationType">
@@ -518,6 +685,11 @@
   <xs:element name="PersonNameAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for PersonNameType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonPrimaryLanguage" type="nc:PersonLanguageType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A capacity of a person for a language with which that person has the strongest familiarity.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonRace" abstract="true">

@@ -36,7 +36,7 @@
 					<xsd:element ref="intel:SystemIdentification" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="cq-res-ext:Custody" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="cq-res-ext:SourceSystemNameText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="cq-res-ext:QueryResultCategoryText" minOccurs="0" />
+					<xsd:element ref="cq-res-ext:QueryResultCategoryText" minOccurs="0"/>
 					<xsd:element ref="cq-res-ext:InformationOwningOrganization" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Metadata" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="srm:QueryResultsMetadata" minOccurs="0"/>
@@ -51,6 +51,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
+					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="1"/>
 					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:Detention" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:BailBond" minOccurs="0" maxOccurs="unbounded"/>
