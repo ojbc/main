@@ -17,16 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<cq-res-doc:CustodyQueryResults
-	xmlns:cq-res-doc="http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0"
-	xmlns:cq-res-ext="http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
-	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
-	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0 ../xsd/impl/adams_county/booking_codes.xsd">
+<cq-res-doc:CustodyQueryResults xmlns:cq-res-doc="http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0" xmlns:cq-res-ext="http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0 ../xsd/impl/adams_county/booking_codes.xsd">
 	<nc:DocumentCreationDate>
 		<nc:DateTime>2012-12-17T09:30:47.0Z</nc:DateTime>
 	</nc:DocumentCreationDate>
@@ -38,6 +29,13 @@
 		<nc:SystemName>Source System Name</nc:SystemName>
 	</intel:SystemIdentification>
 	<cq-res-ext:Custody>
+		<nc:Case structures:id="Case_01">
+			<j:CaseAugmentation>
+				<j:CaseCourt>
+					<j:CourtName>Case Court</j:CourtName>
+				</j:CaseCourt>
+			</j:CaseAugmentation>
+		</nc:Case>
 		<j:Booking structures:id="Booking_01">
 			<nc:ActivityDate>
 				<nc:DateTime>2013-12-17T09:30:00</nc:DateTime>
@@ -48,7 +46,7 @@
 				</nc:FacilityIdentification>
 			</j:BookingDetentionFacility>
 			<j:BookingSubject>
-				<nc:RoleOfPerson structures:ref="Person_01" />
+				<nc:RoleOfPerson structures:ref="Person_01"/>
 				<j:SubjectIdentification>
 					<nc:IdentificationID>Booking Number</nc:IdentificationID>
 				</j:SubjectIdentification>
@@ -104,7 +102,7 @@
 			<j:ArrestAgency>
 				<nc:OrganizationName>Arrest Agency name</nc:OrganizationName>
 			</j:ArrestAgency>
-			<j:ArrestLocation structures:ref="Loc_01" />
+			<j:ArrestLocation structures:ref="Loc_01"/>
 		</j:Arrest>
 		<cyfs:NextCourtEvent structures:id="Event_01">
 			<nc:ActivityDate>
@@ -127,6 +125,9 @@
 				<nc:PersonMiddleName>H.</nc:PersonMiddleName>
 				<nc:PersonSurName>Strong</nc:PersonSurName>
 			</nc:PersonName>
+			<nc:PersonPrimaryLanguage>
+				<nc:LanguageName>English</nc:LanguageName>
+			</nc:PersonPrimaryLanguage>
 			<j:PersonRaceCode>A</j:PersonRaceCode>
 			<nc:PersonResidentText>Residence</nc:PersonResidentText>
 			<j:PersonSexCode>F</j:PersonSexCode>
@@ -144,18 +145,27 @@
 				<nc:AddressFullText>30 Main Street Denton, Colorada
 				</nc:AddressFullText>
 			</nc:Address>
+			<nc:Location2DGeospatialCoordinate>
+				<nc:GeographicCoordinateLatitude>
+					<nc:LatitudeDegreeValue>56.1111</nc:LatitudeDegreeValue>
+				</nc:GeographicCoordinateLatitude>
+				<nc:GeographicCoordinateLongitude>
+					<nc:LongitudeDegreeValue>32.1111</nc:LongitudeDegreeValue>
+				</nc:GeographicCoordinateLongitude>
+			</nc:Location2DGeospatialCoordinate>
 		</nc:Location>
 		<j:ActivityChargeAssociation>
-			<nc:Activity structures:ref="Booking_01" />
-			<nc:Activity structures:ref="Event_01" />
-			<nc:Activity structures:ref="Detention_01" />
-			<nc:Activity structures:ref="Arrest_01" />
-			<nc:Activity structures:ref="Event_01" />
-			<j:Charge structures:ref="Charge_01" />
+			<nc:Activity structures:ref="Case_01"/>
+			<nc:Activity structures:ref="Booking_01"/>
+			<nc:Activity structures:ref="Event_01"/>
+			<nc:Activity structures:ref="Detention_01"/>
+			<nc:Activity structures:ref="Arrest_01"/>
+			<nc:Activity structures:ref="Event_01"/>
+			<j:Charge structures:ref="Charge_01"/>
 		</j:ActivityChargeAssociation>
 		<j:BailBondChargeAssociation>
-			<j:BailBond structures:ref="Bond_01" />
-			<j:Charge structures:ref="Charge_01" />
+			<j:BailBond structures:ref="Bond_01"/>
+			<j:Charge structures:ref="Charge_01"/>
 		</j:BailBondChargeAssociation>
 	</cq-res-ext:Custody>
 	<cq-res-ext:SourceSystemNameText>Alpha Court System </cq-res-ext:SourceSystemNameText>
