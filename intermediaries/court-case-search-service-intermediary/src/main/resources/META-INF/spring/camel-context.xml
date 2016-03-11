@@ -25,6 +25,9 @@
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:ctx="http://www.springframework.org/schema/context"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchRequestExtension/1.0"
+	xmlns:extResults="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0"
+	xmlns:ccs-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
@@ -51,7 +54,7 @@
 
 
 		<!-- Federated Search Request Handler-->
-		<camel:route>
+		<camel:route id="courtCaseSearchRequestEndpointRoute">
 			<camel:from uri="courtCaseSearchRequestEndpoint" />
 
 			<camel:choice>
@@ -209,9 +212,8 @@
 		
 			<camel:from uri="direct:processFederatedResponse"/>
 			
-			<camel:setHeader headerName="searchResponseNodeCount">			
-				<!-- TODO fix element name -->
-				<xpath resultType="java.lang.String">count(//extResults:CourtCaseSearchResult)</xpath>
+			<camel:setHeader headerName="courtCaseSearchResultNodeCount">
+				<xpath resultType="java.lang.String">count(//ccs-res-doc:CourtCaseSearchResult)</xpath>
 			</camel:setHeader>
 			
 			<camel:setHeader headerName="errorResponseNodeCount">
@@ -219,8 +221,7 @@
 			</camel:setHeader>
 
 			<camel:setHeader headerName="courtCaseSearchContainerNodeCount">
-				<!-- TODO fix element name -->
-				<xpath resultType="java.lang.String">count(//psr:CourtCaseSearchResults)</xpath>
+				<xpath resultType="java.lang.String">count(//ccs-res-doc:CourtCaseSearchResults)</xpath>
 			</camel:setHeader>
 			
 			<camel:setHeader headerName="courtCaseSearchMaxRecords">
@@ -228,18 +229,18 @@
 			</camel:setHeader>
 			
 			
-			<log message="Error nodes: ${in.headers.errorResponseNodeCount}, Search Nodes: ${in.headers.searchResponseNodeCount}, court case search max records: ${in.headers.courtCaseSearchMaxRecords}"/>
+			<log message="Error nodes: ${in.headers.errorResponseNodeCount}, Search Nodes: ${in.headers.courtCaseSearchResultNodeCount}, container node: ${in.headers.courtCaseSearchContainerNodeCount} court case search max records: ${in.headers.courtCaseSearchMaxRecords}"/>
 			
 			<!-- In this case, we have exceeded the number of records allowed by the intermediary, create error and return -->
 			<camel:filter>
-				<camel:simple>${in.header.searchResponseNodeCount} > ${in.headers.courtCaseSearchMaxRecords}</camel:simple>
-				<camel:log message="\n\n\n The search results count (${in.header.searchResponseNodeCount}) is greater than the max records allowed (${in.headers.courtCaseSearchMaxRecords})"/>				
+				<camel:simple>${in.header.courtCaseSearchResultNodeCount} > ${in.headers.courtCaseSearchMaxRecords}</camel:simple>
+				<camel:log message="\n\n\n The search results count (${in.header.courtCaseSearchContainerNodeCount}) is greater than the max records allowed (${in.headers.courtCaseSearchMaxRecords})"/>				
 				<!-- TODO handle -->
 			</camel:filter>
 						
 			<!-- In this case, we have errors but no search results -->
 			<camel:filter>
-				<camel:simple>${in.header.searchResponseNodeCount} == 0 and ${in.header.errorResponseNodeCount} > 0</camel:simple>
+				<camel:simple>${in.header.courtCaseSearchContainerNodeCount} == 0 and ${in.header.errorResponseNodeCount} > 0</camel:simple>
 				<camel:log message="\n\n\n No search results returned, however, response contains error results"/>				
 				<!-- TODO handle -->				
 				<camel:stop/>
@@ -252,13 +253,13 @@
 				<!--  TODO handle -->				
 			</camel:filter>
 						
-			<!-- 1/2016: removed ER routing -->			
-			
 		</camel:route>
 
 	</camel:camelContext>
 
 	<!-- Spring Beans -->
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+
 	<util:map map-class="java.util.HashMap" id="federatedQueryManager" />
 
 	<bean id="federatedQueryResponseAggregator"
@@ -274,6 +275,7 @@
 			<ref bean="federatedQueryManager" />
 		</property>
 	</bean>
+	
 
 	<!-- Used to retrieve and persist SAML tokens -->
 	<bean id="camelSAMLTokenProcessor" class="org.ojbc.util.camel.security.saml.CamelSAMLTokenProcessor">
