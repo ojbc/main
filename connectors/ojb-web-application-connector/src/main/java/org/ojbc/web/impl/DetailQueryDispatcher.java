@@ -23,6 +23,7 @@ import javax.annotation.Resource;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.processor.person.query.CourtCaseQueryRequestProcessor;
 import org.ojbc.processor.person.query.CriminalHistoryRequestProcessor;
 import org.ojbc.processor.person.query.FirearmRegistrationQueryRequestProcessor;
 import org.ojbc.processor.person.query.IncidentReportRequestProcessor;
@@ -67,6 +68,9 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 	
 	@Autowired(required=false)
 	private PersonToCourtCaseSearchRequestProcessor personToCourtCaseSearchRequestProcessor;
+	
+	@Autowired(required=false)
+	private CourtCaseQueryRequestProcessor courtCaseQueryRequestProcessor;
 	
 	@Autowired(required=false)
 	private FirearmRegistrationQueryRequestProcessor firearmRegistrationQueryRequestProcessor;
@@ -151,6 +155,10 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 		} else if (OJBCWebServiceURIs.COURT_CASE.equals(requestIdSrcTxt)){
 			
 			return personToCourtCaseSearchRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
+		} else if (OJBCWebServiceURIs.COURT_CASE_DETAIL.equals(requestIdSrcTxt)){
+			
+			return courtCaseQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
 		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
 			

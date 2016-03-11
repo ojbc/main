@@ -145,6 +145,10 @@
 		<camel:endpoint id="personToCourtCaseSearchResultsHandlerServiceEndpoint"
 			uri="cxf:bean:personToCourtCaseSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 			
+	    <!-- Court Case Query Endpoint -->
+		<camel:endpoint id="courtCaseQueryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:courtCaseQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+			
 		<!-- In all of the endpoints below, the default value is provided in properties-context.xml -->
 		<!-- This allows an implementer to not have to explicitly set these values if they are not using the beans -->
 	
@@ -601,6 +605,23 @@
 		wsdlURL="classpath:ssp/Court_Case_Search_Results/schema/SIP_WS_1.2/Court_Case_Search_Results_Service.wsdl"
 		serviceName="ojbc:Court-Case-Search-Results-Service" endpointName="ojbc:Court-Case-Search-Results-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseSearchResultsService/1.0">
+		 <cxf:features> 
+ 			<policy:policies> 
+ 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+ 					<wsam:Addressing> 
+ 						<wsp:Policy /> 
+ 					</wsam:Addressing> 
+ 				</wsp:Policy> 
+ 			</policy:policies> 
+ 		</cxf:features>	 
+	</cxf:cxfEndpoint>
+       	
+	<!-- Person to Court Case Search Results Service, hosted by Web Application -->
+	<cxf:cxfEndpoint id="courtCaseQueryResultsHandlerService"
+		address="${webapplication.personQuery.courtCaseQueryRequestResultsEndpoint}"
+		wsdlURL="classpath:ssp/Court_Case_Query_Results/schemas/RS_WS-SIP_v1.2/Court_Case_Query_Results_Service.wsdl"
+		serviceName="ojbc:Court-Case-Query-Results-Service" endpointName="ojbc:Court-Case-Query-Results-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseQueryResultsService/1.0">
 		 <cxf:features> 
  			<policy:policies> 
  				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
