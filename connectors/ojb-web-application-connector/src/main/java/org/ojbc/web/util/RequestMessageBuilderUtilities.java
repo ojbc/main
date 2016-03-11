@@ -741,6 +741,27 @@ public class RequestMessageBuilderUtilities {
         systemName.setTextContent(IDENTIFICATION_RESULTS_ARCHIVE_REQUEST_SYSTEM_NAME);
         
 		return document;
+	}
+
+	public static String createPersonToCourtCaseSearchRequest(
+			String identificationID, String identificationSourceText) {
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("<ccs-req-doc:CourtCaseSearchRequest");
+		sb.append("	xmlns:ccs-req-doc=\"http://ojbc.org/IEPD/Exchange/CourtCaseSearchRequest/1.0\"");
+		sb.append("	xmlns:ccs-req-ext=\"http://ojbc.org/IEPD/Extensions/CourtCaseSearchRequestExtension/1.0\"");
+		sb.append("	xmlns:nc=\"http://release.niem.gov/niem/niem-core/3.0/\">");
+		sb.append("	<ccs-req-ext:Person>");
+		sb.append("		<nc:Person>");
+		sb.append("			<ccs-req-ext:PersonRecordIdentification>");
+		sb.append("				<nc:IdentificationID>" + identificationID + "</nc:IdentificationID>");
+		sb.append("			</ccs-req-ext:PersonRecordIdentification>");
+		sb.append("		</nc:Person>");
+		sb.append("	</ccs-req-ext:Person>");
+		sb.append("	<ccs-req-ext:SourceSystemNameText>" + identificationSourceText + "</ccs-req-ext:SourceSystemNameText>");
+		sb.append("</ccs-req-doc:CourtCaseSearchRequest>");
+		
+		return sb.toString();
 	}	
     
 }
