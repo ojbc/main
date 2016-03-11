@@ -31,10 +31,15 @@
   </nc:DocumentCreationDate>
   <nc:DocumentIdentification>
     <nc:IdentificationID>doc_01</nc:IdentificationID>
+    
+    <!--  TODO remove (not generating anyway) -->
     <nc:IdentificationCategoryDescriptionText>custody overview</nc:IdentificationCategoryDescriptionText>
   </nc:DocumentIdentification>
+  
+  <!-- TODO move down below Custody -->
   <cq-res-ext:SourceSystemNameText>Custody Info Database</cq-res-ext:SourceSystemNameText>
-  <!-- Inmate and Custody information -->
+  
+  <!-- TODO rename to Custody (generator already uses Custody -->
   <cq-res-ext:InmateCustody>
      <nc:PersonBirthDate>
           <nc:DateTime>2001-12-31</nc:DateTime>
