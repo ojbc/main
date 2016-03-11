@@ -353,6 +353,34 @@
 	    	<camel:to uri="bean:courtCaseQueryRequestProcessor?method=updateMapWithResponse"/>
 	    </camel:route>
 
+	    <!-- Custody Search Request Listener -->
+	    <camel:route id="personToCustodySearchResultsHandlerRoute" autoStartup="false">
+	    	<from uri="personToCustodySearchResultsHandlerServiceEndpoint"/>
+	    		    	
+	    	<camel:log message="Received response message - Custody Search ${body}" loggingLevel="DEBUG"/>
+
+	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+	    	<!-- We can use any message processor to process the payload, it is generic method -->
+			<camel:to uri="bean:personToCustodySearchMessageProcessor?method=processRequestPayload" />
+			
+	    	<camel:convertBodyTo type="java.lang.String"/>
+	    	<camel:to uri="bean:personToCustodySearchRequestProcessor?method=updateMapWithResponse"/>
+	    </camel:route>
+
+	    <!-- Custody Query Request Listener -->
+	    <camel:route id="custodyQueryResultsHandlerRoute" autoStartup="false">
+	    	<from uri="custodyQueryResultsHandlerServiceEndpoint"/>
+	    		    	
+	    	<camel:log message="Received response message - Custody Search ${body}" loggingLevel="DEBUG"/>
+
+	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+	    	<!-- We can use any message processor to process the payload, it is generic method -->
+			<camel:to uri="bean:custodyQueryRequestMessageProcessor?method=processRequestPayload" />
+			
+	    	<camel:convertBodyTo type="java.lang.String"/>
+	    	<camel:to uri="bean:custodyQueryRequestProcessor?method=updateMapWithResponse"/>
+	    </camel:route>
+
 	</camel:camelContext>
 
 	<!-- SAML map to persist tokens between CXF and Camel -->	

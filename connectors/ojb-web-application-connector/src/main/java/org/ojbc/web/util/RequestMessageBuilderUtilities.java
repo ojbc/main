@@ -745,19 +745,17 @@ public class RequestMessageBuilderUtilities {
 
 	public static String createPersonToCourtCaseSearchRequest(
 			String identificationID, String identificationSourceText) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		
 		sb.append("<ccs-req-doc:CourtCaseSearchRequest");
 		sb.append("	xmlns:ccs-req-doc=\"http://ojbc.org/IEPD/Exchange/CourtCaseSearchRequest/1.0\"");
 		sb.append("	xmlns:ccs-req-ext=\"http://ojbc.org/IEPD/Extensions/CourtCaseSearchRequestExtension/1.0\"");
 		sb.append("	xmlns:nc=\"http://release.niem.gov/niem/niem-core/3.0/\">");
-		sb.append("	<ccs-req-ext:Person>");
-		sb.append("		<nc:Person>");
-		sb.append("			<ccs-req-ext:PersonRecordIdentification>");
-		sb.append("				<nc:IdentificationID>" + identificationID + "</nc:IdentificationID>");
-		sb.append("			</ccs-req-ext:PersonRecordIdentification>");
-		sb.append("		</nc:Person>");
-		sb.append("	</ccs-req-ext:Person>");
+		sb.append("	<nc:Person>");
+		sb.append("		<ccs-req-ext:PersonRecordIdentification>");
+		sb.append("			<nc:IdentificationID>" + identificationID + "</nc:IdentificationID>");
+		sb.append("		</ccs-req-ext:PersonRecordIdentification>");
+		sb.append("	</nc:Person>");
 		sb.append("	<ccs-req-ext:SourceSystemNameText>" + identificationSourceText + "</ccs-req-ext:SourceSystemNameText>");
 		sb.append("</ccs-req-doc:CourtCaseSearchRequest>");
 		
@@ -766,7 +764,7 @@ public class RequestMessageBuilderUtilities {
 
 	public static String createCourtCaseQueryRequest(String identificationID,
 			String identificationSourceText) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append("<ccq-req-doc:CourtCaseQueryRequest");
 		sb.append("	xmlns:ccq-req-doc=\"http://ojbc.org/IEPD/Exchange/CourtCaseQueryRequest/1.0\"");
 		sb.append("	xmlns:ccq-req-ext=\"http://ojbc.org/IEPD/Extensions/CourtCaseQueryRequestExtension/1.0\"");
@@ -776,7 +774,41 @@ public class RequestMessageBuilderUtilities {
 		sb.append("		<nc:IdentificationSourceText>" + identificationSourceText + "</nc:IdentificationSourceText>");
 		sb.append("	</ccq-req-ext:CourtCaseRecordIdentification>");
 		sb.append("</ccq-req-doc:CourtCaseQueryRequest>");
-		return null;
+		return sb.toString();
+	}
+
+	public static String createPersonToCustodySearchRequest(
+			String identificationID, String identificationSourceText) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<cs-req-doc:CustodySearchRequest");
+		sb.append("	xmlns:cs-req-doc=\"http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0\"");
+		sb.append("	xmlns:cs-req-ext=\"http://ojbc.org/IEPD/Extensions/CustodySearchRequestExtension/1.0\"");
+		sb.append("	xmlns:nc=\"http://release.niem.gov/niem/niem-core/3.0/\">");
+		sb.append("	<nc:Person>");
+		sb.append("		<cs-req-ext:PersonRecordIdentification>");
+		sb.append("			<nc:IdentificationID>" + identificationID + "</nc:IdentificationID>");
+		sb.append("		</cs-req-ext:PersonRecordIdentification>");
+		sb.append("	</nc:Person>");
+		sb.append("	<cs-req-ext:SourceSystemNameText>" + identificationSourceText + "</cs-req-ext:SourceSystemNameText>");
+		sb.append("</cs-req-doc:CustodySearchRequest>");
+		
+		return sb.toString();
+	}
+
+	public static String createCustodyQueryRequest(String identificationID,
+			String identificationSourceText) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<cq-req-doc:CustodyQueryRequest");
+		sb.append("	xmlns:cq-req-doc=\"http://ojbc.org/IEPD/Exchange/CustodyQueryRequest/1.0\"");
+		sb.append("	xmlns:cq-req-ext=\"http://ojbc.org/IEPD/Extensions/CustodyQueryRequestExtension/1.0\"");
+		sb.append("	xmlns:nc=\"http://release.niem.gov/niem/niem-core/3.0/\">");
+		sb.append("	<cq-req-ext:CustodyRecordIdentification>");
+		sb.append("		<nc:IdentificationID>" + identificationID + "</nc:IdentificationID>");
+		sb.append("		<nc:IdentificationSourceText>" + identificationSourceText + "</nc:IdentificationSourceText>");
+		sb.append("	</cq-req-ext:CustodyRecordIdentification>");
+		sb.append("</cq-req-doc:CustodyQueryRequest>");
+		return sb.toString();
 	}	
     
 }
