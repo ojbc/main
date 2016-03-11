@@ -1903,11 +1903,25 @@ public class StaticMockQuery {
 		
 		List<IdentifiableDocumentWrapper> courtCaseSearchDocMatchesList = new ArrayList<IdentifiableDocumentWrapper>();
 		
+		// TODO confirm correct
+		String ccSearchPersonRecId = XmlUtils.xPathStringSearch(courtCaseSearchRequestMessage, "//ccs-req-ext:PersonRecordIdentification/nc30:IdentificationID");		
+		
+		LOG.info("\n\n\n Court Case searching person rec id:" + ccSearchPersonRecId + "\n\n\n");
+		
 		for (IdentifiableDocumentWrapper identifyableCourtCaseDoc : courtCaseDataSource.getDocuments()) {
 			
 			// TODO use xpaths from courtCaseSearchRequestMessage against List of docs to reduce result set 
-
-			courtCaseSearchDocMatchesList.add(identifyableCourtCaseDoc);
+			// when the portal constructs the court case search request, it should use the value from 
+			// person search result's element: "intel:SystemIdentifier " to populate "ccs-req-ext:PersonRecordIdentification" 
+			// in the court case search request message. That should then return a list of court cases for that person
+			
+			
+//			String ccDetailPersonRecId = XmlUtils.xPathStringSearch(identifyableCourtCaseDoc.getDocument().getFirstChild(), "TODO");			
+//			if(StringUtils.isNotBlank(ccDetailPersonRecId) && ccDetailPersonRecId.equals(ccSearchPersonRecId)){
+			
+				courtCaseSearchDocMatchesList.add(identifyableCourtCaseDoc);
+//			}
+						
 		}				
 				
 		return courtCaseSearchDocMatchesList;		
