@@ -17,52 +17,47 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://ojbc.org/IEPD/Extensions/CustodySearchRequestExtension/1.0"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
-    xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:cs-req-ext="http://ojbc.org/IEPD/Extensions/CustodySearchRequestExtension/1.0"
-	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" elementFormDefault="qualified">
+<!-- 11/19/15 msj -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:cs-req-ext="http://ojbc.org/IEPD/Extensions/CustodySearchRequestExtension/1.0" xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" targetNamespace="http://ojbc.org/IEPD/Extensions/CustodySearchRequestExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:complexType name="CustodySearchRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a message to submit a custody search request.</xsd:documentation>
+			<xsd:documentation>A data type for a message to submit custody search request.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="cs-req-ext:Person" />
+					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Person"/>
 					<xsd:element ref="nc:Location" minOccurs="0"/>
+					<xsd:element ref="j:BookingSubject"/>
+					<xsd:element ref="nc:Supervision"/>
 					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0"/>
-					<xsd:element ref="cs-req-ext:SourceSystemNameText" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivitySubjectAssociation" minOccurs="0"/>
+					<xsd:element ref="cs-req-ext:SourceSystemNameText" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="cs-req-ext:SearchMetadata" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="PersonType">
+	<xsd:complexType name="CourtAugmentationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a human being.</xsd:documentation>
+			<xsd:documentation>A data type for additional information about a court.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="j:PersonAugmentationType">
+			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="nc:Person"/>
-					<xsd:element ref="j:BookingSubject" minOccurs="0" />
-					<xsd:element ref="nc:Supervision" minOccurs="0" />
+					<xsd:element ref="j:JurisdictionDistrictText"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="Person" type="cs-req-ext:PersonType">
+	<xsd:element name="CourtAugmentation" type="cs-req-ext:CourtAugmentationType" substitutionGroup="j:CourtAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>
-				A human being.
-			</xsd:documentation>
+			<xsd:documentation>Additional Information about a court.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonBirthDateRange" type="nc:DateRangeType" substitutionGroup="nc:PersonAugmentationPoint">
@@ -122,7 +117,7 @@
 	<xsd:complexType name="SearchQualifierCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="cs-req-ext:SearchQualifierCodeSimpleType">
-				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>

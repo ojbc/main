@@ -25,6 +25,31 @@
   <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
   <xs:import schemaLocation="../../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
   <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:complexType name="CaseAugmentationType">
+    <xs:annotation>
+      <xs:documentation>A data type for additional information about a case.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:AugmentationType">
+        <xs:sequence>
+          <xs:element ref="j:CaseCourt" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CourtType">
+    <xs:annotation>
+      <xs:documentation>A data type for a court or a unit of a court responsible for trying justice proceedings.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:OrganizationType">
+        <xs:sequence>
+          <xs:element ref="j:CourtName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CourtAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="DriverLicenseBaseType">
     <xs:annotation>
       <xs:documentation>A data type for an authorization issued to a driver granting driving privileges.</xs:documentation>
@@ -72,6 +97,21 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:element name="CaseAugmentation" type="j:CaseAugmentationType" substitutionGroup="nc:CaseAugmentationPoint">
+    <xs:annotation>
+      <xs:documentation>Additional information about a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseCourt" type="j:CourtType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A court of law in which the case is being tried.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CourtType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="CourtName" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A name of a unit of a court.</xs:documentation>

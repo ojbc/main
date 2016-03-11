@@ -25,6 +25,44 @@
   <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
   <xs:import schemaLocation="../../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
   <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:complexType name="ActivitySubjectAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an activity and a subject.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CaseAugmentationType">
+    <xs:annotation>
+      <xs:documentation>A data type for additional information about a case.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:AugmentationType">
+        <xs:sequence>
+          <xs:element ref="j:CaseCourt" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CourtType">
+    <xs:annotation>
+      <xs:documentation>A data type for a court or a unit of a court responsible for trying justice proceedings.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:OrganizationType">
+        <xs:sequence>
+          <xs:element ref="j:CourtName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CourtAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="DriverLicenseBaseType">
     <xs:annotation>
       <xs:documentation>A data type for an authorization issued to a driver granting driving privileges.</xs:documentation>
@@ -79,14 +117,35 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SubjectIdentification" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:element name="ActivitySubjectAssociation" type="j:ActivitySubjectAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between an activity and a subject.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="BookingSubject" type="j:SubjectType" nillable="true">
     <xs:annotation>
       <xs:documentation>A person who is booked.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseAugmentation" type="j:CaseAugmentationType" substitutionGroup="nc:CaseAugmentationPoint">
+    <xs:annotation>
+      <xs:documentation>Additional information about a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseCourt" type="j:CourtType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A court of law in which the case is being tried.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CourtType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CourtName" type="nc:TextType" nillable="true">
@@ -147,6 +206,11 @@
   <xs:element name="ResidenceAssociationAugmentation" type="j:PersonResidenceAssociationAugmentationType" substitutionGroup="nc:PersonResidenceAssociationAugmentationPoint" nillable="true">
     <xs:annotation>
       <xs:documentation>Additional information about a ResidenceAssociation.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Subject" type="j:SubjectType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person who is involved or suspected of being involved in an incident or criminal activity.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="SubjectIdentification" type="nc:IdentificationType" nillable="true">
