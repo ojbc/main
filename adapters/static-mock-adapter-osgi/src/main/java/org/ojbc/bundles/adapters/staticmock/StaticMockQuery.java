@@ -1599,13 +1599,13 @@ public class StaticMockQuery {
 				rDocList.addAll(personSearchJuvenileHistoryDocuments(personSearchRequestMessage, baseDate));
 				
 			}else if(CUSTODY_PERSON_SEARCH_SYSTEM_ID.equals(systemId)){								
-				rDocList.addAll(custodySearchCustodyDocuments(personSearchRequestMessage, baseDate));								
+				rDocList.addAll(personSearchCustodyDocuments(personSearchRequestMessage, baseDate));								
 				
 			}else if(COURT_CASE_PERSON_SEARCH_SYSTEM_ID.equals(systemId)){
-				rDocList.addAll(courtCaseSearchCourtCaseDocuments(personSearchRequestMessage, baseDate));
+				rDocList.addAll(personSearchCourtCaseDocuments(personSearchRequestMessage, baseDate));
 				
 			}else if(VEHICLE_CRASH_SEARCH_SYSTEM_ID.equals(systemId)){
-				rDocList.addAll(vehicleCrashSearchDocuments(personSearchRequestMessage, baseDate));
+				rDocList.addAll(personSearchVehicleCrashDocuments(personSearchRequestMessage, baseDate));
 				
 			} else {
 				throw new IllegalArgumentException("Unsupported system name: " + systemId);
@@ -1634,17 +1634,17 @@ public class StaticMockQuery {
 		return personSearchDocumentsAsList(personSearchRequestMessage, baseDate, getCriminalHistoryXPaths(), criminalHistoryDataSource);
 	}
 	
-	private List<IdentifiableDocumentWrapper> custodySearchCustodyDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception {
+	private List<IdentifiableDocumentWrapper> personSearchCustodyDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception {
 		
 		return personSearchDocumentsAsList(personSearchRequestMessage, baseDate, getCustodyXPaths(), custodyDataSource);
 	}	
 	
-	private List<IdentifiableDocumentWrapper> courtCaseSearchCourtCaseDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception {
+	private List<IdentifiableDocumentWrapper> personSearchCourtCaseDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception {
 		
 		return personSearchDocumentsAsList(personSearchRequestMessage, baseDate, getCourtCaseXPaths(), courtCaseDataSource);
 	}		
 	
-	private List<IdentifiableDocumentWrapper> vehicleCrashSearchDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception{
+	private List<IdentifiableDocumentWrapper> personSearchVehicleCrashDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception{
 		
 		// loops through all VehicleCrashDetail docs in VehicleCrashDataSource, using VehicleCrashXPaths against them to pull their 
 		//	 vehicle values - and compares them against the same values in the personSearchRequestMessage
