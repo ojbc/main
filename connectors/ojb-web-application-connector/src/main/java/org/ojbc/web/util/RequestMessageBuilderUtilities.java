@@ -762,6 +762,21 @@ public class RequestMessageBuilderUtilities {
 		sb.append("</ccs-req-doc:CourtCaseSearchRequest>");
 		
 		return sb.toString();
+	}
+
+	public static String createCourtCaseQueryRequest(String identificationID,
+			String identificationSourceText) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("<ccq-req-doc:CourtCaseQueryRequest");
+		sb.append("	xmlns:ccq-req-doc=\"http://ojbc.org/IEPD/Exchange/CourtCaseQueryRequest/1.0\"");
+		sb.append("	xmlns:ccq-req-ext=\"http://ojbc.org/IEPD/Extensions/CourtCaseQueryRequestExtension/1.0\"");
+		sb.append("	xmlns:nc=\"http://release.niem.gov/niem/niem-core/3.0/\">");
+		sb.append("	<ccq-req-ext:CourtCaseRecordIdentification>");
+		sb.append("		<nc:IdentificationID>" + identificationID + "</nc:IdentificationID>");
+		sb.append("		<nc:IdentificationSourceText>" + identificationSourceText + "</nc:IdentificationSourceText>");
+		sb.append("	</ccq-req-ext:CourtCaseRecordIdentification>");
+		sb.append("</ccq-req-doc:CourtCaseQueryRequest>");
+		return null;
 	}	
     
 }

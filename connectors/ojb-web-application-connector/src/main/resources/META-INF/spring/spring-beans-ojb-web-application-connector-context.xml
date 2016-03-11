@@ -60,6 +60,7 @@
 	<import resource="identification-results-modification.xml"/>
 	
 	<import resource="person-to-court-case-search.xml"/>
+	<import resource="court-case-query.xml"/>
 	
 	<import resource="camel-context.xml"/>
 	
