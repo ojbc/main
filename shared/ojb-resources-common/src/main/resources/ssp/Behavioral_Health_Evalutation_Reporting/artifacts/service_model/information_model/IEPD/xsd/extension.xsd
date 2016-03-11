@@ -123,4 +123,9 @@
 			<xsd:documentation>Treatment codes.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="PersonIndexIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique index identifier for a person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>
