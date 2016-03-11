@@ -682,14 +682,14 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	Element personFullNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonFullName");
 	 		 		 	
 	 	personFullNameElement.setTextContent(samplePerson2.firstName + " " + samplePerson2.middleName + " " + samplePerson2.lastName);
-	 	
-	 	Element personRaceElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonRaceText");
+	 		 		 	
+	 	Element personRaceElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonRaceCode");
 	 	
 	 	personRaceElement.setTextContent(randomString("WHT", "BLK", "ASN", "LAT", "PAC"));
 	 	
-	 	Element personSexCodeElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonSexText");
-	 	personSexCodeElement.setTextContent(samplePerson2.sex);
-	 		 	
+	 	Element personSexCodeElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
+	 	personSexCodeElement.setTextContent(samplePerson2.sex);	 		 	
+	 	
 	 	Element ssnElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonSSNIdentification");
 
 	 	Element ssnValElement = XmlUtils.appendElement(ssnElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");	 	
