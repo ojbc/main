@@ -834,7 +834,6 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	
 	 	Element srcSysNamTxtElement = XmlUtils.appendElement(drivingIncElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "SourceSystemNameText");
 
-	 	//TODO correct sys name values
 	 	srcSysNamTxtElement.setTextContent(randomString("Thornton Municipal FullCourt", "Adams County County Court FullCourt", "Pima County District Court Tyler Odysee"));
 	 		 	
 	 	Element queryResCatTxtElement = XmlUtils.appendElement(drivingIncElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "QueryResultCategoryText");
@@ -880,7 +879,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	Element queryReqIdValElement = XmlUtils.appendElement(queryReqIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");	 	
 	 	queryReqIdValElement.setTextContent(RandomStringUtils.randomNumeric(8));
 	 	
-	 	//TODO I think this is the description of the query request from the portal
+	 	//TODO maybe correct sample data
 	 	Element idCatDescElment = XmlUtils.appendElement(queryReqIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
 	 	idCatDescElment.setTextContent(randomString("Driver License", "Gvmt Id", "Passport", "Concealed Weapons Permit"));
 	 	
