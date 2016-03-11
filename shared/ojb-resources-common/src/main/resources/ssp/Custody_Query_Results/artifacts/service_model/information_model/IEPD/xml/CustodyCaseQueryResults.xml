@@ -135,6 +135,15 @@
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
 			<j:PersonAugmentation>
+				<j:DriverLicense>
+					<j:DriverLicenseCardIdentification>
+						<nc:IdentificationID>DL239486</nc:IdentificationID>
+						<nc:IdentificationSourceText>DL239486</nc:IdentificationSourceText>
+					</j:DriverLicenseCardIdentification>
+				</j:DriverLicense>
+				<j:PersonFBIIdentification>
+					<nc:IdentificationID>FBI45678</nc:IdentificationID>
+				</j:PersonFBIIdentification>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>CO0120010324</nc:IdentificationID>
 				</j:PersonStateFingerprintIdentification>
