@@ -19,84 +19,68 @@
 -->
 <!-- 11/19/15 msj -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://ojbc.org/IEPD/Extensions/CourtCaseSearchRequestExtension/1.0"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
-    xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:ccs-req-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchRequestExtension/1.0"
-	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" elementFormDefault="qualified">
-	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/CourtCaseSearchRequestExtension/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/"
+		schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
+		schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
 	<xsd:complexType name="CourtCaseSearchRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a message to submit a person and/or court case based search request.</xsd:documentation>
+			<xsd:documentation>A data type for a message to submit court case
+				search request.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ccs-req-ext:Person" />
-					<xsd:element ref="nc:Location" minOccurs="0"/>
-					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0"/>
-					<xsd:element ref="ccs-req-ext:Case" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ccs-req-ext:SourceSystemNameText" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="ccs-req-ext:SearchMetadata" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Person" />
+					<xsd:element ref="nc:Location" minOccurs="0" />
+					<xsd:element ref="nc:PersonResidenceAssociation"
+						minOccurs="0" />
+					<xsd:element ref="ccs-req-ext:SourceSystemNameText"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccs-req-ext:SearchMetadata"
+						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="PersonType">
+	<xsd:complexType name="CourtAugmentationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a human being.</xsd:documentation>
+			<xsd:documentation>A data type for additional information about a
+				court.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-		
-		<!--  j:PersonAugmentation is substitutable at nc:PersonAugmentationPoint  -->
-		
-			<xsd:extension base="j:PersonAugmentationType">
+			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="nc:Person"/>
-					
-					<!--  No need to extend Person Use PersonAugmentationPoint for PersonBirthDateRange -->
-					
-					<xsd:element ref="ccs-req-ext:PersonBirthDateRange" minOccurs="0"/>
+					<xsd:element ref="j:JurisdictionDistrictText" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="Person" type="ccs-req-ext:PersonType">
+	<xsd:element name="CourtAugmentation" type="ccs-req-ext:CourtAugmentationType"
+		substitutionGroup="j:CourtAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>
-				A human being.
+			<xsd:documentation>Additional Information about a court.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonBirthDateRange" type="nc:DateRangeType">
+	<xsd:element name="PersonBirthDateRange" type="nc:DateRangeType"
+		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A range of possible dates of birth for a person.</xsd:documentation>
+			<xsd:documentation>A range of possible dates of birth for a person.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Case" type="ccs-req-ext:CaseType" >
-	</xsd:element>
-	<xsd:complexType name="CaseType">
-	
-	<!-- No need to extend “Case” - Use nc:Case/nc:CaseAugmentation/j:CaseCourt/j:CourtName -->
-	
-	<!--  Also nc:Case/nc:CaseAugmentation/j:CaseCourt/j:CourtAugmentationPoint and add element CourtJurisdictionDistrictText -->
-	
-		<xsd:annotation>
-			<xsd:documentation>A data type for a human being.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="nc:CaseType">
-				<xsd:sequence>
-					<xsd:element ref="j:CourtName" minOccurs="0" />
-					<xsd:element ref="j:JurisdictionDistrictText" minOccurs="0" />
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
 	<xsd:element name="SourceSystemNameText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>The name of a system that is to be queried.
@@ -105,32 +89,40 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonRecordIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="PersonRecordIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A system-assigned unique identifier for a person.</xsd:documentation>
+			<xsd:documentation>A system-assigned unique identifier for a person.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SearchMetadata" type="ccs-req-ext:SearchMetadataType">
 		<xsd:annotation>
-			<xsd:documentation>Information that further qualifies the search.</xsd:documentation>
+			<xsd:documentation>Information that further qualifies the search.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SearchQualifierCode" type="ccs-req-ext:SearchQualifierCodeType">
 		<xsd:annotation>
-			<xsd:documentation>Details about how to interpret the content of an element for the purpose of searching.</xsd:documentation>
+			<xsd:documentation>Details about how to interpret the content of an
+				element for the purpose of searching.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="SearchMetadataType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for information that further qualifies the search.</xsd:documentation>
+			<xsd:documentation>A data type for information that further qualifies
+				the search.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:MetadataType">
 				<xsd:choice>
-					<xsd:element ref="ccs-req-ext:SearchQualifierCode" minOccurs="0"/>
+					<xsd:element ref="ccs-req-ext:SearchQualifierCode"
+						minOccurs="0" />
 					<xsd:sequence>
-						<xsd:element ref="ccs-req-ext:SearchRequestOnBehalfOfText" minOccurs="0"/>
-						<xsd:element ref="ccs-req-ext:SearchPurposeText" minOccurs="0"/>
+						<xsd:element ref="ccs-req-ext:SearchRequestOnBehalfOfText"
+							minOccurs="0" />
+						<xsd:element ref="ccs-req-ext:SearchPurposeText"
+							minOccurs="0" />
 					</xsd:sequence>
 				</xsd:choice>
 			</xsd:extension>
@@ -138,12 +130,15 @@
 	</xsd:complexType>
 	<xsd:element name="SearchPurposeText">
 		<xsd:annotation>
-			<xsd:documentation>The reason for executing the search.</xsd:documentation>
+			<xsd:documentation>The reason for executing the search.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SearchRequestOnBehalfOfText">
 		<xsd:annotation>
-			<xsd:documentation>An explanation of who the search is being submitted for in the case where a user is acting for someone else in submitting a search request.</xsd:documentation>
+			<xsd:documentation>An explanation of who the search is being
+				submitted for in the case where a user is acting for someone else in
+				submitting a search request.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="SearchQualifierCodeType">
@@ -157,12 +152,14 @@
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="startsWith">
 				<xsd:annotation>
-					<xsd:documentation>Return search results that start with this criteria</xsd:documentation>
+					<xsd:documentation>Return search results that start with this
+						criteria</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="exact">
 				<xsd:annotation>
-					<xsd:documentation>Return search results that match exactly this criteria</xsd:documentation>
+					<xsd:documentation>Return search results that match exactly this
+						criteria</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 		</xsd:restriction>

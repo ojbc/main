@@ -17,144 +17,121 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<cs-req-doc:CustodySearchRequest
-	xmlns:cs-req-doc="http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0"
-	xmlns:cs-req-ext="http://ojbc.org/IEPD/Extensions/CustodySearchRequestExtension/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/"
-	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/"
-	xmlns:usps="http://release.niem.gov/niem/codes/usps_states/3.0/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0 ../xsd/exchange_schema.xsd"
-	structures:metadata="SM003">
-	<cs-req-ext:Person structures:id="Person_01">
-		<j:DriverLicense>
-			<j:DriverLicenseCardIdentification>
-				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-				<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
-			</j:DriverLicenseCardIdentification>
-		</j:DriverLicense>
-		<j:PersonFBIIdentification>
+<cs-req-doc:CustodySearchRequest xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0 ../xsd/exchange_schema.xsd" structures:metadata="SM003" xmlns:cs-req-doc="http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0" xmlns:cs-req-ext="http://ojbc.org/IEPD/Extensions/CustodySearchRequestExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:Case>
+		<nc:CaseTrackingID>12345</nc:CaseTrackingID>
+		<nc:CaseDocketID>D5678799</nc:CaseDocketID>
+		<nc:CaseFiling>
+			<nc:DocumentFiledDate>
+				<nc:Date>2015-03-24</nc:Date>
+			</nc:DocumentFiledDate>
+		</nc:CaseFiling>
+		<j:CaseAugmentation>
+			<j:CaseCourt>
+				<j:CourtName>Court</j:CourtName>
+				<cs-req-ext:CourtAugmentation>
+					<j:JurisdictionDistrictText>Anderson County</j:JurisdictionDistrictText>
+				</cs-req-ext:CourtAugmentation>
+			</j:CaseCourt>
+		</j:CaseAugmentation>
+	</nc:Case>
+	<nc:Person structures:id="Person_01">
+		<nc:PersonAgeMeasure>
+			<nc:MeasureIntegerRange>
+				<nc:RangeMaximumIntegerValue>50</nc:RangeMaximumIntegerValue>
+				<nc:RangeMinimumIntegerValue>40</nc:RangeMinimumIntegerValue>
+			</nc:MeasureIntegerRange>
+			<nc:MeasureDate/>
+			<nc:LengthUnitCode>4H</nc:LengthUnitCode>
+		</nc:PersonAgeMeasure>
+		<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
+		<nc:PersonHairColorText>Bloned</nc:PersonHairColorText>
+		<nc:PersonHeightMeasure>
+			<nc:MeasureIntegerRange>
+				<nc:RangeMaximumIntegerValue>511</nc:RangeMaximumIntegerValue>
+				<nc:RangeMinimumIntegerValue>506</nc:RangeMinimumIntegerValue>
+			</nc:MeasureIntegerRange>
+			<nc:MeasureDate/>
+			<nc:LengthUnitCode>4H</nc:LengthUnitCode>
+		</nc:PersonHeightMeasure>
+		<nc:PersonName>
+			<nc:PersonGivenName structures:metadata="SM001">David</nc:PersonGivenName>
+			<nc:PersonMiddleName>P</nc:PersonMiddleName>
+			<nc:PersonSurName structures:metadata="SM002">Smith</nc:PersonSurName>
+		</nc:PersonName>
+		<j:PersonRaceCode>W</j:PersonRaceCode>
+		<j:PersonSexCode>M</j:PersonSexCode>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>310923489</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonWeightMeasure>
+			<nc:MeasureIntegerRange>
+				<nc:RangeMaximumIntegerValue>200</nc:RangeMaximumIntegerValue>
+				<nc:RangeMinimumIntegerValue>170</nc:RangeMinimumIntegerValue>
+			</nc:MeasureIntegerRange>
+			<nc:MeasureDate/>
+			<nc:LengthUnitCode>A45</nc:LengthUnitCode>
+		</nc:PersonWeightMeasure>
+		<j:PersonAugmentation>
+			<j:DriverLicense>
+				<j:DriverLicenseCardIdentification>
+					<nc:IdentificationID>DL456789</nc:IdentificationID>
+					<nc:IdentificationSourceText>New York</nc:IdentificationSourceText>
+				</j:DriverLicenseCardIdentification>
+			</j:DriverLicense>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>FBI45678</nc:IdentificationID>
+			</j:PersonFBIIdentification>
+			<!--j:PersonNCICIdentification>
 			<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
 			<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
-		</j:PersonFBIIdentification>
-		<j:PersonNCICIdentification>
-			<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-			<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
-		</j:PersonNCICIdentification>
-		<j:PersonStateFingerprintIdentification>
-			<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-			<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
-		</j:PersonStateFingerprintIdentification>
-		<nc:Person>
-			<nc:PersonAgeMeasure>
-				<nc:MeasureIntegerRange>
-					<nc:RangeMaximumIntegerValue>0</nc:RangeMaximumIntegerValue>
-					<nc:RangeMinimumIntegerValue>0</nc:RangeMinimumIntegerValue>
-				</nc:MeasureIntegerRange>
-				<nc:MeasureDate>
-				</nc:MeasureDate>
-				<nc:LengthUnitCode>4H</nc:LengthUnitCode>
-			</nc:PersonAgeMeasure>
-			<nc:PersonEyeColorText>nc:PersonEyeColorText</nc:PersonEyeColorText>
-			<nc:PersonHairColorText>nc:PersonHairColorText
-			</nc:PersonHairColorText>
-			<nc:PersonHeightMeasure>
-				<nc:MeasureIntegerRange>
-					<nc:RangeMaximumIntegerValue>0</nc:RangeMaximumIntegerValue>
-					<nc:RangeMinimumIntegerValue>0</nc:RangeMinimumIntegerValue>
-				</nc:MeasureIntegerRange>
-				<nc:MeasureDate>
-				</nc:MeasureDate>
-				<nc:LengthUnitCode>4H</nc:LengthUnitCode>
-			</nc:PersonHeightMeasure>
-			<nc:PersonName>
-				<nc:PersonGivenName structures:metadata="SM001">nc:PersonGivenName</nc:PersonGivenName>
-				<nc:PersonMiddleName>nc:PersonMiddleName</nc:PersonMiddleName>
-				<nc:PersonSurName structures:metadata="SM002">nc:PersonSurName</nc:PersonSurName>
-			</nc:PersonName>
-			<j:PersonRaceCode>A</j:PersonRaceCode>
-			<j:PersonSexCode>F</j:PersonSexCode>
-			<nc:PersonSSNIdentification>
+		</j:PersonNCICIdentification-->
+			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-				<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
-			</nc:PersonSSNIdentification>
-			<nc:PersonWeightMeasure>
-				<nc:MeasureIntegerRange>
-					<nc:RangeMaximumIntegerValue>0</nc:RangeMaximumIntegerValue>
-					<nc:RangeMinimumIntegerValue>0</nc:RangeMinimumIntegerValue>
-				</nc:MeasureIntegerRange>
-				<nc:MeasureDate>
-				</nc:MeasureDate>
-				<nc:LengthUnitCode>4H</nc:LengthUnitCode>
-			</nc:PersonWeightMeasure>
-			<j:PersonAugmentation>
-				<j:DriverLicense>
-					<j:DriverLicenseCardIdentification>
-						<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-						<nc:IdentificationSourceText>nc:IdentificationSourceText
-						</nc:IdentificationSourceText>
-					</j:DriverLicenseCardIdentification>
-				</j:DriverLicense>
-				<j:PersonFBIIdentification>
-					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-					<nc:IdentificationSourceText>nc:IdentificationSourceText
-					</nc:IdentificationSourceText>
-				</j:PersonFBIIdentification>
-				<j:PersonNCICIdentification>
-					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-					<nc:IdentificationSourceText>nc:IdentificationSourceText
-					</nc:IdentificationSourceText>
-				</j:PersonNCICIdentification>
-				<j:PersonStateFingerprintIdentification>
-					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-					<nc:IdentificationSourceText>nc:IdentificationSourceText
-					</nc:IdentificationSourceText>
-				</j:PersonStateFingerprintIdentification>
-			</j:PersonAugmentation>
-			<cs-req-ext:PersonBirthDateRange>
-				<nc:StartDate>
-				</nc:StartDate>
-				<nc:EndDate>
-				</nc:EndDate>
-			</cs-req-ext:PersonBirthDateRange>
-			<cs-req-ext:PersonRecordIdentification>
-				<nc:IdentificationID>R34567</nc:IdentificationID>
-			</cs-req-ext:PersonRecordIdentification>
-		</nc:Person>
-		<j:BookingSubject>
-			<j:SubjectIdentification>
-				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-			</j:SubjectIdentification>
-		</j:BookingSubject>
-		<nc:Supervision>
-			<nc:SupervisionFacility>
-				<nc:FacilityIdentification>
-					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-				</nc:FacilityIdentification>
-			</nc:SupervisionFacility>
-		</nc:Supervision>
-	</cs-req-ext:Person>
-	<nc:Location structures:id="Loc_01">
+				<nc:IdentificationSourceText>State</nc:IdentificationSourceText>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+		<cs-req-ext:PersonBirthDateRange>
+			<nc:StartDate>
+				<nc:Date>1982-02-23</nc:Date>
+			</nc:StartDate>
+			<nc:EndDate>
+				<nc:Date>1982-02-23</nc:Date>
+			</nc:EndDate>
+		</cs-req-ext:PersonBirthDateRange>
+		<cs-req-ext:PersonRecordIdentification>
+			<nc:IdentificationID>PR345786</nc:IdentificationID>
+		</cs-req-ext:PersonRecordIdentification>
+	</nc:Person>
+	<nc:Location structures:id="Location_01">
 		<nc:Address>
-			<nc:AddressFullText>nc:AddressFullText</nc:AddressFullText>
-			<nc:LocationCityName>nc:LocationCityName</nc:LocationCityName>
-			<nc:LocationStateUSPostalServiceCode>AA
-			</nc:LocationStateUSPostalServiceCode>
-			<nc:LocationPostalCode>nc:LocationPostalCode</nc:LocationPostalCode>
+			<nc:AddressFullText>345 Main Street</nc:AddressFullText>
+			<nc:LocationCityName>Doral</nc:LocationCityName>
+			<nc:LocationStateUSPostalServiceCode>CO</nc:LocationStateUSPostalServiceCode>
+			<nc:LocationPostalCode>12093</nc:LocationPostalCode>
 		</nc:Address>
 	</nc:Location>
+	<j:BookingSubject structures:id="Subject_01">
+		<nc:RoleOfPerson structures:ref="Person_01"/>
+		<j:SubjectIdentification>
+			<nc:IdentificationID>ID34567</nc:IdentificationID>
+		</j:SubjectIdentification>
+	</j:BookingSubject>
+	<nc:Supervision structures:id="Supervision_01">
+		<nc:SupervisionFacility>
+			<nc:FacilityIdentification>
+				<nc:IdentificationID>FID4678</nc:IdentificationID>
+			</nc:FacilityIdentification>
+		</nc:SupervisionFacility>
+	</nc:Supervision>
 	<nc:PersonResidenceAssociation>
-		<nc:Person structures:ref="Person_01" />
-		<nc:Location structures:ref="Loc_01" />
-		<nc:ResidenceDescriptionText>nc:ResidenceDescriptionText</nc:ResidenceDescriptionText>
-		<j:ResidenceAssociationAugmentation>
-			<j:ReleaseResidenceIndicator>true</j:ReleaseResidenceIndicator>
-		</j:ResidenceAssociationAugmentation>
+		<nc:Person structures:ref="Person_01"/>
+		<nc:Location structures:ref="Location_01"/>
 	</nc:PersonResidenceAssociation>
-	<cs-req-ext:SourceSystemNameText>cs-req-ext:SourceSystemNameText</cs-req-ext:SourceSystemNameText>
+	<j:ActivitySubjectAssociation>
+		<nc:Activity structures:ref="Supervision_01"/>
+		<j:Subject structures:ref="Subject_01"/>
+	</j:ActivitySubjectAssociation>
 	<cs-req-ext:SourceSystemNameText>RMS1</cs-req-ext:SourceSystemNameText>
 	<cs-req-ext:SourceSystemNameText>RMS2</cs-req-ext:SourceSystemNameText>
 	<cs-req-ext:SearchMetadata structures:id="SM001">
