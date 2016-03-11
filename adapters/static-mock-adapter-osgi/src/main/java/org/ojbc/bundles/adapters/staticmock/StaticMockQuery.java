@@ -1806,9 +1806,12 @@ public class StaticMockQuery {
 		xPaths.birthdateXPath = "//nc30:PersonBirthDate";
 		xPaths.ssnXPath = "//nc30:PersonSSNIdentification/nc30:IdentificationID";
 		xPaths.sidXPath = "//nc30:PersonStateIdentification/nc30:IdentificationID";
-		xPaths.fbiXPath = null;
-		xPaths.dlXPath = null;
-		xPaths.dlJurisdictionXPath = null;
+		
+		//TODO confirm fbi-id and dl xpaths working
+		xPaths.fbiXPath = "//jxdm51:PersonAugmentation/jxdm51:PersonFBIIdentification/nc30:IdentificationID";		
+		xPaths.dlXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseCardIdentification/nc30:IdentificationID";		
+		xPaths.dlJurisdictionXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseCardIdentification/nc30:IdentificationSourceText";
+		
 		xPaths.lastNameXPath = "//nc30:PersonName/nc30:PersonSurName";
 		xPaths.middleNameXPath = "//nc30:PersonName/nc30:PersonMiddleName";
 		xPaths.firstNameXPath = "//nc30:PersonName/nc30:PersonGivenName";

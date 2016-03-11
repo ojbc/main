@@ -57,11 +57,9 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		for(int i=0; i < recordCount; i++){
 		
-			PersonElementWrapper iGeneratedPerson = getRandomIdentity(null);
+			PersonElementWrapper iGeneratedPerson = getRandomIdentity(null);			
 			
-			String recordId = String.valueOf(i);
-			
-			Document custodyDoc = buildCustodyDetailDoc(iGeneratedPerson, recordId);
+			Document custodyDoc = buildCustodyDetailDoc(iGeneratedPerson);
 			
 			Element custodyDocRootElement = custodyDoc.getDocumentElement();
 			
@@ -76,9 +74,11 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 	
 	
 	
-	Document buildCustodyDetailDoc(PersonElementWrapper person, String recordId) throws ParserConfigurationException{
+	Document buildCustodyDetailDoc(PersonElementWrapper person) throws ParserConfigurationException, IOException{
 		
 		Document rCustodyDetailDoc = getNewDocument();
+		
+		String recordId = "1";
 		
 		String personRecId = "Person_" + recordId;	
 		
@@ -109,7 +109,15 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		
 		Element custodyElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "Custody");
+						
+		Element caseElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_NC_30, "Case");		
+		String caseId = "Case_" + recordId;
+		XmlUtils.addAttribute(caseElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", caseId);
 		
+		Element caseAugEl = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_JXDM_51, "CaseAugmentation");				
+		Element caseCourtEl = XmlUtils.appendElement(caseAugEl, OjbcNamespaceContext.NS_JXDM_51, "CaseCourt");		
+		Element courtNameEl = XmlUtils.appendElement(caseCourtEl, OjbcNamespaceContext.NS_JXDM_51, "CourtName");		
+		courtNameEl.setTextContent(randomString("Judge Judy", "Matlock", "Walker Texas Ranger"));
 		
 		Element bookingElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "Booking");				
 		String bookingId = "Booking_" + recordId;		
@@ -357,7 +365,10 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		String sPersonLastName = person.lastName;
 		Element personSurNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");		
 		personSurNameElement.setTextContent(sPersonLastName);
-		
+					
+		Element personLangEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonPrimaryLanguage");		
+		Element langNamEl = XmlUtils.appendElement(personLangEl, OjbcNamespaceContext.NS_NC_30, "LanguageName");		
+		langNamEl.setTextContent(randomString("English", "Francais", "Espagnol", "Norsk", "Ewe", "Catocoli", "Cabiait"));
 		
 		List<String> raceSampleList = Arrays.asList("B", "A", "W");				
 		int raceIndex = RANDOM.nextInt(raceSampleList.size());		
@@ -382,6 +393,21 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		Element personAugmentElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonAugmentation");
 		
+		Element drivLicEl = XmlUtils.appendElement(personAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "DriverLicense");
+		
+		Element drivLicCardIdEl = XmlUtils.appendElement(drivLicEl, OjbcNamespaceContext.NS_JXDM_51, "DriverLicenseCardIdentification");
+		
+		Element drivLicCardIdValEl = XmlUtils.appendElement(drivLicCardIdEl, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
+		drivLicCardIdValEl.setTextContent(RandomStringUtils.randomNumeric(9));
+		
+		Element drivLicIdSrcTxtEl = XmlUtils.appendElement(drivLicCardIdEl, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText");		
+		String dlStateSample = getRandomIdentity(null).state;		
+		drivLicIdSrcTxtEl.setTextContent(dlStateSample);
+				
+		Element fbiIdEl = XmlUtils.appendElement(personAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "PersonFBIIdentification");		
+		Element fbiIdValEl = XmlUtils.appendElement(fbiIdEl, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
+		fbiIdValEl.setTextContent(RandomStringUtils.randomNumeric(9));
+				
 		Element personStateFingerIdElement = XmlUtils.appendElement(personAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "PersonStateFingerprintIdentification");
 		
 		Element personStateFingerIdValElement = XmlUtils.appendElement(personStateFingerIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
@@ -397,13 +423,23 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		Element locationAddressElement = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_NC_30, "Address");
 		
-		Element locAddressFullElement = XmlUtils.appendElement(locationAddressElement, OjbcNamespaceContext.NS_NC_30, "AddressFullText");
+		Element locAddressFullElement = XmlUtils.appendElement(locationAddressElement, OjbcNamespaceContext.NS_NC_30, "AddressFullText");		
+		String locAddress = person.addressStreetName;		
+		locAddressFullElement.setTextContent(locAddress);	
 		
-		String locAddress = person.addressStreetName;
+		Element loc2dGeoEl = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_NC_30, "Location2DGeospatialCoordinate");		
+		Element geoCordLatEl = XmlUtils.appendElement(loc2dGeoEl, OjbcNamespaceContext.NS_NC_30, "GeographicCoordinateLatitude");		
+		Element latDegValEl = XmlUtils.appendElement(geoCordLatEl, OjbcNamespaceContext.NS_NC_30, "LatitudeDegreeValue");				
+		latDegValEl.setTextContent(RandomStringUtils.randomNumeric(2));
 		
-		locAddressFullElement.setTextContent(locAddress);					
+		Element geoCordLongEl = XmlUtils.appendElement(loc2dGeoEl, OjbcNamespaceContext.NS_NC_30, "GeographicCoordinateLongitude");		
+		Element longDegValEl = XmlUtils.appendElement(geoCordLongEl, OjbcNamespaceContext.NS_NC_30, "LongitudeDegreeValue");
+		longDegValEl.setTextContent(RandomStringUtils.randomNumeric(2));						
 		
 		Element activityChargeAssocElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "ActivityChargeAssociation");
+		
+		Element activityCaseEl = XmlUtils.appendElement(activityChargeAssocElement, OjbcNamespaceContext.NS_NC_30, "Activity");
+		XmlUtils.addAttribute(activityCaseEl, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", caseId);
 		
 		Element activityBookingElement = XmlUtils.appendElement(activityChargeAssocElement, OjbcNamespaceContext.NS_NC_30, "Activity");
 		XmlUtils.addAttribute(activityBookingElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", bookingId);

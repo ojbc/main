@@ -1493,6 +1493,19 @@ public class SearchTest extends AbstractStaticMockTest {
         
         String sCustodyPersonSSN = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/nc:PersonSSNIdentification/nc:IdentificationID");
         assertEquals("123-45-6789", sCustodyPersonSSN);                
+                
+        String sCustodyDrivLicId = XmlUtils.xPathStringSearch(custodyResult, 
+        		"psres:Person/jxdm41:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID");
+        assertEquals("4567", sCustodyDrivLicId);
+                
+        String sCustodyDrivLicSrcTxt = XmlUtils.xPathStringSearch(custodyResult, 
+        		  "psres:Person/jxdm41:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationSourceText");
+        assertEquals("MO", sCustodyDrivLicSrcTxt);
+        
+        String sCustodyFbiId = XmlUtils.xPathStringSearch(custodyResult, 
+        		"psres:Person/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
+        assertEquals("4320", sCustodyFbiId);
+        
         
         
         // court case result
