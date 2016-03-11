@@ -59,6 +59,8 @@
 	<import resource="identification-results-query.xml"/>
 	<import resource="identification-results-modification.xml"/>
 	
+	<import resource="person-to-court-case-search.xml"/>
+	
 	<import resource="camel-context.xml"/>
 	
 	<!-- This context is intentionally loaded last as we want it to override any beans in this context -->

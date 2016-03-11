@@ -27,6 +27,7 @@ import org.ojbc.processor.person.query.CriminalHistoryRequestProcessor;
 import org.ojbc.processor.person.query.FirearmRegistrationQueryRequestProcessor;
 import org.ojbc.processor.person.query.IncidentReportRequestProcessor;
 import org.ojbc.processor.person.query.JuvenileQueryRequestProcessor;
+import org.ojbc.processor.person.query.PersonToCourtCaseSearchRequestProcessor;
 import org.ojbc.processor.person.query.PersonVehicleToIncidentSearchRequestProcessor;
 import org.ojbc.processor.person.query.WarrantsRequestProcessor;
 import org.ojbc.web.DetailsQueryInterface;
@@ -63,6 +64,9 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 
 	@Autowired(required=false)
 	private PersonVehicleToIncidentSearchRequestProcessor personVehicleToIncidentSearchRequestProcessor;
+	
+	@Autowired(required=false)
+	private PersonToCourtCaseSearchRequestProcessor personToCourtCaseSearchRequestProcessor;
 	
 	@Autowired(required=false)
 	private FirearmRegistrationQueryRequestProcessor firearmRegistrationQueryRequestProcessor;
@@ -141,7 +145,12 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 			return firearmRegistrationQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
 		} else if(requestIdSrcTxt.contains(OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_PERSON)){
+			
 			return firearmRegistrationQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
+		} else if (OJBCWebServiceURIs.COURT_CASE.equals(requestIdSrcTxt)){
+			
+			return personToCourtCaseSearchRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
 		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
 			
