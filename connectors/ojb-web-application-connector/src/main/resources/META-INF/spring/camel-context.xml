@@ -325,6 +325,20 @@
 			<camel:to uri="bean:identificationResultsModificationRequestProcessor?method=updateMapWithResponseExchange"/>
 	    </camel:route>	    
 	    
+	    <!-- Court Case Search Request Listener -->
+	    <camel:route id="personToCourtCaseSearchResultsHandlerRoute" autoStartup="false">
+	    	<from uri="personToCourtCaseSearchResultsHandlerServiceEndpoint"/>
+	    		    	
+	    	<camel:log message="Received response message - Court Case Search ${body}" loggingLevel="DEBUG"/>
+
+	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+	    	<!-- We can use any message processor to process the payload, it is generic method -->
+			<camel:to uri="bean:personToCourtCaseSearchMessageProcessor?method=processRequestPayload" />
+			
+	    	<camel:convertBodyTo type="java.lang.String"/>
+	    	<camel:to uri="bean:personToCourtCaseSearchRequestProcessor?method=updateMapWithResponse"/>
+	    </camel:route>
+
 	</camel:camelContext>
 
 	<!-- SAML map to persist tokens between CXF and Camel -->	
