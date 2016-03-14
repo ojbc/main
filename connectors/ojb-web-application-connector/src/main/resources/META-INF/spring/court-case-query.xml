@@ -73,7 +73,7 @@
 		<bean id="courtCaseQueryRequestMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 			<property name="operationName"><value>SubmitCourtCaseQueryRequest</value></property>
 			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0</value></property>
-			<property name="destinationEndpoint"><value>courtCaseQueryRequestServices</value></property>
+			<property name="destinationEndpoint"><value>courtCaseQueryRequestService</value></property>
 		</bean>
 
 		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="courtCaseQueryRequestResponseMap"/>

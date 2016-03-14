@@ -115,7 +115,7 @@
 		<xsl:variable name="associatedCaseId"><xsl:value-of select="nc:Case/@structures:id"></xsl:value-of></xsl:variable>
 		<xsl:variable name="associatedPersonId"><xsl:value-of select="cyfs:PersonCaseAssociation[nc:Case/@structures:ref = $associatedCaseId]/nc:Person/@structures:ref"/></xsl:variable>
 <!-- 		<xsl:variable name="systemSource"><xsl:value-of select="normalize-space(ccs-res-ext:SourceSystemNameText)"/></xsl:variable>-->
- 		<xsl:variable name="systemSource"><xsl:text>{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-CourtDetail</xsl:text></xsl:variable>
+ 		<xsl:variable name="systemSource"><xsl:text>{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}/SubmitCourtCaseQueryRequest</xsl:text></xsl:variable>
         <tr 
             systemName="Court Case Detail"
             identificationSourceText="{$systemSource}"   
