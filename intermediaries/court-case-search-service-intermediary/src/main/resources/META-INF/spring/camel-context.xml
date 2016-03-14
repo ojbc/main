@@ -52,6 +52,8 @@
 		<endpoint id="courtCaseSearchResultsFederatedServiceEndpoint"
 			uri="cxf:bean:courtCaseSearchResultsFederatedService?dataFormat=PAYLOAD&amp;allowStreaming=false&amp;loggingFeatureEnabled=${federatedQuery.courtCaseSearchIntermediaryCxflogging}" />
 
+		<endpoint id="presentCourtSearchResultsServiceEndpoint" 
+			uri="cxf:bean:presentCourtSearchResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.courtCaseSearchIntermediaryCxflogging}"/>                        
 
 		<!-- Federated Search Request Handler-->
 		<camel:route id="courtCaseSearchRequestEndpointRoute">
@@ -235,26 +237,62 @@
 			<camel:filter>
 				<camel:simple>${in.header.courtCaseSearchResultNodeCount} > ${in.headers.courtCaseSearchMaxRecords}</camel:simple>
 				<camel:log message="\n\n\n The search results count (${in.header.courtCaseSearchContainerNodeCount}) is greater than the max records allowed (${in.headers.courtCaseSearchMaxRecords})"/>				
-				<!-- TODO handle -->
 			</camel:filter>
 						
 			<!-- In this case, we have errors but no search results -->
 			<camel:filter>
 				<camel:simple>${in.header.courtCaseSearchContainerNodeCount} == 0 and ${in.header.errorResponseNodeCount} > 0</camel:simple>
 				<camel:log message="\n\n\n No search results returned, however, response contains error results"/>				
-				<!-- TODO handle -->				
-				<camel:stop/>
 			</camel:filter>
 
 			<!-- In this case, we have no errors and no search results, not even a container, create an error message and return -->
 			<camel:filter>
 				<camel:simple>${in.header.courtCaseSearchContainerNodeCount} == 0</camel:simple>				
 				<camel:log message="\n\n\n No search results or error results, not even a container, the adapter timed or had an issue"/>				
-				<!--  TODO handle -->				
 			</camel:filter>
+			
+			<camel:to uri="direct:presentCourtCaseSearchResults"></camel:to>
 						
 		</camel:route>
+		
+		<camel:route id="presentCourtCaseSearchResults">
+			<from uri="direct:presentCourtCaseSearchResults"/>
+			
+			<!-- This line remove the OJBWrapper element that the aggregator adds, This XPath works because we only have one response -->
+			<camel:setBody><xpath>/OJBAggregateResponseWrapper/*[1]</xpath></camel:setBody>
+			
+			<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>
 
+			<camel:to uri="bean:wsAddressingReplyToManager?method=removeReplyToAddress"/>
+			
+			<camel:to uri="bean:WSAddressingEndpointProcessor?method=processReplyToAddress" />	
+				
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
+			
+            		<camel:setHeader headerName="operationName">
+            			<constant>SubmitCourtCaseSearchResults</constant>
+            		</camel:setHeader>
+	        		<camel:setHeader headerName="operationNamespace">
+	        			<constant>http://ojbc.org/Services/WSDL/CourtCaseSearchResultsService/1.0</constant>
+	        		</camel:setHeader>
+					
+					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
+					
+					<camel:log message="About to send court search result response message to ${in.headers.recipientListReplyToEndpoint}" />			
+								
+					<camel:recipientList>
+						<camel:header>recipientListReplyToEndpoint</camel:header>
+					</camel:recipientList>
+				</camel:when>
+				<camel:otherwise>
+					<camel:log message="Unable to find endpoint for replyTo address: ${in.headers.WSAddressingReplyTo}"/>
+				</camel:otherwise>		
+			</camel:choice>	
+
+			
+		</camel:route>
 	</camel:camelContext>
 
 	<!-- Spring Beans -->
