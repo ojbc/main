@@ -50,15 +50,11 @@ public class CustodySearchResultBuilder {
 		}
 		
 		
-		String docId = custodyDetail.getDocId();
-		
-		String docIdCatDesc = custodyDetail.getDocumentIdCategoryDescription();
+		String docId = custodyDetail.getDocId();		
 		
 		boolean hasDocId = StringUtils.isNotBlank(docId);
-		
-		boolean hasDocIdCatDesc = StringUtils.isNotBlank(docIdCatDesc);		
-		
-		if(hasDocId || hasDocIdCatDesc){
+					
+		if(hasDocId){
 		
 			Element docIdElement = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_NC_30, "DocumentIdentification");
 			
@@ -69,16 +65,7 @@ public class CustodySearchResultBuilder {
 				docId = docId.trim();
 				
 				docIdValElement.setTextContent(docId);			
-			}			
-			
-			if(hasDocIdCatDesc){
-
-				Element docIdCatDescTxtElement = XmlUtils.appendElement(docIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationCategoryDescriptionText");
-				
-				docIdCatDesc = docIdCatDesc.trim();
-				
-				docIdCatDescTxtElement.setTextContent(docIdCatDesc);
-			}			
+			}									
 		}
 		
 				
@@ -181,13 +168,15 @@ public class CustodySearchResultBuilder {
 		
 		if(StringUtils.isNotBlank(personStateId)){
 			
-			Element personStateIdElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonStateIdentification");
+			Element personAugElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonAugmentation");			
+						
+			Element personStateFingerIdEl = XmlUtils.appendElement(personAugElement, OjbcNamespaceContext.NS_JXDM_51, "PersonStateFingerprintIdentification");
 			
-			Element personStateIdValElement = XmlUtils.appendElement(personStateIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");	
-			
+			Element personStateFingerIdValEl = XmlUtils.appendElement(personStateFingerIdEl, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+
 			personStateId = personStateId.trim();
 			
-			personStateIdValElement.setTextContent(personStateId);								
+			personStateFingerIdValEl.setTextContent(personStateId);												
 		}
 		
 		Element booking = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "Booking");		
@@ -222,6 +211,7 @@ public class CustodySearchResultBuilder {
 			bookingSubjIdValElement.setTextContent(bookingSubjId);						
 		}
 		
+		// TODO confirm/fix
 		String sImgLoc = custodyDetail.getImageLocation();
 		
 		if(StringUtils.isNotBlank(sImgLoc)){
@@ -431,11 +421,7 @@ public class CustodySearchResultBuilder {
 		rCustodyDetail.setDocCreationDate(sDocCreationDate);
 				
 		String documentId = XmlUtils.xPathStringSearch(custodyDetailDoc, "/cq-res-exch:CustodyQueryResults/nc30:DocumentIdentification/nc30:IdentificationID");		
-		rCustodyDetail.setDocId(documentId);
-				
-		String docIdCatDescription = XmlUtils.xPathStringSearch(custodyDetailDoc, 
-				"/cq-res-exch:CustodyQueryResults/nc30:DocumentIdentification/nc30:IdentificationCategoryDescriptionText");		
-		rCustodyDetail.setDocumentIdCategoryDescription(docIdCatDescription);
+		rCustodyDetail.setDocId(documentId);				
 				
 		String systemId = XmlUtils.xPathStringSearch(custodyDetailDoc, 
 				"/cq-res-exch:CustodyQueryResults/intel31:SystemIdentification/nc30:IdentificationID");		
@@ -445,7 +431,7 @@ public class CustodySearchResultBuilder {
 				"/cq-res-exch:CustodyQueryResults/intel31:SystemIdentification/nc30:SystemName");
 		rCustodyDetail.setSystemName(systemName);			
 		
-		String dobVal = XmlUtils.xPathStringSearch(custodyDetailDoc, "//cq-res-ext:InmateCustody/nc30:PersonBirthDate/nc30:DateTime");
+		String dobVal = XmlUtils.xPathStringSearch(custodyDetailDoc, "//nc30:Person/nc30:PersonBirthDate/nc30:Date");
 		rCustodyDetail.setPersonDob(dobVal);
 				
 		String personGivenName = XmlUtils.xPathStringSearch(custodyDetailDoc, "//nc30:PersonName/nc30:PersonGivenName");		
@@ -466,18 +452,23 @@ public class CustodySearchResultBuilder {
 		String ssnVal = XmlUtils.xPathStringSearch(custodyDetailDoc, "//nc30:PersonSSNIdentification/nc30:IdentificationID");
 		rCustodyDetail.setPersonSsn(ssnVal);
 		
-		String personSidVal = XmlUtils.xPathStringSearch(custodyDetailDoc, "//nc30:PersonStateIdentification/nc30:IdentificationID");	
+		
+		String personSidVal = XmlUtils.xPathStringSearch(custodyDetailDoc, "//jxdm51:PersonStateFingerprintIdentification/nc30:IdentificationID");	
 		rCustodyDetail.setPersonStateId(personSidVal);
 		
+		
+		//TODO FIXME
 		String fingerprintDateTime = XmlUtils.xPathStringSearch(custodyDetailDoc, "//cq-res-ext:Booking/jxdm51:FingerprintDate/nc30:DateTime");
 		rCustodyDetail.setFingerprintDate(fingerprintDateTime);
 		
 		String bookingSubjIdVal = XmlUtils.xPathStringSearch(custodyDetailDoc, "//jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");	
 		rCustodyDetail.setBookingSubjectId(bookingSubjIdVal);
 		
+		//TODO FIXME
 		String imgLocDescTxt = XmlUtils.xPathStringSearch(custodyDetailDoc, "//nc30:Image/nc30:ImageLocation/nc30:LocationDescriptionText");
 		rCustodyDetail.setImageLocation(imgLocDescTxt);
 		
+		//TODO FIXME
 		String chargeCountQuantVal = XmlUtils.xPathStringSearch(custodyDetailDoc, "//jxdm51:Charge/jxdm51:ChargeCountQuantity");		
 		rCustodyDetail.setChargeCount(chargeCountQuantVal);
 		
@@ -485,7 +476,7 @@ public class CustodySearchResultBuilder {
 		rCustodyDetail.setChargeDescription(chargeDescTxt);
 		
 		String chargeStatuteVal = XmlUtils.xPathStringSearch(custodyDetailDoc, 
-				"//jxdm51:ChargeStatute/jxdm51:StatuteCodeIdentification/nc30:IdentificationID");		
+				"//jxdm51:ChargeStatute/jxdm51:StatuteCodeSectionIdentification/nc30:IdentificationID");		
 		rCustodyDetail.setChargeStatuteCodeId(chargeStatuteVal);
 		
 		String idCatDescTxtVal = XmlUtils.xPathStringSearch(custodyDetailDoc, 
@@ -496,7 +487,7 @@ public class CustodySearchResultBuilder {
 		rCustodyDetail.setSourceSystemNameText(sourceSystemNameText);
 		
 		String searchResultCatTxt = XmlUtils.xPathStringSearch(custodyDetailDoc, 
-				"//nc30:DocumentIdentification/nc30:IdentificationCategoryDescriptionText");
+				"//cq-res-ext:QueryResultCategoryText");
 		rCustodyDetail.setSearchResultCategoryDescriptionText(searchResultCatTxt);
 		
 		String orgBranchName = XmlUtils.xPathStringSearch(custodyDetailDoc, "//cq-res-ext:InformationOwningOrganization/nc30:OrganizationBranchName");
