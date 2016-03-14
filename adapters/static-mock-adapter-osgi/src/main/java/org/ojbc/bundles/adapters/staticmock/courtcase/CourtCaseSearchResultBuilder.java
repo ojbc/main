@@ -17,6 +17,7 @@
 package org.ojbc.bundles.adapters.staticmock.courtcase;
 
 import org.apache.commons.lang.StringUtils;
+import org.ojbc.bundles.adapters.staticmock.IdentifiableDocumentWrapper;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -123,9 +124,11 @@ public class CourtCaseSearchResultBuilder {
 	}
 	
 	
-	public static Element buildCourtCaseSearchResultElement(Document courtCaseSearchResultsDocument, Document courtCaseDetailDoc, String resultId) throws Exception{
+	public static Element buildCourtCaseSearchResultElement(Document courtCaseSearchResultsDocument, IdentifiableDocumentWrapper courtCaseDetailResultWrapper, String resultId) throws Exception{
 		
-		CourtCaseDetail courtCaseDetail = getCourtCaseDetail(courtCaseDetailDoc);
+		Document courtCaseDetailResultDoc =  courtCaseDetailResultWrapper.getDocument();
+		
+		CourtCaseDetail courtCaseDetail = getCourtCaseDetail(courtCaseDetailResultDoc);
 		
 		Element courtCaseSearchResultElement = courtCaseSearchResultsDocument.createElementNS(OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "CourtCaseSearchResult");	
 		
@@ -449,9 +452,7 @@ public class CourtCaseSearchResultBuilder {
 
 				Element sysIdValElement = XmlUtils.appendElement(sysIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
 				
-				sSystemId = sSystemId.trim();
-				
-				sysIdValElement.setTextContent(sSystemId);				
+				sysIdValElement.setTextContent(courtCaseDetailResultWrapper.getId());				
 			}
 			
 			if(hasSystemName){
