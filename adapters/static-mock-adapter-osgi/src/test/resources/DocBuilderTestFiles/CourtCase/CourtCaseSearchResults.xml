@@ -79,7 +79,7 @@
       </cyfs:PersonCaseAssociation>
       <ccs-res-ext:SourceSystemNameText>Alpha Court System</ccs-res-ext:SourceSystemNameText>
       <intel31:SystemIdentification>
-         <nc30:IdentificationID>erty</nc30:IdentificationID>
+         <nc30:IdentificationID>CourtCaseDetailQueryResults.xml</nc30:IdentificationID>
          <nc30:SystemName>Court DB</nc30:SystemName>
       </intel31:SystemIdentification>
       <ccs-res-ext:SearchResultCategoryText>Court Case</ccs-res-ext:SearchResultCategoryText>
