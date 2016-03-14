@@ -3989,12 +3989,12 @@ Sikkim (See India)--FOR REFERENCE ONLY</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="AE">
         <xs:annotation>
-          <xs:documentation>Anguilla (dependent territory of United Kingdom)</xs:documentation>
+          <xs:documentation>Saint Kitts - Anguilla (now separate)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="AE">
         <xs:annotation>
-          <xs:documentation>Saint Kitts - Anguilla (now separate)</xs:documentation>
+          <xs:documentation>Anguilla (dependent territory of United Kingdom)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="AF">
@@ -4170,12 +4170,12 @@ Sikkim (See India)--FOR REFERENCE ONLY</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="BP">
         <xs:annotation>
-          <xs:documentation>Bosnia and Herzegovina</xs:documentation>
+          <xs:documentation>Herzegovina, Bosnia and (HC for reference only)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="BP">
         <xs:annotation>
-          <xs:documentation>Herzegovina, Bosnia and (HC for reference only)</xs:documentation>
+          <xs:documentation>Bosnia and Herzegovina</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="BQ">
@@ -5204,17 +5204,17 @@ Sikkim</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="KB">
         <xs:annotation>
-          <xs:documentation>Gilbert Islands (now Kiribati)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KB">
-        <xs:annotation>
           <xs:documentation>Kiribati (formerly Gilbert Islands)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="KB">
         <xs:annotation>
           <xs:documentation>Ellice - Gilbert Islands now Kiribati</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KB">
+        <xs:annotation>
+          <xs:documentation>Gilbert Islands (now Kiribati)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="KC">
@@ -5912,12 +5912,12 @@ Curacao</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="PW">
         <xs:annotation>
-          <xs:documentation>Pawnee Tribe</xs:documentation>
+          <xs:documentation>Pawnee Nation of Oklahoma</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="PW">
         <xs:annotation>
-          <xs:documentation>Pawnee Nation of Oklahoma</xs:documentation>
+          <xs:documentation>Pawnee Tribe</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="PX">
@@ -6548,12 +6548,12 @@ Sikkim (See India)--FOR REFERENCE ONLY</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="UV">
         <xs:annotation>
-          <xs:documentation>Burkina Faso (known as Burkina, formerly Upper Volta)</xs:documentation>
+          <xs:documentation>Upper Volta (now Burkina Faso)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="UV">
         <xs:annotation>
-          <xs:documentation>Upper Volta (now Burkina Faso)</xs:documentation>
+          <xs:documentation>Burkina Faso (known as Burkina, formerly Upper Volta)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="UW">
@@ -6823,12 +6823,12 @@ Sikkim (See India)--FOR REFERENCE ONLY</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="XC">
         <xs:annotation>
-          <xs:documentation>Bad River Band of Lake Superior Tribe of Chippewa Indians</xs:documentation>
+          <xs:documentation>Bad River Band of the Lake Superior Tribe of Chippewa Indians of the Bad River Reservation, Wisconsin</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="XC">
         <xs:annotation>
-          <xs:documentation>Bad River Band of the Lake Superior Tribe of Chippewa Indians of the Bad River Reservation, Wisconsin</xs:documentation>
+          <xs:documentation>Bad River Band of Lake Superior Tribe of Chippewa Indians</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="XD">
@@ -60232,12 +60232,12 @@ Neighborhood Electric Vehicles</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="CT">
         <xs:annotation>
-          <xs:documentation>Camping</xs:documentation>
+          <xs:documentation>Travel Trailer</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="CT">
         <xs:annotation>
-          <xs:documentation>Travel Trailer</xs:documentation>
+          <xs:documentation>Camping</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="CV">
@@ -60302,12 +60302,12 @@ Neighborhood Electric Vehicles</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="FB">
         <xs:annotation>
-          <xs:documentation>Flatbed or Platform Trailer</xs:documentation>
+          <xs:documentation>Flatbed or Platform</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="FB">
         <xs:annotation>
-          <xs:documentation>Flatbed or Platform</xs:documentation>
+          <xs:documentation>Flatbed or Platform Trailer</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="FC">
@@ -60322,12 +60322,12 @@ Neighborhood Electric Vehicles</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="FL">
         <xs:annotation>
-          <xs:documentation>Fork Lift</xs:documentation>
+          <xs:documentation>Forklift</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="FL">
         <xs:annotation>
-          <xs:documentation>Forklift</xs:documentation>
+          <xs:documentation>Fork Lift</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="FR">
@@ -60367,12 +60367,12 @@ Neighborhood Electric Vehicles</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="GN">
         <xs:annotation>
-          <xs:documentation>Grain Truck</xs:documentation>
+          <xs:documentation>Grain Trailer</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="GN">
         <xs:annotation>
-          <xs:documentation>Grain Trailer</xs:documentation>
+          <xs:documentation>Grain Truck</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="GR">
@@ -60412,7 +60412,7 @@ Neighborhood Electric Vehicles</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="HO">
         <xs:annotation>
-          <xs:documentation>Hopper</xs:documentation>
+          <xs:documentation>Hopper (Bottom Dump)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="HO">
@@ -60422,7 +60422,7 @@ Neighborhood Electric Vehicles</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="HO">
         <xs:annotation>
-          <xs:documentation>Hopper (Bottom Dump)</xs:documentation>
+          <xs:documentation>Hopper</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="HP">
@@ -60497,12 +60497,12 @@ Neighborhood Electric Vehicles</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="LS">
         <xs:annotation>
-          <xs:documentation>Livestock Rack or Trailer</xs:documentation>
+          <xs:documentation>Livestock Rack</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="LS">
         <xs:annotation>
-          <xs:documentation>Livestock Rack</xs:documentation>
+          <xs:documentation>Livestock Rack or Trailer</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="LT">
@@ -60582,12 +60582,12 @@ Neighborhood Electric Vehicles</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="MV">
         <xs:annotation>
-          <xs:documentation>Multi-wheeled vehicle</xs:documentation>
+          <xs:documentation>Multi-wheel</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="MV">
         <xs:annotation>
-          <xs:documentation>Multi-wheel</xs:documentation>
+          <xs:documentation>Multi-wheeled vehicle</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="MY">
@@ -60717,22 +60717,22 @@ Neighborhood Electric Vehicles</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="SS">
         <xs:annotation>
-          <xs:documentation>Sweeper</xs:documentation>
+          <xs:documentation>Street Sweeper</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="SS">
         <xs:annotation>
-          <xs:documentation>Street Sweeper</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ST">
-        <xs:annotation>
-          <xs:documentation>Stake or Rack Trailer</xs:documentation>
+          <xs:documentation>Sweeper</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="ST">
         <xs:annotation>
           <xs:documentation>Stake or Rack</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ST">
+        <xs:annotation>
+          <xs:documentation>Stake or Rack Trailer</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="SW">
@@ -60792,12 +60792,12 @@ Neighborhood Electric Vehicles</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="TN">
         <xs:annotation>
-          <xs:documentation>Tanker</xs:documentation>
+          <xs:documentation>Tank Trailer</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="TN">
         <xs:annotation>
-          <xs:documentation>Tank Trailer</xs:documentation>
+          <xs:documentation>Tanker</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="TO">
