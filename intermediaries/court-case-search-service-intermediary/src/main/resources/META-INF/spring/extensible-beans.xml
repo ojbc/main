@@ -53,8 +53,7 @@
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.court-case-search-request-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<util:map>
-				<!-- TODO confirm endpoint -->
-		        <entry key="${federatedQuery.courtCaseSearch.presentResultsEndpoint}" value="searchResultsFederatedServiceEndpoint"/>
+		        <entry key="${federatedQuery.courtCaseSearch.presentResultsEndpoint}" value="presentCourtSearchResultsServiceEndpoint"/>
 	   		</util:map>
 		</constructor-arg>
 	</bean>	

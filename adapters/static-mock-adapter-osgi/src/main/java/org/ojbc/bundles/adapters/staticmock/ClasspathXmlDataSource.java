@@ -37,14 +37,14 @@ import org.springframework.osgi.io.OsgiBundleResourcePatternResolver;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-class ClasspathXmlDataSource {
+public class ClasspathXmlDataSource {
 
     private static final Log LOG = LogFactory.getLog(ClasspathXmlDataSource.class);
 
     private String directory;
     private Map<String, IdentifiableDocumentWrapper> documents;
 
-    ClasspathXmlDataSource(String directory) {
+    public ClasspathXmlDataSource(String directory) {
         this.directory = directory;
         documents = new HashMap<String, IdentifiableDocumentWrapper>();
     }

@@ -49,7 +49,7 @@
         address="${federatedQuery.courtCaseQueryEndpoint}"
         wsdlURL="classpath:ssp/Court_Case_Query_Request/schema/SIP_WS_1.2/Court_Case_Query_Request_Service.wsdl"
         serviceName="ojbc:Court-Case-Query-Request-Service"
-        endpointName="ojbc:Court-Case-Query-Request-Service"
+        endpointName="ojbc:Court-Case-Query-Request-Secure-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
@@ -66,7 +66,7 @@
         address="${federatedQuery.courtCaseQueryResultsHandlerEndpoint}"
         wsdlURL="classpath:ssp/Court_Case_Query_Results/schemas/RS_WS-SIP_v1.2/Court_Case_Query_Results_Service.wsdl"
         serviceName="ojbc:Court-Case-Query-Results-Service"
-		endpointName="ojbc:Court-Case-Query-Results-Service"
+		endpointName="ojbc:Court-Case-Query-Results-Secure-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseQueryResultsService/1.0">
      <cxf:features>
       <policy:policies>
@@ -84,7 +84,7 @@
 	<cxf:cxfEndpoint id="courtCaseQueryRequestAdapterService"
 		wsdlURL="classpath:ssp/Court_Case_Query_Request/schema/SIP_WS_1.2/Court_Case_Query_Request_Service.wsdl"
 		serviceName="ojbc:Court-Case-Query-Request-Service"
-		endpointName="ojbc:Court-Case-Query-Request-Service"
+		endpointName="ojbc:Court-Case-Query-Request-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0">
 		<cxf:properties>
 			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
@@ -100,7 +100,7 @@
         address="${federatedQuery.presentCourtCaseQueryResultsEndpoint}"
         wsdlURL="classpath:ssp/Court_Case_Query_Results/schemas/RS_WS-SIP_v1.2/Court_Case_Query_Results_Service.wsdl"
         serviceName="ojbc:Court-Case-Query-Results-Service"
-		endpointName="ojbc:Court-Case-Query-Results-Service"
+		endpointName="ojbc:Court-Case-Query-Results-Secure-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseQueryResultsService/1.0">
      	<cxf:features>
 	      <policy:policies>

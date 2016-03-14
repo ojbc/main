@@ -116,6 +116,12 @@ public class WebPortalApplicationContextStartupListener implements
 					case "court-case-query":
 						camelContext.startRoute("courtCaseQueryResultsHandlerRoute");
 						break;
+					case "person-to-custody-search":
+						camelContext.startRoute("personToCustodySearchResultsHandlerRoute");
+						break;
+					case "custody-query":
+						camelContext.startRoute("custodyQueryResultsHandlerRoute");
+						break;
 					default:
 						break;
 					}

@@ -280,6 +280,17 @@ public class StaticMockQuery {
 			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, "iqr-doc:IncidentIdentifierIncidentReportRequest/iqr:Incident/nc:ActivityIdentification/nc:IdentificationID");
 			documentId = systemIdElement.getTextContent();
 			systemId = systemElement.getTextContent();
+		} else if (OjbcNamespaceContext.NS_COURT_CASE_QUERY_REQUEST_DOC.equals(rootElementNamespace) && "CourtCaseQueryRequest".equals(rootElementLocalName)) {
+			String xPath = OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC + ":CourtCaseQueryRequest/" + OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQ_EXT
+					+ ":CourtCaseRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationSourceText";
+			Element systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
+			if (systemElement == null) {
+				throw new IllegalArgumentException("Invalid query request message:  must specify the system to query.");
+			}
+			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC + ":CourtCaseQueryRequest/"
+					+ OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQ_EXT + ":CourtCaseRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationID");
+			documentId = systemIdElement.getTextContent();
+			systemId = systemElement.getTextContent();
 		} else if (OjbcNamespaceContext.NS_FIREARM_REGISTRATION_QUERY_REQUEST_DOC.equals(rootElementNamespace) && "PersonFirearmRegistrationRequest".equals(rootElementLocalName)) {
 			String xPath = OjbcNamespaceContext.NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_DOC + ":PersonFirearmRegistrationRequest/" + OjbcNamespaceContext.NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_EXT
 					+ ":PersonFirearmRegistrationIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC + ":IdentificationSourceText";
@@ -802,12 +813,10 @@ public class StaticMockQuery {
 		// loop through detail result matches, generate a search results doc
 		for (IdentifiableDocumentWrapper courtCaseDetailResultWrapper : courtCaseDetailResultList) {			
 			
-			Document courtCaseDetailResultDoc =  courtCaseDetailResultWrapper.getDocument();
-			
 			String sResultIndex = String.valueOf(detailResultIndex);
 			
 			Element courtCaseSearchResultElement = CourtCaseSearchResultBuilder 					
-					.buildCourtCaseSearchResultElement(rCourtCaseSearchResultsDoc, courtCaseDetailResultDoc, sResultIndex);
+					.buildCourtCaseSearchResultElement(rCourtCaseSearchResultsDoc, courtCaseDetailResultWrapper, sResultIndex);
 			
 			courtCaseSearchResultsRootElement.appendChild(courtCaseSearchResultElement);
 			
