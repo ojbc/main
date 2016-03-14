@@ -59,8 +59,9 @@ public class TestCourtCaseSearchRequestServiceIntermediary {
 
     
     @Test
-    public void testApplicationStartup() {
+    public void testApplicationStartup() throws Exception {
     	assertTrue(true);
+    	context.start();
     }	
     
 	@Before
@@ -74,7 +75,6 @@ public class TestCourtCaseSearchRequestServiceIntermediary {
     	    }              
     	});
     	
-    	context.start();
 	}
     
 }

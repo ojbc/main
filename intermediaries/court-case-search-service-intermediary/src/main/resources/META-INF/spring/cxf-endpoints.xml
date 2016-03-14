@@ -86,6 +86,24 @@
  		</cxf:features>	 
 	</cxf:cxfEndpoint>
 	
+	<!-- Court Case Search Results Handler Service, hosted by OJB  -->
+	<cxf:cxfEndpoint id="presentCourtSearchResultsService"
+		address="${federatedQuery.courtCaseSearch.presentResultsEndpoint}"
+		wsdlURL="classpath:ssp/Court_Case_Search_Results/schema/SIP_WS_1.2/Court_Case_Search_Results_Service.wsdl"
+		serviceName="ojbc:Court-Case-Search-Results-Service" 
+		endpointName="ojbc:Court-Case-Search-Results-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseSearchResultsService/1.0">
+		 <cxf:features> 
+ 			<policy:policies> 
+ 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+ 					<wsam:Addressing> 
+ 						<wsp:Policy /> 
+ 					</wsam:Addressing> 
+ 				</wsp:Policy> 
+ 			</policy:policies> 
+ 		</cxf:features>	 
+	</cxf:cxfEndpoint>
+	
 	<bean id="dropAllMessageHeadersStrategy" class="org.apache.camel.component.cxf.common.header.CxfHeaderFilterStrategy">
 	    <!--  Set relayHeaders to false to drop all SOAP headers -->
     	<property name="relayHeaders" value="false"/>
