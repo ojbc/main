@@ -25,10 +25,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.processor.person.query.CourtCaseQueryRequestProcessor;
 import org.ojbc.processor.person.query.CriminalHistoryRequestProcessor;
+import org.ojbc.processor.person.query.CustodyQueryRequestProcessor;
 import org.ojbc.processor.person.query.FirearmRegistrationQueryRequestProcessor;
 import org.ojbc.processor.person.query.IncidentReportRequestProcessor;
 import org.ojbc.processor.person.query.JuvenileQueryRequestProcessor;
 import org.ojbc.processor.person.query.PersonToCourtCaseSearchRequestProcessor;
+import org.ojbc.processor.person.query.PersonToCustodySearchRequestProcessor;
 import org.ojbc.processor.person.query.PersonVehicleToIncidentSearchRequestProcessor;
 import org.ojbc.processor.person.query.WarrantsRequestProcessor;
 import org.ojbc.web.DetailsQueryInterface;
@@ -71,6 +73,12 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 	
 	@Autowired(required=false)
 	private CourtCaseQueryRequestProcessor courtCaseQueryRequestProcessor;
+	
+	@Autowired(required=false)
+	private PersonToCustodySearchRequestProcessor personToCustodySearchRequestProcessor;
+	
+	@Autowired(required=false)
+	private CustodyQueryRequestProcessor custodyQueryRequestProcessor;
 	
 	@Autowired(required=false)
 	private FirearmRegistrationQueryRequestProcessor firearmRegistrationQueryRequestProcessor;
@@ -159,6 +167,14 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 		} else if (OJBCWebServiceURIs.COURT_CASE_DETAIL.equals(requestIdSrcTxt)){
 			
 			return courtCaseQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
+		} else if (OJBCWebServiceURIs.JAIL.equals(requestIdSrcTxt)){
+			
+			return personToCustodySearchRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
+		} else if (OJBCWebServiceURIs.JAIL_DETAIL.equals(requestIdSrcTxt)){
+			
+			return custodyQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
 		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
 			

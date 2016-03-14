@@ -113,6 +113,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="j:ChargeCategoryDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeHighestIndicator" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
@@ -200,6 +201,7 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="j:StatuteCodeIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:StatuteCodeSectionIdentification" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -323,6 +325,11 @@
       <xs:documentation>A description of a crime category.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ChargeCountQuantity" type="niem-xs:nonNegativeInteger" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A number of times a person is charged with committing the same crime.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ChargeDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A plain language description of a charge.</xs:documentation>
@@ -406,6 +413,11 @@
   <xs:element name="RegisteredSexualOffenderIndicator" type="niem-xs:boolean" nillable="true">
     <xs:annotation>
       <xs:documentation>True if a person is a registered sexual offender; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="StatuteCodeIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification number of a set of laws for a particular jurisdiction.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="StatuteCodeSectionIdentification" type="nc:IdentificationType" nillable="true">

@@ -25,19 +25,22 @@ import junit.framework.Assert;
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 import org.junit.Test;
+import org.ojbc.bundles.adapters.staticmock.ClasspathXmlDataSource;
+import org.ojbc.bundles.adapters.staticmock.IdentifiableDocumentWrapper;
 import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-
 public class CourtCaseSearchResultBuilderTest {
 	
 	
 	@Test
 	public void testCourtCaseSearchResultBuilder() throws Exception{
-		
+        ClasspathXmlDataSource ds = new ClasspathXmlDataSource("DocBuilderTestFiles/CourtCase");
+        IdentifiableDocumentWrapper documentWrapper = ds.getDocument("CourtCaseDetailQueryResults.xml");
+        
 		Document courtCaseSearchResultsDoc = createNewDocument();
 		
 		Element courtCaseSearchResultsRootElement = courtCaseSearchResultsDoc.createElementNS(OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS, "CourtCaseSearchResults");
@@ -46,11 +49,8 @@ public class CourtCaseSearchResultBuilderTest {
 		
 		courtCaseSearchResultsDoc.appendChild(courtCaseSearchResultsRootElement);
 		
-		Document courtCaseDetailDoc = XmlUtils.parseFileToDocument(
-				new File("src/test/resources/DocBuilderTestFiles/CourtCase/CourtCaseDetailQueryResults.xml"));
-		
 		Element courtCaseSearchResultElement = CourtCaseSearchResultBuilder.buildCourtCaseSearchResultElement(
-				courtCaseSearchResultsDoc, courtCaseDetailDoc, "1");
+				courtCaseSearchResultsDoc, documentWrapper, "1");
 		
 		courtCaseSearchResultsRootElement.appendChild(courtCaseSearchResultElement);
 		

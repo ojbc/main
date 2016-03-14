@@ -298,6 +298,11 @@
       <xs:documentation>A kind of activity.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ActivityDate" type="nc:DateType" substitutionGroup="nc:ActivityDateRepresentation">
+    <xs:annotation>
+      <xs:documentation>A date of an activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ActivityDateRange" type="nc:DateRangeType" substitutionGroup="nc:ActivityDateRepresentation">
     <xs:annotation>
       <xs:documentation>A period of time over which an activity occurs.</xs:documentation>

@@ -18,7 +18,10 @@
 
 -->
 
+
 <!-- Configures profile specific beans-->
+
+
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:cxf="http://camel.apache.org/schema/cxf"
@@ -42,39 +45,41 @@
        http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        "
-		profile="court-case-query"       
+		profile="person-to-custody-search"       
        >
-       
-		<!-- Incident Report Request Service hosted by the OJB -->
-		<cxf:cxfEndpoint id="courtCaseQueryRequestService"
-			address="${webapplication.personQuery.courtCaseQueryRequestEndpoint}"
-			wsdlURL="classpath:ssp/Court_Case_Query_Request/schema/SIP_WS_1.2/Court_Case_Query_Request_Service.wsdl"
-			serviceName="ojbc:Court-Case-Query-Request-Service" endpointName="ojbc:Court-Case-Query-Request-Secure-Service"
-			xmlns:ojbc="http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0">
+		
+		<!--Court Case Search Request Service, hosted by the OJB -->
+		<cxf:cxfEndpoint id="custodySearchRequestService"
+			address="${webapplication.personSearch.custodySearchRequestEndpoint}"
+			wsdlURL="classpath:ssp/Custody_Search_Request/schema/SIP_WS_1.2/Custody_Search_Request_Service.wsdl"
+			serviceName="ojbc:Custody_Search_Request_Service_Service" endpointName="ojbc:Custody_Search_Request_Secure_Service"
+			xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0">
 			<cxf:properties>
 				<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
 				<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 				<entry key="ws-security.signature.properties" value-ref="portalKeystoreProperties" />
 				<entry key="ws-security.signature.username" value="${webapplication.connector.keystoreCertificateAlias}" />
 			</cxf:properties>
-		</cxf:cxfEndpoint>       
-       
-	   <!-- Incident Report Request and Response Endpoints -->
-	   <bean id="courtCaseQueryRequestProcessor" class="org.ojbc.processor.person.query.CourtCaseQueryRequestProcessor">
-	   		<property name="replyToAddress"><value>${webapplication.personSearch.courtCaseQueryRequestReplyToEndpoint}</value></property>
-	   		<property name="courtCaseQueryRequestMessageProcessor" ref="courtCaseQueryRequestMessageProcessor"/>
-	   		<property name="requestResponseMap" ref="courtCaseQueryRequestResponseMap"/>
+		 
+		</cxf:cxfEndpoint>
+
+	  	<!-- Person to Custody Search Request and Response Endpoints -->
+	   <bean id="personToCustodySearchRequestProcessor" class="org.ojbc.processor.person.query.PersonToCustodySearchRequestProcessor">
+	   		<property name="replyToAddress"><value>${webapplication.personSearch.custodySearchRequestReplyToEndpoint}</value></property>
+	   		<property name="personToCustodySearchMessageProcessor" ref="personToCustodySearchMessageProcessor"/>
+	   		<property name="requestResponseMap" ref="personToCustodySearchRequestResponseMap"/>
 	   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
 	   		<property name="pollingIntervalInMillis" value="${webapplication.pollingIntervalInMillis}"/>
 	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
 	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
 	   </bean>
 	  
-		<bean id="courtCaseQueryRequestMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
-			<property name="operationName"><value>SubmitCourtCaseQueryRequest</value></property>
-			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0</value></property>
-			<property name="destinationEndpoint"><value>courtCaseQueryRequestService</value></property>
+		<bean id="personToCustodySearchMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
+			<property name="operationName"><value>SubmitCustodySearchRequest</value></property>
+			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0</value></property>
+			<property name="destinationEndpoint"><value>custodySearchRequestService</value></property>
 		</bean>
+	
+		<util:map map-class="java.util.concurrent.ConcurrentHashMap" id="personToCustodySearchRequestResponseMap"/>
 
-		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="courtCaseQueryRequestResponseMap"/>
 </beans>

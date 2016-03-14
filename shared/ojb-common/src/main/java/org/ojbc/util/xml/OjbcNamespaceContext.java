@@ -670,6 +670,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     
     public static final String NS_PREFIX_FEDERAL_SUBSCRIPTION_UPDATE_REPORT_EXT = "fed_subcr_upd-ext";
     public static final String NS_FEDERAL_SUBSCRIPTION_UPDATE_REPORT_EXT ="http://ojbc.org/IEPD/Extensions/FederalSubscriptionUpdateReportExtension/1.0";
+
+	public static String NS_COURT_CASE_QUERY_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/CourtCaseQueryRequest/1.0";
+	public static String NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC ="ccq-req-doc";
+
+	public static String NS_COURT_CASE_QUERY_REQ_EXT="http://ojbc.org/IEPD/Extensions/CourtCaseQueryRequestExtension/1.0";
+	public static String NS_PREFIX_COURT_CASE_QUERY_REQ_EXT="ccq-req-ext";
     
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -1318,7 +1324,14 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    uriToPrefixMap.put(NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST);
 	    	    
 	    prefixToUriMap.put(NS_PREFIX_CASE_FILE_DECISION_REPORT_DOC_EXCH, NS_CASE_FILE_DECISION_REPORT_DOC_EXCH);
-	    uriToPrefixMap.put(NS_CASE_FILE_DECISION_REPORT_DOC_EXCH, NS_PREFIX_CASE_FILE_DECISION_REPORT_DOC_EXCH);	    
+	    uriToPrefixMap.put(NS_CASE_FILE_DECISION_REPORT_DOC_EXCH, NS_PREFIX_CASE_FILE_DECISION_REPORT_DOC_EXCH);	
+	    
+	    prefixToUriMap.put(NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC, NS_COURT_CASE_QUERY_REQUEST_DOC);
+	    uriToPrefixMap.put(NS_COURT_CASE_QUERY_REQUEST_DOC, NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC);	
+	    
+	    prefixToUriMap.put(NS_PREFIX_COURT_CASE_QUERY_REQ_EXT, NS_COURT_CASE_QUERY_REQ_EXT);
+	    uriToPrefixMap.put(NS_COURT_CASE_QUERY_REQ_EXT, NS_PREFIX_COURT_CASE_QUERY_REQ_EXT);	
+	    
 	}
 
 	@Override

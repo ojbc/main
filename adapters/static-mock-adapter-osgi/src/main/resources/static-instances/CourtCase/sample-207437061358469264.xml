@@ -52,7 +52,7 @@
       <nc30:CaseDocketID>SC vs NC</nc30:CaseDocketID>
       <nc30:CaseFiling>
          <nc30:DocumentCreationDate>
-            <nc30:DateTime>1947-08-28</nc30:DateTime>
+            <nc30:DateTime>1947-08-28T09:19:39</nc30:DateTime>
          </nc30:DocumentCreationDate>
       </nc30:CaseFiling>
       <jxdm51:CaseAugmentation>
@@ -175,10 +175,10 @@
             <nc30:ActivityCategoryText>Evidence Presentation</nc30:ActivityCategoryText>
             <nc30:ActivityDateRange>
                <nc30:StartDate>
-                  <nc30:DateTime>1960-07-11</nc30:DateTime>
+                  <nc30:DateTime>1960-07-11T09:19:39</nc30:DateTime>
                </nc30:StartDate>
                <nc30:EndDate>
-                  <nc30:DateTime>1935-10-19</nc30:DateTime>
+                  <nc30:DateTime>1935-10-19T09:19:39</nc30:DateTime>
                </nc30:EndDate>
             </nc30:ActivityDateRange>
             <nc30:ActivityDescriptionText>Jury Deciding Verdict</nc30:ActivityDescriptionText>
@@ -295,7 +295,7 @@
       </jxdm51:CitationViolation>
       <ccq-res-ext:CitationAugmentation>
          <jxdm51:CourtAppearanceDate>
-            <nc30:DateTime>1975-07-13</nc30:DateTime>
+            <nc30:DateTime>1975-07-13T09:19:39</nc30:DateTime>
          </jxdm51:CourtAppearanceDate>
          <ccq-res-ext:CourtAppearanceRequiredIndicator>true</ccq-res-ext:CourtAppearanceRequiredIndicator>
          <ccq-res-ext:LicenseSurrenderedIndicator>true</ccq-res-ext:LicenseSurrenderedIndicator>
@@ -416,10 +416,10 @@
                   <nc30:IdentificationSourceText>FL</nc30:IdentificationSourceText>
                </jxdm51:DriverLicenseIdentification>
                <jxdm51:DriverLicenseExpirationDate>
-                  <nc30:DateTime>1964-04-26</nc30:DateTime>
+                  <nc30:DateTime>1964-04-26T09:19:39</nc30:DateTime>
                </jxdm51:DriverLicenseExpirationDate>
                <jxdm51:DriverLicenseIssueDate>
-                  <nc30:DateTime>1932-09-06</nc30:DateTime>
+                  <nc30:DateTime>1932-09-06T09:19:39</nc30:DateTime>
                </jxdm51:DriverLicenseIssueDate>
                <jxdm51:DriverLicenseNonCommercialClassText>L</jxdm51:DriverLicenseNonCommercialClassText>
             </jxdm51:DriverLicense>
