@@ -20,7 +20,7 @@ public class CustodyDetail {
 
 	private String docCreationDate;
 	private String docId;
-	private String documentIdCategoryDescription;
+
 	private String personDob;
 	private String personGivenName;
 	private String personMiddleName;
@@ -50,9 +50,7 @@ public class CustodyDetail {
 	public String getDocId() {
 		return docId;
 	}
-	public String getDocumentIdCategoryDescription() {
-		return documentIdCategoryDescription;
-	}
+
 	public String getPersonDob() {
 		return personDob;
 	}
@@ -122,10 +120,7 @@ public class CustodyDetail {
 	public void setDocId(String docId) {
 		this.docId = docId;
 	}
-	public void setDocumentIdCategoryDescription(
-			String documentIdCategoryDescription) {
-		this.documentIdCategoryDescription = documentIdCategoryDescription;
-	}
+
 	public void setPersonDob(String personDob) {
 		this.personDob = personDob;
 	}
