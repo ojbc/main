@@ -1471,8 +1471,8 @@ public class SearchTest extends AbstractStaticMockTest {
         // custody result
         
         String sCustodyPersonAge = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/nc:PersonAgeMeasure/nc:MeasurePointValue");
-        //TODO FIXME
-//        assertEquals("47", sCustodyPersonAge);
+        // determined by base date param in test
+        assertEquals("44", sCustodyPersonAge);
 
         String sCustodyPersonDob = XmlUtils.xPathStringSearch(custodyResult, "psres:Person/nc:PersonBirthDate/nc:Date");        
         assertEquals("1968-12-17", sCustodyPersonDob);        
