@@ -245,4 +245,18 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="PersonImmigrationAlienQueryIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a person query should include the DHS ICE Database; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonEntryNumber" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A miscellaneous unique identification assigned to a person record.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>

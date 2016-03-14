@@ -34,9 +34,9 @@
 					<nc:IdentificationID>758075800</nc:IdentificationID>
 				</j:OrganizationORIIdentification>
 			</j:OrganizationAugmentation>
-				<wir-ext:AgencyRecordIdentification>
-					<nc:IdentificationID>OCA4576</nc:IdentificationID>
-				</wir-ext:AgencyRecordIdentification>
+			<wir-ext:AgencyRecordIdentification>
+				<nc:IdentificationID>OCA4576</nc:IdentificationID>
+			</wir-ext:AgencyRecordIdentification>
 		</j:CourtOrderEnforcementAgency>
 		<j:CourtOrderRequestEntity>
 			<nc:EntityPerson>
@@ -58,5 +58,8 @@
 		</nc:PersonName>
 		<j:PersonRaceCode>A</j:PersonRaceCode>
 		<j:PersonSexCode>M</j:PersonSexCode>
+		<wir-ext:PersonEntryNumber>
+			<nc:IdentificationID>PE45678</nc:IdentificationID>
+		</wir-ext:PersonEntryNumber>
 	</nc:Person>
 </war-doc:WarrantAcceptedReport>

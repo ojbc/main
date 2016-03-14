@@ -107,7 +107,7 @@
 		<nc:PersonBirthLocation>
 			<nc:LocationCategoryText>OP</nc:LocationCategoryText>
 		</nc:PersonBirthLocation>
-		<nc:PersonCitizenshipISO3166Alpha2Code>AO
+		<nc:PersonCitizenshipISO3166Alpha2Code>US
 		</nc:PersonCitizenshipISO3166Alpha2Code>
 		<j:PersonEthnicityCode>N</j:PersonEthnicityCode>
 		<nc:PersonEyeColorText>BLK</nc:PersonEyeColorText>
@@ -136,6 +136,7 @@
 		<nc:PersonStateIdentification>
 			<nc:IdentificationID>SID56567</nc:IdentificationID>
 		</nc:PersonStateIdentification>
+		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>165</nc:MeasureValueText>
 			<nc:MeasureUnitText>ibs</nc:MeasureUnitText>
@@ -160,6 +161,7 @@
 		<wir-ext:PersonMiscellaneousRecordIdentification>
 			<nc:IdentificationID>MR456782</nc:IdentificationID>
 		</wir-ext:PersonMiscellaneousRecordIdentification>
+		<wir-ext:PersonImmigrationAlienQueryIndicator>false</wir-ext:PersonImmigrationAlienQueryIndicator>
 	</nc:Person>
 	<nc:Identity structures:id="Alias_01">
 		<nc:IdentityPersonRepresentation>
