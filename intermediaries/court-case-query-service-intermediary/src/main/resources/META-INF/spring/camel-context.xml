@@ -24,7 +24,7 @@
        xmlns:cxf="http://camel.apache.org/schema/cxf"
        xmlns:ctx="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+       xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
        xsi:schemaLocation="
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -88,7 +88,7 @@
 			<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
 			<!-- Change this XPath to match what you need -->
 			<camel:setHeader headerName="federatedQueryEndpointsNodeList">
-				<camel:xpath>//nc20:IdentificationSourceText</camel:xpath>
+				<camel:xpath>//nc30:IdentificationSourceText</camel:xpath>
 			</camel:setHeader>
 			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
 									
@@ -97,7 +97,7 @@
 									
 			<!-- Since this is a query, we only call one endpoint -->						
 			<camel:setHeader headerName="adapterURI">
-				<camel:xpath resultType="java.lang.String">//nc20:IdentificationSourceText</camel:xpath>
+				<camel:xpath resultType="java.lang.String">//nc30:IdentificationSourceText</camel:xpath>
 			</camel:setHeader>
 
 			<!-- Add the reply to address to the map using the federated query guid as the key -->
@@ -119,7 +119,7 @@
 			<camel:log message="Timer started"/>
 
 			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
-				<camel:xpath>//nc20:IdentificationSourceText</camel:xpath>
+				<camel:xpath>//nc30:IdentificationSourceText</camel:xpath>
 				<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
 				
 				<camel:recipientList>
