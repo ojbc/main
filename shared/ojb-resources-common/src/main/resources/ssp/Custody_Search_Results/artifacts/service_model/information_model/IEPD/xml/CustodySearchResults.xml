@@ -55,19 +55,14 @@
 			</j:PersonAugmentation>
 		</nc:Person>
 		<cs-res-ext:Booking structures:id="Booking_01">
-			<j:FingerprintDate>
-				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
-			</j:FingerprintDate>
+			<nc:ActivityDate>
+				<nc:DateTime>2013-12-17T09:30:00</nc:DateTime>
+			</nc:ActivityDate>
 			<j:BookingSubject>
 				<j:SubjectIdentification>
 					<nc:IdentificationID>Booking Number</nc:IdentificationID>
 				</j:SubjectIdentification>
 			</j:BookingSubject>
-			<nc:Image>
-				<nc:ImageLocation>
-					<nc:LocationDescriptionText>http://asco.ojbc.org/inmatelookup/image/33334444</nc:LocationDescriptionText>
-				</nc:ImageLocation>
-			</nc:Image>
 		</cs-res-ext:Booking>
 		<j:Charge structures:id="Charge_01">
 			<j:ChargeCountQuantity>0</j:ChargeCountQuantity>
