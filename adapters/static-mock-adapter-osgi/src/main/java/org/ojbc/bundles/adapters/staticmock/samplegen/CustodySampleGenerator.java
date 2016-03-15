@@ -39,7 +39,10 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 
 	private static final Random RANDOM = new Random();
 	
-	private static final String CURRENT_DATE = DateTime.now().toString("yyyy-MM-dd");
+
+	private static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+	
+	private static final String CURRENT_DATE = DateTime.now().toString(DATE_TIME_FORMAT);
 	
 	
 	public CustodySampleGenerator() throws ParserConfigurationException,
@@ -126,7 +129,7 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		Element activityDateElement = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");	
 		Element activityDateTimeElement = XmlUtils.appendElement(activityDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");		
-		activityDateTimeElement.setTextContent(CURRENT_DATE);
+		activityDateTimeElement.setTextContent(randomDate(DATE_TIME_FORMAT));
 		
 				
 		Element detentionFacElement = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_JXDM_51, "BookingDetentionFacility");		
@@ -154,7 +157,7 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		Element detentionActivityDate = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");		
 		Element detentionDateValElement = XmlUtils.appendElement(detentionActivityDate, OjbcNamespaceContext.NS_NC_30, "Date");		
-		detentionDateValElement.setTextContent(CURRENT_DATE);
+		detentionDateValElement.setTextContent(randomDate("yyyy-MM-dd"));
 		
 		
 		Element supervisionCustodyStatusElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_NC_30, "SupervisionCustodyStatus");
@@ -167,7 +170,8 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		Element pretrialCatCodeElement = XmlUtils.appendElement(supervisionCustodyStatusElement, OjbcNamespaceContext.NS_ADAMS_CO_BOOKING_CODES_EXT, "PreTrialCategoryCode");
 		
-		List<String> pretrialCatCodeList = Arrays.asList("C-SRP", "A-XYZ", "B-897");		
+		
+		List<String> pretrialCatCodeList = Arrays.asList("SRP", "C-PR", "S-PR", "PR", "C-SRP", "S-SRP", "SUR", "Split", "No-Bond");		
 		int pretrialCatCodeIndex = RANDOM.nextInt(pretrialCatCodeList.size());		
 		String pretrialCatCodeSample = pretrialCatCodeList.get(pretrialCatCodeIndex);		
 		pretrialCatCodeElement.setTextContent(pretrialCatCodeSample);		
@@ -177,7 +181,7 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		Element supervisionReleaseDateElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionReleaseDate");
 		
 		Element supervisionReleaseDateValElement = XmlUtils.appendElement(supervisionReleaseDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");		
-		supervisionReleaseDateValElement.setTextContent(CURRENT_DATE);
+		supervisionReleaseDateValElement.setTextContent(randomDate(DATE_TIME_FORMAT));
 		
 		Element supervisionAreaIdElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionAreaIdentification");
 		
@@ -312,7 +316,7 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		Element nextCourtActivityDateElement = XmlUtils.appendElement(nextCourtEventElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");
 		
 		Element activityDateValElement = XmlUtils.appendElement(nextCourtActivityDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
-		activityDateValElement.setTextContent(CURRENT_DATE);
+		activityDateValElement.setTextContent(randomDate());
 		
 		
 		Element courtEventCourtElement = XmlUtils.appendElement(nextCourtEventElement, OjbcNamespaceContext.NS_JXDM_51, "CourtEventCourt");
@@ -343,7 +347,7 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		personImgBinElement.setTextContent(sSampleImgBin);
 		
 		
-		List<String> ethnicitySampleList = Arrays.asList("African American", "Latino", "Caucasion");		
+		List<String> ethnicitySampleList = Arrays.asList("H", "N", "U");		
 		int ethnicityRandomIndex = RANDOM.nextInt(ethnicitySampleList.size());		
 		String ethnicitySample = ethnicitySampleList.get(ethnicityRandomIndex);
 		
@@ -380,7 +384,7 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		String sampleResidentTxt = person.addressStreetName;		
 		personResidentTxtElement.setTextContent(sampleResidentTxt);		
 		
-		String sPersonSex = person.sex;
+		String sPersonSex = randomString("M", "F");
 		Element personSexElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
 		personSexElement.setTextContent(sPersonSex);
 		
@@ -427,7 +431,7 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		String locAddress = person.addressStreetName;		
 		locAddressFullElement.setTextContent(locAddress);	
 		
-		Element loc2dGeoEl = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_NC_30, "Location2DGeospatialCoordinate");		
+		Element loc2dGeoEl = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_NC_30, "Location2DGeospatialCoordinate");		
 		Element geoCordLatEl = XmlUtils.appendElement(loc2dGeoEl, OjbcNamespaceContext.NS_NC_30, "GeographicCoordinateLatitude");		
 		Element latDegValEl = XmlUtils.appendElement(geoCordLatEl, OjbcNamespaceContext.NS_NC_30, "LatitudeDegreeValue");				
 		latDegValEl.setTextContent(RandomStringUtils.randomNumeric(2));
@@ -496,7 +500,7 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		Element metadataElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_NC_30, "Metadata");		
 		Element lastUpdatedDateElement = XmlUtils.appendElement(metadataElement, OjbcNamespaceContext.NS_NC_30, "LastUpdatedDate");		
 		Element lastUpdatedDateValElement = XmlUtils.appendElement(lastUpdatedDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
-		lastUpdatedDateValElement.setTextContent(CURRENT_DATE);				
+		lastUpdatedDateValElement.setTextContent(randomDate());				
 		
 				
 		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
