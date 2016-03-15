@@ -22,16 +22,16 @@
                                  xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
                                  xmlns:cs-res-ext="http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0"
                                  xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/">
-   <cs-res-doc:CustodySearchResult s30:id="Result_0">
+   <cs-res-ext:CustodySearchResult s30:id="Result_0">
       <nc30:DocumentCreationDate>
-         <nc30:DateTime>2012-12-17T09:30:47.0Z</nc30:DateTime>
+         <nc30:DateTime>2012-12-17T09:30:47</nc30:DateTime>
       </nc30:DocumentCreationDate>
       <nc30:DocumentIdentification>
          <nc30:IdentificationID>abc123</nc30:IdentificationID>
       </nc30:DocumentIdentification>
       <nc30:Person s30:id="Person_0" s30:metadata="M0">
          <nc30:PersonBirthDate>
-            <nc30:DateTime>1968-12-17</nc30:DateTime>
+            <nc30:Date>1968-12-17</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonName>
             <nc30:PersonGivenName>Homer</nc30:PersonGivenName>
@@ -49,7 +49,7 @@
 			</jxdm51:PersonStateFingerprintIdentification>
 		</jxdm51:PersonAugmentation>		
       </nc30:Person>
-      <cs-res-ext:Booking s30:id="Booking0">
+      <cs-res-ext:Booking s30:id="Booking_0">
          <jxdm51:BookingSubject>
             <jxdm51:SubjectIdentification>
                <nc30:IdentificationID>abc123</nc30:IdentificationID>
@@ -87,5 +87,5 @@
             <nc30:Date>2015-09-23</nc30:Date>
          </nc30:LastUpdatedDate>
       </nc30:Metadata>
-   </cs-res-doc:CustodySearchResult>
+   </cs-res-ext:CustodySearchResult>
 </cs-res-doc:CustodySearchResults>

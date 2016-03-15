@@ -86,7 +86,7 @@ public class CustodySearchResultBuilderTest {
 		Assert.assertEquals("789", statuteCodeId);
 		
 		String docCreationDate = custodyDetail.getDocCreationDate();
-		Assert.assertEquals("2012-12-17T09:30:47.0Z", docCreationDate);
+		Assert.assertEquals("2012-12-17T09:30:47", docCreationDate);
 		
 		String docId = custodyDetail.getDocId();
 		Assert.assertEquals("abc123", docId);		
