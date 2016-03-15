@@ -49,7 +49,7 @@
 			<nc:PersonHairColorText>HairColorText</nc:PersonHairColorText>
 			<nc:PersonHeightMeasure>
 				<nc:MeasureValueText>MeasureValueText</nc:MeasureValueText>
-				<nc:LengthUnitCode>4H</nc:LengthUnitCode>
+				<nc:MeasureUnitText></nc:MeasureUnitText>
 			</nc:PersonHeightMeasure>
 			<nc:PersonName>
 				<nc:PersonGivenName>nc:PersonGivenName</nc:PersonGivenName>
