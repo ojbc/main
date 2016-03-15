@@ -25,91 +25,91 @@
                                  xmlns:cyfs-31="http://release.niem.gov/niem/domains/cyfs/3.1/"
                                  xmlns:cq-res-ext="http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0">
    <nc30:DocumentCreationDate>
-      <nc30:DateTime>2016-03-11</nc30:DateTime>
+      <nc30:DateTime>2016-03-15T09:51:33</nc30:DateTime>
    </nc30:DocumentCreationDate>
    <nc30:DocumentIdentification>
-      <nc30:IdentificationID>8953458</nc30:IdentificationID>
+      <nc30:IdentificationID>6906596</nc30:IdentificationID>
    </nc30:DocumentIdentification>
    <intel31:SystemIdentification>
-      <nc30:IdentificationID>178205</nc30:IdentificationID>
+      <nc30:IdentificationID>918008</nc30:IdentificationID>
       <nc30:SystemName>Custody Detail</nc30:SystemName>
    </intel31:SystemIdentification>
    <cq-res-ext:Custody>
       <nc30:Case s30:id="Case_1">
          <jxdm51:CaseAugmentation>
             <jxdm51:CaseCourt>
-               <jxdm51:CourtName>Walker Texas Ranger</jxdm51:CourtName>
+               <jxdm51:CourtName>Judge Judy</jxdm51:CourtName>
             </jxdm51:CaseCourt>
          </jxdm51:CaseAugmentation>
       </nc30:Case>
       <jxdm51:Booking s30:id="Booking_1">
          <nc30:ActivityDate>
-            <nc30:DateTime>2016-03-11</nc30:DateTime>
+            <nc30:DateTime>1968-07-22T00:00:00</nc30:DateTime>
          </nc30:ActivityDate>
          <jxdm51:BookingDetentionFacility>
             <nc30:FacilityIdentification>
-               <nc30:IdentificationID>905078</nc30:IdentificationID>
+               <nc30:IdentificationID>166203</nc30:IdentificationID>
             </nc30:FacilityIdentification>
          </jxdm51:BookingDetentionFacility>
          <jxdm51:BookingSubject>
             <nc30:RoleOfPerson s30:ref="Person_1"/>
             <jxdm51:SubjectIdentification>
-               <nc30:IdentificationID>2bsJkwO9</nc30:IdentificationID>
+               <nc30:IdentificationID>jGiIWCdo</nc30:IdentificationID>
             </jxdm51:SubjectIdentification>
          </jxdm51:BookingSubject>
       </jxdm51:Booking>
       <jxdm51:Detention s30:id="Detention_1">
          <nc30:ActivityDate>
-            <nc30:Date>2016-03-11</nc30:Date>
+            <nc30:Date>1957-02-09</nc30:Date>
          </nc30:ActivityDate>
          <nc30:SupervisionCustodyStatus>
-            <nc30:StatusDescriptionText>Pretrial</nc30:StatusDescriptionText>
-            <ac-bkg-codes:PreTrialCategoryCode>C-SRP</ac-bkg-codes:PreTrialCategoryCode>
+            <nc30:StatusDescriptionText>Post-Trial</nc30:StatusDescriptionText>
+            <ac-bkg-codes:PreTrialCategoryCode>SRP</ac-bkg-codes:PreTrialCategoryCode>
          </nc30:SupervisionCustodyStatus>
          <jxdm51:SupervisionAugmentation>
             <jxdm51:SupervisionReleaseDate>
-               <nc30:DateTime>2016-03-11</nc30:DateTime>
+               <nc30:DateTime>1946-04-13T00:00:00</nc30:DateTime>
             </jxdm51:SupervisionReleaseDate>
             <jxdm51:SupervisionAreaIdentification>
-               <nc30:IdentificationID>943585764</nc30:IdentificationID>
+               <nc30:IdentificationID>063847876</nc30:IdentificationID>
             </jxdm51:SupervisionAreaIdentification>
          </jxdm51:SupervisionAugmentation>
          <cq-res-ext:DetentiontImmigrationHoldIndicator>false</cq-res-ext:DetentiontImmigrationHoldIndicator>
          <cq-res-ext:HoldForAgency>
-            <nc30:OrganizationName>Acme</nc30:OrganizationName>
+            <nc30:OrganizationName>Chips</nc30:OrganizationName>
          </cq-res-ext:HoldForAgency>
          <cq-res-ext:InmateWorkReleaseIndicator>false</cq-res-ext:InmateWorkReleaseIndicator>
-         <cq-res-ext:InmateWorkerIndicator>true</cq-res-ext:InmateWorkerIndicator>
+         <cq-res-ext:InmateWorkerIndicator>false</cq-res-ext:InmateWorkerIndicator>
       </jxdm51:Detention>
       <jxdm51:BailBond s30:id="Bond_1">
-         <nc30:ActivityCategoryText>Speeding</nc30:ActivityCategoryText>
+         <nc30:ActivityCategoryText>Noise Violation</nc30:ActivityCategoryText>
          <nc30:ActivityStatus>
-            <nc30:StatusDescriptionText>Paid</nc30:StatusDescriptionText>
+            <nc30:StatusDescriptionText>Unpaid</nc30:StatusDescriptionText>
          </nc30:ActivityStatus>
          <jxdm51:BailBondAmount>
-            <nc30:Amount>2245</nc30:Amount>
+            <nc30:Amount>5268</nc30:Amount>
          </jxdm51:BailBondAmount>
       </jxdm51:BailBond>
       <jxdm51:Charge s30:id="Charge_1">
-         <jxdm51:ChargeCategoryDescriptionText>Speeding</jxdm51:ChargeCategoryDescriptionText>
-         <jxdm51:ChargeDescriptionText>Speeding</jxdm51:ChargeDescriptionText>
-         <jxdm51:ChargeHighestIndicator>true</jxdm51:ChargeHighestIndicator>
-         <jxdm51:ChargeSequenceID>1379876</jxdm51:ChargeSequenceID>
+         <jxdm51:ChargeCategoryDescriptionText>Seat Belt Usage</jxdm51:ChargeCategoryDescriptionText>
+         <jxdm51:ChargeDescriptionText>Intoxicated</jxdm51:ChargeDescriptionText>
+         <jxdm51:ChargeHighestIndicator>false</jxdm51:ChargeHighestIndicator>
+         <jxdm51:ChargeSequenceID>7300905</jxdm51:ChargeSequenceID>
          <jxdm51:ChargeStatute>
             <jxdm51:StatuteCodeSectionIdentification>
-               <nc30:IdentificationID>210037</nc30:IdentificationID>
+               <nc30:IdentificationID>153829</nc30:IdentificationID>
             </jxdm51:StatuteCodeSectionIdentification>
          </jxdm51:ChargeStatute>
       </jxdm51:Charge>
       <jxdm51:Arrest s30:id="Arrest_1">
          <jxdm51:ArrestAgency>
-            <nc30:OrganizationName>CHIPS</nc30:OrganizationName>
+            <nc30:OrganizationName>NYPD</nc30:OrganizationName>
          </jxdm51:ArrestAgency>
          <jxdm51:ArrestLocation s30:ref="Loc_1"/>
       </jxdm51:Arrest>
       <cyfs-31:NextCourtEvent s30:id="Event_1">
          <nc30:ActivityDate>
-            <nc30:Date>2016-03-11</nc30:Date>
+            <nc30:Date>1963-03-25</nc30:Date>
          </nc30:ActivityDate>
          <jxdm51:CourtEventCourt>
             <jxdm51:CourtName>Traffic Court</jxdm51:CourtName>
@@ -117,54 +117,54 @@
       </cyfs-31:NextCourtEvent>
       <nc30:Person s30:id="Person_1">
          <nc30:PersonBirthDate>
-            <nc30:Date>1930-04-15</nc30:Date>
+            <nc30:Date>1991-06-13</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonDigitalImage>
-            <nc30:Base64BinaryObject>P03BVKHzuvZTRYvvISRA</nc30:Base64BinaryObject>
+            <nc30:Base64BinaryObject>SgTDgocShcR4LWdkbPum</nc30:Base64BinaryObject>
          </nc30:PersonDigitalImage>
-         <jxdm51:PersonEthnicityCode>African American</jxdm51:PersonEthnicityCode>
+         <jxdm51:PersonEthnicityCode>N</jxdm51:PersonEthnicityCode>
          <nc30:PersonName>
-            <nc30:PersonGivenName>Kathryn</nc30:PersonGivenName>
-            <nc30:PersonMiddleName>L</nc30:PersonMiddleName>
-            <nc30:PersonSurName>Picard</nc30:PersonSurName>
+            <nc30:PersonGivenName>Lee</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>J</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Mack</nc30:PersonSurName>
          </nc30:PersonName>
          <nc30:PersonPrimaryLanguage>
-            <nc30:LanguageName>Espagnol</nc30:LanguageName>
+            <nc30:LanguageName>Cabiait</nc30:LanguageName>
          </nc30:PersonPrimaryLanguage>
          <jxdm51:PersonRaceCode>B</jxdm51:PersonRaceCode>
-         <nc30:PersonResidentText>Mesa Drive</nc30:PersonResidentText>
-         <jxdm51:PersonSexCode>female</jxdm51:PersonSexCode>
+         <nc30:PersonResidentText>Kelly Street</nc30:PersonResidentText>
+         <jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
          <nc30:PersonSSNIdentification>
-            <nc30:IdentificationID>647697907</nc30:IdentificationID>
+            <nc30:IdentificationID>556261154</nc30:IdentificationID>
          </nc30:PersonSSNIdentification>
          <jxdm51:PersonAugmentation>
             <jxdm51:DriverLicense>
                <jxdm51:DriverLicenseCardIdentification>
-                  <nc30:IdentificationID>007711751</nc30:IdentificationID>
-                  <nc30:IdentificationSourceText>NJ</nc30:IdentificationSourceText>
+                  <nc30:IdentificationID>294531788</nc30:IdentificationID>
+                  <nc30:IdentificationSourceText>NV</nc30:IdentificationSourceText>
                </jxdm51:DriverLicenseCardIdentification>
             </jxdm51:DriverLicense>
             <jxdm51:PersonFBIIdentification>
-               <nc30:IdentificationID>868778822</nc30:IdentificationID>
+               <nc30:IdentificationID>422125885</nc30:IdentificationID>
             </jxdm51:PersonFBIIdentification>
             <jxdm51:PersonStateFingerprintIdentification>
-               <nc30:IdentificationID>sqYPcpvV</nc30:IdentificationID>
+               <nc30:IdentificationID>cygVJHGl</nc30:IdentificationID>
             </jxdm51:PersonStateFingerprintIdentification>
          </jxdm51:PersonAugmentation>
       </nc30:Person>
       <nc30:Location s30:id="Loc_1">
          <nc30:Address>
-            <nc30:AddressFullText>Mesa Drive</nc30:AddressFullText>
+            <nc30:AddressFullText>Kelly Street</nc30:AddressFullText>
          </nc30:Address>
+         <nc30:Location2DGeospatialCoordinate>
+            <nc30:GeographicCoordinateLatitude>
+               <nc30:LatitudeDegreeValue>81</nc30:LatitudeDegreeValue>
+            </nc30:GeographicCoordinateLatitude>
+            <nc30:GeographicCoordinateLongitude>
+               <nc30:LongitudeDegreeValue>65</nc30:LongitudeDegreeValue>
+            </nc30:GeographicCoordinateLongitude>
+         </nc30:Location2DGeospatialCoordinate>
       </nc30:Location>
-      <nc30:Location2DGeospatialCoordinate>
-         <nc30:GeographicCoordinateLatitude>
-            <nc30:LatitudeDegreeValue>92</nc30:LatitudeDegreeValue>
-         </nc30:GeographicCoordinateLatitude>
-         <nc30:GeographicCoordinateLongitude>
-            <nc30:LongitudeDegreeValue>55</nc30:LongitudeDegreeValue>
-         </nc30:GeographicCoordinateLongitude>
-      </nc30:Location2DGeospatialCoordinate>
       <jxdm51:ActivityChargeAssociation>
          <nc30:Activity s30:ref="Case_1"/>
          <nc30:Activity s30:ref="Booking_1"/>
@@ -186,7 +186,7 @@
    </cq-res-ext:InformationOwningOrganization>
    <nc30:Metadata>
       <nc30:LastUpdatedDate>
-         <nc30:Date>2016-03-11</nc30:Date>
+         <nc30:Date>1993-09-30</nc30:Date>
       </nc30:LastUpdatedDate>
    </nc30:Metadata>
 </cq-res-exch:CustodyQueryResults>
