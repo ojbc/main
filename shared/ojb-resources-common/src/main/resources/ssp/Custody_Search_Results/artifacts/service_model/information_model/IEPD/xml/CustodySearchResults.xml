@@ -36,7 +36,7 @@
 		</nc:DocumentIdentification>
 		<nc:Person structures:id="Person_01" structures:metadata="M001">
 			<nc:PersonBirthDate>
-				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+				<nc:Date>2001-12-31</nc:Date>
 			</nc:PersonBirthDate>
 			<nc:PersonName>
 				<nc:PersonGivenName>nc:PersonGivenName</nc:PersonGivenName>
