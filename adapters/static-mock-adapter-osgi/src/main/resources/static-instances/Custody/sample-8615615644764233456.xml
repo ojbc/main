@@ -25,146 +25,146 @@
                                  xmlns:cyfs-31="http://release.niem.gov/niem/domains/cyfs/3.1/"
                                  xmlns:cq-res-ext="http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0">
    <nc30:DocumentCreationDate>
-      <nc30:DateTime>2016-03-11</nc30:DateTime>
+      <nc30:DateTime>2016-03-15T09:51:33</nc30:DateTime>
    </nc30:DocumentCreationDate>
    <nc30:DocumentIdentification>
-      <nc30:IdentificationID>0532372</nc30:IdentificationID>
+      <nc30:IdentificationID>7170646</nc30:IdentificationID>
    </nc30:DocumentIdentification>
    <intel31:SystemIdentification>
-      <nc30:IdentificationID>757171</nc30:IdentificationID>
+      <nc30:IdentificationID>100809</nc30:IdentificationID>
       <nc30:SystemName>Custody Detail</nc30:SystemName>
    </intel31:SystemIdentification>
    <cq-res-ext:Custody>
       <nc30:Case s30:id="Case_1">
          <jxdm51:CaseAugmentation>
             <jxdm51:CaseCourt>
-               <jxdm51:CourtName>Matlock</jxdm51:CourtName>
+               <jxdm51:CourtName>Walker Texas Ranger</jxdm51:CourtName>
             </jxdm51:CaseCourt>
          </jxdm51:CaseAugmentation>
       </nc30:Case>
       <jxdm51:Booking s30:id="Booking_1">
          <nc30:ActivityDate>
-            <nc30:DateTime>2016-03-11</nc30:DateTime>
+            <nc30:DateTime>1932-11-17T00:00:00</nc30:DateTime>
          </nc30:ActivityDate>
          <jxdm51:BookingDetentionFacility>
             <nc30:FacilityIdentification>
-               <nc30:IdentificationID>354570</nc30:IdentificationID>
+               <nc30:IdentificationID>760437</nc30:IdentificationID>
             </nc30:FacilityIdentification>
          </jxdm51:BookingDetentionFacility>
          <jxdm51:BookingSubject>
             <nc30:RoleOfPerson s30:ref="Person_1"/>
             <jxdm51:SubjectIdentification>
-               <nc30:IdentificationID>CpIYeH4M</nc30:IdentificationID>
+               <nc30:IdentificationID>mrtyAIfp</nc30:IdentificationID>
             </jxdm51:SubjectIdentification>
          </jxdm51:BookingSubject>
       </jxdm51:Booking>
       <jxdm51:Detention s30:id="Detention_1">
          <nc30:ActivityDate>
-            <nc30:Date>2016-03-11</nc30:Date>
+            <nc30:Date>1942-08-10</nc30:Date>
          </nc30:ActivityDate>
          <nc30:SupervisionCustodyStatus>
             <nc30:StatusDescriptionText>In-Trial</nc30:StatusDescriptionText>
-            <ac-bkg-codes:PreTrialCategoryCode>A-XYZ</ac-bkg-codes:PreTrialCategoryCode>
+            <ac-bkg-codes:PreTrialCategoryCode>PR</ac-bkg-codes:PreTrialCategoryCode>
          </nc30:SupervisionCustodyStatus>
          <jxdm51:SupervisionAugmentation>
             <jxdm51:SupervisionReleaseDate>
-               <nc30:DateTime>2016-03-11</nc30:DateTime>
+               <nc30:DateTime>1991-04-12T00:00:00</nc30:DateTime>
             </jxdm51:SupervisionReleaseDate>
             <jxdm51:SupervisionAreaIdentification>
-               <nc30:IdentificationID>963544862</nc30:IdentificationID>
+               <nc30:IdentificationID>330285969</nc30:IdentificationID>
             </jxdm51:SupervisionAreaIdentification>
          </jxdm51:SupervisionAugmentation>
-         <cq-res-ext:DetentiontImmigrationHoldIndicator>true</cq-res-ext:DetentiontImmigrationHoldIndicator>
+         <cq-res-ext:DetentiontImmigrationHoldIndicator>false</cq-res-ext:DetentiontImmigrationHoldIndicator>
          <cq-res-ext:HoldForAgency>
             <nc30:OrganizationName>Chips</nc30:OrganizationName>
          </cq-res-ext:HoldForAgency>
-         <cq-res-ext:InmateWorkReleaseIndicator>true</cq-res-ext:InmateWorkReleaseIndicator>
+         <cq-res-ext:InmateWorkReleaseIndicator>false</cq-res-ext:InmateWorkReleaseIndicator>
          <cq-res-ext:InmateWorkerIndicator>true</cq-res-ext:InmateWorkerIndicator>
       </jxdm51:Detention>
       <jxdm51:BailBond s30:id="Bond_1">
-         <nc30:ActivityCategoryText>Noise Violation</nc30:ActivityCategoryText>
+         <nc30:ActivityCategoryText>Speeding</nc30:ActivityCategoryText>
          <nc30:ActivityStatus>
-            <nc30:StatusDescriptionText>Partial Payment</nc30:StatusDescriptionText>
+            <nc30:StatusDescriptionText>Paid</nc30:StatusDescriptionText>
          </nc30:ActivityStatus>
          <jxdm51:BailBondAmount>
-            <nc30:Amount>5643</nc30:Amount>
+            <nc30:Amount>3319</nc30:Amount>
          </jxdm51:BailBondAmount>
       </jxdm51:BailBond>
       <jxdm51:Charge s30:id="Charge_1">
          <jxdm51:ChargeCategoryDescriptionText>Speeding</jxdm51:ChargeCategoryDescriptionText>
          <jxdm51:ChargeDescriptionText>Speeding</jxdm51:ChargeDescriptionText>
-         <jxdm51:ChargeHighestIndicator>false</jxdm51:ChargeHighestIndicator>
-         <jxdm51:ChargeSequenceID>3572823</jxdm51:ChargeSequenceID>
+         <jxdm51:ChargeHighestIndicator>true</jxdm51:ChargeHighestIndicator>
+         <jxdm51:ChargeSequenceID>7137210</jxdm51:ChargeSequenceID>
          <jxdm51:ChargeStatute>
             <jxdm51:StatuteCodeSectionIdentification>
-               <nc30:IdentificationID>026311</nc30:IdentificationID>
+               <nc30:IdentificationID>125495</nc30:IdentificationID>
             </jxdm51:StatuteCodeSectionIdentification>
          </jxdm51:ChargeStatute>
       </jxdm51:Charge>
       <jxdm51:Arrest s30:id="Arrest_1">
          <jxdm51:ArrestAgency>
-            <nc30:OrganizationName>CHIPS</nc30:OrganizationName>
+            <nc30:OrganizationName>NYPD</nc30:OrganizationName>
          </jxdm51:ArrestAgency>
          <jxdm51:ArrestLocation s30:ref="Loc_1"/>
       </jxdm51:Arrest>
       <cyfs-31:NextCourtEvent s30:id="Event_1">
          <nc30:ActivityDate>
-            <nc30:Date>2016-03-11</nc30:Date>
+            <nc30:Date>1975-03-23</nc30:Date>
          </nc30:ActivityDate>
          <jxdm51:CourtEventCourt>
-            <jxdm51:CourtName>Supreme Court</jxdm51:CourtName>
+            <jxdm51:CourtName>Matlock</jxdm51:CourtName>
          </jxdm51:CourtEventCourt>
       </cyfs-31:NextCourtEvent>
       <nc30:Person s30:id="Person_1">
          <nc30:PersonBirthDate>
-            <nc30:Date>1987-10-28</nc30:Date>
+            <nc30:Date>1988-12-06</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonDigitalImage>
-            <nc30:Base64BinaryObject>D557If17yWhN52TDiNc8</nc30:Base64BinaryObject>
+            <nc30:Base64BinaryObject>sqFsJMXcWvuRM77F1Y9B</nc30:Base64BinaryObject>
          </nc30:PersonDigitalImage>
-         <jxdm51:PersonEthnicityCode>Caucasion</jxdm51:PersonEthnicityCode>
+         <jxdm51:PersonEthnicityCode>N</jxdm51:PersonEthnicityCode>
          <nc30:PersonName>
-            <nc30:PersonGivenName>Chad</nc30:PersonGivenName>
-            <nc30:PersonMiddleName>I</nc30:PersonMiddleName>
-            <nc30:PersonSurName>Sessions</nc30:PersonSurName>
+            <nc30:PersonGivenName>Amy</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>R</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Bautista</nc30:PersonSurName>
          </nc30:PersonName>
          <nc30:PersonPrimaryLanguage>
-            <nc30:LanguageName>English</nc30:LanguageName>
+            <nc30:LanguageName>Espagnol</nc30:LanguageName>
          </nc30:PersonPrimaryLanguage>
-         <jxdm51:PersonRaceCode>B</jxdm51:PersonRaceCode>
-         <nc30:PersonResidentText>Arron Smith Drive</nc30:PersonResidentText>
-         <jxdm51:PersonSexCode>male</jxdm51:PersonSexCode>
+         <jxdm51:PersonRaceCode>A</jxdm51:PersonRaceCode>
+         <nc30:PersonResidentText>Hart Country Lane</nc30:PersonResidentText>
+         <jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
          <nc30:PersonSSNIdentification>
-            <nc30:IdentificationID>064820669</nc30:IdentificationID>
+            <nc30:IdentificationID>296070643</nc30:IdentificationID>
          </nc30:PersonSSNIdentification>
          <jxdm51:PersonAugmentation>
             <jxdm51:DriverLicense>
                <jxdm51:DriverLicenseCardIdentification>
-                  <nc30:IdentificationID>376696693</nc30:IdentificationID>
-                  <nc30:IdentificationSourceText>NY</nc30:IdentificationSourceText>
+                  <nc30:IdentificationID>729405757</nc30:IdentificationID>
+                  <nc30:IdentificationSourceText>DE</nc30:IdentificationSourceText>
                </jxdm51:DriverLicenseCardIdentification>
             </jxdm51:DriverLicense>
             <jxdm51:PersonFBIIdentification>
-               <nc30:IdentificationID>442453307</nc30:IdentificationID>
+               <nc30:IdentificationID>776012743</nc30:IdentificationID>
             </jxdm51:PersonFBIIdentification>
             <jxdm51:PersonStateFingerprintIdentification>
-               <nc30:IdentificationID>yyikO4q7</nc30:IdentificationID>
+               <nc30:IdentificationID>SMpsP7L7</nc30:IdentificationID>
             </jxdm51:PersonStateFingerprintIdentification>
          </jxdm51:PersonAugmentation>
       </nc30:Person>
       <nc30:Location s30:id="Loc_1">
          <nc30:Address>
-            <nc30:AddressFullText>Arron Smith Drive</nc30:AddressFullText>
+            <nc30:AddressFullText>Hart Country Lane</nc30:AddressFullText>
          </nc30:Address>
+         <nc30:Location2DGeospatialCoordinate>
+            <nc30:GeographicCoordinateLatitude>
+               <nc30:LatitudeDegreeValue>49</nc30:LatitudeDegreeValue>
+            </nc30:GeographicCoordinateLatitude>
+            <nc30:GeographicCoordinateLongitude>
+               <nc30:LongitudeDegreeValue>12</nc30:LongitudeDegreeValue>
+            </nc30:GeographicCoordinateLongitude>
+         </nc30:Location2DGeospatialCoordinate>
       </nc30:Location>
-      <nc30:Location2DGeospatialCoordinate>
-         <nc30:GeographicCoordinateLatitude>
-            <nc30:LatitudeDegreeValue>28</nc30:LatitudeDegreeValue>
-         </nc30:GeographicCoordinateLatitude>
-         <nc30:GeographicCoordinateLongitude>
-            <nc30:LongitudeDegreeValue>99</nc30:LongitudeDegreeValue>
-         </nc30:GeographicCoordinateLongitude>
-      </nc30:Location2DGeospatialCoordinate>
       <jxdm51:ActivityChargeAssociation>
          <nc30:Activity s30:ref="Case_1"/>
          <nc30:Activity s30:ref="Booking_1"/>
@@ -181,12 +181,12 @@
    <cq-res-ext:SourceSystemNameText>Custody</cq-res-ext:SourceSystemNameText>
    <cq-res-ext:QueryResultCategoryText>Custody Detail</cq-res-ext:QueryResultCategoryText>
    <cq-res-ext:InformationOwningOrganization>
-      <nc30:OrganizationBranchName>Public Safety</nc30:OrganizationBranchName>
-      <nc30:OrganizationName>FLPD</nc30:OrganizationName>
+      <nc30:OrganizationBranchName>Police</nc30:OrganizationBranchName>
+      <nc30:OrganizationName>RIPD</nc30:OrganizationName>
    </cq-res-ext:InformationOwningOrganization>
    <nc30:Metadata>
       <nc30:LastUpdatedDate>
-         <nc30:Date>2016-03-11</nc30:Date>
+         <nc30:Date>1960-09-11</nc30:Date>
       </nc30:LastUpdatedDate>
    </nc30:Metadata>
 </cq-res-exch:CustodyQueryResults>
