@@ -16,7 +16,11 @@
  */
 package org.ojbc.bundles.adapters.staticmock.custody;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -30,8 +34,8 @@ public class CustodySearchResultBuilder {
 		 
 		CustodyDetail custodyDetail = getCustodyDetail(custodyQueryResult);
 		 		 
-		Element custodySearchResultElement = custodySearchResultsDoc.createElementNS(OjbcNamespaceContext.NS_CUSTODY_SEARCH_RESULTS, "CustodySearchResult");
-		custodySearchResultElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_CUSTODY_SEARCH_RESULTS);
+		Element custodySearchResultElement = custodySearchResultsDoc.createElementNS(OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "CustodySearchResult");
+		custodySearchResultElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_CUSTODY_SEARCH_RES_EXT);
 		
 		XmlUtils.addAttribute(custodySearchResultElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Result_" + resultId);				
 		
@@ -77,10 +81,10 @@ public class CustodySearchResultBuilder {
 
 		String sPersonDob = custodyDetail.getPersonDob();
 		
-		if(StringUtils.isNotBlank(sPersonDob)){
+		if(StringUtils.isNotBlank(sPersonDob)){					
 			
 			Element personDob = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");
-			Element dobDateTimeElement = XmlUtils.appendElement(personDob, OjbcNamespaceContext.NS_NC_30, "DateTime");
+			Element dobDateTimeElement = XmlUtils.appendElement(personDob, OjbcNamespaceContext.NS_NC_30, "Date");
 					
 			sPersonDob = sPersonDob.trim();
 			
@@ -180,7 +184,7 @@ public class CustodySearchResultBuilder {
 		}
 		
 		Element booking = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "Booking");		
-		XmlUtils.addAttribute(booking, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Booking" + resultId);						
+		XmlUtils.addAttribute(booking, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Booking_" + resultId);						
 		
 		String sFingerprintDate = custodyDetail.getFingerprintDate();
 		

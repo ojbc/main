@@ -255,21 +255,21 @@ public class CourtCaseSearchResultBuilder {
 		
 		if(StringUtils.isNotBlank(sHeight)){
 
-			Element height = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonHeightMeasure");
+			Element personHeightEl = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "PersonHeightMeasure");
 			
-			Element measureValueTxt = XmlUtils.appendElement(height, OjbcNamespaceContext.NS_NC_30, "MeasureValueText");
+			Element personHeightMeasureValTxtEl = XmlUtils.appendElement(personHeightEl, OjbcNamespaceContext.NS_NC_30, "MeasureValueText");
 			
 			sHeight = sHeight.trim();
 			
-			measureValueTxt.setTextContent(sHeight);	
+			personHeightMeasureValTxtEl.setTextContent(sHeight);	
 						
 			String sHeightUnits = courtCaseDetail.getPersonHeightUnits();
 			
 			if(StringUtils.isNotBlank(sHeightUnits)){
-
-				Element lengthUnitCode = XmlUtils.appendElement(height, OjbcNamespaceContext.NS_NC_30, "LengthUnitCode");
 				
-				lengthUnitCode.setTextContent(sHeightUnits);				
+				Element heightUnitTxtEl = XmlUtils.appendElement(personHeightEl, OjbcNamespaceContext.NS_NC_30, "MeasureUnitText");
+				
+				heightUnitTxtEl.setTextContent(sHeightUnits);				
 			}									
 		}
 
@@ -414,7 +414,7 @@ public class CourtCaseSearchResultBuilder {
 			personSidVal.setTextContent(sPersonSid);				
 		}
 
-		Element personCaseAssociation = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_CYFS, "PersonCaseAssociation");			
+		Element personCaseAssociation = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_NIEM_CYFS_31, "PersonCaseAssociation");			
 		
 		Element personAssoc = XmlUtils.appendElement(personCaseAssociation, OjbcNamespaceContext.NS_NC_30, "Person");
 		XmlUtils.addAttribute(personAssoc, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Person_" + resultId);
