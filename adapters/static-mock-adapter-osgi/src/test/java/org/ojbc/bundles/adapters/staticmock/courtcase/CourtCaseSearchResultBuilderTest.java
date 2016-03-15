@@ -57,7 +57,10 @@ public class CourtCaseSearchResultBuilderTest {
 		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
 		
 		ojbcNamespaceContext.populateRootNamespaceDeclarations(courtCaseSearchResultsRootElement);		
-		
+				
+        XmlUtils.validateInstance("ssp/Court_Case_Search_Results/artifacts/service_model/information_model/IEPD/xsd", 
+        		"Subset/niem", "exchange_schema.xsd", courtCaseSearchResultsDoc);
+				
 		XmlTestUtils.compareDocs("src/test/resources/DocBuilderTestFiles/CourtCase/CourtCaseSearchResults.xml", courtCaseSearchResultsDoc);	
 	}
 	

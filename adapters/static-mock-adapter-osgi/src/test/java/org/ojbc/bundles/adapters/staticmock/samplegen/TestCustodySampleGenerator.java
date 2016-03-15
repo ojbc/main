@@ -36,7 +36,11 @@ public class TestCustodySampleGenerator extends AbstractSampleGeneratorTestCase{
 		
 		Assert.assertEquals(11, custodySampleList.size());
 		
-		XmlUtils.printNode(custodySampleList.get(0));
+		Document custodyDetailSampleDoc = custodySampleList.get(0); 		
+		
+		// TODO fix validation.  It passes validating manually but not from this util method
+//		XmlUtils.validateInstance("ssp/Custody_Query_Results/artifacts/service_model/information_model/IEPD/xsd", 
+//			      "Subset/niem", "exchange.xsd", custodyDetailSampleDoc);		
 	}
 	
 	
