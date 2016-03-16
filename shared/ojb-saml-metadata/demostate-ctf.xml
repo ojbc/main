@@ -552,8 +552,8 @@
 			<OrganizationURL xml:lang="en-US">https://co.maui.hi.us/</OrganizationURL>
 		</Organization>
 		<ContactPerson contactType="support">
-			<EmailAddress />
-			<TelephoneNumber />
+			<EmailAddress>Sioban.Lanigan@co.maui.hi.us</EmailAddress>
+			<TelephoneNumber>555-555-5555</TelephoneNumber>
 		</ContactPerson>
 	</EntityDescriptor>
 </EntitiesDescriptor>
