@@ -16,6 +16,7 @@
  */
 package org.ojbc.bundles.adapters.staticmock.samplegen;
 
+import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -37,10 +38,12 @@ public class TestCustodySampleGenerator extends AbstractSampleGeneratorTestCase{
 		Assert.assertEquals(11, custodySampleList.size());
 		
 		Document custodyDetailSampleDoc = custodySampleList.get(0); 		
+				
+		String iepdRootPath = "ssp/Custody_Query_Results/artifacts/service_model/information_model/IEPD/xsd/";
 		
-		// TODO fix validation.  It passes validating manually but not from this util method
-//		XmlUtils.validateInstance("ssp/Custody_Query_Results/artifacts/service_model/information_model/IEPD/xsd", 
-//			      "Subset/niem", "exchange.xsd", custodyDetailSampleDoc);		
+		List<String> supportingSchemaList = Arrays.asList(iepdRootPath + "impl/adams_county/booking_codes.xsd");
+		
+		XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange.xsd", supportingSchemaList, custodyDetailSampleDoc);			
 	}
 	
 	

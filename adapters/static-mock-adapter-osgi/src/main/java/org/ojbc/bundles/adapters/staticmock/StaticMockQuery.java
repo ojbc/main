@@ -1912,7 +1912,6 @@ public class StaticMockQuery {
 		
 		List<IdentifiableDocumentWrapper> courtCaseSearchDocMatchesList = new ArrayList<IdentifiableDocumentWrapper>();
 		
-		// TODO confirm correct
 		String ccSearchPersonRecId = XmlUtils.xPathStringSearch(courtCaseSearchRequestMessage, "//ccs-req-ext:PersonRecordIdentification/nc30:IdentificationID");		
 		
 		LOG.info("\n\n\n Court Case searching person rec id:" + ccSearchPersonRecId + "\n\n\n");
@@ -1925,7 +1924,9 @@ public class StaticMockQuery {
 			// in the court case search request message. That should then return a list of court cases for that person
 			
 			
-//			String ccDetailPersonRecId = XmlUtils.xPathStringSearch(identifyableCourtCaseDoc.getDocument().getFirstChild(), "TODO");			
+//			String ccDetailPersonRecId = XmlUtils.xPathStringSearch(identifyableCourtCaseDoc.getDocument(), 
+//					"TODO");
+			
 //			if(StringUtils.isNotBlank(ccDetailPersonRecId) && ccDetailPersonRecId.equals(ccSearchPersonRecId)){
 			
 				courtCaseSearchDocMatchesList.add(identifyableCourtCaseDoc);
