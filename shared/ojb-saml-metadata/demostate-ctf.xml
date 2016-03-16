@@ -107,14 +107,13 @@
 
 		</IDPSSODescriptor>
 		<Organization>
-			<OrganizationName>OJBC</OrganizationName>
-			<OrganizationDisplayName>OJBC Demostate</OrganizationDisplayName>
-			<OrganizationURL>www.ojbc.org</OrganizationURL>
+			<OrganizationName xml:lang="en-US">OJBC</OrganizationName>
+			<OrganizationDisplayName xml:lang="en-US">OJBC Demostate</OrganizationDisplayName>
+			<OrganizationURL xml:lang="en-US">www.ojbc.org</OrganizationURL>
 		</Organization>
 		<ContactPerson contactType="technical">
 			<GivenName>Technical</GivenName>
 			<SurName>Contact</SurName>
-			<Company>OJBC</Company>
 			<EmailAddress>info@ojbc,org</EmailAddress>
 			<TelephoneNumber>916-555-1212</TelephoneNumber>
 		</ContactPerson>
@@ -188,7 +187,6 @@
 		<ContactPerson contactType="technical">
 			<GivenName>Technical</GivenName>
 			<SurName>Contact</SurName>
-			<Company>OJBC</Company>
 			<EmailAddress>info@ojbc,org</EmailAddress>
 			<TelephoneNumber>916-555-1212</TelephoneNumber>
 		</ContactPerson>
@@ -558,7 +556,4 @@
 			<TelephoneNumber />
 		</ContactPerson>
 	</EntityDescriptor>
-
-
-
 </EntitiesDescriptor>
