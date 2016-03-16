@@ -17,7 +17,18 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ccq-res-doc:CourtCaseQueryResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange.xsd" xmlns:ccq-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0" xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0" xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ccq-res-doc:CourtCaseQueryResults
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange.xsd"
+	xmlns:ccq-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0"
+	xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:DocumentCreationDate>
 		<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 	</nc:DocumentCreationDate>
@@ -515,23 +526,23 @@
 			<nc:MeasureUnitText>cm</nc:MeasureUnitText>
 		</nc:PersonHeightMeasure>
 		<nc:PersonName>
-			<nc:PersonGivenName>Homer</nc:PersonGivenName>
+			<nc:PersonGivenName>Larry</nc:PersonGivenName>
 			<nc:PersonMiddleName>Jay</nc:PersonMiddleName>
-			<nc:PersonSurName>Simpson</nc:PersonSurName>
+			<nc:PersonSurName>Ivey</nc:PersonSurName>
 			<nc:PersonNameSuffixText>Mr</nc:PersonNameSuffixText>
-			<nc:PersonFullName>Homer Jay Simpson</nc:PersonFullName>
+			<nc:PersonFullName>Larry Jay Ivey</nc:PersonFullName>
 		</nc:PersonName>
 		<nc:PersonPhysicalFeature>
 			<nc:PhysicalFeatureDescriptionText>Scars Marks Tattoos</nc:PhysicalFeatureDescriptionText>
 		</nc:PersonPhysicalFeature>
-		<nc:PersonRaceText>A</nc:PersonRaceText>
-		<nc:PersonSexText>M</nc:PersonSexText>
+		<jxdm51:PersonRaceCode>A</jxdm51:PersonRaceCode>
+		<jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>123456789</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
-		<nc:PersonStateIdentification>
+		<jxdm51:PersonStateFingerprintIdentification>
 			<nc:IdentificationID>123ABC</nc:IdentificationID>
-		</nc:PersonStateIdentification>
+		</jxdm51:PersonStateFingerprintIdentification>
 		<j:PersonAugmentation>
 			<j:DriverLicense>
 				<j:DriverLicenseIdentification>

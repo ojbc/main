@@ -1839,27 +1839,28 @@ public class StaticMockQuery {
 		SearchValueXPaths xPaths = new SearchValueXPaths();				
 		
 		xPaths.ageXPath = null;
-		xPaths.birthdateXPath = "//nc30:PersonBirthDate";
-		xPaths.ssnXPath = "//nc30:PersonSSNIdentification/nc30:IdentificationID";
-		xPaths.sidXPath = "//nc30:PersonStateIdentification/nc30:IdentificationID";
-		xPaths.fbiXPath = "//jxdm51:PersonFBIIdentification/nc30:IdentificationID";		
-		xPaths.dlXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc30:IdentificationID";
-		xPaths.dlJurisdictionXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc30:IdentificationSourceText";				
-		xPaths.lastNameXPath = "//nc30:PersonSurName";
-		xPaths.middleNameXPath = "//nc30:PersonMiddleName";
-		xPaths.firstNameXPath = "//nc30:PersonGivenName";
-		xPaths.eyeColorXPath = "//jxdm51:PersonEyeColorCode";
-		xPaths.hairColorXPath = "//jxdm51:PersonHairColorCode";
-		xPaths.raceXPath = "//nc30:PersonRaceText";
-		xPaths.sexXPath = "//nc30:PersonSexText";
-		xPaths.heightXPath = "//nc30:PersonHeightMeasure/nc30:MeasureValueText";
-		xPaths.weightXPath = "//nc30:PersonWeightMeasure/nc30:MeasureValueText";	
 		
+		xPaths.birthdateXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonBirthDate";
+		xPaths.ssnXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonSSNIdentification/nc30:IdentificationID";
+		xPaths.sidXPath = "//jxdm51:PersonStateFingerprintIdentification/nc30:IdentificationID";
+		xPaths.fbiXPath = "//jxdm51:PersonFBIIdentification/nc30:IdentificationID";
+		xPaths.dlXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc30:IdentificationID";
+		xPaths.dlJurisdictionXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc30:IdentificationSourceText";
+		xPaths.lastNameXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonName/nc30:PersonSurName";
+		xPaths.middleNameXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonName/nc30:PersonMiddleName";
+		xPaths.firstNameXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonName/nc30:PersonGivenName";
+		xPaths.eyeColorXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonEyeColorCode";
+		xPaths.hairColorXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonHairColorCode";
+		xPaths.raceXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonRaceCode";
+		xPaths.sexXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonSexCode";
+		xPaths.heightXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureValueText";
+		xPaths.weightXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonWeightMeasure/nc30:MeasureValueText";
 		xPaths.searchSystemId = COURT_CASE_SEARCH_SYSTEM_ID;
 		xPaths.systemName = "Court Case";
-		xPaths.recordType = "Court Case";		
-		
+		xPaths.recordType = "Court Case";
+
 		return xPaths;
+
 	}
 	
 	private SearchValueXPaths getVehicleCrashXPaths() throws Exception{
@@ -1912,21 +1913,26 @@ public class StaticMockQuery {
 		
 		List<IdentifiableDocumentWrapper> courtCaseSearchDocMatchesList = new ArrayList<IdentifiableDocumentWrapper>();
 		
+		// TODO confirm correct
 		String ccSearchPersonRecId = XmlUtils.xPathStringSearch(courtCaseSearchRequestMessage, "//ccs-req-ext:PersonRecordIdentification/nc30:IdentificationID");		
 		
 		LOG.info("\n\n\n Court Case searching person rec id:" + ccSearchPersonRecId + "\n\n\n");
 		
 		for (IdentifiableDocumentWrapper identifyableCourtCaseDoc : courtCaseDataSource.getDocuments()) {
-									
-			String ccDetailPersonRecId = XmlUtils.xPathStringSearch(identifyableCourtCaseDoc.getDocument(), 
-					"//ccq-res-ext:PersonRecordIdentification/nc30:IdentificationID");
 			
-			// TODO enable when working			
-//			if(StringUtils.isNotEmpty(ccDetailPersonRecId) && ccDetailPersonRecId.equals(ccSearchPersonRecId)){
+			// TODO use xpaths from courtCaseSearchRequestMessage against List of docs to reduce result set 
+			// when the portal constructs the court case search request, it should use the value from 
+			// person search result's element: "intel:SystemIdentifier " to populate "ccs-req-ext:PersonRecordIdentification" 
+			// in the court case search request message. That should then return a list of court cases for that person
 			
-				courtCaseSearchDocMatchesList.add(identifyableCourtCaseDoc);						
-//			}		
-		}
+			
+//			String ccDetailPersonRecId = XmlUtils.xPathStringSearch(identifyableCourtCaseDoc.getDocument().getFirstChild(), "TODO");			
+//			if(StringUtils.isNotBlank(ccDetailPersonRecId) && ccDetailPersonRecId.equals(ccSearchPersonRecId)){
+			
+				courtCaseSearchDocMatchesList.add(identifyableCourtCaseDoc);
+//			}
+						
+		}				
 				
 		return courtCaseSearchDocMatchesList;		
 	}
