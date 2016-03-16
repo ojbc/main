@@ -132,13 +132,15 @@ public abstract class AbstractStaticMockTest {
 	}
 	
 	
-	protected Document buildCourtCaseSearchRequestMessage(String systemId) throws SAXException, IOException{
+	protected Document buildCourtCaseSearchRequestMessage(String systemId) throws Exception{
 		
 		PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
 		
 		Resource resource = resourceResolver.getResource("TestRequestMessages/CourtCaseSearchRequest.xml");
 		
 		Document courtCaseSearchRequestDoc = documentBuilder.parse(resource.getInputStream());
+
+		XmlUtils.printNode(courtCaseSearchRequestDoc.getDocumentElement());
 		
 		return courtCaseSearchRequestDoc;		
 	}
