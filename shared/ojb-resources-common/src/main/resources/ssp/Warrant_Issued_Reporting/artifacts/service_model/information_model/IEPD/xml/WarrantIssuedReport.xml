@@ -159,7 +159,7 @@
 		</wir-ext:PersonAdditionalInformationText>
 		<wir-ext:PersonCautionCodeText>G45</wir-ext:PersonCautionCodeText>
 		<wir-ext:PersonMiscellaneousRecordIdentification>
-			<nc:IdentificationID>MR456782</nc:IdentificationID>
+			<nc:IdentificationID>PS-123456</nc:IdentificationID>
 		</wir-ext:PersonMiscellaneousRecordIdentification>
 		<wir-ext:PersonImmigrationAlienQueryIndicator>false</wir-ext:PersonImmigrationAlienQueryIndicator>
 	</nc:Person>
