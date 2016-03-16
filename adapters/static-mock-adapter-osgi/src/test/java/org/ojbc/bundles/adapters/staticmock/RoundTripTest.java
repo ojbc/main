@@ -53,8 +53,8 @@ public class RoundTripTest extends AbstractStaticMockTest {
         // note: incidents are special, because it's a two-stage search.  first we get matching incidents for a person, then we query for individual incidents
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.INCIDENT_MOCK_ADAPTER_INCIDENT_PERSON_SEARCH_SYSTEM_ID, StaticMockQuery.INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID);
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID, StaticMockQuery.FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID);        
-        personSearchSystemToQuerySystemMap.put(StaticMockQuery.CUSTODY_SEARCH_SYSTEM_ID, StaticMockQuery.CUSTODY_QUERY_SYSTEM_ID);
-        personSearchSystemToQuerySystemMap.put(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID, StaticMockQuery.COURT_CASE_QUERY_SYSTEM_ID);        
+        personSearchSystemToQuerySystemMap.put(StaticMockQuery.CUSTODY_PERSON_SEARCH_SYSTEM_ID, StaticMockQuery.CUSTODY_QUERY_SYSTEM_ID);
+        personSearchSystemToQuerySystemMap.put(StaticMockQuery.COURT_CASE_PERSON_SEARCH_SYSTEM_ID, StaticMockQuery.COURT_CASE_QUERY_SYSTEM_ID);        
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.VEHICLE_CRASH_SEARCH_SYSTEM_ID, StaticMockQuery.VEHICLE_CRASH_QUERY_SYSTEM_ID);        
     }
     

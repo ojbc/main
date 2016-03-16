@@ -1421,11 +1421,11 @@ public class SearchTest extends AbstractStaticMockTest {
                 firearmResult = e;
             }
             
-            if(StaticMockQuery.CUSTODY_SEARCH_SYSTEM_ID.equals(sourceSysNameText)){            	
+            if(StaticMockQuery.CUSTODY_PERSON_SEARCH_SYSTEM_ID.equals(sourceSysNameText)){            	
             	custodyResult = e;
             }
             
-            if(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID.equals(sourceSysNameText)){            	
+            if(StaticMockQuery.COURT_CASE_PERSON_SEARCH_SYSTEM_ID.equals(sourceSysNameText)){            	
             	courtCaseResult = e;            	
             }
             
