@@ -99,6 +99,9 @@
 					<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
+			<ccs-req-ext:PersonRecordIdentification>
+				<nc:IdentificationID>sample-CourtCaseQueryResults.xml</nc:IdentificationID>
+			</ccs-req-ext:PersonRecordIdentification>
 		</nc:Person>
 		<ccs-req-ext:PersonBirthDateRange>
 			<nc:StartDate>
