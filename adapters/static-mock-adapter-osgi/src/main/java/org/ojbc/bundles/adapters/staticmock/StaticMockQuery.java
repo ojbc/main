@@ -1827,7 +1827,7 @@ public class StaticMockQuery {
 		xPaths.sexXPath =  "//jxdm51:PersonSexCode"; 		
 		xPaths.heightXPath = null;
 		xPaths.weightXPath = null;		
-		xPaths.searchSystemId = CUSTODY_SEARCH_SYSTEM_ID;		
+		xPaths.searchSystemId = CUSTODY_PERSON_SEARCH_SYSTEM_ID;		
 		xPaths.systemName = "Custody";		
 		xPaths.recordType = "Custody";						
 		
@@ -1855,7 +1855,7 @@ public class StaticMockQuery {
 		xPaths.sexXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonSexCode";
 		xPaths.heightXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureValueText";
 		xPaths.weightXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonWeightMeasure/nc30:MeasureValueText";
-		xPaths.searchSystemId = COURT_CASE_SEARCH_SYSTEM_ID;
+		xPaths.searchSystemId = COURT_CASE_PERSON_SEARCH_SYSTEM_ID;
 		xPaths.systemName = "Court Case";
 		xPaths.recordType = "Court Case";
 
