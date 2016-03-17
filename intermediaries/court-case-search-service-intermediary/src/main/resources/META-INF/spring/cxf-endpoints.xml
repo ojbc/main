@@ -86,7 +86,7 @@
  		</cxf:features>	 
 	</cxf:cxfEndpoint>
 	
-	<!-- Court Case Search Results Handler Service, hosted by OJB  -->
+	<!-- Present Court Case Search Results typically hosted by a Web App, called by broker -->
 	<cxf:cxfEndpoint id="presentCourtSearchResultsService"
 		address="${federatedQuery.courtCaseSearch.presentResultsEndpoint}"
 		wsdlURL="classpath:ssp/Court_Case_Search_Results/schema/SIP_WS_1.2/Court_Case_Search_Results_Service.wsdl"

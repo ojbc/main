@@ -34,6 +34,7 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -53,7 +54,7 @@ public class RoundTripTest extends AbstractStaticMockTest {
         // note: incidents are special, because it's a two-stage search.  first we get matching incidents for a person, then we query for individual incidents
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.INCIDENT_MOCK_ADAPTER_INCIDENT_PERSON_SEARCH_SYSTEM_ID, StaticMockQuery.INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID);
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID, StaticMockQuery.FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID);        
-        personSearchSystemToQuerySystemMap.put(StaticMockQuery.CUSTODY_PERSON_SEARCH_SYSTEM_ID, StaticMockQuery.CUSTODY_QUERY_SYSTEM_ID);
+        personSearchSystemToQuerySystemMap.put(StaticMockQuery.CUSTODY_SEARCH_SYSTEM_ID, StaticMockQuery.CUSTODY_QUERY_SYSTEM_ID);
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.COURT_CASE_PERSON_SEARCH_SYSTEM_ID, StaticMockQuery.COURT_CASE_QUERY_SYSTEM_ID);        
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.VEHICLE_CRASH_SEARCH_SYSTEM_ID, StaticMockQuery.VEHICLE_CRASH_QUERY_SYSTEM_ID);        
     }
@@ -132,81 +133,25 @@ public class RoundTripTest extends AbstractStaticMockTest {
         assertTrue(vehicleCrashFound);        
     }
 
-    @Test
-    public void testPersonSearchCustodyRoundTrip() throws Exception {
-    	
-        Document personSearchRequestMessage = getDocumentFromXmlString("<PersonSearchRequest xmlns=\"http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0\""
-        		+ " xmlns:NS1=\"http://niem.gov/niem/structures/2.0\" NS1:id=\"SM003\">"
-        		+ "<Person xmlns=\"http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0\">"
-        		+ "		<PersonName xmlns=\"http://niem.gov/niem/niem-core/2.0\"><PersonSurName NS1:metadata=\"SM001\">war</PersonSurName>"
-        		+ "		</PersonName>"
-        		+ "</Person>"
-        		+ "<SourceSystemNameText xmlns=\"http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0\">{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court</SourceSystemNameText>"
-        		+ "<SearchMetadata xmlns=\"http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0\" NS1:id=\"SM001\">"
-        		+ "<SearchQualifierCode>exact</SearchQualifierCode>"
-        		+ "</SearchMetadata>"
-        		+ "</PersonSearchRequest>");
-//        Document personSearchRequestMessage = buildFullResultsPersonSearchRequest();
-        XmlUtils.printNode(personSearchRequestMessage.getDocumentElement());
-        
-        Document searchResults = staticMockQuery.searchDocuments(personSearchRequestMessage, baseDate);  
-        
-        XmlUtils.printNode(searchResults);
-        
-//        int expectedResultCount = 7;
-//        assertEquals(expectedResultCount, XmlUtils.xPathNodeListSearch(searchResults, "/psres-doc:PersonSearchResults/psres:PersonSearchResult").getLength());
-        
-//        List<Document> queryRequests = buildQueryRequestMessages(searchResults);
-//        
-//        assertEquals(expectedResultCount, queryRequests.size());
-//        
-//        boolean incidentFound = false;
-//        boolean firearmFound = false;
-//        boolean warrantFound = false;
-//        boolean chFound = false;               
-//        boolean custodyResultFound = false;        
-//        boolean courtCaseResultFound = false;
-//        boolean vehicleCrashFound = false;
-//        
-//        for (Document queryRequest : queryRequests) {
-//        	
-//            List<IdentifiableDocumentWrapper> queryResultList = staticMockQuery.queryDocuments(queryRequest);
-//            assertEquals(1, queryResultList.size());
-//            
-//            IdentifiableDocumentWrapper docWrapper = queryResultList.get(0);
-//            Document doc = docWrapper.getDocument();
-//            assertNotNull(doc);
-//            
-//            incidentFound |= XmlUtils.nodeExists(doc, "/ir:IncidentReport");
-//            firearmFound |= XmlUtils.nodeExists(doc, "/firearm-doc:PersonFirearmRegistrationQueryResults");
-//            warrantFound |= XmlUtils.nodeExists(doc, "/warrant:Warrants");
-//            chFound |= XmlUtils.nodeExists(doc, "/ch-doc:CriminalHistory");                        
-//            custodyResultFound |= XmlUtils.nodeExists(doc, "/cq-res-exch:CustodyQueryResults");            
-//            courtCaseResultFound |= XmlUtils.nodeExists(doc, "/ccq-res-doc:CourtCaseQueryResults");            
-//            vehicleCrashFound |= XmlUtils.nodeExists(doc, "/vcq-res-doc:VehicleCrashQueryResults");
-//        }
-//        assertTrue(incidentFound);
-//        assertTrue(firearmFound);
-//        assertTrue(warrantFound);
-//        assertTrue(chFound);        
-//        assertTrue(custodyResultFound);
-//        assertTrue(courtCaseResultFound);
-//        assertTrue(vehicleCrashFound);        
-    }
-
     private List<Document> buildQueryRequestMessages(Document searchResults) throws Exception {
+		Element rootElement = searchResults.getDocumentElement();
+		String rootElementLocalName = rootElement.getLocalName();
+
+		String resultNodeXpath = null;
+		switch (rootElementLocalName){
+		case "PersonSearchResults":
+			resultNodeXpath = "psres:PersonSearchResult";
+			break; 
+		case "IncidentPersonSearchResults":
+			resultNodeXpath = "isres:IncidentPersonSearchResult"; 
+			break; 
+		case "CustodySearchResults":
+			resultNodeXpath = "cs-res-ext:CustodySearchResult"; 
+			break; 
+		default:
+		}
     	
-    	Node rootNode = XmlUtils.xPathNodeSearch(searchResults, "/psres-doc:PersonSearchResults");
-    	
-    	String resultNodeXpath = "psres:PersonSearchResult";
-    	
-    	if (rootNode == null) {
-    		
-    		rootNode = XmlUtils.xPathNodeSearch(searchResults, "/isres-doc:IncidentPersonSearchResults");
-    		resultNodeXpath = "isres:IncidentPersonSearchResult";
-    	}
-    	
-        NodeList resultsNodes = XmlUtils.xPathNodeListSearch(rootNode, resultNodeXpath);
+        NodeList resultsNodes = XmlUtils.xPathNodeListSearch(rootElement, "//" + resultNodeXpath);
         List<Document> ret = new ArrayList<Document>();
         
         for (int i = 0; i < resultsNodes.getLength(); i++) {
@@ -216,6 +161,9 @@ public class RoundTripTest extends AbstractStaticMockTest {
             String searchSystemID = XmlUtils.xPathStringSearch(resultNode, resultNodeXpath.split(":")[0] + ":SourceSystemNameText");
             
             String recordID = XmlUtils.xPathStringSearch(resultNode, "intel:SystemIdentifier/nc:IdentificationID");
+            if (resultNode.getLocalName().equals("CustodySearchResult")){
+            	recordID = XmlUtils.xPathStringSearch(resultNode, "intel31:SystemIdentification/nc30:IdentificationID");
+            }
             
             if (StaticMockQuery.INCIDENT_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(searchSystemID)) {
             	
@@ -223,11 +171,17 @@ public class RoundTripTest extends AbstractStaticMockTest {
                 Document incidentPersonSearchResults = staticMockQuery.searchDocuments(incidentPersonSearchRequestMessage, baseDate);
                 List<Document> incidentPersonQueryRequestMessages = buildQueryRequestMessages(incidentPersonSearchResults);
 				ret.addAll(incidentPersonQueryRequestMessages);
-				
-            } else {
+            } 
+            else if (StaticMockQuery.CUSTODY_PERSON_SEARCH_SYSTEM_ID.equals(searchSystemID)){
+                Document requestMessage = buildCustodySearchRequestMessage(recordID);
+                Document custodySearchResults = staticMockQuery.searchDocuments(requestMessage, baseDate);
+                List<Document> custodyQueryRequestMessages = buildQueryRequestMessages(custodySearchResults);
+				ret.addAll(custodyQueryRequestMessages);
+            } 
+            else {
             	
-                String querySystemID = personSearchSystemToQuerySystemMap.get(searchSystemID);
-                ret.add(buildPersonQueryRequestMessage(querySystemID, recordID));
+            	String querySystemID = personSearchSystemToQuerySystemMap.get(searchSystemID);
+            	ret.add(buildPersonQueryRequestMessage(querySystemID, recordID));
             }
         }
         return ret;

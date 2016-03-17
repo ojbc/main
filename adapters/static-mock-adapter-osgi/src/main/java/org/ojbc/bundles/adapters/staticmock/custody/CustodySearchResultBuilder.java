@@ -16,11 +16,9 @@
  */
 package org.ojbc.bundles.adapters.staticmock.custody;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
+import org.ojbc.bundles.adapters.staticmock.IdentifiableDocumentWrapper;
+import org.ojbc.bundles.adapters.staticmock.StaticMockQuery;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -30,8 +28,9 @@ public class CustodySearchResultBuilder {
 	
 	
 	 public static Element buildCustodySearchResultElement(Document custodySearchResultsDoc, 
-			 Document custodyQueryResult, String resultId) throws Exception{
+			 IdentifiableDocumentWrapper custodyDetailResultWrapper,  String resultId) throws Exception{
 		 
+		Document custodyQueryResult = custodyDetailResultWrapper.getDocument();
 		CustodyDetail custodyDetail = getCustodyDetail(custodyQueryResult);
 		 		 
 		Element custodySearchResultElement = custodySearchResultsDoc.createElementNS(OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "CustodySearchResult");
@@ -309,48 +308,27 @@ public class CustodySearchResultBuilder {
 		XmlUtils.addAttribute(activityCharge, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Charge_" + resultId);
 		
 		
-		String sSourceSystemNameText = custodyDetail.getSourceSystemNameText();
+		Element sourceSystemNameTextElement = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "SourceSystemNameText");
 		
-		if(StringUtils.isNotBlank(sSourceSystemNameText)){
-			
-			Element sourceSystemNameTextElement = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "SourceSystemNameText");
-			
-			sSourceSystemNameText = sSourceSystemNameText.trim();
-			
-			sourceSystemNameTextElement.setTextContent(sSourceSystemNameText);			
-		}
+		sourceSystemNameTextElement.setTextContent(StaticMockQuery.CUSTODY_SEARCH_SYSTEM_ID);			
 		
 
-		String sSystemId = custodyDetail.getSystemId();
-		
 		String sSystemName = custodyDetail.getSystemName();
-		
-		boolean hasSystemId = StringUtils.isNotBlank(sSystemId);
 		
 		boolean hasSystemName = StringUtils.isNotBlank(sSystemName);
 				
-		if(hasSystemId || hasSystemName){
+		Element systemIdentification = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_INTEL_31, "SystemIdentification");
+		Element systemIdVal = XmlUtils.appendElement(systemIdentification, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		systemIdVal.setTextContent(custodyDetailResultWrapper.getId());					
+		
+		if(hasSystemName){
 			
-			Element systemIdentification = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_INTEL_31, "SystemIdentification");
+			Element systemName = XmlUtils.appendElement(systemIdentification, OjbcNamespaceContext.NS_NC_30, "SystemName");
 			
-			if(hasSystemId){
-				
-				Element systemIdVal = XmlUtils.appendElement(systemIdentification, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
-				
-				sSystemId = sSystemId.trim();
-				
-				systemIdVal.setTextContent(sSystemId);					
-			}
+			sSystemName = sSystemName.trim();
 			
-			if(hasSystemName){
-				
-				Element systemName = XmlUtils.appendElement(systemIdentification, OjbcNamespaceContext.NS_NC_30, "SystemName");
-				
-				sSystemName = sSystemName.trim();
-				
-				systemName.setTextContent(sSystemName);				
-			}								
-		}
+			systemName.setTextContent(sSystemName);				
+		}								
 		
 		
 		String sSearchResultCatTxt = custodyDetail.getSearchResultCategoryDescriptionText();

@@ -72,9 +72,9 @@
          <nc30:Activity s30:ref="Booking_0"/>
          <jxdm51:Charge s30:ref="Charge_0"/>
       </jxdm51:ActivityChargeAssociation>      
-      <cs-res-ext:SourceSystemNameText>Alpha Court System</cs-res-ext:SourceSystemNameText>            
+      <cs-res-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest</cs-res-ext:SourceSystemNameText>            
       <intel31:SystemIdentification>
-         <nc30:IdentificationID>5678</nc30:IdentificationID>
+         <nc30:IdentificationID>CustodyDetailQueryResults.xml</nc30:IdentificationID>
          <nc30:SystemName>driver data</nc30:SystemName>
       </intel31:SystemIdentification>
       <cs-res-ext:SearchResultCategoryText>Criminal History</cs-res-ext:SearchResultCategoryText>
