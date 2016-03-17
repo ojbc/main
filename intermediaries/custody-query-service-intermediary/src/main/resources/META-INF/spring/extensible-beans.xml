@@ -36,18 +36,6 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="dataSource" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.custody-query-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-				<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
-				<property name="url" value="jdbc:h2:tcp:localhost:49093/mem:auditlog" />
-				<property name="username" value="sa" />
-			</bean>
-		</constructor-arg>
-	</bean>
-	
 	<bean id="wsAddressReplyToEndpointMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="wsAddressReplyToEndpointMap" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.custody-query-service-intermediary-context" />
@@ -65,13 +53,13 @@
 			<bean class="org.ojbc.util.fedquery.processor.RecordSourceExchangeDestinationLookupStrategy">
 				<property name="federatedQueryEndpointMap">
 					<util:map >
-						<entry key="{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}Custody-Query-Request-Service" value="custodyQueryRequestAdapterEndpoint" />
+						<entry key="{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}SubmitCustodyQueryRequest" value="custodyQueryRequestAdapterEndpoint" />
 					</util:map>	
 				</property>
 
 				<property name="adapterURItoAddressMap">
 					<util:map >
-						<entry key="{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}Custody-Query-Request-Service" value="${federatedQuery.adapterCustodyQueryEndpoint}" />
+						<entry key="{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}SubmitCustodyQueryRequest" value="${federatedQuery.adapterCustodyQueryEndpoint}" />
 					</util:map>	
 				</property>
 		  	</bean>
