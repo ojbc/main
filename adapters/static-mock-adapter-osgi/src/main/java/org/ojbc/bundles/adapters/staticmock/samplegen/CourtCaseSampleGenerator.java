@@ -743,6 +743,12 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	Element sidValElement = XmlUtils.appendElement(sidElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");	 	
 	 	sidValElement.setTextContent(RandomStringUtils.randomNumeric(8));
 	 	
+	 	
+	 	Element personRecIdEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXT, "PersonRecordIdentification");	 	
+	 	Element personRecIdValEl = XmlUtils.appendElement(personRecIdEl, OjbcNamespaceContext.NS_NC_30, "IdentificationID");	 	
+	 	personRecIdValEl.setTextContent(RandomStringUtils.randomNumeric(8));
+	 	
+	 	
 	 	Element locElement = XmlUtils.appendElement(rootCourtCaseElement, OjbcNamespaceContext.NS_NC_30, "Location");	 	
 	 	XmlUtils.addAttribute(locElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Location_01");
 	 	
