@@ -290,8 +290,6 @@
 					<camel:log message="Unable to find endpoint for replyTo address: ${in.headers.WSAddressingReplyTo}"/>
 				</camel:otherwise>		
 			</camel:choice>	
-
-			
 		</camel:route>
 	</camel:camelContext>
 

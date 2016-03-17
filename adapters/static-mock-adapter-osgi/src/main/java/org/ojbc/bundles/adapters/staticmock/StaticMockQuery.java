@@ -849,12 +849,10 @@ public class StaticMockQuery {
 		// loop through matches, gather them and generate a search results document with the matches
 		for(IdentifiableDocumentWrapper custodyDetailResultWrapper : custodyDetailResultDocList) {	
 			
-			Document custodyDetailResultDoc = custodyDetailResultWrapper.getDocument();
-			
 			String sResultId = String.valueOf(resultIndex);
 			
 			Element custodySearchResultElement = CustodySearchResultBuilder
-					.buildCustodySearchResultElement(rCustodySearchResultsDoc, custodyDetailResultDoc, sResultId);
+					.buildCustodySearchResultElement(rCustodySearchResultsDoc, custodyDetailResultWrapper, sResultId);
 			
 			custodySearchResultsRootElement.appendChild(custodySearchResultElement);
 			
@@ -1607,7 +1605,7 @@ public class StaticMockQuery {
 			} else if (JUVENILE_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
 				rDocList.addAll(personSearchJuvenileHistoryDocuments(personSearchRequestMessage, baseDate));
 				
-			}else if(CUSTODY_PERSON_SEARCH_SYSTEM_ID.equals(systemId)){								
+			}else if(CUSTODY_PERSON_SEARCH_SYSTEM_ID.equals(systemId)){	
 				rDocList.addAll(personSearchCustodyDocuments(personSearchRequestMessage, baseDate));								
 				
 			}else if(COURT_CASE_PERSON_SEARCH_SYSTEM_ID.equals(systemId)){
@@ -1809,12 +1807,24 @@ public class StaticMockQuery {
 	
 	private SearchValueXPaths getCustodyXPaths(){
 		
-		SearchValueXPaths xPaths = new SearchValueXPaths();
+		SearchValueXPaths xPaths = new SearchValueXPaths(){
+			public String getSystemIdentifier(IdentifiableDocumentWrapper documentWrapper) {
+				Document d = documentWrapper.getDocument();
+				try {
+					Element e = (Element) XmlUtils
+							.xPathNodeSearch(d,
+									"/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonAugmentation/jxdm51:PersonStateFingerprintIdentification/nc30:IdentificationID");
+					return e.getTextContent();
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+		};
 				
 		xPaths.ageXPath = null;
 		xPaths.birthdateXPath = "//nc30:PersonBirthDate";
 		xPaths.ssnXPath = "//nc30:PersonSSNIdentification/nc30:IdentificationID";		
-		xPaths.sidXPath = "//jxdm51:PersonStateFingerprintIdentification/nc30:IdentificationID";		
+		xPaths.sidXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonAugmentation/jxdm51:PersonStateFingerprintIdentification/nc30:IdentificationID";		
 		xPaths.fbiXPath = "//jxdm51:PersonAugmentation/jxdm51:PersonFBIIdentification/nc30:IdentificationID";		
 		xPaths.dlXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseCardIdentification/nc30:IdentificationID";		
 		xPaths.dlJurisdictionXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseCardIdentification/nc30:IdentificationSourceText";		
@@ -1942,7 +1952,7 @@ public class StaticMockQuery {
 		List<IdentifiableDocumentWrapper> custodySearchResultMatchList = new ArrayList<IdentifiableDocumentWrapper>();		
 		
 		String custodySearchRequestSid = XmlUtils.xPathStringSearch(custodySearchRequestMessage, 
-				"//cs-req-doc:CustodySearchRequest/cs-req-ext:Person/jxdm51:PersonStateFingerprintIdentification/nc30:IdentificationID");		
+				"/cs-req-doc:CustodySearchRequest/nc30:Person/cs-req-ext:PersonRecordIdentification/nc30:IdentificationID");		
 		
 		LOG.info("\n\n\n Using sid: " + custodySearchRequestSid + " \n\n\n");
 		
@@ -1955,7 +1965,7 @@ public class StaticMockQuery {
 			Document custodyDetailDoc = identifyableCustodyDetailDoc.getDocument();						
 
 			String custodyDetailDocSid = XmlUtils.xPathStringSearch(custodyDetailDoc, 
-					"/cq-res-exch:CustodyQueryResults/cq-res-ext:InmateCustody/nc30:PersonStateIdentification/nc30:IdentificationID");
+					"/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonAugmentation/jxdm51:PersonStateFingerprintIdentification/nc30:IdentificationID");
 			
 			if(StringUtils.isNotBlank(custodyDetailDocSid) && custodySearchRequestSid.equals(custodyDetailDocSid)){
 				
