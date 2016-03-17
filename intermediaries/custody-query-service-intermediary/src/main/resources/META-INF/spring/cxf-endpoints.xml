@@ -47,7 +47,7 @@
         address="${federatedQuery.custodyQueryEndpoint}"
         wsdlURL="classpath:ssp/Custody_Query_Request/schema/SIP_WS_1.2/Custody_Query_Request_Service.wsdl"
         serviceName="ojbc:Custody-Query-Request-Service"
-        endpointName="ojbc:Custody-Query-Request-Service"
+        endpointName="ojbc:Custody-Query-Request-Secure-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
@@ -82,7 +82,7 @@
 	<cxf:cxfEndpoint id="custodyQueryRequestAdapter"
 		wsdlURL="classpath:ssp/Custody_Query_Request/schema/SIP_WS_1.2/Custody_Query_Request_Service.wsdl"
 		serviceName="ojbc:Custody-Query-Request-Service"
-		endpointName="ojbc:Custody-Query-Request-Service"
+		endpointName="ojbc:Custody-Query-Request-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0">
 		<cxf:properties>
 			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
