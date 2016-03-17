@@ -25,6 +25,8 @@ import junit.framework.Assert;
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 import org.junit.Test;
+import org.ojbc.bundles.adapters.staticmock.ClasspathXmlDataSource;
+import org.ojbc.bundles.adapters.staticmock.IdentifiableDocumentWrapper;
 import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -46,10 +48,10 @@ public class CustodySearchResultBuilderTest {
 		
 		custodySearchResultsDoc.appendChild(custodySearchResultsRootElement);							
 		
-		Document custodyDetailDoc = XmlUtils.parseFileToDocument(
-				new File("src/test/resources/DocBuilderTestFiles/Custody/CustodyDetailQueryResults.xml"));
-		
-		Element custodySearchResultElement =  CustodySearchResultBuilder.buildCustodySearchResultElement(custodySearchResultsDoc, custodyDetailDoc, "0");
+        ClasspathXmlDataSource ds = new ClasspathXmlDataSource("DocBuilderTestFiles/Custody");
+        IdentifiableDocumentWrapper documentWrapper = ds.getDocument("CustodyDetailQueryResults.xml");
+
+		Element custodySearchResultElement =  CustodySearchResultBuilder.buildCustodySearchResultElement(custodySearchResultsDoc, documentWrapper, "0");
 		
 		custodySearchResultsRootElement.appendChild(custodySearchResultElement);		
 		
