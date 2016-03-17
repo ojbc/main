@@ -36,18 +36,6 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="dataSource" />
-		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.court-case-search-request-service-intermediary-context" />
-		<constructor-arg name="defaultObject">
-			<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-				<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
-				<property name="url" value="jdbc:h2:tcp:localhost:49093/mem:auditlog" />
-				<property name="username" value="sa" />
-			</bean>
-		</constructor-arg>
-	</bean>
-	
 	<bean id="endpointReplyToMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="endpointReplyToMap" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.court-case-search-request-service-intermediary-context" />
