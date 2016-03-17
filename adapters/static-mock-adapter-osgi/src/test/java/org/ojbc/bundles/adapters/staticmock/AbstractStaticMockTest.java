@@ -127,6 +127,9 @@ public abstract class AbstractStaticMockTest {
 		Resource resource = resourceResolver.getResource("TestRequestMessages/CustodySearchRequest.xml");
 		
 		Document custodySearchRequestDoc = documentBuilder.parse(resource.getInputStream());
+		
+		Element idElement = (Element) XmlUtils.xPathNodeSearch(custodySearchRequestDoc, "/cs-req-doc:CustodySearchRequest/nc30:Person/cs-req-ext:PersonRecordIdentification/nc30:IdentificationID");
+		idElement.setTextContent(String.valueOf(systemId));
 				
 		return custodySearchRequestDoc;
 	}
