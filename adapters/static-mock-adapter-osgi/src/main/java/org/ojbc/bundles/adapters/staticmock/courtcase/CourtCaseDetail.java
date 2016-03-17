@@ -47,6 +47,8 @@ public class CourtCaseDetail {
 	
 	private String personRaceCode;
 	
+	private String personRecId;
+	
 	private String personSexCode;
 	
 	private String personWeight;
@@ -128,6 +130,10 @@ public class CourtCaseDetail {
 
 	public String getPersonRaceCode() {
 		return personRaceCode;
+	}
+
+	public String getPersonRecId() {
+		return personRecId;
 	}
 
 	public String getPersonSexCode() {
@@ -236,6 +242,10 @@ public class CourtCaseDetail {
 
 	public void setPersonRaceCode(String personRaceCode) {
 		this.personRaceCode = personRaceCode;
+	}
+
+	public void setPersonRecId(String personRecId) {
+		this.personRecId = personRecId;
 	}
 
 	public void setPersonSexCode(String personSexCode) {

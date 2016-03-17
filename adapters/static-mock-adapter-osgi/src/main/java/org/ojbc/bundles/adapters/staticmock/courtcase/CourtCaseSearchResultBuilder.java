@@ -47,6 +47,9 @@ public class CourtCaseSearchResultBuilder {
 				"//jxdm51:CaseOtherIdentification/nc30:IdentificationCategoryDescriptionText");		
 		courtCaseDetail.setCaseOtherInfoIdCatDescTxt(caseOtherIdCatDescTxt);		
 		
+		String personRecId = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//ccq-res-ext:PersonRecordIdentification/nc30:IdentificationID");
+		courtCaseDetail.setPersonRecId(personRecId);
+		
 		String dobVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Identity/nc30:IdentityPersonRepresentation/nc30:PersonBirthDate/nc30:Date");
 		courtCaseDetail.setPersonBirthDate(dobVal);
 		
@@ -436,6 +439,7 @@ public class CourtCaseSearchResultBuilder {
 		}
 		
 		
+		// TODO FIXME used in comparison below then sets different value
 		String sSystemId = courtCaseDetail.getSystemId();
 		
 		String sSystemName = courtCaseDetail.getSystemName();
@@ -452,6 +456,7 @@ public class CourtCaseSearchResultBuilder {
 
 				Element sysIdValElement = XmlUtils.appendElement(sysIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
 				
+				// TODO FIXME uses check above then sets different value
 				sysIdValElement.setTextContent(courtCaseDetailResultWrapper.getId());				
 			}
 			
