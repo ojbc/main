@@ -291,6 +291,17 @@ public class StaticMockQuery {
 					+ OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQ_EXT + ":CourtCaseRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationID");
 			documentId = systemIdElement.getTextContent();
 			systemId = systemElement.getTextContent();
+		} else if (OjbcNamespaceContext.NS_CUSTODY_QUERY_REQUEST_EXCH.equals(rootElementNamespace) && "CustodyQueryRequest".equals(rootElementLocalName)) {
+			String xPath = OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXCH + ":CustodyQueryRequest/" + OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT
+					+ ":CustodyRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationSourceText";
+			Element systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
+			if (systemElement == null) {
+				throw new IllegalArgumentException("Invalid query request message:  must specify the system to query.");
+			}
+			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXCH + ":CustodyQueryRequest/"
+					+ OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT + ":CustodyRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationID");
+			documentId = systemIdElement.getTextContent();
+			systemId = systemElement.getTextContent();
 		} else if (OjbcNamespaceContext.NS_FIREARM_REGISTRATION_QUERY_REQUEST_DOC.equals(rootElementNamespace) && "PersonFirearmRegistrationRequest".equals(rootElementLocalName)) {
 			String xPath = OjbcNamespaceContext.NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_DOC + ":PersonFirearmRegistrationRequest/" + OjbcNamespaceContext.NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_EXT
 					+ ":PersonFirearmRegistrationIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC + ":IdentificationSourceText";
