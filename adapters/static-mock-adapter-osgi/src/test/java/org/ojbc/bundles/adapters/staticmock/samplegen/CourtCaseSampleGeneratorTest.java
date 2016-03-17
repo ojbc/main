@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
-public class TestCourtCaseSampleGenerator extends AbstractSampleGeneratorTestCase{
+public class CourtCaseSampleGeneratorTest extends AbstractSampleGeneratorTestCase{
 
 	
 	@Test
@@ -39,9 +39,7 @@ public class TestCourtCaseSampleGenerator extends AbstractSampleGeneratorTestCas
 		Document ccSampleDoc = courtCaseDocList.get(0);
 		
 		XmlUtils.validateInstance("ssp/Court_Case_Query_Results/artifacts/service_model/information_model/IEPD/xsd", 
-	      "Subset/niem", "exchange.xsd", ccSampleDoc);			
-		
-		
+	      "Subset/niem", "exchange.xsd", ccSampleDoc);							
 	}
 	
 	
