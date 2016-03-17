@@ -49,7 +49,7 @@
 		<cxf:cxfEndpoint id="custodyQueryRequestService"
 			address="${webapplication.personQuery.custodyQueryRequestEndpoint}"
 			wsdlURL="classpath:ssp/Custody_Query_Request/schema/SIP_WS_1.2/Custody_Query_Request_Service.wsdl"
-			serviceName="ojbc:Custody-Query-Request-Service" endpointName="ojbc:Custody-Query-Request-Secure-Services"
+			serviceName="ojbc:Custody-Query-Request-Service" endpointName="ojbc:Custody-Query-Request-Secure-Service"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0">
 			<cxf:properties>
 				<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
@@ -73,7 +73,7 @@
 		<bean id="custodyQueryRequestMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" >
 			<property name="operationName"><value>SubmitCustodyQueryRequest</value></property>
 			<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0</value></property>
-			<property name="destinationEndpoint"><value>custodyQueryRequestServices</value></property>
+			<property name="destinationEndpoint"><value>custodyQueryRequestService</value></property>
 		</bean>
 
 		<util:map map-class=" java.util.concurrent.ConcurrentHashMap" id="custodyQueryRequestResponseMap"/>
