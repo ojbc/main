@@ -615,6 +615,9 @@
 		<ccq-res-ext:PersonInmateIdentification>
 			<nc:IdentificationID>inmate ID</nc:IdentificationID>
 		</ccq-res-ext:PersonInmateIdentification>
+		<ccq-res-ext:PersonRecordIdentification>
+			<nc:IdentificationID>5789989</nc:IdentificationID>
+		</ccq-res-ext:PersonRecordIdentification>
 	</nc:Person>
 	<nc:Location structures:id="Location_01">
 		<nc:Address>

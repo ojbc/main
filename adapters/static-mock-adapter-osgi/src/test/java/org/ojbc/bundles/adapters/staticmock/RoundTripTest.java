@@ -54,8 +54,8 @@ public class RoundTripTest extends AbstractStaticMockTest {
         // note: incidents are special, because it's a two-stage search.  first we get matching incidents for a person, then we query for individual incidents
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.INCIDENT_MOCK_ADAPTER_INCIDENT_PERSON_SEARCH_SYSTEM_ID, StaticMockQuery.INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID);
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID, StaticMockQuery.FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID);        
-        personSearchSystemToQuerySystemMap.put(StaticMockQuery.CUSTODY_SEARCH_SYSTEM_ID, StaticMockQuery.CUSTODY_QUERY_SYSTEM_ID);
-        personSearchSystemToQuerySystemMap.put(StaticMockQuery.COURT_CASE_PERSON_SEARCH_SYSTEM_ID, StaticMockQuery.COURT_CASE_QUERY_SYSTEM_ID);        
+        personSearchSystemToQuerySystemMap.put(StaticMockQuery.CUSTODY_SEARCH_SYSTEM_ID, StaticMockQuery.CUSTODY_QUERY_SYSTEM_ID);         
+        personSearchSystemToQuerySystemMap.put(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID, StaticMockQuery.COURT_CASE_QUERY_SYSTEM_ID);        
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.VEHICLE_CRASH_SEARCH_SYSTEM_ID, StaticMockQuery.VEHICLE_CRASH_QUERY_SYSTEM_ID);        
     }
     
@@ -108,8 +108,14 @@ public class RoundTripTest extends AbstractStaticMockTest {
         boolean vehicleCrashFound = false;
         
         for (Document queryRequest : queryRequests) {
-        	
+        	        	
             List<IdentifiableDocumentWrapper> queryResultList = staticMockQuery.queryDocuments(queryRequest);
+            
+            if(1 != queryResultList.size()){            	
+            	log.error("\n\n\n ERROR: Query results != 1 for request: \n\n");
+            	XmlUtils.printNode(queryRequest);
+            }            
+            
             assertEquals(1, queryResultList.size());
             
             IdentifiableDocumentWrapper docWrapper = queryResultList.get(0);
@@ -134,11 +140,14 @@ public class RoundTripTest extends AbstractStaticMockTest {
     }
 
     private List<Document> buildQueryRequestMessages(Document searchResults) throws Exception {
+    	
 		Element rootElement = searchResults.getDocumentElement();
 		String rootElementLocalName = rootElement.getLocalName();
 
 		String resultNodeXpath = null;
+		
 		switch (rootElementLocalName){
+		
 		case "PersonSearchResults":
 			resultNodeXpath = "psres:PersonSearchResult";
 			break; 
@@ -148,11 +157,15 @@ public class RoundTripTest extends AbstractStaticMockTest {
 		case "CustodySearchResults":
 			resultNodeXpath = "cs-res-ext:CustodySearchResult"; 
 			break; 
+		case "CourtCaseSearchResults":
+			resultNodeXpath = "ccs-res-ext:CourtCaseSearchResult";	
+			break;			
 		default:
 		}
     	
         NodeList resultsNodes = XmlUtils.xPathNodeListSearch(rootElement, "//" + resultNodeXpath);
-        List<Document> ret = new ArrayList<Document>();
+        
+        List<Document> rQueryRequestMessageList = new ArrayList<Document>();
         
         for (int i = 0; i < resultsNodes.getLength(); i++) {
         	
@@ -161,7 +174,14 @@ public class RoundTripTest extends AbstractStaticMockTest {
             String searchSystemID = XmlUtils.xPathStringSearch(resultNode, resultNodeXpath.split(":")[0] + ":SourceSystemNameText");
             
             String recordID = XmlUtils.xPathStringSearch(resultNode, "intel:SystemIdentifier/nc:IdentificationID");
+            
             if (resultNode.getLocalName().equals("CustodySearchResult")){
+            	recordID = XmlUtils.xPathStringSearch(resultNode, "intel31:SystemIdentification/nc30:IdentificationID");
+            	
+            }else if(resultNode.getLocalName().equals("CourtCaseSearchResult")){
+            	
+            	XmlUtils.printNode(resultNode);
+            	
             	recordID = XmlUtils.xPathStringSearch(resultNode, "intel31:SystemIdentification/nc30:IdentificationID");
             }
             
@@ -170,21 +190,28 @@ public class RoundTripTest extends AbstractStaticMockTest {
                 Document incidentPersonSearchRequestMessage = buildIncidentPersonSearchRequestMessage(new Integer(recordID));
                 Document incidentPersonSearchResults = staticMockQuery.searchDocuments(incidentPersonSearchRequestMessage, baseDate);
                 List<Document> incidentPersonQueryRequestMessages = buildQueryRequestMessages(incidentPersonSearchResults);
-				ret.addAll(incidentPersonQueryRequestMessages);
+				rQueryRequestMessageList.addAll(incidentPersonQueryRequestMessages);
             } 
             else if (StaticMockQuery.CUSTODY_PERSON_SEARCH_SYSTEM_ID.equals(searchSystemID)){
                 Document requestMessage = buildCustodySearchRequestMessage(recordID);
                 Document custodySearchResults = staticMockQuery.searchDocuments(requestMessage, baseDate);
                 List<Document> custodyQueryRequestMessages = buildQueryRequestMessages(custodySearchResults);
-				ret.addAll(custodyQueryRequestMessages);
+				rQueryRequestMessageList.addAll(custodyQueryRequestMessages);
             } 
-            else {
+            else if(StaticMockQuery.COURT_CASE_PERSON_SEARCH_SYSTEM_ID.equals(searchSystemID)){
+            	            	
+            	Document ccPersonSearchRequestDoc = buildCourtCasePersonSearchRequestMessage(recordID);                  	            	
+            	Document ccPersonSearchResultsDoc = staticMockQuery.searchDocuments(ccPersonSearchRequestDoc, baseDate);            	
+            	List<Document> ccPersonQueryRequestDocList = buildQueryRequestMessages(ccPersonSearchResultsDoc);            	
+            	rQueryRequestMessageList.addAll(ccPersonQueryRequestDocList);
+            
+            }else {
             	
             	String querySystemID = personSearchSystemToQuerySystemMap.get(searchSystemID);
-            	ret.add(buildPersonQueryRequestMessage(querySystemID, recordID));
+            	rQueryRequestMessageList.add(buildPersonQueryRequestMessage(querySystemID, recordID));
             }
         }
-        return ret;
+        return rQueryRequestMessageList;
     }
 
     public Document getDocumentFromXmlString(String xmlString) {

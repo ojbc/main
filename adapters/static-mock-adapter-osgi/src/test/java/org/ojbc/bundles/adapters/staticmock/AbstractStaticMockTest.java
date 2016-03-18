@@ -129,13 +129,13 @@ public abstract class AbstractStaticMockTest {
 		Document custodySearchRequestDoc = documentBuilder.parse(resource.getInputStream());
 		
 		Element idElement = (Element) XmlUtils.xPathNodeSearch(custodySearchRequestDoc, "/cs-req-doc:CustodySearchRequest/nc30:Person/cs-req-ext:PersonRecordIdentification/nc30:IdentificationID");
-		idElement.setTextContent(String.valueOf(systemId));
+		idElement.setTextContent(systemId);
 				
 		return custodySearchRequestDoc;
 	}
 	
 	
-	protected Document buildCourtCaseSearchRequestMessage(String systemId) throws Exception{
+	protected Document buildCourtCasePersonSearchRequestMessage(String personRecId) throws Exception{
 		
 		PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
 		
@@ -143,7 +143,10 @@ public abstract class AbstractStaticMockTest {
 		
 		Document courtCaseSearchRequestDoc = documentBuilder.parse(resource.getInputStream());
 
-		XmlUtils.printNode(courtCaseSearchRequestDoc.getDocumentElement());
+		Element personRecIdElement = (Element)XmlUtils.xPathNodeSearch(courtCaseSearchRequestDoc, 
+				"//ccs-req-doc:CourtCaseSearchRequest/nc30:Person/ccs-req-ext:PersonRecordIdentification/nc30:IdentificationID");
+		
+		personRecIdElement.setTextContent(personRecId);		
 		
 		return courtCaseSearchRequestDoc;		
 	}

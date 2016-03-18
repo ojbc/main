@@ -280,17 +280,25 @@ public class StaticMockQuery {
 			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, "iqr-doc:IncidentIdentifierIncidentReportRequest/iqr:Incident/nc:ActivityIdentification/nc:IdentificationID");
 			documentId = systemIdElement.getTextContent();
 			systemId = systemElement.getTextContent();
+			
 		} else if (OjbcNamespaceContext.NS_COURT_CASE_QUERY_REQUEST_DOC.equals(rootElementNamespace) && "CourtCaseQueryRequest".equals(rootElementLocalName)) {
+			
 			String xPath = OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC + ":CourtCaseQueryRequest/" + OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQ_EXT
 					+ ":CourtCaseRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationSourceText";
+			
 			Element systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
+			
 			if (systemElement == null) {
 				throw new IllegalArgumentException("Invalid query request message:  must specify the system to query.");
 			}
+			
 			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC + ":CourtCaseQueryRequest/"
 					+ OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQ_EXT + ":CourtCaseRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationID");
+			
 			documentId = systemIdElement.getTextContent();
+			
 			systemId = systemElement.getTextContent();
+			
 		} else if (OjbcNamespaceContext.NS_CUSTODY_QUERY_REQUEST_EXCH.equals(rootElementNamespace) && "CustodyQueryRequest".equals(rootElementLocalName)) {
 			String xPath = OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXCH + ":CustodyQueryRequest/" + OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT
 					+ ":CustodyRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationSourceText";
@@ -377,6 +385,9 @@ public class StaticMockQuery {
 			return queryVehicleCrashDocuments(documentId);
 			
 		} else {
+						
+			XmlUtils.printNode(queryRequestMessage);
+			
 			throw new IllegalArgumentException("Unknown system name: " + systemId);
 		}
 
@@ -809,7 +820,7 @@ public class StaticMockQuery {
 	Document courtCaseSearchDocuments(Document courtCaseSearchRequestMessage, DateTime baseDate) throws Exception {
 				
 		// get matching results
-		List<IdentifiableDocumentWrapper> courtCaseDetailResultList = courtCaseSearchDocumentsAsList(courtCaseSearchRequestMessage, baseDate);
+		List<IdentifiableDocumentWrapper> courtCaseDetailResultList = courtCaseSearchDocumentsAsList(courtCaseSearchRequestMessage);
 		
 		Document rCourtCaseSearchResultsDoc = createNewDocument();
 		
@@ -1857,7 +1868,22 @@ public class StaticMockQuery {
 	
 	private SearchValueXPaths getCourtCaseXPaths() {
 		
-		SearchValueXPaths xPaths = new SearchValueXPaths();				
+		SearchValueXPaths xPaths = new SearchValueXPaths(){
+			
+			public String getSystemIdentifier(IdentifiableDocumentWrapper documentWrapper) {
+				
+				Document doc = documentWrapper.getDocument();
+				
+				try {
+					String personRecId = XmlUtils.xPathStringSearch(doc, "//ccq-res-ext:PersonRecordIdentification/nc30:IdentificationID");
+					
+					return personRecId;
+					
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+		};			
 		
 		xPaths.ageXPath = null;
 		
@@ -1929,7 +1955,7 @@ public class StaticMockQuery {
 	}
 
 	
-	private List<IdentifiableDocumentWrapper> courtCaseSearchDocumentsAsList(Document courtCaseSearchRequestMessage, DateTime baseDate) 
+	private List<IdentifiableDocumentWrapper> courtCaseSearchDocumentsAsList(Document courtCaseSearchRequestMessage) 
 			throws Exception {
 		
 		List<IdentifiableDocumentWrapper> courtCaseSearchDocMatchesList = new ArrayList<IdentifiableDocumentWrapper>();
@@ -1937,22 +1963,18 @@ public class StaticMockQuery {
 		String ccSearchPersonRecId = XmlUtils.xPathStringSearch(courtCaseSearchRequestMessage, "//ccs-req-ext:PersonRecordIdentification/nc30:IdentificationID");		
 		
 		LOG.info("\n\n\n Court Case searching person rec id:" + ccSearchPersonRecId + "\n\n\n");
-
-		courtCaseSearchDocMatchesList.add(courtCaseDataSource.getDocument(ccSearchPersonRecId));
 		
-		// TODO enable when working
-//		for (IdentifiableDocumentWrapper identifyableCourtCaseDoc : courtCaseDataSource.getDocuments()) {
-//									
-//			String ccDetailPersonRecId = XmlUtils.xPathStringSearch(identifyableCourtCaseDoc.getDocument(), 
-//					"//ccq-res-ext:PersonRecordIdentification/nc30:IdentificationID");
-//			
-//			// TODO enable when working			
-////			if(StringUtils.isNotEmpty(ccDetailPersonRecId) && ccDetailPersonRecId.equals(ccSearchPersonRecId)){
-//			
-//				courtCaseSearchDocMatchesList.add(identifyableCourtCaseDoc);						
-////			}		
-//		}
+		for (IdentifiableDocumentWrapper identifyableCourtCaseDoc : courtCaseDataSource.getDocuments()) {
+								
+			String ccDetailPersonRecId = XmlUtils.xPathStringSearch(identifyableCourtCaseDoc.getDocument(), 
+					"//ccq-res-ext:PersonRecordIdentification/nc30:IdentificationID");
 				
+			if(StringUtils.isNotEmpty(ccDetailPersonRecId) && ccDetailPersonRecId.equals(ccSearchPersonRecId)){
+			
+				courtCaseSearchDocMatchesList.add(identifyableCourtCaseDoc);						
+ 			}		
+		}
+		
 		return courtCaseSearchDocMatchesList;		
 	}
 	

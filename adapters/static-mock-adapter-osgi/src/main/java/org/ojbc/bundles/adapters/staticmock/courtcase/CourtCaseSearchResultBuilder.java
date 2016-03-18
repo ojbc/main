@@ -18,6 +18,7 @@ package org.ojbc.bundles.adapters.staticmock.courtcase;
 
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.bundles.adapters.staticmock.IdentifiableDocumentWrapper;
+import org.ojbc.bundles.adapters.staticmock.StaticMockQuery;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -26,8 +27,11 @@ import org.w3c.dom.Element;
 
 public class CourtCaseSearchResultBuilder {
 
-	public static CourtCaseDetail getCourtCaseDetail(Document courtCaseDetailDoc) throws Exception{
 	
+	public static CourtCaseDetail getCourtCaseDetail(IdentifiableDocumentWrapper courtCaseDetailWrapper) throws Exception{
+	
+		Document courtCaseDetailDoc = courtCaseDetailWrapper.getDocument();
+		
 		CourtCaseDetail courtCaseDetail = new CourtCaseDetail();
 		
 		String caseGenCatTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Case/nc30:CaseGeneralCategoryText");		
@@ -98,13 +102,10 @@ public class CourtCaseSearchResultBuilder {
 		
 		String sidVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonStateIdentification");				
 		sidVal = sidVal == null ? null : sidVal.trim();		
-		courtCaseDetail.setPersonSid(sidVal);
-		
-		String srcSysNameTxtVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//ccq-res-ext:SourceSystemNameText");
-		courtCaseDetail.setSourceSystemNameText(srcSysNameTxtVal);
-		
-		String sysIdVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//intel31:SystemIdentification/nc30:IdentificationID");
-		courtCaseDetail.setSystemId(sysIdVal);
+		courtCaseDetail.setPersonSid(sidVal);		
+						
+		String ccSearchResultSystemId = courtCaseDetailWrapper.getId();
+		courtCaseDetail.setSystemId(ccSearchResultSystemId);
 		
 		String sysName = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//intel31:SystemIdentification/nc30:SystemName");		
 		courtCaseDetail.setSystemName(sysName);
@@ -127,11 +128,10 @@ public class CourtCaseSearchResultBuilder {
 	}
 	
 	
-	public static Element buildCourtCaseSearchResultElement(Document courtCaseSearchResultsDocument, IdentifiableDocumentWrapper courtCaseDetailResultWrapper, String resultId) throws Exception{
-		
-		Document courtCaseDetailResultDoc =  courtCaseDetailResultWrapper.getDocument();
-		
-		CourtCaseDetail courtCaseDetail = getCourtCaseDetail(courtCaseDetailResultDoc);
+	public static Element buildCourtCaseSearchResultElement(Document courtCaseSearchResultsDocument, 
+			IdentifiableDocumentWrapper courtCaseDetailResultWrapper, String resultId) throws Exception{
+				
+		CourtCaseDetail courtCaseDetail = getCourtCaseDetail(courtCaseDetailResultWrapper);
 		
 		Element courtCaseSearchResultElement = courtCaseSearchResultsDocument.createElementNS(OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "CourtCaseSearchResult");	
 		
@@ -424,51 +424,36 @@ public class CourtCaseSearchResultBuilder {
 		
 		Element caseAssoc = XmlUtils.appendElement(personCaseAssociation, OjbcNamespaceContext.NS_NC_30, "Case");
 		XmlUtils.addAttribute(caseAssoc, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Case_" + resultId);
-		
-		
-		String sourceSystemNameText = courtCaseDetail.getSourceSystemNameText();
-		
-		if(StringUtils.isNotBlank(sourceSystemNameText)){
-
-			Element srcSysNameTxtElement = XmlUtils.appendElement(courtCaseSearchResultElement, 
+				
+		Element srcSysNameTxtElement = XmlUtils.appendElement(courtCaseSearchResultElement, 
 					OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS_EXT, "SourceSystemNameText");
-							
-			sourceSystemNameText = sourceSystemNameText.trim();
-			
-			srcSysNameTxtElement.setTextContent(sourceSystemNameText);			
-		}
+										
+		srcSysNameTxtElement.setTextContent(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID);		
 		
-		
-		// TODO FIXME used in comparison below then sets different value
-		String sSystemId = courtCaseDetail.getSystemId();
-		
+				
 		String sSystemName = courtCaseDetail.getSystemName();
-		
-		boolean hasSystemId = StringUtils.isNotBlank(sSystemId);
-		
+						
 		boolean hasSystemName = StringUtils.isNotBlank(sSystemName);
-		
-		if(hasSystemId || hasSystemName){
-			
-			Element sysIdElement = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_INTEL_31, "SystemIdentification");
-			
-			if(hasSystemId){
+							
+		Element sysIdElement = XmlUtils.appendElement(
+				courtCaseSearchResultElement, OjbcNamespaceContext.NS_INTEL_31,
+				"SystemIdentification");
 
-				Element sysIdValElement = XmlUtils.appendElement(sysIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
-				
-				// TODO FIXME uses check above then sets different value
-				sysIdValElement.setTextContent(courtCaseDetailResultWrapper.getId());				
-			}
-			
-			if(hasSystemName){
-				
-				Element sysName = XmlUtils.appendElement(sysIdElement, OjbcNamespaceContext.NS_NC_30, "SystemName");
-				
-				sSystemName = sSystemName.trim();
-				
-				sysName.setTextContent(sSystemName);				
-			}
+		Element sysIdValElement = XmlUtils.appendElement(sysIdElement,
+				OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+
+		sysIdValElement.setTextContent(courtCaseDetail.getSystemId());
+
+		if (hasSystemName) {
+
+			Element sysName = XmlUtils.appendElement(sysIdElement,
+					OjbcNamespaceContext.NS_NC_30, "SystemName");
+
+			sSystemName = sSystemName.trim();
+
+			sysName.setTextContent(sSystemName);
 		}
+		
 
 		
 		

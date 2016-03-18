@@ -60,9 +60,7 @@ public class CourtCaseDetail {
 	private String personFBIId;
 	
 	private String personSid;
-	
-	private String sourceSystemNameText;
-	
+		
 	private String systemName;
 	
 	private String systemId;
@@ -158,10 +156,6 @@ public class CourtCaseDetail {
 
 	public String getPersonSid() {
 		return personSid;
-	}
-
-	public String getSourceSystemNameText() {
-		return sourceSystemNameText;
 	}
 
 	public String getSystemName() {
@@ -270,10 +264,6 @@ public class CourtCaseDetail {
 
 	public void setPersonSid(String personSid) {
 		this.personSid = personSid;
-	}
-
-	public void setSourceSystemNameText(String sourceSystemNameText) {
-		this.sourceSystemNameText = sourceSystemNameText;
 	}
 
 	public void setSystemName(String systemName) {

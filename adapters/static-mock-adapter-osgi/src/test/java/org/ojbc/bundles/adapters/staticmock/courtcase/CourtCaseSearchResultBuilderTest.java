@@ -38,7 +38,9 @@ public class CourtCaseSearchResultBuilderTest {
 	
 	@Test
 	public void testCourtCaseSearchResultBuilder() throws Exception{
+		
         ClasspathXmlDataSource ds = new ClasspathXmlDataSource("DocBuilderTestFiles/CourtCase");
+        
         IdentifiableDocumentWrapper documentWrapper = ds.getDocument("CourtCaseDetailQueryResults.xml");
         
 		Document courtCaseSearchResultsDoc = createNewDocument();
@@ -66,11 +68,13 @@ public class CourtCaseSearchResultBuilderTest {
 	
 	@Test
 	public void testGetCourtCaseDetail() throws Exception{
-	
+			
 		Document courtCaseDetailDoc = XmlUtils.parseFileToDocument(
 				new File("src/test/resources/DocBuilderTestFiles/CourtCase/CourtCaseDetailQueryResults.xml"));
+				
+		IdentifiableDocumentWrapper courtCaseDetailWrapper = new IdentifiableDocumentWrapper(courtCaseDetailDoc, "MockFileName.xml");
 		
-		CourtCaseDetail courtCaseDetail = CourtCaseSearchResultBuilder.getCourtCaseDetail(courtCaseDetailDoc);
+		CourtCaseDetail courtCaseDetail = CourtCaseSearchResultBuilder.getCourtCaseDetail(courtCaseDetailWrapper);
 		
 		String docketId = courtCaseDetail.getCaseDocketID();
 		Assert.assertEquals("567", docketId);
@@ -140,12 +144,12 @@ public class CourtCaseSearchResultBuilderTest {
 		
 		String srchResCatTxt = courtCaseDetail.getSearchResultCategoryText();
 		Assert.assertEquals("Court Case", srchResCatTxt);
-		
-		String srcSystemNameTxt = courtCaseDetail.getSourceSystemNameText();
-		Assert.assertEquals("Alpha Court System", srcSystemNameTxt);
-		
+				
 		String sysId = courtCaseDetail.getSystemId();
-		Assert.assertEquals("erty", sysId);
+		Assert.assertEquals("MockFileName.xml", sysId);
+		
+		String personRecId = courtCaseDetail.getPersonRecId();
+		Assert.assertEquals("5789989", personRecId);
 		
 		String sysName = courtCaseDetail.getSystemName();
 		Assert.assertEquals("Court DB", sysName);
