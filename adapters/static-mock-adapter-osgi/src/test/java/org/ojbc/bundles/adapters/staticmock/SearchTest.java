@@ -27,6 +27,8 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.ojbc.util.xml.OjbcNamespaceContext;
@@ -79,7 +81,7 @@ public class SearchTest extends AbstractStaticMockTest {
     public void testSearchCustodyDocuments() throws Exception{
     
     	Document custodySearchRequestDoc = buildCustodySearchRequestMessage(StaticMockQuery.CUSTODY_SEARCH_SYSTEM_ID);
-    	
+    	    	
     	Document custodySearchResultsResponseDoc = staticMockQuery.searchDocuments(custodySearchRequestDoc);
     	
     	Node custodySearchResultsNode = XmlUtils.xPathNodeSearch(custodySearchResultsResponseDoc, "/cs-res-doc:CustodySearchResults");
@@ -91,13 +93,17 @@ public class SearchTest extends AbstractStaticMockTest {
     @Test
     public void testSearchCourtCaseDocuments() throws Exception{
     	
-    	Document courtCaseSearchRequestDoc = buildCourtCaseSearchRequestMessage(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID);
+    	String personRecId = "abc123";
     	
+    	Document courtCaseSearchRequestDoc = buildCourtCasePersonSearchRequestMessage(personRecId);
+    	    	
     	Document courtCaseSearchResultsResponseDoc = staticMockQuery.searchDocuments(courtCaseSearchRequestDoc);
-    	
+    	    	    
     	Node courtCaseSearchResultsNode = XmlUtils.xPathNodeSearch(courtCaseSearchResultsResponseDoc, "ccs-res-doc:CourtCaseSearchResults");
+    	    	
+    	NodeList ccSrchResNodeList = XmlUtils.xPathNodeListSearch(courtCaseSearchResultsNode, "//ccs-res-ext:CourtCaseSearchResult");
     	
-    	assertNotNull(courtCaseSearchResultsNode);    	
+    	Assert.assertEquals(1, ccSrchResNodeList.getLength());    	    	    	    	
     }
     
     

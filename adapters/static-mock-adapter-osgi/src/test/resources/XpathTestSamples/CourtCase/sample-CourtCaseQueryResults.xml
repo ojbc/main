@@ -565,6 +565,9 @@
 		<ccq-res-ext:PersonInmateIdentification>
 			<nc:IdentificationID>1234</nc:IdentificationID>
 		</ccq-res-ext:PersonInmateIdentification>
+		<ccq-res-ext:PersonRecordIdentification>
+			<nc:IdentificationID>abc123</nc:IdentificationID>
+		</ccq-res-ext:PersonRecordIdentification>		
 	</nc:Person>
 	<nc:Location structures:id="Location_01">
 		<nc:Address>

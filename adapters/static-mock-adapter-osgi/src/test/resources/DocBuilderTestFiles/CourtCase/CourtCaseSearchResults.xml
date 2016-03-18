@@ -77,7 +77,7 @@
          <nc30:Person s30:ref="Person_1"/>
          <nc30:Case s30:ref="Case_1"/>
       </cyfs-31:PersonCaseAssociation>
-      <ccs-res-ext:SourceSystemNameText>Alpha Court System</ccs-res-ext:SourceSystemNameText>
+      <ccs-res-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest</ccs-res-ext:SourceSystemNameText>
       <intel31:SystemIdentification>
          <nc30:IdentificationID>CourtCaseDetailQueryResults.xml</nc30:IdentificationID>
          <nc30:SystemName>Court DB</nc30:SystemName>
