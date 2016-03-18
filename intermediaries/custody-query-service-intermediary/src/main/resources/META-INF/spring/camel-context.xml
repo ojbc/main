@@ -41,7 +41,7 @@
 			uri="cxf:bean:custodyQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${custodyQueryIntermediaryCxflogging}" />
 
 		<endpoint id="custodyQueryResultsHandlerEndpoint"
-			uri="cxf:bean:custodyQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${custodyQueryIntermediaryCxflogging}" />
+			uri="cxf:bean:custodyQueryResultsHandlerService?dataFormat=PAYLOAD&amp;allowStreaming=false&amp;loggingFeatureEnabled=${custodyQueryIntermediaryCxflogging}" />
 
 	    <endpoint id="custodyQueryRequestAdapterEndpoint" 
 	    	uri="cxf:bean:custodyQueryRequestAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${custodyQueryIntermediaryCxflogging}"/>
