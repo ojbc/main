@@ -1855,8 +1855,8 @@ public class StaticMockQuery {
 		xPaths.firstNameXPath = "//nc30:PersonName/nc30:PersonGivenName";
 		xPaths.eyeColorXPath = null;
 		xPaths.hairColorXPath = null;		
-		xPaths.raceXPath = "//jxdm51:PersonRaceCode";  
-		xPaths.sexXPath =  "//jxdm51:PersonSexCode"; 		
+		xPaths.raceXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonRaceCode";  
+		xPaths.sexXPath =  "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person//jxdm51:PersonSexCode"; 		
 		xPaths.heightXPath = null;
 		xPaths.weightXPath = null;		
 		xPaths.searchSystemId = CUSTODY_PERSON_SEARCH_SYSTEM_ID;		
@@ -2419,6 +2419,10 @@ public class StaticMockQuery {
 		private boolean aliasLastNameStartsWith;
 		private boolean parentFirstNameStartsWith;
 		private boolean parentLastNameStartsWith;
+		
+		public String toString(){
+			return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+		}
 
 		public PersonSearchParameters(Document personSearchRequestMessage) throws Exception {
 			
@@ -2738,8 +2742,4 @@ public class StaticMockQuery {
 		}
 	}
 	
-	public String toString(){
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-	}
-
 }
