@@ -55,6 +55,8 @@ public class CustodySearchResultBuilderTest {
 		
 		custodySearchResultsRootElement.appendChild(custodySearchResultElement);		
 		
+		XmlUtils.printNode(custodySearchResultsRootElement);
+		
 		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
 		
 		ojbcNamespaceContext.populateRootNamespaceDeclarations(custodySearchResultsRootElement);				

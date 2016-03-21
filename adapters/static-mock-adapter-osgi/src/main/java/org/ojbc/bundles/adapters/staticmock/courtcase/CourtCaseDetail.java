@@ -26,6 +26,10 @@ public class CourtCaseDetail {
 	private String caseDocketID;
 	
 	private String jurisdictionText;
+	
+	private String courtName; 
+	
+	private String caseStatus; 
 
 	private String caseOtherInfoIdCatDescTxt;
 	
@@ -288,6 +292,22 @@ public class CourtCaseDetail {
 
 	public void setLastUpdatedDate(String lastUpdatedDate) {
 		this.lastUpdatedDate = lastUpdatedDate;
+	}
+
+	public String getCourtName() {
+		return courtName;
+	}
+
+	public void setCourtName(String courtName) {
+		this.courtName = courtName;
+	}
+
+	public String getCaseStatus() {
+		return caseStatus;
+	}
+
+	public void setCaseStatus(String caseStatus) {
+		this.caseStatus = caseStatus;
 	}
 	
 }
