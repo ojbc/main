@@ -115,8 +115,6 @@
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="wir-ext:WarrantBroadcastCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="wir-ext:CriminalTrackingNumber"
-						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="scr:TransactionControlNumberIdentification"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="wir-ext:WarrantAdditionalInformationText"
@@ -168,10 +166,9 @@
 				otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CriminalTrackingNumber" type="nc:TextType">
+	<xsd:element name="CriminalTrackingNumber" type="nc:TextType" substitutionGroup="nc:CaseAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A code assigned to a warrant record by
-				prosecution.</xsd:documentation>
+			<xsd:documentation>A case number assigend by the prosecution.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonEmployeeIdentification" type="nc:IdentificationType"
@@ -201,7 +198,7 @@
 				will be broadcast.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="OffenseCodeText" type="nc:TextType"
+	<xsd:element name="GeneralOffenseCodeText" type="nc:TextType"
 		substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code representing an offense.
@@ -256,6 +253,13 @@
 		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A miscellaneous unique identification assigned to a person record.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ProsecutionChargeCodeText" type="nc:TextType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A charge code assigned by the prosecution.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
