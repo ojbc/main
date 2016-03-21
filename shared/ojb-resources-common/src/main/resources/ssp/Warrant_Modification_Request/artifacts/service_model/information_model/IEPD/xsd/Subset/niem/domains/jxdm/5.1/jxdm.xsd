@@ -258,6 +258,11 @@
       <xs:documentation>An area, state, region, or other geographic unit over which some kind of authority exists.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="LocationStateNCICLSTACode" type="ncic:LSTACodeType" substitutionGroup="nc:LocationState">
+    <xs:annotation>
+      <xs:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="OrganizationAugmentation" type="j:OrganizationAugmentationType" substitutionGroup="nc:OrganizationAugmentationPoint" nillable="true">
     <xs:annotation>
       <xs:documentation>Additional information about an organization.</xs:documentation>
@@ -328,7 +333,7 @@
       <xs:documentation>A specific kind of physical feature.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="Subject" type="j:SubjectType">
+  <xs:element name="Subject" type="j:SubjectType" nillable="true">
     <xs:annotation>
       <xs:documentation>A person who is involved or suspected of being involved in an incident or criminal activity.</xs:documentation>
     </xs:annotation>

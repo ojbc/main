@@ -22,10 +22,8 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:wm-req-doc="http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0"
 	xmlns:wm-req-ext="http://ojbc.org/IEPD/Extensions/WarrantModificationRequestExtension/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
-	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:scr="http://release.niem.gov/niem/domains/screening/3.1/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.1/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:Case structures:id="Case_01">
 		<nc:ActivityIdentification>
@@ -52,8 +50,8 @@
 				</j:OrganizationORIIdentification>
 			</j:OrganizationAugmentation>
 			<wm-req-ext:AgencyRecordIdentification>
-		<nc:IdentificationID>OCA4576</nc:IdentificationID>
-</wm-req-ext:AgencyRecordIdentification>
+				<nc:IdentificationID>OCA4576</nc:IdentificationID>
+			</wm-req-ext:AgencyRecordIdentification>
 		</j:CourtOrderEnforcementAgency>
 		<j:CourtOrderIssuingCourt>
 			<j:OrganizationAugmentation>
@@ -81,7 +79,8 @@
 			<wm-req-ext:PersonRecordIdentification>
 				<nc:IdentificationID>R69458998</nc:IdentificationID>
 			</wm-req-ext:PersonRecordIdentification>
-			<wm-req-ext:ExtraditionIndicator>true</wm-req-ext:ExtraditionIndicator>
+			<wm-req-ext:ExtraditionIndicator>true
+			</wm-req-ext:ExtraditionIndicator>
 			<wm-req-ext:ExtradictionLimitsCodeText>MC23
 			</wm-req-ext:ExtradictionLimitsCodeText>
 			<wm-req-ext:SubjectPickupRadiusCodeText>500
@@ -89,15 +88,19 @@
 			<wm-req-ext:WarrantBroadcastCodeText>B26
 			</wm-req-ext:WarrantBroadcastCodeText>
 			<scr:TransactionControlNumberIdentification>
-			<nc:IdentificationID>TCN345665</nc:IdentificationID>
+				<nc:IdentificationID>TCN345665</nc:IdentificationID>
 			</scr:TransactionControlNumberIdentification>
 			<wm-req-ext:WarrantAdditionalInformationText>Additional Warrant
-				Information</wm-req-ext:WarrantAdditionalInformationText>
+				Information
+			</wm-req-ext:WarrantAdditionalInformationText>
 			<wm-req-ext:WarrantEntryCategoryCodeText>Entry
 			</wm-req-ext:WarrantEntryCategoryCodeText>
 		</wm-req-ext:WarrantAugmentation>
 	</j:Warrant>
 	<nc:Person structures:id="Person_01">
+		<nc:PersonAgeMeasure>
+			<nc:MeasureValueText>24</nc:MeasureValueText>
+		</nc:PersonAgeMeasure>
 		<nc:PersonBirthDate>
 			<nc:Date>1967-08-13</nc:Date>
 		</nc:PersonBirthDate>
@@ -121,8 +124,7 @@
 			<nc:PersonFullName>Peter J Jones Jr</nc:PersonFullName>
 		</nc:PersonName>
 		<nc:PersonPhysicalFeature>
-			<intel:PhysicalFeatureCategoryCodeText>ART ARM
-			</intel:PhysicalFeatureCategoryCodeText>
+		<j:PhysicalFeatureCategoryCode>ART ARM</j:PhysicalFeatureCategoryCode>
 		</nc:PersonPhysicalFeature>
 		<j:PersonRaceCode>A</j:PersonRaceCode>
 		<j:PersonSexCode>M</j:PersonSexCode>
@@ -130,9 +132,9 @@
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>098213455</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
-			<nc:PersonStateIdentification>
-	<nc:IdentificationID>SID56567</nc:IdentificationID>
-	</nc:PersonStateIdentification>
+		<nc:PersonStateIdentification>
+			<nc:IdentificationID>SID56567</nc:IdentificationID>
+		</nc:PersonStateIdentification>
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>165</nc:MeasureValueText>
 			<nc:MeasureUnitText>ibs</nc:MeasureUnitText>
@@ -153,7 +155,8 @@
 		</j:PersonAugmentation>
 		<wm-req-ext:PersonAdditionalInformationText>Gang Member
 		</wm-req-ext:PersonAdditionalInformationText>
-		<wm-req-ext:PersonCautionCodeText>G45</wm-req-ext:PersonCautionCodeText>
+		<wm-req-ext:PersonCautionCodeText>G45
+		</wm-req-ext:PersonCautionCodeText>
 		<wm-req-ext:PersonMiscellaneousRecordIdentification>
 			<nc:IdentificationID>MR456782</nc:IdentificationID>
 		</wm-req-ext:PersonMiscellaneousRecordIdentification>
@@ -171,7 +174,7 @@
 			<nc:LocationCityName>Saginaw</nc:LocationCityName>
 			<nc:LocationCountyCode>119</nc:LocationCountyCode>
 			<nc:LocationCountyName>Taylor</nc:LocationCountyName>
-			<nc:LocationStateName>Michigan</nc:LocationStateName>
+			<j:LocationStateNCICLSTACode>MI</j:LocationStateNCICLSTACode>
 			<nc:LocationPostalCode>63412</nc:LocationPostalCode>
 			<wm-req-ext:AddressCategoryText>Mail</wm-req-ext:AddressCategoryText>
 		</nc:ContactMailingAddress>

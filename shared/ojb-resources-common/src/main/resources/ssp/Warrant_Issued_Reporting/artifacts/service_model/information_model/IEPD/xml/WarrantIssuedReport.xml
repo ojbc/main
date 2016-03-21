@@ -30,12 +30,14 @@
 			<nc:IdentificationID>CN</nc:IdentificationID>
 		</nc:ActivityIdentification>
 		<nc:CaseDocketID>Docket8987</nc:CaseDocketID>
+		<wir-ext:CriminalTrackingNumber>PW56</wir-ext:CriminalTrackingNumber>
 		<j:CaseAugmentation>
 			<j:CaseCharge>
-				<wir-ext:OffenseCodeText>OC45656-09</wir-ext:OffenseCodeText>
+				<wir-ext:GeneralOffenseCodeText>OC45656-09</wir-ext:GeneralOffenseCodeText>
 				<wir-ext:ChargeCodeText>CHG5678</wir-ext:ChargeCodeText>
 				<wir-ext:OriginalOffenseCodeText>OO4356788
 				</wir-ext:OriginalOffenseCodeText>
+				<wir-ext:ProsecutionChargeCodeText>PCC45678</wir-ext:ProsecutionChargeCodeText>
 			</j:CaseCharge>
 		</j:CaseAugmentation>
 	</nc:Case>
@@ -89,8 +91,6 @@
 			</wir-ext:SubjectPickupRadiusCodeText>
 			<wir-ext:WarrantBroadcastCodeText>B26
 			</wir-ext:WarrantBroadcastCodeText>
-			<wir-ext:CriminalTrackingNumber>PW56
-			</wir-ext:CriminalTrackingNumber>
 			<scr:TransactionControlNumberIdentification>
 				<nc:IdentificationID>TCN345665</nc:IdentificationID>
 			</scr:TransactionControlNumberIdentification>
