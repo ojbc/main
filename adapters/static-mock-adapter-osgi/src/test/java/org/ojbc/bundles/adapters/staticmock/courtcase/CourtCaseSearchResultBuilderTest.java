@@ -56,6 +56,8 @@ public class CourtCaseSearchResultBuilderTest {
 		
 		courtCaseSearchResultsRootElement.appendChild(courtCaseSearchResultElement);
 		
+		XmlUtils.printNode(courtCaseSearchResultsRootElement);
+		
 		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
 		
 		ojbcNamespaceContext.populateRootNamespaceDeclarations(courtCaseSearchResultsRootElement);		

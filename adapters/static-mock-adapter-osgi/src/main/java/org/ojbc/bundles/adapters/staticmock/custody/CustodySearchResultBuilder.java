@@ -439,8 +439,8 @@ public class CustodySearchResultBuilder {
 		rCustodyDetail.setPersonStateId(personSidVal);
 		
 		
-		//TODO FIXME
-		String fingerprintDateTime = XmlUtils.xPathStringSearch(custodyDetailDoc, "//cq-res-ext:Booking/jxdm51:FingerprintDate/nc30:DateTime");
+		//TODO FIXME - using the activity datetime
+		String fingerprintDateTime = XmlUtils.xPathStringSearch(custodyDetailDoc, "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
 		rCustodyDetail.setFingerprintDate(fingerprintDateTime);
 		
 		String bookingSubjIdVal = XmlUtils.xPathStringSearch(custodyDetailDoc, "//jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");	

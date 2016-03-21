@@ -50,6 +50,9 @@
 		</jxdm51:PersonAugmentation>		
       </nc30:Person>
       <cs-res-ext:Booking s30:id="Booking_0">
+         <jxdm51:FingerprintDate>
+            <nc30:DateTime>2013-12-17T09:30:00</nc30:DateTime>
+         </jxdm51:FingerprintDate>
          <jxdm51:BookingSubject>
             <jxdm51:SubjectIdentification>
                <nc30:IdentificationID>abc123</nc30:IdentificationID>

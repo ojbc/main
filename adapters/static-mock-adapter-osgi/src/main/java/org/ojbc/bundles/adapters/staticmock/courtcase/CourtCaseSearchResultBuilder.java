@@ -47,6 +47,10 @@ public class CourtCaseSearchResultBuilder {
 				"//jxdm51:CaseCourt/jxdm51:OrganizationAugmentation/jxdm51:OrganizationJurisdiction/nc30:JurisdictionText");	
 		courtCaseDetail.setJurisdictionText(sJurisdictionTxtVal);
 		
+		courtCaseDetail.setCourtName(XmlUtils.xPathStringSearch(courtCaseDetailDoc, "/ccq-res-doc:CourtCaseQueryResults/nc30:Case/jxdm51:CaseAugmentation/jxdm51:CaseCourt/jxdm51:CourtName"));
+		
+		courtCaseDetail.setCaseStatus(XmlUtils.xPathStringSearch(courtCaseDetailDoc, "/ccq-res-doc:CourtCaseQueryResults/nc30:Case/nc30:ActivityStatus/nc30:StatusDescriptionText"));
+		
 		String caseOtherIdCatDescTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, 
 				"//jxdm51:CaseOtherIdentification/nc30:IdentificationCategoryDescriptionText");		
 		courtCaseDetail.setCaseOtherInfoIdCatDescTxt(caseOtherIdCatDescTxt);		
@@ -143,6 +147,9 @@ public class CourtCaseSearchResultBuilder {
 		
 		XmlUtils.addAttribute(caseElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Case_" + resultId);		
 		
+		Element activityStatusElement = XmlUtils.appendElement(caseElement, OjbcNamespaceContext.NS_NC_30, "ActivityStatus");
+		Element statusDescriptionText = XmlUtils.appendElement(activityStatusElement, OjbcNamespaceContext.NS_NC_30, "StatusDescriptionText");
+		statusDescriptionText.setTextContent(courtCaseDetail.getCaseStatus());
 				
 		String courtCaseGeneralCategory = courtCaseDetail.getCaseGeneralCategoryText();
 		
@@ -183,7 +190,7 @@ public class CourtCaseSearchResultBuilder {
 		
 		String sJurisdictionTxt = courtCaseDetail.getJurisdictionText();
 		
-		if(StringUtils.isNotBlank(sJurisdictionTxt)){
+		if(StringUtils.isNotBlank(sJurisdictionTxt) || StringUtils.isNotBlank(courtCaseDetail.getCourtName())){
 			
 			Element caseCourt = XmlUtils.appendElement(caseAugment, OjbcNamespaceContext.NS_JXDM_51, "CaseCourt");			
 			
@@ -195,7 +202,10 @@ public class CourtCaseSearchResultBuilder {
 			
 			sJurisdictionTxt = sJurisdictionTxt.trim();
 			
-			jurisdictionTxtElement.setTextContent(sJurisdictionTxt);			
+			jurisdictionTxtElement.setTextContent(sJurisdictionTxt);	
+			
+			Element courtNameElement = XmlUtils.appendElement(caseCourt, OjbcNamespaceContext.NS_JXDM_51, "CourtName");
+			courtNameElement.setTextContent(courtCaseDetail.getCourtName());
 		}
 		
 
