@@ -41,7 +41,7 @@
 	<!-- hosted by this intermediary -->
 	<cxf:cxfEndpoint id="behaviorHealthEvalReportIntermService"
 		address="${behaviorHealthEvalReportIntermEndpoint}"
-		wsdlURL="classpath:ssp/Behavioral_Health_Evalutation_Reporting/schemas/RS_WS-SIP_v1.2/BehaviorHealthEvaluationReportingService.wsdl"
+		wsdlURL="classpath:ssp/Behavioral_Health_Evalutation_Reporting/schemas/RS_WS-SIP_v1.2/BehavioralHealthEvaluationReportingService.wsdl"
 		serviceName="ojbc:Behavioral-Health-Evaluation-Reporting-ServiceService" 
 		endpointName="ojbc:Behavioral-Health-Evaluation-Reporting-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/BehavioralHealthEvaluationReportingService/1.0">
@@ -63,7 +63,7 @@
 	<!-- invoked by this intermediary -->
 	<cxf:cxfEndpoint id="behaviorHealthEvalReportAdapterService"
 		address="${behaviorHealthEvalReportAdapterEndpoint}"
-		wsdlURL="classpath:ssp/Behavioral_Health_Evalutation_Reporting/schemas/RS_WS-SIP_v1.2/BehaviorHealthEvaluationReportingService.wsdl"
+		wsdlURL="classpath:ssp/Behavioral_Health_Evalutation_Reporting/schemas/RS_WS-SIP_v1.2/BehavioralHealthEvaluationReportingService.wsdl"
 		serviceName="ojbc:Behavioral-Health-Evaluation-Reporting-ServiceService" 
 		endpointName="ojbc:Behavioral-Health-Evaluation-Reporting-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/BehavioralHealthEvaluationReportingService/1.0">
