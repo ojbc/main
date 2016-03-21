@@ -108,7 +108,7 @@
     			<nc:Date>2014-03-12</nc:Date>
     		</nc:StartDate>
     		<nc:EndDate>
-    			<nc:Date>2016-03-12</nc:Date>
+    			<nc:Date>@sub_end_date@</nc:Date>
     		</nc:EndDate>
     	</nc:ActivityDateRange>
       <ext:SubscriptionSubject>
