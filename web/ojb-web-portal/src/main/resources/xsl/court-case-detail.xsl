@@ -566,7 +566,7 @@
 			</tr>
 			<tr>
 				<th><label>Sex: </label>
-					<xsl:value-of select="nc:PersonSexText"/>
+					<xsl:value-of select="j:PersonSexCode"/>
 				</th>
 				<th><label>Eyes: </label>
 					<xsl:value-of select="j:PersonEyeColorCode"/></th>
