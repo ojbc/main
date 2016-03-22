@@ -406,31 +406,36 @@
 			</tr>
 			<tr>
 				<th>
-					<label>Case Subtype: </label>
-					<xsl:value-of select="nc:CaseCategoryText"/></th>
+					<label>Case Type: </label>
+					<xsl:value-of select="nc:CaseGeneralCategoryText"/></th>
 				<th>
 					<label>Domestic Violence: </label>
 					<xsl:value-of select="j:CaseAugmentation/j:CaseDomesticViolenceIndicator"></xsl:value-of></th>
 			</tr>
 			<tr>
 				<th>
-					<label>Court Location: </label>
-					<xsl:value-of select="j:CaseAugmentation/j:CaseCourt/j:CourtDivisionText"/>
-				</th>
+					<label>Case Subtype: </label>
+					<xsl:value-of select="nc:CaseCategoryText"/></th>
 				<th><label>Jury Verdict: </label>
 				<xsl:value-of select="ccq-res-ext:CaseAugmentation/ccq-res-ext:JuryVerdictIndicator"/></th>
 			</tr>
 			<tr>
-				<th><label>Jurisdiction: </label>
-				<xsl:value-of select="j:CaseAugmentation/j:CaseCourt/j:OrganizationAugmentation/j:OrganizationJurisdiction/nc:JurisdictionText"/></th>
+				<th>
+					<label>Court Location: </label>
+					<xsl:value-of select="j:CaseAugmentation/j:CaseCourt/j:CourtDivisionText"/>
+				</th>
 				<th><label>Previous Case Number: </label>
 				<xsl:value-of select="j:CaseAugmentation/j:CaseLineageCase/nc:CaseTrackingID"></xsl:value-of></th>
 			</tr>
 			<tr>
-				<th><label>Filing Date: </label>
-				<xsl:apply-templates select="nc:CaseFiling/child::nc:DocumentCreationDate/nc:DateTime" mode="formatDateTimeAsMMDDYYYY"/></th>
+				<th><label>Jurisdiction: </label>
+				<xsl:value-of select="j:CaseAugmentation/j:CaseCourt/j:OrganizationAugmentation/j:OrganizationJurisdiction/nc:JurisdictionText"/></th>
 				<th><label>Other Agency Case Number: </label>
 				<xsl:value-of select="j:CaseAugmentation/j:CaseOtherIdentification/nc:IdentificationID"></xsl:value-of></th>
+			</tr>
+			<tr>
+				<th colspan='2'><label>Filing Date: </label>
+				<xsl:apply-templates select="nc:CaseFiling/child::nc:DocumentCreationDate/nc:DateTime" mode="formatDateTimeAsMMDDYYYY"/></th>
 			</tr>
 		</table>
 	</xsl:template>
