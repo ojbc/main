@@ -74,10 +74,10 @@
             </jxdm51:PersonStateFingerprintIdentification>
          </jxdm51:PersonAugmentation>
       </nc30:Person>
-      <cyfs-31:PersonCaseAssociation xmlns:cyfs-31="http://release.niem.gov/niem/domains/cyfs/3.1/">
+      <cyfs31:PersonCaseAssociation xmlns:cyfs31="http://release.niem.gov/niem/domains/cyfs/3.1/">
          <nc30:Person xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" s30:ref="Person_1"/>
          <nc30:Case xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" s30:ref="Case_1"/>
-      </cyfs-31:PersonCaseAssociation>
+      </cyfs31:PersonCaseAssociation>
       <ccs-res-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest</ccs-res-ext:SourceSystemNameText>
       <intel31:SystemIdentification xmlns:intel31="http://release.niem.gov/niem/domains/intelligence/3.1/">
          <nc30:IdentificationID xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/">CourtCaseDetailQueryResults.xml</nc30:IdentificationID>

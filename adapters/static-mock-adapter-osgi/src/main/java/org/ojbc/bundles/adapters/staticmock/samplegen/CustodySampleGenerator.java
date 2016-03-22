@@ -308,7 +308,7 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		String arrestLocationId = "Loc_" + recordId;		
 		XmlUtils.addAttribute(arrestLocationElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", arrestLocationId);
 								
-		Element nextCourtEventElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_NIEM_CYFS_31, "NextCourtEvent");
+		Element nextCourtEventElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_CYFS_31, "NextCourtEvent");
 		String nextCourtEventId = "Event_" + recordId;
 		XmlUtils.addAttribute(nextCourtEventElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", nextCourtEventId);
 		

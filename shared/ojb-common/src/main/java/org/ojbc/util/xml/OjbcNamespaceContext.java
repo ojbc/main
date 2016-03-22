@@ -45,8 +45,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_NIST_BIO = "http://biometrics.nist.gov/standard/2011";
 	public static final String NS_NIST_BIO_PREFIX = "nistbio";
 					
-	public static final String NS_NIEM_CYFS_31 = "http://release.niem.gov/niem/domains/cyfs/3.1/";
-	public static final String NS_PREFIX_NIEM_CYFS_31 = "cyfs-31"; 
+	public static final String NS_CYFS_31 = "http://release.niem.gov/niem/domains/cyfs/3.1/";
+	public static final String NS_PREFIX_CYFS_31 = "cyfs31"; 
 		
 	public static final String NS_NIEM_BIO = "http://niem.gov/niem/biometrics/1.0";
 	public static final String NS_PREFIX_NIEM_BIO = "nbio";
@@ -692,8 +692,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();	
 		
-		prefixToUriMap.put(NS_PREFIX_NIEM_CYFS_31, NS_NIEM_CYFS_31);
-		uriToPrefixMap.put(NS_NIEM_CYFS_31, NS_PREFIX_NIEM_CYFS_31);
+		prefixToUriMap.put(NS_PREFIX_CYFS_31, NS_CYFS_31);
+		uriToPrefixMap.put(NS_CYFS_31, NS_PREFIX_CYFS_31);
 				
 		prefixToUriMap.put(NS_PREFIX_ADAMS_CO_BOOKING_CODES_EXT, NS_ADAMS_CO_BOOKING_CODES_EXT);
 		uriToPrefixMap.put(NS_ADAMS_CO_BOOKING_CODES_EXT, NS_PREFIX_ADAMS_CO_BOOKING_CODES_EXT);
@@ -1342,8 +1342,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    uriToPrefixMap.put(NS_CUSTODY_QUERY_REQUEST_EXCH, NS_PREFIX_CUSTODY_QUERY_REQUEST_EXCH);	
 	    
 	    prefixToUriMap.put(NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT, NS_CUSTODY_QUERY_REQUEST_EXT);
-	    uriToPrefixMap.put(NS_CUSTODY_QUERY_REQUEST_EXT, NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT);	
-	    
+	    uriToPrefixMap.put(NS_CUSTODY_QUERY_REQUEST_EXT, NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT);
 	}
 
 	@Override
