@@ -427,7 +427,7 @@ public class CourtCaseSearchResultBuilder {
 			personSidVal.setTextContent(sPersonSid);				
 		}
 
-		Element personCaseAssociation = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_NIEM_CYFS_31, "PersonCaseAssociation");			
+		Element personCaseAssociation = XmlUtils.appendElement(courtCaseSearchResultElement, OjbcNamespaceContext.NS_CYFS_31, "PersonCaseAssociation");			
 		
 		Element personAssoc = XmlUtils.appendElement(personCaseAssociation, OjbcNamespaceContext.NS_NC_30, "Person");
 		XmlUtils.addAttribute(personAssoc, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Person_" + resultId);
