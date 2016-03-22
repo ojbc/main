@@ -679,6 +679,10 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	
 	 	bondOrgNameElement.setTextContent(randomString("Bonds 4 Cheap", "25% Bonds", "24hr Bonding", "Bonds Advance"));
 	 	
+appendWarrantElement(rootCourtCaseElement);
+	 	
+	 	
+	 	
 	 	Element vehicleElement = XmlUtils.appendElement(rootCourtCaseElement, NS_NC_30, "Vehicle");	 	
 	 	XmlUtils.addAttribute(vehicleElement, NS_STRUCTURES_30, "id", "Vehicle_01");
 	 	
@@ -876,6 +880,9 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	Element citationActivElement = XmlUtils.appendElement(activCaseAssocElement, NS_NC_30, "Activity");
 	 	XmlUtils.addAttribute(citationActivElement, NS_STRUCTURES_30, "ref", "Citation_01");	 	
 	 	
+	 	Element warrantActivityElement = XmlUtils.appendElement(activCaseAssocElement, NS_NC_30, "Activity");
+	 	XmlUtils.addAttribute(warrantActivityElement, NS_STRUCTURES_30, "ref", "Warrant_01");	 	
+	 	
 	 	Element arrestActivityElement = XmlUtils.appendElement(activCaseAssocElement, NS_NC_30, "Activity");
 	 	XmlUtils.addAttribute(arrestActivityElement, NS_STRUCTURES_30, "ref", "Arrest_01");
 	 	
@@ -999,6 +1006,26 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		ojbcNamespaceContext.populateRootNamespaceDeclarations(rootCourtCaseElement);
 		
 		return rCourtCaseDetailDoc;
+	}
+
+
+	private void appendWarrantElement(Element rootCourtCaseElement) throws DOMException, IOException {
+	 	Element warrantElment = XmlUtils.appendElement(rootCourtCaseElement, NS_JXDM_51, "Warrant");
+	 	XmlUtils.addAttribute(warrantElment, NS_STRUCTURES_30, "id", "Warrant_01");
+	 	
+	 	Element activityIdElement = XmlUtils.appendElement(warrantElment, NS_NC_30, "ActivityIdentification");
+	 	Element identificationId = XmlUtils.appendElement(activityIdElement, NS_NC_30, "IdentificationID");
+	 	identificationId.setTextContent(RandomStringUtils.randomAlphanumeric(8));
+	 	
+	 	Element activityDescriptionText = XmlUtils.appendElement(warrantElment, NS_NC_30, "ActivityDescriptionText");
+	 	activityDescriptionText.setTextContent("Warrant description");
+	 	
+	 	Element courtOrderIssuingDate = XmlUtils.appendElement(warrantElment, NS_JXDM_51, "CourtOrderIssuingDate");
+	 	Element dateTime = XmlUtils.appendElement(courtOrderIssuingDate, NS_NC_30, "DateTime");
+	 	dateTime.setTextContent(randomDate("yyyy-MM-dd'T'HH:mm:ss"));
+	 	
+	 	Element warrantCategoryText = XmlUtils.appendElement(warrantElment, NS_JXDM_51, "WarrantCategoryText"); 
+	 	warrantCategoryText.setTextContent(randomString("Arrest Warrant", "Warrant of Committal", "Warrant of Execution", "Execution Warrant"));
 	}
 
 
