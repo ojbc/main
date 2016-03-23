@@ -81,7 +81,7 @@
 	    		</table>
 	    	</xsl:when>
 	    	<xsl:otherwise>
-	    		<xsl:if test="($entityContainer &gt; 0) and (count($tooManyResultsErrors) = 0)">
+	    		<xsl:if test="($entityContainer >= 0) and (count($tooManyResultsErrors) = 0)">
 	    			No Matches Found
 	    		</xsl:if>
 	    	</xsl:otherwise>
