@@ -42,6 +42,7 @@ import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.ojbc.util.xml.OjbcNamespaceContext;
@@ -53,6 +54,11 @@ import org.w3c.dom.Element;
 public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		
 	
+	private static final String PERSON_VICTIM_ID = "PersonVictim_01";
+	private static final String PERSON_ID = "Person_01";
+	private static final String RESTITUTION_ID = "Restitution_01";
+
+
 	public CourtCaseSampleGenerator() throws ParserConfigurationException,
 			IOException {
 		
@@ -258,7 +264,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 		
 		Element entPersonElement = XmlUtils.appendElement(caseDefendantPartyElement, NS_NC_30, "EntityPerson");
 		
-		XmlUtils.addAttribute(entPersonElement, NS_STRUCTURES_30, "ref", "Person_01");
+		XmlUtils.addAttribute(entPersonElement, NS_STRUCTURES_30, "ref", PERSON_ID);
 		
 		
 		Element caseDefenseAtterneyElement = XmlUtils.appendElement(caseAugmentElement, NS_JXDM_51, "CaseDefenseAttorney");
@@ -679,9 +685,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	
 	 	bondOrgNameElement.setTextContent(randomString("Bonds 4 Cheap", "25% Bonds", "24hr Bonding", "Bonds Advance"));
 	 	
-appendWarrantElement(rootCourtCaseElement);
-	 	
-	 	
+	 	appendWarrantElement(rootCourtCaseElement);
 	 	
 	 	Element vehicleElement = XmlUtils.appendElement(rootCourtCaseElement, NS_NC_30, "Vehicle");	 	
 	 	XmlUtils.addAttribute(vehicleElement, NS_STRUCTURES_30, "id", "Vehicle_01");
@@ -705,8 +709,13 @@ appendWarrantElement(rootCourtCaseElement);
 	 			"JMY", "JNY", "JTF", "JTS", "JUK", "JUS", "JX3", "K55", "K63", "KA", "KAD", "KAL", "KAP", "KAR", "KAR", "KHA", "KIN", "KIZ", 
 	 			"KOM", "KOR", "KR", "KR1", "KRM", "L30", "L43"));
 	 	
+	 	//TODO append victim and DisciplinaryActionRestitution
+	 	appendVictimElement(rootCourtCaseElement);
+	 	
+	 	appendDisciplinaryActionRestitution(rootCourtCaseElement);
+	 	
 	 	Element personElement = XmlUtils.appendElement(rootCourtCaseElement, NS_NC_30, "Person");	 	
-	 	XmlUtils.addAttribute(personElement, NS_STRUCTURES_30, "id", "Person_01");
+	 	XmlUtils.addAttribute(personElement, NS_STRUCTURES_30, "id", PERSON_ID);
 	 	
 	 	Element personDobElement = XmlUtils.appendElement(personElement, NS_NC_30, "PersonBirthDate");
 	 	
@@ -756,15 +765,18 @@ appendWarrantElement(rootCourtCaseElement);
 	 		 		 	
 	 	personFullNameElement.setTextContent(samplePerson2.firstName + " " + samplePerson2.middleName + " " + samplePerson2.lastName);
 
-//	 	TODO fix this
-//	 	Element perosnOtherIdElement = XmlUtils.appendElement(personElement, NS_NC_30, "PersonOtherIdentification");
-//	 	Element personOtherIdIdElement = XmlUtils.appendElement(perosnOtherIdElement, NS_NC_30, "Identification"); 
-//	 	personOtherIdIdElement.setTextContent(RandomStringUtils.randomAlphanumeric(8));
-//	 	
+	 	Element perosnOtherIdElement = XmlUtils.appendElement(personElement, NS_NC_30, "PersonOtherIdentification");
+	 	Element personOtherIdIdElement = XmlUtils.appendElement(perosnOtherIdElement, NS_NC_30, "IdentificationID"); 
+	 	personOtherIdIdElement.setTextContent(RandomStringUtils.randomAlphanumeric(8));
+	 	
 	 	Element personPhysicalFeatureElement = XmlUtils.appendElement(personElement, NS_NC_30, "PersonPhysicalFeature");
 	 	Element physicalFeatureDescriptionText = XmlUtils.appendElement(personPhysicalFeatureElement, NS_NC_30, "PhysicalFeatureDescriptionText");
 	 	physicalFeatureDescriptionText.setTextContent(randomString("Scars", "Marks", "Tattoos"));
 	 	
+	 	Element personPrimaryLanguageElement = XmlUtils.appendElement(personElement, NS_NC_30, "PersonPrimaryLanguage");
+	 	Element languageName = XmlUtils.appendElement(personPrimaryLanguageElement, NS_NC_30, "LanguageName");
+	 	languageName.setTextContent(randomString("English", "Spanish", "Chinese", "Franch", "German"));
+
 	 	Element personRaceElement = XmlUtils.appendElement(personElement, NS_JXDM_51, "PersonRaceCode");
 	 	
 	 	personRaceElement.setTextContent(randomString("A", "B", "I", "U", "W"));
@@ -912,19 +924,20 @@ appendWarrantElement(rootCourtCaseElement);
 	 	Element activIncidentIncElement = XmlUtils.appendElement(activIncidentAssocElement, NS_NC_30, "Incident");
 	 	XmlUtils.addAttribute(activIncidentIncElement, NS_STRUCTURES_30, "ref", "Incident_01");
 	 	
+	 	appendObligationPersonAssociation(rootCourtCaseElement);
+	 	
 	 	Element contactInfoAssocElement = XmlUtils.appendElement(rootCourtCaseElement, NS_NC_30, "ContactInformationAssociation");
 	 	
 	 	Element contactEntElement = XmlUtils.appendElement(contactInfoAssocElement, NS_NC_30, "ContactEntity");
-	 	XmlUtils.addAttribute(contactEntElement, NS_STRUCTURES_30, "ref", "Person_01");
+	 	XmlUtils.addAttribute(contactEntElement, NS_STRUCTURES_30, "ref", PERSON_ID);
 	 	
 	 	Element contactAssocInfoElement = XmlUtils.appendElement(contactInfoAssocElement, NS_NC_30, "ContactInformation");	 	
 	 	XmlUtils.addAttribute(contactAssocInfoElement, NS_STRUCTURES_30, "ref", "CI_01");
 	 	
-	 	
 	 	Element personConveyAssocElement = XmlUtils.appendElement(rootCourtCaseElement, NS_NC_30, "PersonConveyanceAssociation");
 	 	
 	 	Element conveyAssocPersonElement = XmlUtils.appendElement(personConveyAssocElement, NS_NC_30, "Person");
-	 	XmlUtils.addAttribute(conveyAssocPersonElement, NS_STRUCTURES_30, "ref", "Person_01");
+	 	XmlUtils.addAttribute(conveyAssocPersonElement, NS_STRUCTURES_30, "ref", PERSON_ID);
 	 		 	
 	 	Element conveyAssocVehicleElement = XmlUtils.appendElement(personConveyAssocElement, NS_NC_30, "Conveyance");	 	
 	 	XmlUtils.addAttribute(conveyAssocVehicleElement, NS_STRUCTURES_30, "ref", "Vehicle_01");
@@ -933,15 +946,15 @@ appendWarrantElement(rootCourtCaseElement);
 	 	Element personResAssocElement = XmlUtils.appendElement(rootCourtCaseElement, NS_NC_30, "PersonResidenceAssociation");
 	 	
 	 	Element resAssocPersonElement = XmlUtils.appendElement(personResAssocElement, NS_NC_30, "Person");	 	
-	 	XmlUtils.addAttribute(resAssocPersonElement, NS_STRUCTURES_30, "ref", "Person_01");
+	 	XmlUtils.addAttribute(resAssocPersonElement, NS_STRUCTURES_30, "ref", PERSON_ID);
 	 	
 	 	Element resLocElement = XmlUtils.appendElement(personResAssocElement, NS_NC_30, "Location");
 	 	XmlUtils.addAttribute(resLocElement, NS_STRUCTURES_30, "ref", "Location_01");
-	 	
+
 	 	Element aliasIdentAssocElement = XmlUtils.appendElement(rootCourtCaseElement, NS_NC_30, "PersonAliasIdentityAssociation");
 	 	
 	 	Element aliasPerson = XmlUtils.appendElement(aliasIdentAssocElement, NS_NC_30, "Person");
-	 	XmlUtils.addAttribute(aliasPerson, NS_STRUCTURES_30, "ref", "Person_01");
+	 	XmlUtils.addAttribute(aliasPerson, NS_STRUCTURES_30, "ref", PERSON_ID);
 	 	
 	 	Element aliasIdentElement = XmlUtils.appendElement(aliasIdentAssocElement, NS_NC_30, "Identity");
 	 	XmlUtils.addAttribute(aliasIdentElement, NS_STRUCTURES_30, "ref", "Identity_01");
@@ -1006,6 +1019,48 @@ appendWarrantElement(rootCourtCaseElement);
 		ojbcNamespaceContext.populateRootNamespaceDeclarations(rootCourtCaseElement);
 		
 		return rCourtCaseDetailDoc;
+	}
+
+	private void appendObligationPersonAssociation(Element rootCourtCaseElement) {
+		Element obligationPersonAssociation = XmlUtils.appendElement(rootCourtCaseElement, NS_JXDM_51, "ObligationPersonAssociation");
+		
+		Element obligation = XmlUtils.appendElement(obligationPersonAssociation, NS_NC_30, "Obligation");
+		XmlUtils.addAttribute(obligation, NS_STRUCTURES_30, "ref", RESTITUTION_ID);
+		
+		Element person = XmlUtils.appendElement(obligationPersonAssociation, NS_NC_30, "Person");
+		XmlUtils.addAttribute(person, NS_STRUCTURES_30, "ref", PERSON_ID);
+		
+		Element victim = XmlUtils.appendElement(obligationPersonAssociation, NS_NC_30, "Person");
+		XmlUtils.addAttribute(victim, NS_STRUCTURES_30, "ref", PERSON_VICTIM_ID);
+	}
+
+	private void appendDisciplinaryActionRestitution(Element rootCourtCaseElement) {
+		Element disciplinaryActionRestitution = XmlUtils.appendElement(rootCourtCaseElement, NS_NC_30, "DisciplinaryActionRestitution");
+		XmlUtils.addAttribute(disciplinaryActionRestitution, NS_STRUCTURES_30, "id", RESTITUTION_ID);
+		
+		Element obligationDueAmount = XmlUtils.appendElement(disciplinaryActionRestitution, NS_NC_30, "ObligationDueAmount");
+		Element dueAmount = XmlUtils.appendElement(obligationDueAmount, NS_NC_30, "Amount");
+		dueAmount.setTextContent(String.valueOf(RandomUtils.nextInt(100000)) + ".00");
+		
+		Element obligationPaidAmount = XmlUtils.appendElement(disciplinaryActionRestitution, NS_NC_30, "ObligationPaidAmount");
+		Element paidAmount = XmlUtils.appendElement(obligationPaidAmount, NS_NC_30, "Amount");
+		paidAmount.setTextContent(String.valueOf(RandomUtils.nextInt(100000)) + ".00");
+	}
+
+	private void appendVictimElement(Element rootCourtCaseElement) {
+		Element victimElement = XmlUtils.appendElement(rootCourtCaseElement, NS_JXDM_51, "Victim");
+	 	XmlUtils.addAttribute(victimElement, NS_STRUCTURES_30, "id", "Victim_01");
+	 	
+	 	Element roleOfPersonElement = XmlUtils.appendElement(victimElement, NS_NC_30, "RoleOfPerson");
+	 	XmlUtils.addAttribute(roleOfPersonElement, NS_STRUCTURES_30, "id", PERSON_VICTIM_ID);
+	 	
+	 	Element personNameElement = XmlUtils.appendElement(roleOfPersonElement, NS_NC_30, "PersonName");
+	 	Element personFullNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonFullName");
+	 	personFullNameElement.setTextContent(getRandomName());
+	 	
+	 	Element victimSeeksRestitutionDescriptionTextElement = 
+	 			XmlUtils.appendElement(victimElement, NS_JXDM_51, "VictimSeeksRestitutionDescriptionText");
+	 	victimSeeksRestitutionDescriptionTextElement.setTextContent("Restitution Description");
 	}
 
 
