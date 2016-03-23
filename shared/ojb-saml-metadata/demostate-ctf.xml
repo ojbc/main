@@ -546,9 +546,8 @@
 				FriendlyName="HIJIS Job Title" xmlns="urn:oasis:names:tc:SAML:2.0:assertion" />
 		</IDPSSODescriptor>
 		<Organization>
-			<OrganizationName xml:lang="en-US">Maui IdP</OrganizationName>
-			<OrganizationDisplayName xml:lang="en-US">Maui IdP
-			</OrganizationDisplayName>
+			<OrganizationName xml:lang="en-US">Maui County IdP</OrganizationName>
+			<OrganizationDisplayName xml:lang="en-US">Maui County IdP</OrganizationDisplayName>
 			<OrganizationURL xml:lang="en-US">https://co.maui.hi.us/</OrganizationURL>
 		</Organization>
 		<ContactPerson contactType="support">
