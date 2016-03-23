@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2015 Open Justice Broker Consortium
-
--->
+<!-- Unless explicitly acquired and licensed from Licensor under another 
+	license, the contents of this file are subject to the Reciprocal Public License 
+	("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You 
+	may not copy or use this file in either source code or executable form, except 
+	in compliance with the terms and conditions of the RPL All software distributed 
+	under the RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY 
+	OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL 
+	SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, 
+	FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See 
+	the RPL for specific language governing rights and limitations under the 
+	RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2015 Open Justice 
+	Broker Consortium -->
 <wir-doc:WarrantIssuedReport
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0 ../xsd/WarrantIssuedReport.xsd"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
@@ -33,11 +27,13 @@
 		<wir-ext:CriminalTrackingNumber>PW56</wir-ext:CriminalTrackingNumber>
 		<j:CaseAugmentation>
 			<j:CaseCharge>
-				<wir-ext:GeneralOffenseCodeText>OC45656-09</wir-ext:GeneralOffenseCodeText>
+				<wir-ext:GeneralOffenseCodeText>OC45656-09
+				</wir-ext:GeneralOffenseCodeText>
 				<wir-ext:ChargeCodeText>CHG5678</wir-ext:ChargeCodeText>
 				<wir-ext:OriginalOffenseCodeText>OO4356788
 				</wir-ext:OriginalOffenseCodeText>
-				<wir-ext:ProsecutionChargeCodeText>PCC45678</wir-ext:ProsecutionChargeCodeText>
+				<wir-ext:ProsecutionChargeCodeText>PCC45678
+				</wir-ext:ProsecutionChargeCodeText>
 			</j:CaseCharge>
 		</j:CaseAugmentation>
 	</nc:Case>
@@ -95,7 +91,8 @@
 				<nc:IdentificationID>TCN345665</nc:IdentificationID>
 			</scr:TransactionControlNumberIdentification>
 			<wir-ext:WarrantAdditionalInformationText>Additional Warrant
-				Information</wir-ext:WarrantAdditionalInformationText>
+				Information
+			</wir-ext:WarrantAdditionalInformationText>
 			<wir-ext:WarrantEntryCategoryCodeText>Entry
 			</wir-ext:WarrantEntryCategoryCodeText>
 		</wir-ext:WarrantAugmentation>
@@ -124,8 +121,8 @@
 			<nc:PersonFullName>Peter J Jones Jr</nc:PersonFullName>
 		</nc:PersonName>
 		<nc:PersonPhysicalFeature>
-			<intel:PhysicalFeatureCategoryCodeText>ART ARM
-			</intel:PhysicalFeatureCategoryCodeText>
+			<j:PhysicalFeatureCategoryCode>ART ARM
+			</j:PhysicalFeatureCategoryCode>
 		</nc:PersonPhysicalFeature>
 		<j:PersonRaceCode>A</j:PersonRaceCode>
 		<j:PersonSexCode>M</j:PersonSexCode>
@@ -161,7 +158,8 @@
 		<wir-ext:PersonMiscellaneousRecordIdentification>
 			<nc:IdentificationID>PS-123456</nc:IdentificationID>
 		</wir-ext:PersonMiscellaneousRecordIdentification>
-		<wir-ext:PersonImmigrationAlienQueryIndicator>false</wir-ext:PersonImmigrationAlienQueryIndicator>
+		<wir-ext:PersonImmigrationAlienQueryIndicator>false
+		</wir-ext:PersonImmigrationAlienQueryIndicator>
 	</nc:Person>
 	<nc:Identity structures:id="Alias_01">
 		<nc:IdentityPersonRepresentation>
