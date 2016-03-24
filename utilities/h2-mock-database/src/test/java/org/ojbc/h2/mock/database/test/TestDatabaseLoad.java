@@ -40,7 +40,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-policy-acknowledgement.xml",
-		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml"
+		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-custody-datastore.xml"
 		})
 @DirtiesContext
 public class TestDatabaseLoad {
@@ -61,6 +62,9 @@ public class TestDatabaseLoad {
 
     @Resource  
     private DataSource incidentReportingStateCacheDataSource;  
+    
+    @Resource
+    private DataSource custodyDataSource;
 
 	@Test
 	public void testAuditlog() throws Exception {
@@ -80,6 +84,15 @@ public class TestDatabaseLoad {
 		assertEquals(62720,rs.getInt("id"));
 		
 	}
+	
+	@Test
+	public void testCustodyDataSource() throws Exception {
+		
+		Connection connection = custodyDataSource.getConnection();
+		
+		//TODO run a query
+	}
+	
 
 	@Test
 	public void testRapbackDatastore() throws Exception {
