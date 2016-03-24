@@ -15,21 +15,19 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
 
+	
 DROP SCHEMA if EXISTS custody_datastore;
+
 CREATE SCHEMA custody_datastore;
-SET SCHEMA custody_datastore;
+
+-- TODO see why other db's don't set schema
+-- SET SCHEMA custody_datastore;
+
 
 CREATE TABLE supervision_bed (
                 id INTEGER NOT NULL,
                 category_code VARCHAR(10) NOT NULL,
                 CONSTRAINT supervision_bed_pk PRIMARY KEY (id)
-);
-
-
-CREATE TABLE occupation (
-                id INTEGER NOT NULL,
-                description VARCHAR(50) NOT NULL,
-                CONSTRAINT occupation_pk PRIMARY KEY (id)
 );
 
 
@@ -54,27 +52,10 @@ CREATE TABLE person_sex (
 );
 
 
-CREATE TABLE info_owning_org (
-                id INTEGER NOT NULL,
-                org_branch_name VARCHAR(100) NOT NULL,
-                org_name VARCHAR(100) NOT NULL,
-                CONSTRAINT info_owning_org_pk PRIMARY KEY (id)
-);
-
-
 CREATE TABLE custody_case (
                 id INTEGER NOT NULL,
                 court_name VARCHAR(50) NOT NULL,
                 CONSTRAINT custody_case_pk PRIMARY KEY (id)
-);
-
-
-CREATE TABLE location (
-                id INTEGER NOT NULL,
-                address_full VARCHAR(200) NOT NULL,
-                latitude FLOAT NOT NULL,
-                longitude FLOAT NOT NULL,
-                CONSTRAINT location_pk PRIMARY KEY (id)
 );
 
 
@@ -83,7 +64,6 @@ CREATE TABLE person (
                 person_sex_id INTEGER NOT NULL,
                 person_race_id INTEGER NOT NULL,
                 language_id INTEGER NOT NULL,
-                occupation_id INTEGER NOT NULL,
                 birth_date DATE NOT NULL,
                 education_level VARCHAR(50) NOT NULL,
                 ethnicity VARCHAR(20) NOT NULL,
@@ -91,7 +71,6 @@ CREATE TABLE person (
                 given_name VARCHAR(50) NOT NULL,
                 middle_name VARCHAR(50) NOT NULL,
                 sur_name VARCHAR(50) NOT NULL,
-                race_code VARCHAR(10) NOT NULL,
                 resident VARCHAR(50) NOT NULL,
                 ssn INTEGER NOT NULL,
                 state_fingerprint_id VARCHAR(50) NOT NULL,
@@ -99,30 +78,18 @@ CREATE TABLE person (
                 driver_license_id INTEGER NOT NULL,
                 driver_license_source VARCHAR(50) NOT NULL,
                 fbi_id INTEGER NOT NULL,
+                occupation VARCHAR(50) NOT NULL,
                 CONSTRAINT person_pk PRIMARY KEY (id)
 );
 COMMENT ON COLUMN person.resident IS 'residence';
 
 
-CREATE TABLE next_court_event (
-                id INTEGER NOT NULL,
-                activity_date DATE NOT NULL,
-                court_name VARCHAR(100) NOT NULL,
-                CONSTRAINT next_court_event_pk PRIMARY KEY (id)
-);
-
-
-CREATE TABLE person_criminal_history_summary (
-                id INTEGER NOT NULL,
-                registered_sex_offender BOOLEAN NOT NULL,
-                CONSTRAINT person_criminal_history_summary_pk PRIMARY KEY (id)
-);
-
-
 CREATE TABLE arrest (
                 id INTEGER NOT NULL,
                 agency_org_name VARCHAR(50) NOT NULL,
-                location_id INTEGER NOT NULL,
+                location_address VARCHAR(200) NOT NULL,
+                location_latitude FLOAT NOT NULL,
+                location_longitude FLOAT NOT NULL,
                 CONSTRAINT arrest_pk PRIMARY KEY (id)
 );
 
@@ -135,35 +102,14 @@ CREATE TABLE charge (
                 sequence_id INTEGER NOT NULL,
                 statute_code_id INTEGER NOT NULL,
                 statute_code_section_id INTEGER NOT NULL,
+                bail_bond_category VARCHAR(50) NOT NULL,
+                bail_bond_status VARCHAR(50) NOT NULL,
+                bail_bond_amount FLOAT NOT NULL,
+                next_court_date DATE NOT NULL,
+                court_name VARCHAR(100) NOT NULL,
+                info_owning_branch VARCHAR(50) NOT NULL,
+                info_owning_org VARCHAR(50) NOT NULL,
                 CONSTRAINT charge_pk PRIMARY KEY (id)
-);
-
-
-CREATE TABLE activity_charge_association (
-                id INTEGER NOT NULL,
-                next_court_event_id INTEGER NOT NULL,
-                charge_id INTEGER NOT NULL,
-                info_own_org_id INTEGER NOT NULL,
-                CONSTRAINT activity_charge_association_pk PRIMARY KEY (id)
-);
-
-
-CREATE TABLE bail_bond (
-                id INTEGER NOT NULL,
-                activity_category VARCHAR(50) NOT NULL,
-                activity_status VARCHAR(50) NOT NULL,
-                amount FLOAT NOT NULL,
-                CONSTRAINT bail_bond_pk PRIMARY KEY (id)
-);
-COMMENT ON COLUMN bail_bond.activity_category IS 'bond type';
-COMMENT ON COLUMN bail_bond.activity_status IS 'bond status';
-
-
-CREATE TABLE bail_bond_charge_association (
-                id INTEGER NOT NULL,
-                bail_bond_id INTEGER NOT NULL,
-                charge_id INTEGER NOT NULL,
-                CONSTRAINT bail_bond_charge_association_pk PRIMARY KEY (id)
 );
 
 
@@ -186,15 +132,15 @@ CREATE TABLE detention (
 
 CREATE TABLE booking (
                 id INTEGER NOT NULL,
+                person_id INTEGER NOT NULL,
+                charge_id INTEGER NOT NULL,
+                arrest_id INTEGER NOT NULL,
+                detention_id INTEGER NOT NULL,
+                custody_case_id INTEGER NOT NULL,
                 activity_date DATE NOT NULL,
                 facility_id INTEGER NOT NULL,
                 subject_id INTEGER NOT NULL,
-                person_id INTEGER NOT NULL,
-                custody_case_id INTEGER NOT NULL,
-                detention_id INTEGER NOT NULL,
-                arrest_id INTEGER NOT NULL,
-                person_ch_sum_id INTEGER NOT NULL,
-                activity_charge_assoc_id INTEGER NOT NULL,
+                registered_sex_offender BOOLEAN NOT NULL,
                 CONSTRAINT booking_pk PRIMARY KEY (id)
 );
 
@@ -202,13 +148,6 @@ CREATE TABLE booking (
 ALTER TABLE detention ADD CONSTRAINT supervision_bed_detention_fk
 FOREIGN KEY (supervision_bed_id)
 REFERENCES supervision_bed (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE person ADD CONSTRAINT occupation_person_fk
-FOREIGN KEY (occupation_id)
-REFERENCES occupation (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
@@ -234,23 +173,9 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE activity_charge_association ADD CONSTRAINT info_owning_org_activity_charge_association_fk
-FOREIGN KEY (info_own_org_id)
-REFERENCES info_owning_org (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
 ALTER TABLE booking ADD CONSTRAINT custody_case_booking_fk
 FOREIGN KEY (custody_case_id)
 REFERENCES custody_case (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE arrest ADD CONSTRAINT location_arrest_fk
-FOREIGN KEY (location_id)
-REFERENCES location (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
@@ -262,20 +187,6 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE activity_charge_association ADD CONSTRAINT next_court_event_activity_charge_association_fk
-FOREIGN KEY (next_court_event_id)
-REFERENCES next_court_event (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE booking ADD CONSTRAINT person_criminal_history_summary_booking_fk
-FOREIGN KEY (person_ch_sum_id)
-REFERENCES person_criminal_history_summary (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
 ALTER TABLE booking ADD CONSTRAINT arrest_booking_fk
 FOREIGN KEY (arrest_id)
 REFERENCES arrest (id)
@@ -283,30 +194,9 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE activity_charge_association ADD CONSTRAINT charge_activity_charge_association_fk
+ALTER TABLE booking ADD CONSTRAINT charge_booking_fk
 FOREIGN KEY (charge_id)
 REFERENCES charge (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE bail_bond_charge_association ADD CONSTRAINT charge_bail_bond_charge_association_fk
-FOREIGN KEY (charge_id)
-REFERENCES charge (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE booking ADD CONSTRAINT activity_charge_association_booking_fk
-FOREIGN KEY (activity_charge_assoc_id)
-REFERENCES activity_charge_association (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE bail_bond_charge_association ADD CONSTRAINT bail_bond_bail_bond_charge_association_fk
-FOREIGN KEY (bail_bond_id)
-REFERENCES bail_bond (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
