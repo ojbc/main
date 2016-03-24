@@ -188,7 +188,7 @@
 		
         <route id="recordCheck" autoStartup="{{NDExSubmission.performRecordCheck}}">
 			<camel:from
-				uri="quartz2://ndexIntermediary/recordCheck?cron={{NDExSubmission.recordCheckCronExpression}}" />
+				uri="quartz://ndexIntermediary/recordCheck?cron={{NDExSubmission.recordCheckCronExpression}}" />
 		
 			<camel:log message="Firing quartz timer to check for n-dex submissions" />
 		
