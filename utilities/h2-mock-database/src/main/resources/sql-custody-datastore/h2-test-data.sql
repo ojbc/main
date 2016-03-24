@@ -14,3 +14,11 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
+INSERT INTO PERSON_SEX(ID, DESCRIPTION) VALUES
+(0, 'M'),
+(1, 'F');
+
+INSERT INTO PERSON_RACE(ID, DESCRIPTION) VALUES
+(0, 'W'),
+(1, 'B'),
+(2, 'A');

@@ -88,9 +88,10 @@ public class TestDatabaseLoad {
 	@Test
 	public void testCustodyDataSource() throws Exception {
 		
-		Connection connection = custodyDataSource.getConnection();
-		
-		//TODO run a query
+		Connection connection = custodyDataSource.getConnection();		
+		ResultSet rs = connection.createStatement().executeQuery("select * from person_sex where description = 'M'");		
+		assertTrue(rs.next());		
+		assertEquals("M",rs.getString("description"));				
 	}
 	
 
