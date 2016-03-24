@@ -15,14 +15,12 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
 
-	
 DROP SCHEMA if EXISTS custody_datastore;
 
 CREATE SCHEMA custody_datastore;
 
 -- TODO see why other db's don't set schema
 -- SET SCHEMA custody_datastore;
-
 
 CREATE TABLE supervision_bed (
                 id INTEGER NOT NULL,
