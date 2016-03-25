@@ -25,6 +25,7 @@ CREATE SCHEMA custody_datastore;
 --generated with mysql grammar to get the auto_increment's
 --warnings ignored about nullable foreign keys
 
+
 CREATE TABLE supervision_bed (
                 id INT AUTO_INCREMENT NOT NULL,
                 category_code VARCHAR(10) NOT NULL,
@@ -49,13 +50,6 @@ CREATE TABLE person_race (
 CREATE TABLE person_sex (
                 id INT AUTO_INCREMENT NOT NULL,
                 description VARCHAR(20) NOT NULL,
-                PRIMARY KEY (id)
-);
-
-
-CREATE TABLE custody_case (
-                id INT AUTO_INCREMENT NOT NULL,
-                court_name VARCHAR(50) NOT NULL,
                 PRIMARY KEY (id)
 );
 
@@ -138,11 +132,11 @@ CREATE TABLE booking (
                 charge_id INT,
                 arrest_id INT,
                 detention_id INT,
-                custody_case_id INT,
                 activity_date DATE,
                 facility_id INT,
                 subject_id INT,
                 registered_sex_offender BOOLEAN,
+                custody_case_court_name VARCHAR,
                 PRIMARY KEY (id)
 );
 
@@ -168,12 +162,6 @@ ON UPDATE NO ACTION;
 ALTER TABLE person ADD CONSTRAINT person_sex_person_fk
 FOREIGN KEY (person_sex_id)
 REFERENCES person_sex (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE booking ADD CONSTRAINT custody_case_booking_fk
-FOREIGN KEY (custody_case_id)
-REFERENCES custody_case (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
