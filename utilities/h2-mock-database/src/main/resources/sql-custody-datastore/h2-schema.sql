@@ -26,6 +26,7 @@ CREATE SCHEMA custody_datastore;
 --warnings ignored about nullable foreign keys
 
 
+
 CREATE TABLE supervision_bed (
                 id INT AUTO_INCREMENT NOT NULL,
                 category_code VARCHAR(10) NOT NULL,
@@ -84,8 +85,8 @@ CREATE TABLE arrest (
                 id INT AUTO_INCREMENT NOT NULL,
                 agency_org_name VARCHAR(50),
                 location_address VARCHAR(200),
-                location_latitude DOUBLE PRECISIONS,
-                location_longitude DOUBLE PRECISIONS,
+                location_latitude DECIMAL(9,6),
+                location_longitude DECIMAL(9,6),
                 PRIMARY KEY (id)
 );
 
@@ -100,7 +101,7 @@ CREATE TABLE charge (
                 statute_code_section_id INT,
                 bail_bond_category VARCHAR(50),
                 bail_bond_status VARCHAR(50),
-                bail_bond_amount DOUBLE PRECISIONS,
+                bail_bond_amount DECIMAL(19,4),
                 next_court_date DATE,
                 court_name VARCHAR(100),
                 info_owning_branch VARCHAR(50),
