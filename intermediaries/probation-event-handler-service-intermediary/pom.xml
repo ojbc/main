@@ -25,7 +25,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>probation-event-handler-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<name>OJB :: probation-event-handler-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 

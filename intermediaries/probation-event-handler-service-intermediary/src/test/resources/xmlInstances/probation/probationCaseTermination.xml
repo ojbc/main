@@ -102,5 +102,5 @@
 	         <nc20:ContactInformationReference xmlns:s="http://niem.gov/niem/structures/2.0" s:ref="emaild3e12212"/>
 	      </nc20:PersonContactInformationAssociation>
       </pcext:ProbationCase>
-      <pcext:SystemName>systemUri</pcext:SystemName>
+      <pcext:SystemName>{http://objc.org/ProbationCase/1.0}ProbationAuthority</pcext:SystemName>
    </pct:ProbationCaseTermination>
