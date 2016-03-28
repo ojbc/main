@@ -25,8 +25,6 @@ CREATE SCHEMA custody_datastore;
 --generated with mysql grammar to get the auto_increment's
 --warnings ignored about nullable foreign keys
 
-
-
 CREATE TABLE supervision_bed (
                 id INT AUTO_INCREMENT NOT NULL,
                 category_code VARCHAR(10) NOT NULL,
@@ -120,7 +118,7 @@ CREATE TABLE detention (
                 supervision_area_id INT,
                 supervision_cell_id INT,
                 detention_immigration_hold VARCHAR(10),
-                hold_for_agency_org_name BOOLEAN,
+                hold_for_agency_org_name VARCHAR(50),
                 inmate_work_release BOOLEAN,
                 inmate_worker BOOLEAN,
                 PRIMARY KEY (id)
@@ -137,7 +135,7 @@ CREATE TABLE booking (
                 facility_id INT,
                 subject_id INT,
                 registered_sex_offender BOOLEAN,
-                custody_case_court_name VARCHAR,
+                custody_case_court_name VARCHAR(50),
                 PRIMARY KEY (id)
 );
 
