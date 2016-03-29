@@ -31,12 +31,12 @@
        ">
 	
 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-			<property name="driverClassName" value="${analyticsAdapter.dataSource.driverClass}" />
-			<property name="url" value="${analyticsAdapter.dataSource.jdbcUrl}" />
-			<property name="username" value="${analyticsAdapter.dataSource.user}" />
-			<property name="password" value="${analyticsAdapter.dataSource.password}" />
-			<property name="initialSize" value="${analyticsAdapter.dataSource.minPoolSize}" />
-			<property name="maxActive" value="${analyticsAdapter.dataSource.maxPoolSize}" />
+			<property name="driverClassName" value="${booking.analyticsAdapter.dataSource.driverClass}" />
+			<property name="url" value="${booking.analyticsAdapter.dataSource.jdbcUrl}" />
+			<property name="username" value="${booking.analyticsAdapter.dataSource.user}" />
+			<property name="password" value="${booking.analyticsAdapter.dataSource.password}" />
+			<property name="initialSize" value="${booking.analyticsAdapter.dataSource.minPoolSize}" />
+			<property name="maxActive" value="${booking.analyticsAdapter.dataSource.maxPoolSize}" />
 			<property name="validationQuery" value="select 1" />
 			<property name="testOnBorrow" value="true" />
 		</bean>
