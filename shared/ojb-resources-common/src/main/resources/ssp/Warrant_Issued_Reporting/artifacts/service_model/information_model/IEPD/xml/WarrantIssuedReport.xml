@@ -104,6 +104,7 @@
 		</wir-ext:WarrantAugmentation>
 	</j:Warrant>
 	<nc:Person structures:id="Person_01">
+		<nc:PersonAgeDescriptionText>Age</nc:PersonAgeDescriptionText>
 		<nc:PersonBirthDate>
 			<nc:Date>1967-08-13</nc:Date>
 		</nc:PersonBirthDate>
