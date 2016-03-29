@@ -24,10 +24,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.ojbc.bundles.adapters</groupId>
-	<artifactId>analytical-data-store-persistence-adapter</artifactId>
+	<artifactId>analytical-incident-arrest-data-store-persistence-adapter</artifactId>
 	<packaging>bundle</packaging>
 	<version>1.0.1</version>
-	<name>OJB :: analytical-data-store-persistence-adapter :: adapter</name>
+	<name>OJB :: analytical-incident-arrest-data-store-persistence-adapter :: adapter</name>
 	<url>http://www.ojbc.org</url>
 
 	<parent>
