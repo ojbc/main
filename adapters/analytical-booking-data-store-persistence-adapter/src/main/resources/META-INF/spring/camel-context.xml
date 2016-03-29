@@ -32,7 +32,7 @@
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="analytical-data-store-persistence-adapter">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="analytical-booking-data-store-persistence-adapter">
 
 <!-- 		<endpoint id="incidentReportingServiceAdapterEndpoint"
 			uri="cxf:bean:incidentReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{analyticsAdapter.cxflogging}}" />
@@ -246,15 +246,15 @@
 	</bean>	
 	
  -->
- 	<bean id="analyticalDatastoreDAOImpl" class="org.ojbc.adapters.analyticaldatastore.dao.AnalyticalDatastoreDAOImpl">
+ 	<bean id="analyticalDatastoreDAOImpl" class="org.ojbc.adapters.analyticaldatastore.booking.dao.AnalyticalDatastoreDAOImpl">
         <property name="dataSource" ref="dataSource"/>
 	</bean>
 	
-	<bean id="codeTableDAO" class="org.ojbc.adapters.analyticaldatastore.dao.CodeTableDAOImpl">
+	<bean id="codeTableDAO" class="org.ojbc.adapters.analyticaldatastore.booking.dao.CodeTableDAOImpl">
         <property name="dataSource" ref="dataSource"/>
 	</bean>
 	
-	<bean id="descriptionCodeLookupService" class="org.ojbc.adapters.analyticaldatastore.service.DescriptionCodeLookupService">
+	<bean id="descriptionCodeLookupService" class="org.ojbc.adapters.analyticaldatastore.booking.service.DescriptionCodeLookupService">
 		<constructor-arg ref="codeTableDAO"></constructor-arg>
 	</bean>
 	

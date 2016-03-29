@@ -80,7 +80,7 @@
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
-                <entry key="${analyticsAdapter.keystoreCertificateAlias}" value="${analyticsAdapter.keyPassword}"/>
+                <entry key="${booking.analyticsAdapter.keystoreCertificateAlias}" value="${booking.analyticsAdapter.keyPassword}"/>
             </map>
         </property>
 	</bean>
@@ -88,9 +88,9 @@
 	<util:properties id="analyticsAdapterKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${analyticsAdapter.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${analyticsAdapter.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${analyticsAdapter.keystoreLocation}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${booking.analyticsAdapter.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${booking.analyticsAdapter.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${booking.analyticsAdapter.keystoreLocation}</prop>
 	</util:properties>	
       
 </beans>
