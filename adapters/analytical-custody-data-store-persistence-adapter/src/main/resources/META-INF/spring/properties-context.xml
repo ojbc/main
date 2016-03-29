@@ -36,9 +36,9 @@
 				<!-- The .cfg file from the classpath will be consulted first, followed 
 					by the optional .cfg file under $KARAF_HOME/etc -->
 				<util:properties
-					location="classpath:analytical_booking_data_store_persistence_adapter.cfg" />
+					location="classpath:analytical_custody_data_store_persistence_adapter.cfg" />
 				<osgix:cm-properties id="osgiProperties"
-					persistent-id="analytical_booking_data_store_persistence_adapter" />
+					persistent-id="analytical_custody_data_store_persistence_adapter" />
 			</array>
 		</property>
 	</bean>

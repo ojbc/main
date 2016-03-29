@@ -38,7 +38,7 @@
 				<util:properties
 					location="classpath:analytical_incident_arrest_data_store_persistence_adapter.cfg" />
 				<osgix:cm-properties id="osgiProperties"
-					persistent-id="analytical_data_store_persistence_adapter" />
+					persistent-id="analytical_incident_arrest_data_store_persistence_adapter" />
 			</array>
 		</property>
 	</bean>
