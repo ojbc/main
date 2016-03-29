@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<disp-doc:DispositionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0 ../xsd/impl/vermont/disposition_codes.xsd"
+xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
+xmlns:disp-ext="http://ojbc.org/IEPD/Extensions/DispositionReportExtension/1.0"
+xmlns:vt_codes="http://ojbc.org/IEPD/Extensions/Vermont/DispositionCodes/1.0"
+xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/"
+xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/"
+xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+xmlns:ojbc_disp_codes="http://ojbc.org/IEPD/Extensions/OJBC/DispositionCodes/1.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<j:Subject structures:id="DEFENDANT_01">
+		<nc:RoleOfPerson>
+			<nc:PersonAgeMeasure>
+				<nc:MeasureIntegerValue>55</nc:MeasureIntegerValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>2001-12-17</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonBirthLocation>
+				<nc:LocationName>String</nc:LocationName>
+			</nc:PersonBirthLocation>
+			<nc:PersonName>
+				<nc:PersonGivenName>Last</nc:PersonGivenName>
+				<nc:PersonMiddleName>Middle</nc:PersonMiddleName>
+				<nc:PersonSurName>Sur</nc:PersonSurName>
+				<nc:PersonNameSuffixText>String</nc:PersonNameSuffixText>
+			</nc:PersonName>
+			<j:PersonRaceCode>A</j:PersonRaceCode>
+			<vt_codes:VTResCode>5</vt_codes:VTResCode>
+			<nc:PersonStateIdentification>
+				<nc:IdentificationID>String</nc:IdentificationID>
+			</nc:PersonStateIdentification>
+			<j:PersonAugmentation>
+				<vt_codes:AgeGroupCode>1</vt_codes:AgeGroupCode>
+			</j:PersonAugmentation>
+		</nc:RoleOfPerson>
+	</j:Subject>
+	<nc:Case structures:id="CASE_01">
+		<nc:CaseDocketID>String</nc:CaseDocketID>
+		
+		<j:CaseAugmentation>
+		
+			<j:CaseCharge structures:id="CHARGE_01">
+				<disp-ext:ChargeAugmentation>
+					<disp-ext:InitialCharge>
+						<j:ChargeCategoryDescriptionText>Charge Class</j:ChargeCategoryDescriptionText>
+						<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+						<j:ChargeDescriptionText>String</j:ChargeDescriptionText>
+						<j:ChargePlea>
+							<nc:ActivityDate>
+								<nc:Date>2001-12-17</nc:Date>
+							</nc:ActivityDate>
+							<disp-ext:PleaAugmentation>
+								<vt_codes:OriginalPleaCode>3</vt_codes:OriginalPleaCode>
+							</disp-ext:PleaAugmentation>
+						</j:ChargePlea>
+						<j:ChargeStatute>
+							<j:StatuteCodeIdentification>
+								<nc:IdentificationID>Initial Charge Code</nc:IdentificationID>
+							</j:StatuteCodeIdentification>
+							<j:StatuteCodeSectionIdentification>
+								<nc:IdentificationID>476-689</nc:IdentificationID>
+							</j:StatuteCodeSectionIdentification>
+						</j:ChargeStatute>
+						<disp-ext:ChargeAugmentation>
+							<disp-ext:ChargeFee>
+								<nc:ObligationDueAmount>
+									<nc:Amount>100.00</nc:Amount>
+									<vt_codes:FineGrpCode>14</vt_codes:FineGrpCode>
+								</nc:ObligationDueAmount>
+								<disp-ext:ObligationRequiredIndicator>true</disp-ext:ObligationRequiredIndicator>
+							</disp-ext:ChargeFee>
+							<disp-ext:ChargeNumericalRank>40</disp-ext:ChargeNumericalRank>
+							<disp-ext:SexRegistryChargeIndicator>true</disp-ext:SexRegistryChargeIndicator>
+							<j:Bail>
+								<j:BailSetAmount>
+									<nc:Amount>0.0</nc:Amount>
+								</j:BailSetAmount>
+							</j:Bail>
+							<disp-ext:ProbationViolationIndicator>false</disp-ext:ProbationViolationIndicator>
+						</disp-ext:ChargeAugmentation>
+					</disp-ext:InitialCharge>
+					<disp-ext:FinalCharge>
+						<j:ChargeCategoryDescriptionText>Charge Class</j:ChargeCategoryDescriptionText>
+						<j:ChargeDescriptionText>String</j:ChargeDescriptionText>
+						<j:ChargeDisposition>
+							<nc:DispositionDate>
+								<nc:Date>2001-12-17</nc:Date>
+							</nc:DispositionDate>
+							<disp-ext:ChargeDispositionAugmentation>
+								<vt_codes:NonConvCatCode>6</vt_codes:NonConvCatCode>
+								<ojbc_disp_codes:CourtDispositionCode>Not Guilty by Reason of Insanity</ojbc_disp_codes:CourtDispositionCode>
+								<vt_codes:ProsDispCode>1</vt_codes:ProsDispCode>
+								<disp-ext:DispositionYear>1999</disp-ext:DispositionYear>
+								<disp-ext:DispositionDuration>P23D</disp-ext:DispositionDuration>
+							</disp-ext:ChargeDispositionAugmentation>
+						</j:ChargeDisposition>
+						<j:ChargePlea>
+							<disp-ext:PleaAugmentation>
+								<vt_codes:PleaChangeCode>1</vt_codes:PleaChangeCode>
+							</disp-ext:PleaAugmentation>
+						</j:ChargePlea>
+						<j:ChargeSentence>
+							<nc:ActivityDate>
+								<nc:Date>2001-12-17</nc:Date>
+							</nc:ActivityDate>
+							<j:SentenceCondition>
+								<nc:ConditionDisciplinaryAction>
+									<nc:DisciplinaryActionFee>
+										<nc:ObligationDueAmount>
+											<nc:Amount>100.00</nc:Amount>
+											<disp-ext:FineSuspendedIndicator>true</disp-ext:FineSuspendedIndicator>
+										</nc:ObligationDueAmount>
+									</nc:DisciplinaryActionFee>
+									<nc:DisciplinaryActionRestitution>
+										<nc:ObligationCategoryText>String</nc:ObligationCategoryText>
+										<disp-ext:ObligationRequiredIndicator>true</disp-ext:ObligationRequiredIndicator>
+									</nc:DisciplinaryActionRestitution>
+								</nc:ConditionDisciplinaryAction>
+							</j:SentenceCondition>
+							<j:SentenceDeferredTerm>
+								<j:TermDuration>P1Y2M3D</j:TermDuration>
+							</j:SentenceDeferredTerm>
+							<j:SentenceTerm>
+								<j:TermDuration>P1Y2M3D</j:TermDuration>
+								<j:TermMaximumDuration>P1Y2M3D</j:TermMaximumDuration>
+								<j:TermMinimumDuration>P1Y2M3D</j:TermMinimumDuration>
+								<disp-ext:SentenceTermAugmentation>
+									<disp-ext:TermMaximumTotalDays>56.1</disp-ext:TermMaximumTotalDays>
+									<disp-ext:TermMaximumTotalYears>4.12</disp-ext:TermMaximumTotalYears>
+									<disp-ext:TermMinimumTotalDays>6.1</disp-ext:TermMinimumTotalDays>
+									<disp-ext:TermMinimumTotalYears>2.1</disp-ext:TermMinimumTotalYears>
+									<disp-ext:TermTotalDays>545</disp-ext:TermTotalDays>
+									<disp-ext:RecidivismEligibilityDate>
+										<nc:Date>2011-12-17</nc:Date>
+									</disp-ext:RecidivismEligibilityDate>
+								</disp-ext:SentenceTermAugmentation>
+							</j:SentenceTerm>
+							<disp-ext:SentenceAugmentation>
+								<vt_codes:SentenceCode>2</vt_codes:SentenceCode>
+								<vt_codes:SentCatCode>9</vt_codes:SentCatCode>
+								<disp-ext:SentenceDiversionIndicator>false</disp-ext:SentenceDiversionIndicator>
+								<disp-ext:SentenceDiversionDate>
+									<nc:Date>2012-03-23</nc:Date>
+								</disp-ext:SentenceDiversionDate>
+							</disp-ext:SentenceAugmentation>
+						</j:ChargeSentence>
+						<j:ChargeStatute>
+							<j:StatuteCodeIdentification>
+								<nc:IdentificationID>Final Charge Code</nc:IdentificationID>
+							</j:StatuteCodeIdentification>
+							<j:StatuteCodeSectionIdentification>
+								<nc:IdentificationID>476-689</nc:IdentificationID>
+							</j:StatuteCodeSectionIdentification>
+						</j:ChargeStatute>
+						<disp-ext:ChargeAugmentation>
+							<disp-ext:ChargeNumericalRank>45</disp-ext:ChargeNumericalRank>
+							<disp-ext:SexRegistryChargeIndicator>true</disp-ext:SexRegistryChargeIndicator>
+						</disp-ext:ChargeAugmentation>
+					</disp-ext:FinalCharge>
+				</disp-ext:ChargeAugmentation>
+			</j:CaseCharge>
+			<j:CaseCourt>
+				<nc:OrganizationLocation>
+					<nc:Address>
+						<vt_codes:CountyCode>12</vt_codes:CountyCode>
+					</nc:Address>
+				</nc:OrganizationLocation>
+			</j:CaseCourt>
+			<j:CaseCourtEvent>
+				<nc:ActivityDate>
+					<nc:Date>2012-09-26</nc:Date>
+				</nc:ActivityDate>
+				<disp-ext:CourtEventAugmentation>
+					<disp-ext:FailedToAppearIndicator>false</disp-ext:FailedToAppearIndicator>
+				</disp-ext:CourtEventAugmentation>
+			</j:CaseCourtEvent>
+			<j:CaseDefenseAttorney>
+				<nc:RoleOfPerson>
+					<nc:PersonName>
+						<nc:PersonFullName>String</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:RoleOfPerson>
+				<disp-ext:CaseOfficialAugmentation>
+					<vt_codes:AttorneyCatCode>4</vt_codes:AttorneyCatCode>
+				</disp-ext:CaseOfficialAugmentation>
+			</j:CaseDefenseAttorney>
+			<j:CaseHearing>
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>DOCID</nc:IdentificationID>
+				</nc:ActivityIdentification>
+				<nc:ActivityDate>
+					<nc:Date>2001-12-17</nc:Date>
+				</nc:ActivityDate>
+				<disp-ext:CourtEventAugmentation>
+					<disp-ext:ChargeCountFiled>2</disp-ext:ChargeCountFiled>
+				</disp-ext:CourtEventAugmentation>
+			</j:CaseHearing>
+			<j:CaseTrial>
+				<disp-ext:CourtEventAugmentation>
+					<disp-ext:CourtTrialIndicator>true</disp-ext:CourtTrialIndicator>
+				</disp-ext:CourtEventAugmentation>
+			</j:CaseTrial>
+		</j:CaseAugmentation>
+		<disp-ext:CaseAugmentation>
+			<disp-ext:FiscalYear>2004</disp-ext:FiscalYear>
+			<disp-ext:CaseChargeCountQuantity>6</disp-ext:CaseChargeCountQuantity>
+			<vt_codes:PTStatCode>4</vt_codes:PTStatCode>
+			<j:PresentenceInvestigation>
+				<disp-ext:PresentenceInvestigationIndicator>true</disp-ext:PresentenceInvestigationIndicator>
+			</j:PresentenceInvestigation>
+			<disp-ext:OriginalChargeAmendedIndicator>true</disp-ext:OriginalChargeAmendedIndicator>
+		</disp-ext:CaseAugmentation>
+	</nc:Case>
+	<j:Arrest structures:id="ARREST_01">
+		<nc:ActivityDate>
+			<nc:Date>2001-12-17</nc:Date>
+		</nc:ActivityDate>
+		<j:ArrestAgency>
+			<nc:OrganizationIdentification>
+				<nc:IdentificationID>ID</nc:IdentificationID>
+			</nc:OrganizationIdentification>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>ORI</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</j:ArrestAgency>
+		<disp-ext:ArrestAugmentation>
+			<disp-ext:ArrestYear>2006</disp-ext:ArrestYear>
+		</disp-ext:ArrestAugmentation>
+	</j:Arrest>
+	<j:Offense structures:id="OFFENSE_01">
+		<nc:ActivityDate>
+			<nc:Date>2001-12-17</nc:Date>
+		</nc:ActivityDate>
+		<disp-ext:OffenseAugmentation>
+			<disp-ext:InitialOffense>
+				<vt_codes:OffenseCode>7</vt_codes:OffenseCode>
+				<disp-ext:DrugOffenseDescriptionText>String</disp-ext:DrugOffenseDescriptionText>
+				<j:OffenseCategoryText>Fel Offense Type</j:OffenseCategoryText>
+				<j:OffenseViolatedStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>String</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:OffenseViolatedStatute>
+				<vt_codes:OffLevelCode>1</vt_codes:OffLevelCode>
+			</disp-ext:InitialOffense>
+			<disp-ext:FinalOffense>
+				<vt_codes:OffenseCode>19</vt_codes:OffenseCode>
+				<disp-ext:DrugOffenseDescriptionText>String</disp-ext:DrugOffenseDescriptionText>
+				<vt_codes:OffenseCode>7</vt_codes:OffenseCode>
+				<j:OffenseCategoryText>String</j:OffenseCategoryText>
+				<j:OffenseViolatedStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>String</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:OffenseViolatedStatute>
+				<vt_codes:OffLevelCode>1</vt_codes:OffLevelCode>
+			</disp-ext:FinalOffense>
+		</disp-ext:OffenseAugmentation>
+	</j:Offense>
+	<nc:Incident structures:id="INCIDENT_01">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>Incident Number</nc:IdentificationID>
+		</nc:ActivityIdentification>
+	</nc:Incident>
+	<nc:Location structures:id="LOC_01">
+		<nc:Address>
+			<nc:LocationPostalCode>13267</nc:LocationPostalCode>
+		</nc:Address>
+	</nc:Location>
+	<j:OffenseChargeAssociation>
+		<j:Offense structures:ref="OFFENSE_01"/>
+		<j:Charge structures:ref="CHARGE_01"/>
+	</j:OffenseChargeAssociation>
+	<nc:ActivityPersonAssociation>
+		<nc:Activity structures:ref="CASE_01"/>
+		<nc:Person structures:ref="DEFENDANT_01"/>
+	</nc:ActivityPersonAssociation>
+	<j:OffenseArrestAssociation>
+		<j:Offense structures:ref="OFFENSE_01"/>
+		<j:Arrest structures:ref="ARREST_01"/>
+	</j:OffenseArrestAssociation>
+	<nc:PersonResidenceAssociation>
+		<nc:Person structures:ref="DEFENDANT_01"/>
+		<nc:Location structures:ref="LOC_01"/>
+	</nc:PersonResidenceAssociation>
+</disp-doc:DispositionReport>
