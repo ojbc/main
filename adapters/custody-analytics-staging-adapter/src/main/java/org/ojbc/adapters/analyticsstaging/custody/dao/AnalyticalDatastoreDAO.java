@@ -19,38 +19,17 @@ package org.ojbc.adapters.analyticsstaging.custody.dao;
 import java.util.List;
 
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Agency;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.Arrest;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.AssessedNeed;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.Charge;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.County;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.Disposition;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.DispositionType;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.Incident;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonRace;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonSex;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.PretrialService;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.PretrialServiceParticipation;
 
 public interface AnalyticalDatastoreDAO {
 
 	public Integer saveAgency(Agency agency);
 	
-	public Integer saveIncident(Incident incident);
-	
 	public Integer saveIncidentType(IncidentType incidentType);
 	
 	public Integer saveIncidentCircumstance(IncidentCircumstance incidentCircumstance);
-	
-	public Integer saveCounty(County county);
-
-	public Integer saveArrest(Arrest arrest);
-	
-	public Integer saveAssessedNeed(AssessedNeed assesedNeed);
-	
-	public Integer savePreTrialService(PretrialService preTrialService);
-	
-	public Integer saveDispositionType(DispositionType dispositionType);
 	
 	public Integer savePersonSex(PersonSex personSex);
 	
@@ -58,26 +37,8 @@ public interface AnalyticalDatastoreDAO {
 	
 	public Integer savePerson(Person person);
 	
-	public Integer savePretrialServiceParticipation(PretrialServiceParticipation pretrialServiceParticipation);
-	
-	public Integer saveCharge(Charge charge);
-	
-	public Integer saveDisposition(Disposition disposition);
-	
 	public void savePretrialServiceNeedAssociations(
 			final List<Integer> assessedNeedsIds, final int pretrialServiceParticipationId);
-	
-	public List<Incident> searchForIncidentsByIncidentNumberAndReportingAgencyID(String incidentNumber, Integer reportingAgencyID);
-	
-	public List<Disposition> searchForDispositionsByDocketChargeNumber(String docketChargeNumber);
-	
-	public PretrialServiceParticipation searchForPretrialServiceParticipationByUniqueID(String uniqueID);
-	
-	public List<AssessedNeed> getAssociatedNeeds(Integer pretrialServiceParticipationId);
-	
-	public List<Arrest> searchForArrestsByIncidentPk(Integer incidentPk);
-	
-	public List<Charge> returnChargesFromArrest(Integer arrestId);
 	
 	public List<IncidentCircumstance> returnCircumstancesFromIncident(Integer incidentPk);
 	
@@ -91,8 +52,6 @@ public interface AnalyticalDatastoreDAO {
 			final List<Integer> pretrialServiceIds,
 			final int pretrialServiceParticipationPkId);
 
-	public List<PretrialService> getAssociatedPretrialServices(Integer pretrialServiceParticipationId);
-	
 	public void deleteIncident(Integer incidentID) throws Exception;
 	
 	public void deleteDisposition(Integer dispositionID) throws Exception;
