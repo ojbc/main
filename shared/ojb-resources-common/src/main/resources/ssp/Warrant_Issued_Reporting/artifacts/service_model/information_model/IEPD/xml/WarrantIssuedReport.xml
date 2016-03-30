@@ -33,8 +33,8 @@
 		<wir-ext:CriminalTrackingNumber>PW56</wir-ext:CriminalTrackingNumber>
 		<j:CaseAugmentation>
 			<j:CaseCharge>
-				<wir-ext:GeneralOffenseCodeText>OC45656-09
-				</wir-ext:GeneralOffenseCodeText>
+				<wir-ext:GeneralOffenseCharacterDescriptionText>Description
+				</wir-ext:GeneralOffenseCharacterDescriptionText>
 				<wir-ext:ChargeCodeText>CHG5678</wir-ext:ChargeCodeText>
 				<wir-ext:OriginalOffenseCodeText>OO4356788
 				</wir-ext:OriginalOffenseCodeText>
@@ -96,6 +96,8 @@
 			<scr:TransactionControlNumberIdentification>
 				<nc:IdentificationID>TCN345665</nc:IdentificationID>
 			</scr:TransactionControlNumberIdentification>
+			<wir-ext:WarrantAdditionalInformationCategoryText>Warrant Information
+				Category</wir-ext:WarrantAdditionalInformationCategoryText>
 			<wir-ext:WarrantAdditionalInformationText>Additional Warrant
 				Information
 			</wir-ext:WarrantAdditionalInformationText>
@@ -111,9 +113,8 @@
 		<nc:PersonBirthLocation>
 			<nc:LocationCategoryText>OP</nc:LocationCategoryText>
 		</nc:PersonBirthLocation>
-		<nc:PersonCitizenshipISO3166Alpha2Code>US
-		</nc:PersonCitizenshipISO3166Alpha2Code>
-		<j:PersonEthnicityCode>N</j:PersonEthnicityCode>
+		<nc:PersonCitizenshipText>AO</nc:PersonCitizenshipText>
+		<nc:PersonEthnicityText>N</nc:PersonEthnicityText>
 		<nc:PersonEyeColorText>BLK</nc:PersonEyeColorText>
 		<nc:PersonHairColorText>ONG</nc:PersonHairColorText>
 		<nc:PersonHeightMeasure>
@@ -128,11 +129,10 @@
 			<nc:PersonFullName>Peter J Jones Jr</nc:PersonFullName>
 		</nc:PersonName>
 		<nc:PersonPhysicalFeature>
-			<j:PhysicalFeatureCategoryCode>ART ARM
-			</j:PhysicalFeatureCategoryCode>
+			<nc:PhysicalFeatureDescriptionText>ART ARM</nc:PhysicalFeatureDescriptionText>
 		</nc:PersonPhysicalFeature>
-		<j:PersonRaceCode>A</j:PersonRaceCode>
-		<j:PersonSexCode>M</j:PersonSexCode>
+		<nc:PersonRaceText>A</nc:PersonRaceText>
+		<nc:PersonSexText>M</nc:PersonSexText>
 		<nc:PersonSkinToneText>ALB</nc:PersonSkinToneText>
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>098213455</nc:IdentificationID>
@@ -159,9 +159,11 @@
 			</j:PersonFBIIdentification>
 			<j:PersonBirthplaceCode>0P</j:PersonBirthplaceCode>
 		</j:PersonAugmentation>
+		<wir-ext:PersonAdditionalInformationCategoryText>Person Information
+			Category</wir-ext:PersonAdditionalInformationCategoryText>
 		<wir-ext:PersonAdditionalInformationText>Gang Member
 		</wir-ext:PersonAdditionalInformationText>
-		<wir-ext:PersonCautionCodeText>G45</wir-ext:PersonCautionCodeText>
+		<wir-ext:PersonCautionText>G45</wir-ext:PersonCautionText>
 		<wir-ext:PersonMiscellaneousRecordIdentification>
 			<nc:IdentificationID>PS-123456</nc:IdentificationID>
 		</wir-ext:PersonMiscellaneousRecordIdentification>
@@ -182,17 +184,22 @@
 	<nc:Vehicle structures:id="Vehicle_01">
 		<j:ConveyanceColorPrimaryCode>BGE</j:ConveyanceColorPrimaryCode>
 		<j:ConveyanceColorSecondaryCode>BRO</j:ConveyanceColorSecondaryCode>
+		<nc:ItemMakeName>AAA</nc:ItemMakeName>
+		<nc:ItemModelName>DIA</nc:ItemModelName>
 		<nc:ItemModelYearDate>2012</nc:ItemModelYearDate>
-		<j:VehicleStyleCode>2D</j:VehicleStyleCode>
+		<nc:ItemStyleText>2D</nc:ItemStyleText>
 		<nc:VehicleIdentification>
 			<nc:IdentificationID>VIN3458745679777</nc:IdentificationID>
 		</nc:VehicleIdentification>
-		<j:VehicleMakeCode>AAA</j:VehicleMakeCode>
-		<j:VehicleModelCode>DIA</j:VehicleModelCode>
+		<wir-ext:VehicleAdditionalInformationCategoryText>Vehicle Information
+			Category</wir-ext:VehicleAdditionalInformationCategoryText>
 		<wir-ext:VehicleAdditionalInformationText>Excessive Rust
 		</wir-ext:VehicleAdditionalInformationText>
 	</nc:Vehicle>
 	<j:ConveyanceRegistration structures:id="Reg_01">
+		<j:RegistrationExpirationDate>
+			<nc:YearMonthDate>2016-11</nc:YearMonthDate>
+		</j:RegistrationExpirationDate>
 		<j:ConveyanceRegistrationPlateIdentification>
 			<nc:IdentificationID>LP4365-0234</nc:IdentificationID>
 		</j:ConveyanceRegistrationPlateIdentification>
