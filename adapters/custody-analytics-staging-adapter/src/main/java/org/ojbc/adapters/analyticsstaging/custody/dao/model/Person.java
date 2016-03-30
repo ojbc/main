@@ -37,6 +37,7 @@ public class Person {
     
     private Date personBirthDate;
     private String personUniqueIdentifier;
+    private Integer languageId; //primary language 
     
 	public Integer getPersonID() {
 		return personID;
@@ -82,7 +83,13 @@ public class Person {
 	}
 	
 	public String toString(){
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
+	public Integer getLanguageId() {
+		return languageId;
+	}
+	public void setLanguageId(Integer languageId) {
+		this.languageId = languageId;
 	}
 	
 }
