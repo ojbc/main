@@ -98,10 +98,12 @@
   <w:Element w:name="nc:PersonEthnicityText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonEyeColorText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonHairColorText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:PersonPhysicalFeature" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonRaceText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonSexText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonSkinToneText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Vehicle" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:YearMonthDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="scr:TransactionControlNumberIdentification"
     w:isReference="false" w:nillable="true"/>
   <w:Type w:name="census:USCountyCodeSimpleType" w:isRequested="false">
@@ -3646,6 +3648,10 @@
     <w:ElementInType w:name="nc:Item" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:ItemRegistrationType" w:isRequested="true">
+    <w:ElementInType w:name="j:RegistrationExpirationDate"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:OrganizationAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:OrganizationIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -3827,6 +3833,8 @@
   </w:Type>
   <w:Type w:name="nc:PhysicalFeatureType" w:isRequested="false">
     <w:ElementInType w:name="nc:PhysicalFeatureCategory"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PhysicalFeatureDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:StreetType" w:isRequested="false">
