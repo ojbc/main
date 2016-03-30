@@ -32,7 +32,7 @@
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="analytical-incident-arrest-data-store-persistence-adapter">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="incident-arrest-analytics-staging-adapter">
 
 		<endpoint id="incidentReportingServiceAdapterEndpoint"
 			uri="cxf:bean:incidentReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{analyticsAdapter.cxflogging}}" />
