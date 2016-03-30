@@ -34,70 +34,50 @@
     
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="custody-analytics-staging-adapter">
 
-<!-- 		<endpoint id="incidentReportingServiceAdapterEndpoint"
-			uri="cxf:bean:incidentReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{analyticsAdapter.cxflogging}}" />
+ 		<endpoint id="bookingReportingServiceAdapterEndpoint"
+			uri="cxf:bean:bookingReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{custody.stagingAdapter.cxflogging}}" />
 
-		<endpoint id="incidentReportingFileEndpoint"
-			uri="file://{{analyticsAdapter.inputDirectory}}/incident/input?idempotent=true&amp;moveFailed={{analyticsAdapter.inputDirectory}}/incident/error&amp;recursive=true&amp;delete=true&amp;maxMessagesPerPoll=100" />
+		<endpoint id="bookingReportingFileEndpoint"
+			uri="file://{{custody.stagingAdapter.inputDirectory}}/bookingReport/input?idempotent=true&amp;moveFailed={{custody.stagingAdapter.inputDirectory}}/bookingReport/error&amp;recursive=true&amp;delete=true&amp;maxMessagesPerPoll=100" />
 
 		<endpoint id="invocationFailedFileEndpoint"
-			uri="file://{{analyticsAdapter.inputDirectory}}/failed" />
+			uri="file://{{custody.stagingAdapter.inputDirectory}}/failed" />
 
-		<endpoint id="pretrialEnrollmentRequestServiceAdapterEndpoint"
-			uri="cxf:bean:pretrialEnrollmentRequestAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{analyticsAdapter.cxflogging}}" />
-					
-		<endpoint id="pretrialEnrollmentReportingFileEndpoint"
-			uri="file://{{analyticsAdapter.inputDirectory}}/pretrial/input?idempotent=true&amp;moveFailed={{analyticsAdapter.inputDirectory}}/pretrial/error&amp;move=processed/" />
-			
- 		<endpoint id="dispositionReportingServiceAdapterEndpoint"
-			uri="cxf:bean:dispositionReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{analyticsAdapter.cxflogging}}"/>				
-			
-		<endpoint id="dispositionReportingFileEndpoint"
-			uri="file://{{analyticsAdapter.inputDirectory}}/disposition/input?idempotent=true&amp;moveFailed={{analyticsAdapter.inputDirectory}}/disposition/error&amp;move=processed/" />
-
-		Incident Reporting Route
-		<camel:route id="Incident_Repository_Service" >
+		<!-- Booking Reporting Route -->
+		<camel:route id="Booking_Reporting_Service" >
 		
-			<camel:from	uri="incidentReportingServiceAdapterEndpoint" />
+			<camel:from	uri="bookingReportingServiceAdapterEndpoint" />
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 			
-			<camel:to uri="direct:processIncident" />
+			<camel:to uri="direct:processBookingReport" />
 			
 		</camel:route>	
 		
-		<camel:route id="Incident_Repository_Service_Filedrop">
-		
-			<camel:from	uri="incidentReportingFileEndpoint" />
-			
-			Some historic extracts have doPublish as the root, wrap in proper Incident Report wrapper
-			<camel:filter>
-				<camel:xpath>/lexspd:doPublish</camel:xpath>
-				<camel:to uri="xslt:xslt/wrapIncidentReport.xslt"/>
-			</camel:filter>
-			
-			<camel:to uri="direct:processIncident" />
+		<camel:route id="Booking_Reporting_Service_Filedrop">
+			<camel:from	uri="bookingReportingFileEndpoint" />
+			<camel:to uri="direct:processBookingReport" />
 		</camel:route>
 		
-		<camel:route id="Incident_Repository_Service_Process_Incident" startupOrder="1">				
+		<camel:route id="Booking_Reporting_Service_Process_Booking_Report" startupOrder="1">				
 			
-			<camel:from	uri="direct:processIncident" />
+			<camel:from	uri="direct:processBookingReport" />
 
 			<camel:doTry>
 						
-				<camel:log message="Here is the inbound incident reporting message: ${body}" loggingLevel="DEBUG"/>
+				<camel:log message="Here is the inbound booking report message: ${body}" loggingLevel="DEBUG"/>
 				
-				<camel:to uri="bean:incidentReportProcessor?method=processReport"/>
+				<camel:to uri="bean:bookingReportProcessor?method=processReport"/>
 				
 				<camel:doCatch >
 					<camel:exception>java.lang.Exception</camel:exception>
 					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
 					
 					<camel:setHeader headerName="CamelFileName">
-						<camel:simple>incident/FailedIncident_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+						<camel:simple>bookingReport/FailedIncident_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
 					</camel:setHeader>	
 
-					<log message="Incident Report document failure. File Name to persist is: ${in.headers.CamelFileName}"/>
+					<log message="Booking Report document failure. File Name to persist is: ${in.headers.CamelFileName}"/>
 					
 					<camel:to uri="direct:failedInvocation"/>
 				</camel:doCatch>
@@ -106,100 +86,6 @@
 			
 		</camel:route>		
 
-		<camel:route id="Pretrial_Service_Enrollment_Reporting_Service_Route">
-		
-			<camel:from	uri="pretrialEnrollmentRequestServiceAdapterEndpoint" />
-		
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-			
-			<camel:log message="Here is the inbound pretrial message: ${body}" loggingLevel="DEBUG"/>
-				
-			<camel:to uri="direct:processPretrialServiceReport" />
-			
-		</camel:route>		
-
- 		<camel:route id="Pretrial_Repository_Service_Filedrop">
-		
-			<camel:from	uri="pretrialEnrollmentReportingFileEndpoint" />
-			
-			<camel:to uri="direct:processPretrialServiceReport" />
-		</camel:route>
-		
-		<camel:route id="Pretrial_Repository_Service_Process" startupOrder="2">				
-			
-			<camel:from	uri="direct:processPretrialServiceReport" />
-
-			<camel:doTry>
-						
-				<camel:log message="Here is the inbound pretrial enrollment reporting message: ${body}" loggingLevel="DEBUG"/>
-				
-				<camel:to uri="bean:pretrialEnrollmentReportProcessor?method=processReport"/>
-				
-				<camel:doCatch >
-					<camel:exception>java.lang.Exception</camel:exception>
-					<camel:log message="An exception was thrown: ${exception.message}" loggingLevel="INFO"/>				
-					
-					<camel:setHeader headerName="CamelFileName">
-						<camel:simple>pretrial/FailedPretrial_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
-					</camel:setHeader>	
-
-					<log message="Pretrial Enrollment Report document failure. File Name to persist is: ${in.headers.CamelFileName}"/>
-					
-					<camel:to uri="direct:failedInvocation"/>
-				</camel:doCatch>
-			
-			</camel:doTry>
-			
-		</camel:route>
-		
-		<camel:route id="Disposition_Reporting_Service_Route">
-		
-			<camel:from	uri="dispositionReportingServiceAdapterEndpoint" />
-			
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-			
-			<camel:log message="Here is the inbound disposition report message: ${body}" loggingLevel="DEBUG"/>
-				
-			<camel:to uri="direct:processDispositionReport" />
-			
-		</camel:route>		
-
- 		<camel:route id="Disposition_Reporting_Service_Filedrop">
-		
-			<camel:from	uri="dispositionReportingFileEndpoint" />
-			
-			<camel:to uri="direct:processDispositionReport" />
-		</camel:route>
-		
-				
-		<camel:route id="Disposition_Reporting_Service_Process_Route" startupOrder="3">
-		
-			<camel:from	uri="direct:processDispositionReport" />
-			
-			<camel:doTry>
-						
-				<camel:log message="Here is the inbound disposition reporting message: ${body}" loggingLevel="DEBUG"/>
-				
-				<camel:to uri="bean:dispositionReportProcessor?method=processReport"/>
-				
-				<camel:doCatch >
-					<camel:exception>java.lang.Exception</camel:exception>
-					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
-					
-					<camel:setHeader headerName="CamelFileName">
-						<camel:simple>disposition/FailedDisposition_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
-					</camel:setHeader>	
-
-					<log message="Disposition Report document failure. File Name to persist is: ${in.headers.CamelFileName}"/>
-					
-					<camel:to uri="direct:failedInvocation"/>
-				</camel:doCatch>
-			
-			</camel:doTry>			
-				
-			
-		</camel:route>		
-		
 		<camel:route id="Failed_Invocation_Route">
 			<camel:from uri="direct:failedInvocation"/>
 			
@@ -217,7 +103,6 @@
 			<camel:log message="Backed up index to: ${body}"/>
 		</camel:route>
 		
- -->
  	</camel:camelContext>
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
