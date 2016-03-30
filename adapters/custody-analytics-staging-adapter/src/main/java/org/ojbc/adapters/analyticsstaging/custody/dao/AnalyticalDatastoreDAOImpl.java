@@ -169,32 +169,12 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
          return keyHolder.getKey().intValue();
 	}
 
-	private final String PRETRIAL_SERVICE_NEED_ASSOCIATION_INSERT=
-			"INSERT INTO pretrialServiceNeedAssociation (assessedNeedID, pretrialServiceParticipationID) values (?,?)";
-
-	@Override
-	public void savePretrialServiceNeedAssociations(
-			final List<Integer> assessedNeedIds, final int pretrialServiceParticipationId) {
-        jdbcTemplate.batchUpdate(PRETRIAL_SERVICE_NEED_ASSOCIATION_INSERT, new BatchPreparedStatementSetter() {
-                public void setValues(PreparedStatement ps, int i)
-                    throws SQLException {
-                    ps.setInt(1, assessedNeedIds.get(i));
-                    ps.setLong(2, pretrialServiceParticipationId);
-                }
-    	            
-                public int getBatchSize() {
-                    return assessedNeedIds.size();
-                }
-            });
-		
-	}
-	
-	private final String PERSON_SELECT = "SELECT * FROM Person p "
-			+ "LEFT JOIN PersonSex s ON s.PersonSexID = p.PersonSexID "
-			+ "LEFT JOIN PersonRace r ON r.PersonRaceID = p.PersonRaceID "
-			+ "WHERE p.PersonID = ?"; 
 	@Override
 	public Person getPerson(Integer personId) {
+		final String PERSON_SELECT = "SELECT * FROM Person p "
+				+ "LEFT JOIN PersonSex s ON s.PersonSexID = p.PersonSexID "
+				+ "LEFT JOIN PersonRace r ON r.PersonRaceID = p.PersonRaceID "
+				+ "WHERE p.PersonID = ?"; 
 		List<Person> persons = 
 				jdbcTemplate.query(PERSON_SELECT, 
 						new PersonRowMapper(), personId);
@@ -218,28 +198,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	    	return person;
 		}
 
-	}
-
-	private final String PRETRIAL_SERVICE_ASSOCIATION_INSERT=
-			"INSERT INTO PretrialServiceAssociation (PretrialServiceID, pretrialServiceParticipationID) values (?,?)";
-	@Override
-	public void savePretrialServiceAssociations(
-			final List<Integer> pretrialServiceIds,
-			final int pretrialServiceParticipationPkId) {
-		
-        jdbcTemplate.batchUpdate(PRETRIAL_SERVICE_ASSOCIATION_INSERT, new BatchPreparedStatementSetter() {
-            public void setValues(PreparedStatement ps, int i)
-                throws SQLException {
-                ps.setInt(1, pretrialServiceIds.get(i));
-                ps.setLong(2, pretrialServiceParticipationPkId);
-            }
-	            
-            public int getBatchSize() {
-                return pretrialServiceIds.size();
-            }
-        });
-	
-		
 	}
 
 	@Override
@@ -276,180 +234,29 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	}
 
-	@Override
-	public Integer saveIncidentType(final IncidentType incidentType) {
-        log.debug("Inserting row into IncidentType table");
-
-        final String incidentTypeInsertStatement="INSERT into IncidentType (IncidentDescriptionText,IncidentID) values (?,?)";
-        
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(incidentTypeInsertStatement, new String[] {"IncidentDescriptionText","IncidentID"});
-        	            ps.setString(1, incidentType.getIncidentDescriptionText());
-        	            ps.setInt(2, incidentType.getIncidentID());
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();		
-    }
-
-	@Override
-	public Integer saveIncidentCircumstance(final IncidentCircumstance incidentCircumstance) {
-        log.debug("Inserting row into IncidentCircumstance table");
-
-        final String incidentCircumstanceInsertStatement="INSERT into IncidentCircumstance (IncidentCircumstanceText,IncidentID) values (?,?)";
-        
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(incidentCircumstanceInsertStatement, new String[] {"IncidentCircumstanceText","IncidentID"});
-        	            ps.setString(1, incidentCircumstance.getIncidentCircumstanceText());
-        	            ps.setInt(2, incidentCircumstance.getIncidentID());
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();			
-   }
-
-	@Override
-	public List<IncidentCircumstance> returnCircumstancesFromIncident(
-			Integer incidentPk) {
-		String sql = "select * from IncidentCircumstance where IncidentID = ?";
-		 
-		List<IncidentCircumstance> circumstances = this.jdbcTemplate.query(sql, new Object[] { incidentPk },new IncidentCircumstanceRowMapper());
-		
-		return circumstances;
-	}
-
-	public class IncidentCircumstanceRowMapper implements RowMapper<IncidentCircumstance>
-	{
-		@Override
-		public IncidentCircumstance mapRow(ResultSet rs, int rowNum) throws SQLException {
-			IncidentCircumstance incidentCircumstance = new IncidentCircumstance();
-	    	
-			incidentCircumstance.setIncidentCircumstanceID(rs.getInt("IncidentCircumstanceID"));
-			incidentCircumstance.setIncidentID(rs.getInt("IncidentID"));
-			incidentCircumstance.setIncidentCircumstanceText(rs.getString("IncidentCircumstanceText"));
-			
-	    	return incidentCircumstance;
-		}
-
-	}
-
-	@Override
-	public List<IncidentType> returnIncidentDescriptionsFromIncident(
-			Integer incidentPk) {
-		String sql = "select * from IncidentType where IncidentID = ?";
-		 
-		List<IncidentType> incidentTypes = this.jdbcTemplate.query(sql, new Object[] { incidentPk },new IncidentTypeRowMapper());
-		
-		return incidentTypes;
-	}
-	
-	public class IncidentTypeRowMapper implements RowMapper<IncidentType>
-	{
-		@Override
-		public IncidentType mapRow(ResultSet rs, int rowNum) throws SQLException {
-			IncidentType incidentType = new IncidentType();
-	    	
-			incidentType.setIncidentID(rs.getInt("IncidentID"));
-			incidentType.setIncidentDescriptionText(rs.getString("IncidentDescriptionText"));
-			incidentType.setIncidentTypeID(rs.getInt("IncidentTypeID"));
-			
-	    	return incidentType;
-		}
-
-	}
-
-	String INCIDENT_DELETE = "delete from Incident where IncidentID = ?";
-	String INCIDENT_PERSON_DELETE = "delete from Person where personId in (:personIds)";
-	String INCIDENT_PERSON_ID_SELECT = "select personId FROM Arrest where IncidentID = ?";
-	String INCIDENT_CHARGE_DELETE = "delete from Charge where arrestID in "
-			+ "(SELECT arrestId FROM Arrest WHERE IncidentID = ?)";
-	String INCIDENT_ARREST_DELETE = "delete from Arrest where IncidentID = ?";
-	String INCIDENT_CIRCUMSTANCE_DELETE = "delete from IncidentCircumstance where IncidentID = ?";
-	String INCIDENT_TYPE_DELETE = "delete from IncidentType where IncidentID = ?";
-	@Override
-	public void deleteIncident(Integer incidentID) throws Exception{
-		 
-		jdbcTemplate.update(INCIDENT_CHARGE_DELETE, incidentID);
-
-		List<Integer> personIds = jdbcTemplate.queryForList(INCIDENT_PERSON_ID_SELECT, Integer.class, incidentID); 
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("personIds", personIds);
-		jdbcTemplate.update(INCIDENT_ARREST_DELETE, incidentID);
-		
-		/*
-		 * If the incident has no arrest, the personIds list will be empty.
-		 */
-		if (personIds.size() > 0){
-			namedParameterJdbcTemplate.update(INCIDENT_PERSON_DELETE, params);
-		}
-		jdbcTemplate.update(INCIDENT_CIRCUMSTANCE_DELETE, incidentID);
-		jdbcTemplate.update(INCIDENT_TYPE_DELETE,incidentID);
-		int resultSize = this.jdbcTemplate.update(INCIDENT_DELETE, incidentID);
-		
-		if (resultSize == 0)
-		{
-			throw new Exception("No incident found with IncidentID of: " + incidentID);
-		}	
-		
-	}
-
-	String DISPOSITION_PERSON_DELETE = "DELETE FROM Person WHERE personId = ?";
-	String DISPOSTION_DELETE = "delete from Disposition where DispositionID = ?";
-	String DISPOSITION_PERSON_ID_SELECT = "SELECT personId FROM Disposition WHERE DispositionID = ?";
- 
-	
-	@Override
-	@Transactional
-	public void deleteDisposition(Integer dispositionID) throws Exception {
-
-		Integer personId = jdbcTemplate.queryForObject(DISPOSITION_PERSON_ID_SELECT, Integer.class, dispositionID);
-		int resultSize = this.jdbcTemplate.update(DISPOSTION_DELETE, new Object[] { dispositionID });
-		if (resultSize == 0)
-		{
-			throw new Exception("No disposition found with DispositionID of: " + dispositionID);
-		}	
-		
-		if (personId != null){
-			jdbcTemplate.update(DISPOSITION_PERSON_DELETE, personId);
-		}
-		
-	}
-
-	String PRETRIAL_SERVICE_PARTICIPATION_DELETE = "DELETE FROM PretrialServiceParticipation WHERE PretrialServiceParticipationID = ?";
-	String PRETRIAL_SERVICE_PERSON_DELETE = "DELETE FROM Person WHERE personId = ?";
-	String PRETRIAL_PERSON_ID_SELECT = "SELECT personId FROM PretrialServiceParticipation WHERE PretrialServiceParticipationID = ?";
-	String PRETRIAL_SERVICE_ASSOCIATION_DELETE="delete from PretrialServiceAssociation where PretrialServiceParticipationID = ?";
-	String PRETRIAL_SERVICE_NEED_ASSOCIATION_DELETE="delete from PretrialServiceNeedAssociation where PretrialServiceParticipationID = ?";
-	@Override
-	@Transactional
-	public void deletePretrialServiceParticipation(
-			Integer pretrialServiceParticipationID) throws Exception {
-		
-			jdbcTemplate.update(PRETRIAL_SERVICE_ASSOCIATION_DELETE, pretrialServiceParticipationID);
-			jdbcTemplate.update(PRETRIAL_SERVICE_NEED_ASSOCIATION_DELETE, pretrialServiceParticipationID); 
-			Integer personId = jdbcTemplate.queryForObject(PRETRIAL_PERSON_ID_SELECT, Integer.class, pretrialServiceParticipationID);
-			int resultSize = this.jdbcTemplate.update(PRETRIAL_SERVICE_PARTICIPATION_DELETE, new Object[] { pretrialServiceParticipationID });
-			
-			if (resultSize == 0){
-				throw new Exception("No Pretrial Service Participation found with PretrialServiceParticipationID of: " + pretrialServiceParticipationID);
-			}	
-			
-			if (personId != null){
-				jdbcTemplate.update(PRETRIAL_SERVICE_PERSON_DELETE, personId);
-			}
-
-		
-	}
+//	String PRETRIAL_SERVICE_PARTICIPATION_DELETE = "DELETE FROM PretrialServiceParticipation WHERE PretrialServiceParticipationID = ?";
+//	String PRETRIAL_SERVICE_PERSON_DELETE = "DELETE FROM Person WHERE personId = ?";
+//	String PRETRIAL_PERSON_ID_SELECT = "SELECT personId FROM PretrialServiceParticipation WHERE PretrialServiceParticipationID = ?";
+//	String PRETRIAL_SERVICE_ASSOCIATION_DELETE="delete from PretrialServiceAssociation where PretrialServiceParticipationID = ?";
+//	String PRETRIAL_SERVICE_NEED_ASSOCIATION_DELETE="delete from PretrialServiceNeedAssociation where PretrialServiceParticipationID = ?";
+//	@Override
+//	@Transactional
+//	public void deletePretrialServiceParticipation(
+//			Integer pretrialServiceParticipationID) throws Exception {
+//		
+//			jdbcTemplate.update(PRETRIAL_SERVICE_ASSOCIATION_DELETE, pretrialServiceParticipationID);
+//			jdbcTemplate.update(PRETRIAL_SERVICE_NEED_ASSOCIATION_DELETE, pretrialServiceParticipationID); 
+//			Integer personId = jdbcTemplate.queryForObject(PRETRIAL_PERSON_ID_SELECT, Integer.class, pretrialServiceParticipationID);
+//			int resultSize = this.jdbcTemplate.update(PRETRIAL_SERVICE_PARTICIPATION_DELETE, new Object[] { pretrialServiceParticipationID });
+//			
+//			if (resultSize == 0){
+//				throw new Exception("No Pretrial Service Participation found with PretrialServiceParticipationID of: " + pretrialServiceParticipationID);
+//			}	
+//			
+//			if (personId != null){
+//				jdbcTemplate.update(PRETRIAL_SERVICE_PERSON_DELETE, personId);
+//			}
+//
+//		
+//	}
 }
