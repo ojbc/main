@@ -18,9 +18,6 @@ package org.ojbc.adapters.analyticsstaging.custody;
 
 import static org.junit.Assert.assertTrue;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import javax.annotation.Resource;
 
 import org.apache.camel.Produce;
