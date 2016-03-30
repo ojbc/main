@@ -34,7 +34,7 @@
 		<property name="propertiesArray">
 			<array>
 				<util:properties
-					location="classpath:analytical_custody_data_store_persistence_adapter.cfg" />
+					location="classpath:custody_analytics_staging_adapter.cfg" />
 			</array>
 		</property>
 	</bean>
