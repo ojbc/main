@@ -25,11 +25,12 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 
 	private static final Log log = LogFactory.getLog( BookingReportProcessor.class );
 	
-	private static final String PATH_TO_LEXS_DATA_ITEM_PACKAGE="//lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage";
-	
 	@Transactional
-	public void processReport(Document incidentReport) throws Exception
+	public void processReport(Document bookingReport) throws Exception
 	{
+		log.info("Processing booking report.");
+		
+		log.info("Processed booking report.");
 	}
 
 }
