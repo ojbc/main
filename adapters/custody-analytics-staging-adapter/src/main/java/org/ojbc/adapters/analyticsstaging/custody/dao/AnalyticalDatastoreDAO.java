@@ -16,8 +16,6 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao;
 
-import java.util.List;
-
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Agency;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonRace;
@@ -27,34 +25,14 @@ public interface AnalyticalDatastoreDAO {
 
 	public Integer saveAgency(Agency agency);
 	
-	public Integer saveIncidentType(IncidentType incidentType);
-	
-	public Integer saveIncidentCircumstance(IncidentCircumstance incidentCircumstance);
-	
 	public Integer savePersonSex(PersonSex personSex);
 	
 	public Integer savePersonRace(PersonRace personRace);
 	
 	public Integer savePerson(Person person);
 	
-	public void savePretrialServiceNeedAssociations(
-			final List<Integer> assessedNeedsIds, final int pretrialServiceParticipationId);
-	
-	public List<IncidentCircumstance> returnCircumstancesFromIncident(Integer incidentPk);
-	
-	public List<IncidentType> returnIncidentDescriptionsFromIncident(Integer incidentPk);
-	
 	public Integer searchForAgenyIDbyAgencyORI(String agencyORI);
 	
 	public Person getPerson(Integer personId);
 
-	public void savePretrialServiceAssociations(
-			final List<Integer> pretrialServiceIds,
-			final int pretrialServiceParticipationPkId);
-
-	public void deleteIncident(Integer incidentID) throws Exception;
-	
-	public void deleteDisposition(Integer dispositionID) throws Exception;
-	
-	public void deletePretrialServiceParticipation(Integer pretrialServiceParticipationID) throws Exception;
 }
