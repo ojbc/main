@@ -40,33 +40,33 @@
     ">
 
 	<cxf:cxfEndpoint id="bookingReportingServiceAdapter"
-		address="${custody.dataStoreAdapter.bookingReportServiceAdapterEndpoint}"
+		address="${custody.stagingAdapter.bookingReportServiceAdapterEndpoint}"
 		wsdlURL="classpath:ssp/Booking_Reporting/schemas/RS_WS-SIP_v1.2/Booking_Reporting_Service.wsdl"
 		serviceName="ojbc:Booking-Reporting-ServiceService" endpointName="ojbc:Booking-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/BookingReportingService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="custodyDataStoreAdapterKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${custody.dataStoreAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.signature.username" value="${custody.stagingAdapter.keystoreCertificateAlias}" />
 		</cxf:properties> 
 	</cxf:cxfEndpoint>
 
 	<cxf:cxfEndpoint id="behavioralHealthReportingServiceAdapter"
-		address="${custody.dataStoreAdapter.behavioralHealthReportServiceAdapterEndpoint}"
+		address="${custody.stagingAdapter.behavioralHealthReportServiceAdapterEndpoint}"
 		wsdlURL="classpath:ssp/Behavioral_Health_Evalutation_Reporting/schemas/RS_WS-SIP_v1.2/BehavioralHealthEvaluationReportingService.wsdl"
 		serviceName="ojbc:Behavioral-Health-Evaluation-Reporting-ServiceService" endpointName="ojbc:Behavioral-Health-Evaluation-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/BehavioralHealthEvaluationReportingService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="custodyDataStoreAdapterKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${custody.dataStoreAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.signature.username" value="${custody.stagingAdapter.keystoreCertificateAlias}" />
 		</cxf:properties> 
 	</cxf:cxfEndpoint>
 
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
-                <entry key="${custody.dataStoreAdapter.keystoreCertificateAlias}" value="${custody.dataStoreAdapter.keyPassword}"/>
+                <entry key="${custody.stagingAdapter.keystoreCertificateAlias}" value="${custody.stagingAdapter.keyPassword}"/>
             </map>
         </property>
 	</bean>
@@ -74,9 +74,9 @@
 	<util:properties id="custodyDataStoreAdapterKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${custody.dataStoreAdapter.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${custody.dataStoreAdapter.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${custody.dataStoreAdapter.keystoreLocation}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${custody.stagingAdapter.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${custody.stagingAdapter.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${custody.stagingAdapter.keystoreLocation}</prop>
 	</util:properties>	
       
 </beans>

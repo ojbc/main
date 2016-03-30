@@ -223,8 +223,8 @@
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 	
 	<bean id="indexedIdentifierGenerationStrategy" class="org.ojbc.adapters.analyticsstaging.custody.personid.IndexedIdentifierGenerationStrategy"  destroy-method="destroy">
-		<constructor-arg name="indexDirectoryPath" value="${custody.dataStoreAdapter.luceneDirectory}"/>
-		<constructor-arg name="indexBackupRoot" value="${custody.dataStoreAdapter.luceneBackupDirectory}"/>
+		<constructor-arg name="indexDirectoryPath" value="${custody.stagingAdapter.luceneDirectory}"/>
+		<constructor-arg name="indexBackupRoot" value="${custody.stagingAdapter.luceneBackupDirectory}"/>
 	</bean>
 
 	<bean id ="bookingReportProcessor" class="org.ojbc.adapters.analyticsstaging.custody.processor.BookingReportProcessor">
