@@ -352,8 +352,8 @@ public class SubscriptionSearchQueryDAO {
         log.debug("End Date String: " + endDateString);
         log.debug("System Name: " + subscribingSystemId);
         log.debug("Subscription System ID: " + subscriptionSystemId);
+        log.debug("Reason Category Code = " + reasonCategoryCode);
         
-        log.info("\n\n\n reasonCategoryCode = " + reasonCategoryCode + "\n\n\n");
         if(StringUtils.isEmpty(reasonCategoryCode)){
         	log.warn("\n\n\n reasonCategoryCode empty, so inserting null into db \n\n\n");
         	reasonCategoryCode = null;
