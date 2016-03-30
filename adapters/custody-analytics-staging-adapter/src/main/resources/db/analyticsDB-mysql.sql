@@ -24,6 +24,7 @@ use BookingAnalyticsDataStore;
 *                `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 **/
 
+
 CREATE TABLE Language (
                 LanguageID INT AUTO_INCREMENT NOT NULL,
                 Language VARCHAR(20) NOT NULL,
@@ -31,10 +32,10 @@ CREATE TABLE Language (
 );
 
 
-CREATE TABLE Education (
-                EducationID INT AUTO_INCREMENT NOT NULL,
+CREATE TABLE EducationLevel (
+                EducationLevelID INT AUTO_INCREMENT NOT NULL,
                 EducationLevel VARCHAR(50) NOT NULL,
-                PRIMARY KEY (EducationID)
+                PRIMARY KEY (EducationLevelID)
 );
 
 
@@ -113,9 +114,9 @@ CREATE TABLE PersonSex (
 
 CREATE TABLE Person (
                 PersonID INT AUTO_INCREMENT NOT NULL,
-                StagingPersonUniqueIdentifier VARCHAR(36) NOT NULL,
+                PersonUniqueIdentifier VARCHAR(36) NOT NULL,
                 PersonSexID INT NOT NULL,
-                DOB DATE NOT NULL,
+                PersonBirthDate DATE NOT NULL,
                 PersonRaceID INT NOT NULL,
                 LanguageID INT NOT NULL,
                 PRIMARY KEY (PersonID)
@@ -127,8 +128,8 @@ CREATE TABLE BookingSubject (
                 RecidivistIndicator SMALLINT DEFAULT 0 NOT NULL,
                 PersonID INT NOT NULL,
                 BookingNumber VARCHAR(50) NOT NULL,
-                Age INT NOT NULL,
-                EducationID INT NOT NULL,
+                PersonAge INT NOT NULL,
+                EducationLevelID INT NOT NULL,
                 OccupationID INT NOT NULL,
                 IncomeLevelID INT NOT NULL,
                 HousingStatusID INT NOT NULL,
@@ -178,7 +179,7 @@ CREATE TABLE Booking (
                 JurisdictionID INT NOT NULL,
                 BookingReportDate DATETIME NOT NULL,
                 BookingReportID VARCHAR(30) NOT NULL,
-                SendingAgency INT NOT NULL,
+                SendingAgencyID INT NOT NULL,
                 CaseStatusID INT NOT NULL,
                 BookingDate DATE NOT NULL,
                 SupervisionReleaseDate DATE NOT NULL,
@@ -209,8 +210,8 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE BookingSubject ADD CONSTRAINT education_bookingsubject_fk
-FOREIGN KEY (EducationID)
-REFERENCES Education (EducationID)
+FOREIGN KEY (EducationLevelID)
+REFERENCES EducationLevel (EducationLevelID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
@@ -311,7 +312,7 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE Booking ADD CONSTRAINT agency_booking_fk
-FOREIGN KEY (SendingAgency)
+FOREIGN KEY (SendingAgencyID)
 REFERENCES Agency (AgencyID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;

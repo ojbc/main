@@ -119,16 +119,16 @@ insert into Occupation (OccupationID, Occupation) values('12', 'Occupation 12');
 insert into Occupation (OccupationID, Occupation) values('98', 'Other');
 insert into Occupation (OccupationID, Occupation) values('99', 'Unknown');
 
--- Education
-insert into Education (EducationID, EducationLevel) values('1', 'Level 1');
-insert into Education (EducationID, EducationLevel) values('2', 'Level 2');
-insert into Education (EducationID, EducationLevel) values('3', 'Level 3');
-insert into Education (EducationID, EducationLevel) values('4', 'Level 4');
-insert into Education (EducationID, EducationLevel) values('5', 'Level 5');
-insert into Education (EducationID, EducationLevel) values('6', 'Level 6');
-insert into Education (EducationID, EducationLevel) values('7', 'Level 7');
-insert into Education (EducationID, EducationLevel) values('8', 'Other');
-insert into Education (EducationID, EducationLevel) values('9', 'Unknown');
+-- EducationLevel
+insert into EducationLevel (EducationLevelID, EducationLevel) values('1', 'Level 1');
+insert into EducationLevel (EducationLevelID, EducationLevel) values('2', 'Level 2');
+insert into EducationLevel (EducationLevelID, EducationLevel) values('3', 'Level 3');
+insert into EducationLevel (EducationLevelID, EducationLevel) values('4', 'Level 4');
+insert into EducationLevel (EducationLevelID, EducationLevel) values('5', 'Level 5');
+insert into EducationLevel (EducationLevelID, EducationLevel) values('6', 'Level 6');
+insert into EducationLevel (EducationLevelID, EducationLevel) values('7', 'Level 7');
+insert into EducationLevel (EducationLevelID, EducationLevel) values('8', 'Other');
+insert into EducationLevel (EducationLevelID, EducationLevel) values('9', 'Unknown');
 
 -- Language
 insert into Language (LanguageID, Language) values('1', 'Language 1');
