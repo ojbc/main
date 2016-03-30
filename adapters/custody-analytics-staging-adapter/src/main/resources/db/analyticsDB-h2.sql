@@ -23,11 +23,11 @@ ALTER TABLE Language ADD CONSTRAINT languageid PRIMARY KEY (LanguageID);
 
 CREATE SEQUENCE Language_LanguageID_seq_1_1;
 
-CREATE TABLE Education (EducationID INT AUTO_INCREMENT NOT NULL, EducationLevel VARCHAR(50) NOT NULL);
+CREATE TABLE EducationLevel (EducationLevelID INT AUTO_INCREMENT NOT NULL, EducationLevel VARCHAR(50) NOT NULL);
 
-ALTER TABLE Education ADD CONSTRAINT educationid PRIMARY KEY (EducationID);
+ALTER TABLE EducationLevel ADD CONSTRAINT educationid PRIMARY KEY (EducationLevelID);
 
-CREATE SEQUENCE Education_EducationID_seq_1;
+CREATE SEQUENCE EducationLevel_EducationLevelID_seq;
 
 CREATE TABLE Occupation (OccupationID INT AUTO_INCREMENT NOT NULL, Occupation VARCHAR(50) NOT NULL);
 
@@ -89,13 +89,13 @@ ALTER TABLE PersonSex ADD CONSTRAINT personsexid PRIMARY KEY (PersonSexID);
 
 CREATE SEQUENCE PersonSex_PersonSexID_seq_1;
 
-CREATE TABLE Person (PersonID INT AUTO_INCREMENT NOT NULL, StagingPersonUniqueIdentifier VARCHAR(36) NOT NULL, PersonSexID INT NOT NULL, DOB date NOT NULL, PersonRaceID INT NOT NULL, LanguageID INT NOT NULL);
+CREATE TABLE Person (PersonID INT AUTO_INCREMENT NOT NULL, PersonUniqueIdentifier VARCHAR(36) NOT NULL, PersonSexID INT NOT NULL, PersonBirthDate date NOT NULL, PersonRaceID INT NOT NULL, LanguageID INT NOT NULL);
 
 ALTER TABLE Person ADD CONSTRAINT personid PRIMARY KEY (PersonID);
 
 CREATE SEQUENCE Person_PersonID_seq_1;
 
-CREATE TABLE BookingSubject (BookingSubjectID BIGINT AUTO_INCREMENT NOT NULL, RecidivistIndicator SMALLINT DEFAULT 0 NOT NULL, PersonID INT NOT NULL, BookingNumber VARCHAR(50) NOT NULL, Age INT NOT NULL, EducationID INT NOT NULL, OccupationID INT NOT NULL, IncomeLevelID INT NOT NULL, HousingStatusID INT NOT NULL);
+CREATE TABLE BookingSubject (BookingSubjectID BIGINT AUTO_INCREMENT NOT NULL, RecidivistIndicator SMALLINT DEFAULT 0 NOT NULL, PersonID INT NOT NULL, BookingNumber VARCHAR(50) NOT NULL, PersonAge INT NOT NULL, EducationLevelID INT NOT NULL, OccupationID INT NOT NULL, IncomeLevelID INT NOT NULL, HousingStatusID INT NOT NULL);
 
 ALTER TABLE BookingSubject ADD CONSTRAINT bookingsubjectid PRIMARY KEY (BookingSubjectID);
 
@@ -131,7 +131,7 @@ ALTER TABLE Agency ADD CONSTRAINT agencyid PRIMARY KEY (AgencyID);
 
 CREATE SEQUENCE Agency_AgencyID_seq_1;
 
-CREATE TABLE Booking (BookingID BIGINT AUTO_INCREMENT NOT NULL, JurisdictionID INT NOT NULL, BookingReportDate TIMESTAMP NOT NULL, BookingReportID VARCHAR(30) NOT NULL, SendingAgency INT NOT NULL, CaseStatusID INT NOT NULL, BookingDate date NOT NULL, SupervisionReleaseDate date NOT NULL, PretrialStatusID INT NOT NULL, FacilityID INT NOT NULL, BedTypeID INT NOT NULL, ArrestLocationLatitude NUMBER(14, 10), ArrestLocationLongitude NUMBER(14, 10), BookingSubjectID BIGINT NOT NULL);
+CREATE TABLE Booking (BookingID BIGINT AUTO_INCREMENT NOT NULL, JurisdictionID INT NOT NULL, BookingReportDate TIMESTAMP NOT NULL, BookingReportID VARCHAR(30) NOT NULL, SendingAgencyID INT NOT NULL, CaseStatusID INT NOT NULL, BookingDate date NOT NULL, SupervisionReleaseDate date NOT NULL, PretrialStatusID INT NOT NULL, FacilityID INT NOT NULL, BedTypeID INT NOT NULL, ArrestLocationLatitude NUMBER(14, 10), ArrestLocationLongitude NUMBER(14, 10), BookingSubjectID BIGINT NOT NULL);
 
 ALTER TABLE Booking ADD CONSTRAINT bookingid PRIMARY KEY (BookingID);
 
@@ -145,7 +145,7 @@ CREATE SEQUENCE BookingCharge_BookingChargeID_seq;
 
 ALTER TABLE Person ADD CONSTRAINT language_person_fk FOREIGN KEY (LanguageID) REFERENCES Language (LanguageID);
 
-ALTER TABLE BookingSubject ADD CONSTRAINT education_bookingsubject_fk FOREIGN KEY (EducationID) REFERENCES Education (EducationID);
+ALTER TABLE BookingSubject ADD CONSTRAINT education_bookingsubject_fk FOREIGN KEY (EducationLevelID) REFERENCES EducationLevel (EducationLevelID);
 
 ALTER TABLE BookingSubject ADD CONSTRAINT occupation_bookingsubject_fk FOREIGN KEY (OccupationID) REFERENCES Occupation (OccupationID);
 
@@ -179,7 +179,6 @@ ALTER TABLE Booking ADD CONSTRAINT status_booking_fk FOREIGN KEY (CaseStatusID) 
 
 ALTER TABLE Booking ADD CONSTRAINT jurisdiction_booking_fk FOREIGN KEY (JurisdictionID) REFERENCES Jurisdiction (JurisdictionID);
 
-ALTER TABLE Booking ADD CONSTRAINT agency_booking_fk FOREIGN KEY (SendingAgency) REFERENCES Agency (AgencyID);
+ALTER TABLE Booking ADD CONSTRAINT agency_booking_fk FOREIGN KEY (SendingAgencyID) REFERENCES Agency (AgencyID);
 
 ALTER TABLE BookingCharge ADD CONSTRAINT booking_charge_fk FOREIGN KEY (BookingID) REFERENCES Booking (BookingID);
-
