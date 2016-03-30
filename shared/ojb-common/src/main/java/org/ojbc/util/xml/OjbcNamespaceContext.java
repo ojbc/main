@@ -682,7 +682,16 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static String NS_COURT_CASE_QUERY_REQ_EXT="http://ojbc.org/IEPD/Extensions/CourtCaseQueryRequestExtension/1.0";
 	public static String NS_PREFIX_COURT_CASE_QUERY_REQ_EXT="ccq-req-ext";
-    
+
+	public static String NS_WARRANT_ISSUED_REPORT="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0";
+	public static String NS_PREFIX_WARRANT_ISSUED_REPORT="wir-doc";
+	
+	public static String NS_WARRANT_ISSUED_REPORTING_EXT="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0";
+	public static String NS_PREFIX_WARRANT_ISSUED_REPORTING_EXT="wir-ext";
+
+	public static String NS_CHARGE_REFERRAL_REPORTING="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0";
+	public static String NS_PREFIX_CHARGE_REFERRAL_REPORTING="crr-doc";
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -691,7 +700,16 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();	
-		
+
+		prefixToUriMap.put(NS_PREFIX_WARRANT_ISSUED_REPORT, NS_WARRANT_ISSUED_REPORT);
+		uriToPrefixMap.put(NS_WARRANT_ISSUED_REPORT, NS_PREFIX_WARRANT_ISSUED_REPORT);
+
+		prefixToUriMap.put(NS_PREFIX_WARRANT_ISSUED_REPORTING_EXT, NS_WARRANT_ISSUED_REPORTING_EXT);
+		uriToPrefixMap.put(NS_WARRANT_ISSUED_REPORTING_EXT, NS_PREFIX_WARRANT_ISSUED_REPORTING_EXT);
+
+		prefixToUriMap.put(NS_PREFIX_CHARGE_REFERRAL_REPORTING, NS_CHARGE_REFERRAL_REPORTING);
+		uriToPrefixMap.put(NS_CHARGE_REFERRAL_REPORTING, NS_PREFIX_CHARGE_REFERRAL_REPORTING);
+
 		prefixToUriMap.put(NS_PREFIX_CYFS_31, NS_CYFS_31);
 		uriToPrefixMap.put(NS_CYFS_31, NS_PREFIX_CYFS_31);
 				
