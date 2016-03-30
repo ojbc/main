@@ -222,30 +222,17 @@
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 	
-<!-- 	<bean id="indexedIdentifierGenerationStrategy" class="org.ojbc.adapters.analyticaldatastore.personid.IndexedIdentifierGenerationStrategy"  destroy-method="destroy">
-		<constructor-arg name="indexDirectoryPath" value="${analyticsAdapter.luceneDirectory}"/>
-		<constructor-arg name="indexBackupRoot" value="${analyticsAdapter.luceneBackupDirectory}"/>
+	<bean id="indexedIdentifierGenerationStrategy" class="org.ojbc.adapters.analyticaldatastore.custody.personid.IndexedIdentifierGenerationStrategy"  destroy-method="destroy">
+		<constructor-arg name="indexDirectoryPath" value="${custody.dataStoreAdapter.luceneDirectory}"/>
+		<constructor-arg name="indexBackupRoot" value="${custody.dataStoreAdapter.luceneBackupDirectory}"/>
 	</bean>
-	
-	<bean id ="incidentReportProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.IncidentReportProcessor">
+
+	<bean id ="bookingReportProcessor" class="org.ojbc.adapters.analyticaldatastore.custody.processor.BookingReportProcessor">
 		<property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy"/>
 		<property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl"/>
 		<property name="descriptionCodeLookupService" ref="descriptionCodeLookupService"/>
 	</bean>
 
-	<bean id ="dispositionReportProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.DispositionReportProcessor">
-		<property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy"/>
-		<property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl"/>
-		<property name="descriptionCodeLookupService" ref="descriptionCodeLookupService"/>
-	</bean>
-		
-	<bean id ="pretrialEnrollmentReportProcessor" class="org.ojbc.adapters.analyticaldatastore.processor.PretrialEnrollmentReportProcessor">
-		<property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy"/>
-		<property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl"/>
-		<property name="descriptionCodeLookupService" ref="descriptionCodeLookupService"/>
-	</bean>	
-	
- -->
  	<bean id="analyticalDatastoreDAOImpl" class="org.ojbc.adapters.analyticaldatastore.custody.dao.AnalyticalDatastoreDAOImpl">
         <property name="dataSource" ref="dataSource"/>
 	</bean>
