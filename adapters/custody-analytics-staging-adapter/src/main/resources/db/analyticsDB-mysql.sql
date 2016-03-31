@@ -25,6 +25,7 @@ use BookingAnalyticsDataStore;
 **/
 
 
+
 CREATE TABLE Language (
                 LanguageID INT AUTO_INCREMENT NOT NULL,
                 Language VARCHAR(20) NOT NULL,
@@ -119,12 +120,13 @@ CREATE TABLE Person (
                 PersonBirthDate DATE,
                 PersonRaceID INT,
                 LanguageID INT,
+                CreationDate DATETIME DEFAULT now() NOT NULL,
                 PRIMARY KEY (PersonID)
 );
 
 
 CREATE TABLE BookingSubject (
-                BookingSubjectID BIGINT AUTO_INCREMENT NOT NULL,
+                BookingSubjectID INT AUTO_INCREMENT NOT NULL,
                 RecidivistIndicator SMALLINT DEFAULT 0 NOT NULL,
                 PersonID INT NOT NULL,
                 BookingNumber VARCHAR(50) NOT NULL,
@@ -188,7 +190,7 @@ CREATE TABLE Booking (
                 BedTypeID INT NOT NULL,
                 ArrestLocationLatitude NUMERIC(14,10),
                 ArrestLocationLongitude NUMERIC(14,10),
-                BookingSubjectID BIGINT NOT NULL,
+                BookingSubjectID INT NOT NULL,
                 PRIMARY KEY (BookingID)
 );
 

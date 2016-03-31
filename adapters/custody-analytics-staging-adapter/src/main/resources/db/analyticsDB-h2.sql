@@ -89,13 +89,13 @@ ALTER TABLE PersonSex ADD CONSTRAINT personsexid PRIMARY KEY (PersonSexID);
 
 CREATE SEQUENCE PersonSex_PersonSexID_seq_1;
 
-CREATE TABLE Person (PersonID INT AUTO_INCREMENT NOT NULL, PersonUniqueIdentifier VARCHAR(36) NOT NULL, PersonSexID INT, PersonBirthDate date, PersonRaceID INT, LanguageID INT);
+CREATE TABLE Person (PersonID INT AUTO_INCREMENT NOT NULL, PersonUniqueIdentifier VARCHAR(36) NOT NULL, PersonSexID INT, PersonBirthDate date, PersonRaceID INT, LanguageID INT, CreationDate TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE Person ADD CONSTRAINT personid PRIMARY KEY (PersonID);
 
 CREATE SEQUENCE Person_PersonID_seq_1;
 
-CREATE TABLE BookingSubject (BookingSubjectID BIGINT AUTO_INCREMENT NOT NULL, RecidivistIndicator SMALLINT DEFAULT 0 NOT NULL, PersonID INT NOT NULL, BookingNumber VARCHAR(50) NOT NULL, PersonAge INT, EducationLevelID INT, OccupationID INT, IncomeLevelID INT, HousingStatusID INT);
+CREATE TABLE BookingSubject (BookingSubjectID INT AUTO_INCREMENT NOT NULL, RecidivistIndicator SMALLINT DEFAULT 0 NOT NULL, PersonID INT NOT NULL, BookingNumber VARCHAR(50) NOT NULL, PersonAge INT, EducationLevelID INT, OccupationID INT, IncomeLevelID INT, HousingStatusID INT);
 
 ALTER TABLE BookingSubject ADD CONSTRAINT bookingsubjectid PRIMARY KEY (BookingSubjectID);
 
@@ -131,7 +131,7 @@ ALTER TABLE Agency ADD CONSTRAINT agencyid PRIMARY KEY (AgencyID);
 
 CREATE SEQUENCE Agency_AgencyID_seq_1;
 
-CREATE TABLE Booking (BookingID BIGINT AUTO_INCREMENT NOT NULL, JurisdictionID INT NOT NULL, BookingReportDate TIMESTAMP NOT NULL, BookingReportID VARCHAR(30) NOT NULL, SendingAgencyID INT NOT NULL, CaseStatusID INT NOT NULL, BookingDate date NOT NULL, SupervisionReleaseDate date NOT NULL, PretrialStatusID INT NOT NULL, FacilityID INT NOT NULL, BedTypeID INT NOT NULL, ArrestLocationLatitude NUMBER(14, 10), ArrestLocationLongitude NUMBER(14, 10), BookingSubjectID BIGINT NOT NULL);
+CREATE TABLE Booking (BookingID BIGINT AUTO_INCREMENT NOT NULL, JurisdictionID INT NOT NULL, BookingReportDate TIMESTAMP NOT NULL, BookingReportID VARCHAR(30) NOT NULL, SendingAgencyID INT NOT NULL, CaseStatusID INT NOT NULL, BookingDate date NOT NULL, SupervisionReleaseDate date NOT NULL, PretrialStatusID INT NOT NULL, FacilityID INT NOT NULL, BedTypeID INT NOT NULL, ArrestLocationLatitude NUMBER(14, 10), ArrestLocationLongitude NUMBER(14, 10), BookingSubjectID INT NOT NULL);
 
 ALTER TABLE Booking ADD CONSTRAINT bookingid PRIMARY KEY (BookingID);
 
