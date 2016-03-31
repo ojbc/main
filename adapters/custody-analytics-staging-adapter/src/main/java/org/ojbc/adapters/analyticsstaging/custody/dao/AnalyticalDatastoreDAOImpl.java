@@ -45,6 +45,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.transaction.annotation.Transactional;
 
 public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
@@ -126,7 +127,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	@Override
 	public Integer savePerson(final Person person) {
-        log.debug("Inserting row into Person table");
+        log.debug("Inserting row into Person table: " + person.toString());
 
         final String personStatement="INSERT into Person (PersonSexID, PersonRaceID, PersonBirthDate, PersonUniqueIdentifier, LanguageID) values (?,?,?,?,?)";
         
@@ -154,26 +155,12 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            {
         	            	ps.setNull(2, java.sql.Types.NULL);
         	            }	
-
-        	            if (person.getPersonBirthDate() != null)
-        	            {	
-        	            	ps.setDate(3, new java.sql.Date(person.getPersonBirthDate().getTime()));
-        	            }
-        	            else
-        	            {
-        	            	ps.setNull(3, java.sql.Types.NULL);
-        	            }	
+        	            
+        	            setPreparedStatementVariable(person.getPersonBirthDate(), ps, 3);
         	            
         	            ps.setString(4, String.valueOf(person.getPersonUniqueIdentifier()));
 
-        	            if (person.getLanguageId() != null)
-        	            {	
-        	            	ps.setInt(5, person.getLanguageId());
-        	            }
-        	            else
-        	            {
-        	            	ps.setNull(5, java.sql.Types.NULL);
-        	            }	
+        	            setPreparedStatementVariable(person.getLanguageId(), ps, 5);
         	            
         	            return ps;
         	        }
@@ -201,7 +188,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Person person = new Person();
 	    	
-			person.setPersonBirthDate(rs.getDate("PersonBirthDate"));
+			person.setPersonBirthDate(rs.getDate("PersonBirthDate").toLocalDate());
 			person.setPersonID(rs.getInt("PersonID"));
 			person.setPersonRaceDescription(rs.getString("PersonRaceDescription"));
 			person.setPersonSexDescription(rs.getString("PersonSexDescription"));
@@ -292,7 +279,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	@Override
 	public Integer saveBookingSubject(BookingSubject bookingSubject) {
-        log.debug("Inserting row into BookingSubject table");
+        log.info("Inserting row into BookingSubject table");
 
         final String sqlString="INSERT into BookingSubject ("
         		+ "RecidivistIndicator, " //1
@@ -395,7 +382,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        		sqlString="INSERT into booking (JurisdictionID, BookingReportDate,"
         	        				+ "BookingReportID, SendingAgencyID, CaseStatusID, "
         	        				+ "BookingDate, SupervisionReleaseDate, PretrialStatusID, "
-        	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude "
+        	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude, "
         	        				+ "BookingSubjectID, BookingID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
@@ -408,7 +395,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        		sqlString="INSERT into booking (JurisdictionID, BookingReportDate,"
         	        				+ "BookingReportID, SendingAgencyID, CaseStatusID, "
         	        				+ "BookingDate, SupervisionReleaseDate, PretrialStatusID, "
-        	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude "
+        	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude, "
         	        				+ "BookingSubjectID) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	        		
         	        	}	
@@ -432,7 +419,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            setPreparedStatementVariable(booking.getArrestLocationLatitude(), ps, 11);
         	            setPreparedStatementVariable(booking.getArrestLocationLongitude(), ps, 12);
         	            setPreparedStatementVariable(booking.getBookingSubjectId(), ps, 13);
-        	            setPreparedStatementVariable(booking.getBookingId(), ps, 14);
+        	            
+        	            if (booking.getBookingId() != null){
+        	            	setPreparedStatementVariable(booking.getBookingId(), ps, 14);
+        	            }
         	            
         	            return ps;
         	        }
@@ -477,29 +467,59 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         }
 	}
 
-//	String PRETRIAL_SERVICE_PARTICIPATION_DELETE = "DELETE FROM booking WHERE bookingID = ?";
-//	String PRETRIAL_SERVICE_PERSON_DELETE = "DELETE FROM Person WHERE personId = ?";
-//	String PRETRIAL_PERSON_ID_SELECT = "SELECT personId FROM booking WHERE bookingID = ?";
-//	String PRETRIAL_SERVICE_ASSOCIATION_DELETE="delete from PretrialServiceAssociation where bookingID = ?";
-//	String PRETRIAL_SERVICE_NEED_ASSOCIATION_DELETE="delete from PretrialServiceNeedAssociation where bookingID = ?";
-//	@Override
-//	@Transactional
-//	public void deletebooking(
-//			Integer bookingID) throws Exception {
-//		
-//			jdbcTemplate.update(PRETRIAL_SERVICE_ASSOCIATION_DELETE, bookingID);
-//			jdbcTemplate.update(PRETRIAL_SERVICE_NEED_ASSOCIATION_DELETE, bookingID); 
-//			Integer personId = jdbcTemplate.queryForObject(PRETRIAL_PERSON_ID_SELECT, Integer.class, bookingID);
-//			int resultSize = this.jdbcTemplate.update(PRETRIAL_SERVICE_PARTICIPATION_DELETE, new Object[] { bookingID });
-//			
-//			if (resultSize == 0){
-//				throw new Exception("No Pretrial Service Participation found with bookingID of: " + bookingID);
-//			}	
-//			
-//			if (personId != null){
-//				jdbcTemplate.update(PRETRIAL_SERVICE_PERSON_DELETE, personId);
-//			}
-//
-//		
-//	}
+	@Override
+	@Transactional
+	public void deleteBooking(Integer bookingId) {
+		String bookingDeleteSql = "DELETE FROM booking WHERE bookingID = ?";
+		String bookingChargeDeleteSql = "DELETE FROM BookingCharge WHERE bookingId = ?";
+		String bookingSubjectIdSelectSql = "SELECT bookingSubjectId FROM booking WHERE bookingID = ?";
+		String bookingSubjectDeleteSql="delete from BookingSubject where bookingSubjectId = ?";
+		
+		Integer bookingSubjectId = jdbcTemplate.queryForObject(bookingSubjectIdSelectSql, Integer.class, bookingId);
+		jdbcTemplate.update(bookingChargeDeleteSql, bookingId);
+		jdbcTemplate.update(bookingDeleteSql, bookingId);
+		
+		if (bookingSubjectId != null){
+			jdbcTemplate.update(bookingSubjectDeleteSql, bookingSubjectId);
+		}
+		
+	}
+
+	@Override
+	public Booking getBookingByBookingReportId(String bookingReportId) {
+		final String sql = "SELECT * FROM Booking WHERE bookingReportId = ?";
+		
+		List<Booking> bookings = 
+				jdbcTemplate.query(sql, 
+						new BookingRowMapper(), bookingReportId);
+		
+		return DataAccessUtils.singleResult(bookings);
+	}
+
+	public class BookingRowMapper implements RowMapper<Booking>
+	{
+		@Override
+		public Booking mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Booking booking = new Booking();
+	    	
+			booking.setBookingId(rs.getInt("BookingID"));
+			booking.setBookingReportDate(rs.getTimestamp("BookingReportDate").toLocalDateTime());
+			booking.setBookingReportId(rs.getString("BookingReportID"));
+			booking.setSendingAgencyId(rs.getInt("SendingAgencyID"));
+			booking.setCaseStatusId(rs.getInt("CaseStatusID"));
+			booking.setBookingDate(rs.getDate("BookingReportDate").toLocalDate());
+			booking.setSupervisionReleaseDate(rs.getDate("SupervisionReleaseDate").toLocalDate());
+			booking.setPretrialStatusId(rs.getInt("PretrialStatusID"));
+			booking.setFacilityId(rs.getInt("FacilityID"));
+			booking.setBedTypeId(rs.getInt("BedTypeID"));
+			booking.setArrestLocationLatitude(rs.getBigDecimal("ArrestLocationLatitude"));
+			booking.setArrestLocationLongitude(rs.getBigDecimal("ArrestLocationLongitude"));
+			booking.setBookingSubjectId(rs.getInt("BookingSubjectID"));
+			
+	    	return booking;
+		}
+
+	}
+
+
 }

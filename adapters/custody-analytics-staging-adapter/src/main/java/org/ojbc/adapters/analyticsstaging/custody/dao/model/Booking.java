@@ -41,7 +41,7 @@ public class Booking implements Serializable{
 	private Integer bedTypeId; 
 	private BigDecimal arrestLocationLatitude; 
 	private BigDecimal arrestLocationLongitude; 
-	private Long bookingSubjectId; 
+	private Integer bookingSubjectId; 
 	
 	public Integer getBookingId() {
 		return bookingId;
@@ -151,11 +151,11 @@ public class Booking implements Serializable{
 		this.arrestLocationLongitude = arrestLocationLongitude;
 	}
 
-	public Long getBookingSubjectId() {
+	public Integer getBookingSubjectId() {
 		return bookingSubjectId;
 	}
 
-	public void setBookingSubjectId(Long bookingSubjectId) {
+	public void setBookingSubjectId(Integer bookingSubjectId) {
 		this.bookingSubjectId = bookingSubjectId;
 	}
 

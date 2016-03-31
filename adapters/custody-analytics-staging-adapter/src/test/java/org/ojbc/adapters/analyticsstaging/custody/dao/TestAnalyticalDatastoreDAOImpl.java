@@ -16,6 +16,14 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
@@ -25,8 +33,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.adapters.analyticsstaging.custody.dao.AnalyticalDatastoreDAOImpl;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -40,7 +51,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/spring/cxf-endpoints.xml"
 		})
 @DirtiesContext
-@Ignore
 public class TestAnalyticalDatastoreDAOImpl {
 
 	private static final Log log = LogFactory.getLog(TestAnalyticalDatastoreDAOImpl.class);
@@ -57,4 +67,72 @@ public class TestAnalyticalDatastoreDAOImpl {
 		Assert.assertNotNull(dataSource);
 	}
 	
+	@Test
+	public void testSaveBooking() throws Exception
+	{
+		int personPk = analyticalDatastoreDAOImpl.savePerson(getStaticPerson());
+		assertEquals(1, personPk);
+		
+		BookingSubject bookingSubject = getStaticBookingSubject(); 
+		bookingSubject.setPersonId(personPk);
+		
+		int bookingSubjectPk = analyticalDatastoreDAOImpl.saveBookingSubject(bookingSubject);
+		
+		Booking booking = new Booking();
+		
+		booking.setJurisdictionId(1);
+		booking.setBookingReportDate(LocalDateTime.parse("2016-02-13T10:23:23"));
+		booking.setBookingReportId("bookingReportId");
+		booking.setSendingAgencyId(5);
+		booking.setCaseStatusId(3);
+		booking.setBookingDate(LocalDate.parse("2016-02-13"));
+		booking.setSupervisionReleaseDate(LocalDate.parse("2016-03-13"));
+		booking.setPretrialStatusId(3);
+		booking.setFacilityId(1);
+		booking.setBedTypeId(2);
+		booking.setBookingSubjectId(bookingSubjectPk);
+		
+		int bookingPk = analyticalDatastoreDAOImpl.saveBooking( booking );
+		assertEquals(1, bookingPk);
+		
+		analyticalDatastoreDAOImpl.deleteBooking(bookingPk);
+		
+		Booking matchingBooking = analyticalDatastoreDAOImpl.getBookingByBookingReportId("bookingReportId");
+		assertNull(matchingBooking);
+
+		bookingSubjectPk = analyticalDatastoreDAOImpl.saveBookingSubject(bookingSubject);
+		booking.setBookingSubjectId(bookingSubjectPk);
+		
+		//Perform an subsequent save and confirm the same PK
+		booking.setBookingId(bookingPk);
+		int updatedbookingId = analyticalDatastoreDAOImpl.saveBooking(booking);
+		assertEquals(updatedbookingId, bookingPk);
+		
+	}
+	
+	
+	protected Person getStaticPerson() {
+		Person person = new Person();
+		
+		person.setPersonRaceID(1);
+		person.setPersonSexID(2);
+		person.setPersonBirthDate(LocalDate.parse("1966-06-01"));
+		person.setPersonUniqueIdentifier("123332123123unique");
+		person.setLanguageId(2);
+		return person;
+	}
+	
+	private BookingSubject getStaticBookingSubject(){
+		BookingSubject bookingSubject = new BookingSubject();
+		bookingSubject.setRecidivistIndicator(0);
+		bookingSubject.setBookingNumber("bookingNumber");
+		bookingSubject.setPersonAge(50);
+		bookingSubject.setEducationLevelId(3);
+		bookingSubject.setOccupationId(2);
+		bookingSubject.setIncomeLevelId(2);
+		bookingSubject.setHousingStatusId(3);
+		return bookingSubject;
+	}
+
+
 }
