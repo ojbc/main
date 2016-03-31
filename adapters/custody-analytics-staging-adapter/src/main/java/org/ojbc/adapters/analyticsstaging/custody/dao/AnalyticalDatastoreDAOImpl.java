@@ -123,14 +123,14 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer savePerson(final Person person) {
         log.debug("Inserting row into Person table");
 
-        final String personStatement="INSERT into Person (PersonSexID, PersonRaceID, PersonBirthDate, PersonUniqueIdentifier) values (?,?,?,?)";
+        final String personStatement="INSERT into Person (PersonSexID, PersonRaceID, PersonBirthDate, PersonUniqueIdentifier, LanguageID) values (?,?,?,?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(personStatement, new String[] {"PersonSexID", "PersonRaceID", "PersonBirthDate", "PersonUniqueIdentifier"});
+        	                connection.prepareStatement(personStatement, new String[] {"PersonSexID", "PersonRaceID", "PersonBirthDate", "PersonUniqueIdentifier", "LanguageID"});
         	            
         	            if (person.getPersonSexID() != null)
         	            {	
@@ -161,6 +161,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            
         	            ps.setString(4, String.valueOf(person.getPersonUniqueIdentifier()));
 
+        	            if (person.getLanguageId() != null)
+        	            {	
+        	            	ps.setInt(5, person.getLanguageId());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(5, java.sql.Types.NULL);
+        	            }	
+        	            
         	            return ps;
         	        }
         	    },
