@@ -25,7 +25,7 @@ CREATE SEQUENCE Language_LanguageID_seq_1_1;
 
 CREATE TABLE EducationLevel (EducationLevelID INT AUTO_INCREMENT NOT NULL, EducationLevel VARCHAR(50) NOT NULL);
 
-ALTER TABLE EducationLevel ADD CONSTRAINT educationid PRIMARY KEY (EducationLevelID);
+ALTER TABLE EducationLevel ADD CONSTRAINT educationlevelid PRIMARY KEY (EducationLevelID);
 
 CREATE SEQUENCE EducationLevel_EducationLevelID_seq;
 
@@ -89,7 +89,7 @@ ALTER TABLE PersonSex ADD CONSTRAINT personsexid PRIMARY KEY (PersonSexID);
 
 CREATE SEQUENCE PersonSex_PersonSexID_seq_1;
 
-CREATE TABLE Person (PersonID INT AUTO_INCREMENT NOT NULL, PersonUniqueIdentifier VARCHAR(36) NOT NULL, PersonSexID INT NOT NULL, PersonBirthDate date NOT NULL, PersonRaceID INT NOT NULL, LanguageID INT NOT NULL);
+CREATE TABLE Person (PersonID INT AUTO_INCREMENT NOT NULL, PersonUniqueIdentifier VARCHAR(36) NOT NULL, PersonSexID INT, PersonBirthDate date, PersonRaceID INT, LanguageID INT);
 
 ALTER TABLE Person ADD CONSTRAINT personid PRIMARY KEY (PersonID);
 
@@ -182,3 +182,4 @@ ALTER TABLE Booking ADD CONSTRAINT jurisdiction_booking_fk FOREIGN KEY (Jurisdic
 ALTER TABLE Booking ADD CONSTRAINT agency_booking_fk FOREIGN KEY (SendingAgencyID) REFERENCES Agency (AgencyID);
 
 ALTER TABLE BookingCharge ADD CONSTRAINT booking_charge_fk FOREIGN KEY (BookingID) REFERENCES Booking (BookingID);
+
