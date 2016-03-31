@@ -95,7 +95,7 @@ ALTER TABLE Person ADD CONSTRAINT personid PRIMARY KEY (PersonID);
 
 CREATE SEQUENCE Person_PersonID_seq_1;
 
-CREATE TABLE BookingSubject (BookingSubjectID BIGINT AUTO_INCREMENT NOT NULL, RecidivistIndicator SMALLINT DEFAULT 0 NOT NULL, PersonID INT NOT NULL, BookingNumber VARCHAR(50) NOT NULL, PersonAge INT NOT NULL, EducationLevelID INT NOT NULL, OccupationID INT NOT NULL, IncomeLevelID INT NOT NULL, HousingStatusID INT NOT NULL);
+CREATE TABLE BookingSubject (BookingSubjectID BIGINT AUTO_INCREMENT NOT NULL, RecidivistIndicator SMALLINT DEFAULT 0 NOT NULL, PersonID INT NOT NULL, BookingNumber VARCHAR(50) NOT NULL, PersonAge INT, EducationLevelID INT, OccupationID INT, IncomeLevelID INT, HousingStatusID INT);
 
 ALTER TABLE BookingSubject ADD CONSTRAINT bookingsubjectid PRIMARY KEY (BookingSubjectID);
 
@@ -182,4 +182,3 @@ ALTER TABLE Booking ADD CONSTRAINT jurisdiction_booking_fk FOREIGN KEY (Jurisdic
 ALTER TABLE Booking ADD CONSTRAINT agency_booking_fk FOREIGN KEY (SendingAgencyID) REFERENCES Agency (AgencyID);
 
 ALTER TABLE BookingCharge ADD CONSTRAINT booking_charge_fk FOREIGN KEY (BookingID) REFERENCES Booking (BookingID);
-
