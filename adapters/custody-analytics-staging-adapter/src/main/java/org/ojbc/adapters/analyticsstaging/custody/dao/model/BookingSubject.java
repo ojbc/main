@@ -25,7 +25,7 @@ public class BookingSubject implements Serializable
 	private static final long serialVersionUID = 3530940339345199825L;
 	private Long bookingSubjectId;
 	private Integer recidivistIndicator; 
-	private Integer persoinId; 
+	private Integer personId; 
 	private String bookingNumber; 
 	private Integer personAge; 
 	private Integer educationLevelId; 
@@ -52,14 +52,6 @@ public class BookingSubject implements Serializable
 
 	public void setRecidivistIndicator(Integer recidivistIndicator) {
 		this.recidivistIndicator = recidivistIndicator;
-	}
-
-	public Integer getPersoinId() {
-		return persoinId;
-	}
-
-	public void setPersoinId(Integer persoinId) {
-		this.persoinId = persoinId;
 	}
 
 	public String getBookingNumber() {
@@ -108,5 +100,13 @@ public class BookingSubject implements Serializable
 
 	public void setHousingStatusId(Integer housingStatusId) {
 		this.housingStatusId = housingStatusId;
+	}
+
+	public Integer getPersonId() {
+		return personId;
+	}
+
+	public void setPersonId(Integer personId) {
+		this.personId = personId;
 	}
 }

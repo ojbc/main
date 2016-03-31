@@ -16,19 +16,24 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Agency;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAssessment;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonRace;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonSex;
@@ -40,13 +45,13 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.transaction.annotation.Transactional;
 
 public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	private static final Log log = LogFactory.getLog(AnalyticalDatastoreDAOImpl.class);
 	
 	private JdbcTemplate jdbcTemplate;
+	@SuppressWarnings("unused")
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;  
 	
     public void setDataSource(DataSource dataSource) {
@@ -243,23 +248,252 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	}
 
-//	String PRETRIAL_SERVICE_PARTICIPATION_DELETE = "DELETE FROM PretrialServiceParticipation WHERE PretrialServiceParticipationID = ?";
+	@Override
+	public void saveBehavioralHealthAssessments(
+			List<BehavioralHealthAssessment> behavioralHealthAssessments) {
+		final String sqlString=
+				"INSERT INTO BehavioralHealthAssessment (PersonID, BehavioralHealthTypeID, EvaluationDate) values (?,?,?)";
+		
+        jdbcTemplate.batchUpdate(sqlString, new BatchPreparedStatementSetter() {
+            public void setValues(PreparedStatement ps, int i)
+                throws SQLException {
+                ps.setInt(1, behavioralHealthAssessments.get(i).getPersonId());
+                ps.setInt(2, behavioralHealthAssessments.get(i).getBehavioralHealthType().getKey());
+                ps.setDate(3, java.sql.Date.valueOf(behavioralHealthAssessments.get(i).getEvaluationDate()));
+            }
+	            
+            public int getBatchSize() {
+                return behavioralHealthAssessments.size();
+            }
+        });
+
+	}
+
+	@Override
+	public void saveBookingCharges(List<BookingCharge> bookingCharges) {
+		final String sqlString=
+				"INSERT INTO BookingCharge (BookingID, ChargeTypeID, BondAmount, BondTypeID) values (?,?,?,?)";
+		
+        jdbcTemplate.batchUpdate(sqlString, new BatchPreparedStatementSetter() {
+            public void setValues(PreparedStatement ps, int i)
+                throws SQLException {
+                ps.setInt(1, bookingCharges.get(i).getBookingId());
+                ps.setInt(2, bookingCharges.get(i).getChargeType().getKey());
+                ps.setBigDecimal(3, bookingCharges.get(i).getBondAmount());
+                ps.setInt(4, bookingCharges.get(i).getBondType().getKey());
+            }
+	            
+            public int getBatchSize() {
+                return bookingCharges.size();
+            }
+        });
+
+	}
+
+	@Override
+	public Integer saveBookingSubject(BookingSubject bookingSubject) {
+        log.debug("Inserting row into BookingSubject table");
+
+        final String sqlString="INSERT into BookingSubject ("
+        		+ "RecidivistIndicator, " //1
+        		+ "PersonID, " //2	
+        		+ "BookingNumber, " //3
+        		+ "PersonAge, " //4
+        		+ "EducationLevelID, " //5
+        		+ "OccupationID, " //6
+        		+ "IncomeLevelID, " //7
+        		+ "HousingStatusID" //8
+        		+ ") values (?,?,?,?,?,?,?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(sqlString, new String[] {"RecidivistIndicator", "PersonID", 
+        	                		"BookingNumber", "PersonAge", "EducationLevelID", "OccupationID", "IncomeLevelID",
+        	                		"HousingStatusID"});
+        	            
+        	            ps.setShort(1, bookingSubject.getRecidivistIndicator().shortValue());
+        	            
+    	            	ps.setInt(2, bookingSubject.getPersonId());
+
+    	            	ps.setString(3, bookingSubject.getBookingNumber());
+        	            
+        	            if ( bookingSubject.getPersonAge() != null )
+        	            {	
+        	            	ps.setInt(4, bookingSubject.getPersonAge());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(4, java.sql.Types.NULL);
+        	            }	
+    	            	
+        	            if ( bookingSubject.getEducationLevelId() != null )
+        	            {	
+        	            	ps.setInt(5, bookingSubject.getEducationLevelId());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(5, java.sql.Types.NULL);
+        	            }	
+        	            
+        	            if ( bookingSubject.getOccupationId() != null )
+        	            {	
+        	            	ps.setInt(6, bookingSubject.getOccupationId());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(6, java.sql.Types.NULL);
+        	            }	
+        	            
+        	            if ( bookingSubject.getIncomeLevelId()!= null )
+        	            {	
+        	            	ps.setInt(7, bookingSubject.getIncomeLevelId());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(7, java.sql.Types.NULL);
+        	            }	
+        	            
+        	            if ( bookingSubject.getHousingStatusId()!= null )
+        	            {	
+        	            	ps.setInt(8, bookingSubject.getHousingStatusId());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(8, java.sql.Types.NULL);
+        	            }	
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();
+	}
+
+	@Override
+	public Integer saveBooking(Booking booking) {
+        log.debug("Inserting row into Booking table: " + booking.toString());
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	        	
+        	        	String sqlString="";
+        	        	String[] insertArgs = null;
+        	        	
+        	        	if (booking.getBookingId() != null){
+        	        		insertArgs = new String[] {"JurisdictionID", "BookingReportDate", 
+        	                		"BookingReportID" , "SendingAgencyID","CaseStatusID", 
+        	                		"BookingDate", "SupervisionReleaseDate","PretrialStatusID",
+        	                		"FacilityID","BedTypeID", "ArrestLocationLatitude", "ArrestLocationLongitude",
+        	                		"BookingSubjectID", "BookingID"};
+
+        	        		sqlString="INSERT into booking (JurisdictionID, BookingReportDate,"
+        	        				+ "BookingReportID, SendingAgencyID, CaseStatusID, "
+        	        				+ "BookingDate, SupervisionReleaseDate, PretrialStatusID, "
+        	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude "
+        	        				+ "BookingSubjectID, BookingID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	        	}	
+        	        	else{
+        	        		insertArgs = new String[] {"JurisdictionID", "BookingReportDate", 
+        	                		"BookingReportID" , "SendingAgencyID","CaseStatusID", 
+        	                		"BookingDate", "SupervisionReleaseDate","PretrialStatusID",
+        	                		"FacilityID","BedTypeID", "ArrestLocationLatitude", "ArrestLocationLongitude",
+        	                		"BookingSubjectID"};
+
+        	        		sqlString="INSERT into booking (JurisdictionID, BookingReportDate,"
+        	        				+ "BookingReportID, SendingAgencyID, CaseStatusID, "
+        	        				+ "BookingDate, SupervisionReleaseDate, PretrialStatusID, "
+        	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude "
+        	        				+ "BookingSubjectID) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	        		
+        	        	}	
+        	        			
+        	        	
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(sqlString, insertArgs);
+        	            ps.setInt(1, booking.getJurisdictionId());
+        	            
+        	            setPreparedStatementVariable(booking.getBookingReportDate(), ps, 2);
+        	            
+        	            ps.setString(3, booking.getBookingReportId());
+
+        	            setPreparedStatementVariable(booking.getSendingAgencyId(), ps, 4);
+        	            setPreparedStatementVariable(booking.getCaseStatusId(), ps, 5);
+        	            setPreparedStatementVariable(booking.getBookingDate(), ps, 6);
+        	            setPreparedStatementVariable(booking.getSupervisionReleaseDate(), ps, 7);
+        	            setPreparedStatementVariable(booking.getPretrialStatusId(), ps, 8);
+        	            setPreparedStatementVariable(booking.getFacilityId(), ps, 9);
+        	            setPreparedStatementVariable(booking.getBedTypeId(), ps, 10);
+        	            setPreparedStatementVariable(booking.getArrestLocationLatitude(), ps, 11);
+        	            setPreparedStatementVariable(booking.getArrestLocationLongitude(), ps, 12);
+        	            setPreparedStatementVariable(booking.getBookingSubjectId(), ps, 13);
+        	            setPreparedStatementVariable(booking.getBookingId(), ps, 14);
+        	            
+        	            return ps;
+        	        }
+        	    },keyHolder);
+
+        Integer returnValue = null;
+        
+        if (booking.getBookingId() != null)
+        {
+       	 	returnValue = booking.getBookingId();
+        }	 
+        else
+        {
+       	 	returnValue = keyHolder.getKey().intValue();
+        }	 
+        
+        return returnValue;	
+	}
+
+	private void setPreparedStatementVariable(Object object, PreparedStatement ps, int index)
+			throws SQLException {
+		
+		if (object != null){
+			if (object instanceof Integer){
+				ps.setInt(index, (Integer) object);
+			}
+			else if (object instanceof String){
+				ps.setString(index, (String) object);
+			}
+			else if (object instanceof LocalDate){
+				ps.setDate(index, java.sql.Date.valueOf((LocalDate) object));
+			}
+			else if (object instanceof LocalDateTime){
+				ps.setTimestamp(index, java.sql.Timestamp.valueOf((LocalDateTime) object));
+			}
+			else if (object instanceof BigDecimal){
+				ps.setBigDecimal(index, (BigDecimal) object);
+			}
+        }
+        else{
+        	ps.setNull(index, java.sql.Types.NULL);
+        }
+	}
+
+//	String PRETRIAL_SERVICE_PARTICIPATION_DELETE = "DELETE FROM booking WHERE bookingID = ?";
 //	String PRETRIAL_SERVICE_PERSON_DELETE = "DELETE FROM Person WHERE personId = ?";
-//	String PRETRIAL_PERSON_ID_SELECT = "SELECT personId FROM PretrialServiceParticipation WHERE PretrialServiceParticipationID = ?";
-//	String PRETRIAL_SERVICE_ASSOCIATION_DELETE="delete from PretrialServiceAssociation where PretrialServiceParticipationID = ?";
-//	String PRETRIAL_SERVICE_NEED_ASSOCIATION_DELETE="delete from PretrialServiceNeedAssociation where PretrialServiceParticipationID = ?";
+//	String PRETRIAL_PERSON_ID_SELECT = "SELECT personId FROM booking WHERE bookingID = ?";
+//	String PRETRIAL_SERVICE_ASSOCIATION_DELETE="delete from PretrialServiceAssociation where bookingID = ?";
+//	String PRETRIAL_SERVICE_NEED_ASSOCIATION_DELETE="delete from PretrialServiceNeedAssociation where bookingID = ?";
 //	@Override
 //	@Transactional
-//	public void deletePretrialServiceParticipation(
-//			Integer pretrialServiceParticipationID) throws Exception {
+//	public void deletebooking(
+//			Integer bookingID) throws Exception {
 //		
-//			jdbcTemplate.update(PRETRIAL_SERVICE_ASSOCIATION_DELETE, pretrialServiceParticipationID);
-//			jdbcTemplate.update(PRETRIAL_SERVICE_NEED_ASSOCIATION_DELETE, pretrialServiceParticipationID); 
-//			Integer personId = jdbcTemplate.queryForObject(PRETRIAL_PERSON_ID_SELECT, Integer.class, pretrialServiceParticipationID);
-//			int resultSize = this.jdbcTemplate.update(PRETRIAL_SERVICE_PARTICIPATION_DELETE, new Object[] { pretrialServiceParticipationID });
+//			jdbcTemplate.update(PRETRIAL_SERVICE_ASSOCIATION_DELETE, bookingID);
+//			jdbcTemplate.update(PRETRIAL_SERVICE_NEED_ASSOCIATION_DELETE, bookingID); 
+//			Integer personId = jdbcTemplate.queryForObject(PRETRIAL_PERSON_ID_SELECT, Integer.class, bookingID);
+//			int resultSize = this.jdbcTemplate.update(PRETRIAL_SERVICE_PARTICIPATION_DELETE, new Object[] { bookingID });
 //			
 //			if (resultSize == 0){
-//				throw new Exception("No Pretrial Service Participation found with PretrialServiceParticipationID of: " + pretrialServiceParticipationID);
+//				throw new Exception("No Pretrial Service Participation found with bookingID of: " + bookingID);
 //			}	
 //			
 //			if (personId != null){
