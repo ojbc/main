@@ -25,6 +25,7 @@ use BookingAnalyticsDataStore;
 **/
 
 
+
 CREATE TABLE Language (
                 LanguageID INT AUTO_INCREMENT NOT NULL,
                 Language VARCHAR(20) NOT NULL,
@@ -115,10 +116,10 @@ CREATE TABLE PersonSex (
 CREATE TABLE Person (
                 PersonID INT AUTO_INCREMENT NOT NULL,
                 PersonUniqueIdentifier VARCHAR(36) NOT NULL,
-                PersonSexID INT NOT NULL,
-                PersonBirthDate DATE NOT NULL,
-                PersonRaceID INT NOT NULL,
-                LanguageID INT NOT NULL,
+                PersonSexID INT,
+                PersonBirthDate DATE,
+                PersonRaceID INT,
+                LanguageID INT,
                 PRIMARY KEY (PersonID)
 );
 
