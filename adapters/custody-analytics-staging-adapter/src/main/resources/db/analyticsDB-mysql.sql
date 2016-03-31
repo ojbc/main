@@ -25,8 +25,6 @@ use BookingAnalyticsDataStore;
 **/
 
 
-
-
 CREATE TABLE Language (
                 LanguageID INT AUTO_INCREMENT NOT NULL,
                 Language VARCHAR(20) NOT NULL,
@@ -199,8 +197,8 @@ CREATE TABLE BookingCharge (
                 BookingChargeID INT AUTO_INCREMENT NOT NULL,
                 BookingID BIGINT NOT NULL,
                 ChargeTypeID INT NOT NULL,
-                BondAmount DECIMAL(12,2) DEFAULT 0 NOT NULL,
-                BondTypeID INT NOT NULL,
+                BondAmount NUMERIC(10,2),
+                BondTypeID INT,
                 PRIMARY KEY (BookingChargeID)
 );
 
