@@ -39,6 +39,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
 	
+	public static final String NS_BEHAVIOR_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/BehavioralHealthEvaluationRecord/1.0";
+	public static final String NS_PREFIX_BEHAVIOR_REPORT_DOC_EXCH = "bhr-doc";	
+	
 	public static final String NS_CASE_FILE_DECISION_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0";	
 	public static final String NS_PREFIX_CASE_FILE_DECISION_REPORT_DOC_EXCH = "cfd-doc";
 	
@@ -1361,6 +1364,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    
 	    prefixToUriMap.put(NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT, NS_CUSTODY_QUERY_REQUEST_EXT);
 	    uriToPrefixMap.put(NS_CUSTODY_QUERY_REQUEST_EXT, NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT);
+	    
+	    prefixToUriMap.put(NS_PREFIX_BEHAVIOR_REPORT_DOC_EXCH, NS_BEHAVIOR_REPORT_DOC_EXCH);
+	    uriToPrefixMap.put(NS_BEHAVIOR_REPORT_DOC_EXCH, NS_PREFIX_BEHAVIOR_REPORT_DOC_EXCH);	    
 	}
 
 	@Override
