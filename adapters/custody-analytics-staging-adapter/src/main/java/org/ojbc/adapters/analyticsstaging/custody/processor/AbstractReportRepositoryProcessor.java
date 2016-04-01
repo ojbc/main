@@ -17,7 +17,7 @@
 package org.ojbc.adapters.analyticsstaging.custody.processor;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -80,8 +80,7 @@ public abstract class AbstractReportRepositoryProcessor {
 		
 		if (StringUtils.isNotEmpty(personBirthDateAsString))
 		{
-			Date personBirthDate = DATE_FORMAT.parse(personBirthDateAsString);
-			person.setPersonBirthDate(personBirthDate);
+			person.setPersonBirthDate(LocalDate.parse(personBirthDateAsString));
 		}	
 		
 		Integer personRacePk = descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, personRace);

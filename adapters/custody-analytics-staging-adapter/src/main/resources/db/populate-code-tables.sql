@@ -136,3 +136,7 @@ insert into Language (LanguageID, Language) values('2', 'Language 2');
 insert into Language (LanguageID, Language) values('3', 'Language 3');
 insert into Language (LanguageID, Language) values('98', 'Other');
 insert into Language (LanguageID, Language) values('99', 'Unknown');
+
+-- Facility
+insert into Facility (FacilityName, Capacity) values('Adams County Jail', 3000);
+insert into Facility (FacilityName, Capacity) values('Pima County Jail', 5000);
