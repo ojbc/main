@@ -23,7 +23,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 public class BookingSubject implements Serializable
 {
 	private static final long serialVersionUID = 3530940339345199825L;
-	private Long bookingSubjectId;
+	private Integer bookingSubjectId;
 	private Integer recidivistIndicator; 
 	private Integer personId; 
 	private String bookingNumber; 
@@ -38,11 +38,11 @@ public class BookingSubject implements Serializable
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);	
 	}
 
-	public Long getBookingSubjectId() {
+	public Integer getBookingSubjectId() {
 		return bookingSubjectId;
 	}
 
-	public void setBookingSubjectId(Long bookingSubjectId) {
+	public void setBookingSubjectId(Integer bookingSubjectId) {
 		this.bookingSubjectId = bookingSubjectId;
 	}
 

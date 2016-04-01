@@ -51,4 +51,7 @@ public interface AnalyticalDatastoreDAO {
 	public void saveBookingCharges(
 			final List<BookingCharge> bookingCharges);
 	
+	public void deleteBooking(Integer bookingPk);
+	
+	public Booking getBookingByBookingReportId(String bookingReportId);
 }

@@ -16,7 +16,7 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -35,7 +35,7 @@ public class Person {
     private String personSexDescription; 
     private String personRaceDescription;
     
-    private Date personBirthDate;
+    private LocalDate personBirthDate;
     private String personUniqueIdentifier;
     private Integer languageId; //primary language 
     
@@ -45,10 +45,10 @@ public class Person {
 	public void setPersonID(Integer personID) {
 		this.personID = personID;
 	}
-	public Date getPersonBirthDate() {
+	public LocalDate getPersonBirthDate() {
 		return personBirthDate;
 	}
-	public void setPersonBirthDate(Date personBirthDate) {
+	public void setPersonBirthDate(LocalDate personBirthDate) {
 		this.personBirthDate = personBirthDate;
 	}
 	public String getPersonUniqueIdentifier() {
