@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2015 Open Justice Broker Consortium
-
--->
+<!-- Unless explicitly acquired and licensed from Licensor under another 
+	license, the contents of this file are subject to the Reciprocal Public License 
+	("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You 
+	may not copy or use this file in either source code or executable form, except 
+	in compliance with the terms and conditions of the RPL All software distributed 
+	under the RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY 
+	OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL 
+	SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, 
+	FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See 
+	the RPL for specific language governing rights and limitations under the 
+	RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2015 Open Justice 
+	Broker Consortium -->
 <wir-doc:WarrantIssuedReport
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0 ../xsd/WarrantIssuedReport.xsd"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
@@ -96,11 +90,15 @@
 			<scr:TransactionControlNumberIdentification>
 				<nc:IdentificationID>TCN345665</nc:IdentificationID>
 			</scr:TransactionControlNumberIdentification>
-			<wir-ext:WarrantAdditionalInformationCategoryText>Warrant Information
-				Category</wir-ext:WarrantAdditionalInformationCategoryText>
-			<wir-ext:WarrantAdditionalInformationText>Additional Warrant
-				Information
-			</wir-ext:WarrantAdditionalInformationText>
+			<wir-ext:WarrantAdditionalInformation>
+				<wir-ext:WarrantAdditionalInformationCategoryText>Warrant
+					Information
+					Category
+				</wir-ext:WarrantAdditionalInformationCategoryText>
+				<wir-ext:WarrantAdditionalInformationText>Additional Warrant
+					Information
+				</wir-ext:WarrantAdditionalInformationText>
+			</wir-ext:WarrantAdditionalInformation>
 			<wir-ext:WarrantEntryCategoryCodeText>Entry
 			</wir-ext:WarrantEntryCategoryCodeText>
 		</wir-ext:WarrantAugmentation>
@@ -159,10 +157,13 @@
 			</j:PersonFBIIdentification>
 			<j:PersonBirthplaceCode>0P</j:PersonBirthplaceCode>
 		</j:PersonAugmentation>
-		<wir-ext:PersonAdditionalInformationCategoryText>Person Information
-			Category</wir-ext:PersonAdditionalInformationCategoryText>
-		<wir-ext:PersonAdditionalInformationText>Gang Member
-		</wir-ext:PersonAdditionalInformationText>
+		<wir-ext:PersonAdditionalInformation>
+			<wir-ext:PersonAdditionalInformationCategoryText>Person Information
+				Category
+			</wir-ext:PersonAdditionalInformationCategoryText>
+			<wir-ext:PersonAdditionalInformationText>Gang Member
+			</wir-ext:PersonAdditionalInformationText>
+		</wir-ext:PersonAdditionalInformation>
 		<wir-ext:PersonCautionText>G45</wir-ext:PersonCautionText>
 		<wir-ext:PersonMiscellaneousRecordIdentification>
 			<nc:IdentificationID>PS-123456</nc:IdentificationID>
@@ -182,8 +183,8 @@
 		</nc:IdentityPersonRepresentation>
 	</nc:Identity>
 	<nc:Vehicle structures:id="Vehicle_01">
-		<j:ConveyanceColorPrimaryCode>BGE</j:ConveyanceColorPrimaryCode>
-		<j:ConveyanceColorSecondaryCode>BRO</j:ConveyanceColorSecondaryCode>
+		<nc:ConveyanceColorPrimaryText>BGE</nc:ConveyanceColorPrimaryText>
+		<nc:ConveyanceColorSecondaryText>BRO</nc:ConveyanceColorSecondaryText>
 		<nc:ItemMakeName>AAA</nc:ItemMakeName>
 		<nc:ItemModelName>DIA</nc:ItemModelName>
 		<nc:ItemModelYearDate>2012</nc:ItemModelYearDate>
@@ -191,10 +192,13 @@
 		<nc:VehicleIdentification>
 			<nc:IdentificationID>VIN3458745679777</nc:IdentificationID>
 		</nc:VehicleIdentification>
-		<wir-ext:VehicleAdditionalInformationCategoryText>Vehicle Information
-			Category</wir-ext:VehicleAdditionalInformationCategoryText>
-		<wir-ext:VehicleAdditionalInformationText>Excessive Rust
-		</wir-ext:VehicleAdditionalInformationText>
+		<wir-ext:VehicleAdditionalInformation>
+			<wir-ext:VehicleAdditionalInformationCategoryText>Vehicle Information
+				Category
+			</wir-ext:VehicleAdditionalInformationCategoryText>
+			<wir-ext:VehicleAdditionalInformationText>Excessive Rust
+			</wir-ext:VehicleAdditionalInformationText>
+		</wir-ext:VehicleAdditionalInformation>
 	</nc:Vehicle>
 	<j:ConveyanceRegistration structures:id="Reg_01">
 		<j:RegistrationExpirationDate>

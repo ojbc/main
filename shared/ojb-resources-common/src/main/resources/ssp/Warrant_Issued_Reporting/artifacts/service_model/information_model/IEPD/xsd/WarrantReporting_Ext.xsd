@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2015 Open Justice Broker Consortium
-
--->
+<!-- Unless explicitly acquired and licensed from Licensor under another 
+	license, the contents of this file are subject to the Reciprocal Public License 
+	("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You 
+	may not copy or use this file in either source code or executable form, except 
+	in compliance with the terms and conditions of the RPL All software distributed 
+	under the RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY 
+	OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL 
+	SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, 
+	FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See 
+	the RPL for specific language governing rights and limitations under the 
+	RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2015 Open Justice 
+	Broker Consortium -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
@@ -117,13 +111,61 @@
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="scr:TransactionControlNumberIdentification"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="wir-ext:WarrantAdditionalInformationCategoryText"
+					<xsd:element ref="wir-ext:WarrantAdditionalInformation"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="wir-ext:WarrantAdditionalInformationText"
-						minOccurs="0" maxOccurs="unbounded" />
-
 					<xsd:element ref="wir-ext:WarrantEntryCategoryCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PersonAdditionalInformationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for additional information about a
+				person.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="wir-ext:PersonAdditionalInformationCategoryText"
+						minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="wir-ext:PersonAdditionalInformationText"
+						minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="VehicleAdditionalInformationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for additional information about a
+				vehicle.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="wir-ext:VehicleAdditionalInformationCategoryText"
+						minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="wir-ext:VehicleAdditionalInformationText"
+						minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="WarrantAdditionalInformationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for additional information about a
+				warrant.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="wir-ext:WarrantAdditionalInformationCategoryText"
+						minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="wir-ext:WarrantAdditionalInformationText"
+						minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -137,16 +179,62 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonAdditionalInformationCategoryText"
-		type="nc:TextType" substitutionGroup="nc:PersonAugmentationPoint">
+		type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>Additional information category about a person.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonAdditionalInformationText" type="nc:TextType"
+	<xsd:element name="PersonAdditionalInformation" type="wir-ext:PersonAdditionalInformationType"
 		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VehicleAdditionalInformation"
+		type="wir-ext:VehicleAdditionalInformationType" substitutionGroup="nc:VehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="WarrantAdditionalInformation"
+		type="wir-ext:WarrantAdditionalInformationType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonAdditionalInformationText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VehicleAdditionalInformationCategoryText"
+		type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Additional category information about a vehicle.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VehicleAdditionalInformationText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a vehicle.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="WarrantAdditionalInformationCategoryText"
+		type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information category about a warrant.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="WarrantAdditionalInformationText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a warrant.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -154,20 +242,6 @@
 		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Cautionary text for a person.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="VehicleAdditionalInformationCategoryText"
-		type="nc:TextType" substitutionGroup="nc:VehicleAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>Additional category information about a vehicle.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="VehicleAdditionalInformationText" type="nc:TextType"
-		substitutionGroup="nc:VehicleAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>Additional information about a vehicle.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -221,10 +295,11 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="GeneralOffenseCharacterDescriptionText" type="nc:TextType"
-		substitutionGroup="j:ChargeAugmentationPoint">
+	<xsd:element name="GeneralOffenseCharacterDescriptionText"
+		type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>Further description regarding the circumstances of a charge.
+			<xsd:documentation>Further description regarding the circumstances of
+				a charge.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -251,21 +326,6 @@
 		substitutionGroup="nc:OrganizationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>Originating Case Agency number (OCA).
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-
-	<xsd:element name="WarrantAdditionalInformationCategoryText"
-		type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>Additional information category about a warrant.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-
-	<xsd:element name="WarrantAdditionalInformationText" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>Additional information about a warrant.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
