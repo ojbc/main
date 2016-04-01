@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ojbc.org/Services/WSDL/IdentifierResponseService/1.0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:i-req-doc="http://ojbc.org/IEPD/Exchange/IdentifierResponse/1.0" targetNamespace="http://ojbc.org/Services/WSDL/IdentifierResponseService/1.0">
+	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IdentifierResponse/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IdentifierResponse">
+		<wsdl:part name="IdentifierResponse" element="i-req-doc:IdentifierResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="Identifier-Response-Service">
+		<wsdl:operation name="SubmitIdentifierResponse">
+			<wsdl:input name="IdentifierResponse" message="tns:IdentifierResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<!-- Secure, GFIPM-conforming binding -->
+	<wsdl:binding name="Identifier-Response-Secure-ServiceSOAPBinding" type="tns:Identifier-Response-Service">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsp:PolicyReference URI="#GFIPMSystemToSystem"/>
+		<wsdl:operation name="SubmitIdentifierResponse">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IdentifierResponseService/1.0/SubmitIdentifierResponse" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="Identifier-Response-ServiceSOAPBinding" type="tns:Identifier-Response-Service">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsaw:UsingAddressing wsdl:required="true"/>
+		<wsdl:operation name="SubmitIdentifierResponse">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IdentifierResponseService/1.0/SubmitIdentifierResponse" style="document"/>
+			<wsdl:input name="IdentifierResponse">
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Identifier-Response-ServiceService">
+		<wsdl:port name="Identifier-Response-Service" binding="tns:Identifier-Response-ServiceSOAPBinding">
+			<soap:address location="http://localhost"/>
+		</wsdl:port>
+		<wsdl:port name="Identifier-Response-Secure-Service" binding="tns:Identifier-Response-Secure-ServiceSOAPBinding">
+			<soap:address location="http://localhost/secure"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
