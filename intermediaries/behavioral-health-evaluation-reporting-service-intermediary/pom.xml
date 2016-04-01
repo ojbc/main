@@ -39,8 +39,7 @@
 		<camel-version>2.14.4</camel-version>
 		<slf4j-version>1.7.10</slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
-		<cxf-version>3.0.5</cxf-version>
-		<saxon-version>9.5.1-5</saxon-version>
+		<cxf-version>3.0.6</cxf-version>
 		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
@@ -68,11 +67,6 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-cxf</artifactId>
-			<version>${camel-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-saxon</artifactId>
 			<version>${camel-version}</version>
 		</dependency>
 
@@ -114,11 +108,6 @@
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>${commons-lang-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.saxon</groupId>
-			<artifactId>Saxon-HE</artifactId>
-			<version>${saxon-version}</version>
 		</dependency>
 
 		<!-- OJB Shared Bundles -->
@@ -203,16 +192,6 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-maven-plugin</artifactId>
-				<version>${camel-version}</version>
-				<!-- allows the route to be ran via 'mvn camel:run' -->
-				<configuration>
-					<applicationContextUri>META-INF/spring/camel-context.xml</applicationContextUri>
-				</configuration>
-			</plugin>
-
-			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<version>${maven-bundle-plugin-version}</version>
@@ -237,13 +216,4 @@
 		</plugins>
 	</build>
 
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-maven-plugin</artifactId>
-				<version>${camel-version}</version>
-			</plugin>
-		</plugins>
-	</reporting>
 </project>	

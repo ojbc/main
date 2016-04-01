@@ -182,7 +182,7 @@ public class CamelContextTest {
 
 		Document returnDocumentDerivedBundle = derivedBundleExchange.getIn().getBody(Document.class);
 
-		//Make sure the root node here is the message to the orignal exchange
+		//Make sure the root node here is the message to the original exchange
 		Node derivedBundleMsgRootNode = XmlUtils.xPathNodeSearch(returnDocumentDerivedBundle, "/bhr-doc:BehavioralHealthEvaluationRecord");
 		assertNotNull(derivedBundleMsgRootNode);
 	
