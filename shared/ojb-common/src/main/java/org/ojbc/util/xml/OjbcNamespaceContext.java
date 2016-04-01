@@ -695,6 +695,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static String NS_CHARGE_REFERRAL_REPORTING="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0";
 	public static String NS_PREFIX_CHARGE_REFERRAL_REPORTING="crr-doc";
 	
+	public static String NS_BOOKING_REPORTING = "http://ojbc.org/IEPD/Exchange/BookingReport/1.0";
+	public static String NS_PREFIX_BOOKING_REPORTING="br-doc";
+	
+	public static String NS_BOOKING_REPORTING_EXT = "http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0";
+	public static String NS_PREFIX_BOOKING_REPORTING_EXT="br-ext";
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -1366,7 +1372,14 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    uriToPrefixMap.put(NS_CUSTODY_QUERY_REQUEST_EXT, NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT);
 	    
 	    prefixToUriMap.put(NS_PREFIX_BEHAVIOR_REPORT_DOC_EXCH, NS_BEHAVIOR_REPORT_DOC_EXCH);
-	    uriToPrefixMap.put(NS_BEHAVIOR_REPORT_DOC_EXCH, NS_PREFIX_BEHAVIOR_REPORT_DOC_EXCH);	    
+	    uriToPrefixMap.put(NS_BEHAVIOR_REPORT_DOC_EXCH, NS_PREFIX_BEHAVIOR_REPORT_DOC_EXCH);	
+	    
+	    prefixToUriMap.put(NS_PREFIX_BOOKING_REPORTING, NS_BOOKING_REPORTING);
+	    uriToPrefixMap.put(NS_BOOKING_REPORTING, NS_PREFIX_BOOKING_REPORTING);	
+	    
+	    prefixToUriMap.put(NS_PREFIX_BOOKING_REPORTING_EXT, NS_BOOKING_REPORTING_EXT);
+	    uriToPrefixMap.put(NS_BOOKING_REPORTING_EXT, NS_PREFIX_BOOKING_REPORTING_EXT);	
+	    
 	}
 
 	@Override
