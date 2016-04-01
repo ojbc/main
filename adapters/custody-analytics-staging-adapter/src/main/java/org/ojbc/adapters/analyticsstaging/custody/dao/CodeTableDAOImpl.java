@@ -50,18 +50,10 @@ public class CodeTableDAOImpl implements CodeTableDAO
 		 * use a different sql statement in that case. Make sure the first column of the 
 		 * query result is pkId and the second is the one to be used to query the pkID.  
 		 */
-		switch (codeTable) {
+		if (codeTable == null) return null;
 		
-			case PersonRace:
-			case PersonSex:
-				sql = "SELECT * FROM " + codeTable.name();
-				return jdbcTemplate.query(sql, new KeyValueRowMapper());
-			case Agency:				
-				sql = "select AgencyID, AgencyName from Agency";	
-				return jdbcTemplate.query(sql, new KeyValueRowMapper());
-			default:
-				return null;
-		}
+		sql = "SELECT * FROM " + codeTable.name();
+		return jdbcTemplate.query(sql, new KeyValueRowMapper());
 	}
 
 	public class KeyValueRowMapper implements RowMapper<KeyValue> {
