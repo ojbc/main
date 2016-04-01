@@ -50,10 +50,10 @@
 		<httpj:engine port="18022">
 			<httpj:tlsServerParameters>
 				<sec:keyManagers
-					keyPassword="${chargeReferralReportingService.keyPassword}">
+					keyPassword="${chargeReferralReporting.keyPassword}">
 					<sec:keyStore type="JKS"
-						password="${chargeReferralReportingService.keystorePassword}"
-						file="${chargeReferralReportingService.keystoreLocation}" />
+						password="${chargeReferralReporting.keystorePassword}"
+						file="${chargeReferralReporting.keystoreLocation}" />
 				</sec:keyManagers>
 				<sec:cipherSuitesFilter>
 					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
