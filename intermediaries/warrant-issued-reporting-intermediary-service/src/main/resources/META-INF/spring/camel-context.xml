@@ -37,52 +37,81 @@
 			uri="cxf:bean:warrantIssuedReportingAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantIssuedReporting.cxfLogging}"/>
 			
 
-		<camel:route id="warrantIssuedReportingServiceHandlerRoute">
+		<camel:route id="warrantIssuedReporting_Route">
 		
 			<camel:from uri="warrantIssuedReportingServiceIntermediaryEndpoint" />
 			
 			<camel:log message="\n\n\n Entering Warrant-Issued Reporting Service Intermediary... \n\n\n"/>
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+						
+			<camel:multicast>
 			
+				<pipeline>
+					<filter>
+						<simple>${properties:warrantIssuedReporting.callWarrantReportingAdapter} == true</simple>
+					
+						<log message="\n\n\n  Calling Warrant Adapter... \n\n\n"/>
+					
+						<to uri="direct:callWarrantReportingAdapter"/>
+					</filter>								
+				</pipeline>
+			
+				<pipeline>
+					<to uri="direct:callDerivedBundleChildRoutes"/>				
+				</pipeline>
+			
+			</camel:multicast>
+																															
+		</camel:route>
+		
+		
+		<route id="callWarrantAdapter_Route">
+			
+			<from uri="direct:callWarrantReportingAdapter"/>
+		
 			<camel:choice>
 			
 				<camel:when>				
-					<simple>${header.operationName} = 'ReportWarrantIssued'</simple>
+					<simple>${header.operationName} == 'ReportWarrantIssued'</simple>
+					
+					<log message="\n\n\n Running: direct:callReportWarrantIssued... \n\n\n"/>
 					
 					<camel:to uri="direct:callReportWarrantIssued"/>	
 				</camel:when>
 
 				<camel:when>				
-					<simple>${header.operationName} = 'ReportWarrantAccepted'</simple>
+					<simple>${header.operationName} == 'ReportWarrantAccepted'</simple>
 					
 					<camel:to uri="direct:callReportWarrantAccepted"/>	
 				</camel:when>
 				
 				<camel:when>				
-					<simple>${header.operationName} = 'ReportWarrantRejected'</simple>
+					<simple>${header.operationName} == 'ReportWarrantRejected'</simple>
 					
 					<camel:to uri="direct:callReportWarrantRejected"/>	
 				</camel:when>						
 										
 			</camel:choice>
-																																			
-		</camel:route>
-
-
+			
+		</route>
+		
+		
 		<camel:route id="warrant_issued_route">
 		
 			<camel:from uri="direct:callReportWarrantIssued" />
 	
 			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/warrantIssuedReportingService/1.0</constant>
+				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
 			</camel:setHeader>
 	
 			<camel:setHeader headerName="operationName">
 				<constant>ReportWarrantIssued</constant>
 			</camel:setHeader>
 	
-			<camel:to uri="direct:callDerivedRoute" />
+			<log message="\n\n\n Sending to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>
+	
+			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
 		</camel:route>
 		
 		
@@ -91,14 +120,14 @@
 			<camel:from uri="direct:callReportWarrantAccepted" />
 	
 			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/warrantIssuedReportingService/1.0</constant>
+				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
 			</camel:setHeader>
 	
 			<camel:setHeader headerName="operationName">
 				<constant>ReportWarrantAccepted</constant>
 			</camel:setHeader>
 	
-			<camel:to uri="direct:callDerivedRoute" />
+			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
 		</camel:route>
 		
 		
@@ -107,21 +136,21 @@
 			<camel:from uri="direct:callReportWarrantRejected" />
 	
 			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/warrantIssuedReportingService/1.0</constant>
+				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
 			</camel:setHeader>
 	
 			<camel:setHeader headerName="operationName">
 				<constant>ReportWarrantRejected</constant>
 			</camel:setHeader>
 	
-			<camel:to uri="direct:callDerivedRoute" />
+			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
 		</camel:route>
 		
 		
 		
-		<camel:route id="warrant_issued_derived_route">
+		<camel:route id="callDerivedBundleChildRoutes_Route">
 			
-			<camel:from uri="direct:callDerivedRoute"/>
+			<camel:from uri="direct:callDerivedBundleChildRoutes"/>
 		
 			<camel:setHeader headerName="derivedRoutes">
 				<simple>{{warrantIssuedReporting.camelEndpointsToCall}}</simple>
@@ -137,18 +166,7 @@
 				</camel:recipientList>
 			</camel:filter>							
 		
-		</camel:route>
-		
-		
-		<camel:route>
-		
-			<camel:from uri="direct:callWarrantIssuedReportingAdapter" />
-							
-			<camel:log message="\n\n\n sending to warrantIssuedReportingServiceAdapterEndpoint...\n\n\n" />							
-																								
-			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
-			
-		</camel:route>		
+		</camel:route>					
 								
 	</camel:camelContext>
 			
