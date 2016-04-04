@@ -42,6 +42,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.util.xml.XmlUtils;
@@ -72,7 +73,7 @@ public class CamelContextTest {
     protected ProducerTemplate template;
     
     @EndpointInject(uri = "mock:cxf:bean:warrantIssuedReportingAdapterService")
-    protected MockEndpoint warrantIssuedReportingMockEndpoint;
+    protected MockEndpoint warrantReportingMockEndpoint;
     
     @EndpointInject(uri = "mock:log:org.ojbc.bundles.intermediaries.warrantissuedreporting")
     protected MockEndpoint loggingEndpoint;
@@ -83,7 +84,7 @@ public class CamelContextTest {
 		assertTrue(true);
 	}
     
-	@Test
+	@Before
 	public void setUp() throws Exception {
 		
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
@@ -107,15 +108,36 @@ public class CamelContextTest {
     	    }              
     	});    	
     	
+    	
+    	// mock the web service endpoints
+    	context.getRouteDefinition("warrant_accepted_route").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	
+    	    	// mock the adapter endpoint
+    	    	mockEndpointsAndSkip("cxf:bean:warrantIssuedReportingAdapterService*");    	    	
+    	    }              
+    	});       	
+    	
+    	// mock the web service endpoints
+    	context.getRouteDefinition("warrant_rejected_route").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	
+    	    	// mock the adapter endpoint
+    	    	mockEndpointsAndSkip("cxf:bean:warrantIssuedReportingAdapterService*");    	    	
+    	    }              
+    	});       	
+    	
 		context.start();		
 	}
 
 
 	@Test
-	public void testContextRoutes() throws Exception{
+	public void testContextWarrantIssuedRoute() throws Exception{
 		
     	// will get one message
-		warrantIssuedReportingMockEndpoint.expectedMessageCount(1);
+		warrantReportingMockEndpoint.expectedMessageCount(1);
 		
 		//logging endpoint will get one message from derived routes.
 		loggingEndpoint.expectedMessageCount(1);
@@ -154,11 +176,11 @@ public class CamelContextTest {
 		Thread.sleep(1000);
 
 		//Assert that the mock endpoint expectations are satisfied
-		warrantIssuedReportingMockEndpoint.assertIsSatisfied();
+		warrantReportingMockEndpoint.assertIsSatisfied();
 		loggingEndpoint.assertIsSatisfied();
 		
 		//Get the first exchange (the only one)
-		Exchange ex = warrantIssuedReportingMockEndpoint.getExchanges().get(0);
+		Exchange ex = warrantReportingMockEndpoint.getExchanges().get(0);
 		
 		String opName = (String)ex.getIn().getHeader("operationName");
 		assertEquals("ReportWarrantIssued", opName);
@@ -168,8 +190,6 @@ public class CamelContextTest {
 
 		Document returnDocWarrantAdapter = ex.getIn().getBody(Document.class);
 
-		//Do some very basic assertions to assure the message is transformed.
-		//The XSLT test does a more complete examination of the transformation.
 		Node warrantRootNode = XmlUtils.xPathNodeSearch(returnDocWarrantAdapter, "/wir-doc:WarrantIssuedReport");
 		
 		assertNotNull(warrantRootNode);
@@ -183,8 +203,163 @@ public class CamelContextTest {
 		//Make sure the root node here is the message to the original exchange
 		Node derivedBundleMsgRootNode = XmlUtils.xPathNodeSearch(returnDocDerivedBundle, "/wir-doc:WarrantIssuedReport");
 		assertNotNull(derivedBundleMsgRootNode);
-	
+		
+		warrantReportingMockEndpoint.reset();
+		loggingEndpoint.reset();
 	}
+	
+	
+	@Test
+	public void testContextWarrantAcceptedRoute() throws Exception{
+		
+    	// will get one message
+		warrantReportingMockEndpoint.expectedMessageCount(1);
+		
+		//logging endpoint will get one message from derived routes.
+		loggingEndpoint.expectedMessageCount(1);
+		
+    	//Create a new exchange
+    	Exchange senderExchange = new DefaultExchange(context);
+    	
+    	//Test the entire web service route by sending through an warrant report
+		Document doc = createDocument();
+		List<SoapHeader> soapHeaders = new ArrayList<SoapHeader>();
+		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
+		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
+
+	    //Read the warrant report from the file system
+	    File inputFile = new File("src/test/resources/xmlInstances/warrantReporting/WarrantAcceptedReport.xml");
+	    String inputStr = FileUtils.readFileToString(inputFile);
+	    
+	    assertNotNull(inputStr);
+	    
+	    senderExchange.getIn().setHeader("operationName", "ReportWarrantAccepted");
+	    senderExchange.getIn().setHeader("operationNamespace", "http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0");
+	    
+	    //Set it as the message message body
+	    senderExchange.getIn().setBody(inputStr);
+
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:WarrantIssuedReportingService", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		//Sleep while a response is generated
+		Thread.sleep(1000);
+
+		//Assert that the mock endpoint expectations are satisfied
+		warrantReportingMockEndpoint.assertIsSatisfied();
+		loggingEndpoint.assertIsSatisfied();
+		
+		//Get the first exchange (the only one)
+		Exchange ex = warrantReportingMockEndpoint.getExchanges().get(0);
+		
+		String opName = (String)ex.getIn().getHeader("operationName");
+		assertEquals("ReportWarrantAccepted", opName);
+		
+		String opNamespace = (String)ex.getIn().getHeader("operationNamespace");
+		assertEquals("http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0", opNamespace);
+
+		Document returnDocWarrantAdapter = ex.getIn().getBody(Document.class);
+
+		Node warrantRootNode = XmlUtils.xPathNodeSearch(returnDocWarrantAdapter, "/war-doc:WarrantAcceptedReport");
+		
+		assertNotNull(warrantRootNode);
+
+		//Get the first exchange (the only one) to the logger
+		//This is what would be sent to the derived bundle
+		Exchange derivedBundleExchange = loggingEndpoint.getExchanges().get(0);
+
+		Document returnDocDerivedBundle = derivedBundleExchange.getIn().getBody(Document.class);
+
+		//Make sure the root node here is the message to the original exchange
+		Node derivedBundleMsgRootNode = XmlUtils.xPathNodeSearch(returnDocDerivedBundle, "/war-doc:WarrantAcceptedReport");
+		assertNotNull(derivedBundleMsgRootNode);
+	
+		warrantReportingMockEndpoint.reset();
+		loggingEndpoint.reset();
+	}	
+	
+	
+	
+	@Test
+	public void testContextWarrantRejectedRoute() throws Exception{
+		
+    	// will get one message
+		warrantReportingMockEndpoint.expectedMessageCount(1);
+		
+		//logging endpoint will get one message from derived routes.
+		loggingEndpoint.expectedMessageCount(1);
+		
+    	//Create a new exchange
+    	Exchange senderExchange = new DefaultExchange(context);
+    	
+    	//Test the entire web service route by sending through an warrant report
+		Document doc = createDocument();
+		List<SoapHeader> soapHeaders = new ArrayList<SoapHeader>();
+		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
+		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
+
+	    //Read the warrant report from the file system
+	    File inputFile = new File("src/test/resources/xmlInstances/warrantReporting/WarrantRejectedReport.xml");
+	    String inputStr = FileUtils.readFileToString(inputFile);
+	    
+	    assertNotNull(inputStr);
+	    
+	    senderExchange.getIn().setHeader("operationName", "ReportWarrantRejected");
+	    senderExchange.getIn().setHeader("operationNamespace", "http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0");
+	    
+	    //Set it as the message message body
+	    senderExchange.getIn().setBody(inputStr);
+
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:WarrantIssuedReportingService", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		//Sleep while a response is generated
+		Thread.sleep(1000);
+
+		//Assert that the mock endpoint expectations are satisfied
+		warrantReportingMockEndpoint.assertIsSatisfied();
+		loggingEndpoint.assertIsSatisfied();
+		
+		//Get the first exchange (the only one)
+		Exchange ex = warrantReportingMockEndpoint.getExchanges().get(0);
+		
+		String opName = (String)ex.getIn().getHeader("operationName");
+		assertEquals("ReportWarrantRejected", opName);
+		
+		String opNamespace = (String)ex.getIn().getHeader("operationNamespace");
+		assertEquals("http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0", opNamespace);
+
+		Document returnDocWarrantAdapter = ex.getIn().getBody(Document.class);
+		
+		Node warrantRootNode = XmlUtils.xPathNodeSearch(returnDocWarrantAdapter, "/wrr-doc:WarrantRejectedReport");
+		
+		assertNotNull(warrantRootNode);
+
+		//Get the first exchange (the only one) to the logger
+		//This is what would be sent to the derived bundle
+		Exchange derivedBundleExchange = loggingEndpoint.getExchanges().get(0);
+
+		Document returnDocDerivedBundle = derivedBundleExchange.getIn().getBody(Document.class);
+
+		//Make sure the root node here is the message to the original exchange
+		Node derivedBundleMsgRootNode = XmlUtils.xPathNodeSearch(returnDocDerivedBundle, "/wrr-doc:WarrantRejectedReport");
+		assertNotNull(derivedBundleMsgRootNode);
+	
+		warrantReportingMockEndpoint.reset();
+		loggingEndpoint.reset();		
+	}		
 	
 	private SoapHeader makeSoapHeader(Document doc, String namespace, String localName, String value) {
 		
