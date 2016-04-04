@@ -22,6 +22,6 @@
 	xmlns:i-req-doc="http://ojbc.org/IEPD/Exchange/IdentifierResponse/1.0"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:Identification>
-		<nc:IdentificationID>Identifier</nc:IdentificationID>
+		<nc:IdentificationID>UI43657</nc:IdentificationID>
 	</nc:Identification>
 </i-req-doc:IdentifierResponse>
