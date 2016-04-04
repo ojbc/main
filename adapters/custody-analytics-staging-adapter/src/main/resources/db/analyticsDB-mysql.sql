@@ -26,6 +26,7 @@ use BookingAnalyticsDataStore;
 
 
 
+
 CREATE TABLE Language (
                 LanguageID INT AUTO_INCREMENT NOT NULL,
                 Language VARCHAR(20) NOT NULL,
@@ -183,8 +184,9 @@ CREATE TABLE Booking (
                 BookingReportID VARCHAR(30) NOT NULL,
                 SendingAgencyID INT NOT NULL,
                 CaseStatusID INT NOT NULL,
-                BookingDate DATE NOT NULL,
-                SupervisionReleaseDate DATE NOT NULL,
+                BookingDate DATETIME NOT NULL,
+                CommitDate DATE NOT NULL,
+                SupervisionReleaseDate DATETIME,
                 PretrialStatusID INT NOT NULL,
                 FacilityID INT NOT NULL,
                 BedTypeID INT NOT NULL,

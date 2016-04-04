@@ -85,8 +85,9 @@ public class TestAnalyticalDatastoreDAOImpl {
 		booking.setBookingReportId("bookingReportId");
 		booking.setSendingAgencyId(5);
 		booking.setCaseStatusId(3);
-		booking.setBookingDate(LocalDate.parse("2016-02-13"));
-		booking.setSupervisionReleaseDate(LocalDate.parse("2016-03-13"));
+		booking.setBookingDate(LocalDateTime.parse("2013-12-17T09:30:00"));
+		booking.setCommitDate(LocalDate.parse("2013-12-17"));
+		booking.setSupervisionReleaseDate(LocalDateTime.parse("2014-12-17T10:30:00"));
 		booking.setPretrialStatusId(3);
 		booking.setFacilityId(1);
 		booking.setBedTypeId(2);
