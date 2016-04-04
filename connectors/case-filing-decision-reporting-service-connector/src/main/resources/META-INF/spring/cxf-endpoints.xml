@@ -18,32 +18,34 @@
 
 -->
 
-<!-- Configures the CXF Endpoints -->
-
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:cxf="http://camel.apache.org/schema/cxf" 
 	xmlns:policy="http://cxf.apache.org/policy" 
 	xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
 	xmlns:camel="http://camel.apache.org/schema/spring" 
-    xmlns:sec="http://cxf.apache.org/configuration/security"
-    xmlns:http="http://cxf.apache.org/transports/http/configuration"
-	xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"    
 	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:http="http://cxf.apache.org/transports/http/configuration"
+	xmlns:sec="http://cxf.apache.org/configuration/security" 
+	xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
 	xsi:schemaLocation="
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
 	   http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
        http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
-       http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
-	   http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
-	   http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
-	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-       ">
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+       http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd  
+       http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd">
 
-	<!-- OJB Case Filing Decision Reporting Service, hosted by this intermediary -->
-	<cxf:cxfEndpoint id="CaseFilingDecisionReportingService"
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+
+	<camel:endpoint id="intermediaryEndpoint"
+		uri="cxf:bean:caseFilingDecisionReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${caseFilingDecisionReporting.intermediaryCxflogging}" />
+	
+	<!-- OJB Case Filing Decision Reporting Service, called by this connector -->
+	<cxf:cxfEndpoint id="caseFilingDecisionReportingService"
 		address="${caseFilingDecisionReportingService.caseFilingDecisionReportingServiceEndpoint}"
 		wsdlURL="classpath:ssp/Case_Filing_Decision_Reporting/schema/RS_WS-SIP_v1.2/Case_Filing_Decision_Reporting_Service.wsdl"
 		serviceName="ojbc:Case-Filing-Decision-Reporting-ServiceService" 
@@ -52,42 +54,25 @@
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="caseFilingDecisionReportingServiceKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${caseFilingDecisionReportingService.keystoreCertificateAlias}" />
+			<entry key="ws-security.signature.username" value="${caseFilingDecisionReporting.keystoreCertificateAlias}" />
 		</cxf:properties>		
-	</cxf:cxfEndpoint>
-	    
-	<!-- OJB Court_Case_Filing_Service adapter invoked by intermediary -->
-	<cxf:cxfEndpoint id="courtCaseFilingService"
-		address="${caseFilingDecisionReportingService.courtCaseFilingEndpoint}"
-		wsdlURL="classpath:ssp/Court_Case_Filing/schema/RS_WS-SIP_v1.2/Court_Case_Filing_Service.wsdl"
-		serviceName="ojbc:Court-Case-Filing-ServiceService" 
-		endpointName="ojbc:Court-Case-Filing-Service"									
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseFilingService/1.0">
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="caseFilingDecisionReportingServiceKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${caseFilingDecisionReportingService.keystoreCertificateAlias}" />
-		</cxf:properties>		
-	</cxf:cxfEndpoint>
-	
+	</cxf:cxfEndpoint>    
+			      	
 	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
-                <entry key="${caseFilingDecisionReportingService.keystoreCertificateAlias}" value="${caseFilingDecisionReportingService.keyPassword}"/>
+                <entry key="${caseFilingDecisionReporting.keystoreCertificateAlias}" value="${caseFilingDecisionReporting.keyPassword}"/>
             </map>
         </property>
-	</bean>
+	</bean>		
 	
-	<!-- Define a Properties object with the properties required by the org.apache.ws.security.components.crypto.Merlin 
-		WSS4j Crypto implementation. This crypto config is used for signature creation and validation. -->
-	<util:properties id="caseFilingDecisionReportingServiceKeystoreProperties">		
-		<!-- Defines the implementation class. -->
-		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>		
-		<!-- The type of the keystore pointed to by org.apache.ws.security.crypto.merlin.file. -->
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>		
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${caseFilingDecisionReportingService.keystorePassword}</prop>				
-		<prop key="org.apache.ws.security.crypto.merlin.file">${caseFilingDecisionReportingService.keystoreLocation}</prop>		
-	</util:properties>		
+	<util:properties id="caseFilingDecisionReportingServiceKeystoreProperties">
+		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${caseFilingDecisionReporting.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${caseFilingDecisionReporting.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${caseFilingDecisionReporting.keystoreLocation}</prop>
+	</util:properties>			      	
 		      	
 	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
 	<http:conduit
@@ -95,8 +80,8 @@
 		<http:tlsClientParameters disableCNCheck="true">
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
-					password="${caseFilingDecisionReportingService.truststorePassword}"
-					file="${caseFilingDecisionReportingService.truststoreLocation}" />
+					password="${caseFilingDecisionReporting.truststorePassword}"
+					file="${caseFilingDecisionReporting.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
@@ -107,6 +92,5 @@
 		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
 	</http:conduit>	
-	
-	
+							
 </beans>
