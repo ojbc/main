@@ -24,13 +24,13 @@
 				<nc:Date>1967-08-13</nc:Date>
 			</nc:PersonBirthDate>
 			<nc:PersonName>
-				<nc:PersonGivenName>String</nc:PersonGivenName>
-				<nc:PersonMiddleName>String</nc:PersonMiddleName>
-				<nc:PersonSurName>String</nc:PersonSurName>
+				<nc:PersonGivenName>John</nc:PersonGivenName>
+				<nc:PersonMiddleName>E</nc:PersonMiddleName>
+				<nc:PersonSurName>Smith</nc:PersonSurName>
 			</nc:PersonName>
-			<nc:PersonSexText>String</nc:PersonSexText>
+			<nc:PersonSexText>Male</nc:PersonSexText>
 			<nc:PersonSSNIdentification>
-				<nc:IdentificationID>String</nc:IdentificationID>
+				<nc:IdentificationID>093092234</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
 		</nc:EntityPerson>
 	</nc:Entity>
