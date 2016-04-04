@@ -685,7 +685,13 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static String NS_COURT_CASE_QUERY_REQ_EXT="http://ojbc.org/IEPD/Extensions/CourtCaseQueryRequestExtension/1.0";
 	public static String NS_PREFIX_COURT_CASE_QUERY_REQ_EXT="ccq-req-ext";
-
+				
+	public static String NS_WARRANT_REJECTED_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0";
+	public static String NS_PREFIX_WARRANT_REJECTED_EXCH_DOC = "wrr-doc";	
+	
+	public static String NS_PREFIX_WARRANT_ACCEPTED_REPORT_DOC_EXCH = "war-doc";
+	public static String NS_WARRANT_ACCEPTED_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/WarrantAcceptedReport/1.0";
+	
 	public static String NS_WARRANT_ISSUED_REPORT="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0";
 	public static String NS_PREFIX_WARRANT_ISSUED_REPORT="wir-doc";
 	
@@ -1378,8 +1384,13 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    uriToPrefixMap.put(NS_BOOKING_REPORTING, NS_PREFIX_BOOKING_REPORTING);	
 	    
 	    prefixToUriMap.put(NS_PREFIX_BOOKING_REPORTING_EXT, NS_BOOKING_REPORTING_EXT);
-	    uriToPrefixMap.put(NS_BOOKING_REPORTING_EXT, NS_PREFIX_BOOKING_REPORTING_EXT);	
-	    
+	    uriToPrefixMap.put(NS_BOOKING_REPORTING_EXT, NS_PREFIX_BOOKING_REPORTING_EXT);		    
+		
+		prefixToUriMap.put(NS_PREFIX_WARRANT_ACCEPTED_REPORT_DOC_EXCH, NS_WARRANT_ACCEPTED_REPORT_DOC_EXCH);
+		uriToPrefixMap.put(NS_WARRANT_ACCEPTED_REPORT_DOC_EXCH, NS_PREFIX_WARRANT_ACCEPTED_REPORT_DOC_EXCH);		
+		
+		prefixToUriMap.put(NS_PREFIX_WARRANT_REJECTED_EXCH_DOC, NS_WARRANT_REJECTED_EXCH_DOC);
+		uriToPrefixMap.put(NS_WARRANT_REJECTED_EXCH_DOC, NS_PREFIX_WARRANT_REJECTED_EXCH_DOC);		
 	}
 
 	@Override
