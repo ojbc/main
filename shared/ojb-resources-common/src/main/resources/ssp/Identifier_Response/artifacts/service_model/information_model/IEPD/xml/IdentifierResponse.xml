@@ -17,6 +17,11 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<i-req-doc:IdentifierResponse xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IdentifierResponse/1.0 exchange.xsd" xmlns:i-req-doc="http://ojbc.org/IEPD/Exchange/IdentifierResponse/1.0" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<nc:IdentificationID>String</nc:IdentificationID>
+<i-req-doc:IdentifierResponse
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IdentifierResponse/1.0 ../xsd/exchange.xsd"
+	xmlns:i-req-doc="http://ojbc.org/IEPD/Exchange/IdentifierResponse/1.0"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:Identification>
+		<nc:IdentificationID>Identifier</nc:IdentificationID>
+	</nc:Identification>
 </i-req-doc:IdentifierResponse>

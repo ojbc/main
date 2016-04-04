@@ -23,31 +23,6 @@
   </xs:annotation>
   <xs:import schemaLocation="../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
   <xs:import schemaLocation="../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
-  <xs:complexType name="DateType">
-    <xs:annotation>
-      <xs:documentation>A data type for a calendar date.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="structures:ObjectType">
-        <xs:sequence>
-          <xs:element ref="nc:DateRepresentation" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EntityType">
-    <xs:annotation>
-      <xs:documentation>A data type for a person, organization, or thing capable of bearing legal rights and responsibilities.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="structures:ObjectType">
-        <xs:sequence>
-          <xs:element ref="nc:EntityRepresentation" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="nc:EntityAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="IdentificationType">
     <xs:annotation>
       <xs:documentation>A data type for a representation of an identity.</xs:documentation>
@@ -60,154 +35,14 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="ItemType">
+  <xs:element name="Identification" type="nc:IdentificationType">
     <xs:annotation>
-      <xs:documentation>A data type for an article or thing.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="structures:ObjectType">
-        <xs:sequence>
-          <xs:element ref="nc:ItemAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="PersonNameTextType">
-    <xs:annotation>
-      <xs:documentation>A data type for a name by which a person is known, referred, or addressed.</xs:documentation>
-    </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="nc:ProperNameTextType"/>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="PersonNameType">
-    <xs:annotation>
-      <xs:documentation>A data type for a combination of names and/or titles by which a person is known.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="structures:ObjectType">
-        <xs:sequence>
-          <xs:element ref="nc:PersonGivenName" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="nc:PersonMiddleName" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="nc:PersonSurName" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="PersonType">
-    <xs:annotation>
-      <xs:documentation>A data type for a human being.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="structures:ObjectType">
-        <xs:sequence>
-          <xs:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="nc:PersonName" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="nc:PersonSex" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="nc:PersonSSNIdentification" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="ProperNameTextType">
-    <xs:annotation>
-      <xs:documentation>A data type for a word or phrase by which a person or thing is known, referred, or addressed.</xs:documentation>
-    </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="nc:TextType"/>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:complexType name="TextType">
-    <xs:annotation>
-      <xs:documentation>A data type for a character string.</xs:documentation>
-    </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="niem-xs:string"/>
-    </xs:simpleContent>
-  </xs:complexType>
-  <xs:element name="Date" type="niem-xs:date" substitutionGroup="nc:DateRepresentation">
-    <xs:annotation>
-      <xs:documentation>A full date.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="DateRepresentation" abstract="true">
-    <xs:annotation>
-      <xs:documentation>A data concept for a representation of a date.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="Entity" type="nc:EntityType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A person, organization, or thing capable of bearing legal rights and responsibilities.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="EntityAugmentationPoint" abstract="true">
-    <xs:annotation>
-      <xs:documentation>An augmentation point for EntityType.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="EntityPerson" type="nc:PersonType" substitutionGroup="nc:EntityRepresentation">
-    <xs:annotation>
-      <xs:documentation>A person capable of bearing legal rights and responsibilities.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="EntityRepresentation" abstract="true">
-    <xs:annotation>
-      <xs:documentation>A data concept for a person, organization, or thing capable of bearing legal rights and responsibilities.</xs:documentation>
+      <xs:documentation>A representation of an identity.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="IdentificationID" type="niem-xs:string" nillable="true">
     <xs:annotation>
       <xs:documentation>An identifier.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="Item" type="nc:ItemType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>An article or thing.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="ItemAugmentationPoint" abstract="true">
-    <xs:annotation>
-      <xs:documentation>An augmentation point for ItemType.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="PersonBirthDate" type="nc:DateType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A date a person was born.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="PersonGivenName" type="nc:PersonNameTextType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A first name of a person.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="PersonMiddleName" type="nc:PersonNameTextType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A middle name of a person.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="PersonName" type="nc:PersonNameType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A combination of names and/or titles by which a person is known.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="PersonSSNIdentification" type="nc:IdentificationType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A unique identification reference to a living person; assigned by the United States Social Security Administration.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="PersonSex" abstract="true">
-    <xs:annotation>
-      <xs:documentation>A data concept for a gender or sex of a person.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="PersonSexText" type="nc:TextType" substitutionGroup="nc:PersonSex">
-    <xs:annotation>
-      <xs:documentation>A gender or sex of a person.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="PersonSurName" type="nc:PersonNameTextType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A last name or family name of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>
