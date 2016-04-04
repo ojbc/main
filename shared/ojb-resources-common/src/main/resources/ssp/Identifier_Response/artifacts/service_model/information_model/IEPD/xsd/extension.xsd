@@ -28,7 +28,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Identification" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
