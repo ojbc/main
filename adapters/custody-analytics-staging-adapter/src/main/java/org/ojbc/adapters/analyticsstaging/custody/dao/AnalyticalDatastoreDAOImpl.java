@@ -377,26 +377,26 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	                		"BookingReportID" , "SendingAgencyID","CaseStatusID", 
         	                		"BookingDate", "SupervisionReleaseDate","PretrialStatusID",
         	                		"FacilityID","BedTypeID", "ArrestLocationLatitude", "ArrestLocationLongitude",
-        	                		"BookingSubjectID", "BookingID"};
+        	                		"BookingSubjectID", "CommitDate", "BookingID"};
 
         	        		sqlString="INSERT into booking (JurisdictionID, BookingReportDate,"
         	        				+ "BookingReportID, SendingAgencyID, CaseStatusID, "
         	        				+ "BookingDate, SupervisionReleaseDate, PretrialStatusID, "
         	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude, "
-        	        				+ "BookingSubjectID, BookingID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	        				+ "BookingSubjectID, CommitDate, BookingID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
         	        		insertArgs = new String[] {"JurisdictionID", "BookingReportDate", 
         	                		"BookingReportID" , "SendingAgencyID","CaseStatusID", 
         	                		"BookingDate", "SupervisionReleaseDate","PretrialStatusID",
         	                		"FacilityID","BedTypeID", "ArrestLocationLatitude", "ArrestLocationLongitude",
-        	                		"BookingSubjectID"};
+        	                		"BookingSubjectID", "CommitDate"};
 
         	        		sqlString="INSERT into booking (JurisdictionID, BookingReportDate,"
         	        				+ "BookingReportID, SendingAgencyID, CaseStatusID, "
         	        				+ "BookingDate, SupervisionReleaseDate, PretrialStatusID, "
         	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude, "
-        	        				+ "BookingSubjectID) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	        				+ "BookingSubjectID, CommitDate) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	        		
         	        	}	
         	        			
@@ -419,9 +419,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            setPreparedStatementVariable(booking.getArrestLocationLatitude(), ps, 11);
         	            setPreparedStatementVariable(booking.getArrestLocationLongitude(), ps, 12);
         	            setPreparedStatementVariable(booking.getBookingSubjectId(), ps, 13);
+        	            setPreparedStatementVariable(booking.getCommitDate(), ps, 14);
         	            
         	            if (booking.getBookingId() != null){
-        	            	setPreparedStatementVariable(booking.getBookingId(), ps, 14);
+        	            	setPreparedStatementVariable(booking.getBookingId(), ps, 15);
         	            }
         	            
         	            return ps;
@@ -507,8 +508,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			booking.setBookingReportId(rs.getString("BookingReportID"));
 			booking.setSendingAgencyId(rs.getInt("SendingAgencyID"));
 			booking.setCaseStatusId(rs.getInt("CaseStatusID"));
-			booking.setBookingDate(rs.getDate("BookingReportDate").toLocalDate());
-			booking.setSupervisionReleaseDate(rs.getDate("SupervisionReleaseDate").toLocalDate());
+			booking.setBookingDate(rs.getTimestamp("BookingReportDate").toLocalDateTime());
+			booking.setSupervisionReleaseDate(rs.getTimestamp("SupervisionReleaseDate").toLocalDateTime());
+			booking.setCommitDate(rs.getDate("CommitDate").toLocalDate());
 			booking.setPretrialStatusId(rs.getInt("PretrialStatusID"));
 			booking.setFacilityId(rs.getInt("FacilityID"));
 			booking.setBedTypeId(rs.getInt("BedTypeID"));
@@ -519,6 +521,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	    	return booking;
 		}
 
+	}
+
+	@Override
+	public Integer getPersonIdByUniqueId(String uniqueId) {
+		String sqlString = "SELECT PersonID FROM Person WHERE PersonUniqueIdentifier = ?";
+		
+		Integer personId = jdbcTemplate.queryForObject(sqlString, Integer.class, uniqueId);
+
+		return personId;
 	}
 
 

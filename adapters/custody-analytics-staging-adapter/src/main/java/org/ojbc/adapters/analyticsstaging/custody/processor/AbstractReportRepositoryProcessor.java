@@ -20,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Map;
 
+import org.apache.camel.Body;
+import org.apache.camel.Header;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,7 +49,7 @@ public abstract class AbstractReportRepositoryProcessor {
     public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	
     @Transactional
-	public abstract void processReport(Document report) throws Exception;
+	public abstract void processReport(@Body Document report, @Header("personUniqueId") String personUniqueId) throws Exception;
 
     protected int savePerson(Node personNode, String ncPrefix, String jxdmPrefix) throws Exception{
 		Map<String, Object> personAttributes = AnalyticalDataStoreUtils.retrieveMapOfPersonAttributes(personNode, 

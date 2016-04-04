@@ -22,16 +22,21 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:cxf="http://camel.apache.org/schema/cxf"
 	xmlns:ctx="http://www.springframework.org/schema/context" 
+	xmlns:context="http://www.springframework.org/schema/context" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	   
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
-    
+<!--  	<context:annotation-config />
+	<context:component-scan base-package="org.ojbc.adapters.rapbackdatastore" />
+ -->    
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="custody-analytics-staging-adapter">
 
  		<endpoint id="bookingReportingServiceAdapterEndpoint"
@@ -67,6 +72,8 @@
 						
 				<camel:log message="Here is the inbound booking report message: ${body}" loggingLevel="DEBUG"/>
 				
+				<camel:enrich uri="direct:getPersonUniqueId" strategyRef="aggregatePersonUniqueIdStrategy"/>
+				
 				<camel:to uri="bean:bookingReportProcessor?method=processReport"/>
 				
 				<camel:doCatch >
@@ -86,6 +93,14 @@
 			
 		</camel:route>		
 
+		<camel:route id="Person_Unique_ID_Route">
+			<camel:from uri="direct:getPersonUniqueId"/>
+			
+			<camel:log message="getting Person's unique ID"/>
+			
+			<camel:setBody><camel:constant>personUniqueId</camel:constant></camel:setBody>			
+		</camel:route>
+		
 		<camel:route id="Failed_Invocation_Route">
 			<camel:from uri="direct:failedInvocation"/>
 			
@@ -111,6 +126,8 @@
 		<constructor-arg name="indexDirectoryPath" value="${custody.stagingAdapter.luceneDirectory}"/>
 		<constructor-arg name="indexBackupRoot" value="${custody.stagingAdapter.luceneBackupDirectory}"/>
 	</bean>
+
+	<bean id="aggregatePersonUniqueIdStrategy" class="org.ojbc.adapters.analyticsstaging.custody.personid.AggregatePersonUniqueIdStrategy"/>
 
 	<bean id ="bookingReportProcessor" class="org.ojbc.adapters.analyticsstaging.custody.processor.BookingReportProcessor">
 		<property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy"/>
