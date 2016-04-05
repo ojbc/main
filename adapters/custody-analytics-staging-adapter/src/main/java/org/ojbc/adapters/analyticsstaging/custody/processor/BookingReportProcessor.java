@@ -151,6 +151,19 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         Integer bedTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.BedType, bedType);
         booking.setBedTypeId(bedTypeId);
         
+        String locationId = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Arrest/jxdm51:ArrestLocation/@s30:ref");
+        if (StringUtils.isNotBlank(locationId)){
+        	Node arrestLocation2DGeoCoordinateNode = XmlUtils.xPathNodeSearch(bookingReportNode, "nc30:Location[@s30:id='"+ locationId +"']/nc30:Location2DGeospatialCoordinate");
+        	
+        	if (arrestLocation2DGeoCoordinateNode != null){
+        		String arrestLocationLongitude = XmlUtils.xPathStringSearch(arrestLocation2DGeoCoordinateNode, "nc30:GeographicCoordinateLongitude/nc30:LongitudeDegreeValue");
+        		booking.setArrestLocationLongitude(new BigDecimal(arrestLocationLongitude));
+        		
+        		String arrestLocationLatitude = XmlUtils.xPathStringSearch(arrestLocation2DGeoCoordinateNode, "nc30:GeographicCoordinateLatitude/nc30:LatitudeDegreeValue");
+        		booking.setArrestLocationLatitude(new BigDecimal(arrestLocationLatitude));
+        	}
+        }
+        
         Integer bookingId = analyticalDatastoreDAO.saveBooking(booking);
 		return bookingId;
 	}
