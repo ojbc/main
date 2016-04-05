@@ -42,6 +42,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_BEHAVIOR_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/BehavioralHealthEvaluationRecord/1.0";
 	public static final String NS_PREFIX_BEHAVIOR_REPORT_DOC_EXCH = "bhr-doc";	
 	
+	public static final String NS_BEHAVIORAL_HEALTH_REPORT_DOC_EXT = "http://ojbc.org/IEPD/Extensions/BehavioralHealthEvaluationRecordExtension/1.0";
+	public static final String NS_PREFIX_BEHAVIORAL_HEALTH_REPORT_DOC_EXT = "bhr-ext";	
+	
 	public static final String NS_CASE_FILE_DECISION_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0";	
 	public static final String NS_PREFIX_CASE_FILE_DECISION_REPORT_DOC_EXCH = "cfd-doc";
 	
@@ -1390,7 +1393,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_WARRANT_ACCEPTED_REPORT_DOC_EXCH, NS_PREFIX_WARRANT_ACCEPTED_REPORT_DOC_EXCH);		
 		
 		prefixToUriMap.put(NS_PREFIX_WARRANT_REJECTED_EXCH_DOC, NS_WARRANT_REJECTED_EXCH_DOC);
-		uriToPrefixMap.put(NS_WARRANT_REJECTED_EXCH_DOC, NS_PREFIX_WARRANT_REJECTED_EXCH_DOC);		
+		uriToPrefixMap.put(NS_WARRANT_REJECTED_EXCH_DOC, NS_PREFIX_WARRANT_REJECTED_EXCH_DOC);
+		
+		prefixToUriMap.put(NS_PREFIX_BEHAVIORAL_HEALTH_REPORT_DOC_EXT, NS_BEHAVIORAL_HEALTH_REPORT_DOC_EXT);
+		uriToPrefixMap.put(NS_BEHAVIORAL_HEALTH_REPORT_DOC_EXT, NS_PREFIX_BEHAVIORAL_HEALTH_REPORT_DOC_EXT);
 	}
 
 	@Override
