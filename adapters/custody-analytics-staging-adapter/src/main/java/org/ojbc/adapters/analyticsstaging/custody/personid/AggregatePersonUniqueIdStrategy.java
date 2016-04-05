@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
  * The interface to combine the person unique ID into the exchange header. 
  *
  */
-@Component
+@Component("aggregatePersonUniqueIdStrategy")
 public class AggregatePersonUniqueIdStrategy implements AggregationStrategy{
 	
 	@Override

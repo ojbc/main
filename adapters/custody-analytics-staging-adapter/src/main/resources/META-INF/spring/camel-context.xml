@@ -34,9 +34,9 @@
 	   
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
-<!--  	<context:annotation-config />
-	<context:component-scan base-package="org.ojbc.adapters.rapbackdatastore" />
- -->    
+ 	<context:annotation-config />
+	<context:component-scan base-package="org.ojbc.adapters.analyticsstaging.custody" />
+    
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="custody-analytics-staging-adapter">
 
  		<endpoint id="bookingReportingServiceAdapterEndpoint"
@@ -128,24 +128,12 @@
 		<constructor-arg name="indexBackupRoot" value="${custody.stagingAdapter.luceneBackupDirectory}"/>
 	</bean>
 
-	<bean id="aggregatePersonUniqueIdStrategy" class="org.ojbc.adapters.analyticsstaging.custody.personid.AggregatePersonUniqueIdStrategy"/>
-
-	<bean id ="bookingReportProcessor" class="org.ojbc.adapters.analyticsstaging.custody.processor.BookingReportProcessor">
-		<property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy"/>
-		<property name="analyticalDatastoreDAO" ref="analyticalDatastoreDAOImpl"/>
-		<property name="descriptionCodeLookupService" ref="descriptionCodeLookupService"/>
-	</bean>
-
- 	<bean id="analyticalDatastoreDAOImpl" class="org.ojbc.adapters.analyticsstaging.custody.dao.AnalyticalDatastoreDAOImpl">
-        <property name="dataSource" ref="dataSource"/>
+ 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+ 	    <constructor-arg ref="dataSource"/>
 	</bean>
 	
-	<bean id="codeTableDAO" class="org.ojbc.adapters.analyticsstaging.custody.dao.CodeTableDAOImpl">
-        <property name="dataSource" ref="dataSource"/>
-	</bean>
-	
-	<bean id="descriptionCodeLookupService" class="org.ojbc.adapters.analyticsstaging.custody.service.DescriptionCodeLookupService">
-		<constructor-arg ref="codeTableDAO"></constructor-arg>
+	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+ 	   <constructor-arg ref="dataSource"/>
 	</bean>
 	
 	
