@@ -98,7 +98,8 @@
 			
 			<camel:log message="getting Person's unique ID"/>
 			
-			<camel:setBody><camel:constant>personUniqueId</camel:constant></camel:setBody>			
+			<camel:setBody><camel:constant>personUniqueId</camel:constant></camel:setBody>
+						
 		</camel:route>
 		
 		<camel:route id="Failed_Invocation_Route">

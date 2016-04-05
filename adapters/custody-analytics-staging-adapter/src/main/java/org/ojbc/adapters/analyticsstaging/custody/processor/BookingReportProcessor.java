@@ -16,21 +16,27 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.processor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 
@@ -39,24 +45,70 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 	@Transactional
 	public void processReport(Document report, String personUniqueIdentifier) throws Exception
 	{
-		log.info("Processing booking report.");
+		log.info("Processing booking report." );
+		XmlUtils.printNode(report);
 		
 		Integer bookingId = processBookingReport(report, personUniqueIdentifier);
-		// TODO save bookingCharge. 
+		processBookingCharges(report, bookingId);
+		
 		log.info("Processed booking report.");
 		
+	}
+
+	private void processBookingCharges(Document report, Integer bookingId) throws Exception {
+		NodeList chargeNodes = XmlUtils.xPathNodeListSearch(report, "/br-doc:BookingReports/br-ext:BookingReport/jxdm51:Charge");
+		
+		List<BookingCharge> bookingCharges = new ArrayList<BookingCharge>();
+		
+		for (int i = 0; i < chargeNodes.getLength(); i++) {
+			Node chargeNode = chargeNodes.item(i);
+			
+			BookingCharge bookingCharge = new BookingCharge();
+			bookingCharge.setBookingId(bookingId);
+			
+			KeyValue chargeType = new KeyValue(); 
+			chargeType.setValue( XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeCategoryDescriptionText"));
+			chargeType.setKey(descriptionCodeLookupService.retrieveCode(CodeTable.ChargeType, chargeType.getValue()));
+			bookingCharge.setChargeType(chargeType);
+			
+			setBondInfo(report, chargeNode, bookingCharge);
+			bookingCharges.add(bookingCharge);
+		}
+		analyticalDatastoreDAO.saveBookingCharges(bookingCharges);
+	}
+
+	private void setBondInfo(Document report, Node chargeNode,
+			BookingCharge bookingCharge) throws Exception {
+		String chargeId = XmlUtils.xPathStringSearch(chargeNode, "@s30:id");
+		String bondId = XmlUtils.xPathStringSearch(report, "/br-doc:BookingReports/br-ext:BookingReport/"
+				+ "jxdm51:BailBondChargeAssociation[jxdm51:Charge/@s30:ref='" + chargeId + "']/jxdm51:BailBond/@s30:ref");
+		
+		if (StringUtils.isNotBlank(bondId)){
+			Node bondNode = XmlUtils.xPathNodeSearch(report, 
+					"/br-doc:BookingReports/br-ext:BookingReport/jxdm51:BailBond[@s30:id = '"+ bondId +  "']");
+			
+			String bondType = XmlUtils.xPathStringSearch(bondNode, "nc30:ActivityCategoryText");
+			Integer bondTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.BondType, bondType);
+			KeyValue keyValue = new KeyValue(bondTypeId, bondType);
+			bookingCharge.setBondType(keyValue);
+			
+			String bondAmount = XmlUtils.xPathStringSearch(bondNode, "jxdm51:BailBondAmount/nc30:Amount");
+			if (StringUtils.isNotBlank(bondAmount)){
+				bookingCharge.setBondAmount(new BigDecimal(bondAmount));
+			}
+		}
 	}
 
 	@Transactional
 	private Integer processBookingReport(Document report, String personUniqueIdentifier) throws Exception {
 		Booking booking = new Booking();
 		
-		Node personNode = XmlUtils.xPathNodeSearch(report, "/br-doc:BookingReport/br-ext:BookingReport/nc30:Person");
+		Node personNode = XmlUtils.xPathNodeSearch(report, "/br-doc:BookingReports/br-ext:BookingReport/nc30:Person");
         
         Integer bookingSubjectId = saveBookingSubject(personNode, personUniqueIdentifier);
         booking.setBookingSubjectId(bookingSubjectId);
         
-        Node bookingReportNode = XmlUtils.xPathNodeSearch(report, "br-ext:BookingReport");
+        Node bookingReportNode = XmlUtils.xPathNodeSearch(report, "/br-doc:BookingReports/br-ext:BookingReport");
         
         String courtName = XmlUtils.xPathStringSearch(bookingReportNode, "nc30:Case/jxdm51:CaseAugmentation/jxdm51:CaseCourt/jxdm51:CourtName");
         Integer courtId = descriptionCodeLookupService.retrieveCode(CodeTable.Jurisdiction, courtName);
@@ -125,20 +177,28 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 	 	bookingSubject.setPersonAge(Long.valueOf(age).intValue());
 	 	
 	 	String educationLevel = XmlUtils.xPathStringSearch(personNode, "nc30:PersonEducationLevelText");
-	 	Integer educationLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.EducationLevel, educationLevel);
-	 	bookingSubject.setEducationLevelId(educationLevelId);
+	 	if(StringUtils.isNotBlank(educationLevel)){
+		 	Integer educationLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.EducationLevel, StringUtils.trim(educationLevel));
+		 	bookingSubject.setEducationLevelId(educationLevelId);
+	 	}
 	 	
-	 	String occupation = XmlUtils.xPathStringSearch(personNode, "jxdm50:PersonAugmentation/nc30:EmployeeOccupationCategoryText");
-	 	Integer occupationId = descriptionCodeLookupService.retrieveCode(CodeTable.Occupation, occupation);
-	 	bookingSubject.setOccupationId(occupationId);
+	 	String occupation = XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonAugmentation/nc30:EmployeeOccupationCategoryText");
+	 	if (StringUtils.isNotBlank(occupation)){
+	 		Integer occupationId = descriptionCodeLookupService.retrieveCode(CodeTable.Occupation, StringUtils.trim(occupation));
+	 		bookingSubject.setOccupationId(occupationId);
+	 	}
 	 	
 	 	String incomeLevel = XmlUtils.xPathStringSearch(personNode, "br-ext:PersonSocioEconomicStatusDescriptionText");
-	 	Integer incomeLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.IncomeLevel, incomeLevel);
-	 	bookingSubject.setIncomeLevelId(incomeLevelId);
+	 	if (StringUtils.isNotBlank(incomeLevel)){
+	 		Integer incomeLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.IncomeLevel, StringUtils.trim(incomeLevel));
+	 		bookingSubject.setIncomeLevelId(incomeLevelId);
+	 	}
 	 	
 	 	String housingStatus = XmlUtils.xPathStringSearch(personNode, "nc30:PersonResidentText");
-	 	Integer housingStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.HousingStatus, housingStatus);
-	 	bookingSubject.setHousingStatusId(housingStatusId);
+	 	if(StringUtils.isNotBlank( housingStatus )){
+	 		Integer housingStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.HousingStatus, StringUtils.trim(housingStatus));
+	 		bookingSubject.setHousingStatusId(housingStatusId);
+	 	}
 	 	
 		Integer bookingSubjectId = analyticalDatastoreDAO.saveBookingSubject(bookingSubject);
 		return bookingSubjectId;
@@ -150,10 +210,12 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 		
 		person.setPersonUniqueIdentifier(personUniqueIdentifier);
 		
-		String personRace=XmlUtils.xPathStringSearch(personNode, "jxdm50:PersonRaceCode");
+		String personRace=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonRaceCode");
+		person.setPersonRaceDescription(personRace);
 		person.setPersonRaceID(descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, personRace));
 		
-		String personSex=XmlUtils.xPathStringSearch(personNode, "jxdm50:PersonSexCode");
+		String personSex=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonSexCode");
+		person.setPersonSexDescription(personSex);
 		person.setPersonSexID(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, personSex));
 		
 		String personBirthDate = XmlUtils.xPathStringSearch(personNode, "nc30:PersonBirthDate/nc30:Date");
