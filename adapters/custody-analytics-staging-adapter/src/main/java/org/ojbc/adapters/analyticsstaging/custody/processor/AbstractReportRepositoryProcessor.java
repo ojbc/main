@@ -32,6 +32,7 @@ import org.ojbc.adapters.analyticsstaging.custody.personid.IdentifierGenerationS
 import org.ojbc.adapters.analyticsstaging.custody.service.DescriptionCodeLookupService;
 import org.ojbc.adapters.analyticsstaging.custody.util.AnalyticalDataStoreUtils;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -39,10 +40,13 @@ import org.w3c.dom.Node;
 public abstract class AbstractReportRepositoryProcessor {
 	private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
 
+	@Autowired
 	protected IdentifierGenerationStrategy identifierGenerationStrategy;
 	
+	@Autowired
 	protected AnalyticalDatastoreDAO analyticalDatastoreDAO;
 	
+	@Autowired
 	protected DescriptionCodeLookupService descriptionCodeLookupService; 
 	
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -103,24 +107,6 @@ public abstract class AbstractReportRepositoryProcessor {
 	public void setIdentifierGenerationStrategy(
 			IdentifierGenerationStrategy identifierGenerationStrategy) {
 		this.identifierGenerationStrategy = identifierGenerationStrategy;
-	}
-
-	public AnalyticalDatastoreDAO getAnalyticalDatastoreDAO() {
-		return analyticalDatastoreDAO;
-	}
-
-	public void setAnalyticalDatastoreDAO(
-			AnalyticalDatastoreDAO analyticalDatastoreDAO) {
-		this.analyticalDatastoreDAO = analyticalDatastoreDAO;
-	}
-
-	public DescriptionCodeLookupService getDescriptionCodeLookupService() {
-		return descriptionCodeLookupService;
-	}
-
-	public void setDescriptionCodeLookupService(
-			DescriptionCodeLookupService descriptionCodeLookupService) {
-		this.descriptionCodeLookupService = descriptionCodeLookupService;
 	}
 
 }

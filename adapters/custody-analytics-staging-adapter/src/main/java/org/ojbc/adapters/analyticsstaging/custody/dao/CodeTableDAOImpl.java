@@ -20,10 +20,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -31,16 +30,12 @@ import org.springframework.stereotype.Repository;
 /**
  * Data access implementations of all database code tables.
  */
-@Repository
+@Repository("codeTableDAO")
 public class CodeTableDAOImpl implements CodeTableDAO
 {
-
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
 	@Override
 	public List<KeyValue> retrieveCodeDescriptions(CodeTable codeTable) {
 		String sql = null;
