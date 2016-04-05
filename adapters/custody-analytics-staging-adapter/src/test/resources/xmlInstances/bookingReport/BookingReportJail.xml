@@ -43,7 +43,7 @@
 		<nc:Case structures:id="Case_01">
 			<j:CaseAugmentation>
 				<j:CaseCourt>
-					<j:CourtName>Case Court</j:CourtName>
+					<j:CourtName>State Court</j:CourtName>
 				</j:CaseCourt>
 			</j:CaseAugmentation>
 		</nc:Case>
@@ -53,7 +53,7 @@
 			</nc:ActivityDate>
 			<j:BookingDetentionFacility>
 				<nc:FacilityIdentification>
-					<nc:IdentificationID>Booking Facility ID</nc:IdentificationID>
+					<nc:IdentificationID>Adams County Jail</nc:IdentificationID>
 				</nc:FacilityIdentification>
 			</j:BookingDetentionFacility>
 			<j:BookingSubject>
@@ -69,7 +69,7 @@
 			</nc:ActivityDate>
 			<nc:SupervisionCustodyStatus>
 				<nc:StatusDescriptionText>Pretrial</nc:StatusDescriptionText>
-				<ac-bkg-codes:PreTrialCategoryCode>C-SRP</ac-bkg-codes:PreTrialCategoryCode>
+				<ac-bkg-codes:PreTrialCategoryCode>SRP</ac-bkg-codes:PreTrialCategoryCode>
 			</nc:SupervisionCustodyStatus>
 			<j:SupervisionAugmentation>
 				<j:SupervisionReleaseDate>
@@ -80,7 +80,7 @@
 				</j:SupervisionAreaIdentification>
 				<j:SupervisionBedIdentification>
 					<nc:IdentificationID>Bed 2</nc:IdentificationID>
-					<ac-bkg-codes:BedCategoryCode>Type 2</ac-bkg-codes:BedCategoryCode>
+					<ac-bkg-codes:BedCategoryCode>BedType 2</ac-bkg-codes:BedCategoryCode>
 				</j:SupervisionBedIdentification>
 				<j:SupervisionCellIdentification>
 					<nc:IdentificationID>Cell 7</nc:IdentificationID>
@@ -89,7 +89,7 @@
 			<br-ext:DetentiontImmigrationHoldIndicator>false
 			</br-ext:DetentiontImmigrationHoldIndicator>
 			<br-ext:HoldForAgency>
-				<nc:OrganizationName>Agency</nc:OrganizationName>
+				<nc:OrganizationName>Arvada PD</nc:OrganizationName>
 			</br-ext:HoldForAgency>
 			<br-ext:InmateWorkReleaseIndicator>true
 			</br-ext:InmateWorkReleaseIndicator>
@@ -97,7 +97,7 @@
 			</br-ext:InmateWorkerIndicator>
 		</j:Detention>
 		<j:BailBond structures:id="Bond_01">
-			<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
+			<nc:ActivityCategoryText>Cash</nc:ActivityCategoryText>
 			<nc:ActivityStatus>
 				<nc:StatusDescriptionText>Bond Status</nc:StatusDescriptionText>
 			</nc:ActivityStatus>
@@ -150,9 +150,9 @@
 			<nc:PersonPrimaryLanguage>
 				<nc:LanguageName>English</nc:LanguageName>
 			</nc:PersonPrimaryLanguage>
-			<j:PersonRaceCode>A</j:PersonRaceCode>
+			<j:PersonRaceCode>White</j:PersonRaceCode>
 			<nc:PersonResidentText>Residence</nc:PersonResidentText>
-			<j:PersonSexCode>F</j:PersonSexCode>
+			<j:PersonSexCode>Female</j:PersonSexCode>
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
