@@ -30,7 +30,7 @@ public class AggregatePersonUniqueIdStrategy implements AggregationStrategy{
 	@Override
     public Exchange aggregate(Exchange original, Exchange resource) {
         Object originalBody = original.getIn().getBody();
-        Object resourceResponse = resource.getOut().getBody();
+        Object resourceResponse = resource.getIn().getBody();
         // TODO retrieve the personUnique ID from the resourceResponse. 
         String personUniqueId = "personUniqueId";
         
