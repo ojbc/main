@@ -258,6 +258,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	@Override
 	public void saveBookingCharges(List<BookingCharge> bookingCharges) {
+		log.info("Inserting row into BookingSubject table: " + bookingCharges);
 		final String sqlString=
 				"INSERT INTO BookingCharge (BookingID, ChargeTypeID, BondAmount, BondTypeID) values (?,?,?,?)";
 		
@@ -266,8 +267,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
                 throws SQLException {
                 ps.setInt(1, bookingCharges.get(i).getBookingId());
                 ps.setInt(2, bookingCharges.get(i).getChargeType().getKey());
-                ps.setBigDecimal(3, bookingCharges.get(i).getBondAmount());
-                ps.setInt(4, bookingCharges.get(i).getBondType().getKey());
+                
+                setPreparedStatementVariable(bookingCharges.get(i).getBondAmount(), ps, 3);
+                setPreparedStatementVariable(bookingCharges.get(i).getBondType(), ps, 4);
             }
 	            
             public int getBatchSize() {
@@ -279,7 +281,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	@Override
 	public Integer saveBookingSubject(BookingSubject bookingSubject) {
-        log.info("Inserting row into BookingSubject table");
+        log.info("Inserting row into BookingSubject table: " + bookingSubject.toString());
 
         final String sqlString="INSERT into BookingSubject ("
         		+ "RecidivistIndicator, " //1
@@ -527,9 +529,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer getPersonIdByUniqueId(String uniqueId) {
 		String sqlString = "SELECT PersonID FROM Person WHERE PersonUniqueIdentifier = ?";
 		
-		Integer personId = jdbcTemplate.queryForObject(sqlString, Integer.class, uniqueId);
+		List<Integer> personIds = jdbcTemplate.queryForList(sqlString, Integer.class, uniqueId);
 
-		return personId;
+		return DataAccessUtils.uniqueResult(personIds);
 	}
 
 
