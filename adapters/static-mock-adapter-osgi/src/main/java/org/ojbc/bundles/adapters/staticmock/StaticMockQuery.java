@@ -1261,7 +1261,7 @@ public class StaticMockQuery {
 			firearmMakeConditions.add("firearms-codes-demostate:FirearmMakeCode='" + firearmMakeCode + "'");
 		}
 		if (firearmMakeText != null && firearmMakeText.trim().length() > 0) {
-			firearmMakeConditions.add("firearm-search-req-ext:FirearmMakeText='" + firearmMakeText + "'");
+			firearmMakeConditions.add("firearm-ext:FirearmMakeText='" + firearmMakeText + "'");
 		}
 		if (firearmModel != null && firearmModel.trim().length() > 0) {
 			firearmConditions.add("nc:ItemModelName='" + firearmModel + "'");
@@ -1304,7 +1304,7 @@ public class StaticMockQuery {
 		}
 
 		if (!registrationConditions.isEmpty()) {
-			if (!(firearmMakeConditions.isEmpty() || firearmConditions.isEmpty())) {
+			if (!firearmMakeConditions.isEmpty() || !firearmConditions.isEmpty()) {
 				searchXPath.append(" and ");
 			}
 			searchXPath.append("@s:id = /firearm-doc:PersonFirearmRegistrationQueryResults/nc:PropertyRegistrationAssociation[nc:ItemRegistrationReference/@s:ref = /firearm-doc:PersonFirearmRegistrationQueryResults/firearm-ext:ItemRegistration[");
@@ -1316,7 +1316,10 @@ public class StaticMockQuery {
 		}
 
 		searchXPath.append("]");
-		return searchXPath.toString();
+		
+		String sSearchXpath = searchXPath.toString();
+				
+		return sSearchXpath;
 
 	}
 	
