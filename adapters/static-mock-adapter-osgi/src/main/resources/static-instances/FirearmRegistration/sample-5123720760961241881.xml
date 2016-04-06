@@ -1,0 +1,159 @@
+<firearm-doc:PersonFirearmRegistrationQueryResults xmlns:firearm-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0"
+                                                   xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0"
+                                                   xmlns:s="http://niem.gov/niem/structures/2.0"
+                                                   xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                                                   xmlns:firearms-codes-demostate="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0">
+   <nc:Person s:id="P13">
+      <nc:PersonBirthDate>
+         <nc:Date>1947-09-03</nc:Date>
+      </nc:PersonBirthDate>
+      <nc:PersonBirthLocation>
+         <nc:LocationAddress>
+            <nc:StructuredAddress>
+               <nc:LocationCityName>Herndon</nc:LocationCityName>
+               <nc:LocationStateName>VA</nc:LocationStateName>
+            </nc:StructuredAddress>
+         </nc:LocationAddress>
+      </nc:PersonBirthLocation>
+      <nc:PersonCitizenshipText>USA</nc:PersonCitizenshipText>
+      <nc:PersonComplexionText>Fair</nc:PersonComplexionText>
+      <nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
+      <nc:PersonHairColorCode>BLN</nc:PersonHairColorCode>
+      <nc:PersonHeightMeasure>
+         <nc:MeasureText>62</nc:MeasureText>
+         <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+      </nc:PersonHeightMeasure>
+      <nc:PersonName>
+         <nc:PersonGivenName>Kimberly</nc:PersonGivenName>
+         <nc:PersonMiddleName>A</nc:PersonMiddleName>
+         <nc:PersonSurName>Webb</nc:PersonSurName>
+         <nc:PersonFullName>Kimberly A Webb</nc:PersonFullName>
+      </nc:PersonName>
+      <nc:PersonRaceCode>W</nc:PersonRaceCode>
+      <nc:PersonSexCode>F</nc:PersonSexCode>
+      <nc:PersonSSNIdentification>
+         <nc:IdentificationID>225-15-8432</nc:IdentificationID>
+      </nc:PersonSSNIdentification>
+      <nc:PersonStateIdentification>
+         <nc:IdentificationID>VA677527</nc:IdentificationID>
+      </nc:PersonStateIdentification>
+      <nc:PersonWeightMeasure>
+         <nc:MeasureText>206.1</nc:MeasureText>
+         <nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+      </nc:PersonWeightMeasure>
+   </nc:Person>
+   <firearm-ext:Firearm s:id="F1">
+      <nc:ItemSerialIdentification>
+         <nc:IdentificationID>4564126004</nc:IdentificationID>
+      </nc:ItemSerialIdentification>
+      <nc:ItemModelName>Firearm</nc:ItemModelName>
+      <nc:FirearmCategoryCode>I</nc:FirearmCategoryCode>
+      <nc:FirearmCategoryDescriptionCode>E</nc:FirearmCategoryDescriptionCode>
+      <nc:FirearmBarrelLengthMeasure>
+         <nc:MeasureText>8</nc:MeasureText>
+         <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+      </nc:FirearmBarrelLengthMeasure>
+      <nc:FirearmCaliberCode>357</nc:FirearmCaliberCode>
+      <nc:FirearmGaugeText>Gauge</nc:FirearmGaugeText>
+      <firearms-codes-demostate:FirearmMakeCode>REM</firearms-codes-demostate:FirearmMakeCode>
+      <firearm-ext:FirearmMakeText>FieldmasterMfd. by Remington Arms</firearm-ext:FirearmMakeText>
+      <firearm-ext:FirearmReceivedDate>
+         <nc:Date>2013-02-10</nc:Date>
+      </firearm-ext:FirearmReceivedDate>
+      <firearm-ext:FirearmImporter>Unknown</firearm-ext:FirearmImporter>
+      <firearm-ext:FirearmAcquisition>
+         <firearm-ext:FirearmAcquisitionSourceDescriptionText>Jim's Sporting Goods</firearm-ext:FirearmAcquisitionSourceDescriptionText>
+         <firearm-ext:FirearmAcquisitionLocationAddress>
+            <nc:AddressFullText>4456 Spring Street</nc:AddressFullText>
+         </firearm-ext:FirearmAcquisitionLocationAddress>
+      </firearm-ext:FirearmAcquisition>
+   </firearm-ext:Firearm>
+   <firearm-ext:ItemRegistration s:id="R1">
+      <nc:RegistrationIdentification>
+         <nc:IdentificationID>796921029740</nc:IdentificationID>
+      </nc:RegistrationIdentification>
+      <nc:LocationCountyName>Newport News (city)</nc:LocationCountyName>
+      <nc:RegistrationEffectiveDate>
+         <nc:Date>2011-06-29</nc:Date>
+      </nc:RegistrationEffectiveDate>
+      <firearm-ext:AgeAtRegistration>
+         <nc:MeasureText>63</nc:MeasureText>
+      </firearm-ext:AgeAtRegistration>
+      <firearm-ext:PermitNumber>879417386357</firearm-ext:PermitNumber>
+      <firearm-ext:PermitDate>
+         <nc:Date>2011-06-29</nc:Date>
+      </firearm-ext:PermitDate>
+      <firearm-ext:RegistrationStatus>
+         <nc:StatusDate>
+            <nc:Date>2011-06-29</nc:Date>
+         </nc:StatusDate>
+         <firearm-ext:FirearmRegistrationStatusText>Active</firearm-ext:FirearmRegistrationStatusText>
+      </firearm-ext:RegistrationStatus>
+      <firearm-ext:RegistrationNotesText>Notes</firearm-ext:RegistrationNotesText>
+   </firearm-ext:ItemRegistration>
+   <nc:DriverLicense>
+      <nc:DriverLicenseIdentification>
+         <nc:IdentificationID>16630760</nc:IdentificationID>
+         <nc:IdentificationSourceText>VA</nc:IdentificationSourceText>
+      </nc:DriverLicenseIdentification>
+   </nc:DriverLicense>
+   <nc:Location s:id="L1">
+      <nc:LocationAddress>
+         <nc:StructuredAddress>
+            <nc:AddressDeliveryPointText>Ashford Drive Ashford Drive</nc:AddressDeliveryPointText>
+            <nc:LocationCityName>Herndon</nc:LocationCityName>
+            <nc:LocationStateName>VA</nc:LocationStateName>
+            <nc:LocationPostalCode>22070</nc:LocationPostalCode>
+         </nc:StructuredAddress>
+      </nc:LocationAddress>
+   </nc:Location>
+   <nc:ContactInformation s:id="CI1">
+      <nc:ContactTelephoneNumber>
+         <nc:FullTelephoneNumber>
+            <nc:TelephoneNumberFullID>360-555-1212</nc:TelephoneNumberFullID>
+         </nc:FullTelephoneNumber>
+      </nc:ContactTelephoneNumber>
+   </nc:ContactInformation>
+   <nc:ContactInformation s:id="CI2">
+      <nc:ContactTelephoneNumber>
+         <nc:FullTelephoneNumber>
+            <nc:TelephoneNumberFullID>212-333-8888</nc:TelephoneNumberFullID>
+         </nc:FullTelephoneNumber>
+      </nc:ContactTelephoneNumber>
+      <nc:ContactEntity>
+         <nc:EntityOrganization>
+            <nc:OrganizationLocation>
+               <nc:LocationAddress>
+                  <nc:StructuredAddress>
+                     <nc:AddressDeliveryPointText>123 Commerce Way</nc:AddressDeliveryPointText>
+                     <nc:LocationCityName>Herndon</nc:LocationCityName>
+                     <nc:LocationStateName>VA</nc:LocationStateName>
+                     <nc:LocationPostalCode>22070</nc:LocationPostalCode>
+                  </nc:StructuredAddress>
+               </nc:LocationAddress>
+            </nc:OrganizationLocation>
+         </nc:EntityOrganization>
+      </nc:ContactEntity>
+   </nc:ContactInformation>
+   <nc:PropertyRegistrationAssociation>
+      <nc:ItemRegistrationReference s:ref="R1"/>
+      <nc:ItemReference s:ref="F1"/>
+      <nc:ItemRegistrationHolderReference s:ref="P13"/>
+   </nc:PropertyRegistrationAssociation>
+   <nc:ResidenceAssociation>
+      <nc:PersonReference s:ref="P13"/>
+      <nc:LocationReference s:ref="L1"/>
+   </nc:ResidenceAssociation>
+   <nc:PersonContactInformationAssociation>
+      <nc:PersonReference s:ref="P13"/>
+      <nc:ContactInformationReference s:ref="CI1"/>
+   </nc:PersonContactInformationAssociation>
+   <nc:PersonEmploymentAssociation>
+      <nc:EmployeeReference s:ref="P13"/>
+      <nc:EmployeeOccupationText>Fork lift driver</nc:EmployeeOccupationText>
+   </nc:PersonEmploymentAssociation>
+   <nc:EmployeeContactInformationAssociation>
+      <nc:PersonReference s:ref="P13"/>
+      <nc:ContactInformationReference s:ref="CI2"/>
+   </nc:EmployeeContactInformationAssociation>
+</firearm-doc:PersonFirearmRegistrationQueryResults>

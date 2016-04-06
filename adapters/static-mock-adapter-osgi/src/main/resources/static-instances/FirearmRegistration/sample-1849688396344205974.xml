@@ -1,0 +1,213 @@
+<firearm-doc:PersonFirearmRegistrationQueryResults xmlns:firearm-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0"
+                                                   xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0"
+                                                   xmlns:s="http://niem.gov/niem/structures/2.0"
+                                                   xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                                                   xmlns:firearms-codes-demostate="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0">
+   <nc:Person s:id="P19">
+      <nc:PersonBirthDate>
+         <nc:Date>1980-01-22</nc:Date>
+      </nc:PersonBirthDate>
+      <nc:PersonBirthLocation>
+         <nc:LocationAddress>
+            <nc:StructuredAddress>
+               <nc:LocationCityName>Arlington</nc:LocationCityName>
+               <nc:LocationStateName>VA</nc:LocationStateName>
+            </nc:StructuredAddress>
+         </nc:LocationAddress>
+      </nc:PersonBirthLocation>
+      <nc:PersonCitizenshipText>USA</nc:PersonCitizenshipText>
+      <nc:PersonComplexionText>Fair</nc:PersonComplexionText>
+      <nc:PersonEyeColorCode>BLK</nc:PersonEyeColorCode>
+      <nc:PersonHairColorCode>RED</nc:PersonHairColorCode>
+      <nc:PersonHeightMeasure>
+         <nc:MeasureText>70</nc:MeasureText>
+         <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+      </nc:PersonHeightMeasure>
+      <nc:PersonName>
+         <nc:PersonGivenName>James</nc:PersonGivenName>
+         <nc:PersonMiddleName>D</nc:PersonMiddleName>
+         <nc:PersonSurName>Trombley</nc:PersonSurName>
+         <nc:PersonFullName>James D Trombley</nc:PersonFullName>
+      </nc:PersonName>
+      <nc:PersonRaceCode>W</nc:PersonRaceCode>
+      <nc:PersonSexCode>M</nc:PersonSexCode>
+      <nc:PersonSSNIdentification>
+         <nc:IdentificationID>693-01-5933</nc:IdentificationID>
+      </nc:PersonSSNIdentification>
+      <nc:PersonStateIdentification>
+         <nc:IdentificationID>VA990985</nc:IdentificationID>
+      </nc:PersonStateIdentification>
+      <nc:PersonWeightMeasure>
+         <nc:MeasureText>170.1</nc:MeasureText>
+         <nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+      </nc:PersonWeightMeasure>
+   </nc:Person>
+   <firearm-ext:Firearm s:id="F1">
+      <nc:ItemSerialIdentification>
+         <nc:IdentificationID>5652836200</nc:IdentificationID>
+      </nc:ItemSerialIdentification>
+      <nc:ItemModelName>Firearm</nc:ItemModelName>
+      <nc:FirearmCategoryCode>J</nc:FirearmCategoryCode>
+      <nc:FirearmCategoryDescriptionCode>C</nc:FirearmCategoryDescriptionCode>
+      <nc:FirearmBarrelLengthMeasure>
+         <nc:MeasureText>31</nc:MeasureText>
+         <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+      </nc:FirearmBarrelLengthMeasure>
+      <nc:FirearmCaliberCode>22</nc:FirearmCaliberCode>
+      <nc:FirearmGaugeText>Gauge</nc:FirearmGaugeText>
+      <firearms-codes-demostate:FirearmMakeCode>REM</firearms-codes-demostate:FirearmMakeCode>
+      <firearm-ext:FirearmMakeText>FieldmasterMfd. by Remington Arms</firearm-ext:FirearmMakeText>
+      <firearm-ext:FirearmReceivedDate>
+         <nc:Date>2002-09-23</nc:Date>
+      </firearm-ext:FirearmReceivedDate>
+      <firearm-ext:FirearmImporter>Unknown</firearm-ext:FirearmImporter>
+      <firearm-ext:FirearmAcquisition>
+         <firearm-ext:FirearmAcquisitionSourceDescriptionText>Janice's Firearms</firearm-ext:FirearmAcquisitionSourceDescriptionText>
+         <firearm-ext:FirearmAcquisitionLocationAddress>
+            <nc:AddressFullText>2336 Granville Lane</nc:AddressFullText>
+         </firearm-ext:FirearmAcquisitionLocationAddress>
+      </firearm-ext:FirearmAcquisition>
+   </firearm-ext:Firearm>
+   <firearm-ext:Firearm s:id="F2">
+      <nc:ItemSerialIdentification>
+         <nc:IdentificationID>8219871938</nc:IdentificationID>
+      </nc:ItemSerialIdentification>
+      <nc:ItemModelName>Firearm</nc:ItemModelName>
+      <nc:FirearmCategoryCode>J</nc:FirearmCategoryCode>
+      <nc:FirearmCategoryDescriptionCode>E</nc:FirearmCategoryDescriptionCode>
+      <nc:FirearmBarrelLengthMeasure>
+         <nc:MeasureText>37</nc:MeasureText>
+         <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+      </nc:FirearmBarrelLengthMeasure>
+      <nc:FirearmCaliberCode>44</nc:FirearmCaliberCode>
+      <nc:FirearmGaugeText>Gauge</nc:FirearmGaugeText>
+      <firearms-codes-demostate:FirearmMakeCode>GLC</firearms-codes-demostate:FirearmMakeCode>
+      <firearm-ext:FirearmMakeText>Glock, Inc.</firearm-ext:FirearmMakeText>
+      <firearm-ext:FirearmReceivedDate>
+         <nc:Date>2006-07-27</nc:Date>
+      </firearm-ext:FirearmReceivedDate>
+      <firearm-ext:FirearmImporter>Unknown</firearm-ext:FirearmImporter>
+      <firearm-ext:FirearmAcquisition>
+         <firearm-ext:FirearmAcquisitionSourceDescriptionText>Cynthia's Firearms</firearm-ext:FirearmAcquisitionSourceDescriptionText>
+         <firearm-ext:FirearmAcquisitionLocationAddress>
+            <nc:AddressFullText>1086 Better Street</nc:AddressFullText>
+         </firearm-ext:FirearmAcquisitionLocationAddress>
+      </firearm-ext:FirearmAcquisition>
+   </firearm-ext:Firearm>
+   <firearm-ext:ItemRegistration s:id="R1">
+      <nc:RegistrationIdentification>
+         <nc:IdentificationID>458993435067</nc:IdentificationID>
+      </nc:RegistrationIdentification>
+      <nc:LocationCountyName>Loudoun County</nc:LocationCountyName>
+      <nc:RegistrationEffectiveDate>
+         <nc:Date>2001-12-12</nc:Date>
+      </nc:RegistrationEffectiveDate>
+      <firearm-ext:AgeAtRegistration>
+         <nc:MeasureText>21</nc:MeasureText>
+      </firearm-ext:AgeAtRegistration>
+      <firearm-ext:PermitNumber>173727801566</firearm-ext:PermitNumber>
+      <firearm-ext:PermitDate>
+         <nc:Date>2001-12-12</nc:Date>
+      </firearm-ext:PermitDate>
+      <firearm-ext:RegistrationStatus>
+         <nc:StatusDate>
+            <nc:Date>2001-12-12</nc:Date>
+         </nc:StatusDate>
+         <firearm-ext:FirearmRegistrationStatusText>Active</firearm-ext:FirearmRegistrationStatusText>
+      </firearm-ext:RegistrationStatus>
+      <firearm-ext:RegistrationNotesText>Notes</firearm-ext:RegistrationNotesText>
+   </firearm-ext:ItemRegistration>
+   <firearm-ext:ItemRegistration s:id="R2">
+      <nc:RegistrationIdentification>
+         <nc:IdentificationID>787215947959</nc:IdentificationID>
+      </nc:RegistrationIdentification>
+      <nc:LocationCountyName>Fluvanna</nc:LocationCountyName>
+      <nc:RegistrationEffectiveDate>
+         <nc:Date>2016-01-22</nc:Date>
+      </nc:RegistrationEffectiveDate>
+      <firearm-ext:AgeAtRegistration>
+         <nc:MeasureText>36</nc:MeasureText>
+      </firearm-ext:AgeAtRegistration>
+      <firearm-ext:PermitNumber>614690218477</firearm-ext:PermitNumber>
+      <firearm-ext:PermitDate>
+         <nc:Date>2016-01-22</nc:Date>
+      </firearm-ext:PermitDate>
+      <firearm-ext:RegistrationStatus>
+         <nc:StatusDate>
+            <nc:Date>2016-01-22</nc:Date>
+         </nc:StatusDate>
+         <firearm-ext:FirearmRegistrationStatusText>Inactive</firearm-ext:FirearmRegistrationStatusText>
+      </firearm-ext:RegistrationStatus>
+      <firearm-ext:RegistrationNotesText>Notes</firearm-ext:RegistrationNotesText>
+   </firearm-ext:ItemRegistration>
+   <nc:DriverLicense>
+      <nc:DriverLicenseIdentification>
+         <nc:IdentificationID>32299952</nc:IdentificationID>
+         <nc:IdentificationSourceText>VA</nc:IdentificationSourceText>
+      </nc:DriverLicenseIdentification>
+   </nc:DriverLicense>
+   <nc:Location s:id="L1">
+      <nc:LocationAddress>
+         <nc:StructuredAddress>
+            <nc:AddressDeliveryPointText>Broadcast Drive Broadcast Drive</nc:AddressDeliveryPointText>
+            <nc:LocationCityName>Arlington</nc:LocationCityName>
+            <nc:LocationStateName>VA</nc:LocationStateName>
+            <nc:LocationPostalCode>22206</nc:LocationPostalCode>
+         </nc:StructuredAddress>
+      </nc:LocationAddress>
+   </nc:Location>
+   <nc:ContactInformation s:id="CI1">
+      <nc:ContactTelephoneNumber>
+         <nc:FullTelephoneNumber>
+            <nc:TelephoneNumberFullID>360-555-1212</nc:TelephoneNumberFullID>
+         </nc:FullTelephoneNumber>
+      </nc:ContactTelephoneNumber>
+   </nc:ContactInformation>
+   <nc:ContactInformation s:id="CI2">
+      <nc:ContactTelephoneNumber>
+         <nc:FullTelephoneNumber>
+            <nc:TelephoneNumberFullID>212-333-8888</nc:TelephoneNumberFullID>
+         </nc:FullTelephoneNumber>
+      </nc:ContactTelephoneNumber>
+      <nc:ContactEntity>
+         <nc:EntityOrganization>
+            <nc:OrganizationLocation>
+               <nc:LocationAddress>
+                  <nc:StructuredAddress>
+                     <nc:AddressDeliveryPointText>123 Commerce Way</nc:AddressDeliveryPointText>
+                     <nc:LocationCityName>Arlington</nc:LocationCityName>
+                     <nc:LocationStateName>VA</nc:LocationStateName>
+                     <nc:LocationPostalCode>22206</nc:LocationPostalCode>
+                  </nc:StructuredAddress>
+               </nc:LocationAddress>
+            </nc:OrganizationLocation>
+         </nc:EntityOrganization>
+      </nc:ContactEntity>
+   </nc:ContactInformation>
+   <nc:PropertyRegistrationAssociation>
+      <nc:ItemRegistrationReference s:ref="R1"/>
+      <nc:ItemReference s:ref="F1"/>
+      <nc:ItemRegistrationHolderReference s:ref="P19"/>
+   </nc:PropertyRegistrationAssociation>
+   <nc:PropertyRegistrationAssociation>
+      <nc:ItemRegistrationReference s:ref="R2"/>
+      <nc:ItemReference s:ref="F2"/>
+      <nc:ItemRegistrationHolderReference s:ref="P19"/>
+   </nc:PropertyRegistrationAssociation>
+   <nc:ResidenceAssociation>
+      <nc:PersonReference s:ref="P19"/>
+      <nc:LocationReference s:ref="L1"/>
+   </nc:ResidenceAssociation>
+   <nc:PersonContactInformationAssociation>
+      <nc:PersonReference s:ref="P19"/>
+      <nc:ContactInformationReference s:ref="CI1"/>
+   </nc:PersonContactInformationAssociation>
+   <nc:PersonEmploymentAssociation>
+      <nc:EmployeeReference s:ref="P19"/>
+      <nc:EmployeeOccupationText>Horticultural specialty farmer</nc:EmployeeOccupationText>
+   </nc:PersonEmploymentAssociation>
+   <nc:EmployeeContactInformationAssociation>
+      <nc:PersonReference s:ref="P19"/>
+      <nc:ContactInformationReference s:ref="CI2"/>
+   </nc:EmployeeContactInformationAssociation>
+</firearm-doc:PersonFirearmRegistrationQueryResults>

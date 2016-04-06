@@ -1,0 +1,159 @@
+<firearm-doc:PersonFirearmRegistrationQueryResults xmlns:firearm-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0"
+                                                   xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0"
+                                                   xmlns:s="http://niem.gov/niem/structures/2.0"
+                                                   xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                                                   xmlns:firearms-codes-demostate="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0">
+   <nc:Person s:id="P48">
+      <nc:PersonBirthDate>
+         <nc:Date>1983-05-08</nc:Date>
+      </nc:PersonBirthDate>
+      <nc:PersonBirthLocation>
+         <nc:LocationAddress>
+            <nc:StructuredAddress>
+               <nc:LocationCityName>Frisco</nc:LocationCityName>
+               <nc:LocationStateName>TX</nc:LocationStateName>
+            </nc:StructuredAddress>
+         </nc:LocationAddress>
+      </nc:PersonBirthLocation>
+      <nc:PersonCitizenshipText>USA</nc:PersonCitizenshipText>
+      <nc:PersonComplexionText>Fair</nc:PersonComplexionText>
+      <nc:PersonEyeColorCode>HAZ</nc:PersonEyeColorCode>
+      <nc:PersonHairColorCode>BLN</nc:PersonHairColorCode>
+      <nc:PersonHeightMeasure>
+         <nc:MeasureText>74</nc:MeasureText>
+         <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+      </nc:PersonHeightMeasure>
+      <nc:PersonName>
+         <nc:PersonGivenName>Darin</nc:PersonGivenName>
+         <nc:PersonMiddleName>R</nc:PersonMiddleName>
+         <nc:PersonSurName>Hill</nc:PersonSurName>
+         <nc:PersonFullName>Darin R Hill</nc:PersonFullName>
+      </nc:PersonName>
+      <nc:PersonRaceCode>B</nc:PersonRaceCode>
+      <nc:PersonSexCode>M</nc:PersonSexCode>
+      <nc:PersonSSNIdentification>
+         <nc:IdentificationID>460-94-2291</nc:IdentificationID>
+      </nc:PersonSSNIdentification>
+      <nc:PersonStateIdentification>
+         <nc:IdentificationID>TX555893</nc:IdentificationID>
+      </nc:PersonStateIdentification>
+      <nc:PersonWeightMeasure>
+         <nc:MeasureText>154.2</nc:MeasureText>
+         <nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+      </nc:PersonWeightMeasure>
+   </nc:Person>
+   <firearm-ext:Firearm s:id="F1">
+      <nc:ItemSerialIdentification>
+         <nc:IdentificationID>3862773904</nc:IdentificationID>
+      </nc:ItemSerialIdentification>
+      <nc:ItemModelName>Firearm</nc:ItemModelName>
+      <nc:FirearmCategoryCode>J</nc:FirearmCategoryCode>
+      <nc:FirearmCategoryDescriptionCode>D</nc:FirearmCategoryDescriptionCode>
+      <nc:FirearmBarrelLengthMeasure>
+         <nc:MeasureText>14</nc:MeasureText>
+         <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+      </nc:FirearmBarrelLengthMeasure>
+      <nc:FirearmCaliberCode>44</nc:FirearmCaliberCode>
+      <nc:FirearmGaugeText>Gauge</nc:FirearmGaugeText>
+      <firearms-codes-demostate:FirearmMakeCode>REM</firearms-codes-demostate:FirearmMakeCode>
+      <firearm-ext:FirearmMakeText>FieldmasterMfd. by Remington Arms</firearm-ext:FirearmMakeText>
+      <firearm-ext:FirearmReceivedDate>
+         <nc:Date>2004-03-12</nc:Date>
+      </firearm-ext:FirearmReceivedDate>
+      <firearm-ext:FirearmImporter>Unknown</firearm-ext:FirearmImporter>
+      <firearm-ext:FirearmAcquisition>
+         <firearm-ext:FirearmAcquisitionSourceDescriptionText>William's Firearms</firearm-ext:FirearmAcquisitionSourceDescriptionText>
+         <firearm-ext:FirearmAcquisitionLocationAddress>
+            <nc:AddressFullText>2621 Lightning Point Drive</nc:AddressFullText>
+         </firearm-ext:FirearmAcquisitionLocationAddress>
+      </firearm-ext:FirearmAcquisition>
+   </firearm-ext:Firearm>
+   <firearm-ext:ItemRegistration s:id="R1">
+      <nc:RegistrationIdentification>
+         <nc:IdentificationID>246249758933</nc:IdentificationID>
+      </nc:RegistrationIdentification>
+      <nc:LocationCountyName>Harris</nc:LocationCountyName>
+      <nc:RegistrationEffectiveDate>
+         <nc:Date>2005-09-30</nc:Date>
+      </nc:RegistrationEffectiveDate>
+      <firearm-ext:AgeAtRegistration>
+         <nc:MeasureText>22</nc:MeasureText>
+      </firearm-ext:AgeAtRegistration>
+      <firearm-ext:PermitNumber>103048394786</firearm-ext:PermitNumber>
+      <firearm-ext:PermitDate>
+         <nc:Date>2005-09-30</nc:Date>
+      </firearm-ext:PermitDate>
+      <firearm-ext:RegistrationStatus>
+         <nc:StatusDate>
+            <nc:Date>2005-09-30</nc:Date>
+         </nc:StatusDate>
+         <firearm-ext:FirearmRegistrationStatusText>Active</firearm-ext:FirearmRegistrationStatusText>
+      </firearm-ext:RegistrationStatus>
+      <firearm-ext:RegistrationNotesText>Notes</firearm-ext:RegistrationNotesText>
+   </firearm-ext:ItemRegistration>
+   <nc:DriverLicense>
+      <nc:DriverLicenseIdentification>
+         <nc:IdentificationID>74744988</nc:IdentificationID>
+         <nc:IdentificationSourceText>TX</nc:IdentificationSourceText>
+      </nc:DriverLicenseIdentification>
+   </nc:DriverLicense>
+   <nc:Location s:id="L1">
+      <nc:LocationAddress>
+         <nc:StructuredAddress>
+            <nc:AddressDeliveryPointText>Formula Lane Formula Lane</nc:AddressDeliveryPointText>
+            <nc:LocationCityName>Frisco</nc:LocationCityName>
+            <nc:LocationStateName>TX</nc:LocationStateName>
+            <nc:LocationPostalCode>75034</nc:LocationPostalCode>
+         </nc:StructuredAddress>
+      </nc:LocationAddress>
+   </nc:Location>
+   <nc:ContactInformation s:id="CI1">
+      <nc:ContactTelephoneNumber>
+         <nc:FullTelephoneNumber>
+            <nc:TelephoneNumberFullID>360-555-1212</nc:TelephoneNumberFullID>
+         </nc:FullTelephoneNumber>
+      </nc:ContactTelephoneNumber>
+   </nc:ContactInformation>
+   <nc:ContactInformation s:id="CI2">
+      <nc:ContactTelephoneNumber>
+         <nc:FullTelephoneNumber>
+            <nc:TelephoneNumberFullID>212-333-8888</nc:TelephoneNumberFullID>
+         </nc:FullTelephoneNumber>
+      </nc:ContactTelephoneNumber>
+      <nc:ContactEntity>
+         <nc:EntityOrganization>
+            <nc:OrganizationLocation>
+               <nc:LocationAddress>
+                  <nc:StructuredAddress>
+                     <nc:AddressDeliveryPointText>123 Commerce Way</nc:AddressDeliveryPointText>
+                     <nc:LocationCityName>Frisco</nc:LocationCityName>
+                     <nc:LocationStateName>TX</nc:LocationStateName>
+                     <nc:LocationPostalCode>75034</nc:LocationPostalCode>
+                  </nc:StructuredAddress>
+               </nc:LocationAddress>
+            </nc:OrganizationLocation>
+         </nc:EntityOrganization>
+      </nc:ContactEntity>
+   </nc:ContactInformation>
+   <nc:PropertyRegistrationAssociation>
+      <nc:ItemRegistrationReference s:ref="R1"/>
+      <nc:ItemReference s:ref="F1"/>
+      <nc:ItemRegistrationHolderReference s:ref="P48"/>
+   </nc:PropertyRegistrationAssociation>
+   <nc:ResidenceAssociation>
+      <nc:PersonReference s:ref="P48"/>
+      <nc:LocationReference s:ref="L1"/>
+   </nc:ResidenceAssociation>
+   <nc:PersonContactInformationAssociation>
+      <nc:PersonReference s:ref="P48"/>
+      <nc:ContactInformationReference s:ref="CI1"/>
+   </nc:PersonContactInformationAssociation>
+   <nc:PersonEmploymentAssociation>
+      <nc:EmployeeReference s:ref="P48"/>
+      <nc:EmployeeOccupationText>Textile presser</nc:EmployeeOccupationText>
+   </nc:PersonEmploymentAssociation>
+   <nc:EmployeeContactInformationAssociation>
+      <nc:PersonReference s:ref="P48"/>
+      <nc:ContactInformationReference s:ref="CI2"/>
+   </nc:EmployeeContactInformationAssociation>
+</firearm-doc:PersonFirearmRegistrationQueryResults>
