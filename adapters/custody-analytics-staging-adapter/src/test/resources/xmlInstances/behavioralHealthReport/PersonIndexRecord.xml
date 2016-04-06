@@ -57,11 +57,11 @@
 		<bhr-ext:SeriousMentalHealthEncounterDate>
 			<nc:Date>2015-08-13</nc:Date>
 		</bhr-ext:SeriousMentalHealthEncounterDate>
-		<bhr-ext:SeriousMentalHealthCategoryText>Type of Serious Mental Health</bhr-ext:SeriousMentalHealthCategoryText>
+		<bhr-ext:SeriousMentalHealthCategoryText>Illness 1</bhr-ext:SeriousMentalHealthCategoryText>
 	</bhr-ext:BehavioralHealthEvaluation>
 	<nc:Person structures:id="Patient_01">
 		<bhr-ext:PersonIndexIdentification>
-			<nc:IdentificationID>Index45678</nc:IdentificationID>
+			<nc:IdentificationID>personUniqueId</nc:IdentificationID>
 		</bhr-ext:PersonIndexIdentification>
 	</nc:Person>
 	<nc:ActivityPersonAssociation>

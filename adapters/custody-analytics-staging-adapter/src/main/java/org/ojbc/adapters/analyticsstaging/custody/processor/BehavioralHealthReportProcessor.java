@@ -70,7 +70,7 @@ public class BehavioralHealthReportProcessor extends AbstractReportRepositoryPro
 			throws Exception {
 		String evaluationRefId = XmlUtils.xPathStringSearch(activityPersonAssociation, "nc30:Activity/@s30:ref");
 		Node behavioralHealthEvaluationNode = XmlUtils.xPathNodeSearch(report, 
-				"/bhr-doc:BehavioralHealthEvaluationRecord/bhr-ext:BehavioralHealthEvaluation[s30:id='" + evaluationRefId + "']");
+				"/bhr-doc:BehavioralHealthEvaluationRecord/bhr-ext:BehavioralHealthEvaluation[@s30:id='" + evaluationRefId + "']");
 		
 		String evaluationDate = XmlUtils.xPathStringSearch(behavioralHealthEvaluationNode, "nc30:ActivityDate/nc30:Date");
 		if (StringUtils.isNotBlank(evaluationDate)){

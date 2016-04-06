@@ -237,6 +237,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 		person.setPersonBirthDate(LocalDate.parse(personBirthDate));
 		
 		String language = XmlUtils.xPathStringSearch(personNode, "nc30:PersonPrimaryLanguage/nc30:LanguageName");
+		person.setLanguage(language);
 		person.setLanguageId(descriptionCodeLookupService.retrieveCode(CodeTable.Language, language));
 		
 		Integer personId = analyticalDatastoreDAO.savePerson(person);

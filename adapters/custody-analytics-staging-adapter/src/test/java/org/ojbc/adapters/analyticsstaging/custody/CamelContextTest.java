@@ -16,11 +16,14 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +31,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
+
+import junit.framework.Assert;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
@@ -46,10 +51,16 @@ import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.MessageImpl;
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.analyticsstaging.custody.dao.AnalyticalDatastoreDAOImpl;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAssessment;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -106,6 +117,22 @@ public class CamelContextTest {
     	    }              
     	});
     	
+    	context.getRouteDefinition("behavioral_health_reporting_service").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	// The line below allows us to bypass CXF and send a message directly into the route
+    	    	replaceFromWith("direct:behavioralHealthServiceEndpoint");
+    	    }              
+    	});
+
+    	context.getRouteDefinition("behavioral_health_reporting_service_process_booking_report").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	//This assists testing an invocation failure
+    	    	interceptSendToEndpoint("direct:failedInvocation").to("mock:direct:failedInvocation").stop();
+    	    }              
+    	});
+    	
     	
     	context.start();
 	}	
@@ -113,16 +140,109 @@ public class CamelContextTest {
 	@Test
 	public void testBookingReportService() throws Exception
 	{
-    	Exchange incidentReportExchange = createSenderExchange("src/test/resources/xmlInstances/bookingReport/BookingReportJail.xml");
-	    
+		testBookingReportServiceRoute();	
+		
+		testBehavioralHealthReportServiceRoute();
+	}
+
+	private void testBookingReportServiceRoute() throws Exception, IOException {
+		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/bookingReport/BookingReportJail.xml");
+
+		Person person = analyticalDatastoreDAOImpl.getPerson(1);
+		Assert.assertNull(person);
+		
+		BookingSubject bookingSubject = analyticalDatastoreDAOImpl.getBookingSubject(1);
+		Assert.assertNull(bookingSubject);
+		
+		Booking booking = analyticalDatastoreDAOImpl.getBookingByBookingReportId("eDocumentID");
+		assertNull(booking);
+		
+		List<BookingCharge> bookingCharges = analyticalDatastoreDAOImpl.getBookingCharges( 1 ); 
+		assertTrue(bookingCharges.isEmpty());
+		
 	    //Send the one-way exchange.  Using template.send will send an one way message
-		Exchange returnExchange = template.send("direct:bookingReportServiceEndpoint", incidentReportExchange);
+		Exchange returnExchange = template.send("direct:bookingReportServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}
+		
+		person = analyticalDatastoreDAOImpl.getPerson(1);
+		Assert.assertNotNull(person);
+		
+		Assert.assertEquals(Integer.valueOf(1), person.getPersonID());
+		Assert.assertEquals("personUniqueId", person.getPersonUniqueIdentifier());
+		Assert.assertEquals("White", person.getPersonRaceDescription());
+		Assert.assertEquals("Female", person.getPersonSexDescription());
+		Assert.assertEquals("English", person.getLanguage());
+		Assert.assertEquals(LocalDate.parse("1968-12-17"), person.getPersonBirthDate());
+		
+		bookingSubject = analyticalDatastoreDAOImpl.getBookingSubject(1);
+		Assert.assertNotNull(bookingSubject);
+		
+		Assert.assertEquals(Integer.valueOf(1), bookingSubject.getPersonId());
+		Assert.assertEquals("Booking Number", bookingSubject.getBookingNumber());
+		Assert.assertEquals(Integer.valueOf(0), bookingSubject.getRecidivistIndicator());
+		Assert.assertTrue(person.getPersonBirthDate().until(java.time.LocalDate.now(), ChronoUnit.YEARS ) == 
+				bookingSubject.getPersonAge().longValue());
+		Assert.assertTrue(bookingSubject.getHousingStatusId() == 1);
+		Assert.assertTrue(bookingSubject.getEducationLevelId() == 1);
+		Assert.assertTrue(bookingSubject.getOccupationId() == 1);
+		Assert.assertTrue(bookingSubject.getIncomeLevelId() == 1);
+		
+		booking = analyticalDatastoreDAOImpl.getBookingByBookingReportId("eDocumentID");
+		assertNotNull(booking);
+
+		assertTrue(booking.getJurisdictionId() == 1);
+		assertEquals(LocalDateTime.parse("2012-12-17T09:30:47"), booking.getBookingReportDate());
+		assertTrue(booking.getSendingAgencyId() == 2 );
+		assertEquals(LocalDateTime.parse("2013-12-17T09:30"), booking.getBookingDate());
+		assertEquals(LocalDate.parse("2013-12-17"), booking.getCommitDate());
+		assertEquals(LocalDateTime.parse("2014-12-17T10:30"), booking.getSupervisionReleaseDate());
+		assertEquals("eDocumentID", booking.getBookingReportId());
+		assertTrue(booking.getCaseStatusId() == 1); 
+		assertTrue(booking.getPretrialStatusId() == 2);
+		assertTrue(booking.getFacilityId() == 1);
+		assertTrue(booking.getBedTypeId() == 2); 
+		assertTrue(booking.getArrestLocationLatitude().doubleValue() == 56.1111 ); 
+		assertTrue(booking.getArrestLocationLongitude().doubleValue() == 32.1111 ); 
+		
+		bookingCharges = analyticalDatastoreDAOImpl.getBookingCharges( 1 ); 
+		assertFalse(bookingCharges.isEmpty());
+		
+		BookingCharge bookingCharge = bookingCharges.get(0);
+		assertTrue(bookingCharge.getBondAmount().doubleValue() == 500.00); 
+		assertThat(bookingCharge.getBondType().getValue(), is("Cash"));
+		assertThat(bookingCharge.getChargeType().getValue(), is("Felony"));
+		assertTrue(bookingCharge.getBookingId() == 1);
+	}
+	
+	public void testBehavioralHealthReportServiceRoute() throws Exception
+	{
+		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAOImpl.getBehavioralHealthAssessments( 1 ); 
+		assertTrue( behavioralHealthAssessments.isEmpty());
+		
+    	Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/behavioralHealthReport/PersonIndexRecord.xml");
+	    
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:behavioralHealthServiceEndpoint", senderExchange);
 		
 		//Use getException to see if we received an exception
 		if (returnExchange.getException() != null)
 		{	
 			throw new Exception(returnExchange.getException());
 		}	
+		
+		behavioralHealthAssessments = analyticalDatastoreDAOImpl.getBehavioralHealthAssessments( 1 ); 
+		assertFalse( behavioralHealthAssessments.isEmpty());
+		
+		BehavioralHealthAssessment behavioralHealthAssessment = behavioralHealthAssessments.get(0);
+		assertTrue(behavioralHealthAssessment.getBehavioralHealthAssessmentId() == 1); 
+		assertThat(behavioralHealthAssessment.getBehavioralHealthType().getValue(), is("Illness 1")); 
+		assertTrue(behavioralHealthAssessment.getPersonId() == 1); 
+		assertThat(behavioralHealthAssessment.getEvaluationDate(), is(LocalDate.parse("2015-08-13")));
 
 	}
 	

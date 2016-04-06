@@ -36,10 +36,10 @@ public class AggregatePersonUniqueIdStrategy implements AggregationStrategy{
         
         if (original.getPattern().isOutCapable()) {
             original.getOut().setBody(originalBody);
-            original.getOut().setHeader("personUniqueId", 1);
+            original.getOut().setHeader("personUniqueId", personUniqueId);
         } else {
             original.getIn().setBody(originalBody);
-            original.getIn().setHeader("personUniqueId", 1);
+            original.getIn().setHeader("personUniqueId", personUniqueId);
         }
         return original;
     }
