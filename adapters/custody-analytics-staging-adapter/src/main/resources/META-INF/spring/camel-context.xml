@@ -45,11 +45,17 @@
 		<endpoint id="bookingReportingFileEndpoint"
 			uri="file://{{custody.stagingAdapter.inputDirectory}}/bookingReport/input?idempotent=true&amp;moveFailed={{custody.stagingAdapter.inputDirectory}}/bookingReport/error&amp;recursive=true&amp;delete=true&amp;maxMessagesPerPoll=100" />
 
+ 		<endpoint id="behavioralHealthReportingServiceAdapterEndpoint"
+			uri="cxf:bean:behavioralHealthReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{custody.stagingAdapter.cxflogging}}" />
+
+		<endpoint id="behavioralHealthReportingFileEndpoint"
+			uri="file://{{custody.stagingAdapter.inputDirectory}}/behavioralHealthReport/input?idempotent=true&amp;moveFailed={{custody.stagingAdapter.inputDirectory}}/behavioralHealthReport/error&amp;recursive=true&amp;delete=true&amp;maxMessagesPerPoll=100" />
+
 		<endpoint id="invocationFailedFileEndpoint"
 			uri="file://{{custody.stagingAdapter.inputDirectory}}/failed" />
 
 		<!-- Booking Reporting Route -->
-		<camel:route id="Booking_Reporting_Service" >
+		<camel:route id="booking_reporting_service" >
 		
 			<camel:from	uri="bookingReportingServiceAdapterEndpoint" />
 			
@@ -64,7 +70,7 @@
 			<camel:to uri="direct:processBookingReport" />
 		</camel:route>
 		
-		<camel:route id="Booking_Reporting_Service_Process_Booking_Report" startupOrder="1">				
+		<camel:route id="booking_reporting_service_process_booking_report" startupOrder="1">				
 			
 			<camel:from	uri="direct:processBookingReport" />
 
@@ -93,7 +99,7 @@
 			
 		</camel:route>		
 
-		<camel:route id="Person_Unique_ID_Route">
+		<camel:route id="person_unique_id_route">
 			<camel:from uri="direct:getPersonUniqueId"/>
 			
 			<camel:log message="getting Person's unique ID"/>
@@ -102,7 +108,47 @@
 						
 		</camel:route>
 		
-		<camel:route id="Failed_Invocation_Route">
+		<camel:route id="behavioral_health_reporting_service" >
+		
+			<camel:from	uri="behavioralHealthReportingServiceAdapterEndpoint" />
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:to uri="direct:processBehavioralHealthReport" />
+			
+		</camel:route>	
+		
+		<camel:route id="behavioral_health_reporting_service_filedrop">
+			<camel:from	uri="behavioralHealthReportingFileEndpoint" />
+			<camel:to uri="direct:processBehavioralHealthReport" />
+		</camel:route>
+		
+		<camel:route id="behavioral_health_reporting_service_process_booking_report" startupOrder="2">	
+			<camel:from uri="direct:processBehavioralHealthReport"/>			
+			<camel:doTry>
+						
+				<camel:log message="Here is the inbound booking report message: ${body}" loggingLevel="DEBUG"/>
+				
+				<camel:to uri="bean:behavioralHealthReportProcessor?method=processReport"/>
+				
+				<camel:doCatch >
+					<camel:exception>java.lang.Exception</camel:exception>
+					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
+					
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>behavioralHealthReport/FailedIncident_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+					</camel:setHeader>	
+
+					<log message="Behavioral Health Report document failure. File Name to persist is: ${in.headers.CamelFileName}"/>
+					
+					<camel:to uri="direct:failedInvocation"/>
+				</camel:doCatch>
+			
+			</camel:doTry>
+			
+		</camel:route>
+			
+		<camel:route id="failed_invocation_route">
 			<camel:from uri="direct:failedInvocation"/>
 			
 			<camel:log message="Invocation failed. File will be persisted: ${in.headers.CamelFileName}"/>
@@ -113,7 +159,7 @@
 			
 		</camel:route>
 		
-		<camel:route id="IndexBackupRoute">
+		<camel:route id="index_backup_route">
 			<from uri="timer://foo?fixedRate=true&amp;period=1H&amp;delay=5M"/>
 			<to uri="bean:indexedIdentifierGenerationStrategy?method=backup"/>
 			<camel:log message="Backed up index to: ${body}"/>
