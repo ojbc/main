@@ -90,7 +90,7 @@ public class CamelContextTest {
 	@Before
 	public void setUp() throws Exception {
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("Booking_Reporting_Service").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("booking_reporting_service").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
     	    	// The line below allows us to bypass CXF and send a message directly into the route
@@ -98,7 +98,7 @@ public class CamelContextTest {
     	    }              
     	});
 
-    	context.getRouteDefinition("Booking_Reporting_Service_Process_Booking_Report").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("booking_reporting_service_process_booking_report").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
     	    	//This assists testing an invocation failure
