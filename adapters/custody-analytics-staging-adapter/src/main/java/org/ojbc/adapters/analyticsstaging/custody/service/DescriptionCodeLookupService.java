@@ -26,7 +26,10 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticsstaging.custody.dao.CodeTableDAO;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DescriptionCodeLookupService
 {
 
@@ -36,16 +39,21 @@ public class DescriptionCodeLookupService
 	
 	private CodeTableDAO codeTableDAO;
 
+	public DescriptionCodeLookupService() {
+		super();
+	}
+	
 	@SuppressWarnings("unchecked")
-	public DescriptionCodeLookupService(CodeTableDAO codeTableDao){
+	@Autowired
+	public DescriptionCodeLookupService(CodeTableDAO codeTableDAO){
+		this();
+		this.setCodeTableDAO(codeTableDAO);
     	log.info("Recache code table descriptions.");
 
     	mapArray = new Map[CodeTable.values().length];
     	
-    	this.setCodeTableDAO( codeTableDao );
-
         for (CodeTable codeTable : CodeTable.values()) {
-            mapArray[codeTable.ordinal()] = convertListToMap(getCodeTableDAO().retrieveCodeDescriptions(codeTable));
+            mapArray[codeTable.ordinal()] = convertListToMap(codeTableDAO.retrieveCodeDescriptions(codeTable));
         }
 	}
 
@@ -102,12 +110,13 @@ public class DescriptionCodeLookupService
 	public Map<String, Integer> getCodeTable(CodeTable codeTable) {
 		return mapArray[codeTable.ordinal()];
 	}
-	
-	private CodeTableDAO getCodeTableDAO(){
-	    return this.codeTableDAO; 
-	}
-    private void setCodeTableDAO(CodeTableDAO codeTableDAO) {
-        this.codeTableDAO = codeTableDAO;
-    }
 
+	public CodeTableDAO getCodeTableDAO() {
+		return codeTableDAO;
+	}
+
+	public void setCodeTableDAO(CodeTableDAO codeTableDAO) {
+		this.codeTableDAO = codeTableDAO;
+	}
+	
 }

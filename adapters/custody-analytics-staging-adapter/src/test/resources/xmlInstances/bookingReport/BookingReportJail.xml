@@ -23,14 +23,15 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
 	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:br-doc="http://ojbc.org/IEPD/Exchange/BookingReport/1.0"
 	xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
 	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<br-ext:BookingReport>
 		<nc:DocumentCreationDate>
-			<nc:DateTime>2012-12-17T09:30:47.0Z</nc:DateTime>
+			<nc:DateTime>2012-12-17T09:30:47</nc:DateTime>
 		</nc:DocumentCreationDate>
 		<nc:DocumentIdentification>
 			<nc:IdentificationID>eDocumentID</nc:IdentificationID>
@@ -42,7 +43,7 @@
 		<nc:Case structures:id="Case_01">
 			<j:CaseAugmentation>
 				<j:CaseCourt>
-					<j:CourtName>Case Court</j:CourtName>
+					<j:CourtName>State Court</j:CourtName>
 				</j:CaseCourt>
 			</j:CaseAugmentation>
 		</nc:Case>
@@ -52,7 +53,7 @@
 			</nc:ActivityDate>
 			<j:BookingDetentionFacility>
 				<nc:FacilityIdentification>
-					<nc:IdentificationID>Booking Facility ID</nc:IdentificationID>
+					<nc:IdentificationID>Adams County Jail</nc:IdentificationID>
 				</nc:FacilityIdentification>
 			</j:BookingDetentionFacility>
 			<j:BookingSubject>
@@ -68,7 +69,7 @@
 			</nc:ActivityDate>
 			<nc:SupervisionCustodyStatus>
 				<nc:StatusDescriptionText>Pretrial</nc:StatusDescriptionText>
-				<ac-bkg-codes:PreTrialCategoryCode>C-SRP</ac-bkg-codes:PreTrialCategoryCode>
+				<ac-bkg-codes:PreTrialCategoryCode>SRP</ac-bkg-codes:PreTrialCategoryCode>
 			</nc:SupervisionCustodyStatus>
 			<j:SupervisionAugmentation>
 				<j:SupervisionReleaseDate>
@@ -79,7 +80,7 @@
 				</j:SupervisionAreaIdentification>
 				<j:SupervisionBedIdentification>
 					<nc:IdentificationID>Bed 2</nc:IdentificationID>
-					<ac-bkg-codes:BedCategoryCode>Type 2</ac-bkg-codes:BedCategoryCode>
+					<ac-bkg-codes:BedCategoryCode>BedType 2</ac-bkg-codes:BedCategoryCode>
 				</j:SupervisionBedIdentification>
 				<j:SupervisionCellIdentification>
 					<nc:IdentificationID>Cell 7</nc:IdentificationID>
@@ -88,7 +89,7 @@
 			<br-ext:DetentiontImmigrationHoldIndicator>false
 			</br-ext:DetentiontImmigrationHoldIndicator>
 			<br-ext:HoldForAgency>
-				<nc:OrganizationName>Agency</nc:OrganizationName>
+				<nc:OrganizationName>Arvada PD</nc:OrganizationName>
 			</br-ext:HoldForAgency>
 			<br-ext:InmateWorkReleaseIndicator>true
 			</br-ext:InmateWorkReleaseIndicator>
@@ -96,7 +97,7 @@
 			</br-ext:InmateWorkerIndicator>
 		</j:Detention>
 		<j:BailBond structures:id="Bond_01">
-			<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
+			<nc:ActivityCategoryText>Cash</nc:ActivityCategoryText>
 			<nc:ActivityStatus>
 				<nc:StatusDescriptionText>Bond Status</nc:StatusDescriptionText>
 			</nc:ActivityStatus>
@@ -149,9 +150,9 @@
 			<nc:PersonPrimaryLanguage>
 				<nc:LanguageName>English</nc:LanguageName>
 			</nc:PersonPrimaryLanguage>
-			<j:PersonRaceCode>A</j:PersonRaceCode>
+			<j:PersonRaceCode>White</j:PersonRaceCode>
 			<nc:PersonResidentText>Residence</nc:PersonResidentText>
-			<j:PersonSexCode>F</j:PersonSexCode>
+			<j:PersonSexCode>Female</j:PersonSexCode>
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>

@@ -111,7 +111,7 @@ public class CamelContextTest {
 	}	
 	
 	@Test
-	public void testIncidentReportService() throws Exception
+	public void testBookingReportService() throws Exception
 	{
     	Exchange incidentReportExchange = createSenderExchange("src/test/resources/xmlInstances/bookingReport/BookingReportJail.xml");
 	    
