@@ -66,6 +66,7 @@
 					<xsd:element ref="firearm-ext:Firearm" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="firearm-ext:FirearmRegistrant" minOccurs="0"/>
 					<xsd:element ref="firearm-ext:ItemRegistration" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:DriverLicense" minOccurs="0"/>
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:PropertyRegistrationAssociation" minOccurs="0" maxOccurs="unbounded"/>
@@ -73,6 +74,7 @@
 					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0"/>
 					<xsd:element ref="nc:PersonEmploymentAssociation" minOccurs="0"/>
 					<xsd:element ref="nc:EmployeeContactInformationAssociation" minOccurs="0"/>
+					<xsd:element ref="j:PersonDriverLicenseAssociation" minOccurs="0"/>
 					<xsd:element ref="srm:QueryResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
