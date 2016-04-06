@@ -24,7 +24,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 public class BehavioralHealthAssessment implements Serializable
 {
 	private static final long serialVersionUID = 3070572325599615722L;
-	private Integer bdehavioralHealthAssessmentId;
+	private Integer behavioralHealthAssessmentId;
     private KeyValue behavioralHealthType; 
     private Integer personId; 
     private LocalDate evaluationDate; 
@@ -32,15 +32,6 @@ public class BehavioralHealthAssessment implements Serializable
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);	
-	}
-
-	public Integer getBdehavioralHealthAssessmentId() {
-		return bdehavioralHealthAssessmentId;
-	}
-
-	public void setBdehavioralHealthAssessmentId(
-			Integer bdehavioralHealthAssessmentId) {
-		this.bdehavioralHealthAssessmentId = bdehavioralHealthAssessmentId;
 	}
 
 	public KeyValue getBehavioralHealthType() {
@@ -65,6 +56,15 @@ public class BehavioralHealthAssessment implements Serializable
 
 	public void setEvaluationDate(LocalDate evaluationDate) {
 		this.evaluationDate = evaluationDate;
+	}
+
+	public Integer getBehavioralHealthAssessmentId() {
+		return behavioralHealthAssessmentId;
+	}
+
+	public void setBehavioralHealthAssessmentId(
+			Integer behavioralHealthAssessmentId) {
+		this.behavioralHealthAssessmentId = behavioralHealthAssessmentId;
 	}
 
 }

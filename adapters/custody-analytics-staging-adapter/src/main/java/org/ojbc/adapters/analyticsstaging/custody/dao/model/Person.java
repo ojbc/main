@@ -34,6 +34,7 @@ public class Person {
         
     private String personSexDescription; 
     private String personRaceDescription;
+    private String language;
     
     private LocalDate personBirthDate;
     private String personUniqueIdentifier;
@@ -90,6 +91,12 @@ public class Person {
 	}
 	public void setLanguageId(Integer languageId) {
 		this.languageId = languageId;
+	}
+	public String getLanguage() {
+		return language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 	
 }

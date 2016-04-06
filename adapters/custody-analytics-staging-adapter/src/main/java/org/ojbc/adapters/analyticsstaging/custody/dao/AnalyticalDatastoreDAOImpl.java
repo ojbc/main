@@ -32,6 +32,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAsse
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonRace;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonSex;
@@ -173,6 +174,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		final String PERSON_SELECT = "SELECT * FROM Person p "
 				+ "LEFT JOIN PersonSex s ON s.PersonSexID = p.PersonSexID "
 				+ "LEFT JOIN PersonRace r ON r.PersonRaceID = p.PersonRaceID "
+				+ "LEFT JOIN Language l on l.languageID = p.languageID "
 				+ "WHERE p.PersonID = ?"; 
 		List<Person> persons = 
 				jdbcTemplate.query(PERSON_SELECT, 
@@ -193,6 +195,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			person.setPersonRaceID(rs.getInt("PersonRaceID"));
 			person.setPersonSexID(rs.getInt("PersonSexID"));
 			person.setPersonUniqueIdentifier(rs.getString("PersonUniqueIdentifier"));
+			person.setLanguageId(rs.getInt("LanguageID"));
+			person.setLanguage(rs.getString("Language"));
 			
 	    	return person;
 		}
@@ -236,6 +240,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	@Override
 	public void saveBehavioralHealthAssessments(
 			List<BehavioralHealthAssessment> behavioralHealthAssessments) {
+		log.debug("Inserting row into BehavioralHealthAssessment table: " + behavioralHealthAssessments);
 		final String sqlString=
 				"INSERT INTO BehavioralHealthAssessment (PersonID, BehavioralHealthTypeID, EvaluationDate) values (?,?,?)";
 		
@@ -267,7 +272,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
                 ps.setInt(2, bookingCharges.get(i).getChargeType().getKey());
                 
                 setPreparedStatementVariable(bookingCharges.get(i).getBondAmount(), ps, 3);
-                setPreparedStatementVariable(bookingCharges.get(i).getBondType(), ps, 4);
+                setPreparedStatementVariable(bookingCharges.get(i).getBondType().getKey(), ps, 4);
             }
 	            
             public int getBatchSize() {
@@ -504,11 +509,12 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			Booking booking = new Booking();
 	    	
 			booking.setBookingId(rs.getInt("BookingID"));
+			booking.setJurisdictionId(rs.getInt("JurisdictionID"));
 			booking.setBookingReportDate(rs.getTimestamp("BookingReportDate").toLocalDateTime());
 			booking.setBookingReportId(rs.getString("BookingReportID"));
 			booking.setSendingAgencyId(rs.getInt("SendingAgencyID"));
 			booking.setCaseStatusId(rs.getInt("CaseStatusID"));
-			booking.setBookingDate(rs.getTimestamp("BookingReportDate").toLocalDateTime());
+			booking.setBookingDate(rs.getTimestamp("BookingDate").toLocalDateTime());
 			booking.setSupervisionReleaseDate(rs.getTimestamp("SupervisionReleaseDate").toLocalDateTime());
 			booking.setCommitDate(rs.getDate("CommitDate").toLocalDate());
 			booking.setPretrialStatusId(rs.getInt("PretrialStatusID"));
@@ -532,5 +538,99 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		return DataAccessUtils.uniqueResult(personIds);
 	}
 
+	@Override
+	public BookingSubject getBookingSubject(Integer bookingSubjectId) {
+		final String sql = "SELECT * FROM BookingSubject b "
+				+ "LEFT JOIN HousingStatus s ON s.HousingStatusID = b.HousingStatusID "
+				+ "LEFT JOIN EducationLevel e ON e.EducationLevelID = b.EducationLevelID "
+				+ "LEFT JOIN Occupation o on o.OccupationID = b.OccupationID "
+				+ "LEFT JOIN IncomeLevel i on i.IncomeLevelID = b.IncomeLevelID "
+				+ "WHERE b.bookingSubjectId = ?"; 
+		List<BookingSubject> bookingSubjects = 
+				jdbcTemplate.query(sql, new BookingSubjectRowMapper(), bookingSubjectId);
+		return DataAccessUtils.uniqueResult(bookingSubjects);
+	}
+
+	public class BookingSubjectRowMapper implements RowMapper<BookingSubject>
+	{
+		@Override
+		public BookingSubject mapRow(ResultSet rs, int rowNum) throws SQLException {
+			BookingSubject bookingSubject = new BookingSubject();
+	    	
+			bookingSubject.setBookingSubjectId(rs.getInt("BookingSubjectID"));
+			bookingSubject.setRecidivistIndicator(rs.getInt("RecidivistIndicator"));
+			bookingSubject.setPersonId(rs.getInt("PersonId"));
+			bookingSubject.setPersonAge(rs.getInt("PersonAge"));
+			bookingSubject.setHousingStatusId(rs.getInt("HousingStatusID"));
+			bookingSubject.setEducationLevelId(rs.getInt("EducationLevelID"));
+			bookingSubject.setOccupationId(rs.getInt("OccupationID"));
+			bookingSubject.setIncomeLevelId(rs.getInt("IncomeLevelID"));
+			bookingSubject.setBookingNumber(rs.getString("BookingNumber"));
+			
+	    	return bookingSubject;
+		}
+
+	}
+
+	@Override
+	public List<BookingCharge> getBookingCharges(Integer bookingId) {
+		final String sql = "SELECT * FROM BookingCharge b "
+				+ "LEFT JOIN ChargeType c ON c.ChargeTypeID = b.ChargeTypeID "
+				+ "LEFT JOIN BondType e ON e.BondTypeID = b.BondTypeID "
+				+ "WHERE b.bookingID = ?"; 
+		List<BookingCharge> bookingCharges = 
+				jdbcTemplate.query(sql, new BookingChargeRowMapper(), bookingId);
+		return bookingCharges;
+	}
+
+	public class BookingChargeRowMapper implements RowMapper<BookingCharge>
+	{
+		@Override
+		public BookingCharge mapRow(ResultSet rs, int rowNum) throws SQLException {
+			BookingCharge bookingCharge = new BookingCharge();
+	    	
+			bookingCharge.setBookingChargeId(rs.getInt("bookingChargeId"));
+			bookingCharge.setBookingId(rs.getInt("bookingId"));
+			bookingCharge.setBondAmount(rs.getBigDecimal("bondAmount"));
+			
+			KeyValue chargeType = new KeyValue( rs.getInt("chargeTypeId"), rs.getString("chargeType"));
+			bookingCharge.setChargeType( chargeType );
+			
+			KeyValue bondType = new KeyValue( rs.getInt("bondTypeId"), rs.getString("bondType"));
+			bookingCharge.setBondType( bondType );
+			
+	    	return bookingCharge;
+		}
+
+	}
+
+	@Override
+	public List<BehavioralHealthAssessment> getBehavioralHealthAssessments(
+			Integer personId) {
+		final String sql = "SELECT * FROM BehavioralHealthAssessment b "
+				+ "LEFT JOIN BehavioralHealthType t ON t.BehavioralHealthTypeID = b.BehavioralHealthTypeID "
+				+ "WHERE b.PersonID = ?"; 
+		List<BehavioralHealthAssessment> behavioralHealthAssessments = 
+				jdbcTemplate.query(sql, new BehavioralHealthAssessmentRowMapper(), personId);
+		return behavioralHealthAssessments;
+	}
+
+	public class BehavioralHealthAssessmentRowMapper implements RowMapper<BehavioralHealthAssessment>
+	{
+		@Override
+		public BehavioralHealthAssessment mapRow(ResultSet rs, int rowNum) throws SQLException {
+			BehavioralHealthAssessment behavioralHealthAssessment = new BehavioralHealthAssessment();
+	    	
+			behavioralHealthAssessment.setBehavioralHealthAssessmentId(rs.getInt("behavioralHealthAssessmentId"));
+			behavioralHealthAssessment.setPersonId(rs.getInt("PersonId"));
+			behavioralHealthAssessment.setEvaluationDate(rs.getDate("EvaluationDate").toLocalDate());
+			
+			KeyValue  behavioralHealthType = new KeyValue( rs.getInt("behavioralHealthTypeId"), rs.getString("BehavioralHealthDescription"));
+			behavioralHealthAssessment.setBehavioralHealthType(behavioralHealthType);
+			
+	    	return behavioralHealthAssessment;
+		}
+
+	}
 
 }
