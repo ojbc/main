@@ -23,9 +23,10 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.ojbc.bundles.adapters.staticmock.IdentifiableDocumentWrapper;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
-
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -88,6 +89,8 @@ public class FirearmRegistrationSampleGenerator extends AbstractPersonSampleGene
                 addRegistrationElement(rootElement, person, baseDate, i + 1);
             }
 
+            addDriverLicenseElement(rootElement, person);
+                        
             addLocationElement(rootElement, person);
 
             Element e = appendElement(rootElement, OjbcNamespaceContext.NS_NC, "ContactInformation");
@@ -147,7 +150,24 @@ public class FirearmRegistrationSampleGenerator extends AbstractPersonSampleGene
 
     }
 
-    private void addTelephoneNumberElement(Element parentElement, String phoneNumber) {
+    private void addDriverLicenseElement(Element rootElement, PersonElementWrapper person) {
+
+    	Element dlElement = XmlUtils.appendElement(rootElement, OjbcNamespaceContext.NS_NC, "DriverLicense");
+		
+    	Element drivLicIdElement = XmlUtils.appendElement(dlElement, OjbcNamespaceContext.NS_NC, "DriverLicenseIdentification");
+    	
+    	Element dlIdValEl = XmlUtils.appendElement(drivLicIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
+    	    	
+    	String sampleDl = RandomStringUtils.randomNumeric(8);
+    	
+    	dlIdValEl.setTextContent(sampleDl);    	
+    	    	
+    	Element dlIdSrcTxtElement = XmlUtils.appendElement(drivLicIdElement, OjbcNamespaceContext.NS_NC, "IdentificationSourceText");
+    	
+    	dlIdSrcTxtElement.setTextContent(person.state);    	    	
+	}
+
+	private void addTelephoneNumberElement(Element parentElement, String phoneNumber) {
         Element e = appendElement(parentElement, OjbcNamespaceContext.NS_NC, "ContactTelephoneNumber");
         e = appendElement(e, OjbcNamespaceContext.NS_NC, "FullTelephoneNumber");
         e = appendElement(e, OjbcNamespaceContext.NS_NC, "TelephoneNumberFullID");
