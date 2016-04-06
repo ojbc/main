@@ -86,6 +86,48 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="DriverLicenseAssociationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an association between a driver license and a person.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="AssociationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:AssociationType">
+        <xsd:sequence>
+          <xsd:element ref="nc:DriverLicenseReference" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="DriverLicenseBaseType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an authorization issued to a driver granting driving privileges.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="nc:DriverLicenseIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="DriverLicenseType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a license issued to a person granting driving privileges.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="DriverLicenseBaseType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:DriverLicenseBaseType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="EntityType">
     <xsd:annotation>
       <xsd:documentation>A data type for a person, organization, or thing capable of bearing legal rights and responsibilities.</xsd:documentation>
@@ -585,6 +627,24 @@
   <xsd:element name="DateRepresentation" abstract="true">
     <xsd:annotation>
       <xsd:documentation>A representation of a date.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DriverLicenseReference" type="s:ReferenceType">
+    <xsd:annotation>
+      <xsd:documentation>Details about a license issued to a person granting driving privileges.</xsd:documentation>
+      <xsd:appinfo>
+        <i:ReferenceTarget i:name="DriverLicenseType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DriverLicense" type="nc:DriverLicenseType">
+    <xsd:annotation>
+      <xsd:documentation>Details about a license issued to a person granting driving privileges.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DriverLicenseIdentification" type="nc:IdentificationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Details about a driver license identifier or driver license permit identifier, including the number and state.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="EmployeeReference" type="s:ReferenceType">

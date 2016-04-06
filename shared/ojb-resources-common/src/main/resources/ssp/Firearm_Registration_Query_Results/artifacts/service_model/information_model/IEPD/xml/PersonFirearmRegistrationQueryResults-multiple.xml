@@ -19,10 +19,11 @@
 -->
 <firearm-doc:PersonFirearmRegistrationQueryResults 
 xmlns:firearms-hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0" 
-xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0 ../xsd/impl/hawaii/hawaii-statewide-firearm-codes.xsd"  
+xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0 ../xsd/impl/hawaii/hawaii-statewide-firearm-codes.xsd http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0 ../xsd/impl/demostate/demostate-firearm-codes.xsd"
 xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
 xmlns:s="http://niem.gov/niem/structures/2.0" 
 xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 xmlns:firearm-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0" 
 xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0" 
 xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
