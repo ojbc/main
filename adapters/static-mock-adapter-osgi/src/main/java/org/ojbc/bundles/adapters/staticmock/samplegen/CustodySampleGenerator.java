@@ -433,12 +433,12 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		Element loc2dGeoEl = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_NC_30, "Location2DGeospatialCoordinate");		
 		Element geoCordLatEl = XmlUtils.appendElement(loc2dGeoEl, OjbcNamespaceContext.NS_NC_30, "GeographicCoordinateLatitude");		
-		Element latDegValEl = XmlUtils.appendElement(geoCordLatEl, OjbcNamespaceContext.NS_NC_30, "LatitudeDegreeValue");				
-		latDegValEl.setTextContent(RandomStringUtils.randomNumeric(2));
+		Element latDegValEl = XmlUtils.appendElement(geoCordLatEl, OjbcNamespaceContext.NS_NC_30, "LatitudeDegreeValue");					
+		latDegValEl.setTextContent(RandomStringUtils.randomNumeric(1));
 		
 		Element geoCordLongEl = XmlUtils.appendElement(loc2dGeoEl, OjbcNamespaceContext.NS_NC_30, "GeographicCoordinateLongitude");		
 		Element longDegValEl = XmlUtils.appendElement(geoCordLongEl, OjbcNamespaceContext.NS_NC_30, "LongitudeDegreeValue");
-		longDegValEl.setTextContent(RandomStringUtils.randomNumeric(2));						
+		longDegValEl.setTextContent(RandomStringUtils.randomNumeric(1));						
 		
 		Element activityChargeAssocElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "ActivityChargeAssociation");
 		
