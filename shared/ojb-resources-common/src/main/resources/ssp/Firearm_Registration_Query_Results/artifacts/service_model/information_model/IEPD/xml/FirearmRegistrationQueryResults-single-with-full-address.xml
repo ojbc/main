@@ -17,17 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<firearm-doc:FirearmRegistrationQueryResults 
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0 ../xsd/impl/hawaii/hawaii-statewide-firearm-codes.xsd"
-	xmlns:firearms-hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0" 
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
-	xmlns:s="http://niem.gov/niem/structures/2.0" 
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:firearm-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0" 
-	xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0" 
-	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
-	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<firearm-doc:FirearmRegistrationQueryResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0 ../xsd/impl/hawaii/hawaii-statewide-firearm-codes.xsd" xmlns:firearms-hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:firearm-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0" xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0" xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:Person s:id="REGISTRANT">
 		<nc:PersonBirthDate>
 			<nc:Date>1969-01-27</nc:Date>
@@ -112,6 +102,11 @@
 		</firearm-ext:PermitDate>
 		<firearm-ext:RegistrationNotesText>Notes</firearm-ext:RegistrationNotesText>
 	</firearm-ext:ItemRegistration>
+	<nc:DriverLicense s:id="DL-1">
+		<nc:DriverLicenseIdentification>
+			<nc:IdentificationID>DL5939685</nc:IdentificationID>
+		</nc:DriverLicenseIdentification>
+	</nc:DriverLicense>
 	<nc:Location s:id="LOC-1">
 		<nc:LocationAddress>
 			<nc:AddressFullText>123 Main Street Cityville CA</nc:AddressFullText>
@@ -161,4 +156,8 @@
 		<nc:PersonReference s:ref="REGISTRANT"/>
 		<nc:ContactInformationReference s:ref="CONTACT-BUSINESS"/>
 	</nc:EmployeeContactInformationAssociation>
+	<j:PersonDriverLicenseAssociation>
+		<nc:DriverLicenseReference s:ref="DL-1"/>
+		<nc:PersonReference s:ref="REGISTRANT"/>
+	</j:PersonDriverLicenseAssociation>
 </firearm-doc:FirearmRegistrationQueryResults>
