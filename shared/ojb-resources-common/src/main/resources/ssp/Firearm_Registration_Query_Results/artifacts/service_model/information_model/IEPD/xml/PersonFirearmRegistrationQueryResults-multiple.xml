@@ -165,6 +165,11 @@ xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:xsi="
 		</firearm-ext:PermitDate>
 		<firearm-ext:RegistrationNotesText>Notes</firearm-ext:RegistrationNotesText>
 	</firearm-ext:ItemRegistration>
+	<nc:DriverLicense s:id="DL-1">
+		<nc:DriverLicenseIdentification>
+			<nc:IdentificationID>DL5939685</nc:IdentificationID>
+		</nc:DriverLicenseIdentification>
+	</nc:DriverLicense>
 	<nc:Location s:id="LOC-1">
 		<nc:LocationAddress>
 			<nc:StructuredAddress>
@@ -230,4 +235,8 @@ xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:xsi="
 		<nc:PersonReference s:ref="REGISTRANT"/>
 		<nc:ContactInformationReference s:ref="CONTACT-BUSINESS"/>
 	</nc:EmployeeContactInformationAssociation>
+	<j:PersonDriverLicenseAssociation>
+		<nc:DriverLicenseReference s:ref="DL-1" />
+		<nc:PersonReference s:ref="REGISTRANT" />
+	</j:PersonDriverLicenseAssociation>
 </firearm-doc:PersonFirearmRegistrationQueryResults>
