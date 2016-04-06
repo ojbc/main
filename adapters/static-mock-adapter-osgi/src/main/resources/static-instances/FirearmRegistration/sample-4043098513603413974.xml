@@ -1,0 +1,273 @@
+<firearm-doc:PersonFirearmRegistrationQueryResults xmlns:firearm-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0"
+                                                   xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0"
+                                                   xmlns:s="http://niem.gov/niem/structures/2.0"
+                                                   xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                                                   xmlns:firearms-codes-demostate="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0">
+   <nc:Person s:id="P81">
+      <nc:PersonBirthDate>
+         <nc:Date>1942-03-03</nc:Date>
+      </nc:PersonBirthDate>
+      <nc:PersonBirthLocation>
+         <nc:LocationAddress>
+            <nc:StructuredAddress>
+               <nc:LocationCityName>Wood Dale</nc:LocationCityName>
+               <nc:LocationStateName>IL</nc:LocationStateName>
+            </nc:StructuredAddress>
+         </nc:LocationAddress>
+      </nc:PersonBirthLocation>
+      <nc:PersonCitizenshipText>USA</nc:PersonCitizenshipText>
+      <nc:PersonComplexionText>Fair</nc:PersonComplexionText>
+      <nc:PersonEyeColorCode>BLK</nc:PersonEyeColorCode>
+      <nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
+      <nc:PersonHeightMeasure>
+         <nc:MeasureText>67</nc:MeasureText>
+         <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+      </nc:PersonHeightMeasure>
+      <nc:PersonName>
+         <nc:PersonGivenName>Ruth</nc:PersonGivenName>
+         <nc:PersonMiddleName>J</nc:PersonMiddleName>
+         <nc:PersonSurName>Castro</nc:PersonSurName>
+         <nc:PersonFullName>Ruth J Castro</nc:PersonFullName>
+      </nc:PersonName>
+      <nc:PersonRaceCode>A</nc:PersonRaceCode>
+      <nc:PersonSexCode>F</nc:PersonSexCode>
+      <nc:PersonSSNIdentification>
+         <nc:IdentificationID>321-22-6951</nc:IdentificationID>
+      </nc:PersonSSNIdentification>
+      <nc:PersonStateIdentification>
+         <nc:IdentificationID>IL041343</nc:IdentificationID>
+      </nc:PersonStateIdentification>
+      <nc:PersonWeightMeasure>
+         <nc:MeasureText>129.1</nc:MeasureText>
+         <nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+      </nc:PersonWeightMeasure>
+   </nc:Person>
+   <firearm-ext:Firearm s:id="F1">
+      <nc:ItemSerialIdentification>
+         <nc:IdentificationID>2639048421</nc:IdentificationID>
+      </nc:ItemSerialIdentification>
+      <nc:ItemModelName>Firearm</nc:ItemModelName>
+      <nc:FirearmCategoryCode>P</nc:FirearmCategoryCode>
+      <nc:FirearmCategoryDescriptionCode>C</nc:FirearmCategoryDescriptionCode>
+      <nc:FirearmBarrelLengthMeasure>
+         <nc:MeasureText>37</nc:MeasureText>
+         <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+      </nc:FirearmBarrelLengthMeasure>
+      <nc:FirearmCaliberCode>22</nc:FirearmCaliberCode>
+      <nc:FirearmGaugeText>Gauge</nc:FirearmGaugeText>
+      <firearms-codes-demostate:FirearmMakeCode>GLC</firearms-codes-demostate:FirearmMakeCode>
+      <firearm-ext:FirearmMakeText>Glock, Inc.</firearm-ext:FirearmMakeText>
+      <firearm-ext:FirearmReceivedDate>
+         <nc:Date>2015-09-19</nc:Date>
+      </firearm-ext:FirearmReceivedDate>
+      <firearm-ext:FirearmImporter>Unknown</firearm-ext:FirearmImporter>
+      <firearm-ext:FirearmAcquisition>
+         <firearm-ext:FirearmAcquisitionSourceDescriptionText>Walton's Sporting Goods</firearm-ext:FirearmAcquisitionSourceDescriptionText>
+         <firearm-ext:FirearmAcquisitionLocationAddress>
+            <nc:AddressFullText>3954 Lakewood Drive</nc:AddressFullText>
+         </firearm-ext:FirearmAcquisitionLocationAddress>
+      </firearm-ext:FirearmAcquisition>
+      <firearm-ext:FirearmStatus>
+         <nc:StatusDate>
+            <nc:Date>2014-09-10</nc:Date>
+         </nc:StatusDate>
+         <firearm-ext:FirearmStatusText>Stolen</firearm-ext:FirearmStatusText>
+      </firearm-ext:FirearmStatus>
+   </firearm-ext:Firearm>
+   <firearm-ext:Firearm s:id="F2">
+      <nc:ItemSerialIdentification>
+         <nc:IdentificationID>2903400150</nc:IdentificationID>
+      </nc:ItemSerialIdentification>
+      <nc:ItemModelName>Firearm</nc:ItemModelName>
+      <nc:FirearmCategoryCode>P</nc:FirearmCategoryCode>
+      <nc:FirearmCategoryDescriptionCode>B</nc:FirearmCategoryDescriptionCode>
+      <nc:FirearmBarrelLengthMeasure>
+         <nc:MeasureText>38</nc:MeasureText>
+         <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+      </nc:FirearmBarrelLengthMeasure>
+      <nc:FirearmCaliberCode>357</nc:FirearmCaliberCode>
+      <nc:FirearmGaugeText>Gauge</nc:FirearmGaugeText>
+      <firearms-codes-demostate:FirearmMakeCode>REM</firearms-codes-demostate:FirearmMakeCode>
+      <firearm-ext:FirearmMakeText>FieldmasterMfd. by Remington Arms</firearm-ext:FirearmMakeText>
+      <firearm-ext:FirearmReceivedDate>
+         <nc:Date>2007-01-08</nc:Date>
+      </firearm-ext:FirearmReceivedDate>
+      <firearm-ext:FirearmImporter>Unknown</firearm-ext:FirearmImporter>
+      <firearm-ext:FirearmAcquisition>
+         <firearm-ext:FirearmAcquisitionSourceDescriptionText>Edmond's Firearms</firearm-ext:FirearmAcquisitionSourceDescriptionText>
+         <firearm-ext:FirearmAcquisitionLocationAddress>
+            <nc:AddressFullText>1961 Hickory Ridge Drive</nc:AddressFullText>
+         </firearm-ext:FirearmAcquisitionLocationAddress>
+      </firearm-ext:FirearmAcquisition>
+   </firearm-ext:Firearm>
+   <firearm-ext:Firearm s:id="F3">
+      <nc:ItemSerialIdentification>
+         <nc:IdentificationID>8029072542</nc:IdentificationID>
+      </nc:ItemSerialIdentification>
+      <nc:ItemModelName>Firearm</nc:ItemModelName>
+      <nc:FirearmCategoryCode>I</nc:FirearmCategoryCode>
+      <nc:FirearmCategoryDescriptionCode>E</nc:FirearmCategoryDescriptionCode>
+      <nc:FirearmBarrelLengthMeasure>
+         <nc:MeasureText>22</nc:MeasureText>
+         <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+      </nc:FirearmBarrelLengthMeasure>
+      <nc:FirearmCaliberCode>44</nc:FirearmCaliberCode>
+      <nc:FirearmGaugeText>Gauge</nc:FirearmGaugeText>
+      <firearms-codes-demostate:FirearmMakeCode>SMI</firearms-codes-demostate:FirearmMakeCode>
+      <firearm-ext:FirearmMakeText>Smith (not Smith &amp; Wesson)</firearm-ext:FirearmMakeText>
+      <firearm-ext:FirearmReceivedDate>
+         <nc:Date>2001-10-11</nc:Date>
+      </firearm-ext:FirearmReceivedDate>
+      <firearm-ext:FirearmImporter>Unknown</firearm-ext:FirearmImporter>
+      <firearm-ext:FirearmAcquisition>
+         <firearm-ext:FirearmAcquisitionSourceDescriptionText>William's Firearms</firearm-ext:FirearmAcquisitionSourceDescriptionText>
+         <firearm-ext:FirearmAcquisitionLocationAddress>
+            <nc:AddressFullText>4456 Sigley Road</nc:AddressFullText>
+         </firearm-ext:FirearmAcquisitionLocationAddress>
+      </firearm-ext:FirearmAcquisition>
+   </firearm-ext:Firearm>
+   <firearm-ext:ItemRegistration s:id="R1">
+      <nc:RegistrationIdentification>
+         <nc:IdentificationID>269997609356</nc:IdentificationID>
+      </nc:RegistrationIdentification>
+      <nc:LocationCountyName>Williamson</nc:LocationCountyName>
+      <nc:RegistrationEffectiveDate>
+         <nc:Date>2012-08-27</nc:Date>
+      </nc:RegistrationEffectiveDate>
+      <firearm-ext:AgeAtRegistration>
+         <nc:MeasureText>70</nc:MeasureText>
+      </firearm-ext:AgeAtRegistration>
+      <firearm-ext:PermitNumber>326517780258</firearm-ext:PermitNumber>
+      <firearm-ext:PermitDate>
+         <nc:Date>2012-08-27</nc:Date>
+      </firearm-ext:PermitDate>
+      <firearm-ext:RegistrationStatus>
+         <nc:StatusDate>
+            <nc:Date>2012-08-27</nc:Date>
+         </nc:StatusDate>
+         <firearm-ext:FirearmRegistrationStatusText>Inactive</firearm-ext:FirearmRegistrationStatusText>
+      </firearm-ext:RegistrationStatus>
+      <firearm-ext:RegistrationNotesText>Notes</firearm-ext:RegistrationNotesText>
+   </firearm-ext:ItemRegistration>
+   <firearm-ext:ItemRegistration s:id="R2">
+      <nc:RegistrationIdentification>
+         <nc:IdentificationID>135811233465</nc:IdentificationID>
+      </nc:RegistrationIdentification>
+      <nc:LocationCountyName>Cook</nc:LocationCountyName>
+      <nc:RegistrationEffectiveDate>
+         <nc:Date>2012-07-20</nc:Date>
+      </nc:RegistrationEffectiveDate>
+      <firearm-ext:AgeAtRegistration>
+         <nc:MeasureText>70</nc:MeasureText>
+      </firearm-ext:AgeAtRegistration>
+      <firearm-ext:PermitNumber>087094146958</firearm-ext:PermitNumber>
+      <firearm-ext:PermitDate>
+         <nc:Date>2012-07-20</nc:Date>
+      </firearm-ext:PermitDate>
+      <firearm-ext:RegistrationStatus>
+         <nc:StatusDate>
+            <nc:Date>2012-07-20</nc:Date>
+         </nc:StatusDate>
+         <firearm-ext:FirearmRegistrationStatusText>Active</firearm-ext:FirearmRegistrationStatusText>
+      </firearm-ext:RegistrationStatus>
+      <firearm-ext:RegistrationNotesText>Notes</firearm-ext:RegistrationNotesText>
+   </firearm-ext:ItemRegistration>
+   <firearm-ext:ItemRegistration s:id="R3">
+      <nc:RegistrationIdentification>
+         <nc:IdentificationID>714128791221</nc:IdentificationID>
+      </nc:RegistrationIdentification>
+      <nc:LocationCountyName>Kane</nc:LocationCountyName>
+      <nc:RegistrationEffectiveDate>
+         <nc:Date>2013-12-25</nc:Date>
+      </nc:RegistrationEffectiveDate>
+      <firearm-ext:AgeAtRegistration>
+         <nc:MeasureText>71</nc:MeasureText>
+      </firearm-ext:AgeAtRegistration>
+      <firearm-ext:PermitNumber>039733319531</firearm-ext:PermitNumber>
+      <firearm-ext:PermitDate>
+         <nc:Date>2013-12-25</nc:Date>
+      </firearm-ext:PermitDate>
+      <firearm-ext:RegistrationStatus>
+         <nc:StatusDate>
+            <nc:Date>2013-12-25</nc:Date>
+         </nc:StatusDate>
+         <firearm-ext:FirearmRegistrationStatusText>Active</firearm-ext:FirearmRegistrationStatusText>
+      </firearm-ext:RegistrationStatus>
+      <firearm-ext:RegistrationNotesText>Notes</firearm-ext:RegistrationNotesText>
+   </firearm-ext:ItemRegistration>
+   <nc:DriverLicense>
+      <nc:DriverLicenseIdentification>
+         <nc:IdentificationID>46933602</nc:IdentificationID>
+         <nc:IdentificationSourceText>IL</nc:IdentificationSourceText>
+      </nc:DriverLicenseIdentification>
+   </nc:DriverLicense>
+   <nc:Location s:id="L1">
+      <nc:LocationAddress>
+         <nc:StructuredAddress>
+            <nc:AddressDeliveryPointText>Vine Street Vine Street</nc:AddressDeliveryPointText>
+            <nc:LocationCityName>Wood Dale</nc:LocationCityName>
+            <nc:LocationStateName>IL</nc:LocationStateName>
+            <nc:LocationPostalCode>60191</nc:LocationPostalCode>
+         </nc:StructuredAddress>
+      </nc:LocationAddress>
+   </nc:Location>
+   <nc:ContactInformation s:id="CI1">
+      <nc:ContactTelephoneNumber>
+         <nc:FullTelephoneNumber>
+            <nc:TelephoneNumberFullID>360-555-1212</nc:TelephoneNumberFullID>
+         </nc:FullTelephoneNumber>
+      </nc:ContactTelephoneNumber>
+   </nc:ContactInformation>
+   <nc:ContactInformation s:id="CI2">
+      <nc:ContactTelephoneNumber>
+         <nc:FullTelephoneNumber>
+            <nc:TelephoneNumberFullID>212-333-8888</nc:TelephoneNumberFullID>
+         </nc:FullTelephoneNumber>
+      </nc:ContactTelephoneNumber>
+      <nc:ContactEntity>
+         <nc:EntityOrganization>
+            <nc:OrganizationLocation>
+               <nc:LocationAddress>
+                  <nc:StructuredAddress>
+                     <nc:AddressDeliveryPointText>123 Commerce Way</nc:AddressDeliveryPointText>
+                     <nc:LocationCityName>Wood Dale</nc:LocationCityName>
+                     <nc:LocationStateName>IL</nc:LocationStateName>
+                     <nc:LocationPostalCode>60191</nc:LocationPostalCode>
+                  </nc:StructuredAddress>
+               </nc:LocationAddress>
+            </nc:OrganizationLocation>
+         </nc:EntityOrganization>
+      </nc:ContactEntity>
+   </nc:ContactInformation>
+   <nc:PropertyRegistrationAssociation>
+      <nc:ItemRegistrationReference s:ref="R1"/>
+      <nc:ItemReference s:ref="F1"/>
+      <nc:ItemRegistrationHolderReference s:ref="P81"/>
+   </nc:PropertyRegistrationAssociation>
+   <nc:PropertyRegistrationAssociation>
+      <nc:ItemRegistrationReference s:ref="R2"/>
+      <nc:ItemReference s:ref="F2"/>
+      <nc:ItemRegistrationHolderReference s:ref="P81"/>
+   </nc:PropertyRegistrationAssociation>
+   <nc:PropertyRegistrationAssociation>
+      <nc:ItemRegistrationReference s:ref="R3"/>
+      <nc:ItemReference s:ref="F3"/>
+      <nc:ItemRegistrationHolderReference s:ref="P81"/>
+   </nc:PropertyRegistrationAssociation>
+   <nc:ResidenceAssociation>
+      <nc:PersonReference s:ref="P81"/>
+      <nc:LocationReference s:ref="L1"/>
+   </nc:ResidenceAssociation>
+   <nc:PersonContactInformationAssociation>
+      <nc:PersonReference s:ref="P81"/>
+      <nc:ContactInformationReference s:ref="CI1"/>
+   </nc:PersonContactInformationAssociation>
+   <nc:PersonEmploymentAssociation>
+      <nc:EmployeeReference s:ref="P81"/>
+      <nc:EmployeeOccupationText>DTP operator</nc:EmployeeOccupationText>
+   </nc:PersonEmploymentAssociation>
+   <nc:EmployeeContactInformationAssociation>
+      <nc:PersonReference s:ref="P81"/>
+      <nc:ContactInformationReference s:ref="CI2"/>
+   </nc:EmployeeContactInformationAssociation>
+</firearm-doc:PersonFirearmRegistrationQueryResults>
