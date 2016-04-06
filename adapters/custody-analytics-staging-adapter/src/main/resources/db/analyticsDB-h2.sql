@@ -101,11 +101,11 @@ ALTER TABLE BookingSubject ADD CONSTRAINT bookingsubjectid PRIMARY KEY (BookingS
 
 CREATE SEQUENCE BookingSubject_BookingSubjectID_seq_1;
 
-CREATE TABLE BehavioralHealthAssessment (BehaviorHealtBehavioralHealthAssessmentIDhAssessmentID INT AUTO_INCREMENT NOT NULL, BehavioralHealthTypeID INT NOT NULL, EvaluationDate date NOT NULL, PersonID INT NOT NULL);
+CREATE TABLE BehavioralHealthAssessment (BehavioralHealthAssessmentID INT AUTO_INCREMENT NOT NULL, BehavioralHealthTypeID INT NOT NULL, EvaluationDate date NOT NULL, PersonID INT NOT NULL);
 
-ALTER TABLE BehavioralHealthAssessment ADD CONSTRAINT behavioralhealthassessmentid PRIMARY KEY (BehaviorHealtBehavioralHealthAssessmentIDhAssessmentID);
+ALTER TABLE BehavioralHealthAssessment ADD CONSTRAINT behavioralhealthassessmentid PRIMARY KEY (BehavioralHealthAssessmentID);
 
-CREATE SEQUENCE BehavioralHealthAssessment_BehaviorHealtBehavioralHealthAssessmentIDhAssessmentID_seq;
+CREATE SEQUENCE BehavioralHealthAssessmentID_seq;
 
 CREATE TABLE ChargeType (ChargeTypeID INT AUTO_INCREMENT NOT NULL, ChargeType VARCHAR(100) NOT NULL);
 

@@ -26,7 +26,6 @@ use BookingAnalyticsDataStore;
 
 
 
-
 CREATE TABLE Language (
                 LanguageID INT AUTO_INCREMENT NOT NULL,
                 Language VARCHAR(20) NOT NULL,
@@ -141,11 +140,11 @@ CREATE TABLE BookingSubject (
 
 
 CREATE TABLE BehavioralHealthAssessment (
-                BehaviorHealtBehavioralHealthAssessmentIDhAssessmentID INT AUTO_INCREMENT NOT NULL,
+                BehavioralHealthAssessmentID INT AUTO_INCREMENT NOT NULL,
                 BehavioralHealthTypeID INT NOT NULL,
                 EvaluationDate DATE NOT NULL,
                 PersonID INT NOT NULL,
-                PRIMARY KEY (BehaviorHealtBehavioralHealthAssessmentIDhAssessmentID)
+                PRIMARY KEY (BehavioralHealthAssessmentID)
 );
 
 
