@@ -44,8 +44,8 @@
       <nc:PersonName>
          <nc:PersonGivenName>Joey</nc:PersonGivenName>
          <nc:PersonMiddleName>B</nc:PersonMiddleName>
-         <nc:PersonSurName>Metzler</nc:PersonSurName>
-         <nc:PersonFullName>Joey B Metzler</nc:PersonFullName>
+         <nc:PersonSurName>McElroy</nc:PersonSurName>
+         <nc:PersonFullName>Joey B McElroy</nc:PersonFullName>
       </nc:PersonName>
       <nc:PersonRaceCode>A</nc:PersonRaceCode>
       <nc:PersonSexCode>M</nc:PersonSexCode>

@@ -44,8 +44,8 @@
       <nc:PersonName>
          <nc:PersonGivenName>Arturo</nc:PersonGivenName>
          <nc:PersonMiddleName>C</nc:PersonMiddleName>
-         <nc:PersonSurName>Davis</nc:PersonSurName>
-         <nc:PersonFullName>Arturo C Davis</nc:PersonFullName>
+         <nc:PersonSurName>McElroy</nc:PersonSurName>
+         <nc:PersonFullName>Arturo C McElroy</nc:PersonFullName>
       </nc:PersonName>
       <nc:PersonRaceCode>W</nc:PersonRaceCode>
       <nc:PersonSexCode>M</nc:PersonSexCode>
