@@ -59,7 +59,7 @@ insert into BondType (BondType) values('Property');
 insert into BondType (BondType) values('Deposit');
 
 -- CaseStatus
-insert into CaseStatus (CaseStatusID, CaseStatus) values('1','Status 1');
+insert into CaseStatus (CaseStatusID, CaseStatus) values('1','Pretrial');
 insert into CaseStatus (CaseStatusID, CaseStatus) values('2','Status 2');
 insert into CaseStatus (CaseStatusID, CaseStatus) values('3','Status 3');
 insert into CaseStatus (CaseStatusID, CaseStatus) values('4','Status 4');
@@ -86,7 +86,7 @@ insert into PretrialStatus (PretrialStatusID, PretrialStatus) values('4','Surety
 insert into PretrialStatus (PretrialStatusID, PretrialStatus) values('5','PR');
 
 -- HousingStatus
-insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('1','Housing Status 1');
+insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('1','Residence');
 insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('2','Housing Status 2');
 insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('3','Housing Status 3');
 insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('4','Housing Status 4');
@@ -95,7 +95,7 @@ insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('6'
 insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('7','Housing Status 7');
 
 -- IncomeLevel
-insert into IncomeLevel (IncomeLevelID, IncomeLevel) values('1', 'Level 1');
+insert into IncomeLevel (IncomeLevelID, IncomeLevel) values('1', 'Middle Class');
 insert into IncomeLevel (IncomeLevelID, IncomeLevel) values('2', 'Level 2');
 insert into IncomeLevel (IncomeLevelID, IncomeLevel) values('3', 'Level 3');
 insert into IncomeLevel (IncomeLevelID, IncomeLevel) values('4', 'Level 4');
@@ -104,7 +104,7 @@ insert into IncomeLevel (IncomeLevelID, IncomeLevel) values('8', 'Other');
 insert into IncomeLevel (IncomeLevelID, IncomeLevel) values('9', 'Unknown');
 
 -- Occupation
-insert into Occupation (OccupationID, Occupation) values('1', 'Occupation 1');
+insert into Occupation (OccupationID, Occupation) values('1', 'Truck Driver');
 insert into Occupation (OccupationID, Occupation) values('2', 'Occupation 2');
 insert into Occupation (OccupationID, Occupation) values('3', 'Occupation 3');
 insert into Occupation (OccupationID, Occupation) values('4', 'Occupation 4');
@@ -120,7 +120,7 @@ insert into Occupation (OccupationID, Occupation) values('98', 'Other');
 insert into Occupation (OccupationID, Occupation) values('99', 'Unknown');
 
 -- EducationLevel
-insert into EducationLevel (EducationLevelID, EducationLevel) values('1', 'Level 1');
+insert into EducationLevel (EducationLevelID, EducationLevel) values('1', 'High School Graduate');
 insert into EducationLevel (EducationLevelID, EducationLevel) values('2', 'Level 2');
 insert into EducationLevel (EducationLevelID, EducationLevel) values('3', 'Level 3');
 insert into EducationLevel (EducationLevelID, EducationLevel) values('4', 'Level 4');
@@ -131,7 +131,7 @@ insert into EducationLevel (EducationLevelID, EducationLevel) values('8', 'Other
 insert into EducationLevel (EducationLevelID, EducationLevel) values('9', 'Unknown');
 
 -- Language
-insert into Language (LanguageID, Language) values('1', 'Language 1');
+insert into Language (LanguageID, Language) values('1', 'English');
 insert into Language (LanguageID, Language) values('2', 'Language 2');
 insert into Language (LanguageID, Language) values('3', 'Language 3');
 insert into Language (LanguageID, Language) values('98', 'Other');

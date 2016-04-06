@@ -37,6 +37,8 @@ public interface AnalyticalDatastoreDAO {
 	
 	public Integer savePerson(Person person);
 	
+	public Integer getPersonIdByUniqueId(String uniqueId);
+	
 	public Integer saveBookingSubject(BookingSubject bookingSubject);
 	
 	public Integer saveBooking(Booking booking);

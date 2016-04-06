@@ -20,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Map;
 
+import org.apache.camel.Body;
+import org.apache.camel.Header;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,6 +32,7 @@ import org.ojbc.adapters.analyticsstaging.custody.personid.IdentifierGenerationS
 import org.ojbc.adapters.analyticsstaging.custody.service.DescriptionCodeLookupService;
 import org.ojbc.adapters.analyticsstaging.custody.util.AnalyticalDataStoreUtils;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -37,17 +40,20 @@ import org.w3c.dom.Node;
 public abstract class AbstractReportRepositoryProcessor {
 	private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
 
+	@Autowired
 	protected IdentifierGenerationStrategy identifierGenerationStrategy;
 	
+	@Autowired
 	protected AnalyticalDatastoreDAO analyticalDatastoreDAO;
 	
+	@Autowired
 	protected DescriptionCodeLookupService descriptionCodeLookupService; 
 	
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	
     @Transactional
-	public abstract void processReport(Document report) throws Exception;
+	public abstract void processReport(@Body Document report, @Header("personUniqueId") String personUniqueId) throws Exception;
 
     protected int savePerson(Node personNode, String ncPrefix, String jxdmPrefix) throws Exception{
 		Map<String, Object> personAttributes = AnalyticalDataStoreUtils.retrieveMapOfPersonAttributes(personNode, 
@@ -101,24 +107,6 @@ public abstract class AbstractReportRepositoryProcessor {
 	public void setIdentifierGenerationStrategy(
 			IdentifierGenerationStrategy identifierGenerationStrategy) {
 		this.identifierGenerationStrategy = identifierGenerationStrategy;
-	}
-
-	public AnalyticalDatastoreDAO getAnalyticalDatastoreDAO() {
-		return analyticalDatastoreDAO;
-	}
-
-	public void setAnalyticalDatastoreDAO(
-			AnalyticalDatastoreDAO analyticalDatastoreDAO) {
-		this.analyticalDatastoreDAO = analyticalDatastoreDAO;
-	}
-
-	public DescriptionCodeLookupService getDescriptionCodeLookupService() {
-		return descriptionCodeLookupService;
-	}
-
-	public void setDescriptionCodeLookupService(
-			DescriptionCodeLookupService descriptionCodeLookupService) {
-		this.descriptionCodeLookupService = descriptionCodeLookupService;
 	}
 
 }

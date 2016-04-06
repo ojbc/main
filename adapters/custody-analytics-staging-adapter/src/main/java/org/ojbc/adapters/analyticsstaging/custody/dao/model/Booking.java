@@ -32,8 +32,9 @@ public class Booking implements Serializable{
 	private Integer jurisdictionId; 
 	private LocalDateTime bookingReportDate;
 	private Integer sendingAgencyId;
-	private LocalDate bookingDate; 
-	private LocalDate supervisionReleaseDate; 
+	private LocalDateTime bookingDate; 
+	private LocalDate commitDate; 
+	private LocalDateTime supervisionReleaseDate; 
 	private String bookingReportId;
 	private Integer caseStatusId; 
 	private Integer pretrialStatusId; 
@@ -79,19 +80,19 @@ public class Booking implements Serializable{
 		this.sendingAgencyId = sendingAgencyId;
 	}
 
-	public LocalDate getBookingDate() {
+	public LocalDateTime getBookingDate() {
 		return bookingDate;
 	}
 
-	public void setBookingDate(LocalDate bookingDate) {
+	public void setBookingDate(LocalDateTime bookingDate) {
 		this.bookingDate = bookingDate;
 	}
 
-	public LocalDate getSupervisionReleaseDate() {
+	public LocalDateTime getSupervisionReleaseDate() {
 		return supervisionReleaseDate;
 	}
 
-	public void setSupervisionReleaseDate(LocalDate supervisionReleaseDate) {
+	public void setSupervisionReleaseDate(LocalDateTime supervisionReleaseDate) {
 		this.supervisionReleaseDate = supervisionReleaseDate;
 	}
 
@@ -157,6 +158,14 @@ public class Booking implements Serializable{
 
 	public void setBookingSubjectId(Integer bookingSubjectId) {
 		this.bookingSubjectId = bookingSubjectId;
+	}
+
+	public LocalDate getCommitDate() {
+		return commitDate;
+	}
+
+	public void setCommitDate(LocalDate commitDate) {
+		this.commitDate = commitDate;
 	}
 
 }

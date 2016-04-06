@@ -59,24 +59,24 @@ public class TestAnalyticalDatastoreDAOImpl {
     private DataSource dataSource;  
 	
 	@Autowired
-	private AnalyticalDatastoreDAOImpl analyticalDatastoreDAOImpl;
+	private AnalyticalDatastoreDAOImpl analyticalDatastoreDAO;
 	
 	@Before
 	public void setUp() throws Exception {
-		Assert.assertNotNull(analyticalDatastoreDAOImpl);
+		Assert.assertNotNull(analyticalDatastoreDAO);
 		Assert.assertNotNull(dataSource);
 	}
 	
 	@Test
 	public void testSaveBooking() throws Exception
 	{
-		int personPk = analyticalDatastoreDAOImpl.savePerson(getStaticPerson());
+		int personPk = analyticalDatastoreDAO.savePerson(getStaticPerson());
 		assertEquals(1, personPk);
 		
 		BookingSubject bookingSubject = getStaticBookingSubject(); 
 		bookingSubject.setPersonId(personPk);
 		
-		int bookingSubjectPk = analyticalDatastoreDAOImpl.saveBookingSubject(bookingSubject);
+		int bookingSubjectPk = analyticalDatastoreDAO.saveBookingSubject(bookingSubject);
 		
 		Booking booking = new Booking();
 		
@@ -85,27 +85,28 @@ public class TestAnalyticalDatastoreDAOImpl {
 		booking.setBookingReportId("bookingReportId");
 		booking.setSendingAgencyId(5);
 		booking.setCaseStatusId(3);
-		booking.setBookingDate(LocalDate.parse("2016-02-13"));
-		booking.setSupervisionReleaseDate(LocalDate.parse("2016-03-13"));
+		booking.setBookingDate(LocalDateTime.parse("2013-12-17T09:30:00"));
+		booking.setCommitDate(LocalDate.parse("2013-12-17"));
+		booking.setSupervisionReleaseDate(LocalDateTime.parse("2014-12-17T10:30:00"));
 		booking.setPretrialStatusId(3);
 		booking.setFacilityId(1);
 		booking.setBedTypeId(2);
 		booking.setBookingSubjectId(bookingSubjectPk);
 		
-		int bookingPk = analyticalDatastoreDAOImpl.saveBooking( booking );
+		int bookingPk = analyticalDatastoreDAO.saveBooking( booking );
 		assertEquals(1, bookingPk);
 		
-		analyticalDatastoreDAOImpl.deleteBooking(bookingPk);
+		analyticalDatastoreDAO.deleteBooking(bookingPk);
 		
-		Booking matchingBooking = analyticalDatastoreDAOImpl.getBookingByBookingReportId("bookingReportId");
+		Booking matchingBooking = analyticalDatastoreDAO.getBookingByBookingReportId("bookingReportId");
 		assertNull(matchingBooking);
 
-		bookingSubjectPk = analyticalDatastoreDAOImpl.saveBookingSubject(bookingSubject);
+		bookingSubjectPk = analyticalDatastoreDAO.saveBookingSubject(bookingSubject);
 		booking.setBookingSubjectId(bookingSubjectPk);
 		
 		//Perform an subsequent save and confirm the same PK
 		booking.setBookingId(bookingPk);
-		int updatedbookingId = analyticalDatastoreDAOImpl.saveBooking(booking);
+		int updatedbookingId = analyticalDatastoreDAO.saveBooking(booking);
 		assertEquals(updatedbookingId, bookingPk);
 		
 	}

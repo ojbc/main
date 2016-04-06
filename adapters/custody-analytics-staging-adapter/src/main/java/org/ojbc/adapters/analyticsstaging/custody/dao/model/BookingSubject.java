@@ -24,7 +24,7 @@ public class BookingSubject implements Serializable
 {
 	private static final long serialVersionUID = 3530940339345199825L;
 	private Integer bookingSubjectId;
-	private Integer recidivistIndicator; 
+	private Integer recidivistIndicator = 0; 
 	private Integer personId; 
 	private String bookingNumber; 
 	private Integer personAge; 
