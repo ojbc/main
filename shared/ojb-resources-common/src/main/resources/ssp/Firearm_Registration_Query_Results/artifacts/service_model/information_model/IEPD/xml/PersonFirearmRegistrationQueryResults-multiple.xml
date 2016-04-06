@@ -168,6 +168,7 @@ xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:xsi="
 	<nc:DriverLicense s:id="DL-1">
 		<nc:DriverLicenseIdentification>
 			<nc:IdentificationID>DL5939685</nc:IdentificationID>
+			<nc:IdentificationSourceText>HI</nc:IdentificationSourceText>
 		</nc:DriverLicenseIdentification>
 	</nc:DriverLicense>
 	<nc:Location s:id="LOC-1">

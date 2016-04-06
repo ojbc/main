@@ -188,6 +188,7 @@
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
           <xsd:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:IdentificationSourceText" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -759,6 +760,11 @@
   <xsd:element name="IdentificationID" type="niem-xsd:string" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A value that identifies something.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="IdentificationSourceText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A person, organization, or locale which issues an identification.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="ItemReference" type="s:ReferenceType">
