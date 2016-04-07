@@ -1,0 +1,285 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<firearm-doc:PersonFirearmRegistrationQueryResults xmlns:firearm-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0"
+                                                   xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0"
+                                                   xmlns:s="http://niem.gov/niem/structures/2.0"
+                                                   xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                                                   xmlns:firearms-codes-demostate="http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0">
+   <nc:Person s:id="P27">
+      <nc:PersonBirthDate>
+         <nc:Date>1980-02-07</nc:Date>
+      </nc:PersonBirthDate>
+      <nc:PersonBirthLocation>
+         <nc:LocationAddress>
+            <nc:StructuredAddress>
+               <nc:LocationCityName>Kerhonkson</nc:LocationCityName>
+               <nc:LocationStateName>NY</nc:LocationStateName>
+            </nc:StructuredAddress>
+         </nc:LocationAddress>
+      </nc:PersonBirthLocation>
+      <nc:PersonCitizenshipText>USA</nc:PersonCitizenshipText>
+      <nc:PersonComplexionText>Fair</nc:PersonComplexionText>
+      <nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
+      <nc:PersonHairColorCode>BLK</nc:PersonHairColorCode>
+      <nc:PersonHeightMeasure>
+         <nc:MeasureText>62</nc:MeasureText>
+         <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+      </nc:PersonHeightMeasure>
+      <nc:PersonName>
+         <nc:PersonGivenName>Estella</nc:PersonGivenName>
+         <nc:PersonMiddleName>J</nc:PersonMiddleName>
+         <nc:PersonSurName>Brewer</nc:PersonSurName>
+         <nc:PersonFullName>Estella J Brewer</nc:PersonFullName>
+      </nc:PersonName>
+      <nc:PersonRaceCode>B</nc:PersonRaceCode>
+      <nc:PersonSexCode>F</nc:PersonSexCode>
+      <nc:PersonSSNIdentification>
+         <nc:IdentificationID>056-44-0548</nc:IdentificationID>
+      </nc:PersonSSNIdentification>
+      <nc:PersonStateIdentification>
+         <nc:IdentificationID>NY045611</nc:IdentificationID>
+      </nc:PersonStateIdentification>
+      <nc:PersonWeightMeasure>
+         <nc:MeasureText>158.2</nc:MeasureText>
+         <nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+      </nc:PersonWeightMeasure>
+   </nc:Person>
+   <firearm-ext:Firearm s:id="F1">
+      <nc:ItemSerialIdentification>
+         <nc:IdentificationID>3397783880</nc:IdentificationID>
+      </nc:ItemSerialIdentification>
+      <nc:ItemModelName>Firearm</nc:ItemModelName>
+      <nc:FirearmCategoryCode>I</nc:FirearmCategoryCode>
+      <nc:FirearmCategoryDescriptionCode>B</nc:FirearmCategoryDescriptionCode>
+      <nc:FirearmBarrelLengthMeasure>
+         <nc:MeasureText>38</nc:MeasureText>
+         <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+      </nc:FirearmBarrelLengthMeasure>
+      <nc:FirearmCaliberCode>9</nc:FirearmCaliberCode>
+      <nc:FirearmGaugeText>Gauge</nc:FirearmGaugeText>
+      <firearms-codes-demostate:FirearmMakeCode>SMI</firearms-codes-demostate:FirearmMakeCode>
+      <firearm-ext:FirearmMakeText>Smith (not Smith &amp; Wesson)</firearm-ext:FirearmMakeText>
+      <firearm-ext:FirearmReceivedDate>
+         <nc:Date>2010-01-11</nc:Date>
+      </firearm-ext:FirearmReceivedDate>
+      <firearm-ext:FirearmImporter>Unknown</firearm-ext:FirearmImporter>
+      <firearm-ext:FirearmAcquisition>
+         <firearm-ext:FirearmAcquisitionSourceDescriptionText>Michele's Sporting Goods</firearm-ext:FirearmAcquisitionSourceDescriptionText>
+         <firearm-ext:FirearmAcquisitionLocationAddress>
+            <nc:AddressFullText>3929 Lincoln Drive</nc:AddressFullText>
+         </firearm-ext:FirearmAcquisitionLocationAddress>
+      </firearm-ext:FirearmAcquisition>
+   </firearm-ext:Firearm>
+   <firearm-ext:Firearm s:id="F2">
+      <nc:ItemSerialIdentification>
+         <nc:IdentificationID>2684540093</nc:IdentificationID>
+      </nc:ItemSerialIdentification>
+      <nc:ItemModelName>Firearm</nc:ItemModelName>
+      <nc:FirearmCategoryCode>J</nc:FirearmCategoryCode>
+      <nc:FirearmCategoryDescriptionCode>A</nc:FirearmCategoryDescriptionCode>
+      <nc:FirearmBarrelLengthMeasure>
+         <nc:MeasureText>26</nc:MeasureText>
+         <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+      </nc:FirearmBarrelLengthMeasure>
+      <nc:FirearmCaliberCode>22</nc:FirearmCaliberCode>
+      <nc:FirearmGaugeText>Gauge</nc:FirearmGaugeText>
+      <firearms-codes-demostate:FirearmMakeCode>SMI</firearms-codes-demostate:FirearmMakeCode>
+      <firearm-ext:FirearmMakeText>Smith (not Smith &amp; Wesson)</firearm-ext:FirearmMakeText>
+      <firearm-ext:FirearmReceivedDate>
+         <nc:Date>2011-07-09</nc:Date>
+      </firearm-ext:FirearmReceivedDate>
+      <firearm-ext:FirearmImporter>Unknown</firearm-ext:FirearmImporter>
+      <firearm-ext:FirearmAcquisition>
+         <firearm-ext:FirearmAcquisitionSourceDescriptionText>Harvey's Firearms</firearm-ext:FirearmAcquisitionSourceDescriptionText>
+         <firearm-ext:FirearmAcquisitionLocationAddress>
+            <nc:AddressFullText>1262 Warner Street</nc:AddressFullText>
+         </firearm-ext:FirearmAcquisitionLocationAddress>
+      </firearm-ext:FirearmAcquisition>
+   </firearm-ext:Firearm>
+   <firearm-ext:Firearm s:id="F3">
+      <nc:ItemSerialIdentification>
+         <nc:IdentificationID>5186379881</nc:IdentificationID>
+      </nc:ItemSerialIdentification>
+      <nc:ItemModelName>Firearm</nc:ItemModelName>
+      <nc:FirearmCategoryCode>J</nc:FirearmCategoryCode>
+      <nc:FirearmCategoryDescriptionCode>B</nc:FirearmCategoryDescriptionCode>
+      <nc:FirearmBarrelLengthMeasure>
+         <nc:MeasureText>40</nc:MeasureText>
+         <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+      </nc:FirearmBarrelLengthMeasure>
+      <nc:FirearmCaliberCode>22</nc:FirearmCaliberCode>
+      <nc:FirearmGaugeText>Gauge</nc:FirearmGaugeText>
+      <firearms-codes-demostate:FirearmMakeCode>GLC</firearms-codes-demostate:FirearmMakeCode>
+      <firearm-ext:FirearmMakeText>Glock, Inc.</firearm-ext:FirearmMakeText>
+      <firearm-ext:FirearmReceivedDate>
+         <nc:Date>2008-12-29</nc:Date>
+      </firearm-ext:FirearmReceivedDate>
+      <firearm-ext:FirearmImporter>Unknown</firearm-ext:FirearmImporter>
+      <firearm-ext:FirearmAcquisition>
+         <firearm-ext:FirearmAcquisitionSourceDescriptionText>Misty's Sporting Goods</firearm-ext:FirearmAcquisitionSourceDescriptionText>
+         <firearm-ext:FirearmAcquisitionLocationAddress>
+            <nc:AddressFullText>3806 Mesa Drive</nc:AddressFullText>
+         </firearm-ext:FirearmAcquisitionLocationAddress>
+      </firearm-ext:FirearmAcquisition>
+   </firearm-ext:Firearm>
+   <firearm-ext:ItemRegistration s:id="R1">
+      <nc:RegistrationIdentification>
+         <nc:IdentificationID>747540143339</nc:IdentificationID>
+      </nc:RegistrationIdentification>
+      <nc:LocationCountyName>Greene</nc:LocationCountyName>
+      <nc:RegistrationEffectiveDate>
+         <nc:Date>2015-02-14</nc:Date>
+      </nc:RegistrationEffectiveDate>
+      <firearm-ext:AgeAtRegistration>
+         <nc:MeasureText>35</nc:MeasureText>
+      </firearm-ext:AgeAtRegistration>
+      <firearm-ext:PermitNumber>644293858807</firearm-ext:PermitNumber>
+      <firearm-ext:PermitDate>
+         <nc:Date>2015-02-14</nc:Date>
+      </firearm-ext:PermitDate>
+      <firearm-ext:RegistrationStatus>
+         <nc:StatusDate>
+            <nc:Date>2015-02-14</nc:Date>
+         </nc:StatusDate>
+         <firearm-ext:FirearmRegistrationStatusText>Active</firearm-ext:FirearmRegistrationStatusText>
+      </firearm-ext:RegistrationStatus>
+      <firearm-ext:RegistrationNotesText>Notes</firearm-ext:RegistrationNotesText>
+   </firearm-ext:ItemRegistration>
+   <firearm-ext:ItemRegistration s:id="R2">
+      <nc:RegistrationIdentification>
+         <nc:IdentificationID>830917801401</nc:IdentificationID>
+      </nc:RegistrationIdentification>
+      <nc:LocationCountyName>Niagara</nc:LocationCountyName>
+      <nc:RegistrationEffectiveDate>
+         <nc:Date>2008-08-05</nc:Date>
+      </nc:RegistrationEffectiveDate>
+      <firearm-ext:AgeAtRegistration>
+         <nc:MeasureText>28</nc:MeasureText>
+      </firearm-ext:AgeAtRegistration>
+      <firearm-ext:PermitNumber>111223740918</firearm-ext:PermitNumber>
+      <firearm-ext:PermitDate>
+         <nc:Date>2008-08-05</nc:Date>
+      </firearm-ext:PermitDate>
+      <firearm-ext:RegistrationStatus>
+         <nc:StatusDate>
+            <nc:Date>2008-08-05</nc:Date>
+         </nc:StatusDate>
+         <firearm-ext:FirearmRegistrationStatusText>Active</firearm-ext:FirearmRegistrationStatusText>
+      </firearm-ext:RegistrationStatus>
+      <firearm-ext:RegistrationNotesText>Notes</firearm-ext:RegistrationNotesText>
+   </firearm-ext:ItemRegistration>
+   <firearm-ext:ItemRegistration s:id="R3">
+      <nc:RegistrationIdentification>
+         <nc:IdentificationID>871721878703</nc:IdentificationID>
+      </nc:RegistrationIdentification>
+      <nc:LocationCountyName>Erie</nc:LocationCountyName>
+      <nc:RegistrationEffectiveDate>
+         <nc:Date>1995-02-10</nc:Date>
+      </nc:RegistrationEffectiveDate>
+      <firearm-ext:AgeAtRegistration>
+         <nc:MeasureText>15</nc:MeasureText>
+      </firearm-ext:AgeAtRegistration>
+      <firearm-ext:PermitNumber>890941040751</firearm-ext:PermitNumber>
+      <firearm-ext:PermitDate>
+         <nc:Date>1995-02-10</nc:Date>
+      </firearm-ext:PermitDate>
+      <firearm-ext:RegistrationStatus>
+         <nc:StatusDate>
+            <nc:Date>1995-02-10</nc:Date>
+         </nc:StatusDate>
+         <firearm-ext:FirearmRegistrationStatusText>Active</firearm-ext:FirearmRegistrationStatusText>
+      </firearm-ext:RegistrationStatus>
+      <firearm-ext:RegistrationNotesText>Notes</firearm-ext:RegistrationNotesText>
+   </firearm-ext:ItemRegistration>
+   <nc:DriverLicense>
+      <nc:DriverLicenseIdentification>
+         <nc:IdentificationID>29985551</nc:IdentificationID>
+         <nc:IdentificationSourceText>NY</nc:IdentificationSourceText>
+      </nc:DriverLicenseIdentification>
+   </nc:DriverLicense>
+   <nc:Location s:id="L1">
+      <nc:LocationAddress>
+         <nc:StructuredAddress>
+            <nc:AddressDeliveryPointText>Marshville Road Marshville Road</nc:AddressDeliveryPointText>
+            <nc:LocationCityName>Kerhonkson</nc:LocationCityName>
+            <nc:LocationStateName>NY</nc:LocationStateName>
+            <nc:LocationPostalCode>12446</nc:LocationPostalCode>
+         </nc:StructuredAddress>
+      </nc:LocationAddress>
+   </nc:Location>
+   <nc:ContactInformation s:id="CI1">
+      <nc:ContactTelephoneNumber>
+         <nc:FullTelephoneNumber>
+            <nc:TelephoneNumberFullID>360-555-1212</nc:TelephoneNumberFullID>
+         </nc:FullTelephoneNumber>
+      </nc:ContactTelephoneNumber>
+   </nc:ContactInformation>
+   <nc:ContactInformation s:id="CI2">
+      <nc:ContactTelephoneNumber>
+         <nc:FullTelephoneNumber>
+            <nc:TelephoneNumberFullID>212-333-8888</nc:TelephoneNumberFullID>
+         </nc:FullTelephoneNumber>
+      </nc:ContactTelephoneNumber>
+      <nc:ContactEntity>
+         <nc:EntityOrganization>
+            <nc:OrganizationLocation>
+               <nc:LocationAddress>
+                  <nc:StructuredAddress>
+                     <nc:AddressDeliveryPointText>123 Commerce Way</nc:AddressDeliveryPointText>
+                     <nc:LocationCityName>Kerhonkson</nc:LocationCityName>
+                     <nc:LocationStateName>NY</nc:LocationStateName>
+                     <nc:LocationPostalCode>12446</nc:LocationPostalCode>
+                  </nc:StructuredAddress>
+               </nc:LocationAddress>
+            </nc:OrganizationLocation>
+         </nc:EntityOrganization>
+      </nc:ContactEntity>
+   </nc:ContactInformation>
+   <nc:PropertyRegistrationAssociation>
+      <nc:ItemRegistrationReference s:ref="R1"/>
+      <nc:ItemReference s:ref="F1"/>
+      <nc:ItemRegistrationHolderReference s:ref="P27"/>
+   </nc:PropertyRegistrationAssociation>
+   <nc:PropertyRegistrationAssociation>
+      <nc:ItemRegistrationReference s:ref="R2"/>
+      <nc:ItemReference s:ref="F2"/>
+      <nc:ItemRegistrationHolderReference s:ref="P27"/>
+   </nc:PropertyRegistrationAssociation>
+   <nc:PropertyRegistrationAssociation>
+      <nc:ItemRegistrationReference s:ref="R3"/>
+      <nc:ItemReference s:ref="F3"/>
+      <nc:ItemRegistrationHolderReference s:ref="P27"/>
+   </nc:PropertyRegistrationAssociation>
+   <nc:ResidenceAssociation>
+      <nc:PersonReference s:ref="P27"/>
+      <nc:LocationReference s:ref="L1"/>
+   </nc:ResidenceAssociation>
+   <nc:PersonContactInformationAssociation>
+      <nc:PersonReference s:ref="P27"/>
+      <nc:ContactInformationReference s:ref="CI1"/>
+   </nc:PersonContactInformationAssociation>
+   <nc:PersonEmploymentAssociation>
+      <nc:EmployeeReference s:ref="P27"/>
+      <nc:EmployeeOccupationText>Behavioral disorder counselor</nc:EmployeeOccupationText>
+   </nc:PersonEmploymentAssociation>
+   <nc:EmployeeContactInformationAssociation>
+      <nc:PersonReference s:ref="P27"/>
+      <nc:ContactInformationReference s:ref="CI2"/>
+   </nc:EmployeeContactInformationAssociation>
+</firearm-doc:PersonFirearmRegistrationQueryResults>

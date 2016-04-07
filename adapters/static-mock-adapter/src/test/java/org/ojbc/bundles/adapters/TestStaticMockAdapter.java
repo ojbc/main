@@ -475,7 +475,7 @@ public class TestStaticMockAdapter {
         root.setPrefix(OjbcNamespaceContext.NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_DOC);
         Element id = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_FIREARM_REGISTRATION_QUERY_REQUEST_EXT, "FirearmRegistrationIdentification");
         Element e = XmlUtils.appendElement(id, OjbcNamespaceContext.NS_NC, "IdentificationID");
-        e.setTextContent("sample-980082210822985352.xml:F1");
+        e.setTextContent("sample-1009530696428120424.xml:F1");
         e = XmlUtils.appendElement(id, OjbcNamespaceContext.NS_NC, "IdentificationSourceText");
         e.setTextContent(StaticMockQuery.FIREARM_MOCK_ADAPTER_QUERY_BY_FIREARM_SYSTEM_ID);
         XmlUtils.OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(root);
