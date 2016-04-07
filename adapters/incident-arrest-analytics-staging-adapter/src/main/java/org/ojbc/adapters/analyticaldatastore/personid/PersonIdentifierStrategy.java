@@ -16,25 +16,19 @@
  */
 package org.ojbc.adapters.analyticaldatastore.personid;
 
-import static org.junit.Assert.*;
+import org.ojbc.util.lucene.personid.IdentifierGenerationStrategy;
 
-import org.junit.Before;
-import org.junit.Test;
 
-public class TestFirstNameEquivalentCorpus {
+/**
+ * The interface for objects that generate a unique and consistent identifier for an entity with a set of attributes.
+ *
+ */
+public interface PersonIdentifierStrategy extends IdentifierGenerationStrategy{
 	
-	private FirstNameEquivalentCorpus corpus;
-	
-	@Before
-	public void setUp() throws Exception {
-		corpus = new FirstNameEquivalentCorpus();
-	}
-	
-	@Test
-	public void test() {
-		assertEquals(corpus.getEquivalentName("BOB"), "ROBERT");
-		assertEquals(corpus.getEquivalentName("Nonexistent Name"), "Nonexistent Name");
-		assertNull(corpus.getEquivalentName(null));
-	}
-
+	/**
+	 * Backup the identifier cache where the identifiers were generated.
+	 * 
+	 * @return the path to where the cache was backed up.
+	 */
+	public String backup() throws Exception;
 }

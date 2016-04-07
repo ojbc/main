@@ -221,7 +221,7 @@
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 	
-	<bean id="indexedIdentifierGenerationStrategy" class="org.ojbc.adapters.analyticaldatastore.personid.IndexedIdentifierGenerationStrategy"  destroy-method="destroy">
+	<bean id="indexedIdentifierGenerationStrategy" class="org.ojbc.adapters.analyticaldatastore.personid.IndexedPersonIdentifierStrategy"  destroy-method="destroy">
 		<constructor-arg name="indexDirectoryPath" value="${analyticsAdapter.luceneDirectory}"/>
 		<constructor-arg name="indexBackupRoot" value="${analyticsAdapter.luceneBackupDirectory}"/>
 	</bean>
