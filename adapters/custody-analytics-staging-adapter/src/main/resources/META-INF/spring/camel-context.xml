@@ -159,21 +159,10 @@
 			
 		</camel:route>
 		
-		<camel:route id="index_backup_route">
-			<from uri="timer://foo?fixedRate=true&amp;period=1H&amp;delay=5M"/>
-			<to uri="bean:indexedIdentifierGenerationStrategy?method=backup"/>
-			<camel:log message="Backed up index to: ${body}"/>
-		</camel:route>
-		
  	</camel:camelContext>
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 	
-	<bean id="indexedIdentifierGenerationStrategy" class="org.ojbc.adapters.analyticsstaging.custody.personid.IndexedIdentifierGenerationStrategy"  destroy-method="destroy">
-		<constructor-arg name="indexDirectoryPath" value="${custody.stagingAdapter.luceneDirectory}"/>
-		<constructor-arg name="indexBackupRoot" value="${custody.stagingAdapter.luceneBackupDirectory}"/>
-	</bean>
-
  	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
  	    <constructor-arg ref="dataSource"/>
 	</bean>
