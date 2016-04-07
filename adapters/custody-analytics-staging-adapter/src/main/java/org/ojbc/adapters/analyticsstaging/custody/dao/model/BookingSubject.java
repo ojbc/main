@@ -26,7 +26,6 @@ public class BookingSubject implements Serializable
 	private Integer bookingSubjectId;
 	private Integer recidivistIndicator = 0; 
 	private Integer personId; 
-	private String bookingNumber; 
 	private Integer personAge; 
 	private Integer educationLevelId; 
 	private Integer occupationId; 
@@ -52,14 +51,6 @@ public class BookingSubject implements Serializable
 
 	public void setRecidivistIndicator(Integer recidivistIndicator) {
 		this.recidivistIndicator = recidivistIndicator;
-	}
-
-	public String getBookingNumber() {
-		return bookingNumber;
-	}
-
-	public void setBookingNumber(String bookingNumber) {
-		this.bookingNumber = bookingNumber;
 	}
 
 	public Integer getPersonAge() {

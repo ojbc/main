@@ -15,15 +15,14 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
  
-drop database if exists `BookingAnalyticsDataStore`;
-CREATE DATABASE `BookingAnalyticsDataStore`; 
-use BookingAnalyticsDataStore;
+drop database if exists `CustodyAnalyticsDataStore`;
+CREATE DATABASE `CustodyAnalyticsDataStore`; 
+use CustodyAnalyticsDataStore;
 
 /**
 * Copy DDL from SQL PA below here.  Modify timestamps in fact tables like this:
 *                `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 **/
-
 
 
 CREATE TABLE Language (
@@ -129,7 +128,6 @@ CREATE TABLE BookingSubject (
                 BookingSubjectID INT AUTO_INCREMENT NOT NULL,
                 RecidivistIndicator SMALLINT DEFAULT 0 NOT NULL,
                 PersonID INT NOT NULL,
-                BookingNumber VARCHAR(50) NOT NULL,
                 PersonAge INT,
                 EducationLevelID INT,
                 OccupationID INT,
@@ -189,6 +187,7 @@ CREATE TABLE Booking (
                 PretrialStatusID INT NOT NULL,
                 FacilityID INT NOT NULL,
                 BedTypeID INT NOT NULL,
+                BookingNumber VARCHAR(50) NOT NULL,
                 ArrestLocationLatitude NUMERIC(14,10),
                 ArrestLocationLongitude NUMERIC(14,10),
                 BookingSubjectID INT NOT NULL,
