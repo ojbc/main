@@ -34,7 +34,7 @@
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="BookingReport">
-		<wsdl:part name="BookingReport" element="br-doc:BookingReports" />
+		<wsdl:part name="BookingReport" element="br-doc:BookingReport" />
 	</wsdl:message>
 	<wsdl:portType name="Booking-Reporting-Service">
 		<wsdl:operation name="ReportBooking">

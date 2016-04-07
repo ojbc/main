@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<br-doc:BookingReports
+<br-doc:BookingReport
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/BookingReport/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0 ../xsd/impl/adams_county/booking_codes.xsd"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
@@ -26,8 +26,6 @@
 	xmlns:br-doc="http://ojbc.org/IEPD/Exchange/BookingReport/1.0"
 	xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	   <br-ext:BookingIndicator>true</br-ext:BookingIndicator>
-   <br-ext:BookingReport>
       <j:Booking>
          <nc:ActivityDate>
             <nc:DateTime>2015-12-23T03:02:00Z</nc:DateTime>
@@ -56,5 +54,4 @@
          </nc:PersonName>
          <nc:PersonSexText>F</nc:PersonSexText>
       </nc:Person>
-   </br-ext:BookingReport>
-</br-doc:BookingReports>
+</br-doc:BookingReport>
