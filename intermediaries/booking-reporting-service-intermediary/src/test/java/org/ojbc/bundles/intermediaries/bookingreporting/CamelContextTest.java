@@ -100,6 +100,16 @@ public class CamelContextTest {
     	    }              
     	});
     	
+    	
+    	//We mock the booking reporting adapter web service endpoint and intercept any submissions
+    	context.getRouteDefinition("callCustodyAnalyticAdapter_Route").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	// The line below allows us to bypass CXF and send a message directly into the route
+    	    	mockEndpointsAndSkip("cxf:bean:custodyAnalyticAdapterService*");
+    	    }              
+    	});    	
+    	
 		context.start();		
 	}
 
