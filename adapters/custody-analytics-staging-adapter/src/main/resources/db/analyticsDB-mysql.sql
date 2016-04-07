@@ -15,9 +15,9 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
  
-drop database if exists `BookingAnalyticsDataStore`;
-CREATE DATABASE `BookingAnalyticsDataStore`; 
-use BookingAnalyticsDataStore;
+drop database if exists `CustodyAnalyticsDataStore`;
+CREATE DATABASE `CustodyAnalyticsDataStore`; 
+use CustodyAnalyticsDataStore;
 
 /**
 * Copy DDL from SQL PA below here.  Modify timestamps in fact tables like this:
