@@ -1787,10 +1787,10 @@ public class StaticMockQuery {
 		xPaths.ageXPath = null;
 		xPaths.birthdateXPath = "/firearm-doc:PersonFirearmRegistrationQueryResults/nc:Person/nc:PersonBirthDate/nc:Date";
 		xPaths.ssnXPath = "/firearm-doc:PersonFirearmRegistrationQueryResults/nc:Person/nc:PersonSSNIdentification/nc:IdentificationID";
-		xPaths.sidXPath = null;
+		xPaths.sidXPath = "/firearm-doc:PersonFirearmRegistrationQueryResults/nc:Person/nc:PersonStateIdentification/nc:IdentificationID";
 		xPaths.fbiXPath = null;
-		xPaths.dlXPath = null;
-		xPaths.dlJurisdictionXPath = null;
+		xPaths.dlXPath = "/firearm-doc:PersonFirearmRegistrationQueryResults/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID";
+		xPaths.dlJurisdictionXPath = "/firearm-doc:PersonFirearmRegistrationQueryResults/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationSourceText";
 		xPaths.lastNameXPath = "/firearm-doc:PersonFirearmRegistrationQueryResults/nc:Person/nc:PersonName/nc:PersonSurName";
 		xPaths.middleNameXPath = "/firearm-doc:PersonFirearmRegistrationQueryResults/nc:Person/nc:PersonName/nc:PersonMiddleName";
 		xPaths.firstNameXPath = "/firearm-doc:PersonFirearmRegistrationQueryResults/nc:Person/nc:PersonName/nc:PersonGivenName";
