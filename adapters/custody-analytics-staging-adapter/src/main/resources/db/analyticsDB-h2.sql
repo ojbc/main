@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-CREATE schema BookingAnalyticsDataStore;
+CREATE schema CustodyAnalyticsDataStore;
 
 
 CREATE TABLE Language (LanguageID INT AUTO_INCREMENT NOT NULL, Language VARCHAR(20) NOT NULL);
