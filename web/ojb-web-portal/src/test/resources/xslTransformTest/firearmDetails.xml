@@ -112,6 +112,12 @@
 		</ext:RegistrationStatus>
 		<ext:RegistrationNotesText>Notes</ext:RegistrationNotesText>
 	</ext:ItemRegistration>
+	<nc:DriverLicense s:id="DL-1">
+	  <nc:DriverLicenseIdentification>
+	    <nc:IdentificationID>12345</nc:IdentificationID>
+	    <nc:IdentificationSourceText>HI</nc:IdentificationSourceText>
+	  </nc:DriverLicenseIdentification>
+	</nc:DriverLicense>	
 	<nc:Location s:id="LOC-1">
 		<nc:LocationAddress>
 			<nc:StructuredAddress>
