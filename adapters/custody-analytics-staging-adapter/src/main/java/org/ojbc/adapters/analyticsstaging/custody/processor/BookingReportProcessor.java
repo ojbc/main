@@ -58,7 +58,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 	}
 
 	private void processBookingCharges(Document report, Integer bookingId) throws Exception {
-		NodeList chargeNodes = XmlUtils.xPathNodeListSearch(report, "/br-doc:BookingReports/br-ext:BookingReport/jxdm51:Charge");
+		NodeList chargeNodes = XmlUtils.xPathNodeListSearch(report, "/br-doc:BookingReport/jxdm51:Charge");
 		
 		List<BookingCharge> bookingCharges = new ArrayList<BookingCharge>();
 		
@@ -82,12 +82,12 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 	private void setBondInfo(Document report, Node chargeNode,
 			BookingCharge bookingCharge) throws Exception {
 		String chargeId = XmlUtils.xPathStringSearch(chargeNode, "@s30:id");
-		String bondId = XmlUtils.xPathStringSearch(report, "/br-doc:BookingReports/br-ext:BookingReport/"
+		String bondId = XmlUtils.xPathStringSearch(report, "/br-doc:BookingReport/"
 				+ "jxdm51:BailBondChargeAssociation[jxdm51:Charge/@s30:ref='" + chargeId + "']/jxdm51:BailBond/@s30:ref");
 		
 		if (StringUtils.isNotBlank(bondId)){
 			Node bondNode = XmlUtils.xPathNodeSearch(report, 
-					"/br-doc:BookingReports/br-ext:BookingReport/jxdm51:BailBond[@s30:id = '"+ bondId +  "']");
+					"/br-doc:BookingReport/jxdm51:BailBond[@s30:id = '"+ bondId +  "']");
 			
 			String bondType = XmlUtils.xPathStringSearch(bondNode, "nc30:ActivityCategoryText");
 			Integer bondTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.BondType, bondType);
@@ -105,12 +105,12 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 	private Integer processBookingReport(Document report, String personUniqueIdentifier) throws Exception {
 		Booking booking = new Booking();
 		
-		Node personNode = XmlUtils.xPathNodeSearch(report, "/br-doc:BookingReports/br-ext:BookingReport/nc30:Person");
+		Node personNode = XmlUtils.xPathNodeSearch(report, "/br-doc:BookingReport/nc30:Person");
         
         Integer bookingSubjectId = saveBookingSubject(personNode, personUniqueIdentifier);
         booking.setBookingSubjectId(bookingSubjectId);
         
-        Node bookingReportNode = XmlUtils.xPathNodeSearch(report, "/br-doc:BookingReports/br-ext:BookingReport");
+        Node bookingReportNode = XmlUtils.xPathNodeSearch(report, "/br-doc:BookingReport");
         
         String courtName = XmlUtils.xPathStringSearch(bookingReportNode, "nc30:Case/jxdm51:CaseAugmentation/jxdm51:CaseCourt/jxdm51:CourtName");
         Integer courtId = descriptionCodeLookupService.retrieveCode(CodeTable.Jurisdiction, courtName);
@@ -183,7 +183,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 		}
 		
 		bookingSubject.setPersonId(personId);
-		String bookingNumber = XmlUtils.xPathStringSearch(personNode, "parent::br-ext:BookingReport/jxdm51:Booking/jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");
+		String bookingNumber = XmlUtils.xPathStringSearch(personNode, "parent::br-doc:BookingReport/jxdm51:Booking/jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");
 		bookingSubject.setBookingNumber(bookingNumber);
 		
 		String birthDateString = XmlUtils.xPathStringSearch(personNode,  "nc30:PersonBirthDate/nc30:Date");
