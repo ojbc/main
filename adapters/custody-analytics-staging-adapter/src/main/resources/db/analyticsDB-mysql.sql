@@ -25,7 +25,6 @@ use CustodyAnalyticsDataStore;
 **/
 
 
-
 CREATE TABLE Language (
                 LanguageID INT AUTO_INCREMENT NOT NULL,
                 Language VARCHAR(20) NOT NULL,
@@ -129,7 +128,6 @@ CREATE TABLE BookingSubject (
                 BookingSubjectID INT AUTO_INCREMENT NOT NULL,
                 RecidivistIndicator SMALLINT DEFAULT 0 NOT NULL,
                 PersonID INT NOT NULL,
-                BookingNumber VARCHAR(50) NOT NULL,
                 PersonAge INT,
                 EducationLevelID INT,
                 OccupationID INT,
@@ -189,6 +187,7 @@ CREATE TABLE Booking (
                 PretrialStatusID INT NOT NULL,
                 FacilityID INT NOT NULL,
                 BedTypeID INT NOT NULL,
+                BookingNumber VARCHAR(50) NOT NULL,
                 ArrestLocationLatitude NUMERIC(14,10),
                 ArrestLocationLongitude NUMERIC(14,10),
                 BookingSubjectID INT NOT NULL,

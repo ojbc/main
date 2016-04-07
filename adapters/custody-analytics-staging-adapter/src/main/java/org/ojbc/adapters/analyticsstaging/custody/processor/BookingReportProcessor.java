@@ -153,6 +153,10 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         Integer bedTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.BedType, bedType);
         booking.setBedTypeId(bedTypeId);
         
+		String bookingNumber = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");
+		booking.setBookingNumber(bookingNumber);
+		
+
         String locationId = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Arrest/jxdm51:ArrestLocation/@s30:ref");
         if (StringUtils.isNotBlank(locationId)){
         	Node arrestLocation2DGeoCoordinateNode = XmlUtils.xPathNodeSearch(bookingReportNode, "nc30:Location[@s30:id='"+ locationId +"']/nc30:Location2DGeospatialCoordinate");
@@ -183,8 +187,6 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 		}
 		
 		bookingSubject.setPersonId(personId);
-		String bookingNumber = XmlUtils.xPathStringSearch(personNode, "parent::br-doc:BookingReport/jxdm51:Booking/jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");
-		bookingSubject.setBookingNumber(bookingNumber);
 		
 		String birthDateString = XmlUtils.xPathStringSearch(personNode,  "nc30:PersonBirthDate/nc30:Date");
 	 	java.time.LocalDate birthDay = java.time.LocalDate.parse(birthDateString);

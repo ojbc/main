@@ -289,13 +289,12 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         final String sqlString="INSERT into BookingSubject ("
         		+ "RecidivistIndicator, " //1
         		+ "PersonID, " //2	
-        		+ "BookingNumber, " //3
-        		+ "PersonAge, " //4
-        		+ "EducationLevelID, " //5
-        		+ "OccupationID, " //6
-        		+ "IncomeLevelID, " //7
-        		+ "HousingStatusID" //8
-        		+ ") values (?,?,?,?,?,?,?,?)";
+        		+ "PersonAge, " //3
+        		+ "EducationLevelID, " //4
+        		+ "OccupationID, " //5
+        		+ "IncomeLevelID, " //6
+        		+ "HousingStatusID" //7
+        		+ ") values (?,?,?,?,?,?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -303,60 +302,19 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(sqlString, new String[] {"RecidivistIndicator", "PersonID", 
-        	                		"BookingNumber", "PersonAge", "EducationLevelID", "OccupationID", "IncomeLevelID",
+        	                		"PersonAge", "EducationLevelID", "OccupationID", "IncomeLevelID",
         	                		"HousingStatusID"});
         	            
         	            ps.setShort(1, bookingSubject.getRecidivistIndicator().shortValue());
         	            
     	            	ps.setInt(2, bookingSubject.getPersonId());
 
-    	            	ps.setString(3, bookingSubject.getBookingNumber());
-        	            
-        	            if ( bookingSubject.getPersonAge() != null )
-        	            {	
-        	            	ps.setInt(4, bookingSubject.getPersonAge());
-        	            }
-        	            else
-        	            {
-        	            	ps.setNull(4, java.sql.Types.NULL);
-        	            }	
+    	            	setPreparedStatementVariable(bookingSubject.getPersonAge(), ps, 3);
+    	            	setPreparedStatementVariable(bookingSubject.getEducationLevelId(), ps, 4);
+    	            	setPreparedStatementVariable(bookingSubject.getOccupationId(), ps, 5);
+    	            	setPreparedStatementVariable(bookingSubject.getIncomeLevelId(), ps, 6);
+    	            	setPreparedStatementVariable(bookingSubject.getHousingStatusId(), ps, 7);
     	            	
-        	            if ( bookingSubject.getEducationLevelId() != null )
-        	            {	
-        	            	ps.setInt(5, bookingSubject.getEducationLevelId());
-        	            }
-        	            else
-        	            {
-        	            	ps.setNull(5, java.sql.Types.NULL);
-        	            }	
-        	            
-        	            if ( bookingSubject.getOccupationId() != null )
-        	            {	
-        	            	ps.setInt(6, bookingSubject.getOccupationId());
-        	            }
-        	            else
-        	            {
-        	            	ps.setNull(6, java.sql.Types.NULL);
-        	            }	
-        	            
-        	            if ( bookingSubject.getIncomeLevelId()!= null )
-        	            {	
-        	            	ps.setInt(7, bookingSubject.getIncomeLevelId());
-        	            }
-        	            else
-        	            {
-        	            	ps.setNull(7, java.sql.Types.NULL);
-        	            }	
-        	            
-        	            if ( bookingSubject.getHousingStatusId()!= null )
-        	            {	
-        	            	ps.setInt(8, bookingSubject.getHousingStatusId());
-        	            }
-        	            else
-        	            {
-        	            	ps.setNull(8, java.sql.Types.NULL);
-        	            }	
-        	            
         	            return ps;
         	        }
         	    },
@@ -382,26 +340,26 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	                		"BookingReportID" , "SendingAgencyID","CaseStatusID", 
         	                		"BookingDate", "SupervisionReleaseDate","PretrialStatusID",
         	                		"FacilityID","BedTypeID", "ArrestLocationLatitude", "ArrestLocationLongitude",
-        	                		"BookingSubjectID", "CommitDate", "BookingID"};
+        	                		"BookingSubjectID", "CommitDate", "BookingNumber", "BookingID"};
 
         	        		sqlString="INSERT into booking (JurisdictionID, BookingReportDate,"
         	        				+ "BookingReportID, SendingAgencyID, CaseStatusID, "
         	        				+ "BookingDate, SupervisionReleaseDate, PretrialStatusID, "
         	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude, "
-        	        				+ "BookingSubjectID, CommitDate, BookingID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	        				+ "BookingSubjectID, CommitDate, BookingNumber, BookingID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
         	        		insertArgs = new String[] {"JurisdictionID", "BookingReportDate", 
         	                		"BookingReportID" , "SendingAgencyID","CaseStatusID", 
         	                		"BookingDate", "SupervisionReleaseDate","PretrialStatusID",
         	                		"FacilityID","BedTypeID", "ArrestLocationLatitude", "ArrestLocationLongitude",
-        	                		"BookingSubjectID", "CommitDate"};
+        	                		"BookingSubjectID", "CommitDate", "BookingNumber"};
 
         	        		sqlString="INSERT into booking (JurisdictionID, BookingReportDate,"
         	        				+ "BookingReportID, SendingAgencyID, CaseStatusID, "
         	        				+ "BookingDate, SupervisionReleaseDate, PretrialStatusID, "
         	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude, "
-        	        				+ "BookingSubjectID, CommitDate) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	        				+ "BookingSubjectID, CommitDate, BookingNumber) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	        		
         	        	}	
         	        			
@@ -425,9 +383,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            setPreparedStatementVariable(booking.getArrestLocationLongitude(), ps, 12);
         	            setPreparedStatementVariable(booking.getBookingSubjectId(), ps, 13);
         	            setPreparedStatementVariable(booking.getCommitDate(), ps, 14);
+        	            setPreparedStatementVariable(booking.getBookingNumber(), ps, 15);
         	            
         	            if (booking.getBookingId() != null){
-        	            	setPreparedStatementVariable(booking.getBookingId(), ps, 15);
+        	            	setPreparedStatementVariable(booking.getBookingId(), ps, 16);
         	            }
         	            
         	            return ps;
@@ -523,6 +482,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			booking.setArrestLocationLatitude(rs.getBigDecimal("ArrestLocationLatitude"));
 			booking.setArrestLocationLongitude(rs.getBigDecimal("ArrestLocationLongitude"));
 			booking.setBookingSubjectId(rs.getInt("BookingSubjectID"));
+			booking.setBookingNumber(rs.getString("BookingNumber"));
 			
 	    	return booking;
 		}
@@ -565,7 +525,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			bookingSubject.setEducationLevelId(rs.getInt("EducationLevelID"));
 			bookingSubject.setOccupationId(rs.getInt("OccupationID"));
 			bookingSubject.setIncomeLevelId(rs.getInt("IncomeLevelID"));
-			bookingSubject.setBookingNumber(rs.getString("BookingNumber"));
 			
 	    	return bookingSubject;
 		}
