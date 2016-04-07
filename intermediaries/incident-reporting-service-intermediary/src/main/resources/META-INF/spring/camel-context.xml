@@ -53,6 +53,9 @@
 
 		<camel:endpoint id="chargeReferralServiceEndpoint"
 				uri="cxf:bean:ChargeReferralService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+						
+		<camel:endpoint id="chargeReferralReportingServiceEndpoint" 
+			uri="cxf:bean:ChargeReferralReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />						
 			
 	    <camel:endpoint id="notificationBrokerServiceEndpoint" 
 	    	uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}"/>                
@@ -105,6 +108,17 @@
 
 						</camel:filter>
 					</camel:pipeline>
+					
+					<camel:pipeline>
+						<camel:filter>
+							<!-- TODO set header from a processor beforehand if needed -->
+							<camel:simple>${in.header.callChargeReferralReportingService} == 'true'</camel:simple>
+
+							<camel:to uri="direct:callChargeReferralReportingService" />
+
+						</camel:filter>
+					</camel:pipeline>										
+					
 					<camel:pipeline>
 						<camel:filter>
 							<camel:simple>${bean:callNotificationBrokerService.trim} == 'true'</camel:simple>
@@ -190,6 +204,39 @@
 			</camel:filter>
             
         </camel:route>
+        
+        
+        <camel:route id="CallChargeReferralReportingService_Route" errorHandlerRef="chargeReferralReportingDeadLetterErrorHandler">
+        
+            <from uri="direct:callChargeReferralReportingService"/>
+            
+            <log message="\n\n\n CallChargeReferralReportingService_Route... \n\n\n" />
+            
+            <camel:filter>
+            
+            	<!-- TODO -->
+				<camel:xpath>true</camel:xpath>
+				
+				<log message="\n\n\n  Condition met to call report charge \n\n\n" />
+				
+				<camel:filter>
+					<camel:simple>${in.header.callChargeReferralReportingService} == 'true'</camel:simple>
+										
+					<camel:to uri="xslt:xslt/wrapChargeReferralReport.xslt"/>
+					
+					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+					
+					<camel:setHeader headerName="operationName"><constant>ReportChargeReferral</constant></camel:setHeader>	
+					<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0</constant></camel:setHeader>
+				
+					<to uri="chargeReferralReportingServiceEndpoint" />
+										
+				</camel:filter>
+				
+			</camel:filter>
+            
+        </camel:route>        
+        
         
         <camel:route id="callNotificationBrokerServiceRoute">
         	
