@@ -187,7 +187,6 @@ public class CamelContextTest {
 		Assert.assertNotNull(bookingSubject);
 		
 		Assert.assertEquals(Integer.valueOf(1), bookingSubject.getPersonId());
-		Assert.assertEquals("Booking Number", bookingSubject.getBookingNumber());
 		Assert.assertEquals(Integer.valueOf(0), bookingSubject.getRecidivistIndicator());
 		Assert.assertTrue(person.getPersonBirthDate().until(java.time.LocalDate.now(), ChronoUnit.YEARS ) == 
 				bookingSubject.getPersonAge().longValue());
@@ -210,6 +209,7 @@ public class CamelContextTest {
 		assertTrue(booking.getPretrialStatusId() == 2);
 		assertTrue(booking.getFacilityId() == 1);
 		assertTrue(booking.getBedTypeId() == 2); 
+		assertEquals("Booking Number", booking.getBookingNumber());
 		assertTrue(booking.getArrestLocationLatitude().doubleValue() == 56.1111 ); 
 		assertTrue(booking.getArrestLocationLongitude().doubleValue() == 32.1111 ); 
 		

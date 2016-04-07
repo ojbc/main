@@ -53,6 +53,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @DirtiesContext
 public class TestAnalyticalDatastoreDAOImpl {
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(TestAnalyticalDatastoreDAOImpl.class);
 	
     @Resource  
@@ -92,6 +93,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		booking.setFacilityId(1);
 		booking.setBedTypeId(2);
 		booking.setBookingSubjectId(bookingSubjectPk);
+		booking.setBookingNumber("bookingNumber");
 		
 		int bookingPk = analyticalDatastoreDAO.saveBooking( booking );
 		assertEquals(1, bookingPk);
@@ -126,7 +128,6 @@ public class TestAnalyticalDatastoreDAOImpl {
 	private BookingSubject getStaticBookingSubject(){
 		BookingSubject bookingSubject = new BookingSubject();
 		bookingSubject.setRecidivistIndicator(0);
-		bookingSubject.setBookingNumber("bookingNumber");
 		bookingSubject.setPersonAge(50);
 		bookingSubject.setEducationLevelId(3);
 		bookingSubject.setOccupationId(2);

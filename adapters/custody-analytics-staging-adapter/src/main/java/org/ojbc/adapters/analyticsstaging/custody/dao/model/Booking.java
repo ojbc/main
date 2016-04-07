@@ -43,6 +43,8 @@ public class Booking implements Serializable{
 	private BigDecimal arrestLocationLatitude; 
 	private BigDecimal arrestLocationLongitude; 
 	private Integer bookingSubjectId; 
+	private String bookingNumber; 
+
 	
 	public Integer getBookingId() {
 		return bookingId;
@@ -167,5 +169,14 @@ public class Booking implements Serializable{
 	public void setCommitDate(LocalDate commitDate) {
 		this.commitDate = commitDate;
 	}
+	
+	public String getBookingNumber() {
+		return bookingNumber;
+	}
+
+	public void setBookingNumber(String bookingNumber) {
+		this.bookingNumber = bookingNumber;
+	}
+
 
 }
