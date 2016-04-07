@@ -24,19 +24,6 @@
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.1/" schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.1/" schemaLocation="./Subset/niem/domains/cyfs/3.1/cyfs.xsd"/>
-	<xsd:complexType name="BookingReportsType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for booking reports.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="structures:ObjectType">
-				<xsd:sequence>
-					<xsd:element ref="br-ext:BookingIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="br-ext:BookingReport" minOccurs="0" maxOccurs="unbounded"/>
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
 	<xsd:complexType name="BookingReportType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for set of details associated with a booking.</xsd:documentation>
@@ -61,11 +48,6 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="BookingReport" type="br-ext:BookingReportType">
-		<xsd:annotation>
-			<xsd:documentation>An agency for whom a subject is being held.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="HoldForAgency" type="nc:OrganizationType" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>An agency for whom a subject is being held.</xsd:documentation>
@@ -74,11 +56,6 @@
 	<xsd:element name="DetentiontImmigrationHoldIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a subject is being held for an immigration violation; false otherwise.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="BookingIndicator" type="niem-xs:boolean">
-		<xsd:annotation>
-			<xsd:documentation>True if a booking occured; false otherwise</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonSocioEconomicStatusDescriptionText" type="nc:TextType" substitutionGroup="nc:PersonAugmentationPoint">
