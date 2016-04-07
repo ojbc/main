@@ -46,6 +46,7 @@
 		<spring-version>3.2.11.RELEASE</spring-version>
 		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
+		<ojb-index-common-version>[1.0.0,)</ojb-index-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<h2-mock-database-version>[2.0.0,)</h2-mock-database-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
@@ -134,6 +135,12 @@
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-common</artifactId>
 			<version>${ojb-common-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-index-common</artifactId>
+			<version>${ojb-index-common-version}</version>
 		</dependency>
 
 		<dependency>
