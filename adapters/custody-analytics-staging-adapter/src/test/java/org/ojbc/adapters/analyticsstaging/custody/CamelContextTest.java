@@ -129,12 +129,28 @@ public class CamelContextTest {
     	    }              
     	});
 
-    	context.getRouteDefinition("behavioral_health_reporting_service_process_booking_report").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("behavioral_health_reporting_service_process_report").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
     	    	//This assists testing an invocation failure
     	    	interceptSendToEndpoint("direct:failedInvocation").to("mock:direct:failedInvocation").stop();
     	    }              
+    	});
+    	
+    	context.getRouteDefinition("custody_release_reporting_service").adviceWith(context, new AdviceWithRouteBuilder() {
+    		@Override
+    		public void configure() throws Exception {
+    			// The line below allows us to bypass CXF and send a message directly into the route
+    			replaceFromWith("direct:custodyReleaseServiceEndpoint");
+    		}              
+    	});
+    	
+    	context.getRouteDefinition("custody_release_reporting_service_process_report").adviceWith(context, new AdviceWithRouteBuilder() {
+    		@Override
+    		public void configure() throws Exception {
+    			//This assists testing an invocation failure
+    			interceptSendToEndpoint("direct:failedInvocation").to("mock:direct:failedInvocation").stop();
+    		}              
     	});
     	
     	
@@ -145,8 +161,8 @@ public class CamelContextTest {
 	public void testBookingReportService() throws Exception
 	{
 		testBookingReportServiceRoute();	
-		
 		testBehavioralHealthReportServiceRoute();
+		testCustodyReleaseReportServiceRoute();
 	}
 
 	private void testBookingReportServiceRoute() throws Exception, IOException {
@@ -248,6 +264,26 @@ public class CamelContextTest {
 		assertTrue(behavioralHealthAssessment.getPersonId() == 1); 
 		assertThat(behavioralHealthAssessment.getEvaluationDate(), is(LocalDate.parse("2015-08-13")));
 
+	}
+	
+	public void testCustodyReleaseReportServiceRoute() throws Exception
+	{
+		Booking booking = analyticalDatastoreDAOImpl.getBookingByBookingNumber("Booking Number"); 
+		assertEquals(LocalDateTime.parse("2014-12-17T10:30"), booking.getSupervisionReleaseDate());
+		
+		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/custodyReleaseReport/CustodyReleaseReport.xml");
+		
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:custodyReleaseServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		booking = analyticalDatastoreDAOImpl.getBookingByBookingNumber("Booking Number");
+		assertEquals( LocalDateTime.parse("2015-12-17T09:30:47"), booking.getSupervisionReleaseDate());
 	}
 	
 	protected Exchange createSenderExchange(String inputFilePath) throws Exception, IOException {
