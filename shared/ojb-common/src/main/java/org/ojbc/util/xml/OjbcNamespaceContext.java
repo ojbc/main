@@ -710,6 +710,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static String NS_BOOKING_REPORTING_EXT = "http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0";
 	public static String NS_PREFIX_BOOKING_REPORTING_EXT="br-ext";
 	
+	public static String NS_CUSTODY_RELEASE_REPORTING = "http://ojbc.org/IEPD/Exchange/CustodyReleaseReport/1.0";
+	public static String NS_PREFIX_CUSTODY_RELEASE_REPORTING="crr-exc";
+
+	public static String NS_CUSTODY_RELEASE_REPORTING_EXT = "http://ojbc.org/IEPD/Extensions/CustodyReleaseReportExtension/1.0";
+	public static String NS_PREFIX_CUSTODY_RELEASE_REPORTING_EXT="crr-ext";
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -1397,6 +1403,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap.put(NS_PREFIX_BEHAVIORAL_HEALTH_REPORT_DOC_EXT, NS_BEHAVIORAL_HEALTH_REPORT_DOC_EXT);
 		uriToPrefixMap.put(NS_BEHAVIORAL_HEALTH_REPORT_DOC_EXT, NS_PREFIX_BEHAVIORAL_HEALTH_REPORT_DOC_EXT);
+
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_RELEASE_REPORTING_EXT, NS_CUSTODY_RELEASE_REPORTING_EXT);
+		uriToPrefixMap.put(NS_CUSTODY_RELEASE_REPORTING_EXT, NS_PREFIX_CUSTODY_RELEASE_REPORTING_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_RELEASE_REPORTING, NS_CUSTODY_RELEASE_REPORTING);
+		uriToPrefixMap.put(NS_CUSTODY_RELEASE_REPORTING, NS_PREFIX_CUSTODY_RELEASE_REPORTING);
 	}
 
 	@Override
