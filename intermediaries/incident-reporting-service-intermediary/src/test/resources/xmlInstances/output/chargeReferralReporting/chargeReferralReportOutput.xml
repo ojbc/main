@@ -533,9 +533,10 @@
                             <lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
                             <lexs:CommunityVersion>1.0</lexs:CommunityVersion>
                         </lexs:StructuredPayloadMetadata>
-                        <ext:IncidentReport>
+                        <ext:IncidentReport>                        
                             <ext:IncidentReportableToDistrictAttorneyIndicator>true</ext:IncidentReportableToDistrictAttorneyIndicator>
                             <ext:Incident>
+                            	<ext:Charge/>                            
                                 <j:IncidentArrestMadeIndicator>false</j:IncidentArrestMadeIndicator>
                                 <ext:IncidentCrimeSolvedIndicator>true</ext:IncidentCrimeSolvedIndicator>
                                 <ext:IncidentCitationIndicator>true</ext:IncidentCitationIndicator>

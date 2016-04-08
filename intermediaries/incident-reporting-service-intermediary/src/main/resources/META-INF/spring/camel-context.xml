@@ -30,7 +30,8 @@
     xmlns:ar="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
     xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
 	xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
-	xmlns:iru="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0"	
+	xmlns:iru="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0" 
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"  	
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -111,8 +112,7 @@
 					
 					<camel:pipeline>
 						<camel:filter>
-							<!-- TODO set header from a processor beforehand if needed -->
-							<camel:simple>${in.header.callChargeReferralReportingService} == 'true'</camel:simple>
+							<camel:xpath>/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Incident/inc-ext:Charge</camel:xpath>							
 
 							<camel:to uri="direct:callChargeReferralReportingService" />
 
@@ -211,24 +211,16 @@
             <from uri="direct:callChargeReferralReportingService"/>
             
             <log message="\n\n\n CallChargeReferralReportingService_Route... \n\n\n" />
-            
-            <camel:filter>
-            
-				<camel:xpath>/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Incident/inc-ext:Charge</camel:xpath>
-				
-				<log message="\n\n\n  Condition met to call report charge \n\n\n" />
-				
-				<camel:to uri="xslt:xslt/wrapChargeReferralReport.xslt"/>
-				
-				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
-				
-				<camel:setHeader headerName="operationName"><constant>ReportChargeReferral</constant></camel:setHeader>	
-				<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0</constant></camel:setHeader>
+                        			
+			<camel:to uri="xslt:xslt/wrapChargeReferralReport.xslt"/>
 			
-				<to uri="chargeReferralReportingServiceEndpoint" />										
-				
-			</camel:filter>
-            
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+			
+			<camel:setHeader headerName="operationName"><constant>ReportChargeReferral</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0</constant></camel:setHeader>
+		
+			<to uri="chargeReferralReportingServiceEndpoint" />										
+				            
         </camel:route>        
         
         
