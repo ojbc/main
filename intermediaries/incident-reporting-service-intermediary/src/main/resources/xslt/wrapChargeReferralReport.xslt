@@ -23,9 +23,9 @@
     version="2.0">
     
     <xsl:template match="lexspd:doPublish">
-        <cr-doc:ChargeReferral xmlns:cr-doc="http://ojbc.org/IEPD/Exchange/ChargeReferral/1.0">
+        <crr-doc:ChargeReferralReport xmlns:crr-doc="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0">
             <xsl:copy-of select="." />
-        </cr-doc:ChargeReferral>    
+        </crr-doc:ChargeReferralReport>    
     </xsl:template>
     
 </xsl:stylesheet>
