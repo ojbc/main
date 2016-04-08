@@ -212,7 +212,7 @@ public class CamelContextTest {
 		//Retrieve Charge Referral Message and assert that the proper root and child elements are set
 		Exchange chargeReferralExchange = chargeReferralServiceMock.getExchanges().get(0);
 		Document chargeReferralDocument = chargeReferralExchange.getIn().getBody(Document.class);
-		//XmlUtils.printNode(chargeReferralDocument);
+		XmlUtils.printNode(chargeReferralDocument);
 		assertNotNull(XmlUtils.xPathNodeSearch(chargeReferralDocument, "/cr-doc:ChargeReferral"));
 		assertNotNull(XmlUtils.xPathNodeSearch(chargeReferralDocument, "/cr-doc:ChargeReferral/lexspd:doPublish"));
 		
