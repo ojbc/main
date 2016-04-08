@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.processor;
+package org.ojbc.util.camel.processor;
 
 import java.util.concurrent.ConcurrentHashMap;
 
