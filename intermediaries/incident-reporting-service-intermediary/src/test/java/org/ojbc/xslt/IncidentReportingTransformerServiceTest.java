@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.util.List;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -34,42 +34,42 @@ import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.io.FileUtils;
-import org.custommonkey.xmlunit.DetailedDiff;
-import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.util.xml.XsltTransformer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 
 public class IncidentReportingTransformerServiceTest {
 
-	XsltTransformerService unit;
-	
+	private Logger logger = Logger.getLogger(this.getClass().getName());
+		
 	private Document incidentComplainantDoc;
 	private Document incidentDateRangeDateTimeDoc;
 	private Document incidentDateTimeDoc;
 	private Document incidentDateRangeDateDoc;
 	private Document incidentDateDoc;
 	private Document incidentOffenseDoc;
-	private XsltTransformerService xsltTransformer;
+	
+	private XsltTransformer xsltTransformer;
 	
 	private Source xsltSource;
 
 	@Before
 	public void setup() throws Exception{
-		unit = new XsltTransformerService();
+		
+		xsltTransformer = new XsltTransformer();
 		
 		//Tell XML Unit to ignore whitespace between elements and within elements
 		XMLUnit.setIgnoreWhitespace(true);
 		XMLUnit.setNormalizeWhitespace(true);
     	XMLUnit.setIgnoreAttributeOrder(true);
-    	XMLUnit.setIgnoreComments(true);
-    	xsltTransformer = new XsltTransformerService();
-		
+    	XMLUnit.setIgnoreComments(true);		
+				    			
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         DocumentBuilder db = dbf.newDocumentBuilder();
@@ -89,24 +89,33 @@ public class IncidentReportingTransformerServiceTest {
 		File inputFile = new File("src/test/resources/xmlInstances/incidentReport/IncidentReport.xml");		
 		String inputXml = FileUtils.readFileToString(inputFile);
 		SAXSource inputSaxSource = createSource(inputXml);
-		
-		File expectedOutputFile = new File("src/test/resources/xmlInstances/output/chargeReferral/chargeReferralOutput.xml");
-		String expectedXml = FileUtils.readFileToString(expectedOutputFile);		
-		
+				
 		File xsltFile = new File("src/main/resources/xslt/wrapChargeReferral.xslt");
 		StreamSource xsltSaxSource = new StreamSource(xsltFile);
 		
 		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);
-		
-		System.out.println(actualTransformedResultXml);
-		
-		DetailedDiff detailedDiff = new DetailedDiff(XMLUnit.compareXML(expectedXml, actualTransformedResultXml));
-        
-		@SuppressWarnings("unchecked")	
-		List<Difference> differenceList = detailedDiff.getAllDifferences();
-        
-        Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());				
+						
+        XmlTestUtils.compareDocs("src/test/resources/xmlInstances/output/chargeReferral/chargeReferralOutput.xml",
+        		actualTransformedResultXml);
 	}
+	
+	
+	@Test
+	public void testChargeReferralReportingTransform() throws Exception{
+				
+		File inputFile = new File("src/test/resources/xmlInstances/incidentReport/IncidentReport.xml");		
+		String inputXml = FileUtils.readFileToString(inputFile);
+		SAXSource inputSaxSource = createSource(inputXml);
+								
+		File xsltFile = new File("src/main/resources/xslt/wrapChargeReferralReport.xslt");
+		StreamSource xsltSaxSource = new StreamSource(xsltFile);
+		
+		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);
+		        
+        XmlTestUtils.compareDocs("src/test/resources/xmlInstances/output/chargeReferralReporting/chargeReferralReportOutput.xml", 
+        		actualTransformedResultXml);
+	}	
+	
 	
 	@Test
 	public void incidentReportToArrestReportTransform() throws Exception{
@@ -114,21 +123,14 @@ public class IncidentReportingTransformerServiceTest {
 		File inputFile = new File("src/test/resources/xmlInstances/incidentReport/IncidentReport-Multiple_Arrest_Subjects.xml");		
 		String inputXml = FileUtils.readFileToString(inputFile);
 		SAXSource inputSaxSource = createSource(inputXml);
-		
-		File expectedOutputFile = new File("src/test/resources/xmlInstances/output/arrestReports/IncidentReport-Multiple_Arrest_Subjects._Output.xml");
-		String expectedXml = FileUtils.readFileToString(expectedOutputFile);		
-		
+					
 		File xsltFile = new File("src/main/resources/xslt/incidentReportToArrestReport.xsl");
 		StreamSource xsltSaxSource = new StreamSource(xsltFile);
 		
 		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);
-				
-		DetailedDiff detailedDiff = new DetailedDiff(XMLUnit.compareXML(expectedXml, actualTransformedResultXml));
-        
-		@SuppressWarnings("unchecked")
-		List<Difference> differenceList = detailedDiff.getAllDifferences();
-        
-        Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());	
+				        
+        XmlTestUtils.compareDocs("src/test/resources/xmlInstances/output/arrestReports/IncidentReport-Multiple_Arrest_Subjects._Output.xml", 
+        		actualTransformedResultXml);
 	}
 	
 	@Test
@@ -137,21 +139,14 @@ public class IncidentReportingTransformerServiceTest {
 		File inputFile = new File("src/test/resources/xmlInstances/incidentReport/IncidentReport-no-prefixes.xml");		
 		String inputXml = FileUtils.readFileToString(inputFile);
 		SAXSource inputSaxSource = createSource(inputXml);
-		
-		File expectedOutputFile = new File("src/test/resources/xmlInstances/output/arrestReports/No-namespace-prefixes-output.xml");
-		String expectedXml = FileUtils.readFileToString(expectedOutputFile);		
-		
+						
 		File xsltFile = new File("src/main/resources/xslt/incidentReportToArrestReport.xsl");
 		StreamSource xsltSaxSource = new StreamSource(xsltFile);
 		
-		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);
-				
-		DetailedDiff detailedDiff = new DetailedDiff(XMLUnit.compareXML(expectedXml, actualTransformedResultXml));
+		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);				
         
-		@SuppressWarnings("unchecked")
-		List<Difference> differenceList = detailedDiff.getAllDifferences();
-        
-        Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());	
+        XmlTestUtils.compareDocs("src/test/resources/xmlInstances/output/arrestReports/No-namespace-prefixes-output.xml", 
+        		actualTransformedResultXml);
 	}
 	
 	
@@ -160,21 +155,14 @@ public class IncidentReportingTransformerServiceTest {
 				
 		String inputXml = XmlUtils.getRootNodeAsString("src/test/resources/xmlInstances/incidentReport/IncidentReport.xml");
 		
-		SAXSource inputSaxSource = createSource(inputXml);
-				
-		String expectedXml = XmlUtils.getRootNodeAsString("src/test/resources/xmlInstances/output/notifications/wrappedNotifications.xml");		
+		SAXSource inputSaxSource = createSource(inputXml);						
 		
 		File xsltFile = new File("src/main/resources/xslt/incidentReportToNotifications.xsl");
 		StreamSource xsltSaxSource = new StreamSource(xsltFile);
 		
 		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);
-			
-		DetailedDiff detailedDiff = new DetailedDiff(XMLUnit.compareXML(expectedXml, actualTransformedResultXml));
-		
-		@SuppressWarnings("unchecked")	
-		List<Difference> differenceList = detailedDiff.getAllDifferences();
-        
-        Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());	
+				        
+        XmlTestUtils.compareDocs("src/test/resources/xmlInstances/output/notifications/wrappedNotifications.xml", actualTransformedResultXml);
 	}
 
 
@@ -184,20 +172,14 @@ public class IncidentReportingTransformerServiceTest {
 		String inputXml = XmlUtils.getRootNodeAsString("src/test/resources/xmlInstances/incidentReport/IncidentReportUpdate.xml");
 		
 		SAXSource inputSaxSource = createSource(inputXml);		
-		
-		String expectedXml = XmlUtils.getRootNodeAsString("src/test/resources/xmlInstances/output/notifications/wrappedNotificationsUpdate.xml");
-						
+								
 		File xsltFile = new File("src/main/resources/xslt/incidentReportToNotifications.xsl");
 		StreamSource xsltSaxSource = new StreamSource(xsltFile);
 		
 		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);				
-				
-		DetailedDiff detailedDiff = new DetailedDiff(XMLUnit.compareXML(expectedXml, actualTransformedResultXml));
-        
-		@SuppressWarnings("unchecked")	
-		List<Difference> differenceList = detailedDiff.getAllDifferences();
-        
-        Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());	
+                
+        XmlTestUtils.compareDocs("src/test/resources/xmlInstances/output/notifications/wrappedNotificationsUpdate.xml", 
+        		actualTransformedResultXml);
 	}
 
 	@Test
@@ -206,21 +188,14 @@ public class IncidentReportingTransformerServiceTest {
 		File inputFile = new File("src/test/resources/xmlInstances/incidentReport/IncidentReport.xml");		
 		String inputXml = FileUtils.readFileToString(inputFile);
 		SAXSource inputSaxSource = createSource(inputXml);
-		
-		File expectedOutputFile = new File("src/test/resources/xmlInstances/output/structuredPayloads/IncidentReportNoCustomStructuredPayloads.xml");
-		String expectedXml = FileUtils.readFileToString(expectedOutputFile);		
-		
+						
 		File xsltFile = new File("src/main/resources/xslt/removeStructuredPayload.xslt");
 		StreamSource xsltSaxSource = new StreamSource(xsltFile);
 		
 		String actualTransformedResultXml = xsltTransformer.transform(inputSaxSource, xsltSaxSource, null);
-				
-		DetailedDiff detailedDiff = new DetailedDiff(XMLUnit.compareXML(expectedXml, actualTransformedResultXml));
-        
-		@SuppressWarnings("unchecked")	
-		List<Difference> differenceList = detailedDiff.getAllDifferences();
-        
-        Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());	
+				        
+        XmlTestUtils.compareDocs("src/test/resources/xmlInstances/output/structuredPayloads/IncidentReportNoCustomStructuredPayloads.xml", 
+        		actualTransformedResultXml);
 	}
 	
 	@Test
