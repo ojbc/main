@@ -25,6 +25,7 @@ import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
+import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
@@ -36,6 +37,17 @@ public class XmlTestUtils {
 		XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
 		XMLUnit.setIgnoreWhitespace(true);
 	}
+	
+	public static void compareDocs(String expectedXmlDocFileClasspath, String actualXmlDocContents) throws Exception{
+		
+		File xmlFile = new File(expectedXmlDocFileClasspath);
+		
+		Document expectedXmlDoc = XmlUtils.parseFileToDocument(xmlFile);
+		
+		Document actualXmlDoc = OJBUtils.loadXMLFromString(actualXmlDocContents);
+		
+		compareDocs(expectedXmlDoc, actualXmlDoc);		
+	}	
 	
 	public static void compareDocs(String expectedXmlDocFileClasspath, Document actualXmlDocument) throws Exception{
 		
@@ -51,6 +63,7 @@ public class XmlTestUtils {
 		Diff diff = new Diff(expectedXmlDoc, actualXmlDocument);						
 		DetailedDiff detailedDiff = new DetailedDiff(diff);
 		
+		@SuppressWarnings("all")
 		List<Difference> diffList = detailedDiff.getAllDifferences();		
 		int diffCount = diffList == null ? 0 : diffList.size();
 		
