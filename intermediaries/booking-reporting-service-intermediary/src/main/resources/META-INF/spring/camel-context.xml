@@ -40,10 +40,6 @@
 		<camel:endpoint id="bookingReportingServiceAdapterEndpoint"
 			uri="cxf:bean:bookingReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${bookingReportingService.cxflogging}" />
 						
-		<camel:endpoint id="custodyAnalyticAdapterEndpoint" 
-			uri="cxf:bean:custodyAnalyticAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${bookingReportingService.cxflogging}" />			
-			
-			
 		<!-- Booking Reporting Service Handler -->
 		<camel:route id="bookingReportingServiceHandlerRoute">
 			<camel:from uri="bookingReportingServiceEndpoint" />
@@ -69,18 +65,6 @@
 						
 					</camel:filter>	
 				</camel:pipeline>	
-				
-				
-				<camel:pipeline>				
-					<camel:filter>
-						<camel:simple>${properties:bookingReportingService.callCustodyAnalyticAdapter} == true</camel:simple>
-					
-						<camel:log message="\n\n\n Calling CustodyAnalyticAdapter \n\n\n"/>
-					
-						<camel:to uri="direct:callCustodyAnalyticAdapter"/>
-					</camel:filter>
-				</camel:pipeline>						
-				
 			
 				<camel:pipeline>
 					<camel:to uri="direct:derivedRoutes"/>
@@ -127,31 +111,6 @@
 		
 		</camel:route>		
 		
-		
-		<route id="callCustodyAnalyticAdapter_Route">
-		
-			<from uri="direct:callCustodyAnalyticAdapter"/>
-		
-			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
-			
-			<log message="\n\n\n callCustodyAnalyticAdapter_Route route... \n\n\n"/>			
-			
-			<camel:setHeader headerName="operationName">
-				<constant>ReportBooking</constant>
-			</camel:setHeader>
-	
-			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/BookingReportingService/1.0</constant>
-			</camel:setHeader>
-			
-            <camel:throttle timePeriodMillis="1000">
-            	<constant>1</constant>
-            	<to uri="custodyAnalyticAdapterEndpoint"/>
-        	</camel:throttle>  			
-			
-		</route>
-		
-		
 		<route id="callBookingReportingServiceAdapter">
             
             <from uri="direct:callBookingReportingServiceAdapter"/>
@@ -160,8 +119,8 @@
 											
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 							
-			<camel:setHeader headerName="operationName"><constant>Notify</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+			<camel:setHeader headerName="operationName"><constant>ReportBooking</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/BookingReportingService/1.0</constant></camel:setHeader>
          
 			<camel:log message="This is the booking reporting service message: ${body}" loggingLevel="DEBUG"/>
 			
