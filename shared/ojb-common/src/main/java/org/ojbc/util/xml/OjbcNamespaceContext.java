@@ -609,7 +609,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_PREFIX_WSOMA  = "wsoma";
 	
     public static final String NS_PREFIX_CHARGE_REFERRAL_DOC = "cr-doc";
-    public static final String NS_CHARGE_REFERRAL_DOC ="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0";
+    public static final String NS_CHARGE_REFERRAL_DOC ="http://ojbc.org/IEPD/Exchange/ChargeReferral/1.0";
     
     public static final String NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST = "ira-req-doc";
     public static final String NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST ="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0";

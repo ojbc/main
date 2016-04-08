@@ -1,0 +1,557 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<crr-doc:ChargeReferralReport xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+    xmlns:crr-doc="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0">
+    <lexspd:doPublish xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+        xmlns:s="http://niem.gov/niem/structures/2.0"
+        xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+        xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+        xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+        xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+        xmlns:ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+        xmlns="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+        xsi:schemaLocation="http://usdoj.gov/leisp/lexs/publishdiscover/3.1">
+        <lexs:PublishMessageContainer>
+            <lexs:PublishMessage>
+                <lexs:PDMessageMetadata>
+                    <lexs:LEXSVersion>3.1.4</lexs:LEXSVersion>
+                    <lexs:MessageDateTime>2014-01-24T12:40:14Z</lexs:MessageDateTime>
+                    <lexs:MessageSequenceNumber>208052</lexs:MessageSequenceNumber>
+                    <lexs:DataSensitivity>SBU</lexs:DataSensitivity>
+                </lexs:PDMessageMetadata>
+                <lexs:DataSubmitterMetadata>
+                    <lexs:SystemIdentifier>
+                        <lexs:ORI>XX1234567</lexs:ORI>
+                        <nc:OrganizationName>Burlington Police Department</nc:OrganizationName>
+                        <lexs:SystemID>BU</lexs:SystemID>
+                    </lexs:SystemIdentifier>
+                    <lexs:SystemContact>
+                        <nc:PersonGivenName>Unknown</nc:PersonGivenName>
+                        <nc:PersonSurName>Unknown</nc:PersonSurName>
+                        <nc:ContactTelephoneNumber>
+                            <nc:NANPTelephoneNumber>
+                                <nc:TelephoneAreaCodeID>800</nc:TelephoneAreaCodeID>
+                                <nc:TelephoneExchangeID>555</nc:TelephoneExchangeID>
+                                <nc:TelephoneLineID>1212</nc:TelephoneLineID>
+                            </nc:NANPTelephoneNumber>
+                        </nc:ContactTelephoneNumber>
+                    </lexs:SystemContact>
+                </lexs:DataSubmitterMetadata>
+                <lexs:DataItemPackage>
+                    <lexs:PackageMetadata>
+                        <lexs:DataItemID>14BU000056</lexs:DataItemID>
+                        <lexs:DataItemDate>2014-01-01</lexs:DataItemDate>
+                        <lexs:DataItemReferenceID>14BU000056</lexs:DataItemReferenceID>
+                        <lexs:DataItemPublishInstruction>Insert</lexs:DataItemPublishInstruction>
+                        <lexs:DataItemStatus>Closed</lexs:DataItemStatus>
+                        <lexs:DataOwnerMetadata>
+                            <lexs:DataOwnerIdentifier>
+                                <lexs:ORI>XX1234567</lexs:ORI>
+                                <nc:OrganizationName>Burlington Police
+                                    Department</nc:OrganizationName>
+                                <lexs:SystemID>BU</lexs:SystemID>
+                            </lexs:DataOwnerIdentifier>
+                            <lexs:DataOwnerContact>
+                                <nc:PersonGivenName>Unknown</nc:PersonGivenName>
+                                <nc:PersonSurName>Unknown</nc:PersonSurName>
+                                <nc:ContactTelephoneNumber>
+                                    <nc:NANPTelephoneNumber>
+                                        <nc:TelephoneAreaCodeID>800</nc:TelephoneAreaCodeID>
+                                        <nc:TelephoneExchangeID>555</nc:TelephoneExchangeID>
+                                        <nc:TelephoneLineID>1212</nc:TelephoneLineID>
+                                    </nc:NANPTelephoneNumber>
+                                </nc:ContactTelephoneNumber>
+                            </lexs:DataOwnerContact>
+                        </lexs:DataOwnerMetadata>
+                        <lexs:DisseminationCriteriaValue>
+                            <lexs:DisseminationCriteriaDomainText>N-DEx</lexs:DisseminationCriteriaDomainText>
+                            <lexs:DisseminationCriteriaText>Green</lexs:DisseminationCriteriaText>
+                        </lexs:DisseminationCriteriaValue>
+                        <lexs:DataItemCategory>
+                            <lexs:DataItemCategoryText>Incident Report</lexs:DataItemCategoryText>
+                        </lexs:DataItemCategory>
+                    </lexs:PackageMetadata>
+                    <lexs:Digest>
+                        <lexsdigest:EntityActivity>
+                            <lexsdigest:Metadata s:id="MIncident14BU000056">
+                                <nc:LastUpdatedDate>
+                                    <nc:DateTime>2014-01-02T19:50:45Z</nc:DateTime>
+                                </nc:LastUpdatedDate>
+                                <nc:ReportedDate>
+                                    <nc:DateTime>2014-01-01T04:43:56Z</nc:DateTime>
+                                </nc:ReportedDate>
+                            </lexsdigest:Metadata>
+                            <nc:Activity s:id="Incident14BU000056" s:metadata="MIncident14BU000056">
+                                <nc:ActivityIdentification>
+                                    <nc:IdentificationID>14BU000056</nc:IdentificationID>
+                                </nc:ActivityIdentification>
+                                <nc:ActivityCategoryText>Incident</nc:ActivityCategoryText>
+                                <nc:ActivityDateRange>
+                                    <nc:StartDate>
+                                        <nc:DateTime>2014-01-01T04:43:56Z</nc:DateTime>
+                                    </nc:StartDate>
+                                    <nc:EndDate>
+                                        <nc:DateTime>2014-01-01T08:06:02Z</nc:DateTime>
+                                    </nc:EndDate>
+                                </nc:ActivityDateRange>
+                                <nc:ActivityDescriptionText> narrative</nc:ActivityDescriptionText>
+                            </nc:Activity>
+                        </lexsdigest:EntityActivity>
+                        <lexsdigest:EntityActivity>
+                            <nc:Activity s:id="Arrest210024">
+                                <nc:ActivityIdentification>
+                                    <nc:IdentificationID>210024</nc:IdentificationID>
+                                </nc:ActivityIdentification>
+                                <nc:ActivityCategoryText>Arrest</nc:ActivityCategoryText>
+                                <nc:ActivityDate>
+                                    <nc:DateTime>2014-01-01T08:06:02Z</nc:DateTime>
+                                </nc:ActivityDate>
+                                <nc:ActivityDescriptionText>Driving Under The Influence, First
+                                    Offense 23 VSA 1201 90D</nc:ActivityDescriptionText>
+                            </nc:Activity>
+                        </lexsdigest:EntityActivity>
+                        <lexsdigest:EntityActivity>
+                            <nc:Activity s:id="Offense214518">
+                                <nc:ActivityCategoryText>Offense</nc:ActivityCategoryText>
+                                <nc:ActivityDescriptionText>Driving Under The Influence, First
+                                    Offense 23 VSA 1201 90D</nc:ActivityDescriptionText>
+                            </nc:Activity>
+                        </lexsdigest:EntityActivity>
+                        <lexsdigest:EntityPerson>
+                            <lexsdigest:Metadata s:id="MArrestSubjectPerson59035">
+                                <nc:SourceIDText>59035-arrestsubjectperson1</nc:SourceIDText>
+                            </lexsdigest:Metadata>
+                            <lexsdigest:Person s:id="ArrestSubjectPerson59035"
+                                s:metadata="MArrestSubjectPerson59035">
+                                <nc:PersonAgeMeasure>
+                                    <nc:MeasurePointValue>37</nc:MeasurePointValue>
+                                    <nc:TimeUnitCode>ANN</nc:TimeUnitCode>
+                                </nc:PersonAgeMeasure>
+                                <nc:PersonBirthDate>
+                                    <nc:Date>2015-09-03</nc:Date>
+                                </nc:PersonBirthDate>
+                                <nc:PersonEyeColorCode>XXX</nc:PersonEyeColorCode>
+                                <nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
+                                <nc:PersonHeightMeasure>
+                                    <nc:MeasurePointValue>72</nc:MeasurePointValue>
+                                    <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+                                </nc:PersonHeightMeasure>
+                                <nc:PersonName>
+                                    <nc:PersonGivenName>Mark</nc:PersonGivenName>
+                                    <nc:PersonMiddleName/>
+                                    <nc:PersonSurName>Smith</nc:PersonSurName>
+                                    <nc:PersonFullName>Smith, Mark</nc:PersonFullName>
+                                </nc:PersonName>
+                                <nc:PersonSexCode> M</nc:PersonSexCode>
+                                <nc:PersonWeightMeasure>
+                                    <nc:MeasurePointValue>190</nc:MeasurePointValue>
+                                    <nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+                                </nc:PersonWeightMeasure>
+                                <j:PersonAugmentation>
+                                    <nc:DriverLicense>
+                                        <nc:DriverLicenseIdentification>
+                                            <nc:IdentificationID>9999999</nc:IdentificationID>
+                                            <j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
+                                        </nc:DriverLicenseIdentification>
+                                    </nc:DriverLicense>
+                                </j:PersonAugmentation>
+                            </lexsdigest:Person>
+                            <j:ArrestSubject s:id="ArrestSubject59035"
+                                s:metadata="MArrestSubjectPerson59035">
+                                <nc:RoleOfPersonReference s:ref="ArrestSubjectPerson59035"/>
+                            </j:ArrestSubject>
+                        </lexsdigest:EntityPerson>
+                        <lexsdigest:EntityPerson>
+                            <lexsdigest:Metadata s:id="MSubjectPerson59035">
+                                <nc:SourceIDText>59035-subjectperson1</nc:SourceIDText>
+                            </lexsdigest:Metadata>
+                            <lexsdigest:Person s:id="SubjectPerson59035"
+                                s:metadata="MSubjectPerson59035">
+                                <nc:PersonAgeMeasure>
+                                    <nc:MeasurePointValue>37</nc:MeasurePointValue>
+                                    <nc:TimeUnitCode>ANN</nc:TimeUnitCode>
+                                </nc:PersonAgeMeasure>
+                                <nc:PersonBirthDate>
+                                    <nc:Date>2015-09-03</nc:Date>
+                                </nc:PersonBirthDate>
+                                <nc:PersonEyeColorCode>XXX</nc:PersonEyeColorCode>
+                                <nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
+                                <nc:PersonHeightMeasure>
+                                    <nc:MeasurePointValue>72</nc:MeasurePointValue>
+                                    <nc:LengthUnitCode>INH</nc:LengthUnitCode>
+                                </nc:PersonHeightMeasure>
+                                <nc:PersonName>
+                                    <nc:PersonGivenName>Mark</nc:PersonGivenName>
+                                    <nc:PersonMiddleName/>
+                                    <nc:PersonSurName>Smith</nc:PersonSurName>
+                                    <nc:PersonFullName>Smith, Mark</nc:PersonFullName>
+                                </nc:PersonName>
+                                <nc:PersonSexCode> M</nc:PersonSexCode>
+                                <nc:PersonWeightMeasure>
+                                    <nc:MeasurePointValue>190</nc:MeasurePointValue>
+                                    <nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+                                </nc:PersonWeightMeasure>
+                                <j:PersonAugmentation>
+                                    <nc:DriverLicense>
+                                        <nc:DriverLicenseIdentification>
+                                            <nc:IdentificationID>9999999</nc:IdentificationID>
+                                            <j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
+                                        </nc:DriverLicenseIdentification>
+                                    </nc:DriverLicense>
+                                </j:PersonAugmentation>
+                            </lexsdigest:Person>
+                            <j:Suspect s:id="Subject59035" s:metadata="MSubjectPerson59035">
+                                <nc:RoleOfPersonReference s:ref="SubjectPerson59035"/>
+                            </j:Suspect>
+                        </lexsdigest:EntityPerson>
+                        <lexsdigest:EntityPerson>
+                            <lexsdigest:Metadata s:id="MVictimPerson314552">
+                                <nc:SourceIDText>314552-victimperson1</nc:SourceIDText>
+                            </lexsdigest:Metadata>
+                            <lexsdigest:Person s:id="VictimPerson314552"
+                                s:metadata="MVictimPerson314552">
+                                <nc:PersonEyeColorCode>XXX</nc:PersonEyeColorCode>
+                                <nc:PersonHairColorCode>XXX</nc:PersonHairColorCode>
+                                <nc:PersonName>
+                                    <nc:PersonGivenName>State</nc:PersonGivenName>
+                                    <nc:PersonMiddleName>Of</nc:PersonMiddleName>
+                                    <nc:PersonSurName>Vermont</nc:PersonSurName>
+                                    <nc:PersonFullName>Vermont, State Of</nc:PersonFullName>
+                                </nc:PersonName>
+                            </lexsdigest:Person>
+                            <j:Victim s:id="Victim314552" s:metadata="MVictimPerson314552">
+                                <nc:RoleOfPersonReference s:ref="VictimPerson314552"/>
+                            </j:Victim>
+                        </lexsdigest:EntityPerson>
+                        <lexsdigest:EntityPerson>
+                            <lexsdigest:Metadata s:id="MOfficerPerson152542">
+                                <nc:SourceIDText>152542-officerperson</nc:SourceIDText>
+                            </lexsdigest:Metadata>
+                            <lexsdigest:Person s:id="OfficerPerson152542"
+                                s:metadata="MOfficerPerson152542">
+                                <nc:PersonName>
+                                    <nc:PersonFullName>Officer 1 full name</nc:PersonFullName>
+                                </nc:PersonName>
+                            </lexsdigest:Person>
+                            <j:EnforcementOfficial s:id="Officer152542"
+                                s:metadata="MOfficerPerson152542">
+                                <nc:RoleOfPersonReference s:ref="OfficerPerson152542"/>
+                                <j:EnforcementOfficialBadgeIdentification>
+                                    <nc:IdentificationID>327</nc:IdentificationID>
+                                </j:EnforcementOfficialBadgeIdentification>
+                            </j:EnforcementOfficial>
+                        </lexsdigest:EntityPerson>
+                        <lexsdigest:EntityPerson>
+                            <lexsdigest:Metadata s:id="MOfficerPerson13115">
+                                <nc:SourceIDText>13115-officerperson</nc:SourceIDText>
+                            </lexsdigest:Metadata>
+                            <lexsdigest:Person s:id="OfficerPerson13115"
+                                s:metadata="MOfficerPerson13115">
+                                <nc:PersonName>
+                                    <nc:PersonFullName>Officer 2 full name</nc:PersonFullName>
+                                </nc:PersonName>
+                            </lexsdigest:Person>
+                            <j:EnforcementOfficial s:id="Officer13115"
+                                s:metadata="MOfficerPerson13115">
+                                <nc:RoleOfPersonReference s:ref="OfficerPerson13115"/>
+                                <j:EnforcementOfficialBadgeIdentification>
+                                    <nc:IdentificationID>320</nc:IdentificationID>
+                                </j:EnforcementOfficialBadgeIdentification>
+                            </j:EnforcementOfficial>
+                        </lexsdigest:EntityPerson>
+                        <lexsdigest:EntityVehicle>
+                            <lexsdigest:Metadata s:id="MVehicle221577">
+                                <nc:SourceIDText>221577-vehicle1</nc:SourceIDText>
+                            </lexsdigest:Metadata>
+                            <nc:Vehicle s:metadata="MVehicle221577" s:id="Vehicle221577">
+                                <nc:ConveyanceRegistrationPlateIdentification>
+                                    <nc:IdentificationID>99999</nc:IdentificationID>
+                                    <j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
+                                </nc:ConveyanceRegistrationPlateIdentification>
+                                <nc:VehicleIdentification/>
+                            </nc:Vehicle>
+                        </lexsdigest:EntityVehicle>
+                        <lexsdigest:EntityLocation>
+                            <lexsdigest:Metadata s:id="MLocation2434746">
+                                <nc:SourceIDText>2434746-location1</nc:SourceIDText>
+                            </lexsdigest:Metadata>
+                            <nc:Location s:metadata="MLocation2434746" s:id="Location2434746">
+                                <nc:LocationAddress>
+                                    <nc:StructuredAddress>
+                                        <nc:LocationStreet>
+                                            <nc:StreetFullText> Woodlawn Rd &amp; North
+                                                Ave</nc:StreetFullText>
+                                            <nc:StreetNumberText/>
+                                            <nc:StreetName>Woodlawn Rd &amp; North
+                                                Ave</nc:StreetName>
+                                            <nc:StreetCategoryText>Street</nc:StreetCategoryText>
+                                        </nc:LocationStreet>
+                                        <nc:LocationCityName>Burlington</nc:LocationCityName>
+                                        <nc:LocationStateName>VT</nc:LocationStateName>
+                                        <nc:LocationCountryName>United
+                                            States</nc:LocationCountryName>
+                                        <nc:LocationPostalCode>05408</nc:LocationPostalCode>
+                                    </nc:StructuredAddress>
+                                </nc:LocationAddress>
+                            </nc:Location>
+                        </lexsdigest:EntityLocation>
+                        <lexsdigest:EntityLocation>
+                            <lexsdigest:Metadata s:id="MLocation2434758">
+                                <nc:SourceIDText>2434758-location1</nc:SourceIDText>
+                            </lexsdigest:Metadata>
+                            <nc:Location s:metadata="MLocation2434758" s:id="Location2434758">
+                                <nc:LocationAddress>
+                                    <nc:StructuredAddress>
+                                        <nc:LocationStreet>
+                                            <nc:StreetFullText>60 Woodlawn Rd</nc:StreetFullText>
+                                            <nc:StreetNumberText>60</nc:StreetNumberText>
+                                            <nc:StreetName>Woodlawn Rd</nc:StreetName>
+                                            <nc:StreetCategoryText>Street</nc:StreetCategoryText>
+                                        </nc:LocationStreet>
+                                        <nc:LocationCityName>Burlington</nc:LocationCityName>
+                                        <nc:LocationStateName>VT</nc:LocationStateName>
+                                        <nc:LocationCountryName>United
+                                            States</nc:LocationCountryName>
+                                        <nc:LocationPostalCode>05401</nc:LocationPostalCode>
+                                    </nc:StructuredAddress>
+                                </nc:LocationAddress>
+                            </nc:Location>
+                        </lexsdigest:EntityLocation>
+                        <lexsdigest:EntityLocation>
+                            <lexsdigest:Metadata s:id="MLocation2434747">
+                                <nc:SourceIDText>2434747-location1</nc:SourceIDText>
+                            </lexsdigest:Metadata>
+                            <nc:Location s:metadata="MLocation2434747" s:id="Location2434747">
+                                <nc:LocationAddress>
+                                    <nc:StructuredAddress>
+                                        <nc:LocationStreet>
+                                            <nc:StreetFullText> Woodlawn Rd &amp; North
+                                                Ave</nc:StreetFullText>
+                                            <nc:StreetNumberText/>
+                                            <nc:StreetName>Woodlawn Rd &amp; North
+                                                Ave</nc:StreetName>
+                                            <nc:StreetCategoryText>Street</nc:StreetCategoryText>
+                                        </nc:LocationStreet>
+                                        <nc:LocationCityName>Burlington</nc:LocationCityName>
+                                        <nc:LocationStateName>VT</nc:LocationStateName>
+                                        <nc:LocationCountryName>United
+                                            States</nc:LocationCountryName>
+                                        <nc:LocationPostalCode>05408</nc:LocationPostalCode>
+                                    </nc:StructuredAddress>
+                                </nc:LocationAddress>
+                            </nc:Location>
+                        </lexsdigest:EntityLocation>
+                        <lexsdigest:EntityOrganization>
+                            <lexsdigest:Metadata s:id="MAgency1">
+                                <nc:SourceIDText>1-agency1</nc:SourceIDText>
+                            </lexsdigest:Metadata>
+                            <nc:Organization s:metadata="MAgency1" s:id="Agency1">
+                                <nc:OrganizationCategoryText>Criminal
+                                    Justice</nc:OrganizationCategoryText>
+                                <nc:OrganizationName>Burlington Police
+                                    Department</nc:OrganizationName>
+                            </nc:Organization>
+                        </lexsdigest:EntityOrganization>
+                        <lexsdigest:Associations>
+                            <j:ActivityEnforcementOfficialAssociation>
+                                <nc:ActivityReference s:ref="Incident14BU000056"/>
+                                <nc:PersonReference s:ref="OfficerPerson152542"/>
+                            </j:ActivityEnforcementOfficialAssociation>
+                            <j:ActivityEnforcementOfficialAssociation>
+                                <nc:ActivityReference s:ref="Incident14BU000056"/>
+                                <nc:PersonReference s:ref="OfficerPerson13115"/>
+                            </j:ActivityEnforcementOfficialAssociation>
+                            <lexsdigest:ArrestOffenseAssociation>
+                                <nc:ActivityReference s:ref="Arrest210024"/>
+                                <nc:ActivityReference s:ref="Offense214518"/>
+                            </lexsdigest:ArrestOffenseAssociation>
+                            <lexsdigest:ArrestOfficerAssociation>
+                                <nc:ActivityReference s:ref="Arrest210024"/>
+                                <nc:PersonReference s:ref="OfficerPerson152542"/>
+                            </lexsdigest:ArrestOfficerAssociation>
+                            <lexsdigest:ArrestSubjectAssociation>
+                                <nc:ActivityReference s:ref="Arrest210024"/>
+                                <nc:PersonReference s:ref="ArrestSubjectPerson59035"/>
+                            </lexsdigest:ArrestSubjectAssociation>
+                            <lexsdigest:IncidentArrestAssociation>
+                                <nc:ActivityReference s:ref="Incident14BU000056"/>
+                                <nc:ActivityReference s:ref="Arrest210024"/>
+                            </lexsdigest:IncidentArrestAssociation>
+                            <lexsdigest:IncidentLocationAssociation>
+                                <nc:ActivityReference s:ref="Incident14BU000056"/>
+                                <nc:LocationReference s:ref="Location2434746"/>
+                            </lexsdigest:IncidentLocationAssociation>
+                            <lexsdigest:IncidentOffenseAssociation>
+                                <nc:ActivityReference s:ref="Incident14BU000056"/>
+                                <nc:ActivityReference s:ref="Offense214518"/>
+                            </lexsdigest:IncidentOffenseAssociation>
+                            <lexsdigest:IncidentSubjectPersonAssociation>
+                                <nc:ActivityReference s:ref="Incident14BU000056"/>
+                                <nc:PersonReference s:ref="SubjectPerson59035"/>
+                            </lexsdigest:IncidentSubjectPersonAssociation>
+                            <lexsdigest:OffenseLocationAssociation>
+                                <nc:ActivityReference s:ref="Offense214518"/>
+                                <nc:LocationReference s:ref="Location2434746"/>
+                            </lexsdigest:OffenseLocationAssociation>
+                            <lexsdigest:PersonArrestLocationAssociation>
+                                <nc:PersonReference s:ref="SubjectPerson59035"/>
+                                <nc:LocationReference s:ref="Location2434747"/>
+                            </lexsdigest:PersonArrestLocationAssociation>
+                            <nc:ActivityReportingOrganizationAssociation>
+                                <nc:ActivityReference s:ref="Incident14BU000056"/>
+                                <nc:OrganizationReference s:ref="Agency1"/>
+                            </nc:ActivityReportingOrganizationAssociation>
+                            <nc:PersonAssignedUnitAssociation>
+                                <nc:PersonReference s:ref="OfficerPerson152542"/>
+                                <nc:OrganizationReference s:ref="Agency1"/>
+                            </nc:PersonAssignedUnitAssociation>
+                            <nc:PersonAssignedUnitAssociation>
+                                <nc:PersonReference s:ref="OfficerPerson13115"/>
+                                <nc:OrganizationReference s:ref="Agency1"/>
+                            </nc:PersonAssignedUnitAssociation>
+                            <nc:PersonOwnsItemAssociation>
+                                <nc:PersonReference s:ref="SubjectPerson59035"/>
+                                <nc:ItemReference s:ref="Vehicle221577"/>
+                            </nc:PersonOwnsItemAssociation>
+                            <nc:ResidenceAssociation>
+                                <nc:PersonReference s:ref="SubjectPerson59035"/>
+                                <nc:LocationReference s:ref="Location2434758"/>
+                            </nc:ResidenceAssociation>
+                        </lexsdigest:Associations>
+                    </lexs:Digest>
+                    <lexs:StructuredPayload>
+                        <lexs:StructuredPayloadMetadata>
+                            <lexs:CommunityURI>http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1</lexs:CommunityURI>
+                            <lexs:CommunityDescription>N-DEx
+                                IncidentArrest</lexs:CommunityDescription>
+                            <lexs:CommunityVersion>2.1</lexs:CommunityVersion>
+                        </lexs:StructuredPayloadMetadata>
+                        <ndexia:IncidentReport xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+                            xmlns:mmucc_2="http://niem.gov/niem/mmucc_2/2.0"
+                            xmlns:i="http://niem.gov/niem/appinfo/2.0"
+                            xmlns:scr="http://niem.gov/niem/domains/screening/2.0"
+                            xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+                            xmlns:ndexiacodes="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1"
+                            xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0">
+                            <ndexia:EnforcementUnit>
+                                <j:EnforcementUnitNumberIdentification>
+                                    <nc:IdentificationID>1</nc:IdentificationID>
+                                </j:EnforcementUnitNumberIdentification>
+                                <ndexia:EnforcementUnitAugmentation>
+                                    <lexslib:SameAsDigestReference lexslib:ref="Agency1"/>
+                                </ndexia:EnforcementUnitAugmentation>
+                            </ndexia:EnforcementUnit>
+                            <ndexia:Incident>
+                                <ndexia:ActivityStatus>
+                                    <ndexia:ActivityStatusAugmentation>
+                                        <ndexia:IncidentStatusCode>Closed</ndexia:IncidentStatusCode>
+                                    </ndexia:ActivityStatusAugmentation>
+                                </ndexia:ActivityStatus>
+                                <ndexia:IncidentAugmentation>
+                                    <lexslib:SameAsDigestReference lexslib:ref="Incident14BU000056"/>
+                                    <ndexia:IncidentCaseNumberText>14BU000056</ndexia:IncidentCaseNumberText>
+                                </ndexia:IncidentAugmentation>
+                            </ndexia:Incident>
+                            <ndexia:Location>
+                                <ndexia:LocationAugmentation>
+                                    <lexslib:SameAsDigestReference lexslib:ref="Location2434746"/>
+                                </ndexia:LocationAugmentation>
+                            </ndexia:Location>
+                            <ndexia:Location>
+                                <ndexia:LocationAugmentation>
+                                    <lexslib:SameAsDigestReference lexslib:ref="Location2434758"/>
+                                </ndexia:LocationAugmentation>
+                            </ndexia:Location>
+                            <ndexia:Offense>
+                                <ndexia:ActivityAugmentation>
+                                    <lexslib:SameAsDigestReference lexslib:ref="Offense214518"/>
+                                </ndexia:ActivityAugmentation>
+                                <ndexia:OffenseCode>Driving Under Influence</ndexia:OffenseCode>
+                                <ndexia:OffenseText>Driving Under The Influence, First Offense 23
+                                    VSA 1201 90D</ndexia:OffenseText>
+                            </ndexia:Offense>
+                            <ndexia:Person>
+                                <nc:PersonFacialHairText>None</nc:PersonFacialHairText>
+                                <nc:PersonHairLengthText>Short</nc:PersonHairLengthText>
+                                <ndexia:PersonAugmentation>
+                                    <lexslib:SameAsDigestReference lexslib:ref="SubjectPerson59035"/>
+                                    <ndexia:PersonRaceCode>W</ndexia:PersonRaceCode>
+                                </ndexia:PersonAugmentation>
+                            </ndexia:Person>
+                            <ndexia:Person>
+                                <ndexia:PersonAugmentation>
+                                    <lexslib:SameAsDigestReference lexslib:ref="VictimPerson314552"
+                                    />
+                                </ndexia:PersonAugmentation>
+                            </ndexia:Person>
+                            <ndexia:Subject>
+                                <ndexia:SubjectAugmentation>
+                                    <lexslib:SameAsDigestReference lexslib:ref="Subject59035"/>
+                                    <ndexia:SubjectSequenceNumberText>1</ndexia:SubjectSequenceNumberText>
+                                </ndexia:SubjectAugmentation>
+                            </ndexia:Subject>
+                            <ndexia:ArrestSubject>
+                                <ndexia:ArrestSubjectAugmentation>
+                                    <lexslib:SameAsDigestReference lexslib:ref="ArrestSubject59035"/>
+                                    <j:ArrestSequenceID>
+                                        <nc:IdentificationID>1</nc:IdentificationID>
+                                    </j:ArrestSequenceID>
+                                    <j:ArrestSubjectCountCode>C</j:ArrestSubjectCountCode>
+                                    <j:ChargeUCRCode>90D</j:ChargeUCRCode>
+                                    <ndexia:ArresteeArmedWithCode>01</ndexia:ArresteeArmedWithCode>
+                                </ndexia:ArrestSubjectAugmentation>
+                            </ndexia:ArrestSubject>
+                            <ndexia:Victim>
+                                <ndexia:VictimAugmentation>
+                                    <lexslib:SameAsDigestReference lexslib:ref="Victim314552"/>
+                                    <ndexia:VictimSequenceNumberText>1</ndexia:VictimSequenceNumberText>
+                                </ndexia:VictimAugmentation>
+                            </ndexia:Victim>
+                        </ndexia:IncidentReport>
+                    </lexs:StructuredPayload>
+                    <lexs:StructuredPayload>
+                        <lexs:StructuredPayloadMetadata>
+                            <lexs:CommunityURI>http://www.ojbc.org</lexs:CommunityURI>
+                            <lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
+                            <lexs:CommunityVersion>1.0</lexs:CommunityVersion>
+                        </lexs:StructuredPayloadMetadata>
+                        <ext:IncidentReport>
+                            <ext:IncidentReportableToDistrictAttorneyIndicator>true</ext:IncidentReportableToDistrictAttorneyIndicator>
+                            <ext:Incident>
+                                <j:IncidentArrestMadeIndicator>false</j:IncidentArrestMadeIndicator>
+                                <ext:IncidentCrimeSolvedIndicator>true</ext:IncidentCrimeSolvedIndicator>
+                                <ext:IncidentCitationIndicator>true</ext:IncidentCitationIndicator>
+                                <ext:IncidentWarningIndicator>false</ext:IncidentWarningIndicator>
+                                <ext:IncidentAutomobileTheftIndicator>false</ext:IncidentAutomobileTheftIndicator>
+                                <ext:IncidentCategoryCode>Citation</ext:IncidentCategoryCode>
+                                <lexslib:SameAsDigestReference lexslib:ref="Incident14BU000056"/>
+                            </ext:Incident>
+                            <ext:Offense>
+                                <ext:OffenseCodeText>Driving Under Influence</ext:OffenseCodeText>
+                                <lexslib:SameAsDigestReference lexslib:ref="Offense214518"/>
+                            </ext:Offense>
+                        </ext:IncidentReport>
+                    </lexs:StructuredPayload>
+                </lexs:DataItemPackage>
+            </lexs:PublishMessage>
+        </lexs:PublishMessageContainer>
+    </lexspd:doPublish>
+</crr-doc:ChargeReferralReport>
