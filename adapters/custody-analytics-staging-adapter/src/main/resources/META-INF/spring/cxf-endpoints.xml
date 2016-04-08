@@ -46,7 +46,7 @@
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/BookingReportingService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="custodyDataStoreAdapterKeystoreProperties" /> 
+			<entry key="ws-security.signature.properties" value-ref="custodyStagingAdapterKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${custody.stagingAdapter.keystoreCertificateAlias}" />
 		</cxf:properties> 
 	</cxf:cxfEndpoint>
@@ -58,7 +58,19 @@
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/BehavioralHealthEvaluationReportingService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="custodyDataStoreAdapterKeystoreProperties" /> 
+			<entry key="ws-security.signature.properties" value-ref="custodyStagingAdapterKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${custody.stagingAdapter.keystoreCertificateAlias}" />
+		</cxf:properties> 
+	</cxf:cxfEndpoint>
+
+	<cxf:cxfEndpoint id="custodyReleaseReportingServiceAdapter"
+		address="${custody.stagingAdapter.custodyReleaseReportServiceAdapterEndpoint}"
+		wsdlURL="classpath:ssp/Custody_Release_Reporting/schemas/RS_WS-SIP_v1.2/Custody_Release_Reporting_Service.wsdl"
+		serviceName="ojbc:Custody-Release-Reporting-ServiceService" endpointName="ojbc:Custody-Release-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodyReleaseReportingService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="custodyStagingAdapterKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${custody.stagingAdapter.keystoreCertificateAlias}" />
 		</cxf:properties> 
 	</cxf:cxfEndpoint>
@@ -71,7 +83,7 @@
         </property>
 	</bean>
    
-	<util:properties id="custodyDataStoreAdapterKeystoreProperties">
+	<util:properties id="custodyStagingAdapterKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${custody.stagingAdapter.keystorePassword}</prop>

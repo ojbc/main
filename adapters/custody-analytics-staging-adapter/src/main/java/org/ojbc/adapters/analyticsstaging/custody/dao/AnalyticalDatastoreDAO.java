@@ -16,6 +16,7 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Agency;
@@ -54,8 +55,12 @@ public interface AnalyticalDatastoreDAO {
 	public void deleteBooking(Integer bookingPk);
 	
 	public Booking getBookingByBookingReportId(String bookingReportId);
+	public Booking getBookingByBookingNumber(String bookingNumber);
 	public Person getPerson(Integer personId);
 	public BookingSubject getBookingSubject(Integer bookingSubjectId);
 	public List<BookingCharge> getBookingCharges(Integer bookingId);
 	public List<BehavioralHealthAssessment> getBehavioralHealthAssessments(Integer personId);
+
+	public void updateCustodyReleaseDate(String bookingNumber,
+			LocalDateTime releaseDate);
 }

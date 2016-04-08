@@ -21,9 +21,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -460,6 +463,17 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		
 		return DataAccessUtils.singleResult(bookings);
 	}
+	
+	@Override
+	public Booking getBookingByBookingNumber(String bookingNumber) {
+		final String sql = "SELECT * FROM Booking WHERE bookingNumber = ?";
+		
+		List<Booking> bookings = 
+				jdbcTemplate.query(sql, 
+						new BookingRowMapper(), bookingNumber);
+		
+		return DataAccessUtils.singleResult(bookings);
+	}
 
 	public class BookingRowMapper implements RowMapper<Booking>
 	{
@@ -590,6 +604,18 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	    	return behavioralHealthAssessment;
 		}
 
+	}
+
+	@Override
+	public void updateCustodyReleaseDate(String bookingNumber,
+			LocalDateTime releaseDate) {
+		final String sql = "UPDATE Booking SET SupervisionReleaseDate = :releaseDate WHERE BookingNumber = :bookingNumber ";
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("releaseDate", Timestamp.valueOf(releaseDate));
+		params.put("bookingNumber", bookingNumber);
+		
+		namedParameterJdbcTemplate.update(sql, params);
 	}
 
 }
