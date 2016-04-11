@@ -45,7 +45,7 @@
 		address="${chargeReferralReportingIntermediaryEndpoint}"
 		wsdlURL="classpath:ssp/Charge_Referral_Reporting/schema/SIP_WS_1.2/Charge_Referral_Reporting_Service.wsdl"
 		serviceName="ojbc:Charge-Referral-Reporting-ServiceService" 
-		endpointName="ojbc:Charge-Referral-Reporting-Service"
+		endpointName="ojbc:Charge-Referral-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0">
         <cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
@@ -59,7 +59,7 @@
 		address="${chargeReferralReportingAdapterEndpoint}"
 		wsdlURL="classpath:ssp/Charge_Referral_Reporting/schema/SIP_WS_1.2/Charge_Referral_Reporting_Service.wsdl"
 		serviceName="ojbc:Charge-Referral-Reporting-ServiceService" 
-		endpointName="ojbc:Charge-Referral-Reporting-Service"
+		endpointName="ojbc:Charge-Referral-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0">
         <cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
