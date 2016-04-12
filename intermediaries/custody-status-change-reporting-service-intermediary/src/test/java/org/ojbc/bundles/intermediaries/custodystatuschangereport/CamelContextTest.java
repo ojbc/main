@@ -59,8 +59,8 @@ public class CamelContextTest {
 	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( CamelContextTest.class );
 	
-	public static final String CXF_OPERATION_NAME = "ReportBooking";
-	public static final String CXF_OPERATION_NAMESPACE = "http://ojbc.org/Services/WSDL/BookingReportingService/1.0";
+	public static final String CXF_OPERATION_NAME = "ReportCustodyStatusChange";
+	public static final String CXF_OPERATION_NAMESPACE = "http://ojbc.org/Services/WSDL/CustodyStatusChangeReportingService/1.0";
 	
     @Resource
     private ModelCamelContext context;
@@ -125,7 +125,7 @@ public class CamelContextTest {
 		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
 
 	    //Read the booking report from the file system
-	    File inputFile = new File("src/test/resources/xmlInstances/BookingReportJail.xml");
+	    File inputFile = new File("src/test/resources/xmlInstances/CustodyStatusChangeReport.xml");
 	    String inputStr = FileUtils.readFileToString(inputFile);
 	    
 	    assertNotNull(inputStr);

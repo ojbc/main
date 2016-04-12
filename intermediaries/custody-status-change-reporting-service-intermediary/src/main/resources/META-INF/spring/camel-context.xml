@@ -96,8 +96,8 @@
 											
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 							
-			<camel:setHeader headerName="operationName"><constant>ReportBooking</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/BookingReportingService/1.0</constant></camel:setHeader>
+			<camel:setHeader headerName="operationName"><constant>ReportCustodyStatusChange</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CustodyStatusChangeReportingService/1.0</constant></camel:setHeader>
          					
             <camel:throttle timePeriodMillis="1000">
             	<constant>1</constant>
