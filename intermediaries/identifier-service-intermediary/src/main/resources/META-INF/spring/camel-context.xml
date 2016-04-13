@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:oirs-req-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0"
+	xmlns:oirs-req-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchRequest/1.0"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:camel="http://camel.apache.org/schema/spring" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- needed cxf imports -->
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+
+	<camelContext xmlns="http://camel.apache.org/schema/spring"
+		id="identifier-service-intermediary">
+		
+		<!-- Identifier Request Endpoints -->
+		<endpoint id="identifierRequestServiceEndpoint"
+			uri="cxf:bean:identifierRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identifierServiceIntermediary.cxflogging}" />
+			
+		<endpoint id="identifierRequestServiceAdapterEndpoint"
+			uri="cxf:bean:identifierServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identifierServiceIntermediary.cxflogging}" />
+
+		<endpoint id="identifierResultsHandlerServiceEndpoint"
+			uri="cxf:bean:identifierResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identifierServiceIntermediary.cxflogging}" />
+			
+		<endpoint id="identifierResponseReplyToCamelEndPoint"
+			uri="cxf:bean:identifierResponseReplyToEndPoint?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identifierServiceIntermediary.cxflogging}" />
+
+		<!-- Identifier Request flow -->
+		<route id="identifierRequestRoute">
+			<from uri="identifierRequestServiceEndpoint" />
+			<onException>
+				<exception>java.lang.Exception</exception>
+				<handled><constant>true</constant></handled>
+				<camel:log message="An exception was thrown: ${exception.message}"
+					loggingLevel="WARN" />
+			</onException>
+			<log message="${body}"></log>
+			
+			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<!-- Add the reply to address to the map using the federated query guid as the key -->
+			<camel:to 
+				uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
+
+			<camel:to uri="bean:identifierRequestProcessor?method=invokeRequest"/>
+			<camel:to uri="direct:processFederatedResponse"/>
+													
+		</route>
+
+	    <!-- Process response here -->
+		<camel:route>
+			<camel:from uri="direct:processFederatedResponse"/>
+				
+			<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>
+
+			<camel:to uri="bean:wsAddressingReplyToManager?method=removeReplyToAddress"/>
+			
+			<camel:to uri="bean:WSAddressingEndpointProcessor?method=processReplyToAddress" />	
+				
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
+			
+					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
+					
+					<camel:setHeader headerName="operationName">
+			            <constant>SubmitIdentifierResponse</constant>
+			        </camel:setHeader>
+			        
+			        <camel:setHeader headerName="operationNamespace">
+			            <constant>http://ojbc.org/Services/WSDL/IdentifierResponseService/1.0</constant>
+			        </camel:setHeader>
+					
+					<camel:log message="About to send identifier request response message to ${in.headers.recipientListReplyToEndpoint}" />			
+								
+					<camel:recipientList>
+						<camel:header>recipientListReplyToEndpoint</camel:header>
+					</camel:recipientList>
+				</camel:when>
+				<camel:otherwise>
+					<camel:log message="Unable to find endpoint for replyTo address: ${in.headers.WSAddressingReplyTo}"/>
+				</camel:otherwise>		
+			</camel:choice>	
+
+		</camel:route>
+
+	</camelContext>
+
+	<!-- Spring Beans -->
+	<util:map map-class="java.util.HashMap" id="federatedQueryManager" />
+
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+
+	<!-- Used to retrieve and persist SAML tokens -->
+
+
+	<bean id="WSAddressingEndpointProcessor"
+		class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
+		<property name="endpointReplyToMap" ref="wsAddressReplyToEndpointMap" />
+	</bean>
+
+	<bean id="federatedQueryMessageProcessor"
+		class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
+		<property name="federatedQueryManager">
+			<ref bean="federatedQueryManager" />
+		</property>
+	</bean>
+	<bean id="wsAddressingReplyToManager"
+		class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
+		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor" />
+	</bean>
+
+	<util:map map-class="java.util.HashMap" id="wsAddressReplyToEndpointMap">
+		<entry
+			key="${identifierServiceIntermediary.identifierResponseReplyToEndpoint}"
+			value="identifierResponseReplyToCamelEndPoint" />
+	</util:map>
+
+	<!-- Identifier Request and Response processor -->
+	<bean id="identifierRequestProcessor"
+		class="org.ojbc.bundles.intermediaries.identifierservice.IdentifierRequestProcessor">
+		<property name="replyToAddress">
+			<value>${identifierServiceIntermediary.identifierResultEndpoint}</value>
+		</property>
+		<property name="messageProcessor" ref="identifierRequestMessageProcessor" />
+		<property name="requestResponseMap" ref="identifierRequestResponseMap" />
+		<property name="maxPolls" value="${identifierServiceIntermediary.maxPolls}" />
+		<property name="pollingIntervalInMillis" value="${identifierServiceIntermediary.pollingIntervalInMillis}" />
+	</bean>
+
+	<bean id="identifierRequestMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor">
+		<property name="operationName">
+			<value>RequestIdentifier</value>
+		</property>
+		<property name="operationNamespace">
+			<value>http://ojbc.org/Services/WSDL/IdentifierRequestService/1.0</value>
+		</property>
+		<property name="destinationEndpoint">
+			<value>identifierServiceAdapter</value>
+		</property>
+	</bean>
+
+	<util:map map-class=" java.util.concurrent.ConcurrentHashMap"
+		id="identifierRequestResponseMap" />
+
+	
+</beans>
+
