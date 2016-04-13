@@ -26,7 +26,7 @@
 	xmlns:camel="http://camel.apache.org/schema/spring" 
     xmlns:sec="http://cxf.apache.org/configuration/security"
     xmlns:http="http://cxf.apache.org/transports/http/configuration"
-	xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration" 
+	xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
 	xmlns:util="http://www.springframework.org/schema/util"    
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
@@ -39,49 +39,51 @@
 	   http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
 	   http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
        ">
-
-	<!-- hosted by this intermediary -->
-	<cxf:cxfEndpoint id="chargeReferralReportingIntermediaryService"
-		address="${chargeReferralReportingIntermediaryEndpoint}"
-		wsdlURL="classpath:ssp/Charge_Referral_Reporting/schema/SIP_WS_1.2/Charge_Referral_Reporting_Service.wsdl"
-		serviceName="ojbc:Charge-Referral-Reporting-ServiceService" 
-		endpointName="ojbc:Charge-Referral-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0">
-        <cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="chargeReferralReportingKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${chargeReferralReporting.keystoreCertificateAlias}" />        	
-        </cxf:properties>
-	</cxf:cxfEndpoint>
-	    
-	<!-- invoked by this intermediary -->
-	<cxf:cxfEndpoint id="chargeReferralReportingAdapterService"
-		address="${chargeReferralReportingAdapterEndpoint}"
-		wsdlURL="classpath:ssp/Charge_Referral_Reporting/schema/SIP_WS_1.2/Charge_Referral_Reporting_Service.wsdl"
-		serviceName="ojbc:Charge-Referral-Reporting-ServiceService" 
-		endpointName="ojbc:Charge-Referral-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0">
-        <cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="chargeReferralReportingKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${chargeReferralReporting.keystoreCertificateAlias}" />        	
-        </cxf:properties>
-	</cxf:cxfEndpoint>
 	
+	<!-- OJB Custody Status Change Reporting Service, hosted by this intermediary -->
+    <cxf:cxfEndpoint 
+        id="custodyStatusChangeReportingService"
+        address="${custodyStatusChangeReporting.custodyStatusChangeReportingEndpoint}" 
+		wsdlURL="classpath:ssp/Custody_Status_Change_Reporting/schemas/RS_WS-SIP_v1.2/Custody_Status_Change_Reporting_Service.wsdl"
+		serviceName="ojbc:Custody-Status-Change-Reporting-ServiceService" 
+		endpointName="ojbc:Custody-Status-Change-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodyStatusChangeReportingService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="custodyStatusChangeReportingKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${custodyStatusChangeReporting.keystoreCertificateAlias}" /> 
+		</cxf:properties>
+    </cxf:cxfEndpoint>	
+
+	<!-- Destination adapter called by this intermediary  -->
+	<cxf:cxfEndpoint id="custodyAnalyticsStagingAdapterService"
+		address="${custodyStatusChangeReporting.custodyAnalyticsStageAdapterEndpoint}"
+		wsdlURL="classpath:ssp/Custody_Status_Change_Reporting/schemas/RS_WS-SIP_v1.2/Custody_Status_Change_Reporting_Service.wsdl"
+		serviceName="ojbc:Custody-Status-Change-Reporting-ServiceService" 
+		endpointName="ojbc:Custody-Status-Change-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodyStatusChangeReportingService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="custodyStatusChangeReportingKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${custodyStatusChangeReporting.keystoreCertificateAlias}" /> 
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+
 	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
-                <entry key="${chargeReferralReporting.keystoreCertificateAlias}" value="${chargeReferralReporting.keyPassword}"/>
+                <entry key="${custodyStatusChangeReporting.keystoreCertificateAlias}" value="${custodyStatusChangeReporting.keyPassword}"/>
             </map>
         </property>
-	</bean>			
+	</bean>		
 	
-	<util:properties id="chargeReferralReportingKeystoreProperties">
+	<util:properties id="custodyStatusChangeReportingKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${chargeReferralReporting.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${chargeReferralReporting.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${chargeReferralReporting.keystoreLocation}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${custodyStatusChangeReporting.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${custodyStatusChangeReporting.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${custodyStatusChangeReporting.keystoreLocation}</prop>
 	</util:properties>
 	
 	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
@@ -90,8 +92,8 @@
 		<http:tlsClientParameters disableCNCheck="true">
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
-					password="${chargeReferralReporting.truststorePassword}"
-					file="${chargeReferralReporting.truststoreLocation}" />
+					password="${custodyStatusChangeReporting.truststorePassword}"
+					file="${custodyStatusChangeReporting.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
@@ -101,8 +103,6 @@
 			</sec:cipherSuitesFilter>
 		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
-	</http:conduit>				
+	</http:conduit>	
+	
 </beans>
-
-
-

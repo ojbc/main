@@ -64,5 +64,7 @@
     <module>subscription-notification-service-intermediary</module>
     <module>vehicle-search-request-service-intermediary</module>
     <module>warrant-issued-reporting-intermediary-service</module>
+    <module>custody-status-change-reporting-service-intermediary</module>
+    <module>custody-release-reporting-service-intermediary</module>
   </modules>
 </project>
