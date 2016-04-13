@@ -231,7 +231,7 @@ public class IncidentReportingTransformerServiceTest {
 		String personInvolvementValue = personInvolvement.getTextContent();
 		assertEquals("Complainant", personInvolvementValue);
 				
-		XmlUtils.printNode(notifyDocTransformed);				
+		//XmlUtils.printNode(notifyDocTransformed);				
 	}
 	
 	
@@ -252,7 +252,7 @@ public class IncidentReportingTransformerServiceTest {
 		
 		assertEquals("2014-01-01T04:43:56Z", incidentDateTimeValue);
 				
-		XmlUtils.printNode(notifyDocTransformed);				
+		//XmlUtils.printNode(notifyDocTransformed);				
 	}
 
 	@Test
@@ -271,7 +271,7 @@ public class IncidentReportingTransformerServiceTest {
 		
 		assertEquals("2014-01-01T04:43:56Z", incidentDateTimeValue);
 				
-		XmlUtils.printNode(notifyDocTransformed);				
+		//XmlUtils.printNode(notifyDocTransformed);				
 	}
 	
 	@Test
@@ -290,7 +290,7 @@ public class IncidentReportingTransformerServiceTest {
 		
 		assertEquals("2014-01-01", incidentDateDateValue);
 				
-		XmlUtils.printNode(notifyDocTransformed);				
+		//XmlUtils.printNode(notifyDocTransformed);				
 	}
 	
 	@Test
@@ -309,7 +309,7 @@ public class IncidentReportingTransformerServiceTest {
 		
 		assertEquals("2014-01-01", incidentDateDateValue);
 				
-		XmlUtils.printNode(notifyDocTransformed);				
+		//XmlUtils.printNode(notifyDocTransformed);				
 	}
 	
 	@Test
@@ -353,7 +353,7 @@ public class IncidentReportingTransformerServiceTest {
 		assertEquals("ROB", secondOffenseCategoryTextValue);
 	
 				
-		XmlUtils.printNode(notifyDocTransformed);				
+		//XmlUtils.printNode(notifyDocTransformed);				
 	}
 	
 
