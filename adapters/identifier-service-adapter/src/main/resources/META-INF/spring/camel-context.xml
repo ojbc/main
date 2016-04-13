@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- needed cxf imports -->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    
+	<camelContext xmlns="http://camel.apache.org/schema/spring" 
+		xmlns:pidreq-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0"
+		xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
+		xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" 
+		xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+		xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+		xmlns:CHcr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
+		xmlns:CHcr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
+		xmlns:ira-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0"		
+		id="identifier-service-adapter">
+
+		<endpoint id="identiferServiceAdapterEndpoint"
+			uri="cxf:bean:identiferServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identiferServiceAdapter.cxflogging}}" />
+
+		<endpoint id="identifierResponseServiceEndpoint"
+			uri="cxf:bean:identifierResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identifierService.cxflogging}" />
+
+		<endpoint id="invocationFailedFileEndpoint"
+			uri="file://{{identiferServiceAdapter.identifierRequestInputDirectory}}/failed" />
+			
+		<!-- Identifier Request Route -->
+		<route id="identifierServiceRequestRoute">
+			<from uri="identiferServiceAdapterEndpoint" />
+			
+			<onException>
+				<exception>java.lang.Exception</exception>
+				<handled><constant>true</constant></handled>
+				<camel:log message="An exception was thrown: ${exception.cause.message}"
+					loggingLevel="ERROR" />
+				<camel:to uri="direct:deadLetterChannel" />
+			</onException>
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			<to uri="bean:identifierRequestProcessor?method=returnIdentifierResponse" />
+			<log message="${body}" loggingLevel="DEBUG"></log>
+			<to uri="direct:identifierServiceResponse" />
+		</route>
+
+		<route id="identifierServiceResponseRoute">
+			<from uri="direct:identifierServiceResponse" />
+			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+
+			<camel:setHeader headerName="operationName">
+	            <constant>SubmitIdentifierResponse</constant>
+	        </camel:setHeader>
+	        
+	        <camel:setHeader headerName="operationNamespace">
+	            <constant>http://ojbc.org/Services/WSDL/IdentifierResponseService/1.0</constant>
+	        </camel:setHeader>
+			<to uri="identifierResponseServiceEndpoint" />
+			<log message="Called Identifier Service Response Intermediary" />
+		</route>
+
+		<route id="archive_failed_identifier_request_route">
+			<from uri="direct:deadLetterChannel"/>
+			<setHeader headerName="CamelFileName">
+				<simple>identifierRequest/FailedIdentifierRequest_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+			</setHeader>	
+			<to uri="invocationFailedFileEndpoint"/>
+			<log message="Failed to process Identifier Request document. File Name to archive is: ${in.headers.CamelFileName}"/>
+		</route>
+		
+		
+	</camelContext>
+
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	<bean id="identifierRequestProcessor" class="org.ojbc.adapters.identifier.processor.IdentifierRequestProcessor" scope="prototype"/>	
+</beans>
