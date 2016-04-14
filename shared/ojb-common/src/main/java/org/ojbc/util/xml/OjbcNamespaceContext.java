@@ -716,6 +716,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static String NS_CUSTODY_RELEASE_REPORTING_EXT = "http://ojbc.org/IEPD/Extensions/CustodyReleaseReportExtension/1.0";
 	public static String NS_PREFIX_CUSTODY_RELEASE_REPORTING_EXT="crr-ext";
 	
+	public static String NS_IDENTIFIER_RESPONSE_DOC = "http://ojbc.org/IEPD/Exchange/IdentifierResponse/1.0";
+	public static String NS_PREFIX_IDENTIFIER_RESPONSE_DOC="i-resp-doc";
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -1409,6 +1412,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap.put(NS_PREFIX_CUSTODY_RELEASE_REPORTING, NS_CUSTODY_RELEASE_REPORTING);
 		uriToPrefixMap.put(NS_CUSTODY_RELEASE_REPORTING, NS_PREFIX_CUSTODY_RELEASE_REPORTING);
+		
+		prefixToUriMap.put(NS_PREFIX_IDENTIFIER_RESPONSE_DOC, NS_IDENTIFIER_RESPONSE_DOC);
+		uriToPrefixMap.put(NS_IDENTIFIER_RESPONSE_DOC, NS_PREFIX_IDENTIFIER_RESPONSE_DOC);
+		
 	}
 
 	@Override
