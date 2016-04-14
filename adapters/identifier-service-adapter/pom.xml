@@ -51,6 +51,7 @@
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
 		<ojb-index-common-version>[1.0.0,)</ojb-index-common-version>
+		<ojb-test-common-version>[1.0.0,)</ojb-test-common-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
 		<xmlunit-version>1.5</xmlunit-version>
@@ -151,11 +152,11 @@
 			<artifactId>ojb-index-common</artifactId>
 			<version>${ojb-index-common-version}</version>
 		</dependency>
-	<dependency>
-		<groupId>commons-codec</groupId>
-		<artifactId>commons-codec</artifactId>
-		<version>${commons-codec-version}</version>
-	</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>${commons-codec-version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
@@ -193,6 +194,11 @@
 			<artifactId>xmlunit</artifactId>
 			<version>${xmlunit-version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-test-common</artifactId>
+			<version>${ojb-test-common-version}</version>
 		</dependency>
 
 		<!-- logging -->

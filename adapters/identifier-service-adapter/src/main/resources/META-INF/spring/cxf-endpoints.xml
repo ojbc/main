@@ -40,22 +40,22 @@
     ">
 
 	<!-- Identification Recording Adapter - hosted by the rapback data store adapter, called by the intermediary -->
-	<cxf:cxfEndpoint id="identiferServiceAdapter"
-		address="${identiferServiceAdapter.identifierRequestServiceEndpoint}"
+	<cxf:cxfEndpoint id="identifierServiceAdapter"
+		address="${identifierServiceAdapter.identifierRequestServiceEndpoint}"
 		wsdlURL="classpath:ssp/Identifier_Request/schemas/SIP_WS_1.3/Identifier_Request_Service.wsdl"
 		serviceName="ojbc:Identifier-Request-ServiceService" 
 		endpointName="ojbc:Identifier-Request-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentifierRequestService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="identifierServieKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${identifierServiceIntermediary.keystoreCertificateAlias}" />
+			<entry key="ws-security.signature.properties" value-ref="identifierServiceAdapterKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${identifierServiceAdapter.keystoreCertificateAlias}" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
 	<!-- Identification Response Handler - hosted by the intermediary, called by the rapback data store adapter -->
 	<cxf:cxfEndpoint id="identifierResponseService"
-		address="${identiferServiceAdapter.identifierServiceResponseEndpoint}"
+		address="${identifierServiceAdapter.identifierServiceResponseEndpoint}"
 		wsdlURL="classpath:ssp/Identifier_Response/schemas/SIP_WS_1.3/Identifier_Response_Service.wsdl"
 		serviceName="ojbc:Identifier-Response-ServiceService" 
 		endpointName="ojbc:Identifier-Response-Secure-Service"
@@ -71,12 +71,20 @@
  		</cxf:features>	 
 	</cxf:cxfEndpoint>
 
-	<util:properties id="identiferServiceAdapterKeystoreProperties">
+   	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+	    <property name="passwords">
+            <map>
+                <entry key="${identifierServiceAdapter.keystoreCertificateAlias}" value="${identifierServiceAdapter.keyPassword}"/>
+            </map>
+        </property>
+	</bean>
+
+	<util:properties id="identifierServiceAdapterKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${identiferServiceAdapter.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${identiferServiceAdapter.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${identiferServiceAdapter.keystoreLocation}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${identifierServiceAdapter.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${identifierServiceAdapter.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${identifierServiceAdapter.keystoreLocation}</prop>
 	</util:properties>	
 
 	<!-- Used for outbound SSL/TLS Connection. No CCA, just SSL. Client side 
@@ -85,7 +93,7 @@
 		<http:tlsClientParameters disableCNCheck="true">
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
-					password="${identiferServiceAdapter.truststorePassword}" file="${identiferServiceAdapter.truststoreLocation}" />
+					password="${identifierServiceAdapter.truststorePassword}" file="${identifierServiceAdapter.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 				<!-- these filters ensure that a strong ciphersuite will be used -->

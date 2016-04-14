@@ -20,16 +20,4 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class IdentifierServiceAdapterConstants {
-    public static final String TOPIC_DIALECT = "http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete";
-
-    public static final String SYSTEM_NAME = "RapbackDataStore";
-
-    public static final String SOURCE_SYSTEM_NAME_TEXT = 
-    		"http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore";
-
-    public static final String YYYY_MM_DD = "yyyy-MM-dd";
-    
-    public static final String REPORT_FEDERAL_SUBSCRIPTION_UPDATE = "ReportFederalSubscriptionUpdate";
-
-    public static final String REPORT_FEDERAL_SUBSCRIPTION_CREATION = "ReportFederalSubscriptionCreation";
 }

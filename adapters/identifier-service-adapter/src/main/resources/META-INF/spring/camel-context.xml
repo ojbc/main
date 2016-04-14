@@ -36,28 +36,23 @@
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     
 	<camelContext xmlns="http://camel.apache.org/schema/spring" 
-		xmlns:pidreq-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0"
-		xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
-		xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" 
+		xmlns:i-req-doc="http://ojbc.org/IEPD/Exchange/IdentifierRequest/1.0"
 		xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
 		xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
-		xmlns:CHcr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
-		xmlns:CHcr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
-		xmlns:ira-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0"		
 		id="identifier-service-adapter">
 
-		<endpoint id="identiferServiceAdapterEndpoint"
-			uri="cxf:bean:identiferServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identiferServiceAdapter.cxflogging}}" />
+		<endpoint id="identifierServiceAdapterEndpoint"
+			uri="cxf:bean:identifierServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{identifierServiceAdapter.cxflogging}}" />
 
 		<endpoint id="identifierResponseServiceEndpoint"
 			uri="cxf:bean:identifierResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identifierService.cxflogging}" />
 
 		<endpoint id="invocationFailedFileEndpoint"
-			uri="file://{{identiferServiceAdapter.identifierRequestInputDirectory}}/failed" />
+			uri="file://{{identifierServiceAdapter.identifierRequestInputDirectory}}/failed" />
 			
 		<!-- Identifier Request Route -->
 		<route id="identifierServiceRequestRoute">
-			<from uri="identiferServiceAdapterEndpoint" />
+			<from uri="identifierServiceAdapterEndpoint" />
 			
 			<onException>
 				<exception>java.lang.Exception</exception>
@@ -66,7 +61,9 @@
 					loggingLevel="ERROR" />
 				<camel:to uri="direct:deadLetterChannel" />
 			</onException>
-			
+			<camel:setHeader headerName="personNode">
+				<camel:xpath>/i-req-doc:IdentifierRequest/nc:Entity/nc:EntityPerson</camel:xpath>
+			</camel:setHeader>
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 			<to uri="bean:identifierRequestProcessor?method=returnIdentifierResponse" />
 			<log message="${body}" loggingLevel="DEBUG"></log>
@@ -102,5 +99,12 @@
 	</camelContext>
 
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-	<bean id="identifierRequestProcessor" class="org.ojbc.adapters.identifier.processor.IdentifierRequestProcessor" scope="prototype"/>	
+	
+	<bean id="indexedIdentifierGenerationStrategy" class="org.ojbc.util.lucene.personid.IndexedIdentifierGenerationStrategy"  destroy-method="destroy">
+		<constructor-arg name="indexDirectoryPath" value="${identifierServiceAdapter.luceneDirectory}"/>
+	</bean>
+	
+	<bean id="identifierRequestProcessor" class="org.ojbc.adapters.identifier.processor.IdentifierRequestProcessor" scope="prototype">
+		<property name="identifierGenerationStrategy" ref="indexedIdentifierGenerationStrategy"/>
+	</bean>	
 </beans>
