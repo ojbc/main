@@ -66,5 +66,6 @@
     <module>warrant-issued-reporting-intermediary-service</module>
     <module>custody-status-change-reporting-service-intermediary</module>
     <module>custody-release-reporting-service-intermediary</module>
+    <module>warrant-modification-service-intermediary</module>
   </modules>
 </project>
