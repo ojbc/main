@@ -37,9 +37,11 @@ import org.springframework.stereotype.Component;
 public class IndexedPersonIdentifierStrategy  extends IndexedIdentifierGenerationStrategy implements PersonIdentifierStrategy{
 
 	private static final Log log = LogFactory.getLog(IndexedPersonIdentifierStrategy.class);
+	protected String indexBackupRoot;
 
 	public IndexedPersonIdentifierStrategy(String indexDirectoryPath, String indexBackupRoot) throws Exception{
-		super(indexDirectoryPath, indexBackupRoot);
+		super(indexDirectoryPath);
+		this.indexBackupRoot=indexBackupRoot;
 	}
 	
 	public void destroy() throws IOException
