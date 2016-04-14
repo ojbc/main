@@ -90,9 +90,14 @@
 			<scr:TransactionControlNumberIdentification>
 				<nc:IdentificationID>TCN345665</nc:IdentificationID>
 			</scr:TransactionControlNumberIdentification>
-			<wm-req-ext:WarrantAdditionalInformationText>Additional Warrant
-				Information
-			</wm-req-ext:WarrantAdditionalInformationText>
+			<wm-req-ext:WarrantAdditionalInformation>
+				<wm-req-ext:WarrantAdditionalInformationCategoryText>Additional
+					Warrant Information Category
+				</wm-req-ext:WarrantAdditionalInformationCategoryText>
+				<wm-req-ext:WarrantAdditionalInformationText>Additional Warrant
+					Information
+				</wm-req-ext:WarrantAdditionalInformationText>
+			</wm-req-ext:WarrantAdditionalInformation>
 			<wm-req-ext:WarrantEntryCategoryCodeText>Entry
 			</wm-req-ext:WarrantEntryCategoryCodeText>
 		</wm-req-ext:WarrantAugmentation>
@@ -107,9 +112,8 @@
 		<nc:PersonBirthLocation>
 			<nc:LocationCategoryText>OP</nc:LocationCategoryText>
 		</nc:PersonBirthLocation>
-		<nc:PersonCitizenshipISO3166Alpha2Code>AO
-		</nc:PersonCitizenshipISO3166Alpha2Code>
-		<j:PersonEthnicityCode>N</j:PersonEthnicityCode>
+		<nc:PersonCitizenshipText>AO</nc:PersonCitizenshipText>
+		<nc:PersonEthnicityText>N</nc:PersonEthnicityText>
 		<nc:PersonEyeColorText>BLK</nc:PersonEyeColorText>
 		<nc:PersonHairColorText>ONG</nc:PersonHairColorText>
 		<nc:PersonHeightMeasure>
@@ -124,10 +128,11 @@
 			<nc:PersonFullName>Peter J Jones Jr</nc:PersonFullName>
 		</nc:PersonName>
 		<nc:PersonPhysicalFeature>
-		<j:PhysicalFeatureCategoryCode>ART ARM</j:PhysicalFeatureCategoryCode>
+			<nc:PhysicalFeatureCategoryText>ART ARM
+			</nc:PhysicalFeatureCategoryText>
 		</nc:PersonPhysicalFeature>
-		<j:PersonRaceCode>A</j:PersonRaceCode>
-		<j:PersonSexCode>M</j:PersonSexCode>
+		<nc:PersonRaceText>A</nc:PersonRaceText>
+		<nc:PersonSexText>M</nc:PersonSexText>
 		<nc:PersonSkinToneText>ALB</nc:PersonSkinToneText>
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>098213455</nc:IdentificationID>
@@ -153,8 +158,13 @@
 			</j:PersonFBIIdentification>
 			<j:PersonBirthplaceCode>0P</j:PersonBirthplaceCode>
 		</j:PersonAugmentation>
-		<wm-req-ext:PersonAdditionalInformationText>Gang Member
-		</wm-req-ext:PersonAdditionalInformationText>
+		<wm-req-ext:PersonAdditionalInformation>
+			<wm-req-ext:PersonAdditionalInformationCategoryText>Person
+				AdditionalInformation Category
+			</wm-req-ext:PersonAdditionalInformationCategoryText>
+			<wm-req-ext:PersonAdditionalInformationText>Gang Member
+			</wm-req-ext:PersonAdditionalInformationText>
+		</wm-req-ext:PersonAdditionalInformation>
 		<wm-req-ext:PersonCautionCodeText>G45
 		</wm-req-ext:PersonCautionCodeText>
 		<wm-req-ext:PersonMiscellaneousRecordIdentification>
@@ -172,9 +182,8 @@
 				<nc:StreetName>Cedar Ave</nc:StreetName>
 			</nc:LocationStreet>
 			<nc:LocationCityName>Saginaw</nc:LocationCityName>
-			<nc:LocationCountyCode>119</nc:LocationCountyCode>
 			<nc:LocationCountyName>Taylor</nc:LocationCountyName>
-			<j:LocationStateNCICLSTACode>MI</j:LocationStateNCICLSTACode>
+			<nc:LocationStateName>MI</nc:LocationStateName>
 			<nc:LocationPostalCode>63412</nc:LocationPostalCode>
 			<wm-req-ext:AddressCategoryText>Mail</wm-req-ext:AddressCategoryText>
 		</nc:ContactMailingAddress>
