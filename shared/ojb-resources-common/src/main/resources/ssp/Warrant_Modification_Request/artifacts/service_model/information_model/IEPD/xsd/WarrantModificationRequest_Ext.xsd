@@ -59,35 +59,8 @@
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:complexType name="WarrantAcceptedReportType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for a warrant accepted report.
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="structures:ObjectType">
-				<xsd:sequence>
-					<xsd:element ref="j:Warrant" />
-					<xsd:element ref="nc:Person" />
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:complexType name="WarrantRejectedReportType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for a warrant rejected report.
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="structures:ObjectType">
-				<xsd:sequence>
-					<xsd:element ref="j:Warrant" />
-					<xsd:element ref="nc:Person" />
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
+		</xsd:complexType>
+	
 	<xsd:complexType name="WarrantAugmentationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for additional information about a
@@ -108,14 +81,95 @@
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="scr:TransactionControlNumberIdentification"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="wm-req-ext:WarrantAdditionalInformationText"
+					
+					<xsd:element ref="wm-req-ext:WarrantAdditionalInformation"
 						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="wm-req-ext:PersonAdditionalInformation"
+						minOccurs="0" maxOccurs="unbounded" />
+						
 					<xsd:element ref="wm-req-ext:WarrantEntryCategoryCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="PersonAdditionalInformationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for additional information about a
+				person.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="wm-req-ext:PersonAdditionalInformationCategoryText"
+						minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="wm-req-ext:PersonAdditionalInformationText"
+						minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="WarrantAdditionalInformationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for additional information about a
+				warrant.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="wm-req-ext:WarrantAdditionalInformationCategoryText"
+						minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="wm-req-ext:WarrantAdditionalInformationText"
+						minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="WarrantAdditionalInformation"
+		type="wm-req-ext:WarrantAdditionalInformationType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="WarrantAdditionalInformationCategoryText"
+		type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information category about a warrant.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="WarrantAdditionalInformationText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a warrant.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonAdditionalInformation" type="wm-req-ext:PersonAdditionalInformationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonAdditionalInformationCategoryText"
+		type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information category about a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonAdditionalInformationText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	
 	<xsd:element name="PersonRecordIdentification" type="nc:IdentificationType"
 		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
@@ -128,13 +182,6 @@
 		<xsd:annotation>
 			<xsd:documentation>A miscellaneous unique identification assigned to
 				a person record.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="PersonAdditionalInformationText" type="nc:TextType"
-		substitutionGroup="nc:PersonAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>Additional information about a person.
-			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonCautionCodeText" type="nc:TextType"
@@ -216,12 +263,7 @@
 			<xsd:documentation>Originating Case Agency number (OCA).</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="WarrantAdditionalInformationText" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>Additional information about a warrant.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
+	
 	<xsd:element name="WarrantEntryCategoryCodeText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A type of warrant entry.
