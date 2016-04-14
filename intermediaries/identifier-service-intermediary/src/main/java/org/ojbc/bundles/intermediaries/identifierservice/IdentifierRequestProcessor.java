@@ -16,7 +16,6 @@
  */
 package org.ojbc.bundles.intermediaries.identifierservice;
 
-import org.apache.camel.Body;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
@@ -38,13 +37,8 @@ public class IdentifierRequestProcessor extends RequestResponseProcessor impleme
 	
 	private static final Log log = LogFactory.getLog( IdentifierRequestProcessor.class );
 	
-	public void invokeRequest(@Body Exchange exchange) throws Exception
+	public String invokeSynchronousRequest( Exchange exchange) throws Exception
 	{
-
-		String originalReplyToAddress = (String) exchange.getIn().getHeader("WSAddressingReplyTo");
-		
-		exchange.getIn().setHeader("WSAddressingReplyTo", this.getReplyToAddress());
-
 		String tokenID = exchange.getExchangeId();
 		exchange.getIn().setHeader("tokenID", tokenID);
 
@@ -67,8 +61,7 @@ public class IdentifierRequestProcessor extends RequestResponseProcessor impleme
 		}
 		
 		//return response here
-		exchange.getIn().setBody(response);
-		exchange.getIn().setHeader("WSAddressingReplyTo", originalReplyToAddress);
+		return response;
 	}
 	
 
