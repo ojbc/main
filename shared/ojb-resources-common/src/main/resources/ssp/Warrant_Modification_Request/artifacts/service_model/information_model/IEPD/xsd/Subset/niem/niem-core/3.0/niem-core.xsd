@@ -660,6 +660,11 @@
       <xs:documentation>A data concept for a specific kind of physical feature.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PhysicalFeatureCategoryText" type="nc:TextType" substitutionGroup="nc:PhysicalFeatureCategory">
+    <xs:annotation>
+      <xs:documentation>A specific kind of physical feature.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="RoleOf" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a property of a role object. This specifies the base object, of which the role object is a function.</xs:documentation>
