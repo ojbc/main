@@ -113,6 +113,20 @@
 
 		</camel:route>
 
+		<!--Identifier Result from Adapter Listener -->
+	    <camel:route id="identifierResultsHandlerRoute">
+	    	<from uri="identifierResultsHandlerServiceEndpoint"/>
+	    	<camel:log message="Received response message - Identifier Request Response: ${body}" loggingLevel="DEBUG"/>
+
+	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID. This is a generic processor and provided by abstract class -->
+			<camel:to uri="bean:identifierRequestMessageProcessor?method=processRequestPayload" />
+			
+	    	<camel:convertBodyTo type="java.lang.String"/>
+	    	
+			<camel:to uri="bean:identifierRequestProcessor?method=updateMapWithResponse"/>
+	    </camel:route>	    
+	    
+		
 	</camelContext>
 
 	<!-- Spring Beans -->
@@ -148,9 +162,6 @@
 	<!-- Identifier Request and Response processor -->
 	<bean id="identifierRequestProcessor"
 		class="org.ojbc.bundles.intermediaries.identifierservice.IdentifierRequestProcessor">
-		<property name="replyToAddress">
-			<value>${identifierServiceIntermediary.identifierResultEndpoint}</value>
-		</property>
 		<property name="messageProcessor" ref="identifierRequestMessageProcessor" />
 		<property name="requestResponseMap" ref="identifierRequestResponseMap" />
 		<property name="maxPolls" value="${identifierServiceIntermediary.maxPolls}" />
