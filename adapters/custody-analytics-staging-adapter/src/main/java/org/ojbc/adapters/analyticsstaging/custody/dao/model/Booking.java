@@ -44,7 +44,8 @@ public class Booking implements Serializable{
 	private BigDecimal arrestLocationLongitude; 
 	private Integer bookingSubjectId; 
 	private String bookingNumber; 
-
+    private BigDecimal bondAmount; 
+    private KeyValue bondType; 
 	
 	public Integer getBookingId() {
 		return bookingId;
@@ -176,6 +177,22 @@ public class Booking implements Serializable{
 
 	public void setBookingNumber(String bookingNumber) {
 		this.bookingNumber = bookingNumber;
+	}
+
+	public BigDecimal getBondAmount() {
+		return bondAmount;
+	}
+
+	public void setBondAmount(BigDecimal bondAmount) {
+		this.bondAmount = bondAmount;
+	}
+
+	public KeyValue getBondType() {
+		return bondType;
+	}
+
+	public void setBondType(KeyValue bondType) {
+		this.bondType = bondType;
 	}
 
 

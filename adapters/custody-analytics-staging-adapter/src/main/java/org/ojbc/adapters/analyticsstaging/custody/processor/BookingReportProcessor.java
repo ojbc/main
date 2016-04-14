@@ -73,17 +73,15 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 			chargeType.setKey(descriptionCodeLookupService.retrieveCode(CodeTable.ChargeType, chargeType.getValue()));
 			bookingCharge.setChargeType(chargeType);
 			
-			setBondInfo(report, chargeNode, bookingCharge);
 			bookingCharges.add(bookingCharge);
 		}
 		analyticalDatastoreDAO.saveBookingCharges(bookingCharges);
 	}
 
-	private void setBondInfo(Document report, Node chargeNode,
-			BookingCharge bookingCharge) throws Exception {
-		String chargeId = XmlUtils.xPathStringSearch(chargeNode, "@s30:id");
+	private void setBondInfo(Document report, Booking booking) throws Exception {
+		
 		String bondId = XmlUtils.xPathStringSearch(report, "/br-doc:BookingReport/"
-				+ "jxdm51:BailBondChargeAssociation[jxdm51:Charge/@s30:ref='" + chargeId + "']/jxdm51:BailBond/@s30:ref");
+				+ "jxdm51:BailBondChargeAssociation/jxdm51:BailBond/@s30:ref");
 		
 		if (StringUtils.isNotBlank(bondId)){
 			Node bondNode = XmlUtils.xPathNodeSearch(report, 
@@ -92,11 +90,11 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 			String bondType = XmlUtils.xPathStringSearch(bondNode, "nc30:ActivityCategoryText");
 			Integer bondTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.BondType, bondType);
 			KeyValue keyValue = new KeyValue(bondTypeId, bondType);
-			bookingCharge.setBondType(keyValue);
+			booking.setBondType(keyValue);
 			
 			String bondAmount = XmlUtils.xPathStringSearch(bondNode, "jxdm51:BailBondAmount/nc30:Amount");
 			if (StringUtils.isNotBlank(bondAmount)){
-				bookingCharge.setBondAmount(new BigDecimal(bondAmount));
+				booking.setBondAmount(new BigDecimal(bondAmount));
 			}
 		}
 	}
@@ -170,6 +168,8 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         	}
         }
         
+		setBondInfo(report, booking);
+
         Integer bookingId = analyticalDatastoreDAO.saveBooking(booking);
 		return bookingId;
 	}
