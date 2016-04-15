@@ -62,17 +62,15 @@ public class IndexedIdentifierGenerationStrategy implements IdentifierGeneration
 	protected IndexWriter indexWriter;
 	private boolean resolveEquivalentNames = true;
 	private FirstNameEquivalentCorpus firstNameEquivalentCorpus;
-	protected String indexBackupRoot;
 	protected String indexDirectoryPath;
 
-	public IndexedIdentifierGenerationStrategy(String indexDirectoryPath, String indexBackupRoot) throws Exception{
+	public IndexedIdentifierGenerationStrategy(String indexDirectoryPath) throws Exception{
 		
 		if (StringUtils.isEmpty(indexDirectoryPath))
 		{
 			throw new IllegalStateException("Index Directory Path Required.");
 		}	
 		
-		this.indexBackupRoot=indexBackupRoot;
 		this.indexDirectoryPath = indexDirectoryPath;
 
 		init();

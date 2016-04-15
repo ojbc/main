@@ -58,7 +58,7 @@ public class IndexedIdentifierGenerationStrategyTest {
 			   
 		if (strategy == null)
 		{	
-			strategy = new IndexedIdentifierGenerationStrategy(tempFilePath + "lucene", tempFilePath + "backup");
+			strategy = new IndexedIdentifierGenerationStrategy(tempFilePath + "lucene");
 		}	
 		
 		attributeMap = new HashMap<String, Object>();

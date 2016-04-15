@@ -190,7 +190,9 @@ CREATE TABLE Booking (
                 BookingNumber VARCHAR(50) NOT NULL,
                 ArrestLocationLatitude NUMERIC(14,10),
                 ArrestLocationLongitude NUMERIC(14,10),
+                BondAmount NUMERIC(10,2),
                 BookingSubjectID INT NOT NULL,
+                BondTypeID INT NOT NULL,
                 PRIMARY KEY (BookingID)
 );
 
@@ -199,8 +201,6 @@ CREATE TABLE BookingCharge (
                 BookingChargeID INT AUTO_INCREMENT NOT NULL,
                 BookingID BIGINT NOT NULL,
                 ChargeTypeID INT NOT NULL,
-                BondAmount NUMERIC(10,2),
-                BondTypeID INT,
                 PRIMARY KEY (BookingChargeID)
 );
 
@@ -241,7 +241,7 @@ REFERENCES Facility (FacilityID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE BookingCharge ADD CONSTRAINT bondtype_bookingcharge_fk
+ALTER TABLE Booking ADD CONSTRAINT bondtype_booking_fk
 FOREIGN KEY (BondTypeID)
 REFERENCES BondType (BondTypeID)
 ON DELETE NO ACTION

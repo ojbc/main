@@ -228,13 +228,13 @@ public class CamelContextTest {
 		assertEquals("Booking Number", booking.getBookingNumber());
 		assertTrue(booking.getArrestLocationLatitude().doubleValue() == 56.1111 ); 
 		assertTrue(booking.getArrestLocationLongitude().doubleValue() == 32.1111 ); 
+		assertTrue(booking.getBondAmount().doubleValue() == 500.00); 
+		assertThat(booking.getBondType().getValue(), is("Cash"));
 		
 		bookingCharges = analyticalDatastoreDAOImpl.getBookingCharges( 1 ); 
 		assertFalse(bookingCharges.isEmpty());
 		
 		BookingCharge bookingCharge = bookingCharges.get(0);
-		assertTrue(bookingCharge.getBondAmount().doubleValue() == 500.00); 
-		assertThat(bookingCharge.getBondType().getValue(), is("Cash"));
 		assertThat(bookingCharge.getChargeType().getValue(), is("Felony"));
 		assertTrue(bookingCharge.getBookingId() == 1);
 	}

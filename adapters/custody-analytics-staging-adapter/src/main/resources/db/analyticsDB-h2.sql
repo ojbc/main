@@ -14,6 +14,9 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
+
+Drop schema if exists CustodyAnalyticsDataStore;
+
 CREATE schema CustodyAnalyticsDataStore;
 
 
@@ -57,7 +60,7 @@ CREATE TABLE BondType (BondTypeID INT AUTO_INCREMENT NOT NULL, BondType VARCHAR(
 
 ALTER TABLE BondType ADD CONSTRAINT bondtypeid PRIMARY KEY (BondTypeID);
 
-CREATE SEQUENCE BondType_BondTypeID_seq_1_1;
+CREATE SEQUENCE BondType_BondTypeID_seq_1_1_1;
 
 CREATE TABLE BedType (BedTypeID INT AUTO_INCREMENT NOT NULL, BedTypeDescription VARCHAR(50) NOT NULL);
 
@@ -131,13 +134,13 @@ ALTER TABLE Agency ADD CONSTRAINT agencyid PRIMARY KEY (AgencyID);
 
 CREATE SEQUENCE Agency_AgencyID_seq_1;
 
-CREATE TABLE Booking (BookingID BIGINT AUTO_INCREMENT NOT NULL, JurisdictionID INT NOT NULL, BookingReportDate TIMESTAMP NOT NULL, BookingReportID VARCHAR(30) NOT NULL, SendingAgencyID INT NOT NULL, CaseStatusID INT NOT NULL, BookingDate TIMESTAMP NOT NULL, CommitDate date NOT NULL, SupervisionReleaseDate TIMESTAMP, PretrialStatusID INT NOT NULL, FacilityID INT NOT NULL, BedTypeID INT NOT NULL, BookingNumber VARCHAR(50) NOT NULL, ArrestLocationLatitude NUMBER(14, 10), ArrestLocationLongitude NUMBER(14, 10), BookingSubjectID INT NOT NULL);
+CREATE TABLE Booking (BookingID BIGINT AUTO_INCREMENT NOT NULL, JurisdictionID INT NOT NULL, BookingReportDate TIMESTAMP NOT NULL, BookingReportID VARCHAR(30) NOT NULL, SendingAgencyID INT NOT NULL, CaseStatusID INT NOT NULL, BookingDate TIMESTAMP NOT NULL, CommitDate date NOT NULL, SupervisionReleaseDate TIMESTAMP, PretrialStatusID INT NOT NULL, FacilityID INT NOT NULL, BedTypeID INT NOT NULL, BookingNumber VARCHAR(50) NOT NULL, ArrestLocationLatitude NUMBER(14, 10), ArrestLocationLongitude NUMBER(14, 10), BondAmount NUMBER(10, 2), BookingSubjectID INT NOT NULL, BondTypeID INT NOT NULL);
 
 ALTER TABLE Booking ADD CONSTRAINT bookingid PRIMARY KEY (BookingID);
 
 CREATE SEQUENCE Booking_BookingID_seq;
 
-CREATE TABLE BookingCharge (BookingChargeID INT AUTO_INCREMENT NOT NULL, BookingID BIGINT NOT NULL, ChargeTypeID INT NOT NULL, BondAmount NUMBER(10, 2), BondTypeID INT);
+CREATE TABLE BookingCharge (BookingChargeID INT AUTO_INCREMENT NOT NULL, BookingID BIGINT NOT NULL, ChargeTypeID INT NOT NULL);
 
 ALTER TABLE BookingCharge ADD CONSTRAINT bookingchargeid PRIMARY KEY (BookingChargeID);
 
@@ -155,7 +158,7 @@ ALTER TABLE BookingSubject ADD CONSTRAINT housingstatus_bookingsubject_fk FOREIG
 
 ALTER TABLE Booking ADD CONSTRAINT facility_booking_fk FOREIGN KEY (FacilityID) REFERENCES Facility (FacilityID);
 
-ALTER TABLE BookingCharge ADD CONSTRAINT bondtype_bookingcharge_fk FOREIGN KEY (BondTypeID) REFERENCES BondType (BondTypeID);
+ALTER TABLE Booking ADD CONSTRAINT bondtype_booking_fk FOREIGN KEY (BondTypeID) REFERENCES BondType (BondTypeID);
 
 ALTER TABLE Booking ADD CONSTRAINT bedtype_booking_fk FOREIGN KEY (BedTypeID) REFERENCES BedType (BedTypeID);
 
