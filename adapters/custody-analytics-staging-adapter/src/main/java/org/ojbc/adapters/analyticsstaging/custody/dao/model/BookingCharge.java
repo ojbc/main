@@ -27,8 +27,6 @@ public class BookingCharge implements Serializable
 	private Integer bookingChargeId;
     private Integer bookingId; 
     private KeyValue chargeType; 
-    private BigDecimal bondAmount; 
-    private KeyValue bondType; 
 
 	@Override
 	public String toString() {
@@ -51,28 +49,12 @@ public class BookingCharge implements Serializable
 		this.bookingId = bookingId;
 	}
 
-	public BigDecimal getBondAmount() {
-		return bondAmount;
-	}
-
-	public void setBondAmount(BigDecimal bondAmount) {
-		this.bondAmount = bondAmount;
-	}
-
 	public KeyValue getChargeType() {
 		return chargeType;
 	}
 
 	public void setChargeType(KeyValue chargeType) {
 		this.chargeType = chargeType;
-	}
-
-	public KeyValue getBondType() {
-		return bondType;
-	}
-
-	public void setBondType(KeyValue bondType) {
-		this.bondType = bondType;
 	}
 
 }

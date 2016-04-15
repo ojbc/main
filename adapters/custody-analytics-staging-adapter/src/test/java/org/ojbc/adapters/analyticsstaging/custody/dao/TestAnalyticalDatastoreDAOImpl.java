@@ -17,12 +17,11 @@
 package org.ojbc.adapters.analyticsstaging.custody.dao;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -37,6 +36,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -94,6 +94,8 @@ public class TestAnalyticalDatastoreDAOImpl {
 		booking.setBedTypeId(2);
 		booking.setBookingSubjectId(bookingSubjectPk);
 		booking.setBookingNumber("bookingNumber");
+		booking.setBondAmount(new BigDecimal("500.00"));
+		booking.setBondType(new KeyValue(1, "Cash"));
 		
 		int bookingPk = analyticalDatastoreDAO.saveBooking( booking );
 		assertEquals(1, bookingPk);

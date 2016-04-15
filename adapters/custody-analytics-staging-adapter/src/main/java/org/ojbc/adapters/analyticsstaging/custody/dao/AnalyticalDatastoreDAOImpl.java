@@ -266,16 +266,13 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public void saveBookingCharges(List<BookingCharge> bookingCharges) {
 		log.info("Inserting row into BookingSubject table: " + bookingCharges);
 		final String sqlString=
-				"INSERT INTO BookingCharge (BookingID, ChargeTypeID, BondAmount, BondTypeID) values (?,?,?,?)";
+				"INSERT INTO BookingCharge (BookingID, ChargeTypeID) values (?,?)";
 		
         jdbcTemplate.batchUpdate(sqlString, new BatchPreparedStatementSetter() {
             public void setValues(PreparedStatement ps, int i)
                 throws SQLException {
                 ps.setInt(1, bookingCharges.get(i).getBookingId());
                 ps.setInt(2, bookingCharges.get(i).getChargeType().getKey());
-                
-                setPreparedStatementVariable(bookingCharges.get(i).getBondAmount(), ps, 3);
-                setPreparedStatementVariable(bookingCharges.get(i).getBondType().getKey(), ps, 4);
             }
 	            
             public int getBatchSize() {
@@ -343,26 +340,28 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	                		"BookingReportID" , "SendingAgencyID","CaseStatusID", 
         	                		"BookingDate", "SupervisionReleaseDate","PretrialStatusID",
         	                		"FacilityID","BedTypeID", "ArrestLocationLatitude", "ArrestLocationLongitude",
-        	                		"BookingSubjectID", "CommitDate", "BookingNumber", "BookingID"};
+        	                		"BookingSubjectID", "CommitDate", "BookingNumber", "BondAmount", "BondTypeID", "BookingID"};
 
         	        		sqlString="INSERT into booking (JurisdictionID, BookingReportDate,"
         	        				+ "BookingReportID, SendingAgencyID, CaseStatusID, "
         	        				+ "BookingDate, SupervisionReleaseDate, PretrialStatusID, "
         	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude, "
-        	        				+ "BookingSubjectID, CommitDate, BookingNumber, BookingID) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	        				+ "BookingSubjectID, CommitDate, BookingNumber, BondAmount, BondTypeID, BookingID) "
+        	        				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
         	        		insertArgs = new String[] {"JurisdictionID", "BookingReportDate", 
         	                		"BookingReportID" , "SendingAgencyID","CaseStatusID", 
         	                		"BookingDate", "SupervisionReleaseDate","PretrialStatusID",
         	                		"FacilityID","BedTypeID", "ArrestLocationLatitude", "ArrestLocationLongitude",
-        	                		"BookingSubjectID", "CommitDate", "BookingNumber"};
+        	                		"BookingSubjectID", "CommitDate", "BookingNumber", "BondAmount", "BondTypeID"};
 
         	        		sqlString="INSERT into booking (JurisdictionID, BookingReportDate,"
         	        				+ "BookingReportID, SendingAgencyID, CaseStatusID, "
         	        				+ "BookingDate, SupervisionReleaseDate, PretrialStatusID, "
         	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude, "
-        	        				+ "BookingSubjectID, CommitDate, BookingNumber) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	        				+ "BookingSubjectID, CommitDate, BookingNumber, BondAmount, BondTypeID) "
+        	        				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	        		
         	        	}	
         	        			
@@ -387,9 +386,14 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            setPreparedStatementVariable(booking.getBookingSubjectId(), ps, 13);
         	            setPreparedStatementVariable(booking.getCommitDate(), ps, 14);
         	            setPreparedStatementVariable(booking.getBookingNumber(), ps, 15);
-        	            
+                        setPreparedStatementVariable(booking.getBondAmount(), ps, 16);
+                        
+                        if (booking.getBondType() != null){
+                        	setPreparedStatementVariable(booking.getBondType().getKey(), ps,17);
+                        }
+
         	            if (booking.getBookingId() != null){
-        	            	setPreparedStatementVariable(booking.getBookingId(), ps, 16);
+        	            	setPreparedStatementVariable(booking.getBookingId(), ps, 18);
         	            }
         	            
         	            return ps;
@@ -455,7 +459,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	@Override
 	public Booking getBookingByBookingReportId(String bookingReportId) {
-		final String sql = "SELECT * FROM Booking WHERE bookingReportId = ?";
+		final String sql = "SELECT * FROM Booking b "
+				+ "LEFT JOIN BondType e ON e.BondTypeID = b.BondTypeID "
+				+ "WHERE bookingReportId = ?";
 		
 		List<Booking> bookings = 
 				jdbcTemplate.query(sql, 
@@ -466,7 +472,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	
 	@Override
 	public Booking getBookingByBookingNumber(String bookingNumber) {
-		final String sql = "SELECT * FROM Booking WHERE bookingNumber = ?";
+		final String sql = "SELECT * FROM Booking b "
+				+ "LEFT JOIN BondType e ON e.BondTypeID = b.BondTypeID "
+				+ "WHERE bookingNumber = ?";
 		
 		List<Booking> bookings = 
 				jdbcTemplate.query(sql, 
@@ -497,7 +505,11 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			booking.setArrestLocationLongitude(rs.getBigDecimal("ArrestLocationLongitude"));
 			booking.setBookingSubjectId(rs.getInt("BookingSubjectID"));
 			booking.setBookingNumber(rs.getString("BookingNumber"));
+			booking.setBondAmount(rs.getBigDecimal("bondAmount"));
+			KeyValue bondType = new KeyValue( rs.getInt("bondTypeId"), rs.getString("bondType"));
+			booking.setBondType( bondType );
 			
+
 	    	return booking;
 		}
 
@@ -549,7 +561,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public List<BookingCharge> getBookingCharges(Integer bookingId) {
 		final String sql = "SELECT * FROM BookingCharge b "
 				+ "LEFT JOIN ChargeType c ON c.ChargeTypeID = b.ChargeTypeID "
-				+ "LEFT JOIN BondType e ON e.BondTypeID = b.BondTypeID "
 				+ "WHERE b.bookingID = ?"; 
 		List<BookingCharge> bookingCharges = 
 				jdbcTemplate.query(sql, new BookingChargeRowMapper(), bookingId);
@@ -564,13 +575,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	    	
 			bookingCharge.setBookingChargeId(rs.getInt("bookingChargeId"));
 			bookingCharge.setBookingId(rs.getInt("bookingId"));
-			bookingCharge.setBondAmount(rs.getBigDecimal("bondAmount"));
 			
 			KeyValue chargeType = new KeyValue( rs.getInt("chargeTypeId"), rs.getString("chargeType"));
 			bookingCharge.setChargeType( chargeType );
-			
-			KeyValue bondType = new KeyValue( rs.getInt("bondTypeId"), rs.getString("bondType"));
-			bookingCharge.setBondType( bondType );
 			
 	    	return bookingCharge;
 		}

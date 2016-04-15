@@ -76,6 +76,8 @@
   <w:Element w:name="nc:PersonRaceText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonSexText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonSkinToneText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:PhysicalFeatureCategoryText"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="scr:TransactionControlNumberIdentification"
     w:isReference="false" w:nillable="true"/>
   <w:Type w:name="census:USCountyCodeSimpleType" w:isRequested="false">
