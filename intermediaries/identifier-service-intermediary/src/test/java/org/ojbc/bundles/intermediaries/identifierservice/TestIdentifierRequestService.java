@@ -54,7 +54,6 @@ import org.w3c.dom.Document;
         "classpath:META-INF/spring/properties-context.xml"
 		})
 @DirtiesContext
-@Ignore
 public class TestIdentifierRequestService {
 	
 	private static final Log log = LogFactory.getLog( TestIdentifierRequestService.class );
@@ -91,6 +90,15 @@ public class TestIdentifierRequestService {
 					}
 				});
 
+		context.getRouteDefinition("identifierResultsHandlerRoute").adviceWith(
+				context, new AdviceWithRouteBuilder() {
+		    	    @Override
+		    	    public void configure() throws Exception {
+		    	    	// The line below allows us to bypass CXF and send a message directly into the route
+		    	    	replaceFromWith("direct:identfierResponseServiceEndpoint");
+		    	    }              
+				});
+		
     	context.start();
 	}	
 	
@@ -101,6 +109,24 @@ public class TestIdentifierRequestService {
 	}
 
 	private void testIdentifierRequestServiceRoute() throws Exception, IOException {
+		
+		new Thread(new Runnable() {
+
+		    @Override
+		    public void run() {
+		    	try {
+					Thread.sleep(5000);
+					Exchange mockReturnExchange = SoapMessageUtils.createSenderExchange("src/test/resources/xmlInstances/identifierResponse.xml", context);
+					mockReturnExchange.getIn().setHeader("WSAddressingReplyTo", "https://endpointToBeDetermined");
+					template.send("direct:identfierResponseServiceEndpoint", mockReturnExchange);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		    }
+		    
+		}).start();
+
 		Exchange senderExchange = SoapMessageUtils.createSenderExchange("src/test/resources/xmlInstances/identifierRequest.xml", context);
 		senderExchange.getIn().setHeader("WSAddressingReplyTo", "https://endpointToBeDetermined");
 
