@@ -17,6 +17,7 @@
 package org.ojbc.adapters.identifier;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 
@@ -30,14 +31,15 @@ import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.test.util.SoapMessageUtils;
-import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
@@ -51,7 +53,6 @@ import org.w3c.dom.Document;
 @DirtiesContext
 public class CamelContextTest {
 	
-	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( CamelContextTest.class );
 	
     @Resource
@@ -119,7 +120,8 @@ public class CamelContextTest {
 		String bodyString = OJBUtils.getStringFromDocument(bodyDocument);
 		log.info("body: \n" + bodyString);
 		
-		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/identifierResponse.xml", bodyDocument);
+		String uniqueId = XmlUtils.xPathStringSearch(bodyDocument, "/i-resp-doc:IdentifierResponse/nc30:Identification/nc30:IdentificationID");
+		assertNotNull(StringUtils.trimToNull(uniqueId));
 
 	}
 	
