@@ -34,6 +34,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.test.util.SoapMessageUtils;
@@ -53,6 +54,7 @@ import org.w3c.dom.Document;
         "classpath:META-INF/spring/properties-context.xml"
 		})
 @DirtiesContext
+@Ignore
 public class TestIdentifierRequestService {
 	
 	private static final Log log = LogFactory.getLog( TestIdentifierRequestService.class );
