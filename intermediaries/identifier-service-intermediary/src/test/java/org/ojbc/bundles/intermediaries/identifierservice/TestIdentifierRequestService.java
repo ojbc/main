@@ -16,20 +16,33 @@
  */
 package org.ojbc.bundles.intermediaries.identifierservice;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
 import org.apache.camel.EndpointInject;
+import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.test.util.SoapMessageUtils;
+import org.ojbc.util.camel.helper.OJBUtils;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.w3c.dom.Document;
 
 @UseAdviceWith
 // NOTE: this causes Camel contexts to not start up automatically
@@ -41,18 +54,75 @@ import org.springframework.test.context.ContextConfiguration;
 		})
 @DirtiesContext
 public class TestIdentifierRequestService {
-
+	
+	private static final Log log = LogFactory.getLog( TestIdentifierRequestService.class );
+	
     @Autowired
     private ModelCamelContext context;
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:result")
-    protected MockEndpoint resultEndpoint;
+    @EndpointInject(uri = "mock:cxf:bean:identifierResponseReplyToEndPoint")
+    protected MockEndpoint identifierResponseReplyToEndPointMock;
 
     @Test
     public void testApplicationStartup() {
         assertTrue(true);
     }
-    
+ 
+	@Before
+	public void setUp() throws Exception {
+    	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
+    	context.getRouteDefinition("identifierRequestRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	// The line below allows us to bypass CXF and send a message directly into the route
+    	    	replaceFromWith("direct:identfierRequestServiceEndpoint");
+    	    }              
+    	});
+
+		context.getRouteDefinition("identifierServiceResponseRoute").adviceWith(
+				context, new AdviceWithRouteBuilder() {
+					@Override
+					public void configure() throws Exception {
+						mockEndpointsAndSkip("cxf:bean:identifierResponseReplyTo*");
+					}
+				});
+
+    	context.start();
+	}	
+	
+	@Test
+	public void testIdentifierRequestService() throws Exception
+	{
+		testIdentifierRequestServiceRoute();	
+	}
+
+	private void testIdentifierRequestServiceRoute() throws Exception, IOException {
+		Exchange senderExchange = SoapMessageUtils.createSenderExchange("src/test/resources/xmlInstances/identifierRequest.xml", context);
+		senderExchange.getIn().setHeader("WSAddressingReplyTo", "https://endpointToBeDetermined");
+
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:identfierRequestServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}
+		
+		identifierResponseReplyToEndPointMock.expectedMessageCount(1);
+		identifierResponseReplyToEndPointMock.assertIsSatisfied();
+
+		Exchange receivedExchange = identifierResponseReplyToEndPointMock.getExchanges().get(0);
+		Document bodyDocument = receivedExchange.getIn().getBody(Document.class);
+		String bodyString = OJBUtils.getStringFromDocument(bodyDocument);
+		log.info("body: \n" + bodyString);
+		
+		String uniqueId = XmlUtils.xPathStringSearch(bodyDocument, "/i-resp-doc:IdentifierResponse/nc30:Identification/nc30:IdentificationID");
+		assertNotNull(StringUtils.trimToNull(uniqueId));
+
+	}
+	
+
 }
