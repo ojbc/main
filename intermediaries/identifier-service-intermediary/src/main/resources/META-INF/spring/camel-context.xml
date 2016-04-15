@@ -71,7 +71,7 @@
 			<camel:to 
 				uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
 
-			<camel:to uri="bean:identifierRequestProcessor?method=invokeSynchronousRequest"/>
+			<camel:to uri="bean:identifierRequestProcessor?method=mimicSynchServiceInvocation"/>
 			<camel:to uri="direct:processFederatedResponse"/>
 													
 		</route>
