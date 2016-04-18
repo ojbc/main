@@ -1,0 +1,31 @@
+body {
+	background-color: #fafafa;
+	font-family: Arial, Helvetica, sans serif;
+	font-size: small;
+}
+
+.error {
+	color: #ff0000;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.warning {
+	background-color: yellow;
+}
+
+th {
+	text-align: left;
+	font-size: small!important;
+}
+
+#pageRoot {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1250px;
+}
+
+#mainContent {
+	padding: 15px;
+	min-height: 1000px;
+}
