@@ -71,13 +71,13 @@
 			<camel:to 
 				uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
 
-			<camel:to uri="bean:identifierRequestProcessor?method=invokeRequest"/>
+			<camel:to uri="bean:identifierRequestProcessor?method=mimicSynchServiceInvocation"/>
 			<camel:to uri="direct:processFederatedResponse"/>
 													
 		</route>
 
 	    <!-- Process response here -->
-		<camel:route>
+		<camel:route id="identifierServiceResponseRoute">
 			<camel:from uri="direct:processFederatedResponse"/>
 				
 			<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>

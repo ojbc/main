@@ -37,7 +37,7 @@ public class IdentifierRequestProcessor extends RequestResponseProcessor impleme
 	
 	private static final Log log = LogFactory.getLog( IdentifierRequestProcessor.class );
 	
-	public String invokeSynchronousRequest( Exchange exchange) throws Exception
+	public String mimicSynchServiceInvocation( Exchange exchange) throws Exception
 	{
 		String tokenID = exchange.getExchangeId();
 		exchange.getIn().setHeader("tokenID", tokenID);
