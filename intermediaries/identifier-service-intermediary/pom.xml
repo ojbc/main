@@ -54,6 +54,7 @@
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
 		<ojb-fedquery-common-version>[2.0.0,)</ojb-fedquery-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
+		<ojb-test-common-version>[1.0.0,)</ojb-test-common-version>
 		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
 		<java-version>1.8</java-version>
 	</properties>
@@ -173,7 +174,11 @@
 			<version>${spring-version}</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-test-common</artifactId>
+			<version>${ojb-test-common-version}</version>
+		</dependency>
 		<!-- logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
