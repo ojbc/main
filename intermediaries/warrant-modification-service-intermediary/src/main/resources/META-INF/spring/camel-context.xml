@@ -49,10 +49,42 @@
 		<endpoint id="warrantModConnectorResultsHandlerEndpoint" 
 			uri="cxf:bean:warrantModificationConnectorResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantMod.cxflogging}"/>                        
 
+		<endpoint id="fileDropTestInputEndpoint"
+			uri="file:///${warrantMod.testFileInputDir}/input?idempotent=true&amp;moveFailed=${warrantMod.testFileInputDir}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=true" />
 
-		<camel:route id="warrantModRequest_route">
+
+		<camel:route id="warrantModRequestTest_route">
 		
-			<camel:from uri="warrantModIntermediaryRequestEndpoint" />
+			<from uri="fileDropTestInputEndpoint" />
+		
+			<log message="\n\n\n warrantModRequestTest_route... \n\n\n"/>
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitWarrantModificationRequest</constant>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0</constant>
+			</camel:setHeader>
+		
+			<to uri="direct:processWarrantModRequest" />
+		</camel:route>
+
+
+		<route id="warrantModRequest_webservice_Route">
+
+			<from uri="warrantModIntermediaryRequestEndpoint" />
+			
+			<log message="\n\n\n warrantModRequest_webservice_Route... \n\n\n"/>
+			
+			<to uri="direct:processWarrantModRequest" />		
+		
+		</route>
+
+
+		<camel:route id="processWarrantModRequest_route">
+		
+			<camel:from uri="direct:processWarrantModRequest" />
 			
 			<camel:to uri="direct:dbAuditLog"/>
 			

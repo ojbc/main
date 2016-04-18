@@ -94,7 +94,7 @@ public class CamelContextTest {
 	@Before
 	public void setUp() throws Exception {
 		
-    	context.getRouteDefinition("warrantModRequest_route").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("warrantModRequest_webservice_Route").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
     	    	
