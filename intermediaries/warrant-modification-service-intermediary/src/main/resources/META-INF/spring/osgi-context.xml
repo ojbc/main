@@ -32,9 +32,9 @@
        http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd">
 
 	<!-- OSGi service reference to the context service defined in the derived bundle -->
-	<osgi:reference id="org.ojbc.bundles.intermediaries.warrantmodification.warrant-modification-service-intermediary-context"
+	<osgi:reference id="org.ojbc.bundles.intermediaries.warrant-modification-service-intermediary-context"
 		interface="org.ojbc.util.osgi.OjbcContext"
-		bean-name="org.ojbc.bundles.intermediaries.warrantmodification.warrant-modification-service-intermediary-context"/>
+		bean-name="org.ojbc.bundles.intermediaries.warrant-modification-service-intermediary-context"/>
 
 	<!-- Properties list built from four components, in order of precedence:
 	

@@ -28,7 +28,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
 
-	<bean id="org.ojbc.bundles.intermediaries.warrantmodification.warrant-modification-service-intermediary-context" class="org.ojbc.util.osgi.OjbcContextImpl"/>
+	<bean id="org.ojbc.bundles.intermediaries.warrant-modification-service-intermediary-context" class="org.ojbc.util.osgi.OjbcContextImpl"/>
 
 	<util:list id="propertiesList">
 		<ref bean="classpathProperties"/>

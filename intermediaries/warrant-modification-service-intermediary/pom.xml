@@ -216,14 +216,6 @@
         </configuration>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-maven-plugin</artifactId>
-        <version>${camel-version}</version>
-          <!-- allows the route to be ran via 'mvn camel:run' --><configuration>
-    		<applicationContextUri>META-INF/spring/camel-context.xml</applicationContextUri>
-  		</configuration>
-      </plugin>
 
 	  <plugin>
 	    <groupId>org.apache.felix</groupId>

@@ -220,4 +220,7 @@
 	<bean id="warrantModResponseAggregator"
 		class="org.ojbc.bundles.intermediaries.warrantmodification.aggregator.WarrantModResponseAggregator"/>
 			
+	<bean id="warrantModMockInputProcessor" 
+		class="org.ojbc.bundles.intermediaries.warrantmodification.processor.WarrantModMockInputProcessor" />
+			
 </beans>

@@ -38,7 +38,7 @@
 		<property name="propertiesArray">
 			<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 				<property name="targetObject">
-					<ref bean="org.ojbc.bundles.intermediaries.warrantmodification.warrant-modification-service-intermediary-context" />
+					<ref bean="org.ojbc.bundles.intermediaries.warrant-modification-service-intermediary-context" />
 				</property>
 				<property name="targetMethod">
 					<value>getPropertiesList</value>
@@ -50,7 +50,6 @@
 	<bean id="bridgePropertyPlaceholder" class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
 		<property name="propertiesArray" ref="propertiesList" />
 	</bean>	
-
+	
 </beans>
-
 
