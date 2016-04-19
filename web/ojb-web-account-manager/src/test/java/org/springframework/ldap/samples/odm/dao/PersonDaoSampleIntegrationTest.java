@@ -26,10 +26,6 @@ import org.springframework.ldap.samples.plain.domain.Person;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-/**
- * Abstract base class for PersonDao integration tests.
- *
- */
 @ContextConfiguration("/config/testContext.xml")
 public class PersonDaoSampleIntegrationTest extends
         AbstractJUnit4SpringContextTests {

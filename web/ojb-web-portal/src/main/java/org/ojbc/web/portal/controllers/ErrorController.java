@@ -23,10 +23,12 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojb.web.portal.WebPortalConstants;
+import org.ojbc.web.WebUtils;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.security.config.AccessControlServicesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,9 @@ public class ErrorController {
     @Value("${helpdesk.contactInfo:}")
     String helpDeskContactInfo;
     
+    @Value("${requireFederatedQueryUserIndicator:true}")
+    boolean requireFederatedQueryUserIndicator;
+   
     @Resource
     SearchResultConverter searchResultConverter;
     
@@ -84,18 +89,20 @@ public class ErrorController {
             model.put("accessControlResponse", convertPersonSearchResult);
 		}
 		else {
-		    model.put("accessControlResponse", getErrorMessage(user));
+		    model.put("accessControlResponse", getErrorMessage(authentication));
 		}
 		
 		return "/error/403";
  
 	}
 
-    private String getErrorMessage(Principal user) {
+    private String getErrorMessage(Authentication authentication) {
         StringBuilder sb = new StringBuilder(128); 
         
-        if (user!= null && WebPortalConstants.EMPTY_FEDERATION_ID.equals(user.getName())){
-        	sb.append( "Login Error: One or more required user attributes are missing or not valid,  ");
+        Boolean federatedQueryUserIndicator = WebUtils.getFederatedQueryUserIndicator((Element)authentication.getCredentials());
+        if ( (requireFederatedQueryUserIndicator && BooleanUtils.isNotTrue(federatedQueryUserIndicator))
+        		|| (authentication!= null && WebPortalConstants.EMPTY_FEDERATION_ID.equals(authentication.getName()))){
+        	sb.append( "Login Error: One or more required user attributes are missing or not valid.  ");
         }
         else {
         	sb.append( "LOGIN ERROR: Failed to get access control response. ");
