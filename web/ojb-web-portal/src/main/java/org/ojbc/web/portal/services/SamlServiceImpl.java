@@ -137,6 +137,7 @@ public class SamlServiceImpl implements SamlService{
             customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
 //                customAttributes.put(SamlAttribute.FederationId.getAttibuteName(), "HIJIS:IDP:HCJDC:USER:demouser4");
             customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+//            customAttributes.put(SamlAttribute.FederatedQueryUserIndicator, "");
 //                customAttributes.put("gfipm:2.0:user:EmployerORI", "H00000001");
             
             samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
