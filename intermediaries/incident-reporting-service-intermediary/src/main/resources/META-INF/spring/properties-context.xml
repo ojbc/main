@@ -41,6 +41,7 @@
 					<prop key="incidentReportingService.chargeReferralServiceEndpoint">https://localhost:18052/OJB/ChargeReferralServiceAdapter</prop>
 					<prop key="incidentReportingService.arrestReportingServiceEndpoint">https://localhost:18022/OJB/ArrestReportingService</prop>
 					<prop key="incidentReportingService.notificationBrokerEndpoint">http://localhost:18040/OJB/SubscribeNotify</prop>
+					<prop key="incidentReportingService.chargeReferralReportingServiceEndpoint">https://localhost:8443/OJB/intermediary/ChargeReferralReportingService</prop>
 				</util:properties>
 				<!-- The .cfg file from the classpath will be consulted first, followed 
 					by the optional .cfg file under $KARAF_HOME/etc -->

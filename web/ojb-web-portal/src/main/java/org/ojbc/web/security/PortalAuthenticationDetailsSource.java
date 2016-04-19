@@ -22,10 +22,12 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojb.web.portal.WebPortalConstants;
 import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.web.WebUtils;
 import org.ojbc.web.security.config.AccessControlServicesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,6 +50,9 @@ public class PortalAuthenticationDetailsSource implements
     @Value("${requireSubscriptionAccessControl:false}")
     boolean requireSubscriptionAccessControl;
     
+    @Value("${requireFederatedQueryUserIndicator:true}")
+    boolean requireFederatedQueryUserIndicator;
+    
     @Value("${policy.accesscontrol.requestedresource:}")
     private String policyAccessControlResourceURI;
     
@@ -67,6 +72,13 @@ public class PortalAuthenticationDetailsSource implements
         Element samlAssertion = (Element)context.getAttribute("samlAssertion");
         SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
         
+        Boolean federatedQueryUserIndicator = WebUtils.getFederatedQueryUserIndicator(samlAssertion);
+        
+        if ( BooleanUtils.isNotTrue(federatedQueryUserIndicator)){
+            return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, 
+                    grantedAuthorities);
+        }
+    
         String principal = (String) context.getAttribute("principal");
         log.info("requireIdentityBasedAccessControl:" + requireIdentityBasedAccessControl);
         if (requireIdentityBasedAccessControl && !WebPortalConstants.EMPTY_FEDERATION_ID.equals(principal)) {
