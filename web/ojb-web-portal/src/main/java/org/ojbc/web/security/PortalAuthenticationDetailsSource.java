@@ -22,6 +22,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojb.web.portal.WebPortalConstants;
@@ -30,6 +32,7 @@ import org.ojbc.web.security.config.AccessControlServicesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails;
 import org.springframework.stereotype.Service;
@@ -67,6 +70,13 @@ public class PortalAuthenticationDetailsSource implements
         Element samlAssertion = (Element)context.getAttribute("samlAssertion");
         SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
         
+        Boolean federatedQueryUserIndicator = getFederatedQueryUserIndicator(samlAssertion);
+        
+        if ( BooleanUtils.isNotTrue(federatedQueryUserIndicator)){
+            return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, 
+                    grantedAuthorities);
+        }
+    
         String principal = (String) context.getAttribute("principal");
         log.info("requireIdentityBasedAccessControl:" + requireIdentityBasedAccessControl);
         if (requireIdentityBasedAccessControl && !WebPortalConstants.EMPTY_FEDERATION_ID.equals(principal)) {
@@ -120,6 +130,21 @@ public class PortalAuthenticationDetailsSource implements
         return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, 
                 grantedAuthorities);
     }
+
+	private Boolean getFederatedQueryUserIndicator(Element samlAssertion) {
+		String federatedQueryUserIndicatorString = null;
+        try {
+			federatedQueryUserIndicatorString  = XmlUtils.xPathStringSearch(samlAssertion,
+			        "/saml2:Assertion/saml2:AttributeStatement[1]/"
+			        + "saml2:Attribute[@Name='gfipm:ext:user:FederatedQueryUserIndicator']/saml2:AttributeValue");
+		} catch (Exception e) {
+			log.warn("Failed to retrieve FederatedQueryUserIndicator");
+			e.printStackTrace();
+		}
+        
+        Boolean federatedQueryUserIndicator = BooleanUtils.toBooleanObject(StringUtils.trimToNull(federatedQueryUserIndicatorString));
+		return federatedQueryUserIndicator;
+	}
 
     private String getAccessDeniedIndicator(String accessControlResponseString) {
         Document responseDocument = DocumentUtils.getDocumentFromXmlString(accessControlResponseString);
