@@ -59,6 +59,12 @@
 		
 			<log message="\n\n\n warrantModRequestTest_route... \n\n\n"/>
 
+			<to uri="bean:warrantModMockInputProcessor?method=prepareMockInputMessage" />
+
+			<camel:setHeader headerName="federatedQueryRequestGUID">
+				<constant>12345</constant>				
+			</camel:setHeader>
+
 			<camel:setHeader headerName="operationName">
 				<constant>SubmitWarrantModificationRequest</constant>
 			</camel:setHeader>
@@ -66,8 +72,9 @@
 			<camel:setHeader headerName="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0</constant>
 			</camel:setHeader>
-		
+								
 			<to uri="direct:processWarrantModRequest" />
+			
 		</camel:route>
 
 
@@ -186,7 +193,7 @@
 			
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 			
-			<camel:log message="\n\n\n Sending warrant mod response to ${in.headers.recipientListReplyToEndpoint} \n\n\n" />			
+			<camel:log message="\n\n\n Sending warrant mod response to connector result handler \n\n\n" />			
 						
 			<to uri="warrantModConnectorResultsHandlerEndpoint"/>
 		</route>
@@ -222,5 +229,5 @@
 			
 	<bean id="warrantModMockInputProcessor" 
 		class="org.ojbc.bundles.intermediaries.warrantmodification.processor.WarrantModMockInputProcessor" />
-			
+					
 </beans>
