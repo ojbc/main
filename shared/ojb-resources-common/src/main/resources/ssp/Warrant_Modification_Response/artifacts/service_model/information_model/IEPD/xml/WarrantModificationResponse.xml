@@ -28,7 +28,7 @@
 		<j:CourtOrderEnforcementAgency>
 			<j:OrganizationAugmentation>
 				<j:OrganizationORIIdentification>
-					<nc:IdentificationID>LE Agency ORI</nc:IdentificationID>
+					<nc:IdentificationID>LE657890</nc:IdentificationID>
 				</j:OrganizationORIIdentification>
 			</j:OrganizationAugmentation>
 		</j:CourtOrderEnforcementAgency>
@@ -52,8 +52,8 @@
 			<nc:PersonSurName>Jones</nc:PersonSurName>
 			<nc:PersonNameSuffixText>Jr</nc:PersonNameSuffixText>
 		</nc:PersonName>
-		<j:PersonRaceCode>B</j:PersonRaceCode>
-		<j:PersonSexCode>M</j:PersonSexCode>
+		<nc:PersonRaceText>B</nc:PersonRaceText>
+		<nc:PersonSexText>M</nc:PersonSexText>
 		<wm-resp-ext:PersonRecordIdentification>
 			<nc:IdentificationID>PR45789</nc:IdentificationID>
 		</wm-resp-ext:PersonRecordIdentification>
