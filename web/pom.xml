@@ -33,6 +33,7 @@
   <modules>
     <module>ojb-web-util</module>
     <module>ojb-web-portal</module>
+    <module>ojb-web-account-manger</module>
   </modules>
 
 </project>
