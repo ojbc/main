@@ -30,7 +30,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Test;
-import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Subscription;
 import org.w3c.dom.Document;
 
 public class SubscriptionQueryResultsProcessorTest {

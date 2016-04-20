@@ -27,8 +27,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.web.model.subscription.Unsubscription;
-import org.ojbc.web.util.RequestMessageBuilderUtilities;
+import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
+import org.ojbc.util.xml.subscription.Unsubscription;
 import org.w3c.dom.Document;
 
 public class UnsubscriptionMessageProcessorTest {
@@ -47,7 +47,7 @@ public class UnsubscriptionMessageProcessorTest {
 		
 		Unsubscription unsubscription = new Unsubscription("123456", "topic", "CI");
 		
-		Document unsubscribeDoc = RequestMessageBuilderUtilities.createUnubscriptionRequest(unsubscription);		
+		Document unsubscribeDoc = SubscriptionNotificationDocumentBuilderUtils.createUnubscriptionRequest(unsubscription);		
 		
 		Document expectedUnsubDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/xml/output/unsubscribe/Unsubscribe.xml"));
 				

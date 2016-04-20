@@ -21,7 +21,7 @@ import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Subscription;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

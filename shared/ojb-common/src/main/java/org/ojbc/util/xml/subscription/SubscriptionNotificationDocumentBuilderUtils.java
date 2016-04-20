@@ -14,10 +14,9 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web.util;
+package org.ojbc.util.xml.subscription;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getUniqueId;
-import static org.ojbc.web.OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,16 +28,16 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.lang.StringUtils;
+import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.web.model.subscription.Subscription;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 
-public class SubscriptionDocumentBuilder {				
+public class SubscriptionNotificationDocumentBuilderUtils {				
 
-	private static final Logger logger = Logger.getLogger(SubscriptionDocumentBuilder.class.getName());
+	private static final Logger logger = Logger.getLogger(SubscriptionNotificationDocumentBuilderUtils.class.getName());
 	
 	private static final String SYSTEM_NAME = "{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB";
 	
@@ -46,27 +45,24 @@ public class SubscriptionDocumentBuilder {
 	
 	private static final String TOPIC_EXPRESSION_DIALECT = "http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete";	
 	
+	public static final String CIVIL_SUBSCRIPTION_REASON_CODE="I";
+	
 	private static final OjbcNamespaceContext OJBC_NAMESPACE_CONTEXT = new OjbcNamespaceContext();
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
-	private Subscription subscription;
+	public static Document createSubscriptionRequest(Subscription subscription) throws ParserConfigurationException{
 		
-	
-	public Document buildSubscribeDoc(Subscription pSubscription) throws ParserConfigurationException{
-		
-		subscription = pSubscription;	
-        
         Document subMsgDoc = createBlankDoc();        
         Element rootSubscribeElement = getRootSubscribeElement(subMsgDoc); 
 
 		buildConsumerRefElement(rootSubscribeElement);
 		
-		buildFilterElement(rootSubscribeElement);
+		buildFilterElement(rootSubscribeElement, subscription);
 						
 		XmlUtils.appendElement(rootSubscribeElement, OjbcNamespaceContext.NS_B2, "SubscriptionPolicy");
 				
-		buildSubscriptionMessageNode(rootSubscribeElement);
+		buildSubscriptionMessageNode(rootSubscribeElement, subscription);
 		
 		OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(rootSubscribeElement);
 		
@@ -74,7 +70,7 @@ public class SubscriptionDocumentBuilder {
 	}
 	
 	
-	private void buildEmailElements(Element parentNode, List<String> emailList){
+	private static void buildEmailElements(Element parentNode, List<String> emailList){
 		
 		for(String iEmail : emailList){			
 			if(StringUtils.isNotBlank(iEmail)){
@@ -84,7 +80,7 @@ public class SubscriptionDocumentBuilder {
 		}		
 	}
 	
-	private void buildDateRangeNode(Element parentNode){
+	private static void buildDateRangeNode(Element parentNode, Subscription subscription){
 						
 		Element dateRangeNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_NC, "DateRange");
 		
@@ -108,7 +104,7 @@ public class SubscriptionDocumentBuilder {
 	}
 	
 	
-	private void buildSubQualIdNode(Element parentNode){
+	private static void buildSubQualIdNode(Element parentNode){
 		
 		Element subQualIdNode =  XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionQualifierIdentification");
 		
@@ -118,13 +114,13 @@ public class SubscriptionDocumentBuilder {
 	}
 	
 	
-	private void buildSubscriptionMessageNode(Element parentNode){
+	private static void buildSubscriptionMessageNode(Element parentNode, Subscription subscription){
 		
 		Element subMsgNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXCHANGE, "SubscriptionMessage");
 		
-		buildCaseIdElement(subMsgNode);
+		buildCaseIdElement(subMsgNode, subscription);
 												
-		buildSubjectElement(subMsgNode);	
+		buildSubjectElement(subMsgNode,subscription);	
 		
 		buildEmailElements(subMsgNode, subscription.getEmailList());
 		
@@ -133,14 +129,14 @@ public class SubscriptionDocumentBuilder {
 		
 		buildSubQualIdNode(subMsgNode);
 		
-		buildDateRangeNode(subMsgNode);		
+		buildDateRangeNode(subMsgNode, subscription);		
 		
-		buildSubscriptionIdNode(subMsgNode);
+		buildSubscriptionIdNode(subMsgNode, subscription);
 		
-		buildSubscriptionReasonCodeElement(subMsgNode);
+		buildSubscriptionReasonCodeElement(subMsgNode, subscription);
 	}
 	
-	private void buildCaseIdElement(Element parentNode){
+	private static void buildCaseIdElement(Element parentNode, Subscription subscription){
 		
 		String caseId = subscription.getCaseId();
 		
@@ -154,7 +150,7 @@ public class SubscriptionDocumentBuilder {
 		}		
 	}
 		
-	private void buildSubscriptionReasonCodeElement(Element parentElement){
+	private static void buildSubscriptionReasonCodeElement(Element parentElement, Subscription subscription){
 
 		String subscriptionReasonCode = subscription.getSubscriptionPurpose();
 		
@@ -171,7 +167,7 @@ public class SubscriptionDocumentBuilder {
 		}
 	}
 		
-	private void buildSubscriptionIdNode(Element subMsgNode) {
+	private static void buildSubscriptionIdNode(Element subMsgNode, Subscription subscription) {
 
 		Element subIdNode = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "smext:SubscriptionIdentification");
 		
@@ -187,19 +183,19 @@ public class SubscriptionDocumentBuilder {
 	}
 
 
-	private void buildSubjectElement(Element parentNode){
+	private static void buildSubjectElement(Element parentNode, Subscription subscription){
 		
 		Element subjectNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "Subject");		
 
-		buildDobNode(subjectNode);
+		buildDobNode(subjectNode, subscription);
 		
-		buildPersonNameNode(subjectNode);
+		buildPersonNameNode(subjectNode,subscription);
 		
-		buildPesonAugmentationElement(subjectNode);				
+		buildPesonAugmentationElement(subjectNode,subscription);				
 	}
 	
 	
-	private void buildDobNode(Element subjectNode) {
+	private static void buildDobNode(Element subjectNode, Subscription subscription) {
 
 		Date dob = subscription.getDateOfBirth();
 		
@@ -214,7 +210,7 @@ public class SubscriptionDocumentBuilder {
 	}
 
 
-	private void buildPesonAugmentationElement(Element parentNode){
+	private static void buildPesonAugmentationElement(Element parentNode, Subscription subscription){
 		
 		String sid = subscription.getStateId();
 		
@@ -250,7 +246,7 @@ public class SubscriptionDocumentBuilder {
 		}		
 	}
 	
-	private void buildPersonNameNode(Element parentNode){
+	private static void buildPersonNameNode(Element parentNode, Subscription subscription){
 		
 		Element personNameNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_NC, "PersonName");		
 				
@@ -275,7 +271,7 @@ public class SubscriptionDocumentBuilder {
 
 	
 	
-	private void buildFilterElement(Element parentElement){
+	private static void buildFilterElement(Element parentElement, Subscription subscription){
 		
 		Element filterElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_B2, "Filter");
 						
@@ -289,7 +285,7 @@ public class SubscriptionDocumentBuilder {
 	}
 	
 
-	private Element buildConsumerRefElement(Element parentElement){
+	private static Element buildConsumerRefElement(Element parentElement){
 		
 		Element consumerRefElement = XmlUtils.appendElement(parentElement, 
 				OjbcNamespaceContext.NS_B2, "ConsumerReference");
@@ -308,7 +304,7 @@ public class SubscriptionDocumentBuilder {
 	}
 	
 	
-	private Element getRootSubscribeElement(Document responseDoc){
+	private static Element getRootSubscribeElement(Document responseDoc){
 		
 		 Element root = responseDoc.createElementNS(OjbcNamespaceContext.NS_B2, "Subscribe");
 	        
@@ -318,13 +314,49 @@ public class SubscriptionDocumentBuilder {
 	        return root;
 	}
 	
-	private Document createBlankDoc() throws ParserConfigurationException{
+	private static Document createBlankDoc() throws ParserConfigurationException{
 	
         DocumentBuilderFactory docBuilderFact = DocumentBuilderFactory.newInstance();
         docBuilderFact.setNamespaceAware(true);
         DocumentBuilder docBuilder = docBuilderFact.newDocumentBuilder();
         
         return docBuilder.newDocument();
+	}
+	
+	public static Document createUnubscriptionRequest(Unsubscription unsubscription) throws Exception{
+		
+		String subscriptionIdentificationId = unsubscription.getSubscriptionId();
+		
+		Document doc = OJBCXMLUtils.createDocument();
+        Element root = doc.createElementNS(OjbcNamespaceContext.NS_B2, "Unsubscribe");
+        doc.appendChild(root);
+        root.setPrefix(OjbcNamespaceContext.NS_PREFIX_B2);
+		
+        Element unsubscriptionMessage = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_UNBSUB_MSG_EXCHANGE, "UnsubscriptionMessage");
+        
+        Element subscriptionIdentification = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionIdentification");
+        
+        Element identificationID = XmlUtils.appendElement(subscriptionIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
+        identificationID.setTextContent(subscriptionIdentificationId);
+                
+		String reasonCode = unsubscription.getReasonCode();
+        if (CIVIL_SUBSCRIPTION_REASON_CODE.equals(reasonCode)){
+	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
+	        reasonCodeElement.setTextContent(reasonCode);
+        }
+        else{
+	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
+	        reasonCodeElement.setTextContent(reasonCode);
+        }
+        
+		Element topicExpNode = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_B2, "TopicExpression");		
+		XmlUtils.addAttribute(topicExpNode, null, "Dialect", TOPIC_EXPRESSION_DIALECT);		
+		topicExpNode.setTextContent(unsubscription.getTopic());
+		
+		OjbcNamespaceContext ojbNamespaceCtxt = new OjbcNamespaceContext();
+		ojbNamespaceCtxt.populateRootNamespaceDeclarations(doc.getDocumentElement());
+		
+		return doc;
 	}
 
 }
