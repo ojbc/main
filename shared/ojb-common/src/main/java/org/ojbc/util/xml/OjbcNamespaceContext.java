@@ -39,6 +39,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
 	
+	public static final String NS_WARRANT_MOD_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0";
+	public static final String NS_PREFIX_WARRANT_MOD_DOC_EXCH = "wm-req-doc";	
+	
+	public static final String NS_WARRANT_MOD_REQ_EXT = "http://ojbc.org/IEPD/Extensions/WarrantModificationRequestExtension/1.0";
+	public static final String NS_PREFIX_WARRANT_MOD_REQ_EXT = "wm-req-ext";
+	
 	public static final String NS_BEHAVIOR_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/BehavioralHealthEvaluationRecord/1.0";
 	public static final String NS_PREFIX_BEHAVIOR_REPORT_DOC_EXCH = "bhr-doc";	
 	
@@ -1416,6 +1422,11 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_IDENTIFIER_RESPONSE_DOC, NS_IDENTIFIER_RESPONSE_DOC);
 		uriToPrefixMap.put(NS_IDENTIFIER_RESPONSE_DOC, NS_PREFIX_IDENTIFIER_RESPONSE_DOC);
 		
+		prefixToUriMap.put(NS_PREFIX_WARRANT_MOD_REQ_EXT, NS_WARRANT_MOD_REQ_EXT);
+		uriToPrefixMap.put(NS_WARRANT_MOD_REQ_EXT, NS_PREFIX_WARRANT_MOD_REQ_EXT);	
+		
+		prefixToUriMap.put(NS_PREFIX_WARRANT_MOD_DOC_EXCH, NS_WARRANT_MOD_DOC_EXCH);
+		uriToPrefixMap.put(NS_WARRANT_MOD_DOC_EXCH, NS_PREFIX_WARRANT_MOD_DOC_EXCH);				
 	}
 
 	@Override
