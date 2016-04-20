@@ -38,6 +38,9 @@ import org.w3c.dom.NodeList;
 public final class OjbcNamespaceContext implements NamespaceContext {
 
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
+			
+	public static final String NS_SCREENING_3_1 = "http://release.niem.gov/niem/domains/screening/3.1/";
+	public static final String NS_PREFIX_SCREENING_3_1 = "scr31";
 	
 	public static final String NS_WARRANT_MOD_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0";
 	public static final String NS_PREFIX_WARRANT_MOD_DOC_EXCH = "wm-req-doc";	
@@ -1426,7 +1429,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_WARRANT_MOD_REQ_EXT, NS_PREFIX_WARRANT_MOD_REQ_EXT);	
 		
 		prefixToUriMap.put(NS_PREFIX_WARRANT_MOD_DOC_EXCH, NS_WARRANT_MOD_DOC_EXCH);
-		uriToPrefixMap.put(NS_WARRANT_MOD_DOC_EXCH, NS_PREFIX_WARRANT_MOD_DOC_EXCH);				
+		uriToPrefixMap.put(NS_WARRANT_MOD_DOC_EXCH, NS_PREFIX_WARRANT_MOD_DOC_EXCH);	
+		
+		prefixToUriMap.put(NS_PREFIX_SCREENING_3_1, NS_SCREENING_3_1);
+		uriToPrefixMap.put(NS_SCREENING_3_1, NS_PREFIX_SCREENING_3_1);			
 	}
 
 	@Override
