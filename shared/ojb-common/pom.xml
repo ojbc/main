@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-common</artifactId>
-	<version>3.0.0</version>
+	<version>3.0.1</version>
 	<name>OJB :: ojb-common :: Shared</name>
 	<packaging>bundle</packaging>
 	<url>http://www.ojbc.org</url>

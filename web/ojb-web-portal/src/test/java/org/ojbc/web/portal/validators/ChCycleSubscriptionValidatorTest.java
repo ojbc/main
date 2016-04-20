@@ -24,7 +24,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Subscription;
 
 public class ChCycleSubscriptionValidatorTest {
 	

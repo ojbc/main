@@ -27,7 +27,8 @@ import java.util.List;
 
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Subscription;
+import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -138,8 +139,6 @@ public class SubscriptionDocumentBuilderTest {
 	
 	private Document getSampleSubDoc() throws Exception{
 		
-		SubscriptionDocumentBuilder subMsgProcessor = new SubscriptionDocumentBuilder();
-					
 		Subscription subscription = new Subscription();
 				
 		List<String> emailList = Arrays.asList("sam@hipd.gov", "sally@hipd.gov");
@@ -168,7 +167,7 @@ public class SubscriptionDocumentBuilderTest {
 		
 		subscription.setSystemId("777400");
 		
-		Document subMsgDoc = subMsgProcessor.buildSubscribeDoc(subscription);		
+		Document subMsgDoc = SubscriptionNotificationDocumentBuilderUtils.createSubscriptionRequest(subscription);		
 		
 		return subMsgDoc;		
 	}

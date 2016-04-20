@@ -18,7 +18,7 @@ package org.ojbc.web.portal.validators.subscriptions;
 
 import java.util.Map;
 
-import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Subscription;
 import org.springframework.validation.BindingResult;
 
 public interface ArrestSubscriptionValidatorInterface {

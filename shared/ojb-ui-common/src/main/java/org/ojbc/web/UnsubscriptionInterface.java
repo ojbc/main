@@ -16,7 +16,7 @@
  */
 package org.ojbc.web;
 
-import org.ojbc.web.model.subscription.Unsubscription;
+import org.ojbc.util.xml.subscription.Unsubscription;
 import org.w3c.dom.Element;
 
 public interface UnsubscriptionInterface {

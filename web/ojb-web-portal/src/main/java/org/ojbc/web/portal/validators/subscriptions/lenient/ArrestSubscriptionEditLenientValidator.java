@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
-import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;

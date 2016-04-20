@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web.model.subscription;
+package org.ojbc.util.xml.subscription;
 
 public class Unsubscription {
 		       
