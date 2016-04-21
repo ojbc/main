@@ -127,6 +127,8 @@
 			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court" />
 		<entry key="Jail"
 			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Jail" />
+		<entry key="Vehicle Crash"
+			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash" />
 	</util:map>
 
 	<util:map id="systemsToQuery_people_disabled" map-class="java.util.LinkedHashMap">
@@ -546,6 +548,7 @@
 		<entry key="Custody" value="custody-list.xsl" />
 		<entry key="Court Case Detail" value="court-case-detail.xsl" />
 		<entry key="Custody Detail" value="custody-detail.xsl" />
+		<entry key="Vehicle Crash" value="vehicle-crash.xsl" />
 	</util:map>
 	<util:map id="placements" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Placement" />
