@@ -56,7 +56,7 @@ public class SubscriptionQueryResultsProcessor {
 		parseDateNode(dateRangeNode, subscription);				
 				
 		String topic = XmlUtils.xPathStringSearch(subscriptionNode, "wsn-br:Topic");
-		subscription.setSubscriptionType(topic.trim());
+		subscription.setTopic(topic.trim());
 		
 		String systemId = XmlUtils.xPathStringSearch(subQueryResultNode, "intel:SystemIdentifier/nc:IdentificationID");
 		subscription.setSystemId(systemId);		

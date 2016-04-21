@@ -34,7 +34,7 @@ public class IncidentSubscriptionEditValidator {
 				
 		logger.info("* * * inside validate()");
 							
-		String topic = subscription.getSubscriptionType(); 		
+		String topic = subscription.getTopic(); 		
 		if(StringUtils.isBlank(topic)){
 			errors.rejectValue("subscriptionType", "Subscription type must be specified");
 		}

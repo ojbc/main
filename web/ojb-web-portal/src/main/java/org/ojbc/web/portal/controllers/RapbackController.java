@@ -260,7 +260,7 @@ public class RapbackController {
 		
 		setSubscripitonContactEmails(rapbackSearchResultsDoc, subscription);
 		
-		subscription.setSubscriptionType(TOPIC_PERSON_ARREST);
+		subscription.setTopic(TOPIC_PERSON_ARREST);
 		subscription.setSubscriptionPurpose(CIVIL_SUBSCRIPTION_REASON_CODE);
 		
 		return subscription;

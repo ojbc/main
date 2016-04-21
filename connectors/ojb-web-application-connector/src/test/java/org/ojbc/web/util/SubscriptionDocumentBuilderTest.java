@@ -158,7 +158,7 @@ public class SubscriptionDocumentBuilderTest {
 		Date dSubEndDate = sdf.parse(sSubEndDate);
 		subscription.setSubscriptionEndDate(dSubEndDate);
 		
-		subscription.setSubscriptionType("topics:person/arrest");
+		subscription.setTopic("topics:person/arrest");
 		
 		subscription.setFirstName("Marie-laure");
 		subscription.setLastName("Guillaume");

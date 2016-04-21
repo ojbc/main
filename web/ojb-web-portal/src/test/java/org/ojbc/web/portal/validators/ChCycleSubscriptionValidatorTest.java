@@ -106,7 +106,7 @@ public class ChCycleSubscriptionValidatorTest {
 						
 		Subscription subscription = new Subscription();
 		
-		subscription.setSubscriptionType("{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment");		
+		subscription.setTopic("{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment");		
 		subscription.setStateId("123");		
 		subscription.setFirstName("Homer");
 		subscription.setLastName("Simpson");			
