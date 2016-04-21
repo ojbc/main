@@ -124,11 +124,22 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
 		buildEmailElements(subMsgNode, subscription.getEmailList());
 		
-		Element sysNameNode = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SystemName");				
-		sysNameNode.setTextContent(SYSTEM_NAME); 
+		Element sysNameNode = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SystemName");
 		
-		buildSubQualIdNode(subMsgNode);
+		if (StringUtils.isNotBlank(subscription.getSystemName()))
+		{
+			sysNameNode.setTextContent(subscription.getSystemName());
+		}	
+		else
+		{	
+			sysNameNode.setTextContent(SYSTEM_NAME);
+		}	
 		
+		if (subscription.isIncludeSubscriptionQualificationNode())
+		{	
+			buildSubQualIdNode(subMsgNode);
+		}
+			
 		buildDateRangeNode(subMsgNode, subscription);		
 		
 		buildSubscriptionIdNode(subMsgNode, subscription);
@@ -169,17 +180,18 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
 	private static void buildSubscriptionIdNode(Element subMsgNode, Subscription subscription) {
 
-		Element subIdNode = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "smext:SubscriptionIdentification");
-		
-		String systemId = subscription.getSystemId();
-		
-		if(StringUtils.isNotBlank(systemId)){
+		if(StringUtils.isNotBlank(subscription.getSystemId()))
+		{	
+			Element subIdNode = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "smext:SubscriptionIdentification");
+			
+			String systemId = subscription.getSystemId();
+			
 			Element subIdValNode = XmlUtils.appendElement(subIdNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
 			subIdValNode.setTextContent(systemId);			
+					
+			Element idSrcTxtNode = XmlUtils.appendElement(subIdNode, OjbcNamespaceContext.NS_NC, "IdentificationSourceText");
+			idSrcTxtNode.setTextContent("Subscriptions");
 		}
-				
-		Element idSrcTxtNode = XmlUtils.appendElement(subIdNode, OjbcNamespaceContext.NS_NC, "IdentificationSourceText");
-		idSrcTxtNode.setTextContent("Subscriptions");		
 	}
 
 
@@ -275,12 +287,12 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
 		Element filterElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_B2, "Filter");
 						
-		String subscriptionType = subscription.getSubscriptionType();
+		String topic = subscription.getTopic();
 		
-		if(StringUtils.isNotBlank(subscriptionType)){			
+		if(StringUtils.isNotBlank(topic)){			
 			Element topicExpNode = XmlUtils.appendElement(filterElement, OjbcNamespaceContext.NS_B2, "TopicExpression");		
 			XmlUtils.addAttribute(topicExpNode, null, "Dialect", TOPIC_EXPRESSION_DIALECT);			
-			topicExpNode.setTextContent(subscriptionType);			
+			topicExpNode.setTextContent(topic);			
 		}		
 	}
 	

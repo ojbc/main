@@ -25,7 +25,6 @@ public class Subscription implements Serializable {
 		
 	private static final long serialVersionUID = 7990280609495398189L;
 
-	private String subscriptionType;
 	
 	private String stateId;	
 	
@@ -53,11 +52,15 @@ public class Subscription implements Serializable {
 	private String caseId;
 
 	private String personNamesJsonArray;
+	
+	private String systemName;
 
-	public String getSubscriptionType() {
-		return subscriptionType;
-	}
-
+	private String topic;
+	
+	//This will create the submsg-ext:SubscriptionQualifierIdentification
+	//By default it will be created
+	private boolean includeSubscriptionQualificationNode = true;
+	
 	public String getStateId() {
 		return stateId;
 	}
@@ -108,10 +111,6 @@ public class Subscription implements Serializable {
 
 	public String getPersonNamesJsonArray() {
 		return personNamesJsonArray;
-	}
-
-	public void setSubscriptionType(String subscriptionType) {
-		this.subscriptionType = subscriptionType;
 	}
 
 	public void setStateId(String stateId) {
@@ -166,18 +165,44 @@ public class Subscription implements Serializable {
 		this.personNamesJsonArray = personNamesJsonArray;
 	}
 
+	public String getSystemName() {
+		return systemName;
+	}
+
+	public void setSystemName(String systemName) {
+		this.systemName = systemName;
+	}
+
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
 	@Override
 	public String toString() {
-		return "Subscription [subscriptionType=" + subscriptionType
-				+ ", stateId=" + stateId + ", fbiId=" + fbiId + ", systemId="
-				+ systemId + ", fullName=" + fullName + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", dateOfBirth="
-				+ dateOfBirth + ", subscriptionStartDate="
+		return "Subscription [stateId=" + stateId + ", fbiId=" + fbiId
+				+ ", systemId=" + systemId + ", fullName=" + fullName
+				+ ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", dateOfBirth=" + dateOfBirth + ", subscriptionStartDate="
 				+ subscriptionStartDate + ", subscriptionEndDate="
 				+ subscriptionEndDate + ", emailList=" + emailList
 				+ ", subscriptionPurpose=" + subscriptionPurpose + ", caseId="
 				+ caseId + ", personNamesJsonArray=" + personNamesJsonArray
-				+ "]";
+				+ ", systemName=" + systemName + ", topic=" + topic + "]";
 	}
+
+	public boolean isIncludeSubscriptionQualificationNode() {
+		return includeSubscriptionQualificationNode;
+	}
+
+	public void setIncludeSubscriptionQualificationNode(
+			boolean includeSubscriptionQualificationNode) {
+		this.includeSubscriptionQualificationNode = includeSubscriptionQualificationNode;
+	}
+
+
 	
 }

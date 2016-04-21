@@ -52,7 +52,7 @@ public class SubscriptionsControllerTest {
 		
 		Subscription sub = new Subscription();
 		
-		sub.setSubscriptionType("{http://ojbc.org/wsn/topics}:person/arrest");
+		sub.setTopic("{http://ojbc.org/wsn/topics}:person/arrest");
 		
 		List<String> warningList = subController.getSubscriptionWarnings(sub);
 		
