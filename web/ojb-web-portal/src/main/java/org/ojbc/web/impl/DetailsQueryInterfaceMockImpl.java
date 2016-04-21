@@ -91,6 +91,10 @@ public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
 			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 					"/sampleResponses/jailCustodyDetail/CustodyCaseQueryResults.xml"));
 		} else if (OJBCWebServiceURIs.VEHICLE_CRASH.equals(requestIdSrcTxt)){
+//			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
+//					"/sampleResponses/vehicleCrash/QueryResults-Error.xml"));
+//			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
+//					"/sampleResponses/vehicleCrash/QueryResults-AccessDenied.xml"));
 			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 					"/sampleResponses/vehicleCrash/CrashQueryResults.xml"));
 		}
