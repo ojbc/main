@@ -75,7 +75,7 @@ public class SubscribeMessageTest {
 		
 		Subscription subscription = new Subscription();
 
-		subscription.setSubscriptionType("topics:person/arrest");		
+		subscription.setTopic("topics:person/arrest");		
 		subscription.setCaseId("0123ABC");
 		
 		Date dob = SDF.parse("1972-08-02");		

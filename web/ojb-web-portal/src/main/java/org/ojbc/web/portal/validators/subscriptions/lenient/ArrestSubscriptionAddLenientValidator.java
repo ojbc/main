@@ -65,7 +65,7 @@ public class ArrestSubscriptionAddLenientValidator implements ArrestSubscription
 		
 		Map<String, String> fieldToErrorMap = new HashMap<String, String>();		
 						
-		String topic = subscription.getSubscriptionType(); 		
+		String topic = subscription.getTopic(); 		
 		if(StringUtils.isBlank(topic)){			
 			fieldToErrorMap.put("subscriptionType", "Subscription type must be specified");			
 		}

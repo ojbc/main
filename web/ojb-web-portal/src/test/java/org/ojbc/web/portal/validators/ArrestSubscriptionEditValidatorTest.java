@@ -66,7 +66,7 @@ public class ArrestSubscriptionEditValidatorTest {
 				
 		Subscription subscription = new Subscription();
 		
-		subscription.setSubscriptionType("{http://ojbc.org/wsn/topics}:person/arrest");		
+		subscription.setTopic("{http://ojbc.org/wsn/topics}:person/arrest");		
 		subscription.setStateId("123");		
 		subscription.setFullName("Homer Simpson");	
 		subscription.setSubscriptionStartDate(new Date());
