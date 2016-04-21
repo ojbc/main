@@ -49,7 +49,7 @@
 			</j:ActivityAugmentation>
 			<j:IncidentAugmentation>
 				<j:IncidentDamagedItem>
-					<nc:ItemDescriptionText>Property Damage Description
+					<nc:ItemDescriptionText>Gas Pump
 					</nc:ItemDescriptionText>
 					<nc:ItemOwner>
 						<nc:EntityOrganization structures:ref="Property_Owner_01" />
