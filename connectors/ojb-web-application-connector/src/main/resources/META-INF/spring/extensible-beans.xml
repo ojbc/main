@@ -57,6 +57,11 @@
 			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_PERSON" />
 		</entry>
 		
+		<!-- Person Vehicle Crash -->
+    	<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.VEHICLE_CRASH" />
+		</entry>
+		
 		<!-- Person to Incident list, not supported by static mock adapter --> 
 		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS"/>
 		
