@@ -922,6 +922,11 @@
       <xs:documentation>A manufacturer of a vehicle.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="VehicleModelCode" type="ncic:VMOCodeType" substitutionGroup="nc:VehicleModel">
+    <xs:annotation>
+      <xs:documentation>A specific design or class of vehicle made by a manufacturer.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="VehicleMostHarmfulEvent" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for an event that resulted in the most severe injury or, if no injury, the greatest property damage involving this motor vehicle.</xs:documentation>
