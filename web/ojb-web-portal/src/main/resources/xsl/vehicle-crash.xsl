@@ -157,7 +157,7 @@
 					</td>
 					<td class="detailsLabel">Model</td>
 					<td>
-						No Mapping
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/j:VehicleModelCode"></xsl:value-of>
 					</td>
 				</tr>
 				<tr>
