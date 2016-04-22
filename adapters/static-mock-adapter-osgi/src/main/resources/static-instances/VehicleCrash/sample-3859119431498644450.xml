@@ -24,37 +24,37 @@
                                       xmlns:vcq-res-ext="http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0">
    <vcq-res-ext:VehicleCrashReport>
       <nc30:DocumentCreationDate>
-         <nc30:Date>2016-02-24</nc30:Date>
+         <nc30:Date>2016-04-22</nc30:Date>
       </nc30:DocumentCreationDate>
       <nc30:DocumentIdentification>
-         <nc30:IdentificationID>304122284</nc30:IdentificationID>
+         <nc30:IdentificationID>670874487</nc30:IdentificationID>
       </nc30:DocumentIdentification>
       <vcq-res-ext:DocumentApprovedDate>
-         <nc30:Date>2016-02-24</nc30:Date>
+         <nc30:Date>2016-04-22</nc30:Date>
       </vcq-res-ext:DocumentApprovedDate>
       <jxdm51:Crash s30:id="Crash_01">
          <nc30:ActivityDate>
-            <nc30:DateTime>2016-02-24</nc30:DateTime>
+            <nc30:DateTime>2016-04-22</nc30:DateTime>
          </nc30:ActivityDate>
          <jxdm51:ActivityAugmentation>
             <jxdm51:Narrative>
-               <nc30:CommentText>Car hit a truck</nc30:CommentText>
+               <nc30:CommentText>Rush Hour</nc30:CommentText>
             </jxdm51:Narrative>
          </jxdm51:ActivityAugmentation>
          <jxdm51:IncidentAugmentation>
             <jxdm51:IncidentDamagedItem>
-               <nc30:ItemDescriptionText>Ferrari</nc30:ItemDescriptionText>
+               <nc30:ItemDescriptionText>Camaro</nc30:ItemDescriptionText>
                <nc30:ItemOwner>
                   <nc30:EntityOrganization s30:ref="Property_Owner_01">
                      <nc30:EntityPerson s30:ref="Property_Owner_02"/>
                   </nc30:EntityOrganization>
                </nc30:ItemOwner>
-               <me-crash-codes:PropertyCategoryCode>SB</me-crash-codes:PropertyCategoryCode>
+               <me-crash-codes:PropertyCategoryCode>FER</me-crash-codes:PropertyCategoryCode>
             </jxdm51:IncidentDamagedItem>
             <jxdm51:IncidentReportingOfficial>
                <nc30:RoleOfPerson s30:ref="Reporting_Official_01"/>
                <jxdm51:EnforcementOfficialBadgeIdentification>
-                  <nc30:IdentificationID>82928024</nc30:IdentificationID>
+                  <nc30:IdentificationID>99248470</nc30:IdentificationID>
                </jxdm51:EnforcementOfficialBadgeIdentification>
             </jxdm51:IncidentReportingOfficial>
             <jxdm51:IncidentWitness>
@@ -63,7 +63,7 @@
          </jxdm51:IncidentAugmentation>
          <jxdm51:CrashInformationSource>
             <jxdm51:OrganizationORIIdentification>
-               <nc30:IdentificationID>63329626</nc30:IdentificationID>
+               <nc30:IdentificationID>27544358</nc30:IdentificationID>
             </jxdm51:OrganizationORIIdentification>
          </jxdm51:CrashInformationSource>
          <jxdm51:CrashWorkZone>
@@ -74,18 +74,18 @@
          </jxdm51:CrashWorkZone>
          <jxdm51:CrashVehicle>
             <nc30:RoleOfItem s30:ref="Vehicle_01"/>
-            <jxdm51:VehicleTrafficControlDeviceOperationalIndicator>true</jxdm51:VehicleTrafficControlDeviceOperationalIndicator>
+            <jxdm51:VehicleTrafficControlDeviceOperationalIndicator>false</jxdm51:VehicleTrafficControlDeviceOperationalIndicator>
             <jxdm51:CrashVehicleLegalSpeedRateMeasure>
-               <nc30:MeasureValueText>498</nc30:MeasureValueText>
+               <nc30:MeasureValueText>686</nc30:MeasureValueText>
             </jxdm51:CrashVehicleLegalSpeedRateMeasure>
             <jxdm51:CrashDriver>
                <nc30:RoleOfPerson s30:ref="Driver_01"/>
                <jxdm51:DriverLicense s30:ref="Driver_License_01"/>
-               <me-crash-codes:DriverCategoryCode>Yk</me-crash-codes:DriverCategoryCode>
-               <me-crash-codes:AlcoholTestCategoryCode>UV</me-crash-codes:AlcoholTestCategoryCode>
-               <me-crash-codes:DrugTestCategoryCode>9</me-crash-codes:DrugTestCategoryCode>
+               <me-crash-codes:DriverCategoryCode>hg</me-crash-codes:DriverCategoryCode>
+               <me-crash-codes:AlcoholTestCategoryCode>sU</me-crash-codes:AlcoholTestCategoryCode>
+               <me-crash-codes:DrugTestCategoryCode>2</me-crash-codes:DrugTestCategoryCode>
                <me-crash-codes:DrugTestResultCode>true</me-crash-codes:DrugTestResultCode>
-               <vcq-res-ext:AlcoholTestResultsPendingtIndicator>true</vcq-res-ext:AlcoholTestResultsPendingtIndicator>
+               <vcq-res-ext:AlcoholTestResultsPendingtIndicator>false</vcq-res-ext:AlcoholTestResultsPendingtIndicator>
             </jxdm51:CrashDriver>
             <jxdm51:CrashVehicleOccupant>
                <nc30:RoleOfPerson s30:ref="Driver_01"/>
@@ -93,202 +93,202 @@
                <nc30:RoleOfPerson s30:ref="Vehicle_Owner_01"/>
             </jxdm51:CrashVehicleOccupant>
             <vcq-res-ext:HazmatPlacardIndicator>false</vcq-res-ext:HazmatPlacardIndicator>
-            <me-crash-codes:VehicleTravelDirectionCode>North</me-crash-codes:VehicleTravelDirectionCode>
-            <me-crash-codes:GrossVehicleWeightRatingCode>7447</me-crash-codes:GrossVehicleWeightRatingCode>
-            <me-crash-codes:ExtentOfDamageCode>Really Bad</me-crash-codes:ExtentOfDamageCode>
-            <me-crash-codes:PostedSpeedLimitCode>31</me-crash-codes:PostedSpeedLimitCode>
-            <me-crash-codes:SchoolBusRelatedCode>true</me-crash-codes:SchoolBusRelatedCode>
-            <vcq-res-ext:TotalDamageOverThresholdtIndicator>false</vcq-res-ext:TotalDamageOverThresholdtIndicator>
+            <me-crash-codes:VehicleTravelDirectionCode>East</me-crash-codes:VehicleTravelDirectionCode>
+            <me-crash-codes:GrossVehicleWeightRatingCode>3529</me-crash-codes:GrossVehicleWeightRatingCode>
+            <me-crash-codes:ExtentOfDamageCode>$6800.99</me-crash-codes:ExtentOfDamageCode>
+            <me-crash-codes:PostedSpeedLimitCode>97</me-crash-codes:PostedSpeedLimitCode>
+            <me-crash-codes:SchoolBusRelatedCode>false</me-crash-codes:SchoolBusRelatedCode>
+            <vcq-res-ext:TotalDamageOverThresholdtIndicator>true</vcq-res-ext:TotalDamageOverThresholdtIndicator>
             <vcq-res-ext:VehicleNineOrMoreSeatstIndicator>true</vcq-res-ext:VehicleNineOrMoreSeatstIndicator>
             <vcq-res-ext:ExemptVehicleIndicator>true</vcq-res-ext:ExemptVehicleIndicator>
          </jxdm51:CrashVehicle>
          <nc30:Location s30:id="Incident_Loc_01">
             <nc30:Address>
-               <nc30:LocationCityName>Las Vegas</nc30:LocationCityName>
+               <nc30:LocationCityName>Warrensville Heights</nc30:LocationCityName>
             </nc30:Address>
             <nc30:AddressHighway>
-               <nc30:HighwayFullText>1012 Hickory Ridge Drive</nc30:HighwayFullText>
+               <nc30:HighwayFullText>3317 Hiddenview Drive</nc30:HighwayFullText>
             </nc30:AddressHighway>
             <nc30:Location2DGeospatialCoordinate>
                <nc30:GeographicCoordinateLatitude>
-                  <nc30:LatitudeDegreeValue>04</nc30:LatitudeDegreeValue>
+                  <nc30:LatitudeDegreeValue>16</nc30:LatitudeDegreeValue>
                </nc30:GeographicCoordinateLatitude>
                <nc30:GeographicCoordinateLongitude>
-                  <nc30:LongitudeDegreeValue>62</nc30:LongitudeDegreeValue>
+                  <nc30:LongitudeDegreeValue>18</nc30:LongitudeDegreeValue>
                </nc30:GeographicCoordinateLongitude>
             </nc30:Location2DGeospatialCoordinate>
-            <vcq-res-ext:NearestIntersectingStreetFullText>1719 Masonic Drive</vcq-res-ext:NearestIntersectingStreetFullText>
-            <vcq-res-ext:DistanceFromNearestIntersectionNumberText>07</vcq-res-ext:DistanceFromNearestIntersectionNumberText>
-            <me-crash-codes:DirectionFromNearestIntersectionCode>West</me-crash-codes:DirectionFromNearestIntersectionCode>
-            <me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>cm</me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>
+            <vcq-res-ext:NearestIntersectingStreetFullText>269 Cambridge Court</vcq-res-ext:NearestIntersectingStreetFullText>
+            <vcq-res-ext:DistanceFromNearestIntersectionNumberText>63</vcq-res-ext:DistanceFromNearestIntersectionNumberText>
+            <me-crash-codes:DirectionFromNearestIntersectionCode>South</me-crash-codes:DirectionFromNearestIntersectionCode>
+            <me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>mi</me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>
          </nc30:Location>
          <vcq-res-ext:AtSceneDateTime>
-            <nc30:DateTime>2016-02-24</nc30:DateTime>
+            <nc30:DateTime>2016-04-22</nc30:DateTime>
          </vcq-res-ext:AtSceneDateTime>
          <vcq-res-ext:OffRoadIncidentIndicator>true</vcq-res-ext:OffRoadIncidentIndicator>
          <vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>true</vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>
       </jxdm51:Crash>
       <jxdm51:Citation s30:id="Citation_01">
          <nc30:ActivityIdentification>
-            <nc30:IdentificationID>12065414</nc30:IdentificationID>
+            <nc30:IdentificationID>34414572</nc30:IdentificationID>
          </nc30:ActivityIdentification>
          <vcq-res-ext:CitationNumberPendingIndicator>false</vcq-res-ext:CitationNumberPendingIndicator>
-         <vcq-res-ext:FirstViolationDescriptionText>J Walking</vcq-res-ext:FirstViolationDescriptionText>
-         <vcq-res-ext:SecondViolationDescriptionText>Speeding</vcq-res-ext:SecondViolationDescriptionText>
+         <vcq-res-ext:FirstViolationDescriptionText>Speeding</vcq-res-ext:FirstViolationDescriptionText>
+         <vcq-res-ext:SecondViolationDescriptionText>No Seatbelt</vcq-res-ext:SecondViolationDescriptionText>
       </jxdm51:Citation>
       <nc30:Person s30:id="Reporting_Official_01">
          <nc30:PersonName>
-            <nc30:PersonFullName>Janet Wilhite</nc30:PersonFullName>
+            <nc30:PersonFullName>Jennifer Dagostino</nc30:PersonFullName>
          </nc30:PersonName>
       </nc30:Person>
       <nc30:Person s30:id="Witness_01">
          <nc30:PersonName>
-            <nc30:PersonGivenName>Janet</nc30:PersonGivenName>
-            <nc30:PersonMiddleName>B</nc30:PersonMiddleName>
-            <nc30:PersonSurName>Wilhite</nc30:PersonSurName>
+            <nc30:PersonGivenName>Jennifer</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>M</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Dagostino</nc30:PersonSurName>
          </nc30:PersonName>
       </nc30:Person>
       <nc30:Person s30:id="Information_Approver_01">
          <nc30:PersonName>
-            <nc30:PersonFullName>Vaughn Huntley</nc30:PersonFullName>
+            <nc30:PersonFullName>Catherine Gregory</nc30:PersonFullName>
          </nc30:PersonName>
       </nc30:Person>
       <nc30:Person s30:id="Driver_01">
          <nc30:PersonBirthDate>
-            <nc30:Date>3/12/1969</nc30:Date>
+            <nc30:Date>1945-05-10</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonName>
-            <nc30:PersonGivenName>Terrie</nc30:PersonGivenName>
-            <nc30:PersonMiddleName>Z</nc30:PersonMiddleName>
-            <nc30:PersonSurName>Delgado</nc30:PersonSurName>
+            <nc30:PersonGivenName>Edward</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>E</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Chamberlain</nc30:PersonSurName>
          </nc30:PersonName>
-         <jxdm51:PersonSexCode>female</jxdm51:PersonSexCode>
-         <me-crash-codes:PersonCategoryCode>Xj</me-crash-codes:PersonCategoryCode>
+         <jxdm51:PersonSexCode>male</jxdm51:PersonSexCode>
+         <me-crash-codes:PersonCategoryCode>pV</me-crash-codes:PersonCategoryCode>
       </nc30:Person>
       <nc30:Person s30:id="Vehicle_Owner_01">
          <nc30:PersonBirthDate>
-            <nc30:Date>6/24/1968</nc30:Date>
+            <nc30:Date>1934-01-10</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonName>
-            <nc30:PersonGivenName>Wilma</nc30:PersonGivenName>
-            <nc30:PersonMiddleName>N</nc30:PersonMiddleName>
-            <nc30:PersonSurName>Knapp</nc30:PersonSurName>
+            <nc30:PersonGivenName>Jeffery</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>J</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Davis</nc30:PersonSurName>
          </nc30:PersonName>
-         <jxdm51:PersonSexCode>female</jxdm51:PersonSexCode>
-         <me-crash-codes:PersonCategoryCode>gz</me-crash-codes:PersonCategoryCode>
+         <jxdm51:PersonSexCode>male</jxdm51:PersonSexCode>
+         <me-crash-codes:PersonCategoryCode>sr</me-crash-codes:PersonCategoryCode>
       </nc30:Person>
       <nc30:EntityOrganization s30:id="Property_Owner_01">
-         <nc30:OrganizationName>Montana's Cookhouse</nc30:OrganizationName>
+         <nc30:OrganizationName>Beatties</nc30:OrganizationName>
       </nc30:EntityOrganization>
       <nc30:EntityPerson s30:id="Property_Owner_02">
          <nc30:PersonName>
-            <nc30:PersonFullName>JohnDussault</nc30:PersonFullName>
+            <nc30:PersonFullName>MarkMinor</nc30:PersonFullName>
          </nc30:PersonName>
       </nc30:EntityPerson>
       <nc30:EntityPerson s30:id="Occupant_01">
          <nc30:PersonBirthDate>
-            <nc30:Date>10/22/1929</nc30:Date>
+            <nc30:Date>1986-01-29</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonName>
-            <nc30:PersonGivenName>John</nc30:PersonGivenName>
-            <nc30:PersonMiddleName>R</nc30:PersonMiddleName>
-            <nc30:PersonSurName>Dussault</nc30:PersonSurName>
+            <nc30:PersonGivenName>Mark</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>E</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Minor</nc30:PersonSurName>
             <jxdm51:PersonSexCode>male</jxdm51:PersonSexCode>
-            <me-crash-codes:PersonCategoryCode>xa</me-crash-codes:PersonCategoryCode>
+            <me-crash-codes:PersonCategoryCode>Ef</me-crash-codes:PersonCategoryCode>
          </nc30:PersonName>
       </nc30:EntityPerson>
       <nc30:Location s30:id="Driver_Loc_01">
          <nc30:Address>
             <nc30:LocationStreet>
-               <nc30:StreetFullText>1473 Whaley Lane</nc30:StreetFullText>
+               <nc30:StreetFullText>2419 Grant View Drive</nc30:StreetFullText>
             </nc30:LocationStreet>
-            <nc30:LocationCityName>Kenosha</nc30:LocationCityName>
+            <nc30:LocationCityName>Milwaukee</nc30:LocationCityName>
             <jxdm51:LocationStateNCICLISCode>WI</jxdm51:LocationStateNCICLISCode>
-            <nc30:LocationPostalCode>53140</nc30:LocationPostalCode>
+            <nc30:LocationPostalCode>53202</nc30:LocationPostalCode>
          </nc30:Address>
       </nc30:Location>
       <nc30:Location s30:id="Witness_Loc_01">
          <nc30:Address>
             <nc30:LocationStreet>
-               <nc30:StreetFullText>3525 Snider Street</nc30:StreetFullText>
+               <nc30:StreetFullText>470 Karen Lane</nc30:StreetFullText>
             </nc30:LocationStreet>
-            <nc30:LocationCityName>South Fork</nc30:LocationCityName>
-            <jxdm51:LocationStateNCICLISCode>CO</jxdm51:LocationStateNCICLISCode>
-            <nc30:LocationPostalCode>81154</nc30:LocationPostalCode>
+            <nc30:LocationCityName>Lexington</nc30:LocationCityName>
+            <jxdm51:LocationStateNCICLISCode>KY</jxdm51:LocationStateNCICLISCode>
+            <nc30:LocationPostalCode>40505</nc30:LocationPostalCode>
          </nc30:Address>
       </nc30:Location>
       <nc30:Location s30:id="Property_Owner_Loc_01">
          <nc30:Address>
             <nc30:LocationStreet>
-               <nc30:StreetFullText>2662 Carolina Avenue</nc30:StreetFullText>
+               <nc30:StreetFullText>4060 Twin Willow Lane</nc30:StreetFullText>
             </nc30:LocationStreet>
-            <nc30:LocationCityName>Denver</nc30:LocationCityName>
-            <jxdm51:LocationStateNCICLISCode>CO</jxdm51:LocationStateNCICLISCode>
-            <nc30:LocationPostalCode>80202</nc30:LocationPostalCode>
+            <nc30:LocationCityName>Fayetteville</nc30:LocationCityName>
+            <jxdm51:LocationStateNCICLISCode>NC</jxdm51:LocationStateNCICLISCode>
+            <nc30:LocationPostalCode>28301</nc30:LocationPostalCode>
          </nc30:Address>
       </nc30:Location>
       <nc30:Location s30:id="Vehicle_Owner_Loc_01">
          <nc30:Address>
             <nc30:LocationStreet>
-               <nc30:StreetFullText>631</nc30:StreetFullText>
+               <nc30:StreetFullText>2503</nc30:StreetFullText>
             </nc30:LocationStreet>
-            <nc30:LocationCityName>Bowling Green</nc30:LocationCityName>
-            <jxdm51:LocationStateNCICLISCode>KY</jxdm51:LocationStateNCICLISCode>
-            <nc30:LocationPostalCode>42101</nc30:LocationPostalCode>
+            <nc30:LocationCityName>Eagleville</nc30:LocationCityName>
+            <jxdm51:LocationStateNCICLISCode>PA</jxdm51:LocationStateNCICLISCode>
+            <nc30:LocationPostalCode>19403</nc30:LocationPostalCode>
          </nc30:Address>
       </nc30:Location>
       <nc30:Vehicle s30:id="Vehicle_01">
-         <jxdm51:ConveyanceColorPrimaryCode>PUR<nc30:ItemModelYearDate>1989</nc30:ItemModelYearDate>
+         <jxdm51:ConveyanceColorPrimaryCode>BLO<nc30:ItemModelYearDate>1989</nc30:ItemModelYearDate>
          </jxdm51:ConveyanceColorPrimaryCode>
          <nc30:VehicleIdentification>
-            <nc30:IdentificationID>M8DJ47Umgw</nc30:IdentificationID>
+            <nc30:IdentificationID>1X7t15W5mt</nc30:IdentificationID>
             <nc30:IdentificationJurisdiction>
-               <jxdm51:LocationStateNCICLISCode>KY</jxdm51:LocationStateNCICLISCode>
+               <jxdm51:LocationStateNCICLISCode>PA</jxdm51:LocationStateNCICLISCode>
             </nc30:IdentificationJurisdiction>
          </nc30:VehicleIdentification>
-         <jxdm51:VehicleMakeCode>Ford</jxdm51:VehicleMakeCode>
+         <jxdm51:VehicleMakeCode>Kia</jxdm51:VehicleMakeCode>
          <vcq-res-ext:VehicleUnitIdentification>
-            <nc30:IdentificationID>NFGbxkbC</nc30:IdentificationID>
+            <nc30:IdentificationID>EJwbbrDl</nc30:IdentificationID>
          </vcq-res-ext:VehicleUnitIdentification>
          <vcq-res-ext:HitRunIndicator>true</vcq-res-ext:HitRunIndicator>
       </nc30:Vehicle>
       <jxdm51:ConveyanceRegistration s30:id="Conveyance_Registration_01">
          <jxdm51:ConveyanceRegistrationPlateIdentification>
-            <nc30:IdentificationID>fKgzOBQ</nc30:IdentificationID>
+            <nc30:IdentificationID>miKdtAL</nc30:IdentificationID>
             <nc30:IdentificationJurisdiction>
-               <jxdm51:LocationStateNCICLISCode>IL</jxdm51:LocationStateNCICLISCode>
+               <jxdm51:LocationStateNCICLISCode>VA</jxdm51:LocationStateNCICLISCode>
             </nc30:IdentificationJurisdiction>
          </jxdm51:ConveyanceRegistrationPlateIdentification>
       </jxdm51:ConveyanceRegistration>
       <nc30:Insurance s30:id="Insurance_01">
          <nc30:InsurancePolicyIdentification>
-            <nc30:IdentificationID>evysuOw6rj</nc30:IdentificationID>
+            <nc30:IdentificationID>vLCNK3Y9V0</nc30:IdentificationID>
          </nc30:InsurancePolicyIdentification>
          <nc30:InsuranceCarrierName>Progressive</nc30:InsuranceCarrierName>
-         <vcq-res-ext:NoInsuranceIndicator>true</vcq-res-ext:NoInsuranceIndicator>
+         <vcq-res-ext:NoInsuranceIndicator>false</vcq-res-ext:NoInsuranceIndicator>
       </nc30:Insurance>
       <jxdm51:CrashDriverLicense s30:id="Driver_License_01">
          <jxdm51:DriverLicenseCardIdentification>
-            <nc30:IdentificationID>psDVImzCY</nc30:IdentificationID>
+            <nc30:IdentificationID>IJnkpbZa0</nc30:IdentificationID>
             <nc30:IdentificationJurisdiction>
-               <jxdm51:LocationStateNCICLISCode>IN</jxdm51:LocationStateNCICLISCode>
+               <jxdm51:LocationStateNCICLISCode>MN</jxdm51:LocationStateNCICLISCode>
             </nc30:IdentificationJurisdiction>
          </jxdm51:DriverLicenseCardIdentification>
          <jxdm51:DriverLicenseRestriction>
-            <jxdm51:DrivingRestrictionText>Daylight</jxdm51:DrivingRestrictionText>
+            <jxdm51:DrivingRestrictionText>Glasses</jxdm51:DrivingRestrictionText>
          </jxdm51:DriverLicenseRestriction>
          <jxdm51:DriverLicenseEndorsement>
-            <jxdm51:DriverLicenseEndorsementText>trailor</jxdm51:DriverLicenseEndorsementText>
+            <jxdm51:DriverLicenseEndorsementText>motorcycle</jxdm51:DriverLicenseEndorsementText>
          </jxdm51:DriverLicenseEndorsement>
-         <me-crash-codes:DriverLicenseCategoryCode>Racing</me-crash-codes:DriverLicenseCategoryCode>
-         <vcq-res-ext:DriverLicenseClassCodeText>k</vcq-res-ext:DriverLicenseClassCodeText>
+         <me-crash-codes:DriverLicenseCategoryCode>Civil</me-crash-codes:DriverLicenseCategoryCode>
+         <vcq-res-ext:DriverLicenseClassCodeText>Z</vcq-res-ext:DriverLicenseClassCodeText>
       </jxdm51:CrashDriverLicense>
       <jxdm51:ActivityInformationApproverAssociation>
          <nc30:Activity s30:ref="Crash_01"/>
          <nc30:Person s30:ref="Information_Approver_01"/>
       </jxdm51:ActivityInformationApproverAssociation>
       <jxdm51:PersonBloodAlcoholContentAssociation>
-         <jxdm51:PersonBloodAlcoholContentNumberText>03</jxdm51:PersonBloodAlcoholContentNumberText>
+         <jxdm51:PersonBloodAlcoholContentNumberText>69</jxdm51:PersonBloodAlcoholContentNumberText>
          <nc30:Activity s30:ref="Crash_01"/>
          <nc30:Person s30:ref="Driver_01"/>
       </jxdm51:PersonBloodAlcoholContentAssociation>

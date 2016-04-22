@@ -488,7 +488,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element driverDobValElement = XmlUtils.appendElement(driverDobElement, OjbcNamespaceContext.NS_NC_30, "Date");	
 								
-		driverDobValElement.setTextContent(sampleDriverPerson.birthday);
+		driverDobValElement.setTextContent(sampleDriverPerson.birthdate.toString(DATE_FORMATTER_YYYY_MM_DD));
 		
 		Element driverNameElement = XmlUtils.appendElement(driverPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
@@ -534,7 +534,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element vehicleOwnerDobValElement = XmlUtils.appendElement(vehicleOwnerDobElement, OjbcNamespaceContext.NS_NC_30, "Date");
 		
-		vehicleOwnerDobValElement.setTextContent(sampleVehicleOwner.birthday);
+		vehicleOwnerDobValElement.setTextContent(sampleVehicleOwner.birthdate.toString(DATE_FORMATTER_YYYY_MM_DD));
 
 		Element vehicleOwnerNameElement = XmlUtils.appendElement(vehicleOwnerElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 
@@ -588,7 +588,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element occupantDobValElement = XmlUtils.appendElement(occupantDobElement, OjbcNamespaceContext.NS_NC_30, "Date");
 				
-		occupantDobValElement.setTextContent(samplePropertyOwner.birthday);
+		occupantDobValElement.setTextContent(samplePropertyOwner.birthdate.toString(DATE_FORMATTER_YYYY_MM_DD));
 		
 		Element occupantPersonNameElement = XmlUtils.appendElement(occupant1EntPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
