@@ -45,7 +45,7 @@ public class UnsubscriptionMessageProcessorTest {
 	@Test	
 	public void testCreateUnsubscriptionMessage() throws Exception{
 		
-		Unsubscription unsubscription = new Unsubscription("123456", "topic", "CI");
+		Unsubscription unsubscription = new Unsubscription("123456", "topic", "CI", null, null, null, null);
 		
 		Document unsubscribeDoc = SubscriptionNotificationDocumentBuilderUtils.createUnubscriptionRequest(unsubscription);		
 		

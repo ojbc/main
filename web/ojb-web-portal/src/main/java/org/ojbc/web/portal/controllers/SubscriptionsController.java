@@ -1281,7 +1281,7 @@ public class SubscriptionsController {
 			String iTopic = iSubDataJson.getString("topic");			
 			String reasonCode = iSubDataJson.getString("reasonCode");
 			
-			Unsubscription unsubscription = new Unsubscription(iId, iTopic, reasonCode);
+			Unsubscription unsubscription = new Unsubscription(iId, iTopic, reasonCode, null, null, null, null);
 			
 			try{
 				subConfig.getUnsubscriptionBean().unsubscribe(unsubscription, getFederatedQueryId(), samlAssertion);

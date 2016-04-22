@@ -181,7 +181,7 @@ public class RapbackController {
 	public @ResponseBody String unsubscribe(HttpServletRequest request, @RequestParam String subscriptionId,
 			Map<String, Object> model) {
 		try {
-			Unsubscription unsubscription = new Unsubscription(subscriptionId, TOPIC_PERSON_ARREST, CIVIL_SUBSCRIPTION_REASON_CODE);
+			Unsubscription unsubscription = new Unsubscription(subscriptionId, TOPIC_PERSON_ARREST, CIVIL_SUBSCRIPTION_REASON_CODE, null, null, null, null);
 			try{
 				subConfig.getUnsubscriptionBean().unsubscribe(unsubscription, getFederatedQueryId(), samlService.getSamlAssertion(request));
 				return "success";
