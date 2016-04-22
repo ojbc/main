@@ -14,12 +14,13 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web.util;
+package org.ojbc.util.xml.subscription;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -27,8 +28,6 @@ import java.util.List;
 
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.util.xml.subscription.Subscription;
-import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -89,19 +88,19 @@ public class SubscriptionDocumentBuilderTest {
 		assertNotNull(personNameNode);				
 		
 		String sFirstName = XmlUtils.xPathStringSearch(personNameNode, "nc:PersonGivenName");
-		assertEquals("Marie-laure", sFirstName);
+		assertEquals("John", sFirstName);
 		
 		String sLastName = XmlUtils.xPathStringSearch(personNameNode, "nc:PersonSurName");
-		assertEquals("Guillaume", sLastName);
+		assertEquals("Doe", sLastName);
 		
 		String fullName = XmlUtils.xPathStringSearch(personNameNode, "nc:PersonFullName");
-		assertEquals("Marie-laure Guillaume", fullName);
+		assertEquals("John Doe", fullName);
 		
 		Node personAugNode = XmlUtils.xPathNodeSearch(subjectNode, "jxdm41:PersonAugmentation");
 		assertNotNull(personAugNode);		
 		
 		String sid = XmlUtils.xPathStringSearch(personAugNode, "jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
-		assertEquals("787200", sid);
+		assertEquals("99999", sid);
 		
 		NodeList emailNodeList = XmlUtils.xPathNodeListSearch(subMsgNode, "nc:ContactEmailID");
 		
@@ -130,7 +129,7 @@ public class SubscriptionDocumentBuilderTest {
 		assertEquals("2015-04-08", endDate);	
 		
 		String systemId = XmlUtils.xPathStringSearch(subMsgNode, "submsg-ext:SubscriptionIdentification/nc:IdentificationID");
-		assertEquals("777400", systemId);
+		assertEquals("88888", systemId);
 		
 		String idSrcTxt = XmlUtils.xPathStringSearch(subMsgNode, "submsg-ext:SubscriptionIdentification/nc:IdentificationSourceText");
 		assertEquals("Subscriptions", idSrcTxt);
@@ -160,16 +159,73 @@ public class SubscriptionDocumentBuilderTest {
 		
 		subscription.setTopic("topics:person/arrest");
 		
-		subscription.setFirstName("Marie-laure");
-		subscription.setLastName("Guillaume");
-		subscription.setFullName("Marie-laure Guillaume");
-		subscription.setStateId("787200");
+		subscription.setFirstName("John");
+		subscription.setLastName("Doe");
+		subscription.setFullName("John Doe");
+		subscription.setStateId("99999");
 		
-		subscription.setSystemId("777400");
+		subscription.setSystemId("88888");
 		
 		Document subMsgDoc = SubscriptionNotificationDocumentBuilderUtils.createSubscriptionRequest(subscription);		
 		
 		return subMsgDoc;		
+	}
+	
+	@Test(expected=Exception.class)
+	public void testCreateUnubscriptionRequestFailed() throws Exception
+	{
+		Unsubscription unsubscription = new Unsubscription();
+		
+		unsubscription.setDateOfBirth(LocalDate.now());
+		unsubscription.setFirstName("John");
+		unsubscription.setLastName("Doe");
+		unsubscription.setReasonCode(SubscriptionNotificationDocumentBuilderUtils.CIVIL_SUBSCRIPTION_REASON_CODE);
+		unsubscription.setSid("9999");
+		unsubscription.setSubscriptionId("I123");
+		unsubscription.setSystemName("System Name");
+		unsubscription.setTopic("topic");
+		
+		SubscriptionNotificationDocumentBuilderUtils.createUnubscriptionRequest(unsubscription);
+	}
+	
+	@Test
+	public void testCreateUnubscriptionRequest() throws Exception
+	{
+		Unsubscription unsubscription = new Unsubscription();
+		
+		LocalDate now = LocalDate.now();
+		
+		unsubscription.setDateOfBirth(now);
+		unsubscription.setFirstName("John");
+		unsubscription.setLastName("Doe");
+		unsubscription.setReasonCode(SubscriptionNotificationDocumentBuilderUtils.CIVIL_SUBSCRIPTION_REASON_CODE);
+		unsubscription.setSid("9999");
+		unsubscription.setSystemName("System Name");
+		unsubscription.setTopic("topic");
+		unsubscription.setSubscriptionQualifierIdentification("12345");
+		
+		ArrayList<String> emailAddresses = new ArrayList<String>();
+		emailAddresses.add("john@doe.com");
+		unsubscription.setEmailAddresses(emailAddresses);
+
+		
+		Document unsubscriptionDoc = SubscriptionNotificationDocumentBuilderUtils.createUnubscriptionRequest(unsubscription);
+		assertNotNull(unsubscriptionDoc);
+		
+		XmlUtils.printNode(unsubscriptionDoc);
+		
+		assertEquals("John",XmlUtils.xPathStringSearch(unsubscriptionDoc, "/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonGivenName"));
+		assertEquals("Doe", XmlUtils.xPathStringSearch(unsubscriptionDoc,"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonSurName"));
+		assertEquals(now.toString(), XmlUtils.xPathStringSearch(unsubscriptionDoc,"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonBirthDate/nc:Date"));
+		assertEquals(SubscriptionNotificationDocumentBuilderUtils.CIVIL_SUBSCRIPTION_REASON_CODE,XmlUtils.xPathStringSearch(unsubscriptionDoc,"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode"));
+		assertEquals("9999",XmlUtils.xPathStringSearch(unsubscriptionDoc,"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID"));
+		assertEquals("System Name",XmlUtils.xPathStringSearch(unsubscriptionDoc,"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SystemName"));
+		assertEquals("topic",XmlUtils.xPathStringSearch(unsubscriptionDoc,"/b-2:Unsubscribe/b-2:TopicExpression"));
+		assertEquals("12345",XmlUtils.xPathStringSearch(unsubscriptionDoc,"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SubscriptionQualifierIdentification/nc:IdentificationID"));
+		assertEquals("john@doe.com",XmlUtils.xPathStringSearch(unsubscriptionDoc,"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/nc:ContactEmailID"));
+		
+		
+		
 	}
 
 }

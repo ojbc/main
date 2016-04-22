@@ -104,13 +104,20 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 	}
 	
 	
-	private static void buildSubQualIdNode(Element parentNode){
+	private static void buildSubQualIdNode(Element parentNode, Subscription subscription){
 		
 		Element subQualIdNode =  XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionQualifierIdentification");
 		
 		Element idNode = XmlUtils.appendElement(subQualIdNode, OjbcNamespaceContext.NS_NC, "IdentificationID");
 				
-		idNode.setTextContent( getUniqueId());
+		if (StringUtils.isNotBlank(subscription.getSubscriptionQualificationID()))
+		{
+			idNode.setTextContent(subscription.getSubscriptionQualificationID());
+		}
+		else
+		{
+			idNode.setTextContent( getUniqueId());
+		}	
 	}
 	
 	
@@ -135,10 +142,7 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 			sysNameNode.setTextContent(SYSTEM_NAME);
 		}	
 		
-		if (subscription.isIncludeSubscriptionQualificationNode())
-		{	
-			buildSubQualIdNode(subMsgNode);
-		}
+		buildSubQualIdNode(subMsgNode, subscription);
 			
 		buildDateRangeNode(subMsgNode, subscription);		
 		
@@ -338,6 +342,12 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 	public static Document createUnubscriptionRequest(Unsubscription unsubscription) throws Exception{
 		
 		String subscriptionIdentificationId = unsubscription.getSubscriptionId();
+		boolean containsSubjectData = ((StringUtils.isNotBlank(unsubscription.getFirstName())) || (StringUtils.isNotBlank(unsubscription.getLastName())) || (StringUtils.isNotBlank(unsubscription.getSid())) || (unsubscription.getDateOfBirth()!=null));
+
+		if (containsSubjectData && StringUtils.isNotEmpty(subscriptionIdentificationId))
+		{
+			throw new Exception("Unsubscription message can have either subject data or Subscription Identification, but not both.");
+		}	
 		
 		Document doc = OJBCXMLUtils.createDocument();
         Element root = doc.createElementNS(OjbcNamespaceContext.NS_B2, "Unsubscribe");
@@ -346,11 +356,103 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
         Element unsubscriptionMessage = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_UNBSUB_MSG_EXCHANGE, "UnsubscriptionMessage");
         
-        Element subscriptionIdentification = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionIdentification");
+//        <smext:Subject>
+//	        <nc20:PersonBirthDate>
+//	            <nc20:Date>1998-01-11</nc20:Date>
+//	        </nc20:PersonBirthDate>
+//	        <nc20:PersonName>
+//	            <nc20:PersonGivenName>John</nc20:PersonGivenName>
+//	            <nc20:PersonSurName>Doe</nc20:PersonSurName>
+//	        </nc20:PersonName>
+//	        <jxdm41:PersonAugmentation>
+//		        <jxdm41:PersonStateFingerprintIdentification>
+//		           <nc20:IdentificationID>A9999999</nc20:IdentificationID>
+//		        </jxdm41:PersonStateFingerprintIdentification>
+//		     </jxdm41:PersonAugmentation>        
+//	    </smext:Subject>
         
-        Element identificationID = XmlUtils.appendElement(subscriptionIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
-        identificationID.setTextContent(subscriptionIdentificationId);
-                
+        if (containsSubjectData)
+        {
+        	Element subject = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "Subject");
+        	
+        	if ((unsubscription.getDateOfBirth()!=null))
+        	{
+        		Element dob = XmlUtils.appendElement(subject, OjbcNamespaceContext.NS_NC, "PersonBirthDate");
+        		Element dobDate = XmlUtils.appendElement(dob, OjbcNamespaceContext.NS_NC, "Date");
+        		dobDate.setTextContent(unsubscription.getDateOfBirth().toString());
+        	}	
+        	
+        	if (StringUtils.isNotBlank(unsubscription.getFirstName()) || StringUtils.isNotBlank(unsubscription.getLastName()))
+        	{
+        		Element personName = XmlUtils.appendElement(subject, OjbcNamespaceContext.NS_NC, "PersonName");
+        		
+        		if (StringUtils.isNotBlank(unsubscription.getFirstName()))
+				{
+            		Element personGivenName = XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC, "PersonGivenName");
+            		personGivenName.setTextContent(unsubscription.getFirstName());
+			
+				}
+        		
+        		if (StringUtils.isNotBlank(unsubscription.getLastName()))
+				{
+            		Element personSurName = XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC, "PersonSurName");
+            		personSurName.setTextContent(unsubscription.getLastName());
+			
+				}		
+
+        	}
+        	
+        	if (StringUtils.isNotBlank(unsubscription.getSid()))
+        	{
+        		Element personAugmentation = XmlUtils.appendElement(subject, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
+        		
+        		Element personStateFingerprintIdentification = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");
+        		
+        		Element identificationID = XmlUtils.appendElement(personStateFingerprintIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
+        		identificationID.setTextContent(unsubscription.getSid());
+        		
+        	}	
+        	
+        }	
+        
+//	    <nc20:ContactEmailID>william.francis@maine.gov</nc20:ContactEmailID>
+//	    <smext:SystemName>{http://maine.gov/ProbationCase/1.0}MaineDOC</smext:SystemName>
+//	    <smext:SubscriptionQualifierIdentification>
+//	        <nc20:IdentificationID>128799</nc20:IdentificationID>
+//	    </smext:SubscriptionQualifierIdentification>
+        if (unsubscription.getEmailAddresses() != null)
+        {	
+	        for (String emailAddress : unsubscription.getEmailAddresses())
+	        {
+	        	Element contactEmailID = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_NC, "ContactEmailID");
+	        	contactEmailID.setTextContent(emailAddress);
+	        }
+        }    
+        
+        if (StringUtils.isNotBlank(unsubscription.getSystemName()))
+        {
+        	Element systemName = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SystemName");
+        	systemName.setTextContent(unsubscription.getSystemName());
+        	
+        }	
+
+        if (StringUtils.isNotBlank(unsubscription.getSubscriptionQualifierIdentification()))
+        {
+        	Element subscriptionQualifierIdentification = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionQualifierIdentification");
+        	
+        	Element identificationID = XmlUtils.appendElement(subscriptionQualifierIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
+        	identificationID.setTextContent(unsubscription.getSubscriptionQualifierIdentification());
+        	
+        }	
+        
+        if (StringUtils.isNotEmpty(subscriptionIdentificationId))
+        {		
+	        Element subscriptionIdentification = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionIdentification");
+	        
+	        Element identificationID = XmlUtils.appendElement(subscriptionIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
+	        identificationID.setTextContent(subscriptionIdentificationId);
+        }    
+	        
 		String reasonCode = unsubscription.getReasonCode();
         if (CIVIL_SUBSCRIPTION_REASON_CODE.equals(reasonCode)){
 	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");

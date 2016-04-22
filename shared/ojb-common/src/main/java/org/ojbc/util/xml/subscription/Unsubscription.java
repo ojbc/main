@@ -16,18 +16,43 @@
  */
 package org.ojbc.util.xml.subscription;
 
+import java.time.LocalDate;
+import java.util.List;
+
 public class Unsubscription {
 		       
 	private String subscriptionId;
+	
+	private String subscriptionQualifierIdentification;
 	
 	private String topic;
 	
 	private String reasonCode;	 
 	
-	public Unsubscription(String subscriptionId, String topic, String reasonCode) {
+	private String firstName;
+	
+	private String lastName;
+
+	private String sid;
+	
+	private LocalDate dateOfBirth;
+	
+	private List<String> emailAddresses;
+	
+	private String systemName;
+	
+	public Unsubscription(String subscriptionId, String topic, String reasonCode, String firstName, String lastName, String sid, LocalDate dateOfBirth) {
 		this.subscriptionId = subscriptionId;
 		this.topic = topic;
 		this.reasonCode = reasonCode;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.sid = sid;
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public Unsubscription() {
+
 	}
 
 	public String getSubscriptionId() {
@@ -58,6 +83,63 @@ public class Unsubscription {
 	public String toString() {
 		return "Unsubscription [subscriptionId=" + subscriptionId + ", topic="
 				+ topic + ", reasonCode=" + reasonCode + "]";
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getSid() {
+		return sid;
+	}
+
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public List<String> getEmailAddresses() {
+		return emailAddresses;
+	}
+
+	public void setEmailAddresses(List<String> emailAddresses) {
+		this.emailAddresses = emailAddresses;
+	}
+
+	public String getSystemName() {
+		return systemName;
+	}
+
+	public void setSystemName(String systemName) {
+		this.systemName = systemName;
+	}
+
+	public String getSubscriptionQualifierIdentification() {
+		return subscriptionQualifierIdentification;
+	}
+
+	public void setSubscriptionQualifierIdentification(
+			String subscriptionQualifierIdentification) {
+		this.subscriptionQualifierIdentification = subscriptionQualifierIdentification;
 	}				
 
 }

@@ -380,7 +380,7 @@ public class OJBWebApplicationConnectorIntTest{
 
 		String federatedQueryID = returnFederatedQueryGUID();
 		
-		Unsubscription unsubscription = new Unsubscription("123466", "topic", "reasonCode");
+		Unsubscription unsubscription = new Unsubscription("123466", "topic", "reasonCode", null, null, null, null);
 		
 		//Invoke the service
 		unsubscriptionRequestProcessor.unsubscribe(unsubscription, federatedQueryID, samlToken);
