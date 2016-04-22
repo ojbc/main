@@ -466,6 +466,7 @@
         <xs:sequence>
           <xs:element ref="nc:VehicleIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:VehicleMake" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:VehicleModel" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:VehicleAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -859,6 +860,11 @@
   <xs:element name="VehicleMake" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a manufacturer of a vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleModel" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a specific design or class of vehicle made by a manufacturer.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>
