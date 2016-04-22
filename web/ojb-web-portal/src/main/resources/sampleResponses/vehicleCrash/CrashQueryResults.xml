@@ -267,6 +267,7 @@
 				</nc:IdentificationJurisdiction>
 			</nc:VehicleIdentification>
 			<j:VehicleMakeCode>KIA</j:VehicleMakeCode>
+			<j:VehicleModelCode>135</j:VehicleModelCode>
 			<vcq-res-ext:VehicleUnitIdentification>
 				<nc:IdentificationID>1</nc:IdentificationID>
 			</vcq-res-ext:VehicleUnitIdentification>
