@@ -72,6 +72,7 @@
 						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory" value="Juvenile search timed out or had an error" />
 						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court" value="Court case search timed out or had an error" />
 						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Jail" value="Custody search timed out or had an error" />
+						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash" value="Vehicle Crash search timed out or had an error" />
 					</util:map>				
 				</property>
 				<property name="uriToErrorSystemNameMap">
@@ -81,8 +82,9 @@
 						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS" value="RMS" />
 						<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms" value="Firearms Repository" />
 						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory" value="Juvenile History Repository" />
-						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court" value="Court Case History Repository" />
-						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Jail" value="Custody History Repository" />
+						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court" value="Court Case Repository" />
+						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Jail" value="Custody Repository" />
+						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash" value="Vehicle Crash Repository" />
 					</util:map>				
 				</property>
 				<property name="parentElementName" value="PersonSearchResults"/>
@@ -108,6 +110,7 @@
 						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory" value="${federatedQuery.personSearch.personSearchRequestServiceJuvenileEndpoint}" />
 						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court" value="${federatedQuery.personSearch.personSearchRequestServiceCourtEndpoint}" />
 						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Jail" value="${federatedQuery.personSearch.personSearchRequestServiceJailEndpoint}" />
+						<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash" value="${federatedQuery.personSearch.personSearchRequestServiceVehicleCrashEndpoint}" />
 					</util:map>				
 				</property>
 		  	</bean>
@@ -126,6 +129,7 @@
 				<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory" value="personSearchRequestServiceAdapterEndpoint" />
 				<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court" value="personSearchRequestServiceAdapterEndpoint" />
 				<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Jail" value="personSearchRequestServiceAdapterEndpoint" />
+				<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash" value="personSearchRequestServiceAdapterEndpoint" />
 			</util:map>
 		</constructor-arg>
 	</bean>
