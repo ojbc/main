@@ -85,7 +85,7 @@ public class StaticMockQuery {
 	
 	public static final String COURT_CASE_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}/SubmitCourtCaseQueryRequest";
 	
-	public static final String VEHICLE_CRASH_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Vehicle_Crash/1.0}Submit-Vehicle-Crash-Search";
+	public static final String VEHICLE_CRASH_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash";
 	
 	public static final String VEHICLE_CRASH_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Request_Service/1.0}/SubmitVehicleCrashQueryRequest";			
 	
