@@ -24,6 +24,7 @@
     xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
     xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
     xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+    xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0"
     xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
     xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
     xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
@@ -56,7 +57,6 @@
 					$(function () {
 						$("#vihicleCrashDetail").accordion({
 							heightStyle: "content",			
-							active: false,
 		  					collapsible: true,
 		  					activate: function( event, ui ) { 
 		  						var modalIframe = $("#modalIframe", parent.document);
@@ -76,12 +76,207 @@
 	<xsl:template match="vcq-res-ext:VehicleCrashReport">
 		<xsl:apply-templates select="j:Crash" mode="crashDetail"></xsl:apply-templates>
 		<xsl:apply-templates select="j:Crash/j:IncidentAugmentation" mode="damagedItem"/>
-      	<h3>Crash Vehicle</h3>
-      	<div>crash vehicle</div>
-      	<h3>Work Zone</h3>
-      	<div>work zone</div>
-      	<h3>Witness</h3>
-      	<div>witness</div>
+		<xsl:apply-templates select="j:Crash/j:CrashVehicle"/>
+		<xsl:apply-templates select="j:Crash/j:CrashWorkZone"/>
+		<xsl:apply-templates select="j:Crash/j:IncidentAugmentation" mode="witness"/>
+	</xsl:template>
+	
+	<xsl:template match="j:IncidentAugmentation" mode="witness">
+		<h3>Witness</h3>
+		<div>
+			<table style="width:100%">
+				<xsl:for-each select="j:IncidentWitness/nc:RoleOfPerson">
+					<xsl:variable name="witnessId"><xsl:value-of select="@structures:ref"/></xsl:variable>
+					<xsl:variable name="witnessLocationId">
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:PersonResidenceAssociation[nc:Person/@structures:ref = $witnessId]/nc:Location/@structures:ref"/>
+					</xsl:variable>
+					<tr>
+						<td class="detailsLabel">Name</td>
+						<td>
+							<xsl:apply-templates select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$witnessId]/nc:PersonName" mode="firstNameFirst"/>
+						</td>
+						<td class="detailsLabel">Address</td>
+						<td>
+							<xsl:apply-templates select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Location[@structures:id=$witnessLocationId]/nc:Address"/>
+						</td>
+					</tr>
+				</xsl:for-each>
+			</table>
+		</div>
+	</xsl:template>
+	
+	<xsl:template match="nc:Address">
+		<xsl:value-of select="nc:LocationStreet/nc:StreetFullText"></xsl:value-of><br/>
+		<xsl:value-of select="nc:LocationCityName"/><xsl:text>, </xsl:text>
+		<xsl:value-of select="j:LocationStateNCICLISCode"/><xsl:text>, </xsl:text>
+		<xsl:value-of select="nc:LocationPostalCode"></xsl:value-of>
+	</xsl:template>
+	
+	<xsl:template match="j:CrashWorkZone">
+		<h3>Work Zone</h3>
+		<div>
+			<table style="width:100%">
+				<tr>
+					<td class="detailsLabel">In Work Zone</td>
+					<td>
+						<xsl:apply-templates select="vcq-res-ext:NearWorkZoneIndicator" mode="formatBooleanAsYesNo"/>
+					</td>
+					<td class="detailsLabel">Law Enforcement Present</td>
+					<td>
+						<xsl:value-of select="me-crash-codes:LawEnforcementPresentAtWorkZoneCode"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Workers Present</td>
+					<td>
+						<xsl:apply-templates select="vcq-res-ext:WorkZoneWorkersPresentIndicator" mode="formatBooleanAsYesNo"/>
+					</td>
+					<td class="detailsLabel">Presence Code</td>
+					<td>
+						<xsl:value-of select="j:WorkZoneWorkersPresenceIndicationCode"></xsl:value-of>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</xsl:template>
+	
+	<xsl:template match="j:CrashVehicle">
+		<xsl:variable name="vehicleId"><xsl:value-of select="nc:RoleOfItem/@structures:ref"/></xsl:variable>
+		<xsl:variable name="vehicleNode" select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]" as="node()"/>
+		<xsl:variable name="vehicleRegistrationId"><xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/j:ConveyanceRegistrationAssociation[nc:Item/@structures:ref=$vehicleId]/j:ItemRegistration/@structures:ref"/></xsl:variable>
+		<xsl:variable name="insurancePolicyId"><xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:ItemInsuranceAssociation[nc:Item/@structures:ref=$vehicleId]/nc:Insurance/@structures:ref"/></xsl:variable>
+		<xsl:variable name="driverId"><xsl:value-of select="j:CrashDriver/nc:RoleOfPerson/@structures:ref"/></xsl:variable>
+		<xsl:variable name="driverLicenseId"><xsl:value-of select="j:CrashDriver/j:DriverLicense/@structures:ref"/></xsl:variable>
+		<h3>Crash Vehicle</h3>
+		<div>
+			<table style="width:100%">
+				<tr>
+					<td class="detailsLabel">Make</td>
+					<td>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/j:VehicleMakeCode"></xsl:value-of>
+					</td>
+					<td class="detailsLabel">Model</td>
+					<td>
+						No Mapping
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Year</td>
+					<td>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/nc:ItemModelYearDate"></xsl:value-of>
+					</td>
+					<td class="detailsLabel">VIN</td>
+					<td>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/nc:VehicleIdentification/nc:IdentificationID"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Color</td>
+					<td>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/j:ConveyanceColorPrimaryCode"/>
+					</td>
+					<td class="detailsLabel">Unit</td>
+					<td>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/vcq-res-ext:VehicleUnitIdentification"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Plate Number</td>
+					<td>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/j:ConveyanceRegistration[@structures:id=$vehicleRegistrationId]/j:ConveyanceRegistrationPlateIdentification/nc:IdentificationID"/>
+					</td>
+					<td class="detailsLabel">Plate Jurisdiction</td>
+					<td>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/j:ConveyanceRegistration[@structures:id=$vehicleRegistrationId]/j:ConveyanceRegistrationPlateIdentification/nc:IdentificationJurisdiction/j:LocationStateNCICLISCode"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Insurance Policy #</td>
+					<td>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Insurance[@structures:id=$insurancePolicyId]/nc:InsurancePolicyIdentification/nc:IdentificationID"/>
+					</td>
+					<td class="detailsLabel">Insurance Carrier</td>
+					<td>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Insurance[@structures:id=$insurancePolicyId]/nc:InsuranceCarrierName"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Hit and Run?</td>
+					<td>
+						<xsl:apply-templates select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/vcq-res-ext:HitRunIndicator" mode="formatBooleanAsYesNo"/>
+					</td>
+					<td class="detailsLabel">Extent of Damage</td>
+					<td>
+						<xsl:value-of select="me-crash-codes:ExtentOfDamageCode"></xsl:value-of>
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Posted Speed</td>
+					<td><xsl:value-of select="me-crash-codes:PostedSpeedLimitCode"/>
+					</td>
+					<td class="detailsLabel">Actual Speed</td>
+					<td><xsl:value-of select="j:CrashVehicleLegalSpeedRateMeasure"/></td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Hazmat</td>
+					<td><xsl:apply-templates select="vcq-res-ext:HazmatPlacardIndicator" mode="formatBooleanAsYesNo"/></td>
+					<td class="detailsLabel">Gross Weight</td>
+					<td><xsl:value-of select="me-crash-codes:GrossVehicleWeightRatingCode"/></td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Driver Name</td>
+					<td>
+						<xsl:apply-templates select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/nc:PersonName" mode="firstNameFirst"/>
+					</td>
+					<td class="detailsLabel">Driver License #</td>
+					<td>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/j:CrashDriverLicense[@structures:id=$driverLicenseId]/j:DriverLicenseCardIdentification/nc:IdentificationID"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Alcohol Test Type</td>
+					<td>
+						<xsl:value-of select="j:CrashDriver/me-crash-codes:AlcoholTestCategoryCode"/>
+					</td>
+					<td class="detailsLabel">Alcohol Test Result</td>
+					<td>
+						<xsl:value-of select="j:CrashDriver/me-crash-codes:DrugTestResultCode"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Drug Test Type</td>
+					<td>
+						<xsl:value-of select="j:CrashDriver/me-crash-codes:DrugTestCategoryCode"/>
+					</td>
+					<td class="detailsLabel">Drug Test Result </td>
+					<td>
+						<xsl:value-of select="j:CrashDriver/me-crash-codes:DrugTestResultCode"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="detailsLabel">Vehicle Occupants</td>
+					<td>
+						<xsl:apply-templates select="j:CrashVehicleOccupant"/>
+					</td>
+					<td class="detailsLabel">School Bus</td>
+					<td>
+						<xsl:value-of select="me-crash-codes:SchoolBusRelatedCode"/>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</xsl:template>
+	
+	<xsl:template match="j:CrashVehicleOccupant">
+		<xsl:for-each select="nc:RoleOfPerson">
+			<xsl:if test="position()>1"><xsl:text>, </xsl:text></xsl:if>
+			
+			<xsl:variable name="personId">
+				<xsl:value-of select="@structures:ref"></xsl:value-of>
+			</xsl:variable>
+			<xsl:apply-templates select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$personId]/nc:PersonName
+				| ancestor::vcq-res-ext:VehicleCrashReport/nc:EntityPerson[@structures:id=$personId]/nc:PersonName" mode="firstNameFirst"/>
+		</xsl:for-each>
 	</xsl:template>
 	
 	<xsl:template match="j:IncidentAugmentation" mode="damagedItem">
