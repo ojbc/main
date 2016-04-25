@@ -236,8 +236,6 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
 		boolean hasFbiId = StringUtils.isNotEmpty(fbiId);
 		
-		logger.info("\n\n subscription = \n" + subscription + "\n\n\n");
-		
 		if(hasSid || hasFbiId){
 			
 			Element personAugNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
