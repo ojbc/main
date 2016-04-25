@@ -63,6 +63,8 @@
 					<prop key="webapplication.personQuery.courtCaseQueryRequestResultsEndpoint"/>
 					<prop key="webapplication.personSearch.custodySearchRequestResultsEndpoint"/>
 					<prop key="webapplication.personQuery.custodyQueryRequestResultsEndpoint"/>
+					<prop key="webapplication.personQuery.personQueryVehicleCrashEndpoint"/>
+					<prop key="webapplication.personQuery.personQueryResultsHandlerVehicleCrashEndpoint"/>
 				</util:properties>
 				
 				<!-- The config file is located in the ojb-web-external-resource project -->

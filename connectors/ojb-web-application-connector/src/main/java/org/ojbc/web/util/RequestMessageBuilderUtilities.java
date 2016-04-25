@@ -760,6 +760,21 @@ public class RequestMessageBuilderUtilities {
 		sb.append("	</cq-req-ext:CustodyRecordIdentification>");
 		sb.append("</cq-req-doc:CustodyQueryRequest>");
 		return sb.toString();
+	}
+
+	public static String createVehicleCrashQueryRequest(
+			DetailsRequest detailRequest) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<vcq-req-doc:VehicleCrashQueryRequest");
+		sb.append("	xmlns:vcq-req-doc=\"http://ojbc.org/IEPD/Exchange/VehicleCrashQueryRequest/1.0\"");
+		sb.append("	xmlns:vcq-req-ext=\"http://ojbc.org/IEPD/Extensions/VehicleCrashQueryRequestExtension/1.0\"");
+		sb.append("	xmlns:nc=\"http://release.niem.gov/niem/niem-core/3.0/\">");
+		sb.append("	<vcq-req-ext:VehicleCrashIdentification>");
+		sb.append("		<nc:IdentificationID>" + detailRequest.getIdentificationID() + "</nc:IdentificationID>");
+		sb.append("		<nc:IdentificationSourceText>" + detailRequest.getIdentificationSourceText() + "</nc:IdentificationSourceText>");
+		sb.append("	</vcq-req-ext:VehicleCrashIdentification>");
+		sb.append("</vcq-req-doc:VehicleCrashQueryRequest>");
+		return sb.toString();
 	}	
     
 }
