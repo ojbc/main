@@ -67,6 +67,7 @@ public class DefaultController {
 			person = personDao.authenticate(command.getUserId(), command.getOldPassword());
 		}
 		catch(Throwable e){
+			e.printStackTrace();
 			result.addError(new ObjectError("changePasswordCommand", "User credential error, valid user ID and current password needed"));
 			result.rejectValue("userId", null, "");
 			result.rejectValue("oldPassword", null, "");
