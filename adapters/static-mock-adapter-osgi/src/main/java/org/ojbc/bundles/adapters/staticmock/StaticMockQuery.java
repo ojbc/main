@@ -1950,7 +1950,7 @@ public class StaticMockQuery {
 		
 		vehicleCrashDetailXpaths.searchSystemId = VEHICLE_CRASH_SEARCH_SYSTEM_ID;
 		
-		vehicleCrashDetailXpaths.systemName = VEHICLE_CRASH_SEARCH_SYSTEM_ID;
+		vehicleCrashDetailXpaths.systemName = "Vehicle Crash";
 		
 		vehicleCrashDetailXpaths.recordType = "Vehicle Crash";		
 		
