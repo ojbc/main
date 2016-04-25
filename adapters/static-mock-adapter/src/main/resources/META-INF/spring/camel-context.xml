@@ -96,6 +96,12 @@
 		<endpoint id="courtCaseQueryResultsServiceEndpoint"
 			uri="cxf:bean:courtCaseQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.courtCaseQueryMockCxflogging}" />
 
+		<endpoint id="vehicleCrashQueryRequestServiceEndpoint"
+			uri="cxf:bean:vehicleCrashQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.courtCaseQueryMockCxflogging}" />
+
+		<endpoint id="vehicleCrashQueryResultsServiceEndpoint"
+			uri="cxf:bean:vehicleCrashQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.courtCaseQueryMockCxflogging}" />
+
 		<!-- Criminal History Query Endpoints -->
 		<endpoint id="personQueryRequestCriminalHistoryServiceEndpoint"
 			uri="cxf:bean:personQueryRequestCriminalHistoryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
@@ -557,8 +563,43 @@
 			
 		</camel:route>				
 		
+		<!-- Vehicle Crash Query Request Handler -->
+		<camel:route id="vehicleCrashQueryRequestRoute">
 		
+			<camel:from uri="vehicleCrashQueryRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+			
+			<camel:log message="\n\n\n Inside Court Case Query Mock \n\n\n" />
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="\n\n\n Calling staticMockAdapterProcessor \n\n\n" />
+
+			<camel:to uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitVehicleCrashQueryResults</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Results_Service/1.0</constant>
+			</camel:setHeader>
+
+			<camel:log message="Calling Vehicle Crash Query Result endpoint...  " />
+
+			<camel:to uri="vehicleCrashQueryResultsServiceEndpoint" />			
+			
+		</camel:route>				
+		
 		<!-- Warrants Query Request Handler -->
 		<camel:route id="warrantQueryRequestService">
 			<camel:from uri="personQueryRequestWarrantsServiceEndpoint" />
