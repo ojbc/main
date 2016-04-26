@@ -8,7 +8,12 @@
 </head>
 <body>
 	<div id="pageRoot">
-		<h3>User account's password is updated.</h3>
+     	<div id="stateBanner" class="contentBox">
+	     	 <img src="<c:url value="/resources/images/banner.jpg"/>" alt="Mock State Banner" style="max-height:100%;">
+   	  	</div>
+		<div id="mainContent">
+			<h3>User account's password is updated.</h3>
+		</div>
 	</div>
 </body>
 </html>
