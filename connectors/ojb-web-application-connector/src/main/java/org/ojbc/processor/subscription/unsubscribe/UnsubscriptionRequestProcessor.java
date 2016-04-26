@@ -27,9 +27,9 @@ import org.ojbc.util.camel.processor.MessageProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
+import org.ojbc.util.xml.subscription.Unsubscription;
 import org.ojbc.web.UnsubscriptionInterface;
-import org.ojbc.web.model.subscription.Unsubscription;
-import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -70,7 +70,7 @@ public class UnsubscriptionRequestProcessor implements CamelContextAware, Unsubs
 				throw new Exception("No SAML token provided. Unable to perform query.");
 			}	
 						
-			Document requestMessage = RequestMessageBuilderUtilities.createUnubscriptionRequest(unsubscription);
+			Document requestMessage = SubscriptionNotificationDocumentBuilderUtils.createUnubscriptionRequest(unsubscription);
 			
 			log.info("Unsubscribe Message:");
 			XmlUtils.printNode(requestMessage);

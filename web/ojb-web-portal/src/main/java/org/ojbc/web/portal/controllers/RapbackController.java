@@ -32,13 +32,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.util.xml.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Unsubscription;
 import org.ojbc.web.SubscriptionInterface;
 import org.ojbc.web.model.IdentificationResultsCategory;
 import org.ojbc.web.model.IdentificationResultsQueryResponse;
 import org.ojbc.web.model.SimpleServiceResponse;
 import org.ojbc.web.model.person.query.DetailsRequest;
-import org.ojbc.web.model.subscription.Subscription;
-import org.ojbc.web.model.subscription.Unsubscription;
 import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
 import org.ojbc.web.portal.controllers.config.RapbackControllerConfigInterface;
 import org.ojbc.web.portal.controllers.config.SubscriptionsControllerConfigInterface;
@@ -181,7 +181,7 @@ public class RapbackController {
 	public @ResponseBody String unsubscribe(HttpServletRequest request, @RequestParam String subscriptionId,
 			Map<String, Object> model) {
 		try {
-			Unsubscription unsubscription = new Unsubscription(subscriptionId, TOPIC_PERSON_ARREST, CIVIL_SUBSCRIPTION_REASON_CODE);
+			Unsubscription unsubscription = new Unsubscription(subscriptionId, TOPIC_PERSON_ARREST, CIVIL_SUBSCRIPTION_REASON_CODE, null, null, null, null);
 			try{
 				subConfig.getUnsubscriptionBean().unsubscribe(unsubscription, getFederatedQueryId(), samlService.getSamlAssertion(request));
 				return "success";
@@ -260,7 +260,7 @@ public class RapbackController {
 		
 		setSubscripitonContactEmails(rapbackSearchResultsDoc, subscription);
 		
-		subscription.setSubscriptionType(TOPIC_PERSON_ARREST);
+		subscription.setTopic(TOPIC_PERSON_ARREST);
 		subscription.setSubscriptionPurpose(CIVIL_SUBSCRIPTION_REASON_CODE);
 		
 		return subscription;

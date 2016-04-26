@@ -16,17 +16,16 @@
  */
 package org.ojbc.web.util;
 
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
-import static org.ojbc.web.OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,8 +49,6 @@ import org.ojbc.web.model.incident.search.IncidentSearchRequestDomUtils;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequestDomUtils;
-import org.ojbc.web.model.subscription.Subscription;
-import org.ojbc.web.model.subscription.Unsubscription;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequestDomUtils;
 import org.w3c.dom.Document;
@@ -382,43 +379,6 @@ public class RequestMessageBuilderUtilities {
 		return doc;
 	}
 
-	public static Document createUnubscriptionRequest(Unsubscription unsubscription) throws Exception{
-		
-		String subscriptionIdentificationId = unsubscription.getSubscriptionId();
-		
-		Document doc = OJBCXMLUtils.createDocument();
-        Element root = doc.createElementNS(OjbcNamespaceContext.NS_B2, "Unsubscribe");
-        doc.appendChild(root);
-        root.setPrefix(OjbcNamespaceContext.NS_PREFIX_B2);
-		
-        Element unsubscriptionMessage = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_UNBSUB_MSG_EXCHANGE, "UnsubscriptionMessage");
-        
-        Element subscriptionIdentification = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionIdentification");
-        
-        Element identificationID = XmlUtils.appendElement(subscriptionIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
-        identificationID.setTextContent(subscriptionIdentificationId);
-                
-		String reasonCode = unsubscription.getReasonCode();
-        if (CIVIL_SUBSCRIPTION_REASON_CODE.equals(reasonCode)){
-	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
-	        reasonCodeElement.setTextContent(reasonCode);
-        }
-        else{
-	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
-	        reasonCodeElement.setTextContent(reasonCode);
-        }
-        
-		Element topicExpNode = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_B2, "TopicExpression");		
-		XmlUtils.addAttribute(topicExpNode, null, "Dialect", TOPIC_EXPRESSION_DIALECT);		
-		topicExpNode.setTextContent(unsubscription.getTopic());
-		
-		OjbcNamespaceContext ojbNamespaceCtxt = new OjbcNamespaceContext();
-		ojbNamespaceCtxt.populateRootNamespaceDeclarations(doc.getDocumentElement());
-		
-		return doc;
-	}
-	
-	
 	public static Document createValidateSubscriptionRequest(String subscriptionId, String topic, String reasonCode) throws Exception{
 		
 		Document doc = OJBCXMLUtils.createDocument();		
@@ -453,15 +413,6 @@ public class RequestMessageBuilderUtilities {
 		return doc;
 	}
 	
-
-	public static Document createSubscriptionRequest(Subscription subscription) throws Exception{
-
-		SubscriptionDocumentBuilder subscriptionDocumentBuilder = new SubscriptionDocumentBuilder();		
-		Document subAddReqDoc = subscriptionDocumentBuilder.buildSubscribeDoc(subscription);	
-		
-		return subAddReqDoc;
-	}
-
     public static Document createPolicyAcknowledgementRecordingRequest() throws Exception {
         Document doc = OJBCXMLUtils.createDocument();       
         Element rootElement = doc.createElementNS(OjbcNamespaceContext.NS_ACKNOWLEGEMENT_RECORDING_REQUEST_EXCHANGE, 
@@ -808,6 +759,21 @@ public class RequestMessageBuilderUtilities {
 		sb.append("		<nc:IdentificationSourceText>" + identificationSourceText + "</nc:IdentificationSourceText>");
 		sb.append("	</cq-req-ext:CustodyRecordIdentification>");
 		sb.append("</cq-req-doc:CustodyQueryRequest>");
+		return sb.toString();
+	}
+
+	public static String createVehicleCrashQueryRequest(
+			DetailsRequest detailRequest) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<vcq-req-doc:VehicleCrashQueryRequest");
+		sb.append("	xmlns:vcq-req-doc=\"http://ojbc.org/IEPD/Exchange/VehicleCrashQueryRequest/1.0\"");
+		sb.append("	xmlns:vcq-req-ext=\"http://ojbc.org/IEPD/Extensions/VehicleCrashQueryRequestExtension/1.0\"");
+		sb.append("	xmlns:nc=\"http://release.niem.gov/niem/niem-core/3.0/\">");
+		sb.append("	<vcq-req-ext:VehicleCrashIdentification>");
+		sb.append("		<nc:IdentificationID>" + detailRequest.getIdentificationID() + "</nc:IdentificationID>");
+		sb.append("		<nc:IdentificationSourceText>" + detailRequest.getIdentificationSourceText() + "</nc:IdentificationSourceText>");
+		sb.append("	</vcq-req-ext:VehicleCrashIdentification>");
+		sb.append("</vcq-req-doc:VehicleCrashQueryRequest>");
 		return sb.toString();
 	}	
     

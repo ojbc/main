@@ -30,7 +30,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Test;
-import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Subscription;
 import org.w3c.dom.Document;
 
 public class SubscriptionQueryResultsProcessorTest {
@@ -54,7 +54,7 @@ public class SubscriptionQueryResultsProcessorTest {
 		String sEndDate = sdf.format(dEndDate);
 		assertEquals("2014-05-01", sEndDate);
 				
-		String topic = subscription.getSubscriptionType();
+		String topic = subscription.getTopic();
 		assertEquals("{http://ojbc.org/wsn/topics}:person/arrest", topic);				
 				
 		String sFullName = subscription.getFullName();

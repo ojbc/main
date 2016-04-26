@@ -18,8 +18,8 @@ package org.ojbc.web.impl;
 
 import java.util.logging.Logger;
 
+import org.ojbc.util.xml.subscription.Unsubscription;
 import org.ojbc.web.UnsubscriptionInterface;
-import org.ojbc.web.model.subscription.Unsubscription;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;
 

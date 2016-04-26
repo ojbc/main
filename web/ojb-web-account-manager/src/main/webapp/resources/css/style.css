@@ -19,13 +19,12 @@ th {
 	font-size: small!important;
 }
 
-#pageRoot {
-	margin-left: auto;
-	margin-right: auto;
-	width: 1250px;
-}
-
 #mainContent {
 	padding: 15px;
 	min-height: 1000px;
 }
+
+#stateBanner {
+	background-color: #ffffff;
+}
+

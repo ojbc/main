@@ -42,12 +42,12 @@ import org.json.JSONObject;
 import org.ojbc.processor.subscription.subscribe.SubscriptionResponseProcessor;
 import org.ojbc.processor.subscription.validation.SubscriptionValidationResponseProcessor;
 import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.util.xml.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Unsubscription;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.SubscriptionInterface;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
-import org.ojbc.web.model.subscription.Subscription;
-import org.ojbc.web.model.subscription.Unsubscription;
 import org.ojbc.web.model.subscription.add.SubscriptionEndDateStrategy;
 import org.ojbc.web.model.subscription.add.SubscriptionStartDateStrategy;
 import org.ojbc.web.model.subscription.response.SubscriptionAccessDenialResponse;
@@ -306,7 +306,7 @@ public class SubscriptionsController {
 		Subscription subscription = new Subscription();
 		
 		// if there is only one real subscription type option, make it selected
-		Map<String, String> subTypeMap =  getSubscriptionTypeValueToLabelMap();
+		Map<String, String> subTypeMap =  getTopicValueToLabelMap();
 		// size 2 means only drop down label and 1 real value
 		if(subTypeMap.size() == 2){			
 												
@@ -314,7 +314,7 @@ public class SubscriptionsController {
 				// ignoring empty requires dropdown label "sub type" have a value of empty string
 				// so it will be ignored
 				if(StringUtils.isNotBlank(subType)){
-					subscription.setSubscriptionType(subType);
+					subscription.setTopic(subType);
 				}
 			}						
 		}
@@ -622,15 +622,15 @@ public class SubscriptionsController {
 				
 		logger.info("subscription: \n" + subscription);
 		
-		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
+		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 			
 			arrestSubscriptionAddValidator.validate(subscription, errors);
 			
-		}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
+		}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 			
 			incidentSubscriptionAddValidator.validate(subscription, errors);
 			
-		}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
+		}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 			
 			chCycleSubscriptionValidator.validate(subscription, errors);
 		}
@@ -683,7 +683,7 @@ public class SubscriptionsController {
 		
 		List<String> warningList = new ArrayList<String>();
 			
-		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){			
+		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getTopic())){			
 			
 			String fbiId = subscription.getFbiId(); 			
 		
@@ -983,7 +983,7 @@ public class SubscriptionsController {
 						
 			List<String> allNamesList = null;	
 			
-			if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
+			if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
 				 ChRapsheetData chRapsheetData = lookupChRapbackDataForArrestEdit(request, subscription, model);
 				
@@ -995,11 +995,11 @@ public class SubscriptionsController {
 				
 				 initDatesForEditArrestForm(model);
 				
-			}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
+			}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
 				initDatesForEditIncidentForm(model);
 			
-			}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
+			}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
 				initDatesForEditChCycleForm(model);
 			}
@@ -1281,7 +1281,7 @@ public class SubscriptionsController {
 			String iTopic = iSubDataJson.getString("topic");			
 			String reasonCode = iSubDataJson.getString("reasonCode");
 			
-			Unsubscription unsubscription = new Unsubscription(iId, iTopic, reasonCode);
+			Unsubscription unsubscription = new Unsubscription(iId, iTopic, reasonCode, null, null, null, null);
 			
 			try{
 				subConfig.getUnsubscriptionBean().unsubscribe(unsubscription, getFederatedQueryId(), samlAssertion);
@@ -1347,7 +1347,7 @@ public class SubscriptionsController {
 	}
 	
 	@ModelAttribute("subscriptionTypeValueToLabelMap")
-	public Map<String, String> getSubscriptionTypeValueToLabelMap() {
+	public Map<String, String> getTopicValueToLabelMap() {
 		return subscriptionTypeValueToLabelMap;
 	}
 	
@@ -1432,15 +1432,15 @@ public class SubscriptionsController {
 								
 		logger.info("sub Edit Request = \n" + subscription);
 		
-		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
+		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 			
 			arrestSubscriptionEditValidator.validate(subscription, errorsBindingResult);
 			
-		}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
+		}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 			
 			incidentSubscriptionEditValidator.validate(subscription, errorsBindingResult);
 		
-		}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getSubscriptionType())){
+		}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 			
 			chCycleSubscriptionValidator.validate(subscription, errorsBindingResult);
 		}

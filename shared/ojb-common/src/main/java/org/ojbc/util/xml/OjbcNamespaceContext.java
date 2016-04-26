@@ -289,9 +289,15 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_ME_VEHICLE_CRASH_CODES = "http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0";
 	public static final String NS_PREFIX_ME_VEHICLE_CRASH_CODES = "me-crash-codes";
 	
-	public static final String NS_VEHICLE_CRASH_QUERY_RESULT_EXT = "http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0";
-	public static final String NS_PREFIX_VEHICLE_CRASH_QUERY_RESULT_EXT = "vcq-res-ext";	
+	public static final String NS_VEHICLE_CRASH_QUERY_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/VehicleCrashQueryRequest/1.0";
+	public static final String NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_DOC = "vcq-req-doc";	
 			
+	public static final String NS_VEHICLE_CRASH_QUERY_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/VehicleCrashQueryRequestExtension/1.0";
+	public static final String NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_EXT = "vcq-req-ext";
+	
+	public static final String NS_VEHICLE_CRASH_QUERY_RESULT_EXT = "http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0";
+	public static final String NS_PREFIX_VEHICLE_CRASH_QUERY_RESULT_EXT = "vcq-res-ext";
+	
 	public static final String NS_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0";		
 	public static final String NS_PREFIX_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC = "vcq-res-doc";
 			
@@ -1432,7 +1438,13 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_WARRANT_MOD_DOC_EXCH, NS_PREFIX_WARRANT_MOD_DOC_EXCH);	
 		
 		prefixToUriMap.put(NS_PREFIX_SCREENING_3_1, NS_SCREENING_3_1);
-		uriToPrefixMap.put(NS_SCREENING_3_1, NS_PREFIX_SCREENING_3_1);			
+		uriToPrefixMap.put(NS_SCREENING_3_1, NS_PREFIX_SCREENING_3_1);
+		
+		prefixToUriMap.put(NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_DOC, NS_VEHICLE_CRASH_QUERY_REQUEST_DOC);
+		uriToPrefixMap.put(NS_VEHICLE_CRASH_QUERY_REQUEST_DOC, NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_DOC);			
+				
+		prefixToUriMap.put(NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_EXT, NS_VEHICLE_CRASH_QUERY_REQUEST_EXT);
+		uriToPrefixMap.put(NS_VEHICLE_CRASH_QUERY_REQUEST_EXT, NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_EXT);			
 	}
 
 	@Override

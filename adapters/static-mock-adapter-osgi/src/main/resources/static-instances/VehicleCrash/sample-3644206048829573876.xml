@@ -24,21 +24,21 @@
                                       xmlns:vcq-res-ext="http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0">
    <vcq-res-ext:VehicleCrashReport>
       <nc30:DocumentCreationDate>
-         <nc30:Date>2016-02-24</nc30:Date>
+         <nc30:Date>2016-04-26</nc30:Date>
       </nc30:DocumentCreationDate>
       <nc30:DocumentIdentification>
-         <nc30:IdentificationID>123657300</nc30:IdentificationID>
+         <nc30:IdentificationID>433925014</nc30:IdentificationID>
       </nc30:DocumentIdentification>
       <vcq-res-ext:DocumentApprovedDate>
-         <nc30:Date>2016-02-24</nc30:Date>
+         <nc30:Date>2016-04-26</nc30:Date>
       </vcq-res-ext:DocumentApprovedDate>
       <jxdm51:Crash s30:id="Crash_01">
          <nc30:ActivityDate>
-            <nc30:DateTime>2016-02-24</nc30:DateTime>
+            <nc30:DateTime>2016-04-26T09:42:34</nc30:DateTime>
          </nc30:ActivityDate>
          <jxdm51:ActivityAugmentation>
             <jxdm51:Narrative>
-               <nc30:CommentText>Car hit a truck</nc30:CommentText>
+               <nc30:CommentText>Rush Hour</nc30:CommentText>
             </jxdm51:Narrative>
          </jxdm51:ActivityAugmentation>
          <jxdm51:IncidentAugmentation>
@@ -49,12 +49,12 @@
                      <nc30:EntityPerson s30:ref="Property_Owner_02"/>
                   </nc30:EntityOrganization>
                </nc30:ItemOwner>
-               <me-crash-codes:PropertyCategoryCode>LMB</me-crash-codes:PropertyCategoryCode>
+               <me-crash-codes:PropertyCategoryCode>CA</me-crash-codes:PropertyCategoryCode>
             </jxdm51:IncidentDamagedItem>
             <jxdm51:IncidentReportingOfficial>
                <nc30:RoleOfPerson s30:ref="Reporting_Official_01"/>
                <jxdm51:EnforcementOfficialBadgeIdentification>
-                  <nc30:IdentificationID>68090235</nc30:IdentificationID>
+                  <nc30:IdentificationID>47325374</nc30:IdentificationID>
                </jxdm51:EnforcementOfficialBadgeIdentification>
             </jxdm51:IncidentReportingOfficial>
             <jxdm51:IncidentWitness>
@@ -63,7 +63,7 @@
          </jxdm51:IncidentAugmentation>
          <jxdm51:CrashInformationSource>
             <jxdm51:OrganizationORIIdentification>
-               <nc30:IdentificationID>65256706</nc30:IdentificationID>
+               <nc30:IdentificationID>88705638</nc30:IdentificationID>
             </jxdm51:OrganizationORIIdentification>
          </jxdm51:CrashInformationSource>
          <jxdm51:CrashWorkZone>
@@ -76,16 +76,16 @@
             <nc30:RoleOfItem s30:ref="Vehicle_01"/>
             <jxdm51:VehicleTrafficControlDeviceOperationalIndicator>true</jxdm51:VehicleTrafficControlDeviceOperationalIndicator>
             <jxdm51:CrashVehicleLegalSpeedRateMeasure>
-               <nc30:MeasureValueText>279</nc30:MeasureValueText>
+               <nc30:MeasureValueText>482</nc30:MeasureValueText>
             </jxdm51:CrashVehicleLegalSpeedRateMeasure>
             <jxdm51:CrashDriver>
                <nc30:RoleOfPerson s30:ref="Driver_01"/>
                <jxdm51:DriverLicense s30:ref="Driver_License_01"/>
-               <me-crash-codes:DriverCategoryCode>dZ</me-crash-codes:DriverCategoryCode>
-               <me-crash-codes:AlcoholTestCategoryCode>sf</me-crash-codes:AlcoholTestCategoryCode>
-               <me-crash-codes:DrugTestCategoryCode>3</me-crash-codes:DrugTestCategoryCode>
+               <me-crash-codes:DriverCategoryCode>Wb</me-crash-codes:DriverCategoryCode>
+               <me-crash-codes:AlcoholTestCategoryCode>Ea</me-crash-codes:AlcoholTestCategoryCode>
+               <me-crash-codes:DrugTestCategoryCode>9</me-crash-codes:DrugTestCategoryCode>
                <me-crash-codes:DrugTestResultCode>false</me-crash-codes:DrugTestResultCode>
-               <vcq-res-ext:AlcoholTestResultsPendingtIndicator>true</vcq-res-ext:AlcoholTestResultsPendingtIndicator>
+               <vcq-res-ext:AlcoholTestResultsPendingtIndicator>false</vcq-res-ext:AlcoholTestResultsPendingtIndicator>
             </jxdm51:CrashDriver>
             <jxdm51:CrashVehicleOccupant>
                <nc30:RoleOfPerson s30:ref="Driver_01"/>
@@ -93,202 +93,203 @@
                <nc30:RoleOfPerson s30:ref="Vehicle_Owner_01"/>
             </jxdm51:CrashVehicleOccupant>
             <vcq-res-ext:HazmatPlacardIndicator>true</vcq-res-ext:HazmatPlacardIndicator>
-            <me-crash-codes:VehicleTravelDirectionCode>East</me-crash-codes:VehicleTravelDirectionCode>
-            <me-crash-codes:GrossVehicleWeightRatingCode>5029</me-crash-codes:GrossVehicleWeightRatingCode>
-            <me-crash-codes:ExtentOfDamageCode>Very Bad</me-crash-codes:ExtentOfDamageCode>
-            <me-crash-codes:PostedSpeedLimitCode>16</me-crash-codes:PostedSpeedLimitCode>
+            <me-crash-codes:VehicleTravelDirectionCode>South</me-crash-codes:VehicleTravelDirectionCode>
+            <me-crash-codes:GrossVehicleWeightRatingCode>8195</me-crash-codes:GrossVehicleWeightRatingCode>
+            <me-crash-codes:ExtentOfDamageCode>$500.75</me-crash-codes:ExtentOfDamageCode>
+            <me-crash-codes:PostedSpeedLimitCode>69</me-crash-codes:PostedSpeedLimitCode>
             <me-crash-codes:SchoolBusRelatedCode>true</me-crash-codes:SchoolBusRelatedCode>
             <vcq-res-ext:TotalDamageOverThresholdtIndicator>false</vcq-res-ext:TotalDamageOverThresholdtIndicator>
-            <vcq-res-ext:VehicleNineOrMoreSeatstIndicator>true</vcq-res-ext:VehicleNineOrMoreSeatstIndicator>
+            <vcq-res-ext:VehicleNineOrMoreSeatstIndicator>false</vcq-res-ext:VehicleNineOrMoreSeatstIndicator>
             <vcq-res-ext:ExemptVehicleIndicator>true</vcq-res-ext:ExemptVehicleIndicator>
          </jxdm51:CrashVehicle>
          <nc30:Location s30:id="Incident_Loc_01">
             <nc30:Address>
-               <nc30:LocationCityName>New Berlin</nc30:LocationCityName>
+               <nc30:LocationCityName>Sarepta</nc30:LocationCityName>
             </nc30:Address>
             <nc30:AddressHighway>
-               <nc30:HighwayFullText>2362 Oakridge Farm Lane</nc30:HighwayFullText>
+               <nc30:HighwayFullText>3038 Tecumsah Lane</nc30:HighwayFullText>
             </nc30:AddressHighway>
             <nc30:Location2DGeospatialCoordinate>
                <nc30:GeographicCoordinateLatitude>
-                  <nc30:LatitudeDegreeValue>96</nc30:LatitudeDegreeValue>
+                  <nc30:LatitudeDegreeValue>43</nc30:LatitudeDegreeValue>
                </nc30:GeographicCoordinateLatitude>
                <nc30:GeographicCoordinateLongitude>
-                  <nc30:LongitudeDegreeValue>50</nc30:LongitudeDegreeValue>
+                  <nc30:LongitudeDegreeValue>05</nc30:LongitudeDegreeValue>
                </nc30:GeographicCoordinateLongitude>
             </nc30:Location2DGeospatialCoordinate>
-            <vcq-res-ext:NearestIntersectingStreetFullText>4324 Hickory Lane</vcq-res-ext:NearestIntersectingStreetFullText>
-            <vcq-res-ext:DistanceFromNearestIntersectionNumberText>47</vcq-res-ext:DistanceFromNearestIntersectionNumberText>
-            <me-crash-codes:DirectionFromNearestIntersectionCode>East</me-crash-codes:DirectionFromNearestIntersectionCode>
-            <me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>mi</me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>
+            <vcq-res-ext:NearestIntersectingStreetFullText>2217 Coffman Alley</vcq-res-ext:NearestIntersectingStreetFullText>
+            <vcq-res-ext:DistanceFromNearestIntersectionNumberText>84</vcq-res-ext:DistanceFromNearestIntersectionNumberText>
+            <me-crash-codes:DirectionFromNearestIntersectionCode>North</me-crash-codes:DirectionFromNearestIntersectionCode>
+            <me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>km</me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>
          </nc30:Location>
          <vcq-res-ext:AtSceneDateTime>
-            <nc30:DateTime>2016-02-24</nc30:DateTime>
+            <nc30:DateTime>2016-04-26T09:42:34</nc30:DateTime>
          </vcq-res-ext:AtSceneDateTime>
-         <vcq-res-ext:OffRoadIncidentIndicator>true</vcq-res-ext:OffRoadIncidentIndicator>
-         <vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>true</vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>
+         <vcq-res-ext:OffRoadIncidentIndicator>false</vcq-res-ext:OffRoadIncidentIndicator>
+         <vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>false</vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>
       </jxdm51:Crash>
       <jxdm51:Citation s30:id="Citation_01">
          <nc30:ActivityIdentification>
-            <nc30:IdentificationID>91314622</nc30:IdentificationID>
+            <nc30:IdentificationID>07177270</nc30:IdentificationID>
          </nc30:ActivityIdentification>
          <vcq-res-ext:CitationNumberPendingIndicator>true</vcq-res-ext:CitationNumberPendingIndicator>
          <vcq-res-ext:FirstViolationDescriptionText>Ran Stop Sign</vcq-res-ext:FirstViolationDescriptionText>
-         <vcq-res-ext:SecondViolationDescriptionText>Ran Stop Sign</vcq-res-ext:SecondViolationDescriptionText>
+         <vcq-res-ext:SecondViolationDescriptionText>No Seatbelt</vcq-res-ext:SecondViolationDescriptionText>
       </jxdm51:Citation>
       <nc30:Person s30:id="Reporting_Official_01">
          <nc30:PersonName>
-            <nc30:PersonFullName>Diane Rogers</nc30:PersonFullName>
+            <nc30:PersonFullName>Robert Carlisle</nc30:PersonFullName>
          </nc30:PersonName>
       </nc30:Person>
       <nc30:Person s30:id="Witness_01">
          <nc30:PersonName>
-            <nc30:PersonGivenName>Diane</nc30:PersonGivenName>
-            <nc30:PersonMiddleName>K</nc30:PersonMiddleName>
-            <nc30:PersonSurName>Rogers</nc30:PersonSurName>
+            <nc30:PersonGivenName>Robert</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>S</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Carlisle</nc30:PersonSurName>
          </nc30:PersonName>
       </nc30:Person>
       <nc30:Person s30:id="Information_Approver_01">
          <nc30:PersonName>
-            <nc30:PersonFullName>Harry Hudak</nc30:PersonFullName>
+            <nc30:PersonFullName>John Brazelton</nc30:PersonFullName>
          </nc30:PersonName>
       </nc30:Person>
       <nc30:Person s30:id="Driver_01">
          <nc30:PersonBirthDate>
-            <nc30:Date>10/11/1954</nc30:Date>
+            <nc30:Date>1986-10-10</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonName>
-            <nc30:PersonGivenName>Sue</nc30:PersonGivenName>
-            <nc30:PersonMiddleName>S</nc30:PersonMiddleName>
-            <nc30:PersonSurName>Flynn</nc30:PersonSurName>
+            <nc30:PersonGivenName>Julia</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>C</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Taylor</nc30:PersonSurName>
          </nc30:PersonName>
          <jxdm51:PersonSexCode>female</jxdm51:PersonSexCode>
-         <me-crash-codes:PersonCategoryCode>Dx</me-crash-codes:PersonCategoryCode>
+         <me-crash-codes:PersonCategoryCode>DX</me-crash-codes:PersonCategoryCode>
       </nc30:Person>
       <nc30:Person s30:id="Vehicle_Owner_01">
          <nc30:PersonBirthDate>
-            <nc30:Date>5/11/1986</nc30:Date>
+            <nc30:Date>1991-08-16</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonName>
-            <nc30:PersonGivenName>Daniel</nc30:PersonGivenName>
-            <nc30:PersonMiddleName>J</nc30:PersonMiddleName>
-            <nc30:PersonSurName>Means</nc30:PersonSurName>
+            <nc30:PersonGivenName>James</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>R</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Thacker</nc30:PersonSurName>
          </nc30:PersonName>
          <jxdm51:PersonSexCode>male</jxdm51:PersonSexCode>
-         <me-crash-codes:PersonCategoryCode>Rl</me-crash-codes:PersonCategoryCode>
+         <me-crash-codes:PersonCategoryCode>yS</me-crash-codes:PersonCategoryCode>
       </nc30:Person>
       <nc30:EntityOrganization s30:id="Property_Owner_01">
-         <nc30:OrganizationName>Fayva</nc30:OrganizationName>
+         <nc30:OrganizationName>Century House</nc30:OrganizationName>
       </nc30:EntityOrganization>
       <nc30:EntityPerson s30:id="Property_Owner_02">
          <nc30:PersonName>
-            <nc30:PersonFullName>RhondaSanders</nc30:PersonFullName>
+            <nc30:PersonFullName>JeffreyMoreno</nc30:PersonFullName>
          </nc30:PersonName>
       </nc30:EntityPerson>
       <nc30:EntityPerson s30:id="Occupant_01">
          <nc30:PersonBirthDate>
-            <nc30:Date>3/31/1931</nc30:Date>
+            <nc30:Date>1952-05-08</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonName>
-            <nc30:PersonGivenName>Rhonda</nc30:PersonGivenName>
-            <nc30:PersonMiddleName>P</nc30:PersonMiddleName>
-            <nc30:PersonSurName>Sanders</nc30:PersonSurName>
-            <jxdm51:PersonSexCode>female</jxdm51:PersonSexCode>
-            <me-crash-codes:PersonCategoryCode>pP</me-crash-codes:PersonCategoryCode>
+            <nc30:PersonGivenName>Jeffrey</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>C</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Moreno</nc30:PersonSurName>
+            <jxdm51:PersonSexCode>male</jxdm51:PersonSexCode>
+            <me-crash-codes:PersonCategoryCode>OT</me-crash-codes:PersonCategoryCode>
          </nc30:PersonName>
       </nc30:EntityPerson>
       <nc30:Location s30:id="Driver_Loc_01">
          <nc30:Address>
             <nc30:LocationStreet>
-               <nc30:StreetFullText>3312 Pinewood Avenue</nc30:StreetFullText>
+               <nc30:StreetFullText>2464 Coal Road</nc30:StreetFullText>
             </nc30:LocationStreet>
-            <nc30:LocationCityName>Marquette</nc30:LocationCityName>
-            <jxdm51:LocationStateNCICLISCode>MI</jxdm51:LocationStateNCICLISCode>
-            <nc30:LocationPostalCode>49855</nc30:LocationPostalCode>
+            <nc30:LocationCityName>Pittston</nc30:LocationCityName>
+            <jxdm51:LocationStateNCICLISCode>PA</jxdm51:LocationStateNCICLISCode>
+            <nc30:LocationPostalCode>18640</nc30:LocationPostalCode>
          </nc30:Address>
       </nc30:Location>
       <nc30:Location s30:id="Witness_Loc_01">
          <nc30:Address>
             <nc30:LocationStreet>
-               <nc30:StreetFullText>3774 O Conner Street</nc30:StreetFullText>
+               <nc30:StreetFullText>733 Davis Place</nc30:StreetFullText>
             </nc30:LocationStreet>
-            <nc30:LocationCityName>Bainbridge</nc30:LocationCityName>
-            <jxdm51:LocationStateNCICLISCode>GA</jxdm51:LocationStateNCICLISCode>
-            <nc30:LocationPostalCode>31717</nc30:LocationPostalCode>
+            <nc30:LocationCityName>Maumee</nc30:LocationCityName>
+            <jxdm51:LocationStateNCICLISCode>OH</jxdm51:LocationStateNCICLISCode>
+            <nc30:LocationPostalCode>43537</nc30:LocationPostalCode>
          </nc30:Address>
       </nc30:Location>
       <nc30:Location s30:id="Property_Owner_Loc_01">
          <nc30:Address>
             <nc30:LocationStreet>
-               <nc30:StreetFullText>958 Kincheloe Road</nc30:StreetFullText>
+               <nc30:StreetFullText>2852 Lake Forest Drive</nc30:StreetFullText>
             </nc30:LocationStreet>
-            <nc30:LocationCityName>Mcminnville</nc30:LocationCityName>
-            <jxdm51:LocationStateNCICLISCode>OR</jxdm51:LocationStateNCICLISCode>
-            <nc30:LocationPostalCode>97128</nc30:LocationPostalCode>
+            <nc30:LocationCityName>Mount Kisco</nc30:LocationCityName>
+            <jxdm51:LocationStateNCICLISCode>NY</jxdm51:LocationStateNCICLISCode>
+            <nc30:LocationPostalCode>10549</nc30:LocationPostalCode>
          </nc30:Address>
       </nc30:Location>
       <nc30:Location s30:id="Vehicle_Owner_Loc_01">
          <nc30:Address>
             <nc30:LocationStreet>
-               <nc30:StreetFullText>1535</nc30:StreetFullText>
+               <nc30:StreetFullText>3856</nc30:StreetFullText>
             </nc30:LocationStreet>
-            <nc30:LocationCityName>Stamford</nc30:LocationCityName>
-            <jxdm51:LocationStateNCICLISCode>CT</jxdm51:LocationStateNCICLISCode>
-            <nc30:LocationPostalCode>06901</nc30:LocationPostalCode>
+            <nc30:LocationCityName>Green Bay</nc30:LocationCityName>
+            <jxdm51:LocationStateNCICLISCode>WI</jxdm51:LocationStateNCICLISCode>
+            <nc30:LocationPostalCode>54301</nc30:LocationPostalCode>
          </nc30:Address>
       </nc30:Location>
       <nc30:Vehicle s30:id="Vehicle_01">
-         <jxdm51:ConveyanceColorPrimaryCode>BLK<nc30:ItemModelYearDate>1970</nc30:ItemModelYearDate>
-         </jxdm51:ConveyanceColorPrimaryCode>
+         <jxdm51:ConveyanceColorPrimaryCode>BLU</jxdm51:ConveyanceColorPrimaryCode>
+         <nc30:ItemModelYearDate>1989</nc30:ItemModelYearDate>
          <nc30:VehicleIdentification>
-            <nc30:IdentificationID>GhhD6Nx054</nc30:IdentificationID>
+            <nc30:IdentificationID>vciAAVvvh3</nc30:IdentificationID>
             <nc30:IdentificationJurisdiction>
-               <jxdm51:LocationStateNCICLISCode>CT</jxdm51:LocationStateNCICLISCode>
+               <jxdm51:LocationStateNCICLISCode>WI</jxdm51:LocationStateNCICLISCode>
             </nc30:IdentificationJurisdiction>
          </nc30:VehicleIdentification>
-         <jxdm51:VehicleMakeCode>Ford</jxdm51:VehicleMakeCode>
+         <jxdm51:VehicleMakeCode>Chevy</jxdm51:VehicleMakeCode>
+         <jxdm51:VehicleModelCode>564</jxdm51:VehicleModelCode>
          <vcq-res-ext:VehicleUnitIdentification>
-            <nc30:IdentificationID>68IsayB7</nc30:IdentificationID>
+            <nc30:IdentificationID>pknLKau9</nc30:IdentificationID>
          </vcq-res-ext:VehicleUnitIdentification>
-         <vcq-res-ext:HitRunIndicator>false</vcq-res-ext:HitRunIndicator>
+         <vcq-res-ext:HitRunIndicator>true</vcq-res-ext:HitRunIndicator>
       </nc30:Vehicle>
       <jxdm51:ConveyanceRegistration s30:id="Conveyance_Registration_01">
          <jxdm51:ConveyanceRegistrationPlateIdentification>
-            <nc30:IdentificationID>7mmWIw7</nc30:IdentificationID>
+            <nc30:IdentificationID>OrjdSGD</nc30:IdentificationID>
             <nc30:IdentificationJurisdiction>
-               <jxdm51:LocationStateNCICLISCode>DC</jxdm51:LocationStateNCICLISCode>
+               <jxdm51:LocationStateNCICLISCode>FL</jxdm51:LocationStateNCICLISCode>
             </nc30:IdentificationJurisdiction>
          </jxdm51:ConveyanceRegistrationPlateIdentification>
       </jxdm51:ConveyanceRegistration>
       <nc30:Insurance s30:id="Insurance_01">
          <nc30:InsurancePolicyIdentification>
-            <nc30:IdentificationID>dsieEXT5ry</nc30:IdentificationID>
+            <nc30:IdentificationID>mH5InL0SIv</nc30:IdentificationID>
          </nc30:InsurancePolicyIdentification>
          <nc30:InsuranceCarrierName>Allstate</nc30:InsuranceCarrierName>
          <vcq-res-ext:NoInsuranceIndicator>true</vcq-res-ext:NoInsuranceIndicator>
       </nc30:Insurance>
       <jxdm51:CrashDriverLicense s30:id="Driver_License_01">
          <jxdm51:DriverLicenseCardIdentification>
-            <nc30:IdentificationID>nlwFBRrWF</nc30:IdentificationID>
+            <nc30:IdentificationID>FZtiBMaUH</nc30:IdentificationID>
             <nc30:IdentificationJurisdiction>
-               <jxdm51:LocationStateNCICLISCode>NV</jxdm51:LocationStateNCICLISCode>
+               <jxdm51:LocationStateNCICLISCode>OK</jxdm51:LocationStateNCICLISCode>
             </nc30:IdentificationJurisdiction>
          </jxdm51:DriverLicenseCardIdentification>
          <jxdm51:DriverLicenseRestriction>
             <jxdm51:DrivingRestrictionText>Evening</jxdm51:DrivingRestrictionText>
          </jxdm51:DriverLicenseRestriction>
          <jxdm51:DriverLicenseEndorsement>
-            <jxdm51:DriverLicenseEndorsementText>commercial</jxdm51:DriverLicenseEndorsementText>
+            <jxdm51:DriverLicenseEndorsementText>motorcycle</jxdm51:DriverLicenseEndorsementText>
          </jxdm51:DriverLicenseEndorsement>
-         <me-crash-codes:DriverLicenseCategoryCode>Civil</me-crash-codes:DriverLicenseCategoryCode>
-         <vcq-res-ext:DriverLicenseClassCodeText>m</vcq-res-ext:DriverLicenseClassCodeText>
+         <me-crash-codes:DriverLicenseCategoryCode>Military</me-crash-codes:DriverLicenseCategoryCode>
+         <vcq-res-ext:DriverLicenseClassCodeText>X</vcq-res-ext:DriverLicenseClassCodeText>
       </jxdm51:CrashDriverLicense>
       <jxdm51:ActivityInformationApproverAssociation>
          <nc30:Activity s30:ref="Crash_01"/>
          <nc30:Person s30:ref="Information_Approver_01"/>
       </jxdm51:ActivityInformationApproverAssociation>
       <jxdm51:PersonBloodAlcoholContentAssociation>
-         <jxdm51:PersonBloodAlcoholContentNumberText>25</jxdm51:PersonBloodAlcoholContentNumberText>
+         <jxdm51:PersonBloodAlcoholContentNumberText>00</jxdm51:PersonBloodAlcoholContentNumberText>
          <nc30:Activity s30:ref="Crash_01"/>
          <nc30:Person s30:ref="Driver_01"/>
       </jxdm51:PersonBloodAlcoholContentAssociation>
@@ -315,10 +316,10 @@
       <nc30:ActivityDocumentAssociation>
          <nc30:Activity s30:ref="Crash_01"/>
          <nc30:Document s30:ref="Citation_01"/>
-         <jxdm51:ConveyanceRegistrationAssociation>
-            <jxdm51:ItemRegistration s30:ref="Conveyance_Registration_01"/>
-            <nc30:Item s30:ref="Vehicle_01"/>
-         </jxdm51:ConveyanceRegistrationAssociation>
       </nc30:ActivityDocumentAssociation>
+      <jxdm51:ConveyanceRegistrationAssociation>
+         <jxdm51:ItemRegistration s30:ref="Conveyance_Registration_01"/>
+         <nc30:Item s30:ref="Vehicle_01"/>
+      </jxdm51:ConveyanceRegistrationAssociation>
    </vcq-res-ext:VehicleCrashReport>
 </vcq-res-doc:VehicleCrashQueryResults>

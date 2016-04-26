@@ -21,7 +21,7 @@ import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Subscription;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -56,7 +56,7 @@ public class SubscriptionQueryResultsProcessor {
 		parseDateNode(dateRangeNode, subscription);				
 				
 		String topic = XmlUtils.xPathStringSearch(subscriptionNode, "wsn-br:Topic");
-		subscription.setSubscriptionType(topic.trim());
+		subscription.setTopic(topic.trim());
 		
 		String systemId = XmlUtils.xPathStringSearch(subQueryResultNode, "intel:SystemIdentifier/nc:IdentificationID");
 		subscription.setSystemId(systemId);		

@@ -16,7 +16,7 @@
  */
 package org.ojbc.web;
 
-import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
 import org.w3c.dom.Element;
 

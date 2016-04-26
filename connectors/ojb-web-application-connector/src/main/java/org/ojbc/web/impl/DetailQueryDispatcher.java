@@ -32,6 +32,7 @@ import org.ojbc.processor.person.query.JuvenileQueryRequestProcessor;
 import org.ojbc.processor.person.query.PersonToCourtCaseSearchRequestProcessor;
 import org.ojbc.processor.person.query.PersonToCustodySearchRequestProcessor;
 import org.ojbc.processor.person.query.PersonVehicleToIncidentSearchRequestProcessor;
+import org.ojbc.processor.person.query.VehicleCrashQueryRequestProcessor;
 import org.ojbc.processor.person.query.WarrantsRequestProcessor;
 import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.OJBCWebServiceURIs;
@@ -73,6 +74,9 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 	
 	@Autowired(required=false)
 	private CourtCaseQueryRequestProcessor courtCaseQueryRequestProcessor;
+	
+	@Autowired(required=false)
+	private VehicleCrashQueryRequestProcessor vehicleCrashQueryRequestProcessor;
 	
 	@Autowired(required=false)
 	private PersonToCustodySearchRequestProcessor personToCustodySearchRequestProcessor;
@@ -175,6 +179,10 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 		} else if (OJBCWebServiceURIs.JAIL_DETAIL.equals(requestIdSrcTxt)){
 			
 			return custodyQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
+		} else if (OJBCWebServiceURIs.VEHICLE_CRASH.equals(requestIdSrcTxt)){
+			
+			return vehicleCrashQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
 		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
 			
