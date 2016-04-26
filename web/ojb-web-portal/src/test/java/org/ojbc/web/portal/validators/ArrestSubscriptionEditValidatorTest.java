@@ -24,7 +24,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
 import org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionEditStrictValidator;
 
@@ -66,7 +66,7 @@ public class ArrestSubscriptionEditValidatorTest {
 				
 		Subscription subscription = new Subscription();
 		
-		subscription.setSubscriptionType("{http://ojbc.org/wsn/topics}:person/arrest");		
+		subscription.setTopic("{http://ojbc.org/wsn/topics}:person/arrest");		
 		subscription.setStateId("123");		
 		subscription.setFullName("Homer Simpson");	
 		subscription.setSubscriptionStartDate(new Date());

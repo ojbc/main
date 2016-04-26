@@ -48,9 +48,8 @@
         address="${personQuery.vehicleCrash.requestEndpoint}"
         wsdlURL="classpath:ssp/Vehicle_Crash_Query_Request/schema/SIP_WS_1.2/Vehicle_Crash_Query_Request_Service.wsdl"
         serviceName="ojbc:Vehicle-Crash-Query-Request-ServiceService"
-        endpointName="ojbc:Vehicle-Crash-Query-Request-Service"
+        endpointName="ojbc:Vehicle-Crash-Query-Request-Secure-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Request_Service/1.0">
-        
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="vehicleCrashRequestKeystoreProperties" />
@@ -68,9 +67,8 @@
         address="${personQueryVehicleCrashResultsHandlerEndpoint}"
         wsdlURL="classpath:ssp/Vehicle_Crash_Query_Results/schema/SIP_WS_1.2/Vehicle_Crash_Query_Results_Service.wsdl"
         serviceName="ojbc:Vehicle-Crash-Query-Results-ServiceService"
-		endpointName="ojbc:Vehicle-Crash-Query-Results-Service"
+		endpointName="ojbc:Vehicle-Crash-Query-Results-Secure-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Results_Service/1.0">
-        
      <cxf:features>
       <policy:policies>
         <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
@@ -89,7 +87,7 @@
 	<cxf:cxfEndpoint id="personQueryVehicleCrashAdapterService"
 		wsdlURL="classpath:ssp/Vehicle_Crash_Query_Request/schema/SIP_WS_1.2/Vehicle_Crash_Query_Request_Service.wsdl"
 		serviceName="ojbc:Vehicle-Crash-Query-Request-ServiceService"
-		endpointName="ojbc:Vehicle-Crash-Query-Request-Service"
+		endpointName="ojbc:Vehicle-Crash-Query-Request-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Request_Service/1.0">
 		<cxf:properties>
 			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
@@ -107,7 +105,7 @@
         address="${personQuery.vehicleCrash.presentResultsEndpoint}"
         wsdlURL="classpath:ssp/Vehicle_Crash_Query_Results/schema/SIP_WS_1.2/Vehicle_Crash_Query_Results_Service.wsdl"
         serviceName="ojbc:Vehicle-Crash-Query-Results-ServiceService"
-		endpointName="ojbc:Vehicle-Crash-Query-Results-Service"
+		endpointName="ojbc:Vehicle-Crash-Query-Results-Secure-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Results_Service/1.0">
         
      	<cxf:features>

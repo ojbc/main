@@ -24,7 +24,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Subscription;
 
 public class ChCycleSubscriptionValidatorTest {
 	
@@ -106,7 +106,7 @@ public class ChCycleSubscriptionValidatorTest {
 						
 		Subscription subscription = new Subscription();
 		
-		subscription.setSubscriptionType("{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment");		
+		subscription.setTopic("{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment");		
 		subscription.setStateId("123");		
 		subscription.setFirstName("Homer");
 		subscription.setLastName("Simpson");			

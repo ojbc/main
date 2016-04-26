@@ -30,8 +30,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.web.model.subscription.Subscription;
-import org.ojbc.web.util.RequestMessageBuilderUtilities;
+import org.ojbc.util.xml.subscription.Subscription;
+import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
 import org.w3c.dom.Document;
 
 public class SubscribeMessageTest {
@@ -53,7 +53,7 @@ public class SubscribeMessageTest {
 		
 		Subscription subscription = getSampleSubscriptionPojo();
 		
-		Document generatedSubscriptinDoc = RequestMessageBuilderUtilities.createSubscriptionRequest(subscription);	
+		Document generatedSubscriptinDoc = SubscriptionNotificationDocumentBuilderUtils.createSubscriptionRequest(subscription);	
 		
 		String subQualId = XmlUtils.xPathStringSearch(generatedSubscriptinDoc, "//submsg-ext:SubscriptionQualifierIdentification/nc:IdentificationID");
 		
@@ -75,7 +75,7 @@ public class SubscribeMessageTest {
 		
 		Subscription subscription = new Subscription();
 
-		subscription.setSubscriptionType("topics:person/arrest");		
+		subscription.setTopic("topics:person/arrest");		
 		subscription.setCaseId("0123ABC");
 		
 		Date dob = SDF.parse("1972-08-02");		

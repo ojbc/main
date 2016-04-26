@@ -33,5 +33,6 @@ public class OJBCWebServiceURIs {
 	public static final String JAIL = "{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest";
 	public static final String COURT_CASE_DETAIL = "{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}/SubmitCourtCaseQueryRequest";
 	public static final String JAIL_DETAIL = "{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}SubmitCustodyQueryRequest";
+	public static final String VEHICLE_CRASH = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Vehicle_Crash/1.0}Person-Query-Service---Vehicle-Crash";
 	
 }

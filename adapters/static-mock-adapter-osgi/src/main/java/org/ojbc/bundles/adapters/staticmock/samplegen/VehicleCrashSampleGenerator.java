@@ -107,7 +107,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element activityDateElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");
 		
 		Element dateTimeElement = XmlUtils.appendElement(activityDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");		
-		dateTimeElement.setTextContent(CURRENT_DATE);
+		dateTimeElement.setTextContent(DateTime.now().toString("yyyy-MM-dd'T'HH:mm:ss"));
 		
 		
 		Element activityAugmentElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_JXDM_51, "ActivityAugmentation");
@@ -393,7 +393,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element atSceneDateValElement = XmlUtils.appendElement(atSceneDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");
 				
-		atSceneDateValElement.setTextContent(CURRENT_DATE);
+		atSceneDateValElement.setTextContent(DateTime.now().toString("yyyy-MM-dd'T'HH:mm:ss"));
 				
 		Element offRoadElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "OffRoadIncidentIndicator");
 		
@@ -488,7 +488,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element driverDobValElement = XmlUtils.appendElement(driverDobElement, OjbcNamespaceContext.NS_NC_30, "Date");	
 								
-		driverDobValElement.setTextContent(sampleDriverPerson.birthday);
+		driverDobValElement.setTextContent(sampleDriverPerson.birthdate.toString(DATE_FORMATTER_YYYY_MM_DD));
 		
 		Element driverNameElement = XmlUtils.appendElement(driverPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
@@ -534,7 +534,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element vehicleOwnerDobValElement = XmlUtils.appendElement(vehicleOwnerDobElement, OjbcNamespaceContext.NS_NC_30, "Date");
 		
-		vehicleOwnerDobValElement.setTextContent(sampleVehicleOwner.birthday);
+		vehicleOwnerDobValElement.setTextContent(sampleVehicleOwner.birthdate.toString(DATE_FORMATTER_YYYY_MM_DD));
 
 		Element vehicleOwnerNameElement = XmlUtils.appendElement(vehicleOwnerElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 
@@ -588,7 +588,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element occupantDobValElement = XmlUtils.appendElement(occupantDobElement, OjbcNamespaceContext.NS_NC_30, "Date");
 				
-		occupantDobValElement.setTextContent(samplePropertyOwner.birthday);
+		occupantDobValElement.setTextContent(samplePropertyOwner.birthdate.toString(DATE_FORMATTER_YYYY_MM_DD));
 		
 		Element occupantPersonNameElement = XmlUtils.appendElement(occupant1EntPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
@@ -733,7 +733,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		
  		String sampleYear = (String)generateRandomValueFromList(sampleYearList);
  		
- 		Element vehcicleYearElement = XmlUtils.appendElement(vehicleColorElement, OjbcNamespaceContext.NS_NC_30, "ItemModelYearDate");
+ 		Element vehcicleYearElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC_30, "ItemModelYearDate");
  		
  		vehcicleYearElement.setTextContent(sampleYear);
  		
@@ -759,6 +759,10 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		String sampleMake = (String)generateRandomValueFromList(sampleMakeList);
  		
  		vehicleMakeElement.setTextContent(sampleMake);
+ 		
+ 		Element vehicleModelElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_JXDM_51, "VehicleModelCode");
+ 		
+ 		vehicleModelElement.setTextContent(RandomStringUtils.randomNumeric(3));
  		
  		Element vehicleUnitIdElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "VehicleUnitIdentification");
  		
@@ -950,7 +954,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		XmlUtils.addAttribute(activDocAssocDocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Citation_01");
  		
  		
- 		Element conveyRegAssocElement = XmlUtils.appendElement(activityDocAssocElement, OjbcNamespaceContext.NS_JXDM_51, "ConveyanceRegistrationAssociation");
+ 		Element conveyRegAssocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "ConveyanceRegistrationAssociation");
  		
  		Element conveyItemRegElement = XmlUtils.appendElement(conveyRegAssocElement, OjbcNamespaceContext.NS_JXDM_51, "ItemRegistration"); 		
  		XmlUtils.addAttribute(conveyItemRegElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Conveyance_Registration_01");

@@ -319,13 +319,49 @@
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
-	<!-- Court Case Query response handler TODO fix values -->
+	<!-- Court Case Query response handler -->
 	<cxf:cxfEndpoint id="courtCaseQueryResultsHandlerService"
 		address="${genericMockAdapter.courtCaseQueryResultsHandlerEndpoint}"
 		wsdlURL="classpath:ssp/Court_Case_Query_Results/schemas/RS_WS-SIP_v1.2/Court_Case_Query_Results_Service.wsdl"
 		serviceName="ojbc:Court-Case-Query-Results-Service"
 		endpointName="ojbc:Court-Case-Query-Results-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseQueryResultsService/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>
+
+
+	<!-- Vehicle Crash Query request handler -->
+	<cxf:cxfEndpoint id="vehicleCrashQueryRequestService"
+		address="${genericMockAdapter.vehicleCrashQueryEndpoint}"
+        wsdlURL="classpath:ssp/Vehicle_Crash_Query_Request/schema/SIP_WS_1.2/Vehicle_Crash_Query_Request_Service.wsdl"
+        serviceName="ojbc:Vehicle-Crash-Query-Request-ServiceService"
+        endpointName="ojbc:Vehicle-Crash-Query-Request-Secure-Service"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Request_Service/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Vehicle Crash Query response handler -->
+	<cxf:cxfEndpoint id="vehicleCrashQueryResultsHandlerService"
+		address="${genericMockAdapter.vehicleCrashQueryResultsHandlerEndpoint}"
+        wsdlURL="classpath:ssp/Vehicle_Crash_Query_Results/schema/SIP_WS_1.2/Vehicle_Crash_Query_Results_Service.wsdl"
+        serviceName="ojbc:Vehicle-Crash-Query-Results-ServiceService"
+		endpointName="ojbc:Vehicle-Crash-Query-Results-Secure-Service"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Results_Service/1.0">
 		<cxf:features>
 			<policy:policies>
 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
