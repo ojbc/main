@@ -570,7 +570,7 @@
 			
 			<camel:to uri="direct:auditLog"/>
 			
-			<camel:log message="\n\n\n Inside Court Case Query Mock \n\n\n" />
+			<camel:log message="\n\n\n Inside Vehicle Crash Query Mock \n\n\n" />
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
