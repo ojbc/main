@@ -8,7 +8,11 @@
 </head>
 <body>
 	<div id="pageRoot">
-		<div id="mainContent">
+       	<div id="stateBanner" class="contentBox">
+	     	 <img src="<c:url value="/resources/images/banner.jpg"/>" alt="Mock State Banner" style="max-height:100%;">
+   	  	</div>
+   	  	
+   	  	<div id="mainContent">
 			<h3>Change Password</h3>
 			<c:url var="actionUrl" value="/updatePassword.do"/>
 			<form:form modelAttribute="changePasswordCommand" action="${actionUrl}" method="Post">
