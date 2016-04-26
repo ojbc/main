@@ -733,7 +733,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		
  		String sampleYear = (String)generateRandomValueFromList(sampleYearList);
  		
- 		Element vehcicleYearElement = XmlUtils.appendElement(vehicleColorElement, OjbcNamespaceContext.NS_NC_30, "ItemModelYearDate");
+ 		Element vehcicleYearElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC_30, "ItemModelYearDate");
  		
  		vehcicleYearElement.setTextContent(sampleYear);
  		
@@ -759,6 +759,10 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		String sampleMake = (String)generateRandomValueFromList(sampleMakeList);
  		
  		vehicleMakeElement.setTextContent(sampleMake);
+ 		
+ 		Element vehicleModelElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_JXDM_51, "VehicleModelCode");
+ 		
+ 		vehicleModelElement.setTextContent(RandomStringUtils.randomNumeric(3));
  		
  		Element vehicleUnitIdElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "VehicleUnitIdentification");
  		
@@ -950,7 +954,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		XmlUtils.addAttribute(activDocAssocDocElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Citation_01");
  		
  		
- 		Element conveyRegAssocElement = XmlUtils.appendElement(activityDocAssocElement, OjbcNamespaceContext.NS_JXDM_51, "ConveyanceRegistrationAssociation");
+ 		Element conveyRegAssocElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_JXDM_51, "ConveyanceRegistrationAssociation");
  		
  		Element conveyItemRegElement = XmlUtils.appendElement(conveyRegAssocElement, OjbcNamespaceContext.NS_JXDM_51, "ItemRegistration"); 		
  		XmlUtils.addAttribute(conveyItemRegElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Conveyance_Registration_01");
