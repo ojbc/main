@@ -107,7 +107,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element activityDateElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");
 		
 		Element dateTimeElement = XmlUtils.appendElement(activityDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");		
-		dateTimeElement.setTextContent(CURRENT_DATE);
+		dateTimeElement.setTextContent(DateTime.now().toString("yyyy-MM-dd'T'HH:mm:ss"));
 		
 		
 		Element activityAugmentElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_JXDM_51, "ActivityAugmentation");
@@ -393,7 +393,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element atSceneDateValElement = XmlUtils.appendElement(atSceneDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");
 				
-		atSceneDateValElement.setTextContent(CURRENT_DATE);
+		atSceneDateValElement.setTextContent(DateTime.now().toString("yyyy-MM-dd'T'HH:mm:ss"));
 				
 		Element offRoadElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "OffRoadIncidentIndicator");
 		
