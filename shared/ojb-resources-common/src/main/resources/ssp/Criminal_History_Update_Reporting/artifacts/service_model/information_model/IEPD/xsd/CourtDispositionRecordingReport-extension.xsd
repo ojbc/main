@@ -35,10 +35,10 @@
 					<xsd:element ref="nc:Disposition" maxOccurs="unbounded"/>
 					<xsd:element ref="j:Subject"/>
 					<xsd:element ref="nc:Person"/>
-					<xsd:element ref="nc:Organization" maxOccurs="unbounded"/>
-					<xsd:element ref="j:PersonChargeAssociation" maxOccurs="unbounded"/>
-					<xsd:element ref="j:ActivityChargeAssociation" maxOccurs="unbounded"/>
-					<xsd:element ref="cdr-report-ext:ChargeDispositionAssociation" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:PersonChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ActivityChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="cdr-report-ext:ChargeDispositionAssociation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>

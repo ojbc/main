@@ -35,9 +35,9 @@
 					<xsd:element ref="j:Charge" maxOccurs="unbounded"/>
 					<xsd:element ref="j:Subject"/>
 					<xsd:element ref="nc:Person"/>
-					<xsd:element ref="nc:Location"/>
-					<xsd:element ref="nc:Organization"/>
-					<xsd:element ref="nc:PersonResidenceAssociation"/>
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
