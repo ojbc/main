@@ -295,7 +295,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_VEHICLE_CRASH_QUERY_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/VehicleCrashQueryRequestExtension/1.0";
 	public static final String NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_EXT = "vcq-req-ext";
 	
-	public static final String NS_VEHICLE_CRASH_QUERY_RESULT_EXT = "http://ojbc.org/IEPD/Extensions/VehicleCrashQueryRequestExtension/1.0";
+	public static final String NS_VEHICLE_CRASH_QUERY_RESULT_EXT = "http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0";
 	public static final String NS_PREFIX_VEHICLE_CRASH_QUERY_RESULT_EXT = "vcq-res-ext";
 	
 	public static final String NS_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0";		
