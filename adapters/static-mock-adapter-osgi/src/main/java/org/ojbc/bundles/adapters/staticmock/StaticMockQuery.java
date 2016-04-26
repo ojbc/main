@@ -87,7 +87,7 @@ public class StaticMockQuery {
 	
 	public static final String VEHICLE_CRASH_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash";
 	
-	public static final String VEHICLE_CRASH_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Request_Service/1.0}/SubmitVehicleCrashQueryRequest";			
+	public static final String VEHICLE_CRASH_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Vehicle_Crash/1.0}Person-Query-Service---Vehicle-Crash";			
 	
 	public static final String WARRANT_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants";
 	
@@ -299,6 +299,24 @@ public class StaticMockQuery {
 			
 			systemId = systemElement.getTextContent();
 			
+		} else if (OjbcNamespaceContext.NS_COURT_CASE_QUERY_REQUEST_DOC.equals(rootElementNamespace) && "CourtCaseQueryRequest".equals(rootElementLocalName)) {
+			
+			String xPath = OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC + ":CourtCaseQueryRequest/" + OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQ_EXT
+					+ ":CourtCaseRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationSourceText";
+			
+			Element systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
+			
+			if (systemElement == null) {
+				throw new IllegalArgumentException("Invalid query request message:  must specify the system to query.");
+			}
+			
+			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC + ":CourtCaseQueryRequest/"
+					+ OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQ_EXT + ":CourtCaseRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationID");
+			
+			documentId = systemIdElement.getTextContent();
+			
+			systemId = systemElement.getTextContent();
+			
 		} else if (OjbcNamespaceContext.NS_CUSTODY_QUERY_REQUEST_EXCH.equals(rootElementNamespace) && "CustodyQueryRequest".equals(rootElementLocalName)) {
 			String xPath = OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXCH + ":CustodyQueryRequest/" + OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT
 					+ ":CustodyRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationSourceText";
@@ -308,6 +326,18 @@ public class StaticMockQuery {
 			}
 			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXCH + ":CustodyQueryRequest/"
 					+ OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT + ":CustodyRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationID");
+			documentId = systemIdElement.getTextContent();
+			systemId = systemElement.getTextContent();
+		} else if (OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_REQUEST_DOC.equals(rootElementNamespace) && "VehicleCrashQueryRequest".equals(rootElementLocalName)) {
+			String xPath = OjbcNamespaceContext.NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_DOC + ":VehicleCrashQueryRequest/" + OjbcNamespaceContext.NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_EXT
+					+ ":VehicleCrashIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationSourceText";
+			LOG.info("System identification source text xPath: " + xPath);
+			Element systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
+			if (systemElement == null) {
+				throw new IllegalArgumentException("Invalid query request message:  must specify the system to query.");
+			}
+			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, OjbcNamespaceContext.NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_DOC + ":VehicleCrashQueryRequest/" + OjbcNamespaceContext.NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_EXT
+					+ ":VehicleCrashIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationID");
 			documentId = systemIdElement.getTextContent();
 			systemId = systemElement.getTextContent();
 		} else if (OjbcNamespaceContext.NS_FIREARM_REGISTRATION_QUERY_REQUEST_DOC.equals(rootElementNamespace) && "PersonFirearmRegistrationRequest".equals(rootElementLocalName)) {
