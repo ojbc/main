@@ -72,9 +72,12 @@
 						<sp:OnlySignEntireHeadersAndBody />
 						<!-- Specifies the signing algorithm -->
 						<sp:AlgorithmSuite signatureAlgorithm="SHA256withRSA">
-							<wsp:Policy>
-								<sp:Basic256Sha256 />
-							</wsp:Policy>
+                            <wsp:Policy>
+                                <wsp:ExactlyOne>
+                                    <sp:Basic256Sha256 />
+                                    <sp:Basic256Rsa15 />
+                                </wsp:ExactlyOne>    
+                            </wsp:Policy>
 						</sp:AlgorithmSuite>
 					</wsp:Policy>
 				</sp:AsymmetricBinding>
