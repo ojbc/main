@@ -231,13 +231,6 @@
 				will be broadcast.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="OffenseCodeText" type="nc:TextType"
-		substitutionGroup="j:ChargeAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A code representing an offense.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="ChargeCodeText" type="nc:TextType"
 		substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
@@ -263,10 +256,17 @@
 			<xsd:documentation>Originating Case Agency number (OCA).</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	
 	<xsd:element name="WarrantEntryCategoryCodeText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A type of warrant entry.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GeneralOffenseCharacterDescriptionText"
+		type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Further description regarding the circumstances of
+				a charge.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
