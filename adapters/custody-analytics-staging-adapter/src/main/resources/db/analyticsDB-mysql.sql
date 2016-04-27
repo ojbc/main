@@ -26,11 +26,11 @@ use CustodyAnalyticsDataStore;
 
 
 
-
 CREATE TABLE CustodyRelease (
                 CustodyReleaseID BIGINT AUTO_INCREMENT NOT NULL,
                 BookingNumber VARCHAR(50) NOT NULL,
                 ReleaseDate DATETIME NOT NULL,
+                ReportDate DATETIME NOT NULL,
                 PRIMARY KEY (CustodyReleaseID)
 );
 
@@ -186,7 +186,6 @@ CREATE TABLE Agency (
 
 CREATE TABLE CustodyStatusChange (
                 CustodyStatusChangeID BIGINT AUTO_INCREMENT NOT NULL,
-                BookingReportDate DATETIME NOT NULL,
                 BookingReportID VARCHAR(30) NOT NULL,
                 BookingDate DATETIME NOT NULL,
                 CommitDate DATE NOT NULL,
@@ -202,6 +201,7 @@ CREATE TABLE CustodyStatusChange (
                 SendingAgencyID INT NOT NULL,
                 PretrialStatusID INT NOT NULL,
                 FacilityID INT NOT NULL,
+                ReportDate DATETIME NOT NULL,
                 PRIMARY KEY (CustodyStatusChangeID)
 );
 
