@@ -60,7 +60,6 @@
 			</xsd:extension>
 		</xsd:complexContent>
 		</xsd:complexType>
-	
 	<xsd:complexType name="WarrantAugmentationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for additional information about a
@@ -81,12 +80,10 @@
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="scr:TransactionControlNumberIdentification"
 						minOccurs="0" maxOccurs="unbounded" />
-					
 					<xsd:element ref="wm-req-ext:WarrantAdditionalInformation"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="wm-req-ext:PersonAdditionalInformation"
 						minOccurs="0" maxOccurs="unbounded" />
-						
 					<xsd:element ref="wm-req-ext:WarrantEntryCategoryCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
@@ -110,7 +107,6 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	
 	<xsd:complexType name="WarrantAdditionalInformationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for additional information about a
@@ -168,8 +164,6 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	
-	
 	<xsd:element name="PersonRecordIdentification" type="nc:IdentificationType"
 		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
@@ -267,6 +261,14 @@
 		<xsd:annotation>
 			<xsd:documentation>Further description regarding the circumstances of
 				a charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonImmigrationAlienQueryIndicator"
+		type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a person query should include the DHS ICE
+				Database; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
