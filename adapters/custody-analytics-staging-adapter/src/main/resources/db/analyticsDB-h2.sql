@@ -20,7 +20,7 @@ Drop schema if exists CustodyAnalyticsDataStore;
 CREATE schema CustodyAnalyticsDataStore;
 
 
-CREATE TABLE CustodyRelease (CustodyReleaseID BIGINT AUTO_INCREMENT NOT NULL, BookingNumber VARCHAR(50) NOT NULL, ReleaseDate TIMESTAMP NOT NULL);
+CREATE TABLE CustodyRelease (CustodyReleaseID BIGINT AUTO_INCREMENT NOT NULL, BookingNumber VARCHAR(50) NOT NULL, ReleaseDate TIMESTAMP NOT NULL, ReportDate TIMESTAMP NOT NULL);
 
 ALTER TABLE CustodyRelease ADD CONSTRAINT custodyreleaseid PRIMARY KEY (CustodyReleaseID);
 
@@ -140,7 +140,7 @@ ALTER TABLE Agency ADD CONSTRAINT agencyid PRIMARY KEY (AgencyID);
 
 CREATE SEQUENCE Agency_AgencyID_seq_1;
 
-CREATE TABLE CustodyStatusChange (CustodyStatusChangeID BIGINT AUTO_INCREMENT NOT NULL, BookingReportDate TIMESTAMP NOT NULL, BookingReportID VARCHAR(30) NOT NULL, BookingDate TIMESTAMP NOT NULL, CommitDate date NOT NULL, BookingNumber VARCHAR(50) NOT NULL, ArrestLocationLatitude NUMBER(14, 10), ArrestLocationLongitude NUMBER(14, 10), BondAmount NUMBER(10, 2), BondTypeID INT NOT NULL, BookingSubjectID INT NOT NULL, BedTypeID INT NOT NULL, CaseStatusID INT NOT NULL, JurisdictionID INT NOT NULL, SendingAgencyID INT NOT NULL, PretrialStatusID INT NOT NULL, FacilityID INT NOT NULL);
+CREATE TABLE CustodyStatusChange (CustodyStatusChangeID BIGINT AUTO_INCREMENT NOT NULL, BookingReportID VARCHAR(30) NOT NULL, BookingDate TIMESTAMP NOT NULL, CommitDate date NOT NULL, BookingNumber VARCHAR(50) NOT NULL, ArrestLocationLatitude NUMBER(14, 10), ArrestLocationLongitude NUMBER(14, 10), BondAmount NUMBER(10, 2), BondTypeID INT NOT NULL, BookingSubjectID INT NOT NULL, BedTypeID INT NOT NULL, CaseStatusID INT NOT NULL, JurisdictionID INT NOT NULL, SendingAgencyID INT NOT NULL, PretrialStatusID INT NOT NULL, FacilityID INT NOT NULL, ReportDate TIMESTAMP NOT NULL);
 
 ALTER TABLE CustodyStatusChange ADD CONSTRAINT custodystatuschangeid PRIMARY KEY (CustodyStatusChangeID);
 
