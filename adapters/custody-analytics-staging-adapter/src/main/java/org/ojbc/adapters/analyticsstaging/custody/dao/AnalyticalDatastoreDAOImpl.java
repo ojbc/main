@@ -338,30 +338,30 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	if (booking.getBookingId() != null){
         	        		insertArgs = new String[] {"JurisdictionID", "BookingReportDate", 
         	                		"BookingReportID" , "SendingAgencyID","CaseStatusID", 
-        	                		"BookingDate", "SupervisionReleaseDate","PretrialStatusID",
+        	                		"BookingDate", "PretrialStatusID",
         	                		"FacilityID","BedTypeID", "ArrestLocationLatitude", "ArrestLocationLongitude",
         	                		"BookingSubjectID", "CommitDate", "BookingNumber", "BondAmount", "BondTypeID", "BookingID"};
 
         	        		sqlString="INSERT into booking (JurisdictionID, BookingReportDate,"
         	        				+ "BookingReportID, SendingAgencyID, CaseStatusID, "
-        	        				+ "BookingDate, SupervisionReleaseDate, PretrialStatusID, "
+        	        				+ "BookingDate, PretrialStatusID, "
         	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude, "
         	        				+ "BookingSubjectID, CommitDate, BookingNumber, BondAmount, BondTypeID, BookingID) "
-        	        				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	        				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
         	        		insertArgs = new String[] {"JurisdictionID", "BookingReportDate", 
         	                		"BookingReportID" , "SendingAgencyID","CaseStatusID", 
-        	                		"BookingDate", "SupervisionReleaseDate","PretrialStatusID",
+        	                		"BookingDate", "PretrialStatusID",
         	                		"FacilityID","BedTypeID", "ArrestLocationLatitude", "ArrestLocationLongitude",
         	                		"BookingSubjectID", "CommitDate", "BookingNumber", "BondAmount", "BondTypeID"};
 
         	        		sqlString="INSERT into booking (JurisdictionID, BookingReportDate,"
         	        				+ "BookingReportID, SendingAgencyID, CaseStatusID, "
-        	        				+ "BookingDate, SupervisionReleaseDate, PretrialStatusID, "
+        	        				+ "BookingDate, PretrialStatusID, "
         	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude, "
         	        				+ "BookingSubjectID, CommitDate, BookingNumber, BondAmount, BondTypeID) "
-        	        				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	        				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         	        		
         	        	}	
         	        			
@@ -377,23 +377,22 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            setPreparedStatementVariable(booking.getSendingAgencyId(), ps, 4);
         	            setPreparedStatementVariable(booking.getCaseStatusId(), ps, 5);
         	            setPreparedStatementVariable(booking.getBookingDate(), ps, 6);
-        	            setPreparedStatementVariable(booking.getSupervisionReleaseDate(), ps, 7);
-        	            setPreparedStatementVariable(booking.getPretrialStatusId(), ps, 8);
-        	            setPreparedStatementVariable(booking.getFacilityId(), ps, 9);
-        	            setPreparedStatementVariable(booking.getBedTypeId(), ps, 10);
-        	            setPreparedStatementVariable(booking.getArrestLocationLatitude(), ps, 11);
-        	            setPreparedStatementVariable(booking.getArrestLocationLongitude(), ps, 12);
-        	            setPreparedStatementVariable(booking.getBookingSubjectId(), ps, 13);
-        	            setPreparedStatementVariable(booking.getCommitDate(), ps, 14);
-        	            setPreparedStatementVariable(booking.getBookingNumber(), ps, 15);
-                        setPreparedStatementVariable(booking.getBondAmount(), ps, 16);
+        	            setPreparedStatementVariable(booking.getPretrialStatusId(), ps, 7);
+        	            setPreparedStatementVariable(booking.getFacilityId(), ps, 8);
+        	            setPreparedStatementVariable(booking.getBedTypeId(), ps, 9);
+        	            setPreparedStatementVariable(booking.getArrestLocationLatitude(), ps, 10);
+        	            setPreparedStatementVariable(booking.getArrestLocationLongitude(), ps, 11);
+        	            setPreparedStatementVariable(booking.getBookingSubjectId(), ps, 12);
+        	            setPreparedStatementVariable(booking.getCommitDate(), ps, 13);
+        	            setPreparedStatementVariable(booking.getBookingNumber(), ps, 14);
+                        setPreparedStatementVariable(booking.getBondAmount(), ps, 15);
                         
                         if (booking.getBondType() != null){
-                        	setPreparedStatementVariable(booking.getBondType().getKey(), ps,17);
+                        	setPreparedStatementVariable(booking.getBondType().getKey(), ps,16);
                         }
 
         	            if (booking.getBookingId() != null){
-        	            	setPreparedStatementVariable(booking.getBookingId(), ps, 18);
+        	            	setPreparedStatementVariable(booking.getBookingId(), ps, 17);
         	            }
         	            
         	            return ps;
@@ -496,7 +495,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			booking.setSendingAgencyId(rs.getInt("SendingAgencyID"));
 			booking.setCaseStatusId(rs.getInt("CaseStatusID"));
 			booking.setBookingDate(rs.getTimestamp("BookingDate").toLocalDateTime());
-			booking.setSupervisionReleaseDate(rs.getTimestamp("SupervisionReleaseDate").toLocalDateTime());
 			booking.setCommitDate(rs.getDate("CommitDate").toLocalDate());
 			booking.setPretrialStatusId(rs.getInt("PretrialStatusID"));
 			booking.setFacilityId(rs.getInt("FacilityID"));
