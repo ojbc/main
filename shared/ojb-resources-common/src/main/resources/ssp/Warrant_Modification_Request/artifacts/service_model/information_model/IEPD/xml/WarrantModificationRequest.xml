@@ -141,6 +141,7 @@
 		<nc:PersonStateIdentification>
 			<nc:IdentificationID>SID56567</nc:IdentificationID>
 		</nc:PersonStateIdentification>
+		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>165</nc:MeasureValueText>
 			<nc:MeasureUnitText>ibs</nc:MeasureUnitText>
@@ -174,6 +175,8 @@
 		<wm-req-ext:PersonRecordIdentification>
 			<nc:IdentificationID>R69458998</nc:IdentificationID>
 		</wm-req-ext:PersonRecordIdentification>
+		<wm-req-ext:PersonImmigrationAlienQueryIndicator>false
+		</wm-req-ext:PersonImmigrationAlienQueryIndicator>
 	</nc:Person>
 	<nc:ContactInformation>
 		<nc:ContactMailingAddress structures:id="Address_01">
