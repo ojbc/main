@@ -107,6 +107,26 @@
 				<nc:Amount>500.00</nc:Amount>
 			</j:BailBondAmount>
 		</j:BailBond>
+			<j:Charge structures:id="Charge_01">
+			<j:ChargeCategoryDescriptionText>Felony</j:ChargeCategoryDescriptionText>
+			<j:ChargeDescriptionText>Charge Description</j:ChargeDescriptionText>
+			<j:ChargeHighestIndicator>true</j:ChargeHighestIndicator>
+			<j:ChargeSequenceID>Charge Sequence ID</j:ChargeSequenceID>
+			<j:ChargeStatute>
+				<j:StatuteCodeSectionIdentification>
+					<nc:IdentificationID>Charge Code ID</nc:IdentificationID>
+				</j:StatuteCodeSectionIdentification>
+			</j:ChargeStatute>
+		</j:Charge>
+		<j:Arrest structures:id="Arrest_01">
+			<j:ArrestAgency>
+				<nc:OrganizationName>Arrest Agency name</nc:OrganizationName>
+			</j:ArrestAgency>
+			<j:ArrestLocation structures:ref="Loc_01"/>
+		</j:Arrest>
+		<j:PersonCriminalHistorySummary structures:id="CHS_01">
+			<j:RegisteredSexualOffenderIndicator>false</j:RegisteredSexualOffenderIndicator>
+		</j:PersonCriminalHistorySummary>
 		<cyfs:NextCourtEvent structures:id="Event_01">
 			<nc:ActivityDate>
 				<nc:Date>1968-12-17</nc:Date>
@@ -149,13 +169,33 @@
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 		</nc:Person>
-		<j:ActivityCaseAssociation>
-			<nc:Activity structures:ref="Booking_01" />
-			<nc:Activity structures:ref="Event_01" />
-			<nc:Activity structures:ref="Detention_01" />
-			<nc:Activity structures:ref="Bond_01" />
-			<nc:Activity structures:ref="Event_01" />
-			<nc:Case structures:ref="Case_01" />
-		</j:ActivityCaseAssociation>
+				<nc:Location structures:id="Loc_01">
+			<nc:Address>
+				<nc:AddressFullText>30 Main Street Denton, Colorada
+				</nc:AddressFullText>
+			</nc:Address>
+			<nc:Location2DGeospatialCoordinate>
+				<nc:GeographicCoordinateLatitude>
+					<nc:LatitudeDegreeValue>56.1111</nc:LatitudeDegreeValue>
+				</nc:GeographicCoordinateLatitude>
+				<nc:GeographicCoordinateLongitude>
+					<nc:LongitudeDegreeValue>32.1111</nc:LongitudeDegreeValue>
+				</nc:GeographicCoordinateLongitude>
+			</nc:Location2DGeospatialCoordinate>
+		</nc:Location>
+		<j:ActivityChargeAssociation>
+			<nc:Activity structures:ref="Case_01"/>
+			<nc:Activity structures:ref="Booking_01"/>
+			<nc:Activity structures:ref="Event_01"/>
+			<nc:Activity structures:ref="Detention_01"/>
+			<nc:Activity structures:ref="Arrest_01"/>
+			<nc:Activity structures:ref="Event_01"/>
+			<nc:Activity structures:ref="CHS_01"/>
+			<j:Charge structures:ref="Charge_01"/>
+		</j:ActivityChargeAssociation>
+		<j:BailBondChargeAssociation>
+			<j:BailBond structures:ref="Bond_01"/>
+			<j:Charge structures:ref="Charge_01"/>
+		</j:BailBondChargeAssociation>
 	</cscr-ext:Custody>
 </cscr-doc:CustodyStatusChangeReport>
