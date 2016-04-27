@@ -32,7 +32,8 @@
 		<nc:CaseDocketID>Docket8987</nc:CaseDocketID>
 		<j:CaseAugmentation>
 			<j:CaseCharge>
-				<wm-req-ext:OffenseCodeText>OC45656-09</wm-req-ext:OffenseCodeText>
+				<wm-req-ext:GeneralOffenseCharacterDescriptionText>Description
+				</wm-req-ext:GeneralOffenseCharacterDescriptionText>
 				<wm-req-ext:ChargeCodeText>CHG5678</wm-req-ext:ChargeCodeText>
 				<wm-req-ext:OriginalOffenseCodeText>OO4356788
 				</wm-req-ext:OriginalOffenseCodeText>
@@ -140,6 +141,7 @@
 		<nc:PersonStateIdentification>
 			<nc:IdentificationID>SID56567</nc:IdentificationID>
 		</nc:PersonStateIdentification>
+		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>165</nc:MeasureValueText>
 			<nc:MeasureUnitText>ibs</nc:MeasureUnitText>
@@ -173,6 +175,8 @@
 		<wm-req-ext:PersonRecordIdentification>
 			<nc:IdentificationID>R69458998</nc:IdentificationID>
 		</wm-req-ext:PersonRecordIdentification>
+		<wm-req-ext:PersonImmigrationAlienQueryIndicator>false
+		</wm-req-ext:PersonImmigrationAlienQueryIndicator>
 	</nc:Person>
 	<nc:ContactInformation>
 		<nc:ContactMailingAddress structures:id="Address_01">
