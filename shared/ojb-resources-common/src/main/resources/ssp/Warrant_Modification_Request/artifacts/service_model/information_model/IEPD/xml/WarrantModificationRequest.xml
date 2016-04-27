@@ -32,7 +32,8 @@
 		<nc:CaseDocketID>Docket8987</nc:CaseDocketID>
 		<j:CaseAugmentation>
 			<j:CaseCharge>
-				<wm-req-ext:OffenseCodeText>OC45656-09</wm-req-ext:OffenseCodeText>
+				<wm-req-ext:GeneralOffenseCharacterDescriptionText>Description
+				</wm-req-ext:GeneralOffenseCharacterDescriptionText>
 				<wm-req-ext:ChargeCodeText>CHG5678</wm-req-ext:ChargeCodeText>
 				<wm-req-ext:OriginalOffenseCodeText>OO4356788
 				</wm-req-ext:OriginalOffenseCodeText>
