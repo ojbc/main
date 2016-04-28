@@ -123,4 +123,9 @@
 				false otherwise</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="PersonSocioEconomicStatusDescriptionText" type="nc:TextType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A description of a person's income level.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>
