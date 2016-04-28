@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2015 Open Justice Broker Consortium
-
--->
+<!-- Unless explicitly acquired and licensed from Licensor under another 
+	license, the contents of this file are subject to the Reciprocal Public License 
+	("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You 
+	may not copy or use this file in either source code or executable form, except 
+	in compliance with the terms and conditions of the RPL All software distributed 
+	under the RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY 
+	OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL 
+	SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, 
+	FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See 
+	the RPL for specific language governing rights and limitations under the 
+	RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2015 Open Justice 
+	Broker Consortium -->
 <cscr-doc:CustodyStatusChangeReport
 	xmlns:cscr-doc="http://ojbc.org/IEPD/Exchange/CustodyStatusChangeReport/1.0"
 	xmlns:cscr-ext="http://ojbc.org/IEPD/Extensions/CustodyStatusChangeReportExtension/1.0"
@@ -107,7 +101,7 @@
 				<nc:Amount>500.00</nc:Amount>
 			</j:BailBondAmount>
 		</j:BailBond>
-			<j:Charge structures:id="Charge_01">
+		<j:Charge structures:id="Charge_01">
 			<j:ChargeCategoryDescriptionText>Felony</j:ChargeCategoryDescriptionText>
 			<j:ChargeDescriptionText>Charge Description</j:ChargeDescriptionText>
 			<j:ChargeHighestIndicator>true</j:ChargeHighestIndicator>
@@ -122,9 +116,10 @@
 			<j:ArrestAgency>
 				<nc:OrganizationName>Arrest Agency name</nc:OrganizationName>
 			</j:ArrestAgency>
-			<j:ArrestLocation structures:ref="Loc_01"/>
+			<j:ArrestLocation structures:ref="Loc_01" />
 		</j:Arrest>
-		<j:PersonCriminalHistorySummary structures:id="CHS_01">
+		<j:PersonCriminalHistorySummary
+			structures:id="CHS_01">
 			<j:RegisteredSexualOffenderIndicator>false</j:RegisteredSexualOffenderIndicator>
 		</j:PersonCriminalHistorySummary>
 		<cyfs:NextCourtEvent structures:id="Event_01">
@@ -168,8 +163,10 @@
 					<nc:IdentificationID>CO0120010324</nc:IdentificationID>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
+			<cscr-ext:PersonSocioEconomicStatusDescriptionText>Middle Class
+			</cscr-ext:PersonSocioEconomicStatusDescriptionText>
 		</nc:Person>
-				<nc:Location structures:id="Loc_01">
+		<nc:Location structures:id="Loc_01">
 			<nc:Address>
 				<nc:AddressFullText>30 Main Street Denton, Colorada
 				</nc:AddressFullText>
@@ -184,18 +181,18 @@
 			</nc:Location2DGeospatialCoordinate>
 		</nc:Location>
 		<j:ActivityChargeAssociation>
-			<nc:Activity structures:ref="Case_01"/>
-			<nc:Activity structures:ref="Booking_01"/>
-			<nc:Activity structures:ref="Event_01"/>
-			<nc:Activity structures:ref="Detention_01"/>
-			<nc:Activity structures:ref="Arrest_01"/>
-			<nc:Activity structures:ref="Event_01"/>
-			<nc:Activity structures:ref="CHS_01"/>
-			<j:Charge structures:ref="Charge_01"/>
+			<nc:Activity structures:ref="Case_01" />
+			<nc:Activity structures:ref="Booking_01" />
+			<nc:Activity structures:ref="Event_01" />
+			<nc:Activity structures:ref="Detention_01" />
+			<nc:Activity structures:ref="Arrest_01" />
+			<nc:Activity structures:ref="Event_01" />
+			<nc:Activity structures:ref="CHS_01" />
+			<j:Charge structures:ref="Charge_01" />
 		</j:ActivityChargeAssociation>
 		<j:BailBondChargeAssociation>
-			<j:BailBond structures:ref="Bond_01"/>
-			<j:Charge structures:ref="Charge_01"/>
+			<j:BailBond structures:ref="Bond_01" />
+			<j:Charge structures:ref="Charge_01" />
 		</j:BailBondChargeAssociation>
 	</cscr-ext:Custody>
 </cscr-doc:CustodyStatusChangeReport>
