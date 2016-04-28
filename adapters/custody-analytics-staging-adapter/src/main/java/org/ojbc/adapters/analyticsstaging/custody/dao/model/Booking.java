@@ -34,7 +34,6 @@ public class Booking implements Serializable{
 	private Integer sendingAgencyId;
 	private LocalDateTime bookingDate; 
 	private LocalDate commitDate; 
-	private LocalDateTime supervisionReleaseDate; 
 	private String bookingReportId;
 	private Integer caseStatusId; 
 	private Integer pretrialStatusId; 
@@ -45,7 +44,8 @@ public class Booking implements Serializable{
 	private Integer bookingSubjectId; 
 	private String bookingNumber; 
     private BigDecimal bondAmount; 
-    private KeyValue bondType; 
+    private KeyValue bondType;
+    private CustodyRelease custodyRelease;
 	
 	public Integer getBookingId() {
 		return bookingId;
@@ -89,14 +89,6 @@ public class Booking implements Serializable{
 
 	public void setBookingDate(LocalDateTime bookingDate) {
 		this.bookingDate = bookingDate;
-	}
-
-	public LocalDateTime getSupervisionReleaseDate() {
-		return supervisionReleaseDate;
-	}
-
-	public void setSupervisionReleaseDate(LocalDateTime supervisionReleaseDate) {
-		this.supervisionReleaseDate = supervisionReleaseDate;
 	}
 
 	public String getBookingReportId() {
@@ -193,6 +185,14 @@ public class Booking implements Serializable{
 
 	public void setBondType(KeyValue bondType) {
 		this.bondType = bondType;
+	}
+
+	public CustodyRelease getCustodyRelease() {
+		return custodyRelease;
+	}
+
+	public void setCustodyRelease(CustodyRelease custodyRelease) {
+		this.custodyRelease = custodyRelease;
 	}
 
 

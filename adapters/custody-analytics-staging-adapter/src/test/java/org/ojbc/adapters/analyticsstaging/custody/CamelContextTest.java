@@ -64,6 +64,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAsse
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -219,7 +220,6 @@ public class CamelContextTest {
 		assertTrue(booking.getSendingAgencyId() == 2 );
 		assertEquals(LocalDateTime.parse("2013-12-17T09:30"), booking.getBookingDate());
 		assertEquals(LocalDate.parse("2013-12-17"), booking.getCommitDate());
-//		assertEquals(LocalDateTime.parse("2014-12-17T10:30"), booking.getSupervisionReleaseDate());
 		assertEquals("eDocumentID", booking.getBookingReportId());
 		assertTrue(booking.getCaseStatusId() == 1); 
 		assertTrue(booking.getPretrialStatusId() == 2);
@@ -237,6 +237,12 @@ public class CamelContextTest {
 		BookingCharge bookingCharge = bookingCharges.get(0);
 		assertThat(bookingCharge.getChargeType().getValue(), is("Felony"));
 		assertTrue(bookingCharge.getBookingId() == 1);
+		
+		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingNumber("Booking Number");
+		log.info(custodyRelease.toString());
+		assertEquals(LocalDateTime.parse("2014-12-17T10:30"), custodyRelease.getReleaseDate());
+		assertEquals(LocalDateTime.parse("2012-12-17T09:30:47"), custodyRelease.getReportDate());
+		
 	}
 	
 	public void testBehavioralHealthReportServiceRoute() throws Exception
@@ -268,8 +274,9 @@ public class CamelContextTest {
 	
 	public void testCustodyReleaseReportServiceRoute() throws Exception
 	{
-		Booking booking = analyticalDatastoreDAOImpl.getBookingByBookingNumber("Booking Number"); 
-//		assertEquals(LocalDateTime.parse("2014-12-17T10:30"), booking.getSupervisionReleaseDate());
+		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingNumber("Booking Number"); 
+		assertEquals(LocalDateTime.parse("2014-12-17T10:30"), custodyRelease.getReleaseDate());
+		assertEquals(LocalDateTime.parse("2012-12-17T09:30:47"), custodyRelease.getReportDate());
 		
 		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/custodyReleaseReport/CustodyReleaseReport.xml");
 		
@@ -282,8 +289,9 @@ public class CamelContextTest {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		booking = analyticalDatastoreDAOImpl.getBookingByBookingNumber("Booking Number");
-//		assertEquals( LocalDateTime.parse("2015-12-17T09:30:47"), booking.getSupervisionReleaseDate());
+		custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingNumber("Booking Number");
+		assertEquals( LocalDateTime.parse("2015-12-17T09:30:47"), custodyRelease.getReleaseDate());
+		assertEquals( LocalDateTime.parse("2015-12-17T09:30:47"), custodyRelease.getReportDate());
 	}
 	
 	protected Exchange createSenderExchange(String inputFilePath) throws Exception, IOException {

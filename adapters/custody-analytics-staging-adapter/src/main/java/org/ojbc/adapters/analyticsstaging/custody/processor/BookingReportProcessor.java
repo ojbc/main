@@ -30,6 +30,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.util.xml.XmlUtils;
@@ -134,11 +135,6 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         String commitDate = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Detention/nc30:ActivityDate/nc30:Date");
         booking.setCommitDate(LocalDate.parse(commitDate));
         
-        String supervisionReleaseDate = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:DateTime");
-        if (StringUtils.isNotBlank(supervisionReleaseDate)){
-        	booking.setSupervisionReleaseDate(LocalDateTime.parse(supervisionReleaseDate));
-        }
-        
         String pretrialStatus = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Detention/nc30:SupervisionCustodyStatus/ac-bkg-codes:PreTrialCategoryCode");
         Integer pretrialStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.PretrialStatus, pretrialStatus);
         booking.setPretrialStatusId(pretrialStatusId);
@@ -170,6 +166,16 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         
 		setBondInfo(report, booking);
 
+        String supervisionReleaseDate = XmlUtils.xPathStringSearch(bookingReportNode, 
+        		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:DateTime");
+        if (StringUtils.isNotBlank(supervisionReleaseDate)){
+        	CustodyRelease custodyRelease = new CustodyRelease();
+        	custodyRelease.setReleaseDate(LocalDateTime.parse(supervisionReleaseDate));
+        	custodyRelease.setBookingNumber(bookingNumber);
+        	custodyRelease.setReportDate(booking.getBookingReportDate());
+        	analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);
+        }
+        
         Integer bookingId = analyticalDatastoreDAO.saveBooking(booking);
 		return bookingId;
 	}
