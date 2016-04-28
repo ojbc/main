@@ -734,6 +734,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static String NS_IDENTIFIER_RESPONSE_DOC = "http://ojbc.org/IEPD/Exchange/IdentifierResponse/1.0";
 	public static String NS_PREFIX_IDENTIFIER_RESPONSE_DOC="i-resp-doc";
 	
+	public static String NS_CUSTODY_STATUS_CHANGE_DOC = "http://ojbc.org/IEPD/Exchange/CustodyStatusChangeReport/1.0";
+	public static String NS_PREFIX_CUSTODY_STATUS_CHANGE_DOC="cscr-doc";
+	
+	public static String NS_CUSTODY_STATUS_CHANGE_EXT = "http://ojbc.org/IEPD/Extensions/CustodyStatusChangeReportExtension/1.0";
+	public static String NS_PREFIX_CUSTODY_STATUS_CHANGE_EXT="cscr-ext";
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -1445,6 +1451,13 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 				
 		prefixToUriMap.put(NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_EXT, NS_VEHICLE_CRASH_QUERY_REQUEST_EXT);
 		uriToPrefixMap.put(NS_VEHICLE_CRASH_QUERY_REQUEST_EXT, NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_EXT);			
+		
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_STATUS_CHANGE_DOC, NS_CUSTODY_STATUS_CHANGE_DOC);
+		uriToPrefixMap.put(NS_CUSTODY_STATUS_CHANGE_DOC, NS_PREFIX_CUSTODY_STATUS_CHANGE_DOC);			
+		
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_STATUS_CHANGE_EXT, NS_CUSTODY_STATUS_CHANGE_EXT);
+		uriToPrefixMap.put(NS_CUSTODY_STATUS_CHANGE_EXT, NS_PREFIX_CUSTODY_STATUS_CHANGE_EXT);			
+		
 	}
 
 	@Override
