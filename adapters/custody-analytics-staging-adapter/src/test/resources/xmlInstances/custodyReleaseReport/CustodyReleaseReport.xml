@@ -27,7 +27,7 @@
 	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodyReleaseReport/1.0 ../xsd/exchange.xsd">
 	<nc:DocumentCreationDate>
-		<nc:DateTime>2012-12-17T09:30:47.0Z</nc:DateTime>
+		<nc:DateTime>2015-12-17T09:30:47</nc:DateTime>
 	</nc:DocumentCreationDate>
 	<nc:DocumentIdentification>
 		<nc:IdentificationID>eDocumentID</nc:IdentificationID>
@@ -43,7 +43,7 @@
 		</nc:Case>
 		<j:Booking>
 			<nc:ActivityDate>
-				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+				<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
 			</nc:ActivityDate>
 			<j:BookingFacility>
 				<nc:FacilityIdentification>

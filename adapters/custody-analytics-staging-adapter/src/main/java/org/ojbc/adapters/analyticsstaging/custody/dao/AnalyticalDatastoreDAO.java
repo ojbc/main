@@ -24,6 +24,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAsse
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonRace;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonSex;
@@ -61,6 +62,7 @@ public interface AnalyticalDatastoreDAO {
 	public List<BookingCharge> getBookingCharges(Integer bookingId);
 	public List<BehavioralHealthAssessment> getBehavioralHealthAssessments(Integer personId);
 
-	public void updateCustodyReleaseDate(String bookingNumber,
-			LocalDateTime releaseDate);
+	public void saveCustodyRelease(CustodyRelease custodyRelease);
+	public void saveCustodyRelease(String bookingNumber, LocalDateTime releaseDate, LocalDateTime reportDate);
+	public CustodyRelease getCustodyReleaseByBookingNumber(String bookingNumber);
 }

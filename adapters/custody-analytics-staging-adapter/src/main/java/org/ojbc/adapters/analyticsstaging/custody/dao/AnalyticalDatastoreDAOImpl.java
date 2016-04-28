@@ -35,6 +35,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAsse
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonRace;
@@ -612,15 +613,50 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	@Override
-	public void updateCustodyReleaseDate(String bookingNumber,
-			LocalDateTime releaseDate) {
-		final String sql = "UPDATE Booking SET SupervisionReleaseDate = :releaseDate WHERE BookingNumber = :bookingNumber ";
+	public void saveCustodyRelease(CustodyRelease custodyRelease) {
+
+		saveCustodyRelease(custodyRelease.getBookingNumber(),
+				custodyRelease.getReleaseDate(), custodyRelease.getReportDate());
+	}
+
+	@Override
+	public void saveCustodyRelease(String bookingNumber,
+			LocalDateTime releaseDate, LocalDateTime reportDate) {
+
+		final String sql = "Insert into CustodyRelease (BookingNumber, ReleaseDate, ReportDate) "
+				+ "values (:bookingNumber, :releaseDate, :reportDate)";
 		
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("releaseDate", Timestamp.valueOf(releaseDate));
-		params.put("bookingNumber", bookingNumber);
+		params.put("releaseDate", Timestamp.valueOf(releaseDate) );
+		params.put("bookingNumber", bookingNumber );
+		params.put("reportDate", Timestamp.valueOf(reportDate));
 		
 		namedParameterJdbcTemplate.update(sql, params);
+	}
+
+	@Override
+	public CustodyRelease getCustodyReleaseByBookingNumber(String bookingNumber) {
+		final String sql = "Select top 1 * from CustodyRelease where BookingNumber = ? order by ReportDate desc";
+		
+		List<CustodyRelease> custodyReleases = 
+				jdbcTemplate.query(sql, new CustodyReleaseRowMapper(), bookingNumber);
+		return DataAccessUtils.singleResult(custodyReleases);
+		
+	}
+
+	public class CustodyReleaseRowMapper implements RowMapper<CustodyRelease>
+	{
+		@Override
+		public CustodyRelease mapRow(ResultSet rs, int rowNum) throws SQLException {
+			CustodyRelease custodyRelease = new CustodyRelease();
+	    	
+			custodyRelease.setBookingNumber(rs.getString("bookingNumber"));
+			custodyRelease.setReleaseDate(rs.getTimestamp("ReleaseDate").toLocalDateTime());
+			custodyRelease.setReportDate(rs.getTimestamp("ReportDate").toLocalDateTime());
+			
+	    	return custodyRelease;
+		}
+
 	}
 
 }

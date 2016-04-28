@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,13 +45,22 @@ public class CustodyReleaseReportProcessor extends AbstractReportRepositoryProce
 			throw new IllegalArgumentException("The booking number is empty in the request."); 
 		}
 		
-		LocalDateTime releaseDate = null; 
+		LocalDateTime releaseDate = LocalDateTime.now(); 
 		String releaseDateString = XmlUtils.xPathStringSearch(bookingNode, "jxdm51:BookingRelease/nc30:ActivityDate/nc30:DateTime");
 		if (StringUtils.isNotBlank(releaseDateString)){
 			releaseDate = LocalDateTime.parse(releaseDateString);
 		}
 		
-		analyticalDatastoreDAO.updateCustodyReleaseDate(bookingNumber, releaseDate);
+		LocalDateTime reportDate = LocalDateTime.now(); 
+		String reportDateString = XmlUtils.xPathStringSearch(report, "/crr-exc:CustodyReleaseReport/nc30:DocumentCreationDate/nc30:DateTime");
+		if (StringUtils.isNotBlank(releaseDateString)){
+			reportDate = LocalDateTime.parse(reportDateString);
+		}
+		CustodyRelease custodyRelease = new CustodyRelease();
+		custodyRelease.setBookingNumber(bookingNumber);
+		custodyRelease.setReleaseDate(releaseDate);
+		custodyRelease.setReportDate(reportDate);
+		analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);
 		
 		log.info("Processed Custody Release report successfully.");
 		
