@@ -26,6 +26,7 @@ use CustodyAnalyticsDataStore;
 
 
 
+
 CREATE TABLE CustodyRelease (
                 CustodyReleaseID BIGINT AUTO_INCREMENT NOT NULL,
                 BookingNumber VARCHAR(50) NOT NULL,
@@ -186,7 +187,7 @@ CREATE TABLE Agency (
 
 CREATE TABLE CustodyStatusChange (
                 CustodyStatusChangeID BIGINT AUTO_INCREMENT NOT NULL,
-                BookingReportID VARCHAR(30) NOT NULL,
+                ReportID VARCHAR(30) NOT NULL,
                 BookingDate DATETIME NOT NULL,
                 CommitDate DATE NOT NULL,
                 BookingNumber VARCHAR(50) NOT NULL,

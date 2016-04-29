@@ -19,7 +19,6 @@ package org.ojbc.adapters.analyticsstaging.custody.processor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +27,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -178,79 +175,6 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         
         Integer bookingId = analyticalDatastoreDAO.saveBooking(booking);
 		return bookingId;
-	}
-
-	private Integer saveBookingSubject(Node personNode, String personUniqueIdentifier) throws Exception {
-		BookingSubject bookingSubject = new BookingSubject();
-
-		Integer personId = analyticalDatastoreDAO.getPersonIdByUniqueId(personUniqueIdentifier);
-
-		if (personId != null){
-			bookingSubject.setRecidivistIndicator(1);
-		}
-		else{
-			personId = savePerson(personNode, personUniqueIdentifier);
-		}
-		
-		bookingSubject.setPersonId(personId);
-		
-		String birthDateString = XmlUtils.xPathStringSearch(personNode,  "nc30:PersonBirthDate/nc30:Date");
-	 	java.time.LocalDate birthDay = java.time.LocalDate.parse(birthDateString);
-	 	long age = birthDay.until(java.time.LocalDate.now(), ChronoUnit.YEARS );
-	 	bookingSubject.setPersonAge(Long.valueOf(age).intValue());
-	 	
-	 	String educationLevel = XmlUtils.xPathStringSearch(personNode, "nc30:PersonEducationLevelText");
-	 	if(StringUtils.isNotBlank(educationLevel)){
-		 	Integer educationLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.EducationLevel, StringUtils.trim(educationLevel));
-		 	bookingSubject.setEducationLevelId(educationLevelId);
-	 	}
-	 	
-	 	String occupation = XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonAugmentation/nc30:EmployeeOccupationCategoryText");
-	 	if (StringUtils.isNotBlank(occupation)){
-	 		Integer occupationId = descriptionCodeLookupService.retrieveCode(CodeTable.Occupation, StringUtils.trim(occupation));
-	 		bookingSubject.setOccupationId(occupationId);
-	 	}
-	 	
-	 	String incomeLevel = XmlUtils.xPathStringSearch(personNode, "br-ext:PersonSocioEconomicStatusDescriptionText");
-	 	if (StringUtils.isNotBlank(incomeLevel)){
-	 		Integer incomeLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.IncomeLevel, StringUtils.trim(incomeLevel));
-	 		bookingSubject.setIncomeLevelId(incomeLevelId);
-	 	}
-	 	
-	 	String housingStatus = XmlUtils.xPathStringSearch(personNode, "nc30:PersonResidentText");
-	 	if(StringUtils.isNotBlank( housingStatus )){
-	 		Integer housingStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.HousingStatus, StringUtils.trim(housingStatus));
-	 		bookingSubject.setHousingStatusId(housingStatusId);
-	 	}
-	 	
-		Integer bookingSubjectId = analyticalDatastoreDAO.saveBookingSubject(bookingSubject);
-		return bookingSubjectId;
-	}
-
-	private Integer savePerson(Node personNode, String personUniqueIdentifier) throws Exception {
-		
-		Person person = new Person();
-		
-		person.setPersonUniqueIdentifier(personUniqueIdentifier);
-		
-		String personRace=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonRaceCode");
-		person.setPersonRaceDescription(personRace);
-		person.setPersonRaceID(descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, personRace));
-		
-		String personSex=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonSexCode");
-		person.setPersonSexDescription(personSex);
-		person.setPersonSexID(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, personSex));
-		
-		String personBirthDate = XmlUtils.xPathStringSearch(personNode, "nc30:PersonBirthDate/nc30:Date");
-		person.setPersonBirthDate(LocalDate.parse(personBirthDate));
-		
-		String language = XmlUtils.xPathStringSearch(personNode, "nc30:PersonPrimaryLanguage/nc30:LanguageName");
-		person.setLanguage(language);
-		person.setLanguageId(descriptionCodeLookupService.retrieveCode(CodeTable.Language, language));
-		
-		Integer personId = analyticalDatastoreDAO.savePerson(person);
-		
-		return personId;
 	}
 
 }

@@ -69,6 +69,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -80,10 +81,9 @@ import org.w3c.dom.Element;
         "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/dao.xml",
         })
-@DirtiesContext
+@DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class CamelContextTest {
 	
-	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( CamelContextTest.class );
 	
     @Resource
