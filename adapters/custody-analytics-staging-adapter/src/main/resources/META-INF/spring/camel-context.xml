@@ -206,6 +206,7 @@
 						
 				<camel:log message="Here is the inbound custody status change report message: ${body}" loggingLevel="DEBUG"/>
 				
+				<camel:enrich uri="direct:getPersonUniqueId" strategyRef="aggregatePersonUniqueIdStrategy"/>
 				<camel:to uri="bean:custodyStatusChangeReportProcessor?method=processReport"/>
 				
 				<camel:doCatch >

@@ -41,7 +41,7 @@
 		<nc:Case structures:id="Case_01">
 			<j:CaseAugmentation>
 				<j:CaseCourt>
-					<j:CourtName>Case Court</j:CourtName>
+					<j:CourtName>County Court</j:CourtName>
 				</j:CaseCourt>
 			</j:CaseAugmentation>
 		</nc:Case>
@@ -51,7 +51,7 @@
 			</nc:ActivityDate>
 			<j:BookingDetentionFacility>
 				<nc:FacilityIdentification>
-					<nc:IdentificationID>Booking Facility ID</nc:IdentificationID>
+					<nc:IdentificationID>Pima County Jail</nc:IdentificationID>
 				</nc:FacilityIdentification>
 			</j:BookingDetentionFacility>
 			<j:BookingSubject>
@@ -67,7 +67,7 @@
 			</nc:ActivityDate>
 			<nc:SupervisionCustodyStatus>
 				<nc:StatusDescriptionText>Pretrial</nc:StatusDescriptionText>
-				<ac-bkg-codes:PreTrialCategoryCode>C-SRP</ac-bkg-codes:PreTrialCategoryCode>
+				<ac-bkg-codes:PreTrialCategoryCode>Cash</ac-bkg-codes:PreTrialCategoryCode>
 			</nc:SupervisionCustodyStatus>
 			<nc:SupervisionFacility>
 				<nc:FacilityIdentification>
@@ -83,6 +83,7 @@
 				</j:SupervisionAreaIdentification>
 				<j:SupervisionBedIdentification>
 					<nc:IdentificationID>Bed ID</nc:IdentificationID>
+					<ac-bkg-codes:BedCategoryCode>BedType 3</ac-bkg-codes:BedCategoryCode>
 				</j:SupervisionBedIdentification>
 				<j:SupervisionCellIdentification>
 					<nc:IdentificationID>Bed ID</nc:IdentificationID>
@@ -91,7 +92,7 @@
 			<cscr-ext:DetentiontImmigrationHoldIndicator>false
 			</cscr-ext:DetentiontImmigrationHoldIndicator>
 			<cscr-ext:HoldForAgency>
-				<nc:OrganizationName>Agency</nc:OrganizationName>
+				<nc:OrganizationName>Arvada PD</nc:OrganizationName>
 			</cscr-ext:HoldForAgency>
 			<cscr-ext:InmateWorkReleaseIndicator>true
 			</cscr-ext:InmateWorkReleaseIndicator>
@@ -99,12 +100,12 @@
 			</cscr-ext:InmateWorkerIndicator>
 		</j:Detention>
 		<j:BailBond structures:id="Bond_01">
-			<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
+			<nc:ActivityCategoryText>Cash</nc:ActivityCategoryText>
 			<nc:ActivityStatus>
 				<nc:StatusDescriptionText>Bond Status</nc:StatusDescriptionText>
 			</nc:ActivityStatus>
 			<j:BailBondAmount>
-				<nc:Amount>500.00</nc:Amount>
+				<nc:Amount>250.00</nc:Amount>
 			</j:BailBondAmount>
 		</j:BailBond>
 		<j:Charge structures:id="Charge_01">
@@ -149,8 +150,8 @@
 			<nc:PersonPrimaryLanguage>
 				<nc:LanguageName>English</nc:LanguageName>
 			</nc:PersonPrimaryLanguage>
-			<j:PersonRaceCode>A</j:PersonRaceCode>
-			<j:PersonSexCode>F</j:PersonSexCode>
+			<j:PersonRaceCode>White</j:PersonRaceCode>
+			<j:PersonSexCode>Female</j:PersonSexCode>
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>

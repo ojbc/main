@@ -72,4 +72,15 @@ public interface AnalyticalDatastoreDAO {
 	public void saveCustodyRelease(CustodyRelease custodyRelease);
 	public void saveCustodyRelease(String bookingNumber, LocalDateTime releaseDate, LocalDateTime reportDate);
 	public CustodyRelease getCustodyReleaseByBookingNumber(String bookingNumber);
+	public CustodyStatusChange getCustodyStatusChangeByReportId(String reportId); 
+	public List<CustodyStatusChangeCharge> getCustodyStatusChangeCharges(Integer custodyStatusChangeId);
+	
+	/**
+	 * Query the booking table for the bookingSubjectId first. 
+	 * 
+	 * @param bookingNumber
+	 * @return BookingSubject that is associated with the booking record. 
+	 */
+	public BookingSubject getBookingSubjectByBookingNumberAndPersonId(String bookingNumber, Integer personId);
+
 }

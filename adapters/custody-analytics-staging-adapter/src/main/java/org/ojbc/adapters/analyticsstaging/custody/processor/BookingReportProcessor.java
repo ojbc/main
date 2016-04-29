@@ -27,6 +27,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
@@ -103,7 +104,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 		
 		Node personNode = XmlUtils.xPathNodeSearch(report, "/br-doc:BookingReport/nc30:Person");
         
-        Integer bookingSubjectId = saveBookingSubject(personNode, personUniqueIdentifier);
+        Integer bookingSubjectId = saveBookingReportSubject(personNode, personUniqueIdentifier);
         booking.setBookingSubjectId(bookingSubjectId);
         
         Node bookingReportNode = XmlUtils.xPathNodeSearch(report, "/br-doc:BookingReport");
@@ -176,5 +177,21 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         Integer bookingId = analyticalDatastoreDAO.saveBooking(booking);
 		return bookingId;
 	}
+	
+	private Integer saveBookingReportSubject(Node personNode, String personUniqueIdentifier) throws Exception {
+		BookingSubject bookingSubject = new BookingSubject();
+
+		Integer personId = analyticalDatastoreDAO.getPersonIdByUniqueId(personUniqueIdentifier);
+
+		if (personId != null){
+			bookingSubject.setRecidivistIndicator(1);
+		}
+		else{
+			personId = savePerson(personNode, personUniqueIdentifier);
+		}
+		
+		return saveBookingSubject(personNode, bookingSubject, personId);
+	}
+
 
 }
