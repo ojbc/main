@@ -36,6 +36,8 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChange;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonRace;
@@ -265,7 +267,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	@Override
 	public void saveBookingCharges(List<BookingCharge> bookingCharges) {
-		log.info("Inserting row into BookingSubject table: " + bookingCharges);
+		log.info("Inserting row into BookingCharge table: " + bookingCharges);
 		final String sqlString=
 				"INSERT INTO BookingCharge (BookingID, ChargeTypeID) values (?,?)";
 		
@@ -657,6 +659,121 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	    	return custodyRelease;
 		}
 
+	}
+
+	@Override
+	public Integer saveCustodyStatusChange(
+			CustodyStatusChange custodyStatusChange) {
+        log.debug("Inserting row into CustodyStatusChange table: " + custodyStatusChange.toString());
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	        	
+        	        	String sqlString="";
+        	        	String[] insertArgs = null;
+        	        	
+        	        	if (custodyStatusChange.getCustodyStatusChangeId() != null){
+        	        		insertArgs = new String[] {"JurisdictionID", "ReportDate", 
+        	                		"ReportID" , "SendingAgencyID","CaseStatusID", 
+        	                		"BookingDate", "PretrialStatusID",
+        	                		"FacilityID","BedTypeID", "ArrestLocationLatitude", "ArrestLocationLongitude",
+        	                		"BookingSubjectID", "CommitDate", "BookingNumber", "BondAmount", "BondTypeID", 
+        	                		"CustodyStatusChangeID"};
+
+        	        		sqlString="INSERT into custodyStatusChange (JurisdictionID, ReportDate,"
+        	        				+ "ReportID, SendingAgencyID, CaseStatusID, "
+        	        				+ "BookingDate, PretrialStatusID, "
+        	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude, "
+        	        				+ "BookingSubjectID, CommitDate, BookingNumber, BondAmount, BondTypeID, "
+        	        				+ "CustodyStatusChangeID) "
+        	        				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	        	}	
+        	        	else{
+        	        		insertArgs = new String[] {"JurisdictionID", "ReportDate", 
+        	                		"ReportID" , "SendingAgencyID","CaseStatusID", 
+        	                		"BookingDate", "PretrialStatusID",
+        	                		"FacilityID","BedTypeID", "ArrestLocationLatitude", "ArrestLocationLongitude",
+        	                		"BookingSubjectID", "CommitDate", "BookingNumber", "BondAmount", "BondTypeID"};
+
+        	        		sqlString="INSERT into custodyStatusChange (JurisdictionID, ReportDate,"
+        	        				+ "ReportID, SendingAgencyID, CaseStatusID, "
+        	        				+ "BookingDate, PretrialStatusID, "
+        	        				+ "FacilityID, BedTypeID, ArrestLocationLatitude, ArrestLocationLongitude, "
+        	        				+ "BookingSubjectID, CommitDate, BookingNumber, BondAmount, BondTypeID) "
+        	        				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	        		
+        	        	}	
+        	        			
+        	        	
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(sqlString, insertArgs);
+        	            ps.setInt(1, custodyStatusChange.getJurisdictionId());
+        	            
+        	            setPreparedStatementVariable(custodyStatusChange.getReportDate(), ps, 2);
+        	            
+        	            ps.setString(3, custodyStatusChange.getReportId());
+
+        	            setPreparedStatementVariable(custodyStatusChange.getSendingAgencyId(), ps, 4);
+        	            setPreparedStatementVariable(custodyStatusChange.getCaseStatusId(), ps, 5);
+        	            setPreparedStatementVariable(custodyStatusChange.getBookingDate(), ps, 6);
+        	            setPreparedStatementVariable(custodyStatusChange.getPretrialStatusId(), ps, 7);
+        	            setPreparedStatementVariable(custodyStatusChange.getFacilityId(), ps, 8);
+        	            setPreparedStatementVariable(custodyStatusChange.getBedTypeId(), ps, 9);
+        	            setPreparedStatementVariable(custodyStatusChange.getArrestLocationLatitude(), ps, 10);
+        	            setPreparedStatementVariable(custodyStatusChange.getArrestLocationLongitude(), ps, 11);
+        	            setPreparedStatementVariable(custodyStatusChange.getBookingSubjectId(), ps, 12);
+        	            setPreparedStatementVariable(custodyStatusChange.getCommitDate(), ps, 13);
+        	            setPreparedStatementVariable(custodyStatusChange.getBookingNumber(), ps, 14);
+                        setPreparedStatementVariable(custodyStatusChange.getBondAmount(), ps, 15);
+                        
+                        if (custodyStatusChange.getBondType() != null){
+                        	setPreparedStatementVariable(custodyStatusChange.getBondType().getKey(), ps,16);
+                        }
+
+        	            if (custodyStatusChange.getCustodyStatusChangeId() != null){
+        	            	setPreparedStatementVariable(custodyStatusChange.getCustodyStatusChangeId(), ps, 17);
+        	            }
+        	            
+        	            return ps;
+        	        }
+        	    },keyHolder);
+
+        Integer returnValue = null;
+        
+        if (custodyStatusChange.getCustodyStatusChangeId() != null)
+        {
+       	 	returnValue = custodyStatusChange.getCustodyStatusChangeId();
+        }	 
+        else
+        {
+       	 	returnValue = keyHolder.getKey().intValue();
+        }	 
+        
+        return returnValue;	
+	}
+
+	@Override
+	public void saveCustodyStatusChangeCharges(
+			List<CustodyStatusChangeCharge> custodyStatusChangeCharges) {
+		log.info("Inserting row into CustodyStatusChangeCharge table: " + custodyStatusChangeCharges);
+		final String sqlString=
+				"INSERT INTO CustodyStatusChangeCharge (CustodyStatusChangeChargeID, ChargeTypeID) values (?,?)";
+		
+        jdbcTemplate.batchUpdate(sqlString, new BatchPreparedStatementSetter() {
+            public void setValues(PreparedStatement ps, int i)
+                throws SQLException {
+                ps.setInt(1, custodyStatusChangeCharges.get(i).getCustodyStatusChangeChargeId());
+                ps.setInt(2, custodyStatusChangeCharges.get(i).getChargeType().getKey());
+            }
+	            
+            public int getBatchSize() {
+                return custodyStatusChangeCharges.size();
+            }
+        });
+
+		
 	}
 
 }
