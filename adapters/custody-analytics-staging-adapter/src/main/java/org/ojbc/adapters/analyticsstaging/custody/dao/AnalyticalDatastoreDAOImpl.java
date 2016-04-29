@@ -759,12 +759,12 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			List<CustodyStatusChangeCharge> custodyStatusChangeCharges) {
 		log.info("Inserting row into CustodyStatusChangeCharge table: " + custodyStatusChangeCharges);
 		final String sqlString=
-				"INSERT INTO CustodyStatusChangeCharge (CustodyStatusChangeChargeID, ChargeTypeID) values (?,?)";
+				"INSERT INTO CustodyStatusChangeCharge (CustodyStatusChangeID, ChargeTypeID) values (?,?)";
 		
         jdbcTemplate.batchUpdate(sqlString, new BatchPreparedStatementSetter() {
             public void setValues(PreparedStatement ps, int i)
                 throws SQLException {
-                ps.setInt(1, custodyStatusChangeCharges.get(i).getCustodyStatusChangeChargeId());
+                ps.setInt(1, custodyStatusChangeCharges.get(i).getCustodyStatusChangeId());
                 ps.setInt(2, custodyStatusChangeCharges.get(i).getChargeType().getKey());
             }
 	            
@@ -774,6 +774,89 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         });
 
 		
+	}
+
+	public CustodyStatusChange getCustodyStatusChangeByReportId(String reportId) {
+		final String sql = "SELECT * FROM CustodyStatusChange c "
+				+ "LEFT JOIN BondType e ON e.BondTypeID = c.BondTypeID "
+				+ "WHERE ReportId = ?";
+		
+		List<CustodyStatusChange> custodyStatusChanges = 
+				jdbcTemplate.query(sql, 
+						new CustodyStatusChangeRowMapper(), reportId);
+		
+		return DataAccessUtils.singleResult(custodyStatusChanges);
+	}
+
+	public class CustodyStatusChangeRowMapper implements RowMapper<CustodyStatusChange>
+	{
+		@Override
+		public CustodyStatusChange mapRow(ResultSet rs, int rowNum) throws SQLException {
+			CustodyStatusChange custodyStatusChange = new CustodyStatusChange();
+	    	
+			custodyStatusChange.setCustodyStatusChangeId(rs.getInt("CustodyStatusChangeId"));
+			custodyStatusChange.setJurisdictionId(rs.getInt("JurisdictionID"));
+			custodyStatusChange.setReportDate(rs.getTimestamp("ReportDate").toLocalDateTime());
+			custodyStatusChange.setReportId(rs.getString("ReportID"));
+			custodyStatusChange.setSendingAgencyId(rs.getInt("SendingAgencyID"));
+			custodyStatusChange.setCaseStatusId(rs.getInt("CaseStatusID"));
+			custodyStatusChange.setBookingDate(rs.getTimestamp("BookingDate").toLocalDateTime());
+			custodyStatusChange.setCommitDate(rs.getDate("CommitDate").toLocalDate());
+			custodyStatusChange.setPretrialStatusId(rs.getInt("PretrialStatusID"));
+			custodyStatusChange.setFacilityId(rs.getInt("FacilityID"));
+			custodyStatusChange.setBedTypeId(rs.getInt("BedTypeID"));
+			custodyStatusChange.setArrestLocationLatitude(rs.getBigDecimal("ArrestLocationLatitude"));
+			custodyStatusChange.setArrestLocationLongitude(rs.getBigDecimal("ArrestLocationLongitude"));
+			custodyStatusChange.setBookingSubjectId(rs.getInt("BookingSubjectID"));
+			custodyStatusChange.setBookingNumber(rs.getString("BookingNumber"));
+			custodyStatusChange.setBondAmount(rs.getBigDecimal("bondAmount"));
+			KeyValue bondType = new KeyValue( rs.getInt("bondTypeId"), rs.getString("bondType"));
+			custodyStatusChange.setBondType( bondType );
+
+	    	return custodyStatusChange;
+		}
+
+	}
+
+	@Override
+	public List<CustodyStatusChangeCharge> getCustodyStatusChangeCharges(Integer custodyStatusChangeId) {
+		final String sql = "SELECT * FROM CustodyStatusChangeCharge b "
+				+ "LEFT JOIN ChargeType c ON c.ChargeTypeID = b.ChargeTypeID "
+				+ "WHERE b.custodyStatusChangeId = ?"; 
+		List<CustodyStatusChangeCharge> custodyStatusChangeCharges = 
+				jdbcTemplate.query(sql, new CustodyStatusChangeChargeRowMapper(), custodyStatusChangeId);
+		return custodyStatusChangeCharges;
+	}
+
+	public class CustodyStatusChangeChargeRowMapper implements RowMapper<CustodyStatusChangeCharge>
+	{
+		@Override
+		public CustodyStatusChangeCharge mapRow(ResultSet rs, int rowNum) throws SQLException {
+			CustodyStatusChangeCharge custodyStatusChangeCharge = new CustodyStatusChangeCharge();
+	    	
+			custodyStatusChangeCharge.setCustodyStatusChangeChargeId(rs.getInt("CustodyStatusChangeChargeId"));
+			custodyStatusChangeCharge.setCustodyStatusChangeId(rs.getInt("CustodyStatusChangeId"));
+			
+			KeyValue chargeType = new KeyValue( rs.getInt("chargeTypeId"), rs.getString("chargeType"));
+			custodyStatusChangeCharge.setChargeType( chargeType );
+			
+	    	return custodyStatusChangeCharge;
+		}
+
+	}
+
+	@Override
+	public BookingSubject getBookingSubjectByBookingNumberAndPersonId(String bookingNumber, Integer personId) {
+		final String sql = "SELECT b.* FROM BookingSubject b "
+				+ "LEFT JOIN Booking k ON k.BookingSubjectID = b.BookingSubjectID "
+				+ "LEFT JOIN HousingStatus s ON s.HousingStatusID = b.HousingStatusID "
+				+ "LEFT JOIN EducationLevel e ON e.EducationLevelID = b.EducationLevelID "
+				+ "LEFT JOIN Occupation o on o.OccupationID = b.OccupationID "
+				+ "LEFT JOIN IncomeLevel i on i.IncomeLevelID = b.IncomeLevelID "
+				+ "WHERE k.bookingNumber = ? AND b.PersonId = ?"; 
+		List<BookingSubject> bookingSubjects = 
+				jdbcTemplate.query(sql, new BookingSubjectRowMapper(), bookingNumber, personId);
+		return DataAccessUtils.uniqueResult(bookingSubjects);
 	}
 
 }

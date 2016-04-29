@@ -74,18 +74,8 @@ public abstract class AbstractReportRepositoryProcessor {
 		return personId;
 	}
 
-	protected Integer saveBookingSubject(Node personNode, String personUniqueIdentifier) throws Exception {
-		BookingSubject bookingSubject = new BookingSubject();
-
-		Integer personId = analyticalDatastoreDAO.getPersonIdByUniqueId(personUniqueIdentifier);
-
-		if (personId != null){
-			bookingSubject.setRecidivistIndicator(1);
-		}
-		else{
-			personId = savePerson(personNode, personUniqueIdentifier);
-		}
-		
+	protected Integer saveBookingSubject(Node personNode, BookingSubject bookingSubject,
+			Integer personId) throws Exception {
 		bookingSubject.setPersonId(personId);
 		
 		String birthDateString = XmlUtils.xPathStringSearch(personNode,  "nc30:PersonBirthDate/nc30:Date");

@@ -25,8 +25,8 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChange;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
@@ -64,10 +64,10 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 			Node chargeNode = chargeNodes.item(i);
 			
 			CustodyStatusChangeCharge custodyStatusChangeCharge = new CustodyStatusChangeCharge();
-			custodyStatusChangeCharge.setCustodyStatusChangeChargeId(custodyStatusChangeId);
+			custodyStatusChangeCharge.setCustodyStatusChangeId(custodyStatusChangeId);
 			
 			KeyValue chargeType = new KeyValue(); 
-			chargeType.setValue( XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeCategoryDescriptionText"));
+			chargeType.setValue( StringUtils.trimToEmpty(XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeCategoryDescriptionText")));
 			chargeType.setKey(descriptionCodeLookupService.retrieveCode(CodeTable.ChargeType, chargeType.getValue()));
 			custodyStatusChangeCharge.setChargeType(chargeType);
 			
@@ -103,10 +103,13 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 		
 		Node personNode = XmlUtils.xPathNodeSearch(report, "/cscr-doc:CustodyStatusChangeReport/cscr-ext:Custody/nc30:Person");
         
-        Integer bookingSubjectId = saveBookingSubject(personNode, personUniqueIdentifier);
+        Node custodyNode = XmlUtils.xPathNodeSearch(report, "/cscr-doc:CustodyStatusChangeReport/cscr-ext:Custody");
+		String bookingNumber = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");
+		custodyStatusChange.setBookingNumber(bookingNumber);
+		
+        Integer bookingSubjectId = saveCustodyStatusChangeSubject(personNode, personUniqueIdentifier, bookingNumber);
         custodyStatusChange.setBookingSubjectId(bookingSubjectId);
         
-        Node custodyNode = XmlUtils.xPathNodeSearch(report, "/cscr-doc:CustodyStatusChangeReport/cscr-ext:Custody");
         
         String courtName = XmlUtils.xPathStringSearch(custodyNode, "nc30:Case/jxdm51:CaseAugmentation/jxdm51:CaseCourt/jxdm51:CourtName");
         Integer courtId = descriptionCodeLookupService.retrieveCode(CodeTable.Jurisdiction, courtName);
@@ -140,14 +143,10 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
         Integer facilityId = descriptionCodeLookupService.retrieveCode(CodeTable.Facility, facility);
         custodyStatusChange.setFacilityId(facilityId);
         
-        String bedType = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionBedIdentification/nc30:IdentificationID");
+        String bedType = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionBedIdentification/ac-bkg-codes:BedCategoryCode");
         Integer bedTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.BedType, bedType);
         custodyStatusChange.setBedTypeId(bedTypeId);
         
-		String bookingNumber = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");
-		custodyStatusChange.setBookingNumber(bookingNumber);
-		
-
         String locationId = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Arrest/jxdm51:ArrestLocation/@s30:ref");
         if (StringUtils.isNotBlank(locationId)){
         	Node arrestLocation2DGeoCoordinateNode = XmlUtils.xPathNodeSearch(custodyNode, "nc30:Location[@s30:id='"+ locationId +"']/nc30:Location2DGeospatialCoordinate");
@@ -163,18 +162,32 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
         
 		setBondInfo(report, custodyStatusChange);
 
-        String supervisionReleaseDate = XmlUtils.xPathStringSearch(custodyNode, 
-        		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:DateTime");
-        if (StringUtils.isNotBlank(supervisionReleaseDate)){
-        	CustodyRelease custodyRelease = new CustodyRelease();
-        	custodyRelease.setReleaseDate(LocalDateTime.parse(supervisionReleaseDate));
-        	custodyRelease.setBookingNumber(bookingNumber);
-        	custodyRelease.setReportDate(custodyStatusChange.getReportDate());
-        	analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);
-        }
-        
         Integer custodyStatusChangeId = analyticalDatastoreDAO.saveCustodyStatusChange(custodyStatusChange);
 		return custodyStatusChangeId;
+	}
+
+	private Integer saveCustodyStatusChangeSubject(Node personNode,
+			String personUniqueIdentifier, String bookingNumber) throws Exception {
+		
+		BookingSubject bookingSubject = new BookingSubject();
+
+		Integer personId = analyticalDatastoreDAO.getPersonIdByUniqueId(personUniqueIdentifier);
+
+		if (personId != null){
+			BookingSubject formerBookingSubject = analyticalDatastoreDAO.getBookingSubjectByBookingNumberAndPersonId(bookingNumber, personId); 
+			
+			if (formerBookingSubject != null){
+				bookingSubject.setRecidivistIndicator(formerBookingSubject.getRecidivistIndicator());
+			}
+			else{
+				bookingSubject.setRecidivistIndicator(1);
+			}
+		}
+		else{
+			personId = savePerson(personNode, personUniqueIdentifier);
+		}
+		
+		return saveBookingSubject(personNode, bookingSubject, personId);
 	}
 
 }
