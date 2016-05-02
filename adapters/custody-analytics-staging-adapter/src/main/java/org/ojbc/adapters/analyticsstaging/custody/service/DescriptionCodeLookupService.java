@@ -78,7 +78,7 @@ public class DescriptionCodeLookupService
 				log.warn("No map entry found in lookup map for the CodeTable: " + codeTable);
 				return null;
 			}
-			return (Integer) lookupMap.get(description);
+			return (Integer) lookupMap.get(description.trim());
 		}
 		catch (Exception e) {
 			log.warn("Error occurred in retrieveCode() for code table ["

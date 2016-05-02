@@ -57,6 +57,9 @@
 		<endpoint id="custodyReleaseReportingFileEndpoint"
 			uri="file://{{custody.stagingAdapter.inputDirectory}}/custodyReleaseReport/input?idempotent=true&amp;moveFailed={{custody.stagingAdapter.inputDirectory}}/custodyReleaseReport/error&amp;recursive=true&amp;delete=true&amp;maxMessagesPerPoll=100" />
 
+ 		<endpoint id="custodyStatusChangeReportingServiceAdapterEndpoint"
+			uri="cxf:bean:custodyStatusChangeReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{custody.stagingAdapter.cxflogging}}" />
+
 		<endpoint id="invocationFailedFileEndpoint"
 			uri="file://{{custody.stagingAdapter.inputDirectory}}/failed" />
 
@@ -182,10 +185,39 @@
 					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
 					
 					<camel:setHeader headerName="CamelFileName">
-						<camel:simple>custodyReleaseReport/FailedIncident_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+						<camel:simple>custodyReleaseReport/FailedCustodyReleaseReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
 					</camel:setHeader>	
 
 					<log message="Custody Release Report document failure. File Name to persist is: ${in.headers.CamelFileName}"/>
+					
+					<camel:to uri="direct:failedInvocation"/>
+				</camel:doCatch>
+			
+			</camel:doTry>
+			
+		</camel:route>
+			
+		<camel:route id="custody_status_change_reporting_service_process_report" startupOrder="4">
+			
+			<camel:from	uri="custodyStatusChangeReportingServiceAdapterEndpoint" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:doTry>
+						
+				<camel:log message="Here is the inbound custody status change report message: ${body}" loggingLevel="DEBUG"/>
+				
+				<camel:enrich uri="direct:getPersonUniqueId" strategyRef="aggregatePersonUniqueIdStrategy"/>
+				<camel:to uri="bean:custodyStatusChangeReportProcessor?method=processReport"/>
+				
+				<camel:doCatch >
+					<camel:exception>java.lang.Exception</camel:exception>
+					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
+					
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>custodyStatusChangeReport/FailedCustodyStatusChangeReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+					</camel:setHeader>	
+
+					<log message="Custody Status Change Report document failure. File Name to persist is: ${in.headers.CamelFileName}"/>
 					
 					<camel:to uri="direct:failedInvocation"/>
 				</camel:doCatch>

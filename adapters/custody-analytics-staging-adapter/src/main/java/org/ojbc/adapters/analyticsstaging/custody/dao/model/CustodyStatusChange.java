@@ -24,17 +24,17 @@ import java.time.LocalDateTime;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-public class Booking implements Serializable{
+public class CustodyStatusChange implements Serializable{
 
-	private static final long serialVersionUID = 714167300178163559L;
+	private static final long serialVersionUID = 5546398660510817311L;
 	//pk
-	private Integer bookingId;
+	private Integer custodyStatusChangeId;
 	private Integer jurisdictionId; 
-	private LocalDateTime bookingReportDate;
+	private LocalDateTime reportDate;
 	private Integer sendingAgencyId;
 	private LocalDateTime bookingDate; 
 	private LocalDate commitDate; 
-	private String bookingReportId;
+	private String reportId;
 	private Integer caseStatusId; 
 	private Integer pretrialStatusId; 
 	private Integer facilityId; 
@@ -47,13 +47,6 @@ public class Booking implements Serializable{
     private KeyValue bondType;
     private CustodyRelease custodyRelease;
 	
-	public Integer getBookingId() {
-		return bookingId;
-	}
-
-	public void setBookingId(Integer bookingId) {
-		this.bookingId = bookingId;
-	}
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);	
@@ -65,14 +58,6 @@ public class Booking implements Serializable{
 
 	public void setJurisdictionId(Integer jurisdictionId) {
 		this.jurisdictionId = jurisdictionId;
-	}
-
-	public LocalDateTime getBookingReportDate() {
-		return bookingReportDate;
-	}
-
-	public void setBookingReportDate(LocalDateTime bookingReportDate) {
-		this.bookingReportDate = bookingReportDate;
 	}
 
 	public Integer getSendingAgencyId() {
@@ -89,14 +74,6 @@ public class Booking implements Serializable{
 
 	public void setBookingDate(LocalDateTime bookingDate) {
 		this.bookingDate = bookingDate;
-	}
-
-	public String getBookingReportId() {
-		return bookingReportId;
-	}
-
-	public void setBookingReportId(String bookingReportId) {
-		this.bookingReportId = bookingReportId;
 	}
 
 	public Integer getCaseStatusId() {
@@ -193,6 +170,30 @@ public class Booking implements Serializable{
 
 	public void setCustodyRelease(CustodyRelease custodyRelease) {
 		this.custodyRelease = custodyRelease;
+	}
+
+	public Integer getCustodyStatusChangeId() {
+		return custodyStatusChangeId;
+	}
+
+	public void setCustodyStatusChangeId(Integer custodyStatusChangeId) {
+		this.custodyStatusChangeId = custodyStatusChangeId;
+	}
+
+	public LocalDateTime getReportDate() {
+		return reportDate;
+	}
+
+	public void setReportDate(LocalDateTime reportDate) {
+		this.reportDate = reportDate;
+	}
+
+	public String getReportId() {
+		return reportId;
+	}
+
+	public void setReportId(String reportId) {
+		this.reportId = reportId;
 	}
 
 
