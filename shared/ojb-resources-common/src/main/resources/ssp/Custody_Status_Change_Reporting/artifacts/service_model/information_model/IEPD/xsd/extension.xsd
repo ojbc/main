@@ -67,11 +67,15 @@
 					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Detention" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:BailBond" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:PersonCriminalHistorySummary" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="cyfs:NextCourtEvent" minOccurs="0"
 						maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ActivityChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:BailBondChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -117,6 +121,11 @@
 		<xsd:annotation>
 			<xsd:documentation>True if an inmate is a worker in the facility;
 				false otherwise</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonSocioEconomicStatusDescriptionText" type="nc:TextType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A description of a person's income level.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

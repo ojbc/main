@@ -75,6 +75,18 @@
 		</cxf:properties> 
 	</cxf:cxfEndpoint>
 
+	<cxf:cxfEndpoint id="custodyStatusChangeReportingServiceAdapter"
+		address="${custody.stagingAdapter.custodyStatusChangeReportServiceAdapterEndpoint}"
+		wsdlURL="classpath:ssp/Custody_Status_Change_Reporting/schemas/RS_WS-SIP_v1.2/Custody_Status_Change_Reporting_Service.wsdl"
+		serviceName="ojbc:Custody-Status-Change-Reporting-ServiceService" endpointName="ojbc:Custody-Status-Change-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodyStatusChangeReportingService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="custodyStagingAdapterKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${custody.stagingAdapter.keystoreCertificateAlias}" />
+		</cxf:properties> 
+	</cxf:cxfEndpoint>
+
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>

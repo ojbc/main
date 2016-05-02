@@ -25,6 +25,17 @@ use CustodyAnalyticsDataStore;
 **/
 
 
+
+
+CREATE TABLE CustodyRelease (
+                CustodyReleaseID BIGINT AUTO_INCREMENT NOT NULL,
+                BookingNumber VARCHAR(50) NOT NULL,
+                ReleaseDate DATETIME NOT NULL,
+                ReportDate DATETIME NOT NULL,
+                PRIMARY KEY (CustodyReleaseID)
+);
+
+
 CREATE TABLE Language (
                 LanguageID INT AUTO_INCREMENT NOT NULL,
                 Language VARCHAR(20) NOT NULL,
@@ -174,6 +185,36 @@ CREATE TABLE Agency (
 );
 
 
+CREATE TABLE CustodyStatusChange (
+                CustodyStatusChangeID BIGINT AUTO_INCREMENT NOT NULL,
+                ReportID VARCHAR(30) NOT NULL,
+                BookingDate DATETIME NOT NULL,
+                CommitDate DATE NOT NULL,
+                BookingNumber VARCHAR(50) NOT NULL,
+                ArrestLocationLatitude NUMERIC(14,10),
+                ArrestLocationLongitude NUMERIC(14,10),
+                BondAmount NUMERIC(10,2),
+                BondTypeID INT NOT NULL,
+                BookingSubjectID INT NOT NULL,
+                BedTypeID INT NOT NULL,
+                CaseStatusID INT NOT NULL,
+                JurisdictionID INT NOT NULL,
+                SendingAgencyID INT NOT NULL,
+                PretrialStatusID INT NOT NULL,
+                FacilityID INT NOT NULL,
+                ReportDate DATETIME NOT NULL,
+                PRIMARY KEY (CustodyStatusChangeID)
+);
+
+
+CREATE TABLE CustodyStatusChangeCharge (
+                CustodyStatusChangeChargeID BIGINT AUTO_INCREMENT NOT NULL,
+                CustodyStatusChangeID BIGINT NOT NULL,
+                ChargeTypeID INT NOT NULL,
+                PRIMARY KEY (CustodyStatusChangeChargeID)
+);
+
+
 CREATE TABLE Booking (
                 BookingID BIGINT AUTO_INCREMENT NOT NULL,
                 JurisdictionID INT NOT NULL,
@@ -183,7 +224,6 @@ CREATE TABLE Booking (
                 CaseStatusID INT NOT NULL,
                 BookingDate DATETIME NOT NULL,
                 CommitDate DATE NOT NULL,
-                SupervisionReleaseDate DATETIME,
                 PretrialStatusID INT NOT NULL,
                 FacilityID INT NOT NULL,
                 BedTypeID INT NOT NULL,
@@ -241,7 +281,19 @@ REFERENCES Facility (FacilityID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
+ALTER TABLE CustodyStatusChange ADD CONSTRAINT facility_custody_status_change_fk
+FOREIGN KEY (FacilityID)
+REFERENCES Facility (FacilityID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
 ALTER TABLE Booking ADD CONSTRAINT bondtype_booking_fk
+FOREIGN KEY (BondTypeID)
+REFERENCES BondType (BondTypeID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE CustodyStatusChange ADD CONSTRAINT bondtype_custody_status_change_fk
 FOREIGN KEY (BondTypeID)
 REFERENCES BondType (BondTypeID)
 ON DELETE NO ACTION
@@ -253,7 +305,19 @@ REFERENCES BedType (BedTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
+ALTER TABLE CustodyStatusChange ADD CONSTRAINT bedtype_custody_status_change_fk
+FOREIGN KEY (BedTypeID)
+REFERENCES BedType (BedTypeID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
 ALTER TABLE Booking ADD CONSTRAINT pretrialstatus_booking_fk
+FOREIGN KEY (PretrialStatusID)
+REFERENCES PretrialStatus (PretrialStatusID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE CustodyStatusChange ADD CONSTRAINT pretrialstatus_custody_status_change_fk
 FOREIGN KEY (PretrialStatusID)
 REFERENCES PretrialStatus (PretrialStatusID)
 ON DELETE NO ACTION
@@ -295,7 +359,19 @@ REFERENCES BookingSubject (BookingSubjectID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
+ALTER TABLE CustodyStatusChange ADD CONSTRAINT bookingsubject_custody_status_change_fk
+FOREIGN KEY (BookingSubjectID)
+REFERENCES BookingSubject (BookingSubjectID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
 ALTER TABLE BookingCharge ADD CONSTRAINT chargetype_charge_fk
+FOREIGN KEY (ChargeTypeID)
+REFERENCES ChargeType (ChargeTypeID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE CustodyStatusChangeCharge ADD CONSTRAINT chargetype_custodystatuschangecharge_fk
 FOREIGN KEY (ChargeTypeID)
 REFERENCES ChargeType (ChargeTypeID)
 ON DELETE NO ACTION
@@ -307,7 +383,19 @@ REFERENCES CaseStatus (CaseStatusID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
+ALTER TABLE CustodyStatusChange ADD CONSTRAINT casestatus_custody_status_change_fk
+FOREIGN KEY (CaseStatusID)
+REFERENCES CaseStatus (CaseStatusID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
 ALTER TABLE Booking ADD CONSTRAINT jurisdiction_booking_fk
+FOREIGN KEY (JurisdictionID)
+REFERENCES Jurisdiction (JurisdictionID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE CustodyStatusChange ADD CONSTRAINT jurisdiction_custody_status_change_fk
 FOREIGN KEY (JurisdictionID)
 REFERENCES Jurisdiction (JurisdictionID)
 ON DELETE NO ACTION
@@ -316,6 +404,18 @@ ON UPDATE NO ACTION;
 ALTER TABLE Booking ADD CONSTRAINT agency_booking_fk
 FOREIGN KEY (SendingAgencyID)
 REFERENCES Agency (AgencyID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE CustodyStatusChange ADD CONSTRAINT agency_custody_status_change_fk
+FOREIGN KEY (SendingAgencyID)
+REFERENCES Agency (AgencyID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE CustodyStatusChangeCharge ADD CONSTRAINT custody_status_change_custodystatuschangecharge_fk
+FOREIGN KEY (CustodyStatusChangeID)
+REFERENCES CustodyStatusChange (CustodyStatusChangeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 

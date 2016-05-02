@@ -64,10 +64,14 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAsse
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChange;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -79,10 +83,9 @@ import org.w3c.dom.Element;
         "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/dao.xml",
         })
-@DirtiesContext
+@DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class CamelContextTest {
 	
-	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( CamelContextTest.class );
 	
     @Resource
@@ -153,6 +156,21 @@ public class CamelContextTest {
     		}              
     	});
     	
+    	context.getRouteDefinition("custody_status_change_reporting_service_process_report").adviceWith(context, new AdviceWithRouteBuilder() {
+    		@Override
+    		public void configure() throws Exception {
+    			// The line below allows us to bypass CXF and send a message directly into the route
+    			replaceFromWith("direct:custodyStatusChangeReportingService");
+    		}              
+    	});
+    	
+    	context.getRouteDefinition("custody_status_change_reporting_service_process_report").adviceWith(context, new AdviceWithRouteBuilder() {
+    		@Override
+    		public void configure() throws Exception {
+    			// The line below allows us to bypass CXF and send a message directly into the route
+    			interceptSendToEndpoint("direct:failedInvocation").to("mock:direct:failedInvocation").stop();
+    		}              
+    	});
     	
     	context.start();
 	}	
@@ -164,7 +182,79 @@ public class CamelContextTest {
 		testBehavioralHealthReportServiceRoute();
 		testCustodyReleaseReportServiceRoute();
 	}
+	
+	@Test
+	public void testCustodyStatusChangeReportService() throws Exception
+	{
+		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/custodyStatusChangeReport/CustodyStatusChangeReport.xml");
 
+		Person person = analyticalDatastoreDAOImpl.getPerson(1);
+		Assert.assertNotNull(person);
+		
+		BookingSubject bookingSubject = analyticalDatastoreDAOImpl.getBookingSubject(1);
+		Assert.assertNotNull(bookingSubject);
+		
+		CustodyStatusChange custodyStatusChange = analyticalDatastoreDAOImpl.getCustodyStatusChangeByReportId("eDocumentID");
+		assertNull(custodyStatusChange);
+		
+		List<CustodyStatusChangeCharge> custodyStatusChangeCharges = analyticalDatastoreDAOImpl.getCustodyStatusChangeCharges( 1 ); 
+		assertTrue(custodyStatusChangeCharges.isEmpty());
+		
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:custodyStatusChangeReportingService", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}
+		
+		person = analyticalDatastoreDAOImpl.getPerson(1);
+		Assert.assertNotNull(person);
+
+		Person person2 = analyticalDatastoreDAOImpl.getPerson(2);
+		Assert.assertNull(person2);
+
+		bookingSubject = analyticalDatastoreDAOImpl.getBookingSubject(2);
+		Assert.assertNotNull(bookingSubject);
+
+		Assert.assertEquals(Integer.valueOf(1), bookingSubject.getPersonId());
+		Assert.assertEquals(Integer.valueOf(0), bookingSubject.getRecidivistIndicator());
+		Assert.assertTrue(person.getPersonBirthDate().until(java.time.LocalDate.now(), ChronoUnit.YEARS ) == 
+				bookingSubject.getPersonAge().longValue());
+		Assert.assertTrue(bookingSubject.getHousingStatusId() == 0);
+		Assert.assertTrue(bookingSubject.getEducationLevelId() == 0);
+		Assert.assertTrue(bookingSubject.getOccupationId() == 0);
+		Assert.assertTrue(bookingSubject.getIncomeLevelId() == 0);
+		
+		custodyStatusChange = analyticalDatastoreDAOImpl.getCustodyStatusChangeByReportId("eDocumentID");
+		assertNotNull(custodyStatusChange);
+
+		assertTrue(custodyStatusChange.getJurisdictionId() == 2);
+		assertEquals(LocalDateTime.parse("2012-12-17T09:30:47"), custodyStatusChange.getReportDate());
+		assertTrue(custodyStatusChange.getSendingAgencyId() == 2 );
+		assertEquals(LocalDateTime.parse("2013-12-17T09:30"), custodyStatusChange.getBookingDate());
+		assertEquals(LocalDate.parse("2013-12-17"), custodyStatusChange.getCommitDate());
+		assertEquals("eDocumentID", custodyStatusChange.getReportId());
+		assertTrue(custodyStatusChange.getCaseStatusId() == 1); 
+		assertTrue(custodyStatusChange.getPretrialStatusId() == 3);
+		assertTrue(custodyStatusChange.getFacilityId() == 2);
+		assertTrue(custodyStatusChange.getBedTypeId() == 3); 
+		assertEquals("Booking Number", custodyStatusChange.getBookingNumber());
+		assertTrue(custodyStatusChange.getArrestLocationLatitude().doubleValue() == 56.1111 ); 
+		assertTrue(custodyStatusChange.getArrestLocationLongitude().doubleValue() == 32.1111 ); 
+		assertTrue(custodyStatusChange.getBondAmount().doubleValue() == 250.00); 
+		assertThat(custodyStatusChange.getBondType().getValue(), is("Cash"));
+		
+		custodyStatusChangeCharges = analyticalDatastoreDAOImpl.getCustodyStatusChangeCharges( 1 ); 
+		assertFalse(custodyStatusChangeCharges.isEmpty());
+		
+		CustodyStatusChangeCharge custodyStatusChangeCharge = custodyStatusChangeCharges.get(0);
+		assertThat(custodyStatusChangeCharge.getChargeType().getValue(), is("Felony"));
+		assertTrue(custodyStatusChangeCharge.getCustodyStatusChangeId() == 1);
+		
+	}
+	
 	private void testBookingReportServiceRoute() throws Exception, IOException {
 		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/bookingReport/BookingReportJail.xml");
 
@@ -219,7 +309,6 @@ public class CamelContextTest {
 		assertTrue(booking.getSendingAgencyId() == 2 );
 		assertEquals(LocalDateTime.parse("2013-12-17T09:30"), booking.getBookingDate());
 		assertEquals(LocalDate.parse("2013-12-17"), booking.getCommitDate());
-		assertEquals(LocalDateTime.parse("2014-12-17T10:30"), booking.getSupervisionReleaseDate());
 		assertEquals("eDocumentID", booking.getBookingReportId());
 		assertTrue(booking.getCaseStatusId() == 1); 
 		assertTrue(booking.getPretrialStatusId() == 2);
@@ -237,6 +326,12 @@ public class CamelContextTest {
 		BookingCharge bookingCharge = bookingCharges.get(0);
 		assertThat(bookingCharge.getChargeType().getValue(), is("Felony"));
 		assertTrue(bookingCharge.getBookingId() == 1);
+		
+		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingNumber("Booking Number");
+		log.info(custodyRelease.toString());
+		assertEquals(LocalDateTime.parse("2014-12-17T10:30"), custodyRelease.getReleaseDate());
+		assertEquals(LocalDateTime.parse("2012-12-17T09:30:47"), custodyRelease.getReportDate());
+		
 	}
 	
 	public void testBehavioralHealthReportServiceRoute() throws Exception
@@ -268,8 +363,9 @@ public class CamelContextTest {
 	
 	public void testCustodyReleaseReportServiceRoute() throws Exception
 	{
-		Booking booking = analyticalDatastoreDAOImpl.getBookingByBookingNumber("Booking Number"); 
-		assertEquals(LocalDateTime.parse("2014-12-17T10:30"), booking.getSupervisionReleaseDate());
+		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingNumber("Booking Number"); 
+		assertEquals(LocalDateTime.parse("2014-12-17T10:30"), custodyRelease.getReleaseDate());
+		assertEquals(LocalDateTime.parse("2012-12-17T09:30:47"), custodyRelease.getReportDate());
 		
 		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/custodyReleaseReport/CustodyReleaseReport.xml");
 		
@@ -282,8 +378,9 @@ public class CamelContextTest {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		booking = analyticalDatastoreDAOImpl.getBookingByBookingNumber("Booking Number");
-		assertEquals( LocalDateTime.parse("2015-12-17T09:30:47"), booking.getSupervisionReleaseDate());
+		custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingNumber("Booking Number");
+		assertEquals( LocalDateTime.parse("2015-12-17T09:30:47"), custodyRelease.getReleaseDate());
+		assertEquals( LocalDateTime.parse("2015-12-17T09:30:47"), custodyRelease.getReportDate());
 	}
 	
 	protected Exchange createSenderExchange(String inputFilePath) throws Exception, IOException {

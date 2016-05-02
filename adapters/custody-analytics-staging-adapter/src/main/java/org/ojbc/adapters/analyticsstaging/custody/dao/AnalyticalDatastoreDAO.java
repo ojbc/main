@@ -24,6 +24,9 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAsse
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChange;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonRace;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonSex;
@@ -44,6 +47,8 @@ public interface AnalyticalDatastoreDAO {
 	
 	public Integer saveBooking(Booking booking);
 	
+	public Integer saveCustodyStatusChange(CustodyStatusChange custodyStatusChange);
+	
 	public Integer searchForAgenyIDbyAgencyORI(String agencyORI);
 	
 	public void saveBehavioralHealthAssessments(
@@ -51,6 +56,9 @@ public interface AnalyticalDatastoreDAO {
 
 	public void saveBookingCharges(
 			final List<BookingCharge> bookingCharges);
+	
+	public void saveCustodyStatusChangeCharges(
+			final List<CustodyStatusChangeCharge> custodyStatusChangeCharges);
 	
 	public void deleteBooking(Integer bookingPk);
 	
@@ -61,6 +69,18 @@ public interface AnalyticalDatastoreDAO {
 	public List<BookingCharge> getBookingCharges(Integer bookingId);
 	public List<BehavioralHealthAssessment> getBehavioralHealthAssessments(Integer personId);
 
-	public void updateCustodyReleaseDate(String bookingNumber,
-			LocalDateTime releaseDate);
+	public void saveCustodyRelease(CustodyRelease custodyRelease);
+	public void saveCustodyRelease(String bookingNumber, LocalDateTime releaseDate, LocalDateTime reportDate);
+	public CustodyRelease getCustodyReleaseByBookingNumber(String bookingNumber);
+	public CustodyStatusChange getCustodyStatusChangeByReportId(String reportId); 
+	public List<CustodyStatusChangeCharge> getCustodyStatusChangeCharges(Integer custodyStatusChangeId);
+	
+	/**
+	 * Query the booking table for the bookingSubjectId first. 
+	 * 
+	 * @param bookingNumber
+	 * @return BookingSubject that is associated with the booking record. 
+	 */
+	public BookingSubject getBookingSubjectByBookingNumberAndPersonId(String bookingNumber, Integer personId);
+
 }
