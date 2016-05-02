@@ -114,6 +114,14 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="ConveyanceType">
+    <xs:annotation>
+      <xs:documentation>A data type for a means of transport from place to place.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ItemType"/>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="DateType">
     <xs:annotation>
       <xs:documentation>A data type for a calendar date.</xs:documentation>
@@ -147,6 +155,22 @@
         <xs:sequence>
           <xs:element ref="nc:IdentificationID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:IdentificationJurisdiction" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ItemType">
+    <xs:annotation>
+      <xs:documentation>A data type for an article or thing.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:ItemColor" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:ItemMakeName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:ItemModelName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:ItemModelYearDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:ItemStyle" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -197,6 +221,19 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:OrganizationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PersonConveyanceAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between a person and a conveyance.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Conveyance" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -296,6 +333,19 @@
       <xs:extension base="niem-xs:string"/>
     </xs:simpleContent>
   </xs:complexType>
+  <xs:complexType name="VehicleType">
+    <xs:annotation>
+      <xs:documentation>A data type for a conveyance designed to carry an operator, passengers and/or cargo, over land.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ConveyanceType">
+        <xs:sequence>
+          <xs:element ref="nc:VehicleIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:VehicleAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:element name="Activity" type="nc:ActivityType" nillable="true">
     <xs:annotation>
       <xs:documentation>A single or set of related actions, events, or process steps.</xs:documentation>
@@ -381,6 +431,21 @@
       <xs:documentation>A data concept for a means of contacting someone.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="Conveyance" type="nc:ConveyanceType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A means of transport.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceColorPrimaryText" type="nc:TextType" substitutionGroup="nc:ItemColor">
+    <xs:annotation>
+      <xs:documentation>A single, upper-most, front-most, or majority color of a conveyance.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceColorSecondaryText" type="nc:TextType" substitutionGroup="nc:ItemColor">
+    <xs:annotation>
+      <xs:documentation>A lower-most or rear-most color of a two-tone conveyance or a lesser color of a multi-colored conveyance.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Date" type="niem-xs:date" substitutionGroup="nc:DateRepresentation">
     <xs:annotation>
       <xs:documentation>A full date.</xs:documentation>
@@ -409,6 +474,41 @@
   <xs:element name="IdentificationJurisdiction" type="nc:JurisdictionType" nillable="true">
     <xs:annotation>
       <xs:documentation>An area, region, or unit where a unique identification is issued.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Item" type="nc:ItemType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An article or thing.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ItemColor" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a color of an item.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ItemMakeName" type="nc:ProperNameTextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of the manufacturer that produced an item.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ItemModelName" type="nc:ProperNameTextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of a specific design or kind of item made by a manufacturer.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ItemModelYearDate" type="niem-xs:gYear" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A year in which an item was manufactured or produced.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ItemStyle" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a style of an item.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ItemStyleText" type="nc:TextType" substitutionGroup="nc:ItemStyle">
+    <xs:annotation>
+      <xs:documentation>A style of a property item.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="JurisdictionAbstract" abstract="true">
@@ -539,6 +639,11 @@
   <xs:element name="PersonCitizenshipText" type="nc:TextType" substitutionGroup="nc:PersonCitizenship">
     <xs:annotation>
       <xs:documentation>A country that assigns rights, duties, and privileges to a person because of the birth or naturalization of the person in that country.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonConveyanceAssociation" type="nc:PersonConveyanceAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between a person and a conveyance.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonEthnicity" abstract="true">
@@ -694,6 +799,26 @@
   <xs:element name="StreetNumberText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A number that identifies a particular unit or location within a street.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Vehicle" type="nc:VehicleType">
+    <xs:annotation>
+      <xs:documentation>A conveyance designed to carry an operator, passengers and/or cargo, over land.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for VehicleType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A unique identification for a specific vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="YearMonthDate" type="niem-xs:gYearMonth" substitutionGroup="nc:DateRepresentation">
+    <xs:annotation>
+      <xs:documentation>A year and month.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>
