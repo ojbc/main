@@ -31,6 +31,106 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
       <xs:documentation>A data type for country, territory, or dependency codes.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
+      <xs:enumeration value="CM">
+        <xs:annotation>
+          <xs:documentation>CAMEROON</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AO">
+        <xs:annotation>
+          <xs:documentation>ANGOLA</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KZ">
+        <xs:annotation>
+          <xs:documentation>KAZAKHSTAN</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CX">
+        <xs:annotation>
+          <xs:documentation>CHRISTMAS ISLAND</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ID">
+        <xs:annotation>
+          <xs:documentation>INDONESIA</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BE">
+        <xs:annotation>
+          <xs:documentation>BELGIUM</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BB">
+        <xs:annotation>
+          <xs:documentation>BARBADOS</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TM">
+        <xs:annotation>
+          <xs:documentation>TURKMENISTAN</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PN">
+        <xs:annotation>
+          <xs:documentation>PITCAIRN</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SO">
+        <xs:annotation>
+          <xs:documentation>SOMALIA</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC">
+        <xs:annotation>
+          <xs:documentation>SEYCHELLES</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PS">
+        <xs:annotation>
+          <xs:documentation>PALESTINE, STATE OF</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HR">
+        <xs:annotation>
+          <xs:documentation>CROATIA</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TT">
+        <xs:annotation>
+          <xs:documentation>TRINIDAD AND TOBAGO</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NF">
+        <xs:annotation>
+          <xs:documentation>NORFOLK ISLAND</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BM">
+        <xs:annotation>
+          <xs:documentation>BERMUDA</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GW">
+        <xs:annotation>
+          <xs:documentation>GUINEA-BISSAU</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ZW">
+        <xs:annotation>
+          <xs:documentation>ZIMBABWE</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GT">
+        <xs:annotation>
+          <xs:documentation>GUATEMALA</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EE">
+        <xs:annotation>
+          <xs:documentation>ESTONIA</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
       <xs:enumeration value="AD">
         <xs:annotation>
           <xs:documentation>ANDORRA</xs:documentation>
@@ -64,11 +164,6 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
       <xs:enumeration value="AM">
         <xs:annotation>
           <xs:documentation>ARMENIA</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AO">
-        <xs:annotation>
-          <xs:documentation>ANGOLA</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="AQ">
@@ -116,19 +211,9 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
           <xs:documentation>BOSNIA AND HERZEGOVINA</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="BB">
-        <xs:annotation>
-          <xs:documentation>BARBADOS</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="BD">
         <xs:annotation>
           <xs:documentation>BANGLADESH</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BE">
-        <xs:annotation>
-          <xs:documentation>BELGIUM</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="BF">
@@ -159,11 +244,6 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
       <xs:enumeration value="BL">
         <xs:annotation>
           <xs:documentation>SAINT BARTH&#xc9;LEMY</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="BM">
-        <xs:annotation>
-          <xs:documentation>BERMUDA</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="BN">
@@ -261,11 +341,6 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
           <xs:documentation>CHILE</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="CM">
-        <xs:annotation>
-          <xs:documentation>CAMEROON</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="CN">
         <xs:annotation>
           <xs:documentation>CHINA</xs:documentation>
@@ -294,11 +369,6 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
       <xs:enumeration value="CW">
         <xs:annotation>
           <xs:documentation>CURA&#xc7;AO</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="CX">
-        <xs:annotation>
-          <xs:documentation>CHRISTMAS ISLAND</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="CY">
@@ -344,11 +414,6 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
       <xs:enumeration value="EC">
         <xs:annotation>
           <xs:documentation>ECUADOR</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="EE">
-        <xs:annotation>
-          <xs:documentation>ESTONIA</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="EG">
@@ -481,19 +546,9 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
           <xs:documentation>SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="GT">
-        <xs:annotation>
-          <xs:documentation>GUATEMALA</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="GU">
         <xs:annotation>
           <xs:documentation>GUAM</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="GW">
-        <xs:annotation>
-          <xs:documentation>GUINEA-BISSAU</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="GY">
@@ -516,11 +571,6 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
           <xs:documentation>HONDURAS</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="HR">
-        <xs:annotation>
-          <xs:documentation>CROATIA</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="HT">
         <xs:annotation>
           <xs:documentation>HAITI</xs:documentation>
@@ -529,11 +579,6 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
       <xs:enumeration value="HU">
         <xs:annotation>
           <xs:documentation>HUNGARY</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ID">
-        <xs:annotation>
-          <xs:documentation>INDONESIA</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="IE">
@@ -649,11 +694,6 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
       <xs:enumeration value="KY">
         <xs:annotation>
           <xs:documentation>CAYMAN ISLANDS</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KZ">
-        <xs:annotation>
-          <xs:documentation>KAZAKHSTAN</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="LA">
@@ -841,11 +881,6 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
           <xs:documentation>NIGER</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="NF">
-        <xs:annotation>
-          <xs:documentation>NORFOLK ISLAND</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="NG">
         <xs:annotation>
           <xs:documentation>NIGERIA</xs:documentation>
@@ -931,19 +966,9 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
           <xs:documentation>SAINT PIERRE AND MIQUELON</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="PN">
-        <xs:annotation>
-          <xs:documentation>PITCAIRN</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="PR">
         <xs:annotation>
           <xs:documentation>PUERTO RICO</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="PS">
-        <xs:annotation>
-          <xs:documentation>PALESTINE, STATE OF</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="PT">
@@ -1001,11 +1026,6 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
           <xs:documentation>SOLOMON ISLANDS</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="SC">
-        <xs:annotation>
-          <xs:documentation>SEYCHELLES</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="SD">
         <xs:annotation>
           <xs:documentation>SUDAN</xs:documentation>
@@ -1054,11 +1074,6 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
       <xs:enumeration value="SN">
         <xs:annotation>
           <xs:documentation>SENEGAL</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SO">
-        <xs:annotation>
-          <xs:documentation>SOMALIA</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="SR">
@@ -1136,11 +1151,6 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
           <xs:documentation>TIMOR-LESTE</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="TM">
-        <xs:annotation>
-          <xs:documentation>TURKMENISTAN</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="TN">
         <xs:annotation>
           <xs:documentation>TUNISIA</xs:documentation>
@@ -1154,11 +1164,6 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
       <xs:enumeration value="TR">
         <xs:annotation>
           <xs:documentation>TURKEY</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TT">
-        <xs:annotation>
-          <xs:documentation>TRINIDAD AND TOBAGO</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="TV">
@@ -1269,11 +1274,6 @@ http://www.iso.org/iso/country_codes.htm</xs:documentation>
       <xs:enumeration value="ZM">
         <xs:annotation>
           <xs:documentation>ZAMBIA</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ZW">
-        <xs:annotation>
-          <xs:documentation>ZIMBABWE</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>

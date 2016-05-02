@@ -178,6 +178,35 @@
 		<wm-req-ext:PersonImmigrationAlienQueryIndicator>false
 		</wm-req-ext:PersonImmigrationAlienQueryIndicator>
 	</nc:Person>
+	<nc:Vehicle structures:id="Vehicle_01">
+		<nc:ConveyanceColorPrimaryText>BGE</nc:ConveyanceColorPrimaryText>
+		<nc:ConveyanceColorSecondaryText>BRO</nc:ConveyanceColorSecondaryText>
+		<nc:ItemMakeName>AAA</nc:ItemMakeName>
+		<nc:ItemModelName>DIA</nc:ItemModelName>
+		<nc:ItemModelYearDate>2012</nc:ItemModelYearDate>
+		<nc:ItemStyleText>2D</nc:ItemStyleText>
+		<nc:VehicleIdentification>
+			<nc:IdentificationID>VIN3458745679777</nc:IdentificationID>
+		</nc:VehicleIdentification>
+		<wm-req-ext:VehicleAdditionalInformation>
+			<wm-req-ext:VehicleAdditionalInformationCategoryText>Vehicle
+				Information
+				Category
+			</wm-req-ext:VehicleAdditionalInformationCategoryText>
+			<wm-req-ext:VehicleAdditionalInformationText>Excessive Rust
+			</wm-req-ext:VehicleAdditionalInformationText>
+		</wm-req-ext:VehicleAdditionalInformation>
+	</nc:Vehicle>
+	<j:ConveyanceRegistration structures:id="Reg_01">
+		<j:RegistrationExpirationDate>
+			<nc:YearMonthDate>2016-11</nc:YearMonthDate>
+		</j:RegistrationExpirationDate>
+		<j:ConveyanceRegistrationPlateIdentification>
+			<nc:IdentificationID>LP4365-0234</nc:IdentificationID>
+		</j:ConveyanceRegistrationPlateIdentification>
+		<j:ConveyanceRegistrationPlateCategoryText>LP-category
+		</j:ConveyanceRegistrationPlateCategoryText>
+	</j:ConveyanceRegistration>
 	<nc:ContactInformation>
 		<nc:ContactMailingAddress structures:id="Address_01">
 			<nc:AddressFullText>Full Address</nc:AddressFullText>
@@ -200,6 +229,14 @@
 			<nc:ContactMailingAddress structures:ref="Address_01" />
 		</nc:ContactInformation>
 	</nc:ContactInformationAssociation>
+	<j:ConveyanceRegistrationAssociation>
+		<j:ItemRegistration structures:ref="Reg_01" />
+		<nc:Item structures:ref="Vehicle_01" />
+	</j:ConveyanceRegistrationAssociation>
+	<nc:PersonConveyanceAssociation>
+		<nc:Person structures:ref="Person_01" />
+		<nc:Conveyance structures:ref="Vehicle_01" />
+	</nc:PersonConveyanceAssociation>
 	<j:ActivityWarrantAssociation>
 		<nc:Activity structures:ref="Case_01" />
 		<j:Warrant structures:ref="Warrant_01" />
