@@ -201,14 +201,14 @@
 	<xsd:element name="VehicleAdditionalInformation"
 		type="wir-ext:VehicleAdditionalInformationType" substitutionGroup="nc:VehicleAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>Additional information about a person.
+			<xsd:documentation>Additional information about a vehicle.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="WarrantAdditionalInformation"
 		type="wir-ext:WarrantAdditionalInformationType">
 		<xsd:annotation>
-			<xsd:documentation>Additional information about a person.
+			<xsd:documentation>Additional information about a warrant.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
