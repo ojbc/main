@@ -79,7 +79,13 @@ public class RapbackDAOImpl implements RapbackDAO {
     
     @Value("${rapbackDatastoreAdapter.criminalIdlePeriod:60}")
     private Integer criminalIdlePeriod;
+    
+    @Value("#{'${rapbackDatastoreAdapter.agencySuperUserOris}'.split(',')}")
+    private List<String> agencySuperUserOris;
 
+    @Value("#{'${rapbackDatastoreAdapter.superUserOris}'.split(',')}")
+    private List<String> superUserOris;
+    
 	@Override
 	public Integer saveSubject(final Subject subject) {
         log.debug("Inserting row into IDENTIFICATION_SUBJECT table : " + subject);
@@ -567,33 +573,62 @@ public class RapbackDAOImpl implements RapbackDAO {
 	@Override
 	public List<IdentificationTransaction> getCivilIdentificationTransactions(
 			String ori) {
-		final String CIVIL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
+		String sql = "SELECT t.transaction_number, t.identification_category, "
 				+ "t.report_timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.*, "
 				+ "(select count(*) > 0 from subsequent_results subsq where subsq.ucn = s.ucn) as having_subsequent_result "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 				+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
-				+ "WHERE t.owner_ori = ? AND (select count(*)>0 from "
-				+ "	civil_initial_results c where c.transaction_number = t.transaction_number)"; 
+				+ "WHERE (select count(*)>0 from "
+				+ "	civil_initial_results c where c.transaction_number = t.transaction_number) ";
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>(); 
+
+		if ( !superUserOris.contains(ori)){
+			sql += "AND t.owner_ori = :ori "; 
+			paramMap.put("ori", ori);
+		}
+		if ( !agencySuperUserOris.contains(ori)){
+			sql += " AND t.identification_category in ( :identificationCategoryList )";
+			//TODO get idengificationCategoryList based on agency, title etc. 
+			paramMap.put("identificationCategoryList", new ArrayList<String>());
+		}
 		
 		List<IdentificationTransaction> identificationTransactions = 
-				jdbcTemplate.query(CIVIL_IDENTIFICATION_TRANSACTION_SELECT, 
-						new FullIdentificationTransactionRowMapper(), ori);
+				namedParameterJdbcTemplate.query( sql, paramMap,
+						new FullIdentificationTransactionRowMapper());
 		return identificationTransactions;
 	}
 
 	@Override
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(
 			String ori) {
-		final String CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
+		StringBuilder sqlStringBuilder = new StringBuilder("SELECT t.transaction_number, t.identification_category, "
 				+ "t.report_timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
 				+ "FROM identification_transaction t "
-				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
-				+ "WHERE t.owner_ori = ? and (select count(*)>0 from "
-				+ "	criminal_initial_results c where c.transaction_number = t.transaction_number)"; 
+				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id ");
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		if ( superUserOris.contains(ori)){
+			sqlStringBuilder.append(" WHERE " ); 
+		}
+		else {
+			sqlStringBuilder.append(" WHERE t.owner_ori = :ori AND " ); 
+			paramMap.put("ori", ori);
+			
+			if ( !agencySuperUserOris.contains(ori)){
+				sqlStringBuilder.append(" t.identification_category in ( :identificationCategoryList ) AND ");
+				//TODO get idengificationCategoryList based on agency, title etc. 
+				paramMap.put("identificationCategoryList", new ArrayList<String>());
+			}
+		}
+		
+		sqlStringBuilder.append(" (select count(*)>0 from criminal_initial_results c where c.transaction_number = t.transaction_number) ");
+		
 		List<IdentificationTransaction> identificationTransactions = 
-				jdbcTemplate.query(CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT, 
-						new IdentificationTransactionRowMapper(), ori);
+				namedParameterJdbcTemplate.query( sqlStringBuilder.toString(), paramMap,  
+						new IdentificationTransactionRowMapper());
 		return identificationTransactions;
 	}
 
