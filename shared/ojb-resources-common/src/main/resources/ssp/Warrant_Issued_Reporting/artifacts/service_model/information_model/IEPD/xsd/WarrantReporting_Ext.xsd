@@ -117,61 +117,10 @@
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="scr:TransactionControlNumberIdentification"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="wir-ext:WarrantAdditionalInformation"
+					<xsd:element ref="wir-ext:WarrantCommentText"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="wir-ext:WarrantEntryCategoryCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:complexType name="PersonAdditionalInformationType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for additional information about a
-				person.
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="structures:ObjectType">
-				<xsd:sequence>
-					<xsd:element ref="wir-ext:PersonAdditionalInformationCategoryText"
-						minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="wir-ext:PersonAdditionalInformationText"
-						minOccurs="0" maxOccurs="1" />
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:complexType name="VehicleAdditionalInformationType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for additional information about a
-				vehicle.
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="structures:ObjectType">
-				<xsd:sequence>
-					<xsd:element ref="wir-ext:VehicleAdditionalInformationCategoryText"
-						minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="wir-ext:VehicleAdditionalInformationText"
-						minOccurs="0" maxOccurs="1" />
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:complexType name="WarrantAdditionalInformationType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for additional information about a
-				warrant.
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="structures:ObjectType">
-				<xsd:sequence>
-					<xsd:element ref="wir-ext:WarrantAdditionalInformationCategoryText"
-						minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="wir-ext:WarrantAdditionalInformationText"
-						minOccurs="0" maxOccurs="1" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -184,63 +133,9 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonAdditionalInformationCategoryText"
-		type="nc:TextType">
+	<xsd:element name="WarrantCommentText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>Additional information category about a person.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="PersonAdditionalInformation" type="wir-ext:PersonAdditionalInformationType"
-		substitutionGroup="nc:PersonAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>Additional information about a person.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="VehicleAdditionalInformation"
-		type="wir-ext:VehicleAdditionalInformationType" substitutionGroup="nc:VehicleAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>Additional information about a vehicle.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="WarrantAdditionalInformation"
-		type="wir-ext:WarrantAdditionalInformationType">
-		<xsd:annotation>
-			<xsd:documentation>Additional information about a warrant.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="PersonAdditionalInformationText" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>Additional information about a person.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="VehicleAdditionalInformationCategoryText"
-		type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>Additional category information about a vehicle.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="VehicleAdditionalInformationText" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>Additional information about a vehicle.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="WarrantAdditionalInformationCategoryText"
-		type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>Additional information category about a warrant.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="WarrantAdditionalInformationText" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>Additional information about a warrant.
+			<xsd:documentation>A comment, note or remark regarding a warrant.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
