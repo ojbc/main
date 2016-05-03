@@ -69,11 +69,6 @@
 				<nc:StatusDescriptionText>Pretrial</nc:StatusDescriptionText>
 				<ac-bkg-codes:PreTrialCategoryCode>C-SRP</ac-bkg-codes:PreTrialCategoryCode>
 			</nc:SupervisionCustodyStatus>
-			<nc:SupervisionFacility>
-				<nc:FacilityIdentification>
-					<nc:IdentificationID>Facility ID</nc:IdentificationID>
-				</nc:FacilityIdentification>
-			</nc:SupervisionFacility>
 			<j:SupervisionAugmentation>
 				<j:SupervisionReleaseDate>
 					<nc:DateTime>2014-12-17T10:30:00</nc:DateTime>
