@@ -77,6 +77,7 @@
 				<xsd:sequence>
 					<xsd:element ref="wm-req-ext:PersonRecordIdentification"
 						minOccurs="0" />
+					<xsd:element ref="nc:ExpirationDate" minOccurs="0" />
 					<xsd:element ref="wm-req-ext:ExtraditionIndicator"
 						minOccurs="0" />
 					<xsd:element ref="wm-req-ext:ExtradictionLimitsCodeText"
@@ -135,6 +136,13 @@
 		<xsd:annotation>
 			<xsd:documentation>True if a person can be extradited; false
 				otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalTrackingNumber" type="nc:TextType"
+		substitutionGroup="nc:CaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A case number assigend by the prosecution.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -212,6 +220,13 @@
 		<xsd:annotation>
 			<xsd:documentation>True if a person query should include the DHS ICE
 				Database; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ProsecutionChargeCodeText" type="nc:TextType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A charge code assigned by the prosecution.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

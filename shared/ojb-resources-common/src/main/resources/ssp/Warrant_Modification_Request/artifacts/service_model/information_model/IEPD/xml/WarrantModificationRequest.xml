@@ -30,6 +30,8 @@
 			<nc:IdentificationID>CN</nc:IdentificationID>
 		</nc:ActivityIdentification>
 		<nc:CaseDocketID>Docket8987</nc:CaseDocketID>
+		<wm-req-ext:CriminalTrackingNumber>PW56
+		</wm-req-ext:CriminalTrackingNumber>
 		<j:CaseAugmentation>
 			<j:CaseCharge>
 				<wm-req-ext:GeneralOffenseCharacterDescriptionText>Description
@@ -37,12 +39,17 @@
 				<wm-req-ext:ChargeCodeText>CHG5678</wm-req-ext:ChargeCodeText>
 				<wm-req-ext:OriginalOffenseCodeText>OO4356788
 				</wm-req-ext:OriginalOffenseCodeText>
+				<wm-req-ext:ProsecutionChargeCodeText>PCC45678
+				</wm-req-ext:ProsecutionChargeCodeText>
 			</j:CaseCharge>
 		</j:CaseAugmentation>
 	</nc:Case>
 	<j:Warrant structures:id="Warrant_01">
 		<j:CourtOrderDesignatedSubject>
 			<nc:RoleOfPerson structures:ref="Person_01" />
+			<j:SubjectCorrectionsIdentification>
+				<nc:IdentificationID>PN3929593</nc:IdentificationID>
+			</j:SubjectCorrectionsIdentification>
 		</j:CourtOrderDesignatedSubject>
 		<j:CourtOrderEnforcementAgency>
 			<j:OrganizationAugmentation>
@@ -80,6 +87,9 @@
 			<wm-req-ext:PersonRecordIdentification>
 				<nc:IdentificationID>R69458998</nc:IdentificationID>
 			</wm-req-ext:PersonRecordIdentification>
+			<nc:ExpirationDate>
+				<nc:Date>2016-08-13</nc:Date>
+			</nc:ExpirationDate>
 			<wm-req-ext:ExtraditionIndicator>true
 			</wm-req-ext:ExtraditionIndicator>
 			<wm-req-ext:ExtradictionLimitsCodeText>MC23
@@ -98,9 +108,7 @@
 		</wm-req-ext:WarrantAugmentation>
 	</j:Warrant>
 	<nc:Person structures:id="Person_01">
-		<nc:PersonAgeMeasure>
-			<nc:MeasureValueText>24</nc:MeasureValueText>
-		</nc:PersonAgeMeasure>
+		<nc:PersonAgeDescriptionText>Age</nc:PersonAgeDescriptionText>
 		<nc:PersonBirthDate>
 			<nc:Date>1967-08-13</nc:Date>
 		</nc:PersonBirthDate>
@@ -123,8 +131,8 @@
 			<nc:PersonFullName>Peter J Jones Jr</nc:PersonFullName>
 		</nc:PersonName>
 		<nc:PersonPhysicalFeature>
-			<nc:PhysicalFeatureCategoryText>ART ARM
-			</nc:PhysicalFeatureCategoryText>
+			<nc:PhysicalFeatureDescriptionText>ART ARM
+			</nc:PhysicalFeatureDescriptionText>
 		</nc:PersonPhysicalFeature>
 		<nc:PersonRaceText>A</nc:PersonRaceText>
 		<nc:PersonSexText>M</nc:PersonSexText>
