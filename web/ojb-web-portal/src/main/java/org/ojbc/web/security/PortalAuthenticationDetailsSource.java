@@ -56,9 +56,21 @@ public class PortalAuthenticationDetailsSource implements
     @Value("${policy.accesscontrol.requestedresource:}")
     private String policyAccessControlResourceURI;
     
-    @Value("${subscription.accesscontrol.requestedresource:}")
-    private String subscriptionAccessControlResourceURI;
+    @Value("${criminal.subscription.accesscontrol.requestedresource:}")
+    private String criminalSubscriptionAccessControlResourceURI;
 
+    @Value("${civil.subscription.accesscontrol.requestedresource:}")
+    private String civilSubscriptionAccessControlResourceURI;
+    
+    @Value("${criminal.identification.results.requestedresource:}")
+    private String criminalIdentificationResultsResourceURI;
+
+    @Value("#{'${rapbackSearch.agencySuperUserOris:}'.split(',')}")
+    private List<String> agencySuperUserOris;
+
+    @Value("#{'${rapbackSearch.superUserOris:}'.split(',')}")
+    private List<String> superUserOris;
+    
     @Autowired(required=false)
     private AccessControlServicesConfig accessControlServicesConfig; 
 
@@ -70,6 +82,8 @@ public class PortalAuthenticationDetailsSource implements
                 new ArrayList<SimpleGrantedAuthority>(); 
  
         Element samlAssertion = (Element)context.getAttribute("samlAssertion");
+        String ori = getEmployerOri(samlAssertion);  
+
         SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
         
         Boolean federatedQueryUserIndicator = WebUtils.getFederatedQueryUserIndicator(samlAssertion);
@@ -80,7 +94,8 @@ public class PortalAuthenticationDetailsSource implements
         }
     
         String principal = (String) context.getAttribute("principal");
-        log.info("requireIdentityBasedAccessControl:" + requireIdentityBasedAccessControl);
+        log.debug("requireIdentityBasedAccessControl:" + requireIdentityBasedAccessControl);
+        
         if (requireIdentityBasedAccessControl && !WebPortalConstants.EMPTY_FEDERATION_ID.equals(principal)) {
         	
             String accessControlResponseString = accessControlServicesConfig
@@ -91,7 +106,7 @@ public class PortalAuthenticationDetailsSource implements
             /*
              * Grant the "PortalUser" Role only if accessDenied is "false"
              */
-            String accessDenied = getAccessDeniedIndicator(accessControlResponseString);
+            String accessDenied = getAccessDeniedIndicator(accessControlResponseString, policyAccessControlResourceURI);
                 
             if (accessDenied!="" && !Boolean.valueOf(accessDenied)) {
                 grantedAuthorities.add(rolePortalUser);
@@ -109,23 +124,44 @@ public class PortalAuthenticationDetailsSource implements
          */
         if (grantedAuthorities.contains(rolePortalUser)) {
             if(requireSubscriptionAccessControl) {
-                String accessControlResponseString = accessControlServicesConfig
-                        .getIdentityBasedAccessControlServiceBean().invokeAccessControlRequest(
-                                UUID.randomUUID().toString(), samlAssertion, subscriptionAccessControlResourceURI);
-                Assert.notNull(accessControlResponseString); 
-                
-                /*
-                 * Grant the "Subscription" access only if accessDenied is "false"
-                 */
-                String accessDenied = getAccessDeniedIndicator(accessControlResponseString);
+            	
+            	if (superUserOris.contains(ori) || agencySuperUserOris.contains(ori)){
+                    grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CRIMINAL_ID_RESULTS.name())); 
+                    grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CIVIL_SUBSCRIPTION.name()));
                     
-                if (accessDenied!="" && !Boolean.valueOf(accessDenied)) {
-                    grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_SUBSCRIPTION.name()));
-                }
-                
+                    String accessControlResponseString = accessControlServicesConfig
+                    		.getIdentityBasedAccessControlServiceBean().invokeAccessControlRequest(
+                    				UUID.randomUUID().toString(), samlAssertion, criminalSubscriptionAccessControlResourceURI);
+                    Assert.notNull(accessControlResponseString); 
+                    
+                    grantOrDenyAuthority(grantedAuthorities, accessControlResponseString,
+                    		criminalSubscriptionAccessControlResourceURI, Authorities.AUTHZ_CRIMINAL_SUBSCRIPTION);
+            	}
+            	else{
+                    String accessControlResponseString = accessControlServicesConfig
+                    		.getIdentityBasedAccessControlServiceBean().invokeAccessControlRequest(
+                    				UUID.randomUUID().toString(), samlAssertion, 
+                    				criminalSubscriptionAccessControlResourceURI,
+                    				criminalIdentificationResultsResourceURI, 
+                    				civilSubscriptionAccessControlResourceURI);
+                    Assert.notNull(accessControlResponseString); 
+                    
+                    /*
+                     * Grant the "Criminal Subscription" access only if accessDenied is "false"
+                     */
+                    grantOrDenyAuthority(grantedAuthorities, accessControlResponseString, 
+                    		criminalSubscriptionAccessControlResourceURI, Authorities.AUTHZ_CRIMINAL_SUBSCRIPTION);
+                    grantOrDenyAuthority(grantedAuthorities, accessControlResponseString, 
+                    		civilSubscriptionAccessControlResourceURI, Authorities.AUTHZ_CIVIL_SUBSCRIPTION);
+                    grantOrDenyAuthority(grantedAuthorities, accessControlResponseString, 
+                    		criminalIdentificationResultsResourceURI, Authorities.AUTHZ_CRIMINAL_ID_RESULTS);
+                    
+            	}
             }
             else {
-                grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_SUBSCRIPTION.name())); 
+                grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CRIMINAL_SUBSCRIPTION.name())); 
+                grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CRIMINAL_ID_RESULTS.name())); 
+                grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CIVIL_SUBSCRIPTION.name())); 
             }
         }
         
@@ -133,13 +169,35 @@ public class PortalAuthenticationDetailsSource implements
                 grantedAuthorities);
     }
 
-    private String getAccessDeniedIndicator(String accessControlResponseString) {
+	private void grantOrDenyAuthority(List<SimpleGrantedAuthority> grantedAuthorities,
+			String accessControlResponseString, String resourceURI, Authorities authority) {
+		String accessDenied = getAccessDeniedIndicator(accessControlResponseString, resourceURI);
+		
+		if (accessDenied!="" && !Boolean.valueOf(accessDenied)) {
+			grantedAuthorities.add(new SimpleGrantedAuthority(authority.name()));
+		}
+	}
+
+	private String getEmployerOri(Element samlAssertion) {
+		String ori = null;
+		try {
+			ori = XmlUtils.xPathStringSearch(samlAssertion, 
+			        "/saml2:Assertion/saml2:AttributeStatement[1]/"
+			        + "saml2:Attribute[@Name='gfipm:2.0:user:EmployerORI']/saml2:AttributeValue");
+		} catch (Exception e) {
+			log.error("EmployerORI is missing in the Saml Assertion");
+		}
+		return ori;
+	}
+
+    private String getAccessDeniedIndicator(String accessControlResponseString, String resourceURI) {
         Document responseDocument = DocumentUtils.getDocumentFromXmlString(accessControlResponseString);
         
         String accessDenied = "";
         try {
             accessDenied = XmlUtils.xPathStringSearch(responseDocument.getDocumentElement(), 
-                    "/ac-doc:AccessControlResponse/ac-ext:AccessControlDecision/ac-ext:AccessDeniedIndicator");
+                    "/ac-doc:AccessControlResponse/ac-ext:AccessControlDecision[ac-ext:AccessDecisionResourceURI = '" + 
+                    		resourceURI + "']/ac-ext:AccessDeniedIndicator");
         } catch (Exception e) {
             log.error("Faild to run xpath /ac-doc:AccessControlResponse/ac-ext:AccessControlDecision/ac-ext:AccessDeniedIndicator "
                     + "on " + accessControlResponseString, e); 
