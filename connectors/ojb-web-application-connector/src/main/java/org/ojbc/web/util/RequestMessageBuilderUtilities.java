@@ -462,7 +462,8 @@ public class RequestMessageBuilderUtilities {
     }
     
 
-    public static Document createPolicyBasedAccessControlRequest(Element samlToken, String requestedResource) throws Exception {
+    public static Document createPolicyBasedAccessControlRequest(Element samlToken, String... requestedResources) throws Exception {
+    	
         Document document = OJBCXMLUtils.createDocument();       
         Element rootElement = document.createElementNS(OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST, 
                 OjbcNamespaceContext.NS_PREFIX_ACCESS_CONTROL_REQUEST 
@@ -602,10 +603,12 @@ public class RequestMessageBuilderUtilities {
                 + "saml2:Attribute[@Name='gfipm:2.0:user:EmployeePositionName']/saml2:AttributeValue");
         employeePositionName.setTextContent(employeePositionNameValue);
         
-        Element requestedResourceURI = XmlUtils.appendElement(rootElement, 
-                OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST_EXT, "RequestedResourceURI"); 
-        requestedResourceURI.setTextContent(requestedResource);
-
+        for (String requestedResource : requestedResources){
+	        Element requestedResourceURI = XmlUtils.appendElement(rootElement, 
+	                OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST_EXT, "RequestedResourceURI"); 
+	        requestedResourceURI.setTextContent(requestedResource);
+        }
+        
         log.debug("\nCreated Request:\n" + OJBUtils.getStringFromDocument(document));
         return document;
     }
