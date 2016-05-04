@@ -31,14 +31,9 @@ http://www.it.ojp.gov/framesets/iepd-clearinghouse-noClose.htm</xs:documentation
       <xs:documentation>A data type for a code that identifies the race of the person.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
-      <xs:enumeration value="U">
+      <xs:enumeration value="A">
         <xs:annotation>
-          <xs:documentation>UNKNOWN</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="P">
-        <xs:annotation>
-          <xs:documentation>NATIVE HAWAIIAN or OTHER PACIFIC ISLANDER:  A person having origins in any of the original peoples of Hawaii, Guam, Samoa, or other Pacific Islands.  The term "Native Hawaiian" does not include individuals who are native to the State of Hawaii by virtue of being born there.  However, the following Pacific Islander groups are included:  Carolinian, Fijian, Kosraean, Melanesian, Micronesian, Northern Mariana Islander, Palauan, Papua New Guinean, Ponapean (Pohnpelan), Polynesian, Solomon Islander, Tahitian, Tarawa Islander, Tokelauan, Tongan, Trukese (Chuukese), and Yapese.</xs:documentation>
+          <xs:documentation>ASIAN:  A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian subcontinent including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, and Vietnam.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="B">
@@ -46,19 +41,24 @@ http://www.it.ojp.gov/framesets/iepd-clearinghouse-noClose.htm</xs:documentation
           <xs:documentation>BLACK:  A person having origins in any of the black racial groups of Africa.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="W">
-        <xs:annotation>
-          <xs:documentation>WHITE:  A person having origins in any of the original peoples of Europe, North Africa, or Middle East.</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="I">
         <xs:annotation>
           <xs:documentation>AMERICAN INDIAN or ALASKAN NATIVE:  A person having origins in any of the original peoples of the Americas and maintaining cultural identification through tribal affiliations or community recognition.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="A">
+      <xs:enumeration value="P">
         <xs:annotation>
-          <xs:documentation>ASIAN:  A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian subcontinent including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, and Vietnam.</xs:documentation>
+          <xs:documentation>NATIVE HAWAIIAN or OTHER PACIFIC ISLANDER:  A person having origins in any of the original peoples of Hawaii, Guam, Samoa, or other Pacific Islands.  The term "Native Hawaiian" does not include individuals who are native to the State of Hawaii by virtue of being born there.  However, the following Pacific Islander groups are included:  Carolinian, Fijian, Kosraean, Melanesian, Micronesian, Northern Mariana Islander, Palauan, Papua New Guinean, Ponapean (Pohnpelan), Polynesian, Solomon Islander, Tahitian, Tarawa Islander, Tokelauan, Tongan, Trukese (Chuukese), and Yapese.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="U">
+        <xs:annotation>
+          <xs:documentation>UNKNOWN</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="W">
+        <xs:annotation>
+          <xs:documentation>WHITE:  A person having origins in any of the original peoples of Europe, North Africa, or Middle East.</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
