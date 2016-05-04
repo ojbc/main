@@ -256,7 +256,17 @@
       <xs:documentation>An augmentation point for ChargeType.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="ConveyanceRegistration" type="j:ConveyanceRegistrationType" nillable="true">
+  <xs:element name="ConveyanceColorPrimaryCode" type="ncic:VCOCodeType" substitutionGroup="nc:ItemColor">
+    <xs:annotation>
+      <xs:documentation>A single, upper-most, front-most, or majority color of a vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceColorSecondaryCode" type="ncic:VCOCodeType" substitutionGroup="nc:ItemColor">
+    <xs:annotation>
+      <xs:documentation>A lower-most or rear-most color of a two-tone vehicle or a lesser color of a multi-colored vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceRegistration" type="j:ConveyanceRegistrationType">
     <xs:annotation>
       <xs:documentation>A registration of a conveyance with an authority.</xs:documentation>
     </xs:annotation>
@@ -269,6 +279,11 @@
   <xs:element name="ConveyanceRegistrationPlateCategory" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a kind of registration plate or license plate of a conveyance.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceRegistrationPlateCategoryCode" type="ncic:LITCodeType" substitutionGroup="j:ConveyanceRegistrationPlateCategory">
+    <xs:annotation>
+      <xs:documentation>A kind of registration plate or license plate of a conveyance.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ConveyanceRegistrationPlateCategoryText" type="nc:TextType" substitutionGroup="j:ConveyanceRegistrationPlateCategory">
@@ -324,11 +339,6 @@
   <xs:element name="JurisdictionNCICLISCode" type="ncic:LISCodeType" substitutionGroup="nc:JurisdictionAbstract">
     <xs:annotation>
       <xs:documentation>An area, state, region, or other geographic unit over which some kind of authority exists.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="LocationStateNCICLSTACode" type="ncic:LSTACodeType" substitutionGroup="nc:LocationState">
-    <xs:annotation>
-      <xs:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OrganizationAugmentation" type="j:OrganizationAugmentationType" substitutionGroup="nc:OrganizationAugmentationPoint" nillable="true">
@@ -406,7 +416,7 @@
       <xs:documentation>A date the current registration is no longer in effect.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="Subject" type="j:SubjectType" nillable="true">
+  <xs:element name="Subject" type="j:SubjectType">
     <xs:annotation>
       <xs:documentation>A person who is involved or suspected of being involved in an incident or criminal activity.</xs:documentation>
     </xs:annotation>
@@ -416,7 +426,22 @@
       <xs:documentation>A unique identification assigned by a state Department of Corrections (DOC) to each inmate supervised in the state system.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="Warrant" type="j:WarrantType" nillable="true">
+  <xs:element name="VehicleMakeCode" type="ncic:VMACodeType" substitutionGroup="nc:VehicleMake">
+    <xs:annotation>
+      <xs:documentation>A manufacturer of a vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleModelCode" type="ncic:VMOCodeType" substitutionGroup="nc:VehicleModel">
+    <xs:annotation>
+      <xs:documentation>A specific design or class of vehicle made by a manufacturer.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleStyleCode" type="ncic:VSTCodeType" substitutionGroup="nc:ItemStyle">
+    <xs:annotation>
+      <xs:documentation>A style of a vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Warrant" type="j:WarrantType">
     <xs:annotation>
       <xs:documentation>An authorization for an enforcement official to perform a specified action.</xs:documentation>
     </xs:annotation>
