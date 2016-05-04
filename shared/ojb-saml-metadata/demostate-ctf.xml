@@ -122,7 +122,7 @@
 
 	</EntityDescriptor>
 
-	<!-- Demostate Service Provider -->
+	<!-- SEARCH Secure Resource Service Provider -->
 
 	<EntityDescriptor ID="_a0dc09018e3c07e954c620cd34e5ec575f24db51"
 		entityID="https://secure-resource.search.org/shibboleth">
@@ -194,6 +194,97 @@
 		</ContactPerson>
 
 	</EntityDescriptor>
+	
+	
+		<!-- OJBC Demo Service Provider -->
+
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="_233e30974e734b8ed910c9926cb73fa29932c263" entityID="https://demo.ojbc.org/shibboleth">
+
+  <md:Extensions xmlns:alg="urn:oasis:names:tc:SAML:metadata:algsupport">
+    <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/>
+    <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#sha384"/>
+    <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+    <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#sha224"/>
+    <alg:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha512"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha384"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha224"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2009/xmldsig11#dsa-sha256"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha1"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
+  </md:Extensions>
+
+  <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.1:protocol urn:oasis:names:tc:SAML:1.0:protocol" WantAssertionsSigned="true">
+    <md:Extensions>
+      <init:RequestInitiator xmlns:init="urn:oasis:names:tc:SAML:profiles:SSO:request-init" Binding="urn:oasis:names:tc:SAML:profiles:SSO:request-init" Location="https://demo.ojbc.org/Shibboleth.sso/Login"/>
+    </md:Extensions>
+    <md:KeyDescriptor>
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:KeyName>demo.ojbc.org</ds:KeyName>
+        <ds:X509Data>
+          <ds:X509SubjectName>CN=demo.ojbc.org,OU=Information Sharing,O=OJBC,L=Sacramento,ST=California,C=US</ds:X509SubjectName>
+          <ds:X509Certificate>MIIEYDCCA0igAwIBAgIJALGXtdvUpfahMA0GCSqGSIb3DQEBBQUAMHwxCzAJBgNV
+BAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRMwEQYDVQQHEwpTYWNyYW1lbnRv
+MQ0wCwYDVQQKEwRPSkJDMRwwGgYDVQQLExNJbmZvcm1hdGlvbiBTaGFyaW5nMRYw
+FAYDVQQDEw1kZW1vLm9qYmMub3JnMCAXDTE2MDUwNDAyMTUzOFoYDzMwMTUwOTA1
+MDIxNTM4WjB8MQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTETMBEG
+A1UEBxMKU2FjcmFtZW50bzENMAsGA1UEChMET0pCQzEcMBoGA1UECxMTSW5mb3Jt
+YXRpb24gU2hhcmluZzEWMBQGA1UEAxMNZGVtby5vamJjLm9yZzCCASIwDQYJKoZI
+hvcNAQEBBQADggEPADCCAQoCggEBAMxuFnjxKh6pCESUgzF65LMkB0izcAJNVtWy
+CWeRXOn6dPfEsDkv6nf/duK3vPH0FJs2lpzQxpr0ufhY72ZJ9706lTlYwQUtJ0N0
+CLHwmxrtidCnrJUtnzjBlwkXoLijP1NmXWIsr9FzbdOqlwUluwvAsmYHIPadKKgb
+gok2dXHPDm/16YONluzCXFcdbKl+HT4WIjLYf1JIV73D1aoLmVd5aYjlsmDU+UqB
+b8TpxZb9rpeI9AkNfdv6U4lRDG0z0HOnjIJVZb7R3YINibxhq+IE1Vc5ZqW5uq/v
+bdYzyV7xucQKTuPa83QH9crQTipOU0/Iap1gVPwsBfZQxp/YEQECAwEAAaOB4jCB
+3zAdBgNVHQ4EFgQU2B52t6I4LnCmF6vNZYe9cX0qPLwwga8GA1UdIwSBpzCBpIAU
+2B52t6I4LnCmF6vNZYe9cX0qPLyhgYCkfjB8MQswCQYDVQQGEwJVUzETMBEGA1UE
+CBMKQ2FsaWZvcm5pYTETMBEGA1UEBxMKU2FjcmFtZW50bzENMAsGA1UEChMET0pC
+QzEcMBoGA1UECxMTSW5mb3JtYXRpb24gU2hhcmluZzEWMBQGA1UEAxMNZGVtby5v
+amJjLm9yZ4IJALGXtdvUpfahMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEFBQAD
+ggEBAEGXyeVJ60t8Ca9eXYDsF3amwc6J3ZZxSaVqX/Llk6AjeeO36gJ2jM1Yzt/A
+J7JqVIPjURvtOnSzZi+EtAQKYeA3kVnp+k3nGNPJcMTUDDbRS2dE0e6jqoPfruzR
+wO5Jjiy4BJe6ChCtroD5rJwqDmPaJwkfxQjy+/4SVVAqtR4WP0Diz1Uud3DW4FOB
+FfgUieeAsNb7rN9zRHIgbZgls0V9R+wVYK1/vlxx0eSX8mRNYWS0PtWSqju8qTyO
+kdC1DwCMGUKHtbSJx1STZfv+oU1YQIShKX+tS+Vzm08FbkeJ/vuYkUJvOraO0idW
+YTWcfHklNoE8SgNnRSE39r51QqM=
+</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#aes128-gcm"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#aes192-gcm"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#aes256-gcm"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes128-cbc"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes192-cbc"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#rsa-oaep"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"/>
+    </md:KeyDescriptor>
+    <md:ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://demo.ojbc.org/Shibboleth.sso/Artifact/SOAP" index="1"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://demo.ojbc.org/Shibboleth.sso/SLO/SOAP"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://demo.ojbc.org/Shibboleth.sso/SLO/Redirect"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://demo.ojbc.org/Shibboleth.sso/SLO/POST"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://demo.ojbc.org/Shibboleth.sso/SLO/Artifact"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://demo.ojbc.org/Shibboleth.sso/SAML2/POST" index="1"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign" Location="https://demo.ojbc.org/Shibboleth.sso/SAML2/POST-SimpleSign" index="2"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://demo.ojbc.org/Shibboleth.sso/SAML2/Artifact" index="3"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:PAOS" Location="https://demo.ojbc.org/Shibboleth.sso/SAML2/ECP" index="4"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://demo.ojbc.org/Shibboleth.sso/SAML/POST" index="5"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://demo.ojbc.org/Shibboleth.sso/SAML/Artifact" index="6"/>
+  </md:SPSSODescriptor>
+		<md:ContactPerson contactType="technical">
+			<md:GivenName>Technical</md:GivenName>
+			<md:SurName>Contact</md:SurName>
+			<md:EmailAddress>info@ojbc,org</md:EmailAddress>
+			<md:TelephoneNumber>916-555-1212</md:TelephoneNumber>
+		</md:ContactPerson>
+
+	</md:EntityDescriptor>
 
 	<!-- Maui County IdP -->
 	<EntityDescriptor ID="_46f77ba5-d353-40a9-941c-03c1d070a8ef"
