@@ -51,7 +51,7 @@ public class IdentityBasedAccessControlRequestProcessor extends RequestResponseP
 
     private final Log log = LogFactory.getLog(this.getClass());
     
-    public String invokeAccessControlRequest(String federatedQueryID, Element samlToken, String requestedResourceURI){
+    public String invokeAccessControlRequest(String federatedQueryID, Element samlToken, String... requestedResourceURIs){
         String response = null;
         try {
             if (allowQueriesWithoutSAMLToken) {
@@ -71,7 +71,7 @@ public class IdentityBasedAccessControlRequestProcessor extends RequestResponseP
 
             // POJO to XML Request
             Document policyBasedAccessControlRequest = RequestMessageBuilderUtilities
-                    .createPolicyBasedAccessControlRequest(samlToken, requestedResourceURI);
+                    .createPolicyBasedAccessControlRequest(samlToken, requestedResourceURIs);
             policyBasedAccessControlRequest.normalizeDocument();
 
             // Create exchange
