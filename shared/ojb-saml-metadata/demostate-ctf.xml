@@ -198,7 +198,7 @@
 	
 		<!-- OJBC Demo Service Provider -->
 
-	<EntityDescriptor ID="_a0dc09018e3c07e954c620cd34e5ec575f24db51"
+	<EntityDescriptor ID="_a0dc09018e3c07e954c620cd34e5ec575f24db59999999"
 		entityID="https://demo.ojbc.org/shibboleth">
 
 		<Extensions xmlns:alg="urn:oasis:names:tc:SAML:metadata:algsupport">
