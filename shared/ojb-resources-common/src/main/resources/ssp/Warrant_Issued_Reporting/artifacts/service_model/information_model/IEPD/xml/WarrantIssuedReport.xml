@@ -96,15 +96,7 @@
 			<scr:TransactionControlNumberIdentification>
 				<nc:IdentificationID>TCN345665</nc:IdentificationID>
 			</scr:TransactionControlNumberIdentification>
-			<wir-ext:WarrantAdditionalInformation>
-				<wir-ext:WarrantAdditionalInformationCategoryText>Warrant
-					Information
-					Category
-				</wir-ext:WarrantAdditionalInformationCategoryText>
-				<wir-ext:WarrantAdditionalInformationText>Additional Warrant
-					Information
-				</wir-ext:WarrantAdditionalInformationText>
-			</wir-ext:WarrantAdditionalInformation>
+			<wir-ext:WarrantCommentText>Warrant Comment</wir-ext:WarrantCommentText>
 			<wir-ext:WarrantEntryCategoryCodeText>Entry
 			</wir-ext:WarrantEntryCategoryCodeText>
 		</wir-ext:WarrantAugmentation>
@@ -163,13 +155,6 @@
 			</j:PersonFBIIdentification>
 			<j:PersonBirthplaceCode>0P</j:PersonBirthplaceCode>
 		</j:PersonAugmentation>
-		<wir-ext:PersonAdditionalInformation>
-			<wir-ext:PersonAdditionalInformationCategoryText>Person Information
-				Category
-			</wir-ext:PersonAdditionalInformationCategoryText>
-			<wir-ext:PersonAdditionalInformationText>Gang Member
-			</wir-ext:PersonAdditionalInformationText>
-		</wir-ext:PersonAdditionalInformation>
 		<wir-ext:PersonCautionText>G45</wir-ext:PersonCautionText>
 		<wir-ext:PersonMiscellaneousRecordIdentification>
 			<nc:IdentificationID>PS-123456</nc:IdentificationID>
@@ -198,13 +183,6 @@
 		<nc:VehicleIdentification>
 			<nc:IdentificationID>VIN3458745679777</nc:IdentificationID>
 		</nc:VehicleIdentification>
-		<wir-ext:VehicleAdditionalInformation>
-			<wir-ext:VehicleAdditionalInformationCategoryText>Vehicle Information
-				Category
-			</wir-ext:VehicleAdditionalInformationCategoryText>
-			<wir-ext:VehicleAdditionalInformationText>Excessive Rust
-			</wir-ext:VehicleAdditionalInformationText>
-		</wir-ext:VehicleAdditionalInformation>
 	</nc:Vehicle>
 	<j:ConveyanceRegistration structures:id="Reg_01">
 		<j:RegistrationExpirationDate>
