@@ -33,15 +33,15 @@ import org.w3c.dom.Document;
  */
 public class StaticAccessControlXMLProcessor {
 
-	public Document returnStaticAccessDeniedResponse() throws ParserConfigurationException
+	public Document returnStaticAccessDeniedResponse(@Header("requestedResourceURI") String requestedResourceURI) throws ParserConfigurationException
 	{
-		return AccessControlUtils.buildAccessControlResponse(true, "OJB PDP Service");
+		return AccessControlUtils.buildAccessControlResponse(true, requestedResourceURI);
 		
 	}
 	
-	public Document returnStaticAccessAllowedResponse() throws ParserConfigurationException
+	public Document returnStaticAccessAllowedResponse(@Header("requestedResourceURI") String requestedResourceURI) throws ParserConfigurationException
 	{
-		return AccessControlUtils.buildAccessControlResponse(false, "OJB PDP Service.");
+		return AccessControlUtils.buildAccessControlResponse(false, requestedResourceURI);
 	}	
 
 	public Document buildAccessControlErrorResponse(@ExchangeException Exception exception, 
