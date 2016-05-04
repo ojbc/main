@@ -181,7 +181,7 @@ public class TestAccessControlRequestService {
         String requestBody = FileUtils.readFileToString(inputFile);
 
         String expectedResponseBody = readSingleLineResponseWithoutLicense(new File(
-        "src/test/resources/xml/accessControl/staticPermitResponse.xml"));
+        "src/test/resources/xml/accessControl/staticPermitIdentityBasedResponse.xml"));
 
 		adapterResponseEndpoint.expectedBodiesReceived(expectedResponseBody);
 		adapterResponseEndpoint.expectedMessageCount(1);
