@@ -156,7 +156,13 @@
 					<camel:simple>${in.headers.operationName} == 'SubmitIdentityBasedAccessControlRequest'</camel:simple>				
 					<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
 						<camel:xpath>/acr:IdentityBasedAccessControlRequest/ext:RequestedResourceURI</camel:xpath>
-						<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
+						<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>
+						
+						<camel:setHeader headerName="requestedResourceURI">
+							<camel:xpath resultType="String">/acr:IdentityBasedAccessControlRequest/ext:RequestedResourceURI</camel:xpath>
+						</camel:setHeader>
+							
+						<camel:log message="This is the requestedResourceURI header : ${in.headers.requestedResourceURI}" loggingLevel="INFO"/>	
 						<camel:recipientList>
 							<camel:header>webServiceEndpointToCall</camel:header>
 						</camel:recipientList>
@@ -166,7 +172,12 @@
 					<camel:simple>${in.headers.operationName} == 'SubmitMessageBasedAccessControlRequest'</camel:simple>				
 					<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
 						<camel:xpath>//personsearch-ext:SourceSystemNameText</camel:xpath>
-						<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
+						<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>
+							
+						<camel:setHeader headerName="requestedResourceURI">
+							<camel:xpath resultType="String">//personsearch-ext:SourceSystemNameText</camel:xpath>
+						</camel:setHeader>
+							
 						<camel:recipientList>
 							<camel:header>webServiceEndpointToCall</camel:header>
 						</camel:recipientList>

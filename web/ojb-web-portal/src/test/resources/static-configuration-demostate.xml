@@ -157,6 +157,8 @@
 		<entry key="stateGovLink" value="http://local.gov/" />
 		<entry key="queryLink" value="#" />
 		<entry key="subscriptionsLink" value="#" />
+		<entry key="rapbackLink" value="#" />
+		<entry key="criminalIdLink" value="#" />
 		<entry key="helpLink" value="#" />
 		<entry key="privacyPolicyLink" value="http://local.gov/privacy-policies/" />
 		<entry key="faqLink" value="#" />
