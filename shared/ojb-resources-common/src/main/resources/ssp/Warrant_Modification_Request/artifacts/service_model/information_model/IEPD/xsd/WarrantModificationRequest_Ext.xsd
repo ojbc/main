@@ -80,7 +80,7 @@
 					<xsd:element ref="nc:ExpirationDate" minOccurs="0" />
 					<xsd:element ref="wm-req-ext:ExtraditionIndicator"
 						minOccurs="0" />
-					<xsd:element ref="wm-req-ext:ExtradictionLimitsCodeText"
+					<xsd:element ref="wm-req-ext:ExtradictionLimitCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="wm-req-ext:SubjectPickupRadiusCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
@@ -153,7 +153,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ExtradictionLimitsCodeText" type="nc:TextType">
+	<xsd:element name="ExtradictionLimitCodeText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A code representing a kind of limitation placed on
 				the extradition of a subject from an area outside the immediate
