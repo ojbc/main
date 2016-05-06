@@ -165,6 +165,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="j:RegistrationExpirationDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:JurisdictionAbstract" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
