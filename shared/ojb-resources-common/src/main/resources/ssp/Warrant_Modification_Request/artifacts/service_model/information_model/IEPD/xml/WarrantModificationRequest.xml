@@ -146,7 +146,7 @@
 		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>165</nc:MeasureValueText>
-			<nc:MeasureUnitText>ibs</nc:MeasureUnitText>
+			<nc:MeasureUnitText>lbs</nc:MeasureUnitText>
 		</nc:PersonWeightMeasure>
 		<j:PersonAugmentation>
 			<j:DriverLicense>
