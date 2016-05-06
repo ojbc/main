@@ -3651,6 +3651,8 @@
   <w:Type w:name="j:ItemRegistrationType" w:isRequested="true">
     <w:ElementInType w:name="j:RegistrationExpirationDate"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:JurisdictionAbstract"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:OrganizationAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:OrganizationIdentification"

@@ -96,7 +96,8 @@
 			<scr:TransactionControlNumberIdentification>
 				<nc:IdentificationID>TCN345665</nc:IdentificationID>
 			</scr:TransactionControlNumberIdentification>
-			<wir-ext:WarrantCommentText>Warrant Comment</wir-ext:WarrantCommentText>
+			<wir-ext:WarrantCommentText>Warrant Comment
+			</wir-ext:WarrantCommentText>
 			<wir-ext:WarrantEntryCategoryCodeText>Entry
 			</wir-ext:WarrantEntryCategoryCodeText>
 		</wir-ext:WarrantAugmentation>
@@ -188,6 +189,7 @@
 		<j:RegistrationExpirationDate>
 			<nc:YearMonthDate>2016-11</nc:YearMonthDate>
 		</j:RegistrationExpirationDate>
+		<j:JurisdictionNCICLISCode>MI</j:JurisdictionNCICLISCode>
 		<j:ConveyanceRegistrationPlateIdentification>
 			<nc:IdentificationID>LP4365-0234</nc:IdentificationID>
 		</j:ConveyanceRegistrationPlateIdentification>
