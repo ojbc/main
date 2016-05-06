@@ -15,6 +15,14 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
 /*This is the default test data loaded into h2 when this is deployed */
+
+insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('1', 'F', 'Firearms','CIVIL'); 
+insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('2', 'I', 'Volunteer, Child Care/School Employee, Non-Criminal Justice Employment and Licensing', 'CIVIL'); 
+insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('3', 'J', 'Criminal Justice Employment', 'CIVIL'); 
+insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('4', 'CAR', 'Criminal Tenprint Submission', 'CRIMINAL'); 
+insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('5', 'SOR', 'Sex Offender Registry', 'CRIMINAL'); 
+insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('6', 'S', 'Security Clearance Information Act', 'CIVIL'); 
+
 insert into subscription_category(subscription_category_code, subscription_category_description) values('F', 'Firearms'); 
 insert into subscription_category(subscription_category_code, subscription_category_description) values('I', 'Volunteer, Child Care/School Employee, Non-Criminal Justice Employment and Licensing'); 
 insert into subscription_category(subscription_category_code, subscription_category_description) values('J', 'Criminal Justice Employment'); 
