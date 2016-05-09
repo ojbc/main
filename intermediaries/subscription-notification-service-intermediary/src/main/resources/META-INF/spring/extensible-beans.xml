@@ -80,7 +80,7 @@
 		<constructor-arg name="defaultObject">
 			<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 				<property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
-				<property name="url" value="jdbc:h2:mem:rapback-datastore" />
+				<property name="url" value="${publishSubscribe.dataSource.jdbcUrl}" />
 				<property name="username" value="sa" />
 			</bean>
 		</constructor-arg>

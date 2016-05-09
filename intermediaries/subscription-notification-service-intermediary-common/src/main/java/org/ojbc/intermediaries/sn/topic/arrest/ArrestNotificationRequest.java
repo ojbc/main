@@ -200,7 +200,11 @@ public class ArrestNotificationRequest extends NotificationRequest {
 	
 	private void buildSubjectIdMap(String sid) {
 		subjectIdentifiers = new HashMap<String, String>();
+		
 		subjectIdentifiers.put(SubscriptionNotificationConstants.SID, sid);
+		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, personFirstName);
+		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, personLastName);
+		subjectIdentifiers.put(SubscriptionNotificationConstants.DATE_OF_BIRTH, personBirthDate);
 	}
 
 	@Override

@@ -21,8 +21,10 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.camel.Message;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
 import org.ojbc.util.xml.XmlUtils;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -47,4 +49,16 @@ public class TestNotificationBuilderUtil {
 		
 		return rootNodeInNewDocument;
 	}
+	
+	public static ArrestNotificationRequest returnArrestNotificationRequestForTesting(Message msg) throws Exception
+	 {
+ 		ArrestNotificationRequest arrestNotificationRequest = new ArrestNotificationRequest(msg); 
+		
+ 		String sidValue = arrestNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID);
+ 		
+ 		arrestNotificationRequest.getSubjectIdentifiers().clear();
+ 		arrestNotificationRequest.getSubjectIdentifiers().put(SubscriptionNotificationConstants.SID, sidValue);
+ 		
+ 		return arrestNotificationRequest;
+	 }
 }

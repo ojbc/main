@@ -17,13 +17,11 @@
 package org.ojbc.intermediaries.sn.topic.arrest;
 
 import java.util.HashMap;
-import java.util.Set;
 
+import org.apache.camel.Message;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.util.xml.XmlUtils;
-
-import org.apache.camel.Message;
 
 public class ArrestSubscriptionRequest extends SubscriptionRequest {
 
@@ -34,22 +32,19 @@ public class ArrestSubscriptionRequest extends SubscriptionRequest {
 
 		String sid = XmlUtils.xPathStringSearch(document,"//submsg-exch:SubscriptionMessage/submsg-ext:Subject/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
 		
-		buildSubjectIdMap(sid);
-	}
-	
-	public ArrestSubscriptionRequest(String topic, String startDateString, String endDateString, Set<String> emailAddresses, String systemName, 
-			String subjectName, String subscriptionQualifier, String subjectIdentifier, String reasonCategoryCode) {
+		String firstName = XmlUtils.xPathStringSearch(document,"//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonGivenName");
+		String lastName = XmlUtils.xPathStringSearch(document,"//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonSurName");
+		String dateOfBirth = XmlUtils.xPathStringSearch(document,"//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonBirthDate/nc:Date");
 		
-		super(topic, startDateString, endDateString, emailAddresses, systemName, subjectName, subscriptionQualifier);
-		
-		setReasonCategoryCode(reasonCategoryCode);
-		
-		buildSubjectIdMap(subjectIdentifier);
+		buildSubjectIdMap(sid, firstName, lastName, dateOfBirth);
 	}
 
-	private void buildSubjectIdMap(String sid) {
+	private void buildSubjectIdMap(String sid,String firstName, String lastName, String dateOfBirth) {
 		subjectIdentifiers = new HashMap<String, String>();
 		subjectIdentifiers.put(SubscriptionNotificationConstants.SID, sid);
+		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
+		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
+		subjectIdentifiers.put(SubscriptionNotificationConstants.DATE_OF_BIRTH, dateOfBirth);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, subscriptionQualifier);
 	}
 

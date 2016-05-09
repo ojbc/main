@@ -52,7 +52,6 @@ public final class EmailNotification {
 
     public void setNotificationRequest(NotificationRequest notificationRequest) {
         this.notificationRequest = notificationRequest;
-        setSubjectIdentifier(notificationRequest.getDescriptiveSubjectIdentifier());
     }
 
     public String getSubjectName() {
@@ -168,10 +167,6 @@ public final class EmailNotification {
         return copy;
     }
 
-    private void setSubjectIdentifier(String subjectIdentifier) {
-        this.subjectIdentifier = subjectIdentifier;
-    }
-    
     public String getSubjectIdentifier() {
         return subjectIdentifier;
     }
