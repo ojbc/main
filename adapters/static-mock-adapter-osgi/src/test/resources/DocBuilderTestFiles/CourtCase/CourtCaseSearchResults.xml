@@ -41,7 +41,7 @@
       <nc30:Person xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" s30:id="Person_1"
                    s30:metadata="M1">
          <nc30:PersonBirthDate>
-            <nc30:Date>2001-12-17</nc30:Date>
+            <nc30:Date>1995-11-17</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonEyeColorText>BLK</nc30:PersonEyeColorText>
          <nc30:PersonHairColorText>BLD</nc30:PersonHairColorText>
@@ -51,7 +51,7 @@
          </nc30:PersonHeightMeasure>
          <nc30:PersonName>
             <nc30:PersonGivenName>Homer</nc30:PersonGivenName>
-            <nc30:PersonMiddleName>Jay</nc30:PersonMiddleName>
+            <nc30:PersonMiddleName>J</nc30:PersonMiddleName>
             <nc30:PersonSurName>Simpson</nc30:PersonSurName>
          </nc30:PersonName>
          <jxdm51:PersonRaceCode xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/">A</jxdm51:PersonRaceCode>
