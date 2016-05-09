@@ -15,12 +15,57 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
 /*This is the default test data loaded into h2 when this is deployed */
-insert into subscription_category(subscription_category_code, subscription_category_description) values('F', 'Firearms'); 
-insert into subscription_category(subscription_category_code, subscription_category_description) values('I', 'Volunteer, Child Care/School Employee, Non-Criminal Justice Employment and Licensing'); 
-insert into subscription_category(subscription_category_code, subscription_category_description) values('J', 'Criminal Justice Employment'); 
-insert into subscription_category(subscription_category_code, subscription_category_description) values('CI', 'Criminal Justice Investigative'); 
-insert into subscription_category(subscription_category_code, subscription_category_description) values('CS', 'Criminal Justice - Supervision'); 
-insert into subscription_category(subscription_category_code, subscription_category_description) values('S', 'Security Clearance Information Act'); 
+insert into department(department_id, department_name, agency_id) values ('1', 'Kauai PD A&T Records', '2'); 
+insert into department(department_id, department_name, agency_id) values ('2', 'Kauai PD A&T R&D', '2'); 
+insert into department(department_id, department_name, agency_id) values ('3', 'Honolulu PD "Records and ID" Division', '1'); 
+insert into department(department_id, department_name, agency_id) values ('4', 'Central Receiving Division', '1');
+
+insert into job_title(job_title_id, department_id, title_description) values('1', '1', 'ID Tech1');
+insert into job_title(job_title_id, department_id, title_description) values('2', '1', 'Senior Clerk');
+insert into job_title(job_title_id, department_id, title_description) values('3', '1', 'Police Records Unit Supervisor');
+insert into job_title(job_title_id, department_id, title_description) values('4', '1', 'Weapons Registration Clerk');
+insert into job_title(job_title_id, department_id, title_description) values('5', '1', 'Police Record Clerk');
+insert into job_title(job_title_id, department_id, title_description) values('6', '1', 'Police Analyst');
+insert into job_title(job_title_id, department_id, title_description) values('7', '2', 'Police Sergeant');
+insert into job_title(job_title_id, department_id, title_description) values('8', '3', 'Sworn Supervisors');
+insert into job_title(job_title_id, department_id, title_description) values('9', '3', 'Fingerprint Examiners');
+insert into job_title(job_title_id, department_id, title_description) values('10', '3', 'Fingerprint Technicians');
+insert into job_title(job_title_id, department_id, title_description) values('11', '3', 'Firearms Unit (both Civilian and Sworn)');
+insert into job_title(job_title_id, department_id, title_description) values('12', '3', '"ID Section" clerks');
+insert into job_title(job_title_id, department_id, title_description) values('13', '3', 'Senior Clerk Typist');
+insert into job_title(job_title_id, department_id, title_description) values('14', '4', 'All Sworn Personnel');
+
+insert into job_title_privilege(job_title_id, identification_category_id) values ('1', '4');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('1', '3');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('1', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('1', '5');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('2', '4');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('2', '3');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('2', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('2', '5');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('3', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('4', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('5', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('6', '5');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('7', '3');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('8', '4');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('8', '3');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('8', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('8', '5');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('9', '4');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('9', '3');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('9', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('9', '5');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('10', '4');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('10', '3');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('10', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('10', '5');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('11', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('12', '5');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('13', '4');
+
+insert into ojbc_user(job_title_id, federation_id) values(3, 'HIJIS:IDP:HCJDC:USER:hpotter'); 
+insert into ojbc_user(job_title_id, federation_id) values(8, 'HIJIS:IDP:HCJDC:USER:demouser'); 
 
 insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62720','{http://ojbc.org/wsn/topics}:person/incident', '2011-10-19', NULL, '2011-10-19', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'MICHAEL Smith-Jones', '1');
 insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62721','{http://ojbc.org/wsn/topics}:person/incident', '2011-10-19', NULL, '2011-10-19', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'MICHAEL Smith-Jones', '1');
