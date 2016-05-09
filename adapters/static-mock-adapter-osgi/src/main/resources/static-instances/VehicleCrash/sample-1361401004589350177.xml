@@ -155,15 +155,15 @@
       </nc30:Person>
       <nc30:Person s30:id="Driver_01">
          <nc30:PersonBirthDate>
-            <nc30:Date>1935-09-05</nc30:Date>
+            <nc30:Date>1931-03-01</nc30:Date>
          </nc30:PersonBirthDate>
          <nc30:PersonName>
-            <nc30:PersonGivenName>Joyce</nc30:PersonGivenName>
-            <nc30:PersonMiddleName>M</nc30:PersonMiddleName>
-            <nc30:PersonSurName>Harvey</nc30:PersonSurName>
+            <nc30:PersonGivenName>Joey</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>R</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Matthews</nc30:PersonSurName>
          </nc30:PersonName>
-         <jxdm51:PersonSexCode>female</jxdm51:PersonSexCode>
-         <me-crash-codes:PersonCategoryCode>WY</me-crash-codes:PersonCategoryCode>
+         <jxdm51:PersonSexCode>Male</jxdm51:PersonSexCode>
+         <me-crash-codes:PersonCategoryCode>FL</me-crash-codes:PersonCategoryCode>
       </nc30:Person>
       <nc30:Person s30:id="Vehicle_Owner_01">
          <nc30:PersonBirthDate>
