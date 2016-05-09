@@ -446,8 +446,9 @@
 			</camel:choice>
 
 			<camel:split>
-
-				<camel:header>emailNotifications</camel:header>
+				
+				<!-- The body is a list of Email Notifications -->
+				<camel:simple>${body}</camel:simple>
 
 				<camel:choice>
 					<camel:when>
@@ -485,7 +486,7 @@
 							</camel:setBody>
 
 							<camel:setHeader headerName="CamelFileName">
-								<camel:simple>${date:now:yyyyMMdd}/${header.blockedAddress}_${in.header.subjectIdentifier}_${date:now:yyyy-MM-ddhhmmss}.txt</camel:simple>
+								<camel:simple>${date:now:yyyyMMdd}/${header.blockedAddress}_${date:now:yyyy-MM-ddhhmmss}.txt</camel:simple>
 							</camel:setHeader>
 
 							<camel:log

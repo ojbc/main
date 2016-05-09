@@ -977,10 +977,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		Message message = ex.getIn();
 
-		ArrestNotificationRequest request = new ArrestNotificationRequest(
-				message);
-
-		return request;
+		return TestNotificationBuilderUtil.returnArrestNotificationRequestForTesting(message);
 	}
 
 	private IncidentNotificationRequest returnIncidentNotificationRequest(

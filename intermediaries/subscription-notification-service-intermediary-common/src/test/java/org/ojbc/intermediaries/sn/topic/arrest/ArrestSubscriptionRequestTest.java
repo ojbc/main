@@ -73,9 +73,39 @@ public class ArrestSubscriptionRequestTest {
 		assertThat(sub.getEmailAddresses().size(), is(1));
 		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
 		
-		assertThat(sub.getSubjectIdentifiers().size(), is(2));
+		assertThat(sub.getSubjectIdentifiers().size(), is(5));
 		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
 		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is(""));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is(""));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is(""));
+	}
+	
+	@Test
+	public void testSubscriptionWithSidNameDOB() throws Exception {
+
+	    Document messageDocument = getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest_arrestWithSIDNameDOB.xml");
+        
+        Message message = new DefaultMessage();
+        message.setBody(messageDocument);
+        
+		String allowedEmailAddressPatterns = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(localhost)";
+		
+		ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
+		
+		assertThat(sub.getSubscriptionQualifier(), is("1234578"));
+		assertThat(sub.getSubjectName(), is("John Doe"));
+		
+		//Assert size of set and only entry
+		assertThat(sub.getEmailAddresses().size(), is(1));
+		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
+		
+		assertThat(sub.getSubjectIdentifiers().size(), is(5));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("John"));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("Doe"));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1990-10-20"));
 	}
 
 	/**
@@ -116,11 +146,15 @@ public class ArrestSubscriptionRequestTest {
 		assertThat(sub.getEmailAddresses().size(), is(1));
 		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
 
-		assertThat(sub.getSubjectIdentifiers().size(), is(2));
+		assertThat(sub.getSubjectIdentifiers().size(), is(5));
 		assertThat(sub.getStartDateString(), is("2014-04-14"));
 		assertThat(sub.getEndDateString(), is("2014-04-21"));
 		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
 		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is(""));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is(""));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is(""));
+
 		
 	}
 
@@ -155,11 +189,15 @@ public class ArrestSubscriptionRequestTest {
 		assertThat(sub.getEmailAddresses().size(), is(1));
 		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
 		
-		assertThat(sub.getSubjectIdentifiers().size(), is(2));
+		assertThat(sub.getSubjectIdentifiers().size(), is(5));
 		assertThat(sub.getStartDateString(), is("2014-04-14"));
 		assertThat(sub.getEndDateString(), is("2014-04-21"));
 		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
 		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is(""));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is(""));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is(""));
+
 		
 	}
 	
@@ -181,9 +219,13 @@ public class ArrestSubscriptionRequestTest {
 		assertThat(sub.getEmailAddresses().size(), is(1));
 		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
 
-		assertThat(sub.getSubjectIdentifiers().size(), is(2));
+		assertThat(sub.getSubjectIdentifiers().size(), is(5));
 		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
 		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is(""));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is(""));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is(""));
+
 
 		
 	}
