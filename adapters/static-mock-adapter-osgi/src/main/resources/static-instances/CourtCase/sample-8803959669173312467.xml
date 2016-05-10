@@ -180,7 +180,7 @@
                   <nc30:JurisdictionText>City Police</nc30:JurisdictionText>
                </jxdm51:OrganizationJurisdiction>
             </jxdm51:OrganizationAugmentation>
-            <jxdm51:CourtName>Aura Municipal Court</jxdm51:CourtName>
+            <jxdm51:CourtName>City of Aurora</jxdm51:CourtName>
             <jxdm51:CourtDivisionText>County Court DIV 7</jxdm51:CourtDivisionText>
          </jxdm51:CaseCourt>
          <jxdm51:CaseCourtEvent>
