@@ -83,11 +83,14 @@ public class RapbackDAOImpl implements RapbackDAO {
     @Value("${rapbackDatastoreAdapter.criminalIdlePeriod:60}")
     private Integer criminalIdlePeriod;
     
-    @Value("#{'${rapbackDatastoreAdapter.agencySuperUserOris}'.split(',')}")
-    private List<String> agencySuperUserOris;
+    @Value("#{'${rapbackDatastoreAdapter.agencySuperUsers:}'.split(',')}")
+    private List<String> agencySuperUsers;
 
-    @Value("#{'${rapbackDatastoreAdapter.superUserOris}'.split(',')}")
-    private List<String> superUserOris;
+    @Value("#{'${rapbackDatastoreAdapter.superUsers:}'.split(',')}")
+    private List<String> superUsers;
+    
+    @Value("#{'${rapbackDatastoreAdapter.civilAgencyOris:}'.split(',')}")
+    private List<String> civilAgencyOris;
     
 	@Override
 	public Integer saveSubject(final Subject subject) {
@@ -588,19 +591,23 @@ public class RapbackDAOImpl implements RapbackDAO {
 		Map<String, Object> paramMap = new HashMap<String, Object>(); 
 
         String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
-
-		if ( !superUserOris.contains(ori)){
+        String federationId = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.FederationId);
+        
+        boolean isNotSuperUser = isNotSuperUser(ori, federationId); 
+        boolean isNotAgencySuperUser = isNotAgencySuperUser(ori, federationId); 
+        
+		if ( isNotSuperUser){
 			sql += "AND t.owner_ori = :ori "; 
 			paramMap.put("ori", ori);
 		}
 		
-		if ( !superUserOris.contains(ori) && !agencySuperUserOris.contains(ori)){
-			sql += " AND t.identification_category in ( :identificationCategoryList )";
+		if ( isNotSuperUser && isNotAgencySuperUser){
 
-			//TOOD need to add checking, if civil user, no need to do the following
-			
-			List<String> identificationCategorys = getViewableIdentificationCategories(token, "CIVIL"); 
-			paramMap.put("identificationCategoryList", identificationCategorys);
+			if ( isNotCivilAgencyUser(ori) ){
+				sql += " AND t.identification_category in ( :identificationCategoryList )";
+				List<String> identificationCategorys = getViewableIdentificationCategories(token, "CIVIL"); 
+				paramMap.put("identificationCategoryList", identificationCategorys);
+			}
 		}
 		
 		List<IdentificationTransaction> identificationTransactions = 
@@ -609,6 +616,30 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return identificationTransactions;
 	}
 
+	private boolean isSuperUser(String ori, String federationId) {
+		return superUsers.contains(ori + "&" + federationId);
+	}
+	
+	private boolean isNotSuperUser(String ori, String federationId) {
+		return !isSuperUser(ori , federationId);
+	}
+
+	private boolean isAgencySuperUser(String ori, String federationId) {
+		return agencySuperUsers.contains(ori + "&" + federationId);
+	}
+	
+	private boolean isNotAgencySuperUser(String ori, String federationId) {
+		return !isAgencySuperUser(ori, federationId);
+	}
+	
+	private boolean isCivilAgencyUser(String ori) {
+		return civilAgencyOris.contains(ori);
+	}
+	
+	private boolean isNotCivilAgencyUser(String ori) {
+		return !isCivilAgencyUser(ori);
+	}
+	
 	public List<String> getViewableIdentificationCategories(
 		SAMLTokenPrincipal token, String identificationCategoryType) {
 		final String sql = "select i. identification_category_code from identification_category i "
@@ -642,15 +673,16 @@ public class RapbackDAOImpl implements RapbackDAO {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		
         String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
+        String federationId = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.FederationId); 
         
-		if ( superUserOris.contains(ori)){
+		if ( isSuperUser(ori, federationId)){
 			sqlStringBuilder.append(" WHERE " ); 
 		}
 		else {
 			sqlStringBuilder.append(" WHERE t.owner_ori = :ori AND " ); 
 			paramMap.put("ori", ori);
 			
-			if ( !agencySuperUserOris.contains(ori)){
+			if ( isNotAgencySuperUser(ori, federationId)){
 				sqlStringBuilder.append(" t.identification_category in ( :identificationCategoryList ) AND ");
 				
 				List<String> identificationCategorys = getViewableIdentificationCategories(token, "CRIMINAL"); 

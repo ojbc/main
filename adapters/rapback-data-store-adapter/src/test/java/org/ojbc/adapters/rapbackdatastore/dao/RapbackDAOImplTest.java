@@ -300,8 +300,50 @@ public class RapbackDAOImplTest {
 				rapbackDAO.getCivilIdentificationTransactions(samlAssertionWithOnlyOneViewableCategory);
 		assertEquals(2, transactions2.size());
 		
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:superuser");
+		SAMLTokenPrincipal samlAssertionSuperUser = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
 		
+		List<IdentificationTransaction> transactionsForSuperUser = 
+				rapbackDAO.getCivilIdentificationTransactions(samlAssertionSuperUser);
+		assertEquals(4, transactionsForSuperUser.size());
 		
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:civilruser");
+		customAttributes.put(SamlAttribute.EmployerORI, "68796860");
+		SAMLTokenPrincipal samlAssertionCivilUser = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
+		
+		List<IdentificationTransaction> transactionsForCivilUser = 
+				rapbackDAO.getCivilIdentificationTransactions(samlAssertionCivilUser);
+		assertEquals(1, transactionsForCivilUser.size());
+		
+	}
+	
+	@Test
+	public void testGetCriminalIdentificationTransactions() throws Exception {
+        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
+		customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+		customAttributes.put(SamlAttribute.EmployerSubUnitName, "Honolulu PD Records and ID Division");
+		customAttributes.put(SamlAttribute.EmployeePositionName, "Sworn Supervisors");
+		  
+		SAMLTokenPrincipal samlAssertion = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
+      
+		List<IdentificationTransaction> transactions = 
+				rapbackDAO.getCriminalIdentificationTransactions(samlAssertion);
+		assertEquals(1, transactions.size());
+		
+		customAttributes.put(SamlAttribute.EmployeePositionName, "Firearms Unit (both Civilian and Sworn)");
+		SAMLTokenPrincipal samlAssertionWithOnlyNoViewableCategory = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
+		
+		List<IdentificationTransaction> transactions2 = 
+				rapbackDAO.getCriminalIdentificationTransactions(samlAssertionWithOnlyNoViewableCategory);
+		assertEquals(0, transactions2.size());
+		
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:superuser");
+		SAMLTokenPrincipal samlAssertionSuperUser = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
+		
+		List<IdentificationTransaction> transactionsForSuperUser = 
+				rapbackDAO.getCriminalIdentificationTransactions(samlAssertionSuperUser);
+		assertEquals(1, transactionsForSuperUser.size());
 	}
 	
 	@Test
