@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<b:Notify xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+   xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+   xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+   xmlns:s="http://niem.gov/niem/structures/2.0"
+   xmlns:tns="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+   xmlns:tns1="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+   xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"
+   xmlns:me="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0"
+   xmlns:topics="http://ojbc.org/wsn/topics" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
+   <b:NotificationMessage>
+      <b:SubscriptionReference>
+         <add:Address>http://www.ojbc.org/SubscriptionManager</add:Address>
+         <!--Optional: -->
+         <add:ReferenceParameters>
+            <!--You may enter ANY elements at this point -->
+         </add:ReferenceParameters>
+         <!--Optional: -->
+         <add:Metadata>
+            <!--You may enter ANY elements at this point -->
+         </add:Metadata>
+         <!--You may enter ANY elements at this point -->
+      </b:SubscriptionReference>
+      <!--Optional: -->
+      <b:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">
+         {http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate</b:Topic>
+      <!--Optional: -->
+      <b:ProducerReference>
+         <add:Address>http://www.hawaii.gov/arrestNotificationProducer</add:Address>
+         <!--Optional: -->
+         <add:ReferenceParameters>
+            <!--You may enter ANY elements at this point -->
+         </add:ReferenceParameters>
+         <!--Optional: -->
+         <add:Metadata>
+            <!--You may enter ANY elements at this point -->
+         </add:Metadata>
+         <!--You may enter ANY elements at this point -->
+      </b:ProducerReference>
+      <b:Message>
+		<notfm-doc:NotificationMessage xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0" xmlns:pdu="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionUpdate/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd">
+			<notfm-ext:NotifyingProsecutionDecisionUpdate s:id="d1e1">
+				<notfm-ext:NotifyingActivityReportingSystemNameText>SystemName</notfm-ext:NotifyingActivityReportingSystemNameText>
+				<notfm-ext:NotifyingActivityReportingSystemURI>SystemURIHere</notfm-ext:NotifyingActivityReportingSystemURI>
+				<pdu:ProsecutionDecisionUpdate>
+					<pdu:CycleTrackingIdentification>
+						<nc:IdentificationID>123456A</nc:IdentificationID>
+					</pdu:CycleTrackingIdentification>
+					<pdu:ProsecutionAttorneyOrganizationReference s:ref="d1e132"/>
+					<pdu:Charge>
+						<j:ChargeStatute>
+							<j:StatuteCodeIdentification>
+								<nc:IdentificationID>0042901</nc:IdentificationID>
+							</j:StatuteCodeIdentification>
+						</j:ChargeStatute>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>4561</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+						<pdu:ChargeToCourtIndicator>true</pdu:ChargeToCourtIndicator>
+						<pdu:EndProsecutorChargeCycleIndicator>true</pdu:EndProsecutorChargeCycleIndicator>
+					</pdu:Charge>
+					<pdu:Charge>
+						<j:ChargeStatute>
+							<j:StatuteCodeIdentification>
+								<nc:IdentificationID>0042902</nc:IdentificationID>
+							</j:StatuteCodeIdentification>
+						</j:ChargeStatute>
+						<j:ChargeTrackingIdentification>
+							<nc:IdentificationID>4562</nc:IdentificationID>
+						</j:ChargeTrackingIdentification>
+						<pdu:ChargeToCourtIndicator>true</pdu:ChargeToCourtIndicator>
+						<pdu:EndProsecutorChargeCycleIndicator>false</pdu:EndProsecutorChargeCycleIndicator>
+					</pdu:Charge>
+					<nc:Location s:id="LOC001">
+						<nc:LocationAddress>
+							<nc:StructuredAddress>
+								<nc:LocationStreet>
+									<nc:StreetFullText>210 East Ave</nc:StreetFullText>
+								</nc:LocationStreet>
+								<nc:LocationCityName>Barre</nc:LocationCityName>
+								<nc:LocationStateUSPostalServiceCode>VT</nc:LocationStateUSPostalServiceCode>
+								<nc:LocationPostalCode>12768</nc:LocationPostalCode>
+							</nc:StructuredAddress>
+						</nc:LocationAddress>
+					</nc:Location>
+					<nc:ResidenceAssociation>
+						<nc:PersonReference s:ref="d1e162"/>
+						<nc:LocationReference s:ref="LOC001"/>
+					</nc:ResidenceAssociation>
+				</pdu:ProsecutionDecisionUpdate>
+			</notfm-ext:NotifyingProsecutionDecisionUpdate>
+			<nc:ActivityInvolvedPersonAssociation>
+				<nc:ActivityReference s:ref="d1e1"/>
+				<nc:PersonReference s:ref="d1e162"/>
+			</nc:ActivityInvolvedPersonAssociation>
+			<j:Person s:id="d1e162">
+				<nc:PersonBirthDate>
+					<nc:Date>1977-12-17</nc:Date>
+				</nc:PersonBirthDate>
+				<nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
+				<nc:PersonHairColorCode>BLN</nc:PersonHairColorCode>
+				<nc:PersonHeightMeasure>
+					<nc:MeasureText>5-10</nc:MeasureText>
+					<nc:MeasureUnitText>ft-in</nc:MeasureUnitText>
+				</nc:PersonHeightMeasure>
+				<nc:PersonName>
+					<nc:PersonGivenName>Walter</nc:PersonGivenName>
+					<nc:PersonMiddleName>A</nc:PersonMiddleName>
+					<nc:PersonSurName>White</nc:PersonSurName>
+				</nc:PersonName>
+				<nc:PersonRaceCode>W</nc:PersonRaceCode>
+				<nc:PersonSexCode>M</nc:PersonSexCode>
+				<nc:PersonSSNIdentification>
+					<nc:IdentificationID>123456789</nc:IdentificationID>
+				</nc:PersonSSNIdentification>
+				<nc:PersonStateIdentification>
+					<nc:IdentificationID>SID345667</nc:IdentificationID>
+				</nc:PersonStateIdentification>
+				<nc:PersonWeightMeasure>
+					<nc:MeasureText>180</nc:MeasureText>
+					<nc:MeasureUnitText>lbs</nc:MeasureUnitText>
+				</nc:PersonWeightMeasure>
+				<j:PersonAugmentation>
+					<nc:DriverLicense>
+						<nc:DriverLicenseIdentification>
+							<nc:IdentificationID>ME32456789</nc:IdentificationID>
+						</nc:DriverLicenseIdentification>
+					</nc:DriverLicense>
+					<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A9999999</nc:IdentificationID>
+					</j:PersonStateFingerprintIdentification>
+				</j:PersonAugmentation>
+			</j:Person>
+			<j:Organization s:id="d1e132">
+				<j:OrganizationAugmentation>
+					<j:OrganizationORIIdentification>
+						<nc:IdentificationID>ME0000001</nc:IdentificationID>
+					</j:OrganizationORIIdentification>
+				</j:OrganizationAugmentation>
+			</j:Organization>
+			<j:Organization s:id="d1e147">
+				<j:OrganizationAugmentation>
+					<j:OrganizationORIIdentification>
+						<nc:IdentificationID>ME0000002</nc:IdentificationID>
+					</j:OrganizationORIIdentification>
+				</j:OrganizationAugmentation>
+			</j:Organization>
+		</notfm-doc:NotificationMessage>
+      </b:Message>
+   </b:NotificationMessage>
+</b:Notify>		
