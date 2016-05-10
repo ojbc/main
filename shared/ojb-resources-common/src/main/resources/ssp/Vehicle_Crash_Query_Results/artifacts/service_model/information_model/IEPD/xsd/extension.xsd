@@ -136,7 +136,7 @@
 			<xsd:documentation>True if a crash occurs near a work zone; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="EmergencyVehicleRespondingToScenetIndicator" type="niem-xs:boolean" substitutionGroup="j:CrashAugmentationPoint">
+	<xsd:element name="EmergencyVehicleRespondingToSceneIndicator" type="niem-xs:boolean" substitutionGroup="j:CrashAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if emergency is responding to crash scene; false otherwise.</xsd:documentation>
 		</xsd:annotation>
