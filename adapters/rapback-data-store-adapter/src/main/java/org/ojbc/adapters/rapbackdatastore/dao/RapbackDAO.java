@@ -18,6 +18,7 @@ package org.ojbc.adapters.rapbackdatastore.dao;
 
 import java.util.List;
 
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
@@ -52,8 +53,8 @@ public interface RapbackDAO {
 	public List<CivilInitialResults> getCivilInitialResults(String ori);
 	public List<CivilInitialResults> getIdentificationCivilInitialResults(String transactionNumber);
 	public List<CriminalInitialResults> getIdentificationCriminalInitialResults(String transactionNumber);
-	public List<IdentificationTransaction> getCivilIdentificationTransactions(String ori);
-	public List<IdentificationTransaction> getCriminalIdentificationTransactions(String ori);
+	public List<IdentificationTransaction> getCivilIdentificationTransactions(SAMLTokenPrincipal token);
+	public List<IdentificationTransaction> getCriminalIdentificationTransactions(SAMLTokenPrincipal token);
 	public String getIdentificationCategory(String transactionNumber); 
 	
 	public void updateSubject(Subject subject);
@@ -71,4 +72,8 @@ public interface RapbackDAO {
 	
 	public List<SubsequentResults> getSubsequentResults(String transactionNumber);
 	public List<SubsequentResults> getSubsequentResultsByUcn(String ucn);
+	
+	public List<String> getViewableIdentificationCategories(
+			SAMLTokenPrincipal token, String identificationCategoryType);
+
 }
