@@ -128,7 +128,7 @@
                   <nc30:JurisdictionText>Highway Patrol</nc30:JurisdictionText>
                </jxdm51:OrganizationJurisdiction>
             </jxdm51:OrganizationAugmentation>
-            <jxdm51:CourtName>Adams County Court</jxdm51:CourtName>
+            <jxdm51:CourtName>City of Thornton</jxdm51:CourtName>
             <jxdm51:CourtDivisionText>County Court DIV 1</jxdm51:CourtDivisionText>
          </jxdm51:CaseCourt>
          <jxdm51:CaseCourtEvent>
