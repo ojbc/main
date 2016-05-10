@@ -282,7 +282,7 @@ public class RapbackDAOImplTest {
 	@Test
 	public void testGetCivilIdentificationTransactions() throws Exception {
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
-		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:normaluser");
 		customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
 		customAttributes.put(SamlAttribute.EmployerSubUnitName, "Honolulu PD Records and ID Division");
 		customAttributes.put(SamlAttribute.EmployeePositionName, "Sworn Supervisors");
@@ -300,7 +300,7 @@ public class RapbackDAOImplTest {
 				rapbackDAO.getCivilIdentificationTransactions(samlAssertionWithOnlyOneViewableCategory);
 		assertEquals(2, transactions2.size());
 		
-		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:superuser");
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
 		SAMLTokenPrincipal samlAssertionSuperUser = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
 		
 		List<IdentificationTransaction> transactionsForSuperUser = 
@@ -320,7 +320,7 @@ public class RapbackDAOImplTest {
 	@Test
 	public void testGetCriminalIdentificationTransactions() throws Exception {
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
-		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:normaluser");
 		customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
 		customAttributes.put(SamlAttribute.EmployerSubUnitName, "Honolulu PD Records and ID Division");
 		customAttributes.put(SamlAttribute.EmployeePositionName, "Sworn Supervisors");
@@ -338,7 +338,7 @@ public class RapbackDAOImplTest {
 				rapbackDAO.getCriminalIdentificationTransactions(samlAssertionWithOnlyNoViewableCategory);
 		assertEquals(0, transactions2.size());
 		
-		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:superuser");
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
 		SAMLTokenPrincipal samlAssertionSuperUser = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
 		
 		List<IdentificationTransaction> transactionsForSuperUser = 

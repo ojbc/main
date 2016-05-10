@@ -975,10 +975,12 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	@Override
-	public String getIdentificationCategory(String transactionNumber) {
+	public String getIdentificationCategoryType(String transactionNumber) {
 		log.info("Retrieving identification category by transaction number : " + transactionNumber);
 		
-		final String sql = "SELECT identification_category FROM identification_transaction t WHERE t.transaction_number = ?"; 
+		final String sql = "SELECT identification_category_type FROM identification_transaction t "
+				+ "LEFT JOIN identification_category c ON c.identification_category_code = t.identification_category "
+				+ "WHERE t.transaction_number = ?"; 
 		
 		List<String> results = jdbcTemplate.queryForList(sql, String.class, transactionNumber);
 		

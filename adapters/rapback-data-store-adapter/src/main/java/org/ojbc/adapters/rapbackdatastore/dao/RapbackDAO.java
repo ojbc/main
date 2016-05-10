@@ -55,7 +55,7 @@ public interface RapbackDAO {
 	public List<CriminalInitialResults> getIdentificationCriminalInitialResults(String transactionNumber);
 	public List<IdentificationTransaction> getCivilIdentificationTransactions(SAMLTokenPrincipal token);
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(SAMLTokenPrincipal token);
-	public String getIdentificationCategory(String transactionNumber); 
+	public String getIdentificationCategoryType(String transactionNumber); 
 	
 	public void updateSubject(Subject subject);
 	public void updateFbiRapbackSubscription(
