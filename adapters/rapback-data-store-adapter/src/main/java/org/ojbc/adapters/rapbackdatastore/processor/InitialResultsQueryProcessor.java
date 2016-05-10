@@ -90,9 +90,9 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
     	Document document = documentBuilder.newDocument();
     	Element rootElement = createInitialResultsQueryResponseRootElement(document);
     	
-    	String identificationCategory = rapbackDAO.getIdentificationCategory(transactionNumber);
+    	String identificationCategoryType = rapbackDAO.getIdentificationCategoryType(transactionNumber);
     	
-    	if ("I".equals(identificationCategory)){
+    	if ("CIVIL".equals(identificationCategoryType)){
     		buildResponseWithCivilInitialResults(transactionNumber, rootElement);
     	}
     	else{
