@@ -23,13 +23,16 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Before;
@@ -49,6 +52,8 @@ import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
+import org.ojbc.test.util.SAMLTokenTestUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
@@ -276,9 +281,27 @@ public class RapbackDAOImplTest {
 	
 	@Test
 	public void testGetCivilIdentificationTransactions() throws Exception {
+        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
+		customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+		customAttributes.put(SamlAttribute.EmployerSubUnitName, "Honolulu PD Records and ID Division");
+		customAttributes.put(SamlAttribute.EmployeePositionName, "Sworn Supervisors");
+		  
+		SAMLTokenPrincipal samlAssertion = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
+      
 		List<IdentificationTransaction> transactions = 
-				rapbackDAO.getCivilIdentificationTransactions("1234567890");
+				rapbackDAO.getCivilIdentificationTransactions(samlAssertion);
 		assertEquals(4, transactions.size());
+		
+		customAttributes.put(SamlAttribute.EmployeePositionName, "Firearms Unit (both Civilian and Sworn)");
+		SAMLTokenPrincipal samlAssertionWithOnlyOneViewableCategory = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
+		
+		List<IdentificationTransaction> transactions2 = 
+				rapbackDAO.getCivilIdentificationTransactions(samlAssertionWithOnlyOneViewableCategory);
+		assertEquals(2, transactions2.size());
+		
+		
+		
 	}
 	
 	@Test

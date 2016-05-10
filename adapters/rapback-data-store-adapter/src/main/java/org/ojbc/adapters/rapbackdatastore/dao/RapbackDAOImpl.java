@@ -32,6 +32,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.joda.time.DateTime;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
@@ -47,7 +48,9 @@ import org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.helper.ZipUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
@@ -572,7 +575,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 
 	@Override
 	public List<IdentificationTransaction> getCivilIdentificationTransactions(
-			String ori) {
+			SAMLTokenPrincipal token) {
 		String sql = "SELECT t.transaction_number, t.identification_category, "
 				+ "t.report_timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.*, "
 				+ "(select count(*) > 0 from subsequent_results subsq where subsq.ucn = s.ucn) as having_subsequent_result "
@@ -584,14 +587,20 @@ public class RapbackDAOImpl implements RapbackDAO {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>(); 
 
+        String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
+
 		if ( !superUserOris.contains(ori)){
 			sql += "AND t.owner_ori = :ori "; 
 			paramMap.put("ori", ori);
 		}
-		if ( !agencySuperUserOris.contains(ori)){
+		
+		if ( !superUserOris.contains(ori) && !agencySuperUserOris.contains(ori)){
 			sql += " AND t.identification_category in ( :identificationCategoryList )";
-			//TODO get idengificationCategoryList based on agency, title etc. 
-			paramMap.put("identificationCategoryList", new ArrayList<String>());
+
+			//TOOD need to add checking, if civil user, no need to do the following
+			
+			List<String> identificationCategorys = getViewableIdentificationCategories(token, "CIVIL"); 
+			paramMap.put("identificationCategoryList", identificationCategorys);
 		}
 		
 		List<IdentificationTransaction> identificationTransactions = 
@@ -600,9 +609,31 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return identificationTransactions;
 	}
 
+	public List<String> getViewableIdentificationCategories(
+		SAMLTokenPrincipal token, String identificationCategoryType) {
+		final String sql = "select i. identification_category_code from identification_category i "
+				+ "left join job_title_privilege j on j.identification_category_id = i.identification_category_id "
+				+ "left join job_title t on t.job_title_id = j.job_title_id "
+				+ "left join department d on d.department_id = t.department_id "
+				+ "left join agency_profile a on a.agency_id = d.agency_id "
+				+ "where identification_category_type = :identificationCategoryType  "
+				+ "		AND agency_ori = :agencyOri "
+				+ "		AND department_name = :departmentName "
+				+ "		AND title_description = :titleDescription";
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("identificationCategoryType", identificationCategoryType);
+		paramMap.put("agencyOri", SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI));
+		paramMap.put("departmentName", SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerSubUnitName));
+		paramMap.put("titleDescription", SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployeePositionName));
+		
+		List<String> identificationCategories = namedParameterJdbcTemplate.queryForList(sql, paramMap, String.class);
+		return identificationCategories;
+	}
+
 	@Override
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(
-			String ori) {
+			SAMLTokenPrincipal token) {
 		StringBuilder sqlStringBuilder = new StringBuilder("SELECT t.transaction_number, t.identification_category, "
 				+ "t.report_timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
 				+ "FROM identification_transaction t "
@@ -610,6 +641,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		
+        String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
+        
 		if ( superUserOris.contains(ori)){
 			sqlStringBuilder.append(" WHERE " ); 
 		}
@@ -619,8 +652,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 			
 			if ( !agencySuperUserOris.contains(ori)){
 				sqlStringBuilder.append(" t.identification_category in ( :identificationCategoryList ) AND ");
-				//TODO get idengificationCategoryList based on agency, title etc. 
-				paramMap.put("identificationCategoryList", new ArrayList<String>());
+				
+				List<String> identificationCategorys = getViewableIdentificationCategories(token, "CRIMINAL"); 
+				paramMap.put("identificationCategoryList", identificationCategorys);
 			}
 		}
 		

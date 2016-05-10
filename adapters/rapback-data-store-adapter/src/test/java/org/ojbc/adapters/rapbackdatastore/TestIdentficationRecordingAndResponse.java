@@ -43,7 +43,6 @@ import org.ojbc.adapters.rapbackdatastore.processor.IdentificationRequestReportP
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;

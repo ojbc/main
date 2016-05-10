@@ -72,7 +72,7 @@
          </oirs-res-ext:SubscriptionIdentification>
       </oirs-res-ext:Subscription>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
-      <oirs-res-ext:CivilIdentificationReasonCode>I</oirs-res-ext:CivilIdentificationReasonCode>
+      <oirs-res-ext:CivilIdentificationReasonCode>F</oirs-res-ext:CivilIdentificationReasonCode>
       <oirs-res-ext:IdentificationReportDate>
          <nc30:Date>2015-10-16</nc30:Date>
       </oirs-res-ext:IdentificationReportDate>
@@ -131,7 +131,7 @@
          </oirs-res-ext:SubscriptionIdentification>
       </oirs-res-ext:Subscription>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>true</oirs-res-ext:SubsequentResultsAvailableIndicator>
-      <oirs-res-ext:CivilIdentificationReasonCode>I</oirs-res-ext:CivilIdentificationReasonCode>
+      <oirs-res-ext:CivilIdentificationReasonCode>J</oirs-res-ext:CivilIdentificationReasonCode>
       <oirs-res-ext:IdentificationReportDate>
          <nc30:Date>2016-10-20</nc30:Date>
       </oirs-res-ext:IdentificationReportDate>
@@ -190,7 +190,7 @@
          </oirs-res-ext:SubscriptionIdentification>
       </oirs-res-ext:Subscription>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
-      <oirs-res-ext:CivilIdentificationReasonCode>I</oirs-res-ext:CivilIdentificationReasonCode>
+      <oirs-res-ext:CivilIdentificationReasonCode>F</oirs-res-ext:CivilIdentificationReasonCode>
       <oirs-res-ext:IdentificationReportDate>
          <nc30:Date>2016-10-20</nc30:Date>
       </oirs-res-ext:IdentificationReportDate>
@@ -230,7 +230,7 @@
       </oirs-res-ext:IdentifiedPerson>
       <oirs-res-ext:IdentificationResultStatusCode>Available for subscription</oirs-res-ext:IdentificationResultStatusCode>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
-      <oirs-res-ext:CivilIdentificationReasonCode>I</oirs-res-ext:CivilIdentificationReasonCode>
+      <oirs-res-ext:CivilIdentificationReasonCode>J</oirs-res-ext:CivilIdentificationReasonCode>
       <oirs-res-ext:IdentificationReportDate>
          <nc30:Date>2015-10-20</nc30:Date>
       </oirs-res-ext:IdentificationReportDate>
