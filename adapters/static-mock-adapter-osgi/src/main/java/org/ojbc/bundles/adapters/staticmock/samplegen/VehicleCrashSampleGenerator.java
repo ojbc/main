@@ -64,7 +64,8 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		return rVehicleCrashDocList;
 	}
 
-
+	
+	
 	private Document buildVehicleCrashDetailDoc(PersonElementWrapper iGeneratedPerson) 
 			throws ParserConfigurationException, IOException {
 
@@ -431,8 +432,8 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element witnessPersonNameElement = XmlUtils.appendElement(witnessPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
 		Element witnessGivenName = XmlUtils.appendElement(witnessPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");
-		
-		witnessGivenName.setTextContent(reportOfficalRandomPerson.firstName);
+						
+		witnessGivenName.setTextContent(getFirstNameSample(reportOfficalRandomPerson));
 		
 		Element witnessMiddleName = XmlUtils.appendElement(witnessPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
 		
@@ -440,7 +441,8 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element witnessSurName = XmlUtils.appendElement(witnessPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
 		
-		witnessSurName.setTextContent(reportOfficalRandomPerson.lastName);
+		String sWitnessSurName = getLastNameSample(iGeneratedPerson);
+		witnessSurName.setTextContent(sWitnessSurName);
 		
 				
 		PersonElementWrapper infoApprovPerson = getRandomIdentity(null);
@@ -471,8 +473,8 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element driverNameElement = XmlUtils.appendElement(driverPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
 		Element driverGivenNameElement = XmlUtils.appendElement(driverNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");	
-		
-		String sampleDriverFirstName = sampleDriverPerson.firstName;
+				
+		String sampleDriverFirstName = getFirstNameSample(sampleDriverPerson);
 		
 		driverGivenNameElement.setTextContent(sampleDriverFirstName);
 		
@@ -483,8 +485,8 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		driverMiddleName.setTextContent(sampleDriverMiddleName);
 		
 		Element driverSurNameElement = XmlUtils.appendElement(driverNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
-		
-		String sampleDriverLastName = sampleDriverPerson.lastName;
+						
+		String sampleDriverLastName = getLastNameSample(sampleDriverPerson); 
 		
 		driverSurNameElement.setTextContent(sampleDriverLastName);
 		
@@ -511,13 +513,17 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element vehicleOwnerNameElement = XmlUtils.appendElement(vehicleOwnerElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 
 		Element vehicleOwnerGivenNameElement = XmlUtils.appendElement(vehicleOwnerNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");		
-		vehicleOwnerGivenNameElement.setTextContent(sampleVehicleOwner.firstName);
+				
+		vehicleOwnerGivenNameElement.setTextContent(getFirstNameSample(sampleVehicleOwner));
 
 		Element vehicleOwnerMiddleName = XmlUtils.appendElement(vehicleOwnerNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
 		vehicleOwnerMiddleName.setTextContent(sampleVehicleOwner.middleName);
 
 		Element vehicleOwnerSurNameElement = XmlUtils.appendElement(vehicleOwnerNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
-		vehicleOwnerSurNameElement.setTextContent(sampleVehicleOwner.lastName);
+		
+		String vehicOwnerLastName = getLastNameSample(sampleVehicleOwner);
+		
+		vehicleOwnerSurNameElement.setTextContent(vehicOwnerLastName);
 
 		Element vehicleOwnerSexCodeElement = XmlUtils.appendElement(vehicleOwnerElement, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
 				
@@ -564,15 +570,18 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element occupantPersonNameElement = XmlUtils.appendElement(occupant1EntPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
 		Element occupantGivenNameElement = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");
-		
-		occupantGivenNameElement.setTextContent(samplePropertyOwner.firstName);
+				
+		occupantGivenNameElement.setTextContent(getFirstNameSample(samplePropertyOwner));
 		
 		Element occupantMiddleName = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
 		
 		occupantMiddleName.setTextContent(samplePropertyOwner.middleName);
 		
-		Element occupantSurName = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
-		occupantSurName.setTextContent(samplePropertyOwner.lastName);
+		Element occupantSurNameEl = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
+				
+		String sOccupantSurName = getLastNameSample(samplePropertyOwner);
+		
+		occupantSurNameEl.setTextContent(sOccupantSurName);
 		
 		Element occupantSexCodeElement = XmlUtils.appendElement(occupant1EntPersonElement, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
 		
