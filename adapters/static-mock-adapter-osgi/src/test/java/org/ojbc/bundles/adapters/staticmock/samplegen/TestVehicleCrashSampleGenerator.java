@@ -16,6 +16,7 @@
  */
 package org.ojbc.bundles.adapters.staticmock.samplegen;
 
+import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -35,28 +36,34 @@ public class TestVehicleCrashSampleGenerator extends AbstractSampleGeneratorTest
 		List<Document> vehicleCrashSampleList = vehicleCrashSampleGenerator.generateVehicleCrashDetailSamples(5);
 		
 		Assert.assertEquals(5, vehicleCrashSampleList.size());
+
+		List<String> extraXsdPathList = Arrays.asList(
+				"ssp/Vehicle_Crash_Query_Results/artifacts/service_model/information_model/IEPD/xsd/impl/maine/vehicle_crash_codes.xsd");
 		
-		XmlUtils.printNode(vehicleCrashSampleList.get(0));
+		for(Document iVehicleDoc : vehicleCrashSampleList){
+
+			XmlUtils.validateInstance("ssp/Vehicle_Crash_Query_Results/artifacts/service_model/information_model/IEPD/xsd", 
+					"Subset/niem", "exchange.xsd", extraXsdPathList, iVehicleDoc);
+		}		
 	}
 	
 	
 	@Override
 	protected String getSchemaRootFolderName() {
 
-		return ".";
+		return null;
 	}
 
 	@Override
 	protected String getIEPDRootPath() {
 
-		return "service-specifications/Vehicle_Crash_Query_Results_Service/artifacts/service_model/information_model/"
-				+ "Vehicle_Crash_Query_Results-IEPD/xsd";
+		return null;
 	}
 
 	@Override
 	protected String getRootSchemaFileName() {
 
-		return "exchange.xsd";
+		return null;
 	}
 	
 }
