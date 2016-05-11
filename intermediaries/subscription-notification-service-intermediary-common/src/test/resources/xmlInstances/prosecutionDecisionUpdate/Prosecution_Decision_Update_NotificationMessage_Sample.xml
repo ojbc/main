@@ -42,7 +42,7 @@
       </b:SubscriptionReference>
       <!--Optional: -->
       <b:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">
-         {http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate</b:Topic>
+         {http://ojbc.org/wsn/topics}:person/ProsecutionDecisionUpdate</b:Topic>
       <!--Optional: -->
       <b:ProducerReference>
          <add:Address>http://www.hawaii.gov/arrestNotificationProducer</add:Address>

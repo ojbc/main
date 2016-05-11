@@ -41,7 +41,7 @@
 		<nc20:ContactEmailID />
 		<smext:SystemName>{http://demostate.gov/SystemNames/1.0}SystemA</smext:SystemName>
         <smext:SubscriptionQualifierIdentification>
-            <nc20:IdentificationID>1234578</nc20:IdentificationID>
+            <nc20:IdentificationID>302593</nc20:IdentificationID>
         </smext:SubscriptionQualifierIdentification>
 	</um:UnsubscriptionMessage>
 	<b:TopicExpression

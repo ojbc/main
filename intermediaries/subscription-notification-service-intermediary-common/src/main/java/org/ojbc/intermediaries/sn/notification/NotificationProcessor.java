@@ -209,7 +209,7 @@ public abstract class NotificationProcessor {
         //We break the search as soon as we get a subscription from a set of subject identifiers
         if (subscriptions.size() == 0 && request.getAlternateSubjectIdentifiers() != null)
         {
-        	log.info("No subscriptions found using primary subject identifiers, try with alternate identifiers");
+        	log.info("No subscriptions found using primary subject identifiers: " + request.getSubjectIdentifiers().toString()  +  ", try with alternate identifiers");
         	
         	for (Map<String, String> alternateSubjectIdentifiers : request.getAlternateSubjectIdentifiers())
         	{

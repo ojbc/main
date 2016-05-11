@@ -56,7 +56,12 @@
 				<smext:SystemName>{http://demostate.gov/SystemNames/1.0}SystemA</smext:SystemName>
 		        <smext:SubscriptionQualifierIdentification>
 		            <nc20:IdentificationID>302593</nc20:IdentificationID>
-		        </smext:SubscriptionQualifierIdentification>				
+		        </smext:SubscriptionQualifierIdentification>	
+		      	<nc20:DateRange>
+                    <nc20:StartDate>
+                        <nc20:Date>2014-04-14</nc20:Date>
+                    </nc20:StartDate>
+                </nc20:DateRange>			        			
 			</sm:SubscriptionMessage>
 		</b:Subscribe>
 	</soapenv:Body>

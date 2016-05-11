@@ -62,7 +62,7 @@ public class ProsecutionDecisionUpdateNotificationRequestTest {
 		assertThat(prosecutionDecisionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1977-12-17"));
 		assertThat(prosecutionDecisionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
 		
-        assertThat(prosecutionDecisionUpdateNotificationRequest.getTopic(), is("{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate"));
+        assertThat(prosecutionDecisionUpdateNotificationRequest.getTopic(), is("{http://ojbc.org/wsn/topics}:person/ProsecutionDecisionUpdate"));
 								
 	}
 

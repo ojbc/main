@@ -68,6 +68,16 @@
 								<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultChCycleEmailFormatter"/>
 							</util:map>
 						</entry>
+						<entry key="{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate">
+							<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+								<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultCourtDispositionUpdateEmailFormatter"/>
+							</util:map>
+						</entry>
+						<entry key="{http://ojbc.org/wsn/topics}:person/ProsecutionDecisionUpdate">
+							<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+								<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultProsecutionDecisionUpdateEmailFormatter"/>
+							</util:map>
+						</entry>
 					</util:map>
 				</property>
 			</bean>

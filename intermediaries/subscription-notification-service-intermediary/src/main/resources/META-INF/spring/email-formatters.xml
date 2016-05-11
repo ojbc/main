@@ -79,6 +79,24 @@ To follow up on this incident, please call $emailNotification.notificationReques
 		</property>
 	</bean>
 
+    <bean id="defaultCourtDispositionUpdateEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+		<property name="emailSubjectTemplate">
+			<value>Court Disposition Update Notification [Subject $emailNotification.subjectName]</value>
+		</property>
+		<property name="emailBodyTemplate">
+			<value><![CDATA[Court Disposition Update notification for $emailNotification.notificationRequest.personFirstName $emailNotification.notificationRequest.personLastName]]></value>
+		</property>
+	</bean>
+
+    <bean id="defaultProsecutionDecisionUpdateEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">
+		<property name="emailSubjectTemplate">
+			<value>CH Cycle Notification [Subject $emailNotification.subjectName]</value>
+		</property>
+		<property name="emailBodyTemplate">
+			<value><![CDATA[Prosecution Decision Update notification for $emailNotification.notificationRequest.personFirstName $emailNotification.notificationRequest.personLastName]]></value>
+		</property>
+	</bean>
+	
 	<bean id="defaultSystemNotificationFormatKey" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
 		<property name="subscribingSystemName" value="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem"/>
 		<property name="subscriptionCategoryCode" value="default"/>
