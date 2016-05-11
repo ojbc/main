@@ -44,7 +44,7 @@ public class StaticAccessControlXMLProcessor {
 		return AccessControlUtils.buildAccessControlResponse(false, requestedResourceURI);
 	}	
 
-	public Document buildAccessControlErrorResponse(@ExchangeException Exception exception, 
+	public Document buildAccessControlErrorResponse(@Header("requestedResourceURI") String requestedResourceURI, @ExchangeException Exception exception, 
 			@Header("AccessControlRequestingSystemName") String accessControlRequestingSystemName) throws ParserConfigurationException
 	{
 		//TODO: Make system name dynamic
