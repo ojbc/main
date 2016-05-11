@@ -50,7 +50,7 @@ public class CourtDispositionUpdateNotificationRequestTest {
 		
 		//assertThat(courtDispositionUpdateNotificationRequest.getNotifyingAgencyName(), is(""));
 		
-		//assertThat(courtDispositionUpdateNotificationRequest.getNotificationEventIdentifier(), is("123456"));
+		assertThat(courtDispositionUpdateNotificationRequest.getNotificationEventIdentifier(), is("123456A"));
 
 		assertThat(courtDispositionUpdateNotificationRequest.getPersonFirstName(), is("Walter"));
 		assertThat(courtDispositionUpdateNotificationRequest.getPersonLastName(), is("White"));
