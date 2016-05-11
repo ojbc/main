@@ -41,6 +41,7 @@ import org.joda.time.Days;
 import org.joda.time.Seconds;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.ojbc.bundles.adapters.staticmock.samplegen.staticname.vehiclecrash.VehicleCrashMatthewsSampleGenerator;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -393,6 +394,37 @@ public abstract class AbstractSampleGenerator {
 		return ret.toString();
 	}
 
+	
+
+	
+	/**
+	 * Intended to be overridden to provide static common last name sample ie "Matthews"
+	 * 
+	 * @param iGeneratedPerson
+	 * 		A random person object - not used when returning static name
+	 * @return
+	 * 		A last name, either random or statically returned if implemented that way
+	 */
+	protected String getLastNameSample(PersonElementWrapper personElementWrapper){
+	
+		return personElementWrapper.lastName;
+	}
+	
+	
+	/**
+	 * Intended to be overridden to provide a static common first name sample ie Joey
+	 * 
+	 * @param personElementWrapper
+	 * 		A random person object - not used when returning static name
+	 * @return
+	 *  	A first name, either random or statically returned if implemented that way
+	 */
+	protected String getFirstNameSample(PersonElementWrapper personElementWrapper){
+	
+		return personElementWrapper.firstName;
+	}
+	
+	
 	/**
 	 * Add multiple elements with the specified qualified name to the parent. The number of elements to add is randomly generated out of a Poisson
 	 * distribution with mean meanCount.
@@ -775,6 +807,8 @@ public abstract class AbstractSampleGenerator {
 		List<Document> courtCaseDocList = new ArrayList<Document>();
 		
 		List<Document> vehicleCrashDocList = new ArrayList<Document>();
+		
+		List<Document> vehicleCrashMatthewsDocList = new ArrayList<Document>();
 
 		if ("ALL".equals(type) || "CRIMINALHISTORY".equals(type)) {
 			generator = new CriminalHistorySampleGenerator();
@@ -816,6 +850,12 @@ public abstract class AbstractSampleGenerator {
 			vehicleCrashDocList = vehicleCrashGenerator.generateVehicleCrashDetailSamples(sampleCount);
 		}
 
+		if("ALL".equals(type) || "VEHICLECRASHMATTHEWS".equals(type)){
+			VehicleCrashSampleGenerator vehicleCrashMatthewsGenerator = new VehicleCrashMatthewsSampleGenerator();			
+			vehicleCrashMatthewsDocList = vehicleCrashMatthewsGenerator.generateVehicleCrashDetailSamples(sampleCount);
+		}
+
+
 		List<Document> allSamples = new ArrayList<Document>(criminalHistories.size() + warrants.size() + incidents.size() + firearmRegistrations.size() 
 				+ juvenileHistories.size() + custodyDocList.size() + courtCaseDocList.size());
 		
@@ -827,6 +867,7 @@ public abstract class AbstractSampleGenerator {
 		allSamples.addAll(custodyDocList);
 		allSamples.addAll(courtCaseDocList);
 		allSamples.addAll(vehicleCrashDocList);
+		allSamples.addAll(vehicleCrashMatthewsDocList);
 
 		for (Document d : allSamples) {
 			
@@ -842,7 +883,7 @@ public abstract class AbstractSampleGenerator {
 	static void printUsage() {
 		
 		LOG.info("Usage: java " + AbstractPersonSampleGenerator.class.getName() 
-				+ " [Incident|CriminalHistory|Warrant|Firearm|JuvenileHistory|Custody|CourtCase|VehicleCrash|All] [number of samples] [destination directory]");
+				+ " [Incident|CriminalHistory|Warrant|Firearm|JuvenileHistory|Custody|CourtCase|VehicleCrash|VEHICLECRASHMATTHEWS|All] [number of samples] [destination directory]");
 	}
 
 }

@@ -64,7 +64,8 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		return rVehicleCrashDocList;
 	}
 
-
+	
+	
 	private Document buildVehicleCrashDetailDoc(PersonElementWrapper iGeneratedPerson) 
 			throws ParserConfigurationException, IOException {
 
@@ -146,17 +147,17 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		XmlUtils.addAttribute(itemOwnerEntOrgElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Property_Owner_01");
 		
 		
-		Element entityPersonElement = XmlUtils.appendElement(itemOwnerEntOrgElement, OjbcNamespaceContext.NS_NC_30, "EntityPerson");
+		Element entityPersonElement = XmlUtils.appendElement(itemOwnerElement, OjbcNamespaceContext.NS_NC_30, "EntityPerson");
 		
 		XmlUtils.addAttribute(entityPersonElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Property_Owner_02");
 		
-		Element crashCodesElement = XmlUtils.appendElement(incidentDamagedItemElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "PropertyCategoryCode");	
+		Element propertyCategoryCodeEl = XmlUtils.appendElement(incidentDamagedItemElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "PropertyCategoryCode");	
 		
-		List<String> sampleCrashCodeList = Arrays.asList("SB", "CA", "FER", "LMB");
+		List<String> propCatCodeList = Arrays.asList("State", "City or Town", "Utilities", "Private");
 		
-		String sampleCrashCode = (String)generateRandomValueFromList(sampleCrashCodeList);
+		String propCatCodeSample = (String)generateRandomValueFromList(propCatCodeList);
 				
-		crashCodesElement.setTextContent(sampleCrashCode);
+		propertyCategoryCodeEl.setTextContent(propCatCodeSample);
 		
 		Element incidentReportingOfficialElement = XmlUtils.appendElement(incidentAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "IncidentReportingOfficial");
 		
@@ -196,12 +197,13 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element workersPresentElement = XmlUtils.appendElement(crashWorkZoneElement, OjbcNamespaceContext.NS_JXDM_51, "WorkZoneWorkersPresenceIndicationCode");
 		
 				
-		workersPresentElement.setTextContent(getRandomBooleanString());		
+		workersPresentElement.setTextContent(randomString("1", "2", "9"));		
 		
 		
 		Element copsAtWorkZoneCodeElement = XmlUtils.appendElement(crashWorkZoneElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "LawEnforcementPresentAtWorkZoneCode");
-		
-		copsAtWorkZoneCodeElement.setTextContent(getRandomBooleanString());
+			
+		copsAtWorkZoneCodeElement.setTextContent(randomString("Officer Present",
+				"Vehicle Only", "No Presence"));
 				
 		Element nearWorkZoneElement = XmlUtils.appendElement(crashWorkZoneElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "NearWorkZoneIndicator");
 		
@@ -209,7 +211,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 				
 
 		Element workZoneWorkersPresentIndicator = XmlUtils.appendElement(crashWorkZoneElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "WorkZoneWorkersPresentIndicator");
-		
+				
 		workZoneWorkersPresentIndicator.setTextContent(getRandomBooleanString());				
 		
 		
@@ -244,25 +246,20 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element driverCatCodeElement = XmlUtils.appendElement(crashDriverElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "DriverCategoryCode");	
 		
-		String sampleDriverCatCode = RandomStringUtils.randomAlphabetic(2);
-		
-		driverCatCodeElement.setTextContent(sampleDriverCatCode);
+		driverCatCodeElement.setTextContent(randomString("Driver", "Bicycle", "Pedestrian",
+				"Last Unknown Operator"));
 		
 		Element alcoholTestCatCodeElement = XmlUtils.appendElement(crashDriverElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "AlcoholTestCategoryCode");
-		
-		String sampleAlcoholCode = RandomStringUtils.randomAlphabetic(2);
-		
-		alcoholTestCatCodeElement.setTextContent(sampleAlcoholCode);
+				
+		alcoholTestCatCodeElement.setTextContent(randomString("Test Not Given","Test Refused","Blood","Breath","Urine","OtherChemical Test"));
 		
 		Element drugTestCatCodeElement = XmlUtils.appendElement(crashDriverElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "DrugTestCategoryCode");
-		
-		String sampleDrugTestCode = RandomStringUtils.randomNumeric(1);
-		
-		drugTestCatCodeElement.setTextContent(sampleDrugTestCode);
+				
+		drugTestCatCodeElement.setTextContent(randomString("Test Not Given","Test Refused","Blood","Breath","Urine","OtherChemical"));
 		
 		Element drugTestResultCodeElement = XmlUtils.appendElement(crashDriverElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "DrugTestResultCode");
-				
-		drugTestResultCodeElement.setTextContent(getRandomBooleanString());
+								
+		drugTestResultCodeElement.setTextContent(randomString("Positive", "Negative", "Pending"));
 		
 		Element alcoholTestResultsPendingElement = XmlUtils.appendElement(crashDriverElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "AlcoholTestResultsPendingtIndicator");
 		
@@ -283,36 +280,24 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		hazmatElement.setTextContent(getRandomBooleanString());
 		
 		Element carDirectionElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "VehicleTravelDirectionCode");
-		
-		List<String> sampleDirectionList = Arrays.asList("North", "South", "East", "West");
-		
-		String sampleDirection = (String)generateRandomValueFromList(sampleDirectionList);
-		
-		carDirectionElement.setTextContent(sampleDirection);
+								
+		carDirectionElement.setTextContent(randomString("Northbound", "Southbound", "Eastbound", "Westbound", "Not on Roadway", "Unknown"));
 				
 		Element carWeightElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "GrossVehicleWeightRatingCode");
-		
-		String sampleWeight = RandomStringUtils.randomNumeric(4);
-		
-		carWeightElement.setTextContent(sampleWeight);
+				
+		carWeightElement.setTextContent(randomString("Less Than 10,000 lbs", "10,001-26,000 lbs", "Greater Than 26,000 lbs"));
 		
 		Element damageElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "ExtentOfDamageCode");
-		
-		List<String> sampleDamageList = Arrays.asList("Very Bad", "Really Bad", "Light", "Totaled", "$500.75", "$6800.99");
-		
-		String sampleDamage = (String)generateRandomValueFromList(sampleDamageList);
-		
-		damageElement.setTextContent(sampleDamage);
+						
+		damageElement.setTextContent(randomString("No Damage Observed", "Minor Damage", "Functional Damage", "Towed Due To Disabling Damage"));
 		
 		Element speedLimitElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "PostedSpeedLimitCode");
-				
-		String sampleSpeedLimit = RandomStringUtils.randomNumeric(2);
-		
-		speedLimitElement.setTextContent(sampleSpeedLimit);
-		
+								
+		speedLimitElement.setTextContent(randomString("Unknown", "Not Available", "Not Posted 25", "Not Posted 45"));		
 		
 		Element schoolBusElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "SchoolBusRelatedCode");
-		schoolBusElement.setTextContent(getRandomBooleanString());
+				
+		schoolBusElement.setTextContent(randomString("Yes, Directly Involved", "Yes,Indirectly Involved", "Not Involved"));
 		
 		Element damageOverThreshElement = XmlUtils.appendElement(crashVehicleElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "TotalDamageOverThresholdtIndicator");
 						
@@ -348,7 +333,8 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element latValElement = XmlUtils.appendElement(latElement, OjbcNamespaceContext.NS_NC_30, "LatitudeDegreeValue");	
 		
-		String sampleLatitude =RandomStringUtils.randomNumeric(2);
+		// maxInclusive '90.0' for type 'LatitudeDegreeSimpleType'
+		String sampleLatitude =RandomStringUtils.randomNumeric(1);
 		
 		latValElement.setTextContent(sampleLatitude);
 		
@@ -374,19 +360,12 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		distanceToIntersectionElement.setTextContent(sampleDistance);
 		
 		Element directionFromIntersectionElement = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "DirectionFromNearestIntersectionCode");
-		
-		String sampleIntersectionDirection = (String)generateRandomValueFromList(sampleDirectionList);
 				
-		directionFromIntersectionElement.setTextContent(sampleIntersectionDirection);
+		directionFromIntersectionElement.setTextContent(randomString("At Intersection", "At Intersection", "North", "South", "East", "West"));
 		
 		Element intersectDistUnitsElement = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "DistanceFromNearestIntersectionNumberUnitCode");
-		
-		
-		List<String> sampleUnitsForDistanceList = Arrays.asList("km", "mi", "yd", "me", "cm");
-		
-		String sampleDistanceUnit = (String)generateRandomValueFromList(sampleUnitsForDistanceList);
-		
-		intersectDistUnitsElement.setTextContent(sampleDistanceUnit);
+				
+		intersectDistUnitsElement.setTextContent(randomString("Feet", "Miles"));
 		
 		
 		Element atSceneDateElement = XmlUtils.appendElement(crashElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "AtSceneDateTime");
@@ -453,8 +432,8 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element witnessPersonNameElement = XmlUtils.appendElement(witnessPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
 		Element witnessGivenName = XmlUtils.appendElement(witnessPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");
-		
-		witnessGivenName.setTextContent(reportOfficalRandomPerson.firstName);
+						
+		witnessGivenName.setTextContent(getFirstNameSample(reportOfficalRandomPerson));
 		
 		Element witnessMiddleName = XmlUtils.appendElement(witnessPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
 		
@@ -462,7 +441,8 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		
 		Element witnessSurName = XmlUtils.appendElement(witnessPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
 		
-		witnessSurName.setTextContent(reportOfficalRandomPerson.lastName);
+		String sWitnessSurName = getLastNameSample(iGeneratedPerson);
+		witnessSurName.setTextContent(sWitnessSurName);
 		
 				
 		PersonElementWrapper infoApprovPerson = getRandomIdentity(null);
@@ -493,8 +473,8 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element driverNameElement = XmlUtils.appendElement(driverPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
 		Element driverGivenNameElement = XmlUtils.appendElement(driverNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");	
-		
-		String sampleDriverFirstName = sampleDriverPerson.firstName;
+				
+		String sampleDriverFirstName = getFirstNameSample(sampleDriverPerson);
 		
 		driverGivenNameElement.setTextContent(sampleDriverFirstName);
 		
@@ -505,24 +485,18 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		driverMiddleName.setTextContent(sampleDriverMiddleName);
 		
 		Element driverSurNameElement = XmlUtils.appendElement(driverNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
-		
-		String sampleDriverLastName = sampleDriverPerson.lastName;
+						
+		String sampleDriverLastName = getLastNameSample(sampleDriverPerson); 
 		
 		driverSurNameElement.setTextContent(sampleDriverLastName);
 		
 		Element driverSexCodeElement = XmlUtils.appendElement(driverPersonElement, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
-		
-		String sampleDriverSexCode = sampleDriverPerson.sex;
-		
-		driverSexCodeElement.setTextContent(sampleDriverSexCode);
+				
+		driverSexCodeElement.setTextContent(randomString("F", "M", "U"));
 		
 		Element driverPersonCatCodeElement = XmlUtils.appendElement(driverPersonElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "PersonCategoryCode");
-		
-		String vehicleCrashCode = RandomStringUtils.randomAlphabetic(2);
-		
-		driverPersonCatCodeElement.setTextContent(vehicleCrashCode);
-				
-		
+						
+		driverPersonCatCodeElement.setTextContent(randomString("1", "2", "3", "6", "7", "8", "24", "25", "3"));
 		
 		PersonElementWrapper sampleVehicleOwner = getRandomIdentity(null);
 		
@@ -539,22 +513,25 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element vehicleOwnerNameElement = XmlUtils.appendElement(vehicleOwnerElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 
 		Element vehicleOwnerGivenNameElement = XmlUtils.appendElement(vehicleOwnerNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");		
-		vehicleOwnerGivenNameElement.setTextContent(sampleVehicleOwner.firstName);
+				
+		vehicleOwnerGivenNameElement.setTextContent(getFirstNameSample(sampleVehicleOwner));
 
 		Element vehicleOwnerMiddleName = XmlUtils.appendElement(vehicleOwnerNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
 		vehicleOwnerMiddleName.setTextContent(sampleVehicleOwner.middleName);
 
 		Element vehicleOwnerSurNameElement = XmlUtils.appendElement(vehicleOwnerNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
-		vehicleOwnerSurNameElement.setTextContent(sampleVehicleOwner.lastName);
+		
+		String vehicOwnerLastName = getLastNameSample(sampleVehicleOwner);
+		
+		vehicleOwnerSurNameElement.setTextContent(vehicOwnerLastName);
 
 		Element vehicleOwnerSexCodeElement = XmlUtils.appendElement(vehicleOwnerElement, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
-		vehicleOwnerSexCodeElement.setTextContent(sampleVehicleOwner.sex);
+				
+		vehicleOwnerSexCodeElement.setTextContent(randomString("F", "M", "U"));
 
 		Element vehicleOwnerCatCodeElement = XmlUtils.appendElement(vehicleOwnerElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "PersonCategoryCode");
-		
-		String sampleVehicleOwnerCatCode = RandomStringUtils.randomAlphanumeric(2);
-		
-		vehicleOwnerCatCodeElement.setTextContent(sampleVehicleOwnerCatCode);
+				
+		vehicleOwnerCatCodeElement.setTextContent(randomString("1", "2", "3", "6", "7", "8", "24", "25", "3"));
 		
 		
 		Element propOwner1EntOrgElement = XmlUtils.appendElement(vehicleCrashReportElement, OjbcNamespaceContext.NS_NC_30, "EntityOrganization");
@@ -593,24 +570,26 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
 		Element occupantPersonNameElement = XmlUtils.appendElement(occupant1EntPersonElement, OjbcNamespaceContext.NS_NC_30, "PersonName");
 		
 		Element occupantGivenNameElement = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");
-		
-		occupantGivenNameElement.setTextContent(samplePropertyOwner.firstName);
+				
+		occupantGivenNameElement.setTextContent(getFirstNameSample(samplePropertyOwner));
 		
 		Element occupantMiddleName = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");
 		
 		occupantMiddleName.setTextContent(samplePropertyOwner.middleName);
 		
-		Element occupantSurName = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
-		occupantSurName.setTextContent(samplePropertyOwner.lastName);
+		Element occupantSurNameEl = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");
+				
+		String sOccupantSurName = getLastNameSample(samplePropertyOwner);
 		
-		Element occupantSexCodeElement = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
-		occupantSexCodeElement.setTextContent(samplePropertyOwner.sex);
+		occupantSurNameEl.setTextContent(sOccupantSurName);
 		
-		Element occupantCatCodeElement = XmlUtils.appendElement(occupantPersonNameElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "PersonCategoryCode");
+		Element occupantSexCodeElement = XmlUtils.appendElement(occupant1EntPersonElement, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");
 		
-		String sampleOccupantCatCode = RandomStringUtils.randomAlphanumeric(2);
+		occupantSexCodeElement.setTextContent(randomString("F", "M", "U"));
 		
-		occupantCatCodeElement.setTextContent(sampleOccupantCatCode);
+		Element occupantCatCodeElement = XmlUtils.appendElement(occupant1EntPersonElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "PersonCategoryCode");
+				
+		occupantCatCodeElement.setTextContent(randomString("1", "2", "3", "6", "7", "8", "24", "25", "3"));
 		
 		
 		PersonElementWrapper sampleDriver = getRandomIdentity(null);
@@ -721,14 +700,10 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		
  		Element vehicleColorElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_JXDM_51, "ConveyanceColorPrimaryCode");
  		
- 		List<String> sampleColorList = Arrays.asList("BLO", "BLK", "BLU", "RED", "PUR");
- 		
- 		String sampleColor = (String)generateRandomValueFromList(sampleColorList);
- 		
- 		vehicleColorElement.setTextContent(sampleColor);
- 		
- 		
- 		
+ 		 		
+ 		vehicleColorElement.setTextContent(randomString(
+ 				"AME", "BGE", "BLK", "BLU", "BRO", "BRZ", "CAM", "COM", "COM", "CPR"));
+ 		 		 		
  		List<String> sampleYearList = Arrays.asList("1970", "1989", "1996", "2016");
  		
  		String sampleYear = (String)generateRandomValueFromList(sampleYearList);
@@ -753,16 +728,13 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		vehicleIdStateCodeElement.setTextContent(vehicOwnerSample.state);
  		
  		Element vehicleMakeElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_JXDM_51, "VehicleMakeCode");
- 		
- 		List<String> sampleMakeList = Arrays.asList("Ford", "Chevy", "Dodge", "GM", "Kia");
- 		
- 		String sampleMake = (String)generateRandomValueFromList(sampleMakeList);
- 		
- 		vehicleMakeElement.setTextContent(sampleMake);
+ 		 		 		
+ 		vehicleMakeElement.setTextContent(randomString(
+ 				"AAA", "AAB", "AACC", "AACC", "AACO", "AALI", "AAPX", "AARC", "AARD"));
  		
  		Element vehicleModelElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_JXDM_51, "VehicleModelCode");
  		
- 		vehicleModelElement.setTextContent(RandomStringUtils.randomNumeric(3));
+ 		vehicleModelElement.setTextContent(randomString("100", "110", "120", "328"));
  		
  		Element vehicleUnitIdElement = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "VehicleUnitIdentification");
  		
@@ -861,12 +833,8 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator{
  		dlEndorsementTxtElement.setTextContent(sampleEndorsement);
  		
  		Element dlCatCodeElement = XmlUtils.appendElement(crashDriverLicElement, OjbcNamespaceContext.NS_ME_VEHICLE_CRASH_CODES, "DriverLicenseCategoryCode");
- 		
- 		List<String> dlCatList = Arrays.asList("Civil", "Military", "Racing");
- 		
- 		String sampleDlCatCode = (String)generateRandomValueFromList(dlCatList);
- 		
- 		dlCatCodeElement.setTextContent(sampleDlCatCode);
+ 		 		
+ 		dlCatCodeElement.setTextContent(randomString("Active", "No License", "Permit", "Suspended"));
  		 		
  		Element dlClassCodeElement = XmlUtils.appendElement(crashDriverLicElement, OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXT, "DriverLicenseClassCodeText");
  		
