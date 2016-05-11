@@ -91,6 +91,15 @@
 						<camel:simple>${in.header.notificationTopic} == 'criminalHistoryCycleTrackingIdentifierAssignment'</camel:simple>
 						<camel:to uri="bean:chCycleNotificationProcessor?method=createNotificationEmail" />
 					</camel:when>
+					<camel:when>
+						<camel:simple>${in.header.notificationTopic} == 'courtDispositionUpdate'</camel:simple>
+						<camel:to uri="bean:courtDispositionUpdateNotificationProcessor?method=createNotificationEmail" />
+					</camel:when>
+					<camel:when>
+						<camel:simple>${in.header.notificationTopic} == 'prosecutionDecisionUpdate'</camel:simple>
+						<camel:to uri="bean:prosecutionDecisionUpdateNotificationProcessor?method=createNotificationEmail" />
+					</camel:when>
+					
 				</camel:choice>
 
 				<camel:setHeader headerName="emailBody">
@@ -173,7 +182,7 @@
 					<camel:to uri="smtpEndpoint" />
 				</camel:when>
 				<camel:otherwise>
-					<camel:log message="No email will be sent, email property sendEmailNotifications set to false"></camel:log>
+					<camel:log message="No email will be sent, email property sendEmailNotifications set to false.  Email Body is: ${body}"></camel:log>
 				</camel:otherwise>
 			</camel:choice>
 		</camel:route>

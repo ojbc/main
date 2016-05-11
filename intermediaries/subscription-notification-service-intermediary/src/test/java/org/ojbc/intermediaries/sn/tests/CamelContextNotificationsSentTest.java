@@ -18,6 +18,8 @@ package org.ojbc.intermediaries.sn.tests;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.annotation.Resource;
 
 import org.apache.camel.EndpointInject;
@@ -25,6 +27,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.NotifyBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
@@ -73,6 +76,8 @@ public class CamelContextNotificationsSentTest extends AbstractSubscriptionNotif
     @Test
     public void testSubscriptionInvalidEmail() throws Exception {
     
+    	NotifyBuilder notify = new NotifyBuilder(context).whenReceivedSatisfied(smtpEndpointMock).create();
+    	
     	//On this initial run, an alert will be sent because no notifications have been sent
     	smtpEndpointMock.reset();
     	smtpEndpointMock.expectedMessageCount(1);
@@ -89,8 +94,8 @@ public class CamelContextNotificationsSentTest extends AbstractSubscriptionNotif
 			throw new Exception(returnExchange.getException());
 		}	
 
-		//Sleep while a response is generated
-		Thread.sleep(2000);
+		// waits but allows match to break out and continue before timeout
+		boolean done = notify.matches(10, TimeUnit.SECONDS);
 		
 		smtpEndpointMock.assertIsSatisfied();
 		
@@ -100,6 +105,8 @@ public class CamelContextNotificationsSentTest extends AbstractSubscriptionNotif
 		
 		//Now we expect no alert to be sent because the notification timestamp is updated
     	smtpEndpointMock.reset();
+    	
+    	notify = new NotifyBuilder(context).whenReceivedSatisfied(smtpEndpointMock).create();
     	smtpEndpointMock.expectedMessageCount(0);
     	
     	//Create a new exchange
@@ -114,8 +121,7 @@ public class CamelContextNotificationsSentTest extends AbstractSubscriptionNotif
 			throw new Exception(returnExchange.getException());
 		}	
 
-		//Sleep while a response is generated
-		Thread.sleep(2000);
+		notify.matches(10, TimeUnit.SECONDS);
 		
 		smtpEndpointMock.assertIsSatisfied();
 		
