@@ -24,6 +24,7 @@ import java.util.Map.Entry;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.component.cxf.CxfPayload;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.helper.OJBUtils;
@@ -42,7 +43,8 @@ public class FederatedQueryResponseHandlerAggregator {
 	{
 		List<Exchange> grouped = groupedExchange.getProperty(Exchange.GROUPED_EXCHANGE, List.class);
 		
-        StringBuffer sb = null;
+		StringBuffer sb = new StringBuffer();
+		sb.append("<OJBAggregateResponseWrapper>");
         
         List<String> endpointsThatDidNotRespond = new ArrayList<String>();
         
@@ -50,7 +52,7 @@ public class FederatedQueryResponseHandlerAggregator {
 		{
 		
 			//This exchange is the message sent to start the federated query timer, it is an exchange with a string that says 'START_QUERY_TIMER'	
-			if (exchange.getIn().getBody().getClass().getName().equals("java.lang.String"))
+			if (exchange.getIn().getBody().getClass().getName().equals("java.lang.String") && exchange.getIn().getBody().equals("START_QUERY_TIMER"))
 			{
 				 String startMessage = exchange.getIn().getBody(String.class); 
 				 
@@ -68,18 +70,12 @@ public class FederatedQueryResponseHandlerAggregator {
 
 				 
 				 log.debug("Processing aggregator start message: " + startMessage);
-			}	
+				 
+				 continue; 
+			}
 			
 			if (exchange.getIn().getBody().getClass().getName().equals("org.apache.camel.component.cxf.CxfPayload"))
 			{
-				//This is the first exchange we are processing
-				if (sb == null)
-				{
-					//Create the XML wrapper start tag
-					sb = new StringBuffer();
-					sb.append("<OJBAggregateResponseWrapper>");
-					
-				}	
 				
 				//Uncomment the line below to see the individual aggregated message
 				//log.debug("This is the body of the exchange in the exchange group: " + exchange.getIn().getBody());
@@ -90,7 +86,16 @@ public class FederatedQueryResponseHandlerAggregator {
 		        String bodyAsString = OJBUtils.getStringFromDocument(elementList.get(0).getOwnerDocument());
 		        sb.append(bodyAsString);
 		        groupedExchange.getIn().getAttachments().putAll(exchange.getIn().getAttachments());
+		        continue; 
 			}	
+			
+				//Uncomment the line below to see the individual aggregated message
+				//log.debug("This is the body of the exchange in the exchange group: " + exchange.getIn().getBody());
+				
+			String response = exchange.getIn().getBody(String.class);
+			
+			if (StringUtils.isNotBlank(response));
+				sb.append(response);
 			
 		}	
 		
