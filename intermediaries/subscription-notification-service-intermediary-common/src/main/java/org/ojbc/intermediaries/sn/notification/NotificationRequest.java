@@ -177,34 +177,43 @@ public abstract class NotificationRequest {
             log.error("Unable to find person reference. Unable to XQuery for person name.");
         }
 
-        NodeList officerReferences = XmlUtils.xPathNodeListSearch(document, getOfficerNameReferenceXPath());
-
-		if (officerReferences != null && officerReferences.getLength() > 0) {
-            for (int i = 0; i < officerReferences.getLength(); i++) {
-                if (officerReferences.item(i).getNodeType() == Node.ATTRIBUTE_NODE) {
-
-                    String officerReference = officerReferences.item(i).getTextContent();
-                    String officerName = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + officerReference + "']/nc:PersonName/nc:PersonFullName");
-                    
-                    if (StringUtils.isNotEmpty(officerName))
-                    {	
-                    	officerNames.add(StringUtils.strip(officerName));
-                    }	
-                }
-            }
-		}    
-
+        if (StringUtils.isNotEmpty(getOfficerNameReferenceXPath()))
+        {	
+	        NodeList officerReferences = XmlUtils.xPathNodeListSearch(document, getOfficerNameReferenceXPath());
+	
+			if (officerReferences != null && officerReferences.getLength() > 0) {
+	            for (int i = 0; i < officerReferences.getLength(); i++) {
+	                if (officerReferences.item(i).getNodeType() == Node.ATTRIBUTE_NODE) {
+	
+	                    String officerReference = officerReferences.item(i).getTextContent();
+	                    String officerName = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + officerReference + "']/nc:PersonName/nc:PersonFullName");
+	                    
+	                    if (StringUtils.isNotEmpty(officerName))
+	                    {	
+	                    	officerNames.add(StringUtils.strip(officerName));
+	                    }	
+	                }
+	            }
+			}    
+        }	
+			
         notificationEventIdentifier = XmlUtils.xPathStringSearch(document, getNotificationEventIdentifierXpath());
         notificationEventIdentifier = StringUtils.strip(notificationEventIdentifier);
 
-        notifyingAgencyName = XmlUtils.xPathStringSearch(document, getNotifyingAgencyXpath());
-        notifyingAgencyName = StringUtils.strip(notifyingAgencyName);
-
+        if (StringUtils.isNotBlank(getNotifyingAgencyXpath()))
+        {	
+	        notifyingAgencyName = XmlUtils.xPathStringSearch(document, getNotifyingAgencyXpath());
+	        notifyingAgencyName = StringUtils.strip(notifyingAgencyName);
+        }    
+	        
         notifyingAgencyOri = StringUtils.trimToNull(XmlUtils.xPathStringSearch(document, getNotifyingAgencyOriXpath()));
         
-        notifyingAgencyPhoneNumber = XmlUtils.xPathStringSearch(document, getNotificationAgencyPhoneNumberXpath());
-        notifyingAgencyPhoneNumber = StringUtils.strip(notifyingAgencyPhoneNumber);
-
+        if (StringUtils.isNotBlank(getNotificationAgencyPhoneNumberXpath()))
+        {	
+	        notifyingAgencyPhoneNumber = XmlUtils.xPathStringSearch(document, getNotificationAgencyPhoneNumberXpath());
+	        notifyingAgencyPhoneNumber = StringUtils.strip(notifyingAgencyPhoneNumber);
+        }    
+	        
         notifyingSystemName = XmlUtils.xPathStringSearch(document, getNotifyingSystemNameXPath());
         notifyingSystemName = StringUtils.strip(notifyingSystemName);
 

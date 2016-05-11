@@ -52,6 +52,20 @@
 <!-- 		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.DATE_OF_BIRTH" /> -->
 <!-- 	</util:list> -->
 
+	<bean id="courtDispositionUpdateProcessor"
+		class="org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionProcessor">
+		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
+	</bean>
+
+	<bean id="prosecutionDecisionUpdateProcessor"
+		class="org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionProcessor">
+		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
+	</bean>
+
 	<bean id="incidentSubscriptionProcessor"
 		class="org.ojbc.intermediaries.sn.topic.incident.IncidentSubscriptionProcessor">
 		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
@@ -99,7 +113,16 @@
 		<property name="emailFormatter" ref="emailFormatter"/>
 	</bean>
 	
-	<bean id="chCycleNotificationProcessor"
+	<bean id="prosecutionDecisionUpdateNotificationProcessor"
+		class="org.ojbc.intermediaries.sn.topic.chcycle.ChCycleNotificationProcessor">
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
+		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
+		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
+		<property name="emailFormatter" ref="emailFormatter"/>
+	</bean>	
+
+	<bean id="courtDispositionUpdateNotificationProcessor"
 		class="org.ojbc.intermediaries.sn.topic.chcycle.ChCycleNotificationProcessor">
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
