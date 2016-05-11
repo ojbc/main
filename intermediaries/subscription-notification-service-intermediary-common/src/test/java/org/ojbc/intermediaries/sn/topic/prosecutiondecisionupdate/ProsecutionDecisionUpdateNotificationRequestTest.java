@@ -50,7 +50,7 @@ public class ProsecutionDecisionUpdateNotificationRequestTest {
 		
 		//assertThat(courtDispositionUpdateNotificationRequest.getNotifyingAgencyName(), is(""));
 		
-		//assertThat(courtDispositionUpdateNotificationRequest.getNotificationEventIdentifier(), is("123456"));
+		assertThat(prosecutionDecisionUpdateNotificationRequest.getNotificationEventIdentifier(), is("123456A"));
 
 		assertThat(prosecutionDecisionUpdateNotificationRequest.getPersonFirstName(), is("Walter"));
 		assertThat(prosecutionDecisionUpdateNotificationRequest.getPersonLastName(), is("White"));

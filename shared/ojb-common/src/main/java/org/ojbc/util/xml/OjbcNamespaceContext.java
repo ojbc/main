@@ -745,6 +745,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	
 	public static String NS_CUSTODY_STATUS_CHANGE_EXT = "http://ojbc.org/IEPD/Extensions/CustodyStatusChangeReportExtension/1.0";
 	public static String NS_PREFIX_CUSTODY_STATUS_CHANGE_EXT="cscr-ext";
+
+	public static String NS_COURT_DISPOSITION_UPDATE_EXT = "http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0";
+	public static String NS_PREFIX_COURT_DISPOSITION_UPDATE_EXT="cdu-ext";
+
+	public static String NS_PROSECUTION_DECISION_UPDATE_EXT = "http://ojbc.org/IEPD/Extensions/ProsecutionDecisionUpdate/1.0";
+	public static String NS_PREFIX_PROSECUTION_DECISION_UPDATE_EXT="pdu-ext";
 	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -754,6 +760,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();	
+
+		prefixToUriMap.put(NS_PREFIX_COURT_DISPOSITION_UPDATE_EXT, NS_COURT_DISPOSITION_UPDATE_EXT);
+		uriToPrefixMap.put(NS_COURT_DISPOSITION_UPDATE_EXT, NS_PREFIX_COURT_DISPOSITION_UPDATE_EXT);
+
+		prefixToUriMap.put(NS_PREFIX_PROSECUTION_DECISION_UPDATE_EXT, NS_PROSECUTION_DECISION_UPDATE_EXT);
+		uriToPrefixMap.put(NS_PROSECUTION_DECISION_UPDATE_EXT, NS_PREFIX_PROSECUTION_DECISION_UPDATE_EXT);
 
 		prefixToUriMap.put(NS_PREFIX_WARRANT_ISSUED_REPORT, NS_WARRANT_ISSUED_REPORT);
 		uriToPrefixMap.put(NS_WARRANT_ISSUED_REPORT, NS_PREFIX_WARRANT_ISSUED_REPORT);

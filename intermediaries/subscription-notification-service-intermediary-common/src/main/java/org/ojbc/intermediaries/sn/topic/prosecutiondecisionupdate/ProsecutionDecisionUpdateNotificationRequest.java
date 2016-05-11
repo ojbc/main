@@ -71,7 +71,7 @@ public class ProsecutionDecisionUpdateNotificationRequest extends NotificationRe
 	@Override
 	protected String getNotificationEventIdentifierXpath() {
 
-		return  "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingCourtDispositionUpdate";
+		return  "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingProsecutionDecisionUpdate/pdu-ext:ProsecutionDecisionUpdate/pdu-ext:CycleTrackingIdentification/nc:IdentificationID";
 	}
 	
 	@Override

@@ -84,7 +84,8 @@ To follow up on this incident, please call $emailNotification.notificationReques
 			<value>Court Disposition Update Notification [Subject $emailNotification.subjectName]</value>
 		</property>
 		<property name="emailBodyTemplate">
-			<value><![CDATA[Court Disposition Update notification for $emailNotification.notificationRequest.personFirstName $emailNotification.notificationRequest.personLastName]]></value>
+			<value><![CDATA[Court Disposition Update notification for $emailNotification.notificationRequest.personFirstName $emailNotification.notificationRequest.personLastName with a birth date of $emailNotification.notificationRequest.personBirthDate
+The notification had an event ID of: $emailNotification.notificationRequest.notificationEventIdentifier]]></value>
 		</property>
 	</bean>
 
@@ -93,7 +94,8 @@ To follow up on this incident, please call $emailNotification.notificationReques
 			<value>CH Cycle Notification [Subject $emailNotification.subjectName]</value>
 		</property>
 		<property name="emailBodyTemplate">
-			<value><![CDATA[Prosecution Decision Update notification for $emailNotification.notificationRequest.personFirstName $emailNotification.notificationRequest.personLastName]]></value>
+			<value><![CDATA[Prosecution Decision Update notification for $emailNotification.notificationRequest.personFirstName $emailNotification.notificationRequest.personLastName with a birth date of $emailNotification.notificationRequest.personBirthDate
+The notification had an event ID of: $emailNotification.notificationRequest.notificationEventIdentifier]]></value>
 		</property>
 	</bean>
 	
