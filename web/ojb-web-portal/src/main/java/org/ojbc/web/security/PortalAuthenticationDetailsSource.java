@@ -26,6 +26,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojb.web.portal.WebPortalConstants;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.WebUtils;
 import org.ojbc.web.security.config.AccessControlServicesConfig;
@@ -65,11 +66,14 @@ public class PortalAuthenticationDetailsSource implements
     @Value("${criminal.identification.results.requestedresource:}")
     private String criminalIdentificationResultsResourceURI;
 
-    @Value("#{'${rapbackSearch.agencySuperUserOris:}'.split(',')}")
-    private List<String> agencySuperUserOris;
+    @Value("#{'${rapbackSearch.agencySuperUsers:}'.split(',')}")
+    private List<String> agencySuperUsers;
 
-    @Value("#{'${rapbackSearch.superUserOris:}'.split(',')}")
-    private List<String> superUserOris;
+    @Value("#{'${rapbackSearch.superUsers:}'.split(',')}")
+    private List<String> superUsers;
+    
+    @Value("#{'${rapbackSearch.civilAgencyOris:}'.split(',')}")
+    private List<String> civilAgencyOris;
     
     @Autowired(required=false)
     private AccessControlServicesConfig accessControlServicesConfig; 
@@ -82,7 +86,7 @@ public class PortalAuthenticationDetailsSource implements
                 new ArrayList<SimpleGrantedAuthority>(); 
  
         Element samlAssertion = (Element)context.getAttribute("samlAssertion");
-        String ori = getEmployerOri(samlAssertion);  
+        String ori = getAttributeValue(samlAssertion, SamlAttribute.EmployerORI);  
 
         SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
         
@@ -124,8 +128,9 @@ public class PortalAuthenticationDetailsSource implements
          */
         if (grantedAuthorities.contains(rolePortalUser)) {
             if(requireSubscriptionAccessControl) {
+                String userString = ori + "&" + principal;
             	
-            	if (superUserOris.contains(ori) || agencySuperUserOris.contains(ori)){
+            	if (superUsers.contains(userString) || agencySuperUsers.contains(userString)){
                     grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CRIMINAL_ID_RESULTS.name())); 
                     grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CIVIL_SUBSCRIPTION.name()));
                     
@@ -136,6 +141,24 @@ public class PortalAuthenticationDetailsSource implements
                     
                     grantOrDenyAuthority(grantedAuthorities, accessControlResponseString,
                     		criminalSubscriptionAccessControlResourceURI, Authorities.AUTHZ_CRIMINAL_SUBSCRIPTION);
+            	}
+            	else if (civilAgencyOris.contains(ori)){
+                    grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CIVIL_SUBSCRIPTION.name()));
+            		
+                    String accessControlResponseString = accessControlServicesConfig
+                    		.getIdentityBasedAccessControlServiceBean().invokeAccessControlRequest(
+                    				UUID.randomUUID().toString(), samlAssertion, 
+                    				criminalSubscriptionAccessControlResourceURI,
+                    				civilSubscriptionAccessControlResourceURI);
+                    Assert.notNull(accessControlResponseString); 
+                    
+                    /*
+                     * Grant the "Criminal Subscription" access only if accessDenied is "false"
+                     */
+                    grantOrDenyAuthority(grantedAuthorities, accessControlResponseString, 
+                    		criminalSubscriptionAccessControlResourceURI, Authorities.AUTHZ_CRIMINAL_SUBSCRIPTION);
+                    grantOrDenyAuthority(grantedAuthorities, accessControlResponseString, 
+                    		civilSubscriptionAccessControlResourceURI, Authorities.AUTHZ_CIVIL_SUBSCRIPTION);
             	}
             	else{
                     String accessControlResponseString = accessControlServicesConfig
@@ -178,16 +201,18 @@ public class PortalAuthenticationDetailsSource implements
 		}
 	}
 
-	private String getEmployerOri(Element samlAssertion) {
-		String ori = null;
+	private String getAttributeValue(Element samlAssertion, SamlAttribute samlAttribute) {
+		String attributeValue = null;
 		try {
-			ori = XmlUtils.xPathStringSearch(samlAssertion, 
+			attributeValue = XmlUtils.xPathStringSearch(samlAssertion, 
 			        "/saml2:Assertion/saml2:AttributeStatement[1]/"
-			        + "saml2:Attribute[@Name='gfipm:2.0:user:EmployerORI']/saml2:AttributeValue");
+			        + "saml2:Attribute[@Name='" 
+	        		+ samlAttribute.getAttibuteName() 
+	        		+ "']/saml2:AttributeValue");
 		} catch (Exception e) {
 			log.error("EmployerORI is missing in the Saml Assertion");
 		}
-		return ori;
+		return attributeValue;
 	}
 
     private String getAccessDeniedIndicator(String accessControlResponseString, String resourceURI) {
