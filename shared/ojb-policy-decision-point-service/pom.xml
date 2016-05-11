@@ -53,6 +53,7 @@
 		<ojb-fedquery-common-version>[2.0.0,)</ojb-fedquery-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
+		<ojb-test-common-version>1.0.0</ojb-test-common-version>
 		<java-version>1.8</java-version>
 		<commonsCodec.version>1.7</commonsCodec.version>
 		<jackson-version>2.1.5</jackson-version>
@@ -177,6 +178,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-test-common</artifactId>
+			<version>${ojb-test-common-version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
