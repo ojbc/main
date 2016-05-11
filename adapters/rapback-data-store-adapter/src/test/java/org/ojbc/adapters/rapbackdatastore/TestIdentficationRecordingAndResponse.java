@@ -139,6 +139,7 @@ public class TestIdentficationRecordingAndResponse {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testIdentificationRecordingRequestAndResultsSuccess() throws Exception
 	{
 		civilRecordingRequestSuccess(); 
@@ -205,6 +206,7 @@ public class TestIdentficationRecordingAndResponse {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testIdentificationRecordingCriminalResultsSuccess() throws Exception
 	{
 		criminalRecordingResultServiceSuccess();
@@ -226,7 +228,7 @@ public class TestIdentficationRecordingAndResponse {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		identificationReportingResultMessageProcessor.expectedMessageCount(3);
+		identificationReportingResultMessageProcessor.expectedMessageCount(1);
 		
 		identificationReportingResultMessageProcessor.assertIsSatisfied();
 		
