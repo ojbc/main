@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2015 Open Justice Broker Consortium
-
--->
-<ir-doc:IncidentReport xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd">
+<!-- Unless explicitly acquired and licensed from Licensor under another 
+	license, the contents of this file are subject to the Reciprocal Public License 
+	("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You 
+	may not copy or use this file in either source code or executable form, except 
+	in compliance with the terms and conditions of the RPL All software distributed 
+	under the RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY 
+	OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL 
+	SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, 
+	FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See 
+	the RPL for specific language governing rights and limitations under the 
+	RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2015 Open Justice 
+	Broker Consortium -->
+<ir-doc:IncidentReport
+	xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd">
 	<lexspd:doPublish>
 		<lexs:PublishMessageContainer>
 			<lexs:PublishMessage>
@@ -145,7 +147,7 @@
 								</nc:PersonName>
 							</lexsdigest:Person>
 							<j:EnforcementOfficial s:id="OFFICER_01">
-								<nc:RoleOfPersonReference s:ref="PERSON_02"/>
+								<nc:RoleOfPersonReference s:ref="PERSON_02" />
 								<j:EnforcementOfficialBadgeIdentification>
 									<nc:IdentificationID>12345</nc:IdentificationID>
 								</j:EnforcementOfficialBadgeIdentification>
@@ -184,7 +186,7 @@
 								</j:PersonAugmentation>
 							</lexsdigest:Person>
 							<j:IncidentSubject s:id="SUBJECT_01">
-								<nc:RoleOfPersonReference s:ref="PERSON_03"/>
+								<nc:RoleOfPersonReference s:ref="PERSON_03" />
 							</j:IncidentSubject>
 						</lexsdigest:EntityPerson>
 						<!-- SUBJECT - ORGANIZATION -->
@@ -298,56 +300,59 @@
 						<!-- ======================= Associations ======================= -->
 						<lexsdigest:Associations>
 							<j:ActivityEnforcementOfficialAssociation>
-								<nc:ActivityReference s:ref="INCIDENT_01"/>
-								<nc:PersonReference s:ref="OFFICER_01"/>
+								<nc:ActivityReference s:ref="INCIDENT_01" />
+								<nc:PersonReference s:ref="OFFICER_01" />
 							</j:ActivityEnforcementOfficialAssociation>
 							<lexsdigest:EntityTelephoneNumberAssociation>
-								<nc:PersonReference s:ref="PERSON_03"/>
-								<lexsdigest:TelephoneNumberReference s:ref="TELEPHONE_01"/>
+								<nc:PersonReference s:ref="PERSON_03" />
+								<lexsdigest:TelephoneNumberReference
+									s:ref="TELEPHONE_01" />
 								<lexsdigest:TelephoneNumberHomeIndicator>true
 								</lexsdigest:TelephoneNumberHomeIndicator>
 							</lexsdigest:EntityTelephoneNumberAssociation>
 							<lexsdigest:EntityTelephoneNumberAssociation>
-								<nc:PersonReference s:ref="PERSON_03"/>
-								<lexsdigest:TelephoneNumberReference s:ref="TELEPHONE_02"/>
+								<nc:PersonReference s:ref="PERSON_03" />
+								<lexsdigest:TelephoneNumberReference
+									s:ref="TELEPHONE_02" />
 								<lexsdigest:TelephoneNumberWorkIndicator>true
 								</lexsdigest:TelephoneNumberWorkIndicator>
 							</lexsdigest:EntityTelephoneNumberAssociation>
 							<lexsdigest:IncidentLocationAssociation>
-								<nc:ActivityReference s:ref="INCIDENT_01"/>
-								<nc:LocationReference s:ref="LOCATION_03"/>
+								<nc:ActivityReference s:ref="INCIDENT_01" />
+								<nc:LocationReference s:ref="LOCATION_03" />
 							</lexsdigest:IncidentLocationAssociation>
 							<lexsdigest:IncidentOffenseAssociation>
-								<nc:ActivityReference s:ref="INCIDENT_01"/>
-								<nc:ActivityReference s:ref="OFFENSE_01"/>
+								<nc:ActivityReference s:ref="INCIDENT_01" />
+								<nc:ActivityReference s:ref="OFFENSE_01" />
 							</lexsdigest:IncidentOffenseAssociation>
 							<lexsdigest:IncidentSubjectPersonAssociation>
-								<nc:ActivityReference s:ref="INCIDENT_01"/>
-								<nc:PersonReference s:ref="SUBJECT_01"/>
+								<nc:ActivityReference s:ref="INCIDENT_01" />
+								<nc:PersonReference s:ref="SUBJECT_01" />
 							</lexsdigest:IncidentSubjectPersonAssociation>
 							<lexsdigest:PersonBirthLocationAssociation>
-								<nc:PersonReference s:ref="PERSON_03"/>
-								<nc:LocationReference s:ref="LOCATION_02"/>
+								<nc:PersonReference s:ref="PERSON_03" />
+								<nc:LocationReference s:ref="LOCATION_02" />
 							</lexsdigest:PersonBirthLocationAssociation>
 							<nc:ActivityInvolvedOrganizationAssociation>
-								<nc:ActivityReference s:ref="INCIDENT_01"/>
-								<nc:OrganizationReference s:ref="ORGANIZATION_01"/>
+								<nc:ActivityReference s:ref="INCIDENT_01" />
+								<nc:OrganizationReference s:ref="ORGANIZATION_01" />
 							</nc:ActivityInvolvedOrganizationAssociation>
 							<nc:ImmediateFamilyAssociation>
-								<nc:PersonParentReference s:ref="PERSON_01"/>
-								<nc:PersonChildReference s:ref="PERSON_03"/>
+								<nc:PersonParentReference s:ref="PERSON_01" />
+								<nc:PersonChildReference s:ref="PERSON_03" />
 							</nc:ImmediateFamilyAssociation>
 							<nc:PersonAssignedUnitAssociation>
-								<nc:PersonReference s:ref="OFFICER_01"/>
-								<nc:OrganizationReference s:ref="AGENCY_01"/>
+								<nc:PersonReference s:ref="OFFICER_01" />
+								<nc:OrganizationReference s:ref="AGENCY_01" />
 							</nc:PersonAssignedUnitAssociation>
 							<nc:PersonConveyanceAssociation>
-								<nc:PersonReference s:ref="PERSON_03"/>
-								<nc:ConveyanceReference s:ref="VEHICLE_01"/>
+								<nc:PersonReference s:ref="PERSON_03" />
+								<nc:ConveyanceReference s:ref="VEHICLE_01" />
 							</nc:PersonConveyanceAssociation>
 							<nc:TransportationAssociation>
-								<nc:ConveyanceReference s:ref="VEHICLE_01"/>
-								<nc:ConveyanceOperatorReference s:ref="SUBJECT_01"/>
+								<nc:ConveyanceReference s:ref="VEHICLE_01" />
+								<nc:ConveyanceOperatorReference
+									s:ref="SUBJECT_01" />
 							</nc:TransportationAssociation>
 						</lexsdigest:Associations>
 					</lexs:Digest>
@@ -369,7 +374,8 @@
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
 								<ndexia:LocationAugmentation>
-									<lexslib:SameAsDigestReference lexslib:ref="LOCATION_01"/>
+									<lexslib:SameAsDigestReference
+										lexslib:ref="LOCATION_01" />
 								</ndexia:LocationAugmentation>
 							</ndexia:Location>
 							<!-- <ndexia:Location> -->
@@ -384,7 +390,8 @@
 									<nc:HighwayPositionText>MileMarker 10</nc:HighwayPositionText>
 								</nc:LocationHighway>
 								<ndexia:LocationAugmentation>
-									<lexslib:SameAsDigestReference lexslib:ref="LOCATION_03"/>
+									<lexslib:SameAsDigestReference
+										lexslib:ref="LOCATION_03" />
 								</ndexia:LocationAugmentation>
 							</ndexia:Location>
 							<ndexia:Location>
@@ -395,12 +402,14 @@
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
 								<ndexia:LocationAugmentation>
-									<lexslib:SameAsDigestReference lexslib:ref="LOCATION_04"/>
+									<lexslib:SameAsDigestReference
+										lexslib:ref="LOCATION_04" />
 								</ndexia:LocationAugmentation>
 							</ndexia:Location>
 							<ndexia:Offense>
 								<ndexia:ActivityAugmentation>
-									<lexslib:SameAsDigestReference lexslib:ref="OFFENSE_01"/>
+									<lexslib:SameAsDigestReference
+										lexslib:ref="OFFENSE_01" />
 								</ndexia:ActivityAugmentation>
 								<j:Statute>
 									<j:StatuteCodeIdentification>
@@ -413,13 +422,15 @@
 									<nc:IdentificationID>VT0040100</nc:IdentificationID>
 								</j:EnforcementUnitNumberIdentification>
 								<ndexia:EnforcementUnitAugmentation>
-									<lexslib:SameAsDigestReference lexslib:ref="AGENCY_01"/>
+									<lexslib:SameAsDigestReference
+										lexslib:ref="AGENCY_01" />
 								</ndexia:EnforcementUnitAugmentation>
 							</ndexia:EnforcementUnit>
 							<ndexia:Vehicle>
 								<nc:VehicleCMVIndicator>false</nc:VehicleCMVIndicator>
 								<ndexia:VehicleAugmentation>
-									<lexslib:SameAsDigestReference lexslib:ref="VEHICLE_01"/>
+									<lexslib:SameAsDigestReference
+										lexslib:ref="VEHICLE_01" />
 								</ndexia:VehicleAugmentation>
 							</ndexia:Vehicle>
 						</ndexia:IncidentReport>
@@ -452,7 +463,8 @@
 								</inc-ext:OffenseFineAmountMinimum>
 								<inc-ext:OffenseFineAmountMaximum>1197.00
 								</inc-ext:OffenseFineAmountMaximum>
-								<lexslib:SameAsDigestReference lexslib:ref="OFFENSE_01"/>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="OFFENSE_01" />
 							</inc-ext:Offense>
 							<inc-ext:Charge>
 								<inc-ext:RelatedCriminalChargeIndicator>false
@@ -462,13 +474,15 @@
 								<inc-ext:EnforcementOfficialIdentification>
 									<nc:IdentificationID>ID467023</nc:IdentificationID>
 								</inc-ext:EnforcementOfficialIdentification>
-								<lexslib:SameAsDigestReference lexslib:ref="OFFICER_01"/>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="OFFICER_01" />
 							</inc-ext:EnforcementOfficial>
 							<inc-ext:Person>
 								<inc-ext:PersonFishAndWildlifeLicenseIdentification>
 									<nc:IdentificationID>12345678</nc:IdentificationID>
 								</inc-ext:PersonFishAndWildlifeLicenseIdentification>
-								<lexslib:SameAsDigestReference lexslib:ref="PERSON_03"/>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="PERSON_03" />
 							</inc-ext:Person>
 							<inc-ext:Citation>
 								<inc-ext:CitationServedDate>
@@ -480,12 +494,14 @@
 								</inc-ext:CitationServedIndicator>
 								<inc-ext:CitationMailedIndicator>false
 								</inc-ext:CitationMailedIndicator>
-								<lexslib:SameAsDigestReference lexslib:ref="CITATION_01"/>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="CITATION_01" />
 							</inc-ext:Citation>
 							<inc-ext:Vehicle>
 								<inc-ext:VehicleHazardousMaterialIndicator>true
 								</inc-ext:VehicleHazardousMaterialIndicator>
-								<lexslib:SameAsDigestReference lexslib:ref="VEHICLE_01"/>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="VEHICLE_01" />
 							</inc-ext:Vehicle>
 							<inc-ext:DrivingIncident>
 								<j:DrivingIncidentRecordedSpeedRate>
@@ -514,36 +530,42 @@
 								</inc-ext:CivilReliefActOtherIndicator>
 								<inc-ext:CivilReliefActOtherText>Text
 								</inc-ext:CivilReliefActOtherText>
-								<lexslib:SameAsDigestReference lexslib:ref="INCIDENT_01"/>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="INCIDENT_01" />
 							</inc-ext:DrivingIncident>
 							<inc-ext:DriverLicense>
 								<inc-ext:DriverLicenseCDLIndicator>false
 								</inc-ext:DriverLicenseCDLIndicator>
-								<lexslib:SameAsDigestReference lexslib:ref="DL001"/>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="DL001" />
 							</inc-ext:DriverLicense>
 							<nc:PersonContactInformationAssociation>
-								<nc:PersonReference s:ref="PERSON_03"/>
-								<nc:ContactInformationReference s:ref="LOCATION_01"/>
+								<nc:PersonReference s:ref="PERSON_03" />
+								<nc:ContactInformationReference
+									s:ref="LOCATION_01" />
 							</nc:PersonContactInformationAssociation>
 							<nc:PersonContactInformationAssociation>
-								<nc:PersonReference s:ref="PERSON_01"/>
-								<nc:ContactInformationReference s:ref="LOCATION_04"/>
+								<nc:PersonReference s:ref="PERSON_01" />
+								<nc:ContactInformationReference
+									s:ref="LOCATION_04" />
 							</nc:PersonContactInformationAssociation>
 							<nc:ActivityDocumentAssociation>
-								<nc:ActivityReference s:ref="INCIDENT_01"/>
-								<nc:DocumentReference s:ref="CITATION_01"/>
+								<nc:ActivityReference s:ref="INCIDENT_01" />
+								<nc:DocumentReference s:ref="CITATION_01" />
 							</nc:ActivityDocumentAssociation>
 							<inc-ext:EntityDocumentAssociation>
-								<nc:DocumentReference s:ref="CITATION_01"/>
-								<nc:EntityPersonReference s:ref="SUBJECT_01"/>
+								<nc:DocumentReference s:ref="CITATION_01" />
+								<nc:EntityPersonReference s:ref="SUBJECT_01" />
 							</inc-ext:EntityDocumentAssociation>
 							<inc-ext:EntityDocumentAssociation>
-								<nc:DocumentReference s:ref="CITATION_01"/>
-								<nc:EntityOrganizationReference s:ref="ORGANIZATION_01"/>
+								<nc:DocumentReference s:ref="CITATION_01" />
+								<nc:EntityOrganizationReference
+									s:ref="ORGANIZATION_01" />
 							</inc-ext:EntityDocumentAssociation>
 							<inc-ext:CitationDeliveryRecipientAssociation>
-								<inc-ext:CitationReference s:ref="CITATION_01"/>
-								<nc:EntityOrganizationReference s:ref="ORGANIZATION_02"/>
+								<inc-ext:CitationReference s:ref="CITATION_01" />
+								<nc:EntityOrganizationReference
+									s:ref="ORGANIZATION_02" />
 							</inc-ext:CitationDeliveryRecipientAssociation>
 						</inc-ext:IncidentReport>
 					</lexs:StructuredPayload>
