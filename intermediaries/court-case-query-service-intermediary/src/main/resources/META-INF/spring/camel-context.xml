@@ -214,10 +214,10 @@
 					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
 			
             		<camel:setHeader headerName="operationName">
-            			<constant>SubmitCourtCaseQueryRequest</constant>
+            			<constant>SubmitCourtCaseQueryResults</constant>
             		</camel:setHeader>
 	        		<camel:setHeader headerName="operationNamespace">
-	        			<constant>http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0</constant>
+	        			<constant>http://ojbc.org/Services/WSDL/CourtCaseQueryResultsService/1.0</constant>
 	        		</camel:setHeader>
 					
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
