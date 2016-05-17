@@ -24,7 +24,7 @@
     		$('#addSubModalSaveLink').click(
     			function(){    			
 				  					  					  					  	
-				  	var subTypeTxt = $('#subscriptionType option:selected').text().trim();
+				  	var subTypeTxt = $('#topic option:selected').text().trim();
 				  						
 					if(subTypeTxt == 'Arrest'){	
 															
@@ -157,7 +157,7 @@
 	  
 	  function refreshDisplayFromSubType(){	  
 	  	
-	  	var subTypeTxt = $("#subscriptionType option:selected").text().trim();
+	  	var subTypeTxt = $("#topic option:selected").text().trim();
 	  			
 		if(subTypeTxt == 'Arrest'){						
 			
@@ -197,7 +197,7 @@
 <div style="width:230px;height:440px;" id="subFormDiv">
 	<form id="subscriptionForm">  	  
 		<div>
-			#springFormSingleSelect("subscription.subscriptionType" $subscriptionTypeValueToLabelMap "onChange='refreshDisplayFromSubType()'")		
+			#springFormSingleSelect("subscription.topic" $subscriptionTypeValueToLabelMap "onChange='refreshDisplayFromSubType()'")		
 		</div>			
 		
 		<div id="subModalDynamicContents"/>	 	    	        

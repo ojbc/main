@@ -247,6 +247,9 @@
 			<nc:ActivityIdentification>
 				<nc:IdentificationID>Law(15RM00998)</nc:IdentificationID>
 			</nc:ActivityIdentification>
+			<nc:ActivityDateRange>
+			
+			</nc:ActivityDateRange>
 			<nc:ActivityDate>
 				<nc:DateTime>2016-01-01T01:22:00</nc:DateTime>
 			</nc:ActivityDate>
