@@ -101,6 +101,7 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testRapbackDatastore() throws Exception {
 		
 		Connection conn = dataSource.getConnection();
@@ -280,6 +281,7 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testGetCivilIdentificationTransactions() throws Exception {
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
 		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:normaluser");
@@ -318,6 +320,7 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testGetCriminalIdentificationTransactions() throws Exception {
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
 		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:normaluser");
@@ -347,6 +350,7 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testGetCivilInitialResultsByTransactionNumber() throws Exception {
 		List<CivilInitialResults> civilInitialResults= 
 				rapbackDAO.getIdentificationCivilInitialResults("000001820140729014008339990");
@@ -357,6 +361,7 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testGetCivilInitialResults() throws Exception {
 		List<CivilInitialResults> civilInitialResults= 
 				rapbackDAO.getIdentificationCivilInitialResults("000001820140729014008339995");
@@ -367,6 +372,7 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testGetSubsequentResults() throws Exception {
 		
 		List<SubsequentResults> subsequentResults = rapbackDAO.getSubsequentResults("000001820140729014008339995");
@@ -455,6 +461,7 @@ public class RapbackDAOImplTest {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testGetAgencyProfile() throws Exception {
 		AgencyProfile agencyProfile = rapbackDAO.getAgencyProfile("1234567890");
 		log.info(agencyProfile.toString());

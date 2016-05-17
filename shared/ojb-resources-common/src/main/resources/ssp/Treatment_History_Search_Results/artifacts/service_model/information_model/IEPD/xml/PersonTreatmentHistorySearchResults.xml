@@ -1,0 +1,1226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<psres-doc:PersonSearchResults
+	xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
+	xmlns:psres-ext="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:jxdm="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xmlns:cyfs="http://niem.gov/niem/domains/cyfs/2.1/1"
+	xmlns:micodes="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchResultsCodes/1.0" 
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchResultsCodes/1.0 ../xsd/impl/michigan/michigan-codes.xsd">
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person s:id="P001" s:metadata="M001">
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>10</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonAlternateName>
+				<nc:PersonFullName>Macho Man</nc:PersonFullName>
+			</nc:PersonAlternateName>
+			<nc:PersonBirthDate>
+				<nc:Date>2004-12-10</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonEthnicityCode>H</nc:PersonEthnicityCode>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>71</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName />
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>220</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>750892HC7</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0188904</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+			<cyfs:PersonAugmentation>
+				<cyfs:TribalAffiliationText>Tribe Name</cyfs:TribalAffiliationText>
+			</cyfs:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:Parent s:id="PAR001">
+			<nc:PersonBirthDate>
+				<nc:Date>1957-09-13</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>Walter</nc:PersonGivenName>
+				<nc:PersonSurName>White</nc:PersonSurName>
+			</nc:PersonName>
+		</psres-ext:Parent>
+		<cyfs:Placement>
+			<micodes:PlacementCategoryCode>Foster Home</micodes:PlacementCategoryCode>
+		</cyfs:Placement>
+		<nc:Location s:id="LOC01">
+			<nc:LocationAddress>
+				<nc:StructuredAddress>
+					<nc:LocationStreet>
+						<nc:StreetNumberText>123</nc:StreetNumberText>
+						<nc:StreetName>Main Street</nc:StreetName>
+					</nc:LocationStreet>
+					<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
+					<nc:LocationCityName>Anytown</nc:LocationCityName>
+					<nc:LocationStateFIPS5-2AlphaCode>MI</nc:LocationStateFIPS5-2AlphaCode>
+					<nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+					<nc:LocationPostalCode>99199</nc:LocationPostalCode>
+				</nc:StructuredAddress>
+			</nc:LocationAddress>
+		</nc:Location>
+		<jxdm:Case>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>2015-12345</nc:IdentificationID>
+			</nc:ActivityIdentification>
+		</jxdm:Case>
+		<nc:ResidenceAssociation>
+			<nc:PersonReference s:ref="P001"/>
+			<nc:LocationReference s:ref="LOC01"/>
+		</nc:ResidenceAssociation>
+		<psres-ext:ParentChildAssociation>
+			<psres-ext:ParentReference s:ref="PAR001"/>
+			<psres-ext:ChildReference s:ref="P001"/>
+		</psres-ext:ParentChildAssociation>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A0188904</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History</psres-ext:SearchResultCategoryText>
+		<psres-ext:InformationOwningOrganization>
+			<nc:OrganizationBranchName>branch</nc:OrganizationBranchName>
+			<nc:OrganizationName>County Court</nc:OrganizationName>
+		</psres-ext:InformationOwningOrganization>
+		<nc:Metadata s:id="M001">
+			<nc:LastUpdatedDate>
+				<nc:Date>2014-12-10</nc:Date>
+			</nc:LastUpdatedDate>
+		</nc:Metadata>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person s:id="P002">
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>67</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1945-10-31</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>66</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName />
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>123456789</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>170</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID />
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0244494</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<nc:Location s:id="LOC02">
+			<nc:LocationAddress>
+				<nc:StructuredAddress>
+					<nc:LocationStreet>
+						<nc:StreetNumberText>123</nc:StreetNumberText>
+						<nc:StreetName>Main Street</nc:StreetName>
+					</nc:LocationStreet>
+					<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
+					<nc:LocationCityName>Anytown</nc:LocationCityName>
+					<nc:LocationStateCanadianProvinceCode>AB</nc:LocationStateCanadianProvinceCode>
+					<nc:LocationCountryFIPS10-4Code>CN</nc:LocationCountryFIPS10-4Code>
+					<nc:LocationPostalCode>99199</nc:LocationPostalCode>
+				</nc:StructuredAddress>
+			</nc:LocationAddress>
+		</nc:Location>
+		<jxdm:Case>
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>2015-12345</nc:IdentificationID>
+			</nc:ActivityIdentification>
+		</jxdm:Case>
+		<nc:ResidenceAssociation>
+			<nc:PersonReference s:ref="P002"/>
+			<nc:LocationReference s:ref="LOC02"/>
+		</nc:ResidenceAssociation>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A0244494</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person s:id="P003">
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>65</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1948-06-14</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>69</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName />
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>178</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>120890G</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A3000189</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<nc:Location s:id="LOC03">
+			<nc:LocationAddress>
+				<nc:StructuredAddress>
+					<nc:LocationStreet>
+						<nc:StreetNumberText>123</nc:StreetNumberText>
+						<nc:StreetName>Main Street</nc:StreetName>
+					</nc:LocationStreet>
+					<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
+					<nc:LocationCityName>Anytown</nc:LocationCityName>
+					<nc:LocationStateFIPS10-4InternationalCode>CA01</nc:LocationStateFIPS10-4InternationalCode>
+					<nc:LocationPostalCode>99199</nc:LocationPostalCode>
+				</nc:StructuredAddress>
+			</nc:LocationAddress>
+		</nc:Location>
+		<nc:ResidenceAssociation>
+			<nc:PersonReference s:ref="P003"/>
+			<nc:LocationReference s:ref="LOC03"/>
+		</nc:ResidenceAssociation>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A3000189</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>45</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1968-01-03</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>72</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName />
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>180</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>531109ED9</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A6023667</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A6023667</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>95</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1917-07-04</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>66</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName />
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>173</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID />
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>S0003039</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>S0003039</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText />
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>65</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1948-06-14</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>69</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName />
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID />
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>189</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID />
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>U0002250</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>U0002250</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Unsupported by Fingerprints</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName />
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID />
+			</nc:PersonSSNIdentification>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID />
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>W0173475</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>W0173475</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>TRO/PO</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName />
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID />
+			</nc:PersonSSNIdentification>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID />
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>W0173535</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>W0173535</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>TRO/PO</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>45</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1968-02-01</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>71</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>C</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>220</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>750892HC7</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0188904</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A0188904</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>64</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1948-08-20</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>72</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>C</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>240</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID />
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0223664</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A0223664</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>45</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1968-02-01</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>71</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>C JR</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>220</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>750892HC7</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0188904</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A0188904</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>45</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1968-02-01</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>71</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>CHRIS</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>220</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>750892HC7</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0188904</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A0188904</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>45</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1968-02-01</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>71</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>CHRIS JR</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>220</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>750892HC7</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0188904</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A0188904</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>45</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1968-02-01</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>71</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>CJR</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>220</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>750892HC7</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0188904</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A0188904</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>45</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1968-01-03</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>72</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>JR</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>180</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>531109ED9</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A6023667</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A6023667</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>74</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1939-02-28</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>66</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>PHILIP</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>A</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>145</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID />
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0044693</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A0044693</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>74</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1939-02-28</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>66</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>PHILLIP</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>A</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>145</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID />
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0044693</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A0044693</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>43</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1970-04-25</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>67</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>R JR</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>A</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>160</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>750892HC7</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A4001408</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A4001408</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>43</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1970-04-25</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>67</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>RANDALL JR</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>A</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>160</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>750892HC7</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A4001408</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A4001408</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>74</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1939-02-28</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>66</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>T</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>A</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>145</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID />
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0044693</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A0044693</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>65</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1948-06-14</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>69</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>THEODORE</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>178</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>120890G</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A3000189</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A3000189</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>65</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1948-06-14</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>70</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>THEODORE</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID />
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>179</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID />
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>U0002297</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>U0002297</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Unsupported by Fingerprints
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>77</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1936-02-22</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>67</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>THOMAS</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID />
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>140</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID />
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0034752</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A0034752</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>74</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1939-02-28</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>66</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName>THOMAS</nc:PersonMiddleName>
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>A</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>145</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID />
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0044693</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A0044693</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>45</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1968-02-01</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>71</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANKCHRIS</nc:PersonGivenName>
+				<nc:PersonMiddleName />
+				<nc:PersonSurName>GARCIA</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonRaceCode>W</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>220</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>750892HC7</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0188904</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A0188904</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+	<psres-ext:PersonSearchResult>
+		<psres-ext:Person>
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>70</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1943-01-02</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>69</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>FRANK</nc:PersonGivenName>
+				<nc:PersonMiddleName />
+				<nc:PersonSurName>GARCIO</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>525983412</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>160</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID />
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A0085030</nc:IdentificationID>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</psres-ext:Person>
+		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
+		</psres-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>A0085030</nc:IdentificationID>
+			<intel:SystemName>Criminal History</intel:SystemName>
+		</intel:SystemIdentifier>
+		<psres-ext:SearchResultCategoryText>Criminal History
+		</psres-ext:SearchResultCategoryText>
+	</psres-ext:PersonSearchResult>
+</psres-doc:PersonSearchResults>
