@@ -17,14 +17,19 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/TreatmentHistorySearchResults/1.0"
-	xmlns:thsres-doc="http://ojbc.org/IEPD/Exchange/TreatmentHistorySearchResults/1.0"
-	xmlns:thsres-ext="http://ojbc.org/IEPD/Extensions/TreatmentHistorySearchResults/1.0"
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:evalsres-ext="http://ojbc.org/IEPD/Extensions/EvaluationSearchResults/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Exchange/EvaluationSearchResults/1.0"
 	elementFormDefault="qualified">
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/TreatmentHistorySearchResults/1.0" schemaLocation="extension_schema.xsd" />
+	
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/EvaluationSearchResults/1.0" schemaLocation="extension_schema.xsd" />
 
-	<!-- Root data element for the Person Treatment History Search Results -->
-	<xsd:element name="PersonTreatmentHistorySearchResults" type="thsres-ext:PersonTreatmentHistorySearchResultsType" />
+	<!-- Root data element for the Person Evaluation Search Results -->
+	<xsd:element name="PersonEvaluationSearchResults" type="evalsres-ext:PersonEvaluationSearchResultsType">
+		<xsd:annotation>
+			<xsd:documentation>The search results matching a request for a person's evaluation details.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 
 </xsd:schema>

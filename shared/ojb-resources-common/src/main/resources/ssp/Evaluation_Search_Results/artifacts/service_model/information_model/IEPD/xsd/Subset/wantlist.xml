@@ -37,7 +37,7 @@
   </w:Type>
   <w:Type w:name="nc:PersonType" w:isRequested="true">
     <w:ElementInType w:name="nc:PersonAugmentationPoint"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:TextType" w:isRequested="true"/>
   <w:Type w:name="niem-xs:boolean" w:isRequested="true"/>

@@ -17,42 +17,23 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://ojbc.org/IEPD/Extensions/TreatmentHistorySearchResults/1.0"
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/" 
+	targetNamespace="http://ojbc.org/IEPD/Extensions/EvaluationSearchResults/1.0"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:thsres-ext="http://ojbc.org/IEPD/Extensions/TreatmentHistorySearchResults/1.0"
-	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
-	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
-	elementFormDefault="qualified">
+	xmlns:evalsres-ext="http://ojbc.org/IEPD/Extensions/EvaluationSearchResults/1.0"
+	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" elementFormDefault="qualified">
+	
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xsd.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
 	
-<!-- 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="search-results-metadata.xsd"/> -->
-	<xsd:complexType name="PersonTreatmentHistorySearchResultsType">
+	<xsd:complexType name="PersonEvaluationSearchResultsType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for search results matching a request for a person's treatment history.</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="structures:ObjectType">
-				<xsd:sequence>
-					<xsd:element ref="thsres-ext:PersonTreatmentHistorySearchResult" minOccurs="0" maxOccurs="unbounded" />
-<!-- 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/> -->
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:element name="PersonTreatmentHistorySearchResult" type="thsres-ext:PersonTreatmentHistorySearchResultType">
-		<xsd:annotation>
-			<xsd:documentation>A result of a search for a person's treatment history.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:complexType name="PersonTreatmentHistorySearchResultType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for a result of a search for a person's treatment history.</xsd:documentation>
+			<xsd:documentation>A data type for search results matching a request for a person's evaluation details.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
@@ -64,7 +45,6 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 
-	<!-- TODO what happens if there are multiple search results? should we only expect one?-->
 	<xsd:element name="PersonTemporaryIdentification" type="nc30:IdentificationType" substitutionGroup="nc30:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A short-lived identifier intended to allow for linking between a search request and search results.  This identifier should have been included in the original search request message and should be included in this message, unaltered.</xsd:documentation>
@@ -72,7 +52,7 @@
 	</xsd:element>
 	<xsd:element name="PersonPersistentIdentification" type="nc30:IdentificationType" substitutionGroup="nc30:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A timeless identifier assigned to an individual and always belongs to that individual. This allows for identify activities and information that belong to a person without always needing to share PII about that individual. </xsd:documentation>
+			<xsd:documentation>A unique and timeless identifier assigned to an individual and always belongs to that individual. This allows for identify activities and information that belong to a person without always needing to share PII about that individual. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SeriousMentalIllnessIndicator" type="niem-xsd:boolean" substitutionGroup="jxdm51:EvaluationAugmentationPoint">
