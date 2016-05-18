@@ -54,10 +54,7 @@
 	
 	<xsd:element name="SourceSystemNameText" type="nc30:TextType">
 		<xsd:annotation>
-			<xsd:documentation>The name of a system that is to be queried.
-				Absence of this element indicates that all known systems shall be
-				queried.
-			</xsd:documentation>
+			<xsd:documentation>The name of a system that is to be queried. Absence of this element indicates that all known systems shall be queried.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
