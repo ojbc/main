@@ -28,14 +28,11 @@
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" schemaLocation="access-denial.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" schemaLocation="search-request-error-reporting.xsd"/>
 	<xsd:complexType name="SearchResultsMetadataType">
 		<xsd:complexContent>
-			<xsd:extension base="s:ComplexObjectType">
+			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="iad:InformationAccessDenial" minOccurs="0"/>
-					<xsd:element ref="srer:SearchErrors" minOccurs="0"/>
 					<xsd:element ref="srer:SearchRequestError" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>

@@ -30,32 +30,7 @@
   <xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1" schemaLocation="Subset/niem/domains/intelligence/2.1/intelligence.xsd" />
   <xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd"/>
   <xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
-  <xsd:complexType name="SearchErrorsType">
-  	<xsd:annotation>
-  		<xsd:documentation>A collection of errors reported subsequent to submission of a search request.</xsd:documentation>
-  	</xsd:annotation>
-  	<xsd:complexContent>
-  		<xsd:extension base="s:ComplexObjectType">
-  			<xsd:sequence>
-  				<xsd:element maxOccurs="1" minOccurs="0" ref="intel:SystemName"/>
-  				<xsd:element ref="srer:SearchResultsExceedThresholdError" minOccurs="0"/>
-  			</xsd:sequence>
-  		</xsd:extension>
-  	</xsd:complexContent>
-  </xsd:complexType>
-  
-    <xsd:complexType name="SearchResultsExceedThresholdErrorType">
-  	<xsd:annotation>
-  		<xsd:documentation>A data type for a collection of errors reported subsequent to submission of a search request.</xsd:documentation>
-  	</xsd:annotation>
-  	<xsd:complexContent>
-  		<xsd:extension base="s:ComplexObjectType">
-  			<xsd:sequence>
-  				<xsd:element ref="srer:SearchResultsRecordCount" minOccurs="1"/>
-  			</xsd:sequence>
-  		</xsd:extension>
-  	</xsd:complexContent>
-  </xsd:complexType>
+
   <xsd:complexType name="SearchRequestErrorType">
   	<xsd:complexContent>
   		<xsd:extension base="s:ComplexObjectType">
@@ -66,23 +41,9 @@
   		</xsd:extension>
   	</xsd:complexContent>
   </xsd:complexType>
-    <xsd:element name="SearchErrors" type="srer:SearchErrorsType">
+    <xsd:element name="ErrorText" type="nc:TextType">
     	<xsd:annotation>
-    		<xsd:documentation>
-    			A collection of errors reported subsequent to submission of a search request.
-    		</xsd:documentation>
+    		<xsd:documentation>A textual description of an error.</xsd:documentation> 
     	</xsd:annotation>
     </xsd:element>
-    <xsd:element name="SearchResultsExceedThresholdError" type="srer:SearchResultsExceedThresholdErrorType">
-    	<xsd:annotation>
-    		<xsd:documentation>An error that occurs when a search request has returned a number of records that is greater than a pre-determined threshold.</xsd:documentation>
-    	</xsd:annotation>
-    </xsd:element>
-    <xsd:element name="SearchResultsRecordCount" type="niem-xsd:decimal">
-    	<xsd:annotation>
-    		<xsd:documentation>A number of records returned for a given request.</xsd:documentation>
-    	</xsd:annotation>
-    </xsd:element>
-    <xsd:element name="SearchRequestError" type="srer:SearchRequestErrorType"/>
-    <xsd:element name="ErrorText" type="nc:TextType"/>
 </xsd:schema>
