@@ -27,8 +27,6 @@
 	elementFormDefault="qualified">
 
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/EvaluationSearchRequest/1.0" schemaLocation="extension_schema.xsd" />
-
-	<!-- Root data element for the Person Treatment History Search Request -->
 	<xsd:element name="PersonEvaluationSearchRequest" type="evalsr-ext:PersonEvaluationSearchRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A message that requests evaluation information for a person.</xsd:documentation>
