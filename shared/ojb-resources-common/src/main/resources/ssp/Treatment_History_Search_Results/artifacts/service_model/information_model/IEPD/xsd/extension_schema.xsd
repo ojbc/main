@@ -22,12 +22,15 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:thsres-ext="http://ojbc.org/IEPD/Extensions/TreatmentHistorySearchResults/1.0"
-	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xsd.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
+	
 <!-- 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="search-results-metadata.xsd"/> -->
 	<xsd:complexType name="PersonTreatmentHistorySearchResultsType">
 		<xsd:annotation>
@@ -55,20 +58,26 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="nc30:Person" />
+					<xsd:element ref="jxdm51:Evaluation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 
-	
-	<xsd:element name="SourceSystemNameText" type="nc30:TextType">
+	<!-- TODO what happens if there are multiple search results? should we only expect one?-->
+	<xsd:element name="PersonTemporaryIdentification" type="nc30:IdentificationType" substitutionGroup="nc30:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>The name of a system that returned the search result. This can be used to retrieve additional information about the person in the search result.</xsd:documentation>
+			<xsd:documentation>A short-lived identifier intended to allow for linking between a search request and search results.  This identifier should have been included in the original search request message and should be included in this message, unaltered.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SearchResultCategoryText" type="nc30:TextType">
+	<xsd:element name="PersonPersistentIdentification" type="nc30:IdentificationType" substitutionGroup="nc30:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A description of the kind of search result.</xsd:documentation>
+			<xsd:documentation>A timeless identifier assigned to an individual and always belongs to that individual. This allows for identify activities and information that belong to a person without always needing to share PII about that individual. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SeriousMentalIllnessIndicator" type="niem-xsd:boolean" substitutionGroup="jxdm51:EvaluationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if the evaluation provider has diagnosed the person with a serious mental illness (SMI), false otherwise. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

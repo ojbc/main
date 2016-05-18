@@ -19,19 +19,19 @@
 -->
 <xsd:schema 
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/TreatmentHistorySearchRequest/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Exchange/EvaluationSearchRequest/1.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" 
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:thsr-doc="http://ojbc.org/IEPD/Exchange/TreatmentHistorySearchRequest/1.0"
-	xmlns:thsr-ext="http://ojbc.org/IEPD/Extensions/TreatmentHistorySearchRequest/1.0"
+	xmlns:evalsr-doc="http://ojbc.org/IEPD/Exchange/EvaluationSearchRequest/1.0"
+	xmlns:evalsr-ext="http://ojbc.org/IEPD/Extensions/EvaluationSearchRequest/1.0"
 	elementFormDefault="qualified">
 
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/TreatmentHistorySearchRequest/1.0" schemaLocation="extension_schema.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/EvaluationSearchRequest/1.0" schemaLocation="extension_schema.xsd" />
 
 	<!-- Root data element for the Person Treatment History Search Request -->
-	<xsd:element name="PersonTreatmentHistorySearchRequest" type="thsr-ext:PersonTreatmentHistorySearchRequestType">
+	<xsd:element name="PersonEvaluationSearchRequest" type="evalsr-ext:PersonEvaluationSearchRequestType">
 		<xsd:annotation>
-			<xsd:documentation>A message that requests treatment information for a person.</xsd:documentation>
+			<xsd:documentation>A message that requests evaluation information for a person.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 
