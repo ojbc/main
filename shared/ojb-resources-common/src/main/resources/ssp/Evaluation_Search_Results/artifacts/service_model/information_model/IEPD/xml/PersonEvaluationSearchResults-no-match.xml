@@ -18,7 +18,7 @@
 
 -->
 
-<!-- This sampl represents the scenario where there is no evaluation information available for a person -->
+<!-- This sample represents the scenario where there is no evaluation information available for a person -->
 
 <evalsres-doc:PersonEvaluationSearchResults
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
