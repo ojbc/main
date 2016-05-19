@@ -39,7 +39,6 @@
 					<xsd:element ref="nc30:Person" />
 					<xsd:element ref="nc30:Identity" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc30:PersonAliasIdentityAssociation" minOccurs="0"/>
-					<xsd:element ref="evalsr-ext:SourceSystemNameText" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -51,9 +50,4 @@
 		</xsd:annotation>
 	</xsd:element>
 	
-	<xsd:element name="SourceSystemNameText" type="nc30:TextType">
-		<xsd:annotation>
-			<xsd:documentation>The name of a system that is to be queried. Absence of this element indicates that all known systems shall be queried.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 </xsd:schema>
