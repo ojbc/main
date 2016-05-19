@@ -80,6 +80,9 @@ public final class DaoUtils {
 			else if (object instanceof BigDecimal){
 				ps.setBigDecimal(index, (BigDecimal) object);
 			}
+			else if (object instanceof Boolean){
+				ps.setBoolean(index, (Boolean) object);
+			}
         }
         else{
         	ps.setNull(index, java.sql.Types.NULL);
