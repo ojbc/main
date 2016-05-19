@@ -752,6 +752,15 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static String NS_PROSECUTION_DECISION_UPDATE_EXT = "http://ojbc.org/IEPD/Extensions/ProsecutionDecisionUpdate/1.0";
 	public static String NS_PREFIX_PROSECUTION_DECISION_UPDATE_EXT="pdu-ext";
 	
+	public static String NS_CORE_FILING_MESSAGE = "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0";
+	public static String NS_PREFIX_CORE_FILING_MESSAGE="cfm";
+
+	public static String NS_CITATION_CASE_DOC = "http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0";
+	public static String NS_PREFIX_CITATION_CASE_DOC="ojb-cit-doc";
+
+	public static String NS_CITATION_CASE_EXT = "http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0";
+	public static String NS_PREFIX_CITATION_CASE_EXT="ojb-cit-ext";
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -760,6 +769,15 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();	
+		
+		prefixToUriMap.put(NS_PREFIX_CORE_FILING_MESSAGE, NS_CORE_FILING_MESSAGE);
+		uriToPrefixMap.put(NS_CORE_FILING_MESSAGE, NS_PREFIX_CORE_FILING_MESSAGE);
+
+		prefixToUriMap.put(NS_PREFIX_CITATION_CASE_DOC, NS_CITATION_CASE_DOC);
+		uriToPrefixMap.put(NS_CITATION_CASE_DOC, NS_PREFIX_CITATION_CASE_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CITATION_CASE_EXT, NS_CITATION_CASE_EXT);
+		uriToPrefixMap.put(NS_CITATION_CASE_EXT, NS_PREFIX_CITATION_CASE_EXT);		
 
 		prefixToUriMap.put(NS_PREFIX_COURT_DISPOSITION_UPDATE_EXT, NS_COURT_DISPOSITION_UPDATE_EXT);
 		uriToPrefixMap.put(NS_COURT_DISPOSITION_UPDATE_EXT, NS_PREFIX_COURT_DISPOSITION_UPDATE_EXT);

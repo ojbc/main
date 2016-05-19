@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:ctx="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
+    <!-- needed cxf imports -->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="warrant_modification_context">
+	
+		<endpoint id="warrantModIntermediaryRequestEndpoint"
+			uri="cxf:bean:warrantModificationIntermediaryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantMod.cxflogging}" />
+
+		<endpoint id="warrantModIntermediaryResultsHandlerEndpoint"
+			uri="cxf:bean:warrantModificationIntermediaryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantMod.cxflogging}" />
+
+	    <endpoint id="warrantModAdapterRequestEndpoint" 
+	    	uri="cxf:bean:warrantModificationAdapterRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantMod.cxflogging}"/>
+	
+		<endpoint id="warrantModConnectorResultsHandlerEndpoint" 
+			uri="cxf:bean:warrantModificationConnectorResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantMod.cxflogging}"/>                        
+
+		<endpoint id="fileDropTestInputEndpoint"
+			uri="file:///${warrantMod.testFileInputDir}/input?idempotent=true&amp;moveFailed=${warrantMod.testFileInputDir}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=true" />
+
+
+		<camel:route id="warrantModRequestTest_route">
+		
+			<from uri="fileDropTestInputEndpoint" />
+		
+			<log message="\n\n\n warrantModRequestTest_route... \n\n\n"/>
+
+			<to uri="bean:warrantModMockInputProcessor?method=prepareMockInputMessage" />
+
+			<camel:setHeader headerName="federatedQueryRequestGUID">
+				<constant>12345</constant>				
+			</camel:setHeader>
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitWarrantModificationRequest</constant>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0</constant>
+			</camel:setHeader>
+								
+			<to uri="direct:processWarrantModRequest" />
+			
+		</camel:route>
+
+
+		<route id="warrantModRequest_webservice_Route">
+
+			<from uri="warrantModIntermediaryRequestEndpoint" />
+			
+			<log message="\n\n\n warrantModRequest_webservice_Route... \n\n\n"/>
+			
+			<to uri="direct:processWarrantModRequest" />		
+		
+		</route>
+
+
+		<camel:route id="processWarrantModRequest_route">
+		
+			<camel:from uri="direct:processWarrantModRequest" />
+			
+			<camel:to uri="direct:dbAuditLog"/>
+			
+			<!-- Get WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />				
+						
+			<setHeader headerName="WSAddressingReplyTo">
+				<simple>{{warrantMod.warrantModResultsIntermediaryEndpoint}}</simple>
+			</setHeader>
+			
+			<camel:wireTap uri="direct:startWarrantModReqTimer"/>
+
+			<camel:log message="\n\n\n Timer started... \n\n\n"/>
+			
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+						
+			<camel:setHeader headerName="operationName"><constant>SubmitWarrantModificationRequest</constant></camel:setHeader>
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/WarrantModificationRequestService/1.0</constant></camel:setHeader>			
+			
+			<to uri="warrantModAdapterRequestEndpoint"/>
+			
+		</camel:route>			
+				     
+				      
+		<camel:route id="startWarrantModReqTimer_route">
+		
+			<from uri="direct:startWarrantModReqTimer"/>
+			
+			<setBody>
+				<constant>START_WARRANT_MOD_TIMER</constant>
+			</setBody>
+			
+			<to uri="direct:aggregateWarrantModResponse" />					
+		</camel:route>
+	
+	
+		<!--  Warrants Mod Results Handler Route.  Called by Adapter -->
+		<camel:route id="warrantModResultsHandler_route">
+		
+			<camel:from uri="warrantModIntermediaryResultsHandlerEndpoint"/>
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:to uri="direct:dbAuditLog"/>
+			
+			<camel:log message="\n\n\n Receieved WarrantModResponse, sending to Aggregator...\n\n\n" />
+			
+			<camel:to uri="direct:aggregateWarrantModResponse" />
+		</camel:route>
+	
+	
+	    <camel:route id="aggregateWarrantMod_route">
+	    
+	      <from uri="direct:aggregateWarrantModResponse" />
+	      
+			<log message="\n\n\n Aggregator correlation id: ${in.header.federatedQueryRequestGUID} \n\n\n"/>
+			
+			<aggregate groupExchanges="true" eagerCheckCompletion="true">
+			
+				<correlationExpression>
+					<camel:header>federatedQueryRequestGUID</camel:header>
+				</correlationExpression>
+				
+				<completionTimeout>
+					<camel:simple>${properties:warrantMod.timeout}</camel:simple>
+				</completionTimeout>
+				
+					<!-- Completion size for 2 messages that arrive in this order:
+						1) Timer message 
+						2) WarrantModResults -->						
+				<completionSize>
+					<constant>2</constant>					
+				</completionSize>
+				
+				<log message="\n\n\n WarrantMod Aggregator Completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{warrantMod.timeout}} \n\n\n" />
+				
+				<to uri="bean:warrantModResponseAggregator?method=prepareResponseExchange" />
+
+				<log message="\n\n\n completed aggregated body: \n\n ${body} \n\n\n" />
+				
+				<camel:to uri="direct:callWarrantModConnectorResultHandler"/>
+
+			</aggregate>
+	      
+	    </camel:route>
+	    
+	    
+		<route id="callWarrantModConnectorResultHandler_route">
+		
+			<from uri="direct:callWarrantModConnectorResultHandler"/>
+									
+	        <camel:setHeader headerName="operationName">
+	            <constant>SubmitWarrantModificationResponse</constant>
+	        </camel:setHeader>
+	        
+	        <camel:setHeader headerName="operationNamespace">
+	            <constant>http://ojbc.org/Services/WSDL/WarrantModificationResponseService/1.0</constant>
+	        </camel:setHeader>
+			
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
+			
+			<camel:log message="\n\n\n Sending warrant mod response to connector result handler \n\n\n" />			
+						
+			<to uri="warrantModConnectorResultsHandlerEndpoint"/>
+		</route>
+	    
+	    
+		<route id="dbAuditlog_route">
+		
+			<from uri="direct:dbAuditLog"/>
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:warrantMod.dbAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>					
+		</route>		
+					    
+	</camel:camelContext>
+  
+	<!-- Spring Beans -->
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+
+	<bean id="warrantModResponseAggregator"
+		class="org.ojbc.bundles.intermediaries.warrantmodification.aggregator.WarrantModResponseAggregator"/>
+			
+	<bean id="warrantModMockInputProcessor" 
+		class="org.ojbc.bundles.intermediaries.warrantmodification.processor.WarrantModMockInputProcessor" />
+					
+</beans>
