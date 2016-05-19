@@ -17,8 +17,8 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<thsr-doc:PersonEvaluationSearchRequest
-	xmlns:thsr-doc="http://ojbc.org/IEPD/Exchange/EvaluationSearchRequest/1.0"
+<evalsr-doc:PersonEvaluationSearchRequest
+	xmlns:evalsr-doc="http://ojbc.org/IEPD/Exchange/EvaluationSearchRequest/1.0"
 	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:evalsr-ext="http://ojbc.org/IEPD/Extensions/EvaluationSearchRequest/1.0"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
@@ -85,4 +85,4 @@
 		<nc30:Identity structures:ref="ALIAS002"/>
 		<nc30:Identity structures:ref="ALIAS003"/>
 	</nc30:PersonAliasIdentityAssociation>
-</thsr-doc:PersonEvaluationSearchRequest>
+</evalsr-doc:PersonEvaluationSearchRequest>
