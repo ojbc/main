@@ -16,13 +16,13 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao;
 
-import java.math.BigDecimal;
+import static org.ojbc.util.helper.DaoUtils.setPreparedStatementVariable;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -414,31 +414,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         }	 
         
         return returnValue;	
-	}
-
-	private void setPreparedStatementVariable(Object object, PreparedStatement ps, int index)
-			throws SQLException {
-		
-		if (object != null){
-			if (object instanceof Integer){
-				ps.setInt(index, (Integer) object);
-			}
-			else if (object instanceof String){
-				ps.setString(index, (String) object);
-			}
-			else if (object instanceof LocalDate){
-				ps.setDate(index, java.sql.Date.valueOf((LocalDate) object));
-			}
-			else if (object instanceof LocalDateTime){
-				ps.setTimestamp(index, java.sql.Timestamp.valueOf((LocalDateTime) object));
-			}
-			else if (object instanceof BigDecimal){
-				ps.setBigDecimal(index, (BigDecimal) object);
-			}
-        }
-        else{
-        	ps.setNull(index, java.sql.Types.NULL);
-        }
 	}
 
 	@Override
