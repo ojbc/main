@@ -143,24 +143,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            PreparedStatement ps =
         	                connection.prepareStatement(personStatement, new String[] {"PersonSexID", "PersonRaceID", "PersonBirthDate", "PersonUniqueIdentifier", "LanguageID"});
         	            
-        	            if (person.getPersonSexID() != null)
-        	            {	
-        	            	ps.setInt(1, person.getPersonSexID());
-        	            }
-        	            else
-        	            {
-        	            	ps.setNull(1, java.sql.Types.NULL);
-        	            }	
-        	            
-        	            if (person.getPersonRaceID() != null)
-        	            {	
-        	            	ps.setInt(2, person.getPersonRaceID());
-        	            }
-        	            else
-        	            {
-        	            	ps.setNull(2, java.sql.Types.NULL);
-        	            }	
-        	            
+        	            setPreparedStatementVariable(person.getPersonSexID(), ps, 1);
+        	            setPreparedStatementVariable(person.getPersonRaceID(), ps, 2);
         	            setPreparedStatementVariable(person.getPersonBirthDate(), ps, 3);
         	            
         	            ps.setString(4, String.valueOf(person.getPersonUniqueIdentifier()));
@@ -309,9 +293,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	                		"HousingStatusID"});
         	            
         	            ps.setShort(1, bookingSubject.getRecidivistIndicator().shortValue());
-        	            
     	            	ps.setInt(2, bookingSubject.getPersonId());
-
     	            	setPreparedStatementVariable(bookingSubject.getPersonAge(), ps, 3);
     	            	setPreparedStatementVariable(bookingSubject.getEducationLevelId(), ps, 4);
     	            	setPreparedStatementVariable(bookingSubject.getOccupationId(), ps, 5);
