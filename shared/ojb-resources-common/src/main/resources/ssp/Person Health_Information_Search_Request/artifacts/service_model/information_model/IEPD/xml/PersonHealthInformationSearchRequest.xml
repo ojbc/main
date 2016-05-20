@@ -17,15 +17,15 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<evalsr-doc:PersonEvaluationSearchRequest
-	xmlns:evalsr-doc="http://ojbc.org/IEPD/Exchange/EvaluationSearchRequest/1.0"
+<phisr-doc:PersonHealthInformationSearchRequest
+	xmlns:phisr-doc="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchRequest/1.0"
 	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:evalsr-ext="http://ojbc.org/IEPD/Extensions/EvaluationSearchRequest/1.0"
+	xmlns:phisr-ext="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchRequest/1.0"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/EvaluationSearchRequest/1.0 ../xsd/exchange_schema.xsd http://release.niem.gov/niem/domains/jxdm/5.1/ ../xsd/Subset/niem/domains/jxdm/5.1/jxdm.xsd">
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchRequest/1.0 ../xsd/exchange_schema.xsd http://release.niem.gov/niem/domains/jxdm/5.1/ ../xsd/Subset/niem/domains/jxdm/5.1/jxdm.xsd">
 	<nc30:Person structures:id="P001">
 		<nc30:PersonBirthDate>
 			<nc30:Date>1959-09-07</nc30:Date>
@@ -38,9 +38,9 @@
 		</nc30:PersonName>
 		<jxdm51:PersonRaceCode>W</jxdm51:PersonRaceCode>
 		<jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
-		<evalsr-ext:PersonTemporaryIdentification>
+		<phisr-ext:PersonTemporaryIdentification>
 			 <nc30:IdentificationID>1234567890</nc30:IdentificationID>
-		</evalsr-ext:PersonTemporaryIdentification>
+		</phisr-ext:PersonTemporaryIdentification>
 	</nc30:Person>
 	<nc30:Identity structures:id="ALIAS001">
 		<nc30:IdentityPersonRepresentation>
@@ -85,4 +85,4 @@
 		<nc30:Identity structures:ref="ALIAS002"/>
 		<nc30:Identity structures:ref="ALIAS003"/>
 	</nc30:PersonAliasIdentityAssociation>
-</evalsr-doc:PersonEvaluationSearchRequest>
+</phisr-doc:PersonHealthInformationSearchRequest>
