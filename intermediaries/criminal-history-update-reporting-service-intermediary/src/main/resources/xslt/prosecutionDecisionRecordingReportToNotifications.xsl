@@ -178,7 +178,7 @@
 			<xsl:apply-templates select="nc30:PersonWeighttMeasure"/>
 			<j:PersonAugmentation>
 				<xsl:apply-templates select="j50:PersonAugmentation/j50:DriverLicense/j50:DriverLicenseCardIdentification" mode="dl"/>
-				<xsl:apply-templates select="nc30:PersonStateIdentification"/>
+				<xsl:apply-templates select="j50:PersonAugmentation/j50:PersonStateFingerprintIdentification"/>
 			</j:PersonAugmentation>	
 		</j:Person>
 	</xsl:template>
@@ -190,7 +190,7 @@
 		</nc:DriverLicense>
 	</xsl:template>
 	
-	<xsl:template match="nc30:PersonStateIdentification">
+	<xsl:template match="j50:PersonAugmentation/j50:PersonStateFingerprintIdentification">
 		<j:PersonStateFingerprintIdentification>
 			<nc:IdentificationID>
 				<xsl:apply-templates select="nc30:IdentificationID"/>
