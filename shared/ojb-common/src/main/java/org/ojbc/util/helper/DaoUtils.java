@@ -14,13 +14,19 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.analyticsstaging.custody.util;
+package org.ojbc.util.helper;
 
+import java.math.BigDecimal;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-public class DaoUtils {
-
+public final class DaoUtils {
+	
+	private DaoUtils() {
+	}
 	/**
 	 * This method will return a null rather than zero if the database has a null
 	 * value for the column.
@@ -54,4 +60,34 @@ public class DaoUtils {
 		
 		return returnValue;
 	}
+	
+	public static void setPreparedStatementVariable(Object object, PreparedStatement ps, int index)
+			throws SQLException {
+		
+		if (object != null){
+			if (object instanceof Integer){
+				ps.setInt(index, (Integer) object);
+			}
+			else if (object instanceof String){
+				ps.setString(index, (String) object);
+			}
+			else if (object instanceof LocalDate){
+				ps.setDate(index, java.sql.Date.valueOf((LocalDate) object));
+			}
+			else if (object instanceof LocalDateTime){
+				ps.setTimestamp(index, java.sql.Timestamp.valueOf((LocalDateTime) object));
+			}
+			else if (object instanceof BigDecimal){
+				ps.setBigDecimal(index, (BigDecimal) object);
+			}
+			else if (object instanceof Boolean){
+				ps.setBoolean(index, (Boolean) object);
+			}
+        }
+        else{
+        	ps.setNull(index, java.sql.Types.NULL);
+        }
+	}
+
+
 }

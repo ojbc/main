@@ -35,6 +35,10 @@ import org.w3c.dom.Node;
 
 public abstract class AbstractReportRepositoryProcessor {
 
+	private static final String HCJDC_ORI = "HCJDC";
+
+	private static final String OCA_VECHS = "VECHS";
+
 	@Autowired
 	protected RapbackDAO rapbackDAO;
 	
@@ -60,13 +64,18 @@ public abstract class AbstractReportRepositoryProcessor {
 		String otn = XmlUtils.xPathStringSearch(subjectNode, "ident-ext:PersonTrackingIdentidication/nc30:IdentificationID");
 		identificationTransaction.setOtn(otn);
 		
-		String ownerOri = XmlUtils.xPathStringSearch(rootNode, "ident-ext:IdentificationApplicantOrganization/"
-				+ "jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
-		identificationTransaction.setOwnerOri(ownerOri);
-		
 		String ownerProgramOca = XmlUtils.xPathStringSearch(rootNode, "//ident-ext:IdentificationApplicantOrganization/"
 				+ "nc30:OrganizationIdentification/nc30:IdentificationID");
 		identificationTransaction.setOwnerProgramOca(ownerProgramOca);
+
+		String ownerOri = XmlUtils.xPathStringSearch(rootNode, "ident-ext:IdentificationApplicantOrganization/"
+				+ "jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
+		
+		if (HCJDC_ORI.equals(ownerOri) && (StringUtils.isNotBlank(ownerProgramOca) && ownerProgramOca.contains(OCA_VECHS))){
+			identificationTransaction.setOwnerOri(ownerProgramOca);
+		}else{
+			identificationTransaction.setOwnerOri(ownerOri);
+		}
 		
 		String identificationCategory = XmlUtils.xPathStringSearch(rootNode, "ident-ext:CivilIdentificationReasonCode|ident-ext:CriminalIdentificationReasonCode");
 		identificationTransaction.setIdentificationCategory(identificationCategory);
