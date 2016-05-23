@@ -26,8 +26,10 @@
 	xmlns:camel="http://camel.apache.org/schema/spring" 
     xmlns:sec="http://cxf.apache.org/configuration/security"
     xmlns:http="http://cxf.apache.org/transports/http/configuration"
-	xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"    
+	xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration" 
+	xmlns:util="http://www.springframework.org/schema/util"    
 	xsi:schemaLocation="
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
 	   http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
@@ -46,18 +48,10 @@
 		endpointName="ojbc:Behavioral-Health-Evaluation-Reporting-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/BehavioralHealthEvaluationReportingService/1.0">
         <cxf:properties>
-        	<entry key="mtom-enabled" value="true"/>
-        	<entry key="dataFormat" value="PAYLOAD"/>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="behavioralReportingKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${behaviorHealthEvalReportingService.keystoreCertificateAlias}" />        	
         </cxf:properties>
-		 <cxf:features> 
- 			<policy:policies> 
- 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
- 					<wsam:Addressing> 
- 						<wsp:Policy /> 
- 					</wsam:Addressing> 
- 				</wsp:Policy> 
- 			</policy:policies> 
- 		</cxf:features>	 
 	</cxf:cxfEndpoint>
 	    
 	<!-- invoked by this intermediary -->
@@ -68,9 +62,45 @@
 		endpointName="ojbc:Behavioral-Health-Evaluation-Reporting-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/BehavioralHealthEvaluationReportingService/1.0">
         <cxf:properties>
-        	<entry key="mtom-enabled" value="true"/>
-        	<entry key="dataFormat" value="PAYLOAD"/>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="behavioralReportingKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${behaviorHealthEvalReportingService.keystoreCertificateAlias}" />        	
         </cxf:properties>
 	</cxf:cxfEndpoint>
+	
+	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+	    <property name="passwords">
+            <map>
+                <entry key="${behaviorHealthEvalReportingService.keystoreCertificateAlias}" value="${behaviorHealthEvalReportingService.keyPassword}"/>
+            </map>
+        </property>
+	</bean>		
+	
+	<util:properties id="behavioralReportingKeystoreProperties">
+		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${behaviorHealthEvalReportingService.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${behaviorHealthEvalReportingService.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${behaviorHealthEvalReportingService.keystoreLocation}</prop>
+	</util:properties>	
+	
+	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${behaviorHealthEvalReportingService.truststorePassword}"
+					file="${behaviorHealthEvalReportingService.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>		
 	
 </beans>

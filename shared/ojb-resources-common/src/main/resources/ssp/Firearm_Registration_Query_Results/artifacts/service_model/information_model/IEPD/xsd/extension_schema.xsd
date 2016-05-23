@@ -17,20 +17,10 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema 
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	xmlns:s="http://niem.gov/niem/structures/2.0" 
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
-	xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0" 
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
-	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" 
-	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
-	xmlns:FirearmTypeCodes="http://ojbc.org/IEPD/Extensions/FirearmTypeCodes/1.0" 
-	xmlns:firearms-hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0"
-	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" 
-	targetNamespace="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:FirearmTypeCodes="http://ojbc.org/IEPD/Extensions/FirearmTypeCodes/1.0" xmlns:firearms-hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="Subset/niem/domains/jxdm/4.1/jxdm.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/FirearmTypeCodes/1.0" schemaLocation="firearm_type_codes.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" schemaLocation="query-results-metadata.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
@@ -51,6 +41,7 @@
 					<xsd:element ref="firearm-ext:Firearm" minOccurs="0"/>
 					<xsd:element ref="firearm-ext:FirearmRegistrant" minOccurs="0"/>
 					<xsd:element ref="firearm-ext:ItemRegistration" minOccurs="0"/>
+					<xsd:element ref="nc:DriverLicense" minOccurs="0"/>
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:PropertyRegistrationAssociation" minOccurs="0"/>
@@ -58,6 +49,7 @@
 					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0"/>
 					<xsd:element ref="nc:PersonEmploymentAssociation" minOccurs="0"/>
 					<xsd:element ref="nc:EmployeeContactInformationAssociation" minOccurs="0"/>
+					<xsd:element ref="j:PersonDriverLicenseAssociation" minOccurs="0"/>
 					<xsd:element ref="srm:QueryResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -74,6 +66,7 @@
 					<xsd:element ref="firearm-ext:Firearm" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="firearm-ext:FirearmRegistrant" minOccurs="0"/>
 					<xsd:element ref="firearm-ext:ItemRegistration" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:DriverLicense" minOccurs="0"/>
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:PropertyRegistrationAssociation" minOccurs="0" maxOccurs="unbounded"/>
@@ -81,6 +74,7 @@
 					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0"/>
 					<xsd:element ref="nc:PersonEmploymentAssociation" minOccurs="0"/>
 					<xsd:element ref="nc:EmployeeContactInformationAssociation" minOccurs="0"/>
+					<xsd:element ref="j:PersonDriverLicenseAssociation" minOccurs="0"/>
 					<xsd:element ref="srm:QueryResultsMetadata" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -172,7 +166,7 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-		<xsd:element name="RegistrationStatus" type="firearm-ext:RegistrationStatusType">
+	<xsd:element name="RegistrationStatus" type="firearm-ext:RegistrationStatusType">
 		<xsd:annotation>
 			<xsd:documentation>The state or disposition of a registration.</xsd:documentation>
 		</xsd:annotation>
@@ -250,7 +244,7 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="firearm-ext:FirearmRegistrantCommentsText" minOccurs="0"/>
-					<xsd:element ref="firearm-ext:FirearmRegistrantLawEnforcementOfficersSafetyActIndicator" minOccurs="0"/> 
+					<xsd:element ref="firearm-ext:FirearmRegistrantLawEnforcementOfficersSafetyActIndicator" minOccurs="0"/>
 					<xsd:element ref="nc:RoleOfPersonReference" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>

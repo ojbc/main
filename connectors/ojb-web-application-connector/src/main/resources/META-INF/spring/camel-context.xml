@@ -371,7 +371,7 @@
 	    <camel:route id="custodyQueryResultsHandlerRoute" autoStartup="false">
 	    	<from uri="custodyQueryResultsHandlerServiceEndpoint"/>
 	    		    	
-	    	<camel:log message="Received response message - Custody Search ${body}" loggingLevel="DEBUG"/>
+	    	<camel:log message="Received response message - Custody Query ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
 	    	<!-- We can use any message processor to process the payload, it is generic method -->
@@ -379,6 +379,20 @@
 			
 	    	<camel:convertBodyTo type="java.lang.String"/>
 	    	<camel:to uri="bean:custodyQueryRequestProcessor?method=updateMapWithResponse"/>
+	    </camel:route>
+
+	    <!-- Vehicle Crash Query Result Listener -->
+	    <camel:route id="vehicleCrashQueryResultsHandlerRoute" autoStartup="false">
+	    	<from uri="vehicleCrashQueryResultsHandlerServiceEndpoint"/>
+	    		    	
+	    	<camel:log message="Received response message - Vehicle Crash Query Result ${body}" loggingLevel="DEBUG"/>
+
+	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+	    	<!-- We can use any message processor to process the payload, it is generic method -->
+			<camel:to uri="bean:vehicleCrashMessageProcessor?method=processRequestPayload" />
+			
+	    	<camel:convertBodyTo type="java.lang.String"/>
+	    	<camel:to uri="bean:vehicleCrashQueryRequestProcessor?method=updateMapWithResponse"/>
 	    </camel:route>
 
 	</camel:camelContext>

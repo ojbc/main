@@ -87,6 +87,20 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="ConveyanceRegistrationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a registration of a conveyance with an authority.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="j:ItemRegistrationType">
+        <xs:sequence>
+          <xs:element ref="j:ConveyanceRegistrationPlateIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ConveyanceRegistrationPlateCategory" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ConveyanceRegistrationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="CourtOrderType">
     <xs:annotation>
       <xs:documentation>A data type for a direction of a judge not including a judgement, which determines some point or directs some steps in proceedings.</xs:documentation>
@@ -127,6 +141,32 @@
       <xs:extension base="j:DriverLicenseBaseType">
         <xs:sequence>
           <xs:element ref="j:DriverLicenseCardIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ItemRegistrationAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an item and its registration information.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="j:ItemRegistration" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Item" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ItemRegistrationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a registration of a property item with an authority.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:RegistrationExpirationDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:JurisdictionAbstract" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -218,6 +258,51 @@
       <xs:documentation>An augmentation point for ChargeType.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ConveyanceColorPrimaryCode" type="ncic:VCOCodeType" substitutionGroup="nc:ItemColor">
+    <xs:annotation>
+      <xs:documentation>A single, upper-most, front-most, or majority color of a vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceColorSecondaryCode" type="ncic:VCOCodeType" substitutionGroup="nc:ItemColor">
+    <xs:annotation>
+      <xs:documentation>A lower-most or rear-most color of a two-tone vehicle or a lesser color of a multi-colored vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceRegistration" type="j:ConveyanceRegistrationType">
+    <xs:annotation>
+      <xs:documentation>A registration of a conveyance with an authority.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceRegistrationAssociation" type="j:ItemRegistrationAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between a property item and its registration.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceRegistrationAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for ConveyanceRegistrationType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceRegistrationPlateCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind of registration plate or license plate of a conveyance.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceRegistrationPlateCategoryCode" type="ncic:LITCodeType" substitutionGroup="j:ConveyanceRegistrationPlateCategory">
+    <xs:annotation>
+      <xs:documentation>A kind of registration plate or license plate of a conveyance.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceRegistrationPlateCategoryText" type="nc:TextType" substitutionGroup="j:ConveyanceRegistrationPlateCategory">
+    <xs:annotation>
+      <xs:documentation>A kind of registration plate or license plate of a conveyance.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceRegistrationPlateIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification on a metal plate fixed to a conveyance.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="CourtOrderDesignatedSubject" type="j:SubjectType" nillable="true">
     <xs:annotation>
       <xs:documentation>A person to which a court order applies. The subject could be a Protected Party, the recipient of a Summons or Subpoena, the subject of a Warrant, etc.</xs:documentation>
@@ -253,14 +338,14 @@
       <xs:documentation>An identification that is affixed to the raw materials (card stock, laminate, etc.) used in producing driver licenses and ID cards. The numbers are issued by the material's manufacturer and provide a unique reference to a card within a jurisdiction.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ItemRegistration" type="j:ItemRegistrationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A registration of an item with an authority.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="JurisdictionNCICLISCode" type="ncic:LISCodeType" substitutionGroup="nc:JurisdictionAbstract">
     <xs:annotation>
       <xs:documentation>An area, state, region, or other geographic unit over which some kind of authority exists.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="LocationStateNCICLSTACode" type="ncic:LSTACodeType" substitutionGroup="nc:LocationState">
-    <xs:annotation>
-      <xs:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OrganizationAugmentation" type="j:OrganizationAugmentationType" substitutionGroup="nc:OrganizationAugmentationPoint" nillable="true">
@@ -333,7 +418,12 @@
       <xs:documentation>A specific kind of physical feature.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="Subject" type="j:SubjectType" nillable="true">
+  <xs:element name="RegistrationExpirationDate" type="nc:DateType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A date the current registration is no longer in effect.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Subject" type="j:SubjectType">
     <xs:annotation>
       <xs:documentation>A person who is involved or suspected of being involved in an incident or criminal activity.</xs:documentation>
     </xs:annotation>
@@ -341,6 +431,21 @@
   <xs:element name="SubjectCorrectionsIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A unique identification assigned by a state Department of Corrections (DOC) to each inmate supervised in the state system.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleMakeCode" type="ncic:VMACodeType" substitutionGroup="nc:VehicleMake">
+    <xs:annotation>
+      <xs:documentation>A manufacturer of a vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleModelCode" type="ncic:VMOCodeType" substitutionGroup="nc:VehicleModel">
+    <xs:annotation>
+      <xs:documentation>A specific design or class of vehicle made by a manufacturer.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleStyleCode" type="ncic:VSTCodeType" substitutionGroup="nc:ItemStyle">
+    <xs:annotation>
+      <xs:documentation>A style of a vehicle.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Warrant" type="j:WarrantType">

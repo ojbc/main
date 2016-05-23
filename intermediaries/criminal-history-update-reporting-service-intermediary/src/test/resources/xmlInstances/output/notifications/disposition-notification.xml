@@ -17,16 +17,16 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<b:Notify xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
-          xmlns:me_disp_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0"
-          xmlns:s="http://niem.gov/niem/structures/2.0"
-          xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
-          xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0"
-          xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+<b:Notify xmlns:b="http://docs.oasis-open.org/wsn/b-2"
           xmlns:add="http://www.w3.org/2005/08/addressing"
           xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
           xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-          xmlns:cdu="http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0">
+          xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+          xmlns:s="http://niem.gov/niem/structures/2.0"
+          xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+          xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+          xmlns:cdu="http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0"
+          xmlns:me_disp_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0">
    <b:NotificationMessage>
       <b:SubscriptionReference>
          <add:Address>http://www.ojbc.org/SubscriptionManager</add:Address>
@@ -44,7 +44,7 @@
             <notificationExt:NotifyingCourtDispositionUpdate>
                <notificationExt:NotifyingActivityReportingSystemNameText>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</notificationExt:NotifyingActivityReportingSystemNameText>
                <notificationExt:NotifyingActivityReportingSystemURI>SystemURIHere</notificationExt:NotifyingActivityReportingSystemURI>
-               <cdu:CourtDispositionUpdate>
+               <cdu:CourtDispositionUpdate s:id="d1e1">
                   <cdu:CycleTrackingIdentification>
                      <nc:IdentificationID>123456A</nc:IdentificationID>
                   </cdu:CycleTrackingIdentification>
@@ -78,7 +78,7 @@
                         <j:TermDuration>P2Y</j:TermDuration>
                         <j:TermLifeIndicator>false</j:TermLifeIndicator>
                      </j:SentenceTerm>
-                     <cdu:SentenceCourtOrganizationReference s:ref="d1e158"/>
+                     <cdu:SentenceCourtOrganizationReference s:ref="d1e161"/>
                      <cdu:SentenceDocketIdentification>
                         <nc:IdentificationID>Sentence Docket ID</nc:IdentificationID>
                      </cdu:SentenceDocketIdentification>
@@ -88,7 +88,7 @@
                      <nc:DispositionDate>
                         <nc:Date>2001-12-17</nc:Date>
                      </nc:DispositionDate>
-                     <cdu:DispositionCourtOrganizationReference s:ref="d1e170"/>
+                     <cdu:DispositionCourtOrganizationReference s:ref="d1e173"/>
                      <cdu:DispositionIdentification>
                         <nc:IdentificationID>UTN</nc:IdentificationID>
                      </cdu:DispositionIdentification>
@@ -99,6 +99,10 @@
                   </cdu:Disposition>
                </cdu:CourtDispositionUpdate>
             </notificationExt:NotifyingCourtDispositionUpdate>
+            <nc:ActivityInvolvedPersonAssociation>
+               <nc:ActivityReference s:ref="d1e1"/>
+               <nc:PersonReference s:ref="d1e125"/>
+            </nc:ActivityInvolvedPersonAssociation>
             <j:Person s:id="d1e125">
                <nc:PersonBirthDate>
                   <nc:Date>2001-12-17</nc:Date>
@@ -108,15 +112,20 @@
                   <nc:PersonMiddleName>A</nc:PersonMiddleName>
                   <nc:PersonSurName>White</nc:PersonSurName>
                </nc:PersonName>
+               <j:PersonAugmentation>
+                  <j:PersonStateFingerprintIdentification>
+                  	<nc:IdentificationID>SID23456</nc:IdentificationID>
+                  </j:PersonStateFingerprintIdentification>
+               </j:PersonAugmentation>
             </j:Person>
-            <j:Organization s:id="d1e158">
+            <j:Organization s:id="d1e161">
                <j:OrganizationAugmentation>
                   <j:OrganizationORIIdentification>
                      <nc:IdentificationID>ME0000001</nc:IdentificationID>
                   </j:OrganizationORIIdentification>
                </j:OrganizationAugmentation>
             </j:Organization>
-            <j:Organization s:id="d1e170">
+            <j:Organization s:id="d1e173">
                <j:OrganizationAugmentation>
                   <j:OrganizationORIIdentification>
                      <nc:IdentificationID>ME0000002</nc:IdentificationID>

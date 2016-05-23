@@ -109,7 +109,7 @@ public class CourtCaseSearchResultBuilderTest {
 		Assert.assertEquals("County Court", sOrgName);
 		
 		String sDob = courtCaseDetail.getPersonBirthDate();
-		Assert.assertEquals("2001-12-17", sDob);
+		Assert.assertEquals("1995-11-17", sDob);
 		
 		String sEyeColor = courtCaseDetail.getPersonEyeColor();
 		Assert.assertEquals("BLK", sEyeColor);
@@ -121,7 +121,7 @@ public class CourtCaseSearchResultBuilderTest {
 		Assert.assertEquals("Homer", personGivenName);
 		
 		String middleName = courtCaseDetail.getPersonMiddleName();
-		Assert.assertEquals("Jay", middleName);
+		Assert.assertEquals("J", middleName);
 		
 		String surName = courtCaseDetail.getPersonSurName();
 		Assert.assertEquals("Simpson", surName);

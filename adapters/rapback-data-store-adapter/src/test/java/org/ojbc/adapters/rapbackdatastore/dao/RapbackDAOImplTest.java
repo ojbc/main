@@ -23,13 +23,16 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Before;
@@ -49,6 +52,8 @@ import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
+import org.ojbc.test.util.SAMLTokenTestUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
@@ -96,6 +101,7 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testRapbackDatastore() throws Exception {
 		
 		Connection conn = dataSource.getConnection();
@@ -275,13 +281,76 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testGetCivilIdentificationTransactions() throws Exception {
+        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:normaluser");
+		customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+		customAttributes.put(SamlAttribute.EmployerSubUnitName, "Honolulu PD Records and ID Division");
+		customAttributes.put(SamlAttribute.EmployeePositionName, "Sworn Supervisors");
+		  
+		SAMLTokenPrincipal samlAssertion = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
+      
 		List<IdentificationTransaction> transactions = 
-				rapbackDAO.getCivilIdentificationTransactions("1234567890");
+				rapbackDAO.getCivilIdentificationTransactions(samlAssertion);
 		assertEquals(4, transactions.size());
+		
+		customAttributes.put(SamlAttribute.EmployeePositionName, "Firearms Unit (both Civilian and Sworn)");
+		SAMLTokenPrincipal samlAssertionWithOnlyOneViewableCategory = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
+		
+		List<IdentificationTransaction> transactions2 = 
+				rapbackDAO.getCivilIdentificationTransactions(samlAssertionWithOnlyOneViewableCategory);
+		assertEquals(2, transactions2.size());
+		
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
+		SAMLTokenPrincipal samlAssertionSuperUser = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
+		
+		List<IdentificationTransaction> transactionsForSuperUser = 
+				rapbackDAO.getCivilIdentificationTransactions(samlAssertionSuperUser);
+		assertEquals(4, transactionsForSuperUser.size());
+		
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:civilruser");
+		customAttributes.put(SamlAttribute.EmployerORI, "68796860");
+		SAMLTokenPrincipal samlAssertionCivilUser = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
+		
+		List<IdentificationTransaction> transactionsForCivilUser = 
+				rapbackDAO.getCivilIdentificationTransactions(samlAssertionCivilUser);
+		assertEquals(1, transactionsForCivilUser.size());
+		
 	}
 	
 	@Test
+	@DirtiesContext
+	public void testGetCriminalIdentificationTransactions() throws Exception {
+        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:normaluser");
+		customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+		customAttributes.put(SamlAttribute.EmployerSubUnitName, "Honolulu PD Records and ID Division");
+		customAttributes.put(SamlAttribute.EmployeePositionName, "Sworn Supervisors");
+		  
+		SAMLTokenPrincipal samlAssertion = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
+      
+		List<IdentificationTransaction> transactions = 
+				rapbackDAO.getCriminalIdentificationTransactions(samlAssertion);
+		assertEquals(1, transactions.size());
+		
+		customAttributes.put(SamlAttribute.EmployeePositionName, "Firearms Unit (both Civilian and Sworn)");
+		SAMLTokenPrincipal samlAssertionWithOnlyNoViewableCategory = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
+		
+		List<IdentificationTransaction> transactions2 = 
+				rapbackDAO.getCriminalIdentificationTransactions(samlAssertionWithOnlyNoViewableCategory);
+		assertEquals(0, transactions2.size());
+		
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
+		SAMLTokenPrincipal samlAssertionSuperUser = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
+		
+		List<IdentificationTransaction> transactionsForSuperUser = 
+				rapbackDAO.getCriminalIdentificationTransactions(samlAssertionSuperUser);
+		assertEquals(1, transactionsForSuperUser.size());
+	}
+	
+	@Test
+	@DirtiesContext
 	public void testGetCivilInitialResultsByTransactionNumber() throws Exception {
 		List<CivilInitialResults> civilInitialResults= 
 				rapbackDAO.getIdentificationCivilInitialResults("000001820140729014008339990");
@@ -292,6 +361,7 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testGetCivilInitialResults() throws Exception {
 		List<CivilInitialResults> civilInitialResults= 
 				rapbackDAO.getIdentificationCivilInitialResults("000001820140729014008339995");
@@ -302,6 +372,7 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testGetSubsequentResults() throws Exception {
 		
 		List<SubsequentResults> subsequentResults = rapbackDAO.getSubsequentResults("000001820140729014008339995");
@@ -390,6 +461,7 @@ public class RapbackDAOImplTest {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testGetAgencyProfile() throws Exception {
 		AgencyProfile agencyProfile = rapbackDAO.getAgencyProfile("1234567890");
 		log.info(agencyProfile.toString());

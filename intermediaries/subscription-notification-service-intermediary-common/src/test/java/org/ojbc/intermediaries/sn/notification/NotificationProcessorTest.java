@@ -48,7 +48,7 @@ import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.notification.filter.NotificationFilterStrategy;
-import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
+import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -81,7 +81,7 @@ public class NotificationProcessorTest {
 
             @Override
             protected NotificationRequest makeNotificationRequestFromIncomingMessage(Message msg) throws Exception {
-                return new ArrestNotificationRequest(msg);
+            	return TestNotificationBuilderUtil.returnArrestNotificationRequestForTesting(msg);
             }
 
         };
@@ -120,12 +120,7 @@ public class NotificationProcessorTest {
 
         notificationProcessor.setEmailEnhancementStrategy(d);
 
-        notificationProcessor.findSubscriptionsForNotification(e);
-
-        // this mimics the component of the Camel route that splits the notifications
-
-        @SuppressWarnings("unchecked")
-        List<EmailNotification> emailNotifications = (List<EmailNotification>) e.getIn().getHeader(NotificationConstants.HEADER_EMAIL_NOTIFICATIONS);
+        List<EmailNotification> emailNotifications = notificationProcessor.findSubscriptionsForNotification(e);
         assertEquals(2, emailNotifications.size());
 
         boolean foundPO1 = false;
@@ -176,9 +171,8 @@ public class NotificationProcessorTest {
             }
         });
 
-        notificationProcessor.findSubscriptionsForNotification(e);
-        assertEquals(Boolean.TRUE, e.getProperty(Exchange.ROUTE_STOP));
-
+        List<EmailNotification> emailNotifications = notificationProcessor.findSubscriptionsForNotification(e);
+        assertEquals(0, emailNotifications.size());
     }
 
     @Test
@@ -195,9 +189,8 @@ public class NotificationProcessorTest {
         Message inMessage = e.getIn();
         inMessage.setBody(notificationMessageDocument);
 
-        notificationProcessor.findSubscriptionsForNotification(e);
-
-        assertEquals(Boolean.TRUE, e.getProperty(Exchange.ROUTE_STOP));
+        List<EmailNotification> notifications = notificationProcessor.findSubscriptionsForNotification(e);
+        assertEquals(0, notifications.size());
 
     }
 

@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<lexspd:doPublish xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+	xmlns:inc-ext="http://nibrs.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+	xsi:schemaLocation="http://usdoj.gov/leisp/lexs/publishdiscover/3.1 ../xsd/lexs/publish-discover/3.1/publish-discover.xsd">
+	<lexs:PublishMessageContainer>
+		<lexs:PublishMessage>
+			<lexs:PDMessageMetadata>
+				<lexs:LEXSVersion>3.1.4</lexs:LEXSVersion>
+				<lexs:MessageDateTime>2016-01-19T14:27:31.5624303-05:00
+				</lexs:MessageDateTime>
+				<lexs:MessageSequenceNumber>1</lexs:MessageSequenceNumber>
+				<lexs:DataSensitivity>SBU</lexs:DataSensitivity>
+			</lexs:PDMessageMetadata>
+			<lexs:DataSubmitterMetadata>
+				<lexs:SystemIdentifier>
+					<lexs:ORI>NC0920200</lexs:ORI>
+					<nc:OrganizationName>APEX POLICE DEPARTMENT</nc:OrganizationName>
+					<lexs:SystemID>OSSI-NDEX-TEST</lexs:SystemID>
+				</lexs:SystemIdentifier>
+				<lexs:SystemContact>
+					<nc:PersonSurName>JANE DOE</nc:PersonSurName>
+					<nc:ContactTelephoneNumber>
+						<nc:NANPTelephoneNumber>
+							<nc:TelephoneAreaCodeID>919</nc:TelephoneAreaCodeID>
+							<nc:TelephoneExchangeID>555</nc:TelephoneExchangeID>
+							<nc:TelephoneLineID>1212</nc:TelephoneLineID>
+						</nc:NANPTelephoneNumber>
+					</nc:ContactTelephoneNumber>
+					<nc:OrganizationName>APEX POLICE DEPARTMENT</nc:OrganizationName>
+				</lexs:SystemContact>
+			</lexs:DataSubmitterMetadata>
+			<lexs:DataItemPackage>
+				<lexs:PackageMetadata>
+					<lexs:DataItemID>2015000388</lexs:DataItemID>
+					<lexs:DataItemContact>
+						<nc:PersonSurName>JANE DOE</nc:PersonSurName>
+						<nc:ContactTelephoneNumber>
+							<nc:NANPTelephoneNumber>
+								<nc:TelephoneAreaCodeID>919</nc:TelephoneAreaCodeID>
+								<nc:TelephoneExchangeID>555</nc:TelephoneExchangeID>
+								<nc:TelephoneLineID>1212</nc:TelephoneLineID>
+							</nc:NANPTelephoneNumber>
+						</nc:ContactTelephoneNumber>
+						<nc:OrganizationName>APEX POLICE DEPARTMENT</nc:OrganizationName>
+					</lexs:DataItemContact>
+					<lexs:DataItemDate>2015-01-19</lexs:DataItemDate>
+					<lexs:DataItemReferenceID>2015000388</lexs:DataItemReferenceID>
+					<lexs:DataItemPublishInstruction>Insert
+					</lexs:DataItemPublishInstruction>
+					<lexs:DataItemStatus>Closed</lexs:DataItemStatus>
+					<lexs:DataOwnerMetadata>
+						<lexs:DataOwnerIdentifier>
+							<lexs:ORI>NC0920200</lexs:ORI>
+							<nc:OrganizationName>APEX POLICE DEPARTMENT</nc:OrganizationName>
+							<lexs:SystemID>OSSI-NDEX-TEST</lexs:SystemID>
+						</lexs:DataOwnerIdentifier>
+						<lexs:DataOwnerContact>
+							<nc:PersonSurName>JANE DOE</nc:PersonSurName>
+							<nc:ContactTelephoneNumber>
+								<nc:NANPTelephoneNumber>
+									<nc:TelephoneAreaCodeID>919</nc:TelephoneAreaCodeID>
+									<nc:TelephoneExchangeID>555</nc:TelephoneExchangeID>
+									<nc:TelephoneLineID>1212</nc:TelephoneLineID>
+								</nc:NANPTelephoneNumber>
+							</nc:ContactTelephoneNumber>
+							<nc:OrganizationName>APEX POLICE DEPARTMENT</nc:OrganizationName>
+						</lexs:DataOwnerContact>
+					</lexs:DataOwnerMetadata>
+					<lexs:DisseminationCriteriaValue>
+						<lexs:DisseminationCriteriaDomainText>N-DEx
+						</lexs:DisseminationCriteriaDomainText>
+						<lexs:DisseminationCriteriaText>Green
+						</lexs:DisseminationCriteriaText>
+					</lexs:DisseminationCriteriaValue>
+					<lexs:DataItemCategory>
+						<lexs:DataItemCategoryText>Incident Report
+						</lexs:DataItemCategoryText>
+					</lexs:DataItemCategory>
+				</lexs:PackageMetadata>
+				<lexs:Digest>
+					<!-- ======================= NIBRS Incident ======================= -->
+					<lexsdigest:EntityActivity>
+						<lexsdigest:Metadata>
+							<nc:DistributionText>NIBRS</nc:DistributionText>
+						</lexsdigest:Metadata>
+						<nc:Activity s:id="Incident_1">
+							<nc:ActivityIdentification>
+								<!-- Element 2, Incident Number -->
+								<nc:IdentificationID>54236732</nc:IdentificationID>
+							</nc:ActivityIdentification>
+							<nc:ActivityCategoryText>Incident</nc:ActivityCategoryText>
+							<nc:ActivityDate>
+								<!-- Element 3, Incident Date and Hour -->
+								<nc:DateTime>2016-02-19T10:00:00</nc:DateTime>
+							</nc:ActivityDate>
+						</nc:Activity>
+					</lexsdigest:EntityActivity>
+					<!-- ======================= NIBRS - Incident Reporting Organization 
+						======================= -->
+					<lexsdigest:EntityOrganization>
+						<lexsdigest:Metadata>
+							<nc:ReportedDate>
+								<!-- Year/Month Of Tape -->
+								<nc:YearMonth>2016-02</nc:YearMonth>
+							</nc:ReportedDate>
+						</lexsdigest:Metadata>
+						<nc:Organization s:id="Org_1" />
+					</lexsdigest:EntityOrganization>
+					<!-- ======================= NIBRS - Officer Victim Organization ======================= -->
+					<lexsdigest:EntityOrganization>
+						<nc:Organization s:id="Org_2" />
+					</lexsdigest:EntityOrganization>
+					<!-- ======================= NIBRS Offense ======================= -->
+					<lexsdigest:EntityActivity>
+						<nc:Activity s:id="Offense_1">
+							<nc:ActivityCategoryText>Offense</nc:ActivityCategoryText>
+						</nc:Activity>
+					</lexsdigest:EntityActivity>
+					<!-- ======================= NIBRS Arrest ======================= -->
+					<lexsdigest:EntityActivity>
+						<nc:Activity s:id="Arrest_1">
+							<nc:ActivityIdentification>
+								<!-- Element 41, Arrest Transaction Number -->
+								<nc:IdentificationID>12345</nc:IdentificationID>
+							</nc:ActivityIdentification>
+							<nc:ActivityCategoryText>Arrest</nc:ActivityCategoryText>
+							<nc:ActivityDate>
+								<!-- Element 42, Arrest Date -->
+								<nc:Date>2016-02-28</nc:Date>
+							</nc:ActivityDate>
+						</nc:Activity>
+					</lexsdigest:EntityActivity>
+					<!-- =======================  Warrant  ======================= -->
+						<lexsdigest:EntityActivity>
+							<nc:Activity s:id="Warrant_1">
+								<nc:ActivityIdentification>
+									<nc:IdentificationID>1234567</nc:IdentificationID>
+								</nc:ActivityIdentification>
+								<nc:ActivityCategoryText/>
+								<nc:ActivityDate>
+									<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+								</nc:ActivityDate>
+							</nc:Activity>
+						</lexsdigest:EntityActivity>
+					<!-- ======================= NIBRS Drug ======================= -->
+					<lexsdigest:EntityDrug>
+						<nc:Drug s:id="Drug_1">
+							<!-- Element 20, Suspected Involved Drug Type -->
+							<!-- N-DEx uses text description; NIBRS uses code value DONE -->
+							<j:DrugDEACode>C1</j:DrugDEACode>
+						</nc:Drug>
+					</lexsdigest:EntityDrug>
+					<!-- ======================= NIBRS Offender ======================= -->
+					<lexsdigest:EntityPerson>
+						<lexsdigest:Person s:id="Person_Subject_1">
+							<nc:PersonAgeMeasure>
+								<!-- Element 37, Age of Subject (only one would be included per subject) -->
+								<nc:MeasurePointValue>34</nc:MeasurePointValue>
+							</nc:PersonAgeMeasure>
+							<!-- Element 38, Sex of Subject -->
+							<nc:PersonSexCode>M</nc:PersonSexCode>
+						</lexsdigest:Person>
+						<j:IncidentSubject s:id="Subject_1">
+							<nc:RoleOfPersonReference s:ref="Person_Subject_1" />
+						</j:IncidentSubject>
+					</lexsdigest:EntityPerson>
+					<!-- ======================= NIBRS Arrest Subject ======================= -->
+					<lexsdigest:EntityPerson>
+						<lexsdigest:Person s:id="Person_Arrest_Subject_1">
+							<nc:PersonAgeMeasure>
+								<!-- Element 47, Age of Arrestee (only one would be included per 
+									victim) -->
+								<nc:MeasurePointValue>56</nc:MeasurePointValue>
+							</nc:PersonAgeMeasure>
+							<!-- Element 48, Sex of Arrestee -->
+							<nc:PersonSexCode>F</nc:PersonSexCode>
+						</lexsdigest:Person>
+						<j:ArrestSubject s:id="Arrest_Subject_1">
+							<nc:RoleOfPersonReference s:ref="Person_Arrest_Subject_1" />
+						</j:ArrestSubject>
+					</lexsdigest:EntityPerson>
+					<!-- ======================= NIBRS Victim (Officer) ======================= -->
+					<lexsdigest:EntityPerson>
+						<lexsdigest:Person s:id="Person_Victim_1">
+							<nc:PersonAgeMeasure>
+								<!-- Element 26, Age of Victim (only one would be included per victim) -->
+								<nc:MeasurePointValue>45</nc:MeasurePointValue>
+							</nc:PersonAgeMeasure>
+							<!-- Element 27, Sex of Victim -->
+							<nc:PersonSexCode>M</nc:PersonSexCode>
+						</lexsdigest:Person>
+						<j:EnforcementOfficial s:id="Officer_1">
+							<nc:RoleOfPersonReference s:ref="Person_Victim_1" />
+						</j:EnforcementOfficial>
+						<j:Victim s:id="Victim_1">
+							<nc:RoleOfPersonReference s:ref="Person_Victim_1" />
+						</j:Victim>
+					</lexsdigest:EntityPerson>
+					<!-- ======================= NIBRS Victim ======================= -->
+					<lexsdigest:EntityPerson>
+						<lexsdigest:Person s:id="Person_Victim_2">
+							<nc:PersonAgeMeasure>
+								<nc:MeasurePointValue>34</nc:MeasurePointValue>
+							</nc:PersonAgeMeasure>
+							<nc:PersonSexCode>M</nc:PersonSexCode>
+						</lexsdigest:Person>
+						<j:Victim s:id="Victim_2">
+							<nc:RoleOfPersonReference s:ref="Person_Victim_2" />
+						</j:Victim>
+					</lexsdigest:EntityPerson>
+					<!-- ======================= NIBRS Property ======================= -->
+					<lexsdigest:EntityTangibleItem>
+						<nc:TangibleItem s:id="TI_1" />
+						<nc:Property s:id="PROPERTY1">
+							<nc:RoleOfItemReference s:ref="TI_1" />
+						</nc:Property>
+					</lexsdigest:EntityTangibleItem>
+					<!-- ======================= NIBRS Offense Location ======================= -->
+					<lexsdigest:EntityLocation>
+						<nc:Location s:id="Offense_Loc_1" />
+					</lexsdigest:EntityLocation>
+					<!-- ======================= Associations ======================= -->
+					<lexsdigest:Associations>
+						<lexsdigest:ArrestSubjectAssociation>
+							<nc:ActivityReference s:ref="Arrest_1" />
+							<nc:PersonReference s:ref="Person_Arrest_Subject_1" />
+						</lexsdigest:ArrestSubjectAssociation>
+						<lexsdigest:OffenseLocationAssociation>
+							<nc:ActivityReference s:ref="Offense_1" />
+							<nc:LocationReference s:ref="Offense_Loc_1" />
+						</lexsdigest:OffenseLocationAssociation>
+						<!-- Element 24, Victim Connected to UCR Offense Code -->
+						<lexsdigest:OffenseVictimPersonAssociation>
+							<nc:ActivityReference s:ref="Offense_1" />
+							<nc:PersonReference s:ref="Person_Victim_1" />
+						</lexsdigest:OffenseVictimPersonAssociation>
+						<!-- Element 24, Victim Connected to UCR Offense Code -->
+						<lexsdigest:OffenseVictimPersonAssociation>
+							<nc:ActivityReference s:ref="Offense_1" />
+							<nc:PersonReference s:ref="Person_Victim_2" />
+						</lexsdigest:OffenseVictimPersonAssociation>
+						<!--Element 34, Offender Number(s) to be related -->
+						<lexsdigest:SubjectVictimAssociation
+							s:id="SVA_1">
+							<lexsdigest:SubjectPersonReference
+								s:ref="Person_Arrest_Subject_1" />
+							<lexsdigest:VictimPersonReference
+								s:ref="Person_Victim_1" />
+						</lexsdigest:SubjectVictimAssociation>
+						<!--Element 34, Offender Number(s) to be related -->
+						<lexsdigest:SubjectVictimAssociation
+							s:id="SVA_2">
+							<lexsdigest:SubjectPersonReference
+								s:ref="Person_Arrest_Subject_1" />
+							<lexsdigest:VictimPersonReference
+								s:ref="Person_Victim_2" />
+						</lexsdigest:SubjectVictimAssociation>
+						<nc:ActivityReportingOrganizationAssociation>
+							<nc:ActivityReference s:ref="Incident_1" />
+							<nc:OrganizationReference s:ref="Org_1" />
+						</nc:ActivityReportingOrganizationAssociation>
+						<nc:PersonAssignedUnitAssociation>
+							<nc:PersonReference s:ref="Person_Victim_1" />
+							<nc:OrganizationReference s:ref="Org_2" />
+						</nc:PersonAssignedUnitAssociation>
+					</lexsdigest:Associations>
+				</lexs:Digest>
+				<lexs:StructuredPayload>
+					<lexs:StructuredPayloadMetadata>
+						<lexs:CommunityURI>http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1
+						</lexs:CommunityURI>
+						<lexs:CommunityDescription>N-DEx IncidentArrest
+						</lexs:CommunityDescription>
+						<lexs:CommunityVersion>2.1</lexs:CommunityVersion>
+					</lexs:StructuredPayloadMetadata>
+					<ndexia:IncidentReport>
+						<!-- Submission Type -->
+						<ndexia:NIBRSReportCategoryCode>Group A Incident Report
+						</ndexia:NIBRSReportCategoryCode>
+						<ndexia:Organization>
+							<j:OrganizationAugmentation>
+								<j:OrganizationORIIdentification>
+									<!-- Element 1, ORI Code -->
+									<nc:IdentificationID>WVNDX01I</nc:IdentificationID>
+								</j:OrganizationORIIdentification>
+							</j:OrganizationAugmentation>
+							<ndexia:OrganizationAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Org_1" />
+							</ndexia:OrganizationAugmentation>
+						</ndexia:Organization>
+						<ndexia:EnforcementUnit>
+							<j:OrganizationAugmentation>
+								<j:OrganizationORIIdentification>
+									<!-- Element 25C, ORI-Other Jurisdiction (Officer) -->
+									<nc:IdentificationID>WVNDX01</nc:IdentificationID>
+								</j:OrganizationORIIdentification>
+							</j:OrganizationAugmentation>
+							<ndexia:EnforcementUnitAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Org_2" />
+							</ndexia:EnforcementUnitAugmentation>
+						</ndexia:EnforcementUnit>
+						<ndexia:Arrest>
+							<!-- Element 43, Type Of Arrest -->
+							<j:ArrestCategoryCode>T</j:ArrestCategoryCode>
+							<ndexia:ArrestAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Arrest_01" />
+							</ndexia:ArrestAugmentation>
+						</ndexia:Arrest>
+						<ndexia:ArrestSubject>
+							<ndexia:ArrestSubjectAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Person_Arrest_Subject_1" />
+								<j:ArrestSequenceID>
+									<!-- Element 40, Arrestee Sequence Number -->
+									<nc:IdentificationID>1</nc:IdentificationID>
+								</j:ArrestSequenceID>
+								<!-- Element 44, Multiple Arrestee Segments Indicator -->
+								<j:ArrestSubjectCountCode>N</j:ArrestSubjectCountCode>
+								<!-- Element 45, UCR Arrest Offense Code -->
+								<j:ChargeUCRCode>90Z</j:ChargeUCRCode>
+								<!-- Element 46, Arrestee Was Armed With -->
+								<!-- This code is fine and includes "A" for automatic weapon -->
+								<ndexia:ArresteeArmedWithCode>12</ndexia:ArresteeArmedWithCode>
+								<!-- -->
+								<ndexia:ArresteeClearanceIndicator>true
+								</ndexia:ArresteeClearanceIndicator>
+								<!-- Element 52, Disposition of Arrestee Under 18 -->
+								<!-- NDEX includes additional codes C, J and W -->
+								<ndexia:ArresteeJuvenileDispositionCode>H
+								</ndexia:ArresteeJuvenileDispositionCode>
+							</ndexia:ArrestSubjectAugmentation>
+						</ndexia:ArrestSubject>
+						<ndexia:Drug>
+							<ndexia:DrugAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Drug_1" />
+								<ndexia:ItemQuantityStatusValue>
+									<nc:SubstanceQuantityMeasure>
+										<!-- Element 21/22, Estimated Quantity/Fraction -->
+										<nc:MeasurePointValue>1.5</nc:MeasurePointValue>
+										<nc:SubstanceUnitCode>XX</nc:SubstanceUnitCode>
+									</nc:SubstanceQuantityMeasure>
+								</ndexia:ItemQuantityStatusValue>
+							</ndexia:DrugAugmentation>
+						</ndexia:Drug>
+						<ndexia:EnforcementOfficial>
+							<!-- Element 25A - Type of Activity (Officer)/ Circumstance -->
+							<!-- N-DEx uses text description; NIBRS uses code value DONE -->
+							<ndexia:EnforcementOfficialActivityCategoryCode>Ambush_No warning
+							</ndexia:EnforcementOfficialActivityCategoryCode>
+							<!-- Element 25B, Assignment Type (Officer) -->
+							<j:EnforcementOfficialAssignmentCategoryCode>L
+							</j:EnforcementOfficialAssignmentCategoryCode>
+							<ndexia:EnforcementOfficialAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Officer_1" />
+							</ndexia:EnforcementOfficialAugmentation>
+						</ndexia:EnforcementOfficial>
+						<ndexia:Incident>
+							<j:IncidentAugmentation>
+								<!-- Element 4, Cleared Exceptionally -->
+								<j:IncidentExceptionalClearanceCode>A
+								</j:IncidentExceptionalClearanceCode>
+								<!-- Element 5, Exceptional Clearance Date -->
+								<j:IncidentExceptionalClearanceDate>
+									<nc:Date>2016-02-25</nc:Date>
+								</j:IncidentExceptionalClearanceDate>
+							</j:IncidentAugmentation>
+							<ndexia:IncidentAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Incident_1" />
+							</ndexia:IncidentAugmentation>
+						</ndexia:Incident>
+						<ndexia:Offense>
+							<ndexia:ActivityAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Offense_1" />
+							</ndexia:ActivityAugmentation>
+							<j:IncidentFactor>
+								<!-- Element 8, Offender(s) Suspected Of Using -->
+								<j:IncidentFactorCode>D</j:IncidentFactorCode>
+							</j:IncidentFactor>
+							<j:IncidentForce>
+								<!-- Element 13, Type Weapon/Force Involved -->
+								<j:ForceCategoryCode>11A</j:ForceCategoryCode>
+							</j:IncidentForce>
+							<!-- Element 10, Number Of Premises Entered -->
+							<j:IncidentStructuresEnteredQuantity>1
+							</j:IncidentStructuresEnteredQuantity>
+							<!-- Element 12, Type Criminal Activity/Gang Information -->
+							<!-- N-DEx uses text description; NIBRS uses code value DONE -->
+							<ndexia:CriminalActivityCategoryCode>Transporting
+							</ndexia:CriminalActivityCategoryCode>
+							<!-- Element 8A, Bias Motivation -->
+							<ndexia:OffenseBiasMotivationCode>Gender Bias
+							</ndexia:OffenseBiasMotivationCode>
+							<!-- Element 2A, Cargo Theft Indicator: True/False -->
+							<ndexia:OffenseCargoTheftIndicator>true
+							</ndexia:OffenseCargoTheftIndicator>
+							<!-- Element 6, Offense Code -->
+							<!-- N-DEx uses text description; NIBRS uses code value DONE -->
+							<ndexia:OffenseCode>Adultery</ndexia:OffenseCode>
+							<!-- Element 7, Attempted/Completed -->
+							<ndexia:OffenseCompletedIndicator>false
+							</ndexia:OffenseCompletedIndicator>
+							<ndexia:OffenseEntryPoint>
+								<!-- Element 11, Method Of Entry -->
+								<j:PassagePointMethodCode>F</j:PassagePointMethodCode>
+							</ndexia:OffenseEntryPoint>
+						</ndexia:Offense>
+						<ndexia:Person>
+							<!-- Element 39A, Ethnicity of Subject -->
+							<nc:PersonEthnicityCode>U</nc:PersonEthnicityCode>
+							<nc:PersonResidentCode>R</nc:PersonResidentCode>
+							<ndexia:PersonAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Person_Subject_1" />
+								<!-- Element 39, Race of Subject -->
+								<ndexia:PersonRaceCode>P</ndexia:PersonRaceCode>
+							</ndexia:PersonAugmentation>
+						</ndexia:Person>
+						<ndexia:Person>
+							<!-- Element 50, Ethnicity of Arrestee -->
+							<nc:PersonEthnicityCode>U</nc:PersonEthnicityCode>
+							<!-- Element 49, Race of Arrestee -->
+							<!-- N-DEx does not use "P" -->
+							<nc:PersonResidentCode>R</nc:PersonResidentCode>
+							<ndexia:PersonAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Person_Arrest_Subject_1" />
+								<!-- Element 51, Resident Status -->
+								<ndexia:PersonRaceCode>P</ndexia:PersonRaceCode>
+							</ndexia:PersonAugmentation>
+						</ndexia:Person>
+						<ndexia:Person>
+							<!-- Element 29, Ethnicity of Victim -->
+							<nc:PersonEthnicityCode>U</nc:PersonEthnicityCode>
+							<!-- Element 30, Resident Status -->
+							<nc:PersonResidentCode>R</nc:PersonResidentCode>
+							<ndexia:PersonAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Person_Officer_Victim_1" />
+								<!-- Element 28, Race of Victim -->
+								<ndexia:PersonRaceCode>P</ndexia:PersonRaceCode>
+							</ndexia:PersonAugmentation>
+						</ndexia:Person>
+						<ndexia:Person>
+							<!-- Element 29, Ethnicity of Victim -->
+							<nc:PersonEthnicityCode>H</nc:PersonEthnicityCode>
+							<!-- Element 30, Resident Status -->
+							<nc:PersonResidentCode>R</nc:PersonResidentCode>
+							<ndexia:PersonAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Person_Victim_1" />
+								<!-- Element 28, Race of Victim -->
+								<ndexia:PersonRaceCode>P</ndexia:PersonRaceCode>
+							</ndexia:PersonAugmentation>
+						</ndexia:Person>
+						<ndexia:Location>
+							<!-- Element 9, Location Type -->
+							<!-- N-DEx uses text description; NIBRS uses code value DONE -->
+							<ndexia:LocationCategoryCode>Airport_Terminal_Private
+							</ndexia:LocationCategoryCode>
+							<ndexia:LocationAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Offense_Loc_1" />
+							</ndexia:LocationAugmentation>
+						</ndexia:Location>
+						<ndexia:Subject>
+							<ndexia:SubjectAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Person_Subject_1" />
+								<!-- Element 36, Offender Sequence Number -->
+								<ndexia:SubjectSequenceNumberText>1
+								</ndexia:SubjectSequenceNumberText>
+							</ndexia:SubjectAugmentation>
+						</ndexia:Subject>
+						<ndexia:TangibleItem>
+							<ndexia:TangibleItemAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="TI_1" />
+								<ndexia:ItemQuantityStatusValue>
+									<!-- Element 19, Number of Recovered Motor Vehicles, if Status is 
+										Recovered -->
+									<!-- Element 18, Number of Stolen Motor Vehicles, if Status is Stolen -->
+									<nc:ItemQuantity>1</nc:ItemQuantity>
+									<ndexia:ItemStatus>
+										<nc:StatusDate>
+											<!-- Element 17, Date Recovered -->
+											<nc:Date>2016-02-24</nc:Date>
+										</nc:StatusDate>
+										<ndexia:ItemStatusAugmentation>
+											<!-- Element 14, Type Property Loss/etc Substituted for nc:ItemStatus -->
+											<ndexia:ItemStatusCode>Returned</ndexia:ItemStatusCode>
+										</ndexia:ItemStatusAugmentation>
+									</ndexia:ItemStatus>
+									<ndexia:ItemValue>
+										<!-- Element 16, Value of Property in US Dollars -->
+										<nc:ItemValueAmount>1200</nc:ItemValueAmount>
+									</ndexia:ItemValue>
+								</ndexia:ItemQuantityStatusValue>
+							</ndexia:TangibleItemAugmentation>
+						</ndexia:TangibleItem>
+						<ndexia:Victim>
+							<ndexia:VictimInjury>
+								<ndexia:InjuryAugmentation>
+									<!-- Element 33, Type Injury -->
+									<!-- N-DEx uses text description; NIBRS uses code value -DONE -->
+									<ndexia:InjuryCategoryCode>Possible Internal Injury
+									</ndexia:InjuryCategoryCode>
+								</ndexia:InjuryAugmentation>
+							</ndexia:VictimInjury>
+							<!-- Element 25, Type of Victim -->
+							<j:VictimCategoryCode>B</j:VictimCategoryCode>
+							<!-- Element 32, Additional Justifiable Homicide Circumstances -->
+							<j:VictimJustifiableHomicideFactorCode>F
+							</j:VictimJustifiableHomicideFactorCode>
+							<ndexia:VictimAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Person_Victim_1" />
+								<!-- Element 31, Aggravated Assault/Homicide Circumstances DONE -->
+								<!-- N-DEx uses text description; NIBRS uses code value DONE -->
+								<ndexia:VictimAggravatedAssaultHomicideFactorCode>Revenge
+									assault</ndexia:VictimAggravatedAssaultHomicideFactorCode>
+								<!-- Element 23, Victim Sequence Number -->
+								<ndexia:VictimSequenceNumberText>1
+								</ndexia:VictimSequenceNumberText>
+							</ndexia:VictimAugmentation>
+						</ndexia:Victim>
+						<ndexia:Victim>
+							<ndexia:VictimInjury>
+								<ndexia:InjuryAugmentation>
+									<ndexia:InjuryCategoryCode>Loss of Teeth
+									</ndexia:InjuryCategoryCode>
+								</ndexia:InjuryAugmentation>
+							</ndexia:VictimInjury>
+							<j:VictimCategoryCode>I</j:VictimCategoryCode>
+							<j:VictimJustifiableHomicideFactorCode>D
+							</j:VictimJustifiableHomicideFactorCode>
+							<ndexia:VictimAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Person_Victim_2" />
+								<!-- N-DEx uses text description; NIBRS uses code value DONE -->
+								<ndexia:VictimAggravatedAssaultHomicideFactorCode>Argument over
+									money</ndexia:VictimAggravatedAssaultHomicideFactorCode>
+								<ndexia:VictimSequenceNumberText>2
+								</ndexia:VictimSequenceNumberText>
+							</ndexia:VictimAugmentation>
+						</ndexia:Victim>
+						<ndexia:SubjectVictimAssociation>
+							<ndexia:SubjectVictimAssociationAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="SVA_1" />
+								<!-- Element 35, Relationship(s) of Victim To Offender -->
+								<ndexia:VictimToSubjectRelationshipCode>Boyfriend
+								</ndexia:VictimToSubjectRelationshipCode>
+							</ndexia:SubjectVictimAssociationAugmentation>
+						</ndexia:SubjectVictimAssociation>
+						<ndexia:SubjectVictimAssociation>
+							<ndexia:SubjectVictimAssociationAugmentation>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="SVA_2" />
+								<ndexia:VictimToSubjectRelationshipCode>Acquaintance
+								</ndexia:VictimToSubjectRelationshipCode>
+							</ndexia:SubjectVictimAssociationAugmentation>
+						</ndexia:SubjectVictimAssociation>
+					</ndexia:IncidentReport>
+				</lexs:StructuredPayload>
+				<!-- NIBRS STRUCTURED PAYLOAD -->
+				<lexs:StructuredPayload>
+					<lexs:StructuredPayloadMetadata>
+						<lexs:CommunityURI>http://www.nibrs.org
+						</lexs:CommunityURI>
+						<lexs:CommunityDescription>NIBRS</lexs:CommunityDescription>
+						<lexs:CommunityVersion>1.0</lexs:CommunityVersion>
+					</lexs:StructuredPayloadMetadata>
+					<nibrs-ext:IncidentReport xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+						xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+						xmlns:nibrs-ext="http://nibrs.org/IEPD/Extensions/NIBRSStructuredPayload/1.0"
+						xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+						<nibrs-ext:Property>
+							<!-- Element 15, Property Description -->
+							<j:PropertyCategoryNIBRSPropertyCategoryCode>01
+							</j:PropertyCategoryNIBRSPropertyCategoryCode>
+							<lexslib:SameAsDigestReference
+								lexslib:ref="TI_1" />
+						</nibrs-ext:Property>
+					</nibrs-ext:IncidentReport>
+				</lexs:StructuredPayload>
+			</lexs:DataItemPackage>
+		</lexs:PublishMessage>
+	</lexs:PublishMessageContainer>
+</lexspd:doPublish>

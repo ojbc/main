@@ -33,45 +33,43 @@
 					
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
 	
-		<camel:endpoint id="chargeReferralReportingServiceIntermediaryEndpoint"
+		<camel:endpoint id="chargeReferralReportingIntermediaryEndpoint"
 			uri="cxf:bean:chargeReferralReportingIntermediaryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chargeReferral.cxfLogging}&amp;allowStreaming=false" />
 		
-		<camel:endpoint id="chargeReferralReportingServiceAdapterEndpoint"
+		<camel:endpoint id="chargeReferralReportingAdapterEndpoint"
 			uri="cxf:bean:chargeReferralReportingAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chargeReferral.cxfLogging}"/>
 			
 
-		<camel:route id="ChargeReferralReportingServiceHandlerRoute">
+		<camel:route id="ChargeReferralReporting_Route">
 		
-			<camel:from uri="chargeReferralReportingServiceIntermediaryEndpoint" />
+			<camel:from uri="chargeReferralReportingIntermediaryEndpoint" />
 			
-			<camel:log message="\n\n\n Entering Charge Referral Reporting Service Intermediary... \n\n\n"/>
+			<camel:log message="\n\n\n Charge Referral Reporting Service Intermediary... \n\n\n"/>
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-
-			<camel:filter>
+									
+			<multicast>
 			
-				<camel:simple>${in.header.operationName} == 'ReportChargeReferral'</camel:simple>																
-												
-				<camel:setHeader headerName="derivedRoutes">
-					<simple>{{chargeReferralReporting.camelEndpointsToCall}}</simple>
-				</camel:setHeader>
-	
-				<camel:filter>
-					<camel:simple>${in.headers.derivedRoutes} != ''</camel:simple>
+				<pipeline>
+					<filter>
+						<simple>${properties:chargeReferral.callChargeReferralAdapter} == true</simple>
 					
-					<camel:log message="\n\n\n Calling derived route...: ${in.headers.derivedRoutes} \n\n\n"/>
-					
-					<camel:recipientList>
-						<camel:header>derivedRoutes</camel:header>
-					</camel:recipientList>
-				</camel:filter>	
-																							
-			</camel:filter>
+						<log message="\n\n\n Calling ChargeReferralAdapter... \n\n\n"/>
 						
+						<to uri="direct:callChargeReferralAdapter"/>					
+					</filter>
+				</pipeline>
+			
+				<pipeline>
+					<to uri="direct:callDerivedBundleChildRoutes"/>
+				</pipeline>
+			
+			</multicast>
+			
 		</camel:route>
-		
-		
-		<camel:route>
+			
+			
+		<camel:route id="CallChargeReferralAdapter_Route">
 		
 			<camel:from uri="direct:callChargeReferralAdapter" />
 			
@@ -85,10 +83,32 @@
 				<constant>http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0</constant>
 			</camel:setHeader>						
 																	
-			<camel:to uri="chargeReferralReportingServiceAdapterEndpoint" />
+			<camel:to uri="chargeReferralReportingAdapterEndpoint" />
 			
-		</camel:route>		
-								
+		</camel:route>					
+			
+			
+			
+		<route id="CallDerivedBundleChildRoutes_Route">
+		
+			<from uri="direct:callDerivedBundleChildRoutes"/>
+			
+			<camel:setHeader headerName="derivedRoutes">
+				<simple>{{chargeReferralReporting.camelEndpointsToCall}}</simple>
+			</camel:setHeader>
+			
+			<camel:filter>
+				<camel:simple>${in.headers.derivedRoutes} != ''</camel:simple>
+				
+				<camel:log message="\n\n\n Calling derived route...: ${in.headers.derivedRoutes} \n\n\n"/>
+				
+				<camel:recipientList>
+					<camel:header>derivedRoutes</camel:header>
+				</camel:recipientList>
+			</camel:filter>				
+				
+		</route>					
+					
 	</camel:camelContext>
 			
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />

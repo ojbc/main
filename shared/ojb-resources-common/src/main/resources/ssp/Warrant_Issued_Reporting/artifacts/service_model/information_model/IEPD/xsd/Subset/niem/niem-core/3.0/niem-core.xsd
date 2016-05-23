@@ -294,6 +294,7 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:PersonAgeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonBirthLocation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonCitizenship" minOccurs="0" maxOccurs="unbounded"/>
@@ -323,6 +324,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:PhysicalFeatureCategory" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PhysicalFeatureDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -647,6 +649,11 @@
       <xs:documentation>A human being.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PersonAgeDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A general description of the age of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="PersonAliasIdentityAssociation" type="nc:PersonIdentityAssociationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An association between a person and an alias identity used by that person.</xs:documentation>
@@ -747,7 +754,7 @@
       <xs:documentation>A term appended after the family name that qualifies the name.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="PersonPhysicalFeature" type="nc:PhysicalFeatureType" nillable="true">
+  <xs:element name="PersonPhysicalFeature" type="nc:PhysicalFeatureType">
     <xs:annotation>
       <xs:documentation>A prominent or easily identifiable aspect of  a person.</xs:documentation>
     </xs:annotation>
@@ -812,6 +819,11 @@
       <xs:documentation>A data concept for a specific kind of physical feature.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PhysicalFeatureDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of a physical feature.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="RoleOf" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a property of a role object. This specifies the base object, of which the role object is a function.</xs:documentation>
@@ -860,6 +872,16 @@
   <xs:element name="VehicleModel" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a specific design or class of vehicle made by a manufacturer.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="YearDate" type="niem-xs:gYear" substitutionGroup="nc:DateRepresentation">
+    <xs:annotation>
+      <xs:documentation>A year.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="YearMonthDate" type="niem-xs:gYearMonth" substitutionGroup="nc:DateRepresentation">
+    <xs:annotation>
+      <xs:documentation>A year and month.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>

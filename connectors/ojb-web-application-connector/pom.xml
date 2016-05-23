@@ -22,7 +22,7 @@
 	<groupId>org.ojbc.bundles.connectors</groupId>
 	<artifactId>ojb-web-application-connector</artifactId>
 	<packaging>jar</packaging>
-	<version>2.0.0</version>
+	<version>2.0.1</version>
 
 	<name>OJB :: ojb-web-application-connector :: connectors</name>
     <url>http://www.search.org</url>

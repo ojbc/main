@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<br-doc:BookingReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/BookingReport/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0 ../xsd/impl/adams_county/booking_codes.xsd"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:br-doc="http://ojbc.org/IEPD/Exchange/BookingReport/1.0"
+	xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
+	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:DocumentCreationDate>
+		<nc:DateTime>2012-12-17T09:30:47</nc:DateTime>
+	</nc:DocumentCreationDate>
+	<nc:DocumentIdentification>
+		<nc:IdentificationID>eDocumentID</nc:IdentificationID>
+	</nc:DocumentIdentification>
+	<intel:SystemIdentification>
+		<nc:IdentificationID>Source System ID</nc:IdentificationID>
+		<nc:SystemName>Source System Name</nc:SystemName>
+	</intel:SystemIdentification>
+	<nc:Case structures:id="Case_01">
+		<j:CaseAugmentation>
+			<j:CaseCourt>
+				<j:CourtName>State Court</j:CourtName>
+			</j:CaseCourt>
+		</j:CaseAugmentation>
+	</nc:Case>
+	<j:Booking structures:id="Booking_01">
+		<nc:ActivityDate>
+			<nc:DateTime>2013-12-17T09:30:00</nc:DateTime>
+		</nc:ActivityDate>
+		<j:BookingDetentionFacility>
+			<nc:FacilityIdentification>
+				<nc:IdentificationID>Adams County Jail</nc:IdentificationID>
+			</nc:FacilityIdentification>
+		</j:BookingDetentionFacility>
+		<j:BookingSubject>
+			<nc:RoleOfPerson structures:ref="Person_01"/>
+			<j:SubjectIdentification>
+				<nc:IdentificationID>Booking Number</nc:IdentificationID>
+			</j:SubjectIdentification>
+		</j:BookingSubject>
+	</j:Booking>
+	<j:Detention structures:id="Detention_01">
+		<nc:ActivityDate>
+			<nc:Date>2013-12-17</nc:Date>
+		</nc:ActivityDate>
+		<nc:SupervisionCustodyStatus>
+			<nc:StatusDescriptionText>Pretrial</nc:StatusDescriptionText>
+			<ac-bkg-codes:PreTrialCategoryCode>SRP</ac-bkg-codes:PreTrialCategoryCode>
+		</nc:SupervisionCustodyStatus>
+		<j:SupervisionAugmentation>
+			<j:SupervisionReleaseDate>
+				<nc:DateTime>2014-12-17T10:30:00</nc:DateTime>
+			</j:SupervisionReleaseDate>
+			<j:SupervisionAreaIdentification>
+				<nc:IdentificationID>Cell Block A</nc:IdentificationID>
+			</j:SupervisionAreaIdentification>
+			<j:SupervisionBedIdentification>
+				<nc:IdentificationID>Bed 2</nc:IdentificationID>
+				<ac-bkg-codes:BedCategoryCode>BedType 2</ac-bkg-codes:BedCategoryCode>
+			</j:SupervisionBedIdentification>
+			<j:SupervisionCellIdentification>
+				<nc:IdentificationID>Cell 7</nc:IdentificationID>
+			</j:SupervisionCellIdentification>
+		</j:SupervisionAugmentation>
+		<br-ext:DetentiontImmigrationHoldIndicator>false
+		</br-ext:DetentiontImmigrationHoldIndicator>
+		<br-ext:HoldForAgency>
+			<nc:OrganizationName>Arvada PD</nc:OrganizationName>
+		</br-ext:HoldForAgency>
+		<br-ext:InmateWorkReleaseIndicator>true
+		</br-ext:InmateWorkReleaseIndicator>
+		<br-ext:InmateWorkerIndicator>false
+		</br-ext:InmateWorkerIndicator>
+	</j:Detention>
+	<j:BailBond structures:id="Bond_01">
+		<nc:ActivityCategoryText>Cash</nc:ActivityCategoryText>
+		<nc:ActivityStatus>
+			<nc:StatusDescriptionText>Bond Status</nc:StatusDescriptionText>
+		</nc:ActivityStatus>
+		<j:BailBondAmount>
+			<nc:Amount>500.00</nc:Amount>
+		</j:BailBondAmount>
+	</j:BailBond>
+	<j:Charge structures:id="Charge_01">
+		<j:ChargeCategoryDescriptionText>Felony</j:ChargeCategoryDescriptionText>
+		<j:ChargeDescriptionText>Charge Description</j:ChargeDescriptionText>
+		<j:ChargeHighestIndicator>true</j:ChargeHighestIndicator>
+		<j:ChargeSequenceID>Charge Sequence ID</j:ChargeSequenceID>
+		<j:ChargeStatute>
+			<j:StatuteCodeSectionIdentification>
+				<nc:IdentificationID>Charge Code ID</nc:IdentificationID>
+			</j:StatuteCodeSectionIdentification>
+		</j:ChargeStatute>
+	</j:Charge>
+	<j:Arrest structures:id="Arrest_01">
+		<j:ArrestAgency>
+			<nc:OrganizationName>Arrest Agency name</nc:OrganizationName>
+		</j:ArrestAgency>
+		<j:ArrestLocation structures:ref="Loc_01"/>
+	</j:Arrest>
+	<j:PersonCriminalHistorySummary structures:id="CHS_01">
+		<j:RegisteredSexualOffenderIndicator>false</j:RegisteredSexualOffenderIndicator>
+	</j:PersonCriminalHistorySummary>
+	<cyfs:NextCourtEvent structures:id="Event_01">
+		<nc:ActivityDate>
+			<nc:Date>1968-12-17</nc:Date>
+		</nc:ActivityDate>
+		<j:CourtEventCourt>
+			<j:CourtName>Court Name</j:CourtName>
+		</j:CourtEventCourt>
+	</cyfs:NextCourtEvent>
+	<nc:Person structures:id="Person_01">
+		<nc:PersonBirthDate>
+			<nc:Date>1968-12-17</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonEducationLevelText>High School Graduate</nc:PersonEducationLevelText>
+		<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
+		<nc:PersonMilitarySummary>
+			<nc:MilitaryExperienceIndicator>true</nc:MilitaryExperienceIndicator>
+		</nc:PersonMilitarySummary>
+		<nc:PersonName>
+			<nc:PersonGivenName>Otis</nc:PersonGivenName>
+			<nc:PersonMiddleName>H.</nc:PersonMiddleName>
+			<nc:PersonSurName>Strong</nc:PersonSurName>
+		</nc:PersonName>
+		<nc:PersonPrimaryLanguage>
+			<nc:LanguageName>English</nc:LanguageName>
+		</nc:PersonPrimaryLanguage>
+		<j:PersonRaceCode>White</j:PersonRaceCode>
+		<nc:PersonResidentText>Residence</nc:PersonResidentText>
+		<j:PersonSexCode>Female</j:PersonSexCode>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>123-45-6789</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<j:PersonAugmentation>
+			<nc:EmployeeOccupationCategoryText>Truck Driver
+			</nc:EmployeeOccupationCategoryText>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>CO0120010324</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+		<br-ext:PersonSocioEconomicStatusDescriptionText>Middle Class
+		</br-ext:PersonSocioEconomicStatusDescriptionText>
+	</nc:Person>
+	<nc:Location structures:id="Loc_01">
+		<nc:Address>
+			<nc:AddressFullText>30 Main Street Denton, Colorada
+			</nc:AddressFullText>
+		</nc:Address>
+		<nc:Location2DGeospatialCoordinate>
+			<nc:GeographicCoordinateLatitude>
+				<nc:LatitudeDegreeValue>56.1111</nc:LatitudeDegreeValue>
+			</nc:GeographicCoordinateLatitude>
+			<nc:GeographicCoordinateLongitude>
+				<nc:LongitudeDegreeValue>32.1111</nc:LongitudeDegreeValue>
+			</nc:GeographicCoordinateLongitude>
+		</nc:Location2DGeospatialCoordinate>
+	</nc:Location>
+	<j:ActivityChargeAssociation>
+		<nc:Activity structures:ref="Case_01"/>
+		<nc:Activity structures:ref="Booking_01"/>
+		<nc:Activity structures:ref="Event_01"/>
+		<nc:Activity structures:ref="Detention_01"/>
+		<nc:Activity structures:ref="Arrest_01"/>
+		<nc:Activity structures:ref="Event_01"/>
+		<nc:Activity structures:ref="CHS_01"/>
+		<j:Charge structures:ref="Charge_01"/>
+	</j:ActivityChargeAssociation>
+	<j:BailBondChargeAssociation>
+		<j:BailBond structures:ref="Bond_01"/>
+		<j:Charge structures:ref="Charge_01"/>
+	</j:BailBondChargeAssociation>
+</br-doc:BookingReport>

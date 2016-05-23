@@ -43,7 +43,6 @@ import org.ojbc.adapters.rapbackdatastore.processor.IdentificationRequestReportP
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -140,6 +139,7 @@ public class TestIdentficationRecordingAndResponse {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testIdentificationRecordingRequestAndResultsSuccess() throws Exception
 	{
 		civilRecordingRequestSuccess(); 
@@ -206,6 +206,7 @@ public class TestIdentficationRecordingAndResponse {
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testIdentificationRecordingCriminalResultsSuccess() throws Exception
 	{
 		criminalRecordingResultServiceSuccess();
@@ -227,7 +228,7 @@ public class TestIdentficationRecordingAndResponse {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		identificationReportingResultMessageProcessor.expectedMessageCount(3);
+		identificationReportingResultMessageProcessor.expectedMessageCount(1);
 		
 		identificationReportingResultMessageProcessor.assertIsSatisfied();
 		

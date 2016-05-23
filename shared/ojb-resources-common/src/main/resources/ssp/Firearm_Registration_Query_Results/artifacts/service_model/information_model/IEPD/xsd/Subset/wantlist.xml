@@ -26,11 +26,14 @@
   xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0">
   <w:Element w:name="intel:SystemName" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Person" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:PersonDriverLicenseAssociation"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:AddressDeliveryPointText" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:AddressFullText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ContactInformation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ContactTelephoneNumber" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Date" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:DriverLicense" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:EmployeeContactInformationAssociation"
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:EmployeeOccupationText" w:isReference="false" w:nillable="false"/>
@@ -2351,6 +2354,7 @@
     <w:Facet w:facet="enumeration" w:value="W"/>
     <w:Facet w:facet="enumeration" w:value="X"/>
   </w:Type>
+  <w:Type w:name="j:DriverLicenseType" w:isRequested="true"/>
   <w:Type w:name="j:PersonAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:PersonStateFingerprintIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -2373,6 +2377,17 @@
     <w:ElementInType w:name="nc:DateRepresentation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:DriverLicenseAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:DriverLicense" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Person" w:isReference="true"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:DriverLicenseBaseType" w:isRequested="true">
+    <w:ElementInType w:name="nc:DriverLicenseIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:DriverLicenseType" w:isRequested="true"/>
   <w:Type w:name="nc:EntityType" w:isRequested="false">
     <w:ElementInType w:name="nc:EntityRepresentation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -2396,6 +2411,8 @@
   <w:Type w:name="nc:IdentificationType" w:isRequested="false">
     <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:IdentificationSourceText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="nc:ItemRegistrationAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:ItemRegistration" w:isReference="true"

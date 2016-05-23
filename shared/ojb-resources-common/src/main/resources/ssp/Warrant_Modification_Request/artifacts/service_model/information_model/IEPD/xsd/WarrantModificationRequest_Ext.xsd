@@ -21,8 +21,7 @@
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
-	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
 	xmlns:scr="http://release.niem.gov/niem/domains/screening/3.1/"
 	xmlns:wm-req-ext="http://ojbc.org/IEPD/Extensions/WarrantModificationRequestExtension/1.0"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/WarrantModificationRequestExtension/1.0"
@@ -38,7 +37,7 @@
 	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.1/"
 		schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/domains/screening/3.1/"
-		schemaLocation="./Subset/niem/domains/screening/3.1/screening.xsd" />	
+		schemaLocation="./Subset/niem/domains/screening/3.1/screening.xsd" />
 	<xsd:complexType name="WarrantModificationRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a warrant modification request.
@@ -50,9 +49,16 @@
 					<xsd:element ref="nc:Case" />
 					<xsd:element ref="j:Warrant" />
 					<xsd:element ref="nc:Person" />
+					<xsd:element ref="nc:Vehicle" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ConveyanceRegistration" minOccurs="0"
+						maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0"
 						maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformationAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ConveyanceRegistrationAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonConveyanceAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityWarrantAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
@@ -60,47 +66,21 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="WarrantAcceptedReportType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for a warrant accepted report.
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="structures:ObjectType">
-				<xsd:sequence>
-					<xsd:element ref="j:Warrant" />
-					<xsd:element ref="nc:Person" />
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:complexType name="WarrantRejectedReportType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for a warrant rejected report.
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="structures:ObjectType">
-				<xsd:sequence>
-					<xsd:element ref="j:Warrant" />
-					<xsd:element ref="nc:Person" />
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
 	<xsd:complexType name="WarrantAugmentationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for additional information about a
-				warrant.</xsd:documentation>
+				warrant.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
 					<xsd:element ref="wm-req-ext:PersonRecordIdentification"
 						minOccurs="0" />
+					<xsd:element ref="nc:ExpirationDate" minOccurs="0" />
 					<xsd:element ref="wm-req-ext:ExtraditionIndicator"
 						minOccurs="0" />
-					<xsd:element ref="wm-req-ext:ExtradictionLimitsCodeText"
+					<xsd:element ref="wm-req-ext:ExtradictionLimitCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="wm-req-ext:SubjectPickupRadiusCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
@@ -108,7 +88,7 @@
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="scr:TransactionControlNumberIdentification"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="wm-req-ext:WarrantAdditionalInformationText"
+					<xsd:element ref="wm-req-ext:WarrantCommentText"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="wm-req-ext:WarrantEntryCategoryCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
@@ -116,24 +96,25 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:element name="WarrantCommentText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A comment, note or remark regarding a warrant.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="PersonRecordIdentification" type="nc:IdentificationType"
 		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A unique identification assigned to a person
-				record.</xsd:documentation>
+				record.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonMiscellaneousRecordIdentification"
 		type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A miscellaneous unique identification assigned to
-				a person record.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="PersonAdditionalInformationText" type="nc:TextType"
-		substitutionGroup="nc:PersonAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>Additional information about a person.
+				a person record.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -154,7 +135,15 @@
 	<xsd:element name="ExtraditionIndicator" type="niem-xs:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if a person can be extradited; false
-				otherwise.</xsd:documentation>
+				otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalTrackingNumber" type="nc:TextType"
+		substitutionGroup="nc:CaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A case number assigend by the prosecution.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonEmployeeIdentification" type="nc:IdentificationType"
@@ -164,11 +153,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ExtradictionLimitsCodeText" type="nc:TextType">
+	<xsd:element name="ExtradictionLimitCodeText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A code representing a kind of limitation placed on
 				the extradition of a subject from an area outside the immediate
-				jurisdiction of the issuing court.</xsd:documentation>
+				jurisdiction of the issuing court.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubjectPickupRadiusCodeText" type="nc:TextType">
@@ -181,13 +171,7 @@
 	<xsd:element name="WarrantBroadcastCodeText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A code representing the extent to which a warrant
-				will be broadcast.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="OffenseCodeText" type="nc:TextType"
-		substitutionGroup="j:ChargeAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A code representing an offense.
+				will be broadcast.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -213,12 +197,7 @@
 	<xsd:element name="AgencyRecordIdentification" type="nc:IdentificationType"
 		substitutionGroup="nc:OrganizationAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>Originating Case Agency number (OCA).</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="WarrantAdditionalInformationText" type="nc:TextType">
-		<xsd:annotation>
-			<xsd:documentation>Additional information about a warrant.
+			<xsd:documentation>Originating Case Agency number (OCA).
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -226,6 +205,34 @@
 		<xsd:annotation>
 			<xsd:documentation>A type of warrant entry.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GeneralOffenseCharacterDescriptionText"
+		type="nc:TextType" substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Further description regarding the circumstances of
+				a charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonImmigrationAlienQueryIndicator"
+		type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a person query should include the DHS ICE
+				Database; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ProsecutionChargeCodeText" type="nc:TextType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A charge code assigned by the prosecution.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ConveyanceRegistrationNonExpiringIndicator" type="niem-xs:boolean" substitutionGroup="j:ConveyanceRegistrationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if the registration is exempt from expiration, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

@@ -23,10 +23,10 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest.Alias;
 import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
-
 import org.apache.camel.Message;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -52,8 +52,12 @@ public class ArrestNotificationRequestTest {
 		assertThat(request.getNotifyingAgencyName(), is("Honolulu PD"));
 		assertThat(request.getNotificationEventIdentifier(), is(StringUtils.EMPTY));
 		assertThat(request.getAttorneyGeneralIndicator(), is("false"));
-		assertThat(request.getSubjectIdentifiers().size(), is(1));
-		assertThat(request.getSubjectIdentifiers().get("SID"), is("A9999999"));
+		assertThat(request.getSubjectIdentifiers().size(), is(4));
+		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
+		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("Homer"));
+		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("Simpson"));
+		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1955-01-15"));
+		
 		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/arrest"));
 		assertThat(request.getPersonBookingName(), is("Simpson, Homer"));
 		assertThat(request.getBookingDateTimeDisplay(), is("2013-09-06"));
@@ -87,8 +91,13 @@ public class ArrestNotificationRequestTest {
 		assertThat(request.getNotifyingAgencyName(), is("Burlington Police Department"));
 		assertThat(request.getNotificationEventIdentifier(), is(StringUtils.EMPTY));
 		assertThat(request.getAttorneyGeneralIndicator(), is(StringUtils.EMPTY));
-		assertThat(request.getSubjectIdentifiers().size(), is(1));
+		assertThat(request.getSubjectIdentifiers().size(), is(4));
 		assertThat(request.getSubjectIdentifiers().get("SID"), is(StringUtils.EMPTY));
+		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("Mark"));
+		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("Smith"));
+		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1976-09-03"));
+
+		
 		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/arrest"));
 		assertThat(request.getPersonBookingName(), is("Smith, Mark"));
 		assertThat(request.getBookingDateTimeDisplay(), is("2014-01-01 08:06:02"));
@@ -162,8 +171,12 @@ public class ArrestNotificationRequestTest {
 		assertThat(request.getNotifyingAgencyName(), is("Burlington Police Department"));
 		assertThat(request.getNotificationEventIdentifier(), is(StringUtils.EMPTY));
 		assertThat(request.getAttorneyGeneralIndicator(), is(StringUtils.EMPTY));
-		assertThat(request.getSubjectIdentifiers().size(), is(1));
+		assertThat(request.getSubjectIdentifiers().size(), is(4));
 		assertThat(request.getSubjectIdentifiers().get("SID"), is(StringUtils.EMPTY));
+		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("Mark"));
+		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("Smith"));
+		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1976-09-03"));
+		
 		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/arrest"));
 		assertThat(request.getPersonBookingName(), is("Smith, Mark"));
 		assertThat(request.getBookingDateTimeDisplay(), is("2014-01-01 08:06:02"));

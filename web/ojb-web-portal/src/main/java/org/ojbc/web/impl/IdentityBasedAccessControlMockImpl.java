@@ -34,27 +34,48 @@ public class IdentityBasedAccessControlMockImpl implements IdentityBasedAccessCo
     @Value("${policy.accesscontrol.requestedresource:}")
     private String policyAccessControlResourceURI;
     
-    @Value("${subscription.accesscontrol.requestedresource:}")
-    private String subscriptionAccessControlResourceURI;
+    @Value("${criminal.subscription.accesscontrol.requestedresource:}")
+    private String criminalSubscriptionAccessControlResourceURI;
+
+    @Value("${civil.subscription.accesscontrol.requestedresource:}")
+    private String civilSubscriptionAccessControlResourceURI;
+    
+    @Value("${criminal.identification.results.requestedresource:}")
+    private String criminalIdentificationResultsResourceURI;
 
     @Override
     public String invokeAccessControlRequest(String federatedQueryID, Element samlToken,
-            String requestedResourceURI) {
+            String... requestedResourceURIs) {
         
+    	String requestedResourceURI = requestedResourceURIs[0];
+    	
         try {
             String federationId = XmlUtils.xPathStringSearch(samlToken,
                     "/saml2:Assertion/saml2:AttributeStatement[1]/"
                             + "saml2:Attribute[@Name='gfipm:2.0:user:FederationId']/saml2:AttributeValue");
             if (VALID_USER_WITH_SUBSCRIPTION.equals(federationId)) {
-                return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
-                        "/sampleResponses/identityBasedAccessControl/AccessControlResponseForCurrentUser.xml"));
+                if (policyAccessControlResourceURI.equals(requestedResourceURI)) {
+                    return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
+                            "/sampleResponses/identityBasedAccessControl/AccessControlResponseForCurrentUser.xml"));
+                }
+                else if (criminalSubscriptionAccessControlResourceURI.equals(requestedResourceURI)) {
+                	
+                	if (requestedResourceURI.length() == 3){
+	                    return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
+	                            "/sampleResponses/identityBasedAccessControl/CriminalSubscriptionAccessGrantedResponse.xml"));
+                	}
+                	else {
+	                    return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
+	                            "/sampleResponses/identityBasedAccessControl/CriminalSubscriptionAccessGrantedResponse.xml"));
+                	}
+                }
             }
             if (VALID_USER_WITHOUT_SUBSCRIPTION.equals(federationId)) {
                 if (policyAccessControlResourceURI.equals(requestedResourceURI)) {
                     return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
                             "/sampleResponses/identityBasedAccessControl/AccessControlResponseForCurrentUser.xml"));
                 }
-                else if (subscriptionAccessControlResourceURI.equals(requestedResourceURI)) {
+                else if (criminalSubscriptionAccessControlResourceURI.equals(requestedResourceURI)) {
                     return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
                             "/sampleResponses/identityBasedAccessControl/AccessControlResponseForNonCurrentUser.xml"));
                 }

@@ -536,13 +536,14 @@
                         <ext:IncidentReport>
                          	<ext:IncidentReportableToDistrictAttorneyIndicator>true</ext:IncidentReportableToDistrictAttorneyIndicator>
                             <ext:Incident>
+                            	<ext:Charge/>
                                 <j:IncidentArrestMadeIndicator>false</j:IncidentArrestMadeIndicator>
                                 <ext:IncidentCrimeSolvedIndicator>true</ext:IncidentCrimeSolvedIndicator>
                                 <ext:IncidentCitationIndicator>true</ext:IncidentCitationIndicator>
                                 <ext:IncidentWarningIndicator>false</ext:IncidentWarningIndicator>
                                 <ext:IncidentAutomobileTheftIndicator>false</ext:IncidentAutomobileTheftIndicator>
                                 <ext:IncidentCategoryCode>Citation</ext:IncidentCategoryCode>
-                                <lexslib:SameAsDigestReference lexslib:ref="Incident14BU000056"/>
+                                <lexslib:SameAsDigestReference lexslib:ref="Incident14BU000056"/>                                
                             </ext:Incident>
                             <ext:Offense>
                                 <ext:OffenseCodeText>Driving Under Influence</ext:OffenseCodeText>

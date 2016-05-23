@@ -143,12 +143,7 @@
 				<camel:simple resultType="org.w3c.dom.Document">${body}</camel:simple>
 			</camel:setHeader>
 			
-			<camel:filter>
-		       <camel:simple>${in.header.federatedQueryRecipientListHeader} not contains 'direct:'</camel:simple>
-				<!-- This wiretap will start the message timer only for web service invocations. There were anamolies with having it as part of the Recipient List -->
-				<camel:wireTap uri="direct:startFederatedQueryTimer"/>
-		   </camel:filter>
-
+			<camel:wireTap uri="direct:startFederatedQueryTimer"/>
 			<camel:log message="Timer started"/>
 
 			<camel:choice>
@@ -156,7 +151,8 @@
 					<camel:simple>${in.headers.operationName} == 'SubmitIdentityBasedAccessControlRequest'</camel:simple>				
 					<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
 						<camel:xpath>/acr:IdentityBasedAccessControlRequest/ext:RequestedResourceURI</camel:xpath>
-						<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
+						<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>
+						
 						<camel:recipientList>
 							<camel:header>webServiceEndpointToCall</camel:header>
 						</camel:recipientList>
@@ -166,7 +162,8 @@
 					<camel:simple>${in.headers.operationName} == 'SubmitMessageBasedAccessControlRequest'</camel:simple>				
 					<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
 						<camel:xpath>//personsearch-ext:SourceSystemNameText</camel:xpath>
-						<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
+						<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>
+							
 						<camel:recipientList>
 							<camel:header>webServiceEndpointToCall</camel:header>
 						</camel:recipientList>
@@ -176,14 +173,26 @@
 					<camel:log message="Wrong Operation Name: ${in.headers.operationName}" loggingLevel="ERROR" />
 				</camel:otherwise>
 			</camel:choice>
-			
-				
-	
 		</route>			
 
-		<route>
+		<route id="accessControlLocalRoute">
 			<from uri="direct:accessControlLocalRoute"/>
 
+			<camel:log message="This is the body:${body}" ></camel:log>
+			<camel:log message="This is the splitter index:$simple{property.CamelSplitIndex}" ></camel:log>
+			<camel:log message="This is the splitter complete indicator:$simple{property.CamelSplitComplete}" ></camel:log>
+			<camel:log message="This is the splitter size:$simple{property.CamelSplitSize}" ></camel:log>
+			<camel:setHeader headerName="camelSplitIndex">
+				<camel:simple resultType="Integer">$simple{property.CamelSplitIndex}</camel:simple>
+			</camel:setHeader>
+			<camel:setHeader headerName="camelSplitSize">
+				<camel:simple resultType="Integer">$simple{property.CamelSplitSize}</camel:simple>
+			</camel:setHeader>
+			<camel:setHeader headerName="requestedResourceURI">
+				<camel:xpath resultType="String">/acr:IdentityBasedAccessControlRequest/ext:RequestedResourceURI[$camelSplitIndex + 1]|//personsearch-ext:SourceSystemNameText[$camelSplitIndex + 1]</camel:xpath>
+			</camel:setHeader>
+				
+			<camel:log message="This is the requestedResourceURI header : ${in.headers.requestedResourceURI}" loggingLevel="INFO"/>	
 			<camel:doTry>
 				
 				<camel:log message="In Access Control Request Handler, returning static response"/>
@@ -215,7 +224,11 @@
 			
 			<camel:log message="Here is the message from the intermediary access control processor: ${body}" loggingLevel="DEBUG"/>
 
-			<camel:to uri="direct:processFederatedResponse" />		
+			<camel:setHeader headerName="federatedQueryNumberOfEndpointsRequested">
+<!-- 				<camel:constant>4</camel:constant>
+ -->				<camel:xpath resultType="Integer">$camelSplitSize + 1</camel:xpath>
+			</camel:setHeader>
+			<camel:to uri="direct:aggregateFederatedQuery" />		
 		</route>
 
 				      
@@ -304,7 +317,7 @@
 							uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
 					
 						<!-- This line remove the OJBWrapper element that the aggregator adds, This XPath works because we only have one response -->
-						<camel:setBody><xpath>/OJBAggregateResponseWrapper/*[1]</xpath></camel:setBody>
+						<to uri="xslt:xslt/aggregatedResponseToAccessControlResponse.xsl"/>
 					</camel:otherwise>
 				</camel:choice>
 					

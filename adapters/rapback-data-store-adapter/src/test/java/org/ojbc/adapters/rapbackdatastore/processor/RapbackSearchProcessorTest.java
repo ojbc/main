@@ -29,7 +29,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.adapters.rapbackdatastore.TestRapbackSearchRequestService;
+import org.ojbc.test.util.SAMLTokenTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
@@ -64,9 +64,12 @@ public class RapbackSearchProcessorTest {
 	public void test() throws Exception {
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
         customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
+		customAttributes.put(SamlAttribute.EmployerSubUnitName, "Honolulu PD Records and ID Division");
+		customAttributes.put(SamlAttribute.EmployeePositionName, "Sworn Supervisors");
 
         org.apache.cxf.message.Message message = 
-        		TestRapbackSearchRequestService.createSamlAssertionMessageWithAttributes(customAttributes);
+        		SAMLTokenTestUtils.createSamlAssertionMessageWithAttributes(customAttributes);
         
         Document civilIdentificationSearchRequest = 
         		XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/"

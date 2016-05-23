@@ -157,6 +157,8 @@
 		<entry key="stateGovLink" value="http://local.gov/" />
 		<entry key="queryLink" value="#" />
 		<entry key="subscriptionsLink" value="#" />
+		<entry key="rapbackLink" value="#" />
+		<entry key="criminalIdLink" value="#" />
 		<entry key="helpLink" value="#" />
 		<entry key="privacyPolicyLink" value="http://local.gov/privacy-policies/" />
 		<entry key="faqLink" value="#" />
@@ -520,6 +522,7 @@
 		<entry key="Custody" value="custody-list.xsl" />
 		<entry key="Court Case Detail" value="court-case-detail.xsl" />
 		<entry key="Custody Detail" value="custody-detail.xsl" />
+		<entry key="Vehicle Crash" value="vehicle-crash.xsl" />
 	</util:map>
 
 	<!-- This map is used to allow conditional includes into the Velocity templates 
@@ -571,6 +574,11 @@
 		<!-- Person Firearms -->
     	<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms">
 			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_PERSON" />
+		</entry>
+		
+		<!-- Person Vehicle Crash -->
+    	<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.VEHICLE_CRASH" />
 		</entry>
 		
 		<!-- Person to Incident list, not supported by static mock adapter --> 

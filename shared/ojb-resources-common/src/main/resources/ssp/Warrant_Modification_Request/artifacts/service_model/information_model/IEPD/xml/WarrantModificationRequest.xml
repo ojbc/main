@@ -30,18 +30,26 @@
 			<nc:IdentificationID>CN</nc:IdentificationID>
 		</nc:ActivityIdentification>
 		<nc:CaseDocketID>Docket8987</nc:CaseDocketID>
+		<wm-req-ext:CriminalTrackingNumber>PW56
+		</wm-req-ext:CriminalTrackingNumber>
 		<j:CaseAugmentation>
 			<j:CaseCharge>
-				<wm-req-ext:OffenseCodeText>OC45656-09</wm-req-ext:OffenseCodeText>
+				<wm-req-ext:GeneralOffenseCharacterDescriptionText>Description
+				</wm-req-ext:GeneralOffenseCharacterDescriptionText>
 				<wm-req-ext:ChargeCodeText>CHG5678</wm-req-ext:ChargeCodeText>
 				<wm-req-ext:OriginalOffenseCodeText>OO4356788
 				</wm-req-ext:OriginalOffenseCodeText>
+				<wm-req-ext:ProsecutionChargeCodeText>PCC45678
+				</wm-req-ext:ProsecutionChargeCodeText>
 			</j:CaseCharge>
 		</j:CaseAugmentation>
 	</nc:Case>
 	<j:Warrant structures:id="Warrant_01">
 		<j:CourtOrderDesignatedSubject>
 			<nc:RoleOfPerson structures:ref="Person_01" />
+			<j:SubjectCorrectionsIdentification>
+				<nc:IdentificationID>PN3929593</nc:IdentificationID>
+			</j:SubjectCorrectionsIdentification>
 		</j:CourtOrderDesignatedSubject>
 		<j:CourtOrderEnforcementAgency>
 			<j:OrganizationAugmentation>
@@ -79,10 +87,13 @@
 			<wm-req-ext:PersonRecordIdentification>
 				<nc:IdentificationID>R69458998</nc:IdentificationID>
 			</wm-req-ext:PersonRecordIdentification>
+			<nc:ExpirationDate>
+				<nc:Date>2016-08-13</nc:Date>
+			</nc:ExpirationDate>
 			<wm-req-ext:ExtraditionIndicator>true
 			</wm-req-ext:ExtraditionIndicator>
-			<wm-req-ext:ExtradictionLimitsCodeText>MC23
-			</wm-req-ext:ExtradictionLimitsCodeText>
+			<wm-req-ext:ExtradictionLimitCodeText>MC23
+			</wm-req-ext:ExtradictionLimitCodeText>
 			<wm-req-ext:SubjectPickupRadiusCodeText>500
 			</wm-req-ext:SubjectPickupRadiusCodeText>
 			<wm-req-ext:WarrantBroadcastCodeText>B26
@@ -90,26 +101,22 @@
 			<scr:TransactionControlNumberIdentification>
 				<nc:IdentificationID>TCN345665</nc:IdentificationID>
 			</scr:TransactionControlNumberIdentification>
-			<wm-req-ext:WarrantAdditionalInformationText>Additional Warrant
-				Information
-			</wm-req-ext:WarrantAdditionalInformationText>
+			<wm-req-ext:WarrantCommentText>Warrant Comment
+			</wm-req-ext:WarrantCommentText>
 			<wm-req-ext:WarrantEntryCategoryCodeText>Entry
 			</wm-req-ext:WarrantEntryCategoryCodeText>
 		</wm-req-ext:WarrantAugmentation>
 	</j:Warrant>
 	<nc:Person structures:id="Person_01">
-		<nc:PersonAgeMeasure>
-			<nc:MeasureValueText>24</nc:MeasureValueText>
-		</nc:PersonAgeMeasure>
+		<nc:PersonAgeDescriptionText>Age</nc:PersonAgeDescriptionText>
 		<nc:PersonBirthDate>
 			<nc:Date>1967-08-13</nc:Date>
 		</nc:PersonBirthDate>
 		<nc:PersonBirthLocation>
 			<nc:LocationCategoryText>OP</nc:LocationCategoryText>
 		</nc:PersonBirthLocation>
-		<nc:PersonCitizenshipISO3166Alpha2Code>AO
-		</nc:PersonCitizenshipISO3166Alpha2Code>
-		<j:PersonEthnicityCode>N</j:PersonEthnicityCode>
+		<nc:PersonCitizenshipText>AO</nc:PersonCitizenshipText>
+		<nc:PersonEthnicityText>N</nc:PersonEthnicityText>
 		<nc:PersonEyeColorText>BLK</nc:PersonEyeColorText>
 		<nc:PersonHairColorText>ONG</nc:PersonHairColorText>
 		<nc:PersonHeightMeasure>
@@ -124,10 +131,11 @@
 			<nc:PersonFullName>Peter J Jones Jr</nc:PersonFullName>
 		</nc:PersonName>
 		<nc:PersonPhysicalFeature>
-		<j:PhysicalFeatureCategoryCode>ART ARM</j:PhysicalFeatureCategoryCode>
+			<nc:PhysicalFeatureDescriptionText>ART ARM
+			</nc:PhysicalFeatureDescriptionText>
 		</nc:PersonPhysicalFeature>
-		<j:PersonRaceCode>A</j:PersonRaceCode>
-		<j:PersonSexCode>M</j:PersonSexCode>
+		<nc:PersonRaceText>A</nc:PersonRaceText>
+		<nc:PersonSexText>M</nc:PersonSexText>
 		<nc:PersonSkinToneText>ALB</nc:PersonSkinToneText>
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>098213455</nc:IdentificationID>
@@ -135,9 +143,10 @@
 		<nc:PersonStateIdentification>
 			<nc:IdentificationID>SID56567</nc:IdentificationID>
 		</nc:PersonStateIdentification>
+		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>165</nc:MeasureValueText>
-			<nc:MeasureUnitText>ibs</nc:MeasureUnitText>
+			<nc:MeasureUnitText>lbs</nc:MeasureUnitText>
 		</nc:PersonWeightMeasure>
 		<j:PersonAugmentation>
 			<j:DriverLicense>
@@ -153,8 +162,6 @@
 			</j:PersonFBIIdentification>
 			<j:PersonBirthplaceCode>0P</j:PersonBirthplaceCode>
 		</j:PersonAugmentation>
-		<wm-req-ext:PersonAdditionalInformationText>Gang Member
-		</wm-req-ext:PersonAdditionalInformationText>
 		<wm-req-ext:PersonCautionCodeText>G45
 		</wm-req-ext:PersonCautionCodeText>
 		<wm-req-ext:PersonMiscellaneousRecordIdentification>
@@ -163,7 +170,31 @@
 		<wm-req-ext:PersonRecordIdentification>
 			<nc:IdentificationID>R69458998</nc:IdentificationID>
 		</wm-req-ext:PersonRecordIdentification>
+		<wm-req-ext:PersonImmigrationAlienQueryIndicator>false
+		</wm-req-ext:PersonImmigrationAlienQueryIndicator>
 	</nc:Person>
+	<nc:Vehicle structures:id="Vehicle_01">
+		<nc:ConveyanceColorPrimaryText>BGE</nc:ConveyanceColorPrimaryText>
+		<nc:ConveyanceColorSecondaryText>BRO</nc:ConveyanceColorSecondaryText>
+		<nc:ItemMakeName>AAA</nc:ItemMakeName>
+		<nc:ItemModelName>DIA</nc:ItemModelName>
+		<nc:ItemModelYearDate>2012</nc:ItemModelYearDate>
+		<nc:ItemStyleText>2D</nc:ItemStyleText>
+		<nc:VehicleIdentification>
+			<nc:IdentificationID>VIN3458745679777</nc:IdentificationID>
+		</nc:VehicleIdentification>
+	</nc:Vehicle>
+	<j:ConveyanceRegistration structures:id="Reg_01">
+		<j:RegistrationExpirationDate>
+			<nc:YearMonthDate>2016-11</nc:YearMonthDate>
+		</j:RegistrationExpirationDate>
+		<j:JurisdictionNCICLISCode>MI</j:JurisdictionNCICLISCode>
+		<j:ConveyanceRegistrationPlateIdentification>
+			<nc:IdentificationID>LP4365-0234</nc:IdentificationID>
+		</j:ConveyanceRegistrationPlateIdentification>
+		<j:ConveyanceRegistrationPlateCategoryText>LP-category
+		</j:ConveyanceRegistrationPlateCategoryText>
+	</j:ConveyanceRegistration>
 	<nc:ContactInformation>
 		<nc:ContactMailingAddress structures:id="Address_01">
 			<nc:AddressFullText>Full Address</nc:AddressFullText>
@@ -172,9 +203,8 @@
 				<nc:StreetName>Cedar Ave</nc:StreetName>
 			</nc:LocationStreet>
 			<nc:LocationCityName>Saginaw</nc:LocationCityName>
-			<nc:LocationCountyCode>119</nc:LocationCountyCode>
 			<nc:LocationCountyName>Taylor</nc:LocationCountyName>
-			<j:LocationStateNCICLSTACode>MI</j:LocationStateNCICLSTACode>
+			<nc:LocationStateName>MI</nc:LocationStateName>
 			<nc:LocationPostalCode>63412</nc:LocationPostalCode>
 			<wm-req-ext:AddressCategoryText>Mail</wm-req-ext:AddressCategoryText>
 		</nc:ContactMailingAddress>
@@ -187,6 +217,14 @@
 			<nc:ContactMailingAddress structures:ref="Address_01" />
 		</nc:ContactInformation>
 	</nc:ContactInformationAssociation>
+	<j:ConveyanceRegistrationAssociation>
+		<j:ItemRegistration structures:ref="Reg_01" />
+		<nc:Item structures:ref="Vehicle_01" />
+	</j:ConveyanceRegistrationAssociation>
+	<nc:PersonConveyanceAssociation>
+		<nc:Person structures:ref="Person_01" />
+		<nc:Conveyance structures:ref="Vehicle_01" />
+	</nc:PersonConveyanceAssociation>
 	<j:ActivityWarrantAssociation>
 		<nc:Activity structures:ref="Case_01" />
 		<j:Warrant structures:ref="Warrant_01" />

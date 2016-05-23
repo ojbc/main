@@ -59,6 +59,7 @@
 		<ojb-camel-common>[2.0.0,)</ojb-camel-common>
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
 		<saxon-version>9.5.1-5</saxon-version>
+		<ojb-test-common-version>1.0.0</ojb-test-common-version>
 	</properties>
 
 	<dependencies>
@@ -201,6 +202,13 @@
 			<artifactId>h2-mock-database</artifactId>
 			<version>${h2-mock-database-version}</version>
 			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-test-common</artifactId>
+			<version>${ojb-test-common-version}</version>	
+			<scope>test</scope>			
 		</dependency>
 
 		<!-- logging -->

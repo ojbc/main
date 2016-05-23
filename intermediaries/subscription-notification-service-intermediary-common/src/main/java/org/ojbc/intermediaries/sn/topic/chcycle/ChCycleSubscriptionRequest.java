@@ -39,13 +39,6 @@ public class ChCycleSubscriptionRequest extends SubscriptionRequest {
 		
 	}
 
-	public ChCycleSubscriptionRequest(String topic, String startDateString, String endDateString, Set<String> emailAddresses, String systemName, String subjectName, String firstName, String lastName, String dateOfBirth, String subscriptionQualifier,
-			String subjectIdentifier) {
-
-		super(topic, startDateString, endDateString, emailAddresses, systemName, subjectName, subscriptionQualifier);
-		buildSubjectIdMap(firstName, lastName, dateOfBirth);
-	}
-
 	private void buildSubjectIdMap(String firstName, String lastName, String dateOfBirth) {
 		subjectIdentifiers = new HashMap<String, String>();
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
