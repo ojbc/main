@@ -120,9 +120,7 @@
                      </nc:DriverLicenseIdentification>
                   </nc:DriverLicense>
                   <j:PersonStateFingerprintIdentification>
-                     <nc:IdentificationID>
                         <nc:IdentificationID>SID345667</nc:IdentificationID>
-                     </nc:IdentificationID>
                   </j:PersonStateFingerprintIdentification>
                </j:PersonAugmentation>
             </j:Person>

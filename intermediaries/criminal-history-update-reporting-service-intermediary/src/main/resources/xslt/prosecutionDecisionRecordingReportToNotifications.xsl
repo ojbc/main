@@ -192,9 +192,7 @@
 	
 	<xsl:template match="j50:PersonAugmentation/j50:PersonStateFingerprintIdentification">
 		<j:PersonStateFingerprintIdentification>
-			<nc:IdentificationID>
-				<xsl:apply-templates select="nc30:IdentificationID"/>
-			</nc:IdentificationID>
+			<xsl:apply-templates select="nc30:IdentificationID"/>
 		</j:PersonStateFingerprintIdentification>
 	</xsl:template>	
 	
