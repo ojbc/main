@@ -41,29 +41,22 @@
 		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
-<!-- 		<property name="activeSubjectIdentifiers" ref="activeArrestSubscriptionSubjectIdentifiers"/> -->
 	</bean>
-	
-<!-- 	<util:list id="activeArrestSubscriptionSubjectIdentifiers"> -->
-<!-- 		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.SID" /> -->
-<!-- 		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER" /> -->
-<!-- 		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.FIRST_NAME" /> -->
-<!-- 		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.LAST_NAME" /> -->
-<!-- 		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.DATE_OF_BIRTH" /> -->
-<!-- 	</util:list> -->
 
 	<bean id="courtDispositionUpdateProcessor"
-		class="org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionProcessor">
+		class="org.ojbc.intermediaries.sn.topic.courtdispositionupdate.CourtDispositionUpdateSubscriptionProcessor">
 		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
+		<property name="activeSubjectIdentifiers" ref="courtDispositionUpdateSubscriptionSubjectIdentifiers"/>
 	</bean>
 
 	<bean id="prosecutionDecisionUpdateProcessor"
-		class="org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionProcessor">
+		class="org.ojbc.intermediaries.sn.topic.prosecutiondecisionupdate.ProsecutionDecisionUpdateSubscriptionProcessor">
 		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
+		<property name="activeSubjectIdentifiers" ref="prosecutionDecisionUpdateSubscriptionSubjectIdentifiers"/>
 	</bean>
 
 	<bean id="incidentSubscriptionProcessor"
@@ -87,22 +80,7 @@
 		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
 		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
 		<property name="emailFormatter" ref="emailFormatter"/>
-<!-- 		<property name="activeSubjectIdentifiers" ref="activeArrestNotificationSubjectIdentifiers"/> -->
-<!-- 		<property name="alternateConfiguredSubjectIdentifiers" ref="alternateConfiguredSubjectIdentifiers"/> -->
 	</bean>
-
-<!-- 	<util:list id="activeArrestNotificationSubjectIdentifiers"> -->
-<!-- 		<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.SID" /> -->
-<!-- 	</util:list> -->
-
-<!-- 	<util:list id="alternateConfiguredSubjectIdentifiers"> -->
-<!-- 		<util:list> -->
-<!-- 			<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.FIRST_NAME" /> -->
-<!-- 			<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.LAST_NAME" /> -->
-<!-- 			<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.DATE_OF_BIRTH" /> -->
-<!-- 		</util:list> -->
-<!-- 	</util:list> -->
-
 
 	<bean id="incidentNotificationProcessor"
 		class="org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationProcessor">
@@ -114,22 +92,26 @@
 	</bean>
 	
 	<bean id="prosecutionDecisionUpdateNotificationProcessor"
-		class="org.ojbc.intermediaries.sn.topic.chcycle.ChCycleNotificationProcessor">
+		class="org.ojbc.intermediaries.sn.topic.prosecutiondecisionupdate.ProsecutionDecisionUpdateNotificationProcessor">
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
 		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
 		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
 		<property name="emailFormatter" ref="emailFormatter"/>
+		<property name="activeSubjectIdentifiers" ref="activeProsecutionDecisionUpdateNotificationSubjectIdentifiers"/>
+		<property name="alternateConfiguredSubjectIdentifiers" ref="alternateConfiguredProsecutionDecisionUpdateNotificationSubjectIdentifiers"/>
 	</bean>	
-
+	
 	<bean id="courtDispositionUpdateNotificationProcessor"
-		class="org.ojbc.intermediaries.sn.topic.chcycle.ChCycleNotificationProcessor">
+		class="org.ojbc.intermediaries.sn.topic.courtdispositionupdate.CourtDispositionUpdateNotificationProcessor">
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
 		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
 		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
 		<property name="emailFormatter" ref="emailFormatter"/>
-	</bean>	
+		<property name="activeSubjectIdentifiers" ref="courtDispositionUpdateNotificationSubjectIdentifiers"/>
+		<property name="alternateConfiguredSubjectIdentifiers" ref="alternateConfiguredCourtDispositionUpdateNotificationSubjectIdentifiers"/>
+	</bean>
 	
 	<bean id="sidConsolidationProcessor" class="org.ojbc.intermediaries.sn.subscription.SidConsolidationProcessor">
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />

@@ -71,9 +71,6 @@
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>123456789</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
-		<nc:PersonStateIdentification>
-			<nc:IdentificationID>SID345667</nc:IdentificationID>
-		</nc:PersonStateIdentification>
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>180</nc:MeasureValueText>
 			<nc:MeasureUnitText>lbs</nc:MeasureUnitText>
@@ -84,6 +81,9 @@
 					<nc:IdentificationID>ME32456789</nc:IdentificationID>
 				</j:DriverLicenseCardIdentification>
 			</j:DriverLicense>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>SID345667</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>			
 		</j:PersonAugmentation>
 	</nc:Person>
 	<nc:Location s:id="LOC001">

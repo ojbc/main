@@ -18,6 +18,8 @@
 
 -->
 <dataset>
+
+  <!-- Rob's original test data -->
   <subscription_category subscription_category_code="F" subscription_category_description="Firearms"/>
   <subscription_category subscription_category_code="I" subscription_category_description="Volunteer, Child Care/School Employee, Non-Criminal Justice Employment and Licensing"/>
   <subscription_category subscription_category_code="J" subscription_category_description="Criminal Justice Employment"/>
@@ -42,12 +44,23 @@
   <subscription_subject_identifier id="6" subscriptionId="3" identifierName="subscriptionQualifier" identifierValue="20919"/>
   <subscription_subject_identifier id="7" subscriptionId="4" identifierName="SID" identifierValue="A5008306"/>
   <subscription_subject_identifier id="8" subscriptionId="4" identifierName="subscriptionQualifier" identifierValue="20920"/>
-  
+
   <!-- New data to support whitelist testing -->
   
   <subscription id="5" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-10-01" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="SYSTEM"  subjectName="AL CAPONE" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="1" agency_case_number="0123ABF"/>
   <notification_mechanism id="6" subscriptionId="5" notificationMechanismType="email" notificationAddress="po100@localhost"/>
   <subscription_subject_identifier id="9" subscriptionId="5" identifierName="SID" identifierValue="A5008307"/>
   <subscription_subject_identifier id="10" subscriptionId="5" identifierName="subscriptionQualifier" identifierValue="20921"/>
-
+  
+  <!-- New data added by this test case -->
+  
+  <subscription id="6" topic="{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate" startDate="2014-04-14" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemA" subscriptionOwner="SYSTEM" subjectName="John Doe" lastValidationDate="2016-05-11" timestamp="2016-05-11 14:02:59.589" active="0" agency_case_number=""/>
+  <notification_mechanism id="7" subscriptionId="6" notificationMechanismType="email" notificationAddress="po6@localhost"/>
+  <subscription_subject_identifier id="11" subscriptionId="6" identifierName="firstName" identifierValue="John"/>
+  <subscription_subject_identifier id="12" subscriptionId="6" identifierName="lastName" identifierValue="Doe"/>
+  <subscription_subject_identifier id="13" subscriptionId="6" identifierName="subscriptionQualifier" identifierValue="subscriptionQualifier"/>
+  <subscription_subject_identifier id="14" subscriptionId="6" identifierName="dateOfBirth" identifierValue="dateOfBirth"/>
+  <subscription_subject_identifier id="15" subscriptionId="6" identifierName="SID" identifierValue="A9999999"/>
+  
+  
 </dataset>

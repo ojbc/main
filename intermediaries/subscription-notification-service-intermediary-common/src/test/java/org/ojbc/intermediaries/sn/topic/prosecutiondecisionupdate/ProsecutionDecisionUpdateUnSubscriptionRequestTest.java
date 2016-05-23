@@ -43,12 +43,12 @@ public class ProsecutionDecisionUpdateUnSubscriptionRequestTest {
 		
 		ArrestUnSubscriptionRequest request = new ArrestUnSubscriptionRequest(message);
 		
-		assertThat(request.getSubscriptionQualifier(), is("1234578"));
+		assertThat(request.getSubscriptionQualifier(), is("302593"));
 		Assert.assertNotNull(request.getEmailAddresses());
 		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/ProsecutionDecisionUpdate"));
 		assertThat(request.getSubjectIdentifiers().size(), is(5));
 		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
+		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("302593"));
 		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("John"));
 		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("Doe"));
 		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1990-10-20"));

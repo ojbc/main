@@ -175,12 +175,29 @@
 			<xsl:apply-templates select="j50:PersonRaceCode"/>
 			<xsl:apply-templates select="j50:PersonSexCode"/>
 			<xsl:apply-templates select="nc30:PersonSSNIdentification"/>
-			<xsl:apply-templates select="nc30:PersonStateIdentification"/>
 			<xsl:apply-templates select="nc30:PersonWeighttMeasure"/>
-			<xsl:apply-templates select="nc30:PersonWeighttMeasure"/>
-			<xsl:apply-templates select="j50:PersonAugmentation/j50:DriverLicense/j50:DriverLicenseCardIdentification" mode="dl"/>
+			<j:PersonAugmentation>
+				<xsl:apply-templates select="j50:PersonAugmentation/j50:DriverLicense/j50:DriverLicenseCardIdentification" mode="dl"/>
+				<xsl:apply-templates select="j50:PersonAugmentation/j50:PersonStateFingerprintIdentification"/>
+			</j:PersonAugmentation>	
 		</j:Person>
 	</xsl:template>
+	<xsl:template match="j50:PersonAugmentation/j50:DriverLicense/j50:DriverLicenseCardIdentification" mode="dl">
+		<nc:DriverLicense>
+			<nc:DriverLicenseIdentification>
+				<xsl:apply-templates select="nc30:IdentificationID"/>
+			</nc:DriverLicenseIdentification>
+		</nc:DriverLicense>
+	</xsl:template>
+	
+	<xsl:template match="j50:PersonAugmentation/j50:PersonStateFingerprintIdentification">
+		<j:PersonStateFingerprintIdentification>
+			<nc:IdentificationID>
+				<xsl:apply-templates select="nc30:IdentificationID"/>
+			</nc:IdentificationID>
+		</j:PersonStateFingerprintIdentification>
+	</xsl:template>	
+	
 	<xsl:template match="nc30:PersonBirthDate">
 		<nc:PersonBirthDate>
 			<xsl:apply-templates select="nc30:Date"/>
@@ -243,11 +260,6 @@
 			<xsl:apply-templates select="nc30:IdentificationID"/>
 		</nc:PersonSSNIdentification>
 	</xsl:template>
-	<xsl:template match="nc30:PersonStateIdentification">
-		<nc:PersonStateIdentification>
-			<xsl:apply-templates select="nc30:IdentificationID"/>
-		</nc:PersonStateIdentification>
-	</xsl:template>
 	<xsl:template match="nc30:PersonWeightMeasure">
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>
@@ -257,15 +269,6 @@
 				<xsl:value-of select="nc30:MeasureUnitText"/>
 			</nc:MeasureUnitText>
 		</nc:PersonWeightMeasure>
-	</xsl:template>
-	<xsl:template match="j50:PersonAugmentation/j50:DriverLicense/j50:DriverLicenseCardIdentification" mode="dl">
-		<j:PersonAugmentation>
-			<nc:DriverLicense>
-				<nc:DriverLicenseIdentification>
-					<xsl:apply-templates select="nc30:IdentificationID"/>
-				</nc:DriverLicenseIdentification>
-			</nc:DriverLicense>
-		</j:PersonAugmentation>
 	</xsl:template>
 	<xsl:template match="nc30:Date">
 		<nc:Date>
@@ -289,9 +292,7 @@
 		</j:OrganizationORIIdentification>
 	</xsl:template>
 	<xsl:template match="nc30:IdentificationID">
-		<nc:IdentificationID>
-			<xsl:value-of select="."/>
-		</nc:IdentificationID>
+		<nc:IdentificationID><xsl:value-of select="."/></nc:IdentificationID>
 	</xsl:template>
 	<xsl:template match="nc30:Location">
 		<xsl:variable name="LocationID" select="@s30:ref"/>
