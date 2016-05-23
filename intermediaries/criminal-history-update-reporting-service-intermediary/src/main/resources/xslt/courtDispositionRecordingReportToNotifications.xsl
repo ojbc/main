@@ -341,7 +341,7 @@
 	<xsl:template match="j50:PersonAugmentation/j50:PersonStateFingerprintIdentification/nc30:IdentificationID" mode="sid">
 		<j:PersonAugmentation>
 			<j:PersonStateFingerprintIdentification>
-				<nc:IdentificationID><xsl:apply-templates select="."/></nc:IdentificationID>
+				<xsl:apply-templates select="."/>
 			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
 	</xsl:template>
