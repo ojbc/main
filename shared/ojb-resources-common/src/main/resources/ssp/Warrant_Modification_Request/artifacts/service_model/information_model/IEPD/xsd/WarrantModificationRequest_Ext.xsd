@@ -230,4 +230,9 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ConveyanceRegistrationNonExpiringIndicator" type="niem-xs:boolean" substitutionGroup="j:ConveyanceRegistrationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if the registration is exempt from expiration, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>

@@ -874,6 +874,11 @@
       <xs:documentation>A data concept for a specific design or class of vehicle made by a manufacturer.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="YearDate" type="niem-xs:gYear" substitutionGroup="nc:DateRepresentation">
+    <xs:annotation>
+      <xs:documentation>A year.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="YearMonthDate" type="niem-xs:gYearMonth" substitutionGroup="nc:DateRepresentation">
     <xs:annotation>
       <xs:documentation>A year and month.</xs:documentation>
