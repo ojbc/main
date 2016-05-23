@@ -69,7 +69,7 @@ public class CourtDispositionUpdateNotificationRequest extends NotificationReque
 	@Override
 	protected String getNotificationEventIdentifierXpath() {
 
-		return  "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingCourtDispositionUpdate";
+		return  "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingCourtDispositionUpdate/cdu-ext:CourtDispositionUpdate/cdu-ext:CycleTrackingIdentification/nc:IdentificationID";
 	}
 	
 	@Override

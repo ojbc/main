@@ -17,7 +17,25 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0" xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0" xmlns:cdr-report-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0" xmlns:cdr-report-ext="http://ojbc.org/IEPD/Extension/CourtDispositionRecordingReport/1.0" xmlns:j50="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:s30="http://release.niem.gov/niem/structures/3.0/" xmlns:cdu="http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0" xmlns:me_disp_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" exclude-result-prefixes="s30 niem-xs nc30 j50 cdr-report-doc cdr-report-ext xs" version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:b="http://docs.oasis-open.org/wsn/b-2" 
+	xmlns:add="http://www.w3.org/2005/08/addressing" 
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+	 xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0" 
+	 xmlns:cdr-report-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0" 
+	 xmlns:cdr-report-ext="http://ojbc.org/IEPD/Extension/CourtDispositionRecordingReport/1.0" 
+	 xmlns:j50="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	 xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" 
+	 xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+	 xmlns:s30="http://release.niem.gov/niem/structures/3.0/" 
+	 xmlns:cdu="http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0" 
+	 xmlns:me_disp_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" 
+	 exclude-result-prefixes="s30 niem-xs nc30 j50 cdr-report-doc cdr-report-ext xs" version="2.0">
 	<xsl:output indent="yes" method="xml"/>
 	<xsl:param name="topic">{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate</xsl:param>
 	<xsl:param name="systemId">{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</xsl:param>
@@ -64,9 +82,11 @@
 							</notificationExt:NotifyingActivityReportingSystemNameText>
 							<notificationExt:NotifyingActivityReportingSystemURI>SystemURIHere</notificationExt:NotifyingActivityReportingSystemURI>
 							<cdu:CourtDispositionUpdate>
+								<xsl:attribute name="s:id"><xsl:value-of select="generate-id()"/></xsl:attribute>
 								<xsl:apply-templates select="." mode="update"/>
 							</cdu:CourtDispositionUpdate>
 						</notificationExt:NotifyingCourtDispositionUpdate>
+						<xsl:apply-templates select="j50:Subject/nc30:RoleOfPerson[@s30:ref]" mode="activityInvolvedPerson"/>
 						<xsl:apply-templates select="nc30:Person" mode="person"/>
 						<xsl:apply-templates select="nc30:Organization"/>
 						<xsl:apply-templates select="." mode="person-charge"/>
@@ -267,12 +287,28 @@
 			</j:DispositionReference>
 		</notification:ChargeDispositionAssociation>
 	</xsl:template>
+    <xsl:template match="nc30:RoleOfPerson" mode="activityInvolvedPerson">
+    	<xsl:variable name="personID" select="@s30:ref"/>
+    	<nc:ActivityInvolvedPersonAssociation>
+			<nc:ActivityReference>
+				<xsl:attribute name="s:ref">
+					<xsl:value-of select="generate-id(/cdr-report-doc:CourtDispositionRecordingReport)"/>
+				</xsl:attribute>
+			</nc:ActivityReference>
+			<nc:PersonReference>
+				<xsl:attribute name="s:ref">
+					<xsl:value-of select="generate-id(/cdr-report-doc:CourtDispositionRecordingReport/nc30:Person[@s30:id=$personID])"/>
+				</xsl:attribute>
+			</nc:PersonReference>
+		</nc:ActivityInvolvedPersonAssociation>
+    </xsl:template>	
 	<xsl:template match="nc30:Person" mode="person">
 		<xsl:variable name="personID" select="@s30:ref"/>
 		<j:Person>
 			<xsl:attribute name="s:id"><xsl:value-of select="generate-id()"/></xsl:attribute>
 			<xsl:apply-templates select="nc30:PersonBirthDate"/>
 			<xsl:apply-templates select="nc30:PersonName"/>
+			<xsl:apply-templates select="j50:PersonAugmentation/j50:PersonStateFingerprintIdentification/nc30:IdentificationID" mode="sid"/>
 		</j:Person>
 	</xsl:template>
 	<xsl:template match="nc30:PersonBirthDate">
@@ -302,6 +338,14 @@
 			<xsl:value-of select="."/>
 		</nc:PersonSurName>
 	</xsl:template>
+	<xsl:template match="j50:PersonAugmentation/j50:PersonStateFingerprintIdentification/nc30:IdentificationID" mode="sid">
+		<j:PersonAugmentation>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID><xsl:apply-templates select="."/></nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+	</xsl:template>
+	
 	<xsl:template match="nc30:Organization">
 		<j:Organization>
 			<xsl:attribute name="s:id"><xsl:value-of select="generate-id()"/></xsl:attribute>

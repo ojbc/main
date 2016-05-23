@@ -68,6 +68,16 @@
 								<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultChCycleEmailFormatter"/>
 							</util:map>
 						</entry>
+						<entry key="{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate">
+							<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+								<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultCourtDispositionUpdateEmailFormatter"/>
+							</util:map>
+						</entry>
+						<entry key="{http://ojbc.org/wsn/topics}:person/ProsecutionDecisionUpdate">
+							<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+								<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultProsecutionDecisionUpdateEmailFormatter"/>
+							</util:map>
+						</entry>
 					</util:map>
 				</property>
 			</bean>
@@ -173,4 +183,81 @@
 			</bean>
 		</constructor-arg>
 	</bean>	
+	
+	<bean id="courtDispositionUpdateSubscriptionSubjectIdentifiers" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="courtDispositionUpdateSubscriptionSubjectIdentifiers" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<util:list>
+				<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.SID" />
+				<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER" />
+				<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.FIRST_NAME" />
+				<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.LAST_NAME" />
+				<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.DATE_OF_BIRTH" />
+			</util:list>			
+		</constructor-arg>
+	</bean>	
+	
+	<bean id="prosecutionDecisionUpdateSubscriptionSubjectIdentifiers" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="prosecutionDecisionUpdateSubscriptionSubjectIdentifiers" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<util:list>
+				<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.SID" />
+				<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER" />
+				<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.FIRST_NAME" />
+				<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.LAST_NAME" />
+				<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.DATE_OF_BIRTH" />
+			</util:list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="activeProsecutionDecisionUpdateNotificationSubjectIdentifiers" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="activeProsecutionDecisionUpdateSubjectIdentifiers" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<util:list>
+				<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.SID" />
+			</util:list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="alternateConfiguredProsecutionDecisionUpdateNotificationSubjectIdentifiers" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="alternateConfiguredProsecutionDecisionUpdateSubjectIdentifiers" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<util:list>
+				<util:list>
+					<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.FIRST_NAME" />
+					<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.LAST_NAME" />
+					<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.DATE_OF_BIRTH" />
+				</util:list>
+			</util:list>	
+		</constructor-arg>
+	</bean>
+	
+	<bean id="courtDispositionUpdateNotificationSubjectIdentifiers" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="courtDispositionUpdateSubjectIdentifiers" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<util:list>
+				<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.SID" />
+			</util:list>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="alternateConfiguredCourtDispositionUpdateNotificationSubjectIdentifiers" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="alternateConfiguredCourtDispositionUpdateSubjectIdentifiers" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<util:list>
+				<util:list>
+					<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.FIRST_NAME" />
+					<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.LAST_NAME" />
+					<util:constant static-field="org.ojbc.intermediaries.sn.SubscriptionNotificationConstants.DATE_OF_BIRTH" />
+				</util:list>
+			</util:list>	
+		</constructor-arg>
+	</bean>
+	
 </beans>

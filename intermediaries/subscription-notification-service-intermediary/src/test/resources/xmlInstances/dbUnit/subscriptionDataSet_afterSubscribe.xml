@@ -18,8 +18,6 @@
 
 -->
 <dataset>
-
-  <!-- Rob's original test data -->
   <subscription_category subscription_category_code="F" subscription_category_description="Firearms"/>
   <subscription_category subscription_category_code="I" subscription_category_description="Volunteer, Child Care/School Employee, Non-Criminal Justice Employment and Licensing"/>
   <subscription_category subscription_category_code="J" subscription_category_description="Criminal Justice Employment"/>

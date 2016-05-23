@@ -45,11 +45,12 @@ public class CourtDispositionUpdateNotificationRequestTest {
 		
 		assertThat(courtDispositionUpdateNotificationRequest.isNotificationEventDateInclusiveOfTime(), is(false));
 		
+		//TODO: Update these asssertions after xpaths are fixed.
 		//assertThat(courtDispositionUpdateNotificationRequest.getNotificationEventDate().toString("yyyy-MM-dd"), is(""));
 		
 		//assertThat(courtDispositionUpdateNotificationRequest.getNotifyingAgencyName(), is(""));
 		
-		//assertThat(courtDispositionUpdateNotificationRequest.getNotificationEventIdentifier(), is("123456"));
+		assertThat(courtDispositionUpdateNotificationRequest.getNotificationEventIdentifier(), is("123456A"));
 
 		assertThat(courtDispositionUpdateNotificationRequest.getPersonFirstName(), is("Walter"));
 		assertThat(courtDispositionUpdateNotificationRequest.getPersonLastName(), is("White"));

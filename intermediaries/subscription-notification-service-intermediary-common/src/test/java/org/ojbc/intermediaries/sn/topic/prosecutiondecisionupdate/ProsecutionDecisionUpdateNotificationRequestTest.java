@@ -45,11 +45,12 @@ public class ProsecutionDecisionUpdateNotificationRequestTest {
 		
 		assertThat(prosecutionDecisionUpdateNotificationRequest.isNotificationEventDateInclusiveOfTime(), is(false));
 		
+		//TODO: Update these asssertions after xpaths are fixed.
 		//assertThat(courtDispositionUpdateNotificationRequest.getNotificationEventDate().toString("yyyy-MM-dd"), is(""));
 		
 		//assertThat(courtDispositionUpdateNotificationRequest.getNotifyingAgencyName(), is(""));
 		
-		//assertThat(courtDispositionUpdateNotificationRequest.getNotificationEventIdentifier(), is("123456"));
+		assertThat(prosecutionDecisionUpdateNotificationRequest.getNotificationEventIdentifier(), is("123456A"));
 
 		assertThat(prosecutionDecisionUpdateNotificationRequest.getPersonFirstName(), is("Walter"));
 		assertThat(prosecutionDecisionUpdateNotificationRequest.getPersonLastName(), is("White"));
@@ -61,7 +62,7 @@ public class ProsecutionDecisionUpdateNotificationRequestTest {
 		assertThat(prosecutionDecisionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1977-12-17"));
 		assertThat(prosecutionDecisionUpdateNotificationRequest.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
 		
-        assertThat(prosecutionDecisionUpdateNotificationRequest.getTopic(), is("{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate"));
+        assertThat(prosecutionDecisionUpdateNotificationRequest.getTopic(), is("{http://ojbc.org/wsn/topics}:person/ProsecutionDecisionUpdate"));
 								
 	}
 

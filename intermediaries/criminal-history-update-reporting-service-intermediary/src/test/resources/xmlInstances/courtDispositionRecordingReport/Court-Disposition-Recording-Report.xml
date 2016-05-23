@@ -17,7 +17,14 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<cdr-report-doc:CourtDispositionRecordingReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0 ../xsd/CourtDispositionRecordingReport-exchange.xsd http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0 ../xsd/impl/maine/disposition_codes.xsd" xmlns:cdr-report-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0" xmlns:cdr-report-ext="http://ojbc.org/IEPD/Extension/CourtDispositionRecordingReport/1.0" xmlns:me_disp_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<cdr-report-doc:CourtDispositionRecordingReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0 ../../../../../../../../../main/shared/ojb-resources-common/src/main/resources/ssp/Criminal_History_Update_Reporting/artifacts/service_model/information_model/IEPD/xsd/CourtDispositionRecordingReport-exchange.xsd"
+ xmlns:me_disp_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0"
+ xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+ xmlns:cdr-report-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0"
+ xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+ xmlns:cdr-report-ext="http://ojbc.org/IEPD/Extension/CourtDispositionRecordingReport/1.0"
+ xmlns:structures="http://release.niem.gov/niem/structures/3.0/">
 	<cdr-report-ext:CycleTrackingIdentification>
 		<nc:IdentificationID>123456A</nc:IdentificationID>
 	</cdr-report-ext:CycleTrackingIdentification>
@@ -93,9 +100,11 @@
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>123456789</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
-		<nc:PersonStateIdentification>
-			<nc:IdentificationID>SID23456</nc:IdentificationID>
-		</nc:PersonStateIdentification>
+        <j:PersonAugmentation>
+            <j:PersonStateFingerprintIdentification>
+                <nc:IdentificationID>SID23456</nc:IdentificationID>
+            </j:PersonStateFingerprintIdentification>
+        </j:PersonAugmentation>		
 	</nc:Person>
 	<nc:Organization structures:id="Org_001">
 		<j:OrganizationAugmentation>
