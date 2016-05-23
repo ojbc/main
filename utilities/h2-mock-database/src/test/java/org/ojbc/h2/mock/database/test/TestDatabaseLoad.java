@@ -91,7 +91,11 @@ public class TestDatabaseLoad {
 		Connection connection = custodyDataSource.getConnection();		
 		ResultSet rs = connection.createStatement().executeQuery("select * from person where unique_person_id = '123'");		
 		assertTrue(rs.next());		
-		assertEquals("homer",rs.getString("first_name"));				
+		assertEquals("homer",rs.getString("first_name"));	
+		
+		ResultSet rs1 = connection.createStatement().executeQuery("select * from booking where booking_number = '1234'");		
+		assertTrue(rs1.next());		
+		assertEquals("profile.jpg", rs1.getString("booking_photo"));
 	}
 	
 
