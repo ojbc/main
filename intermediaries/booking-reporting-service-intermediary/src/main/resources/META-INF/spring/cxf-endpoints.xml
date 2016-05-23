@@ -55,8 +55,8 @@
 			<entry key="ws-security.signature.properties" value-ref="bookingReportingKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${bookingReportingService.keystoreCertificateAlias}" /> 
 		</cxf:properties>
-    </cxf:cxfEndpoint>	 
-    
+    </cxf:cxfEndpoint>	
+
 	<!-- OJB Booking Reporting Service Adapter, called by this intermediary but configurable -->    
     <cxf:cxfEndpoint 
         id="bookingReportingServiceAdapter"

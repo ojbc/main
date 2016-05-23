@@ -100,5 +100,9 @@ public abstract class UnSubscriptionRequest {
 	public List<String> getEmailAddresses() {
 		return emailAddresses;
 	}
+
+	public void setSubjectIdentifiers(Map<String, String> subjectIdentifiers) {
+		this.subjectIdentifiers = subjectIdentifiers;
+	}
 	
 }

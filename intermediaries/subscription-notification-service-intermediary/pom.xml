@@ -23,7 +23,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>subscription-notification-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.3</version>
+	<version>1.0.5</version>
 	<name>OJB :: subscription-notification-service-intermediary :: intermediary</name>
 	<url>http://www.ojbc.org</url>
 
@@ -248,7 +248,6 @@
 							org.springframework.jdbc.datasource,
 							*
 						</Import-Package>
-						<Bundle-Name>${pom.name}</Bundle-Name>
 					</instructions>
 				</configuration>
 			</plugin>

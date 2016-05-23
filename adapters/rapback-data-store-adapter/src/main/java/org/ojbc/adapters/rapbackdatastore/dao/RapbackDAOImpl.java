@@ -32,6 +32,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.joda.time.DateTime;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
@@ -47,7 +48,9 @@ import org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.helper.ZipUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
@@ -79,7 +82,16 @@ public class RapbackDAOImpl implements RapbackDAO {
     
     @Value("${rapbackDatastoreAdapter.criminalIdlePeriod:60}")
     private Integer criminalIdlePeriod;
+    
+    @Value("#{'${rapbackDatastoreAdapter.agencySuperUsers:}'.split(',')}")
+    private List<String> agencySuperUsers;
 
+    @Value("#{'${rapbackDatastoreAdapter.superUsers:}'.split(',')}")
+    private List<String> superUsers;
+    
+    @Value("#{'${rapbackDatastoreAdapter.civilAgencyOris:}'.split(',')}")
+    private List<String> civilAgencyOris;
+    
 	@Override
 	public Integer saveSubject(final Subject subject) {
         log.debug("Inserting row into IDENTIFICATION_SUBJECT table : " + subject);
@@ -566,34 +578,123 @@ public class RapbackDAOImpl implements RapbackDAO {
 
 	@Override
 	public List<IdentificationTransaction> getCivilIdentificationTransactions(
-			String ori) {
-		final String CIVIL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
+			SAMLTokenPrincipal token) {
+		String sql = "SELECT t.transaction_number, t.identification_category, "
 				+ "t.report_timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.*, "
 				+ "(select count(*) > 0 from subsequent_results subsq where subsq.ucn = s.ucn) as having_subsequent_result "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 				+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
-				+ "WHERE t.owner_ori = ? AND (select count(*)>0 from "
-				+ "	civil_initial_results c where c.transaction_number = t.transaction_number)"; 
+				+ "WHERE (select count(*)>0 from "
+				+ "	civil_initial_results c where c.transaction_number = t.transaction_number) ";
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>(); 
+
+        String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
+        String federationId = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.FederationId);
+        
+        boolean isNotSuperUser = isNotSuperUser(ori, federationId); 
+        boolean isNotAgencySuperUser = isNotAgencySuperUser(ori, federationId); 
+        
+		if ( isNotSuperUser){
+			sql += "AND t.owner_ori = :ori "; 
+			paramMap.put("ori", ori);
+		}
+		
+		if ( isNotSuperUser && isNotAgencySuperUser){
+
+			if ( isNotCivilAgencyUser(ori) ){
+				sql += " AND t.identification_category in ( :identificationCategoryList )";
+				List<String> identificationCategorys = getViewableIdentificationCategories(token, "CIVIL"); 
+				paramMap.put("identificationCategoryList", identificationCategorys);
+			}
+		}
 		
 		List<IdentificationTransaction> identificationTransactions = 
-				jdbcTemplate.query(CIVIL_IDENTIFICATION_TRANSACTION_SELECT, 
-						new FullIdentificationTransactionRowMapper(), ori);
+				namedParameterJdbcTemplate.query( sql, paramMap,
+						new FullIdentificationTransactionRowMapper());
 		return identificationTransactions;
+	}
+
+	private boolean isSuperUser(String ori, String federationId) {
+		return superUsers.contains(ori + "&" + federationId);
+	}
+	
+	private boolean isNotSuperUser(String ori, String federationId) {
+		return !isSuperUser(ori , federationId);
+	}
+
+	private boolean isAgencySuperUser(String ori, String federationId) {
+		return agencySuperUsers.contains(ori + "&" + federationId);
+	}
+	
+	private boolean isNotAgencySuperUser(String ori, String federationId) {
+		return !isAgencySuperUser(ori, federationId);
+	}
+	
+	private boolean isCivilAgencyUser(String ori) {
+		return civilAgencyOris.contains(ori);
+	}
+	
+	private boolean isNotCivilAgencyUser(String ori) {
+		return !isCivilAgencyUser(ori);
+	}
+	
+	public List<String> getViewableIdentificationCategories(
+		SAMLTokenPrincipal token, String identificationCategoryType) {
+		final String sql = "select i. identification_category_code from identification_category i "
+				+ "left join job_title_privilege j on j.identification_category_id = i.identification_category_id "
+				+ "left join job_title t on t.job_title_id = j.job_title_id "
+				+ "left join department d on d.department_id = t.department_id "
+				+ "left join agency_profile a on a.agency_id = d.agency_id "
+				+ "where identification_category_type = :identificationCategoryType  "
+				+ "		AND agency_ori = :agencyOri "
+				+ "		AND department_name = :departmentName "
+				+ "		AND title_description = :titleDescription";
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("identificationCategoryType", identificationCategoryType);
+		paramMap.put("agencyOri", SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI));
+		paramMap.put("departmentName", SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerSubUnitName));
+		paramMap.put("titleDescription", SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployeePositionName));
+		
+		List<String> identificationCategories = namedParameterJdbcTemplate.queryForList(sql, paramMap, String.class);
+		return identificationCategories;
 	}
 
 	@Override
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(
-			String ori) {
-		final String CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
+			SAMLTokenPrincipal token) {
+		StringBuilder sqlStringBuilder = new StringBuilder("SELECT t.transaction_number, t.identification_category, "
 				+ "t.report_timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
 				+ "FROM identification_transaction t "
-				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
-				+ "WHERE t.owner_ori = ? and (select count(*)>0 from "
-				+ "	criminal_initial_results c where c.transaction_number = t.transaction_number)"; 
+				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id ");
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+        String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
+        String federationId = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.FederationId); 
+        
+		if ( isSuperUser(ori, federationId)){
+			sqlStringBuilder.append(" WHERE " ); 
+		}
+		else {
+			sqlStringBuilder.append(" WHERE t.owner_ori = :ori AND " ); 
+			paramMap.put("ori", ori);
+			
+			if ( isNotAgencySuperUser(ori, federationId)){
+				sqlStringBuilder.append(" t.identification_category in ( :identificationCategoryList ) AND ");
+				
+				List<String> identificationCategorys = getViewableIdentificationCategories(token, "CRIMINAL"); 
+				paramMap.put("identificationCategoryList", identificationCategorys);
+			}
+		}
+		
+		sqlStringBuilder.append(" (select count(*)>0 from criminal_initial_results c where c.transaction_number = t.transaction_number) ");
+		
 		List<IdentificationTransaction> identificationTransactions = 
-				jdbcTemplate.query(CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT, 
-						new IdentificationTransactionRowMapper(), ori);
+				namedParameterJdbcTemplate.query( sqlStringBuilder.toString(), paramMap,  
+						new IdentificationTransactionRowMapper());
 		return identificationTransactions;
 	}
 
@@ -874,10 +975,12 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	@Override
-	public String getIdentificationCategory(String transactionNumber) {
+	public String getIdentificationCategoryType(String transactionNumber) {
 		log.info("Retrieving identification category by transaction number : " + transactionNumber);
 		
-		final String sql = "SELECT identification_category FROM identification_transaction t WHERE t.transaction_number = ?"; 
+		final String sql = "SELECT identification_category_type FROM identification_transaction t "
+				+ "LEFT JOIN identification_category c ON c.identification_category_code = t.identification_category "
+				+ "WHERE t.transaction_number = ?"; 
 		
 		List<String> results = jdbcTemplate.queryForList(sql, String.class, transactionNumber);
 		

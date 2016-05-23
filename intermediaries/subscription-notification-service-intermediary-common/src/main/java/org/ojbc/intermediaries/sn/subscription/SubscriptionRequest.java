@@ -142,17 +142,6 @@ public abstract class SubscriptionRequest {
 		// subjectIdentifiers intentionally left out - should be populated by derived class 
 	}
 	
-	public SubscriptionRequest(String topic, String startDateString, String endDateString, Set<String> emailAddress, String systemName, 
-			String subjectName, String subscriptionQualifier) {
-		this.topic = topic;
-		this.startDateString = startDateString;
-		this.endDateString = endDateString;
-		this.emailAddresses = emailAddress;
-		this.systemName = systemName;
-		this.subjectName = subjectName;
-		this.subscriptionQualifier = subscriptionQualifier;
-	}
-	
 	public String getTopic() {
 		return topic;
 	}
@@ -203,6 +192,10 @@ public abstract class SubscriptionRequest {
 
 	public void setReasonCategoryCode(String reasonCategoryCode) {
 		this.reasonCategoryCode = reasonCategoryCode;
+	}
+
+	public void setSubjectIdentifiers(Map<String, String> subjectIdentifiers) {
+		this.subjectIdentifiers = subjectIdentifiers;
 	}	
 	
 	

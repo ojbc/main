@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/" 
+	targetNamespace="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchResults/1.0"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:phisres-ext="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchResults/1.0"
+	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" elementFormDefault="qualified">
+	
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
+	
+	<xsd:complexType name="PersonHealthInformationSearchResultsType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for search results matching a request for a person's health information.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="nc30:Person" />
+					<xsd:element ref="phisres-ext:BehavioralHealthInformation" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="BehavioralHealthInformationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for information about a person's behavioral health.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="phisres-ext:SeriousMentalIllnessIndicator"/>
+					<xsd:element ref="jxdm51:Evaluation" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:element name="BehavioralHealthInformation" type="phisres-ext:BehavioralHealthInformationType">
+		<xsd:annotation>
+			<xsd:documentation>A short-lived identifier intended to allow for linking between a search request and search results.  This identifier should have been included in the original search request message and should be included in this message, unaltered.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonPersistentIdentification" type="nc30:IdentificationType" substitutionGroup="nc30:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique and timeless identifier assigned to an individual and always belongs to that individual. This allows for identify activities and information that belong to a person without always needing to share PII about that individual. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonTemporaryIdentification" type="nc30:IdentificationType" substitutionGroup="nc30:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A short-lived identifier intended to allow for linking between a search request and search results.  This identifier will be in the request message that leads to this response.  The identifier should just be included in the response message, unaltered.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SeriousMentalIllnessIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the person is diagnosed with a serious mental illness (SMI), false otherwise. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

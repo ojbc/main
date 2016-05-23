@@ -39,7 +39,7 @@
 
 		<camel:endpoint id="bookingReportingServiceAdapterEndpoint"
 			uri="cxf:bean:bookingReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${bookingReportingService.cxflogging}" />
-			
+						
 		<!-- Booking Reporting Service Handler -->
 		<camel:route id="bookingReportingServiceHandlerRoute">
 			<camel:from uri="bookingReportingServiceEndpoint" />
@@ -54,6 +54,7 @@
 			<!-- Multicast to the core services and derived bundle specific routes so each route gets original message.  -->
 			<!-- Booking Reporting Intermediary defines a booking reporting service adapter as a core service -->
 			<camel:multicast>				
+			
 				<camel:pipeline>
 					<camel:filter>
 						<camel:simple>${properties:bookingReportingService.callbookingReportingServiceAdapter} == true</camel:simple>
@@ -118,8 +119,8 @@
 											
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 							
-			<camel:setHeader headerName="operationName"><constant>Notify</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+			<camel:setHeader headerName="operationName"><constant>ReportBooking</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/BookingReportingService/1.0</constant></camel:setHeader>
          
 			<camel:log message="This is the booking reporting service message: ${body}" loggingLevel="DEBUG"/>
 			

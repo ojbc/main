@@ -27,9 +27,16 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class WebUtils {
+	private static final Log log = LogFactory.getLog(WebUtils.class);
 
 	public static String returnStringFromFilePath(InputStream is) throws Exception {
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -54,5 +61,21 @@ public class WebUtils {
 		return xmlString;
 
 	}
+	
+	public static Boolean getFederatedQueryUserIndicator(Element samlAssertion) {
+		String federatedQueryUserIndicatorString = null;
+        try {
+			federatedQueryUserIndicatorString  = XmlUtils.xPathStringSearch(samlAssertion,
+			        "/saml2:Assertion/saml2:AttributeStatement[1]/"
+			        + "saml2:Attribute[@Name='gfipm:ext:user:FederatedQueryUserIndicator']/saml2:AttributeValue");
+		} catch (Exception e) {
+			log.warn("Failed to retrieve FederatedQueryUserIndicator");
+			e.printStackTrace();
+		}
+        
+        Boolean federatedQueryUserIndicator = BooleanUtils.toBooleanObject(StringUtils.trimToNull(federatedQueryUserIndicatorString));
+		return federatedQueryUserIndicator;
+	}
+
 
 }

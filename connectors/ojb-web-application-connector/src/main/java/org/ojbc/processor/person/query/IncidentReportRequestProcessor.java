@@ -24,7 +24,7 @@ import org.apache.camel.impl.DefaultExchange;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.processor.RequestResponseProcessor;
+import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.processor.MessageProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;

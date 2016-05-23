@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:ctx="http://www.springframework.org/schema/context" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	   
+    <!-- needed cxf imports -->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+ 	<context:annotation-config />
+	<context:component-scan base-package="org.ojbc.adapters.analyticsstaging.custody" />
+    
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="custody-analytics-staging-adapter">
+
+ 		<endpoint id="bookingReportingServiceAdapterEndpoint"
+			uri="cxf:bean:bookingReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{custody.stagingAdapter.cxflogging}}" />
+
+		<endpoint id="bookingReportingFileEndpoint"
+			uri="file://{{custody.stagingAdapter.inputDirectory}}/bookingReport/input?idempotent=true&amp;moveFailed={{custody.stagingAdapter.inputDirectory}}/bookingReport/error&amp;recursive=true&amp;delete=true&amp;maxMessagesPerPoll=100" />
+
+ 		<endpoint id="behavioralHealthReportingServiceAdapterEndpoint"
+			uri="cxf:bean:behavioralHealthReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{custody.stagingAdapter.cxflogging}}" />
+
+		<endpoint id="behavioralHealthReportingFileEndpoint"
+			uri="file://{{custody.stagingAdapter.inputDirectory}}/behavioralHealthReport/input?idempotent=true&amp;moveFailed={{custody.stagingAdapter.inputDirectory}}/behavioralHealthReport/error&amp;recursive=true&amp;delete=true&amp;maxMessagesPerPoll=100" />
+
+ 		<endpoint id="custodyReleaseReportingServiceAdapterEndpoint"
+			uri="cxf:bean:custodyReleaseReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{custody.stagingAdapter.cxflogging}}" />
+
+		<endpoint id="custodyReleaseReportingFileEndpoint"
+			uri="file://{{custody.stagingAdapter.inputDirectory}}/custodyReleaseReport/input?idempotent=true&amp;moveFailed={{custody.stagingAdapter.inputDirectory}}/custodyReleaseReport/error&amp;recursive=true&amp;delete=true&amp;maxMessagesPerPoll=100" />
+
+ 		<endpoint id="custodyStatusChangeReportingServiceAdapterEndpoint"
+			uri="cxf:bean:custodyStatusChangeReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{custody.stagingAdapter.cxflogging}}" />
+
+		<endpoint id="invocationFailedFileEndpoint"
+			uri="file://{{custody.stagingAdapter.inputDirectory}}/failed" />
+
+		<!-- Booking Reporting Route -->
+		<camel:route id="booking_reporting_service" >
+		
+			<camel:from	uri="bookingReportingServiceAdapterEndpoint" />
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:to uri="direct:processBookingReport" />
+			
+		</camel:route>	
+		
+		<camel:route id="Booking_Reporting_Service_Filedrop">
+			<camel:from	uri="bookingReportingFileEndpoint" />
+			<camel:to uri="direct:processBookingReport" />
+		</camel:route>
+		
+		<camel:route id="booking_reporting_service_process_booking_report" startupOrder="1">				
+			
+			<camel:from	uri="direct:processBookingReport" />
+
+			<camel:doTry>
+						
+				<camel:log message="Here is the inbound booking report message: ${body}" loggingLevel="DEBUG"/>
+				
+				<camel:enrich uri="direct:getPersonUniqueId" strategyRef="aggregatePersonUniqueIdStrategy"/>
+				
+				<camel:to uri="bean:bookingReportProcessor?method=processReport"/>
+				
+				<camel:doCatch >
+					<camel:exception>java.lang.Exception</camel:exception>
+					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
+					
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>bookingReport/FailedIncident_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+					</camel:setHeader>	
+
+					<log message="Booking Report document failure. File Name to persist is: ${in.headers.CamelFileName}"/>
+					
+					<camel:to uri="direct:failedInvocation"/>
+				</camel:doCatch>
+			
+			</camel:doTry>
+			
+		</camel:route>		
+
+		<camel:route id="person_unique_id_route">
+			<camel:from uri="direct:getPersonUniqueId"/>
+			
+			<camel:log message="getting Person's unique ID"/>
+			
+			<camel:setBody><camel:constant>personUniqueId</camel:constant></camel:setBody>
+						
+		</camel:route>
+		
+		<camel:route id="behavioral_health_reporting_service" >
+		
+			<camel:from	uri="behavioralHealthReportingServiceAdapterEndpoint" />
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:to uri="direct:processBehavioralHealthReport" />
+			
+		</camel:route>	
+		
+		<camel:route id="behavioral_health_reporting_service_filedrop">
+			<camel:from	uri="behavioralHealthReportingFileEndpoint" />
+			<camel:to uri="direct:processBehavioralHealthReport" />
+		</camel:route>
+		
+		<camel:route id="behavioral_health_reporting_service_process_report" startupOrder="2">	
+			<camel:from uri="direct:processBehavioralHealthReport"/>			
+			<camel:doTry>
+						
+				<camel:log message="Here is the inbound behavioral health report message: ${body}" loggingLevel="DEBUG"/>
+				
+				<camel:to uri="bean:behavioralHealthReportProcessor?method=processReport"/>
+				
+				<camel:doCatch >
+					<camel:exception>java.lang.Exception</camel:exception>
+					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
+					
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>behavioralHealthReport/FailedIncident_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+					</camel:setHeader>	
+
+					<log message="Behavioral Health Report document failure. File Name to persist is: ${in.headers.CamelFileName}"/>
+					
+					<camel:to uri="direct:failedInvocation"/>
+				</camel:doCatch>
+			
+			</camel:doTry>
+			
+		</camel:route>
+			
+		<camel:route id="custody_release_reporting_service" >
+		
+			<camel:from	uri="custodyReleaseReportingServiceAdapterEndpoint" />
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:to uri="direct:processCustodyReleaseReport" />
+			
+		</camel:route>	
+		
+		<camel:route id="custody_release_reporting_service_filedrop">
+			<camel:from	uri="custodyReleaseReportingFileEndpoint" />
+			<camel:to uri="direct:processCustodyReleaseReport" />
+		</camel:route>
+		
+		<camel:route id="custody_release_reporting_service_process_report" startupOrder="3">	
+			<camel:from uri="direct:processCustodyReleaseReport"/>			
+			<camel:doTry>
+						
+				<camel:log message="Here is the inbound custody release report message: ${body}" loggingLevel="DEBUG"/>
+				
+				<camel:to uri="bean:custodyReleaseReportProcessor?method=processReport"/>
+				
+				<camel:doCatch >
+					<camel:exception>java.lang.Exception</camel:exception>
+					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
+					
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>custodyReleaseReport/FailedCustodyReleaseReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+					</camel:setHeader>	
+
+					<log message="Custody Release Report document failure. File Name to persist is: ${in.headers.CamelFileName}"/>
+					
+					<camel:to uri="direct:failedInvocation"/>
+				</camel:doCatch>
+			
+			</camel:doTry>
+			
+		</camel:route>
+			
+		<camel:route id="custody_status_change_reporting_service_process_report" startupOrder="4">
+			
+			<camel:from	uri="custodyStatusChangeReportingServiceAdapterEndpoint" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:doTry>
+						
+				<camel:log message="Here is the inbound custody status change report message: ${body}" loggingLevel="DEBUG"/>
+				
+				<camel:enrich uri="direct:getPersonUniqueId" strategyRef="aggregatePersonUniqueIdStrategy"/>
+				<camel:to uri="bean:custodyStatusChangeReportProcessor?method=processReport"/>
+				
+				<camel:doCatch >
+					<camel:exception>java.lang.Exception</camel:exception>
+					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
+					
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>custodyStatusChangeReport/FailedCustodyStatusChangeReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+					</camel:setHeader>	
+
+					<log message="Custody Status Change Report document failure. File Name to persist is: ${in.headers.CamelFileName}"/>
+					
+					<camel:to uri="direct:failedInvocation"/>
+				</camel:doCatch>
+			
+			</camel:doTry>
+			
+		</camel:route>
+			
+		<camel:route id="failed_invocation_route">
+			<camel:from uri="direct:failedInvocation"/>
+			
+			<camel:log message="Invocation failed. File will be persisted: ${in.headers.CamelFileName}"/>
+			
+			<camel:log message="FileName: ${in.headers.CamelFileName} \n. An exception was thrown: ${exception.message}" loggingLevel="ERROR" logName="org.ojbc.adapters.analyticsstaging.logger"/>
+			
+			<camel:to uri="invocationFailedFileEndpoint"/>
+			
+		</camel:route>
+		
+ 	</camel:camelContext>
+
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	
+ 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+ 	    <constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+ 	   <constructor-arg ref="dataSource"/>
+	</bean>
+	
+	
+</beans>

@@ -29,8 +29,8 @@ import org.json.JSONArray;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.web.WebUtils;
-import org.ojbc.web.model.subscription.Subscription;
 import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
 import org.ojbc.web.portal.controllers.helpers.SubscribedPersonNames;
 import org.w3c.dom.Document;
@@ -52,7 +52,7 @@ public class SubscriptionsControllerTest {
 		
 		Subscription sub = new Subscription();
 		
-		sub.setSubscriptionType("{http://ojbc.org/wsn/topics}:person/arrest");
+		sub.setTopic("{http://ojbc.org/wsn/topics}:person/arrest");
 		
 		List<String> warningList = subController.getSubscriptionWarnings(sub);
 		

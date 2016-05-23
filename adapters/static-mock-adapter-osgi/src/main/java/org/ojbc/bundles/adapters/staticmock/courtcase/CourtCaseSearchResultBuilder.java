@@ -58,38 +58,38 @@ public class CourtCaseSearchResultBuilder {
 		String personRecId = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//ccq-res-ext:PersonRecordIdentification/nc30:IdentificationID");
 		courtCaseDetail.setPersonRecId(personRecId);
 		
-		String dobVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Identity/nc30:IdentityPersonRepresentation/nc30:PersonBirthDate/nc30:Date");
+		String dobVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonBirthDate/nc30:Date");
 		courtCaseDetail.setPersonBirthDate(dobVal);
 		
-		String eyeColorVal =  XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/jxdm51:PersonEyeColorCode");		
+		String eyeColorVal =  XmlUtils.xPathStringSearch(courtCaseDetailDoc, "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonEyeColorCode");		
 		courtCaseDetail.setPersonEyeColor(eyeColorVal);
 		
-		String hairColorVal =  XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/jxdm51:PersonHairColorCode");
+		String hairColorVal =  XmlUtils.xPathStringSearch(courtCaseDetailDoc, "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonHairColorCode");
 		courtCaseDetail.setPersonHairColor(hairColorVal);
 		
-		String heightTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureValueText");
+		String heightTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureValueText");
 		courtCaseDetail.setPersonHeight(heightTxt);
 		
-		String heightUnitTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureUnitText");
+		String heightUnitTxt = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureUnitText");
 		courtCaseDetail.setPersonHeightUnits(heightUnitTxt);
 		
-		String givenNameVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:PersonName/nc30:PersonGivenName");
+		String givenNameVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonName/nc30:PersonGivenName");
 		courtCaseDetail.setPersonGivenName(givenNameVal);
 		
-		String middleNameVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:PersonName/nc30:PersonMiddleName");
+		String middleNameVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonName/nc30:PersonMiddleName");
 		courtCaseDetail.setPersonMiddleName(middleNameVal);
 		
-		String personSurNameVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:PersonName/nc30:PersonSurName");
+		String personSurNameVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonName/nc30:PersonSurName");
 		courtCaseDetail.setPersonSurName(personSurNameVal);
 		
-		String raceVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonRaceText");
+		String raceVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonRaceText");
 		courtCaseDetail.setPersonRaceCode(raceVal);
 		
-		String personSexVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "//nc30:Person/nc30:PersonSexText");
+		String personSexVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonSexText");
 		courtCaseDetail.setPersonSexCode(personSexVal);
 		
 		String weightVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, 
-				"//nc30:Person/nc30:PersonWeightMeasure/nc30:MeasureValueText");			
+				"/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonWeightMeasure/nc30:MeasureValueText");			
 		courtCaseDetail.setPersonWeight(weightVal);
 		
 		String drivLicVal = XmlUtils.xPathStringSearch(courtCaseDetailDoc, 

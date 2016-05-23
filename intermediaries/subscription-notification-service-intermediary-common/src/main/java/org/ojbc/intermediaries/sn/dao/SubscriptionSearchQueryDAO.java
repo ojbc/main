@@ -153,17 +153,41 @@ public class SubscriptionSearchQueryDAO {
     }
 
     /**
+     * This method is retained for backwards compatibility and will pass null for subject identifiers.
+     * The method it delegates to will use the subject identifiers defined in the notification request.
+     * 
+     * @param notificationRequest
+     * @return
+     */
+    public List<Subscription> searchForSubscriptionsMatchingNotificationRequest(NotificationRequest notificationRequest) {
+    
+    	return searchForSubscriptionsMatchingNotificationRequest(notificationRequest, null);
+    }
+    
+    /**
      * Search for subscriptions for the subjects using the Notification Request which contains specified identifiers, and that are/were active on the specified event date.  
      * This is essentially how you determine the applicable subscriptions for a specified event, so that you can then notify about that event.  This method will filter out
-     * any subscriptions that are passed the validation due date. 
+     * any subscriptions that are passed the validation due date.  This method allows the user to override the subject identifiers.  This is useful when querying for 
+     * alternateSubjectIdentifiers.
      * @param notificationRequest notification request containing all notification message components mapped to POJO
      * @return the list of subscriptions to be notified of the event
      */
-    public List<Subscription> searchForSubscriptionsMatchingNotificationRequest(NotificationRequest notificationRequest) {
+    public List<Subscription> searchForSubscriptionsMatchingNotificationRequest(NotificationRequest notificationRequest, Map<String, String> alternateSubjectIdentifiers) {
 
     	//Retrieve fields from notification request
     	DateTime eventDate = notificationRequest.getNotificationEventDate();
-    	Map<String, String> subjectIdentifiers = notificationRequest.getSubjectIdentifiers();
+    	
+    	Map<String, String> subjectIdentifiers = null;
+    	
+    	if (alternateSubjectIdentifiers != null)
+    	{
+    		subjectIdentifiers = alternateSubjectIdentifiers;
+    	}	
+    	else
+    	{	
+    		subjectIdentifiers = notificationRequest.getSubjectIdentifiers();
+    	}
+    	
     	//log.debug("baseNotificationsOnEventDate=" + baseNotificationsOnEventDate);
         DateTime notificationCompareDate = baseNotificationsOnEventDate ? eventDate : new DateTime();
         String notificationCompareDateString = DATE_FORMATTER_YYYY_MM_DD.print(notificationCompareDate);
@@ -297,7 +321,7 @@ public class SubscriptionSearchQueryDAO {
      * @param topic
      * @param startDateString
      * @param endDateString
-     * @param subjectIds
+     * @param subjectIdentifiers
      * @param emailAddresses
      * @param offenderName
      * @param subscribingSystemId
@@ -306,7 +330,7 @@ public class SubscriptionSearchQueryDAO {
      * @param subscriptionOwner
      * @return the ID of the created (or updated) subscription
      */
-    public Number subscribe(String subscriptionSystemId, String topic, String startDateString, String endDateString, Map<String, String> subjectIds, Set<String> emailAddresses, String offenderName,
+    public Number subscribe(String subscriptionSystemId, String topic, String startDateString, String endDateString, Map<String, String> subjectIdentifiers, Set<String> emailAddresses, String offenderName,
             String subscribingSystemId, String subscriptionQualifier, String reasonCategoryCode, String subscriptionOwner, LocalDate creationDateTime, String agencyCaseNumber) {
 
         Number ret = null;
@@ -352,16 +376,16 @@ public class SubscriptionSearchQueryDAO {
         log.debug("End Date String: " + endDateString);
         log.debug("System Name: " + subscribingSystemId);
         log.debug("Subscription System ID: " + subscriptionSystemId);
+        log.debug("Reason Category Code = " + reasonCategoryCode);
         
-        log.info("\n\n\n reasonCategoryCode = " + reasonCategoryCode + "\n\n\n");
         if(StringUtils.isEmpty(reasonCategoryCode)){
-        	log.warn("\n\n\n reasonCategoryCode empty, so inserting null into db \n\n\n");
+        	log.warn("Reason Category Code empty, so inserting null into db.");
         	reasonCategoryCode = null;
         }
         
         String fullyQualifiedTopic = NotificationBrokerUtils.getFullyQualifiedTopic(topic);
 
-        List<Subscription> subscriptions = getSubscriptions(subscriptionSystemId, fullyQualifiedTopic, subjectIds, subscribingSystemId, subscriptionOwner);
+        List<Subscription> subscriptions = getSubscriptions(subscriptionSystemId, fullyQualifiedTopic, subjectIdentifiers, subscribingSystemId, subscriptionOwner);
 
         // No Record exist, insert a new one
         if (subscriptions.size() == 0) {
@@ -387,7 +411,7 @@ public class SubscriptionSearchQueryDAO {
 
             log.debug("Inserting row(s) into subscription_subject_identifier table");
 
-            for (Map.Entry<String, String> entry : subjectIds.entrySet()) {
+            for (Map.Entry<String, String> entry : subjectIdentifiers.entrySet()) {
                 this.jdbcTemplate.update("insert into subscription_subject_identifier (subscriptionId, identifierName, identifierValue) values (?,?,?)", keyHolder.getKey(), entry.getKey(),
                         entry.getValue());
             }
@@ -398,7 +422,7 @@ public class SubscriptionSearchQueryDAO {
             log.debug("Ensure that SIDs match before updating subscription");
 
             log.debug("Updating existing subscription");
-            log.debug("Subject Id Map: " + subjectIds);
+            log.debug("Subject Id Map: " + subjectIdentifiers);
             log.debug("Email Addresses: " + emailAddresses.toString());
 
             log.debug("Updating row in subscription table");

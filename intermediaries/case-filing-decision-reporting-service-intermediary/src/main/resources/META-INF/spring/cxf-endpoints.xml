@@ -51,7 +51,7 @@
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CaseFilingDecisionReportingService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="criminalHistoryRecordInformationKeystoreProperties" />
+			<entry key="ws-security.signature.properties" value-ref="caseFilingDecisionReportingServiceKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${caseFilingDecisionReportingService.keystoreCertificateAlias}" />
 		</cxf:properties>		
 	</cxf:cxfEndpoint>
@@ -65,7 +65,7 @@
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CourtCaseFilingService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="criminalHistoryRecordInformationKeystoreProperties" />
+			<entry key="ws-security.signature.properties" value-ref="caseFilingDecisionReportingServiceKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${caseFilingDecisionReportingService.keystoreCertificateAlias}" />
 		</cxf:properties>		
 	</cxf:cxfEndpoint>
@@ -80,7 +80,7 @@
 	
 	<!-- Define a Properties object with the properties required by the org.apache.ws.security.components.crypto.Merlin 
 		WSS4j Crypto implementation. This crypto config is used for signature creation and validation. -->
-	<util:properties id="criminalHistoryRecordInformationKeystoreProperties">		
+	<util:properties id="caseFilingDecisionReportingServiceKeystoreProperties">		
 		<!-- Defines the implementation class. -->
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>		
 		<!-- The type of the keystore pointed to by org.apache.ws.security.crypto.merlin.file. -->

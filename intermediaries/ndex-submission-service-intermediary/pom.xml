@@ -26,7 +26,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>ndex-submission-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 
 	<name>OJB :: ndex-submission-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
@@ -93,7 +93,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-quartz2</artifactId>
+			<artifactId>camel-quartz</artifactId>
 			<version>${camel-version}</version>
 		</dependency>
 

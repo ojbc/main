@@ -45,6 +45,10 @@
 				</wir-ext:PersonEmployeeIdentification>
 			</nc:EntityPerson>
 		</j:CourtOrderRequestEntity>
+		<wir-ext:WarrantAugmentation>
+			<wir-ext:WarrantEntryCategoryCodeText>Entry
+			</wir-ext:WarrantEntryCategoryCodeText>
+		</wir-ext:WarrantAugmentation>
 	</j:Warrant>
 	<nc:Person structures:id="Person_01">
 		<nc:PersonBirthDate>
@@ -56,8 +60,8 @@
 			<nc:PersonSurName>Jones</nc:PersonSurName>
 			<nc:PersonNameSuffixText>Jr</nc:PersonNameSuffixText>
 		</nc:PersonName>
-		<j:PersonRaceCode>A</j:PersonRaceCode>
-		<j:PersonSexCode>M</j:PersonSexCode>
+		<nc:PersonRaceText></nc:PersonRaceText>
+		<nc:PersonSexText>M</nc:PersonSexText>
 		<wir-ext:PersonEntryNumber>
 			<nc:IdentificationID>PE45678</nc:IdentificationID>
 		</wir-ext:PersonEntryNumber>

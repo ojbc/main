@@ -55,6 +55,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.joda.time.DateTime;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
@@ -110,6 +111,8 @@ public class RapbackSearchProcessor {
     	
         String federationId = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.FederationId);
         String employerOri = SAMLTokenUtils.getSamlAttributeFromCxfMessage(cxfMessage, SamlAttribute.EmployerORI); 
+        SAMLTokenPrincipal token = (SAMLTokenPrincipal) cxfMessage
+                .get("wss4j.principal.result");
 
         log.debug("Processing rapback search request for federationId:" + StringUtils.trimToEmpty(federationId));
         log.debug("Employer ORI : " + StringUtils.trimToEmpty(employerOri)); 
@@ -122,7 +125,7 @@ public class RapbackSearchProcessor {
         
         Document rapbackSearchResponseDocument;
 		try {
-			rapbackSearchResponseDocument = buildRapbackSearchResponse(employerOri, report);
+			rapbackSearchResponseDocument = buildRapbackSearchResponse(token, employerOri, report);
 		} catch (Exception e) {
 			log.error("Got exception building rapback search response", e);
 			throw e;
@@ -131,7 +134,7 @@ public class RapbackSearchProcessor {
         return rapbackSearchResponseDocument;
     }
     
-    private Document buildRapbackSearchResponse(String employerOri, Document report) throws Exception {
+    private Document buildRapbackSearchResponse(SAMLTokenPrincipal token, String employerOri, Document report) throws Exception {
     	log.info("Get rapback search request, building the response.");
 
         Document document = documentBuilder.newDocument();
@@ -141,14 +144,14 @@ public class RapbackSearchProcessor {
         		"/oirs-req-doc:OrganizationIdentificationResultsSearchRequest/oirs-req-ext:IdentificationResultsCategoryCode"); 
         List<IdentificationTransaction> identificationTransactions = null;
         if ("Civil".equals(resultsCategoryCode)){
-        	identificationTransactions = rapbackDAO.getCivilIdentificationTransactions(employerOri);
+        	identificationTransactions = rapbackDAO.getCivilIdentificationTransactions(token);
         	buildSearchResults(identificationTransactions, rootElement, true);
         	
         	AgencyProfile agencyProfile = rapbackDAO.getAgencyProfile(employerOri);
         	appendOrganizationInfo(rootElement, agencyProfile);
         }
         else if ("Criminal".equals(resultsCategoryCode)){
-        	identificationTransactions = rapbackDAO.getCriminalIdentificationTransactions(employerOri);
+        	identificationTransactions = rapbackDAO.getCriminalIdentificationTransactions(token);
         	buildSearchResults(identificationTransactions, rootElement, false);
         }
         return document;

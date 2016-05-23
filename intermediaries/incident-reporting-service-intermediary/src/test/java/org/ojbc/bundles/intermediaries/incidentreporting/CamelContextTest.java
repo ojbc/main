@@ -80,12 +80,16 @@ public class CamelContextTest {
     
     @EndpointInject(uri = "mock:cxf:bean:ChargeReferralService")
     protected MockEndpoint chargeReferralServiceMock;
-
+    
+    @EndpointInject(uri = "mock:cxf:bean:ChargeReferralReportingService")
+    protected MockEndpoint chargeReferralReportingServiceMock;     
+    
     @EndpointInject(uri = "mock:cxf:bean:notificationBrokerService")
     protected MockEndpoint notificationBrokerServiceMock;
 
     @EndpointInject(uri = "mock:cxf:bean:arrestReportingService")
     protected MockEndpoint arrestReportingBrokerServiceMock;
+    
 
     @Before
 	public void setUp() throws Exception {
@@ -116,6 +120,16 @@ public class CamelContextTest {
     	    	mockEndpointsAndSkip("cxf:bean:ChargeReferralService*");
     	    }              
     	});
+    	
+    	    
+    	//We mock the Charge Referral Reporting web service endpoint and intercept any submissions
+    	context.getRouteDefinition("CallChargeReferralReportingService_Route").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	// The line below allows us to bypass CXF and send a message directly into the route
+    	    	mockEndpointsAndSkip("cxf:bean:ChargeReferralReportingService*");
+    	    }              
+    	});    	    	    	
 
     	//We mock the Notification Broker web service endpoint and intercept any submissions
     	context.getRouteDefinition("callNotificationBrokerServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
@@ -155,6 +169,7 @@ public class CamelContextTest {
     	//We should get one message for all endpoints
 		ndexServiceMock.expectedMessageCount(1);
 		chargeReferralServiceMock.expectedMessageCount(1);
+		chargeReferralReportingServiceMock.expectedMessageCount(1);		
 		arrestReportingBrokerServiceMock.expectedMessageCount(1);
 		
 		//Notification broker will get two exchanges due to the splitter in there
@@ -206,25 +221,28 @@ public class CamelContextTest {
 		//Assert that the mock endpoint expectations are satisfied
 		ndexServiceMock.assertIsSatisfied();
 		chargeReferralServiceMock.assertIsSatisfied();
+		chargeReferralReportingServiceMock.assertIsSatisfied();
 		arrestReportingBrokerServiceMock.assertIsSatisfied();
 		notificationBrokerServiceMock.assertIsSatisfied();
 		
 		//Retrieve Charge Referral Message and assert that the proper root and child elements are set
 		Exchange chargeReferralExchange = chargeReferralServiceMock.getExchanges().get(0);
 		Document chargeReferralDocument = chargeReferralExchange.getIn().getBody(Document.class);
-		//XmlUtils.printNode(chargeReferralDocument);
+		XmlUtils.printNode(chargeReferralDocument);
 		assertNotNull(XmlUtils.xPathNodeSearch(chargeReferralDocument, "/cr-doc:ChargeReferral"));
 		assertNotNull(XmlUtils.xPathNodeSearch(chargeReferralDocument, "/cr-doc:ChargeReferral/lexspd:doPublish"));
 		
     	//We should get one message 
 		ndexServiceMock.reset();
 		chargeReferralServiceMock.reset();
+		chargeReferralReportingServiceMock.reset();
 		arrestReportingBrokerServiceMock.reset();
 		notificationBrokerServiceMock.reset();
 
 		//Resend but ndex and charge referral will not get a message
 		ndexServiceMock.expectedMessageCount(0);
 		chargeReferralServiceMock.expectedMessageCount(0);
+		chargeReferralReportingServiceMock.expectedMessageCount(0);
 		
 		//We don't set duplicate arrests or notifications so these get filtered
 		arrestReportingBrokerServiceMock.expectedMessageCount(0);
@@ -263,11 +281,11 @@ public class CamelContextTest {
 		
 		ndexServiceMock.assertIsSatisfied();
 		chargeReferralServiceMock.assertIsSatisfied();
+		chargeReferralReportingServiceMock.assertIsSatisfied();
 		arrestReportingBrokerServiceMock.assertIsSatisfied();
-		notificationBrokerServiceMock.assertIsSatisfied();
-		
-
+		notificationBrokerServiceMock.assertIsSatisfied();		
 	}
+	
 	
 	private SoapHeader makeSoapHeader(Document doc, String namespace, String localName, String value) {
 		Element messageId = doc.createElementNS(namespace, localName);

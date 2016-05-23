@@ -36,6 +36,8 @@ import org.springframework.test.context.ContextConfiguration;
 		"classpath:META-INF/spring/properties-context.xml",
 		"classpath:META-INF/spring/search-query-routes.xml",
 		"classpath:META-INF/spring/subscription-secure-routes.xml",
+		"classpath:META-INF/spring/fbi-routes.xml",
+		"classpath:META-INF/spring/notification-routes.xml",
 		"classpath:META-INF/spring/local-osgi-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
 		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",

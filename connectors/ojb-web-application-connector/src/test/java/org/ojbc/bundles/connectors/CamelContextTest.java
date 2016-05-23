@@ -29,7 +29,7 @@ import org.springframework.test.context.ContextConfiguration;
 		"classpath:META-INF/spring/spring-beans-ojb-web-application-connector-context.xml" })
 @ActiveProfiles(profiles={"person-search", "incident-search", "vehicle-search", "firearms-search","person-vehicle-to-incident-search", 
 		"warrants-query", "criminal-history-query", "firearms-query","incident-report-query", 
-		"subscriptions", "policy-acknowledgement", "access-control", "juvenile-query"})
+		"subscriptions", "policy-acknowledgement", "access-control", "juvenile-query","vehicle-crash-query"})
 public class CamelContextTest {
 
 	@Test

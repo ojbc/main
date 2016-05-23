@@ -47,7 +47,7 @@
 	<util:list id="propertiesList">
 		<ref bean="classpathProperties"/>
 		<ref bean="contextProperties"/>
-		<osgix:cm-properties id="osgiProperties" persistent-id="custody_search_request_service_intermediary.cfg"/>
+		<osgix:cm-properties id="osgiProperties" persistent-id="custody_search_request_service_intermediary"/>
 		<ref bean="derivedBundleOsgiProperties"/>
 	</util:list>
 	

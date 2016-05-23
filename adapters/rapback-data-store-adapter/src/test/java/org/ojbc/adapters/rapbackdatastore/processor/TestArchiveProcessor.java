@@ -22,15 +22,12 @@ import static org.junit.Assert.assertNotNull;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAOImpl;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.annotation.DirtiesContext.HierarchyMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Document;
@@ -45,6 +42,7 @@ import org.w3c.dom.Document;
 		})
 public class TestArchiveProcessor {
 
+	@SuppressWarnings("unused")
 	private final Log log = LogFactory.getLog(this.getClass());
     
 	@Autowired

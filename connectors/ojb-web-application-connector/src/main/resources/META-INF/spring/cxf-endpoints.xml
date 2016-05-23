@@ -157,6 +157,10 @@
 		<camel:endpoint id="custodyQueryResultsHandlerServiceEndpoint"
 			uri="cxf:bean:custodyQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 			
+	    <!-- Vehicle Crash Query Endpoint -->
+		<camel:endpoint id="vehicleCrashQueryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:vehicleCrashQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+			
 		<!-- In all of the endpoints below, the default value is provided in properties-context.xml -->
 		<!-- This allows an implementer to not have to explicitly set these values if they are not using the beans -->
 	
@@ -664,6 +668,24 @@
 		wsdlURL="classpath:ssp/Custody_Query_Results/schemas/RS_WS-SIP_v1.2/Custody_Query_Results_Service.wsdl"
 		serviceName="ojbc:Custody-Query-Results-Service" endpointName="ojbc:Custody-Query-Results-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CustodyQueryResultsService/1.0">
+		 <cxf:features> 
+ 			<policy:policies> 
+ 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+ 					<wsam:Addressing> 
+ 						<wsp:Policy /> 
+ 					</wsam:Addressing> 
+ 				</wsp:Policy> 
+ 			</policy:policies> 
+ 		</cxf:features>	 
+	</cxf:cxfEndpoint>
+       	
+	<!-- Vehicle Crash Query Results Service, hosted by Web Application -->
+	<cxf:cxfEndpoint id="vehicleCrashQueryResultsHandlerService"
+		address="${webapplication.personQuery.personQueryResultsHandlerVehicleCrashEndpoint}"
+		wsdlURL="classpath:ssp/Vehicle_Crash_Query_Results/schema/SIP_WS_1.2/Vehicle_Crash_Query_Results_Service.wsdl"
+		serviceName="ojbc:Vehicle-Crash-Query-Results-ServiceService" 
+		endpointName="ojbc:Vehicle-Crash-Query-Results-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Results_Service/1.0">
 		 <cxf:features> 
  			<policy:policies> 
  				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 

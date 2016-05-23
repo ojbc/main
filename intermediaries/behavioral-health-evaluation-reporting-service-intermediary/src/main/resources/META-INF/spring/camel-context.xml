@@ -28,7 +28,7 @@
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        ">     
 					
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="BehavioralHealthEvalReport_Context">
 	
 		<camel:endpoint id="behaviorHealthEvalReportIntermEndpoint"
 			uri="cxf:bean:behaviorHealthEvalReportIntermService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${behaviorHealthEvalReport.cxfLogging}&amp;allowStreaming=false" />
@@ -37,40 +37,38 @@
 			uri="cxf:bean:behaviorHealthEvalReportAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${behaviorHealthEvalReport.cxfLogging}"/>
 			
 
-		<camel:route id="BehaviorHealthEvalReportingServiceHandlerRoute">
+		<camel:route id="BehaviorHealthReportingRoute">
 		
 			<camel:from uri="behaviorHealthEvalReportIntermEndpoint" />
 			
-			<camel:log message="\n\n\n Entering Behavior Health Eval Reporting Service Intermediary... \n\n\n"/>
+			<camel:log message="\n\n\n Entering Behavioral Health Eval Reporting Service Intermediary... \n\n\n"/>
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-
-			<camel:filter>
 			
-				<camel:simple>${in.header.operationName} == 'ReportBehavioralHealthEvaluation'</camel:simple>																
-												
-				<camel:setHeader headerName="derivedRoutes">
-					<simple>{{behaviorHealthEvalReporting.camelEndpointsToCall}}</simple>
-				</camel:setHeader>
-	
-				<camel:filter>
-					<camel:simple>${in.headers.derivedRoutes} != ''</camel:simple>
-					
-					<camel:log message="\n\n\n Calling derived route...: ${in.headers.derivedRoutes} \n\n\n"/>
-					
-					<camel:recipientList>
-						<camel:header>derivedRoutes</camel:header>
-					</camel:recipientList>
-				</camel:filter>	
-																							
-			</camel:filter>
+			<camel:multicast>
+			
+				<pipeline>
+					<filter>
+						<camel:simple>${properties:behavioralHealthEvalReport.callBehavioralAdapter} == true</camel:simple>
 						
+						<log message="\n\n\n Calling Behavioral Adapter... \n\n\n"/>
+						
+						<to uri="direct:callBehavioralAdapter"/>
+					</filter>					
+				</pipeline>
+						
+				<pipeline>
+					<to uri="direct:callDerivedBundleChildRoutes"/>			
+				</pipeline>				
+				
+			</camel:multicast>
+
 		</camel:route>
+
+
+		<camel:route id="CallBehaviorAdapterRoute">
 		
-		
-		<camel:route>
-		
-			<camel:from uri="direct:callBehaviorHealthEvalAdapter" />
+			<camel:from uri="direct:callBehavioralAdapter" />
 			
 			<camel:log message="\n\n\n callBehaviorHealthEvalAdapter...\n\n\n" />
 							
@@ -79,13 +77,35 @@
 			</camel:setHeader>	
 			
 			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/BehaviorHealthEvalReportingService/1.0</constant>
+				<constant>http://ojbc.org/Services/WSDL/BehavioralHealthEvaluationReportingService/1.0</constant>
 			</camel:setHeader>						
 																	
 			<camel:to uri="behaviorHealthEvalReportAdapterEndpoint" />
 			
 		</camel:route>		
-								
+		
+
+		<camel:route id="callDerivedBundleChildRoutes_Route">
+		
+			<from uri="direct:callDerivedBundleChildRoutes"/>			
+																								
+			<camel:setHeader headerName="derivedRoutes">
+				<simple>{{behaviorHealthEvalReporting.camelEndpointsToCall}}</simple>
+			</camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.derivedRoutes} != ''</camel:simple>
+				
+				<camel:log message="\n\n\n Calling derived route...: ${in.headers.derivedRoutes} \n\n\n"/>
+				
+				<camel:recipientList>
+					<camel:header>derivedRoutes</camel:header>
+				</camel:recipientList>
+			</camel:filter>																								
+						
+		</camel:route>
+		
+					
 	</camel:camelContext>
 			
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />

@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
-import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Subscription;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -34,7 +34,7 @@ public class IncidentSubscriptionEditValidator {
 				
 		logger.info("* * * inside validate()");
 							
-		String topic = subscription.getSubscriptionType(); 		
+		String topic = subscription.getTopic(); 		
 		if(StringUtils.isBlank(topic)){
 			errors.rejectValue("subscriptionType", "Subscription type must be specified");
 		}

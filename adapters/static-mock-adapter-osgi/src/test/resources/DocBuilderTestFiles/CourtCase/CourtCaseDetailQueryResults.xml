@@ -303,7 +303,7 @@
 	<nc:Identity structures:id="Identity_01">
 		<nc:IdentityPersonRepresentation>
 			<nc:PersonBirthDate>
-				<nc:Date>2001-12-17</nc:Date>
+				<nc:Date>1995-12-17</nc:Date>
 			</nc:PersonBirthDate>
 			<nc:PersonName>
 				<nc:PersonGivenName>Homer</nc:PersonGivenName>
@@ -559,10 +559,10 @@
 	</nc:DisciplinaryActionRestitution>
 	<nc:Person structures:id="Person_01">
 		<nc:PersonBirthDate>
-			<nc:Date>2001-12-17</nc:Date>
+			<nc:Date>1995-11-17</nc:Date>
 		</nc:PersonBirthDate>
 		<nc:PersonDescriptionText>String</nc:PersonDescriptionText>
-		<nc:PersonEthnicityText>String</nc:PersonEthnicityText>
+		<nc:PersonEthnicityText>White</nc:PersonEthnicityText>
 		<j:PersonEyeColorCode>BLK</j:PersonEyeColorCode>
 		<j:PersonHairColorCode>BLD</j:PersonHairColorCode>
 		<nc:PersonHeightMeasure>
@@ -570,9 +570,9 @@
 			<nc:MeasureUnitText>in</nc:MeasureUnitText>
 		</nc:PersonHeightMeasure>
 		<nc:PersonName>
-			<nc:PersonGivenName>String</nc:PersonGivenName>
-			<nc:PersonMiddleName>String</nc:PersonMiddleName>
-			<nc:PersonSurName>String</nc:PersonSurName>
+			<nc:PersonGivenName>Homer</nc:PersonGivenName>
+			<nc:PersonMiddleName>J</nc:PersonMiddleName>
+			<nc:PersonSurName>Simpson</nc:PersonSurName>
 			<nc:PersonNameSuffixText>String</nc:PersonNameSuffixText>
 			<nc:PersonFullName>String</nc:PersonFullName>
 		</nc:PersonName>

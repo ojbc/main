@@ -35,11 +35,15 @@ import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.ws.addressing.AddressingProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.test.util.XmlTestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -55,6 +59,7 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:META-INF/spring/properties-context.xml"}) 
 @DirtiesContext
 public class TestAccessControlRequestService {
+    private static Log log = LogFactory.getLog(TestAccessControlRequestService.class);
 
     @Autowired
     private ModelCamelContext context;
@@ -150,7 +155,7 @@ public class TestAccessControlRequestService {
         
         assertEquals("123456789", messageId);
 
-        String expectedResponseBody = readSingleLineResponseWithoutLicense(new File("src/test/resources/xml/accessControl/AccessControlResponseError.xml"));
+        String expectedResponseBody = readResponseWithoutLicense(new File("src/test/resources/xml/accessControl/AccessControlResponseError.xml"));
         adapterResponseEndpoint.expectedBodiesReceivedInAnyOrder(expectedResponseBody);
 
         Thread.sleep(7000);
@@ -165,11 +170,16 @@ public class TestAccessControlRequestService {
      * @return
      * @throws IOException
      */
-    private String readSingleLineResponseWithoutLicense(File file) throws IOException {
+    private String readResponseWithoutLicense(File file) throws IOException {
         @SuppressWarnings("unchecked")
         List<String> stringList = FileUtils.readLines(file);
-        String expectedResponseBody=stringList.get(18);
-        return expectedResponseBody;
+        
+        if (stringList.size() > 19){
+        	return StringUtils.join(stringList.subList(18, stringList.size()), "\n");
+        }
+        else { 
+        	return stringList.get(18);
+        }
     }
 
     @Test
@@ -180,10 +190,6 @@ public class TestAccessControlRequestService {
                 "src/test/resources/xml/accessControl/IdentityBasedAccessControlRequestSubscriptions.xml");
         String requestBody = FileUtils.readFileToString(inputFile);
 
-        String expectedResponseBody = readSingleLineResponseWithoutLicense(new File(
-        "src/test/resources/xml/accessControl/staticPermitResponse.xml"));
-
-		adapterResponseEndpoint.expectedBodiesReceived(expectedResponseBody);
 		adapterResponseEndpoint.expectedMessageCount(1);
         
         Map<String, Object> headers = TestUtils.createHeaders();
@@ -198,6 +204,10 @@ public class TestAccessControlRequestService {
 
         adapterResponseEndpoint.expectedMessageCount(1);
         adapterResponseEndpoint.assertIsSatisfied();
+        String receivedReponse = (String) adapterResponseEndpoint.getReceivedExchanges().get(0).getIn().getBody();
+        
+        XmlTestUtils.compareDocs("src/test/resources/xml/accessControl/staticPermitIdentityBasedResponse.xml", receivedReponse);
+        log.info("Received Response: \n " + receivedReponse);
     }
 
     @Test
@@ -211,10 +221,6 @@ public class TestAccessControlRequestService {
                 "src/test/resources/xml/accessControl/MessageBasedAccessControlRequest.xml");
         String requestBody = FileUtils.readFileToString(inputFile);
 
-        String expectedResponseBody = readSingleLineResponseWithoutLicense(new File(
-        "src/test/resources/xml/accessControl/staticPermitResponse.xml"));
-
-		adapterResponseEndpoint.expectedBodiesReceivedInAnyOrder(expectedResponseBody);
 		adapterResponseEndpoint.expectedMessageCount(1);
         
         Map<String, Object> headers = TestUtils.createHeaders();
@@ -229,7 +235,10 @@ public class TestAccessControlRequestService {
 
         adapterResponseEndpoint.expectedMessageCount(1);
         adapterResponseEndpoint.assertIsSatisfied();
+        String receivedReponse = (String) adapterResponseEndpoint.getReceivedExchanges().get(0).getIn().getBody();
+        XmlTestUtils.compareDocs("src/test/resources/xml/accessControl/staticPermitResponse.xml", receivedReponse);
     }
 
     
 }
+

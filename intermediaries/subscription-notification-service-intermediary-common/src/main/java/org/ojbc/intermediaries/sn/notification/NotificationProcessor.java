@@ -18,18 +18,18 @@ package org.ojbc.intermediaries.sn.notification;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-
-import org.ojbc.intermediaries.sn.dao.Subscription;
-import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
-import org.ojbc.intermediaries.sn.notification.filter.DefaultNotificationFilterStrategy;
-import org.ojbc.intermediaries.sn.notification.filter.NotificationFilterStrategy;
-import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
+import org.ojbc.intermediaries.sn.notification.filter.DefaultNotificationFilterStrategy;
+import org.ojbc.intermediaries.sn.notification.filter.NotificationFilterStrategy;
+import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 
 /**
  * The abstract base class for topic-specific notification processors...there will be a concrete derivation of this class for each topic.
@@ -133,15 +133,12 @@ public abstract class NotificationProcessor {
      * @param exchange the inbound exchange containing the notification request
      * @throws Exception
      */
-    public void findSubscriptionsForNotification(Exchange exchange) throws Exception {
+    public List<EmailNotification> findSubscriptionsForNotification(Exchange exchange) throws Exception {
         log.debug("Entering notify camel method");
         Message inMessage = exchange.getIn();
 
         NotificationRequest request = makeNotificationRequestFromIncomingMessage(inMessage);
-        processNotificationRequest(request, inMessage);
-
-        @SuppressWarnings("unchecked")
-        List<EmailNotification> emailNotifications = (List<EmailNotification>) inMessage.getHeader(NotificationConstants.HEADER_EMAIL_NOTIFICATIONS);
+        List<EmailNotification> emailNotifications = processNotificationRequest(request, inMessage);
 
         if (emailNotifications.size() > 0) {
 
@@ -150,14 +147,16 @@ public abstract class NotificationProcessor {
             }
 
             if (notificationFilterStrategy.shouldMessageBeFiltered(request)) {
-                exchange.setProperty(Exchange.ROUTE_STOP, Boolean.TRUE);
+            	log.warn("Notification filter strategy indicates that message should be filtered.");
+            	emailNotifications.clear();
             }
         }
         
         if (emailNotifications.size() == 0) {
             log.warn("No subscriptions found for subject " + request.getSubjectIdentifiers() + " and event date of " + NotificationBrokerUtils.returnFormattedNotificationEventDate(request.getNotificationEventDate(), request.isNotificationEventDateInclusiveOfTime()));
-            exchange.setProperty(Exchange.ROUTE_STOP, Boolean.TRUE);
         }
+        
+        return emailNotifications;
         
     }
 
@@ -190,7 +189,6 @@ public abstract class NotificationProcessor {
         
         exchange.getOut().setBody(emailBody);
         exchange.getOut().setHeader(NotificationConstants.HEADER_SUBJECT, subject);
-        exchange.getOut().setHeader(NotificationConstants.HEADER_SUBJECT_IDENTIFIER, emailNotification.getSubjectIdentifier());
         exchange.getOut().setHeader(NotificationConstants.HEADER_TO, toAddressees);
         if (ccAddressees != null && !ccAddressees.isEmpty()) {
             exchange.getOut().setHeader(NotificationConstants.HEADER_CC, ccAddressees);
@@ -202,15 +200,36 @@ public abstract class NotificationProcessor {
 
     }
 
-    void processNotificationRequest(NotificationRequest request, Message inMessage) {
+    List<EmailNotification> processNotificationRequest(NotificationRequest request, Message inMessage) {
 
+    	//Search for subscription using the subject identifiers
         List<Subscription> subscriptions = subscriptionSearchQueryDAO.searchForSubscriptionsMatchingNotificationRequest(request);
+
+        //If no subscriptions found, try searching using the context defined alternate subject identifiers
+        //We break the search as soon as we get a subscription from a set of subject identifiers
+        if (subscriptions.size() == 0 && request.getAlternateSubjectIdentifiers() != null)
+        {
+        	log.info("No subscriptions found using primary subject identifiers: " + request.getSubjectIdentifiers().toString()  +  ", try with alternate identifiers");
+        	
+        	for (Map<String, String> alternateSubjectIdentifiers : request.getAlternateSubjectIdentifiers())
+        	{
+        		log.info("Search using alternate identifers: "  + alternateSubjectIdentifiers.toString());
+        		
+        		subscriptions = subscriptionSearchQueryDAO.searchForSubscriptionsMatchingNotificationRequest(request, alternateSubjectIdentifiers);
+        		
+        		if (subscriptions.size() != 0)
+        		{
+        			break;
+        		}	
+        		
+        	}	
+        }	
         
         // We call this method to remove duplicate subscriptions from the notification list so officers don't get duplicate emails.
         // This was originally for HI Probation where one SID can have multiple cases with the same officer
         List<EmailNotification> emailNotifications = createUniqueNotifications(subscriptions, request);
 
-        inMessage.setHeader(NotificationConstants.HEADER_EMAIL_NOTIFICATIONS, emailNotifications);
+        return emailNotifications;
         
     }
     

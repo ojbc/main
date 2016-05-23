@@ -28,6 +28,17 @@
   <xsd:import schemaLocation="../../../appinfo/2.1/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.1"/>
   <xsd:import schemaLocation="../../../niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0"/>
   <xsd:import schemaLocation="../../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:complexType name="DriverLicenseType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an applied augmentation for nc:DriverLicenseType.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="DriverLicenseType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:DriverLicenseType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="PersonAugmentationType">
     <xsd:annotation>
       <xsd:documentation>A data type for additional information about a person.</xsd:documentation>
@@ -73,6 +84,11 @@
       <xsd:appinfo>
         <i:AppliesTo i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="PersonType"/>
       </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonDriverLicenseAssociation" type="nc:DriverLicenseAssociationType">
+    <xsd:annotation>
+      <xsd:documentation>An association between a person and a driver license.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="PersonStateFingerprintIdentification" type="nc:IdentificationType" nillable="true">

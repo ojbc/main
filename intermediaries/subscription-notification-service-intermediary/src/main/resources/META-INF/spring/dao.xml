@@ -43,6 +43,22 @@
 		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
 	</bean>
 
+	<bean id="courtDispositionUpdateProcessor"
+		class="org.ojbc.intermediaries.sn.topic.courtdispositionupdate.CourtDispositionUpdateSubscriptionProcessor">
+		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
+		<property name="activeSubjectIdentifiers" ref="courtDispositionUpdateSubscriptionSubjectIdentifiers"/>
+	</bean>
+
+	<bean id="prosecutionDecisionUpdateProcessor"
+		class="org.ojbc.intermediaries.sn.topic.prosecutiondecisionupdate.ProsecutionDecisionUpdateSubscriptionProcessor">
+		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
+		<property name="activeSubjectIdentifiers" ref="prosecutionDecisionUpdateSubscriptionSubjectIdentifiers"/>
+	</bean>
+
 	<bean id="incidentSubscriptionProcessor"
 		class="org.ojbc.intermediaries.sn.topic.incident.IncidentSubscriptionProcessor">
 		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
@@ -75,14 +91,27 @@
 		<property name="emailFormatter" ref="emailFormatter"/>
 	</bean>
 	
-	<bean id="chCycleNotificationProcessor"
-		class="org.ojbc.intermediaries.sn.topic.chcycle.ChCycleNotificationProcessor">
+	<bean id="prosecutionDecisionUpdateNotificationProcessor"
+		class="org.ojbc.intermediaries.sn.topic.prosecutiondecisionupdate.ProsecutionDecisionUpdateNotificationProcessor">
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
 		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
 		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
 		<property name="emailFormatter" ref="emailFormatter"/>
+		<property name="activeSubjectIdentifiers" ref="activeProsecutionDecisionUpdateNotificationSubjectIdentifiers"/>
+		<property name="alternateConfiguredSubjectIdentifiers" ref="alternateConfiguredProsecutionDecisionUpdateNotificationSubjectIdentifiers"/>
 	</bean>	
+	
+	<bean id="courtDispositionUpdateNotificationProcessor"
+		class="org.ojbc.intermediaries.sn.topic.courtdispositionupdate.CourtDispositionUpdateNotificationProcessor">
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
+		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
+		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
+		<property name="emailFormatter" ref="emailFormatter"/>
+		<property name="activeSubjectIdentifiers" ref="courtDispositionUpdateNotificationSubjectIdentifiers"/>
+		<property name="alternateConfiguredSubjectIdentifiers" ref="alternateConfiguredCourtDispositionUpdateNotificationSubjectIdentifiers"/>
+	</bean>
 	
 	<bean id="sidConsolidationProcessor" class="org.ojbc.intermediaries.sn.subscription.SidConsolidationProcessor">
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />

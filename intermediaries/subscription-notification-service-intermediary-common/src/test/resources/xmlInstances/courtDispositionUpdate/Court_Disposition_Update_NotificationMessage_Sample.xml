@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<b:Notify xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+   xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+   xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+   xmlns:s="http://niem.gov/niem/structures/2.0"
+   xmlns:tns="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+   xmlns:tns1="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+   xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"
+   xmlns:me="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/2.0"
+   xmlns:topics="http://ojbc.org/wsn/topics" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
+   <b:NotificationMessage>
+      <b:SubscriptionReference>
+         <add:Address>http://www.ojbc.org/SubscriptionManager</add:Address>
+         <!--Optional: -->
+         <add:ReferenceParameters>
+            <!--You may enter ANY elements at this point -->
+         </add:ReferenceParameters>
+         <!--Optional: -->
+         <add:Metadata>
+            <!--You may enter ANY elements at this point -->
+         </add:Metadata>
+         <!--You may enter ANY elements at this point -->
+      </b:SubscriptionReference>
+      <!--Optional: -->
+      <b:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">
+         {http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate</b:Topic>
+      <!--Optional: -->
+      <b:ProducerReference>
+         <add:Address>http://www.hawaii.gov/arrestNotificationProducer</add:Address>
+         <!--Optional: -->
+         <add:ReferenceParameters>
+            <!--You may enter ANY elements at this point -->
+         </add:ReferenceParameters>
+         <!--Optional: -->
+         <add:Metadata>
+            <!--You may enter ANY elements at this point -->
+         </add:Metadata>
+         <!--You may enter ANY elements at this point -->
+      </b:ProducerReference>
+      <b:Message>
+         <notfm-doc:NotificationMessage xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+            xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+            xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+            xmlns:s="http://niem.gov/niem/structures/2.0"
+            xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+            xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+            xmlns:me_disp_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0"
+            xmlns:cdu="http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0 ../xsd/impl/maine/disposition_codes.xsd">
+            <notfm-ext:NotifyingCourtDispositionUpdate s:id="id1">
+               <notfm-ext:NotifyingActivityReportingSystemNameText>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</notfm-ext:NotifyingActivityReportingSystemNameText>
+               <notfm-ext:NotifyingActivityReportingSystemURI>SystemURIHere</notfm-ext:NotifyingActivityReportingSystemURI>
+               <cdu:CourtDispositionUpdate>
+                  <cdu:CycleTrackingIdentification>
+                     <nc:IdentificationID>123456A</nc:IdentificationID>
+                  </cdu:CycleTrackingIdentification>
+                  <j:Charge s:id="d1e10">
+                     <j:ChargeStatute>
+                        <j:StatuteCodeIdentification>
+                           <nc:IdentificationID>004290</nc:IdentificationID>
+                        </j:StatuteCodeIdentification>
+                     </j:ChargeStatute>
+                     <j:ChargeTrackingIdentification>
+                        <nc:IdentificationID>456</nc:IdentificationID>
+                     </j:ChargeTrackingIdentification>
+                  </j:Charge>
+                  <cdu:Sentence s:id="d1e28">
+                     <nc:ActivityDate>
+                        <nc:Date>2001-12-17</nc:Date>
+                     </nc:ActivityDate>
+                     <j:SentenceCondition>
+                        <nc:ActivityDescriptionText>Sentence Condition</nc:ActivityDescriptionText>
+                        <nc:ConditionDisciplinaryAction>
+                           <nc:DisciplinaryActionFee>
+                              <nc:ObligationDueAmount>100.00</nc:ObligationDueAmount>
+                           </nc:DisciplinaryActionFee>
+                           <nc:DisciplinaryActionRestitution>
+                              <nc:ObligationDueAmount>200.00</nc:ObligationDueAmount>
+                           </nc:DisciplinaryActionRestitution>
+                        </nc:ConditionDisciplinaryAction>
+                     </j:SentenceCondition>
+                     <j:SentenceGroupingText>Consecutive/Concurrent Details</j:SentenceGroupingText>
+                     <j:SentenceTerm>
+                        <j:TermDuration>P2Y</j:TermDuration>
+                        <j:TermLifeIndicator>false</j:TermLifeIndicator>
+                     </j:SentenceTerm>
+                     <cdu:SentenceCourtOrganizationReference s:ref="d1e159"/>
+                     <cdu:SentenceDocketIdentification>
+                        <nc:IdentificationID>Sentence Docket ID</nc:IdentificationID>
+                     </cdu:SentenceDocketIdentification>
+                     <me_disp_codes:SentenceTermCategoryCode>ADMINISTRATIVE RELEASE
+                        CONTINUED</me_disp_codes:SentenceTermCategoryCode>
+                  </cdu:Sentence>
+                  <cdu:Disposition s:id="d1e91">
+                     <nc:DispositionDate>
+                        <nc:Date>2001-12-17</nc:Date>
+                     </nc:DispositionDate>
+                     <cdu:DispositionCourtOrganizationReference s:ref="d1e171"/>
+                     <cdu:DispositionIdentification>
+                        <nc:IdentificationID>UTN</nc:IdentificationID>
+                     </cdu:DispositionIdentification>
+                     <cdu:DispositionDocketIdentification>
+                        <nc:IdentificationID>Disposition Docket ID</nc:IdentificationID>
+                     </cdu:DispositionDocketIdentification>
+                     <me_disp_codes:CourtActionCode>ADMINISTRATIVE RELEASE
+                        VIOLATED</me_disp_codes:CourtActionCode>
+                  </cdu:Disposition>
+               </cdu:CourtDispositionUpdate>
+            </notfm-ext:NotifyingCourtDispositionUpdate>
+            <nc:ActivityInvolvedPersonAssociation>
+               <nc:ActivityReference s:ref="id1"/>
+               <nc:PersonReference s:ref="d1e126"/>
+            </nc:ActivityInvolvedPersonAssociation>
+            <j:Person s:id="d1e126">
+               <nc:PersonBirthDate>
+                  <nc:Date>1977-12-17</nc:Date>
+               </nc:PersonBirthDate>
+               <nc:PersonName>
+                  <nc:PersonGivenName>Walter</nc:PersonGivenName>
+                  <nc:PersonMiddleName>A</nc:PersonMiddleName>
+                  <nc:PersonSurName>White</nc:PersonSurName>
+               </nc:PersonName>
+			  	<j:PersonAugmentation>
+			  		<j:PersonStateFingerprintIdentification>
+			  			<nc:IdentificationID>A9999999</nc:IdentificationID>
+			  		</j:PersonStateFingerprintIdentification>
+			  	</j:PersonAugmentation>               
+            </j:Person>
+            <j:Organization s:id="d1e159">
+               <j:OrganizationAugmentation>
+                  <j:OrganizationORIIdentification>
+                     <nc:IdentificationID>ME0000001</nc:IdentificationID>
+                  </j:OrganizationORIIdentification>
+               </j:OrganizationAugmentation>
+            </j:Organization>
+            <j:Organization s:id="d1e171">
+               <j:OrganizationAugmentation>
+                  <j:OrganizationORIIdentification>
+                     <nc:IdentificationID>ME0000002</nc:IdentificationID>
+                  </j:OrganizationORIIdentification>
+               </j:OrganizationAugmentation>
+            </j:Organization>
+            <j:PersonChargeAssociation>
+               <nc:PersonReference s:ref="d1e126"/>
+               <j:ChargeReference s:ref="d1e10"/>
+            </j:PersonChargeAssociation>
+            <j:ActivityChargeAssociation>
+               <nc:ActivityReference s:ref="d1e28"/>
+               <j:ChargeReference s:ref="d1e10"/>
+            </j:ActivityChargeAssociation>
+            <notfm-doc:ChargeDispositionAssociation>
+               <j:ChargeReference s:ref="d1e10"/>
+               <j:DispositionReference s:ref="d1e91"/>
+            </notfm-doc:ChargeDispositionAssociation>
+         </notfm-doc:NotificationMessage>
+
+      </b:Message>
+   </b:NotificationMessage>
+</b:Notify>

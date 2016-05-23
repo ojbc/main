@@ -607,7 +607,7 @@ public class SearchTest extends AbstractStaticMockTest {
         firearmSearchRequestMessage = buildBaseFirearmSearchRequestMessage();
         removeElement(firearmSearchRequestMessage, "/firearm-search-req-doc:FirearmSearchRequest/firearm-search-req-ext:Firearm/firearms-codes-demostate:FirearmMakeCode");
         xPath = StaticMockQuery.buildFirearmSearchXPathFromMessage(firearmSearchRequestMessage);
-        expectedXPath = "/firearm-doc:PersonFirearmRegistrationQueryResults/firearm-ext:Firearm[nc:ItemSerialIdentification/nc:IdentificationID='S11' and nc:ItemModelName='FirearmTest' and nc:FirearmCategoryCode='R' and (firearm-search-req-ext:FirearmMakeText='SMI') and @s:id = /firearm-doc:PersonFirearmRegistrationQueryResults/nc:PropertyRegistrationAssociation[nc:ItemRegistrationReference/@s:ref = /firearm-doc:PersonFirearmRegistrationQueryResults/firearm-ext:ItemRegistration[nc:RegistrationIdentification/nc:IdentificationID='R11' and nc:LocationCountyName='Laurel']/@s:id]/nc:ItemReference/@s:ref]";
+        expectedXPath = "/firearm-doc:PersonFirearmRegistrationQueryResults/firearm-ext:Firearm[nc:ItemSerialIdentification/nc:IdentificationID='S11' and nc:ItemModelName='FirearmTest' and nc:FirearmCategoryCode='R' and (firearm-ext:FirearmMakeText='SMI') and @s:id = /firearm-doc:PersonFirearmRegistrationQueryResults/nc:PropertyRegistrationAssociation[nc:ItemRegistrationReference/@s:ref = /firearm-doc:PersonFirearmRegistrationQueryResults/firearm-ext:ItemRegistration[nc:RegistrationIdentification/nc:IdentificationID='R11' and nc:LocationCountyName='Laurel']/@s:id]/nc:ItemReference/@s:ref]";
         // log.debug(xPath);
         // log.debug(expectedXPath);
         assertEquals(expectedXPath, xPath);
@@ -618,7 +618,7 @@ public class SearchTest extends AbstractStaticMockTest {
         removeElement(firearmSearchRequestMessage, "/firearm-search-req-doc:FirearmSearchRequest/firearm-search-req-ext:ItemRegistration/nc:RegistrationIdentification");
         
         xPath = StaticMockQuery.buildFirearmSearchXPathFromMessage(firearmSearchRequestMessage);
-        expectedXPath = "/firearm-doc:PersonFirearmRegistrationQueryResults/firearm-ext:Firearm[nc:ItemModelName='FirearmTest' and (firearms-codes-demostate:FirearmMakeCode='SMI' or firearm-search-req-ext:FirearmMakeText='SMI') and @s:id = /firearm-doc:PersonFirearmRegistrationQueryResults/nc:PropertyRegistrationAssociation[nc:ItemRegistrationReference/@s:ref = /firearm-doc:PersonFirearmRegistrationQueryResults/firearm-ext:ItemRegistration[nc:LocationCountyName='Laurel']/@s:id]/nc:ItemReference/@s:ref]";
+        expectedXPath = "/firearm-doc:PersonFirearmRegistrationQueryResults/firearm-ext:Firearm[nc:ItemModelName='FirearmTest' and (firearms-codes-demostate:FirearmMakeCode='SMI' or firearm-ext:FirearmMakeText='SMI') and @s:id = /firearm-doc:PersonFirearmRegistrationQueryResults/nc:PropertyRegistrationAssociation[nc:ItemRegistrationReference/@s:ref = /firearm-doc:PersonFirearmRegistrationQueryResults/firearm-ext:ItemRegistration[nc:LocationCountyName='Laurel']/@s:id]/nc:ItemReference/@s:ref]";
 //         log.debug(xPath);
 //         log.debug(expectedXPath);
         assertEquals(expectedXPath, xPath);
