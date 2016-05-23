@@ -114,9 +114,7 @@
                </nc:PersonName>
                <j:PersonAugmentation>
                   <j:PersonStateFingerprintIdentification>
-                     <nc:IdentificationID>
-                        <nc:IdentificationID>SID23456</nc:IdentificationID>
-                     </nc:IdentificationID>
+                  	<nc:IdentificationID>SID23456</nc:IdentificationID>
                   </j:PersonStateFingerprintIdentification>
                </j:PersonAugmentation>
             </j:Person>
