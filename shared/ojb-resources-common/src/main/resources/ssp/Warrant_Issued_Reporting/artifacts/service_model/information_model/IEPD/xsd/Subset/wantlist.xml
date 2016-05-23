@@ -103,6 +103,7 @@
   <w:Element w:name="nc:PersonSexText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonSkinToneText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Vehicle" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:YearDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:YearMonthDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="scr:TransactionControlNumberIdentification"
     w:isReference="false" w:nillable="true"/>
@@ -3623,6 +3624,8 @@
       w:name="j:ConveyanceRegistrationPlateIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ConveyanceRegistrationPlateCategory"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ConveyanceRegistrationAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:CourtOrderType" w:isRequested="true">
