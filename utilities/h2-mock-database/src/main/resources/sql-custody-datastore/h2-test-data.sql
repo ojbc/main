@@ -14,19 +14,6 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-INSERT INTO PERSON_SEX(ID, DESCRIPTION) VALUES
-(0, 'M'),
-(1, 'F');
 
-INSERT INTO PERSON_RACE(ID, DESCRIPTION) VALUES
-(0, 'W'),
-(1, 'B'),
-(2, 'A');
-
-INSERT INTO PUBLIC.LANGUAGE(ID, DESCRIPTION) VALUES
-(0, 'EN');
-
-INSERT INTO PUBLIC.PERSON(ID, PERSON_SEX_ID, PERSON_RACE_ID, LANGUAGE_ID, BIRTH_DATE, EDUCATION_LEVEL, ETHNICITY, MILITARY_EXPERIENCE, GIVEN_NAME, MIDDLE_NAME, SUR_NAME, RESIDENT, SSN, STATE_FINGERPRINT_ID, SOCIO_ECONOMIC_STATUS, DRIVER_LICENSE_ID, DRIVER_LICENSE_SOURCE, FBI_ID, OCCUPATION) VALUES
-(0, 0, 0, 0, DATE '2000-03-24', 'HS', 'W', TRUE, 'Homer', 'Jay', 'Simpson', '123 Main St.', 123456789, '456', 'High', 123, 'FL', 123, 'Button Pusher'),
-(1, 0, 0, 0, DATE '2000-03-24', 'HS', 'W', TRUE, 'Lisa', 'M', 'Simpson', '123 Main St.', 123456789, '456', 'Middle', 123, 'FL', 123, 'Student'),
-(2, 0, 0, 0, DATE '2000-03-24', 'HS', 'W', FALSE, 'Bart', 'Roger', 'Simpson', '123 Main St.', 123456789, '456', 'Low', 123, 'FL', 123, 'Student');
+INSERT INTO person(unique_person_id, sex_offender, education, primary_language, dob, ethnicity, race, sid, first_name, middle_name, last_name, sex, occupation, military_service) VALUES
+('123', false, 'phd', 'francais', date '2000-01-01', 'a', 'a', '123', 'homer', 'jay', 'simpson', 'm', 'software engineer', false);

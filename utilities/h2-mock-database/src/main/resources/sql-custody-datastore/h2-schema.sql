@@ -26,144 +26,79 @@ CREATE SCHEMA custody_datastore;
 --warnings ignored about nullable foreign keys
 
 
-CREATE TABLE supervision_bed (
-                id INT AUTO_INCREMENT NOT NULL,
-                category_code VARCHAR(10) NOT NULL,
-                PRIMARY KEY (id)
-);
-
-
-CREATE TABLE language (
-                id INT AUTO_INCREMENT NOT NULL,
-                description VARCHAR(50) NOT NULL,
-                PRIMARY KEY (id)
-);
-
-
-CREATE TABLE person_race (
-                id INT AUTO_INCREMENT NOT NULL,
-                description VARCHAR(10) NOT NULL,
-                PRIMARY KEY (id)
-);
-
-
-CREATE TABLE person_sex (
-                id INT AUTO_INCREMENT NOT NULL,
-                description VARCHAR(20) NOT NULL,
-                PRIMARY KEY (id)
-);
-
-
 CREATE TABLE person (
                 id INT AUTO_INCREMENT NOT NULL,
-                person_sex_id INT,
-                person_race_id INT,
-                language_id INT,
-                birth_date DATE,
-                education_level VARCHAR(50),
-                ethnicity VARCHAR(20),
-                military_experience BOOLEAN,
-                given_name VARCHAR(50),
-                middle_name VARCHAR(50),
-                sur_name VARCHAR(50),
-                resident VARCHAR(50),
-                ssn INT,
-                state_fingerprint_id VARCHAR(50),
-                socio_economic_status VARCHAR(50),
-                driver_license_id INT,
-                driver_license_source VARCHAR(50),
-                fbi_id INT,
-                occupation VARCHAR(50),
-                PRIMARY KEY (id)
-);
-
-ALTER TABLE person MODIFY COLUMN resident VARCHAR(50) COMMENT 'residence';
-
-
-CREATE TABLE arrest (
-                id INT AUTO_INCREMENT NOT NULL,
-                agency_org_name VARCHAR(50),
-                location_address VARCHAR(200),
-                location_latitude DECIMAL(9,6),
-                location_longitude DECIMAL(9,6),
+                unique_person_id VARCHAR NOT NULL,
+                sex_offender BOOLEAN NOT NULL,
+                education VARCHAR(50) NOT NULL,
+                primary_language VARCHAR(50) NOT NULL,
+                dob DATE NOT NULL,
+                ethnicity VARCHAR(20) NOT NULL,
+                race VARCHAR(20) NOT NULL,
+                sid VARCHAR(50) NOT NULL,
+                first_name VARCHAR(50) NOT NULL,
+                middle_name VARCHAR(50) NOT NULL,
+                last_name VARCHAR(50) NOT NULL,
+                sex VARCHAR(1) NOT NULL,
+                occupation VARCHAR(50) NOT NULL,
+                military_service BOOLEAN NOT NULL,
                 PRIMARY KEY (id)
 );
 
 
-CREATE TABLE charge (
+CREATE TABLE person_alias (
                 id INT AUTO_INCREMENT NOT NULL,
-                category VARCHAR(100),
-                description VARCHAR(200),
-                charge_highest_indicator BOOLEAN,
-                sequence_id INT,
-                statute_code_id INT,
-                statute_code_section_id INT,
-                bail_bond_category VARCHAR(50),
-                bail_bond_status VARCHAR(50),
-                bail_bond_amount DECIMAL(19,4),
-                next_court_date DATE,
-                court_name VARCHAR(100),
-                info_owning_branch VARCHAR(50),
-                info_owning_org VARCHAR(50),
-                PRIMARY KEY (id)
-);
-
-
-CREATE TABLE detention (
-                id INT AUTO_INCREMENT NOT NULL,
-                supervision_bed_id INT,
-                activity_date DATE,
-                supervision_custody_status VARCHAR(10),
-                pretrial_category_code VARCHAR(10),
-                supervision_release_date DATE,
-                supervision_area_id INT,
-                supervision_cell_id INT,
-                detention_immigration_hold BOOLEAN,
-                hold_for_agency_org_name VARCHAR(50),
-                inmate_work_release BOOLEAN,
-                inmate_worker BOOLEAN,
+                person_id INT NOT NULL,
+                name_type VARCHAR(20) NOT NULL,
+                alias_last_name VARCHAR(50) NOT NULL,
+                alias_first_name VARCHAR(50) NOT NULL,
+                alias_middle VARCHAR(50) NOT NULL,
+                alias_sex VARCHAR(1) NOT NULL,
+                alias_dob DATE NOT NULL,
+                alias_name_id VARCHAR(20) NOT NULL,
                 PRIMARY KEY (id)
 );
 
 
 CREATE TABLE booking (
                 id INT AUTO_INCREMENT NOT NULL,
-                person_id INT,
-                charge_id INT,
-                arrest_id INT,
-                detention_id INT,
-                activity_date DATE,
-                facility_id INT,
-                subject_id INT,
-                registered_sex_offender BOOLEAN,
-                custody_case_court_name VARCHAR(50),
+                person_id INT NOT NULL,
+                booking_number INT NOT NULL,
+                booking_date DATE NOT NULL,
+                facility VARCHAR(50) NOT NULL,
+                booking_photo VARCHAR(250) NOT NULL,
+                actual_release_datetime DATE NOT NULL,
+                commit_date DATE NOT NULL,
+                scheduled_release_date DATE NOT NULL,
+                block VARCHAR(20) NOT NULL,
+                bed VARCHAR(20) NOT NULL,
+                cell VARCHAR(20) NOT NULL,
+                case_status VARCHAR(20) NOT NULL,
+                inmate_work_release_indicator BOOLEAN NOT NULL,
+                inmate_worker_indicator BOOLEAN NOT NULL,
                 PRIMARY KEY (id)
 );
 
 
-ALTER TABLE detention ADD CONSTRAINT supervision_bed_detention_fk
-FOREIGN KEY (supervision_bed_id)
-REFERENCES supervision_bed (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
+CREATE TABLE charge (
+                id INT AUTO_INCREMENT NOT NULL,
+                booking_id INT NOT NULL,
+                bond_amount DECIMAL(19,4) NOT NULL,
+                bond_type VARCHAR(30) NOT NULL,
+                bond_status VARCHAR(30) NOT NULL,
+                next_court_event_court_name VARCHAR(30) NOT NULL,
+                next_court_date DATE NOT NULL,
+                charge_sequence_number INT NOT NULL,
+                charge_description VARCHAR(200) NOT NULL,
+                statute_or_ordinance_number INT NOT NULL,
+                charge_category_classification VARCHAR(200) NOT NULL,
+                arrest_location VARCHAR(200) NOT NULL,
+                arrest_agency VARCHAR(200) NOT NULL,
+                holding_for_agency BOOLEAN NOT NULL,
+                case_jurisdiction_court VARCHAR(200) NOT NULL,
+                PRIMARY KEY (id)
+);
 
-ALTER TABLE person ADD CONSTRAINT language_person_fk
-FOREIGN KEY (language_id)
-REFERENCES language (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE person ADD CONSTRAINT person_race_person_fk
-FOREIGN KEY (person_race_id)
-REFERENCES person_race (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE person ADD CONSTRAINT person_sex_person_fk
-FOREIGN KEY (person_sex_id)
-REFERENCES person_sex (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
 
 ALTER TABLE booking ADD CONSTRAINT person_booking_fk
 FOREIGN KEY (person_id)
@@ -171,20 +106,14 @@ REFERENCES person (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE booking ADD CONSTRAINT arrest_booking_fk
-FOREIGN KEY (arrest_id)
-REFERENCES arrest (id)
+ALTER TABLE person_alias ADD CONSTRAINT person_person_alias_fk
+FOREIGN KEY (person_id)
+REFERENCES person (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE booking ADD CONSTRAINT charge_booking_fk
-FOREIGN KEY (charge_id)
-REFERENCES charge (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE booking ADD CONSTRAINT detention_booking_fk
-FOREIGN KEY (detention_id)
-REFERENCES detention (id)
+ALTER TABLE charge ADD CONSTRAINT booking_charge_fk
+FOREIGN KEY (booking_id)
+REFERENCES booking (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
