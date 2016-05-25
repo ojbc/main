@@ -16,6 +16,7 @@
  */
 package org.ojbc.bundles.connectors.warrantmod;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
@@ -39,7 +40,7 @@ import org.springframework.test.context.ContextConfiguration;
 		"classpath:META-INF/spring/cxf-endpoints.xml",
 		"classpath:META-INF/spring/dao.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-warrant-repository.xml",
 		"classpath:META-INF/spring/properties-context.xml"})
 @DirtiesContext
 public class CamelContextTest {
@@ -53,8 +54,9 @@ public class CamelContextTest {
     @Test
     public void testDatasource() throws Exception {
 		Connection conn = dataSource.getConnection();
-		ResultSet rs = conn.createStatement().executeQuery("select count(*) as rowcount from identification_subject");
+		ResultSet rs = conn.createStatement().executeQuery("select count(*) as rowcount from Warrant");
 		assertTrue(rs.next());
+		assertEquals(0,rs.getInt("rowcount"));
     }
     
     @Test

@@ -66,14 +66,14 @@
 		<camel:route>
 			<camel:from uri="quartz://myGroup/myTimerName"/>
 			<setBody>
-       			<constant>SELECT distinct IDENTIFICATION_CATEGORY FROM identification_transaction</constant>
+       			<constant>SELECT warrantID FROM warrant</constant>
      		</setBody>
      		<to uri="jdbc:dataSource?outputType=StreamList"/>
      		<camel:split>
      			<camel:simple>${body}</camel:simple>
 	     		<camel:log message="sql result: ${body}"></camel:log>
-				<camel:log message="Timer Triggered"></camel:log>
      		</camel:split>
+			<camel:log message="Trigger Fired"></camel:log>
 		</camel:route>		
 		
 		<!--  Warrants Mod Results Handler Route.  Called by Intermediary -->
