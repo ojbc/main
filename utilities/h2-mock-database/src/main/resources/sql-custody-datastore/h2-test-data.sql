@@ -18,8 +18,8 @@
 INSERT INTO person(unique_person_id, sex_offender, education, primary_language, dob, ethnicity, race, sid, first_name, middle_name, last_name, sex, occupation, military_service) VALUES
 ('123', false, 'phd', 'francais', date '2000-01-01', 'a', 'a', '123', 'homer', 'jay', 'simpson', 'm', 'software engineer', false);
 
-INSERT INTO booking(id, person_id, booking_number, booking_date, facility, booking_photo, actual_release_datetime, commit_date, scheduled_release_date, block, bed, cell, case_status, inmate_work_release_indicator, inmate_worker_indicator) values
-(1, null, 1234, date '2000-01-01', 'county jail', 'profile.jpg', date '2000-01-01', date '2000-01-01', date '2000-01-01', 'a', '23', '7', '1', true, true);
+INSERT INTO booking(person_id, booking_number, booking_date, facility, booking_photo, actual_release_datetime, commit_date, scheduled_release_date, block, bed, cell, case_status, inmate_work_release_indicator, inmate_worker_indicator) values
+(null, 1234, date '2000-01-01', 'county jail', 'profile.jpg', date '2000-01-01', date '2000-01-01', date '2000-01-01', 'a', '23', '7', '1', true, true);
 
 INSERT INTO charge(booking_id, bond_amount, bond_type, bond_status, next_court_event_court_name, next_court_date, charge_sequence_number, charge_description, statute_or_ordinance_number, charge_category_classification, arrest_location, arrest_agency, holding_for_agency, case_jurisdiction_court) VALUES
 (null, 499.0000, 'money', 'paid', 'judge judy', date '2070-01-01', 456, 'speeding', 987, 'driving', 'phoenix', 'chips', true, 'matlock');
