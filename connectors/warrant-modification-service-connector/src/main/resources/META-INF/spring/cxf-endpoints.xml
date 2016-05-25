@@ -41,7 +41,7 @@
 	
     <!-- Warrant Mod Request Service, hosted by this intermediary, called by requesting consumer / connector -->
 	<cxf:cxfEndpoint id="warrantModRequestService"
-	        address="${warrantModConn.warrantModReqEndpoint}"
+	        address="${warrantModConnnector.warrantModReqEndpoint}"
 	        wsdlURL="classpath:ssp/Warrant_Modification_Request/schemas/RS_WS-SIP_v1.2/Warrant_Modification_Request_Service.wsdl"
 	        serviceName="ojbc:Warrant-Modification-Request-ServiceService"
 			endpointName="ojbc:Warrant-Modification-Request-Secure-Service"
@@ -49,39 +49,46 @@
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="warrantModKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${warrantModConn.keystoreCertificateAlias}" />
+			<entry key="ws-security.signature.username" value="${warrantModConnnector.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
 		</cxf:properties>
     </cxf:cxfEndpoint>
     
     
     <!-- Warrants Mod Results handler, hosted by this intermediary, called by Warrant Mod adapter --> 
     <cxf:cxfEndpoint id="warrantModResultsHandlerService"
-        address="${warrantModConn.warrantModReultsHandlerEndpoint}"
+        address="${warrantModConnnector.warrantModReultsHandlerEndpoint}"
         wsdlURL="classpath:ssp/Warrant_Modification_Response/schemas/RS_WS-SIP_v1.2/Warrant_Modification_Response_Service.wsdl"
         serviceName="ojbc:Warrant-Modification-Response-ServiceService"
 		endpointName="ojbc:Warrant-Modification-Response-Secure-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/WarrantModificationResponseService/1.0">
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="warrantModKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${warrantModConn.keystoreCertificateAlias}" />
-		</cxf:properties>        
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
    </cxf:cxfEndpoint>     
 			      	
 	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
-                <entry key="${warrantModConn.keystoreCertificateAlias}" value="${warrantModConn.keyPassword}"/>
+                <entry key="${warrantModConnnector.keystoreCertificateAlias}" value="${warrantModConnnector.keyPassword}"/>
             </map>
         </property>
 	</bean>		
 	
+	<bean id="OJBSimpleWSPSamlTokenValidator" class="org.ojbc.util.validator.OJBSimpleWSPSamlTokenValidator" />
+   
 	<util:properties id="warrantModKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${warrantModConn.keystorePassword}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${warrantModConn.keystoreCertificateAlias}</prop>
-		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${warrantModConn.keystoreLocation}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${warrantModConnnector.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${warrantModConnnector.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${warrantModConnnector.keystoreLocation}</prop>
 	</util:properties>			      	
 		      	
 	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
@@ -90,8 +97,8 @@
 		<http:tlsClientParameters disableCNCheck="true">
 			<sec:trustManagers>
 				<sec:keyStore type="JKS"
-					password="${warrantModConn.truststorePassword}"
-					file="${warrantModConn.truststoreLocation}" />
+					password="${warrantModConnnector.truststorePassword}"
+					file="${warrantModConnnector.truststoreLocation}" />
 			</sec:trustManagers>
 			<sec:cipherSuitesFilter>
 				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>

@@ -18,10 +18,18 @@ package org.ojbc.bundles.connectors.warrantmod;
 
 import static org.junit.Assert.assertTrue;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
 @UseAdviceWith	// NOTE: this causes Camel contexts to not start up automatically
@@ -29,13 +37,34 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(locations={
 		"classpath:META-INF/spring/camel-context.xml", 
 		"classpath:META-INF/spring/cxf-endpoints.xml",
+		"classpath:META-INF/spring/dao.xml",
+        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 		"classpath:META-INF/spring/properties-context.xml"})
+@DirtiesContext
 public class CamelContextTest {
-		
+	
+    @Resource
+    private ModelCamelContext context;
+	
+    @Resource  
+    private DataSource dataSource;  
+
     @Test
-    public void testApplicationStartup() {
+    public void testDatasource() throws Exception {
+		Connection conn = dataSource.getConnection();
+		ResultSet rs = conn.createStatement().executeQuery("select count(*) as rowcount from identification_subject");
+		assertTrue(rs.next());
+    }
+    
+    @Test
+    public void testApplicationStartup() throws Exception {
     	assertTrue(true);
+    	context.start();
+    	
+    	Thread.sleep(2000);
     }	
 
+    
 }
 
