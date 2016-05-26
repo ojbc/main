@@ -40,5 +40,6 @@
     <module>ojb-policy-decision-point-service</module>
     <module>ojb-resources-common</module>
     <module>ojb-ui-common</module>
+    <module>ojb-warrant-repository-common</module>
   </modules>
 </project>
