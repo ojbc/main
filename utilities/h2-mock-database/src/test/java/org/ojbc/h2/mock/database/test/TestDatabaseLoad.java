@@ -93,6 +93,7 @@ public class TestDatabaseLoad {
 	@Test
 	public void testCustodyDataSource() throws Exception {
 
+		//TODO remove unique_person_id column. Use person.id for that (set it to non-null, remove autoincrement on it)
 		Connection connection = custodyDataSource.getConnection();
 		ResultSet rs = connection.createStatement().executeQuery("select * from person where unique_person_id = '123'");
 		assertTrue(rs.next());
@@ -101,6 +102,14 @@ public class TestDatabaseLoad {
 		ResultSet rs1 = connection.createStatement().executeQuery("select * from booking where booking_number = '1234'");
 		assertTrue(rs1.next());
 		assertEquals("profile.jpg", rs1.getString("booking_photo"));
+		
+		ResultSet rs2 = connection.createStatement().executeQuery("select * from charge where id = 1");
+		assertTrue(rs2.next());
+		assertEquals("matlock", rs2.getString("case_jurisdiction_court"));
+		
+		ResultSet rs3 = connection.createStatement().executeQuery("select * from person_alias where id = 1");
+		assertTrue(rs3.next());
+		assertEquals("homer", rs3.getString("alias_first_name"));
 	}
 
 
