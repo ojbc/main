@@ -56,7 +56,7 @@ public class CamelContextTest {
 		Connection conn = dataSource.getConnection();
 		ResultSet rs = conn.createStatement().executeQuery("select count(*) as rowcount from Warrant");
 		assertTrue(rs.next());
-		assertEquals(0,rs.getInt("rowcount"));
+		assertEquals(1,rs.getInt("rowcount"));
     }
     
     @Test
