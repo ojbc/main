@@ -23,7 +23,7 @@
 	<groupId>org.ojbc.bundles.utilities</groupId>
 	<artifactId>h2-mock-database</artifactId>
 	<packaging>bundle</packaging>
-	<version>2.0.0</version>
+	<version>2.0.1</version>
 	<name>H2 Instance containing mock versions of all databases needed for testing/demos</name>
 	<url>http://www.ojbc.org</url>
 
