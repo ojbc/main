@@ -40,6 +40,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-policy-acknowledgement.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-warrant-repository.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml"
 		})
 @DirtiesContext
@@ -62,6 +63,9 @@ public class TestDatabaseLoad {
     @Resource  
     private DataSource incidentReportingStateCacheDataSource;  
 
+    @Resource  
+    private DataSource warrantRepositorySource;  
+    
 	@Test
 	public void testAuditlog() throws Exception {
 		
@@ -113,4 +117,17 @@ public class TestDatabaseLoad {
 		
 	}
 
+	@Test
+	public void testWarrantRepositoryDataLoad() throws Exception {
+		
+		Connection conn = warrantRepositorySource.getConnection();
+		ResultSet rs = conn.createStatement().executeQuery("select * from warrant");
+		assertTrue(rs.next());
+		assertEquals(1,rs.getInt("warrantid"));
+		
+		rs = conn.createStatement().executeQuery("select count(*) as rowcount from warrant");
+		assertTrue(rs.next());
+		assertEquals(1,rs.getInt("rowcount"));
+	}
+	
 }
