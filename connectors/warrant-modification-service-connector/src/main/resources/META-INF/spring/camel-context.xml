@@ -30,13 +30,13 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="disposition-connector">
 	
 		<endpoint id="fileDropTestInputEndpoint"
-			uri="file:///${warrantModConn.fileInputDir}/input?idempotent=true&amp;moveFailed=${warrantModConn.fileInputDir}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=true" />
+			uri="file:///${warrantModConnnector.fileInputDir}/input?idempotent=true&amp;moveFailed=${warrantModConnnector.fileInputDir}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=true" />
 				
 		<camel:endpoint id="warrantModReqIntermEndpoint"
-			uri="cxf:bean:warrantModRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantModConn.cxfLogging}" />			
+			uri="cxf:bean:warrantModRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantModConnnector.cxfLogging}" />			
 			
 		<endpoint id="warrantModConnectorResultsHandlerEndpoint"
-			uri="cxf:bean:warrantModResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantModConn.cxfLogging}" />		
+			uri="cxf:bean:warrantModResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantModConnnector.cxfLogging}" />		
 		
 		
 		<camel:route id="warrantModConnectorRequest_route">
@@ -61,7 +61,20 @@
 								
 			<to uri="warrantModReqIntermEndpoint" />
 			
-		</camel:route>				
+		</camel:route>		
+		
+		<camel:route>
+			<camel:from uri="quartz://myGroup/myTimerName"/>
+			<setBody>
+       			<constant>SELECT warrantID FROM warrant</constant>
+     		</setBody>
+     		<to uri="jdbc:dataSource?outputType=StreamList"/>
+     		<camel:split>
+     			<camel:simple>${body}</camel:simple>
+	     		<camel:log message="sql result: ${body}"></camel:log>
+     		</camel:split>
+			<camel:log message="Trigger Fired"></camel:log>
+		</camel:route>		
 		
 		<!--  Warrants Mod Results Handler Route.  Called by Intermediary -->
 		<camel:route id="warrantModConnectorResultsHandler_route">
