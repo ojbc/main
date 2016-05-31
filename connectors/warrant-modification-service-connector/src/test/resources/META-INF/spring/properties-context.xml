@@ -27,8 +27,6 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
-
-    
 	<bean id="bridgePropertyPlaceholder"
 		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
 		<property name="propertiesArray">
@@ -38,7 +36,4 @@
 			</array>
 		</property>
 	</bean>
-    
-    
-
 </beans>

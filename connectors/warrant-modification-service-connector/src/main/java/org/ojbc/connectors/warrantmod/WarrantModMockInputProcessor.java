@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.bundles.connectors.warrantmod;
+package org.ojbc.connectors.warrantmod;
 
 import java.util.ArrayList;
 import java.util.List;
