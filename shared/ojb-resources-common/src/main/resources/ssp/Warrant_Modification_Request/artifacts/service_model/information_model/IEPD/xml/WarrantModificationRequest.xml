@@ -84,9 +84,9 @@
 			</j:BailSetAmount>
 		</j:WarrantAppearanceBail>
 		<wm-req-ext:WarrantAugmentation>
-			<wm-req-ext:PersonRecordIdentification>
+			<wm-req-ext:StateWarrantRepositoryIdentification>
 				<nc:IdentificationID>R69458998</nc:IdentificationID>
-			</wm-req-ext:PersonRecordIdentification>
+			</wm-req-ext:StateWarrantRepositoryIdentification>
 			<nc:ExpirationDate>
 				<nc:Date>2016-08-13</nc:Date>
 			</nc:ExpirationDate>
@@ -167,9 +167,6 @@
 		<wm-req-ext:PersonMiscellaneousRecordIdentification>
 			<nc:IdentificationID>MR456782</nc:IdentificationID>
 		</wm-req-ext:PersonMiscellaneousRecordIdentification>
-		<wm-req-ext:PersonRecordIdentification>
-			<nc:IdentificationID>R69458998</nc:IdentificationID>
-		</wm-req-ext:PersonRecordIdentification>
 		<wm-req-ext:PersonImmigrationAlienQueryIndicator>false
 		</wm-req-ext:PersonImmigrationAlienQueryIndicator>
 	</nc:Person>
