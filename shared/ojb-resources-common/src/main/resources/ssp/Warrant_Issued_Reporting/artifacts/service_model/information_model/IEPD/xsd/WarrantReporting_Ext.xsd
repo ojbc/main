@@ -121,6 +121,8 @@
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="wir-ext:WarrantEntryCategoryCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="wir-ext:StateWarrantRepositoryIdentification"
+						minOccurs="0" maxOccurs="unbounded" />	
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -244,11 +246,10 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonEntryNumber" type="nc:IdentificationType"
-		substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="StateWarrantRepositoryIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A miscellaneous unique identification assigned to
-				a person record.
+			<xsd:documentation>A unique identification assigned to
+				a warrant record.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

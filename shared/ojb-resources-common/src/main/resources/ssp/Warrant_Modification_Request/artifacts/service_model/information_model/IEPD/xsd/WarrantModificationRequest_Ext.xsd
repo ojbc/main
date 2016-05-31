@@ -75,7 +75,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="wm-req-ext:PersonRecordIdentification"
+					<xsd:element ref="wm-req-ext:StateWarrantRepositoryIdentification"
 						minOccurs="0" />
 					<xsd:element ref="nc:ExpirationDate" minOccurs="0" />
 					<xsd:element ref="wm-req-ext:ExtraditionIndicator"
@@ -102,10 +102,9 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonRecordIdentification" type="nc:IdentificationType"
-		substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="StateWarrantRepositoryIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a person
+			<xsd:documentation>A unique identification assigned to a warrant
 				record.
 			</xsd:documentation>
 		</xsd:annotation>

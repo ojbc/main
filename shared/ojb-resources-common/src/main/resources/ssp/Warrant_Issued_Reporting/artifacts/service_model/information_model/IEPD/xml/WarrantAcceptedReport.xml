@@ -48,6 +48,9 @@
 		<wir-ext:WarrantAugmentation>
 			<wir-ext:WarrantEntryCategoryCodeText>Entry
 			</wir-ext:WarrantEntryCategoryCodeText>
+			<wir-ext:StateWarrantRepositoryIdentification>
+				<nc:IdentificationID>PE45678</nc:IdentificationID>
+			</wir-ext:StateWarrantRepositoryIdentification>
 		</wir-ext:WarrantAugmentation>
 	</j:Warrant>
 	<nc:Person structures:id="Person_01">
@@ -62,8 +65,5 @@
 		</nc:PersonName>
 		<nc:PersonRaceText></nc:PersonRaceText>
 		<nc:PersonSexText>M</nc:PersonSexText>
-		<wir-ext:PersonEntryNumber>
-			<nc:IdentificationID>PE45678</nc:IdentificationID>
-		</wir-ext:PersonEntryNumber>
 	</nc:Person>
 </war-doc:WarrantAcceptedReport>
