@@ -51,6 +51,9 @@ public class Warrant {
     private LocalDateTime warrantStatusTimestamp;
     
     private List<WarrantRemarks> warrantRemarks;
+    private List<String> warrantRemarkStrings;
+    
+    private List<ChargeReferral> chargeReferrals;
     
 	public Integer getWarrantID() {
 		return warrantID;
@@ -210,5 +213,17 @@ public class Warrant {
 	public void setWarrantModificationResponseReceived(
 			Boolean warrantModificationResponseReceived) {
 		this.warrantModificationResponseReceived = warrantModificationResponseReceived;
+	}
+	public List<ChargeReferral> getChargeReferrals() {
+		return chargeReferrals;
+	}
+	public void setChargeReferrals(List<ChargeReferral> chargeReferrals) {
+		this.chargeReferrals = chargeReferrals;
+	}
+	public List<String> getWarrantRemarkStrings() {
+		return warrantRemarkStrings;
+	}
+	public void setWarrantRemarkStrings(List<String> warrantRemarkStrings) {
+		this.warrantRemarkStrings = warrantRemarkStrings;
 	}
 }

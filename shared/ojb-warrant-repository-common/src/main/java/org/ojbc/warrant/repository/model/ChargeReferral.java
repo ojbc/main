@@ -16,6 +16,8 @@
  */
 package org.ojbc.warrant.repository.model;
 
+import java.util.List;
+
 public class ChargeReferral {
 
 	private Integer chargeReferralID; 
@@ -29,6 +31,12 @@ public class ChargeReferral {
 	private String reportingAgencyORI;
 	
 	private String reportingAgencyName;
+	
+	private List<Charge> charges;
+	
+	private Person person; 
+	
+	private List<Officer> officers;
 	
 	public Integer getPersonID() {
 		return personID;
@@ -77,5 +85,29 @@ public class ChargeReferral {
 
 	public void setReportingAgencyName(String reportingAgencyName) {
 		this.reportingAgencyName = reportingAgencyName;
+	}
+
+	public List<Charge> getCharges() {
+		return charges;
+	}
+
+	public void setCharges(List<Charge> charges) {
+		this.charges = charges;
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	public List<Officer> getOfficers() {
+		return officers;
+	}
+
+	public void setOfficers(List<Officer> officers) {
+		this.officers = officers;
 	}
 }
