@@ -26,7 +26,6 @@ public class Person {
 
 	private Integer personID;
 
-    private String personEntryNumber;
     private String firstName;;
     private String middleName; 
     private String lastName;
@@ -72,12 +71,6 @@ public class Person {
 	}
 	public void setPersonID(Integer personID) {
 		this.personID = personID;
-	}
-	public String getPersonEntryNumber() {
-		return personEntryNumber;
-	}
-	public void setPersonEntryNumber(String personEntryNumber) {
-		this.personEntryNumber = personEntryNumber;
 	}
 	public String getFirstName() {
 		return firstName;
