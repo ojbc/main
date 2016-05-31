@@ -26,6 +26,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class Warrant {
 
     private Integer warrantID;
+    private String stateWarrantRepositoryID;
     private LocalDate dateOfWarrantRequest;
     private LocalDate dateOfExpiration;
     private String broadcastArea;
@@ -45,7 +46,10 @@ public class Warrant {
     private String bondAmount;
     private String warrantStatus;
     private String pickupLimits;
+    private Boolean warrantModificationRequestSent; 
+    private Boolean warrantModificationResponseReceived; 
     private LocalDateTime warrantStatusTimestamp;
+    
     private List<WarrantRemarks> warrantRemarks;
     
 	public Integer getWarrantID() {
@@ -186,5 +190,25 @@ public class Warrant {
 	@Override
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
+	public String getStateWarrantRepositoryID() {
+		return stateWarrantRepositoryID;
+	}
+	public void setStateWarrantRepositoryID(String stateWarrantRepositoryID) {
+		this.stateWarrantRepositoryID = stateWarrantRepositoryID;
+	}
+	public Boolean getWarrantModificationRequestSent() {
+		return warrantModificationRequestSent;
+	}
+	public void setWarrantModificationRequestSent(
+			Boolean warrantModificationRequestSent) {
+		this.warrantModificationRequestSent = warrantModificationRequestSent;
+	}
+	public Boolean getWarrantModificationResponseReceived() {
+		return warrantModificationResponseReceived;
+	}
+	public void setWarrantModificationResponseReceived(
+			Boolean warrantModificationResponseReceived) {
+		this.warrantModificationResponseReceived = warrantModificationResponseReceived;
 	}
 }

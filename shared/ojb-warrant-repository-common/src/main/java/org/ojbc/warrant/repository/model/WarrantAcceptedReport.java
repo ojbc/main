@@ -24,7 +24,7 @@ public class WarrantAcceptedReport {
 	private String ocaComplaintNumber;
 	private String lawEnforcementORI;
 	private String warrantStatus;
-	private String personEntryNumber;
+	private String stateWarrantRepositoryID;
 	
 	public String getOcaComplaintNumber() {
 		return ocaComplaintNumber;
@@ -45,11 +45,11 @@ public class WarrantAcceptedReport {
 	public void setWarrantStatus(String warrantStatus) {
 		this.warrantStatus = warrantStatus;
 	}
-	public String getPersonEntryNumber() {
-		return personEntryNumber;
+	public String getStateWarrantRepositoryID() {
+		return stateWarrantRepositoryID;
 	}
-	public void setPersonEntryNumber(String personEntryNumber) {
-		this.personEntryNumber = personEntryNumber;
+	public void setStateWarrantRepositoryID(String stateWarrantRepositoryID) {
+		this.stateWarrantRepositoryID = stateWarrantRepositoryID;
 	}
 	@Override
 	public String toString(){

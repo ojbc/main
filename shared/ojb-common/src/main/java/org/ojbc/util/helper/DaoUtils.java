@@ -17,9 +17,11 @@
 package org.ojbc.util.helper;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -43,6 +45,16 @@ public final class DaoUtils {
         int nValue = rs.getInt(strColName);
         return rs.wasNull() ? null : nValue;
     }
+	
+	static public LocalDate getLocalDate(ResultSet rs, String columnName) throws SQLException {
+		Date sqlDate = rs.getDate(columnName);
+		return sqlDate == null ? null : sqlDate.toLocalDate();
+	}
+	
+	static public LocalDateTime getLocalDateTime(ResultSet rs, String columnName) throws SQLException {
+		Timestamp timestamp = rs.getTimestamp(columnName);
+		return timestamp == null ? null : timestamp.toLocalDateTime();
+	}
 	
 	public static Character getIndicatorValueForDatabase(String indicatorValue)
 	{
