@@ -46,6 +46,7 @@
 		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
+		<ojb-warrant-repository-common-version>[1.0.0,)</ojb-warrant-repository-common-version>
 		<h2-mock-database-version>2.0.1</h2-mock-database-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<commons-dbcp-version>1.2.2</commons-dbcp-version>
@@ -126,6 +127,12 @@
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-common</artifactId>
 			<version>${ojb-common-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-warrant-repository-common</artifactId>
+			<version>${ojb-warrant-repository-common-version}</version>
 		</dependency>
 
 		<dependency>
