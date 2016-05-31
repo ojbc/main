@@ -18,7 +18,7 @@ drop schema if exists warrant_repository;
 CREATE schema warrant_repository;
 use warrant_repository;
 
-CREATE TABLE Warrant (WarrantID INT AUTO_INCREMENT NOT NULL, PersonEntryNumber VARCHAR(8), DateOfWarrant date, DateOfExpiration date, BroadcastArea VARCHAR(50), WarrantEntryType VARCHAR(2), CourtAgencyORI VARCHAR(9), LawEnforcementORI VARCHAR(9), CourtDocketNumber VARCHAR(12), OCAComplaintNumber VARCHAR(20), Operator VARCHAR(15), PACCCode VARCHAR(16), OriginalOffenseCode VARCHAR(4), OffenseCode VARCHAR(4), GeneralOffenseCharacter VARCHAR(1), CriminalTrackingNumber VARCHAR(12), Extradite BOOLEAN, ExtraditionLimits VARCHAR(1) DEFAULT '1', PickupLimits VARCHAR(1), BondAmount VARCHAR(8), WarrantStatus VARCHAR(20), WarrantStatusTimestamp TIMESTAMP, WarrantModRequestSent BOOLEAN DEFAULT FALSE, WarrantModResponseReceived BOOLEAN DEFAULT FALSE);
+CREATE TABLE Warrant (WarrantID INT AUTO_INCREMENT NOT NULL, StateWarrantRepositoryID VARCHAR(8), DateOfWarrant date, DateOfExpiration date, BroadcastArea VARCHAR(50), WarrantEntryType VARCHAR(2), CourtAgencyORI VARCHAR(9), LawEnforcementORI VARCHAR(9), CourtDocketNumber VARCHAR(12), OCAComplaintNumber VARCHAR(20), Operator VARCHAR(15), PACCCode VARCHAR(16), OriginalOffenseCode VARCHAR(4), OffenseCode VARCHAR(4), GeneralOffenseCharacter VARCHAR(1), CriminalTrackingNumber VARCHAR(12), Extradite BOOLEAN, ExtraditionLimits VARCHAR(1) DEFAULT '1', PickupLimits VARCHAR(1), BondAmount VARCHAR(8), WarrantStatus VARCHAR(20), WarrantStatusTimestamp TIMESTAMP, WarrantModRequestSent BOOLEAN DEFAULT FALSE, WarrantModResponseReceived BOOLEAN DEFAULT FALSE);
 
 ALTER TABLE Warrant ADD CONSTRAINT WARRANT_PK PRIMARY KEY (WarrantID);
 

@@ -46,7 +46,6 @@ public class PersonMapper implements RowMapper<Person> {
 		person.setPersonAge(rs.getString("PersonAge"));
 		person.setPersonCautionDescription(rs.getString("PersonCautionDescription"));
 		person.setPersonCitizenshipCountry(rs.getString("PersonCitizenshipCountry"));
-		person.setPersonEntryNumber(rs.getString("PersonEntryNumber"));
 		person.setPersonEthnicityDescription(rs.getString("PersonEthnicityDescription"));
 		person.setPersonEyeColorDescription(rs.getString("PersonEyeColorDescription"));
 		person.setPersonHairColorDescription(rs.getString("PersonHairColorDescription"));
