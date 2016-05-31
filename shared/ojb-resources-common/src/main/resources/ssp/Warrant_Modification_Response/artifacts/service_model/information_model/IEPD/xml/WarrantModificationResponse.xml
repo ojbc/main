@@ -17,13 +17,19 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<wm-resp-doc:WarrantModificationResponse xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WarrantModificationResponse/1.0 ../xsd/WarrantModificationResponse.xsd" xmlns:wm-resp-doc="http://ojbc.org/IEPD/Exchange/WarrantModificationResponse/1.0" xmlns:wm-resp-ext="http://ojbc.org/IEPD/Extensions/WarrantModificationResponseExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<wm-resp-doc:WarrantModificationResponse
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WarrantModificationResponse/1.0 ../xsd/WarrantModificationResponse.xsd"
+	xmlns:wm-resp-doc="http://ojbc.org/IEPD/Exchange/WarrantModificationResponse/1.0"
+	xmlns:wm-resp-ext="http://ojbc.org/IEPD/Extensions/WarrantModificationResponseExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<j:Warrant>
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>W23345346</nc:IdentificationID>
 		</nc:ActivityIdentification>
 		<j:CourtOrderDesignatedSubject>
-			<nc:RoleOfPerson structures:ref="Person_01"/>
+			<nc:RoleOfPerson structures:ref="Person_01" />
 		</j:CourtOrderDesignatedSubject>
 		<j:CourtOrderEnforcementAgency>
 			<j:OrganizationAugmentation>
@@ -33,10 +39,11 @@
 			</j:OrganizationAugmentation>
 		</j:CourtOrderEnforcementAgency>
 		<wm-resp-ext:WarrantAugmentation>
-			<wm-resp-ext:PersonRecordIdentification>
+			<wm-resp-ext:StateWarrantRepositoryIdentification>
 				<nc:IdentificationID>PR45789</nc:IdentificationID>
-			</wm-resp-ext:PersonRecordIdentification>
-			<wm-resp-ext:WarrantModificationAcceptedIndicator>true</wm-resp-ext:WarrantModificationAcceptedIndicator>
+			</wm-resp-ext:StateWarrantRepositoryIdentification>
+			<wm-resp-ext:WarrantModificationAcceptedIndicator>true
+			</wm-resp-ext:WarrantModificationAcceptedIndicator>
 			<wm-resp-ext:ModifiedWarrantNumber>
 				<nc:IdentificationID>W23345346-02</nc:IdentificationID>
 			</wm-resp-ext:ModifiedWarrantNumber>
@@ -54,8 +61,5 @@
 		</nc:PersonName>
 		<nc:PersonRaceText>B</nc:PersonRaceText>
 		<nc:PersonSexText>M</nc:PersonSexText>
-		<wm-resp-ext:PersonRecordIdentification>
-			<nc:IdentificationID>PR45789</nc:IdentificationID>
-		</wm-resp-ext:PersonRecordIdentification>
 	</nc:Person>
 </wm-resp-doc:WarrantModificationResponse>
