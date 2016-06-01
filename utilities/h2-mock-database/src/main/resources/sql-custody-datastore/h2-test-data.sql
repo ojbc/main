@@ -15,8 +15,8 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
 
-INSERT INTO person(id, sex_offender, education, primary_language, dob, ethnicity, race, sid, first_name, middle_name, last_name, sex, occupation, military_service) VALUES
-(2, false, 'phd', 'francais', date '2000-01-01', 'a', 'a', '123', 'homer', 'jay', 'simpson', 'm', 'software engineer', false);
+INSERT INTO person(person_unique_identifier, sex_offender, education, primary_language, dob, ethnicity, race, sid, first_name, middle_name, last_name, sex, occupation, military_service) VALUES
+('abc123', false, 'phd', 'francais', date '2000-01-01', 'a', 'a', '123', 'homer', 'jay', 'simpson', 'm', 'software engineer', false);
 
 INSERT INTO booking(person_id, booking_number, booking_date, facility, booking_photo, actual_release_datetime, commit_date, scheduled_release_date, block, bed, cell, case_status, inmate_work_release_indicator, inmate_worker_indicator) values
 (null, 1234, date '2000-01-01', 'county jail', 'profile.jpg', date '2000-01-01', date '2000-01-01', date '2000-01-01', 'a', '23', '7', '1', true, true);

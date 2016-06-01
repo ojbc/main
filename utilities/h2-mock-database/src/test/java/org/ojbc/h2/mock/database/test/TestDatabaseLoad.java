@@ -94,7 +94,7 @@ public class TestDatabaseLoad {
 	public void testCustodyDataSource() throws Exception {
 
 		Connection connection = custodyDataSource.getConnection();
-		ResultSet rs = connection.createStatement().executeQuery("select * from person where id = 2");
+		ResultSet rs = connection.createStatement().executeQuery("select * from person where id = 1");
 		assertTrue(rs.next());
 		assertEquals("homer",rs.getString("first_name"));
 
