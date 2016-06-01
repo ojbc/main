@@ -27,8 +27,7 @@ CREATE SCHEMA custody_datastore;
 
 
 CREATE TABLE person (
-                id INT AUTO_INCREMENT NOT NULL,
-                unique_person_id VARCHAR,
+                id INT NOT NULL,
                 sex_offender BOOLEAN,
                 education VARCHAR(50),
                 primary_language VARCHAR(50),
@@ -55,7 +54,6 @@ CREATE TABLE person_alias (
                 alias_middle VARCHAR(50),
                 alias_sex VARCHAR(1),
                 alias_dob DATE,
-                alias_name_id VARCHAR(20),
                 PRIMARY KEY (id)
 );
 
