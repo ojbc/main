@@ -52,6 +52,7 @@ public class Warrant {
     
     private List<WarrantRemarks> warrantRemarks;
     private List<String> warrantRemarkStrings;
+    private List<Person> persons; 
     
     private List<ChargeReferral> chargeReferrals;
     
@@ -225,5 +226,11 @@ public class Warrant {
 	}
 	public void setWarrantRemarkStrings(List<String> warrantRemarkStrings) {
 		this.warrantRemarkStrings = warrantRemarkStrings;
+	}
+	public List<Person> getPersons() {
+		return persons;
+	}
+	public void setPersons(List<Person> persons) {
+		this.persons = persons;
 	}
 }
