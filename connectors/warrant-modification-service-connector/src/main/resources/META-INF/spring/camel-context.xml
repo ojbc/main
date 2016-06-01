@@ -21,17 +21,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:context="http://www.springframework.org/schema/context" 
 	xmlns:cxf="http://camel.apache.org/schema/cxf" 
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
        
- 	<context:annotation-config />
-	<context:component-scan base-package="org.ojbc.connectors.warrantmod"/>
-
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="disposition-connector">
 	
 		<endpoint id="fileDropTestInputEndpoint"
@@ -115,14 +110,4 @@
 	<bean id="warrantModMockInputProcessor" 
 		class="org.ojbc.connectors.warrantmod.WarrantModMockInputProcessor" />	
 			
-	<bean id="namedParameterJdbcTemplate" 
-      class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
- 	   <constructor-arg ref="dataSource"/>
-	</bean>
-	
-	<bean id="jdbcTemplate" 
-      class="org.springframework.jdbc.core.JdbcTemplate">
- 	   <constructor-arg ref="dataSource"/>
-	</bean>
-	
 </beans>

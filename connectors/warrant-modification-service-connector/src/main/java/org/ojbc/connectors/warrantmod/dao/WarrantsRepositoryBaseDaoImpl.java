@@ -31,8 +31,10 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.helper.DaoUtils;
 import org.ojbc.warrant.repository.dao.ChargeReferralMapper;
 import org.ojbc.warrant.repository.dao.PersonMapper;
+import org.ojbc.warrant.repository.model.ChargeReferral;
 import org.ojbc.warrant.repository.model.ChargeReferralReport;
 import org.ojbc.warrant.repository.model.Person;
+import org.ojbc.warrant.repository.model.PersonVehicle;
 import org.ojbc.warrant.repository.model.Warrant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -59,50 +61,6 @@ public class WarrantsRepositoryBaseDaoImpl implements WarrantsRepositoryBaseDAO 
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-	
-	@Override
-	public ChargeReferralReport retrieveChargeReferralInfo(String lawEnforcementORI,
-			String originatingAgencyComplaintNumber) {
-
-		String sql = "SELECT p.PersonID as PersonID, cr.ChargeRefID as ChargeReferralID "
-				+ "FROM ChargeRef cr, Person p "
-				+ "WHERE cr.PersonID = p.PersonID "
-				+ " AND cr.ReportingAgencyORI = ? and cr.CaseAgencyComplaintNumber=?";
-		
-		List<ChargeReferralReport> chargeReferralReports = 
-				jdbcTemplate.query(sql,new ChargeReferralMapper(), lawEnforcementORI, originatingAgencyComplaintNumber);
-		
-		return DataAccessUtils.singleResult(chargeReferralReports);
-	}
-
-
-	@Override
-	public ChargeReferralReport retrieveChargeReferralAndWarrantInfo(
-			String lawEnforcementORI, String originatingAgencyComplaintNumber) {
-		String sql = "SELECT wcra.WarrantID as WarrantID, p.PersonID as PersonID, cr.ChargeRefID as ChargeReferralID "
-				+ "FROM ChargeRef cr, WarrantChargeRef wcra, Person p "
-				+ "WHERE cr.PersonID = p.PersonID "
-				+ " AND cr.ChargeRefID = wcra.ChargeRefID "
-				+ " AND cr.ReportingAgencyORI = ? and cr.CaseAgencyComplaintNumber=?";
-		
-		List<ChargeReferralReport> chargeReferralReports= 
-				jdbcTemplate.query(sql,new ChargeReferralMapper(), lawEnforcementORI, originatingAgencyComplaintNumber);
-		
-		return DataAccessUtils.singleResult(chargeReferralReports);
-	}
-
-
-	@Override
-	public Person retrievePersonInfo(Integer personPk) {
-		String sql = "SELECT * from Person where personID=?";
-		
-		Person person = 
-				jdbcTemplate.queryForObject(sql,new PersonMapper(), personPk);
-		
-		return person;	
-	}
-
-
 	@Override
 	public Warrant retrieveWarrant(Integer warrantId) {
 		String sql = "SELECT w.*, wr.WarrantRemarkText from Warrant w "
@@ -125,6 +83,7 @@ public class WarrantsRepositoryBaseDaoImpl implements WarrantsRepositoryBaseDAO 
                 if ( warrant  == null){
                 	warrant = new Warrant(); 
                 	
+                	warrant.setWarrantID(warrantId);
                 	warrant.setStateWarrantRepositoryID(rs.getString("StateWarrantRepositoryID"));
                 	warrant.setDateOfWarrantRequest( DaoUtils.getLocalDate(rs, "DateOfWarrant"));
                 	warrant.setDateOfExpiration( DaoUtils.getLocalDate(rs, "DateOfExpiration"));
@@ -170,6 +129,120 @@ public class WarrantsRepositoryBaseDaoImpl implements WarrantsRepositoryBaseDAO 
             }
             
             return (List<Warrant>) new ArrayList<Warrant>(map.values());
+		}
+
+	}
+
+	@Override
+	public List<String> getTransactionControlNumbers(Integer warrantId) {
+		String sql = "SELECT cr.TransactionControlNumber FROM WarrantChargeRef wcr "
+				+ "LEFT JOIN ChargeRef cr ON cr.ChargeRefID = wcr.ChargeRefID "
+				+ "WHERE wcr.WarrantID = ? "; 
+
+		List<String> transactionControlNumbers = 
+				jdbcTemplate.queryForList(sql, String.class, warrantId);
+		return transactionControlNumbers;
+	}
+
+
+	@Override
+	public List<Person> retrievePersons(Integer warrantId) {
+		String sql = "SELECT DISTINCT p.*, v.* from WarrantChargeRef wcr "
+				+ "LEFT JOIN ChargeRef cr ON cr.ChargeRefID = wcr.chargeRefID "
+				+ "LEFT JOIN Person p ON p.PersonID = cr.PersonID "
+				+ "LEFT JOIN Vehicle v ON v.PersonID = p.PersonID "
+				+ "WHERE wcr.warrantId = ? ";
+		List<Person> persons = 
+				jdbcTemplate.query(sql, new PersonReulstSetExtractor(), warrantId);
+		return persons;
+	}
+
+	private class PersonReulstSetExtractor implements ResultSetExtractor<List<Person>> {
+
+		@Override
+		public List<Person> extractData(ResultSet rs)
+				throws SQLException, DataAccessException {
+            Map<Integer, Person> map = new HashMap<Integer, Person>();
+            Person person = null;
+            while (rs.next()) {
+                Integer personId = rs.getInt("personId" ); 
+                person  = map.get( personId );
+                if ( person  == null){
+                	person = new Person(); 
+                	
+            		person.setAddressCity(rs.getString("AddressCity"));
+            		person.setAddressFullText(rs.getString("AddressFullText"));
+            		person.setAddressState(rs.getString("AddressState"));
+            		person.setAddressZip(rs.getString("addressZip"));
+            		person.setDateOfBirth(rs.getDate("DateOfBirth").toLocalDate());
+            		person.setFbiIdentificationNumber(rs.getString("FbiIdentificationNumber"));
+            		person.setFirstName(rs.getString("FirstName"));
+            		person.setFullPersonName(rs.getString("FullPersonName"));
+            		person.setLastName(rs.getString("LastName"));
+            		person.setMiddleName(rs.getString("MiddleName"));
+            		person.setMiscellaneousIDBase(rs.getString("MiscellaneousIDBase"));
+            		person.setNameSuffix(rs.getString("NameSuffix"));
+            		person.setOperatorLicenseNumberBase(rs.getString("OperatorLicenseNumberBase"));
+            		person.setOperatorLicenseStateBase(rs.getString("OperatorLicenseStateBase"));
+            		person.setPersonAge(rs.getString("PersonAge"));
+            		person.setPersonCautionDescription(rs.getString("PersonCautionDescription"));
+            		person.setPersonCitizenshipCountry(rs.getString("PersonCitizenshipCountry"));
+            		person.setPersonEthnicityDescription(rs.getString("PersonEthnicityDescription"));
+            		person.setPersonEyeColorDescription(rs.getString("PersonEyeColorDescription"));
+            		person.setPersonHairColorDescription(rs.getString("PersonHairColorDescription"));
+            		person.setPersonHeight(rs.getString("PersonHeight"));
+            		person.setPersonImmigrationAlienQueryIndicator(rs.getBoolean("personImmigrationAlienQueryInd"));
+            		person.setPersonRaceDescription(rs.getString("personRaceDescription"));
+            		person.setPersonScarsMarksTattosBase(rs.getString("personScarsMarksTattosBase"));
+            		person.setPersonSexDescription(rs.getString("personSexDescription"));
+            		person.setPersonSkinToneDescription(rs.getString("personSkinToneDescription"));
+            		person.setPersonStateIdentification(rs.getString("personStateIdentification"));
+            		person.setPersonWeight(rs.getString("personWeight"));
+            		person.setSocialSecurityNumberBase(rs.getString("SocialSecurityNumberBase"));
+            		person.setUsCitizenshipIndicator(rs.getBoolean("USCitizenshipIndicator"));
+            		person.setPersonID(rs.getInt("PersonID"));
+                	
+                	List<PersonVehicle> personVehicles = new ArrayList<PersonVehicle>();
+
+                	Integer vehicleId = rs.getInt("VehicleID");
+                	if (vehicleId != null && vehicleId > 0){
+	                	
+	                	PersonVehicle personVehicle = buildVehicle(rs, personId);
+	                	personVehicles.add(personVehicle);
+                	}
+                	person.setPersonVehicles(personVehicles);
+                	
+                	map.put(personId, person); 
+                }
+                else{
+                	Integer vehicleId = rs.getInt("VehicleID");
+                	if (vehicleId != null && vehicleId > 0){
+	                	PersonVehicle personVehicle = buildVehicle(rs, personId);
+	                	person.getPersonVehicles().add(personVehicle);
+                	}
+                }
+	              
+            }
+            
+            return (List<Person>) new ArrayList<Person>(map.values());
+		}
+
+		private PersonVehicle buildVehicle(ResultSet rs, Integer personId) throws SQLException {
+        	PersonVehicle personVehicle = new PersonVehicle();
+			personVehicle.setPersonID(personId);
+			personVehicle.setLicensePlateType(rs.getString("LicensePlateType"));
+			personVehicle.setPersonVehicleID(rs.getInt("VehicleID"));
+			personVehicle.setVehicleIdentificationNumber(rs.getString("VehicleIdentificationNumber"));
+			personVehicle.setVehicleLicensePlateExpirationDate(rs.getString("VehicleLicensePlateExpirationD"));
+			personVehicle.setVehicleLicensePlateNumber(rs.getString("VehicleLicensePlateNumber"));
+			personVehicle.setVehicleLicenseStateCode(rs.getString("VehicleLicenseStateCode"));
+			personVehicle.setVehicleMake(rs.getString("VehicleMake"));
+			personVehicle.setVehicleModel(rs.getString("VehicleModel"));
+			personVehicle.setVehicleNonExpiringIndicator(rs.getBoolean("VehicleNonExpiringIndicator"));
+			personVehicle.setVehiclePrimaryColor(rs.getString("VehiclePrimaryColor"));
+			personVehicle.setVehicleSecondaryColor(rs.getString("VehicleSecondaryColor"));
+			personVehicle.setVehicleStyle(rs.getString("VehicleStyle"));
+			return personVehicle;
 		}
 
 	}
