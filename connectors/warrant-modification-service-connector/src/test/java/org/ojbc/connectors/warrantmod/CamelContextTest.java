@@ -48,6 +48,7 @@ import org.w3c.dom.Document;
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
 		"classpath:META-INF/spring/camel-context.xml", 
+		"classpath:META-INF/spring/spring-context.xml", 
 		"classpath:META-INF/spring/cxf-endpoints.xml",
 		"classpath:META-INF/spring/dao.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",

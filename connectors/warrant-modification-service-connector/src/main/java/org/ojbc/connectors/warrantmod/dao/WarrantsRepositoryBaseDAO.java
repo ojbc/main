@@ -16,6 +16,8 @@
  */
 package org.ojbc.connectors.warrantmod.dao;
 
+import java.util.List;
+
 import org.ojbc.warrant.repository.model.ChargeReferralReport;
 import org.ojbc.warrant.repository.model.Person;
 import org.ojbc.warrant.repository.model.Warrant;
@@ -23,12 +25,15 @@ import org.ojbc.warrant.repository.model.Warrant;
 
 public interface WarrantsRepositoryBaseDAO {
 
-	public ChargeReferralReport retrieveChargeReferralInfo(String lawEnforcementORI, String originatingAgencyComplaintNumber);
-	
-	public ChargeReferralReport retrieveChargeReferralAndWarrantInfo(String lawEnforcementORI, String originatingAgencyComplaintNumber);
-	
-	public Person retrievePersonInfo(Integer personPk);
-	
 	public Warrant retrieveWarrant(Integer warrantId);
+	
+	public List<String> getTransactionControlNumbers(Integer warrantId);
+	
+	/**
+	 * Retrieve Person info along with the Person Vehicle info 
+	 * @param warrantId
+	 * @return List of Persons with PersonVehicle list populated.
+	 */
+	public List<Person> retrievePersons(Integer warrantId);
 	
 }
