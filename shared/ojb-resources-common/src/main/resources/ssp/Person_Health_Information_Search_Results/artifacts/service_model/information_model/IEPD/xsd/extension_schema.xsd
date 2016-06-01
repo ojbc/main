@@ -66,7 +66,7 @@
 	</xsd:element>
 	<xsd:element name="PersonPersistentIdentification" type="nc30:IdentificationType" substitutionGroup="nc30:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A unique and timeless identifier assigned to an individual and always belongs to that individual. This allows for identify activities and information that belong to a person without always needing to share PII about that individual. </xsd:documentation>
+			<xsd:documentation>A unique and timeless identifier assigned to an individual and always belongs to that individual. This allows for identifying activities and information that belong to a person without always needing to share PII about that individual. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonTemporaryIdentification" type="nc30:IdentificationType" substitutionGroup="nc30:PersonAugmentationPoint">
