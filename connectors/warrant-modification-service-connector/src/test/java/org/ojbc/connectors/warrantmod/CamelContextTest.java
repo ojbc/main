@@ -105,7 +105,7 @@ public class CamelContextTest {
     	assertTrue(true);
     	context.start();
     	
-    	Thread.sleep(2000);
+    	Thread.sleep(7000);
     	
 		Exchange receivedExchange = resultEndpoint.getExchanges().get(0);
 		Document bodyDocument = receivedExchange.getIn().getBody(Document.class);

@@ -63,8 +63,8 @@
 			
 		</camel:route>		
 		
-		<camel:route id="checkDatabaseForAcceptedWarrantsRoute">
-			<camel:from uri="quartz://myGroup/myTimerName"/>
+		<camel:route id="checkDatabaseForAcceptedWarrantsRoute" >
+			<camel:from uri="quartz2://myGroup/myTimerName?trigger.repeatCount=0"/>
 			<setBody>
        			<constant>SELECT WarrantID FROM Warrant WHERE StateWarrantRepositoryID is not null AND warrantModRequestSent = false</constant>
      		</setBody>
@@ -110,4 +110,7 @@
 	<bean id="warrantModMockInputProcessor" 
 		class="org.ojbc.connectors.warrantmod.WarrantModMockInputProcessor" />	
 			
+	<bean id="quartz2" class="org.apache.camel.component.quartz2.QuartzComponent">
+	    <property name="startDelayedSeconds" value="2"/>
+	</bean>	
 </beans>
