@@ -76,12 +76,23 @@ public class CamelContextTest {
         // Advise the Request Service endpoint and replace it
         // with a mock endpoint. We then will test this mock endpoint to see 
         // if it gets the proper payload.
+        context.getRouteDefinition("checkDatabaseForAcceptedWarrantsRoute")
+        .adviceWith(context, new AdviceWithRouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                // The line below allows us to bypass CXF and send a
+                // message directly into the route
+            	replaceFromWith("direct:start");
+            }
+        });
+        
         context.getRouteDefinition("sendWarrantModificationRoute")
                 .adviceWith(context, new AdviceWithRouteBuilder() {
                     @Override
                     public void configure() throws Exception {
                         // The line below allows us to bypass CXF and send a
                         // message directly into the route
+                    	
                         interceptSendToEndpoint(
                                 "warrantModificationRequestIntermediaryEndpoint")
                                 .to("mock:result")
@@ -89,7 +100,7 @@ public class CamelContextTest {
                                 .stop();
                     }
                 });
-
+        
         context.start();
     }
 
@@ -104,9 +115,9 @@ public class CamelContextTest {
     @Test
     public void testApplicationStartup() throws Exception {
     	assertTrue(true);
-    	context.start();
+    	Thread.sleep(2000);
     	
-    	Thread.sleep(7000);
+    	template.sendBody("direct:start", null);
     	
 		Exchange receivedExchange = resultEndpoint.getExchanges().get(0);
 		Document bodyDocument = receivedExchange.getIn().getBody(Document.class);
