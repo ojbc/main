@@ -194,10 +194,8 @@
 	</j:ConveyanceRegistration>
 	<nc:ContactInformation>
 		<nc:ContactMailingAddress structures:id="Address_01">
-			<nc:AddressFullText>Full Address</nc:AddressFullText>
 			<nc:LocationStreet>
-				<nc:StreetNumberText>6407</nc:StreetNumberText>
-				<nc:StreetName>Cedar Ave</nc:StreetName>
+				<nc:StreetFullText>6407 Cedar Ave</nc:StreetFullText>
 			</nc:LocationStreet>
 			<nc:LocationCityName>Saginaw</nc:LocationCityName>
 			<nc:LocationCountyName>Taylor</nc:LocationCountyName>
