@@ -26,6 +26,7 @@ CREATE SCHEMA custody_datastore;
 --warnings ignored about nullable foreign keys
 
 
+
 CREATE TABLE person (
                 id INT AUTO_INCREMENT NOT NULL,
                 person_unique_identifier VARCHAR(100) NOT NULL,
@@ -34,7 +35,7 @@ CREATE TABLE person (
                 primary_language VARCHAR(50),
                 dob DATE,
                 ethnicity VARCHAR(20),
-                race VARCHAR(20),
+                race VARCHAR(40),
                 sid VARCHAR(50),
                 first_name VARCHAR(50),
                 middle_name VARCHAR(50),
@@ -48,7 +49,7 @@ CREATE TABLE person (
 
 CREATE TABLE person_alias (
                 id INT AUTO_INCREMENT NOT NULL,
-                person_id INT,
+                person_id INT NOT NULL,
                 name_type VARCHAR(20),
                 alias_last_name VARCHAR(50),
                 alias_first_name VARCHAR(50),
@@ -61,7 +62,7 @@ CREATE TABLE person_alias (
 
 CREATE TABLE booking (
                 id INT AUTO_INCREMENT NOT NULL,
-                person_id INT,
+                person_id INT NOT NULL,
                 booking_number INT,
                 booking_date DATE,
                 facility VARCHAR(50),
@@ -81,7 +82,7 @@ CREATE TABLE booking (
 
 CREATE TABLE charge (
                 id INT AUTO_INCREMENT NOT NULL,
-                booking_id INT,
+                booking_id INT NOT NULL,
                 bond_amount DECIMAL(19,4),
                 bond_type VARCHAR(30),
                 bond_status VARCHAR(30),
