@@ -194,7 +194,6 @@
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>${commons-lang-version}</version>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- logging -->
