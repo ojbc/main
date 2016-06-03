@@ -160,7 +160,11 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType"/>
+	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to a person that has been identified.  Some jurisdictions refer to this as an OTN.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="IdentifiedPerson" type="oirs-res-ext:IdentifiedPersonType">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -217,12 +221,12 @@
 	</xsd:element>
 	<xsd:element name="IdentificationResultStatusRepresentation" abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>A state of a specific identifixat</xsd:documentation>
+			<xsd:documentation>A state of a specific identification.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="IdentificationResultStatusCode" type="oirs-res-ext:IdentificationResultStatusCodeType" substitutionGroup="oirs-res-ext:IdentificationResultStatusRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A state of a specific identifixat</xsd:documentation>
+			<xsd:documentation>A code for a state of a specific identification.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="IdentificationResultStatusCodeType">
