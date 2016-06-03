@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -52,7 +53,7 @@ public class InitiateWarrantModificationRequestProcessorTest {
 		Document document = initiateWarrantModificationRequestProcessor.createWarrantModificationRequest(map);
 		String bodyString = OJBUtils.getStringFromDocument(document);
 		log.info("body: \n" + bodyString);
-
+		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/warrantModRequest.xml", bodyString);
 	}
 
 }

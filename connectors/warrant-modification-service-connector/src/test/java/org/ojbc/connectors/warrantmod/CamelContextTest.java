@@ -39,6 +39,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -112,7 +113,7 @@ public class CamelContextTest {
 		String bodyString = OJBUtils.getStringFromDocument(bodyDocument);
 		log.info("body: \n" + bodyString);
 		
-
+		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/warrantModRequest.xml", bodyString);
     }	
     
 }
