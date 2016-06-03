@@ -21,18 +21,29 @@
 	xmlns:oirs-req-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0"
 	xmlns:oirs-req-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchRequest/1.0"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0 ../xsd/exchange_schema.xsd ">
+	<nc:Person>
+		<nc:PersonName>
+			<nc:PersonGivenName>Walter</nc:PersonGivenName>
+			<nc:PersonSurName>White</nc:PersonSurName>
+		</nc:PersonName>
+		<oirs-req-ext:IdentifiedPersonTrackingIdentification>
+			<nc:IdentificationID>12345678</nc:IdentificationID>
+		</oirs-req-ext:IdentifiedPersonTrackingIdentification>
+	</nc:Person>
 	<oirs-req-ext:IdentificationReportedDateRange>
 		<nc:StartDate>
-			<nc:Date>2016-03-03</nc:Date>
+			<nc:Date>2011-01-01</nc:Date>
 		</nc:StartDate>
 		<nc:EndDate>
-			<nc:Date>2016-06-03</nc:Date>
+			<nc:Date>2016-01-01</nc:Date>
 		</nc:EndDate>
 	</oirs-req-ext:IdentificationReportedDateRange>
 	<oirs-req-ext:IdentificationResultStatusCode>Available for Subscription</oirs-req-ext:IdentificationResultStatusCode>
 	<oirs-req-ext:IdentificationResultStatusCode>Subscribed</oirs-req-ext:IdentificationResultStatusCode>
-	<oirs-req-ext:IdentificationResultsCategoryCode>Criminal</oirs-req-ext:IdentificationResultsCategoryCode>
+	<oirs-req-ext:CivilIdentificationReasonCode>I</oirs-req-ext:CivilIdentificationReasonCode>
+	<oirs-req-ext:CivilIdentificationReasonCode>J</oirs-req-ext:CivilIdentificationReasonCode>
+	<oirs-req-ext:CivilIdentificationReasonCode>S</oirs-req-ext:CivilIdentificationReasonCode>
 </oirs-req-doc:OrganizationIdentificationResultsSearchRequest>
