@@ -182,8 +182,8 @@
    </jxdm51:ConveyanceRegistration>
    <nc30:ContactInformation>
       <nc30:ContactMailingAddress s30:id="Address_01">
-         <nc30:StreetFullText>123 TEST DRIVE</nc30:StreetFullText>
          <nc30:LocationStreet>
+	        <nc30:StreetFullText>123 TEST DRIVE</nc30:StreetFullText>
             <nc30:StreetNumberText>123</nc30:StreetNumberText>
             <nc30:StreetName>TEST DRIVE</nc30:StreetName>
          </nc30:LocationStreet>
