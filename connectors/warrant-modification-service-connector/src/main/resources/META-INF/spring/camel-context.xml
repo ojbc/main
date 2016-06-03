@@ -38,6 +38,8 @@
 		<endpoint id="warrantModConnectorResultsHandlerEndpoint"
 			uri="cxf:bean:warrantModResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantModConnnector.cxfLogging}" />		
 		
+		<endpoint id="initiateWarrantModificationRequestTimerEndpoint"
+			uri="quartz2://warrantModConnector/checkQualifiedWarrants?cron={{warrantModConnnector.checkForAcceptedWarrantsCronExpression}}" />
 		
 		<camel:route id="warrantModConnectorRequest_route">
 		
@@ -64,7 +66,7 @@
 		</camel:route>		
 		
 		<camel:route id="checkDatabaseForAcceptedWarrantsRoute" >
-			<camel:from uri="quartz2://myGroup/myTimerName?trigger.repeatCount=0"/>
+			<camel:from uri="initiateWarrantModificationRequestTimerEndpoint"/>
 			<setBody>
        			<constant>SELECT WarrantID FROM Warrant WHERE StateWarrantRepositoryID is not null AND warrantModRequestSent = false</constant>
      		</setBody>
