@@ -91,17 +91,17 @@
 			</camel:setHeader>
 											
 			<to uri="warrantModificationRequestIntermediaryEndpoint" />
-		
+			<camel:log message="Warrant sent for warrantID: ${header.warrantId}"></camel:log>
+     		<camel:to uri="bean:warrantsRepositoryBaseDaoImpl?method=updateWarrantModificationRequestSentIndicator"/>
 		</camel:route>		
 		
 		<!--  Warrants Mod Results Handler Route.  Called by Intermediary -->
 		<camel:route id="warrantModConnectorResultsHandler_route">
 		
 			<camel:from uri="warrantModConnectorResultsHandlerEndpoint"/>
-			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-						
-			<camel:log message="\n\n\n Connector receieved WarrantModResponse: \n\n ${body} \n\n\n" />
+			<camel:log message="\nConnector receieved WarrantModResponse: \n ${body} \n" />
+     		<camel:to uri="bean:warrantModificationResponseProcessor?method=process"/>
 			
 		</camel:route>						
 		

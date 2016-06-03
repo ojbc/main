@@ -25,6 +25,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.apache.camel.Header;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -245,6 +246,23 @@ public class WarrantsRepositoryBaseDaoImpl implements WarrantsRepositoryBaseDAO 
 			return personVehicle;
 		}
 
+	}
+
+	@Override
+	public int updateWarrantResponseReceivedIndicator(
+			String stateWarrantRepositoryId) {
+		String sql = "UPDATE warrant SET WarrantModResponseReceived = true "
+				+ "WHERE StateWarrantRepositoryID = ? AND WarrantModRequestSent = true";
+		
+		return jdbcTemplate.update(sql, stateWarrantRepositoryId);
+	}
+
+	@Override
+	public int updateWarrantModificationRequestSentIndicator(@Header("warrantId") String warrantId) {
+		String sql = "UPDATE warrant SET WarrantModRequestSent = true "
+				+ "WHERE warrantId = ? AND WarrantModRequestSent = false";
+		
+		return jdbcTemplate.update(sql, warrantId);
 	}
 
 }

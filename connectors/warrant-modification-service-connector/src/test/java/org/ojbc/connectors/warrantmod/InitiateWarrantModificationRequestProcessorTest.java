@@ -50,7 +50,7 @@ public class InitiateWarrantModificationRequestProcessorTest {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("WARRANTID", Integer.valueOf(1));
 		
-		Document document = initiateWarrantModificationRequestProcessor.createWarrantModificationRequest(map);
+		Document document = initiateWarrantModificationRequestProcessor.createWarrantModificationRequest(map, new HashMap<String, Object>());
 		String bodyString = OJBUtils.getStringFromDocument(document);
 		log.info("body: \n" + bodyString);
 		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/warrantModRequest.xml", bodyString);

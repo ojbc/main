@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.Body;
+import org.apache.camel.Headers;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -63,10 +64,11 @@ public class InitiateWarrantModificationRequestProcessor {
 	@Autowired
 	private WarrantsRepositoryBaseDAO warrantsRepositoryBaseDAO;
 	
-	public Document createWarrantModificationRequest(@Body Map<String, Object> data) throws Exception{
+	public Document createWarrantModificationRequest(@Body Map<String, Object> data, @Headers Map<String, Object> headers) throws Exception{
 		log.info("Creating warrant modification request for Warrant "  + data.get("WARRANTID"));
 		
 		Integer warrantId = (Integer) data.get("WARRANTID");
+		headers.put("warrantID", warrantId);
 
 		Document document = createWarrantModificationRequestDocument(warrantId);
 
