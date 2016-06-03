@@ -122,8 +122,8 @@ public class InitiateWarrantModificationRequestProcessor {
 			String addressId = "Address_" + StringUtils.leftPad(String.valueOf(i + 1), 2, '0');
 			XmlUtils.addAttribute(contactMailingAddress, NS_STRUCTURES_30, "id", addressId);
 			
-			appendTextElement(contactMailingAddress, NS_NC_30, "StreetFullText", person.getAddressStreetFullText());
 			Element locationStreet = XmlUtils.appendElement(contactMailingAddress, NS_NC_30, "LocationStreet");
+			appendTextElement(locationStreet, NS_NC_30, "StreetFullText", person.getAddressStreetFullText());
 			appendTextElement(locationStreet, NS_NC_30, "StreetNumberText", person.getAddressStreetNumber());
 			appendTextElement(locationStreet, NS_NC_30, "StreetName", person.getAddressStreetName());
 			appendTextElement(contactMailingAddress, NS_NC_30, "LocationCityName", person.getAddressCity());
