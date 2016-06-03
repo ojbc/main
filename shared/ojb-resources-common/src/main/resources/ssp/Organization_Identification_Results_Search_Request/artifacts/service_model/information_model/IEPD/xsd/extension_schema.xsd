@@ -17,8 +17,15 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:oirs-req-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchRequest/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchRequest/1.0" elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+	xmlns:oirs-req-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchRequest/1.0" 
+	targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchRequest/1.0" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	
 	<xsd:complexType name="OrganizationIdentificationResultsSearchRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a message to submit an organization identification results search.</xsd:documentation>
@@ -26,7 +33,14 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="oirs-req-ext:IdentificationResultsCategory"/>
+					<xsd:element ref="nc:Person" minOccurs="0"/>
+					<xsd:element ref="oirs-req-ext:IdentificationReportedDateRange" minOccurs="0"/>
+					<xsd:element ref="oirs-req-ext:IdentificationResultStatusCode" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:choice>
+						<xsd:element ref="oirs-req-ext:IdentificationResultsCategory"/>
+						<xsd:element ref="oirs-req-ext:CriminalIdentificationReasonCode" maxOccurs="unbounded"/>
+						<xsd:element ref="oirs-req-ext:CivilIdentificationReasonCode" maxOccurs="unbounded"/>
+					</xsd:choice>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -48,6 +62,101 @@
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
+	
+	<!-- Added -->
+	<xsd:element name="IdentificationReportedDateRange" type="nc:DateRangeType">
+		<xsd:annotation>
+			<xsd:documentation>A range of dates when identifications could have occurred.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to a person that has been identified.  Some jurisdictions refer to this as an OTN.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="IdentificationResultStatusCode" type="oirs-req-ext:IdentificationResultStatusCodeType">
+		<xsd:annotation>
+			<xsd:documentation>The state of a single identification result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:complexType name="IdentificationResultStatusCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="oirs-req-ext:IdentificationResultStatusCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="IdentificationResultStatusCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Archived"/>
+			<xsd:enumeration value="Available for Subscription"/>
+			<xsd:enumeration value="Subscribed"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:element name="CivilIdentificationReasonCode" type="oirs-req-ext:CivilIdentificationReasonCodeType"/>
+	
+	<xsd:complexType name="CivilIdentificationReasonCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="oirs-req-ext:CivilIdentificationReasonCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="CivilIdentificationReasonCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="F">
+				<xsd:annotation>
+					<xsd:documentation>Firearms</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="I">
+				<xsd:annotation>
+					<xsd:documentation>Volunteer, Child Care/School Employee, Non-Criminal Justice Employee and Licensing</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="J">
+				<xsd:annotation>
+					<xsd:documentation>Criminal Justice Employee</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="S">
+				<xsd:annotation>
+					<xsd:documentation>Security Clearance Information Act</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:element name="CriminalIdentificationReasonCode" type="oirs-req-ext:CriminalIdentificationReasonCodeType" />
+	
+	<xsd:complexType name="CriminalIdentificationReasonCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="oirs-req-ext:CriminalIdentificationReasonCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="CriminalIdentificationReasonCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="CAR">
+				<xsd:annotation>
+					<xsd:documentation>Criminal Tenprint Submission</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SOR">
+				<xsd:annotation>
+					<xsd:documentation>Sex Offender Registry</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
 	<xsd:simpleType name="IdentificationResultsCategoryCodeSimpleType">
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="Criminal"/>
