@@ -167,7 +167,7 @@ public class WarrantsRepositoryBaseDaoImpl implements WarrantsRepositoryBaseDAO 
                 	person = new Person(); 
                 	
             		person.setAddressCity(rs.getString("AddressCity"));
-            		person.setAddressFullText(rs.getString("AddressFullText"));
+            		person.setAddressStreetFullText(rs.getString("AddressStreetFullText"));
             		person.setAddressStreetNumber(rs.getString("AddressStreetNumber"));
             		person.setAddressStreetName(rs.getString("AddressStreetName"));
             		person.setAddressCity(rs.getString("AddressCity"));

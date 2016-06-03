@@ -31,7 +31,7 @@ public class Person {
     private String lastName;
     private String nameSuffix; 
     private String fullPersonName; 
-    private String addressFullText; 
+    private String addressStreetFullText; 
     private String addressStreetNumber; 
     private String addressStreetName; 
     private String addressCity; 
@@ -104,12 +104,6 @@ public class Person {
 	}
 	public void setFullPersonName(String fullPersonName) {
 		this.fullPersonName = fullPersonName;
-	}
-	public String getAddressFullText() {
-		return addressFullText;
-	}
-	public void setAddressFullText(String addressFullText) {
-		this.addressFullText = addressFullText;
 	}
 	public String getAddressCity() {
 		return addressCity;
@@ -329,6 +323,12 @@ public class Person {
 	}
 	public void setAddressCounty(String addressCounty) {
 		this.addressCounty = addressCounty;
+	}
+	public String getAddressStreetFullText() {
+		return addressStreetFullText;
+	}
+	public void setAddressStreetFullText(String addressStreetFullText) {
+		this.addressStreetFullText = addressStreetFullText;
 	}
 
 
