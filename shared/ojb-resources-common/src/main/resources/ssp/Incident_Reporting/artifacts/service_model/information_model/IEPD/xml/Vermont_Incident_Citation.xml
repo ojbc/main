@@ -573,6 +573,11 @@
 								<nc:EntityOrganizationReference
 									s:ref="ORGANIZATION_02" />
 							</inc-ext:CitationDeliveryRecipientAssociation>
+							<inc-ext:CitationIssuedLocationAssociation>
+								<inc-ext:CitationReference s:ref="CITATION_01" />
+								<nc:LocationReference
+									s:ref="LOCATION_03" />
+							</inc-ext:CitationIssuedLocationAssociation>
 						</inc-ext:IncidentReport>
 					</lexs:StructuredPayload>
 				</lexs:DataItemPackage>
