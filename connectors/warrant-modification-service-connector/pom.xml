@@ -47,6 +47,7 @@
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<ojb-warrant-repository-common-version>[1.0.0,)</ojb-warrant-repository-common-version>
+		<ojb-test-common-version>1.0.0</ojb-test-common-version>
 		<h2-mock-database-version>2.0.1</h2-mock-database-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<commons-dbcp-version>1.2.2</commons-dbcp-version>
@@ -154,6 +155,12 @@
 			<version>${junit-version}</version>
 			<scope>test</scope>
 		</dependency>		
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-test-common</artifactId>
+			<version>${ojb-test-common-version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.ojbc.bundles.utilities</groupId>
 			<artifactId>h2-mock-database</artifactId>
