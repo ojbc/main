@@ -55,6 +55,7 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 			</oirs-res-ext:IdentifiedPersonTrackingIdentification>
 		</oirs-res-ext:IdentifiedPerson>
 		<oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
+		 <oirs-res-ext:IdentificationRequestingOrganization structures:ref="ORG1" xsi:nil="true"/>
 		<oirs-res-ext:Subscription>
 			<nc:ActivityDateRange>
 				<nc:StartDate>
@@ -107,6 +108,7 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 			</oirs-res-ext:IdentifiedPersonTrackingIdentification>
 		</oirs-res-ext:IdentifiedPerson>
 		<oirs-res-ext:IdentificationResultStatusCode>Available for Subscription</oirs-res-ext:IdentificationResultStatusCode>
+		 <oirs-res-ext:IdentificationRequestingOrganization structures:ref="ORG1" xsi:nil="true"/>
 		<oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
 		<oirs-res-ext:CivilIdentificationReasonCode>I</oirs-res-ext:CivilIdentificationReasonCode>
 		<oirs-res-ext:IdentificationReportedDate>
@@ -139,6 +141,7 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 			</oirs-res-ext:IdentifiedPersonTrackingIdentification>
 		</oirs-res-ext:IdentifiedPerson>
 		<oirs-res-ext:IdentificationResultStatusCode>Archived</oirs-res-ext:IdentificationResultStatusCode>
+		 <oirs-res-ext:IdentificationRequestingOrganization structures:ref="ORG1" xsi:nil="true"/>
 		<oirs-res-ext:SubsequentResultsAvailableIndicator>true</oirs-res-ext:SubsequentResultsAvailableIndicator>
 		<oirs-res-ext:CivilIdentificationReasonCode>J</oirs-res-ext:CivilIdentificationReasonCode>
 		<oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>

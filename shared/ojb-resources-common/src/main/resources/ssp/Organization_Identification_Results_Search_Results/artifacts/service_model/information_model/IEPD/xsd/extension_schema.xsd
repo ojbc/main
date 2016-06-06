@@ -56,6 +56,7 @@
 				<xsd:sequence>
 					<xsd:element ref="oirs-res-ext:IdentifiedPerson" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="oirs-res-ext:IdentificationResultStatusRepresentation"/>
+					<xsd:element ref="oirs-res-ext:IdentificationRequestingOrganization" />
 					<xsd:element ref="oirs-res-ext:Subscription" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:SubsequentResultsAvailableIndicator" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:IdentificationReasonRepresentation" minOccurs="0"/>
@@ -329,6 +330,12 @@
 	<xsd:element name="IdentificationReportedDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>The date that a person's identification was reported by an identifying authority.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="IdentificationRequestingOrganization" type="nc:OrganizationType" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>The organization that requested identification of an individual.  </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	
