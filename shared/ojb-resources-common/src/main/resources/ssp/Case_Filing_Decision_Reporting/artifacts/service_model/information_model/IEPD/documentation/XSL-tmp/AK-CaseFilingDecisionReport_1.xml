@@ -31,7 +31,7 @@
 	<cfd-ext:VictimRightsAssertionCertificationIndicator>true</cfd-ext:VictimRightsAssertionCertificationIndicator>
 	<cfd-ext:VictimRightsAssertionText>VRA Text</cfd-ext:VictimRightsAssertionText>
 	<nc:Case>
-		<nc:ActivityCategoryText>Case Category Text</nc:ActivityCategoryText>
+		<nc:ActivityCategoryText>Felony</nc:ActivityCategoryText>
 		<nc:CaseDocketID>Case Docket ID</nc:CaseDocketID>
 		<nc:CaseFiling>
 			<nc:DocumentCategoryName>DCN</nc:DocumentCategoryName>
