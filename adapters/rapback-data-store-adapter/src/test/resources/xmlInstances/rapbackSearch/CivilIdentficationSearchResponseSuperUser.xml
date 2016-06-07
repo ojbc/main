@@ -1,0 +1,337 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<oirs-res-doc:OrganizationIdentificationResultsSearchResults xmlns:oirs-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
+                                                             xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+                                                             xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
+                                                             xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0"
+                                                             xmlns:jxdm50="http://release.niem.gov/niem/domains/jxdm/5.0/"
+                                                             xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2"
+                                                             xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+   <oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+      <oirs-res-ext:IdentifiedPerson>
+         <nc30:PersonBirthDate>
+            <nc30:Date>1990-10-12</nc30:Date>
+         </nc30:PersonBirthDate>
+         <nc30:PersonName>
+            <nc30:PersonGivenName>Test</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>W</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Jane</nc30:PersonSurName>
+            <nc30:PersonFullName>Test W Jane</nc30:PersonFullName>
+         </nc30:PersonName>
+         <jxdm50:PersonAugmentation>
+            <jxdm50:PersonFBIIdentification>
+               <nc30:IdentificationID>B1234568</nc30:IdentificationID>
+            </jxdm50:PersonFBIIdentification>
+            <jxdm50:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>A123457</nc30:IdentificationID>
+               <oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
+            </jxdm50:PersonStateFingerprintIdentification>
+            <jxdm50:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>C1234567</nc30:IdentificationID>
+               <oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+            </jxdm50:PersonStateFingerprintIdentification>
+         </jxdm50:PersonAugmentation>
+         <oirs-res-ext:IdentifiedPersonTrackingIdentification>
+            <nc30:IdentificationID>0400024</nc30:IdentificationID>
+         </oirs-res-ext:IdentifiedPersonTrackingIdentification>
+      </oirs-res-ext:IdentifiedPerson>
+      <oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_02"/>
+      <oirs-res-ext:Subscription>
+         <nc30:ActivityDateRange>
+            <nc30:StartDate>
+               <nc30:Date>2014-10-15</nc30:Date>
+            </nc30:StartDate>
+            <nc30:EndDate>
+               <nc30:Date>2015-10-15</nc30:Date>
+            </nc30:EndDate>
+         </nc30:ActivityDateRange>
+         <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
+         <oirs-res-ext:SubscriptionValidation>
+            <oirs-res-ext:SubscriptionValidationDueDate>
+               <nc30:Date>2015-10-15</nc30:Date>
+            </oirs-res-ext:SubscriptionValidationDueDate>
+         </oirs-res-ext:SubscriptionValidation>
+         <oirs-res-ext:SubscriptionIdentification>
+            <nc30:IdentificationID>62724</nc30:IdentificationID>
+         </oirs-res-ext:SubscriptionIdentification>
+      </oirs-res-ext:Subscription>
+      <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
+      <oirs-res-ext:CivilIdentificationReasonCode>F</oirs-res-ext:CivilIdentificationReasonCode>
+      <oirs-res-ext:IdentificationReportDate>
+         <nc30:Date>2015-10-16</nc30:Date>
+      </oirs-res-ext:IdentificationReportDate>
+      <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
+      <intel:SystemIdentification>
+         <nc30:IdentificationID>000001820140729014008339990</nc30:IdentificationID>
+         <intel:SystemName>RapbackDataStore</intel:SystemName>
+      </intel:SystemIdentification>
+   </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+   <oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+      <oirs-res-ext:IdentifiedPerson>
+         <nc30:PersonBirthDate>
+            <nc30:Date>1990-10-12</nc30:Date>
+         </nc30:PersonBirthDate>
+         <nc30:PersonName>
+            <nc30:PersonGivenName>Test</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>W</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Jane</nc30:PersonSurName>
+            <nc30:PersonFullName>Test W Jane</nc30:PersonFullName>
+         </nc30:PersonName>
+         <jxdm50:PersonAugmentation>
+            <jxdm50:PersonFBIIdentification>
+               <nc30:IdentificationID>B1234568</nc30:IdentificationID>
+            </jxdm50:PersonFBIIdentification>
+            <jxdm50:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>A123457</nc30:IdentificationID>
+               <oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
+            </jxdm50:PersonStateFingerprintIdentification>
+            <jxdm50:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>C1234567</nc30:IdentificationID>
+               <oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+            </jxdm50:PersonStateFingerprintIdentification>
+         </jxdm50:PersonAugmentation>
+         <oirs-res-ext:IdentifiedPersonTrackingIdentification>
+            <nc30:IdentificationID>0400024</nc30:IdentificationID>
+         </oirs-res-ext:IdentifiedPersonTrackingIdentification>
+      </oirs-res-ext:IdentifiedPerson>
+      <oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
+      <oirs-res-ext:Subscription>
+         <nc30:ActivityDateRange>
+            <nc30:StartDate>
+               <nc30:Date>2014-10-15</nc30:Date>
+            </nc30:StartDate>
+            <nc30:EndDate>
+               <nc30:Date>2015-10-15</nc30:Date>
+            </nc30:EndDate>
+         </nc30:ActivityDateRange>
+         <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
+         <oirs-res-ext:SubscriptionValidation>
+            <oirs-res-ext:SubscriptionValidationDueDate>
+               <nc30:Date>2015-10-15</nc30:Date>
+            </oirs-res-ext:SubscriptionValidationDueDate>
+         </oirs-res-ext:SubscriptionValidation>
+         <oirs-res-ext:SubscriptionIdentification>
+            <nc30:IdentificationID>62723</nc30:IdentificationID>
+         </oirs-res-ext:SubscriptionIdentification>
+      </oirs-res-ext:Subscription>
+      <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
+      <oirs-res-ext:CivilIdentificationReasonCode>F</oirs-res-ext:CivilIdentificationReasonCode>
+      <oirs-res-ext:IdentificationReportDate>
+         <nc30:Date>2015-10-16</nc30:Date>
+      </oirs-res-ext:IdentificationReportDate>
+      <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
+      <intel:SystemIdentification>
+         <nc30:IdentificationID>000001820140729014008339993</nc30:IdentificationID>
+         <intel:SystemName>RapbackDataStore</intel:SystemName>
+      </intel:SystemIdentification>
+   </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+   <oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+      <oirs-res-ext:IdentifiedPerson>
+         <nc30:PersonBirthDate>
+            <nc30:Date>1989-10-12</nc30:Date>
+         </nc30:PersonBirthDate>
+         <nc30:PersonName>
+            <nc30:PersonGivenName>Lisa</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>W</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Simpson</nc30:PersonSurName>
+            <nc30:PersonFullName>Lisa W Simpson</nc30:PersonFullName>
+         </nc30:PersonName>
+         <jxdm50:PersonAugmentation>
+            <jxdm50:PersonFBIIdentification>
+               <nc30:IdentificationID>9222201</nc30:IdentificationID>
+            </jxdm50:PersonFBIIdentification>
+            <jxdm50:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>A123459</nc30:IdentificationID>
+               <oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
+            </jxdm50:PersonStateFingerprintIdentification>
+            <jxdm50:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>C1234569</nc30:IdentificationID>
+               <oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+            </jxdm50:PersonStateFingerprintIdentification>
+         </jxdm50:PersonAugmentation>
+         <oirs-res-ext:IdentifiedPersonTrackingIdentification>
+            <nc30:IdentificationID>0400025</nc30:IdentificationID>
+         </oirs-res-ext:IdentifiedPersonTrackingIdentification>
+      </oirs-res-ext:IdentifiedPerson>
+      <oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
+      <oirs-res-ext:Subscription>
+         <nc30:ActivityDateRange>
+            <nc30:StartDate>
+               <nc30:Date>2015-09-19</nc30:Date>
+            </nc30:StartDate>
+            <nc30:EndDate>
+               <nc30:Date>2016-10-19</nc30:Date>
+            </nc30:EndDate>
+         </nc30:ActivityDateRange>
+         <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
+         <oirs-res-ext:SubscriptionValidation>
+            <oirs-res-ext:SubscriptionValidationDueDate>
+               <nc30:Date>2016-09-18</nc30:Date>
+            </oirs-res-ext:SubscriptionValidationDueDate>
+         </oirs-res-ext:SubscriptionValidation>
+         <oirs-res-ext:SubscriptionIdentification>
+            <nc30:IdentificationID>62725</nc30:IdentificationID>
+         </oirs-res-ext:SubscriptionIdentification>
+      </oirs-res-ext:Subscription>
+      <oirs-res-ext:SubsequentResultsAvailableIndicator>true</oirs-res-ext:SubsequentResultsAvailableIndicator>
+      <oirs-res-ext:CivilIdentificationReasonCode>J</oirs-res-ext:CivilIdentificationReasonCode>
+      <oirs-res-ext:IdentificationReportDate>
+         <nc30:Date>2016-10-20</nc30:Date>
+      </oirs-res-ext:IdentificationReportDate>
+      <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
+      <intel:SystemIdentification>
+         <nc30:IdentificationID>000001820140729014008339995</nc30:IdentificationID>
+         <intel:SystemName>RapbackDataStore</intel:SystemName>
+      </intel:SystemIdentification>
+   </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+   <oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+      <oirs-res-ext:IdentifiedPerson>
+         <nc30:PersonBirthDate>
+            <nc30:Date>1987-10-10</nc30:Date>
+         </nc30:PersonBirthDate>
+         <nc30:PersonName>
+            <nc30:PersonGivenName>Bart</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>C</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Simpson</nc30:PersonSurName>
+            <nc30:PersonFullName>Bart C Simpson</nc30:PersonFullName>
+         </nc30:PersonName>
+         <jxdm50:PersonAugmentation>
+            <jxdm50:PersonFBIIdentification>
+               <nc30:IdentificationID>B1234569</nc30:IdentificationID>
+            </jxdm50:PersonFBIIdentification>
+            <jxdm50:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>A123458</nc30:IdentificationID>
+               <oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
+            </jxdm50:PersonStateFingerprintIdentification>
+            <jxdm50:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>C1234568</nc30:IdentificationID>
+               <oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+            </jxdm50:PersonStateFingerprintIdentification>
+         </jxdm50:PersonAugmentation>
+         <oirs-res-ext:IdentifiedPersonTrackingIdentification>
+            <nc30:IdentificationID>12344</nc30:IdentificationID>
+         </oirs-res-ext:IdentifiedPersonTrackingIdentification>
+      </oirs-res-ext:IdentifiedPerson>
+      <oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
+      <oirs-res-ext:Subscription>
+         <nc30:ActivityDateRange>
+            <nc30:StartDate>
+               <nc30:Date>2015-10-16</nc30:Date>
+            </nc30:StartDate>
+            <nc30:EndDate>
+               <nc30:Date>2016-10-19</nc30:Date>
+            </nc30:EndDate>
+         </nc30:ActivityDateRange>
+         <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
+         <oirs-res-ext:SubscriptionValidation>
+            <oirs-res-ext:SubscriptionValidationDueDate>
+               <nc30:Date>2016-10-15</nc30:Date>
+            </oirs-res-ext:SubscriptionValidationDueDate>
+         </oirs-res-ext:SubscriptionValidation>
+         <oirs-res-ext:SubscriptionIdentification>
+            <nc30:IdentificationID>62726</nc30:IdentificationID>
+         </oirs-res-ext:SubscriptionIdentification>
+      </oirs-res-ext:Subscription>
+      <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
+      <oirs-res-ext:CivilIdentificationReasonCode>F</oirs-res-ext:CivilIdentificationReasonCode>
+      <oirs-res-ext:IdentificationReportDate>
+         <nc30:Date>2016-10-20</nc30:Date>
+      </oirs-res-ext:IdentificationReportDate>
+      <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
+      <intel:SystemIdentification>
+         <nc30:IdentificationID>000001820140729014008339996</nc30:IdentificationID>
+         <intel:SystemName>RapbackDataStore</intel:SystemName>
+      </intel:SystemIdentification>
+   </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+   <oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+      <oirs-res-ext:IdentifiedPerson>
+         <nc30:PersonBirthDate>
+            <nc30:Date>1960-10-12</nc30:Date>
+         </nc30:PersonBirthDate>
+         <nc30:PersonName>
+            <nc30:PersonGivenName>Homer</nc30:PersonGivenName>
+            <nc30:PersonMiddleName/>
+            <nc30:PersonSurName>Simpson</nc30:PersonSurName>
+            <nc30:PersonFullName>Homer Simpson</nc30:PersonFullName>
+         </nc30:PersonName>
+         <jxdm50:PersonAugmentation>
+            <jxdm50:PersonFBIIdentification>
+               <nc30:IdentificationID>9222202</nc30:IdentificationID>
+            </jxdm50:PersonFBIIdentification>
+            <jxdm50:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>A023460</nc30:IdentificationID>
+               <oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
+            </jxdm50:PersonStateFingerprintIdentification>
+            <jxdm50:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>C0234569</nc30:IdentificationID>
+               <oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+            </jxdm50:PersonStateFingerprintIdentification>
+         </jxdm50:PersonAugmentation>
+         <oirs-res-ext:IdentifiedPersonTrackingIdentification>
+            <nc30:IdentificationID>0400026</nc30:IdentificationID>
+         </oirs-res-ext:IdentifiedPersonTrackingIdentification>
+      </oirs-res-ext:IdentifiedPerson>
+      <oirs-res-ext:IdentificationResultStatusCode>Available for subscription</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
+      <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
+      <oirs-res-ext:CivilIdentificationReasonCode>J</oirs-res-ext:CivilIdentificationReasonCode>
+      <oirs-res-ext:IdentificationReportDate>
+         <nc30:Date>2015-10-20</nc30:Date>
+      </oirs-res-ext:IdentificationReportDate>
+      <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
+      <intel:SystemIdentification>
+         <nc30:IdentificationID>000001820140729014008339997</nc30:IdentificationID>
+         <intel:SystemName>RapbackDataStore</intel:SystemName>
+      </intel:SystemIdentification>
+   </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+   <nc30:EntityOrganization s30:id="ORG_01">
+      <nc30:OrganizationName>Demo Agency</nc30:OrganizationName>
+      <jxdm50:OrganizationAugmentation>
+         <jxdm50:OrganizationORIIdentification>
+            <nc30:IdentificationID>1234567890</nc30:IdentificationID>
+         </jxdm50:OrganizationORIIdentification>
+      </jxdm50:OrganizationAugmentation>
+   </nc30:EntityOrganization>
+   <nc30:ContactInformationAssociation>
+      <nc30:ContactEntity s30:ref="ORG_01"/>
+      <nc30:ContactInformation>
+         <nc30:ContactEmailID>demo.agency@localhost</nc30:ContactEmailID>
+         <nc30:ContactEmailID>demo.agency2@localhost</nc30:ContactEmailID>
+      </nc30:ContactInformation>
+   </nc30:ContactInformationAssociation>
+   <nc30:EntityOrganization s30:id="ORG_02">
+      <nc30:OrganizationName>Test Agency</nc30:OrganizationName>
+      <jxdm50:OrganizationAugmentation>
+         <jxdm50:OrganizationORIIdentification>
+            <nc30:IdentificationID>68796860</nc30:IdentificationID>
+         </jxdm50:OrganizationORIIdentification>
+      </jxdm50:OrganizationAugmentation>
+   </nc30:EntityOrganization>
+   <nc30:ContactInformationAssociation>
+      <nc30:ContactEntity s30:ref="ORG_02"/>
+      <nc30:ContactInformation>
+         <nc30:ContactEmailID>test.agency@localhost</nc30:ContactEmailID>
+         <nc30:ContactEmailID>test.agency2@localhost</nc30:ContactEmailID>
+      </nc30:ContactInformation>
+   </nc30:ContactInformationAssociation>
+</oirs-res-doc:OrganizationIdentificationResultsSearchResults>

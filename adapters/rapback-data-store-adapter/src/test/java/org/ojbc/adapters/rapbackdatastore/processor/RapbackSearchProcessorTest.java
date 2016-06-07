@@ -47,7 +47,7 @@ import org.w3c.dom.Document;
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
         "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
 		})
-@DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext
 public class RapbackSearchProcessorTest {
 	private static final Log log = LogFactory.getLog( RapbackSearchProcessorTest.class );
 
@@ -60,8 +60,7 @@ public class RapbackSearchProcessorTest {
 	}
 
 	@Test
-	@DirtiesContext
-	public void test() throws Exception {
+	public void testAgencySuperUserSearchResult() throws Exception {
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
         customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
 		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
@@ -80,7 +79,30 @@ public class RapbackSearchProcessorTest {
         log.info("Civil identification search Response: \n" + OJBUtils.getStringFromDocument(searchResponeDoc));
         IdentificationReportingResponseProcessorTest.assertAsExpected(
         		OJBUtils.getStringFromDocument(searchResponeDoc), 
-        		"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponse.xml");
+        		"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseAgencySuperUser.xml");
 	}
 
+	@Test
+	public void testSuperUserSearchResult() throws Exception {
+		Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+		customAttributes.put(SamlAttribute.EmployerORI, "HCJDC");
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:superuser");
+		customAttributes.put(SamlAttribute.EmployerSubUnitName, "Honolulu PD Records and ID Division");
+		customAttributes.put(SamlAttribute.EmployeePositionName, "Sworn Supervisors");
+		
+		org.apache.cxf.message.Message message = 
+				SAMLTokenTestUtils.createSamlAssertionMessageWithAttributes(customAttributes);
+		
+		Document civilIdentificationSearchRequest = 
+				XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/"
+						+ "rapbackSearch/OrganizationIdentificationResultsSearchRequest-Civil.xml"));
+		
+		Document searchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, civilIdentificationSearchRequest);
+		
+		log.info("Civil identification search Response: \n" + OJBUtils.getStringFromDocument(searchResponeDoc));
+		IdentificationReportingResponseProcessorTest.assertAsExpected(
+				OJBUtils.getStringFromDocument(searchResponeDoc), 
+				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseSuperUser.xml");
+	}
+	
 }

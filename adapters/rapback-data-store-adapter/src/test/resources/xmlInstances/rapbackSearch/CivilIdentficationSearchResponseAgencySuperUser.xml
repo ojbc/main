@@ -52,6 +52,7 @@
          </oirs-res-ext:IdentifiedPersonTrackingIdentification>
       </oirs-res-ext:IdentifiedPerson>
       <oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
       <oirs-res-ext:Subscription>
          <nc30:ActivityDateRange>
             <nc30:StartDate>
@@ -111,6 +112,7 @@
          </oirs-res-ext:IdentifiedPersonTrackingIdentification>
       </oirs-res-ext:IdentifiedPerson>
       <oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
       <oirs-res-ext:Subscription>
          <nc30:ActivityDateRange>
             <nc30:StartDate>
@@ -170,6 +172,7 @@
          </oirs-res-ext:IdentifiedPersonTrackingIdentification>
       </oirs-res-ext:IdentifiedPerson>
       <oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
       <oirs-res-ext:Subscription>
          <nc30:ActivityDateRange>
             <nc30:StartDate>
@@ -229,6 +232,7 @@
          </oirs-res-ext:IdentifiedPersonTrackingIdentification>
       </oirs-res-ext:IdentifiedPerson>
       <oirs-res-ext:IdentificationResultStatusCode>Available for subscription</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
       <oirs-res-ext:CivilIdentificationReasonCode>J</oirs-res-ext:CivilIdentificationReasonCode>
       <oirs-res-ext:IdentificationReportDate>
@@ -240,7 +244,7 @@
          <intel:SystemName>RapbackDataStore</intel:SystemName>
       </intel:SystemIdentification>
    </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
-   <nc30:EntityOrganization s30:id="ORG1">
+   <nc30:EntityOrganization s30:id="ORG_01">
       <nc30:OrganizationName>Demo Agency</nc30:OrganizationName>
       <jxdm50:OrganizationAugmentation>
          <jxdm50:OrganizationORIIdentification>
@@ -249,7 +253,7 @@
       </jxdm50:OrganizationAugmentation>
    </nc30:EntityOrganization>
    <nc30:ContactInformationAssociation>
-      <nc30:ContactEntity s30:ref="ORG1"/>
+      <nc30:ContactEntity s30:ref="ORG_01"/>
       <nc30:ContactInformation>
          <nc30:ContactEmailID>demo.agency@localhost</nc30:ContactEmailID>
          <nc30:ContactEmailID>demo.agency2@localhost</nc30:ContactEmailID>

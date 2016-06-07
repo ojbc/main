@@ -39,7 +39,11 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SEARCH_RESULTS_METADATA_
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_WSN_BROKERED;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.xml.parsers.DocumentBuilder;
@@ -145,51 +149,83 @@ public class RapbackSearchProcessor {
         List<IdentificationTransaction> identificationTransactions = null;
         if ("Civil".equals(resultsCategoryCode)){
         	identificationTransactions = rapbackDAO.getCivilIdentificationTransactions(token);
-        	buildSearchResults(identificationTransactions, rootElement, true);
         	
-        	AgencyProfile agencyProfile = rapbackDAO.getAgencyProfile(employerOri);
-        	appendOrganizationInfo(rootElement, agencyProfile);
+        	Set<String> oris = getDistinctOris(identificationTransactions); 
+        	List<AgencyProfile> agencyProfiles = rapbackDAO.getAgencyProfiles(oris);
+        	
+        	buildSearchResults(identificationTransactions, rootElement, agencyProfiles, true);
+        	
+        	appendOrganizationInfo(rootElement, agencyProfiles);
         }
         else if ("Criminal".equals(resultsCategoryCode)){
         	identificationTransactions = rapbackDAO.getCriminalIdentificationTransactions(token);
-        	buildSearchResults(identificationTransactions, rootElement, false);
+        	buildSearchResults(identificationTransactions, rootElement, null, false);
         }
         return document;
     }
 
-	private void appendOrganizationInfo(Element rootElement,
-			AgencyProfile agencyProfile) {
+	private Set<String> getDistinctOris(
+			List<IdentificationTransaction> identificationTransactions) {
+		Set<String> distinctOris = new HashSet<String>(); 
 		
-		if (agencyProfile == null) return;
-		
-		Element entityOrganization = XmlUtils.appendElement(rootElement, NS_NC_30, "EntityOrganization");
-		XmlUtils.addAttribute(entityOrganization, NS_STRUCTURES_30, "id", "ORG1");
-		
-		Element organizationName = XmlUtils.appendElement(entityOrganization, NS_NC_30, "OrganizationName");
-		organizationName.setTextContent(agencyProfile.getAgencyName());
-		Element organizationAugmentation = XmlUtils.appendElement(entityOrganization, NS_JXDM_50, "OrganizationAugmentation");
-		Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_50, "OrganizationORIIdentification");
-		Element identificationID = XmlUtils.appendElement(organizationORIIdentification, NS_NC_30, "IdentificationID");
-		identificationID.setTextContent(agencyProfile.getAgencyOri());
-		
-		Element contactInformationAssociation = XmlUtils.appendElement(rootElement, NS_NC_30, "ContactInformationAssociation");
-		Element contactEntity = XmlUtils.appendElement(contactInformationAssociation, NS_NC_30, "ContactEntity");
-		XmlUtils.addAttribute(contactEntity, NS_STRUCTURES_30, "ref", "ORG1");
+		for (IdentificationTransaction identificationTransaction: identificationTransactions){
+			distinctOris.add(identificationTransaction.getOwnerOri());
+		}
+		return distinctOris;
+	}
 
-		if (agencyProfile.getEmails().size() > 0){
-			Element contactInformation = XmlUtils.appendElement(contactInformationAssociation, NS_NC_30, "ContactInformation");
+	private void appendOrganizationInfo(Element rootElement,
+			List<AgencyProfile> agencyProfiles) {
+		
+		for (int i = 0; i < agencyProfiles.size(); i++){
 			
-			for (String email : agencyProfile.getEmails()){
-				Element contactEmailID = XmlUtils.appendElement(contactInformation, NS_NC_30, "ContactEmailID");
-				contactEmailID.setTextContent(email);
+			AgencyProfile agencyProfile = agencyProfiles.get(i);
+			
+			String orgId = getOrgnizationId(i);
+			Element entityOrganization = XmlUtils.appendElement(rootElement, NS_NC_30, "EntityOrganization");
+			XmlUtils.addAttribute(entityOrganization, NS_STRUCTURES_30, "id", orgId);
+			
+			Element organizationName = XmlUtils.appendElement(entityOrganization, NS_NC_30, "OrganizationName");
+			organizationName.setTextContent(agencyProfile.getAgencyName());
+			Element organizationAugmentation = XmlUtils.appendElement(entityOrganization, NS_JXDM_50, "OrganizationAugmentation");
+			Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_50, "OrganizationORIIdentification");
+			Element identificationID = XmlUtils.appendElement(organizationORIIdentification, NS_NC_30, "IdentificationID");
+			identificationID.setTextContent(agencyProfile.getAgencyOri());
+			
+			Element contactInformationAssociation = XmlUtils.appendElement(rootElement, NS_NC_30, "ContactInformationAssociation");
+			Element contactEntity = XmlUtils.appendElement(contactInformationAssociation, NS_NC_30, "ContactEntity");
+			XmlUtils.addAttribute(contactEntity, NS_STRUCTURES_30, "ref", orgId);
+	
+			if (agencyProfile.getEmails().size() > 0){
+				Element contactInformation = XmlUtils.appendElement(contactInformationAssociation, NS_NC_30, "ContactInformation");
+				
+				for (String email : agencyProfile.getEmails()){
+					Element contactEmailID = XmlUtils.appendElement(contactInformation, NS_NC_30, "ContactEmailID");
+					contactEmailID.setTextContent(email);
+				}
 			}
+		
 		}
 		
 	}
 
+	private String getOrgnizationId(int i) {
+		String orgId = "ORG_" + StringUtils.leftPad(String.valueOf(i+1), 2, '0');
+		return orgId;
+	}
+
 	private void buildSearchResults(
 			List<IdentificationTransaction> identificationTransactions,
-			Element rootElement, boolean isCivilResponse) {
+			Element rootElement, List<AgencyProfile> agencyProfiles, boolean isCivilResponse) {
+		
+		Map<String, String> oriOrganizationIdMap = new HashMap<String, String>();
+		if (agencyProfiles != null){
+			for (int i = 0; i < agencyProfiles.size(); i++){
+				
+				AgencyProfile agencyProfile = agencyProfiles.get(i);
+				oriOrganizationIdMap.put(agencyProfile.getAgencyOri(), getOrgnizationId(i));
+			}
+		}
 		
 		if (identificationTransactions.size() > maxResultCount){
 			buildTooManyResultElement(identificationTransactions.size(), rootElement); 
@@ -201,7 +237,7 @@ public class RapbackSearchProcessor {
 								"OrganizationIdentificationResultsSearchResult");
 				appendIdentifiedPersonElement(organizationIdentificationResultsSearchResultElement, identificationTransaction);
 				appdendStatusElement(organizationIdentificationResultsSearchResultElement,
-						identificationTransaction);
+						identificationTransaction, oriOrganizationIdMap);
 				
 				appendReasonCodeElement(isCivilResponse, identificationTransaction,
 						organizationIdentificationResultsSearchResultElement);
@@ -261,13 +297,16 @@ public class RapbackSearchProcessor {
 
 	private void appdendStatusElement(
 			Element organizationIdentificationResultsSearchResultElement,
-			IdentificationTransaction identificationTransaction) {
+			IdentificationTransaction identificationTransaction, Map<String, String> oriOrgnizationIdMap) {
 		Element identificationResultStatusCode = XmlUtils.appendElement(
 				organizationIdentificationResultsSearchResultElement, 
 				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentificationResultStatusCode");
 		
 		IdentificationTransactionState currentState = getCurrentState(identificationTransaction); 
 		identificationResultStatusCode.setTextContent(currentState.toString());
+		
+		appendIdentificationRequestingOrganization(organizationIdentificationResultsSearchResultElement,
+				identificationTransaction, oriOrgnizationIdMap);
 		
 		if (currentState == IdentificationTransactionState.Subscribed){
 			appendSubscriptionElement(
@@ -276,6 +315,19 @@ public class RapbackSearchProcessor {
 		appendSubsequentResultsAvailableIndicator(
 				organizationIdentificationResultsSearchResultElement,
 				identificationTransaction.getHavingSubsequentResults());
+	}
+
+	private void appendIdentificationRequestingOrganization(
+			Element organizationIdentificationResultsSearchResultElement,
+			IdentificationTransaction identificationTransaction,
+			Map<String, String> oriOrgnizationIdMap) {
+		String orgnizationId = oriOrgnizationIdMap.get(identificationTransaction.getOwnerOri());
+		if (StringUtils.isNotBlank(orgnizationId)){
+			Element identificationRequestingOrganization = 
+					XmlUtils.appendElement(organizationIdentificationResultsSearchResultElement,
+							NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentificationRequestingOrganization");
+			XmlUtils.addAttribute(identificationRequestingOrganization, NS_STRUCTURES_30, "ref", orgnizationId);
+		}
 	}
 
 	private void appendSubsequentResultsAvailableIndicator(
