@@ -403,7 +403,7 @@ public class RapbackSearchProcessor {
 				return IdentificationTransactionState.Subscribed;
 			}
 			else{
-				return IdentificationTransactionState.Available_for_subscription;
+				return IdentificationTransactionState.Available_for_Subscription;
 			}
 		}
 	}

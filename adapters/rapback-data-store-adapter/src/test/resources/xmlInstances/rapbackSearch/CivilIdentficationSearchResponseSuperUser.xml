@@ -291,7 +291,7 @@
             <nc30:IdentificationID>0400026</nc30:IdentificationID>
          </oirs-res-ext:IdentifiedPersonTrackingIdentification>
       </oirs-res-ext:IdentifiedPerson>
-      <oirs-res-ext:IdentificationResultStatusCode>Available for subscription</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:IdentificationResultStatusCode>Available for Subscription</oirs-res-ext:IdentificationResultStatusCode>
       <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
       <oirs-res-ext:CivilIdentificationReasonCode>J</oirs-res-ext:CivilIdentificationReasonCode>
