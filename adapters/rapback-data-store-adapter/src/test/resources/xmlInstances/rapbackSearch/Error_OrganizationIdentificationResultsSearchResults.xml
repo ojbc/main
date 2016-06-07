@@ -34,7 +34,7 @@
  	<srm:SearchResultsMetadata>
  		<srer:SearchRequestError>
  			<srer:ErrorText>Error Rapback Request</srer:ErrorText>
- 			<intel:SystemName>Rapbacks</intel:SystemName>
+ 			<nc:SystemName>Rapbacks</nc:SystemName>
  		</srer:SearchRequestError>
  	</srm:SearchResultsMetadata>
 </oirs-res-doc:OrganizationIdentificationResultsSearchResults>
