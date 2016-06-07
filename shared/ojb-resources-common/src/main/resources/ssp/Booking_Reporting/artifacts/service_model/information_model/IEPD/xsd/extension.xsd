@@ -41,9 +41,25 @@
 					<xsd:element ref="j:PersonCriminalHistorySummary" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="cyfs:NextCourtEvent" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Identity" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="br-ext:BehavioralHealthInformation" minOccurs="0"/>
 					<xsd:element ref="j:ActivityChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:BailBondChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:PersonAliasIdentityAssociation" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="BehavioralHealthInformationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for information about a person's behavioral health.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="br-ext:SeriousMentalIllnessIndicator"/>
+					<xsd:element ref="j:Evaluation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -76,6 +92,21 @@
 	<xsd:element name="PersonNameIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonNameAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A unique identifier assigned to a person's name.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonPersistentIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique and timeless identifier assigned to an individual and always belongs to that individual. This allows for identifying activities and information that belong to a person without always needing to share PII about that individual. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="BehavioralHealthInformation" type="br-ext:BehavioralHealthInformationType">
+		<xsd:annotation>
+			<xsd:documentation>A short-lived identifier intended to allow for linking between a search request and search results.  This identifier should have been included in the original search request message and should be included in this message, unaltered.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SeriousMentalIllnessIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the person is diagnosed with a serious mental illness (SMI), false otherwise. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
