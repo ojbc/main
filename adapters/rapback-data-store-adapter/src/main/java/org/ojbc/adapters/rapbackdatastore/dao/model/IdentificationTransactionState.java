@@ -21,7 +21,7 @@ public enum IdentificationTransactionState {
 	 * The ordinal of the enum is used in the code. DO NOT change the order 
 	 * of the instances. 
 	 */
-	Archived, Available_for_subscription, Subscribed;
+	Archived, Available_for_Subscription, Subscribed;
 	
 	public String toString(){
 		return name().replace('_', ' '); 
