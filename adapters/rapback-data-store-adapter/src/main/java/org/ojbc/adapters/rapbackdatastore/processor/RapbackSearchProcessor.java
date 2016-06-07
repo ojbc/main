@@ -20,12 +20,12 @@ import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstant
 import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.SYSTEM_NAME;
 import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.TOPIC_DIALECT;
 import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.YYYY_MM_DD;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_50;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_JXDM_50;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS;
@@ -181,9 +181,8 @@ public class RapbackSearchProcessor {
 			
 			AgencyProfile agencyProfile = agencyProfiles.get(i);
 			
-			String orgId = getOrgnizationId(i);
 			Element entityOrganization = XmlUtils.appendElement(rootElement, NS_NC_30, "EntityOrganization");
-			XmlUtils.addAttribute(entityOrganization, NS_STRUCTURES_30, "id", orgId);
+			XmlUtils.addAttribute(entityOrganization, NS_STRUCTURES_30, "id", getOrgnizationId(i));
 			
 			Element organizationName = XmlUtils.appendElement(entityOrganization, NS_NC_30, "OrganizationName");
 			organizationName.setTextContent(agencyProfile.getAgencyName());
@@ -191,12 +190,16 @@ public class RapbackSearchProcessor {
 			Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_50, "OrganizationORIIdentification");
 			Element identificationID = XmlUtils.appendElement(organizationORIIdentification, NS_NC_30, "IdentificationID");
 			identificationID.setTextContent(agencyProfile.getAgencyOri());
+		}
+		
+		for (int i = 0; i < agencyProfiles.size(); i++){
+			AgencyProfile agencyProfile = agencyProfiles.get(i);
 			
-			Element contactInformationAssociation = XmlUtils.appendElement(rootElement, NS_NC_30, "ContactInformationAssociation");
-			Element contactEntity = XmlUtils.appendElement(contactInformationAssociation, NS_NC_30, "ContactEntity");
-			XmlUtils.addAttribute(contactEntity, NS_STRUCTURES_30, "ref", orgId);
-	
-			if (agencyProfile.getEmails().size() > 0){
+			if (agencyProfile.getEmails().size()>0){
+				Element contactInformationAssociation = XmlUtils.appendElement(rootElement, NS_NC_30, "ContactInformationAssociation");
+				Element contactEntity = XmlUtils.appendElement(contactInformationAssociation, NS_NC_30, "ContactEntity");
+				XmlUtils.addAttribute(contactEntity, NS_STRUCTURES_30, "ref", getOrgnizationId(i));
+		
 				Element contactInformation = XmlUtils.appendElement(contactInformationAssociation, NS_NC_30, "ContactInformation");
 				
 				for (String email : agencyProfile.getEmails()){
@@ -244,14 +247,14 @@ public class RapbackSearchProcessor {
 				
 				appendDateElement(identificationTransaction.getTimestamp(), 
 						organizationIdentificationResultsSearchResultElement, 
-						"IdentificationReportDate", NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+						"IdentificationReportedDate", NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
 				appendSourceSystemNameTextElement(organizationIdentificationResultsSearchResultElement);
  
 				Element systemIdentifierElement = XmlUtils.appendElement(
-						organizationIdentificationResultsSearchResultElement, NS_INTEL, "SystemIdentification");
+						organizationIdentificationResultsSearchResultElement, NS_INTEL_30, "SystemIdentification");
 				Element identificationIdElement = XmlUtils.appendElement(systemIdentifierElement, NS_NC_30, "IdentificationID"); 
 				identificationIdElement.setTextContent(identificationTransaction.getTransactionNumber());  
-				Element systemNameElement = XmlUtils.appendElement(systemIdentifierElement, NS_INTEL, "SystemName");
+				Element systemNameElement = XmlUtils.appendElement(systemIdentifierElement, NS_NC_30, "SystemName");
 				systemNameElement.setTextContent(SYSTEM_NAME);
 			}
 		}
@@ -490,7 +493,7 @@ public class RapbackSearchProcessor {
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
-        rootElement.setAttribute("xmlns:"+NS_PREFIX_INTEL, NS_INTEL);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_INTEL_30, NS_INTEL_30);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_JXDM_50, NS_JXDM_50);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_NC_30, NS_NC_30);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_WSN_BROKERED, NS_WSN_BROKERED);
@@ -512,8 +515,7 @@ public class RapbackSearchProcessor {
         		NS_SEARCH_REQUEST_ERROR_REPORTING, "ErrorText");
         errorTextNode.setTextContent(exception.getMessage());
 
-        Element systemNameNode = XmlUtils.appendElement(searchRequestErrorNode, NS_INTEL,
-                "SystemName");
+        Element systemNameNode = XmlUtils.appendElement(searchRequestErrorNode, NS_NC_30, "SystemName");
         systemNameNode.setTextContent(systemName);
         return document;
     }
@@ -525,7 +527,7 @@ public class RapbackSearchProcessor {
         rootElement.setAttribute("xmlns:"+NS_PREFIX_STRUCTURES_30, NS_STRUCTURES_30);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS, 
         		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS);
-        rootElement.setAttribute("xmlns:"+NS_PREFIX_INTEL, NS_INTEL);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_INTEL_30, NS_INTEL_30);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_SEARCH_RESULTS_METADATA_EXT, NS_SEARCH_RESULTS_METADATA_EXT);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_SEARCH_REQUEST_ERROR_REPORTING, NS_SEARCH_REQUEST_ERROR_REPORTING);
 
