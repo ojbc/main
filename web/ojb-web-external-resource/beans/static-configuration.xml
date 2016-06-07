@@ -667,7 +667,7 @@
 	<!-- Options in rapback search result filter drop down-->
 	<util:map id="rapbackFilterOptionsMap" map-class="java.util.LinkedHashMap">
 		<entry key="Subscribed" value="Subscribed" />
-		<entry key="Available for subscription" value="Available for subscription" />
+		<entry key="Available for Subscription" value="Available for Subscription" />
 		<entry key="Archived" value="Archived" />
 	</util:map>
 
