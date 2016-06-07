@@ -35,8 +35,8 @@
 				<xsd:sequence>
 					<xsd:element ref="oirs-res-ext:OrganizationIdentificationResultsSearchResult" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
-					<xsd:element ref="nc:EntityOrganization" minOccurs="0"/>
-					<xsd:element ref="nc:ContactInformationAssociation" minOccurs="0"/>
+					<xsd:element ref="nc:EntityOrganization" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:ContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>

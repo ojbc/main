@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -59,6 +60,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -809,14 +811,14 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "LEFT JOIN agency_contact_email e ON e.agency_id = a.agency_id "
 				+ "WHERE agency_ori = ?";
 		
-		AgencyProfile agencyProfile = jdbcTemplate.query(AGENCY_PROFILE_SELECT_BY_ORI, new AgencyProfileResultSetExtractor(), ori);
-		return agencyProfile;
+		List<AgencyProfile> agencyProfiles = jdbcTemplate.query(AGENCY_PROFILE_SELECT_BY_ORI, new AgencyProfileResultSetExtractor(), ori);
+		return DataAccessUtils.singleResult(agencyProfiles);
 	}
 
-	private class AgencyProfileResultSetExtractor implements ResultSetExtractor<AgencyProfile> {
+	private class AgencyProfileResultSetExtractor implements ResultSetExtractor<List<AgencyProfile>> {
 
 		@Override
-		public AgencyProfile extractData(ResultSet rs)
+		public List<AgencyProfile> extractData(ResultSet rs)
 				throws SQLException, DataAccessException {
             Map<Integer, AgencyProfile> map = new HashMap<Integer, AgencyProfile>();
             AgencyProfile agencyProfile = null;
@@ -846,7 +848,9 @@ public class RapbackDAOImpl implements RapbackDAO {
                 }
 	              
             }
-            return agencyProfile;
+            
+            return (List<AgencyProfile>) new ArrayList<AgencyProfile>(map.values());
+
 		}
 
 	}
@@ -985,6 +989,19 @@ public class RapbackDAOImpl implements RapbackDAO {
 		List<String> results = jdbcTemplate.queryForList(sql, String.class, transactionNumber);
 		
 		return DataAccessUtils.singleResult(results);
+	}
+
+	@Override
+	public List<AgencyProfile> getAgencyProfiles(Set<String> oris) {
+		final String AGENCY_PROFILE_SELECT_BY_ORIS = "SELECT * FROM agency_profile a "
+				+ "LEFT JOIN agency_contact_email e ON e.agency_id = a.agency_id "
+				+ "WHERE agency_ori in (:oris)";
+		
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		parameters.addValue("oris", oris);
+		
+		List<AgencyProfile> agencyProfiles = namedParameterJdbcTemplate.query(AGENCY_PROFILE_SELECT_BY_ORIS, parameters, new AgencyProfileResultSetExtractor());
+		return agencyProfiles;
 	}
 
 

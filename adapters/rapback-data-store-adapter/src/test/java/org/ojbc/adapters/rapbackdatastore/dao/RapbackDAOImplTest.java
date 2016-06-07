@@ -185,7 +185,7 @@ public class RapbackDAOImplTest {
 		transaction.setOwnerOri("68796860");
 		transaction.setOwnerProgramOca("ID23457");
 		transaction.setIdentificationCategory("CAR");
-		transaction.setCurrentState(IdentificationTransactionState.Available_for_subscription);
+		transaction.setCurrentState(IdentificationTransactionState.Available_for_Subscription);
 		
 		rapbackDAO.saveIdentificationTransaction(transaction); 
 		
