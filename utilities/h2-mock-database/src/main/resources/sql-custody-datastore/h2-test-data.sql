@@ -25,4 +25,4 @@ INSERT INTO charge(booking_id, bond_amount, bond_type, bond_status, next_court_e
 (1, 499.0000, 'money', 'paid', 'judge judy', date '2070-01-01', 456, 'speeding', 987, 'driving', 'phoenix', 'chips', true, 'matlock');
 
 INSERT INTO person_alias(person_id, name_type, alias_last_name, alias_first_name, alias_middle, alias_sex, alias_dob) VALUES
-(1, 'screen name', 'simpson', 'homer', 'jay', 'm', date '2000-01-01');
+(1, 'screen name', 'Simpson', 'homy', 'jay', 'm', date '2000-01-01');
