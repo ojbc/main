@@ -26,15 +26,19 @@ CREATE SCHEMA custody_datastore;
 --warnings ignored about nullable foreign keys
 
 
-
 CREATE TABLE person (
-                id INT AUTO_INCREMENT NOT NULL,
+                id IDENTITY NOT NULL,
                 person_unique_identifier VARCHAR(100) NOT NULL,
                 sex_offender BOOLEAN,
+                allow_deposits BOOLEAN,
                 education VARCHAR(50),
                 primary_language VARCHAR(50),
                 dob DATE,
                 ethnicity VARCHAR(20),
+                eye_color VARCHAR(40),
+                hair_color VARCHAR(40),
+                height INTEGER,
+                weight INTEGER,
                 race VARCHAR(40),
                 sid VARCHAR(50),
                 first_name VARCHAR(50),
@@ -43,27 +47,43 @@ CREATE TABLE person (
                 sex VARCHAR(1),
                 occupation VARCHAR(50),
                 military_service BOOLEAN,
-                PRIMARY KEY (id)
+                CONSTRAINT id PRIMARY KEY (id)
+);
+
+
+CREATE TABLE conditions (
+                id INTEGER NOT NULL,
+                person_id INTEGER NOT NULL,
+                conditions_description VARCHAR(100),
+                CONSTRAINT conditions_pk PRIMARY KEY (id)
+);
+
+
+CREATE TABLE scars_marks_tattoos (
+                id IDENTITY NOT NULL,
+                person_id INTEGER NOT NULL,
+                scars_marks_tattoos_description VARCHAR(100),
+                CONSTRAINT scars_marks_tattoos_pk PRIMARY KEY (id)
 );
 
 
 CREATE TABLE person_alias (
-                id INT AUTO_INCREMENT NOT NULL,
-                person_id INT NOT NULL,
+                id IDENTITY NOT NULL,
+                person_id INTEGER NOT NULL,
                 name_type VARCHAR(20),
                 alias_last_name VARCHAR(50),
                 alias_first_name VARCHAR(50),
                 alias_middle VARCHAR(50),
                 alias_sex VARCHAR(1),
                 alias_dob DATE,
-                PRIMARY KEY (id)
+                CONSTRAINT id PRIMARY KEY (id)
 );
 
 
 CREATE TABLE booking (
-                id INT AUTO_INCREMENT NOT NULL,
-                person_id INT NOT NULL,
-                booking_number INT,
+                id IDENTITY NOT NULL,
+                person_id INTEGER NOT NULL,
+                booking_number INTEGER,
                 booking_date DATE,
                 facility VARCHAR(50),
                 booking_photo VARCHAR(250),
@@ -76,27 +96,27 @@ CREATE TABLE booking (
                 case_status VARCHAR(20),
                 inmate_work_release_indicator BOOLEAN,
                 inmate_worker_indicator BOOLEAN,
-                PRIMARY KEY (id)
+                CONSTRAINT id PRIMARY KEY (id)
 );
 
 
 CREATE TABLE charge (
-                id INT AUTO_INCREMENT NOT NULL,
-                booking_id INT NOT NULL,
+                id IDENTITY NOT NULL,
+                booking_id INTEGER NOT NULL,
                 bond_amount DECIMAL(19,4),
                 bond_type VARCHAR(30),
                 bond_status VARCHAR(30),
                 next_court_event_court_name VARCHAR(30),
                 next_court_date DATE,
-                charge_sequence_number INT,
+                charge_sequence_number INTEGER,
                 charge_description VARCHAR(200),
-                statute_or_ordinance_number INT,
+                statute_or_ordinance_number INTEGER,
                 charge_category_classification VARCHAR(200),
                 arrest_location VARCHAR(200),
                 arrest_agency VARCHAR(200),
                 holding_for_agency BOOLEAN,
                 case_jurisdiction_court VARCHAR(200),
-                PRIMARY KEY (id)
+                CONSTRAINT id PRIMARY KEY (id)
 );
 
 
@@ -107,6 +127,18 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE person_alias ADD CONSTRAINT person_person_alias_fk
+FOREIGN KEY (person_id)
+REFERENCES person (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE scars_marks_tattoos ADD CONSTRAINT person_scars_marks_tattoos_fk
+FOREIGN KEY (person_id)
+REFERENCES person (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE conditions ADD CONSTRAINT person_conditions_fk
 FOREIGN KEY (person_id)
 REFERENCES person (id)
 ON DELETE NO ACTION
