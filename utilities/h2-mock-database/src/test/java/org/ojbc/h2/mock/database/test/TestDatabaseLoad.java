@@ -108,7 +108,7 @@ public class TestDatabaseLoad {
 		
 		ResultSet rs3 = connection.createStatement().executeQuery("select * from person_alias where id = 1");
 		assertTrue(rs3.next());
-		assertEquals("homer", rs3.getString("alias_first_name"));
+		assertEquals("homy", rs3.getString("alias_first_name"));
 	}
 
 
