@@ -52,7 +52,7 @@ CREATE TABLE person (
 
 
 CREATE TABLE conditions (
-                id INTEGER NOT NULL,
+                id IDENTITY NOT NULL,
                 person_id INTEGER NOT NULL,
                 conditions_description VARCHAR(100),
                 CONSTRAINT conditions_pk PRIMARY KEY (id)
