@@ -100,6 +100,14 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EntityType">
+    <xs:annotation>
+      <xs:documentation>A data type for a person, organization, or thing capable of bearing legal rights and responsibilities.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType"/>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="FacilityType">
     <xs:annotation>
       <xs:documentation>A data type for a building, place, or structure that provides a particular service.</xs:documentation>
@@ -126,6 +134,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="IdentityType">
+    <xs:annotation>
+      <xs:documentation>A data type for a set of known aspects or characteristics by which a person is defined or recognized.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:IdentityPersonRepresentation" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="LocationType">
     <xs:annotation>
       <xs:documentation>A data type for geospatial location.</xs:documentation>
@@ -134,6 +154,19 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:LocationAddressAbstract" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PersonIdentityAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between a person and an identity.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Person" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="nc:Identity" minOccurs="1" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -349,6 +382,16 @@
       <xs:documentation>A person, organization, or locale which issues an identification.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="Identity" type="nc:IdentityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A set of known aspects, identifiers, and/or characteristics by which a person is defined or recognized.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="IdentityPersonRepresentation" type="nc:PersonType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A set of person characteristics used as an identification.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Language" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a system of words or symbols used for communication.</xs:documentation>
@@ -392,6 +435,11 @@
   <xs:element name="Person" type="nc:PersonType" nillable="true">
     <xs:annotation>
       <xs:documentation>A human being.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonAliasIdentityAssociation" type="nc:PersonIdentityAssociationType">
+    <xs:annotation>
+      <xs:documentation>An association between a person and an alias identity used by that person.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonAugmentationPoint" abstract="true">
