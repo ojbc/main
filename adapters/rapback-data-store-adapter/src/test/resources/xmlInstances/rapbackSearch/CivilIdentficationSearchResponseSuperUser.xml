@@ -19,10 +19,10 @@
 <oirs-res-doc:OrganizationIdentificationResultsSearchResults xmlns:oirs-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
                                                              xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
                                                              xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
+                                                             xmlns:intel30="http://release.niem.gov/niem/domains/intelligence/3.0/"
                                                              xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0"
                                                              xmlns:jxdm50="http://release.niem.gov/niem/domains/jxdm/5.0/"
-                                                             xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2"
-                                                             xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+                                                             xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2">
    <oirs-res-ext:OrganizationIdentificationResultsSearchResult>
       <oirs-res-ext:IdentifiedPerson>
          <nc30:PersonBirthDate>
@@ -74,14 +74,14 @@
       </oirs-res-ext:Subscription>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
       <oirs-res-ext:CivilIdentificationReasonCode>F</oirs-res-ext:CivilIdentificationReasonCode>
-      <oirs-res-ext:IdentificationReportDate>
+      <oirs-res-ext:IdentificationReportedDate>
          <nc30:Date>2015-10-16</nc30:Date>
-      </oirs-res-ext:IdentificationReportDate>
+      </oirs-res-ext:IdentificationReportedDate>
       <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
-      <intel:SystemIdentification>
+      <intel30:SystemIdentification>
          <nc30:IdentificationID>000001820140729014008339990</nc30:IdentificationID>
-         <intel:SystemName>RapbackDataStore</intel:SystemName>
-      </intel:SystemIdentification>
+         <nc30:SystemName>RapbackDataStore</nc30:SystemName>
+      </intel30:SystemIdentification>
    </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
    <oirs-res-ext:OrganizationIdentificationResultsSearchResult>
       <oirs-res-ext:IdentifiedPerson>
@@ -134,14 +134,14 @@
       </oirs-res-ext:Subscription>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
       <oirs-res-ext:CivilIdentificationReasonCode>F</oirs-res-ext:CivilIdentificationReasonCode>
-      <oirs-res-ext:IdentificationReportDate>
+      <oirs-res-ext:IdentificationReportedDate>
          <nc30:Date>2015-10-16</nc30:Date>
-      </oirs-res-ext:IdentificationReportDate>
+      </oirs-res-ext:IdentificationReportedDate>
       <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
-      <intel:SystemIdentification>
+      <intel30:SystemIdentification>
          <nc30:IdentificationID>000001820140729014008339993</nc30:IdentificationID>
-         <intel:SystemName>RapbackDataStore</intel:SystemName>
-      </intel:SystemIdentification>
+         <nc30:SystemName>RapbackDataStore</nc30:SystemName>
+      </intel30:SystemIdentification>
    </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
    <oirs-res-ext:OrganizationIdentificationResultsSearchResult>
       <oirs-res-ext:IdentifiedPerson>
@@ -194,14 +194,14 @@
       </oirs-res-ext:Subscription>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>true</oirs-res-ext:SubsequentResultsAvailableIndicator>
       <oirs-res-ext:CivilIdentificationReasonCode>J</oirs-res-ext:CivilIdentificationReasonCode>
-      <oirs-res-ext:IdentificationReportDate>
+      <oirs-res-ext:IdentificationReportedDate>
          <nc30:Date>2016-10-20</nc30:Date>
-      </oirs-res-ext:IdentificationReportDate>
+      </oirs-res-ext:IdentificationReportedDate>
       <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
-      <intel:SystemIdentification>
+      <intel30:SystemIdentification>
          <nc30:IdentificationID>000001820140729014008339995</nc30:IdentificationID>
-         <intel:SystemName>RapbackDataStore</intel:SystemName>
-      </intel:SystemIdentification>
+         <nc30:SystemName>RapbackDataStore</nc30:SystemName>
+      </intel30:SystemIdentification>
    </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
    <oirs-res-ext:OrganizationIdentificationResultsSearchResult>
       <oirs-res-ext:IdentifiedPerson>
@@ -254,14 +254,14 @@
       </oirs-res-ext:Subscription>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
       <oirs-res-ext:CivilIdentificationReasonCode>F</oirs-res-ext:CivilIdentificationReasonCode>
-      <oirs-res-ext:IdentificationReportDate>
+      <oirs-res-ext:IdentificationReportedDate>
          <nc30:Date>2016-10-20</nc30:Date>
-      </oirs-res-ext:IdentificationReportDate>
+      </oirs-res-ext:IdentificationReportedDate>
       <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
-      <intel:SystemIdentification>
+      <intel30:SystemIdentification>
          <nc30:IdentificationID>000001820140729014008339996</nc30:IdentificationID>
-         <intel:SystemName>RapbackDataStore</intel:SystemName>
-      </intel:SystemIdentification>
+         <nc30:SystemName>RapbackDataStore</nc30:SystemName>
+      </intel30:SystemIdentification>
    </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
    <oirs-res-ext:OrganizationIdentificationResultsSearchResult>
       <oirs-res-ext:IdentifiedPerson>
@@ -295,20 +295,28 @@
       <oirs-res-ext:IdentificationRequestingOrganization s30:ref="ORG_01"/>
       <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
       <oirs-res-ext:CivilIdentificationReasonCode>J</oirs-res-ext:CivilIdentificationReasonCode>
-      <oirs-res-ext:IdentificationReportDate>
+      <oirs-res-ext:IdentificationReportedDate>
          <nc30:Date>2015-10-20</nc30:Date>
-      </oirs-res-ext:IdentificationReportDate>
+      </oirs-res-ext:IdentificationReportedDate>
       <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
-      <intel:SystemIdentification>
+      <intel30:SystemIdentification>
          <nc30:IdentificationID>000001820140729014008339997</nc30:IdentificationID>
-         <intel:SystemName>RapbackDataStore</intel:SystemName>
-      </intel:SystemIdentification>
+         <nc30:SystemName>RapbackDataStore</nc30:SystemName>
+      </intel30:SystemIdentification>
    </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
    <nc30:EntityOrganization s30:id="ORG_01">
       <nc30:OrganizationName>Demo Agency</nc30:OrganizationName>
       <jxdm50:OrganizationAugmentation>
          <jxdm50:OrganizationORIIdentification>
             <nc30:IdentificationID>1234567890</nc30:IdentificationID>
+         </jxdm50:OrganizationORIIdentification>
+      </jxdm50:OrganizationAugmentation>
+   </nc30:EntityOrganization>
+   <nc30:EntityOrganization s30:id="ORG_02">
+      <nc30:OrganizationName>Test Agency</nc30:OrganizationName>
+      <jxdm50:OrganizationAugmentation>
+         <jxdm50:OrganizationORIIdentification>
+            <nc30:IdentificationID>68796860</nc30:IdentificationID>
          </jxdm50:OrganizationORIIdentification>
       </jxdm50:OrganizationAugmentation>
    </nc30:EntityOrganization>
@@ -319,14 +327,6 @@
          <nc30:ContactEmailID>demo.agency2@localhost</nc30:ContactEmailID>
       </nc30:ContactInformation>
    </nc30:ContactInformationAssociation>
-   <nc30:EntityOrganization s30:id="ORG_02">
-      <nc30:OrganizationName>Test Agency</nc30:OrganizationName>
-      <jxdm50:OrganizationAugmentation>
-         <jxdm50:OrganizationORIIdentification>
-            <nc30:IdentificationID>68796860</nc30:IdentificationID>
-         </jxdm50:OrganizationORIIdentification>
-      </jxdm50:OrganizationAugmentation>
-   </nc30:EntityOrganization>
    <nc30:ContactInformationAssociation>
       <nc30:ContactEntity s30:ref="ORG_02"/>
       <nc30:ContactInformation>
