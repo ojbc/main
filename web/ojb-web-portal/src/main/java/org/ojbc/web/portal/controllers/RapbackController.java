@@ -258,7 +258,9 @@ public class RapbackController {
 		
 		setStartDateAndEndDate(subscription);
 		
-		setSubscripitonContactEmails(rapbackSearchResultsDoc, subscription);
+		String orgnizationRefId = XmlUtils.xPathStringSearch(organizationIdentificationResultsSearchResult, "oirs-res-ext:IdentificationRequestingOrganization/@s30:ref");
+		
+		setSubscripitonContactEmails(rapbackSearchResultsDoc, subscription, orgnizationRefId);
 		
 		subscription.setTopic(TOPIC_PERSON_ARREST);
 		subscription.setSubscriptionPurpose(CIVIL_SUBSCRIPTION_REASON_CODE);
@@ -266,9 +268,9 @@ public class RapbackController {
 		return subscription;
 	}
 
-	private void setSubscripitonContactEmails(Document rapbackSearchResultsDoc, Subscription subscription) throws Exception {
+	private void setSubscripitonContactEmails(Document rapbackSearchResultsDoc, Subscription subscription, String organizationId) throws Exception {
 		NodeList emailNodeList = XmlUtils.xPathNodeListSearch(rapbackSearchResultsDoc, 
-				"/oirs-res-doc:OrganizationIdentificationResultsSearchResults/nc30:ContactInformationAssociation"
+				"/oirs-res-doc:OrganizationIdentificationResultsSearchResults/nc30:ContactInformationAssociation[nc30:ContactEntity/@s30:ref = '" + organizationId + "']"
 				+ "/nc30:ContactInformation/nc30:ContactEmailID");
 		
 		if (emailNodeList != null && emailNodeList.getLength() > 0){
