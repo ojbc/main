@@ -28,7 +28,7 @@ public class IdentificationResultSearchRequest implements Serializable{
 
 	private static final long serialVersionUID = 2814315765098291193L;
 	
-	private IdentificationResultCategory identificationResultCategory;
+	private String identificationResultCategory;
 	private List<String> identificationTransactionStatus;  
 	private LocalDate reportedDateStartDate; 
 	private LocalDate reportedDateEndDate;
@@ -44,12 +44,12 @@ public class IdentificationResultSearchRequest implements Serializable{
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 	
-	public IdentificationResultCategory getIdentificationResultCategory() {
+	public String getIdentificationResultCategory() {
 		return identificationResultCategory;
 	}
 
 	public void setIdentificationResultCategory(
-			IdentificationResultCategory identificationResultCategory) {
+			String identificationResultCategory) {
 		this.identificationResultCategory = identificationResultCategory;
 	}
 
