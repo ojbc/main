@@ -47,6 +47,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatterBuilder;
@@ -301,8 +302,29 @@ public class XmlUtils {
         parent.setAttributeNode(ret);
         return ret;
     }
-
+    
     /**
+     * if textValue is not blank, create a new element under the parent element with the namespace and 
+     * elementName, then set the textContent of the element to the textValue. 
+     * 
+     * if textValue is blank,  do nothing. 
+     * 
+     * @param parent
+     * @param namespace
+     * @param elementName
+     * @param textValue
+     */
+    public static final void appendTextElement(Element parent, String namespace,
+			String elementName, String textValue) {
+		if (StringUtils.isNotBlank(textValue)){
+			Element personEthnicityText = 
+					XmlUtils.appendElement(parent, namespace, elementName);
+			personEthnicityText.setTextContent(textValue);
+		}
+	}
+
+
+   /**
      * Create a new element with the specified namespace and name, insert it under the specified parent but before the specified sibling, and return it
      * 
      * @param parent

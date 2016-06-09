@@ -204,7 +204,7 @@
 				        $( this ).dialog( "close" );
 			        },
 			        "No": function() {
-		            	if (recordStatus === "Archived" || recordStatus ==="Available for subscription"){
+		            	if (recordStatus === "Archived" || recordStatus ==="Available for Subscription"){
 		            		 $( this ).dialog( "close" );
 		            	}
 		            	else{

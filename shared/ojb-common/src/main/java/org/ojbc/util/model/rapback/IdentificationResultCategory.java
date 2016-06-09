@@ -14,8 +14,12 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web.model;
+package org.ojbc.util.model.rapback;
 
-public enum IdentificationResultsCategory {
+public enum IdentificationResultCategory {
 	Civil, Criminal; 
+	
+	public String toString(){
+		return this.name(); 
+	}
 }
