@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 
 import org.ojbc.web.IdentificationResultsQueryInterface;
-import org.ojbc.web.model.IdentificationResultsQueryResponse;
+import org.ojbc.web.model.identificationresult.search.IdentificationResultsQueryResponse;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
