@@ -20,6 +20,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_M
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL_30;
@@ -28,6 +29,7 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDEN
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
@@ -36,12 +38,12 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.helper.NIEMXMLUtils;
 import org.ojbc.util.helper.OJBCXMLUtils;
+import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.OjbcWebConstants;
 import org.ojbc.web.SearchFieldMetadata;
-import org.ojbc.web.model.IdentificationResultsCategory;
 import org.ojbc.web.model.firearm.search.FirearmSearchRequest;
 import org.ojbc.web.model.firearm.search.FirearmSearchRequestDomUtils;
 import org.ojbc.web.model.incident.search.IncidentSearchRequest;
@@ -613,7 +615,7 @@ public class RequestMessageBuilderUtilities {
         return document;
     }
 
-	public static Document createRapbackSearchRequest(IdentificationResultsCategory category) throws Exception {
+	public static Document createRapbackSearchRequest(IdentificationResultSearchRequest searchRequest) throws Exception {
         Document document = OJBCXMLUtils.createDocument();       
         Element rootElement = document.createElementNS(OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST, 
                 OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST 
@@ -626,12 +628,83 @@ public class RequestMessageBuilderUtilities {
         rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_STRUCTURES_30, 
         		OjbcNamespaceContext.NS_STRUCTURES_30);
 
-        Element identificationResultsCategoryCode  = XmlUtils.appendElement(rootElement, 
-                OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
-                "IdentificationResultsCategoryCode"); 
-        identificationResultsCategoryCode.setTextContent(category.name());
-
+        appendIdentificationSearchRequestPerson(searchRequest, rootElement);
+        appendIdentificationReportedDateRange(searchRequest, rootElement);
+        
+        for ( String identificationTransactionState: searchRequest.getIdentificationTransactionStatus()){
+        	XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+        			"IdentificationResultStatusCode", identificationTransactionState);
+        }
+        
+        XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+        		"IdentificationResultsCategoryCode", searchRequest.getIdentificationResultCategory());
+        
+        for ( String civilIdentificationReasonCode: searchRequest.getCivilIdentificationReasonCodes()){
+        	XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+        			"CivilIdentificationReasonCode", civilIdentificationReasonCode);
+        }
+        
+        for ( String criminalIdentificationReasonCode: searchRequest.getCriminalIdentificationReasonCodes()){
+        	XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+        			"CriminalIdentificationReasonCode", criminalIdentificationReasonCode);
+        }
+        
 		return document;
+	}
+
+	private static void appendIdentificationReportedDateRange(
+			IdentificationResultSearchRequest searchRequest, Element rootElement) {
+		if (searchRequest.getReportedDateStartDate() != null || 
+        		searchRequest.getReportedDateEndDate() != null){
+        	Element identificationReportedDateRange = 
+        			XmlUtils.appendElement(rootElement, 
+        					OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+        					"IdentificationReportedDateRange");
+        	
+    		appendDateWapper(identificationReportedDateRange, "StartDate", NS_NC_30, searchRequest.getReportedDateStartDate()); 
+    		appendDateWapper(identificationReportedDateRange, "EndDate", NS_NC_30, searchRequest.getReportedDateEndDate()); 
+        }
+	}
+
+    public static final void appendDateWapper( Element parent, 
+			String elementName, String wrapperElementNS, LocalDate localDate) {
+		if (localDate != null){
+			Element dateWrapperElement = XmlUtils.appendElement(parent, wrapperElementNS, elementName);
+			Element date = XmlUtils.appendElement(dateWrapperElement, NS_NC_30, "Date");
+			date.setTextContent(localDate.toString());
+		}
+	}
+
+	private static void appendIdentificationSearchRequestPerson(
+			IdentificationResultSearchRequest searchRequest, Element rootElement) {
+		if (StringUtils.isNotBlank(searchRequest.getFirstName()) 
+        		|| StringUtils.isNotBlank(searchRequest.getLastName()) 
+        		|| StringUtils.isNotBlank(searchRequest.getOtn())){
+        	Element person = XmlUtils.appendElement(rootElement, NS_NC_30, "Person");
+        	
+        	if (StringUtils.isNotBlank(searchRequest.getFirstName())
+        			|| StringUtils.isNotBlank(searchRequest.getLastName())){
+        		Element personName = XmlUtils.appendElement(person, NS_NC_30, "PersonName");
+        		if (StringUtils.isNotBlank(searchRequest.getFirstName())){
+        			Element personGivenName = XmlUtils.appendElement(personName, NS_NC_30, "PersonGivenName");
+        			personGivenName.setTextContent(searchRequest.getFirstName().trim());
+        		}
+        		if (StringUtils.isNotBlank(searchRequest.getLastName())){
+        			Element personSurName = XmlUtils.appendElement(personName, NS_NC_30, "PersonSurName");
+        			personSurName.setTextContent(searchRequest.getLastName().trim());
+        		}
+        	}
+        	
+        	if (StringUtils.isNotBlank(searchRequest.getOtn())){
+        		Element identifiedPersonTrackingIdentification = 
+        				XmlUtils.appendElement(person, 
+        						OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT,
+        						"IdentifiedPersonTrackingIdentification");
+        		Element identificationId = 
+        				XmlUtils.appendElement(identifiedPersonTrackingIdentification, NS_NC_30, "IdentificationID");
+        		identificationId.setTextContent(searchRequest.getOtn());
+        	}
+        }
 	}
 
 	public static Document createIdentificationInitialResultsQueryRequest(

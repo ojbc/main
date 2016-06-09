@@ -20,6 +20,7 @@ import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
 import static org.ojbc.web.OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE;
 import static org.ojbc.web.OjbcWebConstants.TOPIC_PERSON_ARREST;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -31,13 +32,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
+import org.ojbc.util.model.rapback.IdentificationResultCategory;
+import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
+import org.ojbc.util.model.rapback.IdentificationTransactionState;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.Unsubscription;
 import org.ojbc.web.SubscriptionInterface;
-import org.ojbc.web.model.IdentificationResultsCategory;
-import org.ojbc.web.model.IdentificationResultsQueryResponse;
 import org.ojbc.web.model.SimpleServiceResponse;
+import org.ojbc.web.model.identificationresult.search.IdentificationResultsQueryResponse;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
 import org.ojbc.web.portal.controllers.config.RapbackControllerConfigInterface;
@@ -82,6 +85,9 @@ public class RapbackController {
     @Value("${rapbackSubscriptionPeriod:1}")
     Integer rapbackSubscriptionPeriod;
     
+    @Value("${rapbackSearchDateRange:1095}")
+    Integer rapbackSearchDateRange;
+    
 	@RequestMapping(value = "/rapbackResults", method = RequestMethod.POST)
 	public String searchForm(HttpServletRequest request,	        
 	        Map<String, Object> model) {		
@@ -90,10 +96,12 @@ public class RapbackController {
 		
 		String informationMessage = "";
 		
+		IdentificationResultSearchRequest searchRequest = getDefaultCivilIdentificationSearchRequest();
+		
 		String rawResults = "";
         try {
             rawResults = config.getRapbackSearchBean()
-            		.invokeRapbackSearchRequest(IdentificationResultsCategory.Civil, samlElement);
+            		.invokeRapbackSearchRequest(searchRequest, samlElement);
         } catch (Exception e) {
             informationMessage="Failed to get the rapback search result.";
             e.printStackTrace();
@@ -110,6 +118,37 @@ public class RapbackController {
 		model.put("informationMessages", informationMessage);
 		
 		return "rapbacks/_rapbackResults";
+	}
+
+	private IdentificationResultSearchRequest getDefaultCivilIdentificationSearchRequest() {
+		IdentificationResultSearchRequest searchRequest = new IdentificationResultSearchRequest();
+		searchRequest.setIdentificationResultCategory(IdentificationResultCategory.Civil.name());
+		
+		List<String> identificationTransactionStatus = setDateRangeAndStatus(searchRequest);
+		
+		searchRequest.setIdentificationTransactionStatus(identificationTransactionStatus );;
+		return searchRequest;
+	}
+
+	private IdentificationResultSearchRequest getDefaultCriminallIdentificationSearchRequest() {
+		IdentificationResultSearchRequest searchRequest = new IdentificationResultSearchRequest();
+		searchRequest.setIdentificationResultCategory(IdentificationResultCategory.Criminal.name());
+		
+		List<String> identificationTransactionStatus = setDateRangeAndStatus(searchRequest);
+		
+		searchRequest.setIdentificationTransactionStatus(identificationTransactionStatus );;
+		return searchRequest;
+	}
+	
+	private List<String> setDateRangeAndStatus(
+			IdentificationResultSearchRequest searchRequest) {
+		List<String> identificationTransactionStatus = new ArrayList<String>();
+		identificationTransactionStatus.add(IdentificationTransactionState.Available_for_Subscription.toString());
+		identificationTransactionStatus.add(IdentificationTransactionState.Subscribed.toString());
+		
+		searchRequest.setReportedDateEndDate(LocalDate.now());
+		searchRequest.setReportedDateStartDate(LocalDate.now().minusDays(rapbackSearchDateRange -1));
+		return identificationTransactionStatus;
 	}
 
 	@RequestMapping(value = "initialResults", method = RequestMethod.GET)
@@ -316,7 +355,7 @@ public class RapbackController {
 		String rawResults = "";
 		try {
 			rawResults = config.getRapbackSearchBean()
-					.invokeRapbackSearchRequest(IdentificationResultsCategory.Criminal, samlElement);
+					.invokeRapbackSearchRequest(getDefaultCriminallIdentificationSearchRequest(), samlElement);
 		} catch (Exception e) {
 			informationMessage="Failed to process the request.";
 			e.printStackTrace();
