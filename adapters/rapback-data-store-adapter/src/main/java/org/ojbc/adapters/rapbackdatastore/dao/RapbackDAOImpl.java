@@ -20,6 +20,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -51,6 +52,8 @@ import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.helper.ZipUtils;
+import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
+import org.ojbc.util.model.rapback.IdentificationTransactionState;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -146,6 +149,14 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	private java.sql.Date toSqlDate(DateTime date){
 		return date == null? null : new java.sql.Date(date.getMillis()); 
+	}
+	
+	/**
+	 * @param date
+	 * @return null if date is null, otherwise java.sql.Date.valueOf(date)
+	 */
+	private java.sql.Date toSqlDate(LocalDate date){
+		return date == null? null : java.sql.Date.valueOf(date); 
 	}
 	
 	private Date toDate(DateTime date){
@@ -578,19 +589,40 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return DataAccessUtils.singleResult(ids);
 	}
 
+	//TODO incorporate the search criteria in the search request into the sql string. 
 	@Override
 	public List<IdentificationTransaction> getCivilIdentificationTransactions(
-			SAMLTokenPrincipal token) {
-		String sql = "SELECT t.transaction_number, t.identification_category, "
+			SAMLTokenPrincipal token, IdentificationResultSearchRequest searchRequest) {
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append( "SELECT t.transaction_number, t.identification_category, "
 				+ "t.report_timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.*, "
 				+ "(select count(*) > 0 from subsequent_results subsq where subsq.ucn = s.ucn) as having_subsequent_result "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 				+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
 				+ "WHERE (select count(*)>0 from "
-				+ "	civil_initial_results c where c.transaction_number = t.transaction_number) ";
+				+ "	civil_initial_results c where c.transaction_number = t.transaction_number) "
+				+ "	AND (:firstName is null OR s.first_name = :firstName) "
+				+ " AND (:lastName is null OR s.last_name = :lastName ) "
+				+ "	AND (:otn is null OR t.otn = :otn ) "
+				+ "	AND (:startDate is null OR t.report_timestamp >= :startDate ) "
+				+ "	AND (:endDate is null OR t.report_timestamp <= :endDate ) "
+				+ "	AND (:excludeArchived = false OR t.archived != true ) "
+				+ "	AND (:excludeSubscribed = false OR (t.archived = true OR sub.id is null OR sub.id <= 0 OR sub.active = false )) "
+				+ "	AND (:excludeAvailableForSubscription  = false OR (t.archived = true OR (sub.id > 0 AND sub.active = true))) "
+				+ "	AND (:identificationReasonCode is null OR identification_category in (:identificationReasonCode)) ");
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>(); 
+		paramMap.put("firstName", searchRequest.getFirstName());
+		paramMap.put("lastName", searchRequest.getLastName()); 
+		paramMap.put("otn", searchRequest.getOtn()); 
+		paramMap.put("startDate", toSqlDate(searchRequest.getReportedDateStartDate())); 
+		paramMap.put("endDate", toSqlDate(searchRequest.getReportedDateEndDate())); 
+		paramMap.put("excludeArchived", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Archived)); 
+		paramMap.put("excludeSubscribed", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Subscribed)); 
+		paramMap.put("excludeAvailableForSubscription", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Available_for_Subscription)); 
+		paramMap.put("identificationReasonCode", searchRequest.getCivilIdentificationReasonCodes()); 
 
         String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
         String federationId = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.FederationId);
@@ -599,23 +631,28 @@ public class RapbackDAOImpl implements RapbackDAO {
         boolean isNotAgencySuperUser = isNotAgencySuperUser(ori, federationId); 
         
 		if ( isNotSuperUser){
-			sql += "AND t.owner_ori = :ori "; 
+			sb.append( "AND t.owner_ori = :ori "); 
 			paramMap.put("ori", ori);
 		}
 		
 		if ( isNotSuperUser && isNotAgencySuperUser){
 
 			if ( isNotCivilAgencyUser(ori) ){
-				sql += " AND t.identification_category in ( :identificationCategoryList )";
-				List<String> identificationCategorys = getViewableIdentificationCategories(token, "CIVIL"); 
+				sb.append ( " AND t.identification_category in ( :identificationCategoryList )");
+				List<String> identificationCategorys = getViewableIdentificationCategories(token, 
+						"CIVIL"); 
 				paramMap.put("identificationCategoryList", identificationCategorys);
 			}
 		}
 		
 		List<IdentificationTransaction> identificationTransactions = 
-				namedParameterJdbcTemplate.query( sql, paramMap,
+				namedParameterJdbcTemplate.query( sb.toString(), paramMap,
 						new FullIdentificationTransactionRowMapper());
 		return identificationTransactions;
+	}
+
+	private boolean isExcluding(List<String> statusCriteria, IdentificationTransactionState state) {
+		return statusCriteria!= null && statusCriteria.size() > 0 && !statusCriteria.contains(state.toString());
 	}
 
 	private boolean isSuperUser(String ori, String federationId) {
@@ -644,7 +681,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	public List<String> getViewableIdentificationCategories(
 		SAMLTokenPrincipal token, String identificationCategoryType) {
-		final String sql = "select i. identification_category_code from identification_category i "
+		final String sql = "select i.identification_category_code from identification_category i "
 				+ "left join job_title_privilege j on j.identification_category_id = i.identification_category_id "
 				+ "left join job_title t on t.job_title_id = j.job_title_id "
 				+ "left join department d on d.department_id = t.department_id "
@@ -652,7 +689,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "where identification_category_type = :identificationCategoryType  "
 				+ "		AND agency_ori = :agencyOri "
 				+ "		AND department_name = :departmentName "
-				+ "		AND title_description = :titleDescription";
+				+ "		AND title_description = :titleDescription ";
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("identificationCategoryType", identificationCategoryType);
@@ -666,13 +703,21 @@ public class RapbackDAOImpl implements RapbackDAO {
 
 	@Override
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(
-			SAMLTokenPrincipal token) {
+			SAMLTokenPrincipal token, IdentificationResultSearchRequest searchRequest) {
 		StringBuilder sqlStringBuilder = new StringBuilder("SELECT t.transaction_number, t.identification_category, "
 				+ "t.report_timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id ");
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("firstName", searchRequest.getFirstName());
+		paramMap.put("lastName", searchRequest.getLastName()); 
+		paramMap.put("otn", searchRequest.getOtn()); 
+		paramMap.put("startDate", toSqlDate(searchRequest.getReportedDateStartDate())); 
+		paramMap.put("endDate", toSqlDate(searchRequest.getReportedDateEndDate())); 
+		paramMap.put("excludeArchived", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Archived)); 
+		paramMap.put("excludeAvailableForSubscription", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Subscribed)); 
+		paramMap.put("identificationReasonCode", searchRequest.getCriminalIdentificationReasonCodes()); 
 		
         String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
         String federationId = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.FederationId); 
@@ -687,12 +732,22 @@ public class RapbackDAOImpl implements RapbackDAO {
 			if ( isNotAgencySuperUser(ori, federationId)){
 				sqlStringBuilder.append(" t.identification_category in ( :identificationCategoryList ) AND ");
 				
-				List<String> identificationCategorys = getViewableIdentificationCategories(token, "CRIMINAL"); 
+				List<String> identificationCategorys = 
+						getViewableIdentificationCategories(token, "CRIMINAL"); 
 				paramMap.put("identificationCategoryList", identificationCategorys);
 			}
 		}
 		
 		sqlStringBuilder.append(" (select count(*)>0 from criminal_initial_results c where c.transaction_number = t.transaction_number) ");
+		sqlStringBuilder.append(
+				  "	AND (:firstName is null OR s.first_name = :firstName) "
+				+ " AND (:lastName is null OR s.last_name = :lastName ) "
+				+ "	AND (:otn is null OR t.otn = :otn ) "
+				+ "	AND (:startDate is null OR t.report_timestamp >= :startDate ) "
+				+ "	AND (:endDate is null OR t.report_timestamp <= :endDate ) "
+				+ "	AND (:excludeArchived = false OR t.archived != true ) "
+				+ "	AND (:excludeAvailableForSubscription  = false OR t.archived = true) "
+				+ "	AND (:identificationReasonCode is null OR identification_category in (:identificationReasonCode)) ");
 		
 		List<IdentificationTransaction> identificationTransactions = 
 				namedParameterJdbcTemplate.query( sqlStringBuilder.toString(), paramMap,  

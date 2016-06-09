@@ -39,6 +39,8 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SEARCH_RESULTS_METADATA_
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_WSN_BROKERED;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -64,16 +66,19 @@ import org.joda.time.DateTime;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
-import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransactionState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
+import org.ojbc.util.model.rapback.IdentificationTransactionState;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 @Service
 public class RapbackSearchProcessor {
@@ -144,11 +149,11 @@ public class RapbackSearchProcessor {
         Document document = documentBuilder.newDocument();
         Element rootElement = createRapbackSearchResponseRootElement(document);
         
-        String resultsCategoryCode = XmlUtils.xPathStringSearch(report, 
-        		"/oirs-req-doc:OrganizationIdentificationResultsSearchRequest/oirs-req-ext:IdentificationResultsCategoryCode"); 
+        IdentificationResultSearchRequest searchRequest = getSearchRequestFromXml(report);
+        
         List<IdentificationTransaction> identificationTransactions = null;
-        if ("Civil".equals(resultsCategoryCode)){
-        	identificationTransactions = rapbackDAO.getCivilIdentificationTransactions(token);
+        if ("Civil".equals(searchRequest.getIdentificationResultCategory())){
+        	identificationTransactions = rapbackDAO.getCivilIdentificationTransactions(token, searchRequest);
         	
         	Set<String> oris = getDistinctOris(identificationTransactions); 
         	List<AgencyProfile> agencyProfiles = rapbackDAO.getAgencyProfiles(oris);
@@ -157,13 +162,123 @@ public class RapbackSearchProcessor {
         	
         	appendOrganizationInfo(rootElement, agencyProfiles);
         }
-        else if ("Criminal".equals(resultsCategoryCode)){
-        	identificationTransactions = rapbackDAO.getCriminalIdentificationTransactions(token);
+        else if ("Criminal".equals(searchRequest.getIdentificationResultCategory())){
+        	identificationTransactions = rapbackDAO.getCriminalIdentificationTransactions(token, searchRequest);
         	buildSearchResults(identificationTransactions, rootElement, null, false);
         }
         return document;
     }
 
+    private IdentificationResultSearchRequest getSearchRequestFromXml(Document report) throws Exception{
+        IdentificationResultSearchRequest searchRequest = new IdentificationResultSearchRequest();
+        Node requestRoot = XmlUtils.xPathNodeSearch(report, "/oirs-req-doc:OrganizationIdentificationResultsSearchRequest");
+        String resultCategoryCode = XmlUtils.xPathStringSearch(requestRoot, "oirs-req-ext:IdentificationResultsCategoryCode");
+        searchRequest.setIdentificationResultCategory(StringUtils.trimToNull(resultCategoryCode));
+
+        extractPersonCriteria(searchRequest, requestRoot);
+        extractDateRangeCriteria(searchRequest, requestRoot);
+        extractStatusCodeCriteria(searchRequest, requestRoot);
+		
+        extractCivilReasonCodes(searchRequest, requestRoot);
+        extractCriminalReasonCodes(searchRequest, requestRoot);
+
+        return searchRequest; 
+
+    }
+
+	private void extractPersonCriteria(
+			IdentificationResultSearchRequest searchRequest, Node requestRoot) throws Exception {
+		Node personNode = XmlUtils.xPathNodeSearch(requestRoot, "nc30:Person");
+		if (personNode != null){
+			String personGivenName = XmlUtils.xPathStringSearch(personNode, "nc30:personName/nc30:PersonGivenName"); 
+			searchRequest.setFirstName(StringUtils.trimToNull(personGivenName));
+			String personSurName = XmlUtils.xPathStringSearch(personNode, "nc30:personName/nc30:PersonSurnName"); 
+			searchRequest.setLastName(StringUtils.trimToNull(personSurName));
+			
+			String otn = XmlUtils.xPathStringSearch(personNode, 
+					"oirs-req-ext:IdentifiedPersonTrackingIdentification/nc30:IdentificationID");
+			searchRequest.setLastName(StringUtils.trimToNull(otn));
+		}
+		
+	}
+
+	private void extractCriminalReasonCodes(IdentificationResultSearchRequest searchRequest,
+			Node requestRoot) throws Exception {
+		NodeList reasonCodeNodes = XmlUtils.xPathNodeListSearch(requestRoot, "oirs-req-ext:CriminalIdentificationReasonCode");
+        
+		if (reasonCodeNodes != null && reasonCodeNodes.getLength() > 0){
+			List<String> reasonCodes = new ArrayList<String>();
+			for (int i = 0; i < reasonCodeNodes.getLength(); i++) {
+	            if (reasonCodeNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+	                Element reasonCodeElement = (Element) reasonCodeNodes.item(i);
+					if (StringUtils.isNotBlank(reasonCodeElement.getTextContent())){
+						reasonCodes.add(reasonCodeElement.getTextContent());
+					}
+	            }
+	        }
+			
+			if (reasonCodes.size() > 0){
+				searchRequest.setCriminalIdentificationReasonCodes(reasonCodes);
+			}
+		}
+	}
+
+	private void extractCivilReasonCodes(IdentificationResultSearchRequest searchRequest,
+			Node requestRoot) throws Exception {
+		NodeList civilReasonCodeNodes = XmlUtils.xPathNodeListSearch(requestRoot, "oirs-req-ext:CivilIdentificationReasonCode");
+		
+		if (civilReasonCodeNodes != null && civilReasonCodeNodes.getLength() > 0){
+			List<String> reasonCodes = new ArrayList<String>();
+			for (int i = 0; i < civilReasonCodeNodes.getLength(); i++) {
+				if (civilReasonCodeNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+					Element reasonCodeElement = (Element) civilReasonCodeNodes.item(i);
+					if (StringUtils.isNotBlank(reasonCodeElement.getTextContent())){
+						reasonCodes.add(reasonCodeElement.getTextContent());
+					}
+				}
+			}
+			
+			if (reasonCodes.size() > 0){
+				searchRequest.setCivilIdentificationReasonCodes(reasonCodes);
+			}
+		}
+	}
+	
+	private void extractStatusCodeCriteria(IdentificationResultSearchRequest searchRequest,
+			Node requestRoot) throws Exception {
+		NodeList statusCodeNodes = XmlUtils.xPathNodeListSearch(requestRoot, "oirs-req-ext:IdentificationResultStatusCode");
+        
+		if (statusCodeNodes != null && statusCodeNodes.getLength() > 0){
+			List<String> status = new ArrayList<String>();
+			for (int i = 0; i < statusCodeNodes.getLength(); i++) {
+	            if (statusCodeNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+	                Element statusElement = (Element) statusCodeNodes.item(i);
+	                
+	                if (StringUtils.isNotBlank(statusElement.getTextContent())){
+	                	status.add(statusElement.getTextContent());
+	                }
+	            }
+	        }
+			
+			if (status.size() > 0 ){
+				searchRequest.setIdentificationTransactionStatus(status);
+			}
+		}
+	}
+
+	private void extractDateRangeCriteria(IdentificationResultSearchRequest searchRequest,
+			Node requestRoot) throws Exception {
+		String startDateString = XmlUtils.xPathStringSearch(requestRoot, 
+        		"oirs-req-ext:IdentificationReportedDateRange/nc30:StartDate/nc30:Date");
+        if (StringUtils.isNotBlank(startDateString)){
+        	searchRequest.setReportedDateStartDate(LocalDate.parse(startDateString));
+        }
+        String endDateString = XmlUtils.xPathStringSearch(requestRoot, 
+        		"oirs-req-ext:IdentificationReportedDateRange/nc30:EndDate/nc30:Date");
+        if (StringUtils.isNotBlank(endDateString)){
+        	searchRequest.setReportedDateEndDate(LocalDate.parse(endDateString));
+        }
+	}
 	private Set<String> getDistinctOris(
 			List<IdentificationTransaction> identificationTransactions) {
 		Set<String> distinctOris = new HashSet<String>(); 
