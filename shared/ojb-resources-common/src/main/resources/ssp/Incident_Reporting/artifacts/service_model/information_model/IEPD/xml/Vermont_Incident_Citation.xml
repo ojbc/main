@@ -241,6 +241,7 @@
 											<nc:StreetFullText>123 Main Street</nc:StreetFullText>
 										</nc:LocationStreet>
 										<nc:LocationCityName>Burlington</nc:LocationCityName>
+										<nc:LocationStateName>VT</nc:LocationStateName>
 										<nc:LocationPostalCode>05401-1122</nc:LocationPostalCode>
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
@@ -275,6 +276,7 @@
 											<nc:StreetFullText>100 State Street</nc:StreetFullText>
 										</nc:LocationStreet>
 										<nc:LocationCityName>Richmond</nc:LocationCityName>
+										<nc:LocationStateName>VT</nc:LocationStateName>
 										<nc:LocationPostalCode>05401-2277</nc:LocationPostalCode>
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
@@ -557,6 +559,10 @@
 							</nc:PersonContactInformationAssociation>
 							<nc:ActivityDocumentAssociation>
 								<nc:ActivityReference s:ref="INCIDENT_01" />
+								<nc:DocumentReference s:ref="CITATION_01" />
+							</nc:ActivityDocumentAssociation>
+							<nc:ActivityDocumentAssociation>
+								<nc:ActivityReference s:ref="OFFENSE_01" />
 								<nc:DocumentReference s:ref="CITATION_01" />
 							</nc:ActivityDocumentAssociation>
 							<inc-ext:EntityDocumentAssociation>
