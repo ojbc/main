@@ -18,6 +18,7 @@ package org.ojbc.util.model.rapback;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -29,15 +30,15 @@ public class IdentificationResultSearchRequest implements Serializable{
 	private static final long serialVersionUID = 2814315765098291193L;
 	
 	private String identificationResultCategory;
-	private List<String> identificationTransactionStatus;  
+	private List<String> identificationTransactionStatus = new ArrayList<String>();  
 	private LocalDate reportedDateStartDate; 
 	private LocalDate reportedDateEndDate;
 	
 	private String firstName; 
 	private String lastName; 
 	private String otn; //IdentifiedPersonTrackingIdentification
-	private List<String> civilIdentificationReasonCodes;  
-	private List<String> criminalIdentificationReasonCodes;  
+	private List<String> civilIdentificationReasonCodes = new ArrayList<String>();  
+	private List<String> criminalIdentificationReasonCodes = new ArrayList<String>();  
 
 	@Override
 	public String toString(){
