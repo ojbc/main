@@ -22,7 +22,6 @@ CREATE SCHEMA custody_datastore;
 -- TODO see why other db's don't set schema
 -- SET SCHEMA custody_datastore;
 
---generated with mysql grammar to get the auto_increment's
 --warnings ignored about nullable foreign keys
 
 
@@ -114,7 +113,7 @@ CREATE TABLE charge (
                 charge_category_classification VARCHAR(200),
                 arrest_location VARCHAR(200),
                 arrest_agency VARCHAR(200),
-                holding_for_agency BOOLEAN,
+                holding_for_agency VARCHAR(100),
                 case_jurisdiction_court VARCHAR(200),
                 CONSTRAINT id PRIMARY KEY (id)
 );
