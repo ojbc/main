@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web.model;
+package org.ojbc.web.model.identificationresult.search;
 
 import java.util.List;
 
