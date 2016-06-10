@@ -153,6 +153,25 @@ public class TestAccessControlRequestService {
 
     @Test
     @DirtiesContext
+    public void testSendNonCurrentUserFromOriWithoutPrivacyPolicy() throws Exception {
+    	// Read the access control request file from the file system
+    	File inputFile = new File(
+    			"src/test/resources/xml/policyBasedAccessControl/IdentityBasedAccessControlRequestNonCurrentNoPolicyOri.xml");
+    	String requestBody = FileUtils.readFileToString(inputFile);
+    	
+    	@SuppressWarnings("unchecked")
+    	List<String> expectedBody = FileUtils.readLines(new File(
+    			"src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForNonCurrentUserNoPolicyOri.xml"));
+    	
+    	resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
+    	
+    	Map<String, Object> headers = SoapMessageUtils.createHeaders();
+    	template.sendBodyAndHeaders("direct:accessControlRequest", requestBody, headers);
+    	resultEndpoint.assertIsSatisfied();
+    }
+    
+    @Test
+    @DirtiesContext
     public void testSendEmptyUser() throws Exception {
         // Read the access control request file from the file system
         File inputFile = new File(

@@ -21,17 +21,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:context="http://www.springframework.org/schema/context" 
 	xmlns:cxf="http://camel.apache.org/schema/cxf" 
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
        
- 	<context:annotation-config />
-	<context:component-scan base-package="org.ojbc.connectors.warrantmod"/>
-
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="disposition-connector">
 	
 		<endpoint id="fileDropTestInputEndpoint"
@@ -43,6 +38,8 @@
 		<endpoint id="warrantModConnectorResultsHandlerEndpoint"
 			uri="cxf:bean:warrantModResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantModConnnector.cxfLogging}" />		
 		
+		<endpoint id="initiateWarrantModificationRequestTimerEndpoint"
+			uri="quartz2://warrantModConnector/checkQualifiedWarrants?cron={{warrantModConnnector.checkForAcceptedWarrantsCronExpression}}" />
 		
 		<camel:route id="warrantModConnectorRequest_route">
 		
@@ -68,8 +65,8 @@
 			
 		</camel:route>		
 		
-		<camel:route id="checkDatabaseForAcceptedWarrantsRoute">
-			<camel:from uri="quartz://myGroup/myTimerName"/>
+		<camel:route id="checkDatabaseForAcceptedWarrantsRoute" >
+			<camel:from uri="initiateWarrantModificationRequestTimerEndpoint"/>
 			<setBody>
        			<constant>SELECT WarrantID FROM Warrant WHERE StateWarrantRepositoryID is not null AND warrantModRequestSent = false</constant>
      		</setBody>
@@ -94,17 +91,17 @@
 			</camel:setHeader>
 											
 			<to uri="warrantModificationRequestIntermediaryEndpoint" />
-		
+			<camel:log message="Warrant sent for warrantID: ${header.warrantId}"></camel:log>
+     		<camel:to uri="bean:warrantsRepositoryBaseDaoImpl?method=updateWarrantModificationRequestSentIndicator"/>
 		</camel:route>		
 		
 		<!--  Warrants Mod Results Handler Route.  Called by Intermediary -->
 		<camel:route id="warrantModConnectorResultsHandler_route">
 		
 			<camel:from uri="warrantModConnectorResultsHandlerEndpoint"/>
-			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-						
-			<camel:log message="\n\n\n Connector receieved WarrantModResponse: \n\n ${body} \n\n\n" />
+			<camel:log message="\nConnector receieved WarrantModResponse: \n ${body} \n" />
+     		<camel:to uri="bean:warrantModificationResponseProcessor?method=process"/>
 			
 		</camel:route>						
 		
@@ -115,14 +112,7 @@
 	<bean id="warrantModMockInputProcessor" 
 		class="org.ojbc.connectors.warrantmod.WarrantModMockInputProcessor" />	
 			
-	<bean id="namedParameterJdbcTemplate" 
-      class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
- 	   <constructor-arg ref="dataSource"/>
-	</bean>
-	
-	<bean id="jdbcTemplate" 
-      class="org.springframework.jdbc.core.JdbcTemplate">
- 	   <constructor-arg ref="dataSource"/>
-	</bean>
-	
+	<bean id="quartz2" class="org.apache.camel.component.quartz2.QuartzComponent">
+	    <property name="startDelayedSeconds" value="2"/>
+	</bean>	
 </beans>

@@ -14,16 +14,22 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.rapbackdatastore.dao.model;
-
-public enum IdentificationTransactionState {
-	/*
-	 * The ordinal of the enum is used in the code. DO NOT change the order 
-	 * of the instances. 
-	 */
-	Archived, Available_for_subscription, Subscribed;
+package org.ojbc.web.model.identificationresult.search;
+public enum CriminalIdentificationReasonCode {
+	CAR("Criminal Tenprint Submission"), 
+	SOR("Sex Offender Registry");
 	
-	public String toString(){
-		return name().replace('_', ' '); 
+	private String description; 
+	
+	private CriminalIdentificationReasonCode(String description){
+		this.setDescription(description);
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

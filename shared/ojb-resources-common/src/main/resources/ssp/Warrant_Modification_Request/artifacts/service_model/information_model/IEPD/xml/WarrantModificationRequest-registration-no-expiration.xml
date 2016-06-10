@@ -84,9 +84,9 @@
 			</j:BailSetAmount>
 		</j:WarrantAppearanceBail>
 		<wm-req-ext:WarrantAugmentation>
-			<wm-req-ext:PersonRecordIdentification>
+			<wm-req-ext:StateWarrantRepositoryIdentification>
 				<nc:IdentificationID>R69458998</nc:IdentificationID>
-			</wm-req-ext:PersonRecordIdentification>
+			</wm-req-ext:StateWarrantRepositoryIdentification>
 			<nc:ExpirationDate>
 				<nc:Date>2016-08-13</nc:Date>
 			</nc:ExpirationDate>
@@ -167,9 +167,6 @@
 		<wm-req-ext:PersonMiscellaneousRecordIdentification>
 			<nc:IdentificationID>MR456782</nc:IdentificationID>
 		</wm-req-ext:PersonMiscellaneousRecordIdentification>
-		<wm-req-ext:PersonRecordIdentification>
-			<nc:IdentificationID>R69458998</nc:IdentificationID>
-		</wm-req-ext:PersonRecordIdentification>
 		<wm-req-ext:PersonImmigrationAlienQueryIndicator>false
 		</wm-req-ext:PersonImmigrationAlienQueryIndicator>
 	</nc:Person>
@@ -191,14 +188,13 @@
 		</j:ConveyanceRegistrationPlateIdentification>
 		<j:ConveyanceRegistrationPlateCategoryText>LP-category
 		</j:ConveyanceRegistrationPlateCategoryText>
-		<wm-req-ext:ConveyanceRegistrationNonExpiringIndicator>true</wm-req-ext:ConveyanceRegistrationNonExpiringIndicator>
+		<wm-req-ext:ConveyanceRegistrationNonExpiringIndicator>true
+		</wm-req-ext:ConveyanceRegistrationNonExpiringIndicator>
 	</j:ConveyanceRegistration>
 	<nc:ContactInformation>
 		<nc:ContactMailingAddress structures:id="Address_01">
-			<nc:AddressFullText>Full Address</nc:AddressFullText>
 			<nc:LocationStreet>
-				<nc:StreetNumberText>6407</nc:StreetNumberText>
-				<nc:StreetName>Cedar Ave</nc:StreetName>
+				<nc:StreetFullText>6407 Cedar Ave</nc:StreetFullText>
 			</nc:LocationStreet>
 			<nc:LocationCityName>Saginaw</nc:LocationCityName>
 			<nc:LocationCountyName>Taylor</nc:LocationCountyName>

@@ -62,11 +62,12 @@
 					<nc:ContactInformation>
 						<nc:ContactMailingAddress>
 							<nc:StructuredAddress>
+							
 								<nc:LocationStreet>
 									<nc:StreetFullText>100 State Street</nc:StreetFullText>
 								</nc:LocationStreet>
 								<nc:LocationCityName>Richmond</nc:LocationCityName>
-								<nc:LocationCountryFIPS10-4Code>VT</nc:LocationCountryFIPS10-4Code>
+								<nc:LocationStateName>VT</nc:LocationStateName>
 								<nc:LocationPostalCode>05401-2277</nc:LocationPostalCode>
 							</nc:StructuredAddress>
 						</nc:ContactMailingAddress>
@@ -121,7 +122,7 @@
 									<nc:StreetFullText>123 Main Street</nc:StreetFullText>
 								</nc:LocationStreet>
 								<nc:LocationCityName>Burlington</nc:LocationCityName>
-								<nc:LocationCountryFIPS10-4Code>VT</nc:LocationCountryFIPS10-4Code>
+								<nc:LocationStateName>VT</nc:LocationStateName>
 								<nc:LocationPostalCode>05401-1122</nc:LocationPostalCode>
 							</nc:StructuredAddress>
 						</nc:ContactMailingAddress>

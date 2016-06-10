@@ -20,9 +20,9 @@ import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 
+import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.web.RapbackSearchInterface;
 import org.ojbc.web.WebUtils;
-import org.ojbc.web.model.IdentificationResultsCategory;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -38,7 +38,7 @@ public class RapbackSearchMockImpl implements RapbackSearchInterface{
 	SearchResultConverter searchResultConverter;		
 	
     @Override
-    public String invokeRapbackSearchRequest(IdentificationResultsCategory category, Element samlToken)
+    public String invokeRapbackSearchRequest(IdentificationResultSearchRequest searchRequest, Element samlToken)
             throws Exception {
         logger.info("Getting mock rapback search results.");
         

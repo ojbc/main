@@ -39,6 +39,7 @@ insert into ori(id, ori) values ('3','H00000003');
 insert into ori(id, ori) values ('4','H00000004');
 insert into ori(id, ori) values ('5','H00000005');
 insert into ori(id, ori) values ('6','1234567890');
+insert into ori(id, ori) values ('7','NoPolicyOri1');
 
 insert into policy_ori(ori_id, policy_id) values ('1','3');
 insert into policy_ori(ori_id, policy_id) values ('2','4');

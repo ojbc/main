@@ -17,6 +17,7 @@
 package org.ojbc.adapters.rapbackdatastore.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
@@ -31,6 +32,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
+import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 
 
 public interface RapbackDAO {
@@ -53,8 +55,10 @@ public interface RapbackDAO {
 	public List<CivilInitialResults> getCivilInitialResults(String ori);
 	public List<CivilInitialResults> getIdentificationCivilInitialResults(String transactionNumber);
 	public List<CriminalInitialResults> getIdentificationCriminalInitialResults(String transactionNumber);
-	public List<IdentificationTransaction> getCivilIdentificationTransactions(SAMLTokenPrincipal token);
-	public List<IdentificationTransaction> getCriminalIdentificationTransactions(SAMLTokenPrincipal token);
+	public List<IdentificationTransaction> getCivilIdentificationTransactions(SAMLTokenPrincipal token, 
+			IdentificationResultSearchRequest searchRequest);
+	public List<IdentificationTransaction> getCriminalIdentificationTransactions(SAMLTokenPrincipal token,
+			IdentificationResultSearchRequest searchRequest);
 	public String getIdentificationCategoryType(String transactionNumber); 
 	
 	public void updateSubject(Subject subject);
@@ -65,6 +69,7 @@ public interface RapbackDAO {
 	public void consolidateUcn(String currentUcn, String newUcn);
 	
 	public AgencyProfile getAgencyProfile(String ori);
+	public List<AgencyProfile> getAgencyProfiles(Set<String> oris);
 	
 	public int archiveCivilIdentifications();
 	public int archiveCriminalIdentifications();

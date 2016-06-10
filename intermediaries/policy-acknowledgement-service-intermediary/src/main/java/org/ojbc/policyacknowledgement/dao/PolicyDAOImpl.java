@@ -29,6 +29,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -54,6 +55,9 @@ public class PolicyDAOImpl implements PolicyDAO {
 	private static final String ATTRIBUTES_MISSING_OR_INVALID="Login Error:  One or more required user attributes are missing or not valid";
 	private static final String PRIVACY_COMPLIANCE_ERROR="Privacy Compliance Error:  No Agency Privacy Policy associated with this user's ORI";
 	
+    @Value("#{'${policyAcknowledgement.orisWithoutPrivacyPolicy:}'.split(',')}")
+    private List<String> orisWithoutPrivacyPolicy;
+    
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.insertUser = new SimpleJdbcInsert(dataSource).withTableName("ojbc_user").usingGeneratedKeyColumns("id");
@@ -101,6 +105,9 @@ public class PolicyDAOImpl implements PolicyDAO {
             + "WHERE o.ori = ? AND p.active = true "; 
     private void validateOriPolicyCompliance(String ori) {
         
+    	if (orisWithoutPrivacyPolicy.contains(ori)) 
+    		return; 
+    	
         Boolean oriCompliance = jdbcTemplate.queryForObject(POLICY_COUNT_BY_ORI, Boolean.class, ori);
         if (!oriCompliance) {
             log.error(PRIVACY_COMPLIANCE_ERROR + " :" + ori);

@@ -30,7 +30,11 @@ public class PersonMapper implements RowMapper<Person> {
 		Person person = new Person();
 		
 		person.setAddressCity(rs.getString("AddressCity"));
-		person.setAddressFullText(rs.getString("AddressFullText"));
+		person.setAddressStreetFullText(rs.getString("AddressStreetFullText"));
+		person.setAddressStreetNumber(rs.getString("AddressStreetNumber"));
+		person.setAddressStreetName(rs.getString("AddressStreetName"));
+		person.setAddressCity(rs.getString("AddressCity"));
+		person.setAddressCounty(rs.getString("AddressCounty"));
 		person.setAddressState(rs.getString("AddressState"));
 		person.setAddressZip(rs.getString("addressZip"));
 		person.setDateOfBirth(rs.getDate("DateOfBirth").toLocalDate());
@@ -57,6 +61,8 @@ public class PersonMapper implements RowMapper<Person> {
 		person.setPersonSkinToneDescription(rs.getString("personSkinToneDescription"));
 		person.setPersonStateIdentification(rs.getString("personStateIdentification"));
 		person.setPersonWeight(rs.getString("personWeight"));
+		person.setSocialSecurityNumberBase(rs.getString("SocialSecurityNumberBase"));
+		person.setUsCitizenshipIndicator(rs.getBoolean("USCitizenshipIndicator"));
 		person.setPersonID(rs.getInt("PersonID"));
 		
     	return person;

@@ -16,7 +16,7 @@
  */
 package org.ojbc.web;
 
-import org.ojbc.web.model.IdentificationResultsQueryResponse;
+import org.ojbc.web.model.identificationresult.search.IdentificationResultsQueryResponse;
 import org.w3c.dom.Element;
 
 public interface IdentificationResultsQueryInterface {
