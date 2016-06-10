@@ -51,6 +51,7 @@ import org.ojbc.web.security.DocumentUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,7 +65,7 @@ import org.w3c.dom.NodeList;
 
 @Controller
 @Profile({"rapback-search","initial-results-query","standalone"})
-@SessionAttributes({"rapbackSearchResults", "criminalIdentificationSearchResults"})
+@SessionAttributes({"rapbackSearchResults", "criminalIdentificationSearchResults", "rapbackSearchRequest", "criminalIdentificationSearchRequest"})
 @RequestMapping("/rapbacks")
 public class RapbackController {
 	
@@ -92,11 +93,19 @@ public class RapbackController {
 	public String searchForm(HttpServletRequest request,	        
 	        Map<String, Object> model) {		
 								
+		IdentificationResultSearchRequest searchRequest = getDefaultCivilIdentificationSearchRequest();
+		model.put("rapbackSearchRequest", searchRequest);
+		
+		return performRapbackSearchAndReturnResult(request, model, searchRequest);
+	}
+
+	private String performRapbackSearchAndReturnResult(HttpServletRequest request,
+			Map<String, Object> model,
+			IdentificationResultSearchRequest searchRequest) {
 		Element samlElement = samlService.getSamlAssertion(request);
 		
 		String informationMessage = "";
 		
-		IdentificationResultSearchRequest searchRequest = getDefaultCivilIdentificationSearchRequest();
 		
 		String rawResults = "";
         try {
@@ -118,6 +127,32 @@ public class RapbackController {
 		model.put("informationMessages", informationMessage);
 		
 		return "rapbacks/_rapbackResults";
+	}
+	
+	@RequestMapping(value = "rapbackAdvancedSearch", method = RequestMethod.POST)
+	public String advanceSearch(HttpServletRequest request,
+			@ModelAttribute("rapbackSearchRequest") IdentificationResultSearchRequest rapbackSearchRequest,
+	        BindingResult errors, Map<String, Object> model) throws Exception {
+
+		if (errors.hasErrors()) {
+			model.put("errors", errors);
+			return "rapbacks/_searchForm";
+		}
+
+		return performRapbackSearchAndReturnResult(request, model, rapbackSearchRequest);
+	}
+
+
+	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
+	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	        Map<String, Object> model) {
+
+		if (resetForm) {
+			IdentificationResultSearchRequest rapbackSearchRequest = new IdentificationResultSearchRequest();
+			model.put("rapbackSearchRequest", rapbackSearchRequest);
+		} 
+
+		return "rapbacks/_searchForm";
 	}
 
 	private IdentificationResultSearchRequest getDefaultCivilIdentificationSearchRequest() {
@@ -146,8 +181,8 @@ public class RapbackController {
 		identificationTransactionStatus.add(IdentificationTransactionState.Available_for_Subscription.toString());
 		identificationTransactionStatus.add(IdentificationTransactionState.Subscribed.toString());
 		
-		searchRequest.setReportedDateEndDate(LocalDate.now());
-		searchRequest.setReportedDateStartDate(LocalDate.now().minusDays(rapbackSearchDateRange -1));
+		searchRequest.setReportedDateEndLocalDate(LocalDate.now());
+		searchRequest.setReportedDateStartLocalDate(LocalDate.now().minusDays(rapbackSearchDateRange -1));
 		return identificationTransactionStatus;
 	}
 
@@ -354,8 +389,10 @@ public class RapbackController {
 		
 		String rawResults = "";
 		try {
+			IdentificationResultSearchRequest criminalIdentificationSearchRequest= getDefaultCriminallIdentificationSearchRequest();
 			rawResults = config.getRapbackSearchBean()
 					.invokeRapbackSearchRequest(getDefaultCriminallIdentificationSearchRequest(), samlElement);
+			model.put("criminalIdentificationSearchRequest", criminalIdentificationSearchRequest);
 		} catch (Exception e) {
 			informationMessage="Failed to process the request.";
 			e.printStackTrace();
