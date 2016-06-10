@@ -20,7 +20,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -149,14 +148,6 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	private java.sql.Date toSqlDate(DateTime date){
 		return date == null? null : new java.sql.Date(date.getMillis()); 
-	}
-	
-	/**
-	 * @param date
-	 * @return null if date is null, otherwise java.sql.Date.valueOf(date)
-	 */
-	private java.sql.Date toSqlDate(LocalDate date){
-		return date == null? null : java.sql.Date.valueOf(date); 
 	}
 	
 	private Date toDate(DateTime date){
@@ -621,7 +612,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		paramMap.put("excludeArchived", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Archived)); 
 		paramMap.put("excludeSubscribed", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Subscribed)); 
 		paramMap.put("excludeAvailableForSubscription", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Available_for_Subscription)); 
-		paramMap.put("identificationReasonCode", searchRequest.getCivilIdentificationReasonCodes().isEmpty()?null:searchRequest.getCivilIdentificationReasonCodes().isEmpty()); 
+		paramMap.put("identificationReasonCode", searchRequest.getCivilIdentificationReasonCodes().isEmpty()?null:searchRequest.getCivilIdentificationReasonCodes()); 
 
         String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
         String federationId = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.FederationId);
@@ -716,7 +707,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		paramMap.put("endDate", searchRequest.getReportedDateEndDate()); 
 		paramMap.put("excludeArchived", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Archived)); 
 		paramMap.put("excludeAvailableForSubscription", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Subscribed)); 
-		paramMap.put("identificationReasonCode", searchRequest.getCriminalIdentificationReasonCodes().isEmpty() ? null : searchRequest.getCriminalIdentificationReasonCodes().isEmpty());
+		paramMap.put("identificationReasonCode", searchRequest.getCriminalIdentificationReasonCodes().isEmpty() ? null : searchRequest.getCriminalIdentificationReasonCodes());
 		
         String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
         String federationId = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.FederationId); 
