@@ -114,7 +114,7 @@
           <xs:element ref="nc:PersonName" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="nc:PersonRace" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="nc:PersonSex" minOccurs="0" maxOccurs="1"/>
-          <xs:element ref="nc:PersonAugmentationPoint" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="nc:PersonAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

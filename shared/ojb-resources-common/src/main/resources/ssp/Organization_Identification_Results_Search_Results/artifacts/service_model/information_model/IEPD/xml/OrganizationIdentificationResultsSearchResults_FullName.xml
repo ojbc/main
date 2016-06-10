@@ -54,6 +54,7 @@
 	  	</oirs-res-ext:IdentifiedPersonTrackingIdentification>
 	  </oirs-res-ext:IdentifiedPerson>
 	  <oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
+	   <oirs-res-ext:IdentificationRequestingOrganization structures:ref="ORG1" xsi:nil="true"/>
     <oirs-res-ext:Subscription>
     	<nc:ActivityDateRange>
     		<nc:StartDate>
@@ -100,6 +101,7 @@
 		  	</oirs-res-ext:IdentifiedPersonTrackingIdentification>
 		  </oirs-res-ext:IdentifiedPerson>
 		  <oirs-res-ext:IdentificationResultStatusCode>Available for Subscription</oirs-res-ext:IdentificationResultStatusCode>
+		  <oirs-res-ext:IdentificationRequestingOrganization structures:ref="ORG1" xsi:nil="true"/>
 		   <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
 	    <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
 		<intel:SystemIdentification>

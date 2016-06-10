@@ -46,16 +46,36 @@ public final class DaoUtils {
         return rs.wasNull() ? null : nValue;
     }
 	
+	/**
+	 * Get LocalDate instance from the ResultSet rs with columnName
+	 * @param rs
+	 * @param columnName
+	 * @return null if the sqlDate retrieved from the result set is null.
+	 * @throws SQLException
+	 */
 	static public LocalDate getLocalDate(ResultSet rs, String columnName) throws SQLException {
 		Date sqlDate = rs.getDate(columnName);
 		return sqlDate == null ? null : sqlDate.toLocalDate();
 	}
 	
+	/**
+	 * Get LocalDateTime instance from the ResultSet rs with columnName 
+	 * @param rs
+	 * @param columnName
+	 * @return null if the timestamp from the rs is null. 
+	 * @throws SQLException
+	 */
 	static public LocalDateTime getLocalDateTime(ResultSet rs, String columnName) throws SQLException {
 		Timestamp timestamp = rs.getTimestamp(columnName);
 		return timestamp == null ? null : timestamp.toLocalDateTime();
 	}
 	
+	/**
+	 * Convert "true" to 'Y' and "false" to 'N'  
+	 * 
+	 * @param indicatorValue
+	 * @return
+	 */
 	public static Character getIndicatorValueForDatabase(String indicatorValue)
 	{
 		Character returnValue = null;
@@ -73,6 +93,15 @@ public final class DaoUtils {
 		return returnValue;
 	}
 	
+	/**
+	 * If object is not null, set the correct object type value to the ps at index. 
+	 * Otherwise, set java.sql.Types.NULL at index. 
+	 *  
+	 * @param object
+	 * @param ps
+	 * @param index
+	 * @throws SQLException
+	 */
 	public static void setPreparedStatementVariable(Object object, PreparedStatement ps, int index)
 			throws SQLException {
 		

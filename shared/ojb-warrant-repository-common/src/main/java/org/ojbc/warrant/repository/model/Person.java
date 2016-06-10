@@ -31,8 +31,11 @@ public class Person {
     private String lastName;
     private String nameSuffix; 
     private String fullPersonName; 
-    private String addressFullText; 
+    private String addressStreetFullText; 
+    private String addressStreetNumber; 
+    private String addressStreetName; 
     private String addressCity; 
+    private String addressCounty; 
     private String addressState; 
     private String addressZip; 
     private String socialSecurityNumberBase; 
@@ -101,12 +104,6 @@ public class Person {
 	}
 	public void setFullPersonName(String fullPersonName) {
 		this.fullPersonName = fullPersonName;
-	}
-	public String getAddressFullText() {
-		return addressFullText;
-	}
-	public void setAddressFullText(String addressFullText) {
-		this.addressFullText = addressFullText;
 	}
 	public String getAddressCity() {
 		return addressCity;
@@ -308,6 +305,30 @@ public class Person {
 	public void setPersonImmigrationAlienQueryIndicator(
 			Boolean personImmigrationAlienQueryIndicator) {
 		this.personImmigrationAlienQueryIndicator = personImmigrationAlienQueryIndicator;
+	}
+	public String getAddressStreetName() {
+		return addressStreetName;
+	}
+	public void setAddressStreetName(String addressStreetName) {
+		this.addressStreetName = addressStreetName;
+	}
+	public String getAddressStreetNumber() {
+		return addressStreetNumber;
+	}
+	public void setAddressStreetNumber(String addressStreetNumber) {
+		this.addressStreetNumber = addressStreetNumber;
+	}
+	public String getAddressCounty() {
+		return addressCounty;
+	}
+	public void setAddressCounty(String addressCounty) {
+		this.addressCounty = addressCounty;
+	}
+	public String getAddressStreetFullText() {
+		return addressStreetFullText;
+	}
+	public void setAddressStreetFullText(String addressStreetFullText) {
+		this.addressStreetFullText = addressStreetFullText;
 	}
 
 

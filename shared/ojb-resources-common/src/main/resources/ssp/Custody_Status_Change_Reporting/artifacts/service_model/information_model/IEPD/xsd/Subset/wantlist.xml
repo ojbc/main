@@ -37,6 +37,7 @@
   <w:Element w:name="j:ChargeCategoryDescriptionText"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Detention" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:Evaluation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonCriminalHistorySummary"
     w:isReference="false" w:nillable="true"/>
@@ -63,6 +64,8 @@
   <w:Element w:name="nc:Location2DGeospatialCoordinate"
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Person" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:PersonAliasIdentityAssociation"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonResidentText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonSexText" w:isReference="false" w:nillable="false"/>
   <w:Type w:name="j:ActivityChargeAssociationType" w:isRequested="false">
@@ -127,6 +130,14 @@
   </w:Type>
   <w:Type w:name="j:DriverLicenseType" w:isRequested="false">
     <w:ElementInType w:name="j:DriverLicenseCardIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:EvaluationType" w:isRequested="false">
+    <w:ElementInType w:name="j:EvaluationDiagnosisDescriptionText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:EvaluationProvider" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="j:EvaluationAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:PersonAugmentationType" w:isRequested="false">
@@ -213,6 +224,10 @@
     <w:ElementInType w:name="nc:IdentificationAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:IdentityType" w:isRequested="false">
+    <w:ElementInType w:name="nc:IdentityPersonRepresentation"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+  </w:Type>
   <w:Type w:name="nc:LatitudeCoordinateType" w:isRequested="false">
     <w:ElementInType w:name="nc:LatitudeDegreeValue"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -240,6 +255,12 @@
   <w:Type w:name="nc:OrganizationType" w:isRequested="false">
     <w:ElementInType w:name="nc:OrganizationName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:PersonIdentityAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Person" w:isReference="false"
+      w:minOccurs="1" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:Identity" w:isReference="false"
+      w:minOccurs="1" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:PersonLanguageType" w:isRequested="false">
     <w:ElementInType w:name="nc:Language" w:isReference="false"
@@ -308,14 +329,14 @@
     <w:Facet w:facet="enumeration" w:value="W"/>
   </w:Type>
   <w:Type w:name="ncic:SEXCodeSimpleType" w:isRequested="false">
-    <w:Facet w:facet="enumeration" w:value="F"/>
     <w:Facet w:facet="enumeration" w:value="M"/>
+    <w:Facet w:facet="enumeration" w:value="F"/>
     <w:Facet w:facet="enumeration" w:value="U"/>
   </w:Type>
   <w:Type w:name="niem-xs:boolean" w:isRequested="true"/>
   <w:Type w:name="ucr:EthnicityCodeSimpleType" w:isRequested="false">
-    <w:Facet w:facet="enumeration" w:value="H"/>
     <w:Facet w:facet="enumeration" w:value="N"/>
+    <w:Facet w:facet="enumeration" w:value="H"/>
     <w:Facet w:facet="enumeration" w:value="U"/>
   </w:Type>
 </w:WantList>

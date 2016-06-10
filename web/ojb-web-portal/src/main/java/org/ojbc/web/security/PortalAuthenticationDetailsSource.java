@@ -66,15 +66,6 @@ public class PortalAuthenticationDetailsSource implements
     @Value("${criminal.identification.results.requestedresource:}")
     private String criminalIdentificationResultsResourceURI;
 
-    @Value("#{'${rapbackSearch.agencySuperUsers:}'.split(',')}")
-    private List<String> agencySuperUsers;
-
-    @Value("#{'${rapbackSearch.superUsers:}'.split(',')}")
-    private List<String> superUsers;
-    
-    @Value("#{'${rapbackSearch.civilAgencyOris:}'.split(',')}")
-    private List<String> civilAgencyOris;
-    
     @Autowired(required=false)
     private AccessControlServicesConfig accessControlServicesConfig; 
 
@@ -128,58 +119,17 @@ public class PortalAuthenticationDetailsSource implements
          */
         if (grantedAuthorities.contains(rolePortalUser)) {
             if(requireSubscriptionAccessControl) {
-                String userString = ori + "&" + principal;
             	
-            	if (superUsers.contains(userString) || agencySuperUsers.contains(userString)){
-                    grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CRIMINAL_ID_RESULTS.name())); 
-                    grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CIVIL_SUBSCRIPTION.name()));
-                    
-                    String accessControlResponseString = accessControlServicesConfig
-                    		.getIdentityBasedAccessControlServiceBean().invokeAccessControlRequest(
-                    				UUID.randomUUID().toString(), samlAssertion, criminalSubscriptionAccessControlResourceURI);
-                    Assert.notNull(accessControlResponseString); 
-                    
-                    grantOrDenyAuthority(grantedAuthorities, accessControlResponseString,
-                    		criminalSubscriptionAccessControlResourceURI, Authorities.AUTHZ_CRIMINAL_SUBSCRIPTION);
-            	}
-            	else if (civilAgencyOris.contains(ori)){
-                    grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CIVIL_SUBSCRIPTION.name()));
-            		
-                    String accessControlResponseString = accessControlServicesConfig
-                    		.getIdentityBasedAccessControlServiceBean().invokeAccessControlRequest(
-                    				UUID.randomUUID().toString(), samlAssertion, 
-                    				criminalSubscriptionAccessControlResourceURI,
-                    				civilSubscriptionAccessControlResourceURI);
-                    Assert.notNull(accessControlResponseString); 
-                    
-                    /*
-                     * Grant the "Criminal Subscription" access only if accessDenied is "false"
-                     */
-                    grantOrDenyAuthority(grantedAuthorities, accessControlResponseString, 
-                    		criminalSubscriptionAccessControlResourceURI, Authorities.AUTHZ_CRIMINAL_SUBSCRIPTION);
-                    grantOrDenyAuthority(grantedAuthorities, accessControlResponseString, 
-                    		civilSubscriptionAccessControlResourceURI, Authorities.AUTHZ_CIVIL_SUBSCRIPTION);
-            	}
-            	else{
-                    String accessControlResponseString = accessControlServicesConfig
-                    		.getIdentityBasedAccessControlServiceBean().invokeAccessControlRequest(
-                    				UUID.randomUUID().toString(), samlAssertion, 
-                    				criminalSubscriptionAccessControlResourceURI,
-                    				criminalIdentificationResultsResourceURI, 
-                    				civilSubscriptionAccessControlResourceURI);
-                    Assert.notNull(accessControlResponseString); 
-                    
-                    /*
-                     * Grant the "Criminal Subscription" access only if accessDenied is "false"
-                     */
-                    grantOrDenyAuthority(grantedAuthorities, accessControlResponseString, 
-                    		criminalSubscriptionAccessControlResourceURI, Authorities.AUTHZ_CRIMINAL_SUBSCRIPTION);
-                    grantOrDenyAuthority(grantedAuthorities, accessControlResponseString, 
-                    		civilSubscriptionAccessControlResourceURI, Authorities.AUTHZ_CIVIL_SUBSCRIPTION);
-                    grantOrDenyAuthority(grantedAuthorities, accessControlResponseString, 
-                    		criminalIdentificationResultsResourceURI, Authorities.AUTHZ_CRIMINAL_ID_RESULTS);
-                    
-            	}
+                grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CRIMINAL_ID_RESULTS.name())); 
+                grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CIVIL_SUBSCRIPTION.name()));
+                
+                String accessControlResponseString = accessControlServicesConfig
+                		.getIdentityBasedAccessControlServiceBean().invokeAccessControlRequest(
+                				UUID.randomUUID().toString(), samlAssertion, criminalSubscriptionAccessControlResourceURI);
+                Assert.notNull(accessControlResponseString); 
+                
+                grantOrDenyAuthority(grantedAuthorities, accessControlResponseString,
+                		criminalSubscriptionAccessControlResourceURI, Authorities.AUTHZ_CRIMINAL_SUBSCRIPTION);
             }
             else {
                 grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CRIMINAL_SUBSCRIPTION.name())); 

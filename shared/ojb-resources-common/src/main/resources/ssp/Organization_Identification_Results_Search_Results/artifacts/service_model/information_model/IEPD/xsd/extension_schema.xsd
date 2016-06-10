@@ -35,8 +35,8 @@
 				<xsd:sequence>
 					<xsd:element ref="oirs-res-ext:OrganizationIdentificationResultsSearchResult" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
-					<xsd:element ref="nc:EntityOrganization" minOccurs="0"/>
-					<xsd:element ref="nc:ContactInformationAssociation" minOccurs="0"/>
+					<xsd:element ref="nc:EntityOrganization" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:ContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -56,6 +56,7 @@
 				<xsd:sequence>
 					<xsd:element ref="oirs-res-ext:IdentifiedPerson" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="oirs-res-ext:IdentificationResultStatusRepresentation"/>
+					<xsd:element ref="oirs-res-ext:IdentificationRequestingOrganization" />
 					<xsd:element ref="oirs-res-ext:Subscription" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:SubsequentResultsAvailableIndicator" minOccurs="0"/>
 					<xsd:element ref="oirs-res-ext:IdentificationReasonRepresentation" minOccurs="0"/>
@@ -160,7 +161,11 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType"/>
+	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to a person that has been identified.  Some jurisdictions refer to this as an OTN.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="IdentifiedPerson" type="oirs-res-ext:IdentifiedPersonType">
 		<xsd:annotation>
 			<xsd:documentation>
@@ -217,12 +222,12 @@
 	</xsd:element>
 	<xsd:element name="IdentificationResultStatusRepresentation" abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>A state of a specific identifixat</xsd:documentation>
+			<xsd:documentation>A state of a specific identification.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="IdentificationResultStatusCode" type="oirs-res-ext:IdentificationResultStatusCodeType" substitutionGroup="oirs-res-ext:IdentificationResultStatusRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A state of a specific identifixat</xsd:documentation>
+			<xsd:documentation>A code for a state of a specific identification.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="IdentificationResultStatusCodeType">
@@ -325,6 +330,12 @@
 	<xsd:element name="IdentificationReportedDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>The date that a person's identification was reported by an identifying authority.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="IdentificationRequestingOrganization" type="nc:OrganizationType" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>The organization that requested identification of an individual.  </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	

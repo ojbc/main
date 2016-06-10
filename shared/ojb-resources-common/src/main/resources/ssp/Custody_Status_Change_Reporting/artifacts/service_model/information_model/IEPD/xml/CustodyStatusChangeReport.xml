@@ -166,7 +166,48 @@
 			</j:PersonAugmentation>
 			<cscr-ext:PersonSocioEconomicStatusDescriptionText>Middle Class
 			</cscr-ext:PersonSocioEconomicStatusDescriptionText>
+			<cscr-ext:PersonPersistentIdentification>
+				<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
+				</nc:IdentificationID>
+			</cscr-ext:PersonPersistentIdentification>
 		</nc:Person>
+		<nc:Identity structures:id="ALIAS001">
+			<nc:IdentityPersonRepresentation>
+				<nc:PersonBirthDate>
+					<nc:Date>1960-10-07</nc:Date>
+				</nc:PersonBirthDate>
+				<nc:PersonName>
+					<nc:PersonGivenName>Walter</nc:PersonGivenName>
+					<nc:PersonSurName>Heisenberg</nc:PersonSurName>
+				</nc:PersonName>
+				<j:PersonSexCode>M</j:PersonSexCode>
+			</nc:IdentityPersonRepresentation>
+		</nc:Identity>
+		<nc:Identity structures:id="ALIAS002">
+			<nc:IdentityPersonRepresentation>
+				<nc:PersonBirthDate>
+					<nc:Date>1959-09-07</nc:Date>
+				</nc:PersonBirthDate>
+				<nc:PersonName>
+					<nc:PersonGivenName>Walt</nc:PersonGivenName>
+					<nc:PersonMiddleName>Hartwell</nc:PersonMiddleName>
+					<nc:PersonSurName>Jackson</nc:PersonSurName>
+				</nc:PersonName>
+				<j:PersonSexCode>M</j:PersonSexCode>
+			</nc:IdentityPersonRepresentation>
+		</nc:Identity>
+		<nc:Identity structures:id="ALIAS003">
+			<nc:IdentityPersonRepresentation>
+				<nc:PersonBirthDate>
+					<nc:Date>1961-09-09</nc:Date>
+				</nc:PersonBirthDate>
+				<nc:PersonName>
+					<nc:PersonGivenName>Walt</nc:PersonGivenName>
+					<nc:PersonSurName>White</nc:PersonSurName>
+				</nc:PersonName>
+				<j:PersonSexCode>M</j:PersonSexCode>
+			</nc:IdentityPersonRepresentation>
+		</nc:Identity>
 		<nc:Location structures:id="Loc_01">
 			<nc:Address>
 				<nc:AddressFullText>30 Main Street Denton, Colorada
@@ -181,6 +222,12 @@
 				</nc:GeographicCoordinateLongitude>
 			</nc:Location2DGeospatialCoordinate>
 		</nc:Location>
+		<cscr-ext:BehavioralHealthInformation>
+			<cscr-ext:SeriousMentalIllnessIndicator>true</cscr-ext:SeriousMentalIllnessIndicator>
+			<j:Evaluation>
+				<j:EvaluationDiagnosisDescriptionText>schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
+			</j:Evaluation>
+		</cscr-ext:BehavioralHealthInformation>
 		<j:ActivityChargeAssociation>
 			<nc:Activity structures:ref="Case_01" />
 			<nc:Activity structures:ref="Booking_01" />
@@ -195,5 +242,11 @@
 			<j:BailBond structures:ref="Bond_01" />
 			<j:Charge structures:ref="Charge_01" />
 		</j:BailBondChargeAssociation>
+		<nc:PersonAliasIdentityAssociation>
+			<nc:Person structures:ref="Person_01" />
+			<nc:Identity structures:ref="ALIAS001" />
+			<nc:Identity structures:ref="ALIAS002" />
+			<nc:Identity structures:ref="ALIAS003" />
+		</nc:PersonAliasIdentityAssociation>
 	</cscr-ext:Custody>
 </cscr-doc:CustodyStatusChangeReport>
