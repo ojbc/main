@@ -342,13 +342,17 @@ public class RapbackDAOImplTest {
 		assertEquals(1, transactionsForSuperUserWithSubscribedOrArchivedLisa.size());
 		
 		searchRequest.setFirstName(null);
+		status.clear();
+		status.add(IdentificationTransactionState.Available_for_Subscription.toString());
+		status.add(IdentificationTransactionState.Subscribed.toString());
 		searchRequest.setIdentificationTransactionStatus(null);
-		searchRequest.setReportedDateStartDate(LocalDate.parse("2015-10-20"));
-		searchRequest.setReportedDateEndDate(LocalDate.parse("2016-10-19"));
+		searchRequest.setReportedDateStartDate(LocalDate.parse("2013-10-20"));
+		searchRequest.setReportedDateEndDate(LocalDate.parse("2016-06-10"));
+		searchRequest.setIdentificationResultCategory("Civil");
 
 		List<IdentificationTransaction> transactionsForSuperUserWithDateRangeCriteria = 
 				rapbackDAO.getCivilIdentificationTransactions(samlAssertionSuperUser, searchRequest);
-		assertEquals(1, transactionsForSuperUserWithDateRangeCriteria.size());
+		assertEquals(2, transactionsForSuperUserWithDateRangeCriteria.size());
 
 		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:civilruser");
 		customAttributes.put(SamlAttribute.EmployerORI, "68796860");

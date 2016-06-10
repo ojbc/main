@@ -169,7 +169,7 @@ public class RapbackSearchProcessor {
         return document;
     }
 
-    private IdentificationResultSearchRequest getSearchRequestFromXml(Document report) throws Exception{
+    public IdentificationResultSearchRequest getSearchRequestFromXml(Document report) throws Exception{
         IdentificationResultSearchRequest searchRequest = new IdentificationResultSearchRequest();
         Node requestRoot = XmlUtils.xPathNodeSearch(report, "/oirs-req-doc:OrganizationIdentificationResultsSearchRequest");
         String resultCategoryCode = XmlUtils.xPathStringSearch(requestRoot, "oirs-req-ext:IdentificationResultsCategoryCode");
@@ -190,14 +190,14 @@ public class RapbackSearchProcessor {
 			IdentificationResultSearchRequest searchRequest, Node requestRoot) throws Exception {
 		Node personNode = XmlUtils.xPathNodeSearch(requestRoot, "nc30:Person");
 		if (personNode != null){
-			String personGivenName = XmlUtils.xPathStringSearch(personNode, "nc30:personName/nc30:PersonGivenName"); 
+			String personGivenName = XmlUtils.xPathStringSearch(personNode, "nc30:PersonName/nc30:PersonGivenName"); 
 			searchRequest.setFirstName(StringUtils.trimToNull(personGivenName));
-			String personSurName = XmlUtils.xPathStringSearch(personNode, "nc30:personName/nc30:PersonSurnName"); 
+			String personSurName = XmlUtils.xPathStringSearch(personNode, "nc30:PersonName/nc30:PersonSurName"); 
 			searchRequest.setLastName(StringUtils.trimToNull(personSurName));
 			
 			String otn = XmlUtils.xPathStringSearch(personNode, 
 					"oirs-req-ext:IdentifiedPersonTrackingIdentification/nc30:IdentificationID");
-			searchRequest.setLastName(StringUtils.trimToNull(otn));
+			searchRequest.setOtn(StringUtils.trimToNull(otn));
 		}
 		
 	}
@@ -255,7 +255,7 @@ public class RapbackSearchProcessor {
 	                Element statusElement = (Element) statusCodeNodes.item(i);
 	                
 	                if (StringUtils.isNotBlank(statusElement.getTextContent())){
-	                	status.add(statusElement.getTextContent());
+	                	status.add(StringUtils.normalizeSpace(statusElement.getTextContent()));
 	                }
 	            }
 	        }
