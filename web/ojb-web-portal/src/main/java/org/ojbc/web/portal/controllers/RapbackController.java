@@ -80,6 +80,8 @@ public class RapbackController {
 	
 	private Map<String, String> identificationResultStatusCodeMap = 
 			new HashMap<String, String>();
+	private Map<String, String> criminalIdentificationStatusCodeMap = 
+			new HashMap<String, String>();
 	private Map<String, String> criminalIdentificationReasonCodeMap = 
 			new HashMap<String, String>();
 	private Map<String, String> civilIdentificationReasonCodeMap = 
@@ -115,7 +117,12 @@ public class RapbackController {
 		for (CivilIdentificationReasonCode civillReasonCode : CivilIdentificationReasonCode.values()){
 			civilIdentificationReasonCodeMap.put(civillReasonCode.name(), civillReasonCode.getDescription());
 		}
+		
+		criminalIdentificationStatusCodeMap.put(IdentificationTransactionState.Available_for_Subscription.toString(), "Not archived");
+		criminalIdentificationStatusCodeMap.put(IdentificationTransactionState.Archived.toString(), "Archived");
+		
         model.addAttribute("identificationResultStatusCodeMap", identificationResultStatusCodeMap);
+        model.addAttribute("criminalIdentificationStatusCodeMap", criminalIdentificationStatusCodeMap);
         model.addAttribute("criminalIdentificationReasonCodeMap", criminalIdentificationReasonCodeMap);
         model.addAttribute("civilIdentificationReasonCodeMap", civilIdentificationReasonCodeMap);
 	}
@@ -173,6 +180,48 @@ public class RapbackController {
 		return performRapbackSearchAndReturnResult(request, model, rapbackSearchRequest);
 	}
 
+	@RequestMapping(value = "criminalIdentificationAdvancedSearch", method = RequestMethod.POST)
+	public String criminalIdentificationAdvancedSearch(HttpServletRequest request,
+			@ModelAttribute("criminalIdentificationSearchRequest") IdentificationResultSearchRequest searchRequest,
+			BindingResult errors, Map<String, Object> model) throws Exception {
+		
+		if (errors.hasErrors()) {
+			model.put("errors", errors);
+			return "rapbacks/_criminalIdentificationSearchForm";
+		}
+		
+		return performCriminalIdentificationSearchAndReturnResult(request, model, searchRequest);
+	}
+	
+
+	private String performCriminalIdentificationSearchAndReturnResult(
+			HttpServletRequest request, Map<String, Object> model,
+			IdentificationResultSearchRequest searchRequest) {
+		Element samlElement = samlService.getSamlAssertion(request);
+		
+		String informationMessage = "";
+		
+		String rawResults = "";
+		try {
+			rawResults = config.getRapbackSearchBean()
+					.invokeRapbackSearchRequest(searchRequest, samlElement);
+		} catch (Exception e) {
+			informationMessage="Failed to process the request.";
+			e.printStackTrace();
+		}
+		
+		logger.debug("Criminal Identification search results raw xml:\n" + rawResults);
+		model.put("criminalIdentificationSearchResults", rawResults);
+		
+		String transformedResults = searchResultConverter.convertCriminalIdentificationSearchResult(rawResults);
+		logger.debug("Criminal Identification Results HTML:\n" + transformedResults);
+		
+		model.put("searchContent", transformedResults);
+		
+		model.put("informationMessages", informationMessage);
+		
+		return "rapbacks/_criminalIdentificationResults";
+	}
 
 	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
 	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
@@ -187,6 +236,19 @@ public class RapbackController {
 		return "rapbacks/_searchForm";
 	}
 
+	@RequestMapping(value = "criminalIdentificationSearchForm", method = RequestMethod.GET)
+	public String criminalIdentificationSearchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+			Map<String, Object> model) {
+		
+		if (resetForm) {
+			IdentificationResultSearchRequest searchRequest = new IdentificationResultSearchRequest();
+			searchRequest.setIdentificationResultCategory(IdentificationResultCategory.Criminal.name());
+			model.put("criminalIdentificationSearchRequest", searchRequest);
+		} 
+		
+		return "rapbacks/_criminalIdentificationSearchForm";
+	}
+	
 	private IdentificationResultSearchRequest getDefaultCivilIdentificationSearchRequest() {
 		IdentificationResultSearchRequest searchRequest = new IdentificationResultSearchRequest();
 		searchRequest.setIdentificationResultCategory(IdentificationResultCategory.Civil.name());
@@ -415,32 +477,10 @@ public class RapbackController {
 	public String criminalIdentificationResults(HttpServletRequest request,	        
 			Map<String, Object> model) {		
 		
-		Element samlElement = samlService.getSamlAssertion(request);
+		IdentificationResultSearchRequest criminalIdentificationSearchRequest= getDefaultCriminallIdentificationSearchRequest();
+		model.put("criminalIdentificationSearchRequest", criminalIdentificationSearchRequest);
 		
-		String informationMessage = "";
-		
-		String rawResults = "";
-		try {
-			IdentificationResultSearchRequest criminalIdentificationSearchRequest= getDefaultCriminallIdentificationSearchRequest();
-			rawResults = config.getRapbackSearchBean()
-					.invokeRapbackSearchRequest(getDefaultCriminallIdentificationSearchRequest(), samlElement);
-			model.put("criminalIdentificationSearchRequest", criminalIdentificationSearchRequest);
-		} catch (Exception e) {
-			informationMessage="Failed to process the request.";
-			e.printStackTrace();
-		}
-		
-		logger.debug("Criminal Identification search results raw xml:\n" + rawResults);
-		model.put("criminalIdentificationSearchResults", rawResults);
-		
-		String transformedResults = searchResultConverter.convertCriminalIdentificationSearchResult(rawResults);
-		logger.debug("Criminal Identification Results HTML:\n" + transformedResults);
-		
-		model.put("searchContent", transformedResults);
-		
-		model.put("informationMessages", informationMessage);
-		
-		return "rapbacks/_criminalIdentificationResults";
+		return performCriminalIdentificationSearchAndReturnResult(request, model, criminalIdentificationSearchRequest);
 	}
 	
 }
