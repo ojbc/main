@@ -23,6 +23,7 @@ import static org.ojbc.web.OjbcWebConstants.TOPIC_PERSON_ARREST;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +41,8 @@ import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.Unsubscription;
 import org.ojbc.web.SubscriptionInterface;
 import org.ojbc.web.model.SimpleServiceResponse;
+import org.ojbc.web.model.identificationresult.search.CivilIdentificationReasonCode;
+import org.ojbc.web.model.identificationresult.search.CriminalIdentificationReasonCode;
 import org.ojbc.web.model.identificationresult.search.IdentificationResultsQueryResponse;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
@@ -51,6 +54,7 @@ import org.ojbc.web.security.DocumentUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,12 +69,21 @@ import org.w3c.dom.NodeList;
 
 @Controller
 @Profile({"rapback-search","initial-results-query","standalone"})
-@SessionAttributes({"rapbackSearchResults", "criminalIdentificationSearchResults", "rapbackSearchRequest", "criminalIdentificationSearchRequest"})
+@SessionAttributes({"rapbackSearchResults", "criminalIdentificationSearchResults", "rapbackSearchRequest", 
+	"criminalIdentificationSearchRequest", "identificationResultStatusCodeMap", 
+	"criminalIdentificationReasonCodeMap", "civilIdentificationReasonCodeMap"})
 @RequestMapping("/rapbacks")
 public class RapbackController {
 	
 	private Log logger = LogFactory.getLog(this.getClass());
 	
+	
+	private Map<String, String> identificationResultStatusCodeMap = 
+			new HashMap<String, String>();
+	private Map<String, String> criminalIdentificationReasonCodeMap = 
+			new HashMap<String, String>();
+	private Map<String, String> civilIdentificationReasonCodeMap = 
+			new HashMap<String, String>();
 	@Resource
 	SamlService samlService;
 		
@@ -88,6 +101,24 @@ public class RapbackController {
     
     @Value("${rapbackSearchDateRange:1095}")
     Integer rapbackSearchDateRange;
+    
+    @ModelAttribute
+    public void addModelAttributes(Model model) {
+		for (IdentificationTransactionState state : IdentificationTransactionState.values()){
+			identificationResultStatusCodeMap.put(state.toString(), state.toString());
+		}
+		
+		for (CriminalIdentificationReasonCode criminalReasonCode : CriminalIdentificationReasonCode.values()){
+			criminalIdentificationReasonCodeMap.put(criminalReasonCode.name(), criminalReasonCode.getDescription());
+		}
+		
+		for (CivilIdentificationReasonCode civillReasonCode : CivilIdentificationReasonCode.values()){
+			civilIdentificationReasonCodeMap.put(civillReasonCode.name(), civillReasonCode.getDescription());
+		}
+        model.addAttribute("identificationResultStatusCodeMap", identificationResultStatusCodeMap);
+        model.addAttribute("criminalIdentificationReasonCodeMap", criminalIdentificationReasonCodeMap);
+        model.addAttribute("civilIdentificationReasonCodeMap", civilIdentificationReasonCodeMap);
+	}
     
 	@RequestMapping(value = "/rapbackResults", method = RequestMethod.POST)
 	public String searchForm(HttpServletRequest request,	        
@@ -149,6 +180,7 @@ public class RapbackController {
 
 		if (resetForm) {
 			IdentificationResultSearchRequest rapbackSearchRequest = new IdentificationResultSearchRequest();
+			rapbackSearchRequest.setIdentificationResultCategory(IdentificationResultCategory.Civil.name());
 			model.put("rapbackSearchRequest", rapbackSearchRequest);
 		} 
 
