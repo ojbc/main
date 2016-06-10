@@ -243,6 +243,7 @@
           <xs:element ref="j:SupervisionAreaIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SupervisionBedIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SupervisionCellIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SupervisionCondition" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -432,7 +433,7 @@
       <xs:documentation>A gender or sex of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="PersonStateFingerprintIdentification" type="nc:IdentificationType">
+  <xs:element name="PersonStateFingerprintIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An identifier assigned to a person by a state identification bureau, generally based on submission of the person's fingerprints to the state's Automated Fingerprint Identification System (AFIS).</xs:documentation>
     </xs:annotation>
@@ -475,6 +476,11 @@
   <xs:element name="SupervisionCellIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An identification of a cell housing within a supervision facility a subject is assigned.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SupervisionCondition" type="nc:ConditionType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A condition that must be met for a person to remain in supervision.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="SupervisionReleaseDate" type="nc:DateType" nillable="true">
