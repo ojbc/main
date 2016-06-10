@@ -300,13 +300,9 @@ public class RapbackDAOImplTest {
 		status.add(IdentificationTransactionState.Subscribed.toString());
 		searchRequest.setIdentificationTransactionStatus(status);
 		
-		List<IdentificationTransaction> transactionsForSuperUserWithStatusCriteria = 
-				rapbackDAO.getCivilIdentificationTransactions(samlAssertionSuperUser, searchRequest);
-		assertEquals(4, transactionsForSuperUserWithStatusCriteria.size());
-		
-		
 		List<String> reasonCodes = new ArrayList<String>();
-		reasonCodes.add("J");
+		reasonCodes.add("F");
+		reasonCodes.add("I");
 		searchRequest.setCivilIdentificationReasonCodes(reasonCodes);
 
 		List<IdentificationTransaction> transactionsForSuperUserWithReasonCode = 
