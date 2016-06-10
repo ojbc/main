@@ -627,6 +627,8 @@ public class RequestMessageBuilderUtilities {
         		OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT);
         rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_STRUCTURES_30, 
         		OjbcNamespaceContext.NS_STRUCTURES_30);
+        rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_NC_30, 
+        		OjbcNamespaceContext.NS_NC_30);
 
         appendIdentificationSearchRequestPerson(searchRequest, rootElement);
         appendIdentificationReportedDateRange(searchRequest, rootElement);

@@ -589,7 +589,6 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return DataAccessUtils.singleResult(ids);
 	}
 
-	//TODO incorporate the search criteria in the search request into the sql string. 
 	@Override
 	public List<IdentificationTransaction> getCivilIdentificationTransactions(
 			SAMLTokenPrincipal token, IdentificationResultSearchRequest searchRequest) {
@@ -603,8 +602,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
 				+ "WHERE (select count(*)>0 from "
 				+ "	civil_initial_results c where c.transaction_number = t.transaction_number) "
-				+ "	AND (:firstName is null OR s.first_name = :firstName) "
-				+ " AND (:lastName is null OR s.last_name = :lastName ) "
+				+ "	AND (:firstName is null OR upper(s.first_name) like concat(upper(:firstName), '%')) "
+				+ " AND (:lastName is null OR upper(s.last_name) like concat(upper(:lastName), '%' ) )"
 				+ "	AND (:otn is null OR t.otn = :otn ) "
 				+ "	AND (:startDate is null OR t.report_timestamp >= :startDate ) "
 				+ "	AND (:endDate is null OR t.report_timestamp <= :endDate ) "
@@ -614,7 +613,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "	AND (:identificationReasonCode is null OR identification_category in (:identificationReasonCode)) ");
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>(); 
-		paramMap.put("firstName", searchRequest.getFirstName());
+		paramMap.put("firstName", searchRequest.getFirstName() );
 		paramMap.put("lastName", searchRequest.getLastName()); 
 		paramMap.put("otn", searchRequest.getOtn()); 
 		paramMap.put("startDate", toSqlDate(searchRequest.getReportedDateStartDate())); 
@@ -740,8 +739,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 		
 		sqlStringBuilder.append(" (select count(*)>0 from criminal_initial_results c where c.transaction_number = t.transaction_number) ");
 		sqlStringBuilder.append(
-				  "	AND (:firstName is null OR s.first_name = :firstName) "
-				+ " AND (:lastName is null OR s.last_name = :lastName ) "
+				  " AND (:firstName is null OR upper(s.first_name) like concat(upper(:firstName), '%')) "
+				+ " AND (:lastName is null OR upper(s.last_name) like concat(upper(:lastName), '%' ) )"
 				+ "	AND (:otn is null OR t.otn = :otn ) "
 				+ "	AND (:startDate is null OR t.report_timestamp >= :startDate ) "
 				+ "	AND (:endDate is null OR t.report_timestamp <= :endDate ) "
