@@ -346,8 +346,8 @@ public class RapbackDAOImplTest {
 		status.add(IdentificationTransactionState.Available_for_Subscription.toString());
 		status.add(IdentificationTransactionState.Subscribed.toString());
 		searchRequest.setIdentificationTransactionStatus(null);
-		searchRequest.setReportedDateStartDate(LocalDate.parse("2013-10-20"));
-		searchRequest.setReportedDateEndDate(LocalDate.parse("2016-06-10"));
+		searchRequest.setReportedDateStartLocalDate(LocalDate.parse("2013-10-20"));
+		searchRequest.setReportedDateEndLocalDate(LocalDate.parse("2016-06-10"));
 		searchRequest.setIdentificationResultCategory("Civil");
 
 		List<IdentificationTransaction> transactionsForSuperUserWithDateRangeCriteria = 
