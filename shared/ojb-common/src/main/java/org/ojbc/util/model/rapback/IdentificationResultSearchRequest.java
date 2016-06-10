@@ -17,12 +17,15 @@
 package org.ojbc.util.model.rapback;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 public class IdentificationResultSearchRequest implements Serializable{
@@ -31,8 +34,10 @@ public class IdentificationResultSearchRequest implements Serializable{
 	
 	private String identificationResultCategory;
 	private List<String> identificationTransactionStatus = new ArrayList<String>();  
-	private LocalDate reportedDateStartDate; 
-	private LocalDate reportedDateEndDate;
+	@DateTimeFormat(pattern="MM/dd/yyyy")
+	private Date reportedDateStartDate; 
+	@DateTimeFormat(pattern="MM/dd/yyyy")
+	private Date reportedDateEndDate;
 	
 	private String firstName; 
 	private String lastName; 
@@ -63,20 +68,24 @@ public class IdentificationResultSearchRequest implements Serializable{
 		this.identificationTransactionStatus = identificationTransactionStatus;
 	}
 
-	public LocalDate getReportedDateStartDate() {
-		return reportedDateStartDate;
+	public LocalDate getReportedDateStartLocalDate() {
+		return getReportedDateStartDate() == null? null
+				:reportedDateStartDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	}
+	
+	public void setReportedDateStartLocalDate(LocalDate localDate){
+		this.reportedDateStartDate = localDate == null? null :
+			Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 
-	public void setReportedDateStartDate(LocalDate reportedDateStartDate) {
-		this.reportedDateStartDate = reportedDateStartDate;
+	public void setReportedDateEndLocalDate(LocalDate localDate){
+		this.reportedDateEndDate = localDate == null? null :
+			Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
-
-	public LocalDate getReportedDateEndDate() {
-		return reportedDateEndDate;
-	}
-
-	public void setReportedDateEndDate(LocalDate reportedDateEndDate) {
-		this.reportedDateEndDate = reportedDateEndDate;
+	
+	public LocalDate getReportedDateEndLocalDate() {
+		return getReportedDateEndDate() == null? null
+				:reportedDateEndDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 
 	public String getFirstName() {
@@ -119,6 +128,22 @@ public class IdentificationResultSearchRequest implements Serializable{
 	public void setCriminalIdentificationReasonCodes(
 			List<String> criminalIdentificationReasonCodes) {
 		this.criminalIdentificationReasonCodes = criminalIdentificationReasonCodes;
+	}
+
+	public Date getReportedDateStartDate() {
+		return reportedDateStartDate;
+	}
+
+	public void setReportedDateStartDate(Date reportedDateStartDate) {
+		this.reportedDateStartDate = reportedDateStartDate;
+	}
+
+	public Date getReportedDateEndDate() {
+		return reportedDateEndDate;
+	}
+
+	public void setReportedDateEndDate(Date reportedDateEndDate) {
+		this.reportedDateEndDate = reportedDateEndDate;
 	}
     
 }
