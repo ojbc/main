@@ -118,8 +118,8 @@ public class RapbackSearchProcessorTest {
         log.info(searchRequest);
         assertNull(searchRequest.getIdentificationResultCategory());
         assertArrayEquals(new String[]{"Available for Subscription", "Subscribed"}, searchRequest.getIdentificationTransactionStatus().toArray() );
-        assertEquals(LocalDate.parse("2011-01-01"), searchRequest.getReportedDateStartDate());
-        assertEquals(LocalDate.parse("2016-01-01"), searchRequest.getReportedDateEndDate());
+        assertEquals(LocalDate.parse("2011-01-01"), searchRequest.getReportedDateStartLocalDate());
+        assertEquals(LocalDate.parse("2016-01-01"), searchRequest.getReportedDateEndLocalDate());
         assertEquals("Walter", searchRequest.getFirstName());
         assertEquals("White", searchRequest.getLastName());
         assertEquals("12345678", searchRequest.getOtn());

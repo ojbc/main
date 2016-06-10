@@ -271,12 +271,12 @@ public class RapbackSearchProcessor {
 		String startDateString = XmlUtils.xPathStringSearch(requestRoot, 
         		"oirs-req-ext:IdentificationReportedDateRange/nc30:StartDate/nc30:Date");
         if (StringUtils.isNotBlank(startDateString)){
-        	searchRequest.setReportedDateStartDate(LocalDate.parse(startDateString));
+        	searchRequest.setReportedDateStartLocalDate(LocalDate.parse(startDateString));
         }
         String endDateString = XmlUtils.xPathStringSearch(requestRoot, 
         		"oirs-req-ext:IdentificationReportedDateRange/nc30:EndDate/nc30:Date");
         if (StringUtils.isNotBlank(endDateString)){
-        	searchRequest.setReportedDateEndDate(LocalDate.parse(endDateString));
+        	searchRequest.setReportedDateEndLocalDate(LocalDate.parse(endDateString));
         }
 	}
 	private Set<String> getDistinctOris(
