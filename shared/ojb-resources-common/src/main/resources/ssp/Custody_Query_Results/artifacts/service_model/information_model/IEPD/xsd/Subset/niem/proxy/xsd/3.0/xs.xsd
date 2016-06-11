@@ -22,16 +22,6 @@
     <xs:documentation>Proxy types that carry dictionary metadata and have XML data type simple contents.</xs:documentation>
   </xs:annotation>
   <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
-  <xs:complexType name="base64Binary">
-    <xs:annotation>
-      <xs:documentation>A data type for Base64-encoded binary data.</xs:documentation>
-    </xs:annotation>
-    <xs:simpleContent>
-      <xs:extension base="xs:base64Binary">
-        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
   <xs:complexType name="boolean">
     <xs:annotation>
       <xs:documentation>A data type for binary-valued logic (true/false).</xs:documentation>
@@ -68,6 +58,16 @@
     </xs:annotation>
     <xs:simpleContent>
       <xs:extension base="xs:decimal">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="integer">
+    <xs:annotation>
+      <xs:documentation>A data type for the standard mathematical concept of integer numbers.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:integer">
         <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
       </xs:extension>
     </xs:simpleContent>

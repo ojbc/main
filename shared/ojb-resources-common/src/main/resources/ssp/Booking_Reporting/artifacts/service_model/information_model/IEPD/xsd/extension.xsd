@@ -17,96 +17,166 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0" xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0" elementFormDefault="qualified">
-	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.1/" schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.1/" schemaLocation="./Subset/niem/domains/cyfs/3.1/cyfs.xsd"/>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
+	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
+		schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/"
+		schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.1/"
+		schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.1/"
+		schemaLocation="./Subset/niem/domains/cyfs/3.1/cyfs.xsd" />
 	<xsd:complexType name="BookingReportType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for set of details associated with a booking.</xsd:documentation>
+			<xsd:documentation>A data type for set of details associated with a
+				booking.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="intel:SystemIdentification" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="1"/>
-					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:Detention" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:BailBond" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:PersonCriminalHistorySummary" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="cyfs:NextCourtEvent" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:Identity" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="br-ext:BehavioralHealthInformation" minOccurs="0"/>
-					<xsd:element ref="j:ActivityChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:BailBondChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:PersonAliasIdentityAssociation" minOccurs="0"/>
+					<xsd:element ref="intel:SystemIdentification"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Detention" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:BailBond" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:PersonCriminalHistorySummary"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="cyfs:NextCourtEvent" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Identity" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ContactInformation" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="br-ext:BehavioralHealthInformation"
+						minOccurs="0" />
+					<xsd:element ref="j:ActivityChargeAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:BailBondChargeAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonAliasIdentityAssociation"
+						minOccurs="0" />
+					<xsd:element ref="nc:ContactInformationAssociation"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="BehavioralHealthInformationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for information about a person's behavioral health.</xsd:documentation>
+			<xsd:documentation>A data type for information about a person's
+				behavioral health.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="br-ext:SeriousMentalIllnessIndicator"/>
-					<xsd:element ref="j:Evaluation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="br-ext:SeriousMentalIllnessIndicator" />
+					<xsd:element ref="j:Evaluation" minOccurs="0"
+						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="HoldForAgency" type="nc:OrganizationType" substitutionGroup="nc:SupervisionAugmentationPoint">
+	<xsd:element name="HoldForAgency" type="nc:OrganizationType"
+		substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>An agency for whom a subject is being held.</xsd:documentation>
+			<xsd:documentation>An agency for whom a subject is being held.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DetentiontImmigrationHoldIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
+	<xsd:element name="DetentiontImmigrationHoldIndicator"
+		type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if a subject is being held for an immigration violation; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if a subject is being held for an immigration
+				violation; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonSocioEconomicStatusDescriptionText" type="nc:TextType" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="PersonSocioEconomicStatusDescriptionText"
+		type="nc:TextType" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A description of a person's income level.</xsd:documentation>
+			<xsd:documentation>A description of a person's income level.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="InmateWorkReleaseIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
+	<xsd:element name="InmateWorkReleaseIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if an inmate is on work release; false otherwise</xsd:documentation>
+			<xsd:documentation>True if an inmate is on work release; false
+				otherwise</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="InmateWorkerIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
+	<xsd:element name="InmateWorkerIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if an inmate is a worker in the facility; false otherwise</xsd:documentation>
+			<xsd:documentation>True if an inmate is a worker in the facility;
+				false otherwise</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonNameIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonNameAugmentationPoint">
+	<xsd:element name="PersonNameIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonNameAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A unique identifier assigned to a person's name.</xsd:documentation>
+			<xsd:documentation>A unique identifier assigned to a person's name.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonPersistentIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="PersonPersistentIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A unique and timeless identifier assigned to an individual and always belongs to that individual. This allows for identifying activities and information that belong to a person without always needing to share PII about that individual. </xsd:documentation>
+			<xsd:documentation>A unique and timeless identifier assigned to an
+				individual and always belongs to that individual. This allows for
+				identifying activities and information that belong to a person
+				without always needing to share PII about that individual.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="BehavioralHealthInformation" type="br-ext:BehavioralHealthInformationType">
 		<xsd:annotation>
-			<xsd:documentation>A short-lived identifier intended to allow for linking between a search request and search results.  This identifier should have been included in the original search request message and should be included in this message, unaltered.</xsd:documentation>
+			<xsd:documentation>A short-lived identifier intended to allow for
+				linking between a search request and search results. This identifier
+				should have been included in the original search request message and
+				should be included in this message, unaltered.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SeriousMentalIllnessIndicator" type="niem-xs:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the person is diagnosed with a serious mental illness (SMI), false otherwise. </xsd:documentation>
+			<xsd:documentation>True if the person is diagnosed with a serious
+				mental illness (SMI), false otherwise. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SupervisorCategoryText" type="nc:TextType"
+		substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A type of supervisor. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SupervisorStatus" type="nc:StatusType"
+		substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A state or position of a supervisor.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AllowAccountDepositIndicator"
+		type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a person in detention is allowed to make
+				commissary deposits; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
