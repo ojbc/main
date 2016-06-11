@@ -41,7 +41,10 @@ import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.portal.validators.PersonFilterCommandValidator;
 import org.ojbc.web.portal.validators.PersonSearchCommandValidator;
+import org.ojbc.web.security.Authorities;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -263,15 +266,32 @@ public class PeopleController {
 	}
 
 	@RequestMapping(value = "searchDetails", method = RequestMethod.GET)
-	public String searchDetails(HttpServletRequest request, @RequestParam String systemName,
-	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, Map<String, Object> model) {
+	public String searchDetails(HttpServletRequest request, @RequestParam String systemName, 
+			@RequestParam("searchResultCategory") String searchResultCategory,
+	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
+	        Map<String, Object> model, Authentication authentication) {
 		try {
-			processDetailRequest(request, systemName, detailsRequest, model);
+			
+			if ("Incident".equals(searchResultCategory) && !hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
+				model.put("searchContent", "");
+			}
+			else{
+				processDetailRequest(request, systemName, detailsRequest, model);
+			}
 			return "people/_searchDetails";
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return "common/_searchDetailsError";
 		}
+	}
+
+	private boolean hasAuthority(Authentication authentication, Authorities authority) {
+		
+		for (GrantedAuthority grantedAuthority: authentication.getAuthorities()){
+			if (grantedAuthority.getAuthority().equals(authority.name()))
+				return true; 
+		}
+		return false;
 	}
 
 	@RequestMapping(value = "instanceDetails", method = RequestMethod.GET)

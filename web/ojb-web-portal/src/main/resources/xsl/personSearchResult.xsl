@@ -160,7 +160,7 @@
                 <td class="hidden">
                     <xsl:variable name="systemSource"><xsl:value-of select="normalize-space(ext1:SourceSystemNameText)"/></xsl:variable>
                     <xsl:variable name="queryType"><xsl:text>Person</xsl:text></xsl:variable>
-                    <a href="{concat('../people/searchDetails?identificationID=',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=' , intel:SystemIdentifier/intel:SystemName,'&amp;identificationSourceText=',$systemSource,'&amp;purpose=',$purpose,'&amp;onBehalfOf=',$onBehalfOf,'&amp;queryType=',$queryType)}" 
+                    <a href="{concat('../people/searchDetails?identificationID=',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=' , intel:SystemIdentifier/intel:SystemName,'&amp;identificationSourceText=',$systemSource,'&amp;purpose=',$purpose,'&amp;onBehalfOf=',$onBehalfOf,'&amp;queryType=',$queryType, '&amp;searchResultCategory=',ext1:SearchResultCategoryText)}" 
                         class="blueButton viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
                         
                             appendPersonData="{concat('personalInformation-',$personId)}"
