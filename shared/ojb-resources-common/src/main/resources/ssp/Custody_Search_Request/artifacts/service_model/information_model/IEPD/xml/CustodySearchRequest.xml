@@ -59,6 +59,7 @@
 			<nc:PersonMiddleName>P</nc:PersonMiddleName>
 			<nc:PersonSurName structures:metadata="SM002">Smith</nc:PersonSurName>
 		</nc:PersonName>
+
 		<j:PersonRaceCode>W</j:PersonRaceCode>
 		<j:PersonSexCode>M</j:PersonSexCode>
 		<nc:PersonSSNIdentification>
@@ -72,6 +73,9 @@
 			<nc:MeasureDate/>
 			<nc:LengthUnitCode>A45</nc:LengthUnitCode>
 		</nc:PersonWeightMeasure>
+				<nc:PersonPhysicalFeature>
+		<nc:PhysicalFeatureDecriptionText></nc:PhysicalFeatureDecriptionText>
+		</nc:PersonPhysicalFeature>
 		<j:PersonAugmentation>
 			<j:DriverLicense>
 				<j:DriverLicenseCardIdentification>

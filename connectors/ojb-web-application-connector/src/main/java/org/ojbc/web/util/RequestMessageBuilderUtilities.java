@@ -633,22 +633,28 @@ public class RequestMessageBuilderUtilities {
         appendIdentificationSearchRequestPerson(searchRequest, rootElement);
         appendIdentificationReportedDateRange(searchRequest, rootElement);
         
-        for ( String identificationTransactionState: searchRequest.getIdentificationTransactionStatus()){
-        	XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
-        			"IdentificationResultStatusCode", identificationTransactionState);
+        if (searchRequest.getIdentificationTransactionStatus() != null){
+	        for ( String identificationTransactionState: searchRequest.getIdentificationTransactionStatus()){
+	        	XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+	        			"IdentificationResultStatusCode", identificationTransactionState);
+	        }
         }
         
         XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
         		"IdentificationResultsCategoryCode", searchRequest.getIdentificationResultCategory());
         
-        for ( String civilIdentificationReasonCode: searchRequest.getCivilIdentificationReasonCodes()){
-        	XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
-        			"CivilIdentificationReasonCode", civilIdentificationReasonCode);
+        if (searchRequest.getCivilIdentificationReasonCodes() != null){
+	        for ( String civilIdentificationReasonCode: searchRequest.getCivilIdentificationReasonCodes()){
+	        	XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+	        			"CivilIdentificationReasonCode", civilIdentificationReasonCode);
+	        }
         }
-        
-        for ( String criminalIdentificationReasonCode: searchRequest.getCriminalIdentificationReasonCodes()){
-        	XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
-        			"CriminalIdentificationReasonCode", criminalIdentificationReasonCode);
+
+        if (searchRequest.getCriminalIdentificationReasonCodes() != null){
+	        for ( String criminalIdentificationReasonCode: searchRequest.getCriminalIdentificationReasonCodes()){
+	        	XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+	        			"CriminalIdentificationReasonCode", criminalIdentificationReasonCode);
+	        }
         }
         
 		return document;
