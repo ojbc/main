@@ -36,7 +36,7 @@
 	        	ojbc.clearPlaceholders();
 	            var formData = $('#advancedSearchForm').serialize();
 	        
-	  	       	$.post("#springUrl('/rapbacks/rapbackAdvancedSearch')",formData,function(data) {
+	  	       	$.post("#springUrl('/rapbacks/criminalIdentificationAdvancedSearch')",formData,function(data) {
 			        $('#portalContent').html(data);
 		        }).fail(ojbc.displayFailMessage);
 			});
@@ -48,7 +48,7 @@
 	        $('#advanceSearchClearButton').click (function(event){
 			  ojbc.clearSearchPurposeFields();
 			  ojbc.clearSearchResultsFilterFields();
-			  $.get("#springUrl('/rapbacks/searchForm?resetForm=true')", function(data) {
+			  $.get("#springUrl('/rapbacks/criminalIdentificationSearchForm?resetForm=true')", function(data) {
 			    $('#portalContent').html(data);
 			    
 			  }).fail(ojbc.displayFailMessage)
@@ -72,7 +72,7 @@
   </script>
 
 <div id="searchTabs" class="contentBox">
-    <div id="search-tab-title">ADVANCED SEARCH: RAP BACK</div>
+    <div id="search-tab-title">ADVANCED SEARCH: CRIMINAL IDENTIFICATION</div>
     <ul>
         <li><a href="#advancedSearchTab">ADVANCED SEARCH</a></li>
     </ul>
@@ -88,25 +88,25 @@
     	  			<tr>
     	  				<td>
     				        <p class="searchSubHeader"> NAME</p>
-    				        <div>#springFormInput("rapbackSearchRequest.firstName" "placeholder='First Name'") </div>
-    				        <div>#springFormInput("rapbackSearchRequest.lastName" "placeholder='Last Name'")</div>
-    				        <div>#springFormInput("rapbackSearchRequest.otn" "placeholder='OTN'")</div>
+    				        <div>#springFormInput("criminalIdentificationSearchRequest.firstName" "placeholder='First Name'") </div>
+    				        <div>#springFormInput("criminalIdentificationSearchRequest.lastName" "placeholder='Last Name'")</div>
+    				        <div>#springFormInput("criminalIdentificationSearchRequest.otn" "placeholder='OTN'")</div>
     				        
    				        	<div class="labelText" >
     				        	<p class="searchSubHeader">Reported Date </p>
-    				        	 From: #springFormInput("rapbackSearchRequest.reportedDateStartDate" "class='datePicker mdate' style='width: 25%;'" )
-    				        		&nbsp;To:&nbsp;#springFormInput("rapbackSearchRequest.reportedDateEndDate"  "class='datePicker mdate' style='width: 25%;'")
-    				        		#springBind("rapbackSearchRequest.reportedDateStartDate")
+    				        	 From: #springFormInput("criminalIdentificationSearchRequest.reportedDateStartDate" "class='datePicker mdate' style='width: 25%;'" )
+    				        		&nbsp;To:&nbsp;#springFormInput("criminalIdentificationSearchRequest.reportedDateEndDate"  "class='datePicker mdate' style='width: 25%;'")
+    				        		#springBind("criminalIdentificationSearchRequest.reportedDateStartDate")
                                 #springShowErrors( "<br/>" "error" )
     				        </div>
 							
 							<div class="labelText">
 								<p class="searchSubHeader"> Identification Result Status</p>
-								#springFormCheckboxes("rapbackSearchRequest.identificationTransactionStatus" $identificationResultStatusCodeMap " " "")
+								#springFormCheckboxes("criminalIdentificationSearchRequest.identificationTransactionStatus" $criminalIdentificationStatusCodeMap " " "")
 							</div>    				        
 							<div class="labelText">
-								<p class="searchSubHeader"> Civil Identification Reason Code</p>
-								#springFormCheckboxes("rapbackSearchRequest.civilIdentificationReasonCodes" $civilIdentificationReasonCodeMap "<br>" "")
+								<p class="searchSubHeader"> Criminal Identification Reason Code</p>
+								#springFormCheckboxes("criminalIdentificationSearchRequest.criminalIdentificationReasonCodes" $criminalIdentificationReasonCodeMap "<br>" "")
 							</div>    				        
     		        	</td>
     	        	<tr>

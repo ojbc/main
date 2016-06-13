@@ -20,10 +20,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -149,14 +149,6 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	private java.sql.Date toSqlDate(DateTime date){
 		return date == null? null : new java.sql.Date(date.getMillis()); 
-	}
-	
-	/**
-	 * @param date
-	 * @return null if date is null, otherwise java.sql.Date.valueOf(date)
-	 */
-	private java.sql.Date toSqlDate(LocalDate date){
-		return date == null? null : java.sql.Date.valueOf(date); 
 	}
 	
 	private Date toDate(DateTime date){
@@ -610,7 +602,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "	AND (:excludeArchived = false OR t.archived != true ) "
 				+ "	AND (:excludeSubscribed = false OR (t.archived = true OR sub.id is null OR sub.id <= 0 OR sub.active = false )) "
 				+ "	AND (:excludeAvailableForSubscription  = false OR (t.archived = true OR (sub.id > 0 AND sub.active = true))) "
-				+ "	AND (:identificationReasonCode is null OR identification_category in (:identificationReasonCode)) ");
+				+ "	AND ( ( :identificationReasonCode ) is null OR t.identification_category in ( :identificationReasonCode )) ");
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>(); 
 		paramMap.put("firstName", searchRequest.getFirstName() );
@@ -621,7 +613,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		paramMap.put("excludeArchived", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Archived)); 
 		paramMap.put("excludeSubscribed", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Subscribed)); 
 		paramMap.put("excludeAvailableForSubscription", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Available_for_Subscription)); 
-		paramMap.put("identificationReasonCode", searchRequest.getCivilIdentificationReasonCodes().isEmpty()?null:searchRequest.getCivilIdentificationReasonCodes().isEmpty()); 
+		paramMap.put("identificationReasonCode", searchRequest.getCivilIdentificationReasonCodes().isEmpty() ? null : new HashSet<String>(searchRequest.getCivilIdentificationReasonCodes())); 
 
         String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
         String federationId = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.FederationId);
@@ -630,14 +622,14 @@ public class RapbackDAOImpl implements RapbackDAO {
         boolean isNotAgencySuperUser = isNotAgencySuperUser(ori, federationId); 
         
 		if ( isNotSuperUser){
-			sb.append( "AND t.owner_ori = :ori "); 
+			sb.append( "AND (t.owner_ori = :ori )"); 
 			paramMap.put("ori", ori);
 		}
 		
 		if ( isNotSuperUser && isNotAgencySuperUser){
 
 			if ( isNotCivilAgencyUser(ori) ){
-				sb.append ( " AND t.identification_category in ( :identificationCategoryList )");
+				sb.append ( " AND (t.identification_category in ( :identificationCategoryList ))");
 				List<String> identificationCategorys = getViewableIdentificationCategories(token, 
 						"CIVIL"); 
 				paramMap.put("identificationCategoryList", identificationCategorys);
@@ -715,8 +707,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 		paramMap.put("startDate", searchRequest.getReportedDateStartDate()); 
 		paramMap.put("endDate", searchRequest.getReportedDateEndDate()); 
 		paramMap.put("excludeArchived", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Archived)); 
-		paramMap.put("excludeAvailableForSubscription", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Subscribed)); 
-		paramMap.put("identificationReasonCode", searchRequest.getCriminalIdentificationReasonCodes().isEmpty() ? null : searchRequest.getCriminalIdentificationReasonCodes().isEmpty());
+		paramMap.put("excludeAvailableForSubscription", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Available_for_Subscription)); 
+		paramMap.put("identificationReasonCode", searchRequest.getCriminalIdentificationReasonCodes().isEmpty() ? null : searchRequest.getCriminalIdentificationReasonCodes());
 		
         String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
         String federationId = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.FederationId); 
@@ -746,7 +738,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "	AND (:endDate is null OR t.report_timestamp <= :endDate ) "
 				+ "	AND (:excludeArchived = false OR t.archived != true ) "
 				+ "	AND (:excludeAvailableForSubscription  = false OR t.archived = true) "
-				+ "	AND (:identificationReasonCode is null OR identification_category in (:identificationReasonCode)) ");
+				+ "	AND (( :identificationReasonCode ) is null OR identification_category in (:identificationReasonCode)) ");
 		
 		List<IdentificationTransaction> identificationTransactions = 
 				namedParameterJdbcTemplate.query( sqlStringBuilder.toString(), paramMap,  
