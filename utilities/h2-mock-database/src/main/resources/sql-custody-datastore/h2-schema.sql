@@ -95,7 +95,7 @@ CREATE TABLE booking (
                 case_status VARCHAR(20),
                 inmate_work_release_indicator BOOLEAN,
                 inmate_worker_indicator BOOLEAN,
-                last_updated_date DATE,
+                last_updated_date DATE NOT NULL,
                 CONSTRAINT id PRIMARY KEY (id)
 );
 
