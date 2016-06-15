@@ -46,6 +46,9 @@
 			<camel:log message="\n\n\n custodyReleaseReporting_route... \n\n\n"/>
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<!-- This will alter the original message to enrich if a URI property is set in the configuration file -->
+			<camel:to uri="direct:enrichContent"/>
 
 			<!-- Multicast to the core services and derived bundle specific routes so each route gets original message.  -->
 			<camel:multicast>				
@@ -68,6 +71,24 @@
 			
 		</camel:route>
 				
+		<camel:route id="enrichContentRoute">
+
+			<camel:from uri="direct:enrichContent"/>
+		
+			<!-- Set up derived endpoints -->
+			<camel:setHeader headerName="routingSlipEnrichContent"><simple>{{custodyReleaseReporting.enrichContentURI}}</simple></camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipEnrichContent} != ''</camel:simple>
+				
+				<camel:log message="About to call content enricher using this routing slip: ${in.headers.routingSlipEnrichContent}"/>
+				
+				<camel:recipientList>
+					<camel:header>routingSlipEnrichContent</camel:header>
+				</camel:recipientList>
+			</camel:filter>			
+		
+		</camel:route>					
 		
 		<camel:route id="derivedRoutes">
 
