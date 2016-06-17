@@ -17,287 +17,295 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<cfm:CoreFilingMessage 
-	xmlns:cfm="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" 
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" 
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
-	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" 
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" 
-	xmlns:ojb-cit-doc="http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0" 
-	xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0" 
-	 xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" 
-	 xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
-	 xmlns:xop="http://www.w3.org/2004/08/xop/include" 
+<cfm:CoreFilingMessage
+	xmlns:cfm="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0"
+	xmlns:ojb-cit-doc="http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0"
+	xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0"
+	xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../xsd/message/ECF-4.0-CoreFilingMessage.xsd http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0 ../../xsd/Citation_Case-doc.xsd">
 	<ojb-cit-doc:CitationCase>
-	<ojb-cit-ext:CaseAugmentation>
-		<ecf:PersonOrganizationAssociation>
-			<nc:PersonReference s:ref="OFFICER_01"/>
-			<nc:OrganizationReference s:ref="AGENCY_01"/>
-			<ecf:EntityAssociationTypeCode>String</ecf:EntityAssociationTypeCode>
-		</ecf:PersonOrganizationAssociation>
-		<!-- CASE PARTICIPANT: Subject Organization-->
-		<!-- >ojb-cit-ext:CaseParticipant>
-			<ecf:EntityOrganization s:id="ORGANIZATION_01">
-				<nc:OrganizationName>ACME</nc:OrganizationName>
-			</ecf:EntityOrganization>
-			<ecf:CaseParticipantRoleCode/>
-		</ojb-cit-ext:CaseParticipant-->
-		<!-- CASE PARTICIPANT: Citation Delivery Recipient -->
-		<ojb-cit-ext:CaseParticipant>
-			<ecf:EntityOrganization s:id="ORGANIZATION_02">
-				<nc:OrganizationName>Morways Moving Company</nc:OrganizationName>
-			</ecf:EntityOrganization>
-			<ecf:CaseParticipantRoleCode/>
-		</ojb-cit-ext:CaseParticipant>
-		<!-- CASE PARTICIPANT: Parent -->
-		<ojb-cit-ext:CaseParticipant>
-			<ecf:EntityPerson s:id="PERSON_01">
-				<nc:PersonName>
-					<nc:PersonGivenName>Jack</nc:PersonGivenName>
-					<nc:PersonSurName>Jones</nc:PersonSurName>
-				</nc:PersonName>
-				<ecf:PersonAugmentation>
-					<nc:ContactInformation>
-						<nc:ContactMailingAddress>
+		<ojb-cit-ext:CaseAugmentation>
+			<ecf:PersonOrganizationAssociation>
+				<nc:PersonReference s:ref="OFFICER_01" />
+				<nc:OrganizationReference s:ref="AGENCY_01" />
+				<ecf:EntityAssociationTypeCode>String</ecf:EntityAssociationTypeCode>
+			</ecf:PersonOrganizationAssociation>
+			<!-- CASE PARTICIPANT: Subject Organization -->
+			<!-- >ojb-cit-ext:CaseParticipant> <ecf:EntityOrganization s:id="ORGANIZATION_01"> 
+				<nc:OrganizationName>ACME</nc:OrganizationName> </ecf:EntityOrganization> 
+				<ecf:CaseParticipantRoleCode/> </ojb-cit-ext:CaseParticipant -->
+			<!-- CASE PARTICIPANT: Citation Delivery Recipient -->
+			<ojb-cit-ext:CaseParticipant>
+				<ecf:EntityOrganization s:id="ORGANIZATION_02">
+					<nc:OrganizationName>Morways Moving Company</nc:OrganizationName>
+				</ecf:EntityOrganization>
+				<ecf:CaseParticipantRoleCode />
+			</ojb-cit-ext:CaseParticipant>
+			<!-- CASE PARTICIPANT: Parent -->
+			<ojb-cit-ext:CaseParticipant>
+				<ecf:EntityPerson s:id="PERSON_01">
+					<nc:PersonName>
+						<nc:PersonGivenName>Jack</nc:PersonGivenName>
+						<nc:PersonSurName>Jones</nc:PersonSurName>
+					</nc:PersonName>
+					<ecf:PersonAugmentation>
+						<nc:ContactInformation>
+							<nc:ContactMailingAddress>
+								<nc:StructuredAddress>
+
+									<nc:LocationStreet>
+										<nc:StreetFullText>100 State Street</nc:StreetFullText>
+									</nc:LocationStreet>
+									<nc:LocationCityName>Richmond</nc:LocationCityName>
+									<nc:LocationStateName>VT</nc:LocationStateName>
+									<nc:LocationPostalCode>05401-2277</nc:LocationPostalCode>
+								</nc:StructuredAddress>
+							</nc:ContactMailingAddress>
+						</nc:ContactInformation>
+					</ecf:PersonAugmentation>
+				</ecf:EntityPerson>
+				<ecf:CaseParticipantRoleCode />
+			</ojb-cit-ext:CaseParticipant>
+			<!-- CASE PARTICIPANT: Officer -->
+			<ojb-cit-ext:CaseParticipant>
+				<ecf:EntityPerson s:id="PERSON_02">
+					<nc:PersonName>
+						<nc:PersonFullName>Jesse James</nc:PersonFullName>
+					</nc:PersonName>
+				</ecf:EntityPerson>
+				<ecf:CaseParticipantRoleCode />
+			</ojb-cit-ext:CaseParticipant>
+			<!-- CASE PARTICIPANT: Subject -->
+			<ojb-cit-ext:CaseParticipant>
+				<ojb-cit-ext:EntityPerson s:id="PERSON_03">
+					<nc:PersonBirthDate>
+						<nc:Date>1965-09-29</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonBirthLocation>
+						<nc:LocationAddress>
 							<nc:StructuredAddress>
-							
-								<nc:LocationStreet>
-									<nc:StreetFullText>100 State Street</nc:StreetFullText>
-								</nc:LocationStreet>
-								<nc:LocationCityName>Richmond</nc:LocationCityName>
-								<nc:LocationStateName>VT</nc:LocationStateName>
-								<nc:LocationPostalCode>05401-2277</nc:LocationPostalCode>
+								<nc:LocationCityName>Buffalo</nc:LocationCityName>
 							</nc:StructuredAddress>
-						</nc:ContactMailingAddress>
-					</nc:ContactInformation>
-				</ecf:PersonAugmentation>
-			</ecf:EntityPerson>
-			<ecf:CaseParticipantRoleCode/>
-		</ojb-cit-ext:CaseParticipant>
-		<!-- CASE PARTICIPANT: Officer -->
-		<ojb-cit-ext:CaseParticipant>
-			<ecf:EntityPerson s:id="PERSON_02">
-				<nc:PersonName>
-					<nc:PersonFullName>Jesse James</nc:PersonFullName>
-				</nc:PersonName>
-			</ecf:EntityPerson>
-			<ecf:CaseParticipantRoleCode/>
-		</ojb-cit-ext:CaseParticipant>
-		<!-- CASE PARTICIPANT: Subject -->
-		<ojb-cit-ext:CaseParticipant>
-			<ojb-cit-ext:EntityPerson s:id="PERSON_03">
-				<nc:PersonBirthDate>
-					<nc:Date>1965-09-29</nc:Date>
-				</nc:PersonBirthDate>
-				<nc:PersonBirthLocation>
+						</nc:LocationAddress>
+					</nc:PersonBirthLocation>
+					<nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
+					<nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
+					<nc:PersonHeightMeasure>
+						<nc:MeasureText>5'07"</nc:MeasureText>
+						<nc:MeasureUnitText>Unit</nc:MeasureUnitText>
+					</nc:PersonHeightMeasure>
+					<nc:PersonName>
+						<nc:PersonGivenName>Jennifer</nc:PersonGivenName>
+						<nc:PersonMiddleName>J</nc:PersonMiddleName>
+						<nc:PersonSurName>Jones</nc:PersonSurName>
+					</nc:PersonName>
+					<nc:PersonSexCode>F</nc:PersonSexCode>
+					<nc:PersonWeightMeasure>
+						<nc:MeasureText>135</nc:MeasureText>
+						<nc:MeasureUnitText>Unit</nc:MeasureUnitText>
+					</nc:PersonWeightMeasure>
+					<ojb-cit-ext:PersonAugmentation>
+						<nc:ContactInformation>
+							<nc:ContactMailingAddress>
+								<nc:StructuredAddress>
+									<nc:LocationStreet>
+										<nc:StreetFullText>123 Main Street</nc:StreetFullText>
+									</nc:LocationStreet>
+									<nc:LocationCityName>Burlington</nc:LocationCityName>
+									<nc:LocationStateName>VT</nc:LocationStateName>
+									<nc:LocationPostalCode>05401-1122</nc:LocationPostalCode>
+								</nc:StructuredAddress>
+							</nc:ContactMailingAddress>
+							<nc:ContactTelephoneNumber s:id="PHONE_01">
+								<nc:FullTelephoneNumber>
+									<nc:TelephoneNumberFullID>8023631111</nc:TelephoneNumberFullID>
+								</nc:FullTelephoneNumber>
+							</nc:ContactTelephoneNumber>
+							<nc:ContactTelephoneNumber s:id="PHONE_02">
+								<nc:FullTelephoneNumber>
+									<nc:TelephoneNumberFullID>8023631111</nc:TelephoneNumberFullID>
+								</nc:FullTelephoneNumber>
+							</nc:ContactTelephoneNumber>
+						</nc:ContactInformation>
+						<nc:PersonContactInformationAssociation>
+							<nc:ContactInformationReference
+								s:ref="PHONE_01" />
+							<nc:ContactInformationIsHomeIndicator>true
+							</nc:ContactInformationIsHomeIndicator>
+						</nc:PersonContactInformationAssociation>
+						<nc:PersonContactInformationAssociation>
+							<nc:ContactInformationReference
+								s:ref="PHONE_02" />
+							<nc:ContactInformationIsWorkIndicator>true
+							</nc:ContactInformationIsWorkIndicator>
+						</nc:PersonContactInformationAssociation>
+						<ojb-cit-ext:PersonDriverLicense>
+							<nc:DriverLicenseIdentification>
+								<nc:IdentificationID>41444812</nc:IdentificationID>
+								<j:IdentificationJurisdictionNCICLISCode>VT
+								</j:IdentificationJurisdictionNCICLISCode>
+							</nc:DriverLicenseIdentification>
+							<ojb-cit-ext:DriverLicenseCDLIndicator>false
+							</ojb-cit-ext:DriverLicenseCDLIndicator>
+						</ojb-cit-ext:PersonDriverLicense>
+						<ojb-cit-ext:PersonFishAndWildlifeLicenseIdentification>
+							<nc:IdentificationID>12345678</nc:IdentificationID>
+						</ojb-cit-ext:PersonFishAndWildlifeLicenseIdentification>
+					</ojb-cit-ext:PersonAugmentation>
+				</ojb-cit-ext:EntityPerson>
+				<ecf:CaseParticipantRoleCode />
+			</ojb-cit-ext:CaseParticipant>
+		</ojb-cit-ext:CaseAugmentation>
+		<ojb-cit-ext:CitationCaseAugmentation>
+			<j:CaseCharge>
+				<j:ChargeStatute s:id="CHARGE_01">
+					<j:StatuteOffenseIdentification>
+						<nc:IdentificationID>23V1007A</nc:IdentificationID>
+					</j:StatuteOffenseIdentification>
+				</j:ChargeStatute>
+			</j:CaseCharge>
+			<ecf-cit:CitationSubject s:id="SUBJECT_01">
+				<nc:RoleOfPersonReference s:ref="PERSON_03" />
+				<ecf-cit:PersonBloodAlcoholNumber>0.2</ecf-cit:PersonBloodAlcoholNumber>
+			</ecf-cit:CitationSubject>
+			<ojb-cit-ext:Citation s:id="CITATION_01">
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>82734800</nc:IdentificationID>
+				</nc:ActivityIdentification>
+				<nc:ActivityDate>
+					<nc:Date>2015-10-27</nc:Date>
+				</nc:ActivityDate>
+				<j:CitationAgency s:id="AGENCY_01">
+					<nc:OrganizationName>Burlington, PD</nc:OrganizationName>
+					<nc:OrganizationPrimaryContactInformation>
+						<nc:ContactEntity>
+							<ecf:EntityOrganization>
+								<nc:OrganizationIdentification>
+									<nc:IdentificationID>VT0040100</nc:IdentificationID>
+								</nc:OrganizationIdentification>
+							</ecf:EntityOrganization>
+						</nc:ContactEntity>
+					</nc:OrganizationPrimaryContactInformation>
+				</j:CitationAgency>
+				<ojb-cit-ext:CitationIssuingOfficial
+					s:id="OFFICER_01">
+					<nc:RoleOfPersonReference s:ref="PERSON_02" />
+					<j:EnforcementOfficialBadgeIdentification>
+						<nc:IdentificationID>12345</nc:IdentificationID>
+					</j:EnforcementOfficialBadgeIdentification>
+					<ojb-cit-ext:EnforcementOfficialIdentification>
+						<nc:IdentificationID>ID34567</nc:IdentificationID>
+					</ojb-cit-ext:EnforcementOfficialIdentification>
+				</ojb-cit-ext:CitationIssuingOfficial>
+				<ojb-cit-ext:CitationAugmentation>
+					<ojb-cit-ext:CitationWaiverAmount>105.00</ojb-cit-ext:CitationWaiverAmount>
+					<ojb-cit-ext:CitationServedIndicator>true</ojb-cit-ext:CitationServedIndicator>
+					<ojb-cit-ext:CitationMailedIndicator>false</ojb-cit-ext:CitationMailedIndicator>
+					<ojb-cit-ext:CitationIssuedLocation>
+						<nc:LocationHighway>
+							<nc:HighwayID>Highway 64</nc:HighwayID>
+							<nc:HighwayPositionText>North</nc:HighwayPositionText>
+						</nc:LocationHighway>
+					</ojb-cit-ext:CitationIssuedLocation>
+				</ojb-cit-ext:CitationAugmentation>
+			</ojb-cit-ext:Citation>
+			<ojb-cit-ext:Vehicle s:id="VEHICLE_01">
+				<nc:VehicleColorPrimaryCode>SIL</nc:VehicleColorPrimaryCode>
+				<nc:ItemModelYearDate>2015</nc:ItemModelYearDate>
+				<nc:VehicleStyleCode>SD</nc:VehicleStyleCode>
+				<nc:ConveyanceRegistrationPlateIdentification>
+					<nc:IdentificationID>ABC1234567</nc:IdentificationID>
+					<j:IdentificationJurisdictionNCICLISCode>VT
+					</j:IdentificationJurisdictionNCICLISCode>
+				</nc:ConveyanceRegistrationPlateIdentification>
+				<nc:VehicleCMVIndicator>false</nc:VehicleCMVIndicator>
+				<nc:VehicleIdentification>
+					<nc:IdentificationID>VIN</nc:IdentificationID>
+				</nc:VehicleIdentification>
+				<nc:VehicleMakeCode>TOYT</nc:VehicleMakeCode>
+				<ojb-cit-ext:VehicleAugmentation>
+					<ojb-cit-ext:VehicleHazardousMaterialIndicator>false</ojb-cit-ext:VehicleHazardousMaterialIndicator>
+				</ojb-cit-ext:VehicleAugmentation>
+			</ojb-cit-ext:Vehicle>
+			<ojb-cit-ext:Offense>
+				<j:Statute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>23V301</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:Statute>
+				<ojb-cit-ext:OffenseViolatedStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>20-124</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</ojb-cit-ext:OffenseViolatedStatute>
+				<ojb-cit-ext:DrivingOffensePoints>2</ojb-cit-ext:DrivingOffensePoints>
+				<ojb-cit-ext:OffenseFineAmountMinimum>47.00</ojb-cit-ext:OffenseFineAmountMinimum>
+				<ojb-cit-ext:OffenseFineAmountMaximum>1197.00</ojb-cit-ext:OffenseFineAmountMaximum>
+				<ojb-cit-ext:RelatedCriminalChargeIndicator>false</ojb-cit-ext:RelatedCriminalChargeIndicator>
+				<ojb-cit-ext:CFRStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>23CFR655</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</ojb-cit-ext:CFRStatute>
+			</ojb-cit-ext:Offense>
+			<ojb-cit-ext:DrivingIncident s:id="INCIDENT_01">
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>Law(15RM00998)</nc:IdentificationID>
+				</nc:ActivityIdentification>
+				<nc:ActivityDateRange>
+				</nc:ActivityDateRange>
+				<nc:ActivityDate>
+					<nc:DateTime>2016-01-01T01:22:00</nc:DateTime>
+				</nc:ActivityDate>
+				<nc:ActivityDescriptionText>No vehicle registration</nc:ActivityDescriptionText>
+				<nc:IncidentLocation>
 					<nc:LocationAddress>
 						<nc:StructuredAddress>
 							<nc:LocationCityName>Buffalo</nc:LocationCityName>
 						</nc:StructuredAddress>
 					</nc:LocationAddress>
-				</nc:PersonBirthLocation>
-				<nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
-				<nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
-				<nc:PersonHeightMeasure>
-					<nc:MeasureText>5'07"</nc:MeasureText>
-					<nc:MeasureUnitText>Unit</nc:MeasureUnitText>
-				</nc:PersonHeightMeasure>
-				<nc:PersonName>
-					<nc:PersonGivenName>Jennifer</nc:PersonGivenName>
-					<nc:PersonMiddleName>J</nc:PersonMiddleName>
-					<nc:PersonSurName>Jones</nc:PersonSurName>
-				</nc:PersonName>
-				<nc:PersonSexCode>F</nc:PersonSexCode>
-				<nc:PersonWeightMeasure>
-					<nc:MeasureText>135</nc:MeasureText>
-					<nc:MeasureUnitText>Unit</nc:MeasureUnitText>
-				</nc:PersonWeightMeasure>
-				<ojb-cit-ext:PersonAugmentation>
-					<nc:ContactInformation>
-						<nc:ContactMailingAddress>
-							<nc:StructuredAddress>
-								<nc:LocationStreet>
-									<nc:StreetFullText>123 Main Street</nc:StreetFullText>
-								</nc:LocationStreet>
-								<nc:LocationCityName>Burlington</nc:LocationCityName>
-								<nc:LocationStateName>VT</nc:LocationStateName>
-								<nc:LocationPostalCode>05401-1122</nc:LocationPostalCode>
-							</nc:StructuredAddress>
-						</nc:ContactMailingAddress>
-						<nc:ContactTelephoneNumber s:id="PHONE_01">
-							<nc:FullTelephoneNumber>
-								<nc:TelephoneNumberFullID>8023631111</nc:TelephoneNumberFullID>
-							</nc:FullTelephoneNumber>
-						</nc:ContactTelephoneNumber>
-						<nc:ContactTelephoneNumber s:id="PHONE_02">
-							<nc:FullTelephoneNumber>
-								<nc:TelephoneNumberFullID>8023631111</nc:TelephoneNumberFullID>
-							</nc:FullTelephoneNumber>
-						</nc:ContactTelephoneNumber>
-					</nc:ContactInformation>
-					<nc:PersonContactInformationAssociation>
-						<nc:ContactInformationReference s:ref="PHONE_01"/>
-						<nc:ContactInformationIsHomeIndicator>true</nc:ContactInformationIsHomeIndicator>
-					</nc:PersonContactInformationAssociation>
-					<nc:PersonContactInformationAssociation>
-						<nc:ContactInformationReference s:ref="PHONE_02"/>
-						<nc:ContactInformationIsWorkIndicator>true</nc:ContactInformationIsWorkIndicator>
-					</nc:PersonContactInformationAssociation>
-					<ojb-cit-ext:PersonDriverLicense>
-						<nc:DriverLicenseIdentification>
-							<nc:IdentificationID>41444812</nc:IdentificationID>
-							<j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
-						</nc:DriverLicenseIdentification>
-						<ojb-cit-ext:DriverLicenseCDLIndicator>false</ojb-cit-ext:DriverLicenseCDLIndicator>
-					</ojb-cit-ext:PersonDriverLicense>
-					<ojb-cit-ext:PersonFishAndWildlifeLicenseIdentification>
-						<nc:IdentificationID>12345678</nc:IdentificationID>
-					</ojb-cit-ext:PersonFishAndWildlifeLicenseIdentification>
-				</ojb-cit-ext:PersonAugmentation>
-			</ojb-cit-ext:EntityPerson>
-			<ecf:CaseParticipantRoleCode/>
-		</ojb-cit-ext:CaseParticipant>
-	</ojb-cit-ext:CaseAugmentation>
-	<ojb-cit-ext:CitationCaseAugmentation>
-		<j:CaseCharge>
-			<j:ChargeStatute s:id="CHARGE_01">
-				<j:StatuteOffenseIdentification>
-					<nc:IdentificationID>23V1007A</nc:IdentificationID>
-				</j:StatuteOffenseIdentification>
-			</j:ChargeStatute>
-		</j:CaseCharge>
-		<ecf-cit:CitationSubject s:id="SUBJECT_01">
-			<nc:RoleOfPersonReference s:ref="PERSON_03"/>
-			<ecf-cit:PersonBloodAlcoholNumber>0.2</ecf-cit:PersonBloodAlcoholNumber>
-		</ecf-cit:CitationSubject>
-		<ojb-cit-ext:Citation s:id="CITATION_01">
-			<nc:ActivityIdentification>
-				<nc:IdentificationID>82734800</nc:IdentificationID>
-			</nc:ActivityIdentification>
-			<nc:ActivityDate>
-				<nc:Date>2015-10-27</nc:Date>
-			</nc:ActivityDate>
-			<j:CitationAgency s:id="AGENCY_01">
-				<nc:OrganizationName>Burlington, PD</nc:OrganizationName>
-				<nc:OrganizationPrimaryContactInformation>
-					<nc:ContactEntity>
-						<ecf:EntityOrganization>
-						<nc:OrganizationIdentification>
-						<nc:IdentificationID>VT0040100</nc:IdentificationID>
-						</nc:OrganizationIdentification>
-						</ecf:EntityOrganization>
-					</nc:ContactEntity>
-				</nc:OrganizationPrimaryContactInformation>
-			</j:CitationAgency>
-			<ojb-cit-ext:CitationIssuingOfficial s:id="OFFICER_01">
-				<nc:RoleOfPersonReference s:ref="PERSON_02"/>
-				<j:EnforcementOfficialBadgeIdentification>
-					<nc:IdentificationID>12345</nc:IdentificationID>
-				</j:EnforcementOfficialBadgeIdentification>
-				<ojb-cit-ext:EnforcementOfficialIdentification>
-				<nc:IdentificationID>ID34567</nc:IdentificationID>
-				</ojb-cit-ext:EnforcementOfficialIdentification>
-			</ojb-cit-ext:CitationIssuingOfficial>
-			<ojb-cit-ext:CitationAugmentation>
-				<ojb-cit-ext:CitationWaiverAmount>105.00</ojb-cit-ext:CitationWaiverAmount>
-				<ojb-cit-ext:CitationServedIndicator>true</ojb-cit-ext:CitationServedIndicator>
-				<ojb-cit-ext:CitationMailedIndicator>false</ojb-cit-ext:CitationMailedIndicator>
-			</ojb-cit-ext:CitationAugmentation>
-		</ojb-cit-ext:Citation>
-		<ojb-cit-ext:Vehicle s:id="VEHICLE_01">
-			<nc:VehicleColorPrimaryCode>SIL</nc:VehicleColorPrimaryCode>
-			<nc:ItemModelYearDate>2015</nc:ItemModelYearDate>
-			<nc:VehicleStyleCode>SD</nc:VehicleStyleCode>
-			<nc:ConveyanceRegistrationPlateIdentification>
-				<nc:IdentificationID>ABC1234567</nc:IdentificationID>
-				<j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
-			</nc:ConveyanceRegistrationPlateIdentification>
-			<nc:VehicleCMVIndicator>false</nc:VehicleCMVIndicator>
-			<nc:VehicleIdentification>
-				<nc:IdentificationID>VIN</nc:IdentificationID>
-			</nc:VehicleIdentification>
-			<nc:VehicleMakeCode>TOYT</nc:VehicleMakeCode>
-			<ojb-cit-ext:VehicleAugmentation>
-				<ojb-cit-ext:VehicleHazardousMaterialIndicator>false</ojb-cit-ext:VehicleHazardousMaterialIndicator>
-			</ojb-cit-ext:VehicleAugmentation>
-		</ojb-cit-ext:Vehicle>
-		<ojb-cit-ext:Offense>
-			<j:Statute>
-				<j:StatuteCodeIdentification>
-					<nc:IdentificationID>23V301</nc:IdentificationID>
-				</j:StatuteCodeIdentification>
-			</j:Statute>
-			<ojb-cit-ext:OffenseViolatedStatute>
-				<j:StatuteCodeIdentification>
-					<nc:IdentificationID>20-124</nc:IdentificationID>
-				</j:StatuteCodeIdentification>
-			</ojb-cit-ext:OffenseViolatedStatute>
-			<ojb-cit-ext:DrivingOffensePoints>2</ojb-cit-ext:DrivingOffensePoints>
-			<ojb-cit-ext:OffenseFineAmountMinimum>47.00</ojb-cit-ext:OffenseFineAmountMinimum>
-			<ojb-cit-ext:OffenseFineAmountMaximum>1197.00</ojb-cit-ext:OffenseFineAmountMaximum>
-			<ojb-cit-ext:RelatedCriminalChargeIndicator>false</ojb-cit-ext:RelatedCriminalChargeIndicator>
-			<ojb-cit-ext:CFRStatute>
-				<j:StatuteCodeIdentification>
-					<nc:IdentificationID>23CFR655</nc:IdentificationID>
-				</j:StatuteCodeIdentification>
-			</ojb-cit-ext:CFRStatute>
-		</ojb-cit-ext:Offense>
-		<ojb-cit-ext:DrivingIncident s:id="INCIDENT_01">
-			<nc:ActivityIdentification>
-				<nc:IdentificationID>Law(15RM00998)</nc:IdentificationID>
-			</nc:ActivityIdentification>
-			<nc:ActivityDateRange>
-			
-			</nc:ActivityDateRange>
-			<nc:ActivityDate>
-				<nc:DateTime>2016-01-01T01:22:00</nc:DateTime>
-			</nc:ActivityDate>
-			<nc:ActivityDescriptionText>No vehicle registration</nc:ActivityDescriptionText>
-			<nc:IncidentLocation>
-				<nc:LocationAddress>
-					<nc:StructuredAddress>
-						<nc:LocationCityName>Buffalo</nc:LocationCityName>
-					</nc:StructuredAddress>
-				</nc:LocationAddress>
-				<nc:LocationHighway>
-					<nc:HighwayID>Rt. 89</nc:HighwayID>
-					<nc:HighwayPositionText>MileMarker 10</nc:HighwayPositionText>
-				</nc:LocationHighway>
-			</nc:IncidentLocation>
-			<j:DrivingIncidentRecordedSpeedRate>
-				<nc:MeasureText>30</nc:MeasureText>
-				<nc:MeasureUnitText>mph</nc:MeasureUnitText>
-			</j:DrivingIncidentRecordedSpeedRate>
-			<j:DrivingIncidentLegalSpeedRate>
-				<nc:MeasureText>40</nc:MeasureText>
-				<nc:MeasureUnitText>mph</nc:MeasureUnitText>
-			</j:DrivingIncidentLegalSpeedRate>
-			<j:IncidentAugmentation>
-				<j:IncidentTrafficAccidentInvolvedIndicator>false</j:IncidentTrafficAccidentInvolvedIndicator>
-			</j:IncidentAugmentation>
-			<nc:IncidentVehicleAssociation>
-				<nc:ActivityReference s:ref="INCIDENT_01"/>
-				<nc:ConveyanceReference s:ref="VEHICLE_01"/>
-			</nc:IncidentVehicleAssociation>
-			<ojb-cit-ext:DrivingIncidentAugmentation>
-				<ojb-cit-ext:DrivingAccidentFatalityIndicator>false</ojb-cit-ext:DrivingAccidentFatalityIndicator>
-				<ojb-cit-ext:SeatBeltViolationIndicator>false</ojb-cit-ext:SeatBeltViolationIndicator>
-				<ojb-cit-ext:CivilReliefActIndicator>true</ojb-cit-ext:CivilReliefActIndicator>
-				<ojb-cit-ext:CivilReliefActJuvenileIndicator>true</ojb-cit-ext:CivilReliefActJuvenileIndicator>
-				<ojb-cit-ext:CivilReliefActOtherIndicator>true</ojb-cit-ext:CivilReliefActOtherIndicator>
-				<ojb-cit-ext:CivilReliefActOtherText>Text</ojb-cit-ext:CivilReliefActOtherText>
-			</ojb-cit-ext:DrivingIncidentAugmentation>
-		</ojb-cit-ext:DrivingIncident>
-	</ojb-cit-ext:CitationCaseAugmentation>
-	<ojb-cit-ext:CitationDeliveryRecipientAssociation>
-		<ojb-cit-ext:CitationReference s:ref="CITATION_01"/>
-		<nc:EntityOrganizationReference s:ref="ORGANIZATION_02"/>
-	</ojb-cit-ext:CitationDeliveryRecipientAssociation>
-	<nc:ImmediateFamilyAssociation>
-		<nc:PersonParentReference s:ref="PERSON_01"/>
-		<nc:PersonChildReference s:ref="PERSON_03"/>
-	</nc:ImmediateFamilyAssociation>
-</ojb-cit-doc:CitationCase>
+					<nc:LocationHighway>
+						<nc:HighwayID>Rt. 89</nc:HighwayID>
+						<nc:HighwayPositionText>MileMarker 10</nc:HighwayPositionText>
+					</nc:LocationHighway>
+				</nc:IncidentLocation>
+				<j:DrivingIncidentRecordedSpeedRate>
+					<nc:MeasureText>30</nc:MeasureText>
+					<nc:MeasureUnitText>mph</nc:MeasureUnitText>
+				</j:DrivingIncidentRecordedSpeedRate>
+				<j:DrivingIncidentLegalSpeedRate>
+					<nc:MeasureText>40</nc:MeasureText>
+					<nc:MeasureUnitText>mph</nc:MeasureUnitText>
+				</j:DrivingIncidentLegalSpeedRate>
+				<j:IncidentAugmentation>
+					<j:IncidentTrafficAccidentInvolvedIndicator>false</j:IncidentTrafficAccidentInvolvedIndicator>
+				</j:IncidentAugmentation>
+				<nc:IncidentVehicleAssociation>
+					<nc:ActivityReference s:ref="INCIDENT_01" />
+					<nc:ConveyanceReference s:ref="VEHICLE_01" />
+				</nc:IncidentVehicleAssociation>
+				<ojb-cit-ext:DrivingIncidentAugmentation>
+					<ojb-cit-ext:DrivingAccidentFatalityIndicator>false</ojb-cit-ext:DrivingAccidentFatalityIndicator>
+					<ojb-cit-ext:SeatBeltViolationIndicator>false</ojb-cit-ext:SeatBeltViolationIndicator>
+					<ojb-cit-ext:CivilReliefActIndicator>true</ojb-cit-ext:CivilReliefActIndicator>
+					<ojb-cit-ext:CivilReliefActJuvenileIndicator>true</ojb-cit-ext:CivilReliefActJuvenileIndicator>
+					<ojb-cit-ext:CivilReliefActOtherIndicator>true</ojb-cit-ext:CivilReliefActOtherIndicator>
+					<ojb-cit-ext:CivilReliefActOtherText>Text</ojb-cit-ext:CivilReliefActOtherText>
+				</ojb-cit-ext:DrivingIncidentAugmentation>
+			</ojb-cit-ext:DrivingIncident>
+		</ojb-cit-ext:CitationCaseAugmentation>
+		<ojb-cit-ext:CitationDeliveryRecipientAssociation>
+			<ojb-cit-ext:CitationReference s:ref="CITATION_01" />
+			<nc:EntityOrganizationReference s:ref="ORGANIZATION_02" />
+		</ojb-cit-ext:CitationDeliveryRecipientAssociation>
+		<nc:ImmediateFamilyAssociation>
+			<nc:PersonParentReference s:ref="PERSON_01" />
+			<nc:PersonChildReference s:ref="PERSON_03" />
+		</nc:ImmediateFamilyAssociation>
+	</ojb-cit-doc:CitationCase>
 </cfm:CoreFilingMessage>
