@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2015 Open Justice Broker Consortium
-
--->
+<!-- Unless explicitly acquired and licensed from Licensor under another 
+	license, the contents of this file are subject to the Reciprocal Public License 
+	("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You 
+	may not copy or use this file in either source code or executable form, except 
+	in compliance with the terms and conditions of the RPL All software distributed 
+	under the RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY 
+	OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL 
+	SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, 
+	FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See 
+	the RPL for specific language governing rights and limitations under the 
+	RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2015 Open Justice 
+	Broker Consortium -->
 <cq-res-doc:CustodyQueryResults
 	xmlns:cq-res-doc="http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0"
 	xmlns:cq-res-ext="http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0"
@@ -105,6 +99,15 @@
 				<nc:Amount>500.00</nc:Amount>
 			</j:BailBondAmount>
 		</j:BailBond>
+		<j:BailBond structures:id="Bond_02">
+			<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
+			<nc:ActivityStatus>
+				<nc:StatusDescriptionText>Bond Status</nc:StatusDescriptionText>
+			</nc:ActivityStatus>
+			<j:BailBondAmount>
+				<nc:Amount>1000.00</nc:Amount>
+			</j:BailBondAmount>
+		</j:BailBond>
 		<j:Charge structures:id="Charge_01">
 			<j:ChargeCategoryDescriptionText>Felony</j:ChargeCategoryDescriptionText>
 			<j:ChargeCountQuantity>0</j:ChargeCountQuantity>
@@ -122,9 +125,32 @@
 				</j:StatuteCodeSectionIdentification>
 			</j:ChargeStatute>
 		</j:Charge>
+		<j:Charge structures:id="Charge_02">
+			<j:ChargeCategoryDescriptionText>Felony</j:ChargeCategoryDescriptionText>
+			<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+			<j:ChargeDescriptionText>Charge Description</j:ChargeDescriptionText>
+			<j:ChargeHighestIndicator>false</j:ChargeHighestIndicator>
+			<j:ChargeSequenceID>Charge Sequence ID</j:ChargeSequenceID>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>54778</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+			</j:ChargeStatute>
+			<j:ChargeStatute>
+				<j:StatuteCodeSectionIdentification>
+					<nc:IdentificationID>Charge Code ID</nc:IdentificationID>
+				</j:StatuteCodeSectionIdentification>
+			</j:ChargeStatute>
+		</j:Charge>
 		<j:Arrest structures:id="Arrest_01">
 			<j:ArrestAgency>
-				<nc:OrganizationName>Arrest Agency name</nc:OrganizationName>
+				<nc:OrganizationName>Arrest Agency name 1</nc:OrganizationName>
+			</j:ArrestAgency>
+			<j:ArrestLocation structures:ref="Loc_01" />
+		</j:Arrest>
+		<j:Arrest structures:id="Arrest_02">
+			<j:ArrestAgency>
+				<nc:OrganizationName>Arrest Agency name 2</nc:OrganizationName>
 			</j:ArrestAgency>
 			<j:ArrestLocation structures:ref="Loc_01" />
 		</j:Arrest>
@@ -228,12 +254,24 @@
 			<nc:Activity structures:ref="Booking_01" />
 			<nc:Activity structures:ref="Event_01" />
 			<nc:Activity structures:ref="Detention_01" />
+			<j:Charge structures:ref="Charge_01" />
+			<j:Charge structures:ref="Charge_02" />
+		</j:ActivityChargeAssociation>
+		<j:ActivityChargeAssociation>
 			<nc:Activity structures:ref="Arrest_01" />
 			<j:Charge structures:ref="Charge_01" />
+		</j:ActivityChargeAssociation>
+		<j:ActivityChargeAssociation>
+			<nc:Activity structures:ref="Arrest_02" />
+			<j:Charge structures:ref="Charge_02" />
 		</j:ActivityChargeAssociation>
 		<j:BailBondChargeAssociation>
 			<j:BailBond structures:ref="Bond_01" />
 			<j:Charge structures:ref="Charge_01" />
+		</j:BailBondChargeAssociation>
+		<j:BailBondChargeAssociation>
+			<j:BailBond structures:ref="Bond_02" />
+			<j:Charge structures:ref="Charge_02" />
 		</j:BailBondChargeAssociation>
 		<nc:ContactInformationAssociation>
 			<nc:ContactEntity structures:ref="Supervisor_01" />
