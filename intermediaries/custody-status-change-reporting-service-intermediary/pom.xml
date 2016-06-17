@@ -24,7 +24,7 @@
 
   <groupId>org.ojbc.bundles.intermediaries</groupId>
   <artifactId>custody-status-change-reporting-service-intermediary</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   
   <name>OJB :: custody-status-change-reporting-service-intermediary :: intermediary</name>
   

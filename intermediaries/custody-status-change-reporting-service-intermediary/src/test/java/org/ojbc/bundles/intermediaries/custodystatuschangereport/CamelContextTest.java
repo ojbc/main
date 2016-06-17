@@ -110,8 +110,8 @@ public class CamelContextTest {
 	@Test
 	public void testContextRoutes() throws Exception{
 
-		//logging endpoint should get one message from derived route.
-		loggingEndpoint.expectedMessageCount(1);
+		//logging endpoint should get one message from derived route and one from the enricher route
+		loggingEndpoint.expectedMessageCount(2);
 		
 		analyticAdapterMockEndpoint.expectedMessageCount(1);
 		

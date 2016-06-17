@@ -85,4 +85,5 @@
 		<nc30:Identity structures:ref="ALIAS002"/>
 		<nc30:Identity structures:ref="ALIAS003"/>
 	</nc30:PersonAliasIdentityAssociation>
+	<phisr-ext:SourceSystemNameText>System Name</phisr-ext:SourceSystemNameText>
 </phisr-doc:PersonHealthInformationSearchRequest>

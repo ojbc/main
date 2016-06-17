@@ -27,7 +27,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.adapters.rapbackdatastore.processor.IdentificationReportingResponseProcessor;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;

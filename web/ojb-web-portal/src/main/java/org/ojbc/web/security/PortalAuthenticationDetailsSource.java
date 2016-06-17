@@ -66,6 +66,9 @@ public class PortalAuthenticationDetailsSource implements
     @Value("${criminal.identification.results.requestedresource:}")
     private String criminalIdentificationResultsResourceURI;
 
+    @Value("#{'${orisWithoutIncidentDetailAccess:}'.split(',')}")
+    private List<String> orisWithoutIncidentDetailAccess;
+    
     @Autowired(required=false)
     private AccessControlServicesConfig accessControlServicesConfig; 
 
@@ -118,6 +121,12 @@ public class PortalAuthenticationDetailsSource implements
          * Check whether to grant other authorities only when PortalUser access is granted.  
          */
         if (grantedAuthorities.contains(rolePortalUser)) {
+        	
+        	log.info("orisWithoutIncidentDetailAccess:" + orisWithoutIncidentDetailAccess);
+        	if (!orisWithoutIncidentDetailAccess.contains(ori)){
+                grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_INCIDENT_DETAIL.name())); 
+        	}
+        	
             if(requireSubscriptionAccessControl) {
             	
                 grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CRIMINAL_ID_RESULTS.name())); 

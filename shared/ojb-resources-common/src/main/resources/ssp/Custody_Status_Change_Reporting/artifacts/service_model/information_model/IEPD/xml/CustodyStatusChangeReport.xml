@@ -67,8 +67,15 @@
 			</nc:ActivityDate>
 			<nc:SupervisionCustodyStatus>
 				<nc:StatusDescriptionText>Pretrial</nc:StatusDescriptionText>
-				<ac-bkg-codes:PreTrialCategoryCode>C-SRP</ac-bkg-codes:PreTrialCategoryCode>
 			</nc:SupervisionCustodyStatus>
+			<nc:SupervisionSupervisor structures:id="Supervisor_01">
+				<nc:EntityPerson structures:ref="Officer_01" />
+				<cscr-ext:SupervisorCategoryText>Probation Officer
+				</cscr-ext:SupervisorCategoryText>
+				<cscr-ext:SupervisorStatus>
+					<nc:StatusDescriptionText>Primary</nc:StatusDescriptionText>
+				</cscr-ext:SupervisorStatus>
+			</nc:SupervisionSupervisor>
 			<j:SupervisionAugmentation>
 				<j:SupervisionReleaseDate>
 					<nc:DateTime>2014-12-17T10:30:00</nc:DateTime>
@@ -82,6 +89,10 @@
 				<j:SupervisionCellIdentification>
 					<nc:IdentificationID>Bed ID</nc:IdentificationID>
 				</j:SupervisionCellIdentification>
+				<j:SupervisionCondition>
+					<nc:ActivityDescriptionText>Supervision Condition
+					</nc:ActivityDescriptionText>
+				</j:SupervisionCondition>
 			</j:SupervisionAugmentation>
 			<cscr-ext:DetentiontImmigrationHoldIndicator>false
 			</cscr-ext:DetentiontImmigrationHoldIndicator>
@@ -92,6 +103,8 @@
 			</cscr-ext:InmateWorkReleaseIndicator>
 			<cscr-ext:InmateWorkerIndicator>false
 			</cscr-ext:InmateWorkerIndicator>
+			<cscr-ext:AllowAccountDepositIndicator>true
+			</cscr-ext:AllowAccountDepositIndicator>
 		</j:Detention>
 		<j:BailBond structures:id="Bond_01">
 			<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
@@ -132,15 +145,28 @@
 			</j:CourtEventCourt>
 		</cyfs:NextCourtEvent>
 		<nc:Person structures:id="Person_01">
+			<nc:PersonAgeMeasure>
+				<nc:MeasureValueText>52</nc:MeasureValueText>
+				<nc:MeasureUnitText>4H</nc:MeasureUnitText>
+			</nc:PersonAgeMeasure>
 			<nc:PersonBirthDate>
 				<nc:Date>1968-12-17</nc:Date>
 			</nc:PersonBirthDate>
 			<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
+			<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
+			<nc:PersonHairColorText>Bloned</nc:PersonHairColorText>
+			<nc:PersonHeightMeasure>
+				<nc:MeasureValueText>110</nc:MeasureValueText>
+				<nc:MeasureUnitText>4H</nc:MeasureUnitText>
+			</nc:PersonHeightMeasure>
 			<nc:PersonName>
 				<nc:PersonGivenName>Otis</nc:PersonGivenName>
 				<nc:PersonMiddleName>H.</nc:PersonMiddleName>
 				<nc:PersonSurName>Strong</nc:PersonSurName>
 			</nc:PersonName>
+			<nc:PersonPhysicalFeature>
+				<nc:PhysicalFeatureDescriptionText>Tattoo</nc:PhysicalFeatureDescriptionText>
+			</nc:PersonPhysicalFeature>
 			<nc:PersonPrimaryLanguage>
 				<nc:LanguageName>English</nc:LanguageName>
 			</nc:PersonPrimaryLanguage>
@@ -149,6 +175,10 @@
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasureValueText>110</nc:MeasureValueText>
+				<nc:MeasureUnitText>4H</nc:MeasureUnitText>
+			</nc:PersonWeightMeasure>
 			<j:PersonAugmentation>
 				<j:DriverLicense>
 					<j:DriverLicenseCardIdentification>
@@ -170,6 +200,11 @@
 				<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
 				</nc:IdentificationID>
 			</cscr-ext:PersonPersistentIdentification>
+		</nc:Person>
+		<nc:Person>
+			<nc:PersonName structures:id="Officer_01">
+				<nc:PersonFullName>Officer Full Name</nc:PersonFullName>
+			</nc:PersonName>
 		</nc:Person>
 		<nc:Identity structures:id="ALIAS001">
 			<nc:IdentityPersonRepresentation>
@@ -212,6 +247,15 @@
 			<nc:Address>
 				<nc:AddressFullText>30 Main Street Denton, Colorada
 				</nc:AddressFullText>
+				<nc:LocationStreet>
+					<nc:StreetNumberText>392</nc:StreetNumberText>
+					<nc:StreetName>Woodlawn Ave
+					</nc:StreetName>
+				</nc:LocationStreet>
+				<nc:LocationCityName>Burlington</nc:LocationCityName>
+				<nc:LocationStateUSPostalServiceCode>NY
+				</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationPostalCode>05408</nc:LocationPostalCode>
 			</nc:Address>
 			<nc:Location2DGeospatialCoordinate>
 				<nc:GeographicCoordinateLatitude>
@@ -222,6 +266,16 @@
 				</nc:GeographicCoordinateLongitude>
 			</nc:Location2DGeospatialCoordinate>
 		</nc:Location>
+		<nc:ContactInformation structures:id="CI_01">
+			<nc:ContactEmailID>officer@agency.gov</nc:ContactEmailID>
+			<nc:ContactTelephoneNumber>
+				<nc:FullTelephoneNumber>
+					<nc:TelephoneNumberFullID>312-216-9923</nc:TelephoneNumberFullID>
+				</nc:FullTelephoneNumber>
+				<nc:TelephoneNumberCategoryText>Cell
+				</nc:TelephoneNumberCategoryText>
+			</nc:ContactTelephoneNumber>
+		</nc:ContactInformation>
 		<cscr-ext:BehavioralHealthInformation>
 			<cscr-ext:SeriousMentalIllnessIndicator>true</cscr-ext:SeriousMentalIllnessIndicator>
 			<j:Evaluation>
@@ -234,7 +288,6 @@
 			<nc:Activity structures:ref="Event_01" />
 			<nc:Activity structures:ref="Detention_01" />
 			<nc:Activity structures:ref="Arrest_01" />
-			<nc:Activity structures:ref="Event_01" />
 			<nc:Activity structures:ref="CHS_01" />
 			<j:Charge structures:ref="Charge_01" />
 		</j:ActivityChargeAssociation>
@@ -248,5 +301,9 @@
 			<nc:Identity structures:ref="ALIAS002" />
 			<nc:Identity structures:ref="ALIAS003" />
 		</nc:PersonAliasIdentityAssociation>
+		<nc:ContactInformationAssociation>
+			<nc:ContactEntity structures:ref="Supervisor_01" />
+			<nc:ContactInformation structures:ref="CI_01" />
+		</nc:ContactInformationAssociation>
 	</cscr-ext:Custody>
 </cscr-doc:CustodyStatusChangeReport>

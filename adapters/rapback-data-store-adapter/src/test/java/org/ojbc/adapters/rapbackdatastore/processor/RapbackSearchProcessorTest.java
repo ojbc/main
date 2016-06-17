@@ -16,7 +16,10 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +34,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.test.util.SAMLTokenTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
+import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.test.annotation.DirtiesContext;
@@ -104,4 +108,29 @@ public class RapbackSearchProcessorTest {
 				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseSuperUser.xml");
 	}
 	
+	@Test 
+	public void testExtractSearchRequestFromXml() throws Exception {
+        Document criminalIdentificationSearchRequest = 
+        		XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/"
+        				+ "rapbackSearch/IdentificationResultsSearchRequestWithCriteria-Criminal.xml"));
+        IdentificationResultSearchRequest searchRequest = rapbackSearchProcessor.getSearchRequestFromXml(criminalIdentificationSearchRequest);
+        
+        log.info(searchRequest);
+        assertNull(searchRequest.getIdentificationResultCategory());
+        assertArrayEquals(new String[]{"Available for Subscription", "Subscribed"}, searchRequest.getIdentificationTransactionStatus().toArray() );
+        assertEquals(LocalDate.parse("2011-01-01"), searchRequest.getReportedDateStartLocalDate());
+        assertEquals(LocalDate.parse("2016-01-01"), searchRequest.getReportedDateEndLocalDate());
+        assertEquals("Walter", searchRequest.getFirstName());
+        assertEquals("White", searchRequest.getLastName());
+        assertEquals("12345678", searchRequest.getOtn());
+        assertTrue(searchRequest.getCivilIdentificationReasonCodes().size() == 0);
+        assertArrayEquals(new String[]{"SOR", "CAR"}, searchRequest.getCriminalIdentificationReasonCodes().toArray() );
+        
+        Document civilIdentificationSearchRequest = 
+        		XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/"
+        				+ "rapbackSearch/IdentificationResultsSearchRequestWithCriteria-Criminal.xml"));
+        IdentificationResultSearchRequest civilSearchRequest = rapbackSearchProcessor.getSearchRequestFromXml(civilIdentificationSearchRequest);
+        log.info(civilSearchRequest);
+        assertArrayEquals(new String[]{"Available for Subscription", "Subscribed"}, civilSearchRequest.getIdentificationTransactionStatus().toArray() );
+    }
 }
