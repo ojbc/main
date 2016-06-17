@@ -146,7 +146,7 @@
 			</nc:PersonBirthDate>
 			<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
 			<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
-			<nc:PersonHairColorText>Bloned</nc:PersonHairColorText>
+			<nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
 			<nc:PersonHeightMeasure>
 				<nc:MeasureValueText>110</nc:MeasureValueText>
 				<nc:MeasureUnitText>4H</nc:MeasureUnitText>
@@ -195,8 +195,14 @@
 		</nc:Person>
 		<nc:Location structures:id="Loc_01">
 			<nc:Address>
-				<nc:AddressFullText>30 Main Street Denton, Colorada
-				</nc:AddressFullText>
+				<nc:AddressFullText>30 Main Street Denton, Colorado</nc:AddressFullText>
+				<nc:LocationStreet>
+					<nc:StreetNumberText>30</nc:StreetNumberText>
+					<nc:StreetName>Main Street</nc:StreetName>
+				</nc:LocationStreet>
+				<nc:LocationCityName>Denton</nc:LocationCityName>
+				<nc:LocationStateUSPostalServiceCode>CO</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationPostalCode>99999</nc:LocationPostalCode>
 			</nc:Address>
 			<nc:Location2DGeospatialCoordinate>
 				<nc:GeographicCoordinateLatitude>
