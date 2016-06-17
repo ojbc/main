@@ -25,6 +25,8 @@
 	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchResults/1.0 ../xsd/exchange_schema.xsd">
 	<nc30:Person>
 		<phisres-ext:PersonTemporaryIdentification>
@@ -33,11 +35,33 @@
 		<phisres-ext:PersonPersistentIdentification>
 			<nc30:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f</nc30:IdentificationID>
 		</phisres-ext:PersonPersistentIdentification>
+		<phisres-ext:PersonHighRiskIndicator>true</phisres-ext:PersonHighRiskIndicator>
 	</nc30:Person>
 	<phisres-ext:BehavioralHealthInformation>
 		<phisres-ext:SeriousMentalIllnessIndicator>true</phisres-ext:SeriousMentalIllnessIndicator>
 		<jxdm51:Evaluation>
 			<jxdm51:EvaluationDiagnosisDescriptionText>schizophrenia 295.10</jxdm51:EvaluationDiagnosisDescriptionText>
 		</jxdm51:Evaluation>
+		<nc30:Treatment>
+			<nc30:TreatmentProvider>
+				<nc30:EntityOrganization>
+					<nc30:OrganizationName>Treatment Providing Organization Name</nc30:OrganizationName>
+				</nc30:EntityOrganization>
+			</nc30:TreatmentProvider>
+			<phisres-ext:TreatmentCourtOrderedIndicator>true</phisres-ext:TreatmentCourtOrderedIndicator>
+			<phisres-ext:TreatmentActiveIndicator>true</phisres-ext:TreatmentActiveIndicator>
+		</nc30:Treatment>
+		<phisres-ext:PrescribedMedication>
+			<cyfs:Medication>
+				<nc30:ItemName>prolixin</nc30:ItemName>
+			</cyfs:Medication>
+			<cyfs:MedicationDispensingDate>
+				<nc30:Date>2016-01-01</nc30:Date>
+			</cyfs:MedicationDispensingDate>
+			<cyfs:MedicationDoseMeasure>
+				<nc30:MeasureValueText>3mg</nc30:MeasureValueText>
+			</cyfs:MedicationDoseMeasure>
+		</phisres-ext:PrescribedMedication>
+		<hs:MedicaidIndicator>true</hs:MedicaidIndicator>
 	</phisres-ext:BehavioralHealthInformation>
 </phisres-doc:PersonHealthInformationSearchResults>
