@@ -22,6 +22,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.util.model.rapback.IdentificationTransactionState;
 
 public class IdentificationTransaction implements Serializable{
 

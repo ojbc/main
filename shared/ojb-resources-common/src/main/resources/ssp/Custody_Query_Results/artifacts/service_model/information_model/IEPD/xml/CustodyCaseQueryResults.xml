@@ -67,8 +67,15 @@
 			</nc:ActivityDate>
 			<nc:SupervisionCustodyStatus>
 				<nc:StatusDescriptionText>Pretrial</nc:StatusDescriptionText>
-				<ac-bkg-codes:PreTrialCategoryCode>C-SRP</ac-bkg-codes:PreTrialCategoryCode>
 			</nc:SupervisionCustodyStatus>
+			<nc:SupervisionSupervisor structures:id="Supervisor_01">
+				<nc:EntityPerson structures:ref="Officer_01" />
+				<cq-res-ext:SupervisorCategoryText>Probation Officer
+				</cq-res-ext:SupervisorCategoryText>
+				<cq-res-ext:SupervisorStatus>
+					<nc:StatusDescriptionText>Primary</nc:StatusDescriptionText>
+				</cq-res-ext:SupervisorStatus>
+			</nc:SupervisionSupervisor>
 			<j:SupervisionAugmentation>
 				<j:SupervisionReleaseDate>
 					<nc:DateTime>2014-12-17T10:30:00</nc:DateTime>
@@ -86,6 +93,8 @@
 			</cq-res-ext:InmateWorkReleaseIndicator>
 			<cq-res-ext:InmateWorkerIndicator>false
 			</cq-res-ext:InmateWorkerIndicator>
+			<cq-res-ext:AllowAccountDepositIndicator>true
+			</cq-res-ext:AllowAccountDepositIndicator>
 		</j:Detention>
 		<j:BailBond structures:id="Bond_01">
 			<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
@@ -94,6 +103,15 @@
 			</nc:ActivityStatus>
 			<j:BailBondAmount>
 				<nc:Amount>500.00</nc:Amount>
+			</j:BailBondAmount>
+		</j:BailBond>
+		<j:BailBond structures:id="Bond_02">
+			<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
+			<nc:ActivityStatus>
+				<nc:StatusDescriptionText>Bond Status</nc:StatusDescriptionText>
+			</nc:ActivityStatus>
+			<j:BailBondAmount>
+				<nc:Amount>1000.00</nc:Amount>
 			</j:BailBondAmount>
 		</j:BailBond>
 		<j:Charge structures:id="Charge_01">
@@ -113,9 +131,32 @@
 				</j:StatuteCodeSectionIdentification>
 			</j:ChargeStatute>
 		</j:Charge>
+		<j:Charge structures:id="Charge_02">
+			<j:ChargeCategoryDescriptionText>Felony</j:ChargeCategoryDescriptionText>
+			<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+			<j:ChargeDescriptionText>Charge Description</j:ChargeDescriptionText>
+			<j:ChargeHighestIndicator>false</j:ChargeHighestIndicator>
+			<j:ChargeSequenceID>Charge Sequence ID</j:ChargeSequenceID>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>54778</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+			</j:ChargeStatute>
+			<j:ChargeStatute>
+				<j:StatuteCodeSectionIdentification>
+					<nc:IdentificationID>Charge Code ID</nc:IdentificationID>
+				</j:StatuteCodeSectionIdentification>
+			</j:ChargeStatute>
+		</j:Charge>
 		<j:Arrest structures:id="Arrest_01">
 			<j:ArrestAgency>
-				<nc:OrganizationName>Arrest Agency name</nc:OrganizationName>
+				<nc:OrganizationName>Arrest Agency name 1</nc:OrganizationName>
+			</j:ArrestAgency>
+			<j:ArrestLocation structures:ref="Loc_01" />
+		</j:Arrest>
+		<j:Arrest structures:id="Arrest_02">
+			<j:ArrestAgency>
+				<nc:OrganizationName>Arrest Agency name 2</nc:OrganizationName>
 			</j:ArrestAgency>
 			<j:ArrestLocation structures:ref="Loc_01" />
 		</j:Arrest>
@@ -128,15 +169,28 @@
 			</j:CourtEventCourt>
 		</cyfs:NextCourtEvent>
 		<nc:Person structures:id="Person_01">
+			<nc:PersonAgeMeasure>
+				<nc:MeasureValueText>52</nc:MeasureValueText>
+				<nc:MeasureUnitText>4H</nc:MeasureUnitText>
+			</nc:PersonAgeMeasure>
 			<nc:PersonBirthDate>
 				<nc:Date>1968-12-17</nc:Date>
 			</nc:PersonBirthDate>
 			<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
+			<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
+			<nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
+			<nc:PersonHeightMeasure>
+				<nc:MeasureValueText>110</nc:MeasureValueText>
+				<nc:MeasureUnitText>4H</nc:MeasureUnitText>
+			</nc:PersonHeightMeasure>
 			<nc:PersonName>
 				<nc:PersonGivenName>Otis</nc:PersonGivenName>
 				<nc:PersonMiddleName>H.</nc:PersonMiddleName>
 				<nc:PersonSurName>Strong</nc:PersonSurName>
 			</nc:PersonName>
+			<nc:PersonPhysicalFeature>
+				<nc:PhysicalFeatureDescriptionText>Tattoo</nc:PhysicalFeatureDescriptionText>
+			</nc:PersonPhysicalFeature>
 			<nc:PersonPrimaryLanguage>
 				<nc:LanguageName>English</nc:LanguageName>
 			</nc:PersonPrimaryLanguage>
@@ -146,6 +200,10 @@
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasureValueText>110</nc:MeasureValueText>
+				<nc:MeasureUnitText>4H</nc:MeasureUnitText>
+			</nc:PersonWeightMeasure>
 			<j:PersonAugmentation>
 				<j:DriverLicense>
 					<j:DriverLicenseCardIdentification>
@@ -162,10 +220,21 @@
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 		</nc:Person>
+		<nc:Person>
+			<nc:PersonName structures:id="Officer_01">
+				<nc:PersonFullName>Officer Full Name</nc:PersonFullName>
+			</nc:PersonName>
+		</nc:Person>
 		<nc:Location structures:id="Loc_01">
 			<nc:Address>
-				<nc:AddressFullText>30 Main Street Denton, Colorada
-				</nc:AddressFullText>
+				<nc:AddressFullText>30 Main Street Denton, Colorado</nc:AddressFullText>
+				<nc:LocationStreet>
+					<nc:StreetNumberText>30</nc:StreetNumberText>
+					<nc:StreetName>Main Street</nc:StreetName>
+				</nc:LocationStreet>
+				<nc:LocationCityName>Denton</nc:LocationCityName>
+				<nc:LocationStateUSPostalServiceCode>CO</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationPostalCode>99999</nc:LocationPostalCode>
 			</nc:Address>
 			<nc:Location2DGeospatialCoordinate>
 				<nc:GeographicCoordinateLatitude>
@@ -176,19 +245,44 @@
 				</nc:GeographicCoordinateLongitude>
 			</nc:Location2DGeospatialCoordinate>
 		</nc:Location>
+		<nc:ContactInformation structures:id="CI_01">
+			<nc:ContactEmailID>officer@agency.gov</nc:ContactEmailID>
+			<nc:ContactTelephoneNumber>
+				<nc:FullTelephoneNumber>
+					<nc:TelephoneNumberFullID>312-216-9923</nc:TelephoneNumberFullID>
+				</nc:FullTelephoneNumber>
+				<nc:TelephoneNumberCategoryText>Cell
+				</nc:TelephoneNumberCategoryText>
+			</nc:ContactTelephoneNumber>
+		</nc:ContactInformation>
 		<j:ActivityChargeAssociation>
 			<nc:Activity structures:ref="Case_01" />
 			<nc:Activity structures:ref="Booking_01" />
 			<nc:Activity structures:ref="Event_01" />
 			<nc:Activity structures:ref="Detention_01" />
-			<nc:Activity structures:ref="Arrest_01" />
-			<nc:Activity structures:ref="Event_01" />
 			<j:Charge structures:ref="Charge_01" />
+			<j:Charge structures:ref="Charge_02" />
+		</j:ActivityChargeAssociation>
+		<j:ActivityChargeAssociation>
+			<nc:Activity structures:ref="Arrest_01" />
+			<j:Charge structures:ref="Charge_01" />
+		</j:ActivityChargeAssociation>
+		<j:ActivityChargeAssociation>
+			<nc:Activity structures:ref="Arrest_02" />
+			<j:Charge structures:ref="Charge_02" />
 		</j:ActivityChargeAssociation>
 		<j:BailBondChargeAssociation>
 			<j:BailBond structures:ref="Bond_01" />
 			<j:Charge structures:ref="Charge_01" />
 		</j:BailBondChargeAssociation>
+		<j:BailBondChargeAssociation>
+			<j:BailBond structures:ref="Bond_02" />
+			<j:Charge structures:ref="Charge_02" />
+		</j:BailBondChargeAssociation>
+		<nc:ContactInformationAssociation>
+			<nc:ContactEntity structures:ref="Supervisor_01" />
+			<nc:ContactInformation structures:ref="CI_01" />
+		</nc:ContactInformationAssociation>
 	</cq-res-ext:Custody>
 	<cq-res-ext:SourceSystemNameText>Alpha Court System </cq-res-ext:SourceSystemNameText>
 	<cq-res-ext:QueryResultCategoryText>Criminal History</cq-res-ext:QueryResultCategoryText>

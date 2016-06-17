@@ -16,12 +16,11 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.adapters.rapbackdatastore.processor.IdentificationRequestReportProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
