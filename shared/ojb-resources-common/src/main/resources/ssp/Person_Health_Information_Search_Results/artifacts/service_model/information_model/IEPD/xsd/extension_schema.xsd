@@ -61,6 +61,7 @@
 					<xsd:element ref="nc30:Treatment" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="phisres-ext:PrescribedMedication" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="hs:MedicaidIndicator" minOccurs="0"/>
+					<xsd:element ref="phisres-ext:RegionalBehavioralHealthAuthorityAssignmentText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -112,6 +113,16 @@
 	<xsd:element name="TreatmentActiveIndicator" type="niem-xsd:boolean" substitutionGroup="nc30:TreatmentAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if the treatment is currently active,  false otherwise. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegionalBehavioralHealthAuthorityAssignmentText" type="nc30:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A regional behavioral health authority (RBHA) to which an individual is assigned.  A RBHA assignment can designate whether a member is integrated meaning they receive both physical and behavioral health services  or non-integrated meaning they only receive behavioral health services.  </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MedicationGeneralProductIdentification" type="nc30:IdentificationType" substitutionGroup="nc30:DrugAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A hierarchical classification system that identifies drugs from their primary therapeutic use down to the unique interchangeable product regardless of manufacturer or package size.  Commonly referred to a GPI.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
