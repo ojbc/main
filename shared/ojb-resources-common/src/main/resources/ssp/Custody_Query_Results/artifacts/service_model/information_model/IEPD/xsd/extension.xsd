@@ -81,6 +81,7 @@
 					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Detention" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Release" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:BailBond" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />

@@ -1059,6 +1059,11 @@
       <xs:documentation>A minimum value of a range.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="Release" type="nc:ReleaseType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A freeing or discharge of someone or something from an activity, supervision, or obligation.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="RoleOf" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a property of a role object. This specifies the base object, of which the role object is a function.</xs:documentation>
