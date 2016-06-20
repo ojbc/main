@@ -77,9 +77,9 @@
 				</cq-res-ext:SupervisorStatus>
 			</nc:SupervisionSupervisor>
 			<j:SupervisionAugmentation>
-				<j:SupervisionReleaseDate>
-					<nc:DateTime>2014-12-17T10:30:00</nc:DateTime>
-				</j:SupervisionReleaseDate>
+				<j:SupervisionReleaseEligibilityDate>
+					<nc:Date>2014-12-17</nc:Date>
+				</j:SupervisionReleaseEligibilityDate>
 				<j:SupervisionAreaIdentification>
 					<nc:IdentificationID>Cell Block A</nc:IdentificationID>
 				</j:SupervisionAreaIdentification>
@@ -96,6 +96,11 @@
 			<cq-res-ext:AllowAccountDepositIndicator>true
 			</cq-res-ext:AllowAccountDepositIndicator>
 		</j:Detention>
+		<nc:Release structures:id="Release_01">
+			<nc:ActivityDate>
+				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+			</nc:ActivityDate>
+		</nc:Release>
 		<j:BailBond structures:id="Bond_01">
 			<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
 			<nc:ActivityStatus>
@@ -233,7 +238,8 @@
 					<nc:StreetName>Main Street</nc:StreetName>
 				</nc:LocationStreet>
 				<nc:LocationCityName>Denton</nc:LocationCityName>
-				<nc:LocationStateUSPostalServiceCode>CO</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationStateUSPostalServiceCode>CO
+				</nc:LocationStateUSPostalServiceCode>
 				<nc:LocationPostalCode>99999</nc:LocationPostalCode>
 			</nc:Address>
 			<nc:Location2DGeospatialCoordinate>
@@ -260,6 +266,7 @@
 			<nc:Activity structures:ref="Booking_01" />
 			<nc:Activity structures:ref="Event_01" />
 			<nc:Activity structures:ref="Detention_01" />
+			<nc:Activity structures:ref="Release_01" />
 			<j:Charge structures:ref="Charge_01" />
 			<j:Charge structures:ref="Charge_02" />
 		</j:ActivityChargeAssociation>

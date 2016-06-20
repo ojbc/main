@@ -83,6 +83,7 @@
   <w:Element w:name="nc:PersonHairColorText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonResidentText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonSexText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:Release" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Status" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:TelephoneNumberCategoryText"
     w:isReference="false" w:nillable="false"/>
@@ -187,7 +188,7 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:SupervisionAugmentationType" w:isRequested="true">
-    <w:ElementInType w:name="j:SupervisionReleaseDate"
+    <w:ElementInType w:name="j:SupervisionReleaseEligibilityDate"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SupervisionAreaIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -391,6 +392,7 @@
     <w:ElementInType w:name="nc:PhysicalFeatureDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:ReleaseType" w:isRequested="true"/>
   <w:Type w:name="nc:StatusType" w:isRequested="true">
     <w:ElementInType w:name="nc:StatusDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
