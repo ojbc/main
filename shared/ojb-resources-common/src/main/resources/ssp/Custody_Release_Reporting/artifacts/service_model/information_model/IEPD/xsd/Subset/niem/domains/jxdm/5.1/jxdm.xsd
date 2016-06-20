@@ -46,7 +46,6 @@
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
           <xs:element ref="j:BookingFacility" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="j:BookingRelease" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:BookingSubject" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -112,6 +111,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="SupervisionAugmentationType">
+    <xs:annotation>
+      <xs:documentation>A data type for additional information about a supervision.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:AugmentationType">
+        <xs:sequence>
+          <xs:element ref="j:SupervisionReleaseEligibilityDate" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:element name="Booking" type="j:BookingType">
     <xs:annotation>
       <xs:documentation>An administrative step taken after an arrested subject is brought to a police station or detention facility, which involves entry of the subject's name and other relevant facts on the police blotter, and which may also include photographing,</xs:documentation>
@@ -127,14 +138,14 @@
       <xs:documentation>A police station or a detention facility where a booking occurs.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="BookingRelease" type="nc:ReleaseType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A release of a subject from booking or from booking detention.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
   <xs:element name="BookingSubject" type="j:SubjectType" nillable="true">
     <xs:annotation>
       <xs:documentation>A person who is booked.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Detention" type="nc:SupervisionType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A mandatory confined supervision of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="DriverLicense" type="j:DriverLicenseType" nillable="true">
@@ -205,6 +216,16 @@
   <xs:element name="SubjectIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An assigned identification that identifies a subject.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SupervisionAugmentation" type="j:SupervisionAugmentationType" substitutionGroup="nc:SupervisionAugmentationPoint" nillable="true">
+    <xs:annotation>
+      <xs:documentation>Additional information about a supervision.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SupervisionReleaseEligibilityDate" type="nc:DateType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A date set at which a person under supervision is eligible for release</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>

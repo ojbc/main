@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xs:schema targetNamespace="http://release.niem.gov/niem/domains/humanServices/3.1/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <xs:annotation>
+    <xs:documentation>Human Services</xs:documentation>
+  </xs:annotation>
+  <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
+  <xs:import schemaLocation="../../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
+  <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:simpleType name="ChildCareIndicatorCodeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for a role of the person of record involved in child care - the child receiving assistance, the parent receiving assistance, or the child care provider.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token"/>
+  </xs:simpleType>
+  <xs:complexType name="ChildCareIndicatorCodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for a role of the person of record involved in child care - the child receiving assistance, the parent receiving assistance, or the child care provider.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="hs:ChildCareIndicatorCodeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ChildCareType">
+    <xs:annotation>
+      <xs:documentation>A data type for a set of information about child care program or assistance.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:StartDate" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="nc:EndDate" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EligibilityType">
+    <xs:annotation>
+      <xs:documentation>A data type for a set of programs for which a person may be considered for eligibility.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="hs:TANFIndicator" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="hs:GeneralAssistanceIndicator" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="hs:FoodStampIndicator" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="hs:SSIIndicator" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="hs:MedicaidIndicator" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="hs:ChildCareIndicatorCode" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="hs:WorkersCompIndicator" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="hs:FillerDescriptionText" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="hs:FoodStamps" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="hs:TANF" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="hs:Medicaid" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="hs:SSI" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="hs:GeneralAssistance" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="hs:ChildCare" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="hs:WorkersComp" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FoodStampsType">
+    <xs:annotation>
+      <xs:documentation>A data type for a program to provide food-purchasing assistance to eligible adults.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:StartDate" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="nc:EndDate" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="GeneralAssistanceType">
+    <xs:annotation>
+      <xs:documentation>A data type for a program to provide temporary assistance to eligible adults.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:StartDate" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="nc:EndDate" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="MedicaidType">
+    <xs:annotation>
+      <xs:documentation>A data type for a program to provide medical care and long-term care services to low-income people and families.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:StartDate" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="nc:EndDate" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SSIType">
+    <xs:annotation>
+      <xs:documentation>A data type for a program (Supplemental Security Income) to provide stipends to people with limited income and resources who are disabled, blind, or age 65 or older.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:StartDate" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="nc:EndDate" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="TANFType">
+    <xs:annotation>
+      <xs:documentation>A data type for a program designed to help needy families achieve self-sufficiency (Temporary Assistance to Needy Families).</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:StartDate" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="nc:EndDate" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="WorkersCompType">
+    <xs:annotation>
+      <xs:documentation>A data type for a program to provide wage replacement and medical benefits to employees injured on the job.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:StartDate" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="nc:EndDate" minOccurs="1" maxOccurs="1"/>
+          <xs:element ref="hs:WorkersCompPayAmount" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ChildCare" type="hs:ChildCareType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A set of information about child care program or assistance.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChildCareIndicatorCode" type="hs:ChildCareIndicatorCodeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A role of the person of record involved in child care - the child receiving assistance, the parent receiving assistance, or the child care provider.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="FillerDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of filler information.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="FoodStampIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if a client receives food stamps or their assets count; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="FoodStamps" type="hs:FoodStampsType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A program to provide food-purchasing assistance to eligible adults.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="GeneralAssistance" type="hs:GeneralAssistanceType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A program to provide temporary assistance to eligible adults.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="GeneralAssistanceIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if a client receives general assistance or their assets count; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Medicaid" type="hs:MedicaidType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A program to provide medical care and long-term care services to low-income people and families.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="MedicaidIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if a client is on Medicaid or if their assets count; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SSI" type="hs:SSIType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A program (Supplemental Security Income) to provide stipends to people with limited income and resources who are disabled, blind, or age 65 or older.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SSIIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if a client receives SSI or their assets count; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TANF" type="hs:TANFType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A program designed to help needy families achieve self-sufficiency (Temporary Assistance to Needy Families).</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TANFIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if a client receives TANF Assistance or if their assets count; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="WorkersComp" type="hs:WorkersCompType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A program to provide wage replacement and medical benefits to employees injured on the job.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="WorkersCompIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if a client receives worker&#x2019;s compensation; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="WorkersCompPayAmount" type="nc:AmountType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A payment amount for Worker&#x2019;s Comp.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

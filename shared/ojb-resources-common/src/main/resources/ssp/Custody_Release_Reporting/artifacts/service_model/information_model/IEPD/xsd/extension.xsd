@@ -45,6 +45,8 @@
 				<xsd:sequence>
 					<xsd:element ref="nc:Case" minOccurs="0"/>
 					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:Detention" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Release" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Identity" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
