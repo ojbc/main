@@ -21,6 +21,8 @@
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
   <uri name="http://release.niem.gov/niem/appinfo/3.0/" uri="niem/appinfo/3.0/appinfo.xsd"/>
   <uri name="http://release.niem.gov/niem/conformanceTargets/3.0/" uri="niem/conformanceTargets/3.0/conformanceTargets.xsd"/>
+  <uri name="http://release.niem.gov/niem/domains/cyfs/3.1/" uri="niem/domains/cyfs/3.1/cyfs.xsd"/>
+  <uri name="http://release.niem.gov/niem/domains/humanServices/3.1/" uri="niem/domains/humanServices/3.1/hs.xsd"/>
   <uri name="http://release.niem.gov/niem/domains/jxdm/5.1/" uri="niem/domains/jxdm/5.1/jxdm.xsd"/>
   <uri name="http://release.niem.gov/niem/localTerminology/3.0/" uri="niem/localTerminology/3.0/localTerminology.xsd"/>
   <uri name="http://release.niem.gov/niem/niem-core/3.0/" uri="niem/niem-core/3.0/niem-core.xsd"/>

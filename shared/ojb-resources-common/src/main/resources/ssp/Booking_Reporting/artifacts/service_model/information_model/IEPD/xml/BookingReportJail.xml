@@ -156,7 +156,7 @@
 		<nc:PersonEducationLevelText>High School Graduate</nc:PersonEducationLevelText>
 		<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
 		<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
-		<nc:PersonHairColorText>Bloned</nc:PersonHairColorText>
+		<nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
 		<nc:PersonHeightMeasure>
 			<nc:MeasureValueText>110</nc:MeasureValueText>
 			<nc:MeasureUnitText>4H</nc:MeasureUnitText>
@@ -189,7 +189,7 @@
 			<nc:EmployeeOccupationCategoryText>Truck Driver
 			</nc:EmployeeOccupationCategoryText>
 			<j:PersonStateFingerprintIdentification>
-				<nc:IdentificationID>CO0120010324</nc:IdentificationID>
+				<nc:IdentificationID>XX0120010324</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
 		<br-ext:PersonSocioEconomicStatusDescriptionText>Middle Class
@@ -245,6 +245,14 @@
 		<nc:Address>
 			<nc:AddressFullText>30 Main Street Denton, Colorada
 			</nc:AddressFullText>
+			<nc:LocationStreet>
+				<nc:StreetNumberText>392</nc:StreetNumberText>
+				<nc:StreetName>Woodlawn Ave
+				</nc:StreetName>
+			</nc:LocationStreet>
+			<nc:LocationCityName>Burlington</nc:LocationCityName>
+			<nc:LocationStateUSPostalServiceCode>NY</nc:LocationStateUSPostalServiceCode>
+			<nc:LocationPostalCode>05408</nc:LocationPostalCode>
 		</nc:Address>
 		<nc:Location2DGeospatialCoordinate>
 			<nc:GeographicCoordinateLatitude>

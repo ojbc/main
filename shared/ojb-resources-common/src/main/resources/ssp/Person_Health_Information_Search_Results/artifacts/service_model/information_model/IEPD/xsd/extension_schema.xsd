@@ -23,13 +23,17 @@
 	targetNamespace="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchResults/1.0"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
 	xmlns:phisres-ext="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchResults/1.0"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
 	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" elementFormDefault="qualified">
 	
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd"/>
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/humanServices/3.1/" schemaLocation="Subset/niem/domains/humanServices/3.1/hs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.1/" schemaLocation="Subset/niem/domains/cyfs/3.1/cyfs.xsd"/>
 	
 	<xsd:complexType name="PersonHealthInformationSearchResultsType">
 		<xsd:annotation>
@@ -52,12 +56,29 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="phisres-ext:SeriousMentalIllnessIndicator"/>
+					<xsd:element ref="phisres-ext:BehavioralHealthStatusRepresentation"  minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="jxdm51:Evaluation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc30:Treatment" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="phisres-ext:PrescribedMedication" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="hs:MedicaidIndicator" minOccurs="0"/>
+					<xsd:element ref="phisres-ext:RegionalBehavioralHealthAuthorityAssignmentText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	
+	
+	<xsd:element name="BehavioralHealthStatusRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A representation of a person's behavioral health</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="PrescribedMedication" type="cyfs:MedicationUseType">
+		<xsd:annotation>
+			<xsd:documentation>A short-lived identifier intended to allow for linking between a search request and search results.  This identifier should have been included in the original search request message and should be included in this message, unaltered.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	
 	<xsd:element name="BehavioralHealthInformation" type="phisres-ext:BehavioralHealthInformationType">
 		<xsd:annotation>
@@ -74,9 +95,34 @@
 			<xsd:documentation>A short-lived identifier intended to allow for linking between a search request and search results.  This identifier will be in the request message that leads to this response.  The identifier should just be included in the response message, unaltered.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SeriousMentalIllnessIndicator" type="niem-xsd:boolean">
+	<xsd:element name="SeriousMentalIllnessIndicator" type="niem-xsd:boolean" substitutionGroup="phisres-ext:BehavioralHealthStatusRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>True if the person is diagnosed with a serious mental illness (SMI), false otherwise. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonHighRiskIndicator" type="niem-xsd:boolean" substitutionGroup="nc30:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a provider determines a person to be high risk, false otherwise. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TreatmentCourtOrderedIndicator" type="niem-xsd:boolean" substitutionGroup="nc30:TreatmentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if court has ordered a person to undergo the treatment, false otherwise. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TreatmentActiveIndicator" type="niem-xsd:boolean" substitutionGroup="nc30:TreatmentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if the treatment is currently active,  false otherwise. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegionalBehavioralHealthAuthorityAssignmentText" type="nc30:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A regional behavioral health authority (RBHA) to which an individual is assigned.  A RBHA assignment can designate whether a member is integrated meaning they receive both physical and behavioral health services  or non-integrated meaning they only receive behavioral health services.  </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MedicationGeneralProductIdentification" type="nc30:IdentificationType" substitutionGroup="nc30:DrugAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A hierarchical classification system that identifies drugs from their primary therapeutic use down to the unique interchangeable product regardless of manufacturer or package size.  Commonly referred to a GPI.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
