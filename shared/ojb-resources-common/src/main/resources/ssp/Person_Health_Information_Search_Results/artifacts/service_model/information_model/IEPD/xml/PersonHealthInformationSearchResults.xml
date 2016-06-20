@@ -35,10 +35,10 @@
 		<phisres-ext:PersonPersistentIdentification>
 			<nc30:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f</nc30:IdentificationID>
 		</phisres-ext:PersonPersistentIdentification>
-		<phisres-ext:PersonHighRiskIndicator>true</phisres-ext:PersonHighRiskIndicator>
 	</nc30:Person>
 	<phisres-ext:BehavioralHealthInformation>
 		<phisres-ext:SeriousMentalIllnessIndicator>true</phisres-ext:SeriousMentalIllnessIndicator>
+		<phisres-ext:HighRiskNeedsIndicator>true</phisres-ext:HighRiskNeedsIndicator>
 		<jxdm51:Evaluation>
 			<jxdm51:EvaluationDiagnosisDescriptionText>Schizophrenia 295.10</jxdm51:EvaluationDiagnosisDescriptionText>
 		</jxdm51:Evaluation>
