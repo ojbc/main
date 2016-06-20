@@ -22,8 +22,6 @@ CREATE SCHEMA custody_datastore;
 -- TODO see why other db's don't set schema
 -- SET SCHEMA custody_datastore;
 
---warnings ignored about nullable foreign keys
-
 
 CREATE TABLE person (
                 id IDENTITY NOT NULL,
@@ -100,9 +98,17 @@ CREATE TABLE booking (
 );
 
 
-CREATE TABLE charge (
+CREATE TABLE arrest (
                 id IDENTITY NOT NULL,
                 booking_id INTEGER NOT NULL,
+                arrest_agency VARCHAR(200),
+                CONSTRAINT id PRIMARY KEY (id)
+);
+
+
+CREATE TABLE charge (
+                id IDENTITY NOT NULL,
+                arrest_id INTEGER NOT NULL,
                 bond_amount DECIMAL(19,4),
                 bond_type VARCHAR(30),
                 bond_status VARCHAR(30),
@@ -112,10 +118,21 @@ CREATE TABLE charge (
                 charge_description VARCHAR(200),
                 statute_or_ordinance_number INTEGER,
                 charge_category_classification VARCHAR(200),
-                arrest_location VARCHAR(200),
-                arrest_agency VARCHAR(200),
                 holding_for_agency VARCHAR(100),
                 case_jurisdiction_court VARCHAR(200),
+                CONSTRAINT id PRIMARY KEY (id)
+);
+
+
+CREATE TABLE location (
+                id IDENTITY NOT NULL,
+                arrest_id INTEGER NOT NULL,
+                address_secondary_unit VARCHAR(200) NOT NULL,
+                street_number VARCHAR(100) NOT NULL,
+                street_name VARCHAR(200) NOT NULL,
+                city VARCHAR(200) NOT NULL,
+                state_code VARCHAR(10) NOT NULL,
+                postal_code VARCHAR(20) NOT NULL,
                 CONSTRAINT id PRIMARY KEY (id)
 );
 
@@ -144,8 +161,20 @@ REFERENCES person (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE charge ADD CONSTRAINT booking_charge_fk
+ALTER TABLE arrest ADD CONSTRAINT booking_arrest_fk
 FOREIGN KEY (booking_id)
 REFERENCES booking (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE location ADD CONSTRAINT arrest_location_fk
+FOREIGN KEY (arrest_id)
+REFERENCES arrest (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE charge ADD CONSTRAINT arrest_charge_fk
+FOREIGN KEY (arrest_id)
+REFERENCES arrest (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
