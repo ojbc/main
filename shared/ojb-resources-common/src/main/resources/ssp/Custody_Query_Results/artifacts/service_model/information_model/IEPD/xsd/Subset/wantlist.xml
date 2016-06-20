@@ -211,8 +211,10 @@
   <w:Type w:name="nc:AddressType" w:isRequested="false">
     <w:ElementInType w:name="nc:AddressFullText" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:AddressDeliveryPoint"
+    <w:ElementInType w:name="nc:AddressSecondaryUnitText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:AddressDeliveryPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:LocationCityName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:LocationState" w:isReference="false"
