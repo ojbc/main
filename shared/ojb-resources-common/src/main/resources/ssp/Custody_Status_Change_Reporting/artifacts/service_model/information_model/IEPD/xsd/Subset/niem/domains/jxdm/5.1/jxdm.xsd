@@ -239,7 +239,7 @@
     <xs:complexContent>
       <xs:extension base="structures:AugmentationType">
         <xs:sequence>
-          <xs:element ref="j:SupervisionReleaseDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SupervisionReleaseEligibilityDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SupervisionAreaIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SupervisionBedIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SupervisionCellIdentification" minOccurs="0" maxOccurs="unbounded"/>
@@ -483,9 +483,9 @@
       <xs:documentation>A condition that must be met for a person to remain in supervision.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="SupervisionReleaseDate" type="nc:DateType" nillable="true">
+  <xs:element name="SupervisionReleaseEligibilityDate" type="nc:DateType" nillable="true">
     <xs:annotation>
-      <xs:documentation>A date set at which a person under supervision is released.</xs:documentation>
+      <xs:documentation>A date set at which a person under supervision is eligible for release</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>
