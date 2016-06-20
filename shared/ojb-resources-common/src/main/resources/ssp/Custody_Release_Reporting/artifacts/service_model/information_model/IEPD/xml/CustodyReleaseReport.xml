@@ -50,21 +50,28 @@
 					<nc:IdentificationID>Facility ID</nc:IdentificationID>
 				</nc:FacilityIdentification>
 			</j:BookingFacility>
-			<j:BookingRelease>
-				<nc:ActivityDate>
-					<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
-				</nc:ActivityDate>
-				<nc:ActivityDescriptionText>String</nc:ActivityDescriptionText>
-				<nc:ActivityReasonText>String</nc:ActivityReasonText>
-				<nc:ReleasePerson structures:ref="Person_01" />
-				<nc:ReleaseToLocation structures:ref="Location_01" />
-			</j:BookingRelease>
 			<j:BookingSubject>
 				<j:SubjectIdentification>
 					<nc:IdentificationID>Booking Number</nc:IdentificationID>
 				</j:SubjectIdentification>
 			</j:BookingSubject>
 		</j:Booking>
+		<j:Detention>
+			<j:SupervisionAugmentation>
+				<j:SupervisionReleaseEligibilityDate>
+					<nc:Date>2001-12-17</nc:Date>
+				</j:SupervisionReleaseEligibilityDate>
+			</j:SupervisionAugmentation>
+		</j:Detention>
+		<nc:Release>
+			<nc:ActivityDate>
+				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+			</nc:ActivityDate>
+			<nc:ActivityDescriptionText>String</nc:ActivityDescriptionText>
+			<nc:ActivityReasonText>String</nc:ActivityReasonText>
+			<nc:ReleasePerson structures:ref="Person_01" />
+			<nc:ReleaseToLocation structures:ref="Location_01" />
+		</nc:Release>
 		<nc:Person structures:id="Person_01">
 			<nc:PersonBirthDate>
 				<nc:Date>1968-12-17</nc:Date>
