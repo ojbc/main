@@ -227,7 +227,7 @@
 		</nc:Person>
 		<nc:Location structures:id="Loc_01">
 			<nc:Address>
-				<nc:AddressFullText>30 Main Street Denton, Colorado</nc:AddressFullText>
+				<nc:AddressSecondaryUnitText>1</nc:AddressSecondaryUnitText>
 				<nc:LocationStreet>
 					<nc:StreetNumberText>30</nc:StreetNumberText>
 					<nc:StreetName>Main Street</nc:StreetName>
