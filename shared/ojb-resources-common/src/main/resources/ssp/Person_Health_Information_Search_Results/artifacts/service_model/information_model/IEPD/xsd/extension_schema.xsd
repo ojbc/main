@@ -100,9 +100,9 @@
 			<xsd:documentation>True if the person is diagnosed with a serious mental illness (SMI), false otherwise. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonHighRiskIndicator" type="niem-xsd:boolean" substitutionGroup="nc30:PersonAugmentationPoint">
+	<xsd:element name="HighRiskNeedsIndicator" type="niem-xsd:boolean" substitutionGroup="phisres-ext:BehavioralHealthStatusRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>True if a provider determines a person to be high risk, false otherwise. </xsd:documentation>
+			<xsd:documentation>True if a provider determines a person to be high risk of needing services, false otherwise. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="TreatmentCourtOrderedIndicator" type="niem-xsd:boolean" substitutionGroup="nc30:TreatmentAugmentationPoint">
