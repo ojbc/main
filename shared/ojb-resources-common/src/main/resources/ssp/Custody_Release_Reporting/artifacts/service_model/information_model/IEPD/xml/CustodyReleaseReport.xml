@@ -158,17 +158,17 @@
 				<nc:LocationPostalCode>14329</nc:LocationPostalCode>
 			</nc:Address>
 		</nc:Location>
-		<crr-ext:BehavioralHealthInformation>
-			<crr-ext:SeriousMentalIllnessIndicator>true</crr-ext:SeriousMentalIllnessIndicator>
-			<j:Evaluation>
-				<j:EvaluationDiagnosisDescriptionText>schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
-			</j:Evaluation>
-		</crr-ext:BehavioralHealthInformation>
 		<nc:PersonAliasIdentityAssociation>
 			<nc:Person structures:ref="Person_01" />
 			<nc:Identity structures:ref="ALIAS001" />
 			<nc:Identity structures:ref="ALIAS002" />
 			<nc:Identity structures:ref="ALIAS003" />
 		</nc:PersonAliasIdentityAssociation>
+		<crr-ext:BehavioralHealthInformation>
+			<crr-ext:SeriousMentalIllnessIndicator>true</crr-ext:SeriousMentalIllnessIndicator>
+			<j:Evaluation>
+				<j:EvaluationDiagnosisDescriptionText>schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
+			</j:Evaluation>
+		</crr-ext:BehavioralHealthInformation>
 	</crr-ext:Custody>
 </crr-doc:CustodyReleaseReport>
