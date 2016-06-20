@@ -156,7 +156,7 @@
 		<nc:PersonEducationLevelText>High School Graduate</nc:PersonEducationLevelText>
 		<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
 		<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
-		<nc:PersonHairColorText>Bloned</nc:PersonHairColorText>
+		<nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
 		<nc:PersonHeightMeasure>
 			<nc:MeasureValueText>110</nc:MeasureValueText>
 			<nc:MeasureUnitText>4H</nc:MeasureUnitText>
@@ -189,7 +189,7 @@
 			<nc:EmployeeOccupationCategoryText>Truck Driver
 			</nc:EmployeeOccupationCategoryText>
 			<j:PersonStateFingerprintIdentification>
-				<nc:IdentificationID>CO0120010324</nc:IdentificationID>
+				<nc:IdentificationID>XX0120010324</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
 		<br-ext:PersonSocioEconomicStatusDescriptionText>Middle Class
