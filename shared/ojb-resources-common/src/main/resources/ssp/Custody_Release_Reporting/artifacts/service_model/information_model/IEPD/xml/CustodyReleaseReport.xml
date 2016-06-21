@@ -51,6 +51,7 @@
 				</nc:FacilityIdentification>
 			</j:BookingFacility>
 			<j:BookingSubject>
+				<nc:RoleOfPerson structures:ref="Person_01"/>
 				<j:SubjectIdentification>
 					<nc:IdentificationID>Booking Number</nc:IdentificationID>
 				</j:SubjectIdentification>
