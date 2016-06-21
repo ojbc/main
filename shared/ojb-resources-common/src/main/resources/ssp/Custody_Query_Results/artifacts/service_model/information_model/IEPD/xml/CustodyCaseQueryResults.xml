@@ -173,6 +173,14 @@
 				<j:CourtName>Court Name</j:CourtName>
 			</j:CourtEventCourt>
 		</cyfs:NextCourtEvent>
+		<cyfs:NextCourtEvent structures:id="Event_02">
+			<nc:ActivityDate>
+				<nc:Date>1968-12-11</nc:Date>
+			</nc:ActivityDate>
+			<j:CourtEventCourt>
+				<j:CourtName>Court Name</j:CourtName>
+			</j:CourtEventCourt>
+		</cyfs:NextCourtEvent>
 		<nc:Person structures:id="Person_01">
 			<nc:PersonAgeMeasure>
 				<nc:MeasureValueText>52</nc:MeasureValueText>
@@ -264,7 +272,6 @@
 		<j:ActivityChargeAssociation>
 			<nc:Activity structures:ref="Case_01" />
 			<nc:Activity structures:ref="Booking_01" />
-			<nc:Activity structures:ref="Event_01" />
 			<nc:Activity structures:ref="Detention_01" />
 			<nc:Activity structures:ref="Release_01" />
 			<j:Charge structures:ref="Charge_01" />
@@ -272,10 +279,12 @@
 		</j:ActivityChargeAssociation>
 		<j:ActivityChargeAssociation>
 			<nc:Activity structures:ref="Arrest_01" />
+			<nc:Activity structures:ref="Event_01" />
 			<j:Charge structures:ref="Charge_01" />
 		</j:ActivityChargeAssociation>
 		<j:ActivityChargeAssociation>
 			<nc:Activity structures:ref="Arrest_02" />
+			<nc:Activity structures:ref="Event_02" />
 			<j:Charge structures:ref="Charge_02" />
 		</j:ActivityChargeAssociation>
 		<j:BailBondChargeAssociation>
