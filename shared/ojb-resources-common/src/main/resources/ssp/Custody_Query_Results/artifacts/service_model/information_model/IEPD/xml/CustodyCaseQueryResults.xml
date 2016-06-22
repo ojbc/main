@@ -83,6 +83,12 @@
 				<j:SupervisionAreaIdentification>
 					<nc:IdentificationID>Cell Block A</nc:IdentificationID>
 				</j:SupervisionAreaIdentification>
+				<j:SupervisionBedIdentification>
+					<nc:IdentificationID>Bed ID</nc:IdentificationID>
+				</j:SupervisionBedIdentification>
+				<j:SupervisionCellIdentification>
+					<nc:IdentificationID>Cell ID</nc:IdentificationID>
+				</j:SupervisionCellIdentification>
 			</j:SupervisionAugmentation>
 			<cq-res-ext:DetentiontImmigrationHoldIndicator>false
 			</cq-res-ext:DetentiontImmigrationHoldIndicator>
