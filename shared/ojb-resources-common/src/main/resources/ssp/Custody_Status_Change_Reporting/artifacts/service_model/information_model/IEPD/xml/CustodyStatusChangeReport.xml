@@ -87,7 +87,7 @@
 					<nc:IdentificationID>Bed ID</nc:IdentificationID>
 				</j:SupervisionBedIdentification>
 				<j:SupervisionCellIdentification>
-					<nc:IdentificationID>Bed ID</nc:IdentificationID>
+					<nc:IdentificationID>Cell ID</nc:IdentificationID>
 				</j:SupervisionCellIdentification>
 				<j:SupervisionCondition>
 					<nc:ActivityDescriptionText>Supervision Condition
