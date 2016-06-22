@@ -92,7 +92,7 @@ public class PortalAuthenticationDetailsSource implements
         }
     
         String principal = (String) context.getAttribute("principal");
-        log.debug("requireIdentityBasedAccessControl:" + requireIdentityBasedAccessControl);
+        log.info("requireIdentityBasedAccessControl:" + requireIdentityBasedAccessControl);
         
         if (requireIdentityBasedAccessControl && !WebPortalConstants.EMPTY_FEDERATION_ID.equals(principal)) {
         	
