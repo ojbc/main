@@ -28,7 +28,9 @@
   xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/">
   <w:Element w:name="cyfs:NextCourtEvent" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="intel:SystemIdentification" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ActivityCaseAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityChargeAssociation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ActivityReleaseAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:BailBond" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:BailBondChargeAssociation" w:isReference="false" w:nillable="false"/>
@@ -88,14 +90,28 @@
   <w:Element w:name="nc:Status" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:TelephoneNumberCategoryText"
     w:isReference="false" w:nillable="false"/>
+  <w:Type w:name="j:ActivityCaseAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Case" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:ActivityChargeAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Activity" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:Charge" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:ActivityReleaseAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Release" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:ArrestType" w:isRequested="true">
     <w:ElementInType w:name="j:ArrestAgency" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ArrestCharge" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ArrestLocation" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -118,6 +134,8 @@
     <w:ElementInType w:name="j:BookingDetentionFacility"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:BookingSubject" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Arrest" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:BookingAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
