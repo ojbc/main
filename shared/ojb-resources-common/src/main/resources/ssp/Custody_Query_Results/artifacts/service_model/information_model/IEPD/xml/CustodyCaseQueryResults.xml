@@ -195,6 +195,9 @@
 			<nc:PersonBirthDate>
 				<nc:Date>1968-12-17</nc:Date>
 			</nc:PersonBirthDate>
+			<nc:PersonDigitalImage>
+				<nc:Base64BinaryObject></nc:Base64BinaryObject>
+			</nc:PersonDigitalImage>
 			<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
 			<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
 			<nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
