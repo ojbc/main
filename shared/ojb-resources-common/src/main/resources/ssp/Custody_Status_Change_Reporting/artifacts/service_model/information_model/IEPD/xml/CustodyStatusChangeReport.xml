@@ -77,9 +77,9 @@
 				</cscr-ext:SupervisorStatus>
 			</nc:SupervisionSupervisor>
 			<j:SupervisionAugmentation>
-				<j:SupervisionReleaseDate>
-					<nc:DateTime>2014-12-17T10:30:00</nc:DateTime>
-				</j:SupervisionReleaseDate>
+				<j:SupervisionReleaseEligibilityDate>
+					<nc:Date>2014-12-17</nc:Date>
+				</j:SupervisionReleaseEligibilityDate>
 				<j:SupervisionAreaIdentification>
 					<nc:IdentificationID>Cell Block A</nc:IdentificationID>
 				</j:SupervisionAreaIdentification>
@@ -87,7 +87,7 @@
 					<nc:IdentificationID>Bed ID</nc:IdentificationID>
 				</j:SupervisionBedIdentification>
 				<j:SupervisionCellIdentification>
-					<nc:IdentificationID>Bed ID</nc:IdentificationID>
+					<nc:IdentificationID>Cell ID</nc:IdentificationID>
 				</j:SupervisionCellIdentification>
 				<j:SupervisionCondition>
 					<nc:ActivityDescriptionText>Supervision Condition
@@ -106,6 +106,11 @@
 			<cscr-ext:AllowAccountDepositIndicator>true
 			</cscr-ext:AllowAccountDepositIndicator>
 		</j:Detention>
+		<nc:Release structures:id="Release_01">
+			<nc:ActivityDate>
+				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+			</nc:ActivityDate>
+		</nc:Release>
 		<j:BailBond structures:id="Bond_01">
 			<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
 			<nc:ActivityStatus>
@@ -245,17 +250,15 @@
 		</nc:Identity>
 		<nc:Location structures:id="Loc_01">
 			<nc:Address>
-				<nc:AddressFullText>30 Main Street Denton, Colorada
-				</nc:AddressFullText>
+				<nc:AddressSecondaryUnitText>1</nc:AddressSecondaryUnitText>
 				<nc:LocationStreet>
-					<nc:StreetNumberText>392</nc:StreetNumberText>
-					<nc:StreetName>Woodlawn Ave
-					</nc:StreetName>
+					<nc:StreetNumberText>30</nc:StreetNumberText>
+					<nc:StreetName>Main Street</nc:StreetName>
 				</nc:LocationStreet>
-				<nc:LocationCityName>Burlington</nc:LocationCityName>
-				<nc:LocationStateUSPostalServiceCode>NY
+				<nc:LocationCityName>Denton</nc:LocationCityName>
+				<nc:LocationStateUSPostalServiceCode>CO
 				</nc:LocationStateUSPostalServiceCode>
-				<nc:LocationPostalCode>05408</nc:LocationPostalCode>
+				<nc:LocationPostalCode>99999</nc:LocationPostalCode>
 			</nc:Address>
 			<nc:Location2DGeospatialCoordinate>
 				<nc:GeographicCoordinateLatitude>
@@ -276,12 +279,6 @@
 				</nc:TelephoneNumberCategoryText>
 			</nc:ContactTelephoneNumber>
 		</nc:ContactInformation>
-		<cscr-ext:BehavioralHealthInformation>
-			<cscr-ext:SeriousMentalIllnessIndicator>true</cscr-ext:SeriousMentalIllnessIndicator>
-			<j:Evaluation>
-				<j:EvaluationDiagnosisDescriptionText>schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
-			</j:Evaluation>
-		</cscr-ext:BehavioralHealthInformation>
 		<j:ActivityChargeAssociation>
 			<nc:Activity structures:ref="Case_01" />
 			<nc:Activity structures:ref="Booking_01" />
@@ -289,6 +286,7 @@
 			<nc:Activity structures:ref="Detention_01" />
 			<nc:Activity structures:ref="Arrest_01" />
 			<nc:Activity structures:ref="CHS_01" />
+			<nc:Activity structures:ref="Release_01" />
 			<j:Charge structures:ref="Charge_01" />
 		</j:ActivityChargeAssociation>
 		<j:BailBondChargeAssociation>
@@ -305,5 +303,11 @@
 			<nc:ContactEntity structures:ref="Supervisor_01" />
 			<nc:ContactInformation structures:ref="CI_01" />
 		</nc:ContactInformationAssociation>
+		<cscr-ext:BehavioralHealthInformation>
+			<cscr-ext:SeriousMentalIllnessIndicator>true</cscr-ext:SeriousMentalIllnessIndicator>
+			<j:Evaluation>
+				<j:EvaluationDiagnosisDescriptionText>schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
+			</j:Evaluation>
+		</cscr-ext:BehavioralHealthInformation>
 	</cscr-ext:Custody>
 </cscr-doc:CustodyStatusChangeReport>

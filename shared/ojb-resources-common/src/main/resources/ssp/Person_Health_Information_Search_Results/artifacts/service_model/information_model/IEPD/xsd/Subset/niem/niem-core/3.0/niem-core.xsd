@@ -30,6 +30,7 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:ActivityDateRepresentation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityDescriptionText" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
       </xs:extension>
@@ -139,6 +140,9 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:PersonEthnicity" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="nc:PersonRace" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonSex" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -167,6 +171,7 @@
     <xs:complexContent>
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
+          <xs:element ref="nc:TreatmentText" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="nc:TreatmentProvider" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="nc:TreatmentAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -253,6 +258,21 @@
       <xs:documentation>An augmentation point for PersonType.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PersonEthnicity" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a cultural lineage of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonRace" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a classification of a person based on factors such as geographical locations and genetics.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonSex" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a gender or sex of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="StartDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date on which something begins.</xs:documentation>
@@ -271,6 +291,11 @@
   <xs:element name="TreatmentProvider" type="nc:EntityType" nillable="true">
     <xs:annotation>
       <xs:documentation>An entity that provides a treatment.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TreatmentText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A treatment that was provided or could be provisioned.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>
