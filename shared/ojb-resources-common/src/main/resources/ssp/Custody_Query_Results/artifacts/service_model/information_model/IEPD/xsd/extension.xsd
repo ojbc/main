@@ -49,7 +49,8 @@
 	<xsd:complexType name="CustodyQueryResultsType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for set of details associated with a
-				custody query response.</xsd:documentation>
+				custody query response.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
@@ -91,6 +92,8 @@
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0"
 						maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0"
+						maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityChargeAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:BailBondChargeAssociation"
@@ -118,7 +121,8 @@
 		<xsd:annotation>
 			<xsd:documentation>The name of a system that returned the search
 				result.
-				This can be used to retrieve additional information about the person
+				This can be used to retrieve additional information about the
+				person
 				and/or court case in the search result.
 			</xsd:documentation>
 		</xsd:annotation>
@@ -140,21 +144,24 @@
 		type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a subject is being held for an immigration
-				violation; false otherwise.</xsd:documentation>
+				violation; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="InmateWorkReleaseIndicator" type="niem-xs:boolean"
 		substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if an inmate is on work release; false
-				otherwise</xsd:documentation>
+				otherwise
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="InmateWorkerIndicator" type="niem-xs:boolean"
 		substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if an inmate is a worker in the facility;
-				false otherwise</xsd:documentation>
+				false otherwise
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SupervisorCategoryText" type="nc:TextType"

@@ -60,6 +60,8 @@
 					<nc:IdentificationID>Booking Number</nc:IdentificationID>
 				</j:SubjectIdentification>
 			</j:BookingSubject>
+			<j:Arrest structures:ref="Arrest_01" />
+			<j:Arrest structures:ref="Arrest_02" />
 		</j:Booking>
 		<j:Detention structures:id="Detention_01">
 			<nc:ActivityDate>
@@ -163,12 +165,14 @@
 			<j:ArrestAgency>
 				<nc:OrganizationName>Arrest Agency name 1</nc:OrganizationName>
 			</j:ArrestAgency>
+			<j:ArrestCharge structures:ref="Charge_01" />
 			<j:ArrestLocation structures:ref="Loc_01" />
 		</j:Arrest>
 		<j:Arrest structures:id="Arrest_02">
 			<j:ArrestAgency>
 				<nc:OrganizationName>Arrest Agency name 2</nc:OrganizationName>
 			</j:ArrestAgency>
+			<j:ArrestCharge structures:ref="Charge_02" />
 			<j:ArrestLocation structures:ref="Loc_01" />
 		</j:Arrest>
 		<cyfs:NextCourtEvent structures:id="Event_01">
@@ -278,21 +282,17 @@
 				</nc:TelephoneNumberCategoryText>
 			</nc:ContactTelephoneNumber>
 		</nc:ContactInformation>
-		<j:ActivityChargeAssociation>
-			<nc:Activity structures:ref="Case_01" />
+		<j:ActivityCaseAssociation>
 			<nc:Activity structures:ref="Booking_01" />
 			<nc:Activity structures:ref="Detention_01" />
 			<nc:Activity structures:ref="Release_01" />
-			<j:Charge structures:ref="Charge_01" />
-			<j:Charge structures:ref="Charge_02" />
-		</j:ActivityChargeAssociation>
+			<nc:Case structures:ref="Case_01" />
+		</j:ActivityCaseAssociation>
 		<j:ActivityChargeAssociation>
-			<nc:Activity structures:ref="Arrest_01" />
 			<nc:Activity structures:ref="Event_01" />
 			<j:Charge structures:ref="Charge_01" />
 		</j:ActivityChargeAssociation>
 		<j:ActivityChargeAssociation>
-			<nc:Activity structures:ref="Arrest_02" />
 			<nc:Activity structures:ref="Event_02" />
 			<j:Charge structures:ref="Charge_02" />
 		</j:ActivityChargeAssociation>
