@@ -51,6 +51,7 @@
   <w:Element w:name="nc:ActivityDateRange" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Address" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Agency" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:Base64BinaryObject" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Case" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ContactEmailID" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ContactEntity" w:isReference="false" w:nillable="false"/>
@@ -227,6 +228,10 @@
     <w:ElementInType w:name="nc:Amount" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:BinaryType" w:isRequested="true">
+    <w:ElementInType w:name="nc:BinaryObject" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:CaseType" w:isRequested="false">
     <w:ElementInType w:name="nc:CaseAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -286,6 +291,7 @@
     <w:ElementInType w:name="nc:IdentityPersonRepresentation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
+  <w:Type w:name="nc:ImageType" w:isRequested="true"/>
   <w:Type w:name="nc:IntegerRangeType" w:isRequested="false">
     <w:ElementInType w:name="nc:RangeMaximumIntegerValue"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -357,6 +363,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonBirthDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonDigitalImage"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonEducationLevelText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonEthnicity" w:isReference="false"
