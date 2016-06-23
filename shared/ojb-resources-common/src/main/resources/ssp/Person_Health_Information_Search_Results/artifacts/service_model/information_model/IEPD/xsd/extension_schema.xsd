@@ -44,6 +44,7 @@
 				<xsd:sequence>
 					<xsd:element ref="nc30:Person" />
 					<xsd:element ref="phisres-ext:BehavioralHealthInformation" minOccurs="0"/>
+					<xsd:element ref="phisres-ext:CareEpisode" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -67,6 +68,21 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 	
+	<xsd:complexType name="CareEpisodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for all clinically related services or treatments for a patient for a discrete diagnostic condition from the onset of symptoms until treatment is complete. Commonly referred to as an Episode of Care.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc30:ActivityType">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:element name="CareEpisode" type="phisres-ext:CareEpisodeType">
+		<xsd:annotation>
+			<xsd:documentation>A collection of all  clinically related services or treatments for a patient for a discrete diagnostic condition from the onset of symptoms until treatment is complete. Commonly referred to as an Episode of Care.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	
 	<xsd:element name="BehavioralHealthStatusRepresentation" abstract="true">
 		<xsd:annotation>
@@ -100,9 +116,9 @@
 			<xsd:documentation>True if the person is diagnosed with a serious mental illness (SMI), false otherwise. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonHighRiskIndicator" type="niem-xsd:boolean" substitutionGroup="nc30:PersonAugmentationPoint">
+	<xsd:element name="HighRiskNeedsIndicator" type="niem-xsd:boolean" substitutionGroup="phisres-ext:BehavioralHealthStatusRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>True if a provider determines a person to be high risk, false otherwise. </xsd:documentation>
+			<xsd:documentation>True if a provider determines a person to be high risk of needing services, false otherwise. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="TreatmentCourtOrderedIndicator" type="niem-xsd:boolean" substitutionGroup="nc30:TreatmentAugmentationPoint">
@@ -113,6 +129,16 @@
 	<xsd:element name="TreatmentActiveIndicator" type="niem-xsd:boolean" substitutionGroup="nc30:TreatmentAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if the treatment is currently active,  false otherwise. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubstanceAbuseIndicator" type="niem-xsd:boolean"  substitutionGroup="phisres-ext:BehavioralHealthStatusRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>True if the person is believed to have abused a controlled substance,  false otherwise. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GeneralMentalHealthConditionIndicator" type="niem-xsd:boolean"  substitutionGroup="phisres-ext:BehavioralHealthStatusRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>True if the person is categorized as having a general mental health condition,  false otherwise. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RegionalBehavioralHealthAuthorityAssignmentText" type="nc30:TextType">

@@ -73,6 +73,11 @@ public class WebUtils {
 			e.printStackTrace();
 		}
         
+        if (federatedQueryUserIndicatorString !=null && federatedQueryUserIndicatorString.equals("1"))
+        {
+        	federatedQueryUserIndicatorString="true";
+        }	
+        
         Boolean federatedQueryUserIndicator = BooleanUtils.toBooleanObject(StringUtils.trimToNull(federatedQueryUserIndicatorString));
 		return federatedQueryUserIndicator;
 	}

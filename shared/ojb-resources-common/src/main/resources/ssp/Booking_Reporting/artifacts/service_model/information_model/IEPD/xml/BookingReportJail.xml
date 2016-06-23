@@ -251,7 +251,8 @@
 				</nc:StreetName>
 			</nc:LocationStreet>
 			<nc:LocationCityName>Burlington</nc:LocationCityName>
-			<nc:LocationStateUSPostalServiceCode>NY</nc:LocationStateUSPostalServiceCode>
+			<nc:LocationStateUSPostalServiceCode>NY
+			</nc:LocationStateUSPostalServiceCode>
 			<nc:LocationPostalCode>05408</nc:LocationPostalCode>
 		</nc:Address>
 		<nc:Location2DGeospatialCoordinate>
@@ -272,12 +273,6 @@
 			<nc:TelephoneNumberCategoryText>Cell</nc:TelephoneNumberCategoryText>
 		</nc:ContactTelephoneNumber>
 	</nc:ContactInformation>
-	<br-ext:BehavioralHealthInformation>
-		<br-ext:SeriousMentalIllnessIndicator>true</br-ext:SeriousMentalIllnessIndicator>
-		<j:Evaluation>
-			<j:EvaluationDiagnosisDescriptionText>schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
-		</j:Evaluation>
-	</br-ext:BehavioralHealthInformation>
 	<j:ActivityChargeAssociation>
 		<nc:Activity structures:ref="Case_01" />
 		<nc:Activity structures:ref="Booking_01" />
@@ -301,4 +296,10 @@
 		<nc:ContactEntity structures:ref="Supervisor_01" />
 		<nc:ContactInformation structures:ref="CI_01" />
 	</nc:ContactInformationAssociation>
+	<br-ext:BehavioralHealthInformation>
+		<br-ext:SeriousMentalIllnessIndicator>true</br-ext:SeriousMentalIllnessIndicator>
+		<j:Evaluation>
+			<j:EvaluationDiagnosisDescriptionText>schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
+		</j:Evaluation>
+	</br-ext:BehavioralHealthInformation>
 </br-doc:BookingReport>
