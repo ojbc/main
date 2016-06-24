@@ -134,7 +134,7 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="HoldForAgency" type="nc:OrganizationType"
-		substitutionGroup="nc:SupervisionAugmentationPoint">
+		substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>An agency for whom a subject is being held.
 			</xsd:documentation>
