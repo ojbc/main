@@ -94,9 +94,6 @@
 			</j:SupervisionAugmentation>
 			<cq-res-ext:DetentiontImmigrationHoldIndicator>false
 			</cq-res-ext:DetentiontImmigrationHoldIndicator>
-			<cq-res-ext:HoldForAgency>
-				<nc:OrganizationName>Agency</nc:OrganizationName>
-			</cq-res-ext:HoldForAgency>
 			<cq-res-ext:InmateWorkReleaseIndicator>true
 			</cq-res-ext:InmateWorkReleaseIndicator>
 			<cq-res-ext:InmateWorkerIndicator>false
@@ -143,6 +140,9 @@
 					<nc:IdentificationID>Charge Code ID</nc:IdentificationID>
 				</j:StatuteCodeSectionIdentification>
 			</j:ChargeStatute>
+			<cq-res-ext:HoldForAgency>
+				<nc:OrganizationName>Agency</nc:OrganizationName>
+			</cq-res-ext:HoldForAgency>
 		</j:Charge>
 		<j:Charge structures:id="Charge_02">
 			<j:ChargeCategoryDescriptionText>Felony</j:ChargeCategoryDescriptionText>
