@@ -97,9 +97,6 @@
 		</j:SupervisionAugmentation>
 		<br-ext:DetentiontImmigrationHoldIndicator>false
 		</br-ext:DetentiontImmigrationHoldIndicator>
-		<br-ext:HoldForAgency>
-			<nc:OrganizationName>Agency</nc:OrganizationName>
-		</br-ext:HoldForAgency>
 		<br-ext:InmateWorkReleaseIndicator>true
 		</br-ext:InmateWorkReleaseIndicator>
 		<br-ext:InmateWorkerIndicator>false
@@ -126,6 +123,9 @@
 				<nc:IdentificationID>Charge Code ID</nc:IdentificationID>
 			</j:StatuteCodeSectionIdentification>
 		</j:ChargeStatute>
+		<br-ext:HoldForAgency>
+			<nc:OrganizationName>Agency</nc:OrganizationName>
+		</br-ext:HoldForAgency>
 	</j:Charge>
 	<j:Arrest structures:id="Arrest_01">
 		<j:ArrestAgency>
