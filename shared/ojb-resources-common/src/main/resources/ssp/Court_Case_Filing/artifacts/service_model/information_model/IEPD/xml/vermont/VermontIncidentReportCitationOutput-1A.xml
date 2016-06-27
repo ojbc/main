@@ -1,0 +1,219 @@
+<cfm:CoreFilingMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0"
+                   xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+                   xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                   xmlns:s="http://niem.gov/niem/structures/2.0"
+                   xmlns:cfm="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+                   xmlns:ojb-cit-doc="http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0"
+                   xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0"
+                   xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
+                   xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+                   xmlns:xop="http://www.w3.org/2004/08/xop/include"
+                   xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+                   xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+                   xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+                   xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+                   xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+                   xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+                   xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+                   xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+                   xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../xsd/message/ECF-4.0-CoreFilingMessage.xsd http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0 ../../xsd/Citation_Case-doc.xsd">
+      <ojb-cit-doc:CitationCase>
+         <ojb-cit-ext:CaseAugmentation>
+            <ecf:PersonOrganizationAssociation>
+               <nc:PersonReference s:ref="d1e536"/>
+               <nc:OrganizationReference s:ref="d1e936"/>
+               <ecf:EntityAssociationTypeCode/>
+            </ecf:PersonOrganizationAssociation>
+            <ojb-cit-ext:CaseParticipant>
+               <ecf:EntityPerson s:id="d1e527">
+                  <nc:PersonName>
+                     <nc:PersonFullName>Bombard, Simon</nc:PersonFullName>
+                  </nc:PersonName>
+               </ecf:EntityPerson>
+               <ecf:CaseParticipantRoleCode/>
+            </ojb-cit-ext:CaseParticipant>
+            <ojb-cit-ext:CaseParticipant>
+               <ojb-cit-ext:EntityPerson s:id="d1e269">
+                  <nc:PersonBirthDate>
+                     <nc:Date>
+									1981-06-12
+								</nc:Date>
+                  </nc:PersonBirthDate>
+                  <nc:PersonEyeColorCode>XXX</nc:PersonEyeColorCode>
+                  <nc:PersonHairColorCode>XXX</nc:PersonHairColorCode>
+                  <nc:PersonHeightMeasure>
+                     <nc:MeasureText>70</nc:MeasureText>
+                     <nc:MeasureUnitText>INH</nc:MeasureUnitText>
+                  </nc:PersonHeightMeasure>
+                  <nc:PersonName>
+                     <nc:PersonGivenName>Chandrani</nc:PersonGivenName>
+                     <nc:PersonMiddleName/>
+                     <nc:PersonSurName>Das</nc:PersonSurName>
+                     <nc:PersonFullName>Das, Chandrani</nc:PersonFullName>
+                  </nc:PersonName>
+                  <nc:PersonSexCode>M</nc:PersonSexCode>
+                  <nc:PersonWeightMeasure>
+                     <nc:MeasureText>155</nc:MeasureText>
+                     <nc:MeasureUnitText>LBR</nc:MeasureUnitText>
+                  </nc:PersonWeightMeasure>
+                  <ojb-cit-ext:PersonAugmentation>
+                     <nc:ContactInformation>
+                        <nc:ContactMailingAddress>
+                           <nc:StructuredAddress>
+                              <nc:LocationStreet>
+                                 <nc:StreetFullText>451 Allajash Rd</nc:StreetFullText>
+                              </nc:LocationStreet>
+                              <nc:LocationCityName>N Haverhill</nc:LocationCityName>
+                              <nc:LocationStateName>NH</nc:LocationStateName>
+                              <nc:LocationPostalCode>05401</nc:LocationPostalCode>
+                           </nc:StructuredAddress>
+                        </nc:ContactMailingAddress>
+                        <nc:ContactTelephoneNumber s:id="d1e499">
+                           <nc:FullTelephoneNumber>
+                              <nc:TelephoneNumberFullID>
+									802-777-4642
+								</nc:TelephoneNumberFullID>
+                           </nc:FullTelephoneNumber>
+                        </nc:ContactTelephoneNumber>
+                     </nc:ContactInformation>
+                     <nc:PersonContactInformationAssociation>
+                        <nc:ContactInformationReference s:ref="d1e499"/>
+                        <nc:ContactInformationIsHomeIndicator>true</nc:ContactInformationIsHomeIndicator>
+                     </nc:PersonContactInformationAssociation>
+                     <ojb-cit-ext:PersonDriverLicense>
+                        <nc:DriverLicenseIdentification>
+                           <nc:IdentificationID>0401434</nc:IdentificationID>
+                           <j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
+                        </nc:DriverLicenseIdentification>
+                        <ojb-cit-ext:DriverLicenseCDLIndicator>false</ojb-cit-ext:DriverLicenseCDLIndicator>
+                     </ojb-cit-ext:PersonDriverLicense>
+                  </ojb-cit-ext:PersonAugmentation>
+               </ojb-cit-ext:EntityPerson>
+               <ecf:CaseParticipantRoleCode/>
+            </ojb-cit-ext:CaseParticipant>
+         </ojb-cit-ext:CaseAugmentation>
+         <ojb-cit-ext:CitationCaseAugmentation>
+            <j:CaseCharge>
+               <j:ChargeStatute s:id="d1e1388">
+                  <j:StatuteOffenseIdentification>
+                     <nc:IdentificationID>SL1</nc:IdentificationID>
+                  </j:StatuteOffenseIdentification>
+               </j:ChargeStatute>
+            </j:CaseCharge>
+            <ecf-cit:CitationSubject>
+               <nc:RoleOfPersonReference s:ref="d1e269"/>
+               <ecf-cit:PersonBloodAlcoholNumber>0</ecf-cit:PersonBloodAlcoholNumber>
+            </ecf-cit:CitationSubject>
+            <ojb-cit-ext:Citation s:id="d1e238">
+               <nc:ActivityIdentification>
+                  <nc:IdentificationID>70000004</nc:IdentificationID>
+               </nc:ActivityIdentification>
+               <nc:ActivityDate>
+                  <nc:Date>2016-04-20</nc:Date>
+               </nc:ActivityDate>
+               <j:CitationAgency s:id="d1e936">
+                  <nc:OrganizationName>Burlington Police Department</nc:OrganizationName>
+                  <nc:OrganizationPrimaryContactInformation>
+                     <nc:ContactEntity>
+                        <ecf:EntityOrganization>
+                           <nc:OrganizationIdentification>
+                              <nc:IdentificationID>1</nc:IdentificationID>
+                           </nc:OrganizationIdentification>
+                        </ecf:EntityOrganization>
+                     </nc:ContactEntity>
+                  </nc:OrganizationPrimaryContactInformation>
+               </j:CitationAgency>
+               <ojb-cit-ext:CitationIssuingOfficial s:id="d1e536">
+                  <nc:RoleOfPersonReference s:ref="d1e527"/>
+                  <j:EnforcementOfficialBadgeIdentification>
+                     <nc:IdentificationID>355</nc:IdentificationID>
+                  </j:EnforcementOfficialBadgeIdentification>
+                  <ojb-cit-ext:EnforcementOfficialIdentification>
+                     <nc:IdentificationID/>
+                  </ojb-cit-ext:EnforcementOfficialIdentification>
+               </ojb-cit-ext:CitationIssuingOfficial>
+               <ojb-cit-ext:CitationAugmentation>
+                  <ojb-cit-ext:CitationWaiverAmount>5.00</ojb-cit-ext:CitationWaiverAmount>
+                  <ojb-cit-ext:CitationServedIndicator>true</ojb-cit-ext:CitationServedIndicator>
+                  <ojb-cit-ext:CitationMailedIndicator>false</ojb-cit-ext:CitationMailedIndicator>
+                  <ojb-cit-ext:CitationIssuedLocation>
+                     <nc:LocationHighway>
+                        <nc:HighwayID>US 89</nc:HighwayID>
+                     </nc:LocationHighway>
+                  </ojb-cit-ext:CitationIssuedLocation>
+               </ojb-cit-ext:CitationAugmentation>
+            </ojb-cit-ext:Citation>
+            <ojb-cit-ext:Vehicle s:id="d1e557">
+               <nc:ConveyanceRegistrationPlateIdentification>
+                  <nc:IdentificationID>1132470 </nc:IdentificationID>
+                  <j:IdentificationJurisdictionNCICLISCode>IL</j:IdentificationJurisdictionNCICLISCode>
+               </nc:ConveyanceRegistrationPlateIdentification>
+               <ojb-cit-ext:VehicleAugmentation>
+                  <ojb-cit-ext:VehicleHazardousMaterialIndicator>false</ojb-cit-ext:VehicleHazardousMaterialIndicator>
+               </ojb-cit-ext:VehicleAugmentation>
+            </ojb-cit-ext:Vehicle>
+            <ojb-cit-ext:Offense>
+               <nc:ActivityDescriptionText>SL1 - 1-10 MPH Over Speed Limit</nc:ActivityDescriptionText>
+               <ojb-cit-ext:OffenseViolatedStatute>
+                  <j:StatuteCodeIdentification>
+                     <nc:IdentificationID>20-124</nc:IdentificationID>
+                  </j:StatuteCodeIdentification>
+               </ojb-cit-ext:OffenseViolatedStatute>
+               <ojb-cit-ext:DrivingOffensePoints>2</ojb-cit-ext:DrivingOffensePoints>
+               <ojb-cit-ext:OffenseFineAmountMinimum>41.00</ojb-cit-ext:OffenseFineAmountMinimum>
+               <ojb-cit-ext:OffenseFineAmountMaximum>1191.00</ojb-cit-ext:OffenseFineAmountMaximum>
+               <ojb-cit-ext:RelatedCriminalChargeIndicator>false</ojb-cit-ext:RelatedCriminalChargeIndicator>
+            </ojb-cit-ext:Offense>
+            <ojb-cit-ext:DrivingIncident s:id="d1e181">
+               <nc:ActivityIdentification>
+                  <nc:IdentificationID>16BU007596</nc:IdentificationID>
+               </nc:ActivityIdentification>
+               <nc:ActivityDateRange>
+                  <nc:StartDate>
+                     <nc:DateTime>2016-04-20T08:48:17</nc:DateTime>
+                  </nc:StartDate>
+                  <nc:EndDate>
+                     <nc:DateTime>2016-04-20T08:48:17</nc:DateTime>
+                  </nc:EndDate>
+               </nc:ActivityDateRange>
+               <nc:ActivityDescriptionText>No Narrative</nc:ActivityDescriptionText>
+               <nc:IncidentLocation>
+                  <nc:LocationAddress>
+                     <nc:StructuredAddress>
+                        <nc:LocationCityName>Colchester</nc:LocationCityName>
+                     </nc:StructuredAddress>
+                  </nc:LocationAddress>
+               </nc:IncidentLocation>
+               <j:DrivingIncidentRecordedSpeedRate>
+                  <nc:MeasureText>45</nc:MeasureText>
+                  <nc:MeasureUnitText/>
+               </j:DrivingIncidentRecordedSpeedRate>
+               <j:DrivingIncidentLegalSpeedRate>
+                  <nc:MeasureText>35</nc:MeasureText>
+                  <nc:MeasureUnitText/>
+               </j:DrivingIncidentLegalSpeedRate>
+               <j:IncidentAugmentation>
+                  <j:IncidentTrafficAccidentInvolvedIndicator>false</j:IncidentTrafficAccidentInvolvedIndicator>
+               </j:IncidentAugmentation>
+               <nc:IncidentVehicleAssociation>
+                  <nc:ActivityReference s:ref="d1e181"/>
+                  <nc:ConveyanceReference s:ref="d1e557"/>
+               </nc:IncidentVehicleAssociation>
+               <ojb-cit-ext:DrivingIncidentAugmentation>
+                  <ojb-cit-ext:DrivingAccidentFatalityIndicator>false</ojb-cit-ext:DrivingAccidentFatalityIndicator>
+                  <ojb-cit-ext:SeatBeltViolationIndicator>false</ojb-cit-ext:SeatBeltViolationIndicator>
+                  <ojb-cit-ext:CivilReliefActIndicator>false</ojb-cit-ext:CivilReliefActIndicator>
+                  <ojb-cit-ext:CivilReliefActJuvenileIndicator>false</ojb-cit-ext:CivilReliefActJuvenileIndicator>
+                  <ojb-cit-ext:CivilReliefActOtherIndicator>true</ojb-cit-ext:CivilReliefActOtherIndicator>
+                  <ojb-cit-ext:CivilReliefActOtherText>Defendant said he/she is NOT on active duty in the US armed forces 1</ojb-cit-ext:CivilReliefActOtherText>
+               </ojb-cit-ext:DrivingIncidentAugmentation>
+            </ojb-cit-ext:DrivingIncident>
+         </ojb-cit-ext:CitationCaseAugmentation>
+         <ojb-cit-ext:CitationDeliveryRecipientAssociation>
+            <ojb-cit-ext:CitationReference s:ref="d1e238"/>
+            <nc:EntityPersonReference s:ref="d1e269"/>
+         </ojb-cit-ext:CitationDeliveryRecipientAssociation>
+      </ojb-cit-doc:CitationCase>
+   </cfm:CoreFilingMessage>
+  
