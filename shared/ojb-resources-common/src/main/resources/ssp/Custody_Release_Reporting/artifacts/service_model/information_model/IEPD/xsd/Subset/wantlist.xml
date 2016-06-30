@@ -44,9 +44,13 @@
   <w:Element w:name="nc:LanguageName" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Location" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:LocationStreet" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:MeasureUnitText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:MeasureValueText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Person" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonAliasIdentityAssociation"
     w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:PersonEyeColorText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:PersonHairColorText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Release" w:isReference="false" w:nillable="false"/>
   <w:Type w:name="hs:EligibilityType" w:isRequested="true"/>
   <w:Type w:name="j:ActivityCaseAssociationType" w:isRequested="true">
@@ -56,8 +60,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:BookingType" w:isRequested="true">
-    <w:ElementInType w:name="j:BookingFacility" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:BookingDetentionFacility"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:BookingSubject" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -149,6 +153,12 @@
     <w:ElementInType w:name="nc:LocationAddressAbstract"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:MeasureType" w:isRequested="false">
+    <w:ElementInType w:name="nc:MeasureValue" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:MeasureUnit" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:PersonIdentityAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Person" w:isReference="false"
       w:minOccurs="1" w:maxOccurs="1"/>
@@ -168,12 +178,22 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:PersonType" w:isRequested="false">
+    <w:ElementInType w:name="nc:PersonAgeMeasure" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonBirthDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonEthnicity" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonEyeColor" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonHairColor" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonHeightMeasure"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonPhysicalFeature"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonPrimaryLanguage"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonRace" w:isReference="false"
@@ -182,7 +202,13 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonSSNIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonWeightMeasure"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:PhysicalFeatureType" w:isRequested="false">
+    <w:ElementInType w:name="nc:PhysicalFeatureDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ReleaseType" w:isRequested="true">
