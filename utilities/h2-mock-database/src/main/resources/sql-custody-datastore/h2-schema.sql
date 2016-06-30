@@ -19,6 +19,7 @@ DROP SCHEMA if EXISTS custody_datastore;
 
 CREATE SCHEMA custody_datastore;
 
+use custody_datastore;
 -- TODO see why other db's don't set schema
 -- SET SCHEMA custody_datastore;
 
