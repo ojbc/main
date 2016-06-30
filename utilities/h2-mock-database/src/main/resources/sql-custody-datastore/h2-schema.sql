@@ -44,7 +44,7 @@ CREATE TABLE person (
                 last_name VARCHAR(50),
                 sex VARCHAR(1),
                 occupation VARCHAR(50),
-                military_service BOOLEAN,
+                military_service VARCHAR(100),
                 CONSTRAINT id PRIMARY KEY (id)
 );
 
