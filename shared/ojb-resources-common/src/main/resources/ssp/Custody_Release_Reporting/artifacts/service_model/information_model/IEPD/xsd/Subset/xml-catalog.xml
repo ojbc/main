@@ -22,6 +22,7 @@
   <uri name="http://release.niem.gov/niem/appinfo/3.0/" uri="appinfo/3.0/appinfo.xsd"/>
   <uri name="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" uri="codes/fbi_ncic/3.1/fbi_ncic.xsd"/>
   <uri name="http://release.niem.gov/niem/codes/fbi_ucr/3.0/" uri="codes/fbi_ucr/3.0/fbi_ucr.xsd"/>
+  <uri name="http://release.niem.gov/niem/codes/usps_states/3.0/" uri="codes/usps_states/3.0/usps_states.xsd"/>
   <uri name="http://release.niem.gov/niem/conformanceTargets/3.0/" uri="conformanceTargets/3.0/conformanceTargets.xsd"/>
   <uri name="http://release.niem.gov/niem/domains/humanServices/3.1/" uri="domains/humanServices/3.1/hs.xsd"/>
   <uri name="http://release.niem.gov/niem/domains/intelligence/3.1/" uri="domains/intelligence/3.1/intelligence.xsd"/>
