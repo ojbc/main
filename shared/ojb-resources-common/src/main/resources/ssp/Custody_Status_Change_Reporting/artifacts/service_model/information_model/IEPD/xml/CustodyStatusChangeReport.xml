@@ -157,6 +157,7 @@
 			<nc:PersonBirthDate>
 				<nc:Date>1968-12-17</nc:Date>
 			</nc:PersonBirthDate>
+			<nc:PersonEducationLevelText>High School Graduate</nc:PersonEducationLevelText>
 			<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
 			<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
 			<nc:PersonHairColorText>Bloned</nc:PersonHairColorText>
@@ -164,6 +165,9 @@
 				<nc:MeasureValueText>110</nc:MeasureValueText>
 				<nc:MeasureUnitText>4H</nc:MeasureUnitText>
 			</nc:PersonHeightMeasure>
+			<nc:PersonMilitarySummary>
+				<ac-bkg-codes:MilitaryServiceStatusCode>ACT</ac-bkg-codes:MilitaryServiceStatusCode>
+			</nc:PersonMilitarySummary>
 			<nc:PersonName>
 				<nc:PersonGivenName>Otis</nc:PersonGivenName>
 				<nc:PersonMiddleName>H.</nc:PersonMiddleName>
@@ -192,6 +196,8 @@
 						</nc:IdentificationSourceText>
 					</j:DriverLicenseCardIdentification>
 				</j:DriverLicense>
+				<nc:EmployeeOccupationCategoryText>Truck Driver
+				</nc:EmployeeOccupationCategoryText>
 				<j:PersonFBIIdentification>
 					<nc:IdentificationID>FBI45678</nc:IdentificationID>
 				</j:PersonFBIIdentification>

@@ -162,7 +162,7 @@
 			<nc:MeasureUnitText>4H</nc:MeasureUnitText>
 		</nc:PersonHeightMeasure>
 		<nc:PersonMilitarySummary>
-			<nc:MilitaryExperienceIndicator>true</nc:MilitaryExperienceIndicator>
+			<ac-bkg-codes:MilitaryServiceStatusCode>HD</ac-bkg-codes:MilitaryServiceStatusCode>
 		</nc:PersonMilitarySummary>
 		<nc:PersonName>
 			<nc:PersonGivenName>Otis</nc:PersonGivenName>
