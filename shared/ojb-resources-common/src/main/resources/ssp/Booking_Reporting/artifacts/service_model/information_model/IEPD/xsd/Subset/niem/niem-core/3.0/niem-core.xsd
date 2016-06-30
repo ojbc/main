@@ -359,6 +359,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:MilitaryExperienceIndicator" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:MilitarySummaryAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -863,6 +864,11 @@
   <xs:element name="MilitaryExperienceIndicator" type="niem-xs:boolean" nillable="true">
     <xs:annotation>
       <xs:documentation>True if a person has some form of military experience; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="MilitarySummaryAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for MilitarySummaryType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OrganizationName" type="nc:TextType" nillable="true">

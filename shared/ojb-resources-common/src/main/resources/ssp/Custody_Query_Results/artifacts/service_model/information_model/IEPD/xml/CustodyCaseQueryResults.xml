@@ -175,6 +175,10 @@
 			<j:ArrestCharge structures:ref="Charge_02" />
 			<j:ArrestLocation structures:ref="Loc_01" />
 		</j:Arrest>
+		<j:PersonCriminalHistorySummary
+			structures:id="CHS_01">
+			<j:RegisteredSexualOffenderIndicator>false</j:RegisteredSexualOffenderIndicator>
+		</j:PersonCriminalHistorySummary>
 		<cyfs:NextCourtEvent structures:id="Event_01">
 			<nc:ActivityDate>
 				<nc:Date>1968-12-17</nc:Date>
@@ -202,6 +206,7 @@
 			<nc:PersonDigitalImage>
 				<nc:Base64BinaryObject></nc:Base64BinaryObject>
 			</nc:PersonDigitalImage>
+			<nc:PersonEducationLevelText>High School Graduate</nc:PersonEducationLevelText>
 			<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
 			<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
 			<nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
@@ -209,6 +214,9 @@
 				<nc:MeasureValueText>110</nc:MeasureValueText>
 				<nc:MeasureUnitText>4H</nc:MeasureUnitText>
 			</nc:PersonHeightMeasure>
+			<nc:PersonMilitarySummary>
+				<ac-bkg-codes:MilitaryServiceStatusCode>NACT</ac-bkg-codes:MilitaryServiceStatusCode>
+			</nc:PersonMilitarySummary>
 			<nc:PersonName>
 				<nc:PersonGivenName>Otis</nc:PersonGivenName>
 				<nc:PersonMiddleName>H.</nc:PersonMiddleName>
@@ -238,6 +246,8 @@
 						</nc:IdentificationSourceText>
 					</j:DriverLicenseCardIdentification>
 				</j:DriverLicense>
+				<nc:EmployeeOccupationCategoryText>Truck Driver
+				</nc:EmployeeOccupationCategoryText>
 				<j:PersonFBIIdentification>
 					<nc:IdentificationID>FBI45678</nc:IdentificationID>
 				</j:PersonFBIIdentification>
@@ -308,6 +318,10 @@
 			<nc:ContactEntity structures:ref="Supervisor_01" />
 			<nc:ContactInformation structures:ref="CI_01" />
 		</nc:ContactInformationAssociation>
+		<nc:ActivityPersonAssociation>
+			<nc:Activity structures:ref="CHS_01" />
+			<nc:Person structures:ref="Person_01" />
+		</nc:ActivityPersonAssociation>
 	</cq-res-ext:Custody>
 	<cq-res-ext:SourceSystemNameText>Alpha Court System </cq-res-ext:SourceSystemNameText>
 	<cq-res-ext:QueryResultCategoryText>Criminal History</cq-res-ext:QueryResultCategoryText>
