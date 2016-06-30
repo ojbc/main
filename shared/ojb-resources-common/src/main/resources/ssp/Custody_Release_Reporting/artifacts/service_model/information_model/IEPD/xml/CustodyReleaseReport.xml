@@ -170,11 +170,13 @@
 			<nc:Address>
 				<nc:AddressSecondaryUnitText>Apt #34</nc:AddressSecondaryUnitText>
 				<nc:LocationStreet>
-					<nc:StreetFullText>420 Main Street</nc:StreetFullText>
+					<nc:StreetNumberText>392</nc:StreetNumberText>
+					<nc:StreetName>Woodlawn Ave</nc:StreetName>
 				</nc:LocationStreet>
-				<nc:LocationCityName>Merrickville</nc:LocationCityName>
-				<j:LocationStateNCICLISCode>CO</j:LocationStateNCICLISCode>
-				<nc:LocationPostalCode>14329</nc:LocationPostalCode>
+				<nc:LocationCityName>Burlington</nc:LocationCityName>
+				<nc:LocationStateUSPostalServiceCode>NY
+				</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationPostalCode>05408</nc:LocationPostalCode>
 			</nc:Address>
 		</nc:Location>
 		<nc:PersonAliasIdentityAssociation>
