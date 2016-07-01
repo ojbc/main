@@ -41,6 +41,7 @@ import org.joda.time.Days;
 import org.joda.time.Seconds;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.ojbc.bundles.adapters.staticmock.samplegen.staticname.custody.CustodyMatthewsSampleGenerator;
 import org.ojbc.bundles.adapters.staticmock.samplegen.staticname.vehiclecrash.VehicleCrashMatthewsSampleGenerator;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -838,6 +839,11 @@ public abstract class AbstractSampleGenerator {
 		if("ALL".equals(type) || "CUSTODY".equals(type)){			
 			CustodySampleGenerator custodySampleGenerator = new CustodySampleGenerator();			
 			custodyDocList = custodySampleGenerator.generateCustodySamples(sampleCount);
+		}
+
+		if("ALL".equals(type) || "CUSTODYMATTHEWS".equals(type)){			
+			CustodySampleGenerator custodyMatthewSampleGenerator = new CustodyMatthewsSampleGenerator();			
+			custodyDocList = custodyMatthewSampleGenerator.generateCustodySamples(sampleCount);
 		}
 		
 		if("ALL".equals(type) || "COURTCASE".equals(type)){			
