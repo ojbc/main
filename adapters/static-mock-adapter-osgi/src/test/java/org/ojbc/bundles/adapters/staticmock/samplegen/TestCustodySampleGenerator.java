@@ -33,18 +33,20 @@ public class TestCustodySampleGenerator extends AbstractSampleGeneratorTestCase{
 		
 		CustodySampleGenerator custodySampleGenerator = new CustodySampleGenerator();
 		
-		List<Document> custodySampleList = custodySampleGenerator.generateCustodySamples(11);
+		List<Document> custodySampleList = custodySampleGenerator.generateCustodySamples(5);
 		
-		Assert.assertEquals(11, custodySampleList.size());
-		
-		Document custodyDetailSampleDoc = custodySampleList.get(0); 		
-				
+		Assert.assertEquals(5, custodySampleList.size());
+				 					
 		String iepdRootPath = "ssp/Custody_Query_Results/artifacts/service_model/information_model/IEPD/xsd/";
 		
 		List<String> supportingSchemaList = Arrays.asList(iepdRootPath + "impl/adams_county/booking_codes.xsd");
 		
-		XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange.xsd", supportingSchemaList, custodyDetailSampleDoc);	
+		for(Document doc : custodySampleList){
 		
+			XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange.xsd", supportingSchemaList, doc);
+		}		
+			
+		Document custodyDetailSampleDoc = custodySampleList.get(0);
 		XmlUtils.printNode(custodyDetailSampleDoc);
 	}
 	
