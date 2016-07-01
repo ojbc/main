@@ -43,7 +43,9 @@ public class TestCustodySampleGenerator extends AbstractSampleGeneratorTestCase{
 		
 		List<String> supportingSchemaList = Arrays.asList(iepdRootPath + "impl/adams_county/booking_codes.xsd");
 		
-		XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange.xsd", supportingSchemaList, custodyDetailSampleDoc);			
+		XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange.xsd", supportingSchemaList, custodyDetailSampleDoc);	
+		
+		XmlUtils.printNode(custodyDetailSampleDoc);
 	}
 	
 	
