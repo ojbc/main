@@ -178,10 +178,11 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		Element supervisionAugmentElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionAugmentation");
 				
-		Element supervisionReleaseDateElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionReleaseDate");
+		Element supervisionReleaseDateElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, 
+				"SupervisionReleaseEligibilityDate");
 		
-		Element supervisionReleaseDateValElement = XmlUtils.appendElement(supervisionReleaseDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");		
-		supervisionReleaseDateValElement.setTextContent(randomDate(DATE_TIME_FORMAT));
+		Element supervisionReleaseDateValElement = XmlUtils.appendElement(supervisionReleaseDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
+		supervisionReleaseDateValElement.setTextContent(randomDate("yyyy-MM-dd"));
 		
 		Element supervisionAreaIdElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionAreaIdentification");
 		
@@ -194,17 +195,7 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		boolean detentImmigHoldSample = RANDOM.nextBoolean();
 		String sDetentImmigHoldSample = String.valueOf(detentImmigHoldSample);		
 		immigrationHoldElement.setTextContent(sDetentImmigHoldSample);
-		
-		Element holdForAgencyElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "HoldForAgency");		
-		Element orgNameElement = XmlUtils.appendElement(holdForAgencyElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");	
-		
-		List<String> holdForAgencyOrgNameList = Arrays.asList("Acme", "Chips");
-		
-		int holdForAgencyIndex = RANDOM.nextInt(holdForAgencyOrgNameList.size());		
-		String sHoldForAgencyOrgNameSample = holdForAgencyOrgNameList.get(holdForAgencyIndex);		
-		orgNameElement.setTextContent(sHoldForAgencyOrgNameSample);
-		
-		
+				
 		Element inmateWorkReleaseIndicator = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "InmateWorkReleaseIndicator");
 		
 		boolean inmateWorkReleaseSample = RANDOM.nextBoolean();		
@@ -288,6 +279,12 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		String sStatuteCodeId = RandomStringUtils.randomNumeric(6);		
 		chargeStatuteCodeIdValElement.setTextContent(sStatuteCodeId);		
 		
+		
+		Element holdForAgencyElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "HoldForAgency");		
+		Element orgNameElement = XmlUtils.appendElement(holdForAgencyElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");					
+		orgNameElement.setTextContent(randomString("Acme", "Chips"));
+		
+				
 		// Arrest
 		
 		Element arrestElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "Arrest");			
