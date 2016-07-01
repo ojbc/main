@@ -44,7 +44,9 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 	private static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 	
 	private static final String CURRENT_DATE = DateTime.now().toString(DATE_TIME_FORMAT);
-	
+		
+	public static final String CUSTODY_QUERY_SYSTEM_ID = 
+			"{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}SubmitCustodyQueryRequest";
 	
 	public CustodySampleGenerator() throws ParserConfigurationException,
 			IOException {
@@ -625,7 +627,7 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		
 		Element sourceSysNameTxtElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "SourceSystemNameText");
-		sourceSysNameTxtElement.setTextContent("Custody");
+		sourceSysNameTxtElement.setTextContent(CUSTODY_QUERY_SYSTEM_ID);
 		
 		
 		Element queryResultCatTxtElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "QueryResultCategoryText"); 
