@@ -428,20 +428,16 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		milServiceStatusCode.setTextContent(randomString("NACT", "ACT"));			
 						
 		Element personNameElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonName");		
-				
-		String sPersonFirstName = person.firstName;		
+						
 		Element personGivenNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");		
-		personGivenNameElement.setTextContent(sPersonFirstName);
-		
-		
+		personGivenNameElement.setTextContent(getFirstNameSample(person));
+				
 		String sPersonMiddleName = person.middleName;
 		Element personMiddleNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");		
 		personMiddleNameElement.setTextContent(sPersonMiddleName);
-		
-		
-		String sPersonLastName = person.lastName;
+				
 		Element personSurNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");		
-		personSurNameElement.setTextContent(sPersonLastName);
+		personSurNameElement.setTextContent(getLastNameSample(person));
 					
 		Element personLangEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonPrimaryLanguage");		
 		Element langNamEl = XmlUtils.appendElement(personLangEl, OjbcNamespaceContext.NS_NC_30, "LanguageName");		
