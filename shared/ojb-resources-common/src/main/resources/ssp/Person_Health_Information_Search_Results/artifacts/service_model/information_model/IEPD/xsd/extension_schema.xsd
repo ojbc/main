@@ -92,13 +92,13 @@
 	
 	<xsd:element name="PrescribedMedication" type="cyfs:MedicationUseType">
 		<xsd:annotation>
-			<xsd:documentation>A short-lived identifier intended to allow for linking between a search request and search results.  This identifier should have been included in the original search request message and should be included in this message, unaltered.</xsd:documentation>
+			<xsd:documentation>A medicine that a person is authorized to use by a qualified medical practitioner.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	
 	<xsd:element name="BehavioralHealthInformation" type="phisres-ext:BehavioralHealthInformationType">
 		<xsd:annotation>
-			<xsd:documentation>A short-lived identifier intended to allow for linking between a search request and search results.  This identifier should have been included in the original search request message and should be included in this message, unaltered.</xsd:documentation>
+			<xsd:documentation>A collection of details about an individual's behavioral health.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonPersistentIdentification" type="nc30:IdentificationType" substitutionGroup="nc30:PersonAugmentationPoint">
