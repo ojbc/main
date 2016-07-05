@@ -220,16 +220,6 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonTemporaryIdentification" type="nc:IdentificationType"
-		substitutionGroup="nc:PersonAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A short-lived identifier intended to allow for
-				linking between a search request and search results. This identifier
-				will be in the request message that leads to this response. The
-				identifier should just be included in the response message,
-				unaltered.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="SeriousMentalIllnessIndicator" type="niem-xs:boolean"
 		substitutionGroup="br-ext:BehavioralHealthStatusRepresentation">
 		<xsd:annotation>

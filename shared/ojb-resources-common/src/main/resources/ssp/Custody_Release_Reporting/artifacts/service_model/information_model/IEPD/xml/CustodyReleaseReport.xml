@@ -24,7 +24,8 @@
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
-	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodyReleaseReport/1.0 ../xsd/exchange.xsd">
 	<nc:DocumentCreationDate>
 		<nc:DateTime>2012-12-17T09:30:47.0Z</nc:DateTime>
@@ -128,6 +129,9 @@
 				<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
 				</nc:IdentificationID>
 			</crr-ext:PersonPersistentIdentification>
+			<crr-ext:PersonBehavioralHealthInformation
+				structures:ref="PBHI_01" />
+			<crr-ext:PersonCareEpisode structures:ref="PCE_01" />
 		</nc:Person>
 		<nc:Identity structures:id="ALIAS001">
 			<nc:IdentityPersonRepresentation>
@@ -185,11 +189,62 @@
 			<nc:Identity structures:ref="ALIAS002" />
 			<nc:Identity structures:ref="ALIAS003" />
 		</nc:PersonAliasIdentityAssociation>
-		<crr-ext:BehavioralHealthInformation>
-			<crr-ext:SeriousMentalIllnessIndicator>true</crr-ext:SeriousMentalIllnessIndicator>
+		<crr-ext:BehavioralHealthInformation
+			structures:id="PBHI_01">
+			<crr-ext:SeriousMentalIllnessIndicator>true
+			</crr-ext:SeriousMentalIllnessIndicator>
+			<crr-ext:HighRiskNeedsIndicator>true</crr-ext:HighRiskNeedsIndicator>
+			<crr-ext:SubstanceAbuseIndicator>true
+			</crr-ext:SubstanceAbuseIndicator>
+			<crr-ext:GeneralMentalHealthConditionIndicator>false
+			</crr-ext:GeneralMentalHealthConditionIndicator>
 			<j:Evaluation>
-				<j:EvaluationDiagnosisDescriptionText>schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
+				<j:EvaluationDiagnosisDescriptionText>Schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
 			</j:Evaluation>
+			<nc:Treatment>
+				<nc:ActivityDateRange>
+					<nc:StartDate>
+						<nc:Date>2016-01-01</nc:Date>
+					</nc:StartDate>
+				</nc:ActivityDateRange>
+				<nc:TreatmentText>person was treated</nc:TreatmentText>
+				<nc:TreatmentProvider>
+					<nc:EntityOrganization>
+						<nc:OrganizationName>Treatment Providing Organization Name
+						</nc:OrganizationName>
+					</nc:EntityOrganization>
+				</nc:TreatmentProvider>
+				<crr-ext:TreatmentCourtOrderedIndicator>true
+				</crr-ext:TreatmentCourtOrderedIndicator>
+				<crr-ext:TreatmentActiveIndicator>true
+				</crr-ext:TreatmentActiveIndicator>
+			</nc:Treatment>
+			<crr-ext:PrescribedMedication>
+				<cyfs:Medication>
+					<nc:ItemName>Zyprexa</nc:ItemName>
+					<crr-ext:MedicationGeneralProductIdentification>
+						<nc:IdentificationID>58-20-00-60-10-01-05</nc:IdentificationID>
+					</crr-ext:MedicationGeneralProductIdentification>
+				</cyfs:Medication>
+				<cyfs:MedicationDispensingDate>
+					<nc:Date>2016-01-01</nc:Date>
+				</cyfs:MedicationDispensingDate>
+				<cyfs:MedicationDoseMeasure>
+					<nc:MeasureValueText>3mg</nc:MeasureValueText>
+				</cyfs:MedicationDoseMeasure>
+			</crr-ext:PrescribedMedication>
+			<hs:MedicaidIndicator>true</hs:MedicaidIndicator>
+			<crr-ext:RegionalBehavioralHealthAuthorityAssignmentText>79</crr-ext:RegionalBehavioralHealthAuthorityAssignmentText>
 		</crr-ext:BehavioralHealthInformation>
+		<crr-ext:CareEpisode structures:id="PCE_01">
+			<nc:ActivityDateRange>
+				<nc:StartDate>
+					<nc:Date>2016-01-01</nc:Date>
+				</nc:StartDate>
+				<nc:EndDate>
+					<nc:Date>2016-04-01</nc:Date>
+				</nc:EndDate>
+			</nc:ActivityDateRange>
+		</crr-ext:CareEpisode>
 	</crr-ext:Custody>
 </crr-doc:CustodyReleaseReport>
