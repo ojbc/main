@@ -1860,7 +1860,7 @@ public class StaticMockQuery {
 		return xPaths;
 	}
 	
-	private SearchValueXPaths getCustodyXPaths(){
+	SearchValueXPaths getCustodyXPaths(){
 		
 		SearchValueXPaths xPaths = new SearchValueXPaths(){
 			public String getSystemIdentifier(IdentifiableDocumentWrapper documentWrapper) {
@@ -1887,7 +1887,7 @@ public class StaticMockQuery {
 		xPaths.middleNameXPath = "//nc30:PersonName/nc30:PersonMiddleName";
 		xPaths.firstNameXPath = "//nc30:PersonName/nc30:PersonGivenName";
 		xPaths.eyeColorXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonEyeColorText";
-		xPaths.hairColorXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc:PersonHairColorText";		
+		xPaths.hairColorXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonHairColorText";		
 		xPaths.raceXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonRaceCode";  
 		xPaths.sexXPath =  "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonSexCode"; 		
 		xPaths.heightXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureValueText";
@@ -2738,37 +2738,38 @@ public class StaticMockQuery {
 
 	}
 
-	private static class SearchValueXPaths {
-		private String birthdateXPath;
-		private String ssnXPath;
-		private String sidXPath;
-		private String fbiXPath;
-		private String dlXPath;
-		private String dlJurisdictionXPath;
-		private String lastNameXPath;
-		private String middleNameXPath;
-		private String firstNameXPath;
-		private String eyeColorXPath;
-		private String hairColorXPath;
-		private String raceXPath;
-		private String sexXPath;
-		private String ageXPath;
-		private String heightXPath;
-		private String weightXPath;
-		private String juvenilePlacementsXPath;
-		private String addressStreetXPath;
-		private String addressCityXPath;
-		private String addressStateXPath;
-		private String addressZipXPath;
-		private String aliasFirstNameXPath;
-		private String aliasMiddleNameXPath;
-		private String aliasLastNameXPath;
-		private String parentFirstNamesXPath;
-		private String parentMiddleNamesXPath;
-		private String parentLastNamesXPath;
-		private String searchSystemId;
-		private String systemName;
-		private String recordType;
+	static class SearchValueXPaths {
+		
+		 String birthdateXPath;
+		 String ssnXPath;
+		 String sidXPath;
+		 String fbiXPath;
+		 String dlXPath;
+		 String dlJurisdictionXPath;
+		 String lastNameXPath;
+		 String middleNameXPath;
+		 String firstNameXPath;
+		 String eyeColorXPath;
+		 String hairColorXPath;
+		 String raceXPath;
+		 String sexXPath;
+		 String ageXPath;
+		 String heightXPath;
+		 String weightXPath;
+		 String juvenilePlacementsXPath;
+		 String addressStreetXPath;
+		 String addressCityXPath;
+		 String addressStateXPath;
+		 String addressZipXPath;
+		 String aliasFirstNameXPath;
+		 String aliasMiddleNameXPath;
+		 String aliasLastNameXPath;
+		 String parentFirstNamesXPath;
+		 String parentMiddleNamesXPath;
+		 String parentLastNamesXPath;
+		 String searchSystemId;
+		 String systemName;
+		 String recordType;
 
 		public String getSystemIdentifier(IdentifiableDocumentWrapper documentWrapper) {
 			return documentWrapper.getId();
