@@ -158,6 +158,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="DrugType">
+    <xs:annotation>
+      <xs:documentation>A data type for a legal or illegal substance that can be used as a medicine or a narcotic.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:SubstanceType">
+        <xs:sequence>
+          <xs:element ref="nc:DrugAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EntityType">
     <xs:annotation>
       <xs:documentation>A data type for a person, organization, or thing capable of bearing legal rights and responsibilities.</xs:documentation>
@@ -230,6 +242,18 @@
         <xs:sequence>
           <xs:element ref="nc:RangeMaximumIntegerValue" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:RangeMinimumIntegerValue" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ItemType">
+    <xs:annotation>
+      <xs:documentation>A data type for an article or thing.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:ItemName" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -508,6 +532,14 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="SubstanceType">
+    <xs:annotation>
+      <xs:documentation>A data type for the matter or substance of which something consists.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ItemType"/>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="SupervisionType">
     <xs:annotation>
       <xs:documentation>A data type for an act of officially overseeing, supervising, or keeping track in some capacity of a person.</xs:documentation>
@@ -555,6 +587,20 @@
     <xs:simpleContent>
       <xs:extension base="niem-xs:string"/>
     </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="TreatmentType">
+    <xs:annotation>
+      <xs:documentation>A data type for a treatment of a person for a mental or physical condition.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="nc:TreatmentText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:TreatmentProvider" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:TreatmentAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
   <xs:element name="Activity" type="nc:ActivityType" nillable="true">
     <xs:annotation>
@@ -691,6 +737,11 @@
       <xs:documentation>An identification that references a document.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="DrugAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for DrugType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="EmployeeOccupationCategory" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a general kind of job of an employee.</xs:documentation>
@@ -709,6 +760,11 @@
   <xs:element name="EntityAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for EntityType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="EntityOrganization" type="nc:OrganizationType" substitutionGroup="nc:EntityRepresentation">
+    <xs:annotation>
+      <xs:documentation>An organization capable of bearing legal rights and responsibilities.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="EntityPerson" type="nc:PersonType" substitutionGroup="nc:EntityRepresentation">
@@ -764,6 +820,11 @@
   <xs:element name="IdentityPersonRepresentation" type="nc:PersonType" nillable="true">
     <xs:annotation>
       <xs:documentation>A set of person characteristics used as an identification.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ItemName" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of an item.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Language" abstract="true">
@@ -1119,6 +1180,26 @@
   <xs:element name="TelephoneNumberRepresentation" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a telephone number.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Treatment" type="nc:TreatmentType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A treatment of a person for a mental or physical condition.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TreatmentAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for nc:TreatmentType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TreatmentProvider" type="nc:EntityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An entity that provides a treatment.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TreatmentText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A treatment that was provided or could be provisioned.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>
