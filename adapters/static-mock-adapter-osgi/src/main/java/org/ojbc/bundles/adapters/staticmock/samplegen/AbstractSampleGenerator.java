@@ -774,7 +774,8 @@ public abstract class AbstractSampleGenerator {
 	protected static final DateTimeFormatter DATE_FORMATTER_MM_DD_YYYY = DateTimeFormat.forPattern("MM/dd/yyyy");
 
 	
-	public static void main(String[] args) throws Exception {
+	
+	public static void runGenerator(String[] args) throws Exception{
 
 		if (args.length < 3) {
 			printUsage();
@@ -884,6 +885,13 @@ public abstract class AbstractSampleGenerator {
 		}
 
 		LOG.info("Wrote " + allSamples.size() + " files to " + destinationFile.getAbsolutePath());		
+		
+	}
+	
+	
+	public static void main(String[] args) throws Exception {
+
+		runGenerator(args);
 	}
 
 	static void printUsage() {
