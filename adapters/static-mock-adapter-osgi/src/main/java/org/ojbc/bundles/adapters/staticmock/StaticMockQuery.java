@@ -1876,7 +1876,7 @@ public class StaticMockQuery {
 			}
 		};
 				
-		xPaths.ageXPath = null;
+		xPaths.ageXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonAgeMeasure/nc30:MeasureValueText";
 		xPaths.birthdateXPath = "//nc30:PersonBirthDate";
 		xPaths.ssnXPath = "//nc30:PersonSSNIdentification/nc30:IdentificationID";		
 		xPaths.sidXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonAugmentation/jxdm51:PersonStateFingerprintIdentification/nc30:IdentificationID";		
@@ -1886,12 +1886,12 @@ public class StaticMockQuery {
 		xPaths.lastNameXPath = "//nc30:PersonName/nc30:PersonSurName";
 		xPaths.middleNameXPath = "//nc30:PersonName/nc30:PersonMiddleName";
 		xPaths.firstNameXPath = "//nc30:PersonName/nc30:PersonGivenName";
-		xPaths.eyeColorXPath = null;
-		xPaths.hairColorXPath = null;		
+		xPaths.eyeColorXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonEyeColorText";
+		xPaths.hairColorXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc:PersonHairColorText";		
 		xPaths.raceXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonRaceCode";  
-		xPaths.sexXPath =  "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person//jxdm51:PersonSexCode"; 		
-		xPaths.heightXPath = null;
-		xPaths.weightXPath = null;		
+		xPaths.sexXPath =  "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonSexCode"; 		
+		xPaths.heightXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureValueText";
+		xPaths.weightXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonWeightMeasure/nc30:MeasureValueText";		
 		xPaths.searchSystemId = CUSTODY_PERSON_SEARCH_SYSTEM_ID;		
 		xPaths.systemName = "Custody";		
 		xPaths.recordType = "Custody";						
