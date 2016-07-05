@@ -21,44 +21,44 @@
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/BookingReport/1.0 ../xsd/exchange.xsd"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" 
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:br-doc="http://ojbc.org/IEPD/Exchange/BookingReport/1.0"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:br-doc="http://ojbc.org/IEPD/Exchange/BookingReport/1.0"
 	xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-      <j:Booking>
-         <nc:ActivityDate>
-            <nc:DateTime>2015-12-23T03:02:00Z</nc:DateTime>
-         </nc:ActivityDate>
-         <j:BookingAgency>
-            <nc:OrganizationName>PCSD</nc:OrganizationName>
-         </j:BookingAgency>
-         <j:BookingAgencyRecordIdentification>
-            <nc:IdentificationID>151223012</nc:IdentificationID>
-         </j:BookingAgencyRecordIdentification>
-         <j:BookingSubject>
-            <nc:RoleOfPerson structures:ref="d1e3"/>
-         </j:BookingSubject>
-      </j:Booking>
-      <nc:Person structures:id="d1e3">
-         <nc:PersonBirthDate>
-            <nc:Date>1985-05-18</nc:Date>
-         </nc:PersonBirthDate>
-         <nc:PersonName>
-            <nc:PersonGivenName>bill</nc:PersonGivenName>
-            <nc:PersonMiddleName>a</nc:PersonMiddleName>
-            <nc:PersonSurName>smith</nc:PersonSurName>
-            <br-ext:PersonNameIdentification>
-               <nc:IdentificationID>99999</nc:IdentificationID>
-            </br-ext:PersonNameIdentification>
-         </nc:PersonName>
-         <nc:PersonSexText>F</nc:PersonSexText>
-         		<br-ext:PersonBehavioralHealthInformation structures:ref="PBHI_01"/>
-		<br-ext:PersonCareEpisode structures:ref="PCE_01"/>
-      </nc:Person>
-      <br-ext:BehavioralHealthInformation structures:id="PBHI_01">
+	<j:Booking>
+		<nc:ActivityDate>
+			<nc:DateTime>2015-12-23T03:02:00Z</nc:DateTime>
+		</nc:ActivityDate>
+		<j:BookingAgency>
+			<nc:OrganizationName>PCSD</nc:OrganizationName>
+		</j:BookingAgency>
+		<j:BookingAgencyRecordIdentification>
+			<nc:IdentificationID>151223012</nc:IdentificationID>
+		</j:BookingAgencyRecordIdentification>
+		<j:BookingSubject>
+			<nc:RoleOfPerson structures:ref="d1e3" />
+		</j:BookingSubject>
+	</j:Booking>
+	<nc:Person structures:id="d1e3">
+		<nc:PersonBirthDate>
+			<nc:Date>1985-05-18</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>bill</nc:PersonGivenName>
+			<nc:PersonMiddleName>a</nc:PersonMiddleName>
+			<nc:PersonSurName>smith</nc:PersonSurName>
+			<br-ext:PersonNameIdentification>
+				<nc:IdentificationID>99999</nc:IdentificationID>
+			</br-ext:PersonNameIdentification>
+		</nc:PersonName>
+		<nc:PersonSexText>F</nc:PersonSexText>
+		<br-ext:PersonBehavioralHealthInformation
+			structures:ref="PBHI_01" />
+		<br-ext:PersonCareEpisode structures:ref="PCE_01" />
+	</nc:Person>
+	<br-ext:BehavioralHealthInformation
+		structures:id="PBHI_01">
 		<br-ext:SeriousMentalIllnessIndicator>true
 		</br-ext:SeriousMentalIllnessIndicator>
 		<br-ext:HighRiskNeedsIndicator>true</br-ext:HighRiskNeedsIndicator>

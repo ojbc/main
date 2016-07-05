@@ -30,6 +30,86 @@ http://pe.usps.com/text/pub28/28apb.htm</xs:documentation>
       <xs:documentation>A data type for states.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
+      <xs:enumeration value="VT">
+        <xs:annotation>
+          <xs:documentation>VERMONT</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NE">
+        <xs:annotation>
+          <xs:documentation>NEBRASKA</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TX">
+        <xs:annotation>
+          <xs:documentation>TEXAS</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RI">
+        <xs:annotation>
+          <xs:documentation>RHODE ISLAND</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OR">
+        <xs:annotation>
+          <xs:documentation>OREGON</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WI">
+        <xs:annotation>
+          <xs:documentation>WISCONSIN</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CT">
+        <xs:annotation>
+          <xs:documentation>CONNECTICUT</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FM">
+        <xs:annotation>
+          <xs:documentation>FEDERATED STATES OF MICRONESIA</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MS">
+        <xs:annotation>
+          <xs:documentation>MISSISSIPPI</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MA">
+        <xs:annotation>
+          <xs:documentation>MASSACHUSETTS</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="OH">
+        <xs:annotation>
+          <xs:documentation>OHIO</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NY">
+        <xs:annotation>
+          <xs:documentation>NEW YORK</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AZ">
+        <xs:annotation>
+          <xs:documentation>ARIZONA</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SC">
+        <xs:annotation>
+          <xs:documentation>SOUTH CAROLINA</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FL">
+        <xs:annotation>
+          <xs:documentation>FLORIDA</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MO">
+        <xs:annotation>
+          <xs:documentation>MISSOURI</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
       <xs:enumeration value="AA">
         <xs:annotation>
           <xs:documentation>Armed Forces Americas (except Canada)</xs:documentation>
@@ -60,11 +140,6 @@ http://pe.usps.com/text/pub28/28apb.htm</xs:documentation>
           <xs:documentation>AMERICAN SAMOA</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="AZ">
-        <xs:annotation>
-          <xs:documentation>ARIZONA</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="CA">
         <xs:annotation>
           <xs:documentation>CALIFORNIA</xs:documentation>
@@ -75,11 +150,6 @@ http://pe.usps.com/text/pub28/28apb.htm</xs:documentation>
           <xs:documentation>COLORADO</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="CT">
-        <xs:annotation>
-          <xs:documentation>CONNECTICUT</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="DC">
         <xs:annotation>
           <xs:documentation>DISTRICT OF COLUMBIA</xs:documentation>
@@ -88,16 +158,6 @@ http://pe.usps.com/text/pub28/28apb.htm</xs:documentation>
       <xs:enumeration value="DE">
         <xs:annotation>
           <xs:documentation>DELAWARE</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="FL">
-        <xs:annotation>
-          <xs:documentation>FLORIDA</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="FM">
-        <xs:annotation>
-          <xs:documentation>FEDERATED STATES OF MICRONESIA</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="GA">
@@ -150,11 +210,6 @@ http://pe.usps.com/text/pub28/28apb.htm</xs:documentation>
           <xs:documentation>LOUISIANA</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="MA">
-        <xs:annotation>
-          <xs:documentation>MASSACHUSETTS</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="MD">
         <xs:annotation>
           <xs:documentation>MARYLAND</xs:documentation>
@@ -180,19 +235,9 @@ http://pe.usps.com/text/pub28/28apb.htm</xs:documentation>
           <xs:documentation>MINNESOTA</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="MO">
-        <xs:annotation>
-          <xs:documentation>MISSOURI</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="MP">
         <xs:annotation>
           <xs:documentation>NORTHERN MARIANA ISLANDS</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MS">
-        <xs:annotation>
-          <xs:documentation>MISSISSIPPI</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="MT">
@@ -208,11 +253,6 @@ http://pe.usps.com/text/pub28/28apb.htm</xs:documentation>
       <xs:enumeration value="ND">
         <xs:annotation>
           <xs:documentation>NORTH DAKOTA</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="NE">
-        <xs:annotation>
-          <xs:documentation>NEBRASKA</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="NH">
@@ -235,24 +275,9 @@ http://pe.usps.com/text/pub28/28apb.htm</xs:documentation>
           <xs:documentation>NEVADA</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="NY">
-        <xs:annotation>
-          <xs:documentation>NEW YORK</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="OH">
-        <xs:annotation>
-          <xs:documentation>OHIO</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="OK">
         <xs:annotation>
           <xs:documentation>OKLAHOMA</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="OR">
-        <xs:annotation>
-          <xs:documentation>OREGON</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="PA">
@@ -270,16 +295,6 @@ http://pe.usps.com/text/pub28/28apb.htm</xs:documentation>
           <xs:documentation>PALAU</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="RI">
-        <xs:annotation>
-          <xs:documentation>RHODE ISLAND</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="SC">
-        <xs:annotation>
-          <xs:documentation>SOUTH CAROLINA</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="SD">
         <xs:annotation>
           <xs:documentation>SOUTH DAKOTA</xs:documentation>
@@ -288,11 +303,6 @@ http://pe.usps.com/text/pub28/28apb.htm</xs:documentation>
       <xs:enumeration value="TN">
         <xs:annotation>
           <xs:documentation>TENNESSEE</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="TX">
-        <xs:annotation>
-          <xs:documentation>TEXAS</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="UT">
@@ -310,19 +320,9 @@ http://pe.usps.com/text/pub28/28apb.htm</xs:documentation>
           <xs:documentation>VIRGIN ISLANDS</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="VT">
-        <xs:annotation>
-          <xs:documentation>VERMONT</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="WA">
         <xs:annotation>
           <xs:documentation>WASHINGTON</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="WI">
-        <xs:annotation>
-          <xs:documentation>WISCONSIN</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="WV">

@@ -21,6 +21,7 @@
 	xmlns:cscr-doc="http://ojbc.org/IEPD/Exchange/CustodyStatusChangeReport/1.0"
 	xmlns:cscr-ext="http://ojbc.org/IEPD/Extensions/CustodyStatusChangeReportExtension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
 	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
@@ -211,6 +212,10 @@
 				<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
 				</nc:IdentificationID>
 			</cscr-ext:PersonPersistentIdentification>
+			<cscr-ext:PersonBehavioralHealthInformation
+				structures:ref="PBHI_01" />
+			<cscr-ext:PersonCareEpisode
+				structures:ref="PCE_01" />
 		</nc:Person>
 		<nc:Person>
 			<nc:PersonName structures:id="Officer_01">
@@ -309,11 +314,63 @@
 			<nc:ContactEntity structures:ref="Supervisor_01" />
 			<nc:ContactInformation structures:ref="CI_01" />
 		</nc:ContactInformationAssociation>
-		<cscr-ext:BehavioralHealthInformation>
-			<cscr-ext:SeriousMentalIllnessIndicator>true</cscr-ext:SeriousMentalIllnessIndicator>
+		<cscr-ext:BehavioralHealthInformation
+			structures:id="PBHI_01">
+			<cscr-ext:SeriousMentalIllnessIndicator>true
+			</cscr-ext:SeriousMentalIllnessIndicator>
+			<cscr-ext:HighRiskNeedsIndicator>true
+			</cscr-ext:HighRiskNeedsIndicator>
+			<cscr-ext:SubstanceAbuseIndicator>true
+			</cscr-ext:SubstanceAbuseIndicator>
+			<cscr-ext:GeneralMentalHealthConditionIndicator>false
+			</cscr-ext:GeneralMentalHealthConditionIndicator>
 			<j:Evaluation>
-				<j:EvaluationDiagnosisDescriptionText>schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
+				<j:EvaluationDiagnosisDescriptionText>Schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
 			</j:Evaluation>
+			<nc:Treatment>
+				<nc:ActivityDateRange>
+					<nc:StartDate>
+						<nc:Date>2016-01-01</nc:Date>
+					</nc:StartDate>
+				</nc:ActivityDateRange>
+				<nc:TreatmentText>person was treated</nc:TreatmentText>
+				<nc:TreatmentProvider>
+					<nc:EntityOrganization>
+						<nc:OrganizationName>Treatment Providing Organization Name
+						</nc:OrganizationName>
+					</nc:EntityOrganization>
+				</nc:TreatmentProvider>
+				<cscr-ext:TreatmentCourtOrderedIndicator>true
+				</cscr-ext:TreatmentCourtOrderedIndicator>
+				<cscr-ext:TreatmentActiveIndicator>true
+				</cscr-ext:TreatmentActiveIndicator>
+			</nc:Treatment>
+			<cscr-ext:PrescribedMedication>
+				<cyfs:Medication>
+					<nc:ItemName>Zyprexa</nc:ItemName>
+					<cscr-ext:MedicationGeneralProductIdentification>
+						<nc:IdentificationID>58-20-00-60-10-01-05</nc:IdentificationID>
+					</cscr-ext:MedicationGeneralProductIdentification>
+				</cyfs:Medication>
+				<cyfs:MedicationDispensingDate>
+					<nc:Date>2016-01-01</nc:Date>
+				</cyfs:MedicationDispensingDate>
+				<cyfs:MedicationDoseMeasure>
+					<nc:MeasureValueText>3mg</nc:MeasureValueText>
+				</cyfs:MedicationDoseMeasure>
+			</cscr-ext:PrescribedMedication>
+			<hs:MedicaidIndicator>true</hs:MedicaidIndicator>
+			<cscr-ext:RegionalBehavioralHealthAuthorityAssignmentText>79</cscr-ext:RegionalBehavioralHealthAuthorityAssignmentText>
 		</cscr-ext:BehavioralHealthInformation>
+		<cscr-ext:CareEpisode structures:id="PCE_01">
+			<nc:ActivityDateRange>
+				<nc:StartDate>
+					<nc:Date>2016-01-01</nc:Date>
+				</nc:StartDate>
+				<nc:EndDate>
+					<nc:Date>2016-04-01</nc:Date>
+				</nc:EndDate>
+			</nc:ActivityDateRange>
+		</cscr-ext:CareEpisode>
 	</cscr-ext:Custody>
 </cscr-doc:CustodyStatusChangeReport>

@@ -84,6 +84,19 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="DateRangeType">
+    <xs:annotation>
+      <xs:documentation>A data type for a range of dates.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:StartDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:EndDate" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="DateType">
     <xs:annotation>
       <xs:documentation>A data type for a calendar date.</xs:documentation>
@@ -109,12 +122,28 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="DrugType">
+    <xs:annotation>
+      <xs:documentation>A data type for a legal or illegal substance that can be used as a medicine or a narcotic.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:SubstanceType">
+        <xs:sequence>
+          <xs:element ref="nc:DrugAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EntityType">
     <xs:annotation>
       <xs:documentation>A data type for a person, organization, or thing capable of bearing legal rights and responsibilities.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="structures:ObjectType"/>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:EntityRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="FacilityType">
@@ -155,6 +184,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="ItemType">
+    <xs:annotation>
+      <xs:documentation>A data type for an article or thing.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:ItemName" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="LocationType">
     <xs:annotation>
       <xs:documentation>A data type for geospatial location.</xs:documentation>
@@ -176,6 +217,18 @@
         <xs:sequence>
           <xs:element ref="nc:MeasureValue" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:MeasureUnit" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OrganizationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a body of people organized for a particular purpose.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -299,6 +352,14 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="SubstanceType">
+    <xs:annotation>
+      <xs:documentation>A data type for the matter or substance of which something consists.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ItemType"/>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="SupervisionType">
     <xs:annotation>
       <xs:documentation>A data type for an act of officially overseeing, supervising, or keeping track in some capacity of a person.</xs:documentation>
@@ -331,6 +392,20 @@
       <xs:extension base="niem-xs:string"/>
     </xs:simpleContent>
   </xs:complexType>
+  <xs:complexType name="TreatmentType">
+    <xs:annotation>
+      <xs:documentation>A data type for a treatment of a person for a mental or physical condition.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="nc:TreatmentText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:TreatmentProvider" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:TreatmentAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:element name="Activity" type="nc:ActivityType" nillable="true">
     <xs:annotation>
       <xs:documentation>A single or set of related actions, events, or process steps.</xs:documentation>
@@ -339,6 +414,11 @@
   <xs:element name="ActivityDate" type="nc:DateType" substitutionGroup="nc:ActivityDateRepresentation">
     <xs:annotation>
       <xs:documentation>A date of an activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ActivityDateRange" type="nc:DateRangeType" substitutionGroup="nc:ActivityDateRepresentation">
+    <xs:annotation>
+      <xs:documentation>A period of time over which an activity occurs.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ActivityDateRepresentation" abstract="true">
@@ -416,9 +496,24 @@
       <xs:documentation>An identification that references a document.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="DrugAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for DrugType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="EndDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>An end date.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="EntityOrganization" type="nc:OrganizationType" substitutionGroup="nc:EntityRepresentation">
+    <xs:annotation>
+      <xs:documentation>An organization capable of bearing legal rights and responsibilities.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="EntityRepresentation" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a person, organization, or thing capable of bearing legal rights and responsibilities.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="FacilityIdentification" type="nc:IdentificationType" nillable="true">
@@ -449,6 +544,11 @@
   <xs:element name="IdentityPersonRepresentation" type="nc:PersonType" nillable="true">
     <xs:annotation>
       <xs:documentation>A set of person characteristics used as an identification.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ItemName" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of an item.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Language" abstract="true">
@@ -514,6 +614,11 @@
   <xs:element name="MeasureValueText" type="nc:TextType" substitutionGroup="nc:MeasureValue">
     <xs:annotation>
       <xs:documentation>A textual description of a measurement value.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationName" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of an organization.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Person" type="nc:PersonType" nillable="true">
@@ -679,6 +784,26 @@
   <xs:element name="SystemName" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A name of the kind or the source of a system identifier.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Treatment" type="nc:TreatmentType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A treatment of a person for a mental or physical condition.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TreatmentAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for nc:TreatmentType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TreatmentProvider" type="nc:EntityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An entity that provides a treatment.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TreatmentText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A treatment that was provided or could be provisioned.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>
