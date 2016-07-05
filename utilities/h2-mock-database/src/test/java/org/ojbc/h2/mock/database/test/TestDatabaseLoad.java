@@ -40,94 +40,121 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-policy-acknowledgement.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-custody-datastore.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-warrant-repository.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml"
 		})
 @DirtiesContext
 public class TestDatabaseLoad {
-	
+
 	private static final Log log = LogFactory.getLog(TestDatabaseLoad.class);
-	
-    @Resource  
-    private DataSource auditLogTestDataSource; 
-    
-    @Resource  
-    private DataSource subscriptionDataSource;  
-	
-    @Resource  
-    private DataSource rapbackDataSource;  
-    
-    @Resource  
-    private DataSource policyAcknowledgementDataSource;  
 
-    @Resource  
-    private DataSource incidentReportingStateCacheDataSource;  
+    @Resource
+    private DataSource auditLogTestDataSource;
 
-    @Resource  
-    private DataSource warrantRepositorySource;  
-    
+    @Resource
+    private DataSource subscriptionDataSource;
+
+    @Resource
+    private DataSource rapbackDataSource;
+
+    @Resource
+    private DataSource policyAcknowledgementDataSource;
+
+    @Resource
+    private DataSource incidentReportingStateCacheDataSource;
+
+    @Resource
+    private DataSource custodyDataSource;
+
+    @Resource
+    private DataSource warrantRepositorySource;
+
 	@Test
 	public void testAuditlog() throws Exception {
-		
+
 		Connection conn = auditLogTestDataSource.getConnection();
 		ResultSet rs = conn.createStatement().executeQuery("select * from AuditLog");
 		assertFalse(rs.next());
-		
+
 	}
 
 	@Test
 	public void testSubscription() throws Exception {
-		
+
 		Connection conn = subscriptionDataSource.getConnection();
 		ResultSet rs = conn.createStatement().executeQuery("select * from subscription");
 		assertTrue(rs.next());
 		assertEquals(62720,rs.getInt("id"));
-		
+
 	}
 
 	@Test
-	public void testRapbackDatastore() throws Exception {
+	public void testCustodyDataSource() throws Exception {
+
+		Connection connection = custodyDataSource.getConnection();
+		ResultSet rs = connection.createStatement().executeQuery("select * from person where id = 1");
+		assertTrue(rs.next());
+		assertEquals("homer",rs.getString("first_name"));
+
+		ResultSet rs1 = connection.createStatement().executeQuery("select * from booking where booking_number = '1234'");
+		assertTrue(rs1.next());
+		assertEquals("profile.jpg", rs1.getString("booking_photo"));
 		
+		ResultSet rs2 = connection.createStatement().executeQuery("select * from charge where id = 1");
+		assertTrue(rs2.next());
+		assertEquals("matlock", rs2.getString("case_jurisdiction_court"));
+		
+		ResultSet rs3 = connection.createStatement().executeQuery("select * from person_alias where id = 1");
+		assertTrue(rs3.next());
+		assertEquals("homy", rs3.getString("alias_first_name"));
+	}
+
+
+	@Test
+	public void testRapbackDatastore() throws Exception {
+
 		Connection conn = rapbackDataSource.getConnection();
 		ResultSet rs = conn.createStatement().executeQuery("select * from subscription");
 		assertTrue(rs.next());
 		assertEquals(62720,rs.getInt("id"));
-		
+
 		rs = conn.createStatement().executeQuery("select * from IDENTIFICATION_SUBJECT");
 		assertTrue(rs.next());
 	}
-	
+
 	@Test
 	public void testPolicyAcknowledgement() throws Exception {
-		
+
 		Connection conn = policyAcknowledgementDataSource.getConnection();
 		ResultSet rs = conn.createStatement().executeQuery("select * from policy where id=1");
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("id"));
 		assertEquals("http://ojbc.org/policies/privacy/hawaii/ManualSubscriptionPolicy",rs.getString("policy_uri"));
-		
+
 	}
 
 	@Test
 	public void testIncidentReportingStateCache() throws Exception {
-		
+
 		Connection conn = incidentReportingStateCacheDataSource.getConnection();
 		ResultSet rs = conn.createStatement().executeQuery("select * from Person_Involvement_State");
 		assertFalse(rs.next());
-		
+
 	}
 
 	@Test
 	public void testWarrantRepositoryDataLoad() throws Exception {
-		
+
 		Connection conn = warrantRepositorySource.getConnection();
 		ResultSet rs = conn.createStatement().executeQuery("select * from warrant");
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("warrantid"));
-		
+
 		rs = conn.createStatement().executeQuery("select count(*) as rowcount from warrant");
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("rowcount"));
 	}
-	
+
 }

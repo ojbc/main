@@ -146,4 +146,61 @@
 			<xsd:documentation>A category code for bed.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:simpleType name="MilitaryServiceStatusCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Military Service Status code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="ACT">
+				<xsd:annotation>
+					<xsd:documentation>Active</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AWOL">
+				<xsd:annotation>
+					<xsd:documentation>AWOL</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DHD">
+				<xsd:annotation>
+					<xsd:documentation>Dishonorable Discharge</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="HD">
+				<xsd:annotation>
+					<xsd:documentation>Honorable Discharge</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MD">
+				<xsd:annotation>
+					<xsd:documentation>Medical Discharge</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NACT">
+				<xsd:annotation>
+					<xsd:documentation>Non Active</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RET">
+				<xsd:annotation>
+					<xsd:documentation>Retired</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="MilitaryServiceStatusCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Military Service Status code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="ac-bkg-codes:MilitaryServiceStatusCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="MilitaryServiceStatusCode" type="ac-bkg-codes:MilitaryServiceStatusCodeType" substitutionGroup="nc:MilitarySummaryAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A status code for military service.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>

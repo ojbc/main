@@ -246,7 +246,7 @@ public class PeopleControllerTest {
 		when(searchResultConverter.convertDetailSearchResult("some details xml", "mySystem",null)).thenReturn(
 		        "converted details xml");
 
-		String expectedView = unit.searchDetails(servletRequest, "mySystem", detailsRequest, model);
+		String expectedView = unit.searchDetails(servletRequest, "mySystem", "",detailsRequest, model, null);
 
 		assertThat(expectedView, is("people/_searchDetails"));
 		assertThat((String) model.get("searchContent"), is("converted details xml"));
@@ -259,7 +259,7 @@ public class PeopleControllerTest {
 		when(detailsQueryInterface.invokeRequest(detailsRequest, federatedQueryId, null))
 		        .thenThrow(new RuntimeException());
 		
-		String expectedView = unit.searchDetails(servletRequest, "mySystem", detailsRequest, model);
+		String expectedView = unit.searchDetails(servletRequest, "mySystem", "",detailsRequest, model,null);
 		
 		assertThat(expectedView, is("common/_searchDetailsError"));
 	}

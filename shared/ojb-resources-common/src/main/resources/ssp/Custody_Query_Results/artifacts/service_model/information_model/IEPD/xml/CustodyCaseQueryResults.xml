@@ -60,6 +60,8 @@
 					<nc:IdentificationID>Booking Number</nc:IdentificationID>
 				</j:SubjectIdentification>
 			</j:BookingSubject>
+			<j:Arrest structures:ref="Arrest_01" />
+			<j:Arrest structures:ref="Arrest_02" />
 		</j:Booking>
 		<j:Detention structures:id="Detention_01">
 			<nc:ActivityDate>
@@ -77,18 +79,21 @@
 				</cq-res-ext:SupervisorStatus>
 			</nc:SupervisionSupervisor>
 			<j:SupervisionAugmentation>
-				<j:SupervisionReleaseDate>
-					<nc:DateTime>2014-12-17T10:30:00</nc:DateTime>
-				</j:SupervisionReleaseDate>
+				<j:SupervisionReleaseEligibilityDate>
+					<nc:Date>2014-12-17</nc:Date>
+				</j:SupervisionReleaseEligibilityDate>
 				<j:SupervisionAreaIdentification>
 					<nc:IdentificationID>Cell Block A</nc:IdentificationID>
 				</j:SupervisionAreaIdentification>
+				<j:SupervisionBedIdentification>
+					<nc:IdentificationID>Bed ID</nc:IdentificationID>
+				</j:SupervisionBedIdentification>
+				<j:SupervisionCellIdentification>
+					<nc:IdentificationID>Cell ID</nc:IdentificationID>
+				</j:SupervisionCellIdentification>
 			</j:SupervisionAugmentation>
 			<cq-res-ext:DetentiontImmigrationHoldIndicator>false
 			</cq-res-ext:DetentiontImmigrationHoldIndicator>
-			<cq-res-ext:HoldForAgency>
-				<nc:OrganizationName>Agency</nc:OrganizationName>
-			</cq-res-ext:HoldForAgency>
 			<cq-res-ext:InmateWorkReleaseIndicator>true
 			</cq-res-ext:InmateWorkReleaseIndicator>
 			<cq-res-ext:InmateWorkerIndicator>false
@@ -96,6 +101,11 @@
 			<cq-res-ext:AllowAccountDepositIndicator>true
 			</cq-res-ext:AllowAccountDepositIndicator>
 		</j:Detention>
+		<nc:Release structures:id="Release_01">
+			<nc:ActivityDate>
+				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+			</nc:ActivityDate>
+		</nc:Release>
 		<j:BailBond structures:id="Bond_01">
 			<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
 			<nc:ActivityStatus>
@@ -130,6 +140,9 @@
 					<nc:IdentificationID>Charge Code ID</nc:IdentificationID>
 				</j:StatuteCodeSectionIdentification>
 			</j:ChargeStatute>
+			<cq-res-ext:HoldForAgency>
+				<nc:OrganizationName>Agency</nc:OrganizationName>
+			</cq-res-ext:HoldForAgency>
 		</j:Charge>
 		<j:Charge structures:id="Charge_02">
 			<j:ChargeCategoryDescriptionText>Felony</j:ChargeCategoryDescriptionText>
@@ -152,17 +165,31 @@
 			<j:ArrestAgency>
 				<nc:OrganizationName>Arrest Agency name 1</nc:OrganizationName>
 			</j:ArrestAgency>
+			<j:ArrestCharge structures:ref="Charge_01" />
 			<j:ArrestLocation structures:ref="Loc_01" />
 		</j:Arrest>
 		<j:Arrest structures:id="Arrest_02">
 			<j:ArrestAgency>
 				<nc:OrganizationName>Arrest Agency name 2</nc:OrganizationName>
 			</j:ArrestAgency>
+			<j:ArrestCharge structures:ref="Charge_02" />
 			<j:ArrestLocation structures:ref="Loc_01" />
 		</j:Arrest>
+		<j:PersonCriminalHistorySummary
+			structures:id="CHS_01">
+			<j:RegisteredSexualOffenderIndicator>false</j:RegisteredSexualOffenderIndicator>
+		</j:PersonCriminalHistorySummary>
 		<cyfs:NextCourtEvent structures:id="Event_01">
 			<nc:ActivityDate>
 				<nc:Date>1968-12-17</nc:Date>
+			</nc:ActivityDate>
+			<j:CourtEventCourt>
+				<j:CourtName>Court Name</j:CourtName>
+			</j:CourtEventCourt>
+		</cyfs:NextCourtEvent>
+		<cyfs:NextCourtEvent structures:id="Event_02">
+			<nc:ActivityDate>
+				<nc:Date>1968-12-11</nc:Date>
 			</nc:ActivityDate>
 			<j:CourtEventCourt>
 				<j:CourtName>Court Name</j:CourtName>
@@ -176,6 +203,10 @@
 			<nc:PersonBirthDate>
 				<nc:Date>1968-12-17</nc:Date>
 			</nc:PersonBirthDate>
+			<nc:PersonDigitalImage>
+				<nc:Base64BinaryObject></nc:Base64BinaryObject>
+			</nc:PersonDigitalImage>
+			<nc:PersonEducationLevelText>High School Graduate</nc:PersonEducationLevelText>
 			<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
 			<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
 			<nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
@@ -183,6 +214,9 @@
 				<nc:MeasureValueText>110</nc:MeasureValueText>
 				<nc:MeasureUnitText>4H</nc:MeasureUnitText>
 			</nc:PersonHeightMeasure>
+			<nc:PersonMilitarySummary>
+				<ac-bkg-codes:MilitaryServiceStatusCode>NACT</ac-bkg-codes:MilitaryServiceStatusCode>
+			</nc:PersonMilitarySummary>
 			<nc:PersonName>
 				<nc:PersonGivenName>Otis</nc:PersonGivenName>
 				<nc:PersonMiddleName>H.</nc:PersonMiddleName>
@@ -212,6 +246,8 @@
 						</nc:IdentificationSourceText>
 					</j:DriverLicenseCardIdentification>
 				</j:DriverLicense>
+				<nc:EmployeeOccupationCategoryText>Truck Driver
+				</nc:EmployeeOccupationCategoryText>
 				<j:PersonFBIIdentification>
 					<nc:IdentificationID>FBI45678</nc:IdentificationID>
 				</j:PersonFBIIdentification>
@@ -227,13 +263,14 @@
 		</nc:Person>
 		<nc:Location structures:id="Loc_01">
 			<nc:Address>
-				<nc:AddressFullText>30 Main Street Denton, Colorado</nc:AddressFullText>
+				<nc:AddressSecondaryUnitText>1</nc:AddressSecondaryUnitText>
 				<nc:LocationStreet>
 					<nc:StreetNumberText>30</nc:StreetNumberText>
 					<nc:StreetName>Main Street</nc:StreetName>
 				</nc:LocationStreet>
 				<nc:LocationCityName>Denton</nc:LocationCityName>
-				<nc:LocationStateUSPostalServiceCode>CO</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationStateUSPostalServiceCode>CO
+				</nc:LocationStateUSPostalServiceCode>
 				<nc:LocationPostalCode>99999</nc:LocationPostalCode>
 			</nc:Address>
 			<nc:Location2DGeospatialCoordinate>
@@ -255,20 +292,18 @@
 				</nc:TelephoneNumberCategoryText>
 			</nc:ContactTelephoneNumber>
 		</nc:ContactInformation>
-		<j:ActivityChargeAssociation>
-			<nc:Activity structures:ref="Case_01" />
+		<j:ActivityCaseAssociation>
 			<nc:Activity structures:ref="Booking_01" />
-			<nc:Activity structures:ref="Event_01" />
 			<nc:Activity structures:ref="Detention_01" />
+			<nc:Activity structures:ref="Release_01" />
+			<nc:Case structures:ref="Case_01" />
+		</j:ActivityCaseAssociation>
+		<j:ActivityChargeAssociation>
+			<nc:Activity structures:ref="Event_01" />
 			<j:Charge structures:ref="Charge_01" />
-			<j:Charge structures:ref="Charge_02" />
 		</j:ActivityChargeAssociation>
 		<j:ActivityChargeAssociation>
-			<nc:Activity structures:ref="Arrest_01" />
-			<j:Charge structures:ref="Charge_01" />
-		</j:ActivityChargeAssociation>
-		<j:ActivityChargeAssociation>
-			<nc:Activity structures:ref="Arrest_02" />
+			<nc:Activity structures:ref="Event_02" />
 			<j:Charge structures:ref="Charge_02" />
 		</j:ActivityChargeAssociation>
 		<j:BailBondChargeAssociation>
@@ -283,6 +318,10 @@
 			<nc:ContactEntity structures:ref="Supervisor_01" />
 			<nc:ContactInformation structures:ref="CI_01" />
 		</nc:ContactInformationAssociation>
+		<nc:ActivityPersonAssociation>
+			<nc:Activity structures:ref="CHS_01" />
+			<nc:Person structures:ref="Person_01" />
+		</nc:ActivityPersonAssociation>
 	</cq-res-ext:Custody>
 	<cq-res-ext:SourceSystemNameText>Alpha Court System </cq-res-ext:SourceSystemNameText>
 	<cq-res-ext:QueryResultCategoryText>Criminal History</cq-res-ext:QueryResultCategoryText>

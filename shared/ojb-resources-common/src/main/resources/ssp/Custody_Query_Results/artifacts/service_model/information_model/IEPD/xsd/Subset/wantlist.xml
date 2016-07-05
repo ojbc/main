@@ -28,7 +28,9 @@
   xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/">
   <w:Element w:name="cyfs:NextCourtEvent" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="intel:SystemIdentification" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ActivityCaseAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityChargeAssociation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ActivityReleaseAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:BailBond" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:BailBondChargeAssociation" w:isReference="false" w:nillable="false"/>
@@ -49,8 +51,10 @@
   <w:Element w:name="j:SupervisionAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityDateRange" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:ActivityPersonAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Address" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Agency" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:Base64BinaryObject" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Case" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ContactEmailID" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ContactEntity" w:isReference="false" w:nillable="false"/>
@@ -83,17 +87,32 @@
   <w:Element w:name="nc:PersonHairColorText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonResidentText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonSexText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:Release" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Status" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:TelephoneNumberCategoryText"
     w:isReference="false" w:nillable="false"/>
+  <w:Type w:name="j:ActivityCaseAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Case" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:ActivityChargeAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Activity" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:Charge" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:ActivityReleaseAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Release" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:ArrestType" w:isRequested="true">
     <w:ElementInType w:name="j:ArrestAgency" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ArrestCharge" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ArrestLocation" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -116,6 +135,8 @@
     <w:ElementInType w:name="j:BookingDetentionFacility"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:BookingSubject" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Arrest" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:BookingAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -187,7 +208,7 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:SupervisionAugmentationType" w:isRequested="true">
-    <w:ElementInType w:name="j:SupervisionReleaseDate"
+    <w:ElementInType w:name="j:SupervisionReleaseEligibilityDate"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SupervisionAreaIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -197,6 +218,12 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SupervisionCondition"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:ActivityPersonAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Person" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ActivityType" w:isRequested="true">
     <w:ElementInType w:name="nc:ActivityCategoryText"
@@ -211,8 +238,10 @@
   <w:Type w:name="nc:AddressType" w:isRequested="false">
     <w:ElementInType w:name="nc:AddressFullText" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:AddressDeliveryPoint"
+    <w:ElementInType w:name="nc:AddressSecondaryUnitText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:AddressDeliveryPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:LocationCityName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:LocationState" w:isReference="false"
@@ -222,6 +251,10 @@
   </w:Type>
   <w:Type w:name="nc:AmountType" w:isRequested="false">
     <w:ElementInType w:name="nc:Amount" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:BinaryType" w:isRequested="true">
+    <w:ElementInType w:name="nc:BinaryObject" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:CaseType" w:isRequested="false">
@@ -283,6 +316,7 @@
     <w:ElementInType w:name="nc:IdentityPersonRepresentation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
+  <w:Type w:name="nc:ImageType" w:isRequested="true"/>
   <w:Type w:name="nc:IntegerRangeType" w:isRequested="false">
     <w:ElementInType w:name="nc:RangeMaximumIntegerValue"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -320,6 +354,8 @@
   <w:Type w:name="nc:MilitarySummaryType" w:isRequested="false">
     <w:ElementInType w:name="nc:MilitaryExperienceIndicator"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:MilitarySummaryAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:OrganizationType" w:isRequested="true">
     <w:ElementInType w:name="nc:OrganizationBranchName"
@@ -354,6 +390,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonBirthDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonDigitalImage"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonEducationLevelText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonEthnicity" w:isReference="false"
@@ -389,6 +427,7 @@
     <w:ElementInType w:name="nc:PhysicalFeatureDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:ReleaseType" w:isRequested="true"/>
   <w:Type w:name="nc:StatusType" w:isRequested="true">
     <w:ElementInType w:name="nc:StatusDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
