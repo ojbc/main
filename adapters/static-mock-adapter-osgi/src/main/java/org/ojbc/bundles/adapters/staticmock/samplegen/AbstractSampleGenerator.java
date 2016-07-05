@@ -41,6 +41,7 @@ import org.joda.time.Days;
 import org.joda.time.Seconds;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.ojbc.bundles.adapters.staticmock.samplegen.staticname.custody.CustodyMatthewsSampleGenerator;
 import org.ojbc.bundles.adapters.staticmock.samplegen.staticname.vehiclecrash.VehicleCrashMatthewsSampleGenerator;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -773,7 +774,8 @@ public abstract class AbstractSampleGenerator {
 	protected static final DateTimeFormatter DATE_FORMATTER_MM_DD_YYYY = DateTimeFormat.forPattern("MM/dd/yyyy");
 
 	
-	public static void main(String[] args) throws Exception {
+	
+	public static void runGenerator(String[] args) throws Exception{
 
 		if (args.length < 3) {
 			printUsage();
@@ -839,6 +841,11 @@ public abstract class AbstractSampleGenerator {
 			CustodySampleGenerator custodySampleGenerator = new CustodySampleGenerator();			
 			custodyDocList = custodySampleGenerator.generateCustodySamples(sampleCount);
 		}
+
+		if("ALL".equals(type) || "CUSTODYMATTHEWS".equals(type)){			
+			CustodySampleGenerator custodyMatthewSampleGenerator = new CustodyMatthewsSampleGenerator();			
+			custodyDocList = custodyMatthewSampleGenerator.generateCustodySamples(sampleCount);
+		}
 		
 		if("ALL".equals(type) || "COURTCASE".equals(type)){			
 			CourtCaseSampleGenerator courtCaseGenerator = new CourtCaseSampleGenerator();			
@@ -878,6 +885,13 @@ public abstract class AbstractSampleGenerator {
 		}
 
 		LOG.info("Wrote " + allSamples.size() + " files to " + destinationFile.getAbsolutePath());		
+		
+	}
+	
+	
+	public static void main(String[] args) throws Exception {
+
+		runGenerator(args);
 	}
 
 	static void printUsage() {

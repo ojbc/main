@@ -29,6 +29,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -43,7 +44,9 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 	private static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 	
 	private static final String CURRENT_DATE = DateTime.now().toString(DATE_TIME_FORMAT);
-	
+		
+	public static final String CUSTODY_QUERY_SYSTEM_ID = 
+			"{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}SubmitCustodyQueryRequest";
 	
 	public CustodySampleGenerator() throws ParserConfigurationException,
 			IOException {
@@ -150,6 +153,11 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		bookingSubjectIdValElement.setTextContent(bookingSubjectId);		
 		
 		
+		//TODO add another arrest				
+		Element arrestRefElement = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_JXDM_51, "Arrest");
+		XmlUtils.addAttribute(arrestRefElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "Arrest_1");				
+		
+				
 		Element detentionElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "Detention");				
 		String detentionId = "Detention_" + recordId;		
 		XmlUtils.addAttribute(detentionElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", detentionId);
@@ -178,33 +186,33 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		Element supervisionAugmentElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionAugmentation");
 				
-		Element supervisionReleaseDateElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionReleaseDate");
+		Element supervisionReleaseDateElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, 
+				"SupervisionReleaseEligibilityDate");
 		
-		Element supervisionReleaseDateValElement = XmlUtils.appendElement(supervisionReleaseDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");		
-		supervisionReleaseDateValElement.setTextContent(randomDate(DATE_TIME_FORMAT));
+		Element supervisionReleaseDateValElement = XmlUtils.appendElement(supervisionReleaseDateElement, OjbcNamespaceContext.NS_NC_30, "Date");		
+		supervisionReleaseDateValElement.setTextContent(randomDate("yyyy-MM-dd"));
 		
 		Element supervisionAreaIdElement = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionAreaIdentification");
 		
 		Element supervisionAreaIdValElement = XmlUtils.appendElement(supervisionAreaIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");				
 		String supervisionAreaId = RandomStringUtils.randomNumeric(9); 		
 		supervisionAreaIdValElement.setTextContent(supervisionAreaId);		
-				
+		
+		Element bedIdEl = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionBedIdentification");
+		Element bedIdValEl = XmlUtils.appendElement(bedIdEl, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		bedIdValEl.setTextContent(RandomStringUtils.randomNumeric(3));
+		
+		Element supervisCellIdEl = XmlUtils.appendElement(supervisionAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "SupervisionCellIdentification");	
+		Element supervisCellIdValEl = XmlUtils.appendElement(supervisCellIdEl, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+		supervisCellIdValEl.setTextContent(RandomStringUtils.randomNumeric(5));		
+		
+		
 		Element immigrationHoldElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "DetentiontImmigrationHoldIndicator");				
 		
 		boolean detentImmigHoldSample = RANDOM.nextBoolean();
 		String sDetentImmigHoldSample = String.valueOf(detentImmigHoldSample);		
 		immigrationHoldElement.setTextContent(sDetentImmigHoldSample);
-		
-		Element holdForAgencyElement = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "HoldForAgency");		
-		Element orgNameElement = XmlUtils.appendElement(holdForAgencyElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");	
-		
-		List<String> holdForAgencyOrgNameList = Arrays.asList("Acme", "Chips");
-		
-		int holdForAgencyIndex = RANDOM.nextInt(holdForAgencyOrgNameList.size());		
-		String sHoldForAgencyOrgNameSample = holdForAgencyOrgNameList.get(holdForAgencyIndex);		
-		orgNameElement.setTextContent(sHoldForAgencyOrgNameSample);
-		
-		
+				
 		Element inmateWorkReleaseIndicator = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "InmateWorkReleaseIndicator");
 		
 		boolean inmateWorkReleaseSample = RANDOM.nextBoolean();		
@@ -216,6 +224,20 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		boolean bInmateWorkerSample = RANDOM.nextBoolean();		
 		String sInmateWorkerSample = String.valueOf(bInmateWorkerSample);		
 		inmateWorkerIndicatorElement.setTextContent(sInmateWorkerSample);
+				
+		Element allowDepositEl = XmlUtils.appendElement(detentionElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "AllowAccountDepositIndicator");
+		allowDepositEl.setTextContent(getRandomBooleanString());				
+		
+		String actualReleaseDateElementId = "Release_0";
+		
+		Element releaseElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_NC_30, "Release");									
+		XmlUtils.addAttribute(releaseElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", actualReleaseDateElementId);
+		
+		Element activDateEl = XmlUtils.appendElement(releaseElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");
+		
+		Element dateTimeEl = XmlUtils.appendElement(activDateEl, OjbcNamespaceContext.NS_NC_30, "DateTime");
+		
+		dateTimeEl.setTextContent(CURRENT_DATE);
 		
 		
 		Element bailBondElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "BailBond");			
@@ -247,47 +269,64 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		bailBondAmountValElement.setTextContent(sBailAmount);
 		
 		
-		Element chargeElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "Charge");			
-		String chargeId = "Charge_" + recordId;		
-		XmlUtils.addAttribute(chargeElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", chargeId);
+		List<String> chargeElementIdList = new ArrayList<String>();
+		
+		for(int i=0; i<3; i++){
+			
+			String chargeElementId = "Charge_" + String.valueOf(i);
+			
+			chargeElementIdList.add(chargeElementId);
+
+			Element chargeElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "Charge");			
+					
+			XmlUtils.addAttribute(chargeElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", chargeElementId);
+					
+			List<String> chargeCatList = Arrays.asList("Speeding", "Seat Belt Usage");		
+			int chargeCatIndex = RANDOM.nextInt(chargeCatList.size());		
+			String sChargeCatSample = chargeCatList.get(chargeCatIndex);
+			
+			Element chargeCatDescTxtElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeCategoryDescriptionText");
+			chargeCatDescTxtElement.setTextContent(sChargeCatSample);
+					
+			List<String> chargeDescriptionTxtList = Arrays.asList("Intoxicated", "Speeding", "No Seatbelt");		
+			int chargeDescRandomIndex = RANDOM.nextInt(chargeDescriptionTxtList.size());
+			String sChargeDesc = chargeDescriptionTxtList.get(chargeDescRandomIndex);				
+			Element chargeDescriptionTextElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeDescriptionText");
+			chargeDescriptionTextElement.setTextContent(sChargeDesc);
+					
+			Element chargeHighestIndicatorElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeHighestIndicator");
+			
+			boolean bChargeHighestIndicatorSample = RANDOM.nextBoolean();
+			
+			String sChargeHighestIndicatorSample = String.valueOf(bChargeHighestIndicatorSample);
+			
+			chargeHighestIndicatorElement.setTextContent(sChargeHighestIndicatorSample);
+			
+			Element chargeSequenceIDElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeSequenceID");
+			
+			String sChargeSeqId = RandomStringUtils.randomNumeric(7);
+			
+			chargeSequenceIDElement.setTextContent(sChargeSeqId);
+			
+			
+			Element chargeStatuteElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeStatute");
+			
+			Element chargeStatuteCodeIdElement = XmlUtils.appendElement(chargeStatuteElement, OjbcNamespaceContext.NS_JXDM_51, "StatuteCodeSectionIdentification");
+			
+			Element chargeStatuteCodeIdValElement = XmlUtils.appendElement(chargeStatuteCodeIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+			
+			String sStatuteCodeId = RandomStringUtils.randomNumeric(6);		
+			chargeStatuteCodeIdValElement.setTextContent(sStatuteCodeId);		
+			
+			
+			Element holdForAgencyElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "HoldForAgency");		
+			Element orgNameElement = XmlUtils.appendElement(holdForAgencyElement, OjbcNamespaceContext.NS_NC_30, "OrganizationName");					
+			orgNameElement.setTextContent(randomString("Acme", "Chips"));			
+		}
+		
+
+		
 				
-		List<String> chargeCatList = Arrays.asList("Speeding", "Seat Belt Usage");		
-		int chargeCatIndex = RANDOM.nextInt(chargeCatList.size());		
-		String sChargeCatSample = chargeCatList.get(chargeCatIndex);
-		
-		Element chargeCatDescTxtElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeCategoryDescriptionText");
-		chargeCatDescTxtElement.setTextContent(sChargeCatSample);
-				
-		List<String> chargeDescriptionTxtList = Arrays.asList("Intoxicated", "Speeding", "No Seatbelt");		
-		int chargeDescRandomIndex = RANDOM.nextInt(chargeDescriptionTxtList.size());
-		String sChargeDesc = chargeDescriptionTxtList.get(chargeDescRandomIndex);				
-		Element chargeDescriptionTextElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeDescriptionText");
-		chargeDescriptionTextElement.setTextContent(sChargeDesc);
-				
-		Element chargeHighestIndicatorElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeHighestIndicator");
-		
-		boolean bChargeHighestIndicatorSample = RANDOM.nextBoolean();
-		
-		String sChargeHighestIndicatorSample = String.valueOf(bChargeHighestIndicatorSample);
-		
-		chargeHighestIndicatorElement.setTextContent(sChargeHighestIndicatorSample);
-		
-		Element chargeSequenceIDElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeSequenceID");
-		
-		String sChargeSeqId = RandomStringUtils.randomNumeric(7);
-		
-		chargeSequenceIDElement.setTextContent(sChargeSeqId);
-		
-		
-		Element chargeStatuteElement = XmlUtils.appendElement(chargeElement, OjbcNamespaceContext.NS_JXDM_51, "ChargeStatute");
-		
-		Element chargeStatuteCodeIdElement = XmlUtils.appendElement(chargeStatuteElement, OjbcNamespaceContext.NS_JXDM_51, "StatuteCodeSectionIdentification");
-		
-		Element chargeStatuteCodeIdValElement = XmlUtils.appendElement(chargeStatuteCodeIdElement, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
-		
-		String sStatuteCodeId = RandomStringUtils.randomNumeric(6);		
-		chargeStatuteCodeIdValElement.setTextContent(sStatuteCodeId);		
-		
 		// Arrest
 		
 		Element arrestElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "Arrest");			
@@ -302,14 +341,27 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		int arrestAgencyIndex = RANDOM.nextInt(arrestAgencyList.size());		
 		String sArrestAgency = arrestAgencyList.get(arrestAgencyIndex);		
 		arrestOrgName.setTextContent(sArrestAgency);
-		
+			
+		for(String iChargeElementId : chargeElementIdList){
+			Element arrestChargeRefEl = XmlUtils.appendElement(arrestElement, OjbcNamespaceContext.NS_JXDM_51, "ArrestCharge");
+			XmlUtils.addAttribute(arrestChargeRefEl, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", iChargeElementId);			
+		}
 		
 		Element arrestLocationElement = XmlUtils.appendElement(arrestElement, OjbcNamespaceContext.NS_JXDM_51, "ArrestLocation");		
 		String arrestLocationId = "Loc_" + recordId;		
 		XmlUtils.addAttribute(arrestLocationElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", arrestLocationId);
-								
+					
+		String chSumElId = "CHS_1";
+		Element personChSumEl = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "PersonCriminalHistorySummary");
+		XmlUtils.addAttribute(personChSumEl, OjbcNamespaceContext.NS_STRUCTURES_30, "id", chSumElId);
+		
+		Element regSexOffEl = XmlUtils.appendElement(personChSumEl, OjbcNamespaceContext.NS_JXDM_51, "RegisteredSexualOffenderIndicator");
+		regSexOffEl.setTextContent(getRandomBooleanString());		
+		
 		Element nextCourtEventElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_CYFS_31, "NextCourtEvent");
+		
 		String nextCourtEventId = "Event_" + recordId;
+		
 		XmlUtils.addAttribute(nextCourtEventElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", nextCourtEventId);
 		
 		
@@ -346,29 +398,46 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		String sSampleImgBin = RandomStringUtils.randomAlphanumeric(20);		
 		personImgBinElement.setTextContent(sSampleImgBin);
 		
-		
-		List<String> ethnicitySampleList = Arrays.asList("H", "N", "U");		
-		int ethnicityRandomIndex = RANDOM.nextInt(ethnicitySampleList.size());		
-		String ethnicitySample = ethnicitySampleList.get(ethnicityRandomIndex);
+		Element educationEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonEducationLevelText");
+		educationEl.setTextContent(randomString("Middle Scool", "Highschool", "College"));
 		
 		Element ethnicityElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonEthnicityCode");		
-		ethnicityElement.setTextContent(ethnicitySample);						
+		ethnicityElement.setTextContent(randomString("H", "N", "U"));						
 		
+		
+		Element eyeColorEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonEyeColorText");
+		eyeColorEl.setTextContent(randomString("Blue", "Brown", "Green"));
+		
+		Element hairColorEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonHairColorText");
+		hairColorEl.setTextContent(randomString("Blonde", "Brown", "Orange", "Purple", "Bald"));
+		
+		
+		Element heightElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonHeightMeasure");
+		
+		Element heightMeasureElement = XmlUtils.appendElement(heightElement, OjbcNamespaceContext.NS_NC_30, "MeasureValueText");		
+		heightMeasureElement.setTextContent(RandomStringUtils.randomNumeric(2));
+		
+		Element heightUnitsElement = XmlUtils.appendElement(heightElement, OjbcNamespaceContext.NS_NC_30, "MeasureUnitText");		
+		heightUnitsElement.setTextContent("in");		
+		
+
+		Element militarySumEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonMilitarySummary");
+		
+		Element milServiceStatusCode = XmlUtils.appendElement(militarySumEl, OjbcNamespaceContext.NS_ADAMS_CO_BOOKING_CODES_EXT, "MilitaryServiceStatusCode");
+		
+		milServiceStatusCode.setTextContent(randomString("NACT", "ACT"));			
+						
 		Element personNameElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonName");		
-				
-		String sPersonFirstName = person.firstName;		
+						
 		Element personGivenNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");		
-		personGivenNameElement.setTextContent(sPersonFirstName);
-		
-		
+		personGivenNameElement.setTextContent(getFirstNameSample(person));
+				
 		String sPersonMiddleName = person.middleName;
 		Element personMiddleNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonMiddleName");		
 		personMiddleNameElement.setTextContent(sPersonMiddleName);
-		
-		
-		String sPersonLastName = person.lastName;
+				
 		Element personSurNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");		
-		personSurNameElement.setTextContent(sPersonLastName);
+		personSurNameElement.setTextContent(getLastNameSample(person));
 					
 		Element personLangEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonPrimaryLanguage");		
 		Element langNamEl = XmlUtils.appendElement(personLangEl, OjbcNamespaceContext.NS_NC_30, "LanguageName");		
@@ -395,6 +464,17 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		personSsnValElement.setTextContent(sPersonSSN);
 		
 		
+		Element personWeightElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonWeightMeasure");
+		
+		Element weightValEl = XmlUtils.appendElement(personWeightElement, OjbcNamespaceContext.NS_NC_30, "MeasureValueText");
+		
+		weightValEl.setTextContent(RandomStringUtils.randomNumeric(2));
+		
+		Element weightUnitElement = XmlUtils.appendElement(personWeightElement, OjbcNamespaceContext.NS_NC_30, "MeasureUnitText");
+		
+		weightUnitElement.setTextContent("lbs");		
+				
+		
 		Element personAugmentElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonAugmentation");
 		
 		Element drivLicEl = XmlUtils.appendElement(personAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "DriverLicense");
@@ -405,9 +485,19 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		drivLicCardIdValEl.setTextContent(RandomStringUtils.randomNumeric(9));
 		
 		Element drivLicIdSrcTxtEl = XmlUtils.appendElement(drivLicCardIdEl, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText");		
-		String dlStateSample = getRandomIdentity(null).state;		
+		
+		String dlStateSample  = randomString("AA", "AE", "AK", "AP", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", 
+				"FL", "FM", "GA", "GU", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MH", 
+				"MI", "MN", "MO", "MP", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", 
+				"OR", "PA", "PR", "PW", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VI", "VT", "WA", "WI", "WV", "WY");		
+		
 		drivLicIdSrcTxtEl.setTextContent(dlStateSample);
 				
+		
+		Element occupationEl = XmlUtils.appendElement(personAugmentElement, OjbcNamespaceContext.NS_NC_30, "EmployeeOccupationCategoryText");		
+		occupationEl.setTextContent(randomString("Food/Bev", "Software", "Hospitality", "Public Safety", "Military", "Acting"));
+		
+		
 		Element fbiIdEl = XmlUtils.appendElement(personAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "PersonFBIIdentification");		
 		Element fbiIdValEl = XmlUtils.appendElement(fbiIdEl, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
 		fbiIdValEl.setTextContent(RandomStringUtils.randomNumeric(9));
@@ -419,17 +509,62 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		String sPersonSid = RandomStringUtils.randomAlphanumeric(8);
 		
 		personStateFingerIdValElement.setTextContent(sPersonSid);
-		
-		
+							
 		Element locationElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_NC_30, "Location");
-		String locationId = "Loc_" + recordId;
-		XmlUtils.addAttribute(locationElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", locationId);
 		
+		String locationElementId = "Loc_" + recordId; 
+					
+		XmlUtils.addAttribute(locationElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", locationElementId);
+																	
 		Element locationAddressElement = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_NC_30, "Address");
+												
+		String address2ndaryUnit = randomString("APT 2", "STE C", "APT 7C");
 		
-		Element locAddressFullElement = XmlUtils.appendElement(locationAddressElement, OjbcNamespaceContext.NS_NC_30, "AddressFullText");		
-		String locAddress = person.addressStreetName;		
-		locAddressFullElement.setTextContent(locAddress);	
+		
+		if(StringUtils.isNotEmpty(address2ndaryUnit)){
+			Element adrsScndryUnitElement = XmlUtils.appendElement(locationAddressElement, OjbcNamespaceContext.NS_NC_30, "AddressSecondaryUnitText");						
+			adrsScndryUnitElement.setTextContent(address2ndaryUnit);						
+		}
+		
+		Element locationStreetElement = XmlUtils.appendElement(locationAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationStreet");
+		
+		String arrestLocStreetNumber = person.addressStreetNumber;
+		
+		if(StringUtils.isNotEmpty(arrestLocStreetNumber)){
+			Element streetNumberElement = XmlUtils.appendElement(locationStreetElement, OjbcNamespaceContext.NS_NC_30, "StreetNumberText");
+			streetNumberElement.setTextContent(arrestLocStreetNumber);						
+		}
+		
+		String arrestLocStreetName = person.addressStreetName;
+
+		if(StringUtils.isNotEmpty(arrestLocStreetName)){
+			Element streetNameElement = XmlUtils.appendElement(locationStreetElement, OjbcNamespaceContext.NS_NC_30, "StreetName");
+			streetNameElement.setTextContent(arrestLocStreetName);						
+		}
+											
+		String arrestLocCity = person.city;
+		
+		if(StringUtils.isNotEmpty(arrestLocCity)){
+			Element cityElement = XmlUtils.appendElement(locationAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationCityName");
+			cityElement.setTextContent(arrestLocCity);						
+		}
+		
+		String arrestLocState = randomString("AA", "AE", "AK", "AP", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", 
+				"FL", "FM", "GA", "GU", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MH", 
+				"MI", "MN", "MO", "MP", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", 
+				"OR", "PA", "PR", "PW", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VI", "VT", "WA", "WI", "WV", "WY");			
+		
+		if(StringUtils.isNotEmpty(arrestLocState)){
+			Element stateCodeElement = XmlUtils.appendElement(locationAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationStateUSPostalServiceCode");
+			stateCodeElement.setTextContent(arrestLocState);						
+		}
+												
+		String arrestLocZipCode = person.zipCode;
+		
+		if(StringUtils.isNotEmpty(arrestLocZipCode)){
+			Element postalCodeElement = XmlUtils.appendElement(locationAddressElement, OjbcNamespaceContext.NS_NC_30, "LocationPostalCode");
+			postalCodeElement.setTextContent(arrestLocZipCode);								
+		}				
 		
 		Element loc2dGeoEl = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_NC_30, "Location2DGeospatialCoordinate");		
 		Element geoCordLatEl = XmlUtils.appendElement(loc2dGeoEl, OjbcNamespaceContext.NS_NC_30, "GeographicCoordinateLatitude");		
@@ -440,38 +575,55 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		Element longDegValEl = XmlUtils.appendElement(geoCordLongEl, OjbcNamespaceContext.NS_NC_30, "LongitudeDegreeValue");
 		longDegValEl.setTextContent(RandomStringUtils.randomNumeric(1));						
 		
-		Element activityChargeAssocElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "ActivityChargeAssociation");
 		
-		Element activityCaseEl = XmlUtils.appendElement(activityChargeAssocElement, OjbcNamespaceContext.NS_NC_30, "Activity");
-		XmlUtils.addAttribute(activityCaseEl, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", caseId);
 		
-		Element activityBookingElement = XmlUtils.appendElement(activityChargeAssocElement, OjbcNamespaceContext.NS_NC_30, "Activity");
+		Element activCaseAssocEl = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "ActivityCaseAssociation");
+
+		Element activityBookingElement = XmlUtils.appendElement(activCaseAssocEl, OjbcNamespaceContext.NS_NC_30, "Activity");
 		XmlUtils.addAttribute(activityBookingElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", bookingId);
-
-		Element activityEventElement = XmlUtils.appendElement(activityChargeAssocElement, OjbcNamespaceContext.NS_NC_30, "Activity");
-		XmlUtils.addAttribute(activityEventElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", nextCourtEventId);
-
-		Element activityDetentionElement = XmlUtils.appendElement(activityChargeAssocElement, OjbcNamespaceContext.NS_NC_30, "Activity");		
+		
+		Element activityDetentionElement = XmlUtils.appendElement(activCaseAssocEl, OjbcNamespaceContext.NS_NC_30, "Activity");		
 		XmlUtils.addAttribute(activityDetentionElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", detentionId);
 		
-		Element activityArrestElement = XmlUtils.appendElement(activityChargeAssocElement, OjbcNamespaceContext.NS_NC_30, "Activity");
-		XmlUtils.addAttribute(activityArrestElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", arrestId);
-		
-		Element activityChargeElement = XmlUtils.appendElement(activityChargeAssocElement, OjbcNamespaceContext.NS_JXDM_51, "Charge");
-		XmlUtils.addAttribute(activityChargeElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", chargeId);		
-		
-		
+		Element activityReleaseElement = XmlUtils.appendElement(activCaseAssocEl, OjbcNamespaceContext.NS_NC_30, "Activity");
+		XmlUtils.addAttribute(activityReleaseElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", actualReleaseDateElementId);
+				
+		Element activityCaseEl = XmlUtils.appendElement(activCaseAssocEl, OjbcNamespaceContext.NS_NC_30, "Case");
+		XmlUtils.addAttribute(activityCaseEl, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", caseId);
+
+
+		Element activChargeAssocEl = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "ActivityChargeAssociation");
+	
+		Element eventActivityEl = XmlUtils.appendElement(activChargeAssocEl, OjbcNamespaceContext.NS_NC_30, "Activity");		
+		XmlUtils.addAttribute(eventActivityEl, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", nextCourtEventId);
+				
+		for(String iChargeElementId : chargeElementIdList){
+			Element activChargeAssocChargeEl = XmlUtils.appendElement(activChargeAssocEl, OjbcNamespaceContext.NS_JXDM_51, "Charge");
+			XmlUtils.addAttribute(activChargeAssocChargeEl, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", iChargeElementId);				
+		}
+									
 		Element bailBondChargeAssocElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_JXDM_51, "BailBondChargeAssociation");
 		
 		Element bailBondRefElement = XmlUtils.appendElement(bailBondChargeAssocElement, OjbcNamespaceContext.NS_JXDM_51, "BailBond");
 		XmlUtils.addAttribute(bailBondRefElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", bailBondId);
 		
-		Element bailBondChargeRefElement = XmlUtils.appendElement(bailBondChargeAssocElement, OjbcNamespaceContext.NS_JXDM_51, "Charge");
-		XmlUtils.addAttribute(bailBondChargeRefElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", chargeId);
+		
+		for(String iChargeElementId : chargeElementIdList){
+			Element bailBondChargeRefElement = XmlUtils.appendElement(bailBondChargeAssocElement, OjbcNamespaceContext.NS_JXDM_51, "Charge");
+			XmlUtils.addAttribute(bailBondChargeRefElement, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", iChargeElementId);			
+		}		
+		
+		Element activPersonAssocEl = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_NC_30, "ActivityPersonAssociation");
+		
+		Element chsSumActivityEl = XmlUtils.appendElement(activPersonAssocEl, OjbcNamespaceContext.NS_NC_30, "Activity");
+		XmlUtils.addAttribute(chsSumActivityEl, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", chSumElId);
+		
+		Element activPersonAssocPersonEl = XmlUtils.appendElement(activPersonAssocEl, OjbcNamespaceContext.NS_NC_30, "Person");
+		XmlUtils.addAttribute(activPersonAssocPersonEl, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", personRecId);
 		
 		
 		Element sourceSysNameTxtElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "SourceSystemNameText");
-		sourceSysNameTxtElement.setTextContent("Custody");
+		sourceSysNameTxtElement.setTextContent(CUSTODY_QUERY_SYSTEM_ID);
 		
 		
 		Element queryResultCatTxtElement = XmlUtils.appendElement(rootCustodyResultsElement, OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXT, "QueryResultCategoryText"); 

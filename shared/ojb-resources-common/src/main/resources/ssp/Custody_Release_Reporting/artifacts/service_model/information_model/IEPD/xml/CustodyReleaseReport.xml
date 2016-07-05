@@ -45,36 +45,58 @@
 			<nc:ActivityDate>
 				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 			</nc:ActivityDate>
-			<j:BookingFacility>
+			<j:BookingDetentionFacility>
 				<nc:FacilityIdentification>
 					<nc:IdentificationID>Facility ID</nc:IdentificationID>
 				</nc:FacilityIdentification>
-			</j:BookingFacility>
-			<j:BookingRelease>
-				<nc:ActivityDate>
-					<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
-				</nc:ActivityDate>
-				<nc:ActivityDescriptionText>String</nc:ActivityDescriptionText>
-				<nc:ActivityReasonText>String</nc:ActivityReasonText>
-				<nc:ReleasePerson structures:ref="Person_01" />
-				<nc:ReleaseToLocation structures:ref="Location_01" />
-			</j:BookingRelease>
+			</j:BookingDetentionFacility>
 			<j:BookingSubject>
+				<nc:RoleOfPerson structures:ref="Person_01" />
 				<j:SubjectIdentification>
 					<nc:IdentificationID>Booking Number</nc:IdentificationID>
 				</j:SubjectIdentification>
 			</j:BookingSubject>
 		</j:Booking>
+		<j:Detention>
+			<j:SupervisionAugmentation>
+				<j:SupervisionReleaseEligibilityDate>
+					<nc:Date>2001-12-17</nc:Date>
+				</j:SupervisionReleaseEligibilityDate>
+			</j:SupervisionAugmentation>
+		</j:Detention>
+		<nc:Release>
+			<nc:ActivityDate>
+				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+			</nc:ActivityDate>
+			<nc:ActivityDescriptionText>String</nc:ActivityDescriptionText>
+			<nc:ActivityReasonText>String</nc:ActivityReasonText>
+			<nc:ReleasePerson structures:ref="Person_01" />
+			<nc:ReleaseToLocation structures:ref="Location_01" />
+		</nc:Release>
 		<nc:Person structures:id="Person_01">
+			<nc:PersonAgeMeasure>
+				<nc:MeasureValueText>52</nc:MeasureValueText>
+				<nc:MeasureUnitText>4H</nc:MeasureUnitText>
+			</nc:PersonAgeMeasure>
 			<nc:PersonBirthDate>
 				<nc:Date>1968-12-17</nc:Date>
 			</nc:PersonBirthDate>
 			<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
+			<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
+			<nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
+			<nc:PersonHeightMeasure>
+				<nc:MeasureValueText>110</nc:MeasureValueText>
+				<nc:MeasureUnitText>4H</nc:MeasureUnitText>
+			</nc:PersonHeightMeasure>
 			<nc:PersonName>
 				<nc:PersonGivenName>Otis</nc:PersonGivenName>
 				<nc:PersonMiddleName>H.</nc:PersonMiddleName>
 				<nc:PersonSurName>Strong</nc:PersonSurName>
 			</nc:PersonName>
+			<nc:PersonPhysicalFeature>
+				<nc:PhysicalFeatureDescriptionText>Tattoo
+				</nc:PhysicalFeatureDescriptionText>
+			</nc:PersonPhysicalFeature>
 			<nc:PersonPrimaryLanguage>
 				<nc:LanguageName>English</nc:LanguageName>
 			</nc:PersonPrimaryLanguage>
@@ -83,6 +105,10 @@
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasureValueText>110</nc:MeasureValueText>
+				<nc:MeasureUnitText>4H</nc:MeasureUnitText>
+			</nc:PersonWeightMeasure>
 			<j:PersonAugmentation>
 				<j:DriverLicense>
 					<j:DriverLicenseCardIdentification>
@@ -144,24 +170,26 @@
 			<nc:Address>
 				<nc:AddressSecondaryUnitText>Apt #34</nc:AddressSecondaryUnitText>
 				<nc:LocationStreet>
-					<nc:StreetFullText>420 Main Street</nc:StreetFullText>
+					<nc:StreetNumberText>392</nc:StreetNumberText>
+					<nc:StreetName>Woodlawn Ave</nc:StreetName>
 				</nc:LocationStreet>
-				<nc:LocationCityName>Merrickville</nc:LocationCityName>
-				<j:LocationStateNCICLISCode>CO</j:LocationStateNCICLISCode>
-				<nc:LocationPostalCode>14329</nc:LocationPostalCode>
+				<nc:LocationCityName>Burlington</nc:LocationCityName>
+				<nc:LocationStateUSPostalServiceCode>NY
+				</nc:LocationStateUSPostalServiceCode>
+				<nc:LocationPostalCode>05408</nc:LocationPostalCode>
 			</nc:Address>
 		</nc:Location>
-		<crr-ext:BehavioralHealthInformation>
-			<crr-ext:SeriousMentalIllnessIndicator>true</crr-ext:SeriousMentalIllnessIndicator>
-			<j:Evaluation>
-				<j:EvaluationDiagnosisDescriptionText>schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
-			</j:Evaluation>
-		</crr-ext:BehavioralHealthInformation>
 		<nc:PersonAliasIdentityAssociation>
 			<nc:Person structures:ref="Person_01" />
 			<nc:Identity structures:ref="ALIAS001" />
 			<nc:Identity structures:ref="ALIAS002" />
 			<nc:Identity structures:ref="ALIAS003" />
 		</nc:PersonAliasIdentityAssociation>
+		<crr-ext:BehavioralHealthInformation>
+			<crr-ext:SeriousMentalIllnessIndicator>true</crr-ext:SeriousMentalIllnessIndicator>
+			<j:Evaluation>
+				<j:EvaluationDiagnosisDescriptionText>schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
+			</j:Evaluation>
+		</crr-ext:BehavioralHealthInformation>
 	</crr-ext:Custody>
 </crr-doc:CustodyReleaseReport>

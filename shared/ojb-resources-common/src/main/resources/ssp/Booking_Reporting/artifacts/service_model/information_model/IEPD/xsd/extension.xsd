@@ -42,7 +42,8 @@
 	<xsd:complexType name="BookingReportType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for set of details associated with a
-				booking.</xsd:documentation>
+				booking.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
@@ -64,8 +65,6 @@
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0"
 						maxOccurs="unbounded" />
-					<xsd:element ref="br-ext:BehavioralHealthInformation"
-						minOccurs="0" />
 					<xsd:element ref="j:ActivityChargeAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:BailBondChargeAssociation"
@@ -74,6 +73,8 @@
 						minOccurs="0" />
 					<xsd:element ref="nc:ContactInformationAssociation"
 						minOccurs="0" />
+					<xsd:element ref="br-ext:BehavioralHealthInformation"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -81,7 +82,8 @@
 	<xsd:complexType name="BehavioralHealthInformationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for information about a person's
-				behavioral health.</xsd:documentation>
+				behavioral health.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
@@ -94,7 +96,7 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:element name="HoldForAgency" type="nc:OrganizationType"
-		substitutionGroup="nc:SupervisionAugmentationPoint">
+		substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>An agency for whom a subject is being held.
 			</xsd:documentation>
@@ -104,7 +106,8 @@
 		type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a subject is being held for an immigration
-				violation; false otherwise.</xsd:documentation>
+				violation; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonSocioEconomicStatusDescriptionText"
@@ -118,14 +121,16 @@
 		substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if an inmate is on work release; false
-				otherwise</xsd:documentation>
+				otherwise
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="InmateWorkerIndicator" type="niem-xs:boolean"
 		substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if an inmate is a worker in the facility;
-				false otherwise</xsd:documentation>
+				false otherwise
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonNameIdentification" type="nc:IdentificationType"
@@ -150,13 +155,15 @@
 			<xsd:documentation>A short-lived identifier intended to allow for
 				linking between a search request and search results. This identifier
 				should have been included in the original search request message and
-				should be included in this message, unaltered.</xsd:documentation>
+				should be included in this message, unaltered.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SeriousMentalIllnessIndicator" type="niem-xs:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if the person is diagnosed with a serious
-				mental illness (SMI), false otherwise. </xsd:documentation>
+				mental illness (SMI), false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SupervisorCategoryText" type="nc:TextType"
@@ -172,11 +179,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AllowAccountDepositIndicator"
-		type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
+	<xsd:element name="AllowAccountDepositIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a person in detention is allowed to make
-				commissary deposits; false otherwise.</xsd:documentation>
+				commissary deposits; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

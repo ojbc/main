@@ -97,9 +97,6 @@
 		</j:SupervisionAugmentation>
 		<br-ext:DetentiontImmigrationHoldIndicator>false
 		</br-ext:DetentiontImmigrationHoldIndicator>
-		<br-ext:HoldForAgency>
-			<nc:OrganizationName>Agency</nc:OrganizationName>
-		</br-ext:HoldForAgency>
 		<br-ext:InmateWorkReleaseIndicator>true
 		</br-ext:InmateWorkReleaseIndicator>
 		<br-ext:InmateWorkerIndicator>false
@@ -126,6 +123,9 @@
 				<nc:IdentificationID>Charge Code ID</nc:IdentificationID>
 			</j:StatuteCodeSectionIdentification>
 		</j:ChargeStatute>
+		<br-ext:HoldForAgency>
+			<nc:OrganizationName>Agency</nc:OrganizationName>
+		</br-ext:HoldForAgency>
 	</j:Charge>
 	<j:Arrest structures:id="Arrest_01">
 		<j:ArrestAgency>
@@ -156,13 +156,13 @@
 		<nc:PersonEducationLevelText>High School Graduate</nc:PersonEducationLevelText>
 		<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
 		<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
-		<nc:PersonHairColorText>Bloned</nc:PersonHairColorText>
+		<nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
 		<nc:PersonHeightMeasure>
 			<nc:MeasureValueText>110</nc:MeasureValueText>
 			<nc:MeasureUnitText>4H</nc:MeasureUnitText>
 		</nc:PersonHeightMeasure>
 		<nc:PersonMilitarySummary>
-			<nc:MilitaryExperienceIndicator>true</nc:MilitaryExperienceIndicator>
+			<ac-bkg-codes:MilitaryServiceStatusCode>HD</ac-bkg-codes:MilitaryServiceStatusCode>
 		</nc:PersonMilitarySummary>
 		<nc:PersonName>
 			<nc:PersonGivenName>Otis</nc:PersonGivenName>
@@ -189,7 +189,7 @@
 			<nc:EmployeeOccupationCategoryText>Truck Driver
 			</nc:EmployeeOccupationCategoryText>
 			<j:PersonStateFingerprintIdentification>
-				<nc:IdentificationID>CO0120010324</nc:IdentificationID>
+				<nc:IdentificationID>XX0120010324</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
 		<br-ext:PersonSocioEconomicStatusDescriptionText>Middle Class
@@ -251,7 +251,8 @@
 				</nc:StreetName>
 			</nc:LocationStreet>
 			<nc:LocationCityName>Burlington</nc:LocationCityName>
-			<nc:LocationStateUSPostalServiceCode>NY</nc:LocationStateUSPostalServiceCode>
+			<nc:LocationStateUSPostalServiceCode>NY
+			</nc:LocationStateUSPostalServiceCode>
 			<nc:LocationPostalCode>05408</nc:LocationPostalCode>
 		</nc:Address>
 		<nc:Location2DGeospatialCoordinate>
@@ -272,12 +273,6 @@
 			<nc:TelephoneNumberCategoryText>Cell</nc:TelephoneNumberCategoryText>
 		</nc:ContactTelephoneNumber>
 	</nc:ContactInformation>
-	<br-ext:BehavioralHealthInformation>
-		<br-ext:SeriousMentalIllnessIndicator>true</br-ext:SeriousMentalIllnessIndicator>
-		<j:Evaluation>
-			<j:EvaluationDiagnosisDescriptionText>schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
-		</j:Evaluation>
-	</br-ext:BehavioralHealthInformation>
 	<j:ActivityChargeAssociation>
 		<nc:Activity structures:ref="Case_01" />
 		<nc:Activity structures:ref="Booking_01" />
@@ -301,4 +296,10 @@
 		<nc:ContactEntity structures:ref="Supervisor_01" />
 		<nc:ContactInformation structures:ref="CI_01" />
 	</nc:ContactInformationAssociation>
+	<br-ext:BehavioralHealthInformation>
+		<br-ext:SeriousMentalIllnessIndicator>true</br-ext:SeriousMentalIllnessIndicator>
+		<j:Evaluation>
+			<j:EvaluationDiagnosisDescriptionText>schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
+		</j:Evaluation>
+	</br-ext:BehavioralHealthInformation>
 </br-doc:BookingReport>

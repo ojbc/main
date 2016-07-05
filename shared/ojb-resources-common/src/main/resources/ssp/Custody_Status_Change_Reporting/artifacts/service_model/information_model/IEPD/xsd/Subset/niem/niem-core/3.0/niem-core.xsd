@@ -47,6 +47,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:AddressFullText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:AddressSecondaryUnitText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:AddressDeliveryPoint" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:LocationCityName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:LocationState" minOccurs="0" maxOccurs="unbounded"/>
@@ -360,6 +361,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:MilitaryExperienceIndicator" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:MilitarySummaryAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -604,6 +606,11 @@
   <xs:element name="AddressFullText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A complete address.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="AddressSecondaryUnitText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A particular unit within a larger unit or grouping at a location.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Agency" type="nc:OrganizationType" nillable="true">
@@ -866,6 +873,11 @@
       <xs:documentation>True if a person has some form of military experience; false otherwise.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="MilitarySummaryAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for MilitarySummaryType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="OrganizationName" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A name of an organization.</xs:documentation>
@@ -1024,6 +1036,11 @@
   <xs:element name="RangeMinimumIntegerValue" type="niem-xs:integer" nillable="true">
     <xs:annotation>
       <xs:documentation>A minimum value of a range.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Release" type="nc:ReleaseType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A freeing or discharge of someone or something from an activity, supervision, or obligation.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="RoleOf" abstract="true">

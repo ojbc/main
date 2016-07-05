@@ -49,7 +49,8 @@
 	<xsd:complexType name="CustodyQueryResultsType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for set of details associated with a
-				custody query response.</xsd:documentation>
+				custody query response.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
@@ -78,24 +79,31 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Detention" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Release" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:BailBond" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:PersonCriminalHistorySummary"
+						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="cyfs:NextCourtEvent" minOccurs="0"
 						maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0"
 						maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0"
+						maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityChargeAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:BailBondChargeAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformationAssociation"
-						minOccurs="0" />
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ActivityPersonAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -117,7 +125,8 @@
 		<xsd:annotation>
 			<xsd:documentation>The name of a system that returned the search
 				result.
-				This can be used to retrieve additional information about the person
+				This can be used to retrieve additional information about the
+				person
 				and/or court case in the search result.
 			</xsd:documentation>
 		</xsd:annotation>
@@ -129,7 +138,7 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="HoldForAgency" type="nc:OrganizationType"
-		substitutionGroup="nc:SupervisionAugmentationPoint">
+		substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>An agency for whom a subject is being held.
 			</xsd:documentation>
@@ -139,21 +148,24 @@
 		type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a subject is being held for an immigration
-				violation; false otherwise.</xsd:documentation>
+				violation; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="InmateWorkReleaseIndicator" type="niem-xs:boolean"
 		substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if an inmate is on work release; false
-				otherwise</xsd:documentation>
+				otherwise
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="InmateWorkerIndicator" type="niem-xs:boolean"
 		substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if an inmate is a worker in the facility;
-				false otherwise</xsd:documentation>
+				false otherwise
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SupervisorCategoryText" type="nc:TextType"

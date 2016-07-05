@@ -761,6 +761,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static String NS_CITATION_CASE_EXT = "http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0";
 	public static String NS_PREFIX_CITATION_CASE_EXT="ojb-cit-ext";
 	
+	public static String NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC = "http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchResults/1.0";
+	public static String NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC ="phisres-doc";	
+	
+	public static String NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchResults/1.0";
+	public static String NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT ="phisres-ext";
+			
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -769,6 +775,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();	
+		
+		prefixToUriMap.put(NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC, NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC);
+		uriToPrefixMap.put(NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC, NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT, NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT);
+		uriToPrefixMap.put(NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT, NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT);
 		
 		prefixToUriMap.put(NS_PREFIX_CORE_FILING_MESSAGE, NS_CORE_FILING_MESSAGE);
 		uriToPrefixMap.put(NS_CORE_FILING_MESSAGE, NS_PREFIX_CORE_FILING_MESSAGE);
