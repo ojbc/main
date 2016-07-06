@@ -152,6 +152,7 @@
   <w:Element w:name="nc:InternationalTelephoneNumber"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Item" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:ItemColorDescriptionText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LanguageCode" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Location" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:LocationCountryFIPS10-4Code"
@@ -17864,6 +17865,10 @@
   </w:Type>
   <w:Type w:name="nc:TangibleItemType" w:isRequested="true">
     <w:ElementInType w:name="nc:ItemColor" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:ItemMakeName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:ItemModelName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ItemModelYearDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>

@@ -1271,6 +1271,8 @@
       <xsd:extension base="nc:ItemType">
         <xsd:sequence>
           <xsd:element ref="nc:ItemColor" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:ItemMakeName" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:ItemModelName" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:ItemModelYearDate" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:ItemStyle" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
@@ -2218,9 +2220,27 @@
       <xsd:documentation>A color of an item.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="ItemColorDescriptionText" type="nc:TextType" substitutionGroup="nc:ItemColor">
+    <xsd:annotation>
+      <xsd:documentation>A description of the overall color of an item.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="ItemColor"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="ItemDescriptionText" type="nc:TextType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A description of an item.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ItemMakeName" type="nc:ProperNameTextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A name of the manufacturer that produced an item.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ItemModelName" type="nc:ProperNameTextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A name of a specific design or kind of item made by a manufacturer.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="ItemModelYearDate" type="niem-xsd:gYear" nillable="true">
