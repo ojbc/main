@@ -26,6 +26,19 @@
   <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
   <xs:import schemaLocation="../../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
   <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:complexType name="ActivityCaseAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an activity and a case.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ActivityChargeAssociationType">
     <xs:annotation>
       <xs:documentation>A data type for an association between an activity and a charge.</xs:documentation>
@@ -47,6 +60,7 @@
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
           <xs:element ref="j:ArrestAgency" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ArrestCharge" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestLocation" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -88,6 +102,7 @@
           <xs:element ref="j:BookingAgencyRecordIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:BookingDetentionFacility" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:BookingSubject" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:BookingAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -226,6 +241,11 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:element name="ActivityCaseAssociation" type="j:ActivityCaseAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between an activity and a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ActivityChargeAssociation" type="j:ActivityChargeAssociationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An association between an activity and a charge.</xs:documentation>
@@ -239,6 +259,11 @@
   <xs:element name="ArrestAgency" type="nc:OrganizationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An agency which employs the arresting official.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ArrestCharge" type="j:ChargeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A formal allegation of a violation of a statute and/or ordinance in association with an arrest.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ArrestLocation" type="nc:LocationType" nillable="true">
