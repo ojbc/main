@@ -215,9 +215,9 @@
 				</ojb-cit-ext:CitationAugmentation>
 			</ojb-cit-ext:Citation>
 			<ojb-cit-ext:Vehicle s:id="VEHICLE_01">
-				<nc:VehicleColorPrimaryCode>SIL</nc:VehicleColorPrimaryCode>
-				<nc:ItemModelYearDate>2015</nc:ItemModelYearDate>
-				<nc:VehicleStyleCode>SD</nc:VehicleStyleCode>
+				<nc:ItemColorDescriptionText>Red</nc:ItemColorDescriptionText>
+				<nc:ItemMakeName>Ford</nc:ItemMakeName>
+				<nc:ItemModelName>Mustang</nc:ItemModelName>
 				<nc:ConveyanceRegistrationPlateIdentification>
 					<nc:IdentificationID>ABC1234567</nc:IdentificationID>
 					<j:IdentificationJurisdictionNCICLISCode>VT

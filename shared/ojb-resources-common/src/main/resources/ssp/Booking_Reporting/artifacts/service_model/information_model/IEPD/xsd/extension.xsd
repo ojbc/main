@@ -25,6 +25,7 @@
 	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
 	xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
 	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
+	xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
@@ -39,6 +40,8 @@
 		schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.1/"
 		schemaLocation="./Subset/niem/domains/cyfs/3.1/cyfs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/humanServices/3.1/"
+		schemaLocation="./Subset/niem/domains/humanServices/3.1/hs.xsd" />
 	<xsd:complexType name="BookingReportType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for set of details associated with a
@@ -75,6 +78,7 @@
 						minOccurs="0" />
 					<xsd:element ref="br-ext:BehavioralHealthInformation"
 						minOccurs="0" />
+					<xsd:element ref="br-ext:CareEpisode" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -82,16 +86,36 @@
 	<xsd:complexType name="BehavioralHealthInformationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for information about a person's
-				behavioral health.
-			</xsd:documentation>
+				behavioral health.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="br-ext:SeriousMentalIllnessIndicator" />
+					<xsd:element ref="br-ext:BehavioralHealthStatusRepresentation"
+						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Evaluation" minOccurs="0"
 						maxOccurs="unbounded" />
+					<xsd:element ref="nc:Treatment" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="br-ext:PrescribedMedication"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="hs:MedicaidIndicator" minOccurs="0" />
+					<xsd:element
+						ref="br-ext:RegionalBehavioralHealthAuthorityAssignmentText"
+						minOccurs="0" />
 				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CareEpisodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for all clinically related services or
+				treatments for a patient for a discrete diagnostic condition from
+				the onset of symptoms until treatment is complete. Commonly referred
+				to as an Episode of Care.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
@@ -140,32 +164,6 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonPersistentIdentification" type="nc:IdentificationType"
-		substitutionGroup="nc:PersonAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A unique and timeless identifier assigned to an
-				individual and always belongs to that individual. This allows for
-				identifying activities and information that belong to a person
-				without always needing to share PII about that individual.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="BehavioralHealthInformation" type="br-ext:BehavioralHealthInformationType">
-		<xsd:annotation>
-			<xsd:documentation>A short-lived identifier intended to allow for
-				linking between a search request and search results. This identifier
-				should have been included in the original search request message and
-				should be included in this message, unaltered.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="SeriousMentalIllnessIndicator" type="niem-xs:boolean">
-		<xsd:annotation>
-			<xsd:documentation>True if the person is diagnosed with a serious
-				mental illness (SMI), false otherwise.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="SupervisorCategoryText" type="nc:TextType"
 		substitutionGroup="nc:EntityAugmentationPoint">
 		<xsd:annotation>
@@ -185,6 +183,115 @@
 			<xsd:documentation>True if a person in detention is allowed to make
 				commissary deposits; false otherwise.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CareEpisode" type="br-ext:CareEpisodeType">
+		<xsd:annotation>
+			<xsd:documentation>A collection of all clinically related services or
+				treatments for a patient for a discrete diagnostic condition from
+				the onset of symptoms until treatment is complete. Commonly referred
+				to as an Episode of Care.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="BehavioralHealthStatusRepresentation"
+		abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A representation of a person's behavioral health
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PrescribedMedication" type="cyfs:MedicationUseType">
+		<xsd:annotation>
+			<xsd:documentation>A medicine that a person is authorized to use by a qualified medical practitioner.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="BehavioralHealthInformation" type="br-ext:BehavioralHealthInformationType">
+		<xsd:annotation>
+			<xsd:documentation>A collection of details about an individual's behavioral health.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonPersistentIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique and timeless identifier assigned to an
+				individual and always belongs to that individual. This allows for
+				identifying activities and information that belong to a person
+				without always needing to share PII about that individual.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SeriousMentalIllnessIndicator" type="niem-xs:boolean"
+		substitutionGroup="br-ext:BehavioralHealthStatusRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>True if the person is diagnosed with a serious
+				mental illness (SMI), false otherwise. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="HighRiskNeedsIndicator" type="niem-xs:boolean"
+		substitutionGroup="br-ext:BehavioralHealthStatusRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>True if a provider determines a person to be high
+				risk of needing services, false otherwise. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TreatmentCourtOrderedIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:TreatmentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if court has ordered a person to undergo the
+				treatment, false otherwise. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TreatmentActiveIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:TreatmentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if the treatment is currently active, false
+				otherwise. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubstanceAbuseIndicator" type="niem-xs:boolean"
+		substitutionGroup="br-ext:BehavioralHealthStatusRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>True if the person is believed to have abused a
+				controlled substance, false otherwise. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GeneralMentalHealthConditionIndicator"
+		type="niem-xs:boolean" substitutionGroup="br-ext:BehavioralHealthStatusRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>True if the person is categorized as having a
+				general mental health condition, false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RegionalBehavioralHealthAuthorityAssignmentText"
+		type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A regional behavioral health authority (RBHA) to
+				which an individual is assigned. A RBHA assignment can designate
+				whether a member is integrated meaning they receive both physical
+				and behavioral health services or non-integrated meaning they only
+				receive behavioral health services.  </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MedicationGeneralProductIdentification"
+		type="nc:IdentificationType" substitutionGroup="nc:DrugAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A hierarchical classification system that
+				identifies drugs from their primary therapeutic use down to the
+				unique interchangeable product regardless of manufacturer or package
+				size. Commonly referred to a GPI.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+		<xsd:element name="PersonBehavioralHealthInformation"
+		type="br-ext:BehavioralHealthInformationType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation></xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonCareEpisode"
+		type="br-ext:CareEpisodeType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation></xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
