@@ -215,9 +215,12 @@
 				</ojb-cit-ext:CitationAugmentation>
 			</ojb-cit-ext:Citation>
 			<ojb-cit-ext:Vehicle s:id="VEHICLE_01">
+				<nc:VehicleColorPrimaryCode>RED</nc:VehicleColorPrimaryCode>
 				<nc:ItemColorDescriptionText>Red</nc:ItemColorDescriptionText>
 				<nc:ItemMakeName>Ford</nc:ItemMakeName>
 				<nc:ItemModelName>Mustang</nc:ItemModelName>
+				<nc:ItemModelYearDate>2010</nc:ItemModelYearDate>
+				<nc:VehicleStyleCode>4D</nc:VehicleStyleCode>
 				<nc:ConveyanceRegistrationPlateIdentification>
 					<nc:IdentificationID>ABC1234567</nc:IdentificationID>
 					<j:IdentificationJurisdictionNCICLISCode>VT
@@ -228,6 +231,7 @@
 					<nc:IdentificationID>VIN</nc:IdentificationID>
 				</nc:VehicleIdentification>
 				<nc:VehicleMakeCode>TOYT</nc:VehicleMakeCode>
+				<nc:VehicleModelCode>ATL</nc:VehicleModelCode>
 				<ojb-cit-ext:VehicleAugmentation>
 					<ojb-cit-ext:VehicleHazardousMaterialIndicator>false</ojb-cit-ext:VehicleHazardousMaterialIndicator>
 				</ojb-cit-ext:VehicleAugmentation>
