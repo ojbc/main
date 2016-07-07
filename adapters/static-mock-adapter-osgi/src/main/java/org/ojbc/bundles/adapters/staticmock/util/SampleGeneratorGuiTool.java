@@ -46,7 +46,7 @@ import org.ojbc.bundles.adapters.staticmock.samplegen.AbstractSampleGenerator;
 public class SampleGeneratorGuiTool {
 	
 	
-	private String[] aSampleTypes = {"Incident","CriminalHistory","Warrant","Firearm",
+	private static final String[] A_SAMPLE_TYPES = {"Incident","CriminalHistory","Warrant","Firearm",
 			"JuvenileHistory","Custody", "CustodyMatthews", "CourtCase","VehicleCrash","VehicleCrashMatthews","All"};
 	
 	private Logger logger = Logger.getLogger(SampleGeneratorGuiTool.class.getName()); 
@@ -55,7 +55,7 @@ public class SampleGeneratorGuiTool {
 	
 	private JPanel mainPanel = new JPanel();
 	
-	private JComboBox<String> sampleBox = new JComboBox<String>(aSampleTypes);
+	private JComboBox<String> sampleBox = new JComboBox<String>(A_SAMPLE_TYPES);
 	
 	private JLabel sampleTypeLabel = new JLabel("Type:");
 	
@@ -111,7 +111,6 @@ public class SampleGeneratorGuiTool {
 						
 		sampleCountField.setPreferredSize(new Dimension(40, 20));
 				
-//		pathTextField.setEnabled(false);
 		pathTextField.setMaximumSize(new Dimension(250, 40));
 		
 		pathTextField.setEditable(false);
@@ -123,8 +122,7 @@ public class SampleGeneratorGuiTool {
 		pathButton.addActionListener(getPathButtonListener(mainFrame));
 
 		initLayout(layout);
-		
-								
+										
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
@@ -146,7 +144,7 @@ public class SampleGeneratorGuiTool {
 				try {
 					AbstractSampleGenerator.runGenerator(args);
 					
-					JOptionPane.showMessageDialog(mainPanel, "Generated Samples!", "Status", JOptionPane.INFORMATION_MESSAGE);	
+					JOptionPane.showMessageDialog(mainPanel, "Generated Samples!", "Status", JOptionPane.PLAIN_MESSAGE);	
 															
 				} catch (Exception e1) {
 										
