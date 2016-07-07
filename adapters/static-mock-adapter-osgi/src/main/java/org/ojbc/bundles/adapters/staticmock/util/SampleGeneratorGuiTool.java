@@ -101,19 +101,29 @@ public class SampleGeneratorGuiTool {
 		layout.setAutoCreateGaps(true);
 		layout.setAutoCreateContainerGaps(true);		
 						
-		sampleBox.setSelectedItem("Custody");		
+		sampleBox.setSelectedItem("Custody");
+		sampleBox.setMaximumSize(new Dimension(250,40));
 				
+		sampleCountField.setText("10");//default
 		sampleCountField.setMaximumSize(new Dimension(40, 20));
 						
 		okButton.addActionListener(getOkButtonListener());
 						
 		sampleCountField.setPreferredSize(new Dimension(40, 20));
 				
-		pathTextField.setEnabled(false);
+//		pathTextField.setEnabled(false);
+		pathTextField.setMaximumSize(new Dimension(250, 40));
+		
+		pathTextField.setEditable(false);
+		
+		String sUserDir = System.getProperty("user.dir");	
+		outputDirPath = sUserDir;
+		pathTextField.setText(outputDirPath);//default		
 					
 		pathButton.addActionListener(getPathButtonListener(mainFrame));
 
 		initLayout(layout);
+		
 								
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
@@ -130,10 +140,8 @@ public class SampleGeneratorGuiTool {
 				String type = sampleBox.getSelectedItem().toString();
 				
 				String count = sampleCountField.getText();
-				
-				String path = outputDirPath;
-				
-				String[] args = {type, count, path};
+								
+				String[] args = {type, count, outputDirPath};
 				
 				try {
 					AbstractSampleGenerator.runGenerator(args);
@@ -185,7 +193,7 @@ public class SampleGeneratorGuiTool {
 	private void initLayout(GroupLayout layout){
 		
 		layout.setHorizontalGroup(layout.createSequentialGroup()
-				.addGroup(layout.createParallelGroup()
+				.addGroup(layout.createParallelGroup(Alignment.TRAILING)
 						.addComponent(sampleTypeLabel)
 						.addComponent(sampleCountLabel)
 						.addComponent(pathButton)
