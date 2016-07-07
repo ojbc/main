@@ -19,20 +19,20 @@
 -->
 <!DOCTYPE catalog PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN" "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-  <uri name="http://niem.gov/niem/ansi-nist/2.0" uri="niem/ansi-nist/2.0/ansi-nist.xsd"/>
-  <uri name="http://niem.gov/niem/ansi_d20/2.0" uri="niem/ansi_d20/2.0/ansi_d20.xsd"/>
-  <uri name="http://niem.gov/niem/appinfo/2.0" uri="niem/appinfo/2.0/appinfo.xsd"/>
-  <uri name="http://niem.gov/niem/domains/jxdm/4.0" uri="niem/domains/jxdm/4.0/jxdm.xsd"/>
-  <uri name="http://niem.gov/niem/domains/screening/2.0" uri="niem/domains/screening/2.0/screening.xsd"/>
-  <uri name="http://niem.gov/niem/fbi/2.0" uri="niem/fbi/2.0/fbi.xsd"/>
-  <uri name="http://niem.gov/niem/fips_10-4/2.0" uri="niem/fips_10-4/2.0/fips_10-4.xsd"/>
-  <uri name="http://niem.gov/niem/fips_6-4/2.0" uri="niem/fips_6-4/2.0/fips_6-4.xsd"/>
-  <uri name="http://niem.gov/niem/iso_4217/2.0" uri="niem/iso_4217/2.0/iso_4217.xsd"/>
-  <uri name="http://niem.gov/niem/iso_639-3/2.0" uri="niem/iso_639-3/2.0/iso_639-3.xsd"/>
-  <uri name="http://niem.gov/niem/niem-core/2.0" uri="niem/niem-core/2.0/niem-core.xsd"/>
-  <uri name="http://niem.gov/niem/nonauthoritative-code/2.0" uri="niem/nonauthoritative-code/2.0/nonauthoritative-code.xsd"/>
-  <uri name="http://niem.gov/niem/proxy/xsd/2.0" uri="niem/proxy/xsd/2.0/xsd.xsd"/>
-  <uri name="http://niem.gov/niem/structures/2.0" uri="niem/structures/2.0/structures.xsd"/>
-  <uri name="http://niem.gov/niem/unece_rec20-misc/2.0" uri="niem/unece_rec20-misc/2.0/unece_rec20-misc.xsd"/>
-  <uri name="http://niem.gov/niem/usps_states/2.0" uri="niem/usps_states/2.0/usps_states.xsd"/>
+  <uri name="http://niem.gov/niem/ansi-nist/2.0" uri="ansi-nist/2.0/ansi-nist.xsd"/>
+  <uri name="http://niem.gov/niem/ansi_d20/2.0" uri="ansi_d20/2.0/ansi_d20.xsd"/>
+  <uri name="http://niem.gov/niem/appinfo/2.0" uri="appinfo/2.0/appinfo.xsd"/>
+  <uri name="http://niem.gov/niem/domains/jxdm/4.0" uri="domains/jxdm/4.0/jxdm.xsd"/>
+  <uri name="http://niem.gov/niem/domains/screening/2.0" uri="domains/screening/2.0/screening.xsd"/>
+  <uri name="http://niem.gov/niem/fbi/2.0" uri="fbi/2.0/fbi.xsd"/>
+  <uri name="http://niem.gov/niem/fips_10-4/2.0" uri="fips_10-4/2.0/fips_10-4.xsd"/>
+  <uri name="http://niem.gov/niem/fips_6-4/2.0" uri="fips_6-4/2.0/fips_6-4.xsd"/>
+  <uri name="http://niem.gov/niem/iso_4217/2.0" uri="iso_4217/2.0/iso_4217.xsd"/>
+  <uri name="http://niem.gov/niem/iso_639-3/2.0" uri="iso_639-3/2.0/iso_639-3.xsd"/>
+  <uri name="http://niem.gov/niem/niem-core/2.0" uri="niem-core/2.0/niem-core.xsd"/>
+  <uri name="http://niem.gov/niem/nonauthoritative-code/2.0" uri="nonauthoritative-code/2.0/nonauthoritative-code.xsd"/>
+  <uri name="http://niem.gov/niem/proxy/xsd/2.0" uri="proxy/xsd/2.0/xsd.xsd"/>
+  <uri name="http://niem.gov/niem/structures/2.0" uri="structures/2.0/structures.xsd"/>
+  <uri name="http://niem.gov/niem/unece_rec20-misc/2.0" uri="unece_rec20-misc/2.0/unece_rec20-misc.xsd"/>
+  <uri name="http://niem.gov/niem/usps_states/2.0" uri="usps_states/2.0/usps_states.xsd"/>
 </catalog>
