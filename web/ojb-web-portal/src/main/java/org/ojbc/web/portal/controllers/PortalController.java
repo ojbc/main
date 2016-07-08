@@ -51,10 +51,13 @@ import org.ojbc.web.portal.controllers.dto.PersonFilterCommand;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.UserSession;
 import org.ojbc.web.portal.services.SamlService;
+import org.ojbc.web.security.Authorities;
+import org.ojbc.web.security.SecurityContextUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -191,7 +194,7 @@ public class PortalController implements ApplicationContextAware {
 	}
 	
     @RequestMapping("index")
-    public void index(HttpServletRequest request, Map<String, Object> model){
+    public void index(HttpServletRequest request, Map<String, Object> model, Authentication authentication){
 
 		// To pull something from the header you want something like this
 		// String header = request.getHeader("currentUserName");
@@ -212,7 +215,7 @@ public class PortalController implements ApplicationContextAware {
 		model.put("personFilterCommand", new PersonFilterCommand());
 		model.put("currentUserName", userLogonInfo.userNameString);
 		model.put("timeOnline", userLogonInfo.timeOnlineString);
-		model.put("searchLinksHtml", getSearchLinksHtml());
+		model.put("searchLinksHtml", getSearchLinksHtml(authentication));
 		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));				
 	}
 
@@ -265,12 +268,15 @@ public class PortalController implements ApplicationContextAware {
 		return "";
 	}
 
-	private List<SearchProfile> getActiveSearchProfiles() {
+	private List<SearchProfile> getActiveSearchProfiles(Authentication authentication) {
 		List<SearchProfile> visibleProfiles = new ArrayList<SearchProfile>();
 		
 		addProfileToReturnListIfVisible(visibleProfiles, "people", "PERSON SEARCH");
-		addProfileToReturnListIfVisible(visibleProfiles, "incident", "INCIDENT SEARCH");
-		addProfileToReturnListIfVisible(visibleProfiles, "vehicle", "VEHICLE SEARCH");
+		
+		if (SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
+			addProfileToReturnListIfVisible(visibleProfiles, "incident", "INCIDENT SEARCH");
+			addProfileToReturnListIfVisible(visibleProfiles, "vehicle", "VEHICLE SEARCH");
+		}
 		addProfileToReturnListIfVisible(visibleProfiles, "firearm", "FIREARM SEARCH");
 		
 		return visibleProfiles;
@@ -283,15 +289,15 @@ public class PortalController implements ApplicationContextAware {
 		}
 	}
 	
-	String getSearchLinksHtml() {
+	String getSearchLinksHtml(Authentication authentication) {
 		StringBuilder links = new StringBuilder();
 		int cnt = 0;
 
-		for(SearchProfile profile : getActiveSearchProfiles()) {
+		for(SearchProfile profile : getActiveSearchProfiles(authentication)) {
 			links.append("<a id=\"").append(getLinkId(profile)).append("\" href=\"#\"");
 			String buttonClass = (cnt > 0) ? "grayButton" : "blueButton";
 			links.append(" class=\"" + buttonClass + "\"");
-			String style = calcLinkButtonStyleBasedOnPosition(cnt, getActiveSearchProfiles().size());
+			String style = calcLinkButtonStyleBasedOnPosition(cnt, getActiveSearchProfiles(authentication).size());
 			links.append(" style=\""  + style + "\"");
 			links.append(">");
 			links.append("<div ");
