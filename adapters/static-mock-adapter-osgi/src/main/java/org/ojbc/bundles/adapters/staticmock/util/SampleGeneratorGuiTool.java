@@ -53,21 +53,35 @@ public class SampleGeneratorGuiTool {
 	
 	private String outputDirPath;
 	
-	private JPanel mainPanel = new JPanel();
+	private JPanel mainPanel;
 	
-	private JComboBox<String> sampleBox = new JComboBox<String>(A_SAMPLE_TYPES);
+	private JComboBox<String> sampleBox;
 	
-	private JLabel sampleTypeLabel = new JLabel("Type:");
+	private JLabel sampleTypeLabel;
 	
-	private JLabel sampleCountLabel = new JLabel("Count:");
+	private JLabel sampleCountLabel;
 	
-	private JFormattedTextField sampleCountField = new JFormattedTextField(NumberFormat.getInstance());
+	private JFormattedTextField sampleCountField;
 	
-	private JButton okButton = new JButton("Ok");
+	private JButton okButton;
 	
-	private JTextField pathTextField= new JTextField();
+	private JTextField pathTextField;
 	
-	private JButton pathButton = new JButton("Dir");
+	private JButton pathButton;
+	
+	
+	public SampleGeneratorGuiTool() {
+	
+		mainPanel = new JPanel();
+		sampleBox = new JComboBox<String>(A_SAMPLE_TYPES);
+		sampleTypeLabel = new JLabel("Type:");
+		sampleCountLabel = new JLabel("Count:");
+		sampleCountField = new JFormattedTextField(NumberFormat.getInstance());
+		okButton = new JButton("Ok");
+		pathTextField= new JTextField();
+		pathButton = new JButton("Dir");
+	}
+	
 	
 	
 	public static void main(String[] args) {
