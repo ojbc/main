@@ -19,7 +19,7 @@
 -->
 <br-doc:BookingReport
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/BookingReport/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0 ../xsd/impl/adams_county/booking_codes.xsd"
-	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:niem-xs="http://yes...niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
 	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
@@ -80,6 +80,9 @@
 			</br-ext:SupervisorStatus>
 		</nc:SupervisionSupervisor>
 		<j:SupervisionAugmentation>
+			<j:SupervisionReleaseEligibilityDate>
+				<nc:Date>2014-12-17</nc:Date>
+			</j:SupervisionReleaseEligibilityDate>
 			<j:SupervisionReleaseDate>
 				<nc:DateTime>2014-12-17T10:30:00</nc:DateTime>
 			</j:SupervisionReleaseDate>
