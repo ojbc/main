@@ -45,124 +45,126 @@
 			</xsl:when>
 			<xsl:otherwise>
 				<script type="text/javascript">
-					$(function () {
-						$('#custodyDetailTabs').tabs({
-							activate: function( event, ui ) {
-								var modalIframe = $("#modalIframe", parent.document);
-								modalIframe.height(modalIframe.contents().find("body").height() + 16);
-							}
-						}); 
-						
-						$('.detailDataTable').DataTable({
-							"dom": 'rt' 
-						});
-						
+					$(function () {												
 						$('#accordion').accordion({
 							collapsible: true
-						});
-						
+						});						
 					});
-				</script>
-								
-				<table class="detailTable">
-					<tr>
-						<th>
-							<label>Booking Number: </label>
-							<xsl:value-of select="//j:Booking/j:BookingSubject/j:SubjectIdentification/nc:IdentificationID"/>
-						</th>
-						<th>
-							<label>Booking Date/Time: </label>
-							<xsl:value-of select="//j:Booking/nc:ActivityDate/nc:DateTime"/>
-						</th>
-					</tr>
-					<tr>
-						<th>
-							<label>Scheduled Release Date: </label>
-							<xsl:value-of select="//j:SupervisionReleaseEligibilityDate/nc:Date"/>
-						</th>
-						<th>
-							<label>Pretrial Status: </label>
-							<xsl:value-of select="//nc:SupervisionCustodyStatus/ac-bkg-codes:PreTrialCategoryCode"/>
-						</th>
-					</tr>	
-					<tr>
-						<th>
-							<label>Inmate Work Release Indicator: </label>
-							<xsl:value-of select="//j:Detention/cq-res-ext:InmateWorkReleaseIndicator"/>
-						</th>
-						<th>
-							<label>Actual Release Date: </label>
-							<xsl:value-of select="//nc:Release/nc:ActivityDate/nc:DateTime"/>
-						</th>
-					</tr>	
-					<tr>
-						<th>
-							<label>Immigration Hold: </label>
-							<xsl:value-of select="//cq-res-ext:DetentiontImmigrationHoldIndicator"/>
-						</th>
-						<th>
-							<label>Judicial Status: </label>
-							<xsl:value-of select="//nc:SupervisionCustodyStatus/nc:StatusDescriptionText"/>
-						</th>
-					</tr>	
-					<tr>
-						<th>
-							<label>Inmate Worker Indicator: </label>
-							<xsl:value-of select="//cq-res-ext:InmateWorkerIndicator"/>
-						</th>
-					</tr>																	
-				</table>
-
-			<div id="accordion">		
-				<xsl:apply-templates select="cq-res-ext:Custody/j:Arrest"/> 				  
-			</div>
-								
+				</script>														
+				<xsl:apply-templates select="cq-res-ext:Custody/j:Booking"/>										
+				<div id="accordion">		
+					<xsl:apply-templates select="cq-res-ext:Custody/j:Arrest"/> 				  
+				</div>								
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:template>
-	
-	
-	
+	</xsl:template>			
+	<xsl:template match="j:Booking">
+		<table class="detailTable">
+			<tr>
+				<th>
+					<label>Booking Number: </label>
+					<xsl:value-of select="j:BookingSubject/j:SubjectIdentification/nc:IdentificationID"/>
+				</th>
+				<th>
+					<label>Booking Date/Time: </label>
+					<xsl:value-of select="nc:ActivityDate/nc:DateTime"/>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>Scheduled Release Date: </label>
+					<xsl:value-of select="../j:Detention/j:SupervisionAugmentation/j:SupervisionReleaseEligibilityDate/nc:Date"/>
+				</th>
+				<th>
+					<label>Pretrial Status: </label>
+					<xsl:value-of select="../j:Detention/nc:SupervisionCustodyStatus/ac-bkg-codes:PreTrialCategoryCode"/>
+				</th>
+			</tr>	
+			<tr>
+				<th>
+					<label>Inmate Work Release Indicator: </label>
+					<xsl:value-of select="../j:Detention/cq-res-ext:InmateWorkReleaseIndicator"/>
+				</th>
+				<th>
+					<label>Actual Release Date: </label>
+					<xsl:value-of select="../nc:Release/nc:ActivityDate/nc:DateTime"/>
+				</th>
+			</tr>	
+			<tr>
+				<th>
+					<label>Immigration Hold: </label>
+					<xsl:value-of select="../j:Detention/cq-res-ext:DetentiontImmigrationHoldIndicator"/>
+				</th>
+				<th>
+					<label>Judicial Status: </label>
+					<xsl:value-of select="../j:Detention/nc:SupervisionCustodyStatus/nc:StatusDescriptionText"/>
+				</th>
+			</tr>	
+			<tr>
+				<th>
+					<label>Inmate Worker Indicator: </label>
+					<xsl:value-of select="../j:Detention/cq-res-ext:InmateWorkerIndicator"/>
+				</th>
+				<th>
+					<label>Detention Facility ID: </label>
+					<xsl:value-of select="j:BookingDetentionFacility/nc:FacilityIdentification/nc:IdentificationID"/>
+				</th>
+			</tr>	
+			<tr>
+			  <th>
+			    <label>Area ID: </label>
+			    <xsl:value-of select="../j:Detention/j:SupervisionAugmentation/j:SupervisionAreaIdentification/nc:IdentificationID"/>
+			  </th>
+			  <th>
+			    <label>Bed ID: </label>
+			    <xsl:value-of select="../j:Detention/j:SupervisionAugmentation/j:SupervisionBedIdentification/nc:IdentificationID"/>
+			  </th>
+			</tr>			
+			<tr>
+			  <th>
+			    <label>Cell ID: </label>
+			    <xsl:value-of select="../j:Detention/j:SupervisionAugmentation/j:SupervisionCellIdentification/nc:IdentificationID"/>
+			  </th>
+			  <th>
+			    <label>Allow Account Deposit: </label>
+			    <xsl:value-of select="../j:Detention/cq-res-ext:AllowAccountDepositIndicator"/>
+			  </th>
+			</tr>																		
+		</table>	
+	</xsl:template>						
 	<xsl:template match="j:Arrest">
-		  <h3>Arrest 
+		  <h4>Arrest 
 		  	<xsl:value-of select="j:ArrestAgency/nc:OrganizationName"/>
-		  </h3>
+		  </h4>
 		  <div>
-		    <p>		    		
-				<xsl:apply-templates select="//j:Charge"/>
-		    </p>
+		    <xsl:apply-templates select="//j:Charge"/>
 		  </div>		
-	</xsl:template>
-		
-	
-	<xsl:template match="j:Charge">
-	
-		<h3>
-			Charge		
-		</h3>
+	</xsl:template>			
+	<xsl:template match="j:Charge">	
+		<h4>Charge</h4>
 		<table class="detailTable">
 			<tr>
 				<th>
 					<label>Sequence Number: </label>
-					<!--<xsl:value-of select=""/> -->
+					<xsl:value-of select="j:ChargeSequenceID"/>
 				</th>
 			</tr>
 			<tr>
 				<th>
 					<label>Description: </label>
-					<!--<xsl:value-of select=""/> -->
+					<xsl:value-of select="j:ChargeDescriptionText"/>
 				</th>
 			</tr>	
 			<tr>
 				<th>
-					<label>Statute/Ordinance: </label>
-					<!--<xsl:value-of select=""/> -->
+					<label>Statute Code Section/Ordinance: </label>
+					<xsl:value-of select="j:ChargeStatute/j:StatuteCodeSectionIdentification/nc:IdentificationID"/> 
 				</th>
 			</tr>
 			<tr>
 				<th>
 					<label>Category: </label>
-					<!--<xsl:value-of select=""/> -->
+					<xsl:value-of select="j:ChargeCategoryDescriptionText"/>
 				</th>
 			</tr>
 			<tr>
@@ -174,7 +176,7 @@
 			<tr>
 				<th>
 					<label>Holding for: </label>
-					<!--<xsl:value-of select=""/> -->
+					<xsl:value-of select="cq-res-ext:HoldForAgency/nc:OrganizationName"/>
 				</th>
 			</tr>
 			<tr>
@@ -196,9 +198,7 @@
 				</th>
 			</tr>						
 		</table>
-	</xsl:template>
-	
-					
+	</xsl:template>						
 	<xsl:template match="qrer:QueryRequestError">
 		<span class="error">System Name: <xsl:value-of select="intel:SystemIdentification/nc:SystemName" />, Error: <xsl:value-of select="qrer:ErrorText"/></span><br />
 	</xsl:template>
