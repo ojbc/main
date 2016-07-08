@@ -98,9 +98,9 @@
 						
 						<table id="custodyTable" class="detailsTable">
 							<tr>
-								<td class="detailsTitle" >ARREST ID</td>
-								<td class="detailsTitle">AGENCY</td>
-								<td class="detailsTitle">DATE ARRESTED</td>
+								<td class="detailsTitle">SUBJECT ID</td>
+								<td class="detailsTitle">INFO OWNER</td>
+								<td class="detailsTitle">BOOKING DATE</td>
 							</tr>
 							<xsl:apply-templates /> 
 						</table>
