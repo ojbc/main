@@ -273,7 +273,7 @@ public class PortalController implements ApplicationContextAware {
 		
 		addProfileToReturnListIfVisible(visibleProfiles, "people", "PERSON SEARCH");
 		
-		if (SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
+		if (authentication == null || SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
 			addProfileToReturnListIfVisible(visibleProfiles, "incident", "INCIDENT SEARCH");
 			addProfileToReturnListIfVisible(visibleProfiles, "vehicle", "VEHICLE SEARCH");
 		}
