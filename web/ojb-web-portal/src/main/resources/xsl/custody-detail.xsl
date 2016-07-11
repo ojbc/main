@@ -27,7 +27,6 @@
     xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
     xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
     xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
-    xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
     xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
@@ -136,8 +135,8 @@
 		  <h4>Arrest 
 		  	<xsl:value-of select="j:ArrestAgency/nc:OrganizationName"/>
 		  </h4>
-		  <div>
-		    <xsl:apply-templates select="//j:Charge"/>
+		  <div>		  	
+		    <xsl:apply-templates select="../j:Charge[@structures:id=/cq-res-doc:CustodyQueryResults/cq-res-ext:Custody/j:Arrest/j:ArrestCharge/@structures:ref]"/>
 		  </div>		
 	</xsl:template>			
 	<xsl:template match="j:Charge">	
