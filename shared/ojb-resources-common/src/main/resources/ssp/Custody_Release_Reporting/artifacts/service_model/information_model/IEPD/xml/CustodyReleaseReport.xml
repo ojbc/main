@@ -46,6 +46,9 @@
 			<nc:ActivityDate>
 				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 			</nc:ActivityDate>
+			<j:BookingAgencyRecordIdentification>
+				<nc:IdentificationID>Booking Number</nc:IdentificationID>
+			</j:BookingAgencyRecordIdentification>
 			<j:BookingDetentionFacility>
 				<nc:FacilityIdentification>
 					<nc:IdentificationID>Facility ID</nc:IdentificationID>
@@ -54,7 +57,7 @@
 			<j:BookingSubject>
 				<nc:RoleOfPerson structures:ref="Person_01" />
 				<j:SubjectIdentification>
-					<nc:IdentificationID>Booking Number</nc:IdentificationID>
+					<nc:IdentificationID>Booking Subject Number</nc:IdentificationID>
 				</j:SubjectIdentification>
 			</j:BookingSubject>
 		</j:Booking>
