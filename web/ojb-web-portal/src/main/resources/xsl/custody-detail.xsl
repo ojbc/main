@@ -47,18 +47,32 @@
 				<script type="text/javascript">
 					$(function () {												
 						$('#accordion').accordion({
-							collapsible: true
+							heightStyle: "content",
+							collapsible: true,
+		  					activate: function( event, ui ) { 
+		  						var modalIframe = $("#modalIframe", parent.document);
+		  						modalIframe.height(modalIframe.contents().find("body").height() + 16);
+		  					}							
 						});						
 					});
-				</script>														
-				<xsl:apply-templates select="cq-res-ext:Custody/j:Booking"/>										
-				<div id="accordion">		
-					<xsl:apply-templates select="cq-res-ext:Custody/j:Arrest"/> 				  
-				</div>								
+				</script>			
+				
+				<div id="custodyDetailOutsideDiv" style="overflow:auto; width:100%; height:auto">															
+					<xsl:apply-templates select="cq-res-ext:Custody/j:Booking"/>										
+					<div id="accordion">		
+						<xsl:apply-templates select="cq-res-ext:Custody/j:Arrest"/> 				  
+					</div>				
+				</div>
+												
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:template>			
+	</xsl:template>		
+	
+	
+	
 	<xsl:template match="j:Booking">
+	
+		<!-- TODO put table outside of multiple booking rows -->
 		<table class="detailTable">
 			<tr>
 				<th>

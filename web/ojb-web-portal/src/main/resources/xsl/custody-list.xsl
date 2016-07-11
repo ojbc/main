@@ -62,7 +62,7 @@
 							</tr>
 							<tr>
 								<td>
-									<span class="error">There is no court case associated with this person record.</span><br /> 
+									<span class="error">There is no custody data associated with this person record.</span><br /> 
 								</td>
 							</tr>
 						</table>
