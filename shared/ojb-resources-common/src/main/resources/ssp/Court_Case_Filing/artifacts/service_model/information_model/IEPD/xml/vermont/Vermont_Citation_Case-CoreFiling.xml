@@ -25,9 +25,10 @@
 	xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0"
 	xmlns:ojb-cit-doc="http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0"
 	xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0"
+	xmlns:vt-cit-codes="http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0"
 	xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
 	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
-	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../xsd/message/ECF-4.0-CoreFilingMessage.xsd http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0 ../../xsd/Citation_Case-doc.xsd">
+	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../xsd/message/ECF-4.0-CoreFilingMessage.xsd http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0 ../../xsd/Citation_Case-doc.xsd http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0 ../../xsd/impl/vermont/citation_codes.xsd">
 	<ojb-cit-doc:CitationCase>
 		<ojb-cit-ext:CaseAugmentation>
 			<ecf:PersonOrganizationAssociation>
@@ -203,6 +204,8 @@
 					</ojb-cit-ext:EnforcementOfficialIdentification>
 				</ojb-cit-ext:CitationIssuingOfficial>
 				<ojb-cit-ext:CitationAugmentation>
+					<vt-cit-codes:CitationMunicipalityCode>Municipality
+</vt-cit-codes:CitationMunicipalityCode>
 					<ojb-cit-ext:CitationWaiverAmount>105.00</ojb-cit-ext:CitationWaiverAmount>
 					<ojb-cit-ext:CitationServedIndicator>true</ojb-cit-ext:CitationServedIndicator>
 					<ojb-cit-ext:CitationMailedIndicator>false</ojb-cit-ext:CitationMailedIndicator>

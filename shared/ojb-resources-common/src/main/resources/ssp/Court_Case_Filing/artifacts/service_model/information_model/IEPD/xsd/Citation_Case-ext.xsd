@@ -17,6 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
+
 <xsd:schema xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -24,6 +25,7 @@
 	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
 	xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
 	xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0"
+	xmlns:vt-cit-codes="http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0"
 	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0">
 	<xsd:annotation>
@@ -285,6 +287,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:AugmentationType">
 				<xsd:sequence>
+					<xsd:element ref="ojb-cit-ext:CitationMunicipality"
+						minOccurs="0" />
 					<xsd:element ref="ojb-cit-ext:CitationWaiverAmount"
 						minOccurs="0" />
 					<xsd:element ref="ojb-cit-ext:CitationServedIndicator"
@@ -438,6 +442,25 @@
 		</xsd:annotation>
 	</xsd:element>
 	<!-- OJB Elements -->
+	<xsd:element name="CitationMunicipality" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>The municipality where the citation was written.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+		<xsd:element name="CitationMunicipalityText" type="nc:TextType" substitutionGroup="ojb-cit-ext:CitationMunicipality">
+		<xsd:annotation>
+			<xsd:documentation>A text description of the municipality where the citation was written.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!--  xsd:element name="CitationMunicipalityCode" type="nc:TextType" substitutionGroup="ojb-cit-ext:CitationMunicipality">
+		<xsd:annotation>
+			<xsd:documentation>A code value of the municipality where the citation was written.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element-->
 	<xsd:element name="CitationWaiverAmount" type="nc:AmountType">
 		<xsd:annotation>
 			<xsd:documentation>The amount of money paid for pleading admitted or
