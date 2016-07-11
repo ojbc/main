@@ -50,6 +50,9 @@
 		<nc:ActivityDate>
 			<nc:DateTime>2013-12-17T09:30:00</nc:DateTime>
 		</nc:ActivityDate>
+		<j:BookingAgencyRecordIdentification>
+			<nc:IdentificationID>Booking Number</nc:IdentificationID>
+		</j:BookingAgencyRecordIdentification>
 		<j:BookingDetentionFacility>
 			<nc:FacilityIdentification>
 				<nc:IdentificationID>Booking Facility ID</nc:IdentificationID>
@@ -58,7 +61,7 @@
 		<j:BookingSubject>
 			<nc:RoleOfPerson structures:ref="Person_01" />
 			<j:SubjectIdentification>
-				<nc:IdentificationID>Booking Number</nc:IdentificationID>
+				<nc:IdentificationID>Booking Subject Number</nc:IdentificationID>
 			</j:SubjectIdentification>
 		</j:BookingSubject>
 	</j:Booking>
@@ -199,8 +202,9 @@
 			<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
 			</nc:IdentificationID>
 		</br-ext:PersonPersistentIdentification>
-		<br-ext:PersonBehavioralHealthInformation structures:ref="PBHI_01"/>
-		<br-ext:PersonCareEpisode structures:ref="PCE_01"/>
+		<br-ext:PersonBehavioralHealthInformation
+			structures:ref="PBHI_01" />
+		<br-ext:PersonCareEpisode structures:ref="PCE_01" />
 	</nc:Person>
 	<nc:Person>
 		<nc:PersonName structures:id="Officer_01">
@@ -299,7 +303,8 @@
 		<nc:ContactEntity structures:ref="Supervisor_01" />
 		<nc:ContactInformation structures:ref="CI_01" />
 	</nc:ContactInformationAssociation>
-	<br-ext:BehavioralHealthInformation structures:id="PBHI_01">
+	<br-ext:BehavioralHealthInformation
+		structures:id="PBHI_01">
 		<br-ext:SeriousMentalIllnessIndicator>true
 		</br-ext:SeriousMentalIllnessIndicator>
 		<br-ext:HighRiskNeedsIndicator>true</br-ext:HighRiskNeedsIndicator>

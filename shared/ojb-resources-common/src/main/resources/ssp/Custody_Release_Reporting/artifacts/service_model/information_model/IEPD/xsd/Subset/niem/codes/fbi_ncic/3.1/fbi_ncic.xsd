@@ -47,7 +47,17 @@ https://www.leo.gov</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="KB">
         <xs:annotation>
+          <xs:documentation>Ellice - Gilbert Islands now Kiribati</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KB">
+        <xs:annotation>
           <xs:documentation>Kiribati (formerly Gilbert Islands)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KB">
+        <xs:annotation>
+          <xs:documentation>Gilbert Islands (now Kiribati)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="BI">
@@ -103,6 +113,11 @@ https://www.leo.gov</xs:documentation>
       <xs:enumeration value="QV">
         <xs:annotation>
           <xs:documentation>Shoshone-Bannock Tribes of the Fort Hall Reservation of Idaho</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BS">
+        <xs:annotation>
+          <xs:documentation>British Solomon Islands (now Solomon Islands)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="BS">
@@ -290,11 +305,6 @@ https://www.leo.gov</xs:documentation>
           <xs:documentation>West Virginia</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="BS">
-        <xs:annotation>
-          <xs:documentation>British Solomon Islands (now Solomon Islands)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="LO">
         <xs:annotation>
           <xs:documentation>Slovenia</xs:documentation>
@@ -355,6 +365,11 @@ https://www.leo.gov</xs:documentation>
           <xs:documentation>Caddo Nation of Oklahoma</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
+      <xs:enumeration value="XD">
+        <xs:annotation>
+          <xs:documentation>Caddo Tribe</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
       <xs:enumeration value="PJ">
         <xs:annotation>
           <xs:documentation>Pueblo of Tesuque, New Mexico</xs:documentation>
@@ -373,6 +388,11 @@ https://www.leo.gov</xs:documentation>
       <xs:enumeration value="LL">
         <xs:annotation>
           <xs:documentation>Leech Lake Band of Chippewa</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AE">
+        <xs:annotation>
+          <xs:documentation>Anguilla (dependent territory of United Kingdom)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="AE">
@@ -705,6 +725,11 @@ Curacao</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="UV">
         <xs:annotation>
+          <xs:documentation>Burkina Faso (known as Burkina, formerly Upper Volta)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="UV">
+        <xs:annotation>
           <xs:documentation>Upper Volta (now Burkina Faso)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
@@ -824,6 +849,11 @@ Netherlands</xs:documentation>
           <xs:documentation>Western Sahara, Independent State of (formerly Spanish Sahara)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
+      <xs:enumeration value="RS">
+        <xs:annotation>
+          <xs:documentation>Spanish Sahara (now Western Sahara)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
       <xs:enumeration value="LY">
         <xs:annotation>
           <xs:documentation>Libya</xs:documentation>
@@ -832,6 +862,11 @@ Netherlands</xs:documentation>
       <xs:enumeration value="RJ">
         <xs:annotation>
           <xs:documentation>Southern Ute Indian Tribe of the Southern Ute Reservation, Colorado</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BP">
+        <xs:annotation>
+          <xs:documentation>Herzegovina, Bosnia and (HC for reference only)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="BP">
@@ -932,6 +967,11 @@ Netherlands</xs:documentation>
       <xs:enumeration value="KK">
         <xs:annotation>
           <xs:documentation>Kickapoo Tribe</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KK">
+        <xs:annotation>
+          <xs:documentation>Kickapoo Tribe of Oklahoma</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="WI">
@@ -1087,6 +1127,11 @@ Territory of</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="PW">
         <xs:annotation>
+          <xs:documentation>Pawnee Nation of Oklahoma</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PW">
+        <xs:annotation>
           <xs:documentation>Pawnee Tribe</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
@@ -1178,11 +1223,6 @@ Territory of</xs:documentation>
       <xs:enumeration value="JL">
         <xs:annotation>
           <xs:documentation>Jalisco</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KB">
-        <xs:annotation>
-          <xs:documentation>Gilbert Islands (now Kiribati)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="RT">
@@ -1365,11 +1405,6 @@ Territory of</xs:documentation>
           <xs:documentation>Onondaga Nation of New York</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="BP">
-        <xs:annotation>
-          <xs:documentation>Herzegovina, Bosnia and (HC for reference only)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="YC">
         <xs:annotation>
           <xs:documentation>Prairie Band of Potawatomi Nation KS</xs:documentation>
@@ -1428,6 +1463,11 @@ Territory of</xs:documentation>
       <xs:enumeration value="HN">
         <xs:annotation>
           <xs:documentation>New Hebrides (now Vanuatu)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HN">
+        <xs:annotation>
+          <xs:documentation>Vanuatu, Republic of (formerly New Hebrides)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="UN">
@@ -1558,11 +1598,6 @@ Territory of</xs:documentation>
       <xs:enumeration value="JV">
         <xs:annotation>
           <xs:documentation>Metlakatla Indian Community, Annette Island, Alaska</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="KK">
-        <xs:annotation>
-          <xs:documentation>Kickapoo Tribe of Oklahoma</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="XF">
@@ -1802,6 +1837,11 @@ Indian Reservation, Arizona</xs:documentation>
           <xs:documentation>Bad River Band of the Lake Superior Tribe of Chippewa Indians of the Bad River Reservation, Wisconsin</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
+      <xs:enumeration value="XC">
+        <xs:annotation>
+          <xs:documentation>Bad River Band of Lake Superior Tribe of Chippewa Indians</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
       <xs:enumeration value="BL">
         <xs:annotation>
           <xs:documentation>Bangladesh</xs:documentation>
@@ -1982,11 +2022,6 @@ Indian Reservation, Arizona</xs:documentation>
           <xs:documentation>Seneca-Cayuga Tribes</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="XD">
-        <xs:annotation>
-          <xs:documentation>Caddo Tribe</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="OC">
         <xs:annotation>
           <xs:documentation>Macau</xs:documentation>
@@ -2030,11 +2065,6 @@ Indian Reservation, Arizona</xs:documentation>
       <xs:enumeration value="YE">
         <xs:annotation>
           <xs:documentation>Yemen Arab Republic (YE for reference only)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="XC">
-        <xs:annotation>
-          <xs:documentation>Bad River Band of Lake Superior Tribe of Chippewa Indians</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="WN">
@@ -2100,11 +2130,6 @@ Indian Reservation, Arizona</xs:documentation>
       <xs:enumeration value="BF">
         <xs:annotation>
           <xs:documentation>Bassas Da India (French possession)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="UV">
-        <xs:annotation>
-          <xs:documentation>Burkina Faso (known as Burkina, formerly Upper Volta)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="JD">
@@ -2584,11 +2609,6 @@ Sikkim</xs:documentation>
           <xs:documentation>Brazil</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="HN">
-        <xs:annotation>
-          <xs:documentation>Vanuatu, Republic of (formerly New Hebrides)</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="AV">
         <xs:annotation>
           <xs:documentation>Azerbaijan</xs:documentation>
@@ -2632,11 +2652,6 @@ Sikkim</xs:documentation>
       <xs:enumeration value="0Z">
         <xs:annotation>
           <xs:documentation>Oneida Nation of New York</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="AE">
-        <xs:annotation>
-          <xs:documentation>Anguilla (dependent territory of United Kingdom)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="AP">
@@ -2859,11 +2874,6 @@ Sikkim</xs:documentation>
           <xs:documentation>Miccosukee Tribe of Indians, Florida</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="KB">
-        <xs:annotation>
-          <xs:documentation>Ellice - Gilbert Islands now Kiribati</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="KE">
         <xs:annotation>
           <xs:documentation>Kenya</xs:documentation>
@@ -3009,11 +3019,6 @@ Sikkim</xs:documentation>
           <xs:documentation>Pueblo of Taos, New Mexico</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="PW">
-        <xs:annotation>
-          <xs:documentation>Pawnee Nation of Oklahoma</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="QG">
         <xs:annotation>
           <xs:documentation>Sac &amp; Fox Nation of Missouri in Kansas and Nebraska</xs:documentation>
@@ -3047,11 +3052,6 @@ Sikkim</xs:documentation>
       <xs:enumeration value="RE">
         <xs:annotation>
           <xs:documentation>Reunion, Department of</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="RS">
-        <xs:annotation>
-          <xs:documentation>Spanish Sahara (now Western Sahara)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="RX">
