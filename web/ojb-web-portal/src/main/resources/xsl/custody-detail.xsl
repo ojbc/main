@@ -132,13 +132,17 @@
 		</table>	
 	</xsl:template>						
 	<xsl:template match="j:Arrest">
-		  <h4>Arrest 
+		  <h4>Arrest:  
 		  	<xsl:value-of select="j:ArrestAgency/nc:OrganizationName"/>
 		  </h4>
-		  <div>		  	
-		    <xsl:apply-templates select="../j:Charge[@structures:id=/cq-res-doc:CustodyQueryResults/cq-res-ext:Custody/j:Arrest/j:ArrestCharge/@structures:ref]"/>
+		  <div>
+		  	<xsl:apply-templates select="j:ArrestCharge"/>		  			    
 		  </div>		
-	</xsl:template>			
+	</xsl:template>		
+    <xsl:template match="j:ArrestCharge">
+        <xsl:variable name="chargeID" select="@structures:ref"/>
+        <xsl:apply-templates select="/cq-res-doc:CustodyQueryResults/cq-res-ext:Custody/j:Charge[@structures:id=$chargeID]"/>
+    </xsl:template>		
 	<xsl:template match="j:Charge">	
 		<h4>Charge</h4>
 		<table class="detailTable">
