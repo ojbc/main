@@ -96,7 +96,7 @@ public class PortalControllerTest {
 	{
 		String expectedSearchLinksHtml = "<a id=\"peopleSearchLink\" href=\"#\" class=\"blueButton\" style=\"border-bottom-right-radius: 0px; border-top-right-radius: 0px;\"><div  class=\"activeSearchLink\"></div>PERSON SEARCH</a><a id=\"incidentSearchLinkDisabled\" href=\"#\" class=\"grayButton\" style=\"border-radius: 0px 0px 0px 0px;\"><div ></div>INCIDENT SEARCH</a><a id=\"vehicleSearchLink\" href=\"#\" class=\"grayButton\" style=\"border-bottom-left-radius: 0px; border-top-left-radius: 0px;\"><div ></div>VEHICLE SEARCH</a>";
 		
-		unit.index(request, model);
+		unit.index(request, model, null);
 		assertThat((String) model.get("currentUserName"), is(PortalController.DEFAULT_USER_LOGON_MESSAGE));
 		assertThat((String) model.get("timeOnline"), is(PortalController.DEFAULT_USER_TIME_ONLINE));
 		assertThat((String) model.get("searchLinksHtml"), is(expectedSearchLinksHtml));
@@ -105,7 +105,7 @@ public class PortalControllerTest {
 	@Test
 	public void testIndexWithSAMLAssertion() throws Exception
 	{
-		unitWithSAMLToken.index(request, model);
+		unitWithSAMLToken.index(request, model, null);
 		assertThat((String) model.get("currentUserName"), is("Mickey Mouse / Olympia PD"));
 	}
 	
