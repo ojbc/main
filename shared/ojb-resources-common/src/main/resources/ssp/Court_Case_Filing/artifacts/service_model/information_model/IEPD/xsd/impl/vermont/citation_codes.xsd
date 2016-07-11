@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:nc="http://rhttp://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+	xmlns:vt-cit-codes="http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0"
+	xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
+		schemaLocation="../../constraint/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0"
+		schemaLocation="../../constraint/niem/domains/jxdm/4.0/jxdm.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
+		schemaLocation="../../constraint/niem/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
+		schemaLocation="../../constraint/niem/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0"
+		schemaLocation="../../Citation_Case-ext.xsd" />
+	<xsd:annotation>
+		<xsd:documentation>Vermont Citation Codes</xsd:documentation>
+	</xsd:annotation>
+	<xsd:simpleType name="CitationMunicipalityCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Citation Municipality code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<!--  xsd:enumeration value="SRP">
+				<xsd:annotation>
+					<xsd:documentation>Supervised Release Pretrial - under supervised
+						released awaiting trial</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration-->
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="CitationMunicipalityCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Citation Municipality code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="vt-cit-codes:CitationMunicipalityCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="CitationMunicipalityCode" type="vt-cit-codes:CitationMunicipalityCodeType"
+		substitutionGroup="ojb-cit-ext:CitationMunicipality">
+		<xsd:annotation>
+			<xsd:documentation>A code to represent the municipality where a citation was written.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
