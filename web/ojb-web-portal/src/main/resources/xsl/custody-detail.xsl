@@ -30,7 +30,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
     xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
-    xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+    xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
+    xmlns:cyfs31="http://release.niem.gov/niem/domains/cyfs/3.1/" 
     exclude-result-prefixes="#all">
 	<xsl:import href="_formatters.xsl" />
 	
@@ -141,7 +142,7 @@
 	</xsl:template>		
     <xsl:template match="j:ArrestCharge">
         <xsl:variable name="chargeID" select="@structures:ref"/>
-        <xsl:apply-templates select="/cq-res-doc:CustodyQueryResults/cq-res-ext:Custody/j:Charge[@structures:id=$chargeID]"/>
+        <xsl:apply-templates select="/cq-res-doc:CustodyQueryResults/cq-res-ext:Custody/j:Charge[@structures:id = $chargeID]"/>
     </xsl:template>		
 	<xsl:template match="j:Charge">	
 		<h4>Charge</h4>
@@ -172,36 +173,51 @@
 			</tr>
 			<tr>
 				<th>
-					<label>Next Court Event: </label>
-					<!--<xsl:value-of select=""/> -->
-				</th>
-			</tr>
-			<tr>
-				<th>
 					<label>Holding for: </label>
 					<xsl:value-of select="cq-res-ext:HoldForAgency/nc:OrganizationName"/>
 				</th>
-			</tr>
-			<tr>
-				<th>
-					<label>Bond Amount: </label>
-					<!--<xsl:value-of select=""/> -->
-				</th>
-			</tr>
-			<tr>
-				<th>
-					<label>Bond Status: </label>
-					<!--<xsl:value-of select=""/> -->
-				</th>
-			</tr>
-			<tr>
-				<th>
-					<label>Bond Type: </label>
-					<!--<xsl:value-of select=""/> -->
-				</th>
-			</tr>						
+			</tr>			
+			<xsl:variable name="chargeId" select="@structures:id"/>		
+			<xsl:variable name="eventId" select="/cq-res-doc:CustodyQueryResults/cq-res-ext:Custody/j:ActivityChargeAssociation[j:Charge/@structures:ref = $chargeId]/nc:Activity/@structures:ref"/>			
+			<xsl:variable name="bondId" select="/cq-res-doc:CustodyQueryResults/cq-res-ext:Custody/j:BailBondChargeAssociation[j:Charge/@structures:ref = $chargeId]/j:BailBond/@structures:ref"/>
+			<xsl:apply-templates select="/cq-res-doc:CustodyQueryResults/cq-res-ext:Custody/cyfs31:NextCourtEvent[@structures:id = $eventId]" />
+			<xsl:apply-templates select="/cq-res-doc:CustodyQueryResults/cq-res-ext:Custody/j:BailBond[@structures:id = $bondId]"/>
 		</table>
-	</xsl:template>						
+	</xsl:template>		
+	<xsl:template match="cyfs31:NextCourtEvent">
+		<tr>
+			<th>
+				<label>Next Court Event: </label>
+				<xsl:value-of select="nc:ActivityDate/nc:Date"/>
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<label>Next Court Name: </label>
+				<xsl:value-of select="j:CourtEventCourt/j:CourtName"/>
+			</th>
+		</tr>						
+	</xsl:template>	
+	<xsl:template match="j:BailBond">
+		<tr>
+			<th>
+				<label>Bond Amount: </label>
+				<xsl:value-of select="j:BailBondAmount/nc:Amount"/>
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<label>Bond Status: </label>
+				<xsl:value-of select="nc:ActivityStatus/nc:StatusDescriptionText"/>
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<label>Bond Type: </label>
+				<xsl:value-of select="nc:ActivityCategoryText"/> 
+			</th>
+		</tr>		
+	</xsl:template>					
 	<xsl:template match="qrer:QueryRequestError">
 		<span class="error">System Name: <xsl:value-of select="intel:SystemIdentification/nc:SystemName" />, Error: <xsl:value-of select="qrer:ErrorText"/></span><br />
 	</xsl:template>
