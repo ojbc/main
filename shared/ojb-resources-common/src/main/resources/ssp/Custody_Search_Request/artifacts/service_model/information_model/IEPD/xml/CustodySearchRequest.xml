@@ -17,7 +17,14 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<cs-req-doc:CustodySearchRequest xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0 ../xsd/exchange_schema.xsd" structures:metadata="SM003" xmlns:cs-req-doc="http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0" xmlns:cs-req-ext="http://ojbc.org/IEPD/Extensions/CustodySearchRequestExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<cs-req-doc:CustodySearchRequest
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0 ../xsd/exchange_schema.xsd"
+	structures:metadata="SM003"
+	xmlns:cs-req-doc="http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0"
+	xmlns:cs-req-ext="http://ojbc.org/IEPD/Extensions/CustodySearchRequestExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:Case>
 		<nc:CaseTrackingID>12345</nc:CaseTrackingID>
 		<nc:CaseDocketID>D5678799</nc:CaseDocketID>
@@ -30,7 +37,8 @@
 			<j:CaseCourt>
 				<j:CourtName>Court</j:CourtName>
 				<cs-req-ext:CourtAugmentation>
-					<j:JurisdictionDistrictText>Anderson County</j:JurisdictionDistrictText>
+					<j:JurisdictionDistrictText>Anderson County
+					</j:JurisdictionDistrictText>
 				</cs-req-ext:CourtAugmentation>
 			</j:CaseCourt>
 		</j:CaseAugmentation>
@@ -41,7 +49,7 @@
 				<nc:RangeMaximumIntegerValue>50</nc:RangeMaximumIntegerValue>
 				<nc:RangeMinimumIntegerValue>40</nc:RangeMinimumIntegerValue>
 			</nc:MeasureIntegerRange>
-			<nc:MeasureDate/>
+			<nc:MeasureDate />
 			<nc:LengthUnitCode>4H</nc:LengthUnitCode>
 		</nc:PersonAgeMeasure>
 		<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
@@ -51,7 +59,7 @@
 				<nc:RangeMaximumIntegerValue>511</nc:RangeMaximumIntegerValue>
 				<nc:RangeMinimumIntegerValue>506</nc:RangeMinimumIntegerValue>
 			</nc:MeasureIntegerRange>
-			<nc:MeasureDate/>
+			<nc:MeasureDate />
 			<nc:LengthUnitCode>4H</nc:LengthUnitCode>
 		</nc:PersonHeightMeasure>
 		<nc:PersonName>
@@ -59,7 +67,10 @@
 			<nc:PersonMiddleName>P</nc:PersonMiddleName>
 			<nc:PersonSurName structures:metadata="SM002">Smith</nc:PersonSurName>
 		</nc:PersonName>
-
+		<nc:PersonPhysicalFeature>
+			<nc:PhysicalFeatureDescriptionText>Tattoo
+			</nc:PhysicalFeatureDescriptionText>
+		</nc:PersonPhysicalFeature>
 		<j:PersonRaceCode>W</j:PersonRaceCode>
 		<j:PersonSexCode>M</j:PersonSexCode>
 		<nc:PersonSSNIdentification>
@@ -70,12 +81,9 @@
 				<nc:RangeMaximumIntegerValue>200</nc:RangeMaximumIntegerValue>
 				<nc:RangeMinimumIntegerValue>170</nc:RangeMinimumIntegerValue>
 			</nc:MeasureIntegerRange>
-			<nc:MeasureDate/>
+			<nc:MeasureDate />
 			<nc:LengthUnitCode>A45</nc:LengthUnitCode>
 		</nc:PersonWeightMeasure>
-				<nc:PersonPhysicalFeature>
-		<nc:PhysicalFeatureDecriptionText></nc:PhysicalFeatureDecriptionText>
-		</nc:PersonPhysicalFeature>
 		<j:PersonAugmentation>
 			<j:DriverLicense>
 				<j:DriverLicenseCardIdentification>
@@ -86,10 +94,9 @@
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>FBI45678</nc:IdentificationID>
 			</j:PersonFBIIdentification>
-			<!--j:PersonNCICIdentification>
-			<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-			<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
-		</j:PersonNCICIdentification-->
+			<!--j:PersonNCICIdentification> <nc:IdentificationID>nc:IdentificationID</nc:IdentificationID> 
+				<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText> 
+				</j:PersonNCICIdentification -->
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
 				<nc:IdentificationSourceText>State</nc:IdentificationSourceText>
@@ -111,12 +118,13 @@
 		<nc:Address>
 			<nc:AddressFullText>345 Main Street</nc:AddressFullText>
 			<nc:LocationCityName>Doral</nc:LocationCityName>
-			<nc:LocationStateUSPostalServiceCode>CO</nc:LocationStateUSPostalServiceCode>
+			<nc:LocationStateUSPostalServiceCode>CO
+			</nc:LocationStateUSPostalServiceCode>
 			<nc:LocationPostalCode>12093</nc:LocationPostalCode>
 		</nc:Address>
 	</nc:Location>
 	<j:BookingSubject structures:id="Subject_01">
-		<nc:RoleOfPerson structures:ref="Person_01"/>
+		<nc:RoleOfPerson structures:ref="Person_01" />
 		<j:SubjectIdentification>
 			<nc:IdentificationID>ID34567</nc:IdentificationID>
 		</j:SubjectIdentification>
@@ -129,12 +137,12 @@
 		</nc:SupervisionFacility>
 	</nc:Supervision>
 	<nc:PersonResidenceAssociation>
-		<nc:Person structures:ref="Person_01"/>
-		<nc:Location structures:ref="Location_01"/>
+		<nc:Person structures:ref="Person_01" />
+		<nc:Location structures:ref="Location_01" />
 	</nc:PersonResidenceAssociation>
 	<j:ActivitySubjectAssociation>
-		<nc:Activity structures:ref="Supervision_01"/>
-		<j:Subject structures:ref="Subject_01"/>
+		<nc:Activity structures:ref="Supervision_01" />
+		<j:Subject structures:ref="Subject_01" />
 	</j:ActivitySubjectAssociation>
 	<cs-req-ext:SourceSystemNameText>RMS1</cs-req-ext:SourceSystemNameText>
 	<cs-req-ext:SourceSystemNameText>RMS2</cs-req-ext:SourceSystemNameText>
