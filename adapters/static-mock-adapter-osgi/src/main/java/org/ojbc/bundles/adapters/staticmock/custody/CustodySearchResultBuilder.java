@@ -460,7 +460,20 @@ public class CustodySearchResultBuilder {
 		rCustodyDetail.setPersonStateId(personSidVal);
 		
 		
-		String sBookingActivityDate = XmlUtils.xPathStringSearch(custodyDetailDoc, "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
+		String sBookingNumber = XmlUtils.xPathStringSearch(custodyDetailDoc, 
+				"/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/jxdm51:Booking/jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID");
+		
+		if(StringUtils.isNotEmpty(sBookingNumber)){
+			
+			sBookingNumber = sBookingNumber.trim();
+			
+			int iBookingNumber = Integer.parseInt(sBookingNumber);
+			
+			rCustodyDetail.setBookingNumber(iBookingNumber);
+		}
+						
+		String sBookingActivityDate = XmlUtils.xPathStringSearch(custodyDetailDoc, 
+				"/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
 		
 		if(StringUtils.isNotEmpty(sBookingActivityDate)){
 
