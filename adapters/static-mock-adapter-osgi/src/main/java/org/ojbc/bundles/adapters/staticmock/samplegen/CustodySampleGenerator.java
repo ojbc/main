@@ -143,7 +143,7 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		Element bookingAgencyRecIdEl = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_JXDM_51, 
 				"BookingAgencyRecordIdentification");		
 		Element bookingAgencyRecIdValEl = XmlUtils.appendElement(bookingAgencyRecIdEl, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
-		String sampleBookingNumber = RandomStringUtils.randomAlphanumeric(7);		
+		String sampleBookingNumber = RandomStringUtils.randomNumeric(7);		
 		bookingAgencyRecIdValEl.setTextContent(sampleBookingNumber);		
 		
 				
