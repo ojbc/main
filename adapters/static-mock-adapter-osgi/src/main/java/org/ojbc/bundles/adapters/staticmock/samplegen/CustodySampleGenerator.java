@@ -139,6 +139,13 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		Element activityDateTimeElement = XmlUtils.appendElement(activityDateElement, OjbcNamespaceContext.NS_NC_30, "DateTime");		
 		activityDateTimeElement.setTextContent(randomDate(DATE_TIME_FORMAT));
 		
+		
+		Element bookingAgencyRecIdEl = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_JXDM_51, 
+				"BookingAgencyRecordIdentification");		
+		Element bookingAgencyRecIdValEl = XmlUtils.appendElement(bookingAgencyRecIdEl, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
+		String sampleBookingNumber = RandomStringUtils.randomAlphanumeric(7);		
+		bookingAgencyRecIdValEl.setTextContent(sampleBookingNumber);		
+		
 				
 		Element detentionFacElement = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_JXDM_51, "BookingDetentionFacility");		
 		Element bookingFacIdElement = XmlUtils.appendElement(detentionFacElement, OjbcNamespaceContext.NS_NC_30, "FacilityIdentification");		
