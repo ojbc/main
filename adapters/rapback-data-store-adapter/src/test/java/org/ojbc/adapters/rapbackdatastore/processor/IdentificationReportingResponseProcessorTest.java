@@ -56,7 +56,7 @@ public class IdentificationReportingResponseProcessorTest {
 	@Test
 	public void testCreateErrorResponse() throws SAXException, IOException {
 		Document document = identificationReportingResponseProcessor
-				.createErrorResponse("000001820140729014008340000", "Task ID");
+				.createErrorResponse("000001820140729014008340000", "Task ID_REPLY");
 		String documentString = OJBUtils.getStringFromDocument(document); 
 		System.out.println("Error doc: \n" + documentString );
 		
@@ -78,7 +78,7 @@ public class IdentificationReportingResponseProcessorTest {
 
 	@Test
 	public void testCreateSuccessResponse() throws IOException, SAXException {
-		Document document = identificationReportingResponseProcessor.createSuccessResponse("000001820140729014008340000", "Task ID");
+		Document document = identificationReportingResponseProcessor.createSuccessResponse("000001820140729014008340000", "Task ID_REPLY");
 		String documentString = OJBUtils.getStringFromDocument(document); 
 		System.out.println("Success doc: \n" + documentString );
 		assertAsExpected(documentString, "src/test/resources/xmlInstances/"
