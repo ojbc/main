@@ -97,7 +97,7 @@
 						
 						<table id="custodyTable" class="detailsTable">
 							<tr>
-								<td class="detailsTitle">SUBJECT ID</td>
+								<td class="detailsTitle">BOOKING NUMBER</td>
 								<td class="detailsTitle">INFO OWNER</td>
 								<td class="detailsTitle">BOOKING DATE</td>
 							</tr>
@@ -117,12 +117,14 @@
 			identificationSourceText="{$systemSource}">
 			<xsl:attribute name="identificationID"><xsl:value-of select="intel:SystemIdentification/nc:IdentificationID"/></xsl:attribute>
 			
-			<td><xsl:value-of select="cs-res-ext:Booking/j:BookingSubject/j:SubjectIdentification/nc:IdentificationID"/></td>
+			<td>
+				<xsl:value-of select="cs-res-ext:Booking/j:BookingAgencyRecordIdentification/nc:IdentificationID"/>
+			</td>
 			<td>
 				<xsl:value-of select="cs-res-ext:InformationOwningOrganization/nc:OrganizationName"></xsl:value-of>
 			</td>
 			<td>
-				<xsl:value-of select="format-dateTime(cs-res-ext:Booking/j:FingerprintDate/nc:DateTime, '[M01]/[D01]/[Y0001]')"/>
+				<xsl:value-of select="format-dateTime(cs-res-ext:Booking/nc:ActivityDate/nc:DateTime, '[M01]/[D01]/[Y0001]')"/>
 			</td>
 		</tr>		
 	</xsl:template>

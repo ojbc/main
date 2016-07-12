@@ -72,7 +72,7 @@
 		<table class="detailTable">
 			<tr>
 				<th>
-					<label>Booking Number: </label>
+					<label>Subject ID: </label>
 					<xsl:value-of select="j:BookingSubject/j:SubjectIdentification/nc:IdentificationID"/>
 				</th>
 				<th>
