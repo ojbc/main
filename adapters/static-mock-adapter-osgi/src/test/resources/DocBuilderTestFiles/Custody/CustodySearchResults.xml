@@ -38,21 +38,21 @@
             <nc30:PersonMiddleName>Jay</nc30:PersonMiddleName>
             <nc30:PersonSurName>Simpson</nc30:PersonSurName>
          </nc30:PersonName>
-         <jxdm51:PersonRaceCode>A</jxdm51:PersonRaceCode>         
+         <jxdm51:PersonRaceCode>A</jxdm51:PersonRaceCode>
          <jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
          <nc30:PersonSSNIdentification>
             <nc30:IdentificationID>123-45-6789</nc30:IdentificationID>
          </nc30:PersonSSNIdentification>
-		<jxdm51:PersonAugmentation>
-			<jxdm51:PersonStateFingerprintIdentification>
-				<nc30:IdentificationID>CO0120010324</nc30:IdentificationID>
-			</jxdm51:PersonStateFingerprintIdentification>
-		</jxdm51:PersonAugmentation>		
+         <jxdm51:PersonAugmentation>
+            <jxdm51:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>CO0120010324</nc30:IdentificationID>
+            </jxdm51:PersonStateFingerprintIdentification>
+         </jxdm51:PersonAugmentation>
       </nc30:Person>
       <cs-res-ext:Booking s30:id="Booking_0">
-         <jxdm51:FingerprintDate>
+         <nc30:ActivityDate>
             <nc30:DateTime>2013-12-17T09:30:00</nc30:DateTime>
-         </jxdm51:FingerprintDate>
+         </nc30:ActivityDate>
          <jxdm51:BookingSubject>
             <jxdm51:SubjectIdentification>
                <nc30:IdentificationID>abc123</nc30:IdentificationID>
@@ -66,7 +66,7 @@
                <nc30:IdentificationID>789</nc30:IdentificationID>
             </jxdm51:StatuteCodeIdentification>
          </jxdm51:ChargeStatute>
-      </jxdm51:Charge>            
+      </jxdm51:Charge>
       <jxdm51:PersonChargeAssociation>
          <nc30:Person s30:ref="Person_0"/>
          <jxdm51:Charge s30:ref="Charge_0"/>
@@ -74,8 +74,8 @@
       <jxdm51:ActivityChargeAssociation>
          <nc30:Activity s30:ref="Booking_0"/>
          <jxdm51:Charge s30:ref="Charge_0"/>
-      </jxdm51:ActivityChargeAssociation>      
-      <cs-res-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest</cs-res-ext:SourceSystemNameText>            
+      </jxdm51:ActivityChargeAssociation>
+      <cs-res-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest</cs-res-ext:SourceSystemNameText>
       <intel31:SystemIdentification>
          <nc30:IdentificationID>CustodyDetailQueryResults.xml</nc30:IdentificationID>
          <nc30:SystemName>driver data</nc30:SystemName>
