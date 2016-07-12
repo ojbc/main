@@ -58,6 +58,9 @@
 			<nc:ActivityDate>
 				<nc:DateTime>2013-12-17T09:30:00</nc:DateTime>
 			</nc:ActivityDate>
+			<j:BookingAgencyRecordIdentification>
+				<nc:IdentificationID>Booking ID</nc:IdentificationID>
+			</j:BookingAgencyRecordIdentification>
 			<j:BookingSubject>
 				<j:SubjectIdentification>
 					<nc:IdentificationID>Booking Number</nc:IdentificationID>
