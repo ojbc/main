@@ -67,12 +67,8 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>		
-	
-	
-	
 	<xsl:template match="j:Booking">
 	
-		<!-- TODO put table outside of multiple booking rows -->
 		<table class="detailTable">
 			<tr>
 				<th>

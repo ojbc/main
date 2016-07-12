@@ -1,0 +1,175 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<script type="text/javascript">
+					$(function () {												
+						$('#accordion').accordion({
+							heightStyle: "content",
+							collapsible: true,
+		  					activate: function( event, ui ) { 
+		  						var modalIframe = $("#modalIframe", parent.document);
+		  						modalIframe.height(modalIframe.contents().find("body").height() + 16);
+		  					}							
+						});						
+					});
+				</script><div id="custodyDetailOutsideDiv" style="overflow:auto; width:100%; height:auto">
+   <table class="detailTable">
+      <tr>
+         <th><label>Booking Number: </label>Booking Number
+         </th>
+         <th><label>Booking Date/Time: </label>2013-12-17T09:30:00
+         </th>
+      </tr>
+      <tr>
+         <th><label>Scheduled Release Date: </label>2014-12-17
+         </th>
+         <th><label>Pretrial Status: </label></th>
+      </tr>
+      <tr>
+         <th><label>Inmate Work Release Indicator: </label>true
+            			
+         </th>
+         <th><label>Actual Release Date: </label>2001-12-17T09:30:47.0Z
+         </th>
+      </tr>
+      <tr>
+         <th><label>Immigration Hold: </label>false
+            			
+         </th>
+         <th><label>Judicial Status: </label>Pretrial
+         </th>
+      </tr>
+      <tr>
+         <th><label>Inmate Worker Indicator: </label>false
+            			
+         </th>
+         <th><label>Detention Facility ID: </label>Booking Facility ID
+         </th>
+      </tr>
+      <tr>
+         <th><label>Area ID: </label>Cell Block A
+         </th>
+         <th><label>Bed ID: </label>Bed ID
+         </th>
+      </tr>
+      <tr>
+         <th><label>Cell ID: </label>Cell ID
+         </th>
+         <th><label>Allow Account Deposit: </label>true
+            			
+         </th>
+      </tr>
+   </table>
+   <div id="accordion">
+      <h4>Arrest:  
+         		  	Arrest Agency name 1
+      </h4>
+      <div>
+         <h4>Charge</h4>
+         <table class="detailTable">
+            <tr>
+               <th><label>Sequence Number: </label>Charge Sequence ID
+               </th>
+            </tr>
+            <tr>
+               <th><label>Description: </label>Charge Description
+               </th>
+            </tr>
+            <tr>
+               <th><label>Statute Code Section/Ordinance: </label>Charge Code ID
+               </th>
+            </tr>
+            <tr>
+               <th><label>Category: </label>Felony
+               </th>
+            </tr>
+            <tr>
+               <th><label>Holding for: </label>Agency
+               </th>
+            </tr>
+            <tr>
+               <th><label>Next Court Event: </label>1968-12-17
+               </th>
+            </tr>
+            <tr>
+               <th><label>Next Court Name: </label>Court Name
+               </th>
+            </tr>
+            <tr>
+               <th><label>Bond Amount: </label>500.00
+               </th>
+            </tr>
+            <tr>
+               <th><label>Bond Status: </label>Bond Status
+               </th>
+            </tr>
+            <tr>
+               <th><label>Bond Type: </label>Bond Type
+               </th>
+            </tr>
+         </table>
+      </div>
+      <h4>Arrest:  
+         		  	Arrest Agency name 2
+      </h4>
+      <div>
+         <h4>Charge</h4>
+         <table class="detailTable">
+            <tr>
+               <th><label>Sequence Number: </label>Charge Sequence ID
+               </th>
+            </tr>
+            <tr>
+               <th><label>Description: </label>Charge Description
+               </th>
+            </tr>
+            <tr>
+               <th><label>Statute Code Section/Ordinance: </label>Charge Code ID
+               </th>
+            </tr>
+            <tr>
+               <th><label>Category: </label>Felony
+               </th>
+            </tr>
+            <tr>
+               <th><label>Holding for: </label></th>
+            </tr>
+            <tr>
+               <th><label>Next Court Event: </label>1968-12-11
+               </th>
+            </tr>
+            <tr>
+               <th><label>Next Court Name: </label>Court Name
+               </th>
+            </tr>
+            <tr>
+               <th><label>Bond Amount: </label>1000.00
+               </th>
+            </tr>
+            <tr>
+               <th><label>Bond Status: </label>Bond Status
+               </th>
+            </tr>
+            <tr>
+               <th><label>Bond Type: </label>Bond Type
+               </th>
+            </tr>
+         </table>
+      </div>
+   </div>
+</div>

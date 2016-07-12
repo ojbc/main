@@ -75,8 +75,7 @@
 									var systemName =$(this).attr('systemName');
 									var identificationSourceText = $(this).attr('identificationSourceText');
 									var identificationID = $(this).attr('identificationID');
-									
-									
+																		
 									$('#custodyTable tr').removeClass("selected");
 									$(this).addClass("selected");
 									
@@ -112,14 +111,10 @@
 	</xsl:template>
 	
 	<xsl:template match="cs-res-ext:CustodySearchResult">
-<!--		
-		<xsl:variable name="systemSource"><xsl:value-of select="normalize-space(cs-res-ext:SourceSystemNameText)"/></xsl:variable>
--->		
+		
 		<xsl:variable name="systemSource"><xsl:text>{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}SubmitCustodyQueryRequest</xsl:text></xsl:variable>
-		<tr 
-			systemName="Custody Detail"
-			identificationSourceText="{$systemSource}"   
-			>
+		<tr systemName="Custody Detail" 
+			identificationSourceText="{$systemSource}">
 			<xsl:attribute name="identificationID"><xsl:value-of select="intel:SystemIdentification/nc:IdentificationID"/></xsl:attribute>
 			
 			<td><xsl:value-of select="cs-res-ext:Booking/j:BookingSubject/j:SubjectIdentification/nc:IdentificationID"/></td>
