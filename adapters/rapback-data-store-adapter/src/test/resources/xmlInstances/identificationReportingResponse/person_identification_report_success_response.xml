@@ -23,7 +23,7 @@
    <identrepres-ext:TransactionIdentification>
       <nc30:IdentificationID>000001820140729014008340000</nc30:IdentificationID>
    </identrepres-ext:TransactionIdentification>
-   <identrepres-ext:TransactionCategoryText>Task ID_REPLY</identrepres-ext:TransactionCategoryText>
+   <identrepres-ext:TransactionCategoryText>Task ID-REPLY</identrepres-ext:TransactionCategoryText>
    <identrepres-ext:IdentificationReportStatus>
       <nc30:StatusIssuerText>HIJIS</nc30:StatusIssuerText>
       <identrepres-ext:IdentificationReportStatusCode>success</identrepres-ext:IdentificationReportStatusCode>
