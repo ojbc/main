@@ -139,7 +139,7 @@
 			</setHeader>
 			
 			<setHeader headerName="transactionCategoryText">
-				<camel:simple>${in.headers.transactionCategoryText}_REPLY</camel:simple>
+				<camel:simple>${in.headers.transactionCategoryText}-REPLY</camel:simple>
 			</setHeader>
 				
 			<log message="\n\n\n * * *  processIdentificationReport 2222   * * * \n\n\n"/>				
