@@ -123,8 +123,11 @@ public class PortalAuthenticationDetailsSource implements
         if (grantedAuthorities.contains(rolePortalUser)) {
         	
         	log.info("orisWithoutIncidentDetailAccess:" + orisWithoutIncidentDetailAccess);
+        	log.info("Employer ORI:" + ori);
+        	
         	if (!orisWithoutIncidentDetailAccess.contains(ori)){
                 grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_INCIDENT_DETAIL.name())); 
+                log.info("User granted incident detail viewing.");
         	}
         	
             if(requireSubscriptionAccessControl) {
