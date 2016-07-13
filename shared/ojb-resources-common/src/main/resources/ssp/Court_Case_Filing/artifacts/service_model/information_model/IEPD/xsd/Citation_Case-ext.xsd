@@ -184,6 +184,8 @@
 						minOccurs="0" />
 					<xsd:element ref="ojb-cit-ext:SeatBeltViolationIndicator"
 						minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:SeatBeltViolationCount"
+						minOccurs="0" />
 					<xsd:element ref="ojb-cit-ext:CivilReliefActIndicator"
 						minOccurs="0" />
 					<xsd:element ref="ojb-cit-ext:CivilReliefActJuvenileIndicator"
@@ -515,6 +517,12 @@
 		<xsd:annotation>
 			<xsd:documentation>True if a seat belt violation is associated with a
 				driving incident; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SeatBeltViolationCount" type="niem-xsd:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>The number of seat belt violations.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
