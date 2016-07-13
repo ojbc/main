@@ -299,6 +299,7 @@
 				<ojb-cit-ext:DrivingIncidentAugmentation>
 					<ojb-cit-ext:DrivingAccidentFatalityIndicator>false</ojb-cit-ext:DrivingAccidentFatalityIndicator>
 					<ojb-cit-ext:SeatBeltViolationIndicator>false</ojb-cit-ext:SeatBeltViolationIndicator>
+					<ojb-cit-ext:SeatBeltViolationCount>2</ojb-cit-ext:SeatBeltViolationCount>
 					<ojb-cit-ext:CivilReliefActIndicator>true</ojb-cit-ext:CivilReliefActIndicator>
 					<ojb-cit-ext:CivilReliefActJuvenileIndicator>true</ojb-cit-ext:CivilReliefActJuvenileIndicator>
 					<ojb-cit-ext:CivilReliefActOtherIndicator>true</ojb-cit-ext:CivilReliefActOtherIndicator>
