@@ -245,6 +245,9 @@
 						<nc:IdentificationID>23V301</nc:IdentificationID>
 					</j:StatuteCodeIdentification>
 				</j:Statute>
+				<ojb-cit-ext:MunicipalityOrdinanceIdentification>
+					<nc:IdentificationID>Ordinance ID</nc:IdentificationID>
+				</ojb-cit-ext:MunicipalityOrdinanceIdentification>
 				<ojb-cit-ext:OffenseViolatedStatute>
 					<j:StatuteCodeIdentification>
 						<nc:IdentificationID>20-124</nc:IdentificationID>
@@ -263,12 +266,13 @@
 			<ojb-cit-ext:DrivingIncident s:id="INCIDENT_01">
 				<nc:ActivityIdentification>
 					<nc:IdentificationID>Law(15RM00998)</nc:IdentificationID>
-				</nc:ActivityIdentification>
+				</nc:ActivityIdentification>		
 				<nc:ActivityDateRange>
 				</nc:ActivityDateRange>
 				<nc:ActivityDate>
 					<nc:DateTime>2016-01-01T01:22:00</nc:DateTime>
 				</nc:ActivityDate>
+				<!--  COMMENT  -->
 				<nc:ActivityDescriptionText>No vehicle registration</nc:ActivityDescriptionText>
 				<nc:IncidentLocation>
 					<nc:LocationAddress>
