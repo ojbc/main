@@ -17895,6 +17895,7 @@
   </w:Type>
   <w:Type w:name="niem-xsd:boolean" w:isRequested="true"/>
   <w:Type w:name="niem-xsd:duration" w:isRequested="true"/>
+  <w:Type w:name="niem-xsd:nonNegativeInteger" w:isRequested="true"/>
   <w:Type w:name="nonauth:FamilyKinshipCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="adoption"/>
     <w:Facet w:facet="enumeration" w:value="biological"/>
