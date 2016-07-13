@@ -48,6 +48,7 @@
 					$(function () {												
 						$('#accordion').accordion({
 							heightStyle: "content",
+							active: false,
 							collapsible: true,
 		  					activate: function( event, ui ) { 
 		  						var modalIframe = $("#modalIframe", parent.document);
