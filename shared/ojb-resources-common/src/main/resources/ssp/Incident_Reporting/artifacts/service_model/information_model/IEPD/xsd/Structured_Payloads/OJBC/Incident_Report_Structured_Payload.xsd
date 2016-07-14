@@ -431,6 +431,7 @@
 			<xsd:extension base="j:CitationType">
 				<xsd:sequence>
 					<xsd:element ref="inc-ext:CitationServedDate" minOccurs="0"/>
+					<xsd:element ref="inc-ext:CitationViolationDate" minOccurs="0"/>
 					<xsd:element ref="inc-ext:CitationDeliveredRecipientText" minOccurs="0"/>
 					<xsd:element ref="inc-ext:CitationMunicipalityCode" minOccurs="0"/>
 					<xsd:element ref="inc-ext:CitationWaiverAmount" minOccurs="0"/>
@@ -880,6 +881,11 @@
 	<xsd:element name="CitationServedDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>The date a citation was served.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CitationViolationDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date of a citation violation.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CitationMunicipalityCode" type="niem-xsd:string">
