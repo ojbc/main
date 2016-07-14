@@ -43,7 +43,7 @@
     <!-- person health Request Service, hosted by this intermediary, called by requesting consumer / connector -->
 	<cxf:cxfEndpoint id="personHealthSearchIntermediaryRequestService"
 	        address="${personHealth.intermediaryRequestEndpoint}"
-	        wsdlURL="classpath:ssp/Person_Health_Information_Search_Request/schema/SIP_WS_1.2/Person_Health_information_Search_Request_Service.wsdl"
+	        wsdlURL="classpath:ssp/Person_Health_Information_Search_Request/schema/SIP_WS_1.2/Person_Health_Information_Search_Request_Service.wsdl"
 	        serviceName="ojbc:Person_Health_Information_Search_Request_Service_Service"
 			endpointName="ojbc:Person_Health_Information_Search_Request_Service_SystemToSystem"
 	        xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonHealthInformationSearchRequestService/1.0">
@@ -57,7 +57,7 @@
     <!-- person health Request Adapter, hosted by adapter, called by this intermediary -->
 	<cxf:cxfEndpoint id="personHealthSearchAdapterRequestService"
 	        address="${personHealth.adapterRequestEndpoint}"
-	        wsdlURL="classpath:ssp/Person_Health_Information_Search_Request/schema/SIP_WS_1.2/Person_Health_information_Search_Request_Service.wsdl"
+	        wsdlURL="classpath:ssp/Person_Health_Information_Search_Request/schema/SIP_WS_1.2/Person_Health_Information_Search_Request_Service.wsdl"
 	        serviceName="ojbc:Person_Health_Information_Search_Request_Service_Service"
 			endpointName="ojbc:Person_Health_Information_Search_Request_Service_SystemToSystem"
 	        xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonHealthInformationSearchRequestService/1.0">
