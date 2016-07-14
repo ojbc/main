@@ -40,12 +40,12 @@
 		<endpoint id="personHealthSearchIntermediaryRequestEndpoint"
 			uri="cxf:bean:personHealthSearchIntermediaryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}" />
 
+	    <endpoint id="personHealthSearchAdapterRequestEndpoint" 
+	    	uri="cxf:bean:personHealthSearchAdapterRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>
+
 		<endpoint id="personHealthSearchIntermediaryResultsEndpoint"
 			uri="cxf:bean:personHealthSearchIntermediaryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}" />
 
-	    <endpoint id="personHealthSearchAdapterRequestEndpoint" 
-	    	uri="cxf:bean:personHealthSearchAdapterRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>
-	
 		<endpoint id="personHealthSearchConnectorResultsEndpoint" 
 			uri="cxf:bean:personHealthSearchConnectorResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>                        
 
@@ -99,7 +99,7 @@
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />				
 						
 			<setHeader headerName="WSAddressingReplyTo">
-				<simple>{{personHealth.personHealthResultsIntermediaryEndpoint}}</simple>
+				<simple>{{personHealth.intermediaryResultsEndpoint}}</simple>
 			</setHeader>
 			
 			<camel:wireTap uri="direct:startPersonHealthReqTimer"/>
@@ -111,7 +111,7 @@
 			<camel:setHeader headerName="operationName"><constant>SubmitPersonHealthInformationSearchRequest</constant></camel:setHeader>
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchRequestService/1.0</constant></camel:setHeader>			
 			
-			<to uri="personHealthAdapterRequestEndpoint"/>
+			<to uri="personHealthSearchAdapterRequestEndpoint"/>
 			
 		</camel:route>			
 				     
@@ -195,7 +195,7 @@
 			
 			<camel:log message="\n\n\n Sending Person Health response to connector result handler \n\n\n" />			
 						
-			<to uri="personHealthConnectorResultsHandlerEndpoint"/>
+			<to uri="personHealthSearchConnectorResultsEndpoint"/>
 		</route>
 	    
 	    
