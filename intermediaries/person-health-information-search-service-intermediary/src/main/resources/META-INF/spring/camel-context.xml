@@ -130,8 +130,8 @@
 	
 		<!--  Person Health Results Handler Route.  Called by Adapter -->
 		<camel:route id="personHealthResultsHandler_route">
-		
-			<camel:from uri="personHealthIntermediaryResultsHandlerEndpoint"/>
+									
+			<camel:from uri="personHealthSearchIntermediaryResultsEndpoint"/>
 			
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 			
