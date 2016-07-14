@@ -45,7 +45,7 @@
 	        address="${personHealth.intermediaryRequestEndpoint}"
 	        wsdlURL="classpath:ssp/Person_Health_Information_Search_Request/schema/SIP_WS_1.2/Person_Health_information_Search_Request_Service.wsdl"
 	        serviceName="ojbc:Person_Health_Information_Search_Request_Service_Service"
-			endpointName="ojbc:Person_Health_Information_Search_Request_Secure_ServiceSOAPBinding_SystemToSystem"
+			endpointName="ojbc:Person_Health_Information_Search_Request_Service_SystemToSystem"
 	        xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonHealthInformationSearchRequestService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
@@ -59,7 +59,7 @@
 	        address="${personHealth.adapterRequestEndpoint}"
 	        wsdlURL="classpath:ssp/Person_Health_Information_Search_Request/schema/SIP_WS_1.2/Person_Health_information_Search_Request_Service.wsdl"
 	        serviceName="ojbc:Person_Health_Information_Search_Request_Service_Service"
-			endpointName="ojbc:Person_Health_Information_Search_Request_Secure_ServiceSOAPBinding_SystemToSystem"
+			endpointName="ojbc:Person_Health_Information_Search_Request_Service_SystemToSystem"
 	        xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonHealthInformationSearchRequestService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
@@ -74,7 +74,7 @@
         address="${personHealth.intermediaryResultsEndpoint}"
         wsdlURL="classpath:ssp/Person_Health_Information_Search_Results/schema/SIP_WS_1.2/Person_Health_Information_Search_Results_Service.wsdl"
         serviceName="ojbc:Person_Health_Information_Search_Results_Service_Service"
-		endpointName="ojbc:Person_Health_Information_Search_Results_Secure_ServiceSOAPBinding"
+		endpointName="ojbc:Person_Health_Information_Search_Results_Secure_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonHealthInformationSearchResultsService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
@@ -90,7 +90,7 @@
         address="${personHealth.connectorResultsHandlerEndpoint}"
         wsdlURL="classpath:ssp/Person_Health_Information_Search_Results/schema/SIP_WS_1.2/Person_Health_Information_Search_Results_Service.wsdl"
         serviceName="ojbc:Person_Health_Information_Search_Results_Service_Service"
-		endpointName="ojbc:Person_Health_Information_Search_Results_Secure_ServiceSOAPBinding"
+		endpointName="ojbc:Person_Health_Information_Search_Results_Secure_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonHealthInformationSearchResultsService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
