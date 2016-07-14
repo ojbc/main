@@ -1050,5 +1050,16 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return agencyProfiles;
 	}
 
+	@Override
+	public Boolean isExistingTransactionNumber(String transactionNumber) {
+		
+		if (StringUtils.isBlank(transactionNumber)) return false; 
+		
+		final String sql = "SELECT count(*)>0 FROM identification_transaction t WHERE t.transaction_number = ?";
+		
+		Boolean existing = jdbcTemplate.queryForObject(sql, Boolean.class, transactionNumber);
+		return existing;
+	}
+
 
 }
