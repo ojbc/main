@@ -496,6 +496,9 @@
 								<inc-ext:CitationServedDate>
 									<nc:Date>2015-10-27</nc:Date>
 								</inc-ext:CitationServedDate>
+								<inc-ext:CitationViolationDate>
+									<nc:Date>2015-10-27</nc:Date>
+								</inc-ext:CitationViolationDate>
 								<inc-ext:CitationWaiverAmount>105.00
 								</inc-ext:CitationWaiverAmount>
 								<inc-ext:CitationServedIndicator>true

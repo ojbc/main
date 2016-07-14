@@ -204,8 +204,10 @@
 					</ojb-cit-ext:EnforcementOfficialIdentification>
 				</ojb-cit-ext:CitationIssuingOfficial>
 				<ojb-cit-ext:CitationAugmentation>
-					<vt-cit-codes:CitationMunicipalityCode>Municipality
-</vt-cit-codes:CitationMunicipalityCode>
+					<ojb-cit-ext:CitationViolationDate>
+						<nc:Date>2015-10-27</nc:Date>
+					</ojb-cit-ext:CitationViolationDate>
+					<vt-cit-codes:CitationMunicipalityCode>Municipality</vt-cit-codes:CitationMunicipalityCode>
 					<ojb-cit-ext:CitationWaiverAmount>105.00</ojb-cit-ext:CitationWaiverAmount>
 					<ojb-cit-ext:CitationServedIndicator>true</ojb-cit-ext:CitationServedIndicator>
 					<ojb-cit-ext:CitationMailedIndicator>false</ojb-cit-ext:CitationMailedIndicator>
@@ -266,13 +268,13 @@
 			<ojb-cit-ext:DrivingIncident s:id="INCIDENT_01">
 				<nc:ActivityIdentification>
 					<nc:IdentificationID>Law(15RM00998)</nc:IdentificationID>
-				</nc:ActivityIdentification>		
+				</nc:ActivityIdentification>
 				<nc:ActivityDateRange>
 				</nc:ActivityDateRange>
 				<nc:ActivityDate>
 					<nc:DateTime>2016-01-01T01:22:00</nc:DateTime>
 				</nc:ActivityDate>
-				<!--  COMMENT  -->
+				<!-- COMMENT -->
 				<nc:ActivityDescriptionText>No vehicle registration</nc:ActivityDescriptionText>
 				<nc:IncidentLocation>
 					<nc:LocationAddress>
