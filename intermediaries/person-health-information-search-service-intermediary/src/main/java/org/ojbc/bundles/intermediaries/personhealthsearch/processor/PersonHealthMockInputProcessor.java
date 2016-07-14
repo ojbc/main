@@ -40,8 +40,9 @@ public class PersonHealthMockInputProcessor {
 		
 		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
 		
+		// this isn't used, it's just done to avoid a null pointer in the message processor methods
 		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "ReplyTo", 
-				"https://localhost:18311/OJB//intermediary/PersonHealthSearchResultsHandlerService"));
+				"https://localhost:18311/OJB/intermediary/PersonHealthSearchResultsHandlerService"));
 		
 		exchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
 	}

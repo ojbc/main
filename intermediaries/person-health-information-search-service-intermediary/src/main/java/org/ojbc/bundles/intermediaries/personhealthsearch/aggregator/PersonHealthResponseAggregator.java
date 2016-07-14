@@ -25,7 +25,7 @@ public class PersonHealthResponseAggregator {
 
 	private Logger logger = Logger.getLogger(PersonHealthResponseAggregator.class);
 	
-	private static final String REQUEST_TIMER = "START_PERSON_HEALTH_TIMER";
+	private static final String REQUEST_TIMER_MSG = "START_PERSON_HEALTH_TIMER";
 	
 	@SuppressWarnings("unchecked")
 	public void prepareResponseExchange(Exchange groupedExchange){
@@ -33,9 +33,9 @@ public class PersonHealthResponseAggregator {
 		List<Exchange> groupExchList = groupedExchange.getProperty(Exchange.GROUPED_EXCHANGE, List.class);
 		        					
 		if(groupExchList.isEmpty() || groupExchList.size() != 2 
-				|| !REQUEST_TIMER.equals(groupExchList.get(0).getIn().getBody(String.class)) ){
+				|| !REQUEST_TIMER_MSG.equals(groupExchList.get(0).getIn().getBody(String.class)) ){
 			
-			logger.error("\n\n\n Missing exchange, Stopping route. \n\n\n");
+			logger.error("\n\n\n Missing an exchange, Stopping route. \n\n\n");
 			
 			groupedExchange.setProperty(Exchange.ROUTE_STOP, Boolean.TRUE);
 			
@@ -44,15 +44,14 @@ public class PersonHealthResponseAggregator {
 				
 		Exchange timerExchange = groupExchList.get(0);	
 		
-		Exchange warantRespExchange = groupExchList.get(1);
-		
-		
-		groupedExchange.getIn().setBody(warantRespExchange.getIn().getBody(String.class));
+		Exchange personHealthResponseExchange = groupExchList.get(1);
+				
+		groupedExchange.getIn().setBody(personHealthResponseExchange.getIn().getBody(String.class));
 		
 		// grouped exchange doesn't get message headers from 1st timer exchange so manually copy them
 		groupedExchange.getIn().setHeader("federatedQueryRequestGUID", timerExchange.getIn().getHeader("federatedQueryRequestGUID"));
 												
-		groupedExchange.getIn().setHeader("operationName", warantRespExchange.getIn().getHeader("operationName"));
+		groupedExchange.getIn().setHeader("operationName", personHealthResponseExchange.getIn().getHeader("operationName"));
 
 		logger.info("\n\n\n Successfully prepared Person Health Response in group exchange \n\n\n");
 	}
