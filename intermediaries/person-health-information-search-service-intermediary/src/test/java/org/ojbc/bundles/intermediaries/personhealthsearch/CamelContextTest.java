@@ -139,7 +139,7 @@ public class CamelContextTest {
 		List<SoapHeader> soapHeaders = new ArrayList<SoapHeader>();
 		soapHeaders.add(createSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
 		soapHeaders.add(createSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "ReplyTo", 
-				"https://localhost:18311/OJB/intermediary/PersonHealthSearchResultsHandlerService"));
+				"https://localhost:8443/OJB/connector/PersonHealthSearchResultsHandlerService"));
 		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
 		
 		org.apache.cxf.message.Message message = new MessageImpl();
