@@ -46,28 +46,42 @@ import org.ojbc.bundles.adapters.staticmock.samplegen.AbstractSampleGenerator;
 public class SampleGeneratorGuiTool {
 	
 	
-	private String[] aSampleTypes = {"Incident","CriminalHistory","Warrant","Firearm",
+	private static final String[] A_SAMPLE_TYPES = {"Incident","CriminalHistory","Warrant","Firearm",
 			"JuvenileHistory","Custody", "CustodyMatthews", "CourtCase","VehicleCrash","VehicleCrashMatthews","All"};
 	
 	private Logger logger = Logger.getLogger(SampleGeneratorGuiTool.class.getName()); 
 	
 	private String outputDirPath;
 	
-	private JPanel mainPanel = new JPanel();
+	private JPanel mainPanel;
 	
-	private JComboBox<String> sampleBox = new JComboBox<String>(aSampleTypes);
+	private JComboBox<String> sampleBox;
 	
-	private JLabel sampleTypeLabel = new JLabel("Type:");
+	private JLabel sampleTypeLabel;
 	
-	private JLabel sampleCountLabel = new JLabel("Count:");
+	private JLabel sampleCountLabel;
 	
-	private JFormattedTextField sampleCountField = new JFormattedTextField(NumberFormat.getInstance());
+	private JFormattedTextField sampleCountField;
 	
-	private JButton okButton = new JButton("Ok");
+	private JButton okButton;
 	
-	private JTextField pathTextField= new JTextField();
+	private JTextField pathTextField;
 	
-	private JButton pathButton = new JButton("Dir");
+	private JButton pathButton;
+	
+	
+	public SampleGeneratorGuiTool() {
+	
+		mainPanel = new JPanel();
+		sampleBox = new JComboBox<String>(A_SAMPLE_TYPES);
+		sampleTypeLabel = new JLabel("Type:");
+		sampleCountLabel = new JLabel("Count:");
+		sampleCountField = new JFormattedTextField(NumberFormat.getInstance());
+		okButton = new JButton("Ok");
+		pathTextField= new JTextField();
+		pathButton = new JButton("Dir");
+	}
+	
 	
 	
 	public static void main(String[] args) {
@@ -101,20 +115,28 @@ public class SampleGeneratorGuiTool {
 		layout.setAutoCreateGaps(true);
 		layout.setAutoCreateContainerGaps(true);		
 						
-		sampleBox.setSelectedItem("Custody");		
+		sampleBox.setSelectedItem("Custody");
+		sampleBox.setMaximumSize(new Dimension(250,40));
 				
+		sampleCountField.setText("10");//default
 		sampleCountField.setMaximumSize(new Dimension(40, 20));
 						
 		okButton.addActionListener(getOkButtonListener());
 						
 		sampleCountField.setPreferredSize(new Dimension(40, 20));
 				
-		pathTextField.setEnabled(false);
+		pathTextField.setMaximumSize(new Dimension(250, 40));
+		
+		pathTextField.setEditable(false);
+		
+		String sUserDir = System.getProperty("user.dir");	
+		outputDirPath = sUserDir;
+		pathTextField.setText(outputDirPath);//default		
 					
 		pathButton.addActionListener(getPathButtonListener(mainFrame));
 
 		initLayout(layout);
-								
+										
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
@@ -130,15 +152,13 @@ public class SampleGeneratorGuiTool {
 				String type = sampleBox.getSelectedItem().toString();
 				
 				String count = sampleCountField.getText();
-				
-				String path = outputDirPath;
-				
-				String[] args = {type, count, path};
+								
+				String[] args = {type, count, outputDirPath};
 				
 				try {
 					AbstractSampleGenerator.runGenerator(args);
 					
-					JOptionPane.showMessageDialog(mainPanel, "Generated Samples!", "Status", JOptionPane.INFORMATION_MESSAGE);	
+					JOptionPane.showMessageDialog(mainPanel, "Generated Samples!", "Status", JOptionPane.PLAIN_MESSAGE);	
 															
 				} catch (Exception e1) {
 										
@@ -185,7 +205,7 @@ public class SampleGeneratorGuiTool {
 	private void initLayout(GroupLayout layout){
 		
 		layout.setHorizontalGroup(layout.createSequentialGroup()
-				.addGroup(layout.createParallelGroup()
+				.addGroup(layout.createParallelGroup(Alignment.TRAILING)
 						.addComponent(sampleTypeLabel)
 						.addComponent(sampleCountLabel)
 						.addComponent(pathButton)
@@ -203,16 +223,16 @@ public class SampleGeneratorGuiTool {
 		);				
 				
 		layout.setVerticalGroup(layout.createSequentialGroup()
-				.addGroup(layout.createParallelGroup()
+				.addGroup(layout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(sampleTypeLabel)
 						.addComponent(sampleBox)	
 						.addComponent(okButton))
-				.addGroup(layout.createParallelGroup()
+				.addGroup(layout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(sampleCountLabel)
 						.addComponent(sampleCountField)
 						.addGap(10, 10, GroupLayout.PREFERRED_SIZE)
 				)
-				.addGroup(layout.createParallelGroup()
+				.addGroup(layout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(pathButton)
 						.addComponent(pathTextField)
 						.addGap(10, 10, GroupLayout.PREFERRED_SIZE)

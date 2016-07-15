@@ -104,6 +104,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
+					<xsd:element ref="inc-ext:MunicipalityOrdinanceIdentification" minOccurs="0"/>
 					<xsd:element ref="inc-ext:OffenseViolatedStatute" minOccurs="0"/>
 					<xsd:element ref="inc-ext:OffenseModifier" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="inc-ext:OffenseCodeText" minOccurs="0"/>
@@ -412,6 +413,7 @@
 					<xsd:element ref="inc-ext:DrivingAccidentIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:DrivingAccidentFatalityIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:SeatBeltViolationIndicator" minOccurs="0"/>
+					<xsd:element ref="inc-ext:SeatBeltViolationCount" minOccurs="0"/>
 					<xsd:element ref="inc-ext:CivilReliefActIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:CivilReliefActJuvenileIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:CivilReliefActOtherIndicator" minOccurs="0"/>
@@ -429,7 +431,9 @@
 			<xsd:extension base="j:CitationType">
 				<xsd:sequence>
 					<xsd:element ref="inc-ext:CitationServedDate" minOccurs="0"/>
+					<xsd:element ref="inc-ext:CitationViolationDate" minOccurs="0"/>
 					<xsd:element ref="inc-ext:CitationDeliveredRecipientText" minOccurs="0"/>
+					<xsd:element ref="inc-ext:CitationMunicipalityCode" minOccurs="0"/>
 					<xsd:element ref="inc-ext:CitationWaiverAmount" minOccurs="0"/>
 					<xsd:element ref="inc-ext:CitationServedIndicator" minOccurs="0"/>
 					<xsd:element ref="inc-ext:CitationMailedIndicator" minOccurs="0"/>
@@ -756,6 +760,11 @@
 			<xsd:documentation>Details about how to contact a person or an organization.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="MunicipalityOrdinanceIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A municipality ordinance that has been violated through an offense.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="OffenseViolatedStatute" type="j:StatuteType">
 		<xsd:annotation>
 			<xsd:documentation>A statute that has been violated through an offense.</xsd:documentation>
@@ -844,6 +853,11 @@
 			<xsd:documentation>True if a seat belt violation is associated with a driving incident; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="SeatBeltViolationCount" type="niem-xsd:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>Number of seat belt violation.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="CivilReliefActIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if the officer asked CRA and the subject answered no; false otherwise.</xsd:documentation>
@@ -867,6 +881,16 @@
 	<xsd:element name="CitationServedDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>The date a citation was served.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CitationViolationDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date of a citation violation.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CitationMunicipalityCode" type="niem-xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>A code for the Municipality where the citation was written.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CitationWaiverAmount" type="nc:AmountType">

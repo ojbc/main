@@ -17,6 +17,8 @@
 package org.ojbc.bundles.adapters.staticmock.custody;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -36,6 +38,7 @@ import org.w3c.dom.Element;
 
 public class CustodySearchResultBuilderTest {
 	
+	private static final SimpleDateFormat SDF_DATE_TIME = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	
 	@Test
 	public void testCustodySearchResultBuilder() throws Exception{
@@ -98,9 +101,10 @@ public class CustodySearchResultBuilderTest {
 		String docId = custodyDetail.getDocId();
 		Assert.assertEquals("abc123", docId);		
 		
-		String fingerprintDate = custodyDetail.getFingerprintDate();
-		//TODO FIXME
-		//Assert.assertEquals("2001-12-31", fingerprintDate);
+		Date dBookingActivityDate = custodyDetail.getBookingActivityDate();
+		
+		String sBookingActivityDate = SDF_DATE_TIME.format(dBookingActivityDate);		
+		Assert.assertEquals("2013-12-17T09:30:00", sBookingActivityDate);
 		
 		String imgLoc = custodyDetail.getImageLocation();
 		//TODO FIXME

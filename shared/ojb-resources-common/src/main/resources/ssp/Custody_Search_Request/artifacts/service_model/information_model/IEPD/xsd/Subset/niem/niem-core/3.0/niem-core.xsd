@@ -254,11 +254,24 @@
           <xs:element ref="nc:PersonHairColor" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonHeightMeasure" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonPhysicalFeature" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonRace" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonSex" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonSSNIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonWeightMeasure" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PhysicalFeatureType">
+    <xs:annotation>
+      <xs:documentation>A data type for a prominent or easily identifiable aspect of something or someone.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:PhysicalFeatureDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -496,6 +509,11 @@
       <xs:documentation>A combination of names and/or titles by which a person is known.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PersonPhysicalFeature" type="nc:PhysicalFeatureType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A prominent or easily identifiable aspect of  a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="PersonRace" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a classification of a person based on factors such as geographical locations and genetics.</xs:documentation>
@@ -529,6 +547,11 @@
   <xs:element name="PersonWeightMeasure" type="nc:MeasureType" nillable="true">
     <xs:annotation>
       <xs:documentation>A measurement of the weight of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PhysicalFeatureDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of a physical feature.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="RangeMaximumIntegerValue" type="niem-xs:integer" nillable="true">

@@ -137,6 +137,10 @@
 					|/pidreq-doc:PersonFederalIdentificationRequest/ident-ext:TransactionCategoryText
 				</xpath>
 			</setHeader>
+			
+			<setHeader headerName="transactionCategoryText">
+				<camel:simple>${in.headers.transactionCategoryText}-REPLY</camel:simple>
+			</setHeader>
 				
 			<log message="\n\n\n * * *  processIdentificationReport 2222   * * * \n\n\n"/>				
 				

@@ -52,6 +52,11 @@ public abstract class AbstractReportRepositoryProcessor {
 
 	protected void processIdentificationTransaction(Node rootNode, String transactionNumber)
 			throws Exception {
+		
+		if (rapbackDAO.isExistingTransactionNumber(transactionNumber)){
+			return;
+		}
+		
 		IdentificationTransaction identificationTransaction = new IdentificationTransaction(); 
 		
 		identificationTransaction.setTransactionNumber(transactionNumber);

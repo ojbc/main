@@ -16,6 +16,9 @@
  */
 package org.ojbc.bundles.adapters.staticmock.custody;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.bundles.adapters.staticmock.IdentifiableDocumentWrapper;
 import org.ojbc.bundles.adapters.staticmock.StaticMockQuery;
@@ -26,6 +29,7 @@ import org.w3c.dom.Element;
 
 public class CustodySearchResultBuilder {
 	
+	private static final SimpleDateFormat SDF_DATE_TIME = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	
 	 public static Element buildCustodySearchResultElement(Document custodySearchResultsDoc, 
 			 IdentifiableDocumentWrapper custodyDetailResultWrapper,  String resultId) throws Exception{
@@ -182,28 +186,45 @@ public class CustodySearchResultBuilder {
 			personStateFingerIdValEl.setTextContent(personStateId);												
 		}
 		
-		Element booking = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "Booking");		
-		XmlUtils.addAttribute(booking, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Booking_" + resultId);						
+		Element bookingElement = XmlUtils.appendElement(custodySearchResultElement, OjbcNamespaceContext.NS_CUSTODY_SEARCH_RES_EXT, "Booking");		
+		XmlUtils.addAttribute(bookingElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Booking_" + resultId);						
 		
-		String sFingerprintDate = custodyDetail.getFingerprintDate();
+		Date bookingActivityDate = custodyDetail.getBookingActivityDate();
 		
-		if(StringUtils.isNotBlank(sFingerprintDate)){
-			
-			Element fingerprintDate = XmlUtils.appendElement(booking, OjbcNamespaceContext.NS_JXDM_51, "FingerprintDate");
-			
-			Element fingerprintDateTime = XmlUtils.appendElement(fingerprintDate, OjbcNamespaceContext.NS_NC_30, "DateTime");
-					
-			sFingerprintDate = sFingerprintDate.trim();
-			
-			fingerprintDateTime.setTextContent(sFingerprintDate);			
-		}
 		
+		if(bookingActivityDate != null){
+		
+			String sBookingActivityDate = SDF_DATE_TIME.format(bookingActivityDate);
+			
+			Element bookingActivityDateEl = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_NC_30, "ActivityDate");
+			
+			Element bookingActivityDateTimeEl = XmlUtils.appendElement(bookingActivityDateEl, OjbcNamespaceContext.NS_NC_30, "DateTime");
+			
+			bookingActivityDateTimeEl.setTextContent(sBookingActivityDate);	
+		}				
+		
+		Integer iBookingNumber = custodyDetail.getBookingNumber();
+		
+		String sBookingNumber = iBookingNumber == null ? null : String.valueOf(iBookingNumber);
+		
+		if(StringUtils.isNotEmpty(sBookingNumber)){
 
+			Element bookingAgencyRecIdEl = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_JXDM_51, 
+					"BookingAgencyRecordIdentification");
+			
+			Element bookingAgencyRecIdValEl = XmlUtils.appendElement(bookingAgencyRecIdEl, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+			
+			sBookingNumber = sBookingNumber.trim();
+			
+			bookingAgencyRecIdValEl.setTextContent(sBookingNumber);
+		}		
+						
+		
 		String bookingSubjId = custodyDetail.getBookingSubjectId();
 		
 		if(StringUtils.isNotBlank(bookingSubjId)){
 			
-			Element bookingSubjectElement = XmlUtils.appendElement(booking, OjbcNamespaceContext.NS_JXDM_51, "BookingSubject");
+			Element bookingSubjectElement = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_JXDM_51, "BookingSubject");
 			
 			Element bookingSubjIdElement = XmlUtils.appendElement(bookingSubjectElement, OjbcNamespaceContext.NS_JXDM_51, "SubjectIdentification");
 			
@@ -219,7 +240,7 @@ public class CustodySearchResultBuilder {
 		
 		if(StringUtils.isNotBlank(sImgLoc)){
 			
-			Element imageElement = XmlUtils.appendElement(booking, OjbcNamespaceContext.NS_NC_30, "Image");
+			Element imageElement = XmlUtils.appendElement(bookingElement, OjbcNamespaceContext.NS_NC_30, "Image");
 			
 			Element imgLocElement = XmlUtils.appendElement(imageElement, OjbcNamespaceContext.NS_NC_30, "ImageLocation");
 			
@@ -439,9 +460,29 @@ public class CustodySearchResultBuilder {
 		rCustodyDetail.setPersonStateId(personSidVal);
 		
 		
-		//TODO FIXME - using the activity datetime
-		String fingerprintDateTime = XmlUtils.xPathStringSearch(custodyDetailDoc, "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
-		rCustodyDetail.setFingerprintDate(fingerprintDateTime);
+		String sBookingNumber = XmlUtils.xPathStringSearch(custodyDetailDoc, 
+				"/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/jxdm51:Booking/jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID");
+		
+		if(StringUtils.isNotEmpty(sBookingNumber)){
+			
+			sBookingNumber = sBookingNumber.trim();
+			
+			int iBookingNumber = Integer.parseInt(sBookingNumber);
+			
+			rCustodyDetail.setBookingNumber(iBookingNumber);
+		}
+						
+		String sBookingActivityDate = XmlUtils.xPathStringSearch(custodyDetailDoc, 
+				"/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
+		
+		if(StringUtils.isNotEmpty(sBookingActivityDate)){
+
+			sBookingActivityDate = sBookingActivityDate.trim();
+			
+			Date bookingActivityDate = SDF_DATE_TIME.parse(sBookingActivityDate);
+			
+			rCustodyDetail.setBookingActivityDate(bookingActivityDate);			
+		}		
 		
 		String bookingSubjIdVal = XmlUtils.xPathStringSearch(custodyDetailDoc, "//jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");	
 		rCustodyDetail.setBookingSubjectId(bookingSubjIdVal);
