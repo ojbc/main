@@ -98,9 +98,9 @@
 			<!-- Get WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />				
 						
-			<setHeader headerName="WSAddressingReplyTo">
-				<simple>{{personHealth.intermediaryResultsEndpoint}}</simple>
-			</setHeader>
+			<!-- Add reply to address(configured elsewhere) to the map using the federated 
+				query guid as the key -->
+			<camel:to uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
 			
 			<camel:wireTap uri="direct:startPersonHealthReqTimer"/>
 
@@ -172,33 +172,46 @@
 
 				<log message="\n\n\n completed aggregated body: \n\n ${body} \n\n\n" />
 				
-				<camel:to uri="direct:callPersonHealthConnectorResultHandler"/>
+				<camel:to uri="direct:sendResponseToClientOfThisIntermediary"/>
 
 			</aggregate>
 	      
 	    </camel:route>
 	    
-	    
-		<route id="callpersonHealthConnectorResultHandler_route">
+
+		<camel:route id="sendResponseToClientOfThisIntermediary_route">
 		
-			<from uri="direct:callPersonHealthConnectorResultHandler"/>
-									
-	        <camel:setHeader headerName="operationName">
-	            <constant>SubmitPersonHealthInformationSearchResults</constant>
-	        </camel:setHeader>
-	        
-	        <camel:setHeader headerName="operationNamespace">
-	            <constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchResultsService/1.0</constant>
-	        </camel:setHeader>
+			<from uri="direct:sendResponseToClientOfThisIntermediary" />
+								
+			<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>
+
+			<camel:to uri="bean:wsAddressingReplyToManager?method=removeReplyToAddress"/>
 			
-			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
+			<camel:to uri="bean:WSAddressingEndpointProcessor?method=processReplyToAddress" />	
+				
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
 			
-			<camel:log message="\n\n\n Sending Person Health response to connector result handler \n\n\n" />			
-						
-			<to uri="personHealthSearchConnectorResultsEndpoint"/>
-		</route>
+					<camel:setHeader headerName="operationName"><constant>SubmitPersonHealthInformationSearchResults</constant></camel:setHeader>	
+					<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchResultsService/1.0</constant></camel:setHeader>
+					
+					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
+					
+					<camel:log message="\n\n\n Sending PersonHealthInformationSearchResults message to ${in.headers.recipientListReplyToEndpoint} with destination override URL of: ${in.headers.CamelDestinationOverrideUrl}" />			
+								
+					<camel:recipientList>
+						<camel:header>recipientListReplyToEndpoint</camel:header>
+					</camel:recipientList>
+				</camel:when>
+				<camel:otherwise>
+					<camel:log message="\n\n\n Unable to find endpoint for replyTo address: ${in.headers.WSAddressingReplyTo}"/>
+				</camel:otherwise>		
+			</camel:choice>	
+			
+		</camel:route>	    
 	    
-	    
+	    	    
 		<route id="dbAuditlog_route">
 		
 			<from uri="direct:dbAuditLog"/>
@@ -229,5 +242,13 @@
 			
 	<bean id="personHealthMockInputProcessor" 
 		class="org.ojbc.bundles.intermediaries.personhealthsearch.processor.PersonHealthMockInputProcessor" />
+		
+	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
+		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
+	</bean>		
+			
+	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
+		<property name ="endpointReplyToMap" ref="endpointReplyToMap"/>
+	</bean>				
 					
 </beans>

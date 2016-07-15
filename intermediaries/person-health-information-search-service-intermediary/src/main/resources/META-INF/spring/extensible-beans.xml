@@ -27,13 +27,25 @@
        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-			 <bean id="sqlLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		 		<constructor-arg name="beanName" value="sqlLoggingProcessor" />
-		 		<constructor-arg name="ojbcContext" 
-		 			ref="org.ojbc.bundles.intermediaries.person-health-information-search-service-intermediary-context"/>		 				 		
-		 		<constructor-arg name="defaultObject">
-		 			<bean class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />
-		 		</constructor-arg>
-		 	</bean>
+	 <bean id="sqlLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+ 		<constructor-arg name="beanName" value="sqlLoggingProcessor" />
+ 		<constructor-arg name="ojbcContext" 
+ 			ref="org.ojbc.bundles.intermediaries.person-health-information-search-service-intermediary-context"/>		 				 		
+ 		<constructor-arg name="defaultObject">
+ 			<bean class="org.ojbc.util.camel.processor.audit.NullObjectLoggingProcessor" />
+ 		</constructor-arg>
+ 	</bean>
+
+	<bean id="endpointReplyToMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="endpointReplyToMap" />
+		<constructor-arg name="ojbcContext" 
+			ref="org.ojbc.bundles.intermediaries.person-health-information-search-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<util:map>
+		        <entry key="${personHealth.connectorResultsHandlerEndpoint}" 
+		        	value="personHealthSearchConnectorResultsEndpoint"/>
+	   		</util:map>
+		</constructor-arg>
+	</bean>	
 
 </beans>
