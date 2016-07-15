@@ -335,7 +335,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexs:AgencyIDAbstract"/>
+					<xsd:element ref="lexs:AgencyIDAbstract" minOccurs="1" maxOccurs="unbounded" />
 					<xsd:element ref="nc:OrganizationName"/>
 					<xsd:element ref="lexs:SystemID"/>
 				</xsd:sequence>
