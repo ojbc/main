@@ -60,6 +60,7 @@ public interface RapbackDAO {
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(SAMLTokenPrincipal token,
 			IdentificationResultSearchRequest searchRequest);
 	public String getIdentificationCategoryType(String transactionNumber); 
+	public Boolean isExistingTransactionNumber(String transactionNumber); 
 	
 	public void updateSubject(Subject subject);
 	public void updateFbiRapbackSubscription(

@@ -62,7 +62,7 @@
 							</tr>
 							<tr>
 								<td>
-									<span class="error">There is no court case associated with this person record.</span><br /> 
+									<span class="error">There is no custody data associated with this person record.</span><br /> 
 								</td>
 							</tr>
 						</table>
@@ -75,8 +75,7 @@
 									var systemName =$(this).attr('systemName');
 									var identificationSourceText = $(this).attr('identificationSourceText');
 									var identificationID = $(this).attr('identificationID');
-									
-									
+																		
 									$('#custodyTable tr').removeClass("selected");
 									$(this).addClass("selected");
 									
@@ -98,9 +97,9 @@
 						
 						<table id="custodyTable" class="detailsTable">
 							<tr>
-								<td class="detailsTitle" >ARREST ID</td>
-								<td class="detailsTitle">AGENCY</td>
-								<td class="detailsTitle">DATE ARRESTED</td>
+								<td class="detailsTitle">BOOKING NUMBER</td>
+								<td class="detailsTitle">INFO OWNER</td>
+								<td class="detailsTitle">BOOKING DATE</td>
 							</tr>
 							<xsl:apply-templates /> 
 						</table>
@@ -112,22 +111,20 @@
 	</xsl:template>
 	
 	<xsl:template match="cs-res-ext:CustodySearchResult">
-<!--		
-		<xsl:variable name="systemSource"><xsl:value-of select="normalize-space(cs-res-ext:SourceSystemNameText)"/></xsl:variable>
--->		
+		
 		<xsl:variable name="systemSource"><xsl:text>{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}SubmitCustodyQueryRequest</xsl:text></xsl:variable>
-		<tr 
-			systemName="Custody Detail"
-			identificationSourceText="{$systemSource}"   
-			>
+		<tr systemName="Custody Detail" 
+			identificationSourceText="{$systemSource}">
 			<xsl:attribute name="identificationID"><xsl:value-of select="intel:SystemIdentification/nc:IdentificationID"/></xsl:attribute>
 			
-			<td><xsl:value-of select="cs-res-ext:Booking/j:BookingSubject/j:SubjectIdentification/nc:IdentificationID"/></td>
+			<td>
+				<xsl:value-of select="cs-res-ext:Booking/j:BookingAgencyRecordIdentification/nc:IdentificationID"/>
+			</td>
 			<td>
 				<xsl:value-of select="cs-res-ext:InformationOwningOrganization/nc:OrganizationName"></xsl:value-of>
 			</td>
 			<td>
-				<xsl:value-of select="format-dateTime(cs-res-ext:Booking/j:FingerprintDate/nc:DateTime, '[M01]/[D01]/[Y0001]')"/>
+				<xsl:value-of select="format-dateTime(cs-res-ext:Booking/nc:ActivityDate/nc:DateTime, '[M01]/[D01]/[Y0001]')"/>
 			</td>
 		</tr>		
 	</xsl:template>

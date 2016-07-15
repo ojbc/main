@@ -58,6 +58,7 @@
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
           <xs:element ref="j:FingerprintDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:BookingAgencyRecordIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:BookingSubject" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -192,6 +193,11 @@
   <xs:element name="Booking" type="j:BookingType" nillable="true">
     <xs:annotation>
       <xs:documentation>An administrative step taken after an arrested subject is brought to a police station or detention facility, which involves entry of the subject's name and other relevant facts on the police blotter, and which may also include photographing,</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="BookingAgencyRecordIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A booking identification of the originating case agency.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="BookingAugmentationPoint" abstract="true">

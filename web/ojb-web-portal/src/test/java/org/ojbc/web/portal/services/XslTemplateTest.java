@@ -76,6 +76,13 @@ public class XslTemplateTest {
     	XMLUnit.setIgnoreComments(true);
     }    
 
+    
+    @Test
+    public void custodyDetailTest() throws IOException{
+    	
+    	validatePersonSearchTransformation("xsl/custody-detail.xsl", "CustodyDetails.xml", "CustodyDetails.html");
+    }
+    
     @Test
     public void searchResultEmpty() throws Exception {
         // an empty result document should be the same whether for vehicle, person or incident search

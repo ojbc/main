@@ -42,9 +42,9 @@ import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.portal.validators.PersonFilterCommandValidator;
 import org.ojbc.web.portal.validators.PersonSearchCommandValidator;
 import org.ojbc.web.security.Authorities;
+import org.ojbc.web.security.SecurityContextUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -272,7 +272,8 @@ public class PeopleController {
 	        Map<String, Object> model, Authentication authentication) {
 		try {
 			
-			if ("Incident".equals(searchResultCategory) && !hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
+			if ("Incident".equals(searchResultCategory) && 
+					!SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
 				model.put("searchContent", "");
 			}
 			else{
@@ -283,15 +284,6 @@ public class PeopleController {
 			ex.printStackTrace();
 			return "common/_searchDetailsError";
 		}
-	}
-
-	private boolean hasAuthority(Authentication authentication, Authorities authority) {
-		
-		for (GrantedAuthority grantedAuthority: authentication.getAuthorities()){
-			if (grantedAuthority.getAuthority().equals(authority.name()))
-				return true; 
-		}
-		return false;
 	}
 
 	@RequestMapping(value = "instanceDetails", method = RequestMethod.GET)

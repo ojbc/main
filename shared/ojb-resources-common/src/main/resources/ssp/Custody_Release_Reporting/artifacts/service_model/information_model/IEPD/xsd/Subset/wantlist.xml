@@ -75,6 +75,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:BookingType" w:isRequested="true">
+    <w:ElementInType w:name="j:BookingAgencyRecordIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:BookingDetentionFacility"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:BookingSubject" w:isReference="false"
@@ -283,6 +285,8 @@
     <w:Facet w:facet="enumeration" w:value="0P"/>
     <w:Facet w:facet="enumeration" w:value="QR"/>
     <w:Facet w:facet="enumeration" w:value="KB"/>
+    <w:Facet w:facet="enumeration" w:value="KB"/>
+    <w:Facet w:facet="enumeration" w:value="KB"/>
     <w:Facet w:facet="enumeration" w:value="BI"/>
     <w:Facet w:facet="enumeration" w:value="SZ"/>
     <w:Facet w:facet="enumeration" w:value="FS"/>
@@ -294,6 +298,7 @@
     <w:Facet w:facet="enumeration" w:value="RD"/>
     <w:Facet w:facet="enumeration" w:value="CR"/>
     <w:Facet w:facet="enumeration" w:value="QV"/>
+    <w:Facet w:facet="enumeration" w:value="BS"/>
     <w:Facet w:facet="enumeration" w:value="BS"/>
     <w:Facet w:facet="enumeration" w:value="FY"/>
     <w:Facet w:facet="enumeration" w:value="TF"/>
@@ -331,7 +336,6 @@
     <w:Facet w:facet="enumeration" w:value="QB"/>
     <w:Facet w:facet="enumeration" w:value="QQ"/>
     <w:Facet w:facet="enumeration" w:value="WV"/>
-    <w:Facet w:facet="enumeration" w:value="BS"/>
     <w:Facet w:facet="enumeration" w:value="LO"/>
     <w:Facet w:facet="enumeration" w:value="CE"/>
     <w:Facet w:facet="enumeration" w:value="JF"/>
@@ -344,10 +348,12 @@
     <w:Facet w:facet="enumeration" w:value="NY"/>
     <w:Facet w:facet="enumeration" w:value="RH"/>
     <w:Facet w:facet="enumeration" w:value="XD"/>
+    <w:Facet w:facet="enumeration" w:value="XD"/>
     <w:Facet w:facet="enumeration" w:value="PJ"/>
     <w:Facet w:facet="enumeration" w:value="CV"/>
     <w:Facet w:facet="enumeration" w:value="0V"/>
     <w:Facet w:facet="enumeration" w:value="LL"/>
+    <w:Facet w:facet="enumeration" w:value="AE"/>
     <w:Facet w:facet="enumeration" w:value="AE"/>
     <w:Facet w:facet="enumeration" w:value="IO"/>
     <w:Facet w:facet="enumeration" w:value="GC"/>
@@ -414,6 +420,7 @@
     <w:Facet w:facet="enumeration" w:value="KJ"/>
     <w:Facet w:facet="enumeration" w:value="PT"/>
     <w:Facet w:facet="enumeration" w:value="UV"/>
+    <w:Facet w:facet="enumeration" w:value="UV"/>
     <w:Facet w:facet="enumeration" w:value="TW"/>
     <w:Facet w:facet="enumeration" w:value="TL"/>
     <w:Facet w:facet="enumeration" w:value="SO"/>
@@ -437,8 +444,10 @@
     <w:Facet w:facet="enumeration" w:value="EB"/>
     <w:Facet w:facet="enumeration" w:value="NP"/>
     <w:Facet w:facet="enumeration" w:value="RS"/>
+    <w:Facet w:facet="enumeration" w:value="RS"/>
     <w:Facet w:facet="enumeration" w:value="LY"/>
     <w:Facet w:facet="enumeration" w:value="RJ"/>
+    <w:Facet w:facet="enumeration" w:value="BP"/>
     <w:Facet w:facet="enumeration" w:value="BP"/>
     <w:Facet w:facet="enumeration" w:value="LR"/>
     <w:Facet w:facet="enumeration" w:value="FH"/>
@@ -458,6 +467,7 @@
     <w:Facet w:facet="enumeration" w:value="JY"/>
     <w:Facet w:facet="enumeration" w:value="DK"/>
     <w:Facet w:facet="enumeration" w:value="CL"/>
+    <w:Facet w:facet="enumeration" w:value="KK"/>
     <w:Facet w:facet="enumeration" w:value="KK"/>
     <w:Facet w:facet="enumeration" w:value="WI"/>
     <w:Facet w:facet="enumeration" w:value="WJ"/>
@@ -490,6 +500,7 @@
     <w:Facet w:facet="enumeration" w:value="Q0"/>
     <w:Facet w:facet="enumeration" w:value="RI"/>
     <w:Facet w:facet="enumeration" w:value="PW"/>
+    <w:Facet w:facet="enumeration" w:value="PW"/>
     <w:Facet w:facet="enumeration" w:value="SC"/>
     <w:Facet w:facet="enumeration" w:value="DR"/>
     <w:Facet w:facet="enumeration" w:value="PR"/>
@@ -508,7 +519,6 @@
     <w:Facet w:facet="enumeration" w:value="MT"/>
     <w:Facet w:facet="enumeration" w:value="DH"/>
     <w:Facet w:facet="enumeration" w:value="JL"/>
-    <w:Facet w:facet="enumeration" w:value="KB"/>
     <w:Facet w:facet="enumeration" w:value="RT"/>
     <w:Facet w:facet="enumeration" w:value="EJ"/>
     <w:Facet w:facet="enumeration" w:value="MC"/>
@@ -545,7 +555,6 @@
     <w:Facet w:facet="enumeration" w:value="JX"/>
     <w:Facet w:facet="enumeration" w:value="VK"/>
     <w:Facet w:facet="enumeration" w:value="LG"/>
-    <w:Facet w:facet="enumeration" w:value="BP"/>
     <w:Facet w:facet="enumeration" w:value="YC"/>
     <w:Facet w:facet="enumeration" w:value="EC"/>
     <w:Facet w:facet="enumeration" w:value="0G"/>
@@ -557,6 +566,7 @@
     <w:Facet w:facet="enumeration" w:value="VB"/>
     <w:Facet w:facet="enumeration" w:value="WA"/>
     <w:Facet w:facet="enumeration" w:value="GT"/>
+    <w:Facet w:facet="enumeration" w:value="HN"/>
     <w:Facet w:facet="enumeration" w:value="HN"/>
     <w:Facet w:facet="enumeration" w:value="UN"/>
     <w:Facet w:facet="enumeration" w:value="0E"/>
@@ -584,7 +594,6 @@
     <w:Facet w:facet="enumeration" w:value="LV"/>
     <w:Facet w:facet="enumeration" w:value="MY"/>
     <w:Facet w:facet="enumeration" w:value="JV"/>
-    <w:Facet w:facet="enumeration" w:value="KK"/>
     <w:Facet w:facet="enumeration" w:value="XF"/>
     <w:Facet w:facet="enumeration" w:value="FT"/>
     <w:Facet w:facet="enumeration" w:value="RA"/>
@@ -632,6 +641,7 @@
     <w:Facet w:facet="enumeration" w:value="XR"/>
     <w:Facet w:facet="enumeration" w:value="SB"/>
     <w:Facet w:facet="enumeration" w:value="XC"/>
+    <w:Facet w:facet="enumeration" w:value="XC"/>
     <w:Facet w:facet="enumeration" w:value="BL"/>
     <w:Facet w:facet="enumeration" w:value="TZ"/>
     <w:Facet w:facet="enumeration" w:value="FA"/>
@@ -668,7 +678,6 @@
     <w:Facet w:facet="enumeration" w:value="CB"/>
     <w:Facet w:facet="enumeration" w:value="WD"/>
     <w:Facet w:facet="enumeration" w:value="DV"/>
-    <w:Facet w:facet="enumeration" w:value="XD"/>
     <w:Facet w:facet="enumeration" w:value="OC"/>
     <w:Facet w:facet="enumeration" w:value="IB"/>
     <w:Facet w:facet="enumeration" w:value="VP"/>
@@ -678,7 +687,6 @@
     <w:Facet w:facet="enumeration" w:value="MN"/>
     <w:Facet w:facet="enumeration" w:value="HK"/>
     <w:Facet w:facet="enumeration" w:value="YE"/>
-    <w:Facet w:facet="enumeration" w:value="XC"/>
     <w:Facet w:facet="enumeration" w:value="WN"/>
     <w:Facet w:facet="enumeration" w:value="CW"/>
     <w:Facet w:facet="enumeration" w:value="QD"/>
@@ -692,7 +700,6 @@
     <w:Facet w:facet="enumeration" w:value="MH"/>
     <w:Facet w:facet="enumeration" w:value="PA"/>
     <w:Facet w:facet="enumeration" w:value="BF"/>
-    <w:Facet w:facet="enumeration" w:value="UV"/>
     <w:Facet w:facet="enumeration" w:value="JD"/>
     <w:Facet w:facet="enumeration" w:value="SG"/>
     <w:Facet w:facet="enumeration" w:value="DW"/>
@@ -788,7 +795,6 @@
     <w:Facet w:facet="enumeration" w:value="PX"/>
     <w:Facet w:facet="enumeration" w:value="WL"/>
     <w:Facet w:facet="enumeration" w:value="BZ"/>
-    <w:Facet w:facet="enumeration" w:value="HN"/>
     <w:Facet w:facet="enumeration" w:value="AV"/>
     <w:Facet w:facet="enumeration" w:value="ER"/>
     <w:Facet w:facet="enumeration" w:value="QY"/>
@@ -798,7 +804,6 @@
     <w:Facet w:facet="enumeration" w:value="UF"/>
     <w:Facet w:facet="enumeration" w:value="0U"/>
     <w:Facet w:facet="enumeration" w:value="0Z"/>
-    <w:Facet w:facet="enumeration" w:value="AE"/>
     <w:Facet w:facet="enumeration" w:value="AP"/>
     <w:Facet w:facet="enumeration" w:value="AR"/>
     <w:Facet w:facet="enumeration" w:value="BB"/>
@@ -843,7 +848,6 @@
     <w:Facet w:facet="enumeration" w:value="JP"/>
     <w:Facet w:facet="enumeration" w:value="JU"/>
     <w:Facet w:facet="enumeration" w:value="JW"/>
-    <w:Facet w:facet="enumeration" w:value="KB"/>
     <w:Facet w:facet="enumeration" w:value="KE"/>
     <w:Facet w:facet="enumeration" w:value="KP"/>
     <w:Facet w:facet="enumeration" w:value="KT"/>
@@ -873,7 +877,6 @@
     <w:Facet w:facet="enumeration" w:value="OF"/>
     <w:Facet w:facet="enumeration" w:value="OT"/>
     <w:Facet w:facet="enumeration" w:value="PH"/>
-    <w:Facet w:facet="enumeration" w:value="PW"/>
     <w:Facet w:facet="enumeration" w:value="QG"/>
     <w:Facet w:facet="enumeration" w:value="QK"/>
     <w:Facet w:facet="enumeration" w:value="QN"/>
@@ -881,7 +884,6 @@
     <w:Facet w:facet="enumeration" w:value="QU"/>
     <w:Facet w:facet="enumeration" w:value="QW"/>
     <w:Facet w:facet="enumeration" w:value="RE"/>
-    <w:Facet w:facet="enumeration" w:value="RS"/>
     <w:Facet w:facet="enumeration" w:value="RX"/>
     <w:Facet w:facet="enumeration" w:value="RZ"/>
     <w:Facet w:facet="enumeration" w:value="SF"/>

@@ -27,11 +27,11 @@
     xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
     xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
     xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
-    xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
     xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
-    xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+    xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
+    xmlns:cyfs31="http://release.niem.gov/niem/domains/cyfs/3.1/" 
     exclude-result-prefixes="#all">
 	<xsl:import href="_formatters.xsl" />
 	
@@ -45,198 +45,190 @@
 			</xsl:when>
 			<xsl:otherwise>
 				<script type="text/javascript">
-					$(function () {
-						$('#custodyDetailTabs').tabs({
-							activate: function( event, ui ) {
-								var modalIframe = $("#modalIframe", parent.document);
-								modalIframe.height(modalIframe.contents().find("body").height() + 16);
-							}
-						}); 
-						
-						$('.detailDataTable').DataTable({
-							"dom": 'rt' 
-						});
-						
+					$(function () {												
+						$('#accordion').accordion({
+							heightStyle: "content",
+							active: false,
+							collapsible: true,
+		  					activate: function( event, ui ) { 
+		  						var modalIframe = $("#modalIframe", parent.document);
+		  						modalIframe.height(modalIframe.contents().find("body").height() + 16);
+		  					}							
+						});						
 					});
-				</script>
-				<div id="custodyDetailTabs">
-					<ul>
-						<li>
-							<a href="#bond">BOND</a>
-						</li>
-						<li>
-							<a href="#booking">BOOKING</a>
-						</li>
-						<li>
-							<a href="#nextCourtEvent">NEXT COURT EVENT</a>
-						</li>
-						<li>
-							<a href="#charge">CHARGE</a>
-						</li>
-						<li>
-							<a href="#detention">DETENTION</a>
-						</li>
-					</ul>
-					
-					<div id="bond">
-						<p><xsl:apply-templates select="cq-res-ext:Custody/j:BailBond[@structures:id = parent::cq-res-ext:Custody/j:BailBondChargeAssociation/j:BailBond/@structures:ref]"/></p>	
-					</div>
-					<div id="booking">
-						<p><xsl:apply-templates select="cq-res-ext:Custody/j:Booking[contains(string-join(parent::cq-res-ext:Custody/j:ActivityChargeAssociation/nc:Activity/@structures:ref, '|'), @structures:id)]"/></p>	
-					</div>
-					<div id="nextCourtEvent">
-						<p><xsl:apply-templates select="cq-res-ext:Custody/cyfs:NextCourtEvent[contains(string-join(parent::cq-res-ext:Custody/j:ActivityChargeAssociation/nc:Activity/@structures:ref, '|'), @structures:id) ]"/></p>
-					</div>
-					<div id="charge">
-						<p><xsl:apply-templates select="cq-res-ext:Custody" mode="charge"/></p>
-					</div>
-					<div id="detention">
-						<p><xsl:apply-templates select="cq-res-ext:Custody/j:Detention[contains(string-join(parent::cq-res-ext:Custody/j:ActivityChargeAssociation/nc:Activity/@structures:ref, '|'), @structures:id)]"></xsl:apply-templates></p>
-					</div>
+				</script>			
+				
+				<div id="custodyDetailOutsideDiv" style="overflow:auto; width:100%; height:auto">															
+					<xsl:apply-templates select="cq-res-ext:Custody/j:Booking"/>										
+					<div id="accordion">		
+						<xsl:apply-templates select="cq-res-ext:Custody/j:Arrest"/> 				  
+					</div>				
 				</div>
+												
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:template>
+	</xsl:template>		
+	<xsl:template match="j:Booking">
 	
-	<xsl:template match="cq-res-ext:Custody" mode="charge">
-		<table class="detailDataTable display">
-			<thead>
-				<tr>
-					<th>Charge Sequence</th>
-					<th>Charge Description</th>
-					<th>Statute/Ordinance #</th>
-					<th>Charge Category</th>
-					<th>Highest Charge Indicator</th>
-				</tr>
-			</thead>
-			<tbody>
-				<xsl:apply-templates select="j:Charge[contains(string-join(parent::cq-res-ext:Custody/j:ActivityChargeAssociation/j:Charge/@structures:ref, '|'), @structures:id)]"></xsl:apply-templates>
-			</tbody>
-		</table>
-	</xsl:template>
-	
-	<xsl:template match="j:Charge">
-		<tr>
-			<td><xsl:value-of select="j:ChargeSequenceID"/></td>
-			<td><xsl:value-of select="j:ChargeDescriptionText"/></td>
-			<td><xsl:value-of select="j:ChargeStatute/j:StatuteCodeSectionIdentification/nc:IdentificationID"/></td>
-			<td><xsl:value-of select="j:ChargeCategoryDescriptionText"/></td>
-			<td><xsl:value-of select="j:ChargeHighestIndicator"/></td>
-		</tr>	
-	</xsl:template>
-	
-	<xsl:template match="j:Detention">
 		<table class="detailTable">
 			<tr>
 				<th>
-					<label>Release Date: </label>
-					<xsl:apply-templates select="j:SupervisionAugmentation/j:SupervisionReleaseDate/nc:DateTime" mode="formatDateTime"></xsl:apply-templates>
+					<label>Subject ID: </label>
+					<xsl:value-of select="j:BookingSubject/j:SubjectIdentification/nc:IdentificationID"/>
 				</th>
 				<th>
-					<label>Commit Date: </label>
-					<xsl:apply-templates select="nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"></xsl:apply-templates>
+					<label>Booking Date/Time: </label>
+					<xsl:value-of select="nc:ActivityDate/nc:DateTime"/>
 				</th>
 			</tr>
 			<tr>
 				<th>
-					<label>Holding for Agency: </label>
-					<xsl:value-of select="cq-res-ext:HoldForAgency/nc:OrganizationName"/>
+					<label>Scheduled Release Date: </label>
+					<xsl:value-of select="../j:Detention/j:SupervisionAugmentation/j:SupervisionReleaseEligibilityDate/nc:Date"/>
 				</th>
-				<th>
-					<label>Immigration Hold: </label>
-					<xsl:value-of select="cq-res-ext:DetentiontImmigrationHoldIndicator"/>
-				</th>
-			</tr>
-			<tr>
 				<th>
 					<label>Pretrial Status: </label>
-					<xsl:value-of select="nc:SupervisionCustodyStatus/ac-bkg-codes:PreTrialCategoryCode"></xsl:value-of>
+					<xsl:value-of select="../j:Detention/nc:SupervisionCustodyStatus/ac-bkg-codes:PreTrialCategoryCode"/>
 				</th>
-				<th>
-					<label>Judicial Status: </label>
-					<xsl:value-of select="nc:SupervisionCustodyStatus/nc:StatusDescriptionText"></xsl:value-of>
-				</th>
-			</tr>
+			</tr>	
 			<tr>
 				<th>
 					<label>Inmate Work Release Indicator: </label>
-					<xsl:value-of select="cq-res-ext:InmateWorkReleaseIndicator"></xsl:value-of>
+					<xsl:value-of select="../j:Detention/cq-res-ext:InmateWorkReleaseIndicator"/>
 				</th>
+				<th>
+					<label>Actual Release Date: </label>
+					<xsl:value-of select="../nc:Release/nc:ActivityDate/nc:DateTime"/>
+				</th>
+			</tr>	
+			<tr>
+				<th>
+					<label>Immigration Hold: </label>
+					<xsl:value-of select="../j:Detention/cq-res-ext:DetentiontImmigrationHoldIndicator"/>
+				</th>
+				<th>
+					<label>Judicial Status: </label>
+					<xsl:value-of select="../j:Detention/nc:SupervisionCustodyStatus/nc:StatusDescriptionText"/>
+				</th>
+			</tr>	
+			<tr>
 				<th>
 					<label>Inmate Worker Indicator: </label>
-					<xsl:value-of select="cq-res-ext:InmateWorkerIndicator"></xsl:value-of>
+					<xsl:value-of select="../j:Detention/cq-res-ext:InmateWorkerIndicator"/>
 				</th>
-			</tr>
-		</table>
-	</xsl:template>
-	
-	<xsl:template match="cyfs:NextCourtEvent">
+				<th>
+					<label>Detention Facility ID: </label>
+					<xsl:value-of select="j:BookingDetentionFacility/nc:FacilityIdentification/nc:IdentificationID"/>
+				</th>
+			</tr>	
+			<tr>
+			  <th>
+			    <label>Area ID: </label>
+			    <xsl:value-of select="../j:Detention/j:SupervisionAugmentation/j:SupervisionAreaIdentification/nc:IdentificationID"/>
+			  </th>
+			  <th>
+			    <label>Bed ID: </label>
+			    <xsl:value-of select="../j:Detention/j:SupervisionAugmentation/j:SupervisionBedIdentification/nc:IdentificationID"/>
+			  </th>
+			</tr>			
+			<tr>
+			  <th>
+			    <label>Cell ID: </label>
+			    <xsl:value-of select="../j:Detention/j:SupervisionAugmentation/j:SupervisionCellIdentification/nc:IdentificationID"/>
+			  </th>
+			  <th>
+			    <label>Allow Account Deposit: </label>
+			    <xsl:value-of select="../j:Detention/cq-res-ext:AllowAccountDepositIndicator"/>
+			  </th>
+			</tr>																		
+		</table>	
+	</xsl:template>						
+	<xsl:template match="j:Arrest">
+		  <h4>Arrest:  
+		  	<xsl:value-of select="j:ArrestAgency/nc:OrganizationName"/>
+		  </h4>
+		  <div>
+		  	<xsl:apply-templates select="j:ArrestCharge"/>		  			    
+		  </div>		
+	</xsl:template>		
+    <xsl:template match="j:ArrestCharge">
+        <xsl:variable name="chargeID" select="@structures:ref"/>
+        <xsl:apply-templates select="/cq-res-doc:CustodyQueryResults/cq-res-ext:Custody/j:Charge[@structures:id = $chargeID]"/>
+    </xsl:template>		
+	<xsl:template match="j:Charge">	
+		<h4>Charge</h4>
 		<table class="detailTable">
 			<tr>
 				<th>
-					<label>Court Name: </label>
-					<xsl:value-of select="j:CourtEventCourt/j:CourtName"></xsl:value-of>
+					<label>Sequence Number: </label>
+					<xsl:value-of select="j:ChargeSequenceID"/>
 				</th>
 			</tr>
 			<tr>
 				<th>
-					<label>Next Court Date: </label>
-					<xsl:apply-templates select="nc:ActivityDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+					<label>Description: </label>
+					<xsl:value-of select="j:ChargeDescriptionText"/>
+				</th>
+			</tr>	
+			<tr>
+				<th>
+					<label>Statute Code Section/Ordinance: </label>
+					<xsl:value-of select="j:ChargeStatute/j:StatuteCodeSectionIdentification/nc:IdentificationID"/> 
 				</th>
 			</tr>
+			<tr>
+				<th>
+					<label>Category: </label>
+					<xsl:value-of select="j:ChargeCategoryDescriptionText"/>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<label>Holding for: </label>
+					<xsl:value-of select="cq-res-ext:HoldForAgency/nc:OrganizationName"/>
+				</th>
+			</tr>			
+			<xsl:variable name="chargeId" select="@structures:id"/>		
+			<xsl:variable name="eventId" select="/cq-res-doc:CustodyQueryResults/cq-res-ext:Custody/j:ActivityChargeAssociation[j:Charge/@structures:ref = $chargeId]/nc:Activity/@structures:ref"/>			
+			<xsl:variable name="bondId" select="/cq-res-doc:CustodyQueryResults/cq-res-ext:Custody/j:BailBondChargeAssociation[j:Charge/@structures:ref = $chargeId]/j:BailBond/@structures:ref"/>
+			<xsl:apply-templates select="/cq-res-doc:CustodyQueryResults/cq-res-ext:Custody/cyfs31:NextCourtEvent[@structures:id = $eventId]" />
+			<xsl:apply-templates select="/cq-res-doc:CustodyQueryResults/cq-res-ext:Custody/j:BailBond[@structures:id = $bondId]"/>
 		</table>
-	</xsl:template>
-
+	</xsl:template>		
+	<xsl:template match="cyfs31:NextCourtEvent">
+		<tr>
+			<th>
+				<label>Next Court Event: </label>
+				<xsl:value-of select="nc:ActivityDate/nc:Date"/>
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<label>Next Court Name: </label>
+				<xsl:value-of select="j:CourtEventCourt/j:CourtName"/>
+			</th>
+		</tr>						
+	</xsl:template>	
 	<xsl:template match="j:BailBond">
-		<table class="detailTable">
-			<tr>
-				<th>
-					<label>Bond Amount: </label>
-					<xsl:value-of select="j:BailBondAmount/nc:Amount"></xsl:value-of>
-				</th>
-			</tr>
-			<tr>
-				<th>
-					<label>Bond Type: </label>
-					<xsl:value-of select="nc:ActivityCategoryText"></xsl:value-of>
-				</th>
-			</tr>
-			<tr>
-				<th>
-					<label>Bond Status: </label>
-					<xsl:value-of select="nc:ActivityStatus/nc:StatusDescriptionText"></xsl:value-of>
-				</th>
-			</tr>
-		</table>
-	</xsl:template>
-	
-	<xsl:template match="j:Booking">
-		<table class="detailTable">
-			<tr>
-				<th>
-					<label>Booking Number: </label>
-					<xsl:value-of select="j:BookingSubject/j:SubjectIdentification/nc:IdentificationID"/>
-				</th>
-			</tr>
-			<tr>
-				<th>
-					<label>Booking Date/Time: </label>
-					<xsl:apply-templates select="nc:ActivityDate/nc:DateTime" mode="formatDateTime"/>
-				</th>
-			</tr>
-			<tr>
-				<th valign="top">
-					<label>Booking Image: </label>
-					<img>
-						<xsl:attribute name="src">
-							<xsl:value-of select="concat('data:image/jpg;base64,', parent::cq-res-ext:Custody/nc:Person[@structures:id=parent::cq-res-ext:Custody/j:Booking/j:BookingSubject/nc:RoleOfPerson/@structures:ref]/nc:PersonDigitalImage/nc:Base64BinaryObject)"></xsl:value-of>
-						</xsl:attribute>
-					</img>
-				</th>
-			</tr>
-		</table>
-	</xsl:template>
-	
+		<tr>
+			<th>
+				<label>Bond Amount: </label>
+				<xsl:value-of select="j:BailBondAmount/nc:Amount"/>
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<label>Bond Status: </label>
+				<xsl:value-of select="nc:ActivityStatus/nc:StatusDescriptionText"/>
+			</th>
+		</tr>
+		<tr>
+			<th>
+				<label>Bond Type: </label>
+				<xsl:value-of select="nc:ActivityCategoryText"/> 
+			</th>
+		</tr>		
+	</xsl:template>					
 	<xsl:template match="qrer:QueryRequestError">
 		<span class="error">System Name: <xsl:value-of select="intel:SystemIdentification/nc:SystemName" />, Error: <xsl:value-of select="qrer:ErrorText"/></span><br />
 	</xsl:template>
