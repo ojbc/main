@@ -425,6 +425,15 @@
 									</j:StatuteCodeIdentification>
 								</j:Statute>
 							</ndexia:Offense>
+							<ndexia:Organization>
+								<nc:OrganizationOtherIdentification>
+									<nc:IdentificationID>ID</nc:IdentificationID>
+								</nc:OrganizationOtherIdentification>
+								<ndexia:OrganizationAugmentation>
+									<lexslib:SameAsDigestReference
+										lexslib:ref="ORGANIZATION1" />
+								</ndexia:OrganizationAugmentation>
+							</ndexia:Organization>
 							<ndexia:EnforcementUnit>
 								<j:EnforcementUnitNumberIdentification>
 									<nc:IdentificationID>VT0040100</nc:IdentificationID>
@@ -584,8 +593,7 @@
 							</inc-ext:CitationDeliveryRecipientAssociation>
 							<inc-ext:CitationIssuedLocationAssociation>
 								<inc-ext:CitationReference s:ref="CITATION_01" />
-								<nc:LocationReference
-									s:ref="LOCATION_03" />
+								<nc:LocationReference s:ref="LOCATION_03" />
 							</inc-ext:CitationIssuedLocationAssociation>
 						</inc-ext:IncidentReport>
 					</lexs:StructuredPayload>
