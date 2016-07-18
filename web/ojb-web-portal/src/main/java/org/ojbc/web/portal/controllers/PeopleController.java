@@ -269,16 +269,10 @@ public class PeopleController {
 	public String searchDetails(HttpServletRequest request, @RequestParam String systemName, 
 			@RequestParam("searchResultCategory") String searchResultCategory,
 	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
-	        Map<String, Object> model, Authentication authentication) {
+	        Map<String, Object> model) {
 		try {
 			
-			if ("Incident".equals(searchResultCategory) && 
-					!SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
-				model.put("searchContent", "");
-			}
-			else{
-				processDetailRequest(request, systemName, detailsRequest, model);
-			}
+			processDetailRequest(request, systemName, detailsRequest, model);
 			return "people/_searchDetails";
 		} catch (Exception ex) {
 			ex.printStackTrace();
