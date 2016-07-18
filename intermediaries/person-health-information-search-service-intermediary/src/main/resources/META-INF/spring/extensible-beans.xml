@@ -42,8 +42,8 @@
 			ref="org.ojbc.bundles.intermediaries.person-health-information-search-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<util:map>
-		        <entry key="${personHealth.connectorResultsHandlerEndpoint}" 
-		        	value="personHealthSearchConnectorResultsEndpoint"/>
+		        <entry key="${personHealth.clientResultsHandlerEndpoint}" 
+		        	value="personHealthSearchClientResultsEndpoint"/>
 	   		</util:map>
 		</constructor-arg>
 	</bean>	

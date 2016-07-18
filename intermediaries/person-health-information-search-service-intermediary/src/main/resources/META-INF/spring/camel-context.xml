@@ -46,8 +46,8 @@
 		<endpoint id="personHealthSearchIntermediaryResultsEndpoint"
 			uri="cxf:bean:personHealthSearchIntermediaryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}" />
 
-		<endpoint id="personHealthSearchConnectorResultsEndpoint" 
-			uri="cxf:bean:personHealthSearchConnectorResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>                        
+		<endpoint id="personHealthSearchClientResultsEndpoint" 
+			uri="cxf:bean:personHealthSearchClientResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>                        
 
 		<endpoint id="fileDropTestInputEndpoint"
 			uri="file:///${personHealth.testFileInputDir}/input?idempotent=true&amp;moveFailed=${personHealth.testFileInputDir}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=true" />
@@ -108,8 +108,13 @@
 			
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 						
-			<camel:setHeader headerName="operationName"><constant>SubmitPersonHealthInformationSearchRequest</constant></camel:setHeader>
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchRequestService/1.0</constant></camel:setHeader>			
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitPersonHealthInformationSearchRequest</constant>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchRequestService/1.0</constant>
+			</camel:setHeader>			
 			
 			<to uri="personHealthSearchAdapterRequestEndpoint"/>
 			
@@ -159,9 +164,10 @@
 					<camel:simple>${properties:personHealth.timeout}</camel:simple>
 				</completionTimeout>
 				
-					<!-- Completion size for 2 messages that arrive in this order:
-						1) Timer message 
-						2) personHealthResults -->						
+				<!-- Completion size for 2 messages that arrive in this order:
+					1) Timer message 
+					2) personHealthResults 
+				-->						
 				<completionSize>
 					<constant>2</constant>					
 				</completionSize>
@@ -193,8 +199,13 @@
 				<camel:when>
 					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
 			
-					<camel:setHeader headerName="operationName"><constant>SubmitPersonHealthInformationSearchResults</constant></camel:setHeader>	
-					<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchResultsService/1.0</constant></camel:setHeader>
+					<camel:setHeader headerName="operationName">
+						<constant>SubmitPersonHealthInformationSearchResults</constant>
+					</camel:setHeader>	
+					
+					<camel:setHeader headerName="operationNamespace">
+						<constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchResultsService/1.0</constant>
+					</camel:setHeader>
 					
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 					
