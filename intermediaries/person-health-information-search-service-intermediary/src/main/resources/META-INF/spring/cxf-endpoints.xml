@@ -86,8 +86,8 @@
                         	
     <!-- Deliver person health Results to consumer, hosted by connector, called by this intermediary -->
     <cxf:cxfEndpoint 
-        id="personHealthSearchConnectorResultsService"
-        address="${personHealth.connectorResultsHandlerEndpoint}"
+        id="personHealthSearchClientResultsService"
+        address="${personHealth.clientResultsHandlerEndpoint}"
         wsdlURL="classpath:ssp/Person_Health_Information_Search_Results/schema/SIP_WS_1.2/Person_Health_Information_Search_Results_Service.wsdl"
         serviceName="ojbc:Person_Health_Information_Search_Results_Service_Service"
 		endpointName="ojbc:Person_Health_Information_Search_Results_Secure_Service"
