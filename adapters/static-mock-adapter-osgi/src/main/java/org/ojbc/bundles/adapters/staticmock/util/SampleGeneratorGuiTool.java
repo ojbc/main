@@ -178,7 +178,7 @@ public class SampleGeneratorGuiTool {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				JFileChooser fileChooser = new JFileChooser();
+				JFileChooser fileChooser = new JFileChooser(outputDirPath);
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				
 				int returnVal = fileChooser.showOpenDialog(mainFrame);
