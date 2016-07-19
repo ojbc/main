@@ -212,7 +212,9 @@
 			<nc:PersonEducationLevelText>High School Graduate</nc:PersonEducationLevelText>
 			<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
 			<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
+			<j:PersonEyeColorCode>BLU</j:PersonEyeColorCode>
 			<nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
+			<j:PersonHairColorCode>BLN</j:PersonHairColorCode>
 			<nc:PersonHeightMeasure>
 				<nc:MeasureValueText>110</nc:MeasureValueText>
 				<nc:MeasureUnitText>4H</nc:MeasureUnitText>
