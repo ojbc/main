@@ -39,6 +39,8 @@
 				<nc:Date>2004-12-10</nc:Date>
 			</nc:PersonBirthDate>
 			<nc:PersonEthnicityCode>H</nc:PersonEthnicityCode>
+			<nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
+			<nc:PersonHairColorCode>BLK</nc:PersonHairColorCode>
 			<nc:PersonHeightMeasure>
 				<nc:MeasurePointValue>71</nc:MeasurePointValue>
 				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
