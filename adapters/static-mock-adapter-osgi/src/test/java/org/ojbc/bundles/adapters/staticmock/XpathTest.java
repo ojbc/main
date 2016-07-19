@@ -69,11 +69,11 @@ public class XpathTest {
 		String firstName = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.firstNameXPath);
 		Assert.assertEquals("Otis", firstName.trim());
 				
-		String eyeColor = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.eyeColorXPath);
-		Assert.assertEquals("Blue", eyeColor.trim());
+		String eyeColor = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.eyeColorCodeXPath);
+		Assert.assertEquals("BLU", eyeColor.trim());
 				
-		String hairColor = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.hairColorXPath);
-		Assert.assertEquals("Blonde", hairColor.trim());
+		String hairColor = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.hairColorCodeXPath);
+		Assert.assertEquals("BLK", hairColor.trim());
 				
 		String race = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.raceXPath);
 		Assert.assertEquals("A", race.trim());
