@@ -43,6 +43,8 @@
   <w:Element w:name="j:PersonCriminalHistorySummary"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonEthnicityCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PersonEyeColorCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PersonHairColorCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PersonRaceCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PersonSexCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PersonStateFingerprintIdentification"
@@ -461,6 +463,34 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:TextType" w:isRequested="true"/>
+  <w:Type w:name="ncic:EYECodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="BLK"/>
+    <w:Facet w:facet="enumeration" w:value="BLU"/>
+    <w:Facet w:facet="enumeration" w:value="BRO"/>
+    <w:Facet w:facet="enumeration" w:value="GRN"/>
+    <w:Facet w:facet="enumeration" w:value="GRY"/>
+    <w:Facet w:facet="enumeration" w:value="HAZ"/>
+    <w:Facet w:facet="enumeration" w:value="MAR"/>
+    <w:Facet w:facet="enumeration" w:value="MUL"/>
+    <w:Facet w:facet="enumeration" w:value="PNK"/>
+    <w:Facet w:facet="enumeration" w:value="XXX"/>
+  </w:Type>
+  <w:Type w:name="ncic:HAICodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="BLD"/>
+    <w:Facet w:facet="enumeration" w:value="BLK"/>
+    <w:Facet w:facet="enumeration" w:value="BLN"/>
+    <w:Facet w:facet="enumeration" w:value="BLU"/>
+    <w:Facet w:facet="enumeration" w:value="BRO"/>
+    <w:Facet w:facet="enumeration" w:value="GRN"/>
+    <w:Facet w:facet="enumeration" w:value="GRY"/>
+    <w:Facet w:facet="enumeration" w:value="ONG"/>
+    <w:Facet w:facet="enumeration" w:value="PLE"/>
+    <w:Facet w:facet="enumeration" w:value="PNK"/>
+    <w:Facet w:facet="enumeration" w:value="RED"/>
+    <w:Facet w:facet="enumeration" w:value="SDY"/>
+    <w:Facet w:facet="enumeration" w:value="WHI"/>
+    <w:Facet w:facet="enumeration" w:value="XXX"/>
+  </w:Type>
   <w:Type w:name="ncic:RACCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="W"/>
     <w:Facet w:facet="enumeration" w:value="B"/>
