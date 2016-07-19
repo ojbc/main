@@ -446,12 +446,11 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		ethnicityElement.setTextContent(randomString("H", "N", "U"));						
 		
 		
-		Element eyeColorEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonEyeColorText");
-		eyeColorEl.setTextContent(randomString("Blue", "Brown", "Green"));
+		Element eyeColorEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonEyeColorCode");
+		eyeColorEl.setTextContent(randomString("BLK", "BLU", "BRO", "GRN", "GRY", "HAZ", "MAR", "MUL", "PNK", "XXX"));
 		
-		Element hairColorEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonHairColorText");
-		hairColorEl.setTextContent(randomString("Blonde", "Brown", "Orange", "Purple", "Bald"));
-		
+		Element hairColorEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_51, "PersonHairColorCode");
+		hairColorEl.setTextContent(randomString("BLD", "BLK", "BLN", "BLU", "BRO", "GRN", "GRY", "ONG", "PLE", "PNK", "RED", "SDY", "WHI", "XXX"));		
 		
 		Element heightElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonHeightMeasure");
 		
