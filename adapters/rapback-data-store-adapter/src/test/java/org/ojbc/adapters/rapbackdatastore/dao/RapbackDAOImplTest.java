@@ -312,6 +312,31 @@ public class RapbackDAOImplTest {
 
 	@Test
 	@DirtiesContext
+	public void testGetCivilIdentificationTransactionsWithoutReasonCode() throws Exception {
+        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demoUser");
+		customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+		customAttributes.put(SamlAttribute.EmployerSubUnitName, "Honolulu PD Records and ID Division");
+		customAttributes.put(SamlAttribute.EmployeePositionName, "No Position");
+		  
+		SAMLTokenPrincipal samlAssertionDemoUser = SAMLTokenTestUtils.createSAMLTokenPrincipalWithAttributes(customAttributes);
+      
+		IdentificationResultSearchRequest searchRequest = new IdentificationResultSearchRequest();
+		List<String> status = new ArrayList<String>();
+		status.add(IdentificationTransactionState.Available_for_Subscription.toString());
+		status.add(IdentificationTransactionState.Subscribed.toString());
+		searchRequest.setIdentificationTransactionStatus(status);
+		
+		List<String> reasonCodes = new ArrayList<String>();
+		searchRequest.setCivilIdentificationReasonCodes(reasonCodes);
+
+		List<IdentificationTransaction> transactionsForSuperUserWithReasonCode = 
+				rapbackDAO.getCivilIdentificationTransactions(samlAssertionDemoUser, searchRequest);
+		assertEquals(0, transactionsForSuperUserWithReasonCode.size());
+	}
+
+	@Test
+	@DirtiesContext
 	public void testGetCivilIdentificationTransactions() throws Exception {
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
 		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:normaluser");
