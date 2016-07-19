@@ -1004,6 +1004,27 @@ public class StaticMockQuery {
 				e.setTextContent(ageElement.getTextContent());
 			}
 
+			
+			String sEyeColor = xPaths.eyeColorXpath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.eyeColorXpath);
+			
+			if(StringUtils.isNotEmpty(sEyeColor)){
+				
+				Element eyeColorElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonEyeColorCode");
+				
+				eyeColorElement.setTextContent(sEyeColor);				
+			}
+			
+			String sHairColor = xPaths.hairColorXpath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.hairColorXpath);
+			
+			if(StringUtils.isNotEmpty(sHairColor)){
+				
+				Element hairColorElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonHairColorCode");
+				
+				hairColorElement.setTextContent(sHairColor);
+			}			
+			
 			Element heightElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.heightXPath);
 			if (heightElement != null) {
 				Element phm = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonHeightMeasure");
@@ -1886,15 +1907,30 @@ public class StaticMockQuery {
 		xPaths.lastNameXPath = "//nc30:PersonName/nc30:PersonSurName";
 		xPaths.middleNameXPath = "//nc30:PersonName/nc30:PersonMiddleName";
 		xPaths.firstNameXPath = "//nc30:PersonName/nc30:PersonGivenName";
-		xPaths.eyeColorXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonEyeColorText";
-		xPaths.hairColorXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonHairColorText";		
+		
+		xPaths.eyeColorXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonEyeColorCode";
+		xPaths.hairColorXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonHairColorCode";		
+		
 		xPaths.raceXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonRaceCode";  
 		xPaths.sexXPath =  "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonSexCode"; 		
 		xPaths.heightXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureValueText";
 		xPaths.weightXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonWeightMeasure/nc30:MeasureValueText";		
 		xPaths.searchSystemId = CUSTODY_PERSON_SEARCH_SYSTEM_ID;		
 		xPaths.systemName = "Custody";		
-		xPaths.recordType = "Custody";						
+		xPaths.recordType = "Custody";	
+		
+		//note doesn't include street #
+		xPaths.addressStreetXPath = 
+				"//nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationStreet/nc:StreetName";
+		
+		xPaths.addressCityXPath = 
+				"//nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationCityName";
+				
+		xPaths.addressStateXPath = 
+				"//nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationStateFIPS5-2AlphaCode";
+		
+		xPaths.addressZipXPath = 
+				"//nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationPostalCode";
 		
 		return xPaths;
 	}
@@ -2753,7 +2789,9 @@ public class StaticMockQuery {
 		 String hairColorXPath;
 		 String raceXPath;
 		 String sexXPath;
-		 String ageXPath;
+		 String ageXPath;		 
+		 String eyeColorXpath;
+		 String hairColorXpath;		 
 		 String heightXPath;
 		 String weightXPath;
 		 String juvenilePlacementsXPath;
