@@ -208,8 +208,8 @@
 			</nc:PersonDigitalImage>
 			<nc:PersonEducationLevelText>High School Graduate</nc:PersonEducationLevelText>
 			<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
-			<j:PersonEyeColorCode>Blue</j:PersonEyeColorCode>
-			<j:PersonHairColorCode>Blonde</j:PersonHairColorCode>
+			<j:PersonEyeColorCode>BLU</j:PersonEyeColorCode>
+			<j:PersonHairColorCode>BLK</j:PersonHairColorCode>
 			<nc:PersonHeightMeasure>
 				<nc:MeasureValueText>110</nc:MeasureValueText>
 				<nc:MeasureUnitText>4H</nc:MeasureUnitText>

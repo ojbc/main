@@ -1005,8 +1005,8 @@ public class StaticMockQuery {
 			}
 
 			
-			String sEyeColor = xPaths.eyeColorXpath == null ? null : 
-				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.eyeColorXpath);
+			String sEyeColor = xPaths.eyeColorCodeXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.eyeColorCodeXPath);
 			
 			if(StringUtils.isNotEmpty(sEyeColor)){
 				
@@ -1015,8 +1015,8 @@ public class StaticMockQuery {
 				eyeColorElement.setTextContent(sEyeColor);				
 			}
 			
-			String sHairColor = xPaths.hairColorXpath == null ? null : 
-				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.hairColorXpath);
+			String sHairColor = xPaths.hairColorCodeXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.hairColorCodeXPath);
 			
 			if(StringUtils.isNotEmpty(sHairColor)){
 				
@@ -1908,8 +1908,8 @@ public class StaticMockQuery {
 		xPaths.middleNameXPath = "//nc30:PersonName/nc30:PersonMiddleName";
 		xPaths.firstNameXPath = "//nc30:PersonName/nc30:PersonGivenName";
 		
-		xPaths.eyeColorXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonEyeColorCode";
-		xPaths.hairColorXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonHairColorCode";		
+		xPaths.eyeColorCodeXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonEyeColorCode";
+		xPaths.hairColorCodeXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonHairColorCode";		
 		
 		xPaths.raceXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonRaceCode";  
 		xPaths.sexXPath =  "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonSexCode"; 		
@@ -2786,12 +2786,12 @@ public class StaticMockQuery {
 		 String middleNameXPath;
 		 String firstNameXPath;
 		 String eyeColorXPath;
+		 String eyeColorCodeXPath;
 		 String hairColorXPath;
+		 String hairColorCodeXPath;
 		 String raceXPath;
 		 String sexXPath;
-		 String ageXPath;		 
-		 String eyeColorXpath;
-		 String hairColorXpath;		 
+		 String ageXPath;		 		 
 		 String heightXPath;
 		 String weightXPath;
 		 String juvenilePlacementsXPath;
