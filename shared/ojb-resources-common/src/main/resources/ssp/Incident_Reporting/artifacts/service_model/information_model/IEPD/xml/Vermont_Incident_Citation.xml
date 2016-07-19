@@ -503,10 +503,10 @@
 							</inc-ext:Person>
 							<inc-ext:Citation>
 								<inc-ext:CitationServedDate>
-									<nc:Date>2015-10-27</nc:Date>
+									<nc:DateTime>2012-08-02T10:30:04.048-04:00</nc:DateTime>
 								</inc-ext:CitationServedDate>
 								<inc-ext:CitationViolationDate>
-									<nc:Date>2015-10-27</nc:Date>
+									<nc:DateTime>2012-08-02T10:30:04.048-04:00</nc:DateTime>
 								</inc-ext:CitationViolationDate>
 								<inc-ext:CitationWaiverAmount>105.00
 								</inc-ext:CitationWaiverAmount>
