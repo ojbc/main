@@ -634,7 +634,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 				sb.append ( " AND (t.identification_category in ( :identificationCategoryList ))");
 				List<String> identificationCategorys = getViewableIdentificationCategories(token, 
 						"CIVIL"); 
-				paramMap.put("identificationCategoryList", identificationCategorys);
+				paramMap.put("identificationCategoryList", identificationCategorys.isEmpty() ? null : identificationCategorys);
 			}
 		}
 		
@@ -732,7 +732,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 				
 				List<String> identificationCategorys = 
 						getViewableIdentificationCategories(token, "CRIMINAL"); 
-				paramMap.put("identificationCategoryList", identificationCategorys);
+				paramMap.put("identificationCategoryList", identificationCategorys.isEmpty() ? null : identificationCategorys);
 			}
 		}
 		
