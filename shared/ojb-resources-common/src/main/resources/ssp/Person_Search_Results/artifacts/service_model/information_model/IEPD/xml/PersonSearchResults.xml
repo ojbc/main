@@ -49,6 +49,9 @@
 				<nc:PersonMiddleName />
 				<nc:PersonSurName>GARCIA</nc:PersonSurName>
 			</nc:PersonName>
+		      <nc:PersonPhysicalFeature>
+		         <nc:PhysicalFeatureDescriptionText>Marks</nc:PhysicalFeatureDescriptionText>
+		      </nc:PersonPhysicalFeature>						
 			<nc:PersonRaceCode>W</nc:PersonRaceCode>
 			<nc:PersonSexCode>M</nc:PersonSexCode>
 			<nc:PersonSSNIdentification>
