@@ -1052,6 +1052,23 @@ public class StaticMockQuery {
 					e.setTextContent(lastNameElement.getTextContent());
 				}
 			}
+			
+			
+			String sPhysicalFeature = xPaths.physicalFeatureXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.physicalFeatureXPath);
+			
+			if(StringUtils.isNotEmpty(sPhysicalFeature)){
+
+				sPhysicalFeature = sPhysicalFeature.trim();
+				
+				Element physFeatureEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonPhysicalFeature");
+				
+				Element physFeatDescEl = XmlUtils.appendElement(physFeatureEl, OjbcNamespaceContext.NS_NC, "PhysicalFeatureDescriptionText");
+				
+				physFeatDescEl.setTextContent(sPhysicalFeature);				
+			}												
+			
+			
 			Element raceElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.raceXPath);
 			if (raceElement != null) {
 				Element e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonRaceCode");
@@ -1967,6 +1984,9 @@ public class StaticMockQuery {
 		
 		xPaths.eyeColorCodeXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonEyeColorCode";
 		xPaths.hairColorCodeXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonHairColorCode";		
+						
+		xPaths.physicalFeatureXPath = "//nc30:PhysicalFeatureDescriptionText";
+//				"/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonPhysicalFeature/nc30:PhysicalFeatureDescriptionText";		
 		
 		xPaths.raceXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonRaceCode";  
 		xPaths.sexXPath =  "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonSexCode"; 		
@@ -2846,6 +2866,7 @@ public class StaticMockQuery {
 		 String eyeColorCodeXPath;
 		 String hairColorXPath;
 		 String hairColorCodeXPath;
+		 String physicalFeatureXPath;
 		 String raceXPath;
 		 String sexXPath;
 		 String ageXPath;		 		 
