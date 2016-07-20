@@ -236,16 +236,18 @@
                             <td class="detailsLabel">STATE</td>                                                        
                             <xsl:variable name="stateCodeNcic" select="$addr/nc:LocationStateNCICRESCode" />
 							<xsl:variable name="stateCodeFIPS5" select="$addr/nc:LocationStateFIPS5-2AlphaCode" />
-							<xsl:choose>
-								<xsl:when test="$stateCodeNcic != ''">
-									<td><xsl:value-of select="$stateCodeNcic"/></td>
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:if test="stateCodeFIPS5 != ''">
-										<td><xsl:value-of select="$stateCodeFIPS5"/></td>
-									</xsl:if>																
-								</xsl:otherwise>
-							</xsl:choose>                                                                                    
+							<td>
+								<xsl:choose>
+									<xsl:when test="$stateCodeNcic != ''">
+										<xsl:value-of select="$stateCodeNcic"/>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:if test="$stateCodeFIPS5 != ''">
+											<xsl:value-of select="$stateCodeFIPS5"/>
+										</xsl:if>																
+									</xsl:otherwise>
+								</xsl:choose>
+							</td>														                                                                                 
                             <td class="detailsLabel">HEIGHT</td>
                             <td>
                             	<xsl:call-template name="formatHeight">
