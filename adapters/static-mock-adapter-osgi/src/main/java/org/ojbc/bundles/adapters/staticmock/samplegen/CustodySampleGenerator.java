@@ -479,6 +479,13 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		Element personSurNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");		
 		personSurNameElement.setTextContent(getLastNameSample(person));
 					
+		
+		Element physicalFeatureEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonPhysicalFeature");
+		
+		Element physFeatDescEl = XmlUtils.appendElement(physicalFeatureEl, OjbcNamespaceContext.NS_NC_30, "PhysicalFeatureDescriptionText");
+		
+		physFeatDescEl.setTextContent(randomString("Tatoo", "Missing left arm", "Very Tall"));
+		
 		Element personLangEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonPrimaryLanguage");		
 		Element langNamEl = XmlUtils.appendElement(personLangEl, OjbcNamespaceContext.NS_NC_30, "LanguageName");		
 		langNamEl.setTextContent(randomString("English", "Francais", "Espagnol", "Norsk", "Ewe", "Catocoli", "Cabiait"));
