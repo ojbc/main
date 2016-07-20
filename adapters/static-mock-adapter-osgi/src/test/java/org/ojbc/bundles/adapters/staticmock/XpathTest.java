@@ -85,7 +85,22 @@ public class XpathTest {
 		Assert.assertEquals("110", height.trim());
 		
 		String weight = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.weightXPath);
-		Assert.assertEquals("110", weight.trim());						
+		Assert.assertEquals("110", weight.trim());	
+		
+		String addressStreet = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.addressStreetXPath);
+		Assert.assertEquals("Main Street", addressStreet);
+		
+		String addressCity = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.addressCityXPath);
+		Assert.assertEquals("Denton", addressCity);
+		
+		String state = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.addressStateXPath);
+		state = state.trim();		
+		Assert.assertEquals("CO", state);
+		
+		String zipCode = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.addressZipXPath);
+		Assert.assertEquals("99999", zipCode);
 	}
 
 }
+
+
