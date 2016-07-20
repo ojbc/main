@@ -233,8 +233,19 @@
                             <td><xsl:value-of select="$personSearchResult/ext1:Person/nc:PersonWeightMeasure/nc:MeasurePointValue"/></td>
                         </tr>
                         <tr>
-                            <td class="detailsLabel">STATE</td>
-                            <td><xsl:value-of select="$addr/nc:LocationStateNCICRESCode"/></td>
+                            <td class="detailsLabel">STATE</td>                                                        
+                            <xsl:variable name="stateCodeNcic" select="$addr/nc:LocationStateNCICRESCode" />
+							<xsl:variable name="stateCodeFIPS5" select="$addr/nc:LocationStateFIPS5-2AlphaCode" />
+							<xsl:choose>
+								<xsl:when test="$stateCodeNcic != ''">
+									<td><xsl:value-of select="$stateCodeNcic"/></td>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:if test="stateCodeFIPS5 != ''">
+										<td><xsl:value-of select="$stateCodeFIPS5"/></td>
+									</xsl:if>																
+								</xsl:otherwise>
+							</xsl:choose>                                                                                    
                             <td class="detailsLabel">HEIGHT</td>
                             <td>
                             	<xsl:call-template name="formatHeight">
