@@ -283,8 +283,7 @@
                         <tr>
                             <td class="detailsLabel">DL#</td>
                             <td><xsl:value-of select="$personSearchResult/ext1:Person/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID"/></td>
-                            <td class="detailsLabel">SCARS/MARKS/TATTOOS</td>
-<!--                             <td><xsl:value-of select="$personSearchResult/ext1:Person/nc:PersonPhysicalFeature"/></td> -->
+                            <td class="detailsLabel">SCARS/MARKS/TATTOOS</td> 
 							<td><xsl:apply-templates select="$personSearchResult/ext1:Person/nc:PersonPhysicalFeature"/></td>
                         </tr>
                         <tr>
