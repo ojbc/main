@@ -233,8 +233,21 @@
                             <td><xsl:value-of select="$personSearchResult/ext1:Person/nc:PersonWeightMeasure/nc:MeasurePointValue"/></td>
                         </tr>
                         <tr>
-                            <td class="detailsLabel">STATE</td>
-                            <td><xsl:value-of select="$addr/nc:LocationStateNCICRESCode"/></td>
+                            <td class="detailsLabel">STATE</td>                                                        
+                            <xsl:variable name="stateCodeNcic" select="$addr/nc:LocationStateNCICRESCode" />
+							<xsl:variable name="stateCodeFIPS5" select="$addr/nc:LocationStateFIPS5-2AlphaCode" />
+							<td>
+								<xsl:choose>
+									<xsl:when test="$stateCodeNcic != ''">
+										<xsl:value-of select="$stateCodeNcic"/>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:if test="$stateCodeFIPS5 != ''">
+											<xsl:value-of select="$stateCodeFIPS5"/>
+										</xsl:if>																
+									</xsl:otherwise>
+								</xsl:choose>
+							</td>														                                                                                 
                             <td class="detailsLabel">HEIGHT</td>
                             <td>
                             	<xsl:call-template name="formatHeight">
@@ -270,8 +283,7 @@
                         <tr>
                             <td class="detailsLabel">DL#</td>
                             <td><xsl:value-of select="$personSearchResult/ext1:Person/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID"/></td>
-                            <td class="detailsLabel">SCARS/MARKS/TATTOOS</td>
-<!--                             <td><xsl:value-of select="$personSearchResult/ext1:Person/nc:PersonPhysicalFeature"/></td> -->
+                            <td class="detailsLabel">SCARS/MARKS/TATTOOS</td> 
 							<td><xsl:apply-templates select="$personSearchResult/ext1:Person/nc:PersonPhysicalFeature"/></td>
                         </tr>
                         <tr>

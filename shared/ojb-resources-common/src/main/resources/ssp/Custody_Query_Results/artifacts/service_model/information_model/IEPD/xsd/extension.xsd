@@ -91,6 +91,7 @@
 					<xsd:element ref="cyfs:NextCourtEvent" minOccurs="0"
 						maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Identity" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0"
 						maxOccurs="unbounded" />
@@ -100,6 +101,8 @@
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:BailBondChargeAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonAliasIdentityAssociation"
+						minOccurs="0" />
 					<xsd:element ref="nc:ContactInformationAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ActivityPersonAssociation"

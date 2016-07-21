@@ -23,9 +23,8 @@
 	xmlns:fbi="http://niem.gov/niem/fbi/2.0" xmlns:jxdm="http://niem.gov/niem/domains/jxdm/4.1"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
-	xmlns:cyfs="http://niem.gov/niem/domains/cyfs/2.1/1"
-	xmlns:micodes="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchResultsCodes/1.0" 
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:cyfs="http://niem.gov/niem/domains/cyfs/2.1/1"
+	xmlns:micodes="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchResultsCodes/1.0"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchResultsCodes/1.0 ../xsd/impl/michigan/michigan-codes.xsd">
 	<psres-ext:PersonSearchResult>
 		<psres-ext:Person s:id="P001" s:metadata="M001">
@@ -50,6 +49,9 @@
 				<nc:PersonMiddleName />
 				<nc:PersonSurName>GARCIA</nc:PersonSurName>
 			</nc:PersonName>
+		      <nc:PersonPhysicalFeature>
+		         <nc:PhysicalFeatureDescriptionText>Marks</nc:PhysicalFeatureDescriptionText>
+		      </nc:PersonPhysicalFeature>						
 			<nc:PersonRaceCode>W</nc:PersonRaceCode>
 			<nc:PersonSexCode>M</nc:PersonSexCode>
 			<nc:PersonSSNIdentification>
@@ -92,25 +94,37 @@
 					</nc:LocationStreet>
 					<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
 					<nc:LocationCityName>Anytown</nc:LocationCityName>
-					<nc:LocationStateFIPS5-2AlphaCode>MI</nc:LocationStateFIPS5-2AlphaCode>
+					<nc:LocationStateFIPS5-2AlphaCode>MI
+					</nc:LocationStateFIPS5-2AlphaCode>
 					<nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
 					<nc:LocationPostalCode>99199</nc:LocationPostalCode>
 				</nc:StructuredAddress>
 			</nc:LocationAddress>
 		</nc:Location>
+		<nc:ContactInformation s:id="CI_01">
+			<nc:ContactTelephoneNumber>
+				<nc:FullTelephoneNumber>
+					<nc:TelephoneNumberFullID>312-216-9923</nc:TelephoneNumberFullID>
+				</nc:FullTelephoneNumber>
+			</nc:ContactTelephoneNumber>
+		</nc:ContactInformation>
 		<jxdm:Case>
 			<nc:ActivityIdentification>
 				<nc:IdentificationID>2015-12345</nc:IdentificationID>
 			</nc:ActivityIdentification>
 		</jxdm:Case>
 		<nc:ResidenceAssociation>
-			<nc:PersonReference s:ref="P001"/>
-			<nc:LocationReference s:ref="LOC01"/>
+			<nc:PersonReference s:ref="P001" />
+			<nc:LocationReference s:ref="LOC01" />
 		</nc:ResidenceAssociation>
 		<psres-ext:ParentChildAssociation>
-			<psres-ext:ParentReference s:ref="PAR001"/>
-			<psres-ext:ChildReference s:ref="P001"/>
+			<psres-ext:ParentReference s:ref="PAR001" />
+			<psres-ext:ChildReference s:ref="P001" />
 		</psres-ext:ParentChildAssociation>
+		<nc:PersonContactInformationAssociation>
+			<nc:PersonReference s:ref="P001" />
+			<nc:ContactInformationReference s:ref="CI_01" />
+		</nc:PersonContactInformationAssociation>
 		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History</psres-ext:SourceSystemNameText>
 		<intel:SystemIdentifier>
 			<nc:IdentificationID>A0188904</nc:IdentificationID>
@@ -170,7 +184,8 @@
 					</nc:LocationStreet>
 					<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
 					<nc:LocationCityName>Anytown</nc:LocationCityName>
-					<nc:LocationStateCanadianProvinceCode>AB</nc:LocationStateCanadianProvinceCode>
+					<nc:LocationStateCanadianProvinceCode>AB
+					</nc:LocationStateCanadianProvinceCode>
 					<nc:LocationCountryFIPS10-4Code>CN</nc:LocationCountryFIPS10-4Code>
 					<nc:LocationPostalCode>99199</nc:LocationPostalCode>
 				</nc:StructuredAddress>
@@ -182,8 +197,8 @@
 			</nc:ActivityIdentification>
 		</jxdm:Case>
 		<nc:ResidenceAssociation>
-			<nc:PersonReference s:ref="P002"/>
-			<nc:LocationReference s:ref="LOC02"/>
+			<nc:PersonReference s:ref="P002" />
+			<nc:LocationReference s:ref="LOC02" />
 		</nc:ResidenceAssociation>
 		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
 		</psres-ext:SourceSystemNameText>
@@ -237,14 +252,15 @@
 					</nc:LocationStreet>
 					<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
 					<nc:LocationCityName>Anytown</nc:LocationCityName>
-					<nc:LocationStateFIPS10-4InternationalCode>CA01</nc:LocationStateFIPS10-4InternationalCode>
+					<nc:LocationStateFIPS10-4InternationalCode>CA01
+					</nc:LocationStateFIPS10-4InternationalCode>
 					<nc:LocationPostalCode>99199</nc:LocationPostalCode>
 				</nc:StructuredAddress>
 			</nc:LocationAddress>
 		</nc:Location>
 		<nc:ResidenceAssociation>
-			<nc:PersonReference s:ref="P003"/>
-			<nc:LocationReference s:ref="LOC03"/>
+			<nc:PersonReference s:ref="P003" />
+			<nc:LocationReference s:ref="LOC03" />
 		</nc:ResidenceAssociation>
 		<psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History
 		</psres-ext:SourceSystemNameText>
