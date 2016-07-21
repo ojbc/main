@@ -39,6 +39,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
 		
+	public static final String NS_HUMAN_SERVIES = "http://release.niem.gov/niem/domains/humanServices/3.1/";
+	public static final String NS_PREFIX_HUMAN_SERVIES = "hs";
+	
 	public static final String NS_WARRANT_MOD_RESP_EXT = "http://ojbc.org/IEPD/Extensions/WarrantModificationResponseExtension/1.0";
 	public static final String NS_PREFIX_WARRANT_MOD_RESP_EXT = "wm-resp-ext";
 	
@@ -1513,7 +1516,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_WARRANT_MOD_RESP_EXT, NS_PREFIX_WARRANT_MOD_RESP_EXT);
 				
 		prefixToUriMap.put(NS_PREFIX_WARRANT_MOD_RESP_EXT, NS_WARRANT_MOD_RESP_EXT);
-		uriToPrefixMap.put(NS_WARRANT_MOD_RESP_EXT, NS_PREFIX_WARRANT_MOD_RESP_EXT);		
+		uriToPrefixMap.put(NS_WARRANT_MOD_RESP_EXT, NS_PREFIX_WARRANT_MOD_RESP_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_HUMAN_SERVIES, NS_HUMAN_SERVIES);
+		uriToPrefixMap.put(NS_HUMAN_SERVIES, NS_PREFIX_HUMAN_SERVIES);		
 	}
 
 	@Override

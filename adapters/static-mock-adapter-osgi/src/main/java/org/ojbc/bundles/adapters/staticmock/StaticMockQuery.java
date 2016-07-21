@@ -1052,6 +1052,23 @@ public class StaticMockQuery {
 					e.setTextContent(lastNameElement.getTextContent());
 				}
 			}
+			
+			
+			String sPhysicalFeature = xPaths.physicalFeatureXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.physicalFeatureXPath);
+			
+			if(StringUtils.isNotEmpty(sPhysicalFeature)){
+
+				sPhysicalFeature = sPhysicalFeature.trim();
+				
+				Element physFeatureEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonPhysicalFeature");
+				
+				Element physFeatDescEl = XmlUtils.appendElement(physFeatureEl, OjbcNamespaceContext.NS_NC, "PhysicalFeatureDescriptionText");
+				
+				physFeatDescEl.setTextContent(sPhysicalFeature);				
+			}												
+			
+			
 			Element raceElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.raceXPath);
 			if (raceElement != null) {
 				Element e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonRaceCode");
@@ -1106,6 +1123,63 @@ public class StaticMockQuery {
 				}
 			}
 
+						
+			Element locationElement = XmlUtils.appendElement(psrElement, OjbcNamespaceContext.NS_NC, "Location");
+			
+			Element locAddressEl = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_NC, "LocationAddress");
+			
+			Element structAddressEl = XmlUtils.appendElement(locAddressEl, OjbcNamespaceContext.NS_NC, "StructuredAddress");
+			
+			String sAddressStreet = xPaths.addressStreetXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.addressStreetXPath);
+			
+			if(StringUtils.isNotEmpty(sAddressStreet)){
+				
+				sAddressStreet = sAddressStreet.trim();
+			
+				Element locStreetEl = XmlUtils.appendElement(structAddressEl, OjbcNamespaceContext.NS_NC, "LocationStreet");
+				
+				Element streetNameEl = XmlUtils.appendElement(locStreetEl, OjbcNamespaceContext.NS_NC, "StreetName");
+				
+				streetNameEl.setTextContent(sAddressStreet);
+			}
+			
+			String sCity = xPaths.addressCityXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.addressCityXPath);
+			
+			if(StringUtils.isNotEmpty(sCity)){
+			
+				sCity = sCity.trim();
+				
+				Element cityEl = XmlUtils.appendElement(structAddressEl, OjbcNamespaceContext.NS_NC, "LocationCityName");
+				
+				cityEl.setTextContent(sCity);
+			}
+			
+			String sStateCode = xPaths.addressStateXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.addressStateXPath);
+			
+			if(StringUtils.isNotEmpty(sStateCode)){
+				
+				sStateCode = sStateCode.trim();
+				
+				Element stateEl = XmlUtils.appendElement(structAddressEl, OjbcNamespaceContext.NS_NC, "LocationStateFIPS5-2AlphaCode");
+				
+				stateEl.setTextContent(sStateCode);
+			}
+			
+			String sZipCode = xPaths.addressZipXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.addressZipXPath);
+			
+			if(StringUtils.isNotEmpty(sZipCode)){
+				
+				sZipCode = sZipCode.trim();
+				
+				Element postalCodeEl = XmlUtils.appendElement(structAddressEl, OjbcNamespaceContext.NS_NC, "LocationPostalCode");
+				
+				postalCodeEl.setTextContent(sZipCode);
+			}
+			
 			Element sourceSystem = XmlUtils.appendElement(psrElement, OjbcNamespaceContext.NS_PERSON_SEARCH_RESULTS_EXT, "SourceSystemNameText");
 			sourceSystem.setTextContent(xPaths.searchSystemId);
 			Element sourceSystemIdentifierParentElement = XmlUtils.appendElement(psrElement, OjbcNamespaceContext.NS_INTEL, "SystemIdentifier");
@@ -1910,6 +1984,9 @@ public class StaticMockQuery {
 		
 		xPaths.eyeColorCodeXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonEyeColorCode";
 		xPaths.hairColorCodeXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonHairColorCode";		
+						
+		xPaths.physicalFeatureXPath = "//nc30:PhysicalFeatureDescriptionText";
+//				"/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonPhysicalFeature/nc30:PhysicalFeatureDescriptionText";		
 		
 		xPaths.raceXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonRaceCode";  
 		xPaths.sexXPath =  "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonSexCode"; 		
@@ -1921,16 +1998,16 @@ public class StaticMockQuery {
 		
 		//note doesn't include street #
 		xPaths.addressStreetXPath = 
-				"//nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationStreet/nc:StreetName";
+				"//nc30:Location/nc30:Address/nc30:LocationStreet/nc30:StreetName";
 		
 		xPaths.addressCityXPath = 
-				"//nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationCityName";
+				"//nc30:Location/nc30:Address/nc30:LocationCityName";
 				
 		xPaths.addressStateXPath = 
-				"//nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationStateFIPS5-2AlphaCode";
+				"//nc30:Location/nc30:Address/nc30:LocationStateUSPostalServiceCode";
 		
 		xPaths.addressZipXPath = 
-				"//nc:Location/nc:LocationAddress/nc:StructuredAddress/nc:LocationPostalCode";
+				"//nc30:Location/nc30:Address/nc30:LocationPostalCode";
 		
 		return xPaths;
 	}
@@ -2789,6 +2866,7 @@ public class StaticMockQuery {
 		 String eyeColorCodeXPath;
 		 String hairColorXPath;
 		 String hairColorCodeXPath;
+		 String physicalFeatureXPath;
 		 String raceXPath;
 		 String sexXPath;
 		 String ageXPath;		 		 
