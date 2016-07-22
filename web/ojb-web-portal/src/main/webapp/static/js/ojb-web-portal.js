@@ -68,6 +68,9 @@ ojbc = {
 	   $( "#portalContent" ).on( "focus", ".year", function() {
 		   $(this).mask("9999");
 	   });
+	   $( "body" ).on( "focus", ".shortDigit", function() {
+		   $(this).mask("9?99");
+	   });
 	},
 	
    /**
