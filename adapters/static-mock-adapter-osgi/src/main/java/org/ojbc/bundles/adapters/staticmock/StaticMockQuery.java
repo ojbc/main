@@ -992,10 +992,52 @@ public class StaticMockQuery {
 				dob = dob.trim();				
 				
 				e.setTextContent(String.valueOf(Years.yearsBetween(DATE_FORMATTER_YYYY_MM_DD.parseDateTime(dob), baseDate).getYears()));				
+			}
+							
+					
+			NodeList altNameIdentNodeList = xPaths.alternateNameIdentityNodeListXpath == null ? null : 
+				XmlUtils.xPathNodeListSearch(specificDetailSourceDoc, xPaths.alternateNameIdentityNodeListXpath);
+			
+						
+			for(int i=0; altNameIdentNodeList != null &&  i < altNameIdentNodeList.getLength(); i++ ){
 				
-				e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonBirthDate");
-				e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
-				e.setTextContent(dob);
+			 	Element iIdentityEl = (Element)altNameIdentNodeList.item(i);
+			 	
+			 	String altFirstName = XmlUtils.xPathStringSearch(iIdentityEl, 
+			 			"nc30:IdentityPersonRepresentation/nc30:PersonName/nc30:PersonGivenName");
+			 				 	
+			 	altFirstName = altFirstName == null ? null : altFirstName.trim();
+			 	
+			 	String altLastName = XmlUtils.xPathStringSearch(iIdentityEl, 
+			 			"nc30:IdentityPersonRepresentation/nc30:PersonName/nc30:PersonSurName");
+			 	
+			 	altLastName = altLastName == null ? null : altLastName.trim();
+			 	
+			 	String altFullName = altFirstName + " " + altLastName;
+			 	
+			 	altFullName = altFullName == null ? null : altFullName.trim();
+			 	
+			 	if(StringUtils.isNotEmpty(altFullName)){
+			 		
+			 		Element altNameEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonAlternateName");
+			 		
+					Element altFullNameEl = XmlUtils.appendElement(altNameEl, OjbcNamespaceContext.NS_NC, "PersonFullName");
+					
+					altFullNameEl.setTextContent(altFullName);
+			 	}			 	
+			}
+			
+			
+			if(dobElement != null){
+				
+				Element birthDateEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonBirthDate");
+				
+				Element birthDateValEl = XmlUtils.appendElement(birthDateEl, OjbcNamespaceContext.NS_NC, "Date");
+				
+				String dob = dobElement.getTextContent();				
+				dob = dob.trim();
+				
+				birthDateValEl.setTextContent(dob);
 				
 			} else if (ageElement != null) {
 				
@@ -1982,6 +2024,9 @@ public class StaticMockQuery {
 		xPaths.middleNameXPath = "//nc30:PersonName/nc30:PersonMiddleName";
 		xPaths.firstNameXPath = "//nc30:PersonName/nc30:PersonGivenName";
 		
+		//TODO improve xpath
+		xPaths.alternateNameIdentityNodeListXpath = "//nc30:Identity";		
+		
 		xPaths.eyeColorCodeXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonEyeColorCode";
 		xPaths.hairColorCodeXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonHairColorCode";		
 						
@@ -2862,6 +2907,7 @@ public class StaticMockQuery {
 		 String lastNameXPath;
 		 String middleNameXPath;
 		 String firstNameXPath;
+		 String alternateNameIdentityNodeListXpath;
 		 String eyeColorXPath;
 		 String eyeColorCodeXPath;
 		 String hairColorXPath;
