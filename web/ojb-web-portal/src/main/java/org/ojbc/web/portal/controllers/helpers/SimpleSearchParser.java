@@ -31,7 +31,7 @@ import org.ojbc.web.portal.controllers.simpleSearchExtractors.SIDExtractor;
 import org.ojbc.web.portal.controllers.simpleSearchExtractors.SSNExtractor;
 import org.ojbc.web.portal.controllers.simpleSearchExtractors.SearchTermExtractorInterface;
 import org.ojbc.web.portal.services.SearchTermsTokenizer;
-
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindingResult;
 
@@ -83,7 +83,7 @@ public class SimpleSearchParser {
 	private void validateExtractedTerms(BindingResult errors, PersonSearchRequest personSearchRequest,
             List<String> searchTokens) {
 	    if(searchTokens.size() > 0){
-			errors.rejectValue("simpleSearch", "invalidTokens", "Unable to parse the following terms: " + searchTokens);
+			errors.rejectValue("simpleSearch", "invalidTokens", "Unable to parse the following terms: " + StringEscapeUtils.escapeHtml(searchTokens.toString()));
 		}
 		
 		if (StringUtils.isBlank(personSearchRequest.getPersonSurName()) //

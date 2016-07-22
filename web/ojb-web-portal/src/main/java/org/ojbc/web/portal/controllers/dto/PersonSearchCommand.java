@@ -18,6 +18,11 @@ package org.ojbc.web.portal.controllers.dto;
 
 import java.io.Serializable;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
+
+import org.apache.commons.lang.StringEscapeUtils;
+import org.hibernate.validator.constraints.NotBlank;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.portal.controllers.helpers.PersonSearchType;
 
@@ -25,6 +30,7 @@ public class PersonSearchCommand implements Serializable{
 	
     private static final long serialVersionUID = 1148893855640045881L;
     
+    @Valid
     private PersonSearchRequest advanceSearch = new PersonSearchRequest();
     private PersonSearchType searchType; 
 	private Integer weightTolerance;
@@ -32,6 +38,7 @@ public class PersonSearchCommand implements Serializable{
 	private Integer heightInFeet;
 	private Integer heightInInches;
 
+	@Pattern(regexp="[A-Za-z0-9 \"-]*")
 	private String simpleSearch;
 	private Integer ageRangeStart;
 	private Integer ageRangeEnd;
@@ -49,7 +56,7 @@ public class PersonSearchCommand implements Serializable{
 	}
 
 	public void setSimpleSearch(String simpleSearch) {
-		this.simpleSearch = simpleSearch;
+		this.simpleSearch = StringEscapeUtils.escapeHtml(simpleSearch);
 	}
 
 	public void setWeightTolerance(Integer weightTolerance) {

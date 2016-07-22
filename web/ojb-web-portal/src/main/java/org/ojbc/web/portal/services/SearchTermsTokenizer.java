@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,7 +41,7 @@ public class SearchTermsTokenizer {
 			return tokens;
 		}
 
-		Matcher m = pattern.matcher(input);
+		Matcher m = pattern.matcher(StringEscapeUtils.unescapeHtml(input));
 		while (m.find()) {
 			if (m.group(1) != null) {
 				tokens.add(m.group(1).trim());
