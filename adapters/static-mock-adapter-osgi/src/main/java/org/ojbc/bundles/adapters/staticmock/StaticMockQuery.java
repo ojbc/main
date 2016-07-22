@@ -1171,20 +1171,36 @@ public class StaticMockQuery {
 			Element locAddressEl = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_NC, "LocationAddress");
 			
 			Element structAddressEl = XmlUtils.appendElement(locAddressEl, OjbcNamespaceContext.NS_NC, "StructuredAddress");
+
 			
-			String sAddressStreet = xPaths.addressStreetXPath == null ? null : 
-				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.addressStreetXPath);
+			String streetNumber = xPaths.addressStreetNumberXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.addressStreetNumberXPath);			
 			
-			if(StringUtils.isNotEmpty(sAddressStreet)){
-				
-				sAddressStreet = sAddressStreet.trim();
+			String sAddressStreetName = xPaths.addressStreetNameXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.addressStreetNameXPath);			
+
 			
-				Element locStreetEl = XmlUtils.appendElement(structAddressEl, OjbcNamespaceContext.NS_NC, "LocationStreet");
+			boolean hasStreetNumber = StringUtils.isNotEmpty(streetNumber);
+			
+			boolean hasStreetName = StringUtils.isNotEmpty(sAddressStreetName);						
+			
+			if(hasStreetNumber && hasStreetName){
+
+				Element locStreetEl = XmlUtils.appendElement(structAddressEl, OjbcNamespaceContext.NS_NC, 
+						"LocationStreet");
+								
+				Element streetNumEl = XmlUtils.appendElement(locStreetEl, OjbcNamespaceContext.NS_NC, 
+						"StreetNumberText");				
+				streetNumber = streetNumber.trim();				
+				streetNumEl.setTextContent(streetNumber);
 				
-				Element streetNameEl = XmlUtils.appendElement(locStreetEl, OjbcNamespaceContext.NS_NC, "StreetName");
-				
-				streetNameEl.setTextContent(sAddressStreet);
+								
+				Element streetNameEl = XmlUtils.appendElement(locStreetEl, OjbcNamespaceContext.NS_NC, 
+						"StreetName");				
+				sAddressStreetName = sAddressStreetName.trim();				
+				streetNameEl.setTextContent(sAddressStreetName);								
 			}
+
 			
 			String sCity = xPaths.addressCityXPath == null ? null : 
 				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.addressCityXPath);
@@ -2041,8 +2057,10 @@ public class StaticMockQuery {
 		xPaths.systemName = "Custody";		
 		xPaths.recordType = "Custody";	
 		
-		//note doesn't include street #
-		xPaths.addressStreetXPath = 
+		xPaths.addressStreetNumberXPath = 
+				"//nc30:Location/nc30:Address/nc30:LocationStreet/nc30:StreetNumberText";
+		
+		xPaths.addressStreetNameXPath = 
 				"//nc30:Location/nc30:Address/nc30:LocationStreet/nc30:StreetName";
 		
 		xPaths.addressCityXPath = 
@@ -2919,7 +2937,9 @@ public class StaticMockQuery {
 		 String heightXPath;
 		 String weightXPath;
 		 String juvenilePlacementsXPath;
-		 String addressStreetXPath;
+		 String addressStreetXPath;		 
+		 String addressStreetNumberXPath;
+		 String addressStreetNameXPath;		 
 		 String addressCityXPath;
 		 String addressStateXPath;
 		 String addressZipXPath;
