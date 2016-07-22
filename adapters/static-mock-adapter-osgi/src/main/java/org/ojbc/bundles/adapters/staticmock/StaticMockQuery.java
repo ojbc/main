@@ -2038,37 +2038,27 @@ public class StaticMockQuery {
 		xPaths.dlJurisdictionXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseCardIdentification/nc30:IdentificationSourceText";		
 		xPaths.lastNameXPath = "//nc30:PersonName/nc30:PersonSurName";
 		xPaths.middleNameXPath = "//nc30:PersonName/nc30:PersonMiddleName";
-		xPaths.firstNameXPath = "//nc30:PersonName/nc30:PersonGivenName";
-		
-		//TODO improve xpath
-		xPaths.alternateNameIdentityNodeListXpath = "//nc30:Identity";		
-		
+		xPaths.firstNameXPath = "//nc30:PersonName/nc30:PersonGivenName";		
+		xPaths.alternateNameIdentityNodeListXpath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Identity";				
 		xPaths.eyeColorCodeXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonEyeColorCode";
-		xPaths.hairColorCodeXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonHairColorCode";		
-						
-		xPaths.physicalFeatureXPath = "//nc30:PhysicalFeatureDescriptionText";
-//				"/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonPhysicalFeature/nc30:PhysicalFeatureDescriptionText";		
-		
+		xPaths.hairColorCodeXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonHairColorCode";								
+		xPaths.physicalFeatureXPath = 
+				"/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonPhysicalFeature/nc30:PhysicalFeatureDescriptionText";				
 		xPaths.raceXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonRaceCode";  
 		xPaths.sexXPath =  "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonSexCode"; 		
 		xPaths.heightXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureValueText";
 		xPaths.weightXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonWeightMeasure/nc30:MeasureValueText";		
 		xPaths.searchSystemId = CUSTODY_PERSON_SEARCH_SYSTEM_ID;		
 		xPaths.systemName = "Custody";		
-		xPaths.recordType = "Custody";	
-		
+		xPaths.recordType = "Custody";			
 		xPaths.addressStreetNumberXPath = 
-				"//nc30:Location/nc30:Address/nc30:LocationStreet/nc30:StreetNumberText";
-		
+				"//nc30:Location/nc30:Address/nc30:LocationStreet/nc30:StreetNumberText";		
 		xPaths.addressStreetNameXPath = 
-				"//nc30:Location/nc30:Address/nc30:LocationStreet/nc30:StreetName";
-		
+				"//nc30:Location/nc30:Address/nc30:LocationStreet/nc30:StreetName";		
 		xPaths.addressCityXPath = 
-				"//nc30:Location/nc30:Address/nc30:LocationCityName";
-				
+				"//nc30:Location/nc30:Address/nc30:LocationCityName";				
 		xPaths.addressStateXPath = 
-				"//nc30:Location/nc30:Address/nc30:LocationStateUSPostalServiceCode";
-		
+				"//nc30:Location/nc30:Address/nc30:LocationStateUSPostalServiceCode";		
 		xPaths.addressZipXPath = 
 				"//nc30:Location/nc30:Address/nc30:LocationPostalCode";
 		
