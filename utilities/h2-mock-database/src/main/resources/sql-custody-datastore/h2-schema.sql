@@ -19,10 +19,6 @@ DROP SCHEMA if EXISTS custody_datastore;
 
 CREATE SCHEMA custody_datastore;
 
-use custody_datastore;
--- TODO see why other db's don't set schema
--- SET SCHEMA custody_datastore;
-
 
 CREATE TABLE person (
                 id IDENTITY NOT NULL,
@@ -81,7 +77,7 @@ CREATE TABLE person_alias (
 CREATE TABLE booking (
                 id IDENTITY NOT NULL,
                 person_id INTEGER NOT NULL,
-                booking_number INTEGER,
+                booking_number VARCHAR(50) NOT NULL,
                 booking_date DATE,
                 facility VARCHAR(50),
                 booking_photo VARCHAR(250),
@@ -94,7 +90,7 @@ CREATE TABLE booking (
                 case_status VARCHAR(20),
                 inmate_work_release_indicator BOOLEAN,
                 inmate_worker_indicator BOOLEAN,
-                last_updated_date DATE NOT NULL,
+                last_updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
                 CONSTRAINT id PRIMARY KEY (id)
 );
 
@@ -117,7 +113,7 @@ CREATE TABLE charge (
                 next_court_date DATE,
                 charge_sequence_number INTEGER,
                 charge_description VARCHAR(200),
-                statute_or_ordinance_number INTEGER,
+                statute_or_ordinance_number VARCHAR(200),
                 charge_category_classification VARCHAR(200),
                 holding_for_agency VARCHAR(100),
                 case_jurisdiction_court VARCHAR(200),
