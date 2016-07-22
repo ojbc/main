@@ -81,7 +81,7 @@
 									
 									var tempDiv = '<div id="incidentDetailTemp" style="height:50%;width:100%"/>';
 									// tempDiv for css spinner - replaced upon receipt of get data
-									$('#incidentDetailTabsHolder').html(tempDiv);                                         
+									$('#custodyDetailTabsHolder').html(tempDiv);                                         
 								
 									$.get("instanceDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
 										$('#custodyDetailTabsHolder').html(data);
