@@ -86,23 +86,6 @@ public class PersonSearchCommandValidatorTest {
 	}
 
 	@Test
-	public void stateIdentifierMustBeAlphaFollowBySomenumberOfDigits() {
-		personSearchCommand.getAdvanceSearch().setPersonSID("sdf");
-		unit.validate(personSearchCommand, errors);
-		
-		personSearchCommand.getAdvanceSearch().setPersonSID("A");
-		unit.validate(personSearchCommand, errors);
-		
-		personSearchCommand.getAdvanceSearch().setPersonSID("A123213A");
-		unit.validate(personSearchCommand, errors);
-
-		personSearchCommand.getAdvanceSearch().setPersonSID("123213A");
-		unit.validate(personSearchCommand, errors);
-		
-		Mockito.verify(errors,times(4)).rejectValue("advanceSearch.personSID", "sidFormat","SID must be a letter followed by digits , (i.e. A123456789)");
-	}
-
-	@Test
 	public void stateIdentifierMustBeAlphaFollowBySomenumberOfDigitsPassingInputs() {
 		
 		personSearchCommand.getAdvanceSearch().setSourceSystems(Arrays.asList("sys1"));

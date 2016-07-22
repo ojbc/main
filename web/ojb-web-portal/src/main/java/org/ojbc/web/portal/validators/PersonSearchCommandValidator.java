@@ -38,11 +38,6 @@ public class PersonSearchCommandValidator {
 			        "SSN must be 9 digits seperated by dashes, (i.e. 999-99-9999)");
 		}
 
-		if (StringUtils.isNotBlank(advanceSearch.getPersonSID()) && !advanceSearch.getPersonSID().matches("[a-zA-Z]\\d+")) {
-			errors.rejectValue("advanceSearch.personSID", "sidFormat",
-			        "SID must be a letter followed by digits , (i.e. A123456789)");
-		}
-
 		if(hasDOB(personSearchCommand) ){
 			DateTime startDob = advanceSearch.getPersonDateOfBirthRangeStart();
 			DateTime endDob = advanceSearch.getPersonDateOfBirthRangeEnd();
