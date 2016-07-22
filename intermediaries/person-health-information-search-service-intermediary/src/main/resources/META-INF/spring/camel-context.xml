@@ -49,35 +49,6 @@
 		<endpoint id="personHealthSearchClientResultsEndpoint" 
 			uri="cxf:bean:personHealthSearchClientResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>                        
 
-		<endpoint id="fileDropTestInputEndpoint"
-			uri="file:///${personHealth.testFileInputDir}/input?idempotent=true&amp;moveFailed=${personHealth.testFileInputDir}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=true" />
-
-
-		<camel:route id="personHealthRequestTest_route">
-		
-			<from uri="fileDropTestInputEndpoint" />
-		
-			<log message="\n\n\n personHealthRequestTest_route... \n\n\n"/>
-
-			<to uri="bean:personHealthMockInputProcessor?method=prepareMockInputMessage" />
-
-			<camel:setHeader headerName="federatedQueryRequestGUID">
-				<constant>12345</constant>				
-			</camel:setHeader>
-
-			<camel:setHeader headerName="operationName">
-				<constant>SubmitPersonHealthInformationSearchRequest</constant>
-			</camel:setHeader>
-			
-			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchRequestService/1.0</constant>
-			</camel:setHeader>
-								
-			<to uri="direct:processPersonHealthRequest" />
-			
-		</camel:route>
-
-
 		<route id="personHealthRequest_webservice_Route">
 
 			<from uri="personHealthSearchIntermediaryRequestEndpoint" />
@@ -251,9 +222,6 @@
 	<bean id="personHealthResponseAggregator"
 		class="org.ojbc.bundles.intermediaries.personhealthsearch.aggregator.PersonHealthResponseAggregator"/>
 			
-	<bean id="personHealthMockInputProcessor" 
-		class="org.ojbc.bundles.intermediaries.personhealthsearch.processor.PersonHealthMockInputProcessor" />
-		
 	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
 		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
 	</bean>		
