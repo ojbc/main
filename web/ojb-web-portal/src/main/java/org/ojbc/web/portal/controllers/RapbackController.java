@@ -106,6 +106,7 @@ public class RapbackController {
     
     @ModelAttribute
     public void addModelAttributes(Model model) {
+    	
 		for (IdentificationTransactionState state : IdentificationTransactionState.values()){
 			identificationResultStatusCodeMap.put(state.toString(), state.toString());
 		}
@@ -341,7 +342,7 @@ public class RapbackController {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return ex.getMessage() + ", please report the error and try again later.";
+			return "Got error:  " + ex.getMessage() + ", please report the error and try again later.";
 		}
 	}
 	
@@ -355,11 +356,11 @@ public class RapbackController {
 				return "success";
 			}catch(Exception e){
 				e.printStackTrace();
-				return (e.getMessage() + ", please report the error and try again later. ");
+				return ("Got error:  " + e.getMessage() + ", please report the error and try again later. ");
 			}														
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return ex.getMessage() + ", please report the error and try again later.";
+			return "Got error:  " + ex.getMessage() + ", please report the error and try again later.";
 		}
 	}
 	

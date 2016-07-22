@@ -16,13 +16,24 @@
  */
 package org.ojbc.web.portal.controllers;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class GlobalControllerAdvice {
+	
+	private final Log log = LogFactory.getLog(this.getClass());
 
     @Value("${bannerPath:/static/images/banner/Banner.png}")
     String bannerPath;
@@ -43,4 +54,12 @@ public class GlobalControllerAdvice {
         model.addAttribute("secondaryOptionsDisplay", secondaryOptionsDisplay);
         model.addAttribute("singleClickForDetail", singleClickForDetail);
     }
+    
+//	@ResponseStatus(value=HttpStatus.INTERNAL_SERVER_ERROR, reason="Internal server error, please try again later")
+	@ExceptionHandler(Exception.class)
+	public String handleEmployeeNotFoundException(HttpServletRequest request, Exception ex){
+		
+		log.error("Got exception when processing the request", ex); 
+		return "/error/500";
+	}
 }
