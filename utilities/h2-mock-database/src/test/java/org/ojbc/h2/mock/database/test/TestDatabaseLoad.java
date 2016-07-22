@@ -101,10 +101,12 @@ public class TestDatabaseLoad {
 		ResultSet rs1 = connection.createStatement().executeQuery("select * from booking where booking_number = '1234'");
 		assertTrue(rs1.next());
 		assertEquals("profile.jpg", rs1.getString("booking_photo"));
+		assertEquals("1234", rs1.getString("booking_number"));
 		
 		ResultSet rs2 = connection.createStatement().executeQuery("select * from charge where id = 1");
 		assertTrue(rs2.next());
 		assertEquals("matlock", rs2.getString("case_jurisdiction_court"));
+		assertEquals("ordinance", rs2.getString("statute_or_ordinance_number"));
 		
 		ResultSet rs3 = connection.createStatement().executeQuery("select * from person_alias where id = 1");
 		assertTrue(rs3.next());
