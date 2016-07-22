@@ -86,9 +86,12 @@ public class XpathTest {
 		
 		String weight = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.weightXPath);
 		Assert.assertEquals("110", weight.trim());	
+				
+		String addressStreetNum = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.addressStreetNumberXPath);
+		Assert.assertEquals("30", addressStreetNum);		
 		
-		String addressStreet = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.addressStreetXPath);
-		Assert.assertEquals("Main Street", addressStreet);
+		String addressStreet = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.addressStreetNameXPath);
+		Assert.assertEquals("Main Street", addressStreet);		
 		
 		String addressCity = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.addressCityXPath);
 		Assert.assertEquals("Denton", addressCity);

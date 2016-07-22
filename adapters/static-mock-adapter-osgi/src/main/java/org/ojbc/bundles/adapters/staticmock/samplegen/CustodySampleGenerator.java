@@ -584,12 +584,12 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 			
 			Element personNameEl = XmlUtils.appendElement(idPersonRepEl, OjbcNamespaceContext.NS_NC_30, "PersonName");
 												
-			String aliasfName = getRandomName();						
+			String aliasfName = getRandomIdentity(null).firstName;						
 			aliasfName = aliasfName.trim();			
 			Element givenNameEl = XmlUtils.appendElement(personNameEl, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");			
 			givenNameEl.setTextContent(aliasfName);							
 								
-			String aliasLName = getRandomName();														
+			String aliasLName = getRandomIdentity(null).lastName;														
 			aliasLName = aliasLName.trim();			
 			Element surNameEl = XmlUtils.appendElement(personNameEl, OjbcNamespaceContext.NS_NC_30, "PersonSurName");			
 			surNameEl.setTextContent(aliasLName);				
