@@ -109,6 +109,10 @@ public class TestDatabaseLoad {
 		ResultSet rs3 = connection.createStatement().executeQuery("select * from person_alias where id = 1");
 		assertTrue(rs3.next());
 		assertEquals("homy", rs3.getString("alias_first_name"));
+		
+		ResultSet rs4 = connection.createStatement().executeQuery("select * from scars_marks_tattoos where id = 1");
+		assertTrue(rs4.next());
+		assertEquals("dragon tatoo", rs4.getString("scars_marks_tattoos_description"));
 	}
 
 

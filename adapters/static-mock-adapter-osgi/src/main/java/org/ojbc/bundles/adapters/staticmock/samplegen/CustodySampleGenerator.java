@@ -17,8 +17,10 @@
 package org.ojbc.bundles.adapters.staticmock.samplegen;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -51,6 +53,8 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 	private int arrestCount = 2;
 	
 	private int chargesPerArrest = 3;
+	
+	private static final SimpleDateFormat SDF_DATE = new SimpleDateFormat("yyyy-MM-dd");
 	
 	
 	public CustodySampleGenerator() throws ParserConfigurationException,
@@ -479,6 +483,13 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		Element personSurNameElement = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC_30, "PersonSurName");		
 		personSurNameElement.setTextContent(getLastNameSample(person));
 					
+		
+		Element physicalFeatureEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonPhysicalFeature");
+		
+		Element physFeatDescEl = XmlUtils.appendElement(physicalFeatureEl, OjbcNamespaceContext.NS_NC_30, "PhysicalFeatureDescriptionText");
+		
+		physFeatDescEl.setTextContent(randomString("Tatoo", "Missing left arm", "Very Tall"));
+		
 		Element personLangEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC_30, "PersonPrimaryLanguage");		
 		Element langNamEl = XmlUtils.appendElement(personLangEl, OjbcNamespaceContext.NS_NC_30, "LanguageName");		
 		langNamEl.setTextContent(randomString("English", "Francais", "Espagnol", "Norsk", "Ewe", "Catocoli", "Cabiait"));
@@ -549,7 +560,47 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		String sPersonSid = RandomStringUtils.randomAlphanumeric(8);
 		
 		personStateFingerIdValElement.setTextContent(sPersonSid);
-							
+				
+		
+		int aliasCount = 2;
+		
+		for(int aliasIndex = 0; aliasIndex < aliasCount; aliasIndex++){
+			
+			String sAliasIndex = String.valueOf(aliasIndex);
+			
+			Element identityEl = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_NC_30, "Identity");
+			
+			XmlUtils.addAttribute(identityEl, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Alias_" + sAliasIndex);
+			
+			Element idPersonRepEl = XmlUtils.appendElement(identityEl, OjbcNamespaceContext.NS_NC_30, "IdentityPersonRepresentation");
+			
+			Date aliasDob = new Date();
+			
+			Element personDobEl = XmlUtils.appendElement(idPersonRepEl, OjbcNamespaceContext.NS_NC_30, "PersonBirthDate");			
+			Element personDobValEl = XmlUtils.appendElement(personDobEl, OjbcNamespaceContext.NS_NC_30, "Date");
+						
+			String sDob = SDF_DATE.format(aliasDob);			
+			personDobValEl.setTextContent(sDob);
+			
+			Element personNameEl = XmlUtils.appendElement(idPersonRepEl, OjbcNamespaceContext.NS_NC_30, "PersonName");
+												
+			String aliasfName = getRandomName();						
+			aliasfName = aliasfName.trim();			
+			Element givenNameEl = XmlUtils.appendElement(personNameEl, OjbcNamespaceContext.NS_NC_30, "PersonGivenName");			
+			givenNameEl.setTextContent(aliasfName);							
+								
+			String aliasLName = getRandomName();														
+			aliasLName = aliasLName.trim();			
+			Element surNameEl = XmlUtils.appendElement(personNameEl, OjbcNamespaceContext.NS_NC_30, "PersonSurName");			
+			surNameEl.setTextContent(aliasLName);				
+									
+			String aliasSexCode = randomString("M", "F", "U");							
+			aliasSexCode = aliasSexCode.trim();			
+			Element aliasSexCodeEl = XmlUtils.appendElement(idPersonRepEl, OjbcNamespaceContext.NS_JXDM_51, "PersonSexCode");			
+			aliasSexCodeEl.setTextContent(aliasSexCode);			
+		}
+								
+		
 		Element locationElement = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_NC_30, "Location");
 		
 		String locationElementId = "Loc_" + recordId; 
@@ -670,6 +721,25 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 			}
 		}
 				
+				
+		Element personAliasIdentityAssocEl = XmlUtils.appendElement(custodyElement, 
+				OjbcNamespaceContext.NS_NC_30, "PersonAliasIdentityAssociation");
+		
+		Element mainPersonEl = XmlUtils.appendElement(personAliasIdentityAssocEl, OjbcNamespaceContext.NS_NC_30, "Person");
+		
+		XmlUtils.addAttribute(mainPersonEl, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", personRecId);
+				
+		for(int i = 0; i< aliasCount; i++){
+			
+			String sAliasAssocIndex = String.valueOf(i);
+			
+			Element identityEl = XmlUtils.appendElement(personAliasIdentityAssocEl, OjbcNamespaceContext.NS_NC_30, "Identity");
+			
+			String aliasElId = "Alias_" + sAliasAssocIndex; 
+			
+			XmlUtils.addAttribute(identityEl, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", aliasElId);			
+		}		
+						
 		
 		Element activPersonAssocEl = XmlUtils.appendElement(custodyElement, OjbcNamespaceContext.NS_NC_30, "ActivityPersonAssociation");
 		
