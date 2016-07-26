@@ -85,6 +85,10 @@
 								
 									$.get("instanceDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
 										$('#custodyDetailTabsHolder').html(data);
+										
+				  						var modalIframe = $("#modalIframe", parent.document);
+				  						modalIframe.height(modalIframe.contents().find("body").height() + 16);
+										
 									}).fail(ojbc.displayIncidentDetailFailMessage);
 								
 								}).hover(function () {
@@ -103,7 +107,7 @@
 							</tr>
 							<xsl:apply-templates /> 
 						</table>
-						<div id="custodyDetailTabsHolder" style="overflow:auto; width:100%; height:100%"/>   
+						<div id="custodyDetailTabsHolder"/>   
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:otherwise>
