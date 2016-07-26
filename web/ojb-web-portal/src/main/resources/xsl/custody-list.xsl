@@ -56,7 +56,7 @@
 			<xsl:otherwise>
 				<xsl:choose>
 					<xsl:when test="count(cs-res-ext:CustodySearchResult) = 0">
-						<table id="incidentsError" class="detailsTable">
+						<table id="custodyDetailError" class="detailsTable">
 							<tr>
 								<td class="detailsTitle" >NO ASSOCIATED JAIL CUSTODY</td>
 							</tr>
@@ -79,22 +79,22 @@
 									$('#custodyTable tr').removeClass("selected");
 									$(this).addClass("selected");
 									
-									var tempDiv = '<div id="incidentDetailTemp" style="height:50%;width:100%"/>';
+									var tempDiv = '<div id="modalIframeSpinner" style="height:50%;width:100%"/>';
 									// tempDiv for css spinner - replaced upon receipt of get data
-									$('#custodyDetailTabsHolder').html(tempDiv);                                         
+									$('#custodyDetailDataHolder').html(tempDiv);                                         
 								
 									$.get("instanceDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
-										$('#custodyDetailTabsHolder').html(data);
+										$('#custodyDetailDataHolder').html(data);
 										
 				  						var modalIframe = $("#modalIframe", parent.document);
 				  						modalIframe.height(modalIframe.contents().find("body").height() + 16);
 										
-									}).fail(ojbc.displayIncidentDetailFailMessage);
+									}).fail(ojbc.displayCustodyDetailFailMessage);
 								
 								}).hover(function () {
-										$(this).addClass("incidentHover");
+										$(this).addClass("custodyDetailHover");
 								}, function () {
-										$(this).removeClass("incidentHover");
+										$(this).removeClass("custodyDetailHover");
 								});
 							});
 						</script>
@@ -107,7 +107,7 @@
 							</tr>
 							<xsl:apply-templates /> 
 						</table>
-						<div id="custodyDetailTabsHolder"/>   
+						<div id="custodyDetailDataHolder"/>   
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:otherwise>
