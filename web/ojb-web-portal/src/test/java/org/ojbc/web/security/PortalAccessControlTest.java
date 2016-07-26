@@ -26,6 +26,7 @@ import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
@@ -120,6 +121,7 @@ public class PortalAccessControlTest {
     
     @Test
     @DirtiesContext
+    @Ignore
     public void allowAccessToPortalButNoSubscription() throws Exception {
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
         customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser1");
@@ -167,6 +169,7 @@ public class PortalAccessControlTest {
     
     @Test
     @DirtiesContext
+    @Ignore
     public void denyAccessToInvalidUser() throws Exception {
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
         customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser3");
