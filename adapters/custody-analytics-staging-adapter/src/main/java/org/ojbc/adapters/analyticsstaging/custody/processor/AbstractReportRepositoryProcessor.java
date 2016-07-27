@@ -18,6 +18,8 @@ package org.ojbc.adapters.analyticsstaging.custody.processor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.Address;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAssessment;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PrescribedMedication;
@@ -391,5 +394,68 @@ public abstract class AbstractReportRepositoryProcessor {
 		return address;
 	}
 
+	protected LocalDateTime parseLocalDateTime(String dateTimeString) {
+		
+		try{
+			if (StringUtils.isNotBlank(dateTimeString)){
+				return LocalDateTime.parse(StringUtils.substringBefore(dateTimeString, "."));
+			}
+			else{
+				log.error("The dateTimeString can not be blank");
+			}
+		}
+		catch (DateTimeParseException e){
+			log.error("Failed to parse dateTimeString " + dateTimeString, e);
+		}
+		
+		return null;
+	}
+	
+	protected LocalDate parseLocalDate(String dateString) {
+		
+		try{
+			if (StringUtils.isNotBlank(dateString)){
+				return LocalDate.parse(dateString);
+			}
+			else{
+				log.error("The dateString can not be blank");
+			}
+		}
+		catch (DateTimeParseException e){
+			log.error("Failed to parse dateTimeString " + dateString, e);
+		}
+		
+		return null;
+	}
+
+	protected CustodyRelease processCustodyReleaseInfo(LocalDateTime reportDate, Node parentNode,
+			String bookingNumber) throws Exception {
+		String supervisionReleaseEligibilityDate = XmlUtils.xPathStringSearch(parentNode, 
+        		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseEligibilityDate/nc30:Date");
+        
+        String supervisionReleaseDate = XmlUtils.xPathStringSearch(parentNode, 
+        		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:DateTime");
+        CustodyRelease custodyRelease = new CustodyRelease();
+        
+        if (StringUtils.isNotBlank(supervisionReleaseDate) || StringUtils.isNotBlank(supervisionReleaseEligibilityDate)){
+        	
+        	if (StringUtils.isNotBlank(supervisionReleaseDate)){
+        		custodyRelease.setReleaseDate(LocalDateTime.parse(supervisionReleaseDate));
+        	}
+        	
+        	if (StringUtils.isNotBlank(supervisionReleaseEligibilityDate)){
+        		custodyRelease.setScheduledReleaseDate(LocalDate.parse(supervisionReleaseEligibilityDate));
+        	}
+        	
+        	custodyRelease.setBookingNumber(bookingNumber);
+        	custodyRelease.setReportDate(reportDate);
+        	
+        	if (StringUtils.isNotBlank(supervisionReleaseDate)){
+        		analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);
+        	}
+        }
+		return custodyRelease;
+	}
+	
 
 }
