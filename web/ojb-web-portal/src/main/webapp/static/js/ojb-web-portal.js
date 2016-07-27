@@ -138,6 +138,15 @@ ojbc = {
     	}
 	},
 	
+	displayCustodyDetailFailMessage : function(jqXHR, textStatus, errorThrown) {
+		if (jqXHR.status == 0) {
+    		// Likely that the SAML assertion timed out -- force reload of the iframe's parent page
+			parent.location.reload();
+    	} else {
+    		$('#custodyDetailDataHolder').html('<table class="detailsTable"><tr><td class="detailsTitle">UNABLE TO VIEW CUSTODY DETAILS</td></tr><tr><td><span class="error">A server-side error occurred. Please re-select the item to try again. If problem persists, contact your IT department.</span></td></tr></table>');
+    	}
+	},	
+	
 	displayComingSoonMessage : function() {
 		$('#portalContent').html("<span class='error'>Coming soon!</span>");
 	},
