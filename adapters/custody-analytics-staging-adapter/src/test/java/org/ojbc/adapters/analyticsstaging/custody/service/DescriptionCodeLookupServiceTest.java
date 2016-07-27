@@ -21,7 +21,6 @@ import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
@@ -51,8 +50,8 @@ public class DescriptionCodeLookupServiceTest {
 
 	@Test
 	public void test(){
-		assertEquals(Integer.valueOf(1), descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, "Asian"));
-		assertEquals(Integer.valueOf(2), descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, "Female"));
+		assertEquals(Integer.valueOf(2), descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, "A"));
+		assertEquals(Integer.valueOf(2), descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, "F"));
 		assertNull(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, "W"));
 		assertEquals(Integer.valueOf(1),descriptionCodeLookupService.retrieveCode(CodeTable.Agency, "Adams County SO"));
 	}
