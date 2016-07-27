@@ -53,7 +53,6 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 		
 		Integer bookingId = processBookingReport(report);
 		processBookingArrests(report, bookingId);
-		processBookingCharges(report, bookingId);
 		
 		log.info("Processed booking report.");
 		
@@ -190,33 +189,15 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 		String bookingNumber = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID");
 		booking.setBookingNumber(bookingNumber);
 		
-        String supervisionReleaseEligibilityDate = XmlUtils.xPathStringSearch(bookingReportNode, 
-        		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseEligibilityDate/nc30:Date");
+        CustodyRelease custodyRelease = processCustodyReleaseInfo(booking.getBookingReportDate(), bookingReportNode,
+				bookingNumber);
         
-        String supervisionReleaseDate = XmlUtils.xPathStringSearch(bookingReportNode, 
-        		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:DateTime");
-        if (StringUtils.isNotBlank(supervisionReleaseDate) || StringUtils.isNotBlank(supervisionReleaseEligibilityDate)){
-        	CustodyRelease custodyRelease = new CustodyRelease();
-        	
-        	if (StringUtils.isNotBlank(supervisionReleaseDate)){
-        		custodyRelease.setReleaseDate(LocalDateTime.parse(supervisionReleaseDate));
-        	}
-        	
-        	if (StringUtils.isNotBlank(supervisionReleaseEligibilityDate)){
-        		custodyRelease.setScheduledReleaseDate(LocalDate.parse(supervisionReleaseEligibilityDate));
-        	}
-        	
-        	custodyRelease.setBookingNumber(bookingNumber);
-        	custodyRelease.setReportDate(booking.getBookingReportDate());
-        	
-        	booking.setCustodyRelease(custodyRelease);
-        	analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);
-        }
+        booking.setCustodyRelease(custodyRelease);
         
         Integer bookingId = analyticalDatastoreDAO.saveBooking(booking);
 		return bookingId;
 	}
-	
+
 	private Integer processPersonAndBehavioralHealthInfo(Document report) throws Exception {
 		
 		Node personNode = XmlUtils.xPathNodeSearch(report, 
