@@ -64,6 +64,7 @@
 					<nc:IdentificationID>Booking Subject Number</nc:IdentificationID>
 				</j:SubjectIdentification>
 			</j:BookingSubject>
+			<j:Arrest structures:ref="Arrest_01" />
 		</j:Booking>
 		<j:Detention structures:id="Detention_01">
 			<nc:ActivityDate>
@@ -139,6 +140,7 @@
 			<j:ArrestAgency>
 				<nc:OrganizationName>Arrest Agency name</nc:OrganizationName>
 			</j:ArrestAgency>
+			<j:ArrestCharge structures:ref="Charge_01" />
 			<j:ArrestLocation structures:ref="Loc_01" />
 		</j:Arrest>
 		<j:PersonCriminalHistorySummary
