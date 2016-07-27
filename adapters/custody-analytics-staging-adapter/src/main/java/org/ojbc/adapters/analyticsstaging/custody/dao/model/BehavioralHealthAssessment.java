@@ -17,29 +17,31 @@
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-public class BehavioralHealthAssessment implements Serializable
-{
+public class BehavioralHealthAssessment implements Serializable{
 	private static final long serialVersionUID = 3070572325599615722L;
 	private Integer behavioralHealthAssessmentId;
-    private KeyValue behavioralHealthType; 
     private Integer personId; 
-    private LocalDate evaluationDate; 
-
+    private Boolean seriousMentalIllness;
+    private Boolean highRiskNeeds;
+    private LocalDate careEpisodeStartDate;
+    private LocalDate careEpisodeEndDate;
+    private Boolean substanceAbuse;
+    private Boolean generalMentalHealthCondition;
+    private Boolean medicaidIndicator;
+    private String regionalAuthorityAssignmentText;
+    
+    private List<KeyValue> behavioralHealthTypes; 
+    private List<PrescribedMedication> prescribedMedications; 
+    private List<Treatment> treatments;
+    
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);	
-	}
-
-	public KeyValue getBehavioralHealthType() {
-		return behavioralHealthType;
-	}
-
-	public void setBehavioralHealthType(KeyValue behavioralHealthType) {
-		this.behavioralHealthType = behavioralHealthType;
 	}
 
 	public Integer getPersonId() {
@@ -50,14 +52,6 @@ public class BehavioralHealthAssessment implements Serializable
 		this.personId = personId;
 	}
 
-	public LocalDate getEvaluationDate() {
-		return evaluationDate;
-	}
-
-	public void setEvaluationDate(LocalDate evaluationDate) {
-		this.evaluationDate = evaluationDate;
-	}
-
 	public Integer getBehavioralHealthAssessmentId() {
 		return behavioralHealthAssessmentId;
 	}
@@ -65,6 +59,96 @@ public class BehavioralHealthAssessment implements Serializable
 	public void setBehavioralHealthAssessmentId(
 			Integer behavioralHealthAssessmentId) {
 		this.behavioralHealthAssessmentId = behavioralHealthAssessmentId;
+	}
+
+	public List<KeyValue> getBehavioralHealthTypes() {
+		return behavioralHealthTypes;
+	}
+
+	public void setBehavioralHealthTypes(List<KeyValue> behavioralHealthTypes) {
+		this.behavioralHealthTypes = behavioralHealthTypes;
+	}
+
+	public Boolean getSeriousMentalIllness() {
+		return seriousMentalIllness;
+	}
+
+	public void setSeriousMentalIllness(Boolean seriousMentalIllness) {
+		this.seriousMentalIllness = seriousMentalIllness;
+	}
+
+	public Boolean getHighRiskNeeds() {
+		return highRiskNeeds;
+	}
+
+	public void setHighRiskNeeds(Boolean highRiskNeeds) {
+		this.highRiskNeeds = highRiskNeeds;
+	}
+
+	public LocalDate getCareEpisodeStartDate() {
+		return careEpisodeStartDate;
+	}
+
+	public void setCareEpisodeStartDate(LocalDate careEpisodeStartDate) {
+		this.careEpisodeStartDate = careEpisodeStartDate;
+	}
+
+	public LocalDate getCareEpisodeEndDate() {
+		return careEpisodeEndDate;
+	}
+
+	public void setCareEpisodeEndDate(LocalDate careEpisodeEndDate) {
+		this.careEpisodeEndDate = careEpisodeEndDate;
+	}
+
+	public Boolean getSubstanceAbuse() {
+		return substanceAbuse;
+	}
+
+	public void setSubstanceAbuse(Boolean substanceAbuse) {
+		this.substanceAbuse = substanceAbuse;
+	}
+
+	public Boolean getGeneralMentalHealthCondition() {
+		return generalMentalHealthCondition;
+	}
+
+	public void setGeneralMentalHealthCondition(
+			Boolean generalMentalHealthCondition) {
+		this.generalMentalHealthCondition = generalMentalHealthCondition;
+	}
+
+	public Boolean getMedicaidIndicator() {
+		return medicaidIndicator;
+	}
+
+	public void setMedicaidIndicator(Boolean medicaidIndicator) {
+		this.medicaidIndicator = medicaidIndicator;
+	}
+
+	public String getRegionalAuthorityAssignmentText() {
+		return regionalAuthorityAssignmentText;
+	}
+
+	public void setRegionalAuthorityAssignmentText(
+			String regionalAuthorityAssignmentText) {
+		this.regionalAuthorityAssignmentText = regionalAuthorityAssignmentText;
+	}
+
+	public List<PrescribedMedication> getPrescribedMedications() {
+		return prescribedMedications;
+	}
+
+	public void setPrescribedMedications(List<PrescribedMedication> prescribedMedications) {
+		this.prescribedMedications = prescribedMedications;
+	}
+
+	public List<Treatment> getTreatments() {
+		return treatments;
+	}
+
+	public void setTreatments(List<Treatment> treatments) {
+		this.treatments = treatments;
 	}
 
 }

@@ -31,6 +31,7 @@ public class BookingSubject implements Serializable
 	private Integer occupationId; 
 	private Integer incomeLevelId; 
 	private Integer housingStatusId; 
+	private String militaryServiceStatusCode; 
 
 	@Override
 	public String toString() {
@@ -99,5 +100,13 @@ public class BookingSubject implements Serializable
 
 	public void setPersonId(Integer personId) {
 		this.personId = personId;
+	}
+
+	public String getMilitaryServiceStatusCode() {
+		return militaryServiceStatusCode;
+	}
+
+	public void setMilitaryServiceStatusCode(String militaryServiceStatusCode) {
+		this.militaryServiceStatusCode = militaryServiceStatusCode;
 	}
 }

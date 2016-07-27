@@ -15,67 +15,49 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
-
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-public class CustodyRelease implements Serializable{
+public class BehavioralHealthEvaluation implements Serializable
+{
+	private static final long serialVersionUID = 6669243492957009481L;
+	private Integer behavioralHealthEvaluationId;
+	private Integer behavioralHealthTypeId;
+    private Integer behavioralHealthAssessmentId; 
 
-	private static final long serialVersionUID = 8932138565832446354L;
-	//pk
-	private Integer custodyReleaseId;
-	private LocalDateTime reportDate;
-	private LocalDateTime releaseDate; 
-	private LocalDate scheduledReleaseDate; 
-	private String bookingNumber; 
-	
-	@Override
+    @Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);	
 	}
 
-	public String getBookingNumber() {
-		return bookingNumber;
+	public Integer getBehavioralHealthEvaluationId() {
+		return behavioralHealthEvaluationId;
 	}
 
-	public void setBookingNumber(String bookingNumber) {
-		this.bookingNumber = bookingNumber;
+	public void setBehavioralHealthEvaluationId(
+			Integer behavioralHealthEvaluationId) {
+		this.behavioralHealthEvaluationId = behavioralHealthEvaluationId;
 	}
 
-	public Integer getCustodyReleaseId() {
-		return custodyReleaseId;
+	public Integer getBehavioralHealthTypeId() {
+		return behavioralHealthTypeId;
 	}
 
-	public void setCustodyReleaseId(Integer custodyReleaseId) {
-		this.custodyReleaseId = custodyReleaseId;
+	public void setBehavioralHealthTypeId(Integer behavioralHealthTypeId) {
+		this.behavioralHealthTypeId = behavioralHealthTypeId;
 	}
 
-	public LocalDateTime getReportDate() {
-		return reportDate;
+	public Integer getBehavioralHealthAssessmentId() {
+		return behavioralHealthAssessmentId;
 	}
 
-	public void setReportDate(LocalDateTime reportDate) {
-		this.reportDate = reportDate;
-	}
-
-	public LocalDateTime getReleaseDate() {
-		return releaseDate;
-	}
-
-	public void setReleaseDate(LocalDateTime releaseDate) {
-		this.releaseDate = releaseDate;
-	}
-
-	public LocalDate getScheduledReleaseDate() {
-		return scheduledReleaseDate;
-	}
-
-	public void setScheduledReleaseDate(LocalDate scheduledReleaseDate) {
-		this.scheduledReleaseDate = scheduledReleaseDate;
+	public void setBehavioralHealthAssessmentId(
+			Integer behavioralHealthAssessmentId) {
+		this.behavioralHealthAssessmentId = behavioralHealthAssessmentId;
 	}
 
 

@@ -1,4 +1,5 @@
 /*
+
  * Unless explicitly acquired and licensed from Licensor under another license, the contents of
  * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
  * versions as allowed by the RPL, and You may not copy or use this file in either source code
@@ -43,12 +44,12 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 	private static final Log log = LogFactory.getLog( CustodyStatusChangeReportProcessor.class );
 	
 	@Transactional
-	public void processReport(Document report, String personUniqueIdentifier) throws Exception
+	public void processReport(Document report) throws Exception
 	{
 		log.info("Processing custody status change report." );
 		XmlUtils.printNode(report);
 		
-		Integer custodyStatusChangeId = processCustodyStatusChangeReport(report, personUniqueIdentifier);
+		Integer custodyStatusChangeId = processCustodyStatusChangeReport(report);
 		processCustodyStatusChangeCharges(report, custodyStatusChangeId);
 		
 		log.info("Processed custody status change report successfully.");
@@ -98,16 +99,16 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 	}
 
 	@Transactional
-	private Integer processCustodyStatusChangeReport(Document report, String personUniqueIdentifier) throws Exception {
+	private Integer processCustodyStatusChangeReport(Document report) throws Exception {
 		CustodyStatusChange custodyStatusChange = new CustodyStatusChange();
 		
 		Node personNode = XmlUtils.xPathNodeSearch(report, "/cscr-doc:CustodyStatusChangeReport/cscr-ext:Custody/nc30:Person");
         
         Node custodyNode = XmlUtils.xPathNodeSearch(report, "/cscr-doc:CustodyStatusChangeReport/cscr-ext:Custody");
-		String bookingNumber = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");
+		String bookingNumber = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/jxdm51:BookingSubject/jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID");
 		custodyStatusChange.setBookingNumber(bookingNumber);
 		
-        Integer bookingSubjectId = saveCustodyStatusChangeSubject(personNode, personUniqueIdentifier, bookingNumber);
+        Integer bookingSubjectId = processBookingSubjectAndBehavioralHealthInfo(personNode, bookingNumber);
         custodyStatusChange.setBookingSubjectId(bookingSubjectId);
         
         
@@ -166,11 +167,12 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 		return custodyStatusChangeId;
 	}
 
-	private Integer saveCustodyStatusChangeSubject(Node personNode,
-			String personUniqueIdentifier, String bookingNumber) throws Exception {
+	private Integer processBookingSubjectAndBehavioralHealthInfo(Node personNode, String bookingNumber) throws Exception {
+		
+		String personUniqueIdentifier = getPersonUniqueIdentifier(personNode, "cscr-ext:PersonPersistentIdentification/nc30:IdentificationID");
 		
 		BookingSubject bookingSubject = new BookingSubject();
-
+		
 		Integer personId = analyticalDatastoreDAO.getPersonIdByUniqueId(personUniqueIdentifier);
 
 		if (personId != null){

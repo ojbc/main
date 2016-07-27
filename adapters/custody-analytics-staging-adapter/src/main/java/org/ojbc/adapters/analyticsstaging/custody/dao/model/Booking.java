@@ -17,7 +17,6 @@
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -31,20 +30,14 @@ public class Booking implements Serializable{
 	private Integer bookingId;
 	private Integer jurisdictionId; 
 	private LocalDateTime bookingReportDate;
-	private Integer sendingAgencyId;
 	private LocalDateTime bookingDate; 
 	private LocalDate commitDate; 
 	private String bookingReportId;
 	private Integer caseStatusId; 
-	private Integer pretrialStatusId; 
 	private Integer facilityId; 
 	private Integer bedTypeId; 
-	private BigDecimal arrestLocationLatitude; 
-	private BigDecimal arrestLocationLongitude; 
 	private Integer bookingSubjectId; 
 	private String bookingNumber; 
-    private BigDecimal bondAmount; 
-    private KeyValue bondType;
     private CustodyRelease custodyRelease;
 	
 	public Integer getBookingId() {
@@ -75,14 +68,6 @@ public class Booking implements Serializable{
 		this.bookingReportDate = bookingReportDate;
 	}
 
-	public Integer getSendingAgencyId() {
-		return sendingAgencyId;
-	}
-
-	public void setSendingAgencyId(Integer sendingAgencyId) {
-		this.sendingAgencyId = sendingAgencyId;
-	}
-
 	public LocalDateTime getBookingDate() {
 		return bookingDate;
 	}
@@ -107,14 +92,6 @@ public class Booking implements Serializable{
 		this.caseStatusId = caseStatusId;
 	}
 
-	public Integer getPretrialStatusId() {
-		return pretrialStatusId;
-	}
-
-	public void setPretrialStatusId(Integer pretrialStatusId) {
-		this.pretrialStatusId = pretrialStatusId;
-	}
-
 	public Integer getFacilityId() {
 		return facilityId;
 	}
@@ -129,22 +106,6 @@ public class Booking implements Serializable{
 
 	public void setBedTypeId(Integer bedTypeId) {
 		this.bedTypeId = bedTypeId;
-	}
-
-	public BigDecimal getArrestLocationLatitude() {
-		return arrestLocationLatitude;
-	}
-
-	public void setArrestLocationLatitude(BigDecimal arrestLocationLatitude) {
-		this.arrestLocationLatitude = arrestLocationLatitude;
-	}
-
-	public BigDecimal getArrestLocationLongitude() {
-		return arrestLocationLongitude;
-	}
-
-	public void setArrestLocationLongitude(BigDecimal arrestLocationLongitude) {
-		this.arrestLocationLongitude = arrestLocationLongitude;
 	}
 
 	public Integer getBookingSubjectId() {
@@ -169,22 +130,6 @@ public class Booking implements Serializable{
 
 	public void setBookingNumber(String bookingNumber) {
 		this.bookingNumber = bookingNumber;
-	}
-
-	public BigDecimal getBondAmount() {
-		return bondAmount;
-	}
-
-	public void setBondAmount(BigDecimal bondAmount) {
-		this.bondAmount = bondAmount;
-	}
-
-	public KeyValue getBondType() {
-		return bondType;
-	}
-
-	public void setBondType(KeyValue bondType) {
-		this.bondType = bondType;
 	}
 
 	public CustodyRelease getCustodyRelease() {

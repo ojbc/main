@@ -16,17 +16,16 @@
  */
 
 -- Person Sex Codes
-insert into PersonSex(PersonSexDescription) values('Male');
-insert into PersonSex(PersonSexDescription) values('Female');
-insert into PersonSex(PersonSexDescription) values('Unknown');
+insert into PersonSex(PersonSexID, PersonSexCode, PersonSexDescription) values(1, 'M', 'Male');
+insert into PersonSex(PersonSexID, PersonSexCode, PersonSexDescription) values(2, 'F', 'Female');
+insert into PersonSex(PersonSexID, PersonSexCode, PersonSexDescription) values(3, 'U', 'Unknown');
 
 -- Person Race Codes
-insert into PersonRace(PersonRaceID, PersonRaceDescription) values(1, 'Asian');
-insert into PersonRace(PersonRaceID, PersonRaceDescription) values(2, 'Black/African-American');
-insert into PersonRace(PersonRaceID, PersonRaceDescription) values(3, 'American Indian/Alaska Native');
-insert into PersonRace(PersonRaceID, PersonRaceDescription) values(5, 'White');
-insert into PersonRace(PersonRaceID, PersonRaceDescription) values(6, 'Hispanic');
-insert into PersonRace(PersonRaceID, PersonRaceDescription) values(7, 'Unknown');
+insert into PersonRace(PersonRaceID, PersonRaceCode, PersonRaceDescription) values(1, 'I', 'American Indian or Alaskan Native');
+insert into PersonRace(PersonRaceID, PersonRaceCode, PersonRaceDescription) values(2, 'A', 'Asian or Pacific Islander');
+insert into PersonRace(PersonRaceID, PersonRaceCode, PersonRaceDescription) values(3, 'U', 'Unknown');
+insert into PersonRace(PersonRaceID, PersonRaceCode, PersonRaceDescription) values(4, 'W', 'White');
+insert into PersonRace(PersonRaceID, PersonRaceCode, PersonRaceDescription) values(5, 'B', 'Black');
 
 -- Agency - Placeholder while waiting for code values
 insert into Agency(AgencyID, AgencyName) values (1, 'Adams County SO');
@@ -57,6 +56,7 @@ insert into BondType (BondType) values('Cash');
 insert into BondType (BondType) values('Surety');
 insert into BondType (BondType) values('Property');
 insert into BondType (BondType) values('Deposit');
+insert into BondType (BondType) values('Unknown');
 
 -- CaseStatus
 insert into CaseStatus (CaseStatusID, CaseStatus) values('1','Pretrial');
@@ -76,14 +76,8 @@ insert into ChargeType (ChargeTypeID, ChargeType) values('9','Unknown');
 insert into Jurisdiction (JurisdictionID, JurisdictionName) values('1','State Court');
 insert into Jurisdiction (JurisdictionID, JurisdictionName) values('2','County Court');
 insert into Jurisdiction (JurisdictionID, JurisdictionName) values('3','Municipal Court');
+insert into Jurisdiction (JurisdictionID, JurisdictionName) values('4','Case Court');
 insert into Jurisdiction (JurisdictionID, JurisdictionName) values('9','Unknown');
-
--- PretrialStatus
-insert into PretrialStatus (PretrialStatusID, PretrialStatus) values('1','Jail');
-insert into PretrialStatus (PretrialStatusID, PretrialStatus) values('2','SRP');
-insert into PretrialStatus (PretrialStatusID, PretrialStatus) values('3','Cash');
-insert into PretrialStatus (PretrialStatusID, PretrialStatus) values('4','Surety');
-insert into PretrialStatus (PretrialStatusID, PretrialStatus) values('5','PR');
 
 -- HousingStatus
 insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('1','Residence');

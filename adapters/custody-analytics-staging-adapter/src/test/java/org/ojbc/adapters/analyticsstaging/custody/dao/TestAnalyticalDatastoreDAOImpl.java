@@ -19,7 +19,6 @@ package org.ojbc.adapters.analyticsstaging.custody.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -31,12 +30,10 @@ import junit.framework.Assert;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -84,17 +81,13 @@ public class TestAnalyticalDatastoreDAOImpl {
 		booking.setJurisdictionId(1);
 		booking.setBookingReportDate(LocalDateTime.parse("2016-02-13T10:23:23"));
 		booking.setBookingReportId("bookingReportId");
-		booking.setSendingAgencyId(5);
 		booking.setCaseStatusId(3);
 		booking.setBookingDate(LocalDateTime.parse("2013-12-17T09:30:00"));
 		booking.setCommitDate(LocalDate.parse("2013-12-17"));
-		booking.setPretrialStatusId(3);
 		booking.setFacilityId(1);
 		booking.setBedTypeId(2);
 		booking.setBookingSubjectId(bookingSubjectPk);
 		booking.setBookingNumber("bookingNumber");
-		booking.setBondAmount(new BigDecimal("500.00"));
-		booking.setBondType(new KeyValue(1, "Cash"));
 		
 		int bookingPk = analyticalDatastoreDAO.saveBooking( booking );
 		assertEquals(1, bookingPk);
@@ -118,8 +111,8 @@ public class TestAnalyticalDatastoreDAOImpl {
 	protected Person getStaticPerson() {
 		Person person = new Person();
 		
-		person.setPersonRaceID(1);
-		person.setPersonSexID(2);
+		person.setPersonRaceId(1);
+		person.setPersonSexId(2);
 		person.setPersonBirthDate(LocalDate.parse("1966-06-01"));
 		person.setPersonUniqueIdentifier("123332123123unique");
 		person.setLanguageId(2);
@@ -137,5 +130,10 @@ public class TestAnalyticalDatastoreDAOImpl {
 		return bookingSubject;
 	}
 
-
+	@Test
+	public void testGetMedicationId(){
+		Integer medicationId = analyticalDatastoreDAO.getMedicationId("fakeId", "fakeName");
+		
+		assertNull(medicationId);
+	}
 }

@@ -27,10 +27,19 @@ use CustodyAnalyticsDataStore;
 
 
 
+CREATE TABLE Medication (
+                MedicationID BIGINT AUTO_INCREMENT NOT NULL,
+                GeneralProductID VARCHAR(50),
+                ItemName VARCHAR(100),
+                PRIMARY KEY (MedicationID)
+);
+
+
 CREATE TABLE CustodyRelease (
                 CustodyReleaseID BIGINT AUTO_INCREMENT NOT NULL,
                 BookingNumber VARCHAR(50) NOT NULL,
                 ReleaseDate DATETIME NOT NULL,
+                ScheduledReleaseDate DATE,
                 ReportDate DATETIME NOT NULL,
                 PRIMARY KEY (CustodyReleaseID)
 );
@@ -95,13 +104,6 @@ CREATE TABLE BedType (
 );
 
 
-CREATE TABLE PretrialStatus (
-                PretrialStatusID INT AUTO_INCREMENT NOT NULL,
-                PretrialStatus VARCHAR(100) NOT NULL,
-                PRIMARY KEY (PretrialStatusID)
-);
-
-
 CREATE TABLE BehavioralHealthType (
                 BehavioralHealthTypeID INT AUTO_INCREMENT NOT NULL,
                 BehavioralHealthDescription VARCHAR(50) NOT NULL,
@@ -110,14 +112,16 @@ CREATE TABLE BehavioralHealthType (
 
 
 CREATE TABLE PersonRace (
-                PersonRaceID INT AUTO_INCREMENT NOT NULL,
+                PersonRaceID SMALLINT AUTO_INCREMENT NOT NULL,
+                PersonRaceCode VARCHAR(10) NOT NULL,
                 PersonRaceDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (PersonRaceID)
 );
 
 
 CREATE TABLE PersonSex (
-                PersonSexID INT AUTO_INCREMENT NOT NULL,
+                PersonSexID SMALLINT AUTO_INCREMENT NOT NULL,
+                PersonSexCode VARCHAR(1) NOT NULL,
                 PersonSexDescription VARCHAR(7) NOT NULL,
                 PRIMARY KEY (PersonSexID)
 );
@@ -126,10 +130,20 @@ CREATE TABLE PersonSex (
 CREATE TABLE Person (
                 PersonID INT AUTO_INCREMENT NOT NULL,
                 PersonUniqueIdentifier VARCHAR(36) NOT NULL,
-                PersonSexID INT,
+                BookingSubjectNumber VARCHAR(36),
+                PersonSSN VARCHAR(15),
+                PersonSID VARCHAR(15),
+                PersonEyeColor VARCHAR(20),
+                PersonHairColor VARCHAR(20),
+                PersonHeight VARCHAR(10),
+                PersonHeightMeasureUnit VARCHAR(10),
+                PersonWeight VARCHAR(10),
+                PersonWeightMeasureUnit VARCHAR(10),
+                RegisteredSexOffender BOOLEAN,
                 PersonBirthDate DATE,
-                PersonRaceID INT,
                 LanguageID INT,
+                PersonSexID SMALLINT NOT NULL,
+                PersonRaceID SMALLINT NOT NULL,
                 CreationDate DATETIME DEFAULT now() NOT NULL,
                 PRIMARY KEY (PersonID)
 );
@@ -144,16 +158,54 @@ CREATE TABLE BookingSubject (
                 OccupationID INT,
                 IncomeLevelID INT,
                 HousingStatusID INT,
+                MilitaryServiceStatusCode VARCHAR(20),
                 PRIMARY KEY (BookingSubjectID)
 );
 
 
 CREATE TABLE BehavioralHealthAssessment (
                 BehavioralHealthAssessmentID INT AUTO_INCREMENT NOT NULL,
-                BehavioralHealthTypeID INT NOT NULL,
-                EvaluationDate DATE NOT NULL,
                 PersonID INT NOT NULL,
+                SeriousMentalIllness BOOLEAN,
+                HighRiskNeeds BOOLEAN,
+                CareEpisodeStartDate DATE,
+                CareEpisodeEndDate DATE,
+                SubstanceAbuse BOOLEAN,
+                GeneralMentalHealthCondition BOOLEAN,
+                MedicaidIndicator BOOLEAN,
+                RegionalAuthorityAssignmentText VARCHAR(20),
                 PRIMARY KEY (BehavioralHealthAssessmentID)
+);
+
+
+CREATE TABLE PrescribedMedication (
+                PrescribedMedicationID BIGINT AUTO_INCREMENT NOT NULL,
+                BehavioralHealthAssessmentID INT NOT NULL,
+                MedicationID BIGINT NOT NULL,
+                MedicationDispensingDate DATE,
+                MedicationDoseMeasure VARCHAR(10),
+                PRIMARY KEY (PrescribedMedicationID)
+);
+
+
+CREATE TABLE Treatment (
+                TreatmentID BIGINT AUTO_INCREMENT NOT NULL,
+                BehavioralHealthAssessmentID INT NOT NULL,
+                StartDate DATE,
+                EndDate DATE,
+                TreatmentCourtOrdered BOOLEAN,
+                TreatmentText VARCHAR(100),
+                TreatmentProvider VARCHAR(100),
+                TreatmentActive BOOLEAN,
+                PRIMARY KEY (TreatmentID)
+);
+
+
+CREATE TABLE BehavioralHealthEvaluation (
+                BehavioralHealthEvaluationID BIGINT AUTO_INCREMENT NOT NULL,
+                BehavioralHealthTypeID INT NOT NULL,
+                BehavioralHealthAssessmentID INT NOT NULL,
+                PRIMARY KEY (BehavioralHealthEvaluationID)
 );
 
 
@@ -178,6 +230,40 @@ CREATE TABLE Jurisdiction (
 );
 
 
+CREATE TABLE CustodyStatusChange (
+                CustodyStatusChangeID BIGINT AUTO_INCREMENT NOT NULL,
+                ReportID VARCHAR(30) NOT NULL,
+                BookingDate DATETIME NOT NULL,
+                CommitDate DATE NOT NULL,
+                BookingNumber VARCHAR(50) NOT NULL,
+                ScheduledReleaseDate DATE,
+                ArrestLocationLatitude NUMERIC(14,10),
+                ArrestLocationLongitude NUMERIC(14,10),
+                BookingSubjectID INT NOT NULL,
+                BedTypeID INT NOT NULL,
+                CaseStatusID INT NOT NULL,
+                JurisdictionID INT NOT NULL,
+                FacilityID INT NOT NULL,
+                ReportDate DATETIME NOT NULL,
+                PRIMARY KEY (CustodyStatusChangeID)
+);
+
+
+CREATE TABLE CustodyStatusChangeArrest (
+                CustodyStatusChangeArrestID BIGINT AUTO_INCREMENT NOT NULL,
+                CustodyStatusChangeID BIGINT NOT NULL,
+                StreetNumber VARCHAR(50),
+                StreetName VARCHAR(150),
+                AddressSecondaryUnit VARCHAR(150),
+                City VARCHAR(100),
+                State VARCHAR(10),
+                PostalCode VARCHAR(10),
+                ArrestLocationLatitude NUMERIC(14,10),
+                ArrestLocationLongitude NUMERIC(14,10),
+                PRIMARY KEY (CustodyStatusChangeArrestID)
+);
+
+
 CREATE TABLE Agency (
                 AgencyID INT AUTO_INCREMENT NOT NULL,
                 AgencyName VARCHAR(40) NOT NULL,
@@ -185,32 +271,15 @@ CREATE TABLE Agency (
 );
 
 
-CREATE TABLE CustodyStatusChange (
-                CustodyStatusChangeID BIGINT AUTO_INCREMENT NOT NULL,
-                ReportID VARCHAR(30) NOT NULL,
-                BookingDate DATETIME NOT NULL,
-                CommitDate DATE NOT NULL,
-                BookingNumber VARCHAR(50) NOT NULL,
-                ArrestLocationLatitude NUMERIC(14,10),
-                ArrestLocationLongitude NUMERIC(14,10),
-                BondAmount NUMERIC(10,2),
-                BondTypeID INT NOT NULL,
-                BookingSubjectID INT NOT NULL,
-                BedTypeID INT NOT NULL,
-                CaseStatusID INT NOT NULL,
-                JurisdictionID INT NOT NULL,
-                SendingAgencyID INT NOT NULL,
-                PretrialStatusID INT NOT NULL,
-                FacilityID INT NOT NULL,
-                ReportDate DATETIME NOT NULL,
-                PRIMARY KEY (CustodyStatusChangeID)
-);
-
-
 CREATE TABLE CustodyStatusChangeCharge (
                 CustodyStatusChangeChargeID BIGINT AUTO_INCREMENT NOT NULL,
-                CustodyStatusChangeID BIGINT NOT NULL,
+                CustodyStatusChangeArrestID BIGINT NOT NULL,
                 ChargeTypeID INT NOT NULL,
+                NextCourtDate DATE,
+                NextCourtName VARCHAR(50),
+                BondTypeID INT NOT NULL,
+                AgencyID INT NOT NULL,
+                BondAmount NUMERIC(10,2),
                 PRIMARY KEY (CustodyStatusChangeChargeID)
 );
 
@@ -220,30 +289,51 @@ CREATE TABLE Booking (
                 JurisdictionID INT NOT NULL,
                 BookingReportDate DATETIME NOT NULL,
                 BookingReportID VARCHAR(30) NOT NULL,
-                SendingAgencyID INT NOT NULL,
                 CaseStatusID INT NOT NULL,
                 BookingDate DATETIME NOT NULL,
                 CommitDate DATE NOT NULL,
-                PretrialStatusID INT NOT NULL,
+                ScheduledReleaseDate DATE,
                 FacilityID INT NOT NULL,
                 BedTypeID INT NOT NULL,
                 BookingNumber VARCHAR(50) NOT NULL,
+                BookingSubjectID INT NOT NULL,
+                PRIMARY KEY (BookingID)
+);
+
+
+CREATE TABLE BookingArrest (
+                BookingArrestID BIGINT AUTO_INCREMENT NOT NULL,
+                BookingID BIGINT NOT NULL,
+                AddressSecondaryUnit VARCHAR(150),
+                StreetNumber VARCHAR(50),
+                StreetName VARCHAR(150),
+                City VARCHAR(100),
+                State VARCHAR(10),
+                PostalCode VARCHAR(10),
                 ArrestLocationLatitude NUMERIC(14,10),
                 ArrestLocationLongitude NUMERIC(14,10),
-                BondAmount NUMERIC(10,2),
-                BookingSubjectID INT NOT NULL,
-                BondTypeID INT NOT NULL,
-                PRIMARY KEY (BookingID)
+                PRIMARY KEY (BookingArrestID)
 );
 
 
 CREATE TABLE BookingCharge (
                 BookingChargeID INT AUTO_INCREMENT NOT NULL,
-                BookingID BIGINT NOT NULL,
+                BookingArrestID BIGINT NOT NULL,
                 ChargeTypeID INT NOT NULL,
+                NextCourtName VARCHAR(50),
+                NextCourtDate DATE,
+                AgencyID INT NOT NULL,
+                BondAmount NUMERIC(10,2),
+                BondTypeID INT NOT NULL,
                 PRIMARY KEY (BookingChargeID)
 );
 
+
+ALTER TABLE PrescribedMedication ADD CONSTRAINT medication_prescribedmedication_fk
+FOREIGN KEY (MedicationID)
+REFERENCES Medication (MedicationID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
 
 ALTER TABLE Person ADD CONSTRAINT language_person_fk
 FOREIGN KEY (LanguageID)
@@ -287,13 +377,13 @@ REFERENCES Facility (FacilityID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE Booking ADD CONSTRAINT bondtype_booking_fk
+ALTER TABLE BookingCharge ADD CONSTRAINT bondtype_bookingcharge_fk
 FOREIGN KEY (BondTypeID)
 REFERENCES BondType (BondTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE CustodyStatusChange ADD CONSTRAINT bondtype_custody_status_change_fk
+ALTER TABLE CustodyStatusChangeCharge ADD CONSTRAINT bondtype_custodystatuschangecharge_fk
 FOREIGN KEY (BondTypeID)
 REFERENCES BondType (BondTypeID)
 ON DELETE NO ACTION
@@ -311,19 +401,7 @@ REFERENCES BedType (BedTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE Booking ADD CONSTRAINT pretrialstatus_booking_fk
-FOREIGN KEY (PretrialStatusID)
-REFERENCES PretrialStatus (PretrialStatusID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE CustodyStatusChange ADD CONSTRAINT pretrialstatus_custody_status_change_fk
-FOREIGN KEY (PretrialStatusID)
-REFERENCES PretrialStatus (PretrialStatusID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE BehavioralHealthAssessment ADD CONSTRAINT healthissue_jailcustodyhealthissueassociation_fk
+ALTER TABLE BehavioralHealthEvaluation ADD CONSTRAINT behavioralhealthtype_behavioralhealthevaluation_fk
 FOREIGN KEY (BehavioralHealthTypeID)
 REFERENCES BehavioralHealthType (BehavioralHealthTypeID)
 ON DELETE NO ACTION
@@ -365,6 +443,24 @@ REFERENCES BookingSubject (BookingSubjectID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
+ALTER TABLE BehavioralHealthEvaluation ADD CONSTRAINT behavioralhealthassessment_behavioralhealthevaluation_fk
+FOREIGN KEY (BehavioralHealthAssessmentID)
+REFERENCES BehavioralHealthAssessment (BehavioralHealthAssessmentID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE Treatment ADD CONSTRAINT behavioralhealthassessment_treatment_fk
+FOREIGN KEY (BehavioralHealthAssessmentID)
+REFERENCES BehavioralHealthAssessment (BehavioralHealthAssessmentID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE PrescribedMedication ADD CONSTRAINT behavioralhealthassessment_prescribedmedication_fk
+FOREIGN KEY (BehavioralHealthAssessmentID)
+REFERENCES BehavioralHealthAssessment (BehavioralHealthAssessmentID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
 ALTER TABLE BookingCharge ADD CONSTRAINT chargetype_charge_fk
 FOREIGN KEY (ChargeTypeID)
 REFERENCES ChargeType (ChargeTypeID)
@@ -401,26 +497,38 @@ REFERENCES Jurisdiction (JurisdictionID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE Booking ADD CONSTRAINT agency_booking_fk
-FOREIGN KEY (SendingAgencyID)
-REFERENCES Agency (AgencyID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE CustodyStatusChange ADD CONSTRAINT agency_custody_status_change_fk
-FOREIGN KEY (SendingAgencyID)
-REFERENCES Agency (AgencyID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE CustodyStatusChangeCharge ADD CONSTRAINT custody_status_change_custodystatuschangecharge_fk
+ALTER TABLE CustodyStatusChangeArrest ADD CONSTRAINT custodystatuschange_custodystatuschangearrest_fk
 FOREIGN KEY (CustodyStatusChangeID)
 REFERENCES CustodyStatusChange (CustodyStatusChangeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE BookingCharge ADD CONSTRAINT booking_charge_fk
+ALTER TABLE CustodyStatusChangeCharge ADD CONSTRAINT custodystatuschangearrest_custodystatuschangecharge_fk
+FOREIGN KEY (CustodyStatusChangeArrestID)
+REFERENCES CustodyStatusChangeArrest (CustodyStatusChangeArrestID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE BookingCharge ADD CONSTRAINT agency_bookingcharge_fk
+FOREIGN KEY (AgencyID)
+REFERENCES Agency (AgencyID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE CustodyStatusChangeCharge ADD CONSTRAINT agency_custodystatuschangecharge_fk
+FOREIGN KEY (AgencyID)
+REFERENCES Agency (AgencyID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE BookingArrest ADD CONSTRAINT booking_bookingarrest_fk
 FOREIGN KEY (BookingID)
 REFERENCES Booking (BookingID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE BookingCharge ADD CONSTRAINT bookingarrest_bookingcharge_fk
+FOREIGN KEY (BookingArrestID)
+REFERENCES BookingArrest (BookingArrestID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
