@@ -231,7 +231,7 @@ public class XmlUtils {
         XPath xpath = XPathFactory.newInstance().newXPath();
         xpath.setNamespaceContext(OJBC_NAMESPACE_CONTEXT);
         XPathExpression expression = xpath.compile(xPath);
-        return (String) expression.evaluate(context, XPathConstants.STRING);
+        return StringUtils.trimToNull((String) expression.evaluate(context, XPathConstants.STRING));
     }
     
     /**
