@@ -33,6 +33,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.Address;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Agency;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAssessment;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
@@ -41,6 +42,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChange;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeArrest;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Medication;
@@ -955,14 +957,14 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	                connection.prepareStatement(sqlString, insertArgs);
         	            ps.setInt(1, bookingArrest.getBookingId());
         	            
-        	            setPreparedStatementVariable(bookingArrest.getStreetNumber(), ps, 2);
-        	            setPreparedStatementVariable(bookingArrest.getStreetName(), ps, 3);
-        	            setPreparedStatementVariable(bookingArrest.getAddressSecondaryUnit(), ps, 4);
-        	            setPreparedStatementVariable(bookingArrest.getCity(), ps, 5);
-        	            setPreparedStatementVariable(bookingArrest.getState(), ps, 6);
-        	            setPreparedStatementVariable(bookingArrest.getPostalcode(), ps, 7);
-        	            setPreparedStatementVariable(bookingArrest.getArrestLocationLatitude(), ps, 8);
-        	            setPreparedStatementVariable(bookingArrest.getArrestLocationLongitude(), ps, 9);
+        	            setPreparedStatementVariable(bookingArrest.getAddress().getStreetNumber(), ps, 2);
+        	            setPreparedStatementVariable(bookingArrest.getAddress().getStreetName(), ps, 3);
+        	            setPreparedStatementVariable(bookingArrest.getAddress().getAddressSecondaryUnit(), ps, 4);
+        	            setPreparedStatementVariable(bookingArrest.getAddress().getCity(), ps, 5);
+        	            setPreparedStatementVariable(bookingArrest.getAddress().getState(), ps, 6);
+        	            setPreparedStatementVariable(bookingArrest.getAddress().getPostalcode(), ps, 7);
+        	            setPreparedStatementVariable(bookingArrest.getAddress().getArrestLocationLatitude(), ps, 8);
+        	            setPreparedStatementVariable(bookingArrest.getAddress().getArrestLocationLongitude(), ps, 9);
         	            
         	            if (bookingArrest.getBookingArrestId() != null){
         	            	setPreparedStatementVariable(bookingArrest.getBookingArrestId(), ps, 10);
@@ -1203,14 +1205,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			bookingArrest.setBookingId(rs.getInt("bookingId"));
 			bookingArrest.setBookingArrestId(rs.getInt("bookingArrestId"));
 
-			bookingArrest.setStreetNumber(rs.getString("streetNumber"));
-			bookingArrest.setStreetName(rs.getString("streetName"));
-			bookingArrest.setAddressSecondaryUnit(rs.getString("addressSecondaryUnit"));
-			bookingArrest.setCity(rs.getString("city"));
-			bookingArrest.setState(rs.getString("State"));
-			bookingArrest.setPostalcode(rs.getString("postalcode"));
-			bookingArrest.setArrestLocationLatitude(rs.getBigDecimal("ArrestLocationLatitude"));
-			bookingArrest.setArrestLocationLongitude(rs.getBigDecimal("ArrestLocationLongitude"));
+			Address address = buildAddress(rs);
+			
+			bookingArrest.setAddress(address);
 	    	return bookingArrest;
 		}
 
@@ -1282,5 +1279,119 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	}
 
+	@Override
+	public Integer saveCustodyStatusChangeArrest(
+			CustodyStatusChangeArrest custodyStatusChangeArrest) {
+        log.debug("Inserting row into CustodyStatusChangeArrest table: " + custodyStatusChangeArrest.toString());
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	        	
+        	        	String sqlString="";
+        	        	String[] insertArgs = null;
+        	        	
+        	        	if (custodyStatusChangeArrest.getCustodyStatusChangeArrestId() != null){
+        	        		insertArgs = new String[] {"custodyStatusChangeId", "streetNumber", 
+        	                		"streetName" , "addressSecondaryUnit", "city", "state","postalcode",
+        	                		"arrestLocationLatitude", "arrestLocationLongitude", "custodyStatusChangeArrestId"};
+
+        	        		sqlString="INSERT into CustodyStatusChangeArrest (custodyStatusChangeId, streetNumber,"
+        	        				+ "streetName, addressSecondaryUnit, "
+        	        				+ "city, state, postalcode, "
+        	        				+ "arrestLocationLatitude, arrestLocationLongitude, custodyStatusChangeArrestId) "
+        	        				+ "values (?,?,?,?,?,?,?,?,?,?)";
+        	        	}	
+        	        	else{
+        	        		insertArgs = new String[] {"custodyStatusChangeId", "streetNumber", 
+        	                		"streetName" , "addressSecondaryUnit", 
+        	                		"city", "state","postalcode", 
+        	                		"arrestLocationLatitude", "arrestLocationLongitude"};
+
+        	        		sqlString="INSERT into CustodyStatusChangeArrest (custodyStatusChangeId, streetNumber,"
+        	        				+ "streetName, addressSecondaryUnit, "
+        	        				+ "city,"
+        	        				+ "state, postalcode,  "
+        	        				+ "arrestLocationLatitude, arrestLocationLongitude) "
+        	        				+ "values (?,?,?,?,?,?,?,?,?)";
+        	        		
+        	        	}	
+        	        			
+        	        	
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(sqlString, insertArgs);
+        	            ps.setInt(1, custodyStatusChangeArrest.getCustodyStatusChangeId());
+        	            
+        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getStreetNumber(), ps, 2);
+        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getStreetName(), ps, 3);
+        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getAddressSecondaryUnit(), ps, 4);
+        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getCity(), ps, 5);
+        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getState(), ps, 6);
+        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getPostalcode(), ps, 7);
+        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getArrestLocationLatitude(), ps, 8);
+        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getArrestLocationLongitude(), ps, 9);
+        	            
+        	            if (custodyStatusChangeArrest.getCustodyStatusChangeArrestId() != null){
+        	            	setPreparedStatementVariable(custodyStatusChangeArrest.getCustodyStatusChangeArrestId(), ps, 10);
+        	            }
+        	            
+        	            return ps;
+        	        }
+        	    },keyHolder);
+
+        Integer returnValue = null;
+        
+        if (custodyStatusChangeArrest.getCustodyStatusChangeArrestId() != null)
+        {
+       	 	returnValue = custodyStatusChangeArrest.getCustodyStatusChangeArrestId();
+        }	 
+        else
+        {
+       	 	returnValue = keyHolder.getKey().intValue();
+        }	 
+        
+        return returnValue;	
+	}
+
+	@Override
+	public List<CustodyStatusChangeArrest> getCustodyStatusChangeArrests(
+			Integer custodyStatusChangeId) {
+		final String sql = "SELECT * FROM CustodyStatusChangeArrest a "
+				+ "WHERE a.CustodyStatusChangeID = ?"; 
+		List<CustodyStatusChangeArrest> custodyStatusChangeArrests = 
+				jdbcTemplate.query(sql, new CustodyStatusChangeArrestRowMapper(), custodyStatusChangeId);
+		return custodyStatusChangeArrests;
+	}
+
+	public class CustodyStatusChangeArrestRowMapper implements RowMapper<CustodyStatusChangeArrest>
+	{
+		@Override
+		public CustodyStatusChangeArrest mapRow(ResultSet rs, int rowNum) throws SQLException {
+			CustodyStatusChangeArrest custodyStatusChangeArrest = new CustodyStatusChangeArrest();
+	    	
+			custodyStatusChangeArrest.setCustodyStatusChangeId(rs.getInt("custodyStatusChangeId"));
+			custodyStatusChangeArrest.setCustodyStatusChangeArrestId(rs.getInt("custodyStatusChangeArrestId"));
+
+			Address address = buildAddress(rs);
+			
+			custodyStatusChangeArrest.setAddress(address);
+	    	return custodyStatusChangeArrest;
+		}
+
+	}
+	
+	private Address buildAddress(ResultSet rs) throws SQLException {
+		Address address = new Address();
+		address.setStreetNumber(rs.getString("streetNumber"));
+		address.setStreetName(rs.getString("streetName"));
+		address.setAddressSecondaryUnit(rs.getString("addressSecondaryUnit"));
+		address.setCity(rs.getString("city"));
+		address.setState(rs.getString("State"));
+		address.setPostalcode(rs.getString("postalcode"));
+		address.setArrestLocationLatitude(rs.getBigDecimal("ArrestLocationLatitude"));
+		address.setArrestLocationLongitude(rs.getBigDecimal("ArrestLocationLongitude"));
+		return address;
+	}
 
 }

@@ -384,13 +384,13 @@ public class CamelContextTest {
 		
 		assertTrue(bookingArrest.getBookingId() == 1); 
 		assertTrue(bookingArrest.getBookingArrestId() == 1); 
-		assertEquals("392", bookingArrest.getStreetNumber()); 
-		assertEquals("Woodlawn Ave", bookingArrest.getStreetName()); 
-		assertEquals("Burlington", bookingArrest.getCity()); 
-		assertEquals("NY", bookingArrest.getState()); 
-		assertEquals("05408", bookingArrest.getPostalcode()); 
-		assertTrue(bookingArrest.getArrestLocationLatitude().doubleValue() == 56.1111 ); 
-		assertTrue(bookingArrest.getArrestLocationLongitude().doubleValue() == 32.1111 );
+		assertEquals("392", bookingArrest.getAddress().getStreetNumber()); 
+		assertEquals("Woodlawn Ave", bookingArrest.getAddress().getStreetName()); 
+		assertEquals("Burlington", bookingArrest.getAddress().getCity()); 
+		assertEquals("NY", bookingArrest.getAddress().getState()); 
+		assertEquals("05408", bookingArrest.getAddress().getPostalcode()); 
+		assertTrue(bookingArrest.getAddress().getArrestLocationLatitude().doubleValue() == 56.1111 ); 
+		assertTrue(bookingArrest.getAddress().getArrestLocationLongitude().doubleValue() == 32.1111 );
 		
 		bookingCharges = analyticalDatastoreDAOImpl.getBookingCharges( 1 ); 
 		assertFalse(bookingCharges.isEmpty());

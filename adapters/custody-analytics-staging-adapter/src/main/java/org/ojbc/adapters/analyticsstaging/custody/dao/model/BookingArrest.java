@@ -16,7 +16,6 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -26,16 +25,9 @@ public class BookingArrest implements Serializable
 	private static final long serialVersionUID = -7705114517046869650L;
 	private Integer bookingArrestId;
     private Integer bookingId; 
-    private String streetNumber; 
-    private String streetName; 
-    private String addressSecondaryUnit; 
-    private String city; 
-    private String state; 
-    private String postalcode; 
-	private BigDecimal arrestLocationLatitude; 
-	private BigDecimal arrestLocationLongitude; 
-
-	@Override
+    private Address address;
+	
+    @Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);	
 	}
@@ -56,68 +48,12 @@ public class BookingArrest implements Serializable
 		this.bookingArrestId = bookingArrestId;
 	}
 
-	public BigDecimal getArrestLocationLatitude() {
-		return arrestLocationLatitude;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setArrestLocationLatitude(BigDecimal arrestLocationLatitude) {
-		this.arrestLocationLatitude = arrestLocationLatitude;
-	}
-
-	public BigDecimal getArrestLocationLongitude() {
-		return arrestLocationLongitude;
-	}
-
-	public void setArrestLocationLongitude(BigDecimal arrestLocationLongitude) {
-		this.arrestLocationLongitude = arrestLocationLongitude;
-	}
-
-	public String getStreetNumber() {
-		return streetNumber;
-	}
-
-	public void setStreetNumber(String streetNumber) {
-		this.streetNumber = streetNumber;
-	}
-
-	public String getStreetName() {
-		return streetName;
-	}
-
-	public void setStreetName(String streetName) {
-		this.streetName = streetName;
-	}
-
-	public String getAddressSecondaryUnit() {
-		return addressSecondaryUnit;
-	}
-
-	public void setAddressSecondaryUnit(String addressSecondaryUnit) {
-		this.addressSecondaryUnit = addressSecondaryUnit;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getPostalcode() {
-		return postalcode;
-	}
-
-	public void setPostalcode(String postalcode) {
-		this.postalcode = postalcode;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 }
