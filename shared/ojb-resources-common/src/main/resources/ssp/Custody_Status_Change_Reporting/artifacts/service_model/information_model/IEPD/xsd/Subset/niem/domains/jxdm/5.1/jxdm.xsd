@@ -60,6 +60,7 @@
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
           <xs:element ref="j:ArrestAgency" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ArrestCharge" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestLocation" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -101,6 +102,7 @@
           <xs:element ref="j:BookingAgencyRecordIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:BookingDetentionFacility" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:BookingSubject" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:BookingAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -279,6 +281,11 @@
   <xs:element name="ArrestAgency" type="nc:OrganizationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An agency which employs the arresting official.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ArrestCharge" type="j:ChargeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A formal allegation of a violation of a statute and/or ordinance in association with an arrest.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ArrestLocation" type="nc:LocationType" nillable="true">
