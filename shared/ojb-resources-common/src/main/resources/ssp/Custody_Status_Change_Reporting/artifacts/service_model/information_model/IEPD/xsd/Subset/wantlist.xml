@@ -30,6 +30,7 @@
   <w:Element w:name="cyfs:NextCourtEvent" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="hs:MedicaidIndicator" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="intel:SystemIdentification" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ActivityCaseAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:BailBond" w:isReference="false" w:nillable="true"/>
@@ -51,6 +52,7 @@
   <w:Element w:name="j:SupervisionAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityDateRange" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:ActivityPersonAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Address" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Agency" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Case" w:isReference="false" w:nillable="true"/>
@@ -97,6 +99,12 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="cyfs:MedicationDoseMeasure"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:ActivityCaseAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Case" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:ActivityChargeAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Activity" w:isReference="false"
@@ -205,6 +213,12 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SupervisionCondition"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:ActivityPersonAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Activity" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Person" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ActivityType" w:isRequested="true">
     <w:ElementInType w:name="nc:ActivityCategoryText"

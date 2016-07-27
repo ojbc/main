@@ -83,6 +83,8 @@
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0"
 						maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityCaseAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityChargeAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:BailBondChargeAssociation"
@@ -90,6 +92,8 @@
 					<xsd:element ref="nc:PersonAliasIdentityAssociation"
 						minOccurs="0" />
 					<xsd:element ref="nc:ContactInformationAssociation"
+						minOccurs="0" />
+					<xsd:element ref="nc:ActivityPersonAssociation"
 						minOccurs="0" />
 					<xsd:element ref="cscr-ext:BehavioralHealthInformation"
 						minOccurs="0" />
