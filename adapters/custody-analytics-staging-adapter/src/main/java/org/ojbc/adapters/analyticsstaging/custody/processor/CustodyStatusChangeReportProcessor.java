@@ -1,5 +1,4 @@
 /*
-
  * Unless explicitly acquired and licensed from Licensor under another license, the contents of
  * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
  * versions as allowed by the RPL, and You may not copy or use this file in either source code
@@ -19,17 +18,15 @@ package org.ojbc.adapters.analyticsstaging.custody.processor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingArrest;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChange;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeArrest;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeCharge;
@@ -54,7 +51,6 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 		
 		Integer custodyStatusChangeId = processCustodyStatusChangeReport(report);
 		processCustodyStatusChangeArrests(report, custodyStatusChangeId);
-		processCustodyStatusChangeCharges(report, custodyStatusChangeId);
 		
 		log.info("Processed custody status change report successfully.");
 		
@@ -144,27 +140,6 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 		}
 	}
 
-	private void setBondInfo(Document report, CustodyStatusChangeCharge custodyStatusChangeCharge) throws Exception {
-		
-		String bondId = XmlUtils.xPathStringSearch(report, "/cscr-doc:CustodyStatusChangeReport/cscr-ext:Custody/"
-				+ "jxdm51:BailBondChargeAssociation/jxdm51:BailBond/@s30:ref");
-		
-		if (StringUtils.isNotBlank(bondId)){
-			Node bondNode = XmlUtils.xPathNodeSearch(report, 
-					"//cscr-doc:CustodyStatusChangeReport/cscr-ext:Custody/jxdm51:BailBond[@s30:id = '"+ bondId +  "']");
-			
-			String bondType = XmlUtils.xPathStringSearch(bondNode, "nc30:ActivityCategoryText");
-			Integer bondTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.BondType, bondType);
-			KeyValue keyValue = new KeyValue(bondTypeId, bondType);
-			custodyStatusChangeCharge.setBondType(keyValue);
-			
-			String bondAmount = XmlUtils.xPathStringSearch(bondNode, "jxdm51:BailBondAmount/nc30:Amount");
-			if (StringUtils.isNotBlank(bondAmount)){
-				custodyStatusChangeCharge.setBondAmount(new BigDecimal(bondAmount));
-			}
-		}
-	}
-
 	@Transactional
 	private Integer processCustodyStatusChangeReport(Document report) throws Exception {
 		CustodyStatusChange custodyStatusChange = new CustodyStatusChange();
@@ -183,7 +158,7 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
         custodyStatusChange.setJurisdictionId(courtId);
         
         String reportDate = XmlUtils.xPathStringSearch(report, "/cscr-doc:CustodyStatusChangeReport/nc30:DocumentCreationDate/nc30:DateTime");
-        custodyStatusChange.setReportDate(LocalDateTime.parse(reportDate));
+        custodyStatusChange.setReportDate(parseLocalDateTime(reportDate));
         
         String reportId = XmlUtils.xPathStringSearch(report, "/cscr-doc:CustodyStatusChangeReport/nc30:DocumentIdentification/nc30:IdentificationID");
         custodyStatusChange.setReportId(reportId);
@@ -193,10 +168,10 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
         custodyStatusChange.setCaseStatusId(caseStatusId);
         
         String bookingDate = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
-        custodyStatusChange.setBookingDate(LocalDateTime.parse(bookingDate));
+        custodyStatusChange.setBookingDate(parseLocalDateTime(bookingDate));
 
         String commitDate = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Detention/nc30:ActivityDate/nc30:Date");
-        custodyStatusChange.setCommitDate(LocalDate.parse(commitDate));
+        custodyStatusChange.setCommitDate(parseLocalDate(commitDate));
         
         String facility = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/jxdm51:BookingDetentionFacility/nc30:FacilityIdentification/nc30:IdentificationID");
         Integer facilityId = descriptionCodeLookupService.retrieveCode(CodeTable.Facility, facility);
@@ -205,6 +180,11 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
         String bedType = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionBedIdentification/ac-bkg-codes:BedCategoryCode");
         Integer bedTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.BedType, bedType);
         custodyStatusChange.setBedTypeId(bedTypeId);
+        
+        CustodyRelease custodyRelease = processCustodyReleaseInfo(custodyStatusChange.getReportDate(), custodyNode,
+				bookingNumber);
+        
+        custodyStatusChange.setCustodyRelease(custodyRelease);
         
         Integer custodyStatusChangeId = analyticalDatastoreDAO.saveCustodyStatusChange(custodyStatusChange);
 		return custodyStatusChangeId;
