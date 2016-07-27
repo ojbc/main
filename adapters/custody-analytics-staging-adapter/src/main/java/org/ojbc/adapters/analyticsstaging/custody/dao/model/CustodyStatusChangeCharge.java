@@ -17,6 +17,7 @@
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -25,8 +26,13 @@ public class CustodyStatusChangeCharge implements Serializable
 {
 	private static final long serialVersionUID = 8493646293327612848L;
 	private Integer custodyStatusChangeChargeId;
-    private Integer custodyStatusChangeId; 
+    private Integer custodyStatusChangeArrestId; 
     private KeyValue chargeType; 
+	private Integer agencyId;
+    private BigDecimal bondAmount; 
+    private String nextCourtName; 
+    private LocalDate nextCourtDate; 
+    private KeyValue bondType;
 
 	@Override
 	public String toString() {
@@ -50,12 +56,53 @@ public class CustodyStatusChangeCharge implements Serializable
 		this.custodyStatusChangeChargeId = custodyStatusChangeChargeId;
 	}
 
-	public Integer getCustodyStatusChangeId() {
-		return custodyStatusChangeId;
+	public Integer getAgencyId() {
+		return agencyId;
 	}
 
-	public void setCustodyStatusChangeId(Integer custodyStatusChangeId) {
-		this.custodyStatusChangeId = custodyStatusChangeId;
+	public void setAgencyId(Integer agencyId) {
+		this.agencyId = agencyId;
+	}
+
+	public BigDecimal getBondAmount() {
+		return bondAmount;
+	}
+
+	public void setBondAmount(BigDecimal bondAmount) {
+		this.bondAmount = bondAmount;
+	}
+
+	public KeyValue getBondType() {
+		return bondType;
+	}
+
+	public void setBondType(KeyValue bondType) {
+		this.bondType = bondType;
+	}
+
+	public Integer getCustodyStatusChangeArrestId() {
+		return custodyStatusChangeArrestId;
+	}
+
+	public void setCustodyStatusChangeArrestId(
+			Integer custodyStatusChangeArrestId) {
+		this.custodyStatusChangeArrestId = custodyStatusChangeArrestId;
+	}
+
+	public String getNextCourtName() {
+		return nextCourtName;
+	}
+
+	public void setNextCourtName(String nextCourtName) {
+		this.nextCourtName = nextCourtName;
+	}
+
+	public LocalDate getNextCourtDate() {
+		return nextCourtDate;
+	}
+
+	public void setNextCourtDate(LocalDate nextCourtDate) {
+		this.nextCourtDate = nextCourtDate;
 	}
 
 }

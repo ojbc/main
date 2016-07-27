@@ -65,7 +65,10 @@ public class DescriptionCodeLookupService
 	 * 
 	 * @param codeTable - The table name of the cache to be searched. 
 	 * @param code - The java.lang.String value to lookup in the cache.
-	 * @return A java.lang.String containing the cache search result.
+	 * @return A java.lang.String containing the cache search result. 
+	 * 	 if the given description does not have a matching code, 
+	 * 	 it'll try to locate and return the code for "Unknown", 
+	 *   or null if both were not found,  
 	 */
 	public Integer retrieveCode(CodeTable codeTable, String description) {
 		if (StringUtils.isBlank( description )) {
@@ -78,7 +81,13 @@ public class DescriptionCodeLookupService
 				log.warn("No map entry found in lookup map for the CodeTable: " + codeTable);
 				return null;
 			}
-			return (Integer) lookupMap.get(description.trim());
+			
+			Integer code = (Integer) lookupMap.get(description.trim());
+			
+			if (code == null){
+				code =  (Integer) lookupMap.get("Unknown");
+			}
+			return code ;
 		}
 		catch (Exception e) {
 			log.warn("Error occurred in retrieveCode() for code table ["
@@ -87,6 +96,26 @@ public class DescriptionCodeLookupService
 		}
 	}
 
+	public void addEntry(CodeTable codeTable, String description, Integer key) {
+		if (StringUtils.isBlank( description ) || key == null) {
+			return;
+		}
+		
+		try {
+			Map<String, Integer> lookupMap = mapArray[codeTable.ordinal()];
+			if (lookupMap == null) {
+				log.warn("No map entry found in lookup map for the CodeTable: " + codeTable);
+				return;
+			}
+			
+			lookupMap.put(description.trim(), key);
+		}
+		catch (Exception e) {
+			log.warn("Error occurred in addEntry() for code table ["
+					+ codeTable + "] with description [" + description + "] and key [" + key + "]", e);
+		}
+	}
+	
 	/**
 	 * Converts a list of KeyValue pair objects that contain codes and descriptions
 	 * which were retrieved from a code table to Map<String, String>.

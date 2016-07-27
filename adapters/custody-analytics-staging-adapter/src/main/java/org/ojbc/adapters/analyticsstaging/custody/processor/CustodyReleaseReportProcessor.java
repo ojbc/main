@@ -34,7 +34,7 @@ public class CustodyReleaseReportProcessor extends AbstractReportRepositoryProce
 	private static final Log log = LogFactory.getLog( CustodyReleaseReportProcessor.class );
 	
 	@Transactional
-	public void processReport(Document report, String personUniqueIdentifier) throws Exception
+	public void processReport(Document report) throws Exception
 	{
 		log.info("Processing Custody Release report." );
 		

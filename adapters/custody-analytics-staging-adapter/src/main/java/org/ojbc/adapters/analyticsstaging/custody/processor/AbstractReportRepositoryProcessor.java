@@ -20,7 +20,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 import org.apache.camel.Body;
-import org.apache.camel.Header;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,6 +39,8 @@ public abstract class AbstractReportRepositoryProcessor {
 	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
 
+	protected static final String FATAL_ERROR_PERSON_UNIQUE_ID_MISSING = "Fatal error: The person unique identifier is missing";
+
 	@Autowired
 	protected AnalyticalDatastoreDAO analyticalDatastoreDAO;
 	
@@ -46,7 +48,7 @@ public abstract class AbstractReportRepositoryProcessor {
 	protected DescriptionCodeLookupService descriptionCodeLookupService; 
 	
     @Transactional
-	public abstract void processReport(@Body Document report, @Header("personUniqueId") String personUniqueId) throws Exception;
+	public abstract void processReport(@Body Document report) throws Exception;
 
 	protected Integer savePerson(Node personNode, String personUniqueIdentifier) throws Exception {
 		
@@ -54,20 +56,54 @@ public abstract class AbstractReportRepositoryProcessor {
 		
 		person.setPersonUniqueIdentifier(personUniqueIdentifier);
 		
+		String bookingSubjectNumber = XmlUtils.xPathStringSearch(personNode, 
+				"parent::br-doc:BookingReport/jxdm51:Booking/jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");
+		person.setBookingSubjectNumber(bookingSubjectNumber);
+		
+		String personSsn = XmlUtils.xPathStringSearch(personNode, "nc30:PersonSSNIdentification/nc30:IdentificationID");
+		person.setPersonSsn(personSsn);
+		
+		String personSid = XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonAugmentation/jxdm51:PersonStateFingerprintIdentification/nc30:IdentificationID");
+		person.setPersonSid(personSid);
+		
+		String personHairColor = XmlUtils.xPathStringSearch(personNode, "nc30:PersonHairColorText");
+		person.setPersonHairColor(personHairColor);
+		
+		String personEyeColor = XmlUtils.xPathStringSearch(personNode, "nc30:PersonEyeColorText");
+		person.setPersonEyeColor(personEyeColor);
+		
+		String personHeight = XmlUtils.xPathStringSearch(personNode,  "nc30:PersonHeightMeasure/nc30:MeasureValueText");
+		person.setPersonHeight(personHeight);
+		
+		String personHeightMeasureUnit = XmlUtils.xPathStringSearch(personNode,  "nc30:PersonHeightMeasure/nc30:MeasureUnitText");
+		person.setPersonHeightMeasureUnit(personHeightMeasureUnit);
+		
+		String personWeight = XmlUtils.xPathStringSearch(personNode,  "nc30:PersonWeightMeasure/nc30:MeasureValueText");
+		person.setPersonWeight(personWeight);
+		
+		String personWeightMeasureUnit = XmlUtils.xPathStringSearch(personNode,  "nc30:PersonWeightMeasure/nc30:MeasureUnitText");
+		person.setPersonWeightMeasureUnit(personWeightMeasureUnit);
+		
 		String personRace=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonRaceCode");
-		person.setPersonRaceDescription(personRace);
-		person.setPersonRaceID(descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, personRace));
+		person.setPersonRaceId(descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, personRace));
 		
 		String personSex=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonSexCode");
-		person.setPersonSexDescription(personSex);
-		person.setPersonSexID(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, personSex));
-		
+		person.setPersonSexCode(StringUtils.trimToNull(personSex));
+		person.setPersonSexId(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, StringUtils.trimToNull(personSex)));
+
 		String personBirthDate = XmlUtils.xPathStringSearch(personNode, "nc30:PersonBirthDate/nc30:Date");
 		person.setPersonBirthDate(LocalDate.parse(personBirthDate));
 		
 		String language = XmlUtils.xPathStringSearch(personNode, "nc30:PersonPrimaryLanguage/nc30:LanguageName");
 		person.setLanguage(language);
 		person.setLanguageId(descriptionCodeLookupService.retrieveCode(CodeTable.Language, language));
+		
+		String personCriminalHistorySummaryRef = 
+				XmlUtils.xPathStringSearch(personNode, "parent::br-doc:BookingReport/nc30:ActivityPersonAssociation"
+						+ "[nc30:Person/@s30:ref=/br-doc:BookingReport/jxdm51:Booking/jxdm51:BookingSubject/nc30:RoleOfPerson/@s30:ref]/nc30:Activity/@s30:ref");
+		String registeredSexOffender = XmlUtils.xPathStringSearch(personNode, 
+				"/br-doc:BookingReport/jxdm51:PersonCriminalHistorySummary[@s30:id='"+ personCriminalHistorySummaryRef + "']/jxdm51:RegisteredSexualOffenderIndicator");
+		person.setRegisteredSexOffender(BooleanUtils.toBooleanObject(registeredSexOffender));
 		
 		Integer personId = analyticalDatastoreDAO.savePerson(person);
 		
@@ -107,9 +143,21 @@ public abstract class AbstractReportRepositoryProcessor {
 	 		bookingSubject.setHousingStatusId(housingStatusId);
 	 	}
 	 	
+	 	String militaryServiceStatusCode = XmlUtils.xPathStringSearch(personNode, "nc30:PersonMilitarySummary/ac-bkg-codes:MilitaryServiceStatusCode");
+	 	bookingSubject.setMilitaryServiceStatusCode(militaryServiceStatusCode);
+	 	
 		Integer bookingSubjectId = analyticalDatastoreDAO.saveBookingSubject(bookingSubject);
 		return bookingSubjectId;
 	}
 
+	protected String getPersonUniqueIdentifier(Node personNode, String xPath) throws Exception {
+		String personUniqueIdentifier = StringUtils.trimToNull(XmlUtils.xPathStringSearch(personNode, 
+				xPath));
+		if (StringUtils.isBlank(personUniqueIdentifier)){
+			log.fatal(FATAL_ERROR_PERSON_UNIQUE_ID_MISSING);
+			throw new Exception(FATAL_ERROR_PERSON_UNIQUE_ID_MISSING);
+		}
+		return personUniqueIdentifier;
+	}
 
 }

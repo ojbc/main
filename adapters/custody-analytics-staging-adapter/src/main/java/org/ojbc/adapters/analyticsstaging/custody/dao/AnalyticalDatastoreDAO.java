@@ -16,20 +16,25 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Agency;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAssessment;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingArrest;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChange;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeCharge;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonRace;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonSex;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.PrescribedMedication;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.Treatment;
 
 public interface AnalyticalDatastoreDAO {
 
@@ -67,10 +72,13 @@ public interface AnalyticalDatastoreDAO {
 	public Person getPerson(Integer personId);
 	public BookingSubject getBookingSubject(Integer bookingSubjectId);
 	public List<BookingCharge> getBookingCharges(Integer bookingId);
+	public List<BookingArrest> getBookingArrests(Integer bookingId);
 	public List<BehavioralHealthAssessment> getBehavioralHealthAssessments(Integer personId);
+	public List<Treatment> getTreatments(Integer behavioralHealthAssessmentId);
+	public List<PrescribedMedication> getPrescribedMedication(Integer behavioralHealthAssessmentId);
 
 	public void saveCustodyRelease(CustodyRelease custodyRelease);
-	public void saveCustodyRelease(String bookingNumber, LocalDateTime releaseDate, LocalDateTime reportDate);
+	public void saveCustodyRelease(String bookingNumber, LocalDateTime releaseDate, LocalDateTime reportDate, LocalDate scheduledReleaseDate);
 	public CustodyRelease getCustodyReleaseByBookingNumber(String bookingNumber);
 	public CustodyStatusChange getCustodyStatusChangeByReportId(String reportId); 
 	public List<CustodyStatusChangeCharge> getCustodyStatusChangeCharges(Integer custodyStatusChangeId);
@@ -82,5 +90,19 @@ public interface AnalyticalDatastoreDAO {
 	 * @return BookingSubject that is associated with the booking record. 
 	 */
 	public BookingSubject getBookingSubjectByBookingNumberAndPersonId(String bookingNumber, Integer personId);
+
+	public Integer saveBookingArrest(BookingArrest bookingArrest);
+
+	public Integer saveBehavioralHealthAssessment(BehavioralHealthAssessment assessment);
+	
+	public Integer getMedicationId(String generalProductId, String itemName);
+	
+	public Integer saveMedication(String generalProductId, String itemName);
+	
+	public void saveTreatments(final List<Treatment> treatments);
+	public void saveBehavioralHealthEvaluations(Integer behavioralHealthAssessmentId, final List<KeyValue> behavioralHealthTypes);
+	public void savePrescribedMedications(final List<PrescribedMedication> prescribedMedications);
+
+	public Integer saveBehavioralHealthType(String evaluationDiagnosisDescriptionText);
 
 }

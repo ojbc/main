@@ -17,7 +17,6 @@
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -31,7 +30,6 @@ public class CustodyStatusChange implements Serializable{
 	private Integer custodyStatusChangeId;
 	private Integer jurisdictionId; 
 	private LocalDateTime reportDate;
-	private Integer sendingAgencyId;
 	private LocalDateTime bookingDate; 
 	private LocalDate commitDate; 
 	private String reportId;
@@ -39,12 +37,8 @@ public class CustodyStatusChange implements Serializable{
 	private Integer pretrialStatusId; 
 	private Integer facilityId; 
 	private Integer bedTypeId; 
-	private BigDecimal arrestLocationLatitude; 
-	private BigDecimal arrestLocationLongitude; 
 	private Integer bookingSubjectId; 
 	private String bookingNumber; 
-    private BigDecimal bondAmount; 
-    private KeyValue bondType;
     private CustodyRelease custodyRelease;
 	
 	@Override
@@ -58,14 +52,6 @@ public class CustodyStatusChange implements Serializable{
 
 	public void setJurisdictionId(Integer jurisdictionId) {
 		this.jurisdictionId = jurisdictionId;
-	}
-
-	public Integer getSendingAgencyId() {
-		return sendingAgencyId;
-	}
-
-	public void setSendingAgencyId(Integer sendingAgencyId) {
-		this.sendingAgencyId = sendingAgencyId;
 	}
 
 	public LocalDateTime getBookingDate() {
@@ -108,22 +94,6 @@ public class CustodyStatusChange implements Serializable{
 		this.bedTypeId = bedTypeId;
 	}
 
-	public BigDecimal getArrestLocationLatitude() {
-		return arrestLocationLatitude;
-	}
-
-	public void setArrestLocationLatitude(BigDecimal arrestLocationLatitude) {
-		this.arrestLocationLatitude = arrestLocationLatitude;
-	}
-
-	public BigDecimal getArrestLocationLongitude() {
-		return arrestLocationLongitude;
-	}
-
-	public void setArrestLocationLongitude(BigDecimal arrestLocationLongitude) {
-		this.arrestLocationLongitude = arrestLocationLongitude;
-	}
-
 	public Integer getBookingSubjectId() {
 		return bookingSubjectId;
 	}
@@ -146,22 +116,6 @@ public class CustodyStatusChange implements Serializable{
 
 	public void setBookingNumber(String bookingNumber) {
 		this.bookingNumber = bookingNumber;
-	}
-
-	public BigDecimal getBondAmount() {
-		return bondAmount;
-	}
-
-	public void setBondAmount(BigDecimal bondAmount) {
-		this.bondAmount = bondAmount;
-	}
-
-	public KeyValue getBondType() {
-		return bondType;
-	}
-
-	public void setBondType(KeyValue bondType) {
-		this.bondType = bondType;
 	}
 
 	public CustodyRelease getCustodyRelease() {

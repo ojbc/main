@@ -87,8 +87,6 @@
 						
 				<camel:log message="Here is the inbound booking report message: ${body}" loggingLevel="DEBUG"/>
 				
-				<camel:enrich uri="direct:getPersonUniqueId" strategyRef="aggregatePersonUniqueIdStrategy"/>
-				
 				<camel:to uri="bean:bookingReportProcessor?method=processReport"/>
 				
 				<camel:doCatch >
@@ -108,15 +106,6 @@
 			
 		</camel:route>		
 
-		<camel:route id="person_unique_id_route">
-			<camel:from uri="direct:getPersonUniqueId"/>
-			
-			<camel:log message="getting Person's unique ID"/>
-			
-			<camel:setBody><camel:constant>personUniqueId</camel:constant></camel:setBody>
-						
-		</camel:route>
-		
 		<camel:route id="behavioral_health_reporting_service" >
 		
 			<camel:from	uri="behavioralHealthReportingServiceAdapterEndpoint" />
@@ -206,7 +195,6 @@
 						
 				<camel:log message="Here is the inbound custody status change report message: ${body}" loggingLevel="DEBUG"/>
 				
-				<camel:enrich uri="direct:getPersonUniqueId" strategyRef="aggregatePersonUniqueIdStrategy"/>
 				<camel:to uri="bean:custodyStatusChangeReportProcessor?method=processReport"/>
 				
 				<camel:doCatch >

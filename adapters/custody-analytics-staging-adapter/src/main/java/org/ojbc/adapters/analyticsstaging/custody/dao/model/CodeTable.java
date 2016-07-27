@@ -35,6 +35,5 @@ public enum CodeTable {
 	IncomeLevel, 
 	HousingStatus, 
 	BedType, 
-	Facility, 
-	PretrialStatus; 
+	Facility; 
 }
