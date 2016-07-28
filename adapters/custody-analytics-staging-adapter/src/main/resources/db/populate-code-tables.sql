@@ -39,10 +39,13 @@ insert into Agency(AgencyID, AgencyName) values (8, 'Westminster PD');
 insert into Agency(AgencyID, AgencyName) values (9, 'Unknown');
 
 -- BedType - adding code table values
-insert into BedType (BedTypeID, BedTypeDescription) values('1','BedType 1');
-insert into BedType (BedTypeID, BedTypeDescription) values('2','BedType 2');
-insert into BedType (BedTypeID, BedTypeDescription) values('3','BedType 3');
-insert into BedType (BedTypeID, BedTypeDescription) values('4','BedType 4');
+insert into BedType (BedTypeID, BedTypeDescription) values('1','Type 1');
+insert into BedType (BedTypeID, BedTypeDescription) values('2','Type 2');
+insert into BedType (BedTypeID, BedTypeDescription) values('3','Type 3');
+insert into BedType (BedTypeID, BedTypeDescription) values('4','Type 4');
+insert into BedType (BedTypeID, BedTypeDescription) values('5','Type 5');
+insert into BedType (BedTypeID, BedTypeDescription) values('6','Other');
+insert into BedType (BedTypeID, BedTypeDescription) values('7','Unknown');
 
 -- BehavioralHealthType - adding code table values
 insert into BehavioralHealthType (BehavioralHealthTypeID, BehavioralHealthDescription) values('1','Disorder 1');
@@ -50,6 +53,8 @@ insert into BehavioralHealthType (BehavioralHealthTypeID, BehavioralHealthDescri
 insert into BehavioralHealthType (BehavioralHealthTypeID, BehavioralHealthDescription) values('3','Disorder 3');
 insert into BehavioralHealthType (BehavioralHealthTypeID, BehavioralHealthDescription) values('4','Illness 1');
 insert into BehavioralHealthType (BehavioralHealthTypeID, BehavioralHealthDescription) values('5','Illness 2');
+insert into BehavioralHealthType (BehavioralHealthTypeID, BehavioralHealthDescription) values('6','Schizophrenia 295.10');
+insert into BehavioralHealthType (BehavioralHealthTypeID, BehavioralHealthDescription) values('7','Unknown');
 
 -- BondType
 insert into BondType (BondType) values('Cash');
@@ -64,6 +69,7 @@ insert into CaseStatus (CaseStatusID, CaseStatus) values('2','Status 2');
 insert into CaseStatus (CaseStatusID, CaseStatus) values('3','Status 3');
 insert into CaseStatus (CaseStatusID, CaseStatus) values('4','Status 4');
 insert into CaseStatus (CaseStatusID, CaseStatus) values('5','Status 5');
+insert into CaseStatus (CaseStatusID, CaseStatus) values('6','Unknown');
 
 -- ChargeType
 insert into ChargeType (ChargeTypeID, ChargeType) values('1','Felony');
@@ -87,6 +93,7 @@ insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('4'
 insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('5','Housing Status 5');
 insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('6','Housing Status 6');
 insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('7','Housing Status 7');
+insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('8','Unknown');
 
 -- IncomeLevel
 insert into IncomeLevel (IncomeLevelID, IncomeLevel) values('1', 'Middle Class');

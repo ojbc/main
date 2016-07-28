@@ -71,10 +71,6 @@ public class DescriptionCodeLookupService
 	 *   or null if both were not found,  
 	 */
 	public Integer retrieveCode(CodeTable codeTable, String description) {
-		if (StringUtils.isBlank( description )) {
-			return null;
-		}
-
 		try {
 			Map<?, ?> lookupMap = mapArray[codeTable.ordinal()];
 			if (lookupMap == null) {
@@ -82,7 +78,7 @@ public class DescriptionCodeLookupService
 				return null;
 			}
 			
-			Integer code = (Integer) lookupMap.get(description.trim());
+			Integer code = (Integer) lookupMap.get(StringUtils.trimToEmpty(description));
 			
 			if (code == null){
 				code =  (Integer) lookupMap.get("Unknown");

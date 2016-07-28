@@ -94,7 +94,7 @@
 			</j:SupervisionAreaIdentification>
 			<j:SupervisionBedIdentification>
 				<nc:IdentificationID>Bed 2</nc:IdentificationID>
-				<ac-bkg-codes:BedCategoryCode>BedType 2</ac-bkg-codes:BedCategoryCode>
+				<ac-bkg-codes:BedCategoryCode>Type 2</ac-bkg-codes:BedCategoryCode>
 			</j:SupervisionBedIdentification>
 			<j:SupervisionCellIdentification>
 				<nc:IdentificationID>Cell 7</nc:IdentificationID>

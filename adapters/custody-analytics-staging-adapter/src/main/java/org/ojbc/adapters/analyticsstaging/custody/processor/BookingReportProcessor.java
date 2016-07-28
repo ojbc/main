@@ -36,6 +36,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -59,13 +60,11 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 	}
 
 	private void processBookingArrests(Document report, Integer bookingId) throws Exception {
-		NodeList arrestRefNodes = XmlUtils.xPathNodeListSearch(report, "/br-doc:BookingReport/jxdm51:Booking/jxdm51:Arrest");
+		NodeList arrestNodes = XmlUtils.xPathNodeListSearch(report, 
+				"/br-doc:BookingReport/jxdm51:Arrest[@s30:id = preceding-sibling::jxdm51:Booking/jxdm51:Arrest/@s30:ref]");
 		
-		for (int i = 0; i < arrestRefNodes.getLength(); i++) {
-			Node arrestRefNode = arrestRefNodes.item(i);
-			String arrestRef = XmlUtils.xPathStringSearch(arrestRefNode, "@s30:ref");
-			
-			Node arrestNode = XmlUtils.xPathNodeSearch(report,  "/br-doc:BookingReport/jxdm51:Arrest[@s30:id = '" + arrestRef + "']");
+		for (int i = 0; i < arrestNodes.getLength(); i++) {
+			Node arrestNode = arrestNodes.item(i);
 			
 			if (arrestNode != null){
 				Integer bookingArrestId = processBookingArrest(arrestNode, bookingId);
@@ -86,14 +85,15 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 	}
 
 	private void processBookingCharges(Node arrestNode, Integer bookingArrestId) throws Exception {
-		NodeList chargeRefNodes = XmlUtils.xPathNodeListSearch(arrestNode, "jxdm51:ArrestCharge");
+		NodeList chargeRefNodes = XmlUtils.xPathNodeListSearch(arrestNode, "jxdm51:ArrestCharge/@s30:ref");
 		
 		List<BookingCharge> bookingCharges = new ArrayList<BookingCharge>();
 		for (int i=0; i<chargeRefNodes.getLength(); i++){
-			Node chargeRefNode = chargeRefNodes.item(i);
+			Attr chargeRefNode = (Attr) chargeRefNodes.item(i);
 			
-			String chargeRef = XmlUtils.xPathStringSearch(chargeRefNode, "@s30:ref");
-			Node chargeNode = XmlUtils.xPathNodeSearch(arrestNode,  "parent::br-doc:BookingReport/jxdm51:Charge[@s30:id = '" + chargeRef + "']");
+			String chargeRef = chargeRefNode.getValue();
+			Node chargeNode = XmlUtils.xPathNodeSearch(arrestNode,  
+					"parent::br-doc:BookingReport/jxdm51:Charge[@s30:id = '" + chargeRef + "']");
 			
 			if (chargeNode != null){
 				BookingCharge bookingCharge = new BookingCharge();
@@ -182,6 +182,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         Integer facilityId = descriptionCodeLookupService.retrieveCode(CodeTable.Facility, facility);
         booking.setFacilityId(facilityId);
         
+        //TODO confirm the xPath with Jim.
         String bedType = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionBedIdentification/ac-bkg-codes:BedCategoryCode");
         Integer bedTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.BedType, bedType);
         booking.setBedTypeId(bedTypeId);
@@ -218,7 +219,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 		
 		processBehavioralHealthInfo(personNode, personId, "br-ext");
 		
-		return saveBookingSubject(personNode, bookingSubject, personId);
+		return saveBookingSubject(personNode, bookingSubject, personId, "br-ext");
 	}
 
 }
