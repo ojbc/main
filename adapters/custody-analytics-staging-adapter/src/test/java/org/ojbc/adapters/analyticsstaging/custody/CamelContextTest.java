@@ -129,22 +129,6 @@ public class CamelContextTest {
     	    }              
     	});
     	
-    	context.getRouteDefinition("behavioral_health_reporting_service").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:behavioralHealthServiceEndpoint");
-    	    }              
-    	});
-
-    	context.getRouteDefinition("behavioral_health_reporting_service_process_report").adviceWith(context, new AdviceWithRouteBuilder() {
-    	    @Override
-    	    public void configure() throws Exception {
-    	    	//This assists testing an invocation failure
-    	    	interceptSendToEndpoint("direct:failedInvocation").to("mock:direct:failedInvocation").stop();
-    	    }              
-    	});
-    	
     	context.getRouteDefinition("custody_release_reporting_service").adviceWith(context, new AdviceWithRouteBuilder() {
     		@Override
     		public void configure() throws Exception {
