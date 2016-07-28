@@ -725,9 +725,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	String[] insertArgs = null;
         	        	
         	        	if (custodyStatusChange.getCustodyStatusChangeId() != null){
-//        	        		insertArgs = new String[] {"JurisdictionID", "BookingReportDate", 
-//        	                		"BookingReportID" , "CaseStatusID", "BookingDate", "FacilityID","BedTypeID",
-//        	                		"BookingSubjectID", "CommitDate", "BookingNumber",  "BookingID"};
        	        		insertArgs = new String[] {"JurisdictionID", "ReportDate", 
         	                		"ReportID" , "CaseStatusID", "BookingDate",
         	                		"FacilityID","BedTypeID", 
