@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<ccs-res-doc:CourtCaseSearchResults xmlns:ccs-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0" xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0" xmlns:cyfs31="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:intel31="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" xmlns:s30="http://release.niem.gov/niem/structures/3.0/">
+    <ccs-res-ext:CourtCaseSearchResult s30:id="Result_0">
+        <nc30:Case s30:id="Case_0">
+            <nc30:ActivityStatus>
+                <nc30:StatusDescriptionText>Early</nc30:StatusDescriptionText>
+            </nc30:ActivityStatus>
+            <nc30:CaseGeneralCategoryText>Ownership</nc30:CaseGeneralCategoryText>
+            <nc30:CaseTrackingID>10263285</nc30:CaseTrackingID>
+            <nc30:CaseDocketID>NY vs LA</nc30:CaseDocketID>
+            <jxdm51:CaseAugmentation>
+                <jxdm51:CaseCourt>
+                    <jxdm51:OrganizationAugmentation>
+                        <jxdm51:OrganizationJurisdiction>
+                            <nc30:JurisdictionText>Mall Cop</nc30:JurisdictionText>
+                        </jxdm51:OrganizationJurisdiction>
+                    </jxdm51:OrganizationAugmentation>
+                    <jxdm51:CourtName>Thornton Municipal Court</jxdm51:CourtName>
+                </jxdm51:CaseCourt>
+                <jxdm51:CaseOtherIdentification>
+                    <nc30:IdentificationCategoryDescriptionText/>
+                </jxdm51:CaseOtherIdentification>
+            </jxdm51:CaseAugmentation>
+        </nc30:Case>
+        <nc30:Person s30:id="Person_0" s30:metadata="M0">
+            <nc30:PersonBirthDate>
+                <nc30:Date>1930-06-09</nc30:Date>
+            </nc30:PersonBirthDate>
+            <nc30:PersonEyeColorText>HAZ</nc30:PersonEyeColorText>
+            <nc30:PersonHairColorText>GRY</nc30:PersonHairColorText>
+            <nc30:PersonHeightMeasure>
+                <nc30:MeasureValueText>03</nc30:MeasureValueText>
+                <nc30:MeasureUnitText>in</nc30:MeasureUnitText>
+            </nc30:PersonHeightMeasure>
+            <nc30:PersonName>
+                <nc30:PersonGivenName>Joe</nc30:PersonGivenName>
+                <nc30:PersonMiddleName>P</nc30:PersonMiddleName>
+                <nc30:PersonSurName>Matthews</nc30:PersonSurName>
+            </nc30:PersonName>
+            <nc30:PersonWeightMeasure>
+                <nc30:MeasureValueText>095</nc30:MeasureValueText>
+            </nc30:PersonWeightMeasure>
+            <jxdm51:PersonAugmentation>
+                <jxdm51:DriverLicense>
+                    <jxdm51:DriverLicenseIdentification>
+                        <nc30:IdentificationID>66026448</nc30:IdentificationID>
+                        <nc30:IdentificationSourceText>NC</nc30:IdentificationSourceText>
+                    </jxdm51:DriverLicenseIdentification>
+                </jxdm51:DriverLicense>
+                <jxdm51:PersonFBIIdentification>
+                    <nc30:IdentificationID>37754305</nc30:IdentificationID>
+                </jxdm51:PersonFBIIdentification>
+            </jxdm51:PersonAugmentation>
+        </nc30:Person>
+        <cyfs31:PersonCaseAssociation>
+            <nc30:Person s30:ref="Person_0"/>
+            <nc30:Case s30:ref="Case_0"/>
+        </cyfs31:PersonCaseAssociation>
+        <ccs-res-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest</ccs-res-ext:SourceSystemNameText>
+        <intel31:SystemIdentification>
+            <nc30:IdentificationID>sample-2741286238077975402.xml</nc30:IdentificationID>
+            <nc30:SystemName>CourtCaseSystem</nc30:SystemName>
+        </intel31:SystemIdentification>
+        <ccs-res-ext:SearchResultCategoryText>Results Returned</ccs-res-ext:SearchResultCategoryText>
+        <ccs-res-ext:InformationOwningOrganization>
+            <nc30:OrganizationBranchName>Acme people lookup finder</nc30:OrganizationBranchName>
+            <nc30:OrganizationName>Matlock</nc30:OrganizationName>
+        </ccs-res-ext:InformationOwningOrganization>
+        <nc30:Metadata s30:id="M0">
+            <nc30:LastUpdatedDate>
+                <nc30:Date>1928-06-09</nc30:Date>
+            </nc30:LastUpdatedDate>
+        </nc30:Metadata>
+    </ccs-res-ext:CourtCaseSearchResult>
+</ccs-res-doc:CourtCaseSearchResults>
