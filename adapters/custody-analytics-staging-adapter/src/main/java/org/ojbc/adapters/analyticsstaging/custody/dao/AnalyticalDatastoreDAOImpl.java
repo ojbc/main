@@ -492,7 +492,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	@Override
 	public Booking getBookingByBookingNumber(String bookingNumber) {
 		final String sql = "SELECT * FROM Booking b "
-				+ "LEFT JOIN BondType e ON e.BondTypeID = b.BondTypeID "
 				+ "WHERE bookingNumber = ?";
 		
 		List<Booking> bookings = 
@@ -680,7 +679,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		params.put("releaseDate", Timestamp.valueOf(releaseDate) );
 		params.put("bookingNumber", bookingNumber );
 		params.put("reportDate", Timestamp.valueOf(reportDate));
-		params.put("scheduledReleaseDate", Date.valueOf(scheduledReleaseDate));
+		params.put("scheduledReleaseDate", scheduledReleaseDate==null? null:Date.valueOf(scheduledReleaseDate));
 		
 		namedParameterJdbcTemplate.update(sql, params);
 	}
