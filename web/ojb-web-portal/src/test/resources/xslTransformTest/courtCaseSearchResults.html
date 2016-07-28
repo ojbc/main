@@ -1,0 +1,59 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<script type="text/javascript">
+    						$(function () {
+    						$('#courtCaseTable tr').click(function () {
+    						
+	    						var systemName =$(this).attr('systemName');
+	    						var identificationSourceText = $(this).attr('identificationSourceText');
+	    						var identificationID = $(this).attr('identificationID');
+	    						
+	    						
+	    						$('#courtCaseTable tr').removeClass("selected");
+	    						$(this).addClass("selected");
+	    						
+	    						var tempDiv = '<div id="incidentDetailTemp" style="height:50%;width:100%"></div>';
+	    						// tempDiv for css spinner - replaced upon receipt of get data
+	    						$('#instanceDetailTabsHolder').html(tempDiv);                                         
+	    						
+	    						$.get("instanceDetails?identificationID="+identificationID+"&systemName="+systemName+"&identificationSourceText="+identificationSourceText,function(data) {
+	    							$('#instanceDetailTabsHolder').html(data);
+	    						}).fail(ojbc.displayIncidentDetailFailMessage);
+    						
+    						}).hover(function () {
+    								$(this).addClass("hover");
+    							}, function () {
+    								$(this).removeClass("hover");
+    							});
+    						});
+    					</script><table id="courtCaseTable" class="detailsTable">
+   <tr>
+      <td class="detailsTitle">CASE NUMBER</td>
+      <td class="detailsTitle">CAPTION/STYLE</td>
+      <td class="detailsTitle">CASE STATUS</td>
+   </tr>
+   
+   <tr systemName="Court Case Detail" identificationSourceText="{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}/SubmitCourtCaseQueryRequest" identificationID="sample-2741286238077975402.xml">
+      <td>10263285</td>
+      <td>Thornton Municipal Court vs. Joe P Matthews</td>
+      <td>Early</td>
+   </tr>
+
+</table>
+<div id="instanceDetailTabsHolder"></div>

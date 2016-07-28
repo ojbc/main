@@ -1,0 +1,500 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<script type="text/javascript">
+			$(function () {
+		 			$('#courtCaseDetailTabs').tabs({
+						activate: function( event, ui ) {
+							var modalIframe = $("#modalIframe", parent.document);
+							modalIframe.height(modalIframe.contents().find("body").height() + 16);
+						}
+					}); 
+					
+					$('#criminalCaseTabs').tabs();
+					$('#partyTabs').tabs();
+					$('.detailDataTable').DataTable({
+ 						"dom": 'rt' 
+					});
+			});
+		</script><div id="courtCaseDetailTabs">
+   <ul class="courtCaseDetailUl">
+      <li><a href="#criminalCaseTab">CRIMINAL CASE</a></li>
+      <li><a href="#partyTab">PARTY DETAIL</a></li>
+      <li><a href="#chargeTab">CHARGE SUMMARY</a></li>
+      <li><a href="#hearingTab">HEARING SUMMARY</a></li>
+      <li><a href="#roaListingTab">ROA LISTING</a></li>
+      <li><a href="#criminalWarrantTab">CRIMINAL WARRANT HISTORY</a></li>
+      <li><a href="#criminalBondTab">CRIMINAL BOND SUMMARY</a></li>
+      <li><a href="#victimTab">VICTIMS</a></li>
+      <li><a href="#defenseAttorneyTab">DEFENSE ATTORNEYS</a></li>
+      <li><a href="#prosecutorTab">PROSECUTORS</a></li>
+   </ul>
+   <div id="criminalCaseTab">
+      <p>
+         <div id="criminalCaseTabs">
+            <ul>
+               <li><a href="#caseInfoTab">Case Information</a></li>
+               <li><a href="#defendantInfoTab">Defendant Information</a></li>
+            </ul>
+            <div id="caseInfoTab">
+               <p>
+                  <table class="detailTable">
+                     <tr>
+                        <th><label>Judge: </label>Donna E Kinsella
+                        </th>
+                        <th><label>Under Advisement Date: </label>03/16/1961
+                        </th>
+                     </tr>
+                     <tr>
+                        <th><label>Case Type: </label>Ownership
+                        </th>
+                        <th><label>Domestic Violence: </label>false
+                        </th>
+                     </tr>
+                     <tr>
+                        <th><label>Case Subtype: </label>Sub Type 2
+                        </th>
+                        <th><label>Jury Verdict: </label>true
+                        </th>
+                     </tr>
+                     <tr>
+                        <th><label>Court Location: </label>County Court DIV 2
+                        </th>
+                        <th><label>Previous Case Number: </label>61459022
+                        </th>
+                     </tr>
+                     <tr>
+                        <th><label>Jurisdiction: </label>Mall Cop
+                        </th>
+                        <th><label>Other Agency Case Number: </label>hjYvSj33
+                        </th>
+                     </tr>
+                     <tr>
+                        <th colspan="2"><label>Filing Date: </label>02/17/1955
+                        </th>
+                     </tr>
+                  </table>
+               </p>
+            </div>
+            <div id="defendantInfoTab">
+               <p>
+                  <table class="detailTable">
+                     <tr>
+                        <th><label>Defendant: </label>Joe P Matthews
+                        </th>
+                        <th colspan="2"></th>
+                     </tr>
+                     <tr>
+                        <th><label>Next Appearance: </label>12/17/1939
+                        </th>
+                        <th colspan="2"></th>
+                     </tr>
+                     <tr>
+                        <th><label>Trial By: </label>Jury
+                        </th>
+                        <th><label>Custody Status: </label>Homeless Shelter
+                        </th>
+                     </tr>
+                     <tr>
+                        <th><label>Speedy Trial: </label>03/16/1976
+                        </th>
+                        <th><label>FTP Hold Indefinite: </label>false
+                        </th>
+                     </tr>
+                     <tr>
+                        <th><label>FTA Hold Date: </label>12/30/1934
+                        </th>
+                        <th><label>FTP Hold Date: </label>09/22/1942
+                        </th>
+                     </tr>
+                     <tr>
+                        <th><label>FTC Hold Date: </label>05/06/1945
+                        </th>
+                        <th><label>FTPV Hold Date: </label>12/01/1970
+                        </th>
+                     </tr>
+                     <tr>
+                        <th><label>Lead Attorney: </label>Willie E Burnett
+                        </th>
+                        <th><label>Attorney Waived: </label>true
+                        </th>
+                     </tr>
+                  </table>
+               </p>
+            </div>
+         </div>
+      </p>
+   </div>
+   <div id="partyTab">
+      <p>
+         <div id="partyTabs">
+            <ul>
+               <li><a href="#partyInfoTab">Party Information</a></li>
+               <li><a href="#licenseInfoTab">License Information</a></li>
+               <li><a href="#idAndPaymentInfoTab">ID And Payment Information</a></li>
+               <li><a href="#commentsTab">Comments</a></li>
+            </ul>
+            <div id="partyInfoTab">
+               <p>
+                  <table class="detailTable">
+                     <tr>
+                        <th colspan="2"><label>State ID: </label>42745406
+                        </th>
+                     </tr>
+                     <tr>
+                        <th><label>Last Name: </label>Matthews
+                        </th>
+                        <th><label>Company: </label>Lorax Cleaning
+                        </th>
+                     </tr>
+                     <tr>
+                        <th><label>First Name: </label>Joe
+                        </th>
+                        <th colspan="2"></th>
+                     </tr>
+                     <tr>
+                        <th><label>Middle Name: </label>P
+                        </th>
+                        <th><label>SSN: </label>850427714
+                        </th>
+                     </tr>
+                     <tr>
+                        <th><label>Suffix: </label></th>
+                        <th><label>DOB: </label>06/09/1930
+                        </th>
+                     </tr>
+                     <tr>
+                        <th><label>Sex: </label>F
+                        </th>
+                        <th><label>Eyes: </label>HAZ
+                        </th>
+                     </tr>
+                     <tr>
+                        <th><label>Hair: </label>GRY
+                        </th>
+                        <th><label>Weight: </label>095 
+                        </th>
+                     </tr>
+                     <th><label>Height: </label>03 in
+                     </th>
+                     <th><label>Language: </label>English
+                     </th>
+                     <tr>
+                        <th><label>Race: </label>A
+                        </th>
+                        <th colspan="2"><label>Juvenile: </label>true
+                        </th>
+                     </tr>
+                  </table><pre></pre><table class="detailDataTable display">
+                     <thead>
+                        <tr>
+                           <th>Address Type</th>
+                           <th>Address</th>
+                           <th>Address Line 2</th>
+                           <th>City</th>
+                           <th>State</th>
+                           <th>Zip</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>East</td>
+                           <td>Hilltop Street</td>
+                           <td>2nd Floor</td>
+                           <td>Springfield</td>
+                           <td>MA</td>
+                           <td>01103</td>
+                        </tr>
+                     </tbody>
+                  </table><pre></pre><table class="detailDataTable display">
+                     <thead>
+                        <tr>
+                           <th>Telephone #</th>
+                           <th>Type of #</th>
+                           <th>Electronic Contact Type</th>
+                           <th>Electronic Contact</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>814-254-6668</td>
+                           <td></td>
+                           <td>Facebook</td>
+                           <td>36559944</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </p>
+            </div>
+            <div id="licenseInfoTab">
+               <p>
+                  <table class="detailTable">
+                     <tr>
+                        <th><label>License Number: </label>66026448
+                        </th>
+                        <th><label>License State: </label>NC
+                        </th>
+                        <th><label>Commercial: </label></th>
+                     </tr>
+                     <tr>
+                        <th><label>License Class: </label>C
+                        </th>
+                        <th><label>License Issued: </label>03/30/1971
+                        </th>
+                        <th><label>License Expires: </label>01/24/1978
+                        </th>
+                     </tr>
+                  </table>
+               </p>
+            </div>
+            <div id="idAndPaymentInfoTab">
+               <p>
+                  <table class="detailTable">
+                     <tr>
+                        <th colspan="3"><label>Party ID: </label>1488478
+                        </th>
+                     </tr>
+                     <tr>
+                        <th><label>Juvenile ID: </label></th>
+                        <th><label>Inmate ID: </label>17051564
+                        </th>
+                        <th><label>Other ID: </label>3I9Pai8j
+                        </th>
+                     </tr>
+                  </table>
+               </p>
+            </div>
+            <div id="commentsTab">
+               <p>
+                  <table class="detailTable">
+                     <tr>
+                        <th><label>Body Marks: </label>Marks
+                        </th>
+                     </tr>
+                     <tr>
+                        <th><label>Clerk Comments: </label>Comments for Clerk
+                        </th>
+                     </tr>
+                  </table>
+               </p>
+            </div>
+         </div>
+      </p>
+   </div>
+   <div id="chargeTab">
+      <p>
+         <table class="detailDataTable display">
+            <thead>
+               <tr>
+                  <th>Charge</th>
+                  <th>Count</th>
+                  <th>Statute Number</th>
+                  <th>Statute Description</th>
+                  <th>Charge Description</th>
+                  <th>Charge Date</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td>89</td>
+                  <td>0</td>
+                  <td>19064871</td>
+                  <td>Running</td>
+                  <td>Not using headlights</td>
+                  <td>03/20/1929</td>
+               </tr>
+            </tbody>
+         </table><pre></pre><table class="detailDataTable display">
+            <thead>
+               <tr>
+                  <th>Amended Charge Count</th>
+                  <th>Amended Statute</th>
+                  <th>Amended Statute Description</th>
+                  <th>Amended Charge Description</th>
+                  <th>Amended Date</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td>47</td>
+                  <td>766731</td>
+                  <td>Concealed Weapon Permit</td>
+                  <td>Blocking Traffic</td>
+                  <td>03/31/1992</td>
+               </tr>
+            </tbody>
+         </table>
+      </p>
+   </div>
+   <div id="hearingTab">
+      <p>
+         <table class="detailDataTable display">
+            <thead>
+               <tr>
+                  <th>Hearing Type</th>
+                  <th>Hearing Reason</th>
+                  <th>Court Case #</th>
+                  <th>Judge</th>
+                  <th>Court Room</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Hearing Minutes</th>
+                  <th>Result</th>
+                  <th>Comments</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td>Defense</td>
+                  <td>hear plea agreement</td>
+                  <td>Sentence Hearing</td>
+                  <td>Joseph T Brew</td>
+                  <td></td>
+                  <td>12/18/1963 - 00:00</td>
+                  <td>02/18/1949 - 00:00</td>
+                  <td>Trial really long</td>
+                  <td>Not Guilty</td>
+                  <td>Jury meeting</td>
+               </tr>
+            </tbody>
+         </table>
+      </p>
+   </div>
+   <div id="roaListingTab">
+      <p>
+         <table class="detailDataTable display">
+            <thead>
+               <tr>
+                  <th>Court Event ID</th>
+                  <th>Event Date</th>
+                  <th>Event Name</th>
+                  <th>Event Description</th>
+                  <th>Judge Name</th>
+                  <th>Comments</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td>52130758</td>
+                  <td>12/17/1939</td>
+                  <td>Telling Bad Jokes</td>
+                  <td>Swerving</td>
+                  <td>Kyle E Maziarz</td>
+                  <td>Lawyers making up stories</td>
+               </tr>
+            </tbody>
+         </table>
+      </p>
+   </div>
+   <div id="criminalWarrantTab">
+      <p>
+         <table class="detailDataTable display">
+            <thead>
+               <tr>
+                  <th>Warrant Number</th>
+                  <th>Warrant Type</th>
+                  <th>Issue Date</th>
+                  <th>Description</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td>z1JVAz7V</td>
+                  <td>Warrant of Committal</td>
+                  <td>12/19/1992</td>
+                  <td>Warrant description</td>
+               </tr>
+            </tbody>
+         </table>
+      </p>
+   </div>
+   <div id="criminalBondTab">
+      <p>
+         <table class="detailDataTable display">
+            <thead>
+               <tr>
+                  <th>Bond Type</th>
+                  <th>Bond Number</th>
+                  <th>Bond Amount</th>
+                  <th>Bonding Agency</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td>Bail</td>
+                  <td>10151116</td>
+                  <td>5618</td>
+                  <td>24hr Bonding</td>
+               </tr>
+            </tbody>
+         </table>
+      </p>
+   </div>
+   <div id="victimTab">
+      <p>
+         <table class="detailDataTable display">
+            <thead>
+               <tr>
+                  <th>Victim Name</th>
+                  <th>Victim Restitution</th>
+                  <th>Restitution Paid</th>
+                  <th>Balance</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td>Sarah R Harrell</td>
+                  <td>Restitution Description</td>
+                  <td>14461.00</td>
+                  <td>6583.00</td>
+               </tr>
+            </tbody>
+         </table>
+      </p>
+   </div>
+   <div id="defenseAttorneyTab">
+      <p>
+         <table class="detailTable">
+            <tr>
+               <th><label>Lead Attorney: </label>Willie E Burnett
+               </th>
+            </tr>
+         </table>
+      </p>
+   </div>
+   <div id="prosecutorTab">
+      <p>
+         <table class="detailDataTable display">
+            <thead>
+               <tr>
+                  <th>Attorney Name</th>
+                  <th>Attorney Bar Number</th>
+                  <th>Attorney Type</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td>Benny E Menjivar</td>
+                  <td>20468354</td>
+                  <td>Crime</td>
+               </tr>
+            </tbody>
+         </table>
+      </p>
+   </div>
+</div>

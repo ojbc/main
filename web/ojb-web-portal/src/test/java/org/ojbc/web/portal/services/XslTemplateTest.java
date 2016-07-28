@@ -79,8 +79,17 @@ public class XslTemplateTest {
     
     @Test
     public void custodyDetailTest() throws IOException{
-    	
     	validatePersonSearchTransformation("xsl/custody-detail.xsl", "CustodyDetails.xml", "CustodyDetails.html");
+    }
+    
+    @Test
+    public void courtCaseListTest() throws Exception {
+        validatePersonSearchTransformation("xsl/court-case-list.xsl", "courtCaseSearchResults.xml", "courtCaseSearchResults.html");
+    }
+
+    @Test
+    public void courtCaseDetailTest() throws Exception {
+    	validatePersonSearchTransformation("xsl/court-case-detail.xsl", "courtCaseQueryResults.xml", "courtCaseQueryResults.html");
     }
     
     @Test
