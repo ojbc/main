@@ -34,6 +34,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -57,15 +58,16 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 	}
 
 	private void processCustodyStatusChangeArrests(Document report, Integer custodyStatusChangeId) throws Exception {
-		NodeList arrestNodes = XmlUtils.xPathNodeListSearch(report, "/cscr-doc:CustodyStatusChangeReport/cscr-ext:Custody/jxdm51:Arrest");
+		NodeList arrestNodes = XmlUtils.xPathNodeListSearch(report, 
+				"/cscr-doc:CustodyStatusChangeReport/cscr-ext:Custody/jxdm51:Arrest[@s30:id = preceding-sibling::jxdm51:Booking/jxdm51:Arrest/@s30:ref]");
 		
 		for (int i = 0; i < arrestNodes.getLength(); i++) {
 			Node arrestNode = arrestNodes.item(i);
-			
 			Integer custodyStatusChangeArrestId = processCustodyStatusChangeArrest(arrestNode, custodyStatusChangeId);
 			processCustodyStatusChangeCharges(arrestNode, custodyStatusChangeArrestId);
 		}
 	}
+	
 	private Integer processCustodyStatusChangeArrest(Node arrestNode, Integer custodyStatusChangeId) throws Exception {
 		CustodyStatusChangeArrest custodyStatusChangeArrest = new CustodyStatusChangeArrest();
 		custodyStatusChangeArrest.setCustodyStatusChangeId(custodyStatusChangeId);;
@@ -78,14 +80,18 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 
 	
 	private void processCustodyStatusChangeCharges(Node arrestNode, Integer custodyStatusChangeArrestId) throws Exception {
-		//TODO need to change when the SSP changes. 
-		NodeList chargeNodes = XmlUtils.xPathNodeListSearch(arrestNode, "/cscr-doc:CustodyStatusChangeReport/cscr-ext:Custody/jxdm51:Charge");
+		
+		NodeList chargeRefNodes = XmlUtils.xPathNodeListSearch(arrestNode, "jxdm51:ArrestCharge/@s30:ref");
 		
 		List<CustodyStatusChangeCharge> custodyStatusChangeCharges = new ArrayList<CustodyStatusChangeCharge>();
 		
-		for (int i = 0; i < chargeNodes.getLength(); i++) {
-			Node chargeNode = chargeNodes.item(i);
+		for (int i = 0; i < chargeRefNodes.getLength(); i++) {
+			Attr chargeRefNode = (Attr) chargeRefNodes.item(i);
+			String chargeRef = chargeRefNode.getValue();
 			
+			Node chargeNode = XmlUtils.xPathNodeSearch(arrestNode,  
+					"parent::cscr-ext:Custody/jxdm51:Charge[@s30:id = '" + chargeRef + "']");
+
 			CustodyStatusChangeCharge custodyStatusChangeCharge = new CustodyStatusChangeCharge();
 			custodyStatusChangeCharge.setCustodyStatusChangeArrestId(custodyStatusChangeArrestId);
 		
@@ -99,17 +105,15 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 			
 			setBondInfo(chargeNode, custodyStatusChangeCharge);
 
-			//TODO currently the ActivityChargeAssociation contains multiple nc:Activity elements. waiting for the SSP change. 
-			String chargeRef = XmlUtils.xPathStringSearch(chargeNode, "@s30:id");
 			String nextCourtEventRef = XmlUtils.xPathStringSearch(arrestNode, 
-					"parent::br-doc:BookingReport/jxdm51:ActivityChargeAssociation[jxdm51:Charge/@s30:ref='" + chargeRef + "']/nc30:Activity/@s30:ref");
+					"following-sibling::jxdm51:ActivityChargeAssociation[jxdm51:Charge/@s30:ref='" + chargeRef + "']/nc30:Activity/@s30:ref");
 			
 			String nextCourtDateString = XmlUtils.xPathStringSearch(arrestNode, 
-					"parent::br-doc:BookingReport/cyfs31:NextCourtEvent[@s30:id='"+nextCourtEventRef + "']/nc30:ActivityDate/nc30:Date");
+					"following-sibling::cyfs31:NextCourtEvent[@s30:id='"+nextCourtEventRef + "']/nc30:ActivityDate/nc30:Date");
 			custodyStatusChangeCharge.setNextCourtDate(StringUtils.isNotBlank(nextCourtDateString)? LocalDate.parse(nextCourtDateString):null);
 			
 			String nextCourtName = XmlUtils.xPathStringSearch(arrestNode, 
-					"/br-doc:BookingReport/cyfs31:NextCourtEvent[@s30:id='"+nextCourtEventRef + "']/jxdm51:CourtEventCourt/jxdm51:CourtName");
+					"following-sibling::cyfs31:NextCourtEvent[@s30:id='"+nextCourtEventRef + "']/jxdm51:CourtEventCourt/jxdm51:CourtName");
 			custodyStatusChangeCharge.setNextCourtName(nextCourtName);
 			
 			custodyStatusChangeCharges.add(custodyStatusChangeCharge);
@@ -214,7 +218,7 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 		
 		processBehavioralHealthInfo(personNode, personId, "cscr-ext");
 
-		return saveBookingSubject(personNode, bookingSubject, personId);
+		return saveBookingSubject(personNode, bookingSubject, personId, "cscr-ext");
 	}
 
 }

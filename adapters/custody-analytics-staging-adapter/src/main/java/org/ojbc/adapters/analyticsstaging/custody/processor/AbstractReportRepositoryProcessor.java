@@ -122,7 +122,7 @@ public abstract class AbstractReportRepositoryProcessor {
 	}
 
 	protected Integer saveBookingSubject(Node personNode, BookingSubject bookingSubject,
-			Integer personId) throws Exception {
+			Integer personId, String extPrefix) throws Exception {
 		bookingSubject.setPersonId(personId);
 		
 		String birthDateString = XmlUtils.xPathStringSearch(personNode,  "nc30:PersonBirthDate/nc30:Date");
@@ -142,7 +142,7 @@ public abstract class AbstractReportRepositoryProcessor {
 	 		bookingSubject.setOccupationId(occupationId);
 	 	}
 	 	
-	 	String incomeLevel = XmlUtils.xPathStringSearch(personNode, "br-ext:PersonSocioEconomicStatusDescriptionText");
+	 	String incomeLevel = XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonSocioEconomicStatusDescriptionText");
 	 	if (StringUtils.isNotBlank(incomeLevel)){
 	 		Integer incomeLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.IncomeLevel, StringUtils.trim(incomeLevel));
 	 		bookingSubject.setIncomeLevelId(incomeLevelId);
@@ -240,7 +240,7 @@ public abstract class AbstractReportRepositoryProcessor {
 				PrescribedMedication prescribedMedication = new PrescribedMedication();
 				prescribedMedication.setBehavioralHealthAssessmentID(assessment.getBehavioralHealthAssessmentId());
 				
-				setMedicationId(prescribedMedicationNode, prescribedMedication);
+				setMedicationId(prescribedMedicationNode, prescribedMedication, extPrefix);
 				
 				String medicationDispensingDate = XmlUtils.xPathStringSearch(prescribedMedicationNode, 
 						"cyfs31:MedicationDispensingDate/nc30:Date");
@@ -262,11 +262,11 @@ public abstract class AbstractReportRepositoryProcessor {
 	}
 
 	private void setMedicationId(Node prescribedMedicationNode,
-			PrescribedMedication prescribedMedication) throws Exception {
+			PrescribedMedication prescribedMedication, String extPrefix) throws Exception {
 		String medicationItemName = XmlUtils.xPathStringSearch(prescribedMedicationNode,
 				"cyfs31:Medication/nc30:ItemName");
 		String medicationGeneralProdId = XmlUtils.xPathStringSearch(prescribedMedicationNode, 
-				"cyfs31:Medication/br-ext:MedicationGeneralProductIdentification/nc30:IdentificationID");
+				"cyfs31:Medication/" + extPrefix + ":MedicationGeneralProductIdentification/nc30:IdentificationID");
 		
 		if (StringUtils.isNotBlank(medicationItemName)|| 
 				StringUtils.isNotBlank(medicationGeneralProdId)){
