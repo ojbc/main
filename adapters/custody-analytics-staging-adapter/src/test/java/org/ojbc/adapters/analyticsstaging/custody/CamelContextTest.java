@@ -169,7 +169,7 @@ public class CamelContextTest {
 	{
 		testBookingReportServiceRoute();	
 		testCustodyStatusChangeReportService();
-		//		testCustodyReleaseReportServiceRoute();
+		testCustodyReleaseReportServiceRoute();
 	}
 	
 	public void testCustodyStatusChangeReportService() throws Exception
@@ -458,6 +458,7 @@ public class CamelContextTest {
 		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingNumber("Booking Number"); 
 		assertEquals(LocalDateTime.parse("2014-12-17T10:30"), custodyRelease.getReleaseDate());
 		assertEquals(LocalDateTime.parse("2012-12-17T09:30:47"), custodyRelease.getReportDate());
+		assertEquals(LocalDate.parse("2014-12-17"), custodyRelease.getScheduledReleaseDate());
 		
 		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/custodyReleaseReport/CustodyReleaseReport.xml");
 		
@@ -471,8 +472,51 @@ public class CamelContextTest {
 		}	
 		
 		custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingNumber("Booking Number");
-		assertEquals( LocalDateTime.parse("2015-12-17T09:30:47"), custodyRelease.getReleaseDate());
-		assertEquals( LocalDateTime.parse("2015-12-17T09:30:47"), custodyRelease.getReportDate());
+		assertEquals( LocalDateTime.parse("2001-12-17T09:30:47"), custodyRelease.getReleaseDate());
+		assertEquals( LocalDateTime.parse("2016-12-17T09:30:47"), custodyRelease.getReportDate());
+		assertNull(custodyRelease.getScheduledReleaseDate());
+		
+		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAOImpl.getBehavioralHealthAssessments(1);
+		assertThat(behavioralHealthAssessments.size(), is(3));
+		
+		BehavioralHealthAssessment behavioralHealthAssessment = behavioralHealthAssessments.get(2);
+		
+		assertTrue(behavioralHealthAssessment.getBehavioralHealthTypes().size() == 1);
+		assertThat(behavioralHealthAssessment.getBehavioralHealthTypes().get(0).getValue(), is("Schizophrenia 295.10"));
+		assertThat(behavioralHealthAssessment.getPersonId(), is(1));
+		assertThat(behavioralHealthAssessment.getBehavioralHealthAssessmentId(), is(3));
+		assertThat(behavioralHealthAssessment.getSeriousMentalIllness(), is(true));
+		assertThat(behavioralHealthAssessment.getHighRiskNeeds(), is(true));
+		assertThat(behavioralHealthAssessment.getGeneralMentalHealthCondition(), is(false));
+		assertThat(behavioralHealthAssessment.getCareEpisodeStartDate(), is(LocalDate.parse("2016-01-01")));
+		assertThat(behavioralHealthAssessment.getCareEpisodeEndDate(), is(LocalDate.parse("2016-04-01")));
+		assertThat(behavioralHealthAssessment.getRegionalAuthorityAssignmentText(), is("79"));
+
+		List<Treatment> treatments = analyticalDatastoreDAOImpl.getTreatments(3);
+		assertThat(treatments.size(), is(1));
+		
+		Treatment treatment = treatments.get(0);
+		assertThat(treatment.getBehavioralHealthAssessmentID(), is(3));
+		assertThat(treatment.getStartDate(), is(LocalDate.parse("2016-01-01"))); 
+		assertNull(treatment.getEndDate()); 
+		assertThat(treatment.getTreatmentCourtOrdered(), is(true));
+		assertThat(treatment.getTreatmentActive(), is(true));
+		assertThat(treatment.getTreatmentText(), is("person was treated"));
+		assertThat(treatment.getTreatmentProvider(), is("Treatment Providing Organization Name"));
+		
+		
+		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAOImpl.getPrescribedMedication(3);
+		assertThat(prescribedMedications.size(), is(1));
+		
+		PrescribedMedication  prescribedMedication = prescribedMedications.get(0);
+		assertThat(prescribedMedication.getBehavioralHealthAssessmentID(), is(3));
+		assertThat(prescribedMedication.getMedicationId(), is(1));
+		assertThat(prescribedMedication.getMedicationDispensingDate(), is(LocalDate.parse("2016-01-01"))); 
+		assertThat(prescribedMedication.getMedicationDoseMeasure(), is("3mg"));
+		assertThat(prescribedMedication.getMedication().getGeneralProductId(), is("58-20-00-60-10-01-05"));
+		assertThat(prescribedMedication.getMedication().getItemName(), is("Zyprexa"));
+		
+
 	}
 	
 	protected Exchange createSenderExchange(String inputFilePath) throws Exception, IOException {
