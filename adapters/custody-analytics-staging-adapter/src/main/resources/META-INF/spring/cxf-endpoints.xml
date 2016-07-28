@@ -51,18 +51,6 @@
 		</cxf:properties> 
 	</cxf:cxfEndpoint>
 
-	<cxf:cxfEndpoint id="behavioralHealthReportingServiceAdapter"
-		address="${custody.stagingAdapter.behavioralHealthReportServiceAdapterEndpoint}"
-		wsdlURL="classpath:ssp/Behavioral_Health_Evalutation_Reporting/schemas/RS_WS-SIP_v1.2/BehavioralHealthEvaluationReportingService.wsdl"
-		serviceName="ojbc:Behavioral-Health-Evaluation-Reporting-ServiceService" endpointName="ojbc:Behavioral-Health-Evaluation-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/BehavioralHealthEvaluationReportingService/1.0">
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="custodyStagingAdapterKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${custody.stagingAdapter.keystoreCertificateAlias}" />
-		</cxf:properties> 
-	</cxf:cxfEndpoint>
-
 	<cxf:cxfEndpoint id="custodyReleaseReportingServiceAdapter"
 		address="${custody.stagingAdapter.custodyReleaseReportServiceAdapterEndpoint}"
 		wsdlURL="classpath:ssp/Custody_Release_Reporting/schemas/RS_WS-SIP_v1.2/Custody_Release_Reporting_Service.wsdl"
