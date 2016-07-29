@@ -56,6 +56,7 @@ ojbc = {
 	},
 
 	maskInputs: function(){
+		
 	   $( "#portalContent" ).on( "focus", ".mdate", function() {
 		   $( this ).mask("99/99/9999");
 	   });
