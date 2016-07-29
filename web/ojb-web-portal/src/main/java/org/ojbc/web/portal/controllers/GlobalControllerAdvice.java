@@ -55,7 +55,6 @@ public class GlobalControllerAdvice {
         model.addAttribute("singleClickForDetail", singleClickForDetail);
     }
     
-//	@ResponseStatus(value=HttpStatus.INTERNAL_SERVER_ERROR, reason="Internal server error, please try again later")
 	@ExceptionHandler(Exception.class)
 	public String handleEmployeeNotFoundException(HttpServletRequest request, Exception ex){
 		

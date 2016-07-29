@@ -23,6 +23,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojb.web.portal.WebPortalConstants;
@@ -106,7 +107,7 @@ public class PortalAuthenticationDetailsSource implements
              */
             String accessDenied = getAccessDeniedIndicator(accessControlResponseString, policyAccessControlResourceURI);
                 
-            if (accessDenied!="" && !Boolean.valueOf(accessDenied)) {
+            if (StringUtils.isNotBlank(accessDenied) && !Boolean.valueOf(accessDenied)) {
                 grantedAuthorities.add(rolePortalUser);
             }
             else {
@@ -158,7 +159,7 @@ public class PortalAuthenticationDetailsSource implements
 			String accessControlResponseString, String resourceURI, Authorities authority) {
 		String accessDenied = getAccessDeniedIndicator(accessControlResponseString, resourceURI);
 		
-		if (accessDenied!="" && !Boolean.valueOf(accessDenied)) {
+		if (StringUtils.isNotBlank(accessDenied) && !Boolean.valueOf(accessDenied)) {
 			grantedAuthorities.add(new SimpleGrantedAuthority(authority.name()));
 		}
 	}
