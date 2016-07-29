@@ -55,8 +55,8 @@ public class GlobalControllerAdvice {
         model.addAttribute("singleClickForDetail", singleClickForDetail);
     }
     
-	@ExceptionHandler(Exception.class)
-	public String handleEmployeeNotFoundException(HttpServletRequest request, Exception ex){
+    @ExceptionHandler(Exception.class)
+	public String handleAllExceptions(HttpServletRequest request, Exception ex){
 		
 		log.error("Got exception when processing the request", ex); 
 		return "/error/500";
