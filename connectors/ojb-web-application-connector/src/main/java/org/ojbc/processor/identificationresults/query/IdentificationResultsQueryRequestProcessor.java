@@ -199,7 +199,10 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 	            if (base64BinaryNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
 	                Element element = (Element) base64BinaryNodes.item(i);
 	                String base64BinaryData = element.getTextContent();
-	                documents.add(new String(Base64.decodeBase64(base64BinaryData))); 
+	                
+	                if (StringUtils.isNotBlank(base64BinaryData)){
+	                	documents.add(new String(Base64.decodeBase64(base64BinaryData)));
+	                }
 	            }
 	        }
 	    }
