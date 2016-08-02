@@ -16,11 +16,15 @@
  */
 package org.ojbc.adapters.rapbackdatastore;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.ojbc.adapters.rapbackdatastore.processor.IdentificationReportingResponseProcessorTest.assertAsExpected;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -34,12 +38,17 @@ import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.xml.security.utils.Base64;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
+import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.adapters.rapbackdatastore.processor.IdentificationRequestReportProcessor;
+import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -116,6 +125,9 @@ public class TestIdentficationRecordingAndResponse {
 	@DirtiesContext
 	public void testIdentificationRecordingServiceError() throws Exception
 	{
+		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction("000001820140729014008340000"); 
+		assertNull(identificationTransaction);
+		
     	Exchange senderExchange = MessageUtils.createSenderExchange(context, 
     			"src/test/resources/xmlInstances/identificationReport/person_identification_request_fbi_civil.xml");
 	    
@@ -135,6 +147,9 @@ public class TestIdentficationRecordingAndResponse {
 		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_failure_response.xml");
+		
+		identificationTransaction = rapbackDAO.getIdentificationTransaction("000001820140729014008340000");
+		assertNull(identificationTransaction);
 
 	}
 	
@@ -148,6 +163,9 @@ public class TestIdentficationRecordingAndResponse {
 
 	private void civilRecordingRequestSuccess() throws Exception, IOException,
 			InterruptedException, SAXException {
+		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
+		assertNull(identificationTransaction);
+		
 		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
 				"src/test/resources/xmlInstances/identificationReport/person_identification_request_fbi_civil.xml");
 		
@@ -170,13 +188,29 @@ public class TestIdentficationRecordingAndResponse {
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
 		
-		IdentificationTransaction identificationTransaction = 
-				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
+		identificationTransaction = 
+				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER);
+		
+		assertThat(identificationTransaction.getTransactionNumber(), is(TRANSACTION_NUMBER));
+		assertThat(identificationTransaction.getOtn(), is("OTN12345"));
+		assertThat(identificationTransaction.getOwnerOri(), is("68796860"));
+		assertThat(identificationTransaction.getOwnerProgramOca(), is("ID23457"));
+		assertThat(identificationTransaction.getIdentificationCategory(), is("I"));
+		assertThat(identificationTransaction.getArchived(), is(false));
 		
 		log.info(identificationTransaction.toString());
 		assertNotNull(identificationTransaction); 
 		assertNotNull(identificationTransaction.getSubject());
 		
+		Subject subject = identificationTransaction.getSubject(); 
+		assertNull(subject.getUcn());
+		assertNull(subject.getCriminalSid());
+		assertNull(subject.getCivilSid());
+		assertThat(subject.getFirstName(), is("Joe"));
+		assertThat(subject.getLastName(), is("Smith"));
+		assertThat(subject.getMiddleInitial(), is("D"));
+		assertThat( subject.getDob(), is(DateTime.parse("1900-01-01")));
+		assertThat(subject.getSexCode(), is("M"));
 	}
 	
 	public void civilRecordingResultServiceSuccess() throws Exception
@@ -202,6 +236,35 @@ public class TestIdentficationRecordingAndResponse {
 		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
+		
+		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
+		assertNotNull(identificationTransaction);
+		assertThat(identificationTransaction.getTransactionNumber(), is(TRANSACTION_NUMBER));
+		assertThat(identificationTransaction.getOtn(), is("OTN12345"));
+		assertThat(identificationTransaction.getOwnerOri(), is("68796860"));
+		assertThat(identificationTransaction.getOwnerProgramOca(), is("ID23457"));
+		assertThat(identificationTransaction.getIdentificationCategory(), is("I"));
+		assertThat(identificationTransaction.getArchived(), is(false));
+		
+		assertNotNull(identificationTransaction.getSubject());
+		
+		Subject subject = identificationTransaction.getSubject(); 
+		assertThat(subject.getUcn(), is("B1234567"));
+		assertNull(subject.getCriminalSid());
+		assertNull(subject.getCivilSid());
+		assertThat(subject.getFirstName(), is("Joe"));
+		assertThat(subject.getLastName(), is("Smith"));
+		assertThat(subject.getMiddleInitial(), is("D"));
+		assertThat( subject.getDob(), is(DateTime.parse("1900-01-01")));
+		assertThat(subject.getSexCode(), is("M"));
+		
+		List<CivilInitialResults> civilInitialResults = rapbackDAO.getCivilInitialResults(TRANSACTION_NUMBER, ResultSender.FBI);
+		
+		assertThat(civilInitialResults.size(), is(1));
+		
+		CivilInitialResults civilInitialResult = civilInitialResults.get(0);
+		assertTrue(civilInitialResult.getRapsheets().isEmpty());
+		assertThat(civilInitialResult.getSearchResultFile(), is(Base64.decode("VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=")));
 		
 	}
 	
