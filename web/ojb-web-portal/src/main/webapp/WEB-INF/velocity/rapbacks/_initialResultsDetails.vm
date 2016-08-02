@@ -29,9 +29,13 @@
         <script type="text/javascript">
 			$(function () {
 				$('#initialResultsDetailTabs').tabs({
+					create: function( event, ui ) {
+						var modalIframe = $("#modalIframe", parent.document);
+						modalIframe.height(modalIframe.contents().find("body").height() + 20);
+					},
 					activate: function( event, ui ) {
 						var modalIframe = $("#modalIframe", parent.document);
-						modalIframe.height(modalIframe.contents().find("body").height() + 16);
+						modalIframe.height(modalIframe.contents().find("body").height() + 20);
 					}
 				});
 			});
