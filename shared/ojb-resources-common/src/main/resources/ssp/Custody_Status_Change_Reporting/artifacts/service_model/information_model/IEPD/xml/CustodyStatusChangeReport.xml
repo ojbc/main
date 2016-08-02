@@ -50,6 +50,9 @@
 			<nc:ActivityDate>
 				<nc:DateTime>2013-12-17T09:30:00</nc:DateTime>
 			</nc:ActivityDate>
+			<j:BookingAgency>
+				<nc:OrganizationName>Springfield County Sheriff</nc:OrganizationName>
+			</j:BookingAgency>
 			<j:BookingAgencyRecordIdentification>
 				<nc:IdentificationID>Booking Number</nc:IdentificationID>
 			</j:BookingAgencyRecordIdentification>
