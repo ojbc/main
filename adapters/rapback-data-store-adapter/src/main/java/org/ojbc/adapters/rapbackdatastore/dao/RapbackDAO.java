@@ -47,6 +47,7 @@ public interface RapbackDAO {
 	public Integer saveCivilInitialRapSheet(final CivilInitialRapSheet civilInitialRapSheet);
 	public Integer saveCivilInitialResults(final CivilInitialResults civilInitialResults);
 	public Integer getCivilIntialResultsId(String transactionNumber, ResultSender resultSender);
+	public List<CivilInitialResults> getCivilInitialResults(String transactionNumber, ResultSender resultSender);
 	public Integer saveCriminalInitialResults(final CriminalInitialResults criminalInitialResults);
 	public void saveFbiRapbackSubscription(final FbiRapbackSubscription fbiRapbackSubscription);
 	

@@ -1068,5 +1068,21 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return existing;
 	}
 
+	@Override
+	public List<CivilInitialResults> getCivilInitialResults(
+			String transactionNumber, ResultSender resultSender) {
+		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, "
+				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, s.* "
+				+ "FROM civil_initial_results c "
+				+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
+				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
+				+ "WHERE c.TRANSACTION_NUMBER  = ? AND c.RESULTS_SENDER_ID = ?";
+		
+		List<CivilInitialResults> civilIntialResults = 
+				jdbcTemplate.query(CIVIL_INITIAL_RESULTS_SELECT, 
+						new CivilInitialResultsRowMapper(), transactionNumber, resultSender.ordinal() + 1);
+		return civilIntialResults;
+	}
+
 
 }
