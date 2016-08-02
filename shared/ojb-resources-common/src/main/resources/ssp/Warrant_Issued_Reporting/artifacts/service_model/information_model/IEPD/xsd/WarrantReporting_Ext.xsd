@@ -69,6 +69,34 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="WarrantModificationReportType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a warrant modification report.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="nc:Case" />
+					<xsd:element ref="j:Warrant" />
+					<xsd:element ref="nc:Person" />
+					<xsd:element ref="nc:Vehicle" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ConveyanceRegistration" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="nc:ContactInformation" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="nc:ContactInformationAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ConveyanceRegistrationAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonConveyanceAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityWarrantAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:complexType name="WarrantAcceptedReportType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a warrant accepted report.
@@ -106,10 +134,12 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:AugmentationType">
 				<xsd:sequence>
+					<xsd:element ref="wir-ext:StateWarrantRepositoryIdentification"
+						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ExpirationDate" minOccurs="0" />
 					<xsd:element ref="wir-ext:ExtraditionIndicator"
 						minOccurs="0" />
-					<xsd:element ref="wir-ext:ExtraditionLimitsCodeText"
+					<xsd:element ref="wir-ext:ExtraditionLimitCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="wir-ext:SubjectPickupRadiusCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
@@ -121,12 +151,18 @@
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="wir-ext:WarrantEntryCategoryCodeText"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="wir-ext:StateWarrantRepositoryIdentification"
-						minOccurs="0" maxOccurs="unbounded" />	
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:element name="StateWarrantRepositoryIdentification"
+		type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification assigned to a warrant
+				record.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="PersonMiscellaneousRecordIdentification"
 		type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
@@ -141,10 +177,10 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonCautionText" type="nc:TextType"
+	<xsd:element name="PersonCautionCodeText" type="nc:TextType"
 		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>Cautionary text for a person.
+			<xsd:documentation>Cautionary code text for a person.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -176,7 +212,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ExtraditionLimitsCodeText" type="nc:TextType">
+	<xsd:element name="ExtraditionLimitCodeText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A code representing a kind of limitation placed on
 				the extradition of a subject from an area outside the immediate
@@ -246,13 +282,6 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="StateWarrantRepositoryIdentification" type="nc:IdentificationType">
-		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to
-				a warrant record.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="ProsecutionChargeCodeText" type="nc:TextType"
 		substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
@@ -260,9 +289,12 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ConveyanceRegistrationNonExpiringIndicator" type="niem-xs:boolean" substitutionGroup="j:ConveyanceRegistrationAugmentationPoint">
+	<xsd:element name="ConveyanceRegistrationNonExpiringIndicator"
+		type="niem-xs:boolean" substitutionGroup="j:ConveyanceRegistrationAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if the registration is exempt from expiration, false otherwise</xsd:documentation>
+			<xsd:documentation>True if the registration is exempt from
+				expiration, false otherwise
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

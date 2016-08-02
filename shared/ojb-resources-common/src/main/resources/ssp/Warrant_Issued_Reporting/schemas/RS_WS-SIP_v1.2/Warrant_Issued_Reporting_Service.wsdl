@@ -22,6 +22,7 @@
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wir-doc="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0"
 	xmlns:war-doc="http://ojbc.org/IEPD/Exchange/WarrantAcceptedReport/1.0"
 	xmlns:wrr-doc="http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0"
+	xmlns:wmr-doc="http://ojbc.org/IEPD/Exchange/WarrantModificationReport/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
 	targetNamespace="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0">
@@ -36,6 +37,9 @@
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/WarrantAcceptedReport.xsd" />
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/WarrantRejectedReport.xsd" />
+			<xsd:import
+				namespace="http://ojbc.org/IEPD/Exchange/WarrantModificationReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/WarrantModificationReport.xsd" />
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="WarrantIssuedReport">
@@ -47,6 +51,9 @@
 	<wsdl:message name="WarrantRejectedReport">
 		<wsdl:part name="WarrantRejectedReport" element="wrr-doc:WarrantRejectedReport" />
 	</wsdl:message>
+	<wsdl:message name="WarrantModificationReport">
+		<wsdl:part name="WarrantModificationReport" element="wmr-doc:WarrantModificationReport" />
+	</wsdl:message>
 	<wsdl:portType name="Warrant-Issued-Reporting-Service">
 		<wsdl:operation name="ReportWarrantIssued">
 			<wsdl:input name="WarrantIssuedReport" message="tns:WarrantIssuedReport" />
@@ -56,6 +63,9 @@
 		</wsdl:operation>
 		<wsdl:operation name="ReportWarrantRejected">
 			<wsdl:input name="WarrantRejectedReport" message="tns:WarrantRejectedReport" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantModification">
+			<wsdl:input name="WarrantModificationReport" message="tns:WarrantModificationReport" />
 		</wsdl:operation>
 	</wsdl:portType>
 	<!-- Secure, GFIPM-conforming binding -->
@@ -88,6 +98,14 @@
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantModification">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantModification"
+				style="document" />
+			<wsdl:input name="WarrantModificationReport">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
 	</wsdl:binding>
 	<wsdl:binding name="Warrant-Issued-Reporting-ServiceSOAPBinding"
 		type="tns:Warrant-Issued-Reporting-Service">
@@ -115,6 +133,14 @@
 				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantRejected"
 				style="document" />
 			<wsdl:input name="WarrantRejectedReport">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantModification">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantModification"
+				style="document" />
+			<wsdl:input name="WarrantModificationReport">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
