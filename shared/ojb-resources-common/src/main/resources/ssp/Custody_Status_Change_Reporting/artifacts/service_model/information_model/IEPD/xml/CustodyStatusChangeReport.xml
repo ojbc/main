@@ -212,8 +212,8 @@
 					<nc:IdentificationID>CO0120010324</nc:IdentificationID>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
-			<cscr-ext:PersonSocioEconomicStatusDescriptionText>Middle Class
-			</cscr-ext:PersonSocioEconomicStatusDescriptionText>
+			<cscr-ext:PersonSocioEconomicStatusDescriptionText>Middle Class</cscr-ext:PersonSocioEconomicStatusDescriptionText>
+			<cscr-ext:PersonVeteranBenefitsEligibilityIndicator>true</cscr-ext:PersonVeteranBenefitsEligibilityIndicator>
 			<cscr-ext:PersonPersistentIdentification>
 				<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
 				</nc:IdentificationID>
