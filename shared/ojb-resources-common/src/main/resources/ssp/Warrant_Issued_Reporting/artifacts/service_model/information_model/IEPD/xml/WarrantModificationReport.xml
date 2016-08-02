@@ -17,10 +17,10 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<wir-doc:WarrantIssuedReport
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0 ../xsd/WarrantIssuedReport.xsd"
+<wmr-doc:WarrantModificationReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WarrantModificationReport/1.0 ../xsd/WarrantModificationReport.xsd"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:wir-doc="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0"
+	xmlns:wmr-doc="http://ojbc.org/IEPD/Exchange/WarrantModificationReport/1.0"
 	xmlns:wir-ext="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.1/"
@@ -30,7 +30,8 @@
 			<nc:IdentificationID>CN</nc:IdentificationID>
 		</nc:ActivityIdentification>
 		<nc:CaseDocketID>Docket8987</nc:CaseDocketID>
-		<wir-ext:CriminalTrackingNumber>PW56</wir-ext:CriminalTrackingNumber>
+		<wir-ext:CriminalTrackingNumber>PW56
+		</wir-ext:CriminalTrackingNumber>
 		<j:CaseAugmentation>
 			<j:CaseCharge>
 				<wir-ext:GeneralOffenseCharacterDescriptionText>Description
@@ -83,12 +84,16 @@
 			</j:BailSetAmount>
 		</j:WarrantAppearanceBail>
 		<wir-ext:WarrantAugmentation>
+			<wir-ext:StateWarrantRepositoryIdentification>
+				<nc:IdentificationID>R69458998</nc:IdentificationID>
+			</wir-ext:StateWarrantRepositoryIdentification>
 			<nc:ExpirationDate>
 				<nc:Date>2016-08-13</nc:Date>
 			</nc:ExpirationDate>
-			<wir-ext:ExtraditionIndicator>true</wir-ext:ExtraditionIndicator>
-			<wir-ext:ExtraditionLimitsCodeText>MC23
-			</wir-ext:ExtraditionLimitsCodeText>
+			<wir-ext:ExtraditionIndicator>true
+			</wir-ext:ExtraditionIndicator>
+			<wir-ext:ExtraditionLimitCodeText>MC23
+			</wir-ext:ExtraditionLimitCodeText>
 			<wir-ext:SubjectPickupRadiusCodeText>500
 			</wir-ext:SubjectPickupRadiusCodeText>
 			<wir-ext:WarrantBroadcastCodeText>B26
@@ -126,7 +131,8 @@
 			<nc:PersonFullName>Peter J Jones Jr</nc:PersonFullName>
 		</nc:PersonName>
 		<nc:PersonPhysicalFeature>
-			<nc:PhysicalFeatureDescriptionText>ART ARM</nc:PhysicalFeatureDescriptionText>
+			<nc:PhysicalFeatureDescriptionText>ART ARM
+			</nc:PhysicalFeatureDescriptionText>
 		</nc:PersonPhysicalFeature>
 		<nc:PersonRaceText>A</nc:PersonRaceText>
 		<nc:PersonSexText>M</nc:PersonSexText>
@@ -140,7 +146,7 @@
 		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>165</nc:MeasureValueText>
-			<nc:MeasureUnitText>LBS</nc:MeasureUnitText>
+			<nc:MeasureUnitText>lbs</nc:MeasureUnitText>
 		</nc:PersonWeightMeasure>
 		<j:PersonAugmentation>
 			<j:DriverLicense>
@@ -156,24 +162,14 @@
 			</j:PersonFBIIdentification>
 			<j:PersonBirthplaceCode>0P</j:PersonBirthplaceCode>
 		</j:PersonAugmentation>
-		<wir-ext:PersonCautionCodeText>G45</wir-ext:PersonCautionCodeText>
+		<wir-ext:PersonCautionCodeText>G45
+		</wir-ext:PersonCautionCodeText>
 		<wir-ext:PersonMiscellaneousRecordIdentification>
-			<nc:IdentificationID>PS-123456</nc:IdentificationID>
+			<nc:IdentificationID>MR456782</nc:IdentificationID>
 		</wir-ext:PersonMiscellaneousRecordIdentification>
 		<wir-ext:PersonImmigrationAlienQueryIndicator>false
 		</wir-ext:PersonImmigrationAlienQueryIndicator>
 	</nc:Person>
-	<nc:Identity structures:id="Alias_01">
-		<nc:IdentityPersonRepresentation>
-			<nc:PersonName>
-				<nc:PersonGivenName>Pete</nc:PersonGivenName>
-				<nc:PersonMiddleName>K</nc:PersonMiddleName>
-				<nc:PersonSurName>Johnson</nc:PersonSurName>
-				<nc:PersonNameSuffixText>Jr</nc:PersonNameSuffixText>
-				<nc:PersonFullName>Pete K Johnson Jr</nc:PersonFullName>
-			</nc:PersonName>
-		</nc:IdentityPersonRepresentation>
-	</nc:Identity>
 	<nc:Vehicle structures:id="Vehicle_01">
 		<nc:ConveyanceColorPrimaryText>BGE</nc:ConveyanceColorPrimaryText>
 		<nc:ConveyanceColorSecondaryText>BRO</nc:ConveyanceColorSecondaryText>
@@ -202,7 +198,8 @@
 				<nc:StreetFullText>6407 Cedar Ave</nc:StreetFullText>
 			</nc:LocationStreet>
 			<nc:LocationCityName>Saginaw</nc:LocationCityName>
-			<nc:LocationStateName>Michigan</nc:LocationStateName>
+			<nc:LocationCountyName>Taylor</nc:LocationCountyName>
+			<nc:LocationStateName>MI</nc:LocationStateName>
 			<nc:LocationPostalCode>63412</nc:LocationPostalCode>
 			<wir-ext:AddressCategoryText>Mail</wir-ext:AddressCategoryText>
 		</nc:ContactMailingAddress>
@@ -227,8 +224,4 @@
 		<nc:Activity structures:ref="Case_01" />
 		<j:Warrant structures:ref="Warrant_01" />
 	</j:ActivityWarrantAssociation>
-	<nc:PersonAliasIdentityAssociation>
-		<nc:Person structures:ref="Person_01" />
-		<nc:Identity structures:ref="Alias_01" />
-	</nc:PersonAliasIdentityAssociation>
-</wir-doc:WarrantIssuedReport>
+</wmr-doc:WarrantModificationReport>
