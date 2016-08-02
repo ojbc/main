@@ -310,4 +310,10 @@
 			<xsd:documentation></xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	
+	<xsd:element name="PersonVeteranBenefitsEligibilityIndicator"  type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if person qualifies to receive military veteran services, false otherwise. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>

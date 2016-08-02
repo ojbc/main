@@ -240,8 +240,8 @@
 				<nc:IdentificationID>XX0120010324</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
-		<br-ext:PersonSocioEconomicStatusDescriptionText>Middle Class
-		</br-ext:PersonSocioEconomicStatusDescriptionText>
+		<br-ext:PersonSocioEconomicStatusDescriptionText>Middle Class</br-ext:PersonSocioEconomicStatusDescriptionText>
+		<br-ext:PersonVeteranBenefitsEligibilityIndicator>true</br-ext:PersonVeteranBenefitsEligibilityIndicator>
 		<br-ext:PersonPersistentIdentification>
 			<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
 			</nc:IdentificationID>

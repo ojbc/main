@@ -128,6 +128,7 @@
 					<nc:IdentificationID>CO0120010324</nc:IdentificationID>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
+			<crr-ext:PersonVeteranBenefitsEligibilityIndicator>true</crr-ext:PersonVeteranBenefitsEligibilityIndicator>
 			<crr-ext:PersonPersistentIdentification>
 				<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
 				</nc:IdentificationID>
