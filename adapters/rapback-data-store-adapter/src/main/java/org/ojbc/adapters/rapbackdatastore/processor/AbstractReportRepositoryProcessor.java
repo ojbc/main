@@ -66,7 +66,7 @@ public abstract class AbstractReportRepositoryProcessor {
 		Subject subject = buildSubject(subjectNode) ;
 		identificationTransaction.setSubject(subject);
 		
-		String otn = XmlUtils.xPathStringSearch(subjectNode, "ident-ext:PersonTrackingIdentidication/nc30:IdentificationID");
+		String otn = XmlUtils.xPathStringSearch(subjectNode, "ident-ext:PersonTrackingIdentification/nc30:IdentificationID");
 		identificationTransaction.setOtn(otn);
 		
 		String ownerProgramOca = XmlUtils.xPathStringSearch(rootNode, "//ident-ext:IdentificationApplicantOrganization/"
