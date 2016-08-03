@@ -134,6 +134,20 @@
 			<nc:Amount>1000.00</nc:Amount>
 		</j:BailBondAmount>
 	</j:BailBond>
+	<j:Offense structures:id="Offense_01">
+		<nc:ActivityDate>
+			<nc:Date>2013-12-17</nc:Date>
+		</nc:ActivityDate>
+		<nc:ActivityDescriptionText>Offense</nc:ActivityDescriptionText>
+		<j:OffenseCategoryText>Offense Category</j:OffenseCategoryText>
+	</j:Offense>
+	<j:Offense structures:id="Offense_02">
+		<nc:ActivityDate>
+			<nc:Date>2013-12-17</nc:Date>
+		</nc:ActivityDate>
+		<nc:ActivityDescriptionText>Offense 2</nc:ActivityDescriptionText>
+		<j:OffenseCategoryText>Offense Category 2</j:OffenseCategoryText>
+	</j:Offense>
 	<j:Charge structures:id="Charge_01">
 		<j:ChargeCategoryDescriptionText>Felony</j:ChargeCategoryDescriptionText>
 		<j:ChargeDescriptionText>Charge Description</j:ChargeDescriptionText>
@@ -243,8 +257,10 @@
 				<nc:IdentificationID>XX0120010324</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
-		<br-ext:PersonSocioEconomicStatusDescriptionText>Middle Class</br-ext:PersonSocioEconomicStatusDescriptionText>
-		<br-ext:PersonVeteranBenefitsEligibilityIndicator>true</br-ext:PersonVeteranBenefitsEligibilityIndicator>
+		<br-ext:PersonSocioEconomicStatusDescriptionText>Middle Class
+		</br-ext:PersonSocioEconomicStatusDescriptionText>
+		<br-ext:PersonVeteranBenefitsEligibilityIndicator>true
+		</br-ext:PersonVeteranBenefitsEligibilityIndicator>
 		<br-ext:PersonPersistentIdentification>
 			<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
 			</nc:IdentificationID>
@@ -338,6 +354,14 @@
 		<nc:Activity structures:ref="Event_02" />
 		<j:Charge structures:ref="Charge_02" />
 	</j:ActivityChargeAssociation>
+	<j:OffenseChargeAssociation>
+		<j:Offense structures:ref="Offense_01" />
+		<j:Charge structures:ref="Charge_01" />
+	</j:OffenseChargeAssociation>
+	<j:OffenseChargeAssociation>
+		<j:Offense structures:ref="Offense_02" />
+		<j:Charge structures:ref="Charge_02" />
+	</j:OffenseChargeAssociation>
 	<j:BailBondChargeAssociation>
 		<j:BailBond structures:ref="Bond_01" />
 		<j:Charge structures:ref="Charge_01" />

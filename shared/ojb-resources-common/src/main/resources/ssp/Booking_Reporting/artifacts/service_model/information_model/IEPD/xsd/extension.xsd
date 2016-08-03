@@ -57,6 +57,7 @@
 					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Detention" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:BailBond" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:PersonCriminalHistorySummary"
@@ -71,6 +72,8 @@
 					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0"
 						maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityChargeAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:OffenseChargeAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:BailBondChargeAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
@@ -173,7 +176,7 @@
 	<xsd:element name="SupervisorCategoryText" type="nc:TextType"
 		substitutionGroup="nc:EntityAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A type of supervisor. </xsd:documentation>
+			<xsd:documentation>A type of supervisor.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SupervisorStatus" type="nc:StatusType"
@@ -210,13 +213,15 @@
 	<xsd:element name="PrescribedMedication" type="cyfs:MedicationUseType">
 		<xsd:annotation>
 			<xsd:documentation>A medicine that a person is authorized to use by a
-				qualified medical practitioner.</xsd:documentation>
+				qualified medical practitioner.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="BehavioralHealthInformation" type="br-ext:BehavioralHealthInformationType">
 		<xsd:annotation>
 			<xsd:documentation>A collection of details about an individual's
-				behavioral health.</xsd:documentation>
+				behavioral health.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonPersistentIdentification" type="nc:IdentificationType"
@@ -310,10 +315,11 @@
 			<xsd:documentation></xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	
-	<xsd:element name="PersonVeteranBenefitsEligibilityIndicator"  type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="PersonVeteranBenefitsEligibilityIndicator"
+		type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if person qualifies to receive military veteran services, false otherwise. </xsd:documentation>
+			<xsd:documentation>True if person qualifies to receive military
+				veteran services, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
