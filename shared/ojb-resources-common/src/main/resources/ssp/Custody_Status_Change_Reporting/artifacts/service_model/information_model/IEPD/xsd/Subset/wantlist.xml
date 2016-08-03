@@ -40,6 +40,9 @@
   <w:Element w:name="j:Charge" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Detention" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Evaluation" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:Offense" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:OffenseCategoryText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:OffenseChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonCriminalHistorySummary"
     w:isReference="false" w:nillable="true"/>
@@ -181,6 +184,16 @@
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="j:EvaluationAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:OffenseChargeAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="j:Offense" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Charge" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:OffenseType" w:isRequested="true">
+    <w:ElementInType w:name="j:OffenseCategory" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:PersonAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:DriverLicense" w:isReference="false"

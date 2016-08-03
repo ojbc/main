@@ -175,6 +175,31 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="OffenseChargeAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a relationship between an offense that occurred and the formal charge that was assigned to it as a result of classifying the offense.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OffenseType">
+    <xs:annotation>
+      <xs:documentation>A data type for an alleged violation of a statute, ordinance, or rule.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:OffenseCategory" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="PersonAugmentationType">
     <xs:annotation>
       <xs:documentation>A data type for additional information about a person.</xs:documentation>
@@ -395,6 +420,26 @@
   <xs:element name="EvaluationProvider" type="nc:EntityType" nillable="true">
     <xs:annotation>
       <xs:documentation>An entity who provides a service to a Person to determine physical or mental state</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Offense" type="j:OffenseType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An act or a course of action which may constitute a violation of a criminal statute, ordinance or rule that occurred during an incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind of offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseCategoryText" type="nc:TextType" substitutionGroup="j:OffenseCategory">
+    <xs:annotation>
+      <xs:documentation>A kind of offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseChargeAssociation" type="j:OffenseChargeAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A relationship between an offense that occurred and the formal charge that was assigned to it as a result of classifying the offense.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonAugmentation" type="j:PersonAugmentationType" substitutionGroup="nc:PersonAugmentationPoint" nillable="true">
