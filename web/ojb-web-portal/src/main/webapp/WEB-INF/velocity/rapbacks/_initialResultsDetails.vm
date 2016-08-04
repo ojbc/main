@@ -61,13 +61,17 @@
 			</ul>
 
 			<div id="stateInitialResultTab">
-				<div><pre>$identificationResultsQueryResponse.stateSearchResultFile</pre></div>
+				#if( $identificationResultsQueryResponse.stateSearchResultFile && $identificationResultsQueryResponse.stateSearchResultFile != '' ) 
+   					<div><pre>$identificationResultsQueryResponse.stateSearchResultFile</pre></div> 
+				#end
 				#foreach($item in $identificationResultsQueryResponse.stateCriminalHistoryRecordDocuments)
 					<div class="rapsheet"><pre>$item</pre></div>
 				#end
 			</div>
 			<div id="fbiInitialResultTab">
-				<div><pre>$identificationResultsQueryResponse.fbiSearchResultFile</pre></div>
+				#if( $identificationResultsQueryResponse.fbiSearchResultFile && $identificationResultsQueryResponse.fbiSearchResultFile != '' ) 
+					<div><pre>$identificationResultsQueryResponse.fbiSearchResultFile</pre></div>
+				#end
 				#foreach($item in $identificationResultsQueryResponse.fbiIdentityHistorySummaryDocuments)
 					<div class="rapsheet"><pre>$item</pre></div>
 				#end
