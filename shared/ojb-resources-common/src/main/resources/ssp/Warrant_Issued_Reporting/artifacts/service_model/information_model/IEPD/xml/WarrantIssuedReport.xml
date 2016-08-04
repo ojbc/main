@@ -87,8 +87,8 @@
 				<nc:Date>2016-08-13</nc:Date>
 			</nc:ExpirationDate>
 			<wir-ext:ExtraditionIndicator>true</wir-ext:ExtraditionIndicator>
-			<wir-ext:ExtraditionLimitsCodeText>MC23
-			</wir-ext:ExtraditionLimitsCodeText>
+			<wir-ext:ExtraditionLimitCodeText>MC23
+			</wir-ext:ExtraditionLimitCodeText>
 			<wir-ext:SubjectPickupRadiusCodeText>500
 			</wir-ext:SubjectPickupRadiusCodeText>
 			<wir-ext:WarrantBroadcastCodeText>B26
