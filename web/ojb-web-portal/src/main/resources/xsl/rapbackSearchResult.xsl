@@ -58,7 +58,7 @@
 					<tr>
 						<th>NAME</th>
 						<th>OTN</th>
-						<th>DATE</th>
+						<th>ID DATE</th>
 						<th>START DATE</th>
 						<th>VALIDATION DUE</th>
 						<th>STATUS</th>

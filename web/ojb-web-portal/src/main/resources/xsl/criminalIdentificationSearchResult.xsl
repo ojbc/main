@@ -55,7 +55,7 @@
 					<tr>
 						<th>NAME</th>
 						<th>OTN</th>
-						<th>DATE</th>
+						<th>ID DATE</th>
 						<th>TYPE</th>
 						<th>STATUS</th>
 						<th></th>
@@ -76,7 +76,7 @@
 				<xsl:value-of select="oirsr-ext:IdentifiedPerson/oirsr-ext:IdentifiedPersonTrackingIdentification/nc:IdentificationID"></xsl:value-of>
 			</td>	
 			<td>
-				<xsl:apply-templates select="oirsr-ext:IdentificationReportDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+				<xsl:apply-templates select="oirsr-ext:IdentificationReportedDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>				
 			<td>
 				<xsl:value-of select="oirsr-ext:CriminalIdentificationReasonCode"></xsl:value-of>
