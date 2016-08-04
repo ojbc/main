@@ -469,7 +469,8 @@ public class RapbackController {
 		
 		IdentificationResultsQueryResponse identificationResultsQueryResponse = 
 				config.getIdentificationResultsQueryBean().invokeIdentificationResultsQueryRequest(
-						transactionNumber, initialResultsQuery, samlAssertion);;
+						transactionNumber, initialResultsQuery, samlAssertion);
+						
 		model.put("identificationResultsQueryResponse", identificationResultsQueryResponse);
 	}
 
