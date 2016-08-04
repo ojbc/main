@@ -22,7 +22,7 @@
 	xmlns:oirsr="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
 	xmlns:oirsr-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" 
 	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" 
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" 
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
