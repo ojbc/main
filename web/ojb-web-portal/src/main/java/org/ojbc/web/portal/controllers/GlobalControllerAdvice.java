@@ -56,7 +56,8 @@ public class GlobalControllerAdvice {
     }
     
     @ExceptionHandler(Exception.class)
-	public String handleAllExceptions(HttpServletRequest request, Exception ex){
+//    @ResponseStatus(value=HttpStatus.INTERNAL_SERVER_ERROR, reason="Internal Server Error")
+	public String handleAllException(HttpServletRequest request, Exception ex){
 		
 		log.error("Got exception when processing the request", ex); 
 		return "/error/500";
