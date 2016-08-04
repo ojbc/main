@@ -78,11 +78,7 @@
 				</wir-ext:PersonEmployeeIdentification>
 			</nc:EntityPerson>
 		</j:CourtOrderRequestEntity>
-		<j:WarrantAppearanceBail>
-			<j:BailSetAmount>
-				<nc:Amount>5000</nc:Amount>
-			</j:BailSetAmount>
-		</j:WarrantAppearanceBail>
+		<j:WarrantAppearanceBail xsi:nil="true"/>
 		<wir-ext:WarrantAugmentation>
 			<wir-ext:StateWarrantRepositoryIdentification>
 				<nc:IdentificationID>R69458998</nc:IdentificationID>
