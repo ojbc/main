@@ -78,11 +78,7 @@
 				</wir-ext:PersonEmployeeIdentification>
 			</nc:EntityPerson>
 		</j:CourtOrderRequestEntity>
-		<j:WarrantAppearanceBail>
-			<j:BailSetAmount>
-				<nc:Amount>5000</nc:Amount>
-			</j:BailSetAmount>
-		</j:WarrantAppearanceBail>
+		<j:WarrantAppearanceBail xsi:nil="true"/>
 		<wir-ext:WarrantAugmentation>
 			<wir-ext:StateWarrantRepositoryIdentification>
 				<nc:IdentificationID>R69458998</nc:IdentificationID>
@@ -98,9 +94,7 @@
 			</wir-ext:SubjectPickupRadiusCodeText>
 			<wir-ext:WarrantBroadcastCodeText>B26
 			</wir-ext:WarrantBroadcastCodeText>
-			<scr:TransactionControlNumberIdentification>
-				<nc:IdentificationID>TCN345665</nc:IdentificationID>
-			</scr:TransactionControlNumberIdentification>
+			<scr:TransactionControlNumberIdentification xsi:nil="true"/>
 			<wir-ext:WarrantCommentText>Warrant Comment
 			</wir-ext:WarrantCommentText>
 			<wir-ext:WarrantEntryCategoryCodeText>Entry
@@ -137,9 +131,7 @@
 		<nc:PersonRaceText>A</nc:PersonRaceText>
 		<nc:PersonSexText>M</nc:PersonSexText>
 		<nc:PersonSkinToneText>ALB</nc:PersonSkinToneText>
-		<nc:PersonSSNIdentification>
-			<nc:IdentificationID>098213455</nc:IdentificationID>
-		</nc:PersonSSNIdentification>
+		<nc:PersonSSNIdentification xsi:nil="true"/>
 		<nc:PersonStateIdentification>
 			<nc:IdentificationID>SID56567</nc:IdentificationID>
 		</nc:PersonStateIdentification>
@@ -157,9 +149,7 @@
 					</nc:IdentificationJurisdiction>
 				</j:DriverLicenseCardIdentification>
 			</j:DriverLicense>
-			<j:PersonFBIIdentification>
-				<nc:IdentificationID>354786908</nc:IdentificationID>
-			</j:PersonFBIIdentification>
+			<j:PersonFBIIdentification xsi:nil="true"/>
 			<j:PersonBirthplaceCode>0P</j:PersonBirthplaceCode>
 		</j:PersonAugmentation>
 		<wir-ext:PersonCautionCodeText>G45
