@@ -61,7 +61,9 @@
 			</ul>
 
 			<div id="stateInitialResultTab">
-				#if( $identificationResultsQueryResponse.stateSearchResultFile && $identificationResultsQueryResponse.stateSearchResultFile != '' ) 
+				<!--A better way of checking String is not null or empty--> 
+				<!-- http://wiki.apache.org/velocity/CheckingForNull -->
+				#if( "$!identificationResultsQueryResponse.stateSearchResultFile" != "" ) 
    					<div><pre>$identificationResultsQueryResponse.stateSearchResultFile</pre></div> 
 				#end
 				#foreach($item in $identificationResultsQueryResponse.stateCriminalHistoryRecordDocuments)
@@ -69,7 +71,7 @@
 				#end
 			</div>
 			<div id="fbiInitialResultTab">
-				#if( $identificationResultsQueryResponse.fbiSearchResultFile && $identificationResultsQueryResponse.fbiSearchResultFile != '' ) 
+				#if( "$!identificationResultsQueryResponse.fbiSearchResultFile" != "" ) 
 					<div><pre>$identificationResultsQueryResponse.fbiSearchResultFile</pre></div>
 				#end
 				#foreach($item in $identificationResultsQueryResponse.fbiIdentityHistorySummaryDocuments)
