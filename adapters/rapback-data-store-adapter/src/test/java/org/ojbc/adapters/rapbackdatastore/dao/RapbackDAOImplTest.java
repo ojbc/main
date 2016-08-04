@@ -481,6 +481,17 @@ public class RapbackDAOImplTest {
 	
 	@Test
 	@DirtiesContext
+	public void testGetCriminalInitialResults() throws Exception {
+		List<CriminalInitialResults> criminalInitialResults= 
+				rapbackDAO.getIdentificationCriminalInitialResults("000001820140729014008339994");
+		log.info("Criminal Initial Results count: " + criminalInitialResults.size());
+		assertEquals(2, criminalInitialResults.size());
+		log.info("Search result doc content: " + new String(criminalInitialResults.get(0).getSearchResultFile()));
+		assertEquals(1832, criminalInitialResults.get(0).getSearchResultFile().length);
+	}
+	
+	@Test
+	@DirtiesContext
 	public void testGetSubsequentResults() throws Exception {
 		
 		List<SubsequentResults> subsequentResults = rapbackDAO.getSubsequentResults("000001820140729014008339995");

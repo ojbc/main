@@ -1024,7 +1024,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 						+ criminalInitialResults.getTransactionNumber(), e);
 			}
 			criminalInitialResults.setTimestamp(toDateTime(rs
-					.getTimestamp("timestamp")));
+					.getTimestamp("report_timestamp")));
 
 			return criminalInitialResults;
 		}
