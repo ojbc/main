@@ -41,6 +41,9 @@
 		<phisr-ext:PersonTemporaryIdentification>
 			 <nc30:IdentificationID>1234567890</nc30:IdentificationID>
 		</phisr-ext:PersonTemporaryIdentification>
+		<phisr-ext:PersonSystemAssignedIdentification>
+			 <nc30:IdentificationID>ABCDEFGHIJK1234567890</nc30:IdentificationID>
+	</phisr-ext:PersonSystemAssignedIdentification>
 	</nc30:Person>
 	<nc30:Identity structures:id="ALIAS001">
 		<nc30:IdentityPersonRepresentation>
