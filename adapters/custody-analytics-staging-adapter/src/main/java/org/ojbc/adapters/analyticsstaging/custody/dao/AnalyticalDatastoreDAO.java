@@ -16,7 +16,6 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -70,6 +69,7 @@ public interface AnalyticalDatastoreDAO {
 	
 	public Booking getBookingByBookingReportId(String bookingReportId);
 	public Booking getBookingByBookingNumber(String bookingNumber);
+	public Integer getBookingIdByBookingNumber(String bookingNumber);
 	public Person getPerson(Integer personId);
 	public BookingSubject getBookingSubject(Integer bookingSubjectId);
 	public List<BookingCharge> getBookingCharges(Integer bookingId);
@@ -80,8 +80,8 @@ public interface AnalyticalDatastoreDAO {
 	public List<PrescribedMedication> getPrescribedMedication(Integer behavioralHealthAssessmentId);
 
 	public void saveCustodyRelease(CustodyRelease custodyRelease);
-	public void saveCustodyRelease(String bookingNumber, LocalDateTime releaseDate, LocalDateTime reportDate, LocalDate scheduledReleaseDate);
-	public CustodyRelease getCustodyReleaseByBookingNumber(String bookingNumber);
+	public void saveCustodyRelease(Integer bookingId, LocalDateTime releaseDate, LocalDateTime reportDate);
+	public CustodyRelease getCustodyReleaseByBookingId(Integer bookingId);
 	public CustodyStatusChange getCustodyStatusChangeByReportId(String reportId); 
 	public List<CustodyStatusChangeCharge> getCustodyStatusChangeCharges(Integer custodyStatusChangeId);
 	

@@ -267,8 +267,8 @@ public class CamelContextTest {
 		assertTrue(custodyStatusChange.getCaseStatusId() == 1); 
 		assertTrue(custodyStatusChange.getFacilityId() == 1);
 		assertTrue(custodyStatusChange.getBedTypeId() == 7); 
-		assertEquals("Booking Number", custodyStatusChange.getBookingNumber());
-		assertThat(custodyStatusChange.getCustodyRelease().getScheduledReleaseDate(), is(LocalDate.parse("2014-12-17")));
+		assertThat(custodyStatusChange.getBookingId(), is(1));
+		assertThat(custodyStatusChange.getScheduledReleaseDate(), is(LocalDate.parse("2014-12-17")));
 		
 		List<CustodyStatusChangeArrest> custodyStatusChangeArrests = analyticalDatastoreDAOImpl.getCustodyStatusChangeArrests(1);
 		assertThat(custodyStatusChangeArrests.size(), is(1));
@@ -412,9 +412,7 @@ public class CamelContextTest {
 		assertTrue(booking.getFacilityId() == 1);
 		assertTrue(booking.getBedTypeId() == 2); 
 		assertEquals("Booking Number", booking.getBookingNumber());
-		
-		assertNotNull(booking.getCustodyRelease());
-		assertEquals(LocalDate.parse("2014-12-17"), booking.getCustodyRelease().getScheduledReleaseDate());
+		assertEquals(LocalDate.parse("2014-12-17"), booking.getScheduledReleaseDate());
 		
 		bookingArrests = analyticalDatastoreDAOImpl.getBookingArrests(1);
 		assertFalse(bookingArrests.isEmpty());
@@ -443,20 +441,18 @@ public class CamelContextTest {
 		assertThat(bookingCharge.getAgencyId(), is(9));
 		
 		
-		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingNumber("Booking Number");
+		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingId(1);
 		log.info(custodyRelease.toString());
 		assertEquals(LocalDateTime.parse("2014-12-17T10:30"), custodyRelease.getReleaseDate());
 		assertEquals(LocalDateTime.parse("2012-12-17T09:30:47"), custodyRelease.getReportDate());
-		assertEquals(LocalDate.parse("2014-12-17"), custodyRelease.getScheduledReleaseDate());
 		
 	}
 	
 	public void testCustodyReleaseReportServiceRoute() throws Exception
 	{
-		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingNumber("Booking Number"); 
+		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingId(1); 
 		assertEquals(LocalDateTime.parse("2014-12-17T10:30"), custodyRelease.getReleaseDate());
 		assertEquals(LocalDateTime.parse("2012-12-17T09:30:47"), custodyRelease.getReportDate());
-		assertEquals(LocalDate.parse("2014-12-17"), custodyRelease.getScheduledReleaseDate());
 		
 		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/custodyReleaseReport/CustodyReleaseReport.xml");
 		
@@ -469,10 +465,9 @@ public class CamelContextTest {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingNumber("Booking Number");
+		custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingId(1);
 		assertEquals( LocalDateTime.parse("2001-12-17T09:30:47"), custodyRelease.getReleaseDate());
 		assertEquals( LocalDateTime.parse("2016-12-17T09:30:47"), custodyRelease.getReportDate());
-		assertNull(custodyRelease.getScheduledReleaseDate());
 		
 		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAOImpl.getBehavioralHealthAssessments(1);
 		assertThat(behavioralHealthAssessments.size(), is(3));

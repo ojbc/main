@@ -18,11 +18,8 @@ package org.ojbc.adapters.analyticsstaging.custody.processor;
 
 import java.time.LocalDateTime;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Component;
@@ -40,17 +37,13 @@ public class CustodyReleaseReportProcessor extends AbstractReportRepositoryProce
 	{
 		log.info("Processing Custody Release report." );
 		
+		CustodyRelease custodyRelease = new CustodyRelease();
+		
 		Node bookingNode = XmlUtils.xPathNodeSearch(report, "/crr-exc:CustodyReleaseReport/crr-ext:Custody/jxdm51:Booking");
 		String bookingNumber = XmlUtils.xPathStringSearch(bookingNode, "jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID");
 		
-		if (StringUtils.isBlank(bookingNumber)){
-			throw new IllegalArgumentException("The booking number is empty in the request."); 
-		}
-		
-		Booking booking = analyticalDatastoreDAO.getBookingByBookingNumber(bookingNumber); 
-		if (booking == null){
-			throw new IllegalArgumentException("No booking found with the booking number " + bookingNumber); 
-		}
+		Integer bookingId = getBookingIdByBookingNumber(bookingNumber);
+		custodyRelease.setBookingId(bookingId);
 		
 		String releaseDateString = XmlUtils.xPathStringSearch(bookingNode, "following-sibling::nc30:Release/nc30:ActivityDate/nc30:DateTime");
 		LocalDateTime releaseDate = parseLocalDateTime(releaseDateString);
@@ -59,7 +52,6 @@ public class CustodyReleaseReportProcessor extends AbstractReportRepositoryProce
 		String reportDateString = XmlUtils.xPathStringSearch(report, "/crr-exc:CustodyReleaseReport/nc30:DocumentCreationDate/nc30:DateTime");
 		reportDate = parseLocalDateTime(reportDateString);
 			
-		CustodyRelease custodyRelease = new CustodyRelease();
 		custodyRelease.setBookingNumber(bookingNumber);
 		custodyRelease.setReleaseDate(releaseDate);
 		custodyRelease.setReportDate(reportDate);

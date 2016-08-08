@@ -28,6 +28,7 @@ public class CustodyStatusChange implements Serializable{
 	private static final long serialVersionUID = 5546398660510817311L;
 	//pk
 	private Integer custodyStatusChangeId;
+	private Integer bookingId;
 	private Integer jurisdictionId; 
 	private LocalDateTime reportDate;
 	private LocalDateTime bookingDate; 
@@ -39,6 +40,7 @@ public class CustodyStatusChange implements Serializable{
 	private Integer bedTypeId; 
 	private Integer bookingSubjectId; 
 	private String bookingNumber; 
+	private LocalDate scheduledReleaseDate; 
     private CustodyRelease custodyRelease;
 	
 	@Override
@@ -148,6 +150,22 @@ public class CustodyStatusChange implements Serializable{
 
 	public void setReportId(String reportId) {
 		this.reportId = reportId;
+	}
+
+	public Integer getBookingId() {
+		return bookingId;
+	}
+
+	public void setBookingId(Integer bookingId) {
+		this.bookingId = bookingId;
+	}
+
+	public LocalDate getScheduledReleaseDate() {
+		return scheduledReleaseDate;
+	}
+
+	public void setScheduledReleaseDate(LocalDate scheduledReleaseDate) {
+		this.scheduledReleaseDate = scheduledReleaseDate;
 	}
 
 
