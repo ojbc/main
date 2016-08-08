@@ -322,4 +322,14 @@
 				veteran services, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="PersonHomelessIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if person does not have a residence and is considered homeless, false otherwise..</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+		<xsd:element name="BailBondRemainingAmount" type="nc:AmountType" substitutionGroup="j:BailBondAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A monetary amount unpaid for a given bond.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>
