@@ -98,6 +98,7 @@ CREATE TABLE booking (
 CREATE TABLE arrest (
                 id IDENTITY NOT NULL,
                 booking_id INTEGER NOT NULL,
+                arrest_unique_identifier VARCHAR(100) NOT NULL,
                 arrest_agency VARCHAR(200),
                 CONSTRAINT id PRIMARY KEY (id)
 );
