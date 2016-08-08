@@ -177,6 +177,10 @@
 		</br-ext:HoldForAgency>
 	</j:Charge>
 	<j:Arrest structures:id="Arrest_01">
+		<nc:ActivityCategoryText>warrant</nc:ActivityCategoryText>
+		<nc:ActivityDate>
+			<nc:Date>2016-08-04</nc:Date>
+		</nc:ActivityDate>
 		<j:ArrestAgency>
 			<nc:OrganizationName>Arrest Agency name</nc:OrganizationName>
 		</j:ArrestAgency>
@@ -184,6 +188,10 @@
 		<j:ArrestLocation structures:ref="Loc_01" />
 	</j:Arrest>
 	<j:Arrest structures:id="Arrest_02">
+		<nc:ActivityCategoryText>warrant</nc:ActivityCategoryText>
+		<nc:ActivityDate>
+			<nc:Date>2016-08-04</nc:Date>
+		</nc:ActivityDate>
 		<j:ArrestAgency>
 			<nc:OrganizationName>Arrest Agency name 2</nc:OrganizationName>
 		</j:ArrestAgency>
