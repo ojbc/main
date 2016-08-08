@@ -38,6 +38,7 @@ public class Booking implements Serializable{
 	private Integer bedTypeId; 
 	private Integer bookingSubjectId; 
 	private String bookingNumber; 
+	private LocalDate scheduledReleaseDate; 
     private CustodyRelease custodyRelease;
 	
 	public Integer getBookingId() {
@@ -138,6 +139,14 @@ public class Booking implements Serializable{
 
 	public void setCustodyRelease(CustodyRelease custodyRelease) {
 		this.custodyRelease = custodyRelease;
+	}
+
+	public LocalDate getScheduledReleaseDate() {
+		return scheduledReleaseDate;
+	}
+
+	public void setScheduledReleaseDate(LocalDate scheduledReleaseDate) {
+		this.scheduledReleaseDate = scheduledReleaseDate;
 	}
 
 

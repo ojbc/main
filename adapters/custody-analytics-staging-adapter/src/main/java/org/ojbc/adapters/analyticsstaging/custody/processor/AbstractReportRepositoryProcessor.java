@@ -51,6 +51,7 @@ public abstract class AbstractReportRepositoryProcessor {
 	private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
 
 	protected static final String FATAL_ERROR_PERSON_UNIQUE_ID_MISSING = "Fatal error: The person unique identifier is missing";
+	private static final String BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT = "Booking Number is missing in the report";
 
 	@Autowired
 	protected AnalyticalDatastoreDAO analyticalDatastoreDAO;
@@ -405,6 +406,10 @@ public abstract class AbstractReportRepositoryProcessor {
 		return null;
 	}
 	
+	/**
+	 * @param dateString
+	 * @return the parsed LocalDate or null if the dateString is not valid or parsing failure. 
+	 */
 	protected LocalDate parseLocalDate(String dateString) {
 		
 		try{
@@ -423,25 +428,19 @@ public abstract class AbstractReportRepositoryProcessor {
 	}
 
 	protected CustodyRelease processCustodyReleaseInfo(LocalDateTime reportDate, Node parentNode,
-			String bookingNumber) throws Exception {
-		String supervisionReleaseEligibilityDate = XmlUtils.xPathStringSearch(parentNode, 
-        		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseEligibilityDate/nc30:Date");
-        
+			Integer bookingId) throws Exception {
+		
         String supervisionReleaseDate = XmlUtils.xPathStringSearch(parentNode, 
         		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:DateTime");
         CustodyRelease custodyRelease = new CustodyRelease();
         
-        if (StringUtils.isNotBlank(supervisionReleaseDate) || StringUtils.isNotBlank(supervisionReleaseEligibilityDate)){
+        if (StringUtils.isNotBlank(supervisionReleaseDate)){
         	
         	if (StringUtils.isNotBlank(supervisionReleaseDate)){
         		custodyRelease.setReleaseDate(LocalDateTime.parse(supervisionReleaseDate));
         	}
         	
-        	if (StringUtils.isNotBlank(supervisionReleaseEligibilityDate)){
-        		custodyRelease.setScheduledReleaseDate(LocalDate.parse(supervisionReleaseEligibilityDate));
-        	}
-        	
-        	custodyRelease.setBookingNumber(bookingNumber);
+        	custodyRelease.setBookingId(bookingId);
         	custodyRelease.setReportDate(reportDate);
         	
         	if (StringUtils.isNotBlank(supervisionReleaseDate)){
@@ -451,5 +450,19 @@ public abstract class AbstractReportRepositoryProcessor {
 		return custodyRelease;
 	}
 	
+	protected Integer getBookingIdByBookingNumber(String bookingNumber) throws Exception {
+		
+		if (StringUtils.isBlank(bookingNumber)){
+			log.fatal(BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT);
+			throw new Exception(BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT);
+		}
+		
+		Integer bookingId = analyticalDatastoreDAO.getBookingIdByBookingNumber(bookingNumber);
+		if (bookingId == null){
+			log.fatal("No Booking record found with the Booking Number: " + bookingNumber);
+			throw new Exception("No Booking record found with the Booking Number: " + StringUtils.trimToEmpty(bookingNumber));
+		}
+		return bookingId;
+	}
 
 }

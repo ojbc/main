@@ -31,7 +31,6 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingArrest;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Component;
@@ -190,12 +189,14 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 		String bookingNumber = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID");
 		booking.setBookingNumber(bookingNumber);
 		
-        CustodyRelease custodyRelease = processCustodyReleaseInfo(booking.getBookingReportDate(), bookingReportNode,
-				bookingNumber);
-        
-        booking.setCustodyRelease(custodyRelease);
-        
+		String supervisionReleaseEligibilityDate = XmlUtils.xPathStringSearch(bookingReportNode, 
+        		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseEligibilityDate/nc30:Date");
+        booking.setScheduledReleaseDate(parseLocalDate(supervisionReleaseEligibilityDate));
+
         Integer bookingId = analyticalDatastoreDAO.saveBooking(booking);
+        
+        processCustodyReleaseInfo(booking.getBookingReportDate(), bookingReportNode, bookingId);
+        
 		return bookingId;
 	}
 

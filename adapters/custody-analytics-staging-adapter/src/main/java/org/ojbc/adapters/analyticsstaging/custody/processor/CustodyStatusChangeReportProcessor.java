@@ -26,7 +26,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChange;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeArrest;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeCharge;
@@ -154,6 +153,9 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 		String bookingNumber = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID");
 		custodyStatusChange.setBookingNumber(bookingNumber);
 		
+		Integer bookingId = getBookingIdByBookingNumber(bookingNumber);
+		custodyStatusChange.setBookingId(bookingId);
+		
         Integer bookingSubjectId = processBookingSubjectAndBehavioralHealthInfo(personNode, bookingNumber);
         custodyStatusChange.setBookingSubjectId(bookingSubjectId);
         
@@ -185,12 +187,14 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
         Integer bedTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.BedType, bedType);
         custodyStatusChange.setBedTypeId(bedTypeId);
         
-        CustodyRelease custodyRelease = processCustodyReleaseInfo(custodyStatusChange.getReportDate(), custodyNode,
-				bookingNumber);
-        
-        custodyStatusChange.setCustodyRelease(custodyRelease);
-        
+		String supervisionReleaseEligibilityDate = XmlUtils.xPathStringSearch(custodyNode, 
+        		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseEligibilityDate/nc30:Date");
+		custodyStatusChange.setScheduledReleaseDate(parseLocalDate(supervisionReleaseEligibilityDate));
+		
+        processCustodyReleaseInfo(custodyStatusChange.getReportDate(), custodyNode, bookingId);
+
         Integer custodyStatusChangeId = analyticalDatastoreDAO.saveCustodyStatusChange(custodyStatusChange);
+        
 		return custodyStatusChangeId;
 	}
 

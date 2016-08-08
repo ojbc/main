@@ -17,7 +17,6 @@
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -28,9 +27,9 @@ public class CustodyRelease implements Serializable{
 	private static final long serialVersionUID = 8932138565832446354L;
 	//pk
 	private Integer custodyReleaseId;
+	private Integer bookingId;
 	private LocalDateTime reportDate;
 	private LocalDateTime releaseDate; 
-	private LocalDate scheduledReleaseDate; 
 	private String bookingNumber; 
 	
 	@Override
@@ -70,13 +69,12 @@ public class CustodyRelease implements Serializable{
 		this.releaseDate = releaseDate;
 	}
 
-	public LocalDate getScheduledReleaseDate() {
-		return scheduledReleaseDate;
+	public Integer getBookingId() {
+		return bookingId;
 	}
 
-	public void setScheduledReleaseDate(LocalDate scheduledReleaseDate) {
-		this.scheduledReleaseDate = scheduledReleaseDate;
+	public void setBookingId(Integer bookingId) {
+		this.bookingId = bookingId;
 	}
-
 
 }
