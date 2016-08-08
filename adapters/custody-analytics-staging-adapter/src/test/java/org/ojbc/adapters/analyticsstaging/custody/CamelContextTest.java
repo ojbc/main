@@ -339,8 +339,6 @@ public class CamelContextTest {
 		assertThat(person.getBookingSubjectNumber(), is("Booking Subject Number"));
 		assertThat(person.getLanguageId(), is(1));
 		Assert.assertEquals("Female", person.getPersonSexDescription());
-		assertThat(person.getPersonSsn(), is("123-45-6789"));
-		assertThat(person.getPersonSid(), is("XX0120010324"));
 		assertThat(person.getPersonEyeColor(), is("Blue"));
 		assertThat(person.getPersonHairColor(), is("Blonde"));
 		assertThat(person.getPersonHeight(), is("110"));

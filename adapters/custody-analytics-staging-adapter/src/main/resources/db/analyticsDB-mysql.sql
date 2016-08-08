@@ -24,9 +24,6 @@ use CustodyAnalyticsDataStore;
 *                `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 **/
 
-
-
-
 CREATE TABLE Medication (
                 MedicationID BIGINT AUTO_INCREMENT NOT NULL,
                 GeneralProductID VARCHAR(50),
@@ -131,8 +128,6 @@ CREATE TABLE Person (
                 PersonID INT AUTO_INCREMENT NOT NULL,
                 PersonUniqueIdentifier VARCHAR(36) NOT NULL,
                 BookingSubjectNumber VARCHAR(36),
-                PersonSSN VARCHAR(15),
-                PersonSID VARCHAR(15),
                 PersonEyeColor VARCHAR(20),
                 PersonHairColor VARCHAR(20),
                 PersonHeight VARCHAR(10),
@@ -237,10 +232,8 @@ CREATE TABLE CustodyStatusChange (
                 CommitDate DATE NOT NULL,
                 BookingNumber VARCHAR(50) NOT NULL,
                 ScheduledReleaseDate DATE,
-                ArrestLocationLatitude NUMERIC(14,10),
-                ArrestLocationLongitude NUMERIC(14,10),
                 BookingSubjectID INT NOT NULL,
-                BedTypeID INT NOT NULL,
+                BedTypeID INT,
                 CaseStatusID INT NOT NULL,
                 JurisdictionID INT NOT NULL,
                 FacilityID INT NOT NULL,

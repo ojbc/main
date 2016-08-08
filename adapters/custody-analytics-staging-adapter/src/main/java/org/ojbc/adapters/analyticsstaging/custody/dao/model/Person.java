@@ -42,8 +42,6 @@ public class Person {
     private String bookingSubjectNumber;
     private Integer languageId; //primary language 
     
-    private String personSsn; 
-    private String personSid; 
     private String personEyeColor; 
     private String personHairColor; 
     private String personHeight; 
@@ -97,18 +95,6 @@ public class Person {
 	}
 	public void setBookingSubjectNumber(String bookingSubjectNumber) {
 		this.bookingSubjectNumber = bookingSubjectNumber;
-	}
-	public String getPersonSsn() {
-		return personSsn;
-	}
-	public void setPersonSsn(String personSsn) {
-		this.personSsn = personSsn;
-	}
-	public String getPersonSid() {
-		return personSid;
-	}
-	public void setPersonSid(String personSid) {
-		this.personSid = personSid;
 	}
 	public String getPersonEyeColor() {
 		return personEyeColor;

@@ -71,12 +71,6 @@ public abstract class AbstractReportRepositoryProcessor {
 				"parent::br-doc:BookingReport/jxdm51:Booking/jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");
 		person.setBookingSubjectNumber(bookingSubjectNumber);
 		
-		String personSsn = XmlUtils.xPathStringSearch(personNode, "nc30:PersonSSNIdentification/nc30:IdentificationID");
-		person.setPersonSsn(personSsn);
-		
-		String personSid = XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonAugmentation/jxdm51:PersonStateFingerprintIdentification/nc30:IdentificationID");
-		person.setPersonSid(personSid);
-		
 		String personHairColor = XmlUtils.xPathStringSearch(personNode, "nc30:PersonHairColorText");
 		person.setPersonHairColor(personHairColor);
 		

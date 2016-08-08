@@ -147,9 +147,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         log.debug("Inserting row into Person table: " + person.toString());
 
         final String personStatement="INSERT into Person (PersonSexID, PersonRaceID, PersonBirthDate, "
-        		+ "PersonUniqueIdentifier, BookingSubjectNumber, LanguageID, PersonSSN, PersonSID, "
+        		+ "PersonUniqueIdentifier, BookingSubjectNumber, LanguageID, "
         		+ "PersonEyeColor, PersonHairColor, PersonHeight, personHeightMeasureUnit,personWeight, "
-        		+ "personWeightMeasureUnit, RegisteredSexOffender ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        		+ "personWeightMeasureUnit, RegisteredSexOffender ) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -159,7 +159,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	                connection.prepareStatement(personStatement, 
         	                		new String[] {"PersonSexID", "PersonRaceID", "PersonBirthDate", 
         	                		"PersonUniqueIdentifier", "BookingSubjectNumber", "LanguageID", 
-        	                		"PersonSSN", "PersonSID", "PersonEyeColor", "PersonHairColor", 
+        	                		"PersonEyeColor", "PersonHairColor", 
         	                		"PersonHeight", "personHeightMeasureUnit", "PersonWeight", 
         	                		"personWeightMeasureUnit", "RegisteredSexOffender"});
         	            
@@ -170,15 +170,13 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            ps.setString(4, String.valueOf(person.getPersonUniqueIdentifier()));
         	            setPreparedStatementVariable(person.getBookingSubjectNumber(), ps, 5);
         	            setPreparedStatementVariable(person.getLanguageId(), ps, 6);
-        	            setPreparedStatementVariable(person.getPersonSsn(), ps, 7);
-        	            setPreparedStatementVariable(person.getPersonSid(), ps, 8);
-        	            setPreparedStatementVariable(person.getPersonEyeColor(), ps, 9);
-        	            setPreparedStatementVariable(person.getPersonHairColor(), ps, 10);
-        	            setPreparedStatementVariable(person.getPersonHeight(), ps, 11);
-        	            setPreparedStatementVariable(person.getPersonHeightMeasureUnit(), ps, 12);
-        	            setPreparedStatementVariable(person.getPersonWeight(), ps, 13);
-        	            setPreparedStatementVariable(person.getPersonWeightMeasureUnit(), ps, 14);
-        	            setPreparedStatementVariable(person.getRegisteredSexOffender(), ps, 15);
+        	            setPreparedStatementVariable(person.getPersonEyeColor(), ps, 7);
+        	            setPreparedStatementVariable(person.getPersonHairColor(), ps, 8);
+        	            setPreparedStatementVariable(person.getPersonHeight(), ps, 9);
+        	            setPreparedStatementVariable(person.getPersonHeightMeasureUnit(), ps, 10);
+        	            setPreparedStatementVariable(person.getPersonWeight(), ps, 11);
+        	            setPreparedStatementVariable(person.getPersonWeightMeasureUnit(), ps, 12);
+        	            setPreparedStatementVariable(person.getRegisteredSexOffender(), ps, 13);
         	            
         	            return ps;
         	        }
@@ -219,8 +217,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			person.setBookingSubjectNumber(rs.getString("BookingSubjectNumber"));
 			person.setLanguageId(rs.getInt("LanguageID"));
 			person.setLanguage(rs.getString("Language"));
-			person.setPersonSsn(rs.getString("PersonSSN"));
-			person.setPersonSid(rs.getString("PersonSid"));
 			person.setPersonEyeColor(rs.getString("personEyeColor"));
 			person.setPersonHairColor(rs.getString("personHairColor"));
 			person.setPersonHeight(rs.getString("personHeight"));
