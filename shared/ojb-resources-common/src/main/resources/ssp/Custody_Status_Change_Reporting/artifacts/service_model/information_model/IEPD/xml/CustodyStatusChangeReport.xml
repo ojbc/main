@@ -118,6 +118,9 @@
 			</nc:ActivityDate>
 		</nc:Release>
 		<j:BailBond structures:id="Bond_01">
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>12345</nc:IdentificationID>
+			</nc:ActivityIdentification>
 			<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
 			<nc:ActivityStatus>
 				<nc:StatusDescriptionText>Bond Status</nc:StatusDescriptionText>
@@ -125,6 +128,14 @@
 			<j:BailBondAmount>
 				<nc:Amount>500.00</nc:Amount>
 			</j:BailBondAmount>
+			<j:BailBondIssuerEntity>
+				<nc:EntityOrganization>
+					<nc:OrganizationName>ACSD</nc:OrganizationName>
+				</nc:EntityOrganization>
+			</j:BailBondIssuerEntity>
+			<cscr-ext:BailBondRemainingAmount>
+				<nc:Amount>500.00</nc:Amount>
+		</cscr-ext:BailBondRemainingAmount>
 		</j:BailBond>
 		<j:Offense structures:id="Offense_01">
 			<nc:ActivityDate>
@@ -148,6 +159,9 @@
 			</cscr-ext:HoldForAgency>
 		</j:Charge>
 		<j:Arrest structures:id="Arrest_01">
+			<nc:ActivityDate>
+				<nc:Date>2016-01-01</nc:Date>
+			</nc:ActivityDate>
 			<j:ArrestAgency>
 				<nc:OrganizationName>Arrest Agency name</nc:OrganizationName>
 			</j:ArrestAgency>
@@ -224,8 +238,8 @@
 			</j:PersonAugmentation>
 			<cscr-ext:PersonSocioEconomicStatusDescriptionText>Middle Class
 			</cscr-ext:PersonSocioEconomicStatusDescriptionText>
-			<cscr-ext:PersonVeteranBenefitsEligibilityIndicator>true
-			</cscr-ext:PersonVeteranBenefitsEligibilityIndicator>
+			<cscr-ext:PersonVeteranBenefitsEligibilityIndicator>true</cscr-ext:PersonVeteranBenefitsEligibilityIndicator>
+			<cscr-ext:PersonHomelessIndicator>true</cscr-ext:PersonHomelessIndicator>
 			<cscr-ext:PersonPersistentIdentification>
 				<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
 				</nc:IdentificationID>

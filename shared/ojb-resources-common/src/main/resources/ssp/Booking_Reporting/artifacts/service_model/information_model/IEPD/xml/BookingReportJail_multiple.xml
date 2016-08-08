@@ -107,16 +107,17 @@
 				</nc:ActivityDescriptionText>
 			</j:SupervisionCondition>
 		</j:SupervisionAugmentation>
-		<br-ext:DetentiontImmigrationHoldIndicator>false
-		</br-ext:DetentiontImmigrationHoldIndicator>
-		<br-ext:InmateWorkReleaseIndicator>true
-		</br-ext:InmateWorkReleaseIndicator>
+		<br-ext:DetentiontImmigrationHoldIndicator>false</br-ext:DetentiontImmigrationHoldIndicator>
+		<br-ext:InmateWorkReleaseIndicator>true</br-ext:InmateWorkReleaseIndicator>
 		<br-ext:InmateWorkerIndicator>false
 		</br-ext:InmateWorkerIndicator>
 		<br-ext:AllowAccountDepositIndicator>true
 		</br-ext:AllowAccountDepositIndicator>
 	</j:Detention>
 	<j:BailBond structures:id="Bond_01">
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>12345</nc:IdentificationID>
+			</nc:ActivityIdentification>
 		<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
 		<nc:ActivityStatus>
 			<nc:StatusDescriptionText>Bond Status</nc:StatusDescriptionText>
@@ -124,8 +125,19 @@
 		<j:BailBondAmount>
 			<nc:Amount>500.00</nc:Amount>
 		</j:BailBondAmount>
+		<j:BailBondIssuerEntity>
+			<nc:EntityOrganization>
+				<nc:OrganizationName>PCSD</nc:OrganizationName>
+			</nc:EntityOrganization>
+		</j:BailBondIssuerEntity>
+		<br-ext:BailBondRemainingAmount>
+			<nc:Amount>100.00</nc:Amount>
+	 	</br-ext:BailBondRemainingAmount>
 	</j:BailBond>
 	<j:BailBond structures:id="Bond_02">
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>54321</nc:IdentificationID>
+			</nc:ActivityIdentification>
 		<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
 		<nc:ActivityStatus>
 			<nc:StatusDescriptionText>Bond Status</nc:StatusDescriptionText>
@@ -133,6 +145,14 @@
 		<j:BailBondAmount>
 			<nc:Amount>1000.00</nc:Amount>
 		</j:BailBondAmount>
+		<j:BailBondIssuerEntity>
+			<nc:EntityOrganization>
+				<nc:OrganizationName>ACSD</nc:OrganizationName>
+			</nc:EntityOrganization>
+		</j:BailBondIssuerEntity>
+		<br-ext:BailBondRemainingAmount>
+			<nc:Amount>100.00</nc:Amount>
+	 	</br-ext:BailBondRemainingAmount>
 	</j:BailBond>
 	<j:Offense structures:id="Offense_01">
 		<nc:ActivityDate>
@@ -267,8 +287,8 @@
 		</j:PersonAugmentation>
 		<br-ext:PersonSocioEconomicStatusDescriptionText>Middle Class
 		</br-ext:PersonSocioEconomicStatusDescriptionText>
-		<br-ext:PersonVeteranBenefitsEligibilityIndicator>true
-		</br-ext:PersonVeteranBenefitsEligibilityIndicator>
+		<br-ext:PersonVeteranBenefitsEligibilityIndicator>true</br-ext:PersonVeteranBenefitsEligibilityIndicator>
+		<br-ext:PersonHomelessIndicator>true</br-ext:PersonHomelessIndicator>
 		<br-ext:PersonPersistentIdentification>
 			<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
 			</nc:IdentificationID>
