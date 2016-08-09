@@ -87,6 +87,8 @@
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
           <xs:element ref="j:BailBondAmount" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:BailBondIssuerEntity" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="j:BailBondAugmentationPoint" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -307,9 +309,19 @@
       <xs:documentation>A monetary amount approved for bond.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="BailBondAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for BailBondType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="BailBondChargeAssociation" type="j:BailBondChargeAssociationType">
     <xs:annotation>
       <xs:documentation>An association that links a bail bond to a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="BailBondIssuerEntity" type="nc:EntityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An entity that issues a bond.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Booking" type="j:BookingType" nillable="true">
