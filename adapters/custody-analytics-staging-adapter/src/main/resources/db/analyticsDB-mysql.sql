@@ -25,52 +25,68 @@ use CustodyAnalyticsDataStore;
 **/
 
 
+
+
+CREATE TABLE Location (
+                LocationID INT AUTO_INCREMENT NOT NULL,
+                AddressSecondaryUnit VARCHAR(150),
+                StreetNumber VARCHAR(50),
+                StreetName VARCHAR(150),
+                City VARCHAR(100),
+                State VARCHAR(10),
+                PostalCode VARCHAR(10),
+                ArrestLocationLatitude NUMERIC(14,10),
+                ArrestLocationLongitude NUMERIC(14,10),
+                PRIMARY KEY (LocationID)
+);
+
+
 CREATE TABLE Medication (
-                MedicationID BIGINT AUTO_INCREMENT NOT NULL,
+                MedicationID INT AUTO_INCREMENT NOT NULL,
                 GeneralProductID VARCHAR(50),
                 ItemName VARCHAR(100),
                 PRIMARY KEY (MedicationID)
 );
 
 
-CREATE TABLE Language (
-                LanguageID INT AUTO_INCREMENT NOT NULL,
-                Language VARCHAR(20) NOT NULL,
-                PRIMARY KEY (LanguageID)
+CREATE TABLE LanguageType (
+                LanguageTypeID INT AUTO_INCREMENT NOT NULL,
+                LanguageTypeDescription VARCHAR(20) NOT NULL,
+                PRIMARY KEY (LanguageTypeID)
 );
 
 
-CREATE TABLE EducationLevel (
-                EducationLevelID INT AUTO_INCREMENT NOT NULL,
-                EducationLevel VARCHAR(50) NOT NULL,
-                PRIMARY KEY (EducationLevelID)
+CREATE TABLE EducationLevelType (
+                EducationLevelTypeID INT AUTO_INCREMENT NOT NULL,
+                EducationLevelTypeDescription VARCHAR(50) NOT NULL,
+                PRIMARY KEY (EducationLevelTypeID)
 );
 
 
-CREATE TABLE Occupation (
-                OccupationID INT AUTO_INCREMENT NOT NULL,
-                Occupation VARCHAR(50) NOT NULL,
-                PRIMARY KEY (OccupationID)
+CREATE TABLE OccupationType (
+                OccupationTypeID INT AUTO_INCREMENT NOT NULL,
+                OccupationTypeDescription VARCHAR(50) NOT NULL,
+                PRIMARY KEY (OccupationTypeID)
 );
 
 
-CREATE TABLE IncomeLevel (
-                IncomeLevelID INT AUTO_INCREMENT NOT NULL,
-                IncomeLevel VARCHAR(50) NOT NULL,
-                PRIMARY KEY (IncomeLevelID)
+CREATE TABLE IncomeLevelType (
+                IncomeLevelTypeID INT AUTO_INCREMENT NOT NULL,
+                IncomeLevelTypeDescription VARCHAR(50) NOT NULL,
+                PRIMARY KEY (IncomeLevelTypeID)
 );
 
 
-CREATE TABLE HousingStatus (
-                HousingStatusID INT AUTO_INCREMENT NOT NULL,
-                HousingStatusDescription VARCHAR(50) NOT NULL,
-                PRIMARY KEY (HousingStatusID)
+CREATE TABLE HousingStatusType (
+                HousingStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                HousingStatusTypeDescription VARCHAR(50) NOT NULL,
+                PRIMARY KEY (HousingStatusTypeID)
 );
 
 
 CREATE TABLE Facility (
                 FacilityID INT AUTO_INCREMENT NOT NULL,
-                FacilityName VARCHAR(100) NOT NULL,
+                FacilityDescription VARCHAR(100) NOT NULL,
                 Capacity INT NOT NULL,
                 PRIMARY KEY (FacilityID)
 );
@@ -80,7 +96,7 @@ ALTER TABLE Facility COMMENT 'Booking Detention Facility';
 
 CREATE TABLE BondType (
                 BondTypeID INT AUTO_INCREMENT NOT NULL,
-                BondType VARCHAR(100) NOT NULL,
+                BondTypeDescription VARCHAR(100) NOT NULL,
                 PRIMARY KEY (BondTypeID)
 );
 
@@ -100,7 +116,7 @@ CREATE TABLE BehavioralHealthType (
 
 
 CREATE TABLE PersonRace (
-                PersonRaceID SMALLINT AUTO_INCREMENT NOT NULL,
+                PersonRaceID INT AUTO_INCREMENT NOT NULL,
                 PersonRaceCode VARCHAR(10) NOT NULL,
                 PersonRaceDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (PersonRaceID)
@@ -108,7 +124,7 @@ CREATE TABLE PersonRace (
 
 
 CREATE TABLE PersonSex (
-                PersonSexID SMALLINT AUTO_INCREMENT NOT NULL,
+                PersonSexID INT AUTO_INCREMENT NOT NULL,
                 PersonSexCode VARCHAR(1) NOT NULL,
                 PersonSexDescription VARCHAR(7) NOT NULL,
                 PRIMARY KEY (PersonSexID)
@@ -127,10 +143,10 @@ CREATE TABLE Person (
                 PersonWeightMeasureUnit VARCHAR(10),
                 RegisteredSexOffender BOOLEAN,
                 PersonBirthDate DATE,
-                LanguageID INT,
-                PersonSexID SMALLINT NOT NULL,
-                PersonRaceID SMALLINT NOT NULL,
+                LanguageTypeID INT,
                 CreationDate DATETIME DEFAULT now() NOT NULL,
+                PersonSexID INT,
+                PersonRaceID INT,
                 PRIMARY KEY (PersonID)
 );
 
@@ -140,10 +156,10 @@ CREATE TABLE BookingSubject (
                 RecidivistIndicator SMALLINT DEFAULT 0 NOT NULL,
                 PersonID INT NOT NULL,
                 PersonAge INT,
-                EducationLevelID INT,
-                OccupationID INT,
-                IncomeLevelID INT,
-                HousingStatusID INT,
+                EducationLevelTypeID INT,
+                OccupationTypeID INT,
+                IncomeLevelTypeID INT,
+                HousingStatusTypeID INT,
                 MilitaryServiceStatusCode VARCHAR(20),
                 PRIMARY KEY (BookingSubjectID)
 );
@@ -165,9 +181,9 @@ CREATE TABLE BehavioralHealthAssessment (
 
 
 CREATE TABLE PrescribedMedication (
-                PrescribedMedicationID BIGINT AUTO_INCREMENT NOT NULL,
+                PrescribedMedicationID INT AUTO_INCREMENT NOT NULL,
                 BehavioralHealthAssessmentID INT NOT NULL,
-                MedicationID BIGINT NOT NULL,
+                MedicationID INT NOT NULL,
                 MedicationDispensingDate DATE,
                 MedicationDoseMeasure VARCHAR(10),
                 PRIMARY KEY (PrescribedMedicationID)
@@ -175,7 +191,7 @@ CREATE TABLE PrescribedMedication (
 
 
 CREATE TABLE Treatment (
-                TreatmentID BIGINT AUTO_INCREMENT NOT NULL,
+                TreatmentID INT AUTO_INCREMENT NOT NULL,
                 BehavioralHealthAssessmentID INT NOT NULL,
                 StartDate DATE,
                 EndDate DATE,
@@ -188,7 +204,7 @@ CREATE TABLE Treatment (
 
 
 CREATE TABLE BehavioralHealthEvaluation (
-                BehavioralHealthEvaluationID BIGINT AUTO_INCREMENT NOT NULL,
+                BehavioralHealthEvaluationID INT AUTO_INCREMENT NOT NULL,
                 BehavioralHealthTypeID INT NOT NULL,
                 BehavioralHealthAssessmentID INT NOT NULL,
                 PRIMARY KEY (BehavioralHealthEvaluationID)
@@ -197,38 +213,38 @@ CREATE TABLE BehavioralHealthEvaluation (
 
 CREATE TABLE ChargeType (
                 ChargeTypeID INT AUTO_INCREMENT NOT NULL,
-                ChargeType VARCHAR(100) NOT NULL,
+                ChargeTypeDescription VARCHAR(100) NOT NULL,
                 PRIMARY KEY (ChargeTypeID)
 );
 
 
-CREATE TABLE CaseStatus (
-                CaseStatusID INT AUTO_INCREMENT NOT NULL,
-                CaseStatus VARCHAR(100) NOT NULL,
-                PRIMARY KEY (CaseStatusID)
+CREATE TABLE CaseStatusType (
+                CaseStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                CaseStatusTypeDescription VARCHAR(100) NOT NULL,
+                PRIMARY KEY (CaseStatusTypeID)
 );
 
 
-CREATE TABLE Jurisdiction (
-                JurisdictionID INT AUTO_INCREMENT NOT NULL,
-                JurisdictionName VARCHAR(100) NOT NULL,
-                PRIMARY KEY (JurisdictionID)
+CREATE TABLE JurisdictionType (
+                JurisdictionTypeID INT AUTO_INCREMENT NOT NULL,
+                JurisdictionTypeDescription VARCHAR(100) NOT NULL,
+                PRIMARY KEY (JurisdictionTypeID)
 );
 
 
-CREATE TABLE Agency (
-                AgencyID INT AUTO_INCREMENT NOT NULL,
-                AgencyName VARCHAR(40) NOT NULL,
-                PRIMARY KEY (AgencyID)
+CREATE TABLE AgencyType (
+                AgencyTypeID INT AUTO_INCREMENT NOT NULL,
+                AgencyTypeDescription VARCHAR(50) NOT NULL,
+                PRIMARY KEY (AgencyTypeID)
 );
 
 
 CREATE TABLE Booking (
-                BookingID BIGINT AUTO_INCREMENT NOT NULL,
-                JurisdictionID INT NOT NULL,
+                BookingID INT AUTO_INCREMENT NOT NULL,
+                JurisdictionTypeID INT NOT NULL,
                 BookingReportDate DATETIME NOT NULL,
                 BookingReportID VARCHAR(30) NOT NULL,
-                CaseStatusID INT NOT NULL,
+                CaseStatusTypeID INT NOT NULL,
                 BookingDate DATETIME NOT NULL,
                 CommitDate DATE NOT NULL,
                 ScheduledReleaseDate DATE,
@@ -241,8 +257,8 @@ CREATE TABLE Booking (
 
 
 CREATE TABLE CustodyRelease (
-                CustodyReleaseID BIGINT AUTO_INCREMENT NOT NULL,
-                BookingID BIGINT NOT NULL,
+                CustodyReleaseID INT AUTO_INCREMENT NOT NULL,
+                BookingID INT NOT NULL,
                 ReleaseDate DATETIME NOT NULL,
                 ReportDate DATETIME NOT NULL,
                 PRIMARY KEY (CustodyReleaseID)
@@ -250,16 +266,16 @@ CREATE TABLE CustodyRelease (
 
 
 CREATE TABLE CustodyStatusChange (
-                CustodyStatusChangeID BIGINT AUTO_INCREMENT NOT NULL,
-                BookingID BIGINT NOT NULL,
+                CustodyStatusChangeID INT AUTO_INCREMENT NOT NULL,
+                BookingID INT NOT NULL,
                 ReportID VARCHAR(30) NOT NULL,
                 BookingDate DATETIME NOT NULL,
                 CommitDate DATE NOT NULL,
                 ScheduledReleaseDate DATE,
                 BookingSubjectID INT NOT NULL,
                 BedTypeID INT,
-                CaseStatusID INT NOT NULL,
-                JurisdictionID INT NOT NULL,
+                CaseStatusTypeID INT NOT NULL,
+                JurisdictionTypeID INT NOT NULL,
                 FacilityID INT NOT NULL,
                 ReportDate DATETIME NOT NULL,
                 PRIMARY KEY (CustodyStatusChangeID)
@@ -267,60 +283,58 @@ CREATE TABLE CustodyStatusChange (
 
 
 CREATE TABLE CustodyStatusChangeArrest (
-                CustodyStatusChangeArrestID BIGINT AUTO_INCREMENT NOT NULL,
-                CustodyStatusChangeID BIGINT NOT NULL,
-                StreetNumber VARCHAR(50),
-                StreetName VARCHAR(150),
-                AddressSecondaryUnit VARCHAR(150),
-                City VARCHAR(100),
-                State VARCHAR(10),
-                PostalCode VARCHAR(10),
-                ArrestLocationLatitude NUMERIC(14,10),
-                ArrestLocationLongitude NUMERIC(14,10),
+                CustodyStatusChangeArrestID INT AUTO_INCREMENT NOT NULL,
+                CustodyStatusChangeID INT NOT NULL,
+                LocationID INT NOT NULL,
                 PRIMARY KEY (CustodyStatusChangeArrestID)
 );
 
 
 CREATE TABLE CustodyStatusChangeCharge (
-                CustodyStatusChangeChargeID BIGINT AUTO_INCREMENT NOT NULL,
-                CustodyStatusChangeArrestID BIGINT NOT NULL,
+                CustodyStatusChangeChargeID INT AUTO_INCREMENT NOT NULL,
+                CustodyStatusChangeArrestID INT NOT NULL,
                 ChargeTypeID INT NOT NULL,
                 NextCourtDate DATE,
                 NextCourtName VARCHAR(50),
                 BondTypeID INT NOT NULL,
-                AgencyID INT NOT NULL,
+                AgencyTypeID INT NOT NULL,
                 BondAmount NUMERIC(10,2),
                 PRIMARY KEY (CustodyStatusChangeChargeID)
 );
 
 
 CREATE TABLE BookingArrest (
-                BookingArrestID BIGINT AUTO_INCREMENT NOT NULL,
-                BookingID BIGINT NOT NULL,
-                AddressSecondaryUnit VARCHAR(150),
-                StreetNumber VARCHAR(50),
-                StreetName VARCHAR(150),
-                City VARCHAR(100),
-                State VARCHAR(10),
-                PostalCode VARCHAR(10),
-                ArrestLocationLatitude NUMERIC(14,10),
-                ArrestLocationLongitude NUMERIC(14,10),
+                BookingArrestID INT AUTO_INCREMENT NOT NULL,
+                BookingID INT NOT NULL,
+                LocationID INT NOT NULL,
                 PRIMARY KEY (BookingArrestID)
 );
 
 
 CREATE TABLE BookingCharge (
                 BookingChargeID INT AUTO_INCREMENT NOT NULL,
-                BookingArrestID BIGINT NOT NULL,
+                BookingArrestID INT NOT NULL,
                 ChargeTypeID INT NOT NULL,
                 NextCourtName VARCHAR(50),
                 NextCourtDate DATE,
-                AgencyID INT NOT NULL,
+                AgencyTypeID INT NOT NULL,
                 BondAmount NUMERIC(10,2),
                 BondTypeID INT NOT NULL,
                 PRIMARY KEY (BookingChargeID)
 );
 
+
+ALTER TABLE BookingArrest ADD CONSTRAINT location_bookingarrest_fk
+FOREIGN KEY (LocationID)
+REFERENCES Location (LocationID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE CustodyStatusChangeArrest ADD CONSTRAINT location_custodystatuschangearrest_fk
+FOREIGN KEY (LocationID)
+REFERENCES Location (LocationID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
 
 ALTER TABLE PrescribedMedication ADD CONSTRAINT medication_prescribedmedication_fk
 FOREIGN KEY (MedicationID)
@@ -329,32 +343,32 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE Person ADD CONSTRAINT language_person_fk
-FOREIGN KEY (LanguageID)
-REFERENCES Language (LanguageID)
+FOREIGN KEY (LanguageTypeID)
+REFERENCES LanguageType (LanguageTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE BookingSubject ADD CONSTRAINT education_bookingsubject_fk
-FOREIGN KEY (EducationLevelID)
-REFERENCES EducationLevel (EducationLevelID)
+FOREIGN KEY (EducationLevelTypeID)
+REFERENCES EducationLevelType (EducationLevelTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE BookingSubject ADD CONSTRAINT occupation_bookingsubject_fk
-FOREIGN KEY (OccupationID)
-REFERENCES Occupation (OccupationID)
+FOREIGN KEY (OccupationTypeID)
+REFERENCES OccupationType (OccupationTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE BookingSubject ADD CONSTRAINT incomelevel_bookingsubject_fk
-FOREIGN KEY (IncomeLevelID)
-REFERENCES IncomeLevel (IncomeLevelID)
+FOREIGN KEY (IncomeLevelTypeID)
+REFERENCES IncomeLevelType (IncomeLevelTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE BookingSubject ADD CONSTRAINT housingstatus_bookingsubject_fk
-FOREIGN KEY (HousingStatusID)
-REFERENCES HousingStatus (HousingStatusID)
+FOREIGN KEY (HousingStatusTypeID)
+REFERENCES HousingStatusType (HousingStatusTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
@@ -467,38 +481,38 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE Booking ADD CONSTRAINT status_booking_fk
-FOREIGN KEY (CaseStatusID)
-REFERENCES CaseStatus (CaseStatusID)
+FOREIGN KEY (CaseStatusTypeID)
+REFERENCES CaseStatusType (CaseStatusTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE CustodyStatusChange ADD CONSTRAINT casestatus_custody_status_change_fk
-FOREIGN KEY (CaseStatusID)
-REFERENCES CaseStatus (CaseStatusID)
+FOREIGN KEY (CaseStatusTypeID)
+REFERENCES CaseStatusType (CaseStatusTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE Booking ADD CONSTRAINT jurisdiction_booking_fk
-FOREIGN KEY (JurisdictionID)
-REFERENCES Jurisdiction (JurisdictionID)
+FOREIGN KEY (JurisdictionTypeID)
+REFERENCES JurisdictionType (JurisdictionTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE CustodyStatusChange ADD CONSTRAINT jurisdiction_custody_status_change_fk
-FOREIGN KEY (JurisdictionID)
-REFERENCES Jurisdiction (JurisdictionID)
+FOREIGN KEY (JurisdictionTypeID)
+REFERENCES JurisdictionType (JurisdictionTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE BookingCharge ADD CONSTRAINT agency_bookingcharge_fk
-FOREIGN KEY (AgencyID)
-REFERENCES Agency (AgencyID)
+FOREIGN KEY (AgencyTypeID)
+REFERENCES AgencyType (AgencyTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE CustodyStatusChangeCharge ADD CONSTRAINT agency_custodystatuschangecharge_fk
-FOREIGN KEY (AgencyID)
-REFERENCES Agency (AgencyID)
+FOREIGN KEY (AgencyTypeID)
+REFERENCES AgencyType (AgencyTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 

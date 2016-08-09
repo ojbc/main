@@ -53,7 +53,7 @@ public class DescriptionCodeLookupServiceTest {
 		assertEquals(Integer.valueOf(2), descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, "A"));
 		assertEquals(Integer.valueOf(2), descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, "F"));
 		assertNull(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, "W"));
-		assertEquals(Integer.valueOf(1),descriptionCodeLookupService.retrieveCode(CodeTable.Agency, "Adams County SO"));
+		assertEquals(Integer.valueOf(1),descriptionCodeLookupService.retrieveCode(CodeTable.AgencyType, "Adams County SO"));
 	}
 
 }

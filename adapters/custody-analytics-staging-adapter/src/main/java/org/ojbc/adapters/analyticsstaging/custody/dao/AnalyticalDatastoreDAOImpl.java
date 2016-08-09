@@ -32,7 +32,6 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Address;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.Agency;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAssessment;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingArrest;
@@ -75,29 +74,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;  
 	
-	@Override
-	public Integer saveAgency(final Agency agency) {
-
-        log.debug("Inserting row into Agency table");
-
-        final String agencyInsertStatement="INSERT into AGENCY (AgencyName, AgencyORI) values (?,?)";
-        
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(agencyInsertStatement, new String[] {"AgencyName","AgencyORI"});
-        	            ps.setString(1, agency.getAgencyName());
-        	            ps.setString(2, agency.getAgencyOri());
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();
-	}
-
 	@Override
 	public Integer savePersonSex(final PersonSex personSex) {
         log.debug("Inserting row into PersonSex table");
@@ -145,7 +121,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         log.debug("Inserting row into Person table: " + person.toString());
 
         final String personStatement="INSERT into Person (PersonSexID, PersonRaceID, PersonBirthDate, "
-        		+ "PersonUniqueIdentifier, BookingSubjectNumber, LanguageID, "
+        		+ "PersonUniqueIdentifier, BookingSubjectNumber, LanguageTypeID, "
         		+ "PersonEyeColor, PersonHairColor, PersonHeight, personHeightMeasureUnit,personWeight, "
         		+ "personWeightMeasureUnit, RegisteredSexOffender ) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         
@@ -156,7 +132,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            PreparedStatement ps =
         	                connection.prepareStatement(personStatement, 
         	                		new String[] {"PersonSexID", "PersonRaceID", "PersonBirthDate", 
-        	                		"PersonUniqueIdentifier", "BookingSubjectNumber", "LanguageID", 
+        	                		"PersonUniqueIdentifier", "BookingSubjectNumber", "LanguageTypeID", 
         	                		"PersonEyeColor", "PersonHairColor", 
         	                		"PersonHeight", "personHeightMeasureUnit", "PersonWeight", 
         	                		"personWeightMeasureUnit", "RegisteredSexOffender"});
@@ -189,7 +165,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		final String PERSON_SELECT = "SELECT * FROM Person p "
 				+ "LEFT JOIN PersonSex s ON s.PersonSexID = p.PersonSexID "
 				+ "LEFT JOIN PersonRace r ON r.PersonRaceID = p.PersonRaceID "
-				+ "LEFT JOIN Language l on l.languageID = p.languageID "
+				+ "LEFT JOIN LanguageType l on l.languageTypeID = p.languageTypeID "
 				+ "WHERE p.PersonID = ?"; 
 		List<Person> persons = 
 				jdbcTemplate.query(PERSON_SELECT, 
@@ -213,8 +189,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			person.setPersonSexId(rs.getInt("PersonSexId"));
 			person.setPersonUniqueIdentifier(rs.getString("PersonUniqueIdentifier"));
 			person.setBookingSubjectNumber(rs.getString("BookingSubjectNumber"));
-			person.setLanguageId(rs.getInt("LanguageID"));
-			person.setLanguage(rs.getString("Language"));
+			person.setLanguageId(rs.getInt("LanguageTypeID"));
+			person.setLanguage(rs.getString("LanguageTypeDescription"));
 			person.setPersonEyeColor(rs.getString("personEyeColor"));
 			person.setPersonHairColor(rs.getString("personHairColor"));
 			person.setPersonHeight(rs.getString("personHeight"));
@@ -224,40 +200,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			person.setRegisteredSexOffender(rs.getBoolean("RegisteredSexOffender"));
 			
 	    	return person;
-		}
-
-	}
-
-	@Override
-	public Integer searchForAgenyIDbyAgencyORI(String agencyORI) {
-			String sql = "select * from Agency where AgencyORI = ?";
-			 
-			List<Agency> agencies = 
-					jdbcTemplate.query(sql, 
-							new AgencyRowMapper(), agencyORI);
-			
-			Agency agency = DataAccessUtils.singleResult(agencies);
-			
-			if (agency == null)
-			{
-				return null;
-			}	
-			
-			return agency.getAgencyID();
-			
-	}
-	
-	public class AgencyRowMapper implements RowMapper<Agency>
-	{
-		@Override
-		public Agency mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Agency agency = new Agency();
-	    	
-			agency.setAgencyID(rs.getInt("AgencyID"));
-			agency.setAgencyName(rs.getString("AgencyName"));
-			agency.setAgencyName(rs.getString("AgencyORI"));
-			
-	    	return agency;
 		}
 
 	}
@@ -297,7 +239,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public void saveBookingCharges(List<BookingCharge> bookingCharges) {
 		log.info("Inserting row into BookingCharge table: " + bookingCharges);
 		final String sqlString=
-				"INSERT INTO BookingCharge (BookingArrestID, ChargeTypeID, AgencyID, BondAmount, BondTypeID, NextCourtDate, NextCourtName) "
+				"INSERT INTO BookingCharge (BookingArrestID, ChargeTypeID, AgencyTypeID, BondAmount, BondTypeID, NextCourtDate, NextCourtName) "
 				+ "values (?,?,?,?,?,?,?)";
 		
         jdbcTemplate.batchUpdate(sqlString, new BatchPreparedStatementSetter() {
@@ -334,10 +276,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         		+ "RecidivistIndicator, " //1
         		+ "PersonID, " //2	
         		+ "PersonAge, " //3
-        		+ "EducationLevelID, " //4
-        		+ "OccupationID, " //5
-        		+ "IncomeLevelID, " //6
-        		+ "HousingStatusID, "
+        		+ "EducationLevelTypeID, " //4
+        		+ "OccupationTypeID, " //5
+        		+ "IncomeLevelTypeID, " //6
+        		+ "HousingStatusTypeID, "
         		+ "militaryServiceStatusCode " //7
         		+ ") values (?,?,?,?,?,?,?,?)";
         
@@ -347,8 +289,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(sqlString, new String[] {"RecidivistIndicator", "PersonID", 
-        	                		"PersonAge", "EducationLevelID", "OccupationID", "IncomeLevelID",
-        	                		"HousingStatusID", "militaryServiceStatusCode"});
+        	                		"PersonAge", "EducationLevelTypeID", "OccupationTypeID", "IncomeLevelTypeID",
+        	                		"HousingStatusTypeID", "militaryServiceStatusCode"});
         	            
         	            ps.setShort(1, bookingSubject.getRecidivistIndicator().shortValue());
     	            	ps.setInt(2, bookingSubject.getPersonId());
@@ -380,24 +322,24 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	String[] insertArgs = null;
         	        	
         	        	if (booking.getBookingId() != null){
-        	        		insertArgs = new String[] {"JurisdictionID", "BookingReportDate", 
-        	                		"BookingReportID" , "CaseStatusID", "BookingDate", "FacilityID","BedTypeID",
+        	        		insertArgs = new String[] {"JurisdictionTypeID", "BookingReportDate", 
+        	                		"BookingReportID" , "CaseStatusTypeID", "BookingDate", "FacilityID","BedTypeID",
         	                		"BookingSubjectID", "CommitDate", "BookingNumber", "ScheduledReleaseDate", "BookingID"};
 
-        	        		sqlString="INSERT into booking (JurisdictionID, BookingReportDate,"
-        	        				+ "BookingReportID, CaseStatusID, "
+        	        		sqlString="INSERT into booking (JurisdictionTypeID, BookingReportDate,"
+        	        				+ "BookingReportID, CaseStatusTypeID, "
         	        				+ "BookingDate, FacilityID, BedTypeID, "
         	        				+ "BookingSubjectID, CommitDate, BookingNumber, ScheduledReleaseDate, BookingID) "
         	        				+ "values (?,?,?,?,?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
-        	        		insertArgs = new String[] {"JurisdictionID", "BookingReportDate", 
-        	                		"BookingReportID" , "CaseStatusID", 
+        	        		insertArgs = new String[] {"JurisdictionTypeID", "BookingReportDate", 
+        	                		"BookingReportID" , "CaseStatusTypeID", 
         	                		"BookingDate", "FacilityID","BedTypeID", 
         	                		"BookingSubjectID", "CommitDate", "BookingNumber", "ScheduledReleaseDate"};
 
-        	        		sqlString="INSERT into booking (JurisdictionID, BookingReportDate,"
-        	        				+ "BookingReportID, CaseStatusID, "
+        	        		sqlString="INSERT into booking (JurisdictionTypeID, BookingReportDate,"
+        	        				+ "BookingReportID, CaseStatusTypeID, "
         	        				+ "BookingDate,"
         	        				+ "FacilityID, BedTypeID,  "
         	        				+ "BookingSubjectID, CommitDate, BookingNumber, ScheduledReleaseDate) "
@@ -496,10 +438,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			Booking booking = new Booking();
 	    	
 			booking.setBookingId(rs.getInt("BookingID"));
-			booking.setJurisdictionId(rs.getInt("JurisdictionID"));
+			booking.setJurisdictionId(rs.getInt("JurisdictionTypeID"));
 			booking.setBookingReportDate(rs.getTimestamp("BookingReportDate").toLocalDateTime());
 			booking.setBookingReportId(rs.getString("BookingReportID"));
-			booking.setCaseStatusId(rs.getInt("CaseStatusID"));
+			booking.setCaseStatusId(rs.getInt("CaseStatusTypeID"));
 			booking.setBookingDate(rs.getTimestamp("BookingDate").toLocalDateTime());
 			booking.setCommitDate(rs.getDate("CommitDate").toLocalDate());
 			booking.setFacilityId(rs.getInt("FacilityID"));
@@ -525,10 +467,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	@Override
 	public BookingSubject getBookingSubject(Integer bookingSubjectId) {
 		final String sql = "SELECT * FROM BookingSubject b "
-				+ "LEFT JOIN HousingStatus s ON s.HousingStatusID = b.HousingStatusID "
-				+ "LEFT JOIN EducationLevel e ON e.EducationLevelID = b.EducationLevelID "
-				+ "LEFT JOIN Occupation o on o.OccupationID = b.OccupationID "
-				+ "LEFT JOIN IncomeLevel i on i.IncomeLevelID = b.IncomeLevelID "
+				+ "LEFT JOIN HousingStatusType s ON s.HousingStatusTypeID = b.HousingStatusTypeID "
+				+ "LEFT JOIN EducationLevelType e ON e.EducationLevelTypeID = b.EducationLevelTypeID "
+				+ "LEFT JOIN OccupationType o on o.OccupationTypeID = b.OccupationTypeID "
+				+ "LEFT JOIN IncomeLevelType i on i.IncomeLevelTypeID = b.IncomeLevelTypeID "
 				+ "WHERE b.bookingSubjectId = ?"; 
 		List<BookingSubject> bookingSubjects = 
 				jdbcTemplate.query(sql, new BookingSubjectRowMapper(), bookingSubjectId);
@@ -545,10 +487,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			bookingSubject.setRecidivistIndicator(rs.getInt("RecidivistIndicator"));
 			bookingSubject.setPersonId(rs.getInt("PersonId"));
 			bookingSubject.setPersonAge(rs.getInt("PersonAge"));
-			bookingSubject.setHousingStatusId(rs.getInt("HousingStatusID"));
-			bookingSubject.setEducationLevelId(rs.getInt("EducationLevelID"));
-			bookingSubject.setOccupationId(rs.getInt("OccupationID"));
-			bookingSubject.setIncomeLevelId(rs.getInt("IncomeLevelID"));
+			bookingSubject.setHousingStatusId(rs.getInt("HousingStatusTypeID"));
+			bookingSubject.setEducationLevelId(rs.getInt("EducationLevelTypeID"));
+			bookingSubject.setOccupationId(rs.getInt("OccupationTypeID"));
+			bookingSubject.setIncomeLevelId(rs.getInt("IncomeLevelTypeID"));
 			bookingSubject.setMilitaryServiceStatusCode(rs.getString("militaryServiceStatusCode"));
 			
 	    	return bookingSubject;
@@ -578,15 +520,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			bookingCharge.setBookingChargeId(rs.getInt("bookingChargeId"));
 			bookingCharge.setBookingArrestId(rs.getInt("bookingArrestId"));
 			
-			KeyValue chargeType = new KeyValue( rs.getInt("chargeTypeId"), rs.getString("chargeType"));
+			KeyValue chargeType = new KeyValue( rs.getInt("chargeTypeId"), rs.getString("chargeTypeDescription"));
 			bookingCharge.setChargeType( chargeType );
 			
-			bookingCharge.setAgencyId(rs.getInt("agencyId"));
+			bookingCharge.setAgencyId(rs.getInt("AgencyTypeID"));
 			bookingCharge.setBondAmount(rs.getBigDecimal("bondAmount"));
 			
 			Integer bondTypeId = rs.getInt("bondTypeId"); 
 			if (bondTypeId != null){
-				KeyValue bondType = new KeyValue( rs.getInt("bondTypeId"), rs.getString("bondType"));
+				KeyValue bondType = new KeyValue( rs.getInt("bondTypeId"), rs.getString("bondTypeDescription"));
 				bookingCharge.setBondType( bondType );
 			}
 			
@@ -705,27 +647,27 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	String[] insertArgs = null;
         	        	
         	        	if (custodyStatusChange.getCustodyStatusChangeId() != null){
-       	        		insertArgs = new String[] {"JurisdictionID", "ReportDate", 
-        	                		"ReportID" , "CaseStatusID", "BookingDate",
+       	        		insertArgs = new String[] {"JurisdictionTypeID", "ReportDate", 
+        	                		"ReportID" , "CaseStatusTypeID", "BookingDate",
         	                		"FacilityID","BedTypeID", 
         	                		"BookingSubjectID", "CommitDate", "BookingId","ScheduledReleaseDate", 
         	                		"CustodyStatusChangeID"};
 
-        	        		sqlString="INSERT into custodyStatusChange (JurisdictionID, ReportDate,"
-        	        				+ "ReportID, CaseStatusID, BookingDate,  "
+        	        		sqlString="INSERT into custodyStatusChange (JurisdictionTypeID, ReportDate,"
+        	        				+ "ReportID, CaseStatusTypeID, BookingDate,  "
         	        				+ "FacilityID, BedTypeID, "
         	        				+ "BookingSubjectID, CommitDate, BookingId, ScheduledReleaseDate, "
         	        				+ "CustodyStatusChangeID) "
         	        				+ "values (?,?,?,?,?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
-        	        		insertArgs = new String[] {"JurisdictionID", "ReportDate", 
-        	                		"ReportID" , "CaseStatusID", "BookingDate", 
+        	        		insertArgs = new String[] {"JurisdictionTypeID", "ReportDate", 
+        	                		"ReportID" , "CaseStatusTypeID", "BookingDate", 
         	                		"FacilityID","BedTypeID",
         	                		"BookingSubjectID", "CommitDate", "BookingId", "ScheduledReleaseDate"};
 
-        	        		sqlString="INSERT into custodyStatusChange (JurisdictionID, ReportDate,"
-        	        				+ "ReportID, CaseStatusID, BookingDate, "
+        	        		sqlString="INSERT into custodyStatusChange (JurisdictionTypeID, ReportDate,"
+        	        				+ "ReportID, CaseStatusTypeID, BookingDate, "
         	        				+ "FacilityID, BedTypeID, "
         	        				+ "BookingSubjectID, CommitDate, BookingId, ScheduledReleaseDate) "
         	        				+ "values (?,?,?,?,?,?,?,?,?,?,?)";
@@ -777,7 +719,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			List<CustodyStatusChangeCharge> custodyStatusChangeCharges) {
 		log.info("Inserting row into CustodyStatusChangeCharge table: " + custodyStatusChangeCharges);
 		final String sqlString=
-				"INSERT INTO CustodyStatusChangeCharge (CustodyStatusChangeArrestID, ChargeTypeID, AgencyID, "
+				"INSERT INTO CustodyStatusChangeCharge (CustodyStatusChangeArrestID, ChargeTypeID, AgencyTypeID, "
 				+ "BondAmount, BondTypeID, NextCourtDate, NextCourtName) "
 				+ "values (?,?,?,?,?,?,?)";
 		
@@ -827,10 +769,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			CustodyStatusChange custodyStatusChange = new CustodyStatusChange();
 	    	
 			custodyStatusChange.setCustodyStatusChangeId(rs.getInt("CustodyStatusChangeId"));
-			custodyStatusChange.setJurisdictionId(rs.getInt("JurisdictionID"));
+			custodyStatusChange.setJurisdictionId(rs.getInt("JurisdictionTypeID"));
 			custodyStatusChange.setReportDate(DaoUtils.getLocalDateTime(rs, "ReportDate"));
 			custodyStatusChange.setReportId(rs.getString("ReportID"));
-			custodyStatusChange.setCaseStatusId(rs.getInt("CaseStatusID"));
+			custodyStatusChange.setCaseStatusId(rs.getInt("CaseStatusTypeID"));
 			custodyStatusChange.setBookingDate(DaoUtils.getLocalDateTime(rs, "BookingDate"));
 			custodyStatusChange.setCommitDate(DaoUtils.getLocalDate(rs, "CommitDate"));
 			custodyStatusChange.setFacilityId(rs.getInt("FacilityID"));
@@ -867,15 +809,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			custodyStatusChangeCharge.setCustodyStatusChangeChargeId(rs.getInt("CustodyStatusChangeChargeId"));
 			custodyStatusChangeCharge.setCustodyStatusChangeArrestId(rs.getInt("CustodyStatusChangeArrestId"));
 			
-			KeyValue chargeType = new KeyValue( rs.getInt("chargeTypeId"), rs.getString("chargeType"));
+			KeyValue chargeType = new KeyValue( rs.getInt("chargeTypeId"), rs.getString("chargeTypeDescription"));
 			custodyStatusChangeCharge.setChargeType( chargeType );
 			
-			custodyStatusChangeCharge.setAgencyId(rs.getInt("agencyId"));
+			custodyStatusChangeCharge.setAgencyId(rs.getInt("AgencyTypeID"));
 			custodyStatusChangeCharge.setBondAmount(rs.getBigDecimal("bondAmount"));
 			
 			Integer bondTypeId = rs.getInt("bondTypeId"); 
 			if (bondTypeId != null){
-				KeyValue bondType = new KeyValue( rs.getInt("bondTypeId"), rs.getString("bondType"));
+				KeyValue bondType = new KeyValue( rs.getInt("bondTypeId"), rs.getString("bondTypeDescription"));
 				custodyStatusChangeCharge.setBondType( bondType );
 			}
 			
@@ -890,10 +832,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public BookingSubject getBookingSubjectByBookingNumberAndPersonId(String bookingNumber, Integer personId) {
 		final String sql = "SELECT b.* FROM BookingSubject b "
 				+ "LEFT JOIN Booking k ON k.BookingSubjectID = b.BookingSubjectID "
-				+ "LEFT JOIN HousingStatus s ON s.HousingStatusID = b.HousingStatusID "
-				+ "LEFT JOIN EducationLevel e ON e.EducationLevelID = b.EducationLevelID "
-				+ "LEFT JOIN Occupation o on o.OccupationID = b.OccupationID "
-				+ "LEFT JOIN IncomeLevel i on i.IncomeLevelID = b.IncomeLevelID "
+				+ "LEFT JOIN HousingStatusType s ON s.HousingStatusTypeID = b.HousingStatusTypeID "
+				+ "LEFT JOIN EducationLevelType e ON e.EducationLevelTypeID = b.EducationLevelTypeID "
+				+ "LEFT JOIN OccupationType o on o.OccupationTypeID = b.OccupationTypeID "
+				+ "LEFT JOIN IncomeLevelType i on i.IncomeLevelTypeID = b.IncomeLevelTypeID "
 				+ "WHERE k.bookingNumber = ? AND b.PersonId = ?"; 
 		List<BookingSubject> bookingSubjects = 
 				jdbcTemplate.query(sql, new BookingSubjectRowMapper(), bookingNumber, personId);
@@ -904,6 +846,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer saveBookingArrest(BookingArrest bookingArrest) {
         log.debug("Inserting row into BookingArrest table: " + bookingArrest.toString());
         
+        Integer locationId = saveAddress(bookingArrest.getAddress());
+        
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
@@ -913,47 +857,27 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	String[] insertArgs = null;
         	        	
         	        	if (bookingArrest.getBookingArrestId() != null){
-        	        		insertArgs = new String[] {"bookingId", "streetNumber", 
-        	                		"streetName" , "addressSecondaryUnit", "city", "state","postalcode",
-        	                		"arrestLocationLatitude", "arrestLocationLongitude", "bookingArrestId"};
+        	        		insertArgs = new String[] {"bookingId", "locationId", "bookingArrestId"};
 
-        	        		sqlString="INSERT into bookingArrest (bookingId, streetNumber,"
-        	        				+ "streetName, addressSecondaryUnit, "
-        	        				+ "city, state, postalcode, "
-        	        				+ "arrestLocationLatitude, arrestLocationLongitude, bookingArrestId) "
-        	        				+ "values (?,?,?,?,?,?,?,?,?,?)";
+        	        		sqlString="INSERT into bookingArrest (bookingId, locationId, bookingArrestId) "
+        	        				+ "values (?,?,?)";
         	        	}	
         	        	else{
-        	        		insertArgs = new String[] {"bookingId", "streetNumber", 
-        	                		"streetName" , "addressSecondaryUnit", 
-        	                		"city", "state","postalcode", 
-        	                		"arrestLocationLatitude", "arrestLocationLongitude"};
+        	        		insertArgs = new String[] {"bookingId", "locationId"};
 
-        	        		sqlString="INSERT into bookingArrest (bookingId, streetNumber,"
-        	        				+ "streetName, addressSecondaryUnit, "
-        	        				+ "city,"
-        	        				+ "state, postalcode,  "
-        	        				+ "arrestLocationLatitude, arrestLocationLongitude) "
-        	        				+ "values (?,?,?,?,?,?,?,?,?)";
+        	        		sqlString="INSERT into bookingArrest (bookingId, locationId) "
+        	        				+ "values (?,?)";
         	        		
         	        	}	
-        	        			
         	        	
         	            PreparedStatement ps =
         	                connection.prepareStatement(sqlString, insertArgs);
         	            ps.setInt(1, bookingArrest.getBookingId());
         	            
-        	            setPreparedStatementVariable(bookingArrest.getAddress().getStreetNumber(), ps, 2);
-        	            setPreparedStatementVariable(bookingArrest.getAddress().getStreetName(), ps, 3);
-        	            setPreparedStatementVariable(bookingArrest.getAddress().getAddressSecondaryUnit(), ps, 4);
-        	            setPreparedStatementVariable(bookingArrest.getAddress().getCity(), ps, 5);
-        	            setPreparedStatementVariable(bookingArrest.getAddress().getState(), ps, 6);
-        	            setPreparedStatementVariable(bookingArrest.getAddress().getPostalcode(), ps, 7);
-        	            setPreparedStatementVariable(bookingArrest.getAddress().getArrestLocationLatitude(), ps, 8);
-        	            setPreparedStatementVariable(bookingArrest.getAddress().getArrestLocationLongitude(), ps, 9);
+        	            setPreparedStatementVariable(locationId, ps, 2);
         	            
         	            if (bookingArrest.getBookingArrestId() != null){
-        	            	setPreparedStatementVariable(bookingArrest.getBookingArrestId(), ps, 10);
+        	            	setPreparedStatementVariable(bookingArrest.getBookingArrestId(), ps, 3);
         	            }
         	            
         	            return ps;
@@ -1082,7 +1006,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public void saveTreatments(final List<Treatment> treatments) {
 		log.info("Inserting row into Treatment table: " + treatments);
 		final String sqlString=
-				"INSERT INTO Treatment (BehavioralHealthAssessmentID, StartDate, EndDate, TreatmentCourtOrdered, TreatmentText, TreatmentProvider, TreatmentActive) "
+				"INSERT INTO Treatment (BehavioralHealthAssessmentID, StartDate, EndDate, "
+				+ "TreatmentCourtOrdered, TreatmentText, TreatmentProvider, TreatmentActive) "
 				+ "values (?,?,?,?,?,?,?)";
 		
         jdbcTemplate.batchUpdate(sqlString, new BatchPreparedStatementSetter() {
@@ -1176,6 +1101,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	@Override
 	public List<BookingArrest> getBookingArrests(Integer bookingId) {
 		final String sql = "SELECT * FROM BookingArrest a "
+				+ "LEFT JOIN location l ON l.locationId = a.locationId "
 				+ "WHERE a.bookingID = ?"; 
 		List<BookingArrest> bookingArrests = 
 				jdbcTemplate.query(sql, new BookingArrestRowMapper(), bookingId);
@@ -1270,6 +1196,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			CustodyStatusChangeArrest custodyStatusChangeArrest) {
         log.debug("Inserting row into CustodyStatusChangeArrest table: " + custodyStatusChangeArrest.toString());
         
+        Integer locationId = this.saveAddress(custodyStatusChangeArrest.getAddress());
+        
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
@@ -1279,47 +1207,27 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	String[] insertArgs = null;
         	        	
         	        	if (custodyStatusChangeArrest.getCustodyStatusChangeArrestId() != null){
-        	        		insertArgs = new String[] {"custodyStatusChangeId", "streetNumber", 
-        	                		"streetName" , "addressSecondaryUnit", "city", "state","postalcode",
-        	                		"arrestLocationLatitude", "arrestLocationLongitude", "custodyStatusChangeArrestId"};
+        	        		insertArgs = new String[] {"custodyStatusChangeId", "locationId", "custodyStatusChangeArrestId"};
 
-        	        		sqlString="INSERT into CustodyStatusChangeArrest (custodyStatusChangeId, streetNumber,"
-        	        				+ "streetName, addressSecondaryUnit, "
-        	        				+ "city, state, postalcode, "
-        	        				+ "arrestLocationLatitude, arrestLocationLongitude, custodyStatusChangeArrestId) "
-        	        				+ "values (?,?,?,?,?,?,?,?,?,?)";
+        	        		sqlString="INSERT into CustodyStatusChangeArrest (custodyStatusChangeId, locationId, custodyStatusChangeArrestId) "
+        	        				+ "values (?,?,?)";
         	        	}	
         	        	else{
-        	        		insertArgs = new String[] {"custodyStatusChangeId", "streetNumber", 
-        	                		"streetName" , "addressSecondaryUnit", 
-        	                		"city", "state","postalcode", 
-        	                		"arrestLocationLatitude", "arrestLocationLongitude"};
+        	        		insertArgs = new String[] {"custodyStatusChangeId", "locationId"};
 
-        	        		sqlString="INSERT into CustodyStatusChangeArrest (custodyStatusChangeId, streetNumber,"
-        	        				+ "streetName, addressSecondaryUnit, "
-        	        				+ "city,"
-        	        				+ "state, postalcode,  "
-        	        				+ "arrestLocationLatitude, arrestLocationLongitude) "
-        	        				+ "values (?,?,?,?,?,?,?,?,?)";
+        	        		sqlString="INSERT into CustodyStatusChangeArrest (custodyStatusChangeId, locationId) "
+        	        				+ "values (?,?)";
         	        		
         	        	}	
-        	        			
         	        	
         	            PreparedStatement ps =
         	                connection.prepareStatement(sqlString, insertArgs);
         	            ps.setInt(1, custodyStatusChangeArrest.getCustodyStatusChangeId());
         	            
-        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getStreetNumber(), ps, 2);
-        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getStreetName(), ps, 3);
-        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getAddressSecondaryUnit(), ps, 4);
-        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getCity(), ps, 5);
-        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getState(), ps, 6);
-        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getPostalcode(), ps, 7);
-        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getArrestLocationLatitude(), ps, 8);
-        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getArrestLocationLongitude(), ps, 9);
+        	            setPreparedStatementVariable(locationId, ps, 2);
         	            
         	            if (custodyStatusChangeArrest.getCustodyStatusChangeArrestId() != null){
-        	            	setPreparedStatementVariable(custodyStatusChangeArrest.getCustodyStatusChangeArrestId(), ps, 10);
+        	            	setPreparedStatementVariable(custodyStatusChangeArrest.getCustodyStatusChangeArrestId(), ps, 3);
         	            }
         	            
         	            return ps;
@@ -1344,6 +1252,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public List<CustodyStatusChangeArrest> getCustodyStatusChangeArrests(
 			Integer custodyStatusChangeId) {
 		final String sql = "SELECT * FROM CustodyStatusChangeArrest a "
+				+ "LEFT JOIN location l ON l.locationId = a.locationId "
 				+ "WHERE a.CustodyStatusChangeID = ?"; 
 		List<CustodyStatusChangeArrest> custodyStatusChangeArrests = 
 				jdbcTemplate.query(sql, new CustodyStatusChangeArrestRowMapper(), custodyStatusChangeId);
@@ -1389,6 +1298,39 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 				jdbcTemplate.queryForObject(sql, Integer.class, bookingNumber);
 		
 		return bookingId;
+	}
+
+	@Override
+	public Integer saveAddress(final Address address) {
+        log.debug("Inserting row into the Location table: " + address);
+
+        final String sql="INSERT into Location(streetNumber,streetName, addressSecondaryUnit, "
+        	        				+ "city, state, postalcode,  "
+        	        				+ "arrestLocationLatitude, arrestLocationLongitude) "
+        	        				+ "values (?,?,?,?,?,?,?,?)";;
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(sql, new String[] {"streetNumber","streetName", 
+        	                		"addressSecondaryUnit", "city", "state", "postalcode",
+        	                		"arrestLocationLatitude", "arrestLocationLongitude"});
+        	            setPreparedStatementVariable(address.getStreetNumber(), ps, 1);
+        	            setPreparedStatementVariable(address.getStreetName(), ps, 2);
+        	            setPreparedStatementVariable(address.getAddressSecondaryUnit(), ps, 3);
+        	            setPreparedStatementVariable(address.getCity(), ps, 4);
+        	            setPreparedStatementVariable(address.getState(), ps, 5);
+        	            setPreparedStatementVariable(address.getPostalcode(), ps, 6);
+        	            setPreparedStatementVariable(address.getArrestLocationLatitude(), ps, 7);
+        	            setPreparedStatementVariable(address.getArrestLocationLongitude(), ps, 8);
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();
 	}
 
 }

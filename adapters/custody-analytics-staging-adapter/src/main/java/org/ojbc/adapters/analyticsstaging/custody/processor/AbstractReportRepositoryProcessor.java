@@ -102,7 +102,7 @@ public abstract class AbstractReportRepositoryProcessor {
 		
 		String language = XmlUtils.xPathStringSearch(personNode, "nc30:PersonPrimaryLanguage/nc30:LanguageName");
 		person.setLanguage(language);
-		person.setLanguageId(descriptionCodeLookupService.retrieveCode(CodeTable.Language, language));
+		person.setLanguageId(descriptionCodeLookupService.retrieveCode(CodeTable.LanguageType, language));
 		
 		String personCriminalHistorySummaryRef = 
 				XmlUtils.xPathStringSearch(personNode, "parent::br-doc:BookingReport/nc30:ActivityPersonAssociation"
@@ -127,25 +127,25 @@ public abstract class AbstractReportRepositoryProcessor {
 	 	
 	 	String educationLevel = XmlUtils.xPathStringSearch(personNode, "nc30:PersonEducationLevelText");
 	 	if(StringUtils.isNotBlank(educationLevel)){
-		 	Integer educationLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.EducationLevel, StringUtils.trim(educationLevel));
+		 	Integer educationLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.EducationLevelType, StringUtils.trim(educationLevel));
 		 	bookingSubject.setEducationLevelId(educationLevelId);
 	 	}
 	 	
 	 	String occupation = XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonAugmentation/nc30:EmployeeOccupationCategoryText");
 	 	if (StringUtils.isNotBlank(occupation)){
-	 		Integer occupationId = descriptionCodeLookupService.retrieveCode(CodeTable.Occupation, StringUtils.trim(occupation));
+	 		Integer occupationId = descriptionCodeLookupService.retrieveCode(CodeTable.OccupationType, StringUtils.trim(occupation));
 	 		bookingSubject.setOccupationId(occupationId);
 	 	}
 	 	
 	 	String incomeLevel = XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonSocioEconomicStatusDescriptionText");
 	 	if (StringUtils.isNotBlank(incomeLevel)){
-	 		Integer incomeLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.IncomeLevel, StringUtils.trim(incomeLevel));
+	 		Integer incomeLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.IncomeLevelType, StringUtils.trim(incomeLevel));
 	 		bookingSubject.setIncomeLevelId(incomeLevelId);
 	 	}
 	 	
 	 	String housingStatus = XmlUtils.xPathStringSearch(personNode, "nc30:PersonResidentText");
 	 	if(StringUtils.isNotBlank( housingStatus )){
-	 		Integer housingStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.HousingStatus, StringUtils.trim(housingStatus));
+	 		Integer housingStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.HousingStatusType, StringUtils.trim(housingStatus));
 	 		bookingSubject.setHousingStatusId(housingStatusId);
 	 	}
 	 	

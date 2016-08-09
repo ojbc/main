@@ -99,7 +99,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 				bookingCharge.setBookingArrestId(bookingArrestId);
 				
 		        String sendingAgency = XmlUtils.xPathStringSearch(chargeNode, "br-ext:HoldForAgency/nc30:OrganizationName");
-		        bookingCharge.setAgencyId(descriptionCodeLookupService.retrieveCode(CodeTable.Agency,sendingAgency));
+		        bookingCharge.setAgencyId(descriptionCodeLookupService.retrieveCode(CodeTable.AgencyType,sendingAgency));
 		        
 				KeyValue chargeType = new KeyValue(); 
 				chargeType.setValue( XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeCategoryDescriptionText"));
@@ -157,7 +157,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         Node bookingReportNode = XmlUtils.xPathNodeSearch(report, "/br-doc:BookingReport");
         
         String courtName = XmlUtils.xPathStringSearch(bookingReportNode, "nc30:Case/jxdm51:CaseAugmentation/jxdm51:CaseCourt/jxdm51:CourtName");
-        booking.setJurisdictionId(descriptionCodeLookupService.retrieveCode(CodeTable.Jurisdiction, courtName));
+        booking.setJurisdictionId(descriptionCodeLookupService.retrieveCode(CodeTable.JurisdictionType, courtName));
         
         String bookingReportDate = XmlUtils.xPathStringSearch(bookingReportNode, "nc30:DocumentCreationDate/nc30:DateTime");
         if (StringUtils.isNotBlank(bookingReportDate)){
@@ -168,7 +168,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         booking.setBookingReportId(bookingReportId);
         
         String caseStatus = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Detention/nc30:SupervisionCustodyStatus/nc30:StatusDescriptionText");
-        Integer caseStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.CaseStatus, caseStatus);
+        Integer caseStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.CaseStatusType, caseStatus);
         booking.setCaseStatusId(caseStatusId);
         
         String bookingDate = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
