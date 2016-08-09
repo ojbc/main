@@ -28,15 +28,15 @@ insert into PersonRace(PersonRaceID, PersonRaceCode, PersonRaceDescription) valu
 insert into PersonRace(PersonRaceID, PersonRaceCode, PersonRaceDescription) values(5, 'B', 'Black');
 
 -- Agency - Placeholder while waiting for code values
-insert into Agency(AgencyID, AgencyName) values (1, 'Adams County SO');
-insert into Agency(AgencyID, AgencyName) values (2, 'Arvada PD');
-insert into Agency(AgencyID, AgencyName) values (3, 'Brighton PD');
-insert into Agency(AgencyID, AgencyName) values (4, 'Commerce City PD');
-insert into Agency(AgencyID, AgencyName) values (5, 'Federal Heights PD');
-insert into Agency(AgencyID, AgencyName) values (6, 'Northglenn PD');
-insert into Agency(AgencyID, AgencyName) values (7, 'Thornton PD');
-insert into Agency(AgencyID, AgencyName) values (8, 'Westminster PD');
-insert into Agency(AgencyID, AgencyName) values (9, 'Unknown');
+insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (1, 'Adams County SO');
+insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (2, 'Arvada PD');
+insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (3, 'Brighton PD');
+insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (4, 'Commerce City PD');
+insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (5, 'Federal Heights PD');
+insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (6, 'Northglenn PD');
+insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (7, 'Thornton PD');
+insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (8, 'Westminster PD');
+insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (9, 'Unknown');
 
 -- BedType - adding code table values
 insert into BedType (BedTypeID, BedTypeDescription) values('1','Type 1');
@@ -57,87 +57,87 @@ insert into BehavioralHealthType (BehavioralHealthTypeID, BehavioralHealthDescri
 insert into BehavioralHealthType (BehavioralHealthTypeID, BehavioralHealthDescription) values('7','Unknown');
 
 -- BondType
-insert into BondType (BondType) values('Cash');
-insert into BondType (BondType) values('Surety');
-insert into BondType (BondType) values('Property');
-insert into BondType (BondType) values('Deposit');
-insert into BondType (BondType) values('Unknown');
+insert into BondType (BondTypeDescription) values('Cash');
+insert into BondType (BondTypeDescription) values('Surety');
+insert into BondType (BondTypeDescription) values('Property');
+insert into BondType (BondTypeDescription) values('Deposit');
+insert into BondType (BondTypeDescription) values('Unknown');
 
 -- CaseStatus
-insert into CaseStatus (CaseStatusID, CaseStatus) values('1','Pretrial');
-insert into CaseStatus (CaseStatusID, CaseStatus) values('2','Status 2');
-insert into CaseStatus (CaseStatusID, CaseStatus) values('3','Status 3');
-insert into CaseStatus (CaseStatusID, CaseStatus) values('4','Status 4');
-insert into CaseStatus (CaseStatusID, CaseStatus) values('5','Status 5');
-insert into CaseStatus (CaseStatusID, CaseStatus) values('6','Unknown');
+insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('1','Pretrial');
+insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('2','Status 2');
+insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('3','Status 3');
+insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('4','Status 4');
+insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('5','Status 5');
+insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('6','Unknown');
 
 -- ChargeType
-insert into ChargeType (ChargeTypeID, ChargeType) values('1','Felony');
-insert into ChargeType (ChargeTypeID, ChargeType) values('2','Misdemeanor');
-insert into ChargeType (ChargeTypeID, ChargeType) values('3','Municipal');
-insert into ChargeType (ChargeTypeID, ChargeType) values('8','Other');
-insert into ChargeType (ChargeTypeID, ChargeType) values('9','Unknown');
+insert into ChargeType (ChargeTypeID, ChargeTypeDescription) values('1','Felony');
+insert into ChargeType (ChargeTypeID, ChargeTypeDescription) values('2','Misdemeanor');
+insert into ChargeType (ChargeTypeID, ChargeTypeDescription) values('3','Municipal');
+insert into ChargeType (ChargeTypeID, ChargeTypeDescription) values('8','Other');
+insert into ChargeType (ChargeTypeID, ChargeTypeDescription) values('9','Unknown');
 
 -- Jurisdiction
-insert into Jurisdiction (JurisdictionID, JurisdictionName) values('1','State Court');
-insert into Jurisdiction (JurisdictionID, JurisdictionName) values('2','County Court');
-insert into Jurisdiction (JurisdictionID, JurisdictionName) values('3','Municipal Court');
-insert into Jurisdiction (JurisdictionID, JurisdictionName) values('4','Case Court');
-insert into Jurisdiction (JurisdictionID, JurisdictionName) values('9','Unknown');
+insert into JurisdictionType (JurisdictionTypeID, JurisdictionTypeDescription) values('1','State Court');
+insert into JurisdictionType (JurisdictionTypeID, JurisdictionTypeDescription) values('2','County Court');
+insert into JurisdictionType (JurisdictionTypeID, JurisdictionTypeDescription) values('3','Municipal Court');
+insert into JurisdictionType (JurisdictionTypeID, JurisdictionTypeDescription) values('4','Case Court');
+insert into JurisdictionType (JurisdictionTypeID, JurisdictionTypeDescription) values('9','Unknown');
 
 -- HousingStatus
-insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('1','Residence');
-insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('2','Housing Status 2');
-insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('3','Housing Status 3');
-insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('4','Housing Status 4');
-insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('5','Housing Status 5');
-insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('6','Housing Status 6');
-insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('7','Housing Status 7');
-insert into HousingStatus (HousingStatusID, HousingStatusDescription) values('8','Unknown');
+insert into HousingStatusType (HousingStatusTypeID, HousingStatusTypeDescription) values('1','Residence');
+insert into HousingStatusType (HousingStatusTypeID, HousingStatusTypeDescription) values('2','Housing Status 2');
+insert into HousingStatusType (HousingStatusTypeID, HousingStatusTypeDescription) values('3','Housing Status 3');
+insert into HousingStatusType (HousingStatusTypeID, HousingStatusTypeDescription) values('4','Housing Status 4');
+insert into HousingStatusType (HousingStatusTypeID, HousingStatusTypeDescription) values('5','Housing Status 5');
+insert into HousingStatusType (HousingStatusTypeID, HousingStatusTypeDescription) values('6','Housing Status 6');
+insert into HousingStatusType (HousingStatusTypeID, HousingStatusTypeDescription) values('7','Housing Status 7');
+insert into HousingStatusType (HousingStatusTypeID, HousingStatusTypeDescription) values('8','Unknown');
 
 -- IncomeLevel
-insert into IncomeLevel (IncomeLevelID, IncomeLevel) values('1', 'Middle Class');
-insert into IncomeLevel (IncomeLevelID, IncomeLevel) values('2', 'Level 2');
-insert into IncomeLevel (IncomeLevelID, IncomeLevel) values('3', 'Level 3');
-insert into IncomeLevel (IncomeLevelID, IncomeLevel) values('4', 'Level 4');
-insert into IncomeLevel (IncomeLevelID, IncomeLevel) values('5', 'Level 5');
-insert into IncomeLevel (IncomeLevelID, IncomeLevel) values('8', 'Other');
-insert into IncomeLevel (IncomeLevelID, IncomeLevel) values('9', 'Unknown');
+insert into IncomeLevelType (IncomeLevelTypeID, IncomeLevelTypeDescription) values('1', 'Middle Class');
+insert into IncomeLevelType (IncomeLevelTypeID, IncomeLevelTypeDescription) values('2', 'Level 2');
+insert into IncomeLevelType (IncomeLevelTypeID, IncomeLevelTypeDescription) values('3', 'Level 3');
+insert into IncomeLevelType (IncomeLevelTypeID, IncomeLevelTypeDescription) values('4', 'Level 4');
+insert into IncomeLevelType (IncomeLevelTypeID, IncomeLevelTypeDescription) values('5', 'Level 5');
+insert into IncomeLevelType (IncomeLevelTypeID, IncomeLevelTypeDescription) values('8', 'Other');
+insert into IncomeLevelType (IncomeLevelTypeID, IncomeLevelTypeDescription) values('9', 'Unknown');
 
 -- Occupation
-insert into Occupation (OccupationID, Occupation) values('1', 'Truck Driver');
-insert into Occupation (OccupationID, Occupation) values('2', 'Occupation 2');
-insert into Occupation (OccupationID, Occupation) values('3', 'Occupation 3');
-insert into Occupation (OccupationID, Occupation) values('4', 'Occupation 4');
-insert into Occupation (OccupationID, Occupation) values('5', 'Occupation 5');
-insert into Occupation (OccupationID, Occupation) values('6', 'Occupation 6');
-insert into Occupation (OccupationID, Occupation) values('7', 'Occupation 7');
-insert into Occupation (OccupationID, Occupation) values('8', 'Occupation 8');
-insert into Occupation (OccupationID, Occupation) values('9', 'Occupation 9');
-insert into Occupation (OccupationID, Occupation) values('10', 'Occupation 10');
-insert into Occupation (OccupationID, Occupation) values('11', 'Occupation 11');
-insert into Occupation (OccupationID, Occupation) values('12', 'Occupation 12');
-insert into Occupation (OccupationID, Occupation) values('98', 'Other');
-insert into Occupation (OccupationID, Occupation) values('99', 'Unknown');
+insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values('1', 'Truck Driver');
+insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values('2', 'OccupationType 2');
+insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values('3', 'OccupationType 3');
+insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values('4', 'OccupationType 4');
+insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values('5', 'OccupationType 5');
+insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values('6', 'OccupationType 6');
+insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values('7', 'OccupationType 7');
+insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values('8', 'OccupationType 8');
+insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values('9', 'OccupationType 9');
+insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values('10', 'OccupationType 10');
+insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values('11', 'OccupationType 11');
+insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values('12', 'OccupationType 12');
+insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values('98', 'Other');
+insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values('99', 'Unknown');
 
 -- EducationLevel
-insert into EducationLevel (EducationLevelID, EducationLevel) values('1', 'High School Graduate');
-insert into EducationLevel (EducationLevelID, EducationLevel) values('2', 'Level 2');
-insert into EducationLevel (EducationLevelID, EducationLevel) values('3', 'Level 3');
-insert into EducationLevel (EducationLevelID, EducationLevel) values('4', 'Level 4');
-insert into EducationLevel (EducationLevelID, EducationLevel) values('5', 'Level 5');
-insert into EducationLevel (EducationLevelID, EducationLevel) values('6', 'Level 6');
-insert into EducationLevel (EducationLevelID, EducationLevel) values('7', 'Level 7');
-insert into EducationLevel (EducationLevelID, EducationLevel) values('8', 'Other');
-insert into EducationLevel (EducationLevelID, EducationLevel) values('9', 'Unknown');
+insert into EducationLevelType (EducationLevelTypeID, EducationLevelTypeDescription) values('1', 'High School Graduate');
+insert into EducationLevelType (EducationLevelTypeID, EducationLevelTypeDescription) values('2', 'Level 2');
+insert into EducationLevelType (EducationLevelTypeID, EducationLevelTypeDescription) values('3', 'Level 3');
+insert into EducationLevelType (EducationLevelTypeID, EducationLevelTypeDescription) values('4', 'Level 4');
+insert into EducationLevelType (EducationLevelTypeID, EducationLevelTypeDescription) values('5', 'Level 5');
+insert into EducationLevelType (EducationLevelTypeID, EducationLevelTypeDescription) values('6', 'Level 6');
+insert into EducationLevelType (EducationLevelTypeID, EducationLevelTypeDescription) values('7', 'Level 7');
+insert into EducationLevelType (EducationLevelTypeID, EducationLevelTypeDescription) values('8', 'Other');
+insert into EducationLevelType (EducationLevelTypeID, EducationLevelTypeDescription) values('9', 'Unknown');
 
 -- Language
-insert into Language (LanguageID, Language) values('1', 'English');
-insert into Language (LanguageID, Language) values('2', 'Language 2');
-insert into Language (LanguageID, Language) values('3', 'Language 3');
-insert into Language (LanguageID, Language) values('98', 'Other');
-insert into Language (LanguageID, Language) values('99', 'Unknown');
+insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values('1', 'English');
+insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values('2', 'LanguageType 2');
+insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values('3', 'LanguageType 3');
+insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values('98', 'Other');
+insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values('99', 'Unknown');
 
 -- Facility
-insert into Facility (FacilityName, Capacity) values('Adams County Jail', 3000);
-insert into Facility (FacilityName, Capacity) values('Pima County Jail', 5000);
+insert into Facility (FacilityDescription, Capacity) values('Adams County Jail', 3000);
+insert into Facility (FacilityDescription, Capacity) values('Pima County Jail', 5000);

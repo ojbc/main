@@ -95,7 +95,7 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 			custodyStatusChangeCharge.setCustodyStatusChangeArrestId(custodyStatusChangeArrestId);
 		
 	        String sendingAgency = XmlUtils.xPathStringSearch(chargeNode, "cscr-ext:HoldForAgency/nc30:OrganizationName");
-	        custodyStatusChangeCharge.setAgencyId(descriptionCodeLookupService.retrieveCode(CodeTable.Agency,sendingAgency));
+	        custodyStatusChangeCharge.setAgencyId(descriptionCodeLookupService.retrieveCode(CodeTable.AgencyType,sendingAgency));
 
 			KeyValue chargeType = new KeyValue(); 
 			chargeType.setValue( StringUtils.trimToEmpty(XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeCategoryDescriptionText")));
@@ -160,7 +160,7 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
         custodyStatusChange.setBookingSubjectId(bookingSubjectId);
         
         String courtName = XmlUtils.xPathStringSearch(custodyNode, "nc30:Case/jxdm51:CaseAugmentation/jxdm51:CaseCourt/jxdm51:CourtName");
-        Integer courtId = descriptionCodeLookupService.retrieveCode(CodeTable.Jurisdiction, courtName);
+        Integer courtId = descriptionCodeLookupService.retrieveCode(CodeTable.JurisdictionType, courtName);
         custodyStatusChange.setJurisdictionId(courtId);
         
         String reportDate = XmlUtils.xPathStringSearch(report, "/cscr-doc:CustodyStatusChangeReport/nc30:DocumentCreationDate/nc30:DateTime");
@@ -170,7 +170,7 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
         custodyStatusChange.setReportId(reportId);
         
         String caseStatus = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Detention/nc30:SupervisionCustodyStatus/nc30:StatusDescriptionText");
-        Integer caseStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.CaseStatus, caseStatus);
+        Integer caseStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.CaseStatusType, caseStatus);
         custodyStatusChange.setCaseStatusId(caseStatusId);
         
         String bookingDate = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");

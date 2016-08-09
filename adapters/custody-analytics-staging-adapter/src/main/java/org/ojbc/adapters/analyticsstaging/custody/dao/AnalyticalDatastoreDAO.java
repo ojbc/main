@@ -19,7 +19,7 @@ package org.ojbc.adapters.analyticsstaging.custody.dao;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.Agency;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.Address;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAssessment;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingArrest;
@@ -38,8 +38,6 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.Treatment;
 
 public interface AnalyticalDatastoreDAO {
 
-	public Integer saveAgency(Agency agency);
-	
 	public Integer savePersonSex(PersonSex personSex);
 	
 	public Integer savePersonRace(PersonRace personRace);
@@ -53,8 +51,6 @@ public interface AnalyticalDatastoreDAO {
 	public Integer saveBooking(Booking booking);
 	
 	public Integer saveCustodyStatusChange(CustodyStatusChange custodyStatusChange);
-	
-	public Integer searchForAgenyIDbyAgencyORI(String agencyORI);
 	
 	public void saveBehavioralHealthAssessments(
 			final List<BehavioralHealthAssessment> behavioralHealthAssessments);
@@ -94,6 +90,7 @@ public interface AnalyticalDatastoreDAO {
 	public BookingSubject getBookingSubjectByBookingNumberAndPersonId(String bookingNumber, Integer personId);
 
 	public Integer saveBookingArrest(BookingArrest bookingArrest);
+	public Integer saveAddress(Address address);
 	public Integer saveCustodyStatusChangeArrest(CustodyStatusChangeArrest custodyStatusChangeArrest);
 
 	public Integer saveBehavioralHealthAssessment(BehavioralHealthAssessment assessment);
