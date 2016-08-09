@@ -76,6 +76,9 @@
 			<nc:ActivityReasonText>String</nc:ActivityReasonText>
 			<nc:ReleasePerson structures:ref="Person_01" />
 			<nc:ReleaseToLocation structures:ref="Location_01" />
+			<crr-ext:ReleaseCondition>
+				<nc:ActivityDescriptionText>ROR</nc:ActivityDescriptionText>
+			</crr-ext:ReleaseCondition>
 		</nc:Release>
 		<nc:Person structures:id="Person_01">
 			<nc:PersonAgeMeasure>
