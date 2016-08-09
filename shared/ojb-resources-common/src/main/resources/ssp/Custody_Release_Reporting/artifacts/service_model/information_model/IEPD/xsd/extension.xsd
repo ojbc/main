@@ -258,4 +258,9 @@
 			<xsd:documentation>True if person qualifies to receive military veteran services, false otherwise. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ReleaseCondition" type="nc:ConditionType" substitutionGroup="nc:ReleaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A condition that a person must follow as part of being released.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>

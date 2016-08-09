@@ -109,6 +109,7 @@
 		</j:SupervisionAugmentation>
 		<br-ext:DetentiontImmigrationHoldIndicator>false</br-ext:DetentiontImmigrationHoldIndicator>
 		<br-ext:InmateWorkReleaseIndicator>true</br-ext:InmateWorkReleaseIndicator>
+		<br-ext:InmateTemporarilyReleasedIndicator>true</br-ext:InmateTemporarilyReleasedIndicator>
 		<br-ext:InmateWorkerIndicator>false
 		</br-ext:InmateWorkerIndicator>
 		<br-ext:AllowAccountDepositIndicator>true

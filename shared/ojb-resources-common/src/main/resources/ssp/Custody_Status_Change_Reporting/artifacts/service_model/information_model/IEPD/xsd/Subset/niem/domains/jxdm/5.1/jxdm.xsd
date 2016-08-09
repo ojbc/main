@@ -270,6 +270,7 @@
         <xs:sequence>
           <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SubjectIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SubjectAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -533,6 +534,11 @@
   <xs:element name="Subject" type="j:SubjectType" nillable="true">
     <xs:annotation>
       <xs:documentation>A person who is involved or suspected of being involved in an incident or criminal activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SubjectAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for SubjectType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="SubjectIdentification" type="nc:IdentificationType" nillable="true">

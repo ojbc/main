@@ -140,6 +140,10 @@
     <w:ElementInType w:name="nc:CaseDocketID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:ConditionType" w:isRequested="true">
+    <w:ElementInType w:name="nc:ConditionAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:DateRangeType" w:isRequested="false">
     <w:ElementInType w:name="nc:StartDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -255,6 +259,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ReleaseToLocation" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:ReleaseAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:StreetType" w:isRequested="false">
     <w:ElementInType w:name="nc:StreetFullText" w:isReference="false"
