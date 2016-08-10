@@ -64,9 +64,9 @@
 		<phisres-ext:PrescribedMedication>
 			<cyfs:Medication>
 				<nc30:ItemName>Zyprexa</nc30:ItemName>
-				<phisres-ext:MedicationGeneralProductIdentification>
+				<phisres-ext:MedicationGenericProductIdentification>
 					<nc30:IdentificationID>58-20-00-60-10-01-05</nc30:IdentificationID>
-				</phisres-ext:MedicationGeneralProductIdentification>
+				</phisres-ext:MedicationGenericProductIdentification>
 			</cyfs:Medication>
 			<cyfs:MedicationDispensingDate>
 				<nc30:Date>2016-01-01</nc30:Date>
