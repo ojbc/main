@@ -116,11 +116,6 @@
 			<xsd:documentation>True if the person is diagnosed with a serious mental illness (SMI), false otherwise. </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-<!-- 	<xsd:element name="HighRiskNeedsIndicator" type="niem-xsd:boolean" substitutionGroup="phisres-ext:BehavioralHealthStatusRepresentation"> -->
-<!-- 		<xsd:annotation> -->
-<!-- 			<xsd:documentation>True if a provider determines a person to be high risk of needing services, false otherwise. </xsd:documentation> -->
-<!-- 		</xsd:annotation> -->
-<!-- 	</xsd:element> -->
 	<xsd:element name="TreatmentCourtOrderedIndicator" type="niem-xsd:boolean" substitutionGroup="nc30:TreatmentAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if court has ordered a person to undergo the treatment, false otherwise. </xsd:documentation>
@@ -146,7 +141,7 @@
 			<xsd:documentation>A regional behavioral health authority (RBHA) to which an individual is assigned.  A RBHA assignment can designate whether a member is integrated meaning they receive both physical and behavioral health services  or non-integrated meaning they only receive behavioral health services.  </xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MedicationGeneralProductIdentification" type="nc30:IdentificationType" substitutionGroup="nc30:DrugAugmentationPoint">
+	<xsd:element name="MedicationGenericProductIdentification" type="nc30:IdentificationType" substitutionGroup="nc30:DrugAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A hierarchical classification system that identifies drugs from their primary therapeutic use down to the unique interchangeable product regardless of manufacturer or package size.  Commonly referred to a GPI.</xsd:documentation>
 		</xsd:annotation>
