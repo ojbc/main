@@ -110,7 +110,7 @@ CREATE TABLE charge (
                 bond_amount DECIMAL(19,4),
                 bond_type VARCHAR(30),
                 bond_status VARCHAR(30),
-                next_court_event_court_name VARCHAR(30),
+                next_court_event_court_name VARCHAR(40),
                 next_court_date DATE,
                 charge_sequence_number INTEGER,
                 charge_description VARCHAR(200),
