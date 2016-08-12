@@ -449,9 +449,9 @@
 		<br-ext:PrescribedMedication>
 			<cyfs:Medication>
 				<nc:ItemName>Zyprexa</nc:ItemName>
-				<br-ext:MedicationGeneralProductIdentification>
+				<br-ext:MedicationGenericProductIdentification>
 					<nc:IdentificationID>58-20-00-60-10-01-05</nc:IdentificationID>
-				</br-ext:MedicationGeneralProductIdentification>
+				</br-ext:MedicationGenericProductIdentification>
 			</cyfs:Medication>
 			<cyfs:MedicationDispensingDate>
 				<nc:Date>2016-01-01</nc:Date>

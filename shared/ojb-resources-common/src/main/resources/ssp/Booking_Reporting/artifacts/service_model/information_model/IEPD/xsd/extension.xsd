@@ -295,7 +295,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MedicationGeneralProductIdentification"
+	<xsd:element name="MedicationGenericProductIdentification"
 		type="nc:IdentificationType" substitutionGroup="nc:DrugAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A hierarchical classification system that
