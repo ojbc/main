@@ -231,9 +231,9 @@
 			<crr-ext:PrescribedMedication>
 				<cyfs:Medication>
 					<nc:ItemName>Zyprexa</nc:ItemName>
-					<crr-ext:MedicationGeneralProductIdentification>
+					<crr-ext:MedicationGenericProductIdentification>
 						<nc:IdentificationID>58-20-00-60-10-01-05</nc:IdentificationID>
-					</crr-ext:MedicationGeneralProductIdentification>
+					</crr-ext:MedicationGenericProductIdentification>
 				</cyfs:Medication>
 				<cyfs:MedicationDispensingDate>
 					<nc:Date>2016-01-01</nc:Date>
