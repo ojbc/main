@@ -105,8 +105,10 @@
 			</j:SupervisionAugmentation>
 			<cscr-ext:DetentiontImmigrationHoldIndicator>false
 			</cscr-ext:DetentiontImmigrationHoldIndicator>
-			<cscr-ext:InmateWorkReleaseIndicator>true</cscr-ext:InmateWorkReleaseIndicator>
-			<cscr-ext:InmateTemporarilyReleasedIndicator>false</cscr-ext:InmateTemporarilyReleasedIndicator>
+			<cscr-ext:InmateWorkReleaseIndicator>true
+			</cscr-ext:InmateWorkReleaseIndicator>
+			<cscr-ext:InmateTemporarilyReleasedIndicator>false
+			</cscr-ext:InmateTemporarilyReleasedIndicator>
 			<cscr-ext:InmateWorkerIndicator>false
 			</cscr-ext:InmateWorkerIndicator>
 			<cscr-ext:AllowAccountDepositIndicator>true
@@ -135,7 +137,7 @@
 			</j:BailBondIssuerEntity>
 			<cscr-ext:BailBondRemainingAmount>
 				<nc:Amount>500.00</nc:Amount>
-		</cscr-ext:BailBondRemainingAmount>
+			</cscr-ext:BailBondRemainingAmount>
 		</j:BailBond>
 		<j:Offense structures:id="Offense_01">
 			<nc:ActivityDate>
@@ -210,7 +212,6 @@
 			<nc:PersonPrimaryLanguage>
 				<nc:LanguageName>English</nc:LanguageName>
 			</nc:PersonPrimaryLanguage>
-			<j:PersonRaceCode>A</j:PersonRaceCode>
 			<j:PersonSexCode>F</j:PersonSexCode>
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
@@ -236,10 +237,13 @@
 					<nc:IdentificationID>CO0120010324</nc:IdentificationID>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
+			<ac-bkg-codes:PersonRaceCode>3</ac-bkg-codes:PersonRaceCode>
 			<cscr-ext:PersonSocioEconomicStatusDescriptionText>Middle Class
 			</cscr-ext:PersonSocioEconomicStatusDescriptionText>
-			<cscr-ext:PersonVeteranBenefitsEligibilityIndicator>true</cscr-ext:PersonVeteranBenefitsEligibilityIndicator>
-			<cscr-ext:PersonHomelessIndicator>true</cscr-ext:PersonHomelessIndicator>
+			<cscr-ext:PersonVeteranBenefitsEligibilityIndicator>true
+			</cscr-ext:PersonVeteranBenefitsEligibilityIndicator>
+			<cscr-ext:PersonHomelessIndicator>true
+			</cscr-ext:PersonHomelessIndicator>
 			<cscr-ext:PersonPersistentIdentification>
 				<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
 				</nc:IdentificationID>
