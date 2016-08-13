@@ -25,6 +25,7 @@
 	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
 	xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
 	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
+	xmlns:pc-bkg-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0"
 	xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
 	elementFormDefault="qualified">

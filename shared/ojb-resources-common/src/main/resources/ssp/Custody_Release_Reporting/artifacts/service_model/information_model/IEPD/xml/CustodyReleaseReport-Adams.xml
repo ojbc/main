@@ -25,7 +25,6 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
 	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
-	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodyReleaseReport/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0 ../xsd/impl/adams_county/booking_codes.xsd">
 	<nc:DocumentCreationDate>
@@ -132,7 +131,6 @@
 					<nc:IdentificationID>CO0120010324</nc:IdentificationID>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
-			<ac-bkg-codes:PersonRaceCode>3</ac-bkg-codes:PersonRaceCode>
 			<crr-ext:PersonVeteranBenefitsEligibilityIndicator>true</crr-ext:PersonVeteranBenefitsEligibilityIndicator>
 			<crr-ext:PersonPersistentIdentification>
 				<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
