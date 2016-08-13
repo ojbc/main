@@ -212,6 +212,7 @@
 			<nc:PersonPrimaryLanguage>
 				<nc:LanguageName>English</nc:LanguageName>
 			</nc:PersonPrimaryLanguage>
+			<j:PersonRaceCode>W</j:PersonRaceCode>
 			<j:PersonSexCode>F</j:PersonSexCode>
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
@@ -237,7 +238,6 @@
 					<nc:IdentificationID>CO0120010324</nc:IdentificationID>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
-			<ac-bkg-codes:PersonRaceCode>3</ac-bkg-codes:PersonRaceCode>
 			<cscr-ext:PersonSocioEconomicStatusDescriptionText>Middle Class
 			</cscr-ext:PersonSocioEconomicStatusDescriptionText>
 			<cscr-ext:PersonVeteranBenefitsEligibilityIndicator>true

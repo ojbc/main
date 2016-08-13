@@ -57,6 +57,7 @@
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonEyeColorText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonHairColorText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:PersonSexText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Release" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Treatment" w:isReference="false" w:nillable="true"/>
   <w:Type w:name="cyfs:MedicationUseType" w:isRequested="true">
@@ -75,6 +76,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:BookingType" w:isRequested="true">
+    <w:ElementInType w:name="j:BookingAgency" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:BookingAgencyRecordIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:BookingDetentionFacility"
@@ -219,6 +222,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonSurName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonNameAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:PersonType" w:isRequested="false">
     <w:ElementInType w:name="nc:PersonAgeMeasure" w:isReference="false"

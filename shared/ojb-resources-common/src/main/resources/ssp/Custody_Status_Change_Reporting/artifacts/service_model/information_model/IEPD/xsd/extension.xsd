@@ -26,6 +26,7 @@
 	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
 	xmlns:cscr-ext="http://ojbc.org/IEPD/Extensions/CustodyStatusChangeReportExtension/1.0"
 	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
+	xmlns:pc-bkg-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/CustodyStatusChangeReportExtension/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
@@ -185,6 +186,13 @@
 	<xsd:element name="InmateWorkerIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if an inmate is a worker in the facility; false otherwise</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonNameIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonNameAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to a person's name.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonSocioEconomicStatusDescriptionText"

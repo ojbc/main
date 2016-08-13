@@ -26,6 +26,7 @@
   xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
   xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
   xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/">
+  <w:Element w:name="cyfs:Medication" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="cyfs:NextCourtEvent" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="hs:MedicaidIndicator" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="intel:SystemIdentification" w:isReference="false" w:nillable="true"/>

@@ -24,7 +24,7 @@
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
 	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
 	xmlns:crr-ext="http://ojbc.org/IEPD/Extensions/CustodyReleaseReportExtension/1.0"
-	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
+	xmlns:pc-bkg-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/CustodyReleaseReportExtension/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
@@ -66,7 +66,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Detention" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Release" minOccurs="0" maxOccurs="unbounded" />
@@ -254,14 +254,25 @@
 			<xsd:documentation></xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonVeteranBenefitsEligibilityIndicator"  type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="PersonVeteranBenefitsEligibilityIndicator"
+		type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if person qualifies to receive military veteran services, false otherwise. </xsd:documentation>
+			<xsd:documentation>True if person qualifies to receive military
+				veteran services, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ReleaseCondition" type="nc:ConditionType" substitutionGroup="nc:ReleaseAugmentationPoint">
+	<xsd:element name="ReleaseCondition" type="nc:ConditionType"
+		substitutionGroup="nc:ReleaseAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A condition that a person must follow as part of being released.</xsd:documentation>
+			<xsd:documentation>A condition that a person must follow as part of
+				being released.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonNameIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonNameAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to a person's name.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

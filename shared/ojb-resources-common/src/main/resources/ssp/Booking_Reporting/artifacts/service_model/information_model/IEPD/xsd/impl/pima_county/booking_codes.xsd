@@ -21,9 +21,9 @@
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
-	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
-	xmlns:crr-ext="http://ojbc.org/IEPD/Extensions/CustodyReleaseReportExtension/1.0"
-	targetNamespace="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
+	xmlns:pc-bkg-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0"
+	xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
 		schemaLocation="../../Subset/niem/niem-core/3.0/niem-core.xsd" />
@@ -34,10 +34,10 @@
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
 		schemaLocation="../../Subset/niem/structures/3.0/structures.xsd" />
 	<xsd:import
-		namespace="http://ojbc.org/IEPD/Extensions/CustodyReleaseReportExtension/1.0"
+		namespace="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
 		schemaLocation="../../extension.xsd" />
 	<xsd:annotation>
-		<xsd:documentation>Adams County Booking Codes</xsd:documentation>
+		<xsd:documentation>Pima County Booking Codes</xsd:documentation>
 	</xsd:annotation>
 	<xsd:simpleType name="PersonRaceCodeSimpleType">
 		<xsd:annotation>
@@ -77,13 +77,13 @@
 			<xsd:documentation>Person race code set</xsd:documentation>
 		</xsd:annotation>
 		<xsd:simpleContent>
-			<xsd:extension base="ac-bkg-codes:PersonRaceCodeSimpleType">
+			<xsd:extension base="pc-bkg-codes:PersonRaceCodeSimpleType">
 				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="PersonRaceCode" type="ac-bkg-codes:PersonRaceCodeType"
-		substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="PersonRaceCode" type="pc-bkg-codes:PersonRaceCodeType"
+		substitutionGroup="nc:PersonRace">
 		<xsd:annotation>
 			<xsd:documentation>A code for person race.</xsd:documentation>
 		</xsd:annotation>

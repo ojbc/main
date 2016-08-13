@@ -18,13 +18,14 @@
 
 -->
 <br-doc:BookingReport
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/BookingReport/1.0 ../xsd/exchange.xsd"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/BookingReport/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0 ../xsd/impl/pima_county/booking_codes.xsd"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:br-doc="http://ojbc.org/IEPD/Exchange/BookingReport/1.0"
 	xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
+	xmlns:pc-bkg-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<j:Booking>
 		<nc:ActivityDate>
@@ -52,6 +53,7 @@
 				<nc:IdentificationID>99999</nc:IdentificationID>
 			</br-ext:PersonNameIdentification>
 		</nc:PersonName>
+		<pc-bkg-codes:PersonRaceCode>2</pc-bkg-codes:PersonRaceCode>
 		<nc:PersonSexText>F</nc:PersonSexText>
 		<br-ext:PersonBehavioralHealthInformation
 			structures:ref="PBHI_01" />
@@ -89,9 +91,9 @@
 		<br-ext:PrescribedMedication>
 			<cyfs:Medication>
 				<nc:ItemName>Zyprexa</nc:ItemName>
-				<br-ext:MedicationGeneralProductIdentification>
+				<br-ext:MedicationGenericProductIdentification>
 					<nc:IdentificationID>58-20-00-60-10-01-05</nc:IdentificationID>
-				</br-ext:MedicationGeneralProductIdentification>
+				</br-ext:MedicationGenericProductIdentification>
 			</cyfs:Medication>
 			<cyfs:MedicationDispensingDate>
 				<nc:Date>2016-01-01</nc:Date>
