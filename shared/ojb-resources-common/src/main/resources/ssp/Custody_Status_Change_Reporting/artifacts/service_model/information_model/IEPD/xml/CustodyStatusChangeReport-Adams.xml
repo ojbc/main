@@ -142,6 +142,9 @@
 		<j:Charge structures:id="Charge_01">
 			<j:ChargeCategoryDescriptionText>Charge Category</j:ChargeCategoryDescriptionText>
 			<j:ChargeDescriptionText>Charge Description</j:ChargeDescriptionText>
+			<j:ChargeDisposition>
+				<nc:DispositionText>Disposition</nc:DispositionText>
+			</j:ChargeDisposition>
 			<j:ChargeHighestIndicator>true</j:ChargeHighestIndicator>
 			<j:ChargeSequenceID>Charge Sequence ID</j:ChargeSequenceID>
 			<j:ChargeSeverityText>felony</j:ChargeSeverityText>
