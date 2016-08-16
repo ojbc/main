@@ -39,13 +39,6 @@
 		<nc:IdentificationID>Source System ID</nc:IdentificationID>
 		<nc:SystemName>Source System Name</nc:SystemName>
 	</intel:SystemIdentification>
-	<nc:Case structures:id="Case_01">
-		<j:CaseAugmentation>
-			<j:CaseCourt>
-				<j:CourtName>Case Court</j:CourtName>
-			</j:CaseCourt>
-		</j:CaseAugmentation>
-	</nc:Case>
 	<j:Booking structures:id="Booking_01">
 		<nc:ActivityDate>
 			<nc:DateTime>2013-12-17T09:30:00</nc:DateTime>
@@ -173,24 +166,29 @@
 		<j:OffenseCategoryText>Offense Category 2</j:OffenseCategoryText>
 	</j:Offense>
 	<j:Charge structures:id="Charge_01">
-		<j:ChargeCategoryDescriptionText>Felony</j:ChargeCategoryDescriptionText>
+		<j:ChargeCategoryDescriptionText>Charge Category</j:ChargeCategoryDescriptionText>
 		<j:ChargeDescriptionText>Charge Description</j:ChargeDescriptionText>
 		<j:ChargeHighestIndicator>true</j:ChargeHighestIndicator>
 		<j:ChargeSequenceID>Charge Sequence ID</j:ChargeSequenceID>
+		<j:ChargeSeverityText>felony</j:ChargeSeverityText>
 		<j:ChargeStatute>
 			<j:StatuteCodeSectionIdentification>
 				<nc:IdentificationID>Charge Code ID</nc:IdentificationID>
 			</j:StatuteCodeSectionIdentification>
 		</j:ChargeStatute>
+		<br-ext:ChargeJurisdictionCourt>
+			<j:CourtName>Smithville</j:CourtName>
+		</br-ext:ChargeJurisdictionCourt>
 		<br-ext:HoldForAgency>
 			<nc:OrganizationName>Agency</nc:OrganizationName>
 		</br-ext:HoldForAgency>
 	</j:Charge>
 	<j:Charge structures:id="Charge_02">
-		<j:ChargeCategoryDescriptionText>Felony</j:ChargeCategoryDescriptionText>
+		<j:ChargeCategoryDescriptionText>Charge Category</j:ChargeCategoryDescriptionText>
 		<j:ChargeDescriptionText>Charge Description</j:ChargeDescriptionText>
 		<j:ChargeHighestIndicator>true</j:ChargeHighestIndicator>
 		<j:ChargeSequenceID>Charge Sequence ID</j:ChargeSequenceID>
+		<j:ChargeSeverityText>felony</j:ChargeSeverityText>
 		<j:ChargeStatute>
 			<j:StatuteCodeSectionIdentification>
 				<nc:IdentificationID>Charge Code ID</nc:IdentificationID>
@@ -377,7 +375,6 @@
 	<j:ActivityCaseAssociation>
 		<nc:Activity structures:ref="Booking_01" />
 		<nc:Activity structures:ref="Detention_01" />
-		<nc:Case structures:ref="Case_01" />
 	</j:ActivityCaseAssociation>
 	<j:ActivityChargeAssociation>
 		<nc:Activity structures:ref="Event_01" />

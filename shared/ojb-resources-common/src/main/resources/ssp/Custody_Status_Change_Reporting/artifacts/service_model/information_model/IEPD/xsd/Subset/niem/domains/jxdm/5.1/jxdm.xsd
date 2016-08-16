@@ -133,6 +133,7 @@
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeHighestIndicator" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeSeverityText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -414,6 +415,11 @@
   <xs:element name="ChargeSequenceID" type="niem-xs:string" nillable="true">
     <xs:annotation>
       <xs:documentation>A sequentially assigned identifier for charge tracking purposes.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeSeverityText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A level of severity of a charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeStatute" type="j:StatuteType" nillable="true">
