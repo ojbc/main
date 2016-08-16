@@ -51,7 +51,7 @@
 			</xsd:enumeration>
 			<xsd:enumeration value="2">
 				<xsd:annotation>
-					<xsd:documentation>Native Amer., Aleutes, EskimosL
+					<xsd:documentation>Native Amer., Aleutes, Eskimos
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
@@ -86,6 +86,45 @@
 		substitutionGroup="nc:PersonRace">
 		<xsd:annotation>
 			<xsd:documentation>A code for person race.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="PersonEthnicityCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Person ethnicity code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="LATINO">
+				<xsd:annotation>
+					<xsd:documentation>Hispanic</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NON-LATINO">
+				<xsd:annotation>
+					<xsd:documentation>Non-Hispanic
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UNKNOWN">
+				<xsd:annotation>
+					<xsd:documentation>Unknown</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="PersonEthnicityCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Person ethnicity code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="pc-bkg-codes:PersonEthnicityCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="PersonEthnicityCode" type="pc-bkg-codes:PersonEthnicityCodeType"
+		substitutionGroup="nc:PersonEthnicity">
+		<xsd:annotation>
+			<xsd:documentation>A code for person ethnicity.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
