@@ -22,22 +22,26 @@
 	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:phisres-doc="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchResults/1.0"
 	xmlns:phisres-ext="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchResults/1.0"
+	xmlns:pc-phi-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/PersonHealthInformationCodes/1.0"
 	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
 	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchResults/1.0 ../xsd/exchange_schema.xsd">
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/PimaCounty/PersonHealthInformationCodes/1.0 ../xsd/impl/pima_county/phi_codes.xsd">
 	<nc30:Person>
+		<pc-phi-codes:PersonEthnicityCode>LATINO</pc-phi-codes:PersonEthnicityCode>
+		<pc-phi-codes:PersonRaceCode>1</pc-phi-codes:PersonRaceCode>
 		<phisres-ext:PersonTemporaryIdentification>
 			<nc30:IdentificationID>1234567890</nc30:IdentificationID>
 		</phisres-ext:PersonTemporaryIdentification>
 		<phisres-ext:PersonPersistentIdentification>
-			<nc30:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f</nc30:IdentificationID>
+			<nc30:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
+			</nc30:IdentificationID>
 		</phisres-ext:PersonPersistentIdentification>
 	</nc30:Person>
 	<phisres-ext:BehavioralHealthInformation>
-		<phisres-ext:SeriousMentalIllnessIndicator>true</phisres-ext:SeriousMentalIllnessIndicator>
+		<phisres-ext:SeriousMentalIllnessIndicator>true
+		</phisres-ext:SeriousMentalIllnessIndicator>
 		<jxdm51:Evaluation>
 			<jxdm51:EvaluationDiagnosisDescriptionText>Schizophrenia 295.10</jxdm51:EvaluationDiagnosisDescriptionText>
 		</jxdm51:Evaluation>
