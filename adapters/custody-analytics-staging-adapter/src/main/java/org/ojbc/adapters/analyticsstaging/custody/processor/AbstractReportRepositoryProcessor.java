@@ -20,7 +20,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +31,6 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticsstaging.custody.dao.AnalyticalDatastoreDAO;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Address;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAssessment;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
@@ -62,40 +60,22 @@ public abstract class AbstractReportRepositoryProcessor {
     @Transactional
 	public abstract void processReport(@Body Document report) throws Exception;
 
-	protected Integer savePerson(Node personNode, String personUniqueIdentifier) throws Exception {
+	protected Integer savePerson(Node personNode, String personUniqueIdentifier, String extPrefix) throws Exception {
 		
 		Person person = new Person();
 		
 		person.setPersonUniqueIdentifier(personUniqueIdentifier);
 		
-		String bookingSubjectNumber = XmlUtils.xPathStringSearch(personNode, 
-				"parent::br-doc:BookingReport/jxdm51:Booking/jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");
-		person.setBookingSubjectNumber(bookingSubjectNumber);
-		
-		String personHairColor = XmlUtils.xPathStringSearch(personNode, "nc30:PersonHairColorText");
-		person.setPersonHairColor(personHairColor);
-		
-		String personEyeColor = XmlUtils.xPathStringSearch(personNode, "nc30:PersonEyeColorText");
-		person.setPersonEyeColor(personEyeColor);
-		
-		String personHeight = XmlUtils.xPathStringSearch(personNode,  "nc30:PersonHeightMeasure/nc30:MeasureValueText");
-		person.setPersonHeight(personHeight);
-		
-		String personHeightMeasureUnit = XmlUtils.xPathStringSearch(personNode,  "nc30:PersonHeightMeasure/nc30:MeasureUnitText");
-		person.setPersonHeightMeasureUnit(personHeightMeasureUnit);
-		
-		String personWeight = XmlUtils.xPathStringSearch(personNode,  "nc30:PersonWeightMeasure/nc30:MeasureValueText");
-		person.setPersonWeight(personWeight);
-		
-		String personWeightMeasureUnit = XmlUtils.xPathStringSearch(personNode,  "nc30:PersonWeightMeasure/nc30:MeasureUnitText");
-		person.setPersonWeightMeasureUnit(personWeightMeasureUnit);
-		
-		String personRace=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonRaceCode");
-		person.setPersonRaceId(descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, personRace));
+		String personRaceCode=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonRaceCode");
+		if (StringUtils.isBlank(personRaceCode)){
+			personRaceCode=XmlUtils.xPathStringSearch(personNode, "ac-bkg-codes:PersonRaceCode");
+		}
+		person.setPersonRaceCode(personRaceCode);
+		person.setPersonRaceId(descriptionCodeLookupService.retrieveCode(CodeTable.PersonRaceType, personRaceCode));
 		
 		String personSex=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonSexCode");
 		person.setPersonSexCode(StringUtils.trimToNull(personSex));
-		person.setPersonSexId(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, StringUtils.trimToNull(personSex)));
+		person.setPersonSexId(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSexType, StringUtils.trimToNull(personSex)));
 
 		String personBirthDate = XmlUtils.xPathStringSearch(personNode, "nc30:PersonBirthDate/nc30:Date");
 		person.setPersonBirthDate(LocalDate.parse(personBirthDate));
@@ -103,58 +83,54 @@ public abstract class AbstractReportRepositoryProcessor {
 		String language = XmlUtils.xPathStringSearch(personNode, "nc30:PersonPrimaryLanguage/nc30:LanguageName");
 		person.setLanguage(language);
 		person.setLanguageId(descriptionCodeLookupService.retrieveCode(CodeTable.LanguageType, language));
-		
-		String personCriminalHistorySummaryRef = 
-				XmlUtils.xPathStringSearch(personNode, "parent::br-doc:BookingReport/nc30:ActivityPersonAssociation"
-						+ "[nc30:Person/@s30:ref=/br-doc:BookingReport/jxdm51:Booking/jxdm51:BookingSubject/nc30:RoleOfPerson/@s30:ref]/nc30:Activity/@s30:ref");
-		String registeredSexOffender = XmlUtils.xPathStringSearch(personNode, 
-				"/br-doc:BookingReport/jxdm51:PersonCriminalHistorySummary[@s30:id='"+ personCriminalHistorySummaryRef + "']/jxdm51:RegisteredSexualOffenderIndicator");
-		person.setRegisteredSexOffender(BooleanUtils.toBooleanObject(registeredSexOffender));
-		
-		Integer personId = analyticalDatastoreDAO.savePerson(person);
-		
-		return personId;
-	}
 
-	protected Integer saveBookingSubject(Node personNode, BookingSubject bookingSubject,
-			Integer personId, String extPrefix) throws Exception {
-		bookingSubject.setPersonId(personId);
+		//TODO set SexOffenderRegistrationStatusTypeID
+//		String personCriminalHistorySummaryRef = 
+//				XmlUtils.xPathStringSearch(personNode, "parent::br-doc:BookingReport/nc30:ActivityPersonAssociation"
+//						+ "[nc30:Person/@s30:ref=/br-doc:BookingReport/jxdm51:Booking/jxdm51:BookingSubject/nc30:RoleOfPerson/@s30:ref]/nc30:Activity/@s30:ref");
+//		String registeredSexOffender = XmlUtils.xPathStringSearch(personNode, 
+//				"/br-doc:BookingReport/jxdm51:PersonCriminalHistorySummary[@s30:id='"+ personCriminalHistorySummaryRef + "']/jxdm51:RegisteredSexualOffenderIndicator");
+//		person.setRegisteredSexOffender(BooleanUtils.toBooleanObject(registeredSexOffender));
 		
-		String birthDateString = XmlUtils.xPathStringSearch(personNode,  "nc30:PersonBirthDate/nc30:Date");
-	 	java.time.LocalDate birthDay = java.time.LocalDate.parse(birthDateString);
-	 	long age = birthDay.until(java.time.LocalDate.now(), ChronoUnit.YEARS );
-	 	bookingSubject.setPersonAge(Long.valueOf(age).intValue());
-	 	
 	 	String educationLevel = XmlUtils.xPathStringSearch(personNode, "nc30:PersonEducationLevelText");
 	 	if(StringUtils.isNotBlank(educationLevel)){
 		 	Integer educationLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.EducationLevelType, StringUtils.trim(educationLevel));
-		 	bookingSubject.setEducationLevelId(educationLevelId);
+		 	person.setEducationLevelId(educationLevelId);
 	 	}
 	 	
 	 	String occupation = XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonAugmentation/nc30:EmployeeOccupationCategoryText");
 	 	if (StringUtils.isNotBlank(occupation)){
 	 		Integer occupationId = descriptionCodeLookupService.retrieveCode(CodeTable.OccupationType, StringUtils.trim(occupation));
-	 		bookingSubject.setOccupationId(occupationId);
+	 		person.setOccupationId(occupationId);
 	 	}
+
+	 	//TODO Figure out how to set DomicileStatusTypeID
+//	 	String housingStatus = XmlUtils.xPathStringSearch(personNode, "nc30:PersonResidentText");
+// 		Integer housingStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.HousingStatusType, StringUtils.trim(housingStatus));
+// 		person.setHousingStatusId(housingStatusId);
 	 	
-	 	String incomeLevel = XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonSocioEconomicStatusDescriptionText");
-	 	if (StringUtils.isNotBlank(incomeLevel)){
-	 		Integer incomeLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.IncomeLevelType, StringUtils.trim(incomeLevel));
-	 		bookingSubject.setIncomeLevelId(incomeLevelId);
-	 	}
-	 	
-	 	String housingStatus = XmlUtils.xPathStringSearch(personNode, "nc30:PersonResidentText");
-	 	if(StringUtils.isNotBlank( housingStatus )){
-	 		Integer housingStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.HousingStatusType, StringUtils.trim(housingStatus));
-	 		bookingSubject.setHousingStatusId(housingStatusId);
-	 	}
-	 	
+// 		String homelessIndicator = XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonHomelessIndicator");
+// 		person.setHomelessIndicator(BooleanUtils.toBooleanObject(homelessIndicator));
+
+	 	//TODO Set ProgramEligibilityTypeID
+// 		String personVeteranBenefitsEligibilityIndicator = XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonVeteranBenefitsEligibilityIndicator");
+// 		person.setVeteranBenefitsEligibilityIndicator(BooleanUtils.toBooleanObject(personVeteranBenefitsEligibilityIndicator));
+ 		
+ 		String inmateTemporarilyReleasedIndicator = XmlUtils.xPathStringSearch(personNode, "preceding-sibling::jxdm51:Detention/" + extPrefix + ":InmateTemporarilyReleasedIndicator");
+ 		person.setInmateTemporarilyReleasedIndicator(BooleanUtils.toBooleanObject(inmateTemporarilyReleasedIndicator));
+ 		
+ 		//TODO Set WorkReleaseStatusTypeID
+// 		String inmateWorkReleaseIndicator = XmlUtils.xPathStringSearch(personNode, "preceding-sibling::jxdm51:Detention/" + extPrefix + ":InmateWorkReleaseIndicator");
+// 		person.setInmateTemporarilyReleasedIndicator(BooleanUtils.toBooleanObject(inmateWorkReleaseIndicator));
+ 		
 	 	String militaryServiceStatusCode = XmlUtils.xPathStringSearch(personNode, "nc30:PersonMilitarySummary/ac-bkg-codes:MilitaryServiceStatusCode");
-	 	bookingSubject.setMilitaryServiceStatusCode(militaryServiceStatusCode);
-	 	
-		Integer bookingSubjectId = analyticalDatastoreDAO.saveBookingSubject(bookingSubject);
-		return bookingSubjectId;
+ 		Integer militaryServiceStatusTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.MilitaryServiceStatusType, militaryServiceStatusCode);
+	 	person.setMilitaryServiceStatusType(new KeyValue(militaryServiceStatusTypeId, militaryServiceStatusCode));
+		Integer personId = analyticalDatastoreDAO.savePerson(person);
+		
+		return personId;
 	}
+
 
 	protected String getPersonUniqueIdentifier(Node personNode, String xPath) throws Exception {
 		String personUniqueIdentifier = StringUtils.trimToNull(XmlUtils.xPathStringSearch(personNode, 
@@ -183,9 +159,6 @@ public abstract class AbstractReportRepositoryProcessor {
 				String seriousMentalIllnessIndicator = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":SeriousMentalIllnessIndicator");
 				assessment.setSeriousMentalIllness(BooleanUtils.toBooleanObject(seriousMentalIllnessIndicator));
 	
-				String highRiskNeedsIndicator = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":HighRiskNeedsIndicator");
-				assessment.setHighRiskNeeds(BooleanUtils.toBooleanObject(highRiskNeedsIndicator));
-				
 				String substanceAbuseIndicator = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":SubstanceAbuseIndicator");
 				assessment.setSubstanceAbuse(BooleanUtils.toBooleanObject(substanceAbuseIndicator));
 				
@@ -261,17 +234,17 @@ public abstract class AbstractReportRepositoryProcessor {
 		String medicationItemName = XmlUtils.xPathStringSearch(prescribedMedicationNode,
 				"cyfs31:Medication/nc30:ItemName");
 		String medicationGeneralProdId = XmlUtils.xPathStringSearch(prescribedMedicationNode, 
-				"cyfs31:Medication/" + extPrefix + ":MedicationGeneralProductIdentification/nc30:IdentificationID");
+				"cyfs31:Medication/" + extPrefix + ":MedicationGenericProductIdentification/nc30:IdentificationID");
 		
 		if (StringUtils.isNotBlank(medicationItemName)|| 
 				StringUtils.isNotBlank(medicationGeneralProdId)){
-			Integer medicationId = analyticalDatastoreDAO.getMedicationId(medicationGeneralProdId, medicationItemName);
+			Integer medicationTypeId = analyticalDatastoreDAO.getMedicationTypeId(medicationGeneralProdId, medicationItemName);
 			
-			if (medicationId == null){
-				medicationId = analyticalDatastoreDAO.saveMedication(medicationGeneralProdId, medicationItemName);
+			if (medicationTypeId == null){
+				medicationTypeId = analyticalDatastoreDAO.saveMedicationType(medicationGeneralProdId, medicationItemName);
 			}
 			
-			prescribedMedication.setMedicationId(medicationId);
+			prescribedMedication.setMedicationId(medicationTypeId);
 		}
 	}
 
@@ -298,9 +271,6 @@ public abstract class AbstractReportRepositoryProcessor {
 				if (StringUtils.isNotBlank(endDateString)){
 					treatment.setEndDate(LocalDate.parse(endDateString));
 				}
-				
-				String treatmentText = XmlUtils.xPathStringSearch(treatmentNode, "nc30:TreatmentText");
-				treatment.setTreatmentText(treatmentText);
 				
 				String treatmentProvider = XmlUtils.xPathStringSearch(treatmentNode, "nc30:TreatmentProvider/nc30:EntityOrganization/nc30:OrganizationName");
 				treatment.setTreatmentProvider(treatmentProvider);
@@ -334,11 +304,11 @@ public abstract class AbstractReportRepositoryProcessor {
 				String evaluationDiagnosisDescriptionText = StringUtils.trimToEmpty(XmlUtils.xPathStringSearch(evaluationNode, "jxdm51:EvaluationDiagnosisDescriptionText"));
 				
 				if (StringUtils.isNotBlank(evaluationDiagnosisDescriptionText)){
-			        Integer behavioralHealthTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.BehavioralHealthType, evaluationDiagnosisDescriptionText);
+			        Integer behavioralHealthTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.BehavioralHealthDiagnosisType, evaluationDiagnosisDescriptionText);
 					
 			        if (behavioralHealthTypeId == null){
-			        	behavioralHealthTypeId = analyticalDatastoreDAO.saveBehavioralHealthType(evaluationDiagnosisDescriptionText);
-			        	descriptionCodeLookupService.addEntry(CodeTable.BehavioralHealthType, evaluationDiagnosisDescriptionText, behavioralHealthTypeId);
+			        	behavioralHealthTypeId = analyticalDatastoreDAO.saveBehavioralHealthDiagnosisType(evaluationDiagnosisDescriptionText);
+			        	descriptionCodeLookupService.addEntry(CodeTable.BehavioralHealthDiagnosisType, evaluationDiagnosisDescriptionText, behavioralHealthTypeId);
 			        }
 			        
 			        KeyValue behavioralHealthType = new KeyValue(behavioralHealthTypeId, evaluationDiagnosisDescriptionText); 
@@ -347,7 +317,7 @@ public abstract class AbstractReportRepositoryProcessor {
 			}
 			
 			analyticalDatastoreDAO.saveBehavioralHealthEvaluations(assessment.getBehavioralHealthAssessmentId(), behavioralHealthTypes);
-			assessment.setBehavioralHealthTypes(behavioralHealthTypes);
+			assessment.setBehavioralHealthDiagnosisTypes(behavioralHealthTypes);
 		}
 	}
 
@@ -379,10 +349,10 @@ public abstract class AbstractReportRepositoryProcessor {
 	        	
         	if (arrestLocation2DGeoCoordinateNode != null){
         		String arrestLocationLongitude = XmlUtils.xPathStringSearch(arrestLocation2DGeoCoordinateNode, "nc30:GeographicCoordinateLongitude/nc30:LongitudeDegreeValue");
-        		address.setArrestLocationLongitude(new BigDecimal(arrestLocationLongitude));
+        		address.setLocationLongitude(new BigDecimal(arrestLocationLongitude));
         		
         		String arrestLocationLatitude = XmlUtils.xPathStringSearch(arrestLocation2DGeoCoordinateNode, "nc30:GeographicCoordinateLatitude/nc30:LatitudeDegreeValue");
-        		address.setArrestLocationLatitude(new BigDecimal(arrestLocationLatitude));
+        		address.setLocationLatitude(new BigDecimal(arrestLocationLatitude));
 	        }
 	        
 		}
@@ -427,7 +397,7 @@ public abstract class AbstractReportRepositoryProcessor {
 		return null;
 	}
 
-	protected CustodyRelease processCustodyReleaseInfo(LocalDateTime reportDate, Node parentNode,
+	protected CustodyRelease processCustodyReleaseInfo(Node parentNode,
 			Integer bookingId) throws Exception {
 		
         String supervisionReleaseDate = XmlUtils.xPathStringSearch(parentNode, 
@@ -441,7 +411,6 @@ public abstract class AbstractReportRepositoryProcessor {
         	}
         	
         	custodyRelease.setBookingId(bookingId);
-        	custodyRelease.setReportDate(reportDate);
         	
         	if (StringUtils.isNotBlank(supervisionReleaseDate)){
         		analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);

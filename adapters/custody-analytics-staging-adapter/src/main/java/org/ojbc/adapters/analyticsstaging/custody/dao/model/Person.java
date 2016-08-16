@@ -35,20 +35,24 @@ public class Person {
     private String personRaceCode;
     private String personSexDescription; 
     private String personRaceDescription;
+    
+    private Integer personEthnicityTypeId;
+    private String personEthnicityTypeDescription;
     private String language;
     
     private LocalDate personBirthDate;
     private String personUniqueIdentifier;
-    private String bookingSubjectNumber;
     private Integer languageId; //primary language 
     
-    private String personEyeColor; 
-    private String personHairColor; 
-    private String personHeight; 
-    private String personHeightMeasureUnit; 
-    private String personWeight; 
-    private String personWeightMeasureUnit; 
-    private Boolean registeredSexOffender;
+    private Integer sexOffenderStatusTypeId;
+	private Integer personAgeAtBooking; 
+	private Integer educationLevelId; 
+	private Integer occupationId; 
+	private Integer domicileStatusTypeId; 
+	private Integer workReleaseStatusTypeId; 
+	private Integer programEligibilityTypeId; 
+	private Boolean inmateTemporarilyReleasedIndicator; 
+	private KeyValue militaryServiceStatusType; 
     
 	public LocalDate getPersonBirthDate() {
 		return personBirthDate;
@@ -90,54 +94,6 @@ public class Person {
 	public void setLanguage(String language) {
 		this.language = language;
 	}
-	public String getBookingSubjectNumber() {
-		return bookingSubjectNumber;
-	}
-	public void setBookingSubjectNumber(String bookingSubjectNumber) {
-		this.bookingSubjectNumber = bookingSubjectNumber;
-	}
-	public String getPersonEyeColor() {
-		return personEyeColor;
-	}
-	public void setPersonEyeColor(String personEyeColor) {
-		this.personEyeColor = personEyeColor;
-	}
-	public String getPersonHairColor() {
-		return personHairColor;
-	}
-	public void setPersonHairColor(String personHairColor) {
-		this.personHairColor = personHairColor;
-	}
-	public String getPersonHeight() {
-		return personHeight;
-	}
-	public void setPersonHeight(String personHeight) {
-		this.personHeight = personHeight;
-	}
-	public String getPersonHeightMeasureUnit() {
-		return personHeightMeasureUnit;
-	}
-	public void setPersonHeightMeasureUnit(String personHeightMeasureUnit) {
-		this.personHeightMeasureUnit = personHeightMeasureUnit;
-	}
-	public String getPersonWeight() {
-		return personWeight;
-	}
-	public void setPersonWeight(String personWeight) {
-		this.personWeight = personWeight;
-	}
-	public String getPersonWeightMeasureUnit() {
-		return personWeightMeasureUnit;
-	}
-	public void setPersonWeightMeasureUnit(String personWeightMeasureUnit) {
-		this.personWeightMeasureUnit = personWeightMeasureUnit;
-	}
-	public Boolean getRegisteredSexOffender() {
-		return registeredSexOffender;
-	}
-	public void setRegisteredSexOffender(Boolean registeredSexOffender) {
-		this.registeredSexOffender = registeredSexOffender;
-	}
 	public String getPersonSexCode() {
 		return personSexCode;
 	}
@@ -162,11 +118,91 @@ public class Person {
 	public void setPersonRaceId(Integer personRaceId) {
 		this.personRaceId = personRaceId;
 	}
+	
+	public Integer getPersonAgeAtBooking() {
+		return personAgeAtBooking;
+	}
+
+	public void setPersonAgeAtBooking(Integer personAgeAtBooking) {
+		this.personAgeAtBooking = personAgeAtBooking;
+	}
+
+	public Integer getEducationLevelId() {
+		return educationLevelId;
+	}
+
+	public void setEducationLevelId(Integer educationLevelId) {
+		this.educationLevelId = educationLevelId;
+	}
+
+	public Integer getOccupationId() {
+		return occupationId;
+	}
+
+	public void setOccupationId(Integer occupationId) {
+		this.occupationId = occupationId;
+	}
+
 	public Integer getPersonId() {
 		return personId;
 	}
+
 	public void setPersonId(Integer personId) {
 		this.personId = personId;
+	}
+
+	public Boolean getInmateTemporarilyReleasedIndicator() {
+		return inmateTemporarilyReleasedIndicator;
+	}
+
+	public void setInmateTemporarilyReleasedIndicator(
+			Boolean inmateTemporarilyReleasedIndicator) {
+		this.inmateTemporarilyReleasedIndicator = inmateTemporarilyReleasedIndicator;
+	}
+
+	public KeyValue getMilitaryServiceStatusType() {
+		return militaryServiceStatusType;
+	}
+
+	public void setMilitaryServiceStatusType(KeyValue militaryServiceStatusType) {
+		this.militaryServiceStatusType = militaryServiceStatusType;
+	}
+	public Integer getDomicileStatusTypeId() {
+		return domicileStatusTypeId;
+	}
+	public void setDomicileStatusTypeId(Integer domicileStatusTypeId) {
+		this.domicileStatusTypeId = domicileStatusTypeId;
+	}
+	public Integer getWorkReleaseStatusTypeId() {
+		return workReleaseStatusTypeId;
+	}
+	public void setWorkReleaseStatusTypeId(Integer workReleaseStatusTypeId) {
+		this.workReleaseStatusTypeId = workReleaseStatusTypeId;
+	}
+	public Integer getProgramEligibilityTypeId() {
+		return programEligibilityTypeId;
+	}
+	public void setProgramEligibilityTypeId(Integer programEligibilityTypeId) {
+		this.programEligibilityTypeId = programEligibilityTypeId;
+	}
+	public String getPersonEthnicityTypeDescription() {
+		return personEthnicityTypeDescription;
+	}
+	public void setPersonEthnicityTypeDescription(
+			String personEthnicityTypeDescription) {
+		this.personEthnicityTypeDescription = personEthnicityTypeDescription;
+	}
+	public Integer getPersonEthnicityTypeId() {
+		return personEthnicityTypeId;
+	}
+	public void setPersonEthnicityTypeId(Integer personEthnicityTypeId) {
+		this.personEthnicityTypeId = personEthnicityTypeId;
+	}
+	public Integer getSexOffenderStatusTypeId() {
+		return sexOffenderStatusTypeId;
+	}
+	public void setSexOffenderStatusTypeId(Integer sexOffenderStatusTypeId) {
+		this.sexOffenderStatusTypeId = sexOffenderStatusTypeId;
 	}
 	
 }

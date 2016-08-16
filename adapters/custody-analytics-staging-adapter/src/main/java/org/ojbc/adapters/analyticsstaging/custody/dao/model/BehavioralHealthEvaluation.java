@@ -16,8 +16,6 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -26,7 +24,7 @@ public class BehavioralHealthEvaluation implements Serializable
 {
 	private static final long serialVersionUID = 6669243492957009481L;
 	private Integer behavioralHealthEvaluationId;
-	private Integer behavioralHealthTypeId;
+	private Integer behavioralHealthDiagnosisTypeId;
     private Integer behavioralHealthAssessmentId; 
 
     @Override
@@ -43,12 +41,12 @@ public class BehavioralHealthEvaluation implements Serializable
 		this.behavioralHealthEvaluationId = behavioralHealthEvaluationId;
 	}
 
-	public Integer getBehavioralHealthTypeId() {
-		return behavioralHealthTypeId;
+	public Integer getBehavioralHealthDiagnosisTypeId() {
+		return behavioralHealthDiagnosisTypeId;
 	}
 
-	public void setBehavioralHealthTypeId(Integer behavioralHealthTypeId) {
-		this.behavioralHealthTypeId = behavioralHealthTypeId;
+	public void setBehavioralHealthDiagnosisTypeId(Integer behavioralHealthDiagnosisTypeId) {
+		this.behavioralHealthDiagnosisTypeId = behavioralHealthDiagnosisTypeId;
 	}
 
 	public Integer getBehavioralHealthAssessmentId() {

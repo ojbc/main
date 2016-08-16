@@ -83,6 +83,9 @@ public class DescriptionCodeLookupService
 			if (code == null){
 				code =  (Integer) lookupMap.get("Unknown");
 			}
+			if (code == null){
+				code =  (Integer) lookupMap.get("U");
+			}
 			return code ;
 		}
 		catch (Exception e) {

@@ -30,28 +30,12 @@ public class Address implements Serializable
     private String city; 
     private String state; 
     private String postalcode; 
-	private BigDecimal arrestLocationLatitude; 
-	private BigDecimal arrestLocationLongitude; 
+	private BigDecimal locationLatitude; 
+	private BigDecimal locationLongitude; 
 
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);	
-	}
-
-	public BigDecimal getArrestLocationLatitude() {
-		return arrestLocationLatitude;
-	}
-
-	public void setArrestLocationLatitude(BigDecimal arrestLocationLatitude) {
-		this.arrestLocationLatitude = arrestLocationLatitude;
-	}
-
-	public BigDecimal getArrestLocationLongitude() {
-		return arrestLocationLongitude;
-	}
-
-	public void setArrestLocationLongitude(BigDecimal arrestLocationLongitude) {
-		this.arrestLocationLongitude = arrestLocationLongitude;
 	}
 
 	public String getStreetNumber() {
@@ -100,6 +84,22 @@ public class Address implements Serializable
 
 	public void setPostalcode(String postalcode) {
 		this.postalcode = postalcode;
+	}
+
+	public BigDecimal getLocationLatitude() {
+		return locationLatitude;
+	}
+
+	public void setLocationLatitude(BigDecimal locationLatitude) {
+		this.locationLatitude = locationLatitude;
+	}
+
+	public BigDecimal getLocationLongitude() {
+		return locationLongitude;
+	}
+
+	public void setLocationLongitude(BigDecimal locationLongitude) {
+		this.locationLongitude = locationLongitude;
 	}
 
 }

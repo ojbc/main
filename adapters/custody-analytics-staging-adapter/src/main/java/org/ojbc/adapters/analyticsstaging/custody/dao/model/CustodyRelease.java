@@ -28,9 +28,9 @@ public class CustodyRelease implements Serializable{
 	//pk
 	private Integer custodyReleaseId;
 	private Integer bookingId;
-	private LocalDateTime reportDate;
 	private LocalDateTime releaseDate; 
 	private String bookingNumber; 
+	private String ReleaseCondition; 
 	
 	@Override
 	public String toString() {
@@ -53,14 +53,6 @@ public class CustodyRelease implements Serializable{
 		this.custodyReleaseId = custodyReleaseId;
 	}
 
-	public LocalDateTime getReportDate() {
-		return reportDate;
-	}
-
-	public void setReportDate(LocalDateTime reportDate) {
-		this.reportDate = reportDate;
-	}
-
 	public LocalDateTime getReleaseDate() {
 		return releaseDate;
 	}
@@ -75,6 +67,14 @@ public class CustodyRelease implements Serializable{
 
 	public void setBookingId(Integer bookingId) {
 		this.bookingId = bookingId;
+	}
+
+	public String getReleaseCondition() {
+		return ReleaseCondition;
+	}
+
+	public void setReleaseCondition(String releaseCondition) {
+		ReleaseCondition = releaseCondition;
 	}
 
 }

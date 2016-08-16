@@ -33,7 +33,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -71,22 +71,14 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int personPk = analyticalDatastoreDAO.savePerson(getStaticPerson());
 		assertEquals(1, personPk);
 		
-		BookingSubject bookingSubject = getStaticBookingSubject(); 
-		bookingSubject.setPersonId(personPk);
-		
-		int bookingSubjectPk = analyticalDatastoreDAO.saveBookingSubject(bookingSubject);
-		
 		Booking booking = new Booking();
 		
-		booking.setJurisdictionId(1);
-		booking.setBookingReportDate(LocalDateTime.parse("2016-02-13T10:23:23"));
-		booking.setBookingReportId("bookingReportId");
+		booking.setPersonId(personPk);
 		booking.setCaseStatusId(3);
-		booking.setBookingDate(LocalDateTime.parse("2013-12-17T09:30:00"));
-		booking.setCommitDate(LocalDate.parse("2013-12-17"));
+		booking.setBookingDateTime(LocalDateTime.parse("2013-12-17T09:30:00"));
+		booking.setScheduledReleaseDate(LocalDate.parse("2014-12-17"));
 		booking.setFacilityId(1);
 		booking.setBedTypeId(2);
-		booking.setBookingSubjectId(bookingSubjectPk);
 		booking.setBookingNumber("bookingNumber");
 		
 		int bookingPk = analyticalDatastoreDAO.saveBooking( booking );
@@ -94,11 +86,11 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 		analyticalDatastoreDAO.deleteBooking(bookingPk);
 		
-		Booking matchingBooking = analyticalDatastoreDAO.getBookingByBookingReportId("bookingReportId");
+		Booking matchingBooking = analyticalDatastoreDAO.getBookingByBookingNumber("bookingNumber");
 		assertNull(matchingBooking);
 
-		bookingSubjectPk = analyticalDatastoreDAO.saveBookingSubject(bookingSubject);
-		booking.setBookingSubjectId(bookingSubjectPk);
+		personPk = analyticalDatastoreDAO.savePerson(getStaticPerson());
+		booking.setPersonId(personPk);
 		
 		//Perform an subsequent save and confirm the same PK
 		booking.setBookingId(bookingPk);
@@ -113,26 +105,24 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 		person.setPersonRaceId(1);
 		person.setPersonSexId(2);
+		person.setPersonEthnicityTypeId(2);
 		person.setPersonBirthDate(LocalDate.parse("1966-06-01"));
 		person.setPersonUniqueIdentifier("123332123123unique");
 		person.setLanguageId(2);
+		person.setPersonAgeAtBooking(50);
+		person.setEducationLevelId(3);
+		person.setOccupationId(2);
+		person.setDomicileStatusTypeId(3);
+		person.setInmateTemporarilyReleasedIndicator(true);
+		person.setProgramEligibilityTypeId(1);
+		person.setWorkReleaseStatusTypeId(2);
+		person.setMilitaryServiceStatusType(new KeyValue(1, null));
 		return person;
 	}
 	
-	private BookingSubject getStaticBookingSubject(){
-		BookingSubject bookingSubject = new BookingSubject();
-		bookingSubject.setRecidivistIndicator(0);
-		bookingSubject.setPersonAge(50);
-		bookingSubject.setEducationLevelId(3);
-		bookingSubject.setOccupationId(2);
-		bookingSubject.setIncomeLevelId(2);
-		bookingSubject.setHousingStatusId(3);
-		return bookingSubject;
-	}
-
 	@Test
 	public void testGetMedicationId(){
-		Integer medicationId = analyticalDatastoreDAO.getMedicationId("fakeId", "fakeName");
+		Integer medicationId = analyticalDatastoreDAO.getMedicationTypeId("fakeId", "fakeName");
 		
 		assertNull(medicationId);
 	}

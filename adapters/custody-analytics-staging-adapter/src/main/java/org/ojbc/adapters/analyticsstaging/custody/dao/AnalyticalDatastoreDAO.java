@@ -24,7 +24,6 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAsse
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingArrest;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChange;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeArrest;
@@ -46,8 +45,6 @@ public interface AnalyticalDatastoreDAO {
 	
 	public Integer getPersonIdByUniqueId(String uniqueId);
 	
-	public Integer saveBookingSubject(BookingSubject bookingSubject);
-	
 	public Integer saveBooking(Booking booking);
 	
 	public Integer saveCustodyStatusChange(CustodyStatusChange custodyStatusChange);
@@ -63,11 +60,9 @@ public interface AnalyticalDatastoreDAO {
 	
 	public void deleteBooking(Integer bookingPk);
 	
-	public Booking getBookingByBookingReportId(String bookingReportId);
 	public Booking getBookingByBookingNumber(String bookingNumber);
 	public Integer getBookingIdByBookingNumber(String bookingNumber);
 	public Person getPerson(Integer personId);
-	public BookingSubject getBookingSubject(Integer bookingSubjectId);
 	public List<BookingCharge> getBookingCharges(Integer bookingId);
 	public List<BookingArrest> getBookingArrests(Integer bookingId);
 	public List<CustodyStatusChangeArrest> getCustodyStatusChangeArrests(Integer custodyStatusChangeId);
@@ -76,18 +71,12 @@ public interface AnalyticalDatastoreDAO {
 	public List<PrescribedMedication> getPrescribedMedication(Integer behavioralHealthAssessmentId);
 
 	public void saveCustodyRelease(CustodyRelease custodyRelease);
-	public void saveCustodyRelease(Integer bookingId, LocalDateTime releaseDate, LocalDateTime reportDate);
+	public void saveCustodyRelease(Integer bookingId, LocalDateTime releaseDate, String releaseCondition);
 	public CustodyRelease getCustodyReleaseByBookingId(Integer bookingId);
 	public CustodyStatusChange getCustodyStatusChangeByReportId(String reportId); 
 	public List<CustodyStatusChangeCharge> getCustodyStatusChangeCharges(Integer custodyStatusChangeId);
 	
-	/**
-	 * Query the booking table for the bookingSubjectId first. 
-	 * 
-	 * @param bookingNumber
-	 * @return BookingSubject that is associated with the booking record. 
-	 */
-	public BookingSubject getBookingSubjectByBookingNumberAndPersonId(String bookingNumber, Integer personId);
+	public Person getPersonByBookingNumber(String bookingNumber);
 
 	public Integer saveBookingArrest(BookingArrest bookingArrest);
 	public Integer saveAddress(Address address);
@@ -95,15 +84,15 @@ public interface AnalyticalDatastoreDAO {
 
 	public Integer saveBehavioralHealthAssessment(BehavioralHealthAssessment assessment);
 	
-	public Integer getMedicationId(String generalProductId, String itemName);
+	public Integer getMedicationTypeId(String genericProductIdentification, String medicationTypeDescription);
 	
-	public Integer saveMedication(String generalProductId, String itemName);
+	public Integer saveMedicationType(String genericProductIdentification, String medicationTypeDescription);
 	
 	public void saveTreatments(final List<Treatment> treatments);
 	public void saveBehavioralHealthEvaluations(Integer behavioralHealthAssessmentId, final List<KeyValue> behavioralHealthTypes);
 	public void savePrescribedMedications(final List<PrescribedMedication> prescribedMedications);
 
-	public Integer saveBehavioralHealthType(String evaluationDiagnosisDescriptionText);
+	public Integer saveBehavioralHealthDiagnosisType(String evaluationDiagnosisDescriptionText);
 
 
 }
