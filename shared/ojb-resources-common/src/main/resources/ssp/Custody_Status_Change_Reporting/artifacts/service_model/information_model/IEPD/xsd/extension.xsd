@@ -363,4 +363,11 @@
 			<xsd:documentation>A monetary amount unpaid for a given bond.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargeJurisdictionCourt" type="j:CourtType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The court jurisdiction for a charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>

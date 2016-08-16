@@ -45,6 +45,7 @@
 		<nc:PersonBirthDate>
 			<nc:Date>1985-05-18</nc:Date>
 		</nc:PersonBirthDate>
+		<pc-bkg-codes:PersonEthnicityCode>LATINO</pc-bkg-codes:PersonEthnicityCode>
 		<nc:PersonName>
 			<nc:PersonGivenName>bill</nc:PersonGivenName>
 			<nc:PersonMiddleName>a</nc:PersonMiddleName>
