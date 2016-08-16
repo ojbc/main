@@ -17,7 +17,6 @@
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -30,8 +29,6 @@ public class CustodyStatusChangeCharge implements Serializable
     private KeyValue chargeType; 
 	private Integer agencyId;
     private BigDecimal bondAmount; 
-    private String nextCourtName; 
-    private LocalDate nextCourtDate; 
     private KeyValue bondType;
 
 	@Override
@@ -87,22 +84,6 @@ public class CustodyStatusChangeCharge implements Serializable
 	public void setCustodyStatusChangeArrestId(
 			Integer custodyStatusChangeArrestId) {
 		this.custodyStatusChangeArrestId = custodyStatusChangeArrestId;
-	}
-
-	public String getNextCourtName() {
-		return nextCourtName;
-	}
-
-	public void setNextCourtName(String nextCourtName) {
-		this.nextCourtName = nextCourtName;
-	}
-
-	public LocalDate getNextCourtDate() {
-		return nextCourtDate;
-	}
-
-	public void setNextCourtDate(LocalDate nextCourtDate) {
-		this.nextCourtDate = nextCourtDate;
 	}
 
 }

@@ -32,7 +32,6 @@ public class Treatment implements Serializable{
 	private LocalDate endDate; 
 	private Boolean treatmentCourtOrdered; 
 	private Boolean treatmentActive; 
-	private String treatmentText; 
 	private String treatmentProvider; 
 
 	@Override
@@ -87,14 +86,6 @@ public class Treatment implements Serializable{
 
 	public void setTreatmentActive(Boolean treatmentActive) {
 		this.treatmentActive = treatmentActive;
-	}
-
-	public String getTreatmentText() {
-		return treatmentText;
-	}
-
-	public void setTreatmentText(String treatmentText) {
-		this.treatmentText = treatmentText;
 	}
 
 	public String getTreatmentProvider() {

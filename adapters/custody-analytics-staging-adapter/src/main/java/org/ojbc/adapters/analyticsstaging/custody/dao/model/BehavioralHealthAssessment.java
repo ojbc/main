@@ -27,7 +27,6 @@ public class BehavioralHealthAssessment implements Serializable{
 	private Integer behavioralHealthAssessmentId;
     private Integer personId; 
     private Boolean seriousMentalIllness;
-    private Boolean highRiskNeeds;
     private LocalDate careEpisodeStartDate;
     private LocalDate careEpisodeEndDate;
     private Boolean substanceAbuse;
@@ -61,11 +60,11 @@ public class BehavioralHealthAssessment implements Serializable{
 		this.behavioralHealthAssessmentId = behavioralHealthAssessmentId;
 	}
 
-	public List<KeyValue> getBehavioralHealthTypes() {
+	public List<KeyValue> getBehavioralHealthDiagnosisTypes() {
 		return behavioralHealthTypes;
 	}
 
-	public void setBehavioralHealthTypes(List<KeyValue> behavioralHealthTypes) {
+	public void setBehavioralHealthDiagnosisTypes(List<KeyValue> behavioralHealthTypes) {
 		this.behavioralHealthTypes = behavioralHealthTypes;
 	}
 
@@ -75,14 +74,6 @@ public class BehavioralHealthAssessment implements Serializable{
 
 	public void setSeriousMentalIllness(Boolean seriousMentalIllness) {
 		this.seriousMentalIllness = seriousMentalIllness;
-	}
-
-	public Boolean getHighRiskNeeds() {
-		return highRiskNeeds;
-	}
-
-	public void setHighRiskNeeds(Boolean highRiskNeeds) {
-		this.highRiskNeeds = highRiskNeeds;
 	}
 
 	public LocalDate getCareEpisodeStartDate() {
