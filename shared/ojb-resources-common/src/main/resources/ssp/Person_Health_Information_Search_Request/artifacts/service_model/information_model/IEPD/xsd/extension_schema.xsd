@@ -32,6 +32,8 @@
 		schemaLocation="Subset/niem/structures/3.0/structures.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
 		schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/"
+		schemaLocation="Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
 	<xsd:complexType name="PersonHealthInformationSearchRequestType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a message that requests health

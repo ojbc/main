@@ -26,7 +26,7 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchRequest/1.0 ../xsd/exchange_schema.xsd http://release.niem.gov/niem/domains/jxdm/5.1/ ../xsd/Subset/niem/domains/jxdm/5.1/jxdm.xsd http://ojbc.org/IEPD/Extensions/PimaCounty/PersonHealthInformationCodes/1.0 ../xsd/impl/pima_county/phi_codes.xsd">
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchRequest/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/PimaCounty/PersonHealthInformationCodes/1.0 ../xsd/impl/pima_county/phi_codes.xsd">
 	<nc30:Person structures:id="P001">
 		<nc30:PersonBirthDate>
 			<nc30:Date>1959-09-07</nc30:Date>
