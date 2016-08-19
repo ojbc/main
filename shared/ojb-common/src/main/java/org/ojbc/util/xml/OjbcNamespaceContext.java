@@ -769,6 +769,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	
 	public static String NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchResults/1.0";
 	public static String NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT ="phisres-ext";
+	
+	public static String NS_PIMA_PERSON_HEALTH_INFORMATION_CODES ="http://ojbc.org/IEPD/Extensions/PimaCounty/PersonHealthInformationCodes/1.0";
+	public static String NS_PREFIX_PIMA_PERSON_HEALTH_INFORMATION_CODES ="pc-phi-codes";	
+
+	public static String NS_PIMA_BOOKING_CODES ="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0";
+	public static String NS_PREFIX_PIMA_BOOKING_CODES ="pc-bkg-codes";	
 			
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -778,6 +784,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();	
+		
+		prefixToUriMap.put(NS_PREFIX_PIMA_BOOKING_CODES, NS_PIMA_BOOKING_CODES);
+		uriToPrefixMap.put(NS_PIMA_BOOKING_CODES, NS_PREFIX_PIMA_BOOKING_CODES);
+		
+		prefixToUriMap.put(NS_PREFIX_PIMA_PERSON_HEALTH_INFORMATION_CODES, NS_PIMA_PERSON_HEALTH_INFORMATION_CODES);
+		uriToPrefixMap.put(NS_PIMA_PERSON_HEALTH_INFORMATION_CODES, NS_PREFIX_PIMA_PERSON_HEALTH_INFORMATION_CODES);
 		
 		prefixToUriMap.put(NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC, NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC);
 		uriToPrefixMap.put(NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC, NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC);

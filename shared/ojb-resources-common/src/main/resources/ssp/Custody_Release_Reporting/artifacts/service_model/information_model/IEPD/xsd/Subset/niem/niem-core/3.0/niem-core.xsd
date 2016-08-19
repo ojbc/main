@@ -216,6 +216,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:LocationAddressAbstract" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:LocationDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -288,6 +289,7 @@
           <xs:element ref="nc:PersonGivenName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonMiddleName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonSurName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonFullName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonNameAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -595,6 +597,11 @@
       <xs:documentation>A name of a city or town.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="LocationDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of a location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="LocationPostalCode" type="niem-xs:string" nillable="true">
     <xs:annotation>
       <xs:documentation>An identifier of a post office-assigned zone for an address.</xs:documentation>
@@ -678,6 +685,11 @@
   <xs:element name="PersonEyeColorText" type="nc:TextType" substitutionGroup="nc:PersonEyeColor">
     <xs:annotation>
       <xs:documentation>A color of the eyes of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonFullName" type="nc:PersonNameTextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A complete name of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonGivenName" type="nc:PersonNameTextType" nillable="true">
