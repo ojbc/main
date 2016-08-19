@@ -41,7 +41,6 @@
 	</nc30:Person>
 	<phisres-ext:BehavioralHealthInformation>
 		<phisres-ext:SeriousMentalIllnessIndicator>true</phisres-ext:SeriousMentalIllnessIndicator>
-		<phisres-ext:HighRiskNeedsIndicator>true</phisres-ext:HighRiskNeedsIndicator>
 		<phisres-ext:SubstanceAbuseIndicator>true</phisres-ext:SubstanceAbuseIndicator>
 		<phisres-ext:GeneralMentalHealthConditionIndicator>false</phisres-ext:GeneralMentalHealthConditionIndicator>
 		<jxdm51:Evaluation>
