@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -73,8 +74,10 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 	private Integer processBookingArrest(Node arrestNode, Integer bookingId) throws Exception {
 		BookingArrest bookingArrest = new BookingArrest();
 		bookingArrest.setBookingId(bookingId);
-		
 		Address address = getArrestInfo(arrestNode);
+		
+        String arrestAgency = XmlUtils.xPathStringSearch(arrestNode, "jxdm51:ArrestAgency/nc30:OrganizationName");
+        bookingArrest.setArrestAgencyId(descriptionCodeLookupService.retrieveCode(CodeTable.Agency,arrestAgency));
 
 		bookingArrest.setAddress(address);
         Integer bookingArrestId = analyticalDatastoreDAO.saveBookingArrest(bookingArrest);
@@ -97,14 +100,17 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 				bookingCharge.setBookingArrestId(bookingArrestId);
 				
 		        String sendingAgency = XmlUtils.xPathStringSearch(chargeNode, "br-ext:HoldForAgency/nc30:OrganizationName");
-		        bookingCharge.setAgencyId(descriptionCodeLookupService.retrieveCode(CodeTable.AgencyType,sendingAgency));
-		        
-				KeyValue chargeType = new KeyValue(); 
-				chargeType.setValue( XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeCategoryDescriptionText"));
-				chargeType.setKey(descriptionCodeLookupService.retrieveCode(CodeTable.ChargeType, chargeType.getValue()));
-				bookingCharge.setChargeType(chargeType);
+		        bookingCharge.setAgencyId(descriptionCodeLookupService.retrieveCode(CodeTable.Agency,sendingAgency));
+
+		        bookingCharge.setChargeCode(XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeCategoryDescriptionText"));
 				
+				String chargeClassType = XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeSeverityText");
+				bookingCharge.setChargeClassTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.ChargeClassType, chargeClassType));
 				setBondInfo(chargeNode, chargeRef, bookingCharge);
+				
+				String chargeJurisdictionType = XmlUtils.xPathStringSearch(chargeNode, "br-ext:ChargeJurisdictionCourt/jxdm51:CourtName");
+				bookingCharge.setChargeJurisdictionTypeId((descriptionCodeLookupService.retrieveCode(CodeTable.JurisdictionType, chargeJurisdictionType)));
+				
 				
 				bookingCharges.add(bookingCharge);
 			}
@@ -132,6 +138,8 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 				bookingCharge.setBondAmount(new BigDecimal(bondAmount));
 			}
 			
+			String bondStatusType = XmlUtils.xPathStringSearch(bondNode, "nc30:ActivityStatus/nc30:StatusDescriptionText");
+			bookingCharge.setBondStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.BondStatusType, bondStatusType));
 		}
 	}
 
@@ -155,10 +163,9 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         Integer facilityId = descriptionCodeLookupService.retrieveCode(CodeTable.Facility, facility);
         booking.setFacilityId(facilityId);
         
-        //TODO confirm the xPath with Jim.
-        String bedType = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionBedIdentification/ac-bkg-codes:BedCategoryCode");
-        Integer bedTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.BedType, bedType);
-        booking.setBedTypeId(bedTypeId);
+        String supervisionUnitType = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionAreaIdentification/nc30:IdentificationID");
+        Integer supervisionUnitTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.SupervisionUnitType, supervisionUnitType);
+        booking.setSupervisionUnitTypeId(supervisionUnitTypeId);
         
 		String bookingNumber = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID");
 		booking.setBookingNumber(bookingNumber);
@@ -167,6 +174,9 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseEligibilityDate/nc30:Date");
         booking.setScheduledReleaseDate(parseLocalDate(supervisionReleaseEligibilityDate));
 
+ 		String inmateTemporarilyReleasedIndicator = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Detention/br-ext:InmateTemporarilyReleasedIndicator");
+ 		booking.setInmateJailResidentIndicator(BooleanUtils.negate(BooleanUtils.toBooleanObject(inmateTemporarilyReleasedIndicator)));
+ 		
         Integer bookingId = analyticalDatastoreDAO.saveBooking(booking);
         
         processCustodyReleaseInfo(bookingReportNode, bookingId);

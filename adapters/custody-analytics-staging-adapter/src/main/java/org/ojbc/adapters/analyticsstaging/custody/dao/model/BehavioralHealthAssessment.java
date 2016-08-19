@@ -17,6 +17,7 @@
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -29,12 +30,11 @@ public class BehavioralHealthAssessment implements Serializable{
     private Boolean seriousMentalIllness;
     private LocalDate careEpisodeStartDate;
     private LocalDate careEpisodeEndDate;
-    private Boolean substanceAbuse;
-    private Boolean generalMentalHealthCondition;
-    private Boolean medicaidIndicator;
-    private String regionalAuthorityAssignmentText;
+    private Integer MedicaidStatusTypeId;
+    private String enrolledProviderName;
     
-    private List<KeyValue> behavioralHealthTypes; 
+    private List<String> behavioralHealthDiagnoses; 
+    private List<KeyValue> assessmentCategory = new ArrayList<KeyValue>(); 
     private List<PrescribedMedication> prescribedMedications; 
     private List<Treatment> treatments;
     
@@ -58,14 +58,6 @@ public class BehavioralHealthAssessment implements Serializable{
 	public void setBehavioralHealthAssessmentId(
 			Integer behavioralHealthAssessmentId) {
 		this.behavioralHealthAssessmentId = behavioralHealthAssessmentId;
-	}
-
-	public List<KeyValue> getBehavioralHealthDiagnosisTypes() {
-		return behavioralHealthTypes;
-	}
-
-	public void setBehavioralHealthDiagnosisTypes(List<KeyValue> behavioralHealthTypes) {
-		this.behavioralHealthTypes = behavioralHealthTypes;
 	}
 
 	public Boolean getSeriousMentalIllness() {
@@ -92,40 +84,6 @@ public class BehavioralHealthAssessment implements Serializable{
 		this.careEpisodeEndDate = careEpisodeEndDate;
 	}
 
-	public Boolean getSubstanceAbuse() {
-		return substanceAbuse;
-	}
-
-	public void setSubstanceAbuse(Boolean substanceAbuse) {
-		this.substanceAbuse = substanceAbuse;
-	}
-
-	public Boolean getGeneralMentalHealthCondition() {
-		return generalMentalHealthCondition;
-	}
-
-	public void setGeneralMentalHealthCondition(
-			Boolean generalMentalHealthCondition) {
-		this.generalMentalHealthCondition = generalMentalHealthCondition;
-	}
-
-	public Boolean getMedicaidIndicator() {
-		return medicaidIndicator;
-	}
-
-	public void setMedicaidIndicator(Boolean medicaidIndicator) {
-		this.medicaidIndicator = medicaidIndicator;
-	}
-
-	public String getRegionalAuthorityAssignmentText() {
-		return regionalAuthorityAssignmentText;
-	}
-
-	public void setRegionalAuthorityAssignmentText(
-			String regionalAuthorityAssignmentText) {
-		this.regionalAuthorityAssignmentText = regionalAuthorityAssignmentText;
-	}
-
 	public List<PrescribedMedication> getPrescribedMedications() {
 		return prescribedMedications;
 	}
@@ -140,6 +98,39 @@ public class BehavioralHealthAssessment implements Serializable{
 
 	public void setTreatments(List<Treatment> treatments) {
 		this.treatments = treatments;
+	}
+
+	public List<KeyValue> getAssessmentCategory() {
+		return assessmentCategory;
+	}
+
+	public void setAssessmentCategory(List<KeyValue> assessmentCategory) {
+		this.assessmentCategory = assessmentCategory;
+	}
+
+	public Integer getMedicaidStatusTypeId() {
+		return MedicaidStatusTypeId;
+	}
+
+	public void setMedicaidStatusTypeId(Integer medicaidStatusTypeId) {
+		MedicaidStatusTypeId = medicaidStatusTypeId;
+	}
+
+	public List<String> getBehavioralHealthDiagnoses() {
+		return behavioralHealthDiagnoses;
+	}
+
+	public void setBehavioralHealthDiagnoses(
+			List<String> behavioralHealthDiagnoses) {
+		this.behavioralHealthDiagnoses = behavioralHealthDiagnoses;
+	}
+
+	public String getEnrolledProviderName() {
+		return enrolledProviderName;
+	}
+
+	public void setEnrolledProviderName(String enrolledProviderName) {
+		this.enrolledProviderName = enrolledProviderName;
 	}
 
 }
