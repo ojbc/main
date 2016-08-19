@@ -28,7 +28,6 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChange;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeArrest;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeCharge;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonRace;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonSex;
@@ -73,7 +72,7 @@ public interface AnalyticalDatastoreDAO {
 	public void saveCustodyRelease(CustodyRelease custodyRelease);
 	public void saveCustodyRelease(Integer bookingId, LocalDateTime releaseDate, String releaseCondition);
 	public CustodyRelease getCustodyReleaseByBookingId(Integer bookingId);
-	public CustodyStatusChange getCustodyStatusChangeByReportId(String reportId); 
+	public CustodyStatusChange getCustodyStatusChangeByBookingId(Integer bookingId); 
 	public List<CustodyStatusChangeCharge> getCustodyStatusChangeCharges(Integer custodyStatusChangeId);
 	
 	public Person getPersonByBookingNumber(String bookingNumber);
@@ -89,7 +88,7 @@ public interface AnalyticalDatastoreDAO {
 	public Integer saveMedicationType(String genericProductIdentification, String medicationTypeDescription);
 	
 	public void saveTreatments(final List<Treatment> treatments);
-	public void saveBehavioralHealthEvaluations(Integer behavioralHealthAssessmentId, final List<KeyValue> behavioralHealthTypes);
+	public void saveBehavioralHealthEvaluations(Integer behavioralHealthAssessmentId, final List<String> behavioralHealthDiagnoses);
 	public void savePrescribedMedications(final List<PrescribedMedication> prescribedMedications);
 
 	public Integer saveBehavioralHealthDiagnosisType(String evaluationDiagnosisDescriptionText);

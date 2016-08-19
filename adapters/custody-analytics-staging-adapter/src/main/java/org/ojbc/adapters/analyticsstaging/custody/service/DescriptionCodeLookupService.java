@@ -33,6 +33,10 @@ import org.springframework.stereotype.Service;
 public class DescriptionCodeLookupService
 {
 
+	private static final String U = "U";
+
+	private static final String UNKNOWN = "UNKNOWN";
+
 	protected Log log = LogFactory.getLog(this.getClass());
 
 	protected Map<String, Integer>[] mapArray = null;
@@ -78,13 +82,13 @@ public class DescriptionCodeLookupService
 				return null;
 			}
 			
-			Integer code = (Integer) lookupMap.get(StringUtils.trimToEmpty(description));
+			Integer code = (Integer) lookupMap.get(StringUtils.trimToEmpty(description).toUpperCase());
 			
 			if (code == null){
-				code =  (Integer) lookupMap.get("Unknown");
+				code =  (Integer) lookupMap.get(UNKNOWN);
 			}
 			if (code == null){
-				code =  (Integer) lookupMap.get("U");
+				code =  (Integer) lookupMap.get(U);
 			}
 			return code ;
 		}
@@ -125,7 +129,7 @@ public class DescriptionCodeLookupService
 		Map<String, Integer> codeMap = new HashMap<String, Integer>();
 
 		for (KeyValue kv : codes)
-			codeMap.put( kv.getValue(), kv.getKey());
+			codeMap.put( kv.getValue().toUpperCase(), kv.getKey());
 
 		return codeMap;
 	}

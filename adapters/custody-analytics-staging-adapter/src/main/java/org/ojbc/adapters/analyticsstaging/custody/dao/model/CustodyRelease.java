@@ -28,7 +28,7 @@ public class CustodyRelease implements Serializable{
 	//pk
 	private Integer custodyReleaseId;
 	private Integer bookingId;
-	private LocalDateTime releaseDate; 
+	private LocalDateTime releaseDateTime; 
 	private String bookingNumber; 
 	private String ReleaseCondition; 
 	
@@ -53,14 +53,6 @@ public class CustodyRelease implements Serializable{
 		this.custodyReleaseId = custodyReleaseId;
 	}
 
-	public LocalDateTime getReleaseDate() {
-		return releaseDate;
-	}
-
-	public void setReleaseDate(LocalDateTime releaseDate) {
-		this.releaseDate = releaseDate;
-	}
-
 	public Integer getBookingId() {
 		return bookingId;
 	}
@@ -75,6 +67,14 @@ public class CustodyRelease implements Serializable{
 
 	public void setReleaseCondition(String releaseCondition) {
 		ReleaseCondition = releaseCondition;
+	}
+
+	public LocalDateTime getReleaseDateTime() {
+		return releaseDateTime;
+	}
+
+	public void setReleaseDateTime(LocalDateTime releaseDateTime) {
+		this.releaseDateTime = releaseDateTime;
 	}
 
 }
