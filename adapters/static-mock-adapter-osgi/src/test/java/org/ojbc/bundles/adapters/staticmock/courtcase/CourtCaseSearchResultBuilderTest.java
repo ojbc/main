@@ -56,12 +56,10 @@ public class CourtCaseSearchResultBuilderTest {
 		
 		courtCaseSearchResultsRootElement.appendChild(courtCaseSearchResultElement);
 		
+		XmlUtils.OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(courtCaseSearchResultsRootElement);		
+				
 		XmlUtils.printNode(courtCaseSearchResultsRootElement);
 		
-		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
-		
-		ojbcNamespaceContext.populateRootNamespaceDeclarations(courtCaseSearchResultsRootElement);		
-				
         XmlUtils.validateInstance("ssp/Court_Case_Search_Results/artifacts/service_model/information_model/IEPD/xsd", 
         		"Subset/niem", "exchange_schema.xsd", courtCaseSearchResultsDoc);
 				
@@ -127,7 +125,7 @@ public class CourtCaseSearchResultBuilderTest {
 		Assert.assertEquals("Simpson", surName);
 		
 		String hairColor = courtCaseDetail.getPersonHairColor();
-		Assert.assertEquals("BLD", hairColor);
+		Assert.assertEquals("BLK", hairColor);
 		
 		String height = courtCaseDetail.getPersonHeight();
 		Assert.assertEquals("67", height);
