@@ -28,11 +28,10 @@ public class Treatment implements Serializable{
 	
 	private Integer treatmentId;
 	private Integer behavioralHealthAssessmentID;
-	private LocalDate startDate; 
-	private LocalDate endDate; 
-	private Boolean treatmentCourtOrdered; 
-	private Boolean treatmentActive; 
-	private String treatmentProvider; 
+	private LocalDate treatmentStartDate; 
+	private Integer treatmentAdmissionReasonTypeId; 
+	private Integer treatmentStatusTypeId; 
+	private String TreatmentProviderName; 
 
 	@Override
 	public String toString() {
@@ -56,44 +55,37 @@ public class Treatment implements Serializable{
 		this.behavioralHealthAssessmentID = behavioralHealthAssessmentID;
 	}
 
-	public LocalDate getStartDate() {
-		return startDate;
+	public Integer getTreatmentAdmissionReasonTypeId() {
+		return treatmentAdmissionReasonTypeId;
 	}
 
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
+	public void setTreatmentAdmissionReasonTypeId(
+			Integer treatmentAdmissionReasonTypeId) {
+		this.treatmentAdmissionReasonTypeId = treatmentAdmissionReasonTypeId;
 	}
 
-	public LocalDate getEndDate() {
-		return endDate;
+	public Integer getTreatmentStatusTypeId() {
+		return treatmentStatusTypeId;
 	}
 
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
+	public void setTreatmentStatusTypeId(Integer treatmentStatusTypeId) {
+		this.treatmentStatusTypeId = treatmentStatusTypeId;
 	}
 
-	public Boolean getTreatmentCourtOrdered() {
-		return treatmentCourtOrdered;
+	public LocalDate getTreatmentStartDate() {
+		return treatmentStartDate;
 	}
 
-	public void setTreatmentCourtOrdered(Boolean treatmentCourtOrdered) {
-		this.treatmentCourtOrdered = treatmentCourtOrdered;
+	public void setTreatmentStartDate(LocalDate treatmentStartDate) {
+		this.treatmentStartDate = treatmentStartDate;
 	}
 
-	public Boolean getTreatmentActive() {
-		return treatmentActive;
+	public String getTreatmentProviderName() {
+		return TreatmentProviderName;
 	}
 
-	public void setTreatmentActive(Boolean treatmentActive) {
-		this.treatmentActive = treatmentActive;
-	}
-
-	public String getTreatmentProvider() {
-		return treatmentProvider;
-	}
-
-	public void setTreatmentProvider(String treatmentProvider) {
-		this.treatmentProvider = treatmentProvider;
+	public void setTreatmentProviderName(String treatmentProviderName) {
+		TreatmentProviderName = treatmentProviderName;
 	}
 
 }

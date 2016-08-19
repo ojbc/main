@@ -24,7 +24,8 @@ public class BookingArrest implements Serializable
 {
 	private static final long serialVersionUID = -7705114517046869650L;
 	private Integer bookingArrestId;
-    private Integer bookingId; 
+    private Integer bookingId;
+    private Integer arrestAgencyId; 
     private Address address;
 	
     @Override
@@ -54,6 +55,14 @@ public class BookingArrest implements Serializable
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public Integer getArrestAgencyId() {
+		return arrestAgencyId;
+	}
+
+	public void setArrestAgencyId(Integer arrestAgencyId) {
+		this.arrestAgencyId = arrestAgencyId;
 	}
 
 }

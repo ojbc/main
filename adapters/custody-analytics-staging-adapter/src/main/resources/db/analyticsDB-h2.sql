@@ -19,7 +19,6 @@ Drop schema if exists CustodyAnalyticsDataStore;
 
 CREATE schema CustodyAnalyticsDataStore;
 
-
 CREATE TABLE MedicaidStatusType (MedicaidStatusTypeID INT NOT NULL, MedicaidStatusTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE MedicaidStatusType ADD CONSTRAINT medicaidstatustype_pk PRIMARY KEY (MedicaidStatusTypeID);
@@ -27,12 +26,6 @@ ALTER TABLE MedicaidStatusType ADD CONSTRAINT medicaidstatustype_pk PRIMARY KEY 
 CREATE TABLE AssessmentCategoryType (AssessmentCategoryTypeID INT NOT NULL, AssessmentCategoryTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE AssessmentCategoryType ADD CONSTRAINT assessmentcategorytype_pk PRIMARY KEY (AssessmentCategoryTypeID);
-
-CREATE TABLE EnrolledHealthcareProvider (EnrolledHealthcareProviderID INT AUTO_INCREMENT NOT NULL, EnrolledHealthcareProviderDescription VARCHAR(50) NOT NULL);
-
-ALTER TABLE EnrolledHealthcareProvider ADD CONSTRAINT enrolledhealthcareproviderid PRIMARY KEY (EnrolledHealthcareProviderID);
-
-CREATE SEQUENCE EnrolledHealthcareProvider_EnrolledHealthcareProviderID_seq;
 
 CREATE TABLE BondStatusType (BondStatusTypeID INT NOT NULL, BondStatusTypeDescription VARCHAR(50) NOT NULL);
 
@@ -44,12 +37,6 @@ ALTER TABLE ChargeClassType ADD CONSTRAINT chargeclasstypeid PRIMARY KEY (Charge
 
 CREATE SEQUENCE ChargeClassType_ChargeClassTypeID_seq_2;
 
-CREATE TABLE TreatmentProvider (TreatmentProviderID INT AUTO_INCREMENT NOT NULL, TreatmentProviderDescription VARCHAR(100) NOT NULL);
-
-ALTER TABLE TreatmentProvider ADD CONSTRAINT treatmentproviderid PRIMARY KEY (TreatmentProviderID);
-
-CREATE SEQUENCE TreatmentProvider_TreatmentProviderID_seq_1;
-
 CREATE TABLE TreatmentStatusType (TreatmentStatusTypeID INT AUTO_INCREMENT NOT NULL, TreatmentStatusTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE TreatmentStatusType ADD CONSTRAINT treatmentstatustypeid PRIMARY KEY (TreatmentStatusTypeID);
@@ -58,9 +45,9 @@ CREATE SEQUENCE TreatmentStatusType_TreatmentStatusTypeID_seq_1;
 
 CREATE TABLE TreatmentAdmissionReasonType (TreatmentAdmissionReasonTypeID INT AUTO_INCREMENT NOT NULL, TreatmentAdmissionReasonTypeDescription VARCHAR(50) NOT NULL);
 
-ALTER TABLE TreatmentAdmissionReasonType ADD CONSTRAINT treatmentinitiationtypeid PRIMARY KEY (TreatmentAdmissionReasonTypeID);
+ALTER TABLE TreatmentAdmissionReasonType ADD CONSTRAINT treatmentadmissionreasontypeid PRIMARY KEY (TreatmentAdmissionReasonTypeID);
 
-CREATE SEQUENCE TreatmentInitiationType_TreatmentInitiationType_seq_1;
+CREATE SEQUENCE TreatmentAdmissionReasonType_TreatmentAdmissionReasonType_seq;
 
 CREATE TABLE SexOffenderStatusType (SexOffenderStatusTypeID INT AUTO_INCREMENT NOT NULL, SexOffenderStatusTypeDescription VARCHAR(50) NOT NULL);
 
@@ -138,17 +125,11 @@ ALTER TABLE BondType ADD CONSTRAINT bondtypeid PRIMARY KEY (BondTypeID);
 
 CREATE SEQUENCE BondType_BondTypeID_seq_1_1_1_1;
 
-CREATE TABLE BedType (BedTypeID INT AUTO_INCREMENT NOT NULL, BedTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE SupervisionUnitType (SupervisionUnitTypeID INT AUTO_INCREMENT NOT NULL, SupervisionUnitTypeDescription VARCHAR(50) NOT NULL);
 
-ALTER TABLE BedType ADD CONSTRAINT bedtypeid PRIMARY KEY (BedTypeID);
+ALTER TABLE SupervisionUnitType ADD CONSTRAINT supervisionunittypeid PRIMARY KEY (SupervisionUnitTypeID);
 
-CREATE SEQUENCE BedType_BedTypeID_seq_1;
-
-CREATE TABLE BehavioralHealthDiagnosisType (BehavioralHealthDiagnosisTypeID INT AUTO_INCREMENT NOT NULL, BehavioralHealthDiagnosisTypeDescription VARCHAR(50) NOT NULL);
-
-ALTER TABLE BehavioralHealthDiagnosisType ADD CONSTRAINT behavioralhealthdiagnosistypeid PRIMARY KEY (BehavioralHealthDiagnosisTypeID);
-
-CREATE SEQUENCE BehavioralHealthDiagnosisType_BehavioralHealthDiagnosisTypeID_seq;
+CREATE SEQUENCE SupervisionUnitType_SupervisionUnitTypeID_seq;
 
 CREATE TABLE PersonRaceType (PersonRaceTypeID INT AUTO_INCREMENT NOT NULL, PersonRaceTypeDescription VARCHAR(50) NOT NULL);
 
@@ -162,19 +143,19 @@ ALTER TABLE PersonSexType ADD CONSTRAINT personsextypeid PRIMARY KEY (PersonSexT
 
 CREATE SEQUENCE PersonSexType_PersonSexTypeID_seq;
 
-CREATE TABLE Person (PersonID INT AUTO_INCREMENT NOT NULL, PersonUniqueIdentifier VARCHAR(36) NOT NULL, InmateTemporarilyReleasedIndicator BOOLEAN, PersonAgeAtBooking INT, PersonBirthDate date, LanguageTypeID INT, PersonSexTypeID INT, PersonRaceTypeID INT, PersonEthnicityTypeID INT, MilitaryServiceStatusTypeID INT, OccupationTypeID INT, EducationLevelTypeID INT, DomicileStatusTypeID INT, ProgramEligibilityTypeID INT, WorkReleaseStatusTypeID INT, SexOffenderStatusTypeID INT, PersonTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE Person (PersonID INT AUTO_INCREMENT NOT NULL, PersonUniqueIdentifier VARCHAR(36) NOT NULL, PersonAgeAtBooking INT, PersonBirthDate date, LanguageTypeID INT, PersonSexTypeID INT, PersonRaceTypeID INT, PersonEthnicityTypeID INT, MilitaryServiceStatusTypeID INT, OccupationTypeID INT, EducationLevelTypeID INT, DomicileStatusTypeID INT, ProgramEligibilityTypeID INT, WorkReleaseStatusTypeID INT, SexOffenderStatusTypeID INT, PersonTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE Person ADD CONSTRAINT personid PRIMARY KEY (PersonID);
 
 CREATE SEQUENCE Person_PersonID_seq_1_1;
 
-CREATE TABLE BehavioralHealthAssessment (BehavioralHealthAssessmentID INT AUTO_INCREMENT NOT NULL, PersonID INT NOT NULL, SeriousMentalIllnessIndicator BOOLEAN, CareEpisodeStartDate date, CareEpisodeEndDate date, MedicaidStatusTypeID INT, EnrolledHealthcareProviderID INT, BehavioralHealthAssessmentTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE BehavioralHealthAssessment (BehavioralHealthAssessmentID INT AUTO_INCREMENT NOT NULL, PersonID INT NOT NULL, SeriousMentalIllnessIndicator BOOLEAN, CareEpisodeStartDate date, CareEpisodeEndDate date, MedicaidStatusTypeID INT, EnrolledProviderName VARCHAR(100), BehavioralHealthAssessmentTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE BehavioralHealthAssessment ADD CONSTRAINT behavioralhealthassessmentid PRIMARY KEY (BehavioralHealthAssessmentID);
 
 CREATE SEQUENCE BehavioralHealthAssessment_BehavioralHealthAssessmentID_seq;
 
-CREATE TABLE BehavioralHealthAssessmentCategory (BehavioralHealthAssessmentCategoryID INT NOT NULL, BehavioralHealthAssessmentID INT NOT NULL, AssessmentCategoryTypeID INT NOT NULL);
+CREATE TABLE BehavioralHealthAssessmentCategory (BehavioralHealthAssessmentCategoryID INT NOT NULL, BehavioralHealthAssessmentID INT NOT NULL, AssessmentCategoryTypeID INT NOT NULL, BehavioralHealthAssessmentCategoryTimestamp TIMESTAMP NOT NULL);
 
 ALTER TABLE BehavioralHealthAssessmentCategory ADD CONSTRAINT behavioralhealthassessmentcategory_pk PRIMARY KEY (BehavioralHealthAssessmentCategoryID);
 
@@ -184,23 +165,17 @@ ALTER TABLE PrescribedMedication ADD CONSTRAINT prescribedmedicationid PRIMARY K
 
 CREATE SEQUENCE PrescribedMedication_PrescribedMedicationID_seq;
 
-CREATE TABLE Treatment (TreatmentID INT AUTO_INCREMENT NOT NULL, BehavioralHealthAssessmentID INT NOT NULL, StartDate date, EndDate date, TreatmentInitiationType INT, TreatmentStatusTypeID INT, TreatmentProviderID INT, BehavioralHealthAssessmentTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE Treatment (TreatmentID INT AUTO_INCREMENT NOT NULL, BehavioralHealthAssessmentID INT NOT NULL, TreatmentStartDate date, TreatmentAdmissionReasonTypeID INT, TreatmentStatusTypeID INT, TreatmentProviderName VARCHAR(100), BehavioralHealthAssessmentTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE Treatment ADD CONSTRAINT treatmentid PRIMARY KEY (TreatmentID);
 
 CREATE SEQUENCE Treatment_TreatmentID_seq;
 
-CREATE TABLE BehavioralHealthEvaluation (BehavioralHealthEvaluationID INT AUTO_INCREMENT NOT NULL, BehavioralHealthDiagnosisTypeID INT NOT NULL, BehavioralHealthAssessmentID INT NOT NULL, BehavioralHealthEvaluationTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE BehavioralHealthEvaluation (BehavioralHealthEvaluationID INT AUTO_INCREMENT NOT NULL, BehavioralHealthAssessmentID INT NOT NULL, BehavioralHealthDiagnosisDescription VARCHAR(50), BehavioralHealthEvaluationTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE BehavioralHealthEvaluation ADD CONSTRAINT behavioralhealthevaluationid PRIMARY KEY (BehavioralHealthEvaluationID);
 
 CREATE SEQUENCE BehavioralHealthEvaluation_BehavioralHealthEvaluationID_seq;
-
-CREATE TABLE ChargeType (ChargeTypeID INT AUTO_INCREMENT NOT NULL, ChargeTypeDescription VARCHAR(100) NOT NULL);
-
-ALTER TABLE ChargeType ADD CONSTRAINT chargetypeid PRIMARY KEY (ChargeTypeID);
-
-CREATE SEQUENCE ChargeType_ChargeTypeID_seq;
 
 CREATE TABLE CaseStatusType (CaseStatusTypeID INT AUTO_INCREMENT NOT NULL, CaseStatusTypeDescription VARCHAR(100) NOT NULL);
 
@@ -214,13 +189,13 @@ ALTER TABLE JurisdictionType ADD CONSTRAINT jurisdictiontypeid PRIMARY KEY (Juri
 
 CREATE SEQUENCE JurisdictionType_JurisdictionTypeID_seq;
 
-CREATE TABLE AgencyType (AgencyTypeID INT AUTO_INCREMENT NOT NULL, AgencyTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE Agency (AgencyID INT AUTO_INCREMENT NOT NULL, AgencyDescription VARCHAR(50) NOT NULL);
 
-ALTER TABLE AgencyType ADD CONSTRAINT agencytypeid PRIMARY KEY (AgencyTypeID);
+ALTER TABLE Agency ADD CONSTRAINT agencyid PRIMARY KEY (AgencyID);
 
-CREATE SEQUENCE AgencyType_AgencyTypeID_seq;
+CREATE SEQUENCE Agency_AgencyID_seq;
 
-CREATE TABLE Booking (BookingID INT AUTO_INCREMENT NOT NULL, CaseStatusTypeID INT, PersonID INT NOT NULL, BookingDateTime TIMESTAMP, ScheduledReleaseDate date, FacilityID INT, BedTypeID INT, BookingNumber VARCHAR(50) NOT NULL, BookingTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE Booking (BookingID INT AUTO_INCREMENT NOT NULL, BookingNumber VARCHAR(50) NOT NULL, PersonID INT NOT NULL, CaseStatusTypeID INT, BookingDateTime TIMESTAMP, ScheduledReleaseDate date, FacilityID INT, SupervisionUnitTypeID INT, InmateJailResidentIndicator BOOLEAN, BookingTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE Booking ADD CONSTRAINT bookingid PRIMARY KEY (BookingID);
 
@@ -232,31 +207,31 @@ ALTER TABLE CustodyRelease ADD CONSTRAINT custodyreleaseid PRIMARY KEY (CustodyR
 
 CREATE SEQUENCE CustodyRelease_CustodyReleaseID_seq;
 
-CREATE TABLE CustodyStatusChange (CustodyStatusChangeID INT AUTO_INCREMENT NOT NULL, BookingID INT NOT NULL, BookingDateTime TIMESTAMP, ScheduledReleaseDate date, BedTypeID INT, CaseStatusTypeID INT, FacilityID INT, PersonID INT NOT NULL, CustodyStatusChangeTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE CustodyStatusChange (CustodyStatusChangeID INT AUTO_INCREMENT NOT NULL, BookingID INT NOT NULL, PersonID INT NOT NULL, CaseStatusTypeID INT, BookingDateTime TIMESTAMP, ScheduledReleaseDate date, FacilityID INT, SupervisionUnitTypeID INT, InmateJailResidentIndicator BOOLEAN NOT NULL, CustodyStatusChangeTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE CustodyStatusChange ADD CONSTRAINT custodystatuschangeid PRIMARY KEY (CustodyStatusChangeID);
 
 CREATE SEQUENCE CustodyStatusChange_CustodyStatusChangeID_seq;
 
-CREATE TABLE CustodyStatusChangeArrest (CustodyStatusChangeArrestID INT AUTO_INCREMENT NOT NULL, CustodyStatusChangeID INT NOT NULL, LocationID INT, ArrestAgencyTypeID INT, CustodyStatusChangeArrestTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE CustodyStatusChangeArrest (CustodyStatusChangeArrestID INT AUTO_INCREMENT NOT NULL, CustodyStatusChangeID INT NOT NULL, LocationID INT, ArrestAgencyID INT, CustodyStatusChangeArrestTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE CustodyStatusChangeArrest ADD CONSTRAINT custodystatuschangearrestid PRIMARY KEY (CustodyStatusChangeArrestID);
 
 CREATE SEQUENCE CustodyStatusChangeArrest_CustodyStatusChangeArrestID_seq_1;
 
-CREATE TABLE CustodyStatusChangeCharge (CustodyStatusChangeChargeID INT AUTO_INCREMENT NOT NULL, CustodyStatusChangeArrestID INT NOT NULL, ChargeTypeID INT, BondTypeID INT, AgencyTypeID INT, BondAmount NUMBER(10, 2), BondRemainingAmount NUMBER(10, 2), ChargeJurisdictionTypeID INT, ChargeClassTypeID INT, BondStatusTypeID INT, CustodyStatusChangeChargeTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE CustodyStatusChangeCharge (CustodyStatusChangeChargeID INT AUTO_INCREMENT NOT NULL, CustodyStatusChangeArrestID INT NOT NULL, ChargeCode VARCHAR(100), AgencyID INT, BondTypeID INT, BondAmount NUMBER(10, 2), BondRemainingAmount NUMBER(10, 2), ChargeJurisdictionTypeID INT, ChargeClassTypeID INT, BondStatusTypeID INT, CustodyStatusChangeChargeTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE CustodyStatusChangeCharge ADD CONSTRAINT custodystatuschangechargeid PRIMARY KEY (CustodyStatusChangeChargeID);
 
 CREATE SEQUENCE CustodyStatusChangeCharge_CustodyStatusChangeChargeID_seq;
 
-CREATE TABLE BookingArrest (BookingArrestID INT AUTO_INCREMENT NOT NULL, BookingID INT NOT NULL, LocationID INT, ArrestAgencyTypeID INT, BookingArrestTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE BookingArrest (BookingArrestID INT AUTO_INCREMENT NOT NULL, BookingID INT NOT NULL, LocationID INT, ArrestAgencyID INT, BookingArrestTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE BookingArrest ADD CONSTRAINT bookingarrestid PRIMARY KEY (BookingArrestID);
 
 CREATE SEQUENCE BookingArrest_BookingArrestID_seq_1;
 
-CREATE TABLE BookingCharge (BookingChargeID INT AUTO_INCREMENT NOT NULL, BookingArrestID INT NOT NULL, ChargeTypeID INT, AgencyTypeID INT, BondAmount NUMBER(10, 2), BondTypeID INT, ChargeJurisdictionTypeID INT, ChargeClassTypeID INT, BondStatusTypeID INT, BookingChargeTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE BookingCharge (BookingChargeID INT AUTO_INCREMENT NOT NULL, BookingArrestID INT NOT NULL, ChargeCode VARCHAR(100), AgencyID INT, BondTypeID INT, BondAmount NUMBER(10, 2), ChargeJurisdictionTypeID INT, ChargeClassTypeID INT, BondStatusTypeID INT, BookingChargeTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE BookingCharge ADD CONSTRAINT bookingchargeid PRIMARY KEY (BookingChargeID);
 
@@ -266,8 +241,6 @@ ALTER TABLE BehavioralHealthAssessment ADD CONSTRAINT medicaidstatustype_behavio
 
 ALTER TABLE BehavioralHealthAssessmentCategory ADD CONSTRAINT assessmentcategorytype_behavioralhealthassessmentcategory_fk FOREIGN KEY (AssessmentCategoryTypeID) REFERENCES AssessmentCategoryType (AssessmentCategoryTypeID);
 
-ALTER TABLE BehavioralHealthAssessment ADD CONSTRAINT enrolledhealtchareprovider_behavioralhealthassessment_fk FOREIGN KEY (EnrolledHealthcareProviderID) REFERENCES EnrolledHealthcareProvider (EnrolledHealthcareProviderID);
-
 ALTER TABLE CustodyStatusChangeCharge ADD CONSTRAINT bondstatustype_custodystatuschangecharge_fk FOREIGN KEY (BondStatusTypeID) REFERENCES BondStatusType (BondStatusTypeID);
 
 ALTER TABLE BookingCharge ADD CONSTRAINT bondstatustype_bookingcharge_fk FOREIGN KEY (BondStatusTypeID) REFERENCES BondStatusType (BondStatusTypeID);
@@ -276,11 +249,9 @@ ALTER TABLE BookingCharge ADD CONSTRAINT chargeclasstype_bookingcharge_fk FOREIG
 
 ALTER TABLE CustodyStatusChangeCharge ADD CONSTRAINT chargeclasstype_custodystatuschangecharge_fk FOREIGN KEY (ChargeClassTypeID) REFERENCES ChargeClassType (ChargeClassTypeID);
 
-ALTER TABLE Treatment ADD CONSTRAINT treatmentprovider_treatment_fk FOREIGN KEY (TreatmentProviderID) REFERENCES TreatmentProvider (TreatmentProviderID);
-
 ALTER TABLE Treatment ADD CONSTRAINT treatmentstatustype_treatment_fk FOREIGN KEY (TreatmentStatusTypeID) REFERENCES TreatmentStatusType (TreatmentStatusTypeID);
 
-ALTER TABLE Treatment ADD CONSTRAINT treatmentinitiationtype_treatment_fk FOREIGN KEY (TreatmentInitiationType) REFERENCES TreatmentAdmissionReasonType (TreatmentAdmissionReasonTypeID);
+ALTER TABLE Treatment ADD CONSTRAINT treatmentinitiationtype_treatment_fk FOREIGN KEY (TreatmentAdmissionReasonTypeID) REFERENCES TreatmentAdmissionReasonType (TreatmentAdmissionReasonTypeID);
 
 ALTER TABLE Person ADD CONSTRAINT sexoffenderregistrationstatustype_person_fk FOREIGN KEY (SexOffenderStatusTypeID) REFERENCES SexOffenderStatusType (SexOffenderStatusTypeID);
 
@@ -314,11 +285,9 @@ ALTER TABLE BookingCharge ADD CONSTRAINT bondtype_bookingcharge_fk FOREIGN KEY (
 
 ALTER TABLE CustodyStatusChangeCharge ADD CONSTRAINT bondtype_custodystatuschangecharge_fk FOREIGN KEY (BondTypeID) REFERENCES BondType (BondTypeID);
 
-ALTER TABLE Booking ADD CONSTRAINT bedtype_booking_fk FOREIGN KEY (BedTypeID) REFERENCES BedType (BedTypeID);
+ALTER TABLE Booking ADD CONSTRAINT bedtype_booking_fk FOREIGN KEY (SupervisionUnitTypeID) REFERENCES SupervisionUnitType (SupervisionUnitTypeID);
 
-ALTER TABLE CustodyStatusChange ADD CONSTRAINT bedtype_custody_status_change_fk FOREIGN KEY (BedTypeID) REFERENCES BedType (BedTypeID);
-
-ALTER TABLE BehavioralHealthEvaluation ADD CONSTRAINT behavioralhealthtype_behavioralhealthevaluation_fk FOREIGN KEY (BehavioralHealthDiagnosisTypeID) REFERENCES BehavioralHealthDiagnosisType (BehavioralHealthDiagnosisTypeID);
+ALTER TABLE CustodyStatusChange ADD CONSTRAINT bedtype_custody_status_change_fk FOREIGN KEY (SupervisionUnitTypeID) REFERENCES SupervisionUnitType (SupervisionUnitTypeID);
 
 ALTER TABLE Person ADD CONSTRAINT personrace_person_fk FOREIGN KEY (PersonRaceTypeID) REFERENCES PersonRaceType (PersonRaceTypeID);
 
@@ -338,10 +307,6 @@ ALTER TABLE PrescribedMedication ADD CONSTRAINT behavioralhealthassessment_presc
 
 ALTER TABLE BehavioralHealthAssessmentCategory ADD CONSTRAINT behavioralhealthassessment_behavioralhealthassessmentcategory_fk FOREIGN KEY (BehavioralHealthAssessmentID) REFERENCES BehavioralHealthAssessment (BehavioralHealthAssessmentID);
 
-ALTER TABLE BookingCharge ADD CONSTRAINT chargetype_charge_fk FOREIGN KEY (ChargeTypeID) REFERENCES ChargeType (ChargeTypeID);
-
-ALTER TABLE CustodyStatusChangeCharge ADD CONSTRAINT chargetype_custodystatuschangecharge_fk FOREIGN KEY (ChargeTypeID) REFERENCES ChargeType (ChargeTypeID);
-
 ALTER TABLE Booking ADD CONSTRAINT status_booking_fk FOREIGN KEY (CaseStatusTypeID) REFERENCES CaseStatusType (CaseStatusTypeID);
 
 ALTER TABLE CustodyStatusChange ADD CONSTRAINT casestatus_custody_status_change_fk FOREIGN KEY (CaseStatusTypeID) REFERENCES CaseStatusType (CaseStatusTypeID);
@@ -350,13 +315,13 @@ ALTER TABLE BookingCharge ADD CONSTRAINT jurisdictiontype_bookingcharge_fk FOREI
 
 ALTER TABLE CustodyStatusChangeCharge ADD CONSTRAINT jurisdictiontype_custodystatuschangecharge_fk FOREIGN KEY (ChargeJurisdictionTypeID) REFERENCES JurisdictionType (JurisdictionTypeID);
 
-ALTER TABLE BookingCharge ADD CONSTRAINT agency_bookingcharge_fk FOREIGN KEY (AgencyTypeID) REFERENCES AgencyType (AgencyTypeID);
+ALTER TABLE BookingCharge ADD CONSTRAINT agency_bookingcharge_fk FOREIGN KEY (AgencyID) REFERENCES Agency (AgencyID);
 
-ALTER TABLE CustodyStatusChangeCharge ADD CONSTRAINT agency_custodystatuschangecharge_fk FOREIGN KEY (AgencyTypeID) REFERENCES AgencyType (AgencyTypeID);
+ALTER TABLE CustodyStatusChangeCharge ADD CONSTRAINT agency_custodystatuschangecharge_fk FOREIGN KEY (AgencyID) REFERENCES Agency (AgencyID);
 
-ALTER TABLE BookingArrest ADD CONSTRAINT agencytype_bookingarrest_fk FOREIGN KEY (ArrestAgencyTypeID) REFERENCES AgencyType (AgencyTypeID);
+ALTER TABLE BookingArrest ADD CONSTRAINT agencytype_bookingarrest_fk FOREIGN KEY (ArrestAgencyID) REFERENCES Agency (AgencyID);
 
-ALTER TABLE CustodyStatusChangeArrest ADD CONSTRAINT agencytype_custodystatuschangearrest_fk FOREIGN KEY (ArrestAgencyTypeID) REFERENCES AgencyType (AgencyTypeID);
+ALTER TABLE CustodyStatusChangeArrest ADD CONSTRAINT agencytype_custodystatuschangearrest_fk FOREIGN KEY (ArrestAgencyID) REFERENCES Agency (AgencyID);
 
 ALTER TABLE BookingArrest ADD CONSTRAINT booking_bookingarrest_fk FOREIGN KEY (BookingID) REFERENCES Booking (BookingID);
 

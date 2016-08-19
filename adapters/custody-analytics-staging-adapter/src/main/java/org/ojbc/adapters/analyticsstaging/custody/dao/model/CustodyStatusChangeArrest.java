@@ -24,7 +24,8 @@ public class CustodyStatusChangeArrest implements Serializable
 {
 	private static final long serialVersionUID = -7705114517046869650L;
 	private Integer custodyStatusChangeArrestId;
-    private Integer custodyStatusChangeId; 
+    private Integer custodyStatusChangeId;
+    private Integer arrestAgencyId;
     private Address address;
 
 	@Override
@@ -55,6 +56,14 @@ public class CustodyStatusChangeArrest implements Serializable
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public Integer getArrestAgencyId() {
+		return arrestAgencyId;
+	}
+
+	public void setArrestAgencyId(Integer arrestAgencyId) {
+		this.arrestAgencyId = arrestAgencyId;
 	}
 
 }

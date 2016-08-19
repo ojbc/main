@@ -31,11 +31,12 @@ public class Booking implements Serializable{
 	private LocalDateTime bookingDateTime; 
 	private Integer caseStatusId; 
 	private Integer facilityId; 
-	private Integer bedTypeId; 
+	private Integer supervisionUnitTypeId; 
 	private Integer personId; 
 	private String bookingNumber; 
 	private LocalDate scheduledReleaseDate; 
     private CustodyRelease custodyRelease;
+    private Boolean inmateJailResidentIndicator;
 	
 	public Integer getBookingId() {
 		return bookingId;
@@ -63,14 +64,6 @@ public class Booking implements Serializable{
 
 	public void setFacilityId(Integer facilityId) {
 		this.facilityId = facilityId;
-	}
-
-	public Integer getBedTypeId() {
-		return bedTypeId;
-	}
-
-	public void setBedTypeId(Integer bedTypeId) {
-		this.bedTypeId = bedTypeId;
 	}
 
 	public String getBookingNumber() {
@@ -111,6 +104,23 @@ public class Booking implements Serializable{
 
 	public void setBookingDateTime(LocalDateTime bookingDateTime) {
 		this.bookingDateTime = bookingDateTime;
+	}
+
+	public Boolean getInmateJailResidentIndicator() {
+		return inmateJailResidentIndicator;
+	}
+
+	public void setInmateJailResidentIndicator(
+			Boolean inmateJailResidentIndicator) {
+		this.inmateJailResidentIndicator = inmateJailResidentIndicator;
+	}
+
+	public Integer getSupervisionUnitTypeId() {
+		return supervisionUnitTypeId;
+	}
+
+	public void setSupervisionUnitTypeId(Integer supervisionUnitTypeId) {
+		this.supervisionUnitTypeId = supervisionUnitTypeId;
 	}
 
 

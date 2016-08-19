@@ -26,10 +26,13 @@ public class BookingCharge implements Serializable
 	private static final long serialVersionUID = -7705114517046869650L;
 	private Integer bookingChargeId;
     private Integer bookingArrestId; 
-    private KeyValue chargeType; 
+    private String chargeCode; 
 	private Integer agencyId;
     private BigDecimal bondAmount;
     private KeyValue bondType;
+    private Integer chargeClassTypeId;
+    private Integer bondStatusTypeId;
+    private Integer chargeJurisdictionTypeId;
 
 	@Override
 	public String toString() {
@@ -42,14 +45,6 @@ public class BookingCharge implements Serializable
 
 	public void setBookingChargeId(Integer bookingChargeId) {
 		this.bookingChargeId = bookingChargeId;
-	}
-
-	public KeyValue getChargeType() {
-		return chargeType;
-	}
-
-	public void setChargeType(KeyValue chargeType) {
-		this.chargeType = chargeType;
 	}
 
 	public Integer getBookingArrestId() {
@@ -82,6 +77,38 @@ public class BookingCharge implements Serializable
 
 	public void setBondType(KeyValue bondType) {
 		this.bondType = bondType;
+	}
+
+	public String getChargeCode() {
+		return chargeCode;
+	}
+
+	public void setChargeCode(String chargeCode) {
+		this.chargeCode = chargeCode;
+	}
+
+	public Integer getChargeClassTypeId() {
+		return chargeClassTypeId;
+	}
+
+	public void setChargeClassTypeId(Integer chargeClassTypeId) {
+		this.chargeClassTypeId = chargeClassTypeId;
+	}
+
+	public Integer getBondStatusTypeId() {
+		return bondStatusTypeId;
+	}
+
+	public void setBondStatusTypeId(Integer bondStatusTypeId) {
+		this.bondStatusTypeId = bondStatusTypeId;
+	}
+
+	public Integer getChargeJurisdictionTypeId() {
+		return chargeJurisdictionTypeId;
+	}
+
+	public void setChargeJurisdictionTypeId(Integer chargeJurisdictionTypeId) {
+		this.chargeJurisdictionTypeId = chargeJurisdictionTypeId;
 	}
 
 }

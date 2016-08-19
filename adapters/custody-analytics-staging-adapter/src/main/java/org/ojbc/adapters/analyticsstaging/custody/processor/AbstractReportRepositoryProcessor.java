@@ -46,6 +46,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public abstract class AbstractReportRepositoryProcessor {
+	private static final String ASSESSMENT_CATEGORY_GENERAL_MENTAL_HEALTH = "General Mental Health";
+	private static final String ASSESSMENT_CATEGORY_SUBSTANCE_ABUSE = "Substance Abuse";
+
 	private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
 
 	protected static final String FATAL_ERROR_PERSON_UNIQUE_ID_MISSING = "Fatal error: The person unique identifier is missing";
@@ -84,13 +87,14 @@ public abstract class AbstractReportRepositoryProcessor {
 		person.setLanguage(language);
 		person.setLanguageId(descriptionCodeLookupService.retrieveCode(CodeTable.LanguageType, language));
 
-		//TODO set SexOffenderRegistrationStatusTypeID
-//		String personCriminalHistorySummaryRef = 
-//				XmlUtils.xPathStringSearch(personNode, "parent::br-doc:BookingReport/nc30:ActivityPersonAssociation"
-//						+ "[nc30:Person/@s30:ref=/br-doc:BookingReport/jxdm51:Booking/jxdm51:BookingSubject/nc30:RoleOfPerson/@s30:ref]/nc30:Activity/@s30:ref");
-//		String registeredSexOffender = XmlUtils.xPathStringSearch(personNode, 
-//				"/br-doc:BookingReport/jxdm51:PersonCriminalHistorySummary[@s30:id='"+ personCriminalHistorySummaryRef + "']/jxdm51:RegisteredSexualOffenderIndicator");
-//		person.setRegisteredSexOffender(BooleanUtils.toBooleanObject(registeredSexOffender));
+		String personCriminalHistorySummaryRef = 
+				XmlUtils.xPathStringSearch(personNode, "parent::br-doc:BookingReport/nc30:ActivityPersonAssociation"
+						+ "[nc30:Person/@s30:ref=/br-doc:BookingReport/jxdm51:Booking/jxdm51:BookingSubject/nc30:RoleOfPerson/@s30:ref]/nc30:Activity/@s30:ref");
+		String registeredSexOffender = XmlUtils.xPathStringSearch(personNode, 
+				"/br-doc:BookingReport/jxdm51:PersonCriminalHistorySummary[@s30:id='"+ personCriminalHistorySummaryRef + "']/jxdm51:RegisteredSexualOffenderIndicator");
+		Boolean registeredSexOffenderBoolean = BooleanUtils.toBooleanObject(registeredSexOffender);
+		String sexOffenderStatus = BooleanUtils.toString(registeredSexOffenderBoolean, "registered", "not registered", "Unknown"); 
+		person.setSexOffenderStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.SexOffenderStatusType, sexOffenderStatus));
 		
 	 	String educationLevel = XmlUtils.xPathStringSearch(personNode, "nc30:PersonEducationLevelText");
 	 	if(StringUtils.isNotBlank(educationLevel)){
@@ -104,24 +108,18 @@ public abstract class AbstractReportRepositoryProcessor {
 	 		person.setOccupationId(occupationId);
 	 	}
 
-	 	//TODO Figure out how to set DomicileStatusTypeID
-//	 	String housingStatus = XmlUtils.xPathStringSearch(personNode, "nc30:PersonResidentText");
-// 		Integer housingStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.HousingStatusType, StringUtils.trim(housingStatus));
-// 		person.setHousingStatusId(housingStatusId);
 	 	
-// 		String homelessIndicator = XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonHomelessIndicator");
-// 		person.setHomelessIndicator(BooleanUtils.toBooleanObject(homelessIndicator));
+ 		Boolean homelessIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonHomelessIndicator"));
+ 		String domicileStatusType = BooleanUtils.toString(homelessIndicator, "homeless", "not homeless", "Unknown");
+ 		person.setDomicileStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.DomicileStatusType, domicileStatusType));
 
-	 	//TODO Set ProgramEligibilityTypeID
-// 		String personVeteranBenefitsEligibilityIndicator = XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonVeteranBenefitsEligibilityIndicator");
-// 		person.setVeteranBenefitsEligibilityIndicator(BooleanUtils.toBooleanObject(personVeteranBenefitsEligibilityIndicator));
+ 		Boolean personVeteranBenefitsEligibilityIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonVeteranBenefitsEligibilityIndicator"));
+ 		String programEligibilityType = BooleanUtils.toString(personVeteranBenefitsEligibilityIndicator, "veterans benefits", "none", "Unknown"); 
+ 		person.setProgramEligibilityTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.ProgramEligibilityType, programEligibilityType));
  		
- 		String inmateTemporarilyReleasedIndicator = XmlUtils.xPathStringSearch(personNode, "preceding-sibling::jxdm51:Detention/" + extPrefix + ":InmateTemporarilyReleasedIndicator");
- 		person.setInmateTemporarilyReleasedIndicator(BooleanUtils.toBooleanObject(inmateTemporarilyReleasedIndicator));
- 		
- 		//TODO Set WorkReleaseStatusTypeID
-// 		String inmateWorkReleaseIndicator = XmlUtils.xPathStringSearch(personNode, "preceding-sibling::jxdm51:Detention/" + extPrefix + ":InmateWorkReleaseIndicator");
-// 		person.setInmateTemporarilyReleasedIndicator(BooleanUtils.toBooleanObject(inmateWorkReleaseIndicator));
+ 		Boolean inmateWorkReleaseIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, "preceding-sibling::jxdm51:Detention/" + extPrefix + ":InmateWorkReleaseIndicator"));
+ 		String workReleaseStatusType = BooleanUtils.toString(inmateWorkReleaseIndicator, "assigned", "not assigned", "Unknown");
+ 		person.setWorkReleaseStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.WorkReleaseStatusType, workReleaseStatusType));;
  		
 	 	String militaryServiceStatusCode = XmlUtils.xPathStringSearch(personNode, "nc30:PersonMilitarySummary/ac-bkg-codes:MilitaryServiceStatusCode");
  		Integer militaryServiceStatusTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.MilitaryServiceStatusType, militaryServiceStatusCode);
@@ -158,19 +156,30 @@ public abstract class AbstractReportRepositoryProcessor {
 			if (behavioralHealthInfoNode != null){
 				String seriousMentalIllnessIndicator = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":SeriousMentalIllnessIndicator");
 				assessment.setSeriousMentalIllness(BooleanUtils.toBooleanObject(seriousMentalIllnessIndicator));
-	
-				String substanceAbuseIndicator = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":SubstanceAbuseIndicator");
-				assessment.setSubstanceAbuse(BooleanUtils.toBooleanObject(substanceAbuseIndicator));
-				
-				String generalMentalHealthConditionIndicator = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":GeneralMentalHealthConditionIndicator");
-				assessment.setGeneralMentalHealthCondition(BooleanUtils.toBooleanObject(generalMentalHealthConditionIndicator));
 				
 				String medicaidIndicator = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, "hs:MedicaidIndicator");
-				assessment.setMedicaidIndicator(BooleanUtils.toBooleanObject(medicaidIndicator));
+				Boolean medicaidIndicatorBoolean = BooleanUtils.toBooleanObject(medicaidIndicator);
+				String medicaidStatusType = BooleanUtils.toString(medicaidIndicatorBoolean, "eligible", "not eligible", "Unknown");
+				assessment.setMedicaidStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.MedicaidStatusType, medicaidStatusType));
 				
 				String regionalAuthorityAssignmentText = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":RegionalBehavioralHealthAuthorityAssignmentText");
-				assessment.setRegionalAuthorityAssignmentText(regionalAuthorityAssignmentText);
-			}
+				assessment.setEnrolledProviderName(regionalAuthorityAssignmentText);
+				
+				Boolean substanceAbuseIndicator = BooleanUtils.toBooleanObject(
+						XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":SubstanceAbuseIndicator"));
+				if (BooleanUtils.isTrue(substanceAbuseIndicator)){
+					Integer assessmentCategoryTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.AssessmentCategoryType, ASSESSMENT_CATEGORY_SUBSTANCE_ABUSE);
+					assessment.getAssessmentCategory().add(new KeyValue(assessmentCategoryTypeId, ASSESSMENT_CATEGORY_SUBSTANCE_ABUSE));
+				}
+
+				Boolean generalMentalHealthConditionIndicator = BooleanUtils.toBooleanObject(
+						XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":GeneralMentalHealthConditionIndicator"));
+				if (BooleanUtils.isTrue(generalMentalHealthConditionIndicator)){
+					Integer assessmentCategoryTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.AssessmentCategoryType, ASSESSMENT_CATEGORY_GENERAL_MENTAL_HEALTH);
+					assessment.getAssessmentCategory().add(new KeyValue(assessmentCategoryTypeId, ASSESSMENT_CATEGORY_GENERAL_MENTAL_HEALTH));
+				}
+				
+		}
 			
 			String careEpisodeStartDateString = XmlUtils.xPathStringSearch(personNode, 
 					"following-sibling::"+ extPrefix + ":CareEpisode[@s30:id='" + personCareEpisodeRef + "']/nc30:ActivityDateRange/nc30:StartDate/nc30:Date");
@@ -185,7 +194,6 @@ public abstract class AbstractReportRepositoryProcessor {
 			Integer assessmentId = analyticalDatastoreDAO.saveBehavioralHealthAssessment(assessment);
 			
 			assessment.setBehavioralHealthAssessmentId(assessmentId);
-			
 			processEvaluationNodes(assessment, behavioralHealthInfoNode, extPrefix);
 			processTreatmentNodes(assessment, behavioralHealthInfoNode, extPrefix);
 			processPrescribedMedications(assessment, behavioralHealthInfoNode, extPrefix);
@@ -264,22 +272,19 @@ public abstract class AbstractReportRepositoryProcessor {
 				
 				String startDateString = XmlUtils.xPathStringSearch(treatmentNode, "nc30:ActivityDateRange/nc30:StartDate/nc30:Date");
 				if (StringUtils.isNotBlank(startDateString)){
-					treatment.setStartDate(LocalDate.parse(startDateString));
-				}
-				
-				String endDateString = XmlUtils.xPathStringSearch(treatmentNode, "nc30:ActivityDateRange/nc30:EndDate/nc30:Date");
-				if (StringUtils.isNotBlank(endDateString)){
-					treatment.setEndDate(LocalDate.parse(endDateString));
+					treatment.setTreatmentStartDate(LocalDate.parse(startDateString));
 				}
 				
 				String treatmentProvider = XmlUtils.xPathStringSearch(treatmentNode, "nc30:TreatmentProvider/nc30:EntityOrganization/nc30:OrganizationName");
-				treatment.setTreatmentProvider(treatmentProvider);
+				treatment.setTreatmentProviderName(treatmentProvider);
 				
-				String treatmentCourtOrdered = XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentCourtOrderedIndicator");
-				treatment.setTreatmentCourtOrdered(BooleanUtils.toBooleanObject(treatmentCourtOrdered));
+				Boolean treatmentCourtOrdered = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentCourtOrderedIndicator"));
+				String treatmentAdmissionReason = BooleanUtils.toString(treatmentCourtOrdered, "court ordered", "voluntary","Unknown"); 
+				treatment.setTreatmentAdmissionReasonTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.TreatmentAdmissionReasonType, treatmentAdmissionReason));
 				
-				String treatmentActive = XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentActiveIndicator");
-				treatment.setTreatmentActive(BooleanUtils.toBooleanObject(treatmentActive));
+				Boolean treatmentActive = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentActiveIndicator"));
+				String treamentStatusType = BooleanUtils.toString(treatmentActive, "active", "inactive", "Unknown");
+				treatment.setTreatmentStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.TreatmentStatusType, treamentStatusType));
 				
 				treatments.add(treatment);
 			}
@@ -297,27 +302,19 @@ public abstract class AbstractReportRepositoryProcessor {
 
 		if (evaluationNodes.getLength() > 0){
 			
-			List<KeyValue> behavioralHealthTypes = new ArrayList<KeyValue>();
+			List<String> behavioralHealthDiagnoses = new ArrayList<String>();
 			
 			for (int i = 0; i < evaluationNodes.getLength(); i++) {
 				Node evaluationNode = evaluationNodes.item(i);
-				String evaluationDiagnosisDescriptionText = StringUtils.trimToEmpty(XmlUtils.xPathStringSearch(evaluationNode, "jxdm51:EvaluationDiagnosisDescriptionText"));
+				String evaluationDiagnosisDescriptionText = XmlUtils.xPathStringSearch(evaluationNode, "jxdm51:EvaluationDiagnosisDescriptionText");
 				
 				if (StringUtils.isNotBlank(evaluationDiagnosisDescriptionText)){
-			        Integer behavioralHealthTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.BehavioralHealthDiagnosisType, evaluationDiagnosisDescriptionText);
-					
-			        if (behavioralHealthTypeId == null){
-			        	behavioralHealthTypeId = analyticalDatastoreDAO.saveBehavioralHealthDiagnosisType(evaluationDiagnosisDescriptionText);
-			        	descriptionCodeLookupService.addEntry(CodeTable.BehavioralHealthDiagnosisType, evaluationDiagnosisDescriptionText, behavioralHealthTypeId);
-			        }
-			        
-			        KeyValue behavioralHealthType = new KeyValue(behavioralHealthTypeId, evaluationDiagnosisDescriptionText); 
-			        behavioralHealthTypes.add(behavioralHealthType);
+					behavioralHealthDiagnoses.add(evaluationDiagnosisDescriptionText);
 				}
 			}
 			
-			analyticalDatastoreDAO.saveBehavioralHealthEvaluations(assessment.getBehavioralHealthAssessmentId(), behavioralHealthTypes);
-			assessment.setBehavioralHealthDiagnosisTypes(behavioralHealthTypes);
+			analyticalDatastoreDAO.saveBehavioralHealthEvaluations(assessment.getBehavioralHealthAssessmentId(), behavioralHealthDiagnoses);
+			assessment.setBehavioralHealthDiagnoses(behavioralHealthDiagnoses);
 		}
 	}
 
@@ -407,7 +404,7 @@ public abstract class AbstractReportRepositoryProcessor {
         if (StringUtils.isNotBlank(supervisionReleaseDate)){
         	
         	if (StringUtils.isNotBlank(supervisionReleaseDate)){
-        		custodyRelease.setReleaseDate(LocalDateTime.parse(supervisionReleaseDate));
+        		custodyRelease.setReleaseDateTime(LocalDateTime.parse(supervisionReleaseDate));
         	}
         	
         	custodyRelease.setBookingId(bookingId);

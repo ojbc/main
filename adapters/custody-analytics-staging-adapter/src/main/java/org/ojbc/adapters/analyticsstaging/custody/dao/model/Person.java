@@ -51,7 +51,6 @@ public class Person {
 	private Integer domicileStatusTypeId; 
 	private Integer workReleaseStatusTypeId; 
 	private Integer programEligibilityTypeId; 
-	private Boolean inmateTemporarilyReleasedIndicator; 
 	private KeyValue militaryServiceStatusType; 
     
 	public LocalDate getPersonBirthDate() {
@@ -149,15 +148,6 @@ public class Person {
 
 	public void setPersonId(Integer personId) {
 		this.personId = personId;
-	}
-
-	public Boolean getInmateTemporarilyReleasedIndicator() {
-		return inmateTemporarilyReleasedIndicator;
-	}
-
-	public void setInmateTemporarilyReleasedIndicator(
-			Boolean inmateTemporarilyReleasedIndicator) {
-		this.inmateTemporarilyReleasedIndicator = inmateTemporarilyReleasedIndicator;
 	}
 
 	public KeyValue getMilitaryServiceStatusType() {
