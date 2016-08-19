@@ -734,7 +734,7 @@ public class CourtCaseSampleGenerator extends AbstractSampleGenerator {
 	 	eyeColorElement.setTextContent(randomString("BLK", "BLU", "BRO", "GRN", "GRY", "HAZ", "MAR", "MUL", "PNK"));
 	 	
 	 	Element hairElement = XmlUtils.appendElement(personElement, NS_JXDM_51, "PersonHairColorCode");
-	 	hairElement.setTextContent(randomString("BLD", "BLK", "BLN", "BLU", "BRO", "GRN", "GRY", "ONG", "PLE", "PNK", "RED", "SDY", "WHI"));
+	 	hairElement.setTextContent(randomString("BLK", "BLN", "BLU", "BRO", "GRN", "GRY", "ONG", "PLE", "PNK", "RED", "SDY", "WHI"));
 	 	
 	 	Element heightElement = XmlUtils.appendElement(personElement, NS_NC_30, "PersonHeightMeasure");
 	 	

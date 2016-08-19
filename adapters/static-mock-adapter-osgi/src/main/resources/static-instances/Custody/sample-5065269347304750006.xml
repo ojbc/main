@@ -280,7 +280,7 @@
          <nc30:PersonEducationLevelText>Middle Scool</nc30:PersonEducationLevelText>
          <jxdm51:PersonEthnicityCode>U</jxdm51:PersonEthnicityCode>
          <jxdm51:PersonEyeColorCode>BLK</jxdm51:PersonEyeColorCode>
-         <jxdm51:PersonHairColorCode>BLD</jxdm51:PersonHairColorCode>
+         <jxdm51:PersonHairColorCode>BLK</jxdm51:PersonHairColorCode>
          <nc30:PersonHeightMeasure>
             <nc30:MeasureValueText>27</nc30:MeasureValueText>
             <nc30:MeasureUnitText>in</nc30:MeasureUnitText>
