@@ -78,9 +78,10 @@ public class TestAnalyticalDatastoreDAOImpl {
 		booking.setBookingDateTime(LocalDateTime.parse("2013-12-17T09:30:00"));
 		booking.setScheduledReleaseDate(LocalDate.parse("2014-12-17"));
 		booking.setFacilityId(1);
-		booking.setBedTypeId(2);
+		booking.setSupervisionUnitTypeId(2);
 		booking.setBookingNumber("bookingNumber");
-		
+		booking.setInmateJailResidentIndicator(true);
+
 		int bookingPk = analyticalDatastoreDAO.saveBooking( booking );
 		assertEquals(1, bookingPk);
 		
@@ -113,7 +114,6 @@ public class TestAnalyticalDatastoreDAOImpl {
 		person.setEducationLevelId(3);
 		person.setOccupationId(2);
 		person.setDomicileStatusTypeId(3);
-		person.setInmateTemporarilyReleasedIndicator(true);
 		person.setProgramEligibilityTypeId(1);
 		person.setWorkReleaseStatusTypeId(2);
 		person.setMilitaryServiceStatusType(new KeyValue(1, null));

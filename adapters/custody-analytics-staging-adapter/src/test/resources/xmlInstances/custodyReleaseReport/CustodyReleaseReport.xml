@@ -26,9 +26,9 @@
 	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
 	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodyReleaseReport/1.0 ../xsd/exchange.xsd">
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodyReleaseReport/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0 ../xsd/impl/adams_county/booking_codes.xsd">
 	<nc:DocumentCreationDate>
-		<nc:DateTime>2016-12-17T09:30:47.0Z</nc:DateTime>
+		<nc:DateTime>2012-12-17T09:30:47.0Z</nc:DateTime>
 	</nc:DocumentCreationDate>
 	<nc:DocumentIdentification>
 		<nc:IdentificationID>eDocumentID</nc:IdentificationID>
@@ -67,6 +67,7 @@
 					<nc:Date>2001-12-17</nc:Date>
 				</j:SupervisionReleaseEligibilityDate>
 			</j:SupervisionAugmentation>
+
 		</j:Detention>
 		<nc:Release>
 			<nc:ActivityDate>
@@ -76,6 +77,9 @@
 			<nc:ActivityReasonText>String</nc:ActivityReasonText>
 			<nc:ReleasePerson structures:ref="Person_01" />
 			<nc:ReleaseToLocation structures:ref="Location_01" />
+			<crr-ext:ReleaseCondition>
+				<nc:ActivityDescriptionText>ROR</nc:ActivityDescriptionText>
+			</crr-ext:ReleaseCondition>
 		</nc:Release>
 		<nc:Person structures:id="Person_01">
 			<nc:PersonAgeMeasure>
@@ -104,7 +108,6 @@
 			<nc:PersonPrimaryLanguage>
 				<nc:LanguageName>English</nc:LanguageName>
 			</nc:PersonPrimaryLanguage>
-			<j:PersonRaceCode>A</j:PersonRaceCode>
 			<j:PersonSexCode>F</j:PersonSexCode>
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
@@ -128,6 +131,7 @@
 					<nc:IdentificationID>CO0120010324</nc:IdentificationID>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
+			<crr-ext:PersonVeteranBenefitsEligibilityIndicator>true</crr-ext:PersonVeteranBenefitsEligibilityIndicator>
 			<crr-ext:PersonPersistentIdentification>
 				<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
 				</nc:IdentificationID>
@@ -225,9 +229,9 @@
 			<crr-ext:PrescribedMedication>
 				<cyfs:Medication>
 					<nc:ItemName>Zyprexa</nc:ItemName>
-					<crr-ext:MedicationGeneralProductIdentification>
+					<crr-ext:MedicationGenericProductIdentification>
 						<nc:IdentificationID>58-20-00-60-10-01-05</nc:IdentificationID>
-					</crr-ext:MedicationGeneralProductIdentification>
+					</crr-ext:MedicationGenericProductIdentification>
 				</cyfs:Medication>
 				<cyfs:MedicationDispensingDate>
 					<nc:Date>2016-01-01</nc:Date>

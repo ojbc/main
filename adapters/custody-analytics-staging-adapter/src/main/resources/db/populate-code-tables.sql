@@ -38,33 +38,21 @@ insert into PersonEthnicityType(PersonEthnicityTypeID, PersonEthnicityTypeDescri
 insert into PersonEthnicityType(PersonEthnicityTypeID, PersonEthnicityTypeDescription) values(3, 'H');
 
 -- Agency - Placeholder while waiting for code values
-insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (1, 'Adams County SO');
-insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (2, 'Arvada PD');
-insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (3, 'Brighton PD');
-insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (4, 'Commerce City PD');
-insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (5, 'Federal Heights PD');
-insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (6, 'Northglenn PD');
-insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (7, 'Thornton PD');
-insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (8, 'Westminster PD');
-insert into AgencyType(AgencyTypeID, AgencyTypeDescription) values (9, 'Unknown');
+insert into Agency(AgencyID, AgencyDescription) values (1, 'Adams County SO');
+insert into Agency(AgencyID, AgencyDescription) values (2, 'Arvada PD');
+insert into Agency(AgencyID, AgencyDescription) values (3, 'Brighton PD');
+insert into Agency(AgencyID, AgencyDescription) values (4, 'Commerce City PD');
+insert into Agency(AgencyID, AgencyDescription) values (5, 'Federal Heights PD');
+insert into Agency(AgencyID, AgencyDescription) values (6, 'Northglenn PD');
+insert into Agency(AgencyID, AgencyDescription) values (7, 'Thornton PD');
+insert into Agency(AgencyID, AgencyDescription) values (8, 'Westminster PD');
+insert into Agency(AgencyID, AgencyDescription) values (9, 'Unknown');
 
--- BedType - adding code table values
-insert into BedType (BedTypeID, BedTypeDescription) values('1','Type 1');
-insert into BedType (BedTypeID, BedTypeDescription) values('2','Type 2');
-insert into BedType (BedTypeID, BedTypeDescription) values('3','Type 3');
-insert into BedType (BedTypeID, BedTypeDescription) values('4','Type 4');
-insert into BedType (BedTypeID, BedTypeDescription) values('5','Type 5');
-insert into BedType (BedTypeID, BedTypeDescription) values('6','Other');
-insert into BedType (BedTypeID, BedTypeDescription) values('7','Unknown');
-
--- BehavioralHealthDiagnosisType - adding code table values
-insert into BehavioralHealthDiagnosisType (BehavioralHealthDiagnosisTypeID, BehavioralHealthDiagnosisTypeDescription) values('1','Disorder 1');
-insert into BehavioralHealthDiagnosisType (BehavioralHealthDiagnosisTypeID, BehavioralHealthDiagnosisTypeDescription) values('2','Disorder 2');
-insert into BehavioralHealthDiagnosisType (BehavioralHealthDiagnosisTypeID, BehavioralHealthDiagnosisTypeDescription) values('3','Disorder 3');
-insert into BehavioralHealthDiagnosisType (BehavioralHealthDiagnosisTypeID, BehavioralHealthDiagnosisTypeDescription) values('4','Illness 1');
-insert into BehavioralHealthDiagnosisType (BehavioralHealthDiagnosisTypeID, BehavioralHealthDiagnosisTypeDescription) values('5','Illness 2');
-insert into BehavioralHealthDiagnosisType (BehavioralHealthDiagnosisTypeID, BehavioralHealthDiagnosisTypeDescription) values('6','Schizophrenia 295.10');
-insert into BehavioralHealthDiagnosisType (BehavioralHealthDiagnosisTypeID, BehavioralHealthDiagnosisTypeDescription) values('7','Unknown');
+-- SupervisionUnitType - adding code table values
+insert into SupervisionUnitType (SupervisionUnitTypeID, SupervisionUnitTypeDescription) values('1','Cell Block A');
+insert into SupervisionUnitType (SupervisionUnitTypeID, SupervisionUnitTypeDescription) values('2','Cell Block B');
+insert into SupervisionUnitType (SupervisionUnitTypeID, SupervisionUnitTypeDescription) values('3','Cell Block C');
+insert into SupervisionUnitType (SupervisionUnitTypeID, SupervisionUnitTypeDescription) values('4','Unknown');
 
 -- BondType
 insert into BondType (BondTypeDescription) values('Cash');
@@ -74,61 +62,72 @@ insert into BondType (BondTypeDescription) values('Deposit');
 insert into BondType (BondTypeDescription) values('Unknown');
 
 -- BondStatusType
+insert into BondStatusType (BondStatusTypeID, BondStatusTypeDescription) values('1','Active');
+insert into BondStatusType (BondStatusTypeID, BondStatusTypeDescription) values('2','Combined Charges');
+insert into BondStatusType (BondStatusTypeID, BondStatusTypeDescription) values('3','Deceased');
+insert into BondStatusType (BondStatusTypeID, BondStatusTypeDescription) values('4','Investigator Release');
+insert into BondStatusType (BondStatusTypeID, BondStatusTypeDescription) values('5','No Charges');
+insert into BondStatusType (BondStatusTypeID, BondStatusTypeDescription) values('6','No Probable Cause');
+insert into BondStatusType (BondStatusTypeID, BondStatusTypeDescription) values('7','Unknown');
 
 -- CaseStatus
 insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('1','SRP');
 insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('2','C-PR');
 insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('3','S-PR');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('4','PR');
+insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('4','PRET');
 insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('5','C-SRP');
 insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('6','Unknown');
 insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('7','S-SRP');
 insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('8','SUR');
 insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values('9','Split');
 
--- ChargeType
-insert into ChargeType (ChargeTypeID, ChargeTypeDescription) values('1','Felony');
-insert into ChargeType (ChargeTypeID, ChargeTypeDescription) values('2','Misdemeanor');
-insert into ChargeType (ChargeTypeID, ChargeTypeDescription) values('3','Municipal');
-insert into ChargeType (ChargeTypeID, ChargeTypeDescription) values('8','Other');
-insert into ChargeType (ChargeTypeID, ChargeTypeDescription) values('9','Unknown');
-
 -- Jurisdiction
 insert into JurisdictionType (JurisdictionTypeID, JurisdictionTypeDescription) values('1','State Court');
 insert into JurisdictionType (JurisdictionTypeID, JurisdictionTypeDescription) values('2','County Court');
 insert into JurisdictionType (JurisdictionTypeID, JurisdictionTypeDescription) values('3','Municipal Court');
 insert into JurisdictionType (JurisdictionTypeID, JurisdictionTypeDescription) values('4','Case Court');
+insert into JurisdictionType (JurisdictionTypeID, JurisdictionTypeDescription) values('5','Smithville');
 insert into JurisdictionType (JurisdictionTypeID, JurisdictionTypeDescription) values('9','Unknown');
 
 -- DomicileStatusType
-insert into DomicileStatusType (DomicileStatusTypeID, DomicileStatusTypeDescription) values('1','Homeless');
-insert into DomicileStatusType (DomicileStatusTypeID, DomicileStatusTypeDescription) values('2','Not Homeless');
-insert into DomicileStatusType (DomicileStatusTypeID, DomicileStatusTypeDescription) values('3','Residence');
-insert into DomicileStatusType (DomicileStatusTypeID, DomicileStatusTypeDescription) values('8','Unknown');
+insert into DomicileStatusType (DomicileStatusTypeID, DomicileStatusTypeDescription) values('1','not homeless');
+insert into DomicileStatusType (DomicileStatusTypeID, DomicileStatusTypeDescription) values('2','homeless');
+insert into DomicileStatusType (DomicileStatusTypeID, DomicileStatusTypeDescription) values('3','Unknown');
 
 -- ProgramEligibilityType
-insert into ProgramEligibilityType (ProgramEligibilityTypeID, ProgramEligibilityTypeDescription) values('1','Veterans benefits');
-insert into ProgramEligibilityType (ProgramEligibilityTypeID, ProgramEligibilityTypeDescription) values('2','Unknown');
+insert into ProgramEligibilityType (ProgramEligibilityTypeID, ProgramEligibilityTypeDescription) values('1','none');
+insert into ProgramEligibilityType (ProgramEligibilityTypeID, ProgramEligibilityTypeDescription) values('2','veterans benefits');
+insert into ProgramEligibilityType (ProgramEligibilityTypeID, ProgramEligibilityTypeDescription) values('3','Unknown');
 
 -- WorkReleaseStatusType
-insert into WorkReleaseStatusType (WorkReleaseStatusTypeID, WorkReleaseStatusTypeDescription) values('1','Not assigned');
-insert into WorkReleaseStatusType (WorkReleaseStatusTypeID, WorkReleaseStatusTypeDescription) values('2','Assigned');
+insert into WorkReleaseStatusType (WorkReleaseStatusTypeID, WorkReleaseStatusTypeDescription) values('1','not assigned');
+insert into WorkReleaseStatusType (WorkReleaseStatusTypeID, WorkReleaseStatusTypeDescription) values('2','assigned');
 insert into WorkReleaseStatusType (WorkReleaseStatusTypeID, WorkReleaseStatusTypeDescription) values('3','Unknown');
 
 -- SexOffenderStatusType
-insert into SexOffenderStatusType (SexOffenderStatusTypeID, SexOffenderStatusTypeDescription) values('1','Not registered');
-insert into SexOffenderStatusType (SexOffenderStatusTypeID, SexOffenderStatusTypeDescription) values('2','Registered');
+insert into SexOffenderStatusType (SexOffenderStatusTypeID, SexOffenderStatusTypeDescription) values('1','not registered');
+insert into SexOffenderStatusType (SexOffenderStatusTypeID, SexOffenderStatusTypeDescription) values('2','registered');
 insert into SexOffenderStatusType (SexOffenderStatusTypeID, SexOffenderStatusTypeDescription) values('3','Unknown');
 
+-- AssessmentCategoryType
+insert into AssessmentCategoryType (AssessmentCategoryTypeID, AssessmentCategoryTypeDescription) values('1','Unknown');
+insert into AssessmentCategoryType (AssessmentCategoryTypeID, AssessmentCategoryTypeDescription) values('2','General Mental Health');
+insert into AssessmentCategoryType (AssessmentCategoryTypeID, AssessmentCategoryTypeDescription) values('3','Substance Abuse');
+
 -- TreatmentAdmissionReasonType
-insert into TreatmentAdmissionReasonType (TreatmentAdmissionReasonTypeID, TreatmentAdmissionReasonTypeDescription) values('1','Voluntary');
-insert into TreatmentAdmissionReasonType (TreatmentAdmissionReasonTypeID, TreatmentAdmissionReasonTypeDescription) values('2','Court ordered');
+insert into TreatmentAdmissionReasonType (TreatmentAdmissionReasonTypeID, TreatmentAdmissionReasonTypeDescription) values('1','voluntary');
+insert into TreatmentAdmissionReasonType (TreatmentAdmissionReasonTypeID, TreatmentAdmissionReasonTypeDescription) values('2','court ordered');
 insert into TreatmentAdmissionReasonType (TreatmentAdmissionReasonTypeID, TreatmentAdmissionReasonTypeDescription) values('3','Unknown');
 
 -- TreatmentStatusType
-insert into TreatmentStatusType (TreatmentStatusTypeID, TreatmentStatusTypeDescription) values('1','Inactive');
-insert into TreatmentStatusType (TreatmentStatusTypeID, TreatmentStatusTypeDescription) values('2','Active');
+insert into TreatmentStatusType (TreatmentStatusTypeID, TreatmentStatusTypeDescription) values('1','inactive');
+insert into TreatmentStatusType (TreatmentStatusTypeID, TreatmentStatusTypeDescription) values('2','active');
 insert into TreatmentStatusType (TreatmentStatusTypeID, TreatmentStatusTypeDescription) values('3','Unknown');
+
+-- MedicaidStatusType
+insert into MedicaidStatusType (MedicaidStatusTypeID, MedicaidStatusTypeDescription) values('1','not eligible');
+insert into MedicaidStatusType (MedicaidStatusTypeID, MedicaidStatusTypeDescription) values('2','eligible');
+insert into MedicaidStatusType (MedicaidStatusTypeID, MedicaidStatusTypeDescription) values('3','Unknown');
 
 -- Occupation
 insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values('1', 'Truck Driver');
@@ -177,3 +176,12 @@ insert into MilitaryServiceStatusType (MilitaryServiceStatusTypeID, MilitaryServ
 -- Facility
 insert into Facility (FacilityDescription, Capacity) values('Adams County Jail', 3000);
 insert into Facility (FacilityDescription, Capacity) values('Pima County Jail', 5000);
+
+
+-- ChargeClassType
+insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values('1', 'Felony');
+insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values('2', 'Misdemeanor');
+insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values('3', 'Petty');
+insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values('4', 'Traffic');
+insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values('99', 'Unknown');
+ 
