@@ -26,7 +26,7 @@ public class Hash {
     /**
      * 
      * @param txt, text in plain format
-     * @param hashType MD5 OR SHA1
+     * @param hashType MD5,SHA-256 OR SHA1
      * @return hash in hashType 
      */
     public static String getHash(String txt, String salt, String hashType) {
