@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:wsa="http://cxf.apache.org/ws/addressing"
+       xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+       xmlns:policy="http://cxf.apache.org/policy"
+       xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+       xmlns:sec="http://cxf.apache.org/configuration/security"
+       xmlns:util="http://www.springframework.org/schema/util"        
+	   xmlns:http="http://cxf.apache.org/transports/http/configuration"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/ws/addressing http://cxf.apache.org/schemas/ws-addr-conf.xsd
+       http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+       http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
+       ">
+
+    <!-- person health Request Adapter, hosted by this adapter -->
+	<cxf:cxfEndpoint id="personHealthSearchAdapterRequestService"
+	        address="${personHealth.adapterRequestEndpoint}"
+	        wsdlURL="classpath:ssp/Person_Health_Information_Search_Request/schema/SIP_WS_1.2/Person_Health_Information_Search_Request_Service.wsdl"
+	        serviceName="ojbc:Person_Health_Information_Search_Request_Service_Service"
+			endpointName="ojbc:Person_Health_Information_Search_Request_Service_SystemToSystem"
+	        xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonHealthInformationSearchRequestService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="personHealthKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${personHealth.keystoreCertificateAlias}" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>
+
+
+    <!-- Person Health Results handler, hosted by the intermediary, called by this adapter --> 
+    <cxf:cxfEndpoint id="personHealthSearchIntermediaryResultsService"
+        address="${personHealth.intermediaryResultsEndpoint}"
+        wsdlURL="classpath:ssp/Person_Health_Information_Search_Results/schema/SIP_WS_1.2/Person_Health_Information_Search_Results_Service.wsdl"
+        serviceName="ojbc:Person_Health_Information_Search_Results_Service_Service"
+		endpointName="ojbc:Person_Health_Information_Search_Results_Secure_Service"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonHealthInformationSearchResultsService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="personHealthKeystoreProperties" />
+			<entry key="ws-security.signature.username" value="${personHealth.keystoreCertificateAlias}" />
+		</cxf:properties>        
+   </cxf:cxfEndpoint>      
+
+                        	
+	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${personHealth.truststorePassword}"
+					file="${personHealth.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+					<!-- these filters ensure that a strong ciphersuite will be used --> 
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>
+   
+   	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+	    <property name="passwords">
+            <map>
+                <entry key="${personHealth.keystoreCertificateAlias}" value="${personHealth.keyPassword}"/>
+            </map>
+        </property>
+	</bean>
+   
+	<util:properties id="personHealthKeystoreProperties">
+		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${personHealth.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${personHealth.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${personHealth.keystoreLocation}</prop>
+	</util:properties>	
+      
+</beans>
