@@ -174,8 +174,8 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseEligibilityDate/nc30:Date");
         booking.setScheduledReleaseDate(parseLocalDate(supervisionReleaseEligibilityDate));
 
- 		String inmateTemporarilyReleasedIndicator = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Detention/br-ext:InmateTemporarilyReleasedIndicator");
- 		booking.setInmateJailResidentIndicator(BooleanUtils.negate(BooleanUtils.toBooleanObject(inmateTemporarilyReleasedIndicator)));
+ 		String inmateJailResidentIndicator = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Detention/br-ext:InmateJailResidentIndicator");
+ 		booking.setInmateJailResidentIndicator(BooleanUtils.toBooleanObject(inmateJailResidentIndicator));
  		
         Integer bookingId = analyticalDatastoreDAO.saveBooking(booking);
         

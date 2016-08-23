@@ -175,8 +175,8 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
         		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseEligibilityDate/nc30:Date");
 		custodyStatusChange.setScheduledReleaseDate(parseLocalDate(supervisionReleaseEligibilityDate));
 		
- 		String inmateTemporarilyReleasedIndicator = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Detention/cscr-ext:InmateTemporarilyReleasedIndicator");
- 		custodyStatusChange.setInmateJailResidentIndicator(BooleanUtils.negate(BooleanUtils.toBooleanObject(inmateTemporarilyReleasedIndicator)));
+ 		String inmateJailResidentIndicator = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Detention/cscr-ext:InmateJailResidentIndicator");
+ 		custodyStatusChange.setInmateJailResidentIndicator(BooleanUtils.toBooleanObject(inmateJailResidentIndicator));
  		
         processCustodyReleaseInfo(custodyNode, bookingId);
 
