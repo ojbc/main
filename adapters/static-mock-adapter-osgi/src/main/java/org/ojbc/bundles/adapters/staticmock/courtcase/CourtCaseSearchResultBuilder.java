@@ -190,7 +190,9 @@ public class CourtCaseSearchResultBuilder {
 		
 		String sJurisdictionTxt = courtCaseDetail.getJurisdictionText();
 		
-		if(StringUtils.isNotBlank(sJurisdictionTxt) || StringUtils.isNotBlank(courtCaseDetail.getCourtName())){
+		String courtName = courtCaseDetail.getCourtName();
+		
+		if(StringUtils.isNotEmpty(sJurisdictionTxt) || StringUtils.isNotEmpty(courtName)){
 			
 			Element caseCourt = XmlUtils.appendElement(caseAugment, OjbcNamespaceContext.NS_JXDM_51, "CaseCourt");			
 			
@@ -198,20 +200,30 @@ public class CourtCaseSearchResultBuilder {
 			
 			Element orgJurisdiction = XmlUtils.appendElement(orgAugment, OjbcNamespaceContext.NS_JXDM_51, "OrganizationJurisdiction");
 			
-			Element jurisdictionTxtElement = XmlUtils.appendElement(orgJurisdiction, OjbcNamespaceContext.NS_NC_30, "JurisdictionText");
+			if(StringUtils.isNotEmpty(sJurisdictionTxt)){
+				
+				Element jurisdictionTxtElement = XmlUtils.appendElement(orgJurisdiction, OjbcNamespaceContext.NS_NC_30, "JurisdictionText");
+				
+				sJurisdictionTxt = sJurisdictionTxt.trim();
+				
+				jurisdictionTxtElement.setTextContent(sJurisdictionTxt); 				
+			}				
 			
-			sJurisdictionTxt = sJurisdictionTxt.trim();
-			
-			jurisdictionTxtElement.setTextContent(sJurisdictionTxt);	
-			
-			Element courtNameElement = XmlUtils.appendElement(caseCourt, OjbcNamespaceContext.NS_JXDM_51, "CourtName");
-			courtNameElement.setTextContent(courtCaseDetail.getCourtName());
+			if(StringUtils.isNotEmpty(courtName)){
+
+				courtName = courtName.trim();
+				
+				Element courtNameElement = XmlUtils.appendElement(caseCourt, OjbcNamespaceContext.NS_JXDM_51, "CourtName");
+				
+				courtNameElement.setTextContent(courtName);
+			}			
+
 		}
 		
 
 		String sCaseOtherInfoIdCatDescTxt = courtCaseDetail.getCaseOtherInfoIdCatDescTxt();
 		
-		if(StringUtils.isBlank(sCaseOtherInfoIdCatDescTxt)){
+		if(StringUtils.isNotEmpty(sCaseOtherInfoIdCatDescTxt)){
 
 			Element caseOtherIdElement = XmlUtils.appendElement(caseAugment, OjbcNamespaceContext.NS_JXDM_51, "CaseOtherIdentification");
 			

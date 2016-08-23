@@ -104,7 +104,8 @@
 		</br-ext:DetentiontImmigrationHoldIndicator>
 		<br-ext:InmateWorkReleaseIndicator>true
 		</br-ext:InmateWorkReleaseIndicator>
-		<br-ext:InmateJailResidentIndicator>false</br-ext:InmateJailResidentIndicator>
+		<br-ext:InmateTemporarilyReleasedIndicator>true
+		</br-ext:InmateTemporarilyReleasedIndicator>
 		<br-ext:InmateWorkerIndicator>false
 		</br-ext:InmateWorkerIndicator>
 		<br-ext:AllowAccountDepositIndicator>true

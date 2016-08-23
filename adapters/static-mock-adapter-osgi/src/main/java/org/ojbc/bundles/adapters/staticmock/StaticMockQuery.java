@@ -2096,7 +2096,8 @@ public class StaticMockQuery {
 		xPaths.middleNameXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonName/nc30:PersonMiddleName";
 		xPaths.firstNameXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonName/nc30:PersonGivenName";
 		xPaths.eyeColorXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonEyeColorCode";
-		xPaths.hairColorXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonHairColorCode";
+		xPaths.hairColorXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonHairColorCode";		
+		xPaths.hairColorCodeXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonHairColorCode";		
 		xPaths.raceXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonRaceCode";
 		xPaths.sexXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonSexCode";
 		xPaths.heightXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureValueText";
