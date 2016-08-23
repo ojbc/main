@@ -100,8 +100,7 @@
 			</cscr-ext:DetentiontImmigrationHoldIndicator>
 			<cscr-ext:InmateWorkReleaseIndicator>true
 			</cscr-ext:InmateWorkReleaseIndicator>
-			<cscr-ext:InmateTemporarilyReleasedIndicator>false
-			</cscr-ext:InmateTemporarilyReleasedIndicator>
+			<cscr-ext:InmateJailResidentIndicator>false</cscr-ext:InmateJailResidentIndicator>
 			<cscr-ext:InmateWorkerIndicator>false
 			</cscr-ext:InmateWorkerIndicator>
 			<cscr-ext:AllowAccountDepositIndicator>true
