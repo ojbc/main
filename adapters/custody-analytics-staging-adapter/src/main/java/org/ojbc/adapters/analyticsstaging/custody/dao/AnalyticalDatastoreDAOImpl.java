@@ -681,6 +681,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			custodyStatusChange.setPersonId(rs.getInt("PersonID"));
 			custodyStatusChange.setBookingId(rs.getInt("BookingId"));
 			custodyStatusChange.setScheduledReleaseDate( DaoUtils.getLocalDate(rs, "ScheduledReleaseDate"));
+			custodyStatusChange.setInmateJailResidentIndicator( rs.getBoolean("InmateJailResidentIndicator") );
 			
 	    	return custodyStatusChange;
 		}
