@@ -27,11 +27,9 @@ public class PrescribedMedication implements Serializable{
 	private static final long serialVersionUID = 5315892476825533947L;
 	private Integer prescribedMedicationID; 
 	private Integer behavioralHealthAssessmentID; 
-	private Integer medicationId;
+	private String medicationDescription;
 	private LocalDate medicationDispensingDate;
 	private String medicationDoseMeasure; 
-	
-	private Medication medication; 
 	
 	@Override
 	public String toString() {
@@ -55,14 +53,6 @@ public class PrescribedMedication implements Serializable{
 		this.behavioralHealthAssessmentID = behavioralHealthAssessmentID;
 	}
 
-	public Integer getMedicationId() {
-		return medicationId;
-	}
-
-	public void setMedicationId(Integer medicationId) {
-		this.medicationId = medicationId;
-	}
-
 	public LocalDate getMedicationDispensingDate() {
 		return medicationDispensingDate;
 	}
@@ -79,12 +69,12 @@ public class PrescribedMedication implements Serializable{
 		this.medicationDoseMeasure = medicationDoseMeasure;
 	}
 
-	public Medication getMedication() {
-		return medication;
+	public String getMedicationDescription() {
+		return medicationDescription;
 	}
 
-	public void setMedication(Medication medication) {
-		this.medication = medication;
+	public void setMedicationDescription(String medicationDescription) {
+		this.medicationDescription = medicationDescription;
 	}
 
 }

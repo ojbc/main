@@ -124,14 +124,6 @@ CREATE TABLE Location (
 );
 
 
-CREATE TABLE MedicationType (
-                MedicationTypeID INT AUTO_INCREMENT NOT NULL,
-                GenericProductIdentification VARCHAR(50),
-                MedicationTypeDescription VARCHAR(100),
-                PRIMARY KEY (MedicationTypeID)
-);
-
-
 CREATE TABLE LanguageType (
                 LanguageTypeID INT AUTO_INCREMENT NOT NULL,
                 LanguageTypeDescription VARCHAR(20) NOT NULL,
@@ -156,7 +148,7 @@ CREATE TABLE OccupationType (
 CREATE TABLE Facility (
                 FacilityID INT AUTO_INCREMENT NOT NULL,
                 FacilityDescription VARCHAR(100) NOT NULL,
-                Capacity INT NOT NULL,
+                Capacity INT DEFAULT 0 NOT NULL,
                 PRIMARY KEY (FacilityID)
 );
 
@@ -237,7 +229,7 @@ CREATE TABLE BehavioralHealthAssessmentCategory (
 CREATE TABLE PrescribedMedication (
                 PrescribedMedicationID INT AUTO_INCREMENT NOT NULL,
                 BehavioralHealthAssessmentID INT NOT NULL,
-                MedicationTypeID INT NOT NULL,
+                MedicationDescription VARCHAR(80),
                 MedicationDispensingDate DATE,
                 MedicationDoseMeasure VARCHAR(10),
                 PrescribedMedicationTimestamp DATETIME DEFAULT now() NOT NULL,
@@ -321,7 +313,7 @@ CREATE TABLE CustodyStatusChange (
                 ScheduledReleaseDate DATE,
                 FacilityID INT,
                 SupervisionUnitTypeID INT,
-                InmateJailResidentIndicator BOOLEAN NOT NULL,
+                InmateJailResidentIndicator BOOLEAN,
                 CustodyStatusChangeTimestamp DATETIME DEFAULT now() NOT NULL,
                 PRIMARY KEY (CustodyStatusChangeID)
 );
@@ -471,12 +463,6 @@ ON UPDATE NO ACTION;
 ALTER TABLE CustodyStatusChangeArrest ADD CONSTRAINT location_custodystatuschangearrest_fk
 FOREIGN KEY (LocationID)
 REFERENCES Location (LocationID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE PrescribedMedication ADD CONSTRAINT medication_prescribedmedication_fk
-FOREIGN KEY (MedicationTypeID)
-REFERENCES MedicationType (MedicationTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 

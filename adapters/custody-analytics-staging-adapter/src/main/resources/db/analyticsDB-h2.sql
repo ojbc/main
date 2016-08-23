@@ -77,7 +77,7 @@ CREATE TABLE PersonEthnicityType (PersonEthnicityTypeID INT NOT NULL, PersonEthn
 
 ALTER TABLE PersonEthnicityType ADD CONSTRAINT personethnicitytype_pk PRIMARY KEY (PersonEthnicityTypeID);
 
-CREATE TABLE MilitaryServiceStatusType (MilitaryServiceStatusTypeID INT AUTO_INCREMENT NOT NULL, MilitaryServiceStatusTypeDescription VARCHAR(20) NOT NULL);
+CREATE TABLE MilitaryServiceStatusType (MilitaryServiceStatusTypeID INT AUTO_INCREMENT NOT NULL, MilitaryServiceStatusTypeDescription VARCHAR(100) NOT NULL);
 
 ALTER TABLE MilitaryServiceStatusType ADD CONSTRAINT militaryservicestatustypeid PRIMARY KEY (MilitaryServiceStatusTypeID);
 
@@ -88,12 +88,6 @@ CREATE TABLE Location (LocationID INT AUTO_INCREMENT NOT NULL, AddressSecondaryU
 ALTER TABLE Location ADD CONSTRAINT locationid PRIMARY KEY (LocationID);
 
 CREATE SEQUENCE Location_LocationID_seq_2;
-
-CREATE TABLE MedicationType (MedicationTypeID INT AUTO_INCREMENT NOT NULL, GenericProductIdentification VARCHAR(50), MedicationTypeDescription VARCHAR(100));
-
-ALTER TABLE MedicationType ADD CONSTRAINT medicationtypeid PRIMARY KEY (MedicationTypeID);
-
-CREATE SEQUENCE MedicationType_MedicationTypeID_seq;
 
 CREATE TABLE LanguageType (LanguageTypeID INT AUTO_INCREMENT NOT NULL, LanguageTypeDescription VARCHAR(20) NOT NULL);
 
@@ -113,7 +107,7 @@ ALTER TABLE OccupationType ADD CONSTRAINT occupationtypeid PRIMARY KEY (Occupati
 
 CREATE SEQUENCE OccupationType_OccupationTypeID_seq_1;
 
-CREATE TABLE Facility (FacilityID INT AUTO_INCREMENT NOT NULL, FacilityDescription VARCHAR(100) NOT NULL, Capacity INT NOT NULL);
+CREATE TABLE Facility (FacilityID INT AUTO_INCREMENT NOT NULL, FacilityDescription VARCHAR(100) NOT NULL, Capacity INT DEFAULT 0 NOT NULL);
 
 ALTER TABLE Facility ADD CONSTRAINT facilityid PRIMARY KEY (FacilityID);
 
@@ -159,7 +153,7 @@ CREATE TABLE BehavioralHealthAssessmentCategory (BehavioralHealthAssessmentCateg
 
 ALTER TABLE BehavioralHealthAssessmentCategory ADD CONSTRAINT behavioralhealthassessmentcategory_pk PRIMARY KEY (BehavioralHealthAssessmentCategoryID);
 
-CREATE TABLE PrescribedMedication (PrescribedMedicationID INT AUTO_INCREMENT NOT NULL, BehavioralHealthAssessmentID INT NOT NULL, MedicationTypeID INT NOT NULL, MedicationDispensingDate date, MedicationDoseMeasure VARCHAR(10), PrescribedMedicationTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE PrescribedMedication (PrescribedMedicationID INT AUTO_INCREMENT NOT NULL, BehavioralHealthAssessmentID INT NOT NULL, MedicationDescription VARCHAR(80), MedicationDispensingDate date, MedicationDoseMeasure VARCHAR(10), PrescribedMedicationTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE PrescribedMedication ADD CONSTRAINT prescribedmedicationid PRIMARY KEY (PrescribedMedicationID);
 
@@ -207,7 +201,7 @@ ALTER TABLE CustodyRelease ADD CONSTRAINT custodyreleaseid PRIMARY KEY (CustodyR
 
 CREATE SEQUENCE CustodyRelease_CustodyReleaseID_seq;
 
-CREATE TABLE CustodyStatusChange (CustodyStatusChangeID INT AUTO_INCREMENT NOT NULL, BookingID INT NOT NULL, PersonID INT NOT NULL, CaseStatusTypeID INT, BookingDateTime TIMESTAMP, ScheduledReleaseDate date, FacilityID INT, SupervisionUnitTypeID INT, InmateJailResidentIndicator BOOLEAN NOT NULL, CustodyStatusChangeTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE CustodyStatusChange (CustodyStatusChangeID INT AUTO_INCREMENT NOT NULL, BookingID INT NOT NULL, PersonID INT NOT NULL, CaseStatusTypeID INT, BookingDateTime TIMESTAMP, ScheduledReleaseDate date, FacilityID INT, SupervisionUnitTypeID INT, InmateJailResidentIndicator BOOLEAN, CustodyStatusChangeTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE CustodyStatusChange ADD CONSTRAINT custodystatuschangeid PRIMARY KEY (CustodyStatusChangeID);
 
@@ -268,8 +262,6 @@ ALTER TABLE Person ADD CONSTRAINT militaryservicestatustype_person_fk FOREIGN KE
 ALTER TABLE BookingArrest ADD CONSTRAINT location_bookingarrest_fk FOREIGN KEY (LocationID) REFERENCES Location (LocationID);
 
 ALTER TABLE CustodyStatusChangeArrest ADD CONSTRAINT location_custodystatuschangearrest_fk FOREIGN KEY (LocationID) REFERENCES Location (LocationID);
-
-ALTER TABLE PrescribedMedication ADD CONSTRAINT medication_prescribedmedication_fk FOREIGN KEY (MedicationTypeID) REFERENCES MedicationType (MedicationTypeID);
 
 ALTER TABLE Person ADD CONSTRAINT language_person_fk FOREIGN KEY (LanguageTypeID) REFERENCES LanguageType (LanguageTypeID);
 

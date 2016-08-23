@@ -41,7 +41,6 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChange;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeArrest;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.Medication;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonRace;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonSex;
@@ -864,28 +863,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	@Override
-	public Integer saveMedicationType(String genericProductIdentification, String medicationTypeDescription) {
-        log.debug("Inserting row into the Medication table");
-
-        final String sql="INSERT into MedicationType (genericProductIdentification, medicationTypeDescription) values (?,?)";
-        
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(sql, new String[] {"genericProductIdentification","medicationTypeDescription"});
-        	            ps.setString(1, genericProductIdentification);
-        	            ps.setString(2, medicationTypeDescription);
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();
-	}
-
-	@Override
 	public void saveTreatments(final List<Treatment> treatments) {
 		log.info("Inserting row into Treatment table: " + treatments);
 		final String sqlString=
@@ -939,7 +916,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			List<PrescribedMedication> prescribedMedications) {
 		log.info("Inserting row into PrescribedMedication table: " + prescribedMedications);
 		final String sqlString=
-				"INSERT INTO PrescribedMedication (BehavioralHealthAssessmentID, MedicationTypeID, MedicationDispensingDate, MedicationDoseMeasure) "
+				"INSERT INTO PrescribedMedication (BehavioralHealthAssessmentID, MedicationDescription, MedicationDispensingDate, MedicationDoseMeasure) "
 				+ "values (?,?,?,?)";
 		
         jdbcTemplate.batchUpdate(sqlString, new BatchPreparedStatementSetter() {
@@ -947,7 +924,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
                 throws SQLException {
             	PrescribedMedication prescribedMedication = prescribedMedications.get(i);
                 ps.setInt(1, prescribedMedication.getBehavioralHealthAssessmentID());
-                setPreparedStatementVariable(prescribedMedication.getMedicationId(), ps, 2);
+                setPreparedStatementVariable(prescribedMedication.getMedicationDescription(), ps, 2);
                 setPreparedStatementVariable(prescribedMedication.getMedicationDispensingDate(), ps, 3);
                 setPreparedStatementVariable(prescribedMedication.getMedicationDoseMeasure(), ps, 4);
             }
@@ -1041,7 +1018,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public List<PrescribedMedication> getPrescribedMedication(
 			Integer behavioralHealthAssessmentId) {
 		final String sql = "SELECT * FROM PrescribedMedication p "
-				+ "LEFT OUTER JOIN MedicationType m ON m.MedicationTypeID = p.MedicationTypeID "
 				+ "WHERE p.behavioralHealthAssessmentId = ?"; 
 		List<PrescribedMedication> prescribedMedications = 
 				jdbcTemplate.query(sql, new PrescribedMedicationRowMapper(), behavioralHealthAssessmentId);
@@ -1057,16 +1033,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			prescribedMedication.setPrescribedMedicationID(rs.getInt("prescribedMedicationID"));
 			prescribedMedication.setBehavioralHealthAssessmentID(rs.getInt("behavioralHealthAssessmentID"));
 
-			prescribedMedication.setMedicationId(rs.getInt("MedicationTypeID"));
+			prescribedMedication.setMedicationDescription(rs.getString("MedicationDescription"));
 			prescribedMedication.setMedicationDispensingDate(DaoUtils.getLocalDate(rs, "medicationDispensingDate"));
 			prescribedMedication.setMedicationDoseMeasure(rs.getString("medicationDoseMeasure"));
-			
-			Medication medication = new Medication(); 
-			
-			medication.setMedicationId(prescribedMedication.getMedicationId());
-			medication.setGeneralProductId(rs.getString("genericProductIdentification"));
-			medication.setItemName(rs.getString("MedicationTypeDescription"));
-			prescribedMedication.setMedication(medication);
 			
 	    	return prescribedMedication;
 		}
