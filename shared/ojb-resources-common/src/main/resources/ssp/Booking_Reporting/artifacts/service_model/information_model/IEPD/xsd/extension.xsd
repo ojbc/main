@@ -158,11 +158,11 @@
 				program; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="InmateTemporarilyReleasedIndicator"
+	<xsd:element name="InmateJailResidentIndicator"
 		type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if at the time of report, an inmate is
-				temporarily released from supervision; false otherwise. This
+				a resident of the jail; false otherwise. This
 				generally applies to things like "weekender" programs.
 			</xsd:documentation>
 		</xsd:annotation>

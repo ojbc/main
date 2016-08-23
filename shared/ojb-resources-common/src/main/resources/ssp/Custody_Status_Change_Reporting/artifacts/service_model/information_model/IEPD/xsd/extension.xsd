@@ -178,9 +178,13 @@
 			<xsd:documentation>True if an inmate is assigned to a work release program; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="InmateTemporarilyReleasedIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
+	<xsd:element name="InmateJailResidentIndicator"
+		type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if at the time of report, an inmate is temporarily released from supervision; false otherwise.  This generally applies to things like "weekender" programs.</xsd:documentation>
+			<xsd:documentation>True if at the time of report, an inmate is
+				a resident of the jail; false otherwise. This
+				generally applies to things like "weekender" programs.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="InmateWorkerIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
