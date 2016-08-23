@@ -46,8 +46,8 @@ public class Person {
     
     private Integer sexOffenderStatusTypeId;
 	private Integer personAgeAtBooking; 
-	private Integer educationLevelId; 
-	private Integer occupationId; 
+	private String educationLevel; 
+	private String occupation; 
 	private Integer domicileStatusTypeId; 
 	private Integer workReleaseStatusTypeId; 
 	private Integer programEligibilityTypeId; 
@@ -126,22 +126,6 @@ public class Person {
 		this.personAgeAtBooking = personAgeAtBooking;
 	}
 
-	public Integer getEducationLevelId() {
-		return educationLevelId;
-	}
-
-	public void setEducationLevelId(Integer educationLevelId) {
-		this.educationLevelId = educationLevelId;
-	}
-
-	public Integer getOccupationId() {
-		return occupationId;
-	}
-
-	public void setOccupationId(Integer occupationId) {
-		this.occupationId = occupationId;
-	}
-
 	public Integer getPersonId() {
 		return personId;
 	}
@@ -193,6 +177,18 @@ public class Person {
 	}
 	public void setSexOffenderStatusTypeId(Integer sexOffenderStatusTypeId) {
 		this.sexOffenderStatusTypeId = sexOffenderStatusTypeId;
+	}
+	public String getEducationLevel() {
+		return educationLevel;
+	}
+	public void setEducationLevel(String educationLevel) {
+		this.educationLevel = educationLevel;
+	}
+	public String getOccupation() {
+		return occupation;
+	}
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
 	}
 	
 }

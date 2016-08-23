@@ -97,17 +97,10 @@ public abstract class AbstractReportRepositoryProcessor {
 		person.setSexOffenderStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.SexOffenderStatusType, sexOffenderStatus));
 		
 	 	String educationLevel = XmlUtils.xPathStringSearch(personNode, "nc30:PersonEducationLevelText");
-	 	if(StringUtils.isNotBlank(educationLevel)){
-		 	Integer educationLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.EducationLevelType, StringUtils.trim(educationLevel));
-		 	person.setEducationLevelId(educationLevelId);
-	 	}
+	 	person.setEducationLevel(educationLevel);
 	 	
 	 	String occupation = XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonAugmentation/nc30:EmployeeOccupationCategoryText");
-	 	if (StringUtils.isNotBlank(occupation)){
-	 		Integer occupationId = descriptionCodeLookupService.retrieveCode(CodeTable.OccupationType, StringUtils.trim(occupation));
-	 		person.setOccupationId(occupationId);
-	 	}
-
+ 		person.setOccupation(occupation);
 	 	
  		Boolean homelessIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonHomelessIndicator"));
  		String domicileStatusType = BooleanUtils.toString(homelessIndicator, "homeless", "not homeless", "Unknown");

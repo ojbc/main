@@ -95,18 +95,6 @@ ALTER TABLE LanguageType ADD CONSTRAINT languagetypeid PRIMARY KEY (LanguageType
 
 CREATE SEQUENCE LanguageType_LanguageTypeID_seq;
 
-CREATE TABLE EducationLevelType (EducationLevelTypeID INT AUTO_INCREMENT NOT NULL, EducationLevelTypeDescription VARCHAR(50) NOT NULL);
-
-ALTER TABLE EducationLevelType ADD CONSTRAINT educationleveltypeid PRIMARY KEY (EducationLevelTypeID);
-
-CREATE SEQUENCE EducationLevelType_EducationLevelTypeID_seq_1;
-
-CREATE TABLE OccupationType (OccupationTypeID INT AUTO_INCREMENT NOT NULL, OccupationTypeDescription VARCHAR(50) NOT NULL);
-
-ALTER TABLE OccupationType ADD CONSTRAINT occupationtypeid PRIMARY KEY (OccupationTypeID);
-
-CREATE SEQUENCE OccupationType_OccupationTypeID_seq_1;
-
 CREATE TABLE Facility (FacilityID INT AUTO_INCREMENT NOT NULL, FacilityDescription VARCHAR(100) NOT NULL, Capacity INT DEFAULT 0 NOT NULL);
 
 ALTER TABLE Facility ADD CONSTRAINT facilityid PRIMARY KEY (FacilityID);
@@ -137,7 +125,7 @@ ALTER TABLE PersonSexType ADD CONSTRAINT personsextypeid PRIMARY KEY (PersonSexT
 
 CREATE SEQUENCE PersonSexType_PersonSexTypeID_seq;
 
-CREATE TABLE Person (PersonID INT AUTO_INCREMENT NOT NULL, PersonUniqueIdentifier VARCHAR(36) NOT NULL, PersonAgeAtBooking INT, PersonBirthDate date, LanguageTypeID INT, PersonSexTypeID INT, PersonRaceTypeID INT, PersonEthnicityTypeID INT, MilitaryServiceStatusTypeID INT, OccupationTypeID INT, EducationLevelTypeID INT, DomicileStatusTypeID INT, ProgramEligibilityTypeID INT, WorkReleaseStatusTypeID INT, SexOffenderStatusTypeID INT, PersonTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE Person (PersonID INT AUTO_INCREMENT NOT NULL, PersonUniqueIdentifier VARCHAR(36) NOT NULL, PersonAgeAtBooking INT, PersonBirthDate date, EducationLevel VARCHAR(50), Occupation VARCHAR(50), LanguageTypeID INT, PersonSexTypeID INT, PersonRaceTypeID INT, PersonEthnicityTypeID INT, MilitaryServiceStatusTypeID INT, DomicileStatusTypeID INT, ProgramEligibilityTypeID INT, WorkReleaseStatusTypeID INT, SexOffenderStatusTypeID INT, PersonTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE Person ADD CONSTRAINT personid PRIMARY KEY (PersonID);
 
@@ -264,10 +252,6 @@ ALTER TABLE BookingArrest ADD CONSTRAINT location_bookingarrest_fk FOREIGN KEY (
 ALTER TABLE CustodyStatusChangeArrest ADD CONSTRAINT location_custodystatuschangearrest_fk FOREIGN KEY (LocationID) REFERENCES Location (LocationID);
 
 ALTER TABLE Person ADD CONSTRAINT language_person_fk FOREIGN KEY (LanguageTypeID) REFERENCES LanguageType (LanguageTypeID);
-
-ALTER TABLE Person ADD CONSTRAINT educationleveltype_person_fk FOREIGN KEY (EducationLevelTypeID) REFERENCES EducationLevelType (EducationLevelTypeID);
-
-ALTER TABLE Person ADD CONSTRAINT occupationtype_person_fk FOREIGN KEY (OccupationTypeID) REFERENCES OccupationType (OccupationTypeID);
 
 ALTER TABLE Booking ADD CONSTRAINT facility_booking_fk FOREIGN KEY (FacilityID) REFERENCES Facility (FacilityID);
 

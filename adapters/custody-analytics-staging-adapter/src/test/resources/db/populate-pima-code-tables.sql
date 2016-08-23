@@ -184,7 +184,6 @@ insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) valu
 insert into DomicileStatusType (DomicileStatusTypeID, DomicileStatusTypeDescription) values ('1', 'Not Homeless');
 insert into DomicileStatusType (DomicileStatusTypeID, DomicileStatusTypeDescription) values ('2', 'Homeless');
 insert into DomicileStatusType (DomicileStatusTypeID, DomicileStatusTypeDescription) values ('3', 'Unknown');
-insert into EducationLevelType (EducationLevelTypeID, EducationLevelTypeDescription) values ('1', 'Unknown');
 insert into JurisdictionType (JurisdictionTypeID, JurisdictionTypeDescription) values ('1', 'TUCSON CITY COURT');
 insert into JurisdictionType (JurisdictionTypeID, JurisdictionTypeDescription) values ('2', 'SOUTH TUCSON CITY COURT');
 insert into JurisdictionType (JurisdictionTypeID, JurisdictionTypeDescription) values ('3', 'JUSTICE COURT #1');
@@ -254,7 +253,6 @@ insert into MedicaidStatusType (MedicaidStatusTypeID, MedicaidStatusTypeDescript
 insert into MedicaidStatusType (MedicaidStatusTypeID, MedicaidStatusTypeDescription) values ('2', 'Eligible');
 insert into MedicaidStatusType (MedicaidStatusTypeID, MedicaidStatusTypeDescription) values ('3', 'Unknown');
 insert into MilitaryServiceStatusType (MilitaryServiceStatusTypeID, MilitaryServiceStatusTypeDescription) values ('1', 'Unknown');
-insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values ('1', 'Unknown');
 insert into PersonEthnicityType (PersonEthnicityTypeID, PersonEthnicityTypeDescription) values ('1', 'Latino');
 insert into PersonEthnicityType (PersonEthnicityTypeID, PersonEthnicityTypeDescription) values ('2', 'Non-Latino');
 insert into PersonEthnicityType (PersonEthnicityTypeID, PersonEthnicityTypeDescription) values ('3', 'Unknown');

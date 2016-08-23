@@ -362,7 +362,6 @@ insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) valu
 insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values ('4', 'Traffic');
 insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values ('5', 'Unknown');
 insert into DomicileStatusType (DomicileStatusTypeID, DomicileStatusTypeDescription) values ('1', 'Unknown');
-insert into EducationLevelType (EducationLevelTypeID, EducationLevelTypeDescription) values ('1', 'Unknown');
 insert into JurisdictionType (JurisdictionTypeID, JurisdictionTypeDescription) values ('1', 'Unknown');
 insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values ('1', 'English');
 insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values ('2', 'Mexican');
@@ -376,7 +375,6 @@ insert into MilitaryServiceStatusType (MilitaryServiceStatusTypeID, MilitaryServ
 insert into MilitaryServiceStatusType (MilitaryServiceStatusTypeID, MilitaryServiceStatusTypeDescription) values ('6', 'Non Active');
 insert into MilitaryServiceStatusType (MilitaryServiceStatusTypeID, MilitaryServiceStatusTypeDescription) values ('7', 'Retired');
 insert into MilitaryServiceStatusType (MilitaryServiceStatusTypeID, MilitaryServiceStatusTypeDescription) values ('8', 'Unknown');
-insert into OccupationType (OccupationTypeID, OccupationTypeDescription) values ('1', 'Unknown');
 insert into PersonEthnicityType (PersonEthnicityTypeID, PersonEthnicityTypeDescription) values ('1', 'Hispanic');
 insert into PersonEthnicityType (PersonEthnicityTypeID, PersonEthnicityTypeDescription) values ('2', 'Non-Hispanic');
 insert into PersonEthnicityType (PersonEthnicityTypeID, PersonEthnicityTypeDescription) values ('3', 'Unknown');
