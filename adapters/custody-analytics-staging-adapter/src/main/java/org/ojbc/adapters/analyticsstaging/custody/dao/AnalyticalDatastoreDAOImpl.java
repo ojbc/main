@@ -120,7 +120,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
         final String personStatement="INSERT into Person (PersonSexTypeID, PersonRaceTypeID, PersonBirthDate, "
         		+ "PersonUniqueIdentifier, LanguageTypeID, "
-        		+ "SexOffenderStatusTypeID, PersonAgeAtBooking, EducationLevelTypeID, OccupationTypeID, "
+        		+ "SexOffenderStatusTypeID, PersonAgeAtBooking, EducationLevel, Occupation, "
         		+ "DomicileStatusTypeID, militaryServiceStatusTypeID, "
         		+ "PersonEthnicityTypeID, ProgramEligibilityTypeID, WorkReleaseStatusTypeID) "
         		+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -133,8 +133,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	                connection.prepareStatement(personStatement, 
         	                		new String[] {"PersonSexTypeID", "PersonRaceTypeID", "PersonBirthDate", 
         	                		"PersonUniqueIdentifier", "LanguageTypeID", 
-        	                		"SexOffenderStatusTypeID","PersonAgeAtBooking", "EducationLevelTypeID", 
-        	                		"OccupationTypeID", "DomicileStatusTypeID", "militaryServiceStatusTypeID",
+        	                		"SexOffenderStatusTypeID","PersonAgeAtBooking", "EducationLevel", 
+        	                		"Occupation", "DomicileStatusTypeID", "militaryServiceStatusTypeID",
         	                		"PersonEthnicityTypeID", "ProgramEligibilityTypeID", "WorkReleaseStatusTypeID"});
 
         	            
@@ -147,8 +147,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            setPreparedStatementVariable(person.getSexOffenderStatusTypeId(), ps, 6);
             
 			        	setPreparedStatementVariable(person.getPersonAgeAtBooking(), ps, 7);
-			        	setPreparedStatementVariable(person.getEducationLevelId(), ps, 8);
-			        	setPreparedStatementVariable(person.getOccupationId(), ps, 9);
+			        	setPreparedStatementVariable(person.getEducationLevel(), ps, 8);
+			        	setPreparedStatementVariable(person.getOccupation(), ps, 9);
 			        	setPreparedStatementVariable(person.getDomicileStatusTypeId(), ps, 10);
 			        	setPreparedStatementVariable(person.getMilitaryServiceStatusType().getKey(), ps, 11);
 			        	setPreparedStatementVariable(person.getPersonEthnicityTypeId(), ps, 12);
@@ -171,8 +171,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 				+ "LEFT JOIN PersonEthnicityType pet ON pet.PersonEthnicityTypeID = p.PersonEthnicityTypeID "
 				+ "LEFT JOIN LanguageType l on l.languageTypeID = p.languageTypeID "
 				+ "LEFT JOIN DomicileStatusType h ON h.DomicileStatusTypeID = p.DomicileStatusTypeID "
-				+ "LEFT JOIN EducationLevelType e ON e.EducationLevelTypeID = p.EducationLevelTypeID "
-				+ "LEFT JOIN OccupationType o on o.OccupationTypeID = p.OccupationTypeID "
 				+ "LEFT JOIN WorkReleaseStatusType w on w.WorkReleaseStatusTypeID = p.WorkReleaseStatusTypeID "
 				+ "LEFT JOIN ProgramEligibilityType pe on pe.ProgramEligibilityTypeID = p.ProgramEligibilityTypeID "
 				+ "LEFT JOIN MilitaryServiceStatusType m on m.MilitaryServiceStatusTypeID = p.MilitaryServiceStatusTypeID "
@@ -205,8 +203,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			person.setWorkReleaseStatusTypeId(rs.getInt("WorkReleaseStatusTypeId"));
 			person.setPersonAgeAtBooking(rs.getInt("PersonAgeAtBooking"));
 			person.setDomicileStatusTypeId(rs.getInt("DomicileStatusTypeID"));
-			person.setEducationLevelId(rs.getInt("EducationLevelTypeID"));
-			person.setOccupationId(rs.getInt("OccupationTypeID"));
+			person.setEducationLevel(rs.getString("EducationLevel"));
+			person.setOccupation(rs.getString("Occupation"));
 			person.setMilitaryServiceStatusType(
 					new KeyValue(rs.getInt("MilitaryServiceStatusTypeID"), rs.getString("MilitaryServiceStatusTypeDescription")));
 	    	return person;

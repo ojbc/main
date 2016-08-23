@@ -111,8 +111,8 @@ public class TestAnalyticalDatastoreDAOImpl {
 		person.setPersonUniqueIdentifier("123332123123unique");
 		person.setLanguageId(2);
 		person.setPersonAgeAtBooking(50);
-		person.setEducationLevelId(1);
-		person.setOccupationId(1);
+		person.setEducationLevel("College");
+		person.setOccupation("Lawyer");
 		person.setDomicileStatusTypeId(1);
 		person.setProgramEligibilityTypeId(1);
 		person.setWorkReleaseStatusTypeId(2);

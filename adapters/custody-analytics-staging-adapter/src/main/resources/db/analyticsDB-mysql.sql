@@ -104,7 +104,7 @@ CREATE TABLE PersonEthnicityType (
 
 CREATE TABLE MilitaryServiceStatusType (
                 MilitaryServiceStatusTypeID INT AUTO_INCREMENT NOT NULL,
-                MilitaryServiceStatusTypeDescription VARCHAR(20) NOT NULL,
+                MilitaryServiceStatusTypeDescription VARCHAR(100) NOT NULL,
                 PRIMARY KEY (MilitaryServiceStatusTypeID)
 );
 
@@ -128,20 +128,6 @@ CREATE TABLE LanguageType (
                 LanguageTypeID INT AUTO_INCREMENT NOT NULL,
                 LanguageTypeDescription VARCHAR(20) NOT NULL,
                 PRIMARY KEY (LanguageTypeID)
-);
-
-
-CREATE TABLE EducationLevelType (
-                EducationLevelTypeID INT AUTO_INCREMENT NOT NULL,
-                EducationLevelTypeDescription VARCHAR(50) NOT NULL,
-                PRIMARY KEY (EducationLevelTypeID)
-);
-
-
-CREATE TABLE OccupationType (
-                OccupationTypeID INT AUTO_INCREMENT NOT NULL,
-                OccupationTypeDescription VARCHAR(50) NOT NULL,
-                PRIMARY KEY (OccupationTypeID)
 );
 
 
@@ -188,13 +174,13 @@ CREATE TABLE Person (
                 PersonUniqueIdentifier VARCHAR(36) NOT NULL,
                 PersonAgeAtBooking INT,
                 PersonBirthDate DATE,
+                EducationLevel VARCHAR(50),
+                Occupation VARCHAR(50),
                 LanguageTypeID INT,
                 PersonSexTypeID INT,
                 PersonRaceTypeID INT,
                 PersonEthnicityTypeID INT,
                 MilitaryServiceStatusTypeID INT,
-                OccupationTypeID INT,
-                EducationLevelTypeID INT,
                 DomicileStatusTypeID INT,
                 ProgramEligibilityTypeID INT,
                 WorkReleaseStatusTypeID INT,
@@ -469,18 +455,6 @@ ON UPDATE NO ACTION;
 ALTER TABLE Person ADD CONSTRAINT language_person_fk
 FOREIGN KEY (LanguageTypeID)
 REFERENCES LanguageType (LanguageTypeID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Person ADD CONSTRAINT educationleveltype_person_fk
-FOREIGN KEY (EducationLevelTypeID)
-REFERENCES EducationLevelType (EducationLevelTypeID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Person ADD CONSTRAINT occupationtype_person_fk
-FOREIGN KEY (OccupationTypeID)
-REFERENCES OccupationType (OccupationTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 

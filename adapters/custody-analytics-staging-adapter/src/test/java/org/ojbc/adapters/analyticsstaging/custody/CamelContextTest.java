@@ -200,8 +200,8 @@ public class CamelContextTest {
 
 		Assert.assertEquals(Integer.valueOf(2), person2.getPersonId());
 		assertThat(person2.getDomicileStatusTypeId(), is(1));
-		Assert.assertTrue(person2.getEducationLevelId() == 1);
-		Assert.assertTrue(person2.getOccupationId() == 1);
+		assertThat(person2.getEducationLevel(), is("High School Graduate"));
+		assertThat(person2.getOccupation(), is("Truck Driver"));
 		assertThat(person2.getMilitaryServiceStatusType().getValue(), is("Active"));
 		
 		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAOImpl.getBehavioralHealthAssessments(2);
@@ -319,8 +319,8 @@ public class CamelContextTest {
 		assertThat(person.getSexOffenderStatusTypeId(), is(1));
 		assertThat(person.getMilitaryServiceStatusType().getValue(), is("Honorable Discharge"));
 		
-		Assert.assertTrue(person.getEducationLevelId() == 1);
-		Assert.assertTrue(person.getOccupationId() == 1);
+		assertThat(person.getEducationLevel(), is("High School Graduate"));
+		assertThat(person.getOccupation(), is("Truck Driver"));
 		
 		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAOImpl.getBehavioralHealthAssessments(1);
 		assertFalse(behavioralHealthAssessments.isEmpty());
