@@ -126,16 +126,16 @@ public class RapbackController {
         model.addAttribute("criminalIdentificationStatusCodeMap", criminalIdentificationStatusCodeMap);
         model.addAttribute("criminalIdentificationReasonCodeMap", criminalIdentificationReasonCodeMap);
         model.addAttribute("civilIdentificationReasonCodeMap", civilIdentificationReasonCodeMap);
+		model.addAttribute("rapbackSearchRequest", getDefaultCivilIdentificationSearchRequest());
+		model.addAttribute("criminalIdentificationSearchRequest", getDefaultCriminallIdentificationSearchRequest());
 	}
     
 	@RequestMapping(value = "/rapbackResults", method = RequestMethod.POST)
-	public String searchForm(HttpServletRequest request,	        
+	public String searchForm(HttpServletRequest request, 
+			@ModelAttribute("rapbackSearchRequest") IdentificationResultSearchRequest rapbackSearchRequest,        
 	        Map<String, Object> model) {		
-								
-		IdentificationResultSearchRequest searchRequest = getDefaultCivilIdentificationSearchRequest();
-		model.put("rapbackSearchRequest", searchRequest);
 		
-		return performRapbackSearchAndReturnResult(request, model, searchRequest);
+		return performRapbackSearchAndReturnResult(request, model, rapbackSearchRequest);
 	}
 
 	private String performRapbackSearchAndReturnResult(HttpServletRequest request,
@@ -476,11 +476,9 @@ public class RapbackController {
 
 	
 	@RequestMapping(value = "/criminalIdentificationsResults", method = RequestMethod.POST)
-	public String criminalIdentificationResults(HttpServletRequest request,	        
+	public String criminalIdentificationResults(HttpServletRequest request, 
+			@ModelAttribute("criminalIdentificationSearchRequest") IdentificationResultSearchRequest criminalIdentificationSearchRequest, 
 			Map<String, Object> model) {		
-		
-		IdentificationResultSearchRequest criminalIdentificationSearchRequest= getDefaultCriminallIdentificationSearchRequest();
-		model.put("criminalIdentificationSearchRequest", criminalIdentificationSearchRequest);
 		
 		return performCriminalIdentificationSearchAndReturnResult(request, model, criminalIdentificationSearchRequest);
 	}
