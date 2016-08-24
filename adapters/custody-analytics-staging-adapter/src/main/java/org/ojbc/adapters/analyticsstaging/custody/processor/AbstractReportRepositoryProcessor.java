@@ -37,7 +37,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PrescribedMedication;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Treatment;
-import org.ojbc.adapters.analyticsstaging.custody.service.DescriptionCodeLookupService;
+import org.ojbc.adapters.analyticsstaging.custody.service.DescriptionCodeLookupFromExcelService;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,7 +58,7 @@ public abstract class AbstractReportRepositoryProcessor {
 	protected AnalyticalDatastoreDAO analyticalDatastoreDAO;
 	
 	@Autowired
-	protected DescriptionCodeLookupService descriptionCodeLookupService; 
+	protected DescriptionCodeLookupFromExcelService descriptionCodeLookupService; 
 	
     @Transactional
 	public abstract void processReport(@Body Document report) throws Exception;
@@ -97,17 +97,10 @@ public abstract class AbstractReportRepositoryProcessor {
 		person.setSexOffenderStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.SexOffenderStatusType, sexOffenderStatus));
 		
 	 	String educationLevel = XmlUtils.xPathStringSearch(personNode, "nc30:PersonEducationLevelText");
-	 	if(StringUtils.isNotBlank(educationLevel)){
-		 	Integer educationLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.EducationLevelType, StringUtils.trim(educationLevel));
-		 	person.setEducationLevelId(educationLevelId);
-	 	}
+	 	person.setEducationLevel(educationLevel);
 	 	
 	 	String occupation = XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonAugmentation/nc30:EmployeeOccupationCategoryText");
-	 	if (StringUtils.isNotBlank(occupation)){
-	 		Integer occupationId = descriptionCodeLookupService.retrieveCode(CodeTable.OccupationType, StringUtils.trim(occupation));
-	 		person.setOccupationId(occupationId);
-	 	}
-
+ 		person.setOccupation(occupation);
 	 	
  		Boolean homelessIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonHomelessIndicator"));
  		String domicileStatusType = BooleanUtils.toString(homelessIndicator, "homeless", "not homeless", "Unknown");
@@ -215,8 +208,9 @@ public abstract class AbstractReportRepositoryProcessor {
 				
 				PrescribedMedication prescribedMedication = new PrescribedMedication();
 				prescribedMedication.setBehavioralHealthAssessmentID(assessment.getBehavioralHealthAssessmentId());
-				
-				setMedicationId(prescribedMedicationNode, prescribedMedication, extPrefix);
+				String medicationItemName = XmlUtils.xPathStringSearch(prescribedMedicationNode,
+						"cyfs31:Medication/nc30:ItemName");
+				prescribedMedication.setMedicationDescription(medicationItemName);
 				
 				String medicationDispensingDate = XmlUtils.xPathStringSearch(prescribedMedicationNode, 
 						"cyfs31:MedicationDispensingDate/nc30:Date");
@@ -235,25 +229,6 @@ public abstract class AbstractReportRepositoryProcessor {
 			assessment.setPrescribedMedications(prescribedMedications);
 		}
 		
-	}
-
-	private void setMedicationId(Node prescribedMedicationNode,
-			PrescribedMedication prescribedMedication, String extPrefix) throws Exception {
-		String medicationItemName = XmlUtils.xPathStringSearch(prescribedMedicationNode,
-				"cyfs31:Medication/nc30:ItemName");
-		String medicationGeneralProdId = XmlUtils.xPathStringSearch(prescribedMedicationNode, 
-				"cyfs31:Medication/" + extPrefix + ":MedicationGenericProductIdentification/nc30:IdentificationID");
-		
-		if (StringUtils.isNotBlank(medicationItemName)|| 
-				StringUtils.isNotBlank(medicationGeneralProdId)){
-			Integer medicationTypeId = analyticalDatastoreDAO.getMedicationTypeId(medicationGeneralProdId, medicationItemName);
-			
-			if (medicationTypeId == null){
-				medicationTypeId = analyticalDatastoreDAO.saveMedicationType(medicationGeneralProdId, medicationItemName);
-			}
-			
-			prescribedMedication.setMedicationId(medicationTypeId);
-		}
 	}
 
 	private void processTreatmentNodes(BehavioralHealthAssessment assessment,

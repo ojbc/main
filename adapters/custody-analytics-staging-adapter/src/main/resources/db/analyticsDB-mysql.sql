@@ -104,7 +104,7 @@ CREATE TABLE PersonEthnicityType (
 
 CREATE TABLE MilitaryServiceStatusType (
                 MilitaryServiceStatusTypeID INT AUTO_INCREMENT NOT NULL,
-                MilitaryServiceStatusTypeDescription VARCHAR(20) NOT NULL,
+                MilitaryServiceStatusTypeDescription VARCHAR(100) NOT NULL,
                 PRIMARY KEY (MilitaryServiceStatusTypeID)
 );
 
@@ -124,14 +124,6 @@ CREATE TABLE Location (
 );
 
 
-CREATE TABLE MedicationType (
-                MedicationTypeID INT AUTO_INCREMENT NOT NULL,
-                GenericProductIdentification VARCHAR(50),
-                MedicationTypeDescription VARCHAR(100),
-                PRIMARY KEY (MedicationTypeID)
-);
-
-
 CREATE TABLE LanguageType (
                 LanguageTypeID INT AUTO_INCREMENT NOT NULL,
                 LanguageTypeDescription VARCHAR(20) NOT NULL,
@@ -139,24 +131,10 @@ CREATE TABLE LanguageType (
 );
 
 
-CREATE TABLE EducationLevelType (
-                EducationLevelTypeID INT AUTO_INCREMENT NOT NULL,
-                EducationLevelTypeDescription VARCHAR(50) NOT NULL,
-                PRIMARY KEY (EducationLevelTypeID)
-);
-
-
-CREATE TABLE OccupationType (
-                OccupationTypeID INT AUTO_INCREMENT NOT NULL,
-                OccupationTypeDescription VARCHAR(50) NOT NULL,
-                PRIMARY KEY (OccupationTypeID)
-);
-
-
 CREATE TABLE Facility (
                 FacilityID INT AUTO_INCREMENT NOT NULL,
                 FacilityDescription VARCHAR(100) NOT NULL,
-                Capacity INT NOT NULL,
+                Capacity INT DEFAULT 0 NOT NULL,
                 PRIMARY KEY (FacilityID)
 );
 
@@ -196,13 +174,13 @@ CREATE TABLE Person (
                 PersonUniqueIdentifier VARCHAR(36) NOT NULL,
                 PersonAgeAtBooking INT,
                 PersonBirthDate DATE,
+                EducationLevel VARCHAR(50),
+                Occupation VARCHAR(50),
                 LanguageTypeID INT,
                 PersonSexTypeID INT,
                 PersonRaceTypeID INT,
                 PersonEthnicityTypeID INT,
                 MilitaryServiceStatusTypeID INT,
-                OccupationTypeID INT,
-                EducationLevelTypeID INT,
                 DomicileStatusTypeID INT,
                 ProgramEligibilityTypeID INT,
                 WorkReleaseStatusTypeID INT,
@@ -237,7 +215,7 @@ CREATE TABLE BehavioralHealthAssessmentCategory (
 CREATE TABLE PrescribedMedication (
                 PrescribedMedicationID INT AUTO_INCREMENT NOT NULL,
                 BehavioralHealthAssessmentID INT NOT NULL,
-                MedicationTypeID INT NOT NULL,
+                MedicationDescription VARCHAR(80),
                 MedicationDispensingDate DATE,
                 MedicationDoseMeasure VARCHAR(10),
                 PrescribedMedicationTimestamp DATETIME DEFAULT now() NOT NULL,
@@ -321,7 +299,7 @@ CREATE TABLE CustodyStatusChange (
                 ScheduledReleaseDate DATE,
                 FacilityID INT,
                 SupervisionUnitTypeID INT,
-                InmateJailResidentIndicator BOOLEAN NOT NULL,
+                InmateJailResidentIndicator BOOLEAN,
                 CustodyStatusChangeTimestamp DATETIME DEFAULT now() NOT NULL,
                 PRIMARY KEY (CustodyStatusChangeID)
 );
@@ -474,27 +452,9 @@ REFERENCES Location (LocationID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE PrescribedMedication ADD CONSTRAINT medication_prescribedmedication_fk
-FOREIGN KEY (MedicationTypeID)
-REFERENCES MedicationType (MedicationTypeID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
 ALTER TABLE Person ADD CONSTRAINT language_person_fk
 FOREIGN KEY (LanguageTypeID)
 REFERENCES LanguageType (LanguageTypeID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Person ADD CONSTRAINT educationleveltype_person_fk
-FOREIGN KEY (EducationLevelTypeID)
-REFERENCES EducationLevelType (EducationLevelTypeID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Person ADD CONSTRAINT occupationtype_person_fk
-FOREIGN KEY (OccupationTypeID)
-REFERENCES OccupationType (OccupationTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 

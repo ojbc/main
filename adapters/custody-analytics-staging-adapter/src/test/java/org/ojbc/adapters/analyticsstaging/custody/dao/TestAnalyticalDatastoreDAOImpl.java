@@ -42,8 +42,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
-		"classpath:META-INF/spring/dao.xml",
-		"classpath:META-INF/spring/properties-context.xml",
+		"classpath:META-INF/spring/adams-dao.xml",
+		"classpath:META-INF/spring/properties-context-adams.xml",
 		"classpath:META-INF/spring/camel-context.xml",
 		"classpath:META-INF/spring/cxf-endpoints.xml"
 		})
@@ -111,19 +111,13 @@ public class TestAnalyticalDatastoreDAOImpl {
 		person.setPersonUniqueIdentifier("123332123123unique");
 		person.setLanguageId(2);
 		person.setPersonAgeAtBooking(50);
-		person.setEducationLevelId(3);
-		person.setOccupationId(2);
-		person.setDomicileStatusTypeId(3);
+		person.setEducationLevel("College");
+		person.setOccupation("Lawyer");
+		person.setDomicileStatusTypeId(1);
 		person.setProgramEligibilityTypeId(1);
 		person.setWorkReleaseStatusTypeId(2);
 		person.setMilitaryServiceStatusType(new KeyValue(1, null));
 		return person;
 	}
 	
-	@Test
-	public void testGetMedicationId(){
-		Integer medicationId = analyticalDatastoreDAO.getMedicationTypeId("fakeId", "fakeName");
-		
-		assertNull(medicationId);
-	}
 }

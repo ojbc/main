@@ -82,8 +82,8 @@ import org.w3c.dom.Element;
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/camel-context.xml",
         "classpath:META-INF/spring/cxf-endpoints.xml",      
-        "classpath:META-INF/spring/properties-context.xml",
-        "classpath:META-INF/spring/dao.xml",
+        "classpath:META-INF/spring/properties-context-adams.xml",
+        "classpath:META-INF/spring/adams-dao.xml",
         })
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class CamelContextTest {
@@ -199,10 +199,10 @@ public class CamelContextTest {
 		Assert.assertNotNull(person2);
 
 		Assert.assertEquals(Integer.valueOf(2), person2.getPersonId());
-		assertThat(person2.getDomicileStatusTypeId(), is(2));
-		Assert.assertTrue(person2.getEducationLevelId() == 1);
-		Assert.assertTrue(person2.getOccupationId() == 1);
-		assertThat(person2.getMilitaryServiceStatusType().getValue(), is("ACT"));
+		assertThat(person2.getDomicileStatusTypeId(), is(1));
+		assertThat(person2.getEducationLevel(), is("High School Graduate"));
+		assertThat(person2.getOccupation(), is("Truck Driver"));
+		assertThat(person2.getMilitaryServiceStatusType().getValue(), is("Active"));
 		
 		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAOImpl.getBehavioralHealthAssessments(2);
 		assertThat(behavioralHealthAssessments.size(), is(1));
@@ -217,7 +217,7 @@ public class CamelContextTest {
 		assertThat(behavioralHealthAssessment.getCareEpisodeStartDate(), is(LocalDate.parse("2016-01-01")));
 		assertThat(behavioralHealthAssessment.getCareEpisodeEndDate(), is(LocalDate.parse("2016-04-01")));
 		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
-		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(2));
+		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(1));
 
 		List<Treatment> treatments = analyticalDatastoreDAOImpl.getTreatments(2);
 		assertThat(treatments.size(), is(1));
@@ -225,8 +225,8 @@ public class CamelContextTest {
 		Treatment treatment = treatments.get(0);
 		assertThat(treatment.getBehavioralHealthAssessmentID(), is(2));
 		assertThat(treatment.getTreatmentStartDate(), is(LocalDate.parse("2016-01-01"))); 
-		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), is(2));
-		assertThat(treatment.getTreatmentStatusTypeId(), is(2));
+		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), is(1));
+		assertThat(treatment.getTreatmentStatusTypeId(), is(1));
 		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
 		
 		
@@ -235,21 +235,20 @@ public class CamelContextTest {
 		
 		PrescribedMedication  prescribedMedication = prescribedMedications.get(0);
 		assertThat(prescribedMedication.getBehavioralHealthAssessmentID(), is(2));
-		assertThat(prescribedMedication.getMedicationId(), is(1));
+		assertThat(prescribedMedication.getMedicationDescription(), is("Zyprexa"));
 		assertThat(prescribedMedication.getMedicationDispensingDate(), is(LocalDate.parse("2016-01-01"))); 
 		assertThat(prescribedMedication.getMedicationDoseMeasure(), is("3mg"));
-		assertThat(prescribedMedication.getMedication().getGeneralProductId(), is("58-20-00-60-10-01-05"));
-		assertThat(prescribedMedication.getMedication().getItemName(), is("Zyprexa"));
 		
 		custodyStatusChange = analyticalDatastoreDAOImpl.getCustodyStatusChangeByBookingId(1);
 		assertNotNull(custodyStatusChange);
 
 		assertEquals(LocalDateTime.parse("2013-12-17T09:30"), custodyStatusChange.getBookingDateTime());
 		assertThat(custodyStatusChange.getCaseStatusId(), is(4)); 
-		assertThat(custodyStatusChange.getFacilityId(), is(1));
-		assertThat(custodyStatusChange.getSupervisionUnitTypeId(), is(1)); 
+		assertThat(custodyStatusChange.getFacilityId(), is(2));
+		assertThat(custodyStatusChange.getSupervisionUnitTypeId(), is(10)); 
 		assertThat(custodyStatusChange.getBookingId(), is(1));
 		assertThat(custodyStatusChange.getScheduledReleaseDate(), is(LocalDate.parse("2014-12-17")));
+		assertThat(custodyStatusChange.getInmateJailResidentIndicator(), is(false));
 		
 		List<CustodyStatusChangeArrest> custodyStatusChangeArrests = analyticalDatastoreDAOImpl.getCustodyStatusChangeArrests(1);
 		assertThat(custodyStatusChangeArrests.size(), is(1));
@@ -264,7 +263,7 @@ public class CamelContextTest {
 		assertEquals("99999", custodyStatusChangeArrest.getAddress().getPostalcode()); 
 		assertTrue(custodyStatusChangeArrest.getAddress().getLocationLatitude().doubleValue() == 56.1111 ); 
 		assertTrue(custodyStatusChangeArrest.getAddress().getLocationLongitude().doubleValue() == 32.1111 );
-		assertThat(custodyStatusChangeArrest.getArrestAgencyId(), is(2));
+		assertThat(custodyStatusChangeArrest.getArrestAgencyId(), is(22));
 		
 		custodyStatusChangeCharges = analyticalDatastoreDAOImpl.getCustodyStatusChangeCharges( 1 ); 
 		assertThat(custodyStatusChangeCharges.size(), is(1));
@@ -273,11 +272,11 @@ public class CamelContextTest {
 		assertThat(custodyStatusChangeCharge.getChargeCode(), is("Felony"));
 		assertTrue(custodyStatusChangeCharge.getCustodyStatusChangeArrestId() == 1);
 		assertTrue(custodyStatusChangeCharge.getBondAmount().doubleValue() == 500.00); 
-		assertThat(custodyStatusChangeCharge.getBondType().getValue(), is("Property"));
-		assertThat(custodyStatusChangeCharge.getAgencyId(), is(9));
-		assertThat(custodyStatusChangeCharge.getChargeClassTypeId(), is(1));
+		assertThat(custodyStatusChangeCharge.getBondType().getValue(), is("PROPERTY BOND"));
+		assertThat(custodyStatusChangeCharge.getAgencyId(), is(21));
+		assertThat(custodyStatusChangeCharge.getChargeClassTypeId(), is(2));
 		assertThat(custodyStatusChangeCharge.getBondStatusTypeId(), is(4));
-		assertThat(custodyStatusChangeCharge.getChargeJurisdictionTypeId(), is(5));
+		assertThat(custodyStatusChangeCharge.getChargeJurisdictionTypeId(), is(1));
 		
 	}
 	
@@ -310,18 +309,18 @@ public class CamelContextTest {
 		
 		Assert.assertEquals(Integer.valueOf(1), person.getPersonId());
 		assertThat(person.getPersonSexId(), is(2));
-		assertThat(person.getPersonRaceId(), is(8));
-		assertThat(person.getPersonSexDescription(), is("F"));
-		assertThat(person.getPersonRaceDescription(), is("W"));
+		assertThat(person.getPersonRaceId(), is(6));
+		assertThat(person.getPersonSexDescription(), is("Female"));
+		assertThat(person.getPersonRaceDescription(), is("White"));
 		assertThat(person.getLanguage(), is("English"));
 		assertThat(person.getPersonBirthDate(), is(LocalDate.parse("1968-12-17")));
 		Assert.assertEquals("e807f1fcf82d132f9bb018ca6738a19f", person.getPersonUniqueIdentifier());
 		assertThat(person.getLanguageId(), is(1));
 		assertThat(person.getSexOffenderStatusTypeId(), is(1));
-		assertThat(person.getMilitaryServiceStatusType().getValue(), is("HD"));
+		assertThat(person.getMilitaryServiceStatusType().getValue(), is("Honorable Discharge"));
 		
-		Assert.assertTrue(person.getEducationLevelId() == 1);
-		Assert.assertTrue(person.getOccupationId() == 1);
+		assertThat(person.getEducationLevel(), is("High School Graduate"));
+		assertThat(person.getOccupation(), is("Truck Driver"));
 		
 		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAOImpl.getBehavioralHealthAssessments(1);
 		assertFalse(behavioralHealthAssessments.isEmpty());
@@ -336,7 +335,7 @@ public class CamelContextTest {
 		assertThat(behavioralHealthAssessment.getCareEpisodeStartDate(), is(LocalDate.parse("2016-01-01")));
 		assertThat(behavioralHealthAssessment.getCareEpisodeEndDate(), is(LocalDate.parse("2016-04-01")));
 		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
-		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(2));
+		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(1));
 
 		List<Treatment> treatments = analyticalDatastoreDAOImpl.getTreatments(1);
 		assertThat(treatments.size(), is(1));
@@ -344,8 +343,8 @@ public class CamelContextTest {
 		Treatment treatment = treatments.get(0);
 		assertThat(treatment.getBehavioralHealthAssessmentID(), is(1));
 		assertThat(treatment.getTreatmentStartDate(), is(LocalDate.parse("2016-01-01"))); 
-		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), is(2));
-		assertThat(treatment.getTreatmentStatusTypeId(), is(2));
+		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), is(1));
+		assertThat(treatment.getTreatmentStatusTypeId(), is(1));
 		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
 		
 		
@@ -354,21 +353,21 @@ public class CamelContextTest {
 		
 		PrescribedMedication  prescribedMedication = prescribedMedications.get(0);
 		assertThat(prescribedMedication.getBehavioralHealthAssessmentID(), is(1));
-		assertThat(prescribedMedication.getMedicationId(), is(1));
+		assertThat(prescribedMedication.getMedicationDescription(), is("Zyprexa"));
 		assertThat(prescribedMedication.getMedicationDispensingDate(), is(LocalDate.parse("2016-01-01"))); 
 		assertThat(prescribedMedication.getMedicationDoseMeasure(), is("3mg"));
-		assertThat(prescribedMedication.getMedication().getGeneralProductId(), is("58-20-00-60-10-01-05"));
-		assertThat(prescribedMedication.getMedication().getItemName(), is("Zyprexa"));
 		
 		booking = analyticalDatastoreDAOImpl.getBookingByBookingNumber("Booking Number");
 		assertNotNull(booking);
 
 		assertEquals(LocalDateTime.parse("2013-12-17T09:30"), booking.getBookingDateTime());
 		assertThat(booking.getCaseStatusId(), is(4)); 
-		assertTrue(booking.getFacilityId() == 1);
-		assertThat(booking.getSupervisionUnitTypeId(), is(1)); 
+		assertThat(booking.getFacilityId(), is(1));
+		assertThat(booking.getSupervisionUnitTypeId(), is(19)); 
 		assertEquals("Booking Number", booking.getBookingNumber());
 		assertEquals(LocalDate.parse("2014-12-17"), booking.getScheduledReleaseDate());
+		assertThat(booking.getInmateJailResidentIndicator(), is(false)); 
+		assertThat(booking.getCaseStatusId(), is(4));
 		
 		bookingArrests = analyticalDatastoreDAOImpl.getBookingArrests(1);
 		assertFalse(bookingArrests.isEmpty());
@@ -383,7 +382,7 @@ public class CamelContextTest {
 		assertEquals("05408", bookingArrest.getAddress().getPostalcode()); 
 		assertTrue(bookingArrest.getAddress().getLocationLatitude().doubleValue() == 56.1111 ); 
 		assertTrue(bookingArrest.getAddress().getLocationLongitude().doubleValue() == 32.1111 );
-		assertThat(bookingArrest.getArrestAgencyId(), is(3));
+		assertThat(bookingArrest.getArrestAgencyId(), is(29));
 
 		bookingCharges = analyticalDatastoreDAOImpl.getBookingCharges( 1 ); 
 		assertThat(bookingCharges.size(), is(2));
@@ -392,11 +391,11 @@ public class CamelContextTest {
 		assertThat(bookingCharge.getChargeCode(), is("Felony"));
 		assertTrue(bookingCharge.getBookingArrestId() == 1);
 		assertTrue(bookingCharge.getBondAmount().doubleValue() == 500.00); 
-		assertThat(bookingCharge.getBondType().getValue(), is("Deposit"));
-		assertThat(bookingCharge.getAgencyId(), is(9));
+		assertThat(bookingCharge.getBondType().getValue(), is("CASH/SURETY/PROPERTY"));
+		assertThat(bookingCharge.getAgencyId(), is(21));
 		assertThat(bookingCharge.getChargeClassTypeId(), is(1));
 		assertThat(bookingCharge.getBondStatusTypeId(), is(2));
-		assertThat(bookingCharge.getChargeJurisdictionTypeId(), is(5));
+		assertThat(bookingCharge.getChargeJurisdictionTypeId(), is(1));
 		
 		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingId(1);
 		log.info(custodyRelease.toString());
@@ -436,7 +435,7 @@ public class CamelContextTest {
 		assertThat(behavioralHealthAssessment.getCareEpisodeStartDate(), is(LocalDate.parse("2016-01-01")));
 		assertThat(behavioralHealthAssessment.getCareEpisodeEndDate(), is(LocalDate.parse("2016-04-01")));
 		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
-		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(2));
+		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(1));
 
 		List<Treatment> treatments = analyticalDatastoreDAOImpl.getTreatments(3);
 		assertThat(treatments.size(), is(1));
@@ -444,8 +443,8 @@ public class CamelContextTest {
 		Treatment treatment = treatments.get(0);
 		assertThat(treatment.getBehavioralHealthAssessmentID(), is(3));
 		assertThat(treatment.getTreatmentStartDate(), is(LocalDate.parse("2016-01-01"))); 
-		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), is(2));
-		assertThat(treatment.getTreatmentStatusTypeId(), is(2));
+		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), is(1));
+		assertThat(treatment.getTreatmentStatusTypeId(), is(1));
 		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
 		
 		
@@ -454,12 +453,9 @@ public class CamelContextTest {
 		
 		PrescribedMedication  prescribedMedication = prescribedMedications.get(0);
 		assertThat(prescribedMedication.getBehavioralHealthAssessmentID(), is(3));
-		assertThat(prescribedMedication.getMedicationId(), is(1));
+		assertThat(prescribedMedication.getMedicationDescription(), is("Zyprexa"));
 		assertThat(prescribedMedication.getMedicationDispensingDate(), is(LocalDate.parse("2016-01-01"))); 
 		assertThat(prescribedMedication.getMedicationDoseMeasure(), is("3mg"));
-		assertThat(prescribedMedication.getMedication().getGeneralProductId(), is("58-20-00-60-10-01-05"));
-		assertThat(prescribedMedication.getMedication().getItemName(), is("Zyprexa"));
-		
 
 	}
 	
