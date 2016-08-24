@@ -27,41 +27,462 @@
 	xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
 	xmlns:pc-bkg-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<j:Booking>
-		<nc:ActivityDate>
-			<nc:DateTime>2015-12-23T03:02:00Z</nc:DateTime>
-		</nc:ActivityDate>
-		<j:BookingAgency>
-			<nc:OrganizationName>PCSD</nc:OrganizationName>
-		</j:BookingAgency>
-		<j:BookingAgencyRecordIdentification>
-			<nc:IdentificationID>151223012</nc:IdentificationID>
-		</j:BookingAgencyRecordIdentification>
-		<j:BookingSubject>
-		
-			<nc:RoleOfPerson structures:ref="d1e3" />
-			<j:SubjectIdentification></j:SubjectIdentification>
-		</j:BookingSubject>
-	</j:Booking>
-	<nc:Person structures:id="d1e3">
-		<nc:PersonBirthDate>
-			<nc:Date>1985-05-18</nc:Date>
-		</nc:PersonBirthDate>
-		<pc-bkg-codes:PersonEthnicityCode>LATINO</pc-bkg-codes:PersonEthnicityCode>
-		<nc:PersonName>
-			<nc:PersonGivenName>bill</nc:PersonGivenName>
-			<nc:PersonMiddleName>a</nc:PersonMiddleName>
-			<nc:PersonSurName>smith</nc:PersonSurName>
-			<br-ext:PersonNameIdentification>
-				<nc:IdentificationID>99999</nc:IdentificationID>
-			</br-ext:PersonNameIdentification>
-		</nc:PersonName>
-		<pc-bkg-codes:PersonRaceCode>2</pc-bkg-codes:PersonRaceCode>
-		<nc:PersonSexText>F</nc:PersonSexText>
-		<br-ext:PersonBehavioralHealthInformation
-			structures:ref="PBHI_01" />
-		<br-ext:PersonCareEpisode structures:ref="PCE_01" />
-	</nc:Person>
+    <j:Booking>
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-12T00:36:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <j:BookingAgency>
+            <nc:OrganizationName>PCSD</nc:OrganizationName>
+         </j:BookingAgency>
+         <j:BookingAgencyRecordIdentification>
+            <nc:IdentificationID>123456789</nc:IdentificationID>
+         </j:BookingAgencyRecordIdentification>
+         <j:BookingDetentionFacility>
+            <nc:FacilityIdentification>
+               <nc:IdentificationID>Pima County Adult Detention Complex
+					</nc:IdentificationID>
+            </nc:FacilityIdentification>
+         </j:BookingDetentionFacility>
+         <j:BookingSubject>
+            <nc:RoleOfPerson structures:ref="d1e8"/>
+            <j:SubjectIdentification>
+               <nc:IdentificationID>987654321</nc:IdentificationID>
+            </j:SubjectIdentification>
+         </j:BookingSubject>
+         <j:Arrest structures:ref="d1e144"/>
+         <j:Arrest structures:ref="d1e216"/>
+         <j:Arrest structures:ref="d1e610"/>
+         <j:Arrest structures:ref="d1e776"/>
+      </j:Booking>
+      <j:Detention>
+         <br-ext:InmateJailResidentIndicator>
+					true
+				</br-ext:InmateJailResidentIndicator>
+      </j:Detention>
+      <j:Offense structures:id="d1e201">
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <nc:ActivityDescriptionText>OTHER FELONIES</nc:ActivityDescriptionText>
+      </j:Offense>
+      <j:Offense structures:id="d1e272">
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <nc:ActivityDescriptionText>COURT ORDER OTHER</nc:ActivityDescriptionText>
+      </j:Offense>
+      <j:Offense structures:id="d1e318">
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <nc:ActivityDescriptionText>COURT ORDER OTHER</nc:ActivityDescriptionText>
+      </j:Offense>
+      <j:Offense structures:id="d1e364">
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <nc:ActivityDescriptionText>COURT ORDER OTHER</nc:ActivityDescriptionText>
+      </j:Offense>
+      <j:Offense structures:id="d1e410">
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <nc:ActivityDescriptionText>COURT ORDER OTHER</nc:ActivityDescriptionText>
+      </j:Offense>
+      <j:Offense structures:id="d1e457">
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <nc:ActivityDescriptionText>COURT ORDER OTHER</nc:ActivityDescriptionText>
+      </j:Offense>
+      <j:Offense structures:id="d1e503">
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <nc:ActivityDescriptionText>COURT ORDER OTHER</nc:ActivityDescriptionText>
+      </j:Offense>
+      <j:Offense structures:id="d1e549">
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <nc:ActivityDescriptionText>COURT ORDER OTHER</nc:ActivityDescriptionText>
+      </j:Offense>
+      <j:Offense structures:id="d1e595">
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <nc:ActivityDescriptionText>COURT ORDER OTHER</nc:ActivityDescriptionText>
+      </j:Offense>
+      <j:Offense structures:id="d1e667">
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <nc:ActivityDescriptionText>COURT ORDER OTHER</nc:ActivityDescriptionText>
+      </j:Offense>
+      <j:Offense structures:id="d1e714">
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <nc:ActivityDescriptionText>COURT ORDER OTHER</nc:ActivityDescriptionText>
+      </j:Offense>
+      <j:Offense structures:id="d1e761">
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <nc:ActivityDescriptionText>COURT ORDER OTHER</nc:ActivityDescriptionText>
+      </j:Offense>
+      <j:Offense structures:id="d1e833">
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <nc:ActivityDescriptionText>MISDEMEANOR WARRANT</nc:ActivityDescriptionText>
+      </j:Offense>
+      <j:Charge structures:id="d1e168">
+         <j:ChargeDescriptionText>AGGRAVATED HARASSMENT</j:ChargeDescriptionText>
+         <j:ChargeDisposition>
+            <nc:DispositionText>PCJ</nc:DispositionText>
+         </j:ChargeDisposition>
+         <j:ChargeSeverityText>F6</j:ChargeSeverityText>
+         <j:ChargeStatute>
+            <j:StatuteCodeSectionIdentification>
+               <nc:IdentificationID>ARS13-2921.01</nc:IdentificationID>
+            </j:StatuteCodeSectionIdentification>
+         </j:ChargeStatute>
+         <br-ext:ChargeJurisdictionCourt>
+            <j:CourtName>SCXX</j:CourtName>
+         </br-ext:ChargeJurisdictionCourt>
+      </j:Charge>
+      <j:Charge structures:id="d1e240">
+         <j:ChargeDescriptionText>SEXUAL CONDUCT WITH MINOR</j:ChargeDescriptionText>
+         <j:ChargeDisposition>
+            <nc:DispositionText>DOC</nc:DispositionText>
+         </j:ChargeDisposition>
+         <j:ChargeSeverityText>F2</j:ChargeSeverityText>
+         <j:ChargeStatute>
+            <j:StatuteCodeSectionIdentification>
+               <nc:IdentificationID>ARS13-1405</nc:IdentificationID>
+            </j:StatuteCodeSectionIdentification>
+         </j:ChargeStatute>
+         <br-ext:ChargeJurisdictionCourt>
+            <j:CourtName>SCXX</j:CourtName>
+         </br-ext:ChargeJurisdictionCourt>
+      </j:Charge>
+      <j:Charge structures:id="d1e286">
+         <j:ChargeDescriptionText>SEXUAL CONDUCT WITH MINOR</j:ChargeDescriptionText>
+         <j:ChargeDisposition>
+            <nc:DispositionText>DOC</nc:DispositionText>
+         </j:ChargeDisposition>
+         <j:ChargeSeverityText>F2</j:ChargeSeverityText>
+         <j:ChargeStatute>
+            <j:StatuteCodeSectionIdentification>
+               <nc:IdentificationID>ARS13-1405</nc:IdentificationID>
+            </j:StatuteCodeSectionIdentification>
+         </j:ChargeStatute>
+         <br-ext:ChargeJurisdictionCourt>
+            <j:CourtName>SCXX</j:CourtName>
+         </br-ext:ChargeJurisdictionCourt>
+      </j:Charge>
+      <j:Charge structures:id="d1e332">
+         <j:ChargeDescriptionText>SEXUAL CONDUCT WITH MINOR</j:ChargeDescriptionText>
+         <j:ChargeDisposition>
+            <nc:DispositionText>DOC</nc:DispositionText>
+         </j:ChargeDisposition>
+         <j:ChargeSeverityText>F2</j:ChargeSeverityText>
+         <j:ChargeStatute>
+            <j:StatuteCodeSectionIdentification>
+               <nc:IdentificationID>ARS13-1405</nc:IdentificationID>
+            </j:StatuteCodeSectionIdentification>
+         </j:ChargeStatute>
+         <br-ext:ChargeJurisdictionCourt>
+            <j:CourtName>SCXX</j:CourtName>
+         </br-ext:ChargeJurisdictionCourt>
+      </j:Charge>
+      <j:Charge structures:id="d1e378">
+         <j:ChargeDescriptionText>SEXUAL CONDUCT WITH MINOR</j:ChargeDescriptionText>
+         <j:ChargeDisposition>
+            <nc:DispositionText>DM</nc:DispositionText>
+         </j:ChargeDisposition>
+         <j:ChargeSeverityText>F2</j:ChargeSeverityText>
+         <j:ChargeStatute>
+            <j:StatuteCodeSectionIdentification>
+               <nc:IdentificationID>ARS13-1405</nc:IdentificationID>
+            </j:StatuteCodeSectionIdentification>
+         </j:ChargeStatute>
+         <br-ext:ChargeJurisdictionCourt>
+            <j:CourtName>SCXX</j:CourtName>
+         </br-ext:ChargeJurisdictionCourt>
+      </j:Charge>
+      <j:Charge structures:id="d1e425">
+         <j:ChargeDescriptionText>SEXUAL CONDUCT WITH MINOR</j:ChargeDescriptionText>
+         <j:ChargeDisposition>
+            <nc:DispositionText>DM</nc:DispositionText>
+         </j:ChargeDisposition>
+         <j:ChargeSeverityText>F2</j:ChargeSeverityText>
+         <j:ChargeStatute>
+            <j:StatuteCodeSectionIdentification>
+               <nc:IdentificationID>ARS13-1405</nc:IdentificationID>
+            </j:StatuteCodeSectionIdentification>
+         </j:ChargeStatute>
+         <br-ext:ChargeJurisdictionCourt>
+            <j:CourtName>SCXX</j:CourtName>
+         </br-ext:ChargeJurisdictionCourt>
+      </j:Charge>
+      <j:Charge structures:id="d1e471">
+         <j:ChargeDescriptionText>LURE MINOR FOR SEX EXPLOIT</j:ChargeDescriptionText>
+         <j:ChargeDisposition>
+            <nc:DispositionText>DM</nc:DispositionText>
+         </j:ChargeDisposition>
+         <j:ChargeSeverityText>F3</j:ChargeSeverityText>
+         <j:ChargeStatute>
+            <j:StatuteCodeSectionIdentification>
+               <nc:IdentificationID>ARS13-3554A</nc:IdentificationID>
+            </j:StatuteCodeSectionIdentification>
+         </j:ChargeStatute>
+         <br-ext:ChargeJurisdictionCourt>
+            <j:CourtName>SCXX</j:CourtName>
+         </br-ext:ChargeJurisdictionCourt>
+      </j:Charge>
+      <j:Charge structures:id="d1e517">
+         <j:ChargeDescriptionText>AGG LURING MINOR SEXUAL EXPLTN</j:ChargeDescriptionText>
+         <j:ChargeDisposition>
+            <nc:DispositionText>DM</nc:DispositionText>
+         </j:ChargeDisposition>
+         <j:ChargeSeverityText>F2</j:ChargeSeverityText>
+         <j:ChargeStatute>
+            <j:StatuteCodeSectionIdentification>
+               <nc:IdentificationID>ARS13-3560A</nc:IdentificationID>
+            </j:StatuteCodeSectionIdentification>
+         </j:ChargeStatute>
+         <br-ext:ChargeJurisdictionCourt>
+            <j:CourtName>SCXX</j:CourtName>
+         </br-ext:ChargeJurisdictionCourt>
+      </j:Charge>
+      <j:Charge structures:id="d1e563">
+         <j:ChargeDescriptionText>FORGERY</j:ChargeDescriptionText>
+         <j:ChargeDisposition>
+            <nc:DispositionText>DM</nc:DispositionText>
+         </j:ChargeDisposition>
+         <j:ChargeSeverityText>F4</j:ChargeSeverityText>
+         <j:ChargeStatute>
+            <j:StatuteCodeSectionIdentification>
+               <nc:IdentificationID>ARS13-2002</nc:IdentificationID>
+            </j:StatuteCodeSectionIdentification>
+         </j:ChargeStatute>
+         <br-ext:ChargeJurisdictionCourt>
+            <j:CourtName>SCXX</j:CourtName>
+         </br-ext:ChargeJurisdictionCourt>
+      </j:Charge>
+      <j:Charge structures:id="d1e634">
+         <j:ChargeDescriptionText>CRIM IMPERSONATION-FALSE ID</j:ChargeDescriptionText>
+         <j:ChargeDisposition>
+            <nc:DispositionText>TS</nc:DispositionText>
+         </j:ChargeDisposition>
+         <j:ChargeSeverityText>M1</j:ChargeSeverityText>
+         <j:ChargeStatute>
+            <j:StatuteCodeSectionIdentification>
+               <nc:IdentificationID>ARS13-2006A1</nc:IdentificationID>
+            </j:StatuteCodeSectionIdentification>
+         </j:ChargeStatute>
+         <br-ext:ChargeJurisdictionCourt>
+            <j:CourtName>SAH</j:CourtName>
+         </br-ext:ChargeJurisdictionCourt>
+      </j:Charge>
+      <j:Charge structures:id="d1e681">
+         <j:ChargeDescriptionText>CRIM IMPERSONATION-FALSE ID</j:ChargeDescriptionText>
+         <j:ChargeDisposition>
+            <nc:DispositionText>TS</nc:DispositionText>
+         </j:ChargeDisposition>
+         <j:ChargeSeverityText>M1</j:ChargeSeverityText>
+         <j:ChargeStatute>
+            <j:StatuteCodeSectionIdentification>
+               <nc:IdentificationID>ARS13-2006A1</nc:IdentificationID>
+            </j:StatuteCodeSectionIdentification>
+         </j:ChargeStatute>
+         <br-ext:ChargeJurisdictionCourt>
+            <j:CourtName>SAH</j:CourtName>
+         </br-ext:ChargeJurisdictionCourt>
+      </j:Charge>
+      <j:Charge structures:id="d1e728">
+         <j:ChargeDescriptionText>CRIM IMPERSONATION-FALSE ID</j:ChargeDescriptionText>
+         <j:ChargeDisposition>
+            <nc:DispositionText>TS</nc:DispositionText>
+         </j:ChargeDisposition>
+         <j:ChargeSeverityText>M1</j:ChargeSeverityText>
+         <j:ChargeStatute>
+            <j:StatuteCodeSectionIdentification>
+               <nc:IdentificationID>ARS13-2006A1</nc:IdentificationID>
+            </j:StatuteCodeSectionIdentification>
+         </j:ChargeStatute>
+         <br-ext:ChargeJurisdictionCourt>
+            <j:CourtName>SAH</j:CourtName>
+         </br-ext:ChargeJurisdictionCourt>
+      </j:Charge>
+      <j:Charge structures:id="d1e800">
+         <j:ChargeDescriptionText>FAILURE TO PAY FINE</j:ChargeDescriptionText>
+         <j:ChargeDisposition>
+            <nc:DispositionText>AD</nc:DispositionText>
+         </j:ChargeDisposition>
+         <j:ChargeSeverityText>M1</j:ChargeSeverityText>
+         <j:ChargeStatute>
+            <j:StatuteCodeSectionIdentification>
+               <nc:IdentificationID>ARS13-810A</nc:IdentificationID>
+            </j:StatuteCodeSectionIdentification>
+         </j:ChargeStatute>
+         <br-ext:ChargeJurisdictionCourt>
+            <j:CourtName>SAH</j:CourtName>
+         </br-ext:ChargeJurisdictionCourt>
+      </j:Charge>
+      <j:Arrest structures:id="d1e144">
+         <nc:ActivityCategoryText>PC</nc:ActivityCategoryText>
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <j:ArrestAgency>
+            <nc:OrganizationName>SPD</nc:OrganizationName>
+         </j:ArrestAgency>
+         <j:ArrestCharge structures:ref="d1e168"/>
+         <j:ArrestLocation structures:ref="d1e152"/>
+      </j:Arrest>
+      <j:Arrest structures:id="d1e216">
+         <nc:ActivityCategoryText>SUM</nc:ActivityCategoryText>
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <j:ArrestAgency>
+            <nc:OrganizationName>TPD</nc:OrganizationName>
+         </j:ArrestAgency>
+         <j:ArrestCharge structures:ref="d1e240"/>
+         <j:ArrestCharge structures:ref="d1e286"/>
+         <j:ArrestCharge structures:ref="d1e332"/>
+         <j:ArrestCharge structures:ref="d1e378"/>
+         <j:ArrestCharge structures:ref="d1e425"/>
+         <j:ArrestCharge structures:ref="d1e471"/>
+         <j:ArrestCharge structures:ref="d1e517"/>
+         <j:ArrestCharge structures:ref="d1e563"/>
+         <j:ArrestLocation structures:ref="d1e224"/>
+      </j:Arrest>
+      <j:Arrest structures:id="d1e610">
+         <nc:ActivityCategoryText>SUM</nc:ActivityCategoryText>
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <j:ArrestAgency>
+            <nc:OrganizationName>SPD</nc:OrganizationName>
+         </j:ArrestAgency>
+         <j:ArrestCharge structures:ref="d1e634"/>
+         <j:ArrestCharge structures:ref="d1e681"/>
+         <j:ArrestCharge structures:ref="d1e728"/>
+         <j:ArrestLocation structures:ref="d1e618"/>
+      </j:Arrest>
+      <j:Arrest structures:id="d1e776">
+         <nc:ActivityCategoryText>WAR</nc:ActivityCategoryText>
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <j:ArrestAgency>
+            <nc:OrganizationName>PCSD</nc:OrganizationName>
+         </j:ArrestAgency>
+         <j:ArrestCharge structures:ref="d1e800"/>
+         <j:ArrestLocation structures:ref="d1e784"/>
+      </j:Arrest>
+      <nc:Person structures:id="d1e8">
+         <nc:PersonBirthDate>
+            <nc:Date>1959-05-20</nc:Date>
+         </nc:PersonBirthDate>
+         <nc:PersonHeightMeasure>
+            <nc:MeasureValueText>5'10"</nc:MeasureValueText>
+         </nc:PersonHeightMeasure>
+         <nc:PersonName>
+            <nc:PersonGivenName>WALTER</nc:PersonGivenName>
+            <nc:PersonMiddleName>M</nc:PersonMiddleName>
+            <nc:PersonMiddleName>WHITE</nc:PersonMiddleName>
+         </nc:PersonName>
+         <nc:PersonPrimaryLanguage>
+            <nc:LanguageName>ENGL</nc:LanguageName>
+         </nc:PersonPrimaryLanguage>
+         <pc-bkg-codes:PersonRaceCode>5</pc-bkg-codes:PersonRaceCode>
+         <j:PersonSexCode>M</j:PersonSexCode>
+         <nc:PersonWeightMeasure>
+            <nc:MeasureValueText>170</nc:MeasureValueText>
+            <nc:MeasureUnitText>lbs</nc:MeasureUnitText>
+         </nc:PersonWeightMeasure>
+         <br-ext:PersonVeteranBenefitsEligibilityIndicator>true
+			</br-ext:PersonVeteranBenefitsEligibilityIndicator>
+         <br-ext:PersonHomelessIndicator>false
+				</br-ext:PersonHomelessIndicator>
+      </nc:Person>
+      <nc:Location structures:id="d1e152">
+         <nc:Address>
+            <nc:AddressFullText>88 E MINE</nc:AddressFullText>
+         </nc:Address>
+      </nc:Location>
+      <nc:Location structures:id="d1e224">
+         <nc:Address>
+            <nc:AddressFullText>1270 W SILVER</nc:AddressFullText>
+         </nc:Address>
+      </nc:Location>
+      <nc:Location structures:id="d1e618">
+         <nc:Address>
+            <nc:AddressFullText>1270 W SILVER</nc:AddressFullText>
+         </nc:Address>
+      </nc:Location>
+      <nc:Location structures:id="d1e784">
+         <nc:Address>
+            <nc:AddressFullText>1270 W SILVER</nc:AddressFullText>
+         </nc:Address>
+      </nc:Location>
+      <j:OffenseChargeAssociation>
+         <j:Offense structures:ref="d1e201"/>
+         <j:Charge structures:ref="d1e168"/>
+      </j:OffenseChargeAssociation>
+      <j:OffenseChargeAssociation>
+         <j:Offense structures:ref="d1e272"/>
+         <j:Charge structures:ref="d1e240"/>
+      </j:OffenseChargeAssociation>
+      <j:OffenseChargeAssociation>
+         <j:Offense structures:ref="d1e318"/>
+         <j:Charge structures:ref="d1e286"/>
+      </j:OffenseChargeAssociation>
+      <j:OffenseChargeAssociation>
+         <j:Offense structures:ref="d1e364"/>
+         <j:Charge structures:ref="d1e332"/>
+      </j:OffenseChargeAssociation>
+      <j:OffenseChargeAssociation>
+         <j:Offense structures:ref="d1e410"/>
+         <j:Charge structures:ref="d1e378"/>
+      </j:OffenseChargeAssociation>
+      <j:OffenseChargeAssociation>
+         <j:Offense structures:ref="d1e457"/>
+         <j:Charge structures:ref="d1e425"/>
+      </j:OffenseChargeAssociation>
+      <j:OffenseChargeAssociation>
+         <j:Offense structures:ref="d1e503"/>
+         <j:Charge structures:ref="d1e471"/>
+      </j:OffenseChargeAssociation>
+      <j:OffenseChargeAssociation>
+         <j:Offense structures:ref="d1e549"/>
+         <j:Charge structures:ref="d1e517"/>
+      </j:OffenseChargeAssociation>
+      <j:OffenseChargeAssociation>
+         <j:Offense structures:ref="d1e595"/>
+         <j:Charge structures:ref="d1e563"/>
+      </j:OffenseChargeAssociation>
+      <j:OffenseChargeAssociation>
+         <j:Offense structures:ref="d1e667"/>
+         <j:Charge structures:ref="d1e634"/>
+      </j:OffenseChargeAssociation>
+      <j:OffenseChargeAssociation>
+         <j:Offense structures:ref="d1e714"/>
+         <j:Charge structures:ref="d1e681"/>
+      </j:OffenseChargeAssociation>
+      <j:OffenseChargeAssociation>
+         <j:Offense structures:ref="d1e761"/>
+         <j:Charge structures:ref="d1e728"/>
+      </j:OffenseChargeAssociation>
+      <j:OffenseChargeAssociation>
+         <j:Offense structures:ref="d1e833"/>
+         <j:Charge structures:ref="d1e800"/>
+      </j:OffenseChargeAssociation>
 	<br-ext:BehavioralHealthInformation
 		structures:id="PBHI_01">
 		<br-ext:SeriousMentalIllnessIndicator>true
