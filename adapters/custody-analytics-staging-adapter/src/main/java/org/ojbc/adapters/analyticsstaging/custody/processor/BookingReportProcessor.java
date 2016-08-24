@@ -17,7 +17,6 @@
 package org.ojbc.adapters.analyticsstaging.custody.processor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -157,7 +156,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         booking.setCaseStatusId(caseStatusId);
         
         String bookingDate = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
-        booking.setBookingDateTime(LocalDateTime.parse(bookingDate));
+        booking.setBookingDateTime(parseLocalDateTime(bookingDate));
 
         String facility = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/jxdm51:BookingDetentionFacility/nc30:FacilityIdentification/nc30:IdentificationID");
         Integer facilityId = descriptionCodeLookupService.retrieveCode(CodeTable.Facility, facility);

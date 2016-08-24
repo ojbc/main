@@ -83,12 +83,12 @@ import org.w3c.dom.Element;
         "classpath:META-INF/spring/camel-context.xml",
         "classpath:META-INF/spring/cxf-endpoints.xml",      
         "classpath:META-INF/spring/properties-context-adams.xml",
-        "classpath:META-INF/spring/adams-dao.xml",
+        "classpath:META-INF/spring/dao-adams.xml",
         })
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
-public class CamelContextTest {
+public class CamelContextAdamsTest {
 	
-	private static final Log log = LogFactory.getLog( CamelContextTest.class );
+	private static final Log log = LogFactory.getLog( CamelContextAdamsTest.class );
 	
     @Resource
     private ModelCamelContext context;

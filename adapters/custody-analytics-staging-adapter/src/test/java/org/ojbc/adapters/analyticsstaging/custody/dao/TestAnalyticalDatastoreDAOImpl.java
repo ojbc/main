@@ -42,7 +42,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
-		"classpath:META-INF/spring/adams-dao.xml",
+		"classpath:META-INF/spring/dao-adams.xml",
 		"classpath:META-INF/spring/properties-context-adams.xml",
 		"classpath:META-INF/spring/camel-context.xml",
 		"classpath:META-INF/spring/cxf-endpoints.xml"

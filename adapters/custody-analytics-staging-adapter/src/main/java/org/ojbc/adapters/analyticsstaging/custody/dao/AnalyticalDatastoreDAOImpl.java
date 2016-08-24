@@ -1157,6 +1157,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer saveAddress(final Address address) {
         log.debug("Inserting row into the Location table: " + address);
 
+        if (address.isEmpty()){
+        	log.info("The address is empty and is not stored. ");
+        }
+        
         final String sql="INSERT into Location(streetNumber,streetName, addressSecondaryUnit, "
         	        				+ "city, state, postalcode,  "
         	        				+ "LocationLatitude, LocationLongitude) "

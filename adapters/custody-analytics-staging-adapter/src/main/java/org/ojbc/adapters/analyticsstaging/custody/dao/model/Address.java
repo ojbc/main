@@ -18,6 +18,7 @@ package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -100,6 +101,17 @@ public class Address implements Serializable
 
 	public void setLocationLongitude(BigDecimal locationLongitude) {
 		this.locationLongitude = locationLongitude;
+	}
+	
+	public boolean isEmpty(){
+		return 	StringUtils.isBlank(streetNumber) && 
+				StringUtils.isBlank(streetName) && 
+				StringUtils.isBlank(addressSecondaryUnit) && 
+				StringUtils.isBlank(city) && 
+				StringUtils.isBlank(state) && 
+				StringUtils.isBlank(postalcode) && 
+				locationLatitude == null && 
+				locationLongitude == null; 
 	}
 
 }

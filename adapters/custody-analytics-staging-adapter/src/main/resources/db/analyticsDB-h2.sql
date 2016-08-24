@@ -89,7 +89,7 @@ ALTER TABLE Location ADD CONSTRAINT locationid PRIMARY KEY (LocationID);
 
 CREATE SEQUENCE Location_LocationID_seq_2;
 
-CREATE TABLE LanguageType (LanguageTypeID INT AUTO_INCREMENT NOT NULL, LanguageTypeDescription VARCHAR(20) NOT NULL);
+CREATE TABLE LanguageType (LanguageTypeID INT AUTO_INCREMENT NOT NULL, LanguageTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE LanguageType ADD CONSTRAINT languagetypeid PRIMARY KEY (LanguageTypeID);
 

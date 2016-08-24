@@ -27,39 +27,132 @@
 	xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
 	xmlns:pc-bkg-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<j:Booking>
-		<nc:ActivityDate>
-			<nc:DateTime>2015-12-23T03:02:00Z</nc:DateTime>
-		</nc:ActivityDate>
-		<j:BookingAgency>
-			<nc:OrganizationName>PCSD</nc:OrganizationName>
-		</j:BookingAgency>
-		<j:BookingAgencyRecordIdentification>
-			<nc:IdentificationID>151223012</nc:IdentificationID>
-		</j:BookingAgencyRecordIdentification>
-		<j:BookingSubject>
-			<nc:RoleOfPerson structures:ref="d1e3" />
-		</j:BookingSubject>
-	</j:Booking>
-	<nc:Person structures:id="d1e3">
-		<nc:PersonBirthDate>
-			<nc:Date>1985-05-18</nc:Date>
-		</nc:PersonBirthDate>
-		<pc-bkg-codes:PersonEthnicityCode>LATINO</pc-bkg-codes:PersonEthnicityCode>
-		<nc:PersonName>
-			<nc:PersonGivenName>bill</nc:PersonGivenName>
-			<nc:PersonMiddleName>a</nc:PersonMiddleName>
-			<nc:PersonSurName>smith</nc:PersonSurName>
-			<br-ext:PersonNameIdentification>
-				<nc:IdentificationID>99999</nc:IdentificationID>
-			</br-ext:PersonNameIdentification>
-		</nc:PersonName>
-		<pc-bkg-codes:PersonRaceCode>2</pc-bkg-codes:PersonRaceCode>
-		<nc:PersonSexText>F</nc:PersonSexText>
+   <j:Booking>
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-12T00:36:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <j:BookingAgency>
+            <nc:OrganizationName>PCSD</nc:OrganizationName>
+         </j:BookingAgency>
+         <j:BookingAgencyRecordIdentification>
+            <nc:IdentificationID>234567890</nc:IdentificationID>
+         </j:BookingAgencyRecordIdentification>
+         <j:BookingDetentionFacility>
+            <nc:FacilityIdentification>
+               <nc:IdentificationID>Pima County Adult Detention Complex
+					</nc:IdentificationID>
+            </nc:FacilityIdentification>
+         </j:BookingDetentionFacility>
+         <j:BookingSubject>
+            <nc:RoleOfPerson structures:ref="d1e856"/>
+            <j:SubjectIdentification>
+               <nc:IdentificationID>098765432</nc:IdentificationID>
+            </j:SubjectIdentification>
+         </j:BookingSubject>
+         <j:Arrest structures:ref="d1e996"/>
+      </j:Booking>
+      <j:Detention>
+         <j:SupervisionAugmentation>
+            <j:SupervisionAreaIdentification>
+               <nc:IdentificationID>TOWER POD 3D</nc:IdentificationID>
+            </j:SupervisionAreaIdentification>
+         </j:SupervisionAugmentation>
+         <br-ext:InmateJailResidentIndicator>false</br-ext:InmateJailResidentIndicator>
+      </j:Detention>
+      <j:BailBond structures:id="d1e1065">
+         <nc:ActivityIdentification>
+            <nc:IdentificationID>1418703</nc:IdentificationID>
+         </nc:ActivityIdentification>
+         <nc:ActivityStatus>
+            <nc:StatusDescriptionText>ROR</nc:StatusDescriptionText>
+         </nc:ActivityStatus>
+         <j:BailBondAmount>
+            <nc:Amount>250000.00</nc:Amount>
+         </j:BailBondAmount>
+         <j:BailBondIssuerEntity>
+            <nc:EntityOrganization>
+               <nc:OrganizationName>PCSD</nc:OrganizationName>
+            </nc:EntityOrganization>
+         </j:BailBondIssuerEntity>
+         <br-ext:BailBondRemainingAmount>
+            <nc:Amount>250000.00</nc:Amount>
+         </br-ext:BailBondRemainingAmount>
+      </j:BailBond>
+      <j:Offense structures:id="d1e1052">
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <nc:ActivityDescriptionText>MURDER</nc:ActivityDescriptionText>
+      </j:Offense>
+      <j:Charge structures:id="d1e1020">
+         <j:ChargeDescriptionText>MURDER 1ST DEGREE</j:ChargeDescriptionText>
+         <j:ChargeSeverityText>F1</j:ChargeSeverityText>
+         <j:ChargeStatute>
+            <j:StatuteCodeSectionIdentification>
+               <nc:IdentificationID>ARS13-1105</nc:IdentificationID>
+            </j:StatuteCodeSectionIdentification>
+         </j:ChargeStatute>
+         <br-ext:ChargeJurisdictionCourt>
+            <j:CourtName>SCXX</j:CourtName>
+         </br-ext:ChargeJurisdictionCourt>
+      </j:Charge>
+      <j:Arrest structures:id="d1e996">
+         <nc:ActivityCategoryText>PC</nc:ActivityCategoryText>
+         <nc:ActivityDate>
+            <nc:DateTime>2016-05-11T23:40:00Z</nc:DateTime>
+         </nc:ActivityDate>
+         <j:ArrestAgency>
+            <nc:OrganizationName>PCSD</nc:OrganizationName>
+         </j:ArrestAgency>
+         <j:ArrestCharge structures:ref="d1e1020"/>
+         <j:ArrestLocation structures:ref="d1e1004"/>
+      </j:Arrest>
+      <nc:Person structures:id="d1e856">
+         <nc:PersonBirthDate>
+            <nc:Date>1969-01-01</nc:Date>
+         </nc:PersonBirthDate>
+         <nc:PersonHeightMeasure>
+            <nc:MeasureValueText>5'11"</nc:MeasureValueText>
+         </nc:PersonHeightMeasure>
+         <nc:PersonName>
+            <nc:PersonGivenName>HOMER</nc:PersonGivenName>
+            <nc:PersonMiddleName>DONALD</nc:PersonMiddleName>
+            <nc:PersonMiddleName>SIMPSON</nc:PersonMiddleName>
+         </nc:PersonName>
+         <nc:PersonPrimaryLanguage>
+            <nc:LanguageName>ENGL</nc:LanguageName>
+         </nc:PersonPrimaryLanguage>
+         <pc-bkg-codes:PersonRaceCode>5</pc-bkg-codes:PersonRaceCode>
+         <j:PersonSexCode>U</j:PersonSexCode>
+         <nc:PersonWeightMeasure>
+            <nc:MeasureValueText>160</nc:MeasureValueText>
+            <nc:MeasureUnitText>lbs</nc:MeasureUnitText>
+         </nc:PersonWeightMeasure>
+         <br-ext:PersonVeteranBenefitsEligibilityIndicator>true
+			</br-ext:PersonVeteranBenefitsEligibilityIndicator>
+         <br-ext:PersonHomelessIndicator>true
+				</br-ext:PersonHomelessIndicator>
+<br-ext:PersonPersistentIdentification>
+			<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
+			</nc:IdentificationID>
+		</br-ext:PersonPersistentIdentification>
 		<br-ext:PersonBehavioralHealthInformation
 			structures:ref="PBHI_01" />
 		<br-ext:PersonCareEpisode structures:ref="PCE_01" />
-	</nc:Person>
+		</nc:Person>
+      <nc:Location structures:id="d1e1004">
+         <nc:Address>
+            <nc:AddressFullText>6403 E GRANT</nc:AddressFullText>
+         </nc:Address>
+      </nc:Location>
+      <j:OffenseChargeAssociation>
+         <j:Offense structures:ref="d1e1052"/>
+         <j:Charge structures:ref="d1e1020"/>
+      </j:OffenseChargeAssociation>
+      <j:BailBondChargeAssociation>
+         <j:BailBond structures:ref="d1e1065"/>
+         <j:Charge structures:ref="d1e1020"/>
+      </j:BailBondChargeAssociation>
 	<br-ext:BehavioralHealthInformation
 		structures:id="PBHI_01">
 		<br-ext:SeriousMentalIllnessIndicator>true

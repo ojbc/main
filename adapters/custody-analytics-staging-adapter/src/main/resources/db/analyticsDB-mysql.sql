@@ -126,7 +126,7 @@ CREATE TABLE Location (
 
 CREATE TABLE LanguageType (
                 LanguageTypeID INT AUTO_INCREMENT NOT NULL,
-                LanguageTypeDescription VARCHAR(20) NOT NULL,
+                LanguageTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (LanguageTypeID)
 );
 
