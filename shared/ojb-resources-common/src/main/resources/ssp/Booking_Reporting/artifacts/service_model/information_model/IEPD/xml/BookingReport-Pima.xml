@@ -38,7 +38,9 @@
 			<nc:IdentificationID>151223012</nc:IdentificationID>
 		</j:BookingAgencyRecordIdentification>
 		<j:BookingSubject>
+		
 			<nc:RoleOfPerson structures:ref="d1e3" />
+			<j:SubjectIdentification></j:SubjectIdentification>
 		</j:BookingSubject>
 	</j:Booking>
 	<nc:Person structures:id="d1e3">
