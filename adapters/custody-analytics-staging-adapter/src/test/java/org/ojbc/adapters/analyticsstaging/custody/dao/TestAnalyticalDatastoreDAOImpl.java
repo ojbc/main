@@ -74,7 +74,6 @@ public class TestAnalyticalDatastoreDAOImpl {
 		Booking booking = new Booking();
 		
 		booking.setPersonId(personPk);
-		booking.setCaseStatusId(3);
 		booking.setBookingDateTime(LocalDateTime.parse("2013-12-17T09:30:00"));
 		booking.setScheduledReleaseDate(LocalDate.parse("2014-12-17"));
 		booking.setFacilityId(1);

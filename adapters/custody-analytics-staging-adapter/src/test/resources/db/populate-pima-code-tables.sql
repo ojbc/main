@@ -178,7 +178,6 @@ insert into BondStatusType (BondStatusTypeID, BondStatusTypeDescription) values 
 insert into BondStatusType (BondStatusTypeID, BondStatusTypeDescription) values ('5', 'Administrative Clearance');
 insert into BondStatusType (BondStatusTypeID, BondStatusTypeDescription) values ('6', 'Unknown');
 insert into BondType (BondTypeID, BondTypeDescription) values ('1', 'Unknown');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('1', 'Unknown');
 insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values ('1', 'Class 2 felony');
 insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values ('2', 'Class 1 felony');
 insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values ('3', 'Class 3 felony');

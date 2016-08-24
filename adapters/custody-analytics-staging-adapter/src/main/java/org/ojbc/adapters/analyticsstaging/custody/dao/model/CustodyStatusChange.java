@@ -30,7 +30,6 @@ public class CustodyStatusChange implements Serializable{
 	private Integer custodyStatusChangeId;
 	private Integer bookingId;
 	private LocalDateTime bookingDateTime; 
-	private Integer caseStatusId; 
 	private Integer pretrialStatusId; 
 	private Integer facilityId; 
 	private Integer supervisionUnitTypeId; 
@@ -44,14 +43,6 @@ public class CustodyStatusChange implements Serializable{
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);	
-	}
-
-	public Integer getCaseStatusId() {
-		return caseStatusId;
-	}
-
-	public void setCaseStatusId(Integer caseStatusId) {
-		this.caseStatusId = caseStatusId;
 	}
 
 	public Integer getPretrialStatusId() {

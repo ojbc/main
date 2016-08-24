@@ -213,7 +213,6 @@ public class CamelContextPimaTest {
 		assertNotNull(booking);
 
 		assertEquals(LocalDateTime.parse("2016-05-12T00:36:00"), booking.getBookingDateTime());
-		assertThat(booking.getCaseStatusId(), is(1)); 
 		assertThat(booking.getFacilityId(), is(1));
 		assertThat(booking.getSupervisionUnitTypeId(), is(28)); 
 		assertEquals("234567890", booking.getBookingNumber());
@@ -234,6 +233,7 @@ public class CamelContextPimaTest {
 		
 		BookingCharge bookingCharge = bookingCharges.get(0);
 		assertNull(bookingCharge.getChargeCode());
+		assertNull(bookingCharge.getChargeDisposition());
 		assertTrue(bookingCharge.getBookingArrestId() == 1);
 		assertTrue(bookingCharge.getBondAmount().doubleValue() == 250000.00); 
 		assertThat(bookingCharge.getBondType().getValue(), is("Unknown"));
