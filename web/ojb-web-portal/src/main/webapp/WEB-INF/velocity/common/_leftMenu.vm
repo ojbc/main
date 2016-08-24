@@ -54,7 +54,7 @@
 	    		
 	    	#elseif($homePage=="subscriptions")
 	    	
-	    		$.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
+	    		xhr = $.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
 	    		
 					$('#portalContent').html(data);	
 															
@@ -114,7 +114,7 @@
     		 
 		$('#subscriptionsLink').click(function() {	  
 	  				  				  					  					    			    	
-			$.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
+			xhr = $.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
     		
 				$('#portalContent').html(data);	
 														
@@ -132,29 +132,30 @@
     		 
 		$('#rapbackLink').click(function() {	  
 	  				  				  					  					    			    	
-			$.post("#springUrl('/portal/rapbackLeftBar')", function(data) {
-				    	
-    			$('#filterColumn').html(data);
-    			$('#filterColumn').css('visibility', 'visible');
-    		}).fail(ojbc.displayFailMessage);
-    		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
+    		xhr = $.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
 				$('#portalContent').html(data);	
+			}).done(function(){
+				$.post("#springUrl('/portal/rapbackLeftBar')", function(data) {
+								    	
+	    			$('#filterColumn').html(data);
+	    			$('#filterColumn').css('visibility', 'visible');
+	    		}).fail(ojbc.displayFailMessage);
 			}).fail(ojbc.displayFailMessage);
 							    
 			return false;
 		});
 		
 		$('#criminalIdLink').click(function() {	  
-			$.post("#springUrl('/portal/criminalIdentificationLeftBar')", function(data) {
-				    	
-    			$('#filterColumn').html(data);
-    			$('#filterColumn').css('visibility', 'visible');
-    		}).fail(ojbc.displayFailMessage);
-    		
-    		$.post("#springUrl('/rapbacks/criminalIdentificationsResults')", function(data) {
+    		xhr = $.post("#springUrl('/rapbacks/criminalIdentificationsResults')", function(data) {
     		
 				$('#portalContent').html(data);	
 											
+			}).done(function(){
+			    $.post("#springUrl('/portal/criminalIdentificationLeftBar')", function(data) {
+					    	
+	    			$('#filterColumn').html(data);
+	    			$('#filterColumn').css('visibility', 'visible');
+	    		}).fail(ojbc.displayFailMessage);
 			}).fail(ojbc.displayFailMessage);
 							    
 			return false;
