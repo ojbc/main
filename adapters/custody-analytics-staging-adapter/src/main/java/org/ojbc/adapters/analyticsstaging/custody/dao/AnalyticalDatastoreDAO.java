@@ -85,8 +85,6 @@ public interface AnalyticalDatastoreDAO {
 	
 	public Integer getMedicationTypeId(String genericProductIdentification, String medicationTypeDescription);
 	
-	public Integer saveMedicationType(String genericProductIdentification, String medicationTypeDescription);
-	
 	public void saveTreatments(final List<Treatment> treatments);
 	public void saveBehavioralHealthEvaluations(Integer behavioralHealthAssessmentId, final List<String> behavioralHealthDiagnoses);
 	public void savePrescribedMedications(final List<PrescribedMedication> prescribedMedications);

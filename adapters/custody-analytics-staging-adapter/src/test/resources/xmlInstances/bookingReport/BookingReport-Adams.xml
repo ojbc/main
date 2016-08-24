@@ -51,7 +51,7 @@
 		</j:BookingAgencyRecordIdentification>
 		<j:BookingDetentionFacility>
 			<nc:FacilityIdentification>
-				<nc:IdentificationID>Adams County Jail</nc:IdentificationID>
+				<nc:IdentificationID>ACDF</nc:IdentificationID>
 			</nc:FacilityIdentification>
 		</j:BookingDetentionFacility>
 		<j:BookingSubject>
@@ -104,8 +104,7 @@
 		</br-ext:DetentiontImmigrationHoldIndicator>
 		<br-ext:InmateWorkReleaseIndicator>true
 		</br-ext:InmateWorkReleaseIndicator>
-		<br-ext:InmateTemporarilyReleasedIndicator>true
-		</br-ext:InmateTemporarilyReleasedIndicator>
+		<br-ext:InmateJailResidentIndicator>false</br-ext:InmateJailResidentIndicator>
 		<br-ext:InmateWorkerIndicator>false
 		</br-ext:InmateWorkerIndicator>
 		<br-ext:AllowAccountDepositIndicator>true
@@ -115,9 +114,9 @@
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>12345</nc:IdentificationID>
 		</nc:ActivityIdentification>
-		<nc:ActivityCategoryText>Deposit</nc:ActivityCategoryText>
+		<nc:ActivityCategoryText>CSP</nc:ActivityCategoryText>
 		<nc:ActivityStatus>
-			<nc:StatusDescriptionText>Combined Charges</nc:StatusDescriptionText>
+			<nc:StatusDescriptionText>COMB</nc:StatusDescriptionText>
 		</nc:ActivityStatus>
 		<j:BailBondAmount>
 			<nc:Amount>500.00</nc:Amount>
@@ -173,7 +172,7 @@
 		</j:ChargeDisposition>
 		<j:ChargeHighestIndicator>true</j:ChargeHighestIndicator>
 		<j:ChargeSequenceID>Charge Sequence ID</j:ChargeSequenceID>
-		<j:ChargeSeverityText>felony</j:ChargeSeverityText>
+		<j:ChargeSeverityText>f</j:ChargeSeverityText>
 		<j:ChargeStatute>
 			<j:StatuteCodeSectionIdentification>
 				<nc:IdentificationID>Charge Code ID</nc:IdentificationID>
@@ -183,7 +182,7 @@
 			<j:CourtName>Smithville</j:CourtName>
 		</br-ext:ChargeJurisdictionCourt>
 		<br-ext:HoldForAgency>
-			<nc:OrganizationName>Agency</nc:OrganizationName>
+			<nc:OrganizationName>BCSO</nc:OrganizationName>
 		</br-ext:HoldForAgency>
 	</j:Charge>
 	<j:Charge structures:id="Charge_02">
@@ -210,7 +209,7 @@
 			<nc:Date>2016-08-04</nc:Date>
 		</nc:ActivityDate>
 		<j:ArrestAgency>
-			<nc:OrganizationName>Brighton PD</nc:OrganizationName>
+			<nc:OrganizationName>BPD</nc:OrganizationName>
 		</j:ArrestAgency>
 		<j:ArrestCharge structures:ref="Charge_01" />
 		<j:ArrestLocation structures:ref="Loc_01" />
@@ -274,7 +273,7 @@
 			<nc:PhysicalFeatureDescriptionText>Tattoo</nc:PhysicalFeatureDescriptionText>
 		</nc:PersonPhysicalFeature>
 		<nc:PersonPrimaryLanguage>
-			<nc:LanguageName>English</nc:LanguageName>
+			<nc:LanguageName>ENG</nc:LanguageName>
 		</nc:PersonPrimaryLanguage>
 		<j:PersonRaceCode>W</j:PersonRaceCode>
 		<nc:PersonResidentText>Residence</nc:PersonResidentText>
