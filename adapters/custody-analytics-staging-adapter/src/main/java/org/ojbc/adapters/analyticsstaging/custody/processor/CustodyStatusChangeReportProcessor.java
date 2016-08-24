@@ -98,8 +98,10 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 		
 	        String sendingAgency = XmlUtils.xPathStringSearch(chargeNode, "cscr-ext:HoldForAgency/nc30:OrganizationName");
 	        custodyStatusChangeCharge.setAgencyId(descriptionCodeLookupService.retrieveCode(CodeTable.Agency,sendingAgency));
+	        
 	        custodyStatusChangeCharge.setChargeCode(XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeCategoryDescriptionText"));
-			
+	        custodyStatusChangeCharge.setChargeDisposition(XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeDisposition/nc30:DispositionText"));
+
 	        String chargeClassType = XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeSeverityText");
 	        custodyStatusChangeCharge.setChargeClassTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.ChargeClassType, chargeClassType));
 			
@@ -155,10 +157,6 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 		
         Integer personId = processPersonAndBehavioralHealthInfo(personNode, bookingNumber);
         custodyStatusChange.setPersonId(personId);
-        
-        String caseStatus = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Detention/nc30:SupervisionCustodyStatus/nc30:StatusDescriptionText");
-        Integer caseStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.CaseStatusType, caseStatus);
-        custodyStatusChange.setCaseStatusId(caseStatusId);
         
         String bookingDate = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
         custodyStatusChange.setBookingDateTime(parseLocalDateTime(bookingDate));

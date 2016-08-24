@@ -364,14 +364,6 @@ insert into BondType (BondTypeID, BondTypeDescription) values ('19', 'FINES AND 
 insert into BondType (BondTypeID, BondTypeDescription) values ('20', 'SENTENCED');
 insert into BondType (BondTypeID, BondTypeDescription) values ('21', 'SERVED TIME RELEASE');
 insert into BondType (BondTypeID, BondTypeDescription) values ('22', 'Unknown');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('1', 'Awaiting Sentencing');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('2', 'Civil Judgement');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('3', 'Other Non-Sentenced');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('4', 'Pre Trial');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('5', 'Sentenced');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('6', 'Served Time Release');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('7', 'WRIT');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('8', 'Unknown');
 insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values ('1', 'Felony');
 insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values ('2', 'Misdemeanor');
 insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values ('3', 'Petty');

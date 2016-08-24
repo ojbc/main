@@ -243,7 +243,6 @@ public class CamelContextAdamsTest {
 		assertNotNull(custodyStatusChange);
 
 		assertEquals(LocalDateTime.parse("2013-12-17T09:30"), custodyStatusChange.getBookingDateTime());
-		assertThat(custodyStatusChange.getCaseStatusId(), is(4)); 
 		assertThat(custodyStatusChange.getFacilityId(), is(2));
 		assertThat(custodyStatusChange.getSupervisionUnitTypeId(), is(10)); 
 		assertThat(custodyStatusChange.getBookingId(), is(1));
@@ -277,6 +276,7 @@ public class CamelContextAdamsTest {
 		assertThat(custodyStatusChangeCharge.getChargeClassTypeId(), is(2));
 		assertThat(custodyStatusChangeCharge.getBondStatusTypeId(), is(4));
 		assertThat(custodyStatusChangeCharge.getChargeJurisdictionTypeId(), is(1));
+		assertThat(custodyStatusChangeCharge.getChargeDisposition(), is("Disposition"));
 		
 	}
 	
@@ -361,13 +361,11 @@ public class CamelContextAdamsTest {
 		assertNotNull(booking);
 
 		assertEquals(LocalDateTime.parse("2013-12-17T09:30"), booking.getBookingDateTime());
-		assertThat(booking.getCaseStatusId(), is(4)); 
 		assertThat(booking.getFacilityId(), is(1));
 		assertThat(booking.getSupervisionUnitTypeId(), is(19)); 
 		assertEquals("Booking Number", booking.getBookingNumber());
 		assertEquals(LocalDate.parse("2014-12-17"), booking.getScheduledReleaseDate());
 		assertThat(booking.getInmateJailResidentIndicator(), is(false)); 
-		assertThat(booking.getCaseStatusId(), is(4));
 		
 		bookingArrests = analyticalDatastoreDAOImpl.getBookingArrests(1);
 		assertFalse(bookingArrests.isEmpty());
@@ -396,6 +394,7 @@ public class CamelContextAdamsTest {
 		assertThat(bookingCharge.getChargeClassTypeId(), is(1));
 		assertThat(bookingCharge.getBondStatusTypeId(), is(2));
 		assertThat(bookingCharge.getChargeJurisdictionTypeId(), is(1));
+		assertThat(bookingCharge.getChargeDisposition(), is("Disposition"));
 		
 		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingId(1);
 		log.info(custodyRelease.toString());

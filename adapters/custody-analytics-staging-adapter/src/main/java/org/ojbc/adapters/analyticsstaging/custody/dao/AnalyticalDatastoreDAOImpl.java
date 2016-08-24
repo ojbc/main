@@ -245,8 +245,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		log.info("Inserting row into BookingCharge table: " + bookingCharges);
 		final String sqlString=
 				"INSERT INTO BookingCharge (BookingArrestID, ChargeCode, AgencyID, "
-				+ "BondAmount, BondTypeID, ChargeClassTypeID, BondStatusTypeId, ChargeJurisdictionTypeId) "
-				+ "values (?,?,?,?,?,?,?,?)";
+				+ "BondAmount, BondTypeID, ChargeClassTypeID, BondStatusTypeId, ChargeJurisdictionTypeId, ChargeDisposition) "
+				+ "values (?,?,?,?,?,?,?,?,?)";
 		
         jdbcTemplate.batchUpdate(sqlString, new BatchPreparedStatementSetter() {
             public void setValues(PreparedStatement ps, int i)
@@ -267,6 +267,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
                 setPreparedStatementVariable(bookingCharge.getChargeClassTypeId(), ps, 6);
                 setPreparedStatementVariable(bookingCharge.getBondStatusTypeId(), ps, 7);
                 setPreparedStatementVariable(bookingCharge.getChargeJurisdictionTypeId(), ps, 8);
+                setPreparedStatementVariable(bookingCharge.getChargeDisposition(), ps, 9);
             }
 	            
             public int getBatchSize() {
@@ -290,24 +291,24 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	
         	        	if (booking.getBookingId() != null){
         	        		insertArgs = new String[] {
-        	                		"CaseStatusTypeID", "BookingDateTime", "FacilityID","SupervisionUnitTypeID",
+        	                		"BookingDateTime", "FacilityID","SupervisionUnitTypeID",
         	                		"PersonID", "BookingNumber", "ScheduledReleaseDate", "InmateJailResidentIndicator", "BookingID"};
 
         	        		sqlString="INSERT into booking ("
-        	        				+ "CaseStatusTypeID, BookingDateTime, FacilityID, SupervisionUnitTypeID, "
+        	        				+ "BookingDateTime, FacilityID, SupervisionUnitTypeID, "
         	        				+ "PersonID, BookingNumber, ScheduledReleaseDate, InmateJailResidentIndicator, BookingID) "
-        	        				+ "values (?,?,?,?,?,?,?,?,?)";
+        	        				+ "values (?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
         	        		insertArgs = new String[] {
-        	                		"CaseStatusTypeID", "BookingDateTime", "FacilityID","SupervisionUnitTypeID", 
+        	                		"BookingDateTime", "FacilityID","SupervisionUnitTypeID", 
         	                		"PersonID", "BookingNumber", "ScheduledReleaseDate", "InmateJailResidentIndicator"};
 
         	        		sqlString="INSERT into booking ("
-        	        				+ "CaseStatusTypeID, BookingDateTime,"
+        	        				+ "BookingDateTime,"
         	        				+ "FacilityID, SupervisionUnitTypeID,  "
         	        				+ "PersonID, BookingNumber, ScheduledReleaseDate, InmateJailResidentIndicator) "
-        	        				+ "values (?,?,?,?,?,?,?,?)";
+        	        				+ "values (?,?,?,?,?,?,?)";
         	        		
         	        	}	
         	        			
@@ -315,17 +316,16 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            PreparedStatement ps =
         	                connection.prepareStatement(sqlString, insertArgs);
         	            
-        	            setPreparedStatementVariable(booking.getCaseStatusId(), ps, 1);
-        	            setPreparedStatementVariable(booking.getBookingDateTime(), ps, 2);
-        	            setPreparedStatementVariable(booking.getFacilityId(), ps, 3);
-        	            setPreparedStatementVariable(booking.getSupervisionUnitTypeId(), ps, 4);
-        	            setPreparedStatementVariable(booking.getPersonId(), ps, 5);
-        	            setPreparedStatementVariable(booking.getBookingNumber(), ps, 6);
-        	            setPreparedStatementVariable(booking.getScheduledReleaseDate(), ps, 7);
-        	            setPreparedStatementVariable(booking.getInmateJailResidentIndicator(), ps, 8);
+        	            setPreparedStatementVariable(booking.getBookingDateTime(), ps, 1);
+        	            setPreparedStatementVariable(booking.getFacilityId(), ps, 2);
+        	            setPreparedStatementVariable(booking.getSupervisionUnitTypeId(), ps, 3);
+        	            setPreparedStatementVariable(booking.getPersonId(), ps, 4);
+        	            setPreparedStatementVariable(booking.getBookingNumber(), ps, 5);
+        	            setPreparedStatementVariable(booking.getScheduledReleaseDate(), ps, 6);
+        	            setPreparedStatementVariable(booking.getInmateJailResidentIndicator(), ps, 7);
                         
         	            if (booking.getBookingId() != null){
-        	            	setPreparedStatementVariable(booking.getBookingId(), ps, 9);
+        	            	setPreparedStatementVariable(booking.getBookingId(), ps, 8);
         	            }
         	            
         	            return ps;
@@ -386,7 +386,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			Booking booking = new Booking();
 	    	
 			booking.setBookingId(rs.getInt("BookingID"));
-			booking.setCaseStatusId(rs.getInt("CaseStatusTypeID"));
 			booking.setBookingDateTime(rs.getTimestamp("BookingDateTime").toLocalDateTime());
 			booking.setFacilityId(rs.getInt("FacilityID"));
 			booking.setSupervisionUnitTypeId(rs.getInt("SupervisionUnitTypeID"));
@@ -433,6 +432,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			bookingCharge.setBookingArrestId(rs.getInt("bookingArrestId"));
 			
 			bookingCharge.setChargeCode( rs.getString("ChargeCode") );
+			bookingCharge.setChargeDisposition( rs.getString("ChargeDisposition") );
 			
 			bookingCharge.setAgencyId(rs.getInt("AgencyID"));
 			bookingCharge.setChargeClassTypeId(rs.getInt("ChargeClassTypeId"));
@@ -556,29 +556,29 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	
         	        	if (custodyStatusChange.getCustodyStatusChangeId() != null){
        	        		insertArgs = new String[] { 
-        	                		"CaseStatusTypeID", "BookingDateTime",
+        	                		"BookingDateTime",
         	                		"FacilityID","SupervisionUnitTypeID", 
         	                		"PersonID", "BookingId","ScheduledReleaseDate", "InmateJailResidentIndicator", 
         	                		"CustodyStatusChangeID"};
 
         	        		sqlString="INSERT into custodyStatusChange ("
-        	        				+ "CaseStatusTypeID, BookingDateTime,  "
+        	        				+ "BookingDateTime,  "
         	        				+ "FacilityID, SupervisionUnitTypeID, "
         	        				+ "PersonID, BookingId, ScheduledReleaseDate, InmateJailResidentIndicator"
         	        				+ "CustodyStatusChangeID) "
-        	        				+ "values (?,?,?,?,?,?,?,?,?)";
+        	        				+ "values (?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
         	        		insertArgs = new String[] { 
-        	                		"CaseStatusTypeID", "BookingDateTime", 
+        	                		"BookingDateTime", 
         	                		"FacilityID","SupervisionUnitTypeID",
         	                		"PersonID", "BookingId", "ScheduledReleaseDate", "InmateJailResidentIndicator"};
 
         	        		sqlString="INSERT into custodyStatusChange ("
-        	        				+ "CaseStatusTypeID, BookingDateTime, "
+        	        				+ "BookingDateTime, "
         	        				+ "FacilityID, SupervisionUnitTypeID, "
         	        				+ "PersonID, BookingId, ScheduledReleaseDate, InmateJailResidentIndicator) "
-        	        				+ "values (?,?,?,?,?,?,?,?)";
+        	        				+ "values (?,?,?,?,?,?,?)";
         	        		
         	        	}	
         	        			
@@ -586,17 +586,16 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            PreparedStatement ps =
         	                connection.prepareStatement(sqlString, insertArgs);
         	            
-        	            setPreparedStatementVariable(custodyStatusChange.getCaseStatusId(), ps, 1);
-        	            setPreparedStatementVariable(custodyStatusChange.getBookingDateTime(), ps, 2);
-        	            setPreparedStatementVariable(custodyStatusChange.getFacilityId(), ps, 3);
-        	            setPreparedStatementVariable(custodyStatusChange.getSupervisionUnitTypeId(), ps, 4);
-        	            setPreparedStatementVariable(custodyStatusChange.getPersonId(), ps, 5);
-        	            setPreparedStatementVariable(custodyStatusChange.getBookingId(), ps, 6);
-        	            setPreparedStatementVariable(custodyStatusChange.getScheduledReleaseDate(), ps, 7);
-        	            setPreparedStatementVariable(custodyStatusChange.getInmateJailResidentIndicator(), ps, 8);
+        	            setPreparedStatementVariable(custodyStatusChange.getBookingDateTime(), ps, 1);
+        	            setPreparedStatementVariable(custodyStatusChange.getFacilityId(), ps, 2);
+        	            setPreparedStatementVariable(custodyStatusChange.getSupervisionUnitTypeId(), ps, 3);
+        	            setPreparedStatementVariable(custodyStatusChange.getPersonId(), ps, 4);
+        	            setPreparedStatementVariable(custodyStatusChange.getBookingId(), ps, 5);
+        	            setPreparedStatementVariable(custodyStatusChange.getScheduledReleaseDate(), ps, 6);
+        	            setPreparedStatementVariable(custodyStatusChange.getInmateJailResidentIndicator(), ps, 7);
         	            
         	            if (custodyStatusChange.getCustodyStatusChangeId() != null){
-        	            	setPreparedStatementVariable(custodyStatusChange.getCustodyStatusChangeId(), ps, 9);
+        	            	setPreparedStatementVariable(custodyStatusChange.getCustodyStatusChangeId(), ps, 8);
         	            }
         	            
         	            return ps;
@@ -623,8 +622,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		log.info("Inserting row into CustodyStatusChangeCharge table: " + custodyStatusChangeCharges);
 		final String sqlString=
 				"INSERT INTO CustodyStatusChangeCharge (CustodyStatusChangeArrestID, ChargeCode, AgencyID, "
-				+ "BondAmount, BondTypeID, ChargeClassTypeId, BondStatusTypeId, ChargeJurisdictionTypeId ) "
-				+ "values (?,?,?,?,?,?,?,?)";
+				+ "BondAmount, BondTypeID, ChargeClassTypeId, BondStatusTypeId, ChargeJurisdictionTypeId, "
+				+ "ChargeDisposition ) "
+				+ "values (?,?,?,?,?,?,?,?,?)";
 		
         jdbcTemplate.batchUpdate(sqlString, new BatchPreparedStatementSetter() {
             public void setValues(PreparedStatement ps, int i)
@@ -644,6 +644,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
                 setPreparedStatementVariable(custodyStatusChangeCharge.getChargeClassTypeId(), ps, 6);
                 setPreparedStatementVariable(custodyStatusChangeCharge.getBondStatusTypeId(), ps, 7);
                 setPreparedStatementVariable(custodyStatusChangeCharge.getChargeJurisdictionTypeId(), ps, 8);
+                setPreparedStatementVariable(custodyStatusChangeCharge.getChargeDisposition(), ps, 9);
             }
 	            
             public int getBatchSize() {
@@ -672,7 +673,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			CustodyStatusChange custodyStatusChange = new CustodyStatusChange();
 	    	
 			custodyStatusChange.setCustodyStatusChangeId(rs.getInt("CustodyStatusChangeId"));
-			custodyStatusChange.setCaseStatusId(rs.getInt("CaseStatusTypeID"));
 			custodyStatusChange.setBookingDateTime(DaoUtils.getLocalDateTime(rs, "BookingDateTime"));
 			custodyStatusChange.setFacilityId(rs.getInt("FacilityID"));
 			custodyStatusChange.setSupervisionUnitTypeId(rs.getInt("SupervisionUnitTypeID"));
@@ -709,6 +709,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			custodyStatusChangeCharge.setCustodyStatusChangeArrestId(rs.getInt("CustodyStatusChangeArrestId"));
 			
 			custodyStatusChangeCharge.setChargeCode( rs.getString("ChargeCode") );
+			custodyStatusChangeCharge.setChargeDisposition( rs.getString("ChargeDisposition") );
 			
 			custodyStatusChangeCharge.setAgencyId(rs.getInt("AgencyID"));
 			custodyStatusChangeCharge.setBondAmount(rs.getBigDecimal("bondAmount"));

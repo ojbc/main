@@ -27,6 +27,7 @@ public class BookingCharge implements Serializable
 	private Integer bookingChargeId;
     private Integer bookingArrestId; 
     private String chargeCode; 
+    private String chargeDisposition; 
 	private Integer agencyId;
     private BigDecimal bondAmount;
     private KeyValue bondType;
@@ -109,6 +110,14 @@ public class BookingCharge implements Serializable
 
 	public void setChargeJurisdictionTypeId(Integer chargeJurisdictionTypeId) {
 		this.chargeJurisdictionTypeId = chargeJurisdictionTypeId;
+	}
+
+	public String getChargeDisposition() {
+		return chargeDisposition;
+	}
+
+	public void setChargeDisposition(String chargeDisposition) {
+		this.chargeDisposition = chargeDisposition;
 	}
 
 }
