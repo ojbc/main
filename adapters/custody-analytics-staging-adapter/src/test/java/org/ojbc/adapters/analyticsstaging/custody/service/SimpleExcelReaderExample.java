@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -39,19 +38,25 @@ public class SimpleExcelReaderExample {
     public static void main(String[] args) throws IOException {
     	Map<String, Map<String, Integer>> mapOfCodeMaps = new HashMap<String, Map<String, Integer>>();
 
-    	String excelFilePath = "src/test/resources/codeSpreadSheets/AdamsCountyAnalyticsCodeTables.xlsx";
+    	String excelFilePath = "src/test/resources/codeSpreadSheets/PimaCountyAnalyticsCodeTables.xlsx";
         FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
          
         Workbook workbook = new XSSFWorkbook(inputStream);
         
         for (int i=0; i<workbook.getNumberOfSheets(); i++){
         	Sheet sheet = workbook.getSheetAt(i); 
+        	System.out.println("Sheet Name: " + sheet.getSheetName());
         	
         	Map<String, Integer> codePkMap = new HashMap<String, Integer>();
             for (int j = 1; j<=sheet.getLastRowNum(); j++) {
                 Row row = sheet.getRow(j);
                 
-                String codeOrDescription = row.getCell(row.getLastCellNum() -1).getStringCellValue(); 
+                if ( row.getCell(row.getLastCellNum() -1).getCellType() == Cell.CELL_TYPE_NUMERIC){
+                	row.getCell(row.getLastCellNum() -1).setCellType(Cell.CELL_TYPE_STRING);
+                }
+
+                String codeOrDescription = row.getCell(row.getLastCellNum() -1).getStringCellValue();
+                
                 Integer pkId = Double.valueOf(row.getCell(0).getNumericCellValue()).intValue();
                 codePkMap.put(codeOrDescription, pkId);
             }
