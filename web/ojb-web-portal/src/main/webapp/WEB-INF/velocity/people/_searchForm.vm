@@ -19,7 +19,7 @@
 	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
           $.ajaxSetup({ cache: false });
  		  ojbc.handlePlaceholders(); 
-    	  
+ 		  
     	  $('#advancedSearchForm').validate({
                 rules: {
                     "ageRangeStart": {
@@ -82,7 +82,7 @@
                 	ojbc.clearPlaceholders();
                     var formData = $('#advancedSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
                 
-		  	       	$.post("#springUrl('/people/advanceSearch')",formData,function(data) {
+		  	       	xhr = $.post("#springUrl('/people/advanceSearch')",formData,function(data) {
 				        $('#portalContent').html(data);
 			        }).fail(ojbc.displayFailMessage);
 			    }
@@ -93,7 +93,7 @@
                 	ojbc.clearPlaceholders();
                     var formData = $('#juvenileSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
                 
-		  	       	$.post("#springUrl('/people/advanceSearch')",formData,function(data) {
+		  	       	xhr = $.post("#springUrl('/people/advanceSearch')",formData,function(data) {
 				        $('#portalContent').html(data);
 				        }).fail(ojbc.displayFailMessage);
     		  	}
@@ -102,7 +102,7 @@
     		$('#simpleSearchSubmitButton').click (function(){
     		    ojbc.clearPlaceholders();
                 var formData = $('#simpleSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
-		  		$.post("#springUrl('/people/simpleSearch')",formData,function(data) {
+		  		xhr = $.post("#springUrl('/people/simpleSearch')",formData,function(data) {
 				      $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage);
 		  	});

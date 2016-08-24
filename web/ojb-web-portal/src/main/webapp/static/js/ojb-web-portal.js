@@ -21,16 +21,42 @@ jQuery(function() {
 });
 
 $(function() {
+	xhr = null;
 	$.ajaxSetup ({
 	      // Disable caching of AJAX responses on IE.
 	      cache: false
 	});
 	
    ojbc.handlePlaceholders(); 
-   ojbc.maskInputs(); 
+   ojbc.maskInputs();
+   ojbc.handleEsc();
+   $( document ).ajaxStop(function() {
+	   
+	   //Remove the load spinner on popup window detail retrieving
+	   if ($("#modalIframeSpinner").length){
+		   $("#modalIframeSpinner").remove();
+	   }
+   });
 });
 
 ojbc = {
+	
+	handleEsc:function(){
+	   $("body").on("keyup", function(event){
+	  	  if ( event.keyCode == 27 ) {
+	  		  event.preventDefault();
+	  		  event.stopPropagation();
+		  	  if(xhr && xhr.readyState != 4){
+	  	  		  xhr.textStatus="aborted"; 
+				  xhr.abort();
+		  	  }
+		  	  else{
+		  		document.getElementsByTagName('iframe')[0].src = "about:blank";
+		  	  }
+		  }
+	   }); 
+	},
+	
 	clearDefaultValue : function (cssSelector,defaultValue){
 	     if($(cssSelector).val() == defaultValue){
 	          $(cssSelector).val('');
@@ -124,7 +150,12 @@ ojbc = {
 	    	$('#portalContent').html(errorHeader + jqXHR.responseText.substring(excStartIndex,excEndIndex));
     	} else if (jqXHR.status == 0) {
     		// Likely that the SAML assertion timed out -- force reload of the page
-    		window.location.reload();
+    		// Do not reload the if the user aborted the ajax request
+//    		alert(jqXHR.status);
+//    		alert("jqXHR.textStatus: " + jqXHR.textStatus);
+    		if (jqXHR.textStatus != "aborted"){
+    			window.location.reload();
+    		}
     	} else {
     		$('#portalContent').html("<span class='error'>Unable to talk to Server.  Please try again later.</span>");
     	}
@@ -133,7 +164,13 @@ ojbc = {
 	displayIncidentDetailFailMessage : function(jqXHR, textStatus, errorThrown) {
 		if (jqXHR.status == 0) {
     		// Likely that the SAML assertion timed out -- force reload of the iframe's parent page
-			parent.location.reload();
+    		if (jqXHR.textStatus != "aborted"){
+    			parent.location.reload();
+    		}
+    		else{
+    			$("#loadingAjaxPane").hide();                
+    			$("#modalIframeSpinner").hide();
+    		}
     	} else {
     		$('#incidentDetailTabsHolder').html('<table class="detailsTable"><tr><td class="detailsTitle">UNABLE TO VIEW INCIDENT DETAILS</td></tr><tr><td><span class="error">A server-side error occurred. Please re-select the item to try again. If problem persists, contact your IT department.</span></td></tr></table>');
     	}
@@ -142,7 +179,12 @@ ojbc = {
 	displayCustodyDetailFailMessage : function(jqXHR, textStatus, errorThrown) {
 		if (jqXHR.status == 0) {
     		// Likely that the SAML assertion timed out -- force reload of the iframe's parent page
-			parent.location.reload();
+    		if (jqXHR.textStatus != "aborted"){
+    			parent.location.reload();
+    		}
+    		else{
+    			$("#modalIframeSpinner").hide();
+    		}
     	} else {
     		$('#custodyDetailDataHolder').html('<table class="detailsTable"><tr><td class="detailsTitle">UNABLE TO VIEW CUSTODY DETAILS</td></tr><tr><td><span class="error">A server-side error occurred. Please re-select the item to try again. If problem persists, contact your IT department.</span></td></tr></table>');
     	}

@@ -83,7 +83,7 @@
 									// tempDiv for css spinner - replaced upon receipt of get data
 									$('#custodyDetailDataHolder').html(tempDiv);                                         
 								
-									$.get("instanceDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
+									xhr = $.get("instanceDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
 										$('#custodyDetailDataHolder').html(data);
 										
 				  						var modalIframe = $("#modalIframe", parent.document);

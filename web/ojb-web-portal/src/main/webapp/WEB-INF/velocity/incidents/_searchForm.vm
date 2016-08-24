@@ -48,7 +48,7 @@
                     	ojbc.clearPlaceholders();
                         var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
                     
-    		  	       	$.post("#springUrl('/incidents/advanceSearch')",formData,function(data) {
+    		  	       	xhr = $.post("#springUrl('/incidents/advanceSearch')",formData,function(data) {
     				        $('#portalContent').html(data);
     				        }).fail(ojbc.displayFailMessage)
 				    }

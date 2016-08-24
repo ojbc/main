@@ -56,7 +56,7 @@
 	            }else {    			
 			
 	         	var form = $("#filterForm").serialize();
-		  		$.post("#springUrl('/people/filter')",form,function(data) {
+		  		xhr = $.post("#springUrl('/people/filter')",form,function(data) {
 			  			if (data.indexOf("DEMOGRAPHICS") > 40 && data.indexOf("DEMOGRAPHICS") < 60) {
 			  				$('#demogFilterInfo').html(data); 	    		  				
 			  			}
