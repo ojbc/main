@@ -83,12 +83,12 @@ import org.w3c.dom.Element;
         "classpath:META-INF/spring/camel-context.xml",
         "classpath:META-INF/spring/cxf-endpoints.xml",      
         "classpath:META-INF/spring/properties-context-adams.xml",
-        "classpath:META-INF/spring/adams-dao.xml",
+        "classpath:META-INF/spring/dao-adams.xml",
         })
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
-public class CamelContextTest {
+public class CamelContextAdamsTest {
 	
-	private static final Log log = LogFactory.getLog( CamelContextTest.class );
+	private static final Log log = LogFactory.getLog( CamelContextAdamsTest.class );
 	
     @Resource
     private ModelCamelContext context;
@@ -243,7 +243,6 @@ public class CamelContextTest {
 		assertNotNull(custodyStatusChange);
 
 		assertEquals(LocalDateTime.parse("2013-12-17T09:30"), custodyStatusChange.getBookingDateTime());
-		assertThat(custodyStatusChange.getCaseStatusId(), is(4)); 
 		assertThat(custodyStatusChange.getFacilityId(), is(2));
 		assertThat(custodyStatusChange.getSupervisionUnitTypeId(), is(10)); 
 		assertThat(custodyStatusChange.getBookingId(), is(1));
@@ -277,6 +276,7 @@ public class CamelContextTest {
 		assertThat(custodyStatusChangeCharge.getChargeClassTypeId(), is(2));
 		assertThat(custodyStatusChangeCharge.getBondStatusTypeId(), is(4));
 		assertThat(custodyStatusChangeCharge.getChargeJurisdictionTypeId(), is(1));
+		assertThat(custodyStatusChangeCharge.getChargeDisposition(), is("Disposition"));
 		
 	}
 	
@@ -361,13 +361,11 @@ public class CamelContextTest {
 		assertNotNull(booking);
 
 		assertEquals(LocalDateTime.parse("2013-12-17T09:30"), booking.getBookingDateTime());
-		assertThat(booking.getCaseStatusId(), is(4)); 
 		assertThat(booking.getFacilityId(), is(1));
 		assertThat(booking.getSupervisionUnitTypeId(), is(19)); 
 		assertEquals("Booking Number", booking.getBookingNumber());
 		assertEquals(LocalDate.parse("2014-12-17"), booking.getScheduledReleaseDate());
 		assertThat(booking.getInmateJailResidentIndicator(), is(false)); 
-		assertThat(booking.getCaseStatusId(), is(4));
 		
 		bookingArrests = analyticalDatastoreDAOImpl.getBookingArrests(1);
 		assertFalse(bookingArrests.isEmpty());
@@ -396,6 +394,7 @@ public class CamelContextTest {
 		assertThat(bookingCharge.getChargeClassTypeId(), is(1));
 		assertThat(bookingCharge.getBondStatusTypeId(), is(2));
 		assertThat(bookingCharge.getChargeJurisdictionTypeId(), is(1));
+		assertThat(bookingCharge.getChargeDisposition(), is("Disposition"));
 		
 		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingId(1);
 		log.info(custodyRelease.toString());

@@ -1,3 +1,19 @@
+/*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ * 
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2015 Open Justice Broker Consortium
+ */
 insert into Facility (FacilityID, FacilityDescription) values ('1', 'Adams County Detention Facility');
 insert into Facility (FacilityID, FacilityDescription) values ('2', 'Adams County Justice Center');
 insert into Facility (FacilityID, FacilityDescription) values ('3', 'Other Facility');
@@ -348,14 +364,6 @@ insert into BondType (BondTypeID, BondTypeDescription) values ('19', 'FINES AND 
 insert into BondType (BondTypeID, BondTypeDescription) values ('20', 'SENTENCED');
 insert into BondType (BondTypeID, BondTypeDescription) values ('21', 'SERVED TIME RELEASE');
 insert into BondType (BondTypeID, BondTypeDescription) values ('22', 'Unknown');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('1', 'Awaiting Sentencing');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('2', 'Civil Judgement');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('3', 'Other Non-Sentenced');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('4', 'Pre Trial');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('5', 'Sentenced');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('6', 'Served Time Release');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('7', 'WRIT');
-insert into CaseStatusType (CaseStatusTypeID, CaseStatusTypeDescription) values ('8', 'Unknown');
 insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values ('1', 'Felony');
 insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values ('2', 'Misdemeanor');
 insert into ChargeClassType (ChargeClassTypeID, ChargeClassTypeDescription) values ('3', 'Petty');

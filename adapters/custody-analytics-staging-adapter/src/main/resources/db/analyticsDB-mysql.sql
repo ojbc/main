@@ -126,7 +126,7 @@ CREATE TABLE Location (
 
 CREATE TABLE LanguageType (
                 LanguageTypeID INT AUTO_INCREMENT NOT NULL,
-                LanguageTypeDescription VARCHAR(20) NOT NULL,
+                LanguageTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (LanguageTypeID)
 );
 
@@ -244,13 +244,6 @@ CREATE TABLE BehavioralHealthEvaluation (
 );
 
 
-CREATE TABLE CaseStatusType (
-                CaseStatusTypeID INT AUTO_INCREMENT NOT NULL,
-                CaseStatusTypeDescription VARCHAR(100) NOT NULL,
-                PRIMARY KEY (CaseStatusTypeID)
-);
-
-
 CREATE TABLE JurisdictionType (
                 JurisdictionTypeID INT AUTO_INCREMENT NOT NULL,
                 JurisdictionTypeDescription VARCHAR(100) NOT NULL,
@@ -269,7 +262,6 @@ CREATE TABLE Booking (
                 BookingID INT AUTO_INCREMENT NOT NULL,
                 BookingNumber VARCHAR(50) NOT NULL,
                 PersonID INT NOT NULL,
-                CaseStatusTypeID INT,
                 BookingDateTime DATETIME,
                 ScheduledReleaseDate DATE,
                 FacilityID INT,
@@ -294,7 +286,6 @@ CREATE TABLE CustodyStatusChange (
                 CustodyStatusChangeID INT AUTO_INCREMENT NOT NULL,
                 BookingID INT NOT NULL,
                 PersonID INT NOT NULL,
-                CaseStatusTypeID INT,
                 BookingDateTime DATETIME,
                 ScheduledReleaseDate DATE,
                 FacilityID INT,
@@ -319,6 +310,7 @@ CREATE TABLE CustodyStatusChangeCharge (
                 CustodyStatusChangeChargeID INT AUTO_INCREMENT NOT NULL,
                 CustodyStatusChangeArrestID INT NOT NULL,
                 ChargeCode VARCHAR(100),
+                ChargeDisposition VARCHAR(100),
                 AgencyID INT,
                 BondTypeID INT,
                 BondAmount NUMERIC(10,2),
@@ -345,6 +337,7 @@ CREATE TABLE BookingCharge (
                 BookingChargeID INT AUTO_INCREMENT NOT NULL,
                 BookingArrestID INT NOT NULL,
                 ChargeCode VARCHAR(100),
+                ChargeDisposition VARCHAR(100),
                 AgencyID INT,
                 BondTypeID INT,
                 BondAmount NUMERIC(10,2),
@@ -545,18 +538,6 @@ ON UPDATE NO ACTION;
 ALTER TABLE BehavioralHealthAssessmentCategory ADD CONSTRAINT behavioralhealthassessment_behavioralhealthassessmentcategory_fk
 FOREIGN KEY (BehavioralHealthAssessmentID)
 REFERENCES BehavioralHealthAssessment (BehavioralHealthAssessmentID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE Booking ADD CONSTRAINT status_booking_fk
-FOREIGN KEY (CaseStatusTypeID)
-REFERENCES CaseStatusType (CaseStatusTypeID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE CustodyStatusChange ADD CONSTRAINT casestatus_custody_status_change_fk
-FOREIGN KEY (CaseStatusTypeID)
-REFERENCES CaseStatusType (CaseStatusTypeID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 

@@ -32,8 +32,8 @@ import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
-		"classpath:META-INF/spring/dao.xml",
-		"classpath:META-INF/spring/properties-context.xml",
+		"classpath:META-INF/spring/dao-adams.xml",
+		"classpath:META-INF/spring/properties-context-adams.xml",
 		"classpath:META-INF/spring/camel-context.xml",
 		"classpath:META-INF/spring/cxf-endpoints.xml"
 		})
@@ -51,10 +51,10 @@ public class DescriptionCodeLookupServiceTest {
 
 	@Test
 	public void test(){
-		assertEquals(Integer.valueOf(7), descriptionCodeLookupService.retrieveCode(CodeTable.PersonRaceType, "A"));
-		assertEquals(Integer.valueOf(2), descriptionCodeLookupService.retrieveCode(CodeTable.PersonSexType, "F"));
+		assertEquals(Integer.valueOf(1), descriptionCodeLookupService.retrieveCode(CodeTable.PersonRaceType, "Asian"));
+		assertEquals(Integer.valueOf(2), descriptionCodeLookupService.retrieveCode(CodeTable.PersonSexType, "Female"));
 		assertThat(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSexType, "W"), is(3));
-		assertEquals(Integer.valueOf(1),descriptionCodeLookupService.retrieveCode(CodeTable.Agency, "Adams County SO"));
+		assertEquals(Integer.valueOf(3),descriptionCodeLookupService.retrieveCode(CodeTable.Agency, "Adams County SO"));
 	}
 
 }

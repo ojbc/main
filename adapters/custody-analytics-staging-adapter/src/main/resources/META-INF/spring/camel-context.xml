@@ -54,6 +54,9 @@
  		<endpoint id="custodyStatusChangeReportingServiceAdapterEndpoint"
 			uri="cxf:bean:custodyStatusChangeReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{custody.stagingAdapter.cxflogging}}" />
 
+		<endpoint id="custodyStatusChangeReportingFileEndpoint"
+			uri="file://{{custody.stagingAdapter.inputDirectory}}/custodyStatusChangeReport/input?idempotent=true&amp;moveFailed={{custody.stagingAdapter.inputDirectory}}/custodyStatusChangeReport/error&amp;recursive=true&amp;delete=true&amp;maxMessagesPerPoll=100" />
+
 		<endpoint id="invocationFailedFileEndpoint"
 			uri="file://{{custody.stagingAdapter.inputDirectory}}/failed" />
 
@@ -140,10 +143,23 @@
 			
 		</camel:route>
 			
-		<camel:route id="custody_status_change_reporting_service_process_report" startupOrder="4">
-			
+		<camel:route id="custody_status_change_reporting_service" >
+		
 			<camel:from	uri="custodyStatusChangeReportingServiceAdapterEndpoint" />
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:to uri="direct:processCustodyStatusChangeReport" />
+			
+		</camel:route>	
+		
+		<camel:route id="custody_status_change_reporting_Filedrop">
+			<camel:from	uri="custodyStatusChangeReportingFileEndpoint" />
+			<camel:to uri="direct:processCustodyStatusChangeReport" />
+		</camel:route>
+		
+		<camel:route id="custody_status_change_reporting_service_process_report" startupOrder="4">
+			
+			<camel:from	uri="direct:processCustodyStatusChangeReport" />
 			
 			<camel:doTry>
 						

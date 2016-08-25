@@ -51,6 +51,22 @@ public class SqlScriptFromExcelGenerator {
          
         Workbook workbook = new XSSFWorkbook(inputStream);
         StringBuilder sb = new StringBuilder(); 
+        sb.append("/*\n "
+        		+ "* Unless explicitly acquired and licensed from Licensor under another license, the contents of\n "
+        		+ "* this file are subject to the Reciprocal Public License (\"RPL\") Version 1.5, or subsequent\n "
+        		+ "* versions as allowed by the RPL, and You may not copy or use this file in either source code\n "
+        		+ "* or executable form, except in compliance with the terms and conditions of the RPL\n "
+        		+ "* \n "
+        		+ "* All software distributed under the RPL is provided strictly on an \"AS IS\" basis, WITHOUT\n "
+        		+ "* WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH\n "
+        		+ "* WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A\n "
+        		+ "* PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language\n "
+        		+ "* governing rights and limitations under the RPL.\n "
+        		+ "*\n "
+        		+ "* http://opensource.org/licenses/RPL-1.5\n "
+        		+ "*\n "
+        		+ "* Copyright 2012-2015 Open Justice Broker Consortium\n "
+        		+ "*/\n");
         
         for (int i=0; i<workbook.getNumberOfSheets(); i++){
         	Sheet sheet = workbook.getSheetAt(i); 
