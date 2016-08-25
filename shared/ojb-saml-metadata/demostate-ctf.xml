@@ -1869,7 +1869,8 @@ hYMOgObvaR34TNlw33Y3B5pRGJII3VMBdb2oexS34Xk=
 </md:EntityDescriptor>
 
 <!-- Pima County Analytics web server -->
-<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="_1cc0993e60bd10d13b950eb8530f1b209693c5c4" entityID="https://jhda-idp.pima.gov/shibboleth">
+
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="_00274053033418779620676c9d263693d08275e3" entityID="https://jhda-bi.pima.gov/shibboleth">
 
   <md:Extensions xmlns:alg="urn:oasis:names:tc:SAML:metadata:algsupport">
     <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/>
@@ -1948,6 +1949,5 @@ XrReiYZdKjFXBJSvAUwk3y/sBYUp9POxSzvbunttzIkwLDpERpc=
   </md:SPSSODescriptor>
 
 </md:EntityDescriptor>
-
 
 </EntitiesDescriptor>
