@@ -25,7 +25,6 @@ public enum CodeTable {
 	AssessmentCategoryType,
 	BondStatusType, 
 	BondType, 
-	CaseStatusType, 
 	ChargeClassType, 
 	DomicileStatusType, 
 	Facility,

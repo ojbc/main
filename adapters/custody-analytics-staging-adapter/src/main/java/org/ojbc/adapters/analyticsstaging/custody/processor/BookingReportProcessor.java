@@ -17,7 +17,6 @@
 package org.ojbc.adapters.analyticsstaging.custody.processor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,6 +102,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 		        bookingCharge.setAgencyId(descriptionCodeLookupService.retrieveCode(CodeTable.Agency,sendingAgency));
 
 		        bookingCharge.setChargeCode(XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeCategoryDescriptionText"));
+		        bookingCharge.setChargeDisposition(XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeDisposition/nc30:DispositionText"));
 				
 				String chargeClassType = XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeSeverityText");
 				bookingCharge.setChargeClassTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.ChargeClassType, chargeClassType));
@@ -152,12 +152,8 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         
         Node bookingReportNode = XmlUtils.xPathNodeSearch(report, "/br-doc:BookingReport");
         
-        String caseStatus = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Detention/nc30:SupervisionCustodyStatus/nc30:StatusDescriptionText");
-        Integer caseStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.CaseStatusType, caseStatus);
-        booking.setCaseStatusId(caseStatusId);
-        
         String bookingDate = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
-        booking.setBookingDateTime(LocalDateTime.parse(bookingDate));
+        booking.setBookingDateTime(parseLocalDateTime(bookingDate));
 
         String facility = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/jxdm51:BookingDetentionFacility/nc30:FacilityIdentification/nc30:IdentificationID");
         Integer facilityId = descriptionCodeLookupService.retrieveCode(CodeTable.Facility, facility);

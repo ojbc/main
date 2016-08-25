@@ -26,6 +26,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -78,6 +79,10 @@ public class DescriptionCodeLookupFromExcelService
             for (int j = 1; j<=sheet.getLastRowNum(); j++) {
                 Row row = sheet.getRow(j);
                 
+                if ( row.getCell(row.getLastCellNum() -1).getCellType() == Cell.CELL_TYPE_NUMERIC){
+                	row.getCell(row.getLastCellNum() -1).setCellType(Cell.CELL_TYPE_STRING);
+                }
+              
                 String codeOrDescription = StringUtils.upperCase(row.getCell(row.getLastCellNum() -1).getStringCellValue()); 
                 Integer pkId = Double.valueOf(row.getCell(0).getNumericCellValue()).intValue();
                 codePkMap.put(codeOrDescription, pkId);

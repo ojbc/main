@@ -27,6 +27,7 @@ public class CustodyStatusChangeCharge implements Serializable
 	private Integer custodyStatusChangeChargeId;
     private Integer custodyStatusChangeArrestId; 
     private String chargeCode; 
+    private String chargeDisposition; 
 	private Integer agencyId;
     private BigDecimal bondAmount; 
     private KeyValue bondType;
@@ -111,6 +112,14 @@ public class CustodyStatusChangeCharge implements Serializable
 
 	public void setChargeJurisdictionTypeId(Integer chargeJurisdictionTypeId) {
 		this.chargeJurisdictionTypeId = chargeJurisdictionTypeId;
+	}
+
+	public String getChargeDisposition() {
+		return chargeDisposition;
+	}
+
+	public void setChargeDisposition(String chargeDisposition) {
+		this.chargeDisposition = chargeDisposition;
 	}
 
 }

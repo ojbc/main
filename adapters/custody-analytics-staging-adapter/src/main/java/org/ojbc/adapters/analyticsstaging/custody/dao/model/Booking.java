@@ -29,7 +29,6 @@ public class Booking implements Serializable{
 	//pk
 	private Integer bookingId;
 	private LocalDateTime bookingDateTime; 
-	private Integer caseStatusId; 
 	private Integer facilityId; 
 	private Integer supervisionUnitTypeId; 
 	private Integer personId; 
@@ -48,14 +47,6 @@ public class Booking implements Serializable{
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);	
-	}
-
-	public Integer getCaseStatusId() {
-		return caseStatusId;
-	}
-
-	public void setCaseStatusId(Integer caseStatusId) {
-		this.caseStatusId = caseStatusId;
 	}
 
 	public Integer getFacilityId() {

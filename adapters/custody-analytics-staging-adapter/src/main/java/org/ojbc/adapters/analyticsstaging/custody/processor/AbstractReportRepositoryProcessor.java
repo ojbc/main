@@ -71,7 +71,7 @@ public abstract class AbstractReportRepositoryProcessor {
 		
 		String personRaceCode=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonRaceCode");
 		if (StringUtils.isBlank(personRaceCode)){
-			personRaceCode=XmlUtils.xPathStringSearch(personNode, "ac-bkg-codes:PersonRaceCode");
+			personRaceCode=XmlUtils.xPathStringSearch(personNode, "pc-bkg-codes:PersonRaceCode");
 		}
 		person.setPersonRaceCode(personRaceCode);
 		person.setPersonRaceId(descriptionCodeLookupService.retrieveCode(CodeTable.PersonRaceType, personRaceCode));
@@ -107,7 +107,7 @@ public abstract class AbstractReportRepositoryProcessor {
  		person.setDomicileStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.DomicileStatusType, domicileStatusType));
 
  		Boolean personVeteranBenefitsEligibilityIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonVeteranBenefitsEligibilityIndicator"));
- 		String programEligibilityType = BooleanUtils.toString(personVeteranBenefitsEligibilityIndicator, "veterans benefits", "none", "Unknown"); 
+ 		String programEligibilityType = BooleanUtils.toString(personVeteranBenefitsEligibilityIndicator, "Veteran Services", "none", "Unknown"); 
  		person.setProgramEligibilityTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.ProgramEligibilityType, programEligibilityType));
  		
  		Boolean inmateWorkReleaseIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, "preceding-sibling::jxdm51:Detention/" + extPrefix + ":InmateWorkReleaseIndicator"));
@@ -335,7 +335,10 @@ public abstract class AbstractReportRepositoryProcessor {
 		
 		try{
 			if (StringUtils.isNotBlank(dateTimeString)){
-				return LocalDateTime.parse(StringUtils.substringBefore(dateTimeString, "."));
+				if (dateTimeString.length() > 19){
+					dateTimeString = dateTimeString.substring(0, 19);
+				}
+				return LocalDateTime.parse(dateTimeString);
 			}
 			else{
 				log.error("The dateTimeString can not be blank");
