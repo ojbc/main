@@ -54,6 +54,7 @@
     <module>organization-identification-results-search-service-intermediary</module>
     <module>ndex-submission-service-intermediary</module>
     <module>parole-event-handler-service-intermediary</module>
+    <module>person-health-information-search-service-intermediary</module>
     <module>person-query-service-criminal-history-intermediary</module>
     <module>person-query-service-vehicle-crash-intermediary</module>
     <module>person-query-service-warrants-intermediary</module>
