@@ -89,7 +89,4 @@ public interface AnalyticalDatastoreDAO {
 	public void saveBehavioralHealthEvaluations(Integer behavioralHealthAssessmentId, final List<String> behavioralHealthDiagnoses);
 	public void savePrescribedMedications(final List<PrescribedMedication> prescribedMedications);
 
-	public Integer saveBehavioralHealthDiagnosisType(String evaluationDiagnosisDescriptionText);
-
-
 }
