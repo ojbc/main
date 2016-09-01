@@ -39,12 +39,13 @@ public class SqlScriptFromExcelGenerator {
      
     public static void main(String[] args) throws IOException {
         generatePolulateCodeTableScript("src/test/resources/db/populate-adams-code-tables.sql", 
-        		"src/test/resources/codeSpreadSheets/AdamsCountyAnalyticsCodeTables.xlsx");
+        		"src/test/resources/codeSpreadSheets/AdamsCountyAnalyticsCodeTables.xlsx", false);
         generatePolulateCodeTableScript("src/test/resources/db/populate-pima-code-tables.sql", 
-        		"src/test/resources/codeSpreadSheets/PimaCountyAnalyticsCodeTables.xlsx");
+        		"src/test/resources/codeSpreadSheets/PimaCountyAnalyticsCodeTables.xlsx", false);
     }
 
-	private static void generatePolulateCodeTableScript(String sqlScriptPath, String excelFilePath) throws FileNotFoundException, IOException {
+	private static void generatePolulateCodeTableScript(String sqlScriptPath, String excelFilePath, boolean isSqlServerInsert) 
+				throws FileNotFoundException, IOException {
 		Path adamsSqlPath = Paths.get(sqlScriptPath);
 
         FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
@@ -71,6 +72,9 @@ public class SqlScriptFromExcelGenerator {
         for (int i=0; i<workbook.getNumberOfSheets(); i++){
         	Sheet sheet = workbook.getSheetAt(i); 
         
+        	if (isSqlServerInsert){
+        		sb.append("SET IDENTITY_INSERT dbo." + sheet.getSheetName() + " ON;\n");
+        	}
         	String idColumnName = sheet.getRow(0).getCell(0).getStringCellValue(); 
         	String descriptionColumnName = sheet.getRow(0).getCell(1).getStringCellValue(); 
 
@@ -87,6 +91,9 @@ public class SqlScriptFromExcelGenerator {
                 sb.append(insertString);
             }
             
+        	if (isSqlServerInsert){
+        		sb.append("SET IDENTITY_INSERT dbo." + sheet.getSheetName() + " OFF;\n");
+        	}
         }
          
         workbook.close();
