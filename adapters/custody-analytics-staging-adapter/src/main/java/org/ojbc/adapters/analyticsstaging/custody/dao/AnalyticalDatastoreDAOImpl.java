@@ -83,7 +83,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(personSexInsertStatement, new String[] {"PersonSexTypeDescription"});
+        	                connection.prepareStatement(personSexInsertStatement, new String[] {"PersonSexTypeID"});
         	            ps.setString(1, personSex.getPersonSexDescription());
         	            return ps;
         	        }
@@ -104,7 +104,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(personRaceInsertStatement, new String[] {"PersonRaceTypeDescription"});
+        	                connection.prepareStatement(personRaceInsertStatement, new String[] {"PersonRaceTypeID"});
         	            ps.setString(1, personRace.getPersonRaceDescription());
         	            return ps;
         	        }
@@ -131,11 +131,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(personStatement, 
-        	                		new String[] {"PersonSexTypeID", "PersonRaceTypeID", "PersonBirthDate", 
-        	                		"PersonUniqueIdentifier", "LanguageTypeID", 
-        	                		"SexOffenderStatusTypeID","PersonAgeAtBooking", "EducationLevel", 
-        	                		"Occupation", "DomicileStatusTypeID", "militaryServiceStatusTypeID",
-        	                		"PersonEthnicityTypeID", "ProgramEligibilityTypeID", "WorkReleaseStatusTypeID"});
+        	                		java.sql.Statement.RETURN_GENERATED_KEYS);
 
         	            
         	            setPreparedStatementVariable(person.getPersonSexId(), ps, 1);
@@ -287,12 +283,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	        	
         	        	String sqlString="";
-        	        	String[] insertArgs = null;
         	        	
         	        	if (booking.getBookingId() != null){
-        	        		insertArgs = new String[] {
-        	                		"BookingDateTime", "FacilityID","SupervisionUnitTypeID",
-        	                		"PersonID", "BookingNumber", "ScheduledReleaseDate", "InmateJailResidentIndicator", "BookingID"};
 
         	        		sqlString="INSERT into booking ("
         	        				+ "BookingDateTime, FacilityID, SupervisionUnitTypeID, "
@@ -300,9 +292,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        				+ "values (?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
-        	        		insertArgs = new String[] {
-        	                		"BookingDateTime", "FacilityID","SupervisionUnitTypeID", 
-        	                		"PersonID", "BookingNumber", "ScheduledReleaseDate", "InmateJailResidentIndicator"};
 
         	        		sqlString="INSERT into booking ("
         	        				+ "BookingDateTime,"
@@ -312,9 +301,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        		
         	        	}	
         	        			
-        	        	
         	            PreparedStatement ps =
-        	                connection.prepareStatement(sqlString, insertArgs);
+        	                connection.prepareStatement(sqlString, java.sql.Statement.RETURN_GENERATED_KEYS);
         	            
         	            setPreparedStatementVariable(booking.getBookingDateTime(), ps, 1);
         	            setPreparedStatementVariable(booking.getFacilityId(), ps, 2);
@@ -552,14 +540,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	        	
         	        	String sqlString="";
-        	        	String[] insertArgs = null;
         	        	
         	        	if (custodyStatusChange.getCustodyStatusChangeId() != null){
-       	        		insertArgs = new String[] { 
-        	                		"BookingDateTime",
-        	                		"FacilityID","SupervisionUnitTypeID", 
-        	                		"PersonID", "BookingId","ScheduledReleaseDate", "InmateJailResidentIndicator", 
-        	                		"CustodyStatusChangeID"};
 
         	        		sqlString="INSERT into custodyStatusChange ("
         	        				+ "BookingDateTime,  "
@@ -569,10 +551,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        				+ "values (?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
-        	        		insertArgs = new String[] { 
-        	                		"BookingDateTime", 
-        	                		"FacilityID","SupervisionUnitTypeID",
-        	                		"PersonID", "BookingId", "ScheduledReleaseDate", "InmateJailResidentIndicator"};
 
         	        		sqlString="INSERT into custodyStatusChange ("
         	        				+ "BookingDateTime, "
@@ -584,7 +562,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        			
         	        	
         	            PreparedStatement ps =
-        	                connection.prepareStatement(sqlString, insertArgs);
+        	                connection.prepareStatement(sqlString, java.sql.Statement.RETURN_GENERATED_KEYS);
         	            
         	            setPreparedStatementVariable(custodyStatusChange.getBookingDateTime(), ps, 1);
         	            setPreparedStatementVariable(custodyStatusChange.getFacilityId(), ps, 2);
@@ -740,16 +718,13 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	        	
         	        	String sqlString="";
-        	        	String[] insertArgs = null;
         	        	
         	        	if (bookingArrest.getBookingArrestId() != null){
-        	        		insertArgs = new String[] {"bookingId", "locationId", "arrestAgencyId", "bookingArrestId"};
 
         	        		sqlString="INSERT into bookingArrest (bookingId, locationId, arrestAgencyId, bookingArrestId) "
         	        				+ "values (?,?,?,?)";
         	        	}	
         	        	else{
-        	        		insertArgs = new String[] {"bookingId", "locationId", "arrestAgencyId"};
 
         	        		sqlString="INSERT into bookingArrest (bookingId, locationId, arrestAgencyId) "
         	        				+ "values (?,?,?)";
@@ -757,7 +732,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	}	
         	        	
         	            PreparedStatement ps =
-        	                connection.prepareStatement(sqlString, insertArgs);
+        	                connection.prepareStatement(sqlString, java.sql.Statement.RETURN_GENERATED_KEYS);
         	            ps.setInt(1, bookingArrest.getBookingId());
         	            
         	            setPreparedStatementVariable(locationId, ps, 2);
@@ -795,13 +770,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	        	
         	        	String sqlString="";
-        	        	String[] insertArgs = null;
         	        	
         	        	if (assessment.getBehavioralHealthAssessmentId()!= null){
-        	        		insertArgs = new String[] {"personId", "seriousMentalIllnessIndicator", 
-        	                		"careEpisodeStartDate", "careEpisodeEndDate", 
-        	                		"MedicaidStatusTypeId", "EnrolledProviderName", "behavioralHealthAssessmentId"};
-
         	        		sqlString="INSERT into BehavioralHealthAssessment (personId, seriousMentalIllnessIndicator,"
         	        				+ "careEpisodeStartDate, careEpisodeEndDate,"
         	        				+ "MedicaidStatusTypeId, "
@@ -809,9 +779,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        				+ "values (?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
-        	        		insertArgs = new String[] {"personId", "seriousMentalIllnessIndicator", 
-        	                		"careEpisodeStartDate", "careEpisodeEndDate", 
-        	                		"MedicaidStatusTypeId", "EnrolledProviderName"};
 
         	        		sqlString="INSERT into BehavioralHealthAssessment (personId, seriousMentalIllnessIndicator,"
         	        				+ "careEpisodeStartDate, careEpisodeEndDate,"
@@ -822,7 +789,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        			
         	        	
         	            PreparedStatement ps =
-        	                connection.prepareStatement(sqlString, insertArgs);
+        	                connection.prepareStatement(sqlString, java.sql.Statement.RETURN_GENERATED_KEYS);
         	            ps.setInt(1, assessment.getPersonId());
         	            
         	            setPreparedStatementVariable(assessment.getSeriousMentalIllness(), ps, 2);
@@ -936,28 +903,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 
 	@Override
-	public Integer saveBehavioralHealthDiagnosisType(
-			String evaluationDiagnosisDescriptionText) {
-        log.debug("Inserting row into the BehavioralHealthDiagnosisType table");
-
-        final String sql="INSERT into BehavioralHealthDiagnosisType (BehavioralHealthDescription) values (?)";
-        
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(sql, new String[] {"BehavioralHealthDescription"});
-        	            ps.setString(1, evaluationDiagnosisDescriptionText);
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();
-	}
-
-	@Override
 	public List<BookingArrest> getBookingArrests(Integer bookingId) {
 		final String sql = "SELECT * FROM BookingArrest a "
 				+ "LEFT JOIN location l ON l.locationId = a.locationId "
@@ -1055,24 +1000,18 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	        	
         	        	String sqlString="";
-        	        	String[] insertArgs = null;
         	        	
         	        	if (custodyStatusChangeArrest.getCustodyStatusChangeArrestId() != null){
-        	        		insertArgs = new String[] {"custodyStatusChangeId", "locationId", "arrestAgencyId", "custodyStatusChangeArrestId"};
-
         	        		sqlString="INSERT into CustodyStatusChangeArrest (custodyStatusChangeId, locationId, arrestAgencyId, custodyStatusChangeArrestId) "
         	        				+ "values (?,?,?,?)";
         	        	}	
         	        	else{
-        	        		insertArgs = new String[] {"custodyStatusChangeId", "locationId", "arrestAgencyId"};
-
         	        		sqlString="INSERT into CustodyStatusChangeArrest (custodyStatusChangeId, locationId, arrestAgencyId) "
         	        				+ "values (?,?,?)";
-        	        		
         	        	}	
         	        	
         	            PreparedStatement ps =
-        	                connection.prepareStatement(sqlString, insertArgs);
+        	                connection.prepareStatement(sqlString, java.sql.Statement.RETURN_GENERATED_KEYS);
         	            ps.setInt(1, custodyStatusChangeArrest.getCustodyStatusChangeId());
         	            
         	            setPreparedStatementVariable(locationId, ps, 2);
@@ -1172,9 +1111,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	    new PreparedStatementCreator() {
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
-        	                connection.prepareStatement(sql, new String[] {"streetNumber","streetName", 
-        	                		"addressSecondaryUnit", "city", "state", "postalcode",
-        	                		"LocationLatitude", "LocationLongitude"});
+        	                connection.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
         	            setPreparedStatementVariable(address.getStreetNumber(), ps, 1);
         	            setPreparedStatementVariable(address.getStreetName(), ps, 2);
         	            setPreparedStatementVariable(address.getAddressSecondaryUnit(), ps, 3);
