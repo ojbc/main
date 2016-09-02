@@ -33,6 +33,9 @@
 		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
 		<property name="propertiesArray">
 			<array>
+				<util:properties>
+					<prop key="personHealth.enrichContentURI"></prop>
+				</util:properties>			
 				<util:properties
 					location="classpath:person_health_information_search_service_adapter.cfg" />
 			</array>
