@@ -79,6 +79,9 @@ public class CamelContextTest {
     @EndpointInject(uri = "mock:cxf:bean:personHealthSearchIntermediaryResultsService")
     protected MockEndpoint personHealthResponseEndpoint;
     
+    @EndpointInject(uri = "mock:log:org.ojbc.intermediaries.personhealthinformation")
+    protected MockEndpoint loggingEndpoint;
+    
 	@Before
 	public void setUp() throws Exception {
 		
@@ -88,6 +91,8 @@ public class CamelContextTest {
     	    	
     	    	// bypass CXF and send a message directly into the route
     	    	replaceFromWith("direct:personHealthRequestRouteMockEntry");
+    	    	
+    	    	mockEndpoints("log:org.ojbc.intermediaries.personhealthinformation*");
     	    	
     	    	mockEndpointsAndSkip("cxf:bean:personHealthSearchIntermediaryResultsService*");
     	    }              
@@ -103,6 +108,9 @@ public class CamelContextTest {
     	//We should get one message
     	personHealthResponseEndpoint.reset();
     	personHealthResponseEndpoint.expectedMessageCount(1);
+    	
+    	loggingEndpoint.reset();
+    	loggingEndpoint.expectedMessageCount(1);
 
     	//Create a new exchange
     	Exchange senderExchange = new DefaultExchange(context);
@@ -142,6 +150,8 @@ public class CamelContextTest {
 		
 		//Sleep while a response is generated
 		Thread.sleep(3000);
+		
+		loggingEndpoint.assertIsSatisfied();
 		
 		//Assert that the mock endpoint expectations are satisfied
 		personHealthResponseEndpoint.assertIsSatisfied();
