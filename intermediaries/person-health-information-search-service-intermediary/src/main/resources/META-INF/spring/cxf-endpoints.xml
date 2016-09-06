@@ -83,6 +83,24 @@
 		</cxf:properties>        
    </cxf:cxfEndpoint>      
 
+    <!-- Person Health Results handler, hosted by this intermediary, called by person health adapter, this endpoint uses SSL only and no ws-security --> 
+    <cxf:cxfEndpoint id="personHealthSearchIntermediaryResultsServiceNoWsSecurity"
+        address="${personHealth.intermediaryResultsEndpointNoWsSecurity}"
+        wsdlURL="classpath:ssp/Person_Health_Information_Search_Results/schema/SIP_WS_1.2/Person_Health_Information_Search_Results_Service.wsdl"
+        serviceName="ojbc:Person_Health_Information_Search_Results_Service_Service"
+		endpointName="ojbc:Person_Health_Information_Search_Results_Service"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonHealthInformationSearchResultsService/1.0">
+	     <cxf:features>
+	      <policy:policies>
+	        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+	          <wsam:Addressing>
+	            <wsp:Policy/>
+	          </wsam:Addressing>
+	        </wsp:Policy>
+	       </policy:policies>
+	    </cxf:features>
+   </cxf:cxfEndpoint>      
+
                         	
     <!-- Deliver person health Results to consumer, hosted by connector, called by this intermediary -->
     <cxf:cxfEndpoint 
@@ -99,7 +117,26 @@
 		</cxf:properties>        
    </cxf:cxfEndpoint>      
    
-
+   	<!-- 
+   		Used for INBOUND SSL/TLS Connection. No CCA, just SSL.  Server side SSL connection 
+   	-->
+	<httpj:engine-factory id="ClientAuthHttpsSettings" bus="cxf">
+		<httpj:engine port="${personHealth.sslPortWithNoWsSecurity}"> 
+			<httpj:tlsServerParameters>
+				<sec:keyManagers keyPassword="${personHealth.keyPassword}">
+					<sec:keyStore type="jks" password="${personHealth.keystorePassword}" file="${personHealth.keystoreLocation}" />
+				</sec:keyManagers>
+				<sec:cipherSuitesFilter>
+					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+					    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				</sec:cipherSuitesFilter>
+				<sec:clientAuthentication want="${personHealth.intermediaryResultsEndpointNoWsSecurity.clientCertAuth}"
+					required="${personHealth.intermediaryResultsEndpointNoWsSecurity.clientCertAuth}" />
+			</httpj:tlsServerParameters>
+		</httpj:engine>
+	</httpj:engine-factory> 
 
 	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
 	<http:conduit

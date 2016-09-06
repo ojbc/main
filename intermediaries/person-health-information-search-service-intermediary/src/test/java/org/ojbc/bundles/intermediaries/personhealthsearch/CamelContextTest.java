@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -60,8 +61,7 @@ import org.w3c.dom.Element;
 @ContextConfiguration(locations={
 		"classpath:META-INF/spring/camel-context.xml", 
 		"classpath:META-INF/spring/cxf-endpoints.xml",
-		"classpath:META-INF/spring/extensible-beans.xml",	
-		"classpath:META-INF/spring/jetty-server.xml",
+		"classpath:META-INF/spring/extensible-beans.xml",
 		"classpath:META-INF/spring/local-osgi-context.xml",
 		"classpath:META-INF/spring/properties-context.xml"})
 public class CamelContextTest {
@@ -115,6 +115,18 @@ public class CamelContextTest {
 
     	    	// bypass CXF and send a message directly into the route
     	    	replaceFromWith("direct:personHealthResponseRouteMockEntry");    	    	
+    	    	
+    	    	interceptSendToEndpoint("direct:aggregatePersonHealthResponse")
+    	    		.to("mock:personHealthClientResponseMock").stop();    	
+    	    }              
+    	});
+    	
+    	context.getRouteDefinition("personHealthResultsHandlerNoWsSecurity_route").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+
+    	    	// bypass CXF and send a message directly into the route
+    	    	replaceFromWith("direct:personHealthResponseRouteMockEntryNoWsSecurity");    	    	
     	    	
     	    	interceptSendToEndpoint("direct:aggregatePersonHealthResponse")
     	    		.to("mock:personHealthClientResponseMock").stop();    	
@@ -189,6 +201,32 @@ public class CamelContextTest {
 		XmlUtils.printNode(actualResponseDocument);
     }	
     
+    @Test
+    public void testPersonHealthSearchResultsNoWsSecurity() throws Exception {
+        		    	    	
+    	//We should get one message
+    	personHealthServiceClientResultsMockEndpoint.reset();
+        personHealthServiceClientResultsMockEndpoint.expectedMessageCount(1);
+
+    	setupResponseServiceTest("direct:personHealthResponseRouteMockEntryNoWsSecurity");
+		
+		//Assert that the mock endpoint expectations are satisfied
+		personHealthServiceClientResultsMockEndpoint.assertIsSatisfied();
+		
+		//Get the first exchange (the only one)
+		Exchange ex = personHealthServiceClientResultsMockEndpoint.getExchanges().get(0);
+		
+		String opName = (String)ex.getIn().getHeader("operationName");
+		assertEquals("SubmitPersonHealthInformationSearchResults", opName);
+		
+		String opNamespace = (String)ex.getIn().getHeader("operationNamespace");
+		assertEquals("http://ojbc.org/Services/WSDL/PersonHealthInformationSearchResultsService/1.0", opNamespace);
+		
+		//Get the actual response
+		Document actualResponseDocument = (Document)ex.getIn().getBody(Document.class);
+		
+		XmlUtils.printNode(actualResponseDocument);
+    }
     
     @Test
     public void testPersonHealthSearchResults() throws Exception {
@@ -197,7 +235,28 @@ public class CamelContextTest {
     	personHealthServiceClientResultsMockEndpoint.reset();
         personHealthServiceClientResultsMockEndpoint.expectedMessageCount(1);
 
-    	//Create a new exchange
+    	setupResponseServiceTest("direct:personHealthResponseRouteMockEntry");
+		
+		//Assert that the mock endpoint expectations are satisfied
+		personHealthServiceClientResultsMockEndpoint.assertIsSatisfied();
+		
+		//Get the first exchange (the only one)
+		Exchange ex = personHealthServiceClientResultsMockEndpoint.getExchanges().get(0);
+		
+		String opName = (String)ex.getIn().getHeader("operationName");
+		assertEquals("SubmitPersonHealthInformationSearchResults", opName);
+		
+		String opNamespace = (String)ex.getIn().getHeader("operationNamespace");
+		assertEquals("http://ojbc.org/Services/WSDL/PersonHealthInformationSearchResultsService/1.0", opNamespace);
+		
+		//Get the actual response
+		Document actualResponseDocument = (Document)ex.getIn().getBody(Document.class);
+		
+		XmlUtils.printNode(actualResponseDocument);
+    }
+
+	private void setupResponseServiceTest(String directRouteEndpoint) throws Exception, IOException {
+		//Create a new exchange
     	Exchange senderExchange = new DefaultExchange(context);
 				
     	//Set the WS-Address Message ID
@@ -226,7 +285,7 @@ public class CamelContextTest {
 	    senderExchange.getIn().setBody(inputStr);
 	    
 	    //Send the one-way exchange.  Using template.send will send an one way message
-		Exchange returnExchange = template.send("direct:personHealthResponseRouteMockEntry", senderExchange);
+		Exchange returnExchange = template.send(directRouteEndpoint, senderExchange);
 		
 		//Use getException to see if we received an exception
 		if (returnExchange.getException() != null){	
@@ -235,24 +294,7 @@ public class CamelContextTest {
 		
 		//Sleep while a response is generated
 //		Thread.sleep(3000);
-		
-		//Assert that the mock endpoint expectations are satisfied
-		personHealthServiceClientResultsMockEndpoint.assertIsSatisfied();
-		
-		//Get the first exchange (the only one)
-		Exchange ex = personHealthServiceClientResultsMockEndpoint.getExchanges().get(0);
-		
-		String opName = (String)ex.getIn().getHeader("operationName");
-		assertEquals("SubmitPersonHealthInformationSearchResults", opName);
-		
-		String opNamespace = (String)ex.getIn().getHeader("operationNamespace");
-		assertEquals("http://ojbc.org/Services/WSDL/PersonHealthInformationSearchResultsService/1.0", opNamespace);
-		
-		//Get the actual response
-		Document actualResponseDocument = (Document)ex.getIn().getBody(Document.class);
-		
-		XmlUtils.printNode(actualResponseDocument);
-    }	    
+	}	    
     
     
 	private SoapHeader createSoapHeader(Document doc, String namespace, String localName, String value) {
