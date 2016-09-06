@@ -34,7 +34,8 @@
 		<property name="propertiesArray">
 			<array>
 				<util:properties>
-					<prop key="personHealth.enrichContentURI"></prop>
+					<prop key="personHealth.enrichRequestContentURI"></prop>
+					<prop key="personHealth.enrichResponseContentURI"></prop>
 				</util:properties>			
 				<util:properties
 					location="classpath:person_health_information_search_service_adapter.cfg" />

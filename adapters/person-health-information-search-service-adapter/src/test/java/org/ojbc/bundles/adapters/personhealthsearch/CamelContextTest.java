@@ -109,8 +109,9 @@ public class CamelContextTest {
     	personHealthResponseEndpoint.reset();
     	personHealthResponseEndpoint.expectedMessageCount(1);
     	
+    	//We should get two messages, one for the request and one for the response enriching
     	loggingEndpoint.reset();
-    	loggingEndpoint.expectedMessageCount(1);
+    	loggingEndpoint.expectedMessageCount(2);
 
     	//Create a new exchange
     	Exchange senderExchange = new DefaultExchange(context);
