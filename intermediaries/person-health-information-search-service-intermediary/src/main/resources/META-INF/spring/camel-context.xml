@@ -46,6 +46,9 @@
 		<endpoint id="personHealthSearchIntermediaryResultsEndpoint"
 			uri="cxf:bean:personHealthSearchIntermediaryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}" />
 
+		<endpoint id="personHealthSearchIntermediaryResultsServiceNoWsSecurityEndpoint"
+			uri="cxf:bean:personHealthSearchIntermediaryResultsServiceNoWsSecurity?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}" />
+
 		<endpoint id="personHealthSearchClientResultsEndpoint" 
 			uri="cxf:bean:personHealthSearchClientResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>                        
 
@@ -105,6 +108,21 @@
 	
 	
 		<!--  Person Health Results Handler Route.  Called by Adapter -->
+		<!-- In some scenarios, the client can't use ws-security so we provide a SSL binding -->
+		<camel:route id="personHealthResultsHandlerNoWsSecurity_route">
+									
+			<camel:from uri="personHealthSearchIntermediaryResultsServiceNoWsSecurityEndpoint"/>
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:to uri="direct:dbAuditLog"/>
+			
+			<camel:log message="\n\n\n Receieved personHealthResponse, sending to Aggregator...\n\n\n" />
+			
+			<camel:to uri="direct:aggregatePersonHealthResponse" />
+		</camel:route>
+	
+		<!--  Person Health Results Handler Route.  Called by Adapter -->
 		<camel:route id="personHealthResultsHandler_route">
 									
 			<camel:from uri="personHealthSearchIntermediaryResultsEndpoint"/>
@@ -117,7 +135,6 @@
 			
 			<camel:to uri="direct:aggregatePersonHealthResponse" />
 		</camel:route>
-	
 	
 	    <camel:route id="aggregatePersonHealthResponse_route">
 	    
