@@ -58,6 +58,9 @@
 				<constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchRequestService/1.0</constant>
 			</camel:setHeader>			
 			
+			<!-- This will alter the original message to enrich if a URI property is set in the configuration file -->
+			<camel:to uri="direct:enrichRequest"/>
+			
 			<!-- Set up member specific endpoints -->
 			<camel:setHeader headerName="routingSlipDerivedRoutes"><simple>{{personHealth.camelEndpointsToCall}}</simple></camel:setHeader>
 
@@ -77,6 +80,9 @@
 				<camel:to uri="bean:staticResponseProcessor?method=returnStaticResponse"/>
 			</camel:filter>	
 			
+			<!-- This will alter the response message to enrich if a URI property is set in the configuration file -->
+			<camel:to uri="direct:enrichResponse"/>
+			
 			<camel:setHeader headerName="operationName">
 				<constant>SubmitPersonHealthInformationSearchResults</constant>
 			</camel:setHeader>	
@@ -88,6 +94,44 @@
 			<to uri="personHealthSearchIntermediaryResultsEndpoint" />		
 		
 		</route>
+		
+		<camel:route id="enrichRequestContentRoute">
+
+			<camel:from uri="direct:enrichRequest"/>
+		
+			<!-- Set up derived endpoints -->
+			<camel:setHeader headerName="routingSlipEnrichRequestContent"><simple>{{personHealth.enrichRequestContentURI}}</simple></camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipEnrichRequestContent} != ''</camel:simple>
+				
+				<camel:log message="About to call content enricher using this routing slip: ${in.headers.routingSlipEnrichRequestContent}"/>
+				
+				<camel:recipientList>
+					<camel:header>routingSlipEnrichRequestContent</camel:header>
+				</camel:recipientList>
+			</camel:filter>			
+		
+		</camel:route>	
+
+		<camel:route id="enrichResponseContentRoute">
+
+			<camel:from uri="direct:enrichResponse"/>
+		
+			<!-- Set up derived endpoints -->
+			<camel:setHeader headerName="routingSlipEnrichResponseContent"><simple>{{personHealth.enrichResponseContentURI}}</simple></camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipEnrichResponseContent} != ''</camel:simple>
+				
+				<camel:log message="About to call content enricher using this routing slip: ${in.headers.routingSlipEnrichResponseContent}"/>
+				
+				<camel:recipientList>
+					<camel:header>routingSlipEnrichResponseContent</camel:header>
+				</camel:recipientList>
+			</camel:filter>			
+		
+		</camel:route>	
 
 	</camel:camelContext>
   

@@ -33,6 +33,13 @@
 		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
 		<property name="propertiesArray">
 			<array>
+				<!-- We put default values for the properties here and they can be overriden in subsquent entries below -->
+				<!-- This allows implementers to skip setting these properties if their instance does not use them -->
+				<!-- For example, an implementer might not implement the booking reporting adapter and would not want to set an booking adapter endpoint property -->
+				<util:properties>
+					<prop key="personHealth.enrichRequestContentURI"></prop>
+					<prop key="personHealth.enrichResponseContentURI"></prop>
+				</util:properties>
 				<!-- The .cfg file from the classpath will be consulted first, followed 
 					by the optional .cfg file under $KARAF_HOME/etc -->
 				<util:properties
