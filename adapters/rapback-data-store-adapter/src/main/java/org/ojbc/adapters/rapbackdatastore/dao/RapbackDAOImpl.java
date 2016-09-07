@@ -525,7 +525,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	@Override
 	public List<CivilInitialResults> getCivilInitialResults(String ownerOri) {
-		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp as timestamp_received, "
+		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, "
 				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, s.* "
 				+ "FROM civil_initial_results c "
 				+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
@@ -587,7 +587,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append( "SELECT t.transaction_number, t.identification_category, "
-				+ "t.report_timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.*, "
+				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.*, "
 				+ "(select count(*) > 0 from subsequent_results subsq where subsq.ucn = s.ucn) as having_subsequent_result "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
@@ -618,6 +618,8 @@ public class RapbackDAOImpl implements RapbackDAO {
         String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
         String federationId = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.FederationId);
         
+        log.info("ORI: " + ori + " federation ID: " + federationId);
+        
         boolean isNotSuperUser = isNotSuperUser(ori, federationId); 
         boolean isNotAgencySuperUser = isNotAgencySuperUser(ori, federationId); 
         
@@ -632,7 +634,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 				sb.append ( " AND (t.identification_category in ( :identificationCategoryList ))");
 				List<String> identificationCategorys = getViewableIdentificationCategories(token, 
 						"CIVIL"); 
-				paramMap.put("identificationCategoryList", identificationCategorys);
+				paramMap.put("identificationCategoryList", identificationCategorys.isEmpty() ? null : identificationCategorys);
 			}
 		}
 		
@@ -647,6 +649,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	private boolean isSuperUser(String ori, String federationId) {
+		
+		log.info("Super users: " + superUsers.toString());
+		
 		return superUsers.contains(ori + "&" + federationId);
 	}
 	
@@ -696,7 +701,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(
 			SAMLTokenPrincipal token, IdentificationResultSearchRequest searchRequest) {
 		StringBuilder sqlStringBuilder = new StringBuilder("SELECT t.transaction_number, t.identification_category, "
-				+ "t.report_timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
+				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id ");
 		
@@ -713,6 +718,8 @@ public class RapbackDAOImpl implements RapbackDAO {
         String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
         String federationId = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.FederationId); 
         
+        log.info("ORI: " + ori + " federation ID: " + federationId);
+        
 		if ( isSuperUser(ori, federationId)){
 			sqlStringBuilder.append(" WHERE " ); 
 		}
@@ -725,7 +732,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 				
 				List<String> identificationCategorys = 
 						getViewableIdentificationCategories(token, "CRIMINAL"); 
-				paramMap.put("identificationCategoryList", identificationCategorys);
+				paramMap.put("identificationCategoryList", identificationCategorys.isEmpty() ? null : identificationCategorys);
 			}
 		}
 		
@@ -1017,7 +1024,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 						+ criminalInitialResults.getTransactionNumber(), e);
 			}
 			criminalInitialResults.setTimestamp(toDateTime(rs
-					.getTimestamp("timestamp")));
+					.getTimestamp("report_timestamp")));
 
 			return criminalInitialResults;
 		}
@@ -1059,6 +1066,22 @@ public class RapbackDAOImpl implements RapbackDAO {
 		
 		Boolean existing = jdbcTemplate.queryForObject(sql, Boolean.class, transactionNumber);
 		return existing;
+	}
+
+	@Override
+	public List<CivilInitialResults> getCivilInitialResults(
+			String transactionNumber, ResultSender resultSender) {
+		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, "
+				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, s.* "
+				+ "FROM civil_initial_results c "
+				+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
+				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
+				+ "WHERE c.TRANSACTION_NUMBER  = ? AND c.RESULTS_SENDER_ID = ?";
+		
+		List<CivilInitialResults> civilIntialResults = 
+				jdbcTemplate.query(CIVIL_INITIAL_RESULTS_SELECT, 
+						new CivilInitialResultsRowMapper(), transactionNumber, resultSender.ordinal() + 1);
+		return civilIntialResults;
 	}
 
 

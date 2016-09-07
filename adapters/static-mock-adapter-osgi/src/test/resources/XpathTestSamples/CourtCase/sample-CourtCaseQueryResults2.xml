@@ -511,7 +511,7 @@
 		<nc:PersonDescriptionText>String</nc:PersonDescriptionText>
 		<nc:PersonEthnicityText>String</nc:PersonEthnicityText>
 		<j:PersonEyeColorCode>BLK</j:PersonEyeColorCode>
-		<j:PersonHairColorCode>BLD</j:PersonHairColorCode>
+		<j:PersonHairColorCode>BLK</j:PersonHairColorCode>
 		<nc:PersonHeightMeasure>
 			<nc:MeasureValueText>67</nc:MeasureValueText>
 			<nc:MeasureUnitText>cm</nc:MeasureUnitText>

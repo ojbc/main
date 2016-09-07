@@ -1032,6 +1032,12 @@ a.grayButton:hover {
 	cursor: pointer;
 }
 
+.detailsTable tr.custodyDetailHover,
+.detailsTable tr.hover {
+	background-color: #ccdff6;
+	cursor: pointer;
+}
+
 .detailsTable td {
 	border: 1px solid #ebebeb;
 	height: 32px;

@@ -27,9 +27,10 @@ public class CustodyRelease implements Serializable{
 	private static final long serialVersionUID = 8932138565832446354L;
 	//pk
 	private Integer custodyReleaseId;
-	private LocalDateTime reportDate;
-	private LocalDateTime releaseDate; 
+	private Integer bookingId;
+	private LocalDateTime releaseDateTime; 
 	private String bookingNumber; 
+	private String ReleaseCondition; 
 	
 	@Override
 	public String toString() {
@@ -52,21 +53,28 @@ public class CustodyRelease implements Serializable{
 		this.custodyReleaseId = custodyReleaseId;
 	}
 
-	public LocalDateTime getReportDate() {
-		return reportDate;
+	public Integer getBookingId() {
+		return bookingId;
 	}
 
-	public void setReportDate(LocalDateTime reportDate) {
-		this.reportDate = reportDate;
+	public void setBookingId(Integer bookingId) {
+		this.bookingId = bookingId;
 	}
 
-	public LocalDateTime getReleaseDate() {
-		return releaseDate;
+	public String getReleaseCondition() {
+		return ReleaseCondition;
 	}
 
-	public void setReleaseDate(LocalDateTime releaseDate) {
-		this.releaseDate = releaseDate;
+	public void setReleaseCondition(String releaseCondition) {
+		ReleaseCondition = releaseCondition;
 	}
 
+	public LocalDateTime getReleaseDateTime() {
+		return releaseDateTime;
+	}
+
+	public void setReleaseDateTime(LocalDateTime releaseDateTime) {
+		this.releaseDateTime = releaseDateTime;
+	}
 
 }

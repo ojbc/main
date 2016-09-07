@@ -20,13 +20,20 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
+
+import org.apache.commons.lang.StringEscapeUtils;
 import org.joda.time.DateTime;
+import org.ojbc.web.OjbcWebConstants;
 import org.ojbc.web.SearchFieldMetadata;
 
 
 public class PersonSearchRequest implements Serializable{
 
     private static final long serialVersionUID = 4875534327596344809L;
+    
+    @Valid
     private PersonName personName = new PersonName();
     private PersonName alias = new PersonName();
     private PersonName parentName = new PersonName(); 
@@ -51,10 +58,15 @@ public class PersonSearchRequest implements Serializable{
 	private Integer personHeightTotalInchesRangeEnd;
 	
 	//Identifiers
+	@Pattern(regexp=OjbcWebConstants.SSN_REGEX)
 	private String personSocialSecurityNumber;
+	@Pattern(regexp="[A-Za-z0-9 -]*")
 	private String personDriversLicenseNumber;
+	@Pattern(regexp="[A-Za-z0-9 -]*")
 	private String personDriversLicenseIssuer;
+	@Pattern(regexp=OjbcWebConstants.SID_REGEX)
 	private String personSID;
+	@Pattern(regexp=OjbcWebConstants.FBI_ID_REGEX)
 	private String personFBINumber;
 	
 	//Logging
@@ -75,23 +87,28 @@ public class PersonSearchRequest implements Serializable{
 	public void setPersonEyeColor(String personEyeColor) {
 		this.personEyeColor = personEyeColor;
 	}
+	
+    @Pattern(regexp="^([a-zA-Z]+[- '])*['a-zA-Z]*+[*]?$")
 	public String getPersonGivenName() {
 		return personName.getGivenName();
 	}
 	public void setPersonGivenName(String personGivenName) {
-		this.personName.setGivenName(personGivenName) ;
+		this.personName.setGivenName(StringEscapeUtils.escapeHtml(personGivenName)) ;
 	}
+    @Pattern(regexp="^([a-zA-Z]+[- '])*['a-zA-Z]*+[*]?$")
 	public String getPersonMiddleName() {
 		return personName.getMiddleName();
 	}
 	public void setPersonMiddleName(String personMiddleName) {
-		this.personName.setMiddleName(personMiddleName);
+		this.personName.setMiddleName(StringEscapeUtils.escapeHtml(personMiddleName));
 	}
+	
+    @Pattern(regexp="^([a-zA-Z]+[- '])*['a-zA-Z]*+[*]?$")
 	public String getPersonSurName() {
 		return personName.getSurName();
 	}
 	public void setPersonSurName(String personSurName) {
-		this.personName.setSurName(personSurName);
+		this.personName.setSurName(StringEscapeUtils.escapeHtml(personSurName));
 	}
 	public String getPersonSexCode() {
 		return personSexCode;
@@ -105,29 +122,30 @@ public class PersonSearchRequest implements Serializable{
 	public void setPersonRaceCode(String personRaceCode) {
 		this.personRaceCode = personRaceCode;
 	}
+	
 	public String getPersonSocialSecurityNumber() {
 		return personSocialSecurityNumber;
 	}
 	public void setPersonSocialSecurityNumber(String personSocialSecurityNumber) {
-		this.personSocialSecurityNumber = personSocialSecurityNumber;
+		this.personSocialSecurityNumber = StringEscapeUtils.escapeHtml(personSocialSecurityNumber);
 	}
 	public String getPersonDriversLicenseNumber() {
 		return personDriversLicenseNumber;
 	}
 	public void setPersonDriversLicenseNumber(String personDriversLicenseNumber) {
-		this.personDriversLicenseNumber = personDriversLicenseNumber;
+		this.personDriversLicenseNumber = StringEscapeUtils.escapeHtml(personDriversLicenseNumber);
 	}
 	public String getPersonFBINumber() {
 		return personFBINumber;
 	}
 	public void setPersonFBINumber(String personFBINumber) {
-		this.personFBINumber = personFBINumber;
+		this.personFBINumber = StringEscapeUtils.escapeHtml(personFBINumber);
 	}
 	public String getPersonSID() {
 		return personSID;
 	}
 	public void setPersonSID(String personSID) {
-		this.personSID = personSID;
+		this.personSID = StringEscapeUtils.escapeHtml(personSID);
 	}
 	public SearchFieldMetadata getPersonGivenNameMetaData() {
 		return personName.getGivenNameMetaData();
@@ -145,7 +163,7 @@ public class PersonSearchRequest implements Serializable{
 		return personDriversLicenseIssuer;
 	}
 	public void setPersonDriversLicenseIssuer(String personDriversLicenseIssuer) {
-		this.personDriversLicenseIssuer = personDriversLicenseIssuer;
+		this.personDriversLicenseIssuer = StringEscapeUtils.escapeHtml(personDriversLicenseIssuer);
 	}
 	public DateTime getPersonDateOfBirth() {
 		return personDateOfBirth;

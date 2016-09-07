@@ -58,7 +58,6 @@
 						<nc:ContactInformation>
 							<nc:ContactMailingAddress>
 								<nc:StructuredAddress>
-
 									<nc:LocationStreet>
 										<nc:StreetFullText>100 State Street</nc:StreetFullText>
 									</nc:LocationStreet>
@@ -88,12 +87,14 @@
 						<nc:Date>1965-09-29</nc:Date>
 					</nc:PersonBirthDate>
 					<nc:PersonBirthLocation>
-						<nc:LocationAddress>
-							<nc:StructuredAddress>
-								<nc:LocationCityName>Buffalo</nc:LocationCityName>
-							</nc:StructuredAddress>
-						</nc:LocationAddress>
-					</nc:PersonBirthLocation>
+                     <nc:LocationAddress>
+                        <nc:StructuredAddress>
+                           <nc:LocationCityName>Athens</nc:LocationCityName>
+                           <nc:LocationStateName>GA</nc:LocationStateName>
+                           <nc:LocationCountryName>United States</nc:LocationCountryName>
+                        </nc:StructuredAddress>
+                     </nc:LocationAddress>
+                  </nc:PersonBirthLocation>
 					<nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
 					<nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
 					<nc:PersonHeightMeasure>

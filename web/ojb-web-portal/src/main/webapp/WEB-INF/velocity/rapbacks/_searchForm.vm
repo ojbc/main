@@ -19,6 +19,7 @@
 	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
           $.ajaxSetup({ cache: false });
  		  ojbc.handlePlaceholders(); 
+ 		  ojbc.handleEsc();
     	  $( "#searchTabs" ).tabs();
     	  
 		    $( ".datePicker" ).datepicker({
@@ -36,7 +37,7 @@
 	        	ojbc.clearPlaceholders();
 	            var formData = $('#advancedSearchForm').serialize();
 	        
-	  	       	$.post("#springUrl('/rapbacks/rapbackAdvancedSearch')",formData,function(data) {
+	  	       	xhr = $.post("#springUrl('/rapbacks/rapbackAdvancedSearch')",formData,function(data) {
 			        $('#portalContent').html(data);
 		        }).fail(ojbc.displayFailMessage);
 			});

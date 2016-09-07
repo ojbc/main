@@ -19,7 +19,6 @@ package org.ojbc.adapters.analyticsstaging.custody.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -31,11 +30,9 @@ import junit.framework.Assert;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +42,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
-		"classpath:META-INF/spring/dao.xml",
-		"classpath:META-INF/spring/properties-context.xml",
+		"classpath:META-INF/spring/dao-adams.xml",
+		"classpath:META-INF/spring/properties-context-adams.xml",
 		"classpath:META-INF/spring/camel-context.xml",
 		"classpath:META-INF/spring/cxf-endpoints.xml"
 		})
@@ -74,38 +71,26 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int personPk = analyticalDatastoreDAO.savePerson(getStaticPerson());
 		assertEquals(1, personPk);
 		
-		BookingSubject bookingSubject = getStaticBookingSubject(); 
-		bookingSubject.setPersonId(personPk);
-		
-		int bookingSubjectPk = analyticalDatastoreDAO.saveBookingSubject(bookingSubject);
-		
 		Booking booking = new Booking();
 		
-		booking.setJurisdictionId(1);
-		booking.setBookingReportDate(LocalDateTime.parse("2016-02-13T10:23:23"));
-		booking.setBookingReportId("bookingReportId");
-		booking.setSendingAgencyId(5);
-		booking.setCaseStatusId(3);
-		booking.setBookingDate(LocalDateTime.parse("2013-12-17T09:30:00"));
-		booking.setCommitDate(LocalDate.parse("2013-12-17"));
-		booking.setPretrialStatusId(3);
+		booking.setPersonId(personPk);
+		booking.setBookingDateTime(LocalDateTime.parse("2013-12-17T09:30:00"));
+		booking.setScheduledReleaseDate(LocalDate.parse("2014-12-17"));
 		booking.setFacilityId(1);
-		booking.setBedTypeId(2);
-		booking.setBookingSubjectId(bookingSubjectPk);
+		booking.setSupervisionUnitTypeId(2);
 		booking.setBookingNumber("bookingNumber");
-		booking.setBondAmount(new BigDecimal("500.00"));
-		booking.setBondType(new KeyValue(1, "Cash"));
-		
+		booking.setInmateJailResidentIndicator(true);
+
 		int bookingPk = analyticalDatastoreDAO.saveBooking( booking );
 		assertEquals(1, bookingPk);
 		
 		analyticalDatastoreDAO.deleteBooking(bookingPk);
 		
-		Booking matchingBooking = analyticalDatastoreDAO.getBookingByBookingReportId("bookingReportId");
+		Booking matchingBooking = analyticalDatastoreDAO.getBookingByBookingNumber("bookingNumber");
 		assertNull(matchingBooking);
 
-		bookingSubjectPk = analyticalDatastoreDAO.saveBookingSubject(bookingSubject);
-		booking.setBookingSubjectId(bookingSubjectPk);
+		personPk = analyticalDatastoreDAO.savePerson(getStaticPerson());
+		booking.setPersonId(personPk);
 		
 		//Perform an subsequent save and confirm the same PK
 		booking.setBookingId(bookingPk);
@@ -118,24 +103,20 @@ public class TestAnalyticalDatastoreDAOImpl {
 	protected Person getStaticPerson() {
 		Person person = new Person();
 		
-		person.setPersonRaceID(1);
-		person.setPersonSexID(2);
+		person.setPersonRaceId(1);
+		person.setPersonSexId(2);
+		person.setPersonEthnicityTypeId(2);
 		person.setPersonBirthDate(LocalDate.parse("1966-06-01"));
 		person.setPersonUniqueIdentifier("123332123123unique");
 		person.setLanguageId(2);
+		person.setPersonAgeAtBooking(50);
+		person.setEducationLevel("College");
+		person.setOccupation("Lawyer");
+		person.setDomicileStatusTypeId(1);
+		person.setProgramEligibilityTypeId(1);
+		person.setWorkReleaseStatusTypeId(2);
+		person.setMilitaryServiceStatusType(new KeyValue(1, null));
 		return person;
 	}
 	
-	private BookingSubject getStaticBookingSubject(){
-		BookingSubject bookingSubject = new BookingSubject();
-		bookingSubject.setRecidivistIndicator(0);
-		bookingSubject.setPersonAge(50);
-		bookingSubject.setEducationLevelId(3);
-		bookingSubject.setOccupationId(2);
-		bookingSubject.setIncomeLevelId(2);
-		bookingSubject.setHousingStatusId(3);
-		return bookingSubject;
-	}
-
-
 }

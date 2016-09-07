@@ -24,6 +24,19 @@
   <xs:import schemaLocation="../../codes/usps_states/3.0/usps_states.xsd" namespace="http://release.niem.gov/niem/codes/usps_states/3.0/"/>
   <xs:import schemaLocation="../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
   <xs:import schemaLocation="../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:complexType name="ActivityPersonAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an activity and a person.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ActivityType">
     <xs:annotation>
       <xs:documentation>A data type for a single or set of related actions, events, or process steps.</xs:documentation>
@@ -31,6 +44,7 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:ActivityIdentification" minOccurs="0" maxOccurs="1"/>
           <xs:element ref="nc:ActivityCategoryText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityDateRepresentation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
@@ -142,6 +156,18 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:DateRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DispositionType">
+    <xs:annotation>
+      <xs:documentation>A data type for a result or outcome that is the product of handling, processing, or finalizing something.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:DispositionText" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -634,6 +660,16 @@
       <xs:documentation>A description of an activity.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ActivityIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification that references an activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ActivityPersonAssociation" type="nc:ActivityPersonAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between a person and an activity in which a person was or may have been involved.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ActivityStatus" type="nc:StatusType" nillable="true">
     <xs:annotation>
       <xs:documentation>A status of an activity.</xs:documentation>
@@ -727,6 +763,11 @@
   <xs:element name="DateTime" type="niem-xs:dateTime" substitutionGroup="nc:DateRepresentation">
     <xs:annotation>
       <xs:documentation>A full date and time.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DispositionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A result or outcome of a disposition.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="DocumentCreationDate" type="nc:DateType" nillable="true">

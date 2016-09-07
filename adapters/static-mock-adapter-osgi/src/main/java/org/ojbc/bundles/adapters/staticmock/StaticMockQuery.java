@@ -992,10 +992,52 @@ public class StaticMockQuery {
 				dob = dob.trim();				
 				
 				e.setTextContent(String.valueOf(Years.yearsBetween(DATE_FORMATTER_YYYY_MM_DD.parseDateTime(dob), baseDate).getYears()));				
+			}
+							
+					
+			NodeList altNameIdentNodeList = xPaths.alternateNameIdentityNodeListXpath == null ? null : 
+				XmlUtils.xPathNodeListSearch(specificDetailSourceDoc, xPaths.alternateNameIdentityNodeListXpath);
+			
+						
+			for(int i=0; altNameIdentNodeList != null &&  i < altNameIdentNodeList.getLength(); i++ ){
 				
-				e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonBirthDate");
-				e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
-				e.setTextContent(dob);
+			 	Element iIdentityEl = (Element)altNameIdentNodeList.item(i);
+			 	
+			 	String altFirstName = XmlUtils.xPathStringSearch(iIdentityEl, 
+			 			"nc30:IdentityPersonRepresentation/nc30:PersonName/nc30:PersonGivenName");
+			 				 	
+			 	altFirstName = altFirstName == null ? null : altFirstName.trim();
+			 	
+			 	String altLastName = XmlUtils.xPathStringSearch(iIdentityEl, 
+			 			"nc30:IdentityPersonRepresentation/nc30:PersonName/nc30:PersonSurName");
+			 	
+			 	altLastName = altLastName == null ? null : altLastName.trim();
+			 	
+			 	String altFullName = altFirstName + " " + altLastName;
+			 	
+			 	altFullName = altFullName == null ? null : altFullName.trim();
+			 	
+			 	if(StringUtils.isNotEmpty(altFullName)){
+			 		
+			 		Element altNameEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonAlternateName");
+			 		
+					Element altFullNameEl = XmlUtils.appendElement(altNameEl, OjbcNamespaceContext.NS_NC, "PersonFullName");
+					
+					altFullNameEl.setTextContent(altFullName);
+			 	}			 	
+			}
+			
+			
+			if(dobElement != null){
+				
+				Element birthDateEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonBirthDate");
+				
+				Element birthDateValEl = XmlUtils.appendElement(birthDateEl, OjbcNamespaceContext.NS_NC, "Date");
+				
+				String dob = dobElement.getTextContent();				
+				dob = dob.trim();
+				
+				birthDateValEl.setTextContent(dob);
 				
 			} else if (ageElement != null) {
 				
@@ -1004,6 +1046,27 @@ public class StaticMockQuery {
 				e.setTextContent(ageElement.getTextContent());
 			}
 
+			
+			String sEyeColor = xPaths.eyeColorCodeXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.eyeColorCodeXPath);
+			
+			if(StringUtils.isNotEmpty(sEyeColor)){
+				
+				Element eyeColorElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonEyeColorCode");
+				
+				eyeColorElement.setTextContent(sEyeColor);				
+			}
+			
+			String sHairColor = xPaths.hairColorCodeXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.hairColorCodeXPath);
+			
+			if(StringUtils.isNotEmpty(sHairColor)){
+				
+				Element hairColorElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonHairColorCode");
+				
+				hairColorElement.setTextContent(sHairColor);
+			}			
+			
 			Element heightElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.heightXPath);
 			if (heightElement != null) {
 				Element phm = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonHeightMeasure");
@@ -1031,6 +1094,23 @@ public class StaticMockQuery {
 					e.setTextContent(lastNameElement.getTextContent());
 				}
 			}
+			
+			
+			String sPhysicalFeature = xPaths.physicalFeatureXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.physicalFeatureXPath);
+			
+			if(StringUtils.isNotEmpty(sPhysicalFeature)){
+
+				sPhysicalFeature = sPhysicalFeature.trim();
+				
+				Element physFeatureEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonPhysicalFeature");
+				
+				Element physFeatDescEl = XmlUtils.appendElement(physFeatureEl, OjbcNamespaceContext.NS_NC, "PhysicalFeatureDescriptionText");
+				
+				physFeatDescEl.setTextContent(sPhysicalFeature);				
+			}												
+			
+			
 			Element raceElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.raceXPath);
 			if (raceElement != null) {
 				Element e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonRaceCode");
@@ -1085,6 +1165,79 @@ public class StaticMockQuery {
 				}
 			}
 
+						
+			Element locationElement = XmlUtils.appendElement(psrElement, OjbcNamespaceContext.NS_NC, "Location");
+			
+			Element locAddressEl = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_NC, "LocationAddress");
+			
+			Element structAddressEl = XmlUtils.appendElement(locAddressEl, OjbcNamespaceContext.NS_NC, "StructuredAddress");
+
+			
+			String streetNumber = xPaths.addressStreetNumberXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.addressStreetNumberXPath);			
+			
+			String sAddressStreetName = xPaths.addressStreetNameXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.addressStreetNameXPath);			
+
+			
+			boolean hasStreetNumber = StringUtils.isNotEmpty(streetNumber);
+			
+			boolean hasStreetName = StringUtils.isNotEmpty(sAddressStreetName);						
+			
+			if(hasStreetNumber && hasStreetName){
+
+				Element locStreetEl = XmlUtils.appendElement(structAddressEl, OjbcNamespaceContext.NS_NC, 
+						"LocationStreet");
+								
+				Element streetNumEl = XmlUtils.appendElement(locStreetEl, OjbcNamespaceContext.NS_NC, 
+						"StreetNumberText");				
+				streetNumber = streetNumber.trim();				
+				streetNumEl.setTextContent(streetNumber);
+				
+								
+				Element streetNameEl = XmlUtils.appendElement(locStreetEl, OjbcNamespaceContext.NS_NC, 
+						"StreetName");				
+				sAddressStreetName = sAddressStreetName.trim();				
+				streetNameEl.setTextContent(sAddressStreetName);								
+			}
+
+			
+			String sCity = xPaths.addressCityXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.addressCityXPath);
+			
+			if(StringUtils.isNotEmpty(sCity)){
+			
+				sCity = sCity.trim();
+				
+				Element cityEl = XmlUtils.appendElement(structAddressEl, OjbcNamespaceContext.NS_NC, "LocationCityName");
+				
+				cityEl.setTextContent(sCity);
+			}
+			
+			String sStateCode = xPaths.addressStateXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.addressStateXPath);
+			
+			if(StringUtils.isNotEmpty(sStateCode)){
+				
+				sStateCode = sStateCode.trim();
+				
+				Element stateEl = XmlUtils.appendElement(structAddressEl, OjbcNamespaceContext.NS_NC, "LocationStateFIPS5-2AlphaCode");
+				
+				stateEl.setTextContent(sStateCode);
+			}
+			
+			String sZipCode = xPaths.addressZipXPath == null ? null : 
+				XmlUtils.xPathStringSearch(specificDetailSourceDoc, xPaths.addressZipXPath);
+			
+			if(StringUtils.isNotEmpty(sZipCode)){
+				
+				sZipCode = sZipCode.trim();
+				
+				Element postalCodeEl = XmlUtils.appendElement(structAddressEl, OjbcNamespaceContext.NS_NC, "LocationPostalCode");
+				
+				postalCodeEl.setTextContent(sZipCode);
+			}
+			
 			Element sourceSystem = XmlUtils.appendElement(psrElement, OjbcNamespaceContext.NS_PERSON_SEARCH_RESULTS_EXT, "SourceSystemNameText");
 			sourceSystem.setTextContent(xPaths.searchSystemId);
 			Element sourceSystemIdentifierParentElement = XmlUtils.appendElement(psrElement, OjbcNamespaceContext.NS_INTEL, "SystemIdentifier");
@@ -1885,16 +2038,29 @@ public class StaticMockQuery {
 		xPaths.dlJurisdictionXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseCardIdentification/nc30:IdentificationSourceText";		
 		xPaths.lastNameXPath = "//nc30:PersonName/nc30:PersonSurName";
 		xPaths.middleNameXPath = "//nc30:PersonName/nc30:PersonMiddleName";
-		xPaths.firstNameXPath = "//nc30:PersonName/nc30:PersonGivenName";
-		xPaths.eyeColorXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonEyeColorText";
-		xPaths.hairColorXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonHairColorText";		
+		xPaths.firstNameXPath = "//nc30:PersonName/nc30:PersonGivenName";		
+		xPaths.alternateNameIdentityNodeListXpath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Identity";				
+		xPaths.eyeColorCodeXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonEyeColorCode";
+		xPaths.hairColorCodeXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonHairColorCode";								
+		xPaths.physicalFeatureXPath = 
+				"/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonPhysicalFeature/nc30:PhysicalFeatureDescriptionText";				
 		xPaths.raceXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonRaceCode";  
 		xPaths.sexXPath =  "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonSexCode"; 		
 		xPaths.heightXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureValueText";
 		xPaths.weightXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/nc30:PersonWeightMeasure/nc30:MeasureValueText";		
 		xPaths.searchSystemId = CUSTODY_PERSON_SEARCH_SYSTEM_ID;		
 		xPaths.systemName = "Custody";		
-		xPaths.recordType = "Custody";						
+		xPaths.recordType = "Custody";			
+		xPaths.addressStreetNumberXPath = 
+				"//nc30:Location/nc30:Address/nc30:LocationStreet/nc30:StreetNumberText";		
+		xPaths.addressStreetNameXPath = 
+				"//nc30:Location/nc30:Address/nc30:LocationStreet/nc30:StreetName";		
+		xPaths.addressCityXPath = 
+				"//nc30:Location/nc30:Address/nc30:LocationCityName";				
+		xPaths.addressStateXPath = 
+				"//nc30:Location/nc30:Address/nc30:LocationStateUSPostalServiceCode";		
+		xPaths.addressZipXPath = 
+				"//nc30:Location/nc30:Address/nc30:LocationPostalCode";
 		
 		return xPaths;
 	}
@@ -1930,7 +2096,8 @@ public class StaticMockQuery {
 		xPaths.middleNameXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonName/nc30:PersonMiddleName";
 		xPaths.firstNameXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonName/nc30:PersonGivenName";
 		xPaths.eyeColorXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonEyeColorCode";
-		xPaths.hairColorXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonHairColorCode";
+		xPaths.hairColorXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonHairColorCode";		
+		xPaths.hairColorCodeXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonHairColorCode";		
 		xPaths.raceXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonRaceCode";
 		xPaths.sexXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/jxdm51:PersonSexCode";
 		xPaths.heightXPath = "/ccq-res-doc:CourtCaseQueryResults/nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureValueText";
@@ -2749,15 +2916,21 @@ public class StaticMockQuery {
 		 String lastNameXPath;
 		 String middleNameXPath;
 		 String firstNameXPath;
+		 String alternateNameIdentityNodeListXpath;
 		 String eyeColorXPath;
+		 String eyeColorCodeXPath;
 		 String hairColorXPath;
+		 String hairColorCodeXPath;
+		 String physicalFeatureXPath;
 		 String raceXPath;
 		 String sexXPath;
-		 String ageXPath;
+		 String ageXPath;		 		 
 		 String heightXPath;
 		 String weightXPath;
 		 String juvenilePlacementsXPath;
-		 String addressStreetXPath;
+		 String addressStreetXPath;		 
+		 String addressStreetNumberXPath;
+		 String addressStreetNameXPath;		 
 		 String addressCityXPath;
 		 String addressStateXPath;
 		 String addressZipXPath;

@@ -22,7 +22,7 @@
 	xmlns:oirsr="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
 	xmlns:oirsr-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" 
 	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" 
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" 
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
@@ -55,7 +55,7 @@
 					<tr>
 						<th>NAME</th>
 						<th>OTN</th>
-						<th>DATE</th>
+						<th>ID DATE</th>
 						<th>TYPE</th>
 						<th>STATUS</th>
 						<th></th>
@@ -76,7 +76,7 @@
 				<xsl:value-of select="oirsr-ext:IdentifiedPerson/oirsr-ext:IdentifiedPersonTrackingIdentification/nc:IdentificationID"></xsl:value-of>
 			</td>	
 			<td>
-				<xsl:apply-templates select="oirsr-ext:IdentificationReportDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+				<xsl:apply-templates select="oirsr-ext:IdentificationReportedDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>				
 			<td>
 				<xsl:value-of select="oirsr-ext:CriminalIdentificationReasonCode"></xsl:value-of>

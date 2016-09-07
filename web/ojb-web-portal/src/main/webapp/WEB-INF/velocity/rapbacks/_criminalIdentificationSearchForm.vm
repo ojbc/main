@@ -18,6 +18,7 @@
 	  $(function() {
 	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
           $.ajaxSetup({ cache: false });
+  		  ojbc.handleEsc();
  		  ojbc.handlePlaceholders(); 
     	  $( "#searchTabs" ).tabs();
     	  
@@ -36,7 +37,7 @@
 	        	ojbc.clearPlaceholders();
 	            var formData = $('#advancedSearchForm').serialize();
 	        
-	  	       	$.post("#springUrl('/rapbacks/criminalIdentificationAdvancedSearch')",formData,function(data) {
+	  	       	xhr = $.post("#springUrl('/rapbacks/criminalIdentificationAdvancedSearch')",formData,function(data) {
 			        $('#portalContent').html(data);
 		        }).fail(ojbc.displayFailMessage);
 			});

@@ -1,0 +1,36 @@
+@media print {
+	html,body {
+	    margin: 0 !important;
+	    padding:0 !important;
+	}
+	
+    body * {
+        visibility: hidden;
+    }
+    
+    #initialResultsDetailTabs{
+      overflow:visible;
+      height: 99%; 
+      margin:0;
+	  page-break-before: avoid !important;
+	  page-break-after: avoid !important;
+	  page-break-inside: avoid !important;    
+    }
+    #initialResultsDetailTabs *:not(#printButton) {
+        visibility: visible;
+		page-break-after: avoid!important;
+    }
+    
+    div#stateInitialResultTab div:not(:first-child), 
+    div#fbiInitialResultTab div:not(:first-child){
+		page-break-before: always !important;
+	}
+    
+    #initialResultsDetailTabs li[aria-selected='false'],
+    #initialResultsDetailTabs li[aria-selected='false'] a,
+    button#printButton
+    {
+        display:none;
+	}
+}
+	

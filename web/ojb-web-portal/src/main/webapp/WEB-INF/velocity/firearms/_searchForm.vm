@@ -37,7 +37,7 @@
                     	ojbc.clearPlaceholders();
                         var formData = $('#searchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()
                     
-    		  	       	$.post("#springUrl('/firearms/advanceSearch')",formData,function(data) {
+    		  	       	xhr=$.post("#springUrl('/firearms/advanceSearch')",formData,function(data) {
     				        $('#portalContent').html(data);
     				        }).fail(ojbc.displayFailMessage)
 				    }

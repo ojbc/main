@@ -199,20 +199,33 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 	            if (base64BinaryNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
 	                Element element = (Element) base64BinaryNodes.item(i);
 	                String base64BinaryData = element.getTextContent();
-	                documents.add(new String(Base64.decodeBase64(base64BinaryData))); 
+	                
+	                if (StringUtils.isNotBlank(base64BinaryData)){
+	                	documents.add(new String(Base64.decodeBase64(base64BinaryData)));
+	                }
 	            }
 	        }
 	    }
 		return documents;
 	}
 
+	/**
+	 * 
+	 * @param body
+	 * @param xPath
+	 * @return The decoded binary64BinarayData or "" if the binaryData is null. 
+	 * @throws Exception
+	 * @throws IOException
+	 */
 	private String getDocument(Document body, String xPath)
 			throws Exception, IOException {
 
 		String base64BinaryData = 
 				XmlUtils.xPathStringSearch(body, xPath);
 		byte[] binaryData = Base64.decodeBase64(base64BinaryData);
-		return new String(binaryData);
+		
+		String returnValue = binaryData != null? new String(binaryData): "";
+		return returnValue;
 	}
 
 	public CamelContext getCamelContext() {

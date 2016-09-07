@@ -26,6 +26,19 @@
   <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
   <xs:import schemaLocation="../../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
   <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:complexType name="ActivityCaseAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an activity and a case.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ActivityChargeAssociationType">
     <xs:annotation>
       <xs:documentation>A data type for an association between an activity and a charge.</xs:documentation>
@@ -47,6 +60,7 @@
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
           <xs:element ref="j:ArrestAgency" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ArrestCharge" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestLocation" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -73,6 +87,8 @@
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
           <xs:element ref="j:BailBondAmount" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:BailBondIssuerEntity" minOccurs="0" maxOccurs="1"/>
+          <xs:element ref="j:BailBondAugmentationPoint" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -88,6 +104,7 @@
           <xs:element ref="j:BookingAgencyRecordIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:BookingDetentionFacility" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:BookingSubject" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:BookingAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -105,6 +122,14 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="ChargeDispositionType">
+    <xs:annotation>
+      <xs:documentation>A data type for the results or processing of a charge.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:DispositionType"/>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ChargeType">
     <xs:annotation>
       <xs:documentation>A data type for a formal allegation that a specific person has committed a specific offense.</xs:documentation>
@@ -114,8 +139,10 @@
         <xs:sequence>
           <xs:element ref="j:ChargeCategoryDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeHighestIndicator" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeSeverityText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -180,6 +207,31 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="OffenseChargeAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a relationship between an offense that occurred and the formal charge that was assigned to it as a result of classifying the offense.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OffenseType">
+    <xs:annotation>
+      <xs:documentation>A data type for an alleged violation of a statute, ordinance, or rule.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:OffenseCategory" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="PersonAugmentationType">
     <xs:annotation>
       <xs:documentation>A data type for additional information about a person.</xs:documentation>
@@ -228,6 +280,7 @@
         <xs:sequence>
           <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SubjectIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SubjectAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -248,6 +301,11 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:element name="ActivityCaseAssociation" type="j:ActivityCaseAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between an activity and a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ActivityChargeAssociation" type="j:ActivityChargeAssociationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An association between an activity and a charge.</xs:documentation>
@@ -261,6 +319,11 @@
   <xs:element name="ArrestAgency" type="nc:OrganizationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An agency which employs the arresting official.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ArrestCharge" type="j:ChargeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A formal allegation of a violation of a statute and/or ordinance in association with an arrest.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ArrestLocation" type="nc:LocationType" nillable="true">
@@ -278,9 +341,19 @@
       <xs:documentation>A monetary amount approved for bond.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="BailBondAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for BailBondType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="BailBondChargeAssociation" type="j:BailBondChargeAssociationType">
     <xs:annotation>
       <xs:documentation>An association that links a bail bond to a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="BailBondIssuerEntity" type="nc:EntityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An entity that issues a bond.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Booking" type="j:BookingType" nillable="true">
@@ -343,6 +416,11 @@
       <xs:documentation>A plain language description of a charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ChargeDisposition" type="j:ChargeDispositionType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A result or processing of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ChargeHighestIndicator" type="niem-xs:boolean" nillable="true">
     <xs:annotation>
       <xs:documentation>True if a charge is the most serious charge within a group of charges; false otherwise.</xs:documentation>
@@ -351,6 +429,11 @@
   <xs:element name="ChargeSequenceID" type="niem-xs:string" nillable="true">
     <xs:annotation>
       <xs:documentation>A sequentially assigned identifier for charge tracking purposes.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeSeverityText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A level of severity of a charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeStatute" type="j:StatuteType" nillable="true">
@@ -403,6 +486,26 @@
       <xs:documentation>An entity who provides a service to a Person to determine physical or mental state</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="Offense" type="j:OffenseType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An act or a course of action which may constitute a violation of a criminal statute, ordinance or rule that occurred during an incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind of offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseCategoryText" type="nc:TextType" substitutionGroup="j:OffenseCategory">
+    <xs:annotation>
+      <xs:documentation>A kind of offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseChargeAssociation" type="j:OffenseChargeAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A relationship between an offense that occurred and the formal charge that was assigned to it as a result of classifying the offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="PersonAugmentation" type="j:PersonAugmentationType" substitutionGroup="nc:PersonAugmentationPoint" nillable="true">
     <xs:annotation>
       <xs:documentation>Additional information about a person.</xs:documentation>
@@ -451,6 +554,11 @@
   <xs:element name="Subject" type="j:SubjectType" nillable="true">
     <xs:annotation>
       <xs:documentation>A person who is involved or suspected of being involved in an incident or criminal activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SubjectAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for SubjectType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="SubjectIdentification" type="nc:IdentificationType" nillable="true">

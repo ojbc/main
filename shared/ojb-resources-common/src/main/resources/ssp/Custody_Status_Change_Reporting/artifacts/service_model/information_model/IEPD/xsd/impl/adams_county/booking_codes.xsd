@@ -17,12 +17,25 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0" xmlns:cscr-ext="http://ojbc.org/IEPD/Extensions/CustodyStatusChangeReportExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0" elementFormDefault="qualified">
-	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="../../Subset/niem/niem-core/3.0/niem-core.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="../../Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="../../Subset/niem/proxy/xsd/3.0/xs.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="../../Subset/niem/structures/3.0/structures.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CustodyStatusChangeReportExtension/1.0" schemaLocation="../../extension.xsd"/>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
+	xmlns:cscr-ext="http://ojbc.org/IEPD/Extensions/CustodyStatusChangeReportExtension/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="../../Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/"
+		schemaLocation="../../Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
+		schemaLocation="../../Subset/niem/proxy/xsd/3.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="../../Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import
+		namespace="http://ojbc.org/IEPD/Extensions/CustodyStatusChangeReportExtension/1.0"
+		schemaLocation="../../extension.xsd" />
 	<xsd:annotation>
 		<xsd:documentation>Adams County Booking Codes</xsd:documentation>
 	</xsd:annotation>
@@ -33,32 +46,40 @@
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="SRP">
 				<xsd:annotation>
-					<xsd:documentation>Supervised Release Pretrial - under supervised released awaiting trial</xsd:documentation>
+					<xsd:documentation>Supervised Release Pretrial - under supervised
+						released awaiting trial</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="C-PR">
 				<xsd:annotation>
-					<xsd:documentation>Cash Bond Pretrial - cash bond posted released awaiting trial</xsd:documentation>
+					<xsd:documentation>Cash Bond Pretrial - cash bond posted released
+						awaiting trial</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="S-PR">
 				<xsd:annotation>
-					<xsd:documentation>Surety Bond Pretrial - surety bond posted released awaiting trial</xsd:documentation>
+					<xsd:documentation>Surety Bond Pretrial - surety bond posted
+						released awaiting trial</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="PR">
 				<xsd:annotation>
-					<xsd:documentation>Pretrial Release - released awaiting trial</xsd:documentation>
+					<xsd:documentation>Pretrial Release - released awaiting trial
+					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="C-SRP">
 				<xsd:annotation>
-					<xsd:documentation>Cash Bond Supervised Release Pretrial - cash bond posted released awaiting trial under supervision</xsd:documentation>
+					<xsd:documentation>Cash Bond Supervised Release Pretrial - cash
+						bond posted released awaiting trial under supervision
+					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="S-SRP">
 				<xsd:annotation>
-					<xsd:documentation>Surety Bond Supervised Release Pretrial - surety bond posted released awaiting trial under supervision</xsd:documentation>
+					<xsd:documentation>Surety Bond Supervised Release Pretrial - surety
+						bond posted released awaiting trial under supervision
+					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="SUR">
@@ -68,12 +89,14 @@
 			</xsd:enumeration>
 			<xsd:enumeration value="Split">
 				<xsd:annotation>
-					<xsd:documentation>bond split between cash and surety</xsd:documentation>
+					<xsd:documentation>bond split between cash and surety
+					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="No-Bond">
 				<xsd:annotation>
-					<xsd:documentation>In Jail No Bond Posted - in jail bond not posted or granted</xsd:documentation>
+					<xsd:documentation>In Jail No Bond Posted - in jail bond not posted
+						or granted</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 		</xsd:restriction>
@@ -84,13 +107,15 @@
 		</xsd:annotation>
 		<xsd:simpleContent>
 			<xsd:extension base="ac-bkg-codes:PreTrialCategoryCodeSimpleType">
-				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="PreTrialCategoryCode" type="ac-bkg-codes:PreTrialCategoryCodeType" substitutionGroup="nc:StatusAugmentationPoint">
+	<xsd:element name="PreTrialCategoryCode" type="ac-bkg-codes:PreTrialCategoryCodeType"
+		substitutionGroup="nc:StatusAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A category code for pretrial status.</xsd:documentation>
+			<xsd:documentation>A category code for pretrial status.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<!-- Need Definitions as noted below -->
@@ -137,18 +162,20 @@
 		</xsd:annotation>
 		<xsd:simpleContent>
 			<xsd:extension base="ac-bkg-codes:BedCategoryCodeSimpleType">
-				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="BedCategoryCode" type="ac-bkg-codes:BedCategoryCodeType" substitutionGroup="nc:IdentificationAugmentationPoint">
+	<xsd:element name="BedCategoryCode" type="ac-bkg-codes:BedCategoryCodeType"
+		substitutionGroup="nc:IdentificationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A category code for bed.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:simpleType name="MilitaryServiceStatusCodeSimpleType">
 		<xsd:annotation>
-			<xsd:documentation>Military Service Status code set</xsd:documentation>
+			<xsd:documentation>Military Service Status code set
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="ACT">
@@ -190,17 +217,20 @@
 	</xsd:simpleType>
 	<xsd:complexType name="MilitaryServiceStatusCodeType">
 		<xsd:annotation>
-			<xsd:documentation>Military Service Status code set</xsd:documentation>
+			<xsd:documentation>Military Service Status code set
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:simpleContent>
 			<xsd:extension base="ac-bkg-codes:MilitaryServiceStatusCodeSimpleType">
-				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="MilitaryServiceStatusCode" type="ac-bkg-codes:MilitaryServiceStatusCodeType" substitutionGroup="nc:MilitarySummaryAugmentationPoint">
+	<xsd:element name="MilitaryServiceStatusCode"
+		type="ac-bkg-codes:MilitaryServiceStatusCodeType" substitutionGroup="nc:MilitarySummaryAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A status code for military service.</xsd:documentation>
+			<xsd:documentation>A status code for military service.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

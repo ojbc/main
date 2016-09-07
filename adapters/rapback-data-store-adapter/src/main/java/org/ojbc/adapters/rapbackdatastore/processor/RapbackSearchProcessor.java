@@ -155,12 +155,14 @@ public class RapbackSearchProcessor {
         if ("Civil".equals(searchRequest.getIdentificationResultCategory())){
         	identificationTransactions = rapbackDAO.getCivilIdentificationTransactions(token, searchRequest);
         	
-        	Set<String> oris = getDistinctOris(identificationTransactions); 
-        	List<AgencyProfile> agencyProfiles = rapbackDAO.getAgencyProfiles(oris);
-        	
-        	buildSearchResults(identificationTransactions, rootElement, agencyProfiles, true);
-        	
-        	appendOrganizationInfo(rootElement, agencyProfiles);
+        	if (identificationTransactions != null && identificationTransactions.size() > 0){
+	        	Set<String> oris = getDistinctOris(identificationTransactions); 
+	        	List<AgencyProfile> agencyProfiles = rapbackDAO.getAgencyProfiles(oris);
+	        	
+	        	buildSearchResults(identificationTransactions, rootElement, agencyProfiles, true);
+	        	
+	        	appendOrganizationInfo(rootElement, agencyProfiles);
+        	}
         }
         else if ("Criminal".equals(searchRequest.getIdentificationResultCategory())){
         	identificationTransactions = rapbackDAO.getCriminalIdentificationTransactions(token, searchRequest);

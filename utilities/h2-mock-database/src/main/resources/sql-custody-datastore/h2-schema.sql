@@ -19,10 +19,6 @@ DROP SCHEMA if EXISTS custody_datastore;
 
 CREATE SCHEMA custody_datastore;
 
-use custody_datastore;
--- TODO see why other db's don't set schema
--- SET SCHEMA custody_datastore;
-
 
 CREATE TABLE person (
                 id IDENTITY NOT NULL,
@@ -81,11 +77,11 @@ CREATE TABLE person_alias (
 CREATE TABLE booking (
                 id IDENTITY NOT NULL,
                 person_id INTEGER NOT NULL,
-                booking_number INTEGER,
+                booking_number VARCHAR(50) NOT NULL,
                 booking_date DATE,
                 facility VARCHAR(50),
                 booking_photo VARCHAR(250),
-                actual_release_datetime DATE,
+                actual_release_datetime TIMESTAMP,
                 commit_date DATE,
                 scheduled_release_date DATE,
                 block VARCHAR(20),
@@ -94,7 +90,7 @@ CREATE TABLE booking (
                 case_status VARCHAR(20),
                 inmate_work_release_indicator BOOLEAN,
                 inmate_worker_indicator BOOLEAN,
-                last_updated_date DATE NOT NULL,
+                last_updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
                 CONSTRAINT id PRIMARY KEY (id)
 );
 
@@ -102,6 +98,7 @@ CREATE TABLE booking (
 CREATE TABLE arrest (
                 id IDENTITY NOT NULL,
                 booking_id INTEGER NOT NULL,
+                arrest_unique_identifier VARCHAR(100) NOT NULL,
                 arrest_agency VARCHAR(200),
                 CONSTRAINT id PRIMARY KEY (id)
 );
@@ -113,11 +110,11 @@ CREATE TABLE charge (
                 bond_amount DECIMAL(19,4),
                 bond_type VARCHAR(30),
                 bond_status VARCHAR(30),
-                next_court_event_court_name VARCHAR(30),
-                next_court_date DATE,
+                next_court_event_court_name VARCHAR(40),
+                next_court_date TIMESTAMP,
                 charge_sequence_number INTEGER,
                 charge_description VARCHAR(200),
-                statute_or_ordinance_number INTEGER,
+                statute_or_ordinance_number VARCHAR(200),
                 charge_category_classification VARCHAR(200),
                 holding_for_agency VARCHAR(100),
                 case_jurisdiction_court VARCHAR(200),

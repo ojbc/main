@@ -25,8 +25,15 @@ public class BookingCharge implements Serializable
 {
 	private static final long serialVersionUID = -7705114517046869650L;
 	private Integer bookingChargeId;
-    private Integer bookingId; 
-    private KeyValue chargeType; 
+    private Integer bookingArrestId; 
+    private String chargeCode; 
+    private String chargeDisposition; 
+	private Integer agencyId;
+    private BigDecimal bondAmount;
+    private KeyValue bondType;
+    private Integer chargeClassTypeId;
+    private Integer bondStatusTypeId;
+    private Integer chargeJurisdictionTypeId;
 
 	@Override
 	public String toString() {
@@ -41,20 +48,76 @@ public class BookingCharge implements Serializable
 		this.bookingChargeId = bookingChargeId;
 	}
 
-	public Integer getBookingId() {
-		return bookingId;
+	public Integer getBookingArrestId() {
+		return bookingArrestId;
 	}
 
-	public void setBookingId(Integer bookingId) {
-		this.bookingId = bookingId;
+	public void setBookingArrestId(Integer bookingArrestId) {
+		this.bookingArrestId = bookingArrestId;
 	}
 
-	public KeyValue getChargeType() {
-		return chargeType;
+	public Integer getAgencyId() {
+		return agencyId;
 	}
 
-	public void setChargeType(KeyValue chargeType) {
-		this.chargeType = chargeType;
+	public void setAgencyId(Integer agencyId) {
+		this.agencyId = agencyId;
+	}
+
+	public BigDecimal getBondAmount() {
+		return bondAmount;
+	}
+
+	public void setBondAmount(BigDecimal bondAmount) {
+		this.bondAmount = bondAmount;
+	}
+
+	public KeyValue getBondType() {
+		return bondType;
+	}
+
+	public void setBondType(KeyValue bondType) {
+		this.bondType = bondType;
+	}
+
+	public String getChargeCode() {
+		return chargeCode;
+	}
+
+	public void setChargeCode(String chargeCode) {
+		this.chargeCode = chargeCode;
+	}
+
+	public Integer getChargeClassTypeId() {
+		return chargeClassTypeId;
+	}
+
+	public void setChargeClassTypeId(Integer chargeClassTypeId) {
+		this.chargeClassTypeId = chargeClassTypeId;
+	}
+
+	public Integer getBondStatusTypeId() {
+		return bondStatusTypeId;
+	}
+
+	public void setBondStatusTypeId(Integer bondStatusTypeId) {
+		this.bondStatusTypeId = bondStatusTypeId;
+	}
+
+	public Integer getChargeJurisdictionTypeId() {
+		return chargeJurisdictionTypeId;
+	}
+
+	public void setChargeJurisdictionTypeId(Integer chargeJurisdictionTypeId) {
+		this.chargeJurisdictionTypeId = chargeJurisdictionTypeId;
+	}
+
+	public String getChargeDisposition() {
+		return chargeDisposition;
+	}
+
+	public void setChargeDisposition(String chargeDisposition) {
+		this.chargeDisposition = chargeDisposition;
 	}
 
 }

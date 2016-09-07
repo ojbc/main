@@ -69,11 +69,11 @@ public class XpathTest {
 		String firstName = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.firstNameXPath);
 		Assert.assertEquals("Otis", firstName.trim());
 				
-		String eyeColor = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.eyeColorXPath);
-		Assert.assertEquals("Blue", eyeColor.trim());
+		String eyeColor = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.eyeColorCodeXPath);
+		Assert.assertEquals("BLU", eyeColor.trim());
 				
-		String hairColor = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.hairColorXPath);
-		Assert.assertEquals("Blonde", hairColor.trim());
+		String hairColor = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.hairColorCodeXPath);
+		Assert.assertEquals("BLK", hairColor.trim());
 				
 		String race = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.raceXPath);
 		Assert.assertEquals("A", race.trim());
@@ -85,7 +85,25 @@ public class XpathTest {
 		Assert.assertEquals("110", height.trim());
 		
 		String weight = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.weightXPath);
-		Assert.assertEquals("110", weight.trim());						
+		Assert.assertEquals("110", weight.trim());	
+				
+		String addressStreetNum = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.addressStreetNumberXPath);
+		Assert.assertEquals("30", addressStreetNum);		
+		
+		String addressStreet = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.addressStreetNameXPath);
+		Assert.assertEquals("Main Street", addressStreet);		
+		
+		String addressCity = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.addressCityXPath);
+		Assert.assertEquals("Denton", addressCity);
+		
+		String state = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.addressStateXPath);
+		state = state.trim();		
+		Assert.assertEquals("CO", state);
+		
+		String zipCode = XmlUtils.xPathStringSearch(sampleCustodyDetailDoc, searchXpaths.addressZipXPath);
+		Assert.assertEquals("99999", zipCode);
 	}
 
 }
+
+

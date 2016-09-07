@@ -468,9 +468,19 @@
       <xs:documentation>A cultural lineage of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PersonEyeColorCode" type="ncic:EYECodeType" substitutionGroup="nc:PersonEyeColor">
+    <xs:annotation>
+      <xs:documentation>A color of the eyes of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="PersonFBIIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A number issued by the FBI's Automated Fingerprint Identification System (AFIS) based on submitted fingerprints.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonHairColorCode" type="ncic:HAICodeType" substitutionGroup="nc:PersonHairColor">
+    <xs:annotation>
+      <xs:documentation>A color of the hair of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonRaceCode" type="ncic:RACCodeType" substitutionGroup="nc:PersonRace">

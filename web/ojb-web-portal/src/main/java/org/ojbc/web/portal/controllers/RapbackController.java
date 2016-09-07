@@ -106,6 +106,7 @@ public class RapbackController {
     
     @ModelAttribute
     public void addModelAttributes(Model model) {
+    	
 		for (IdentificationTransactionState state : IdentificationTransactionState.values()){
 			identificationResultStatusCodeMap.put(state.toString(), state.toString());
 		}
@@ -125,16 +126,16 @@ public class RapbackController {
         model.addAttribute("criminalIdentificationStatusCodeMap", criminalIdentificationStatusCodeMap);
         model.addAttribute("criminalIdentificationReasonCodeMap", criminalIdentificationReasonCodeMap);
         model.addAttribute("civilIdentificationReasonCodeMap", civilIdentificationReasonCodeMap);
+		model.addAttribute("rapbackSearchRequest", getDefaultCivilIdentificationSearchRequest());
+		model.addAttribute("criminalIdentificationSearchRequest", getDefaultCriminallIdentificationSearchRequest());
 	}
     
 	@RequestMapping(value = "/rapbackResults", method = RequestMethod.POST)
-	public String searchForm(HttpServletRequest request,	        
+	public String searchForm(HttpServletRequest request, 
+			@ModelAttribute("rapbackSearchRequest") IdentificationResultSearchRequest rapbackSearchRequest,        
 	        Map<String, Object> model) {		
-								
-		IdentificationResultSearchRequest searchRequest = getDefaultCivilIdentificationSearchRequest();
-		model.put("rapbackSearchRequest", searchRequest);
 		
-		return performRapbackSearchAndReturnResult(request, model, searchRequest);
+		return performRapbackSearchAndReturnResult(request, model, rapbackSearchRequest);
 	}
 
 	private String performRapbackSearchAndReturnResult(HttpServletRequest request,
@@ -341,7 +342,7 @@ public class RapbackController {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return ex.getMessage() + ", please report the error and try again later.";
+			return "Got error:  " + ex.getMessage() + ", please report the error and try again later.";
 		}
 	}
 	
@@ -355,11 +356,11 @@ public class RapbackController {
 				return "success";
 			}catch(Exception e){
 				e.printStackTrace();
-				return (e.getMessage() + ", please report the error and try again later. ");
+				return ("Got error:  " + e.getMessage() + ", please report the error and try again later. ");
 			}														
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return ex.getMessage() + ", please report the error and try again later.";
+			return "Got error:  " + ex.getMessage() + ", please report the error and try again later.";
 		}
 	}
 	
@@ -468,17 +469,16 @@ public class RapbackController {
 		
 		IdentificationResultsQueryResponse identificationResultsQueryResponse = 
 				config.getIdentificationResultsQueryBean().invokeIdentificationResultsQueryRequest(
-						transactionNumber, initialResultsQuery, samlAssertion);;
+						transactionNumber, initialResultsQuery, samlAssertion);
+						
 		model.put("identificationResultsQueryResponse", identificationResultsQueryResponse);
 	}
 
 	
 	@RequestMapping(value = "/criminalIdentificationsResults", method = RequestMethod.POST)
-	public String criminalIdentificationResults(HttpServletRequest request,	        
+	public String criminalIdentificationResults(HttpServletRequest request, 
+			@ModelAttribute("criminalIdentificationSearchRequest") IdentificationResultSearchRequest criminalIdentificationSearchRequest, 
 			Map<String, Object> model) {		
-		
-		IdentificationResultSearchRequest criminalIdentificationSearchRequest= getDefaultCriminallIdentificationSearchRequest();
-		model.put("criminalIdentificationSearchRequest", criminalIdentificationSearchRequest);
 		
 		return performCriminalIdentificationSearchAndReturnResult(request, model, criminalIdentificationSearchRequest);
 	}

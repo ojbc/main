@@ -16,100 +16,397 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.processor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.camel.Body;
-import org.apache.camel.Header;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticsstaging.custody.dao.AnalyticalDatastoreDAO;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingSubject;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.Address;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAssessment;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
-import org.ojbc.adapters.analyticsstaging.custody.service.DescriptionCodeLookupService;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.PrescribedMedication;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.Treatment;
+import org.ojbc.adapters.analyticsstaging.custody.service.DescriptionCodeLookupFromExcelService;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public abstract class AbstractReportRepositoryProcessor {
-	@SuppressWarnings("unused")
+	private static final String ASSESSMENT_CATEGORY_GENERAL_MENTAL_HEALTH = "General Mental Health";
+	private static final String ASSESSMENT_CATEGORY_SUBSTANCE_ABUSE = "Substance Abuse";
+
 	private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
+
+	protected static final String FATAL_ERROR_PERSON_UNIQUE_ID_MISSING = "Fatal error: The person unique identifier is missing";
+	private static final String BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT = "Booking Number is missing in the report";
 
 	@Autowired
 	protected AnalyticalDatastoreDAO analyticalDatastoreDAO;
 	
 	@Autowired
-	protected DescriptionCodeLookupService descriptionCodeLookupService; 
+	protected DescriptionCodeLookupFromExcelService descriptionCodeLookupService; 
 	
     @Transactional
-	public abstract void processReport(@Body Document report, @Header("personUniqueId") String personUniqueId) throws Exception;
+	public abstract void processReport(@Body Document report) throws Exception;
 
-	protected Integer savePerson(Node personNode, String personUniqueIdentifier) throws Exception {
+	protected Integer savePerson(Node personNode, String personUniqueIdentifier, String extPrefix) throws Exception {
 		
 		Person person = new Person();
 		
 		person.setPersonUniqueIdentifier(personUniqueIdentifier);
 		
-		String personRace=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonRaceCode");
-		person.setPersonRaceDescription(personRace);
-		person.setPersonRaceID(descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, personRace));
+		String personRaceCode=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonRaceCode");
+		if (StringUtils.isBlank(personRaceCode)){
+			personRaceCode=XmlUtils.xPathStringSearch(personNode, "pc-bkg-codes:PersonRaceCode");
+		}
+		person.setPersonRaceCode(personRaceCode);
+		person.setPersonRaceId(descriptionCodeLookupService.retrieveCode(CodeTable.PersonRaceType, personRaceCode));
 		
 		String personSex=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonSexCode");
-		person.setPersonSexDescription(personSex);
-		person.setPersonSexID(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, personSex));
-		
+		person.setPersonSexCode(StringUtils.trimToNull(personSex));
+		person.setPersonSexId(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSexType, StringUtils.trimToNull(personSex)));
+
 		String personBirthDate = XmlUtils.xPathStringSearch(personNode, "nc30:PersonBirthDate/nc30:Date");
 		person.setPersonBirthDate(LocalDate.parse(personBirthDate));
 		
 		String language = XmlUtils.xPathStringSearch(personNode, "nc30:PersonPrimaryLanguage/nc30:LanguageName");
 		person.setLanguage(language);
-		person.setLanguageId(descriptionCodeLookupService.retrieveCode(CodeTable.Language, language));
+		person.setLanguageId(descriptionCodeLookupService.retrieveCode(CodeTable.LanguageType, language));
+
+		String personCriminalHistorySummaryRef = 
+				XmlUtils.xPathStringSearch(personNode, "parent::br-doc:BookingReport/nc30:ActivityPersonAssociation"
+						+ "[nc30:Person/@s30:ref=/br-doc:BookingReport/jxdm51:Booking/jxdm51:BookingSubject/nc30:RoleOfPerson/@s30:ref]/nc30:Activity/@s30:ref");
+		String registeredSexOffender = XmlUtils.xPathStringSearch(personNode, 
+				"/br-doc:BookingReport/jxdm51:PersonCriminalHistorySummary[@s30:id='"+ personCriminalHistorySummaryRef + "']/jxdm51:RegisteredSexualOffenderIndicator");
+		Boolean registeredSexOffenderBoolean = BooleanUtils.toBooleanObject(registeredSexOffender);
+		String sexOffenderStatus = BooleanUtils.toString(registeredSexOffenderBoolean, "registered", "not registered", "Unknown"); 
+		person.setSexOffenderStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.SexOffenderStatusType, sexOffenderStatus));
 		
+	 	String educationLevel = XmlUtils.xPathStringSearch(personNode, "nc30:PersonEducationLevelText");
+	 	person.setEducationLevel(educationLevel);
+	 	
+	 	String occupation = XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonAugmentation/nc30:EmployeeOccupationCategoryText");
+ 		person.setOccupation(occupation);
+	 	
+ 		Boolean homelessIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonHomelessIndicator"));
+ 		String domicileStatusType = BooleanUtils.toString(homelessIndicator, "homeless", "not homeless", "Unknown");
+ 		person.setDomicileStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.DomicileStatusType, domicileStatusType));
+
+ 		Boolean personVeteranBenefitsEligibilityIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonVeteranBenefitsEligibilityIndicator"));
+ 		String programEligibilityType = BooleanUtils.toString(personVeteranBenefitsEligibilityIndicator, "Veteran Services", "none", "Unknown"); 
+ 		person.setProgramEligibilityTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.ProgramEligibilityType, programEligibilityType));
+ 		
+ 		Boolean inmateWorkReleaseIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, "preceding-sibling::jxdm51:Detention/" + extPrefix + ":InmateWorkReleaseIndicator"));
+ 		String workReleaseStatusType = BooleanUtils.toString(inmateWorkReleaseIndicator, "assigned", "not assigned", "Unknown");
+ 		person.setWorkReleaseStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.WorkReleaseStatusType, workReleaseStatusType));;
+ 		
+	 	String militaryServiceStatusCode = XmlUtils.xPathStringSearch(personNode, "nc30:PersonMilitarySummary/ac-bkg-codes:MilitaryServiceStatusCode");
+ 		Integer militaryServiceStatusTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.MilitaryServiceStatusType, militaryServiceStatusCode);
+	 	person.setMilitaryServiceStatusType(new KeyValue(militaryServiceStatusTypeId, militaryServiceStatusCode));
 		Integer personId = analyticalDatastoreDAO.savePerson(person);
 		
 		return personId;
 	}
 
-	protected Integer saveBookingSubject(Node personNode, BookingSubject bookingSubject,
-			Integer personId) throws Exception {
-		bookingSubject.setPersonId(personId);
-		
-		String birthDateString = XmlUtils.xPathStringSearch(personNode,  "nc30:PersonBirthDate/nc30:Date");
-	 	java.time.LocalDate birthDay = java.time.LocalDate.parse(birthDateString);
-	 	long age = birthDay.until(java.time.LocalDate.now(), ChronoUnit.YEARS );
-	 	bookingSubject.setPersonAge(Long.valueOf(age).intValue());
-	 	
-	 	String educationLevel = XmlUtils.xPathStringSearch(personNode, "nc30:PersonEducationLevelText");
-	 	if(StringUtils.isNotBlank(educationLevel)){
-		 	Integer educationLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.EducationLevel, StringUtils.trim(educationLevel));
-		 	bookingSubject.setEducationLevelId(educationLevelId);
-	 	}
-	 	
-	 	String occupation = XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonAugmentation/nc30:EmployeeOccupationCategoryText");
-	 	if (StringUtils.isNotBlank(occupation)){
-	 		Integer occupationId = descriptionCodeLookupService.retrieveCode(CodeTable.Occupation, StringUtils.trim(occupation));
-	 		bookingSubject.setOccupationId(occupationId);
-	 	}
-	 	
-	 	String incomeLevel = XmlUtils.xPathStringSearch(personNode, "br-ext:PersonSocioEconomicStatusDescriptionText");
-	 	if (StringUtils.isNotBlank(incomeLevel)){
-	 		Integer incomeLevelId = descriptionCodeLookupService.retrieveCode(CodeTable.IncomeLevel, StringUtils.trim(incomeLevel));
-	 		bookingSubject.setIncomeLevelId(incomeLevelId);
-	 	}
-	 	
-	 	String housingStatus = XmlUtils.xPathStringSearch(personNode, "nc30:PersonResidentText");
-	 	if(StringUtils.isNotBlank( housingStatus )){
-	 		Integer housingStatusId = descriptionCodeLookupService.retrieveCode(CodeTable.HousingStatus, StringUtils.trim(housingStatus));
-	 		bookingSubject.setHousingStatusId(housingStatusId);
-	 	}
-	 	
-		Integer bookingSubjectId = analyticalDatastoreDAO.saveBookingSubject(bookingSubject);
-		return bookingSubjectId;
+
+	protected String getPersonUniqueIdentifier(Node personNode, String xPath) throws Exception {
+		String personUniqueIdentifier = StringUtils.trimToNull(XmlUtils.xPathStringSearch(personNode, 
+				xPath));
+		if (StringUtils.isBlank(personUniqueIdentifier)){
+			log.fatal(FATAL_ERROR_PERSON_UNIQUE_ID_MISSING);
+			throw new Exception(FATAL_ERROR_PERSON_UNIQUE_ID_MISSING);
+		}
+		return personUniqueIdentifier;
 	}
 
+	protected void processBehavioralHealthInfo(Node personNode, Integer personId, String extPrefix) throws Exception {
+		
+		String behavioralHealthInfoRef = XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonBehavioralHealthInformation/@s30:ref");
+		String personCareEpisodeRef = XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonCareEpisode/@s30:ref");
+		
+		if (StringUtils.isNotBlank(behavioralHealthInfoRef) || StringUtils.isNotBlank(personCareEpisodeRef)){
+			BehavioralHealthAssessment assessment = new BehavioralHealthAssessment();
+			
+			assessment.setPersonId(personId);
+			
+			Node behavioralHealthInfoNode = XmlUtils.xPathNodeSearch(personNode, 
+					"following-sibling::"+ extPrefix + ":BehavioralHealthInformation['"+ behavioralHealthInfoRef + "']"); 
+			
+			if (behavioralHealthInfoNode != null){
+				String seriousMentalIllnessIndicator = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":SeriousMentalIllnessIndicator");
+				assessment.setSeriousMentalIllness(BooleanUtils.toBooleanObject(seriousMentalIllnessIndicator));
+				
+				String medicaidIndicator = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, "hs:MedicaidIndicator");
+				Boolean medicaidIndicatorBoolean = BooleanUtils.toBooleanObject(medicaidIndicator);
+				String medicaidStatusType = BooleanUtils.toString(medicaidIndicatorBoolean, "eligible", "not eligible", "Unknown");
+				assessment.setMedicaidStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.MedicaidStatusType, medicaidStatusType));
+				
+				String regionalAuthorityAssignmentText = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":RegionalBehavioralHealthAuthorityAssignmentText");
+				assessment.setEnrolledProviderName(regionalAuthorityAssignmentText);
+				
+				Boolean substanceAbuseIndicator = BooleanUtils.toBooleanObject(
+						XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":SubstanceAbuseIndicator"));
+				if (BooleanUtils.isTrue(substanceAbuseIndicator)){
+					Integer assessmentCategoryTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.AssessmentCategoryType, ASSESSMENT_CATEGORY_SUBSTANCE_ABUSE);
+					assessment.getAssessmentCategory().add(new KeyValue(assessmentCategoryTypeId, ASSESSMENT_CATEGORY_SUBSTANCE_ABUSE));
+				}
+
+				Boolean generalMentalHealthConditionIndicator = BooleanUtils.toBooleanObject(
+						XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":GeneralMentalHealthConditionIndicator"));
+				if (BooleanUtils.isTrue(generalMentalHealthConditionIndicator)){
+					Integer assessmentCategoryTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.AssessmentCategoryType, ASSESSMENT_CATEGORY_GENERAL_MENTAL_HEALTH);
+					assessment.getAssessmentCategory().add(new KeyValue(assessmentCategoryTypeId, ASSESSMENT_CATEGORY_GENERAL_MENTAL_HEALTH));
+				}
+				
+		}
+			
+			String careEpisodeStartDateString = XmlUtils.xPathStringSearch(personNode, 
+					"following-sibling::"+ extPrefix + ":CareEpisode[@s30:id='" + personCareEpisodeRef + "']/nc30:ActivityDateRange/nc30:StartDate/nc30:Date");
+			LocalDate careEpisodeStartDate = StringUtils.isNotBlank(careEpisodeStartDateString)?LocalDate.parse(careEpisodeStartDateString):null;
+			assessment.setCareEpisodeStartDate(careEpisodeStartDate);
+			
+			String careEpisodeEndDateString = XmlUtils.xPathStringSearch(personNode, 
+					"following-sibling::"+ extPrefix + ":CareEpisode[@s30:id='" + personCareEpisodeRef + "']/nc30:ActivityDateRange/nc30:EndDate/nc30:Date");
+			LocalDate careEpisodeEndDate = StringUtils.isNotBlank(careEpisodeEndDateString)?LocalDate.parse(careEpisodeEndDateString):null;
+			assessment.setCareEpisodeEndDate(careEpisodeEndDate);
+			
+			Integer assessmentId = analyticalDatastoreDAO.saveBehavioralHealthAssessment(assessment);
+			
+			assessment.setBehavioralHealthAssessmentId(assessmentId);
+			processEvaluationNodes(assessment, behavioralHealthInfoNode, extPrefix);
+			processTreatmentNodes(assessment, behavioralHealthInfoNode, extPrefix);
+			processPrescribedMedications(assessment, behavioralHealthInfoNode, extPrefix);
+		}
+		
+	}
+
+	private void processPrescribedMedications(
+			BehavioralHealthAssessment assessment,
+			Node behavioralHealthInfoNode, String extPrefix) throws Exception {
+		NodeList prescribedMedicationNodes = XmlUtils.xPathNodeListSearch(behavioralHealthInfoNode, extPrefix + ":PrescribedMedication");
+
+		if (prescribedMedicationNodes.getLength() > 0){
+			
+			List<PrescribedMedication> prescribedMedications = new ArrayList<PrescribedMedication>();
+			
+			for (int i = 0; i < prescribedMedicationNodes.getLength(); i++) {
+				Node prescribedMedicationNode = prescribedMedicationNodes.item(i);
+				
+				PrescribedMedication prescribedMedication = new PrescribedMedication();
+				prescribedMedication.setBehavioralHealthAssessmentID(assessment.getBehavioralHealthAssessmentId());
+				String medicationItemName = XmlUtils.xPathStringSearch(prescribedMedicationNode,
+						"cyfs31:Medication/nc30:ItemName");
+				prescribedMedication.setMedicationDescription(medicationItemName);
+				
+				String medicationDispensingDate = XmlUtils.xPathStringSearch(prescribedMedicationNode, 
+						"cyfs31:MedicationDispensingDate/nc30:Date");
+				if (StringUtils.isNotBlank(medicationDispensingDate)){
+					prescribedMedication.setMedicationDispensingDate(LocalDate.parse(medicationDispensingDate));
+				}
+				
+				String medicationDoseMeasure = XmlUtils.xPathStringSearch(prescribedMedicationNode, 
+						"cyfs31:MedicationDoseMeasure/nc30:MeasureValueText");
+				prescribedMedication.setMedicationDoseMeasure(medicationDoseMeasure);
+				
+				prescribedMedications.add(prescribedMedication);
+			}
+			
+			analyticalDatastoreDAO.savePrescribedMedications(prescribedMedications);
+			assessment.setPrescribedMedications(prescribedMedications);
+		}
+		
+	}
+
+	private void processTreatmentNodes(BehavioralHealthAssessment assessment,
+			Node behavioralHealthInfoNode, String extPrefix) throws Exception {
+		NodeList treatmentNodes = XmlUtils.xPathNodeListSearch(behavioralHealthInfoNode, "nc30:Treatment");
+
+		if (treatmentNodes.getLength() > 0){
+			
+			List<Treatment> treatments = new ArrayList<Treatment>();
+			
+			for (int i = 0; i < treatmentNodes.getLength(); i++) {
+				Node treatmentNode = treatmentNodes.item(i);
+				
+				Treatment treatment = new Treatment();
+				treatment.setBehavioralHealthAssessmentID(assessment.getBehavioralHealthAssessmentId());
+				
+				String startDateString = XmlUtils.xPathStringSearch(treatmentNode, "nc30:ActivityDateRange/nc30:StartDate/nc30:Date");
+				if (StringUtils.isNotBlank(startDateString)){
+					treatment.setTreatmentStartDate(LocalDate.parse(startDateString));
+				}
+				
+				String treatmentProvider = XmlUtils.xPathStringSearch(treatmentNode, "nc30:TreatmentProvider/nc30:EntityOrganization/nc30:OrganizationName");
+				treatment.setTreatmentProviderName(treatmentProvider);
+				
+				Boolean treatmentCourtOrdered = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentCourtOrderedIndicator"));
+				String treatmentAdmissionReason = BooleanUtils.toString(treatmentCourtOrdered, "court ordered", "voluntary","Unknown"); 
+				treatment.setTreatmentAdmissionReasonTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.TreatmentAdmissionReasonType, treatmentAdmissionReason));
+				
+				Boolean treatmentActive = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentActiveIndicator"));
+				String treamentStatusType = BooleanUtils.toString(treatmentActive, "active", "inactive", "Unknown");
+				treatment.setTreatmentStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.TreatmentStatusType, treamentStatusType));
+				
+				treatments.add(treatment);
+			}
+			
+			analyticalDatastoreDAO.saveTreatments(treatments);
+			assessment.setTreatments(treatments);
+		}
+		
+	}
+
+	private void processEvaluationNodes(BehavioralHealthAssessment assessment,
+			Node behavioralHealthInfoNode, String extPrefix)
+			throws Exception {
+		NodeList evaluationNodes = XmlUtils.xPathNodeListSearch(behavioralHealthInfoNode, "jxdm51:Evaluation");
+
+		if (evaluationNodes.getLength() > 0){
+			
+			List<String> behavioralHealthDiagnoses = new ArrayList<String>();
+			
+			for (int i = 0; i < evaluationNodes.getLength(); i++) {
+				Node evaluationNode = evaluationNodes.item(i);
+				String evaluationDiagnosisDescriptionText = XmlUtils.xPathStringSearch(evaluationNode, "jxdm51:EvaluationDiagnosisDescriptionText");
+				
+				if (StringUtils.isNotBlank(evaluationDiagnosisDescriptionText)){
+					behavioralHealthDiagnoses.add(evaluationDiagnosisDescriptionText);
+				}
+			}
+			
+			analyticalDatastoreDAO.saveBehavioralHealthEvaluations(assessment.getBehavioralHealthAssessmentId(), behavioralHealthDiagnoses);
+			assessment.setBehavioralHealthDiagnoses(behavioralHealthDiagnoses);
+		}
+	}
+
+	protected Address getArrestInfo(Node arrestNode) throws Exception {
+		Address address = new Address();
+		
+		String locationRef = XmlUtils.xPathStringSearch(arrestNode, "jxdm51:ArrestLocation/@s30:ref");
+		Node locationNode = XmlUtils.xPathNodeSearch(arrestNode, 
+				"following-sibling::nc30:Location[@s30:id = '" + locationRef +"']");
+		
+		if (locationNode != null){
+			
+			String streetNumber = XmlUtils.xPathStringSearch(locationNode, "nc30:Address/nc30:LocationStreet/nc30:StreetNumberText");
+			address.setStreetNumber(streetNumber);
+			
+			String streetName = XmlUtils.xPathStringSearch(locationNode, "nc30:Address/nc30:LocationStreet/nc30:StreetName");
+			address.setStreetName(streetName);
+			
+			String city = XmlUtils.xPathStringSearch(locationNode, "nc30:Address/nc30:LocationCityName");
+			address.setCity(city);
+			
+			String state = XmlUtils.xPathStringSearch(locationNode, "nc30:Address/nc30:LocationStateUSPostalServiceCode");
+			address.setState(state);
+			
+			String postalcode = XmlUtils.xPathStringSearch(locationNode, "nc30:Address/nc30:LocationPostalCode");
+			address.setPostalcode(postalcode);
+			
+        	Node arrestLocation2DGeoCoordinateNode = XmlUtils.xPathNodeSearch(locationNode, "nc30:Location2DGeospatialCoordinate");
+	        	
+        	if (arrestLocation2DGeoCoordinateNode != null){
+        		String arrestLocationLongitude = XmlUtils.xPathStringSearch(arrestLocation2DGeoCoordinateNode, "nc30:GeographicCoordinateLongitude/nc30:LongitudeDegreeValue");
+        		address.setLocationLongitude(new BigDecimal(arrestLocationLongitude));
+        		
+        		String arrestLocationLatitude = XmlUtils.xPathStringSearch(arrestLocation2DGeoCoordinateNode, "nc30:GeographicCoordinateLatitude/nc30:LatitudeDegreeValue");
+        		address.setLocationLatitude(new BigDecimal(arrestLocationLatitude));
+	        }
+	        
+		}
+		return address;
+	}
+
+	protected LocalDateTime parseLocalDateTime(String dateTimeString) {
+		
+		try{
+			if (StringUtils.isNotBlank(dateTimeString)){
+				if (dateTimeString.length() > 19){
+					dateTimeString = dateTimeString.substring(0, 19);
+				}
+				return LocalDateTime.parse(dateTimeString);
+			}
+			else{
+				log.error("The dateTimeString can not be blank");
+			}
+		}
+		catch (DateTimeParseException e){
+			log.error("Failed to parse dateTimeString " + dateTimeString, e);
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * @param dateString
+	 * @return the parsed LocalDate or null if the dateString is not valid or parsing failure. 
+	 */
+	protected LocalDate parseLocalDate(String dateString) {
+		
+		try{
+			if (StringUtils.isNotBlank(dateString)){
+				return LocalDate.parse(dateString);
+			}
+			else{
+				log.error("The dateString can not be blank");
+			}
+		}
+		catch (DateTimeParseException e){
+			log.error("Failed to parse dateTimeString " + dateString, e);
+		}
+		
+		return null;
+	}
+
+	protected CustodyRelease processCustodyReleaseInfo(Node parentNode,
+			Integer bookingId) throws Exception {
+		
+        String supervisionReleaseDate = XmlUtils.xPathStringSearch(parentNode, 
+        		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:DateTime");
+        CustodyRelease custodyRelease = new CustodyRelease();
+        
+        if (StringUtils.isNotBlank(supervisionReleaseDate)){
+        	
+        	if (StringUtils.isNotBlank(supervisionReleaseDate)){
+        		custodyRelease.setReleaseDateTime(LocalDateTime.parse(supervisionReleaseDate));
+        	}
+        	
+        	custodyRelease.setBookingId(bookingId);
+        	
+        	if (StringUtils.isNotBlank(supervisionReleaseDate)){
+        		analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);
+        	}
+        }
+		return custodyRelease;
+	}
+	
+	protected Integer getBookingIdByBookingNumber(String bookingNumber) throws Exception {
+		
+		if (StringUtils.isBlank(bookingNumber)){
+			log.fatal(BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT);
+			throw new Exception(BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT);
+		}
+		
+		Integer bookingId = analyticalDatastoreDAO.getBookingIdByBookingNumber(bookingNumber);
+		if (bookingId == null){
+			log.fatal("No Booking record found with the Booking Number: " + bookingNumber);
+			throw new Exception("No Booking record found with the Booking Number: " + StringUtils.trimToEmpty(bookingNumber));
+		}
+		return bookingId;
+	}
 
 }

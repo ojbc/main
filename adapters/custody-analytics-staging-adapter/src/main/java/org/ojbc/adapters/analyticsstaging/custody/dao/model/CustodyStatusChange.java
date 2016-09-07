@@ -17,7 +17,6 @@
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -29,59 +28,21 @@ public class CustodyStatusChange implements Serializable{
 	private static final long serialVersionUID = 5546398660510817311L;
 	//pk
 	private Integer custodyStatusChangeId;
-	private Integer jurisdictionId; 
-	private LocalDateTime reportDate;
-	private Integer sendingAgencyId;
-	private LocalDateTime bookingDate; 
-	private LocalDate commitDate; 
-	private String reportId;
-	private Integer caseStatusId; 
+	private Integer bookingId;
+	private LocalDateTime bookingDateTime; 
 	private Integer pretrialStatusId; 
 	private Integer facilityId; 
-	private Integer bedTypeId; 
-	private BigDecimal arrestLocationLatitude; 
-	private BigDecimal arrestLocationLongitude; 
-	private Integer bookingSubjectId; 
+	private Integer supervisionUnitTypeId; 
+	private Integer personId; 
 	private String bookingNumber; 
-    private BigDecimal bondAmount; 
-    private KeyValue bondType;
+	private LocalDate scheduledReleaseDate; 
+    private Boolean inmateJailResidentIndicator;
+
     private CustodyRelease custodyRelease;
 	
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);	
-	}
-
-	public Integer getJurisdictionId() {
-		return jurisdictionId;
-	}
-
-	public void setJurisdictionId(Integer jurisdictionId) {
-		this.jurisdictionId = jurisdictionId;
-	}
-
-	public Integer getSendingAgencyId() {
-		return sendingAgencyId;
-	}
-
-	public void setSendingAgencyId(Integer sendingAgencyId) {
-		this.sendingAgencyId = sendingAgencyId;
-	}
-
-	public LocalDateTime getBookingDate() {
-		return bookingDate;
-	}
-
-	public void setBookingDate(LocalDateTime bookingDate) {
-		this.bookingDate = bookingDate;
-	}
-
-	public Integer getCaseStatusId() {
-		return caseStatusId;
-	}
-
-	public void setCaseStatusId(Integer caseStatusId) {
-		this.caseStatusId = caseStatusId;
 	}
 
 	public Integer getPretrialStatusId() {
@@ -100,68 +61,20 @@ public class CustodyStatusChange implements Serializable{
 		this.facilityId = facilityId;
 	}
 
-	public Integer getBedTypeId() {
-		return bedTypeId;
+	public Integer getSupervisionUnitTypeId() {
+		return supervisionUnitTypeId;
 	}
 
-	public void setBedTypeId(Integer bedTypeId) {
-		this.bedTypeId = bedTypeId;
+	public void setSupervisionUnitTypeId(Integer supervisionUnitTypeId) {
+		this.supervisionUnitTypeId = supervisionUnitTypeId;
 	}
 
-	public BigDecimal getArrestLocationLatitude() {
-		return arrestLocationLatitude;
-	}
-
-	public void setArrestLocationLatitude(BigDecimal arrestLocationLatitude) {
-		this.arrestLocationLatitude = arrestLocationLatitude;
-	}
-
-	public BigDecimal getArrestLocationLongitude() {
-		return arrestLocationLongitude;
-	}
-
-	public void setArrestLocationLongitude(BigDecimal arrestLocationLongitude) {
-		this.arrestLocationLongitude = arrestLocationLongitude;
-	}
-
-	public Integer getBookingSubjectId() {
-		return bookingSubjectId;
-	}
-
-	public void setBookingSubjectId(Integer bookingSubjectId) {
-		this.bookingSubjectId = bookingSubjectId;
-	}
-
-	public LocalDate getCommitDate() {
-		return commitDate;
-	}
-
-	public void setCommitDate(LocalDate commitDate) {
-		this.commitDate = commitDate;
-	}
-	
 	public String getBookingNumber() {
 		return bookingNumber;
 	}
 
 	public void setBookingNumber(String bookingNumber) {
 		this.bookingNumber = bookingNumber;
-	}
-
-	public BigDecimal getBondAmount() {
-		return bondAmount;
-	}
-
-	public void setBondAmount(BigDecimal bondAmount) {
-		this.bondAmount = bondAmount;
-	}
-
-	public KeyValue getBondType() {
-		return bondType;
-	}
-
-	public void setBondType(KeyValue bondType) {
-		this.bondType = bondType;
 	}
 
 	public CustodyRelease getCustodyRelease() {
@@ -180,20 +93,45 @@ public class CustodyStatusChange implements Serializable{
 		this.custodyStatusChangeId = custodyStatusChangeId;
 	}
 
-	public LocalDateTime getReportDate() {
-		return reportDate;
+	public Integer getBookingId() {
+		return bookingId;
 	}
 
-	public void setReportDate(LocalDateTime reportDate) {
-		this.reportDate = reportDate;
+	public void setBookingId(Integer bookingId) {
+		this.bookingId = bookingId;
 	}
 
-	public String getReportId() {
-		return reportId;
+	public LocalDate getScheduledReleaseDate() {
+		return scheduledReleaseDate;
 	}
 
-	public void setReportId(String reportId) {
-		this.reportId = reportId;
+	public void setScheduledReleaseDate(LocalDate scheduledReleaseDate) {
+		this.scheduledReleaseDate = scheduledReleaseDate;
+	}
+
+	public Integer getPersonId() {
+		return personId;
+	}
+
+	public void setPersonId(Integer personId) {
+		this.personId = personId;
+	}
+
+	public LocalDateTime getBookingDateTime() {
+		return bookingDateTime;
+	}
+
+	public void setBookingDateTime(LocalDateTime bookingDateTime) {
+		this.bookingDateTime = bookingDateTime;
+	}
+
+	public Boolean getInmateJailResidentIndicator() {
+		return inmateJailResidentIndicator;
+	}
+
+	public void setInmateJailResidentIndicator(
+			Boolean inmateJailResidentIndicator) {
+		this.inmateJailResidentIndicator = inmateJailResidentIndicator;
 	}
 
 
