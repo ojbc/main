@@ -38,7 +38,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="Medication" type="nc:DrugType" nillable="true">
+  <xs:element name="Medication" type="nc:DrugType">
     <xs:annotation>
       <xs:documentation>A medication in use.</xs:documentation>
     </xs:annotation>

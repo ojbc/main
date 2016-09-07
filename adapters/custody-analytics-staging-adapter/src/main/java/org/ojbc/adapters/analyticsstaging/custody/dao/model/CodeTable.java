@@ -21,20 +21,24 @@ package org.ojbc.adapters.analyticsstaging.custody.dao.model;
  *
  */
 public enum CodeTable {
-	PersonRace, 
-	PersonSex, 
 	Agency, 
-	Jurisdiction, 
-	CaseStatus, 
-	ChargeType, 
+	AssessmentCategoryType,
+	BondStatusType, 
 	BondType, 
-	BehavioralHealthType,
-	Language, 
-	EducationLevel, 
-	Occupation, 
-	IncomeLevel, 
-	HousingStatus, 
-	BedType, 
-	Facility, 
-	PretrialStatus; 
+	ChargeClassType, 
+	DomicileStatusType, 
+	Facility,
+	JurisdictionType,
+	LanguageType,
+	MedicaidStatusType,
+	MilitaryServiceStatusType,
+	PersonEthnicityType,
+	PersonRaceType, 
+	PersonSexType, 
+	ProgramEligibilityType, 
+	SexOffenderStatusType, 
+	SupervisionUnitType,
+	TreatmentAdmissionReasonType, 
+	TreatmentStatusType,
+	WorkReleaseStatusType; 
 }

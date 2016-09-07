@@ -92,8 +92,8 @@
 			</nc:ExpirationDate>
 			<wm-req-ext:ExtraditionIndicator>true
 			</wm-req-ext:ExtraditionIndicator>
-			<wm-req-ext:ExtradictionLimitCodeText>MC23
-			</wm-req-ext:ExtradictionLimitCodeText>
+			<wm-req-ext:ExtraditionLimitCodeText>MC23
+			</wm-req-ext:ExtraditionLimitCodeText>
 			<wm-req-ext:SubjectPickupRadiusCodeText>500
 			</wm-req-ext:SubjectPickupRadiusCodeText>
 			<wm-req-ext:WarrantBroadcastCodeText>B26

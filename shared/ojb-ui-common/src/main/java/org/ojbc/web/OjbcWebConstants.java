@@ -19,4 +19,15 @@ package org.ojbc.web;
 public class OjbcWebConstants {
 	public static final String TOPIC_PERSON_ARREST = "{http://ojbc.org/wsn/topics}:person/arrest";
 	public static final String CIVIL_SUBSCRIPTION_REASON_CODE="I";
+	
+    public static final String SID_REGEX = "([a-zA-Z]\\d+)?";
+    public static final String SSN_REGEX = "(\\d{3}-\\d{2}-\\d{4})?";
+    public static final String FBI_ID_REGEX = "^(\\d{1,7}|\\d{1,6}[A-Ha-h]|\\d{1,6}[J-Nj-nP-Zp-z]([1-9]|1[01])|\\d{1,6}[AaC-Fc-fHhJ-Nj-nPRTprtV-Xv-x][A-Ea-e]\\d)?$";
+    
+    public static final String FBI_ID_PATTERN_ONE_TO_SEVEN_DIGITS = "^\\d{1,7}$";
+    public static final String FBI_ID_PATTERN_ONE_TO_SIX_DIGITS_PLUS_ALPHA_AH = "^\\d{1,6}[A-Ha-h]$";
+    public static final String FBI_ID_PATTERN_ONE_TO_SIX_DIGITS_PLUS_ALPHA_JZ_1OR2CHK = "^\\d{1,6}[J-Nj-nP-Zp-z]([1-9]|1[01])$";
+    public static final String FBI_ID_PATTERN_ONE_TO_SIX_DIGITS_PLUS_2ALPHA_1CHK = "^\\d{1,6}[AaC-Fc-fHhJ-Nj-nPRTprtV-Xv-x][A-Ea-e]\\d$";
+
+
 }

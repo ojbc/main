@@ -72,7 +72,7 @@
 	<!-- this voter will have the default attributes -->
 	<bean id="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter" />
 	   
-	<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter ">
+	<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
 		<property name="rolePrefix" value="AUTHZ_" />
 	</bean>
 	

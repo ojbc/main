@@ -26,6 +26,7 @@
 	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
 	xmlns:cscr-ext="http://ojbc.org/IEPD/Extensions/CustodyStatusChangeReportExtension/1.0"
 	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
+	xmlns:pc-bkg-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/CustodyStatusChangeReportExtension/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
@@ -67,11 +68,12 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-					<xsd:element ref="nc:Case" minOccurs="0" />
+					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Detention" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Release" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:BailBond" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:PersonCriminalHistorySummary"
@@ -83,13 +85,19 @@
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0"
 						maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0"
+						maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityChargeAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:OffenseChargeAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:BailBondChargeAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonAliasIdentityAssociation"
 						minOccurs="0" />
 					<xsd:element ref="nc:ContactInformationAssociation"
+						minOccurs="0" />
+					<xsd:element ref="nc:ActivityPersonAssociation"
 						minOccurs="0" />
 					<xsd:element ref="cscr-ext:BehavioralHealthInformation"
 						minOccurs="0" />
@@ -139,10 +147,8 @@
 	<xsd:element name="SourceSystemNameText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>The name of a system that returned the search
-				result.
-				This can be used to retrieve additional information about the
-				person
-				and/or court case in the search result.
+				result. This can be used to retrieve additional information about
+				the person and/or court case in the search result.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -167,19 +173,29 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="InmateWorkReleaseIndicator" type="niem-xs:boolean"
-		substitutionGroup="nc:SupervisionAugmentationPoint">
+	<xsd:element name="InmateWorkReleaseIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if an inmate is on work release; false
-				otherwise
+			<xsd:documentation>True if an inmate is assigned to a work release program; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InmateJailResidentIndicator"
+		type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if at the time of report, an inmate is
+				a resident of the jail; false otherwise. This
+				generally applies to things like "weekender" programs.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="InmateWorkerIndicator" type="niem-xs:boolean"
-		substitutionGroup="nc:SupervisionAugmentationPoint">
+	<xsd:element name="InmateWorkerIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if an inmate is a worker in the facility;
-				false otherwise
+			<xsd:documentation>True if an inmate is a worker in the facility; false otherwise</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonNameIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonNameAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to a person's name.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -193,7 +209,7 @@
 	<xsd:element name="SupervisorCategoryText" type="nc:TextType"
 		substitutionGroup="nc:EntityAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A type of supervisor. </xsd:documentation>
+			<xsd:documentation>A type of supervisor.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SupervisorStatus" type="nc:StatusType"
@@ -230,14 +246,16 @@
 	<xsd:element name="PrescribedMedication" type="cyfs:MedicationUseType">
 		<xsd:annotation>
 			<xsd:documentation>A medicine that a person is authorized to use by a
-				qualified medical practitioner.</xsd:documentation>
+				qualified medical practitioner.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="BehavioralHealthInformation"
 		type="cscr-ext:BehavioralHealthInformationType">
 		<xsd:annotation>
 			<xsd:documentation>A collection of details about an individual's
-				behavioral health.</xsd:documentation>
+				behavioral health.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonPersistentIdentification" type="nc:IdentificationType"
@@ -309,7 +327,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MedicationGeneralProductIdentification"
+	<xsd:element name="MedicationGenericProductIdentification"
 		type="nc:IdentificationType" substitutionGroup="nc:DrugAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A hierarchical classification system that
@@ -329,6 +347,31 @@
 		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation></xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonVeteranBenefitsEligibilityIndicator"
+		type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if person qualifies to receive military
+				veteran services, false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonHomelessIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if person does not have a residence and is considered homeless, false otherwise..</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="BailBondRemainingAmount" type="nc:AmountType" substitutionGroup="j:BailBondAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A monetary amount unpaid for a given bond.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeJurisdictionCourt" type="j:CourtType"
+		substitutionGroup="j:ChargeAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The court jurisdiction for a charge.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

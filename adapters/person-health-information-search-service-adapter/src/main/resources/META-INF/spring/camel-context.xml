@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:ctx="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
+    <!-- needed cxf imports -->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="person_health_context">
+	
+	    <endpoint id="personHealthSearchAdapterRequestEndpoint" 
+	    	uri="cxf:bean:personHealthSearchAdapterRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>
+
+		<endpoint id="personHealthSearchIntermediaryResultsEndpoint"
+			uri="cxf:bean:personHealthSearchIntermediaryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}" />
+
+
+		<route id="personHealthRequest_webservice_Route">
+
+			<from uri="personHealthSearchAdapterRequestEndpoint" />
+			
+			<log message="\n\n\n personHealthRequest_webservice_Route... \n\n\n"/>
+			
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitPersonHealthInformationSearchRequest</constant>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchRequestService/1.0</constant>
+			</camel:setHeader>			
+			
+			<!-- This will alter the original message to enrich if a URI property is set in the configuration file -->
+			<camel:to uri="direct:enrichRequest"/>
+			
+			<!-- Set up member specific endpoints -->
+			<camel:setHeader headerName="routingSlipDerivedRoutes"><simple>{{personHealth.camelEndpointsToCall}}</simple></camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
+				
+				<camel:log message="About to call derived routes using this routing slip: ${in.headers.routingSlipDerivedRoutes}"/>
+				
+				<camel:recipientList>
+					<camel:header>routingSlipDerivedRoutes</camel:header>
+				</camel:recipientList>
+			</camel:filter>			
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipDerivedRoutes} == ''</camel:simple>
+				
+				<camel:to uri="bean:staticResponseProcessor?method=returnStaticResponse"/>
+			</camel:filter>	
+			
+			<!-- This will alter the response message to enrich if a URI property is set in the configuration file -->
+			<camel:to uri="direct:enrichResponse"/>
+			
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitPersonHealthInformationSearchResults</constant>
+			</camel:setHeader>	
+			
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchResultsService/1.0</constant>
+			</camel:setHeader>
+			
+			<to uri="personHealthSearchIntermediaryResultsEndpoint" />		
+		
+		</route>
+		
+		<camel:route id="enrichRequestContentRoute">
+
+			<camel:from uri="direct:enrichRequest"/>
+		
+			<!-- Set up derived endpoints -->
+			<camel:setHeader headerName="routingSlipEnrichRequestContent"><simple>{{personHealth.enrichRequestContentURI}}</simple></camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipEnrichRequestContent} != ''</camel:simple>
+				
+				<camel:log message="About to call content enricher using this routing slip: ${in.headers.routingSlipEnrichRequestContent}"/>
+				
+				<camel:recipientList>
+					<camel:header>routingSlipEnrichRequestContent</camel:header>
+				</camel:recipientList>
+			</camel:filter>			
+		
+		</camel:route>	
+
+		<camel:route id="enrichResponseContentRoute">
+
+			<camel:from uri="direct:enrichResponse"/>
+		
+			<!-- Set up derived endpoints -->
+			<camel:setHeader headerName="routingSlipEnrichResponseContent"><simple>{{personHealth.enrichResponseContentURI}}</simple></camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipEnrichResponseContent} != ''</camel:simple>
+				
+				<camel:log message="About to call content enricher using this routing slip: ${in.headers.routingSlipEnrichResponseContent}"/>
+				
+				<camel:recipientList>
+					<camel:header>routingSlipEnrichResponseContent</camel:header>
+				</camel:recipientList>
+			</camel:filter>			
+		
+		</camel:route>	
+
+	</camel:camelContext>
+  
+	<!-- Spring Beans -->
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+
+	<bean id="staticResponseProcessor" class="org.ojbc.bundles.adapter.personhealthinformation.response.StaticResponseProcessor"/>
+</beans>

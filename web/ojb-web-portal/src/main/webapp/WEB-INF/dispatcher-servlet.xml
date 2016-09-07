@@ -34,7 +34,8 @@
 
 	<context:component-scan base-package="org.ojbc.web.portal.controllers"
 		scoped-proxy="targetClass" />
-	<mvc:annotation-driven />
+	<mvc:annotation-driven/>
+	<mvc:default-servlet-handler />
 	
 	<!--classpath:/web-resources/ is read from a Tomcat classpath. If it is not found, it will be ignored.
 		Allows for third party customization  -->
@@ -60,5 +61,11 @@
 		</property>
 	</bean>
 
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:messages" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
 
 </beans>                      

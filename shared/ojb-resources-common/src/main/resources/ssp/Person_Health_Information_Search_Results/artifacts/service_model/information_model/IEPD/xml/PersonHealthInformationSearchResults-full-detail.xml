@@ -22,15 +22,16 @@
 	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:phisres-doc="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchResults/1.0"
 	xmlns:phisres-ext="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchResults/1.0"
+	xmlns:pc-phi-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/PersonHealthInformationCodes/1.0"
 	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
 	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchResults/1.0 ../xsd/exchange_schema.xsd">
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/PimaCounty/PersonHealthInformationCodes/1.0 ../xsd/impl/pima_county/phi_codes.xsd">
 	<nc30:Person>
-		<jxdm51:PersonEthnicityCode>U</jxdm51:PersonEthnicityCode>
-		<jxdm51:PersonRaceCode>W</jxdm51:PersonRaceCode>
+		<pc-phi-codes:PersonEthnicityCode>LATINO</pc-phi-codes:PersonEthnicityCode>
+		<pc-phi-codes:PersonRaceCode>1</pc-phi-codes:PersonRaceCode>
 		<jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
 		<phisres-ext:PersonTemporaryIdentification>
 			<nc30:IdentificationID>1234567890</nc30:IdentificationID>
@@ -41,7 +42,6 @@
 	</nc30:Person>
 	<phisres-ext:BehavioralHealthInformation>
 		<phisres-ext:SeriousMentalIllnessIndicator>true</phisres-ext:SeriousMentalIllnessIndicator>
-		<phisres-ext:HighRiskNeedsIndicator>true</phisres-ext:HighRiskNeedsIndicator>
 		<phisres-ext:SubstanceAbuseIndicator>true</phisres-ext:SubstanceAbuseIndicator>
 		<phisres-ext:GeneralMentalHealthConditionIndicator>false</phisres-ext:GeneralMentalHealthConditionIndicator>
 		<jxdm51:Evaluation>
@@ -65,9 +65,9 @@
 		<phisres-ext:PrescribedMedication>
 			<cyfs:Medication>
 				<nc30:ItemName>Zyprexa</nc30:ItemName>
-				<phisres-ext:MedicationGeneralProductIdentification>
+				<phisres-ext:MedicationGenericProductIdentification>
 					<nc30:IdentificationID>58-20-00-60-10-01-05</nc30:IdentificationID>
-				</phisres-ext:MedicationGeneralProductIdentification>
+				</phisres-ext:MedicationGenericProductIdentification>
 			</cyfs:Medication>
 			<cyfs:MedicationDispensingDate>
 				<nc30:Date>2016-01-01</nc30:Date>

@@ -30,7 +30,7 @@
 	          <tr >
 	         	<td>
 		        	<span>Age Range:
-		  		     #springFormInput("personFilterCommand.filterAgeRangeStart" "") to #springFormInput("personFilterCommand.filterAgeRangeEnd" "")<span>
+		  		     #springFormInput("personFilterCommand.filterAgeRangeStart" "class='shortDigit'") to #springFormInput("personFilterCommand.filterAgeRangeEnd" "class='shortDigit'")<span>
 	            </td>	
 	          </tr>        
 	          <tr>
@@ -50,12 +50,12 @@
 	          </tr>  
 	          <tr>
 				<td>
-		        	<span>Height: #springFormInput("personFilterCommand.filterHeightInFeet" "")' #springFormInput("personFilterCommand.filterHeightInInches" "")" +/-#springFormInput("personFilterCommand.filterHeightTolerance" "")"</span> 
+		        	<span>Height: #springFormInput("personFilterCommand.filterHeightInFeet" "class='shortDigit'")' #springFormInput("personFilterCommand.filterHeightInInches" "class='shortDigit'")" +/-#springFormInput("personFilterCommand.filterHeightTolerance" "class='shortDigit'")"</span> 
 	      		</td>
 	      	</tr> 
 	      	<tr>
 				<td>
-		        	<span>Weight: #springFormInput("personFilterCommand.filterWeight" "")+/-#springFormInput("personFilterCommand.filterWeightTolerance" "")</span>
+		        	<span>Weight: #springFormInput("personFilterCommand.filterWeight" "class='shortDigit'")+/-#springFormInput("personFilterCommand.filterWeightTolerance" "class='shortDigit'")</span>
 	      		</td>
 	      	</tr>   
 	        </table>

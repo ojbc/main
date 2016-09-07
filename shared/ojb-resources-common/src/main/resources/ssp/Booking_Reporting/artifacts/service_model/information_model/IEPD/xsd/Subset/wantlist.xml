@@ -26,6 +26,7 @@
   xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
   xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
   xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/">
+  <w:Element w:name="cyfs:Medication" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="cyfs:NextCourtEvent" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="hs:MedicaidIndicator" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="intel:SystemIdentification" w:isReference="false" w:nillable="true"/>
@@ -37,6 +38,9 @@
   <w:Element w:name="j:CaseAugmentation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Detention" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Evaluation" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:Offense" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:OffenseCategoryText" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:OffenseChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonCriminalHistorySummary"
     w:isReference="false" w:nillable="true"/>
@@ -126,6 +130,10 @@
   <w:Type w:name="j:BailBondType" w:isRequested="false">
     <w:ElementInType w:name="j:BailBondAmount" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:BailBondIssuerEntity"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="j:BailBondAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="j:BookingType" w:isRequested="false">
     <w:ElementInType w:name="j:BookingAgency" w:isReference="false"
@@ -145,14 +153,19 @@
     <w:ElementInType w:name="j:CaseCourt" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:ChargeDispositionType" w:isRequested="true"/>
   <w:Type w:name="j:ChargeType" w:isRequested="false">
     <w:ElementInType w:name="j:ChargeCategoryDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ChargeDisposition" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeHighestIndicator"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeSequenceID" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ChargeSeverityText" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeStatute" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -174,6 +187,16 @@
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="j:EvaluationAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:OffenseChargeAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="j:Offense" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Charge" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:OffenseType" w:isRequested="true">
+    <w:ElementInType w:name="j:OffenseCategory" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:PersonAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="nc:EmployeeOccupationCategory"
@@ -215,7 +238,9 @@
     <w:ElementInType w:name="nc:Person" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:ActivityType" w:isRequested="false">
+  <w:Type w:name="nc:ActivityType" w:isRequested="true">
+    <w:ElementInType w:name="nc:ActivityIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:ActivityCategoryText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ActivityDateRepresentation"
@@ -265,6 +290,10 @@
   <w:Type w:name="nc:DateType" w:isRequested="false">
     <w:ElementInType w:name="nc:DateRepresentation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:DispositionType" w:isRequested="true">
+    <w:ElementInType w:name="nc:DispositionText" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:DocumentType" w:isRequested="false">
     <w:ElementInType w:name="nc:DocumentCreationDate"

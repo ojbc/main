@@ -17,29 +17,30 @@
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-public class BehavioralHealthAssessment implements Serializable
-{
+public class BehavioralHealthAssessment implements Serializable{
 	private static final long serialVersionUID = 3070572325599615722L;
 	private Integer behavioralHealthAssessmentId;
-    private KeyValue behavioralHealthType; 
     private Integer personId; 
-    private LocalDate evaluationDate; 
-
+    private Boolean seriousMentalIllness;
+    private LocalDate careEpisodeStartDate;
+    private LocalDate careEpisodeEndDate;
+    private Integer MedicaidStatusTypeId;
+    private String enrolledProviderName;
+    
+    private List<String> behavioralHealthDiagnoses; 
+    private List<KeyValue> assessmentCategory = new ArrayList<KeyValue>(); 
+    private List<PrescribedMedication> prescribedMedications; 
+    private List<Treatment> treatments;
+    
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);	
-	}
-
-	public KeyValue getBehavioralHealthType() {
-		return behavioralHealthType;
-	}
-
-	public void setBehavioralHealthType(KeyValue behavioralHealthType) {
-		this.behavioralHealthType = behavioralHealthType;
 	}
 
 	public Integer getPersonId() {
@@ -50,14 +51,6 @@ public class BehavioralHealthAssessment implements Serializable
 		this.personId = personId;
 	}
 
-	public LocalDate getEvaluationDate() {
-		return evaluationDate;
-	}
-
-	public void setEvaluationDate(LocalDate evaluationDate) {
-		this.evaluationDate = evaluationDate;
-	}
-
 	public Integer getBehavioralHealthAssessmentId() {
 		return behavioralHealthAssessmentId;
 	}
@@ -65,6 +58,79 @@ public class BehavioralHealthAssessment implements Serializable
 	public void setBehavioralHealthAssessmentId(
 			Integer behavioralHealthAssessmentId) {
 		this.behavioralHealthAssessmentId = behavioralHealthAssessmentId;
+	}
+
+	public Boolean getSeriousMentalIllness() {
+		return seriousMentalIllness;
+	}
+
+	public void setSeriousMentalIllness(Boolean seriousMentalIllness) {
+		this.seriousMentalIllness = seriousMentalIllness;
+	}
+
+	public LocalDate getCareEpisodeStartDate() {
+		return careEpisodeStartDate;
+	}
+
+	public void setCareEpisodeStartDate(LocalDate careEpisodeStartDate) {
+		this.careEpisodeStartDate = careEpisodeStartDate;
+	}
+
+	public LocalDate getCareEpisodeEndDate() {
+		return careEpisodeEndDate;
+	}
+
+	public void setCareEpisodeEndDate(LocalDate careEpisodeEndDate) {
+		this.careEpisodeEndDate = careEpisodeEndDate;
+	}
+
+	public List<PrescribedMedication> getPrescribedMedications() {
+		return prescribedMedications;
+	}
+
+	public void setPrescribedMedications(List<PrescribedMedication> prescribedMedications) {
+		this.prescribedMedications = prescribedMedications;
+	}
+
+	public List<Treatment> getTreatments() {
+		return treatments;
+	}
+
+	public void setTreatments(List<Treatment> treatments) {
+		this.treatments = treatments;
+	}
+
+	public List<KeyValue> getAssessmentCategory() {
+		return assessmentCategory;
+	}
+
+	public void setAssessmentCategory(List<KeyValue> assessmentCategory) {
+		this.assessmentCategory = assessmentCategory;
+	}
+
+	public Integer getMedicaidStatusTypeId() {
+		return MedicaidStatusTypeId;
+	}
+
+	public void setMedicaidStatusTypeId(Integer medicaidStatusTypeId) {
+		MedicaidStatusTypeId = medicaidStatusTypeId;
+	}
+
+	public List<String> getBehavioralHealthDiagnoses() {
+		return behavioralHealthDiagnoses;
+	}
+
+	public void setBehavioralHealthDiagnoses(
+			List<String> behavioralHealthDiagnoses) {
+		this.behavioralHealthDiagnoses = behavioralHealthDiagnoses;
+	}
+
+	public String getEnrolledProviderName() {
+		return enrolledProviderName;
+	}
+
+	public void setEnrolledProviderName(String enrolledProviderName) {
+		this.enrolledProviderName = enrolledProviderName;
 	}
 
 }

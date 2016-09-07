@@ -20,6 +20,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -41,10 +42,7 @@ import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.portal.validators.PersonFilterCommandValidator;
 import org.ojbc.web.portal.validators.PersonSearchCommandValidator;
-import org.ojbc.web.security.Authorities;
-import org.ojbc.web.security.SecurityContextUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -150,16 +148,15 @@ public class PeopleController {
 
 
 	@RequestMapping(value = "simpleSearch", method = RequestMethod.POST)
-	public String simpleSearch(HttpServletRequest request, @ModelAttribute("personSearchCommand") PersonSearchCommand personSearchCommand,
+	public String simpleSearch(HttpServletRequest request, @Valid @ModelAttribute("personSearchCommand") PersonSearchCommand personSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		
 		userSession.setMostRecentSearch(personSearchCommand);
 		userSession.setMostRecentSearchType(PersonSearchType.SIMPLE);
+		model.put("activeSearchTab", "simpleSearchTab");
 
 		PersonSearchRequest personSearchRequest = simpleSearchParser.validateAndParseSimpleSearch(personSearchCommand,
 		        errors);
-
-		model.put("activeSearchTab", "simpleSearchTab");
 
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
@@ -189,7 +186,7 @@ public class PeopleController {
 
 	//http://host/ojbc_web_portal/people/filter post
 	@RequestMapping(value="filter", method = RequestMethod.POST)
-	public String filter(@ModelAttribute("personFilterCommand") PersonFilterCommand personFilterCommand, 
+	public String filter(@ModelAttribute("personFilterCommand") @Valid PersonFilterCommand personFilterCommand, 
 			BindingResult errors, Map<String, Object> model) {
 		
 		String filterInput;
@@ -245,14 +242,13 @@ public class PeopleController {
     }
 	
 	@RequestMapping(value = "advanceSearch", method = RequestMethod.POST)
-	public String advanceSearch(HttpServletRequest request, @ModelAttribute("personSearchCommand") PersonSearchCommand personSearchCommand,
+	public String advanceSearch(HttpServletRequest request, @ModelAttribute("personSearchCommand") @Valid PersonSearchCommand personSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		userSession.setMostRecentSearch(personSearchCommand);
 		userSession.setMostRecentSearchType(personSearchCommand.getSearchType());
+		model.put("activeSearchTab", personSearchCommand.getSearchType().name().toLowerCase() + "SearchTab");
 
 		personSearchCommandValidator.validate(personSearchCommand, errors);
-
-        model.put("activeSearchTab", personSearchCommand.getSearchType().name().toLowerCase() + "SearchTab");
 
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
@@ -269,16 +265,10 @@ public class PeopleController {
 	public String searchDetails(HttpServletRequest request, @RequestParam String systemName, 
 			@RequestParam("searchResultCategory") String searchResultCategory,
 	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
-	        Map<String, Object> model, Authentication authentication) {
+	        Map<String, Object> model) {
 		try {
 			
-			if ("Incident".equals(searchResultCategory) && 
-					!SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
-				model.put("searchContent", "");
-			}
-			else{
-				processDetailRequest(request, systemName, detailsRequest, model);
-			}
+			processDetailRequest(request, systemName, detailsRequest, model);
 			return "people/_searchDetails";
 		} catch (Exception ex) {
 			ex.printStackTrace();

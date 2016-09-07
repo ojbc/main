@@ -24,12 +24,14 @@
     xmlns:camel="http://camel.apache.org/schema/spring"
     xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
     xmlns:sec="http://cxf.apache.org/configuration/security"
+	xmlns:http="http://cxf.apache.org/transports/http/configuration"
     xsi:schemaLocation="
     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
     http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
     http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
     http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
     http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
+    http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
     ">
     
     <camel:endpoint id="probationEventHandlerServiceEndpoint" uri="cxf:bean:probationEventHandlerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.probation.probationEventHandlerServiceIntermediaryCxflogging}"/>                        
@@ -60,5 +62,26 @@
 		endpointName="probation:Probation-Event-Handler-Service"
 		xmlns:probation="http://ojbc.org/Services/WSDL/Probation_Event_Handler_Service/1.0">
 	</cxf:cxfEndpoint>
+	
+
+	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${publishSubscribe.truststorePassword}"
+					file="${publishSubscribe.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+					<!-- these filters ensure that a strong ciphersuite will be used --> 
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>		
 
 </beans>

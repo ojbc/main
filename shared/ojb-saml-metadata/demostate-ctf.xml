@@ -1786,5 +1786,168 @@ cU9FeBTo1oYSzlQ+NzPVmsb4To8gup3eyh656MTc4Xs9PAZCvHxF6KJQkTGUlbEc
 		</ContactPerson>
 	</EntityDescriptor>
 
+<!-- Adams County Analytics app -->
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="_81607b0a67252cedf3ee484f3b63658bcd41f4d0" entityID="https://analytics.cjcc.adcogov.org/shibboleth">
+
+  <md:Extensions xmlns:alg="urn:oasis:names:tc:SAML:metadata:algsupport">
+    <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/>
+    <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#sha384"/>
+    <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+    <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#sha224"/>
+    <alg:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha512"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha384"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha224"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2009/xmldsig11#dsa-sha256"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha1"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
+  </md:Extensions>
+
+  <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.1:protocol urn:oasis:names:tc:SAML:1.0:protocol">
+    <md:Extensions>
+      <init:RequestInitiator xmlns:init="urn:oasis:names:tc:SAML:profiles:SSO:request-init" Binding="urn:oasis:names:tc:SAML:profiles:SSO:request-init" Location="https://analytics.cjcc.adcogov.org/Shibboleth.sso/Login"/>
+      <idpdisc:DiscoveryResponse xmlns:idpdisc="urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol" Binding="urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol" Location="https://analytics.cjcc.adcogov.org/Shibboleth.sso/Login" index="1"/>
+    </md:Extensions>
+    <md:KeyDescriptor>
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:KeyName>cjccalsrv.adcodmz.local</ds:KeyName>
+        <ds:X509Data>
+          <ds:X509SubjectName>CN=cjccalsrv.adcodmz.local</ds:X509SubjectName>
+          <ds:X509Certificate>MIIEDDCCAnSgAwIBAgIJAK0vk32Zz7RiMA0GCSqGSIb3DQEBCwUAMCIxIDAeBgNV
+BAMTF2NqY2NhbHNydi5hZGNvZG16LmxvY2FsMB4XDTE2MDgyMzIwNDI0OVoXDTI2
+MDgyMTIwNDI0OVowIjEgMB4GA1UEAxMXY2pjY2Fsc3J2LmFkY29kbXoubG9jYWww
+ggGiMA0GCSqGSIb3DQEBAQUAA4IBjwAwggGKAoIBgQC5amURGwIEwNImryZoZl22
+H046JmPF/P+uPO+J4HuXNxgTE/Upw4XbT3hvwFacZ8nCspz3XIT2vGHVxfeWWtC0
+MGNLyXNuqRdpyoJJcD58ttZnJOokXcdfVChzoBdjvGwi7TrBQeoilFG5sSPJl36m
+xANq81hP3NmhxRTztwlsEeWvEdp5F3Q+C8xNY9qZDuJ0tKMGVGIOv7sF88+iZreN
+vlm1BIylHgzar0FEKo5EXa/4/Kyl8q4HVXD+AIQoH0ETu+wbbVQBMhPS50PhqgzC
+8LqhCIZj063VS/zzGjtSirDD4B/1OwjfFzLsjLGpXKU9PfETGUEASobw2BeGOqjz
+aNX7sMiPhn6/DCrJJQnGX1YxtHy+MLsiA3fTw/g5eOFCFER7tqT8tWy8AeHM+Ia4
+GSBLA97npvbqRDba5ZNZZGiNKbqg9f5a00pFlkhixn5xUgveAu1nBdtKXjgjeI8I
+yJ6thdY2ZNOhtOL0EmJAS0n35jHiGGCSRe0JNfcia8sCAwEAAaNFMEMwIgYDVR0R
+BBswGYIXY2pjY2Fsc3J2LmFkY29kbXoubG9jYWwwHQYDVR0OBBYEFD3exPDTYL8T
+0aZkpcaOWrtnn1JHMA0GCSqGSIb3DQEBCwUAA4IBgQBJRi+hse5WdnZvkHGBfGhg
+BU4gA/fzDUkEm5TsBI/hqy2Erw/Igj+0sBb0YIGaGHwexdWsktEivCps2hkrEphD
++9bfRCAACxjclE+1sZgO2JAS/w+QiAMjXH5Bse5UP0SSp1uskVjUojueBQoVEeWH
+B+DAlPYm9deRE1kVUBa1sm/iC0FF9MSW/ZI7JrQXmD2T1O/kSWQwxsDtXEFYE7rE
+eoS2jzJVE6dOypWkluoIVoFHPiVpYdRtNf3tYrz1k8pCZr81a6tOwS/AsYFuEh3n
+JSZw3jY5llaWQqAw8gtHCp3dt6uD3ufGQWgxHCN6mdXf9DNE1cFZGqBuFT9RijhX
+BROIGAVexUPsC7jW0h6df2Q1ZaHqs5Al6IWJIHIj8IX2jDeucVrXHJkQnacM6nhR
+qs4QpgS5cbC30S7j/SD61Vc2B4Rifrd/XSUNbv3kpxwga5xjPp8wgE+KFT9UgCfQ
+hYMOgObvaR34TNlw33Y3B5pRGJII3VMBdb2oexS34Xk=
+</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#aes128-gcm"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#aes192-gcm"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#aes256-gcm"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes128-cbc"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes192-cbc"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#rsa-oaep"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"/>
+    </md:KeyDescriptor>
+    <md:ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://analytics.cjcc.adcogov.org/Shibboleth.sso/Artifact/SOAP" index="1"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://analytics.cjcc.adcogov.org/Shibboleth.sso/SLO/SOAP"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://analytics.cjcc.adcogov.org/Shibboleth.sso/SLO/Redirect"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://analytics.cjcc.adcogov.org/Shibboleth.sso/SLO/POST"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://analytics.cjcc.adcogov.org/Shibboleth.sso/SLO/Artifact"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://analytics.cjcc.adcogov.org/Shibboleth.sso/SAML2/POST" index="1"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign" Location="https://analytics.cjcc.adcogov.org/Shibboleth.sso/SAML2/POST-SimpleSign" index="2"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://analytics.cjcc.adcogov.org/Shibboleth.sso/SAML2/Artifact" index="3"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:PAOS" Location="https://analytics.cjcc.adcogov.org/Shibboleth.sso/SAML2/ECP" index="4"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://analytics.cjcc.adcogov.org/Shibboleth.sso/SAML/POST" index="5"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://analytics.cjcc.adcogov.org/Shibboleth.sso/SAML/Artifact" index="6"/>
+  </md:SPSSODescriptor>
+
+</md:EntityDescriptor>
+
+<!-- Pima County Analytics web server -->
+
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="_00274053033418779620676c9d263693d08275e3" entityID="https://jhda-bi.pima.gov/shibboleth">
+
+  <md:Extensions xmlns:alg="urn:oasis:names:tc:SAML:metadata:algsupport">
+    <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512"/>
+    <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#sha384"/>
+    <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+    <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#sha224"/>
+    <alg:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha512"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha384"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha224"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2009/xmldsig11#dsa-sha256"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha1"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+    <alg:SigningMethod Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
+  </md:Extensions>
+
+  <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.1:protocol urn:oasis:names:tc:SAML:1.0:protocol">
+    <md:Extensions>
+      <init:RequestInitiator xmlns:init="urn:oasis:names:tc:SAML:profiles:SSO:request-init" Binding="urn:oasis:names:tc:SAML:profiles:SSO:request-init" Location="https://jhda-bi.pima.gov/Shibboleth.sso/Login"/>
+      <idpdisc:DiscoveryResponse xmlns:idpdisc="urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol" Binding="urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol" Location="https://jhda-bi.pima.gov/Shibboleth.sso/Login" index="1"/>
+    </md:Extensions>
+    <md:KeyDescriptor>
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:KeyName>spbhdaweb</ds:KeyName>
+        <ds:X509Data>
+          <ds:X509SubjectName>CN=spbhdaweb</ds:X509SubjectName>
+          <ds:X509Certificate>MIID4jCCAkqgAwIBAgIJAPSIMqUGeybXMA0GCSqGSIb3DQEBCwUAMBQxEjAQBgNV
+BAMTCXNwYmhkYXdlYjAeFw0xNjA4MjUxMjA4MDRaFw0yNjA4MjMxMjA4MDRaMBQx
+EjAQBgNVBAMTCXNwYmhkYXdlYjCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoC
+ggGBAMGJERuzYeE4QtvhoUEbHNKT5on+GHRML6dQ3X0X8iWr6HUqP22HaMS++7/0
+fhTCznGp8R7m86KnvP5DLWq4zMVeeCyHLWfqBfFnRzc5MOR/S0GIuO9DT5NoP5Ff
+Q4sUqbZmzIb59488amZiLR9PsrRv9k0hX4EmgwPS/FWVK905a3qtnBnbRz3FR41X
+2eOvTCx/EVUwzuKZn6xjAh41ljE2uGAsLKROZt0zIVwxwZbDD7dsdaPsVh/LifK2
+O40CQU7L6JLmDjf6vg2XOqyrrMLTvsi6TFIDkGQ93lKCWFS9GS2TCEVz584oJSot
+tsvDA5ZRcKNTtaxLSUX4i3X+5qIw1ARQfEqy4O2gZS3D4PxCm3ZEPsRjEsiNztIo
+d/XiotshFosWShRFBlO3NQv330gcvT/OQTvxGLyY4xS9qWKp9XXlwZyv66TeZldj
+RZ6boqOE6RxgMZ5YR9VoklUQCH7r0q+Sfph+6oTh6EpBHY0q23KUoCA1Vs4NhN93
+lvFXiQIDAQABozcwNTAUBgNVHREEDTALgglzcGJoZGF3ZWIwHQYDVR0OBBYEFFZi
+hYB2Aj3JGVDEsSz/hQyGNQvoMA0GCSqGSIb3DQEBCwUAA4IBgQC74W/9TBiz3sV1
+et2pvz6s7NqoK6aLi8zoNedwSvZV23Ku1k44kiOPBbRmOdhaw+ttLDs1UkqqmBRy
+IfLiEzYE4iiZwHlXb5naw1PAMekbGVDfwVktCFhwmQ9Cn5FDr2i60EnClwKYCY4+
++gxKxsmA1C/IoRAeZvuX2HAAZALZjYimFnbNmlUwNgPprPN66nEMx22N3rA9J4y6
+07rB8gcrD6PlngDMJml8jeDNP0XlAjnbdUZgw5QXkJMRcWtAcDo9l0SoJLkXX54z
+gPZsxxbreE/uhycENWUE3wO6Zk0Atvm8Gse+w5E87yQ4cy/rDxiah/jc0IbU8P5n
+xajT3IToRTJjAz7bHAuVKfQaCWKVpjazAMetmn0THAEswcfpRpZ40i1UUtMXZTkq
+t1E8vsSPaE+c1aDvR3mA8GAZHZERc7t9lU0+R03Qy8DbrE/4hp8rlyhdMD3nXi4L
+XrReiYZdKjFXBJSvAUwk3y/sBYUp9POxSzvbunttzIkwLDpERpc=
+</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#aes128-gcm"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#aes192-gcm"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#aes256-gcm"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes128-cbc"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes192-cbc"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#rsa-oaep"/>
+      <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"/>
+    </md:KeyDescriptor>
+    <md:ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://jhda-bi.pima.gov/Shibboleth.sso/Artifact/SOAP" index="1"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://jhda-bi.pima.gov/Shibboleth.sso/SLO/SOAP"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://jhda-bi.pima.gov/Shibboleth.sso/SLO/Redirect"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://jhda-bi.pima.gov/Shibboleth.sso/SLO/POST"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://jhda-bi.pima.gov/Shibboleth.sso/SLO/Artifact"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://jhda-bi.pima.gov/Shibboleth.sso/SAML2/POST" index="1"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign" Location="https://jhda-bi.pima.gov/Shibboleth.sso/SAML2/POST-SimpleSign" index="2"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://jhda-bi.pima.gov/Shibboleth.sso/SAML2/Artifact" index="3"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:PAOS" Location="https://jhda-bi.pima.gov/Shibboleth.sso/SAML2/ECP" index="4"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://jhda-bi.pima.gov/Shibboleth.sso/SAML/POST" index="5"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://jhda-bi.pima.gov/Shibboleth.sso/SAML/Artifact" index="6"/>
+  </md:SPSSODescriptor>
+
+</md:EntityDescriptor>
 
 </EntitiesDescriptor>

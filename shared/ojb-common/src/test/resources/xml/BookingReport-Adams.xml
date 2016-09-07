@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<br-doc:BookingReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/BookingReport/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0 ../xsd/impl/adams_county/booking_codes.xsd"
+	xmlns:niem-xs="http://yes...niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
+	xmlns:br-doc="http://ojbc.org/IEPD/Exchange/BookingReport/1.0"
+	xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
+	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:DocumentCreationDate>
+		<nc:DateTime>2012-12-17T09:30:47.0Z</nc:DateTime>
+	</nc:DocumentCreationDate>
+	<nc:DocumentIdentification>
+		<nc:IdentificationID>eDocumentID</nc:IdentificationID>
+	</nc:DocumentIdentification>
+	<intel:SystemIdentification>
+		<nc:IdentificationID>Source System ID</nc:IdentificationID>
+		<nc:SystemName>Source System Name</nc:SystemName>
+	</intel:SystemIdentification>
+	<j:Booking structures:id="Booking_01">
+		<nc:ActivityDate>
+			<nc:DateTime>2013-12-17T09:30:00</nc:DateTime>
+		</nc:ActivityDate>
+		<j:BookingAgency>
+			<nc:OrganizationName>Springfield County Sheriff</nc:OrganizationName>
+		</j:BookingAgency>
+		<j:BookingAgencyRecordIdentification>
+			<nc:IdentificationID>Booking Number</nc:IdentificationID>
+		</j:BookingAgencyRecordIdentification>
+		<j:BookingDetentionFacility>
+			<nc:FacilityIdentification>
+				<nc:IdentificationID>Booking Facility ID</nc:IdentificationID>
+			</nc:FacilityIdentification>
+		</j:BookingDetentionFacility>
+		<j:BookingSubject>
+			<nc:RoleOfPerson structures:ref="Person_01" />
+			<j:SubjectIdentification>
+				<nc:IdentificationID>Booking Subject Number</nc:IdentificationID>
+			</j:SubjectIdentification>
+		</j:BookingSubject>
+		<j:Arrest structures:ref="Arrest_01" />
+		<j:Arrest structures:ref="Arrest_02" />
+	</j:Booking>
+	<j:Detention structures:id="Detention_01">
+		<nc:ActivityDate>
+			<nc:Date>2013-12-17</nc:Date>
+		</nc:ActivityDate>
+		<nc:SupervisionCustodyStatus>
+			<nc:StatusDescriptionText>Pretrial</nc:StatusDescriptionText>
+		</nc:SupervisionCustodyStatus>
+		<nc:SupervisionSupervisor structures:id="Supervisor_01">
+			<nc:EntityPerson structures:ref="Officer_01" />
+			<br-ext:SupervisorCategoryText>Probation Officer
+			</br-ext:SupervisorCategoryText>
+			<br-ext:SupervisorStatus>
+				<nc:StatusDescriptionText>Primary</nc:StatusDescriptionText>
+			</br-ext:SupervisorStatus>
+		</nc:SupervisionSupervisor>
+		<j:SupervisionAugmentation>
+			<j:SupervisionReleaseEligibilityDate>
+				<nc:Date>2014-12-17</nc:Date>
+			</j:SupervisionReleaseEligibilityDate>
+			<j:SupervisionReleaseDate>
+				<nc:DateTime>2014-12-17T10:30:00</nc:DateTime>
+			</j:SupervisionReleaseDate>
+			<j:SupervisionAreaIdentification>
+				<nc:IdentificationID>Cell Block A</nc:IdentificationID>
+			</j:SupervisionAreaIdentification>
+			<j:SupervisionBedIdentification>
+				<nc:IdentificationID>Bed 2</nc:IdentificationID>
+				<ac-bkg-codes:BedCategoryCode>Type 2</ac-bkg-codes:BedCategoryCode>
+			</j:SupervisionBedIdentification>
+			<j:SupervisionCellIdentification>
+				<nc:IdentificationID>Cell 7</nc:IdentificationID>
+			</j:SupervisionCellIdentification>
+			<j:SupervisionCondition>
+				<nc:ActivityDescriptionText>Supervision Condition
+				</nc:ActivityDescriptionText>
+			</j:SupervisionCondition>
+		</j:SupervisionAugmentation>
+		<br-ext:DetentiontImmigrationHoldIndicator>false
+		</br-ext:DetentiontImmigrationHoldIndicator>
+		<br-ext:InmateWorkReleaseIndicator>true
+		</br-ext:InmateWorkReleaseIndicator>
+		<br-ext:InmateTemporarilyReleasedIndicator>true
+		</br-ext:InmateTemporarilyReleasedIndicator>
+		<br-ext:InmateWorkerIndicator>false
+		</br-ext:InmateWorkerIndicator>
+		<br-ext:AllowAccountDepositIndicator>true
+		</br-ext:AllowAccountDepositIndicator>
+	</j:Detention>
+	<j:BailBond structures:id="Bond_01">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>12345</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
+		<nc:ActivityStatus>
+			<nc:StatusDescriptionText>Bond Status</nc:StatusDescriptionText>
+		</nc:ActivityStatus>
+		<j:BailBondAmount>
+			<nc:Amount>500.00</nc:Amount>
+		</j:BailBondAmount>
+		<j:BailBondIssuerEntity>
+			<nc:EntityOrganization>
+				<nc:OrganizationName>PCSD</nc:OrganizationName>
+			</nc:EntityOrganization>
+		</j:BailBondIssuerEntity>
+		<br-ext:BailBondRemainingAmount>
+			<nc:Amount>100.00</nc:Amount>
+		</br-ext:BailBondRemainingAmount>
+	</j:BailBond>
+	<j:BailBond structures:id="Bond_02">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>54321</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
+		<nc:ActivityStatus>
+			<nc:StatusDescriptionText>Bond Status</nc:StatusDescriptionText>
+		</nc:ActivityStatus>
+		<j:BailBondAmount>
+			<nc:Amount>1000.00</nc:Amount>
+		</j:BailBondAmount>
+		<j:BailBondIssuerEntity>
+			<nc:EntityOrganization>
+				<nc:OrganizationName>ACSD</nc:OrganizationName>
+			</nc:EntityOrganization>
+		</j:BailBondIssuerEntity>
+		<br-ext:BailBondRemainingAmount>
+			<nc:Amount>100.00</nc:Amount>
+		</br-ext:BailBondRemainingAmount>
+	</j:BailBond>
+	<j:Offense structures:id="Offense_01">
+		<nc:ActivityDate>
+			<nc:Date>2013-12-17</nc:Date>
+		</nc:ActivityDate>
+		<nc:ActivityDescriptionText>Offense</nc:ActivityDescriptionText>
+		<j:OffenseCategoryText>Offense Category</j:OffenseCategoryText>
+	</j:Offense>
+	<j:Offense structures:id="Offense_02">
+		<nc:ActivityDate>
+			<nc:Date>2013-12-17</nc:Date>
+		</nc:ActivityDate>
+		<nc:ActivityDescriptionText>Offense 2</nc:ActivityDescriptionText>
+		<j:OffenseCategoryText>Offense Category 2</j:OffenseCategoryText>
+	</j:Offense>
+	<j:Charge structures:id="Charge_01">
+		<j:ChargeCategoryDescriptionText>Charge Category</j:ChargeCategoryDescriptionText>
+		<j:ChargeDescriptionText>Charge Description</j:ChargeDescriptionText>
+		<j:ChargeDisposition>
+			<nc:DispositionText>Disposition</nc:DispositionText>
+		</j:ChargeDisposition>
+		<j:ChargeHighestIndicator>true</j:ChargeHighestIndicator>
+		<j:ChargeSequenceID>Charge Sequence ID</j:ChargeSequenceID>
+		<j:ChargeSeverityText>felony</j:ChargeSeverityText>
+		<j:ChargeStatute>
+			<j:StatuteCodeSectionIdentification>
+				<nc:IdentificationID>Charge Code ID</nc:IdentificationID>
+			</j:StatuteCodeSectionIdentification>
+		</j:ChargeStatute>
+		<br-ext:ChargeJurisdictionCourt>
+			<j:CourtName>Smithville</j:CourtName>
+		</br-ext:ChargeJurisdictionCourt>
+		<br-ext:HoldForAgency>
+			<nc:OrganizationName>Agency</nc:OrganizationName>
+		</br-ext:HoldForAgency>
+	</j:Charge>
+	<j:Charge structures:id="Charge_02">
+		<j:ChargeCategoryDescriptionText>Charge Category</j:ChargeCategoryDescriptionText>
+		<j:ChargeDescriptionText>Charge Description</j:ChargeDescriptionText>
+		<j:ChargeDisposition>
+			<nc:DispositionText>Disposition</nc:DispositionText>
+		</j:ChargeDisposition>
+		<j:ChargeHighestIndicator>true</j:ChargeHighestIndicator>
+		<j:ChargeSequenceID>Charge Sequence ID</j:ChargeSequenceID>
+		<j:ChargeSeverityText>felony</j:ChargeSeverityText>
+		<j:ChargeStatute>
+			<j:StatuteCodeSectionIdentification>
+				<nc:IdentificationID>Charge Code ID</nc:IdentificationID>
+			</j:StatuteCodeSectionIdentification>
+		</j:ChargeStatute>
+		<br-ext:HoldForAgency>
+			<nc:OrganizationName>Agency</nc:OrganizationName>
+		</br-ext:HoldForAgency>
+	</j:Charge>
+	<j:Arrest structures:id="Arrest_01">
+		<nc:ActivityCategoryText>warrant</nc:ActivityCategoryText>
+		<nc:ActivityDate>
+			<nc:Date>2016-08-04</nc:Date>
+		</nc:ActivityDate>
+		<j:ArrestAgency>
+			<nc:OrganizationName>Arrest Agency name</nc:OrganizationName>
+		</j:ArrestAgency>
+		<j:ArrestCharge structures:ref="Charge_01" />
+		<j:ArrestLocation structures:ref="Loc_01" />
+	</j:Arrest>
+	<j:Arrest structures:id="Arrest_02">
+		<nc:ActivityCategoryText>warrant</nc:ActivityCategoryText>
+		<nc:ActivityDate>
+			<nc:Date>2016-08-04</nc:Date>
+		</nc:ActivityDate>
+		<j:ArrestAgency>
+			<nc:OrganizationName>Arrest Agency name 2</nc:OrganizationName>
+		</j:ArrestAgency>
+		<j:ArrestCharge structures:ref="Charge_02" />
+		<j:ArrestLocation structures:ref="Loc_01" />
+	</j:Arrest>
+	<j:PersonCriminalHistorySummary
+		structures:id="CHS_01">
+		<j:RegisteredSexualOffenderIndicator>false</j:RegisteredSexualOffenderIndicator>
+	</j:PersonCriminalHistorySummary>
+	<cyfs:NextCourtEvent structures:id="Event_01">
+		<nc:ActivityDate>
+			<nc:Date>1968-12-17</nc:Date>
+		</nc:ActivityDate>
+		<j:CourtEventCourt>
+			<j:CourtName>Court Name</j:CourtName>
+		</j:CourtEventCourt>
+	</cyfs:NextCourtEvent>
+	<cyfs:NextCourtEvent structures:id="Event_02">
+		<nc:ActivityDate>
+			<nc:Date>1968-12-17</nc:Date>
+		</nc:ActivityDate>
+		<j:CourtEventCourt>
+			<j:CourtName>Court Name</j:CourtName>
+		</j:CourtEventCourt>
+	</cyfs:NextCourtEvent>
+	<nc:Person structures:id="Person_01">
+		<nc:PersonAgeMeasure>
+			<nc:MeasureValueText>52</nc:MeasureValueText>
+			<nc:MeasureUnitText>4H</nc:MeasureUnitText>
+		</nc:PersonAgeMeasure>
+		<nc:PersonBirthDate>
+			<nc:Date>1968-12-17</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonEducationLevelText>High School Graduate</nc:PersonEducationLevelText>
+		<j:PersonEthnicityCode>H</j:PersonEthnicityCode>
+		<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
+		<nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
+		<nc:PersonHeightMeasure>
+			<nc:MeasureValueText>110</nc:MeasureValueText>
+			<nc:MeasureUnitText>4H</nc:MeasureUnitText>
+		</nc:PersonHeightMeasure>
+		<nc:PersonMilitarySummary>
+			<ac-bkg-codes:MilitaryServiceStatusCode>HD</ac-bkg-codes:MilitaryServiceStatusCode>
+		</nc:PersonMilitarySummary>
+		<nc:PersonName>
+			<nc:PersonGivenName>Otis</nc:PersonGivenName>
+			<nc:PersonMiddleName>H.</nc:PersonMiddleName>
+			<nc:PersonSurName>Strong</nc:PersonSurName>
+		</nc:PersonName>
+		<nc:PersonPhysicalFeature>
+			<nc:PhysicalFeatureDescriptionText>Tattoo</nc:PhysicalFeatureDescriptionText>
+		</nc:PersonPhysicalFeature>
+		<nc:PersonPrimaryLanguage>
+			<nc:LanguageName>English</nc:LanguageName>
+		</nc:PersonPrimaryLanguage>
+		<j:PersonRaceCode>W</j:PersonRaceCode>
+		<nc:PersonResidentText>Residence</nc:PersonResidentText>
+		<j:PersonSexCode>F</j:PersonSexCode>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>123-45-6789</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonWeightMeasure>
+			<nc:MeasureValueText>110</nc:MeasureValueText>
+			<nc:MeasureUnitText>4H</nc:MeasureUnitText>
+		</nc:PersonWeightMeasure>
+		<j:PersonAugmentation>
+			<nc:EmployeeOccupationCategoryText>Truck Driver
+			</nc:EmployeeOccupationCategoryText>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>XX0120010324</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+		<br-ext:PersonSocioEconomicStatusDescriptionText>Middle Class
+		</br-ext:PersonSocioEconomicStatusDescriptionText>
+		<br-ext:PersonVeteranBenefitsEligibilityIndicator>true
+		</br-ext:PersonVeteranBenefitsEligibilityIndicator>
+		<br-ext:PersonHomelessIndicator>true</br-ext:PersonHomelessIndicator>
+		<br-ext:PersonPersistentIdentification>
+			<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
+			</nc:IdentificationID>
+		</br-ext:PersonPersistentIdentification>
+		<br-ext:PersonBehavioralHealthInformation
+			structures:ref="PBHI_01" />
+		<br-ext:PersonCareEpisode structures:ref="PCE_01" />
+	</nc:Person>
+	<nc:Person>
+		<nc:PersonName structures:id="Officer_01">
+			<nc:PersonFullName>Officer Full Name</nc:PersonFullName>
+		</nc:PersonName>
+	</nc:Person>
+	<nc:Identity structures:id="ALIAS001">
+		<nc:IdentityPersonRepresentation>
+			<nc:PersonBirthDate>
+				<nc:Date>1960-10-07</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>Walter</nc:PersonGivenName>
+				<nc:PersonSurName>Heisenberg</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonSexCode>M</j:PersonSexCode>
+		</nc:IdentityPersonRepresentation>
+	</nc:Identity>
+	<nc:Identity structures:id="ALIAS002">
+		<nc:IdentityPersonRepresentation>
+			<nc:PersonBirthDate>
+				<nc:Date>1959-09-07</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>Walt</nc:PersonGivenName>
+				<nc:PersonMiddleName>Hartwell</nc:PersonMiddleName>
+				<nc:PersonSurName>Jackson</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonSexCode>M</j:PersonSexCode>
+		</nc:IdentityPersonRepresentation>
+	</nc:Identity>
+	<nc:Identity structures:id="ALIAS003">
+		<nc:IdentityPersonRepresentation>
+			<nc:PersonBirthDate>
+				<nc:Date>1961-09-09</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>Walt</nc:PersonGivenName>
+				<nc:PersonSurName>White</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonSexCode>M</j:PersonSexCode>
+		</nc:IdentityPersonRepresentation>
+	</nc:Identity>
+	<nc:Location structures:id="Loc_01">
+		<nc:Address>
+			<nc:LocationStreet>
+				<nc:StreetNumberText>392</nc:StreetNumberText>
+				<nc:StreetName>Woodlawn Ave
+				</nc:StreetName>
+			</nc:LocationStreet>
+			<nc:LocationCityName>Burlington</nc:LocationCityName>
+			<nc:LocationStateUSPostalServiceCode>NY
+			</nc:LocationStateUSPostalServiceCode>
+			<nc:LocationPostalCode>05408</nc:LocationPostalCode>
+		</nc:Address>
+		<nc:Location2DGeospatialCoordinate>
+			<nc:GeographicCoordinateLatitude>
+				<nc:LatitudeDegreeValue>56.1111</nc:LatitudeDegreeValue>
+			</nc:GeographicCoordinateLatitude>
+			<nc:GeographicCoordinateLongitude>
+				<nc:LongitudeDegreeValue>32.1111</nc:LongitudeDegreeValue>
+			</nc:GeographicCoordinateLongitude>
+		</nc:Location2DGeospatialCoordinate>
+	</nc:Location>
+	<nc:ContactInformation structures:id="CI_01">
+		<nc:ContactEmailID>officer@agency.gov</nc:ContactEmailID>
+		<nc:ContactTelephoneNumber>
+			<nc:FullTelephoneNumber>
+				<nc:TelephoneNumberFullID>312-216-9923</nc:TelephoneNumberFullID>
+			</nc:FullTelephoneNumber>
+			<nc:TelephoneNumberCategoryText>Cell</nc:TelephoneNumberCategoryText>
+		</nc:ContactTelephoneNumber>
+	</nc:ContactInformation>
+	<j:ActivityCaseAssociation>
+		<nc:Activity structures:ref="Booking_01" />
+		<nc:Activity structures:ref="Detention_01" />
+	</j:ActivityCaseAssociation>
+	<j:ActivityChargeAssociation>
+		<nc:Activity structures:ref="Event_01" />
+		<j:Charge structures:ref="Charge_01" />
+	</j:ActivityChargeAssociation>
+	<j:ActivityChargeAssociation>
+		<nc:Activity structures:ref="Event_02" />
+		<j:Charge structures:ref="Charge_02" />
+	</j:ActivityChargeAssociation>
+	<j:OffenseChargeAssociation>
+		<j:Offense structures:ref="Offense_01" />
+		<j:Charge structures:ref="Charge_01" />
+	</j:OffenseChargeAssociation>
+	<j:OffenseChargeAssociation>
+		<j:Offense structures:ref="Offense_02" />
+		<j:Charge structures:ref="Charge_02" />
+	</j:OffenseChargeAssociation>
+	<j:BailBondChargeAssociation>
+		<j:BailBond structures:ref="Bond_01" />
+		<j:Charge structures:ref="Charge_01" />
+	</j:BailBondChargeAssociation>
+	<j:BailBondChargeAssociation>
+		<j:BailBond structures:ref="Bond_02" />
+		<j:Charge structures:ref="Charge_02" />
+	</j:BailBondChargeAssociation>
+	<nc:PersonAliasIdentityAssociation>
+		<nc:Person structures:ref="Person_01" />
+		<nc:Identity structures:ref="ALIAS001" />
+		<nc:Identity structures:ref="ALIAS002" />
+		<nc:Identity structures:ref="ALIAS003" />
+	</nc:PersonAliasIdentityAssociation>
+	<nc:ContactInformationAssociation>
+		<nc:ContactEntity structures:ref="Supervisor_01" />
+		<nc:ContactInformation structures:ref="CI_01" />
+	</nc:ContactInformationAssociation>
+	<nc:ActivityPersonAssociation>
+		<nc:Activity structures:ref="CHS_01" />
+		<nc:Person structures:ref="Person_01" />
+	</nc:ActivityPersonAssociation>
+	<br-ext:BehavioralHealthInformation
+		structures:id="PBHI_01">
+		<br-ext:SeriousMentalIllnessIndicator>true
+		</br-ext:SeriousMentalIllnessIndicator>
+		<br-ext:HighRiskNeedsIndicator>true</br-ext:HighRiskNeedsIndicator>
+		<br-ext:SubstanceAbuseIndicator>true</br-ext:SubstanceAbuseIndicator>
+		<br-ext:GeneralMentalHealthConditionIndicator>false
+		</br-ext:GeneralMentalHealthConditionIndicator>
+		<j:Evaluation>
+			<j:EvaluationDiagnosisDescriptionText>Schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
+		</j:Evaluation>
+		<nc:Treatment>
+			<nc:ActivityDateRange>
+				<nc:StartDate>
+					<nc:Date>2016-01-01</nc:Date>
+				</nc:StartDate>
+			</nc:ActivityDateRange>
+			<nc:TreatmentText>person was treated</nc:TreatmentText>
+			<nc:TreatmentProvider>
+				<nc:EntityOrganization>
+					<nc:OrganizationName>Treatment Providing Organization Name
+					</nc:OrganizationName>
+				</nc:EntityOrganization>
+			</nc:TreatmentProvider>
+			<br-ext:TreatmentCourtOrderedIndicator>true
+			</br-ext:TreatmentCourtOrderedIndicator>
+			<br-ext:TreatmentActiveIndicator>true
+			</br-ext:TreatmentActiveIndicator>
+		</nc:Treatment>
+		<br-ext:PrescribedMedication>
+			<cyfs:Medication>
+				<nc:ItemName>Zyprexa</nc:ItemName>
+				<br-ext:MedicationGenericProductIdentification>
+					<nc:IdentificationID>58-20-00-60-10-01-05</nc:IdentificationID>
+				</br-ext:MedicationGenericProductIdentification>
+			</cyfs:Medication>
+			<cyfs:MedicationDispensingDate>
+				<nc:Date>2016-01-01</nc:Date>
+			</cyfs:MedicationDispensingDate>
+			<cyfs:MedicationDoseMeasure>
+				<nc:MeasureValueText>3mg</nc:MeasureValueText>
+			</cyfs:MedicationDoseMeasure>
+		</br-ext:PrescribedMedication>
+		<hs:MedicaidIndicator>true</hs:MedicaidIndicator>
+		<br-ext:RegionalBehavioralHealthAuthorityAssignmentText>79</br-ext:RegionalBehavioralHealthAuthorityAssignmentText>
+	</br-ext:BehavioralHealthInformation>
+	<br-ext:CareEpisode structures:id="PCE_01">
+		<nc:ActivityDateRange>
+			<nc:StartDate>
+				<nc:Date>2016-01-01</nc:Date>
+			</nc:StartDate>
+			<nc:EndDate>
+				<nc:Date>2016-04-01</nc:Date>
+			</nc:EndDate>
+		</nc:ActivityDateRange>
+	</br-ext:CareEpisode>
+</br-doc:BookingReport>

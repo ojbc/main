@@ -70,29 +70,30 @@
     				<xsl:otherwise>
     					<script type="text/javascript">
     						$(function () {
-    						$('#courtCaseTable tr').click(function () {
-    						
-	    						var systemName =$(this).attr('systemName');
-	    						var identificationSourceText = $(this).attr('identificationSourceText');
-	    						var identificationID = $(this).attr('identificationID');
+	      
+	    						$('#courtCaseTable tr').click(function () {
 	    						
+		    						var systemName =$(this).attr('systemName');
+		    						var identificationSourceText = $(this).attr('identificationSourceText');
+		    						var identificationID = $(this).attr('identificationID');
+		    						
+		    						
+		    						$('#courtCaseTable tr').removeClass("selected");
+		    						$(this).addClass("selected");
+		    						
+		    						var tempDiv = '<div id="modalIframeSpinner" style="height:50%;width:100%"/>';
+		    						// tempDiv for css spinner - replaced upon receipt of get data
+		    						$('#instanceDetailTabsHolder').html(tempDiv);                                         
+		    						
+		    						xhr = $.get("instanceDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
+		    							$('#instanceDetailTabsHolder').html(data);
+		    						}).fail(ojbc.displayIncidentDetailFailMessage);
 	    						
-	    						$('#courtCaseTable tr').removeClass("selected");
-	    						$(this).addClass("selected");
-	    						
-	    						var tempDiv = '<div id="incidentDetailTemp" style="height:50%;width:100%"/>';
-	    						// tempDiv for css spinner - replaced upon receipt of get data
-	    						$('#instanceDetailTabsHolder').html(tempDiv);                                         
-	    						
-	    						$.get("instanceDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
-	    							$('#instanceDetailTabsHolder').html(data);
-	    						}).fail(ojbc.displayIncidentDetailFailMessage);
-    						
-    						}).hover(function () {
-    								$(this).addClass("hover");
-    							}, function () {
-    								$(this).removeClass("hover");
-    							});
+	    						}).hover(function () {
+	    								$(this).addClass("hover");
+	    							}, function () {
+	    								$(this).removeClass("hover");
+	    							});
     						});
     					</script>
     					

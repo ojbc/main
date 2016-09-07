@@ -18,10 +18,9 @@ package org.ojbc.adapters.analyticsstaging.custody.service;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
@@ -29,11 +28,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
-		"classpath:META-INF/spring/dao.xml",
-		"classpath:META-INF/spring/properties-context.xml",
+		"classpath:META-INF/spring/dao-adams.xml",
+		"classpath:META-INF/spring/properties-context-adams.xml",
 		"classpath:META-INF/spring/camel-context.xml",
 		"classpath:META-INF/spring/cxf-endpoints.xml"
 		})
@@ -51,10 +51,10 @@ public class DescriptionCodeLookupServiceTest {
 
 	@Test
 	public void test(){
-		assertEquals(Integer.valueOf(1), descriptionCodeLookupService.retrieveCode(CodeTable.PersonRace, "Asian"));
-		assertEquals(Integer.valueOf(2), descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, "Female"));
-		assertNull(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSex, "W"));
-		assertEquals(Integer.valueOf(1),descriptionCodeLookupService.retrieveCode(CodeTable.Agency, "Adams County SO"));
+		assertEquals(Integer.valueOf(1), descriptionCodeLookupService.retrieveCode(CodeTable.PersonRaceType, "Asian"));
+		assertEquals(Integer.valueOf(2), descriptionCodeLookupService.retrieveCode(CodeTable.PersonSexType, "Female"));
+		assertThat(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSexType, "W"), is(3));
+		assertEquals(Integer.valueOf(3),descriptionCodeLookupService.retrieveCode(CodeTable.Agency, "Adams County SO"));
 	}
 
 }

@@ -87,8 +87,8 @@
 				<nc:Date>2016-08-13</nc:Date>
 			</nc:ExpirationDate>
 			<wir-ext:ExtraditionIndicator>true</wir-ext:ExtraditionIndicator>
-			<wir-ext:ExtraditionLimitsCodeText>MC23
-			</wir-ext:ExtraditionLimitsCodeText>
+			<wir-ext:ExtraditionLimitCodeText>MC23
+			</wir-ext:ExtraditionLimitCodeText>
 			<wir-ext:SubjectPickupRadiusCodeText>500
 			</wir-ext:SubjectPickupRadiusCodeText>
 			<wir-ext:WarrantBroadcastCodeText>B26
@@ -156,7 +156,7 @@
 			</j:PersonFBIIdentification>
 			<j:PersonBirthplaceCode>0P</j:PersonBirthplaceCode>
 		</j:PersonAugmentation>
-		<wir-ext:PersonCautionText>G45</wir-ext:PersonCautionText>
+		<wir-ext:PersonCautionCodeText>G45</wir-ext:PersonCautionCodeText>
 		<wir-ext:PersonMiscellaneousRecordIdentification>
 			<nc:IdentificationID>PS-123456</nc:IdentificationID>
 		</wir-ext:PersonMiscellaneousRecordIdentification>

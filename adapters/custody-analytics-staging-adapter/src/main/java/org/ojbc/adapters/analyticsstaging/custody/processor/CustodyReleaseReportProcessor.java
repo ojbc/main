@@ -18,7 +18,6 @@ package org.ojbc.adapters.analyticsstaging.custody.processor;
 
 import java.time.LocalDateTime;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
@@ -34,36 +33,44 @@ public class CustodyReleaseReportProcessor extends AbstractReportRepositoryProce
 	private static final Log log = LogFactory.getLog( CustodyReleaseReportProcessor.class );
 	
 	@Transactional
-	public void processReport(Document report, String personUniqueIdentifier) throws Exception
+	public void processReport(Document report) throws Exception
 	{
 		log.info("Processing Custody Release report." );
 		
-		Node bookingNode = XmlUtils.xPathNodeSearch(report, "/crr-exc:CustodyReleaseReport/crr-ext:Custody/jxdm51:Booking");
-		String bookingNumber = XmlUtils.xPathStringSearch(bookingNode, "jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID");
-		
-		if (StringUtils.isBlank(bookingNumber)){
-			throw new IllegalArgumentException("The booking number is empty in the request."); 
-		}
-		
-		LocalDateTime releaseDate = LocalDateTime.now(); 
-		String releaseDateString = XmlUtils.xPathStringSearch(bookingNode, "jxdm51:BookingRelease/nc30:ActivityDate/nc30:DateTime");
-		if (StringUtils.isNotBlank(releaseDateString)){
-			releaseDate = LocalDateTime.parse(releaseDateString);
-		}
-		
-		LocalDateTime reportDate = LocalDateTime.now(); 
-		String reportDateString = XmlUtils.xPathStringSearch(report, "/crr-exc:CustodyReleaseReport/nc30:DocumentCreationDate/nc30:DateTime");
-		if (StringUtils.isNotBlank(releaseDateString)){
-			reportDate = LocalDateTime.parse(reportDateString);
-		}
 		CustodyRelease custodyRelease = new CustodyRelease();
+		
+		Node bookingNode = XmlUtils.xPathNodeSearch(report, "/crr-exc:CustodyReleaseReport/crr-ext:Custody/jxdm51:Booking");
+		String bookingNumber = XmlUtils.xPathStringSearch(bookingNode, "jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID");
+		
+		Integer bookingId = getBookingIdByBookingNumber(bookingNumber);
+		custodyRelease.setBookingId(bookingId);
+		
+		String releaseCondition = XmlUtils.xPathStringSearch(bookingNode, "following-sibling::nc30:Release/crr-ext:ReleaseCondition/nc30:ActivityDescriptionText");
+		custodyRelease.setReleaseCondition(releaseCondition);
+		
+		String releaseDateString = XmlUtils.xPathStringSearch(bookingNode, "following-sibling::nc30:Release/nc30:ActivityDate/nc30:DateTime");
+		LocalDateTime releaseDateTime = parseLocalDateTime(releaseDateString);
+		
 		custodyRelease.setBookingNumber(bookingNumber);
-		custodyRelease.setReleaseDate(releaseDate);
-		custodyRelease.setReportDate(reportDate);
+		custodyRelease.setReleaseDateTime(releaseDateTime);
 		analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);
 		
+		processBehavioralHealthInfo(report);
 		log.info("Processed Custody Release report successfully.");
 		
+	}
+
+	private void processBehavioralHealthInfo(Document report) throws Exception {
+		
+		Node personNode = XmlUtils.xPathNodeSearch(report, 
+				"/crr-exc:CustodyReleaseReport/crr-ext:Custody/nc30:Person"
+				+ "[@s30:id = /crr-exc:CustodyReleaseReport/crr-ext:Custody/jxdm51:Booking/jxdm51:BookingSubject/nc30:RoleOfPerson/@s30:ref]");
+        
+		String personUniqueIdentifier = getPersonUniqueIdentifier(personNode, "crr-ext:PersonPersistentIdentification/nc30:IdentificationID");
+		
+		Integer personId = analyticalDatastoreDAO.getPersonIdByUniqueId(personUniqueIdentifier);
+
+		processBehavioralHealthInfo(personNode, personId, "crr-ext");
 	}
 
 }
