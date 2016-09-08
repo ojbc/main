@@ -40,6 +40,8 @@
   <w:Element w:name="nc:DriverLicense" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:DriverLicenseIdentification"
     w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:DriverLicenseNonCommercialStatusText"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:IdentificationID" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:IdentificationJurisdiction"
     w:isReference="false" w:nillable="true"/>
@@ -54,6 +56,7 @@
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LocationStateFIPS5-2AlphaCode"
     w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:LocationStateName" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LocationStreet" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:MeasureRangeValue" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:MeasureText" w:isReference="false" w:nillable="true"/>
@@ -68,6 +71,7 @@
   <w:Element w:name="nc:PersonRaceCode" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonSSNIdentification" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonSexCode" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:PersonSexText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonStateIdentification" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonSurName" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ResidenceAssociation" w:isReference="false" w:nillable="true"/>
@@ -5058,7 +5062,10 @@
     <w:ElementInType w:name="nc:DriverLicenseIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
-  <w:Type w:name="nc:DriverLicenseType" w:isRequested="true"/>
+  <w:Type w:name="nc:DriverLicenseType" w:isRequested="true">
+    <w:ElementInType w:name="nc:DriverLicenseNonCommercialStatus"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:IdentificationType" w:isRequested="true">
     <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
