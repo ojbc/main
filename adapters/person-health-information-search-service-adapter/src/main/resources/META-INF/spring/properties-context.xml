@@ -39,6 +39,9 @@
 				<util:properties>
 					<prop key="personHealth.enrichRequestContentURI"></prop>
 					<prop key="personHealth.enrichResponseContentURI"></prop>
+					<prop key="personHealth.http.soapAction"></prop>
+					<prop key="personHealth.setHTTPHeaders"></prop>
+					<prop key="personHealth.http.contentType"></prop>
 				</util:properties>
 				<!-- The .cfg file from the classpath will be consulted first, followed 
 					by the optional .cfg file under $KARAF_HOME/etc -->

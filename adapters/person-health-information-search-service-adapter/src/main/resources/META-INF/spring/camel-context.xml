@@ -35,7 +35,7 @@
     <!-- needed cxf imports -->
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
 
-	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="person_health_context">
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="person_health_context" streamCache="true">
 	
 	    <endpoint id="personHealthSearchAdapterRequestEndpoint" 
 	    	uri="cxf:bean:personHealthSearchAdapterRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>
@@ -63,16 +63,7 @@
 			
 			<!-- Set up member specific endpoints -->
 			<camel:setHeader headerName="routingSlipDerivedRoutes"><simple>{{personHealth.camelEndpointsToCall}}</simple></camel:setHeader>
-
-			<camel:filter>
-				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
-				
-				<camel:log message="About to call derived routes using this routing slip: ${in.headers.routingSlipDerivedRoutes}"/>
-				
-				<camel:recipientList>
-					<camel:header>routingSlipDerivedRoutes</camel:header>
-				</camel:recipientList>
-			</camel:filter>			
+			<camel:setHeader headerName="setHTTPHeaders"><simple>{{personHealth.setHTTPHeaders}}</simple></camel:setHeader>
 
 			<camel:filter>
 				<camel:simple>${in.headers.routingSlipDerivedRoutes} == ''</camel:simple>
@@ -80,8 +71,35 @@
 				<camel:to uri="bean:staticResponseProcessor?method=returnStaticResponse"/>
 			</camel:filter>	
 			
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
+				
+				<camel:log message="About to call derived routes using this routing slip: ${in.headers.routingSlipDerivedRoutes}"/>
+				
+				<camel:filter>
+					<camel:simple>${in.headers.setHTTPHeaders} == 'true'</camel:simple>
+				
+					<camel:setHeader headerName="Content-Type"><simple>{{personHealth.http.contentType}}</simple></camel:setHeader>
+					<camel:setHeader headerName="SOAPAction"><simple>{{personHealth.http.soapAction}}</simple></camel:setHeader>
+					
+					<camel:log message="SETTING HEADERS ${in.headers.Content-Type} ${in.headers.SOAPAction}"/>
+				</camel:filter>
+				
+				<camel:removeHeaders pattern="*" excludePattern="routingSlipDerivedRoutes|Content-Type|SOAPAction"/>
+				
+				<camel:recipientList>
+					<camel:header>routingSlipDerivedRoutes</camel:header>
+				</camel:recipientList>
+				
+				<camel:log message="Response message: ${body}" loggingLevel="DEBUG"/>
+				
+			</camel:filter>			
+
+			
 			<!-- This will alter the response message to enrich if a URI property is set in the configuration file -->
 			<camel:to uri="direct:enrichResponse"/>
+			
+			<camel:log message="Response message: ${body}"/>
 			
 			<camel:setHeader headerName="operationName">
 				<constant>SubmitPersonHealthInformationSearchResults</constant>
@@ -111,12 +129,16 @@
 					<camel:header>routingSlipEnrichRequestContent</camel:header>
 				</camel:recipientList>
 			</camel:filter>			
+			
+			<camel:log message="Enriched request body: ${body}" loggingLevel="DEBUG"/>
 		
 		</camel:route>	
 
 		<camel:route id="enrichResponseContentRoute">
 
 			<camel:from uri="direct:enrichResponse"/>
+			
+			<camel:convertBodyTo type="java.lang.String"/>
 		
 			<!-- Set up derived endpoints -->
 			<camel:setHeader headerName="routingSlipEnrichResponseContent"><simple>{{personHealth.enrichResponseContentURI}}</simple></camel:setHeader>
@@ -124,12 +146,14 @@
 			<camel:filter>
 				<camel:simple>${in.headers.routingSlipEnrichResponseContent} != ''</camel:simple>
 				
-				<camel:log message="About to call content enricher using this routing slip: ${in.headers.routingSlipEnrichResponseContent}"/>
+				<camel:log message="About to call content enricher response using this routing slip: ${in.headers.routingSlipEnrichResponseContent}"/>
 				
 				<camel:recipientList>
 					<camel:header>routingSlipEnrichResponseContent</camel:header>
 				</camel:recipientList>
 			</camel:filter>			
+			
+			<camel:log message="Enriched response body: ${body}" loggingLevel="DEBUG"/>
 		
 		</camel:route>	
 
