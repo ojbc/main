@@ -138,7 +138,11 @@
       </xsd:appinfo>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="nc:DriverLicenseBaseType"/>
+      <xsd:extension base="nc:DriverLicenseBaseType">
+        <xsd:sequence>
+          <xsd:element ref="nc:DriverLicenseNonCommercialStatus" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="FullTelephoneNumberType">
@@ -577,6 +581,19 @@
       <xsd:documentation>Details about a driver license identifier or driver license permit identifier, including the number and state.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="DriverLicenseNonCommercialStatus" abstract="true">
+    <xsd:annotation>
+      <xsd:documentation>A current status of an individual&amp;apos;s non-commercial privilege (base) type.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DriverLicenseNonCommercialStatusText" type="nc:TextType" substitutionGroup="nc:DriverLicenseNonCommercialStatus">
+    <xsd:annotation>
+      <xsd:documentation>A current status of an individual&amp;apos;s non-commercial privilege (base) type.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="DriverLicenseNonCommercialStatus"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="FullTelephoneNumber" type="nc:FullTelephoneNumberType" substitutionGroup="nc:TelephoneNumberRepresentation" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A full telephone number.</xsd:documentation>
@@ -676,6 +693,14 @@
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="LocationStateNCICRESCode" type="fbi:RESCodeType" substitutionGroup="nc:LocationState" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="LocationState"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="LocationStateName" type="nc:ProperNameTextType" substitutionGroup="nc:LocationState">
     <xsd:annotation>
       <xsd:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xsd:documentation>
       <xsd:appinfo>
@@ -845,6 +870,14 @@
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="PersonSexCode" type="fbi:SEXCodeType" substitutionGroup="nc:PersonSex" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A gender or sex of a person.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="PersonSex"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonSexText" type="nc:TextType" substitutionGroup="nc:PersonSex">
     <xsd:annotation>
       <xsd:documentation>A gender or sex of a person.</xsd:documentation>
       <xsd:appinfo>

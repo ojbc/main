@@ -19,17 +19,17 @@
 -->
 <!DOCTYPE catalog PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN" "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-  <uri name="http://niem.gov/niem/appinfo/2.0" uri="niem/appinfo/2.0/appinfo.xsd"/>
-  <uri name="http://niem.gov/niem/appinfo/2.1" uri="niem/appinfo/2.1/appinfo.xsd"/>
-  <uri name="http://niem.gov/niem/domains/cyfs/2.1/1" uri="niem/domains/cyfs/2.1/1/cyfs.xsd"/>
-  <uri name="http://niem.gov/niem/domains/intelligence/2.1" uri="niem/domains/intelligence/2.1/intelligence.xsd"/>
-  <uri name="http://niem.gov/niem/domains/jxdm/4.1" uri="niem/domains/jxdm/4.1/jxdm.xsd"/>
-  <uri name="http://niem.gov/niem/fbi/2.0" uri="niem/fbi/2.0/fbi.xsd"/>
-  <uri name="http://niem.gov/niem/fips_10-4/2.0" uri="niem/fips_10-4/2.0/fips_10-4.xsd"/>
-  <uri name="http://niem.gov/niem/fips_5-2/2.0" uri="niem/fips_5-2/2.0/fips_5-2.xsd"/>
-  <uri name="http://niem.gov/niem/niem-core/2.0" uri="niem/niem-core/2.0/niem-core.xsd"/>
-  <uri name="http://niem.gov/niem/post-canada/2.0" uri="niem/post-canada/2.0/post-canada.xsd"/>
-  <uri name="http://niem.gov/niem/proxy/xsd/2.0" uri="niem/proxy/xsd/2.0/xsd.xsd"/>
-  <uri name="http://niem.gov/niem/structures/2.0" uri="niem/structures/2.0/structures.xsd"/>
-  <uri name="http://niem.gov/niem/unece_rec20-misc/2.0" uri="niem/unece_rec20-misc/2.0/unece_rec20-misc.xsd"/>
+  <uri name="http://niem.gov/niem/appinfo/2.0" uri="appinfo/2.0/appinfo.xsd"/>
+  <uri name="http://niem.gov/niem/appinfo/2.1" uri="appinfo/2.1/appinfo.xsd"/>
+  <uri name="http://niem.gov/niem/domains/cyfs/2.1/1" uri="domains/cyfs/2.1/1/cyfs.xsd"/>
+  <uri name="http://niem.gov/niem/domains/intelligence/2.1" uri="domains/intelligence/2.1/intelligence.xsd"/>
+  <uri name="http://niem.gov/niem/domains/jxdm/4.1" uri="domains/jxdm/4.1/jxdm.xsd"/>
+  <uri name="http://niem.gov/niem/fbi/2.0" uri="fbi/2.0/fbi.xsd"/>
+  <uri name="http://niem.gov/niem/fips_10-4/2.0" uri="fips_10-4/2.0/fips_10-4.xsd"/>
+  <uri name="http://niem.gov/niem/fips_5-2/2.0" uri="fips_5-2/2.0/fips_5-2.xsd"/>
+  <uri name="http://niem.gov/niem/niem-core/2.0" uri="niem-core/2.0/niem-core.xsd"/>
+  <uri name="http://niem.gov/niem/post-canada/2.0" uri="post-canada/2.0/post-canada.xsd"/>
+  <uri name="http://niem.gov/niem/proxy/xsd/2.0" uri="proxy/xsd/2.0/xsd.xsd"/>
+  <uri name="http://niem.gov/niem/structures/2.0" uri="structures/2.0/structures.xsd"/>
+  <uri name="http://niem.gov/niem/unece_rec20-misc/2.0" uri="unece_rec20-misc/2.0/unece_rec20-misc.xsd"/>
 </catalog>
