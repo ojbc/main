@@ -53,6 +53,8 @@
 			
 			<camel:log message="This is the body: ${body}" loggingLevel="DEBUG"/>
 
+			<camel:to uri="direct:derivedRoutes"/>	
+
 			<camel:filter>
 				<camel:xpath>/ir:IncidentReport</camel:xpath>
 				<camel:setHeader headerName="operationName">
@@ -71,9 +73,6 @@
 				<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
 			</camel:setHeader>
 			
-			<!-- TODO confirm correct location (after setting operation above) -->
-			<camel:to uri="direct:derivedRoutes"/>	
-
 			<camel:throttle timePeriodMillis="1000">
 				<constant>1</constant>
 				<camel:to uri="IncidentReportingServiceEndpoint" />
