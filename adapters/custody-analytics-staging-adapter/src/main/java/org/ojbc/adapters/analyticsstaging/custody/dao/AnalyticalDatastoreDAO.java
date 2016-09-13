@@ -16,7 +16,8 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Address;
@@ -70,7 +71,7 @@ public interface AnalyticalDatastoreDAO {
 	public List<PrescribedMedication> getPrescribedMedication(Integer behavioralHealthAssessmentId);
 
 	public void saveCustodyRelease(CustodyRelease custodyRelease);
-	public void saveCustodyRelease(Integer bookingId, LocalDateTime releaseDate, String releaseCondition);
+	public void saveCustodyRelease(Integer bookingId, LocalDate releaseDate, LocalTime releaseTime, String releaseCondition);
 	public CustodyRelease getCustodyReleaseByBookingId(Integer bookingId);
 	public CustodyStatusChange getCustodyStatusChangeByBookingId(Integer bookingId); 
 	public List<CustodyStatusChangeCharge> getCustodyStatusChangeCharges(Integer custodyStatusChangeId);

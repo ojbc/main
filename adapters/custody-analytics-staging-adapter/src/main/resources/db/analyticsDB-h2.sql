@@ -19,23 +19,17 @@ Drop schema if exists CustodyAnalyticsDataStore;
 
 CREATE schema CustodyAnalyticsDataStore;
 
-CREATE TABLE MedicaidStatusType (MedicaidStatusTypeID INT AUTO_INCREMENT NOT NULL, MedicaidStatusTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE MedicaidStatusType (MedicaidStatusTypeID INT NOT NULL, MedicaidStatusTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE MedicaidStatusType ADD CONSTRAINT medicaidstatustypeid PRIMARY KEY (MedicaidStatusTypeID);
 
-CREATE SEQUENCE MedicaidStatusType_MedicaidStatusTypeID_seq_1;
-
-CREATE TABLE AssessmentCategoryType (AssessmentCategoryTypeID INT AUTO_INCREMENT NOT NULL, AssessmentCategoryTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE AssessmentCategoryType (AssessmentCategoryTypeID INT NOT NULL, AssessmentCategoryTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE AssessmentCategoryType ADD CONSTRAINT assessmentcategorytypeid PRIMARY KEY (AssessmentCategoryTypeID);
 
-CREATE SEQUENCE AssessmentCategoryType_AssessmentCategoryTypeID_seq;
-
-CREATE TABLE BondStatusType (BondStatusTypeID INT AUTO_INCREMENT NOT NULL, BondStatusTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE BondStatusType (BondStatusTypeID INT NOT NULL, BondStatusTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE BondStatusType ADD CONSTRAINT bondstatustypeid PRIMARY KEY (BondStatusTypeID);
-
-CREATE SEQUENCE BondStatusType_BondStatusTypeID_seq_1_1;
 
 CREATE TABLE ChargeClassType (ChargeClassTypeID INT AUTO_INCREMENT NOT NULL, ChargeClassTypeDescription VARCHAR(50) NOT NULL);
 
@@ -79,11 +73,9 @@ ALTER TABLE DomicileStatusType ADD CONSTRAINT domicilestatustypeid PRIMARY KEY (
 
 CREATE SEQUENCE DomicileStatusType_DomicileStatusTypeID_seq_1;
 
-CREATE TABLE PersonEthnicityType (PersonEthnicityTypeID INT AUTO_INCREMENT NOT NULL, PersonEthnicityTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE PersonEthnicityType (PersonEthnicityTypeID INT NOT NULL, PersonEthnicityTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE PersonEthnicityType ADD CONSTRAINT personethnicitytypeid PRIMARY KEY (PersonEthnicityTypeID);
-
-CREATE SEQUENCE PersonEthnicityType_PersonEthnicityTypeID_seq_1;
 
 CREATE TABLE MilitaryServiceStatusType (MilitaryServiceStatusTypeID INT AUTO_INCREMENT NOT NULL, MilitaryServiceStatusTypeDescription VARCHAR(100) NOT NULL);
 
@@ -145,11 +137,9 @@ ALTER TABLE BehavioralHealthAssessment ADD CONSTRAINT behavioralhealthassessment
 
 CREATE SEQUENCE BehavioralHealthAssessment_BehavioralHealthAssessmentID_seq;
 
-CREATE TABLE BehavioralHealthAssessmentCategory (BehavioralHealthAssessmentCategoryID INT AUTO_INCREMENT NOT NULL, BehavioralHealthAssessmentID INT NOT NULL, AssessmentCategoryTypeID INT NOT NULL, BehavioralHealthAssessmentCategoryTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE BehavioralHealthAssessmentCategory (BehavioralHealthAssessmentCategoryID INT NOT NULL, BehavioralHealthAssessmentID INT NOT NULL, AssessmentCategoryTypeID INT NOT NULL, BehavioralHealthAssessmentCategoryTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE BehavioralHealthAssessmentCategory ADD CONSTRAINT behavioralhealthassessmentcategoryid PRIMARY KEY (BehavioralHealthAssessmentCategoryID);
-
-CREATE SEQUENCE BehavioralHealthAssessmentCategory_BehavioralHealthAssessmentCategoryID_seq;
 
 CREATE TABLE PrescribedMedication (PrescribedMedicationID INT AUTO_INCREMENT NOT NULL, BehavioralHealthAssessmentID INT NOT NULL, MedicationDescription VARCHAR(80), MedicationDispensingDate date, MedicationDoseMeasure VARCHAR(10), PrescribedMedicationTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
@@ -181,19 +171,19 @@ ALTER TABLE Agency ADD CONSTRAINT agencyid PRIMARY KEY (AgencyID);
 
 CREATE SEQUENCE Agency_AgencyID_seq;
 
-CREATE TABLE Booking (BookingID INT AUTO_INCREMENT NOT NULL, BookingNumber VARCHAR(50) NOT NULL, PersonID INT NOT NULL, BookingDateTime TIMESTAMP, ScheduledReleaseDate date, FacilityID INT, SupervisionUnitTypeID INT, InmateJailResidentIndicator BOOLEAN, BookingTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE Booking (BookingID INT AUTO_INCREMENT NOT NULL, BookingNumber VARCHAR(50) NOT NULL, PersonID INT NOT NULL, BookingDate date NOT NULL, BookingTime time, ScheduledReleaseDate date, FacilityID INT, SupervisionUnitTypeID INT, InmateJailResidentIndicator BOOLEAN, BookingTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE Booking ADD CONSTRAINT bookingid PRIMARY KEY (BookingID);
 
 CREATE SEQUENCE Booking_BookingID_seq;
 
-CREATE TABLE CustodyRelease (CustodyReleaseID INT AUTO_INCREMENT NOT NULL, BookingID INT NOT NULL, ReleaseDateTime TIMESTAMP, ReleaseCondition VARCHAR(200), CustodyReleaseTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE CustodyRelease (CustodyReleaseID INT AUTO_INCREMENT NOT NULL, BookingID INT NOT NULL, ReleaseDate date NOT NULL, ReleaseTime time, ReleaseCondition VARCHAR(200), CustodyReleaseTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE CustodyRelease ADD CONSTRAINT custodyreleaseid PRIMARY KEY (CustodyReleaseID);
 
 CREATE SEQUENCE CustodyRelease_CustodyReleaseID_seq;
 
-CREATE TABLE CustodyStatusChange (CustodyStatusChangeID INT AUTO_INCREMENT NOT NULL, BookingID INT NOT NULL, PersonID INT NOT NULL, BookingDateTime TIMESTAMP, ScheduledReleaseDate date, FacilityID INT, SupervisionUnitTypeID INT, InmateJailResidentIndicator BOOLEAN, CustodyStatusChangeTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE CustodyStatusChange (CustodyStatusChangeID INT AUTO_INCREMENT NOT NULL, BookingID INT NOT NULL, PersonID INT NOT NULL, BookingDate date NOT NULL, BookingTime time, ScheduledReleaseDate date, FacilityID INT, SupervisionUnitTypeID INT, InmateJailResidentIndicator BOOLEAN, CustodyStatusChangeTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE CustodyStatusChange ADD CONSTRAINT custodystatuschangeid PRIMARY KEY (CustodyStatusChangeID);
 

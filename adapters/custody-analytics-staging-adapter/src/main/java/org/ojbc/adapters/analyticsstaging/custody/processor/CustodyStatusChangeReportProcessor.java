@@ -17,6 +17,7 @@
 package org.ojbc.adapters.analyticsstaging.custody.processor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -158,8 +159,17 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
         Integer personId = processPersonAndBehavioralHealthInfo(personNode, bookingNumber);
         custodyStatusChange.setPersonId(personId);
         
-        String bookingDate = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
-        custodyStatusChange.setBookingDateTime(parseLocalDateTime(bookingDate));
+        String bookingDateTimeString = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
+        LocalDateTime bookingDateTime = parseLocalDateTime(bookingDateTimeString);
+        
+        if (bookingDateTime != null){
+        	custodyStatusChange.setBookingDate( bookingDateTime.toLocalDate());
+        	custodyStatusChange.setBookingTime( bookingDateTime.toLocalTime());
+        }
+        else{
+            String bookingDateString = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/nc30:ActivityDate/nc30:Date");
+        	custodyStatusChange.setBookingDate(parseLocalDate(bookingDateString));
+        }
 
         String facility = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/jxdm51:BookingDetentionFacility/nc30:FacilityIdentification/nc30:IdentificationID");
         Integer facilityId = descriptionCodeLookupService.retrieveCode(CodeTable.Facility, facility);
