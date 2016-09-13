@@ -50,7 +50,7 @@
 
 		<!-- State Specific endpoints -->	
 		<camel:endpoint id="firearmSearchRequestServiceAdapterEndpoint"
-			uri="cxf:bean:firearmSearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:firearmSearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="searchResultsFederatedServiceEndpoint"
 			uri="cxf:bean:firearmSearchResultsFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}" />
@@ -62,7 +62,7 @@
 			uri="cxf:bean:mergeNotificationService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}" />
 
 		<camel:endpoint id="presentMergeNotificationServiceResultsEndpoint"
-			uri="cxf:bean:presentMergeNotificationServiceResults?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:presentMergeNotificationServiceResults?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.firearmSearch.firearmSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 		<!-- Federated Search Request Handler-->
 		<camel:route id="searchRequestFederatedServiceEndpointRoute">
