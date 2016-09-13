@@ -27,7 +27,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -212,7 +212,8 @@ public class CamelContextPimaTest {
 		booking = analyticalDatastoreDAOImpl.getBookingByBookingNumber("234567890");
 		assertNotNull(booking);
 
-		assertEquals(LocalDateTime.parse("2016-05-12T00:36:00"), booking.getBookingDateTime());
+		assertEquals(LocalDate.parse("2016-05-12"), booking.getBookingDate());
+		assertEquals(LocalTime.parse("00:36:00"), booking.getBookingTime());
 		assertThat(booking.getFacilityId(), is(1));
 		assertThat(booking.getSupervisionUnitTypeId(), is(28)); 
 		assertEquals("234567890", booking.getBookingNumber());

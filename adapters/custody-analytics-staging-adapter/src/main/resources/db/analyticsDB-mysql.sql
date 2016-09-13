@@ -27,21 +27,21 @@ use CustodyAnalyticsDataStore;
 
 
 CREATE TABLE MedicaidStatusType (
-                MedicaidStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                MedicaidStatusTypeID INT NOT NULL,
                 MedicaidStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (MedicaidStatusTypeID)
 );
 
 
 CREATE TABLE AssessmentCategoryType (
-                AssessmentCategoryTypeID INT AUTO_INCREMENT NOT NULL,
+                AssessmentCategoryTypeID INT NOT NULL,
                 AssessmentCategoryTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (AssessmentCategoryTypeID)
 );
 
 
 CREATE TABLE BondStatusType (
-                BondStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                BondStatusTypeID INT NOT NULL,
                 BondStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (BondStatusTypeID)
 );
@@ -97,7 +97,7 @@ CREATE TABLE DomicileStatusType (
 
 
 CREATE TABLE PersonEthnicityType (
-                PersonEthnicityTypeID INT AUTO_INCREMENT NOT NULL,
+                PersonEthnicityTypeID INT NOT NULL,
                 PersonEthnicityTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (PersonEthnicityTypeID)
 );
@@ -205,7 +205,7 @@ CREATE TABLE BehavioralHealthAssessment (
 
 
 CREATE TABLE BehavioralHealthAssessmentCategory (
-                BehavioralHealthAssessmentCategoryID INT AUTO_INCREMENT NOT NULL,
+                BehavioralHealthAssessmentCategoryID INT NOT NULL,
                 BehavioralHealthAssessmentID INT NOT NULL,
                 AssessmentCategoryTypeID INT NOT NULL,
                 BehavioralHealthAssessmentCategoryTimestamp DATETIME DEFAULT now() NOT NULL,
@@ -263,7 +263,8 @@ CREATE TABLE Booking (
                 BookingID INT AUTO_INCREMENT NOT NULL,
                 BookingNumber VARCHAR(50) NOT NULL,
                 PersonID INT NOT NULL,
-                BookingDateTime DATETIME,
+                BookingDate DATE NOT NULL,
+                BookingTime TIME,
                 ScheduledReleaseDate DATE,
                 FacilityID INT,
                 SupervisionUnitTypeID INT,
@@ -276,7 +277,8 @@ CREATE TABLE Booking (
 CREATE TABLE CustodyRelease (
                 CustodyReleaseID INT AUTO_INCREMENT NOT NULL,
                 BookingID INT NOT NULL,
-                ReleaseDateTime DATETIME,
+                ReleaseDate DATE NOT NULL,
+                ReleaseTime TIME,
                 ReleaseCondition VARCHAR(200),
                 CustodyReleaseTimestamp DATETIME DEFAULT now() NOT NULL,
                 PRIMARY KEY (CustodyReleaseID)
@@ -287,7 +289,8 @@ CREATE TABLE CustodyStatusChange (
                 CustodyStatusChangeID INT AUTO_INCREMENT NOT NULL,
                 BookingID INT NOT NULL,
                 PersonID INT NOT NULL,
-                BookingDateTime DATETIME,
+                BookingDate DATE NOT NULL,
+                BookingTime TIME,
                 ScheduledReleaseDate DATE,
                 FacilityID INT,
                 SupervisionUnitTypeID INT,

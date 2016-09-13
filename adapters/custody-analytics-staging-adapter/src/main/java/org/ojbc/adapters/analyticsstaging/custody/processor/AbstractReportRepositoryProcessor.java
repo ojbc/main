@@ -375,22 +375,26 @@ public abstract class AbstractReportRepositoryProcessor {
 	protected CustodyRelease processCustodyReleaseInfo(Node parentNode,
 			Integer bookingId) throws Exception {
 		
-        String supervisionReleaseDate = XmlUtils.xPathStringSearch(parentNode, 
+        String supervisionReleaseDateTimeString = XmlUtils.xPathStringSearch(parentNode, 
         		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:DateTime");
+        LocalDateTime supervisionReleaseDateTime = parseLocalDateTime(supervisionReleaseDateTimeString); 
         CustodyRelease custodyRelease = new CustodyRelease();
         
-        if (StringUtils.isNotBlank(supervisionReleaseDate)){
-        	
-        	if (StringUtils.isNotBlank(supervisionReleaseDate)){
-        		custodyRelease.setReleaseDateTime(LocalDateTime.parse(supervisionReleaseDate));
-        	}
-        	
-        	custodyRelease.setBookingId(bookingId);
-        	
-        	if (StringUtils.isNotBlank(supervisionReleaseDate)){
-        		analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);
-        	}
+        if (supervisionReleaseDateTime != null){
+    		custodyRelease.setReleaseDate(supervisionReleaseDateTime.toLocalDate());
+    		custodyRelease.setReleaseTime(supervisionReleaseDateTime.toLocalTime());
         }
+        else{
+        	String releaseDateString = XmlUtils.xPathStringSearch(parentNode, 
+            		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:Date");
+        	custodyRelease.setReleaseDate(parseLocalDate(releaseDateString));
+        }
+        
+        if (custodyRelease.getReleaseDate() != null){
+	        custodyRelease.setBookingId(bookingId);
+	        analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);
+        }
+        
 		return custodyRelease;
 	}
 	
