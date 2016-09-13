@@ -48,11 +48,19 @@ public class CustodyReleaseReportProcessor extends AbstractReportRepositoryProce
 		String releaseCondition = XmlUtils.xPathStringSearch(bookingNode, "following-sibling::nc30:Release/crr-ext:ReleaseCondition/nc30:ActivityDescriptionText");
 		custodyRelease.setReleaseCondition(releaseCondition);
 		
-		String releaseDateString = XmlUtils.xPathStringSearch(bookingNode, "following-sibling::nc30:Release/nc30:ActivityDate/nc30:DateTime");
-		LocalDateTime releaseDateTime = parseLocalDateTime(releaseDateString);
+		String releaseDateTimeString = XmlUtils.xPathStringSearch(bookingNode, "following-sibling::nc30:Release/nc30:ActivityDate/nc30:DateTime");
+		LocalDateTime releaseDateTime = parseLocalDateTime(releaseDateTimeString);
+		
+		if (releaseDateTime != null){
+			custodyRelease.setReleaseDate(releaseDateTime.toLocalDate());
+			custodyRelease.setReleaseTime(releaseDateTime.toLocalTime());
+		}
+		else{
+			String releaseDateString = XmlUtils.xPathStringSearch(bookingNode, "following-sibling::nc30:Release/nc30:ActivityDate/nc30:Date");
+			custodyRelease.setReleaseDate(parseLocalDate(releaseDateString));
+		}
 		
 		custodyRelease.setBookingNumber(bookingNumber);
-		custodyRelease.setReleaseDateTime(releaseDateTime);
 		analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);
 		
 		processBehavioralHealthInfo(report);
