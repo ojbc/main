@@ -70,6 +70,9 @@
 			<camel:setHeader headerName="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
 			</camel:setHeader>
+			
+			<!-- TODO confirm correct location (after setting operation above) -->
+			<camel:to uri="direct:derivedRoutes"/>	
 
 			<camel:throttle timePeriodMillis="1000">
 				<constant>1</constant>
@@ -79,6 +82,30 @@
 			<camel:log message="Called intermediary" />
 
 		</camel:route>
+		
+		
+		<camel:route id="IncidentReportingConnector_DerivedRoutes">
+
+			<camel:from uri="direct:derivedRoutes"/>
+		
+			<!-- Set up member specific endpoints -->
+			<camel:setHeader headerName="routingSlipDerivedRoutes">
+				<simple>{{incidentChargeReporting.camelEndpointsToCall}}</simple>
+			</camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
+				
+				<camel:log message=
+					"\n\n\n Calling derived routes with routing slip: ${in.headers.routingSlipDerivedRoutes} \n\n\n"/>
+				
+				<camel:recipientList>
+					<camel:header>routingSlipDerivedRoutes</camel:header>
+				</camel:recipientList>
+			</camel:filter>			
+		
+		</camel:route>		
+		
 
 	</camel:camelContext>
 	
