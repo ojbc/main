@@ -20,6 +20,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -609,7 +612,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		paramMap.put("lastName", searchRequest.getLastName()); 
 		paramMap.put("otn", searchRequest.getOtn()); 
 		paramMap.put("startDate", searchRequest.getReportedDateStartDate()); 
-		paramMap.put("endDate", searchRequest.getReportedDateEndDate()); 
+		paramMap.put("endDate", getMaxOfDay(searchRequest.getReportedDateEndDate())); 
 		paramMap.put("excludeArchived", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Archived)); 
 		paramMap.put("excludeSubscribed", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Subscribed)); 
 		paramMap.put("excludeAvailableForSubscription", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Available_for_Subscription)); 
@@ -710,7 +713,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		paramMap.put("lastName", searchRequest.getLastName()); 
 		paramMap.put("otn", searchRequest.getOtn()); 
 		paramMap.put("startDate", searchRequest.getReportedDateStartDate()); 
-		paramMap.put("endDate", searchRequest.getReportedDateEndDate()); 
+		paramMap.put("endDate", getMaxOfDay(searchRequest.getReportedDateEndDate())); 
 		paramMap.put("excludeArchived", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Archived)); 
 		paramMap.put("excludeAvailableForSubscription", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Available_for_Subscription)); 
 		paramMap.put("identificationReasonCode", searchRequest.getCriminalIdentificationReasonCodes().isEmpty() ? null : searchRequest.getCriminalIdentificationReasonCodes());
@@ -1083,6 +1086,16 @@ public class RapbackDAOImpl implements RapbackDAO {
 						new CivilInitialResultsRowMapper(), transactionNumber, resultSender.ordinal() + 1);
 		return civilIntialResults;
 	}
+
+	public static java.sql.Timestamp getMaxOfDay(Date date){
+		if (date != null){
+			LocalDate localDate= new java.sql.Date(date.getTime()).toLocalDate();
+			return java.sql.Timestamp.valueOf(LocalDateTime.of(localDate, LocalTime.MAX));
+		}
+		
+		return null; 
+	}
+	
 
 
 }
