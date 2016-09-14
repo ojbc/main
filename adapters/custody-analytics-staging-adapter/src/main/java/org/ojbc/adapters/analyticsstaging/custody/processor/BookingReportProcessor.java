@@ -44,7 +44,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 
 	private static final Log log = LogFactory.getLog( BookingReportProcessor.class );
 	
-	@Transactional
+	@Transactional(rollbackFor=Exception.class)
 	public void processReport(Document report) throws Exception
 	{
 		log.info("Processing booking report." );
@@ -175,6 +175,11 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         
 		String bookingNumber = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID");
 		booking.setBookingNumber(bookingNumber);
+		
+		if (StringUtils.isBlank(bookingNumber)){
+			log.fatal(BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT);
+			throw new Exception(BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT);
+		}
 		
 		String supervisionReleaseEligibilityDate = XmlUtils.xPathStringSearch(bookingReportNode, 
         		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseEligibilityDate/nc30:Date");

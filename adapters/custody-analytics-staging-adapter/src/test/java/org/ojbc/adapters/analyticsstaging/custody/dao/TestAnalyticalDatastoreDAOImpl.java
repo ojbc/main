@@ -57,7 +57,7 @@ public class TestAnalyticalDatastoreDAOImpl {
     private DataSource dataSource;  
 	
 	@Autowired
-	private AnalyticalDatastoreDAOImpl analyticalDatastoreDAO;
+	private AnalyticalDatastoreDAO analyticalDatastoreDAO;
 	
 	@Before
 	public void setUp() throws Exception {

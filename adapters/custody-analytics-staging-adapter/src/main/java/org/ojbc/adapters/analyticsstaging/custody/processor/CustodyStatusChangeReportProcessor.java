@@ -43,7 +43,7 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 
 	private static final Log log = LogFactory.getLog( CustodyStatusChangeReportProcessor.class );
 	
-	@Transactional
+	@Transactional(rollbackFor=Exception.class)
 	public void processReport(Document report) throws Exception
 	{
 		log.info("Processing custody status change report." );
