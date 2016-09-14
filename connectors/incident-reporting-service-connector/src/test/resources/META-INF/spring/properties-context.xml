@@ -30,7 +30,13 @@
 	<bean id="bridgePropertyPlaceholder"
 		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
 		<property name="propertiesArray">
-			<array>
+			<array>			
+				<!-- We put default values for the properties here and they can be overriden in subsequent entries below -->
+				<!-- This allows implementers to skip setting these properties if their instance does not use them -->				
+				<util:properties>
+					<prop key="incidentChargeReporting.camelEndpointsToCall"></prop>
+				</util:properties>				
+			
 				<util:properties
 					location="classpath:incident_reporting_service_connector.cfg" />
 			</array>
