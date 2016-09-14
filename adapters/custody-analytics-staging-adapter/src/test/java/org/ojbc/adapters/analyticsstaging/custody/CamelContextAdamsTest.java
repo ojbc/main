@@ -27,7 +27,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +58,7 @@ import org.apache.cxf.message.MessageImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.adapters.analyticsstaging.custody.dao.AnalyticalDatastoreDAOImpl;
+import org.ojbc.adapters.analyticsstaging.custody.dao.AnalyticalDatastoreDAO;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAssessment;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingArrest;
@@ -98,7 +97,7 @@ public class CamelContextAdamsTest {
     protected ProducerTemplate template;
 
 	@Autowired
-	private AnalyticalDatastoreDAOImpl analyticalDatastoreDAOImpl;
+	private AnalyticalDatastoreDAO analyticalDatastoreDAO;
 	
 	@EndpointInject(uri = "mock:direct:failedInvocation")
 	protected MockEndpoint failedInvocationEndpoint;
@@ -175,13 +174,13 @@ public class CamelContextAdamsTest {
 	{
 		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/custodyStatusChangeReport/CustodyStatusChangeReport-Adams.xml");
 
-		Person person = analyticalDatastoreDAOImpl.getPerson(1);
+		Person person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNotNull(person);
 		
-		CustodyStatusChange custodyStatusChange = analyticalDatastoreDAOImpl.getCustodyStatusChangeByBookingId(1);
+		CustodyStatusChange custodyStatusChange = analyticalDatastoreDAO.getCustodyStatusChangeByBookingId(1);
 		assertNull(custodyStatusChange);
 		
-		List<CustodyStatusChangeCharge> custodyStatusChangeCharges = analyticalDatastoreDAOImpl.getCustodyStatusChangeCharges( 1 ); 
+		List<CustodyStatusChangeCharge> custodyStatusChangeCharges = analyticalDatastoreDAO.getCustodyStatusChangeCharges( 1 ); 
 		assertTrue(custodyStatusChangeCharges.isEmpty());
 		
 	    //Send the one-way exchange.  Using template.send will send an one way message
@@ -193,10 +192,10 @@ public class CamelContextAdamsTest {
 			throw new Exception(returnExchange.getException());
 		}
 		
-		person = analyticalDatastoreDAOImpl.getPerson(1);
+		person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNotNull(person);
 
-		Person person2 = analyticalDatastoreDAOImpl.getPerson(2);
+		Person person2 = analyticalDatastoreDAO.getPerson(2);
 		Assert.assertNotNull(person2);
 
 		Assert.assertEquals(Integer.valueOf(2), person2.getPersonId());
@@ -205,7 +204,7 @@ public class CamelContextAdamsTest {
 		assertThat(person2.getOccupation(), is("Truck Driver"));
 		assertThat(person2.getMilitaryServiceStatusType().getValue(), is("Active"));
 		
-		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAOImpl.getBehavioralHealthAssessments(2);
+		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(2);
 		assertThat(behavioralHealthAssessments.size(), is(1));
 		
 		BehavioralHealthAssessment behavioralHealthAssessment = behavioralHealthAssessments.get(0);
@@ -220,7 +219,7 @@ public class CamelContextAdamsTest {
 		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
 		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(1));
 
-		List<Treatment> treatments = analyticalDatastoreDAOImpl.getTreatments(2);
+		List<Treatment> treatments = analyticalDatastoreDAO.getTreatments(2);
 		assertThat(treatments.size(), is(1));
 		
 		Treatment treatment = treatments.get(0);
@@ -231,7 +230,7 @@ public class CamelContextAdamsTest {
 		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
 		
 		
-		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAOImpl.getPrescribedMedication(2);
+		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAO.getPrescribedMedication(2);
 		assertThat(prescribedMedications.size(), is(1));
 		
 		PrescribedMedication  prescribedMedication = prescribedMedications.get(0);
@@ -240,7 +239,7 @@ public class CamelContextAdamsTest {
 		assertThat(prescribedMedication.getMedicationDispensingDate(), is(LocalDate.parse("2016-01-01"))); 
 		assertThat(prescribedMedication.getMedicationDoseMeasure(), is("3mg"));
 		
-		custodyStatusChange = analyticalDatastoreDAOImpl.getCustodyStatusChangeByBookingId(1);
+		custodyStatusChange = analyticalDatastoreDAO.getCustodyStatusChangeByBookingId(1);
 		assertNotNull(custodyStatusChange);
 
 		assertEquals(LocalDate.parse("2013-12-17"), custodyStatusChange.getBookingDate());
@@ -251,7 +250,7 @@ public class CamelContextAdamsTest {
 		assertThat(custodyStatusChange.getScheduledReleaseDate(), is(LocalDate.parse("2014-12-17")));
 		assertThat(custodyStatusChange.getInmateJailResidentIndicator(), is(false));
 		
-		List<CustodyStatusChangeArrest> custodyStatusChangeArrests = analyticalDatastoreDAOImpl.getCustodyStatusChangeArrests(1);
+		List<CustodyStatusChangeArrest> custodyStatusChangeArrests = analyticalDatastoreDAO.getCustodyStatusChangeArrests(1);
 		assertThat(custodyStatusChangeArrests.size(), is(1));
 		CustodyStatusChangeArrest custodyStatusChangeArrest = custodyStatusChangeArrests.get(0);
 		
@@ -266,7 +265,7 @@ public class CamelContextAdamsTest {
 		assertTrue(custodyStatusChangeArrest.getAddress().getLocationLongitude().doubleValue() == 32.1111 );
 		assertThat(custodyStatusChangeArrest.getArrestAgencyId(), is(22));
 		
-		custodyStatusChangeCharges = analyticalDatastoreDAOImpl.getCustodyStatusChangeCharges( 1 ); 
+		custodyStatusChangeCharges = analyticalDatastoreDAO.getCustodyStatusChangeCharges( 1 ); 
 		assertThat(custodyStatusChangeCharges.size(), is(1));
 		
 		CustodyStatusChangeCharge custodyStatusChangeCharge = custodyStatusChangeCharges.get(0);
@@ -285,16 +284,16 @@ public class CamelContextAdamsTest {
 	public void testBookingReportServiceRoute() throws Exception, IOException {
 		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/bookingReport/BookingReport-Adams.xml");
 
-		Person person = analyticalDatastoreDAOImpl.getPerson(1);
+		Person person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNull(person);
 		
-		Booking booking = analyticalDatastoreDAOImpl.getBookingByBookingNumber("eDocumentID");
+		Booking booking = analyticalDatastoreDAO.getBookingByBookingNumber("eDocumentID");
 		assertNull(booking);
 		
-		List<BookingCharge> bookingCharges = analyticalDatastoreDAOImpl.getBookingCharges( 1 ); 
+		List<BookingCharge> bookingCharges = analyticalDatastoreDAO.getBookingCharges( 1 ); 
 		assertTrue(bookingCharges.isEmpty());
 		
-		List<BookingArrest> bookingArrests = analyticalDatastoreDAOImpl.getBookingArrests( 1 ); 
+		List<BookingArrest> bookingArrests = analyticalDatastoreDAO.getBookingArrests( 1 ); 
 		assertTrue(bookingArrests.isEmpty());
 		
 	    //Send the one-way exchange.  Using template.send will send an one way message
@@ -306,7 +305,7 @@ public class CamelContextAdamsTest {
 			throw new Exception(returnExchange.getException());
 		}
 		
-		person = analyticalDatastoreDAOImpl.getPerson(1);
+		person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNotNull(person);
 		
 		Assert.assertEquals(Integer.valueOf(1), person.getPersonId());
@@ -324,7 +323,7 @@ public class CamelContextAdamsTest {
 		assertThat(person.getEducationLevel(), is("High School Graduate"));
 		assertThat(person.getOccupation(), is("Truck Driver"));
 		
-		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAOImpl.getBehavioralHealthAssessments(1);
+		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(1);
 		assertFalse(behavioralHealthAssessments.isEmpty());
 		
 		BehavioralHealthAssessment behavioralHealthAssessment = behavioralHealthAssessments.get(0);
@@ -339,7 +338,7 @@ public class CamelContextAdamsTest {
 		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
 		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(1));
 
-		List<Treatment> treatments = analyticalDatastoreDAOImpl.getTreatments(1);
+		List<Treatment> treatments = analyticalDatastoreDAO.getTreatments(1);
 		assertThat(treatments.size(), is(1));
 		
 		Treatment treatment = treatments.get(0);
@@ -350,7 +349,7 @@ public class CamelContextAdamsTest {
 		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
 		
 		
-		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAOImpl.getPrescribedMedication(1);
+		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAO.getPrescribedMedication(1);
 		assertThat(prescribedMedications.size(), is(1));
 		
 		PrescribedMedication  prescribedMedication = prescribedMedications.get(0);
@@ -359,7 +358,7 @@ public class CamelContextAdamsTest {
 		assertThat(prescribedMedication.getMedicationDispensingDate(), is(LocalDate.parse("2016-01-01"))); 
 		assertThat(prescribedMedication.getMedicationDoseMeasure(), is("3mg"));
 		
-		booking = analyticalDatastoreDAOImpl.getBookingByBookingNumber("Booking Number");
+		booking = analyticalDatastoreDAO.getBookingByBookingNumber("Booking Number");
 		assertNotNull(booking);
 
 		assertEquals(LocalDate.parse("2013-12-17"), booking.getBookingDate());
@@ -370,7 +369,7 @@ public class CamelContextAdamsTest {
 		assertEquals(LocalDate.parse("2014-12-17"), booking.getScheduledReleaseDate());
 		assertThat(booking.getInmateJailResidentIndicator(), is(false)); 
 		
-		bookingArrests = analyticalDatastoreDAOImpl.getBookingArrests(1);
+		bookingArrests = analyticalDatastoreDAO.getBookingArrests(1);
 		assertFalse(bookingArrests.isEmpty());
 		BookingArrest bookingArrest = bookingArrests.get(0);
 		
@@ -385,7 +384,7 @@ public class CamelContextAdamsTest {
 		assertTrue(bookingArrest.getAddress().getLocationLongitude().doubleValue() == 32.1111 );
 		assertThat(bookingArrest.getArrestAgencyId(), is(29));
 
-		bookingCharges = analyticalDatastoreDAOImpl.getBookingCharges( 1 ); 
+		bookingCharges = analyticalDatastoreDAO.getBookingCharges( 1 ); 
 		assertThat(bookingCharges.size(), is(2));
 		
 		BookingCharge bookingCharge = bookingCharges.get(0);
@@ -399,7 +398,7 @@ public class CamelContextAdamsTest {
 		assertThat(bookingCharge.getChargeJurisdictionTypeId(), is(1));
 		assertThat(bookingCharge.getChargeDisposition(), is("Disposition"));
 		
-		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingId(1);
+		CustodyRelease custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingId(1);
 		log.info(custodyRelease.toString());
 		assertEquals(LocalDate.parse("2014-12-17"), custodyRelease.getReleaseDate());
 		assertEquals(LocalTime.parse("10:30"), custodyRelease.getReleaseTime());
@@ -408,7 +407,7 @@ public class CamelContextAdamsTest {
 	
 	public void testCustodyReleaseReportServiceRoute() throws Exception
 	{
-		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingId(1); 
+		CustodyRelease custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingId(1); 
 		assertEquals(LocalDate.parse("2014-12-17"), custodyRelease.getReleaseDate());
 		assertEquals(LocalTime.parse("10:30"), custodyRelease.getReleaseTime());
 		
@@ -423,11 +422,11 @@ public class CamelContextAdamsTest {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingId(1);
+		custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingId(1);
 		assertEquals( LocalDate.parse("2001-12-17"), custodyRelease.getReleaseDate());
 		assertEquals( LocalTime.parse("09:30:47"), custodyRelease.getReleaseTime());
 		
-		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAOImpl.getBehavioralHealthAssessments(2);
+		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(2);
 		assertThat(behavioralHealthAssessments.size(), is(2));
 		
 		BehavioralHealthAssessment behavioralHealthAssessment = behavioralHealthAssessments.get(1);
@@ -442,7 +441,7 @@ public class CamelContextAdamsTest {
 		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
 		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(1));
 
-		List<Treatment> treatments = analyticalDatastoreDAOImpl.getTreatments(3);
+		List<Treatment> treatments = analyticalDatastoreDAO.getTreatments(3);
 		assertThat(treatments.size(), is(1));
 		
 		Treatment treatment = treatments.get(0);
@@ -453,7 +452,7 @@ public class CamelContextAdamsTest {
 		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
 		
 		
-		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAOImpl.getPrescribedMedication(3);
+		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAO.getPrescribedMedication(3);
 		assertThat(prescribedMedications.size(), is(1));
 		
 		PrescribedMedication  prescribedMedication = prescribedMedications.get(0);

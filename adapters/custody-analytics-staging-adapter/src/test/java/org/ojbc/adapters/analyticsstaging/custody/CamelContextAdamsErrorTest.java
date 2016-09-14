@@ -17,8 +17,6 @@
 package org.ojbc.adapters.analyticsstaging.custody;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -26,8 +24,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -79,14 +75,13 @@ import org.w3c.dom.Element;
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/camel-context.xml",
         "classpath:META-INF/spring/cxf-endpoints.xml",      
-        "classpath:META-INF/spring/properties-context-pima.xml",
-        "classpath:META-INF/spring/dao-pima.xml",
+        "classpath:META-INF/spring/properties-context-adams.xml",
+        "classpath:META-INF/spring/dao-adams.xml",
         })
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
-public class CamelContextPimaTest {
+public class CamelContextAdamsErrorTest {
 	
-	@SuppressWarnings("unused")
-	private static final Log log = LogFactory.getLog( CamelContextPimaTest.class );
+	private static final Log log = LogFactory.getLog( CamelContextAdamsErrorTest.class );
 	
     @Resource
     private ModelCamelContext context;
@@ -129,8 +124,13 @@ public class CamelContextPimaTest {
 	}	
 	
 	@Test
+	public void testAllServices() throws Exception
+	{
+		testBookingReportServiceRoute();	
+	}
+	
 	public void testBookingReportServiceRoute() throws Exception, IOException {
-		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/bookingReport/BookingReport-Pima.xml");
+		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/bookingReport/BookingReport-Adams-error.xml");
 
 		Person person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNull(person);
@@ -154,94 +154,25 @@ public class CamelContextPimaTest {
 		}
 		
 		person = analyticalDatastoreDAO.getPerson(1);
-		Assert.assertNotNull(person);
-		
-		Assert.assertEquals(Integer.valueOf(1), person.getPersonId());
-		assertThat(person.getPersonSexId(), is(3));
-		assertThat(person.getPersonRaceId(), is(5));
-		assertThat(person.getPersonSexDescription(), is("Unknown"));
-		assertThat(person.getPersonRaceDescription(), is("Caucasian"));
-		assertThat(person.getLanguage(), is("English Speaker"));
-		assertThat(person.getPersonBirthDate(), is(LocalDate.parse("1969-01-01")));
-		Assert.assertEquals("e807f1fcf82d132f9bb018ca6738a19f", person.getPersonUniqueIdentifier());
-		assertThat(person.getLanguageId(), is(41));
-		assertThat(person.getSexOffenderStatusTypeId(), is(1));
-		assertThat(person.getMilitaryServiceStatusType().getValue(), is("Unknown"));
-		
-		assertNull(person.getEducationLevel());
-		assertNull(person.getOccupation());
-		assertThat(person.getDomicileStatusTypeId(), is(2));
-		assertThat(person.getProgramEligibilityTypeId(), is(2));
-
+		assertNull(person);
 		
 		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(1);
-		assertFalse(behavioralHealthAssessments.isEmpty());
+		assertTrue(behavioralHealthAssessments.isEmpty());
 		
-		BehavioralHealthAssessment behavioralHealthAssessment = behavioralHealthAssessments.get(0);
-		
-		assertTrue(behavioralHealthAssessment.getBehavioralHealthDiagnoses().size() == 1);
-		assertThat(behavioralHealthAssessment.getBehavioralHealthDiagnoses().get(0), is("Schizophrenia 295.10"));
-		assertThat(behavioralHealthAssessment.getPersonId(), is(1));
-		assertThat(behavioralHealthAssessment.getBehavioralHealthAssessmentId(), is(1));
-		assertThat(behavioralHealthAssessment.getSeriousMentalIllness(), is(true));
-		assertThat(behavioralHealthAssessment.getCareEpisodeStartDate(), is(LocalDate.parse("2016-01-01")));
-		assertThat(behavioralHealthAssessment.getCareEpisodeEndDate(), is(LocalDate.parse("2016-04-01")));
-		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
-		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(2));
-
 		List<Treatment> treatments = analyticalDatastoreDAO.getTreatments(1);
-		assertThat(treatments.size(), is(1));
-		
-		Treatment treatment = treatments.get(0);
-		assertThat(treatment.getBehavioralHealthAssessmentID(), is(1));
-		assertThat(treatment.getTreatmentStartDate(), is(LocalDate.parse("2016-01-01"))); 
-		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), is(2));
-		assertThat(treatment.getTreatmentStatusTypeId(), is(2));
-		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
-		
+		assertThat(treatments.size(), is(0));
 		
 		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAO.getPrescribedMedication(1);
-		assertThat(prescribedMedications.size(), is(1));
+		assertThat(prescribedMedications.size(), is(0));
 		
-		PrescribedMedication  prescribedMedication = prescribedMedications.get(0);
-		assertThat(prescribedMedication.getBehavioralHealthAssessmentID(), is(1));
-		assertThat(prescribedMedication.getMedicationDescription(), is("Zyprexa"));
-		assertThat(prescribedMedication.getMedicationDispensingDate(), is(LocalDate.parse("2016-01-01"))); 
-		assertThat(prescribedMedication.getMedicationDoseMeasure(), is("3mg"));
-		
-		booking = analyticalDatastoreDAO.getBookingByBookingNumber("234567890");
-		assertNotNull(booking);
+		booking = analyticalDatastoreDAO.getBookingByBookingNumber("Booking Number");
+		assertNull(booking);
 
-		assertEquals(LocalDate.parse("2016-05-12"), booking.getBookingDate());
-		assertEquals(LocalTime.parse("00:36:00"), booking.getBookingTime());
-		assertThat(booking.getFacilityId(), is(1));
-		assertThat(booking.getSupervisionUnitTypeId(), is(28)); 
-		assertEquals("234567890", booking.getBookingNumber());
-		assertNull(booking.getScheduledReleaseDate());
-		assertThat(booking.getInmateJailResidentIndicator(), is(false)); 
-		
 		bookingArrests = analyticalDatastoreDAO.getBookingArrests(1);
-		assertThat(bookingArrests.size(), is(1));
-		BookingArrest bookingArrest = bookingArrests.get(0);
+		assertTrue(bookingArrests.isEmpty());
 		
-		assertTrue(bookingArrest.getBookingId() == 1); 
-		assertTrue(bookingArrest.getBookingArrestId() == 1); 
-		assertTrue(bookingArrest.getAddress().isEmpty()); 
-		assertThat(bookingArrest.getArrestAgencyId(), is(16));
-
 		bookingCharges = analyticalDatastoreDAO.getBookingCharges( 1 ); 
-		assertThat(bookingCharges.size(), is(1));
-		
-		BookingCharge bookingCharge = bookingCharges.get(0);
-		assertNull(bookingCharge.getChargeCode());
-		assertNull(bookingCharge.getChargeDisposition());
-		assertTrue(bookingCharge.getBookingArrestId() == 1);
-		assertTrue(bookingCharge.getBondAmount().doubleValue() == 250000.00); 
-		assertThat(bookingCharge.getBondType().getValue(), is("Unknown"));
-		assertThat(bookingCharge.getAgencyId(), is(48));
-		assertThat(bookingCharge.getChargeClassTypeId(), is(2));
-		assertThat(bookingCharge.getBondStatusTypeId(), is(1));
-		assertThat(bookingCharge.getChargeJurisdictionTypeId(), is(8));
+		assertThat(bookingCharges.size(), is(0));
 		
 		CustodyRelease custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingId(1);
 		assertNull(custodyRelease);

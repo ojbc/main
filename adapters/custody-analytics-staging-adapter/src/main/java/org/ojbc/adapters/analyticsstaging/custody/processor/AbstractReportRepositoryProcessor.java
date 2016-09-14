@@ -52,7 +52,7 @@ public abstract class AbstractReportRepositoryProcessor {
 	private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
 
 	protected static final String FATAL_ERROR_PERSON_UNIQUE_ID_MISSING = "Fatal error: The person unique identifier is missing";
-	private static final String BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT = "Booking Number is missing in the report";
+	protected static final String BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT = "Booking Number is missing in the report";
 
 	@Autowired
 	protected AnalyticalDatastoreDAO analyticalDatastoreDAO;
