@@ -24,7 +24,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -58,6 +57,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -341,21 +341,142 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	@Override
 	@Transactional
 	public void deleteBooking(Integer bookingId) {
-		String bookingDeleteSql = "DELETE FROM booking WHERE bookingID = ?";
-		String bookingArrestDeleteSql = "DELETE FROM BookingArrest WHERE bookingId = ?";
-		String bookingChargeDeleteSql = "DELETE FROM BookingCharge WHERE bookingArrestId in (select bookingArrestID from BookingArrest a where a.bookingId = ?) ";
-		String personIdSelectSql = "SELECT personId FROM booking WHERE bookingID = ?";
-		String personDeleteSql="delete from Person where personId = ?";
 		
-		Integer personId = jdbcTemplate.queryForObject(personIdSelectSql, Integer.class, bookingId);
-		jdbcTemplate.update(bookingChargeDeleteSql, bookingId);
-		jdbcTemplate.update(bookingArrestDeleteSql, bookingId);
-		jdbcTemplate.update(bookingDeleteSql, bookingId);
+		jdbcTemplate.update("DELETE FROM CustodyRelease WHERE bookingID = ?", bookingId);
 		
-		//TODO need to remove the BH info first. 
-		if (personId != null){
-			jdbcTemplate.update(personDeleteSql, personId);
-		}
+		deleteCustodyStatusChanges(bookingId);
+		deleteInitialBooking(bookingId);
+		
+		jdbcTemplate.update("DELETE FROM Location t "
+				+ "WHERE (SELECT count(*)=0 FROM BookingArrest ba WHERE ba.locationId = t.locationId)"
+				+ "	 AND (SELECT count(*)=0 FROM CustodyStatusChangeArrest ba WHERE ba.locationId = t.locationId)");
+		
+	}
+
+	private void deleteInitialBooking(Integer bookingId) {
+		
+		jdbcTemplate.update("DELETE FROM BookingCharge  "
+				+ "WHERE BookingChargeID IN "
+				+ "	(SELECT bc.BookingChargeID from BookingCharge bc "
+				+ "		LEFT JOIN BookingArrest ba ON ba.BookingArrestID = bc.BookingArrestID "
+				+ "		LEFT JOIN Booking b ON b.BookingID = ba.BookingID "
+				+ "		WHERE b.bookingID = ? )", bookingId); 
+				
+		jdbcTemplate.update("DELETE FROM BookingArrest "
+				+ "WHERE BookingArrestID IN "
+				+ "	(SELECT ba. BookingArrestID from BookingArrest ba  "
+				+ "		LEFT JOIN Booking b ON b.BookingID = ba.BookingID "
+				+ "		WHERE b.bookingID = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM BehavioralHealthEvaluation "
+				+ "WHERE BehavioralHealthEvaluationID IN "
+				+ "	(SELECT be.BehavioralHealthEvaluationID from BehavioralHealthEvaluation be "
+				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN Booking b ON b.personId = p.personId "
+				+ "		WHERE b.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM BehavioralHealthAssessmentCategory "
+				+ "WHERE BehavioralHealthAssessmentCategoryID IN "
+				+ "	(SELECT be.BehavioralHealthAssessmentCategoryID from BehavioralHealthAssessmentCategory be "
+				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN Booking b ON b.personId = p.personId "
+				+ "		WHERE b.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM PrescribedMedication "
+				+ "WHERE PrescribedMedicationID IN "
+				+ "	(SELECT be.PrescribedMedicationID from PrescribedMedication be "
+				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN Booking b ON b.personId = p.personId "
+				+ "		WHERE b.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM Treatment "
+				+ "WHERE TreatmentID IN "
+				+ "	(SELECT be.TreatmentID from Treatment be "
+				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN Booking b ON b.personId = p.personId "
+				+ "		WHERE b.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM BehavioralHealthAssessment "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN Booking b ON b.personId = p.personId "
+				+ "		WHERE b.bookingId = ? )", bookingId); 
+		
+		Integer personId = jdbcTemplate.queryForObject("SELECT PersonID from Booking WHERE BookingID = ?", Integer.class, bookingId);
+		
+		jdbcTemplate.update("DELETE FROM Booking b WHERE b.bookingId = ? ", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM Person p "
+				+ "WHERE personId = ? ", personId);
+	}
+
+	private void deleteCustodyStatusChanges(Integer bookingId) {
+		
+		jdbcTemplate.update("DELETE FROM CustodyStatusChangeCharge  "
+				+ "WHERE CustodyStatusChangeChargeID IN "
+				+ "	(SELECT cscc.CustodyStatusChangeChargeID from CustodyStatusChangeCharge cscc "
+				+ "		LEFT JOIN CustodyStatusChangeArrest csca ON csca.CustodyStatusChangeArrestID = cscc.CustodyStatusChangeArrestID "
+				+ "		LEFT JOIN CustodyStatusChange csc ON csc.CustodyStatusChangeID = csca.CustodyStatusChangeID "
+				+ "		WHERE csc.bookingID = ? )", bookingId); 
+				
+		jdbcTemplate.update("DELETE FROM CustodyStatusChangeArrest "
+				+ "WHERE CustodyStatusChangeArrestID IN "
+				+ "	(SELECT csca. CustodyStatusChangeArrestID from CustodyStatusChangeArrest csca  "
+				+ "		LEFT JOIN CustodyStatusChange csc ON csc.CustodyStatusChangeID = csca.CustodyStatusChangeID "
+				+ "		WHERE csc.bookingID = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM BehavioralHealthEvaluation "
+				+ "WHERE BehavioralHealthEvaluationID IN "
+				+ "	(SELECT be.BehavioralHealthEvaluationID from BehavioralHealthEvaluation be "
+				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
+				+ "		WHERE csc.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM BehavioralHealthAssessmentCategory "
+				+ "WHERE BehavioralHealthAssessmentCategoryID IN "
+				+ "	(SELECT be.BehavioralHealthAssessmentCategoryID from BehavioralHealthAssessmentCategory be "
+				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
+				+ "		WHERE csc.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM PrescribedMedication "
+				+ "WHERE PrescribedMedicationID IN "
+				+ "	(SELECT be.PrescribedMedicationID from PrescribedMedication be "
+				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
+				+ "		WHERE csc.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM Treatment "
+				+ "WHERE TreatmentID IN "
+				+ "	(SELECT be.TreatmentID from Treatment be "
+				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
+				+ "		WHERE csc.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM BehavioralHealthAssessment "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
+				+ "		WHERE csc.bookingId = ? )", bookingId); 
+		
+		List<Integer> personIds = jdbcTemplate.queryForList("SELECT PersonID from CustodyStatusChange WHERE BookingID = ?", Integer.class, bookingId);
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		parameters.addValue("personIds", personIds);
+
+		jdbcTemplate.update("DELETE FROM CustodyStatusChange csc WHERE csc.bookingId = ? ", bookingId); 
+		
+		namedParameterJdbcTemplate.update("DELETE FROM Person "
+				+ "WHERE PersonID IN (:personIds) ", parameters); 
 		
 	}
 
@@ -641,7 +762,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		
 	}
 
-	public CustodyStatusChange getCustodyStatusChangeByBookingId(Integer bookingId) {
+	public List<CustodyStatusChange> getCustodyStatusChangesByBookingId(Integer bookingId) {
 		final String sql = "SELECT * FROM CustodyStatusChange c "
 				+ "WHERE BookingId = ?";
 		
@@ -649,7 +770,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 				jdbcTemplate.query(sql, 
 						new CustodyStatusChangeRowMapper(), bookingId);
 		
-		return DataAccessUtils.singleResult(custodyStatusChanges);
+		return custodyStatusChanges;
 	}
 
 	public class CustodyStatusChangeRowMapper implements RowMapper<CustodyStatusChange>
@@ -719,8 +840,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer saveBookingArrest(BookingArrest bookingArrest) {
         log.debug("Inserting row into BookingArrest table: " + bookingArrest.toString());
         
-        Integer locationId = saveAddress(bookingArrest.getAddress());
-        
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
@@ -744,7 +863,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	                connection.prepareStatement(sqlString, java.sql.Statement.RETURN_GENERATED_KEYS);
         	            ps.setInt(1, bookingArrest.getBookingId());
         	            
-        	            setPreparedStatementVariable(locationId, ps, 2);
+        	            setPreparedStatementVariable(bookingArrest.getAddress().getLocationId(), ps, 2);
         	            setPreparedStatementVariable(bookingArrest.getArrestAgencyId(), ps, 3);
         	            
         	            if (bookingArrest.getBookingArrestId() != null){
@@ -1001,8 +1120,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			CustodyStatusChangeArrest custodyStatusChangeArrest) {
         log.debug("Inserting row into CustodyStatusChangeArrest table: " + custodyStatusChangeArrest.toString());
         
-        Integer locationId = this.saveAddress(custodyStatusChangeArrest.getAddress());
-        
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
         	    new PreparedStatementCreator() {
@@ -1023,7 +1140,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	                connection.prepareStatement(sqlString, java.sql.Statement.RETURN_GENERATED_KEYS);
         	            ps.setInt(1, custodyStatusChangeArrest.getCustodyStatusChangeId());
         	            
-        	            setPreparedStatementVariable(locationId, ps, 2);
+        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getLocationId(), ps, 2);
         	            setPreparedStatementVariable(custodyStatusChangeArrest.getArrestAgencyId(), ps, 3);
         	            
         	            if (custodyStatusChangeArrest.getCustodyStatusChangeArrestId() != null){
@@ -1079,7 +1196,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 	
 	private Address buildAddress(ResultSet rs) throws SQLException {
-		Address address = new Address();
+		Address address = new Address(rs.getInt("locationID"));
 		address.setStreetNumber(rs.getString("streetNumber"));
 		address.setStreetName(rs.getString("streetName"));
 		address.setAddressSecondaryUnit(rs.getString("addressSecondaryUnit"));
@@ -1096,10 +1213,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		final String sql = "SELECT b.bookingId FROM Booking b "
 				+ "WHERE bookingNumber = ?";
 		
-		Integer bookingId = 
-				jdbcTemplate.queryForObject(sql, Integer.class, bookingNumber);
+		List<Integer> bookingIds = 
+				jdbcTemplate.queryForList(sql, Integer.class, bookingNumber);
 		
-		return bookingId;
+		return DataAccessUtils.singleResult(bookingIds);
 	}
 
 	@Override

@@ -21,7 +21,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.camel.Body;
 import org.apache.commons.lang.BooleanUtils;
@@ -293,12 +295,24 @@ public abstract class AbstractReportRepositoryProcessor {
 		}
 	}
 
-	protected Address getArrestInfo(Node arrestNode) throws Exception {
-		Address address = new Address();
-		
-		String locationRef = XmlUtils.xPathStringSearch(arrestNode, "jxdm51:ArrestLocation/@s30:ref");
-		Node locationNode = XmlUtils.xPathNodeSearch(arrestNode, 
-				"following-sibling::nc30:Location[@s30:id = '" + locationRef +"']");
+	protected Map<String, Integer> constructAddressMap(NodeList locationNodes)
+			throws Exception {
+		Map<String, Integer> addressMap = new HashMap<String, Integer>(); 
+		for (int i = 0; i < locationNodes.getLength(); i++) {
+			Node locationNode = locationNodes.item(i);
+			
+			String locationId = XmlUtils.xPathStringSearch(locationNode, "@s30:id");
+			Address address = getAddress(locationNode);
+			Integer addressId = analyticalDatastoreDAO.saveAddress(address);
+			
+			addressMap.put(locationId, addressId);
+		}
+		return addressMap;
+	}
+
+
+	protected Address getAddress(Node locationNode) throws Exception {
+		Address address = new Address(null);
 		
 		if (locationNode != null){
 			
@@ -326,8 +340,8 @@ public abstract class AbstractReportRepositoryProcessor {
         		String arrestLocationLatitude = XmlUtils.xPathStringSearch(arrestLocation2DGeoCoordinateNode, "nc30:GeographicCoordinateLatitude/nc30:LatitudeDegreeValue");
         		address.setLocationLatitude(new BigDecimal(arrestLocationLatitude));
 	        }
-	        
 		}
+		
 		return address;
 	}
 
@@ -398,6 +412,12 @@ public abstract class AbstractReportRepositoryProcessor {
 		return custodyRelease;
 	}
 	
+	/**
+	 * Returns a Single BookingId for the given bookingNumber
+	 * @param bookingNumber
+	 * @return bookingId matching the bookingNumber
+	 * @throws Exception if bookingNumber is empty of no BookingID found for the bookingNumber. 
+	 */
 	protected Integer getBookingIdByBookingNumber(String bookingNumber) throws Exception {
 		
 		if (StringUtils.isBlank(bookingNumber)){

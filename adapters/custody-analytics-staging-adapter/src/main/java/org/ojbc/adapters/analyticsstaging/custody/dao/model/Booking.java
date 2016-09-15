@@ -18,7 +18,6 @@ package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.apache.commons.lang.builder.ToStringBuilder;

@@ -19,7 +19,9 @@ package org.ojbc.adapters.analyticsstaging.custody.processor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -58,6 +60,11 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 	}
 
 	private void processBookingArrests(Document report, Integer bookingId) throws Exception {
+		
+		NodeList locationNodes = XmlUtils.xPathNodeListSearch(report, 
+				"/br-doc:BookingReport/nc30:Location[@s30:id = /br-doc:BookingReport/jxdm51:Arrest/jxdm51:ArrestLocation/@s30:ref]");
+		Map<String, Integer> addressMap = constructAddressMap(locationNodes);
+		
 		NodeList arrestNodes = XmlUtils.xPathNodeListSearch(report, 
 				"/br-doc:BookingReport/jxdm51:Arrest[@s30:id = preceding-sibling::jxdm51:Booking/jxdm51:Arrest/@s30:ref]");
 		
@@ -65,21 +72,22 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 			Node arrestNode = arrestNodes.item(i);
 			
 			if (arrestNode != null){
-				Integer bookingArrestId = processBookingArrest(arrestNode, bookingId);
+				Integer bookingArrestId = processBookingArrest(arrestNode, bookingId, addressMap);
 				processBookingCharges(arrestNode, bookingArrestId);
 			}
 		}
 	}
 
-	private Integer processBookingArrest(Node arrestNode, Integer bookingId) throws Exception {
+	private Integer processBookingArrest(Node arrestNode, Integer bookingId, Map<String, Integer> addressMap) throws Exception {
 		BookingArrest bookingArrest = new BookingArrest();
 		bookingArrest.setBookingId(bookingId);
-		Address address = getArrestInfo(arrestNode);
 		
         String arrestAgency = XmlUtils.xPathStringSearch(arrestNode, "jxdm51:ArrestAgency/nc30:OrganizationName");
         bookingArrest.setArrestAgencyId(descriptionCodeLookupService.retrieveCode(CodeTable.Agency,arrestAgency));
 
-		bookingArrest.setAddress(address);
+		String locationRef = XmlUtils.xPathStringSearch(arrestNode, "jxdm51:ArrestLocation/@s30:ref");
+		bookingArrest.setAddress(new Address(addressMap.get(locationRef)));
+		
         Integer bookingArrestId = analyticalDatastoreDAO.saveBookingArrest(bookingArrest);
 		return bookingArrestId;
 	}
@@ -146,12 +154,17 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 
 	@Transactional
 	private Integer processBookingReport(Document report) throws Exception {
+		Node bookingReportNode = XmlUtils.xPathNodeSearch(report, "/br-doc:BookingReport");
+		String bookingNumber = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID");
+		
+		checkBookingNumber(bookingNumber);
+		
 		Booking booking = new Booking();
+		booking.setBookingNumber(bookingNumber);
 		
         Integer personId = processPersonAndBehavioralHealthInfo(report);
         booking.setPersonId(personId);
         
-        Node bookingReportNode = XmlUtils.xPathNodeSearch(report, "/br-doc:BookingReport");
         
         String bookingDateTimeString = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
         LocalDateTime bookingDateTime = parseLocalDateTime(bookingDateTimeString);
@@ -173,14 +186,6 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         Integer supervisionUnitTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.SupervisionUnitType, supervisionUnitType);
         booking.setSupervisionUnitTypeId(supervisionUnitTypeId);
         
-		String bookingNumber = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID");
-		booking.setBookingNumber(bookingNumber);
-		
-		if (StringUtils.isBlank(bookingNumber)){
-			log.fatal(BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT);
-			throw new Exception(BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT);
-		}
-		
 		String supervisionReleaseEligibilityDate = XmlUtils.xPathStringSearch(bookingReportNode, 
         		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseEligibilityDate/nc30:Date");
         booking.setScheduledReleaseDate(parseLocalDate(supervisionReleaseEligibilityDate));
@@ -193,6 +198,24 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         processCustodyReleaseInfo(bookingReportNode, bookingId);
         
 		return bookingId;
+	}
+
+	/**
+	 * If bookingNumber already exists in the database, clean up the DB by wiping out all persisted data for the booking number.
+	 * 
+	 * @param bookingNumber
+	 * @throws Exception if bookingNumber is empty
+	 */
+	private void checkBookingNumber(String bookingNumber) throws Exception {
+		if (StringUtils.isBlank(bookingNumber)){
+			log.fatal(BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT);
+			throw new Exception(BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT);
+		}
+		
+		Integer existingBookingId = analyticalDatastoreDAO.getBookingIdByBookingNumber(bookingNumber);
+		if (existingBookingId != null){
+			analyticalDatastoreDAO.deleteBooking(existingBookingId);
+		}
 	}
 
 	private Integer processPersonAndBehavioralHealthInfo(Document report) throws Exception {

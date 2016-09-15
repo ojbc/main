@@ -58,7 +58,17 @@ public interface AnalyticalDatastoreDAO {
 	public void saveCustodyStatusChangeCharges(
 			final List<CustodyStatusChangeCharge> custodyStatusChangeCharges);
 	
-	public void deleteBooking(Integer bookingPk);
+	/**
+	 * Delete all the records associated with the Booking.bookingId.
+	 * <p><ol>
+	 *  <li> Remove CustodayStatusChange record(s) foreign-keyed with the bookingId and the associated person/BH/Arrest/Charges</li>
+	 *  <li> Remove CustodyRelease record(s) foreign-keyed with the bookingId </li>
+	 *  <li> Remove person/BH/Arrest/Charges associated with the Booking record </li>
+	 *  </ol>    
+	 * </p>
+	 * @param bookingPk
+	 */
+	public void deleteBooking(Integer bookingId);
 	
 	public Booking getBookingByBookingNumber(String bookingNumber);
 	public Integer getBookingIdByBookingNumber(String bookingNumber);
@@ -73,7 +83,7 @@ public interface AnalyticalDatastoreDAO {
 	public void saveCustodyRelease(CustodyRelease custodyRelease);
 	public void saveCustodyRelease(Integer bookingId, LocalDate releaseDate, LocalTime releaseTime, String releaseCondition);
 	public CustodyRelease getCustodyReleaseByBookingId(Integer bookingId);
-	public CustodyStatusChange getCustodyStatusChangeByBookingId(Integer bookingId); 
+	public List<CustodyStatusChange> getCustodyStatusChangesByBookingId(Integer bookingId); 
 	public List<CustodyStatusChangeCharge> getCustodyStatusChangeCharges(Integer custodyStatusChangeId);
 	
 	public Person getPersonByBookingNumber(String bookingNumber);
