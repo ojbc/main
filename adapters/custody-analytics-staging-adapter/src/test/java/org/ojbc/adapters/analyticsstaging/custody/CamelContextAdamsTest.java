@@ -17,6 +17,7 @@
 package org.ojbc.adapters.analyticsstaging.custody;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -72,6 +73,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.PrescribedMedication
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Treatment;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
@@ -89,6 +91,9 @@ import org.w3c.dom.Element;
 public class CamelContextAdamsTest {
 	
 	private static final Log log = LogFactory.getLog( CamelContextAdamsTest.class );
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 	
     @Resource
     private ModelCamelContext context;
@@ -168,6 +173,7 @@ public class CamelContextAdamsTest {
 		testBookingReportServiceRoute();	
 		testCustodyStatusChangeReportService();
 		testCustodyReleaseReportServiceRoute();
+		testBookingReportServiceRouteDup();	
 	}
 	
 	public void testCustodyStatusChangeReportService() throws Exception
@@ -177,8 +183,8 @@ public class CamelContextAdamsTest {
 		Person person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNotNull(person);
 		
-		CustodyStatusChange custodyStatusChange = analyticalDatastoreDAO.getCustodyStatusChangeByBookingId(1);
-		assertNull(custodyStatusChange);
+		List<CustodyStatusChange> custodyStatusChanges = analyticalDatastoreDAO.getCustodyStatusChangesByBookingId(1);
+		assertTrue(custodyStatusChanges.isEmpty());
 		
 		List<CustodyStatusChangeCharge> custodyStatusChangeCharges = analyticalDatastoreDAO.getCustodyStatusChangeCharges( 1 ); 
 		assertTrue(custodyStatusChangeCharges.isEmpty());
@@ -239,9 +245,10 @@ public class CamelContextAdamsTest {
 		assertThat(prescribedMedication.getMedicationDispensingDate(), is(LocalDate.parse("2016-01-01"))); 
 		assertThat(prescribedMedication.getMedicationDoseMeasure(), is("3mg"));
 		
-		custodyStatusChange = analyticalDatastoreDAO.getCustodyStatusChangeByBookingId(1);
-		assertNotNull(custodyStatusChange);
+		custodyStatusChanges = analyticalDatastoreDAO.getCustodyStatusChangesByBookingId(1);
+		assertThat(custodyStatusChanges.size(), is(1));
 
+		CustodyStatusChange custodyStatusChange = custodyStatusChanges.get(0);
 		assertEquals(LocalDate.parse("2013-12-17"), custodyStatusChange.getBookingDate());
 		assertEquals(LocalTime.parse("09:30"), custodyStatusChange.getBookingTime());
 		assertThat(custodyStatusChange.getFacilityId(), is(2));
@@ -287,7 +294,7 @@ public class CamelContextAdamsTest {
 		Person person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNull(person);
 		
-		Booking booking = analyticalDatastoreDAO.getBookingByBookingNumber("eDocumentID");
+		Booking booking = analyticalDatastoreDAO.getBookingByBookingNumber("Booking Number");
 		assertNull(booking);
 		
 		List<BookingCharge> bookingCharges = analyticalDatastoreDAO.getBookingCharges( 1 ); 
@@ -305,6 +312,8 @@ public class CamelContextAdamsTest {
 			throw new Exception(returnExchange.getException());
 		}
 		
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from Booking", Boolean.class));
+
 		person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNotNull(person);
 		
@@ -403,6 +412,161 @@ public class CamelContextAdamsTest {
 		assertEquals(LocalDate.parse("2014-12-17"), custodyRelease.getReleaseDate());
 		assertEquals(LocalTime.parse("10:30"), custodyRelease.getReleaseTime());
 		
+	}
+	
+	public void testBookingReportServiceRouteDup() throws Exception, IOException {
+		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/bookingReport/BookingReport-Adams-dup.xml");
+		
+		Person person = analyticalDatastoreDAO.getPerson(1);
+		Assert.assertNotNull(person);
+		
+		Booking booking = analyticalDatastoreDAO.getBookingByBookingNumber("Booking Number");
+		assertNotNull(booking);
+		
+		List<BookingCharge> bookingCharges = analyticalDatastoreDAO.getBookingCharges( 1 ); 
+		assertFalse(bookingCharges.isEmpty());
+		
+		List<BookingArrest> bookingArrests = analyticalDatastoreDAO.getBookingArrests( 1 ); 
+		assertFalse(bookingArrests.isEmpty());
+		
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:bookingReportServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}
+		
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from Booking", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=2 from BookingArrest", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=2 from BookingCharge", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from Location", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from Person", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from BehavioralHealthAssessment", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from Treatment", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from BehavioralHealthEvaluation", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from BehavioralHealthAssessmentCategory", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from PrescribedMedication", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from CustodyRelease", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from CustodyStatusChange", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from CustodyStatusChangeArrest", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from CustodyStatusChangeCharge", Boolean.class));
+		
+		booking = analyticalDatastoreDAO.getBookingByBookingNumber("Booking Number");
+		assertNotNull(booking);
+		
+		assertEquals(LocalDate.parse("2013-12-17"), booking.getBookingDate());
+		assertEquals(LocalTime.parse("09:30"), booking.getBookingTime());
+		assertThat(booking.getFacilityId(), is(1));
+		assertThat(booking.getSupervisionUnitTypeId(), is(19)); 
+		assertEquals("Booking Number", booking.getBookingNumber());
+		assertEquals(LocalDate.parse("2014-12-17"), booking.getScheduledReleaseDate());
+		assertThat(booking.getInmateJailResidentIndicator(), is(false));
+		
+		person = analyticalDatastoreDAO.getPerson(booking.getPersonId());
+		Assert.assertNotNull(person);
+		
+		assertThat(person.getPersonId(), is(not(1)));
+		assertThat(person.getPersonSexId(), is(1));
+		assertThat(person.getPersonRaceId(), is(1));
+		assertThat(person.getPersonSexDescription(), is("Male"));
+		assertThat(person.getPersonRaceDescription(), is("Asian"));
+		assertThat(person.getLanguage(), is("English"));
+		assertThat(person.getPersonBirthDate(), is(LocalDate.parse("1968-12-17")));
+		Assert.assertEquals("e807f1fcf82d132f9bb018ca6738a19f", person.getPersonUniqueIdentifier());
+		assertThat(person.getLanguageId(), is(1));
+		assertThat(person.getSexOffenderStatusTypeId(), is(1));
+		assertThat(person.getMilitaryServiceStatusType().getValue(), is("Honorable Discharge"));
+		
+		assertThat(person.getEducationLevel(), is("High School Graduate"));
+		assertThat(person.getOccupation(), is("Truck Driver"));
+		
+		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(booking.getPersonId());
+		assertFalse(behavioralHealthAssessments.isEmpty());
+		
+		BehavioralHealthAssessment behavioralHealthAssessment = behavioralHealthAssessments.get(0);
+		
+		assertTrue(behavioralHealthAssessment.getBehavioralHealthDiagnoses().size() == 1);
+		assertThat(behavioralHealthAssessment.getBehavioralHealthDiagnoses().get(0), is("Schizophrenia 295.10"));
+		assertThat(behavioralHealthAssessment.getPersonId(), is(not(1)));
+		assertThat(behavioralHealthAssessment.getBehavioralHealthAssessmentId(), is(not(1)));
+		assertThat(behavioralHealthAssessment.getSeriousMentalIllness(), is(true));
+		assertThat(behavioralHealthAssessment.getCareEpisodeStartDate(), is(LocalDate.parse("2016-01-01")));
+		assertThat(behavioralHealthAssessment.getCareEpisodeEndDate(), is(LocalDate.parse("2016-04-01")));
+		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
+		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(1));
+		
+		List<Treatment> treatments = analyticalDatastoreDAO.getTreatments(behavioralHealthAssessment.getBehavioralHealthAssessmentId());
+		assertThat(treatments.size(), is(1));
+		
+		Treatment treatment = treatments.get(0);
+		assertThat(treatment.getBehavioralHealthAssessmentID(), is(not(1)));
+		assertThat(treatment.getTreatmentStartDate(), is(LocalDate.parse("2016-01-01"))); 
+		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), is(1));
+		assertThat(treatment.getTreatmentStatusTypeId(), is(1));
+		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
+		
+		
+		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAO.getPrescribedMedication(behavioralHealthAssessment.getBehavioralHealthAssessmentId());
+		assertThat(prescribedMedications.size(), is(1));
+		
+		PrescribedMedication  prescribedMedication = prescribedMedications.get(0);
+		assertThat(prescribedMedication.getBehavioralHealthAssessmentID(), is(not(1)));
+		assertThat(prescribedMedication.getMedicationDescription(), is("Zyprexa"));
+		assertThat(prescribedMedication.getMedicationDispensingDate(), is(LocalDate.parse("2016-01-01"))); 
+		assertThat(prescribedMedication.getMedicationDoseMeasure(), is("3mg"));
+		
+		bookingArrests = analyticalDatastoreDAO.getBookingArrests(booking.getBookingId());
+		assertFalse(bookingArrests.isEmpty());
+		BookingArrest bookingArrest = bookingArrests.get(0);
+		
+		assertThat(bookingArrest.getBookingId(), is(booking.getBookingId())); 
+		assertThat(bookingArrest.getBookingArrestId(), is(not(1))); 
+		assertEquals("392", bookingArrest.getAddress().getStreetNumber()); 
+		assertEquals("Woodlawn Ave", bookingArrest.getAddress().getStreetName()); 
+		assertEquals("Burlington", bookingArrest.getAddress().getCity()); 
+		assertEquals("NY", bookingArrest.getAddress().getState()); 
+		assertEquals("05408", bookingArrest.getAddress().getPostalcode()); 
+		assertTrue(bookingArrest.getAddress().getLocationLatitude().doubleValue() == 56.1111 ); 
+		assertTrue(bookingArrest.getAddress().getLocationLongitude().doubleValue() == 32.1111 );
+		assertThat(bookingArrest.getArrestAgencyId(), is(29));
+		
+		bookingCharges = analyticalDatastoreDAO.getBookingCharges( booking.getBookingId()); 
+		assertThat(bookingCharges.size(), is(2));
+		
+		BookingCharge bookingCharge = bookingCharges.get(0);
+		assertThat(bookingCharge.getChargeCode(), is("Felony"));
+		assertThat(bookingCharge.getBookingArrestId(), is(not(1)));
+		assertTrue(bookingCharge.getBondAmount().doubleValue() == 500.00); 
+		assertThat(bookingCharge.getBondType().getValue(), is("CASH/SURETY/PROPERTY"));
+		assertThat(bookingCharge.getAgencyId(), is(21));
+		assertThat(bookingCharge.getChargeClassTypeId(), is(1));
+		assertThat(bookingCharge.getBondStatusTypeId(), is(2));
+		assertThat(bookingCharge.getChargeJurisdictionTypeId(), is(1));
+		assertThat(bookingCharge.getChargeDisposition(), is("Disposition"));
+		
+		CustodyRelease custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingId(booking.getBookingId());
+		log.info(custodyRelease.toString());
+		assertEquals(LocalDate.parse("2014-12-17"), custodyRelease.getReleaseDate());
+		assertEquals(LocalTime.parse("10:30"), custodyRelease.getReleaseTime());
+		
+		analyticalDatastoreDAO.deleteBooking(booking.getBookingId());
+		
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from Booking", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from BookingArrest", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from BookingCharge", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from Location", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from Person", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from BehavioralHealthAssessment", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from Treatment", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from BehavioralHealthEvaluation", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from BehavioralHealthAssessmentCategory", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from PrescribedMedication", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from CustodyRelease", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from CustodyStatusChange", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from CustodyStatusChangeArrest", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from CustodyStatusChangeCharge", Boolean.class));
 	}
 	
 	public void testCustodyReleaseReportServiceRoute() throws Exception

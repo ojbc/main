@@ -26,22 +26,23 @@ use CustodyAnalyticsDataStore;
 
 
 
+
 CREATE TABLE MedicaidStatusType (
-                MedicaidStatusTypeID INT NOT NULL,
+                MedicaidStatusTypeID INT AUTO_INCREMENT NOT NULL,
                 MedicaidStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (MedicaidStatusTypeID)
 );
 
 
 CREATE TABLE AssessmentCategoryType (
-                AssessmentCategoryTypeID INT NOT NULL,
+                AssessmentCategoryTypeID INT AUTO_INCREMENT NOT NULL,
                 AssessmentCategoryTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (AssessmentCategoryTypeID)
 );
 
 
 CREATE TABLE BondStatusType (
-                BondStatusTypeID INT NOT NULL,
+                BondStatusTypeID INT AUTO_INCREMENT NOT NULL,
                 BondStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (BondStatusTypeID)
 );
@@ -97,7 +98,7 @@ CREATE TABLE DomicileStatusType (
 
 
 CREATE TABLE PersonEthnicityType (
-                PersonEthnicityTypeID INT NOT NULL,
+                PersonEthnicityTypeID INT AUTO_INCREMENT NOT NULL,
                 PersonEthnicityTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (PersonEthnicityTypeID)
 );
@@ -205,7 +206,7 @@ CREATE TABLE BehavioralHealthAssessment (
 
 
 CREATE TABLE BehavioralHealthAssessmentCategory (
-                BehavioralHealthAssessmentCategoryID INT NOT NULL,
+                BehavioralHealthAssessmentCategoryID INT AUTO_INCREMENT NOT NULL,
                 BehavioralHealthAssessmentID INT NOT NULL,
                 AssessmentCategoryTypeID INT NOT NULL,
                 BehavioralHealthAssessmentCategoryTimestamp DATETIME DEFAULT now() NOT NULL,
@@ -261,7 +262,7 @@ CREATE TABLE Agency (
 
 CREATE TABLE Booking (
                 BookingID INT AUTO_INCREMENT NOT NULL,
-                BookingNumber VARCHAR(50) NOT NULL,
+                BookingNumber VARCHAR(100) NOT NULL,
                 PersonID INT NOT NULL,
                 BookingDate DATE NOT NULL,
                 BookingTime TIME,
