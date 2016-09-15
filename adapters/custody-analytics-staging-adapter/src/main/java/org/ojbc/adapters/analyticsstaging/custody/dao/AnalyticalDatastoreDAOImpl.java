@@ -347,10 +347,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		deleteCustodyStatusChanges(bookingId);
 		deleteInitialBooking(bookingId);
 		
-		jdbcTemplate.update("DELETE FROM Location t "
-				+ "WHERE (SELECT count(*)=0 FROM BookingArrest ba WHERE ba.locationId = t.locationId)"
-				+ "	 AND (SELECT count(*)=0 FROM CustodyStatusChangeArrest ba WHERE ba.locationId = t.locationId)");
-		
+		jdbcTemplate.update("DELETE FROM Location "
+				+ "WHERE (SELECT count(*) FROM BookingArrest ba WHERE ba.locationId = locationId) = 0 "
+				+ "	 AND (SELECT count(*) FROM CustodyStatusChangeArrest ba WHERE ba.locationId = locationId) = 0 ");
 	}
 
 	private void deleteInitialBooking(Integer bookingId) {
@@ -409,9 +408,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		
 		Integer personId = jdbcTemplate.queryForObject("SELECT PersonID from Booking WHERE BookingID = ?", Integer.class, bookingId);
 		
-		jdbcTemplate.update("DELETE FROM Booking b WHERE b.bookingId = ? ", bookingId); 
+		jdbcTemplate.update("DELETE FROM Booking WHERE bookingId = ? ", bookingId); 
 		
-		jdbcTemplate.update("DELETE FROM Person p "
+		jdbcTemplate.update("DELETE FROM Person "
 				+ "WHERE personId = ? ", personId);
 	}
 
@@ -473,10 +472,12 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 		parameters.addValue("personIds", personIds);
 
-		jdbcTemplate.update("DELETE FROM CustodyStatusChange csc WHERE csc.bookingId = ? ", bookingId); 
+		jdbcTemplate.update("DELETE FROM CustodyStatusChange WHERE bookingId = ? ", bookingId); 
 		
-		namedParameterJdbcTemplate.update("DELETE FROM Person "
-				+ "WHERE PersonID IN (:personIds) ", parameters); 
+		if ( personIds.size() > 0){
+			namedParameterJdbcTemplate.update("DELETE FROM Person "
+					+ "WHERE PersonID IN (:personIds) ", parameters);
+		}
 		
 	}
 
