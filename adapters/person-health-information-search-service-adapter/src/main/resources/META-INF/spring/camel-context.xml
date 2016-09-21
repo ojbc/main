@@ -50,6 +50,8 @@
 			
 			<log message="\n\n\n personHealthRequest_webservice_Route... \n\n\n"/>
 			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
 			<camel:setHeader headerName="operationName">
 				<constant>SubmitPersonHealthInformationSearchRequest</constant>
 			</camel:setHeader>
@@ -85,13 +87,13 @@
 					<camel:log message="SETTING HEADERS ${in.headers.Content-Type} ${in.headers.SOAPAction}"/>
 				</camel:filter>
 				
-				<camel:removeHeaders pattern="*" excludePattern="routingSlipDerivedRoutes|Content-Type|SOAPAction"/>
+				<camel:removeHeaders pattern="*" excludePattern="routingSlipDerivedRoutes|Content-Type|SOAPAction|MessageID|federatedQueryRequestGUID"/>
 				
 				<camel:recipientList>
 					<camel:header>routingSlipDerivedRoutes</camel:header>
 				</camel:recipientList>
 				
-				<camel:log message="Response message: ${body}" loggingLevel="DEBUG"/>
+				<camel:log message="Response message: ${body}" loggingLevel="INFO"/>
 				
 			</camel:filter>			
 
@@ -100,6 +102,8 @@
 			<camel:to uri="direct:enrichResponse"/>
 			
 			<camel:log message="Response message: ${body}"/>
+			
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 			
 			<camel:setHeader headerName="operationName">
 				<constant>SubmitPersonHealthInformationSearchResults</constant>
