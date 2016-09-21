@@ -206,6 +206,7 @@ public class CamelContextAdamsTest {
 
 		Assert.assertEquals(Integer.valueOf(2), person2.getPersonId());
 		assertThat(person2.getDomicileStatusTypeId(), is(1));
+		assertThat(person2.getPersonUniqueIdentifier2(), is("Booking Subject Number"));
 		assertThat(person2.getEducationLevel(), is("High School Graduate"));
 		assertThat(person2.getOccupation(), is("Truck Driver"));
 		assertThat(person2.getMilitaryServiceStatusType().getValue(), is("Active"));
@@ -324,7 +325,8 @@ public class CamelContextAdamsTest {
 		assertThat(person.getPersonRaceDescription(), is("White"));
 		assertThat(person.getLanguage(), is("English"));
 		assertThat(person.getPersonBirthDate(), is(LocalDate.parse("1968-12-17")));
-		Assert.assertEquals("e807f1fcf82d132f9bb018ca6738a19f", person.getPersonUniqueIdentifier());
+		assertThat(person.getPersonUniqueIdentifier(), is("e807f1fcf82d132f9bb018ca6738a19f"));
+		assertThat(person.getPersonUniqueIdentifier2(), is("Booking Subject Number"));
 		assertThat(person.getLanguageId(), is(1));
 		assertThat(person.getSexOffenderStatusTypeId(), is(1));
 		assertThat(person.getMilitaryServiceStatusType().getValue(), is("Honorable Discharge"));

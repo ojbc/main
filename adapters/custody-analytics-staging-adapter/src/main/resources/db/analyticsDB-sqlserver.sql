@@ -28,79 +28,74 @@ Use CustodyAnalyticsDataStore
 *                `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 **/
 
-
-
-
-
-
 CREATE TABLE MedicaidStatusType (
-                MedicaidStatusTypeID INT IDENTITY NOT NULL,
+                MedicaidStatusTypeID INT NOT NULL,
                 MedicaidStatusTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT MedicaidStatusTypeID PRIMARY KEY (MedicaidStatusTypeID)
 )
 
 CREATE TABLE AssessmentCategoryType (
-                AssessmentCategoryTypeID INT IDENTITY NOT NULL,
+                AssessmentCategoryTypeID INT NOT NULL,
                 AssessmentCategoryTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT AssessmentCategoryTypeID PRIMARY KEY (AssessmentCategoryTypeID)
 )
 
 CREATE TABLE BondStatusType (
-                BondStatusTypeID INT IDENTITY NOT NULL,
+                BondStatusTypeID INT NOT NULL,
                 BondStatusTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT BondStatusTypeID PRIMARY KEY (BondStatusTypeID)
 )
 
 CREATE TABLE ChargeClassType (
-                ChargeClassTypeID INT IDENTITY NOT NULL,
+                ChargeClassTypeID INT NOT NULL,
                 ChargeClassTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT ChargeClassTypeID PRIMARY KEY (ChargeClassTypeID)
 )
 
 CREATE TABLE TreatmentStatusType (
-                TreatmentStatusTypeID INT IDENTITY NOT NULL,
+                TreatmentStatusTypeID INT NOT NULL,
                 TreatmentStatusTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT TreatmentStatusTypeID PRIMARY KEY (TreatmentStatusTypeID)
 )
 
 CREATE TABLE TreatmentAdmissionReasonType (
-                TreatmentAdmissionReasonTypeID INT IDENTITY NOT NULL,
+                TreatmentAdmissionReasonTypeID INT NOT NULL,
                 TreatmentAdmissionReasonTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT TreatmentAdmissionReasonTypeID PRIMARY KEY (TreatmentAdmissionReasonTypeID)
 )
 
 CREATE TABLE SexOffenderStatusType (
-                SexOffenderStatusTypeID INT IDENTITY NOT NULL,
+                SexOffenderStatusTypeID INT NOT NULL,
                 SexOffenderStatusTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT SexOffenderStatusTypeID PRIMARY KEY (SexOffenderStatusTypeID)
 )
 
 CREATE TABLE WorkReleaseStatusType (
-                WorkReleaseStatusTypeID INT IDENTITY NOT NULL,
+                WorkReleaseStatusTypeID INT NOT NULL,
                 WorkReleaseStatusTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT WorkReleaseStatusTypeID PRIMARY KEY (WorkReleaseStatusTypeID)
 )
 
 CREATE TABLE ProgramEligibilityType (
-                ProgramEligibilityTypeID INT IDENTITY NOT NULL,
+                ProgramEligibilityTypeID INT NOT NULL,
                 ProgramEligibilityTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT ProgramEligibilityTypeID PRIMARY KEY (ProgramEligibilityTypeID)
 )
 
 CREATE TABLE DomicileStatusType (
-                DomicileStatusTypeID INT IDENTITY NOT NULL,
+                DomicileStatusTypeID INT NOT NULL,
                 DomicileStatusTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT DomicileStatusTypeID PRIMARY KEY (DomicileStatusTypeID)
 )
 
 CREATE TABLE PersonEthnicityType (
-                PersonEthnicityTypeID INT IDENTITY NOT NULL,
+                PersonEthnicityTypeID INT NOT NULL,
                 PersonEthnicityTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT PersonEthnicityTypeID PRIMARY KEY (PersonEthnicityTypeID)
 )
 
 CREATE TABLE MilitaryServiceStatusType (
-                MilitaryServiceStatusTypeID INT IDENTITY NOT NULL,
+                MilitaryServiceStatusTypeID INT NOT NULL,
                 MilitaryServiceStatusTypeDescription VARCHAR(100) NOT NULL,
                 CONSTRAINT MilitaryServiceStatusTypeID PRIMARY KEY (MilitaryServiceStatusTypeID)
 )
@@ -120,13 +115,13 @@ CREATE TABLE Location (
 )
 
 CREATE TABLE LanguageType (
-                LanguageTypeID INT IDENTITY NOT NULL,
+                LanguageTypeID INT NOT NULL,
                 LanguageTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT LanguageTypeID PRIMARY KEY (LanguageTypeID)
 )
 
 CREATE TABLE Facility (
-                FacilityID INT IDENTITY NOT NULL,
+                FacilityID INT NOT NULL,
                 FacilityDescription VARCHAR(100) NOT NULL,
                 Capacity INT DEFAULT 0 NOT NULL,
                 CONSTRAINT FacilityID PRIMARY KEY (FacilityID)
@@ -136,32 +131,33 @@ CREATE TABLE Facility (
 
 
 CREATE TABLE BondType (
-                BondTypeID INT IDENTITY NOT NULL,
+                BondTypeID INT NOT NULL,
                 BondTypeDescription VARCHAR(100) NOT NULL,
                 CONSTRAINT BondTypeID PRIMARY KEY (BondTypeID)
 )
 
 CREATE TABLE SupervisionUnitType (
-                SupervisionUnitTypeID INT IDENTITY NOT NULL,
+                SupervisionUnitTypeID INT NOT NULL,
                 SupervisionUnitTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT SupervisionUnitTypeID PRIMARY KEY (SupervisionUnitTypeID)
 )
 
 CREATE TABLE PersonRaceType (
-                PersonRaceTypeID INT IDENTITY NOT NULL,
+                PersonRaceTypeID INT NOT NULL,
                 PersonRaceTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT PersonRaceTypeID PRIMARY KEY (PersonRaceTypeID)
 )
 
 CREATE TABLE PersonSexType (
-                PersonSexTypeID INT IDENTITY NOT NULL,
+                PersonSexTypeID INT NOT NULL,
                 PersonSexTypeDescription VARCHAR(7) NOT NULL,
                 CONSTRAINT PersonSexTypeID PRIMARY KEY (PersonSexTypeID)
 )
 
 CREATE TABLE Person (
                 PersonID INT IDENTITY NOT NULL,
-                PersonUniqueIdentifier VARCHAR(36) NOT NULL,
+                PersonUniqueIdentifier VARCHAR(100) NOT NULL,
+                PersonUniqueIdentifier2 VARCHAR(100),
                 PersonAgeAtBooking INT,
                 PersonBirthDate DATE,
                 EducationLevel VARCHAR(50),
@@ -229,13 +225,13 @@ CREATE TABLE BehavioralHealthEvaluation (
 )
 
 CREATE TABLE JurisdictionType (
-                JurisdictionTypeID INT IDENTITY NOT NULL,
+                JurisdictionTypeID INT NOT NULL,
                 JurisdictionTypeDescription VARCHAR(100) NOT NULL,
                 CONSTRAINT JurisdictionTypeID PRIMARY KEY (JurisdictionTypeID)
 )
 
 CREATE TABLE Agency (
-                AgencyID INT IDENTITY NOT NULL,
+                AgencyID INT NOT NULL,
                 AgencyDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT AgencyID PRIMARY KEY (AgencyID)
 )

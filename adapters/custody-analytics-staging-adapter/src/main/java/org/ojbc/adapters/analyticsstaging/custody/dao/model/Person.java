@@ -42,6 +42,7 @@ public class Person {
     
     private LocalDate personBirthDate;
     private String personUniqueIdentifier;
+    private String personUniqueIdentifier2;
     private Integer languageId; //primary language 
     
     private Integer sexOffenderStatusTypeId;
@@ -189,6 +190,12 @@ public class Person {
 	}
 	public void setOccupation(String occupation) {
 		this.occupation = occupation;
+	}
+	public String getPersonUniqueIdentifier2() {
+		return personUniqueIdentifier2;
+	}
+	public void setPersonUniqueIdentifier2(String personUniqueIdentifier2) {
+		this.personUniqueIdentifier2 = personUniqueIdentifier2;
 	}
 	
 }

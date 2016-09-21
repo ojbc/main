@@ -19,77 +19,53 @@ Drop schema if exists CustodyAnalyticsDataStore;
 
 CREATE schema CustodyAnalyticsDataStore;
 
-CREATE TABLE MedicaidStatusType (MedicaidStatusTypeID INT AUTO_INCREMENT NOT NULL, MedicaidStatusTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE MedicaidStatusType (MedicaidStatusTypeID INT NOT NULL, MedicaidStatusTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE MedicaidStatusType ADD CONSTRAINT medicaidstatustypeid PRIMARY KEY (MedicaidStatusTypeID);
 
-CREATE SEQUENCE MedicaidStatusType_MedicaidStatusTypeID_seq_1;
-
-CREATE TABLE AssessmentCategoryType (AssessmentCategoryTypeID INT AUTO_INCREMENT NOT NULL, AssessmentCategoryTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE AssessmentCategoryType (AssessmentCategoryTypeID INT NOT NULL, AssessmentCategoryTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE AssessmentCategoryType ADD CONSTRAINT assessmentcategorytypeid PRIMARY KEY (AssessmentCategoryTypeID);
 
-CREATE SEQUENCE AssessmentCategoryType_AssessmentCategoryTypeID_seq;
-
-CREATE TABLE BondStatusType (BondStatusTypeID INT AUTO_INCREMENT NOT NULL, BondStatusTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE BondStatusType (BondStatusTypeID INT NOT NULL, BondStatusTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE BondStatusType ADD CONSTRAINT bondstatustypeid PRIMARY KEY (BondStatusTypeID);
 
-CREATE SEQUENCE BondStatusType_BondStatusTypeID_seq_1_1;
-
-CREATE TABLE ChargeClassType (ChargeClassTypeID INT AUTO_INCREMENT NOT NULL, ChargeClassTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE ChargeClassType (ChargeClassTypeID INT NOT NULL, ChargeClassTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE ChargeClassType ADD CONSTRAINT chargeclasstypeid PRIMARY KEY (ChargeClassTypeID);
 
-CREATE SEQUENCE ChargeClassType_ChargeClassTypeID_seq_2;
-
-CREATE TABLE TreatmentStatusType (TreatmentStatusTypeID INT AUTO_INCREMENT NOT NULL, TreatmentStatusTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE TreatmentStatusType (TreatmentStatusTypeID INT NOT NULL, TreatmentStatusTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE TreatmentStatusType ADD CONSTRAINT treatmentstatustypeid PRIMARY KEY (TreatmentStatusTypeID);
 
-CREATE SEQUENCE TreatmentStatusType_TreatmentStatusTypeID_seq_1;
-
-CREATE TABLE TreatmentAdmissionReasonType (TreatmentAdmissionReasonTypeID INT AUTO_INCREMENT NOT NULL, TreatmentAdmissionReasonTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE TreatmentAdmissionReasonType (TreatmentAdmissionReasonTypeID INT NOT NULL, TreatmentAdmissionReasonTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE TreatmentAdmissionReasonType ADD CONSTRAINT treatmentadmissionreasontypeid PRIMARY KEY (TreatmentAdmissionReasonTypeID);
 
-CREATE SEQUENCE TreatmentAdmissionReasonType_TreatmentAdmissionReasonType_seq;
-
-CREATE TABLE SexOffenderStatusType (SexOffenderStatusTypeID INT AUTO_INCREMENT NOT NULL, SexOffenderStatusTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE SexOffenderStatusType (SexOffenderStatusTypeID INT NOT NULL, SexOffenderStatusTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE SexOffenderStatusType ADD CONSTRAINT sexoffenderstatustypeid PRIMARY KEY (SexOffenderStatusTypeID);
 
-CREATE SEQUENCE SexOffenderStatusType_SexOffenderStatusTypeID_seq;
-
-CREATE TABLE WorkReleaseStatusType (WorkReleaseStatusTypeID INT AUTO_INCREMENT NOT NULL, WorkReleaseStatusTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE WorkReleaseStatusType (WorkReleaseStatusTypeID INT NOT NULL, WorkReleaseStatusTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE WorkReleaseStatusType ADD CONSTRAINT workreleasestatustypeid PRIMARY KEY (WorkReleaseStatusTypeID);
 
-CREATE SEQUENCE WorkReleaseStatusType_WorkReleaseStatusTypeID_seq_1;
-
-CREATE TABLE ProgramEligibilityType (ProgramEligibilityTypeID INT AUTO_INCREMENT NOT NULL, ProgramEligibilityTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE ProgramEligibilityType (ProgramEligibilityTypeID INT NOT NULL, ProgramEligibilityTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE ProgramEligibilityType ADD CONSTRAINT programeligibilitytypeid PRIMARY KEY (ProgramEligibilityTypeID);
 
-CREATE SEQUENCE ProgramEligibilityType_ProgramEligibilityTypeID_seq_1;
-
-CREATE TABLE DomicileStatusType (DomicileStatusTypeID INT AUTO_INCREMENT NOT NULL, DomicileStatusTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE DomicileStatusType (DomicileStatusTypeID INT NOT NULL, DomicileStatusTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE DomicileStatusType ADD CONSTRAINT domicilestatustypeid PRIMARY KEY (DomicileStatusTypeID);
 
-CREATE SEQUENCE DomicileStatusType_DomicileStatusTypeID_seq_1;
-
-CREATE TABLE PersonEthnicityType (PersonEthnicityTypeID INT AUTO_INCREMENT NOT NULL, PersonEthnicityTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE PersonEthnicityType (PersonEthnicityTypeID INT NOT NULL, PersonEthnicityTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE PersonEthnicityType ADD CONSTRAINT personethnicitytypeid PRIMARY KEY (PersonEthnicityTypeID);
 
-CREATE SEQUENCE PersonEthnicityType_PersonEthnicityTypeID_seq_1;
-
-CREATE TABLE MilitaryServiceStatusType (MilitaryServiceStatusTypeID INT AUTO_INCREMENT NOT NULL, MilitaryServiceStatusTypeDescription VARCHAR(100) NOT NULL);
+CREATE TABLE MilitaryServiceStatusType (MilitaryServiceStatusTypeID INT NOT NULL, MilitaryServiceStatusTypeDescription VARCHAR(100) NOT NULL);
 
 ALTER TABLE MilitaryServiceStatusType ADD CONSTRAINT militaryservicestatustypeid PRIMARY KEY (MilitaryServiceStatusTypeID);
-
-CREATE SEQUENCE MilitaryServiceStatusType_MilitaryServiceStatusTypeID_seq_1_1;
 
 CREATE TABLE Location (LocationID INT AUTO_INCREMENT NOT NULL, AddressSecondaryUnit VARCHAR(150), StreetNumber VARCHAR(50), StreetName VARCHAR(150), City VARCHAR(100), State VARCHAR(10), PostalCode VARCHAR(10), LocationLatitude NUMBER(14, 10), LocationLongitude NUMBER(14, 10), LocationTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
@@ -97,43 +73,31 @@ ALTER TABLE Location ADD CONSTRAINT locationid PRIMARY KEY (LocationID);
 
 CREATE SEQUENCE Location_LocationID_seq_2;
 
-CREATE TABLE LanguageType (LanguageTypeID INT AUTO_INCREMENT NOT NULL, LanguageTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE LanguageType (LanguageTypeID INT NOT NULL, LanguageTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE LanguageType ADD CONSTRAINT languagetypeid PRIMARY KEY (LanguageTypeID);
 
-CREATE SEQUENCE LanguageType_LanguageTypeID_seq;
-
-CREATE TABLE Facility (FacilityID INT AUTO_INCREMENT NOT NULL, FacilityDescription VARCHAR(100) NOT NULL, Capacity INT DEFAULT 0 NOT NULL);
+CREATE TABLE Facility (FacilityID INT NOT NULL, FacilityDescription VARCHAR(100) NOT NULL, Capacity INT DEFAULT 0 NOT NULL);
 
 ALTER TABLE Facility ADD CONSTRAINT facilityid PRIMARY KEY (FacilityID);
 
-CREATE SEQUENCE Facility_FacilityID_seq_1;
-
-CREATE TABLE BondType (BondTypeID INT AUTO_INCREMENT NOT NULL, BondTypeDescription VARCHAR(100) NOT NULL);
+CREATE TABLE BondType (BondTypeID INT NOT NULL, BondTypeDescription VARCHAR(100) NOT NULL);
 
 ALTER TABLE BondType ADD CONSTRAINT bondtypeid PRIMARY KEY (BondTypeID);
 
-CREATE SEQUENCE BondType_BondTypeID_seq_1_1_1_1;
-
-CREATE TABLE SupervisionUnitType (SupervisionUnitTypeID INT AUTO_INCREMENT NOT NULL, SupervisionUnitTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE SupervisionUnitType (SupervisionUnitTypeID INT NOT NULL, SupervisionUnitTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE SupervisionUnitType ADD CONSTRAINT supervisionunittypeid PRIMARY KEY (SupervisionUnitTypeID);
 
-CREATE SEQUENCE SupervisionUnitType_SupervisionUnitTypeID_seq;
-
-CREATE TABLE PersonRaceType (PersonRaceTypeID INT AUTO_INCREMENT NOT NULL, PersonRaceTypeDescription VARCHAR(50) NOT NULL);
+CREATE TABLE PersonRaceType (PersonRaceTypeID INT NOT NULL, PersonRaceTypeDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE PersonRaceType ADD CONSTRAINT personracetypeid PRIMARY KEY (PersonRaceTypeID);
 
-CREATE SEQUENCE PersonRaceType_PersonRaceTypeID_seq;
-
-CREATE TABLE PersonSexType (PersonSexTypeID INT AUTO_INCREMENT NOT NULL, PersonSexTypeDescription VARCHAR(7) NOT NULL);
+CREATE TABLE PersonSexType (PersonSexTypeID INT NOT NULL, PersonSexTypeDescription VARCHAR(7) NOT NULL);
 
 ALTER TABLE PersonSexType ADD CONSTRAINT personsextypeid PRIMARY KEY (PersonSexTypeID);
 
-CREATE SEQUENCE PersonSexType_PersonSexTypeID_seq;
-
-CREATE TABLE Person (PersonID INT AUTO_INCREMENT NOT NULL, PersonUniqueIdentifier VARCHAR(36) NOT NULL, PersonAgeAtBooking INT, PersonBirthDate date, EducationLevel VARCHAR(50), Occupation VARCHAR(50), LanguageTypeID INT, PersonSexTypeID INT, PersonRaceTypeID INT, PersonEthnicityTypeID INT, MilitaryServiceStatusTypeID INT, DomicileStatusTypeID INT, ProgramEligibilityTypeID INT, WorkReleaseStatusTypeID INT, SexOffenderStatusTypeID INT, PersonTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE Person (PersonID INT AUTO_INCREMENT NOT NULL, PersonUniqueIdentifier VARCHAR(100) NOT NULL, PersonUniqueIdentifier2 VARCHAR(100), PersonAgeAtBooking INT, PersonBirthDate date, EducationLevel VARCHAR(50), Occupation VARCHAR(50), LanguageTypeID INT, PersonSexTypeID INT, PersonRaceTypeID INT, PersonEthnicityTypeID INT, MilitaryServiceStatusTypeID INT, DomicileStatusTypeID INT, ProgramEligibilityTypeID INT, WorkReleaseStatusTypeID INT, SexOffenderStatusTypeID INT, PersonTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE Person ADD CONSTRAINT personid PRIMARY KEY (PersonID);
 
@@ -169,17 +133,13 @@ ALTER TABLE BehavioralHealthEvaluation ADD CONSTRAINT behavioralhealthevaluation
 
 CREATE SEQUENCE BehavioralHealthEvaluation_BehavioralHealthEvaluationID_seq;
 
-CREATE TABLE JurisdictionType (JurisdictionTypeID INT AUTO_INCREMENT NOT NULL, JurisdictionTypeDescription VARCHAR(100) NOT NULL);
+CREATE TABLE JurisdictionType (JurisdictionTypeID INT NOT NULL, JurisdictionTypeDescription VARCHAR(100) NOT NULL);
 
 ALTER TABLE JurisdictionType ADD CONSTRAINT jurisdictiontypeid PRIMARY KEY (JurisdictionTypeID);
 
-CREATE SEQUENCE JurisdictionType_JurisdictionTypeID_seq;
-
-CREATE TABLE Agency (AgencyID INT AUTO_INCREMENT NOT NULL, AgencyDescription VARCHAR(50) NOT NULL);
+CREATE TABLE Agency (AgencyID INT NOT NULL, AgencyDescription VARCHAR(50) NOT NULL);
 
 ALTER TABLE Agency ADD CONSTRAINT agencyid PRIMARY KEY (AgencyID);
-
-CREATE SEQUENCE Agency_AgencyID_seq;
 
 CREATE TABLE Booking (BookingID INT AUTO_INCREMENT NOT NULL, BookingNumber VARCHAR(100) NOT NULL, PersonID INT NOT NULL, BookingDate date NOT NULL, BookingTime time, ScheduledReleaseDate date, FacilityID INT, SupervisionUnitTypeID INT, InmateJailResidentIndicator BOOLEAN, BookingTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
