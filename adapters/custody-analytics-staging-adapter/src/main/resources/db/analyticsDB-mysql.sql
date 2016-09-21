@@ -26,86 +26,85 @@ use CustodyAnalyticsDataStore;
 
 
 
-
 CREATE TABLE MedicaidStatusType (
-                MedicaidStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                MedicaidStatusTypeID INT NOT NULL,
                 MedicaidStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (MedicaidStatusTypeID)
 );
 
 
 CREATE TABLE AssessmentCategoryType (
-                AssessmentCategoryTypeID INT AUTO_INCREMENT NOT NULL,
+                AssessmentCategoryTypeID INT NOT NULL,
                 AssessmentCategoryTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (AssessmentCategoryTypeID)
 );
 
 
 CREATE TABLE BondStatusType (
-                BondStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                BondStatusTypeID INT NOT NULL,
                 BondStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (BondStatusTypeID)
 );
 
 
 CREATE TABLE ChargeClassType (
-                ChargeClassTypeID INT AUTO_INCREMENT NOT NULL,
+                ChargeClassTypeID INT NOT NULL,
                 ChargeClassTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (ChargeClassTypeID)
 );
 
 
 CREATE TABLE TreatmentStatusType (
-                TreatmentStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                TreatmentStatusTypeID INT NOT NULL,
                 TreatmentStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (TreatmentStatusTypeID)
 );
 
 
 CREATE TABLE TreatmentAdmissionReasonType (
-                TreatmentAdmissionReasonTypeID INT AUTO_INCREMENT NOT NULL,
+                TreatmentAdmissionReasonTypeID INT NOT NULL,
                 TreatmentAdmissionReasonTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (TreatmentAdmissionReasonTypeID)
 );
 
 
 CREATE TABLE SexOffenderStatusType (
-                SexOffenderStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                SexOffenderStatusTypeID INT NOT NULL,
                 SexOffenderStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (SexOffenderStatusTypeID)
 );
 
 
 CREATE TABLE WorkReleaseStatusType (
-                WorkReleaseStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                WorkReleaseStatusTypeID INT NOT NULL,
                 WorkReleaseStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (WorkReleaseStatusTypeID)
 );
 
 
 CREATE TABLE ProgramEligibilityType (
-                ProgramEligibilityTypeID INT AUTO_INCREMENT NOT NULL,
+                ProgramEligibilityTypeID INT NOT NULL,
                 ProgramEligibilityTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (ProgramEligibilityTypeID)
 );
 
 
 CREATE TABLE DomicileStatusType (
-                DomicileStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                DomicileStatusTypeID INT NOT NULL,
                 DomicileStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (DomicileStatusTypeID)
 );
 
 
 CREATE TABLE PersonEthnicityType (
-                PersonEthnicityTypeID INT AUTO_INCREMENT NOT NULL,
+                PersonEthnicityTypeID INT NOT NULL,
                 PersonEthnicityTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (PersonEthnicityTypeID)
 );
 
 
 CREATE TABLE MilitaryServiceStatusType (
-                MilitaryServiceStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                MilitaryServiceStatusTypeID INT NOT NULL,
                 MilitaryServiceStatusTypeDescription VARCHAR(100) NOT NULL,
                 PRIMARY KEY (MilitaryServiceStatusTypeID)
 );
@@ -127,14 +126,14 @@ CREATE TABLE Location (
 
 
 CREATE TABLE LanguageType (
-                LanguageTypeID INT AUTO_INCREMENT NOT NULL,
+                LanguageTypeID INT NOT NULL,
                 LanguageTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (LanguageTypeID)
 );
 
 
 CREATE TABLE Facility (
-                FacilityID INT AUTO_INCREMENT NOT NULL,
+                FacilityID INT NOT NULL,
                 FacilityDescription VARCHAR(100) NOT NULL,
                 Capacity INT DEFAULT 0 NOT NULL,
                 PRIMARY KEY (FacilityID)
@@ -144,28 +143,28 @@ ALTER TABLE Facility COMMENT 'Booking Detention Facility';
 
 
 CREATE TABLE BondType (
-                BondTypeID INT AUTO_INCREMENT NOT NULL,
+                BondTypeID INT NOT NULL,
                 BondTypeDescription VARCHAR(100) NOT NULL,
                 PRIMARY KEY (BondTypeID)
 );
 
 
 CREATE TABLE SupervisionUnitType (
-                SupervisionUnitTypeID INT AUTO_INCREMENT NOT NULL,
+                SupervisionUnitTypeID INT NOT NULL,
                 SupervisionUnitTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (SupervisionUnitTypeID)
 );
 
 
 CREATE TABLE PersonRaceType (
-                PersonRaceTypeID INT AUTO_INCREMENT NOT NULL,
+                PersonRaceTypeID INT NOT NULL,
                 PersonRaceTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (PersonRaceTypeID)
 );
 
 
 CREATE TABLE PersonSexType (
-                PersonSexTypeID INT AUTO_INCREMENT NOT NULL,
+                PersonSexTypeID INT NOT NULL,
                 PersonSexTypeDescription VARCHAR(7) NOT NULL,
                 PRIMARY KEY (PersonSexTypeID)
 );
@@ -173,7 +172,8 @@ CREATE TABLE PersonSexType (
 
 CREATE TABLE Person (
                 PersonID INT AUTO_INCREMENT NOT NULL,
-                PersonUniqueIdentifier VARCHAR(36) NOT NULL,
+                PersonUniqueIdentifier VARCHAR(100) NOT NULL,
+                PersonUniqueIdentifier2 VARCHAR(100),
                 PersonAgeAtBooking INT,
                 PersonBirthDate DATE,
                 EducationLevel VARCHAR(50),
@@ -247,14 +247,14 @@ CREATE TABLE BehavioralHealthEvaluation (
 
 
 CREATE TABLE JurisdictionType (
-                JurisdictionTypeID INT AUTO_INCREMENT NOT NULL,
+                JurisdictionTypeID INT NOT NULL,
                 JurisdictionTypeDescription VARCHAR(100) NOT NULL,
                 PRIMARY KEY (JurisdictionTypeID)
 );
 
 
 CREATE TABLE Agency (
-                AgencyID INT AUTO_INCREMENT NOT NULL,
+                AgencyID INT NOT NULL,
                 AgencyDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (AgencyID)
 );

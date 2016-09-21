@@ -125,8 +125,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         		+ "PersonUniqueIdentifier, LanguageTypeID, "
         		+ "SexOffenderStatusTypeID, PersonAgeAtBooking, EducationLevel, Occupation, "
         		+ "DomicileStatusTypeID, militaryServiceStatusTypeID, "
-        		+ "PersonEthnicityTypeID, ProgramEligibilityTypeID, WorkReleaseStatusTypeID) "
-        		+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        		+ "PersonEthnicityTypeID, ProgramEligibilityTypeID, WorkReleaseStatusTypeID, PersonUniqueIdentifier2) "
+        		+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -153,6 +153,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			        	setPreparedStatementVariable(person.getPersonEthnicityTypeId(), ps, 12);
 			        	setPreparedStatementVariable(person.getProgramEligibilityTypeId(), ps, 13);
 			        	setPreparedStatementVariable(person.getWorkReleaseStatusTypeId(), ps, 14);
+			        	setPreparedStatementVariable(person.getPersonUniqueIdentifier2(), ps, 15);
        	            
         	            return ps;
         	        }
@@ -195,6 +196,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			person.setPersonEthnicityTypeId(rs.getInt("PersonEthnicityTypeId"));
 			person.setPersonEthnicityTypeDescription(rs.getString("personEthnicityTypeDescription"));
 			person.setPersonUniqueIdentifier(rs.getString("PersonUniqueIdentifier"));
+			person.setPersonUniqueIdentifier2(rs.getString("PersonUniqueIdentifier2"));
 			person.setLanguageId(rs.getInt("LanguageTypeID"));
 			person.setLanguage(rs.getString("LanguageTypeDescription"));
 			person.setSexOffenderStatusTypeId(rs.getInt("SexOffenderStatusTypeID"));
