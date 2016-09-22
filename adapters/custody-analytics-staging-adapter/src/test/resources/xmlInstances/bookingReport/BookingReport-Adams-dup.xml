@@ -179,7 +179,7 @@
 			</j:StatuteCodeSectionIdentification>
 		</j:ChargeStatute>
 		<br-ext:ChargeJurisdictionCourt>
-			<j:CourtName>Smithville</j:CourtName>
+			<j:CourtName>AURORA PD</j:CourtName>
 		</br-ext:ChargeJurisdictionCourt>
 		<br-ext:HoldForAgency>
 			<nc:OrganizationName>BCSO</nc:OrganizationName>

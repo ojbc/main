@@ -188,26 +188,26 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			Person person = new Person();
 	    	
 			person.setPersonBirthDate(rs.getDate("PersonBirthDate").toLocalDate());
-			person.setPersonId(rs.getInt("PersonID"));
+			person.setPersonId(DaoUtils.getInteger(rs, "PersonID"));
 			person.setPersonRaceDescription(rs.getString("PersonRaceTypeDescription"));
 			person.setPersonSexDescription(rs.getString("PersonSexTypeDescription"));
-			person.setPersonRaceId(rs.getInt("PersonRaceTypeId"));
-			person.setPersonSexId(rs.getInt("PersonSexTypeId"));
-			person.setPersonEthnicityTypeId(rs.getInt("PersonEthnicityTypeId"));
+			person.setPersonRaceId(DaoUtils.getInteger(rs, "PersonRaceTypeId"));
+			person.setPersonSexId(DaoUtils.getInteger(rs,"PersonSexTypeId"));
+			person.setPersonEthnicityTypeId(DaoUtils.getInteger(rs,"PersonEthnicityTypeId"));
 			person.setPersonEthnicityTypeDescription(rs.getString("personEthnicityTypeDescription"));
 			person.setPersonUniqueIdentifier(rs.getString("PersonUniqueIdentifier"));
 			person.setPersonUniqueIdentifier2(rs.getString("PersonUniqueIdentifier2"));
-			person.setLanguageId(rs.getInt("LanguageTypeID"));
+			person.setLanguageId(DaoUtils.getInteger(rs,"LanguageTypeID"));
 			person.setLanguage(rs.getString("LanguageTypeDescription"));
-			person.setSexOffenderStatusTypeId(rs.getInt("SexOffenderStatusTypeID"));
-			person.setProgramEligibilityTypeId(rs.getInt("ProgramEligibilityTypeId"));
-			person.setWorkReleaseStatusTypeId(rs.getInt("WorkReleaseStatusTypeId"));
-			person.setPersonAgeAtBooking(rs.getInt("PersonAgeAtBooking"));
-			person.setDomicileStatusTypeId(rs.getInt("DomicileStatusTypeID"));
+			person.setSexOffenderStatusTypeId(DaoUtils.getInteger(rs,"SexOffenderStatusTypeID"));
+			person.setProgramEligibilityTypeId(DaoUtils.getInteger(rs,"ProgramEligibilityTypeId"));
+			person.setWorkReleaseStatusTypeId(DaoUtils.getInteger(rs,"WorkReleaseStatusTypeId"));
+			person.setPersonAgeAtBooking(DaoUtils.getInteger(rs,"PersonAgeAtBooking"));
+			person.setDomicileStatusTypeId(DaoUtils.getInteger(rs,"DomicileStatusTypeID"));
 			person.setEducationLevel(rs.getString("EducationLevel"));
 			person.setOccupation(rs.getString("Occupation"));
 			person.setMilitaryServiceStatusType(
-					new KeyValue(rs.getInt("MilitaryServiceStatusTypeID"), rs.getString("MilitaryServiceStatusTypeDescription")));
+					new KeyValue(DaoUtils.getInteger(rs,"MilitaryServiceStatusTypeID"), rs.getString("MilitaryServiceStatusTypeDescription")));
 	    	return person;
 		}
 
@@ -501,12 +501,12 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public Booking mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Booking booking = new Booking();
 	    	
-			booking.setBookingId(rs.getInt("BookingID"));
+			booking.setBookingId(DaoUtils.getInteger(rs,"BookingID"));
 			booking.setBookingDate(DaoUtils.getLocalDate(rs, "BookingDate"));
 			booking.setBookingTime(DaoUtils.getLocalTime(rs, "BookingTime"));
-			booking.setFacilityId(rs.getInt("FacilityID"));
-			booking.setSupervisionUnitTypeId(rs.getInt("SupervisionUnitTypeID"));
-			booking.setPersonId(rs.getInt("PersonID"));
+			booking.setFacilityId(DaoUtils.getInteger(rs,"FacilityID"));
+			booking.setSupervisionUnitTypeId(DaoUtils.getInteger(rs,"SupervisionUnitTypeID"));
+			booking.setPersonId(DaoUtils.getInteger(rs,"PersonID"));
 			booking.setBookingNumber(rs.getString("BookingNumber"));
 			booking.setScheduledReleaseDate( DaoUtils.getLocalDate(rs, "ScheduledReleaseDate"));
 			booking.setInmateJailResidentIndicator( rs.getBoolean("InmateJailResidentIndicator"));
@@ -545,24 +545,24 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public BookingCharge mapRow(ResultSet rs, int rowNum) throws SQLException {
 			BookingCharge bookingCharge = new BookingCharge();
 	    	
-			bookingCharge.setBookingChargeId(rs.getInt("bookingChargeId"));
-			bookingCharge.setBookingArrestId(rs.getInt("bookingArrestId"));
+			bookingCharge.setBookingChargeId(DaoUtils.getInteger(rs,"bookingChargeId"));
+			bookingCharge.setBookingArrestId(DaoUtils.getInteger(rs,"bookingArrestId"));
 			
 			bookingCharge.setChargeCode( rs.getString("ChargeCode") );
 			bookingCharge.setChargeDisposition( rs.getString("ChargeDisposition") );
 			
-			bookingCharge.setAgencyId(rs.getInt("AgencyID"));
-			bookingCharge.setChargeClassTypeId(rs.getInt("ChargeClassTypeId"));
+			bookingCharge.setAgencyId(DaoUtils.getInteger(rs,"AgencyID"));
+			bookingCharge.setChargeClassTypeId(DaoUtils.getInteger(rs,"ChargeClassTypeId"));
 			bookingCharge.setBondAmount(rs.getBigDecimal("bondAmount"));
 			
-			Integer bondTypeId = rs.getInt("bondTypeId"); 
+			Integer bondTypeId = DaoUtils.getInteger(rs,"bondTypeId"); 
 			if (bondTypeId != null){
-				KeyValue bondType = new KeyValue( rs.getInt("bondTypeId"), rs.getString("bondTypeDescription"));
+				KeyValue bondType = new KeyValue( DaoUtils.getInteger(rs,"bondTypeId"), rs.getString("bondTypeDescription"));
 				bookingCharge.setBondType( bondType );
 			}
 			
-			bookingCharge.setBondStatusTypeId(rs.getInt("BondStatusTypeId"));
-			bookingCharge.setChargeJurisdictionTypeId(rs.getInt("ChargeJurisdictionTypeId"));
+			bookingCharge.setBondStatusTypeId(DaoUtils.getInteger(rs,"BondStatusTypeId"));
+			bookingCharge.setChargeJurisdictionTypeId(DaoUtils.getInteger(rs,"ChargeJurisdictionTypeId"));
 	    	return bookingCharge;
 		}
 
@@ -586,14 +586,14 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			Map<Integer, BehavioralHealthAssessment> map = new HashMap<Integer, BehavioralHealthAssessment>();
 			BehavioralHealthAssessment behavioralHealthAssessment = null;
             while (rs.next()) {
-	            Integer behavioralHealthAssessmentId = rs.getInt("behavioralHealthAssessmentId" ); 
+	            Integer behavioralHealthAssessmentId = DaoUtils.getInteger(rs,"behavioralHealthAssessmentId" ); 
 	            behavioralHealthAssessment  = map.get( behavioralHealthAssessmentId );
 	            if ( behavioralHealthAssessment  == null){
 	            	behavioralHealthAssessment = new BehavioralHealthAssessment();; 
-	    			behavioralHealthAssessment.setBehavioralHealthAssessmentId(rs.getInt("behavioralHealthAssessmentId"));
-	    			behavioralHealthAssessment.setPersonId(rs.getInt("PersonId"));
+	    			behavioralHealthAssessment.setBehavioralHealthAssessmentId(DaoUtils.getInteger(rs,"behavioralHealthAssessmentId"));
+	    			behavioralHealthAssessment.setPersonId(DaoUtils.getInteger(rs,"PersonId"));
 	    			behavioralHealthAssessment.setSeriousMentalIllness(rs.getBoolean("seriousMentalIllnessIndicator"));
-	    			behavioralHealthAssessment.setMedicaidStatusTypeId(rs.getInt("MedicaidStatusTypeId"));
+	    			behavioralHealthAssessment.setMedicaidStatusTypeId(DaoUtils.getInteger(rs,"MedicaidStatusTypeId"));
 	    			behavioralHealthAssessment.setCareEpisodeStartDate(DaoUtils.getLocalDate(rs, "careEpisodeStartDate") );
 	    			behavioralHealthAssessment.setCareEpisodeEndDate(DaoUtils.getLocalDate(rs, "careEpisodeEndDate"));
 	    			behavioralHealthAssessment.setEnrolledProviderName(rs.getString("EnrolledProviderName"));
@@ -650,7 +650,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public CustodyRelease mapRow(ResultSet rs, int rowNum) throws SQLException {
 			CustodyRelease custodyRelease = new CustodyRelease();
 	    	
-			custodyRelease.setBookingId(rs.getInt("bookingId"));
+			custodyRelease.setBookingId(DaoUtils.getInteger(rs,"bookingId"));
 			custodyRelease.setReleaseDate(DaoUtils.getLocalDate(rs, "ReleaseDate"));
 			custodyRelease.setReleaseTime(DaoUtils.getLocalTime(rs, "ReleaseTime"));
 			custodyRelease.setReleaseCondition( rs.getString("ReleaseCondition"));
@@ -782,13 +782,13 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public CustodyStatusChange mapRow(ResultSet rs, int rowNum) throws SQLException {
 			CustodyStatusChange custodyStatusChange = new CustodyStatusChange();
 	    	
-			custodyStatusChange.setCustodyStatusChangeId(rs.getInt("CustodyStatusChangeId"));
+			custodyStatusChange.setCustodyStatusChangeId(DaoUtils.getInteger(rs,"CustodyStatusChangeId"));
 			custodyStatusChange.setBookingDate(DaoUtils.getLocalDate(rs, "BookingDate"));
 			custodyStatusChange.setBookingTime(DaoUtils.getLocalTime(rs, "BookingTime"));
-			custodyStatusChange.setFacilityId(rs.getInt("FacilityID"));
-			custodyStatusChange.setSupervisionUnitTypeId(rs.getInt("SupervisionUnitTypeID"));
-			custodyStatusChange.setPersonId(rs.getInt("PersonID"));
-			custodyStatusChange.setBookingId(rs.getInt("BookingId"));
+			custodyStatusChange.setFacilityId(DaoUtils.getInteger(rs,"FacilityID"));
+			custodyStatusChange.setSupervisionUnitTypeId(DaoUtils.getInteger(rs,"SupervisionUnitTypeID"));
+			custodyStatusChange.setPersonId(DaoUtils.getInteger(rs,"PersonID"));
+			custodyStatusChange.setBookingId(DaoUtils.getInteger(rs,"BookingId"));
 			custodyStatusChange.setScheduledReleaseDate( DaoUtils.getLocalDate(rs, "ScheduledReleaseDate"));
 			custodyStatusChange.setInmateJailResidentIndicator( rs.getBoolean("InmateJailResidentIndicator") );
 			
@@ -816,23 +816,23 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			
 			CustodyStatusChangeCharge custodyStatusChangeCharge = new CustodyStatusChangeCharge();
 	    	
-			custodyStatusChangeCharge.setCustodyStatusChangeChargeId(rs.getInt("CustodyStatusChangeChargeId"));
-			custodyStatusChangeCharge.setCustodyStatusChangeArrestId(rs.getInt("CustodyStatusChangeArrestId"));
+			custodyStatusChangeCharge.setCustodyStatusChangeChargeId(DaoUtils.getInteger(rs,"CustodyStatusChangeChargeId"));
+			custodyStatusChangeCharge.setCustodyStatusChangeArrestId(DaoUtils.getInteger(rs,"CustodyStatusChangeArrestId"));
 			
 			custodyStatusChangeCharge.setChargeCode( rs.getString("ChargeCode") );
 			custodyStatusChangeCharge.setChargeDisposition( rs.getString("ChargeDisposition") );
 			
-			custodyStatusChangeCharge.setAgencyId(rs.getInt("AgencyID"));
+			custodyStatusChangeCharge.setAgencyId(DaoUtils.getInteger(rs,"AgencyID"));
 			custodyStatusChangeCharge.setBondAmount(rs.getBigDecimal("bondAmount"));
 			
-			Integer bondTypeId = rs.getInt("bondTypeId"); 
+			Integer bondTypeId = DaoUtils.getInteger(rs,"bondTypeId"); 
 			if (bondTypeId != null){
-				KeyValue bondType = new KeyValue( rs.getInt("bondTypeId"), rs.getString("bondTypeDescription"));
+				KeyValue bondType = new KeyValue( DaoUtils.getInteger(rs,"bondTypeId"), rs.getString("bondTypeDescription"));
 				custodyStatusChangeCharge.setBondType( bondType );
 			}
-			custodyStatusChangeCharge.setChargeClassTypeId(rs.getInt("ChargeClassTypeId"));
-			custodyStatusChangeCharge.setBondStatusTypeId(rs.getInt("BondStatusTypeId"));
-			custodyStatusChangeCharge.setChargeJurisdictionTypeId(rs.getInt("ChargeJurisdictionTypeId"));
+			custodyStatusChangeCharge.setChargeClassTypeId(DaoUtils.getInteger(rs,"ChargeClassTypeId"));
+			custodyStatusChangeCharge.setBondStatusTypeId(DaoUtils.getInteger(rs,"BondStatusTypeId"));
+			custodyStatusChangeCharge.setChargeJurisdictionTypeId(DaoUtils.getInteger(rs,"ChargeJurisdictionTypeId"));
 			
 	    	return custodyStatusChangeCharge;
 		}
@@ -1050,9 +1050,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public BookingArrest mapRow(ResultSet rs, int rowNum) throws SQLException {
 			BookingArrest bookingArrest = new BookingArrest();
 	    	
-			bookingArrest.setBookingId(rs.getInt("bookingId"));
-			bookingArrest.setBookingArrestId(rs.getInt("bookingArrestId"));
-			bookingArrest.setArrestAgencyId(rs.getInt("arrestAgencyId"));
+			bookingArrest.setBookingId(DaoUtils.getInteger(rs,"bookingId"));
+			bookingArrest.setBookingArrestId(DaoUtils.getInteger(rs,"bookingArrestId"));
+			bookingArrest.setArrestAgencyId(DaoUtils.getInteger(rs,"arrestAgencyId"));
 
 			Address address = buildAddress(rs);
 			
@@ -1077,12 +1077,12 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public Treatment mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Treatment treatment = new Treatment();
 	    	
-			treatment.setTreatmentId(rs.getInt("treatmentId"));
-			treatment.setBehavioralHealthAssessmentID(rs.getInt("behavioralHealthAssessmentID"));
+			treatment.setTreatmentId(DaoUtils.getInteger(rs,"treatmentId"));
+			treatment.setBehavioralHealthAssessmentID(DaoUtils.getInteger(rs,"behavioralHealthAssessmentID"));
 
 			treatment.setTreatmentStartDate(DaoUtils.getLocalDate(rs, "TreatmentStartDate"));
-			treatment.setTreatmentAdmissionReasonTypeId(rs.getInt("TreatmentAdmissionReasonTypeID"));
-			treatment.setTreatmentStatusTypeId(rs.getInt("TreatmentStatusTypeID"));
+			treatment.setTreatmentAdmissionReasonTypeId(DaoUtils.getInteger(rs,"TreatmentAdmissionReasonTypeID"));
+			treatment.setTreatmentStatusTypeId(DaoUtils.getInteger(rs,"TreatmentStatusTypeID"));
 			treatment.setTreatmentProviderName(rs.getString("TreatmentProviderName"));
 	    	return treatment;
 		}
@@ -1106,8 +1106,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public PrescribedMedication mapRow(ResultSet rs, int rowNum) throws SQLException {
 			PrescribedMedication prescribedMedication = new PrescribedMedication();
 	    	
-			prescribedMedication.setPrescribedMedicationID(rs.getInt("prescribedMedicationID"));
-			prescribedMedication.setBehavioralHealthAssessmentID(rs.getInt("behavioralHealthAssessmentID"));
+			prescribedMedication.setPrescribedMedicationID(DaoUtils.getInteger(rs,"prescribedMedicationID"));
+			prescribedMedication.setBehavioralHealthAssessmentID(DaoUtils.getInteger(rs,"behavioralHealthAssessmentID"));
 
 			prescribedMedication.setMedicationDescription(rs.getString("MedicationDescription"));
 			prescribedMedication.setMedicationDispensingDate(DaoUtils.getLocalDate(rs, "medicationDispensingDate"));
@@ -1186,9 +1186,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public CustodyStatusChangeArrest mapRow(ResultSet rs, int rowNum) throws SQLException {
 			CustodyStatusChangeArrest custodyStatusChangeArrest = new CustodyStatusChangeArrest();
 	    	
-			custodyStatusChangeArrest.setCustodyStatusChangeId(rs.getInt("custodyStatusChangeId"));
-			custodyStatusChangeArrest.setArrestAgencyId(rs.getInt("arrestAgencyId"));
-			custodyStatusChangeArrest.setCustodyStatusChangeArrestId(rs.getInt("custodyStatusChangeArrestId"));
+			custodyStatusChangeArrest.setCustodyStatusChangeId(DaoUtils.getInteger(rs,"custodyStatusChangeId"));
+			custodyStatusChangeArrest.setArrestAgencyId(DaoUtils.getInteger(rs,"arrestAgencyId"));
+			custodyStatusChangeArrest.setCustodyStatusChangeArrestId(DaoUtils.getInteger(rs,"custodyStatusChangeArrestId"));
 
 			Address address = buildAddress(rs);
 			
@@ -1199,7 +1199,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 	
 	private Address buildAddress(ResultSet rs) throws SQLException {
-		Address address = new Address(rs.getInt("locationID"));
+		Address address = new Address(DaoUtils.getInteger(rs,"locationID"));
 		address.setStreetNumber(rs.getString("streetNumber"));
 		address.setStreetName(rs.getString("streetName"));
 		address.setAddressSecondaryUnit(rs.getString("addressSecondaryUnit"));
