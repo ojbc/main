@@ -212,7 +212,7 @@ CREATE TABLE Treatment (
                 TreatmentAdmissionReasonTypeID INT,
                 TreatmentStatusTypeID INT,
                 TreatmentProviderName VARCHAR(100),
-                BehavioralHealthAssessmentTimestamp DATETIME DEFAULT getdate() NOT NULL,
+                TreatmentTimestamp DATETIME DEFAULT getdate() NOT NULL,
                 CONSTRAINT TreatmentId PRIMARY KEY (TreatmentID)
 )
 

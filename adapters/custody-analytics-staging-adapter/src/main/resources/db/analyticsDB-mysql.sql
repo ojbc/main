@@ -232,7 +232,7 @@ CREATE TABLE Treatment (
                 TreatmentAdmissionReasonTypeID INT,
                 TreatmentStatusTypeID INT,
                 TreatmentProviderName VARCHAR(100),
-                BehavioralHealthAssessmentTimestamp DATETIME DEFAULT now() NOT NULL,
+                TreatmentTimestamp DATETIME DEFAULT now() NOT NULL,
                 PRIMARY KEY (TreatmentID)
 );
 

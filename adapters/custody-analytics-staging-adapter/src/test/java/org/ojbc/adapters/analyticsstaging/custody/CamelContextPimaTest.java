@@ -17,6 +17,7 @@
 package org.ojbc.adapters.analyticsstaging.custody;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -165,8 +166,8 @@ public class CamelContextPimaTest {
 		assertThat(person.getPersonBirthDate(), is(LocalDate.parse("1969-01-01")));
 		Assert.assertEquals("e807f1fcf82d132f9bb018ca6738a19f", person.getPersonUniqueIdentifier());
 		assertThat(person.getLanguageId(), is(41));
-		assertThat(person.getSexOffenderStatusTypeId(), is(1));
-		assertThat(person.getMilitaryServiceStatusType().getValue(), is("Unknown"));
+		assertThat(person.getSexOffenderStatusTypeId(), nullValue());
+		assertNull(person.getMilitaryServiceStatusType().getValue());
 		
 		assertNull(person.getEducationLevel());
 		assertNull(person.getOccupation());
@@ -195,8 +196,8 @@ public class CamelContextPimaTest {
 		Treatment treatment = treatments.get(0);
 		assertThat(treatment.getBehavioralHealthAssessmentID(), is(1));
 		assertThat(treatment.getTreatmentStartDate(), is(LocalDate.parse("2016-01-01"))); 
-		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), is(2));
-		assertThat(treatment.getTreatmentStatusTypeId(), is(2));
+		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), nullValue());
+		assertThat(treatment.getTreatmentStatusTypeId(), nullValue());
 		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
 		
 		
@@ -215,7 +216,7 @@ public class CamelContextPimaTest {
 		assertEquals(LocalDate.parse("2016-05-12"), booking.getBookingDate());
 		assertEquals(LocalTime.parse("00:36:00"), booking.getBookingTime());
 		assertThat(booking.getFacilityId(), is(1));
-		assertThat(booking.getSupervisionUnitTypeId(), is(28)); 
+		assertThat(booking.getSupervisionUnitTypeId(), is(84)); 
 		assertEquals("234567890", booking.getBookingNumber());
 		assertNull(booking.getScheduledReleaseDate());
 		assertThat(booking.getInmateJailResidentIndicator(), is(false)); 
