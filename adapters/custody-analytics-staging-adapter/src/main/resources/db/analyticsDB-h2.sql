@@ -121,7 +121,7 @@ ALTER TABLE PrescribedMedication ADD CONSTRAINT prescribedmedicationid PRIMARY K
 
 CREATE SEQUENCE PrescribedMedication_PrescribedMedicationID_seq;
 
-CREATE TABLE Treatment (TreatmentID INT AUTO_INCREMENT NOT NULL, BehavioralHealthAssessmentID INT NOT NULL, TreatmentStartDate date, TreatmentAdmissionReasonTypeID INT, TreatmentStatusTypeID INT, TreatmentProviderName VARCHAR(100), BehavioralHealthAssessmentTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE Treatment (TreatmentID INT AUTO_INCREMENT NOT NULL, BehavioralHealthAssessmentID INT NOT NULL, TreatmentStartDate date, TreatmentAdmissionReasonTypeID INT, TreatmentStatusTypeID INT, TreatmentProviderName VARCHAR(100), TreatmentTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE Treatment ADD CONSTRAINT treatmentid PRIMARY KEY (TreatmentID);
 
