@@ -130,6 +130,11 @@
 				<sec:keyManagers keyPassword="${personHealth.keyPassword}">
 					<sec:keyStore type="jks" password="${personHealth.keystorePassword}" file="${personHealth.keystoreLocation}" />
 				</sec:keyManagers>
+				<sec:trustManagers>
+					<sec:keyStore type="JKS"
+						password="${personHealth.truststorePassword}"
+						file="${personHealth.truststoreLocation}" />
+				</sec:trustManagers>			
 				<sec:cipherSuitesFilter>
 					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
 					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
