@@ -72,6 +72,9 @@
 
 		<camel:route id="Booking_Reporting_Connector_DirectVM_Intermediary_Route">
 			<camel:from uri="direct-vm:bookingReportingConnectorCallIntermediary"/>
+			
+			<camel:log message="Recieved Direct VM invocation"/>
+			
 			<camel:to uri="direct:callIntermediary"/>
 		</camel:route>
 						
@@ -91,11 +94,19 @@
 				<constant>http://ojbc.org/Services/WSDL/BookingReportingService/1.0</constant>
 			</camel:setHeader>
 			
-			<camel:to uri="intermediaryEndpoint" />							
+			<camel:to uri="intermediaryEndpoint" />					
+			
+			<camel:log message="Called booking intermediary"/>		
 		
 		</camel:route>						
 		
 	</camel:camelContext>
+			
+	<!-- See this thread: http://stackoverflow.com/questions/11195506/increase-executor-queue-size-in-cxf-onewayprocessorinterceptor -->
+    <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
+        <property name="name" value="default" />
+        <property name="queueSize" value="2048" />
+    </bean>				
 			
 </beans>
 
