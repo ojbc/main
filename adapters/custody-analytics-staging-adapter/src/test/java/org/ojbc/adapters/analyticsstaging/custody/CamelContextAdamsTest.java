@@ -284,7 +284,7 @@ public class CamelContextAdamsTest {
 		assertThat(custodyStatusChangeCharge.getAgencyId(), is(21));
 		assertThat(custodyStatusChangeCharge.getChargeClassTypeId(), is(2));
 		assertThat(custodyStatusChangeCharge.getBondStatusTypeId(), is(4));
-		assertThat(custodyStatusChangeCharge.getChargeJurisdictionTypeId(), is(1));
+		assertThat(custodyStatusChangeCharge.getChargeJurisdictionTypeId(), is(2));
 		assertThat(custodyStatusChangeCharge.getChargeDisposition(), is("Disposition"));
 		
 	}
@@ -545,7 +545,7 @@ public class CamelContextAdamsTest {
 		assertThat(bookingCharge.getAgencyId(), is(21));
 		assertThat(bookingCharge.getChargeClassTypeId(), is(1));
 		assertThat(bookingCharge.getBondStatusTypeId(), is(2));
-		assertThat(bookingCharge.getChargeJurisdictionTypeId(), is(1));
+		assertThat(bookingCharge.getChargeJurisdictionTypeId(), is(3));
 		assertThat(bookingCharge.getChargeDisposition(), is("Disposition"));
 		
 		CustodyRelease custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingId(booking.getBookingId());
