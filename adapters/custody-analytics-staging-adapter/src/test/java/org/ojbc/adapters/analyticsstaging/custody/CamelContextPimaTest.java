@@ -234,7 +234,7 @@ public class CamelContextPimaTest {
 		assertThat(bookingCharges.size(), is(1));
 		
 		BookingCharge bookingCharge = bookingCharges.get(0);
-		assertNull(bookingCharge.getChargeCode());
+		assertThat(bookingCharge.getChargeCode(), is("ARS13-1105"));
 		assertNull(bookingCharge.getChargeDisposition());
 		assertTrue(bookingCharge.getBookingArrestId() == 1);
 		assertTrue(bookingCharge.getBondAmount().doubleValue() == 250000.00); 
