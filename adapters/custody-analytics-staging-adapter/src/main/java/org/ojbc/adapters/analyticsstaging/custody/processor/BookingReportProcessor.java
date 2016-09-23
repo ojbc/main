@@ -109,7 +109,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 		        String sendingAgency = XmlUtils.xPathStringSearch(chargeNode, "br-ext:HoldForAgency/nc30:OrganizationName");
 		        bookingCharge.setAgencyId(descriptionCodeLookupService.retrieveCode(CodeTable.Agency,sendingAgency));
 
-		        bookingCharge.setChargeCode(XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeCategoryDescriptionText"));
+		        bookingCharge.setChargeCode(XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeStatute/jxdm51:StatuteCodeSectionIdentification/nc30:IdentificationID"));
 		        bookingCharge.setChargeDisposition(XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeDisposition/nc30:DispositionText"));
 				
 				String chargeClassType = XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeSeverityText");

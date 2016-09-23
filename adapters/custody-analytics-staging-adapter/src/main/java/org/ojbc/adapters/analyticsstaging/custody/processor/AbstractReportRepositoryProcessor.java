@@ -176,24 +176,24 @@ public abstract class AbstractReportRepositoryProcessor {
 					assessment.getAssessmentCategory().add(new KeyValue(assessmentCategoryTypeId, ASSESSMENT_CATEGORY_GENERAL_MENTAL_HEALTH));
 				}
 				
-		}
 			
-			String careEpisodeStartDateString = XmlUtils.xPathStringSearch(personNode, 
-					"following-sibling::"+ extPrefix + ":CareEpisode[@s30:id='" + personCareEpisodeRef + "']/nc30:ActivityDateRange/nc30:StartDate/nc30:Date");
-			LocalDate careEpisodeStartDate = StringUtils.isNotBlank(careEpisodeStartDateString)?LocalDate.parse(careEpisodeStartDateString):null;
-			assessment.setCareEpisodeStartDate(careEpisodeStartDate);
-			
-			String careEpisodeEndDateString = XmlUtils.xPathStringSearch(personNode, 
-					"following-sibling::"+ extPrefix + ":CareEpisode[@s30:id='" + personCareEpisodeRef + "']/nc30:ActivityDateRange/nc30:EndDate/nc30:Date");
-			LocalDate careEpisodeEndDate = StringUtils.isNotBlank(careEpisodeEndDateString)?LocalDate.parse(careEpisodeEndDateString):null;
-			assessment.setCareEpisodeEndDate(careEpisodeEndDate);
-			
-			Integer assessmentId = analyticalDatastoreDAO.saveBehavioralHealthAssessment(assessment);
-			
-			assessment.setBehavioralHealthAssessmentId(assessmentId);
-			processEvaluationNodes(assessment, behavioralHealthInfoNode, extPrefix);
-			processTreatmentNodes(assessment, behavioralHealthInfoNode, extPrefix);
-			processPrescribedMedications(assessment, behavioralHealthInfoNode, extPrefix);
+				String careEpisodeStartDateString = XmlUtils.xPathStringSearch(personNode, 
+						"following-sibling::"+ extPrefix + ":CareEpisode[@s30:id='" + personCareEpisodeRef + "']/nc30:ActivityDateRange/nc30:StartDate/nc30:Date");
+				LocalDate careEpisodeStartDate = StringUtils.isNotBlank(careEpisodeStartDateString)?LocalDate.parse(careEpisodeStartDateString):null;
+				assessment.setCareEpisodeStartDate(careEpisodeStartDate);
+				
+				String careEpisodeEndDateString = XmlUtils.xPathStringSearch(personNode, 
+						"following-sibling::"+ extPrefix + ":CareEpisode[@s30:id='" + personCareEpisodeRef + "']/nc30:ActivityDateRange/nc30:EndDate/nc30:Date");
+				LocalDate careEpisodeEndDate = StringUtils.isNotBlank(careEpisodeEndDateString)?LocalDate.parse(careEpisodeEndDateString):null;
+				assessment.setCareEpisodeEndDate(careEpisodeEndDate);
+				
+				Integer assessmentId = analyticalDatastoreDAO.saveBehavioralHealthAssessment(assessment);
+				
+				assessment.setBehavioralHealthAssessmentId(assessmentId);
+				processEvaluationNodes(assessment, behavioralHealthInfoNode, extPrefix);
+				processTreatmentNodes(assessment, behavioralHealthInfoNode, extPrefix);
+				processPrescribedMedications(assessment, behavioralHealthInfoNode, extPrefix);
+			}
 		}
 		
 	}
