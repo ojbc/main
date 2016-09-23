@@ -15,9 +15,9 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
 
-Drop schema if exists CustodyAnalyticsDataStore;
+Drop schema if exists ojbc_booking_staging;
 
-CREATE schema CustodyAnalyticsDataStore;
+CREATE schema ojbc_booking_staging;
 
 CREATE TABLE MedicaidStatusType (MedicaidStatusTypeID INT NOT NULL, MedicaidStatusTypeDescription VARCHAR(50) NOT NULL);
 

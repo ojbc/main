@@ -16,12 +16,12 @@
  */
  
 USE master
-IF EXISTS(select * from sys.databases where name='CustodyAnalyticsDataStore')
-DROP DATABASE CustodyAnalyticsDataStore
+IF EXISTS(select * from sys.databases where name='ojbc_booking_staging')
+DROP DATABASE ojbc_booking_staging
 
-CREATE DATABASE CustodyAnalyticsDataStore
+CREATE DATABASE ojbc_booking_staging
 
-Use CustodyAnalyticsDataStore
+Use ojbc_booking_staging
 
 /**
 * Copy DDL from SQL PA below here.  Modify timestamps in fact tables like this:
