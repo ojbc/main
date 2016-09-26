@@ -357,54 +357,45 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	private void deleteInitialBooking(Integer bookingId) {
 		
 		jdbcTemplate.update("DELETE FROM BookingCharge  "
-				+ "WHERE BookingChargeID IN "
-				+ "	(SELECT bc.BookingChargeID from BookingCharge bc "
-				+ "		LEFT JOIN BookingArrest ba ON ba.BookingArrestID = bc.BookingArrestID "
+				+ "WHERE BookingArrestID IN "
+				+ "	(SELECT ba.BookingArrestID from BookingArrest ba "
 				+ "		LEFT JOIN Booking b ON b.BookingID = ba.BookingID "
 				+ "		WHERE b.bookingID = ? )", bookingId); 
 				
 		jdbcTemplate.update("DELETE FROM BookingArrest "
-				+ "WHERE BookingArrestID IN "
-				+ "	(SELECT ba. BookingArrestID from BookingArrest ba  "
-				+ "		LEFT JOIN Booking b ON b.BookingID = ba.BookingID "
-				+ "		WHERE b.bookingID = ? )", bookingId); 
+				+ "WHERE BookingID = ? ", bookingId); 
 		
 		jdbcTemplate.update("DELETE FROM BehavioralHealthEvaluation "
-				+ "WHERE BehavioralHealthEvaluationID IN "
-				+ "	(SELECT be.BehavioralHealthEvaluationID from BehavioralHealthEvaluation be "
-				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
 				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
 				+ "		LEFT JOIN Booking b ON b.personId = p.personId "
 				+ "		WHERE b.bookingId = ? )", bookingId); 
 		
 		jdbcTemplate.update("DELETE FROM BehavioralHealthAssessmentCategory "
-				+ "WHERE BehavioralHealthAssessmentCategoryID IN "
-				+ "	(SELECT be.BehavioralHealthAssessmentCategoryID from BehavioralHealthAssessmentCategory be "
-				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
 				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
 				+ "		LEFT JOIN Booking b ON b.personId = p.personId "
 				+ "		WHERE b.bookingId = ? )", bookingId); 
 		
 		jdbcTemplate.update("DELETE FROM PrescribedMedication "
-				+ "WHERE PrescribedMedicationID IN "
-				+ "	(SELECT be.PrescribedMedicationID from PrescribedMedication be "
-				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
 				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
 				+ "		LEFT JOIN Booking b ON b.personId = p.personId "
 				+ "		WHERE b.bookingId = ? )", bookingId); 
 		
 		jdbcTemplate.update("DELETE FROM Treatment "
-				+ "WHERE TreatmentID IN "
-				+ "	(SELECT be.TreatmentID from Treatment be "
-				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
 				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
 				+ "		LEFT JOIN Booking b ON b.personId = p.personId "
 				+ "		WHERE b.bookingId = ? )", bookingId); 
 		
 		jdbcTemplate.update("DELETE FROM BehavioralHealthAssessment "
-				+ "WHERE BehavioralHealthAssessmentID IN "
-				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
-				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "WHERE PersonId IN "
+				+ "	(SELECT p.PersonId from Person p "
 				+ "		LEFT JOIN Booking b ON b.personId = p.personId "
 				+ "		WHERE b.bookingId = ? )", bookingId); 
 		
@@ -419,54 +410,47 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	private void deleteCustodyStatusChanges(Integer bookingId) {
 		
 		jdbcTemplate.update("DELETE FROM CustodyStatusChangeCharge  "
-				+ "WHERE CustodyStatusChangeChargeID IN "
-				+ "	(SELECT cscc.CustodyStatusChangeChargeID from CustodyStatusChangeCharge cscc "
-				+ "		LEFT JOIN CustodyStatusChangeArrest csca ON csca.CustodyStatusChangeArrestID = cscc.CustodyStatusChangeArrestID "
-				+ "		LEFT JOIN CustodyStatusChange csc ON csc.CustodyStatusChangeID = csca.CustodyStatusChangeID "
+				+ "WHERE CustodyStatusChangeArrestID IN "
+				+ "	(SELECT csca.CustodyStatusChangeArrestID from CustodyStatusChangeArrest csca "
+				+ " 	RIGHT JOIN CustodyStatusChange csc ON csc.CustodyStatusChangeID = csca.CustodyStatusChangeID "
 				+ "		WHERE csc.bookingID = ? )", bookingId); 
 				
 		jdbcTemplate.update("DELETE FROM CustodyStatusChangeArrest "
-				+ "WHERE CustodyStatusChangeArrestID IN "
-				+ "	(SELECT csca. CustodyStatusChangeArrestID from CustodyStatusChangeArrest csca  "
-				+ "		LEFT JOIN CustodyStatusChange csc ON csc.CustodyStatusChangeID = csca.CustodyStatusChangeID "
-				+ "		WHERE csc.bookingID = ? )", bookingId); 
+				+ "WHERE CustodyStatusChangeID IN "
+				+ "	(SELECT CustodyStatusChangeID from CustodyStatusChange "
+				+ "		WHERE bookingID = ? )", bookingId); 
 		
 		jdbcTemplate.update("DELETE FROM BehavioralHealthEvaluation "
-				+ "WHERE BehavioralHealthEvaluationID IN "
-				+ "	(SELECT be.BehavioralHealthEvaluationID from BehavioralHealthEvaluation be "
-				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
-				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
+				+ "		RIGHT JOIN Person p ON p.PersonId = bha.PersonId "
 				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
 				+ "		WHERE csc.bookingId = ? )", bookingId); 
 		
 		jdbcTemplate.update("DELETE FROM BehavioralHealthAssessmentCategory "
-				+ "WHERE BehavioralHealthAssessmentCategoryID IN "
-				+ "	(SELECT be.BehavioralHealthAssessmentCategoryID from BehavioralHealthAssessmentCategory be "
-				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
-				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
+				+ "		RIGHT JOIN Person p ON p.PersonId = bha.PersonId "
 				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
 				+ "		WHERE csc.bookingId = ? )", bookingId); 
 		
 		jdbcTemplate.update("DELETE FROM PrescribedMedication "
-				+ "WHERE PrescribedMedicationID IN "
-				+ "	(SELECT be.PrescribedMedicationID from PrescribedMedication be "
-				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
 				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
 				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
 				+ "		WHERE csc.bookingId = ? )", bookingId); 
 		
 		jdbcTemplate.update("DELETE FROM Treatment "
-				+ "WHERE TreatmentID IN "
-				+ "	(SELECT be.TreatmentID from Treatment be "
-				+ "		LEFT JOIN BehavioralHealthAssessment bha ON bha.BehavioralHealthAssessmentID = be.BehavioralHealthAssessmentID "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
 				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
 				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
 				+ "		WHERE csc.bookingId = ? )", bookingId); 
 		
 		jdbcTemplate.update("DELETE FROM BehavioralHealthAssessment "
-				+ "WHERE BehavioralHealthAssessmentID IN "
-				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
-				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "WHERE PersonId IN "
+				+ "	(SELECT p.PersonId FROM Person p "
 				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
 				+ "		WHERE csc.bookingId = ? )", bookingId); 
 		
