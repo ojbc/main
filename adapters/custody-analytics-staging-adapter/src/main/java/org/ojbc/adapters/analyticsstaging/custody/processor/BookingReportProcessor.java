@@ -51,8 +51,10 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 		log.info("Processing booking report." );
 		XmlUtils.printNode(report);
 		
-		Integer bookingId = processBookingReport(report);
-		processBookingArrests(report, bookingId);
+		Booking booking = processBookingReport(report);
+		processBookingArrests(report, booking.getBookingId());
+		analyticalDatastoreDAO.updateCustodyReleaseBookingId(booking.getBookingId(), booking.getBookingNumber());
+		analyticalDatastoreDAO.updateCustodyStatusChangeBookingId(booking.getBookingId(), booking.getBookingNumber());
 		
 		log.info("Processed booking report.");
 		
@@ -152,7 +154,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 	}
 
 	@Transactional
-	private Integer processBookingReport(Document report) throws Exception {
+	private Booking processBookingReport(Document report) throws Exception {
 		Node bookingReportNode = XmlUtils.xPathNodeSearch(report, "/br-doc:BookingReport");
 		String bookingNumber = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID");
 		
@@ -193,10 +195,11 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
  		booking.setInmateJailResidentIndicator(BooleanUtils.toBooleanObject(inmateJailResidentIndicator));
  		
         Integer bookingId = analyticalDatastoreDAO.saveBooking(booking);
+        booking.setBookingId(bookingId);
         
-        processCustodyReleaseInfo(bookingReportNode, bookingId);
+        processCustodyReleaseInfo(bookingReportNode, bookingId, bookingNumber);
         
-		return bookingId;
+		return booking;
 	}
 
 	/**

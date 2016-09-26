@@ -614,21 +614,22 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	@Override
 	public void saveCustodyRelease(CustodyRelease custodyRelease) {
 
-		saveCustodyRelease(custodyRelease.getBookingId(),
+		saveCustodyRelease(custodyRelease.getBookingId(), custodyRelease.getBookingNumber(), 
 				custodyRelease.getReleaseDate(), custodyRelease.getReleaseTime(), custodyRelease.getReleaseCondition());
 	}
 
-	@Override
-	public void saveCustodyRelease(Integer bookingId,
+	private void saveCustodyRelease(Integer bookingId, String bookingNumber,
 			LocalDate releaseDate, LocalTime releaseTime, String releaseCondition) {
 
-		final String sql = "Insert into CustodyRelease (BookingID, ReleaseDate, ReleaseTime, ReleaseCondition) "
-				+ "values (:bookingId, :releaseDate, :releaseTime, :releaseCondition)";
+		final String sql = "Insert into CustodyRelease (BookingID, BookingNumber, "
+				+ "ReleaseDate, ReleaseTime, ReleaseCondition) "
+				+ "values (:bookingId, :bookingNumber, :releaseDate, :releaseTime, :releaseCondition)";
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("releaseDate", Date.valueOf(releaseDate) );
 		params.put("releaseTime", Time.valueOf(releaseTime) );
 		params.put("bookingId", bookingId );
+		params.put("bookingNumber", bookingNumber );
 		params.put("releaseCondition", releaseCondition);
 		
 		namedParameterJdbcTemplate.update(sql, params);
@@ -641,7 +642,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		List<CustodyRelease> custodyReleases = 
 				jdbcTemplate.query(sql, new CustodyReleaseRowMapper(), bookingId);
 		return DataAccessUtils.singleResult(custodyReleases);
-		
 	}
 
 	public class CustodyReleaseRowMapper implements RowMapper<CustodyRelease>
@@ -651,6 +651,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			CustodyRelease custodyRelease = new CustodyRelease();
 	    	
 			custodyRelease.setBookingId(DaoUtils.getInteger(rs,"bookingId"));
+			custodyRelease.setBookingNumber(rs.getString("bookingNumber"));
 			custodyRelease.setReleaseDate(DaoUtils.getLocalDate(rs, "ReleaseDate"));
 			custodyRelease.setReleaseTime(DaoUtils.getLocalTime(rs, "ReleaseTime"));
 			custodyRelease.setReleaseCondition( rs.getString("ReleaseCondition"));
@@ -677,17 +678,17 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        		sqlString="INSERT into custodyStatusChange ("
         	        				+ "BookingDate, BookingTime,  "
         	        				+ "FacilityID, SupervisionUnitTypeID, "
-        	        				+ "PersonID, BookingId, ScheduledReleaseDate, InmateJailResidentIndicator"
+        	        				+ "PersonID, BookingId, ScheduledReleaseDate, InmateJailResidentIndicator, BookingNumber, "
         	        				+ "CustodyStatusChangeID) "
-        	        				+ "values (?,?,?,?,?,?,?,?,?)";
+        	        				+ "values (?,?,?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
 
         	        		sqlString="INSERT into custodyStatusChange ("
         	        				+ "BookingDate, BookingTime, "
         	        				+ "FacilityID, SupervisionUnitTypeID, "
-        	        				+ "PersonID, BookingId, ScheduledReleaseDate, InmateJailResidentIndicator) "
-        	        				+ "values (?,?,?,?,?,?,?,?)";
+        	        				+ "PersonID, BookingId, ScheduledReleaseDate, InmateJailResidentIndicator, BookingNumber) "
+        	        				+ "values (?,?,?,?,?,?,?,?,?)";
         	        		
         	        	}	
         	        			
@@ -703,9 +704,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            setPreparedStatementVariable(custodyStatusChange.getBookingId(), ps, 6);
         	            setPreparedStatementVariable(custodyStatusChange.getScheduledReleaseDate(), ps, 7);
         	            setPreparedStatementVariable(custodyStatusChange.getInmateJailResidentIndicator(), ps, 8);
+        	            setPreparedStatementVariable(custodyStatusChange.getBookingNumber(), ps, 9);
         	            
         	            if (custodyStatusChange.getCustodyStatusChangeId() != null){
-        	            	setPreparedStatementVariable(custodyStatusChange.getCustodyStatusChangeId(), ps, 9);
+        	            	setPreparedStatementVariable(custodyStatusChange.getCustodyStatusChangeId(), ps, 10);
         	            }
         	            
         	            return ps;
@@ -789,6 +791,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			custodyStatusChange.setSupervisionUnitTypeId(DaoUtils.getInteger(rs,"SupervisionUnitTypeID"));
 			custodyStatusChange.setPersonId(DaoUtils.getInteger(rs,"PersonID"));
 			custodyStatusChange.setBookingId(DaoUtils.getInteger(rs,"BookingId"));
+			custodyStatusChange.setBookingNumber(rs.getString("BookingNumber"));
 			custodyStatusChange.setScheduledReleaseDate( DaoUtils.getLocalDate(rs, "ScheduledReleaseDate"));
 			custodyStatusChange.setInmateJailResidentIndicator( rs.getBoolean("InmateJailResidentIndicator") );
 			
@@ -1274,6 +1277,40 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 				jdbcTemplate.query(sql, 
 						new PersonRowMapper(), bookingNumber);
 		return DataAccessUtils.singleResult(persons);
+	}
+
+	@Override
+	public void updateCustodyStatusChangeBookingId(Integer bookingId, String bookingNumber) {
+		final String sql = "UPDATE custodyStatusChange SET bookingId = ? WHERE bookingNumber = ? AND (bookingId is null OR bookingId != ?)"; 
+		jdbcTemplate.update(sql, bookingId, bookingNumber, bookingId);
+	}
+
+	@Override
+	public void updateCustodyReleaseBookingId(Integer bookingId, String bookingNumber) {
+		final String sql = "UPDATE custodyRelease SET bookingId = ? WHERE bookingNumber = ? AND (bookingId is null OR bookingId != ?)"; 
+		jdbcTemplate.update(sql, bookingId, bookingNumber, bookingId);
+	}
+
+	@Override
+	public CustodyRelease getCustodyReleaseByBookingNumber(String bookingNumber) {
+		final String sql = "Select top 1 * from CustodyRelease where BookingNumber = ? order by CustodyReleaseTimestamp desc";
+		
+		List<CustodyRelease> custodyReleases = 
+				jdbcTemplate.query(sql, new CustodyReleaseRowMapper(), bookingNumber);
+		return DataAccessUtils.singleResult(custodyReleases);
+	}
+
+	@Override
+	public List<CustodyStatusChange> getCustodyStatusChangesByBookingNumber(
+			String bookingNumber) {
+		final String sql = "SELECT * FROM CustodyStatusChange c "
+				+ "WHERE BookingNumber = ?";
+		
+		List<CustodyStatusChange> custodyStatusChanges = 
+				jdbcTemplate.query(sql, 
+						new CustodyStatusChangeRowMapper(), bookingNumber);
+		
+		return custodyStatusChanges;
 	}
 
 }

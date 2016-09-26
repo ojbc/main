@@ -255,6 +255,7 @@ public class CamelContextAdamsTest {
 		assertThat(custodyStatusChange.getFacilityId(), is(2));
 		assertThat(custodyStatusChange.getSupervisionUnitTypeId(), is(10)); 
 		assertThat(custodyStatusChange.getBookingId(), is(1));
+		assertThat(custodyStatusChange.getBookingNumber(), is("Booking Number"));
 		assertThat(custodyStatusChange.getScheduledReleaseDate(), is(LocalDate.parse("2014-12-17")));
 		assertThat(custodyStatusChange.getInmateJailResidentIndicator(), is(false));
 		
@@ -313,7 +314,7 @@ public class CamelContextAdamsTest {
 			throw new Exception(returnExchange.getException());
 		}
 		
-		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from Booking", Boolean.class));
+		assertThat(jdbcTemplate.queryForObject("select count(*) from Booking", Integer.class), is(1));
 
 		person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNotNull(person);
@@ -413,6 +414,7 @@ public class CamelContextAdamsTest {
 		log.info(custodyRelease.toString());
 		assertEquals(LocalDate.parse("2014-12-17"), custodyRelease.getReleaseDate());
 		assertEquals(LocalTime.parse("10:30"), custodyRelease.getReleaseTime());
+		assertThat(custodyRelease.getBookingNumber(), is("Booking Number"));
 		
 	}
 	
@@ -591,6 +593,7 @@ public class CamelContextAdamsTest {
 		custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingId(1);
 		assertEquals( LocalDate.parse("2001-12-17"), custodyRelease.getReleaseDate());
 		assertEquals( LocalTime.parse("09:30:47"), custodyRelease.getReleaseTime());
+		assertThat(custodyRelease.getBookingNumber(), is("Booking Number"));
 		
 		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(2);
 		assertThat(behavioralHealthAssessments.size(), is(2));

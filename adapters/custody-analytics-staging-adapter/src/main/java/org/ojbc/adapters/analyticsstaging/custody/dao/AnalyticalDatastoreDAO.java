@@ -16,8 +16,6 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Address;
@@ -81,9 +79,10 @@ public interface AnalyticalDatastoreDAO {
 	public List<PrescribedMedication> getPrescribedMedication(Integer behavioralHealthAssessmentId);
 
 	public void saveCustodyRelease(CustodyRelease custodyRelease);
-	public void saveCustodyRelease(Integer bookingId, LocalDate releaseDate, LocalTime releaseTime, String releaseCondition);
 	public CustodyRelease getCustodyReleaseByBookingId(Integer bookingId);
+	public CustodyRelease getCustodyReleaseByBookingNumber(String bookingNumber);
 	public List<CustodyStatusChange> getCustodyStatusChangesByBookingId(Integer bookingId); 
+	public List<CustodyStatusChange> getCustodyStatusChangesByBookingNumber(String bookingNumber); 
 	public List<CustodyStatusChangeCharge> getCustodyStatusChangeCharges(Integer custodyStatusChangeId);
 	
 	public Person getPersonByBookingNumber(String bookingNumber);
@@ -99,5 +98,8 @@ public interface AnalyticalDatastoreDAO {
 	public void saveTreatments(final List<Treatment> treatments);
 	public void saveBehavioralHealthEvaluations(Integer behavioralHealthAssessmentId, final List<String> behavioralHealthDiagnoses);
 	public void savePrescribedMedications(final List<PrescribedMedication> prescribedMedications);
+	
+	public void updateCustodyStatusChangeBookingId(Integer bookingId, String bookingNumber); 
+	public void updateCustodyReleaseBookingId(Integer bookingId, String bookingNumber); 
 
 }
