@@ -164,7 +164,7 @@
 				
 				<to uri="bean:personHealthResponseAggregator?method=prepareResponseExchange" />
 
-				<log message="\n\n\n completed aggregated body: \n\n ${body} \n\n\n" />
+				<log message="\n\n\n completed aggregated body: \n\n ${body} \n\n\n" loggingLevel="DEBUG"/>
 				
 				<camel:to uri="direct:sendResponseToClientOfThisIntermediary"/>
 
