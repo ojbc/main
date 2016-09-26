@@ -127,7 +127,7 @@ ALTER TABLE Treatment ADD CONSTRAINT treatmentid PRIMARY KEY (TreatmentID);
 
 CREATE SEQUENCE Treatment_TreatmentID_seq;
 
-CREATE TABLE BehavioralHealthEvaluation (BehavioralHealthEvaluationID INT AUTO_INCREMENT NOT NULL, BehavioralHealthAssessmentID INT NOT NULL, BehavioralHealthDiagnosisDescription VARCHAR(50), BehavioralHealthEvaluationTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE BehavioralHealthEvaluation (BehavioralHealthEvaluationID INT AUTO_INCREMENT NOT NULL, BehavioralHealthAssessmentID INT NOT NULL, BehavioralHealthDiagnosisDescription VARCHAR(100), BehavioralHealthEvaluationTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE BehavioralHealthEvaluation ADD CONSTRAINT behavioralhealthevaluationid PRIMARY KEY (BehavioralHealthEvaluationID);
 
@@ -147,13 +147,13 @@ ALTER TABLE Booking ADD CONSTRAINT bookingid PRIMARY KEY (BookingID);
 
 CREATE SEQUENCE Booking_BookingID_seq;
 
-CREATE TABLE CustodyRelease (CustodyReleaseID INT AUTO_INCREMENT NOT NULL, BookingID INT NOT NULL, ReleaseDate date NOT NULL, ReleaseTime time, ReleaseCondition VARCHAR(200), CustodyReleaseTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE CustodyRelease (CustodyReleaseID INT AUTO_INCREMENT NOT NULL, BookingID INT, BookingNumber VARCHAR(100) NOT NULL, ReleaseDate date NOT NULL, ReleaseTime time, ReleaseCondition VARCHAR(200), CustodyReleaseTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE CustodyRelease ADD CONSTRAINT custodyreleaseid PRIMARY KEY (CustodyReleaseID);
 
 CREATE SEQUENCE CustodyRelease_CustodyReleaseID_seq;
 
-CREATE TABLE CustodyStatusChange (CustodyStatusChangeID INT AUTO_INCREMENT NOT NULL, BookingID INT NOT NULL, PersonID INT NOT NULL, BookingDate date NOT NULL, BookingTime time, ScheduledReleaseDate date, FacilityID INT, SupervisionUnitTypeID INT, InmateJailResidentIndicator BOOLEAN, CustodyStatusChangeTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
+CREATE TABLE CustodyStatusChange (CustodyStatusChangeID INT AUTO_INCREMENT NOT NULL, BookingID INT, PersonID INT NOT NULL, BookingDate date NOT NULL, BookingTime time, BookingNumber VARCHAR(100) NOT NULL, ScheduledReleaseDate date, FacilityID INT, SupervisionUnitTypeID INT, InmateJailResidentIndicator BOOLEAN, CustodyStatusChangeTimestamp TIMESTAMP DEFAULT NOW() NOT NULL);
 
 ALTER TABLE CustodyStatusChange ADD CONSTRAINT custodystatuschangeid PRIMARY KEY (CustodyStatusChangeID);
 

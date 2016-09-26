@@ -195,7 +195,7 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
  		String inmateJailResidentIndicator = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Detention/cscr-ext:InmateJailResidentIndicator");
  		custodyStatusChange.setInmateJailResidentIndicator(BooleanUtils.toBooleanObject(inmateJailResidentIndicator));
  		
-        processCustodyReleaseInfo(custodyNode, bookingId);
+        processCustodyReleaseInfo(custodyNode, bookingId, bookingNumber);
 
         Integer custodyStatusChangeId = analyticalDatastoreDAO.saveCustodyStatusChange(custodyStatusChange);
         

@@ -78,7 +78,9 @@ public class CustodyReleaseReportProcessor extends AbstractReportRepositoryProce
 		
 		Integer personId = analyticalDatastoreDAO.getPersonIdByUniqueId(personUniqueIdentifier);
 
-		processBehavioralHealthInfo(personNode, personId, "crr-ext");
+		if (personId != null){
+			processBehavioralHealthInfo(personNode, personId, "crr-ext");
+		}
 	}
 
 }

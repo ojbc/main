@@ -389,7 +389,7 @@ public abstract class AbstractReportRepositoryProcessor {
 	}
 
 	protected CustodyRelease processCustodyReleaseInfo(Node parentNode,
-			Integer bookingId) throws Exception {
+			Integer bookingId, String bookingNumber) throws Exception {
 		
         String supervisionReleaseDateTimeString = XmlUtils.xPathStringSearch(parentNode, 
         		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:DateTime");
@@ -408,6 +408,7 @@ public abstract class AbstractReportRepositoryProcessor {
         
         if (custodyRelease.getReleaseDate() != null){
 	        custodyRelease.setBookingId(bookingId);
+	        custodyRelease.setBookingNumber(bookingNumber);
 	        analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);
         }
         
@@ -428,10 +429,6 @@ public abstract class AbstractReportRepositoryProcessor {
 		}
 		
 		Integer bookingId = analyticalDatastoreDAO.getBookingIdByBookingNumber(bookingNumber);
-		if (bookingId == null){
-			log.fatal("No Booking record found with the Booking Number: " + bookingNumber);
-			throw new Exception("No Booking record found with the Booking Number: " + StringUtils.trimToEmpty(bookingNumber));
-		}
 		return bookingId;
 	}
 
