@@ -462,7 +462,6 @@
 				<nc:MeasureValueText>3mg</nc:MeasureValueText>
 			</cyfs:MedicationDoseMeasure>
 		</br-ext:PrescribedMedication>
-		<hs:MedicaidIndicator>true</hs:MedicaidIndicator>
 		<br-ext:RegionalBehavioralHealthAuthorityAssignmentText>79</br-ext:RegionalBehavioralHealthAuthorityAssignmentText>
 	</br-ext:BehavioralHealthInformation>
 	<br-ext:CareEpisode structures:id="PCE_01">

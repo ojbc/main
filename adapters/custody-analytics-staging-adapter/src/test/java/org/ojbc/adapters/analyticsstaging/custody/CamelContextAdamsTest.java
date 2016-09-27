@@ -323,6 +323,7 @@ public class CamelContextAdamsTest {
 		Assert.assertEquals(Integer.valueOf(1), person.getPersonId());
 		assertThat(person.getPersonSexId(), is(2));
 		assertThat(person.getPersonRaceId(), is(6));
+		assertThat(person.getPersonEthnicityTypeId(), is(1));
 		assertThat(person.getPersonSexDescription(), is("Female"));
 		assertThat(person.getPersonRaceDescription(), is("White"));
 		assertThat(person.getLanguage(), is("English"));
