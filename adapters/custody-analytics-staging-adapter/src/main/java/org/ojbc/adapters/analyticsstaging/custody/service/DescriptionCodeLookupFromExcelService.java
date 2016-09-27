@@ -40,10 +40,6 @@ import org.springframework.stereotype.Service;
 public class DescriptionCodeLookupFromExcelService
 {
 
-	private static final String U = "U";
-
-	private static final String UNKNOWN = "UNKNOWN";
-
 	protected Log log = LogFactory.getLog(this.getClass());
 
 	protected Map<String, Map<String, Integer>> mapOfCodeMaps = null;
@@ -117,18 +113,17 @@ public class DescriptionCodeLookupFromExcelService
 				return null;
 			}
 			
+			if (StringUtils.isBlank(description)){
+				log.warn(codeTable.name() + " code is empty."); 
+				return null;
+			}
+			
 			Integer code = (Integer) lookupMap.get(StringUtils.trimToEmpty(description).toUpperCase());
 			if (code == null){
 				log.warn("Did not find code " + StringUtils.trimToEmpty(description) + 
 						" in code table " + codeTable.name());
 			}
 			
-			if (code == null){
-				code =  (Integer) lookupMap.get(UNKNOWN);
-			}
-			if (code == null){
-				code =  (Integer) lookupMap.get(U);
-			}
 			return code ;
 		}
 		catch (Exception e) {
