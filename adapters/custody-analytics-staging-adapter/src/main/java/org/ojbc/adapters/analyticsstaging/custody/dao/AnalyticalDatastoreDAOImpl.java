@@ -87,7 +87,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(personSexInsertStatement, new String[] {"PersonSexTypeID"});
-        	            ps.setString(1, personSex.getPersonSexDescription());
+        	            setPreparedStatementVariable(personSex.getPersonSexDescription(), ps, 1);
         	            return ps;
         	        }
         	    },
@@ -108,7 +108,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(personRaceInsertStatement, new String[] {"PersonRaceTypeID"});
-        	            ps.setString(1, personRace.getPersonRaceDescription());
+        	            setPreparedStatementVariable(personRace.getPersonRaceDescription(), ps, 1);
         	            return ps;
         	        }
         	    },
@@ -255,11 +255,11 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
             	BookingCharge bookingCharge = bookingCharges.get(i);
                 ps.setInt(1, bookingCharge.getBookingArrestId());
                 setPreparedStatementVariable(bookingCharge.getChargeCode(), ps, 2);
-                ps.setInt(3, bookingCharge.getAgencyId());
+                setPreparedStatementVariable(bookingCharge.getAgencyId(), ps, 3);
                 setPreparedStatementVariable(bookingCharge.getBondAmount(), ps, 4);
                 
                 if (bookingCharge.getBondType() != null){
-                    ps.setInt(5, bookingCharge.getBondType().getKey());
+                	setPreparedStatementVariable(bookingCharge.getBondType().getKey(), ps, 5);
                 }
                 else{
                 	ps.setNull(5, java.sql.Types.NULL);
@@ -728,11 +728,11 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
             	CustodyStatusChangeCharge custodyStatusChangeCharge = custodyStatusChangeCharges.get(i);
                 ps.setInt(1, custodyStatusChangeCharge.getCustodyStatusChangeArrestId());
                 setPreparedStatementVariable(custodyStatusChangeCharge.getChargeCode(), ps, 2);
-                ps.setInt(3, custodyStatusChangeCharge.getAgencyId());
+                setPreparedStatementVariable(custodyStatusChangeCharge.getAgencyId(), ps, 3);
                 setPreparedStatementVariable(custodyStatusChangeCharge.getBondAmount(), ps, 4);
                 
                 if (custodyStatusChangeCharge.getBondType() != null){
-                	 ps.setInt(5, custodyStatusChangeCharge.getBondType().getKey());
+                    setPreparedStatementVariable(custodyStatusChangeCharge.getBondType().getKey(), ps, 5);
                 }
                 else{
                 	ps.setNull(5, java.sql.Types.NULL);

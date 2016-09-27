@@ -238,8 +238,8 @@ public class CamelContextPimaTest {
 		assertNull(bookingCharge.getChargeDisposition());
 		assertTrue(bookingCharge.getBookingArrestId() == 1);
 		assertTrue(bookingCharge.getBondAmount().doubleValue() == 250000.00); 
-		assertThat(bookingCharge.getBondType().getValue(), is("Unknown"));
-		assertThat(bookingCharge.getAgencyId(), is(48));
+		assertThat(bookingCharge.getBondType(), nullValue());
+		assertThat(bookingCharge.getAgencyId(), nullValue());
 		assertThat(bookingCharge.getChargeClassTypeId(), is(2));
 		assertThat(bookingCharge.getBondStatusTypeId(), is(1));
 		assertThat(bookingCharge.getChargeJurisdictionTypeId(), is(8));
