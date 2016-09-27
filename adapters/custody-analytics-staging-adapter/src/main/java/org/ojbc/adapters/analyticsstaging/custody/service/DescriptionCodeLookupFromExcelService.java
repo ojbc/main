@@ -118,6 +118,10 @@ public class DescriptionCodeLookupFromExcelService
 			}
 			
 			Integer code = (Integer) lookupMap.get(StringUtils.trimToEmpty(description).toUpperCase());
+			if (code == null){
+				log.warn("Did not find code " + StringUtils.trimToEmpty(description) + 
+						" in code table " + codeTable.name());
+			}
 			
 			if (code == null){
 				code =  (Integer) lookupMap.get(UNKNOWN);
