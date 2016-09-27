@@ -24,8 +24,8 @@
       <i:ConformantIndicator>true</i:ConformantIndicator>
     </xsd:appinfo>
   </xsd:annotation>
-  <xsd:import schemaLocation="../../../niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0"/>
   <xsd:import schemaLocation="../../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
+  <xsd:import schemaLocation="../../../niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0"/>
   <xsd:import schemaLocation="../../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
   <xsd:import schemaLocation="../../../usps_states/2.0/usps_states.xsd" namespace="http://niem.gov/niem/usps_states/2.0"/>
   <xsd:element name="IdentificationJurisdictionUSPostalServiceCode" type="usps:USStateCodeType" substitutionGroup="nc:IdentificationJurisdiction">

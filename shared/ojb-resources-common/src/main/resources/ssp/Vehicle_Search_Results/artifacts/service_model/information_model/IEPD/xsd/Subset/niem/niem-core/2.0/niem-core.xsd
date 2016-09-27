@@ -24,10 +24,10 @@
       <i:ConformantIndicator>true</i:ConformantIndicator>
     </xsd:appinfo>
   </xsd:annotation>
-  <xsd:import schemaLocation="../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
   <xsd:import schemaLocation="../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
-  <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
   <xsd:import schemaLocation="../../fbi/2.0/fbi.xsd" namespace="http://niem.gov/niem/fbi/2.0"/>
+  <xsd:import schemaLocation="../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
+  <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
   <xsd:complexType name="ConveyanceRegistrationType">
     <xsd:annotation>
       <xsd:documentation>A data type for a registration of a conveyance with an authority.</xsd:documentation>
@@ -226,6 +226,14 @@
   <xsd:element name="IdentificationJurisdiction" abstract="true">
     <xsd:annotation>
       <xsd:documentation>An area, region, or unit in which a unique identification is issued.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="IdentificationJurisdictionText" type="nc:TextType" substitutionGroup="nc:IdentificationJurisdiction">
+    <xsd:annotation>
+      <xsd:documentation>An area, region, or unit in which a unique identification is issued.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="IdentificationJurisdiction"/>
+      </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="ItemCategory" abstract="true">
