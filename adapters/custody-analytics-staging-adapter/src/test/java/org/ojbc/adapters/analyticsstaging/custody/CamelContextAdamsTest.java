@@ -282,10 +282,10 @@ public class CamelContextAdamsTest {
 		assertThat(custodyStatusChangeCharge.getChargeCode(), is("Charge Code ID"));
 		assertTrue(custodyStatusChangeCharge.getCustodyStatusChangeArrestId() == 1);
 		assertTrue(custodyStatusChangeCharge.getBondAmount().doubleValue() == 500.00); 
-		assertThat(custodyStatusChangeCharge.getBondType().getValue(), is("PROPERTY BOND"));
+		assertThat(custodyStatusChangeCharge.getBondType().getValue(), is("PR BOND"));
 		assertThat(custodyStatusChangeCharge.getAgencyId(), is(21));
 		assertThat(custodyStatusChangeCharge.getChargeClassTypeId(), is(2));
-		assertThat(custodyStatusChangeCharge.getBondStatusTypeId(), is(4));
+		assertThat(custodyStatusChangeCharge.getBondStatusTypeId(), is(11));
 		assertThat(custodyStatusChangeCharge.getChargeJurisdictionTypeId(), is(2));
 		assertThat(custodyStatusChangeCharge.getChargeDisposition(), is("Disposition"));
 		
@@ -407,7 +407,7 @@ public class CamelContextAdamsTest {
 		assertThat(bookingCharge.getBondType().getValue(), is("CASH/SURETY/PROPERTY"));
 		assertThat(bookingCharge.getAgencyId(), is(21));
 		assertThat(bookingCharge.getChargeClassTypeId(), is(1));
-		assertThat(bookingCharge.getBondStatusTypeId(), is(2));
+		assertThat(bookingCharge.getBondStatusTypeId(), is(17));
 		assertThat(bookingCharge.getChargeJurisdictionTypeId(), is(1));
 		assertThat(bookingCharge.getChargeDisposition(), is("Disposition"));
 		
@@ -547,7 +547,7 @@ public class CamelContextAdamsTest {
 		assertThat(bookingCharge.getBondType().getValue(), is("CASH/SURETY/PROPERTY"));
 		assertThat(bookingCharge.getAgencyId(), is(21));
 		assertThat(bookingCharge.getChargeClassTypeId(), is(1));
-		assertThat(bookingCharge.getBondStatusTypeId(), is(2));
+		assertThat(bookingCharge.getBondStatusTypeId(), is(17));
 		assertThat(bookingCharge.getChargeJurisdictionTypeId(), is(3));
 		assertThat(bookingCharge.getChargeDisposition(), is("Disposition"));
 		
