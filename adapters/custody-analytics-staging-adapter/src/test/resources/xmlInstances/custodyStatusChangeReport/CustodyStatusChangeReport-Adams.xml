@@ -115,7 +115,7 @@
 			<nc:ActivityIdentification>
 				<nc:IdentificationID>12345</nc:IdentificationID>
 			</nc:ActivityIdentification>
-			<nc:ActivityCategoryText>PROP</nc:ActivityCategoryText>
+			<nc:ActivityCategoryText>PR</nc:ActivityCategoryText>
 			<nc:ActivityStatus>
 				<nc:StatusDescriptionText>invs</nc:StatusDescriptionText>
 			</nc:ActivityStatus>
