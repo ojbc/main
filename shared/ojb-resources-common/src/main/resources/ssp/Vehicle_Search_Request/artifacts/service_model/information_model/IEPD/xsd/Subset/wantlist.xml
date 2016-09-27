@@ -18,8 +18,10 @@
 
 -->
 <w:WantList w:release="2.1" w:product="NIEM" w:nillableDefault="true"
-  xmlns:w="http://niem.gov/niem/wantlist/2.1"
+  xmlns:w="http://niem.gov/niem/wantlist/2.2"
   xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:fbi="http://niem.gov/niem/fbi/2.0">
+  <w:Element w:name="nc:IdentificationJurisdictionText"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:VehicleColorPrimaryCode" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Year" w:isReference="false" w:nillable="true"/>
   <w:Type w:name="fbi:VCOCodeSimpleType" w:isRequested="false">
@@ -62,9 +64,9 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="nc:DateRangeType" w:isRequested="false">
-    <w:ElementInType w:name="nc:EndDate" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:StartDate" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:EndDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="nc:DateType" w:isRequested="false">
@@ -74,6 +76,8 @@
   <w:Type w:name="nc:IdentificationType" w:isRequested="false">
     <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
       w:minOccurs="1" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:IdentificationJurisdiction"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:MetadataType" w:isRequested="true"/>
   <w:Type w:name="nc:TangibleItemType" w:isRequested="false">
@@ -81,8 +85,10 @@
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:ItemModelName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:ItemModelYearDate" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:VehicleType" w:isRequested="false">
+  <w:Type w:name="nc:VehicleType" w:isRequested="true">
     <w:ElementInType w:name="nc:VehicleIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:VehicleMakeCode" w:isReference="false"

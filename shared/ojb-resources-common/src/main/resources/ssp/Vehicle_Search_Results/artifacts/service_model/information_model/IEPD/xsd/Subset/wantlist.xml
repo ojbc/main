@@ -20,7 +20,7 @@
 <w:WantList w:release="2.1" w:product="NIEM" w:nillableDefault="true"
   xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
   xmlns:usps="http://niem.gov/niem/usps_states/2.0"
-  xmlns:w="http://niem.gov/niem/wantlist/2.1"
+  xmlns:w="http://niem.gov/niem/wantlist/2.2"
   xmlns:nc="http://niem.gov/niem/niem-core/2.0"
   xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
   xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0">
@@ -33,6 +33,8 @@
   <w:Element w:name="nc:ConveyanceRegistrationPlateCategoryText"
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Date" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:IdentificationJurisdictionText"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ItemCategoryText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:VehicleColorPrimaryCode" w:isReference="false" w:nillable="true"/>
   <w:Type w:name="fbi:LITCodeSimpleType" w:isRequested="false">
@@ -140,9 +142,9 @@
     <w:Facet w:facet="enumeration" w:value="YEL"/>
   </w:Type>
   <w:Type w:name="intel:SystemIdentifierType" w:isRequested="false">
-    <w:ElementInType w:name="intel:SystemName" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="intel:SystemName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ConveyanceRegistrationType" w:isRequested="false">
@@ -159,10 +161,10 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:IdentificationType" w:isRequested="false">
-    <w:ElementInType w:name="nc:IdentificationExpirationDate"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
       w:minOccurs="1" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:IdentificationExpirationDate"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:IdentificationJurisdiction"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
