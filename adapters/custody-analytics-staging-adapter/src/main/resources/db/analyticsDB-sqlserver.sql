@@ -28,6 +28,8 @@ Use ojbc_booking_staging
 *                `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 **/
 
+
+
 CREATE TABLE MedicaidStatusType (
                 MedicaidStatusTypeID INT NOT NULL,
                 MedicaidStatusTypeDescription VARCHAR(50) NOT NULL,
@@ -219,7 +221,7 @@ CREATE TABLE Treatment (
 CREATE TABLE BehavioralHealthEvaluation (
                 BehavioralHealthEvaluationID INT IDENTITY NOT NULL,
                 BehavioralHealthAssessmentID INT NOT NULL,
-                BehavioralHealthDiagnosisDescription VARCHAR(50),
+                BehavioralHealthDiagnosisDescription VARCHAR(100),
                 BehavioralHealthEvaluationTimestamp DATETIME DEFAULT getdate() NOT NULL,
                 CONSTRAINT BehavioralHealthEvaluationID PRIMARY KEY (BehavioralHealthEvaluationID)
 )
@@ -252,7 +254,8 @@ CREATE TABLE Booking (
 
 CREATE TABLE CustodyRelease (
                 CustodyReleaseID INT IDENTITY NOT NULL,
-                BookingID INT NOT NULL,
+                BookingID INT,
+                BookingNumber VARCHAR(100) NOT NULL,
                 ReleaseDate DATE NOT NULL,
                 ReleaseTime TIME,
                 ReleaseCondition VARCHAR(200),
@@ -262,10 +265,11 @@ CREATE TABLE CustodyRelease (
 
 CREATE TABLE CustodyStatusChange (
                 CustodyStatusChangeID INT IDENTITY NOT NULL,
-                BookingID INT NOT NULL,
+                BookingID INT,
                 PersonID INT NOT NULL,
                 BookingDate DATE NOT NULL,
                 BookingTime TIME,
+                BookingNumber VARCHAR(100) NOT NULL,
                 ScheduledReleaseDate DATE,
                 FacilityID INT,
                 SupervisionUnitTypeID INT,
