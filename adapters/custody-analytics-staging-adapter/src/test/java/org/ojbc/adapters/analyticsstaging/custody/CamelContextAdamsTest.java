@@ -211,6 +211,7 @@ public class CamelContextAdamsTest {
 		assertThat(person2.getEducationLevel(), is("High School Graduate"));
 		assertThat(person2.getOccupation(), is("Truck Driver"));
 		assertThat(person2.getMilitaryServiceStatusType().getValue(), is("Active"));
+		assertThat(person2.getSexOffenderStatusTypeId(), is(1));
 		
 		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(2);
 		assertThat(behavioralHealthAssessments.size(), is(1));
