@@ -502,7 +502,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	@Override
 	public Integer getPersonIdByUniqueId(String uniqueId) {
-		String sqlString = "SELECT PersonID FROM Person WHERE PersonUniqueIdentifier = ? order by PersonTimestamp desc";
+		String sqlString = "SELECT PersonID FROM Person WHERE PersonUniqueIdentifier = ? order by PersonTimestamp asc";
 		
 		List<Integer> personIds = jdbcTemplate.queryForList(sqlString, Integer.class, uniqueId);
 
