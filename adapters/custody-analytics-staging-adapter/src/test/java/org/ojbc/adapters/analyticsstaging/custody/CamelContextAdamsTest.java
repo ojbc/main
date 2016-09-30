@@ -598,14 +598,14 @@ public class CamelContextAdamsTest {
 		assertEquals( LocalTime.parse("09:30:47"), custodyRelease.getReleaseTime());
 		assertThat(custodyRelease.getBookingNumber(), is("Booking Number"));
 		
-		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(2);
+		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(1);
 		assertThat(behavioralHealthAssessments.size(), is(2));
 		
 		BehavioralHealthAssessment behavioralHealthAssessment = behavioralHealthAssessments.get(1);
 		
 		assertTrue(behavioralHealthAssessment.getBehavioralHealthDiagnoses().size() == 1);
 		assertThat(behavioralHealthAssessment.getBehavioralHealthDiagnoses().get(0), is("Schizophrenia 295.10"));
-		assertThat(behavioralHealthAssessment.getPersonId(), is(2));
+		assertThat(behavioralHealthAssessment.getPersonId(), is(1));
 		assertThat(behavioralHealthAssessment.getBehavioralHealthAssessmentId(), is(3));
 		assertThat(behavioralHealthAssessment.getSeriousMentalIllness(), is(true));
 		assertThat(behavioralHealthAssessment.getCareEpisodeStartDate(), is(LocalDate.parse("2016-01-01")));
