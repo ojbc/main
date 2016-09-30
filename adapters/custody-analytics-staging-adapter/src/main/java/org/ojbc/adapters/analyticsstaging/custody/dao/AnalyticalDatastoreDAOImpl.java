@@ -502,11 +502,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	@Override
 	public Integer getPersonIdByUniqueId(String uniqueId) {
-		String sqlString = "SELECT top 1 PersonID FROM Person WHERE PersonUniqueIdentifier = ? order by PersonTimestamp desc";
+		String sqlString = "SELECT PersonID FROM Person WHERE PersonUniqueIdentifier = ? order by PersonTimestamp desc";
 		
 		List<Integer> personIds = jdbcTemplate.queryForList(sqlString, Integer.class, uniqueId);
 
-		return DataAccessUtils.uniqueResult(personIds);
+		if (personIds != null && personIds.size() > 0){
+			return personIds.get(0); 
+		}
+		
+		return null; 
 	}
 
 	@Override
@@ -621,11 +625,16 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	@Override
 	public CustodyRelease getCustodyReleaseByBookingId(Integer bookingId) {
-		final String sql = "Select top 1 * from CustodyRelease where BookingId = ? order by CustodyReleaseTimestamp desc";
+		final String sql = "Select * from CustodyRelease where BookingId = ? order by CustodyReleaseTimestamp desc";
 		
 		List<CustodyRelease> custodyReleases = 
 				jdbcTemplate.query(sql, new CustodyReleaseRowMapper(), bookingId);
-		return DataAccessUtils.singleResult(custodyReleases);
+		
+		if (custodyReleases != null && custodyReleases.size() > 0 ){
+			return custodyReleases.get(0);
+		}
+		
+		return null; 
 	}
 
 	public class CustodyReleaseRowMapper implements RowMapper<CustodyRelease>
@@ -1277,11 +1286,16 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	@Override
 	public CustodyRelease getCustodyReleaseByBookingNumber(String bookingNumber) {
-		final String sql = "Select top 1 * from CustodyRelease where BookingNumber = ? order by CustodyReleaseTimestamp desc";
+		final String sql = "Select * from CustodyRelease where BookingNumber = ? order by CustodyReleaseTimestamp desc";
 		
 		List<CustodyRelease> custodyReleases = 
 				jdbcTemplate.query(sql, new CustodyReleaseRowMapper(), bookingNumber);
-		return DataAccessUtils.singleResult(custodyReleases);
+		
+		if (custodyReleases!=null && custodyReleases.size() > 0){
+			return custodyReleases.get(0);
+		}
+		
+		return null; 
 	}
 
 	@Override

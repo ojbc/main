@@ -96,10 +96,11 @@ public abstract class AbstractReportRepositoryProcessor {
 		person.setLanguageId(descriptionCodeLookupService.retrieveCode(CodeTable.LanguageType, language));
 
 		String personCriminalHistorySummaryRef = 
-				XmlUtils.xPathStringSearch(personNode, "parent::br-doc:BookingReport/nc30:ActivityPersonAssociation"
-						+ "[nc30:Person/@s30:ref=/br-doc:BookingReport/jxdm51:Booking/jxdm51:BookingSubject/nc30:RoleOfPerson/@s30:ref]/nc30:Activity/@s30:ref");
+				XmlUtils.xPathStringSearch(personNode, "following-sibling::nc30:ActivityPersonAssociation"
+						+ "[nc30:Person/@s30:ref= preceding-sibling::jxdm51:Booking/jxdm51:BookingSubject/nc30:RoleOfPerson/@s30:ref]"
+						+ "/nc30:Activity/@s30:ref");
 		String registeredSexOffender = XmlUtils.xPathStringSearch(personNode, 
-				"/br-doc:BookingReport/jxdm51:PersonCriminalHistorySummary[@s30:id='"+ personCriminalHistorySummaryRef + "']/jxdm51:RegisteredSexualOffenderIndicator");
+				"preceding-sibling::jxdm51:PersonCriminalHistorySummary[@s30:id='"+ personCriminalHistorySummaryRef + "']/jxdm51:RegisteredSexualOffenderIndicator");
 		Boolean registeredSexOffenderBoolean = BooleanUtils.toBooleanObject(registeredSexOffender);
 		String sexOffenderStatus = BooleanUtils.toString(registeredSexOffenderBoolean, "registered", "not registered", null); 
 		person.setSexOffenderStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.SexOffenderStatusType, sexOffenderStatus));
