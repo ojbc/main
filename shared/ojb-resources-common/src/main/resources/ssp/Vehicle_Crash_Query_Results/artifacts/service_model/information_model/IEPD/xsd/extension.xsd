@@ -96,19 +96,14 @@
 			<xsd:documentation>True if a hazmat placard is being displyed on a vehicle; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AtSceneDateTime" type="nc:DateType" substitutionGroup="j:CrashAugmentationPoint">
+	<xsd:element name="SceneArrivalDateTime" type="nc:DateType" substitutionGroup="j:CrashAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>The date/time an officer is at the scene.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CitationNumberPendingIndicator" type="niem-xs:boolean" substitutionGroup="j:CitationAugmentationPoint">
+	<xsd:element name="CitationPendingIndicator" type="niem-xs:boolean" substitutionGroup="j:CitationAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if citation number is pending; false otherwise.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="DistanceFromNearestIntersectionNumberText" type="nc:TextType" substitutionGroup="nc:LocationAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>A distance from the nearest intersection.</xsd:documentation>
+			<xsd:documentation>True if citation is pending; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="NearestIntersectingStreetFullText" type="nc:TextType" substitutionGroup="nc:LocationAugmentationPoint">
@@ -151,7 +146,7 @@
 			<xsd:documentation>True if a vehicle is exempt; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="AlcoholTestResultsPendingtIndicator" type="niem-xs:boolean" substitutionGroup="j:CrashDriverAugmentationPoint">
+	<xsd:element name="AlcoholTestResultsPendingIndicator" type="niem-xs:boolean" substitutionGroup="j:CrashDriverAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if alcohol test results are pending; false otherwise.</xsd:documentation>
 		</xsd:annotation>
