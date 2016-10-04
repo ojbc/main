@@ -55,8 +55,7 @@
 						<nc:EntityOrganization structures:ref="Property_Owner_01" />
 						<nc:EntityPerson structures:ref="Property_Owner_02" />
 					</nc:ItemOwner>
-					<!-- Change name to DamagedPropertyOwnerCategoryCode  -->
-					<me-crash-codes:PropertyCategoryCode>1</me-crash-codes:PropertyCategoryCode>
+					<me-crash-codes:PropertyCategoryCode>Private</me-crash-codes:PropertyCategoryCode>
 				</j:IncidentDamagedItem>
 				<j:IncidentReportingOfficial>
 					<nc:RoleOfPerson structures:ref="Reporting_Official_01" />
@@ -76,7 +75,7 @@
 			<j:CrashWorkZone>
 				<j:WorkZoneWorkersPresenceIndicationCode>1
 				</j:WorkZoneWorkersPresenceIndicationCode>
-				<me-crash-codes:LawEnforcementPresentAtWorkZoneCode>3</me-crash-codes:LawEnforcementPresentAtWorkZoneCode>
+				<me-crash-codes:LawEnforcementPresentAtWorkZoneCode>No Presence</me-crash-codes:LawEnforcementPresentAtWorkZoneCode>
 				<vcq-res-ext:NearWorkZoneIndicator>true
 				</vcq-res-ext:NearWorkZoneIndicator>
 				<vcq-res-ext:WorkZoneWorkersPresentIndicator>true
@@ -91,12 +90,12 @@
 				<j:CrashDriver>
 					<nc:RoleOfPerson structures:ref="Driver_01" />
 					<j:DriverLicense structures:ref="Driver_License_01" />
-					<!--  me-crash-codes:DriverCategoryCode>1</me-crash-codes:DriverCategoryCode-->
-					<me-crash-codes:AlcoholTestCategoryCode>1</me-crash-codes:AlcoholTestCategoryCode>
-					<me-crash-codes:DrugTestCategoryCode>2</me-crash-codes:DrugTestCategoryCode>
-					<me-crash-codes:DrugTestResultCode>1</me-crash-codes:DrugTestResultCode>
-					<vcq-res-ext:AlcoholTestResultsPendingIndicator>true
-					</vcq-res-ext:AlcoholTestResultsPendingIndicator>
+					<me-crash-codes:DriverCategoryCode>Driver</me-crash-codes:DriverCategoryCode>
+					<me-crash-codes:AlcoholTestCategoryCode>Breath</me-crash-codes:AlcoholTestCategoryCode>
+					<me-crash-codes:DrugTestCategoryCode>Test Refused</me-crash-codes:DrugTestCategoryCode>
+					<me-crash-codes:DrugTestResultCode>Pending</me-crash-codes:DrugTestResultCode>
+					<vcq-res-ext:AlcoholTestResultsPendingtIndicator>true
+					</vcq-res-ext:AlcoholTestResultsPendingtIndicator>
 				</j:CrashDriver>
 				<j:CrashVehicleOccupant>
 					<nc:RoleOfPerson structures:ref="Driver_01" />
@@ -105,11 +104,11 @@
 				</j:CrashVehicleOccupant>
 				<vcq-res-ext:HazmatPlacardIndicator>false
 				</vcq-res-ext:HazmatPlacardIndicator>
-				<me-crash-codes:VehicleTravelDirectionCode>4</me-crash-codes:VehicleTravelDirectionCode>
-				<!--  -me-crash-codes:GrossVehicleWeightRatingCode>Greater Than 26,000 lbs</me-crash-codes:GrossVehicleWeightRatingCode-->
-				<me-crash-codes:ExtentOfDamageCode>3</me-crash-codes:ExtentOfDamageCode>
-				<me-crash-codes:PostedSpeedLimitCode>1</me-crash-codes:PostedSpeedLimitCode>
-				<me-crash-codes:SchoolBusRelatedCode>1</me-crash-codes:SchoolBusRelatedCode>
+				<me-crash-codes:VehicleTravelDirectionCode>Westbound</me-crash-codes:VehicleTravelDirectionCode>
+				<me-crash-codes:GrossVehicleWeightRatingCode>Greater Than 26,000 lbs</me-crash-codes:GrossVehicleWeightRatingCode>
+				<me-crash-codes:ExtentOfDamageCode>Functional Damage</me-crash-codes:ExtentOfDamageCode>
+				<me-crash-codes:PostedSpeedLimitCode>Not Available</me-crash-codes:PostedSpeedLimitCode>
+				<me-crash-codes:SchoolBusRelatedCode>Not Involved</me-crash-codes:SchoolBusRelatedCode>
 				<vcq-res-ext:TotalDamageOverThresholdtIndicator>true
 				</vcq-res-ext:TotalDamageOverThresholdtIndicator>
 				<vcq-res-ext:VehicleNineOrMoreSeatstIndicator>false
@@ -134,14 +133,14 @@
 				</nc:Location2DGeospatialCoordinate>
 				<vcq-res-ext:NearestIntersectingStreetFullText>Jones Road
 				</vcq-res-ext:NearestIntersectingStreetFullText>
-				<!--  vcq-res-ext:DistanceFromNearestIntersectionNumberText>5
-				</vcq-res-ext:DistanceFromNearestIntersectionNumberText-->
-				<me-crash-codes:DirectionFromNearestIntersectionCode>1</me-crash-codes:DirectionFromNearestIntersectionCode>
-				<me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>2</me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>
+				<vcq-res-ext:DistanceFromNearestIntersectionNumberText>5
+				</vcq-res-ext:DistanceFromNearestIntersectionNumberText>
+				<me-crash-codes:DirectionFromNearestIntersectionCode>North</me-crash-codes:DirectionFromNearestIntersectionCode>
+				<me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>Miles</me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>
 			</nc:Location>
-			<vcq-res-ext:SceneArrivalDateTime>
+			<vcq-res-ext:AtSceneDateTime>
 				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
-			</vcq-res-ext:SceneArrivalDateTime>
+			</vcq-res-ext:AtSceneDateTime>
 			<vcq-res-ext:OffRoadIncidentIndicator>false
 			</vcq-res-ext:OffRoadIncidentIndicator>
 			<vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>true</vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>
@@ -150,8 +149,8 @@
 			<nc:ActivityIdentification>
 				<nc:IdentificationID>C23956</nc:IdentificationID>
 			</nc:ActivityIdentification>
-			<vcq-res-ext:CitationPendingIndicator>false
-			</vcq-res-ext:CitationPendingIndicator>
+			<vcq-res-ext:CitationNumberPendingIndicator>false
+			</vcq-res-ext:CitationNumberPendingIndicator>
 			<vcq-res-ext:FirstViolationDescriptionText>First Violation
 			</vcq-res-ext:FirstViolationDescriptionText>
 			<vcq-res-ext:SecondViolationDescriptionText>Second Violation
@@ -168,7 +167,6 @@
 				<nc:PersonMiddleName>J</nc:PersonMiddleName>
 				<nc:PersonSurName>Adams</nc:PersonSurName>
 			</nc:PersonName>
-			<me-crash-codes:PersonCategoryCode>4</me-crash-codes:PersonCategoryCode>
 		</nc:Person>
 		<nc:Person structures:id="Information_Approver_01">
 			<nc:PersonName>
@@ -197,7 +195,7 @@
 				<nc:PersonSurName>Boland</nc:PersonSurName>
 			</nc:PersonName>
 			<j:PersonSexCode>M</j:PersonSexCode>
-			<me-crash-codes:PersonCategoryCode>5</me-crash-codes:PersonCategoryCode>
+			<me-crash-codes:PersonCategoryCode>8</me-crash-codes:PersonCategoryCode>
 		</nc:Person>
 		<nc:EntityOrganization structures:id="Property_Owner_01">
 			<nc:OrganizationName>ACME Products</nc:OrganizationName>
@@ -269,7 +267,7 @@
 				</nc:IdentificationJurisdiction>
 			</nc:VehicleIdentification>
 			<j:VehicleMakeCode>KIA</j:VehicleMakeCode>
-			<!--  j:VehicleModelCode>135</j:VehicleModelCode-->
+			<j:VehicleModelCode>135</j:VehicleModelCode>
 			<vcq-res-ext:VehicleUnitIdentification>
 				<nc:IdentificationID>1</nc:IdentificationID>
 			</vcq-res-ext:VehicleUnitIdentification>
@@ -304,8 +302,7 @@
 			<j:DriverLicenseEndorsement>
 				<j:DriverLicenseEndorsementText>Endorsement</j:DriverLicenseEndorsementText>
 			</j:DriverLicenseEndorsement>
-			<!-- Change name to DriverLicenseStatusCode -->
-			<me-crash-codes:DriverLicenseCategoryCode>A</me-crash-codes:DriverLicenseCategoryCode>
+			<me-crash-codes:DriverLicenseCategoryCode>Active</me-crash-codes:DriverLicenseCategoryCode>
 			<vcq-res-ext:DriverLicenseClassCodeText>Class
 			</vcq-res-ext:DriverLicenseClassCodeText>
 		</j:CrashDriverLicense>

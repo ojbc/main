@@ -29,6 +29,15 @@
   <w:Element w:name="j:AlcoholTestCategoryCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:AlcoholTestResultCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Citation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:CommercialVehicle" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:CommercialVehicleCargoBodyCategory"
+    w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:CommercialVehicleCargoBodyCategoryCode"
+    w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:CommercialVehicleConfiguration"
+    w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:CommercialVehicleConfigurationCode"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:ConveyanceColorPrimaryCode" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ConveyanceRegistration" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ConveyanceRegistrationAssociation"
@@ -42,11 +51,15 @@
   <w:Element w:name="j:CrashDriverLicenseClass" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CrashDriverLicenseClassCode"
     w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:CrashDriverLicensePermitStatusCode"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CrashDriverViolation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CrashDrivingRestrictionCode"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CrashEnvironmentContributingCircumstancesCode"
     w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:CrashFirstHarmfulEventLocation"
+    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CrashFirstHarmfulEventLocationCode"
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CrashLightConditionCode" w:isReference="false" w:nillable="false"/>
@@ -54,6 +67,7 @@
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CrashRoadSurfaceConditionCode"
     w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:CrashSchoolBusRelated" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CrashSchoolBusRelatedCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CrashVehicleCategoryCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CrashVehicleDamageCode" w:isReference="false" w:nillable="true"/>
@@ -68,12 +82,27 @@
   <w:Element w:name="j:EventSequenceCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:IncidentAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:IncidentWitness" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:InjuryLocationCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:LocationCategoryCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:LocationRoadway" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:LocationStateNCICLISCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:ManeuverCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:MostDamagedAreaCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:MotorCarrier" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:MotorCarrierCategoryCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:NonMotoristActionBeforeCrashCode"
     w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:NonMotoristContributingCircumstancesCode"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:NonMotoristLocationCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:OccupantAirBagDeployedCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:OccupantEjectionCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:OccupantProtectionSystemUseCode"
+    w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:OccupantSeatCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:OccupantSeatOtherLocationCode"
+    w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:OccupantSeatRowCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:OtherInvolvedPerson" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonBloodAlcoholContentAssociation"
@@ -82,14 +111,19 @@
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonSexCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:RoadwayGradeCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:TravelDirectionBeforeCrashCode"
+    w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:VehicleAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:VehicleContributingCircumstancesCode"
     w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:VehicleDamageExtentCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:VehicleMakeCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:VehicleModelCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:VehicleMostHarmfulEventCode"
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:VehicleTrafficControlDeviceCategoryCode"
     w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:VehicleUseCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Witness" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:WorkZoneCategoryCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:WorkZoneWorkersPresenceIndicationCode"
@@ -132,12 +166,18 @@
     <w:ElementInType w:name="j:CitationAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:CommercialVehicleType" w:isRequested="false">
+    <w:ElementInType w:name="j:MotorCarrier" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CommercialVehicleConfiguration"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:ConveyanceRegistrationType" w:isRequested="false">
     <w:ElementInType
       w:name="j:ConveyanceRegistrationPlateIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="j:CrashDriverLicenseType" w:isRequested="false">
+  <w:Type w:name="j:CrashDriverLicenseType" w:isRequested="true">
     <w:ElementInType w:name="j:CrashDriverLicenseCategory"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CrashDriverLicenseClass"
@@ -160,11 +200,15 @@
   <w:Type w:name="j:CrashInformationSourceType" w:isRequested="true">
     <w:ElementInType w:name="j:OrganizationORIIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CrashInformationSourceAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:CrashNonMotoristType" w:isRequested="false">
     <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:NonMotoristActionBeforeCrash"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:NonMotoristContributingCircumstances"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:NonMotoristLocation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -173,6 +217,8 @@
   </w:Type>
   <w:Type w:name="j:CrashPersonType" w:isRequested="false">
     <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CrashPersonInjury" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:AlcoholTestCategory"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -219,10 +265,22 @@
   <w:Type w:name="j:CrashVehicleOccupantType" w:isRequested="false">
     <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:OccupantAirBagDeployed"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:OccupantEjection" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:OccupantProtectionSystemUse"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:OccupantSeat" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:OccupantSeatOtherLocation"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:OccupantSeatRow" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CrashVehicleOccupantAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="j:CrashVehicleType" w:isRequested="false">
+  <w:Type w:name="j:CrashVehicleType" w:isRequested="true">
     <w:ElementInType w:name="nc:RoleOfItem" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType
@@ -240,9 +298,17 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:EventSequence" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:Maneuver" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:MostDamagedArea" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:VehicleMostHarmfulEvent"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:TravelDirectionBeforeCrash"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:VehicleContributingCircumstances"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:VehicleDamageExtent"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:VehicleTrafficControlDeviceCategory"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -254,6 +320,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:WorkZoneCategory" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:WorkZoneCrashLocation"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:WorkZoneWorkersPresenceIndication"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CrashWorkZoneAugmentationPoint"
@@ -264,8 +332,27 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:DriverLicenseBaseType" w:isRequested="true"/>
-  <w:Type w:name="j:DriverLicenseEndorsementType" w:isRequested="true"/>
-  <w:Type w:name="j:DriverLicenseRestrictionType" w:isRequested="true"/>
+  <w:Type w:name="j:DriverLicenseEndorsementType" w:isRequested="true">
+    <w:ElementInType
+      w:name="j:DriverLicenseEndorsementAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:DriverLicensePermitEndorsementType" w:isRequested="false">
+    <w:ElementInType
+      w:name="j:DriverLicensePermitEndorsementAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:DriverLicensePermitType" w:isRequested="false">
+    <w:ElementInType w:name="j:DriverLicensePermitStatus"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:DriverLicensePermitEndorsement"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:DriverLicenseRestrictionType" w:isRequested="true">
+    <w:ElementInType
+      w:name="j:DriverLicenseRestrictionAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:DriverLicenseType" w:isRequested="true">
     <w:ElementInType w:name="j:DriverLicenseCardIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -310,6 +397,18 @@
     <w:ElementInType w:name="j:RoadwayGrade" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:MotorCarrierCategoryCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="B"/>
+    <w:Facet w:facet="enumeration" w:value="C"/>
+    <w:Facet w:facet="enumeration" w:value="R"/>
+    <w:Facet w:facet="enumeration" w:value="S"/>
+  </w:Type>
+  <w:Type w:name="j:MotorCarrierType" w:isRequested="false">
+    <w:ElementInType w:name="j:MotorCarrierCategory"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CommercialVehicle" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:OtherInvolvedPersonType" w:isRequested="true">
     <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -328,6 +427,10 @@
   </w:Type>
   <w:Type w:name="j:SubjectType" w:isRequested="false">
     <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:VehicleAugmentationType" w:isRequested="false">
+    <w:ElementInType w:name="j:VehicleUse" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:WitnessType" w:isRequested="false">
@@ -358,6 +461,21 @@
     <w:Facet w:facet="enumeration" w:value="7"/>
     <w:Facet w:facet="enumeration" w:value="8"/>
     <w:Facet w:facet="enumeration" w:value="98"/>
+    <w:Facet w:facet="enumeration" w:value="99"/>
+  </w:Type>
+  <w:Type w:name="mmucc:CommercialVehicleConfigurationCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="0"/>
+    <w:Facet w:facet="enumeration" w:value="1"/>
+    <w:Facet w:facet="enumeration" w:value="10"/>
+    <w:Facet w:facet="enumeration" w:value="19"/>
+    <w:Facet w:facet="enumeration" w:value="2"/>
+    <w:Facet w:facet="enumeration" w:value="20"/>
+    <w:Facet w:facet="enumeration" w:value="21"/>
+    <w:Facet w:facet="enumeration" w:value="4"/>
+    <w:Facet w:facet="enumeration" w:value="5"/>
+    <w:Facet w:facet="enumeration" w:value="6"/>
+    <w:Facet w:facet="enumeration" w:value="7"/>
+    <w:Facet w:facet="enumeration" w:value="8"/>
     <w:Facet w:facet="enumeration" w:value="99"/>
   </w:Type>
   <w:Type
@@ -514,6 +632,16 @@
     <w:Facet w:facet="enumeration" w:value="NA"/>
     <w:Facet w:facet="enumeration" w:value="R"/>
   </w:Type>
+  <w:Type w:name="mmucc:DriverLicensePermitStatusCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="0"/>
+    <w:Facet w:facet="enumeration" w:value="1"/>
+    <w:Facet w:facet="enumeration" w:value="2"/>
+    <w:Facet w:facet="enumeration" w:value="3"/>
+    <w:Facet w:facet="enumeration" w:value="4"/>
+    <w:Facet w:facet="enumeration" w:value="5"/>
+    <w:Facet w:facet="enumeration" w:value="6"/>
+    <w:Facet w:facet="enumeration" w:value="99"/>
+  </w:Type>
   <w:Type w:name="mmucc:DrivingRestrictionCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="0"/>
     <w:Facet w:facet="enumeration" w:value="1"/>
@@ -560,6 +688,23 @@
     <w:Facet w:facet="enumeration" w:value="71"/>
     <w:Facet w:facet="enumeration" w:value="79"/>
   </w:Type>
+  <w:Type w:name="mmucc:ManeuverCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="1"/>
+    <w:Facet w:facet="enumeration" w:value="10"/>
+    <w:Facet w:facet="enumeration" w:value="11"/>
+    <w:Facet w:facet="enumeration" w:value="12"/>
+    <w:Facet w:facet="enumeration" w:value="13"/>
+    <w:Facet w:facet="enumeration" w:value="14"/>
+    <w:Facet w:facet="enumeration" w:value="15"/>
+    <w:Facet w:facet="enumeration" w:value="2"/>
+    <w:Facet w:facet="enumeration" w:value="5"/>
+    <w:Facet w:facet="enumeration" w:value="6"/>
+    <w:Facet w:facet="enumeration" w:value="7"/>
+    <w:Facet w:facet="enumeration" w:value="8"/>
+    <w:Facet w:facet="enumeration" w:value="9"/>
+    <w:Facet w:facet="enumeration" w:value="98"/>
+    <w:Facet w:facet="enumeration" w:value="99"/>
+  </w:Type>
   <w:Type w:name="mmucc:NonMotoristActionBeforeCrashCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="1"/>
     <w:Facet w:facet="enumeration" w:value="10"/>
@@ -569,6 +714,23 @@
     <w:Facet w:facet="enumeration" w:value="4"/>
     <w:Facet w:facet="enumeration" w:value="5"/>
     <w:Facet w:facet="enumeration" w:value="6"/>
+    <w:Facet w:facet="enumeration" w:value="8"/>
+    <w:Facet w:facet="enumeration" w:value="9"/>
+    <w:Facet w:facet="enumeration" w:value="99"/>
+  </w:Type>
+  <w:Type
+    w:name="mmucc:NonMotoristContributingCircumstancesCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="0"/>
+    <w:Facet w:facet="enumeration" w:value="1"/>
+    <w:Facet w:facet="enumeration" w:value="19"/>
+    <w:Facet w:facet="enumeration" w:value="2"/>
+    <w:Facet w:facet="enumeration" w:value="21"/>
+    <w:Facet w:facet="enumeration" w:value="3"/>
+    <w:Facet w:facet="enumeration" w:value="30"/>
+    <w:Facet w:facet="enumeration" w:value="4"/>
+    <w:Facet w:facet="enumeration" w:value="5"/>
+    <w:Facet w:facet="enumeration" w:value="6"/>
+    <w:Facet w:facet="enumeration" w:value="7"/>
     <w:Facet w:facet="enumeration" w:value="8"/>
     <w:Facet w:facet="enumeration" w:value="9"/>
     <w:Facet w:facet="enumeration" w:value="99"/>
@@ -589,6 +751,78 @@
     <w:Facet w:facet="enumeration" w:value="9"/>
     <w:Facet w:facet="enumeration" w:value="99"/>
   </w:Type>
+  <w:Type w:name="mmucc:OccupantAirBagDeployedCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="0"/>
+    <w:Facet w:facet="enumeration" w:value="1"/>
+    <w:Facet w:facet="enumeration" w:value="2"/>
+    <w:Facet w:facet="enumeration" w:value="20"/>
+    <w:Facet w:facet="enumeration" w:value="28"/>
+    <w:Facet w:facet="enumeration" w:value="3"/>
+    <w:Facet w:facet="enumeration" w:value="7"/>
+    <w:Facet w:facet="enumeration" w:value="8"/>
+    <w:Facet w:facet="enumeration" w:value="9"/>
+    <w:Facet w:facet="enumeration" w:value="98"/>
+    <w:Facet w:facet="enumeration" w:value="99"/>
+  </w:Type>
+  <w:Type w:name="mmucc:OccupantEjectionCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="0"/>
+    <w:Facet w:facet="enumeration" w:value="1"/>
+    <w:Facet w:facet="enumeration" w:value="2"/>
+    <w:Facet w:facet="enumeration" w:value="3"/>
+    <w:Facet w:facet="enumeration" w:value="7"/>
+    <w:Facet w:facet="enumeration" w:value="8"/>
+    <w:Facet w:facet="enumeration" w:value="9"/>
+  </w:Type>
+  <w:Type w:name="mmucc:OccupantProtectionSystemUseCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="0"/>
+    <w:Facet w:facet="enumeration" w:value="1"/>
+    <w:Facet w:facet="enumeration" w:value="10"/>
+    <w:Facet w:facet="enumeration" w:value="11"/>
+    <w:Facet w:facet="enumeration" w:value="12"/>
+    <w:Facet w:facet="enumeration" w:value="2"/>
+    <w:Facet w:facet="enumeration" w:value="3"/>
+    <w:Facet w:facet="enumeration" w:value="4"/>
+    <w:Facet w:facet="enumeration" w:value="7"/>
+    <w:Facet w:facet="enumeration" w:value="8"/>
+    <w:Facet w:facet="enumeration" w:value="97"/>
+    <w:Facet w:facet="enumeration" w:value="98"/>
+    <w:Facet w:facet="enumeration" w:value="99"/>
+  </w:Type>
+  <w:Type w:name="mmucc:OccupantSeatCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="1"/>
+    <w:Facet w:facet="enumeration" w:value="2"/>
+    <w:Facet w:facet="enumeration" w:value="3"/>
+    <w:Facet w:facet="enumeration" w:value="8"/>
+    <w:Facet w:facet="enumeration" w:value="99"/>
+  </w:Type>
+  <w:Type w:name="mmucc:OccupantSeatOtherLocationCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="0"/>
+    <w:Facet w:facet="enumeration" w:value="50"/>
+    <w:Facet w:facet="enumeration" w:value="51"/>
+    <w:Facet w:facet="enumeration" w:value="52"/>
+    <w:Facet w:facet="enumeration" w:value="54"/>
+    <w:Facet w:facet="enumeration" w:value="55"/>
+    <w:Facet w:facet="enumeration" w:value="99"/>
+  </w:Type>
+  <w:Type w:name="mmucc:OccupantSeatRowCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="1"/>
+    <w:Facet w:facet="enumeration" w:value="2"/>
+    <w:Facet w:facet="enumeration" w:value="3"/>
+    <w:Facet w:facet="enumeration" w:value="4"/>
+    <w:Facet w:facet="enumeration" w:value="5"/>
+    <w:Facet w:facet="enumeration" w:value="99"/>
+  </w:Type>
+  <w:Type w:name="mmucc:PersonInjuryLocationCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="1"/>
+    <w:Facet w:facet="enumeration" w:value="2"/>
+    <w:Facet w:facet="enumeration" w:value="3"/>
+    <w:Facet w:facet="enumeration" w:value="4"/>
+    <w:Facet w:facet="enumeration" w:value="5"/>
+    <w:Facet w:facet="enumeration" w:value="6"/>
+    <w:Facet w:facet="enumeration" w:value="7"/>
+    <w:Facet w:facet="enumeration" w:value="8"/>
+    <w:Facet w:facet="enumeration" w:value="9"/>
+  </w:Type>
   <w:Type w:name="mmucc:RoadwayGradeCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="1"/>
     <w:Facet w:facet="enumeration" w:value="3"/>
@@ -600,6 +834,34 @@
     <w:Facet w:facet="enumeration" w:value="0"/>
     <w:Facet w:facet="enumeration" w:value="1"/>
     <w:Facet w:facet="enumeration" w:value="9"/>
+  </w:Type>
+  <w:Type w:name="mmucc:TravelDirectionBeforeCrashCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="0"/>
+    <w:Facet w:facet="enumeration" w:value="1"/>
+    <w:Facet w:facet="enumeration" w:value="2"/>
+    <w:Facet w:facet="enumeration" w:value="3"/>
+    <w:Facet w:facet="enumeration" w:value="4"/>
+    <w:Facet w:facet="enumeration" w:value="9"/>
+  </w:Type>
+  <w:Type w:name="mmucc:VehicleCargoBodyCategoryCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="0"/>
+    <w:Facet w:facet="enumeration" w:value="1"/>
+    <w:Facet w:facet="enumeration" w:value="10"/>
+    <w:Facet w:facet="enumeration" w:value="11"/>
+    <w:Facet w:facet="enumeration" w:value="12"/>
+    <w:Facet w:facet="enumeration" w:value="2"/>
+    <w:Facet w:facet="enumeration" w:value="22"/>
+    <w:Facet w:facet="enumeration" w:value="3"/>
+    <w:Facet w:facet="enumeration" w:value="4"/>
+    <w:Facet w:facet="enumeration" w:value="5"/>
+    <w:Facet w:facet="enumeration" w:value="6"/>
+    <w:Facet w:facet="enumeration" w:value="7"/>
+    <w:Facet w:facet="enumeration" w:value="8"/>
+    <w:Facet w:facet="enumeration" w:value="9"/>
+    <w:Facet w:facet="enumeration" w:value="96"/>
+    <w:Facet w:facet="enumeration" w:value="97"/>
+    <w:Facet w:facet="enumeration" w:value="98"/>
+    <w:Facet w:facet="enumeration" w:value="99"/>
   </w:Type>
   <w:Type w:name="mmucc:VehicleContributingCircumstancesCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="0"/>
@@ -628,6 +890,14 @@
     <w:Facet w:facet="enumeration" w:value="98"/>
     <w:Facet w:facet="enumeration" w:value="99"/>
   </w:Type>
+  <w:Type w:name="mmucc:VehicleDamageExtentCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="0"/>
+    <w:Facet w:facet="enumeration" w:value="2"/>
+    <w:Facet w:facet="enumeration" w:value="4"/>
+    <w:Facet w:facet="enumeration" w:value="6"/>
+    <w:Facet w:facet="enumeration" w:value="8"/>
+    <w:Facet w:facet="enumeration" w:value="9"/>
+  </w:Type>
   <w:Type
     w:name="mmucc:VehicleTrafficControlDeviceCategoryCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="0"/>
@@ -640,6 +910,20 @@
     <w:Facet w:facet="enumeration" w:value="50"/>
     <w:Facet w:facet="enumeration" w:value="65"/>
     <w:Facet w:facet="enumeration" w:value="97"/>
+    <w:Facet w:facet="enumeration" w:value="98"/>
+    <w:Facet w:facet="enumeration" w:value="99"/>
+  </w:Type>
+  <w:Type w:name="mmucc:VehicleUseCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="0"/>
+    <w:Facet w:facet="enumeration" w:value="1"/>
+    <w:Facet w:facet="enumeration" w:value="13"/>
+    <w:Facet w:facet="enumeration" w:value="2"/>
+    <w:Facet w:facet="enumeration" w:value="3"/>
+    <w:Facet w:facet="enumeration" w:value="4"/>
+    <w:Facet w:facet="enumeration" w:value="5"/>
+    <w:Facet w:facet="enumeration" w:value="6"/>
+    <w:Facet w:facet="enumeration" w:value="7"/>
+    <w:Facet w:facet="enumeration" w:value="8"/>
     <w:Facet w:facet="enumeration" w:value="98"/>
     <w:Facet w:facet="enumeration" w:value="99"/>
   </w:Type>
@@ -684,6 +968,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:LocationPostalCode"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:AddressAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:CommentType" w:isRequested="false">
     <w:ElementInType w:name="nc:CommentText" w:isReference="false"
@@ -725,6 +1011,10 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:IncidentAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:InjuryType" w:isRequested="false">
+    <w:ElementInType w:name="nc:InjuryLocation" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:InsuranceType" w:isRequested="false">
     <w:ElementInType w:name="nc:InsurancePolicyIdentification"
