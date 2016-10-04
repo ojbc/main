@@ -59,6 +59,9 @@
 				<j:SubjectIdentification>
 					<nc:IdentificationID>Booking Subject Number</nc:IdentificationID>
 				</j:SubjectIdentification>
+				<cscr-ext:SubjectLocationStatus>
+					<nc:StatusDescriptionText>In Jail</nc:StatusDescriptionText>
+				</cscr-ext:SubjectLocationStatus>
 			</j:BookingSubject>
 			<j:Arrest structures:ref="Arrest_01" />
 		</j:Booking>
@@ -100,7 +103,8 @@
 			</cscr-ext:DetentiontImmigrationHoldIndicator>
 			<cscr-ext:InmateWorkReleaseIndicator>true
 			</cscr-ext:InmateWorkReleaseIndicator>
-			<cscr-ext:InmateJailResidentIndicator>false</cscr-ext:InmateJailResidentIndicator>
+			<cscr-ext:InmateJailResidentIndicator>false
+			</cscr-ext:InmateJailResidentIndicator>
 			<cscr-ext:InmateWorkerIndicator>false
 			</cscr-ext:InmateWorkerIndicator>
 			<cscr-ext:AllowAccountDepositIndicator>true

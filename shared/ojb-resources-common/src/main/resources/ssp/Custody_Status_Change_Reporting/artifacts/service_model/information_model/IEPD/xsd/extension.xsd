@@ -173,23 +173,27 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="InmateWorkReleaseIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
+	<xsd:element name="InmateWorkReleaseIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if an inmate is assigned to a work release program; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if an inmate is assigned to a work release
+				program; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="InmateJailResidentIndicator"
-		type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
+	<xsd:element name="InmateJailResidentIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if at the time of report, an inmate is
-				a resident of the jail; false otherwise. This
-				generally applies to things like "weekender" programs.
+			<xsd:documentation>True if at the time of report, an inmate is a
+				resident of the jail; false otherwise. This generally applies to
+				things like "weekender" programs.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="InmateWorkerIndicator" type="niem-xs:boolean" substitutionGroup="nc:SupervisionAugmentationPoint">
+	<xsd:element name="InmateWorkerIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:SupervisionAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if an inmate is a worker in the facility; false otherwise</xsd:documentation>
+			<xsd:documentation>True if an inmate is a worker in the facility;
+				false otherwise</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonNameIdentification" type="nc:IdentificationType"
@@ -357,20 +361,32 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonHomelessIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="PersonHomelessIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if person does not have a residence and is considered homeless, false otherwise..</xsd:documentation>
+			<xsd:documentation>True if person does not have a residence and is
+				considered homeless, false otherwise..</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="BailBondRemainingAmount" type="nc:AmountType" substitutionGroup="j:BailBondAugmentationPoint">
+	<xsd:element name="BailBondRemainingAmount" type="nc:AmountType"
+		substitutionGroup="j:BailBondAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A monetary amount unpaid for a given bond.</xsd:documentation>
+			<xsd:documentation>A monetary amount unpaid for a given bond.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ChargeJurisdictionCourt" type="j:CourtType"
 		substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>The court jurisdiction for a charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubjectLocationStatus" type="nc:StatusType"
+		substitutionGroup="j:SubjectAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Current location status of the booking subject at
+				the time of report.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
