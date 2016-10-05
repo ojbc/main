@@ -291,7 +291,7 @@
 	<xsd:element name="PersonRaceCode" type="ac-bkg-codes:PersonRaceCodeType"
 		substitutionGroup="nc:PersonRace">
 		<xsd:annotation>
-			<xsd:documentation>A status code for person race.
+			<xsd:documentation>A code for person race.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
