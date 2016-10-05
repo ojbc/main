@@ -23,6 +23,7 @@
 	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:pc-phi-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/PersonHealthInformationCodes/1.0"
+	xmlns:ac-phi-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/PersonHealthInformationCodes/1.0"
 	xmlns:phisr-ext="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchRequest/1.0"
 	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	elementFormDefault="qualified">
