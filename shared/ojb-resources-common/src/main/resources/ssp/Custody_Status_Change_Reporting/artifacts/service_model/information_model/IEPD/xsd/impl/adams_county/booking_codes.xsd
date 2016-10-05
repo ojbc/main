@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2015 Open Justice Broker Consortium
-
--->
+<!-- Unless explicitly acquired and licensed from Licensor under another 
+	license, the contents of this file are subject to the Reciprocal Public License 
+	("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You 
+	may not copy or use this file in either source code or executable form, except 
+	in compliance with the terms and conditions of the RPL All software distributed 
+	under the RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY 
+	OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL 
+	SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, 
+	FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See 
+	the RPL for specific language governing rights and limitations under the 
+	RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2015 Open Justice 
+	Broker Consortium -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
@@ -47,19 +41,22 @@
 			<xsd:enumeration value="SRP">
 				<xsd:annotation>
 					<xsd:documentation>Supervised Release Pretrial - under supervised
-						released awaiting trial</xsd:documentation>
+						released awaiting trial
+					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="C-PR">
 				<xsd:annotation>
 					<xsd:documentation>Cash Bond Pretrial - cash bond posted released
-						awaiting trial</xsd:documentation>
+						awaiting trial
+					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="S-PR">
 				<xsd:annotation>
 					<xsd:documentation>Surety Bond Pretrial - surety bond posted
-						released awaiting trial</xsd:documentation>
+						released awaiting trial
+					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="PR">
@@ -96,7 +93,8 @@
 			<xsd:enumeration value="No-Bond">
 				<xsd:annotation>
 					<xsd:documentation>In Jail No Bond Posted - in jail bond not posted
-						or granted</xsd:documentation>
+						or granted
+					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 		</xsd:restriction>
@@ -230,6 +228,64 @@
 		type="ac-bkg-codes:MilitaryServiceStatusCodeType" substitutionGroup="nc:MilitarySummaryAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A status code for military service.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="PersonRaceCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Military Service Status code set
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="A">
+				<xsd:annotation>
+					<xsd:documentation>Asian or Pacific Islander</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="B">
+				<xsd:annotation>
+					<xsd:documentation>Black</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="I">
+				<xsd:annotation>
+					<xsd:documentation>American Indian or Alaskan Native
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="U">
+				<xsd:annotation>
+					<xsd:documentation>Unknown</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="W">
+				<xsd:annotation>
+					<xsd:documentation>White</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="P">
+				<xsd:annotation>
+					<xsd:documentation>Native Hawaiian or Pacific Islander
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="PersonRaceCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Person Race code set
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="ac-bkg-codes:PersonRaceCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="PersonRaceCode" type="ac-bkg-codes:PersonRaceCodeType"
+		substitutionGroup="nc:PersonRace">
+		<xsd:annotation>
+			<xsd:documentation>A status code for person race.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
