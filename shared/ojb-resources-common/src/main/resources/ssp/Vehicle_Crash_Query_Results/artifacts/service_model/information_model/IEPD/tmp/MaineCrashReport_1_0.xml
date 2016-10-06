@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<MaineCrashReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="MaineCrashReport_1_0.xsd">
+  <CrashReport>
+    <ReportingAgency>ME0010000</ReportingAgency>
+    <ReportNumber>ReportNumber</ReportNumber>
+    <CrashDate>2001-12-31T12:00:00</CrashDate>
+    <CrashTime>2001-12-31T12:00:00</CrashTime>
+    <ReportDate>2001-12-31T12:00:00</ReportDate>
+    <SceneArrivalDate>2001-12-31T12:00:00</SceneArrivalDate>
+    <SceneArrivalTime>2001-12-31T12:00:00</SceneArrivalTime>
+    <CityOrTown>01010</CityOrTown>
+    <StreetOrHighway>StreetOrHighway</StreetOrHighway>
+    <PostedSpeedLimit>1</PostedSpeedLimit>
+    <OffRoadOrIFW>true</OffRoadOrIFW>
+    <NearestIntersectingStreet>NearestIntersectingStreet</NearestIntersectingStreet>
+    <DirectionFromNearestIntersect>1</DirectionFromNearestIntersect>
+    <DistFromNearestIntersectValue>0.0</DistFromNearestIntersectValue>
+    <DistFromNearestIntersectUnit>1</DistFromNearestIntersectUnit>
+    <Latitude>0.0</Latitude>
+    <Longitude>0.0</Longitude>
+    <ReportingOfficerName>ReportingOfficerName</ReportingOfficerName>
+    <ReportingOfficerBadgeNumber>ReportingOfficerBadgeNumber</ReportingOfficerBadgeNumber>
+    <RoadSurfaceCondition>1</RoadSurfaceCondition>
+    <RoadGrade>1</RoadGrade>
+    <LightCondition>1</LightCondition>
+    <WeatherCondition>1</WeatherCondition>
+    <TypeOfCrash>1</TypeOfCrash>
+    <TrafficControlDevice>1</TrafficControlDevice>
+    <TrafficControlDevOperational>1</TrafficControlDevOperational>
+    <SchoolBusRelatedCrash>1</SchoolBusRelatedCrash>
+    <WorkZoneInOrNear>1</WorkZoneInOrNear>
+    <WorkZoneLocation>1</WorkZoneLocation>
+    <WorkZoneType>1</WorkZoneType>
+    <WorkZoneWorkersPresent>1</WorkZoneWorkersPresent>
+    <WorkZonePolicePresent>1</WorkZonePolicePresent>
+    <ContribCircumstancesEnviron1>1</ContribCircumstancesEnviron1>
+    <ContribCircumstancesEnviron2>1</ContribCircumstancesEnviron2>
+    <ContributingCircumstancesRoad1>1</ContributingCircumstancesRoad1>
+    <ContributingCircumstancesRoad2>1</ContributingCircumstancesRoad2>
+    <Narrative>Narrative</Narrative>
+    <LastDateTimeModified>2001-12-31T12:00:00</LastDateTimeModified>
+    <DateTimeReportCreated>2001-12-31T12:00:00</DateTimeReportCreated>
+    <ApprovedBy>ApprovedBy</ApprovedBy>
+    <ApprovedDate>2001-12-31T12:00:00</ApprovedDate>
+    <TypeOfLocation>1</TypeOfLocation>
+    <CrashSystemAndVersion>CrashSystemAndVersion</CrashSystemAndVersion>
+    <ElementId>0</ElementId>
+    <Node1>0</Node1>
+    <Node2>0</Node2>
+    <MeasurementNode>0</MeasurementNode>
+    <Offset>0.0</Offset>
+    <IsTotalDamageOverThreshold>true</IsTotalDamageOverThreshold>
+    <LocationOfFirstHarmfulEvent>1</LocationOfFirstHarmfulEvent>
+    <XSDFileName>XSDFileName</XSDFileName>
+    <XSLFileName>XSLFileName</XSLFileName>
+    <ProhibitPublicRelease>true</ProhibitPublicRelease>
+    <Units>
+      <UnitId>0</UnitId>
+      <UnitType>1</UnitType>
+      <HitAndRun>true</HitAndRun>
+      <VehicleYear>0</VehicleYear>
+      <VehicleMake>1</VehicleMake>
+      <VehicleColor>1</VehicleColor>
+      <LicensePlateNumber>LicensePlateNumber</LicensePlateNumber>
+      <LicensePlateState>AB</LicensePlateState>
+      <VIN>VIN</VIN>
+      <NoInsurance>true</NoInsurance>
+      <NAIC>NAIC</NAIC>
+      <InsuranceCompanyName>InsuranceCompanyName</InsuranceCompanyName>
+      <InsurancePolicyNumber>InsurancePolicyNumber</InsurancePolicyNumber>
+      <VehicleTravelDirection>1</VehicleTravelDirection>
+      <HazMatPlacarded>1</HazMatPlacarded>
+      <VehicleHas9orMoreSeats>1</VehicleHas9orMoreSeats>
+      <SpecialFunctionVehicle>1</SpecialFunctionVehicle>
+      <ExemptVehicle>1</ExemptVehicle>
+      <EmergencyVehRespondingToCall>1</EmergencyVehRespondingToCall>
+      <ExtentOfDamage>1</ExtentOfDamage>
+      <MostHarmfulEvent>1</MostHarmfulEvent>
+      <PreCrashActions>1</PreCrashActions>
+      <MostDamagedArea>1</MostDamagedArea>
+      <SequenceOfEvents1>1</SequenceOfEvents1>
+      <SequenceOfEvents2>1</SequenceOfEvents2>
+      <SequenceOfEvents3>1</SequenceOfEvents3>
+      <SequenceOfEvents4>1</SequenceOfEvents4>
+      <ContribCircumstancesVehicle>1</ContribCircumstancesVehicle>
+      <GVWRorGCWR>1</GVWRorGCWR>
+      <VehicleConfiguration>1</VehicleConfiguration>
+      <Commercial>
+        <MCSAPNumber>MCSAPNumber</MCSAPNumber>
+        <BusUse>0</BusUse>
+        <CargoBodyType>1</CargoBodyType>
+        <HazMat4DigitNumber>HazMat4DigitNumber</HazMat4DigitNumber>
+        <HazMatClassNumber>1</HazMatClassNumber>
+        <WasHazardousMaterialsReleased>1</WasHazardousMaterialsReleased>
+        <MotorCarrierType>1</MotorCarrierType>
+        <CarrierName>CarrierName</CarrierName>
+        <CarrierStreetAddress>CarrierStreetAddress</CarrierStreetAddress>
+        <CarrierCityorTown>CarrierCityorTown</CarrierCityorTown>
+        <CarrierState>AB</CarrierState>
+        <CarrierZipCode>CarrierZipCode</CarrierZipCode>
+        <CarrierPhone>CarrierPhone</CarrierPhone>
+        <NoCarrierIdentificationNumbers>true</NoCarrierIdentificationNumbers>
+        <USDOTNumber>USDOTNumber</USDOTNumber>
+        <MCMXNumber>MCMXNumber</MCMXNumber>
+        <StateNumber>StateNumber</StateNumber>
+        <CommodityCode>A</CommodityCode>
+        <CargoCode>1</CargoCode>
+        <OverSizePermitWeight>true</OverSizePermitWeight>
+        <OverSizePermitLength>true</OverSizePermitLength>
+        <OverSizePermitHeight>true</OverSizePermitHeight>
+        <OverSizePermitWidth>true</OverSizePermitWidth>
+      </Commercial>
+      <Persons>
+        <PersonId>0</PersonId>
+        <PersonType>1</PersonType>
+        <LastName>LastName</LastName>
+        <FirstName>FirstName</FirstName>
+        <MiddleInitial>MiddleInitial</MiddleInitial>
+        <Address>Address</Address>
+        <CityOrTown>CityOrTown</CityOrTown>
+        <State>AB</State>
+        <ZipCode>ZipCode</ZipCode>
+        <LicenseNumber>LicenseNumber</LicenseNumber>
+        <LicenseState>AB</LicenseState>
+        <LicenseStatus>A</LicenseStatus>
+        <LicenseClass>A</LicenseClass>
+        <CitationNumber>CitationNumber</CitationNumber>
+        <PendingCitation>true</PendingCitation>
+        <Violation1>Violation1</Violation1>
+        <Violation2>Violation2</Violation2>
+        <Sex>1</Sex>
+        <DateOfBirth>2001-12-31T12:00:00</DateOfBirth>
+        <SeatPositionRow>1</SeatPositionRow>
+        <SeatPositionSeat>1</SeatPositionSeat>
+        <SeatPositionOther>1</SeatPositionOther>
+        <AirBagDeployed>1</AirBagDeployed>
+        <Ejected>1</Ejected>
+        <RestraintSystem>1</RestraintSystem>
+        <HelmetUse>1</HelmetUse>
+        <InjuryType>1</InjuryType>
+        <InjuryArea>1</InjuryArea>
+        <InjuryDegree>1</InjuryDegree>
+        <InjuryInfoSource>1</InjuryInfoSource>
+        <AmbulanceCode>1</AmbulanceCode>
+        <DriverDistractedBy>1</DriverDistractedBy>
+        <DriverActionsAtTimeOfCrash1>1</DriverActionsAtTimeOfCrash1>
+        <DriverActionsAtTimeOfCrash2>1</DriverActionsAtTimeOfCrash2>
+        <ConditionAtTimeOfCrash>1</ConditionAtTimeOfCrash>
+        <AlcoholTest>1</AlcoholTest>
+        <AlcoholTestResultPending>true</AlcoholTestResultPending>
+        <AlcoholBACResult>0.0</AlcoholBACResult>
+        <DrugTest>1</DrugTest>
+        <DrugTestResult>1</DrugTestResult>
+        <EmailAddress>EmailAddress</EmailAddress>
+        <PedestrianManeuvers>1</PedestrianManeuvers>
+        <BicyclistManeuvers>1</BicyclistManeuvers>
+        <NonMotoristActionPriorToCrash>1</NonMotoristActionPriorToCrash>
+        <NonMotoristActionTimeOfCrash1>1</NonMotoristActionTimeOfCrash1>
+        <NonMotoristActionTimeOfCrash2>1</NonMotoristActionTimeOfCrash2>
+        <NonMotoristLocationTimeOfCrash>1</NonMotoristLocationTimeOfCrash>
+        <OwnerIsABusiness>true</OwnerIsABusiness>
+        <LicenseRestrictions>
+          <Restriction>0</Restriction>
+        </LicenseRestrictions>
+        <LicenseEndorsements>
+          <Endorsement>0</Endorsement>
+        </LicenseEndorsements>
+      </Persons>
+    </Units>
+    <NonVehiclePropertyDamage>
+      <NonVehiclePropertyDamageId>0</NonVehiclePropertyDamageId>
+      <Name>Name</Name>
+      <Address>Address</Address>
+      <CityOrTown>CityOrTown</CityOrTown>
+      <State>AB</State>
+      <ZipCode>ZipCode</ZipCode>
+      <DamagedPropertyOwnerType>1</DamagedPropertyOwnerType>
+      <DamageDescription>DamageDescription</DamageDescription>
+    </NonVehiclePropertyDamage>
+    <WitnessStatements>
+      <WitnessStatement>MA==</WitnessStatement>
+      <DisplayOrder>0</DisplayOrder>
+    </WitnessStatements>
+    <Diagram>
+      <JPGDiagram>MA==</JPGDiagram>
+      <DiagramMeasurements>
+        <DiagrammingMethod>1</DiagrammingMethod>
+        <LineOrPointZeroOrPlusX>LineOrPointZeroOrPlusX</LineOrPointZeroOrPlusX>
+        <DistanceOrFromZeroOrMinusX>DistanceOrFromZeroOrMinusX</DistanceOrFromZeroOrMinusX>
+        <FromEdgeOrPlusY>FromEdgeOrPlusY</FromEdgeOrPlusY>
+        <MinusY>MinusY</MinusY>
+        <Description>Description</Description>
+        <PointLabel>PointLabel</PointLabel>
+      </DiagramMeasurements>
+    </Diagram>
+  </CrashReport>
+</MaineCrashReport>
