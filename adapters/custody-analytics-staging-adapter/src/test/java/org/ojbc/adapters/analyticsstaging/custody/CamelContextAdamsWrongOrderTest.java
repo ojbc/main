@@ -208,6 +208,8 @@ public class CamelContextAdamsWrongOrderTest {
 		assertThat(person.getEducationLevel(), is("High School Graduate"));
 		assertThat(person.getOccupation(), is("Truck Driver"));
 		assertThat(person.getMilitaryServiceStatusType().getValue(), is("Active"));
+		assertThat(person.getPersonRaceId(), is(6));
+		assertThat(person.getPersonRaceDescription(), is("White"));
 		
 		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(1);
 		assertThat(behavioralHealthAssessments.size(), is(1));
@@ -319,9 +321,9 @@ public class CamelContextAdamsWrongOrderTest {
 		
 		assertThat(person.getPersonId(), is(2));
 		assertThat(person.getPersonSexId(), is(2));
-		assertThat(person.getPersonRaceId(), is(6));
+		assertThat(person.getPersonRaceId(), is(4));
 		assertThat(person.getPersonSexDescription(), is("Female"));
-		assertThat(person.getPersonRaceDescription(), is("White"));
+		assertThat(person.getPersonRaceDescription(), is("Native Hawaiian or Pacific Islander"));
 		assertThat(person.getLanguage(), is("English"));
 		assertThat(person.getPersonBirthDate(), is(LocalDate.parse("1968-12-17")));
 		assertThat(person.getPersonUniqueIdentifier(), is("e807f1fcf82d132f9bb018ca6738a19f"));
