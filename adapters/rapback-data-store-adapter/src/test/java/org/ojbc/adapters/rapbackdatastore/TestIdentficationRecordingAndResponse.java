@@ -301,4 +301,27 @@ public class TestIdentficationRecordingAndResponse {
 		
 	}
 	
+	@Test
+	@DirtiesContext
+	public void testIgnoreCriminalRecordingRequest() throws Exception
+	{
+		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
+				"src/test/resources/xmlInstances/identificationReport/person_identification_request_state_criminal.xml");
+		
+		senderExchange.getIn().setHeader("operationName", "RecordPersonStateIdentificationRequest");
+		
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		identificationReportingResultMessageProcessor.expectedMessageCount(0);
+		
+		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		
+	}
 }
