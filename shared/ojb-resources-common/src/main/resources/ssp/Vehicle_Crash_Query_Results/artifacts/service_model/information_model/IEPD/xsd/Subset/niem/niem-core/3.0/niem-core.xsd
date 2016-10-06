@@ -436,6 +436,7 @@
         <xs:sequence>
           <xs:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonOtherIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonSex" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -828,6 +829,11 @@
   <xs:element name="PersonName" type="nc:PersonNameType" nillable="true">
     <xs:annotation>
       <xs:documentation>A combination of names and/or titles by which a person is known.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonOtherIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification with a kind that is not explicitly defined in the standard that refers to a person within a certain domain.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonResidenceAssociation" type="nc:PersonResidenceAssociationType" nillable="true">
