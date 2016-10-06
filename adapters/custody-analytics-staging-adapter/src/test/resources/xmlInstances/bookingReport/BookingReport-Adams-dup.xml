@@ -275,7 +275,7 @@
 		<nc:PersonPrimaryLanguage>
 			<nc:LanguageName>ENG</nc:LanguageName>
 		</nc:PersonPrimaryLanguage>
-		<j:PersonRaceCode>A</j:PersonRaceCode>
+		<ac-bkg-codes:PersonRaceCode>A</ac-bkg-codes:PersonRaceCode>
 		<nc:PersonResidentText>Residence</nc:PersonResidentText>
 		<j:PersonSexCode>M</j:PersonSexCode>
 		<nc:PersonSSNIdentification>

@@ -73,7 +73,7 @@ public abstract class AbstractReportRepositoryProcessor {
 		
 		person.setPersonUniqueIdentifier2(XmlUtils.xPathStringSearch(personNode, "preceding-sibling::jxdm51:Booking/jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID"));;
 		
-		String personRaceCode=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonRaceCode");
+		String personRaceCode=XmlUtils.xPathStringSearch(personNode, "ac-bkg-codes:PersonRaceCode");
 		if (StringUtils.isBlank(personRaceCode)){
 			personRaceCode=XmlUtils.xPathStringSearch(personNode, "pc-bkg-codes:PersonRaceCode");
 		}
