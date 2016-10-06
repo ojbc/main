@@ -121,8 +121,8 @@
 			
 			<from uri="direct:processIdentificationReport" />
 			
-			<log message="\n\n\n * * *  processIdentificationReport 111   * * * \n\n\n"/>
-
+			<log message="* * *  processIdentificationReport 111   * * *"/>
+			
 			<setHeader headerName="identificationID">
 				<xpath resultType="java.lang.String">/pidreq-doc:PersonStateIdentificationRequest/ident-ext:TransactionIdentification/nc:IdentificationID
 					|/pidres-doc:PersonStateIdentificationResults/ident-ext:TransactionIdentification/nc:IdentificationID
@@ -138,11 +138,19 @@
 				</xpath>
 			</setHeader>
 			
+			<camel:filter>
+				<camel:xpath>/pidreq-doc:PersonStateIdentificationRequest/ident-ext:CriminalIdentificationReasonCode 
+					|/pidreq-doc:PersonFederalIdentificationRequest/ident-ext:CriminalIdentificationReasonCode 
+				</camel:xpath>
+				<camel:log message="Ignore the identification request ${in.header.identificationID} with CriminalIdentificationReasonCode"></camel:log>
+				<camel:stop/>
+			</camel:filter>
+
 			<setHeader headerName="transactionCategoryText">
 				<camel:simple>${in.headers.transactionCategoryText}-REPLY</camel:simple>
 			</setHeader>
 				
-			<log message="\n\n\n * * *  processIdentificationReport 2222   * * * \n\n\n"/>				
+			<log message="* * * processIdentificationReport 2222   * * *"/>				
 				
 			<doTry>
 						

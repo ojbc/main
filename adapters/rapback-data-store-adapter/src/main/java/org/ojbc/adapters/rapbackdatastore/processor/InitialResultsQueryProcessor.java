@@ -134,6 +134,7 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
 	private void buildResponseWithCivilInitialResults(String transactionNumber, Element rootElement) {
 		List<CivilInitialResults> civilInitialResults = 
     			rapbackDAO.getIdentificationCivilInitialResults(transactionNumber); 
+		log.debug("CivilInitialResults: " + civilInitialResults.toString());
         
         for (CivilInitialResults civilInitialResult: civilInitialResults){
         	createSearchResultDocumentElement(civilInitialResult, rootElement);
