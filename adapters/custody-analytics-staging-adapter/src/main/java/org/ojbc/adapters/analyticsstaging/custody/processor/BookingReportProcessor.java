@@ -194,6 +194,9 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
  		String inmateJailResidentIndicator = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Detention/br-ext:InmateJailResidentIndicator");
  		booking.setInmateJailResidentIndicator(BooleanUtils.toBooleanObject(inmateJailResidentIndicator));
  		
+ 		String inmateCurrentLocation = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/jxdm51:BookingSubject/br-ext:SubjectLocationStatus/nc30:StatusDescriptionText");
+ 		booking.setInmateCurrentLocation(inmateCurrentLocation);
+ 		
         Integer bookingId = analyticalDatastoreDAO.saveBooking(booking);
         booking.setBookingId(bookingId);
         
