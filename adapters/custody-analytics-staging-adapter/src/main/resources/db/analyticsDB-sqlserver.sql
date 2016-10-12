@@ -248,6 +248,7 @@ CREATE TABLE Booking (
                 FacilityID INT,
                 SupervisionUnitTypeID INT,
                 InmateJailResidentIndicator BIT,
+                InmateCurrentLocation VARCHAR(100),
                 BookingTimestamp DATETIME DEFAULT getdate() NOT NULL,
                 CONSTRAINT BookingID PRIMARY KEY (BookingID)
 )
@@ -274,6 +275,7 @@ CREATE TABLE CustodyStatusChange (
                 FacilityID INT,
                 SupervisionUnitTypeID INT,
                 InmateJailResidentIndicator BIT,
+                InmateCurrentLocation VARCHAR(100),
                 CustodyStatusChangeTimestamp DATETIME DEFAULT getdate() NOT NULL,
                 CONSTRAINT CustodyStatusChangeID PRIMARY KEY (CustodyStatusChangeID)
 )

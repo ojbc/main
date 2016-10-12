@@ -293,16 +293,16 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
         	        		sqlString="INSERT into booking ("
         	        				+ "BookingDate, BookingTime, FacilityID, SupervisionUnitTypeID, "
-        	        				+ "PersonID, BookingNumber, ScheduledReleaseDate, InmateJailResidentIndicator, BookingID) "
-        	        				+ "values (?,?,?,?,?,?,?,?,?)";
+        	        				+ "PersonID, BookingNumber, ScheduledReleaseDate, InmateJailResidentIndicator, InmateCurrentLocation, BookingID) "
+        	        				+ "values (?,?,?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
 
         	        		sqlString="INSERT into booking ("
         	        				+ "BookingDate, BookingTime,"
         	        				+ "FacilityID, SupervisionUnitTypeID,  "
-        	        				+ "PersonID, BookingNumber, ScheduledReleaseDate, InmateJailResidentIndicator) "
-        	        				+ "values (?,?,?,?,?,?,?,?)";
+        	        				+ "PersonID, BookingNumber, ScheduledReleaseDate, InmateJailResidentIndicator, InmateCurrentLocation) "
+        	        				+ "values (?,?,?,?,?,?,?,?,?)";
         	        		
         	        	}	
         	        			
@@ -317,9 +317,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            setPreparedStatementVariable(booking.getBookingNumber(), ps, 6);
         	            setPreparedStatementVariable(booking.getScheduledReleaseDate(), ps, 7);
         	            setPreparedStatementVariable(booking.getInmateJailResidentIndicator(), ps, 8);
+        	            setPreparedStatementVariable(booking.getInmateCurrentLocation(), ps, 9);
                         
         	            if (booking.getBookingId() != null){
-        	            	setPreparedStatementVariable(booking.getBookingId(), ps, 9);
+        	            	setPreparedStatementVariable(booking.getBookingId(), ps, 10);
         	            }
         	            
         	            return ps;
@@ -494,6 +495,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			booking.setBookingNumber(rs.getString("BookingNumber"));
 			booking.setScheduledReleaseDate( DaoUtils.getLocalDate(rs, "ScheduledReleaseDate"));
 			booking.setInmateJailResidentIndicator( rs.getBoolean("InmateJailResidentIndicator"));
+			booking.setInmateCurrentLocation( rs.getString("InmateCurrentLocation"));
 			
 	    	return booking;
 		}
@@ -671,17 +673,17 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        		sqlString="INSERT into custodyStatusChange ("
         	        				+ "BookingDate, BookingTime,  "
         	        				+ "FacilityID, SupervisionUnitTypeID, "
-        	        				+ "PersonID, BookingId, ScheduledReleaseDate, InmateJailResidentIndicator, BookingNumber, "
+        	        				+ "PersonID, BookingId, ScheduledReleaseDate, InmateJailResidentIndicator, BookingNumber, InmateCurrentLocation, "
         	        				+ "CustodyStatusChangeID) "
-        	        				+ "values (?,?,?,?,?,?,?,?,?,?)";
+        	        				+ "values (?,?,?,?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
 
         	        		sqlString="INSERT into custodyStatusChange ("
         	        				+ "BookingDate, BookingTime, "
         	        				+ "FacilityID, SupervisionUnitTypeID, "
-        	        				+ "PersonID, BookingId, ScheduledReleaseDate, InmateJailResidentIndicator, BookingNumber) "
-        	        				+ "values (?,?,?,?,?,?,?,?,?)";
+        	        				+ "PersonID, BookingId, ScheduledReleaseDate, InmateJailResidentIndicator, BookingNumber, InmateCurrentLocation) "
+        	        				+ "values (?,?,?,?,?,?,?,?,?,?)";
         	        		
         	        	}	
         	        			
@@ -698,9 +700,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            setPreparedStatementVariable(custodyStatusChange.getScheduledReleaseDate(), ps, 7);
         	            setPreparedStatementVariable(custodyStatusChange.getInmateJailResidentIndicator(), ps, 8);
         	            setPreparedStatementVariable(custodyStatusChange.getBookingNumber(), ps, 9);
+        	            setPreparedStatementVariable(custodyStatusChange.getInmateCurrentLocation(), ps, 10);
         	            
         	            if (custodyStatusChange.getCustodyStatusChangeId() != null){
-        	            	setPreparedStatementVariable(custodyStatusChange.getCustodyStatusChangeId(), ps, 10);
+        	            	setPreparedStatementVariable(custodyStatusChange.getCustodyStatusChangeId(), ps, 11);
         	            }
         	            
         	            return ps;
@@ -787,6 +790,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			custodyStatusChange.setBookingNumber(rs.getString("BookingNumber"));
 			custodyStatusChange.setScheduledReleaseDate( DaoUtils.getLocalDate(rs, "ScheduledReleaseDate"));
 			custodyStatusChange.setInmateJailResidentIndicator( rs.getBoolean("InmateJailResidentIndicator") );
+			custodyStatusChange.setInmateCurrentLocation( rs.getString("InmateCurrentLocation") );
 			
 	    	return custodyStatusChange;
 		}

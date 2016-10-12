@@ -37,6 +37,7 @@ public class Booking implements Serializable{
 	private LocalDate scheduledReleaseDate; 
     private CustodyRelease custodyRelease;
     private Boolean inmateJailResidentIndicator;
+    private String inmateCurrentLocation; 
 	
 	public Integer getBookingId() {
 		return bookingId;
@@ -121,6 +122,14 @@ public class Booking implements Serializable{
 
 	public void setBookingTime(LocalTime bookingTime) {
 		this.bookingTime = bookingTime;
+	}
+
+	public String getInmateCurrentLocation() {
+		return inmateCurrentLocation;
+	}
+
+	public void setInmateCurrentLocation(String inmateCurrentLocation) {
+		this.inmateCurrentLocation = inmateCurrentLocation;
 	}
 
 

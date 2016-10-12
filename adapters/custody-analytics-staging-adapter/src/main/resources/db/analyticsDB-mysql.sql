@@ -26,7 +26,6 @@ use ojbc_booking_staging;
 
 
 
-
 CREATE TABLE MedicaidStatusType (
                 MedicaidStatusTypeID INT NOT NULL,
                 MedicaidStatusTypeDescription VARCHAR(50) NOT NULL,
@@ -271,6 +270,7 @@ CREATE TABLE Booking (
                 FacilityID INT,
                 SupervisionUnitTypeID INT,
                 InmateJailResidentIndicator BOOLEAN,
+                InmateCurrentLocation VARCHAR(100),
                 BookingTimestamp DATETIME DEFAULT now() NOT NULL,
                 PRIMARY KEY (BookingID)
 );
@@ -299,6 +299,7 @@ CREATE TABLE CustodyStatusChange (
                 FacilityID INT,
                 SupervisionUnitTypeID INT,
                 InmateJailResidentIndicator BOOLEAN,
+                InmateCurrentLocation VARCHAR(100),
                 CustodyStatusChangeTimestamp DATETIME DEFAULT now() NOT NULL,
                 PRIMARY KEY (CustodyStatusChangeID)
 );

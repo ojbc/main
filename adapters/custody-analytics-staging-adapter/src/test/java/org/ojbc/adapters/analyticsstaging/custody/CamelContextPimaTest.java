@@ -220,6 +220,7 @@ public class CamelContextPimaTest {
 		assertEquals("234567890", booking.getBookingNumber());
 		assertNull(booking.getScheduledReleaseDate());
 		assertThat(booking.getInmateJailResidentIndicator(), is(false)); 
+		assertThat(booking.getInmateCurrentLocation(), is("Weekender Release")); 
 		
 		bookingArrests = analyticalDatastoreDAO.getBookingArrests(1);
 		assertThat(bookingArrests.size(), is(1));
