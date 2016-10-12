@@ -17,6 +17,7 @@
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -32,7 +33,8 @@ public class CustodyRelease implements Serializable{
 	private LocalDate releaseDate; 
 	private LocalTime releaseTime; 
 	private String bookingNumber; 
-	private String ReleaseCondition; 
+	private String ReleaseCondition;
+	private Timestamp custodyReleaseTimestamp;
 	
 	@Override
 	public String toString() {
@@ -85,6 +87,14 @@ public class CustodyRelease implements Serializable{
 
 	public void setReleaseTime(LocalTime releaseTime) {
 		this.releaseTime = releaseTime;
+	}
+
+	public Timestamp getCustodyReleaseTimestamp() {
+		return custodyReleaseTimestamp;
+	}
+
+	public void setCustodyReleaseTimestamp(Timestamp custodyReleaseTimestamp) {
+		this.custodyReleaseTimestamp = custodyReleaseTimestamp;
 	}
 
 }

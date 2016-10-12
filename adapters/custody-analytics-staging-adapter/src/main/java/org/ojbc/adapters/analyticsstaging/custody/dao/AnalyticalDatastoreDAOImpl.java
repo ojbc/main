@@ -24,9 +24,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -650,6 +652,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			custodyRelease.setReleaseDate(DaoUtils.getLocalDate(rs, "ReleaseDate"));
 			custodyRelease.setReleaseTime(DaoUtils.getLocalTime(rs, "ReleaseTime"));
 			custodyRelease.setReleaseCondition( rs.getString("ReleaseCondition"));
+			custodyRelease.setCustodyReleaseTimestamp(rs.getTimestamp("CustodyReleaseTimestamp"));
 			
 	    	return custodyRelease;
 		}
@@ -791,6 +794,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			custodyStatusChange.setScheduledReleaseDate( DaoUtils.getLocalDate(rs, "ScheduledReleaseDate"));
 			custodyStatusChange.setInmateJailResidentIndicator( rs.getBoolean("InmateJailResidentIndicator") );
 			custodyStatusChange.setInmateCurrentLocation( rs.getString("InmateCurrentLocation") );
+			custodyStatusChange.setCustodyStatusChangeTimestamp(rs.getTimestamp("custodyStatusChangeTimestamp") );
 			
 	    	return custodyStatusChange;
 		}
@@ -1278,14 +1282,22 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	@Override
 	public void updateCustodyStatusChangeBookingId(Integer bookingId, String bookingNumber) {
-		final String sql = "UPDATE custodyStatusChange SET bookingId = ? WHERE bookingNumber = ? AND (bookingId is null OR bookingId != ?)"; 
-		jdbcTemplate.update(sql, bookingId, bookingNumber, bookingId);
+		
+		final String sql = "UPDATE custodyStatusChange "
+				+ "SET bookingId = ?, custodyStatusChangeTimestamp = ? "
+				+ "WHERE bookingNumber = ? AND (bookingId is null OR bookingId != ?)";
+		Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
+		jdbcTemplate.update(sql, bookingId, currentTimestamp, bookingNumber, bookingId);
 	}
 
 	@Override
 	public void updateCustodyReleaseBookingId(Integer bookingId, String bookingNumber) {
-		final String sql = "UPDATE custodyRelease SET bookingId = ? WHERE bookingNumber = ? AND (bookingId is null OR bookingId != ?)"; 
-		jdbcTemplate.update(sql, bookingId, bookingNumber, bookingId);
+		final String sql = "UPDATE custodyRelease "
+				+ "SET bookingId = ?, custodyReleaseTimestamp = ? "
+				+ "WHERE bookingNumber = ? AND (bookingId is null OR bookingId != ?)"; 
+		Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
+		
+		jdbcTemplate.update(sql, bookingId, currentTimestamp, bookingNumber, bookingId);
 	}
 
 	@Override
