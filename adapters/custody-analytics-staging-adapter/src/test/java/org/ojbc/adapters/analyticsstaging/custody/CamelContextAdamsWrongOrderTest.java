@@ -28,6 +28,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -107,6 +108,9 @@ public class CamelContextAdamsWrongOrderTest {
 	
 	@EndpointInject(uri = "mock:direct:failedInvocation")
 	protected MockEndpoint failedInvocationEndpoint;
+	
+	private Timestamp originalCustodyReleaseTimestamp; 
+	private Timestamp originalCustodyStatusChangeTimestamp; 
 	
 	@Test
 	@DirtiesContext
@@ -258,6 +262,7 @@ public class CamelContextAdamsWrongOrderTest {
 		assertThat(custodyStatusChange.getBookingNumber(), is("Booking Number"));
 		assertThat(custodyStatusChange.getScheduledReleaseDate(), is(LocalDate.parse("2014-12-17")));
 		assertThat(custodyStatusChange.getInmateJailResidentIndicator(), is(false));
+		originalCustodyStatusChangeTimestamp = custodyStatusChange.getCustodyStatusChangeTimestamp();
 		
 		List<CustodyStatusChangeArrest> custodyStatusChangeArrests = analyticalDatastoreDAO.getCustodyStatusChangeArrests(1);
 		assertThat(custodyStatusChangeArrests.size(), is(1));
@@ -412,14 +417,19 @@ public class CamelContextAdamsWrongOrderTest {
 		
 		CustodyRelease custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingId(1);
 		log.info(custodyRelease.toString());
-		assertEquals(LocalDate.parse("2014-12-17"), custodyRelease.getReleaseDate());
-		assertEquals(LocalTime.parse("10:30"), custodyRelease.getReleaseTime());
+		assertEquals(LocalDate.parse("2001-12-17"), custodyRelease.getReleaseDate());
+		assertEquals(LocalTime.parse("09:30:47"), custodyRelease.getReleaseTime());
 		assertThat(custodyRelease.getBookingNumber(), is("Booking Number"));
+		assertThat(custodyRelease.getCustodyReleaseTimestamp().after(originalCustodyReleaseTimestamp), is(true));
 		
 		assertThat(jdbcTemplate.queryForObject("select count(*) from CustodyRelease WHERE bookingId = 1 AND bookingNumber = 'Booking Number' ", Integer.class), is(2));
 		assertThat(jdbcTemplate.queryForObject("select count(*) from CustodyRelease", Integer.class), is(2));
 		assertThat(jdbcTemplate.queryForObject("select count(*) from CustodyStatusChange WHERE bookingId = 1 AND bookingNumber = 'Booking Number' ", Integer.class), is(1));
 		assertThat(jdbcTemplate.queryForObject("select count(*) from CustodyStatusChange", Integer.class), is(1));
+		Timestamp custodyStatusChangeTimestamp = 
+				jdbcTemplate.queryForObject("select CustodyStatusChangeTimestamp from CustodyStatusChange where bookingId = 1", Timestamp.class);
+		assertThat(custodyStatusChangeTimestamp.after(originalCustodyStatusChangeTimestamp), is(true));
+		
 	}
 	
 	public void testBookingReportServiceRouteDup() throws Exception, IOException {
@@ -598,6 +608,7 @@ public class CamelContextAdamsWrongOrderTest {
 		assertEquals( LocalDate.parse("2001-12-17"), custodyRelease.getReleaseDate());
 		assertEquals( LocalTime.parse("09:30:47"), custodyRelease.getReleaseTime());
 		assertThat(custodyRelease.getBookingId(), nullValue());
+		originalCustodyReleaseTimestamp = custodyRelease.getCustodyReleaseTimestamp();
 		
 		assertThat(jdbcTemplate.queryForObject("select count(*) from BehavioralHealthAssessment", Integer.class), is(0));
 	}

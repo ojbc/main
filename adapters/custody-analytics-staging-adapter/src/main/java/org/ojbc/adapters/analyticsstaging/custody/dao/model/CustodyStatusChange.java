@@ -17,6 +17,7 @@
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -39,6 +40,7 @@ public class CustodyStatusChange implements Serializable{
 	private LocalDate scheduledReleaseDate; 
     private Boolean inmateJailResidentIndicator;
     private String inmateCurrentLocation; 
+    private Timestamp custodyStatusChangeTimestamp; 
 
     private CustodyRelease custodyRelease;
 	
@@ -150,6 +152,15 @@ public class CustodyStatusChange implements Serializable{
 
 	public void setInmateCurrentLocation(String inmateCurrentLocation) {
 		this.inmateCurrentLocation = inmateCurrentLocation;
+	}
+
+	public Timestamp getCustodyStatusChangeTimestamp() {
+		return custodyStatusChangeTimestamp;
+	}
+
+	public void setCustodyStatusChangeTimestamp(
+			Timestamp custodyStatusChangeTimestamp) {
+		this.custodyStatusChangeTimestamp = custodyStatusChangeTimestamp;
 	}
 
 
