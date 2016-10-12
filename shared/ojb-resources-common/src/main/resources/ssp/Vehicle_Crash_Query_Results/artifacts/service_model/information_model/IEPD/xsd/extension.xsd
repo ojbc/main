@@ -114,7 +114,7 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="HitRunIndicator" type="niem-xs:boolean"
-		substitutionGroup="nc:VehicleAugmentationPoint">
+		substitutionGroup="j:CrashVehicleAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a vehicle was involved in a hit and run;
 				false otherwise.</xsd:documentation>
@@ -191,7 +191,7 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="EmergencyVehicleRespondingToSceneIndicator"
-		type="niem-xs:boolean" substitutionGroup="j:CrashAugmentationPoint">
+		type="niem-xs:boolean" substitutionGroup="j:CrashVehicleAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if emergency is responding to crash scene;
 				false otherwise.</xsd:documentation>
@@ -212,7 +212,7 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="AlcoholTestResultsPendingIndicator"
-		type="niem-xs:boolean" substitutionGroup="j:CrashDriverAugmentationPoint">
+		type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if alcohol test results are pending; false
 				otherwise.</xsd:documentation>
