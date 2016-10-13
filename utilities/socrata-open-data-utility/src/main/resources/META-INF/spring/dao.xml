@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Configures the DAO beans-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
+	
+		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+			<property name="driverClassName" value="${openDataUtility.dataSource.driverClass}" />
+			<property name="url" value="${openDataUtility.dataSource.jdbcUrl}" />
+			<property name="username" value="${openDataUtility.dataSource.user}" />
+			<property name="password" value="${openDataUtility.dataSource.password}" />
+			<property name="initialSize" value="${openDataUtility.dataSource.minPoolSize}" />
+			<property name="maxActive" value="${openDataUtility.dataSource.maxPoolSize}" />
+			<property name="validationQuery" value="select 1" />
+			<property name="testOnBorrow" value="true" />
+		</bean>
+	
+</beans>
