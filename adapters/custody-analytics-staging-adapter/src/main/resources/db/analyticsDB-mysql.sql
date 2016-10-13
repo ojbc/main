@@ -120,7 +120,7 @@ CREATE TABLE Location (
                 PostalCode VARCHAR(10),
                 LocationLatitude NUMERIC(14,10),
                 LocationLongitude NUMERIC(14,10),
-                LocationTimestamp DATETIME DEFAULT now() NOT NULL,
+                LocationTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (LocationID)
 );
 
@@ -187,7 +187,7 @@ CREATE TABLE Person (
                 ProgramEligibilityTypeID INT,
                 WorkReleaseStatusTypeID INT,
                 SexOffenderStatusTypeID INT,
-                PersonTimestamp DATETIME DEFAULT now() NOT NULL,
+                PersonTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (PersonID)
 );
 
@@ -200,7 +200,7 @@ CREATE TABLE BehavioralHealthAssessment (
                 CareEpisodeEndDate DATE,
                 MedicaidStatusTypeID INT,
                 EnrolledProviderName VARCHAR(100),
-                BehavioralHealthAssessmentTimestamp DATETIME DEFAULT now() NOT NULL,
+                BehavioralHealthAssessmentTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (BehavioralHealthAssessmentID)
 );
 
@@ -209,7 +209,7 @@ CREATE TABLE BehavioralHealthAssessmentCategory (
                 BehavioralHealthAssessmentCategoryID INT AUTO_INCREMENT NOT NULL,
                 BehavioralHealthAssessmentID INT NOT NULL,
                 AssessmentCategoryTypeID INT NOT NULL,
-                BehavioralHealthAssessmentCategoryTimestamp DATETIME DEFAULT now() NOT NULL,
+                BehavioralHealthAssessmentCategoryTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (BehavioralHealthAssessmentCategoryID)
 );
 
@@ -220,7 +220,7 @@ CREATE TABLE PrescribedMedication (
                 MedicationDescription VARCHAR(80),
                 MedicationDispensingDate DATE,
                 MedicationDoseMeasure VARCHAR(10),
-                PrescribedMedicationTimestamp DATETIME DEFAULT now() NOT NULL,
+                PrescribedMedicationTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (PrescribedMedicationID)
 );
 
@@ -232,7 +232,7 @@ CREATE TABLE Treatment (
                 TreatmentAdmissionReasonTypeID INT,
                 TreatmentStatusTypeID INT,
                 TreatmentProviderName VARCHAR(100),
-                TreatmentTimestamp DATETIME DEFAULT now() NOT NULL,
+                TreatmentTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (TreatmentID)
 );
 
@@ -241,7 +241,7 @@ CREATE TABLE BehavioralHealthEvaluation (
                 BehavioralHealthEvaluationID INT AUTO_INCREMENT NOT NULL,
                 BehavioralHealthAssessmentID INT NOT NULL,
                 BehavioralHealthDiagnosisDescription VARCHAR(100),
-                BehavioralHealthEvaluationTimestamp DATETIME DEFAULT now() NOT NULL,
+                BehavioralHealthEvaluationTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (BehavioralHealthEvaluationID)
 );
 
@@ -271,7 +271,7 @@ CREATE TABLE Booking (
                 SupervisionUnitTypeID INT,
                 InmateJailResidentIndicator BOOLEAN,
                 InmateCurrentLocation VARCHAR(100),
-                BookingTimestamp DATETIME DEFAULT now() NOT NULL,
+                BookingTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (BookingID)
 );
 
@@ -283,7 +283,7 @@ CREATE TABLE CustodyRelease (
                 ReleaseDate DATE NOT NULL,
                 ReleaseTime TIME,
                 ReleaseCondition VARCHAR(200),
-                CustodyReleaseTimestamp DATETIME DEFAULT now() NOT NULL,
+                CustodyReleaseTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (CustodyReleaseID)
 );
 
@@ -300,7 +300,7 @@ CREATE TABLE CustodyStatusChange (
                 SupervisionUnitTypeID INT,
                 InmateJailResidentIndicator BOOLEAN,
                 InmateCurrentLocation VARCHAR(100),
-                CustodyStatusChangeTimestamp DATETIME DEFAULT now() NOT NULL,
+                CustodyStatusChangeTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (CustodyStatusChangeID)
 );
 
@@ -310,7 +310,7 @@ CREATE TABLE CustodyStatusChangeArrest (
                 CustodyStatusChangeID INT NOT NULL,
                 LocationID INT,
                 ArrestAgencyID INT,
-                CustodyStatusChangeArrestTimestamp DATETIME DEFAULT now() NOT NULL,
+                CustodyStatusChangeArrestTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (CustodyStatusChangeArrestID)
 );
 
@@ -327,7 +327,7 @@ CREATE TABLE CustodyStatusChangeCharge (
                 ChargeJurisdictionTypeID INT,
                 ChargeClassTypeID INT,
                 BondStatusTypeID INT,
-                CustodyStatusChangeChargeTimestamp DATETIME DEFAULT now() NOT NULL,
+                CustodyStatusChangeChargeTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (CustodyStatusChangeChargeID)
 );
 
@@ -337,7 +337,7 @@ CREATE TABLE BookingArrest (
                 BookingID INT NOT NULL,
                 LocationID INT,
                 ArrestAgencyID INT,
-                BookingArrestTimestamp DATETIME DEFAULT now() NOT NULL,
+                BookingArrestTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (BookingArrestID)
 );
 
@@ -353,7 +353,7 @@ CREATE TABLE BookingCharge (
                 ChargeJurisdictionTypeID INT,
                 ChargeClassTypeID INT,
                 BondStatusTypeID INT,
-                BookingChargeTimestamp DATETIME DEFAULT now() NOT NULL,
+                BookingChargeTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (BookingChargeID)
 );
 
