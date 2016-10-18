@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -57,7 +57,7 @@ public class TestAnalyticalDatastoreDAOImpl {
     private DataSource dataSource;  
 	
 	@Autowired
-	private AnalyticalDatastoreDAOImpl analyticalDatastoreDAO;
+	private AnalyticalDatastoreDAO analyticalDatastoreDAO;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -74,7 +74,8 @@ public class TestAnalyticalDatastoreDAOImpl {
 		Booking booking = new Booking();
 		
 		booking.setPersonId(personPk);
-		booking.setBookingDateTime(LocalDateTime.parse("2013-12-17T09:30:00"));
+		booking.setBookingDate(LocalDate.parse("2013-12-17"));
+		booking.setBookingTime(LocalTime.parse("09:30:00"));
 		booking.setScheduledReleaseDate(LocalDate.parse("2014-12-17"));
 		booking.setFacilityId(1);
 		booking.setSupervisionUnitTypeId(2);

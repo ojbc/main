@@ -50,9 +50,20 @@
 		<xmlunit-version>1.5</xmlunit-version>
 		<junit-version>4.8.1</junit-version>
 		<java-version>1.8</java-version>
+		<saxon-version>9.5.1-5</saxon-version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-saxon</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>${saxon-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core</artifactId>

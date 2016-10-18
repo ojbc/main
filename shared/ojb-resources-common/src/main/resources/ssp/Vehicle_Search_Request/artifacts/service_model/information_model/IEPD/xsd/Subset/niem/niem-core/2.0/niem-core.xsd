@@ -24,10 +24,10 @@
       <i:ConformantIndicator>true</i:ConformantIndicator>
     </xsd:appinfo>
   </xsd:annotation>
-  <xsd:import schemaLocation="../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
   <xsd:import schemaLocation="../../appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0"/>
-  <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
   <xsd:import schemaLocation="../../fbi/2.0/fbi.xsd" namespace="http://niem.gov/niem/fbi/2.0"/>
+  <xsd:import schemaLocation="../../proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0"/>
+  <xsd:import schemaLocation="../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
   <xsd:complexType name="ConveyanceType">
     <xsd:annotation>
       <xsd:documentation>A data type for a means of transport from place to place.</xsd:documentation>
@@ -85,6 +85,7 @@
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
           <xsd:element ref="nc:IdentificationID" minOccurs="1" maxOccurs="1"/>
+          <xsd:element ref="nc:IdentificationJurisdiction" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -105,8 +106,8 @@
       <xsd:documentation>A data type for information that further qualifies primary data; data about data.</xsd:documentation>
       <xsd:appinfo>
         <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="MetadataType"/>
-        <i:AppliesTo i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
         <i:AppliesTo i:namespace="http://niem.gov/niem/structures/2.0" i:name="Association"/>
+        <i:AppliesTo i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
       </xsd:appinfo>
     </xsd:annotation>
     <xsd:complexContent>
@@ -136,6 +137,7 @@
         <xsd:sequence>
           <xsd:element ref="nc:ItemColor" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:ItemModelName" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:ItemModelYearDate" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -187,6 +189,19 @@
       <xsd:documentation>A value that identifies something.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="IdentificationJurisdiction" abstract="true">
+    <xsd:annotation>
+      <xsd:documentation>An area, region, or unit in which a unique identification is issued.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="IdentificationJurisdictionText" type="nc:TextType" substitutionGroup="nc:IdentificationJurisdiction">
+    <xsd:annotation>
+      <xsd:documentation>An area, region, or unit in which a unique identification is issued.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="IdentificationJurisdiction"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="ItemColor" abstract="true">
     <xsd:annotation>
       <xsd:documentation>A color of an item.</xsd:documentation>
@@ -195,6 +210,11 @@
   <xsd:element name="ItemModelName" type="nc:ProperNameTextType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A name of a specific design or kind of item made by a manufacturer.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ItemModelYearDate" type="niem-xsd:gYear" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A year in which an item was manufactured or produced.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="StartDate" type="nc:DateType" nillable="true">

@@ -32,11 +32,13 @@
   </parent>
 
   <modules>
- 	 <module>static-mock-adapter-osgi</module>
-     <module>static-mock-adapter</module>
-     <module>n-dex-submission-service-mock-adapter</module>
-     <module>fbi-electronic-biometric-transmission-specification-adapter</module>
-	 <module>rapback-data-store-adapter</module>
+    <module>static-mock-adapter-osgi</module>
+    <module>static-mock-adapter</module>
+    <module>n-dex-submission-service-mock-adapter</module>
+    <module>fbi-electronic-biometric-transmission-specification-adapter</module>
+    <module>rapback-data-store-adapter</module>
+    <module>custody-analytics-staging-adapter</module>
+    <module>person-health-information-search-service-adapter</module>
   </modules>
 
   

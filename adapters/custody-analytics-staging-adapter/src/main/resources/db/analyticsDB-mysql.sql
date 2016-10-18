@@ -15,9 +15,9 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
  
-drop database if exists `CustodyAnalyticsDataStore`;
-CREATE DATABASE `CustodyAnalyticsDataStore`; 
-use CustodyAnalyticsDataStore;
+drop database if exists `ojbc_booking_staging`;
+CREATE DATABASE `ojbc_booking_staging`; 
+use ojbc_booking_staging;
 
 /**
 * Copy DDL from SQL PA below here.  Modify timestamps in fact tables like this:
@@ -27,84 +27,84 @@ use CustodyAnalyticsDataStore;
 
 
 CREATE TABLE MedicaidStatusType (
-                MedicaidStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                MedicaidStatusTypeID INT NOT NULL,
                 MedicaidStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (MedicaidStatusTypeID)
 );
 
 
 CREATE TABLE AssessmentCategoryType (
-                AssessmentCategoryTypeID INT AUTO_INCREMENT NOT NULL,
+                AssessmentCategoryTypeID INT NOT NULL,
                 AssessmentCategoryTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (AssessmentCategoryTypeID)
 );
 
 
 CREATE TABLE BondStatusType (
-                BondStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                BondStatusTypeID INT NOT NULL,
                 BondStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (BondStatusTypeID)
 );
 
 
 CREATE TABLE ChargeClassType (
-                ChargeClassTypeID INT AUTO_INCREMENT NOT NULL,
+                ChargeClassTypeID INT NOT NULL,
                 ChargeClassTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (ChargeClassTypeID)
 );
 
 
 CREATE TABLE TreatmentStatusType (
-                TreatmentStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                TreatmentStatusTypeID INT NOT NULL,
                 TreatmentStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (TreatmentStatusTypeID)
 );
 
 
 CREATE TABLE TreatmentAdmissionReasonType (
-                TreatmentAdmissionReasonTypeID INT AUTO_INCREMENT NOT NULL,
+                TreatmentAdmissionReasonTypeID INT NOT NULL,
                 TreatmentAdmissionReasonTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (TreatmentAdmissionReasonTypeID)
 );
 
 
 CREATE TABLE SexOffenderStatusType (
-                SexOffenderStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                SexOffenderStatusTypeID INT NOT NULL,
                 SexOffenderStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (SexOffenderStatusTypeID)
 );
 
 
 CREATE TABLE WorkReleaseStatusType (
-                WorkReleaseStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                WorkReleaseStatusTypeID INT NOT NULL,
                 WorkReleaseStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (WorkReleaseStatusTypeID)
 );
 
 
 CREATE TABLE ProgramEligibilityType (
-                ProgramEligibilityTypeID INT AUTO_INCREMENT NOT NULL,
+                ProgramEligibilityTypeID INT NOT NULL,
                 ProgramEligibilityTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (ProgramEligibilityTypeID)
 );
 
 
 CREATE TABLE DomicileStatusType (
-                DomicileStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                DomicileStatusTypeID INT NOT NULL,
                 DomicileStatusTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (DomicileStatusTypeID)
 );
 
 
 CREATE TABLE PersonEthnicityType (
-                PersonEthnicityTypeID INT AUTO_INCREMENT NOT NULL,
+                PersonEthnicityTypeID INT NOT NULL,
                 PersonEthnicityTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (PersonEthnicityTypeID)
 );
 
 
 CREATE TABLE MilitaryServiceStatusType (
-                MilitaryServiceStatusTypeID INT AUTO_INCREMENT NOT NULL,
+                MilitaryServiceStatusTypeID INT NOT NULL,
                 MilitaryServiceStatusTypeDescription VARCHAR(100) NOT NULL,
                 PRIMARY KEY (MilitaryServiceStatusTypeID)
 );
@@ -120,20 +120,20 @@ CREATE TABLE Location (
                 PostalCode VARCHAR(10),
                 LocationLatitude NUMERIC(14,10),
                 LocationLongitude NUMERIC(14,10),
-                LocationTimestamp DATETIME DEFAULT now() NOT NULL,
+                LocationTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (LocationID)
 );
 
 
 CREATE TABLE LanguageType (
-                LanguageTypeID INT AUTO_INCREMENT NOT NULL,
+                LanguageTypeID INT NOT NULL,
                 LanguageTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (LanguageTypeID)
 );
 
 
 CREATE TABLE Facility (
-                FacilityID INT AUTO_INCREMENT NOT NULL,
+                FacilityID INT NOT NULL,
                 FacilityDescription VARCHAR(100) NOT NULL,
                 Capacity INT DEFAULT 0 NOT NULL,
                 PRIMARY KEY (FacilityID)
@@ -143,28 +143,28 @@ ALTER TABLE Facility COMMENT 'Booking Detention Facility';
 
 
 CREATE TABLE BondType (
-                BondTypeID INT AUTO_INCREMENT NOT NULL,
+                BondTypeID INT NOT NULL,
                 BondTypeDescription VARCHAR(100) NOT NULL,
                 PRIMARY KEY (BondTypeID)
 );
 
 
 CREATE TABLE SupervisionUnitType (
-                SupervisionUnitTypeID INT AUTO_INCREMENT NOT NULL,
+                SupervisionUnitTypeID INT NOT NULL,
                 SupervisionUnitTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (SupervisionUnitTypeID)
 );
 
 
 CREATE TABLE PersonRaceType (
-                PersonRaceTypeID INT AUTO_INCREMENT NOT NULL,
+                PersonRaceTypeID INT NOT NULL,
                 PersonRaceTypeDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (PersonRaceTypeID)
 );
 
 
 CREATE TABLE PersonSexType (
-                PersonSexTypeID INT AUTO_INCREMENT NOT NULL,
+                PersonSexTypeID INT NOT NULL,
                 PersonSexTypeDescription VARCHAR(7) NOT NULL,
                 PRIMARY KEY (PersonSexTypeID)
 );
@@ -172,7 +172,8 @@ CREATE TABLE PersonSexType (
 
 CREATE TABLE Person (
                 PersonID INT AUTO_INCREMENT NOT NULL,
-                PersonUniqueIdentifier VARCHAR(36) NOT NULL,
+                PersonUniqueIdentifier VARCHAR(100) NOT NULL,
+                PersonUniqueIdentifier2 VARCHAR(100),
                 PersonAgeAtBooking INT,
                 PersonBirthDate DATE,
                 EducationLevel VARCHAR(50),
@@ -186,7 +187,7 @@ CREATE TABLE Person (
                 ProgramEligibilityTypeID INT,
                 WorkReleaseStatusTypeID INT,
                 SexOffenderStatusTypeID INT,
-                PersonTimestamp DATETIME DEFAULT now() NOT NULL,
+                PersonTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (PersonID)
 );
 
@@ -199,7 +200,7 @@ CREATE TABLE BehavioralHealthAssessment (
                 CareEpisodeEndDate DATE,
                 MedicaidStatusTypeID INT,
                 EnrolledProviderName VARCHAR(100),
-                BehavioralHealthAssessmentTimestamp DATETIME DEFAULT now() NOT NULL,
+                BehavioralHealthAssessmentTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (BehavioralHealthAssessmentID)
 );
 
@@ -208,7 +209,7 @@ CREATE TABLE BehavioralHealthAssessmentCategory (
                 BehavioralHealthAssessmentCategoryID INT AUTO_INCREMENT NOT NULL,
                 BehavioralHealthAssessmentID INT NOT NULL,
                 AssessmentCategoryTypeID INT NOT NULL,
-                BehavioralHealthAssessmentCategoryTimestamp DATETIME DEFAULT now() NOT NULL,
+                BehavioralHealthAssessmentCategoryTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (BehavioralHealthAssessmentCategoryID)
 );
 
@@ -219,7 +220,7 @@ CREATE TABLE PrescribedMedication (
                 MedicationDescription VARCHAR(80),
                 MedicationDispensingDate DATE,
                 MedicationDoseMeasure VARCHAR(10),
-                PrescribedMedicationTimestamp DATETIME DEFAULT now() NOT NULL,
+                PrescribedMedicationTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (PrescribedMedicationID)
 );
 
@@ -231,7 +232,7 @@ CREATE TABLE Treatment (
                 TreatmentAdmissionReasonTypeID INT,
                 TreatmentStatusTypeID INT,
                 TreatmentProviderName VARCHAR(100),
-                BehavioralHealthAssessmentTimestamp DATETIME DEFAULT now() NOT NULL,
+                TreatmentTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (TreatmentID)
 );
 
@@ -239,21 +240,21 @@ CREATE TABLE Treatment (
 CREATE TABLE BehavioralHealthEvaluation (
                 BehavioralHealthEvaluationID INT AUTO_INCREMENT NOT NULL,
                 BehavioralHealthAssessmentID INT NOT NULL,
-                BehavioralHealthDiagnosisDescription VARCHAR(50),
-                BehavioralHealthEvaluationTimestamp DATETIME DEFAULT now() NOT NULL,
+                BehavioralHealthDiagnosisDescription VARCHAR(100),
+                BehavioralHealthEvaluationTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (BehavioralHealthEvaluationID)
 );
 
 
 CREATE TABLE JurisdictionType (
-                JurisdictionTypeID INT AUTO_INCREMENT NOT NULL,
+                JurisdictionTypeID INT NOT NULL,
                 JurisdictionTypeDescription VARCHAR(100) NOT NULL,
                 PRIMARY KEY (JurisdictionTypeID)
 );
 
 
 CREATE TABLE Agency (
-                AgencyID INT AUTO_INCREMENT NOT NULL,
+                AgencyID INT NOT NULL,
                 AgencyDescription VARCHAR(50) NOT NULL,
                 PRIMARY KEY (AgencyID)
 );
@@ -261,38 +262,45 @@ CREATE TABLE Agency (
 
 CREATE TABLE Booking (
                 BookingID INT AUTO_INCREMENT NOT NULL,
-                BookingNumber VARCHAR(50) NOT NULL,
+                BookingNumber VARCHAR(100) NOT NULL,
                 PersonID INT NOT NULL,
-                BookingDateTime DATETIME,
+                BookingDate DATE NOT NULL,
+                BookingTime TIME,
                 ScheduledReleaseDate DATE,
                 FacilityID INT,
                 SupervisionUnitTypeID INT,
                 InmateJailResidentIndicator BOOLEAN,
-                BookingTimestamp DATETIME DEFAULT now() NOT NULL,
+                InmateCurrentLocation VARCHAR(100),
+                BookingTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (BookingID)
 );
 
 
 CREATE TABLE CustodyRelease (
                 CustodyReleaseID INT AUTO_INCREMENT NOT NULL,
-                BookingID INT NOT NULL,
-                ReleaseDateTime DATETIME,
+                BookingID INT,
+                BookingNumber VARCHAR(100) NOT NULL,
+                ReleaseDate DATE NOT NULL,
+                ReleaseTime TIME,
                 ReleaseCondition VARCHAR(200),
-                CustodyReleaseTimestamp DATETIME DEFAULT now() NOT NULL,
+                CustodyReleaseTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (CustodyReleaseID)
 );
 
 
 CREATE TABLE CustodyStatusChange (
                 CustodyStatusChangeID INT AUTO_INCREMENT NOT NULL,
-                BookingID INT NOT NULL,
+                BookingID INT,
                 PersonID INT NOT NULL,
-                BookingDateTime DATETIME,
+                BookingDate DATE NOT NULL,
+                BookingTime TIME,
+                BookingNumber VARCHAR(100) NOT NULL,
                 ScheduledReleaseDate DATE,
                 FacilityID INT,
                 SupervisionUnitTypeID INT,
                 InmateJailResidentIndicator BOOLEAN,
-                CustodyStatusChangeTimestamp DATETIME DEFAULT now() NOT NULL,
+                InmateCurrentLocation VARCHAR(100),
+                CustodyStatusChangeTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (CustodyStatusChangeID)
 );
 
@@ -302,7 +310,7 @@ CREATE TABLE CustodyStatusChangeArrest (
                 CustodyStatusChangeID INT NOT NULL,
                 LocationID INT,
                 ArrestAgencyID INT,
-                CustodyStatusChangeArrestTimestamp DATETIME DEFAULT now() NOT NULL,
+                CustodyStatusChangeArrestTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (CustodyStatusChangeArrestID)
 );
 
@@ -319,7 +327,7 @@ CREATE TABLE CustodyStatusChangeCharge (
                 ChargeJurisdictionTypeID INT,
                 ChargeClassTypeID INT,
                 BondStatusTypeID INT,
-                CustodyStatusChangeChargeTimestamp DATETIME DEFAULT now() NOT NULL,
+                CustodyStatusChangeChargeTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (CustodyStatusChangeChargeID)
 );
 
@@ -329,7 +337,7 @@ CREATE TABLE BookingArrest (
                 BookingID INT NOT NULL,
                 LocationID INT,
                 ArrestAgencyID INT,
-                BookingArrestTimestamp DATETIME DEFAULT now() NOT NULL,
+                BookingArrestTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (BookingArrestID)
 );
 
@@ -345,7 +353,7 @@ CREATE TABLE BookingCharge (
                 ChargeJurisdictionTypeID INT,
                 ChargeClassTypeID INT,
                 BondStatusTypeID INT,
-                BookingChargeTimestamp DATETIME DEFAULT now() NOT NULL,
+                BookingChargeTimestamp TIMESTAMP DEFAULT now() NOT NULL,
                 PRIMARY KEY (BookingChargeID)
 );
 

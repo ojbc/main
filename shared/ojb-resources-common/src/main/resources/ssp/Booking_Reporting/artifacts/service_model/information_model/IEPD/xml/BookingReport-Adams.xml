@@ -59,6 +59,9 @@
 			<j:SubjectIdentification>
 				<nc:IdentificationID>Booking Subject Number</nc:IdentificationID>
 			</j:SubjectIdentification>
+			<br-ext:SubjectLocationStatus>
+				<nc:StatusDescriptionText>In Jail</nc:StatusDescriptionText>
+			</br-ext:SubjectLocationStatus>
 		</j:BookingSubject>
 		<j:Arrest structures:ref="Arrest_01" />
 		<j:Arrest structures:ref="Arrest_02" />
@@ -104,7 +107,8 @@
 		</br-ext:DetentiontImmigrationHoldIndicator>
 		<br-ext:InmateWorkReleaseIndicator>true
 		</br-ext:InmateWorkReleaseIndicator>
-		<br-ext:InmateJailResidentIndicator>false</br-ext:InmateJailResidentIndicator>
+		<br-ext:InmateJailResidentIndicator>false
+		</br-ext:InmateJailResidentIndicator>
 		<br-ext:InmateWorkerIndicator>false
 		</br-ext:InmateWorkerIndicator>
 		<br-ext:AllowAccountDepositIndicator>true
@@ -275,7 +279,7 @@
 		<nc:PersonPrimaryLanguage>
 			<nc:LanguageName>English</nc:LanguageName>
 		</nc:PersonPrimaryLanguage>
-		<j:PersonRaceCode>W</j:PersonRaceCode>
+		<ac-bkg-codes:PersonRaceCode>P</ac-bkg-codes:PersonRaceCode>
 		<nc:PersonResidentText>Residence</nc:PersonResidentText>
 		<j:PersonSexCode>F</j:PersonSexCode>
 		<nc:PersonSSNIdentification>

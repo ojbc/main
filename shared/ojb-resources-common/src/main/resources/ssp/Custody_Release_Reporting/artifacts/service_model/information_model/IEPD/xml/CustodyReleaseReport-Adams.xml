@@ -21,6 +21,7 @@
 	xmlns:crr-doc="http://ojbc.org/IEPD/Exchange/CustodyReleaseReport/1.0"
 	xmlns:crr-ext="http://ojbc.org/IEPD/Extensions/CustodyReleaseReportExtension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:ac-bkg-codes="http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
@@ -67,7 +68,6 @@
 					<nc:Date>2001-12-17</nc:Date>
 				</j:SupervisionReleaseEligibilityDate>
 			</j:SupervisionAugmentation>
-
 		</j:Detention>
 		<nc:Release>
 			<nc:ActivityDate>
@@ -108,6 +108,7 @@
 			<nc:PersonPrimaryLanguage>
 				<nc:LanguageName>English</nc:LanguageName>
 			</nc:PersonPrimaryLanguage>
+			<ac-bkg-codes:PersonRaceCode>P</ac-bkg-codes:PersonRaceCode>
 			<j:PersonSexCode>F</j:PersonSexCode>
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
@@ -131,7 +132,8 @@
 					<nc:IdentificationID>CO0120010324</nc:IdentificationID>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
-			<crr-ext:PersonVeteranBenefitsEligibilityIndicator>true</crr-ext:PersonVeteranBenefitsEligibilityIndicator>
+			<crr-ext:PersonVeteranBenefitsEligibilityIndicator>true
+			</crr-ext:PersonVeteranBenefitsEligibilityIndicator>
 			<crr-ext:PersonPersistentIdentification>
 				<nc:IdentificationID>e807f1fcf82d132f9bb018ca6738a19f
 				</nc:IdentificationID>

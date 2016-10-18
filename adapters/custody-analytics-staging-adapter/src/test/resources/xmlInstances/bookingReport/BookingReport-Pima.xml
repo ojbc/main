@@ -48,6 +48,9 @@
             <j:SubjectIdentification>
                <nc:IdentificationID>098765432</nc:IdentificationID>
             </j:SubjectIdentification>
+            <br-ext:SubjectLocationStatus>
+				<nc:StatusDescriptionText>Weekender Release</nc:StatusDescriptionText>
+			</br-ext:SubjectLocationStatus>
          </j:BookingSubject>
          <j:Arrest structures:ref="d1e996"/>
       </j:Booking>

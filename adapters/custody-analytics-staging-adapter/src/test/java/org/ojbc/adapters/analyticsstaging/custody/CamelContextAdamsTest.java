@@ -17,6 +17,8 @@
 package org.ojbc.adapters.analyticsstaging.custody;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -27,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +60,7 @@ import org.apache.cxf.message.MessageImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.adapters.analyticsstaging.custody.dao.AnalyticalDatastoreDAOImpl;
+import org.ojbc.adapters.analyticsstaging.custody.dao.AnalyticalDatastoreDAO;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAssessment;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingArrest;
@@ -72,6 +74,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.PrescribedMedication
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Treatment;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
@@ -90,6 +93,9 @@ public class CamelContextAdamsTest {
 	
 	private static final Log log = LogFactory.getLog( CamelContextAdamsTest.class );
 	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
     @Resource
     private ModelCamelContext context;
     
@@ -97,7 +103,7 @@ public class CamelContextAdamsTest {
     protected ProducerTemplate template;
 
 	@Autowired
-	private AnalyticalDatastoreDAOImpl analyticalDatastoreDAOImpl;
+	private AnalyticalDatastoreDAO analyticalDatastoreDAO;
 	
 	@EndpointInject(uri = "mock:direct:failedInvocation")
 	protected MockEndpoint failedInvocationEndpoint;
@@ -168,19 +174,20 @@ public class CamelContextAdamsTest {
 		testBookingReportServiceRoute();	
 		testCustodyStatusChangeReportService();
 		testCustodyReleaseReportServiceRoute();
+		testBookingReportServiceRouteDup();	
 	}
 	
 	public void testCustodyStatusChangeReportService() throws Exception
 	{
 		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/custodyStatusChangeReport/CustodyStatusChangeReport-Adams.xml");
 
-		Person person = analyticalDatastoreDAOImpl.getPerson(1);
+		Person person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNotNull(person);
 		
-		CustodyStatusChange custodyStatusChange = analyticalDatastoreDAOImpl.getCustodyStatusChangeByBookingId(1);
-		assertNull(custodyStatusChange);
+		List<CustodyStatusChange> custodyStatusChanges = analyticalDatastoreDAO.getCustodyStatusChangesByBookingId(1);
+		assertTrue(custodyStatusChanges.isEmpty());
 		
-		List<CustodyStatusChangeCharge> custodyStatusChangeCharges = analyticalDatastoreDAOImpl.getCustodyStatusChangeCharges( 1 ); 
+		List<CustodyStatusChangeCharge> custodyStatusChangeCharges = analyticalDatastoreDAO.getCustodyStatusChangeCharges( 1 ); 
 		assertTrue(custodyStatusChangeCharges.isEmpty());
 		
 	    //Send the one-way exchange.  Using template.send will send an one way message
@@ -192,19 +199,23 @@ public class CamelContextAdamsTest {
 			throw new Exception(returnExchange.getException());
 		}
 		
-		person = analyticalDatastoreDAOImpl.getPerson(1);
+		person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNotNull(person);
 
-		Person person2 = analyticalDatastoreDAOImpl.getPerson(2);
+		Person person2 = analyticalDatastoreDAO.getPerson(2);
 		Assert.assertNotNull(person2);
 
 		Assert.assertEquals(Integer.valueOf(2), person2.getPersonId());
-		assertThat(person2.getDomicileStatusTypeId(), is(1));
+		assertThat(person2.getDomicileStatusTypeId(), nullValue());
+		assertThat(person2.getPersonUniqueIdentifier2(), is("Booking Subject Number"));
 		assertThat(person2.getEducationLevel(), is("High School Graduate"));
 		assertThat(person2.getOccupation(), is("Truck Driver"));
 		assertThat(person2.getMilitaryServiceStatusType().getValue(), is("Active"));
+		assertThat(person2.getSexOffenderStatusTypeId(), is(1));
+		assertThat(person2.getPersonRaceId(), is(6));
+		assertThat(person2.getPersonRaceDescription(), is("White"));
 		
-		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAOImpl.getBehavioralHealthAssessments(2);
+		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(2);
 		assertThat(behavioralHealthAssessments.size(), is(1));
 		
 		BehavioralHealthAssessment behavioralHealthAssessment = behavioralHealthAssessments.get(0);
@@ -217,20 +228,20 @@ public class CamelContextAdamsTest {
 		assertThat(behavioralHealthAssessment.getCareEpisodeStartDate(), is(LocalDate.parse("2016-01-01")));
 		assertThat(behavioralHealthAssessment.getCareEpisodeEndDate(), is(LocalDate.parse("2016-04-01")));
 		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
-		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(1));
+		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), nullValue());
 
-		List<Treatment> treatments = analyticalDatastoreDAOImpl.getTreatments(2);
+		List<Treatment> treatments = analyticalDatastoreDAO.getTreatments(2);
 		assertThat(treatments.size(), is(1));
 		
 		Treatment treatment = treatments.get(0);
 		assertThat(treatment.getBehavioralHealthAssessmentID(), is(2));
 		assertThat(treatment.getTreatmentStartDate(), is(LocalDate.parse("2016-01-01"))); 
-		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), is(1));
-		assertThat(treatment.getTreatmentStatusTypeId(), is(1));
+		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), nullValue());
+		assertThat(treatment.getTreatmentStatusTypeId(), nullValue());
 		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
 		
 		
-		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAOImpl.getPrescribedMedication(2);
+		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAO.getPrescribedMedication(2);
 		assertThat(prescribedMedications.size(), is(1));
 		
 		PrescribedMedication  prescribedMedication = prescribedMedications.get(0);
@@ -239,17 +250,21 @@ public class CamelContextAdamsTest {
 		assertThat(prescribedMedication.getMedicationDispensingDate(), is(LocalDate.parse("2016-01-01"))); 
 		assertThat(prescribedMedication.getMedicationDoseMeasure(), is("3mg"));
 		
-		custodyStatusChange = analyticalDatastoreDAOImpl.getCustodyStatusChangeByBookingId(1);
-		assertNotNull(custodyStatusChange);
+		custodyStatusChanges = analyticalDatastoreDAO.getCustodyStatusChangesByBookingId(1);
+		assertThat(custodyStatusChanges.size(), is(1));
 
-		assertEquals(LocalDateTime.parse("2013-12-17T09:30"), custodyStatusChange.getBookingDateTime());
+		CustodyStatusChange custodyStatusChange = custodyStatusChanges.get(0);
+		assertEquals(LocalDate.parse("2013-12-17"), custodyStatusChange.getBookingDate());
+		assertEquals(LocalTime.parse("09:30"), custodyStatusChange.getBookingTime());
 		assertThat(custodyStatusChange.getFacilityId(), is(2));
 		assertThat(custodyStatusChange.getSupervisionUnitTypeId(), is(10)); 
 		assertThat(custodyStatusChange.getBookingId(), is(1));
+		assertThat(custodyStatusChange.getBookingNumber(), is("Booking Number"));
 		assertThat(custodyStatusChange.getScheduledReleaseDate(), is(LocalDate.parse("2014-12-17")));
 		assertThat(custodyStatusChange.getInmateJailResidentIndicator(), is(false));
+		assertThat(custodyStatusChange.getInmateCurrentLocation(), nullValue());
 		
-		List<CustodyStatusChangeArrest> custodyStatusChangeArrests = analyticalDatastoreDAOImpl.getCustodyStatusChangeArrests(1);
+		List<CustodyStatusChangeArrest> custodyStatusChangeArrests = analyticalDatastoreDAO.getCustodyStatusChangeArrests(1);
 		assertThat(custodyStatusChangeArrests.size(), is(1));
 		CustodyStatusChangeArrest custodyStatusChangeArrest = custodyStatusChangeArrests.get(0);
 		
@@ -264,18 +279,18 @@ public class CamelContextAdamsTest {
 		assertTrue(custodyStatusChangeArrest.getAddress().getLocationLongitude().doubleValue() == 32.1111 );
 		assertThat(custodyStatusChangeArrest.getArrestAgencyId(), is(22));
 		
-		custodyStatusChangeCharges = analyticalDatastoreDAOImpl.getCustodyStatusChangeCharges( 1 ); 
+		custodyStatusChangeCharges = analyticalDatastoreDAO.getCustodyStatusChangeCharges( 1 ); 
 		assertThat(custodyStatusChangeCharges.size(), is(1));
 		
 		CustodyStatusChangeCharge custodyStatusChangeCharge = custodyStatusChangeCharges.get(0);
-		assertThat(custodyStatusChangeCharge.getChargeCode(), is("Felony"));
+		assertThat(custodyStatusChangeCharge.getChargeCode(), is("Charge Code ID"));
 		assertTrue(custodyStatusChangeCharge.getCustodyStatusChangeArrestId() == 1);
 		assertTrue(custodyStatusChangeCharge.getBondAmount().doubleValue() == 500.00); 
-		assertThat(custodyStatusChangeCharge.getBondType().getValue(), is("PROPERTY BOND"));
+		assertThat(custodyStatusChangeCharge.getBondType().getValue(), is("PR BOND"));
 		assertThat(custodyStatusChangeCharge.getAgencyId(), is(21));
 		assertThat(custodyStatusChangeCharge.getChargeClassTypeId(), is(2));
-		assertThat(custodyStatusChangeCharge.getBondStatusTypeId(), is(4));
-		assertThat(custodyStatusChangeCharge.getChargeJurisdictionTypeId(), is(1));
+		assertThat(custodyStatusChangeCharge.getBondStatusTypeId(), is(11));
+		assertThat(custodyStatusChangeCharge.getChargeJurisdictionTypeId(), is(2));
 		assertThat(custodyStatusChangeCharge.getChargeDisposition(), is("Disposition"));
 		
 	}
@@ -283,16 +298,16 @@ public class CamelContextAdamsTest {
 	public void testBookingReportServiceRoute() throws Exception, IOException {
 		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/bookingReport/BookingReport-Adams.xml");
 
-		Person person = analyticalDatastoreDAOImpl.getPerson(1);
+		Person person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNull(person);
 		
-		Booking booking = analyticalDatastoreDAOImpl.getBookingByBookingNumber("eDocumentID");
+		Booking booking = analyticalDatastoreDAO.getBookingByBookingNumber("Booking Number");
 		assertNull(booking);
 		
-		List<BookingCharge> bookingCharges = analyticalDatastoreDAOImpl.getBookingCharges( 1 ); 
+		List<BookingCharge> bookingCharges = analyticalDatastoreDAO.getBookingCharges( 1 ); 
 		assertTrue(bookingCharges.isEmpty());
 		
-		List<BookingArrest> bookingArrests = analyticalDatastoreDAOImpl.getBookingArrests( 1 ); 
+		List<BookingArrest> bookingArrests = analyticalDatastoreDAO.getBookingArrests( 1 ); 
 		assertTrue(bookingArrests.isEmpty());
 		
 	    //Send the one-way exchange.  Using template.send will send an one way message
@@ -304,17 +319,21 @@ public class CamelContextAdamsTest {
 			throw new Exception(returnExchange.getException());
 		}
 		
-		person = analyticalDatastoreDAOImpl.getPerson(1);
+		assertThat(jdbcTemplate.queryForObject("select count(*) from Booking", Integer.class), is(1));
+
+		person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNotNull(person);
 		
 		Assert.assertEquals(Integer.valueOf(1), person.getPersonId());
 		assertThat(person.getPersonSexId(), is(2));
-		assertThat(person.getPersonRaceId(), is(6));
+		assertThat(person.getPersonRaceId(), is(4));
+		assertThat(person.getPersonEthnicityTypeId(), is(1));
 		assertThat(person.getPersonSexDescription(), is("Female"));
-		assertThat(person.getPersonRaceDescription(), is("White"));
+		assertThat(person.getPersonRaceDescription(), is("Native Hawaiian or Pacific Islander"));
 		assertThat(person.getLanguage(), is("English"));
 		assertThat(person.getPersonBirthDate(), is(LocalDate.parse("1968-12-17")));
-		Assert.assertEquals("e807f1fcf82d132f9bb018ca6738a19f", person.getPersonUniqueIdentifier());
+		assertThat(person.getPersonUniqueIdentifier(), is("e807f1fcf82d132f9bb018ca6738a19f"));
+		assertThat(person.getPersonUniqueIdentifier2(), is("Booking Subject Number"));
 		assertThat(person.getLanguageId(), is(1));
 		assertThat(person.getSexOffenderStatusTypeId(), is(1));
 		assertThat(person.getMilitaryServiceStatusType().getValue(), is("Honorable Discharge"));
@@ -322,7 +341,7 @@ public class CamelContextAdamsTest {
 		assertThat(person.getEducationLevel(), is("High School Graduate"));
 		assertThat(person.getOccupation(), is("Truck Driver"));
 		
-		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAOImpl.getBehavioralHealthAssessments(1);
+		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(1);
 		assertFalse(behavioralHealthAssessments.isEmpty());
 		
 		BehavioralHealthAssessment behavioralHealthAssessment = behavioralHealthAssessments.get(0);
@@ -335,20 +354,20 @@ public class CamelContextAdamsTest {
 		assertThat(behavioralHealthAssessment.getCareEpisodeStartDate(), is(LocalDate.parse("2016-01-01")));
 		assertThat(behavioralHealthAssessment.getCareEpisodeEndDate(), is(LocalDate.parse("2016-04-01")));
 		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
-		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(1));
+		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), nullValue());
 
-		List<Treatment> treatments = analyticalDatastoreDAOImpl.getTreatments(1);
+		List<Treatment> treatments = analyticalDatastoreDAO.getTreatments(1);
 		assertThat(treatments.size(), is(1));
 		
 		Treatment treatment = treatments.get(0);
 		assertThat(treatment.getBehavioralHealthAssessmentID(), is(1));
 		assertThat(treatment.getTreatmentStartDate(), is(LocalDate.parse("2016-01-01"))); 
-		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), is(1));
-		assertThat(treatment.getTreatmentStatusTypeId(), is(1));
+		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), nullValue());
+		assertThat(treatment.getTreatmentStatusTypeId(), nullValue());
 		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
 		
 		
-		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAOImpl.getPrescribedMedication(1);
+		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAO.getPrescribedMedication(1);
 		assertThat(prescribedMedications.size(), is(1));
 		
 		PrescribedMedication  prescribedMedication = prescribedMedications.get(0);
@@ -357,17 +376,19 @@ public class CamelContextAdamsTest {
 		assertThat(prescribedMedication.getMedicationDispensingDate(), is(LocalDate.parse("2016-01-01"))); 
 		assertThat(prescribedMedication.getMedicationDoseMeasure(), is("3mg"));
 		
-		booking = analyticalDatastoreDAOImpl.getBookingByBookingNumber("Booking Number");
+		booking = analyticalDatastoreDAO.getBookingByBookingNumber("Booking Number");
 		assertNotNull(booking);
 
-		assertEquals(LocalDateTime.parse("2013-12-17T09:30"), booking.getBookingDateTime());
+		assertEquals(LocalDate.parse("2013-12-17"), booking.getBookingDate());
+		assertEquals(LocalTime.parse("09:30"), booking.getBookingTime());
 		assertThat(booking.getFacilityId(), is(1));
-		assertThat(booking.getSupervisionUnitTypeId(), is(19)); 
+		assertThat(booking.getSupervisionUnitTypeId(), nullValue()); 
 		assertEquals("Booking Number", booking.getBookingNumber());
 		assertEquals(LocalDate.parse("2014-12-17"), booking.getScheduledReleaseDate());
 		assertThat(booking.getInmateJailResidentIndicator(), is(false)); 
+		assertThat(booking.getInmateCurrentLocation(), nullValue()); 
 		
-		bookingArrests = analyticalDatastoreDAOImpl.getBookingArrests(1);
+		bookingArrests = analyticalDatastoreDAO.getBookingArrests(1);
 		assertFalse(bookingArrests.isEmpty());
 		BookingArrest bookingArrest = bookingArrests.get(0);
 		
@@ -382,32 +403,190 @@ public class CamelContextAdamsTest {
 		assertTrue(bookingArrest.getAddress().getLocationLongitude().doubleValue() == 32.1111 );
 		assertThat(bookingArrest.getArrestAgencyId(), is(29));
 
-		bookingCharges = analyticalDatastoreDAOImpl.getBookingCharges( 1 ); 
+		bookingCharges = analyticalDatastoreDAO.getBookingCharges( 1 ); 
 		assertThat(bookingCharges.size(), is(2));
 		
 		BookingCharge bookingCharge = bookingCharges.get(0);
-		assertThat(bookingCharge.getChargeCode(), is("Felony"));
+		assertThat(bookingCharge.getChargeCode(), is("Charge Code ID"));
 		assertTrue(bookingCharge.getBookingArrestId() == 1);
 		assertTrue(bookingCharge.getBondAmount().doubleValue() == 500.00); 
 		assertThat(bookingCharge.getBondType().getValue(), is("CASH/SURETY/PROPERTY"));
 		assertThat(bookingCharge.getAgencyId(), is(21));
 		assertThat(bookingCharge.getChargeClassTypeId(), is(1));
-		assertThat(bookingCharge.getBondStatusTypeId(), is(2));
+		assertThat(bookingCharge.getBondStatusTypeId(), is(17));
 		assertThat(bookingCharge.getChargeJurisdictionTypeId(), is(1));
 		assertThat(bookingCharge.getChargeDisposition(), is("Disposition"));
 		
-		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingId(1);
+		CustodyRelease custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingId(1);
 		log.info(custodyRelease.toString());
-		assertEquals(LocalDateTime.parse("2014-12-17T10:30"), custodyRelease.getReleaseDateTime());
+		assertEquals(LocalDate.parse("2014-12-17"), custodyRelease.getReleaseDate());
+		assertEquals(LocalTime.parse("10:30"), custodyRelease.getReleaseTime());
+		assertThat(custodyRelease.getBookingNumber(), is("Booking Number"));
 		
+	}
+	
+	public void testBookingReportServiceRouteDup() throws Exception, IOException {
+		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/bookingReport/BookingReport-Adams-dup.xml");
+		
+		Person person = analyticalDatastoreDAO.getPerson(1);
+		Assert.assertNotNull(person);
+		
+		Booking booking = analyticalDatastoreDAO.getBookingByBookingNumber("Booking Number");
+		assertNotNull(booking);
+		
+		List<BookingCharge> bookingCharges = analyticalDatastoreDAO.getBookingCharges( 1 ); 
+		assertFalse(bookingCharges.isEmpty());
+		
+		List<BookingArrest> bookingArrests = analyticalDatastoreDAO.getBookingArrests( 1 ); 
+		assertFalse(bookingArrests.isEmpty());
+		
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:bookingReportServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}
+		
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from Booking", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=2 from BookingArrest", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=2 from BookingCharge", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from Location", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from Person", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from BehavioralHealthAssessment", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from Treatment", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from BehavioralHealthEvaluation", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from BehavioralHealthAssessmentCategory", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from PrescribedMedication", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=1 from CustodyRelease", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from CustodyStatusChange", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from CustodyStatusChangeArrest", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from CustodyStatusChangeCharge", Boolean.class));
+		
+		booking = analyticalDatastoreDAO.getBookingByBookingNumber("Booking Number");
+		assertNotNull(booking);
+		
+		assertEquals(LocalDate.parse("2013-12-17"), booking.getBookingDate());
+		assertEquals(LocalTime.parse("09:30"), booking.getBookingTime());
+		assertThat(booking.getFacilityId(), is(1));
+		assertThat(booking.getSupervisionUnitTypeId(), nullValue()); 
+		assertEquals("Booking Number", booking.getBookingNumber());
+		assertEquals(LocalDate.parse("2014-12-17"), booking.getScheduledReleaseDate());
+		assertThat(booking.getInmateJailResidentIndicator(), is(false));
+		
+		person = analyticalDatastoreDAO.getPerson(booking.getPersonId());
+		Assert.assertNotNull(person);
+		
+		assertThat(person.getPersonId(), is(not(1)));
+		assertThat(person.getPersonSexId(), is(1));
+		assertThat(person.getPersonRaceId(), is(1));
+		assertThat(person.getPersonSexDescription(), is("Male"));
+		assertThat(person.getPersonRaceDescription(), is("Asian"));
+		assertThat(person.getLanguage(), is("English"));
+		assertThat(person.getPersonBirthDate(), is(LocalDate.parse("1968-12-17")));
+		Assert.assertEquals("e807f1fcf82d132f9bb018ca6738a19f", person.getPersonUniqueIdentifier());
+		assertThat(person.getLanguageId(), is(1));
+		assertThat(person.getSexOffenderStatusTypeId(), is(1));
+		assertThat(person.getMilitaryServiceStatusType().getValue(), is("Honorable Discharge"));
+		
+		assertThat(person.getEducationLevel(), is("High School Graduate"));
+		assertThat(person.getOccupation(), is("Truck Driver"));
+		
+		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(booking.getPersonId());
+		assertFalse(behavioralHealthAssessments.isEmpty());
+		
+		BehavioralHealthAssessment behavioralHealthAssessment = behavioralHealthAssessments.get(0);
+		
+		assertTrue(behavioralHealthAssessment.getBehavioralHealthDiagnoses().size() == 1);
+		assertThat(behavioralHealthAssessment.getBehavioralHealthDiagnoses().get(0), is("Schizophrenia 295.10"));
+		assertThat(behavioralHealthAssessment.getPersonId(), is(not(1)));
+		assertThat(behavioralHealthAssessment.getBehavioralHealthAssessmentId(), is(not(1)));
+		assertThat(behavioralHealthAssessment.getSeriousMentalIllness(), is(true));
+		assertThat(behavioralHealthAssessment.getCareEpisodeStartDate(), is(LocalDate.parse("2016-01-01")));
+		assertThat(behavioralHealthAssessment.getCareEpisodeEndDate(), is(LocalDate.parse("2016-04-01")));
+		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
+		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), nullValue());
+		
+		List<Treatment> treatments = analyticalDatastoreDAO.getTreatments(behavioralHealthAssessment.getBehavioralHealthAssessmentId());
+		assertThat(treatments.size(), is(1));
+		
+		Treatment treatment = treatments.get(0);
+		assertThat(treatment.getBehavioralHealthAssessmentID(), is(not(1)));
+		assertThat(treatment.getTreatmentStartDate(), is(LocalDate.parse("2016-01-01"))); 
+		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), nullValue());
+		assertThat(treatment.getTreatmentStatusTypeId(), nullValue());
+		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
+		
+		
+		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAO.getPrescribedMedication(behavioralHealthAssessment.getBehavioralHealthAssessmentId());
+		assertThat(prescribedMedications.size(), is(1));
+		
+		PrescribedMedication  prescribedMedication = prescribedMedications.get(0);
+		assertThat(prescribedMedication.getBehavioralHealthAssessmentID(), is(not(1)));
+		assertThat(prescribedMedication.getMedicationDescription(), is("Zyprexa"));
+		assertThat(prescribedMedication.getMedicationDispensingDate(), is(LocalDate.parse("2016-01-01"))); 
+		assertThat(prescribedMedication.getMedicationDoseMeasure(), is("3mg"));
+		
+		bookingArrests = analyticalDatastoreDAO.getBookingArrests(booking.getBookingId());
+		assertFalse(bookingArrests.isEmpty());
+		BookingArrest bookingArrest = bookingArrests.get(0);
+		
+		assertThat(bookingArrest.getBookingId(), is(booking.getBookingId())); 
+		assertThat(bookingArrest.getBookingArrestId(), is(not(1))); 
+		assertEquals("392", bookingArrest.getAddress().getStreetNumber()); 
+		assertEquals("Woodlawn Ave", bookingArrest.getAddress().getStreetName()); 
+		assertEquals("Burlington", bookingArrest.getAddress().getCity()); 
+		assertEquals("NY", bookingArrest.getAddress().getState()); 
+		assertEquals("05408", bookingArrest.getAddress().getPostalcode()); 
+		assertTrue(bookingArrest.getAddress().getLocationLatitude().doubleValue() == 56.1111 ); 
+		assertTrue(bookingArrest.getAddress().getLocationLongitude().doubleValue() == 32.1111 );
+		assertThat(bookingArrest.getArrestAgencyId(), is(29));
+		
+		bookingCharges = analyticalDatastoreDAO.getBookingCharges( booking.getBookingId()); 
+		assertThat(bookingCharges.size(), is(2));
+		
+		BookingCharge bookingCharge = bookingCharges.get(0);
+		assertThat(bookingCharge.getChargeCode(), is("Charge Code ID"));
+		assertThat(bookingCharge.getBookingArrestId(), is(not(1)));
+		assertTrue(bookingCharge.getBondAmount().doubleValue() == 500.00); 
+		assertThat(bookingCharge.getBondType().getValue(), is("CASH/SURETY/PROPERTY"));
+		assertThat(bookingCharge.getAgencyId(), is(21));
+		assertThat(bookingCharge.getChargeClassTypeId(), is(1));
+		assertThat(bookingCharge.getBondStatusTypeId(), is(17));
+		assertThat(bookingCharge.getChargeJurisdictionTypeId(), is(3));
+		assertThat(bookingCharge.getChargeDisposition(), is("Disposition"));
+		
+		CustodyRelease custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingId(booking.getBookingId());
+		log.info(custodyRelease.toString());
+		assertEquals(LocalDate.parse("2014-12-17"), custodyRelease.getReleaseDate());
+		assertEquals(LocalTime.parse("10:30"), custodyRelease.getReleaseTime());
+		
+		analyticalDatastoreDAO.deleteBooking(booking.getBookingId());
+		
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from Booking", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from BookingArrest", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from BookingCharge", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from Location", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from Person", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from BehavioralHealthAssessment", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from Treatment", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from BehavioralHealthEvaluation", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from BehavioralHealthAssessmentCategory", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from PrescribedMedication", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from CustodyRelease", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from CustodyStatusChange", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from CustodyStatusChangeArrest", Boolean.class));
+		assertTrue(jdbcTemplate.queryForObject("select count(*)=0 from CustodyStatusChangeCharge", Boolean.class));
 	}
 	
 	public void testCustodyReleaseReportServiceRoute() throws Exception
 	{
-		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingId(1); 
-		assertEquals(LocalDateTime.parse("2014-12-17T10:30"), custodyRelease.getReleaseDateTime());
+		CustodyRelease custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingId(1); 
+		assertEquals(LocalDate.parse("2014-12-17"), custodyRelease.getReleaseDate());
+		assertEquals(LocalTime.parse("10:30"), custodyRelease.getReleaseTime());
 		
-		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/custodyReleaseReport/CustodyReleaseReport.xml");
+		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/custodyReleaseReport/CustodyReleaseReport-Adams.xml");
 		
 		//Send the one-way exchange.  Using template.send will send an one way message
 		Exchange returnExchange = template.send("direct:custodyReleaseServiceEndpoint", senderExchange);
@@ -418,36 +597,38 @@ public class CamelContextAdamsTest {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingId(1);
-		assertEquals( LocalDateTime.parse("2001-12-17T09:30:47"), custodyRelease.getReleaseDateTime());
+		custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingId(1);
+		assertEquals( LocalDate.parse("2001-12-17"), custodyRelease.getReleaseDate());
+		assertEquals( LocalTime.parse("09:30:47"), custodyRelease.getReleaseTime());
+		assertThat(custodyRelease.getBookingNumber(), is("Booking Number"));
 		
-		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAOImpl.getBehavioralHealthAssessments(2);
+		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(1);
 		assertThat(behavioralHealthAssessments.size(), is(2));
 		
 		BehavioralHealthAssessment behavioralHealthAssessment = behavioralHealthAssessments.get(1);
 		
 		assertTrue(behavioralHealthAssessment.getBehavioralHealthDiagnoses().size() == 1);
 		assertThat(behavioralHealthAssessment.getBehavioralHealthDiagnoses().get(0), is("Schizophrenia 295.10"));
-		assertThat(behavioralHealthAssessment.getPersonId(), is(2));
+		assertThat(behavioralHealthAssessment.getPersonId(), is(1));
 		assertThat(behavioralHealthAssessment.getBehavioralHealthAssessmentId(), is(3));
 		assertThat(behavioralHealthAssessment.getSeriousMentalIllness(), is(true));
 		assertThat(behavioralHealthAssessment.getCareEpisodeStartDate(), is(LocalDate.parse("2016-01-01")));
 		assertThat(behavioralHealthAssessment.getCareEpisodeEndDate(), is(LocalDate.parse("2016-04-01")));
 		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
-		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(1));
+		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), nullValue());
 
-		List<Treatment> treatments = analyticalDatastoreDAOImpl.getTreatments(3);
+		List<Treatment> treatments = analyticalDatastoreDAO.getTreatments(3);
 		assertThat(treatments.size(), is(1));
 		
 		Treatment treatment = treatments.get(0);
 		assertThat(treatment.getBehavioralHealthAssessmentID(), is(3));
 		assertThat(treatment.getTreatmentStartDate(), is(LocalDate.parse("2016-01-01"))); 
-		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), is(1));
-		assertThat(treatment.getTreatmentStatusTypeId(), is(1));
+		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), nullValue());
+		assertThat(treatment.getTreatmentStatusTypeId(), nullValue());
 		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
 		
 		
-		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAOImpl.getPrescribedMedication(3);
+		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAO.getPrescribedMedication(3);
 		assertThat(prescribedMedications.size(), is(1));
 		
 		PrescribedMedication  prescribedMedication = prescribedMedications.get(0);

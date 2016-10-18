@@ -30,6 +30,7 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
        ">
 
+	<!-- To pull up the H2 console while junit testing, use http://localhost:8082/ and then "jdbc:h2:mem:dataSource" as the connection string  -->
 	<!-- Spring Embeded DB -->
 	<jdbc:embedded-database id="dataSource" type="H2">
         <jdbc:script location="classpath:db/analyticsDB-h2.sql"/>

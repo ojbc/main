@@ -17,6 +17,7 @@
 package org.ojbc.adapters.analyticsstaging.custody;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -27,7 +28,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +59,7 @@ import org.apache.cxf.message.MessageImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.adapters.analyticsstaging.custody.dao.AnalyticalDatastoreDAOImpl;
+import org.ojbc.adapters.analyticsstaging.custody.dao.AnalyticalDatastoreDAO;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BehavioralHealthAssessment;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingArrest;
@@ -95,7 +96,7 @@ public class CamelContextPimaTest {
     protected ProducerTemplate template;
 
 	@Autowired
-	private AnalyticalDatastoreDAOImpl analyticalDatastoreDAOImpl;
+	private AnalyticalDatastoreDAO analyticalDatastoreDAO;
 	
 	@EndpointInject(uri = "mock:direct:failedInvocation")
 	protected MockEndpoint failedInvocationEndpoint;
@@ -132,16 +133,16 @@ public class CamelContextPimaTest {
 	public void testBookingReportServiceRoute() throws Exception, IOException {
 		Exchange senderExchange = createSenderExchange("src/test/resources/xmlInstances/bookingReport/BookingReport-Pima.xml");
 
-		Person person = analyticalDatastoreDAOImpl.getPerson(1);
+		Person person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNull(person);
 		
-		Booking booking = analyticalDatastoreDAOImpl.getBookingByBookingNumber("eDocumentID");
+		Booking booking = analyticalDatastoreDAO.getBookingByBookingNumber("eDocumentID");
 		assertNull(booking);
 		
-		List<BookingCharge> bookingCharges = analyticalDatastoreDAOImpl.getBookingCharges( 1 ); 
+		List<BookingCharge> bookingCharges = analyticalDatastoreDAO.getBookingCharges( 1 ); 
 		assertTrue(bookingCharges.isEmpty());
 		
-		List<BookingArrest> bookingArrests = analyticalDatastoreDAOImpl.getBookingArrests( 1 ); 
+		List<BookingArrest> bookingArrests = analyticalDatastoreDAO.getBookingArrests( 1 ); 
 		assertTrue(bookingArrests.isEmpty());
 		
 	    //Send the one-way exchange.  Using template.send will send an one way message
@@ -153,7 +154,7 @@ public class CamelContextPimaTest {
 			throw new Exception(returnExchange.getException());
 		}
 		
-		person = analyticalDatastoreDAOImpl.getPerson(1);
+		person = analyticalDatastoreDAO.getPerson(1);
 		Assert.assertNotNull(person);
 		
 		Assert.assertEquals(Integer.valueOf(1), person.getPersonId());
@@ -165,8 +166,8 @@ public class CamelContextPimaTest {
 		assertThat(person.getPersonBirthDate(), is(LocalDate.parse("1969-01-01")));
 		Assert.assertEquals("e807f1fcf82d132f9bb018ca6738a19f", person.getPersonUniqueIdentifier());
 		assertThat(person.getLanguageId(), is(41));
-		assertThat(person.getSexOffenderStatusTypeId(), is(1));
-		assertThat(person.getMilitaryServiceStatusType().getValue(), is("Unknown"));
+		assertThat(person.getSexOffenderStatusTypeId(), nullValue());
+		assertNull(person.getMilitaryServiceStatusType().getValue());
 		
 		assertNull(person.getEducationLevel());
 		assertNull(person.getOccupation());
@@ -174,7 +175,7 @@ public class CamelContextPimaTest {
 		assertThat(person.getProgramEligibilityTypeId(), is(2));
 
 		
-		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAOImpl.getBehavioralHealthAssessments(1);
+		List<BehavioralHealthAssessment> behavioralHealthAssessments = analyticalDatastoreDAO.getBehavioralHealthAssessments(1);
 		assertFalse(behavioralHealthAssessments.isEmpty());
 		
 		BehavioralHealthAssessment behavioralHealthAssessment = behavioralHealthAssessments.get(0);
@@ -189,18 +190,18 @@ public class CamelContextPimaTest {
 		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
 		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(2));
 
-		List<Treatment> treatments = analyticalDatastoreDAOImpl.getTreatments(1);
+		List<Treatment> treatments = analyticalDatastoreDAO.getTreatments(1);
 		assertThat(treatments.size(), is(1));
 		
 		Treatment treatment = treatments.get(0);
 		assertThat(treatment.getBehavioralHealthAssessmentID(), is(1));
 		assertThat(treatment.getTreatmentStartDate(), is(LocalDate.parse("2016-01-01"))); 
-		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), is(2));
-		assertThat(treatment.getTreatmentStatusTypeId(), is(2));
+		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), nullValue());
+		assertThat(treatment.getTreatmentStatusTypeId(), nullValue());
 		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
 		
 		
-		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAOImpl.getPrescribedMedication(1);
+		List<PrescribedMedication> prescribedMedications = analyticalDatastoreDAO.getPrescribedMedication(1);
 		assertThat(prescribedMedications.size(), is(1));
 		
 		PrescribedMedication  prescribedMedication = prescribedMedications.get(0);
@@ -209,17 +210,19 @@ public class CamelContextPimaTest {
 		assertThat(prescribedMedication.getMedicationDispensingDate(), is(LocalDate.parse("2016-01-01"))); 
 		assertThat(prescribedMedication.getMedicationDoseMeasure(), is("3mg"));
 		
-		booking = analyticalDatastoreDAOImpl.getBookingByBookingNumber("234567890");
+		booking = analyticalDatastoreDAO.getBookingByBookingNumber("234567890");
 		assertNotNull(booking);
 
-		assertEquals(LocalDateTime.parse("2016-05-12T00:36:00"), booking.getBookingDateTime());
+		assertEquals(LocalDate.parse("2016-05-12"), booking.getBookingDate());
+		assertEquals(LocalTime.parse("00:36:00"), booking.getBookingTime());
 		assertThat(booking.getFacilityId(), is(1));
-		assertThat(booking.getSupervisionUnitTypeId(), is(28)); 
+		assertThat(booking.getSupervisionUnitTypeId(), is(84)); 
 		assertEquals("234567890", booking.getBookingNumber());
 		assertNull(booking.getScheduledReleaseDate());
 		assertThat(booking.getInmateJailResidentIndicator(), is(false)); 
+		assertThat(booking.getInmateCurrentLocation(), is("Weekender Release")); 
 		
-		bookingArrests = analyticalDatastoreDAOImpl.getBookingArrests(1);
+		bookingArrests = analyticalDatastoreDAO.getBookingArrests(1);
 		assertThat(bookingArrests.size(), is(1));
 		BookingArrest bookingArrest = bookingArrests.get(0);
 		
@@ -228,21 +231,21 @@ public class CamelContextPimaTest {
 		assertTrue(bookingArrest.getAddress().isEmpty()); 
 		assertThat(bookingArrest.getArrestAgencyId(), is(16));
 
-		bookingCharges = analyticalDatastoreDAOImpl.getBookingCharges( 1 ); 
+		bookingCharges = analyticalDatastoreDAO.getBookingCharges( 1 ); 
 		assertThat(bookingCharges.size(), is(1));
 		
 		BookingCharge bookingCharge = bookingCharges.get(0);
-		assertNull(bookingCharge.getChargeCode());
+		assertThat(bookingCharge.getChargeCode(), is("ARS13-1105"));
 		assertNull(bookingCharge.getChargeDisposition());
 		assertTrue(bookingCharge.getBookingArrestId() == 1);
 		assertTrue(bookingCharge.getBondAmount().doubleValue() == 250000.00); 
-		assertThat(bookingCharge.getBondType().getValue(), is("Unknown"));
-		assertThat(bookingCharge.getAgencyId(), is(48));
+		assertThat(bookingCharge.getBondType(), nullValue());
+		assertThat(bookingCharge.getAgencyId(), nullValue());
 		assertThat(bookingCharge.getChargeClassTypeId(), is(2));
 		assertThat(bookingCharge.getBondStatusTypeId(), is(1));
 		assertThat(bookingCharge.getChargeJurisdictionTypeId(), is(8));
 		
-		CustodyRelease custodyRelease = analyticalDatastoreDAOImpl.getCustodyReleaseByBookingId(1);
+		CustodyRelease custodyRelease = analyticalDatastoreDAO.getCustodyReleaseByBookingId(1);
 		assertNull(custodyRelease);
 	}
 	

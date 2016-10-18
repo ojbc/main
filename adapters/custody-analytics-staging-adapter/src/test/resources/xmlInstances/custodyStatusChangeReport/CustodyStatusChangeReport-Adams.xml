@@ -115,7 +115,7 @@
 			<nc:ActivityIdentification>
 				<nc:IdentificationID>12345</nc:IdentificationID>
 			</nc:ActivityIdentification>
-			<nc:ActivityCategoryText>PROP</nc:ActivityCategoryText>
+			<nc:ActivityCategoryText>PR</nc:ActivityCategoryText>
 			<nc:ActivityStatus>
 				<nc:StatusDescriptionText>invs</nc:StatusDescriptionText>
 			</nc:ActivityStatus>
@@ -153,7 +153,7 @@
 				</j:StatuteCodeSectionIdentification>
 			</j:ChargeStatute>
 			<cscr-ext:ChargeJurisdictionCourt>
-				<j:CourtName>Smithville</j:CourtName>
+				<j:CourtName>DEPARTMENT OF CORRECTIONS</j:CourtName>
 			</cscr-ext:ChargeJurisdictionCourt>
 			<cscr-ext:HoldForAgency>
 				<nc:OrganizationName>BCSO</nc:OrganizationName>
@@ -211,7 +211,7 @@
 			<nc:PersonPrimaryLanguage>
 				<nc:LanguageName>English</nc:LanguageName>
 			</nc:PersonPrimaryLanguage>
-			<j:PersonRaceCode>W</j:PersonRaceCode>
+			<ac-bkg-codes:PersonRaceCode>W</ac-bkg-codes:PersonRaceCode>
 			<j:PersonSexCode>F</j:PersonSexCode>
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>

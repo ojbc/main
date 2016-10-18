@@ -51,7 +51,9 @@
 			
 			<camel:convertBodyTo type="java.lang.String" charset="UTF-8"/>
 			
-			<camel:log message="This is the body: ${body}" loggingLevel="DEBUG"/>
+			<camel:to uri="direct:derivedRoutes"/>	
+
+			<camel:log message="\n\n Message Body after potential derived route call: \n ${body} \n\n" />
 
 			<camel:filter>
 				<camel:xpath>/ir:IncidentReport</camel:xpath>
@@ -70,7 +72,10 @@
 			<camel:setHeader headerName="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
 			</camel:setHeader>
-
+			
+			
+			<log message="\n\n\n operationName = ${in.headers.operationName} \n\n\n"/>
+			
 			<camel:throttle timePeriodMillis="1000">
 				<constant>1</constant>
 				<camel:to uri="IncidentReportingServiceEndpoint" />
@@ -79,6 +84,30 @@
 			<camel:log message="Called intermediary" />
 
 		</camel:route>
+		
+		
+		<camel:route id="IncidentReportingConnector_DerivedRoutes">
+
+			<camel:from uri="direct:derivedRoutes"/>
+		
+			<!-- Set up member specific endpoints -->
+			<camel:setHeader headerName="routingSlipDerivedRoutes">
+				<simple>{{incidentChargeReporting.camelEndpointsToCall}}</simple>
+			</camel:setHeader>
+
+			<camel:log message=
+				"\n\n\n routingSlipDerivedRoutes: ${in.headers.routingSlipDerivedRoutes} \n\n\n"/>
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
+				
+				<camel:recipientList>
+					<camel:header>routingSlipDerivedRoutes</camel:header>
+				</camel:recipientList>
+			</camel:filter>			
+		
+		</camel:route>		
+		
 
 	</camel:camelContext>
 	

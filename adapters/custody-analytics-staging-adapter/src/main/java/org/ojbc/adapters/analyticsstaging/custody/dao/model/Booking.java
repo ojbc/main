@@ -18,7 +18,7 @@ package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -28,7 +28,8 @@ public class Booking implements Serializable{
 	private static final long serialVersionUID = 714167300178163559L;
 	//pk
 	private Integer bookingId;
-	private LocalDateTime bookingDateTime; 
+	private LocalDate bookingDate; 
+	private LocalTime bookingTime; 
 	private Integer facilityId; 
 	private Integer supervisionUnitTypeId; 
 	private Integer personId; 
@@ -36,6 +37,7 @@ public class Booking implements Serializable{
 	private LocalDate scheduledReleaseDate; 
     private CustodyRelease custodyRelease;
     private Boolean inmateJailResidentIndicator;
+    private String inmateCurrentLocation; 
 	
 	public Integer getBookingId() {
 		return bookingId;
@@ -89,14 +91,6 @@ public class Booking implements Serializable{
 		this.personId = personId;
 	}
 
-	public LocalDateTime getBookingDateTime() {
-		return bookingDateTime;
-	}
-
-	public void setBookingDateTime(LocalDateTime bookingDateTime) {
-		this.bookingDateTime = bookingDateTime;
-	}
-
 	public Boolean getInmateJailResidentIndicator() {
 		return inmateJailResidentIndicator;
 	}
@@ -112,6 +106,30 @@ public class Booking implements Serializable{
 
 	public void setSupervisionUnitTypeId(Integer supervisionUnitTypeId) {
 		this.supervisionUnitTypeId = supervisionUnitTypeId;
+	}
+
+	public LocalDate getBookingDate() {
+		return bookingDate;
+	}
+
+	public void setBookingDate(LocalDate bookingDate) {
+		this.bookingDate = bookingDate;
+	}
+
+	public LocalTime getBookingTime() {
+		return bookingTime;
+	}
+
+	public void setBookingTime(LocalTime bookingTime) {
+		this.bookingTime = bookingTime;
+	}
+
+	public String getInmateCurrentLocation() {
+		return inmateCurrentLocation;
+	}
+
+	public void setInmateCurrentLocation(String inmateCurrentLocation) {
+		this.inmateCurrentLocation = inmateCurrentLocation;
 	}
 
 
