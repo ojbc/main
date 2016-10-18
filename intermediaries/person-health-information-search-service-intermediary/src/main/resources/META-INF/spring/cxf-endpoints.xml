@@ -108,13 +108,17 @@
         address="${personHealth.clientResultsHandlerEndpoint}"
         wsdlURL="classpath:ssp/Person_Health_Information_Search_Results/schema/SIP_WS_1.2/Person_Health_Information_Search_Results_Service.wsdl"
         serviceName="ojbc:Person_Health_Information_Search_Results_Service_Service"
-		endpointName="ojbc:Person_Health_Information_Search_Results_Secure_Service"
+		endpointName="ojbc:Person_Health_Information_Search_Results_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/PersonHealthInformationSearchResultsService/1.0">
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="personHealthKeystoreProperties" />
-			<entry key="ws-security.signature.username" value="${personHealth.keystoreCertificateAlias}" />
-		</cxf:properties>        
+	     <cxf:features>
+	      <policy:policies>
+	        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+	          <wsam:Addressing>
+	            <wsp:Policy/>
+	          </wsam:Addressing>
+	        </wsp:Policy>
+	       </policy:policies>
+	    </cxf:features>    
    </cxf:cxfEndpoint>      
    
    	<!-- 
@@ -126,6 +130,11 @@
 				<sec:keyManagers keyPassword="${personHealth.keyPassword}">
 					<sec:keyStore type="jks" password="${personHealth.keystorePassword}" file="${personHealth.keystoreLocation}" />
 				</sec:keyManagers>
+				<sec:trustManagers>
+					<sec:keyStore type="JKS"
+						password="${personHealth.truststorePassword}"
+						file="${personHealth.truststoreLocation}" />
+				</sec:trustManagers>			
 				<sec:cipherSuitesFilter>
 					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
 					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>

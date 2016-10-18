@@ -21,7 +21,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.camel.Body;
 import org.apache.commons.lang.BooleanUtils;
@@ -52,7 +54,7 @@ public abstract class AbstractReportRepositoryProcessor {
 	private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
 
 	protected static final String FATAL_ERROR_PERSON_UNIQUE_ID_MISSING = "Fatal error: The person unique identifier is missing";
-	private static final String BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT = "Booking Number is missing in the report";
+	protected static final String BOOKING_NUMBER_IS_MISSING_IN_THE_REPORT = "Booking Number is missing in the report";
 
 	@Autowired
 	protected AnalyticalDatastoreDAO analyticalDatastoreDAO;
@@ -69,7 +71,9 @@ public abstract class AbstractReportRepositoryProcessor {
 		
 		person.setPersonUniqueIdentifier(personUniqueIdentifier);
 		
-		String personRaceCode=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonRaceCode");
+		person.setPersonUniqueIdentifier2(XmlUtils.xPathStringSearch(personNode, "preceding-sibling::jxdm51:Booking/jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID"));;
+		
+		String personRaceCode=XmlUtils.xPathStringSearch(personNode, "ac-bkg-codes:PersonRaceCode");
 		if (StringUtils.isBlank(personRaceCode)){
 			personRaceCode=XmlUtils.xPathStringSearch(personNode, "pc-bkg-codes:PersonRaceCode");
 		}
@@ -78,7 +82,11 @@ public abstract class AbstractReportRepositoryProcessor {
 		
 		String personSex=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonSexCode");
 		person.setPersonSexCode(StringUtils.trimToNull(personSex));
-		person.setPersonSexId(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSexType, StringUtils.trimToNull(personSex)));
+		person.setPersonSexId(descriptionCodeLookupService.retrieveCode(CodeTable.PersonSexType, personSex));
+		
+		String personEthnicityType=XmlUtils.xPathStringSearch(personNode, "jxdm51:PersonEthnicityCode");
+		person.setPersonEthnicityTypeDescription(StringUtils.trimToNull(personEthnicityType));
+		person.setPersonEthnicityTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.PersonEthnicityType, StringUtils.trimToNull(personEthnicityType)));
 
 		String personBirthDate = XmlUtils.xPathStringSearch(personNode, "nc30:PersonBirthDate/nc30:Date");
 		person.setPersonBirthDate(LocalDate.parse(personBirthDate));
@@ -88,12 +96,13 @@ public abstract class AbstractReportRepositoryProcessor {
 		person.setLanguageId(descriptionCodeLookupService.retrieveCode(CodeTable.LanguageType, language));
 
 		String personCriminalHistorySummaryRef = 
-				XmlUtils.xPathStringSearch(personNode, "parent::br-doc:BookingReport/nc30:ActivityPersonAssociation"
-						+ "[nc30:Person/@s30:ref=/br-doc:BookingReport/jxdm51:Booking/jxdm51:BookingSubject/nc30:RoleOfPerson/@s30:ref]/nc30:Activity/@s30:ref");
+				XmlUtils.xPathStringSearch(personNode, "following-sibling::nc30:ActivityPersonAssociation"
+						+ "[nc30:Person/@s30:ref= preceding-sibling::jxdm51:Booking/jxdm51:BookingSubject/nc30:RoleOfPerson/@s30:ref]"
+						+ "/nc30:Activity/@s30:ref");
 		String registeredSexOffender = XmlUtils.xPathStringSearch(personNode, 
-				"/br-doc:BookingReport/jxdm51:PersonCriminalHistorySummary[@s30:id='"+ personCriminalHistorySummaryRef + "']/jxdm51:RegisteredSexualOffenderIndicator");
+				"preceding-sibling::jxdm51:PersonCriminalHistorySummary[@s30:id='"+ personCriminalHistorySummaryRef + "']/jxdm51:RegisteredSexualOffenderIndicator");
 		Boolean registeredSexOffenderBoolean = BooleanUtils.toBooleanObject(registeredSexOffender);
-		String sexOffenderStatus = BooleanUtils.toString(registeredSexOffenderBoolean, "registered", "not registered", "Unknown"); 
+		String sexOffenderStatus = BooleanUtils.toString(registeredSexOffenderBoolean, "registered", "not registered", null); 
 		person.setSexOffenderStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.SexOffenderStatusType, sexOffenderStatus));
 		
 	 	String educationLevel = XmlUtils.xPathStringSearch(personNode, "nc30:PersonEducationLevelText");
@@ -103,15 +112,15 @@ public abstract class AbstractReportRepositoryProcessor {
  		person.setOccupation(occupation);
 	 	
  		Boolean homelessIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonHomelessIndicator"));
- 		String domicileStatusType = BooleanUtils.toString(homelessIndicator, "homeless", "not homeless", "Unknown");
+ 		String domicileStatusType = BooleanUtils.toString(homelessIndicator, "homeless", "not homeless", null);
  		person.setDomicileStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.DomicileStatusType, domicileStatusType));
 
  		Boolean personVeteranBenefitsEligibilityIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, extPrefix + ":PersonVeteranBenefitsEligibilityIndicator"));
- 		String programEligibilityType = BooleanUtils.toString(personVeteranBenefitsEligibilityIndicator, "Veteran Services", "none", "Unknown"); 
+ 		String programEligibilityType = BooleanUtils.toString(personVeteranBenefitsEligibilityIndicator, "Veteran Services", "none", null); 
  		person.setProgramEligibilityTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.ProgramEligibilityType, programEligibilityType));
  		
  		Boolean inmateWorkReleaseIndicator = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(personNode, "preceding-sibling::jxdm51:Detention/" + extPrefix + ":InmateWorkReleaseIndicator"));
- 		String workReleaseStatusType = BooleanUtils.toString(inmateWorkReleaseIndicator, "assigned", "not assigned", "Unknown");
+ 		String workReleaseStatusType = BooleanUtils.toString(inmateWorkReleaseIndicator, "assigned", "not assigned", null);
  		person.setWorkReleaseStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.WorkReleaseStatusType, workReleaseStatusType));;
  		
 	 	String militaryServiceStatusCode = XmlUtils.xPathStringSearch(personNode, "nc30:PersonMilitarySummary/ac-bkg-codes:MilitaryServiceStatusCode");
@@ -152,7 +161,7 @@ public abstract class AbstractReportRepositoryProcessor {
 				
 				String medicaidIndicator = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, "hs:MedicaidIndicator");
 				Boolean medicaidIndicatorBoolean = BooleanUtils.toBooleanObject(medicaidIndicator);
-				String medicaidStatusType = BooleanUtils.toString(medicaidIndicatorBoolean, "eligible", "not eligible", "Unknown");
+				String medicaidStatusType = BooleanUtils.toString(medicaidIndicatorBoolean, "eligible", "not eligible", null);
 				assessment.setMedicaidStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.MedicaidStatusType, medicaidStatusType));
 				
 				String regionalAuthorityAssignmentText = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":RegionalBehavioralHealthAuthorityAssignmentText");
@@ -172,24 +181,24 @@ public abstract class AbstractReportRepositoryProcessor {
 					assessment.getAssessmentCategory().add(new KeyValue(assessmentCategoryTypeId, ASSESSMENT_CATEGORY_GENERAL_MENTAL_HEALTH));
 				}
 				
-		}
 			
-			String careEpisodeStartDateString = XmlUtils.xPathStringSearch(personNode, 
-					"following-sibling::"+ extPrefix + ":CareEpisode[@s30:id='" + personCareEpisodeRef + "']/nc30:ActivityDateRange/nc30:StartDate/nc30:Date");
-			LocalDate careEpisodeStartDate = StringUtils.isNotBlank(careEpisodeStartDateString)?LocalDate.parse(careEpisodeStartDateString):null;
-			assessment.setCareEpisodeStartDate(careEpisodeStartDate);
-			
-			String careEpisodeEndDateString = XmlUtils.xPathStringSearch(personNode, 
-					"following-sibling::"+ extPrefix + ":CareEpisode[@s30:id='" + personCareEpisodeRef + "']/nc30:ActivityDateRange/nc30:EndDate/nc30:Date");
-			LocalDate careEpisodeEndDate = StringUtils.isNotBlank(careEpisodeEndDateString)?LocalDate.parse(careEpisodeEndDateString):null;
-			assessment.setCareEpisodeEndDate(careEpisodeEndDate);
-			
-			Integer assessmentId = analyticalDatastoreDAO.saveBehavioralHealthAssessment(assessment);
-			
-			assessment.setBehavioralHealthAssessmentId(assessmentId);
-			processEvaluationNodes(assessment, behavioralHealthInfoNode, extPrefix);
-			processTreatmentNodes(assessment, behavioralHealthInfoNode, extPrefix);
-			processPrescribedMedications(assessment, behavioralHealthInfoNode, extPrefix);
+				String careEpisodeStartDateString = XmlUtils.xPathStringSearch(personNode, 
+						"following-sibling::"+ extPrefix + ":CareEpisode[@s30:id='" + personCareEpisodeRef + "']/nc30:ActivityDateRange/nc30:StartDate/nc30:Date");
+				LocalDate careEpisodeStartDate = StringUtils.isNotBlank(careEpisodeStartDateString)?LocalDate.parse(careEpisodeStartDateString):null;
+				assessment.setCareEpisodeStartDate(careEpisodeStartDate);
+				
+				String careEpisodeEndDateString = XmlUtils.xPathStringSearch(personNode, 
+						"following-sibling::"+ extPrefix + ":CareEpisode[@s30:id='" + personCareEpisodeRef + "']/nc30:ActivityDateRange/nc30:EndDate/nc30:Date");
+				LocalDate careEpisodeEndDate = StringUtils.isNotBlank(careEpisodeEndDateString)?LocalDate.parse(careEpisodeEndDateString):null;
+				assessment.setCareEpisodeEndDate(careEpisodeEndDate);
+				
+				Integer assessmentId = analyticalDatastoreDAO.saveBehavioralHealthAssessment(assessment);
+				
+				assessment.setBehavioralHealthAssessmentId(assessmentId);
+				processEvaluationNodes(assessment, behavioralHealthInfoNode, extPrefix);
+				processTreatmentNodes(assessment, behavioralHealthInfoNode, extPrefix);
+				processPrescribedMedications(assessment, behavioralHealthInfoNode, extPrefix);
+			}
 		}
 		
 	}
@@ -254,11 +263,11 @@ public abstract class AbstractReportRepositoryProcessor {
 				treatment.setTreatmentProviderName(treatmentProvider);
 				
 				Boolean treatmentCourtOrdered = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentCourtOrderedIndicator"));
-				String treatmentAdmissionReason = BooleanUtils.toString(treatmentCourtOrdered, "court ordered", "voluntary","Unknown"); 
+				String treatmentAdmissionReason = BooleanUtils.toString(treatmentCourtOrdered, "court ordered", "voluntary", null); 
 				treatment.setTreatmentAdmissionReasonTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.TreatmentAdmissionReasonType, treatmentAdmissionReason));
 				
 				Boolean treatmentActive = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentActiveIndicator"));
-				String treamentStatusType = BooleanUtils.toString(treatmentActive, "active", "inactive", "Unknown");
+				String treamentStatusType = BooleanUtils.toString(treatmentActive, "active", "inactive", null);
 				treatment.setTreatmentStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.TreatmentStatusType, treamentStatusType));
 				
 				treatments.add(treatment);
@@ -293,12 +302,24 @@ public abstract class AbstractReportRepositoryProcessor {
 		}
 	}
 
-	protected Address getArrestInfo(Node arrestNode) throws Exception {
-		Address address = new Address();
-		
-		String locationRef = XmlUtils.xPathStringSearch(arrestNode, "jxdm51:ArrestLocation/@s30:ref");
-		Node locationNode = XmlUtils.xPathNodeSearch(arrestNode, 
-				"following-sibling::nc30:Location[@s30:id = '" + locationRef +"']");
+	protected Map<String, Integer> constructAddressMap(NodeList locationNodes)
+			throws Exception {
+		Map<String, Integer> addressMap = new HashMap<String, Integer>(); 
+		for (int i = 0; i < locationNodes.getLength(); i++) {
+			Node locationNode = locationNodes.item(i);
+			
+			String locationId = XmlUtils.xPathStringSearch(locationNode, "@s30:id");
+			Address address = getAddress(locationNode);
+			Integer addressId = analyticalDatastoreDAO.saveAddress(address);
+			
+			addressMap.put(locationId, addressId);
+		}
+		return addressMap;
+	}
+
+
+	protected Address getAddress(Node locationNode) throws Exception {
+		Address address = new Address(null);
 		
 		if (locationNode != null){
 			
@@ -326,8 +347,8 @@ public abstract class AbstractReportRepositoryProcessor {
         		String arrestLocationLatitude = XmlUtils.xPathStringSearch(arrestLocation2DGeoCoordinateNode, "nc30:GeographicCoordinateLatitude/nc30:LatitudeDegreeValue");
         		address.setLocationLatitude(new BigDecimal(arrestLocationLatitude));
 	        }
-	        
 		}
+		
 		return address;
 	}
 
@@ -373,27 +394,38 @@ public abstract class AbstractReportRepositoryProcessor {
 	}
 
 	protected CustodyRelease processCustodyReleaseInfo(Node parentNode,
-			Integer bookingId) throws Exception {
+			Integer bookingId, String bookingNumber) throws Exception {
 		
-        String supervisionReleaseDate = XmlUtils.xPathStringSearch(parentNode, 
+        String supervisionReleaseDateTimeString = XmlUtils.xPathStringSearch(parentNode, 
         		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:DateTime");
+        LocalDateTime supervisionReleaseDateTime = parseLocalDateTime(supervisionReleaseDateTimeString); 
         CustodyRelease custodyRelease = new CustodyRelease();
         
-        if (StringUtils.isNotBlank(supervisionReleaseDate)){
-        	
-        	if (StringUtils.isNotBlank(supervisionReleaseDate)){
-        		custodyRelease.setReleaseDateTime(LocalDateTime.parse(supervisionReleaseDate));
-        	}
-        	
-        	custodyRelease.setBookingId(bookingId);
-        	
-        	if (StringUtils.isNotBlank(supervisionReleaseDate)){
-        		analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);
-        	}
+        if (supervisionReleaseDateTime != null){
+    		custodyRelease.setReleaseDate(supervisionReleaseDateTime.toLocalDate());
+    		custodyRelease.setReleaseTime(supervisionReleaseDateTime.toLocalTime());
         }
+        else{
+        	String releaseDateString = XmlUtils.xPathStringSearch(parentNode, 
+            		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:Date");
+        	custodyRelease.setReleaseDate(parseLocalDate(releaseDateString));
+        }
+        
+        if (custodyRelease.getReleaseDate() != null){
+	        custodyRelease.setBookingId(bookingId);
+	        custodyRelease.setBookingNumber(bookingNumber);
+	        analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);
+        }
+        
 		return custodyRelease;
 	}
 	
+	/**
+	 * Returns a Single BookingId for the given bookingNumber
+	 * @param bookingNumber
+	 * @return bookingId matching the bookingNumber
+	 * @throws Exception if bookingNumber is empty of no BookingID found for the bookingNumber. 
+	 */
 	protected Integer getBookingIdByBookingNumber(String bookingNumber) throws Exception {
 		
 		if (StringUtils.isBlank(bookingNumber)){
@@ -402,10 +434,6 @@ public abstract class AbstractReportRepositoryProcessor {
 		}
 		
 		Integer bookingId = analyticalDatastoreDAO.getBookingIdByBookingNumber(bookingNumber);
-		if (bookingId == null){
-			log.fatal("No Booking record found with the Booking Number: " + bookingNumber);
-			throw new Exception("No Booking record found with the Booking Number: " + StringUtils.trimToEmpty(bookingNumber));
-		}
 		return bookingId;
 	}
 

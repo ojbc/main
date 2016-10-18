@@ -179,7 +179,7 @@
 			</j:StatuteCodeSectionIdentification>
 		</j:ChargeStatute>
 		<br-ext:ChargeJurisdictionCourt>
-			<j:CourtName>Smithville</j:CourtName>
+			<j:CourtName>ADAMS COUNTY COURTS</j:CourtName>
 		</br-ext:ChargeJurisdictionCourt>
 		<br-ext:HoldForAgency>
 			<nc:OrganizationName>BCSO</nc:OrganizationName>
@@ -275,7 +275,7 @@
 		<nc:PersonPrimaryLanguage>
 			<nc:LanguageName>ENG</nc:LanguageName>
 		</nc:PersonPrimaryLanguage>
-		<j:PersonRaceCode>W</j:PersonRaceCode>
+		<ac-bkg-codes:PersonRaceCode>P</ac-bkg-codes:PersonRaceCode>
 		<nc:PersonResidentText>Residence</nc:PersonResidentText>
 		<j:PersonSexCode>F</j:PersonSexCode>
 		<nc:PersonSSNIdentification>
@@ -462,7 +462,6 @@
 				<nc:MeasureValueText>3mg</nc:MeasureValueText>
 			</cyfs:MedicationDoseMeasure>
 		</br-ext:PrescribedMedication>
-		<hs:MedicaidIndicator>true</hs:MedicaidIndicator>
 		<br-ext:RegionalBehavioralHealthAuthorityAssignmentText>79</br-ext:RegionalBehavioralHealthAuthorityAssignmentText>
 	</br-ext:BehavioralHealthInformation>
 	<br-ext:CareEpisode structures:id="PCE_01">

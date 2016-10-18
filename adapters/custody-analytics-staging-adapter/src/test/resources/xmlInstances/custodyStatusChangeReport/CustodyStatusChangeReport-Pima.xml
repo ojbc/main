@@ -41,8 +41,14 @@
 			<nc:IdentificationID>151223012</nc:IdentificationID>
 		</j:BookingAgencyRecordIdentification>
 		<j:BookingSubject>
-			<nc:RoleOfPerson structures:ref="d1e3" />
-		</j:BookingSubject>
+				<nc:RoleOfPerson structures:ref="d1e3" />
+				<j:SubjectIdentification>
+					<nc:IdentificationID>Booking Subject Number</nc:IdentificationID>
+				</j:SubjectIdentification>
+				<cscr-ext:SubjectLocationStatus>
+					<nc:StatusDescriptionText>Weekender Release</nc:StatusDescriptionText>
+				</cscr-ext:SubjectLocationStatus>
+			</j:BookingSubject>
 	</j:Booking>
 	<nc:Person structures:id="d1e3">
 		<nc:PersonBirthDate>

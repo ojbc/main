@@ -25,6 +25,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 public class Address implements Serializable
 {
 	private static final long serialVersionUID = 7592031435697738670L;
+	private Integer locationId; 
 	private String streetNumber; 
     private String streetName; 
     private String addressSecondaryUnit; 
@@ -34,6 +35,11 @@ public class Address implements Serializable
 	private BigDecimal locationLatitude; 
 	private BigDecimal locationLongitude; 
 
+	public Address(Integer locationId){
+		super();
+		this.locationId  = locationId;
+	}
+	
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);	
@@ -112,6 +118,14 @@ public class Address implements Serializable
 				StringUtils.isBlank(postalcode) && 
 				locationLatitude == null && 
 				locationLongitude == null; 
+	}
+
+	public Integer getLocationId() {
+		return locationId;
+	}
+
+	public void setLocationId(Integer locationId) {
+		this.locationId = locationId;
 	}
 
 }

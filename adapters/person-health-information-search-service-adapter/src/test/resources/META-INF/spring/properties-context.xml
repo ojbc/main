@@ -36,6 +36,9 @@
 				<util:properties>
 					<prop key="personHealth.enrichRequestContentURI"></prop>
 					<prop key="personHealth.enrichResponseContentURI"></prop>
+					<prop key="personHealth.http.soapAction"></prop>
+					<prop key="personHealth.setHTTPHeaders"></prop>
+					<prop key="personHealth.http.contentType"></prop>
 				</util:properties>			
 				<util:properties
 					location="classpath:person_health_information_search_service_adapter.cfg" />

@@ -16,7 +16,6 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Address;
@@ -57,7 +56,17 @@ public interface AnalyticalDatastoreDAO {
 	public void saveCustodyStatusChangeCharges(
 			final List<CustodyStatusChangeCharge> custodyStatusChangeCharges);
 	
-	public void deleteBooking(Integer bookingPk);
+	/**
+	 * Delete all the records associated with the Booking.bookingId.
+	 * <p><ol>
+	 *  <li> Remove CustodayStatusChange record(s) foreign-keyed with the bookingId and the associated person/BH/Arrest/Charges</li>
+	 *  <li> Remove CustodyRelease record(s) foreign-keyed with the bookingId </li>
+	 *  <li> Remove person/BH/Arrest/Charges associated with the Booking record </li>
+	 *  </ol>    
+	 * </p>
+	 * @param bookingPk
+	 */
+	public void deleteBooking(Integer bookingId);
 	
 	public Booking getBookingByBookingNumber(String bookingNumber);
 	public Integer getBookingIdByBookingNumber(String bookingNumber);
@@ -70,9 +79,10 @@ public interface AnalyticalDatastoreDAO {
 	public List<PrescribedMedication> getPrescribedMedication(Integer behavioralHealthAssessmentId);
 
 	public void saveCustodyRelease(CustodyRelease custodyRelease);
-	public void saveCustodyRelease(Integer bookingId, LocalDateTime releaseDate, String releaseCondition);
 	public CustodyRelease getCustodyReleaseByBookingId(Integer bookingId);
-	public CustodyStatusChange getCustodyStatusChangeByBookingId(Integer bookingId); 
+	public CustodyRelease getCustodyReleaseByBookingNumber(String bookingNumber);
+	public List<CustodyStatusChange> getCustodyStatusChangesByBookingId(Integer bookingId); 
+	public List<CustodyStatusChange> getCustodyStatusChangesByBookingNumber(String bookingNumber); 
 	public List<CustodyStatusChangeCharge> getCustodyStatusChangeCharges(Integer custodyStatusChangeId);
 	
 	public Person getPersonByBookingNumber(String bookingNumber);
@@ -88,5 +98,8 @@ public interface AnalyticalDatastoreDAO {
 	public void saveTreatments(final List<Treatment> treatments);
 	public void saveBehavioralHealthEvaluations(Integer behavioralHealthAssessmentId, final List<String> behavioralHealthDiagnoses);
 	public void savePrescribedMedications(final List<PrescribedMedication> prescribedMedications);
+	
+	public void updateCustodyStatusChangeBookingId(Integer bookingId, String bookingNumber); 
+	public void updateCustodyReleaseBookingId(Integer bookingId, String bookingNumber); 
 
 }

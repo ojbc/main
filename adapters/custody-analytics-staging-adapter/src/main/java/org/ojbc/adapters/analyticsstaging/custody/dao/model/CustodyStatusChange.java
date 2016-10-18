@@ -17,8 +17,9 @@
 package org.ojbc.adapters.analyticsstaging.custody.dao.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -29,7 +30,8 @@ public class CustodyStatusChange implements Serializable{
 	//pk
 	private Integer custodyStatusChangeId;
 	private Integer bookingId;
-	private LocalDateTime bookingDateTime; 
+	private LocalDate bookingDate; 
+	private LocalTime bookingTime; 
 	private Integer pretrialStatusId; 
 	private Integer facilityId; 
 	private Integer supervisionUnitTypeId; 
@@ -37,6 +39,8 @@ public class CustodyStatusChange implements Serializable{
 	private String bookingNumber; 
 	private LocalDate scheduledReleaseDate; 
     private Boolean inmateJailResidentIndicator;
+    private String inmateCurrentLocation; 
+    private Timestamp custodyStatusChangeTimestamp; 
 
     private CustodyRelease custodyRelease;
 	
@@ -117,14 +121,6 @@ public class CustodyStatusChange implements Serializable{
 		this.personId = personId;
 	}
 
-	public LocalDateTime getBookingDateTime() {
-		return bookingDateTime;
-	}
-
-	public void setBookingDateTime(LocalDateTime bookingDateTime) {
-		this.bookingDateTime = bookingDateTime;
-	}
-
 	public Boolean getInmateJailResidentIndicator() {
 		return inmateJailResidentIndicator;
 	}
@@ -132,6 +128,39 @@ public class CustodyStatusChange implements Serializable{
 	public void setInmateJailResidentIndicator(
 			Boolean inmateJailResidentIndicator) {
 		this.inmateJailResidentIndicator = inmateJailResidentIndicator;
+	}
+
+	public LocalDate getBookingDate() {
+		return bookingDate;
+	}
+
+	public void setBookingDate(LocalDate bookingDate) {
+		this.bookingDate = bookingDate;
+	}
+
+	public LocalTime getBookingTime() {
+		return bookingTime;
+	}
+
+	public void setBookingTime(LocalTime bookingTime) {
+		this.bookingTime = bookingTime;
+	}
+
+	public String getInmateCurrentLocation() {
+		return inmateCurrentLocation;
+	}
+
+	public void setInmateCurrentLocation(String inmateCurrentLocation) {
+		this.inmateCurrentLocation = inmateCurrentLocation;
+	}
+
+	public Timestamp getCustodyStatusChangeTimestamp() {
+		return custodyStatusChangeTimestamp;
+	}
+
+	public void setCustodyStatusChangeTimestamp(
+			Timestamp custodyStatusChangeTimestamp) {
+		this.custodyStatusChangeTimestamp = custodyStatusChangeTimestamp;
 	}
 
 

@@ -94,6 +94,18 @@
 	      <artifactId>camel-cxf</artifactId>
 	      <version>${camel-version}</version>
 	    </dependency>
+	    
+	    <!-- adding dependencies since most extensions will use HTTP or XSLT -->
+	    <dependency>
+	      <groupId>org.apache.camel</groupId>
+	      <artifactId>camel-saxon</artifactId>
+	      <version>${camel-version}</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.apache.camel</groupId>
+	      <artifactId>camel-http</artifactId>
+	      <version>${camel-version}</version>
+	    </dependency>
 
 		<!-- CXF libs -->
 		<dependency>
@@ -183,7 +195,6 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>${apache-commons-io-version}</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>

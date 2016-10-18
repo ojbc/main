@@ -353,4 +353,11 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="SubjectLocationStatus"
+		type="nc:StatusType" substitutionGroup="j:SubjectAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Current location status of the booking subject at the time of report.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>

@@ -19,12 +19,16 @@ package org.ojbc.adapters.analyticsstaging.custody.dao;
 import static org.ojbc.util.helper.DaoUtils.setPreparedStatementVariable;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +59,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -84,7 +89,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(personSexInsertStatement, new String[] {"PersonSexTypeID"});
-        	            ps.setString(1, personSex.getPersonSexDescription());
+        	            setPreparedStatementVariable(personSex.getPersonSexDescription(), ps, 1);
         	            return ps;
         	        }
         	    },
@@ -105,7 +110,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
         	            PreparedStatement ps =
         	                connection.prepareStatement(personRaceInsertStatement, new String[] {"PersonRaceTypeID"});
-        	            ps.setString(1, personRace.getPersonRaceDescription());
+        	            setPreparedStatementVariable(personRace.getPersonRaceDescription(), ps, 1);
         	            return ps;
         	        }
         	    },
@@ -122,8 +127,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         		+ "PersonUniqueIdentifier, LanguageTypeID, "
         		+ "SexOffenderStatusTypeID, PersonAgeAtBooking, EducationLevel, Occupation, "
         		+ "DomicileStatusTypeID, militaryServiceStatusTypeID, "
-        		+ "PersonEthnicityTypeID, ProgramEligibilityTypeID, WorkReleaseStatusTypeID) "
-        		+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        		+ "PersonEthnicityTypeID, ProgramEligibilityTypeID, WorkReleaseStatusTypeID, PersonUniqueIdentifier2) "
+        		+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -150,6 +155,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			        	setPreparedStatementVariable(person.getPersonEthnicityTypeId(), ps, 12);
 			        	setPreparedStatementVariable(person.getProgramEligibilityTypeId(), ps, 13);
 			        	setPreparedStatementVariable(person.getWorkReleaseStatusTypeId(), ps, 14);
+			        	setPreparedStatementVariable(person.getPersonUniqueIdentifier2(), ps, 15);
        	            
         	            return ps;
         	        }
@@ -184,25 +190,26 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			Person person = new Person();
 	    	
 			person.setPersonBirthDate(rs.getDate("PersonBirthDate").toLocalDate());
-			person.setPersonId(rs.getInt("PersonID"));
+			person.setPersonId(DaoUtils.getInteger(rs, "PersonID"));
 			person.setPersonRaceDescription(rs.getString("PersonRaceTypeDescription"));
 			person.setPersonSexDescription(rs.getString("PersonSexTypeDescription"));
-			person.setPersonRaceId(rs.getInt("PersonRaceTypeId"));
-			person.setPersonSexId(rs.getInt("PersonSexTypeId"));
-			person.setPersonEthnicityTypeId(rs.getInt("PersonEthnicityTypeId"));
+			person.setPersonRaceId(DaoUtils.getInteger(rs, "PersonRaceTypeId"));
+			person.setPersonSexId(DaoUtils.getInteger(rs,"PersonSexTypeId"));
+			person.setPersonEthnicityTypeId(DaoUtils.getInteger(rs,"PersonEthnicityTypeId"));
 			person.setPersonEthnicityTypeDescription(rs.getString("personEthnicityTypeDescription"));
 			person.setPersonUniqueIdentifier(rs.getString("PersonUniqueIdentifier"));
-			person.setLanguageId(rs.getInt("LanguageTypeID"));
+			person.setPersonUniqueIdentifier2(rs.getString("PersonUniqueIdentifier2"));
+			person.setLanguageId(DaoUtils.getInteger(rs,"LanguageTypeID"));
 			person.setLanguage(rs.getString("LanguageTypeDescription"));
-			person.setSexOffenderStatusTypeId(rs.getInt("SexOffenderStatusTypeID"));
-			person.setProgramEligibilityTypeId(rs.getInt("ProgramEligibilityTypeId"));
-			person.setWorkReleaseStatusTypeId(rs.getInt("WorkReleaseStatusTypeId"));
-			person.setPersonAgeAtBooking(rs.getInt("PersonAgeAtBooking"));
-			person.setDomicileStatusTypeId(rs.getInt("DomicileStatusTypeID"));
+			person.setSexOffenderStatusTypeId(DaoUtils.getInteger(rs,"SexOffenderStatusTypeID"));
+			person.setProgramEligibilityTypeId(DaoUtils.getInteger(rs,"ProgramEligibilityTypeId"));
+			person.setWorkReleaseStatusTypeId(DaoUtils.getInteger(rs,"WorkReleaseStatusTypeId"));
+			person.setPersonAgeAtBooking(DaoUtils.getInteger(rs,"PersonAgeAtBooking"));
+			person.setDomicileStatusTypeId(DaoUtils.getInteger(rs,"DomicileStatusTypeID"));
 			person.setEducationLevel(rs.getString("EducationLevel"));
 			person.setOccupation(rs.getString("Occupation"));
 			person.setMilitaryServiceStatusType(
-					new KeyValue(rs.getInt("MilitaryServiceStatusTypeID"), rs.getString("MilitaryServiceStatusTypeDescription")));
+					new KeyValue(DaoUtils.getInteger(rs,"MilitaryServiceStatusTypeID"), rs.getString("MilitaryServiceStatusTypeDescription")));
 	    	return person;
 		}
 
@@ -250,11 +257,11 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
             	BookingCharge bookingCharge = bookingCharges.get(i);
                 ps.setInt(1, bookingCharge.getBookingArrestId());
                 setPreparedStatementVariable(bookingCharge.getChargeCode(), ps, 2);
-                ps.setInt(3, bookingCharge.getAgencyId());
+                setPreparedStatementVariable(bookingCharge.getAgencyId(), ps, 3);
                 setPreparedStatementVariable(bookingCharge.getBondAmount(), ps, 4);
                 
                 if (bookingCharge.getBondType() != null){
-                    ps.setInt(5, bookingCharge.getBondType().getKey());
+                	setPreparedStatementVariable(bookingCharge.getBondType().getKey(), ps, 5);
                 }
                 else{
                 	ps.setNull(5, java.sql.Types.NULL);
@@ -287,33 +294,35 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	if (booking.getBookingId() != null){
 
         	        		sqlString="INSERT into booking ("
-        	        				+ "BookingDateTime, FacilityID, SupervisionUnitTypeID, "
-        	        				+ "PersonID, BookingNumber, ScheduledReleaseDate, InmateJailResidentIndicator, BookingID) "
-        	        				+ "values (?,?,?,?,?,?,?,?)";
+        	        				+ "BookingDate, BookingTime, FacilityID, SupervisionUnitTypeID, "
+        	        				+ "PersonID, BookingNumber, ScheduledReleaseDate, InmateJailResidentIndicator, InmateCurrentLocation, BookingID) "
+        	        				+ "values (?,?,?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
 
         	        		sqlString="INSERT into booking ("
-        	        				+ "BookingDateTime,"
+        	        				+ "BookingDate, BookingTime,"
         	        				+ "FacilityID, SupervisionUnitTypeID,  "
-        	        				+ "PersonID, BookingNumber, ScheduledReleaseDate, InmateJailResidentIndicator) "
-        	        				+ "values (?,?,?,?,?,?,?)";
+        	        				+ "PersonID, BookingNumber, ScheduledReleaseDate, InmateJailResidentIndicator, InmateCurrentLocation) "
+        	        				+ "values (?,?,?,?,?,?,?,?,?)";
         	        		
         	        	}	
         	        			
         	            PreparedStatement ps =
         	                connection.prepareStatement(sqlString, java.sql.Statement.RETURN_GENERATED_KEYS);
         	            
-        	            setPreparedStatementVariable(booking.getBookingDateTime(), ps, 1);
-        	            setPreparedStatementVariable(booking.getFacilityId(), ps, 2);
-        	            setPreparedStatementVariable(booking.getSupervisionUnitTypeId(), ps, 3);
-        	            setPreparedStatementVariable(booking.getPersonId(), ps, 4);
-        	            setPreparedStatementVariable(booking.getBookingNumber(), ps, 5);
-        	            setPreparedStatementVariable(booking.getScheduledReleaseDate(), ps, 6);
-        	            setPreparedStatementVariable(booking.getInmateJailResidentIndicator(), ps, 7);
+        	            setPreparedStatementVariable(booking.getBookingDate(), ps, 1);
+        	            setPreparedStatementVariable(booking.getBookingTime(), ps, 2);
+        	            setPreparedStatementVariable(booking.getFacilityId(), ps, 3);
+        	            setPreparedStatementVariable(booking.getSupervisionUnitTypeId(), ps, 4);
+        	            setPreparedStatementVariable(booking.getPersonId(), ps, 5);
+        	            setPreparedStatementVariable(booking.getBookingNumber(), ps, 6);
+        	            setPreparedStatementVariable(booking.getScheduledReleaseDate(), ps, 7);
+        	            setPreparedStatementVariable(booking.getInmateJailResidentIndicator(), ps, 8);
+        	            setPreparedStatementVariable(booking.getInmateCurrentLocation(), ps, 9);
                         
         	            if (booking.getBookingId() != null){
-        	            	setPreparedStatementVariable(booking.getBookingId(), ps, 8);
+        	            	setPreparedStatementVariable(booking.getBookingId(), ps, 10);
         	            }
         	            
         	            return ps;
@@ -337,20 +346,126 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	@Override
 	@Transactional
 	public void deleteBooking(Integer bookingId) {
-		String bookingDeleteSql = "DELETE FROM booking WHERE bookingID = ?";
-		String bookingArrestDeleteSql = "DELETE FROM BookingArrest WHERE bookingId = ?";
-		String bookingChargeDeleteSql = "DELETE FROM BookingCharge WHERE bookingArrestId in (select bookingArrestID from BookingArrest a where a.bookingId = ?) ";
-		String personIdSelectSql = "SELECT personId FROM booking WHERE bookingID = ?";
-		String personDeleteSql="delete from Person where personId = ?";
 		
-		Integer personId = jdbcTemplate.queryForObject(personIdSelectSql, Integer.class, bookingId);
-		jdbcTemplate.update(bookingChargeDeleteSql, bookingId);
-		jdbcTemplate.update(bookingArrestDeleteSql, bookingId);
-		jdbcTemplate.update(bookingDeleteSql, bookingId);
+		jdbcTemplate.update("DELETE FROM CustodyRelease WHERE bookingID = ?", bookingId);
 		
-		//TODO need to remove the BH info first. 
-		if (personId != null){
-			jdbcTemplate.update(personDeleteSql, personId);
+		deleteCustodyStatusChanges(bookingId);
+		deleteInitialBooking(bookingId);
+		
+		jdbcTemplate.update("DELETE FROM Location "
+				+ "WHERE (SELECT count(*) FROM BookingArrest ba WHERE ba.locationId = locationId) = 0 "
+				+ "	 AND (SELECT count(*) FROM CustodyStatusChangeArrest ba WHERE ba.locationId = locationId) = 0 ");
+	}
+
+	private void deleteInitialBooking(Integer bookingId) {
+		
+		jdbcTemplate.update("DELETE FROM BookingCharge  "
+				+ "WHERE BookingArrestID IN "
+				+ "	(SELECT ba.BookingArrestID from BookingArrest ba "
+				+ "		LEFT JOIN Booking b ON b.BookingID = ba.BookingID "
+				+ "		WHERE b.bookingID = ? )", bookingId); 
+				
+		jdbcTemplate.update("DELETE FROM BookingArrest "
+				+ "WHERE BookingID = ? ", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM BehavioralHealthEvaluation "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN Booking b ON b.personId = p.personId "
+				+ "		WHERE b.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM BehavioralHealthAssessmentCategory "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN Booking b ON b.personId = p.personId "
+				+ "		WHERE b.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM PrescribedMedication "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN Booking b ON b.personId = p.personId "
+				+ "		WHERE b.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM Treatment "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN Booking b ON b.personId = p.personId "
+				+ "		WHERE b.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM BehavioralHealthAssessment "
+				+ "WHERE PersonId IN "
+				+ "	(SELECT p.PersonId from Person p "
+				+ "		LEFT JOIN Booking b ON b.personId = p.personId "
+				+ "		WHERE b.bookingId = ? )", bookingId); 
+		
+		Integer personId = jdbcTemplate.queryForObject("SELECT PersonID from Booking WHERE BookingID = ?", Integer.class, bookingId);
+		
+		jdbcTemplate.update("DELETE FROM Booking WHERE bookingId = ? ", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM Person "
+				+ "WHERE personId = ? ", personId);
+	}
+
+	private void deleteCustodyStatusChanges(Integer bookingId) {
+		
+		jdbcTemplate.update("DELETE FROM CustodyStatusChangeCharge  "
+				+ "WHERE CustodyStatusChangeArrestID IN "
+				+ "	(SELECT csca.CustodyStatusChangeArrestID from CustodyStatusChangeArrest csca "
+				+ " 	RIGHT JOIN CustodyStatusChange csc ON csc.CustodyStatusChangeID = csca.CustodyStatusChangeID "
+				+ "		WHERE csc.bookingID = ? )", bookingId); 
+				
+		jdbcTemplate.update("DELETE FROM CustodyStatusChangeArrest "
+				+ "WHERE CustodyStatusChangeID IN "
+				+ "	(SELECT CustodyStatusChangeID from CustodyStatusChange "
+				+ "		WHERE bookingID = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM BehavioralHealthEvaluation "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
+				+ "		RIGHT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
+				+ "		WHERE csc.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM BehavioralHealthAssessmentCategory "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
+				+ "		RIGHT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
+				+ "		WHERE csc.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM PrescribedMedication "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
+				+ "		WHERE csc.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM Treatment "
+				+ "WHERE BehavioralHealthAssessmentID IN "
+				+ "	(SELECT bha.BehavioralHealthAssessmentID from BehavioralHealthAssessment bha "
+				+ "		LEFT JOIN Person p ON p.PersonId = bha.PersonId "
+				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
+				+ "		WHERE csc.bookingId = ? )", bookingId); 
+		
+		jdbcTemplate.update("DELETE FROM BehavioralHealthAssessment "
+				+ "WHERE PersonId IN "
+				+ "	(SELECT p.PersonId FROM Person p "
+				+ "		LEFT JOIN CustodyStatusChange csc ON csc.personId = p.personId "
+				+ "		WHERE csc.bookingId = ? )", bookingId); 
+		
+		List<Integer> personIds = jdbcTemplate.queryForList("SELECT PersonID from CustodyStatusChange WHERE BookingID = ?", Integer.class, bookingId);
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		parameters.addValue("personIds", personIds);
+
+		jdbcTemplate.update("DELETE FROM CustodyStatusChange WHERE bookingId = ? ", bookingId); 
+		
+		if ( personIds.size() > 0){
+			namedParameterJdbcTemplate.update("DELETE FROM Person "
+					+ "WHERE PersonID IN (:personIds) ", parameters);
 		}
 		
 	}
@@ -373,14 +488,16 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public Booking mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Booking booking = new Booking();
 	    	
-			booking.setBookingId(rs.getInt("BookingID"));
-			booking.setBookingDateTime(rs.getTimestamp("BookingDateTime").toLocalDateTime());
-			booking.setFacilityId(rs.getInt("FacilityID"));
-			booking.setSupervisionUnitTypeId(rs.getInt("SupervisionUnitTypeID"));
-			booking.setPersonId(rs.getInt("PersonID"));
+			booking.setBookingId(DaoUtils.getInteger(rs,"BookingID"));
+			booking.setBookingDate(DaoUtils.getLocalDate(rs, "BookingDate"));
+			booking.setBookingTime(DaoUtils.getLocalTime(rs, "BookingTime"));
+			booking.setFacilityId(DaoUtils.getInteger(rs,"FacilityID"));
+			booking.setSupervisionUnitTypeId(DaoUtils.getInteger(rs,"SupervisionUnitTypeID"));
+			booking.setPersonId(DaoUtils.getInteger(rs,"PersonID"));
 			booking.setBookingNumber(rs.getString("BookingNumber"));
 			booking.setScheduledReleaseDate( DaoUtils.getLocalDate(rs, "ScheduledReleaseDate"));
 			booking.setInmateJailResidentIndicator( rs.getBoolean("InmateJailResidentIndicator"));
+			booking.setInmateCurrentLocation( rs.getString("InmateCurrentLocation"));
 			
 	    	return booking;
 		}
@@ -389,11 +506,15 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	@Override
 	public Integer getPersonIdByUniqueId(String uniqueId) {
-		String sqlString = "SELECT top 1 PersonID FROM Person WHERE PersonUniqueIdentifier = ? order by PersonTimestamp desc";
+		String sqlString = "SELECT PersonID FROM Person WHERE PersonUniqueIdentifier = ? order by PersonTimestamp asc";
 		
 		List<Integer> personIds = jdbcTemplate.queryForList(sqlString, Integer.class, uniqueId);
 
-		return DataAccessUtils.uniqueResult(personIds);
+		if (personIds != null && personIds.size() > 0){
+			return personIds.get(0); 
+		}
+		
+		return null; 
 	}
 
 	@Override
@@ -416,24 +537,24 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public BookingCharge mapRow(ResultSet rs, int rowNum) throws SQLException {
 			BookingCharge bookingCharge = new BookingCharge();
 	    	
-			bookingCharge.setBookingChargeId(rs.getInt("bookingChargeId"));
-			bookingCharge.setBookingArrestId(rs.getInt("bookingArrestId"));
+			bookingCharge.setBookingChargeId(DaoUtils.getInteger(rs,"bookingChargeId"));
+			bookingCharge.setBookingArrestId(DaoUtils.getInteger(rs,"bookingArrestId"));
 			
 			bookingCharge.setChargeCode( rs.getString("ChargeCode") );
 			bookingCharge.setChargeDisposition( rs.getString("ChargeDisposition") );
 			
-			bookingCharge.setAgencyId(rs.getInt("AgencyID"));
-			bookingCharge.setChargeClassTypeId(rs.getInt("ChargeClassTypeId"));
+			bookingCharge.setAgencyId(DaoUtils.getInteger(rs,"AgencyID"));
+			bookingCharge.setChargeClassTypeId(DaoUtils.getInteger(rs,"ChargeClassTypeId"));
 			bookingCharge.setBondAmount(rs.getBigDecimal("bondAmount"));
 			
-			Integer bondTypeId = rs.getInt("bondTypeId"); 
+			Integer bondTypeId = DaoUtils.getInteger(rs,"bondTypeId"); 
 			if (bondTypeId != null){
-				KeyValue bondType = new KeyValue( rs.getInt("bondTypeId"), rs.getString("bondTypeDescription"));
+				KeyValue bondType = new KeyValue( DaoUtils.getInteger(rs,"bondTypeId"), rs.getString("bondTypeDescription"));
 				bookingCharge.setBondType( bondType );
 			}
 			
-			bookingCharge.setBondStatusTypeId(rs.getInt("BondStatusTypeId"));
-			bookingCharge.setChargeJurisdictionTypeId(rs.getInt("ChargeJurisdictionTypeId"));
+			bookingCharge.setBondStatusTypeId(DaoUtils.getInteger(rs,"BondStatusTypeId"));
+			bookingCharge.setChargeJurisdictionTypeId(DaoUtils.getInteger(rs,"ChargeJurisdictionTypeId"));
 	    	return bookingCharge;
 		}
 
@@ -457,14 +578,14 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			Map<Integer, BehavioralHealthAssessment> map = new HashMap<Integer, BehavioralHealthAssessment>();
 			BehavioralHealthAssessment behavioralHealthAssessment = null;
             while (rs.next()) {
-	            Integer behavioralHealthAssessmentId = rs.getInt("behavioralHealthAssessmentId" ); 
+	            Integer behavioralHealthAssessmentId = DaoUtils.getInteger(rs,"behavioralHealthAssessmentId" ); 
 	            behavioralHealthAssessment  = map.get( behavioralHealthAssessmentId );
 	            if ( behavioralHealthAssessment  == null){
 	            	behavioralHealthAssessment = new BehavioralHealthAssessment();; 
-	    			behavioralHealthAssessment.setBehavioralHealthAssessmentId(rs.getInt("behavioralHealthAssessmentId"));
-	    			behavioralHealthAssessment.setPersonId(rs.getInt("PersonId"));
+	    			behavioralHealthAssessment.setBehavioralHealthAssessmentId(DaoUtils.getInteger(rs,"behavioralHealthAssessmentId"));
+	    			behavioralHealthAssessment.setPersonId(DaoUtils.getInteger(rs,"PersonId"));
 	    			behavioralHealthAssessment.setSeriousMentalIllness(rs.getBoolean("seriousMentalIllnessIndicator"));
-	    			behavioralHealthAssessment.setMedicaidStatusTypeId(rs.getInt("MedicaidStatusTypeId"));
+	    			behavioralHealthAssessment.setMedicaidStatusTypeId(DaoUtils.getInteger(rs,"MedicaidStatusTypeId"));
 	    			behavioralHealthAssessment.setCareEpisodeStartDate(DaoUtils.getLocalDate(rs, "careEpisodeStartDate") );
 	    			behavioralHealthAssessment.setCareEpisodeEndDate(DaoUtils.getLocalDate(rs, "careEpisodeEndDate"));
 	    			behavioralHealthAssessment.setEnrolledProviderName(rs.getString("EnrolledProviderName"));
@@ -485,20 +606,22 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	@Override
 	public void saveCustodyRelease(CustodyRelease custodyRelease) {
 
-		saveCustodyRelease(custodyRelease.getBookingId(),
-				custodyRelease.getReleaseDateTime(), custodyRelease.getReleaseCondition());
+		saveCustodyRelease(custodyRelease.getBookingId(), custodyRelease.getBookingNumber(), 
+				custodyRelease.getReleaseDate(), custodyRelease.getReleaseTime(), custodyRelease.getReleaseCondition());
 	}
 
-	@Override
-	public void saveCustodyRelease(Integer bookingId,
-			LocalDateTime releaseDateTime, String releaseCondition) {
+	private void saveCustodyRelease(Integer bookingId, String bookingNumber,
+			LocalDate releaseDate, LocalTime releaseTime, String releaseCondition) {
 
-		final String sql = "Insert into CustodyRelease (BookingID, ReleaseDateTime, ReleaseCondition) "
-				+ "values (:bookingId, :releaseDateTime, :releaseCondition)";
+		final String sql = "Insert into CustodyRelease (BookingID, BookingNumber, "
+				+ "ReleaseDate, ReleaseTime, ReleaseCondition) "
+				+ "values (:bookingId, :bookingNumber, :releaseDate, :releaseTime, :releaseCondition)";
 		
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("releaseDateTime", Timestamp.valueOf(releaseDateTime) );
+		params.put("releaseDate", Date.valueOf(releaseDate) );
+		params.put("releaseTime", Time.valueOf(releaseTime) );
 		params.put("bookingId", bookingId );
+		params.put("bookingNumber", bookingNumber );
 		params.put("releaseCondition", releaseCondition);
 		
 		namedParameterJdbcTemplate.update(sql, params);
@@ -506,12 +629,16 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 
 	@Override
 	public CustodyRelease getCustodyReleaseByBookingId(Integer bookingId) {
-		final String sql = "Select top 1 * from CustodyRelease where BookingId = ? order by CustodyReleaseTimestamp desc";
+		final String sql = "Select * from CustodyRelease where BookingId = ? order by CustodyReleaseTimestamp desc";
 		
 		List<CustodyRelease> custodyReleases = 
 				jdbcTemplate.query(sql, new CustodyReleaseRowMapper(), bookingId);
-		return DataAccessUtils.singleResult(custodyReleases);
 		
+		if (custodyReleases != null && custodyReleases.size() > 0 ){
+			return custodyReleases.get(0);
+		}
+		
+		return null; 
 	}
 
 	public class CustodyReleaseRowMapper implements RowMapper<CustodyRelease>
@@ -520,9 +647,12 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public CustodyRelease mapRow(ResultSet rs, int rowNum) throws SQLException {
 			CustodyRelease custodyRelease = new CustodyRelease();
 	    	
-			custodyRelease.setBookingId(rs.getInt("bookingId"));
-			custodyRelease.setReleaseDateTime(DaoUtils.getLocalDateTime(rs, "ReleaseDateTime"));
+			custodyRelease.setBookingId(DaoUtils.getInteger(rs,"bookingId"));
+			custodyRelease.setBookingNumber(rs.getString("bookingNumber"));
+			custodyRelease.setReleaseDate(DaoUtils.getLocalDate(rs, "ReleaseDate"));
+			custodyRelease.setReleaseTime(DaoUtils.getLocalTime(rs, "ReleaseTime"));
 			custodyRelease.setReleaseCondition( rs.getString("ReleaseCondition"));
+			custodyRelease.setCustodyReleaseTimestamp(rs.getTimestamp("CustodyReleaseTimestamp"));
 			
 	    	return custodyRelease;
 		}
@@ -544,19 +674,19 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	        	if (custodyStatusChange.getCustodyStatusChangeId() != null){
 
         	        		sqlString="INSERT into custodyStatusChange ("
-        	        				+ "BookingDateTime,  "
+        	        				+ "BookingDate, BookingTime,  "
         	        				+ "FacilityID, SupervisionUnitTypeID, "
-        	        				+ "PersonID, BookingId, ScheduledReleaseDate, InmateJailResidentIndicator"
+        	        				+ "PersonID, BookingId, ScheduledReleaseDate, InmateJailResidentIndicator, BookingNumber, InmateCurrentLocation, "
         	        				+ "CustodyStatusChangeID) "
-        	        				+ "values (?,?,?,?,?,?,?,?)";
+        	        				+ "values (?,?,?,?,?,?,?,?,?,?,?)";
         	        	}	
         	        	else{
 
         	        		sqlString="INSERT into custodyStatusChange ("
-        	        				+ "BookingDateTime, "
+        	        				+ "BookingDate, BookingTime, "
         	        				+ "FacilityID, SupervisionUnitTypeID, "
-        	        				+ "PersonID, BookingId, ScheduledReleaseDate, InmateJailResidentIndicator) "
-        	        				+ "values (?,?,?,?,?,?,?)";
+        	        				+ "PersonID, BookingId, ScheduledReleaseDate, InmateJailResidentIndicator, BookingNumber, InmateCurrentLocation) "
+        	        				+ "values (?,?,?,?,?,?,?,?,?,?)";
         	        		
         	        	}	
         	        			
@@ -564,16 +694,19 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	            PreparedStatement ps =
         	                connection.prepareStatement(sqlString, java.sql.Statement.RETURN_GENERATED_KEYS);
         	            
-        	            setPreparedStatementVariable(custodyStatusChange.getBookingDateTime(), ps, 1);
-        	            setPreparedStatementVariable(custodyStatusChange.getFacilityId(), ps, 2);
-        	            setPreparedStatementVariable(custodyStatusChange.getSupervisionUnitTypeId(), ps, 3);
-        	            setPreparedStatementVariable(custodyStatusChange.getPersonId(), ps, 4);
-        	            setPreparedStatementVariable(custodyStatusChange.getBookingId(), ps, 5);
-        	            setPreparedStatementVariable(custodyStatusChange.getScheduledReleaseDate(), ps, 6);
-        	            setPreparedStatementVariable(custodyStatusChange.getInmateJailResidentIndicator(), ps, 7);
+        	            setPreparedStatementVariable(custodyStatusChange.getBookingDate(), ps, 1);
+        	            setPreparedStatementVariable(custodyStatusChange.getBookingTime(), ps, 2);
+        	            setPreparedStatementVariable(custodyStatusChange.getFacilityId(), ps, 3);
+        	            setPreparedStatementVariable(custodyStatusChange.getSupervisionUnitTypeId(), ps, 4);
+        	            setPreparedStatementVariable(custodyStatusChange.getPersonId(), ps, 5);
+        	            setPreparedStatementVariable(custodyStatusChange.getBookingId(), ps, 6);
+        	            setPreparedStatementVariable(custodyStatusChange.getScheduledReleaseDate(), ps, 7);
+        	            setPreparedStatementVariable(custodyStatusChange.getInmateJailResidentIndicator(), ps, 8);
+        	            setPreparedStatementVariable(custodyStatusChange.getBookingNumber(), ps, 9);
+        	            setPreparedStatementVariable(custodyStatusChange.getInmateCurrentLocation(), ps, 10);
         	            
         	            if (custodyStatusChange.getCustodyStatusChangeId() != null){
-        	            	setPreparedStatementVariable(custodyStatusChange.getCustodyStatusChangeId(), ps, 8);
+        	            	setPreparedStatementVariable(custodyStatusChange.getCustodyStatusChangeId(), ps, 11);
         	            }
         	            
         	            return ps;
@@ -610,11 +743,11 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
             	CustodyStatusChangeCharge custodyStatusChangeCharge = custodyStatusChangeCharges.get(i);
                 ps.setInt(1, custodyStatusChangeCharge.getCustodyStatusChangeArrestId());
                 setPreparedStatementVariable(custodyStatusChangeCharge.getChargeCode(), ps, 2);
-                ps.setInt(3, custodyStatusChangeCharge.getAgencyId());
+                setPreparedStatementVariable(custodyStatusChangeCharge.getAgencyId(), ps, 3);
                 setPreparedStatementVariable(custodyStatusChangeCharge.getBondAmount(), ps, 4);
                 
                 if (custodyStatusChangeCharge.getBondType() != null){
-                	 ps.setInt(5, custodyStatusChangeCharge.getBondType().getKey());
+                    setPreparedStatementVariable(custodyStatusChangeCharge.getBondType().getKey(), ps, 5);
                 }
                 else{
                 	ps.setNull(5, java.sql.Types.NULL);
@@ -633,7 +766,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		
 	}
 
-	public CustodyStatusChange getCustodyStatusChangeByBookingId(Integer bookingId) {
+	public List<CustodyStatusChange> getCustodyStatusChangesByBookingId(Integer bookingId) {
 		final String sql = "SELECT * FROM CustodyStatusChange c "
 				+ "WHERE BookingId = ?";
 		
@@ -641,7 +774,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 				jdbcTemplate.query(sql, 
 						new CustodyStatusChangeRowMapper(), bookingId);
 		
-		return DataAccessUtils.singleResult(custodyStatusChanges);
+		return custodyStatusChanges;
 	}
 
 	public class CustodyStatusChangeRowMapper implements RowMapper<CustodyStatusChange>
@@ -650,14 +783,18 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public CustodyStatusChange mapRow(ResultSet rs, int rowNum) throws SQLException {
 			CustodyStatusChange custodyStatusChange = new CustodyStatusChange();
 	    	
-			custodyStatusChange.setCustodyStatusChangeId(rs.getInt("CustodyStatusChangeId"));
-			custodyStatusChange.setBookingDateTime(DaoUtils.getLocalDateTime(rs, "BookingDateTime"));
-			custodyStatusChange.setFacilityId(rs.getInt("FacilityID"));
-			custodyStatusChange.setSupervisionUnitTypeId(rs.getInt("SupervisionUnitTypeID"));
-			custodyStatusChange.setPersonId(rs.getInt("PersonID"));
-			custodyStatusChange.setBookingId(rs.getInt("BookingId"));
+			custodyStatusChange.setCustodyStatusChangeId(DaoUtils.getInteger(rs,"CustodyStatusChangeId"));
+			custodyStatusChange.setBookingDate(DaoUtils.getLocalDate(rs, "BookingDate"));
+			custodyStatusChange.setBookingTime(DaoUtils.getLocalTime(rs, "BookingTime"));
+			custodyStatusChange.setFacilityId(DaoUtils.getInteger(rs,"FacilityID"));
+			custodyStatusChange.setSupervisionUnitTypeId(DaoUtils.getInteger(rs,"SupervisionUnitTypeID"));
+			custodyStatusChange.setPersonId(DaoUtils.getInteger(rs,"PersonID"));
+			custodyStatusChange.setBookingId(DaoUtils.getInteger(rs,"BookingId"));
+			custodyStatusChange.setBookingNumber(rs.getString("BookingNumber"));
 			custodyStatusChange.setScheduledReleaseDate( DaoUtils.getLocalDate(rs, "ScheduledReleaseDate"));
 			custodyStatusChange.setInmateJailResidentIndicator( rs.getBoolean("InmateJailResidentIndicator") );
+			custodyStatusChange.setInmateCurrentLocation( rs.getString("InmateCurrentLocation") );
+			custodyStatusChange.setCustodyStatusChangeTimestamp(rs.getTimestamp("custodyStatusChangeTimestamp") );
 			
 	    	return custodyStatusChange;
 		}
@@ -683,23 +820,23 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			
 			CustodyStatusChangeCharge custodyStatusChangeCharge = new CustodyStatusChangeCharge();
 	    	
-			custodyStatusChangeCharge.setCustodyStatusChangeChargeId(rs.getInt("CustodyStatusChangeChargeId"));
-			custodyStatusChangeCharge.setCustodyStatusChangeArrestId(rs.getInt("CustodyStatusChangeArrestId"));
+			custodyStatusChangeCharge.setCustodyStatusChangeChargeId(DaoUtils.getInteger(rs,"CustodyStatusChangeChargeId"));
+			custodyStatusChangeCharge.setCustodyStatusChangeArrestId(DaoUtils.getInteger(rs,"CustodyStatusChangeArrestId"));
 			
 			custodyStatusChangeCharge.setChargeCode( rs.getString("ChargeCode") );
 			custodyStatusChangeCharge.setChargeDisposition( rs.getString("ChargeDisposition") );
 			
-			custodyStatusChangeCharge.setAgencyId(rs.getInt("AgencyID"));
+			custodyStatusChangeCharge.setAgencyId(DaoUtils.getInteger(rs,"AgencyID"));
 			custodyStatusChangeCharge.setBondAmount(rs.getBigDecimal("bondAmount"));
 			
-			Integer bondTypeId = rs.getInt("bondTypeId"); 
+			Integer bondTypeId = DaoUtils.getInteger(rs,"bondTypeId"); 
 			if (bondTypeId != null){
-				KeyValue bondType = new KeyValue( rs.getInt("bondTypeId"), rs.getString("bondTypeDescription"));
+				KeyValue bondType = new KeyValue( DaoUtils.getInteger(rs,"bondTypeId"), rs.getString("bondTypeDescription"));
 				custodyStatusChangeCharge.setBondType( bondType );
 			}
-			custodyStatusChangeCharge.setChargeClassTypeId(rs.getInt("ChargeClassTypeId"));
-			custodyStatusChangeCharge.setBondStatusTypeId(rs.getInt("BondStatusTypeId"));
-			custodyStatusChangeCharge.setChargeJurisdictionTypeId(rs.getInt("ChargeJurisdictionTypeId"));
+			custodyStatusChangeCharge.setChargeClassTypeId(DaoUtils.getInteger(rs,"ChargeClassTypeId"));
+			custodyStatusChangeCharge.setBondStatusTypeId(DaoUtils.getInteger(rs,"BondStatusTypeId"));
+			custodyStatusChangeCharge.setChargeJurisdictionTypeId(DaoUtils.getInteger(rs,"ChargeJurisdictionTypeId"));
 			
 	    	return custodyStatusChangeCharge;
 		}
@@ -709,8 +846,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	@Override
 	public Integer saveBookingArrest(BookingArrest bookingArrest) {
         log.debug("Inserting row into BookingArrest table: " + bookingArrest.toString());
-        
-        Integer locationId = saveAddress(bookingArrest.getAddress());
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -735,7 +870,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	                connection.prepareStatement(sqlString, java.sql.Statement.RETURN_GENERATED_KEYS);
         	            ps.setInt(1, bookingArrest.getBookingId());
         	            
-        	            setPreparedStatementVariable(locationId, ps, 2);
+        	            setPreparedStatementVariable(bookingArrest.getAddress().getLocationId(), ps, 2);
         	            setPreparedStatementVariable(bookingArrest.getArrestAgencyId(), ps, 3);
         	            
         	            if (bookingArrest.getBookingArrestId() != null){
@@ -919,9 +1054,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public BookingArrest mapRow(ResultSet rs, int rowNum) throws SQLException {
 			BookingArrest bookingArrest = new BookingArrest();
 	    	
-			bookingArrest.setBookingId(rs.getInt("bookingId"));
-			bookingArrest.setBookingArrestId(rs.getInt("bookingArrestId"));
-			bookingArrest.setArrestAgencyId(rs.getInt("arrestAgencyId"));
+			bookingArrest.setBookingId(DaoUtils.getInteger(rs,"bookingId"));
+			bookingArrest.setBookingArrestId(DaoUtils.getInteger(rs,"bookingArrestId"));
+			bookingArrest.setArrestAgencyId(DaoUtils.getInteger(rs,"arrestAgencyId"));
 
 			Address address = buildAddress(rs);
 			
@@ -946,12 +1081,12 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public Treatment mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Treatment treatment = new Treatment();
 	    	
-			treatment.setTreatmentId(rs.getInt("treatmentId"));
-			treatment.setBehavioralHealthAssessmentID(rs.getInt("behavioralHealthAssessmentID"));
+			treatment.setTreatmentId(DaoUtils.getInteger(rs,"treatmentId"));
+			treatment.setBehavioralHealthAssessmentID(DaoUtils.getInteger(rs,"behavioralHealthAssessmentID"));
 
 			treatment.setTreatmentStartDate(DaoUtils.getLocalDate(rs, "TreatmentStartDate"));
-			treatment.setTreatmentAdmissionReasonTypeId(rs.getInt("TreatmentAdmissionReasonTypeID"));
-			treatment.setTreatmentStatusTypeId(rs.getInt("TreatmentStatusTypeID"));
+			treatment.setTreatmentAdmissionReasonTypeId(DaoUtils.getInteger(rs,"TreatmentAdmissionReasonTypeID"));
+			treatment.setTreatmentStatusTypeId(DaoUtils.getInteger(rs,"TreatmentStatusTypeID"));
 			treatment.setTreatmentProviderName(rs.getString("TreatmentProviderName"));
 	    	return treatment;
 		}
@@ -975,8 +1110,8 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public PrescribedMedication mapRow(ResultSet rs, int rowNum) throws SQLException {
 			PrescribedMedication prescribedMedication = new PrescribedMedication();
 	    	
-			prescribedMedication.setPrescribedMedicationID(rs.getInt("prescribedMedicationID"));
-			prescribedMedication.setBehavioralHealthAssessmentID(rs.getInt("behavioralHealthAssessmentID"));
+			prescribedMedication.setPrescribedMedicationID(DaoUtils.getInteger(rs,"prescribedMedicationID"));
+			prescribedMedication.setBehavioralHealthAssessmentID(DaoUtils.getInteger(rs,"behavioralHealthAssessmentID"));
 
 			prescribedMedication.setMedicationDescription(rs.getString("MedicationDescription"));
 			prescribedMedication.setMedicationDispensingDate(DaoUtils.getLocalDate(rs, "medicationDispensingDate"));
@@ -991,8 +1126,6 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	public Integer saveCustodyStatusChangeArrest(
 			CustodyStatusChangeArrest custodyStatusChangeArrest) {
         log.debug("Inserting row into CustodyStatusChangeArrest table: " + custodyStatusChangeArrest.toString());
-        
-        Integer locationId = this.saveAddress(custodyStatusChangeArrest.getAddress());
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -1014,7 +1147,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         	                connection.prepareStatement(sqlString, java.sql.Statement.RETURN_GENERATED_KEYS);
         	            ps.setInt(1, custodyStatusChangeArrest.getCustodyStatusChangeId());
         	            
-        	            setPreparedStatementVariable(locationId, ps, 2);
+        	            setPreparedStatementVariable(custodyStatusChangeArrest.getAddress().getLocationId(), ps, 2);
         	            setPreparedStatementVariable(custodyStatusChangeArrest.getArrestAgencyId(), ps, 3);
         	            
         	            if (custodyStatusChangeArrest.getCustodyStatusChangeArrestId() != null){
@@ -1057,9 +1190,9 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		public CustodyStatusChangeArrest mapRow(ResultSet rs, int rowNum) throws SQLException {
 			CustodyStatusChangeArrest custodyStatusChangeArrest = new CustodyStatusChangeArrest();
 	    	
-			custodyStatusChangeArrest.setCustodyStatusChangeId(rs.getInt("custodyStatusChangeId"));
-			custodyStatusChangeArrest.setArrestAgencyId(rs.getInt("arrestAgencyId"));
-			custodyStatusChangeArrest.setCustodyStatusChangeArrestId(rs.getInt("custodyStatusChangeArrestId"));
+			custodyStatusChangeArrest.setCustodyStatusChangeId(DaoUtils.getInteger(rs,"custodyStatusChangeId"));
+			custodyStatusChangeArrest.setArrestAgencyId(DaoUtils.getInteger(rs,"arrestAgencyId"));
+			custodyStatusChangeArrest.setCustodyStatusChangeArrestId(DaoUtils.getInteger(rs,"custodyStatusChangeArrestId"));
 
 			Address address = buildAddress(rs);
 			
@@ -1070,7 +1203,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	}
 	
 	private Address buildAddress(ResultSet rs) throws SQLException {
-		Address address = new Address();
+		Address address = new Address(DaoUtils.getInteger(rs,"locationID"));
 		address.setStreetNumber(rs.getString("streetNumber"));
 		address.setStreetName(rs.getString("streetName"));
 		address.setAddressSecondaryUnit(rs.getString("addressSecondaryUnit"));
@@ -1087,10 +1220,10 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		final String sql = "SELECT b.bookingId FROM Booking b "
 				+ "WHERE bookingNumber = ?";
 		
-		Integer bookingId = 
-				jdbcTemplate.queryForObject(sql, Integer.class, bookingNumber);
+		List<Integer> bookingIds = 
+				jdbcTemplate.queryForList(sql, Integer.class, bookingNumber);
 		
-		return bookingId;
+		return DataAccessUtils.singleResult(bookingIds);
 	}
 
 	@Override
@@ -1145,6 +1278,53 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 				jdbcTemplate.query(sql, 
 						new PersonRowMapper(), bookingNumber);
 		return DataAccessUtils.singleResult(persons);
+	}
+
+	@Override
+	public void updateCustodyStatusChangeBookingId(Integer bookingId, String bookingNumber) {
+		
+		final String sql = "UPDATE custodyStatusChange "
+				+ "SET bookingId = ?, custodyStatusChangeTimestamp = ? "
+				+ "WHERE bookingNumber = ? AND (bookingId is null OR bookingId != ?)";
+		Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
+		jdbcTemplate.update(sql, bookingId, currentTimestamp, bookingNumber, bookingId);
+	}
+
+	@Override
+	public void updateCustodyReleaseBookingId(Integer bookingId, String bookingNumber) {
+		final String sql = "UPDATE custodyRelease "
+				+ "SET bookingId = ?, custodyReleaseTimestamp = ? "
+				+ "WHERE bookingNumber = ? AND (bookingId is null OR bookingId != ?)"; 
+		Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
+		
+		jdbcTemplate.update(sql, bookingId, currentTimestamp, bookingNumber, bookingId);
+	}
+
+	@Override
+	public CustodyRelease getCustodyReleaseByBookingNumber(String bookingNumber) {
+		final String sql = "Select * from CustodyRelease where BookingNumber = ? order by CustodyReleaseTimestamp desc";
+		
+		List<CustodyRelease> custodyReleases = 
+				jdbcTemplate.query(sql, new CustodyReleaseRowMapper(), bookingNumber);
+		
+		if (custodyReleases!=null && custodyReleases.size() > 0){
+			return custodyReleases.get(0);
+		}
+		
+		return null; 
+	}
+
+	@Override
+	public List<CustodyStatusChange> getCustodyStatusChangesByBookingNumber(
+			String bookingNumber) {
+		final String sql = "SELECT * FROM CustodyStatusChange c "
+				+ "WHERE BookingNumber = ?";
+		
+		List<CustodyStatusChange> custodyStatusChanges = 
+				jdbcTemplate.query(sql, 
+						new CustodyStatusChangeRowMapper(), bookingNumber);
+		
+		return custodyStatusChanges;
 	}
 
 }

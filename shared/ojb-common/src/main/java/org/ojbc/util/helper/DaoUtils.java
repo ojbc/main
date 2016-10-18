@@ -21,9 +21,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public final class DaoUtils {
 	
@@ -56,6 +58,18 @@ public final class DaoUtils {
 	static public LocalDate getLocalDate(ResultSet rs, String columnName) throws SQLException {
 		Date sqlDate = rs.getDate(columnName);
 		return sqlDate == null ? null : sqlDate.toLocalDate();
+	}
+	
+	/**
+	 * Get LocalTime instance from the ResultSet rs with columnName
+	 * @param rs
+	 * @param columnName
+	 * @return null if the sqlTime retrieved from the result set is null.
+	 * @throws SQLException
+	 */
+	static public LocalTime getLocalTime(ResultSet rs, String columnName) throws SQLException {
+		Time sqlTime = rs.getTime(columnName);
+		return sqlTime == null ? null : sqlTime.toLocalTime();
 	}
 	
 	/**
@@ -114,6 +128,9 @@ public final class DaoUtils {
 			}
 			else if (object instanceof LocalDate){
 				ps.setDate(index, java.sql.Date.valueOf((LocalDate) object));
+			}
+			else if (object instanceof LocalTime){
+				ps.setTime(index, java.sql.Time.valueOf((LocalTime) object));
 			}
 			else if (object instanceof LocalDateTime){
 				ps.setTimestamp(index, java.sql.Timestamp.valueOf((LocalDateTime) object));

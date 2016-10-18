@@ -74,6 +74,7 @@
           <xs:element ref="nc:LocationCityName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:LocationState" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:LocationPostalCode" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:AddressAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -180,6 +181,18 @@
           <xs:element ref="nc:IncidentEvent" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:IncidentReportedNarrative" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:IncidentAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="InjuryType">
+    <xs:annotation>
+      <xs:documentation>A data type for a form of harm or damage sustained by a person.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:InjuryLocation" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -423,6 +436,7 @@
         <xs:sequence>
           <xs:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonOtherIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonSex" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -510,6 +524,11 @@
   <xs:element name="Address" type="nc:AddressType" substitutionGroup="nc:LocationAddressAbstract">
     <xs:annotation>
       <xs:documentation>A postal location to which paper mail can be directed.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="AddressAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for AddressType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="AddressDeliveryPoint" abstract="true">
@@ -625,6 +644,11 @@
   <xs:element name="IncidentReportedNarrative" type="nc:DocumentType" nillable="true">
     <xs:annotation>
       <xs:documentation>A document containing an account of the events that transpired in an incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="InjuryLocation" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a place on the body of a person where an injury occurred.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Insurance" type="nc:InsuranceType" nillable="true">
@@ -805,6 +829,11 @@
   <xs:element name="PersonName" type="nc:PersonNameType" nillable="true">
     <xs:annotation>
       <xs:documentation>A combination of names and/or titles by which a person is known.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonOtherIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification with a kind that is not explicitly defined in the standard that refers to a person within a certain domain.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonResidenceAssociation" type="nc:PersonResidenceAssociationType" nillable="true">

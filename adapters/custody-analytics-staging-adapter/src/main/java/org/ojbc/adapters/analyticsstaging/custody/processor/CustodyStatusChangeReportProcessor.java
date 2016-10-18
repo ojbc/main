@@ -17,13 +17,16 @@
 package org.ojbc.adapters.analyticsstaging.custody.processor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.Address;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChange;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeArrest;
@@ -42,7 +45,7 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 
 	private static final Log log = LogFactory.getLog( CustodyStatusChangeReportProcessor.class );
 	
-	@Transactional
+	@Transactional(rollbackFor=Exception.class)
 	public void processReport(Document report) throws Exception
 	{
 		log.info("Processing custody status change report." );
@@ -56,21 +59,27 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 	}
 
 	private void processCustodyStatusChangeArrests(Document report, Integer custodyStatusChangeId) throws Exception {
+		NodeList locationNodes = XmlUtils.xPathNodeListSearch(report, 
+				"/cscr-doc:CustodyStatusChangeReport/cscr-ext:Custody/nc30:Location[@s30:id = /cscr-doc:CustodyStatusChangeReport/cscr-ext:Custody//jxdm51:Arrest/jxdm51:ArrestLocation/@s30:ref]");
+		
+		Map<String, Integer> addressMap = constructAddressMap(locationNodes);
+		
 		NodeList arrestNodes = XmlUtils.xPathNodeListSearch(report, 
 				"/cscr-doc:CustodyStatusChangeReport/cscr-ext:Custody/jxdm51:Arrest[@s30:id = preceding-sibling::jxdm51:Booking/jxdm51:Arrest/@s30:ref]");
 		
 		for (int i = 0; i < arrestNodes.getLength(); i++) {
 			Node arrestNode = arrestNodes.item(i);
-			Integer custodyStatusChangeArrestId = processCustodyStatusChangeArrest(arrestNode, custodyStatusChangeId);
+			Integer custodyStatusChangeArrestId = processCustodyStatusChangeArrest(arrestNode, custodyStatusChangeId, addressMap);
 			processCustodyStatusChangeCharges(arrestNode, custodyStatusChangeArrestId);
 		}
 	}
 	
-	private Integer processCustodyStatusChangeArrest(Node arrestNode, Integer custodyStatusChangeId) throws Exception {
+	private Integer processCustodyStatusChangeArrest(Node arrestNode, Integer custodyStatusChangeId, Map<String, Integer> addressMap) throws Exception {
 		CustodyStatusChangeArrest custodyStatusChangeArrest = new CustodyStatusChangeArrest();
 		custodyStatusChangeArrest.setCustodyStatusChangeId(custodyStatusChangeId);;
 
-		custodyStatusChangeArrest.setAddress(getArrestInfo(arrestNode));
+		String locationRef = XmlUtils.xPathStringSearch(arrestNode, "jxdm51:ArrestLocation/@s30:ref");
+		custodyStatusChangeArrest.setAddress(new Address(addressMap.get(locationRef)));
         
 		String arrestAgency = XmlUtils.xPathStringSearch(arrestNode, "jxdm51:ArrestAgency/nc30:OrganizationName");
 		custodyStatusChangeArrest.setArrestAgencyId(descriptionCodeLookupService.retrieveCode(CodeTable.Agency,arrestAgency));
@@ -99,7 +108,8 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
 	        String sendingAgency = XmlUtils.xPathStringSearch(chargeNode, "cscr-ext:HoldForAgency/nc30:OrganizationName");
 	        custodyStatusChangeCharge.setAgencyId(descriptionCodeLookupService.retrieveCode(CodeTable.Agency,sendingAgency));
 	        
-	        custodyStatusChangeCharge.setChargeCode(XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeCategoryDescriptionText"));
+	        custodyStatusChangeCharge.setChargeCode(XmlUtils.xPathStringSearch(chargeNode, 
+	        		"jxdm51:ChargeStatute/jxdm51:StatuteCodeSectionIdentification/nc30:IdentificationID"));
 	        custodyStatusChangeCharge.setChargeDisposition(XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeDisposition/nc30:DispositionText"));
 
 	        String chargeClassType = XmlUtils.xPathStringSearch(chargeNode, "jxdm51:ChargeSeverityText");
@@ -158,8 +168,17 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
         Integer personId = processPersonAndBehavioralHealthInfo(personNode, bookingNumber);
         custodyStatusChange.setPersonId(personId);
         
-        String bookingDate = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
-        custodyStatusChange.setBookingDateTime(parseLocalDateTime(bookingDate));
+        String bookingDateTimeString = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
+        LocalDateTime bookingDateTime = parseLocalDateTime(bookingDateTimeString);
+        
+        if (bookingDateTime != null){
+        	custodyStatusChange.setBookingDate( bookingDateTime.toLocalDate());
+        	custodyStatusChange.setBookingTime( bookingDateTime.toLocalTime());
+        }
+        else{
+            String bookingDateString = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/nc30:ActivityDate/nc30:Date");
+        	custodyStatusChange.setBookingDate(parseLocalDate(bookingDateString));
+        }
 
         String facility = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/jxdm51:BookingDetentionFacility/nc30:FacilityIdentification/nc30:IdentificationID");
         Integer facilityId = descriptionCodeLookupService.retrieveCode(CodeTable.Facility, facility);
@@ -176,7 +195,10 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
  		String inmateJailResidentIndicator = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Detention/cscr-ext:InmateJailResidentIndicator");
  		custodyStatusChange.setInmateJailResidentIndicator(BooleanUtils.toBooleanObject(inmateJailResidentIndicator));
  		
-        processCustodyReleaseInfo(custodyNode, bookingId);
+ 		String inmateCurrentLocation = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/jxdm51:BookingSubject/cscr-ext:SubjectLocationStatus/nc30:StatusDescriptionText");
+ 		custodyStatusChange.setInmateCurrentLocation(inmateCurrentLocation);
+ 		
+        processCustodyReleaseInfo(custodyNode, bookingId, bookingNumber);
 
         Integer custodyStatusChangeId = analyticalDatastoreDAO.saveCustodyStatusChange(custodyStatusChange);
         

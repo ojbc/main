@@ -32,7 +32,7 @@ public class CustodyReleaseReportProcessor extends AbstractReportRepositoryProce
 
 	private static final Log log = LogFactory.getLog( CustodyReleaseReportProcessor.class );
 	
-	@Transactional
+	@Transactional(rollbackFor=Exception.class)
 	public void processReport(Document report) throws Exception
 	{
 		log.info("Processing Custody Release report." );
@@ -48,11 +48,19 @@ public class CustodyReleaseReportProcessor extends AbstractReportRepositoryProce
 		String releaseCondition = XmlUtils.xPathStringSearch(bookingNode, "following-sibling::nc30:Release/crr-ext:ReleaseCondition/nc30:ActivityDescriptionText");
 		custodyRelease.setReleaseCondition(releaseCondition);
 		
-		String releaseDateString = XmlUtils.xPathStringSearch(bookingNode, "following-sibling::nc30:Release/nc30:ActivityDate/nc30:DateTime");
-		LocalDateTime releaseDateTime = parseLocalDateTime(releaseDateString);
+		String releaseDateTimeString = XmlUtils.xPathStringSearch(bookingNode, "following-sibling::nc30:Release/nc30:ActivityDate/nc30:DateTime");
+		LocalDateTime releaseDateTime = parseLocalDateTime(releaseDateTimeString);
+		
+		if (releaseDateTime != null){
+			custodyRelease.setReleaseDate(releaseDateTime.toLocalDate());
+			custodyRelease.setReleaseTime(releaseDateTime.toLocalTime());
+		}
+		else{
+			String releaseDateString = XmlUtils.xPathStringSearch(bookingNode, "following-sibling::nc30:Release/nc30:ActivityDate/nc30:Date");
+			custodyRelease.setReleaseDate(parseLocalDate(releaseDateString));
+		}
 		
 		custodyRelease.setBookingNumber(bookingNumber);
-		custodyRelease.setReleaseDateTime(releaseDateTime);
 		analyticalDatastoreDAO.saveCustodyRelease(custodyRelease);
 		
 		processBehavioralHealthInfo(report);
@@ -70,7 +78,9 @@ public class CustodyReleaseReportProcessor extends AbstractReportRepositoryProce
 		
 		Integer personId = analyticalDatastoreDAO.getPersonIdByUniqueId(personUniqueIdentifier);
 
-		processBehavioralHealthInfo(personNode, personId, "crr-ext");
+		if (personId != null){
+			processBehavioralHealthInfo(personNode, personId, "crr-ext");
+		}
 	}
 
 }

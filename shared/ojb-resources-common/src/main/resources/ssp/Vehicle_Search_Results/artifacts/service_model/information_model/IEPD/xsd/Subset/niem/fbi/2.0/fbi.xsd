@@ -41,7 +41,7 @@
       </xsd:enumeration>
       <xsd:enumeration value="AP">
         <xsd:annotation>
-          <xsd:documentation>ApportionedThe word &quot;APPORTIONED&quot; must appearon the plate.</xsd:documentation>
+          <xsd:documentation>ApportionedThe word &amp;quot;APPORTIONED&amp;quot; must appearon the plate.</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
       <xsd:enumeration value="AQ">
@@ -51,7 +51,7 @@
       </xsd:enumeration>
       <xsd:enumeration value="AR">
         <xsd:annotation>
-          <xsd:documentation>Amateur Radio or Citizen&apos;s BandRadio OperatorAlso called &quot;HAM Radio Operator&quot;.</xsd:documentation>
+          <xsd:documentation>Amateur Radio or Citizen&amp;apos;s BandRadio OperatorAlso called &amp;quot;HAM Radio Operator&amp;quot;.</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
       <xsd:enumeration value="AT">
@@ -196,7 +196,7 @@
       </xsd:enumeration>
       <xsd:enumeration value="MC">
         <xsd:annotation>
-          <xsd:documentation>MotorcycleMotorized bikes &amp; motorscooters areregistered as motorcycles in somestates.</xsd:documentation>
+          <xsd:documentation>MotorcycleMotorized bikes &amp;amp; motorscooters areregistered as motorcycles in somestates.</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
       <xsd:enumeration value="MD">
@@ -246,7 +246,7 @@
       </xsd:enumeration>
       <xsd:enumeration value="OB">
         <xsd:annotation>
-          <xsd:documentation>Omnibus&quot;OMNIBUS&quot; must appear on the plate.</xsd:documentation>
+          <xsd:documentation>Omnibus&amp;quot;OMNIBUS&amp;quot; must appear on the plate.</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
       <xsd:enumeration value="OR">
@@ -321,7 +321,7 @@
       </xsd:enumeration>
       <xsd:enumeration value="SV">
         <xsd:annotation>
-          <xsd:documentation>School VehicleIncludes school bus &amp; drivereducation car.</xsd:documentation>
+          <xsd:documentation>School VehicleIncludes school bus &amp;amp; drivereducation car.</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
       <xsd:enumeration value="TK">

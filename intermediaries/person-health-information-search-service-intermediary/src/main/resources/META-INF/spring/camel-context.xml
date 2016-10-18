@@ -44,10 +44,10 @@
 	    	uri="cxf:bean:personHealthSearchAdapterRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>
 
 		<endpoint id="personHealthSearchIntermediaryResultsEndpoint"
-			uri="cxf:bean:personHealthSearchIntermediaryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}" />
+			uri="cxf:bean:personHealthSearchIntermediaryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="personHealthSearchIntermediaryResultsServiceNoWsSecurityEndpoint"
-			uri="cxf:bean:personHealthSearchIntermediaryResultsServiceNoWsSecurity?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}" />
+			uri="cxf:bean:personHealthSearchIntermediaryResultsServiceNoWsSecurity?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="personHealthSearchClientResultsEndpoint" 
 			uri="cxf:bean:personHealthSearchClientResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>                        
@@ -164,7 +164,7 @@
 				
 				<to uri="bean:personHealthResponseAggregator?method=prepareResponseExchange" />
 
-				<log message="\n\n\n completed aggregated body: \n\n ${body} \n\n\n" />
+				<log message="\n\n\n completed aggregated body: \n\n ${body} \n\n\n" loggingLevel="DEBUG"/>
 				
 				<camel:to uri="direct:sendResponseToClientOfThisIntermediary"/>
 
