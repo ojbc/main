@@ -183,6 +183,9 @@
 		<!-- Call N-DEx in a separate route so it has its own error handler -->		
 		<camel:route errorHandlerRef="ndexDeadLetterErrorHandler">
 			<camel:from uri="direct:callNdexService"/>
+			
+			<camel:log message="\n\nAbout to invoke N-DEx with this payload: ${body} \n\n"/>
+			
 			<camel:to uri="ndexWebserviceEndpoint"/>
 		</camel:route>
 		
