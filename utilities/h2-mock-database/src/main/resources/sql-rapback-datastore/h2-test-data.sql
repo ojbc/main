@@ -38,6 +38,7 @@ insert into department(department_id, department_name, agency_id) values ('1', '
 insert into department(department_id, department_name, agency_id) values ('2', 'Kauai PD A&T R&D', '2'); 
 insert into department(department_id, department_name, agency_id) values ('3', 'Honolulu PD Records and ID Division', '1'); 
 insert into department(department_id, department_name, agency_id) values ('4', 'Central Receiving Division', '1');
+insert into department(department_id, department_name, agency_id) values ('5', 'Test Division', '1');
 
 insert into job_title(job_title_id, department_id, title_description) values('1', '1', 'ID Tech1');
 insert into job_title(job_title_id, department_id, title_description) values('2', '1', 'Senior Clerk');
@@ -53,6 +54,7 @@ insert into job_title(job_title_id, department_id, title_description) values('11
 insert into job_title(job_title_id, department_id, title_description) values('12', '3', 'ID Section clerks');
 insert into job_title(job_title_id, department_id, title_description) values('13', '3', 'Senior Clerk Typist');
 insert into job_title(job_title_id, department_id, title_description) values('14', '4', 'All Sworn Personnel');
+insert into job_title(job_title_id, department_id, title_description) values('15', '5', 'Any');
 
 insert into job_title_privilege(job_title_id, identification_category_id) values ('1', '4');
 insert into job_title_privilege(job_title_id, identification_category_id) values ('1', '3');
@@ -83,6 +85,7 @@ insert into job_title_privilege(job_title_id, identification_category_id) values
 insert into job_title_privilege(job_title_id, identification_category_id) values ('12', '5');
 insert into job_title_privilege(job_title_id, identification_category_id) values ('13', '5');
 insert into job_title_privilege(job_title_id, identification_category_id) values ('14', '4');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('15', '1');
 
 insert into ojbc_user(job_title_id, federation_id) values(3, 'HIJIS:IDP:HCJDC:USER:hpotter'); 
 insert into ojbc_user(job_title_id, federation_id) values(8, 'HIJIS:IDP:HCJDC:USER:demouser'); 
