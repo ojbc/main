@@ -42,6 +42,7 @@
     <module>incident-reporting-service-connector</module>
     <module>ojb-web-application-connector-extension</module>
     <module>ojb-web-application-connector</module>
+    <module>warrant-issue-reporting-service-connector</module>
     <module>warrant-modification-service-connector</module>
   </modules>
 </project>
