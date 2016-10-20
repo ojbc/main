@@ -629,11 +629,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 		if ( isNotSuperUser){
 			sb.append( "AND (t.owner_ori = :ori )"); 
 			paramMap.put("ori", ori);
-		}
-		
-		if ( isNotSuperUser && isNotAgencySuperUser){
-
-			if ( isNotCivilAgencyUser(ori) ){
+			
+			if (isNotAgencySuperUser && isNotCivilAgencyUser(ori) ){
 				sb.append ( " AND (t.identification_category in ( :identificationCategoryList ))");
 				List<String> identificationCategorys = getViewableIdentificationCategories(token, 
 						"CIVIL"); 
@@ -688,7 +685,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "where identification_category_type = :identificationCategoryType  "
 				+ "		AND agency_ori = :agencyOri "
 				+ "		AND department_name = :departmentName "
-				+ "		AND title_description = :titleDescription ";
+				+ "		AND ( title_description = :titleDescription OR title_description = 'Any')";
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("identificationCategoryType", identificationCategoryType);

@@ -86,7 +86,7 @@ public class RapbackSearchProcessorTest {
 	}
 
 	@Test
-	public void testSuperUserSearchResult() throws Exception {
+	public void testSuperUserCivilSearchResult() throws Exception {
 		Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
 		customAttributes.put(SamlAttribute.EmployerORI, "HCJDC");
 		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:superuser");
@@ -106,6 +106,133 @@ public class RapbackSearchProcessorTest {
 		IdentificationReportingResponseProcessorTest.assertAsExpected(
 				OJBUtils.getStringFromDocument(searchResponeDoc), 
 				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseSuperUser.xml");
+	}
+	
+	@Test
+	public void testSuperUserCriminalSearchResult() throws Exception {
+		Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+		customAttributes.put(SamlAttribute.EmployerORI, "HCJDC");
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:superuser");
+		customAttributes.put(SamlAttribute.EmployerSubUnitName, "Honolulu PD Records and ID Division");
+		customAttributes.put(SamlAttribute.EmployeePositionName, "Sworn Supervisors");
+		
+		org.apache.cxf.message.Message message = 
+				SAMLTokenTestUtils.createSamlAssertionMessageWithAttributes(customAttributes);
+		
+		Document criminalIdentificationSearchRequest = 
+				XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/"
+						+ "rapbackSearch/OrganizationIdentificationResultsSearchRequest-Criminal.xml"));
+		
+		Document criminalSearchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, criminalIdentificationSearchRequest);
+		
+		log.info("Criminal identification search Response: \n" + OJBUtils.getStringFromDocument(criminalSearchResponeDoc));
+		IdentificationReportingResponseProcessorTest.assertAsExpected(
+				OJBUtils.getStringFromDocument(criminalSearchResponeDoc), 
+				"src/test/resources/xmlInstances/rapbackSearch/CriminalIdentficationSearchResponseSuperUser.xml");
+	}
+	
+	@Test
+	public void testTitledUserCriminalSearchResult() throws Exception {
+		Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+		customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:titleduser");
+		customAttributes.put(SamlAttribute.EmployerSubUnitName, "Central Receiving Division");
+		customAttributes.put(SamlAttribute.EmployeePositionName, "All Sworn Personnel");
+		
+		org.apache.cxf.message.Message message = 
+				SAMLTokenTestUtils.createSamlAssertionMessageWithAttributes(customAttributes);
+		
+		Document criminalIdentificationSearchRequest = 
+				XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/"
+						+ "rapbackSearch/OrganizationIdentificationResultsSearchRequest-Criminal.xml"));
+		
+		Document criminalSearchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, criminalIdentificationSearchRequest);
+		
+		log.info("Criminal identification search Response: \n" + OJBUtils.getStringFromDocument(criminalSearchResponeDoc));
+		IdentificationReportingResponseProcessorTest.assertAsExpected(
+				OJBUtils.getStringFromDocument(criminalSearchResponeDoc), 
+				"src/test/resources/xmlInstances/rapbackSearch/CriminalIdentficationSearchResponseForTitledUser.xml");
+	}
+	
+	@Test
+	public void testTitledUserCivilSearchResult() throws Exception {
+		Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+		customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:titleduser");
+		customAttributes.put(SamlAttribute.EmployerSubUnitName, "Central Receiving Division");
+		customAttributes.put(SamlAttribute.EmployeePositionName, "All Sworn Personnel");
+		
+		org.apache.cxf.message.Message message = 
+				SAMLTokenTestUtils.createSamlAssertionMessageWithAttributes(customAttributes);
+		
+		Document civilIdentificationSearchRequest = 
+				XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/"
+						+ "rapbackSearch/OrganizationIdentificationResultsSearchRequest-Civil.xml"));
+		
+		Document searchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, civilIdentificationSearchRequest);
+		
+		log.info("Civil identification search Response: \n" + OJBUtils.getStringFromDocument(searchResponeDoc));
+		IdentificationReportingResponseProcessorTest.assertAsExpected(
+				OJBUtils.getStringFromDocument(searchResponeDoc), 
+				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationEmptySearchResponseForTitledUser.xml");
+		
+		customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:titleduser");
+		customAttributes.put(SamlAttribute.EmployerSubUnitName, "Honolulu PD Records and ID Division");
+		customAttributes.put(SamlAttribute.EmployeePositionName, "Fingerprint Technicians");
+		
+		message = SAMLTokenTestUtils.createSamlAssertionMessageWithAttributes(customAttributes);
+		
+		searchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, civilIdentificationSearchRequest);
+		
+		log.info("Civil identification search Response: \n" + OJBUtils.getStringFromDocument(searchResponeDoc));
+		IdentificationReportingResponseProcessorTest.assertAsExpected(
+				OJBUtils.getStringFromDocument(searchResponeDoc), 
+				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseForTitledUser.xml");
+	}
+	
+	@Test
+	public void testAnyTitledUserCivilSearchResult() throws Exception {
+		Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+		customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:titleduser");
+		customAttributes.put(SamlAttribute.EmployerSubUnitName, "Test Division");
+		customAttributes.put(SamlAttribute.EmployeePositionName, "Any");
+		
+		org.apache.cxf.message.Message message = 
+				SAMLTokenTestUtils.createSamlAssertionMessageWithAttributes(customAttributes);
+		
+		Document civilIdentificationSearchRequest = 
+				XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/"
+						+ "rapbackSearch/OrganizationIdentificationResultsSearchRequest-Civil.xml"));
+		
+		Document searchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, civilIdentificationSearchRequest);
+		
+		log.info("Civil identification search Response: \n" + OJBUtils.getStringFromDocument(searchResponeDoc));
+		IdentificationReportingResponseProcessorTest.assertAsExpected(
+				OJBUtils.getStringFromDocument(searchResponeDoc), 
+				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseForAnyTitleUser.xml");
+	}
+	
+	@Test
+	public void testCivilUserSearchResult() throws Exception {
+		Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+		customAttributes.put(SamlAttribute.EmployerORI, "68796860");
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:civiluser");
+		
+		org.apache.cxf.message.Message message = 
+				SAMLTokenTestUtils.createSamlAssertionMessageWithAttributes(customAttributes);
+		
+		Document civilIdentificationSearchRequest = 
+				XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/"
+						+ "rapbackSearch/OrganizationIdentificationResultsSearchRequest-Civil.xml"));
+		
+		Document searchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, civilIdentificationSearchRequest);
+		
+		log.info("Civil identification search Response: \n" + OJBUtils.getStringFromDocument(searchResponeDoc));
+		IdentificationReportingResponseProcessorTest.assertAsExpected(
+				OJBUtils.getStringFromDocument(searchResponeDoc), 
+				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseCivilUser.xml");
 	}
 	
 	@Test 
