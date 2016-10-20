@@ -26,7 +26,7 @@
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>ndex-submission-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 
 	<name>OJB :: ndex-submission-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>

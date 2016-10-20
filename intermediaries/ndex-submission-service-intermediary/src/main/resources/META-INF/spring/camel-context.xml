@@ -122,9 +122,10 @@
 				<simple>{{NDExSubmission.submittingAgencyName}}</simple>
 			</camel:setHeader>
 				
-			<camel:setBody>
-				<camel:xpath>//lexspd:doPublish</camel:xpath>
-			</camel:setBody>
+			<!-- We use this XSLT to put all namespaces in the root of the doPublish message to accommodate the ingester -->	
+			<camel:to uri="xslt:xslt/doPublishRoot.xsl"/>
+							
+			<camel:log message="Body after camel set body: ${body}" loggingLevel="DEBUG"/>
 			
 			<camel:convertBodyTo type="java.lang.String"/>
 			
