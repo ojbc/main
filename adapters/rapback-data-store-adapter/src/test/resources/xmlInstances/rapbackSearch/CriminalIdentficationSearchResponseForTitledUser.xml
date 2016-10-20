@@ -1,0 +1,66 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<oirs-res-doc:OrganizationIdentificationResultsSearchResults xmlns:oirs-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
+                                                             xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+                                                             xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
+                                                             xmlns:intel30="http://release.niem.gov/niem/domains/intelligence/3.0/"
+                                                             xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0"
+                                                             xmlns:jxdm50="http://release.niem.gov/niem/domains/jxdm/5.0/"
+                                                             xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2">
+   <oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+      <oirs-res-ext:IdentifiedPerson>
+         <nc30:PersonBirthDate>
+            <nc30:Date>1987-10-10</nc30:Date>
+         </nc30:PersonBirthDate>
+         <nc30:PersonName>
+            <nc30:PersonGivenName>Bart</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>C</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Simpson</nc30:PersonSurName>
+            <nc30:PersonFullName>Bart C Simpson</nc30:PersonFullName>
+         </nc30:PersonName>
+         <jxdm50:PersonAugmentation>
+            <jxdm50:PersonFBIIdentification>
+               <nc30:IdentificationID>B1234569</nc30:IdentificationID>
+            </jxdm50:PersonFBIIdentification>
+            <jxdm50:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>A123458</nc30:IdentificationID>
+               <oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
+            </jxdm50:PersonStateFingerprintIdentification>
+            <jxdm50:PersonStateFingerprintIdentification>
+               <nc30:IdentificationID>C1234568</nc30:IdentificationID>
+               <oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+            </jxdm50:PersonStateFingerprintIdentification>
+         </jxdm50:PersonAugmentation>
+         <oirs-res-ext:IdentifiedPersonTrackingIdentification>
+            <nc30:IdentificationID>12344</nc30:IdentificationID>
+         </oirs-res-ext:IdentifiedPersonTrackingIdentification>
+      </oirs-res-ext:IdentifiedPerson>
+      <oirs-res-ext:IdentificationResultStatusCode>Available for Subscription</oirs-res-ext:IdentificationResultStatusCode>
+      <oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
+      <oirs-res-ext:CriminalIdentificationReasonCode>CAR</oirs-res-ext:CriminalIdentificationReasonCode>
+      <oirs-res-ext:IdentificationReportedDate>
+         <nc30:Date>2015-10-10</nc30:Date>
+      </oirs-res-ext:IdentificationReportedDate>
+      <oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
+      <intel30:SystemIdentification>
+         <nc30:IdentificationID>000001820140729014008339994</nc30:IdentificationID>
+         <nc30:SystemName>RapbackDataStore</nc30:SystemName>
+      </intel30:SystemIdentification>
+   </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+</oirs-res-doc:OrganizationIdentificationResultsSearchResults>
