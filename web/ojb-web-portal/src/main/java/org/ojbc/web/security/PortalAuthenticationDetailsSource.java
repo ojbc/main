@@ -52,6 +52,9 @@ public class PortalAuthenticationDetailsSource implements
     @Value("${requireSubscriptionAccessControl:false}")
     boolean requireSubscriptionAccessControl;
     
+    @Value("${requirePortalQueryAccessControl:false}")
+    boolean requirePortalQueryAccessControl;
+    
     @Value("${requireFederatedQueryUserIndicator:true}")
     boolean requireFederatedQueryUserIndicator;
     
@@ -117,7 +120,7 @@ public class PortalAuthenticationDetailsSource implements
         else if (!requireIdentityBasedAccessControl){
             grantedAuthorities.add(rolePortalUser); 
         }
-
+        
         /*
          * Check whether to grant other authorities only when PortalUser access is granted.  
          */
@@ -148,6 +151,18 @@ public class PortalAuthenticationDetailsSource implements
                 grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CRIMINAL_SUBSCRIPTION.name())); 
                 grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CRIMINAL_ID_RESULTS.name())); 
                 grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CIVIL_SUBSCRIPTION.name())); 
+            }
+            
+            if (requirePortalQueryAccessControl){
+            	String criminalJusticeEmployerIndicator = getAttributeValue(samlAssertion, SamlAttribute.CriminalJusticeEmployerIndicator); 
+            	String lawEnforcementEmployerIndicator = getAttributeValue(samlAssertion, SamlAttribute.LawEnforcementEmployerIndicator);
+            	
+            	if (BooleanUtils.toBoolean(criminalJusticeEmployerIndicator) && BooleanUtils.toBoolean(lawEnforcementEmployerIndicator)){
+            		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_QUERY.name()));
+            	}
+            }
+            else {
+                grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_QUERY.name())); 
             }
         }
         

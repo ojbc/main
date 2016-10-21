@@ -193,15 +193,14 @@
 
 <div id="leftMenu">
 	#foreach($entry in $leftMenuLinks.entrySet())
-		#if( $entry.getKey() != "subscriptionsLink" && $entry.getKey() != "rapbackLink" && $entry.getKey() != "criminalIdLink")
-			<a id="$entry.getKey()" class="leftMenuLink" href="$entry.getValue()" target="_blank"><div></div>$leftMenuLinkTitles[$entry.getKey()] </a>
-		#elseif	( $entry.getKey() == "subscriptionsLink" && $sec.allGranted("AUTHZ_CRIMINAL_SUBSCRIPTION"))
-			<a id="$entry.getKey()" class="leftMenuLink" href="$entry.getValue()" target="_blank"><div></div>$leftMenuLinkTitles[$entry.getKey()] </a>
-		#elseif( $entry.getKey() == "rapbackLink" && $sec.allGranted("AUTHZ_CIVIL_SUBSCRIPTION"))
-			<a id="$entry.getKey()" class="leftMenuLink" href="$entry.getValue()" target="_blank"><div></div>$leftMenuLinkTitles[$entry.getKey()] </a>
-		#elseif( $entry.getKey() == "criminalIdLink" && $sec.allGranted("AUTHZ_CRIMINAL_ID_RESULTS"))
-			<a id="$entry.getKey()" class="leftMenuLink" href="$entry.getValue()" target="_blank"><div></div>$leftMenuLinkTitles[$entry.getKey()] </a>
+		#if( $entry.getKey() != "subscriptionsLink" && $entry.getKey() != "rapbackLink" && $entry.getKey() != "criminalIdLink" && $entry.getKey() != "queryLink" 
+			|| ($entry.getKey() == "subscriptionsLink" && $sec.allGranted("AUTHZ_CRIMINAL_SUBSCRIPTION")) 
+			|| $entry.getKey() == "rapbackLink" && $sec.allGranted("AUTHZ_CIVIL_SUBSCRIPTION") 
+			|| $entry.getKey() == "criminalIdLink" && $sec.allGranted("AUTHZ_CRIMINAL_ID_RESULTS")
+			|| $entry.getKey() == "queryLink" && $sec.allGranted("AUTHZ_QUERY"))
+			<a id="$entry.getKey()" class="leftMenuLink" href="$entry.getValue()" target="_blank"><div></div>$leftMenuLinkTitles[$entry.getKey()] </a> 
 		#end		
+		
 	#end		
 </div>
  
