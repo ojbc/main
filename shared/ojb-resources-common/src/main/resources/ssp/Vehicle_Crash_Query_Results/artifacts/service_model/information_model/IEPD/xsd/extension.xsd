@@ -68,7 +68,7 @@
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
 					<xsd:element ref="j:Crash" minOccurs="1" maxOccurs="1" />
-					<xsd:element ref="j:Citation" maxOccurs="unbounded" />
+					<xsd:element ref="j:Citation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" maxOccurs="unbounded" />
 					<xsd:element ref="nc:EntityOrganization" minOccurs="0"
 						maxOccurs="unbounded" />
