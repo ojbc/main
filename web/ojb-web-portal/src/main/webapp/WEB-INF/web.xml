@@ -72,4 +72,7 @@
     <security-role>
         <role-name>AUTHZ_CRIMINAL_ID_RESULTS</role-name>
     </security-role>
+    <security-role>
+        <role-name>AUTHZ_QUERY</role-name>
+    </security-role>
 </web-app>
