@@ -45,6 +45,7 @@ DROP TABLE IF EXISTS `ori`;
 CREATE TABLE `ori`(
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ori` varchar(50) NOT NULL,
+  `civil_ori_indicator` boolean NOT NULL, 
   PRIMARY KEY (`id`),
   UNIQUE INDEX (`ori`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
