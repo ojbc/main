@@ -25,6 +25,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -105,13 +106,13 @@ public class PolicyDAOImpl implements PolicyDAO {
             + "WHERE o.ori = ? AND p.active = true "; 
     private void validateOriPolicyCompliance(String ori) {
         
-    	if (orisWithoutPrivacyPolicy.contains(ori)) 
+    	if (isCivilOri(ori)) 
     		return; 
     	
         Boolean oriCompliance = jdbcTemplate.queryForObject(POLICY_COUNT_BY_ORI, Boolean.class, ori);
         if (!oriCompliance) {
             log.error(PRIVACY_COMPLIANCE_ERROR + " :" + ori);
-            throw new IllegalArgumentException(PRIVACY_COMPLIANCE_ERROR + " :" + ori); 
+            throw new IllegalArgumentException(PRIVACY_COMPLIANCE_ERROR + ": " + ori); 
         }
     }
 
@@ -183,13 +184,20 @@ public class PolicyDAOImpl implements PolicyDAO {
 		}
 	}
 
-	private final String USER_COUNT_BY_FED_ID = "SELECT count(*)==1 FROM ojbc_user WHERE federation_id = :federationId"; 
+	private final String USER_COUNT_BY_FED_ID = "SELECT count(*)=1 FROM ojbc_user WHERE federation_id = :federationId"; 
     @Override
     public boolean isExistingUser(String federationId) {
         validateFedId(federationId);
         
         Boolean existing = jdbcTemplate.queryForObject(USER_COUNT_BY_FED_ID, Boolean.class, federationId);
         return existing;
+    }
+    
+    public boolean isCivilOri(String ori) {
+    	final String sql = "select count(*)=1 from ori t where t.ori =? and civil_ori_indicator = true"; 
+    	
+    	Boolean isCivilOri = jdbcTemplate.queryForObject(sql, Boolean.class, ori);
+    	return isCivilOri;
     }
     
     private final String GET_USER_ID_BY_FED_ID = "SELECT id FROM ojbc_user WHERE federation_id = ?"; 
