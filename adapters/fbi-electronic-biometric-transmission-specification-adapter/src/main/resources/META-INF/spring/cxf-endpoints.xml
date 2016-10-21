@@ -151,6 +151,28 @@
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
 	</http:conduit>       
     
-    <!-- NOTE assuming osgi container(karaf) handles providing server side ssl for hosted services -->
+    <!-- The Jetty server context will optionally provide a unique port for the FBI.  If the spring profile jetty-server is not active, it is ignore -->
+    
+    <beans profile="jetty-server">
+		<httpj:engine-factory id="HttpsServerSettings"
+			bus="cxf">
+			<httpj:engine port="${fbiEbtsAdapter.fbiPortNumber}">
+				<httpj:tlsServerParameters>
+					<sec:keyManagers keyPassword="${fbiEbtsAdapter.keyPassword}">
+						<sec:keyStore type="jks" password="${fbiEbtsAdapter.keystorePassword}" file="${fbiEbtsAdapter.keystoreLocation}" />
+					</sec:keyManagers>
+					<sec:cipherSuitesFilter>
+						    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+						    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+						    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+						    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+					</sec:cipherSuitesFilter>
+					<sec:clientAuthentication want="false"
+						required="false" />
+				</httpj:tlsServerParameters>
+			</httpj:engine>
+		</httpj:engine-factory>  	
+	</beans>
+      
 </beans>
 
