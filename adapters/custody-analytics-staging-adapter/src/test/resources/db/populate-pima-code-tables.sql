@@ -15,14 +15,13 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
 insert into Facility (FacilityID, FacilityDescription) values ('1', 'Pima County Adult Detention Complex');
-insert into Facility (FacilityID, FacilityDescription) values ('2', 'Unknown');
 insert into Agency (AgencyID, AgencyDescription) values ('1', 'Department of Transportation');
 insert into Agency (AgencyID, AgencyDescription) values ('2', 'Pima County Adult Probation');
 insert into Agency (AgencyID, AgencyDescription) values ('3', 'Drug Enforcement');
 insert into Agency (AgencyID, AgencyDescription) values ('4', 'Department of Public Safety');
-insert into Agency (AgencyID, AgencyDescription) values ('5', 'EMS: Pima Co. Sheriff''s Dept.');
+insert into Agency (AgencyID, AgencyDescription) values ('5', 'EMS: Pima Co. Sheriff Dept.');
 insert into Agency (AgencyID, AgencyDescription) values ('6', 'Fed Bureau of Investigation');
-insert into Agency (AgencyID, AgencyDescription) values ('7', 'FIRE: Pima Co. Sheriff''s Dept.');
+insert into Agency (AgencyID, AgencyDescription) values ('7', 'FIRE: Pima Co. Sheriff Dept.');
 insert into Agency (AgencyID, AgencyDescription) values ('8', 'Immigration & Naturalization');
 insert into Agency (AgencyID, AgencyDescription) values ('9', 'Marana Police Department');
 insert into Agency (AgencyID, AgencyDescription) values ('10', 'Miscellaneous Calls');
@@ -31,8 +30,8 @@ insert into Agency (AgencyID, AgencyDescription) values ('12', 'Oro Valley Polic
 insert into Agency (AgencyID, AgencyDescription) values ('13', 'National Park Service');
 insert into Agency (AgencyID, AgencyDescription) values ('14', 'Pima Community College Police');
 insert into Agency (AgencyID, AgencyDescription) values ('15', 'Pima County Parks & Recreation');
-insert into Agency (AgencyID, AgencyDescription) values ('16', 'Pima County Sheriff''s Dept.');
-insert into Agency (AgencyID, AgencyDescription) values ('17', 'Pinal County Sheriff''s Dept');
+insert into Agency (AgencyID, AgencyDescription) values ('16', 'Pima County Sheriff Dept.');
+insert into Agency (AgencyID, AgencyDescription) values ('17', 'Pinal County Sheriff Dept');
 insert into Agency (AgencyID, AgencyDescription) values ('18', 'Union Pacific Railroad');
 insert into Agency (AgencyID, AgencyDescription) values ('19', 'South Tucson Police Dept');
 insert into Agency (AgencyID, AgencyDescription) values ('20', 'Tucson Airport Authority PD');
@@ -44,13 +43,13 @@ insert into Agency (AgencyID, AgencyDescription) values ('25', 'Counter Narcotic
 insert into Agency (AgencyID, AgencyDescription) values ('26', 'Pascua Yaqui Police Department');
 insert into Agency (AgencyID, AgencyDescription) values ('27', 'Sahuarita Police Department');
 insert into Agency (AgencyID, AgencyDescription) values ('28', 'Arizona Capitol Police');
-insert into Agency (AgencyID, AgencyDescription) values ('29', 'NSIS: Pima Co. Sheriff''s Dept.');
+insert into Agency (AgencyID, AgencyDescription) values ('29', 'NSIS: Pima Co. Sheriff Dept.');
 insert into Agency (AgencyID, AgencyDescription) values ('30', 'Pima Animal Control');
 insert into Agency (AgencyID, AgencyDescription) values ('31', 'Bureau Alcohol/Tobacco/Firearm');
 insert into Agency (AgencyID, AgencyDescription) values ('32', 'Pima County Attorney');
 insert into Agency (AgencyID, AgencyDescription) values ('33', 'Pascua Yaqui Tribe Prosecutors');
-insert into Agency (AgencyID, AgencyDescription) values ('34', 'Marana Prosecutor''s Office');
-insert into Agency (AgencyID, AgencyDescription) values ('35', 'Sahuarita Prosecutor''s Office');
+insert into Agency (AgencyID, AgencyDescription) values ('34', 'Marana Prosecutor Office');
+insert into Agency (AgencyID, AgencyDescription) values ('35', 'Sahuarita Prosecutor Office');
 insert into Agency (AgencyID, AgencyDescription) values ('36', 'Office of the Attorney General');
 insert into Agency (AgencyID, AgencyDescription) values ('37', 'Bureau of Land Management');
 insert into Agency (AgencyID, AgencyDescription) values ('38', 'Immigration and Customs Enforc');
@@ -64,9 +63,12 @@ insert into Agency (AgencyID, AgencyDescription) values ('45', 'City of Tucson P
 insert into Agency (AgencyID, AgencyDescription) values ('46', 'Institutional Health');
 insert into Agency (AgencyID, AgencyDescription) values ('47', 'AZ Dept of Juvenile Correction');
 insert into Agency (AgencyID, AgencyDescription) values ('48', 'Unknown');
-insert into AssessmentCategoryType (AssessmentCategoryTypeID, AssessmentCategoryTypeDescription) values ('1', 'Unknown');
-insert into AssessmentCategoryType (AssessmentCategoryTypeID, AssessmentCategoryTypeDescription) values ('2', 'General Mental Health');
-insert into AssessmentCategoryType (AssessmentCategoryTypeID, AssessmentCategoryTypeDescription) values ('3', 'Substance Abuse');
+insert into AssessmentCategoryType (AssessmentCategoryTypeID, AssessmentCategoryTypeDescription) values ('1', 'General Mental Health');
+insert into AssessmentCategoryType (AssessmentCategoryTypeID, AssessmentCategoryTypeDescription) values ('2', 'Substance Abuse');
+insert into AssessmentCategoryType (AssessmentCategoryTypeID, AssessmentCategoryTypeDescription) values ('3', 'Danger To Self');
+insert into AssessmentCategoryType (AssessmentCategoryTypeID, AssessmentCategoryTypeDescription) values ('4', 'Danger To Others');
+insert into AssessmentCategoryType (AssessmentCategoryTypeID, AssessmentCategoryTypeDescription) values ('5', 'Gravely Disabled');
+insert into AssessmentCategoryType (AssessmentCategoryTypeID, AssessmentCategoryTypeDescription) values ('6', 'Persistently and Acutely Disabled');
 insert into SupervisionUnitType (SupervisionUnitTypeID, SupervisionUnitTypeDescription) values ('1', 'AJO IN TRANSIT');
 insert into SupervisionUnitType (SupervisionUnitTypeID, SupervisionUnitTypeDescription) values ('2', 'AJO UNIT A');
 insert into SupervisionUnitType (SupervisionUnitTypeID, SupervisionUnitTypeDescription) values ('3', 'AJO UNIT B');
@@ -260,7 +262,7 @@ insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values ('34',
 insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values ('35', 'Polish Speaker');
 insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values ('36', 'Romanian Speaker');
 insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values ('37', 'Taglog Speaker');
-insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values ('38', 'Tohono O''Odham Speaker');
+insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values ('38', 'Tohono O\''Odham Speaker');
 insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values ('39', 'Tonga Speaker');
 insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values ('40', 'Ukrainian Speaker');
 insert into LanguageType (LanguageTypeID, LanguageTypeDescription) values ('41', 'English Speaker');
@@ -287,3 +289,7 @@ insert into PersonSexType (PersonSexTypeID, PersonSexTypeDescription) values ('3
 insert into ProgramEligibilityType (ProgramEligibilityTypeID, ProgramEligibilityTypeDescription) values ('1', 'None');
 insert into ProgramEligibilityType (ProgramEligibilityTypeID, ProgramEligibilityTypeDescription) values ('2', 'Veteran Services');
 insert into ProgramEligibilityType (ProgramEligibilityTypeID, ProgramEligibilityTypeDescription) values ('3', 'Unknown');
+insert into TreatmentAdmissionReasonType (TreatmentAdmissionReasonTypeID, TreatmentAdmissionReasonTypeDescription) values ('1', 'Court-Ordered Treatment');
+insert into TreatmentAdmissionReasonType (TreatmentAdmissionReasonTypeID, TreatmentAdmissionReasonTypeDescription) values ('2', 'Other');
+insert into TreatmentStatusType (TreatmentStatusTypeID, TreatmentStatusTypeDescription) values ('1', 'Active');
+insert into TreatmentStatusType (TreatmentStatusTypeID, TreatmentStatusTypeDescription) values ('2', 'Inactive');
