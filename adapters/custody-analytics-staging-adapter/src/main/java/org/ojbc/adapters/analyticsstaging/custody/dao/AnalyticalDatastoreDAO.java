@@ -27,6 +27,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChange;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeArrest;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeCharge;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonRace;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PersonSex;
@@ -75,6 +76,7 @@ public interface AnalyticalDatastoreDAO {
 	public List<BookingArrest> getBookingArrests(Integer bookingId);
 	public List<CustodyStatusChangeArrest> getCustodyStatusChangeArrests(Integer custodyStatusChangeId);
 	public List<BehavioralHealthAssessment> getBehavioralHealthAssessments(Integer personId);
+	public List<KeyValue> getBehavioralHealthAssessmentCategories(Integer behavioralHealthAssessmentId);
 	public List<Treatment> getTreatments(Integer behavioralHealthAssessmentId);
 	public List<PrescribedMedication> getPrescribedMedication(Integer behavioralHealthAssessmentId);
 

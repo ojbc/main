@@ -16,15 +16,12 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -50,12 +47,4 @@ public class CodeTableDAOImpl implements CodeTableDAO
 		sql = "SELECT * FROM " + codeTable.name();
 		return jdbcTemplate.query(sql, new KeyValueRowMapper());
 	}
-
-	public class KeyValueRowMapper implements RowMapper<KeyValue> {
-		public KeyValue mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return new KeyValue(rs.getInt(1), rs.getString(2));
-		}
-	}
-
-
 }
