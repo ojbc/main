@@ -171,14 +171,19 @@ public abstract class AbstractReportRepositoryProcessor {
 						XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":SubstanceAbuseIndicator"));
 				if (BooleanUtils.isTrue(substanceAbuseIndicator)){
 					Integer assessmentCategoryTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.AssessmentCategoryType, ASSESSMENT_CATEGORY_SUBSTANCE_ABUSE);
-					assessment.getAssessmentCategory().add(new KeyValue(assessmentCategoryTypeId, ASSESSMENT_CATEGORY_SUBSTANCE_ABUSE));
+					
+					if (assessmentCategoryTypeId != null){
+						assessment.getAssessmentCategories().add(new KeyValue(assessmentCategoryTypeId, ASSESSMENT_CATEGORY_SUBSTANCE_ABUSE));
+					}
 				}
 
 				Boolean generalMentalHealthConditionIndicator = BooleanUtils.toBooleanObject(
 						XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":GeneralMentalHealthConditionIndicator"));
 				if (BooleanUtils.isTrue(generalMentalHealthConditionIndicator)){
 					Integer assessmentCategoryTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.AssessmentCategoryType, ASSESSMENT_CATEGORY_GENERAL_MENTAL_HEALTH);
-					assessment.getAssessmentCategory().add(new KeyValue(assessmentCategoryTypeId, ASSESSMENT_CATEGORY_GENERAL_MENTAL_HEALTH));
+					if (assessmentCategoryTypeId != null){
+						assessment.getAssessmentCategories().add(new KeyValue(assessmentCategoryTypeId, ASSESSMENT_CATEGORY_GENERAL_MENTAL_HEALTH));
+					}
 				}
 				
 			

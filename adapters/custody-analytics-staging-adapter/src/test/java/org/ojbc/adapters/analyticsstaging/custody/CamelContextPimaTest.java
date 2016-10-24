@@ -65,6 +65,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingArrest;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
+import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PrescribedMedication;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Treatment;
@@ -189,6 +190,10 @@ public class CamelContextPimaTest {
 		assertThat(behavioralHealthAssessment.getCareEpisodeEndDate(), is(LocalDate.parse("2016-04-01")));
 		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
 		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(2));
+		
+		List<KeyValue> assessmentCategories = analyticalDatastoreDAO.getBehavioralHealthAssessmentCategories(1);
+		assertThat(assessmentCategories.size(), is(1));
+		assertThat(assessmentCategories.get(0).getValue(), is("Substance Abuse"));
 
 		List<Treatment> treatments = analyticalDatastoreDAO.getTreatments(1);
 		assertThat(treatments.size(), is(1));
@@ -197,7 +202,7 @@ public class CamelContextPimaTest {
 		assertThat(treatment.getBehavioralHealthAssessmentID(), is(1));
 		assertThat(treatment.getTreatmentStartDate(), is(LocalDate.parse("2016-01-01"))); 
 		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), nullValue());
-		assertThat(treatment.getTreatmentStatusTypeId(), nullValue());
+		assertThat(treatment.getTreatmentStatusTypeId(), is(1));
 		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
 		
 		

@@ -901,45 +901,45 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	        	
-        	        	String sqlString="";
-        	        	
-        	        	if (assessment.getBehavioralHealthAssessmentId()!= null){
-        	        		sqlString="INSERT into BehavioralHealthAssessment (personId, seriousMentalIllnessIndicator,"
-        	        				+ "careEpisodeStartDate, careEpisodeEndDate,"
-        	        				+ "MedicaidStatusTypeId, "
-        	        				+ "EnrolledProviderName, behavioralHealthAssessmentId) "
-        	        				+ "values (?,?,?,?,?,?,?)";
-        	        	}	
-        	        	else{
+    	    new PreparedStatementCreator() {
+    	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+    	        	
+    	        	String sqlString="";
+    	        	
+    	        	if (assessment.getBehavioralHealthAssessmentId()!= null){
+    	        		sqlString="INSERT into BehavioralHealthAssessment (personId, seriousMentalIllnessIndicator,"
+    	        				+ "careEpisodeStartDate, careEpisodeEndDate,"
+    	        				+ "MedicaidStatusTypeId, "
+    	        				+ "EnrolledProviderName, behavioralHealthAssessmentId) "
+    	        				+ "values (?,?,?,?,?,?,?)";
+    	        	}	
+    	        	else{
 
-        	        		sqlString="INSERT into BehavioralHealthAssessment (personId, seriousMentalIllnessIndicator,"
-        	        				+ "careEpisodeStartDate, careEpisodeEndDate,"
-        	        				+ "MedicaidStatusTypeId, "
-        	        				+ "EnrolledProviderName) "
-        	        				+ "values (?,?,?,?,?,?)";
-        	        	}	
-        	        			
-        	        	
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(sqlString, java.sql.Statement.RETURN_GENERATED_KEYS);
-        	            ps.setInt(1, assessment.getPersonId());
-        	            
-        	            setPreparedStatementVariable(assessment.getSeriousMentalIllness(), ps, 2);
-        	            setPreparedStatementVariable(assessment.getCareEpisodeStartDate(), ps, 3);
-        	            setPreparedStatementVariable(assessment.getCareEpisodeEndDate(), ps, 4);
-        	            setPreparedStatementVariable(assessment.getMedicaidStatusTypeId(), ps, 5);
-        	            setPreparedStatementVariable(assessment.getEnrolledProviderName(), ps, 6);
-        	            
-        	            if (assessment.getBehavioralHealthAssessmentId() != null){
-        	            	setPreparedStatementVariable(assessment.getBehavioralHealthAssessmentId(), ps, 7);
-        	            }
-        	            
-        	            return ps;
-        	        }
-        	    },keyHolder);
+    	        		sqlString="INSERT into BehavioralHealthAssessment (personId, seriousMentalIllnessIndicator,"
+    	        				+ "careEpisodeStartDate, careEpisodeEndDate,"
+    	        				+ "MedicaidStatusTypeId, "
+    	        				+ "EnrolledProviderName) "
+    	        				+ "values (?,?,?,?,?,?)";
+    	        	}	
+    	        			
+    	        	
+    	            PreparedStatement ps =
+    	                connection.prepareStatement(sqlString, java.sql.Statement.RETURN_GENERATED_KEYS);
+    	            ps.setInt(1, assessment.getPersonId());
+    	            
+    	            setPreparedStatementVariable(assessment.getSeriousMentalIllness(), ps, 2);
+    	            setPreparedStatementVariable(assessment.getCareEpisodeStartDate(), ps, 3);
+    	            setPreparedStatementVariable(assessment.getCareEpisodeEndDate(), ps, 4);
+    	            setPreparedStatementVariable(assessment.getMedicaidStatusTypeId(), ps, 5);
+    	            setPreparedStatementVariable(assessment.getEnrolledProviderName(), ps, 6);
+    	            
+    	            if (assessment.getBehavioralHealthAssessmentId() != null){
+    	            	setPreparedStatementVariable(assessment.getBehavioralHealthAssessmentId(), ps, 7);
+    	            }
+    	            
+    	            return ps;
+    	        }
+    	    },keyHolder);
 
         Integer returnValue = null;
         
@@ -952,9 +952,33 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
        	 	returnValue = keyHolder.getKey().intValue();
         }	 
         
+        saveBehavioralHealthAssessmentCategorys(returnValue, assessment.getAssessmentCategories());
+        
         return returnValue;	
 	}
 
+	private void saveBehavioralHealthAssessmentCategorys(Integer behavioralHealthAssessmentId, 
+			final List<KeyValue> assessmentCategories) {
+		log.info("Inserting row into BehavioralHealthAssessmentCategory table with behavioralHealthAssessmentId " 
+			+ behavioralHealthAssessmentId + " and  " + assessmentCategories);
+		final String sqlString=
+				"INSERT INTO BehavioralHealthAssessmentCategory (BehavioralHealthAssessmentID, AssessmentCategoryTypeID) "
+				+ "values (?,?)";
+		
+        jdbcTemplate.batchUpdate(sqlString, new BatchPreparedStatementSetter() {
+            public void setValues(PreparedStatement ps, int i)
+                throws SQLException {
+            	KeyValue assessmentCategory = assessmentCategories.get(i);
+                ps.setInt(1, behavioralHealthAssessmentId);
+                setPreparedStatementVariable(assessmentCategory.getKey(), ps, 2);
+            }
+	            
+            public int getBatchSize() {
+                return assessmentCategories.size();
+            }
+        });
+	}
+	
 	@Override
 	public Integer getMedicationTypeId(String genericProductIdentification, String medicationTypeDescription) {
         final String sql="SELECT medicationTypeId FROM MedicationType WHERE GenericProductIdentification = ? AND MedicationTypeDescription = ?";
@@ -1325,6 +1349,20 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 						new CustodyStatusChangeRowMapper(), bookingNumber);
 		
 		return custodyStatusChanges;
+	}
+
+	@Override
+	public List<KeyValue> getBehavioralHealthAssessmentCategories(
+			Integer behavioralHealthAssessmentId) {
+		final String sql = "SELECT bhac.AssessmentCategoryTypeID, act.AssessmentCategoryTypeDescription "
+				+ "FROM BehavioralHealthAssessmentCategory bhac "
+				+ "LEFT JOIN AssessmentCategoryType act ON act.AssessmentCategoryTypeID = bhac.AssessmentCategoryTypeID "
+				+ "WHERE bhac.BehavioralHealthAssessmentID = ? ";
+		
+		List<KeyValue> keyValues = 
+				jdbcTemplate.query(sql, 
+						new KeyValueRowMapper(), behavioralHealthAssessmentId);
+		return keyValues;
 	}
 
 }
