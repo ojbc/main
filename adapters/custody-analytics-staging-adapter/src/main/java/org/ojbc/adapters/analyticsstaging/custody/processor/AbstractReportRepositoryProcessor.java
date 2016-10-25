@@ -22,8 +22,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.camel.Body;
 import org.apache.commons.lang.BooleanUtils;
@@ -167,26 +169,26 @@ public abstract class AbstractReportRepositoryProcessor {
 				String regionalAuthorityAssignmentText = XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":RegionalBehavioralHealthAuthorityAssignmentText");
 				assessment.setEnrolledProviderName(regionalAuthorityAssignmentText);
 				
+				Set<Integer> assessmentCategoryTypeIds = new HashSet<Integer>();
 				Boolean substanceAbuseIndicator = BooleanUtils.toBooleanObject(
 						XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":SubstanceAbuseIndicator"));
 				if (BooleanUtils.isTrue(substanceAbuseIndicator)){
 					Integer assessmentCategoryTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.AssessmentCategoryType, ASSESSMENT_CATEGORY_SUBSTANCE_ABUSE);
-					
-					if (assessmentCategoryTypeId != null){
-						assessment.getAssessmentCategories().add(new KeyValue(assessmentCategoryTypeId, ASSESSMENT_CATEGORY_SUBSTANCE_ABUSE));
-					}
+					addAssessmentCategoryToAssessment(assessment, assessmentCategoryTypeIds,
+							assessmentCategoryTypeId);
 				}
 
 				Boolean generalMentalHealthConditionIndicator = BooleanUtils.toBooleanObject(
 						XmlUtils.xPathStringSearch(behavioralHealthInfoNode, extPrefix + ":GeneralMentalHealthConditionIndicator"));
 				if (BooleanUtils.isTrue(generalMentalHealthConditionIndicator)){
 					Integer assessmentCategoryTypeId = descriptionCodeLookupService.retrieveCode(CodeTable.AssessmentCategoryType, ASSESSMENT_CATEGORY_GENERAL_MENTAL_HEALTH);
-					if (assessmentCategoryTypeId != null){
-						assessment.getAssessmentCategories().add(new KeyValue(assessmentCategoryTypeId, ASSESSMENT_CATEGORY_GENERAL_MENTAL_HEALTH));
-					}
+					addAssessmentCategoryToAssessment(assessment, assessmentCategoryTypeIds,
+							assessmentCategoryTypeId);
 				}
 				
-			
+				processTreatmentTextNodes(assessment, behavioralHealthInfoNode,
+						assessmentCategoryTypeIds);
+				
 				String careEpisodeStartDateString = XmlUtils.xPathStringSearch(personNode, 
 						"following-sibling::"+ extPrefix + ":CareEpisode[@s30:id='" + personCareEpisodeRef + "']/nc30:ActivityDateRange/nc30:StartDate/nc30:Date");
 				LocalDate careEpisodeStartDate = StringUtils.isNotBlank(careEpisodeStartDateString)?LocalDate.parse(careEpisodeStartDateString):null;
@@ -206,6 +208,34 @@ public abstract class AbstractReportRepositoryProcessor {
 			}
 		}
 		
+	}
+
+	private void processTreatmentTextNodes(BehavioralHealthAssessment assessment,
+			Node behavioralHealthInfoNode,
+			Set<Integer> assessmentCategoryTypeIds) throws Exception {
+		NodeList treatmentTextNodes = XmlUtils.xPathNodeListSearch(behavioralHealthInfoNode, "nc30:Treatment/nc30:TreatmentText");
+		if (treatmentTextNodes.getLength() > 0){
+			for (int i= 0; i < treatmentTextNodes.getLength(); i++){
+				String treatmentText = treatmentTextNodes.item(i).getTextContent(); 
+				String[] treatmentTextValues = StringUtils.split(treatmentText, ',');
+				
+				for (String treatmentTextValue : treatmentTextValues){
+					Integer assessmentCategoryTypeId = 
+							descriptionCodeLookupService.retrieveCode(CodeTable.AssessmentCategoryType, treatmentTextValue);
+					addAssessmentCategoryToAssessment(assessment, assessmentCategoryTypeIds,
+							assessmentCategoryTypeId);
+				}
+			}
+		}
+	}
+
+	private void addAssessmentCategoryToAssessment(BehavioralHealthAssessment assessment,
+			Set<Integer> assessmentCategoryTypeIds,
+			Integer assessmentCategoryTypeId) {
+		if (assessmentCategoryTypeId != null && !assessmentCategoryTypeIds.contains(assessmentCategoryTypeId)){
+			assessment.getAssessmentCategories().add(new KeyValue(assessmentCategoryTypeId, ASSESSMENT_CATEGORY_SUBSTANCE_ABUSE));
+			assessmentCategoryTypeIds.add(assessmentCategoryTypeId);
+		}
 	}
 
 	private void processPrescribedMedications(

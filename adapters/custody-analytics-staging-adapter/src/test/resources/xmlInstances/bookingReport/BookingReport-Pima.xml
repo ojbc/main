@@ -173,7 +173,7 @@
 					<nc:Date>2016-01-01</nc:Date>
 				</nc:StartDate>
 			</nc:ActivityDateRange>
-			<nc:TreatmentText>person was treated</nc:TreatmentText>
+			<nc:TreatmentText>Danger To Self,Danger To Others</nc:TreatmentText>
 			<nc:TreatmentProvider>
 				<nc:EntityOrganization>
 					<nc:OrganizationName>Treatment Providing Organization Name
