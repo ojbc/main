@@ -192,8 +192,10 @@ public class CamelContextPimaTest {
 		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(2));
 		
 		List<KeyValue> assessmentCategories = analyticalDatastoreDAO.getBehavioralHealthAssessmentCategories(1);
-		assertThat(assessmentCategories.size(), is(1));
+		assertThat(assessmentCategories.size(), is(3));
 		assertThat(assessmentCategories.get(0).getValue(), is("Substance Abuse"));
+		assertThat(assessmentCategories.get(1).getValue(), is("Danger To Self"));
+		assertThat(assessmentCategories.get(2).getValue(), is("Danger To Others"));
 
 		List<Treatment> treatments = analyticalDatastoreDAO.getTreatments(1);
 		assertThat(treatments.size(), is(1));
