@@ -296,6 +296,7 @@
           <xsd:element ref="nc:PersonReference" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:ContactInformationReference" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:ContactInformationIsHomeIndicator" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:ContactInformationIsWorkIndicator" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -545,9 +546,22 @@
       <xsd:documentation>True if the contact information is the home contact information; false otherwise.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="ContactInformationIsWorkIndicator" type="niem-xsd:boolean" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>True if the contact information is the employment contact information; false otherwise.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="ContactMeans" abstract="true">
     <xsd:annotation>
       <xsd:documentation>A means of contacting someone.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ContactMobileTelephoneNumber" type="nc:TelephoneNumberType" substitutionGroup="nc:ContactTelephoneNumber" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A telephone number for a mobile telecommunication device by which a person or organization may be contacted.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="ContactTelephoneNumber"/>
+      </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="ContactTelephoneNumber" type="nc:TelephoneNumberType" substitutionGroup="nc:ContactMeans" nillable="true">
