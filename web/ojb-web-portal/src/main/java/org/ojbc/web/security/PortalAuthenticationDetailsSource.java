@@ -157,7 +157,7 @@ public class PortalAuthenticationDetailsSource implements
             	String criminalJusticeEmployerIndicator = getAttributeValue(samlAssertion, SamlAttribute.CriminalJusticeEmployerIndicator); 
             	String lawEnforcementEmployerIndicator = getAttributeValue(samlAssertion, SamlAttribute.LawEnforcementEmployerIndicator);
             	
-            	if (BooleanUtils.toBoolean(criminalJusticeEmployerIndicator) && BooleanUtils.toBoolean(lawEnforcementEmployerIndicator)){
+            	if (BooleanUtils.toBoolean(criminalJusticeEmployerIndicator) || BooleanUtils.toBoolean(lawEnforcementEmployerIndicator)){
             		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_QUERY.name()));
             	}
             }
