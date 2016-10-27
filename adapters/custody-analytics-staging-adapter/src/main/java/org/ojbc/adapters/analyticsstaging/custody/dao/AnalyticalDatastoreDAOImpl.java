@@ -619,7 +619,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("releaseDate", Date.valueOf(releaseDate) );
-		params.put("releaseTime", Time.valueOf(releaseTime) );
+		params.put("releaseTime", releaseTime != null? Time.valueOf(releaseTime):null );
 		params.put("bookingId", bookingId );
 		params.put("bookingNumber", bookingNumber );
 		params.put("releaseCondition", releaseCondition);
