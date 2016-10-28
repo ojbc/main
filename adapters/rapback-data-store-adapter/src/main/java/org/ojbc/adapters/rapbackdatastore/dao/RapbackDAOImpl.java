@@ -91,15 +91,6 @@ public class RapbackDAOImpl implements RapbackDAO {
     @Value("${rapbackDatastoreAdapter.criminalIdlePeriod:60}")
     private Integer criminalIdlePeriod;
     
-    @Value("#{'${rapbackDatastoreAdapter.agencySuperUsers:}'.split(',')}")
-    private List<String> agencySuperUsers;
-
-    @Value("#{'${rapbackDatastoreAdapter.superUsers:}'.split(',')}")
-    private List<String> superUsers;
-    
-    @Value("#{'${rapbackDatastoreAdapter.civilAgencyOris:}'.split(',')}")
-    private List<String> civilAgencyOris;
-    
 	@Override
 	public Integer saveSubject(final Subject subject) {
         log.debug("Inserting row into IDENTIFICATION_SUBJECT table : " + subject);
@@ -624,17 +615,24 @@ public class RapbackDAOImpl implements RapbackDAO {
         log.info("ORI: " + ori + " federation ID: " + federationId);
         
         boolean isNotSuperUser = isNotSuperUser(ori, federationId); 
-        boolean isNotAgencySuperUser = isNotAgencySuperUser(ori, federationId); 
+        List<String> viewableAgencies = getViewableAgencies(ori, federationId); 
         
 		if ( isNotSuperUser){
-			sb.append( "AND (t.owner_ori = :ori )"); 
-			paramMap.put("ori", ori);
 			
-			if (isNotAgencySuperUser && isNotCivilAgencyUser(ori) ){
-				sb.append ( " AND (t.identification_category in ( :identificationCategoryList ))");
-				List<String> identificationCategorys = getViewableIdentificationCategories(token, 
-						"CIVIL"); 
-				paramMap.put("identificationCategoryList", identificationCategorys.isEmpty() ? null : identificationCategorys);
+			if (viewableAgencies != null && !viewableAgencies.isEmpty()){
+				sb.append( "AND (t.owner_ori in ( :oriList )) "); 
+				paramMap.put("oriList", viewableAgencies);
+			}
+			else {
+				sb.append( "AND (t.owner_ori = :ori) "); 
+				paramMap.put("ori", ori);
+			
+				if ( isNotCivilAgencyUser(ori) ){
+					sb.append ( " AND (t.identification_category in ( :identificationCategoryList ))");
+					List<String> identificationCategorys = getViewableIdentificationCategories(token, 
+							"CIVIL"); 
+					paramMap.put("identificationCategoryList", identificationCategorys.isEmpty() ? null : identificationCategorys);
+				}
 			}
 		}
 		
@@ -650,25 +648,44 @@ public class RapbackDAOImpl implements RapbackDAO {
 
 	private boolean isSuperUser(String ori, String federationId) {
 		
-		log.info("Super users: " + superUsers.toString());
+		if (StringUtils.isBlank(ori) || StringUtils.isBlank(federationId)){
+			return false; 
+		}
 		
-		return superUsers.contains(ori + "&" + federationId);
+		final String sql = "SELECT count(*) = 1 FROM ojbc_user u "
+				+ "LEFT JOIN agency_profile a ON a.agency_id = u.agency_id "
+				+ "WHERE a.agency_ori = ? AND u.federation_id = ? "
+				+ "		AND super_user_indicator = true"; 
+		
+		return jdbcTemplate.queryForObject(sql, Boolean.class, ori, federationId);
 	}
 	
 	private boolean isNotSuperUser(String ori, String federationId) {
 		return !isSuperUser(ori , federationId);
 	}
 
-	private boolean isAgencySuperUser(String ori, String federationId) {
-		return agencySuperUsers.contains(ori + "&" + federationId);
-	}
-	
-	private boolean isNotAgencySuperUser(String ori, String federationId) {
-		return !isAgencySuperUser(ori, federationId);
+	private List<String> getViewableAgencies(String ori, String federationId) {
+		
+		if (StringUtils.isBlank(ori) || StringUtils.isBlank(federationId)){
+			return null; 
+		}
+		
+		final String sql = "SELECT ap.agency_ori FROM ojbc_user u "
+				+ "LEFT JOIN agency_profile ua ON ua.agency_id = u.agency_id "
+				+ "LEFT JOIN agency_super_user asu ON asu.ojbc_user_id = u.ojbc_user_id "
+				+ "LEFT JOIN agency_profile ap ON ap.agency_id = asu.supervised_agency "
+				+ "WHERE u.federation_id = ? and ua.agency_ori = ?";
+		return jdbcTemplate.queryForList(sql, String.class, federationId, ori);
 	}
 	
 	private boolean isCivilAgencyUser(String ori) {
-		return civilAgencyOris.contains(ori);
+		if (StringUtils.isBlank(ori)){
+			return false;
+		}
+		
+		final String sql = "SELECT count(*) = 1 FROM agency_profile a "
+				+ "	WHERE a.agency_ori=? AND civil_agency_indicator = true"; 
+		return jdbcTemplate.queryForObject(sql, Boolean.class, ori);
 	}
 	
 	private boolean isNotCivilAgencyUser(String ori) {
@@ -724,10 +741,16 @@ public class RapbackDAOImpl implements RapbackDAO {
 			sqlStringBuilder.append(" WHERE " ); 
 		}
 		else {
-			sqlStringBuilder.append(" WHERE t.owner_ori = :ori AND " ); 
-			paramMap.put("ori", ori);
+	        List<String> viewableAgencies = getViewableAgencies(ori, federationId); 
+	        
+	        if (viewableAgencies != null && !viewableAgencies.isEmpty()){
+				sqlStringBuilder.append(" WHERE t.owner_ori in (:oriList) AND " ); 
+				paramMap.put("oriList", viewableAgencies);
+	        }
+	        else {
+				sqlStringBuilder.append(" WHERE t.owner_ori = :ori AND " ); 
+				paramMap.put("ori", ori);
 			
-			if ( isNotAgencySuperUser(ori, federationId)){
 				sqlStringBuilder.append(" t.identification_category in ( :identificationCategoryList ) AND ");
 				
 				List<String> identificationCategorys = 

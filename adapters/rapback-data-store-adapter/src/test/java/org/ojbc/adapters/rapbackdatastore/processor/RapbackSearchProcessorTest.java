@@ -63,12 +63,10 @@ public class RapbackSearchProcessorTest {
 	}
 
 	@Test
-	public void testAgencySuperUserSearchResult() throws Exception {
+	public void testSingleAgencySuperUserSearchResult() throws Exception {
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
         customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
 		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
-		customAttributes.put(SamlAttribute.EmployerSubUnitName, "Honolulu PD Records and ID Division");
-		customAttributes.put(SamlAttribute.EmployeePositionName, "Sworn Supervisors");
 
         org.apache.cxf.message.Message message = 
         		SAMLTokenTestUtils.createSamlAssertionMessageWithAttributes(customAttributes);
@@ -85,6 +83,27 @@ public class RapbackSearchProcessorTest {
         		"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseAgencySuperUser.xml");
 	}
 
+	@Test
+	public void testMultiAgencySuperUserSearchResult() throws Exception {
+		Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+		customAttributes.put(SamlAttribute.EmployerORI, "68796860");
+		customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:hpotter");
+		
+		org.apache.cxf.message.Message message = 
+				SAMLTokenTestUtils.createSamlAssertionMessageWithAttributes(customAttributes);
+		
+		Document civilIdentificationSearchRequest = 
+				XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/"
+						+ "rapbackSearch/OrganizationIdentificationResultsSearchRequest-Civil.xml"));
+		
+		Document searchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, civilIdentificationSearchRequest);
+		
+		log.info("Civil identification search Response: \n" + OJBUtils.getStringFromDocument(searchResponeDoc));
+		IdentificationReportingResponseProcessorTest.assertAsExpected(
+				OJBUtils.getStringFromDocument(searchResponeDoc), 
+				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseSuperUser.xml");
+	}
+	
 	@Test
 	public void testSuperUserCivilSearchResult() throws Exception {
 		Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
