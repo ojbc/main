@@ -26,8 +26,17 @@ insert into identification_category(identification_category_id, identification_c
 insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('5', 'SOR', 'Sex Offender Registry', 'CRIMINAL'); 
 insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('6', 'S', 'Security Clearance Information Act', 'CIVIL'); 
 
-insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION ) values ('1', '1234567890', 'Demo Agency', 'true'); 
-insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION ) values ('2', '68796860', 'Test Agency', 'true'); 
+insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR ) values ('1', '1234567890', 'Demo Agency', true, false); 
+insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR ) values ('2', '68796860', 'Test Agency', true, true); 
+insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR ) values ('3', 'HCJDC', 'IT Agency', true, false); 
+
+insert into ojbc_user(ojbc_user_id, federation_id, agency_id, super_user_indicator) values(1, 'HIJIS:IDP:HCJDC:USER:hpotter', 2, false); 
+insert into ojbc_user(ojbc_user_id, federation_id, agency_id, super_user_indicator) values(2, 'HIJIS:IDP:HCJDC:USER:demouser', 1, false); 
+insert into ojbc_user(ojbc_user_id, federation_id, agency_id, super_user_indicator) values(3, 'HIJIS:IDP:HCJDC:USER:superuser', 3, true);
+
+insert into agency_super_user(supervised_agency, ojbc_user_id) values(1, 2);  
+insert into agency_super_user(supervised_agency, ojbc_user_id) values(1, 1);  
+insert into agency_super_user(supervised_agency, ojbc_user_id) values(2, 1);  
 
 insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('1', '1', 'demo.agency@localhost'); 
 insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('2', '1', 'demo.agency2@localhost'); 	
@@ -86,9 +95,6 @@ insert into job_title_privilege(job_title_id, identification_category_id) values
 insert into job_title_privilege(job_title_id, identification_category_id) values ('13', '5');
 insert into job_title_privilege(job_title_id, identification_category_id) values ('14', '4');
 insert into job_title_privilege(job_title_id, identification_category_id) values ('15', '1');
-
-insert into ojbc_user(job_title_id, federation_id) values(3, 'HIJIS:IDP:HCJDC:USER:hpotter'); 
-insert into ojbc_user(job_title_id, federation_id) values(8, 'HIJIS:IDP:HCJDC:USER:demouser'); 
 
 insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62720','{http://ojbc.org/wsn/topics}:person/incident', '2011-10-19', NULL, '2011-10-19', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'MICHAEL Smith-Jones', '1');
 insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62721','{http://ojbc.org/wsn/topics}:person/incident', '2011-10-19', NULL, '2011-10-19', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'MICHAEL Smith-Jones', '1');
