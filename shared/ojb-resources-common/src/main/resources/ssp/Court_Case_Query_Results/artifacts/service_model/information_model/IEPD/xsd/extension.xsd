@@ -80,8 +80,8 @@
 					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0" />
-					<xsd:element ref="nc:RelatedCaseAssociation" minOccurs="0" />
-					<xsd:element ref="j:ActivityFeeAssociation" minOccurs="0" />
+					<xsd:element ref="nc:RelatedCaseAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityFeeAssociation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="j:ActivityVictimAssociation"
 						minOccurs="0" />
 					<xsd:element ref="j:ActivityIncidentAssociation"
