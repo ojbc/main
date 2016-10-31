@@ -78,11 +78,11 @@ public class ArrestNotificationRequest extends NotificationRequest {
 
 		if (incidentLocationNode != null)
 		{
-			incidentLocationCity = XmlUtils.xPathStringSearch(incidentLocationNode, "nc:LocationCityName").trim();
-			incidentLocationState=XmlUtils.xPathStringSearch(incidentLocationNode, "nc:LocationStateName").trim();
-			incidentLocationStreetNumber=XmlUtils.xPathStringSearch(incidentLocationNode, "nc:LocationStreet/nc:StreetNumberText").trim();
-			incidentLocationStreet=XmlUtils.xPathStringSearch(incidentLocationNode, "nc:LocationStreet/nc:StreetName").trim();
-			incidentLocationStreetFullText=XmlUtils.xPathStringSearch(incidentLocationNode, "nc:LocationStreet/nc:StreetFullText").trim();
+			incidentLocationCity = StringUtils.strip(XmlUtils.xPathStringSearch(incidentLocationNode, "nc:LocationCityName"));
+			incidentLocationState=StringUtils.strip(XmlUtils.xPathStringSearch(incidentLocationNode, "nc:LocationStateName"));
+			incidentLocationStreetNumber=StringUtils.strip(XmlUtils.xPathStringSearch(incidentLocationNode, "nc:LocationStreet/nc:StreetNumberText"));
+			incidentLocationStreet=StringUtils.strip(XmlUtils.xPathStringSearch(incidentLocationNode, "nc:LocationStreet/nc:StreetName"));
+			incidentLocationStreetFullText=StringUtils.strip(XmlUtils.xPathStringSearch(incidentLocationNode, "nc:LocationStreet/nc:StreetFullText"));
 		}	
 
 		if (StringUtils.isBlank(incidentLocationStreetFullText))
@@ -107,11 +107,11 @@ public class ArrestNotificationRequest extends NotificationRequest {
 
 		if (arresteeLastKnowAddressNode != null)
 		{
-			arresteeLastKnownAddressCity = XmlUtils.xPathStringSearch(arresteeLastKnowAddressNode, "nc:LocationCityName").trim();
-			arresteeLastKnownAddressState=XmlUtils.xPathStringSearch(arresteeLastKnowAddressNode, "nc:LocationStateName").trim();
-			arresteeLastKnownAddressStreetNumber=XmlUtils.xPathStringSearch(arresteeLastKnowAddressNode, "nc:LocationStreet/nc:StreetNumberText").trim();
-			arresteeLastKnownAddressStreet=XmlUtils.xPathStringSearch(arresteeLastKnowAddressNode, "nc:LocationStreet/nc:StreetName").trim();
-			arresteeLastKnownAddressStreetFullText=XmlUtils.xPathStringSearch(arresteeLastKnowAddressNode, "nc:LocationStreet/nc:StreetFullText").trim();
+			arresteeLastKnownAddressCity = StringUtils.strip(XmlUtils.xPathStringSearch(arresteeLastKnowAddressNode, "nc:LocationCityName"));
+			arresteeLastKnownAddressState=StringUtils.strip(XmlUtils.xPathStringSearch(arresteeLastKnowAddressNode, "nc:LocationStateName"));
+			arresteeLastKnownAddressStreetNumber=StringUtils.strip(XmlUtils.xPathStringSearch(arresteeLastKnowAddressNode, "nc:LocationStreet/nc:StreetNumberText"));
+			arresteeLastKnownAddressStreet=StringUtils.strip(XmlUtils.xPathStringSearch(arresteeLastKnowAddressNode, "nc:LocationStreet/nc:StreetName"));
+			arresteeLastKnownAddressStreetFullText=StringUtils.strip(XmlUtils.xPathStringSearch(arresteeLastKnowAddressNode, "nc:LocationStreet/nc:StreetFullText"));
 		}	
 
 		if (StringUtils.isBlank(arresteeLastKnownAddressStreetFullText))
