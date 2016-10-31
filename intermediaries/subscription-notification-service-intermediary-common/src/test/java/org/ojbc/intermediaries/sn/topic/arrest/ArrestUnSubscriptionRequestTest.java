@@ -17,7 +17,7 @@
 package org.ojbc.intermediaries.sn.topic.arrest;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 import java.io.File;
 
@@ -48,9 +48,9 @@ public class ArrestUnSubscriptionRequestTest {
 		assertThat(request.getSubjectIdentifiers().size(), is(5));
 		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
 		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is(""));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is(""));
-		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is(""));
+		assertNull(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME));
+		assertNull(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME));
+		assertNull(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH));
 		
 	}
 
