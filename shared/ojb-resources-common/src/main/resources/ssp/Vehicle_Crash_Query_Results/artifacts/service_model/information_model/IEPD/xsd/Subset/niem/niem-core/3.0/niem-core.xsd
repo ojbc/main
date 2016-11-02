@@ -481,6 +481,7 @@
           <xs:element ref="nc:VehicleIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:VehicleMake" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:VehicleModel" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:VehicleGrossLadenUnitWeightMeasure" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:VehicleAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -879,6 +880,16 @@
   <xs:element name="VehicleAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for VehicleType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleGrossLadenSumWeightMeasure" type="nc:MeasureType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A sum of values specified by the manufacturer(s) for a truck tractor or trailer for the units that make up a combination.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleGrossLadenUnitWeightMeasure" type="nc:MeasureType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A value specified by the manufacturer for a single unit truck, truck tractor, or trailer.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="VehicleIdentification" type="nc:IdentificationType">

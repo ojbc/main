@@ -183,13 +183,13 @@
 				otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="WorkZoneWorkersPresentIndicator" type="niem-xs:boolean"
+	<!-- xsd:element name="WorkZoneWorkersPresentIndicator" type="niem-xs:boolean"
 		substitutionGroup="j:CrashWorkZoneAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a crash occurs near a work zone; false
 				otherwise.</xsd:documentation>
 		</xsd:annotation>
-	</xsd:element>
+	</xsd:element-->
 	<xsd:element name="EmergencyVehicleRespondingToSceneIndicator"
 		type="niem-xs:boolean" substitutionGroup="j:CrashVehicleAugmentationPoint">
 		<xsd:annotation>
