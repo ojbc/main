@@ -101,7 +101,6 @@
 				<j:VehicleContributingCircumstancesCode>0
 				</j:VehicleContributingCircumstancesCode>
 				<me-crash-codes:VehicleDamageExtentCode>2</me-crash-codes:VehicleDamageExtentCode>
-				<j:VehicleDamageExtentCode>0</j:VehicleDamageExtentCode>
 				<j:VehicleTrafficControlDeviceCategoryCode>0
 				</j:VehicleTrafficControlDeviceCategoryCode>
 				<vcq-res-ext:HazmatPlacardIndicator>false

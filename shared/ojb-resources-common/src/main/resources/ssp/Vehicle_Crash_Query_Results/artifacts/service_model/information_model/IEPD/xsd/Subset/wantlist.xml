@@ -154,6 +154,8 @@
   <w:Element w:name="nc:PersonResidenceAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Vehicle" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:VehicleGrossLadenSumWeightMeasure"
+    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:VehicleIdentification" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:VehicleMake" w:isReference="false" w:nillable="true"/>
   <w:Type w:name="j:ActivityAugmentationType" w:isRequested="false">
@@ -1120,6 +1122,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:VehicleModel" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:VehicleGrossLadenUnitWeightMeasure"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:VehicleAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
