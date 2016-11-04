@@ -213,6 +213,116 @@ public class TestIdentficationRecordingAndResponse {
 		assertThat(subject.getSexCode(), is("M"));
 	}
 	
+	@Test
+	@DirtiesContext
+	public void testCivilVechsRecordingRequestSuccess() throws Exception, IOException,
+	InterruptedException, SAXException {
+		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
+		assertNull(identificationTransaction);
+		
+		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
+				"src/test/resources/xmlInstances/identificationReport/person_identification_request_fbi_civil_VECHS.xml");
+		
+		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationRequest");
+		
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		identificationReportingResultMessageProcessor.expectedMessageCount(1);
+		
+		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		
+		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
+		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
+		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
+		
+		identificationTransaction = 
+				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER);
+		
+		assertThat(identificationTransaction.getTransactionNumber(), is(TRANSACTION_NUMBER));
+		assertThat(identificationTransaction.getOtn(), is("OTN12345"));
+		assertThat(identificationTransaction.getOwnerOri(), is("VECHS0002"));
+		assertThat(identificationTransaction.getOwnerProgramOca(), is("F-VECHS0002-VOL"));
+		assertThat(identificationTransaction.getIdentificationCategory(), is("I"));
+		assertThat(identificationTransaction.getArchived(), is(false));
+		
+		log.info(identificationTransaction.toString());
+		assertNotNull(identificationTransaction); 
+		assertNotNull(identificationTransaction.getSubject());
+		
+		Subject subject = identificationTransaction.getSubject(); 
+		assertNull(subject.getUcn());
+		assertNull(subject.getCriminalSid());
+		assertNull(subject.getCivilSid());
+		assertThat(subject.getFirstName(), is("Joe"));
+		assertThat(subject.getLastName(), is("Smith"));
+		assertThat(subject.getMiddleInitial(), is("D"));
+		assertThat( subject.getDob(), is(DateTime.parse("1900-01-01")));
+		assertThat(subject.getSexCode(), is("M"));
+		
+	}
+
+	@Test
+	@DirtiesContext
+	public void testCivilVechsNoHCJDCRecordingRequestSuccess() throws Exception, IOException,
+	InterruptedException, SAXException {
+		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
+		assertNull(identificationTransaction);
+		
+		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
+				"src/test/resources/xmlInstances/identificationReport/person_identification_request_fbi_civil_VECHS_NoHCJDC.xml");
+		
+		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationRequest");
+		
+		//Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		identificationReportingResultMessageProcessor.expectedMessageCount(1);
+		
+		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		
+		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
+		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
+		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
+		
+		identificationTransaction = 
+				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER);
+		
+		assertThat(identificationTransaction.getTransactionNumber(), is(TRANSACTION_NUMBER));
+		assertThat(identificationTransaction.getOtn(), is("OTN12345"));
+		assertThat(identificationTransaction.getOwnerOri(), is("HI0010200"));
+		assertThat(identificationTransaction.getOwnerProgramOca(), is("F-VECHS0002-VOL"));
+		assertThat(identificationTransaction.getIdentificationCategory(), is("I"));
+		assertThat(identificationTransaction.getArchived(), is(false));
+		
+		log.info(identificationTransaction.toString());
+		assertNotNull(identificationTransaction); 
+		assertNotNull(identificationTransaction.getSubject());
+		
+		Subject subject = identificationTransaction.getSubject(); 
+		assertNull(subject.getUcn());
+		assertNull(subject.getCriminalSid());
+		assertNull(subject.getCivilSid());
+		assertThat(subject.getFirstName(), is("Joe"));
+		assertThat(subject.getLastName(), is("Smith"));
+		assertThat(subject.getMiddleInitial(), is("D"));
+		assertThat( subject.getDob(), is(DateTime.parse("1900-01-01")));
+		assertThat(subject.getSexCode(), is("M"));
+		
+	}
+	
 	public void civilRecordingResultServiceSuccess() throws Exception
 	{
 		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
