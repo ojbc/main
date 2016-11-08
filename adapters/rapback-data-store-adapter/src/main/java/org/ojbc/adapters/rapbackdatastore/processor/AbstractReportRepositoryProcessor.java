@@ -84,7 +84,7 @@ public abstract class AbstractReportRepositoryProcessor {
 			civilPrivateAgencyOriPattern = Pattern.compile(civilPrivateAgencyOriRegex);	
 		}
 		
-		Matcher matcher = civilPrivateAgencyOriPattern.matcher(ownerProgramOca);
+		Matcher matcher = civilPrivateAgencyOriPattern.matcher(StringUtils.trimToEmpty(ownerProgramOca));
 		
 		String ownerOri = XmlUtils.xPathStringSearch(rootNode, "ident-ext:IdentificationApplicantOrganization/"
 				+ "jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
