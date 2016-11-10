@@ -62,6 +62,7 @@ public interface RapbackDAO {
 			IdentificationResultSearchRequest searchRequest);
 	public String getIdentificationCategoryType(String transactionNumber); 
 	public Boolean isExistingTransactionNumber(String transactionNumber); 
+	public void updateIdentificationCategory(String transactionNumber, String identificationCategory);
 	
 	public void updateSubject(Subject subject);
 	public void updateFbiRapbackSubscription(
