@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<ojb-crim-doc:CoreFilingMessage
+	xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ojb-crim-doc="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0"
+	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
+	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	xmlns:criminalCase="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0 ../../xsd/Criminal_Case_Core-doc.xsd">
+	<!--Not required or needed in this exchange. Helps in troubleshooting to 
+		identify initial vs subsequent -->
+	<nc:DocumentDescriptionText>Initial</nc:DocumentDescriptionText>
+	<!--Unique ID below-Required for this exchange -->
+	<nc:DocumentFileControlID>110220161513</nc:DocumentFileControlID>
+	<ecf:SendingMDELocationID />
+	<ecf:SendingMDEProfileCode />
+	<ojb-crim-doc:CriminalCase>
+		<nc:ActivityDate>
+			<!--Case Filing Date -->
+			<nc:Date>2016-11-01</nc:Date>
+		</nc:ActivityDate>
+		<!--nc:CaseCategoryText>TRH</nc:CaseCategoryText -NEED TO KNOW WHERE THIS 
+			IS STORED-MAPPING INCOMPLETE CASE TYPE IS DETERMINED VIA RULES NOT SENT IN -->
+		<!--Court Case Number - Assumed this is only populated for subsequent filings -->
+		<!-- <nc:CaseTrackingID>2016 TR 00644</nc:CaseTrackingID> -->
+		<j:CaseAugmentation>
+			<j:CaseCourt>
+				<nc:OrganizationIdentification>
+					<!--Court Category-SENT IN BUT NOT STORED IN CV -->
+					<nc:IdentificationID>SUP</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+				<!--Court Organization-NEED TO KNOW WHERE THIS IS STORED-MAPPING INCOMPLETE -->
+				<nc:OrganizationName>District Court for the State of Alaska
+				</nc:OrganizationName>
+				<!--Court Name NEED TO KNOW WHERE THIS IS STORED-MAPPING INCOMPLETE -SENDING 
+					IN AS OFFICE CODE AND THAT IS STORED BUT NOT IN MAPPING -->
+				<j:CourtName>3AN</j:CourtName>
+			</j:CaseCourt>
+			<j:CaseCourtEvent>
+				<j:CourtEventSchedule>
+					<nc:ScheduleDate>
+						<!--Arraignment Date/Future Hearing -->
+						<nc:DateTime>2016-11-15T08:00:00.000Z</nc:DateTime>
+					</nc:ScheduleDate>
+				</j:CourtEventSchedule>
+			</j:CaseCourtEvent>
+			<j:CaseDefendantParty>
+				<ecf:EntityPerson>
+					<nc:PersonBirthDate>
+						<!--Defendant DOB -->
+						<nc:Date>1976-12-11</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonName>
+						<!--Defendant Name -->
+						<!--First Name is required by this exchange -->
+						<nc:PersonGivenName>JESSE</nc:PersonGivenName>
+						<nc:PersonMiddleName>MARIE</nc:PersonMiddleName>
+						<!--Last Name is required by this exchange -->
+						<nc:PersonSurName>PINKMAN</nc:PersonSurName>
+						<nc:PersonNameSuffixText>MD</nc:PersonNameSuffixText>
+					</nc:PersonName>
+					<!--Mapping and ddd are missing the party code being sent in. Need to 
+						be sure they send us the party code via the person other id element as shown 
+						below -->
+					<nc:PersonOtherIdentification>
+						<nc:IdentificationID>DFNDT</nc:IdentificationID>
+						<nc:IdentificationCategoryText>PTY_CD
+						</nc:IdentificationCategoryText>
+					</nc:PersonOtherIdentification>
+					<nc:PersonOtherIdentification>
+						<nc:IdentificationID>214878</nc:IdentificationID>
+						<!--Operator License Number STORED IN LICENSE;LICENSE_NBR -->
+						<nc:IdentificationCategoryText>OLN
+						</nc:IdentificationCategoryText>
+						<nc:IdentificationSourceText>AK</nc:IdentificationSourceText>
+					</nc:PersonOtherIdentification>
+					<nc:PersonOtherIdentification>
+						<!--APSIN is required by this exchange STORED IN IDNTFYER -->
+						<nc:IdentificationID>823644</nc:IdentificationID>
+						<nc:IdentificationCategoryText>APSIN
+						</nc:IdentificationCategoryText>
+					</nc:PersonOtherIdentification>
+					<!--The structure below shows how other types of Driver Licenses can 
+						be sent. Only one driver license type should be sent at a time -->
+					<!--nc:PersonOtherIdentification> <nc:IdentificationID>2285362</nc:IdentificationID -->
+					<!--Defendant Drivers License STORED IN LICENSE;LICENSE_NBR;DSCR -->
+					<!--nc:IdentificationCategoryText>DL</nc:IdentificationCategoryText> 
+						<nc:IdentificationSourceText>AK</nc:IdentificationSourceText> </nc:PersonOtherIdentification> -->
+					<!--nc:PersonOtherIdentification -->
+					<!---Commerical Drivers License STORED IN LICENSE;LICENSE_NBR;DSCR -->
+					<!--nc:IdentificationID>CDL229</nc:IdentificationID> <nc:IdentificationCategoryText>CDL</nc:IdentificationCategoryText> 
+						<nc:IdentificationSourceText>AK</nc:IdentificationSourceText> </nc:PersonOtherIdentification -->
+					<nc:PersonTaxIdentification>
+						<!--Defendant ID-SSN -->
+						<nc:IdentificationID>512984333</nc:IdentificationID>
+					</nc:PersonTaxIdentification>
+					<ecf:PersonAugmentation>
+						<nc:ContactInformation>
+							<nc:ContactMailingAddress>
+								<nc:StructuredAddress>
+									<nc:LocationStreet>
+										<!--Business rule to validate the zip code and if invalid, store 
+											the city, state and zip code on addr line 2 in CV. If the zip code is valid 
+											StreetFullText is stored on address line 1 in CV and no additional processing. 
+											If no zip code is sent, store StreetFullText on address line 1, the city 
+											and state on address line 2 in CV. -->
+										<nc:StreetFullText>1231 E. 6th Ave. #17
+										</nc:StreetFullText>
+									</nc:LocationStreet>
+									<nc:LocationCityName>Anchorage</nc:LocationCityName>
+									<nc:LocationStateName>AK</nc:LocationStateName>
+									<nc:LocationPostalCode>90000</nc:LocationPostalCode>
+								</nc:StructuredAddress>
+							</nc:ContactMailingAddress>
+						</nc:ContactInformation>
+					</ecf:PersonAugmentation>
+				</ecf:EntityPerson>
+			</j:CaseDefendantParty>
+			<j:CaseProsecutionAttorney>
+				<nc:RoleOfPersonReference />
+				<j:JudicialOfficialBarMembership>
+					<j:JudicialOfficialBarIdentification>
+						<!--Prosecuting Attorney Bar Number- States this is not stored in CV 
+							but we can carry if needed here -->
+						<nc:IdentificationID>0811083</nc:IdentificationID>
+					</j:JudicialOfficialBarIdentification>
+				</j:JudicialOfficialBarMembership>
+			</j:CaseProsecutionAttorney>
+		</j:CaseAugmentation>
+		<criminalCase:CaseArrest>
+			<j:ArrestAgency>
+				<!--Arresting Agency Name -->
+				<!--Maps to CASEMUNI;OFAGNC_CD -->
+				<nc:OrganizationName>AKR</nc:OrganizationName>
+			</j:ArrestAgency>
+			<j:ArrestAgencyRecordIdentification>
+				<!--Law Enforcement Agency Case Number -->
+				<nc:IdentificationID>13-33879</nc:IdentificationID>
+			</j:ArrestAgencyRecordIdentification>
+			<j:ArrestOfficial>
+				<j:EnforcementOfficialBadgeIdentification>
+					<!--Department Serial Number -->
+					<nc:IdentificationID>11012016</nc:IdentificationID>
+				</j:EnforcementOfficialBadgeIdentification>
+			</j:ArrestOfficial>
+		</criminalCase:CaseArrest>
+		<ojb-crim-ext:VictimRights>
+			<ojb-crim-ext:VictimRightsAssertionCertificationIndicator>true</ojb-crim-ext:VictimRightsAssertionCertificationIndicator>
+			<ojb-crim-ext:VictimRightsAssertionText>ojb-crim-ext:VictimRightsAssertionText</ojb-crim-ext:VictimRightsAssertionText>
+		</ojb-crim-ext:VictimRights>
+		<ojb-crim-ext:CaseCharge>
+			<!--Mapping states Charge Text is not used, we can carry here if it is -->
+			<j:ChargeDescriptionText>AS28.35.285(d)(1): Minors Refusal To
+								Submit To Chemical Test/ 1st Offense</j:ChargeDescriptionText>
+			<!--Maps to PTCHSTDT;STAGE_DT -->
+			<j:ChargeFilingDate>
+				<nc:Date>2016-10-31</nc:Date>
+			</j:ChargeFilingDate>
+			<j:ChargeSequenceID>
+				<!--Count Number -->
+				<nc:IdentificationID>001</nc:IdentificationID>
+			</j:ChargeSequenceID>
+			<j:ChargeSeverityLevel>
+				<!--Required for the exchange -->
+				<j:SeverityLevelDescriptionText>Class A
+								</j:SeverityLevelDescriptionText>
+				<j:SeverityLevelIdentification>
+					<!--Required for the exchange -->
+					<nc:IdentificationSourceText>Misdemeanor
+									</nc:IdentificationSourceText>
+				</j:SeverityLevelIdentification>
+			</j:ChargeSeverityLevel>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<!--Charge Statute Code. This is carried by the IB but not stored in 
+						CV. -->
+					<!--Required for the exchange -->
+					<nc:IdentificationID>AMC</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<j:StatuteCodeSectionIdentification>
+					<!--Charge Statute Code. This is carried by the IB but not stored in 
+						CV. -->
+					<!--Required for the exchange -->
+					<!--This action code should result in a Misdeameanor Case Type -->
+					<nc:IdentificationID>AS2835285D1</nc:IdentificationID>
+					<j:IdentificationJurisdictionNCICLISCode>AK
+					</j:IdentificationJurisdictionNCICLISCode>
+				</j:StatuteCodeSectionIdentification>
+				<!--Required for the exchange -->
+				<j:StatuteDescriptionText>1AS28.35.285(d)(1): Minors Refusal To
+									Submit To Chemical Test/ 1st Offense</j:StatuteDescriptionText>
+				<j:StatuteOffenseIdentification>
+					<!--Uniform Offense Code Table -->
+					<!--Required for the exchange -->
+					<!--Maps to REAL_CASE;ACTN_CD and PTYCHRG;ACTN_CD -->
+					<nc:IdentificationID>AS2835285D1</nc:IdentificationID>
+				</j:StatuteOffenseIdentification>
+			</j:ChargeStatute>
+			<criminalCase:ChargeOffense>
+				<nc:ActivityIdentification>
+					<!--Arrest Tracking Number -->
+					<!--ATN is required by this exchange -->
+					<!--Stored in the PTYCHR05;ATN_NBR -->
+					<nc:IdentificationID>114624066</nc:IdentificationID>
+					<nc:IdentificationCategoryText>ATN
+					</nc:IdentificationCategoryText>
+				</nc:ActivityIdentification>
+				<nc:ActivityIdentification>
+					<!--Charge Tracking Number (CTN) Required for the exchange -->
+					<!--Stored in the PTYCHR05;ATN_TRK_NBR -->
+					<nc:IdentificationID>041</nc:IdentificationID>
+					<nc:IdentificationCategoryText>CTN
+					</nc:IdentificationCategoryText>
+				</nc:ActivityIdentification>
+				<!--Charge Offense Date Range (Required for the exchange) -->
+				<nc:ActivityDateRange>
+					<nc:StartDate>
+						<nc:Date>2016-10-18</nc:Date>
+					</nc:StartDate>
+					<nc:EndDate>
+						<nc:Date>2016-10-19</nc:Date>
+					</nc:EndDate>
+				</nc:ActivityDateRange>
+				<nc:IncidentLocation>
+					<!--Charge Offense Location - New activity location, text -->
+					<nc:LocationDescriptionText>AKR</nc:LocationDescriptionText>
+				</nc:IncidentLocation>
+			</criminalCase:ChargeOffense>
+			<!--Required per the schema -->
+			<criminalCase:ChargeAmendedIndicator>false
+			</criminalCase:ChargeAmendedIndicator>
+			<!--Required by the exchange -->
+			<ojb-crim-ext:ChargeDomesticViolenceIndicator>true</ojb-crim-ext:ChargeDomesticViolenceIndicator>
+		</ojb-crim-ext:CaseCharge>
+	</ojb-crim-doc:CriminalCase>
+	<!--Required per the schema -->
+	<core:FilingConfidentialityIndicator>false
+	</core:FilingConfidentialityIndicator>
+	<core:FilingLeadDocument>
+		<nc:DocumentBinary>
+			<!--Document Type -->
+			<!--Required for the exchange -->
+			<nc:BinaryCategoryText>Information</nc:BinaryCategoryText>
+		</nc:DocumentBinary>
+		<ecf:DocumentMetadata>
+			<j:RegisterActionDescriptionText />
+			<ecf:FilingAttorneyID />
+			<ecf:FilingPartyID />
+		</ecf:DocumentMetadata>
+		<ecf:DocumentRendition>
+			<ecf:DocumentRenditionMetadata>
+				<ecf:DocumentAttachment />
+			</ecf:DocumentRenditionMetadata>
+		</ecf:DocumentRendition>
+	</core:FilingLeadDocument>
+</ojb-crim-doc:CoreFilingMessage>

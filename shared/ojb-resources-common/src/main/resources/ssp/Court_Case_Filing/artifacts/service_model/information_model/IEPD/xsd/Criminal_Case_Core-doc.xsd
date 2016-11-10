@@ -18,12 +18,12 @@
 
 -->
 <xsd:schema xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
-	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
 	xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:ojb-cit-doc="http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0"
-	xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0"
+	xmlns:ojb-crim-doc="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0"
+	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
+	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0"
 	elementFormDefault="qualified" version="1">
 	<xsd:import
 		namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
@@ -36,20 +36,20 @@
 		schemaLocation="./constraint/niem/appinfo/2.0/appinfo.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
 		schemaLocation="./constraint/niem/proxy/xsd/2.0/xsd.xsd" />
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0"
-		schemaLocation="./Citation_Case-ext.xsd" />
-	<xsd:element name="CitationCase" type="ojb-cit-ext:CitationCaseType"
-		substitutionGroup="nc:Case">
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
+		schemaLocation="./Criminal_Case-ext.xsd" />
+	<xsd:element name="CoreFilingMessage" type="core:CoreFilingMessageType">
 		<xsd:annotation>
-			<xsd:documentation>A charge issued by a law enforcement officer for a
-				"violation" requiring the person charged to plead guilty to the
-				charge or to appear in court to contest the charge. A citation is
-				issued in lieu of an arrest and booking. "Violations" are a subset
-				of "charges" for which a law enforcement officer is authorized to
-				issue a citation in lieu of arrest and booking. Examples: traffic
-				ticket, parking ticket or ticket issued for some other ordinance
-				violation such as barking dog or illegal dumping.
+			<xsd:documentation>The structure of a Filing including any Payment
+				Information will be documented in this section. This describes the
+				filing transaction between the Filing Assembly MDE and the Filing
+				Review MDE. This information will become part of the Record
+				Docketing between the Filing Review MDE and the Court Record MDE but
+				does not necessarily describe the information that is actually
+				stored in the Court Record.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="CriminalCase" type="ojb-crim-ext:CriminalCaseType"
+		substitutionGroup="nc:Case" />
 </xsd:schema>
