@@ -193,7 +193,8 @@
 
 <div id="leftMenu">
 	#foreach($entry in $leftMenuLinks.entrySet())
-		#if( $entry.getKey() != "subscriptionsLink" && $entry.getKey() != "rapbackLink" && $entry.getKey() != "criminalIdLink" && $entry.getKey() != "queryLink" 
+		#if( $entry.getKey() != "subscriptionsLink" && $entry.getKey() != "rapbackLink" && $entry.getKey() != "criminalIdLink" 
+			&& $entry.getKey() != "queryLink" 
 			|| ($entry.getKey() == "subscriptionsLink" && $sec.allGranted("AUTHZ_CRIMINAL_SUBSCRIPTION")) 
 			|| $entry.getKey() == "rapbackLink" && $sec.allGranted("AUTHZ_CIVIL_SUBSCRIPTION") 
 			|| $entry.getKey() == "criminalIdLink" && $sec.allGranted("AUTHZ_CRIMINAL_ID_RESULTS")
