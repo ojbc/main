@@ -1115,7 +1115,14 @@ public class RapbackDAOImpl implements RapbackDAO {
 		
 		return null; 
 	}
-	
 
+	@Override
+	public void updateIdentificationCategory(String transactionNumber,
+			String identificationCategory) {
+		final String sql = "UPDATE identification_transaction "
+				+ "SET identification_category = ? "
+				+ "WHERE transaction_number  = ? ";
+		jdbcTemplate.update(sql, identificationCategory, transactionNumber);
+	}
 
 }

@@ -225,7 +225,7 @@
 			
 			<from uri="direct:sendIdentificationReportingResponseMessage"/>
 			
-			<log message="\n\n\n * * * Calling MessageProcessor sendResponseMessage * * * \n\n\n"/>
+			<log message="* * * Calling MessageProcessor sendResponseMessage * * *"/>
 			
 			<to uri="bean:identificationReportingResultMessageProcessor?method=sendResponseMessage"/>
 			

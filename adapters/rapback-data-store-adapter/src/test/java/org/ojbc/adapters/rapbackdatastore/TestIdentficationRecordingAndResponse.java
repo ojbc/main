@@ -167,7 +167,7 @@ public class TestIdentficationRecordingAndResponse {
 		assertNull(identificationTransaction);
 		
 		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
-				"src/test/resources/xmlInstances/identificationReport/person_identification_request_fbi_civil.xml");
+				"src/test/resources/xmlInstances/identificationReport/person_identification_request_state_civil.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationRequest");
 		
@@ -211,6 +211,45 @@ public class TestIdentficationRecordingAndResponse {
 		assertThat(subject.getMiddleInitial(), is("D"));
 		assertThat( subject.getDob(), is(DateTime.parse("1900-01-01")));
 		assertThat(subject.getSexCode(), is("M"));
+		
+		senderExchange = MessageUtils.createSenderExchange(context, 
+				"src/test/resources/xmlInstances/identificationReport/person_identification_request_fbi_civil.xml");
+		
+		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationRequest");
+		returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}
+		
+		identificationReportingResultMessageProcessor.expectedMessageCount(2);
+		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		identificationTransaction = 
+				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER);
+		
+		assertThat(identificationTransaction.getTransactionNumber(), is(TRANSACTION_NUMBER));
+		assertThat(identificationTransaction.getOtn(), is("OTN12345"));
+		assertThat(identificationTransaction.getOwnerOri(), is("68796860"));
+		assertThat(identificationTransaction.getOwnerProgramOca(), is("ID23457"));
+		assertThat(identificationTransaction.getIdentificationCategory(), is("J"));
+		assertThat(identificationTransaction.getArchived(), is(false));
+		
+		log.info(identificationTransaction.toString());
+		assertNotNull(identificationTransaction); 
+		assertNotNull(identificationTransaction.getSubject());
+		
+		subject = identificationTransaction.getSubject(); 
+		assertNull(subject.getUcn());
+		assertNull(subject.getCriminalSid());
+		assertNull(subject.getCivilSid());
+		assertThat(subject.getFirstName(), is("Joe"));
+		assertThat(subject.getLastName(), is("Smith"));
+		assertThat(subject.getMiddleInitial(), is("D"));
+		assertThat( subject.getDob(), is(DateTime.parse("1900-01-01")));
+		assertThat(subject.getSexCode(), is("M"));
+		
 	}
 	
 	@Test
@@ -339,11 +378,11 @@ public class TestIdentficationRecordingAndResponse {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		identificationReportingResultMessageProcessor.expectedMessageCount(2);
+		identificationReportingResultMessageProcessor.expectedMessageCount(3);
 		
 		identificationReportingResultMessageProcessor.assertIsSatisfied();
 		
-		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
+		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(2);
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
 		
@@ -353,7 +392,7 @@ public class TestIdentficationRecordingAndResponse {
 		assertThat(identificationTransaction.getOtn(), is("OTN12345"));
 		assertThat(identificationTransaction.getOwnerOri(), is("68796860"));
 		assertThat(identificationTransaction.getOwnerProgramOca(), is("ID23457"));
-		assertThat(identificationTransaction.getIdentificationCategory(), is("I"));
+		assertThat(identificationTransaction.getIdentificationCategory(), is("J"));
 		assertThat(identificationTransaction.getArchived(), is(false));
 		
 		assertNotNull(identificationTransaction.getSubject());

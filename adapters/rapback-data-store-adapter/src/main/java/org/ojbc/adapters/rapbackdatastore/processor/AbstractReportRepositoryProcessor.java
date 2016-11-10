@@ -62,6 +62,11 @@ public abstract class AbstractReportRepositoryProcessor {
 			throws Exception {
 		
 		if (rapbackDAO.isExistingTransactionNumber(transactionNumber)){
+			String identificationCategory = XmlUtils.xPathStringSearch(rootNode, 
+					"ident-ext:CivilIdentificationReasonCode");
+			if (StringUtils.isNotBlank(identificationCategory)){
+				rapbackDAO.updateIdentificationCategory(transactionNumber, identificationCategory);
+			}
 			return;
 		}
 		
