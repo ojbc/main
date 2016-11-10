@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<ojb-crim-doc:CoreFilingMessage
+	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ojb-crim-doc="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0"
+	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
+	xmlns:criminalCase="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
+	xmlns:citationCase="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0 ../../xsd/Criminal_Case_Core-doc.xsd">
+	<nc:DocumentIdentification>
+		<nc:IdentificationID>123456ABC</nc:IdentificationID>
+	</nc:DocumentIdentification>
+	<nc:DocumentInformationCutOffDate>
+		<nc:DateTime>2008-07-07T13:47:42.0Z</nc:DateTime>
+	</nc:DocumentInformationCutOffDate>
+	<nc:DocumentPostDate>
+		<nc:DateTime>2008-07-07T13:47:42.0Z</nc:DateTime>
+	</nc:DocumentPostDate>
+	<nc:DocumentSubmitter>
+		<ecf:EntityPerson>
+			<nc:PersonName>
+				<nc:PersonFullName>Jane Doe</nc:PersonFullName>
+			</nc:PersonName>
+			<nc:PersonOtherIdentification>
+				<nc:IdentificationID>tls</nc:IdentificationID>
+			</nc:PersonOtherIdentification>
+		</ecf:EntityPerson>
+	</nc:DocumentSubmitter>
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>91</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>MESSAGINGPROFILEID   </ecf:SendingMDEProfileCode>
+	<!-- criminalCase:CriminalCase xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" 
+		xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0 
+		../xsd/casetype/ECF-4.0-CriminalCase.xsd" -->
+	<ojb-crim-doc:CriminalCase>
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+			<nc:IdentificationCategoryText>nc:IdentificationCategoryText
+			</nc:IdentificationCategoryText>
+			<j:DrivingJurisdictionAuthorityNCICLSTACode>AB
+			</j:DrivingJurisdictionAuthorityNCICLSTACode>
+			<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
+		</nc:ActivityIdentification>
+		<nc:ActivityDate>
+			<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+		</nc:ActivityDate>
+		<nc:ActivityDescriptionText>nc:ActivityDescriptionText</nc:ActivityDescriptionText>
+		<nc:ActivityStatus>
+			<nc:StatusText>nc:StatusText</nc:StatusText>
+			<nc:StatusDate />
+			<nc:StatusDescriptionText>nc:StatusDescriptionText</nc:StatusDescriptionText>
+		</nc:ActivityStatus>
+		<nc:ActivityDisposition>
+			<nc:DispositionDate />
+			<nc:DispositionDescriptionText>nc:DispositionDescriptionText</nc:DispositionDescriptionText>
+			<nc:DispositionText>nc:DispositionText</nc:DispositionText>
+			<nc:DispositionCategoryText>nc:DispositionCategoryText</nc:DispositionCategoryText>
+		</nc:ActivityDisposition>
+		<nc:CaseTitleText>nc:CaseTitleText</nc:CaseTitleText>
+		<nc:CaseCategoryText>nc:CaseCategoryText</nc:CaseCategoryText>
+		<nc:CaseTrackingID>nc:CaseTrackingID</nc:CaseTrackingID>
+		<nc:CaseDocketID>nc:CaseDocketID</nc:CaseDocketID>
+		<j:CaseAugmentation>
+			<j:CaseCharge />
+			<j:CaseCourt />
+			<j:CaseCourtEvent />
+			<j:CaseDefendantParty />
+			<j:CaseDefenseAttorney />
+			<j:CaseInitiatingParty />
+			<j:CaseJudge />
+			<j:CaseLineageCase />
+			<j:CaseOfficial />
+			<j:CaseOtherEntity />
+			<j:CaseProsecutionAttorney />
+			<j:CaseRespondentAttorney />
+			<j:CaseRespondentParty />
+			<j:CaseInitiatingAttorney />
+		</j:CaseAugmentation>
+		<ecf:CaseAugmentation>
+			<nc:LanguageCode>aaa</nc:LanguageCode>
+			<ecf:Alias>
+				<ecf:AliasAlternateName>ecf:AliasAlternateName</ecf:AliasAlternateName>
+				<ecf:AliasAlternateNameTypeCode>ecf:AliasAlternateNameTypeCode</ecf:AliasAlternateNameTypeCode>
+			</ecf:Alias>
+			<ecf:CaseOfficial>
+				<ecf:CaseRepresentedPartyReference />
+			</ecf:CaseOfficial>
+			<ecf:CaseOtherEntityAttorney>
+				<ecf:CaseRepresentedPartyReference />
+			</ecf:CaseOtherEntityAttorney>
+			<ecf:CaseParticipant>
+				<ecf:CaseParticipantRoleCode>ecf:CaseParticipantRoleCode
+				</ecf:CaseParticipantRoleCode>
+			</ecf:CaseParticipant>
+			<ecf:CaseShortTitleText>ecf:CaseShortTitleText</ecf:CaseShortTitleText>
+			<ecf:OrganizationAssociation />
+			<ecf:PersonAssociation />
+			<ecf:PersonOrganizationAssociation />
+			<ecf:RelatedCaseAssociation />
+		</ecf:CaseAugmentation>
+		<criminalCase:CaseArrest>
+			<nc:ActivityIdentification />
+			<nc:ActivityDate />
+			<nc:ActivityDescriptionText>nc:ActivityDescriptionText</nc:ActivityDescriptionText>
+			<nc:ActivityStatus />
+			<nc:ActivityDisposition />
+			<j:ArrestAgency />
+			<j:ArrestAgencyRecordIdentification />
+			<j:ArrestBailRecommendationText>j:ArrestBailRecommendationText</j:ArrestBailRecommendationText>
+			<j:ArrestBloodAlcoholContentNumberText>j:ArrestBloodAlcoholContentNumberText</j:ArrestBloodAlcoholContentNumberText>
+			<j:ArrestCharge />
+			<j:ArrestLocation />
+			<j:ArrestOfficial />
+			<j:ArrestSubject />
+			<j:ArrestWarrant />
+			<j:Booking />
+		</criminalCase:CaseArrest>
+		<criminalCase:CaseCharge>
+			<j:ChargeApplicabilityText>j:ChargeApplicabilityText</j:ChargeApplicabilityText>
+			<j:ChargeDegreeText>j:ChargeDegreeText</j:ChargeDegreeText>
+			<j:ChargeDescriptionText>j:ChargeDescriptionText</j:ChargeDescriptionText>
+			<j:ChargeDisposition />
+			<j:ChargeEnhancingAllegationCharge />
+			<j:ChargeNCICCode>0101</j:ChargeNCICCode>
+			<j:ChargeSequenceID />
+			<j:ChargeSeverityLevel />
+			<j:ChargeSpecialAllegationText>j:ChargeSpecialAllegationText</j:ChargeSpecialAllegationText>
+			<j:ChargeStatute />
+			<criminalCase:ChargeOffense />
+			<criminalCase:ChargeChargingAgencyJurisdictionStatute />
+			<criminalCase:ChargeAmendedIndicator>true</criminalCase:ChargeAmendedIndicator>
+		</criminalCase:CaseCharge>
+		<criminalCase:PreliminaryHearingEstimatedDuration>P1D</criminalCase:PreliminaryHearingEstimatedDuration>
+		<criminalCase:ProsecutionRecommendedBailText>criminalCase:ProsecutionRecommendedBailText</criminalCase:ProsecutionRecommendedBailText>
+		<criminalCase:Sentence>
+			<nc:ActivityIdentification />
+			<nc:ActivityDate />
+			<nc:ActivityDescriptionText>nc:ActivityDescriptionText</nc:ActivityDescriptionText>
+			<nc:ActivityStatus />
+			<nc:ActivityDisposition />
+			<j:SentenceCharge />
+			<j:SentenceDescriptionText>j:SentenceDescriptionText</j:SentenceDescriptionText>
+			<j:SentenceTerm />
+			<criminalCase:SentenceConcurrentAssociation />
+			<criminalCase:SentenceFineAmount>0.0</criminalCase:SentenceFineAmount>
+			<j:ChargeReference />
+		</criminalCase:Sentence>
+		<citationCase:CitationCaseAugmentation>
+			<j:Citation />
+			<j:CaseCharge />
+			<j:ViolatedStatuteAssociation />
+			<j:CourtAppearance />
+			<citationCase:CitationSubject />
+			<citationCase:Vehicle />
+			<citationCase:DrivingIncident />
+		</citationCase:CitationCaseAugmentation>
+		<ojb-crim-ext:VictimRights>
+			<ojb-crim-ext:VictimRightsAssertionCertificationIndicator>true</ojb-crim-ext:VictimRightsAssertionCertificationIndicator>
+			<ojb-crim-ext:VictimRightsAssertionText>ojb-crim-ext:VictimRightsAssertionText</ojb-crim-ext:VictimRightsAssertionText>
+		</ojb-crim-ext:VictimRights>
+		<j:CaseAugmentation>
+			<j:CaseCharge />
+			<j:CaseCourt />
+			<j:CaseCourtEvent />
+			<j:CaseDefendantParty />
+			<j:CaseDefenseAttorney />
+			<j:CaseInitiatingParty />
+			<j:CaseJudge />
+			<j:CaseLineageCase />
+			<j:CaseOfficial />
+			<j:CaseOtherEntity />
+			<j:CaseProsecutionAttorney />
+			<j:CaseRespondentAttorney />
+			<j:CaseRespondentParty />
+			<j:CaseInitiatingAttorney />
+		</j:CaseAugmentation>
+		<ojb-crim-ext:CaseAugmentation>
+			<nc:LanguageCode>aaa</nc:LanguageCode>
+			<ecf:Alias>
+				<ecf:AliasAlternateName>ecf:AliasAlternateName</ecf:AliasAlternateName>
+				<ecf:AliasAlternateNameTypeCode>ecf:AliasAlternateNameTypeCode</ecf:AliasAlternateNameTypeCode>
+			</ecf:Alias>
+			<ecf:CaseOfficial>
+				<ecf:CaseRepresentedPartyReference />
+			</ecf:CaseOfficial>
+			<ecf:CaseOtherEntityAttorney>
+				<ecf:CaseRepresentedPartyReference />
+			</ecf:CaseOtherEntityAttorney>
+			<ecf:CaseParticipant>
+				<ecf:CaseParticipantRoleCode>ecf:CaseParticipantRoleCode
+				</ecf:CaseParticipantRoleCode>
+			</ecf:CaseParticipant>
+			<ecf:CaseShortTitleText>ecf:CaseShortTitleText</ecf:CaseShortTitleText>
+			<ecf:OrganizationAssociation />
+			<ecf:PersonAssociation />
+			<ecf:PersonOrganizationAssociation />
+			<ecf:RelatedCaseAssociation />
+			<ojb-crim-ext:CaseParticipant />
+		</ojb-crim-ext:CaseAugmentation>
+		<ojb-crim-ext:CaseArrest>
+			<nc:ActivityIdentification />
+			<nc:ActivityDate />
+			<nc:ActivityDescriptionText>nc:ActivityDescriptionText</nc:ActivityDescriptionText>
+			<nc:ActivityStatus />
+			<nc:ActivityDisposition />
+			<j:ArrestAgency />
+			<j:ArrestAgencyRecordIdentification />
+			<j:ArrestBailRecommendationText>j:ArrestBailRecommendationText</j:ArrestBailRecommendationText>
+			<j:ArrestBloodAlcoholContentNumberText>j:ArrestBloodAlcoholContentNumberText</j:ArrestBloodAlcoholContentNumberText>
+			<j:ArrestCharge />
+			<j:ArrestLocation />
+			<j:ArrestOfficial />
+			<j:ArrestSubject />
+			<j:ArrestWarrant />
+			<j:Booking />
+			<ojb-crim-ext:ArrestTrackingNumberIdentification />
+		</ojb-crim-ext:CaseArrest>
+		<ojb-crim-ext:CaseCharge>
+			<j:ChargeApplicabilityText>j:ChargeApplicabilityText</j:ChargeApplicabilityText>
+			<j:ChargeDegreeText>j:ChargeDegreeText</j:ChargeDegreeText>
+			<j:ChargeDescriptionText>j:ChargeDescriptionText</j:ChargeDescriptionText>
+			<j:ChargeDisposition />
+			<j:ChargeEnhancingAllegationCharge />
+			<j:ChargeNCICCode>0101</j:ChargeNCICCode>
+			<j:ChargeSequenceID />
+			<j:ChargeSeverityLevel />
+			<j:ChargeSpecialAllegationText>j:ChargeSpecialAllegationText</j:ChargeSpecialAllegationText>
+			<j:ChargeStatute />
+			<criminalCase:ChargeOffense />
+			<criminalCase:ChargeChargingAgencyJurisdictionStatute />
+			<criminalCase:ChargeAmendedIndicator>true</criminalCase:ChargeAmendedIndicator>
+			<ojb-crim-ext:ChargeDomesticViolenceIndicator>true</ojb-crim-ext:ChargeDomesticViolenceIndicator>
+		</ojb-crim-ext:CaseCharge>
+	</ojb-crim-doc:CriminalCase>
+	<core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator>
+	<core:FilingLeadDocument s:id="_123456ABC.app.doc">
+		<nc:DocumentApplicationName>Microsoft Word
+		</nc:DocumentApplicationName>
+		<nc:DocumentDescriptionText>Appearance</nc:DocumentDescriptionText>
+		<nc:DocumentLanguageCode>eng</nc:DocumentLanguageCode>
+		<ecf:DocumentMetadata>
+			<j:RegisterActionDescriptionText />
+			<ecf:FilingAttorneyID />
+			<ecf:FilingPartyID />
+		</ecf:DocumentMetadata>
+		<ecf:DocumentRendition>
+			<ecf:DocumentRenditionMetadata>
+				<ecf:DocumentAttachment s:id="Attachment1">
+					<nc:BinaryDescriptionText>application/msword
+					</nc:BinaryDescriptionText>
+					<nc:BinaryLocationURI>cid://Payload1</nc:BinaryLocationURI>
+				</ecf:DocumentAttachment>
+			</ecf:DocumentRenditionMetadata>
+		</ecf:DocumentRendition>
+	</core:FilingLeadDocument>
+	<core:FilingConnectedDocument s:id="_123456ABC.inf.doc">
+		<nc:DocumentApplicationName>Microsoft Word
+		</nc:DocumentApplicationName>
+		<nc:DocumentDescriptionText>Information</nc:DocumentDescriptionText>
+		<nc:DocumentSequenceID>1</nc:DocumentSequenceID>
+		<nc:DocumentLanguageCode>eng</nc:DocumentLanguageCode>
+		<ecf:DocumentMetadata>
+			<j:RegisterActionDescriptionText />
+			<ecf:ParentDocumentReference s:ref="_123456ABC.app.doc" />
+			<ecf:FilingAttorneyID />
+			<ecf:FilingPartyID />
+		</ecf:DocumentMetadata>
+		<ecf:DocumentRendition>
+			<ecf:DocumentRenditionMetadata>
+				<ecf:DocumentAttachment s:id="Attachment2">
+					<nc:BinaryDescriptionText>application/msword
+					</nc:BinaryDescriptionText>
+					<nc:BinaryLocationURI>cid://Payload2</nc:BinaryLocationURI>
+				</ecf:DocumentAttachment>
+			</ecf:DocumentRenditionMetadata>
+		</ecf:DocumentRendition>
+	</core:FilingConnectedDocument>
+</ojb-crim-doc:CoreFilingMessage>
