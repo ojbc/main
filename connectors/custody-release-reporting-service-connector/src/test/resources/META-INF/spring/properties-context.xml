@@ -33,6 +33,12 @@
 		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
 		<property name="propertiesArray">
 			<array>
+				<!-- We put default values for the properties here and they can be overriden in subsquent entries below -->
+				<!-- This allows implementers to skip setting these properties if their instance does not use them -->
+				<util:properties>
+					<prop key="delayBetweenInvocationsInMillis">0</prop>
+				</util:properties>
+			
 				<util:properties
 					location="classpath:custody_release_reporting_service_connector.cfg" />
 			</array>
