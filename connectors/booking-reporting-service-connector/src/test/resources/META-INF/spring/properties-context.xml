@@ -33,6 +33,9 @@
 		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
 		<property name="propertiesArray">
 			<array>
+				<util:properties>
+					<prop key="delayBetweenInvocationsInMillis">0</prop>
+				</util:properties>
 				<util:properties
 					location="classpath:booking_reporting_service_connector.cfg" />
 			</array>

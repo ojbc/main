@@ -91,7 +91,13 @@
 				<constant>http://ojbc.org/Services/WSDL/CustodyStatusChangeReportingService/1.0</constant>
 			</camel:setHeader>
 			
-			<camel:to uri="intermediaryEndpoint" />							
+			<camel:to uri="intermediaryEndpoint" />					
+			
+			<camel:log message="Called custody status change intermediary"/>
+							
+	        <camel:delay>
+	            <simple>{{delayBetweenInvocationsInMillis}}</simple>
+	        </camel:delay>						
 		
 		</camel:route>						
 		
