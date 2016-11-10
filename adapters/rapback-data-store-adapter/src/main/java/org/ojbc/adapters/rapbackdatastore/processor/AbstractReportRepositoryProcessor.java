@@ -17,7 +17,10 @@
 package org.ojbc.adapters.rapbackdatastore.processor;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
@@ -28,6 +31,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.w3c.dom.Document;
@@ -35,10 +39,14 @@ import org.w3c.dom.Node;
 
 public abstract class AbstractReportRepositoryProcessor {
 
-	private static final String HCJDC_ORI = "HCJDC";
-
-	private static final String OCA_VECHS = "VECHS";
-
+    @Value("#{'${rapbackDatastoreAdapter.actingFbiOriForCivilPrivateAgencies:}'.split(',')}")
+    private List<String> actingFbiOriForCivilPrivateAgencies;
+    
+    @Value("${rapbackDatastoreAdapter.civilPrivateAgencyOriRegex:}")
+    private String civilPrivateAgencyOriRegex;
+    
+    private Pattern civilPrivateAgencyOriPattern; 
+    
 	@Autowired
 	protected RapbackDAO rapbackDAO;
 	
@@ -71,15 +79,23 @@ public abstract class AbstractReportRepositoryProcessor {
 		
 		String ownerProgramOca = XmlUtils.xPathStringSearch(rootNode, "//ident-ext:IdentificationApplicantOrganization/"
 				+ "nc30:OrganizationIdentification/nc30:IdentificationID");
-		identificationTransaction.setOwnerProgramOca(ownerProgramOca);
-
+		
+		if ( civilPrivateAgencyOriPattern == null){
+			civilPrivateAgencyOriPattern = Pattern.compile(civilPrivateAgencyOriRegex);	
+		}
+		
+		Matcher matcher = civilPrivateAgencyOriPattern.matcher(StringUtils.trimToEmpty(ownerProgramOca));
+		
 		String ownerOri = XmlUtils.xPathStringSearch(rootNode, "ident-ext:IdentificationApplicantOrganization/"
 				+ "jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
 		
-		if (HCJDC_ORI.equals(ownerOri) && (StringUtils.isNotBlank(ownerProgramOca) && ownerProgramOca.contains(OCA_VECHS))){
-			identificationTransaction.setOwnerOri(ownerProgramOca);
+		if (actingFbiOriForCivilPrivateAgencies.contains(ownerOri) 
+				&& matcher.find()){
+			identificationTransaction.setOwnerOri(matcher.group(0));
+			identificationTransaction.setOwnerProgramOca(ownerProgramOca);
 		}else{
 			identificationTransaction.setOwnerOri(ownerOri);
+			identificationTransaction.setOwnerProgramOca(ownerProgramOca);
 		}
 		
 		String identificationCategory = XmlUtils.xPathStringSearch(rootNode, "ident-ext:CivilIdentificationReasonCode|ident-ext:CriminalIdentificationReasonCode");
