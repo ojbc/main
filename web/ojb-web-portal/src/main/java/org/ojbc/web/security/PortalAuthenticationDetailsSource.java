@@ -125,7 +125,9 @@ public class PortalAuthenticationDetailsSource implements
          * Check whether to grant other authorities only when PortalUser access is granted.  
          */
         if (grantedAuthorities.contains(rolePortalUser)) {
-        	
+        	String criminalJusticeEmployerIndicator = getAttributeValue(samlAssertion, SamlAttribute.CriminalJusticeEmployerIndicator); 
+        	String lawEnforcementEmployerIndicator = getAttributeValue(samlAssertion, SamlAttribute.LawEnforcementEmployerIndicator);
+
         	log.info("orisWithoutIncidentDetailAccess:" + orisWithoutIncidentDetailAccess);
         	log.info("Employer ORI:" + ori);
         	
@@ -136,16 +138,20 @@ public class PortalAuthenticationDetailsSource implements
         	
             if(requireSubscriptionAccessControl) {
             	
-                grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CRIMINAL_ID_RESULTS.name())); 
                 grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CIVIL_SUBSCRIPTION.name()));
+            	if (BooleanUtils.toBoolean(criminalJusticeEmployerIndicator) || BooleanUtils.toBoolean(lawEnforcementEmployerIndicator)){
+            		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CRIMINAL_ID_RESULTS.name()));
+            		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CRIMINAL_SUBSCRIPTION.name()));
+            	}
                 
-                String accessControlResponseString = accessControlServicesConfig
-                		.getIdentityBasedAccessControlServiceBean().invokeAccessControlRequest(
-                				UUID.randomUUID().toString(), samlAssertion, criminalSubscriptionAccessControlResourceURI);
-                Assert.notNull(accessControlResponseString); 
+/*
+ *  			Make the access decision in the portal temporarily.  Will need to refactor the code later.
+ */
+//                String accessControlResponseString = accessControlServicesConfig
+//                		.getIdentityBasedAccessControlServiceBean().invokeAccessControlRequest(
+//                				UUID.randomUUID().toString(), samlAssertion, criminalSubscriptionAccessControlResourceURI);
+//                Assert.notNull(accessControlResponseString); 
                 
-                grantOrDenyAuthority(grantedAuthorities, accessControlResponseString,
-                		criminalSubscriptionAccessControlResourceURI, Authorities.AUTHZ_CRIMINAL_SUBSCRIPTION);
             }
             else {
                 grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_CRIMINAL_SUBSCRIPTION.name())); 
@@ -154,9 +160,6 @@ public class PortalAuthenticationDetailsSource implements
             }
             
             if (requirePortalQueryAccessControl){
-            	String criminalJusticeEmployerIndicator = getAttributeValue(samlAssertion, SamlAttribute.CriminalJusticeEmployerIndicator); 
-            	String lawEnforcementEmployerIndicator = getAttributeValue(samlAssertion, SamlAttribute.LawEnforcementEmployerIndicator);
-            	
             	if (BooleanUtils.toBoolean(criminalJusticeEmployerIndicator) || BooleanUtils.toBoolean(lawEnforcementEmployerIndicator)){
             		grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_QUERY.name()));
             	}

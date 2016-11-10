@@ -936,9 +936,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 		log.info("Archiving records that have been available "
 				+ "for subscription for over " + civilIdlePeriod + " days.");
 		final String sql = "UPDATE identification_transaction t "
-				+ "SET t.archived = 'true' "
+				+ "SET t.archived = true "
 				+ "WHERE (select count(*)>0 FROM civil_initial_results c where c.transaction_number = t.transaction_number) "
-				+ "	AND t.archived = 'false' AND t.available_for_subscription_start_date < ?";
+				+ "	AND t.archived = false  AND t.available_for_subscription_start_date < ?";
 		
 		DateTime currentDate = new DateTime(); 
 		DateTime comparableDate = currentDate.minusDays(civilIdlePeriod);
@@ -954,9 +954,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 		log.info("Archiving records that have been available "
 				+ "for subscription for over " + criminalIdlePeriod + " days.");
 		final String sql = "UPDATE identification_transaction t "
-				+ "SET t.archived = 'true' "
+				+ "SET t.archived = true "
 				+ "WHERE (select count(*)>0 FROM criminal_initial_results c where c.transaction_number = t.transaction_number) "
-				+ "AND t.archived = 'false' AND t.available_for_subscription_start_date < ?";
+				+ "AND t.archived = false  AND t.available_for_subscription_start_date < ?";
 		
 		DateTime currentDate = new DateTime(); 
 		DateTime comparableDate = currentDate.minusDays(criminalIdlePeriod);
@@ -972,7 +972,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		log.info("Archiving record with transaction number " + transactionNumber);
 		
 		final String sql = "UPDATE identification_transaction t "
-				+ "SET t.archived = 'true' "
+				+ "SET t.archived = true "
 				+ "WHERE t.transaction_number = ?";
 		int result = jdbcTemplate.update(sql, transactionNumber);
 		return result;
