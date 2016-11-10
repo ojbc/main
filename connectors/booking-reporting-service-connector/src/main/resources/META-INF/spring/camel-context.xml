@@ -93,10 +93,14 @@
 			<camel:setHeader headerName="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/BookingReportingService/1.0</constant>
 			</camel:setHeader>
-			
+
 			<camel:to uri="intermediaryEndpoint" />					
 			
-			<camel:log message="Called booking intermediary"/>		
+			<camel:log message="Called booking intermediary"/>	
+			
+	        <camel:delay>
+	            <simple>{{delayBetweenInvocationsInMillis}}</simple>
+	        </camel:delay>
 		
 		</camel:route>						
 		

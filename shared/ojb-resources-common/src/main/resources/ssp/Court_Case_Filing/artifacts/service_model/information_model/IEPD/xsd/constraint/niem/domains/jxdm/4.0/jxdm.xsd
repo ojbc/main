@@ -186,6 +186,7 @@
           <xsd:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:ChargeEnhancingAllegationCharge" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:ChargeFilingDate" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:ChargeNCICCode" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:ChargeSeverityLevel" minOccurs="0" maxOccurs="unbounded"/>
@@ -811,6 +812,11 @@
   <xsd:element name="ChargeEnhancingAllegationCharge" type="j:ChargeType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A formal allegation, contained in at least one charging instrument, that a defendant has violated a statute and/or ordinance in association with an incident.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ChargeFilingDate" type="nc:DateType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A date a charge was filed.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="ChargeNCICCode" type="fbi:OFFCodeType" nillable="true">

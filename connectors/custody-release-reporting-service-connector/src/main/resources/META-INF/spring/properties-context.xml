@@ -33,6 +33,11 @@
 		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
 		<property name="propertiesArray">
 			<array>
+				<!-- We put default values for the properties here and they can be overriden in subsquent entries below -->
+				<!-- This allows implementers to skip setting these properties if their instance does not use them -->
+				<util:properties>
+					<prop key="delayBetweenInvocationsInMillis">0</prop>
+				</util:properties>
 				<!-- The .cfg file from the classpath will be consulted first, followed 
 					by the optional .cfg file under $KARAF_HOME/etc -->
 				<util:properties
