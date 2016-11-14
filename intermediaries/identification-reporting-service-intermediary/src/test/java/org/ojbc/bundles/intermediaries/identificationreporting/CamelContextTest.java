@@ -57,6 +57,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.test.util.XmlTestUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
@@ -238,16 +239,8 @@ public class CamelContextTest {
 	    File expectedFile = new File("src/test/resources/xmlInstances/arrestReport/arrestReport.xml");
 	    String expectedString = FileUtils.readFileToString(expectedFile);
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		String sCurrentDateTime = sdf.format(new Date());
-												
-		expectedString = expectedString.replace("@currentDateTime@", sCurrentDateTime);
-
-		Diff diff = XMLUnit.compareXML(expectedString, arrestReport);		
+		XmlTestUtils.compareDocs(expectedString, arrestReport, "lexs:MessageDateTime");		
 		
-		DetailedDiff detailedDiff = new DetailedDiff(diff);
-
-		Assert.assertEquals(detailedDiff.toString(), 0, detailedDiff.getAllDifferences().size());
 	}
 	
 	@Test
