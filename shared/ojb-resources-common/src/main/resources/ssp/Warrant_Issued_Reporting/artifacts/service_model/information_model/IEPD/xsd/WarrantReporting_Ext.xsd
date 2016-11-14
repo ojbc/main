@@ -125,6 +125,20 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="WarrantCancelledReportType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a warrant cancelled report.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:Warrant" />
+					<xsd:element ref="nc:Person" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:complexType name="WarrantAugmentationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for additional information about a
