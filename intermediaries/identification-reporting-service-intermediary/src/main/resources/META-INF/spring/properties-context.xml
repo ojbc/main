@@ -33,14 +33,6 @@
 		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
 		<property name="propertiesArray">
 			<array>
-				<!-- We put default values for the properties here and they can be overriden in subsquent entries below -->
-				<!-- This allows implementers to skip setting these properties if their instance does not use them -->
-				<util:properties>
-				</util:properties>
-				<!-- The .cfg file from the classpath will be consulted first, followed 
-					by the optional .cfg file under $KARAF_HOME/etc -->
-				<util:properties
-					location="classpath:identification_reporting_service_intermediary.cfg" />
 				<osgix:cm-properties id="osgiProperties"
 					persistent-id="identification_reporting_service_intermediary" />
 			</array>

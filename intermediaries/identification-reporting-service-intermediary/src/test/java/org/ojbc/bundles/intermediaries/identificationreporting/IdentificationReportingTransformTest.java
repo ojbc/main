@@ -25,15 +25,11 @@ import java.util.Map;
 
 import javax.xml.transform.Source;
 
-import junit.framework.Assert;
-
 import org.apache.commons.io.FileUtils;
-import org.custommonkey.xmlunit.DetailedDiff;
-import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Before;
 import org.junit.Test;
-import org.ojbc.test.util.IgnoreNamedElementsDifferenceListener;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XsltTransformer;
 import org.xml.sax.SAXException;
@@ -43,7 +39,7 @@ public class IdentificationReportingTransformTest {
 	private XsltTransformer xsltTransformer;
 	
 	@Before
-	public void init(){
+	public void init() {
 		
 		XMLUnit.setIgnoreWhitespace(true);
     	XMLUnit.setIgnoreAttributeOrder(true);
@@ -54,7 +50,7 @@ public class IdentificationReportingTransformTest {
 	}	
 	
 	@Test
-	public void arrestReportTransform() throws IOException, SAXException{
+	public void arrestReportTransform() throws IOException, SAXException {
 		
 		InputStream inputFileStream = new FileInputStream("src/test/resources/xmlInstances/identificationReport/person_identification_search_results_state_criminal.xml");
 		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
@@ -69,25 +65,16 @@ public class IdentificationReportingTransformTest {
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/xmlInstances/arrestReport/arrestReport.xml"));
 				
-		compareXml(expectedXmlString, actualTransformedXml);							
+		XmlTestUtils.compareDocs(expectedXmlString, actualTransformedXml, "lexs:MessageDateTime");							
 	}
 	
 	
-	private Map<String, Object> getXsltParamMap(){
+	private Map<String, Object> getXsltParamMap() {
 	
 		Map<String, Object> xsltParamMap = new HashMap<String, Object>();		
 		
 		return xsltParamMap;
 	}
 	
-	private static void compareXml(String expectedXmlString, String actualTransformedXml) throws SAXException, IOException{
-		
-		Diff diff = XMLUnit.compareXML(expectedXmlString, actualTransformedXml);		
-		
-		DetailedDiff detailedDiff = new DetailedDiff(diff);
-
-		detailedDiff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener("lexs:MessageDateTime"));
-		Assert.assertEquals(detailedDiff.toString(), 0, detailedDiff.getAllDifferences().size());
-	}	
 }
 
