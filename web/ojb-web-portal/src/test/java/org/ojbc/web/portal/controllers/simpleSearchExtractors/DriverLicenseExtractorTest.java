@@ -93,12 +93,15 @@ public class DriverLicenseExtractorTest {
 		assertThat(personSearchRequest.getPersonDriversLicenseIssuer(),is("WA"));
 	}
 
-
-	// TODO note: fails sometimes on mac and fedora: "expected 2, was 1".  The code is intended 
-	// to only extract "WA1234567", leaving "noMatch" remaining - but sometimes returns both 
-	// of them.  Maybe a non thread-safe collection is being modified concurrently
+	
+	/*
+	 * Note: was observed to fail sometimes on mac and fedora with:
+	 * "expected 2, was 1". The code is intended to only extract "WA1234567",
+	 * leaving "noMatch" remaining - but sometimes returns both of them. Maybe a
+	 * non thread-safe collection is being modified concurrently. 
+	 */
 	@Test
-	public void removesExtractedToken() {
+	public void removesExtractedTokenTest() {
 		
 		List<String> termList = Arrays.asList("WA1234567","noMatch");
 		
@@ -106,7 +109,7 @@ public class DriverLicenseExtractorTest {
 
 		logger.info("\n\n\n Extracted Term List: \n\n\n" + extractedTermList);
 		
-		// fails sometimes when both strings are in List
+		// failed sometimes when both strings are in List
 		assertThat(extractedTermList.size(),is(1));
 		
 		assertThat(extractedTermList.get(0),is("noMatch"));
