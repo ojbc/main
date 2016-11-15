@@ -45,6 +45,7 @@
     <module>firearm-registration-query-request-service-intermediary</module>
     <module>firearm-search-request-service-intermediary</module>
     <module>identification-reporting-service-intermediary</module>
+    <module>identification-results-modification-service-intermediary</module>
     <module>incident-report-request-service-intermediary</module>
     <module>incident-reporting-service-intermediary-common</module>
     <module>incident-reporting-service-intermediary</module>
