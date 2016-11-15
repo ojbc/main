@@ -17,6 +17,7 @@
 package org.ojbc.test.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -28,6 +29,7 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 public class XmlTestUtils {
 	
@@ -70,4 +72,28 @@ public class XmlTestUtils {
 		Assert.assertEquals(detailedDiff.toString(), 0, diffCount);
 	}
 	
+	/**
+	 * Compare two XML docs with the elements in the elementNamesToIgnore array ignored. 
+	 * 
+	 * @param expectedXmlString
+	 * @param actualTransformedXml
+	 * @param elementNamesToIgnore
+	 * @throws SAXException
+	 * @throws IOException
+	 */
+	public static void compareDocs(String expectedXmlString,
+			String actualTransformedXml, String... elementNamesToIgnore)
+			throws SAXException, IOException {
+
+		Diff diff = XMLUnit.compareXML(expectedXmlString, actualTransformedXml);
+
+		DetailedDiff detailedDiff = new DetailedDiff(diff);
+
+		detailedDiff
+				.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener(
+						elementNamesToIgnore));
+
+		Assert.assertEquals(detailedDiff.toString(), 0, detailedDiff
+				.getAllDifferences().size());
+	}
 }
