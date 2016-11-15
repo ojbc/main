@@ -22,6 +22,7 @@
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wir-doc="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0"
 	xmlns:war-doc="http://ojbc.org/IEPD/Exchange/WarrantAcceptedReport/1.0"
 	xmlns:wrr-doc="http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0"
+	xmlns:wcr-doc="http://ojbc.org/IEPD/Exchange/WarrantCancelledReport/1.0"
 	xmlns:wmr-doc="http://ojbc.org/IEPD/Exchange/WarrantModificationReport/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0"
 	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
@@ -38,6 +39,9 @@
 			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/WarrantRejectedReport.xsd" />
 			<xsd:import
+				namespace="http://ojbc.org/IEPD/Exchange/WarrantCancelledReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/WarrantCancelledReport.xsd" />
+			<xsd:import
 				namespace="http://ojbc.org/IEPD/Exchange/WarrantModificationReport/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/WarrantModificationReport.xsd" />
 		</xsd:schema>
@@ -51,6 +55,9 @@
 	<wsdl:message name="WarrantRejectedReport">
 		<wsdl:part name="WarrantRejectedReport" element="wrr-doc:WarrantRejectedReport" />
 	</wsdl:message>
+	<wsdl:message name="WarrantCancelledReport">
+		<wsdl:part name="WarrantCancelledReport" element="wcr-doc:WarrantCancelledReport" />
+	</wsdl:message>
 	<wsdl:message name="WarrantModificationReport">
 		<wsdl:part name="WarrantModificationReport" element="wmr-doc:WarrantModificationReport" />
 	</wsdl:message>
@@ -63,6 +70,9 @@
 		</wsdl:operation>
 		<wsdl:operation name="ReportWarrantRejected">
 			<wsdl:input name="WarrantRejectedReport" message="tns:WarrantRejectedReport" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantCancelled">
+			<wsdl:input name="WarrantCancelledReport" message="tns:WarrantCancelledReport" />
 		</wsdl:operation>
 		<wsdl:operation name="ReportWarrantModification">
 			<wsdl:input name="WarrantModificationReport" message="tns:WarrantModificationReport" />
@@ -95,6 +105,14 @@
 				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantRejected"
 				style="document" />
 			<wsdl:input name="WarrantRejectedReport">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantCancelled">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantCancelled"
+				style="document" />
+			<wsdl:input name="WarrantCancelledReport">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
@@ -133,6 +151,14 @@
 				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantRejected"
 				style="document" />
 			<wsdl:input name="WarrantRejectedReport">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantCancelled">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantCancelled"
+				style="document" />
+			<wsdl:input name="WarrantCancelledReport">
 				<soap:body use="literal" />
 			</wsdl:input>
 		</wsdl:operation>
