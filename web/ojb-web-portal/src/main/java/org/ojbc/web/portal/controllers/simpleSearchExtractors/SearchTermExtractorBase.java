@@ -19,20 +19,31 @@ package org.ojbc.web.portal.controllers.simpleSearchExtractors;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 
 public abstract class SearchTermExtractorBase implements SearchTermExtractorInterface {
 
-	public List<String> extractTerm(List<String> searchTokens, PersonSearchRequest personSearchRequest){
-		List<String> remainingTokens = new ArrayList<String>(searchTokens);
+	private Logger logger = Logger.getLogger(SearchTermExtractorBase.class);
+	
+	public List<String> extractTerm(List<String> pSearchTokensList, PersonSearchRequest pPersonSearchRequest){
 		
-		for (String token : searchTokens) {
-			if(extractTermLocal(token, personSearchRequest)){
-				remainingTokens.remove(token);
+		List<String> rRemainingTokenList = new ArrayList<String>(pSearchTokensList);
+		
+		for (String iSearchToken : pSearchTokensList) {
+			
+			// bug: driver license scenario not removing here sometimes
+			if(extractTermLocal(iSearchToken, pPersonSearchRequest)){
+				
+				rRemainingTokenList.remove(iSearchToken);
+				
+				logger.info("\n\n\n ****  Removed Token, list now: " 
+						+ rRemainingTokenList + "****\n\n\n");
+				
 				break;
 			}
 		}
-		return remainingTokens;
+		return rRemainingTokenList;
 		
 	}
 

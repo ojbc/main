@@ -94,9 +94,9 @@ public class DriverLicenseExtractorTest {
 	}
 
 
-	// TODO note: fails on fedora "expected 2, was 1".  The regex is intended to only 
-	// extract "WA1234567", leaving "noMatch" remaining - but on Fedora, the regex isn't 
-	// extracting either of the two - which returns both of them, so the asserted count is off
+	// TODO note: fails sometimes on mac and fedora: "expected 2, was 1".  The code is intended 
+	// to only extract "WA1234567", leaving "noMatch" remaining - but sometimes returns both 
+	// of them.  Maybe a non thread-safe collection is being modified concurrently
 	@Test
 	public void removesExtractedToken() {
 		
@@ -106,6 +106,7 @@ public class DriverLicenseExtractorTest {
 
 		logger.info("\n\n\n Extracted Term List: \n\n\n" + extractedTermList);
 		
+		// fails sometimes when both strings are in List
 		assertThat(extractedTermList.size(),is(1));
 		
 		assertThat(extractedTermList.get(0),is("noMatch"));
