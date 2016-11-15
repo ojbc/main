@@ -26,18 +26,20 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:static-configuration-demostate.xml"})
 public class DriverLicenseExtractorTest {
 
+	private static final Logger logger = Logger.getLogger(DriverLicenseExtractorTest.class);
+	
 	@Resource
     DriverLicenseExtractor unit;
 	
@@ -91,12 +93,22 @@ public class DriverLicenseExtractorTest {
 		assertThat(personSearchRequest.getPersonDriversLicenseIssuer(),is("WA"));
 	}
 
+
+	// TODO note: fails on fedora "expected 2, was 1".  The regex is intended to only 
+	// extract "WA1234567", leaving "noMatch" remaining - but on Fedora, the regex isn't 
+	// extracting either of the two - which returns both of them, so the asserted count is off
 	@Test
 	public void removesExtractedToken() {
-		List<String> extractTerm = unit.extractTerm(Arrays.asList("WA1234567","noMatch"), personSearchRequest);
 		
-		assertThat(extractTerm.size(),is(1));
-		assertThat(extractTerm.get(0),is("noMatch"));
+		List<String> termList = Arrays.asList("WA1234567","noMatch");
+		
+		List<String> extractedTermList = unit.extractTerm(termList, personSearchRequest);
+
+		logger.info("\n\n\n Extracted Term List: \n\n\n" + extractedTermList);
+		
+		assertThat(extractedTermList.size(),is(1));
+		
+		assertThat(extractedTermList.get(0),is("noMatch"));
 	}
 
 	@Test
