@@ -30,37 +30,39 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<vcq-res-ext:VehicleCrashReport>
 		<nc:DocumentCreationDate>
-			<nc:Date>2015-01-23</nc:Date>
+			<nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
 		</nc:DocumentCreationDate>
 		<nc:DocumentIdentification>
-			<nc:IdentificationID>R259216</nc:IdentificationID>
+			<nc:IdentificationID>14AUB-539-AC</nc:IdentificationID>
 		</nc:DocumentIdentification>
 		<vcq-res-ext:DocumentApprovedDate>
-			<nc:Date>2015-01-23</nc:Date>
+			<nc:DateTime>2014-07-09T00:00:00-04:00</nc:DateTime>
 		</vcq-res-ext:DocumentApprovedDate>
 		<j:Crash structures:id="Crash_01">
 			<nc:ActivityDate>
-				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
+				<nc:DateTime>2014-07-08T11:45:00-04:00</nc:DateTime>
 			</nc:ActivityDate>
 			<j:ActivityAugmentation>
 				<j:Narrative>
-					<nc:CommentText>Crash Incident Narrative</nc:CommentText>
+					<nc:CommentText>See sup. narrative. Matulonis VS Lovett. No P.I
+						over threshhold.
+					</nc:CommentText>
 				</j:Narrative>
 			</j:ActivityAugmentation>
 			<j:IncidentAugmentation>
 				<j:IncidentDamagedItem>
-					<nc:ItemDescriptionText>Gas Pump
+					<nc:ItemDescriptionText>utility pole #16 1/2
 					</nc:ItemDescriptionText>
 					<nc:ItemOwner>
 						<nc:EntityOrganization structures:ref="Property_Owner_01" />
 						<nc:EntityPerson structures:ref="Property_Owner_02" />
 					</nc:ItemOwner>
-					<me-crash-codes:PropertyCategoryCode>Private</me-crash-codes:PropertyCategoryCode>
+					<me-crash-codes:DamagedPropertyOwnerCategoryCode>4</me-crash-codes:DamagedPropertyOwnerCategoryCode>
 				</j:IncidentDamagedItem>
 				<j:IncidentReportingOfficial>
 					<nc:RoleOfPerson structures:ref="Reporting_Official_01" />
 					<j:EnforcementOfficialBadgeIdentification>
-						<nc:IdentificationID>BID456789</nc:IdentificationID>
+						<nc:IdentificationID>578</nc:IdentificationID>
 					</j:EnforcementOfficialBadgeIdentification>
 				</j:IncidentReportingOfficial>
 				<j:IncidentWitness>
@@ -68,93 +70,95 @@
 				</j:IncidentWitness>
 			</j:IncidentAugmentation>
 			<j:CrashInformationSource>
-				<j:OrganizationORIIdentification>
-					<nc:IdentificationID>AID5678</nc:IdentificationID>
-				</j:OrganizationORIIdentification>
+				<me-crash-codes:ReportingAgencyCode>ME0010100</me-crash-codes:ReportingAgencyCode>
 			</j:CrashInformationSource>
 			<j:CrashWorkZone>
-				<j:WorkZoneWorkersPresenceIndicationCode>1
-				</j:WorkZoneWorkersPresenceIndicationCode>
-				<me-crash-codes:LawEnforcementPresentAtWorkZoneCode>No Presence</me-crash-codes:LawEnforcementPresentAtWorkZoneCode>
-				<vcq-res-ext:NearWorkZoneIndicator>true
-				</vcq-res-ext:NearWorkZoneIndicator>
-				<vcq-res-ext:WorkZoneWorkersPresentIndicator>true
-				</vcq-res-ext:WorkZoneWorkersPresentIndicator>
+				<me-crash-codes:WorkZoneWorkersPresentCode>1
+				</me-crash-codes:WorkZoneWorkersPresentCode>
+				<me-crash-codes:LawEnforcementPresentAtWorkZoneCode>3</me-crash-codes:LawEnforcementPresentAtWorkZoneCode>
+				<me-crash-codes:InOrNearWorkZoneCode>2</me-crash-codes:InOrNearWorkZoneCode>
 			</j:CrashWorkZone>
 			<j:CrashVehicle>
 				<nc:RoleOfItem structures:ref="Vehicle_01" />
-				<j:VehicleTrafficControlDeviceOperationalIndicator>true</j:VehicleTrafficControlDeviceOperationalIndicator>
-				<j:CrashVehicleLegalSpeedRateMeasure>
-					<nc:MeasureValueText>55</nc:MeasureValueText>
-				</j:CrashVehicleLegalSpeedRateMeasure>
 				<j:CrashDriver>
 					<nc:RoleOfPerson structures:ref="Driver_01" />
-					<j:DriverLicense structures:ref="Driver_License_01" />
-					<me-crash-codes:DriverCategoryCode>Driver</me-crash-codes:DriverCategoryCode>
-					<me-crash-codes:AlcoholTestCategoryCode>Breath</me-crash-codes:AlcoholTestCategoryCode>
-					<me-crash-codes:DrugTestCategoryCode>Test Refused</me-crash-codes:DrugTestCategoryCode>
-					<me-crash-codes:DrugTestResultCode>Pending</me-crash-codes:DrugTestResultCode>
-					<vcq-res-ext:AlcoholTestResultsPendingtIndicator>true
-					</vcq-res-ext:AlcoholTestResultsPendingtIndicator>
+					<me-crash-codes:CrashDriverDistractionCode>5</me-crash-codes:CrashDriverDistractionCode>
+					<vcq-res-ext:FirstViolationDescriptionText>29-A-2053-5
+					</vcq-res-ext:FirstViolationDescriptionText>
+					<vcq-res-ext:SecondViolationDescriptionText>29-A-2066-3
+					</vcq-res-ext:SecondViolationDescriptionText>
 				</j:CrashDriver>
-				<j:CrashVehicleOccupant>
-					<nc:RoleOfPerson structures:ref="Driver_01" />
-					<nc:RoleOfPerson structures:ref="Occupant_01" />
-					<nc:RoleOfPerson structures:ref="Vehicle_Owner_01" />
-				</j:CrashVehicleOccupant>
+				<j:LocationRoadway>
+					<me-crash-codes:RoadwayGradeCode>3</me-crash-codes:RoadwayGradeCode>
+				</j:LocationRoadway>
+				<!-- j:CrashVehicleOccupant> <nc:RoleOfPerson structures:ref="Driver_01" 
+					/> <nc:RoleOfPerson structures:ref="Occupant_01" /> <nc:RoleOfPerson structures:ref="Vehicle_Owner_01" 
+					/> </j:CrashVehicleOccupant -->
+				<me-crash-codes:CrashVehicleCategoryCode>1</me-crash-codes:CrashVehicleCategoryCode>
+				<j:VehicleMostHarmfulEventCode>1</j:VehicleMostHarmfulEventCode>
+				<j:TravelDirectionBeforeCrashCode>0
+				</j:TravelDirectionBeforeCrashCode>
+				<j:VehicleContributingCircumstancesCode>0
+				</j:VehicleContributingCircumstancesCode>
+				<me-crash-codes:VehicleDamageExtentCode>2</me-crash-codes:VehicleDamageExtentCode>
+				<j:VehicleTrafficControlDeviceCategoryCode>0
+				</j:VehicleTrafficControlDeviceCategoryCode>
 				<vcq-res-ext:HazmatPlacardIndicator>false
 				</vcq-res-ext:HazmatPlacardIndicator>
-				<me-crash-codes:VehicleTravelDirectionCode>Westbound</me-crash-codes:VehicleTravelDirectionCode>
-				<me-crash-codes:GrossVehicleWeightRatingCode>Greater Than 26,000 lbs</me-crash-codes:GrossVehicleWeightRatingCode>
-				<me-crash-codes:ExtentOfDamageCode>Functional Damage</me-crash-codes:ExtentOfDamageCode>
-				<me-crash-codes:PostedSpeedLimitCode>Not Available</me-crash-codes:PostedSpeedLimitCode>
-				<me-crash-codes:SchoolBusRelatedCode>Not Involved</me-crash-codes:SchoolBusRelatedCode>
+				<me-crash-codes:PostedSpeedLimitCode>25</me-crash-codes:PostedSpeedLimitCode>
 				<vcq-res-ext:TotalDamageOverThresholdtIndicator>true
 				</vcq-res-ext:TotalDamageOverThresholdtIndicator>
 				<vcq-res-ext:VehicleNineOrMoreSeatstIndicator>false
 				</vcq-res-ext:VehicleNineOrMoreSeatstIndicator>
-				<vcq-res-ext:ExemptVehicleIndicator>true
+				<vcq-res-ext:ExemptVehicleIndicator>false
 				</vcq-res-ext:ExemptVehicleIndicator>
+				<vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>false
+				</vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>
+				<vcq-res-ext:HitRunIndicator>false</vcq-res-ext:HitRunIndicator>
 			</j:CrashVehicle>
 			<nc:Location structures:id="Incident_Loc_01">
 				<nc:Address>
-					<nc:LocationCityName>Bangor</nc:LocationCityName>
+					<me-crash-codes:CityOrTownCode>01010</me-crash-codes:CityOrTownCode>
 				</nc:Address>
 				<nc:AddressHighway>
-					<nc:HighwayFullText>Route 716</nc:HighwayFullText>
+					<nc:HighwayFullText>264 MINOT AVE</nc:HighwayFullText>
 				</nc:AddressHighway>
 				<nc:Location2DGeospatialCoordinate>
 					<nc:GeographicCoordinateLatitude>
-						<nc:LatitudeDegreeValue>44.8036</nc:LatitudeDegreeValue>
+						<nc:LatitudeDegreeValue>43.66068</nc:LatitudeDegreeValue>
 					</nc:GeographicCoordinateLatitude>
 					<nc:GeographicCoordinateLongitude>
-						<nc:LongitudeDegreeValue>-68.7703</nc:LongitudeDegreeValue>
+						<nc:LongitudeDegreeValue>-70.27763</nc:LongitudeDegreeValue>
 					</nc:GeographicCoordinateLongitude>
 				</nc:Location2DGeospatialCoordinate>
-				<vcq-res-ext:NearestIntersectingStreetFullText>Jones Road
+				<vcq-res-ext:NearestIntersectingStreetFullText>158 WESTERN AVE
 				</vcq-res-ext:NearestIntersectingStreetFullText>
-				<vcq-res-ext:DistanceFromNearestIntersectionNumberText>5
+				<vcq-res-ext:DistanceFromNearestIntersectionNumberText>0.1
 				</vcq-res-ext:DistanceFromNearestIntersectionNumberText>
-				<me-crash-codes:DirectionFromNearestIntersectionCode>North</me-crash-codes:DirectionFromNearestIntersectionCode>
-				<me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>Miles</me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>
+				<me-crash-codes:DirectionFromNearestIntersectionCode>5</me-crash-codes:DirectionFromNearestIntersectionCode>
+				<me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>2</me-crash-codes:DistanceFromNearestIntersectionNumberUnitCode>
 			</nc:Location>
-			<vcq-res-ext:AtSceneDateTime>
-				<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
-			</vcq-res-ext:AtSceneDateTime>
+			<me-crash-codes:CrashEnvironmentContributingCircumstancesCode>2</me-crash-codes:CrashEnvironmentContributingCircumstancesCode>
+			<me-crash-codes:CrashFirstHarmfulEventLocationCode>1</me-crash-codes:CrashFirstHarmfulEventLocationCode>
+			<j:CrashLightConditionCode>1</j:CrashLightConditionCode>
+			<j:CrashRoadContributingCircumstancesCode>0
+			</j:CrashRoadContributingCircumstancesCode>
+			<j:CrashRoadSurfaceConditionCode>0</j:CrashRoadSurfaceConditionCode>
+			<j:CrashSchoolBusRelatedCode>0</j:CrashSchoolBusRelatedCode>
+			<me-crash-codes:CrashWeatherConditionCode>1</me-crash-codes:CrashWeatherConditionCode>
+			<me-crash-codes:TrafficControlDeviceOperationalCode>1</me-crash-codes:TrafficControlDeviceOperationalCode>
+			<vcq-res-ext:SceneArrivalDateTime>
+				<nc:DateTime>2014-07-08T11:56:00-04:00</nc:DateTime>
+			</vcq-res-ext:SceneArrivalDateTime>
 			<vcq-res-ext:OffRoadIncidentIndicator>false
 			</vcq-res-ext:OffRoadIncidentIndicator>
-			<vcq-res-ext:EmergencyVehicleRespondingToScenetIndicator>true</vcq-res-ext:EmergencyVehicleRespondingToScenetIndicator>
 		</j:Crash>
 		<j:Citation structures:id="Citation_01">
 			<nc:ActivityIdentification>
-				<nc:IdentificationID>C23956</nc:IdentificationID>
+				<nc:IdentificationID>2743661</nc:IdentificationID>
 			</nc:ActivityIdentification>
-			<vcq-res-ext:CitationNumberPendingIndicator>false
-			</vcq-res-ext:CitationNumberPendingIndicator>
-			<vcq-res-ext:FirstViolationDescriptionText>First Violation
-			</vcq-res-ext:FirstViolationDescriptionText>
-			<vcq-res-ext:SecondViolationDescriptionText>Second Violation
-			</vcq-res-ext:SecondViolationDescriptionText>
+			<vcq-res-ext:CitationPendingIndicator>false
+			</vcq-res-ext:CitationPendingIndicator>
 		</j:Citation>
 		<nc:Person structures:id="Reporting_Official_01">
 			<nc:PersonName>
@@ -163,15 +167,14 @@
 		</nc:Person>
 		<nc:Person structures:id="Witness_01">
 			<nc:PersonName>
-				<nc:PersonGivenName>John</nc:PersonGivenName>
-				<nc:PersonMiddleName>J</nc:PersonMiddleName>
-				<nc:PersonSurName>Adams</nc:PersonSurName>
+				<nc:PersonGivenName>Dora</nc:PersonGivenName>
+				<nc:PersonSurName>Reed</nc:PersonSurName>
 			</nc:PersonName>
 		</nc:Person>
 		<nc:Person structures:id="Information_Approver_01">
-			<nc:PersonName>
-				<nc:PersonFullName>James K. Jones</nc:PersonFullName>
-			</nc:PersonName>
+			<nc:PersonOtherIdentification>
+				<nc:IdentificationID>APD501</nc:IdentificationID>
+			</nc:PersonOtherIdentification>
 		</nc:Person>
 		<nc:Person structures:id="Driver_01">
 			<nc:PersonBirthDate>
@@ -183,99 +186,108 @@
 				<nc:PersonSurName>Smith</nc:PersonSurName>
 			</nc:PersonName>
 			<j:PersonSexCode>M</j:PersonSexCode>
-			<me-crash-codes:PersonCategoryCode>1</me-crash-codes:PersonCategoryCode>
+			<j:PersonAugmentation>
+				<j:DriverLicense>
+					<j:DriverLicenseCardIdentification>
+						<nc:IdentificationID>8.61673e+006</nc:IdentificationID>
+						<nc:IdentificationJurisdiction>
+							<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
+						</nc:IdentificationJurisdiction>
+					</j:DriverLicenseCardIdentification>
+					<j:DriverLicenseRestriction>
+						<me-crash-codes:DriverLicenseRestrictionCode>0</me-crash-codes:DriverLicenseRestrictionCode>
+					</j:DriverLicenseRestriction>
+					<j:DriverLicenseEndorsement>
+						<me-crash-codes:DriverLicenseEndorsementCode>0</me-crash-codes:DriverLicenseEndorsementCode>
+					</j:DriverLicenseEndorsement>
+					<me-crash-codes:DriverLicenseStatusCode>A</me-crash-codes:DriverLicenseStatusCode>
+					<me-crash-codes:DriverLicenseClassCode>C</me-crash-codes:DriverLicenseClassCode>
+				</j:DriverLicense>
+			</j:PersonAugmentation>
+			<vcq-res-ext:AlcoholTestResultsPendingIndicator>true
+			</vcq-res-ext:AlcoholTestResultsPendingIndicator>
+			<me-crash-codes:AlcoholTestCategoryCode>1</me-crash-codes:AlcoholTestCategoryCode>
+			<me-crash-codes:DrugTestCategoryCode>1</me-crash-codes:DrugTestCategoryCode>
+			<me-crash-codes:DrugTestResultCode>1</me-crash-codes:DrugTestResultCode>
+			<me-crash-codes:PersonCategoryCode>6</me-crash-codes:PersonCategoryCode>
 		</nc:Person>
 		<nc:Person structures:id="Vehicle_Owner_01">
 			<nc:PersonBirthDate>
-				<nc:Date>1984-01-02</nc:Date>
+				<nc:Date>1933-12-03</nc:Date>
 			</nc:PersonBirthDate>
 			<nc:PersonName>
-				<nc:PersonGivenName>George</nc:PersonGivenName>
+				<nc:PersonGivenName>Inez</nc:PersonGivenName>
 				<nc:PersonMiddleName>F</nc:PersonMiddleName>
-				<nc:PersonSurName>Boland</nc:PersonSurName>
+				<nc:PersonSurName>Craft</nc:PersonSurName>
 			</nc:PersonName>
 			<j:PersonSexCode>M</j:PersonSexCode>
-			<me-crash-codes:PersonCategoryCode>8</me-crash-codes:PersonCategoryCode>
+			<me-crash-codes:PersonCategoryCode>6</me-crash-codes:PersonCategoryCode>
 		</nc:Person>
 		<nc:EntityOrganization structures:id="Property_Owner_01">
 			<nc:OrganizationName>ACME Products</nc:OrganizationName>
 		</nc:EntityOrganization>
 		<nc:EntityPerson structures:id="Property_Owner_02">
 			<nc:PersonName>
-				<nc:PersonFullName>Josh E Campbell</nc:PersonFullName>
+				<nc:PersonFullName>Emera</nc:PersonFullName>
 			</nc:PersonName>
-		</nc:EntityPerson>
-		<nc:EntityPerson structures:id="Occupant_01">
-			<nc:PersonBirthDate>
-				<nc:Date>1980-02-22</nc:Date>
-			</nc:PersonBirthDate>
-			<nc:PersonName>
-				<nc:PersonGivenName>Nancy</nc:PersonGivenName>
-				<nc:PersonMiddleName>R</nc:PersonMiddleName>
-				<nc:PersonSurName>Gates</nc:PersonSurName>
-			</nc:PersonName>
-			<j:PersonSexCode>F</j:PersonSexCode>
-			<me-crash-codes:PersonCategoryCode>2</me-crash-codes:PersonCategoryCode>
 		</nc:EntityPerson>
 		<nc:Location structures:id="Driver_Loc_01">
 			<nc:Address>
 				<nc:LocationStreet>
-					<nc:StreetFullText>101 South Main Streett</nc:StreetFullText>
+					<nc:StreetFullText>44 AUTUMN LN</nc:StreetFullText>
 				</nc:LocationStreet>
-				<nc:LocationCityName>Bangor</nc:LocationCityName>
+				<nc:LocationCityName>LEWISTON</nc:LocationCityName>
 				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
-				<nc:LocationPostalCode>12190</nc:LocationPostalCode>
+				<nc:LocationPostalCode>04240</nc:LocationPostalCode>
 			</nc:Address>
 		</nc:Location>
 		<nc:Location structures:id="Witness_Loc_01">
 			<nc:Address>
 				<nc:LocationStreet>
-					<nc:StreetFullText>4922 South Will St</nc:StreetFullText>
+					<nc:StreetFullText>26 A STREET ROOM</nc:StreetFullText>
 				</nc:LocationStreet>
-				<nc:LocationCityName>Bangor</nc:LocationCityName>
+				<nc:LocationCityName>Portland</nc:LocationCityName>
 				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
-				<nc:LocationPostalCode>12320</nc:LocationPostalCode>
+				<nc:LocationPostalCode>04102</nc:LocationPostalCode>
 			</nc:Address>
 		</nc:Location>
 		<nc:Location structures:id="Property_Owner_Loc_01">
 			<nc:Address>
 				<nc:LocationStreet>
-					<nc:StreetFullText>5612 Grand Ave</nc:StreetFullText>
+					<nc:StreetFullText>Main St</nc:StreetFullText>
 				</nc:LocationStreet>
 				<nc:LocationCityName>Bangor</nc:LocationCityName>
 				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
-				<nc:LocationPostalCode>12320</nc:LocationPostalCode>
+				<nc:LocationPostalCode>04401</nc:LocationPostalCode>
 			</nc:Address>
 		</nc:Location>
 		<nc:Location structures:id="Vehicle_Owner_Loc_01">
 			<nc:Address>
 				<nc:LocationStreet>
-					<nc:StreetFullText>89 West Street</nc:StreetFullText>
+					<nc:StreetFullText>44 AUTUMN LN</nc:StreetFullText>
 				</nc:LocationStreet>
-				<nc:LocationCityName>Bangor</nc:LocationCityName>
+				<nc:LocationCityName>LEWISTON</nc:LocationCityName>
 				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
-				<nc:LocationPostalCode>12320</nc:LocationPostalCode>
+				<nc:LocationPostalCode>04240</nc:LocationPostalCode>
 			</nc:Address>
 		</nc:Location>
 		<nc:Vehicle structures:id="Vehicle_01">
-			<j:ConveyanceColorPrimaryCode>AME</j:ConveyanceColorPrimaryCode>
-			<nc:ItemModelYearDate>2001</nc:ItemModelYearDate>
+			<me-crash-codes:VehicleColorPrimaryCode>5</me-crash-codes:VehicleColorPrimaryCode>
+			<nc:ItemModelYearDate>2009</nc:ItemModelYearDate>
 			<nc:VehicleIdentification>
-				<nc:IdentificationID>VIN4567845678</nc:IdentificationID>
-				<nc:IdentificationJurisdiction>
-					<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
-				</nc:IdentificationJurisdiction>
+				<nc:IdentificationID>5NPET46C29H553366</nc:IdentificationID>
 			</nc:VehicleIdentification>
-			<j:VehicleMakeCode>KIA</j:VehicleMakeCode>
-			<j:VehicleModelCode>135</j:VehicleModelCode>
+			<me-crash-codes:VehicleMakeCode>99</me-crash-codes:VehicleMakeCode>
 			<vcq-res-ext:VehicleUnitIdentification>
-				<nc:IdentificationID>1</nc:IdentificationID>
+				<nc:IdentificationID>2</nc:IdentificationID>
 			</vcq-res-ext:VehicleUnitIdentification>
-			<vcq-res-ext:HitRunIndicator>false</vcq-res-ext:HitRunIndicator>
+			<j:VehicleAugmentation>
+				<j:VehicleUseCode>0</j:VehicleUseCode>
+			</j:VehicleAugmentation>
 		</nc:Vehicle>
 		<j:ConveyanceRegistration structures:id="Conveyance_Registration_01">
 			<j:ConveyanceRegistrationPlateIdentification>
-				<nc:IdentificationID>AMB-9456</nc:IdentificationID>
+				<nc:IdentificationID>5285KS</nc:IdentificationID>
 				<nc:IdentificationJurisdiction>
 					<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
 				</nc:IdentificationJurisdiction>
@@ -283,29 +295,12 @@
 		</j:ConveyanceRegistration>
 		<nc:Insurance structures:id="Insurance_01">
 			<nc:InsurancePolicyIdentification>
-				<nc:IdentificationID>457698098</nc:IdentificationID>
+				<nc:IdentificationID>379063745-0</nc:IdentificationID>
 			</nc:InsurancePolicyIdentification>
-			<nc:InsuranceCarrierName>Allstate</nc:InsuranceCarrierName>
+			<nc:InsuranceCarrierName>METROPOLITAN CASUALTY</nc:InsuranceCarrierName>
 			<vcq-res-ext:NoInsuranceIndicator>false
 			</vcq-res-ext:NoInsuranceIndicator>
 		</nc:Insurance>
-		<j:CrashDriverLicense structures:id="Driver_License_01">
-			<j:DriverLicenseCardIdentification>
-				<nc:IdentificationID>LI45678</nc:IdentificationID>
-				<nc:IdentificationJurisdiction>
-					<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
-				</nc:IdentificationJurisdiction>
-			</j:DriverLicenseCardIdentification>
-			<j:DriverLicenseRestriction>
-				<j:DrivingRestrictionText>Restriction</j:DrivingRestrictionText>
-			</j:DriverLicenseRestriction>
-			<j:DriverLicenseEndorsement>
-				<j:DriverLicenseEndorsementText>Endorsement</j:DriverLicenseEndorsementText>
-			</j:DriverLicenseEndorsement>
-			<me-crash-codes:DriverLicenseCategoryCode>Active</me-crash-codes:DriverLicenseCategoryCode>
-			<vcq-res-ext:DriverLicenseClassCodeText>Class
-			</vcq-res-ext:DriverLicenseClassCodeText>
-		</j:CrashDriverLicense>
 		<j:ActivityInformationApproverAssociation>
 			<nc:Activity structures:ref="Crash_01" />
 			<nc:Person structures:ref="Information_Approver_01" />
