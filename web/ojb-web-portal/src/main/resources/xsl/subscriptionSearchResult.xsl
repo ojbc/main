@@ -121,7 +121,7 @@
 				<tr>
 					<td valign="middle">
 						<!-- note value in json format, so ui can parse it -->
-						<input type="checkbox" name="subscriptionRow" id="subscriptionCheckBox{$subscriptionID}" value='{{"id":"{$subscriptionID}","topic":"{$subscriptionTopic}","reasonCode":"{$reasonCode}"}}'/>
+						<input type="checkbox" name="subscriptionRow" class="subscriptionCheckBox" value='{{"id":"{$subscriptionID}","topic":"{$subscriptionTopic}","reasonCode":"{$reasonCode}"}}'/>
 					</td>				
 					<td class="editButtonColumn"><a href="../subscriptions/editSubscription?identificationID={$subscriptionID}&amp;topic={$subscriptionTopic}" class="blueButton viewDetails" id="editSubscriptionLink{$subscriptionID}">EDIT</a></td>
 					<td>

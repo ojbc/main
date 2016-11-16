@@ -54,6 +54,7 @@
 			"pagingType": "full_numbers",
 			"pageLength": 50,
 			"order": [[ 1, "asc" ]],
+			stateSave: true, 
 			"language": {
         		"emptyTable": "No criminal identification record available"
    			 },
