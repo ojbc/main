@@ -65,7 +65,7 @@
        
 	    <!-- Vehicle Crash Request and Response Endpoints -->
 	   <bean id="vehicleCrashQueryRequestProcessor" class="org.ojbc.processor.person.query.VehicleCrashQueryRequestProcessor">
-	   		<property name="replyToAddress"><value>${webapplication.personQuery.personQueryResultsHandlerVehicleCrashEndpoint}</value></property>
+	   		<property name="replyToAddress"><value>${webapplication.personSearch.vehicleCrashQueryRequestReplyToEndpoint}</value></property>
 	   		<property name="messageProcessor" ref="vehicleCrashMessageProcessor"/>
 	   		<property name="requestResponseMap" ref="vehicleCrashRequestResponseMap"/>
 	   		<property name="maxPolls" value="${webapplication.maxPolls}"/>
