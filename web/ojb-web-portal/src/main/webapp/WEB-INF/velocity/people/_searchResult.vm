@@ -20,9 +20,10 @@
 	    //to prevent IE from caching search forms, this has the effect that the input values are not remembered
 	    $.ajaxSetup({ cache: false });
 	  
-  		$("#personSearchResultsTable").dataTable({
+  		$("#personSearchResultsTable").DataTable({
   			 "pagingType": "full_numbers",
   			 "pageLength": 50,
+  			 stateSave: true, 
 			 "columnDefs": [ {
 		            targets: [ 0 ],
 		            orderData: [ 0, 1 ]

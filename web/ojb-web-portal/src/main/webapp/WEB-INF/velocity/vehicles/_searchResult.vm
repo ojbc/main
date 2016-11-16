@@ -23,6 +23,7 @@
 	  	$("#searchResultsTable").dataTable({
 			"pagingType": "full_numbers",
   			"pageLength": 50,
+  			stateSave: true, 
 			"columnDefs": [{
 				targets: [ 8 ],
 			    searchable: false, 
