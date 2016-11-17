@@ -27,6 +27,8 @@
   <w:Element w:name="intel:SystemIdentifier" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:IdentificationJurisdictionUSPostalServiceCode"
     w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:ConveyanceColorPrimaryText"
+    w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ConveyanceRegistration" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ConveyanceRegistrationPlateCategoryCode"
     w:isReference="false" w:nillable="false"/>
@@ -168,17 +170,20 @@
     <w:ElementInType w:name="nc:IdentificationJurisdiction"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:TangibleItemType" w:isRequested="false">
+  <w:Type w:name="nc:ItemType" w:isRequested="true"/>
+  <w:Type w:name="nc:TangibleItemType" w:isRequested="true">
     <w:ElementInType w:name="nc:ItemCategory" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ItemColor" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:ItemMakeName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ItemModelName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:ItemModelYearDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
-  <w:Type w:name="nc:VehicleType" w:isRequested="false">
+  <w:Type w:name="nc:VehicleType" w:isRequested="true">
     <w:ElementInType w:name="nc:VehicleDoorQuantity"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:VehicleIdentification"
