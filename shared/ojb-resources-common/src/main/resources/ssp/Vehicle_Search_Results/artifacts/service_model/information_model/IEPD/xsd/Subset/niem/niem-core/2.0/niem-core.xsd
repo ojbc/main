@@ -135,6 +135,7 @@
         <xsd:sequence>
           <xsd:element ref="nc:ItemCategory" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:ItemColor" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:ItemMakeName" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:ItemModelName" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:ItemModelYearDate" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
@@ -169,6 +170,14 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:element name="ConveyanceColorPrimaryText" type="nc:TextType" substitutionGroup="nc:ItemColor">
+    <xsd:annotation>
+      <xsd:documentation>A single, upper-most, front-most, or majority color of a conveyance.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="ItemColor"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="ConveyanceRegistration" type="nc:ConveyanceRegistrationType">
     <xsd:annotation>
       <xsd:documentation>A registration of a conveyance with an authority.</xsd:documentation>
@@ -252,6 +261,11 @@
   <xsd:element name="ItemColor" abstract="true">
     <xsd:annotation>
       <xsd:documentation>A color of an item.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ItemMakeName" type="nc:ProperNameTextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A name of the manufacturer that produced an item.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="ItemModelName" type="nc:ProperNameTextType" nillable="true">
