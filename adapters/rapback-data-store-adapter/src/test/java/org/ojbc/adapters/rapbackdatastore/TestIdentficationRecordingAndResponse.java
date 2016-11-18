@@ -197,6 +197,7 @@ public class TestIdentficationRecordingAndResponse {
 		assertThat(identificationTransaction.getOwnerProgramOca(), is("ID23457"));
 		assertThat(identificationTransaction.getIdentificationCategory(), is("I"));
 		assertThat(identificationTransaction.getArchived(), is(false));
+		assertNotNull(identificationTransaction.getAvailableForSubscriptionStartDate());
 		
 		log.info(identificationTransaction.toString());
 		assertNotNull(identificationTransaction); 

@@ -20,10 +20,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -141,6 +143,10 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return date == null? null : new DateTime(date); 
 	}
 	
+	private DateTime toDateTime(Timestamp timestamp){
+		return timestamp == null? null : new DateTime(timestamp); 
+	}
+	
 	private java.sql.Date toSqlDate(DateTime date){
 		return date == null? null : new java.sql.Date(date.getMillis()); 
 	}
@@ -156,8 +162,8 @@ public class RapbackDAOImpl implements RapbackDAO {
         log.debug("Inserting row into IDENTIFICATION_TRANSACTION table : " + identificationTransaction.toString());
         
         final String IDENTIFICATION_TRANSACTION_INSERT="INSERT into IDENTIFICATION_TRANSACTION "
-        		+ "(TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, ARCHIVED, IDENTIFICATION_CATEGORY) "
-        		+ "values (?, ?, ?, ?, ?, ?, ?)";
+        		+ "(TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, ARCHIVED, IDENTIFICATION_CATEGORY, AVAILABLE_FOR_SUBSCRIPTION_START_DATE) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
         
         Integer subjectId  = null; 
         if ( identificationTransaction.getSubject() == null){
@@ -177,7 +183,8 @@ public class RapbackDAOImpl implements RapbackDAO {
         		identificationTransaction.getOwnerOri(),
         		identificationTransaction.getOwnerProgramOca(), 
         		BooleanUtils.isTrue(identificationTransaction.getArchived()),
-        		identificationTransaction.getIdentificationCategory()); 
+        		identificationTransaction.getIdentificationCategory(), 
+        		Calendar.getInstance().getTime()); 
 	}
 
 	@Override
@@ -442,6 +449,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		identificationTransaction.setOwnerProgramOca(rs.getString("owner_program_oca"));
 		identificationTransaction.setIdentificationCategory(rs.getString("identification_category"));
 		identificationTransaction.setArchived(BooleanUtils.isTrue(rs.getBoolean("archived")));
+		identificationTransaction.setAvailableForSubscriptionStartDate(toDateTime(rs.getTimestamp("Available_For_Subscription_Start_Date")));
 
 		Integer subjectId = rs.getInt("subject_id");
 		
@@ -520,7 +528,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	@Override
 	public List<CivilInitialResults> getCivilInitialResults(String ownerOri) {
 		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, "
-				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, s.* "
+				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, t.available_for_subscription_start_date, s.* "
 				+ "FROM civil_initial_results c "
 				+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
@@ -581,7 +589,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append( "SELECT t.transaction_number, t.identification_category, "
-				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.*, "
+				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, "
+				+ "s.*, sub.*, "
 				+ "(select count(*) > 0 from subsequent_results subsq where subsq.ucn = s.ucn) as having_subsequent_result "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
@@ -718,7 +727,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(
 			SAMLTokenPrincipal token, IdentificationResultSearchRequest searchRequest) {
 		StringBuilder sqlStringBuilder = new StringBuilder("SELECT t.transaction_number, t.identification_category, "
-				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
+				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, "
+				+ "s.* "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id ");
 		
@@ -1095,7 +1105,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	public List<CivilInitialResults> getCivilInitialResults(
 			String transactionNumber, ResultSender resultSender) {
 		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, "
-				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, s.* "
+				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, t.available_for_subscription_start_date, s.* "
 				+ "FROM civil_initial_results c "
 				+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
