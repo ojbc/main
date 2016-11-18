@@ -17,7 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ojb-crim-doc:CoreFilingMessage
+<core:CoreFilingMessage
 	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
 	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
@@ -26,7 +26,7 @@
 	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
 	xmlns:criminalCase="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
 	xmlns:citationCase="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0 ../../xsd/Criminal_Case_Core-doc.xsd">
+	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../xsd/message/ECF-4.0-CoreFilingMessage.xsd">
 	<nc:DocumentIdentification>
 		<nc:IdentificationID>123456ABC</nc:IdentificationID>
 	</nc:DocumentIdentification>
@@ -50,18 +50,7 @@
 		<nc:IdentificationID>91</nc:IdentificationID>
 	</ecf:SendingMDELocationID>
 	<ecf:SendingMDEProfileCode>MESSAGINGPROFILEID   </ecf:SendingMDEProfileCode>
-	<!-- criminalCase:CriminalCase xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" 
-		xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0 
-		../xsd/casetype/ECF-4.0-CriminalCase.xsd" -->
-	<ojb-crim-doc:CriminalCase
-		xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
-		xmlns:ojb-crim-doc="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0"
-		xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-		xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
-		xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
-		xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../xsd/message/ECF-4.0-CoreFilingMessage.xsd urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0 ../../xsd/casetype/ECF-4.0-CriminalCase.xsd">
-		<!-- The following elements are required by ECF DOWN -->
+	<ojb-crim-ext:CriminalCase>
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
 			<nc:IdentificationCategoryText>nc:IdentificationCategoryText
@@ -95,7 +84,7 @@
 		<nc:CaseDocketID>nc:CaseDocketID</nc:CaseDocketID>
 		<j:CaseAugmentation>
 			<j:CaseCharge>
-				<!-- j:ChargeFilingDate> <nc:Date>1967-08-13</nc:Date> </j:ChargeFilingDate -->
+				<j:ChargeFilingDate> <nc:Date>1967-08-13</nc:Date> </j:ChargeFilingDate>
 				<j:ChargeSequenceID>
 					<nc:IdentificationID>02</nc:IdentificationID>
 				</j:ChargeSequenceID>
@@ -116,8 +105,6 @@
 						<nc:IdentificationID>UOC 657879</nc:IdentificationID>
 					</j:StatuteOffenseIdentification>
 				</j:ChargeStatute>
-				<!--j:ChargeTrackingIdentification> <nc:IdentificationID>Charge Tracking 
-					ID</nc:IdentificationID> </j:ChargeTrackingIdentification -->
 			</j:CaseCharge>
 			<j:CaseCourt>
 				<nc:OrganizationIdentification>
@@ -216,7 +203,7 @@
 				<ecf:CaseParticipantRoleCode />
 			</ecf:CaseParticipant>
 		</ecf:CaseAugmentation>
-		<criminal:CaseArrest>
+		<criminalCase:CaseArrest>
 			<j:ArrestAgency>
 				<nc:OrganizationName>Anchorage PD</nc:OrganizationName>
 			</j:ArrestAgency>
@@ -228,9 +215,9 @@
 					<nc:IdentificationID>AO45678</nc:IdentificationID>
 				</j:EnforcementOfficialBadgeIdentification>
 			</j:ArrestOfficial>
-		</criminal:CaseArrest>
-		<criminal:CaseCharge>
-			<criminal:ChargeOffense s:id="Offense_01">
+		</criminalCase:CaseArrest>
+		<criminalCase:CaseCharge>
+			<criminalCase:ChargeOffense s:id="Offense_01">
 				<nc:ActivityIdentification>
 					<nc:IdentificationID>ATN34567</nc:IdentificationID>
 					<nc:IdentificationCategoryText>ATN</nc:IdentificationCategoryText>
@@ -240,10 +227,10 @@
 						<nc:Date>2015-09-10</nc:Date>
 					</nc:StartDate>
 				</nc:ActivityDateRange>
-			</criminal:ChargeOffense>
-			<criminal:ChargeAmendedIndicator>false</criminal:ChargeAmendedIndicator>
-		</criminal:CaseCharge>
-	</ojb-crim-doc:CriminalCase>
+			</criminalCase:ChargeOffense>
+			<criminalCase:ChargeAmendedIndicator>false</criminalCase:ChargeAmendedIndicator>
+		</criminalCase:CaseCharge>
+	</ojb-crim-ext:CriminalCase>
 	<core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator>
 	<core:FilingLeadDocument s:id="_123456ABC.app.doc">
 		<nc:DocumentApplicationName>Microsoft Word
@@ -287,4 +274,4 @@
 			</ecf:DocumentRenditionMetadata>
 		</ecf:DocumentRendition>
 	</core:FilingConnectedDocument>
-</ojb-crim-doc:CoreFilingMessage>
+</core:CoreFilingMessage>
