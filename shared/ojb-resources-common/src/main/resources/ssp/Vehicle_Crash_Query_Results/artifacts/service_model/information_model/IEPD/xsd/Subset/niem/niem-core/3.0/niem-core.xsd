@@ -234,6 +234,7 @@
           <xs:element ref="nc:ItemDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ItemOwner" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ItemColor" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:ItemMakeName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ItemModelYearDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ItemAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
@@ -547,6 +548,11 @@
       <xs:documentation>A comment, note, or remark providing additional information.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ConveyanceColorPrimaryText" type="nc:TextType" substitutionGroup="nc:ItemColor" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A single, upper-most, front-most, or majority color of a conveyance.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Date" type="niem-xs:date" substitutionGroup="nc:DateRepresentation">
     <xs:annotation>
       <xs:documentation>A full date.</xs:documentation>
@@ -695,6 +701,11 @@
   <xs:element name="ItemInsuranceAssociation" type="nc:ItemInsuranceAssociationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An association between an item and its insurance.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ItemMakeName" type="nc:ProperNameTextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of the manufacturer that produced an item.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ItemModelYearDate" type="niem-xs:gYear" nillable="true">
