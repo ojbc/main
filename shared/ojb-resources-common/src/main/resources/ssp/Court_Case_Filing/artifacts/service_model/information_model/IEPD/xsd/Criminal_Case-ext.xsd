@@ -24,6 +24,7 @@
 	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
 	xmlns:ecf-crim="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
 	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
+	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0">
 	<xsd:annotation>
 		<xsd:documentation>CriminalCase</xsd:documentation>
@@ -47,6 +48,11 @@
 	<xsd:import
 		namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
 		schemaLocation="./casetype/ECF-4.0-CriminalCase.xsd" />
+		
+			<xsd:import
+		namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+		schemaLocation="./message/ECF-4.0-CoreFilingMessage.xsd" />
+		
 	<xsd:complexType name="CriminalCaseType">
 		<xsd:annotation>
 			<xsd:documentation>Information required to initiate a new criminal
@@ -186,6 +192,8 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 	<!-- ELEMENTS -->
+	<xsd:element name="CriminalCase" type="ojb-crim-ext:CriminalCaseType"
+		substitutionGroup="nc:Case" />
 	<xsd:element name="CaseArrest" type="ojb-crim-ext:ArrestType">
 		<xsd:annotation>
 			<xsd:documentation>The act of taking physical control over the person
