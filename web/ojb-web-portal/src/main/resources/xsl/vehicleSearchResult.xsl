@@ -121,9 +121,11 @@
             <xsl:variable name="vehicle" select="veh-ext:Vehicle"/>    
             <tr>
                 <td><xsl:value-of select="$entityCount"/></td>
-                <td><xsl:value-of select="$vehicle/veh-ext:VehicleMakeCode" /></td>
+                <td><xsl:value-of select="$vehicle/veh-ext:VehicleMakeCode" />
+                <xsl:value-of select="$vehicle/nc:ItemMakeName" /></td>
                 <td><xsl:value-of select="$vehicle/nc:ItemModelName" /></td>
-                <td><xsl:value-of select="$vehicle/nc:VehicleColorPrimaryCode" /></td>
+                <td><xsl:value-of select="$vehicle/nc:VehicleColorPrimaryCode" />
+                <xsl:value-of select="$vehicle/nc:ConveyanceColorPrimaryText" /></td>
                 <td><xsl:value-of select="$vehicle/nc:ItemModelYearDate" /></td>
                 <td><xsl:value-of select="$vehicle/nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID" /></td>
                 <td><xsl:value-of select="$vehicle/nc:VehicleIdentification/nc:IdentificationID" /></td>
@@ -182,7 +184,8 @@
                             <td class="detailsLabel">MODEL YEAR</td>
                             <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemModelYearDate" /></td>
                             <td class="detailsLabel">MAKE</td>
-                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/veh-ext:VehicleMakeCode" /></td>
+                            <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/veh-ext:VehicleMakeCode" />
+                            <xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemMakeName" /></td>
                             <td class="detailsLabel">MODEL</td>
                             <td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ItemModelName" /></td>
                         </tr>
@@ -194,6 +197,7 @@
                             	<xsl:call-template name="formatVehicleColor" >
                             		<xsl:with-param name="vehicleColorCode" select="$vehicleSearchResult/veh-ext:Vehicle/nc:VehicleColorPrimaryCode"/>
                             	</xsl:call-template>
+                            	 <xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:ConveyanceColorPrimaryText" />
                            	</td>
                            	<td class="detailsLabel">DOORS</td>
                            	<td><xsl:value-of select="$vehicleSearchResult/veh-ext:Vehicle/nc:VehicleDoorQuantity" /></td>
