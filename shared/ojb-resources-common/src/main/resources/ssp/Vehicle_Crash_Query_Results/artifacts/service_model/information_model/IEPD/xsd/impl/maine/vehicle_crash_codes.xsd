@@ -110,6 +110,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="PersonCategoryCodeText" type="nc:TextType"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the category of a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType name="DirectionFromNearestIntersectionCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Direction From Nearest Intersection code set
@@ -160,6 +167,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="DirectionFromNearestIntersectionCodeText"
+		type="nc:TextType" substitutionGroup="nc:LocationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the direction of a crash
+				from the nearest intersection.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType
 		name="DistanceFromNearestIntersectionNumberUnitCodeSimpleType">
 		<xsd:annotation>
@@ -193,6 +208,14 @@
 		substitutionGroup="nc:LocationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes unit of measure of a
+				distance number from the nearest intersection.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DistanceFromNearestIntersectionNumberUnitCodeText"
+		type="nc:TextType" substitutionGroup="nc:LocationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes unit of measure of a
 				distance number from the nearest intersection.
 			</xsd:documentation>
 		</xsd:annotation>
@@ -319,6 +342,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="PostedSpeedLimitCodeText" type="nc:TextType"
+		substitutionGroup="j:CrashVehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the posted speed limit.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType name="VehicleDamageExtentCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Extent Of Damage code set</xsd:documentation>
@@ -354,10 +384,18 @@
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="VehicleDamageExtentCode" type="me-crash-codes:VehicleDamageExtentCodeType"
-		substitutionGroup="j:VehicleDamageExtent">
+	<xsd:element name="VehicleDamageExtentCode"
+		type="me-crash-codes:VehicleDamageExtentCodeType" substitutionGroup="j:VehicleDamageExtent">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the extent of vehicle
+				damage.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VehicleDamageExtentCodeText" type="nc:TextType"
+		substitutionGroup="j:VehicleDamageExtent">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the extent of vehicle
 				damage.
 			</xsd:documentation>
 		</xsd:annotation>
@@ -415,6 +453,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="AlcoholTestCategoryCodeText" type="nc:TextType"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes a type of alcohol test.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType name="DrugTestCategoryCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Drug Test Category code set
@@ -462,6 +507,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="DrugTestCategoryCodeText" type="nc:TextType"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes a type of drug test.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType name="DrugTestResultCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Drug Test Result code set</xsd:documentation>
@@ -495,6 +547,13 @@
 		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a drug test result.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DrugTestResultCodeText" type="nc:TextType"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes a drug test result.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -542,6 +601,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="DamagedPropertyOwnerCategoryCodeText"
+		type="nc:TextType" substitutionGroup="nc:ItemAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes property damage owner.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType name="DriverLicenseStatusCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Driver License Category code set
@@ -581,6 +647,13 @@
 		type="me-crash-codes:DriverLicenseStatusCodeType" substitutionGroup="j:DriverLicenseAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a type of driver license.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DriverLicenseStatusCodeText" type="nc:TextType"
+		substitutionGroup="j:DriverLicenseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes a type of driver license.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -5201,6 +5274,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="CityOrTownCodeText" type="nc:TextType"
+		substitutionGroup="nc:AddressAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text for a city or town.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType name="ReportingAgencyCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Reporting Agency code set
@@ -6114,6 +6194,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ReportingAgencyCodeText" type="nc:TextType"
+		substitutionGroup="j:CrashInformationSourceAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes a reporting agency.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:complexType name="InOrNearWorkZoneCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="me-crash-codes:YesNoUnknowCodeSimpleType">
@@ -6125,6 +6212,14 @@
 		substitutionGroup="j:CrashWorkZoneAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes a crash in or near a work
+				zone.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InOrNearWorkZoneCodeText" type="nc:TextType"
+		substitutionGroup="j:CrashWorkZoneAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes a crash in or near a work
 				zone.
 			</xsd:documentation>
 		</xsd:annotation>
@@ -6145,6 +6240,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="WorkZoneWorkersPresentCodeText" type="nc:TextType"
+		substitutionGroup="j:CrashWorkZoneAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes whether work zone workers
+				are present.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:complexType name="TrafficControlDeviceOperationalCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="me-crash-codes:YesNoUnknowCodeSimpleType">
@@ -6161,6 +6264,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="TrafficControlDeviceOperationalCodeText"
+		type="nc:TextType" substitutionGroup="j:CrashAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the operational status of
+				a traffic control device.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:complexType name="LawEnforcementPresentAtWorkZoneCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="me-crash-codes:YesNoUnknowCodeSimpleType">
@@ -6174,6 +6285,14 @@
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the law enforcement presence
 				at a work zone.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LawEnforcementPresentAtWorkZoneCodeText"
+		type="nc:TextType" substitutionGroup="j:CrashWorkZoneAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the law enforcement
+				presence at a work zone.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -6900,6 +7019,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="DriverLicenseRestrictionCodeText" type="nc:TextType"
+		substitutionGroup="j:DriverLicenseRestrictionAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the restriction of a
+				drivers license.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType name="DriverLicenseEndorsementCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Driver License Endorsement code set
@@ -7017,6 +7144,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="DriverLicenseEndorsementCodeText" type="nc:TextType"
+		substitutionGroup="j:DriverLicenseEndorsementAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the endorsements of a
+				drivers license.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType name="DriverLicenseClassCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Driver License Class code set
@@ -7056,6 +7191,14 @@
 		type="me-crash-codes:DriverLicenseClassCodeType" substitutionGroup="j:DriverLicenseAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the class of a drivers
+				license.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DriverLicenseClassCodeText" type="nc:TextType"
+		substitutionGroup="j:DriverLicenseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the class of a drivers
 				license.
 			</xsd:documentation>
 		</xsd:annotation>
@@ -7133,6 +7276,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="CrashWeatherConditionCodeText" type="nc:TextType"
+		substitutionGroup="j:CrashWeatherCondition">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the crash weather
+				condition.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType name="CrashLightConditionCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Crash Light Condition code set</xsd:documentation>
@@ -7189,6 +7340,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="CrashLightConditionCodeText" type="nc:TextType"
+		substitutionGroup="j:CrashLightCondition">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the crash light
+				condition.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType name="RoadwayGradeCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Roadway Grade code set</xsd:documentation>
@@ -7232,6 +7391,13 @@
 		substitutionGroup="j:RoadwayGrade">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the roadway grade.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RoadwayGradeCodeText" type="nc:TextType"
+		substitutionGroup="j:RoadwayGrade">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the roadway grade.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -7311,6 +7477,14 @@
 		substitutionGroup="j:CrashRoadSurfaceCondition">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the road surface condition.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CrashRoadSurfaceConditionCodeText" type="nc:TextType"
+		substitutionGroup="j:CrashRoadSurfaceCondition">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the road surface
+				condition.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -7410,6 +7584,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="VehicleTrafficControlDeviceCategoryCodeText"
+		type="nc:TextType" substitutionGroup="j:VehicleTrafficControlDeviceCategory">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the traffic dontrol
+				device.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType name="CrashFirstHarmfulEventLocationCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Crash First Harmful Event Location code set
@@ -7483,6 +7665,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="CrashFirstHarmfulEventLocationCodeText"
+		type="nc:TextType" substitutionGroup="j:CrashFirstHarmfulEventLocation">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the location of the first
+				harmful event.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType
 		name="CrashEnvironmentContributingCircumstancesCodeSimpleType">
 		<xsd:restriction base="xsd:short">
@@ -7531,6 +7721,14 @@
 		substitutionGroup="j:CrashEnvironmentContributingCircumstances">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes crash environmental
+				contributing circumstances.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CrashEnvironmentContributingCircumstancesCodeText"
+		type="nc:TextType" substitutionGroup="j:CrashEnvironmentContributingCircumstances">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes crash environmental
 				contributing circumstances.
 			</xsd:documentation>
 		</xsd:annotation>
@@ -7637,6 +7835,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="VehicleContributingCircumstancesCodeText"
+		type="nc:TextType" substitutionGroup="j:VehicleContributingCircumstances">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes crash vehicle
+				contributing circumstances.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType name="CrashRoadContributingCircumstancesCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Crash Road Contributing Circumstances code set
@@ -7725,6 +7931,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="CrashRoadContributingCircumstancesCodeText"
+		type="nc:TextType" substitutionGroup="j:CrashRoadContributingCircumstances">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes crash road contributing
+				circumstances.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType name="CrashDriverDistractionCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Crash Driver Distraction code set
@@ -7807,6 +8021,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="CrashDriverDistractionCodeText" type="nc:TextType"
+		substitutionGroup="j:CrashDriverDistraction">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes crash driver distraction.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:simpleType name="MotorCarrierCategoryCodeSimpleType">
 		<xsd:annotation>
 			<xsd:documentation>Motor Carrier Category code set
@@ -7848,6 +8069,14 @@
 		type="me-crash-codes:MotorCarrierCategoryCodeType" substitutionGroup="j:MotorCarrierCategory">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the motor carrier category.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MotorCarrierCategoryCodeText" type="nc:TextType"
+		substitutionGroup="j:MotorCarrierCategory">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the motor carrier
+				category.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -7909,6 +8138,13 @@
 		substitutionGroup="j:VehicleUse">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the vehicle use.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VehicleUseCodeText" type="nc:TextType"
+		substitutionGroup="j:VehicleUse">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the vehicle use.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -8058,6 +8294,13 @@
 		type="me-crash-codes:CrashVehicleCategoryCodeType" substitutionGroup="j:CrashVehicleCategory">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the vehicle category.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CrashVehicleCategoryCodeText" type="nc:TextType"
+		substitutionGroup="j:CrashVehicleCategory">
+		<xsd:annotation>
+			<xsd:documentation>Code text that describes the vehicle category.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
