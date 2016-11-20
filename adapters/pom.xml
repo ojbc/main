@@ -39,8 +39,8 @@
     <module>rapback-data-store-adapter</module>
     <module>custody-analytics-staging-adapter</module>
     <module>person-health-information-search-service-adapter</module>
+    <module>courtview-court-case-filing-service-adapter</module>
   </modules>
 
   
 </project>
-
