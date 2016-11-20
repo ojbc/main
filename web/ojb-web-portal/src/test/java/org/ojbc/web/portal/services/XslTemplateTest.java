@@ -283,6 +283,11 @@ public class XslTemplateTest {
         validatePeopleFilterTransformation("xsl/personFilterCleanupMerged.xsl", "personFilterCleanupMergedInput.xml", "filterCleanupMergedResult.xml");
     }
     
+    @Test
+    public void vehicleCrashResult() throws Exception {
+        validatePersonSearchTransformation("xsl/vehicleCrashResult.xsl", "vehicleCrashResult.xml", "vehicleCrashResult.html");
+    }
+    
   
     @Test
     public void subscriptionSearchResult() throws Exception {    	                
