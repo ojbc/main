@@ -123,17 +123,21 @@
 					</td>
 					<td class="detailsLabel">Law Enforcement Present</td>
 					<td>
-						<xsl:value-of select="me-crash-codes:LawEnforcementPresentAtWorkZoneCode"/>
+						<xsl:value-of select="me-crash-codes:LawEnforcementPresentAtWorkZoneCodeText"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="detailsLabel">Workers Present</td>
+					
 					<td>
-						<xsl:apply-templates select="vcq-res-ext:WorkZoneWorkersPresentIndicator" mode="formatBooleanAsYesNo"/>
+					
+					<xsl:value-of select="me-crash-codes:WorkZoneWorkersPresentCodeText"/>
+					
 					</td>
 					<td class="detailsLabel">Presence Code</td>
 					<td>
-						<xsl:value-of select="j:WorkZoneWorkersPresenceIndicationCode"></xsl:value-of>
+						<xsl:value-of select="me-crash-codes:InOrNearWorkZoneCodeText"></xsl:value-of>
+						
 					</td>
 				</tr>
 			</table>
@@ -153,8 +157,9 @@
 				<tr>
 					<td class="detailsLabel">Make</td>
 					<td>
-						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/j:VehicleMakeCode"></xsl:value-of>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/nc:ItemMakeName"></xsl:value-of>
 					</td>
+<!--  Not used in the Appriss Crash Report -->
 					<td class="detailsLabel">Model</td>
 					<td>
 						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/j:VehicleModelCode"></xsl:value-of>
@@ -173,7 +178,7 @@
 				<tr>
 					<td class="detailsLabel">Color</td>
 					<td>
-						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/j:ConveyanceColorPrimaryCode"/>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/nc:ConveyanceColorPrimaryText"/>
 					</td>
 					<td class="detailsLabel">Unit</td>
 					<td>
@@ -203,25 +208,25 @@
 				<tr>
 					<td class="detailsLabel">Hit and Run?</td>
 					<td>
-						<xsl:apply-templates select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/vcq-res-ext:HitRunIndicator" mode="formatBooleanAsYesNo"/>
+						<xsl:apply-templates select="vcq-res-ext:HitRunIndicator" mode="formatBooleanAsYesNo"/>
+					
 					</td>
 					<td class="detailsLabel">Extent of Damage</td>
 					<td>
-						<xsl:value-of select="me-crash-codes:ExtentOfDamageCode"></xsl:value-of>
+						<xsl:value-of select="me-crash-codes:VehicleDamageExtentCodeText"></xsl:value-of>
 					</td>
 				</tr>
 				<tr>
 					<td class="detailsLabel">Posted Speed</td>
-					<td><xsl:value-of select="me-crash-codes:PostedSpeedLimitCode"/>
+					<td><xsl:value-of select="me-crash-codes:PostedSpeedLimitCodeText"/>
 					</td>
+<!--  Not used in the Appriss Crash Report -->
 					<td class="detailsLabel">Actual Speed</td>
 					<td><xsl:value-of select="j:CrashVehicleLegalSpeedRateMeasure"/></td>
 				</tr>
 				<tr>
 					<td class="detailsLabel">Hazmat</td>
 					<td><xsl:apply-templates select="vcq-res-ext:HazmatPlacardIndicator" mode="formatBooleanAsYesNo"/></td>
-					<td class="detailsLabel">Gross Weight</td>
-					<td><xsl:value-of select="me-crash-codes:GrossVehicleWeightRatingCode"/></td>
 				</tr>
 				<tr>
 					<td class="detailsLabel">Driver Name</td>
@@ -230,27 +235,31 @@
 					</td>
 					<td class="detailsLabel">Driver License #</td>
 					<td>
-						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/j:CrashDriverLicense[@structures:id=$driverLicenseId]/j:DriverLicenseCardIdentification/nc:IdentificationID"/>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/j:PersonAugmentation/j:DriverLicense/j:DriverLicenseCardIdentification/nc:IdentificationID"/>
 					</td>
+					
 				</tr>
 				<tr>
 					<td class="detailsLabel">Alcohol Test Type</td>
 					<td>
-						<xsl:value-of select="j:CrashDriver/me-crash-codes:AlcoholTestCategoryCode"/>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/me-crash-codes:AlcoholTestCategoryCodeText"/>
+						
 					</td>
 					<td class="detailsLabel">Alcohol Test Result</td>
 					<td>
-						<xsl:value-of select="j:CrashDriver/me-crash-codes:DrugTestResultCode"/>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/j:PersonBloodAlcoholContentAssociation[nc:Person/@structures:ref = $driverId]/j:PersonBloodAlcoholContentNumberText"/>
+						
 					</td>
 				</tr>
 				<tr>
 					<td class="detailsLabel">Drug Test Type</td>
 					<td>
-						<xsl:value-of select="j:CrashDriver/me-crash-codes:DrugTestCategoryCode"/>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/me-crash-codes:DrugTestCategoryCodeText"/>
 					</td>
 					<td class="detailsLabel">Drug Test Result </td>
 					<td>
-						<xsl:value-of select="j:CrashDriver/me-crash-codes:DrugTestResultCode"/>
+						<xsl:value-of select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/me-crash-codes:DrugTestResultCodeText"/>
+					
 					</td>
 				</tr>
 				<tr>
@@ -260,8 +269,9 @@
 					</td>
 					<td class="detailsLabel">School Bus</td>
 					<td>
-						<xsl:value-of select="me-crash-codes:SchoolBusRelatedCode"/>
+						<xsl:value-of select="../j:CrashSchoolBusRelatedCode"/>
 					</td>
+					
 				</tr>
 			</table>
 		</div>
@@ -282,6 +292,7 @@
 	<xsl:template match="j:IncidentAugmentation" mode="damagedItem">
 		<h3>Damaged Item(s)</h3>
 		<div>
+<!--  Not used in the Appriss Crash Report -->
 			<table style="width:100%">
 				<xsl:apply-templates select="j:IncidentDamagedItem"/>
 			</table>	
@@ -332,6 +343,7 @@
 						<xsl:value-of select="parent::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=ancestor::vcq-res-ext:VehicleCrashReport/j:Crash/j:IncidentAugmentation/j:IncidentReportingOfficial/nc:RoleOfPerson/@structures:ref]/nc:PersonName/nc:PersonFullName"/>/
 						<xsl:value-of select="j:IncidentAugmentation/j:IncidentReportingOfficial/j:EnforcementOfficialBadgeIdentification/nc:IdentificationID"/>
 					</td>
+<!--  Not used in the Appriss Crash Report -->
 					<td class="detailsLabel">Reporting ORI</td>
 					<td>
 						<xsl:value-of select="j:CrashInformationSource/j:OrganizationORIIdentification/nc:IdentificationID"></xsl:value-of>
@@ -344,6 +356,7 @@
 						<xsl:text> </xsl:text>
 						<xsl:value-of select="nc:Location/nc:AddressHighway/nc:HighwayFullText"></xsl:value-of>
 					</td>
+<!--  Not used in the Appriss Crash Report -->
 					<td class="detailsLabel">Coordinates</td>
 					<td>
 						<xsl:value-of select="nc:Location/nc:Location2DGeospatialCoordinate/nc:GeographicCoordinateLatitude/nc:LatitudeDegreeValue"/>
