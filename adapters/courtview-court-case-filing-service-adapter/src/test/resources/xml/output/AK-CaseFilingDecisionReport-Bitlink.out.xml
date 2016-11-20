@@ -31,8 +31,6 @@
                    xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
                    xmlns:ijisniem="http://www.maximus.com/justice/IJISBroker/XSD/NIEM/">
    <core:CoreFilingMessage>
-      <nc:DocumentDescriptionText/>
-      <nc:DocumentFileControlID/>
       <ecf:SendingMDELocationID/>
       <ecf:SendingMDEProfileCode/>
       <criminalcase:CriminalCase>
@@ -50,7 +48,14 @@
             <j:CaseCourtEvent>
                <j:CourtEventSchedule>
                   <nc:ScheduleDate>
-                     <nc:DateTime>1967-12-14 2015-05-29</nc:DateTime>
+                     <nc:Date>1967-12-14</nc:Date>
+                  </nc:ScheduleDate>
+               </j:CourtEventSchedule>
+            </j:CaseCourtEvent>
+            <j:CaseCourtEvent>
+               <j:CourtEventSchedule>
+                  <nc:ScheduleDate>
+                     <nc:Date>2015-05-29</nc:Date>
                   </nc:ScheduleDate>
                </j:CourtEventSchedule>
             </j:CaseCourtEvent>
@@ -102,12 +107,7 @@
                </j:JudicialOfficialBarMembership>
             </j:CaseProsecutionAttorney>
          </j:CaseAugmentation>
-         <ijisniem:CaseAugmentation>
-            <cfd-ext:VictimRightsAssertionCertificationIndicator>true
-	</cfd-ext:VictimRightsAssertionCertificationIndicator>
-            <cfd-ext:VictimRightsAssertionText>VRA Text
-	</cfd-ext:VictimRightsAssertionText>
-         </ijisniem:CaseAugmentation>
+         <ijisniem:CaseAugmentation/>
          <criminalcase:CaseArrest>
             <j:ArrestAgency>
                <nc:OrganizationName>
@@ -156,20 +156,36 @@
                </j:StatuteCodeSectionIdentification>
                <j:StatuteDescriptionText>CHILD NEGLECT</j:StatuteDescriptionText>
             </j:ChargeStatute>
-            <criminalcase:ChargeOffense/>
+            <criminalcase:ChargeOffense>
+               <nc:ActivityIdentification>
+                  <nc:IdentificationID>114324066</nc:IdentificationID>
+                  <nc:IdentificationCategoryText>ATN</nc:IdentificationCategoryText>
+               </nc:ActivityIdentification>
+               <nc:ActivityIdentification>
+                  <nc:IdentificationID>Charge Tracking ID</nc:IdentificationID>
+                  <nc:IdentificationCategoryText>CTN</nc:IdentificationCategoryText>
+               </nc:ActivityIdentification>
+               <nc:ActivityDateRange>
+                  <nc:StartDate>
+                     <nc:Date>2012-01-23</nc:Date>
+                  </nc:StartDate>
+               </nc:ActivityDateRange>
+               <nc:IncidentLocation>
+                  <nc:LocationDescriptionText>Smithville</nc:LocationDescriptionText>
+               </nc:IncidentLocation>
+            </criminalcase:ChargeOffense>
             <criminalcase:ChargeAmendedIndicator>false
-			</criminalcase:ChargeAmendedIndicator>
+				</criminalcase:ChargeAmendedIndicator>
+            <ijisniem:ChargeFilingDate>
+               <nc:Date>1967-08-13</nc:Date>
+            </ijisniem:ChargeFilingDate>
+            <ijisniem:DomesticViolenceIndicator>true
+				</ijisniem:DomesticViolenceIndicator>
          </ijisniem:CriminalCaseCharge>
       </criminalcase:CriminalCase>
       <core:FilingConfidentialityIndicator>false
 				</core:FilingConfidentialityIndicator>
       <core:FilingLeadDocument>
-         <nc:DocumentBinary>
-            <nc:BinaryCaptureDate>
-               <nc:Date>2012-09-23</nc:Date>
-            </nc:BinaryCaptureDate>
-            <nc:BinaryCategoryText/>
-         </nc:DocumentBinary>
          <ecf:DocumentMetadata>
             <j:RegisterActionDescriptionText/>
             <ecf:FilingAttorneyID/>
