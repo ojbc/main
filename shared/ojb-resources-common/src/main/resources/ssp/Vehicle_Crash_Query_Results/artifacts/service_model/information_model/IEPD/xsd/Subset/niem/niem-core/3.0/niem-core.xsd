@@ -384,6 +384,19 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="PersonConveyanceAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between a person and a conveyance.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Conveyance" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="PersonLocationAssociationType">
     <xs:annotation>
       <xs:documentation>A data type for an association between a person and a location.</xs:documentation>
@@ -546,6 +559,11 @@
   <xs:element name="CommentText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A comment, note, or remark providing additional information.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Conveyance" type="nc:ConveyanceType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A means of transport.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ConveyanceColorPrimaryText" type="nc:TextType" substitutionGroup="nc:ItemColor" nillable="true">
@@ -821,6 +839,11 @@
   <xs:element name="PersonBirthDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date a person was born.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonConveyanceAssociation" type="nc:PersonConveyanceAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between a person and a conveyance.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonFullName" type="nc:PersonNameTextType" nillable="true">

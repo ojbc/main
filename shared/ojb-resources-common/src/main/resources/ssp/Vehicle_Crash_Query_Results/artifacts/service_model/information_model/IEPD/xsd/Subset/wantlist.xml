@@ -153,6 +153,8 @@
   <w:Element w:name="nc:MeasureUnitText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:MeasureValueText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Organization" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:PersonConveyanceAssociation"
+    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonResidenceAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Vehicle" w:isReference="false" w:nillable="true"/>
@@ -1084,6 +1086,12 @@
   </w:Type>
   <w:Type w:name="nc:OrganizationType" w:isRequested="false">
     <w:ElementInType w:name="nc:OrganizationName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:PersonConveyanceAssociationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:Person" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Conveyance" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:PersonLocationAssociationType" w:isRequested="true">
