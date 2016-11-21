@@ -106,7 +106,6 @@
 	</xsl:template>
 	<xsl:template match="nc:Address">
 		<xsl:value-of select="nc:LocationStreet/nc:StreetFullText"></xsl:value-of>
-		<br />
 		<xsl:value-of select="nc:LocationCityName" />
 		<xsl:text>, </xsl:text>
 		<xsl:value-of select="j:LocationStateNCICLISCode" />
