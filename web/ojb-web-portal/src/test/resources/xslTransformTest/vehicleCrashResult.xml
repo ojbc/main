@@ -53,6 +53,9 @@
                   <nc:IdentificationID>578</nc:IdentificationID>
                </j:EnforcementOfficialBadgeIdentification>
             </j:IncidentReportingOfficial>
+            <j:IncidentWitness>
+               <nc:RoleOfPerson structures:ref="d1e545"/>
+            </j:IncidentWitness>
          </j:IncidentAugmentation>
          <j:CrashInformationSource>
             <me-crash-codes:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT</me-crash-codes:ReportingAgencyCodeText>
@@ -63,11 +66,14 @@
             <me-crash-codes:InOrNearWorkZoneCodeText>No</me-crash-codes:InOrNearWorkZoneCodeText>
          </j:CrashWorkZone>
          <j:CrashVehicle>
-            <nc:RoleOfItem structures:ref="d1e167"/>
+            <nc:RoleOfItem structures:ref="d1e174"/>
             <j:CrashDriver>
-               <nc:RoleOfPerson structures:ref="d1e245"/>
+               <nc:RoleOfPerson structures:ref="d1e252"/>
                <me-crash-codes:CrashDriverDistractionCodeText>Not Distracted</me-crash-codes:CrashDriverDistractionCodeText>
             </j:CrashDriver>
+            <j:CrashVehicleOccupant>
+               <nc:RoleOfPerson structures:ref="d1e252"/>
+            </j:CrashVehicleOccupant>
             <j:LocationRoadway>
                <me-crash-codes:RoadwayGradeCodeText>On Grade</me-crash-codes:RoadwayGradeCodeText>
             </j:LocationRoadway>
@@ -84,11 +90,15 @@
             <vcq-res-ext:HitRunIndicator>false</vcq-res-ext:HitRunIndicator>
          </j:CrashVehicle>
          <j:CrashVehicle>
-            <nc:RoleOfItem structures:ref="d1e341"/>
+            <nc:RoleOfItem structures:ref="d1e347"/>
             <j:CrashDriver>
-               <nc:RoleOfPerson structures:ref="d1e419"/>
+               <nc:RoleOfPerson structures:ref="d1e425"/>
                <me-crash-codes:CrashDriverDistractionCodeText>Not Distracted</me-crash-codes:CrashDriverDistractionCodeText>
             </j:CrashDriver>
+            <j:CrashVehicleOccupant>
+               <nc:RoleOfPerson structures:ref="d1e425"/>
+               <nc:RoleOfPerson structures:ref="d1e523"/>
+            </j:CrashVehicleOccupant>
             <j:LocationRoadway>
                <me-crash-codes:RoadwayGradeCodeText>On Grade</me-crash-codes:RoadwayGradeCodeText>
             </j:LocationRoadway>
@@ -111,6 +121,14 @@
             <nc:AddressHighway>
                <nc:HighwayFullText>264 MINOT AVE</nc:HighwayFullText>
             </nc:AddressHighway>
+            <nc:Location2DGeospatialCoordinate>
+               <nc:GeographicCoordinateLatitude>
+                  <nc:LatitudeDegreeValue>44.8</nc:LatitudeDegreeValue>
+               </nc:GeographicCoordinateLatitude>
+               <nc:GeographicCoordinateLongitude>
+                  <nc:LongitudeDegreeValue>68.7</nc:LongitudeDegreeValue>
+               </nc:GeographicCoordinateLongitude>
+            </nc:Location2DGeospatialCoordinate>
             <vcq-res-ext:NearestIntersectingStreetFullText>158 WESTERN AVE</vcq-res-ext:NearestIntersectingStreetFullText>
             <vcq-res-ext:DistanceFromNearestIntersectionNumberText>0.1</vcq-res-ext:DistanceFromNearestIntersectionNumberText>
             <me-crash-codes:DirectionFromNearestIntersectionCodeText>South</me-crash-codes:DirectionFromNearestIntersectionCodeText>
@@ -121,7 +139,7 @@
          <j:CrashLightConditionCode>1</j:CrashLightConditionCode>
          <j:CrashRoadContributingCircumstancesCode>5</j:CrashRoadContributingCircumstancesCode>
          <j:CrashRoadSurfaceConditionCode>1</j:CrashRoadSurfaceConditionCode>
-         <j:CrashSchoolBusRelatedCode>0</j:CrashSchoolBusRelatedCode>
+         <j:CrashSchoolBusRelatedCode>1</j:CrashSchoolBusRelatedCode>
          <me-crash-codes:CrashWeatherConditionCodeText>Clear</me-crash-codes:CrashWeatherConditionCodeText>
          <me-crash-codes:TrafficControlDeviceOperationalCodeText>Yes</me-crash-codes:TrafficControlDeviceOperationalCodeText>
          <vcq-res-ext:SceneArrivalDateTime>
@@ -129,7 +147,7 @@
          </vcq-res-ext:SceneArrivalDateTime>
          <vcq-res-ext:OffRoadIncidentIndicator>false</vcq-res-ext:OffRoadIncidentIndicator>
       </j:Crash>
-      <j:Citation structures:id="d1e285">
+      <j:Citation structures:id="d1e292">
          <nc:ActivityIdentification>
             <nc:IdentificationID>CitationNumber</nc:IdentificationID>
          </nc:ActivityIdentification>
@@ -139,7 +157,7 @@
             <nc:PersonFullName>Dennis V. Matthews</nc:PersonFullName>
          </nc:PersonName>
       </nc:Person>
-      <nc:Person structures:id="d1e245">
+      <nc:Person structures:id="d1e252">
          <nc:PersonBirthDate>
             <nc:Date>1933-12-03</nc:Date>
          </nc:PersonBirthDate>
@@ -162,9 +180,9 @@
          </j:PersonAugmentation>
          <me-crash-codes:AlcoholTestCategoryCodeText>Test Not Given</me-crash-codes:AlcoholTestCategoryCodeText>
          <me-crash-codes:DrugTestCategoryCodeText>Test Not Given</me-crash-codes:DrugTestCategoryCodeText>
-         <me-crash-codes:PersonCategoryCodeText>Driver/Owner</me-crash-codes:PersonCategoryCodeText>
+         <me-crash-codes:PersonCategoryCodeText>Driver</me-crash-codes:PersonCategoryCodeText>
       </nc:Person>
-      <nc:Person structures:id="d1e419">
+      <nc:Person structures:id="d1e425">
          <nc:PersonBirthDate>
             <nc:Date>1979-04-08</nc:Date>
          </nc:PersonBirthDate>
@@ -190,12 +208,34 @@
          <me-crash-codes:DrugTestResultCodeText>Negative</me-crash-codes:DrugTestResultCodeText>
          <me-crash-codes:PersonCategoryCodeText>Driver/Owner</me-crash-codes:PersonCategoryCodeText>
       </nc:Person>
-      <nc:Person structures:id="d1e133">
+      <nc:Person structures:id="d1e523">
+         <nc:PersonBirthDate>
+            <nc:Date>1989-06-12</nc:Date>
+         </nc:PersonBirthDate>
+         <nc:PersonName>
+            <nc:PersonGivenName>Joanne</nc:PersonGivenName>
+            <nc:PersonSurName>Walton</nc:PersonSurName>
+         </nc:PersonName>
+         <j:PersonSexCode>F</j:PersonSexCode>
+         <me-crash-codes:PersonCategoryCodeText>Passenger</me-crash-codes:PersonCategoryCodeText>
+      </nc:Person>
+      <nc:Person structures:id="d1e545">
+         <nc:PersonBirthDate>
+            <nc:Date>1976-02-14</nc:Date>
+         </nc:PersonBirthDate>
+         <nc:PersonName>
+            <nc:PersonGivenName>Walter</nc:PersonGivenName>
+            <nc:PersonSurName>Jones</nc:PersonSurName>
+         </nc:PersonName>
+         <j:PersonSexCode>M</j:PersonSexCode>
+         <me-crash-codes:PersonCategoryCodeText>Witness</me-crash-codes:PersonCategoryCodeText>
+      </nc:Person>
+      <nc:Person structures:id="d1e139">
          <nc:PersonOtherIdentification>
             <nc:IdentificationID>APD501</nc:IdentificationID>
          </nc:PersonOtherIdentification>
       </nc:Person>
-      <nc:Location structures:id="d1e259">
+      <nc:Location structures:id="d1e266">
          <nc:Address>
             <nc:LocationStreet>
                <nc:StreetFullText>7 GRANIT RIDGE RD</nc:StreetFullText>
@@ -204,7 +244,7 @@
             <j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
          </nc:Address>
       </nc:Location>
-      <nc:Location structures:id="d1e433">
+      <nc:Location structures:id="d1e439">
          <nc:Address>
             <nc:LocationStreet>
                <nc:StreetFullText>44 AUTUMN LN</nc:StreetFullText>
@@ -213,7 +253,16 @@
             <j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
          </nc:Address>
       </nc:Location>
-      <nc:Vehicle structures:id="d1e167">
+      <nc:Location structures:id="d1e559">
+         <nc:Address>
+            <nc:LocationStreet>
+               <nc:StreetFullText>121 Lexington Ave</nc:StreetFullText>
+            </nc:LocationStreet>
+            <nc:LocationCityName>LEWISTON</nc:LocationCityName>
+            <j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
+         </nc:Address>
+      </nc:Location>
+      <nc:Vehicle structures:id="d1e174">
          <nc:ConveyanceColorPrimaryText>Grey, Silver</nc:ConveyanceColorPrimaryText>
          <nc:ItemMakeName>AMERICAN MOTORS</nc:ItemMakeName>
          <nc:ItemModelYearDate>2006</nc:ItemModelYearDate>
@@ -224,7 +273,7 @@
             <nc:IdentificationID>1</nc:IdentificationID>
          </vcq-res-ext:VehicleUnitIdentification>
       </nc:Vehicle>
-      <nc:Vehicle structures:id="d1e341">
+      <nc:Vehicle structures:id="d1e347">
          <nc:ConveyanceColorPrimaryText>Green</nc:ConveyanceColorPrimaryText>
          <nc:ItemMakeName>FIAT</nc:ItemMakeName>
          <nc:ItemModelYearDate>2009</nc:ItemModelYearDate>
@@ -235,7 +284,7 @@
             <nc:IdentificationID>2</nc:IdentificationID>
          </vcq-res-ext:VehicleUnitIdentification>
       </nc:Vehicle>
-      <j:ConveyanceRegistration structures:id="d1e188">
+      <j:ConveyanceRegistration structures:id="d1e195">
          <j:ConveyanceRegistrationPlateIdentification>
             <nc:IdentificationID>9344NR</nc:IdentificationID>
             <nc:IdentificationJurisdiction>
@@ -243,7 +292,7 @@
             </nc:IdentificationJurisdiction>
          </j:ConveyanceRegistrationPlateIdentification>
       </j:ConveyanceRegistration>
-      <j:ConveyanceRegistration structures:id="d1e362">
+      <j:ConveyanceRegistration structures:id="d1e368">
          <j:ConveyanceRegistrationPlateIdentification>
             <nc:IdentificationID>5285KS</nc:IdentificationID>
             <nc:IdentificationJurisdiction>
@@ -251,14 +300,14 @@
             </nc:IdentificationJurisdiction>
          </j:ConveyanceRegistrationPlateIdentification>
       </j:ConveyanceRegistration>
-      <nc:Insurance structures:id="d1e200">
+      <nc:Insurance structures:id="d1e207">
          <nc:InsurancePolicyIdentification>
             <nc:IdentificationID>925337643</nc:IdentificationID>
          </nc:InsurancePolicyIdentification>
          <nc:InsuranceCarrierName>ALLSTATE</nc:InsuranceCarrierName>
          <vcq-res-ext:NoInsuranceIndicator>false</vcq-res-ext:NoInsuranceIndicator>
       </nc:Insurance>
-      <nc:Insurance structures:id="d1e374">
+      <nc:Insurance structures:id="d1e380">
          <nc:InsurancePolicyIdentification>
             <nc:IdentificationID>379063745-0</nc:IdentificationID>
          </nc:InsurancePolicyIdentification>
@@ -267,40 +316,44 @@
       </nc:Insurance>
       <j:ActivityInformationApproverAssociation>
          <nc:Activity structures:ref="d1e25"/>
-         <nc:Person structures:ref="d1e133"/>
+         <nc:Person structures:ref="d1e139"/>
       </j:ActivityInformationApproverAssociation>
       <j:PersonBloodAlcoholContentAssociation>
          <j:PersonBloodAlcoholContentNumberText>0.02</j:PersonBloodAlcoholContentNumberText>
          <nc:Activity structures:ref="d1e25"/>
-         <nc:Person structures:ref="d1e419"/>
+         <nc:Person structures:ref="d1e425"/>
       </j:PersonBloodAlcoholContentAssociation>
       <nc:ItemInsuranceAssociation>
-         <nc:Insurance structures:ref="d1e200"/>
-         <nc:Item structures:ref="d1e167"/>
+         <nc:Insurance structures:ref="d1e207"/>
+         <nc:Item structures:ref="d1e174"/>
       </nc:ItemInsuranceAssociation>
       <nc:ItemInsuranceAssociation>
-         <nc:Insurance structures:ref="d1e374"/>
-         <nc:Item structures:ref="d1e341"/>
+         <nc:Insurance structures:ref="d1e380"/>
+         <nc:Item structures:ref="d1e347"/>
       </nc:ItemInsuranceAssociation>
       <nc:PersonResidenceAssociation>
-         <nc:Person structures:ref="d1e245"/>
-         <nc:Location structures:ref="d1e259"/>
+         <nc:Person structures:ref="d1e252"/>
+         <nc:Location structures:ref="d1e266"/>
       </nc:PersonResidenceAssociation>
       <nc:PersonResidenceAssociation>
-         <nc:Person structures:ref="d1e419"/>
-         <nc:Location structures:ref="d1e433"/>
+         <nc:Person structures:ref="d1e425"/>
+         <nc:Location structures:ref="d1e439"/>
+      </nc:PersonResidenceAssociation>
+      <nc:PersonResidenceAssociation>
+         <nc:Person structures:ref="d1e545"/>
+         <nc:Location structures:ref="d1e559"/>
       </nc:PersonResidenceAssociation>
       <nc:ActivityDocumentAssociation>
          <nc:Activity structures:ref="d1e25"/>
-         <nc:Document structures:ref="d1e285"/>
+         <nc:Document structures:ref="d1e292"/>
       </nc:ActivityDocumentAssociation>
       <j:ConveyanceRegistrationAssociation>
-         <j:ItemRegistration structures:ref="d1e188"/>
-         <nc:Item structures:ref="d1e167"/>
+         <j:ItemRegistration structures:ref="d1e195"/>
+         <nc:Item structures:ref="d1e174"/>
       </j:ConveyanceRegistrationAssociation>
       <j:ConveyanceRegistrationAssociation>
-         <j:ItemRegistration structures:ref="d1e362"/>
-         <nc:Item structures:ref="d1e341"/>
+         <j:ItemRegistration structures:ref="d1e368"/>
+         <nc:Item structures:ref="d1e347"/>
       </j:ConveyanceRegistrationAssociation>
    </vcq-res-ext:VehicleCrashReport>
 </vcq-res-doc:VehicleCrashQueryResults>
