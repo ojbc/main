@@ -44,7 +44,8 @@
 			<j:ActivityAugmentation>
 				<j:Narrative>
 					<nc:CommentText>See sup. narrative. Matulonis VS Lovett. No P.I
-						over threshhold.</nc:CommentText>
+						over threshhold.
+					</nc:CommentText>
 				</j:Narrative>
 			</j:ActivityAugmentation>
 			<j:IncidentAugmentation>
@@ -54,6 +55,9 @@
 						<nc:IdentificationID>578</nc:IdentificationID>
 					</j:EnforcementOfficialBadgeIdentification>
 				</j:IncidentReportingOfficial>
+				<j:IncidentWitness>
+					<nc:RoleOfPerson structures:ref="Witness_01" />
+				</j:IncidentWitness>
 			</j:IncidentAugmentation>
 			<j:CrashInformationSource>
 				<me-crash-codes:ReportingAgencyCode>ME0010100</me-crash-codes:ReportingAgencyCode>
@@ -91,6 +95,19 @@
 			</j:CrashVehicle>
 			<j:CrashVehicle>
 				<nc:RoleOfItem structures:ref="d1e328" />
+				<j:CrashDriver>
+					<nc:RoleOfPerson structures:ref="d1e233" />
+				</j:CrashDriver>
+				<j:CrashDriver>
+					<nc:RoleOfPerson structures:ref="d1e406" />
+				</j:CrashDriver>
+				<j:CrashVehicleOccupant>
+					<nc:RoleOfPerson structures:ref="d1e233" />
+					<nc:RoleOfPerson structures:ref="Passenger_01" />
+				</j:CrashVehicleOccupant>
+				<j:CrashVehicleOccupant>
+					<nc:RoleOfPerson structures:ref="d1e406" />
+				</j:CrashVehicleOccupant>
 				<j:LocationRoadway>
 					<me-crash-codes:RoadwayGradeCode>2</me-crash-codes:RoadwayGradeCode>
 					<me-crash-codes:RoadwayGradeCodeText>2</me-crash-codes:RoadwayGradeCodeText>
@@ -223,6 +240,28 @@
 			<me-crash-codes:PersonCategoryCode>6</me-crash-codes:PersonCategoryCode>
 			<me-crash-codes:PersonCategoryCodeText>6</me-crash-codes:PersonCategoryCodeText>
 		</nc:Person>
+		<nc:Person structures:id="Passenger_01">
+			<nc:PersonBirthDate>
+				<nc:Date>1992-01-12</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>Thomas</nc:PersonGivenName>
+				<nc:PersonSurName>Smith</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonSexCode>M</j:PersonSexCode>
+			<me-crash-codes:PersonCategoryCode>2</me-crash-codes:PersonCategoryCode>
+		</nc:Person>
+		<nc:Person structures:id="Witness_01">
+			<nc:PersonBirthDate>
+				<nc:Date>1984-07-20</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>Jim</nc:PersonGivenName>
+				<nc:PersonSurName>Smith</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonSexCode>M</j:PersonSexCode>
+			<me-crash-codes:PersonCategoryCode>4</me-crash-codes:PersonCategoryCode>
+		</nc:Person>
 		<nc:Person structures:id="d1e120">
 			<nc:PersonOtherIdentification>
 				<nc:IdentificationID>APD501</nc:IdentificationID>
@@ -335,5 +374,12 @@
 			<j:ItemRegistration structures:ref="d1e349" />
 			<nc:Item structures:ref="d1e328" />
 		</j:ConveyanceRegistrationAssociation>
+		<nc:PersonConveyanceAssociation>
+			<nc:Person structures:ref="d1e233" />
+			<nc:Person structures:ref="Passenger_01" />
+		</nc:PersonConveyanceAssociation>
+		<nc:PersonConveyanceAssociation>
+			<nc:Person structures:ref="d1e406" />
+		</nc:PersonConveyanceAssociation>
 	</vcq-res-ext:VehicleCrashReport>
 </vcq-res-doc:VehicleCrashQueryResults>

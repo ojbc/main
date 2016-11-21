@@ -88,12 +88,14 @@
 					<vcq-res-ext:SecondViolationDescriptionText>29-A-2066-3
 					</vcq-res-ext:SecondViolationDescriptionText>
 				</j:CrashDriver>
+				<j:CrashVehicleOccupant>
+					<nc:RoleOfPerson structures:ref="Driver_01" />
+					<nc:RoleOfPerson structures:ref="Passenger_01" />
+					<nc:RoleOfPerson structures:ref="VehicleOwner_01" />
+				</j:CrashVehicleOccupant>
 				<j:LocationRoadway>
 					<me-crash-codes:RoadwayGradeCode>3</me-crash-codes:RoadwayGradeCode>
 				</j:LocationRoadway>
-				<!-- j:CrashVehicleOccupant> <nc:RoleOfPerson structures:ref="Driver_01" 
-					/> <nc:RoleOfPerson structures:ref="Occupant_01" /> <nc:RoleOfPerson structures:ref="Vehicle_Owner_01" 
-					/> </j:CrashVehicleOccupant -->
 				<me-crash-codes:CrashVehicleCategoryCode>1</me-crash-codes:CrashVehicleCategoryCode>
 				<j:VehicleMostHarmfulEventCode>1</j:VehicleMostHarmfulEventCode>
 				<j:TravelDirectionBeforeCrashCode>0
@@ -165,16 +167,42 @@
 				<nc:PersonFullName>John M. Barker</nc:PersonFullName>
 			</nc:PersonName>
 		</nc:Person>
-		<nc:Person structures:id="Witness_01">
-			<nc:PersonName>
-				<nc:PersonGivenName>Dora</nc:PersonGivenName>
-				<nc:PersonSurName>Reed</nc:PersonSurName>
-			</nc:PersonName>
-		</nc:Person>
 		<nc:Person structures:id="Information_Approver_01">
 			<nc:PersonOtherIdentification>
 				<nc:IdentificationID>APD501</nc:IdentificationID>
 			</nc:PersonOtherIdentification>
+		</nc:Person>
+		<nc:Person structures:id="Witness_01">
+			<nc:PersonBirthDate>
+				<nc:Date>1986-07-20</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>Dora</nc:PersonGivenName>
+				<nc:PersonSurName>Reed</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonSexCode>F</j:PersonSexCode>
+			<me-crash-codes:PersonCategoryCode>4</me-crash-codes:PersonCategoryCode>
+		</nc:Person>
+		<nc:Person structures:id="Passenger_01">
+			<nc:PersonBirthDate>
+				<nc:Date>1992-01-12</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>Thomas</nc:PersonGivenName>
+				<nc:PersonSurName>Smith</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonSexCode>M</j:PersonSexCode>
+			<me-crash-codes:PersonCategoryCode>2</me-crash-codes:PersonCategoryCode>
+		</nc:Person>
+		<nc:Person structures:id="Vehicle_Owner_01">
+			<nc:PersonBirthDate>
+				<nc:Date>1992-01-12</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>Thomas</nc:PersonGivenName>
+				<nc:PersonSurName>Smith</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonSexCode>M</j:PersonSexCode>
 		</nc:Person>
 		<nc:Person structures:id="Driver_01">
 			<nc:PersonBirthDate>
@@ -209,9 +237,9 @@
 			<me-crash-codes:AlcoholTestCategoryCode>1</me-crash-codes:AlcoholTestCategoryCode>
 			<me-crash-codes:DrugTestCategoryCode>1</me-crash-codes:DrugTestCategoryCode>
 			<me-crash-codes:DrugTestResultCode>1</me-crash-codes:DrugTestResultCode>
-			<me-crash-codes:PersonCategoryCode>6</me-crash-codes:PersonCategoryCode>
+			<me-crash-codes:PersonCategoryCode>1</me-crash-codes:PersonCategoryCode>
 		</nc:Person>
-		<nc:Person structures:id="Vehicle_Owner_01">
+		<nc:Person structures:id="VehicleOwner_01">
 			<nc:PersonBirthDate>
 				<nc:Date>1933-12-03</nc:Date>
 			</nc:PersonBirthDate>
@@ -221,7 +249,7 @@
 				<nc:PersonSurName>Craft</nc:PersonSurName>
 			</nc:PersonName>
 			<j:PersonSexCode>M</j:PersonSexCode>
-			<me-crash-codes:PersonCategoryCode>6</me-crash-codes:PersonCategoryCode>
+			<me-crash-codes:PersonCategoryCode>5</me-crash-codes:PersonCategoryCode>
 		</nc:Person>
 		<nc:EntityOrganization structures:id="Property_Owner_01">
 			<nc:OrganizationName>ACME Products</nc:OrganizationName>
@@ -338,5 +366,11 @@
 			<j:ItemRegistration structures:ref="Conveyance_Registration_01" />
 			<nc:Item structures:ref="Vehicle_01" />
 		</j:ConveyanceRegistrationAssociation>
+		<nc:PersonConveyanceAssociation>
+			<nc:Person structures:ref="Driver_01" />
+			<nc:Person structures:ref="Passenger_01" />
+			<nc:Person structures:ref="VehicleOwner_01" />
+			<nc:Conveyance structures:ref="Vehicle_01" />
+		</nc:PersonConveyanceAssociation>
 	</vcq-res-ext:VehicleCrashReport>
 </vcq-res-doc:VehicleCrashQueryResults>

@@ -96,6 +96,8 @@
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ConveyanceRegistrationAssociation"
 						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonConveyanceAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -103,7 +105,8 @@
 	<xsd:element name="VehicleCrashReport" type="vcq-res-ext:VehicleCrashReportType">
 		<xsd:annotation>
 			<xsd:documentation>A unique identification assigned to vehicle crash
-				information.</xsd:documentation>
+				information.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="VehicleUnitIdentification" type="nc:IdentificationType"
@@ -117,7 +120,8 @@
 		substitutionGroup="j:CrashVehicleAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a vehicle was involved in a hit and run;
-				false otherwise.</xsd:documentation>
+				false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="NoInsuranceIndicator" type="niem-xs:boolean"
@@ -131,14 +135,16 @@
 		substitutionGroup="j:CrashVehicleAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a hazmat placard is being displyed on a
-				vehicle; false otherwise.</xsd:documentation>
+				vehicle; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DocumentApprovedDate" type="nc:DateType"
 		substitutionGroup="nc:DocumentAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a hazmat placard is being displyed on a
-				vehicle; false otherwise.</xsd:documentation>
+				vehicle; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SceneArrivalDateTime" type="nc:DateType"
@@ -159,49 +165,52 @@
 		substitutionGroup="nc:LocationAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A complete reference to the nearest intersecting
-				street.</xsd:documentation>
+				street.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffRoadIncidentIndicator" type="niem-xs:boolean"
 		substitutionGroup="j:CrashAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if an crash incident is off road; false
-				otherwise.</xsd:documentation>
+				otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="TotalDamageOverThresholdtIndicator"
 		type="niem-xs:boolean" substitutionGroup="j:CrashVehicleAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if total damage is over threshold; false
-				otherwise.</xsd:documentation>
+				otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="NearWorkZoneIndicator" type="niem-xs:boolean"
 		substitutionGroup="j:CrashWorkZoneAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a crash occurs near a work zone; false
-				otherwise.</xsd:documentation>
+				otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<!-- xsd:element name="WorkZoneWorkersPresentIndicator" type="niem-xs:boolean"
-		substitutionGroup="j:CrashWorkZoneAugmentationPoint">
-		<xsd:annotation>
-			<xsd:documentation>True if a crash occurs near a work zone; false
-				otherwise.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element-->
+	<!-- xsd:element name="WorkZoneWorkersPresentIndicator" type="niem-xs:boolean" 
+		substitutionGroup="j:CrashWorkZoneAugmentationPoint"> <xsd:annotation> <xsd:documentation>True 
+		if a crash occurs near a work zone; false otherwise.</xsd:documentation> 
+		</xsd:annotation> </xsd:element -->
 	<xsd:element name="EmergencyVehicleRespondingToSceneIndicator"
 		type="niem-xs:boolean" substitutionGroup="j:CrashVehicleAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if emergency is responding to crash scene;
-				false otherwise.</xsd:documentation>
+				false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="VehicleNineOrMoreSeatstIndicator" type="niem-xs:boolean"
 		substitutionGroup="j:CrashVehicleAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a vehicle has nine or more seats; false
-				otherwise.</xsd:documentation>
+				otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ExemptVehicleIndicator" type="niem-xs:boolean"
@@ -215,14 +224,16 @@
 		type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if alcohol test results are pending; false
-				otherwise.</xsd:documentation>
+				otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DriverLicenseClassCodeText" type="nc:TextType"
 		substitutionGroup="j:DriverLicenseAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A type of License assigned by authorizing agent
-				issuing a driver license to the individual.</xsd:documentation>
+				issuing a driver license to the individual.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FirstViolationDescriptionText" type="nc:TextType"
