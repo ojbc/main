@@ -60,49 +60,49 @@
 			<xsl:apply-templates select="nc30:DocumentFiledDate" />
 			<xsl:apply-templates select="nc30:Case" />
 			<xsl:apply-templates select="j51:Arrest" />
-			<xsl:apply-templates select="." mode="criminalCaseCharge" />
+			<xsl:apply-templates select="nc30:Case/j51:CaseAugmentation/j51:CaseCharge"
+				mode="criminalCaseCharge" />
 		</criminalcase:CriminalCase>
 	</xsl:template>
-	<xsl:template match="cfd-doc:CaseFilingDecisionReport"
-		mode="criminalCaseCharge">
+	<xsl:template match="j51:CaseCharge" mode="criminalCaseCharge">
 		<ijisniem:CriminalCaseCharge>
-			<xsl:apply-templates select="nc30:Case/j51:CaseAugmentation/j51:CaseCharge" />
-			<xsl:apply-templates select="." mode="chargeOffense" />
+			<xsl:variable name="chargeID">
+				<xsl:value-of select="@structures:id" />
+			</xsl:variable>
+			<xsl:apply-templates select="j51:ChargeText" />
+			<xsl:apply-templates select="j51:ChargeSequenceID" />
+			<xsl:apply-templates select="j51:ChargeSeverityLevel" />
+			<xsl:apply-templates select="j51:ChargeStatute" />
+			<xsl:apply-templates select="." mode="chargeOffense">
+				<xsl:with-param name="chargeID" select="$chargeID" />
+			</xsl:apply-templates>
 			<criminalcase:ChargeAmendedIndicator>false
-				</criminalcase:ChargeAmendedIndicator>
-			<xsl:apply-templates
-				select="nc30:Case/j51:CaseAugmentation/j51:CaseCharge/j51:ChargeFilingDate/nc30:Date"
+			</criminalcase:ChargeAmendedIndicator>
+			<xsl:apply-templates select="j51:ChargeFilingDate/nc30:Date"
 				mode="chargeFiling" />
-			<xsl:apply-templates
-				select="nc30:Case/j51:CaseAugmentation/j51:CaseCharge/cfd-ext:ChargeDomesticViolenceIndicator" />
+			<xsl:apply-templates select="cfd-ext:ChargeDomesticViolenceIndicator" />
 		</ijisniem:CriminalCaseCharge>
 	</xsl:template>
-	<xsl:template match="cfd-doc:CaseFilingDecisionReport"
-		mode="chargeOffense">
-		<xsl:variable name="offenseLocationID">
+	<xsl:template match="j51:CaseCharge" mode="chargeOffense">
+		<xsl:param name="chargeID" />
+		<xsl:variable name="offenseID">
 			<xsl:value-of
-				select="j51:OffenseLocationAssociation/nc30:Location/@structures:ref" />
+				select="/cfd-doc:CaseFilingDecisionReport/j:OffenseChargeAssociation[j:Charge/@structures:ref=chargeID]/j:Offense/@structures:ref" />
 		</xsl:variable>
 		<criminalcase:ChargeOffense>
 			<xsl:apply-templates
-				select="j51:Arrest/cfd-ext:ArrestTrackingNumberIdentification" />
-			<xsl:apply-templates
-				select="nc30:Case/j51:CaseAugmentation/j51:CaseCharge/j51:ChargeTrackingIdentification" />
+				select="../j51:Arrest/cfd-ext:ArrestTrackingNumberIdentification" />
+			<xsl:apply-templates select="j51:ChargeTrackingIdentification" />
 			<xsl:apply-templates select="j51:Offense" />
 			<xsl:apply-templates
-				select="nc30:Location[@structures:id=$offenseLocationID]" mode="offenseLocation" />
+				select="nc30:Location[@structures:id=/cfd-doc:CaseFilingDecisionReport/j:OffenseLocationAssociation[j:Offense/@structures:ref=offenseID]/nc:Location/@structures:ref]"
+				mode="offenseLocation" />
 		</criminalcase:ChargeOffense>
-	</xsl:template>
-	<xsl:template match="j51:CaseCharge">
-		<xsl:apply-templates select="j51:ChargeText" />
-		<xsl:apply-templates select="j51:ChargeSequenceID" />
-		<xsl:apply-templates select="j51:ChargeSeverityLevel" />
-		<xsl:apply-templates select="j51:ChargeStatute" />
 	</xsl:template>
 	<xsl:template match="j51:ChargeSeverityLevel">
 		<j:ChargeSeverityLevel>
 			<xsl:apply-templates select="j51:SeverityLevelDescriptionText" />
-			<xsl:apply-templates select="j51:SeverityLevelIdentification" />
+			<xsl:apply-templates select="../j51:ChargeSeverityText" />
 		</j:ChargeSeverityLevel>
 	</xsl:template>
 	<xsl:template match="j51:ChargeStatute">
@@ -400,19 +400,12 @@
 			<xsl:value-of select="." />
 		</j:SeverityLevelDescriptionText>
 	</xsl:template>
-	<xsl:template match="j51:SeverityLevelIdentification">
+	<xsl:template match="j51:ChargeSeverityText">
 		<j:SeverityLevelIdentification>
 			<nc:IdentificationSourceText>
 				<xsl:value-of select="." />
 			</nc:IdentificationSourceText>
 		</j:SeverityLevelIdentification>
-	</xsl:template>
-	<xsl:template match="j51:SeverityLevelText">
-		<j:ChargeSeverityLevel>
-			<j:SeverityLevelDescriptionText>
-				<xsl:value-of select="." />
-			</j:SeverityLevelDescriptionText>
-		</j:ChargeSeverityLevel>
 	</xsl:template>
 	<xsl:template match="j51:StatuteDescriptionText">
 		<j:StatuteDescriptionText>

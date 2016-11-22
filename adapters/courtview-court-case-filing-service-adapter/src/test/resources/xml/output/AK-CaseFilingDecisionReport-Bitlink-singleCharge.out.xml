@@ -35,10 +35,10 @@
       <ecf:SendingMDEProfileCode/>
       <criminalcase:CriminalCase>
          <nc:ActivityDate>
-            <nc:Date>1967-08-13</nc:Date>
+            <nc:Date>2016-11-13</nc:Date>
          </nc:ActivityDate>
          <nc:CaseCategoryText>Felony</nc:CaseCategoryText>
-         <nc:CaseTrackingID>Case Docket ID</nc:CaseTrackingID>
+         <nc:CaseTrackingID>CD12951</nc:CaseTrackingID>
          <j:CaseAugmentation>
             <j:CaseCourt>
                <nc:OrganizationName>District Court for the State of Alaska
@@ -48,14 +48,14 @@
             <j:CaseCourtEvent>
                <j:CourtEventSchedule>
                   <nc:ScheduleDate>
-                     <nc:Date>1967-12-14</nc:Date>
+                     <nc:Date>2016-12-14</nc:Date>
                   </nc:ScheduleDate>
                </j:CourtEventSchedule>
             </j:CaseCourtEvent>
             <j:CaseCourtEvent>
                <j:CourtEventSchedule>
                   <nc:ScheduleDate>
-                     <nc:Date>2015-05-29</nc:Date>
+                     <nc:Date>2016-12-29</nc:Date>
                   </nc:ScheduleDate>
                </j:CourtEventSchedule>
             </j:CaseCourtEvent>
@@ -65,30 +65,30 @@
                      <nc:Date>1980-07-26</nc:Date>
                   </nc:PersonBirthDate>
                   <nc:PersonName>
-                     <nc:PersonGivenName>Leann</nc:PersonGivenName>
-                     <nc:PersonMiddleName>Edna</nc:PersonMiddleName>
+                     <nc:PersonGivenName>Erin</nc:PersonGivenName>
+                     <nc:PersonMiddleName>D</nc:PersonMiddleName>
                      <nc:PersonSurName>Smith</nc:PersonSurName>
-                     <nc:PersonFullName>Leann Edna Smith</nc:PersonFullName>
+                     <nc:PersonFullName>Erin D Smith</nc:PersonFullName>
                   </nc:PersonName>
                   <nc:PersonOtherIdentification>
-                     <nc:IdentificationID>OL2345768</nc:IdentificationID>
+                     <nc:IdentificationID>OL12345678</nc:IdentificationID>
                      <nc:IdentificationCategoryText>ATV</nc:IdentificationCategoryText>
                   </nc:PersonOtherIdentification>
                   <nc:PersonOtherIdentification>
-                     <nc:IdentificationID>6418462</nc:IdentificationID>
+                     <nc:IdentificationID>6418222</nc:IdentificationID>
                      <nc:IdentificationCategoryText>APSIN</nc:IdentificationCategoryText>
                   </nc:PersonOtherIdentification>
                   <nc:PersonOtherIdentification>
-                     <nc:IdentificationID>5436789</nc:IdentificationID>
+                     <nc:IdentificationID>123456789</nc:IdentificationID>
                      <nc:IdentificationCategoryText>DL</nc:IdentificationCategoryText>
-                     <nc:IdentificationSourceText>Jurisdiction Text</nc:IdentificationSourceText>
+                     <nc:IdentificationSourceText>Alaska</nc:IdentificationSourceText>
                   </nc:PersonOtherIdentification>
                   <ecf:PersonAugmentation>
                      <nc:ContactInformation>
                         <nc:ContactMailingAddress>
                            <nc:StructuredAddress>
                               <nc:LocationStreet>
-                                 <nc:StreetFullText>123 N Oak Street Apt #5</nc:StreetFullText>
+                                 <nc:StreetFullText>123 N Oak Street Apt #123</nc:StreetFullText>
                               </nc:LocationStreet>
                               <nc:LocationCityName>Anchorage</nc:LocationCityName>
                               <nc:LocationPostalCode>32678</nc:LocationPostalCode>
@@ -115,19 +115,19 @@
 		</nc:OrganizationName>
             </j:ArrestAgency>
             <j:ArrestAgencyRecordIdentification>
-               <nc:IdentificationID>13-33879</nc:IdentificationID>
+               <nc:IdentificationID>13-33222</nc:IdentificationID>
             </j:ArrestAgencyRecordIdentification>
             <j:ArrestOfficial>
                <j:EnforcementOfficialBadgeIdentification>
-                  <nc:IdentificationID>String</nc:IdentificationID>
+                  <nc:IdentificationID>EO568</nc:IdentificationID>
                </j:EnforcementOfficialBadgeIdentification>
             </j:ArrestOfficial>
          </criminalcase:CaseArrest>
          <ijisniem:CriminalCaseCharge>
             <j:ChargeDescriptionText>The Municipality of Anchorage, by and through its
-					undersigned attorney, charges that on or about the 5th day of
-					August, 2013, at or near Anchorage, Alaska, Leann Edna Smith did
-					commit the offense of CHILD NEGLECT, to wit:Leann Edna smith did
+					undersigned attorney, charges that on or about the 13th day of
+					October, 2016, at or near Anchorage, Alaska, Erin D Smith did
+					commit the offense of CHILD NEGLECT, to wit:Erin D Smith did
 					intentionally, knowingly, or recklessly cause or permit a child,
 					M.P., to be inadequately supervised due to the demonstrated
 					inability or unwillingness of the parent to provide care for the
@@ -140,11 +140,7 @@
                <j:SeverityLevelDescriptionText>Class A
 					</j:SeverityLevelDescriptionText>
                <j:SeverityLevelIdentification>
-                  <nc:IdentificationSourceText>
-						
-						Misdemeanor
-						
-					</nc:IdentificationSourceText>
+                  <nc:IdentificationSourceText>Misdemeanor</nc:IdentificationSourceText>
                </j:SeverityLevelIdentification>
             </j:ChargeSeverityLevel>
             <j:ChargeStatute>
@@ -158,28 +154,16 @@
             </j:ChargeStatute>
             <criminalcase:ChargeOffense>
                <nc:ActivityIdentification>
-                  <nc:IdentificationID>114324066</nc:IdentificationID>
-                  <nc:IdentificationCategoryText>ATN</nc:IdentificationCategoryText>
-               </nc:ActivityIdentification>
-               <nc:ActivityIdentification>
-                  <nc:IdentificationID>Charge Tracking ID</nc:IdentificationID>
+                  <nc:IdentificationID>CT4567</nc:IdentificationID>
                   <nc:IdentificationCategoryText>CTN</nc:IdentificationCategoryText>
                </nc:ActivityIdentification>
-               <nc:ActivityDateRange>
-                  <nc:StartDate>
-                     <nc:Date>2012-01-23</nc:Date>
-                  </nc:StartDate>
-               </nc:ActivityDateRange>
-               <nc:IncidentLocation>
-                  <nc:LocationDescriptionText>Smithville</nc:LocationDescriptionText>
-               </nc:IncidentLocation>
             </criminalcase:ChargeOffense>
             <criminalcase:ChargeAmendedIndicator>false
-				</criminalcase:ChargeAmendedIndicator>
+			</criminalcase:ChargeAmendedIndicator>
             <ijisniem:ChargeFilingDate>
-               <nc:Date>1967-08-13</nc:Date>
+               <nc:Date>2016-10-13</nc:Date>
             </ijisniem:ChargeFilingDate>
-            <ijisniem:DomesticViolenceIndicator>true
+            <ijisniem:DomesticViolenceIndicator>false
 				</ijisniem:DomesticViolenceIndicator>
          </ijisniem:CriminalCaseCharge>
       </criminalcase:CriminalCase>
