@@ -63,18 +63,15 @@
 				</j:ChargeSeverityLevel>
 				<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
 				<j:ChargeStatute>
-					<!--Required for the exchange -->
 					<j:StatuteCodeIdentification>
 						<nc:IdentificationID>AMC</nc:IdentificationID>
 						<nc:IdentificationJurisdiction>
 							<nc:JurisdictionText>Jurisdiction Text</nc:JurisdictionText>
 						</nc:IdentificationJurisdiction>
 					</j:StatuteCodeIdentification>
-					<!--Required for the exchange -->
 					<j:StatuteCodeSectionIdentification>
 						<nc:IdentificationID>8.10.040.B.7</nc:IdentificationID>
 					</j:StatuteCodeSectionIdentification>
-					<!--Required for the exchange -->
 					<j:StatuteDescriptionText>CHILD NEGLECT</j:StatuteDescriptionText>
 				</j:ChargeStatute>
 				<j:ChargeText>The Municipality of Anchorage, by and through its
@@ -91,7 +88,41 @@
 				<j:ChargeTrackingIdentification>
 					<nc:IdentificationID>CT4567</nc:IdentificationID>
 				</j:ChargeTrackingIdentification>
-				<!--Required per the schema -->
+				<cfd-ext:ChargeDomesticViolenceIndicator>false
+				</cfd-ext:ChargeDomesticViolenceIndicator>
+			</j:CaseCharge>
+			<j:CaseCharge structures:id="Charge_02">
+				<j:ChargeApplicabilityText>Charge Applicability
+				</j:ChargeApplicabilityText>
+				<j:ChargeFilingDate>
+					<nc:Date>2016-10-16</nc:Date>
+				</j:ChargeFilingDate>
+				<j:ChargeSequenceID>001</j:ChargeSequenceID>
+				<j:ChargeSeverityLevel>
+					<j:SeverityLevelDescriptionText>Class A
+					</j:SeverityLevelDescriptionText>
+				</j:ChargeSeverityLevel>
+				<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>RGE</nc:IdentificationID>
+						<nc:IdentificationJurisdiction>
+							<nc:JurisdictionText>Jurisdiction Text</nc:JurisdictionText>
+						</nc:IdentificationJurisdiction>
+					</j:StatuteCodeIdentification>
+					<j:StatuteCodeSectionIdentification>
+						<nc:IdentificationID>21.10.060.B.1</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+					<j:StatuteDescriptionText>CHILD ENDANGERMENT
+					</j:StatuteDescriptionText>
+				</j:ChargeStatute>
+				<j:ChargeText>The Municipality of Anchorage, by and through its
+					undersigned attorney, charges that on or about the 13th day of
+					October, 2016, at or near Anchorage, Alaska...
+				</j:ChargeText>
+				<j:ChargeTrackingIdentification>
+					<nc:IdentificationID>CT4643</nc:IdentificationID>
+				</j:ChargeTrackingIdentification>
 				<cfd-ext:ChargeDomesticViolenceIndicator>false
 				</cfd-ext:ChargeDomesticViolenceIndicator>
 			</j:CaseCharge>
@@ -176,8 +207,12 @@
 			<nc:IdentificationID>1143299</nc:IdentificationID>
 		</cfd-ext:ArrestTrackingNumberIdentification>
 	</j:Arrest>
-	<!--Charge Offense Date Range (Required for the exchange) -->
 	<j:Offense structures:id="Offense_01">
+		<nc:ActivityDate>
+			<nc:Date>2016-09-12</nc:Date>
+		</nc:ActivityDate>
+	</j:Offense>
+	<j:Offense structures:id="Offense_02">
 		<nc:ActivityDate>
 			<nc:Date>2016-09-12</nc:Date>
 		</nc:ActivityDate>
@@ -254,7 +289,7 @@
 			<j:JudicialOfficialBarIdentification>
 				<nc:IdentificationID>BI5467</nc:IdentificationID>
 				<nc:IdentificationJurisdiction>
-					<nc:JurisdictionText>Anchorage</nc:JurisdictionText>
+					<nc:JurisdictionText>JAnchorage</nc:JurisdictionText>
 				</nc:IdentificationJurisdiction>
 			</j:JudicialOfficialBarIdentification>
 		</j:JudicialOfficialBarMembership>
@@ -283,8 +318,13 @@
 		<j:Offense structures:ref="Offense_01" />
 		<j:Charge structures:ref="Charge_01" />
 	</j:OffenseChargeAssociation>
+	<j:OffenseChargeAssociation>
+		<j:Offense structures:ref="Offense_02" />
+		<j:Charge structures:ref="Charge_02" />
+	</j:OffenseChargeAssociation>
 	<j:OffenseLocationAssociation>
 		<j:Offense structures:ref="Offense_01" />
+		<j:Offense structures:ref="Offense_02" />
 		<nc:Location structures:ref="OL01" />
 	</j:OffenseLocationAssociation>
 </cfd-doc:CaseFilingDecisionReport>
