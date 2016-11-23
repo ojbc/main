@@ -30,7 +30,7 @@ INSERT INTO charge(arrest_id, bond_amount, bond_type, bond_status, next_court_ev
 (1, 499.0000, 'money', 'paid', 'judge judy', DATE '2070-01-01', 456, 'speeding', 'ordinance', 'driving', 'Walker Texas Ranger', 'matlock');
 
 INSERT INTO person_alias(person_id, name_type, alias_last_name, alias_first_name, alias_middle, alias_sex, alias_dob) VALUES
-(1, 'screen name', 'Simpson', 'homy', 'jay', 'M', date '2000-01-01');
+(1, 'screen name', 'Simpser', 'homy', 'jay', 'M', date '2000-01-01');
 
 INSERT INTO scars_marks_tattoos(person_id, scars_marks_tattoos_description) VALUES
 (1, 'dragon tatoo');
