@@ -548,7 +548,7 @@
 		<entry key="Custody" value="custody-list.xsl" />
 		<entry key="Court Case Detail" value="court-case-detail.xsl" />
 		<entry key="Custody Detail" value="custody-detail.xsl" />
-		<entry key="Vehicle Crash" value="vehicle-crash.xsl" />
+		<entry key="Vehicle Crash" value="vehicleCrashResult.xsl" />
 	</util:map>
 	<util:map id="placements" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Placement" />
