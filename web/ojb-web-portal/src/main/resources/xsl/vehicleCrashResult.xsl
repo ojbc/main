@@ -119,8 +119,8 @@
 				<tr>
 					<td class="detailsLabel">In Work Zone</td>
 					<td>
-						<xsl:apply-templates select="vcq-res-ext:NearWorkZoneIndicator"
-							mode="formatBooleanAsYesNo" />
+						<xsl:value-of
+							select="me-crash-codes:InOrNearWorkZoneCodeText" />
 					</td>
 					<td class="detailsLabel">Law Enforcement Present</td>
 					<td>
