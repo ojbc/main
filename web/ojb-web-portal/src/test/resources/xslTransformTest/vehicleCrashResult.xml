@@ -47,6 +47,12 @@
             </j:Narrative>
          </j:ActivityAugmentation>
          <j:IncidentAugmentation>
+            <j:IncidentDamagedItem>
+               <nc:ItemDescriptionText>Non Vehicle Property Damage Description</nc:ItemDescriptionText>
+               <nc:ItemOwner>
+                  <nc:EntityOrganization structures:ref="d1e601"/>
+               </nc:ItemOwner>
+            </j:IncidentDamagedItem>
             <j:IncidentReportingOfficial>
                <nc:RoleOfPerson structures:ref="d1e20"/>
                <j:EnforcementOfficialBadgeIdentification>
@@ -58,6 +64,9 @@
             </j:IncidentWitness>
          </j:IncidentAugmentation>
          <j:CrashInformationSource>
+            <j:OrganizationORIIdentification>
+               <nc:IdentificationID>ME0010100</nc:IdentificationID>
+            </j:OrganizationORIIdentification>
             <me-crash-codes:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT</me-crash-codes:ReportingAgencyCodeText>
          </j:CrashInformationSource>
          <j:CrashWorkZone>
@@ -139,7 +148,7 @@
          <j:CrashLightConditionCode>1</j:CrashLightConditionCode>
          <j:CrashRoadContributingCircumstancesCode>5</j:CrashRoadContributingCircumstancesCode>
          <j:CrashRoadSurfaceConditionCode>1</j:CrashRoadSurfaceConditionCode>
-         <j:CrashSchoolBusRelatedCode>1</j:CrashSchoolBusRelatedCode>
+         <j:CrashSchoolBusRelatedCode>0</j:CrashSchoolBusRelatedCode>
          <me-crash-codes:CrashWeatherConditionCodeText>Clear</me-crash-codes:CrashWeatherConditionCodeText>
          <me-crash-codes:TrafficControlDeviceOperationalCodeText>Yes</me-crash-codes:TrafficControlDeviceOperationalCodeText>
          <vcq-res-ext:SceneArrivalDateTime>
@@ -235,6 +244,9 @@
             <nc:IdentificationID>APD501</nc:IdentificationID>
          </nc:PersonOtherIdentification>
       </nc:Person>
+      <nc:EntityOrganization structures:id="d1e601">
+         <nc:OrganizationName>Property Owner Organization</nc:OrganizationName>
+      </nc:EntityOrganization>
       <nc:Location structures:id="d1e266">
          <nc:Address>
             <nc:LocationStreet>

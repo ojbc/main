@@ -333,7 +333,6 @@
 	<xsl:template match="j:IncidentAugmentation" mode="damagedItem">
 		<h3>Damaged Item(s)</h3>
 		<div>
-			<!-- Not used in the Appriss Crash Report -->
 			<table style="width:100%">
 				<xsl:apply-templates select="j:IncidentDamagedItem" />
 			</table>
@@ -396,7 +395,6 @@
 						<xsl:value-of
 							select="j:IncidentAugmentation/j:IncidentReportingOfficial/j:EnforcementOfficialBadgeIdentification/nc:IdentificationID" />
 					</td>
-					<!-- Not used in the Appriss Crash Report -->
 					<td class="detailsLabel">Reporting ORI</td>
 					<td>
 						<xsl:value-of
