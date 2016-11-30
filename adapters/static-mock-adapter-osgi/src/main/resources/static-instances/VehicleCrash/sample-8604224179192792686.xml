@@ -1,0 +1,320 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<vcq-res-doc:VehicleCrashQueryResults xmlns:vcq-res-doc="http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0"
+                                      xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+                                      xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
+                                      xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0"
+                                      xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
+                                      xmlns:vcq-res-ext="http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0">
+   <vcq-res-ext:VehicleCrashReport>
+      <nc30:DocumentCreationDate>
+         <nc30:Date>2016-11-30</nc30:Date>
+      </nc30:DocumentCreationDate>
+      <nc30:DocumentIdentification>
+         <nc30:IdentificationID>802838466</nc30:IdentificationID>
+      </nc30:DocumentIdentification>
+      <vcq-res-ext:DocumentApprovedDate>
+         <nc30:Date>2016-11-30</nc30:Date>
+      </vcq-res-ext:DocumentApprovedDate>
+      <jxdm51:Crash s30:id="Crash_01">
+         <nc30:ActivityDate>
+            <nc30:DateTime>2016-11-30T13:24:18</nc30:DateTime>
+         </nc30:ActivityDate>
+         <jxdm51:ActivityAugmentation>
+            <jxdm51:Narrative>
+               <nc30:CommentText>Pileup</nc30:CommentText>
+            </jxdm51:Narrative>
+         </jxdm51:ActivityAugmentation>
+         <jxdm51:IncidentAugmentation>
+            <jxdm51:IncidentDamagedItem>
+               <nc30:ItemDescriptionText>Utility Pole #256</nc30:ItemDescriptionText>
+               <nc30:ItemOwner>
+                  <nc30:EntityOrganization s30:ref="Property_Owner_01"/>
+                  <nc30:EntityPerson s30:ref="Property_Owner_02"/>
+               </nc30:ItemOwner>
+               <me-crash-codes:DamagedPropertyOwnerCategoryCodeText>Utilities</me-crash-codes:DamagedPropertyOwnerCategoryCodeText>
+            </jxdm51:IncidentDamagedItem>
+            <jxdm51:IncidentReportingOfficial>
+               <nc30:RoleOfPerson s30:ref="Reporting_Official_01"/>
+               <jxdm51:EnforcementOfficialBadgeIdentification>
+                  <nc30:IdentificationID>89652918</nc30:IdentificationID>
+               </jxdm51:EnforcementOfficialBadgeIdentification>
+            </jxdm51:IncidentReportingOfficial>
+            <jxdm51:IncidentWitness>
+               <nc30:RoleOfPerson s30:ref="Witness_01"/>
+            </jxdm51:IncidentWitness>
+         </jxdm51:IncidentAugmentation>
+         <jxdm51:CrashInformationSource>
+            <jxdm51:OrganizationORIIdentification>
+               <nc30:IdentificationID>64946892</nc30:IdentificationID>
+            </jxdm51:OrganizationORIIdentification>
+         </jxdm51:CrashInformationSource>
+         <jxdm51:CrashWorkZone>
+            <me-crash-codes:WorkZoneWorkersPresentCodeText>No</me-crash-codes:WorkZoneWorkersPresentCodeText>
+            <me-crash-codes:LawEnforcementPresentAtWorkZoneCodeText>Unknown</me-crash-codes:LawEnforcementPresentAtWorkZoneCodeText>
+            <vcq-res-ext:NearWorkZoneIndicator>false</vcq-res-ext:NearWorkZoneIndicator>
+         </jxdm51:CrashWorkZone>
+         <jxdm51:CrashVehicle>
+            <nc30:RoleOfItem s30:ref="Vehicle_01"/>
+            <jxdm51:VehicleTrafficControlDeviceOperationalIndicator>true</jxdm51:VehicleTrafficControlDeviceOperationalIndicator>
+            <jxdm51:CrashVehicleLegalSpeedRateMeasure>
+               <nc30:MeasureValueText>861</nc30:MeasureValueText>
+            </jxdm51:CrashVehicleLegalSpeedRateMeasure>
+            <jxdm51:CrashDriver>
+               <nc30:RoleOfPerson s30:ref="Driver_01"/>
+               <jxdm51:DriverLicense s30:ref="Driver_License_01"/>
+               <vcq-res-ext:FirstViolationDescriptionText>Ran Stop Sign</vcq-res-ext:FirstViolationDescriptionText>
+               <vcq-res-ext:SecondViolationDescriptionText>J Walking</vcq-res-ext:SecondViolationDescriptionText>
+            </jxdm51:CrashDriver>
+            <jxdm51:CrashVehicleOccupant>
+               <nc30:RoleOfPerson s30:ref="Driver_01"/>
+               <nc30:RoleOfPerson s30:ref="Occupant_01"/>
+               <nc30:RoleOfPerson s30:ref="Vehicle_Owner_01"/>
+            </jxdm51:CrashVehicleOccupant>
+            <jxdm51:TravelDirectionBeforeCrashCode>0</jxdm51:TravelDirectionBeforeCrashCode>
+            <me-crash-codes:VehicleDamageExtentCodeText>Towed Due To Disabling Damage</me-crash-codes:VehicleDamageExtentCodeText>
+            <vcq-res-ext:HazmatPlacardIndicator>false</vcq-res-ext:HazmatPlacardIndicator>
+            <me-crash-codes:PostedSpeedLimitCodeText>Not Posted 45 Zone</me-crash-codes:PostedSpeedLimitCodeText>
+            <vcq-res-ext:TotalDamageOverThresholdtIndicator>true</vcq-res-ext:TotalDamageOverThresholdtIndicator>
+            <vcq-res-ext:VehicleNineOrMoreSeatstIndicator>false</vcq-res-ext:VehicleNineOrMoreSeatstIndicator>
+            <vcq-res-ext:ExemptVehicleIndicator>false</vcq-res-ext:ExemptVehicleIndicator>
+            <vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>false</vcq-res-ext:EmergencyVehicleRespondingToSceneIndicator>
+            <vcq-res-ext:HitRunIndicator>true</vcq-res-ext:HitRunIndicator>
+         </jxdm51:CrashVehicle>
+         <nc30:Location s30:id="Incident_Loc_01">
+            <nc30:Address>
+               <nc30:LocationCityName>Hagerstown</nc30:LocationCityName>
+            </nc30:Address>
+            <nc30:AddressHighway>
+               <nc30:HighwayFullText>3108 Bluff Street</nc30:HighwayFullText>
+            </nc30:AddressHighway>
+            <nc30:Location2DGeospatialCoordinate>
+               <nc30:GeographicCoordinateLatitude>
+                  <nc30:LatitudeDegreeValue>3</nc30:LatitudeDegreeValue>
+               </nc30:GeographicCoordinateLatitude>
+               <nc30:GeographicCoordinateLongitude>
+                  <nc30:LongitudeDegreeValue>44</nc30:LongitudeDegreeValue>
+               </nc30:GeographicCoordinateLongitude>
+            </nc30:Location2DGeospatialCoordinate>
+            <vcq-res-ext:NearestIntersectingStreetFullText>71 Winding Way</vcq-res-ext:NearestIntersectingStreetFullText>
+            <vcq-res-ext:DistanceFromNearestIntersectionNumberText>84</vcq-res-ext:DistanceFromNearestIntersectionNumberText>
+            <me-crash-codes:DirectionFromNearestIntersectionCodeText>South</me-crash-codes:DirectionFromNearestIntersectionCodeText>
+            <me-crash-codes:DistanceFromNearestIntersectionNumberUnitCodeText>Feet</me-crash-codes:DistanceFromNearestIntersectionNumberUnitCodeText>
+         </nc30:Location>
+         <jxdm51:CrashSchoolBusRelatedCode>2</jxdm51:CrashSchoolBusRelatedCode>
+         <vcq-res-ext:SceneArrivalDateTime>
+            <nc30:DateTime>2016-11-30T13:24:18</nc30:DateTime>
+         </vcq-res-ext:SceneArrivalDateTime>
+         <vcq-res-ext:OffRoadIncidentIndicator>false</vcq-res-ext:OffRoadIncidentIndicator>
+      </jxdm51:Crash>
+      <jxdm51:Citation s30:id="Citation_01">
+         <nc30:ActivityIdentification>
+            <nc30:IdentificationID>16948809</nc30:IdentificationID>
+         </nc30:ActivityIdentification>
+         <vcq-res-ext:CitationNumberPendingIndicator>true</vcq-res-ext:CitationNumberPendingIndicator>
+      </jxdm51:Citation>
+      <nc30:Person s30:id="Driver_01">
+         <nc30:PersonBirthDate>
+            <nc30:Date>1954-06-07</nc30:Date>
+         </nc30:PersonBirthDate>
+         <nc30:PersonName>
+            <nc30:PersonGivenName>Selena</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>B</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Messenger</nc30:PersonSurName>
+         </nc30:PersonName>
+         <jxdm51:PersonSexCode>F</jxdm51:PersonSexCode>
+         <me-crash-codes:PersonCategoryCodeText>Driver</me-crash-codes:PersonCategoryCodeText>
+         <me-crash-codes:AlcoholTestCategoryCodeText>Blood</me-crash-codes:AlcoholTestCategoryCodeText>
+         <me-crash-codes:DrugTestCategoryCodeText>Test Not Given</me-crash-codes:DrugTestCategoryCodeText>
+         <me-crash-codes:DrugTestResultCodeText>Pending</me-crash-codes:DrugTestResultCodeText>
+      </nc30:Person>
+      <nc30:Person s30:id="Reporting_Official_01">
+         <nc30:PersonName>
+            <nc30:PersonFullName>Edward Walls</nc30:PersonFullName>
+         </nc30:PersonName>
+      </nc30:Person>
+      <nc30:Person s30:id="Witness_01">
+         <nc30:PersonName>
+            <nc30:PersonGivenName>Edward</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>M</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Navarro</nc30:PersonSurName>
+         </nc30:PersonName>
+         <me-crash-codes:PersonCategoryCodeText>Witness</me-crash-codes:PersonCategoryCodeText>
+      </nc30:Person>
+      <nc30:Person s30:id="Information_Approver_01">
+         <nc30:PersonName>
+            <nc30:PersonFullName>Doris Gammill</nc30:PersonFullName>
+         </nc30:PersonName>
+      </nc30:Person>
+      <nc30:Person s30:id="Vehicle_Owner_01">
+         <nc30:PersonBirthDate>
+            <nc30:Date>1978-01-25</nc30:Date>
+         </nc30:PersonBirthDate>
+         <nc30:PersonName>
+            <nc30:PersonGivenName>Jessica</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>M</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Ryan</nc30:PersonSurName>
+         </nc30:PersonName>
+         <jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
+         <me-crash-codes:PersonCategoryCodeText>Owner</me-crash-codes:PersonCategoryCodeText>
+      </nc30:Person>
+      <nc30:EntityOrganization s30:id="Property_Owner_01">
+         <nc30:OrganizationName>Zantigo</nc30:OrganizationName>
+      </nc30:EntityOrganization>
+      <nc30:EntityPerson s30:id="Property_Owner_02">
+         <nc30:PersonName>
+            <nc30:PersonFullName>MaryWillis</nc30:PersonFullName>
+         </nc30:PersonName>
+      </nc30:EntityPerson>
+      <nc30:EntityPerson s30:id="Occupant_01">
+         <nc30:PersonBirthDate>
+            <nc30:Date>1949-02-11</nc30:Date>
+         </nc30:PersonBirthDate>
+         <nc30:PersonName>
+            <nc30:PersonGivenName>Mary</nc30:PersonGivenName>
+            <nc30:PersonMiddleName>S</nc30:PersonMiddleName>
+            <nc30:PersonSurName>Willis</nc30:PersonSurName>
+         </nc30:PersonName>
+         <jxdm51:PersonSexCode>F</jxdm51:PersonSexCode>
+         <me-crash-codes:PersonCategoryCodeText>Passenger</me-crash-codes:PersonCategoryCodeText>
+      </nc30:EntityPerson>
+      <nc30:Location s30:id="Driver_Loc_01">
+         <nc30:Address>
+            <nc30:LocationStreet>
+               <nc30:StreetFullText>572 Cambridge Drive</nc30:StreetFullText>
+            </nc30:LocationStreet>
+            <nc30:LocationCityName>Phoenix</nc30:LocationCityName>
+            <jxdm51:LocationStateNCICLISCode>AZ</jxdm51:LocationStateNCICLISCode>
+            <nc30:LocationPostalCode>85003</nc30:LocationPostalCode>
+         </nc30:Address>
+      </nc30:Location>
+      <nc30:Location s30:id="Witness_Loc_01">
+         <nc30:Address>
+            <nc30:LocationStreet>
+               <nc30:StreetFullText>450 Hidden Meadow Drive</nc30:StreetFullText>
+            </nc30:LocationStreet>
+            <nc30:LocationCityName>Devils Lake</nc30:LocationCityName>
+            <jxdm51:LocationStateNCICLISCode>ND</jxdm51:LocationStateNCICLISCode>
+            <nc30:LocationPostalCode>58301</nc30:LocationPostalCode>
+         </nc30:Address>
+      </nc30:Location>
+      <nc30:Location s30:id="Property_Owner_Loc_01">
+         <nc30:Address>
+            <nc30:LocationStreet>
+               <nc30:StreetFullText>135 Rivendell Drive</nc30:StreetFullText>
+            </nc30:LocationStreet>
+            <nc30:LocationCityName>Akron</nc30:LocationCityName>
+            <jxdm51:LocationStateNCICLISCode>OH</jxdm51:LocationStateNCICLISCode>
+            <nc30:LocationPostalCode>44313</nc30:LocationPostalCode>
+         </nc30:Address>
+      </nc30:Location>
+      <nc30:Location s30:id="Vehicle_Owner_Loc_01">
+         <nc30:Address>
+            <nc30:LocationStreet>
+               <nc30:StreetFullText>989</nc30:StreetFullText>
+            </nc30:LocationStreet>
+            <nc30:LocationCityName>Paoli</nc30:LocationCityName>
+            <jxdm51:LocationStateNCICLISCode>OK</jxdm51:LocationStateNCICLISCode>
+            <nc30:LocationPostalCode>73074</nc30:LocationPostalCode>
+         </nc30:Address>
+      </nc30:Location>
+      <nc30:Vehicle s30:id="Vehicle_01">
+         <jxdm51:ConveyanceColorPrimaryCode>BGE</jxdm51:ConveyanceColorPrimaryCode>
+         <nc30:ItemModelYearDate>1989</nc30:ItemModelYearDate>
+         <nc30:VehicleIdentification>
+            <nc30:IdentificationID>Pbuap4Ksng</nc30:IdentificationID>
+            <nc30:IdentificationJurisdiction>
+               <jxdm51:LocationStateNCICLISCode>OK</jxdm51:LocationStateNCICLISCode>
+            </nc30:IdentificationJurisdiction>
+         </nc30:VehicleIdentification>
+         <jxdm51:VehicleMakeCode>AAPX</jxdm51:VehicleMakeCode>
+         <jxdm51:VehicleModelCode>120</jxdm51:VehicleModelCode>
+         <vcq-res-ext:VehicleUnitIdentification>
+            <nc30:IdentificationID>B1NGOpUe</nc30:IdentificationID>
+         </vcq-res-ext:VehicleUnitIdentification>
+      </nc30:Vehicle>
+      <jxdm51:ConveyanceRegistration s30:id="Conveyance_Registration_01">
+         <jxdm51:ConveyanceRegistrationPlateIdentification>
+            <nc30:IdentificationID>azrikoo</nc30:IdentificationID>
+            <nc30:IdentificationJurisdiction>
+               <jxdm51:LocationStateNCICLISCode>WY</jxdm51:LocationStateNCICLISCode>
+            </nc30:IdentificationJurisdiction>
+         </jxdm51:ConveyanceRegistrationPlateIdentification>
+      </jxdm51:ConveyanceRegistration>
+      <nc30:Insurance s30:id="Insurance_01">
+         <nc30:InsurancePolicyIdentification>
+            <nc30:IdentificationID>BeiTrzoKv7</nc30:IdentificationID>
+         </nc30:InsurancePolicyIdentification>
+         <nc30:InsuranceCarrierName>Progressive</nc30:InsuranceCarrierName>
+         <vcq-res-ext:NoInsuranceIndicator>false</vcq-res-ext:NoInsuranceIndicator>
+      </nc30:Insurance>
+      <jxdm51:CrashDriverLicense s30:id="Driver_License_01">
+         <jxdm51:DriverLicenseCardIdentification>
+            <nc30:IdentificationID>ycO5k00eX</nc30:IdentificationID>
+            <nc30:IdentificationJurisdiction>
+               <jxdm51:LocationStateNCICLISCode>TN</jxdm51:LocationStateNCICLISCode>
+            </nc30:IdentificationJurisdiction>
+         </jxdm51:DriverLicenseCardIdentification>
+         <jxdm51:DriverLicenseRestriction>
+            <jxdm51:DrivingRestrictionText>Daylight</jxdm51:DrivingRestrictionText>
+         </jxdm51:DriverLicenseRestriction>
+         <jxdm51:DriverLicenseEndorsement>
+            <jxdm51:DriverLicenseEndorsementText>motorcycle</jxdm51:DriverLicenseEndorsementText>
+         </jxdm51:DriverLicenseEndorsement>
+         <vcq-res-ext:DriverLicenseClassCodeText>M</vcq-res-ext:DriverLicenseClassCodeText>
+      </jxdm51:CrashDriverLicense>
+      <jxdm51:ActivityInformationApproverAssociation>
+         <nc30:Activity s30:ref="Crash_01"/>
+         <nc30:Person s30:ref="Information_Approver_01"/>
+      </jxdm51:ActivityInformationApproverAssociation>
+      <jxdm51:PersonBloodAlcoholContentAssociation>
+         <jxdm51:PersonBloodAlcoholContentNumberText>24</jxdm51:PersonBloodAlcoholContentNumberText>
+         <nc30:Activity s30:ref="Crash_01"/>
+         <nc30:Person s30:ref="Driver_01"/>
+      </jxdm51:PersonBloodAlcoholContentAssociation>
+      <nc30:ItemInsuranceAssociation>
+         <nc30:Insurance s30:ref="Insurance_01"/>
+         <nc30:Item s30:ref="Vehicle_01"/>
+      </nc30:ItemInsuranceAssociation>
+      <nc30:PersonResidenceAssociation>
+         <nc30:Person s30:ref="Driver_01"/>
+         <nc30:Location s30:ref="Driver_Loc_01"/>
+      </nc30:PersonResidenceAssociation>
+      <nc30:PersonResidenceAssociation>
+         <nc30:Person s30:ref="Witness_01"/>
+         <nc30:Location s30:ref="Witness_Loc_01"/>
+      </nc30:PersonResidenceAssociation>
+      <nc30:PersonResidenceAssociation>
+         <nc30:Person s30:ref="Property_Owner_01"/>
+         <nc30:Location s30:ref="Property_Owner_Loc_01"/>
+      </nc30:PersonResidenceAssociation>
+      <nc30:PersonResidenceAssociation>
+         <nc30:Person s30:ref="Vehicle_Owner_01"/>
+         <nc30:Location s30:ref="Vehicle_Owner_Loc_01"/>
+      </nc30:PersonResidenceAssociation>
+      <nc30:ActivityDocumentAssociation>
+         <nc30:Activity s30:ref="Crash_01"/>
+         <nc30:Document s30:ref="Citation_01"/>
+      </nc30:ActivityDocumentAssociation>
+      <jxdm51:ConveyanceRegistrationAssociation>
+         <jxdm51:ItemRegistration s30:ref="Conveyance_Registration_01"/>
+         <nc30:Item s30:ref="Vehicle_01"/>
+      </jxdm51:ConveyanceRegistrationAssociation>
+   </vcq-res-ext:VehicleCrashReport>
+</vcq-res-doc:VehicleCrashQueryResults>
