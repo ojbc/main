@@ -154,10 +154,10 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CitationPendingIndicator" type="niem-xs:boolean"
+	<xsd:element name="CitationNumberPendingIndicator" type="niem-xs:boolean"
 		substitutionGroup="j:CitationAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if citation is pending; false otherwise.
+			<xsd:documentation>True if a citation number is pending; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
