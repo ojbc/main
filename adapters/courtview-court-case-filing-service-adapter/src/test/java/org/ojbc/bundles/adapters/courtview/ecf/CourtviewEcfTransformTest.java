@@ -53,17 +53,28 @@ public class CourtviewEcfTransformTest {
 	}	
 
 	@Test
-	public void courtCaseFilingReportTest() throws Exception{		
+	public void courtCaseFilingReportTestSingleCharge() throws Exception{		
 		
-		DetailedDiff detailedDiff = runTransform("src/test/resources/xml/input/AK-CaseFilingDecisionReport-Bitlink.xml",
+		DetailedDiff detailedDiff = runTransform("src/test/resources/xml/input/AK-CaseFilingDecisionReport-Bitlink-singleCharge.xml",
 				"src/main/resources/xslt/CourtCaseToECF_Filing.xsl",
-				"src/test/resources/xml/output/AK-CaseFilingDecisionReport-Bitlink.out.xml");
+				"src/test/resources/xml/output/AK-CaseFilingDecisionReport-Bitlink-singleCharge.out.xml");
         
 		List<Difference> differenceList = detailedDiff.getAllDifferences();
         
         Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());						
 	}
 
+	@Test
+	public void courtCaseFilingReportTestMultipleCharge() throws Exception{		
+		
+		DetailedDiff detailedDiff = runTransform("src/test/resources/xml/input/AK-CaseFilingDecisionReport-Bitlink-multipleCharge.xml",
+				"src/main/resources/xslt/CourtCaseToECF_Filing.xsl",
+				"src/test/resources/xml/output/AK-CaseFilingDecisionReport-Bitlink-multipleCharge.out.xml");
+        
+		List<Difference> differenceList = detailedDiff.getAllDifferences();
+        
+        Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());						
+	}
 	
 	private DetailedDiff runTransform(String inputFileClasspath, String xsltClasspath, String expectedOutputFileClasspath) throws Exception{
 

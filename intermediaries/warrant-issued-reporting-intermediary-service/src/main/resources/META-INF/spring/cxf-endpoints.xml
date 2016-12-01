@@ -45,7 +45,7 @@
 		address="${warrantIssuedReportingIntermediaryEndpoint}"
 		wsdlURL="classpath:ssp/Warrant_Issued_Reporting/schemas/RS_WS-SIP_v1.2/Warrant_Issued_Reporting_Service.wsdl"
 		serviceName="ojbc:Warrant-Issued-Reporting-ServiceService" 
-		endpointName="ojbc:Warrant-Issued-Reporting-Service"
+		endpointName="ojbc:Warrant-Issued-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0">
         <cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />

@@ -50,6 +50,7 @@
 		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
  		<cxf:properties>
+ 			<entry key="ws-security.timestamp.futureTimeToLive" value="300"/>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="incidentReportingKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${incidentReportingService.intermediarykeystoreCertificateAlias}" />
