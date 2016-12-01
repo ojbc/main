@@ -75,6 +75,8 @@
 			
 			<camel:log message="\n\n\n callChargeReferralAdapter...\n\n\n" />
 							
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>							
+							
 			<camel:setHeader headerName="operationName">
 				<constant>ReportChargeReferral</constant>
 			</camel:setHeader>	
