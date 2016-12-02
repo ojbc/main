@@ -177,7 +177,7 @@
 		<j:ConveyanceRegistrationPlateIdentification>
 			<nc:IdentificationID>LP4365-0234</nc:IdentificationID>
 		</j:ConveyanceRegistrationPlateIdentification>
-		<j:ConveyanceRegistrationPlateCategoryText>LP-category
+		<j:ConveyanceRegistrationPlateCategoryText>PC
 		</j:ConveyanceRegistrationPlateCategoryText>
 	</j:ConveyanceRegistration>
 	<nc:ContactInformation>
