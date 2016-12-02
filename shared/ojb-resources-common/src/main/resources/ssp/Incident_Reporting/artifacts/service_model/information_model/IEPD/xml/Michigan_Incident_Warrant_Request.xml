@@ -17,13 +17,17 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ir-doc:IncidentReport
-	xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
-	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
-	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
-	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+<ir-doc:IncidentReport 
+	xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0" 
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
+	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" 
+	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:s="http://niem.gov/niem/structures/2.0" 
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" 
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" 
+	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" 
 	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd">
 	<lexspd:doPublish>
@@ -38,7 +42,7 @@
 				<lexs:DataSubmitterMetadata>
 					<lexs:SystemIdentifier>
 						<lexs:ORI>12345678</lexs:ORI>
-						<nc:OrganizationName>Incident Reporting agency</nc:OrganizationName>
+						<nc:OrganizationName>Incident Reporting Agency</nc:OrganizationName>
 						<lexs:SystemID />
 					</lexs:SystemIdentifier>
 					<lexs:SystemContact>
@@ -100,7 +104,7 @@
 							</lexs:DisseminationCriteriaText>
 						</lexs:DisseminationCriteriaValue>
 						<lexs:DataItemCategory>
-							<lexs:DataItemCategoryText>Incident Report
+							<lexs:DataItemCategoryText>Incident Report - Warrant Request
 							</lexs:DataItemCategoryText>
 						</lexs:DataItemCategory>
 					</lexs:PackageMetadata>
@@ -143,7 +147,7 @@
 								<nc:ActivityIdentification>
 									<nc:IdentificationID>1234567</nc:IdentificationID>
 								</nc:ActivityIdentification>
-								<nc:ActivityCategoryText />
+								<nc:ActivityCategoryText>Warrant</nc:ActivityCategoryText>
 								<nc:ActivityDate>
 									<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 								</nc:ActivityDate>
@@ -211,7 +215,7 @@
 								</j:PersonAugmentation>
 							</lexsdigest:Person>
 						</lexsdigest:EntityPerson>
-						<!-- ======================= Incident Reporting Official ======================= -->
+						<!-- ======================= Reporting Official (Affiant) ======================= -->
 						<lexsdigest:EntityPerson>
 							<lexsdigest:Person s:id="Officer_P1">
 								<nc:PersonName>
@@ -336,6 +340,10 @@
 						</lexsdigest:EntityTelephoneNumber>
 						<!-- ======================= Associations ======================= -->
 						<lexsdigest:Associations>
+							<lexsdigest:ActivityResponsiblePersonAssociation>
+								<nc:ActivityReference s:ref="Incident_1" />
+								<nc:PersonReference s:ref="Officer_P1" />
+							</lexsdigest:ActivityResponsiblePersonAssociation>
 							<lexsdigest:EntityTelephoneNumberAssociation>
 								<nc:PersonReference s:ref="Subject_P1" />
 								<lexsdigest:TelephoneNumberReference
@@ -361,18 +369,20 @@
 								<nc:ActivityReference s:ref="Incident_1" />
 								<nc:LocationReference s:ref="Incident_Loc_1" />
 							</lexsdigest:IncidentLocationAssociation>
-							<lexsdigest:IncidentReportingOfficialAssociation>
-								<nc:ActivityReference s:ref="Incident_1" />
-								<nc:PersonReference s:ref="Officer_P1" />
-							</lexsdigest:IncidentReportingOfficialAssociation>
 							<lexsdigest:IncidentSubjectPersonAssociation>
 								<nc:ActivityReference s:ref="Incident_1" />
 								<nc:PersonReference s:ref="Subject_P1" />
+								<nc:PersonActivityInvolvementText>Warrant Request
+								</nc:PersonActivityInvolvementText>
 							</lexsdigest:IncidentSubjectPersonAssociation>
 							<lexsdigest:OffenseLocationAssociation>
 								<nc:ActivityReference s:ref="Offense_1" />
 								<nc:LocationReference s:ref="Incident_Loc_1" />
 							</lexsdigest:OffenseLocationAssociation>
+							<lexsdigest:OffenseSubjectPersonAssociation>
+								<nc:ActivityReference s:ref="Offense_1" />
+								<nc:PersonReference s:ref="Subject_P1" />
+							</lexsdigest:OffenseSubjectPersonAssociation>
 							<nc:ActivityInvolvedPersonAssociation>
 								<nc:ActivityReference s:ref="Incident_1" />
 								<nc:PersonReference s:ref="Witness_P1" />
