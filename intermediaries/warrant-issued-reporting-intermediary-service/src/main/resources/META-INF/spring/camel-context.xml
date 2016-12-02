@@ -101,6 +101,8 @@
 		
 			<camel:from uri="direct:callReportWarrantIssued" />
 	
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+	
 			<camel:setHeader headerName="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
 			</camel:setHeader>
@@ -119,6 +121,8 @@
 		
 			<camel:from uri="direct:callReportWarrantAccepted" />
 	
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+	
 			<camel:setHeader headerName="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
 			</camel:setHeader>
@@ -134,6 +138,8 @@
 		<camel:route id="warrant_rejected_route">
 		
 			<camel:from uri="direct:callReportWarrantRejected" />
+			
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 	
 			<camel:setHeader headerName="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
