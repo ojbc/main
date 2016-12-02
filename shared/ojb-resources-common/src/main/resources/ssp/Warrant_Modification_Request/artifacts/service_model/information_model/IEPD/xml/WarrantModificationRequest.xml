@@ -49,7 +49,7 @@
 		<j:CourtOrderEnforcementAgency>
 			<j:OrganizationAugmentation>
 				<j:OrganizationORIIdentification>
-					<nc:IdentificationID>MI8202105</nc:IdentificationID>
+					<nc:IdentificationID>MI2300199</nc:IdentificationID>
 				</j:OrganizationORIIdentification>
 			</j:OrganizationAugmentation>
 			<wm-req-ext:AgencyRecordIdentification>
@@ -177,7 +177,7 @@
 		<j:ConveyanceRegistrationPlateIdentification>
 			<nc:IdentificationID>LP4365-0234</nc:IdentificationID>
 		</j:ConveyanceRegistrationPlateIdentification>
-		<j:ConveyanceRegistrationPlateCategoryText>LP-category
+		<j:ConveyanceRegistrationPlateCategoryText>PC
 		</j:ConveyanceRegistrationPlateCategoryText>
 	</j:ConveyanceRegistration>
 	<nc:ContactInformation>
