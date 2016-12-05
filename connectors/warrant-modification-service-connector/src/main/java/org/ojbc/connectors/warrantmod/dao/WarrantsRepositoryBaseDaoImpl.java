@@ -100,10 +100,9 @@ public class WarrantsRepositoryBaseDaoImpl implements WarrantsRepositoryBaseDAO 
                 	warrant.setExtraditionLimits(rs.getString("ExtraditionLimits"));
                 	warrant.setPickupLimits(rs.getString("PickupLimits"));
                 	warrant.setBondAmount(rs.getString("BondAmount"));
-                	warrant.setWarrantStatus(rs.getString("WarrantStatus"));
-                	warrant.setWarrantStatusTimestamp(DaoUtils.getLocalDateTime( rs, "WarrantStatusTimestamp"));
-                	warrant.setWarrantModificationRequestSent( rs.getBoolean("WarrantModRequestSent") );
-                	warrant.setWarrantModificationResponseReceived( rs.getBoolean("WarrantModResponseReceived") );
+                	//TODO fix these after talking with Andrew. 
+//                	warrant.setWarrantModificationRequestSent( rs.getBoolean("WarrantModRequestSent") );
+//                	warrant.setWarrantModificationResponseReceived( rs.getBoolean("WarrantModResponseReceived") );
                 	
                 	List<String> warrantRemarks = new ArrayList<String>();
                 	String warrantRemark = rs.getString("WarrantRemarkText");
