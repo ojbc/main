@@ -93,7 +93,7 @@
 			</wm-req-ext:SubjectPickupRadiusCodeText>
 			<wm-req-ext:WarrantBroadcastCodeText>HOPD
 			</wm-req-ext:WarrantBroadcastCodeText>
-			<wm-req-ext:WarrantCommentText>NOAH
+			<wm-req-ext:WarrantCommentText>STATE PRISON
 			</wm-req-ext:WarrantCommentText>
 			<wm-req-ext:WarrantEntryCategoryCodeText>3
 			</wm-req-ext:WarrantEntryCategoryCodeText>
@@ -106,7 +106,6 @@
 		<nc:PersonBirthLocation>
 			<nc:LocationCategoryText>NY</nc:LocationCategoryText>
 		</nc:PersonBirthLocation>
-		<nc:PersonCitizenshipText>US</nc:PersonCitizenshipText>
 		<nc:PersonEthnicityText>N</nc:PersonEthnicityText>
 		<nc:PersonEyeColorText>BLK</nc:PersonEyeColorText>
 		<nc:PersonHairColorText>ONG</nc:PersonHairColorText>
@@ -125,13 +124,12 @@
 			<nc:PhysicalFeatureDescriptionText>ART ARM
 			</nc:PhysicalFeatureDescriptionText>
 		</nc:PersonPhysicalFeature>
-		<nc:PersonRaceText>A</nc:PersonRaceText>
+		<nc:PersonRaceText>W</nc:PersonRaceText>
 		<nc:PersonSexText>M</nc:PersonSexText>
 		<nc:PersonSkinToneText>LBR</nc:PersonSkinToneText>
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>598213455</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
-		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>165</nc:MeasureValueText>
 			<nc:MeasureUnitText>lbs</nc:MeasureUnitText>
@@ -155,8 +153,6 @@
 		<wm-req-ext:PersonMiscellaneousRecordIdentification>
 			<nc:IdentificationID>MR456782</nc:IdentificationID>
 		</wm-req-ext:PersonMiscellaneousRecordIdentification>
-		<wm-req-ext:PersonImmigrationAlienQueryIndicator>false
-		</wm-req-ext:PersonImmigrationAlienQueryIndicator>
 	</nc:Person>
 	<nc:Vehicle structures:id="Vehicle_01">
 		<nc:ConveyanceColorPrimaryText>BGE</nc:ConveyanceColorPrimaryText>
@@ -175,7 +171,7 @@
 		</j:RegistrationExpirationDate>
 		<j:JurisdictionNCICLISCode>MI</j:JurisdictionNCICLISCode>
 		<j:ConveyanceRegistrationPlateIdentification>
-			<nc:IdentificationID>LP4365-0234</nc:IdentificationID>
+			<nc:IdentificationID>LP43650234</nc:IdentificationID>
 		</j:ConveyanceRegistrationPlateIdentification>
 		<j:ConveyanceRegistrationPlateCategoryText>PC
 		</j:ConveyanceRegistrationPlateCategoryText>
