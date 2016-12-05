@@ -472,7 +472,7 @@
 									<j:ChargeText>Treason</j:ChargeText>
 								</inc-ext:Charge>
 								<lexslib:SameAsDigestReference
-									lexslib:ref="Incident_1" />
+									lexslib:ref="Offense_1" />
 							</inc-ext:Incident>
 							<inc-ext:Person>
 								<nc:PersonEthnicityText>Unknown</nc:PersonEthnicityText>
