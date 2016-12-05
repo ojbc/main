@@ -106,7 +106,6 @@
 		<nc:PersonBirthLocation>
 			<nc:LocationCategoryText>NY</nc:LocationCategoryText>
 		</nc:PersonBirthLocation>
-		<nc:PersonCitizenshipText>US</nc:PersonCitizenshipText>
 		<nc:PersonEthnicityText>N</nc:PersonEthnicityText>
 		<nc:PersonEyeColorText>BLK</nc:PersonEyeColorText>
 		<nc:PersonHairColorText>ONG</nc:PersonHairColorText>
@@ -131,7 +130,6 @@
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>598213455</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
-		<nc:PersonUSCitizenIndicator>true</nc:PersonUSCitizenIndicator>
 		<nc:PersonWeightMeasure>
 			<nc:MeasureValueText>165</nc:MeasureValueText>
 			<nc:MeasureUnitText>lbs</nc:MeasureUnitText>
@@ -155,8 +153,6 @@
 		<wm-req-ext:PersonMiscellaneousRecordIdentification>
 			<nc:IdentificationID>MR456782</nc:IdentificationID>
 		</wm-req-ext:PersonMiscellaneousRecordIdentification>
-		<wm-req-ext:PersonImmigrationAlienQueryIndicator>false
-		</wm-req-ext:PersonImmigrationAlienQueryIndicator>
 	</nc:Person>
 	<nc:Vehicle structures:id="Vehicle_01">
 		<nc:ConveyanceColorPrimaryText>BGE</nc:ConveyanceColorPrimaryText>
