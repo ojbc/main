@@ -17,7 +17,6 @@
 package org.ojbc.warrant.repository.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -44,15 +43,12 @@ public class Warrant {
     private boolean extradite;
     private String extraditionLimits;
     private String bondAmount;
-    private String warrantStatus;
     private String pickupLimits;
-    private Boolean warrantModificationRequestSent; 
-    private Boolean warrantModificationResponseReceived; 
-    private LocalDateTime warrantStatusTimestamp;
     
     private List<WarrantRemarks> warrantRemarks;
     private List<String> warrantRemarkStrings;
     private List<Person> persons; 
+    private List<WarrantStatus> warrantStatuses;
     
     private List<ChargeReferral> chargeReferrals;
     
@@ -154,18 +150,6 @@ public class Warrant {
 	public void setBondAmount(String bondAmount) {
 		this.bondAmount = bondAmount;
 	}
-	public String getWarrantStatus() {
-		return warrantStatus;
-	}
-	public void setWarrantStatus(String warrantStatus) {
-		this.warrantStatus = warrantStatus;
-	}
-	public LocalDateTime getWarrantStatusTimestamp() {
-		return warrantStatusTimestamp;
-	}
-	public void setWarrantStatusTimestamp(LocalDateTime warrantStatusTimestamp) {
-		this.warrantStatusTimestamp = warrantStatusTimestamp;
-	}
 	public boolean isExtradite() {
 		return extradite;
 	}
@@ -201,20 +185,6 @@ public class Warrant {
 	public void setStateWarrantRepositoryID(String stateWarrantRepositoryID) {
 		this.stateWarrantRepositoryID = stateWarrantRepositoryID;
 	}
-	public Boolean getWarrantModificationRequestSent() {
-		return warrantModificationRequestSent;
-	}
-	public void setWarrantModificationRequestSent(
-			Boolean warrantModificationRequestSent) {
-		this.warrantModificationRequestSent = warrantModificationRequestSent;
-	}
-	public Boolean getWarrantModificationResponseReceived() {
-		return warrantModificationResponseReceived;
-	}
-	public void setWarrantModificationResponseReceived(
-			Boolean warrantModificationResponseReceived) {
-		this.warrantModificationResponseReceived = warrantModificationResponseReceived;
-	}
 	public List<ChargeReferral> getChargeReferrals() {
 		return chargeReferrals;
 	}
@@ -232,5 +202,11 @@ public class Warrant {
 	}
 	public void setPersons(List<Person> persons) {
 		this.persons = persons;
+	}
+	public List<WarrantStatus> getWarrantStatuses() {
+		return warrantStatuses;
+	}
+	public void setWarrantStatuses(List<WarrantStatus> warrantStatuses) {
+		this.warrantStatuses = warrantStatuses;
 	}
 }

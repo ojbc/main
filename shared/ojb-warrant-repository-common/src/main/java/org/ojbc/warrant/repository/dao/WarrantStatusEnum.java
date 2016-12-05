@@ -16,6 +16,6 @@
  */
 package org.ojbc.warrant.repository.dao;
 
-public enum WarrantStatus {
-	Requested, Submitted, Accepted
+public enum WarrantStatusEnum {
+	Requested, Issued, Accepted, Canceled
 }
