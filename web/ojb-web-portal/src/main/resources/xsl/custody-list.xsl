@@ -101,9 +101,9 @@
 						
 						<table id="custodyTable" class="detailsTable">
 							<tr>
-								<td class="detailsTitle">EPISODE NUMBER</td>
+								<td class="detailsTitle">BOOKING NUMBER</td>
 								<td class="detailsTitle">INFO OWNER</td>
-								<td class="detailsTitle">EPISODE START DATE</td>
+								<td class="detailsTitle">BOOKING DATE</td>
 							</tr>
 							<xsl:apply-templates /> 
 						</table>

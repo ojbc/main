@@ -18,16 +18,12 @@
 
 -->
 <cr-doc:ChargeReferral
-	xmlns:cr-doc="http://ojbc.org/IEPD/Exchange/ChargeReferral/1.0" 
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" 
-	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
-	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" 
-	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:s="http://niem.gov/niem/structures/2.0" 
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" 
-	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" 
-	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" 
+	xmlns:cr-doc="http://ojbc.org/IEPD/Exchange/ChargeReferral/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
 	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ChargeReferral/1.0 ../xsd/exchange_schema/Charge_Referral.xsd">
 	<lexspd:doPublish>
@@ -42,12 +38,12 @@
 				<lexs:DataSubmitterMetadata>
 					<lexs:SystemIdentifier>
 						<lexs:ORI>12345678</lexs:ORI>
-						<nc:OrganizationName>Incident Reporting agency</nc:OrganizationName>
-						<lexs:SystemID/>
+						<nc:OrganizationName>Incident Reporting Agency</nc:OrganizationName>
+						<lexs:SystemID />
 					</lexs:SystemIdentifier>
 					<lexs:SystemContact>
-						<nc:PersonGivenName/>
-						<nc:PersonSurName/>
+						<nc:PersonGivenName />
+						<nc:PersonSurName />
 						<nc:PersonFullName>J</nc:PersonFullName>
 						<nc:ContactTelephoneNumber>
 							<nc:NANPTelephoneNumber>
@@ -56,16 +52,16 @@
 								<nc:TelephoneLineID>9999</nc:TelephoneLineID>
 							</nc:NANPTelephoneNumber>
 						</nc:ContactTelephoneNumber>
-						<nc:OrganizationName/>
+						<nc:OrganizationName />
 					</lexs:SystemContact>
 				</lexs:DataSubmitterMetadata>
 				<lexs:DataItemPackage>
 					<lexs:PackageMetadata>
 						<lexs:DataItemID>99-9999</lexs:DataItemID>
 						<lexs:DataItemContact>
-							<nc:PersonGivenName/>
-							<nc:PersonSurName/>
-							<nc:PersonFullName/>
+							<nc:PersonGivenName />
+							<nc:PersonSurName />
+							<nc:PersonFullName />
 							<nc:ContactTelephoneNumber>
 								<nc:NANPTelephoneNumber>
 									<nc:TelephoneAreaCodeID>999</nc:TelephoneAreaCodeID>
@@ -85,9 +81,9 @@
 								<lexs:SystemID>N-DEx Connector</lexs:SystemID>
 							</lexs:DataOwnerIdentifier>
 							<lexs:DataOwnerContact>
-								<nc:PersonGivenName/>
-								<nc:PersonSurName/>
-								<nc:PersonFullName/>
+								<nc:PersonGivenName />
+								<nc:PersonSurName />
+								<nc:PersonFullName />
 								<nc:ContactTelephoneNumber>
 									<nc:NANPTelephoneNumber>
 										<nc:TelephoneAreaCodeID>999</nc:TelephoneAreaCodeID>
@@ -104,12 +100,12 @@
 							</lexs:DisseminationCriteriaText>
 						</lexs:DisseminationCriteriaValue>
 						<lexs:DataItemCategory>
-							<lexs:DataItemCategoryText>Incident Report
+							<lexs:DataItemCategoryText>Incident Report - Warrant Request
 							</lexs:DataItemCategoryText>
 						</lexs:DataItemCategory>
 					</lexs:PackageMetadata>
 					<lexs:Digest>
-					<!-- =======================  Activity Incident  ======================= -->
+						<!-- ======================= Activity Incident ======================= -->
 						<lexsdigest:EntityActivity>
 							<nc:Activity s:id="Incident_1">
 								<nc:ActivityIdentification>
@@ -124,31 +120,12 @@
 										<nc:Date>2010-05-21</nc:Date>
 									</nc:EndDate>
 								</nc:ActivityDateRange>
-								<nc:ActivityDescriptionText>Witnesses reported seeing the subject break into a house</nc:ActivityDescriptionText>
+								<nc:ActivityDescriptionText>Witnesses reported seeing the
+									subject break into a house
+								</nc:ActivityDescriptionText>
 							</nc:Activity>
 						</lexsdigest:EntityActivity>
-						<!-- =======================  Activity Arrest  ======================= -->
-						<lexsdigest:EntityActivity>
-							<nc:Activity s:id="Arrest_1">
-								<nc:ActivityIdentification>
-									<nc:IdentificationID>A123456</nc:IdentificationID>
-								</nc:ActivityIdentification>
-								<nc:ActivityCategoryText>Arrest</nc:ActivityCategoryText>
-								<nc:ActivityDate>
-									<nc:DateTime>2010-05-27T13:22:03Z</nc:DateTime>
-								</nc:ActivityDate>
-							</nc:Activity>
-						</lexsdigest:EntityActivity>
-						<!-- =======================  Activity Booking  ======================= -->
-						<lexsdigest:EntityActivity>
-							<nc:Activity s:id="Booking_1">
-								<nc:ActivityIdentification>
-									<nc:IdentificationID>12345</nc:IdentificationID>
-								</nc:ActivityIdentification>
-								<nc:ActivityCategoryText>Booking</nc:ActivityCategoryText>
-							</nc:Activity>
-						</lexsdigest:EntityActivity>
-						<!-- =======================  Activity Offense   ======================= -->
+						<!-- ======================= Activity Offense ======================= -->
 						<lexsdigest:EntityActivity>
 							<nc:Activity s:id="Offense_1">
 								<nc:ActivityIdentification>
@@ -160,19 +137,19 @@
 								</nc:ActivityDate>
 							</nc:Activity>
 						</lexsdigest:EntityActivity>
-						<!-- =======================  Activity Warrant   ======================= -->
+						<!-- ======================= Activity Warrant ======================= -->
 						<lexsdigest:EntityActivity>
 							<nc:Activity s:id="Warrant_1">
 								<nc:ActivityIdentification>
 									<nc:IdentificationID>1234567</nc:IdentificationID>
 								</nc:ActivityIdentification>
-								<nc:ActivityCategoryText/>
+								<nc:ActivityCategoryText>Warrant</nc:ActivityCategoryText>
 								<nc:ActivityDate>
 									<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 								</nc:ActivityDate>
 							</nc:Activity>
 						</lexsdigest:EntityActivity>
-						<!-- ======================= Arrest Subject (Adult or Juvenile) ======================= -->
+						<!-- ======================= Incident Subject (Adult or Juvenile) ======================= -->
 						<lexsdigest:EntityPerson>
 							<lexsdigest:Person s:id="Subject_P1">
 								<nc:PersonAlternateName s:id="idALTNAME001">
@@ -180,7 +157,8 @@
 									<nc:PersonMiddleName>MIDDLEALIAS</nc:PersonMiddleName>
 									<nc:PersonSurName>LASTALIAS</nc:PersonSurName>
 									<nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
-									<nc:PersonFullName>LASTALIAS, FIRSTALIAS MIDDLEALIAS JR</nc:PersonFullName>
+									<nc:PersonFullName>LASTALIAS, FIRSTALIAS MIDDLEALIAS JR
+									</nc:PersonFullName>
 								</nc:PersonAlternateName>
 								<nc:PersonAlternateName s:id="idALTNAME002">
 									<nc:PersonGivenName>DOUGHBOY</nc:PersonGivenName>
@@ -190,7 +168,8 @@
 								<nc:PersonBirthDate>
 									<nc:Date>1995-05-14</nc:Date>
 								</nc:PersonBirthDate>
-								<nc:PersonCitizenshipFIPS10-4Code>US</nc:PersonCitizenshipFIPS10-4Code>
+								<nc:PersonCitizenshipFIPS10-4Code>US
+								</nc:PersonCitizenshipFIPS10-4Code>
 								<nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
 								<nc:PersonHairColorCode>PLE</nc:PersonHairColorCode>
 								<nc:PersonHeightMeasure>
@@ -202,13 +181,14 @@
 									<nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
 									<nc:PersonSurName>LASTNAME</nc:PersonSurName>
 									<nc:PersonNameSuffixText>JR</nc:PersonNameSuffixText>
-									<nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME JR</nc:PersonFullName>
+									<nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME JR
+									</nc:PersonFullName>
 								</nc:PersonName>
 								<nc:PersonRaceCode>W</nc:PersonRaceCode>
 								<nc:PersonSexCode>M</nc:PersonSexCode>
 								<nc:PersonSSNIdentification>
 									<nc:IdentificationID>123456789</nc:IdentificationID>
-									<nc:IdentificationSourceText/>
+									<nc:IdentificationSourceText />
 								</nc:PersonSSNIdentification>
 								<nc:PersonWeightMeasure>
 									<nc:MeasurePointValue>150</nc:MeasurePointValue>
@@ -218,7 +198,8 @@
 									<nc:DriverLicense>
 										<nc:DriverLicenseIdentification>
 											<nc:IdentificationID>0099123</nc:IdentificationID>
-											<j:IdentificationJurisdictionNCICLISCode>MI</j:IdentificationJurisdictionNCICLISCode>
+											<j:IdentificationJurisdictionNCICLISCode>MI
+											</j:IdentificationJurisdictionNCICLISCode>
 										</nc:DriverLicenseIdentification>
 									</nc:DriverLicense>
 									<j:PersonFBIIdentification>
@@ -229,59 +210,56 @@
 									</j:PersonStateFingerprintIdentification>
 								</j:PersonAugmentation>
 							</lexsdigest:Person>
-							<j:ArrestSubject s:id="Arrest_Subject_1">
-								<nc:RoleOfPersonReference s:ref="Subject_P1"/>
-							</j:ArrestSubject>
 						</lexsdigest:EntityPerson>
-						<!-- ======================= Arrest Official  ======================= -->
+						<!-- ======================= Reporting Official (Affiant) ======================= -->
 						<lexsdigest:EntityPerson>
 							<lexsdigest:Person s:id="Officer_P1">
 								<nc:PersonName>
 									<nc:PersonGivenName>FIRSTNAME</nc:PersonGivenName>
 									<nc:PersonMiddleName>MIDDLENAME</nc:PersonMiddleName>
 									<nc:PersonSurName>LASTNAME</nc:PersonSurName>
-									<nc:PersonNameSuffixText/>
-									<nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME</nc:PersonFullName>
+									<nc:PersonNameSuffixText />
+									<nc:PersonFullName>LASTNAME, FIRSTNAME MIDDLENAME
+									</nc:PersonFullName>
 								</nc:PersonName>
 							</lexsdigest:Person>
 							<j:EnforcementOfficial s:id="Officer_1">
-								<nc:RoleOfPersonReference s:ref="Officer_P1"/>
+								<nc:RoleOfPersonReference s:ref="Officer_P1" />
 								<j:EnforcementOfficialBadgeIdentification>
 									<nc:IdentificationID>B22222</nc:IdentificationID>
 								</j:EnforcementOfficialBadgeIdentification>
 							</j:EnforcementOfficial>
 						</lexsdigest:EntityPerson>
-						
 						<!-- ======================= Victim ======================= -->
 						<lexsdigest:EntityPerson>
 							<lexsdigest:Person s:id="Victim_P1">
 								<nc:PersonName>
 									<nc:PersonGivenName>Vic</nc:PersonGivenName>
 									<nc:PersonSurName>Tim</nc:PersonSurName>
-									<nc:PersonNameSuffixText/>
+									<nc:PersonNameSuffixText />
 									<nc:PersonFullName>Vic Tim</nc:PersonFullName>
 								</nc:PersonName>
 							</lexsdigest:Person>
 							<j:Victim>
-								<nc:RoleOfPersonReference s:ref="Victim_P1"/>
+								<nc:RoleOfPersonReference s:ref="Victim_P1" />
 							</j:Victim>
 						</lexsdigest:EntityPerson>
-						
-							<!-- ======================= Witness ======================= -->
+						<!-- ======================= Witness ======================= -->
 						<lexsdigest:EntityPerson>
 							<lexsdigest:Person s:id="Witness_P1">
 								<nc:PersonName>
 									<nc:PersonGivenName>Jesse</nc:PersonGivenName>
 									<nc:PersonSurName>Pinkman</nc:PersonSurName>
-									<nc:PersonNameSuffixText/>
+									<nc:PersonNameSuffixText />
 								</nc:PersonName>
 							</lexsdigest:Person>
 							<j:Witness>
-								<nc:RoleOfPersonReference s:ref="Witness_P1"/>
-								<j:WitnessAccountDescriptionText>Witness saw the crime take place.</j:WitnessAccountDescriptionText>
+								<nc:RoleOfPersonReference s:ref="Witness_P1" />
+								<j:WitnessAccountDescriptionText>Witness saw the crime take
+									place.
+								</j:WitnessAccountDescriptionText>
 							</j:Witness>
 						</lexsdigest:EntityPerson>
-						
 						<!-- ======================= Residential Location ======================= -->
 						<lexsdigest:EntityLocation>
 							<nc:Location s:id="Res_Loc_1">
@@ -292,7 +270,7 @@
 											<nc:StreetNumberText>123</nc:StreetNumberText>
 											<nc:StreetName>TEST DRIVE</nc:StreetName>
 										</nc:LocationStreet>
-										<nc:AddressSecondaryUnitText/>
+										<nc:AddressSecondaryUnitText />
 										<nc:LocationCityName>Detroit</nc:LocationCityName>
 										<nc:LocationStateName>MI</nc:LocationStateName>
 										<nc:LocationPostalCode>96733</nc:LocationPostalCode>
@@ -300,9 +278,27 @@
 								</nc:LocationAddress>
 							</nc:Location>
 						</lexsdigest:EntityLocation>
-						<!-- ======================= Arrest Location ======================= -->
+						<!-- ======================= Residential Location ======================= -->
 						<lexsdigest:EntityLocation>
-							<nc:Location s:id="Arrest_Loc_1">
+							<nc:Location s:id="Res_Loc_2">
+								<nc:LocationAddress>
+									<nc:StructuredAddress>
+										<nc:LocationStreet>
+											<nc:StreetFullText>123 MAIN STREET</nc:StreetFullText>
+											<nc:StreetNumberText>123</nc:StreetNumberText>
+											<nc:StreetName>MAIN STREET</nc:StreetName>
+										</nc:LocationStreet>
+										<nc:AddressSecondaryUnitText />
+										<nc:LocationCityName>Detroit</nc:LocationCityName>
+										<nc:LocationStateName>MI</nc:LocationStateName>
+										<nc:LocationPostalCode>96733</nc:LocationPostalCode>
+									</nc:StructuredAddress>
+								</nc:LocationAddress>
+							</nc:Location>
+						</lexsdigest:EntityLocation>
+						<!-- ======================= Incident Location ======================= -->
+						<lexsdigest:EntityLocation>
+							<nc:Location s:id="Incident_Loc_1">
 								<nc:LocationAddress>
 									<nc:StructuredAddress>
 										<nc:LocationStreet>
@@ -310,107 +306,114 @@
 											<nc:StreetNumberText>123</nc:StreetNumberText>
 											<nc:StreetName>Maine Street</nc:StreetName>
 										</nc:LocationStreet>
-										<nc:AddressSecondaryUnitText/>
+										<nc:AddressSecondaryUnitText />
 										<nc:LocationCityName>Detroit</nc:LocationCityName>
 										<nc:LocationStateName>MI</nc:LocationStateName>
 										<nc:LocationPostalCode>96733</nc:LocationPostalCode>
 									</nc:StructuredAddress>
-									<nc:AddressFullText>123 Main Street Detroit MI 96733</nc:AddressFullText>
+									<nc:AddressFullText>123 Main Street Detroit MI 96733
+									</nc:AddressFullText>
 								</nc:LocationAddress>
 							</nc:Location>
 						</lexsdigest:EntityLocation>
-
-						<!-- ======================= Arresting Agency  ======================= -->
+						<!-- ======================= Incident Reporting Agency ======================= -->
 						<lexsdigest:EntityOrganization>
-							<nc:Organization s:id="Arrest_Agency_1">
-								<nc:OrganizationAbbreviationText>GCPD</nc:OrganizationAbbreviationText>
-								<nc:OrganizationName>Genesee County Police Department</nc:OrganizationName>
+							<nc:Organization s:id="Incident_Agency_1">
+								<nc:OrganizationAbbreviationText>GCPD
+								</nc:OrganizationAbbreviationText>
+								<nc:OrganizationName>Genesee County Police Department
+								</nc:OrganizationName>
 							</nc:Organization>
 						</lexsdigest:EntityOrganization>
-						<!-- ======================= Residence Location Telephone Number  ======================= -->
+						<!-- ======================= Residence Location Telephone Number ======================= -->
 						<lexsdigest:EntityTelephoneNumber>
 							<lexsdigest:TelephoneNumber s:id="Res_Tel_1">
 								<nc:FullTelephoneNumber>
-									<nc:TelephoneNumberFullID>555-555-1212</nc:TelephoneNumberFullID>
+									<nc:TelephoneNumberFullID>555-555-1212
+									</nc:TelephoneNumberFullID>
 								</nc:FullTelephoneNumber>
 							</lexsdigest:TelephoneNumber>
 						</lexsdigest:EntityTelephoneNumber>
 						<!-- ======================= Associations ======================= -->
 						<lexsdigest:Associations>
-							<lexsdigest:ArrestOffenseAssociation>
-								<nc:ActivityReference s:ref="Arrest_1"/>
-								<nc:ActivityReference s:ref="Offense_1"/>
-							</lexsdigest:ArrestOffenseAssociation>
-							<lexsdigest:ArrestOfficerAssociation>
-								<nc:ActivityReference s:ref="Arrest_1"/>
-								<nc:PersonReference s:ref="Officer_P1"/>
-							</lexsdigest:ArrestOfficerAssociation>
-							<lexsdigest:ArrestSubjectAssociation>
-								<nc:ActivityReference s:ref="Arrest_1"/>
-								<nc:PersonReference s:ref="Subject_P1"/>
-							</lexsdigest:ArrestSubjectAssociation>
-							<lexsdigest:EntityTelephoneNumberAssociation>
-								<nc:PersonReference s:ref="Subject_P1"/>
-								<lexsdigest:TelephoneNumberReference s:ref="Res_Tel_1"/>
-								<lexsdigest:TelephoneNumberPrimaryIndicator>true</lexsdigest:TelephoneNumberPrimaryIndicator>
-								<lexsdigest:TelephoneNumberHomeIndicator>true</lexsdigest:TelephoneNumberHomeIndicator>
-								<lexsdigest:TelephoneNumberWorkIndicator>false</lexsdigest:TelephoneNumberWorkIndicator>
-								<lexsdigest:TelephoneNumberEmergencyIndicator>false</lexsdigest:TelephoneNumberEmergencyIndicator>
-								<lexsdigest:TelephoneNumberDayIndicator>false</lexsdigest:TelephoneNumberDayIndicator>
-								<lexsdigest:TelephoneNumberEveningIndicator>true</lexsdigest:TelephoneNumberEveningIndicator>
-								<lexsdigest:TelephoneNumberNightIndicator>false</lexsdigest:TelephoneNumberNightIndicator>
-								<lexsdigest:TelephoneNumberUnspecifiedIndicator>true</lexsdigest:TelephoneNumberUnspecifiedIndicator>
-							</lexsdigest:EntityTelephoneNumberAssociation>
-							<lexsdigest:IncidentArrestAssociation>
-								<nc:ActivityReference s:ref="Incident_1" />
-								<nc:ActivityReference s:ref="Arrest_1" />
-							</lexsdigest:IncidentArrestAssociation>
-							<lexsdigest:IncidentLocationAssociation>
-								<nc:ActivityReference s:ref="Incident_1" />
-								<nc:LocationReference s:ref="Arrest_Loc_1" />
-							</lexsdigest:IncidentLocationAssociation>
-							<lexsdigest:OffenseLocationAssociation>
-								<nc:ActivityReference s:ref="Offense_1"/>
-								<nc:LocationReference s:ref="Arrest_Loc_1"/>
-							</lexsdigest:OffenseLocationAssociation>
-							<lexsdigest:OffenseSubjectPersonAssociation>
-								<nc:ActivityReference s:ref="Offense_1"/>
-								<nc:PersonReference s:ref="Subject_P1"/>
-							</lexsdigest:OffenseSubjectPersonAssociation>
-							 <lexsdigest:PersonArrestLocationAssociation>
-                                <nc:PersonReference s:ref="Subject_P1"/>
-                                <nc:LocationReference s:ref="Arrest_Loc_1"/>
-                            </lexsdigest:PersonArrestLocationAssociation>
-                            <nc:ActivityInvolvedPersonAssociation>
+							<lexsdigest:ActivityResponsiblePersonAssociation>
 								<nc:ActivityReference s:ref="Incident_1" />
 								<nc:PersonReference s:ref="Officer_P1" />
-								<nc:PersonActivityInvolvementText>Complainant</nc:PersonActivityInvolvementText>
-							</nc:ActivityInvolvedPersonAssociation>
+							</lexsdigest:ActivityResponsiblePersonAssociation>
+							<lexsdigest:EntityTelephoneNumberAssociation>
+								<nc:PersonReference s:ref="Subject_P1" />
+								<lexsdigest:TelephoneNumberReference
+									s:ref="Res_Tel_1" />
+								<lexsdigest:TelephoneNumberPrimaryIndicator>true
+								</lexsdigest:TelephoneNumberPrimaryIndicator>
+								<lexsdigest:TelephoneNumberHomeIndicator>true
+								</lexsdigest:TelephoneNumberHomeIndicator>
+								<lexsdigest:TelephoneNumberWorkIndicator>false
+								</lexsdigest:TelephoneNumberWorkIndicator>
+								<lexsdigest:TelephoneNumberEmergencyIndicator>false
+								</lexsdigest:TelephoneNumberEmergencyIndicator>
+								<lexsdigest:TelephoneNumberDayIndicator>false
+								</lexsdigest:TelephoneNumberDayIndicator>
+								<lexsdigest:TelephoneNumberEveningIndicator>true
+								</lexsdigest:TelephoneNumberEveningIndicator>
+								<lexsdigest:TelephoneNumberNightIndicator>false
+								</lexsdigest:TelephoneNumberNightIndicator>
+								<lexsdigest:TelephoneNumberUnspecifiedIndicator>true
+								</lexsdigest:TelephoneNumberUnspecifiedIndicator>
+							</lexsdigest:EntityTelephoneNumberAssociation>
+							<lexsdigest:IncidentLocationAssociation>
+								<nc:ActivityReference s:ref="Incident_1" />
+								<nc:LocationReference s:ref="Incident_Loc_1" />
+							</lexsdigest:IncidentLocationAssociation>
+							<lexsdigest:IncidentSubjectPersonAssociation>
+								<nc:ActivityReference s:ref="Incident_1" />
+								<nc:PersonReference s:ref="Subject_P1" />
+								<nc:PersonActivityInvolvementText>Warrant Request
+								</nc:PersonActivityInvolvementText>
+							</lexsdigest:IncidentSubjectPersonAssociation>
+							<lexsdigest:OffenseLocationAssociation>
+								<nc:ActivityReference s:ref="Offense_1" />
+								<nc:LocationReference s:ref="Incident_Loc_1" />
+							</lexsdigest:OffenseLocationAssociation>
+							<lexsdigest:OffenseSubjectPersonAssociation>
+								<nc:ActivityReference s:ref="Offense_1" />
+								<nc:PersonReference s:ref="Subject_P1" />
+							</lexsdigest:OffenseSubjectPersonAssociation>
 							<nc:ActivityInvolvedPersonAssociation>
 								<nc:ActivityReference s:ref="Incident_1" />
 								<nc:PersonReference s:ref="Witness_P1" />
-								<nc:PersonActivityInvolvementText>Complainant</nc:PersonActivityInvolvementText>
+								<nc:PersonActivityInvolvementText>Witness
+								</nc:PersonActivityInvolvementText>
 							</nc:ActivityInvolvedPersonAssociation>
 							<nc:ActivityInvolvedPersonAssociation>
 								<nc:ActivityReference s:ref="Incident_1" />
 								<nc:PersonReference s:ref="Victim_P1" />
-								<nc:PersonActivityInvolvementText>Complainant</nc:PersonActivityInvolvementText>
+								<nc:PersonActivityInvolvementText>Victim
+								</nc:PersonActivityInvolvementText>
 							</nc:ActivityInvolvedPersonAssociation>
 							<nc:ActivityReportingOrganizationAssociation>
-								<nc:ActivityReference s:ref="Arrest_1"/>
-								<nc:OrganizationReference s:ref="Arrest_Agency_1"/>
+								<nc:ActivityReference s:ref="Incident_1" />
+								<nc:OrganizationReference s:ref="Incident_Agency_1" />
 							</nc:ActivityReportingOrganizationAssociation>
+							<nc:RelatedActivityAssociation>
+								<nc:ActivityReference s:ref="Incident_1" />
+								<nc:ActivityReference s:ref="Offense_1" />
+							</nc:RelatedActivityAssociation>
+							<nc:RelatedActivityAssociation>
+								<nc:ActivityReference s:ref="Incident_1" />
+								<nc:ActivityReference s:ref="Warrant_1" />
+							</nc:RelatedActivityAssociation>
 							<nc:ResidenceAssociation>
-								<nc:PersonReference s:ref="Subject_P1"/>
-								<nc:LocationReference s:ref="Res_Loc_1"/>
+								<nc:PersonReference s:ref="Subject_P1" />
+								<nc:LocationReference s:ref="Res_Loc_1" />
 							</nc:ResidenceAssociation>
 							<nc:ResidenceAssociation>
-								<nc:PersonReference s:ref="Witness_P1"/>
-								<nc:LocationReference s:ref="Res_Loc_1"/>
+								<nc:PersonReference s:ref="Witness_P1" />
+								<nc:LocationReference s:ref="Res_Loc_1" />
 							</nc:ResidenceAssociation>
 							<nc:ResidenceAssociation>
-								<nc:PersonReference s:ref="Victim_P1"/>
-								<nc:LocationReference s:ref="Arrest_Loc_1"/>
+								<nc:PersonReference s:ref="Victim_P1" />
+								<nc:LocationReference s:ref="Res_Loc_2" />
 							</nc:ResidenceAssociation>
 						</lexsdigest:Associations>
 					</lexs:Digest>
@@ -426,13 +429,16 @@
 							<ndexia:Person>
 								<nc:PersonEthnicityCode>U</nc:PersonEthnicityCode>
 								<nc:PersonPhysicalFeature>
-									<nc:PhysicalFeatureCategoryCode>TAT HAND</nc:PhysicalFeatureCategoryCode>
-<!-- 									<nc:PhysicalFeatureCategoryText></nc:PhysicalFeatureCategoryText> -->
+									<nc:PhysicalFeatureCategoryCode>TAT HAND
+									</nc:PhysicalFeatureCategoryCode>
+									<!-- <nc:PhysicalFeatureCategoryText></nc:PhysicalFeatureCategoryText> -->
 								</nc:PersonPhysicalFeature>
 								<nc:PersonSkinToneCode>DRK</nc:PersonSkinToneCode>
 								<ndexia:PersonAugmentation>
-									<lexslib:SameAsDigestReference lexslib:ref="Subject_P1"/>
-									<j:DNACollectionStatusText>Processing</j:DNACollectionStatusText>
+									<lexslib:SameAsDigestReference
+										lexslib:ref="Subject_P1" />
+									<j:DNACollectionStatusText>Processing
+									</j:DNACollectionStatusText>
 								</ndexia:PersonAugmentation>
 							</ndexia:Person>
 							<ndexia:Location>
@@ -441,9 +447,11 @@
 										<nc:LocationCountyCode>163</nc:LocationCountyCode>
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
-								<nc:LocationCategoryText>This is a house</nc:LocationCategoryText>
+								<nc:LocationCategoryText>This is a house
+								</nc:LocationCategoryText>
 								<ndexia:LocationAugmentation>
-									<lexslib:SameAsDigestReference lexslib:ref="Res_Loc_1"/>
+									<lexslib:SameAsDigestReference
+										lexslib:ref="Res_Loc_1" />
 								</ndexia:LocationAugmentation>
 							</ndexia:Location>
 						</ndexia:IncidentReport>
@@ -458,44 +466,42 @@
 							<inc-ext:Incident>
 								<inc-ext:Charge s:id="idCHG002">
 									<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
-									<j:ChargeDegreeText>1</j:ChargeDegreeText>		
+									<j:ChargeDegreeText>1</j:ChargeDegreeText>
 									<j:ChargeNCICCode>0101</j:ChargeNCICCode>
 									<j:ChargeSeverityText>Felony</j:ChargeSeverityText>
 									<j:ChargeText>Treason</j:ChargeText>
 								</inc-ext:Charge>
-								<lexslib:SameAsDigestReference lexslib:ref="Incident_1"/>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Offense_1" />
 							</inc-ext:Incident>
-							<inc-ext:Arrest>
-								<j:ArrestCharge s:id="idCHG001">
-									<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
-									<j:ChargeDegreeText>1</j:ChargeDegreeText>		
-									<j:ChargeNCICCode>0101</j:ChargeNCICCode>
-									<j:ChargeSeverityText>Felony</j:ChargeSeverityText>
-									<j:ChargeText>Treason</j:ChargeText>
-								</j:ArrestCharge>
-								<lexslib:SameAsDigestReference lexslib:ref="Arrest_1"/>
-							</inc-ext:Arrest>
 							<inc-ext:Person>
 								<nc:PersonEthnicityText>Unknown</nc:PersonEthnicityText>
 								<j:PersonAugmentation>
 									<j:PersonBirthPlaceCode>MI</j:PersonBirthPlaceCode>
 								</j:PersonAugmentation>
-								<inc-ext:PersonDNACollectionRequiredIndicator>true</inc-ext:PersonDNACollectionRequiredIndicator>
+								<inc-ext:PersonDNACollectionRequiredIndicator>true
+								</inc-ext:PersonDNACollectionRequiredIndicator>
 								<inc-ext:PersonDepartmentOfCorrectionsIdentification>
 									<nc:IdentificationID>0987654</nc:IdentificationID>
 								</inc-ext:PersonDepartmentOfCorrectionsIdentification>
-								<lexslib:SameAsDigestReference lexslib:ref="Subject_P1"/>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Subject_P1" />
 							</inc-ext:Person>
 							<inc-ext:Warrant>
-								<j:WarrantExtraditionLimitationText>Within 50 miles</j:WarrantExtraditionLimitationText>
-								<inc-ext:WarrantExtraditionRequestedIndicator>true</inc-ext:WarrantExtraditionRequestedIndicator>
-								<inc-ext:WarrantExtraditionTransportationInstructionsText>Pick up subject at county jail.</inc-ext:WarrantExtraditionTransportationInstructionsText>
+								<j:WarrantExtraditionLimitationText>Within 50 miles
+								</j:WarrantExtraditionLimitationText>
+								<inc-ext:WarrantExtraditionRequestedIndicator>true
+								</inc-ext:WarrantExtraditionRequestedIndicator>
+								<inc-ext:WarrantExtraditionTransportationInstructionsText>Pick
+									up subject at county jail.
+								</inc-ext:WarrantExtraditionTransportationInstructionsText>
 								<inc-ext:Bond>
 									<nc:ActivityCategoryText>Surety</nc:ActivityCategoryText>
 									<j:BondAmount>2000.00</j:BondAmount>
 									<inc-ext:BondCommentsText>Cash only</inc-ext:BondCommentsText>
 								</inc-ext:Bond>
-								<lexslib:SameAsDigestReference lexslib:ref="Warrant_1"/>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="Warrant_1" />
 							</inc-ext:Warrant>
 						</inc-ext:IncidentReport>
 					</lexs:StructuredPayload>
