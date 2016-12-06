@@ -38,16 +38,16 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="personQueryVehicleCrashContext">
 	
 		<endpoint id="personQueryVehicleCrashRequestServiceEndpoint"
-			uri="cxf:bean:personQueryVehicleCrashRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.vehicleCrash.cxfLogging}" />
+			uri="cxf:bean:personQueryVehicleCrashRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.vehicleCrash.cxfLogging}&amp;allowStreaming=false" />
 
 		<endpoint id="personQueryVehicleCrashResultsEndpoint"
-			uri="cxf:bean:personQueryVehicleCrashResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.vehicleCrash.cxfLogging}" />
+			uri="cxf:bean:personQueryVehicleCrashResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.vehicleCrash.cxfLogging}&amp;allowStreaming=false" />
 
 	    <endpoint id="personQueryVehicleCrashAdapterEndpoint" 
-	    	uri="cxf:bean:personQueryVehicleCrashAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.vehicleCrash.cxfLogging}"/>
+	    	uri="cxf:bean:personQueryVehicleCrashAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.vehicleCrash.cxfLogging}&amp;allowStreaming=false"/>
 	
 		<endpoint id="presentPersonQueryVehicleCrashResultsServiceEndpoint" 
-			uri="cxf:bean:presentPersonQueryResultsVehicleCrashService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.vehicleCrash.cxfLogging}"/>                        
+			uri="cxf:bean:presentPersonQueryResultsVehicleCrashService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personQuery.vehicleCrash.cxfLogging}&amp;allowStreaming=false"/>                        
 
 
 		<!-- Federated Search Request Handler-->
