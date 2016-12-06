@@ -24,6 +24,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0"
+	xmlns:cfdu-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReportUpdate/1.0"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -37,8 +39,8 @@
 		<camel:endpoint id="caseFilingDecisionReportingServiceEndpoint"
 			uri="cxf:bean:CaseFilingDecisionReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${caseFilingDecisionReportingService.cxflogging}&amp;allowStreaming=false" />
 		
-		<camel:endpoint id="courtCaseFilingServiceEndpoint"
-			uri="cxf:bean:courtCaseFilingService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${caseFilingDecisionReportingService.cxflogging}"/>
+		<camel:endpoint id="caseFilingDecisionReportingServiceAdapterEndpoint"
+			uri="cxf:bean:caseFilingDecisionReportingServiceAdapter?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${caseFilingDecisionReportingService.cxflogging}&amp;allowStreaming=false"/>
 			
 			
 		<!-- Case Filing Decision Reporting Service Handler -->
@@ -121,30 +123,39 @@
 			<!-- Send to court case filing adapter -->
 
 			<camel:log message="Processing Court Case Filing"/>
-
-			<convertBodyTo type="java.lang.String"/>
-			
-			<camel:to uri="xslt:xslt/caseFilingDecisionReportToCriminalCaseFiling.xsl?transformerFactory=sFactory"/>	
-			
-			<log message="\n\n\n Called:  caseFilingDecisionReportToFiling.xsl  \n\n\n"/>							
 											
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 							
-			<camel:setHeader headerName="operationName"><constant>FileCourtCase</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CourtCaseFilingService/1.0</constant></camel:setHeader>
+			<camel:filter>
+				<camel:xpath>/cfd-doc:CaseFilingDecisionReport</camel:xpath>
+
+				<camel:setHeader headerName="operationName">
+					<constant>ReportCaseFilingDecision</constant>
+				</camel:setHeader>
+			</camel:filter>	
+
+			<camel:filter>
+				<camel:xpath>/cfdu-doc:CaseFilingDecisionReportUpdate</camel:xpath>
+
+				<camel:setHeader headerName="operationName">
+					<constant>ReportCaseFilingDecisionUpdate</constant>
+				</camel:setHeader>
+			</camel:filter>	
+			
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/CaseFilingDecisionReportingService/1.0</constant>
+			</camel:setHeader>
          
 			<camel:log message="This is the court case filing message: ${body}" loggingLevel="DEBUG"/>
 			
             <camel:throttle timePeriodMillis="1000">
             	<constant>1</constant>
-            	<to uri="courtCaseFilingServiceEndpoint"/>
+            	<to uri="caseFilingDecisionReportingServiceAdapterEndpoint"/>
         	</camel:throttle>    
             
         </route>
 
 	</camel:camelContext>
-	
-	<bean id="sFactory" class="net.sf.saxon.TransformerFactoryImpl" />
 	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 	
