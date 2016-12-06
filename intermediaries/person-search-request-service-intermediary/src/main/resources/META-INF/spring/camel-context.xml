@@ -46,22 +46,22 @@
 
 		<!-- Search Request and Response Federated Endpoints -->
 		<endpoint id="searchRequestFederatedServiceEndpoint"
-			uri="cxf:bean:personSearchRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:personSearchRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 		<camel:endpoint id="personSearchRequestServiceAdapterEndpoint"
-			uri="cxf:bean:personSearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:personSearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="searchResultsFederatedServiceEndpoint"
-			uri="cxf:bean:personSearchResultsFederatedService?dataFormat=PAYLOAD&amp;allowStreaming=false&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:personSearchResultsFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
  		<endpoint id="entityResolutionRequestServiceEndpoint"
-			uri="cxf:bean:entityResolutionRequestService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}" />
+			uri="cxf:bean:entityResolutionRequestService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}&amp;allowStreaming=false" />
 
  		<endpoint id="mergeNotificationServiceEndpoint"
-			uri="cxf:bean:mergeNotificationService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}" />
+			uri="cxf:bean:mergeNotificationService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}&amp;allowStreaming=false" />
 
 		<camel:endpoint id="presentMergeNotificationServiceResultsEndpoint"
-			uri="cxf:bean:presentMergeNotificationServiceResults?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:presentMergeNotificationServiceResults?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 
 		<!-- Federated Search Request Handler-->
