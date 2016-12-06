@@ -72,7 +72,7 @@ public class CamelContextTest {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:courtCaseFilingService")
+    @EndpointInject(uri = "mock:cxf:bean:caseFilingDecisionReportingServiceAdapter")
     protected MockEndpoint courtCaseFilingServiceMockEndpoint;
     
       
@@ -101,7 +101,7 @@ public class CamelContextTest {
     	    public void configure() throws Exception {
     	    	
     	    	//We mock the court case filing endpoint
-    	    	mockEndpointsAndSkip("cxf:bean:courtCaseFilingService*");
+    	    	mockEndpointsAndSkip("cxf:bean:caseFilingDecisionReportingServiceAdapter*");
     	    	
     	    }              
     	});
@@ -167,20 +167,12 @@ public class CamelContextTest {
 		Exchange ex = courtCaseFilingServiceMockEndpoint.getExchanges().get(0);
 		
 		String opName = (String)ex.getIn().getHeader("operationName");
-		assertEquals("FileCourtCase", opName);
+		assertEquals("ReportCaseFilingDecision", opName);
 		
 		String opNamespace = (String)ex.getIn().getHeader("operationNamespace");
-		assertEquals("http://ojbc.org/Services/WSDL/CourtCaseFilingService/1.0", opNamespace);
+		assertEquals("http://ojbc.org/Services/WSDL/CaseFilingDecisionReportingService/1.0", opNamespace);
 
 		Document returnDocumentCourtCaseFiling = ex.getIn().getBody(Document.class);
-
-		//Do some very basic assertions to assure the message is transformed.
-		//The XSLT test does a more complete examination of the transformation.
-		//Node notifyNode = XmlUtils.xPathNodeSearch(returnDocumentCourtCaseFiling, "/b-2:Notify");
-		//Node notifyMesssageNode = XmlUtils.xPathNodeSearch(notifyNode, "b-2:NotificationMessage");
-		
-		//Node messageNode = XmlUtils.xPathNodeSearch(notifyMesssageNode, "b-2:Message");
-		//assertNotNull(messageNode);
 
 		//Get the first exchange (the only one) to the logger
 		//This is what would be sent to the derived bundle
