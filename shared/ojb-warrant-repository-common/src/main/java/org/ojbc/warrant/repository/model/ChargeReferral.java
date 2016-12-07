@@ -27,6 +27,8 @@ public class ChargeReferral {
 	private String chargeReferralCaseAgencyComplaintNumber;
 	
 	private String transactionControlNumber;
+	
+	private String ocaComplaintNumber;
 
 	private String reportingAgencyORI;
 	
@@ -109,5 +111,13 @@ public class ChargeReferral {
 
 	public void setOfficers(List<Officer> officers) {
 		this.officers = officers;
+	}
+
+	public String getOcaComplaintNumber() {
+		return ocaComplaintNumber;
+	}
+
+	public void setOcaComplaintNumber(String ocaComplaintNumber) {
+		this.ocaComplaintNumber = ocaComplaintNumber;
 	}
 }
