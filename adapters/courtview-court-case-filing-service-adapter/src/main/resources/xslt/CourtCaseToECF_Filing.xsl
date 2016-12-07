@@ -35,25 +35,29 @@
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes" />
 	<xsl:template
 		match="/cfd-doc:CaseFilingDecisionReport | /cfdu-doc:CaseFilingDecisionReportUpdate">
-			<core:CoreFilingMessage>
-				<xsl:apply-templates select="." mode="ecf" />
-				<xsl:apply-templates select="." mode="case" />
-				<!-- The following are required by ECF -->
-				<core:FilingConfidentialityIndicator>false
-				</core:FilingConfidentialityIndicator>
-				<core:FilingLeadDocument>
-					<ecf:DocumentMetadata>
-						<j:RegisterActionDescriptionText />
-						<ecf:FilingAttorneyID />
-						<ecf:FilingPartyID />
-					</ecf:DocumentMetadata>
-					<ecf:DocumentRendition>
-						<ecf:DocumentRenditionMetadata>
-							<ecf:DocumentAttachment />
-						</ecf:DocumentRenditionMetadata>
-					</ecf:DocumentRendition>
-				</core:FilingLeadDocument>
-			</core:CoreFilingMessage>
+		<RecordFiling>
+			<RecordFilingRequest>
+				<core:CoreFilingMessage>
+					<xsl:apply-templates select="." mode="ecf" />
+					<xsl:apply-templates select="." mode="case" />
+					<!-- The following are required by ECF -->
+					<core:FilingConfidentialityIndicator>false
+					</core:FilingConfidentialityIndicator>
+					<core:FilingLeadDocument>
+						<ecf:DocumentMetadata>
+							<j:RegisterActionDescriptionText />
+							<ecf:FilingAttorneyID />
+							<ecf:FilingPartyID />
+						</ecf:DocumentMetadata>
+						<ecf:DocumentRendition>
+							<ecf:DocumentRenditionMetadata>
+								<ecf:DocumentAttachment />
+							</ecf:DocumentRenditionMetadata>
+						</ecf:DocumentRendition>
+					</core:FilingLeadDocument>
+				</core:CoreFilingMessage>
+			</RecordFilingRequest>
+		</RecordFiling>
 	</xsl:template>
 	<xsl:template
 		match="cfd-doc:CaseFilingDecisionReport | cfdu-doc:CaseFilingDecisionReportUpdate"
