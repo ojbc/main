@@ -35,7 +35,6 @@
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes" />
 	<xsl:template
 		match="/cfd-doc:CaseFilingDecisionReport | /cfdu-doc:CaseFilingDecisionReportUpdate">
-		<ijisniem:ECF_4_01>
 			<core:CoreFilingMessage>
 				<xsl:apply-templates select="." mode="ecf" />
 				<xsl:apply-templates select="." mode="case" />
@@ -55,7 +54,6 @@
 					</ecf:DocumentRendition>
 				</core:FilingLeadDocument>
 			</core:CoreFilingMessage>
-		</ijisniem:ECF_4_01>
 	</xsl:template>
 	<xsl:template
 		match="cfd-doc:CaseFilingDecisionReport | cfdu-doc:CaseFilingDecisionReportUpdate"
