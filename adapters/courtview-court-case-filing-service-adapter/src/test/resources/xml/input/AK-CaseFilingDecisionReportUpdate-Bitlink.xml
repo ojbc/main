@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<cfdu-doc:CaseFilingDecisionReportUpdate
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReportUpdate/1.0 ../../../xsd/CaseFilingDecisionReportUpdate.xsd"
+	xmlns:cfdu-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReportUpdate/1.0"
+	xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:DocumentCategoryText>Criminal Case Filing</nc:DocumentCategoryText>
+	<nc:DocumentCreationDate>
+		<nc:Date>2016-11-13</nc:Date>
+	</nc:DocumentCreationDate>
+	<nc:DocumentEffectiveDate>
+		<nc:Date>2016-11-13</nc:Date>
+	</nc:DocumentEffectiveDate>
+	<nc:DocumentFiledDate>
+		<nc:Date>2016-11-13</nc:Date>
+	</nc:DocumentFiledDate>
+	<cfd-ext:VictimRightsAssertionCertificationIndicator>true
+	</cfd-ext:VictimRightsAssertionCertificationIndicator>
+	<cfd-ext:VictimRightsAssertionText>VRA Text
+	</cfd-ext:VictimRightsAssertionText>
+	<nc:Case>
+		<nc:ActivityCategoryText>Felony</nc:ActivityCategoryText>
+		<nc:CaseDocketID>CD12951</nc:CaseDocketID>
+		<nc:CaseFiling>
+			<nc:DocumentCategoryName>DCN</nc:DocumentCategoryName>
+			<nc:DocumentFiledDate>
+				<nc:Date>2016-11-13</nc:Date>
+			</nc:DocumentFiledDate>
+		</nc:CaseFiling>
+		<j:CaseAugmentation>
+			<j:CaseCharge structures:id="Charge_01">
+				<j:ChargeApplicabilityText>Charge Applicability
+				</j:ChargeApplicabilityText>
+				<j:ChargeFilingDate>
+					<nc:Date>2016-10-13</nc:Date>
+				</j:ChargeFilingDate>
+				<j:ChargeSequenceID>001</j:ChargeSequenceID>
+				<j:ChargeSeverityLevel>
+					<j:SeverityLevelDescriptionText>Class A
+					</j:SeverityLevelDescriptionText>
+				</j:ChargeSeverityLevel>
+				<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>AMC</nc:IdentificationID>
+						<nc:IdentificationJurisdiction>
+							<nc:JurisdictionText>Jurisdiction Text</nc:JurisdictionText>
+						</nc:IdentificationJurisdiction>
+					</j:StatuteCodeIdentification>
+					<j:StatuteCodeSectionIdentification>
+						<nc:IdentificationID>8.10.040.B.7</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+					<j:StatuteDescriptionText>CHILD NEGLECT</j:StatuteDescriptionText>
+				</j:ChargeStatute>
+				<j:ChargeText>The Municipality of Anchorage, by and through its
+					undersigned attorney, charges that on or about the 13th day of
+					October, 2016, at or near Anchorage, Alaska, Erin D Smith did
+					commit the offense of CHILD NEGLECT, to wit:Erin D Smith did
+					intentionally, knowingly, or recklessly cause or permit a child,
+					M.P., to be inadequately supervised due to the demonstrated
+					inability or unwillingness of the parent to provide care for the
+					child at the time due to intoxication, addiction, or other
+					circumstance, which is in violation of Anchorage Municipal Code
+					8.10.040.B.7
+				</j:ChargeText>
+				<j:ChargeTrackingIdentification>
+					<nc:IdentificationID>CT4567</nc:IdentificationID>
+				</j:ChargeTrackingIdentification>
+				<cfd-ext:ChargeDomesticViolenceIndicator>false
+				</cfd-ext:ChargeDomesticViolenceIndicator>
+			</j:CaseCharge>
+			<j:CaseCharge structures:id="Charge_02">
+				<j:ChargeApplicabilityText>Charge Applicability
+				</j:ChargeApplicabilityText>
+				<j:ChargeFilingDate>
+					<nc:Date>2016-10-16</nc:Date>
+				</j:ChargeFilingDate>
+				<j:ChargeSequenceID>001</j:ChargeSequenceID>
+				<j:ChargeSeverityLevel>
+					<j:SeverityLevelDescriptionText>Class A
+					</j:SeverityLevelDescriptionText>
+				</j:ChargeSeverityLevel>
+				<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>RGE</nc:IdentificationID>
+						<nc:IdentificationJurisdiction>
+							<nc:JurisdictionText>Jurisdiction Text</nc:JurisdictionText>
+						</nc:IdentificationJurisdiction>
+					</j:StatuteCodeIdentification>
+					<j:StatuteCodeSectionIdentification>
+						<nc:IdentificationID>21.10.060.B.1</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+					<j:StatuteDescriptionText>CHILD ENDANGERMENT
+					</j:StatuteDescriptionText>
+				</j:ChargeStatute>
+				<j:ChargeText>The Municipality of Anchorage, by and through its
+					undersigned attorney, charges that on or about the 13th day of
+					October, 2016, at or near Anchorage, Alaska...
+				</j:ChargeText>
+				<j:ChargeTrackingIdentification>
+					<nc:IdentificationID>CT4643</nc:IdentificationID>
+				</j:ChargeTrackingIdentification>
+				<cfd-ext:ChargeDomesticViolenceIndicator>false
+				</cfd-ext:ChargeDomesticViolenceIndicator>
+			</j:CaseCharge>
+			<j:CaseCourt>
+				<nc:OrganizationName>District Court for the State of Alaska
+				</nc:OrganizationName>
+				<j:CourtName>Third Judicial District of Alaska</j:CourtName>
+				<j:CourtCategoryCode>DIS</j:CourtCategoryCode>
+			</j:CaseCourt>
+			<j:CaseCourtEvent>
+				<j:CourtEventAppearance>
+					<j:CourtAppearanceDate>
+						<nc:Date>2016-12-14</nc:Date>
+					</j:CourtAppearanceDate>
+					<j:CourtAppearanceDate>
+						<nc:Date>2016-12-29</nc:Date>
+					</j:CourtAppearanceDate>
+				</j:CourtEventAppearance>
+			</j:CaseCourtEvent>
+			<j:CaseDefendantParty>
+				<nc:EntityPerson structures:ref="Defendant_01" />
+			</j:CaseDefendantParty>
+			<j:CaseInitiatingParty>
+				<nc:EntityPerson structures:ref="Initiating_Party_01" />
+			</j:CaseInitiatingParty>
+			<j:CaseJudge>
+				<nc:RoleOfPerson structures:ref="CJP_01" />
+				<j:JudicialOfficialBarMembership>
+					<j:JudicialOfficialBarIdentification>
+						<nc:IdentificationID>BIN4567</nc:IdentificationID>
+						<nc:IdentificationJurisdiction>
+							<nc:JurisdictionText>Anchorage District Court
+							</nc:JurisdictionText>
+						</nc:IdentificationJurisdiction>
+					</j:JudicialOfficialBarIdentification>
+				</j:JudicialOfficialBarMembership>
+				<j:JudicialOfficialCategoryText>Position
+				</j:JudicialOfficialCategoryText>
+			</j:CaseJudge>
+			<j:CaseProsecutionAttorney>
+				<nc:RoleOfPerson structures:ref="CPAP_01" />
+				<j:JudicialOfficialBarMembership>
+					<j:JudicialOfficialBarIdentification>
+						<nc:IdentificationID>1205030</nc:IdentificationID>
+						<nc:IdentificationJurisdiction>
+							<nc:JurisdictionText>Alaska</nc:JurisdictionText>
+						</nc:IdentificationJurisdiction>
+					</j:JudicialOfficialBarIdentification>
+				</j:JudicialOfficialBarMembership>
+				<j:JudicialOfficialCategoryText>Assistant Municipal Prosecutor
+				</j:JudicialOfficialCategoryText>
+			</j:CaseProsecutionAttorney>
+		</j:CaseAugmentation>
+	</nc:Case>
+	<j:Arrest structures:id="Arrest_01">
+		<j:ArrestAgency>
+			<nc:OrganizationName>Alaska Police Department</nc:OrganizationName>
+		</j:ArrestAgency>
+		<j:ArrestAgencyRecordIdentification>
+			<nc:IdentificationID>13-33222</nc:IdentificationID>
+			<nc:IdentificationJurisdiction>
+				<nc:JurisdictionText>Alaska Police Department</nc:JurisdictionText>
+			</nc:IdentificationJurisdiction>
+		</j:ArrestAgencyRecordIdentification>
+		<j:ArrestOfficial>
+			<j:EnforcementOfficialBadgeIdentification>
+				<nc:IdentificationID>EO568</nc:IdentificationID>
+				<nc:IdentificationJurisdiction>
+					<nc:JurisdictionText>Alaska Police Department</nc:JurisdictionText>
+				</nc:IdentificationJurisdiction>
+			</j:EnforcementOfficialBadgeIdentification>
+		</j:ArrestOfficial>
+		<j:ArrestProbableCauseText>According to police reports, a neighbor
+			called 911 because two young boys had been trying for nearly three
+			hours to get into their apartment. The children, ages 4 and 5, would
+			knock or ring the doorbell every 20-30 minutes. When APD officers
+			arrived, Defendant, who is the mother of the children, finally
+			answered the door after several minutes. She admitted to drinking and
+			provided a BA of .337
+		</j:ArrestProbableCauseText>
+		<cfd-ext:ArrestTrackingNumberIdentification>
+			<nc:IdentificationID>1143299</nc:IdentificationID>
+		</cfd-ext:ArrestTrackingNumberIdentification>
+	</j:Arrest>
+	<j:Offense structures:id="Offense_01">
+		<nc:ActivityDate>
+			<nc:Date>2016-09-12</nc:Date>
+		</nc:ActivityDate>
+	</j:Offense>
+	<j:Offense structures:id="Offense_02">
+		<nc:ActivityDate>
+			<nc:Date>2016-09-12</nc:Date>
+		</nc:ActivityDate>
+	</j:Offense>
+	<nc:Person structures:id="Defendant_01">
+		<nc:PersonBirthDate>
+			<nc:Date>1980-07-26</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Erin</nc:PersonGivenName>
+			<nc:PersonMiddleName>D</nc:PersonMiddleName>
+			<nc:PersonSurName>Smith</nc:PersonSurName>
+			<nc:PersonFullName>Erin D Smith</nc:PersonFullName>
+		</nc:PersonName>
+		<nc:PersonPassportIdentification>
+			<nc:IdentificationID>P79965</nc:IdentificationID>
+			<nc:IdentificationJurisdiction>
+				<nc:JurisdictionText>US</nc:JurisdictionText>
+			</nc:IdentificationJurisdiction>
+		</nc:PersonPassportIdentification>
+		<nc:PersonStateIdentification>
+			<nc:IdentificationID>SI898709</nc:IdentificationID>
+			<nc:IdentificationJurisdiction>
+				<nc:JurisdictionText>Alaska</nc:JurisdictionText>
+			</nc:IdentificationJurisdiction>
+		</nc:PersonStateIdentification>
+		<cfd-ext:AlaskaPublicSafetyInformationNetworkIdentification>
+			<nc:IdentificationID>6418222</nc:IdentificationID>
+		</cfd-ext:AlaskaPublicSafetyInformationNetworkIdentification>
+		<cfd-ext:OperatorLicenseIdentification>
+			<nc:IdentificationID>OL12345678</nc:IdentificationID>
+			<nc:IdentificationCategoryText>ATV</nc:IdentificationCategoryText>
+		</cfd-ext:OperatorLicenseIdentification>
+		<j:PersonAugmentation>
+			<j:DriverLicense>
+				<j:DriverLicenseIdentification>
+					<nc:IdentificationID>123456789</nc:IdentificationID>
+					<nc:IdentificationJurisdiction>
+						<nc:JurisdictionText>Alaska</nc:JurisdictionText>
+					</nc:IdentificationJurisdiction>
+				</j:DriverLicenseIdentification>
+				<cfd-ext:CDLHolderCode>2</cfd-ext:CDLHolderCode>
+			</j:DriverLicense>
+		</j:PersonAugmentation>
+	</nc:Person>
+	<nc:Person structures:id="IPP_01">
+		<nc:PersonName>
+			<nc:PersonNamePrefixText>String</nc:PersonNamePrefixText>
+			<nc:PersonGivenName>Erin</nc:PersonGivenName>
+			<nc:PersonMiddleName>E</nc:PersonMiddleName>
+			<nc:PersonSurName>Bennett</nc:PersonSurName>
+			<nc:PersonFullName>Erin E. Bennett</nc:PersonFullName>
+		</nc:PersonName>
+	</nc:Person>
+	<nc:Person structures:id="CJP_01">
+		<nc:PersonName>
+			<nc:PersonNamePrefixText />
+			<nc:PersonGivenName>John</nc:PersonGivenName>
+			<nc:PersonMiddleName>P</nc:PersonMiddleName>
+			<nc:PersonSurName>Johnson</nc:PersonSurName>
+		</nc:PersonName>
+	</nc:Person>
+	<nc:Person structures:id="CPAP_01">
+		<nc:PersonName>
+			<nc:PersonNamePrefixText>Ms</nc:PersonNamePrefixText>
+			<nc:PersonGivenName>Mary</nc:PersonGivenName>
+			<nc:PersonMiddleName>P</nc:PersonMiddleName>
+			<nc:PersonSurName>O'Hearn</nc:PersonSurName>
+		</nc:PersonName>
+	</nc:Person>
+	<j:JudicialOfficial structures:id="Initiating_Party_01">
+		<nc:RoleOfPerson structures:ref="IPP_01" />
+		<j:JudicialOfficialBarMembership>
+			<j:JudicialOfficialBarIdentification>
+				<nc:IdentificationID>BI5467</nc:IdentificationID>
+				<nc:IdentificationJurisdiction>
+					<nc:JurisdictionText>JAnchorage</nc:JurisdictionText>
+				</nc:IdentificationJurisdiction>
+			</j:JudicialOfficialBarIdentification>
+		</j:JudicialOfficialBarMembership>
+		<j:JudicialOfficialCategoryText>Position
+		</j:JudicialOfficialCategoryText>
+	</j:JudicialOfficial>
+	<nc:Location structures:id="OL01">
+		<nc:LocationDescriptionText>Smithville</nc:LocationDescriptionText>
+	</nc:Location>
+	<nc:Location structures:id="RES01">
+		<nc:Address>
+			<nc:LocationStreet>
+				<nc:StreetFullText>123 N Oak Street Apt #123</nc:StreetFullText>
+			</nc:LocationStreet>
+			<nc:LocationCityName>Anchorage</nc:LocationCityName>
+			<nc:LocationStateUSPostalServiceCode>AK
+			</nc:LocationStateUSPostalServiceCode>
+			<nc:LocationPostalCode>32678</nc:LocationPostalCode>
+		</nc:Address>
+	</nc:Location>
+	<nc:PersonResidenceAssociation>
+		<nc:Person structures:ref="Defendant_01" />
+		<nc:Location structures:ref="RES01" />
+	</nc:PersonResidenceAssociation>
+	<j:OffenseChargeAssociation>
+		<j:Offense structures:ref="Offense_01" />
+		<j:Charge structures:ref="Charge_01" />
+	</j:OffenseChargeAssociation>
+	<j:OffenseChargeAssociation>
+		<j:Offense structures:ref="Offense_02" />
+		<j:Charge structures:ref="Charge_02" />
+	</j:OffenseChargeAssociation>
+	<j:OffenseLocationAssociation>
+		<j:Offense structures:ref="Offense_01" />
+		<j:Offense structures:ref="Offense_02" />
+		<nc:Location structures:ref="OL01" />
+	</j:OffenseLocationAssociation>
+</cfdu-doc:CaseFilingDecisionReportUpdate>
