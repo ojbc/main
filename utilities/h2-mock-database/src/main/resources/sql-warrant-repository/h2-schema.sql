@@ -20,6 +20,7 @@ use warrant_repository;
 
 
 
+
 CREATE TABLE WarrantStatusType (
                 WarrantStatusTypeID IDENTITY NOT NULL,
                 WarrantStatusType VARCHAR(20) NOT NULL,
@@ -63,7 +64,7 @@ COMMENT ON COLUMN Warrant.ExtraditionLimits IS 'cluded.';
 
 
 CREATE TABLE WarrantStatus (
-                WarrantStatusID INTEGER NOT NULL,
+                WarrantStatusID IDENTITY NOT NULL,
                 Operator VARCHAR(15),
                 WarrantStatusTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
                 WarrantStatusTypeID INTEGER NOT NULL,
