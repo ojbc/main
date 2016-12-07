@@ -76,6 +76,18 @@ public class CourtviewEcfTransformTest {
         Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());						
 	}
 	
+	@Test
+	public void courtCaseFilingReportUpdate() throws Exception{		
+		
+		DetailedDiff detailedDiff = runTransform("src/test/resources/xml/input/AK-CaseFilingDecisionReportUpdate-Bitlink.xml",
+				"src/main/resources/xslt/CourtCaseToECF_Filing.xsl",
+				"src/test/resources/xml/output/AK-CaseFilingDecisionReportUpdate-Bitlink.out.xml");
+        
+		List<Difference> differenceList = detailedDiff.getAllDifferences();
+        
+        Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());						
+	}
+	
 	private DetailedDiff runTransform(String inputFileClasspath, String xsltClasspath, String expectedOutputFileClasspath) throws Exception{
 
 		File inputFile = new File(inputFileClasspath);		
@@ -96,5 +108,6 @@ public class CourtviewEcfTransformTest {
 		
 		return detailedDiff;		
 	}
+	
 	
 }

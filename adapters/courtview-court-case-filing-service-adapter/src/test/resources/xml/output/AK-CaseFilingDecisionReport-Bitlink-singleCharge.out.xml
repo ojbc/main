@@ -23,12 +23,7 @@
                    xmlns:nc="http://niem.gov/niem/niem-core/2.0"
                    xmlns:s="http://niem.gov/niem/structures/2.0"
                    xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
-                   xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0"
-                   xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0"
-                   xmlns:j51="http://release.niem.gov/niem/domains/jxdm/5.1/"
-                   xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
                    xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-                   xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
                    xmlns:ijisniem="http://www.maximus.com/justice/IJISBroker/XSD/NIEM/">
    <core:CoreFilingMessage>
       <ecf:SendingMDELocationID/>
