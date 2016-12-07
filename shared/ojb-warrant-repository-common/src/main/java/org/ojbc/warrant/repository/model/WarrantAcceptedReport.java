@@ -25,6 +25,7 @@ public class WarrantAcceptedReport {
 	private String lawEnforcementORI;
 	private String warrantStatus;
 	private String stateWarrantRepositoryID;
+	private String operator;
 	
 	public String getOcaComplaintNumber() {
 		return ocaComplaintNumber;
@@ -54,6 +55,12 @@ public class WarrantAcceptedReport {
 	@Override
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
+	public String getOperator() {
+		return operator;
+	}
+	public void setOperator(String operator) {
+		this.operator = operator;
 	}
 
 }
