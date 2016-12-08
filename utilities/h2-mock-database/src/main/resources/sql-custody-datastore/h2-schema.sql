@@ -117,6 +117,7 @@ CREATE TABLE charge (
                 statute_or_ordinance_number VARCHAR(200),
                 charge_category_classification VARCHAR(200),
                 holding_for_agency VARCHAR(100),
+                sentence_date DATE,
                 case_jurisdiction_court VARCHAR(200),
                 CONSTRAINT id PRIMARY KEY (id)
 );
