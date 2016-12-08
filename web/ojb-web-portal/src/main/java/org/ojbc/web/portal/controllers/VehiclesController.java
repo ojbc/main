@@ -32,6 +32,7 @@ import org.ojbc.web.portal.controllers.helpers.VehicleSearchCommandUtils;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.portal.validators.VehicleSearchCommandValidator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -48,6 +49,9 @@ public class VehiclesController {
 	public static final String PAGINATE_URL = "../vehicles/paginate";
 
 	public static final int ROWS_PER_PAGE = 50;
+
+    @Value("${vehiclesSearchResultPage:vehicles/_searchResult}")
+    String vehiclesSearchResultPage;
 
 	@Resource
 	VehiclesControllerConfigInterface config;
@@ -129,7 +133,7 @@ public class VehiclesController {
 		String convertVehicleSearchResult = searchResultConverter.convertVehicleSearchResult(mostRecentSearch,getParams(start));
 		model.put("searchContent", convertVehicleSearchResult);
 		
-		return "vehicles/_searchResult";
+		return vehiclesSearchResultPage;
 	}
 
 	@RequestMapping(value = "searchDetails", method = RequestMethod.GET)
@@ -203,7 +207,7 @@ public class VehiclesController {
 		String convertVehicleSearchResult = searchResultConverter.convertVehicleSearchResult(searchContent,getParams(0));
 		model.put("searchContent", convertVehicleSearchResult);
 		
-		return "vehicles/_searchResult";
+		return vehiclesSearchResultPage;
 	}
 	
 	String getFederatedQueryId() {

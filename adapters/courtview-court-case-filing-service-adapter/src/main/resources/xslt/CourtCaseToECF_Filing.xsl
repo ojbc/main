@@ -25,36 +25,42 @@
 	xmlns:s="http://niem.gov/niem/structures/2.0"
 	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
 	xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0"
+	xmlns:cfdu-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReportUpdate/1.0"
 	xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0"
 	xmlns:j51="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:ijisniem="http://www.maximus.com/justice/IJISBroker/XSD/NIEM/">
+	xmlns:ijisniem="http://www.maximus.com/justice/IJISBroker/XSD/NIEM/"
+	exclude-result-prefixes="cfd-doc cfdu-doc cfd-ext j51 nc30 structures">
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes" />
-	<xsl:template match="/cfd-doc:CaseFilingDecisionReport">
-		<ijisniem:ECF_4_01>
-			<core:CoreFilingMessage>
-				<xsl:apply-templates select="." mode="ecf" />
-				<xsl:apply-templates select="." mode="case" />
-				<!-- The following are required by ECF -->
-				<core:FilingConfidentialityIndicator>false
-				</core:FilingConfidentialityIndicator>
-				<core:FilingLeadDocument>
-					<ecf:DocumentMetadata>
-						<j:RegisterActionDescriptionText />
-						<ecf:FilingAttorneyID />
-						<ecf:FilingPartyID />
-					</ecf:DocumentMetadata>
-					<ecf:DocumentRendition>
-						<ecf:DocumentRenditionMetadata>
-							<ecf:DocumentAttachment />
-						</ecf:DocumentRenditionMetadata>
-					</ecf:DocumentRendition>
-				</core:FilingLeadDocument>
-			</core:CoreFilingMessage>
-		</ijisniem:ECF_4_01>
+	<xsl:template
+		match="/cfd-doc:CaseFilingDecisionReport | /cfdu-doc:CaseFilingDecisionReportUpdate">
+		<RecordFiling>
+			<RecordFilingRequest>
+				<core:CoreFilingMessage>
+					<xsl:apply-templates select="." mode="ecf" />
+					<xsl:apply-templates select="." mode="case" />
+					<!-- The following are required by ECF -->
+					<core:FilingConfidentialityIndicator>false
+					</core:FilingConfidentialityIndicator>
+					<core:FilingLeadDocument>
+						<ecf:DocumentMetadata>
+							<j:RegisterActionDescriptionText />
+							<ecf:FilingAttorneyID />
+							<ecf:FilingPartyID />
+						</ecf:DocumentMetadata>
+						<ecf:DocumentRendition>
+							<ecf:DocumentRenditionMetadata>
+								<ecf:DocumentAttachment />
+							</ecf:DocumentRenditionMetadata>
+						</ecf:DocumentRendition>
+					</core:FilingLeadDocument>
+				</core:CoreFilingMessage>
+			</RecordFilingRequest>
+		</RecordFiling>
 	</xsl:template>
-	<xsl:template match="cfd-doc:CaseFilingDecisionReport"
+	<xsl:template
+		match="cfd-doc:CaseFilingDecisionReport | cfdu-doc:CaseFilingDecisionReportUpdate"
 		mode="case">
 		<criminalcase:CriminalCase>
 			<xsl:apply-templates select="nc30:DocumentFiledDate" />
@@ -85,18 +91,39 @@
 	</xsl:template>
 	<xsl:template match="j51:CaseCharge" mode="chargeOffense">
 		<xsl:param name="chargeID" />
-		<xsl:variable name="offenseID">
-			<xsl:value-of
-				select="/cfd-doc:CaseFilingDecisionReport/j:OffenseChargeAssociation[j:Charge/@structures:ref=chargeID]/j:Offense/@structures:ref" />
-		</xsl:variable>
+		<xsl:choose>
+			<xsl:when test="/cfd-doc:CaseFilingDecisionReport">
+				<xsl:variable name="offenseID">
+					<xsl:value-of
+						select="/cfd-doc:CaseFilingDecisionReport/j:OffenseChargeAssociation[j:Charge/@structures:ref=chargeID]/j:Offense/@structures:ref" />
+				</xsl:variable>
+			</xsl:when>
+			<xsl:when test="/cfdu-doc:CaseFilingDecisionReportUpdate">
+				<xsl:variable name="offenseID">
+					<xsl:value-of
+						select="/cfdu-doc:CaseFilingDecisionReportUpdate/j:OffenseChargeAssociation[j:Charge/@structures:ref=chargeID]/j:Offense/@structures:ref" />
+				</xsl:variable>
+			</xsl:when>
+		</xsl:choose>
 		<criminalcase:ChargeOffense>
 			<xsl:apply-templates
 				select="../j51:Arrest/cfd-ext:ArrestTrackingNumberIdentification" />
 			<xsl:apply-templates select="j51:ChargeTrackingIdentification" />
 			<xsl:apply-templates select="j51:Offense" />
-			<xsl:apply-templates
-				select="nc30:Location[@structures:id=/cfd-doc:CaseFilingDecisionReport/j:OffenseLocationAssociation[j:Offense/@structures:ref=offenseID]/nc:Location/@structures:ref]"
-				mode="offenseLocation" />
+			<!-- xsl:apply-templates select="nc30:Location[@structures:id=/cfd-doc:CaseFilingDecisionReport/j:OffenseLocationAssociation[j:Offense/@structures:ref=offenseID]/nc:Location/@structures:ref]" 
+				mode="offenseLocation" / -->
+			<xsl:choose>
+				<xsl:when test="/cfd-doc:CaseFilingDecisionReport">
+					<xsl:apply-templates
+						select="nc30:Location[@structures:id=/cfd-doc:CaseFilingDecisionReport/j:OffenseLocationAssociation[j:Offense/@structures:ref=offenseID]/nc:Location/@structures:ref]"
+						mode="offenseLocation" />
+				</xsl:when>
+				<xsl:when test="/cfdu-doc:CaseFilingDecisionReportUpdate">
+					<xsl:apply-templates
+						select="nc30:Location[@structures:id=/cfdu-doc:CaseFilingDecisionReportUpdate/j:OffenseLocationAssociation[j:Offense/@structures:ref=offenseID]/nc:Location/@structures:ref]"
+						mode="offenseLocation" />
+				</xsl:when>
+			</xsl:choose>
 		</criminalcase:ChargeOffense>
 	</xsl:template>
 	<xsl:template match="j51:ChargeSeverityLevel">
@@ -154,9 +181,20 @@
 			<xsl:apply-templates
 				select="j51:CaseCourtEvent/j51:CourtEventAppearance/j51:CourtAppearanceDate/nc30:Date"
 				mode="courtEvent" />
-			<xsl:apply-templates
-				select="/cfd-doc:CaseFilingDecisionReport/nc30:Person[@structures:id=/cfd-doc:CaseFilingDecisionReport/nc30:PersonResidenceAssociation/nc30:Person/@structures:ref]"
-				mode="subject" />
+			<!-- xsl:apply-templates select="/cfd-doc:CaseFilingDecisionReport/nc30:Person[@structures:id=/cfd-doc:CaseFilingDecisionReport/nc30:PersonResidenceAssociation/nc30:Person/@structures:ref]" 
+				mode="subject" / -->
+			<xsl:choose>
+				<xsl:when test="/cfd-doc:CaseFilingDecisionReport">
+					<xsl:apply-templates
+						select="/cfd-doc:CaseFilingDecisionReport/nc30:Person[@structures:id=/cfd-doc:CaseFilingDecisionReport/nc30:PersonResidenceAssociation/nc30:Person/@structures:ref]"
+						mode="subject" />
+				</xsl:when>
+				<xsl:when test="/cfdu-doc:CaseFilingDecisionReportUpdate">
+					<xsl:apply-templates
+						select="/cfdu-doc:CaseFilingDecisionReportUpdate/nc30:Person[@structures:id=/cfdu-doc:CaseFilingDecisionReportUpdate/nc30:PersonResidenceAssociation/nc30:Person/@structures:ref]"
+						mode="subject" />
+				</xsl:when>
+			</xsl:choose>
 			<xsl:apply-templates
 				select="j51:CaseProsecutionAttorney/j51:JudicialOfficialBarMembership/j51:JudicialOfficialBarIdentification/nc30:IdentificationID"
 				mode="prosecutor" />
@@ -206,9 +244,20 @@
 					select="cfd-ext:AlaskaPublicSafetyInformationNetworkIdentification" />
 				<xsl:apply-templates
 					select="j51:PersonAugmentation/j51:DriverLicense/j51:DriverLicenseIdentification" />
-				<xsl:apply-templates
-					select="/cfd-doc:CaseFilingDecisionReport/nc30:Location[@structures:id=/cfd-doc:CaseFilingDecisionReport/nc30:PersonResidenceAssociation/nc30:Location/@structures:ref]/nc30:Address"
-					mode="subject" />
+				<!-- xsl:apply-templates select="/cfd-doc:CaseFilingDecisionReport/nc30:Location[@structures:id=/cfd-doc:CaseFilingDecisionReport/nc30:PersonResidenceAssociation/nc30:Location/@structures:ref]/nc30:Address" 
+					mode="subject" / -->
+				<xsl:choose>
+					<xsl:when test="/cfd-doc:CaseFilingDecisionReport">
+						<xsl:apply-templates
+							select="/cfd-doc:CaseFilingDecisionReport/nc30:Location[@structures:id=/cfd-doc:CaseFilingDecisionReport/nc30:PersonResidenceAssociation/nc30:Location/@structures:ref]/nc30:Address"
+							mode="subject" />
+					</xsl:when>
+					<xsl:when test="/cfdu-doc:CaseFilingDecisionReportUpdate">
+						<xsl:apply-templates
+							select="/cfdu-doc:CaseFilingDecisionReportUpdate/nc30:Location[@structures:id=/cfdu-doc:CaseFilingDecisionReportUpdate/nc30:PersonResidenceAssociation/nc30:Location/@structures:ref]/nc30:Address"
+							mode="subject" />
+					</xsl:when>
+				</xsl:choose>
 			</ecf:EntityPerson>
 		</j:CaseDefendantParty>
 	</xsl:template>
@@ -269,8 +318,8 @@
 				select="nc30:IdentificationJurisdiction/nc30:JurisdictionText" />
 		</nc:PersonOtherIdentification>
 	</xsl:template>
-	<!-- MATCH -->
-	<xsl:template match="cfd-doc:CaseFilingDecisionReport"
+	<xsl:template
+		match="cfd-doc:CaseFilingDecisionReport | cfdu-doc:CaseFilingDecisionReportUpdate"
 		mode="ecf">
 		<ecf:SendingMDELocationID />
 		<ecf:SendingMDEProfileCode />

@@ -167,15 +167,9 @@
 			<table style="width:100%">
 				<tr>
 					<td class="detailsLabel">Make</td>
-					<td>
+					<td colspan="3">
 						<xsl:value-of
 							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/nc:ItemMakeName"></xsl:value-of>
-					</td>
-					<!-- Not used in the Appriss Crash Report -->
-					<td class="detailsLabel">Model</td>
-					<td>
-						<xsl:value-of
-							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Vehicle[@structures:id=$vehicleId]/j:VehicleModelCode"></xsl:value-of>
 					</td>
 				</tr>
 				<tr>
@@ -242,13 +236,6 @@
 					<td>
 						<xsl:value-of select="me-crash-codes:PostedSpeedLimitCodeText" />
 					</td>
-					<!-- Not used in the Appriss Crash Report -->
-					<td class="detailsLabel">Actual Speed</td>
-					<td>
-						<xsl:value-of select="j:CrashVehicleLegalSpeedRateMeasure" />
-					</td>
-				</tr>
-				<tr>
 					<td class="detailsLabel">Hazmat</td>
 					<td>
 						<xsl:apply-templates select="vcq-res-ext:HazmatPlacardIndicator"
