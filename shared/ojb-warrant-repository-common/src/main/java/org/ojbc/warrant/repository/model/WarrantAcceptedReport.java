@@ -26,6 +26,7 @@ public class WarrantAcceptedReport {
 	private String warrantStatus;
 	private String stateWarrantRepositoryID;
 	private String operator;
+	private Person person;
 	
 	public String getOcaComplaintNumber() {
 		return ocaComplaintNumber;
@@ -61,6 +62,12 @@ public class WarrantAcceptedReport {
 	}
 	public void setOperator(String operator) {
 		this.operator = operator;
+	}
+	public Person getPerson() {
+		return person;
+	}
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 }
