@@ -47,7 +47,7 @@ public class Warrant {
     
     private List<WarrantRemarks> warrantRemarks;
     private List<String> warrantRemarkStrings;
-    private List<Person> persons; 
+    private Person person; 
     private List<WarrantStatus> warrantStatuses;
     
     private List<ChargeReferral> chargeReferrals;
@@ -197,16 +197,16 @@ public class Warrant {
 	public void setWarrantRemarkStrings(List<String> warrantRemarkStrings) {
 		this.warrantRemarkStrings = warrantRemarkStrings;
 	}
-	public List<Person> getPersons() {
-		return persons;
-	}
-	public void setPersons(List<Person> persons) {
-		this.persons = persons;
-	}
 	public List<WarrantStatus> getWarrantStatuses() {
 		return warrantStatuses;
 	}
 	public void setWarrantStatuses(List<WarrantStatus> warrantStatuses) {
 		this.warrantStatuses = warrantStatuses;
+	}
+	public Person getPerson() {
+		return person;
+	}
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 }
