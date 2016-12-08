@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyRelease;
+import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +33,6 @@ public class CustodyReleaseReportProcessor extends AbstractReportRepositoryProce
 
 	private static final Log log = LogFactory.getLog( CustodyReleaseReportProcessor.class );
 	
-	@Transactional(rollbackFor=Exception.class)
 	public void processReport(Document report) throws Exception
 	{
 		log.info("Processing Custody Release report." );
@@ -49,7 +49,7 @@ public class CustodyReleaseReportProcessor extends AbstractReportRepositoryProce
 		custodyRelease.setReleaseCondition(releaseCondition);
 		
 		String releaseDateTimeString = XmlUtils.xPathStringSearch(bookingNode, "following-sibling::nc30:Release/nc30:ActivityDate/nc30:DateTime");
-		LocalDateTime releaseDateTime = parseLocalDateTime(releaseDateTimeString);
+		LocalDateTime releaseDateTime = OJBCDateUtils.parseLocalDateTime(releaseDateTimeString);
 		
 		if (releaseDateTime != null){
 			custodyRelease.setReleaseDate(releaseDateTime.toLocalDate());
@@ -57,7 +57,7 @@ public class CustodyReleaseReportProcessor extends AbstractReportRepositoryProce
 		}
 		else{
 			String releaseDateString = XmlUtils.xPathStringSearch(bookingNode, "following-sibling::nc30:Release/nc30:ActivityDate/nc30:Date");
-			custodyRelease.setReleaseDate(parseLocalDate(releaseDateString));
+			custodyRelease.setReleaseDate(OJBCDateUtils.parseLocalDate(releaseDateString));
 		}
 		
 		custodyRelease.setBookingNumber(bookingNumber);
