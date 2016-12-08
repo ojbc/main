@@ -55,6 +55,7 @@
 	$(function() {
 		$( document ).tooltip();
 		
+		numCols = $("#searchResultsTable").find('tr')[0].cells.length;
 		optTable = {
 			"pagingType": "full_numbers",
 			"pageLength": 50,
@@ -64,7 +65,7 @@
         		"emptyTable": "No rapback record available"
    			 },
 			"columnDefs": [{
-				targets: [ 6 ],
+				targets: [ numCols -1 ],
 			    searchable: false, 
 			    sortable: false
 			} ]
