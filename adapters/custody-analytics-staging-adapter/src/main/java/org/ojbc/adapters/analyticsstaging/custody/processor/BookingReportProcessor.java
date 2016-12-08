@@ -32,6 +32,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingArrest;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.BookingCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CodeTable;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
+import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +46,6 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 
 	private static final Log log = LogFactory.getLog( BookingReportProcessor.class );
 	
-	@Transactional(rollbackFor=Exception.class)
 	public void processReport(Document report) throws Exception
 	{
 		log.info("Processing booking report." );
@@ -60,7 +60,8 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 		
 	}
 
-	private void processBookingArrests(Document report, Integer bookingId) throws Exception {
+	@Transactional(rollbackFor=Exception.class)
+	public void processBookingArrests(Document report, Integer bookingId) throws Exception {
 		
 		NodeList locationNodes = XmlUtils.xPathNodeListSearch(report, 
 				"/br-doc:BookingReport/nc30:Location[@s30:id = /br-doc:BookingReport/jxdm51:Arrest/jxdm51:ArrestLocation/@s30:ref]");
@@ -153,7 +154,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
 		}
 	}
 
-	@Transactional
+	@Transactional(rollbackFor=Exception.class)
 	private Booking processBookingReport(Document report) throws Exception {
 		Node bookingReportNode = XmlUtils.xPathNodeSearch(report, "/br-doc:BookingReport");
 		String bookingNumber = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID");
@@ -168,7 +169,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         
         
         String bookingDateTimeString = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
-        LocalDateTime bookingDateTime = parseLocalDateTime(bookingDateTimeString);
+        LocalDateTime bookingDateTime = OJBCDateUtils.parseLocalDateTime(bookingDateTimeString);
         
         if (bookingDateTime != null){
         	booking.setBookingDate( bookingDateTime.toLocalDate());
@@ -176,7 +177,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         }
         else{
         	String bookingDateString = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/nc30:ActivityDate/nc30:Date");
-        	booking.setBookingDate(parseLocalDate(bookingDateString));
+        	booking.setBookingDate(OJBCDateUtils.parseLocalDate(bookingDateString));
         }
 
         String facility = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Booking/jxdm51:BookingDetentionFacility/nc30:FacilityIdentification/nc30:IdentificationID");
@@ -189,7 +190,7 @@ public class BookingReportProcessor extends AbstractReportRepositoryProcessor {
         
 		String supervisionReleaseEligibilityDate = XmlUtils.xPathStringSearch(bookingReportNode, 
         		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseEligibilityDate/nc30:Date");
-        booking.setScheduledReleaseDate(parseLocalDate(supervisionReleaseEligibilityDate));
+        booking.setScheduledReleaseDate(OJBCDateUtils.parseLocalDate(supervisionReleaseEligibilityDate));
 
  		String inmateJailResidentIndicator = XmlUtils.xPathStringSearch(bookingReportNode, "jxdm51:Detention/br-ext:InmateJailResidentIndicator");
  		booking.setInmateJailResidentIndicator(BooleanUtils.toBooleanObject(inmateJailResidentIndicator));

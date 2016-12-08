@@ -94,6 +94,7 @@ public class VehicleControllerTest {
 		unit.searchResultConverter = searchResultConverter;
 		unit.userSession = userSession;
 		unit.samlService = samlService;
+		unit.vehiclesSearchResultPage="vehicles/_searchResult";
 		
 		unit.config = new VehiclesControllerConfigInterface() {
 			

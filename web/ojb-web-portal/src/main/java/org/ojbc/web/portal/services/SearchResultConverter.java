@@ -44,7 +44,7 @@ public class SearchResultConverter implements ApplicationContextAware {
 	@Value("${personSearchResultXslLocation:classpath:xsl/personSearchResult.xsl}")
 	org.springframework.core.io.Resource searchResultXsl;
 	
-	@Value("classpath:xsl/vehicleSearchResult.xsl")
+	@Value("${vehicleSearchResultXslLocation:classpath:xsl/vehicleSearchResult.xsl}")
 	org.springframework.core.io.Resource vehicleSearchResultXsl;
 	
 	@Value("classpath:xsl/incidentSearchResult.xsl")

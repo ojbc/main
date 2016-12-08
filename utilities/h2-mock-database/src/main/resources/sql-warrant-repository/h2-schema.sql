@@ -19,7 +19,6 @@ CREATE schema warrant_repository;
 use warrant_repository;
 
 
-
 CREATE TABLE WarrantStatusType (
                 WarrantStatusTypeID IDENTITY NOT NULL,
                 WarrantStatusType VARCHAR(20) NOT NULL,
@@ -49,7 +48,7 @@ CREATE TABLE Warrant (
                 ExtraditionLimits VARCHAR(1) DEFAULT 1,
                 PickupLimits VARCHAR(1),
                 BondAmount VARCHAR(8),
-                LastUpdateTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                LastUpdateTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
                 CONSTRAINT Warrant_pk PRIMARY KEY (WarrantID)
 );
 COMMENT ON COLUMN Warrant.DateOfExpiration IS 'Date the warrant expires, CCYY-MM-DD. Example: 2016-07-01';
@@ -63,9 +62,9 @@ COMMENT ON COLUMN Warrant.ExtraditionLimits IS 'cluded.';
 
 
 CREATE TABLE WarrantStatus (
-                WarrantStatusID INTEGER NOT NULL,
+                WarrantStatusID IDENTITY NOT NULL,
                 Operator VARCHAR(15),
-                WarrantStatusTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                WarrantStatusTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
                 WarrantStatusTypeID INTEGER NOT NULL,
                 WarrantID INTEGER NOT NULL,
                 CONSTRAINT WarrantStatus_pk PRIMARY KEY (WarrantStatusID)
@@ -196,7 +195,7 @@ CREATE TABLE ChargeRef (
                 ChargeRefID IDENTITY NOT NULL,
                 PersonID INTEGER NOT NULL,
                 ReportingAgencyORI VARCHAR(9) NOT NULL,
-                CaseAgencyComplaintNumber VARCHAR(20) NOT NULL,
+                CaseAgencyComplaintNumber VARCHAR(20),
                 TransactionControlNumber VARCHAR(11),
                 ReportingAgencyName VARCHAR(50) NOT NULL,
                 LastUpdateTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
