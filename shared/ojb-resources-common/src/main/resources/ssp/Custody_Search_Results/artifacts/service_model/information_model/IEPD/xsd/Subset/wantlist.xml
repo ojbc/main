@@ -18,6 +18,7 @@
 
 -->
 <w:WantList w:release="3.1" w:product="NIEM" w:nillableDefault="true"
+  xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
   xmlns:w="http://niem.gov/niem/wantlist/2.2"
   xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/"
   xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
@@ -79,6 +80,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ChargeSentence" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeStatute" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -87,6 +90,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:PersonAugmentationType" w:isRequested="false">
+    <w:ElementInType w:name="j:PersonProbationerIndicator"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:PersonCharge" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:PersonStateFingerprintIdentification"
@@ -100,6 +105,8 @@
   </w:Type>
   <w:Type w:name="j:SentenceType" w:isRequested="false">
     <w:ElementInType w:name="j:SentenceCondition" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:SentenceTerm" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:StatuteType" w:isRequested="false">
@@ -119,6 +126,10 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SupervisionCellIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:TermType" w:isRequested="false">
+    <w:ElementInType w:name="j:TermDuration" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ActivityType" w:isRequested="true">
     <w:ElementInType w:name="nc:ActivityCategoryText"
@@ -242,4 +253,5 @@
     <w:Facet w:facet="enumeration" w:value="M"/>
     <w:Facet w:facet="enumeration" w:value="U"/>
   </w:Type>
+  <w:Type w:name="niem-xs:duration" w:isRequested="true"/>
 </w:WantList>

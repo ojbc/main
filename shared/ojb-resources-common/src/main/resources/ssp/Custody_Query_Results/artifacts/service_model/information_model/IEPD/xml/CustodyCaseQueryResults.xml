@@ -132,6 +132,14 @@
 			<j:ChargeCountQuantity>0</j:ChargeCountQuantity>
 			<j:ChargeDescriptionText>Charge Description</j:ChargeDescriptionText>
 			<j:ChargeHighestIndicator>true</j:ChargeHighestIndicator>
+			<j:ChargeSentence>
+				<nc:ActivityDate>
+					<nc:Date>2001-12-31</nc:Date>
+				</nc:ActivityDate>
+				<j:SentenceTerm>
+					<j:TermDuration>P1D</j:TermDuration>
+				</j:SentenceTerm>
+			</j:ChargeSentence>
 			<j:ChargeSequenceID>Charge Sequence ID</j:ChargeSequenceID>
 			<j:ChargeStatute>
 				<j:StatuteCodeIdentification>
@@ -152,6 +160,14 @@
 			<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
 			<j:ChargeDescriptionText>Charge Description</j:ChargeDescriptionText>
 			<j:ChargeHighestIndicator>false</j:ChargeHighestIndicator>
+			<j:ChargeSentence>
+				<nc:ActivityDate>
+					<nc:Date>2001-12-31</nc:Date>
+				</nc:ActivityDate>
+				<j:SentenceTerm>
+					<j:TermDuration>P200D</j:TermDuration>
+				</j:SentenceTerm>
+			</j:ChargeSentence>
 			<j:ChargeSequenceID>Charge Sequence ID</j:ChargeSequenceID>
 			<j:ChargeStatute>
 				<j:StatuteCodeIdentification>
@@ -251,6 +267,7 @@
 						</nc:IdentificationSourceText>
 					</j:DriverLicenseCardIdentification>
 				</j:DriverLicense>
+				<j:PersonProbationerIndicator>false</j:PersonProbationerIndicator>
 				<nc:EmployeeOccupationCategoryText>Truck Driver
 				</nc:EmployeeOccupationCategoryText>
 				<j:PersonFBIIdentification>
@@ -260,6 +277,8 @@
 					<nc:IdentificationID>CO0120010324</nc:IdentificationID>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
+			<cq-res-ext:PersonIncarceratedIndicator>true
+			</cq-res-ext:PersonIncarceratedIndicator>
 		</nc:Person>
 		<nc:Person>
 			<nc:PersonName structures:id="Officer_01">

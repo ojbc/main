@@ -49,8 +49,10 @@
   <w:Element w:name="j:PersonSexCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PersonStateFingerprintIdentification"
     w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:Sentence" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Subject" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:SupervisionAugmentation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:TermDuration" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityDateRange" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityPersonAssociation" w:isReference="false" w:nillable="true"/>
@@ -156,6 +158,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeHighestIndicator"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ChargeSentence" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeSequenceID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeStatute" w:isReference="false"
@@ -186,6 +190,8 @@
   <w:Type w:name="j:PersonAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:DriverLicense" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:PersonProbationerIndicator"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:EmployeeOccupationCategory"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:PersonFBIIdentification"
@@ -196,6 +202,10 @@
   <w:Type w:name="j:PersonCriminalHistorySummaryType" w:isRequested="false">
     <w:ElementInType w:name="j:RegisteredSexualOffenderIndicator"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:SentenceType" w:isRequested="false">
+    <w:ElementInType w:name="j:SentenceTerm" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:StatuteType" w:isRequested="false">
     <w:ElementInType w:name="j:StatuteCodeIdentification"
@@ -220,6 +230,10 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:SupervisionCondition"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="j:TermType" w:isRequested="false">
+    <w:ElementInType w:name="j:TermDuration" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ActivityPersonAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Activity" w:isReference="false"
@@ -504,6 +518,7 @@
     <w:Facet w:facet="enumeration" w:value="F"/>
   </w:Type>
   <w:Type w:name="niem-xs:boolean" w:isRequested="true"/>
+  <w:Type w:name="niem-xs:duration" w:isRequested="true"/>
   <w:Type w:name="ucr:EthnicityCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="H"/>
     <w:Facet w:facet="enumeration" w:value="N"/>
