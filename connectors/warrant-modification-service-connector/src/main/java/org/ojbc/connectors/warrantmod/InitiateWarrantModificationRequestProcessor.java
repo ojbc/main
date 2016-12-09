@@ -77,104 +77,93 @@ public class InitiateWarrantModificationRequestProcessor {
 
 	private Document createWarrantModificationRequestDocument(Integer warrantId) throws Exception {
 		Warrant warrant = warrantsRepositoryBaseDAO.retrieveWarrant(warrantId);
-		warrant.setPersons(warrantsRepositoryBaseDAO.retrievePersons(warrantId));
+		warrant.setPerson(warrantsRepositoryBaseDAO.retrievePerson(warrantId));
 		
 		Document document = OJBCXMLUtils.createDocument(); 
         Element rootElement = createWarrantModificationRequestRootElement(document);
         appendCaseElement(warrant, rootElement);
         appendWarrantElement(warrant, rootElement);
-        appendPersonElements(warrant.getPersons(), rootElement);
-        appendVehicleElements(warrant.getPersons(), rootElement);
-        appendConveyanceRegistrations(warrant.getPersons(), rootElement);
-        appendContactInformation(warrant.getPersons(), rootElement);
-        appendContactInformationAssociation(warrant.getPersons(), rootElement);
-        appendConveyanceRegistrationAssociation(warrant.getPersons(), rootElement);
-        appendPersonConveyanceAssociation(warrant.getPersons(), rootElement);
+        appendPersonElements(warrant.getPerson(), rootElement);
+        appendVehicleElements(warrant.getPerson(), rootElement);
+        appendConveyanceRegistrations(warrant.getPerson(), rootElement);
+        appendContactInformation(warrant.getPerson(), rootElement);
+        appendContactInformationAssociation(warrant.getPerson(), rootElement);
+        appendConveyanceRegistrationAssociation(warrant.getPerson(), rootElement);
+        appendPersonConveyanceAssociation(warrant.getPerson(), rootElement);
         appendActivityWarrantAssociation(rootElement);
 		return document;
 	}
 
-	private void appendContactInformationAssociation(List<Person> persons,
+	private void appendContactInformationAssociation(Person person,
 			Element rootElement) {
-		for (int i = 0; i < persons.size(); i++ ){
+		Element contactInformationAssociation = XmlUtils.appendElement(rootElement, NS_NC_30, "ContactInformationAssociation");
+		
+		Element contactEntity = XmlUtils.appendElement(contactInformationAssociation, NS_NC_30, "ContactEntity");
+		Element entityPerson = XmlUtils.appendElement(contactEntity, NS_NC_30, "EntityPerson");
+		String personId = "Person_01";
+		XmlUtils.addAttribute(entityPerson, NS_STRUCTURES_30, "ref", personId);
+		
+		Element contactInformation = XmlUtils.appendElement(contactInformationAssociation, NS_NC_30, "ContactInformation");
+		Element contactMailingAddress = XmlUtils.appendElement(contactInformation, NS_NC_30, "ContactMailingAddress");
+		String addressId = "Address_01";
+		XmlUtils.addAttribute(contactMailingAddress, NS_STRUCTURES_30, "ref", addressId);
+	}
+
+	private void appendContactInformation(Person person,
+			Element rootElement) {
 			
-			Element contactInformationAssociation = XmlUtils.appendElement(rootElement, NS_NC_30, "ContactInformationAssociation");
+		Element contactInformation = XmlUtils.appendElement(rootElement, NS_NC_30, "ContactInformation");
+		Element contactMailingAddress = XmlUtils.appendElement(contactInformation, NS_NC_30, "ContactMailingAddress");
+		
+		String addressId = "Address_01";
+		XmlUtils.addAttribute(contactMailingAddress, NS_STRUCTURES_30, "id", addressId);
+		
+		Element locationStreet = XmlUtils.appendElement(contactMailingAddress, NS_NC_30, "LocationStreet");
+		appendTextElement(locationStreet, NS_NC_30, "StreetFullText", person.getAddressStreetFullText());
+		appendTextElement(locationStreet, NS_NC_30, "StreetNumberText", person.getAddressStreetNumber());
+		appendTextElement(locationStreet, NS_NC_30, "StreetName", person.getAddressStreetName());
+		appendTextElement(contactMailingAddress, NS_NC_30, "LocationCityName", person.getAddressCity());
+		appendTextElement(contactMailingAddress, NS_NC_30, "LocationCountyName", person.getAddressCounty());
+		appendTextElement(contactMailingAddress, NS_NC_30, "LocationStateName", person.getAddressState());
+		appendTextElement(contactMailingAddress, NS_NC_30, "LocationPostalCode", person.getAddressZip());
+		appendTextElement(contactMailingAddress, NS_WARRANT_MOD_REQ_EXT, "AddressCategoryText", "Mail");
+	}
+
+	private void appendConveyanceRegistrationAssociation(Person person,
+			Element rootElement) {
+		List<PersonVehicle> vehicles = person.getPersonVehicles();
+		
+		for (int j = 0; j < vehicles.size(); j++){
+			Element conveyanceRegistrationAssociation = XmlUtils.appendElement(rootElement, NS_JXDM_51, "ConveyanceRegistrationAssociation");
 			
-			Element contactEntity = XmlUtils.appendElement(contactInformationAssociation, NS_NC_30, "ContactEntity");
-			Element entityPerson = XmlUtils.appendElement(contactEntity, NS_NC_30, "EntityPerson");
-			String personId = "Person_" + StringUtils.leftPad(String.valueOf(i + 1), 2, '0');
-			XmlUtils.addAttribute(entityPerson, NS_STRUCTURES_30, "ref", personId);
+			String registrationId = "Reg_" + StringUtils.leftPad(String.valueOf(j + 1), 2, '0');
+			Element itemRegistration = XmlUtils.appendElement(conveyanceRegistrationAssociation, NS_JXDM_51, "ItemRegistration");
+			XmlUtils.addAttribute(itemRegistration, NS_STRUCTURES_30, "ref", registrationId);
 			
-			Element contactInformation = XmlUtils.appendElement(contactInformationAssociation, NS_NC_30, "ContactInformation");
-			Element contactMailingAddress = XmlUtils.appendElement(contactInformation, NS_NC_30, "ContactMailingAddress");
-			String addressId = "Address_" + StringUtils.leftPad(String.valueOf(i + 1), 2, '0');
-			XmlUtils.addAttribute(contactMailingAddress, NS_STRUCTURES_30, "ref", addressId);
+			String vehicleId = "Vehicle_" + StringUtils.leftPad(String.valueOf(j + 1), 2, '0');
+			Element item = XmlUtils.appendElement(conveyanceRegistrationAssociation, NS_NC_30, "Item");
+			XmlUtils.addAttribute(item, NS_STRUCTURES_30, "ref", vehicleId);
+			
 		}
 		
 	}
 
-	private void appendContactInformation(List<Person> persons,
+	private void appendConveyanceRegistrations(Person person,
 			Element rootElement) {
-		for (int i = 0; i < persons.size(); i++ ){
-			Person person = persons.get(i);
-			
-			Element contactInformation = XmlUtils.appendElement(rootElement, NS_NC_30, "ContactInformation");
-			Element contactMailingAddress = XmlUtils.appendElement(contactInformation, NS_NC_30, "ContactMailingAddress");
-			
-			String addressId = "Address_" + StringUtils.leftPad(String.valueOf(i + 1), 2, '0');
-			XmlUtils.addAttribute(contactMailingAddress, NS_STRUCTURES_30, "id", addressId);
-			
-			Element locationStreet = XmlUtils.appendElement(contactMailingAddress, NS_NC_30, "LocationStreet");
-			appendTextElement(locationStreet, NS_NC_30, "StreetFullText", person.getAddressStreetFullText());
-			appendTextElement(locationStreet, NS_NC_30, "StreetNumberText", person.getAddressStreetNumber());
-			appendTextElement(locationStreet, NS_NC_30, "StreetName", person.getAddressStreetName());
-			appendTextElement(contactMailingAddress, NS_NC_30, "LocationCityName", person.getAddressCity());
-			appendTextElement(contactMailingAddress, NS_NC_30, "LocationCountyName", person.getAddressCounty());
-			appendTextElement(contactMailingAddress, NS_NC_30, "LocationStateName", person.getAddressState());
-			appendTextElement(contactMailingAddress, NS_NC_30, "LocationPostalCode", person.getAddressZip());
-			appendTextElement(contactMailingAddress, NS_WARRANT_MOD_REQ_EXT, "AddressCategoryText", "Mail");
-		}
-	}
-
-	private void appendConveyanceRegistrationAssociation(List<Person> persons,
-			Element rootElement) {
-		for (int personIndex = 0, vehicleIndex = 1; personIndex < persons.size(); personIndex++){
-			List<PersonVehicle> vehicles = persons.get(personIndex).getPersonVehicles();
-			
-			for (int j = 0; j < vehicles.size(); j++){
-				Element conveyanceRegistrationAssociation = XmlUtils.appendElement(rootElement, NS_JXDM_51, "ConveyanceRegistrationAssociation");
-				
-				String registrationId = "Reg_" + StringUtils.leftPad(String.valueOf(vehicleIndex), 2, '0');
-				Element itemRegistration = XmlUtils.appendElement(conveyanceRegistrationAssociation, NS_JXDM_51, "ItemRegistration");
-				XmlUtils.addAttribute(itemRegistration, NS_STRUCTURES_30, "ref", registrationId);
-				
-				String vehicleId = "Vehicle_" + StringUtils.leftPad(String.valueOf(vehicleIndex), 2, '0');
-				Element item = XmlUtils.appendElement(conveyanceRegistrationAssociation, NS_NC_30, "Item");
-				XmlUtils.addAttribute(item, NS_STRUCTURES_30, "ref", vehicleId);
-				
-				vehicleIndex++;
-			}
-		}
+		List<PersonVehicle> vehicles = person.getPersonVehicles();
 		
-	}
-
-	private void appendConveyanceRegistrations(List<Person> persons,
-			Element rootElement) {
-		for (int personIndex = 0, vehicleIndex = 1; personIndex < persons.size(); personIndex++){
-			List<PersonVehicle> vehicles = persons.get(personIndex).getPersonVehicles();
+		int vehicleIndex = 1;
+		for (PersonVehicle vehicle: vehicles){
+			Element conveyanceRegistration = XmlUtils.appendElement(rootElement, NS_JXDM_51, "ConveyanceRegistration");
+			String registrationId = "Reg_" + StringUtils.leftPad(String.valueOf(vehicleIndex++), 2, '0');
+			XmlUtils.addAttribute(conveyanceRegistration, NS_STRUCTURES_30, "id", registrationId);
 			
-			for (PersonVehicle vehicle: vehicles){
-				Element conveyanceRegistration = XmlUtils.appendElement(rootElement, NS_JXDM_51, "ConveyanceRegistration");
-				String registrationId = "Reg_" + StringUtils.leftPad(String.valueOf(vehicleIndex++), 2, '0');
-				XmlUtils.addAttribute(conveyanceRegistration, NS_STRUCTURES_30, "id", registrationId);
-				
-				appendVehicleRegistrationExpirationDate(vehicle, conveyanceRegistration);
-				appendTextElement(conveyanceRegistration, NS_JXDM_51, "JurisdictionNCICLISCode", vehicle.getVehicleLicenseStateCode());
-				appendIdentificationWrapper(conveyanceRegistration, NS_JXDM_51, 
-						"ConveyanceRegistrationPlateIdentification", vehicle.getVehicleLicensePlateNumber());
-				appendTextElement(conveyanceRegistration, NS_JXDM_51, 
-						"ConveyanceRegistrationPlateCategoryText", vehicle.getLicensePlateType());
-			}
+			appendVehicleRegistrationExpirationDate(vehicle, conveyanceRegistration);
+			appendTextElement(conveyanceRegistration, NS_JXDM_51, "JurisdictionNCICLISCode", vehicle.getVehicleLicenseStateCode());
+			appendIdentificationWrapper(conveyanceRegistration, NS_JXDM_51, 
+					"ConveyanceRegistrationPlateIdentification", vehicle.getVehicleLicensePlateNumber());
+			appendTextElement(conveyanceRegistration, NS_JXDM_51, 
+					"ConveyanceRegistrationPlateCategoryText", vehicle.getLicensePlateType());
 		}
 	}
 
@@ -193,81 +182,72 @@ public class InitiateWarrantModificationRequestProcessor {
 		}
 	}
 
-	private void appendPersonConveyanceAssociation(List<Person> persons,
+	private void appendPersonConveyanceAssociation(Person person,
 			Element rootElement) {
-		for (int personIndex = 0, vehicleIndex = 1; personIndex < persons.size(); personIndex++){
-			List<PersonVehicle> vehicles = persons.get(personIndex).getPersonVehicles();
+		List<PersonVehicle> vehicles = person.getPersonVehicles();
+		
+		for (int j = 0; j< vehicles.size(); j++){
+			Element personConveyanceAssociation = XmlUtils.appendElement(rootElement, NS_NC_30, "PersonConveyanceAssociation");
+			Element personElement = XmlUtils.appendElement(personConveyanceAssociation, NS_NC_30, "Person");
+			String personId = "Person_01";
+			XmlUtils.addAttribute(personElement, NS_STRUCTURES_30, "ref", personId); 
 			
-			for (int j = 0; j< vehicles.size(); j++){
-				Element personConveyanceAssociation = XmlUtils.appendElement(rootElement, NS_NC_30, "PersonConveyanceAssociation");
-				Element person = XmlUtils.appendElement(personConveyanceAssociation, NS_NC_30, "Person");
-				String personId = "Person_" + StringUtils.leftPad(String.valueOf(personIndex + 1), 2, '0');
-				XmlUtils.addAttribute(person, NS_STRUCTURES_30, "ref", personId); 
-				
-				Element conveyance = XmlUtils.appendElement(personConveyanceAssociation, NS_NC_30, "Conveyance");
-				String vehicleId = "Vehicle_" + StringUtils.leftPad(String.valueOf(vehicleIndex++), 2, '0');
-				XmlUtils.addAttribute(conveyance, NS_STRUCTURES_30, "ref", vehicleId);
-			}
+			Element conveyance = XmlUtils.appendElement(personConveyanceAssociation, NS_NC_30, "Conveyance");
+			String vehicleId = "Vehicle_" + StringUtils.leftPad(String.valueOf(j+1), 2, '0');
+			XmlUtils.addAttribute(conveyance, NS_STRUCTURES_30, "ref", vehicleId);
 		}
 	}
 
-	private void appendVehicleElements(List<Person> persons, Element rootElement) throws Exception {
+	private void appendVehicleElements(Person person, Element rootElement) throws Exception {
 		
 		int vehicleIndex = 1; 
-		for (int personIndex = 0; personIndex < persons.size(); personIndex++ ){
-			List<PersonVehicle> vehicles = persons.get(personIndex).getPersonVehicles();
+		List<PersonVehicle> vehicles = person.getPersonVehicles();
+		
+		for (int i=0; i < vehicles.size(); i++){
 			
-			for (int i=0; i < vehicles.size(); i++){
-				
-				PersonVehicle vehicle = vehicles.get(i);
-				Element vehicleElement = XmlUtils.appendElement(rootElement, NS_NC_30, "Vehicle");
-				String vehicleId = "Vehicle_" + StringUtils.leftPad(String.valueOf(vehicleIndex++), 2, '0');
-				XmlUtils.addAttribute(vehicleElement, NS_STRUCTURES_30, "id", vehicleId);
-				
-				appendTextElement(vehicleElement, NS_NC_30, "ConveyanceColorPrimaryText", vehicle.getVehiclePrimaryColor());
-				appendTextElement(vehicleElement, NS_NC_30, "ConveyanceColorSecondaryText", vehicle.getVehicleSecondaryColor());
-				appendTextElement(vehicleElement, NS_NC_30, "ItemMakeName", vehicle.getVehicleMake());
-				appendTextElement(vehicleElement, NS_NC_30, "ItemModelName", vehicle.getVehicleModel());
-				appendTextElement(vehicleElement, NS_NC_30, "ItemModelYearDate", vehicle.getVehicleYear());
-				appendTextElement(vehicleElement, NS_NC_30, "ItemStyleText", vehicle.getVehicleStyle());
-				appendIdentificationWrapper(vehicleElement, NS_NC_30, "VehicleIdentification", vehicle.getVehicleIdentificationNumber());
-			}
+			PersonVehicle vehicle = vehicles.get(i);
+			Element vehicleElement = XmlUtils.appendElement(rootElement, NS_NC_30, "Vehicle");
+			String vehicleId = "Vehicle_" + StringUtils.leftPad(String.valueOf(vehicleIndex++), 2, '0');
+			XmlUtils.addAttribute(vehicleElement, NS_STRUCTURES_30, "id", vehicleId);
 			
+			appendTextElement(vehicleElement, NS_NC_30, "ConveyanceColorPrimaryText", vehicle.getVehiclePrimaryColor());
+			appendTextElement(vehicleElement, NS_NC_30, "ConveyanceColorSecondaryText", vehicle.getVehicleSecondaryColor());
+			appendTextElement(vehicleElement, NS_NC_30, "ItemMakeName", vehicle.getVehicleMake());
+			appendTextElement(vehicleElement, NS_NC_30, "ItemModelName", vehicle.getVehicleModel());
+			appendTextElement(vehicleElement, NS_NC_30, "ItemModelYearDate", vehicle.getVehicleYear());
+			appendTextElement(vehicleElement, NS_NC_30, "ItemStyleText", vehicle.getVehicleStyle());
+			appendIdentificationWrapper(vehicleElement, NS_NC_30, "VehicleIdentification", vehicle.getVehicleIdentificationNumber());
 		}
+			
 	}
 
-	private void appendPersonElements(List<Person> persons, Element rootElement) {
-		for (int i = 0; i < persons.size(); i++ ){
-			Person person = persons.get(i);
-			
-			Element personElement = XmlUtils.appendElement(rootElement, NS_NC_30, "Person");
-			String personId = "Person_" + StringUtils.leftPad(String.valueOf(i + 1), 2, '0');
-			XmlUtils.addAttribute(personElement, NS_STRUCTURES_30, "id", personId);
-			appendTextElement(personElement, NS_NC_30, "PersonAgeDescriptionText", person.getPersonAge());
-			appendPersonBirthLocation(person, personElement);
-			appendTextElement(personElement, NS_NC_30, "PersonCitizenshipText", person.getPersonCitizenshipCountry());
-			appendTextElement(personElement, NS_NC_30, "PersonEthnicityText", person.getPersonEthnicityDescription());
-			appendTextElement(personElement, NS_NC_30, "PersonEyeColorText", person.getPersonEyeColorDescription());
-			appendTextElement(personElement, NS_NC_30, "PersonHairColorText", person.getPersonHairColorDescription());
-			appendPersonHeightMeasure(person, personElement);
-			appendPersonName(person, personElement);
-			
-			appendPersonPhysicalFeature(person, personElement);
-			appendTextElement(personElement, NS_NC_30, "PersonRaceText", person.getPersonRaceDescription());
-			appendTextElement(personElement, NS_NC_30, "PersonSexText", person.getPersonSexDescription());
-			appendTextElement(personElement, NS_NC_30, "PersonSkinToneText", person.getPersonSkinToneDescription());
-			
-			appendIdentificationWrapper(personElement, NS_NC_30, "PersonSSNIdentification", person.getSocialSecurityNumberBase());
-			appendIdentificationWrapper(personElement, NS_NC_30, "PersonStateIdentification", person.getPersonStateIdentification());
-			
-			appendTextElement(personElement, NS_NC_30, "PersonUSCitizenIndicator", BooleanUtils.toStringTrueFalse(person.getUsCitizenshipIndicator()));
-			appendPersonWeightMeasure(person, personElement);
-			appendPersonAugmentation(person, personElement);
-			appendTextElement(personElement, NS_WARRANT_MOD_REQ_EXT, "PersonCautionCodeText", person.getPersonCautionDescription());
-			appendIdentificationWrapper(personElement, NS_WARRANT_MOD_REQ_EXT, "PersonMiscellaneousRecordIdentification", person.getMiscellaneousIDBase());
-			appendTextElement(personElement, NS_WARRANT_MOD_REQ_EXT, "PersonImmigrationAlienQueryIndicator", BooleanUtils.toStringTrueFalse(person.getPersonImmigrationAlienQueryIndicator()));
-		}
+	private void appendPersonElements(Person person, Element rootElement) {
+		Element personElement = XmlUtils.appendElement(rootElement, NS_NC_30, "Person");
+		String personId = "Person_01";
+		XmlUtils.addAttribute(personElement, NS_STRUCTURES_30, "id", personId);
+		appendTextElement(personElement, NS_NC_30, "PersonAgeDescriptionText", person.getPersonAge());
+		appendPersonBirthLocation(person, personElement);
+		appendTextElement(personElement, NS_NC_30, "PersonCitizenshipText", person.getPersonCitizenshipCountry());
+		appendTextElement(personElement, NS_NC_30, "PersonEthnicityText", person.getPersonEthnicityDescription());
+		appendTextElement(personElement, NS_NC_30, "PersonEyeColorText", person.getPersonEyeColorDescription());
+		appendTextElement(personElement, NS_NC_30, "PersonHairColorText", person.getPersonHairColorDescription());
+		appendPersonHeightMeasure(person, personElement);
+		appendPersonName(person, personElement);
 		
+		appendPersonPhysicalFeature(person, personElement);
+		appendTextElement(personElement, NS_NC_30, "PersonRaceText", person.getPersonRaceDescription());
+		appendTextElement(personElement, NS_NC_30, "PersonSexText", person.getPersonSexDescription());
+		appendTextElement(personElement, NS_NC_30, "PersonSkinToneText", person.getPersonSkinToneDescription());
+		
+		appendIdentificationWrapper(personElement, NS_NC_30, "PersonSSNIdentification", person.getSocialSecurityNumberBase());
+		appendIdentificationWrapper(personElement, NS_NC_30, "PersonStateIdentification", person.getPersonStateIdentification());
+		
+		appendTextElement(personElement, NS_NC_30, "PersonUSCitizenIndicator", BooleanUtils.toStringTrueFalse(person.getUsCitizenshipIndicator()));
+		appendPersonWeightMeasure(person, personElement);
+		appendPersonAugmentation(person, personElement);
+		appendTextElement(personElement, NS_WARRANT_MOD_REQ_EXT, "PersonCautionCodeText", person.getPersonCautionDescription());
+		appendIdentificationWrapper(personElement, NS_WARRANT_MOD_REQ_EXT, "PersonMiscellaneousRecordIdentification", person.getMiscellaneousIDBase());
+		appendTextElement(personElement, NS_WARRANT_MOD_REQ_EXT, "PersonImmigrationAlienQueryIndicator", BooleanUtils.toStringTrueFalse(person.getPersonImmigrationAlienQueryIndicator()));
 	}
 
 	private void appendPersonAugmentation(Person person, Element personElement) {
@@ -395,7 +375,7 @@ public class InitiateWarrantModificationRequestProcessor {
 		Element warrantElement = XmlUtils.appendElement(rootElement, NS_JXDM_51, "Warrant");
         XmlUtils.addAttribute(warrantElement, NS_STRUCTURES_30, "id", "Warrant_01");
         
-        appendCourtOrderDesignatedSubjects(warrant.getPersons(), warrantElement);
+        appendCourtOrderDesignatedSubjects(warrant.getPerson(), warrantElement);
         
         appendCourtOrderEnforcementAgency(warrant, warrantElement);
         appendCourtOrderIssuingCourt(warrant, warrantElement);
@@ -445,20 +425,18 @@ public class InitiateWarrantModificationRequestProcessor {
         
 	}
 
-	private void appendCourtOrderDesignatedSubjects(List<Person> persons, Element warrantElement) {
+	private void appendCourtOrderDesignatedSubjects(Person person, Element warrantElement) {
 		
-		for (int i=0; i<persons.size(); i++){
-        	Element courtCorderDesignatedSubject = 
-        			XmlUtils.appendElement(warrantElement, NS_JXDM_51, "CourtOrderDesignatedSubject");
-        	Element roleOfPerson = 
-        			XmlUtils.appendElement(courtCorderDesignatedSubject, NS_NC_30, "RoleOfPerson");
-        	XmlUtils.addAttribute(roleOfPerson, NS_STRUCTURES_30, "ref", 
-        			"Person_" + StringUtils.leftPad(String.valueOf(i + 1), 2, '0'));
-        	Element subjectCorrectionsIdentification = 
-        			XmlUtils.appendElement(courtCorderDesignatedSubject, NS_JXDM_51, "SubjectCorrectionsIdentification");
-        	
-        	appendIdentificationIdElement(subjectCorrectionsIdentification, persons.get(i).getPrisonRecordNumber());
-        }
+    	Element courtCorderDesignatedSubject = 
+    			XmlUtils.appendElement(warrantElement, NS_JXDM_51, "CourtOrderDesignatedSubject");
+    	Element roleOfPerson = 
+    			XmlUtils.appendElement(courtCorderDesignatedSubject, NS_NC_30, "RoleOfPerson");
+    	XmlUtils.addAttribute(roleOfPerson, NS_STRUCTURES_30, "ref", 
+    			"Person_01");
+    	Element subjectCorrectionsIdentification = 
+    			XmlUtils.appendElement(courtCorderDesignatedSubject, NS_JXDM_51, "SubjectCorrectionsIdentification");
+    	
+    	appendIdentificationIdElement(subjectCorrectionsIdentification, person.getPrisonRecordNumber());
 	}
 
 	private void appendTransactionControlNumbers(Warrant warrant, Element warrantAugmentation) {

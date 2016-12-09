@@ -31,9 +31,9 @@ public interface WarrantsRepositoryBaseDAO {
 	/**
 	 * Retrieve Person info along with the Person Vehicle info 
 	 * @param warrantId
-	 * @return List of Persons with PersonVehicle list populated.
+	 * @return Person with PersonVehicle list populated.
 	 */
-	public List<Person> retrievePersons(Integer warrantId);
+	public Person retrievePerson(Integer warrantId);
 
 	public int updateWarrantModificationRequestSentIndicator(
 			String warrantId);
