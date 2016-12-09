@@ -67,10 +67,9 @@
 					<xsd:element ref="cs-res-ext:Booking" minOccurs="0"
 						maxOccurs="unbounded" />
 					<xsd:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:PersonChargeAssociation"
-						maxOccurs="unbounded" />
+					<xsd:element ref="j:PersonChargeAssociation" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityChargeAssociation"
-						maxOccurs="unbounded" />	
+						maxOccurs="unbounded" />
 					<xsd:element ref="cs-res-ext:SourceSystemNameText"
 						minOccurs="0" />
 					<xsd:element ref="intel:SystemIdentification"
@@ -112,10 +111,8 @@
 	<xsd:element name="SourceSystemNameText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>The name of a system that returned the search
-				result.
-				This can be used to retrieve additional information about the
-				person
-				and/or court case in the search result.
+				result. This can be used to retrieve additional information about
+				the person and/or court case in the search result.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -135,6 +132,13 @@
 		<xsd:annotation>
 			<xsd:documentation>complex data element to provide information
 				regarding an inmates booking
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonIncarceratedIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a person is in jail or prison.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

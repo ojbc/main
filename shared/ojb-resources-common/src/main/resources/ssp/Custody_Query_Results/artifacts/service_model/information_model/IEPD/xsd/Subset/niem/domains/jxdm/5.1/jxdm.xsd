@@ -144,6 +144,7 @@
           <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeHighestIndicator" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeSentence" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
@@ -217,6 +218,7 @@
       <xs:extension base="structures:AugmentationType">
         <xs:sequence>
           <xs:element ref="j:DriverLicense" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:PersonProbationerIndicator" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:EmployeeOccupationCategory" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:PersonFBIIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded"/>
@@ -232,6 +234,18 @@
       <xs:extension base="nc:ActivityType">
         <xs:sequence>
           <xs:element ref="j:RegisteredSexualOffenderIndicator" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SentenceType">
+    <xs:annotation>
+      <xs:documentation>A data type for a punishment resulting from conviction of charges in a court case.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:SentenceTerm" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -274,6 +288,18 @@
           <xs:element ref="j:SupervisionBedIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SupervisionCellIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:SupervisionCondition" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="TermType">
+    <xs:annotation>
+      <xs:documentation>A data type for a duration length either in specific terms or as a range.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:TermDuration" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -398,6 +424,11 @@
       <xs:documentation>True if a charge is the most serious charge within a group of charges; false otherwise.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ChargeSentence" type="j:SentenceType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A sentence given to a person convicted of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ChargeSequenceID" type="niem-xs:string" nillable="true">
     <xs:annotation>
       <xs:documentation>A sequentially assigned identifier for charge tracking purposes.</xs:documentation>
@@ -483,6 +514,11 @@
       <xs:documentation>A color of the hair of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PersonProbationerIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if the person is known to be on probation; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="PersonRaceCode" type="ncic:RACCodeType" substitutionGroup="nc:PersonRace">
     <xs:annotation>
       <xs:documentation>A classification of a person based on factors such as geographical locations and genetics.</xs:documentation>
@@ -501,6 +537,16 @@
   <xs:element name="RegisteredSexualOffenderIndicator" type="niem-xs:boolean" nillable="true">
     <xs:annotation>
       <xs:documentation>True if a person is a registered sexual offender; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Sentence" type="j:SentenceType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A punishment resulting from conviction of charges in a court case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceTerm" type="j:TermType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A duration of a sentence. Specified as either a specific term in days-months-years or as a minimum - maximum range.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="StatuteCodeIdentification" type="nc:IdentificationType" nillable="true">
@@ -551,6 +597,11 @@
   <xs:element name="SupervisionReleaseEligibilityDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date set at which a person under supervision is eligible for release</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TermDuration" type="niem-xs:duration" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A specific range or duration of a term.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>
