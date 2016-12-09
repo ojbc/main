@@ -19,7 +19,6 @@ package org.ojbc.adapters.analyticsstaging.custody.processor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,6 +41,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.PrescribedMedication;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Treatment;
 import org.ojbc.adapters.analyticsstaging.custody.service.DescriptionCodeLookupFromExcelService;
+import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -387,53 +387,12 @@ public abstract class AbstractReportRepositoryProcessor {
 		return address;
 	}
 
-	protected LocalDateTime parseLocalDateTime(String dateTimeString) {
-		
-		try{
-			if (StringUtils.isNotBlank(dateTimeString)){
-				if (dateTimeString.length() > 19){
-					dateTimeString = dateTimeString.substring(0, 19);
-				}
-				return LocalDateTime.parse(dateTimeString);
-			}
-			else{
-				log.error("The dateTimeString can not be blank");
-			}
-		}
-		catch (DateTimeParseException e){
-			log.error("Failed to parse dateTimeString " + dateTimeString, e);
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * @param dateString
-	 * @return the parsed LocalDate or null if the dateString is not valid or parsing failure. 
-	 */
-	protected LocalDate parseLocalDate(String dateString) {
-		
-		try{
-			if (StringUtils.isNotBlank(dateString)){
-				return LocalDate.parse(dateString);
-			}
-			else{
-				log.error("The dateString can not be blank");
-			}
-		}
-		catch (DateTimeParseException e){
-			log.error("Failed to parse dateTimeString " + dateString, e);
-		}
-		
-		return null;
-	}
-
 	protected CustodyRelease processCustodyReleaseInfo(Node parentNode,
 			Integer bookingId, String bookingNumber) throws Exception {
 		
         String supervisionReleaseDateTimeString = XmlUtils.xPathStringSearch(parentNode, 
         		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:DateTime");
-        LocalDateTime supervisionReleaseDateTime = parseLocalDateTime(supervisionReleaseDateTimeString); 
+        LocalDateTime supervisionReleaseDateTime = OJBCDateUtils.parseLocalDateTime(supervisionReleaseDateTimeString); 
         CustodyRelease custodyRelease = new CustodyRelease();
         
         if (supervisionReleaseDateTime != null){
@@ -443,7 +402,7 @@ public abstract class AbstractReportRepositoryProcessor {
         else{
         	String releaseDateString = XmlUtils.xPathStringSearch(parentNode, 
             		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseDate/nc30:Date");
-        	custodyRelease.setReleaseDate(parseLocalDate(releaseDateString));
+        	custodyRelease.setReleaseDate(OJBCDateUtils.parseLocalDate(releaseDateString));
         }
         
         if (custodyRelease.getReleaseDate() != null){

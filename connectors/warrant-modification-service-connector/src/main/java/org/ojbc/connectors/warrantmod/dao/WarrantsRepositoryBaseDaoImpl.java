@@ -142,7 +142,7 @@ public class WarrantsRepositoryBaseDaoImpl implements WarrantsRepositoryBaseDAO 
 
 
 	@Override
-	public List<Person> retrievePersons(Integer warrantId) {
+	public Person retrievePerson(Integer warrantId) {
 		String sql = "SELECT DISTINCT p.*, v.* from WarrantChargeRef wcr "
 				+ "LEFT JOIN ChargeRef cr ON cr.ChargeRefID = wcr.chargeRefID "
 				+ "LEFT JOIN Person p ON p.PersonID = cr.PersonID "
@@ -150,7 +150,7 @@ public class WarrantsRepositoryBaseDaoImpl implements WarrantsRepositoryBaseDAO 
 				+ "WHERE wcr.warrantId = ? ";
 		List<Person> persons = 
 				jdbcTemplate.query(sql, new PersonReulstSetExtractor(), warrantId);
-		return persons;
+		return DataAccessUtils.singleResult(persons);
 	}
 
 	private class PersonReulstSetExtractor implements ResultSetExtractor<List<Person>> {

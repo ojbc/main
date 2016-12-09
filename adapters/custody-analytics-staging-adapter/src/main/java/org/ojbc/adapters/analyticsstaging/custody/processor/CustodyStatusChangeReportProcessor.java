@@ -32,6 +32,7 @@ import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChange;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeArrest;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.CustodyStatusChangeCharge;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
+import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -169,7 +170,7 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
         custodyStatusChange.setPersonId(personId);
         
         String bookingDateTimeString = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/nc30:ActivityDate/nc30:DateTime");
-        LocalDateTime bookingDateTime = parseLocalDateTime(bookingDateTimeString);
+        LocalDateTime bookingDateTime = OJBCDateUtils.parseLocalDateTime(bookingDateTimeString);
         
         if (bookingDateTime != null){
         	custodyStatusChange.setBookingDate( bookingDateTime.toLocalDate());
@@ -177,7 +178,7 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
         }
         else{
             String bookingDateString = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/nc30:ActivityDate/nc30:Date");
-        	custodyStatusChange.setBookingDate(parseLocalDate(bookingDateString));
+        	custodyStatusChange.setBookingDate(OJBCDateUtils.parseLocalDate(bookingDateString));
         }
 
         String facility = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Booking/jxdm51:BookingDetentionFacility/nc30:FacilityIdentification/nc30:IdentificationID");
@@ -190,7 +191,7 @@ public class CustodyStatusChangeReportProcessor extends AbstractReportRepository
         
 		String supervisionReleaseEligibilityDate = XmlUtils.xPathStringSearch(custodyNode, 
         		"jxdm51:Detention/jxdm51:SupervisionAugmentation/jxdm51:SupervisionReleaseEligibilityDate/nc30:Date");
-		custodyStatusChange.setScheduledReleaseDate(parseLocalDate(supervisionReleaseEligibilityDate));
+		custodyStatusChange.setScheduledReleaseDate(OJBCDateUtils.parseLocalDate(supervisionReleaseEligibilityDate));
 		
  		String inmateJailResidentIndicator = XmlUtils.xPathStringSearch(custodyNode, "jxdm51:Detention/cscr-ext:InmateJailResidentIndicator");
  		custodyStatusChange.setInmateJailResidentIndicator(BooleanUtils.toBooleanObject(inmateJailResidentIndicator));

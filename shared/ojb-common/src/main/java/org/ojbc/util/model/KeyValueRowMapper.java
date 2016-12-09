@@ -14,38 +14,15 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.warrant.repository.model;
+package org.ojbc.util.model;
 
-public class Charge {
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-	private Integer chargeID;
-	
-	private Integer chargeReferralID;
-	
-	private String chargeSeverityLevel;
+import org.springframework.jdbc.core.RowMapper;
 
-	public Integer getChargeID() {
-		return chargeID;
+public class KeyValueRowMapper implements RowMapper<KeyValue> {
+	public KeyValue mapRow(ResultSet rs, int rowNum) throws SQLException {
+		return new KeyValue(rs.getInt(1), rs.getString(2));
 	}
-
-	public void setChargeID(Integer chargeID) {
-		this.chargeID = chargeID;
-	}
-
-	public String getChargeSeverityLevel() {
-		return chargeSeverityLevel;
-	}
-
-	public void setChargeSeverityLevel(String chargeSeverityLevel) {
-		this.chargeSeverityLevel = chargeSeverityLevel;
-	}
-
-	public Integer getChargeReferralID() {
-		return chargeReferralID;
-	}
-
-	public void setChargeReferralID(Integer chargeReferralID) {
-		this.chargeReferralID = chargeReferralID;
-	}
-
 }
