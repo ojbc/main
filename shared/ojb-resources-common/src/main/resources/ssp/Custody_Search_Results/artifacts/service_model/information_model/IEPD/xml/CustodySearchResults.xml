@@ -49,10 +49,13 @@
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
 			<j:PersonAugmentation>
+				<j:PersonProbationerIndicator>false</j:PersonProbationerIndicator>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>CO1298765678</nc:IdentificationID>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
+			<cs-res-ext:PersonIncarceratedIndicator>true
+			</cs-res-ext:PersonIncarceratedIndicator>
 		</nc:Person>
 		<cs-res-ext:Booking structures:id="Booking_01">
 			<nc:ActivityDate>
@@ -70,6 +73,14 @@
 		<j:Charge structures:id="Charge_01">
 			<j:ChargeCountQuantity>0</j:ChargeCountQuantity>
 			<j:ChargeDescriptionText>j:ChargeDescriptionText</j:ChargeDescriptionText>
+			<j:ChargeSentence>
+				<nc:ActivityDate>
+					<nc:Date>2001-08-16</nc:Date>
+				</nc:ActivityDate>
+				<j:SentenceTerm>
+					<j:TermDuration>P1M</j:TermDuration>
+				</j:SentenceTerm>
+			</j:ChargeSentence>
 			<j:ChargeStatute>
 				<j:StatuteCodeIdentification>
 					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
@@ -125,10 +136,13 @@
 				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
 			<j:PersonAugmentation>
+				<j:PersonProbationerIndicator>false</j:PersonProbationerIndicator>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>CO1298765678</nc:IdentificationID>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
+			<cs-res-ext:PersonIncarceratedIndicator>true
+			</cs-res-ext:PersonIncarceratedIndicator>
 		</nc:Person>
 		<cs-res-ext:Booking structures:id="Booking_02">
 			<j:FingerprintDate>
@@ -148,6 +162,14 @@
 		<j:Charge structures:id="Charge_02">
 			<j:ChargeCountQuantity>0</j:ChargeCountQuantity>
 			<j:ChargeDescriptionText>j:ChargeDescriptionText</j:ChargeDescriptionText>
+			<j:ChargeSentence>
+				<nc:ActivityDate>
+					<nc:Date>2001-08-16</nc:Date>
+				</nc:ActivityDate>
+				<j:SentenceTerm>
+					<j:TermDuration>P2M</j:TermDuration>
+				</j:SentenceTerm>
+			</j:ChargeSentence>
 			<j:ChargeStatute>
 				<j:StatuteCodeIdentification>
 					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
