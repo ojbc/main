@@ -113,13 +113,6 @@
 			<nc:MeasureValueText>71</nc:MeasureValueText>
 			<nc:MeasureUnitText>inches</nc:MeasureUnitText>
 		</nc:PersonHeightMeasure>
-		<nc:PersonName>
-			<nc:PersonGivenName>KATNISS</nc:PersonGivenName>
-			<nc:PersonMiddleName>SUE</nc:PersonMiddleName>
-			<nc:PersonSurName>EVERDEEN</nc:PersonSurName>
-			<nc:PersonNameSuffixText>Jr</nc:PersonNameSuffixText>
-			<nc:PersonFullName>Peter J Jones Jr</nc:PersonFullName>
-		</nc:PersonName>
 		<nc:PersonPhysicalFeature>
 			<nc:PhysicalFeatureDescriptionText>343
 			</nc:PhysicalFeatureDescriptionText>
