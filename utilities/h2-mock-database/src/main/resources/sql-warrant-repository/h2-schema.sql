@@ -18,67 +18,12 @@ drop schema if exists warrant_repository;
 CREATE schema warrant_repository;
 use warrant_repository;
 
-
-
 CREATE TABLE WarrantStatusType (
                 WarrantStatusTypeID IDENTITY NOT NULL,
                 WarrantStatusType VARCHAR(20) NOT NULL,
                 WarrantStatusTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT WarrantStatusType_pk PRIMARY KEY (WarrantStatusTypeID)
 );
-
-
-CREATE TABLE Warrant (
-                WarrantID IDENTITY NOT NULL,
-                StateWarrantRepositoryID VARCHAR(8),
-                DateOfWarrant DATE,
-                DateOfExpiration DATE,
-                BroadcastArea VARCHAR(50),
-                WarrantEntryType VARCHAR(2),
-                CourtAgencyORI VARCHAR(9),
-                LawEnforcementORI VARCHAR(9),
-                CourtDocketNumber VARCHAR(12),
-                OCAComplaintNumber VARCHAR(20),
-                Operator VARCHAR(15),
-                PACCCode VARCHAR(16),
-                OriginalOffenseCode VARCHAR(4),
-                OffenseCode VARCHAR(4),
-                GeneralOffenseCharacter VARCHAR(1),
-                CriminalTrackingNumber VARCHAR(12),
-                Extradite BOOLEAN,
-                ExtraditionLimits VARCHAR(1) DEFAULT 1,
-                PickupLimits VARCHAR(1),
-                BondAmount VARCHAR(8),
-                LastUpdateTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-                CONSTRAINT Warrant_pk PRIMARY KEY (WarrantID)
-);
-COMMENT ON COLUMN Warrant.DateOfExpiration IS 'Date the warrant expires, CCYY-MM-DD. Example: 2016-07-01';
-COMMENT ON COLUMN Warrant.BroadcastArea IS 'broadcast area.';
-COMMENT ON COLUMN Warrant.Operator IS 'e. badge, employee number, or name.';
-COMMENT ON COLUMN Warrant.PACCCode IS 'Prosecuting Attorney''s Coordinating Council Code.';
-COMMENT ON COLUMN Warrant.OriginalOffenseCode IS 'Charge code or PACC Code.';
-COMMENT ON COLUMN Warrant.GeneralOffenseCharacter IS 'ommit';
-COMMENT ON COLUMN Warrant.CriminalTrackingNumber IS 'when fingerprinting at time of arrest.';
-COMMENT ON COLUMN Warrant.ExtraditionLimits IS 'cluded.';
-
-
-CREATE TABLE WarrantStatus (
-                WarrantStatusID INTEGER NOT NULL,
-                Operator VARCHAR(15),
-                WarrantStatusTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-                WarrantStatusTypeID INTEGER NOT NULL,
-                WarrantID INTEGER NOT NULL,
-                CONSTRAINT WarrantStatus_pk PRIMARY KEY (WarrantStatusID)
-);
-
-
-CREATE TABLE WarrantRemarks (
-                WarrantRemarksID IDENTITY NOT NULL,
-                WarrantID INTEGER NOT NULL,
-                WarrantRemarkText VARCHAR(250),
-                CONSTRAINT WarrantRemarks_pk PRIMARY KEY (WarrantRemarksID)
-);
-
 
 CREATE TABLE Person (
                 PersonID IDENTITY NOT NULL,
@@ -196,7 +141,7 @@ CREATE TABLE ChargeRef (
                 ChargeRefID IDENTITY NOT NULL,
                 PersonID INTEGER NOT NULL,
                 ReportingAgencyORI VARCHAR(9) NOT NULL,
-                CaseAgencyComplaintNumber VARCHAR(20) NOT NULL,
+                CaseAgencyComplaintNumber VARCHAR(20),
                 TransactionControlNumber VARCHAR(11),
                 ReportingAgencyName VARCHAR(50) NOT NULL,
                 LastUpdateTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -204,11 +149,56 @@ CREATE TABLE ChargeRef (
 );
 
 
-CREATE TABLE WarrantChargeRef (
-                WarrantChargeRefID IDENTITY NOT NULL,
-                WarrantID INTEGER NOT NULL,
+CREATE TABLE Warrant (
+                WarrantID IDENTITY NOT NULL,
+                StateWarrantRepositoryID VARCHAR(8),
+                DateOfWarrant DATE,
+                DateOfExpiration DATE,
+                BroadcastArea VARCHAR(50),
+                WarrantEntryType VARCHAR(2),
+                CourtAgencyORI VARCHAR(9),
+                LawEnforcementORI VARCHAR(9),
+                CourtDocketNumber VARCHAR(12),
+                OCAComplaintNumber VARCHAR(20),
+                Operator VARCHAR(15),
+                PACCCode VARCHAR(16),
+                OriginalOffenseCode VARCHAR(4),
+                OffenseCode VARCHAR(4),
+                GeneralOffenseCharacter VARCHAR(1),
+                CriminalTrackingNumber VARCHAR(12),
+                Extradite BOOLEAN,
+                ExtraditionLimits VARCHAR(1) DEFAULT 1,
+                PickupLimits VARCHAR(1),
+                BondAmount VARCHAR(8),
+                LastUpdateTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
                 ChargeRefID INTEGER NOT NULL,
-                CONSTRAINT WarrantChargeRef_pk PRIMARY KEY (WarrantChargeRefID)
+                CONSTRAINT Warrant_pk PRIMARY KEY (WarrantID)
+);
+COMMENT ON COLUMN Warrant.DateOfExpiration IS 'Date the warrant expires, CCYY-MM-DD. Example: 2016-07-01';
+COMMENT ON COLUMN Warrant.BroadcastArea IS 'broadcast area.';
+COMMENT ON COLUMN Warrant.Operator IS 'e. badge, employee number, or name.';
+COMMENT ON COLUMN Warrant.PACCCode IS 'Prosecuting Attorney''s Coordinating Council Code.';
+COMMENT ON COLUMN Warrant.OriginalOffenseCode IS 'Charge code or PACC Code.';
+COMMENT ON COLUMN Warrant.GeneralOffenseCharacter IS 'ommit';
+COMMENT ON COLUMN Warrant.CriminalTrackingNumber IS 'when fingerprinting at time of arrest.';
+COMMENT ON COLUMN Warrant.ExtraditionLimits IS 'cluded.';
+
+
+CREATE TABLE WarrantStatus (
+                WarrantStatusID IDENTITY NOT NULL,
+                Operator VARCHAR(15),
+                WarrantStatusTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+                WarrantStatusTypeID INTEGER NOT NULL,
+                WarrantID INTEGER NOT NULL,
+                CONSTRAINT WarrantStatus_pk PRIMARY KEY (WarrantStatusID)
+);
+
+
+CREATE TABLE WarrantRemarks (
+                WarrantRemarksID IDENTITY NOT NULL,
+                WarrantID INTEGER NOT NULL,
+                WarrantRemarkText VARCHAR(250),
+                CONSTRAINT WarrantRemarks_pk PRIMARY KEY (WarrantRemarksID)
 );
 
 
@@ -221,35 +211,9 @@ CREATE TABLE Officer (
 );
 
 
-CREATE TABLE Charge (
-                ChargeID IDENTITY NOT NULL,
-                ChargeRefID INTEGER NOT NULL,
-                ChargeSeverityLevel VARCHAR(50),
-                CONSTRAINT Charge_pk PRIMARY KEY (ChargeID)
-);
-
-
 ALTER TABLE WarrantStatus ADD CONSTRAINT WarrantStatusType_WarrantStatus_fk
 FOREIGN KEY (WarrantStatusTypeID)
 REFERENCES WarrantStatusType (WarrantStatusTypeID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE WarrantRemarks ADD CONSTRAINT Warrant_WarrantRemarks_fk
-FOREIGN KEY (WarrantID)
-REFERENCES Warrant (WarrantID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE WarrantChargeRef ADD CONSTRAINT Warrant_WarrantChargeRef_fk
-FOREIGN KEY (WarrantID)
-REFERENCES Warrant (WarrantID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE WarrantStatus ADD CONSTRAINT Warrant_WarrantStatus_fk
-FOREIGN KEY (WarrantID)
-REFERENCES Warrant (WarrantID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
@@ -295,20 +259,26 @@ REFERENCES Person (PersonID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE Charge ADD CONSTRAINT Arrest_Charge_fk
-FOREIGN KEY (ChargeRefID)
-REFERENCES ChargeRef (ChargeRefID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
 ALTER TABLE Officer ADD CONSTRAINT Arrest_Officer_fk
 FOREIGN KEY (ChargeRefID)
 REFERENCES ChargeRef (ChargeRefID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE WarrantChargeRef ADD CONSTRAINT ChargeRef_WarrantChargeRef_fk
+ALTER TABLE Warrant ADD CONSTRAINT ChargeRef_Warrant_fk
 FOREIGN KEY (ChargeRefID)
 REFERENCES ChargeRef (ChargeRefID)
+ON DELETE CASCADE
+ON UPDATE NO ACTION;
+
+ALTER TABLE WarrantRemarks ADD CONSTRAINT Warrant_WarrantRemarks_fk
+FOREIGN KEY (WarrantID)
+REFERENCES Warrant (WarrantID)
 ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE WarrantStatus ADD CONSTRAINT Warrant_WarrantStatus_fk
+FOREIGN KEY (WarrantID)
+REFERENCES Warrant (WarrantID)
+ON DELETE CASCADE
 ON UPDATE NO ACTION;

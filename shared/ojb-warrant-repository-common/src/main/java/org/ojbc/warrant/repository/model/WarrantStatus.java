@@ -16,46 +16,27 @@
  */
 package org.ojbc.warrant.repository.model;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class WarrantAcceptedReport {
+public class WarrantStatus {
 
-	private String ocaComplaintNumber;
-	private String lawEnforcementORI;
-	private String warrantStatus;
-	private String stateWarrantRepositoryID;
-	private String operator;
-	private Person person;
-	
-	public String getOcaComplaintNumber() {
-		return ocaComplaintNumber;
+    private Integer warrantStatusID;
+    private Integer warrantID;
+    private String operator; 
+    private String warrantStatus;
+    private LocalDateTime warrantStatusTimestamp;
+    
+    private List<ChargeReferral> chargeReferrals;
+    
+	public Integer getWarrantID() {
+		return warrantID;
 	}
-	public void setOcaComplaintNumber(
-			String ocaComplaintNumber) {
-		this.ocaComplaintNumber = ocaComplaintNumber;
-	}
-	public String getLawEnforcementORI() {
-		return lawEnforcementORI;
-	}
-	public void setLawEnforcementORI(String lawEnforcementORI) {
-		this.lawEnforcementORI = lawEnforcementORI;
-	}
-	public String getWarrantStatus() {
-		return warrantStatus;
-	}
-	public void setWarrantStatus(String warrantStatus) {
-		this.warrantStatus = warrantStatus;
-	}
-	public String getStateWarrantRepositoryID() {
-		return stateWarrantRepositoryID;
-	}
-	public void setStateWarrantRepositoryID(String stateWarrantRepositoryID) {
-		this.stateWarrantRepositoryID = stateWarrantRepositoryID;
-	}
-	@Override
-	public String toString(){
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	public void setWarrantID(Integer warrantID) {
+		this.warrantID = warrantID;
 	}
 	public String getOperator() {
 		return operator;
@@ -63,11 +44,35 @@ public class WarrantAcceptedReport {
 	public void setOperator(String operator) {
 		this.operator = operator;
 	}
-	public Person getPerson() {
-		return person;
+	public String getWarrantStatus() {
+		return warrantStatus;
 	}
-	public void setPerson(Person person) {
-		this.person = person;
+	public void setWarrantStatus(String warrantStatus) {
+		this.warrantStatus = warrantStatus;
 	}
-
+	public LocalDateTime getWarrantStatusTimestamp() {
+		return warrantStatusTimestamp;
+	}
+	public void setWarrantStatusTimestamp(LocalDateTime warrantStatusTimestamp) {
+		this.warrantStatusTimestamp = warrantStatusTimestamp;
+	}
+	
+	@Override
+	public String toString(){
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
+	
+	public List<ChargeReferral> getChargeReferrals() {
+		return chargeReferrals;
+	}
+	public void setChargeReferrals(List<ChargeReferral> chargeReferrals) {
+		this.chargeReferrals = chargeReferrals;
+	}
+	
+	public Integer getWarrantStatusID() {
+		return warrantStatusID;
+	}
+	public void setWarrantStatusID(Integer warrantStatusID) {
+		this.warrantStatusID = warrantStatusID;
+	}
 }
