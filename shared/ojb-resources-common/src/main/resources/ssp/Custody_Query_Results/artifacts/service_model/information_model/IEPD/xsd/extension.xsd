@@ -127,10 +127,8 @@
 	<xsd:element name="SourceSystemNameText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>The name of a system that returned the search
-				result.
-				This can be used to retrieve additional information about the
-				person
-				and/or court case in the search result.
+				result. This can be used to retrieve additional information about
+				the person and/or court case in the search result.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -174,7 +172,7 @@
 	<xsd:element name="SupervisorCategoryText" type="nc:TextType"
 		substitutionGroup="nc:EntityAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A type of supervisor. </xsd:documentation>
+			<xsd:documentation>A type of supervisor.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SupervisorStatus" type="nc:StatusType"
@@ -189,6 +187,13 @@
 		<xsd:annotation>
 			<xsd:documentation>True if a person in detention is allowed to make
 				commissary deposits; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonIncarceratedIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a person is in jail or prison.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
