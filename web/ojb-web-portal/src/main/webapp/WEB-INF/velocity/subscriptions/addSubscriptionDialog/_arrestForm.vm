@@ -134,10 +134,16 @@
 	#springFormInput("subscription.emailList[2]" "placeholder='Email Address 3'")
 </div>
 	       	    	        
-<div>
-	#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)		
-</div>	
 
-<div>
-	#springFormInput("subscription.caseId" "placeholder='Case Id'" )
-</div>
+#if($showSubscriptionPurposeDropDown)
+	<div>
+		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)		
+	</div>
+#end	
+			
+#if($showCaseIdInput)
+	<div>
+		#springFormInput("subscription.caseId" "placeholder='Case Id'" )
+	</div>
+#end
+
