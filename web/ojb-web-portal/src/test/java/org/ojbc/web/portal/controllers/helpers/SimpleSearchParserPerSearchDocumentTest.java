@@ -28,17 +28,28 @@ import javax.annotation.Resource;
 
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.validation.BindingResult;
 
 // Tests based on Simple Search Requirements Doc
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:static-configuration-demostate.xml"})
+@WebAppConfiguration
+@ContextConfiguration({
+        "classpath:dispatcher-servlet.xml",
+        "classpath:application-context.xml",
+        "classpath:static-configuration-demostate.xml", "classpath:security-context.xml"
+//        "classpath:/META-INF/spring/demostate/routes-demostate.xml",
+//        "classpath:/META-INF/spring/spring-beans-ojb-web-application-connector-context.xml" 
+        })
+@ActiveProfiles("standalone")
+@DirtiesContext
 public class SimpleSearchParserPerSearchDocumentTest {
 
     @Resource

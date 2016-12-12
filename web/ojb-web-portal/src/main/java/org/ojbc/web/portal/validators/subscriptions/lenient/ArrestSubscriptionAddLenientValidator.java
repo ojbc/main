@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -33,6 +34,15 @@ public class ArrestSubscriptionAddLenientValidator implements ArrestSubscription
 	
 	private Logger logger = Logger.getLogger(ArrestSubscriptionAddLenientValidator.class.getName());
 		
+	@Value("${showSubscriptionPurposeDropDown:false}")
+	Boolean showSubscriptionPurposeDropDown;
+	
+	@Value("${showCaseIdInput:false}")
+	Boolean showCaseIdInput;
+	
+	@Value("${fbiIdWarning:false}")
+	Boolean fbiIdWarning;
+
 	public void validate(Subscription subscription, BindingResult errors){
 						
 		logger.info("* * * inside validate()");		
@@ -101,12 +111,24 @@ public class ArrestSubscriptionAddLenientValidator implements ArrestSubscription
 			}
 		}
 	
-		
-		String fbiId = subscription.getFbiId();		
-		if(StringUtils.isEmpty(fbiId)){
-			fieldToErrorMap.put("fbiId", "Criminal History is missing the FBI ID for this Person");
+		if (fbiIdWarning) {
+			if(StringUtils.isBlank(subscription.getFbiId())){
+				fieldToErrorMap.put("fbiId", "Criminal History is missing the FBI ID for this Person");
+			}
 		}
-						
+		
+		if (showSubscriptionPurposeDropDown) {
+			if(StringUtils.isBlank(subscription.getSubscriptionPurpose())){
+				fieldToErrorMap.put("subscriptionPurpose", "Purpose must be specified");
+			}
+		}
+		
+		if (showCaseIdInput) {
+			if(StringUtils.isBlank(subscription.getCaseId())){
+				fieldToErrorMap.put("caseId", "Case Id must be specified");
+			}
+		}
+				
 		boolean hasEmail = false;
 		
 		for(String iEmail : subscription.getEmailList()){
