@@ -30,12 +30,22 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:static-configuration-demostate.xml"})
+@WebAppConfiguration
+@ContextConfiguration({
+        "classpath:dispatcher-servlet.xml",
+        "classpath:application-context.xml",
+        "classpath:static-configuration-demostate.xml", "classpath:security-context.xml"
+        })
+@ActiveProfiles("standalone")
+@DirtiesContext
 public class DriverLicenseExtractorTest {
 
 	private static final Logger logger = Logger.getLogger(DriverLicenseExtractorTest.class);
