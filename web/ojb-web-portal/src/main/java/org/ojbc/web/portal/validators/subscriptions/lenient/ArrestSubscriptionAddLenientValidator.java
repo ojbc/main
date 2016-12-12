@@ -106,17 +106,7 @@ public class ArrestSubscriptionAddLenientValidator implements ArrestSubscription
 		if(StringUtils.isEmpty(fbiId)){
 			fieldToErrorMap.put("fbiId", "Criminal History is missing the FBI ID for this Person");
 		}
-		
-		String purpose = subscription.getSubscriptionPurpose();
-		if(StringUtils.isEmpty(purpose)){
-			fieldToErrorMap.put("subscriptionPurpose", "Purpose must be specified");
-		}
-		
-		String caseId = subscription.getCaseId();		
-		if(StringUtils.isEmpty(caseId)){
-			fieldToErrorMap.put("caseId", "Case Id must be specified");
-		}
-				
+						
 		boolean hasEmail = false;
 		
 		for(String iEmail : subscription.getEmailList()){

@@ -101,18 +101,8 @@ public class ArrestSubscriptionEditStrictValidator implements ArrestSubscription
 					fieldToErrorMap.put("subscriptionEndDate", "End date may not occur more than one year after the start date");
 				}					
 			}					
-		}
-		
-		String purpose = subscription.getSubscriptionPurpose();
-		if(StringUtils.isEmpty(purpose)){
-			fieldToErrorMap.put("subscriptionPurpose", "Purpose must be specified");
-		}		
-			
-		String caseId = subscription.getCaseId();		
-		if(StringUtils.isEmpty(caseId)){
-			fieldToErrorMap.put("caseId", "Case Id must be specified");
-		}		
-			
+		}				
+						
 		boolean hasEmail = false;
 		
 		for(String iEmail : subscription.getEmailList()){

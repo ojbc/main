@@ -113,6 +113,12 @@ public class SubscriptionsController {
 	@Value("${validateSubscriptionButton:false}")
 	String validateSubscriptionButton;
 	
+	@Value("${showSubscriptionPurposeDropDown:false}")
+	Boolean showSubscriptionPurposeDropDown;
+	
+	@Value("${showCaseIdInput:false}")
+	Boolean showCaseIdInput;
+	
 	@Resource
 	Map<String, SubscriptionStartDateStrategy> subscriptionStartDateStrategyMap;
 	
@@ -460,8 +466,12 @@ public class SubscriptionsController {
 		if(StringUtils.isNotEmpty(purposeSelection)){
 			subscription.setSubscriptionPurpose(purposeSelection);	
 		}		
-				
+							
 		model.put("subscription", subscription);
+		
+		model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
+		
+		model.put("showCaseIdInput", showCaseIdInput);
 		 				
 		return "subscriptions/addSubscriptionDialog/_arrestForm";
 	}
@@ -994,6 +1004,10 @@ public class SubscriptionsController {
 				 subscription.setDateOfBirth(rapSheetDob);
 				
 				 initDatesForEditArrestForm(model);
+				 
+				 model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
+				
+				 model.put("showCaseIdInput", showCaseIdInput);
 				
 			}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
