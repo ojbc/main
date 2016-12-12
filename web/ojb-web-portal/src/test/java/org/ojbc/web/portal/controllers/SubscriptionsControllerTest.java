@@ -43,7 +43,8 @@ public class SubscriptionsControllerTest {
 		
 	@Before
 	public void init(){		
-		subController = new SubscriptionsController();		
+		subController = new SubscriptionsController();	
+		subController.fbiIdWarning = true; 
 	}
 	
 	
