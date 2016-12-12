@@ -119,6 +119,9 @@ public class SubscriptionsController {
 	@Value("${showCaseIdInput:false}")
 	Boolean showCaseIdInput;
 	
+	@Value("${fbiIdWarning:false}")
+	Boolean fbiIdWarning;
+	
 	@Resource
 	Map<String, SubscriptionStartDateStrategy> subscriptionStartDateStrategyMap;
 	
@@ -695,11 +698,12 @@ public class SubscriptionsController {
 			
 		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getTopic())){			
 			
-			String fbiId = subscription.getFbiId(); 			
-		
-			if(StringUtils.isEmpty(fbiId)){
-				warningList.add("FBI ID missing. Subscription with the FBI is pending.");
-			}				
+			if (fbiIdWarning){
+			
+				if(StringUtils.isEmpty(subscription.getFbiId())){
+					warningList.add("FBI ID missing. Subscription with the FBI is pending.");
+				}				
+			}
 		}			
 		
 		return warningList;
