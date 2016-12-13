@@ -25,6 +25,8 @@
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:CaseAugmentation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:CourtOrder" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:CourtOrderAugmentationPoint"
+    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:LocationStateNCICLISCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:OrganizationAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:OrganizationORIIdentification"
@@ -49,6 +51,8 @@
     <w:ElementInType w:name="j:CourtOrderIssuingCourt"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CourtOrderIssuingDate"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CourtOrderAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:CourtType" w:isRequested="true"/>
