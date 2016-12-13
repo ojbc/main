@@ -59,6 +59,7 @@
         <xs:sequence>
           <xs:element ref="j:CourtOrderIssuingCourt" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CourtOrderIssuingDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CourtOrderAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -109,6 +110,11 @@
   <xs:element name="CourtOrder" type="j:CourtOrderType" nillable="true">
     <xs:annotation>
       <xs:documentation>A direction of a judge not included in a judgment, which determines some point or directs some step in proceedings.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtOrderAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CourtOrderType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CourtOrderIssuingCourt" type="j:CourtType" nillable="true">

@@ -23,6 +23,7 @@
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
 	xmlns:fppq-res-ext="http://ojbc.org/IEPD/Extensions/FirearmPurchaseProhibitionQueryResultsExtension/1.0"
+	xmlns:me-fpp-codes="http://ojbc.org/IEPD/Extensions/Maine/FirearmPurchaseProhibitionCodes/1.0"
 	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/FirearmPurchaseProhibitionQueryResultsExtension/1.0"
