@@ -59,16 +59,36 @@
 	</xsd:complexType>
 	<xsd:complexType name="FirearmPurchaseProhibitionReportType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a vehicle crash report.
+			<xsd:documentation>A data type for a firearm purchase prohibition
+				report.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="nc:Case" maxOccurs="unbounded" />
-					<xsd:element ref="j:CourtOrder" maxOccurs="unbounded" />
+					<xsd:element ref="fppq-res-ext:FirearmPurchaseProhibition"
+						minOccurs="1" maxOccurs="1" />
+					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:CourtOrder" minOccurs="0"
+						maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" minOccurs="1" maxOccurs="1" />
+					<xsd:element ref="nc:ActivityPersonAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityCourtOrderAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FirearmPurchaseProhibitionType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a firearm purchase prohibition.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
+				<xsd:sequence>
+					<xsd:element ref="fppq-res-ext:FirearmPurchaseProhibitionReason"
 						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -77,7 +97,23 @@
 	<xsd:element name="FirearmPurchaseProhibitionReport"
 		type="fppq-res-ext:FirearmPurchaseProhibitionReportType">
 		<xsd:annotation>
-			<xsd:documentation>Firearm Purchase Prohibition Information.
+			<xsd:documentation>A report containing firearm purchase prohibition
+				information.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirearmPurchaseProhibition"
+		type="fppq-res-ext:FirearmPurchaseProhibitionType">
+		<xsd:annotation>
+			<xsd:documentation>A data concept for a firearm purchase prohibition.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirearmPurchaseProhibitionReason"
+		abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A data concept for a firearm purchase prohibition
+				reason.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
