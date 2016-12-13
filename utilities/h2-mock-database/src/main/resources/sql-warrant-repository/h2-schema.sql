@@ -18,12 +18,14 @@ drop schema if exists warrant_repository;
 CREATE schema warrant_repository;
 use warrant_repository;
 
+
 CREATE TABLE WarrantStatusType (
                 WarrantStatusTypeID IDENTITY NOT NULL,
                 WarrantStatusType VARCHAR(20) NOT NULL,
                 WarrantStatusTypeDescription VARCHAR(50) NOT NULL,
                 CONSTRAINT WarrantStatusType_pk PRIMARY KEY (WarrantStatusTypeID)
 );
+
 
 CREATE TABLE Person (
                 PersonID IDENTITY NOT NULL,
@@ -167,6 +169,8 @@ CREATE TABLE Warrant (
                 GeneralOffenseCharacter VARCHAR(1),
                 CriminalTrackingNumber VARCHAR(12),
                 Extradite BOOLEAN,
+                warrantModRequestSent BOOLEAN,
+                WarrantModResponseReceived BOOLEAN,
                 ExtraditionLimits VARCHAR(1) DEFAULT 1,
                 PickupLimits VARCHAR(1),
                 BondAmount VARCHAR(8),
