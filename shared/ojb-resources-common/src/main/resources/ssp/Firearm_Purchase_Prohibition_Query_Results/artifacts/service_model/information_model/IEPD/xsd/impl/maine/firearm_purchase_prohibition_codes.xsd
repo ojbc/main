@@ -63,7 +63,7 @@
 	</xsd:complexType>
 	<xsd:element name="FirearmPurchaseProhibitionCode"
 		type="me-fpp-codes:FirearmPurchaseProhibitionCodeType"
-		substitutionGroup="j:CourtOrderAugmentationPoint">
+		substitutionGroup="fppq-res-ext:FirearmPurchaseProhibitionReason">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the firearm purchase
 				prohibition.
