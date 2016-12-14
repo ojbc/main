@@ -148,6 +148,9 @@ public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificatio
     	NotifyBuilder notifySearch = new NotifyBuilder(context).whenReceivedSatisfied(subscriptionSearchResultsMock).create();
     	NotifyBuilder notifySaml = new NotifyBuilder(context).whenReceivedSatisfied(subscriptionSAMLTokenProcessorSearchMock).create();
     	
+    	subscriptionSearchResultsMock.reset();
+    	subscriptionSAMLTokenProcessorSearchMock.reset();
+    	
     	subscriptionSearchResultsMock.expectedMessageCount(1);
     	subscriptionSAMLTokenProcessorSearchMock.expectedMessageCount(1);
     	
@@ -402,6 +405,9 @@ public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificatio
     public void testSubscriptionQuery() throws Exception {
     	NotifyBuilder notifySearch = new NotifyBuilder(context).whenReceivedSatisfied(subscriptionSearchResultsMock).create();
     	NotifyBuilder notifySaml = new NotifyBuilder(context).whenReceivedSatisfied(subscriptionSAMLTokenProcessorSearchMock).create();
+    	
+    	subscriptionQueryResultsMock.reset();
+    	subscriptionSAMLTokenProcessorQueryMock.reset();
     	
     	subscriptionQueryResultsMock.expectedMessageCount(1);
     	subscriptionSAMLTokenProcessorQueryMock.expectedMessageCount(1);
