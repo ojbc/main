@@ -147,7 +147,7 @@ public class WarrantsRepositoryBaseDaoImpl implements WarrantsRepositoryBaseDAO 
 				+ "LEFT JOIN ChargeRef cr ON cr.ChargeRefID = w.chargeRefID "
 				+ "LEFT JOIN Person p ON p.PersonID = cr.PersonID "
 				+ "LEFT JOIN Vehicle v ON v.PersonID = p.PersonID "
-				+ "WHERE w.warrantId = ? ";
+				+ "WHERE w.warrantId = ? order by v.vehicleID";
 		List<Person> persons = 
 				jdbcTemplate.query(sql, new PersonReulstSetExtractor(), warrantId);
 		return DataAccessUtils.singleResult(persons);

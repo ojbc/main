@@ -400,7 +400,7 @@ public class InitiateWarrantModificationRequestProcessor {
         extraditionIndicator.setTextContent(Boolean.toString(warrant.isExtradite()));
         
         Element extradictionLimitCodeText = 
-        		XmlUtils.appendElement(warrantAugmentation, NS_WARRANT_MOD_REQ_EXT, "ExtradictionLimitCodeText");
+        		XmlUtils.appendElement(warrantAugmentation, NS_WARRANT_MOD_REQ_EXT, "ExtraditionLimitCodeText");
         extradictionLimitCodeText.setTextContent(warrant.getExtraditionLimits());
         
         Element subjectPickupRadiusCodeText = 

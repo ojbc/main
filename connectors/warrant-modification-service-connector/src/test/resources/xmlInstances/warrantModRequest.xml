@@ -81,7 +81,7 @@
             <nc30:Date>2016-08-13</nc30:Date>
          </nc30:ExpirationDate>
          <wm-req-ext:ExtraditionIndicator>true</wm-req-ext:ExtraditionIndicator>
-         <wm-req-ext:ExtradictionLimitCodeText>M</wm-req-ext:ExtradictionLimitCodeText>
+         <wm-req-ext:ExtraditionLimitCodeText>M</wm-req-ext:ExtraditionLimitCodeText>
          <wm-req-ext:SubjectPickupRadiusCodeText>5</wm-req-ext:SubjectPickupRadiusCodeText>
          <wm-req-ext:WarrantBroadcastCodeText>B26</wm-req-ext:WarrantBroadcastCodeText>
          <scr31:TransactionControlNumberIdentification>
@@ -145,16 +145,6 @@
       <wm-req-ext:PersonImmigrationAlienQueryIndicator>false</wm-req-ext:PersonImmigrationAlienQueryIndicator>
    </nc30:Person>
    <nc30:Vehicle s30:id="Vehicle_01">
-      <nc30:ConveyanceColorPrimaryText>RED</nc30:ConveyanceColorPrimaryText>
-      <nc30:ConveyanceColorSecondaryText>PINK</nc30:ConveyanceColorSecondaryText>
-      <nc30:ItemMakeName>FRD</nc30:ItemMakeName>
-      <nc30:ItemModelName>FSN</nc30:ItemModelName>
-      <nc30:ItemStyleText>SN</nc30:ItemStyleText>
-      <nc30:VehicleIdentification>
-         <nc30:IdentificationID>VIN124</nc30:IdentificationID>
-      </nc30:VehicleIdentification>
-   </nc30:Vehicle>
-   <nc30:Vehicle s30:id="Vehicle_02">
       <nc30:ConveyanceColorPrimaryText>BGE</nc30:ConveyanceColorPrimaryText>
       <nc30:ConveyanceColorSecondaryText>BRO</nc30:ConveyanceColorSecondaryText>
       <nc30:ItemMakeName>AAA</nc30:ItemMakeName>
@@ -164,14 +154,17 @@
          <nc30:IdentificationID>VIN3458745679777</nc30:IdentificationID>
       </nc30:VehicleIdentification>
    </nc30:Vehicle>
+   <nc30:Vehicle s30:id="Vehicle_02">
+      <nc30:ConveyanceColorPrimaryText>RED</nc30:ConveyanceColorPrimaryText>
+      <nc30:ConveyanceColorSecondaryText>PINK</nc30:ConveyanceColorSecondaryText>
+      <nc30:ItemMakeName>FRD</nc30:ItemMakeName>
+      <nc30:ItemModelName>FSN</nc30:ItemModelName>
+      <nc30:ItemStyleText>SN</nc30:ItemStyleText>
+      <nc30:VehicleIdentification>
+         <nc30:IdentificationID>VIN124</nc30:IdentificationID>
+      </nc30:VehicleIdentification>
+   </nc30:Vehicle>
    <jxdm51:ConveyanceRegistration s30:id="Reg_01">
-      <jxdm51:JurisdictionNCICLISCode>MI</jxdm51:JurisdictionNCICLISCode>
-      <jxdm51:ConveyanceRegistrationPlateIdentification>
-         <nc30:IdentificationID>555ABC</nc30:IdentificationID>
-      </jxdm51:ConveyanceRegistrationPlateIdentification>
-      <jxdm51:ConveyanceRegistrationPlateCategoryText>WI</jxdm51:ConveyanceRegistrationPlateCategoryText>
-   </jxdm51:ConveyanceRegistration>
-   <jxdm51:ConveyanceRegistration s30:id="Reg_02">
       <jxdm51:RegistrationExpirationDate>
          <nc30:YearMonthDate>2016-11</nc30:YearMonthDate>
       </jxdm51:RegistrationExpirationDate>
@@ -179,6 +172,13 @@
          <nc30:IdentificationID>LP4365-023</nc30:IdentificationID>
       </jxdm51:ConveyanceRegistrationPlateIdentification>
       <jxdm51:ConveyanceRegistrationPlateCategoryText>LP</jxdm51:ConveyanceRegistrationPlateCategoryText>
+   </jxdm51:ConveyanceRegistration>
+   <jxdm51:ConveyanceRegistration s30:id="Reg_02">
+      <jxdm51:JurisdictionNCICLISCode>MI</jxdm51:JurisdictionNCICLISCode>
+      <jxdm51:ConveyanceRegistrationPlateIdentification>
+         <nc30:IdentificationID>555ABC</nc30:IdentificationID>
+      </jxdm51:ConveyanceRegistrationPlateIdentification>
+      <jxdm51:ConveyanceRegistrationPlateCategoryText>WI</jxdm51:ConveyanceRegistrationPlateCategoryText>
    </jxdm51:ConveyanceRegistration>
    <nc30:ContactInformation>
       <nc30:ContactMailingAddress s30:id="Address_01">
