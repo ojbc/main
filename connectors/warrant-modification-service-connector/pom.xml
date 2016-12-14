@@ -29,7 +29,6 @@
   
   <groupId>org.ojbc.bundles.connectors</groupId>
   <artifactId>warrant-modification-service-connector</artifactId>
-  <version>1.0.0</version>
   
   <packaging>bundle</packaging>
   <name>OJB :: warrant-modification-service-connector :: connector</name>
@@ -48,7 +47,7 @@
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<ojb-warrant-repository-common-version>[1.0.0,)</ojb-warrant-repository-common-version>
 		<ojb-test-common-version>1.0.0</ojb-test-common-version>
-		<h2-mock-database-version>2.0.1</h2-mock-database-version>
+		<h2-mock-database-version>[2.0.2,)</h2-mock-database-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<commons-dbcp-version>1.2.2</commons-dbcp-version>
 		<xmlunit-version>1.5</xmlunit-version>

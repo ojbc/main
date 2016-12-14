@@ -624,6 +624,7 @@ public class RapbackDAOImpl implements RapbackDAO {
         log.info("ORI: " + ori + " federation ID: " + federationId);
         
         boolean isNotSuperUser = isNotSuperUser(ori, federationId); 
+        log.info("Is super super user? " + BooleanUtils.isNotTrue(isNotSuperUser));
         List<String> viewableAgencies = getViewableAgencies(ori, federationId); 
         
 		if ( isNotSuperUser){
@@ -656,7 +657,6 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	private boolean isSuperUser(String ori, String federationId) {
-		
 		if (StringUtils.isBlank(ori) || StringUtils.isBlank(federationId)){
 			return false; 
 		}
