@@ -52,7 +52,7 @@
 		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
 		<ojb-test-common-version>1.0.0</ojb-test-common-version>
 		<sn-intermediary-common-version>2.0.0</sn-intermediary-common-version>
-		<h2-mock-database-version>2.0.1</h2-mock-database-version>
+		<h2-mock-database-version>[2.0.2,)</h2-mock-database-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
 		<xmlunit-version>1.5</xmlunit-version>
