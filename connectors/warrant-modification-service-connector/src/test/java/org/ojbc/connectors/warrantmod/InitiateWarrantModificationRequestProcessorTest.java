@@ -22,7 +22,6 @@ import java.util.Map;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.test.util.XmlTestUtils;
@@ -40,8 +39,6 @@ import org.w3c.dom.Document;
         "classpath:META-INF/spring/h2-mock-database-context-warrant-repository.xml",
 		"classpath:META-INF/spring/properties-context.xml"})
 @DirtiesContext
-@Ignore
-//TODO  Fix this after talking with Andrew. 
 public class InitiateWarrantModificationRequestProcessorTest {
 	private final Log log = LogFactory.getLog( InitiateWarrantModificationRequestProcessorTest.class );
 
@@ -51,7 +48,7 @@ public class InitiateWarrantModificationRequestProcessorTest {
 	@Test
 	public void testCreateWarrantModificationRequest() throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("WARRANTID", Integer.valueOf(1));
+		map.put("WARRANTID", Long.valueOf(1));
 		
 		Document document = initiateWarrantModificationRequestProcessor.createWarrantModificationRequest(map, new HashMap<String, Object>());
 		String bodyString = OJBUtils.getStringFromDocument(document);

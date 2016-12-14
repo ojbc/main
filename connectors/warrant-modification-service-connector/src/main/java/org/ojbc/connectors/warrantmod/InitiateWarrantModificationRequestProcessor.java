@@ -38,7 +38,7 @@ import java.util.Map;
 import org.apache.camel.Body;
 import org.apache.camel.Headers;
 import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.connectors.warrantmod.dao.WarrantsRepositoryBaseDAO;
@@ -67,7 +67,7 @@ public class InitiateWarrantModificationRequestProcessor {
 	public Document createWarrantModificationRequest(@Body Map<String, Object> data, @Headers Map<String, Object> headers) throws Exception{
 		log.info("Creating warrant modification request for Warrant "  + data.get("WARRANTID"));
 		
-		Integer warrantId = (Integer) data.get("WARRANTID");
+		Integer warrantId = ((Long) data.get("WARRANTID")).intValue();
 		headers.put("warrantID", warrantId);
 
 		Document document = createWarrantModificationRequestDocument(warrantId);
@@ -322,7 +322,7 @@ public class InitiateWarrantModificationRequestProcessor {
 	}
 
 	private void appendPersonBirthLocation(Person person, Element personElement) {
-		if (StringUtils.isNoneBlank(person.getPlaceOfBirth())){
+		if (StringUtils.isNotBlank(person.getPlaceOfBirth())){
 			Element personBirthLocation = 
 					XmlUtils.appendElement(personElement, NS_NC_30, "PersonBirthLocation");
 			Element locationCategoryText = 
@@ -400,7 +400,7 @@ public class InitiateWarrantModificationRequestProcessor {
         extraditionIndicator.setTextContent(Boolean.toString(warrant.isExtradite()));
         
         Element extradictionLimitCodeText = 
-        		XmlUtils.appendElement(warrantAugmentation, NS_WARRANT_MOD_REQ_EXT, "ExtradictionLimitCodeText");
+        		XmlUtils.appendElement(warrantAugmentation, NS_WARRANT_MOD_REQ_EXT, "ExtraditionLimitCodeText");
         extradictionLimitCodeText.setTextContent(warrant.getExtraditionLimits());
         
         Element subjectPickupRadiusCodeText = 
@@ -461,7 +461,7 @@ public class InitiateWarrantModificationRequestProcessor {
 	}
 
 	private void appendCourtOrderRequestEntity(Warrant warrant, Element warrantElement) {
-		if (StringUtils.isNoneBlank(warrant.getOperator())){
+		if (StringUtils.isNotBlank(warrant.getOperator())){
         	Element courtOrderRequestEntity = 
         			XmlUtils.appendElement(warrantElement, NS_JXDM_51, "CourtOrderRequestEntity");
         	Element entityPerson = 

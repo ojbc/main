@@ -26,7 +26,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.apache.camel.Header;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.helper.DaoUtils;
@@ -131,9 +131,9 @@ public class WarrantsRepositoryBaseDaoImpl implements WarrantsRepositoryBaseDAO 
 
 	@Override
 	public List<String> getTransactionControlNumbers(Integer warrantId) {
-		String sql = "SELECT cr.TransactionControlNumber FROM WarrantChargeRef wcr "
-				+ "LEFT JOIN ChargeRef cr ON cr.ChargeRefID = wcr.ChargeRefID "
-				+ "WHERE wcr.WarrantID = ? "; 
+		String sql = "SELECT cr.TransactionControlNumber FROM Warrant w "
+				+ "LEFT JOIN ChargeRef cr ON cr.ChargeRefID = w.ChargeRefID "
+				+ "WHERE w.WarrantID = ? "; 
 
 		List<String> transactionControlNumbers = 
 				jdbcTemplate.queryForList(sql, String.class, warrantId);
@@ -143,11 +143,11 @@ public class WarrantsRepositoryBaseDaoImpl implements WarrantsRepositoryBaseDAO 
 
 	@Override
 	public Person retrievePerson(Integer warrantId) {
-		String sql = "SELECT DISTINCT p.*, v.* from WarrantChargeRef wcr "
-				+ "LEFT JOIN ChargeRef cr ON cr.ChargeRefID = wcr.chargeRefID "
+		String sql = "SELECT DISTINCT p.*, v.* from Warrant w "
+				+ "LEFT JOIN ChargeRef cr ON cr.ChargeRefID = w.chargeRefID "
 				+ "LEFT JOIN Person p ON p.PersonID = cr.PersonID "
 				+ "LEFT JOIN Vehicle v ON v.PersonID = p.PersonID "
-				+ "WHERE wcr.warrantId = ? ";
+				+ "WHERE w.warrantId = ? order by v.vehicleID";
 		List<Person> persons = 
 				jdbcTemplate.query(sql, new PersonReulstSetExtractor(), warrantId);
 		return DataAccessUtils.singleResult(persons);

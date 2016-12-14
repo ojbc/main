@@ -112,8 +112,34 @@
 		
 		<route id="identification_recording_service_filedrop">
 		
-			<from	uri="identificationRecordingFileEndpoint" />
-			
+			<from uri="identificationRecordingFileEndpoint" />
+			<choice>
+				<when>
+					<xpath>/pidreq-doc:PersonStateIdentificationRequest</xpath>
+					<setHeader headerName="operationName">
+						<camel:constant>RecordPersonStateIdentificationRequest</camel:constant>
+					</setHeader>
+				</when>
+				<when>
+					<xpath>/pidreq-doc:PersonFederalIdentificationRequest</xpath>
+					<setHeader headerName="operationName">
+						<camel:constant>RecordPersonFederalIdentificationRequest</camel:constant>
+					</setHeader>
+				</when>
+				<when>
+					<xpath>/pidres-doc:PersonStateIdentificationResults</xpath>
+					<setHeader headerName="operationName">
+						<camel:constant>RecordPersonStateIdentificationResults</camel:constant>
+					</setHeader>
+				</when>
+				<when>
+					<xpath>/pidres-doc:PersonFederalIdentificationResults</xpath>
+					<setHeader headerName="operationName">
+						<camel:constant>RecordPersonFederalIdentificationResults</camel:constant>
+					</setHeader>
+				</when>
+			</choice>
+			<log message="\n The in operation name '${in.header.operationName}' \n" loggingLevel="WARN"/>
 			<to uri="direct:processIdentificationReport" />
 		</route>
 		
@@ -168,7 +194,7 @@
 						<to uri="bean:identificationResultsReportProcessor?method=processReport"/>
 					</when>
 					<otherwise>
-						<log message="\n\n\n The operation name '${in.header.operationName}' is not supported. \n\n\n" loggingLevel="WARN"/>
+						<log message="\n The operation name '${in.header.operationName}' is not supported. \n" loggingLevel="WARN"/>
 						
 						<throwException ref="opertaionNameNotSupported"></throwException>
 					</otherwise>

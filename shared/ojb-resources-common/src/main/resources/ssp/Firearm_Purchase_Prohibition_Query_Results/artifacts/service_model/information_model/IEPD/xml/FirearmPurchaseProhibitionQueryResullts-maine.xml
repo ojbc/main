@@ -35,6 +35,21 @@
 			structures:id="FPP_01">
 			<me-fpp-codes:FirearmPurchaseProhibitionCode>Mental Health</me-fpp-codes:FirearmPurchaseProhibitionCode>
 		</fppq-res-ext:FirearmPurchaseProhibition>
+		<nc:Case structures:id="Case_01">
+			<nc:CaseDocketID>D232456</nc:CaseDocketID>
+		</nc:Case>
+		<j:CourtOrder structures:id="Order_01">
+			<j:CourtOrderIssuingCourt>
+				<j:OrganizationAugmentation>
+					<j:OrganizationORIIdentification>
+						<nc:IdentificationID>C345670</nc:IdentificationID>
+					</j:OrganizationORIIdentification>
+				</j:OrganizationAugmentation>
+			</j:CourtOrderIssuingCourt>
+			<j:CourtOrderIssuingDate>
+				<nc:Date>2016-12-01</nc:Date>
+			</j:CourtOrderIssuingDate>
+		</j:CourtOrder>
 		<nc:Person structures:id="Person_01">
 			<nc:PersonBirthDate>
 				<nc:Date>1981-10-01</nc:Date>
@@ -47,9 +62,11 @@
 			</nc:PersonName>
 			<j:PersonSexCode>M</j:PersonSexCode>
 		</nc:Person>
-		<nc:ActivityPersonAssociation>
+		<j:ActivityCourtOrderAssociation>
 			<nc:Activity structures:ref="FPP_01" />
-			<nc:Person structures:ref="Person_01" />
-		</nc:ActivityPersonAssociation>
+			<nc:Activity structures:ref="Case_01" />
+			<j:CourtOrder structures:ref="Order_01" />
+			<j:Subject structures:ref="Person_01" />
+		</j:ActivityCourtOrderAssociation>
 	</fppq-res-ext:FirearmPurchaseProhibitionReport>
 </fppq-res-doc:FirearmPurchaseProhibitionQueryResults>

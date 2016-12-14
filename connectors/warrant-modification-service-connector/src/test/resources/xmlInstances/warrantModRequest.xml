@@ -81,7 +81,7 @@
             <nc30:Date>2016-08-13</nc30:Date>
          </nc30:ExpirationDate>
          <wm-req-ext:ExtraditionIndicator>true</wm-req-ext:ExtraditionIndicator>
-         <wm-req-ext:ExtradictionLimitCodeText>M</wm-req-ext:ExtradictionLimitCodeText>
+         <wm-req-ext:ExtraditionLimitCodeText>M</wm-req-ext:ExtraditionLimitCodeText>
          <wm-req-ext:SubjectPickupRadiusCodeText>5</wm-req-ext:SubjectPickupRadiusCodeText>
          <wm-req-ext:WarrantBroadcastCodeText>B26</wm-req-ext:WarrantBroadcastCodeText>
          <scr31:TransactionControlNumberIdentification>
@@ -183,7 +183,7 @@
    <nc30:ContactInformation>
       <nc30:ContactMailingAddress s30:id="Address_01">
          <nc30:LocationStreet>
-	        <nc30:StreetFullText>123 TEST DRIVE</nc30:StreetFullText>
+            <nc30:StreetFullText>123 TEST DRIVE</nc30:StreetFullText>
             <nc30:StreetNumberText>123</nc30:StreetNumberText>
             <nc30:StreetName>TEST DRIVE</nc30:StreetName>
          </nc30:LocationStreet>

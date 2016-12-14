@@ -44,7 +44,9 @@ public class Warrant {
     private String extraditionLimits;
     private String bondAmount;
     private String pickupLimits;
-    
+    private Boolean warrantModificationRequestSent; 
+    private Boolean warrantModificationResponseReceived; 
+
     private List<WarrantRemarks> warrantRemarks;
     private List<String> warrantRemarkStrings;
     private Person person; 
@@ -184,6 +186,20 @@ public class Warrant {
 	}
 	public void setStateWarrantRepositoryID(String stateWarrantRepositoryID) {
 		this.stateWarrantRepositoryID = stateWarrantRepositoryID;
+	}
+	public Boolean getWarrantModificationRequestSent() {
+		return warrantModificationRequestSent;
+	}
+	public void setWarrantModificationRequestSent(
+			Boolean warrantModificationRequestSent) {
+		this.warrantModificationRequestSent = warrantModificationRequestSent;
+	}
+	public Boolean getWarrantModificationResponseReceived() {
+		return warrantModificationResponseReceived;
+	}
+	public void setWarrantModificationResponseReceived(
+			Boolean warrantModificationResponseReceived) {
+		this.warrantModificationResponseReceived = warrantModificationResponseReceived;
 	}
 	public List<ChargeReferral> getChargeReferrals() {
 		return chargeReferrals;
