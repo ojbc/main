@@ -150,6 +150,10 @@
                </j:ChargeStatute>
                <criminalcase:ChargeOffense>
                   <nc:ActivityIdentification>
+                     <nc:IdentificationID>1143299</nc:IdentificationID>
+                     <nc:IdentificationCategoryText>ATN</nc:IdentificationCategoryText>
+                  </nc:ActivityIdentification>
+                  <nc:ActivityIdentification>
                      <nc:IdentificationID>CT4567</nc:IdentificationID>
                      <nc:IdentificationCategoryText>CTN</nc:IdentificationCategoryText>
                   </nc:ActivityIdentification>
@@ -186,6 +190,10 @@
 					</j:StatuteDescriptionText>
                </j:ChargeStatute>
                <criminalcase:ChargeOffense>
+                  <nc:ActivityIdentification>
+                     <nc:IdentificationID>1143299</nc:IdentificationID>
+                     <nc:IdentificationCategoryText>ATN</nc:IdentificationCategoryText>
+                  </nc:ActivityIdentification>
                   <nc:ActivityIdentification>
                      <nc:IdentificationID>CT4643</nc:IdentificationID>
                      <nc:IdentificationCategoryText>CTN</nc:IdentificationCategoryText>
