@@ -145,16 +145,6 @@
       <wm-req-ext:PersonImmigrationAlienQueryIndicator>false</wm-req-ext:PersonImmigrationAlienQueryIndicator>
    </nc30:Person>
    <nc30:Vehicle s30:id="Vehicle_01">
-      <nc30:ConveyanceColorPrimaryText>BGE</nc30:ConveyanceColorPrimaryText>
-      <nc30:ConveyanceColorSecondaryText>BRO</nc30:ConveyanceColorSecondaryText>
-      <nc30:ItemMakeName>AAA</nc30:ItemMakeName>
-      <nc30:ItemModelName>DIA</nc30:ItemModelName>
-      <nc30:ItemStyleText>2D</nc30:ItemStyleText>
-      <nc30:VehicleIdentification>
-         <nc30:IdentificationID>VIN3458745679777</nc30:IdentificationID>
-      </nc30:VehicleIdentification>
-   </nc30:Vehicle>
-   <nc30:Vehicle s30:id="Vehicle_02">
       <nc30:ConveyanceColorPrimaryText>RED</nc30:ConveyanceColorPrimaryText>
       <nc30:ConveyanceColorSecondaryText>PINK</nc30:ConveyanceColorSecondaryText>
       <nc30:ItemMakeName>FRD</nc30:ItemMakeName>
@@ -164,7 +154,24 @@
          <nc30:IdentificationID>VIN124</nc30:IdentificationID>
       </nc30:VehicleIdentification>
    </nc30:Vehicle>
+   <nc30:Vehicle s30:id="Vehicle_02">
+      <nc30:ConveyanceColorPrimaryText>BGE</nc30:ConveyanceColorPrimaryText>
+      <nc30:ConveyanceColorSecondaryText>BRO</nc30:ConveyanceColorSecondaryText>
+      <nc30:ItemMakeName>AAA</nc30:ItemMakeName>
+      <nc30:ItemModelName>DIA</nc30:ItemModelName>
+      <nc30:ItemStyleText>2D</nc30:ItemStyleText>
+      <nc30:VehicleIdentification>
+         <nc30:IdentificationID>VIN3458745679777</nc30:IdentificationID>
+      </nc30:VehicleIdentification>
+   </nc30:Vehicle>
    <jxdm51:ConveyanceRegistration s30:id="Reg_01">
+      <jxdm51:JurisdictionNCICLISCode>MI</jxdm51:JurisdictionNCICLISCode>
+      <jxdm51:ConveyanceRegistrationPlateIdentification>
+         <nc30:IdentificationID>555ABC</nc30:IdentificationID>
+      </jxdm51:ConveyanceRegistrationPlateIdentification>
+      <jxdm51:ConveyanceRegistrationPlateCategoryText>WI</jxdm51:ConveyanceRegistrationPlateCategoryText>
+   </jxdm51:ConveyanceRegistration>
+   <jxdm51:ConveyanceRegistration s30:id="Reg_02">
       <jxdm51:RegistrationExpirationDate>
          <nc30:YearMonthDate>2016-11</nc30:YearMonthDate>
       </jxdm51:RegistrationExpirationDate>
@@ -173,17 +180,10 @@
       </jxdm51:ConveyanceRegistrationPlateIdentification>
       <jxdm51:ConveyanceRegistrationPlateCategoryText>LP</jxdm51:ConveyanceRegistrationPlateCategoryText>
    </jxdm51:ConveyanceRegistration>
-   <jxdm51:ConveyanceRegistration s30:id="Reg_02">
-      <jxdm51:JurisdictionNCICLISCode>MI</jxdm51:JurisdictionNCICLISCode>
-      <jxdm51:ConveyanceRegistrationPlateIdentification>
-         <nc30:IdentificationID>555ABC</nc30:IdentificationID>
-      </jxdm51:ConveyanceRegistrationPlateIdentification>
-      <jxdm51:ConveyanceRegistrationPlateCategoryText>WI</jxdm51:ConveyanceRegistrationPlateCategoryText>
-   </jxdm51:ConveyanceRegistration>
    <nc30:ContactInformation>
       <nc30:ContactMailingAddress s30:id="Address_01">
          <nc30:LocationStreet>
-	        <nc30:StreetFullText>123 TEST DRIVE</nc30:StreetFullText>
+            <nc30:StreetFullText>123 TEST DRIVE</nc30:StreetFullText>
             <nc30:StreetNumberText>123</nc30:StreetNumberText>
             <nc30:StreetName>TEST DRIVE</nc30:StreetName>
          </nc30:LocationStreet>

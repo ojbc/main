@@ -67,7 +67,7 @@ public class InitiateWarrantModificationRequestProcessor {
 	public Document createWarrantModificationRequest(@Body Map<String, Object> data, @Headers Map<String, Object> headers) throws Exception{
 		log.info("Creating warrant modification request for Warrant "  + data.get("WARRANTID"));
 		
-		Integer warrantId = (Integer) data.get("WARRANTID");
+		Integer warrantId = ((Long) data.get("WARRANTID")).intValue();
 		headers.put("warrantID", warrantId);
 
 		Document document = createWarrantModificationRequestDocument(warrantId);
