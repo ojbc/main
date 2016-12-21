@@ -71,7 +71,7 @@
                         <nc:IdentificationCategoryText>ATV</nc:IdentificationCategoryText>
                      </nc:PersonOtherIdentification>
                      <nc:PersonOtherIdentification>
-                        <nc:IdentificationID>6418222</nc:IdentificationID>
+                        <nc:IdentificationID>SI898709</nc:IdentificationID>
                         <nc:IdentificationCategoryText>APSIN</nc:IdentificationCategoryText>
                      </nc:PersonOtherIdentification>
                      <nc:PersonOtherIdentification>
@@ -103,7 +103,12 @@
                   </j:JudicialOfficialBarMembership>
                </j:CaseProsecutionAttorney>
             </j:CaseAugmentation>
-            <ijisniem:CaseAugmentation/>
+            <ijisniem:CaseAugmentation>
+               <ijisniem:VictimRightsAssertionIndicator>true
+	</ijisniem:VictimRightsAssertionIndicator>
+               <ijisniem:VictimRightsAssertionText>VRA Text
+	</ijisniem:VictimRightsAssertionText>
+            </ijisniem:CaseAugmentation>
             <criminalcase:CaseArrest>
                <j:ArrestAgency>
                   <nc:OrganizationName>
@@ -131,7 +136,9 @@
 					circumstance, which is in violation of Anchorage Municipal Code
 					8.10.040.B.7
 				</j:ChargeDescriptionText>
-               <j:ChargeSequenceID/>
+               <j:ChargeSequenceID>
+                  <nc:IdentificationID>001</nc:IdentificationID>
+               </j:ChargeSequenceID>
                <j:ChargeSeverityLevel>
                   <j:SeverityLevelDescriptionText>Class A
 					</j:SeverityLevelDescriptionText>
@@ -157,9 +164,13 @@
                      <nc:IdentificationID>CT4567</nc:IdentificationID>
                      <nc:IdentificationCategoryText>CTN</nc:IdentificationCategoryText>
                   </nc:ActivityIdentification>
+                  <nc:ActivityDate>
+                     <nc:Date>2016-09-12</nc:Date>
+                  </nc:ActivityDate>
+                  <nc:IncidentLocation>
+                     <nc:LocationDescriptionText>Smithville</nc:LocationDescriptionText>
+                  </nc:IncidentLocation>
                </criminalcase:ChargeOffense>
-               <criminalcase:ChargeAmendedIndicator>false
-			</criminalcase:ChargeAmendedIndicator>
                <ijisniem:ChargeFilingDate>
                   <nc:Date>2016-10-13</nc:Date>
                </ijisniem:ChargeFilingDate>
@@ -171,7 +182,9 @@
 					undersigned attorney, charges that on or about the 13th day of
 					October, 2016, at or near Anchorage, Alaska...
 				</j:ChargeDescriptionText>
-               <j:ChargeSequenceID/>
+               <j:ChargeSequenceID>
+                  <nc:IdentificationID>001</nc:IdentificationID>
+               </j:ChargeSequenceID>
                <j:ChargeSeverityLevel>
                   <j:SeverityLevelDescriptionText>Class A
 					</j:SeverityLevelDescriptionText>
@@ -198,9 +211,13 @@
                      <nc:IdentificationID>CT4643</nc:IdentificationID>
                      <nc:IdentificationCategoryText>CTN</nc:IdentificationCategoryText>
                   </nc:ActivityIdentification>
+                  <nc:ActivityDate>
+                     <nc:Date>2016-09-12</nc:Date>
+                  </nc:ActivityDate>
+                  <nc:IncidentLocation>
+                     <nc:LocationDescriptionText>Smithville</nc:LocationDescriptionText>
+                  </nc:IncidentLocation>
                </criminalcase:ChargeOffense>
-               <criminalcase:ChargeAmendedIndicator>false
-			</criminalcase:ChargeAmendedIndicator>
                <ijisniem:ChargeFilingDate>
                   <nc:Date>2016-10-16</nc:Date>
                </ijisniem:ChargeFilingDate>
