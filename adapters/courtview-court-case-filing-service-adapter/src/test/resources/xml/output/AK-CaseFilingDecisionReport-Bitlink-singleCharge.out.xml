@@ -103,12 +103,6 @@
                   </j:JudicialOfficialBarMembership>
                </j:CaseProsecutionAttorney>
             </j:CaseAugmentation>
-            <ijisniem:CaseAugmentation>
-               <ijisniem:VictimRightsAssertionIndicator>true
-	</ijisniem:VictimRightsAssertionIndicator>
-               <ijisniem:VictimRightsAssertionText>VRA Text
-	</ijisniem:VictimRightsAssertionText>
-            </ijisniem:CaseAugmentation>
             <criminalcase:CaseArrest>
                <j:ArrestAgency>
                   <nc:OrganizationName>
@@ -171,6 +165,8 @@
                      <nc:LocationDescriptionText>Smithville</nc:LocationDescriptionText>
                   </nc:IncidentLocation>
                </criminalcase:ChargeOffense>
+               <criminalcase:ChargeAmendedIndicator>false
+			</criminalcase:ChargeAmendedIndicator>
                <ijisniem:ChargeFilingDate>
                   <nc:Date>2016-10-13</nc:Date>
                </ijisniem:ChargeFilingDate>
