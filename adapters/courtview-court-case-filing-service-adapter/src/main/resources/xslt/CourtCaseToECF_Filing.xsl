@@ -87,6 +87,9 @@
 				<xsl:with-param name="chargeID" select="$chargeID" />
 				<xsl:with-param name="offenseID" select="$offenseID" />
 			</xsl:apply-templates>
+			<!-- Courtview Requirement -->
+			<criminalcase:ChargeAmendedIndicator>false
+			</criminalcase:ChargeAmendedIndicator>
 			<xsl:apply-templates select="j51:ChargeFilingDate/nc30:Date"
 				mode="chargeFiling" />
 			<xsl:apply-templates select="cfd-ext:ChargeDomesticViolenceIndicator" />
@@ -157,7 +160,8 @@
 		<xsl:apply-templates select="nc30:ActivityCategoryText" />
 		<xsl:apply-templates select="nc30:CaseDocketID" />
 		<xsl:apply-templates select="j51:CaseAugmentation" />
-		<xsl:apply-templates select="." mode="ijisniem" />
+		<!-- Not in Courtview schema -->
+		<!-- xsl:apply-templates select="." mode="ijisniem" / -->
 	</xsl:template>
 	<xsl:template match="j51:CaseAugmentation">
 		<j:CaseAugmentation>
