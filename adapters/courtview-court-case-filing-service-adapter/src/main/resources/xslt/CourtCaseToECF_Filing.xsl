@@ -75,15 +75,18 @@
 			<xsl:variable name="chargeID">
 				<xsl:value-of select="@structures:id" />
 			</xsl:variable>
+			<xsl:variable name="offenseID">
+				<xsl:value-of
+					select="../../../j51:OffenseChargeAssociation[j51:Charge/@structures:ref=$chargeID]/j51:Offense/@structures:ref" />
+			</xsl:variable>
 			<xsl:apply-templates select="j51:ChargeText" />
 			<xsl:apply-templates select="j51:ChargeSequenceID" />
 			<xsl:apply-templates select="j51:ChargeSeverityLevel" />
 			<xsl:apply-templates select="j51:ChargeStatute" />
 			<xsl:apply-templates select="." mode="chargeOffense">
 				<xsl:with-param name="chargeID" select="$chargeID" />
+				<xsl:with-param name="offenseID" select="$offenseID" />
 			</xsl:apply-templates>
-			<criminalcase:ChargeAmendedIndicator>false
-			</criminalcase:ChargeAmendedIndicator>
 			<xsl:apply-templates select="j51:ChargeFilingDate/nc30:Date"
 				mode="chargeFiling" />
 			<xsl:apply-templates select="cfd-ext:ChargeDomesticViolenceIndicator" />
@@ -91,37 +94,20 @@
 	</xsl:template>
 	<xsl:template match="j51:CaseCharge" mode="chargeOffense">
 		<xsl:param name="chargeID" />
-		<xsl:choose>
-			<xsl:when test="/cfd-doc:CaseFilingDecisionReport">
-				<xsl:variable name="offenseID">
-					<xsl:value-of
-						select="/cfd-doc:CaseFilingDecisionReport/j:OffenseChargeAssociation[j:Charge/@structures:ref=chargeID]/j:Offense/@structures:ref" />
-				</xsl:variable>
-			</xsl:when>
-			<xsl:when test="/cfdu-doc:CaseFilingDecisionReportUpdate">
-				<xsl:variable name="offenseID">
-					<xsl:value-of
-						select="/cfdu-doc:CaseFilingDecisionReportUpdate/j:OffenseChargeAssociation[j:Charge/@structures:ref=chargeID]/j:Offense/@structures:ref" />
-				</xsl:variable>
-			</xsl:when>
-		</xsl:choose>
+		<xsl:param name="offenseID" />
+		<xsl:variable name="offenseLocationID">
+			<xsl:value-of
+				select="../../../j51:OffenseLocationAssociation[j51:Offense/@structures:ref=$offenseID]/nc30:Location/@structures:ref" />
+		</xsl:variable>
 		<criminalcase:ChargeOffense>
 			<xsl:apply-templates
 				select="../../../j51:Arrest/cfd-ext:ArrestTrackingNumberIdentification" />
 			<xsl:apply-templates select="j51:ChargeTrackingIdentification" />
-			<xsl:apply-templates select="j51:Offense" />
-			<xsl:choose>
-				<xsl:when test="/cfd-doc:CaseFilingDecisionReport">
-					<xsl:apply-templates
-						select="nc30:Location[@structures:id=/cfd-doc:CaseFilingDecisionReport/j:OffenseLocationAssociation[j:Offense/@structures:ref=offenseID]/nc:Location/@structures:ref]"
-						mode="offenseLocation" />
-				</xsl:when>
-				<xsl:when test="/cfdu-doc:CaseFilingDecisionReportUpdate">
-					<xsl:apply-templates
-						select="nc30:Location[@structures:id=/cfdu-doc:CaseFilingDecisionReportUpdate/j:OffenseLocationAssociation[j:Offense/@structures:ref=offenseID]/nc:Location/@structures:ref]"
-						mode="offenseLocation" />
-				</xsl:when>
-			</xsl:choose>
+			<xsl:apply-templates
+				select="../../../j51:Offense[@structures:id=$offenseID]" />
+			<xsl:apply-templates
+				select="../../../nc30:Location[@structures:id=$offenseLocationID]"
+				mode="offenseLocation" />
 		</criminalcase:ChargeOffense>
 	</xsl:template>
 	<xsl:template match="j51:ChargeSeverityLevel">
@@ -179,18 +165,12 @@
 			<xsl:apply-templates
 				select="j51:CaseCourtEvent/j51:CourtEventAppearance/j51:CourtAppearanceDate/nc30:Date"
 				mode="courtEvent" />
-			<xsl:choose>
-				<xsl:when test="/cfd-doc:CaseFilingDecisionReport">
-					<xsl:apply-templates
-						select="../../nc30:Person[@structures:id=/cfd-doc:CaseFilingDecisionReport/nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty/nc30:EntityPerson/@structures:ref]"
-						mode="subject" />
-				</xsl:when>
-				<xsl:when test="/cfdu-doc:CaseFilingDecisionReportUpdate">
-					<xsl:apply-templates
-						select="../../nc30:Person[@structures:id=/cfdu-doc:CaseFilingDecisionReportUpdate/nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty/nc30:EntityPerson/@structures:ref]"
-						mode="subject" />
-				</xsl:when>
-			</xsl:choose>
+			<xsl:variable name="personID">
+				<xsl:value-of
+					select="j51:CaseDefendantParty/nc30:EntityPerson/@structures:ref" />
+			</xsl:variable>
+			<xsl:apply-templates select="../../nc30:Person[@structures:id=$personID]"
+				mode="subject" />
 			<xsl:apply-templates
 				select="j51:CaseProsecutionAttorney/j51:JudicialOfficialBarMembership/j51:JudicialOfficialBarIdentification/nc30:IdentificationID"
 				mode="prosecutor" />
@@ -198,12 +178,15 @@
 	</xsl:template>
 	<xsl:template match="nc30:Case" mode="ijisniem">
 		<ijisniem:CaseAugmentation>
-			<!-- xsl:apply-templates select="../cfd-ext:VictimRightsAssertionCertificationIndicator" 
-				/> <xsl:apply-templates select="../cfd-ext:VictimRightsAssertionText" / -->
+			<xsl:apply-templates
+				select="../cfd-ext:VictimRightsAssertionCertificationIndicator" />
+			<xsl:apply-templates select="../cfd-ext:VictimRightsAssertionText" />
 		</ijisniem:CaseAugmentation>
 	</xsl:template>
-	<!-- cfd-ext:VictimRightsAssertionCertificationIndicator>true </cfd-ext:VictimRightsAssertionCertificationIndicator> 
-		<cfd-ext:VictimRightsAssertionText>VRA Text </cfd-ext:VictimRightsAssertionText -->
+	<cfd-ext:VictimRightsAssertionCertificationIndicator>true
+	</cfd-ext:VictimRightsAssertionCertificationIndicator>
+	<cfd-ext:VictimRightsAssertionText>VRA Text
+	</cfd-ext:VictimRightsAssertionText>
 	<xsl:template match="j51:CaseCourt">
 		<j:CaseCourt>
 			<xsl:apply-templates select="nc30:OrganizationName" />
@@ -222,36 +205,28 @@
 		</j:CaseCourtEvent>
 	</xsl:template>
 	<xsl:template match="j51:Offense">
-		<nc:ActivityDateRange>
-			<nc:StartDate>
-				<nc:Date>
-					<xsl:apply-templates select="nc30:ActivityDate/nc30:Date" />
-				</nc:Date>
-			</nc:StartDate>
-		</nc:ActivityDateRange>
+		<nc:ActivityDate>
+			<nc:Date>
+				<xsl:apply-templates select="nc30:ActivityDate/nc30:Date" />
+			</nc:Date>
+		</nc:ActivityDate>
 	</xsl:template>
 	<xsl:template match="nc30:Person" mode="subject">
+		<xsl:variable name="locationID">
+			<xsl:value-of
+				select="../nc30:PersonResidenceAssociation/nc30:Location/@structures:ref" />
+		</xsl:variable>
 		<j:CaseDefendantParty>
 			<ecf:EntityPerson>
 				<xsl:apply-templates select="nc30:PersonBirthDate" />
 				<xsl:apply-templates select="nc30:PersonName" />
 				<xsl:apply-templates select="cfd-ext:OperatorLicenseIdentification" />
-				<xsl:apply-templates
-					select="cfd-ext:AlaskaPublicSafetyInformationNetworkIdentification" />
+				<xsl:apply-templates select="nc30:PersonStateIdentification" />
 				<xsl:apply-templates
 					select="j51:PersonAugmentation/j51:DriverLicense/j51:DriverLicenseIdentification" />
-				<xsl:choose>
-					<xsl:when test="/cfd-doc:CaseFilingDecisionReport">
-						<xsl:apply-templates
-							select="/cfd-doc:CaseFilingDecisionReport/nc30:Location[@structures:id=/cfd-doc:CaseFilingDecisionReport/nc30:PersonResidenceAssociation/nc30:Location/@structures:ref]/nc30:Address"
-							mode="subject" />
-					</xsl:when>
-					<xsl:when test="/cfdu-doc:CaseFilingDecisionReportUpdate">
-						<xsl:apply-templates
-							select="/cfdu-doc:CaseFilingDecisionReportUpdate/nc30:Location[@structures:id=/cfdu-doc:CaseFilingDecisionReportUpdate/nc30:PersonResidenceAssociation/nc30:Location/@structures:ref]/nc30:Address"
-							mode="subject" />
-					</xsl:when>
-				</xsl:choose>
+				<xsl:apply-templates
+					select="../nc30:Location[@structures:id=$locationID]/nc30:Address"
+					mode="subject" />
 			</ecf:EntityPerson>
 		</j:CaseDefendantParty>
 	</xsl:template>
@@ -297,8 +272,7 @@
 			<xsl:apply-templates select="nc30:IdentificationCategoryText" />
 		</nc:PersonOtherIdentification>
 	</xsl:template>
-	<xsl:template
-		match="cfd-ext:AlaskaPublicSafetyInformationNetworkIdentification">
+	<xsl:template match="nc30:PersonStateIdentification">
 		<nc:PersonOtherIdentification>
 			<xsl:apply-templates select="nc30:IdentificationID" />
 			<nc:IdentificationCategoryText>APSIN</nc:IdentificationCategoryText>
@@ -435,7 +409,9 @@
 	</xsl:template>
 	<xsl:template match="j51:ChargeSequenceID">
 		<j:ChargeSequenceID>
-			<xsl:apply-templates select="nc30:IdentificationID" />
+			<nc:IdentificationID>
+				<xsl:value-of select="." />
+			</nc:IdentificationID>
 		</j:ChargeSequenceID>
 	</xsl:template>
 	<xsl:template match="j51:SeverityLevelDescriptionText">
