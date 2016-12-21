@@ -37,7 +37,7 @@
 			<nc:PersonGivenName>Mickey</nc:PersonGivenName>
 			<nc:PersonSurName>Mouse</nc:PersonSurName>
 		</nc:PersonAlternateName>
-		<nc:PersonBirthDate>
+		<nc:PersonBirthDate s:metadata="SM001">
 			<nc:Date>2012-11-12</nc:Date>
 		</nc:PersonBirthDate>
 		<nc:PersonEyeColorCode>XXX</nc:PersonEyeColorCode>
