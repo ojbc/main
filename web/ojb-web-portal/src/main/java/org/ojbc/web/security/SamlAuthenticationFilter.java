@@ -32,6 +32,7 @@ public class SamlAuthenticationFilter extends AbstractPreAuthenticatedProcessing
     @Override
     protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
         Element samlAssertion = this.extractSAMLAssertion(request);
+        request.setAttribute("samlAssertion", samlAssertion);
 
         String federationId = null;
         if ( samlAssertion != null) {
