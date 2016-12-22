@@ -61,6 +61,7 @@ public class SamlServiceImpl implements SamlService{
 		}
 		
 		if (assertion == null && getAllowQueriesWithoutSAMLToken()){
+			LOG.info("Creating demo user saml assertion.");
 			assertion = createDemoUserSamlAssertion();
 		}
 		

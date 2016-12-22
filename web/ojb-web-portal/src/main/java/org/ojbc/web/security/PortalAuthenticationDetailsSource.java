@@ -84,15 +84,18 @@ public class PortalAuthenticationDetailsSource implements
                 new ArrayList<SimpleGrantedAuthority>(); 
  
         Element samlAssertion = (Element)context.getAttribute("samlAssertion");
+        log.info("samlAssertion not null " + BooleanUtils.toStringYesNo(samlAssertion != null));
         String ori = getAttributeValue(samlAssertion, SamlAttribute.EmployerORI);  
 
         SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
         
-        Boolean federatedQueryUserIndicator = WebUtils.getFederatedQueryUserIndicator(samlAssertion);
-        
-        if ( BooleanUtils.isNotTrue(federatedQueryUserIndicator)){
-            return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, 
-                    grantedAuthorities);
+        if (requireFederatedQueryUserIndicator){
+	        Boolean federatedQueryUserIndicator = WebUtils.getFederatedQueryUserIndicator(samlAssertion);
+	        
+	        if ( BooleanUtils.isNotTrue(federatedQueryUserIndicator)){
+	            return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, 
+	                    grantedAuthorities);
+	        }
         }
     
         String principal = (String) context.getAttribute("principal");
@@ -173,6 +176,7 @@ public class PortalAuthenticationDetailsSource implements
                 grantedAuthorities);
     }
 
+	@SuppressWarnings("unused")
 	private void grantOrDenyAuthority(List<SimpleGrantedAuthority> grantedAuthorities,
 			String accessControlResponseString, String resourceURI, Authorities authority) {
 		String accessDenied = getAccessDeniedIndicator(accessControlResponseString, resourceURI);

@@ -102,7 +102,7 @@ public class ErrorController {
         Boolean federatedQueryUserIndicator = WebUtils.getFederatedQueryUserIndicator((Element)authentication.getCredentials());
         if ( (requireFederatedQueryUserIndicator && BooleanUtils.isNotTrue(federatedQueryUserIndicator))
         		|| (authentication!= null && WebPortalConstants.EMPTY_FEDERATION_ID.equals(authentication.getName()))){
-        	sb.append( "Login Error: One or more required user attributes are missing or not valid.  ");
+        	sb.append( "LOGIN ERROR: One or more required user attributes are missing or not valid.  ");
         }
         else {
         	sb.append( "LOGIN ERROR: Failed to get access control response. ");
