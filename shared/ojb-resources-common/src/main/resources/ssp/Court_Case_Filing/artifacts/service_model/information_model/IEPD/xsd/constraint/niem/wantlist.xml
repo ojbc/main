@@ -17145,8 +17145,6 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeEnhancingAllegationCharge"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="j:ChargeFilingDate" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeNCICCode" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeSequenceID" w:isReference="false"
@@ -17683,6 +17681,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:OrganizationOtherIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationPrimaryContactInformation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationSubUnitName"
