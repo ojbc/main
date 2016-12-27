@@ -135,6 +135,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:EntityType">
 				<xsd:sequence>
+					<xsd:element ref="ojb-cit-ext:OrganizationDriverLicense"
+						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="ecf:CaseParticipantRoleCode" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0"
 						maxOccurs="unbounded" />
@@ -567,8 +569,7 @@
 		type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>A municipality ordinance that has been violated
-				through an
-				offense.
+				through an offense.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -635,8 +636,14 @@
 	</xsd:element>
 	<xsd:element name="CitationIssuedLocation" type="nc:LocationType">
 		<xsd:annotation>
-			<xsd:documentation>The location
-				where the citation was issued.
+			<xsd:documentation>The location where the citation was issued.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="OrganizationDriverLicense" type="ojb-cit-ext:DriverLicenseType">
+		<xsd:annotation>
+			<xsd:documentation>Details about a license issued to an organization
+				granting driving privileges.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
