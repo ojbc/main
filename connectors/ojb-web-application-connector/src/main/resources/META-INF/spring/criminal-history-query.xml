@@ -65,7 +65,7 @@
        
 	    <!-- Criminal History Request and Response Endpoints -->
 	   <bean id="criminalHistoryRequestProcessor" class="org.ojbc.processor.person.query.CriminalHistoryRequestProcessor">
-	   		<property name="replyToAddress"><value>${webapplication.personQuery.personQueryResultsHandlerCriminalHistoryEndpoint}</value></property>
+	   		<property name="replyToAddress"><value>${webapplication.personQuery.personQueryCriminalHistoryReplyToEndpoint}</value></property>
 	   		<property name="criminalHistoryMessageProcessor" ref="criminalHistoryMessageProcessor"/>
 	   		<property name="requestResponseMap" ref="criminalHistoryRequestResponseMap"/>
 	   		<property name="maxPolls" value="${webapplication.maxPolls}"/>

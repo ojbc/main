@@ -59,7 +59,7 @@
 	    	<camel:log message="Received response message - Criminal History: ${body}" loggingLevel="DEBUG"/>
 
 	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
-			<camel:to uri="bean:warrantsMessageProcessor?method=processRequestPayload" />
+			<camel:to uri="bean:criminalHistoryMessageProcessor?method=processRequestPayload" />
 			
 	    	<camel:convertBodyTo type="java.lang.String"/>
 	    	<camel:to uri="bean:criminalHistoryRequestProcessor?method=updateMapWithResponse"/>
