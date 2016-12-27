@@ -74,8 +74,7 @@
 						</lexs:DataItemReferenceID>
 						<lexs:DataItemPublishInstruction>Insert
 						</lexs:DataItemPublishInstruction>
-						<lexs:DataItemStatus>
-							Closed
+						<lexs:DataItemStatus> Closed
 						</lexs:DataItemStatus>
 						<lexs:DataOwnerMetadata>
 							<lexs:DataOwnerIdentifier>
@@ -289,7 +288,7 @@
 								<nc:ItemModelYearDate>2015</nc:ItemModelYearDate>
 								<nc:VehicleStyleCode>SD</nc:VehicleStyleCode>
 								<nc:ConveyanceRegistrationPlateIdentification>
-									<nc:IdentificationID>ABC1234567 </nc:IdentificationID>
+									<nc:IdentificationID>ABC1234567</nc:IdentificationID>
 									<nc:IdentificationJurisdictionFIPS10-4Code>VT
 									</nc:IdentificationJurisdictionFIPS10-4Code>
 								</nc:ConveyanceRegistrationPlateIdentification>
@@ -559,6 +558,17 @@
 								<lexslib:SameAsDigestReference
 									lexslib:ref="DL001" />
 							</inc-ext:DriverLicense>
+							<inc-ext:Organization>
+								<inc-ext:OrganizationDriverLicense>
+									<nc:DriverLicenseIdentification>
+										<nc:IdentificationID>12345678</nc:IdentificationID>
+										<j:IdentificationJurisdictionNCICLISCode>VT
+										</j:IdentificationJurisdictionNCICLISCode>
+									</nc:DriverLicenseIdentification>
+								</inc-ext:OrganizationDriverLicense>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="ORGANIZATION_01" />
+							</inc-ext:Organization>
 							<nc:PersonContactInformationAssociation>
 								<nc:PersonReference s:ref="PERSON_03" />
 								<nc:ContactInformationReference

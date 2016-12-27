@@ -17,291 +17,409 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0" targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../NIEM_2.0/niem-core/2.0/niem-core.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd"/>
-	<xsd:import namespace="http://usdoj.gov/leisp/lexs/library/3.1" schemaLocation="../../lexs/library/3.1/library.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/fbi/2.0" schemaLocation="../../NIEM_2.0/fbi/2.0/fbi.xsd"/>
+<xsd:schema xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
+		schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
+		schemaLocation="../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
+		schemaLocation="../../NIEM_2.0/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0"
+		schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd" />
+	<xsd:import namespace="http://usdoj.gov/leisp/lexs/library/3.1"
+		schemaLocation="../../lexs/library/3.1/library.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/fbi/2.0"
+		schemaLocation="../../NIEM_2.0/fbi/2.0/fbi.xsd" />
 	<xsd:annotation>
 		<xsd:documentation>Structured payload for the Incident Report
 		</xsd:documentation>
 	</xsd:annotation>
 	<xsd:complexType name="IncidentReportType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a report of an
-				incident.</xsd:documentation>
+			<xsd:documentation>A data type for a report of an incident.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:IncidentReportableToDistrictAttorneyIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:FormRevisionDate" minOccurs="0"/>
-					<xsd:element ref="inc-ext:Incident" minOccurs="0"/>
-					<xsd:element ref="inc-ext:Offense" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Charge" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:DriverLicenseLocationAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:ChargeLocationAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:IncidentVictimPersonAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:IncidentSubjectPersonAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:IncidentSubject" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Location" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Arrest" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Victim" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:EnforcementOfficial" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:Document" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:RecordCategoryText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:DocumentRequestorDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Person" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Booking" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Warrant" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Citation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Vehicle" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:DrivingIncident" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:DriverLicense" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:LocationContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:ActivityArrestAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:ActivityDocumentAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:EntityDocumentAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:PersonDriverLicenseAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:CitationDeliveryRecipientAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:CitationIssuedLocationAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element
+						ref="inc-ext:IncidentReportableToDistrictAttorneyIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:FormRevisionDate" minOccurs="0" />
+					<xsd:element ref="inc-ext:Incident" minOccurs="0" />
+					<xsd:element ref="inc-ext:Offense" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Charge" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:DriverLicenseLocationAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:ChargeLocationAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentVictimPersonAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentSubjectPersonAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentSubject" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Location" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Arrest" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Victim" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:EnforcementOfficial"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Document" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:RecordCategoryText"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:DocumentRequestorDescriptionText"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Person" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:ContactInformation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Booking" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Warrant" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Citation" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Vehicle" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:DrivingIncident" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:DriverLicense" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Organization" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonContactInformationAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:LocationContactInformationAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityArrestAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ActivityDocumentAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:EntityDocumentAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:PersonDriverLicenseAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:CitationDeliveryRecipientAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:CitationIssuedLocationAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="IncidentType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an occurrence or an event that may require a response.</xsd:documentation>
+			<xsd:documentation>A data type for an occurrence or an event that may
+				require a response.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:IncidentType">
 				<xsd:sequence>
-					<xsd:element ref="j:IncidentArrestMadeIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:IncidentCrimeSolvedIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:IncidentCitationIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:IncidentWarningIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:IncidentAutomobileTheftIndicator" minOccurs="0"/>
-					<xsd:element ref="j:IncidentCriminalIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:Charge" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:PropertyEvidence" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:IncidentCase" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:OfficerInCharge" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:IncidentCategory" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:IncidentNature" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="j:IncidentArrestMadeIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:IncidentCrimeSolvedIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:IncidentCitationIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:IncidentWarningIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:IncidentAutomobileTheftIndicator"
+						minOccurs="0" />
+					<xsd:element ref="j:IncidentCriminalIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:Charge" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:PropertyEvidence" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentCase" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:OfficerInCharge" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentCategory" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentNature" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="OffenseType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an alleged violation of a statute, ordinance, or rule.</xsd:documentation>
+			<xsd:documentation>A data type for an alleged violation of a statute,
+				ordinance, or rule.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:MunicipalityOrdinanceIdentification" minOccurs="0"/>
-					<xsd:element ref="inc-ext:OffenseViolatedStatute" minOccurs="0"/>
-					<xsd:element ref="inc-ext:OffenseModifier" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:OffenseCodeText" minOccurs="0"/>
-					<xsd:element ref="inc-ext:OffenseCategoryCodeText" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CFRStatute" minOccurs="0"/>
-					<xsd:element ref="inc-ext:ViolationOffenseCode" minOccurs="0"/>
-					<xsd:element ref="inc-ext:DrivingOffensePoints" minOccurs="0"/>
-					<xsd:element ref="inc-ext:OffenseFineAmountMinimum" minOccurs="0"/>
-					<xsd:element ref="inc-ext:OffenseFineAmountMaximum" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="inc-ext:MunicipalityOrdinanceIdentification"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:OffenseViolatedStatute"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:OffenseModifier" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:OffenseCodeText" minOccurs="0" />
+					<xsd:element ref="inc-ext:OffenseCategoryCodeText"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:CFRStatute" minOccurs="0" />
+					<xsd:element ref="inc-ext:ViolationOffenseCode"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:DrivingOffensePoints"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:OffenseFineAmountMinimum"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:OffenseFineAmountMaximum"
+						minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="ChargeType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a formal allegation that a specific person has committed a specific offense.</xsd:documentation>
+			<xsd:documentation>A data type for a formal allegation that a
+				specific person has committed a specific offense.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:ChargeType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:RelatedCriminalChargeIndicator" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="inc-ext:RelatedCriminalChargeIndicator"
+						minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="IncidentCaseType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a case resulting from the incident.</xsd:documentation>
+			<xsd:documentation>A data type for a case resulting from the
+				incident.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:CaseType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:DispositionWaiver" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="inc-ext:DispositionWaiver" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="PropertyEvidenceType">
 		<xsd:annotation>
-			<xsd:documentation>A data type a for piece of property or evidence collected as a result of an incident</xsd:documentation>
+			<xsd:documentation>A data type a for piece of property or evidence
+				collected as a result of an incident
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:TangibleItemType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="DriverLicenseLocationAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an association between a driver license and an address on that license.</xsd:documentation>
+			<xsd:documentation>A data type for an association between a driver
+				license and an address on that license.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
-					<xsd:element ref="nc:LocationReference"/>
-					<xsd:element ref="nc:DriverLicenseReference"/>
+					<xsd:element ref="nc:LocationReference" />
+					<xsd:element ref="nc:DriverLicenseReference" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="EntityDocumentAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an association between an entity and a document.</xsd:documentation>
+			<xsd:documentation>A data type for an association between an entity
+				and a document.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
-					<xsd:element ref="nc:DocumentReference"/>
-					<xsd:element ref="nc:EntityRepresentation"/>
+					<xsd:element ref="nc:DocumentReference" />
+					<xsd:element ref="nc:EntityRepresentation" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="CitationDeliveryRecipientAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an association between a delivery recipient entity and a citation.</xsd:documentation>
+			<xsd:documentation>A data type for an association between a delivery
+				recipient entity and a citation.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:CitationReference"/>
-					<xsd:element ref="nc:EntityRepresentation"/>
+					<xsd:element ref="inc-ext:CitationReference" />
+					<xsd:element ref="nc:EntityRepresentation" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="CitationIssuedLocationAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an association between a citation and the location where the citation is issued.</xsd:documentation>
+			<xsd:documentation>A data type for an association between a citation
+				and the location where the citation is issued.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:CitationReference"/>
-					<xsd:element ref="nc:LocationReference"/>
+					<xsd:element ref="inc-ext:CitationReference" />
+					<xsd:element ref="nc:LocationReference" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="ChargeLocationAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a relationship between a charge and a location where activity took place that resulted in the charge.</xsd:documentation>
+			<xsd:documentation>A data type for a relationship between a charge
+				and a location where activity took place that resulted in the
+				charge.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
-					<xsd:element ref="j:ChargeReference"/>
-					<xsd:element ref="nc:LocationReference"/>
+					<xsd:element ref="j:ChargeReference" />
+					<xsd:element ref="nc:LocationReference" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="IncidentSubject" type="inc-ext:IncidentSubjectType"/>
+	<xsd:element name="IncidentSubject" type="inc-ext:IncidentSubjectType" />
 	<xsd:complexType name="IncidentSubjectType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a person, in the role of a subject, related to an incident.</xsd:documentation>
+			<xsd:documentation>A data type for a person, in the role of a
+				subject, related to an incident.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:SubjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
-					<xsd:element ref="inc-ext:SubjectBloodAlcoholContentNumber" minOccurs="0"/>
-					<xsd:element ref="inc-ext:SubjectIsOfInterestIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:SubjectStatusDescriptionText" minOccurs="0"/>
-					<xsd:element ref="inc-ext:SubjectViolatedProbationIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:SubjectActiveArrestWarrantIndicator" minOccurs="0"/>
-					<xsd:element ref="j:Citation" minOccurs="0"/>
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:SubjectBloodAlcoholContentNumber"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:SubjectIsOfInterestIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:SubjectStatusDescriptionText"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:SubjectViolatedProbationIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:SubjectActiveArrestWarrantIndicator"
+						minOccurs="0" />
+					<xsd:element ref="j:Citation" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="LocationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a geophysical location.</xsd:documentation>
+			<xsd:documentation>A data type for a geophysical location.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:LocationType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:SpatialReferenceIdentification" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="inc-ext:SpatialReferenceIdentification"
+						minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="ArrestType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for the apprehension of a subject by a peace official.</xsd:documentation>
+			<xsd:documentation>A data type for the apprehension of a subject by a
+				peace official.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:ArrestType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:ArrestInvolvedDrugCategoryCode" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="inc-ext:ArrestInvolvedDrugCategoryCode"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="VictimType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a person who suffers injury, loss, or death as a result of an incident.</xsd:documentation>
+			<xsd:documentation>A data type for a person who suffers injury, loss,
+				or death as a result of an incident.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:VictimType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:VictimNarrativeText" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="inc-ext:VictimNarrativeText"
+						minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="EnforcementOfficialType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a person who suffers injury, loss, or death as a result of an incident.</xsd:documentation>
+			<xsd:documentation>A data type for a person who suffers injury, loss,
+				or death as a result of an incident.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:EnforcementOfficialType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:EnforcementOfficialIdentification" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="inc-ext:EnforcementOfficialIdentification"
+						minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="DriverLicenseType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a person who suffers injury, loss, or death as a result of an incident.</xsd:documentation>
+			<xsd:documentation>A data type for a license issued granting driving
+				privileges.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:DriverLicenseType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:DriverLicenseCDLIndicator" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="inc-ext:DriverLicenseCDLIndicator"
+						minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -310,26 +428,31 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityInvolvedPersonAssociationType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:PersonIncidentInvolvementAgeMeasure"/>
-					<xsd:element ref="lexslib:SameAsDigestReference"/>
+					<xsd:element ref="inc-ext:PersonIncidentInvolvementAgeMeasure" />
+					<xsd:element ref="lexslib:SameAsDigestReference" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:element name="OfficerInCharge" type="inc-ext:IssuingOfficerType">
 		<xsd:annotation>
-			<xsd:documentation>The officer responsible for reporting the incident</xsd:documentation>
+			<xsd:documentation>The officer responsible for reporting the incident
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="IssuingOfficerType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for the officer responsble for reporting the incident</xsd:documentation>
+			<xsd:documentation>A data type for the officer responsble for
+				reporting the incident
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:EnforcementOfficialType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:OfficerSignatureImage" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="inc-ext:OfficerSignatureImage"
+						minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -341,116 +464,167 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:PersonType">
 				<xsd:sequence>
-					<xsd:element ref="j:PersonAugmentation" minOccurs="0"/>
-					<xsd:element ref="inc-ext:PersonDNACollectionRequiredIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:PersonDepartmentOfCorrectionsIdentification" minOccurs="0"/>
-					<xsd:element ref="inc-ext:PersonFishAndWildlifeLicenseIdentification" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="j:PersonAugmentation" minOccurs="0" />
+					<xsd:element ref="inc-ext:PersonDNACollectionRequiredIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:PersonDepartmentOfCorrectionsIdentification"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:PersonFishAndWildlifeLicenseIdentification"
+						minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="ContactInformationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for how to contact a person or an organization.</xsd:documentation>
+			<xsd:documentation>A data type for how to contact a person or an
+				organization.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="nc:ContactEntityDescriptionText" maxOccurs="unbounded"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:ContactEntityDescriptionText"
+						maxOccurs="unbounded" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="OrganizationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a body of people organized for a particular purpose.</xsd:documentation>
+			<xsd:documentation>A data type for a body of people organized for a
+				particular purpose.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:OrganizationType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="inc-ext:OrganizationDriverLicense" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="BookingType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an administrative step taken after an arrest subject is brought to a police station or detention facility.</xsd:documentation>
+			<xsd:documentation>A data type for an administrative step taken after
+				an arrest subject is brought to a police station or detention
+				facility.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:BookingType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="WarrantType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an authorization for an enforcement official to perform a specified action.</xsd:documentation>
+			<xsd:documentation>A data type for an authorization for an
+				enforcement official to perform a specified action.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:WarrantType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:WarrantExtraditionRequestedIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:WarrantExtraditionTransportationInstructionsText" minOccurs="0"/>
-					<xsd:element ref="inc-ext:Bond" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="inc-ext:WarrantExtraditionRequestedIndicator"
+						minOccurs="0" />
+					<xsd:element
+						ref="inc-ext:WarrantExtraditionTransportationInstructionsText"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:Bond" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="DrivingIncidentType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for details of an incident involving a vehicle.</xsd:documentation>
+			<xsd:documentation>A data type for details of an incident involving a
+				vehicle.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:DrivingIncidentType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:SubjectBloodAlcoholContentNumber" minOccurs="0"/>
-					<xsd:element ref="inc-ext:DrivingAccidentIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:DrivingAccidentFatalityIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:SeatBeltViolationIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:SeatBeltViolationCount" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CivilReliefActIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CivilReliefActJuvenileIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CivilReliefActOtherIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CivilReliefActOtherText" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="inc-ext:SubjectBloodAlcoholContentNumber"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:DrivingAccidentIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:DrivingAccidentFatalityIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:SeatBeltViolationIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:SeatBeltViolationCount"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:CivilReliefActIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:CivilReliefActJuvenileIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:CivilReliefActOtherIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:CivilReliefActOtherText"
+						minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="CitationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an official summons to appear in court or pay a fine..</xsd:documentation>
+			<xsd:documentation>A data type for an official summons to appear in
+				court or pay a fine..
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:CitationType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:CitationServedDate" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CitationViolationDate" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CitationDeliveredRecipientText" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CitationMunicipalityCode" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CitationWaiverAmount" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CitationServedIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:CitationMailedIndicator" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="inc-ext:CitationServedDate"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:CitationViolationDate"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:CitationDeliveredRecipientText"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:CitationMunicipalityCode"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:CitationWaiverAmount"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:CitationServedIndicator"
+						minOccurs="0" />
+					<xsd:element ref="inc-ext:CitationMailedIndicator"
+						minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="VehicleType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a motor-driven conveyance designed to carry its operator, and optionally passengers and cargo, over land.</xsd:documentation>
+			<xsd:documentation>A data type for a motor-driven conveyance designed
+				to carry its operator, and optionally passengers and cargo, over
+				land.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:VehicleType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:VehicleHazardousMaterialIndicator" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="inc-ext:VehicleHazardousMaterialIndicator"
+						minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 			<!-- Should the extension base bes:ComplexObjectType? -->
@@ -458,7 +632,9 @@
 	</xsd:complexType>
 	<xsd:element name="EnforcementOfficialIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to an enforcement official.</xsd:documentation>
+			<xsd:documentation>A unique identification assigned to an enforcement
+				official.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="IncidentReport" type="inc-ext:IncidentReportType">
@@ -468,72 +644,101 @@
 	</xsd:element>
 	<xsd:element name="Incident" type="inc-ext:IncidentType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an occurrence or an event that may require a response.</xsd:documentation>
+			<xsd:documentation>A data type for an occurrence or an event that may
+				require a response.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IncidentReportableToDistrictAttorneyIndicator" type="niem-xsd:boolean">
+	<xsd:element name="IncidentReportableToDistrictAttorneyIndicator"
+		type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the details of the incident require that it must be reported to the district attorney, false otherwise</xsd:documentation>
+			<xsd:documentation>True if the details of the incident require that
+				it must be reported to the district attorney, false otherwise
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FormRevisionDate" type="niem-xsd:dateTime">
 		<xsd:annotation>
-			<xsd:documentation>The date the incident reporting form, used to report this incident initially, was revised.</xsd:documentation>
+			<xsd:documentation>The date the incident reporting form, used to
+				report this incident initially, was revised.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Charge" type="inc-ext:ChargeType">
 		<xsd:annotation>
-			<xsd:documentation>A formal allegation that a specific person has committed a specific offense.</xsd:documentation>
+			<xsd:documentation>A formal allegation that a specific person has
+				committed a specific offense.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PropertyEvidence" type="inc-ext:PropertyEvidenceType">
 		<xsd:annotation>
-			<xsd:documentation>A piece of property or evidence collected as a result of an incident.</xsd:documentation>
+			<xsd:documentation>A piece of property or evidence collected as a
+				result of an incident.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="IncidentCase" type="inc-ext:IncidentCaseType">
 		<xsd:annotation>
-			<xsd:documentation>A case resulting from the incident.</xsd:documentation>
+			<xsd:documentation>A case resulting from the incident.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DispositionWaiver" type="j:ChargeDispositionType">
 		<xsd:annotation>
-			<xsd:documentation>A record of a person's commitment to a specific disposition-related obligation.</xsd:documentation>
+			<xsd:documentation>A record of a person's commitment to a specific
+				disposition-related obligation.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DriverLicenseLocationAssociation" type="inc-ext:DriverLicenseLocationAssociationType">
+	<xsd:element name="DriverLicenseLocationAssociation"
+		type="inc-ext:DriverLicenseLocationAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>An association between a driver license and an address on that license.</xsd:documentation>
+			<xsd:documentation>An association between a driver license and an
+				address on that license.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="EntityDocumentAssociation" type="inc-ext:EntityDocumentAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>An association between an entity and a document.</xsd:documentation>
+			<xsd:documentation>An association between an entity and a document.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubjectBloodAlcoholContentNumber" type="niem-xsd:decimal">
 		<xsd:annotation>
-			<xsd:documentation>A percentage of alcohol in the blood of the subject at the time of the incident</xsd:documentation>
+			<xsd:documentation>A percentage of alcohol in the blood of the
+				subject at the time of the incident
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubjectIsOfInterestIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the person is of interest,  false otherwise.</xsd:documentation>
+			<xsd:documentation>True if the person is of interest, false
+				otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubjectStatusDescriptionText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A description of a subject's custody or supervision status.</xsd:documentation>
+			<xsd:documentation>A description of a subject's custody or
+				supervision status.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubjectViolatedProbationIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the subject violated probation conditions during the incident, false otherwise.</xsd:documentation>
+			<xsd:documentation>True if the subject violated probation conditions
+				during the incident, false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SubjectActiveArrestWarrantIndicator" type="niem-xsd:boolean">
+	<xsd:element name="SubjectActiveArrestWarrantIndicator"
+		type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if there is an active warrant for the Subject's arrest, false otherwise.  </xsd:documentation>
+			<xsd:documentation>True if there is an active warrant for the
+				Subject's arrest, false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Location" type="inc-ext:LocationType">
@@ -543,42 +748,57 @@
 	</xsd:element>
 	<xsd:element name="Arrest" type="inc-ext:ArrestType">
 		<xsd:annotation>
-			<xsd:documentation>An apprehension of a subject by a peace official.</xsd:documentation>
+			<xsd:documentation>An apprehension of a subject by a peace official.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Victim" type="inc-ext:VictimType">
 		<xsd:annotation>
-			<xsd:documentation>A person who suffers injury, loss, or death as a result of an incident.</xsd:documentation>
+			<xsd:documentation>A person who suffers injury, loss, or death as a
+				result of an incident.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="EnforcementOfficial" type="inc-ext:EnforcementOfficialType">
 		<xsd:annotation>
-			<xsd:documentation>A person who suffers injury, loss, or death as a result of an incident.</xsd:documentation>
+			<xsd:documentation>A person who suffers injury, loss, or death as a
+				result of an incident.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="VictimNarrativeText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A victim's account of the incident.</xsd:documentation>
+			<xsd:documentation>A victim's account of the incident.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ChargeLocationAssociation" type="inc-ext:ChargeLocationAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>A relationship between a charge and a location where activity took place that resulted in the charge.</xsd:documentation>
+			<xsd:documentation>A relationship between a charge and a location
+				where activity took place that resulted in the charge.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CitationDeliveryRecipientAssociation" type="inc-ext:CitationDeliveryRecipientAssociationType">
+	<xsd:element name="CitationDeliveryRecipientAssociation"
+		type="inc-ext:CitationDeliveryRecipientAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>An association between a delivery recipient entity and a citation.</xsd:documentation>
+			<xsd:documentation>An association between a delivery recipient entity
+				and a citation.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CitationIssuedLocationAssociation" type="inc-ext:CitationIssuedLocationAssociationType">
+	<xsd:element name="CitationIssuedLocationAssociation"
+		type="inc-ext:CitationIssuedLocationAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>An association between a citation and the location where the citation is issued.</xsd:documentation>
+			<xsd:documentation>An association between a citation and the location
+				where the citation is issued.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OfficerSignatureImage" type="nc:ImageType">
 		<xsd:annotation>
-			<xsd:documentation>An image that contains an officer's signature.</xsd:documentation>
+			<xsd:documentation>An image that contains an officer's signature.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="IncidentCategory" abstract="true">
@@ -588,17 +808,22 @@
 	</xsd:element>
 	<xsd:element name="IncidentNature" abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>A classification of an incident.</xsd:documentation>
+			<xsd:documentation>A classification of an incident.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IncidentCategoryCode" type="inc-ext:IncidentCategoryCodeType" substitutionGroup="inc-ext:IncidentCategory">
+	<xsd:element name="IncidentCategoryCode" type="inc-ext:IncidentCategoryCodeType"
+		substitutionGroup="inc-ext:IncidentCategory">
 		<xsd:annotation>
 			<xsd:documentation>The kind of incident.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SpatialReferenceIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>Aunique value used to unambiguously identify projected, unprojected, and local spatial coordinate system definitions. commonly referred to as SRID.</xsd:documentation>
+			<xsd:documentation>Aunique value used to unambiguously identify
+				projected, unprojected, and local spatial coordinate system
+				definitions. commonly referred to as SRID.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="IncidentCategoryCodeType">
@@ -608,7 +833,7 @@
 		</xsd:annotation>
 		<xsd:simpleContent>
 			<xsd:extension base="inc-ext:IncidentCategoryCodeSimpleType">
-				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
@@ -647,107 +872,150 @@
 	</xsd:simpleType>
 	<xsd:complexType name="OffenseModifierType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a special classification of an offense.</xsd:documentation>
+			<xsd:documentation>A data type for a special classification of an
+				offense.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:OffenseModifierRepresentation" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:OffenseModifierDescriptionText" minOccurs="0"/>
+					<xsd:element ref="inc-ext:OffenseModifierRepresentation"
+						maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:OffenseModifierDescriptionText"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="BondType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for Details about an agreement between a bondsman and a subject in which a bondsman pays the subject's bail or portion of the bail in exchange for certain conditions, including the payment of a certain amount of money and the reappearance of the subject in court on the required date.</xsd:documentation>
+			<xsd:documentation>A data type for Details about an agreement between
+				a bondsman and a subject in which a bondsman pays the subject's bail
+				or portion of the bail in exchange for certain conditions, including
+				the payment of a certain amount of money and the reappearance of the
+				subject in court on the required date.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:BondType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:BondCommentsText" minOccurs="0"/>
+					<xsd:element ref="inc-ext:BondCommentsText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:element name="IncidentCrimeSolvedIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if crime related to the incident has been solved, false otherwise.</xsd:documentation>
+			<xsd:documentation>True if crime related to the incident has been
+				solved, false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="IncidentCitationIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if incident resulted in issuance of a citation, false otherwise.</xsd:documentation>
+			<xsd:documentation>True if incident resulted in issuance of a
+				citation, false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="IncidentWarningIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if incident resulted in issuance of a warning, false otherwise.</xsd:documentation>
+			<xsd:documentation>True if incident resulted in issuance of a
+				warning, false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="IncidentAutomobileTheftIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if incident resulted in theft of an automobile, false otherwise.</xsd:documentation>
+			<xsd:documentation>True if incident resulted in theft of an
+				automobile, false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseModifierRepresentation" abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>An abstract representation of sub-category for an offense </xsd:documentation>
+			<xsd:documentation>An abstract representation of sub-category for an
+				offense
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="OffenseModifierText" type="nc:TextType" substitutionGroup="inc-ext:OffenseModifierRepresentation">
+	<xsd:element name="OffenseModifierText" type="nc:TextType"
+		substitutionGroup="inc-ext:OffenseModifierRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A text representation special classification of an offense. </xsd:documentation>
+			<xsd:documentation>A text representation special classification of an
+				offense.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseCodeText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A records management system's representation of an offense code. </xsd:documentation>
+			<xsd:documentation>A records management system's representation of an
+				offense code.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseCategoryCodeText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A text representation of an offense category.</xsd:documentation>
+			<xsd:documentation>A text representation of an offense category.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseModifierDescriptionText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A description for a special classification of an offense. </xsd:documentation>
+			<xsd:documentation>A description for a special classification of an
+				offense.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseModifier" type="inc-ext:OffenseModifierType">
 		<xsd:annotation>
-			<xsd:documentation>A special classification of an offense. </xsd:documentation>
+			<xsd:documentation>A special classification of an offense.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Offense" type="inc-ext:OffenseType">
 		<xsd:annotation>
-			<xsd:documentation>An alleged violation of a statute, ordinance, or rule.</xsd:documentation>
+			<xsd:documentation>An alleged violation of a statute, ordinance, or
+				rule.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IncidentNatureText" type="nc:TextType" substitutionGroup="inc-ext:IncidentNature">
+	<xsd:element name="IncidentNatureText" type="nc:TextType"
+		substitutionGroup="inc-ext:IncidentNature">
 		<xsd:annotation>
-			<xsd:documentation>A description of the nature of an incident.</xsd:documentation>
+			<xsd:documentation>A description of the nature of an incident.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IncidentSubjectPersonAssociation" type="inc-ext:IncidentInvolvedPersonAssociationType">
+	<xsd:element name="IncidentSubjectPersonAssociation"
+		type="inc-ext:IncidentInvolvedPersonAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>An association an incident and a subject of that incident.</xsd:documentation>
+			<xsd:documentation>An association an incident and a subject of that
+				incident.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="IncidentVictimPersonAssociation" type="inc-ext:IncidentInvolvedPersonAssociationType">
+	<xsd:element name="IncidentVictimPersonAssociation"
+		type="inc-ext:IncidentInvolvedPersonAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>An association an incident and a victim of that incident.</xsd:documentation>
+			<xsd:documentation>An association an incident and a victim of that
+				incident.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonIncidentInvolvementAgeMeasure" type="nc:TimeMeasureType">
+	<xsd:element name="PersonIncidentInvolvementAgeMeasure"
+		type="nc:TimeMeasureType">
 		<xsd:annotation>
-			<xsd:documentation>The age of the person at the time he or she was involved in the specific incident.</xsd:documentation>
+			<xsd:documentation>The age of the person at the time he or she was
+				involved in the specific incident.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Organization" type="inc-ext:OrganizationType">
 		<xsd:annotation>
-			<xsd:documentation>A unit which conducts some sort of business or operations.</xsd:documentation>
+			<xsd:documentation>A unit which conducts some sort of business or
+				operations.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Person" type="inc-ext:PersonType">
@@ -757,100 +1025,148 @@
 	</xsd:element>
 	<xsd:element name="ContactInformation" type="inc-ext:ContactInformationType">
 		<xsd:annotation>
-			<xsd:documentation>Details about how to contact a person or an organization.</xsd:documentation>
+			<xsd:documentation>Details about how to contact a person or an
+				organization.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MunicipalityOrdinanceIdentification" type="nc:IdentificationType">
+	<xsd:element name="MunicipalityOrdinanceIdentification"
+		type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A municipality ordinance that has been violated through an offense.</xsd:documentation>
+			<xsd:documentation>A municipality ordinance that has been violated
+				through an offense.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseViolatedStatute" type="j:StatuteType">
 		<xsd:annotation>
-			<xsd:documentation>A statute that has been violated through an offense.</xsd:documentation>
+			<xsd:documentation>A statute that has been violated through an
+				offense.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Booking" type="inc-ext:BookingType">
 		<xsd:annotation>
-			<xsd:documentation>Details about an administrative step taken after an arrested subject is brought to a police station or detention facility, which involves entry of the subject's name and other relevant facts on the police "blotter", and which may also include photographing, fingerprinting, and the like.</xsd:documentation>
+			<xsd:documentation>Details about an administrative step taken after
+				an arrested subject is brought to a police station or detention
+				facility, which involves entry of the subject's name and other
+				relevant facts on the police "blotter", and which may also include
+				photographing, fingerprinting, and the like.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Warrant" type="inc-ext:WarrantType">
 		<xsd:annotation>
-			<xsd:documentation>An authorization for an enforcement official to perform a specified action.</xsd:documentation>
+			<xsd:documentation>An authorization for an enforcement official to
+				perform a specified action.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RecordCategoryText" type="nc:TextType"/>
-	<xsd:element name="DocumentRequestorDescriptionText" type="nc:TextType"/>
-	<xsd:element name="PersonDNACollectionRequiredIndicator" type="niem-xsd:boolean">
+	<xsd:element name="RecordCategoryText" type="nc:TextType" />
+	<xsd:element name="DocumentRequestorDescriptionText" type="nc:TextType" />
+	<xsd:element name="PersonDNACollectionRequiredIndicator"
+		type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True of DNA must be collected for the person, false otherwise.</xsd:documentation>
+			<xsd:documentation>True of DNA must be collected for the person,
+				false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonDepartmentOfCorrectionsIdentification" type="nc:IdentificationType">
+	<xsd:element name="PersonDepartmentOfCorrectionsIdentification"
+		type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>An identifier assigned to a person by a Department of Corrections.</xsd:documentation>
+			<xsd:documentation>An identifier assigned to a person by a Department
+				of Corrections.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Bond" type="inc-ext:BondType">
 		<xsd:annotation>
-			<xsd:documentation>Details about an agreement between a bondsman and a subject in which a bondsman pays the subject's bail or portion of the bail in exchange for certain conditions, including the payment of a certain amount of money and the reappearance of the subject in court on the required date.</xsd:documentation>
+			<xsd:documentation>Details about an agreement between a bondsman and
+				a subject in which a bondsman pays the subject's bail or portion of
+				the bail in exchange for certain conditions, including the payment
+				of a certain amount of money and the reappearance of the subject in
+				court on the required date.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="BondCommentsText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>Comments about details of a bond.</xsd:documentation>
+			<xsd:documentation>Comments about details of a bond.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="WarrantExtraditionRequestedIndicator" type="niem-xsd:boolean">
+	<xsd:element name="WarrantExtraditionRequestedIndicator"
+		type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if conditions of the warrant request extradtion, false otherwise.</xsd:documentation>
+			<xsd:documentation>True if conditions of the warrant request
+				extradtion, false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="WarrantExtraditionTransportationInstructionsText" type="nc:TextType">
+	<xsd:element name="WarrantExtraditionTransportationInstructionsText"
+		type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A set of instructions pertaining to picking up a person for extradition purposes.</xsd:documentation>
+			<xsd:documentation>A set of instructions pertaining to picking up a
+				person for extradition purposes.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ArrestInvolvedDrugCategoryCode" type="fbi:DrugCategoryCodeType">
 		<xsd:annotation>
-			<xsd:documentation>A set of instructions pertaining to picking up a person for extradition purposes.</xsd:documentation>
+			<xsd:documentation>A set of instructions pertaining to picking up a
+				person for extradition purposes.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Citation" type="inc-ext:CitationType">
 		<xsd:annotation>
-			<xsd:documentation>Details about an official summons to appear in court or pay a fine given to a subject from a peace official due to a subjects violation or infraction of a law.
-</xsd:documentation>
+			<xsd:documentation>Details about an official summons to appear in
+				court or pay a fine given to a subject from a peace official due to
+				a subjects violation or infraction of a law.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonFishAndWildlifeLicenseIdentification" type="nc:IdentificationType">
+	<xsd:element name="PersonFishAndWildlifeLicenseIdentification"
+		type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A Fish and Wildlife License number assigned to a person.</xsd:documentation>
+			<xsd:documentation>A Fish and Wildlife License number assigned to a
+				person.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Vehicle" type="inc-ext:VehicleType">
 		<xsd:annotation>
-			<xsd:documentation>A motor-driven conveyance designed to carry its operator, and optionally passengers and cargo, over land.</xsd:documentation>
+			<xsd:documentation>A motor-driven conveyance designed to carry its
+				operator, and optionally passengers and cargo, over land.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DrivingIncident" type="inc-ext:DrivingIncidentType">
 		<xsd:annotation>
-			<xsd:documentation>Details about an incident involving a vehicle.</xsd:documentation>
+			<xsd:documentation>Details about an incident involving a vehicle.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DrivingAccidentIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if driving accident occurred; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if driving accident occurred; false
+				otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DrivingAccidentFatalityIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if a fatality occurred as a result of a driving incident; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if a fatality occurred as a result of a
+				driving incident; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SeatBeltViolationIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if a seat belt violation is associated with a driving incident; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if a seat belt violation is associated with a
+				driving incident; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SeatBeltViolationCount" type="niem-xsd:nonNegativeInteger">
@@ -860,112 +1176,155 @@
 	</xsd:element>
 	<xsd:element name="CivilReliefActIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the officer asked CRA and the subject answered no; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if the officer asked CRA and the subject
+				answered no; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CivilReliefActJuvenileIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the officer asked CRA and the subject is under 17; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if the officer asked CRA and the subject is
+				under 17; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CivilReliefActOtherIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the officer asked CRA and the subject answered "other"; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if the officer asked CRA and the subject
+				answered "other"; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CivilReliefActOtherText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>Text of a CRA "other" response.</xsd:documentation>
+			<xsd:documentation>Text of a CRA "other" response.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CitationServedDate" type="nc:DateType">
 		<xsd:annotation>
-			<xsd:documentation>The date a citation was served.</xsd:documentation>
+			<xsd:documentation>The date a citation was served.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CitationViolationDate" type="nc:DateType">
 		<xsd:annotation>
-			<xsd:documentation>The date of a citation violation.</xsd:documentation>
+			<xsd:documentation>The date of a citation violation.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CitationMunicipalityCode" type="niem-xsd:string">
 		<xsd:annotation>
-			<xsd:documentation>A code for the Municipality where the citation was written.</xsd:documentation>
+			<xsd:documentation>A code for the Municipality where the citation was
+				written.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CitationWaiverAmount" type="nc:AmountType">
 		<xsd:annotation>
-			<xsd:documentation>The amount of money paid for pleading admitted or no contest to a citation.</xsd:documentation>
+			<xsd:documentation>The amount of money paid for pleading admitted or
+				no contest to a citation.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CitationServedIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the citation was handed to the subject; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if the citation was handed to the subject;
+				false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CitationMailedIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the citation was mailed to the subject; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if the citation was mailed to the subject;
+				false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="VehicleHazardousMaterialIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if a vehicle is carrying hazardous material; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if a vehicle is carrying hazardous material;
+				false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ViolationOffenseCode" type="niem-xsd:string">
 		<xsd:annotation>
-			<xsd:documentation>An offense code for a violation.</xsd:documentation>
+			<xsd:documentation>An offense code for a violation.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DrivingOffensePoints" type="niem-xsd:nonNegativeInteger">
 		<xsd:annotation>
-			<xsd:documentation>Number of points associated with the offense.</xsd:documentation>
+			<xsd:documentation>Number of points associated with the offense.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseFineAmountMinimum" type="nc:AmountType">
 		<xsd:annotation>
-			<xsd:documentation>The minimum fine amount for an offense.</xsd:documentation>
+			<xsd:documentation>The minimum fine amount for an offense.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseFineAmountMaximum" type="nc:AmountType">
 		<xsd:annotation>
-			<xsd:documentation>The minimum fine amount for an offense.</xsd:documentation>
+			<xsd:documentation>The minimum fine amount for an offense.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RelatedCriminalChargeIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if there is a realted criminal charge; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if there is a realted criminal charge; false
+				otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CFRStatute" type="j:StatuteType">
 		<xsd:annotation>
-			<xsd:documentation>Details about a Code of Federal Regulation (CFR) unique identifier of a law, rule, or ordinance within a jurisdiction.</xsd:documentation>
+			<xsd:documentation>Details about a Code of Federal Regulation (CFR)
+				unique identifier of a law, rule, or ordinance within a
+				jurisdiction.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DriverLicenseCDLIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if a driver license is a commercial driver's license; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if a driver license is a commercial driver's
+				license; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CitationDeliveredRecipientText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>An entity that receives a delivered citation.</xsd:documentation>
+			<xsd:documentation>An entity that receives a delivered citation.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CitationRecipientOrganizationIndicator" type="niem-xsd:boolean">
+	<xsd:element name="CitationRecipientOrganizationIndicator"
+		type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if a citation recipient is an organization; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if a citation recipient is an organization;
+				false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DriverLicense" type="inc-ext:DriverLicenseType">
 		<xsd:annotation>
-			<xsd:documentation>Details about a license issued to a person granting driving privileges.</xsd:documentation>
+			<xsd:documentation>Details about a license issued to a person
+				granting driving privileges.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CitationReference" type="s:ReferenceType">
 		<xsd:annotation>
 			<xsd:documentation>A reference to a citation.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="OrganizationDriverLicense" type="inc-ext:DriverLicenseType">
+		<xsd:annotation>
+			<xsd:documentation>Details about a license issued to an organization
+				granting driving privileges.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
