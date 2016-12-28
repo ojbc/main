@@ -42,6 +42,7 @@
     <module>custody-query-service-intermediary</module>
     <module>custody-search-request-service-intermediary</module>
     <module>disposition-reporting-service-intermediary</module>
+    <module>firearm-purchase-prohibition-query-request-service-intermediary</module>
     <module>firearm-registration-query-request-service-intermediary</module>
     <module>firearm-search-request-service-intermediary</module>
     <module>identification-reporting-service-intermediary</module>
