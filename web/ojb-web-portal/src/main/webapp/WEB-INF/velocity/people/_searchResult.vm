@@ -66,7 +66,7 @@
 		#end
 		
 	 	$('#personSearchResultsTable').on('click', 'a.viewDetails',function() {
-            var url = this.href;
+            var url = this.href.replace('{', '%7B').replace('}', '%7D');
             var searchCategory = $(this).parent().prev().prev().text(); 
             var title = $(this).attr('searchName');
             var dialog = $('<div style="display:none"  title="' + title + '" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
@@ -82,6 +82,7 @@
                 open: function(event,ui){
                 
                 	if(searchCategory != 'Incident' || $sec.allGranted("AUTHZ_INCIDENT_DETAIL")){ 
+						console.log("spinning");
 						$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
 						$("#modalIframeSpinner").width($("#modalIframe").width());
 						$("#modalIframeSpinner").show();
