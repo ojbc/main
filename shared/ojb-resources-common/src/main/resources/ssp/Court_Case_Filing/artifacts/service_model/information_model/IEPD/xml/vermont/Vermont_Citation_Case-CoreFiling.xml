@@ -45,6 +45,13 @@
 				<ecf:EntityOrganization s:id="ORGANIZATION_02">
 					<nc:OrganizationName>Morways Moving Company</nc:OrganizationName>
 				</ecf:EntityOrganization>
+				<ojb-cit-ext:OrganizationDriverLicense>
+					<nc:DriverLicenseIdentification>
+						<nc:IdentificationID>12345678</nc:IdentificationID>
+						<j:IdentificationJurisdictionNCICLISCode>VT
+						</j:IdentificationJurisdictionNCICLISCode>
+					</nc:DriverLicenseIdentification>
+				</ojb-cit-ext:OrganizationDriverLicense>
 				<ecf:CaseParticipantRoleCode />
 			</ojb-cit-ext:CaseParticipant>
 			<!-- CASE PARTICIPANT: Parent -->
@@ -87,14 +94,14 @@
 						<nc:Date>1965-09-29</nc:Date>
 					</nc:PersonBirthDate>
 					<nc:PersonBirthLocation>
-                     <nc:LocationAddress>
-                        <nc:StructuredAddress>
-                           <nc:LocationCityName>Athens</nc:LocationCityName>
-                           <nc:LocationStateName>GA</nc:LocationStateName>
-                           <nc:LocationCountryName>United States</nc:LocationCountryName>
-                        </nc:StructuredAddress>
-                     </nc:LocationAddress>
-                  </nc:PersonBirthLocation>
+						<nc:LocationAddress>
+							<nc:StructuredAddress>
+								<nc:LocationCityName>Athens</nc:LocationCityName>
+								<nc:LocationStateName>GA</nc:LocationStateName>
+								<nc:LocationCountryName>United States</nc:LocationCountryName>
+							</nc:StructuredAddress>
+						</nc:LocationAddress>
+					</nc:PersonBirthLocation>
 					<nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
 					<nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
 					<nc:PersonHeightMeasure>

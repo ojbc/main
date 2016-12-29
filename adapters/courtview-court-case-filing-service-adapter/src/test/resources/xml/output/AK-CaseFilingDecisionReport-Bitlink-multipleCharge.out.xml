@@ -103,6 +103,7 @@
                   </j:JudicialOfficialBarMembership>
                </j:CaseProsecutionAttorney>
             </j:CaseAugmentation>
+            <ijisniem:CaseAugmentation />
             <criminalcase:CaseArrest>
                <j:ArrestAgency>
                   <nc:OrganizationName>

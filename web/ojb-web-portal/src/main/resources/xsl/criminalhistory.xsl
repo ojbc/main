@@ -207,9 +207,13 @@
     <xsl:template match="ch-doc:CriminalHistory/ch-ext:RapSheet" >
         <table class="detailsTable">
             <tr>
+            
+             <xsl:for-each select="rap:RapSheetPerson/nc:PersonName">
                 <td colspan="8" class="detailsFullName">
-                <xsl:value-of select="concat(rap:RapSheetPerson/nc:PersonName/nc:PersonSurName,', ',rap:RapSheetPerson/nc:PersonName/nc:PersonGivenName)" />
+                <xsl:value-of select="concat(nc:PersonSurName,', ',nc:PersonGivenName)" />
                 </td>
+             </xsl:for-each>
+             
             </tr>
             <tr>
                 <td colspan="8" class="detailsTitle">SUBJECT DETAILS</td>
@@ -256,19 +260,22 @@
             </tr>
             <tr>
                 <td colspan="2" class="detailsLabel">DOB</td>
+                
+               <xsl:for-each select="rap:RapSheetPerson/nc:PersonBirthDate">
                 <td colspan="2">
                 	<xsl:choose>
-                		<xsl:when test="rap:RapSheetPerson/nc:PersonBirthDate/nc:Date">
+                		<xsl:when test="nc:Date">
                 			 <xsl:call-template name="formatDate">
-								<xsl:with-param name="date" select="rap:RapSheetPerson/nc:PersonBirthDate/nc:Date" />
+								<xsl:with-param name="date" select="nc:Date" />
 							</xsl:call-template>
                 		</xsl:when>
-                		<xsl:when test="rap:RapSheetPerson/nc:PersonBirthDate/nc:Year">
-                			<xsl:value-of select="rap:RapSheetPerson/nc:PersonBirthDate/nc:Year"/>
+                		<xsl:when test="nc:Year">
+                			<xsl:value-of select="nc:Year"/>
                 		</xsl:when>
                 	</xsl:choose>
-                    
-                </td>
+                 </td>
+                </xsl:for-each>
+                
                 <td colspan="2" class="detailsLabel">SCARS/MARKS/TATTOOS</td>
                 <td colspan="2">
                 	<xsl:variable name="smtCount" select="count(rap:RapSheetPerson/nc:PersonPhysicalFeature)"/>
@@ -288,16 +295,20 @@
             </tr>
             <tr>
                 <td colspan="2" class="detailsLabel">RESIDENCE ADDRESS</td>
+                
+                <xsl:for-each select="nc:Location/nc:LocationAddress">
                 <xsl:choose>
-                	<xsl:when test="nc:Location/nc:LocationAddress/nc:StructuredAddress">
-                		<xsl:variable name="addr" select="nc:Location/nc:LocationAddress/nc:StructuredAddress" />
+                	<xsl:when test="nc:StructuredAddress">
+                		<xsl:variable name="addr" select="nc:StructuredAddress" />
 	               	    <td colspan="6"><xsl:value-of select="concat($addr/nc:LocationStreet,', ',$addr/nc:LocationCityName,', ',$addr/nc:LocationStateUSPostalServiceCode, ' ', $addr/nc:LocationPostalCode)"/></td>
                 	</xsl:when>
-	                <xsl:when test="nc:Location/nc:LocationAddress/nc:AddressFullText"> 
-	                	<xsl:variable name="addr" select="nc:Location/nc:LocationAddress/nc:AddressFullText" />
+	                <xsl:when test="nc:AddressFullText"> 
+	                	<xsl:variable name="addr" select="nc:AddressFullText" />
 	                	<td colspan="6"><xsl:value-of select="$addr"/></td>
 	                </xsl:when>
             	</xsl:choose>
+            	</xsl:for-each>
+            	
             </tr>
             <tr>
                 <td colspan="2" class="detailsLabel">CAUTION DETAILS</td>

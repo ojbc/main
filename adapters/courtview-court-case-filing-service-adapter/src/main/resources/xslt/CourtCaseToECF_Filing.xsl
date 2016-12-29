@@ -160,8 +160,10 @@
 		<xsl:apply-templates select="nc30:ActivityCategoryText" />
 		<xsl:apply-templates select="nc30:CaseDocketID" />
 		<xsl:apply-templates select="j51:CaseAugmentation" />
-		<!-- Not in Courtview schema -->
+		<!-- Courtview isn't currently setup for any content in ijisniem:CaseAugmentation 
+			but requires the null element -->
 		<!-- xsl:apply-templates select="." mode="ijisniem" / -->
+		<ijisniem:CaseAugmentation />
 	</xsl:template>
 	<xsl:template match="j51:CaseAugmentation">
 		<j:CaseAugmentation>
