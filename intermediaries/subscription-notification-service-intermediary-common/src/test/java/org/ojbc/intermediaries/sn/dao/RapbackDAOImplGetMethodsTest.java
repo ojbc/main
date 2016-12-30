@@ -21,8 +21,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -39,10 +37,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
-import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
-import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
-import org.ojbc.util.helper.ZipUtils;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -52,8 +46,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
 		"classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
 }) 
-@DirtiesContext
-public class RapbackDAOImplTest {
+public class RapbackDAOImplGetMethodsTest {
 	private final Log log = LogFactory.getLog(this.getClass());
 	    
 	@Resource
@@ -69,7 +62,6 @@ public class RapbackDAOImplTest {
 	
 	
 	@Test
-	@DirtiesContext
 	public void testGetStateSubscriptions(){
 	
 		List<Subscription> stateSubList = rapbackDao.getStateSubscriptions("1234", "CI");
@@ -81,7 +73,6 @@ public class RapbackDAOImplTest {
 	
 	
 	@Test
-	@DirtiesContext	
 	public void testGetFbiUcnIdFromSubIdAndReasonCode(){
 		
 		String personFbiUcnId = rapbackDao.getFbiUcnIdFromSubIdAndReasonCode("62727", "CI");
@@ -90,7 +81,6 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
-	@DirtiesContext
 	public void testCountStateSubscriptions(){
 		
 		int stateSubCount = rapbackDao.countStateSubscriptions("1234", "CI");
@@ -100,7 +90,6 @@ public class RapbackDAOImplTest {
 	
 	
 	@Test
-	@DirtiesContext
 	public void testGetFbiSubscription() throws Exception {
 		
 		FbiRapbackSubscription fbiSubscription = rapbackDao.getFbiRapbackSubscription("CI", "123456789");
@@ -133,31 +122,6 @@ public class RapbackDAOImplTest {
 	}	
 	
 	@Test
-	@DirtiesContext
-	public void testSaveSubsequentResults() throws Exception {
-		
-		SubsequentResults subsequentResults = new SubsequentResults();
-		subsequentResults.setUcn("9222201");
-		subsequentResults.setRapSheet("rapsheet".getBytes());
-		subsequentResults.setResultsSender(ResultSender.FBI);
-		
-		Integer pkId = rapbackDao.saveSubsequentResults(subsequentResults);
-		assertNotNull(pkId);
-		assertEquals(3, pkId.intValue()); 
-		
-		Connection conn = dataSource.getConnection();
-		ResultSet rs = conn.createStatement().executeQuery("select * from SUBSEQUENT_RESULTS where SUBSEQUENT_RESULT_ID = 3");
-		assertTrue(rs.next());
-		assertEquals("9222201", rs.getString("ucn"));
-		
-		String rapsheetContent = new String(ZipUtils.unzip(rs.getBytes("RAP_SHEET")));
-		log.info("Rap sheet content: " + rapsheetContent);
-		assertEquals("rapsheet", rapsheetContent);
-	}
-	
-
-	@Test
-	@DirtiesContext
 	public void testGetFbiIds() throws Exception {
 		List<String> fbiIds = rapbackDao.getFbiIds("A123459"); 
 		assertEquals(1, fbiIds.size());
@@ -168,7 +132,6 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
-	@DirtiesContext
 	public void testGetFbiSubscriptionQualification() throws Exception {
 		Boolean fbiSubscriptionQualificationByTransactionNumber = rapbackDao.getfbiSubscriptionQualification("000001820140729014008339993"); 
 		assertEquals(Boolean.TRUE, fbiSubscriptionQualificationByTransactionNumber);
