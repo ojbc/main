@@ -125,6 +125,8 @@ public class TestIdentficationRecordingAndResponse {
 	@DirtiesContext
 	public void testIdentificationRecordingServiceError() throws Exception
 	{
+		identificationReportingResultMessageProcessor.reset();
+		
 		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction("000001820140729014008340000"); 
 		assertNull(identificationTransaction);
 		
@@ -163,6 +165,9 @@ public class TestIdentficationRecordingAndResponse {
 
 	private void civilRecordingRequestSuccess() throws Exception, IOException,
 			InterruptedException, SAXException {
+		
+		identificationReportingResultMessageProcessor.reset();
+		
 		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
 		assertNull(identificationTransaction);
 		
@@ -257,6 +262,9 @@ public class TestIdentficationRecordingAndResponse {
 	@DirtiesContext
 	public void testCivilVechsRecordingRequestSuccess() throws Exception, IOException,
 	InterruptedException, SAXException {
+		
+		identificationReportingResultMessageProcessor.reset();
+		
 		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
 		assertNull(identificationTransaction);
 		
@@ -312,6 +320,9 @@ public class TestIdentficationRecordingAndResponse {
 	@DirtiesContext
 	public void testCivilVechsNoHCJDCRecordingRequestSuccess() throws Exception, IOException,
 	InterruptedException, SAXException {
+		
+		identificationReportingResultMessageProcessor.reset();
+		
 		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
 		assertNull(identificationTransaction);
 		
@@ -427,6 +438,8 @@ public class TestIdentficationRecordingAndResponse {
 	
 	public void criminalRecordingResultServiceSuccess() throws Exception
 	{
+		identificationReportingResultMessageProcessor.reset();
+		
 		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
 				"src/test/resources/xmlInstances/identificationReport/person_identification_rapsheet_results_fbi_criminal.xml");
 		
@@ -455,6 +468,8 @@ public class TestIdentficationRecordingAndResponse {
 	@DirtiesContext
 	public void testIgnoreCriminalRecordingRequest() throws Exception
 	{
+		identificationReportingResultMessageProcessor.reset();
+		
 		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
 				"src/test/resources/xmlInstances/identificationReport/person_identification_request_state_criminal.xml");
 		
