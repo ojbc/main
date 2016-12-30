@@ -116,7 +116,6 @@ public class TestCriminalHistoryConsolidationService {
 	}
 
 	@Test
-	@DirtiesContext
 	public void testCriminalConsolidationService() throws Exception
 	{
 		Connection conn = dataSource.getConnection();
