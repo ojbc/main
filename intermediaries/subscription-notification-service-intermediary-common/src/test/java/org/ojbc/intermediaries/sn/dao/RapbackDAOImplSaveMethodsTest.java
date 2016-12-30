@@ -70,10 +70,9 @@ public class RapbackDAOImplSaveMethodsTest {
 		
 		Integer pkId = rapbackDao.saveSubsequentResults(subsequentResults);
 		assertNotNull(pkId);
-		assertEquals(3, pkId.intValue()); 
 		
 		Connection conn = dataSource.getConnection();
-		ResultSet rs = conn.createStatement().executeQuery("select * from SUBSEQUENT_RESULTS where SUBSEQUENT_RESULT_ID = 3");
+		ResultSet rs = conn.createStatement().executeQuery("select * from SUBSEQUENT_RESULTS where SUBSEQUENT_RESULT_ID = " + pkId.toString());
 		assertTrue(rs.next());
 		assertEquals("9222201", rs.getString("ucn"));
 		
