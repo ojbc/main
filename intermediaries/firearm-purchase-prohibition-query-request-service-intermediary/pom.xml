@@ -27,7 +27,7 @@
 	<artifactId>firearm-purchase-prohibition-query-request-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
 	<version>1.0.0</version>
-	<name>OJB :: firearm-purchase-prohibition-query-request-service-intermediarys :: intermediary</name>
+	<name>OJB :: firearm-purchase-prohibition-query-request-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
 	<parent>
