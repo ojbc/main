@@ -36,6 +36,7 @@
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     
 	<camelContext xmlns="http://camel.apache.org/schema/spring" 
+		xmlns:pidrepres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationReportResponse/1.0" 
 		xmlns:pidreq-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0"
 		xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
 		xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" 
@@ -58,6 +59,9 @@
 		<endpoint id="subscriptionReportingFileEndpoint"
 			uri="file://{{rapbackDatastoreAdapter.SubscriptionReportingInputDirectory}}/input?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.SubscriptionReportingInputDirectory}}/error&amp;move=processed/" />
 
+		<endpoint id="identificationRecordingResposneFileEndpoint"
+			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed/identificationResponse?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed/identificationResponse/error&amp;move=processed/&amp;scheduler=quartz2&amp;scheduler.cron={{rapbackDatastoreAdapter.resendFailedIdResponseCronExpression}}" />
+			
 		<endpoint id="invocationFailedFileEndpoint"
 			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed" />
 			
@@ -93,9 +97,9 @@
 
 		<!-- Automatic Archiving Timer Endpoint -->
 		<endpoint id="automaticArchivingCivilTimerEndpoint"
-			uri="quartz://rapbackDataStore/archiveCivilTimer?cron={{rapbackDatastoreAdapter.archiveCivilTimerCronExpression}}" />
+			uri="quartz2://rapbackDataStore/archiveCivilTimer?cron={{rapbackDatastoreAdapter.archiveCivilTimerCronExpression}}" />
 		<endpoint id="automaticArchivingCriminalTimerEndpoint"
-			uri="quartz://rapbackDataStore/archiveCriminalTimer?cron={{rapbackDatastoreAdapter.archiveCriminalTimerCronExpression}}" />
+			uri="quartz2://rapbackDataStore/archiveCriminalTimer?cron={{rapbackDatastoreAdapter.archiveCriminalTimerCronExpression}}" />
 
 		<!-- Incident Reporting Route -->
 		<route id="identification_recording_service">
@@ -229,6 +233,9 @@
 		<route id="failed_identification_recording_invocation_route">
 			<from uri="direct:failedIdentificationRecordingInvocation"/>
 			
+			<setHeader headerName="CamelFileName">
+				<simple>identificationRecordingReport/FailedIdentificationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+			</setHeader>	
 			<camel:multicast>
 				<to uri="direct:deadLetterChannel"/>
 				<camel:pipeline>
@@ -240,9 +247,15 @@
 		
 		<route id="archive_failed_identification_report_route">
 			<from uri="direct:deadLetterChannel"/>
-			<setHeader headerName="CamelFileName">
-				<simple>identificationReport/FailedIdentificationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
-			</setHeader>	
+			
+			<choice>
+				<when>
+					<xpath>/pidrepres-doc:PersonIdentificationReportResponse</xpath>
+					<setHeader headerName="CamelFileName">
+						<simple>identificationResponse/FailedIdentificationResponse_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+					</setHeader>
+				</when>
+			</choice>		
 			<to uri="invocationFailedFileEndpoint"/>
 			<log message="Failed to process Identification Report document. File Name to archive is: ${in.headers.CamelFileName}"/>
 		</route>
@@ -251,10 +264,27 @@
 			
 			<from uri="direct:sendIdentificationReportingResponseMessage"/>
 			
-			<log message="* * * Calling MessageProcessor sendResponseMessage * * *"/>
-			
-			<to uri="bean:identificationReportingResultMessageProcessor?method=sendResponseMessage"/>
-			
+			<doTry>
+				<log message="* * * Calling MessageProcessor sendResponseMessage * * *"/>
+				
+				<to uri="bean:identificationReportingResultMessageProcessor?method=sendResponseMessage"/>
+				<camel:doCatch>
+					<exception>java.lang.Exception</exception>
+					<camel:log 
+						message="Failed to send the identification Response message: ${exception.cause.message}"
+						loggingLevel="WARN" />
+					<setHeader headerName="CamelFileName">
+						<simple>identificationResponse/FailedIdentificationResponse_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+					</setHeader>	
+					<log message="${body}" loggingLevel="DEBUG"></log>
+					<to uri="invocationFailedFileEndpoint"/>
+				</camel:doCatch>
+			</doTry>			
+		</route>
+		
+		<route id="resend_failed_identification_response_route">
+			<from uri="identificationRecordingResposneFileEndpoint" />
+			<to uri="direct:sendIdentificationReportingResponseMessage" />
 		</route>
 		
 		<!-- Rapback Search Request flow -->
@@ -382,6 +412,9 @@
 				<doCatch >
 					<exception>java.lang.Exception</exception>
 					<log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>	
+					<setHeader headerName="CamelFileName">
+						<simple>subscriptionReport/FailedSubscriptionReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+					</setHeader>	
 					<to uri="direct:deadLetterChannel"/>
 				</doCatch>
 			</doTry>
