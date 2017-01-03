@@ -94,6 +94,10 @@
 				<j:SupervisionCellIdentification>
 					<nc:IdentificationID>Cell ID</nc:IdentificationID>
 				</j:SupervisionCellIdentification>
+				<j:SupervisionCondition>
+					<nc:ActivityDescriptionText>Supervision Condition
+					</nc:ActivityDescriptionText>
+				</j:SupervisionCondition>
 			</j:SupervisionAugmentation>
 			<cq-res-ext:DetentiontImmigrationHoldIndicator>false
 			</cq-res-ext:DetentiontImmigrationHoldIndicator>
