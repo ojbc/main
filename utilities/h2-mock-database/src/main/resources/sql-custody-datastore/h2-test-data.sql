@@ -21,8 +21,8 @@ INSERT INTO person(person_unique_identifier, sex_offender, allow_deposits, educa
 INSERT INTO person(person_unique_identifier, sex_offender, allow_deposits, education, primary_language, dob, ethnicity, eye_color, hair_color, height, weight, race, sid, first_name, middle_name, last_name, sex, occupation, military_service) VALUES
 ('abc1234', false, true,'phd', 'francais', null, 'H', null, null, null, null, null, null, 'marge', null, 'NullValues', null, 'software engineer', 'ACT');
 
-INSERT INTO booking(person_id, booking_number, booking_date, facility, booking_photo, actual_release_datetime, commit_date, scheduled_release_date, block, bed, cell, case_status, inmate_work_release_indicator, inmate_worker_indicator) values
-(1, '1234', date '2000-01-01', 'county jail', 'profile.jpg', date '2000-01-01', date '2000-01-01', date '2000-01-01', 'a', '23', '7', '1', true, true);
+INSERT INTO booking(person_id, booking_number, booking_date, facility, booking_photo, actual_release_datetime, commit_date, scheduled_release_date, block, bed, cell, case_status, inmate_work_release_indicator, inmate_worker_indicator, probationer_indicator, incarcerated_indicator) values
+(1, '1234', date '2000-01-01', 'county jail', 'profile.jpg', date '2000-01-01', date '2000-01-01', date '2000-01-01', 'a', '23', '7', '1', true, true, true, false);
 
 INSERT INTO arrest(booking_id, arrest_unique_identifier, arrest_agency) VALUES (1, '9191919','Chips');
 
@@ -40,3 +40,9 @@ INSERT INTO scars_marks_tattoos(person_id, scars_marks_tattoos_description) VALU
 
 INSERT INTO scars_marks_tattoos(person_id, scars_marks_tattoos_description) VALUES
 (1, 'lip piercing');
+
+INSERT INTO conditions(person_id, conditions_description) VALUES
+(1, 'condition 1');
+
+INSERT INTO conditions(person_id, conditions_description) VALUES
+(1, 'condition 2');
