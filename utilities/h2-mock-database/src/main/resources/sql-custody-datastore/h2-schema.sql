@@ -44,7 +44,6 @@ CREATE TABLE person (
                 CONSTRAINT id PRIMARY KEY (id)
 );
 
-
 CREATE TABLE conditions (
                 id IDENTITY NOT NULL,
                 person_id INTEGER NOT NULL,
@@ -52,14 +51,12 @@ CREATE TABLE conditions (
                 CONSTRAINT conditions_pk PRIMARY KEY (id)
 );
 
-
 CREATE TABLE scars_marks_tattoos (
                 id IDENTITY NOT NULL,
                 person_id INTEGER NOT NULL,
                 scars_marks_tattoos_description VARCHAR(100),
                 CONSTRAINT scars_marks_tattoos_pk PRIMARY KEY (id)
 );
-
 
 CREATE TABLE person_alias (
                 id IDENTITY NOT NULL,
@@ -72,7 +69,6 @@ CREATE TABLE person_alias (
                 alias_dob DATE,
                 CONSTRAINT id PRIMARY KEY (id)
 );
-
 
 CREATE TABLE booking (
                 id IDENTITY NOT NULL,
@@ -90,10 +86,11 @@ CREATE TABLE booking (
                 case_status VARCHAR(20),
                 inmate_work_release_indicator BOOLEAN,
                 inmate_worker_indicator BOOLEAN,
+                probationer_indicator BOOLEAN,
+                incarcerated_indicator BOOLEAN,
                 last_updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
                 CONSTRAINT id PRIMARY KEY (id)
 );
-
 
 CREATE TABLE arrest (
                 id IDENTITY NOT NULL,
@@ -102,7 +99,6 @@ CREATE TABLE arrest (
                 arrest_agency VARCHAR(200),
                 CONSTRAINT id PRIMARY KEY (id)
 );
-
 
 CREATE TABLE charge (
                 id IDENTITY NOT NULL,
@@ -122,7 +118,6 @@ CREATE TABLE charge (
                 CONSTRAINT id PRIMARY KEY (id)
 );
 
-
 CREATE TABLE location (
                 id IDENTITY NOT NULL,
                 arrest_id INTEGER NOT NULL,
@@ -134,7 +129,6 @@ CREATE TABLE location (
                 postal_code VARCHAR(20) NOT NULL,
                 CONSTRAINT id PRIMARY KEY (id)
 );
-
 
 ALTER TABLE booking ADD CONSTRAINT person_booking_fk
 FOREIGN KEY (person_id)
