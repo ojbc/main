@@ -160,6 +160,10 @@
 	    <!-- Vehicle Crash Query Endpoint -->
 		<camel:endpoint id="vehicleCrashQueryResultsHandlerServiceEndpoint"
 			uri="cxf:bean:vehicleCrashQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
+
+	    <!-- Firearms Prohibition Query Endpoint -->
+		<camel:endpoint id="firearmsPurchaseProhibitionQueryResultsServiceEndpoint"
+			uri="cxf:bean:firearmsPurchaseProhibitionQueryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${webapplication.Cxflogging}&amp;allowStreaming=false" />
 			
 		<!-- In all of the endpoints below, the default value is provided in properties-context.xml -->
 		<!-- This allows an implementer to not have to explicitly set these values if they are not using the beans -->
@@ -696,6 +700,22 @@
  			</policy:policies> 
  		</cxf:features>	 
 	</cxf:cxfEndpoint>
+	
+	<cxf:cxfEndpoint id="firearmsPurchaseProhibitionQueryResultsService"
+		address="${webapplication.firearmQuery.firearmPurchaseProhibitionQueryResultsHandlerEndpoint}"
+		wsdlURL="classpath:ssp/Firearm_Purchase_Prohibition_Query_Results/schema/SIP_WS_1.2/Firearm_Purchase_Prohibition_Query_Results_Service.wsdl"
+		serviceName="ojbc:Firearm-Purchase-Prohibition-Query-Results-ServiceService" endpointName="ojbc:Firearm-Purchase-Prohibition-Query-Results-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Results_Service/1.0">
+		 <cxf:features> 
+ 			<policy:policies> 
+ 				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata"> 
+ 					<wsam:Addressing> 
+ 						<wsp:Policy /> 
+ 					</wsam:Addressing> 
+ 				</wsp:Policy> 
+ 			</policy:policies> 
+ 		</cxf:features>	 
+	</cxf:cxfEndpoint>	
        	
 	<util:properties id="portalKeystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
