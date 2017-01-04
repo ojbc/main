@@ -859,6 +859,36 @@ public class RequestMessageBuilderUtilities {
 		sb.append("	</vcq-req-ext:VehicleCrashIdentification>");
 		sb.append("</vcq-req-doc:VehicleCrashQueryRequest>");
 		return sb.toString();
+	}
+	
+	//	<fppq-req-doc:FirearmPurchaseProhibitionQueryRequest
+	//		xmlns:fppq-req-doc="http://ojbc.org/IEPD/Exchange/FirearmPurchaseProhibitionQueryRequest/1.0"
+	//		xmlns:fppq-req-ext="http://ojbc.org/IEPD/Extensions/FirearmPurchaseProhibitionQueryRequestExtension/1.0"
+	//		xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/">
+	//		<fppq-req-ext:FirearmPurchaseProhibitionSystemIdentification>
+	//			<nc:IdentificationID>System Record ID</nc:IdentificationID>
+	//			<nc:SystemName>System Name</nc:SystemName>
+	//		</fppq-req-ext:FirearmPurchaseProhibitionSystemIdentification>
+	//	</fppq-req-doc:FirearmPurchaseProhibitionQueryRequest>
+	public static Document createfirearmsPurchaseProhibition(
+			DetailsRequest firearmsPurchaseProhibitionRequest) throws Exception {
+		
+        Document doc = OJBCXMLUtils.createDocument();       
+        Element rootElement = doc.createElementNS(OjbcNamespaceContext.NS_FIREARMS_PROHIBITION_DOC, 
+                "FirearmPurchaseProhibitionQueryRequest");
+        doc.appendChild(rootElement);
+        
+        Element firearmPurchaseProhibitionSystemIdentification = XmlUtils.appendElement(rootElement, 
+                OjbcNamespaceContext.NS_FIREARMS_PROHIBITION_EXT, 
+                "FirearmPurchaseProhibitionSystemIdentification");
+        
+        Element identificationId = XmlUtils.appendElement(firearmPurchaseProhibitionSystemIdentification, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+        identificationId.setTextContent(firearmsPurchaseProhibitionRequest.getIdentificationID());
+        
+        Element identificationSourceText = XmlUtils.appendElement(firearmPurchaseProhibitionSystemIdentification, OjbcNamespaceContext.NS_NC_30, "SystemName");
+        identificationSourceText.setTextContent(firearmsPurchaseProhibitionRequest.getIdentificationSourceText());
+
+        return doc;
 	}	
     
 }

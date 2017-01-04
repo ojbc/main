@@ -27,6 +27,7 @@ import org.ojbc.processor.person.query.CourtCaseQueryRequestProcessor;
 import org.ojbc.processor.person.query.CriminalHistoryRequestProcessor;
 import org.ojbc.processor.person.query.CustodyQueryRequestProcessor;
 import org.ojbc.processor.person.query.FirearmRegistrationQueryRequestProcessor;
+import org.ojbc.processor.person.query.FirearmsPurchaseProhibitionRequestProcessor;
 import org.ojbc.processor.person.query.IncidentReportRequestProcessor;
 import org.ojbc.processor.person.query.JuvenileQueryRequestProcessor;
 import org.ojbc.processor.person.query.PersonToCourtCaseSearchRequestProcessor;
@@ -77,7 +78,10 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 	
 	@Autowired(required=false)
 	private VehicleCrashQueryRequestProcessor vehicleCrashQueryRequestProcessor;
-	
+
+	@Autowired(required=false)
+	private FirearmsPurchaseProhibitionRequestProcessor firearmsPurchaseProhibitionRequestProcessor;
+
 	@Autowired(required=false)
 	private PersonToCustodySearchRequestProcessor personToCustodySearchRequestProcessor;
 	
@@ -184,6 +188,10 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 			
 			return vehicleCrashQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
+		} else if (OJBCWebServiceURIs.FIREARMS_PURCHASE_PROHIBITION.equals(requestIdSrcTxt)) {
+			
+			return firearmsPurchaseProhibitionRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
 		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
 			
 			log.info("Juvenile request query type: " + request.getQueryType());
@@ -210,7 +218,7 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 				return juvenileReferralHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			}	
 		}		
-		
+
 		throw new RuntimeException("Unknown source: " + requestIdSrcTxt);
 
 	}

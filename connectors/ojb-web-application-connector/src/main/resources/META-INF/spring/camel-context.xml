@@ -395,6 +395,20 @@
 	    	<camel:to uri="bean:vehicleCrashQueryRequestProcessor?method=updateMapWithResponse"/>
 	    </camel:route>
 
+	    <!-- Firearms Purchase Prohibition Query Result Listener --> 
+	    <camel:route id="firearmsPurchaseProhibitionQueryResultsHandlerRoute" autoStartup="false">
+	    	<from uri="firearmsPurchaseProhibitionQueryResultsServiceEndpoint"/>
+	    		    	
+	    	<camel:log message="Received response message - Firearms Prohbition Query Result ${body}" loggingLevel="DEBUG"/>
+
+	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+	    	<!-- We can use any message processor to process the payload, it is generic method -->
+			<camel:to uri="bean:firearmsPurchaseProhibitionMessageProcessor?method=processRequestPayload" />
+			
+	    	<camel:convertBodyTo type="java.lang.String"/>
+	    	<camel:to uri="bean:firearmsPurchaseProhibitionRequestProcessor?method=updateMapWithResponse"/>
+	    </camel:route>
+
 	</camel:camelContext>
 
 	<!-- SAML map to persist tokens between CXF and Camel -->	

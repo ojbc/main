@@ -775,7 +775,14 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static String NS_PIMA_BOOKING_CODES ="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0";
 	public static String NS_PREFIX_PIMA_BOOKING_CODES ="pc-bkg-codes";	
-			
+	
+	public static String NS_FIREARMS_PROHIBITION_DOC ="http://ojbc.org/IEPD/Exchange/FirearmPurchaseProhibitionQueryRequest/1.0";
+	public static String NS_PREFIX_FIREARMS_PROHIBITION_DOC ="fppq-req-doc";	
+
+	public static String NS_FIREARMS_PROHIBITION_EXT ="http://ojbc.org/IEPD/Extensions/FirearmPurchaseProhibitionQueryRequestExtension/1.0";
+	public static String NS_PREFIX_FIREARMS_PROHIBITION_EXT ="fppq-req-ext";	
+	
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -1532,6 +1539,13 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap.put(NS_PREFIX_HUMAN_SERVIES, NS_HUMAN_SERVIES);
 		uriToPrefixMap.put(NS_HUMAN_SERVIES, NS_PREFIX_HUMAN_SERVIES);		
+		
+		prefixToUriMap.put(NS_PREFIX_FIREARMS_PROHIBITION_DOC, NS_FIREARMS_PROHIBITION_DOC);
+		uriToPrefixMap.put(NS_FIREARMS_PROHIBITION_DOC, NS_PREFIX_FIREARMS_PROHIBITION_DOC);		
+
+		prefixToUriMap.put(NS_PREFIX_FIREARMS_PROHIBITION_EXT, NS_FIREARMS_PROHIBITION_EXT);
+		uriToPrefixMap.put(NS_FIREARMS_PROHIBITION_EXT, NS_PREFIX_FIREARMS_PROHIBITION_EXT);		
+
 	}
 
 	@Override

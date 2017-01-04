@@ -65,6 +65,8 @@
 	<import resource="person-to-custody-search.xml"/>
 	<import resource="custody-query.xml"/>
 	
+	<import resource="firearms-prohibition-query.xml"/>
+	
 	<import resource="camel-context.xml"/>
 	
 	<!-- This context is intentionally loaded last as we want it to override any beans in this context -->
