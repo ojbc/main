@@ -886,7 +886,7 @@ public class RequestMessageBuilderUtilities {
         identificationId.setTextContent(firearmsPurchaseProhibitionRequest.getIdentificationID());
         
         Element identificationSourceText = XmlUtils.appendElement(firearmPurchaseProhibitionSystemIdentification, OjbcNamespaceContext.NS_NC_30, "SystemName");
-        identificationSourceText.setTextContent(firearmsPurchaseProhibitionRequest.getIdentificationSourceText());
+        identificationSourceText.setTextContent(OJBCWebServiceURIs.FIREARMS_PURCHASE_PROHIBITION_QUERY);
 
         return doc;
 	}	
