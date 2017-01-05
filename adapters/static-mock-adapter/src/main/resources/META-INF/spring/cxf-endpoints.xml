@@ -707,6 +707,40 @@
 		</cxf:features>
 	</cxf:cxfEndpoint>    	
 
+	<!-- Firearms Purchase Prohibition Query Request Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="firearmsPurchaseProhibitionQueryRequestService"
+		address="${genericMockAdapter.firearmsPurchaseProhibitionQueryEndpoint}"
+		wsdlURL="classpath:ssp/Firearm_Purchase_Prohibition_Query_Request/schema/SIP_WS_1.2/Firearm_Purchase_Prohibition_Query_Request_Service.wsdl"
+		serviceName="ojbc:Firearm-Purchase-Prohibition-Query-Request-ServiceService" 
+		endpointName="ojbc:Firearm-Purchase-Prohibition-Query-Request-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Request_Service/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- Firearms Purchase Prohibition Query Results Service, hosted by OJB -->
+	<cxf:cxfEndpoint id="firearmsPurchaseProhibitionQueryResultsService"
+		address="${genericMockAdapter.firearmsPurchaseProhibitionQueryResultsHandlerEndpoint}"
+		wsdlURL="classpath:ssp/Firearm_Purchase_Prohibition_Query_Results/schema/SIP_WS_1.2/Firearm_Purchase_Prohibition_Query_Results_Service.wsdl"
+		serviceName="ojbc:Firearm-Purchase-Prohibition-Query-Results-ServiceService" 
+		endpointName="ojbc:Firearm-Purchase-Prohibition-Query-Results-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Results_Service/1.0">
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>
+	</cxf:cxfEndpoint>    	
 
 	<bean id="dropAllMessageHeadersStrategy"
 		class="org.apache.camel.component.cxf.common.header.CxfHeaderFilterStrategy">
