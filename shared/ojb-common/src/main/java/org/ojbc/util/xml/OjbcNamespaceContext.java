@@ -39,6 +39,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
 		
+	public static final String NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS = "http://ojbc.org/IEPD/Exchange/FirearmPurchaseProhibitionQueryResults/1.0";
+	public static final String NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS = "fppq-res-doc";
+	
+	public static final String NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT = "http://ojbc.org/IEPD/Extensions/FirearmPurchaseProhibitionQueryResultsExtension/1.0";
+	public static final String NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT = "fppq-res-ext";
+	
 	public static final String NS_HUMAN_SERVIES = "http://release.niem.gov/niem/domains/humanServices/3.1/";
 	public static final String NS_PREFIX_HUMAN_SERVIES = "hs";
 	
@@ -1546,6 +1552,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_FIREARMS_PROHIBITION_EXT, NS_FIREARMS_PROHIBITION_EXT);
 		uriToPrefixMap.put(NS_FIREARMS_PROHIBITION_EXT, NS_PREFIX_FIREARMS_PROHIBITION_EXT);		
 
+		prefixToUriMap.put(NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS, NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS);
+		uriToPrefixMap.put(NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS, NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS);		
+		
+		prefixToUriMap.put(NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT, NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT);
+		uriToPrefixMap.put(NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT, NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT);		
+		
 	}
 
 	@Override

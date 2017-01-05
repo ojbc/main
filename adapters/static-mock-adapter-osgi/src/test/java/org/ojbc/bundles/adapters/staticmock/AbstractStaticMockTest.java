@@ -16,8 +16,6 @@
  */
 package org.ojbc.bundles.adapters.staticmock;
 
-import java.io.IOException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -32,7 +30,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public abstract class AbstractStaticMockTest {
 
@@ -50,7 +47,7 @@ public abstract class AbstractStaticMockTest {
 		
 		staticMockQuery = new StaticMockQuery("XpathTestSamples/CriminalHistory", "XpathTestSamples/Warrant", "XpathTestSamples/Incident", 
 				"XpathTestSamples/FirearmRegistration", "XpathTestSamples/JuvenileHistory", "XpathTestSamples/Custody", "XpathTestSamples/CourtCase", 
-				"XpathTestSamples/VehicleCrash");				
+				"XpathTestSamples/VehicleCrash", "XpathTestSamples/FirearmProhibition");				
 	}
 
 	protected Document buildBasePersonSearchRequestMessagePersonNameOnly(String systemId) throws Exception {

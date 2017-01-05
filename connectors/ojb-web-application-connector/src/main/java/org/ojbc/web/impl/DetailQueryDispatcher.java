@@ -128,8 +128,8 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 
 		String requestIdSrcTxt = request.getIdentificationSourceText().trim();
 
-		log.info("Identification Source text in request: " + requestIdSrcTxt);
-		log.info("Identification ID in request: " + request.getIdentificationID());
+		log.info("Identification Source text in request: " + StringUtils.trimToEmpty(requestIdSrcTxt));
+		log.info("Identification ID in request: " + StringUtils.trimToEmpty(request.getIdentificationID()));
 		
 		//Check the map to see if there is a mapping of search URI to query URI
 		if (searchURIToQueryURIMap != null)

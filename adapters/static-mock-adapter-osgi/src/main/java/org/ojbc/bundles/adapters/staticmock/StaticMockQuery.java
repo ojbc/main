@@ -67,6 +67,8 @@ public class StaticMockQuery {
 
 	private static final String VEHICLE_CRASH_SAMPLES_DIRECTORY = "static-instances/VehicleCrash";
 
+	private static final String FIREARM_PROHIBITION_SAMPLES_DIRECTORY = "static-instances/FirearmProhibition";
+	
 	
 	static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
 
@@ -117,6 +119,8 @@ public class StaticMockQuery {
 	
 	public static final String FIREARM_MOCK_ADAPTER_QUERY_BY_FIREARM_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0}SubmitFirearmRegistrationQueryRequestByFirearm";;
 
+	public static final String FIREARM_PROHIBITION_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Firearms-Prohibition";
+
 	
 	private ClasspathXmlDataSource criminalHistoryDataSource;	
 	
@@ -133,18 +137,22 @@ public class StaticMockQuery {
 	private ClasspathXmlDataSource juvenileHistoryDataSource;
 	
 	private ClasspathXmlDataSource vehicleCrashDataSource;
+	
+	private ClasspathXmlDataSource firearmProhibitionDataSource;
 		
 
 	public StaticMockQuery() {
 		
 		this(CRIMINAL_HISTORY_PRODUCTION_SAMPLES_DIRECTORY, WARRANT_PRODUCTION_SAMPLES_DIRECTORY, INCIDENT_PRODUCTION_SAMPLES_DIRECTORY, 
 				FIREARM_PRODUCTION_SAMPLES_DIRECTORY, JUVENILE_HISTORY_SAMPLES_DIRECTORY, CUSTODY_SAMPLES_DIRECTORY, COURT_CASE_SAMPLES_DIRECTORY, 
-				VEHICLE_CRASH_SAMPLES_DIRECTORY);
+				VEHICLE_CRASH_SAMPLES_DIRECTORY, FIREARM_PROHIBITION_SAMPLES_DIRECTORY);
 	}
 
 	StaticMockQuery(String criminalHistorySampleInstanceDirectoryRelativePath, String warrantSampleInstanceDirectoryRelativePath, 
 			String incidentSampleInstanceDirectoryRelativePath, String firearmSampleInstanceDirectoryRelativePath,
-			String juvenileHistorySampleInstanceDirectoryRelativePath, String custodySampleDir, String courtCaseSampleDir, String vehicleCrashSampleDir) {
+			String juvenileHistorySampleInstanceDirectoryRelativePath, String custodySampleDir, String courtCaseSampleDir, 
+			String vehicleCrashSampleDir, 
+			String firearmProhibitionSampleDir) {
 		
 		criminalHistoryDataSource = new ClasspathXmlDataSource(criminalHistorySampleInstanceDirectoryRelativePath);
 		
@@ -161,6 +169,8 @@ public class StaticMockQuery {
 		courtCaseDataSource = new ClasspathXmlDataSource(courtCaseSampleDir);
 		
 		vehicleCrashDataSource = new ClasspathXmlDataSource(vehicleCrashSampleDir);
+		
+		firearmProhibitionDataSource = new ClasspathXmlDataSource(firearmProhibitionSampleDir);
 	}
 
 	/**
@@ -272,6 +282,10 @@ public class StaticMockQuery {
 		String rootElementNamespace = rootElement.getNamespaceURI();
 		String rootElementLocalName = rootElement.getLocalName();
 
+		LOG.info("rootElementNamespace: " + rootElementNamespace);
+		LOG.info("OjbcNamespaceContext.NS_COURT_CASE_QUERY_REQUEST_DOC: " + OjbcNamespaceContext.NS_COURT_CASE_QUERY_REQUEST_DOC);
+		LOG.info("rootElementLocalName: " + rootElementLocalName);
+		
 		if (OjbcNamespaceContext.NS_INCIDENT_QUERY_REQUEST_DOC.equals(rootElementNamespace) && "IncidentIdentifierIncidentReportRequest".equals(rootElementLocalName)) {
 			Element systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, "iqr-doc:IncidentIdentifierIncidentReportRequest/iqr:SourceSystemNameText");
 			if (systemElement == null) {
@@ -298,26 +312,10 @@ public class StaticMockQuery {
 			documentId = systemIdElement.getTextContent();
 			
 			systemId = systemElement.getTextContent();
-			
-		} else if (OjbcNamespaceContext.NS_COURT_CASE_QUERY_REQUEST_DOC.equals(rootElementNamespace) && "CourtCaseQueryRequest".equals(rootElementLocalName)) {
-			
-			String xPath = OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC + ":CourtCaseQueryRequest/" + OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQ_EXT
-					+ ":CourtCaseRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationSourceText";
-			
-			Element systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
-			
-			if (systemElement == null) {
-				throw new IllegalArgumentException("Invalid query request message:  must specify the system to query.");
-			}
-			
-			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC + ":CourtCaseQueryRequest/"
-					+ OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQ_EXT + ":CourtCaseRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationID");
-			
-			documentId = systemIdElement.getTextContent();
-			
-			systemId = systemElement.getTextContent();
+			LOG.info("Processing Court Case Query Request"); 
 			
 		} else if (OjbcNamespaceContext.NS_CUSTODY_QUERY_REQUEST_EXCH.equals(rootElementNamespace) && "CustodyQueryRequest".equals(rootElementLocalName)) {
+			LOG.info("Processing Custody Query Request"); 
 			String xPath = OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXCH + ":CustodyQueryRequest/" + OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT
 					+ ":CustodyRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationSourceText";
 			Element systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
@@ -387,6 +385,8 @@ public class StaticMockQuery {
 			systemId = systemElement.getTextContent();
 		}
 
+		LOG.info("documentId: " + StringUtils.trimToEmpty(documentId));
+		LOG.info("systemId: " + StringUtils.trimToEmpty(systemId));
 		if (CRIMINAL_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID.equals(systemId)) {
 			return queryCriminalHistoryDocuments(documentId);
 			
@@ -974,6 +974,9 @@ public class StaticMockQuery {
 				
 			}else if(OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC.equals(rootNamespace) && "VehicleCrashQueryResults".equals(rootLocalName)){
 				xPaths = getVehicleCrashXPaths();				
+				
+			}else if(OjbcNamespaceContext.NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS.equals(rootNamespace) && "FirearmPurchaseProhibitionQueryResults".equals(rootLocalName)){
+				xPaths = getFirearmProhibitionXPaths();				
 				
 			} else {
 				throw new IllegalStateException("Unsupported document root element: " + rootLocalName);
@@ -1822,6 +1825,9 @@ public class StaticMockQuery {
 			}else if(VEHICLE_CRASH_SEARCH_SYSTEM_ID.equals(systemId)){
 				rDocList.addAll(personSearchVehicleCrashDocuments(personSearchRequestMessage, baseDate));
 				
+			}else if(FIREARM_PROHIBITION_SEARCH_SYSTEM_ID.equals(systemId)){
+				rDocList.addAll(personSearchFirearmProhibitionDocuments(personSearchRequestMessage, baseDate));
+				
 			} else {
 				throw new IllegalArgumentException("Unsupported system name: " + systemId);
 			}
@@ -1866,6 +1872,10 @@ public class StaticMockQuery {
 		return personSearchDocumentsAsList(personSearchRequestMessage, baseDate, getVehicleCrashXPaths(), vehicleCrashDataSource);
 	}
 	
+	private List<IdentifiableDocumentWrapper> personSearchFirearmProhibitionDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception{
+		return personSearchDocumentsAsList(personSearchRequestMessage, baseDate, getFirearmProhibitionXPaths(), firearmProhibitionDataSource);
+	}
+	
 
 	private SearchValueXPaths getIncidentXPaths() {
 		SearchValueXPaths xPaths = new SearchValueXPaths() {
@@ -1904,6 +1914,32 @@ public class StaticMockQuery {
 		return xPaths;
 	}
 
+	private SearchValueXPaths getFirearmProhibitionXPaths() {
+		SearchValueXPaths xPaths = new SearchValueXPaths();
+		String rootXPath = "/fppq-res-doc:FirearmPurchaseProhibitionQueryResults/fppq-res-ext:FirearmPurchaseProhibitionReport/nc30:Person"
+				+ "[@s30:id = /fppq-res-doc:FirearmPurchaseProhibitionQueryResults/fppq-res-ext:FirearmPurchaseProhibitionReport/jxdm51:ActivityCourtOrderAssociation/jxdm51:Subject/@s30:ref]";
+		xPaths.ageXPath = null;
+		xPaths.birthdateXPath = rootXPath + "/nc30:PersonBirthDate/nc30:Date";
+		xPaths.ssnXPath = null;
+		xPaths.sidXPath = null;
+		xPaths.fbiXPath = null;
+		xPaths.dlXPath = null;
+		xPaths.dlJurisdictionXPath = null;
+		xPaths.lastNameXPath = rootXPath + "/nc30:PersonName/nc30:PersonSurName";
+		xPaths.middleNameXPath = rootXPath + "/nc30:PersonName/nc30:PersonMiddleName";
+		xPaths.firstNameXPath = rootXPath + "/nc30:PersonName/nc30:PersonGivenName";
+		xPaths.eyeColorXPath = null;
+		xPaths.hairColorXPath = null;
+		xPaths.raceXPath = null;
+		xPaths.sexXPath = rootXPath + "/jxdm51:PersonSexCode";
+		xPaths.heightXPath = null;
+		xPaths.weightXPath = null;
+		xPaths.searchSystemId = FIREARM_PROHIBITION_SEARCH_SYSTEM_ID;
+		xPaths.systemName = "Firearm Purchase Prohibition";
+		xPaths.recordType = "Firearm Purchase Prohibition";
+		return xPaths;
+	}
+	
 	private SearchValueXPaths getJuvenileHistoryXPaths() {
 		SearchValueXPaths xPaths = new SearchValueXPaths();
 		xPaths.ageXPath = null;
