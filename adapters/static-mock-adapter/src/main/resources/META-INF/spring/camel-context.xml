@@ -172,7 +172,6 @@
 		<endpoint id="juvenileReferralHistoryResultsServiceEndpoint"
 			uri="cxf:bean:juvenileReferralHistoryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
 			
-
 		<!-- File endpoints for Queries -->
 		<endpoint id="criminalHistoryAdapterDir"
 			uri="file:///${genericMockAdapter.personQuery.mockFileEndpoint}/criminalHistory/" />
@@ -186,6 +185,13 @@
 		<endpoint id="firearmRegistrationQueryDir"
 			uri="file:///${genericMockAdapter.personQuery.mockFileEndpoint}/firearmRegQuery/" />
 
+		<!--  firearms Purchase Prohibition Query -->
+		<endpoint id="firearmsPurchaseProhibitionQueryServiceEndpoint"
+			uri="cxf:bean:firearmsPurchaseProhibitionQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<endpoint id="firearmsPurchaseProhibitionQueryResultsServiceEndpoint"
+			uri="cxf:bean:firearmsPurchaseProhibitionQueryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+			
 		<!-- Person Search Handler -->
 
 		<camel:route id="personSearchRequestService">
@@ -525,6 +531,42 @@
 			
 		</camel:route>		
 		
+		<!-- Firearm Purchase Prohibition Query Request Handler -->
+		<camel:route id="firearmsPurchaseProhibitionQueryServiceRoute">
+		
+			<camel:from uri="firearmsPurchaseProhibitionQueryServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+			
+			<camel:log message="\n\n\n Inside Firearms Purchase Prohibition Query Service Mock \n\n\n" />
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="\n\n\n Calling staticMockAdapterProcessor \n\n\n" />
+
+			<camel:to uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitFirearmPurchaseProhibitionQueryResults</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Results_Service/1.0</constant>
+			</camel:setHeader>
+
+			<camel:log message="\n\n\n Calling Firearm Purchase Prohibition Query Result endpoint...  \n\n\n" />
+
+			<camel:to uri="firearmsPurchaseProhibitionQueryResultsServiceEndpoint" />			
+			
+		</camel:route>				
 		
 		<!-- Court Case Query Request Handler -->
 		<camel:route id="courtCaseQueryRequestRoute">
@@ -735,13 +777,6 @@
 			<camel:to uri="personQueryFirearmRegistratonQueryResultsServiceEndpoint" />
 			<camel:log message="Called Firearm Query Response Handler" />
 		</camel:route>
-
-<!-- juvenileCasePlanHistoryRequestServiceEndpoint -->
-<!-- juvenileHearingHistoryRequestServiceEndpoint -->
-<!-- juvenileIntakeHistoryRequestServiceEndpoint -->
-<!-- juvenileOffenseHistoryRequestServiceEndpoint -->
-<!-- juvenilePlacementHistoryRequestServiceEndpoint -->
-<!-- juvenileReferralHistoryRequestServiceEndpoint -->
 
 		<!-- Juvenile Case Plan Request Handler -->
 		<camel:route id="juvenileCasePlanHistoryRequestServiceEndpointRoute">
