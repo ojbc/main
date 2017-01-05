@@ -192,7 +192,7 @@ public class CourtCaseSearchResultBuilder {
 		
 		String courtName = courtCaseDetail.getCourtName();
 		
-		if(StringUtils.isNotEmpty(sJurisdictionTxt) || StringUtils.isNotEmpty(courtName)){
+		if(StringUtils.isNotBlank(sJurisdictionTxt) || StringUtils.isNotBlank(courtName)){
 			
 			Element caseCourt = XmlUtils.appendElement(caseAugment, OjbcNamespaceContext.NS_JXDM_51, "CaseCourt");			
 			
@@ -200,7 +200,7 @@ public class CourtCaseSearchResultBuilder {
 			
 			Element orgJurisdiction = XmlUtils.appendElement(orgAugment, OjbcNamespaceContext.NS_JXDM_51, "OrganizationJurisdiction");
 			
-			if(StringUtils.isNotEmpty(sJurisdictionTxt)){
+			if(StringUtils.isNotBlank(sJurisdictionTxt)){
 				
 				Element jurisdictionTxtElement = XmlUtils.appendElement(orgJurisdiction, OjbcNamespaceContext.NS_NC_30, "JurisdictionText");
 				
@@ -209,7 +209,7 @@ public class CourtCaseSearchResultBuilder {
 				jurisdictionTxtElement.setTextContent(sJurisdictionTxt); 				
 			}				
 			
-			if(StringUtils.isNotEmpty(courtName)){
+			if(StringUtils.isNotBlank(courtName)){
 
 				courtName = courtName.trim();
 				
@@ -223,7 +223,7 @@ public class CourtCaseSearchResultBuilder {
 
 		String sCaseOtherInfoIdCatDescTxt = courtCaseDetail.getCaseOtherInfoIdCatDescTxt();
 		
-		if(StringUtils.isNotEmpty(sCaseOtherInfoIdCatDescTxt)){
+		if(StringUtils.isNotBlank(sCaseOtherInfoIdCatDescTxt)){
 
 			Element caseOtherIdElement = XmlUtils.appendElement(caseAugment, OjbcNamespaceContext.NS_JXDM_51, "CaseOtherIdentification");
 			
