@@ -37,6 +37,7 @@
 				<!-- This allows implementers to skip setting these properties if their instance does not use them -->
 				<util:properties>
 					<prop key="delayBetweenInvocationsInMillis">0</prop>
+					<prop key="bookingReporting.cronSchedulerExpression"/>
 				</util:properties>
 				<!-- The .cfg file from the classpath will be consulted first, followed 
 					by the optional .cfg file under $KARAF_HOME/etc -->

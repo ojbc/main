@@ -30,7 +30,7 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="custody-status-change-reporting-service-connector">
 	
 		<endpoint id="inputDirectory"
-			uri="file:///${custody.connectorFileDirectory}/input?idempotent=true&amp;moveFailed=${custody.connectorFileDirectory}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=${custody.deleteInputFiles}&amp;sortBy=file:modified&amp;delay=${custody.pollingInterval}" />
+			uri="file:///${custody.connectorFileDirectory}/input?idempotent=true&amp;moveFailed=${custody.connectorFileDirectory}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=${custody.deleteInputFiles}&amp;sortBy=file:modified&amp;delay=${custody.pollingInterval}${custody.cronSchedulerExpression}" />
 		
 		<camel:route id="Custody_Status_Change_Reporting_Connector_File_Drop_Route">
 		

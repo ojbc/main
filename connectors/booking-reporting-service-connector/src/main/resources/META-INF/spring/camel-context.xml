@@ -30,7 +30,7 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="booking-reporting-service-connector">
 	
 		<endpoint id="inputDirectory"
-			uri="file:///${bookingReporting.connectorFileDirectory}/input?idempotent=true&amp;moveFailed=${bookingReporting.connectorFileDirectory}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=${bookingReporting.deleteInputFiles}&amp;sortBy=file:modified&amp;delay=${bookingReporting.pollingInterval}" />
+			uri="file:///${bookingReporting.connectorFileDirectory}/input?idempotent=true&amp;moveFailed=${bookingReporting.connectorFileDirectory}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=${bookingReporting.deleteInputFiles}&amp;sortBy=file:modified&amp;delay=${bookingReporting.pollingInterval}${bookingReporting.cronSchedulerExpression}" />
 		
 		<camel:route id="Booking_Reporting_Connector_File_Drop_Route">
 		
