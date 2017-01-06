@@ -713,80 +713,80 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     public static final String NS_PREFIX_FEDERAL_SUBSCRIPTION_UPDATE_REPORT_EXT = "fed_subcr_upd-ext";
     public static final String NS_FEDERAL_SUBSCRIPTION_UPDATE_REPORT_EXT ="http://ojbc.org/IEPD/Extensions/FederalSubscriptionUpdateReportExtension/1.0";
 
-	public static String NS_COURT_CASE_QUERY_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/CourtCaseQueryRequest/1.0";
-	public static String NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC ="ccq-req-doc";
+	public static final String NS_COURT_CASE_QUERY_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/CourtCaseQueryRequest/1.0";
+	public static final String NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC ="ccq-req-doc";
 
-	public static String NS_COURT_CASE_QUERY_REQ_EXT="http://ojbc.org/IEPD/Extensions/CourtCaseQueryRequestExtension/1.0";
-	public static String NS_PREFIX_COURT_CASE_QUERY_REQ_EXT="ccq-req-ext";
+	public static final String NS_COURT_CASE_QUERY_REQ_EXT="http://ojbc.org/IEPD/Extensions/CourtCaseQueryRequestExtension/1.0";
+	public static final String NS_PREFIX_COURT_CASE_QUERY_REQ_EXT="ccq-req-ext";
 				
-	public static String NS_WARRANT_REJECTED_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0";
-	public static String NS_PREFIX_WARRANT_REJECTED_EXCH_DOC = "wrr-doc";	
+	public static final String NS_WARRANT_REJECTED_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0";
+	public static final String NS_PREFIX_WARRANT_REJECTED_EXCH_DOC = "wrr-doc";	
 	
-	public static String NS_PREFIX_WARRANT_ACCEPTED_REPORT_DOC_EXCH = "war-doc";
-	public static String NS_WARRANT_ACCEPTED_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/WarrantAcceptedReport/1.0";
+	public static final String NS_PREFIX_WARRANT_ACCEPTED_REPORT_DOC_EXCH = "war-doc";
+	public static final String NS_WARRANT_ACCEPTED_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/WarrantAcceptedReport/1.0";
 	
-	public static String NS_WARRANT_ISSUED_REPORT="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0";
-	public static String NS_PREFIX_WARRANT_ISSUED_REPORT="wir-doc";
+	public static final String NS_WARRANT_ISSUED_REPORT="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0";
+	public static final String NS_PREFIX_WARRANT_ISSUED_REPORT="wir-doc";
 	
-	public static String NS_WARRANT_ISSUED_REPORTING_EXT="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0";
-	public static String NS_PREFIX_WARRANT_ISSUED_REPORTING_EXT="wir-ext";
+	public static final String NS_WARRANT_ISSUED_REPORTING_EXT="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0";
+	public static final String NS_PREFIX_WARRANT_ISSUED_REPORTING_EXT="wir-ext";
 
-	public static String NS_CHARGE_REFERRAL_REPORTING="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0";
-	public static String NS_PREFIX_CHARGE_REFERRAL_REPORTING="crr-doc";
+	public static final String NS_CHARGE_REFERRAL_REPORTING="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0";
+	public static final String NS_PREFIX_CHARGE_REFERRAL_REPORTING="crr-doc";
 	
-	public static String NS_BOOKING_REPORTING = "http://ojbc.org/IEPD/Exchange/BookingReport/1.0";
-	public static String NS_PREFIX_BOOKING_REPORTING="br-doc";
+	public static final String NS_BOOKING_REPORTING = "http://ojbc.org/IEPD/Exchange/BookingReport/1.0";
+	public static final String NS_PREFIX_BOOKING_REPORTING="br-doc";
 	
-	public static String NS_BOOKING_REPORTING_EXT = "http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0";
-	public static String NS_PREFIX_BOOKING_REPORTING_EXT="br-ext";
+	public static final String NS_BOOKING_REPORTING_EXT = "http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0";
+	public static final String NS_PREFIX_BOOKING_REPORTING_EXT="br-ext";
 	
-	public static String NS_CUSTODY_RELEASE_REPORTING = "http://ojbc.org/IEPD/Exchange/CustodyReleaseReport/1.0";
-	public static String NS_PREFIX_CUSTODY_RELEASE_REPORTING="crr-exc";
+	public static final String NS_CUSTODY_RELEASE_REPORTING = "http://ojbc.org/IEPD/Exchange/CustodyReleaseReport/1.0";
+	public static final String NS_PREFIX_CUSTODY_RELEASE_REPORTING="crr-exc";
 
-	public static String NS_CUSTODY_RELEASE_REPORTING_EXT = "http://ojbc.org/IEPD/Extensions/CustodyReleaseReportExtension/1.0";
-	public static String NS_PREFIX_CUSTODY_RELEASE_REPORTING_EXT="crr-ext";
+	public static final String NS_CUSTODY_RELEASE_REPORTING_EXT = "http://ojbc.org/IEPD/Extensions/CustodyReleaseReportExtension/1.0";
+	public static final String NS_PREFIX_CUSTODY_RELEASE_REPORTING_EXT="crr-ext";
 	
-	public static String NS_IDENTIFIER_RESPONSE_DOC = "http://ojbc.org/IEPD/Exchange/IdentifierResponse/1.0";
-	public static String NS_PREFIX_IDENTIFIER_RESPONSE_DOC="i-resp-doc";
+	public static final String NS_IDENTIFIER_RESPONSE_DOC = "http://ojbc.org/IEPD/Exchange/IdentifierResponse/1.0";
+	public static final String NS_PREFIX_IDENTIFIER_RESPONSE_DOC="i-resp-doc";
 	
-	public static String NS_CUSTODY_STATUS_CHANGE_DOC = "http://ojbc.org/IEPD/Exchange/CustodyStatusChangeReport/1.0";
-	public static String NS_PREFIX_CUSTODY_STATUS_CHANGE_DOC="cscr-doc";
+	public static final String NS_CUSTODY_STATUS_CHANGE_DOC = "http://ojbc.org/IEPD/Exchange/CustodyStatusChangeReport/1.0";
+	public static final String NS_PREFIX_CUSTODY_STATUS_CHANGE_DOC="cscr-doc";
 	
-	public static String NS_CUSTODY_STATUS_CHANGE_EXT = "http://ojbc.org/IEPD/Extensions/CustodyStatusChangeReportExtension/1.0";
-	public static String NS_PREFIX_CUSTODY_STATUS_CHANGE_EXT="cscr-ext";
+	public static final String NS_CUSTODY_STATUS_CHANGE_EXT = "http://ojbc.org/IEPD/Extensions/CustodyStatusChangeReportExtension/1.0";
+	public static final String NS_PREFIX_CUSTODY_STATUS_CHANGE_EXT="cscr-ext";
 
-	public static String NS_COURT_DISPOSITION_UPDATE_EXT = "http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0";
-	public static String NS_PREFIX_COURT_DISPOSITION_UPDATE_EXT="cdu-ext";
+	public static final String NS_COURT_DISPOSITION_UPDATE_EXT = "http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0";
+	public static final String NS_PREFIX_COURT_DISPOSITION_UPDATE_EXT="cdu-ext";
 
-	public static String NS_PROSECUTION_DECISION_UPDATE_EXT = "http://ojbc.org/IEPD/Extensions/ProsecutionDecisionUpdate/1.0";
-	public static String NS_PREFIX_PROSECUTION_DECISION_UPDATE_EXT="pdu-ext";
+	public static final String NS_PROSECUTION_DECISION_UPDATE_EXT = "http://ojbc.org/IEPD/Extensions/ProsecutionDecisionUpdate/1.0";
+	public static final String NS_PREFIX_PROSECUTION_DECISION_UPDATE_EXT="pdu-ext";
 	
-	public static String NS_CORE_FILING_MESSAGE = "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0";
-	public static String NS_PREFIX_CORE_FILING_MESSAGE="cfm";
+	public static final String NS_CORE_FILING_MESSAGE = "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0";
+	public static final String NS_PREFIX_CORE_FILING_MESSAGE="cfm";
 
-	public static String NS_CITATION_CASE_DOC = "http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0";
-	public static String NS_PREFIX_CITATION_CASE_DOC="ojb-cit-doc";
+	public static final String NS_CITATION_CASE_DOC = "http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0";
+	public static final String NS_PREFIX_CITATION_CASE_DOC="ojb-cit-doc";
 
-	public static String NS_CITATION_CASE_EXT = "http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0";
-	public static String NS_PREFIX_CITATION_CASE_EXT="ojb-cit-ext";
+	public static final String NS_CITATION_CASE_EXT = "http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0";
+	public static final String NS_PREFIX_CITATION_CASE_EXT="ojb-cit-ext";
 	
-	public static String NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC = "http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchResults/1.0";
-	public static String NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC ="phisres-doc";	
+	public static final String NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC = "http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchResults/1.0";
+	public static final String NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC ="phisres-doc";	
 	
-	public static String NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchResults/1.0";
-	public static String NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT ="phisres-ext";
+	public static final String NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchResults/1.0";
+	public static final String NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT ="phisres-ext";
 	
-	public static String NS_PIMA_PERSON_HEALTH_INFORMATION_CODES ="http://ojbc.org/IEPD/Extensions/PimaCounty/PersonHealthInformationCodes/1.0";
-	public static String NS_PREFIX_PIMA_PERSON_HEALTH_INFORMATION_CODES ="pc-phi-codes";	
+	public static final String NS_PIMA_PERSON_HEALTH_INFORMATION_CODES ="http://ojbc.org/IEPD/Extensions/PimaCounty/PersonHealthInformationCodes/1.0";
+	public static final String NS_PREFIX_PIMA_PERSON_HEALTH_INFORMATION_CODES ="pc-phi-codes";	
 
-	public static String NS_PIMA_BOOKING_CODES ="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0";
-	public static String NS_PREFIX_PIMA_BOOKING_CODES ="pc-bkg-codes";	
+	public static final String NS_PIMA_BOOKING_CODES ="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0";
+	public static final String NS_PREFIX_PIMA_BOOKING_CODES ="pc-bkg-codes";	
 	
-	public static String NS_FIREARMS_PROHIBITION_DOC ="http://ojbc.org/IEPD/Exchange/FirearmPurchaseProhibitionQueryRequest/1.0";
-	public static String NS_PREFIX_FIREARMS_PROHIBITION_DOC ="fppq-req-doc";	
+	public static final String NS_FIREARMS_PROHIBITION_DOC ="http://ojbc.org/IEPD/Exchange/FirearmPurchaseProhibitionQueryRequest/1.0";
+	public static final String NS_PREFIX_FIREARMS_PROHIBITION_DOC ="fppq-req-doc";	
 
-	public static String NS_FIREARMS_PROHIBITION_EXT ="http://ojbc.org/IEPD/Extensions/FirearmPurchaseProhibitionQueryRequestExtension/1.0";
-	public static String NS_PREFIX_FIREARMS_PROHIBITION_EXT ="fppq-req-ext";	
+	public static final String NS_FIREARMS_PROHIBITION_EXT ="http://ojbc.org/IEPD/Extensions/FirearmPurchaseProhibitionQueryRequestExtension/1.0";
+	public static final String NS_PREFIX_FIREARMS_PROHIBITION_EXT ="fppq-req-ext";	
 	
 	
 	private Map<String, String> prefixToUriMap;
