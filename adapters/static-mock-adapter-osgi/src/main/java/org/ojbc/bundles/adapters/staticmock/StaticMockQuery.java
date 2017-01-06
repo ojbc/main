@@ -36,6 +36,7 @@ import org.joda.time.format.ISODateTimeFormat;
 import org.ojbc.bundles.adapters.staticmock.courtcase.CourtCaseSearchResultBuilder;
 import org.ojbc.bundles.adapters.staticmock.custody.CustodySearchResultBuilder;
 import org.ojbc.util.xml.OjbcNamespaceContext;
+import static org.ojbc.util.xml.OjbcNamespaceContext.*;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -121,6 +122,7 @@ public class StaticMockQuery {
 
 	public static final String FIREARM_PROHIBITION_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Firearms-Prohibition";
 
+	public static final String FIREARM_PROHIBITION_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Request_Service/1.0}SubmitFirearmPurchaseProhibitionQueryRequest";
 	
 	private ClasspathXmlDataSource criminalHistoryDataSource;	
 	
@@ -140,6 +142,7 @@ public class StaticMockQuery {
 	
 	private ClasspathXmlDataSource firearmProhibitionDataSource;
 		
+	private OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext(); 
 
 	public StaticMockQuery() {
 		
@@ -276,148 +279,132 @@ public class StaticMockQuery {
 		
 		Element rootElement = queryRequestMessage.getDocumentElement();
 
-		String documentId = null;
-		String systemId = null;
-
 		String rootElementNamespace = rootElement.getNamespaceURI();
 		String rootElementLocalName = rootElement.getLocalName();
 
 		LOG.info("rootElementNamespace: " + rootElementNamespace);
-		LOG.info("OjbcNamespaceContext.NS_COURT_CASE_QUERY_REQUEST_DOC: " + OjbcNamespaceContext.NS_COURT_CASE_QUERY_REQUEST_DOC);
 		LOG.info("rootElementLocalName: " + rootElementLocalName);
 		
-		if (OjbcNamespaceContext.NS_INCIDENT_QUERY_REQUEST_DOC.equals(rootElementNamespace) && "IncidentIdentifierIncidentReportRequest".equals(rootElementLocalName)) {
-			Element systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, "iqr-doc:IncidentIdentifierIncidentReportRequest/iqr:SourceSystemNameText");
-			if (systemElement == null) {
-				throw new IllegalArgumentException("Invalid query request message:  must specify the system to query.");
-			}
-			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, "iqr-doc:IncidentIdentifierIncidentReportRequest/iqr:Incident/nc:ActivityIdentification/nc:IdentificationID");
-			documentId = systemIdElement.getTextContent();
-			systemId = systemElement.getTextContent();
-			
-		} else if (OjbcNamespaceContext.NS_COURT_CASE_QUERY_REQUEST_DOC.equals(rootElementNamespace) && "CourtCaseQueryRequest".equals(rootElementLocalName)) {
-			
-			String xPath = OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC + ":CourtCaseQueryRequest/" + OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQ_EXT
-					+ ":CourtCaseRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationSourceText";
-			
-			Element systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
-			
-			if (systemElement == null) {
-				throw new IllegalArgumentException("Invalid query request message:  must specify the system to query.");
-			}
-			
-			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC + ":CourtCaseQueryRequest/"
-					+ OjbcNamespaceContext.NS_PREFIX_COURT_CASE_QUERY_REQ_EXT + ":CourtCaseRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationID");
-			
-			documentId = systemIdElement.getTextContent();
-			
-			systemId = systemElement.getTextContent();
-			LOG.info("Processing Court Case Query Request"); 
-			
-		} else if (OjbcNamespaceContext.NS_CUSTODY_QUERY_REQUEST_EXCH.equals(rootElementNamespace) && "CustodyQueryRequest".equals(rootElementLocalName)) {
-			LOG.info("Processing Custody Query Request"); 
-			String xPath = OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXCH + ":CustodyQueryRequest/" + OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT
-					+ ":CustodyRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationSourceText";
-			Element systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
-			if (systemElement == null) {
-				throw new IllegalArgumentException("Invalid query request message:  must specify the system to query.");
-			}
-			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXCH + ":CustodyQueryRequest/"
-					+ OjbcNamespaceContext.NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT + ":CustodyRecordIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationID");
-			documentId = systemIdElement.getTextContent();
-			systemId = systemElement.getTextContent();
-		} else if (OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_REQUEST_DOC.equals(rootElementNamespace) && "VehicleCrashQueryRequest".equals(rootElementLocalName)) {
-			String xPath = OjbcNamespaceContext.NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_DOC + ":VehicleCrashQueryRequest/" + OjbcNamespaceContext.NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_EXT
-					+ ":VehicleCrashIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationSourceText";
-			LOG.info("System identification source text xPath: " + xPath);
-			Element systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
-			if (systemElement == null) {
-				throw new IllegalArgumentException("Invalid query request message:  must specify the system to query.");
-			}
-			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, OjbcNamespaceContext.NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_DOC + ":VehicleCrashQueryRequest/" + OjbcNamespaceContext.NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_EXT
-					+ ":VehicleCrashIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationID");
-			documentId = systemIdElement.getTextContent();
-			systemId = systemElement.getTextContent();
-		} else if (OjbcNamespaceContext.NS_FIREARM_REGISTRATION_QUERY_REQUEST_DOC.equals(rootElementNamespace) && "PersonFirearmRegistrationRequest".equals(rootElementLocalName)) {
-			String xPath = OjbcNamespaceContext.NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_DOC + ":PersonFirearmRegistrationRequest/" + OjbcNamespaceContext.NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_EXT
-					+ ":PersonFirearmRegistrationIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC + ":IdentificationSourceText";
-			Element systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
-			if (systemElement == null) {
-				throw new IllegalArgumentException("Invalid query request message:  must specify the system to query.");
-			}
-			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, OjbcNamespaceContext.NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_DOC + ":PersonFirearmRegistrationRequest/"
-					+ OjbcNamespaceContext.NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_EXT + ":PersonFirearmRegistrationIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC + ":IdentificationID");
-			documentId = systemIdElement.getTextContent();
-			systemId = systemElement.getTextContent();
-		} else if (OjbcNamespaceContext.NS_FIREARM_REGISTRATION_QUERY_REQUEST_DOC.equals(rootElementNamespace) && "FirearmRegistrationRequest".equals(rootElementLocalName)) {
-			String xPath = OjbcNamespaceContext.NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_DOC + ":FirearmRegistrationRequest/" + OjbcNamespaceContext.NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_EXT + ":FirearmRegistrationIdentification/"
-					+ OjbcNamespaceContext.NS_PREFIX_NC + ":IdentificationSourceText";
-			Element systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
-			if (systemElement == null) {
-				throw new IllegalArgumentException("Invalid query request message:  must specify the system to query.");
-			}
-			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, OjbcNamespaceContext.NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_DOC + ":FirearmRegistrationRequest/"
-					+ OjbcNamespaceContext.NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_EXT + ":FirearmRegistrationIdentification/" + OjbcNamespaceContext.NS_PREFIX_NC + ":IdentificationID");
-			documentId = systemIdElement.getTextContent();
-			systemId = systemElement.getTextContent();
-		} else if (OjbcNamespaceContext.NS_JUVENILE_HISTORY_QUERY_REQUEST_DOC.equals(rootElementNamespace) && "JuvenileHistoryQuery".equals(rootElementLocalName)) {
-			String xPath = OjbcNamespaceContext.NS_PREFIX_JUVENILE_HISTORY_QUERY_REQUEST_DOC + ":JuvenileHistoryQuery/" +
-				OjbcNamespaceContext.NS_PREFIX_JUVENILE_HISTORY_EXT + ":JuvenileHistoryQueryCriteria/" +
-				OjbcNamespaceContext.NS_PREFIX_JUVENILE_HISTORY_EXT + ":JuvenileInformationRecordID/" +
-				OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationSourceText";
-			Element systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
-			if (systemElement == null) {
-				throw new IllegalArgumentException("Invalid query request message:  must specify the system to query.");
-			}
-			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, OjbcNamespaceContext.NS_PREFIX_JUVENILE_HISTORY_QUERY_REQUEST_DOC + ":JuvenileHistoryQuery/" +
-					OjbcNamespaceContext.NS_PREFIX_JUVENILE_HISTORY_EXT + ":JuvenileHistoryQueryCriteria/" +
-					OjbcNamespaceContext.NS_PREFIX_JUVENILE_HISTORY_EXT + ":JuvenileInformationRecordID/" +
-					OjbcNamespaceContext.NS_PREFIX_NC_30 + ":IdentificationID");
-			documentId = systemIdElement.getTextContent();
-			systemId = systemElement.getTextContent();
-		} else {
-			Element systemElement = (Element) XmlUtils.xPathNodeSearch(rootElement, "pqr:PersonRecordRequestIdentification/nc:IdentificationSourceText");
-			if (systemElement == null) {
-				throw new IllegalArgumentException("Invalid query request message:  must specify the system to query.");
-			}
-			Element systemIdElement = (Element) XmlUtils.xPathNodeSearch(rootElement, "pqr:PersonRecordRequestIdentification/nc:IdentificationID");
-			documentId = systemIdElement.getTextContent();
-			systemId = systemElement.getTextContent();
+		Element systemElement = null;
+		Element systemIdElement = null;
+		
+		switch (rootElementNamespace + ":" + rootElementLocalName){
+		case NS_INCIDENT_QUERY_REQUEST_DOC + ":IncidentIdentifierIncidentReportRequest":
+			systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, "iqr-doc:IncidentIdentifierIncidentReportRequest/iqr:SourceSystemNameText");
+			systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, "iqr-doc:IncidentIdentifierIncidentReportRequest/iqr:Incident/nc:ActivityIdentification/nc:IdentificationID");
+			break;
+		case NS_COURT_CASE_QUERY_REQUEST_DOC + ":CourtCaseQueryRequest": {
+			String xPath = NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC + ":CourtCaseQueryRequest/" + NS_PREFIX_COURT_CASE_QUERY_REQ_EXT
+				+ ":CourtCaseRecordIdentification/" + NS_PREFIX_NC_30 + ":IdentificationSourceText";
+	
+			systemElement= (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
+			systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC + ":CourtCaseQueryRequest/"
+				+ NS_PREFIX_COURT_CASE_QUERY_REQ_EXT + ":CourtCaseRecordIdentification/" + NS_PREFIX_NC_30 + ":IdentificationID");
+	
+			LOG.info("Processing Court Case Query Request");
+			break; 
 		}
+		case NS_CUSTODY_QUERY_REQUEST_EXCH + ":CustodyQueryRequest": { 
+			LOG.info("Processing Custody Query Request"); 
+			String xPath = NS_PREFIX_CUSTODY_QUERY_REQUEST_EXCH + ":CustodyQueryRequest/" + NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT
+					+ ":CustodyRecordIdentification/" + NS_PREFIX_NC_30 + ":IdentificationSourceText";
+			systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
+			systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, NS_PREFIX_CUSTODY_QUERY_REQUEST_EXCH + ":CustodyQueryRequest/"
+					+ NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT + ":CustodyRecordIdentification/" + NS_PREFIX_NC_30 + ":IdentificationID");
+			break;
+		}
+			
+		case NS_VEHICLE_CRASH_QUERY_REQUEST_DOC + ":VehicleCrashQueryRequest":{
+			String xPath = NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_DOC + ":VehicleCrashQueryRequest/" + NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_EXT
+					+ ":VehicleCrashIdentification/" + NS_PREFIX_NC_30 + ":IdentificationSourceText";
+			LOG.info("System identification source text xPath: " + xPath);
+			systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
+			systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_DOC + ":VehicleCrashQueryRequest/" + NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_EXT
+					+ ":VehicleCrashIdentification/" + NS_PREFIX_NC_30 + ":IdentificationID");
+			break;
+		}
+		case NS_FIREARM_REGISTRATION_QUERY_REQUEST_DOC + ":PersonFirearmRegistrationRequest":{
+			String xPath = NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_DOC + ":PersonFirearmRegistrationRequest/" + NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_EXT
+					+ ":PersonFirearmRegistrationIdentification/" + NS_PREFIX_NC + ":IdentificationSourceText";
+			systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
+			systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_DOC + ":PersonFirearmRegistrationRequest/"
+					+ NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_EXT + ":PersonFirearmRegistrationIdentification/" + NS_PREFIX_NC + ":IdentificationID");
+			break;
+		}
+		case NS_FIREARM_REGISTRATION_QUERY_REQUEST_DOC + ":FirearmRegistrationRequest": {
+			String xPath = NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_DOC + ":FirearmRegistrationRequest/" + NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_EXT + ":FirearmRegistrationIdentification/"
+					+ NS_PREFIX_NC + ":IdentificationSourceText";
+			systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
+			systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_DOC + ":FirearmRegistrationRequest/"
+					+ NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_EXT + ":FirearmRegistrationIdentification/" + NS_PREFIX_NC + ":IdentificationID");
+			break;
+		}
+		case NS_JUVENILE_HISTORY_QUERY_REQUEST_DOC + ":JuvenileHistoryQuery":{
+			String xPath = NS_PREFIX_JUVENILE_HISTORY_QUERY_REQUEST_DOC + ":JuvenileHistoryQuery/" +
+				NS_PREFIX_JUVENILE_HISTORY_EXT + ":JuvenileHistoryQueryCriteria/" +
+				NS_PREFIX_JUVENILE_HISTORY_EXT + ":JuvenileInformationRecordID/" +
+				NS_PREFIX_NC_30 + ":IdentificationSourceText";
+			systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
+			systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, NS_PREFIX_JUVENILE_HISTORY_QUERY_REQUEST_DOC + ":JuvenileHistoryQuery/" +
+				NS_PREFIX_JUVENILE_HISTORY_EXT + ":JuvenileHistoryQueryCriteria/" +
+				NS_PREFIX_JUVENILE_HISTORY_EXT + ":JuvenileInformationRecordID/" +
+				NS_PREFIX_NC_30 + ":IdentificationID");
+			break;
+			
+		}
+		case NS_FIREARMS_PROHIBITION_DOC + ":FirearmPurchaseProhibitionQueryRequest": {
+			systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, 
+				NS_PREFIX_FIREARMS_PROHIBITION_DOC + ":FirearmPurchaseProhibitionQueryRequest/"
+				+ NS_PREFIX_FIREARMS_PROHIBITION_EXT + ":FirearmPurchaseProhibitionSystemIdentification/"
+				+ NS_PREFIX_NC_30 + ":SystemName");
+			systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, 
+				NS_PREFIX_FIREARMS_PROHIBITION_DOC + ":FirearmPurchaseProhibitionQueryRequest/"
+				+ NS_PREFIX_FIREARMS_PROHIBITION_EXT + ":FirearmPurchaseProhibitionSystemIdentification/"
+				+ NS_PREFIX_NC_30 + ":IdentificationID");
+			break;
+		}
+		default: 
+			systemElement = (Element) XmlUtils.xPathNodeSearch(rootElement, "pqr:PersonRecordRequestIdentification/nc:IdentificationSourceText");
+			systemIdElement = (Element) XmlUtils.xPathNodeSearch(rootElement, "pqr:PersonRecordRequestIdentification/nc:IdentificationID");
+		}
+
+		if (systemElement == null) {
+			throw new IllegalArgumentException("Invalid query request message:  must specify the system to query.");
+		}
+		
+		if (systemIdElement == null) {
+			throw new IllegalArgumentException("Invalid query request message:  must specify the systemId to query.");
+		}
+
+		String documentId = systemIdElement.getTextContent();
+		String systemId = systemElement.getTextContent();
 
 		LOG.info("documentId: " + StringUtils.trimToEmpty(documentId));
 		LOG.info("systemId: " + StringUtils.trimToEmpty(systemId));
-		if (CRIMINAL_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID.equals(systemId)) {
+		
+		switch (systemId) {
+		case CRIMINAL_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID: 
 			return queryCriminalHistoryDocuments(documentId);
-			
-		} else if (WARRANT_MOCK_ADAPTER_QUERY_SYSTEM_ID.equals(systemId)) {
+		case WARRANT_MOCK_ADAPTER_QUERY_SYSTEM_ID:
 			return queryWarrantDocuments(documentId);
-			
-		} else if (INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID.equals(systemId)) {
+		case INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID:
 			return queryIncidentDocuments(documentId);
-			
-		} else if (FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID.equals(systemId)) {
+		case FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID: 
 			return queryPersonFirearmRegistrationDocuments(documentId);
-			
-		} else if (FIREARM_MOCK_ADAPTER_QUERY_BY_FIREARM_SYSTEM_ID.equals(systemId)) {
+		case FIREARM_MOCK_ADAPTER_QUERY_BY_FIREARM_SYSTEM_ID:
 			return queryPersonFirearmRegistrationDocuments(documentId);
-			
-		} else if (JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID.equals(systemId)) {
+		case JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID: 
 			return queryJuvenileHistoryDocuments(documentId, context);
-			
-		} else if(CUSTODY_QUERY_SYSTEM_ID.equals(systemId)){
+		case CUSTODY_QUERY_SYSTEM_ID:
 			return queryCustodyDocuments(documentId);
-			
-		} else if(COURT_CASE_QUERY_SYSTEM_ID.equals(systemId)){
+		case COURT_CASE_QUERY_SYSTEM_ID:
 			return queryCourtCaseDocuments(documentId);
-			
-		}else if(VEHICLE_CRASH_QUERY_SYSTEM_ID.equals(systemId)){			
+		case VEHICLE_CRASH_QUERY_SYSTEM_ID:			
 			return queryVehicleCrashDocuments(documentId);
-			
-		} else {
-						
+		case FIREARM_PROHIBITION_QUERY_SYSTEM_ID:
+			return queryFirearmProhibitionDocuments(documentId);
+		default:
 			XmlUtils.printNode(queryRequestMessage);
-			
 			throw new IllegalArgumentException("Unknown system name: " + systemId);
 		}
 
@@ -463,28 +450,28 @@ public class StaticMockQuery {
 		String rootNamespaceURI = rootElement.getNamespaceURI();
 		String rootLocalName = rootElement.getLocalName();
 		
-		if (OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "PersonSearchRequest".equals(rootLocalName)) {
+		if (NS_PERSON_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "PersonSearchRequest".equals(rootLocalName)) {
 			return personSearchDocuments(searchRequestMessage, baseDate);
 								
-		}else if(OjbcNamespaceContext.NS_CUSTODY_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "CustodySearchRequest".equals(rootLocalName)){			
+		}else if(NS_CUSTODY_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "CustodySearchRequest".equals(rootLocalName)){			
 			return custodySearchDocuments(searchRequestMessage, baseDate);			
 		
-		}else if(OjbcNamespaceContext.NS_COURT_CASE_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "CourtCaseSearchRequest".equals(rootLocalName)){			
+		}else if(NS_COURT_CASE_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "CourtCaseSearchRequest".equals(rootLocalName)){			
 			return courtCaseSearchDocuments(searchRequestMessage, baseDate);
 						
-		} else if (OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentPersonSearchRequest".equals(rootLocalName)) {
+		} else if (NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentPersonSearchRequest".equals(rootLocalName)) {
 			return incidentPersonSearchDocuments(searchRequestMessage, baseDate);
 			
-		} else if (OjbcNamespaceContext.NS_FIREARM_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "FirearmSearchRequest".equals(rootLocalName)) {
+		} else if (NS_FIREARM_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "FirearmSearchRequest".equals(rootLocalName)) {
 			return firearmSearchDocuments(searchRequestMessage);
 			
-		} else if (OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentSearchRequest".equals(rootLocalName)) {
+		} else if (NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentSearchRequest".equals(rootLocalName)) {
 			return incidentSearchDocuments(searchRequestMessage, baseDate);
 			
-		} else if (OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentVehicleSearchRequest".equals(rootLocalName)) {
+		} else if (NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentVehicleSearchRequest".equals(rootLocalName)) {
 			return incidentVehicleSearchDocuments(searchRequestMessage, baseDate);
 			
-		} else if (OjbcNamespaceContext.NS_VEHICLE_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "VehicleSearchRequest".equals(rootLocalName)) {
+		} else if (NS_VEHICLE_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "VehicleSearchRequest".equals(rootLocalName)) {
 			return vehicleSearchDocuments(searchRequestMessage, baseDate);
 		}
 		throw new IllegalArgumentException("Invalid message: {" + rootNamespaceURI + "}" + rootLocalName);
@@ -527,8 +514,8 @@ public class StaticMockQuery {
 		Element rootElement = incidentVehicleSearchRequestMessage.getDocumentElement();
 		String rootNamespaceURI = rootElement.getNamespaceURI();
 		String rootLocalName = rootElement.getLocalName();
-		if (!(OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentVehicleSearchRequest".equals(rootLocalName))) {
-			throw new IllegalArgumentException("Invalid message, must have {" + OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC + "}IncidentVehicleSearchRequest as the root " + "instead of {" + rootNamespaceURI + "}" + rootLocalName);
+		if (!(NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentVehicleSearchRequest".equals(rootLocalName))) {
+			throw new IllegalArgumentException("Invalid message, must have {" + NS_INCIDENT_SEARCH_REQUEST_DOC + "}IncidentVehicleSearchRequest as the root " + "instead of {" + rootNamespaceURI + "}" + rootLocalName);
 		}
 
 		NodeList systemElements = XmlUtils.xPathNodeListSearch(rootElement, "isr:SourceSystemNameText");
@@ -570,8 +557,8 @@ public class StaticMockQuery {
 		Element rootElement = vehicleSearchRequestMessage.getDocumentElement();
 		String rootNamespaceURI = rootElement.getNamespaceURI();
 		String rootLocalName = rootElement.getLocalName();
-		if (!(OjbcNamespaceContext.NS_VEHICLE_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "VehicleSearchRequest".equals(rootLocalName))) {
-			throw new IllegalArgumentException("Invalid message, must have {" + OjbcNamespaceContext.NS_VEHICLE_SEARCH_REQUEST_DOC + "}VehicleSearchRequest as the root " + "instead of {" + rootNamespaceURI + "}" + rootLocalName);
+		if (!(NS_VEHICLE_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "VehicleSearchRequest".equals(rootLocalName))) {
+			throw new IllegalArgumentException("Invalid message, must have {" + NS_VEHICLE_SEARCH_REQUEST_DOC + "}VehicleSearchRequest as the root " + "instead of {" + rootNamespaceURI + "}" + rootLocalName);
 		}
 
 		NodeList systemElements = XmlUtils.xPathNodeListSearch(rootElement, "vsr:SourceSystemNameText");
@@ -646,8 +633,8 @@ public class StaticMockQuery {
 		Element rootElement = incidentSearchRequestMessage.getDocumentElement();
 		String rootNamespaceURI = rootElement.getNamespaceURI();
 		String rootLocalName = rootElement.getLocalName();
-		if (!(OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentSearchRequest".equals(rootLocalName))) {
-			throw new IllegalArgumentException("Invalid message, must have {" + OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC + "}IncidentSearchRequest as the root " + "instead of {" + rootNamespaceURI + "}" + rootLocalName);
+		if (!(NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentSearchRequest".equals(rootLocalName))) {
+			throw new IllegalArgumentException("Invalid message, must have {" + NS_INCIDENT_SEARCH_REQUEST_DOC + "}IncidentSearchRequest as the root " + "instead of {" + rootNamespaceURI + "}" + rootLocalName);
 		}
 
 		NodeList systemElements = XmlUtils.xPathNodeListSearch(rootElement, "isr:SourceSystemNameText");
@@ -748,9 +735,9 @@ public class StaticMockQuery {
 
 		Document ret = createNewDocument();
 
-		Element root = ret.createElementNS(OjbcNamespaceContext.NS_INCIDENT_SEARCH_RESULTS_DOC, rootElementName);
+		Element root = ret.createElementNS(NS_INCIDENT_SEARCH_RESULTS_DOC, rootElementName);
 		ret.appendChild(root);
-		String prefix = XmlUtils.OJBC_NAMESPACE_CONTEXT.getPrefix(OjbcNamespaceContext.NS_INCIDENT_SEARCH_RESULTS_DOC);
+		String prefix = XmlUtils.OJBC_NAMESPACE_CONTEXT.getPrefix(NS_INCIDENT_SEARCH_RESULTS_DOC);
 		root.setPrefix(prefix);
 
 		int incidentSequence = 1;
@@ -759,77 +746,77 @@ public class StaticMockQuery {
 
 			Document instance = instanceWrapper.getDocument();
 
-			Element isrElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_INCIDENT_SEARCH_RESULTS_EXT, resultElementName);
-			Element incidentElement = XmlUtils.appendElement(isrElement, OjbcNamespaceContext.NS_INCIDENT_SEARCH_RESULTS_EXT, "Incident");
+			Element isrElement = XmlUtils.appendElement(root, NS_INCIDENT_SEARCH_RESULTS_EXT, resultElementName);
+			Element incidentElement = XmlUtils.appendElement(isrElement, NS_INCIDENT_SEARCH_RESULTS_EXT, "Incident");
 			String incidentId = "I" + incidentSequence;
-			XmlUtils.addAttribute(incidentElement, OjbcNamespaceContext.NS_STRUCTURES, "id", incidentId);
-			Element e = XmlUtils.appendElement(incidentElement, OjbcNamespaceContext.NS_NC, "ActivityIdentification");
-			e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
+			XmlUtils.addAttribute(incidentElement, NS_STRUCTURES, "id", incidentId);
+			Element e = XmlUtils.appendElement(incidentElement, NS_NC, "ActivityIdentification");
+			e = XmlUtils.appendElement(e, NS_NC, "IdentificationID");
 			String pathToInstanceIncident = "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityActivity/nc:Activity[nc:ActivityCategoryText='Incident']";
 			Element instanceIncidentIdElement = (Element) XmlUtils.xPathNodeSearch(instance, pathToInstanceIncident + "/nc:ActivityIdentification/nc:IdentificationID");
 			e.setTextContent(instanceIncidentIdElement.getTextContent());
 			Element instanceIncidentDateElement = (Element) XmlUtils.xPathNodeSearch(instance, pathToInstanceIncident + "/nc:ActivityDateRange/nc:StartDate/nc:DateTime");
-			e = XmlUtils.appendElement(incidentElement, OjbcNamespaceContext.NS_NC, "ActivityDate");
-			e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "DateTime");
+			e = XmlUtils.appendElement(incidentElement, NS_NC, "ActivityDate");
+			e = XmlUtils.appendElement(e, NS_NC, "DateTime");
 			e.setTextContent(instanceIncidentDateElement.getTextContent());
-			e = XmlUtils.appendElement(incidentElement, OjbcNamespaceContext.NS_INCIDENT_SEARCH_RESULTS_EXT, "IncidentCategoryCode");
+			e = XmlUtils.appendElement(incidentElement, NS_INCIDENT_SEARCH_RESULTS_EXT, "IncidentCategoryCode");
 			e.setTextContent("Law");
 
 			String pathToLocation = "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityLocation/nc:Location[@s:id='incident-location']";
 
-			e = XmlUtils.appendElement(isrElement, OjbcNamespaceContext.NS_NC, "Location");
-			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "id", incidentId + "-L1");
-			e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "LocationAddress");
-			Element structuredAddressElement = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_INCIDENT_SEARCH_RESULTS_EXT, "StructuredAddress");
-			Element locationStreetElement = XmlUtils.appendElement(structuredAddressElement, OjbcNamespaceContext.NS_NC, "LocationStreet");
-			e = XmlUtils.appendElement(locationStreetElement, OjbcNamespaceContext.NS_NC, "StreetNumberText");
+			e = XmlUtils.appendElement(isrElement, NS_NC, "Location");
+			XmlUtils.addAttribute(e, NS_STRUCTURES, "id", incidentId + "-L1");
+			e = XmlUtils.appendElement(e, NS_NC, "LocationAddress");
+			Element structuredAddressElement = XmlUtils.appendElement(e, NS_INCIDENT_SEARCH_RESULTS_EXT, "StructuredAddress");
+			Element locationStreetElement = XmlUtils.appendElement(structuredAddressElement, NS_NC, "LocationStreet");
+			e = XmlUtils.appendElement(locationStreetElement, NS_NC, "StreetNumberText");
 			Element instanceStreetNumberElement = (Element) XmlUtils.xPathNodeSearch(instance, pathToLocation + "/nc:LocationAddress/nc:StructuredAddress/nc:LocationStreet/nc:StreetNumberText");
 			e.setTextContent(instanceStreetNumberElement.getTextContent());
-			e = XmlUtils.appendElement(locationStreetElement, OjbcNamespaceContext.NS_NC, "StreetName");
+			e = XmlUtils.appendElement(locationStreetElement, NS_NC, "StreetName");
 			Element instanceStreetElement = (Element) XmlUtils.xPathNodeSearch(instance, pathToLocation + "/nc:LocationAddress/nc:StructuredAddress/nc:LocationStreet/nc:StreetName");
 			e.setTextContent(instanceStreetElement.getTextContent());
-			e = XmlUtils.appendElement(structuredAddressElement, OjbcNamespaceContext.NS_NC, "LocationCityName");
+			e = XmlUtils.appendElement(structuredAddressElement, NS_NC, "LocationCityName");
 			Element instanceCityElement = (Element) XmlUtils.xPathNodeSearch(instance, pathToLocation + "/nc:LocationAddress/nc:StructuredAddress/nc:LocationCityName");
 			e.setTextContent(instanceCityElement.getTextContent());
 			Element instanceStateElement = (Element) XmlUtils.xPathNodeSearch(instance, pathToLocation + "/nc:LocationAddress/nc:StructuredAddress/nc:LocationStateUSPostalServiceCode");
-			e = XmlUtils.appendElement(structuredAddressElement, OjbcNamespaceContext.NS_NC, "LocationStateUSPostalServiceCode");
+			e = XmlUtils.appendElement(structuredAddressElement, NS_NC, "LocationStateUSPostalServiceCode");
 			e.setTextContent(instanceStateElement.getTextContent());
 			Element instanceZipElement = (Element) XmlUtils.xPathNodeSearch(instance, pathToLocation + "/nc:LocationAddress/nc:StructuredAddress/nc:LocationPostalCode");
-			e = XmlUtils.appendElement(structuredAddressElement, OjbcNamespaceContext.NS_NC, "LocationPostalCode");
+			e = XmlUtils.appendElement(structuredAddressElement, NS_NC, "LocationPostalCode");
 			e.setTextContent(instanceZipElement.getTextContent());
 
-			e = XmlUtils.appendElement(isrElement, OjbcNamespaceContext.NS_NC, "Organization");
-			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "id", incidentId + "-O1");
+			e = XmlUtils.appendElement(isrElement, NS_NC, "Organization");
+			XmlUtils.addAttribute(e, NS_STRUCTURES, "id", incidentId + "-O1");
 			Element instanceOrganizationElement = (Element) XmlUtils.xPathNodeSearch(instance,
 					"/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityOrganization/nc:Organization/nc:OrganizationName");
-			e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "OrganizationName");
+			e = XmlUtils.appendElement(e, NS_NC, "OrganizationName");
 			e.setTextContent(instanceOrganizationElement.getTextContent());
 
-			Element a = XmlUtils.appendElement(isrElement, OjbcNamespaceContext.NS_NC, "ActivityReportingOrganizationAssociation");
-			e = XmlUtils.appendElement(a, OjbcNamespaceContext.NS_NC, "ActivityReference");
-			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "ref", incidentId);
-			e = XmlUtils.appendElement(a, OjbcNamespaceContext.NS_NC, "OrganizationReference");
-			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "ref", incidentId + "-O1");
+			Element a = XmlUtils.appendElement(isrElement, NS_NC, "ActivityReportingOrganizationAssociation");
+			e = XmlUtils.appendElement(a, NS_NC, "ActivityReference");
+			XmlUtils.addAttribute(e, NS_STRUCTURES, "ref", incidentId);
+			e = XmlUtils.appendElement(a, NS_NC, "OrganizationReference");
+			XmlUtils.addAttribute(e, NS_STRUCTURES, "ref", incidentId + "-O1");
 
-			a = XmlUtils.appendElement(isrElement, OjbcNamespaceContext.NS_JXDM_41, "ActivityLocationAssociation");
-			e = XmlUtils.appendElement(a, OjbcNamespaceContext.NS_NC, "ActivityReference");
-			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "ref", incidentId);
-			e = XmlUtils.appendElement(a, OjbcNamespaceContext.NS_NC, "LocationReference");
-			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "ref", incidentId + "-L1");
+			a = XmlUtils.appendElement(isrElement, NS_JXDM_41, "ActivityLocationAssociation");
+			e = XmlUtils.appendElement(a, NS_NC, "ActivityReference");
+			XmlUtils.addAttribute(e, NS_STRUCTURES, "ref", incidentId);
+			e = XmlUtils.appendElement(a, NS_NC, "LocationReference");
+			XmlUtils.addAttribute(e, NS_STRUCTURES, "ref", incidentId + "-L1");
 
-			e = XmlUtils.appendElement(isrElement, OjbcNamespaceContext.NS_INCIDENT_SEARCH_RESULTS_EXT, "SourceSystemNameText");
+			e = XmlUtils.appendElement(isrElement, NS_INCIDENT_SEARCH_RESULTS_EXT, "SourceSystemNameText");
 			e.setTextContent(sourceSystemName);
 
-			Element systemIdentifierElement = XmlUtils.appendElement(isrElement, OjbcNamespaceContext.NS_INTEL, "SystemIdentifier");
-			e = XmlUtils.appendElement(systemIdentifierElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
+			Element systemIdentifierElement = XmlUtils.appendElement(isrElement, NS_INTEL, "SystemIdentifier");
+			e = XmlUtils.appendElement(systemIdentifierElement, NS_NC, "IdentificationID");
 			e.setTextContent(instanceWrapper.getId());
-			e = XmlUtils.appendElement(systemIdentifierElement, OjbcNamespaceContext.NS_INTEL, "SystemName");
+			e = XmlUtils.appendElement(systemIdentifierElement, NS_INTEL, "SystemName");
 			e.setTextContent("Incident System");
 
 			incidentSequence++;
 
 		}
-		XmlUtils.OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(root);
+		ojbcNamespaceContext.populateRootNamespaceDeclarations(root);
 		return ret;
 	}
 
@@ -854,9 +841,9 @@ public class StaticMockQuery {
 		
 		Document rCourtCaseSearchResultsDoc = createNewDocument();
 		
-		Element courtCaseSearchResultsRootElement = rCourtCaseSearchResultsDoc.createElementNS(OjbcNamespaceContext.NS_COURT_CASE_SEARCH_RESULTS, "CourtCaseSearchResults");
+		Element courtCaseSearchResultsRootElement = rCourtCaseSearchResultsDoc.createElementNS(NS_COURT_CASE_SEARCH_RESULTS, "CourtCaseSearchResults");
 		
-		courtCaseSearchResultsRootElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_COURT_CASE_SEARCH_RESULTS);
+		courtCaseSearchResultsRootElement.setPrefix(NS_PREFIX_COURT_CASE_SEARCH_RESULTS);
 		
 		rCourtCaseSearchResultsDoc.appendChild(courtCaseSearchResultsRootElement);						
 				
@@ -875,8 +862,6 @@ public class StaticMockQuery {
 			detailResultIndex++;
 		}		
 		
-		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
-		
 		ojbcNamespaceContext.populateRootNamespaceDeclarations(courtCaseSearchResultsRootElement);
 		
 		return rCourtCaseSearchResultsDoc;
@@ -890,9 +875,9 @@ public class StaticMockQuery {
 				
 		Document rCustodySearchResultsDoc = createNewDocument();
 				
-		Element custodySearchResultsRootElement = rCustodySearchResultsDoc.createElementNS(OjbcNamespaceContext.NS_CUSTODY_SEARCH_RESULTS, "CustodySearchResults");	
+		Element custodySearchResultsRootElement = rCustodySearchResultsDoc.createElementNS(NS_CUSTODY_SEARCH_RESULTS, "CustodySearchResults");	
 		
-		custodySearchResultsRootElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_CUSTODY_SEARCH_RESULTS);	
+		custodySearchResultsRootElement.setPrefix(NS_PREFIX_CUSTODY_SEARCH_RESULTS);	
 		
 		rCustodySearchResultsDoc.appendChild(custodySearchResultsRootElement);							
 		
@@ -911,8 +896,6 @@ public class StaticMockQuery {
 			resultIndex++;
 		}				
 				
-		OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
-		
 		ojbcNamespaceContext.populateRootNamespaceDeclarations(custodySearchResultsRootElement);
 		
 		return rCustodySearchResultsDoc;
@@ -932,17 +915,17 @@ public class StaticMockQuery {
 
 		Document ret = createNewDocument();
 
-		Element root = ret.createElementNS(OjbcNamespaceContext.NS_PERSON_SEARCH_RESULTS_DOC, "PersonSearchResults");
+		Element root = ret.createElementNS(NS_PERSON_SEARCH_RESULTS_DOC, "PersonSearchResults");
 		ret.appendChild(root);
-		String prefix = XmlUtils.OJBC_NAMESPACE_CONTEXT.getPrefix(OjbcNamespaceContext.NS_PERSON_SEARCH_RESULTS_DOC);
+		String prefix = XmlUtils.OJBC_NAMESPACE_CONTEXT.getPrefix(NS_PERSON_SEARCH_RESULTS_DOC);
 		root.setPrefix(prefix);
 
 		for (IdentifiableDocumentWrapper instanceWrapper : instanceWrappers) {
 
 			Document specificDetailSourceDoc = instanceWrapper.getDocument();
 
-			Element psrElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_PERSON_SEARCH_RESULTS_EXT, "PersonSearchResult");
-			Element personElement = XmlUtils.appendElement(psrElement, OjbcNamespaceContext.NS_PERSON_SEARCH_RESULTS_EXT, "Person");
+			Element psrElement = XmlUtils.appendElement(root, NS_PERSON_SEARCH_RESULTS_EXT, "PersonSearchResult");
+			Element personElement = XmlUtils.appendElement(psrElement, NS_PERSON_SEARCH_RESULTS_EXT, "Person");
 			Element documentRootElement = specificDetailSourceDoc.getDocumentElement();
 
 			String rootNamespace = documentRootElement.getNamespaceURI();
@@ -951,31 +934,31 @@ public class StaticMockQuery {
 			
 			SearchValueXPaths xPaths = null;
 			
-			if (OjbcNamespaceContext.NS_CH_DOC.equals(rootNamespace) && "CriminalHistory".equals(rootLocalName)) {
+			if (NS_CH_DOC.equals(rootNamespace) && "CriminalHistory".equals(rootLocalName)) {
 				xPaths = getCriminalHistoryXPaths();
 				
-			} else if (OjbcNamespaceContext.NS_WARRANT.equals(rootNamespace) && "Warrants".equals(rootLocalName)) {
+			} else if (NS_WARRANT.equals(rootNamespace) && "Warrants".equals(rootLocalName)) {
 				xPaths = getWarrantXPaths();
 				
-			} else if (OjbcNamespaceContext.NS_FIREARM_DOC.equals(rootNamespace) && "PersonFirearmRegistrationQueryResults".equals(rootLocalName)) {
+			} else if (NS_FIREARM_DOC.equals(rootNamespace) && "PersonFirearmRegistrationQueryResults".equals(rootLocalName)) {
 				xPaths = getFirearmRegistrationXPaths();
 				
-			} else if (OjbcNamespaceContext.NS_IR.equals(rootNamespace) && "IncidentReport".equals(rootLocalName)) {
+			} else if (NS_IR.equals(rootNamespace) && "IncidentReport".equals(rootLocalName)) {
 				xPaths = getIncidentXPaths();
 				
-			} else if (OjbcNamespaceContext.NS_JUVENILE_HISTORY_CONTAINER.equals(rootNamespace) && "JuvenileHistoryContainer".equals(rootLocalName)) {
+			} else if (NS_JUVENILE_HISTORY_CONTAINER.equals(rootNamespace) && "JuvenileHistoryContainer".equals(rootLocalName)) {
 				xPaths = getJuvenileHistoryXPaths();
 				
-			}else if(OjbcNamespaceContext.NS_CUSTODY_QUERY_RESULTS_EXCH_DOC.equals(rootNamespace) && "CustodyQueryResults".equals(rootLocalName)){								
+			}else if(NS_CUSTODY_QUERY_RESULTS_EXCH_DOC.equals(rootNamespace) && "CustodyQueryResults".equals(rootLocalName)){								
 				xPaths = getCustodyXPaths();
 				
-			}else if(OjbcNamespaceContext.NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC.equals(rootNamespace) && "CourtCaseQueryResults".equals(rootLocalName)){
+			}else if(NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC.equals(rootNamespace) && "CourtCaseQueryResults".equals(rootLocalName)){
 				xPaths = getCourtCaseXPaths();
 				
-			}else if(OjbcNamespaceContext.NS_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC.equals(rootNamespace) && "VehicleCrashQueryResults".equals(rootLocalName)){
+			}else if(NS_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC.equals(rootNamespace) && "VehicleCrashQueryResults".equals(rootLocalName)){
 				xPaths = getVehicleCrashXPaths();				
 				
-			}else if(OjbcNamespaceContext.NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS.equals(rootNamespace) && "FirearmPurchaseProhibitionQueryResults".equals(rootLocalName)){
+			}else if(NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS.equals(rootNamespace) && "FirearmPurchaseProhibitionQueryResults".equals(rootLocalName)){
 				xPaths = getFirearmProhibitionXPaths();				
 				
 			} else {
@@ -987,8 +970,8 @@ public class StaticMockQuery {
 			
 			if (dobElement != null) {
 				
-				Element e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonAgeMeasure");
-				e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "MeasurePointValue");
+				Element e = XmlUtils.appendElement(personElement, NS_NC, "PersonAgeMeasure");
+				e = XmlUtils.appendElement(e, NS_NC, "MeasurePointValue");
 				
 				String dob = dobElement.getTextContent();
 				
@@ -1022,9 +1005,9 @@ public class StaticMockQuery {
 			 	
 			 	if(StringUtils.isNotEmpty(altFullName)){
 			 		
-			 		Element altNameEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonAlternateName");
+			 		Element altNameEl = XmlUtils.appendElement(personElement, NS_NC, "PersonAlternateName");
 			 		
-					Element altFullNameEl = XmlUtils.appendElement(altNameEl, OjbcNamespaceContext.NS_NC, "PersonFullName");
+					Element altFullNameEl = XmlUtils.appendElement(altNameEl, NS_NC, "PersonFullName");
 					
 					altFullNameEl.setTextContent(altFullName);
 			 	}			 	
@@ -1033,9 +1016,9 @@ public class StaticMockQuery {
 			
 			if(dobElement != null){
 				
-				Element birthDateEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonBirthDate");
+				Element birthDateEl = XmlUtils.appendElement(personElement, NS_NC, "PersonBirthDate");
 				
-				Element birthDateValEl = XmlUtils.appendElement(birthDateEl, OjbcNamespaceContext.NS_NC, "Date");
+				Element birthDateValEl = XmlUtils.appendElement(birthDateEl, NS_NC, "Date");
 				
 				String dob = dobElement.getTextContent();				
 				dob = dob.trim();
@@ -1044,8 +1027,8 @@ public class StaticMockQuery {
 				
 			} else if (ageElement != null) {
 				
-				Element e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonAgeMeasure");
-				e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "MeasurePointValue");
+				Element e = XmlUtils.appendElement(personElement, NS_NC, "PersonAgeMeasure");
+				e = XmlUtils.appendElement(e, NS_NC, "MeasurePointValue");
 				e.setTextContent(ageElement.getTextContent());
 			}
 
@@ -1055,7 +1038,7 @@ public class StaticMockQuery {
 			
 			if(StringUtils.isNotEmpty(sEyeColor)){
 				
-				Element eyeColorElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonEyeColorCode");
+				Element eyeColorElement = XmlUtils.appendElement(personElement, NS_NC, "PersonEyeColorCode");
 				
 				eyeColorElement.setTextContent(sEyeColor);				
 			}
@@ -1065,35 +1048,35 @@ public class StaticMockQuery {
 			
 			if(StringUtils.isNotEmpty(sHairColor)){
 				
-				Element hairColorElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonHairColorCode");
+				Element hairColorElement = XmlUtils.appendElement(personElement, NS_NC, "PersonHairColorCode");
 				
 				hairColorElement.setTextContent(sHairColor);
 			}			
 			
 			Element heightElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.heightXPath);
 			if (heightElement != null) {
-				Element phm = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonHeightMeasure");
-				Element e = XmlUtils.appendElement(phm, OjbcNamespaceContext.NS_NC, "MeasurePointValue");
+				Element phm = XmlUtils.appendElement(personElement, NS_NC, "PersonHeightMeasure");
+				Element e = XmlUtils.appendElement(phm, NS_NC, "MeasurePointValue");
 				e.setTextContent(heightElement.getTextContent());
-				e = XmlUtils.appendElement(phm, OjbcNamespaceContext.NS_NC, "LengthUnitCode");
+				e = XmlUtils.appendElement(phm, NS_NC, "LengthUnitCode");
 				e.setTextContent("INH");
 			}
 			Element lastNameElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.lastNameXPath);
 			Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.firstNameXPath);
 			Element middleNameElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.middleNameXPath);
 			if (lastNameElement != null || firstNameElement != null || middleNameElement != null) {
-				Element nameElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonName");
+				Element nameElement = XmlUtils.appendElement(personElement, NS_NC, "PersonName");
 				Element e = null;
 				if (firstNameElement != null) {
-					e = XmlUtils.appendElement(nameElement, OjbcNamespaceContext.NS_NC, "PersonGivenName");
+					e = XmlUtils.appendElement(nameElement, NS_NC, "PersonGivenName");
 					e.setTextContent(firstNameElement.getTextContent());
 				}
 				if (middleNameElement != null) {
-					e = XmlUtils.appendElement(nameElement, OjbcNamespaceContext.NS_NC, "PersonMiddleName");
+					e = XmlUtils.appendElement(nameElement, NS_NC, "PersonMiddleName");
 					e.setTextContent(middleNameElement.getTextContent());
 				}
 				if (lastNameElement != null) {
-					e = XmlUtils.appendElement(nameElement, OjbcNamespaceContext.NS_NC, "PersonSurName");
+					e = XmlUtils.appendElement(nameElement, NS_NC, "PersonSurName");
 					e.setTextContent(lastNameElement.getTextContent());
 				}
 			}
@@ -1106,9 +1089,9 @@ public class StaticMockQuery {
 
 				sPhysicalFeature = sPhysicalFeature.trim();
 				
-				Element physFeatureEl = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonPhysicalFeature");
+				Element physFeatureEl = XmlUtils.appendElement(personElement, NS_NC, "PersonPhysicalFeature");
 				
-				Element physFeatDescEl = XmlUtils.appendElement(physFeatureEl, OjbcNamespaceContext.NS_NC, "PhysicalFeatureDescriptionText");
+				Element physFeatDescEl = XmlUtils.appendElement(physFeatureEl, NS_NC, "PhysicalFeatureDescriptionText");
 				
 				physFeatDescEl.setTextContent(sPhysicalFeature);				
 			}												
@@ -1116,64 +1099,64 @@ public class StaticMockQuery {
 			
 			Element raceElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.raceXPath);
 			if (raceElement != null) {
-				Element e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonRaceCode");
+				Element e = XmlUtils.appendElement(personElement, NS_NC, "PersonRaceCode");
 				e.setTextContent(raceElement.getTextContent());
 			}
 			
 			Element sexElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.sexXPath);
 			if (sexElement != null) {
-				Element e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonSexCode");
+				Element e = XmlUtils.appendElement(personElement, NS_NC, "PersonSexCode");
 				e.setTextContent(sexElement.getTextContent());
 			}
 			Element ssnElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.ssnXPath);
 			if (ssnElement != null) {
-				Element e = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonSSNIdentification");
-				e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
+				Element e = XmlUtils.appendElement(personElement, NS_NC, "PersonSSNIdentification");
+				e = XmlUtils.appendElement(e, NS_NC, "IdentificationID");
 				e.setTextContent(ssnElement.getTextContent());
 			}
 			Element weightElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.weightXPath);
 			if (weightElement != null) {
-				Element phm = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonWeightMeasure");
-				Element e = XmlUtils.appendElement(phm, OjbcNamespaceContext.NS_NC, "MeasurePointValue");
+				Element phm = XmlUtils.appendElement(personElement, NS_NC, "PersonWeightMeasure");
+				Element e = XmlUtils.appendElement(phm, NS_NC, "MeasurePointValue");
 				e.setTextContent(weightElement.getTextContent());
-				e = XmlUtils.appendElement(phm, OjbcNamespaceContext.NS_NC, "WeightUnitCode");
+				e = XmlUtils.appendElement(phm, NS_NC, "WeightUnitCode");
 				e.setTextContent("LBR");
 			}
 			Element dlElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.dlXPath);
 			Element fbiElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.fbiXPath);
 			Element sidElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.sidXPath);
 			if (dlElement != null || fbiElement != null || sidElement != null) {
-				Element personAugElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
+				Element personAugElement = XmlUtils.appendElement(personElement, NS_JXDM_41, "PersonAugmentation");
 				if (dlElement != null) {
 					Element dlJurisdictionElement = (Element) XmlUtils.xPathNodeSearch(specificDetailSourceDoc, xPaths.dlJurisdictionXPath);
-					Element e = XmlUtils.appendElement(personAugElement, OjbcNamespaceContext.NS_NC, "DriverLicense");
-					Element dlIdElement = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "DriverLicenseIdentification");
-					e = XmlUtils.appendElement(dlIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
+					Element e = XmlUtils.appendElement(personAugElement, NS_NC, "DriverLicense");
+					Element dlIdElement = XmlUtils.appendElement(e, NS_NC, "DriverLicenseIdentification");
+					e = XmlUtils.appendElement(dlIdElement, NS_NC, "IdentificationID");
 					e.setTextContent(dlElement.getTextContent());
 					if (dlJurisdictionElement != null) {
-						e = XmlUtils.appendElement(dlIdElement, OjbcNamespaceContext.NS_NC, "IdentificationSourceText");
+						e = XmlUtils.appendElement(dlIdElement, NS_NC, "IdentificationSourceText");
 						e.setTextContent(dlJurisdictionElement.getTextContent());
 					}
 				}
 				if (fbiElement != null) {
-					Element e = XmlUtils.appendElement(personAugElement, OjbcNamespaceContext.NS_JXDM_41, "PersonFBIIdentification");
-					e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
+					Element e = XmlUtils.appendElement(personAugElement, NS_JXDM_41, "PersonFBIIdentification");
+					e = XmlUtils.appendElement(e, NS_NC, "IdentificationID");
 					e.setTextContent(fbiElement.getTextContent());
 				}				
 				
 				if (sidElement != null) {
-					Element e = XmlUtils.appendElement(personAugElement, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");
-					e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
+					Element e = XmlUtils.appendElement(personAugElement, NS_JXDM_41, "PersonStateFingerprintIdentification");
+					e = XmlUtils.appendElement(e, NS_NC, "IdentificationID");
 					e.setTextContent(sidElement.getTextContent());
 				}
 			}
 
 						
-			Element locationElement = XmlUtils.appendElement(psrElement, OjbcNamespaceContext.NS_NC, "Location");
+			Element locationElement = XmlUtils.appendElement(psrElement, NS_NC, "Location");
 			
-			Element locAddressEl = XmlUtils.appendElement(locationElement, OjbcNamespaceContext.NS_NC, "LocationAddress");
+			Element locAddressEl = XmlUtils.appendElement(locationElement, NS_NC, "LocationAddress");
 			
-			Element structAddressEl = XmlUtils.appendElement(locAddressEl, OjbcNamespaceContext.NS_NC, "StructuredAddress");
+			Element structAddressEl = XmlUtils.appendElement(locAddressEl, NS_NC, "StructuredAddress");
 
 			
 			String streetNumber = xPaths.addressStreetNumberXPath == null ? null : 
@@ -1189,16 +1172,16 @@ public class StaticMockQuery {
 			
 			if(hasStreetNumber && hasStreetName){
 
-				Element locStreetEl = XmlUtils.appendElement(structAddressEl, OjbcNamespaceContext.NS_NC, 
+				Element locStreetEl = XmlUtils.appendElement(structAddressEl, NS_NC, 
 						"LocationStreet");
 								
-				Element streetNumEl = XmlUtils.appendElement(locStreetEl, OjbcNamespaceContext.NS_NC, 
+				Element streetNumEl = XmlUtils.appendElement(locStreetEl, NS_NC, 
 						"StreetNumberText");				
 				streetNumber = streetNumber.trim();				
 				streetNumEl.setTextContent(streetNumber);
 				
 								
-				Element streetNameEl = XmlUtils.appendElement(locStreetEl, OjbcNamespaceContext.NS_NC, 
+				Element streetNameEl = XmlUtils.appendElement(locStreetEl, NS_NC, 
 						"StreetName");				
 				sAddressStreetName = sAddressStreetName.trim();				
 				streetNameEl.setTextContent(sAddressStreetName);								
@@ -1212,7 +1195,7 @@ public class StaticMockQuery {
 			
 				sCity = sCity.trim();
 				
-				Element cityEl = XmlUtils.appendElement(structAddressEl, OjbcNamespaceContext.NS_NC, "LocationCityName");
+				Element cityEl = XmlUtils.appendElement(structAddressEl, NS_NC, "LocationCityName");
 				
 				cityEl.setTextContent(sCity);
 			}
@@ -1224,7 +1207,7 @@ public class StaticMockQuery {
 				
 				sStateCode = sStateCode.trim();
 				
-				Element stateEl = XmlUtils.appendElement(structAddressEl, OjbcNamespaceContext.NS_NC, "LocationStateFIPS5-2AlphaCode");
+				Element stateEl = XmlUtils.appendElement(structAddressEl, NS_NC, "LocationStateFIPS5-2AlphaCode");
 				
 				stateEl.setTextContent(sStateCode);
 			}
@@ -1236,19 +1219,19 @@ public class StaticMockQuery {
 				
 				sZipCode = sZipCode.trim();
 				
-				Element postalCodeEl = XmlUtils.appendElement(structAddressEl, OjbcNamespaceContext.NS_NC, "LocationPostalCode");
+				Element postalCodeEl = XmlUtils.appendElement(structAddressEl, NS_NC, "LocationPostalCode");
 				
 				postalCodeEl.setTextContent(sZipCode);
 			}
 			
-			Element sourceSystem = XmlUtils.appendElement(psrElement, OjbcNamespaceContext.NS_PERSON_SEARCH_RESULTS_EXT, "SourceSystemNameText");
+			Element sourceSystem = XmlUtils.appendElement(psrElement, NS_PERSON_SEARCH_RESULTS_EXT, "SourceSystemNameText");
 			sourceSystem.setTextContent(xPaths.searchSystemId);
-			Element sourceSystemIdentifierParentElement = XmlUtils.appendElement(psrElement, OjbcNamespaceContext.NS_INTEL, "SystemIdentifier");
-			Element e = XmlUtils.appendElement(sourceSystemIdentifierParentElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
+			Element sourceSystemIdentifierParentElement = XmlUtils.appendElement(psrElement, NS_INTEL, "SystemIdentifier");
+			Element e = XmlUtils.appendElement(sourceSystemIdentifierParentElement, NS_NC, "IdentificationID");
 			e.setTextContent(xPaths.getSystemIdentifier(instanceWrapper));
-			e = XmlUtils.appendElement(sourceSystemIdentifierParentElement, OjbcNamespaceContext.NS_INTEL, "SystemName");
+			e = XmlUtils.appendElement(sourceSystemIdentifierParentElement, NS_INTEL, "SystemName");
 			e.setTextContent(xPaths.systemName);
-			e = XmlUtils.appendElement(psrElement, OjbcNamespaceContext.NS_PERSON_SEARCH_RESULTS_EXT, "SearchResultCategoryText");
+			e = XmlUtils.appendElement(psrElement, NS_PERSON_SEARCH_RESULTS_EXT, "SearchResultCategoryText");
 			e.setTextContent(xPaths.recordType);
 
 		}
@@ -1295,8 +1278,8 @@ public class StaticMockQuery {
 		Element rootElement = incidentPersonSearchRequestMessage.getDocumentElement();
 		String rootNamespaceURI = rootElement.getNamespaceURI();
 		String rootLocalName = rootElement.getLocalName();
-		if (!(OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentPersonSearchRequest".equals(rootLocalName))) {
-			throw new IllegalArgumentException("Invalid message, must have {" + OjbcNamespaceContext.NS_INCIDENT_SEARCH_REQUEST_DOC + "}IncidentPersonSearchRequest as the root " + "instead of {" + rootNamespaceURI + "}" + rootLocalName);
+		if (!(NS_INCIDENT_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "IncidentPersonSearchRequest".equals(rootLocalName))) {
+			throw new IllegalArgumentException("Invalid message, must have {" + NS_INCIDENT_SEARCH_REQUEST_DOC + "}IncidentPersonSearchRequest as the root " + "instead of {" + rootNamespaceURI + "}" + rootLocalName);
 		}
 
 		NodeList systemElements = XmlUtils.xPathNodeListSearch(rootElement, "isr:SourceSystemNameText");
@@ -1521,9 +1504,9 @@ public class StaticMockQuery {
 
 		List<IdentifiableDocumentWrapper> searchResultsList = vehicleSearchDocumentsAsList(searchRequestMessage, baseDate);
 		
-		Element root = ret.createElementNS(OjbcNamespaceContext.NS_VEHICLE_SEARCH_RESULTS_EXCHANGE, "VehicleSearchResults");
+		Element root = ret.createElementNS(NS_VEHICLE_SEARCH_RESULTS_EXCHANGE, "VehicleSearchResults");
 		ret.appendChild(root);
-		String prefix = XmlUtils.OJBC_NAMESPACE_CONTEXT.getPrefix(OjbcNamespaceContext.NS_VEHICLE_SEARCH_RESULTS_EXCHANGE);
+		String prefix = XmlUtils.OJBC_NAMESPACE_CONTEXT.getPrefix(NS_VEHICLE_SEARCH_RESULTS_EXCHANGE);
 		root.setPrefix(prefix);
 		
 		for (IdentifiableDocumentWrapper instanceWrapper : searchResultsList) {
@@ -1532,33 +1515,33 @@ public class StaticMockQuery {
 			
 			Element incidentVehicle = (Element) XmlUtils.xPathNodeSearch(instance, "/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:Digest/lexsdigest:EntityVehicle/nc:Vehicle");
 			
-			Element vehicleSearchResultElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_VEHICLE_SEARCH_RESULTS, "VehicleSearchResult");
-			Element vehicleElement = XmlUtils.appendElement(vehicleSearchResultElement, OjbcNamespaceContext.NS_VEHICLE_SEARCH_RESULTS, "Vehicle");
+			Element vehicleSearchResultElement = XmlUtils.appendElement(root, NS_VEHICLE_SEARCH_RESULTS, "VehicleSearchResult");
+			Element vehicleElement = XmlUtils.appendElement(vehicleSearchResultElement, NS_VEHICLE_SEARCH_RESULTS, "Vehicle");
 			
-			XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ItemCategoryText").setTextContent("Passenger Vehicle");
-			XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "VehicleColorPrimaryCode").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:VehicleColorPrimaryCode"));
-			XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ItemModelName").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:VehicleModelCode"));
-			XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ItemModelYearDate").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ItemModelYearDate"));
-			Element e = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ConveyanceRegistrationPlateIdentification");
-			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID"));
-			Element expDate = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationExpirationDate");
-			XmlUtils.appendElement(expDate, OjbcNamespaceContext.NS_NC, "Date").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationExpirationDate/nc:Date"));
-			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JXDM_41, "IdentificationJurisdictionUSPostalServiceCode").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistrationPlateIdentification/jxdm40:IdentificationJurisdictionUSPostalServiceCode"));
-			XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "VehicleDoorQuantity").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:VehicleDoorQuantity"));
-			e = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "VehicleIdentification");
+			XmlUtils.appendElement(vehicleElement, NS_NC, "ItemCategoryText").setTextContent("Passenger Vehicle");
+			XmlUtils.appendElement(vehicleElement, NS_NC, "VehicleColorPrimaryCode").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:VehicleColorPrimaryCode"));
+			XmlUtils.appendElement(vehicleElement, NS_NC, "ItemModelName").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:VehicleModelCode"));
+			XmlUtils.appendElement(vehicleElement, NS_NC, "ItemModelYearDate").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ItemModelYearDate"));
+			Element e = XmlUtils.appendElement(vehicleElement, NS_NC, "ConveyanceRegistrationPlateIdentification");
+			XmlUtils.appendElement(e, NS_NC, "IdentificationID").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationID"));
+			Element expDate = XmlUtils.appendElement(e, NS_NC, "IdentificationExpirationDate");
+			XmlUtils.appendElement(expDate, NS_NC, "Date").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistrationPlateIdentification/nc:IdentificationExpirationDate/nc:Date"));
+			XmlUtils.appendElement(e, NS_JXDM_41, "IdentificationJurisdictionUSPostalServiceCode").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistrationPlateIdentification/jxdm40:IdentificationJurisdictionUSPostalServiceCode"));
+			XmlUtils.appendElement(vehicleElement, NS_NC, "VehicleDoorQuantity").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:VehicleDoorQuantity"));
+			e = XmlUtils.appendElement(vehicleElement, NS_NC, "VehicleIdentification");
 			String vin = XmlUtils.xPathStringSearch(incidentVehicle, "nc:VehicleIdentification/nc:IdentificationID");
-			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID").setTextContent(vin);
-			e = XmlUtils.appendElement(vehicleElement, OjbcNamespaceContext.NS_NC, "ConveyanceRegistration");
-			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "ConveyanceRegistrationPlateCategoryCode").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryCode"));
-			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "ConveyanceRegistrationPlateCategoryText").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryText"));
+			XmlUtils.appendElement(e, NS_NC, "IdentificationID").setTextContent(vin);
+			e = XmlUtils.appendElement(vehicleElement, NS_NC, "ConveyanceRegistration");
+			XmlUtils.appendElement(e, NS_NC, "ConveyanceRegistrationPlateCategoryCode").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryCode"));
+			XmlUtils.appendElement(e, NS_NC, "ConveyanceRegistrationPlateCategoryText").setTextContent(XmlUtils.xPathStringSearch(incidentVehicle, "nc:ConveyanceRegistration/nc:ConveyanceRegistrationPlateCategoryText"));
 			
 			// we cannot populate vehicle make because of a mismatch of codes
 			
-			Element sourceSystem = XmlUtils.appendElement(vehicleSearchResultElement, OjbcNamespaceContext.NS_VEHICLE_SEARCH_RESULTS, "SourceSystemNameText");
+			Element sourceSystem = XmlUtils.appendElement(vehicleSearchResultElement, NS_VEHICLE_SEARCH_RESULTS, "SourceSystemNameText");
 			sourceSystem.setTextContent(INCIDENT_MOCK_ADAPTER_VEHICLE_SEARCH_SYSTEM_ID);
-			Element sourceSystemIdentifierParentElement = XmlUtils.appendElement(vehicleSearchResultElement, OjbcNamespaceContext.NS_INTEL, "SystemIdentifier");
-			XmlUtils.appendElement(sourceSystemIdentifierParentElement, OjbcNamespaceContext.NS_NC, "IdentificationID").setTextContent(vin);
-			XmlUtils.appendElement(sourceSystemIdentifierParentElement, OjbcNamespaceContext.NS_INTEL, "SystemName").setTextContent("Demo RMS");
+			Element sourceSystemIdentifierParentElement = XmlUtils.appendElement(vehicleSearchResultElement, NS_INTEL, "SystemIdentifier");
+			XmlUtils.appendElement(sourceSystemIdentifierParentElement, NS_NC, "IdentificationID").setTextContent(vin);
+			XmlUtils.appendElement(sourceSystemIdentifierParentElement, NS_INTEL, "SystemName").setTextContent("Demo RMS");
 		}
 
 		XmlUtils.OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(root);
@@ -1589,9 +1572,9 @@ public class StaticMockQuery {
 
 		List<IdentifiableDocumentWrapper> searchResultsList = firearmSearchDocumentsAsList(firearmSearchRequestMessage);
 
-		Element root = ret.createElementNS(OjbcNamespaceContext.NS_FIREARM_SEARCH_RESULT_DOC, "FirearmSearchResults");
+		Element root = ret.createElementNS(NS_FIREARM_SEARCH_RESULT_DOC, "FirearmSearchResults");
 		ret.appendChild(root);
-		String prefix = XmlUtils.OJBC_NAMESPACE_CONTEXT.getPrefix(OjbcNamespaceContext.NS_FIREARM_SEARCH_RESULT_DOC);
+		String prefix = XmlUtils.OJBC_NAMESPACE_CONTEXT.getPrefix(NS_FIREARM_SEARCH_RESULT_DOC);
 		root.setPrefix(prefix);
 
 		int index = 1;
@@ -1600,119 +1583,119 @@ public class StaticMockQuery {
 
 			Document instance = instanceWrapper.getDocument();
 
-			Element fsrElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_FIREARM_SEARCH_RESULT_EXT, "FirearmSearchResult");
+			Element fsrElement = XmlUtils.appendElement(root, NS_FIREARM_SEARCH_RESULT_EXT, "FirearmSearchResult");
 
-			Element personElement = XmlUtils.appendElement(fsrElement, OjbcNamespaceContext.NS_NC, "Person");
-			XmlUtils.addAttribute(personElement, OjbcNamespaceContext.NS_STRUCTURES, "id", createFirearmPersonElementID(index));
-			Element personNameElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_NC, "PersonName");
+			Element personElement = XmlUtils.appendElement(fsrElement, NS_NC, "Person");
+			XmlUtils.addAttribute(personElement, NS_STRUCTURES, "id", createFirearmPersonElementID(index));
+			Element personNameElement = XmlUtils.appendElement(personElement, NS_NC, "PersonName");
 			String s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/nc:Person/nc:PersonName/nc:PersonGivenName");
 			Element e = null;
 			if (s != null) {
-				e = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC, "PersonGivenName");
+				e = XmlUtils.appendElement(personNameElement, NS_NC, "PersonGivenName");
 				e.setTextContent(s);
 			}
 			s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/nc:Person/nc:PersonName/nc:PersonMiddleName");
 			if (s != null) {
-				e = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC, "PersonMiddleName");
+				e = XmlUtils.appendElement(personNameElement, NS_NC, "PersonMiddleName");
 				e.setTextContent(s);
 			}
 			s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/nc:Person/nc:PersonName/nc:PersonSurName");
 			if (s != null) {
-				e = XmlUtils.appendElement(personNameElement, OjbcNamespaceContext.NS_NC, "PersonSurName");
+				e = XmlUtils.appendElement(personNameElement, NS_NC, "PersonSurName");
 				e.setTextContent(s);
 			}
 
-			Element firearmElement = XmlUtils.appendElement(fsrElement, OjbcNamespaceContext.NS_FIREARM_SEARCH_RESULT_EXT, "Firearm");
-			XmlUtils.addAttribute(firearmElement, OjbcNamespaceContext.NS_STRUCTURES, "id", createFirearmElementID(index));
+			Element firearmElement = XmlUtils.appendElement(fsrElement, NS_FIREARM_SEARCH_RESULT_EXT, "Firearm");
+			XmlUtils.addAttribute(firearmElement, NS_STRUCTURES, "id", createFirearmElementID(index));
 
 			s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/firearm-ext:Firearm/nc:ItemSerialIdentification/nc:IdentificationID");
 			if (s != null) {
-				e = XmlUtils.appendElement(firearmElement, OjbcNamespaceContext.NS_NC, "ItemSerialIdentification");
-				e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
+				e = XmlUtils.appendElement(firearmElement, NS_NC, "ItemSerialIdentification");
+				e = XmlUtils.appendElement(e, NS_NC, "IdentificationID");
 				e.setTextContent(s);
 			}
 			s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/firearm-ext:Firearm/nc:ItemModelName");
 			if (s != null) {
-				e = XmlUtils.appendElement(firearmElement, OjbcNamespaceContext.NS_NC, "ItemModelName");
+				e = XmlUtils.appendElement(firearmElement, NS_NC, "ItemModelName");
 				e.setTextContent(s);
 			}
 			s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/firearm-ext:Firearm/nc:FirearmCategoryCode");
 			if (s != null) {
-				e = XmlUtils.appendElement(firearmElement, OjbcNamespaceContext.NS_NC, "FirearmCategoryCode");
+				e = XmlUtils.appendElement(firearmElement, NS_NC, "FirearmCategoryCode");
 				e.setTextContent(s);
 			}
 			s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/firearm-ext:Firearm/nc:FirearmCategoryDescriptionCode");
 			if (s != null) {
-				e = XmlUtils.appendElement(firearmElement, OjbcNamespaceContext.NS_NC, "FirearmCategoryDescriptionCode");
+				e = XmlUtils.appendElement(firearmElement, NS_NC, "FirearmCategoryDescriptionCode");
 				e.setTextContent(s);
 			}
 			s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/firearm-ext:Firearm/nc:FirearmCaliberCode");
 			if (s != null) {
-				e = XmlUtils.appendElement(firearmElement, OjbcNamespaceContext.NS_NC, "FirearmCaliberCode");
+				e = XmlUtils.appendElement(firearmElement, NS_NC, "FirearmCaliberCode");
 				e.setTextContent(s);
 			}
 			s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/firearm-ext:Firearm/nc:FirearmGaugeText");
 			if (s != null) {
-				e = XmlUtils.appendElement(firearmElement, OjbcNamespaceContext.NS_NC, "FirearmGaugeText");
+				e = XmlUtils.appendElement(firearmElement, NS_NC, "FirearmGaugeText");
 				e.setTextContent(s);
 			}
 			s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/firearm-ext:Firearm/firearms-codes-demostate:FirearmMakeCode");
 			if (s != null) {
-				e = XmlUtils.appendElement(firearmElement, OjbcNamespaceContext.NS_FIREARMS_CODES_DEMOSTATE, "FirearmMakeCode");
+				e = XmlUtils.appendElement(firearmElement, NS_FIREARMS_CODES_DEMOSTATE, "FirearmMakeCode");
 				e.setTextContent(s);
 			}
 			s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/firearm-ext:Firearm/firearm-ext:FirearmStatus/firearm-ext:FirearmStatusText");
 			if (s != null) {
-				e = XmlUtils.appendElement(firearmElement, OjbcNamespaceContext.NS_FIREARM_SEARCH_RESULT_EXT, "FirearmStatus");
-				e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_FIREARM_SEARCH_RESULT_EXT, "FirearmStatusText");
+				e = XmlUtils.appendElement(firearmElement, NS_FIREARM_SEARCH_RESULT_EXT, "FirearmStatus");
+				e = XmlUtils.appendElement(e, NS_FIREARM_SEARCH_RESULT_EXT, "FirearmStatusText");
 				e.setTextContent(s);
 			}
 
-			Element registrationElement = XmlUtils.appendElement(fsrElement, OjbcNamespaceContext.NS_FIREARM_SEARCH_RESULT_EXT, "ItemRegistration");
-			XmlUtils.addAttribute(registrationElement, OjbcNamespaceContext.NS_STRUCTURES, "id", createFirearmRegistrationElementID(index));
+			Element registrationElement = XmlUtils.appendElement(fsrElement, NS_FIREARM_SEARCH_RESULT_EXT, "ItemRegistration");
+			XmlUtils.addAttribute(registrationElement, NS_STRUCTURES, "id", createFirearmRegistrationElementID(index));
 			s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/firearm-ext:ItemRegistration/nc:RegistrationIdentification/nc:IdentificationID");
 			if (s != null) {
-				e = XmlUtils.appendElement(registrationElement, OjbcNamespaceContext.NS_NC, "RegistrationIdentification");
-				e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "IdentificationID");
+				e = XmlUtils.appendElement(registrationElement, NS_NC, "RegistrationIdentification");
+				e = XmlUtils.appendElement(e, NS_NC, "IdentificationID");
 				e.setTextContent(s);
 			}
 			s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/firearm-ext:ItemRegistration/nc:LocationCountyName");
 			if (s != null) {
-				e = XmlUtils.appendElement(registrationElement, OjbcNamespaceContext.NS_NC, "LocationCountyName");
+				e = XmlUtils.appendElement(registrationElement, NS_NC, "LocationCountyName");
 				e.setTextContent(s);
 			}
 			s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/firearm-ext:ItemRegistration/nc:RegistrationEffectiveDate/nc:Date");
 			if (s != null) {
-				e = XmlUtils.appendElement(registrationElement, OjbcNamespaceContext.NS_NC, "RegistrationEffectiveDate");
-				e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC, "Date");
+				e = XmlUtils.appendElement(registrationElement, NS_NC, "RegistrationEffectiveDate");
+				e = XmlUtils.appendElement(e, NS_NC, "Date");
 				e.setTextContent(s);
 			}
 			s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/firearm-ext:ItemRegistration/firearm-ext:RegistrationStatus/firearm-ext:FirearmRegistrationStatusText");
 			if (s != null) {
-				e = XmlUtils.appendElement(registrationElement, OjbcNamespaceContext.NS_FIREARM_SEARCH_RESULT_EXT, "RegistrationStatus");
-				e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_FIREARM_SEARCH_RESULT_EXT, "FirearmRegistrationStatusText");
+				e = XmlUtils.appendElement(registrationElement, NS_FIREARM_SEARCH_RESULT_EXT, "RegistrationStatus");
+				e = XmlUtils.appendElement(e, NS_FIREARM_SEARCH_RESULT_EXT, "FirearmRegistrationStatusText");
 				e.setTextContent(s);
 			}
 			s = XmlUtils.xPathStringSearch(instance, "/firearm-doc:FirearmRegistrationQueryResults/firearm-ext:ItemRegistration/firearm-ext:RegistrationNotesText");
 			if (s != null) {
-				e = XmlUtils.appendElement(registrationElement, OjbcNamespaceContext.NS_FIREARM_SEARCH_RESULT_EXT, "RegistrationNotesText");
+				e = XmlUtils.appendElement(registrationElement, NS_FIREARM_SEARCH_RESULT_EXT, "RegistrationNotesText");
 				e.setTextContent(s);
 			}
 
-			Element propertyRegistrationAssociationElement = XmlUtils.appendElement(fsrElement, OjbcNamespaceContext.NS_NC, "PropertyRegistrationAssociation");
-			e = XmlUtils.appendElement(propertyRegistrationAssociationElement, OjbcNamespaceContext.NS_NC, "ItemRegistrationReference");
-			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "ref", createFirearmRegistrationElementID(index));
-			e = XmlUtils.appendElement(propertyRegistrationAssociationElement, OjbcNamespaceContext.NS_NC, "ItemReference");
-			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "ref", createFirearmElementID(index));
-			e = XmlUtils.appendElement(propertyRegistrationAssociationElement, OjbcNamespaceContext.NS_NC, "ItemRegistrationHolderReference");
-			XmlUtils.addAttribute(e, OjbcNamespaceContext.NS_STRUCTURES, "ref", createFirearmPersonElementID(index));
+			Element propertyRegistrationAssociationElement = XmlUtils.appendElement(fsrElement, NS_NC, "PropertyRegistrationAssociation");
+			e = XmlUtils.appendElement(propertyRegistrationAssociationElement, NS_NC, "ItemRegistrationReference");
+			XmlUtils.addAttribute(e, NS_STRUCTURES, "ref", createFirearmRegistrationElementID(index));
+			e = XmlUtils.appendElement(propertyRegistrationAssociationElement, NS_NC, "ItemReference");
+			XmlUtils.addAttribute(e, NS_STRUCTURES, "ref", createFirearmElementID(index));
+			e = XmlUtils.appendElement(propertyRegistrationAssociationElement, NS_NC, "ItemRegistrationHolderReference");
+			XmlUtils.addAttribute(e, NS_STRUCTURES, "ref", createFirearmPersonElementID(index));
 
-			Element sourceSystem = XmlUtils.appendElement(fsrElement, OjbcNamespaceContext.NS_FIREARM_SEARCH_RESULT_EXT, "SourceSystemNameText");
+			Element sourceSystem = XmlUtils.appendElement(fsrElement, NS_FIREARM_SEARCH_RESULT_EXT, "SourceSystemNameText");
 			sourceSystem.setTextContent(FIREARM_MOCK_ADAPTER_FIREARM_SEARCH_SYSTEM_ID);
-			Element sourceSystemIdentifierParentElement = XmlUtils.appendElement(fsrElement, OjbcNamespaceContext.NS_INTEL, "SystemIdentifier");
-			e = XmlUtils.appendElement(sourceSystemIdentifierParentElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
+			Element sourceSystemIdentifierParentElement = XmlUtils.appendElement(fsrElement, NS_INTEL, "SystemIdentifier");
+			e = XmlUtils.appendElement(sourceSystemIdentifierParentElement, NS_NC, "IdentificationID");
 			e.setTextContent(instanceWrapper.getId());
-			e = XmlUtils.appendElement(sourceSystemIdentifierParentElement, OjbcNamespaceContext.NS_INTEL, "SystemName");
+			e = XmlUtils.appendElement(sourceSystemIdentifierParentElement, NS_INTEL, "SystemName");
 			e.setTextContent("Statewide Firearms Registry");
 
 			index++;
@@ -1743,8 +1726,8 @@ public class StaticMockQuery {
 		Element rootElement = firearmSearchRequestMessage.getDocumentElement();
 		String rootNamespaceURI = rootElement.getNamespaceURI();
 		String rootLocalName = rootElement.getLocalName();
-		if (!(OjbcNamespaceContext.NS_FIREARM_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "FirearmSearchRequest".equals(rootLocalName))) {
-			throw new IllegalArgumentException("Invalid message, must have {" + OjbcNamespaceContext.NS_FIREARM_SEARCH_REQUEST_DOC + "}FirearmSearchRequest as the root " + "instead of {" + rootNamespaceURI + "}" + rootLocalName);
+		if (!(NS_FIREARM_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "FirearmSearchRequest".equals(rootLocalName))) {
+			throw new IllegalArgumentException("Invalid message, must have {" + NS_FIREARM_SEARCH_REQUEST_DOC + "}FirearmSearchRequest as the root " + "instead of {" + rootNamespaceURI + "}" + rootLocalName);
 		}
 		NodeList systemElements = XmlUtils.xPathNodeListSearch(rootElement, "firearm-search-req-ext:SourceSystemNameText");
 		if (systemElements == null || (systemElements.getLength()) == 0) {
@@ -1780,9 +1763,9 @@ public class StaticMockQuery {
 		String rootNamespaceURI = rootElement.getNamespaceURI();
 		String rootLocalName = rootElement.getLocalName();
 		
-		if (!(OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "PersonSearchRequest".equals(rootLocalName))) {
+		if (!(NS_PERSON_SEARCH_REQUEST_DOC.equals(rootNamespaceURI) && "PersonSearchRequest".equals(rootLocalName))) {
 			
-			throw new IllegalArgumentException("Invalid message, must have {" + OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_DOC 
+			throw new IllegalArgumentException("Invalid message, must have {" + NS_PERSON_SEARCH_REQUEST_DOC 
 					+ "}PersonSearchRequest as the root " + "instead of {" + rootNamespaceURI + "}" + rootLocalName);
 		}
 		
@@ -2479,35 +2462,34 @@ public class StaticMockQuery {
 			d = container.getDocumentForContext(context);
 			String ns = null;
 			if ("JuvenileCasePlanHistory".equals(context)) {
-				ns = OjbcNamespaceContext.NS_JUVENILE_HISTORY_CASE_PLAN;
+				ns = NS_JUVENILE_HISTORY_CASE_PLAN;
 			}
 			if ("JuvenileHearingHistory".equals(context)) {
-				ns = OjbcNamespaceContext.NS_JUVENILE_HISTORY_HEARING;
+				ns = NS_JUVENILE_HISTORY_HEARING;
 			}
 			if ("JuvenileIntakeHistory".equals(context)) {
-				ns = OjbcNamespaceContext.NS_JUVENILE_HISTORY_INTAKE;
+				ns = NS_JUVENILE_HISTORY_INTAKE;
 			}
 			if ("JuvenileOffenseHistory".equals(context)) {
-				ns = OjbcNamespaceContext.NS_JUVENILE_HISTORY_OFFENSE;
+				ns = NS_JUVENILE_HISTORY_OFFENSE;
 			}
 			if ("JuvenilePlacementHistory".equals(context)) {
-				ns = OjbcNamespaceContext.NS_JUVENILE_HISTORY_PLACEMENT;
+				ns = NS_JUVENILE_HISTORY_PLACEMENT;
 			}
 			if ("JuvenileReferralHistory".equals(context)) {
-				ns = OjbcNamespaceContext.NS_JUVENILE_HISTORY_REFERRAL;
+				ns = NS_JUVENILE_HISTORY_REFERRAL;
 			}
 			Element newRoot = d.createElementNS(ns, ((String) context) + "Response");
-			XmlUtils.appendElement(newRoot, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileHistoryCategoryCode").setTextContent((String) context);
-			Element e = XmlUtils.appendElement(newRoot, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileHistoryQueryCriteria");
-			e = XmlUtils.appendElement(e, OjbcNamespaceContext.NS_JUVENILE_HISTORY_EXT, "JuvenileInformationRecordID");
-			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "IdentificationID").setTextContent(documentId);
-			XmlUtils.appendElement(e, OjbcNamespaceContext.NS_NC_30, "IdentificationSourceText").setTextContent(JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID);
+			XmlUtils.appendElement(newRoot, NS_JUVENILE_HISTORY_EXT, "JuvenileHistoryCategoryCode").setTextContent((String) context);
+			Element e = XmlUtils.appendElement(newRoot, NS_JUVENILE_HISTORY_EXT, "JuvenileHistoryQueryCriteria");
+			e = XmlUtils.appendElement(e, NS_JUVENILE_HISTORY_EXT, "JuvenileInformationRecordID");
+			XmlUtils.appendElement(e, NS_NC_30, "IdentificationID").setTextContent(documentId);
+			XmlUtils.appendElement(e, NS_NC_30, "IdentificationSourceText").setTextContent(JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID);
 			Element oldRoot = d.getDocumentElement();
 			newRoot.appendChild(oldRoot);
 			Element metadataRecordIDElement = (Element) XmlUtils.xPathNodeSearch(oldRoot, "jh-ext:JuvenileInformationAvailabilityMetadata/jh-ext:JuvenileInformationRecordID");
 			XmlUtils.xPathNodeSearch(metadataRecordIDElement, "nc30:IdentificationID").setTextContent(documentId);
 			XmlUtils.xPathNodeSearch(metadataRecordIDElement, "nc30:IdentificationSourceText").setTextContent(JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID);
-			OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext();
 			newRoot.setPrefix(ojbcNamespaceContext.getPrefix(ns));
 			d.appendChild(newRoot);
 			
@@ -2612,6 +2594,20 @@ public class StaticMockQuery {
 		}
 		
 		return rVehicleCrashDetailWrapperList;
+	}
+	
+	private List<IdentifiableDocumentWrapper> queryFirearmProhibitionDocuments(String documentId) throws Exception {
+		
+		List<IdentifiableDocumentWrapper> rFirearmProhibitionDetailWrapperList = new ArrayList<IdentifiableDocumentWrapper>();
+		
+		IdentifiableDocumentWrapper firearmProhibitionDetailWrapper = firearmProhibitionDataSource.getDocument(documentId);
+		
+		if(firearmProhibitionDetailWrapper != null){
+			
+			rFirearmProhibitionDetailWrapperList.add(firearmProhibitionDetailWrapper);			
+		}
+		
+		return rFirearmProhibitionDetailWrapperList;
 	}
 	
 	
@@ -2776,7 +2772,7 @@ public class StaticMockQuery {
 		public boolean getStartsWithForElement(Document personSearchRequestMessage, Element stringElement) throws Exception {
 			boolean b = false;
 			if (stringElement != null) {
-				String metadataAttribute = stringElement.getAttributeNS(OjbcNamespaceContext.NS_STRUCTURES, "metadata");
+				String metadataAttribute = stringElement.getAttributeNS(NS_STRUCTURES, "metadata");
 				Element metadataElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage.getDocumentElement(), "psr:SearchMetadata[@s:id='" + metadataAttribute + "']");
 				if (metadataElement != null) {
 					Element qualifierCodeElement = (Element) XmlUtils.xPathNodeSearch(metadataElement, "psr:SearchQualifierCode");
