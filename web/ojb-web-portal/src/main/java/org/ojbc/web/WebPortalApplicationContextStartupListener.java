@@ -125,6 +125,9 @@ public class WebPortalApplicationContextStartupListener implements
 					case "vehicle-crash-query":
 						camelContext.startRoute("vehicleCrashQueryResultsHandlerRoute");
 						break;
+					case "firearms-purchase-prohibition-query":
+						camelContext.startRoute("firearmsPurchaseProhibitionQueryResultsHandlerRoute");
+						break;
 					default:
 						break;
 					}
