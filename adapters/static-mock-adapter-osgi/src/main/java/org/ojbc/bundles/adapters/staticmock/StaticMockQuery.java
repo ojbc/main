@@ -384,11 +384,11 @@ public class StaticMockQuery {
 		
 		switch (systemId) {
 		case CRIMINAL_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID: 
-			return queryCriminalHistoryDocuments(documentId);
+			return queryDocuments(documentId, criminalHistoryDataSource);
 		case WARRANT_MOCK_ADAPTER_QUERY_SYSTEM_ID:
-			return queryWarrantDocuments(documentId);
+			return queryDocuments(documentId, warrantDataSource);
 		case INCIDENT_MOCK_ADAPTER_QUERY_SYSTEM_ID:
-			return queryIncidentDocuments(documentId);
+			return queryDocuments(documentId, incidentDataSource);
 		case FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID: 
 			return queryPersonFirearmRegistrationDocuments(documentId);
 		case FIREARM_MOCK_ADAPTER_QUERY_BY_FIREARM_SYSTEM_ID:
@@ -396,13 +396,13 @@ public class StaticMockQuery {
 		case JUVENILE_HISTORY_MOCK_ADAPTER_QUERY_SYSTEM_ID: 
 			return queryJuvenileHistoryDocuments(documentId, context);
 		case CUSTODY_QUERY_SYSTEM_ID:
-			return queryCustodyDocuments(documentId);
+			return queryDocuments(documentId, custodyDataSource);
 		case COURT_CASE_QUERY_SYSTEM_ID:
-			return queryCourtCaseDocuments(documentId);
+			return queryDocuments(documentId, courtCaseDataSource);
 		case VEHICLE_CRASH_QUERY_SYSTEM_ID:			
-			return queryVehicleCrashDocuments(documentId);
+			return queryDocuments(documentId, vehicleCrashDataSource);
 		case FIREARM_PROHIBITION_QUERY_SYSTEM_ID:
-			return queryFirearmProhibitionDocuments(documentId);
+			return queryDocuments(documentId, firearmProhibitionDataSource);
 		default:
 			XmlUtils.printNode(queryRequestMessage);
 			throw new IllegalArgumentException("Unknown system name: " + systemId);
@@ -2434,25 +2434,6 @@ public class StaticMockQuery {
 		return ret;
 	}
 
-	private List<IdentifiableDocumentWrapper> queryWarrantDocuments(String documentId) throws Exception {
-		List<IdentifiableDocumentWrapper> ret = new ArrayList<IdentifiableDocumentWrapper>();
-		IdentifiableDocumentWrapper document = warrantDataSource.getDocument(documentId);
-		if (document != null) {
-			ret.add(document);
-		}
-		return ret;
-	}
-
-	private List<IdentifiableDocumentWrapper> queryIncidentDocuments(String documentId) throws Exception {
-		// LOG.info("query incident documents, documentId=" + documentId);
-		List<IdentifiableDocumentWrapper> ret = new ArrayList<IdentifiableDocumentWrapper>();
-		IdentifiableDocumentWrapper document = incidentDataSource.getDocument(documentId);
-		if (document != null) {
-			ret.add(document);
-		}
-		return ret;
-	}
-
 	private List<IdentifiableDocumentWrapper> queryJuvenileHistoryDocuments(String documentId, Object context) throws Exception {
 		List<IdentifiableDocumentWrapper> ret = new ArrayList<IdentifiableDocumentWrapper>();
 		IdentifiableDocumentWrapper containerDocument = juvenileHistoryDataSource.getDocument(documentId);
@@ -2546,68 +2527,13 @@ public class StaticMockQuery {
 		return copy;
 	}
 
-	private List<IdentifiableDocumentWrapper> queryCriminalHistoryDocuments(String documentId) throws Exception {
-		List<IdentifiableDocumentWrapper> ret = new ArrayList<IdentifiableDocumentWrapper>();
-		IdentifiableDocumentWrapper document = criminalHistoryDataSource.getDocument(documentId);
+	private List<IdentifiableDocumentWrapper> queryDocuments(String documentId, ClasspathXmlDataSource dataSource) throws Exception {
+		List<IdentifiableDocumentWrapper> result = new ArrayList<IdentifiableDocumentWrapper>();
+		IdentifiableDocumentWrapper document = dataSource.getDocument(documentId);
 		if (document != null) {
-			ret.add(document);
+			result.add(document);
 		}
-		return ret;
-	}
-	
-	private List<IdentifiableDocumentWrapper> queryCustodyDocuments(String documentId) throws Exception {
-		
-		List<IdentifiableDocumentWrapper> custodyDetailDocWrapperList = new ArrayList<IdentifiableDocumentWrapper>();
-		
-		IdentifiableDocumentWrapper custodyDetailWrapper = custodyDataSource.getDocument(documentId);
-		
-		if (custodyDetailWrapper != null) {
-			
-			custodyDetailDocWrapperList.add(custodyDetailWrapper);
-		}		
-		return custodyDetailDocWrapperList;
-	}
-	
-	private List<IdentifiableDocumentWrapper> queryCourtCaseDocuments(String documentId) throws Exception {
-		
-		List<IdentifiableDocumentWrapper> rCourtCaseDetailWrapperList = new ArrayList<IdentifiableDocumentWrapper>();
-		
-		IdentifiableDocumentWrapper courtCaseDetailWrapper = courtCaseDataSource.getDocument(documentId);
-		
-		if (courtCaseDetailWrapper != null) {
-			
-			rCourtCaseDetailWrapperList.add(courtCaseDetailWrapper);
-		}		
-		return rCourtCaseDetailWrapperList;
-	}		
-	
-	
-	private List<IdentifiableDocumentWrapper> queryVehicleCrashDocuments(String documentId) throws Exception {
-		
-		List<IdentifiableDocumentWrapper> rVehicleCrashDetailWrapperList = new ArrayList<IdentifiableDocumentWrapper>();
-		
-		IdentifiableDocumentWrapper vehicleCrashDetailWrapper = vehicleCrashDataSource.getDocument(documentId);
-		
-		if(vehicleCrashDetailWrapper != null){
-			
-			rVehicleCrashDetailWrapperList.add(vehicleCrashDetailWrapper);			
-		}
-		
-		return rVehicleCrashDetailWrapperList;
-	}
-	
-	private List<IdentifiableDocumentWrapper> queryFirearmProhibitionDocuments(String documentId) throws Exception {
-		
-		List<IdentifiableDocumentWrapper> rFirearmProhibitionDetailWrapperList = new ArrayList<IdentifiableDocumentWrapper>();
-		
-		IdentifiableDocumentWrapper firearmProhibitionDetailWrapper = firearmProhibitionDataSource.getDocument(documentId);
-		
-		if(firearmProhibitionDetailWrapper != null){
-			
-			rFirearmProhibitionDetailWrapperList.add(firearmProhibitionDetailWrapper);			
-		}
-		
-		return rFirearmProhibitionDetailWrapperList;
+		return result;
 	}
 	
 	
