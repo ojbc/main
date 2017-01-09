@@ -93,6 +93,11 @@ public class XslTemplateTest {
     }
     
     @Test
+    public void firearmPurchaseProhibitionDetailTest() throws Exception {
+    	validatePersonSearchTransformation("xsl/firearm-purchase-prohibition.xsl", "FirearmPurchaseProhibitionQueryResullts-maine.xml", "firearmPurchaseProhibitionQueryResults.html");
+    }
+    
+    @Test
     public void searchResultEmpty() throws Exception {
         // an empty result document should be the same whether for vehicle, person or incident search
         validatePersonSearchTransformation("xsl/personSearchResult.xsl", "searchResultEmpty.xml", "searchResultEmpty.html");

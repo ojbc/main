@@ -66,15 +66,7 @@
     					</table>
     				</xsl:when>
     				<xsl:otherwise>
-    					<table id="courtCaseTable" class="detailsTable">
-    						<tr>
-    							<td class="detailsTitle" >CASE NUMBER</td>
-    							<td class="detailsTitle">CAPTION/STYLE</td>
-    							<td class="detailsTitle">CASE STATUS</td>
-    						</tr>
-    						<xsl:apply-templates /> 
-    					</table>
-    					<div id="instanceDetailTabsHolder"></div>   
+    					<xsl:apply-templates /> 
     				</xsl:otherwise>
     			</xsl:choose>
 	        </xsl:otherwise>
@@ -82,7 +74,38 @@
     </xsl:template>
 	
 	<xsl:template match="fppq-res-ext:FirearmPurchaseProhibitionReport">
-		FPP detail
+		<table class="detailsTable">
+			<tr>
+				<td colspan="4" class="detailsTitle">Firearm Purchase Prohibition</td>
+			</tr>
+			<tr>
+				<td class="detailsLabel">First Name</td>
+				<td><xsl:value-of select="nc:Person/nc:PersonName/nc:PersonGivenName" /></td>
+				<td class="detailsLabel">Last Name</td>
+				<td><xsl:value-of select="nc:Person/nc:PersonName/nc:PersonSurName" /></td>
+			</tr>
+			<tr>
+				<td class="detailsLabel">DOB</td>
+				<td><xsl:apply-templates select="nc:Person/nc:PersonBirthDate/nc:Date" mode="formatDateAsMMDDYYYY" /></td>
+				<td class="detailsLabel">Sex</td>
+				<td><xsl:value-of select="nc:Person/j:PersonSexCode" /></td>
+			</tr>
+			<tr>
+				<td colspan="4" class="detailsTitle">Court Order Details</td>
+			</tr>
+			<tr>
+				<td class="detailsLabel">Court ORI</td>
+				<td><xsl:value-of select="j:CourtOrder/j:CourtOrderIssuingCourt/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc:IdentificationID" /></td>
+				<td class="detailsLabel">Court Order Date</td>
+				<td><xsl:apply-templates select="j:CourtOrder/j:CourtOrderIssuingDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
+			</tr>
+			<tr>
+				<td class="detailsLabel">Docket Number</td>
+				<td><xsl:value-of select="nc:Case/nc:CaseDocketID"/></td>
+				<td class="detailsLabel">Prohibition Reason</td>
+				<td><xsl:value-of select="fppq-res-ext:FirearmPurchaseProhibition/me-fpp-codes:FirearmPurchaseProhibitionCode" /></td>
+			</tr>
+		</table>
 	</xsl:template>
 	<xsl:template match="qrer:QueryRequestError">
 		<p class="error">
