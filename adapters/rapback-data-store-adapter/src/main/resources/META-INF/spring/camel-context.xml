@@ -304,7 +304,7 @@
 			</onException>
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 			<to uri="bean:rapbackSearchProcessor?method=returnRapbackSearchResponse" />
-			<log message="${body}"></log>
+			<log message="${body}" loggingLevel="DEBUG"></log>
 			<to uri="direct:rapbackSearchResponse" />
 		</route>
 
@@ -351,7 +351,7 @@
 			<from uri="direct:identificationInitialResultsQueryResponse" />
 			
 			<to uri="bean:initialResultsQueryProcessor?method=returnInitialResultsQueryResponse" />
-			<log message="${body}"></log>
+			<log message="${body}" loggingLevel="DEBUG"></log>
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 
@@ -370,7 +370,7 @@
 			<from uri="direct:identificationSubsequentResultsQueryResponse" />
 			
 			<to uri="bean:subsequentResultsQueryProcessor?method=returnSubsequentResultsQueryResponse" />
-			<log message="${body}"></log>
+			<log message="${body}" loggingLevel="DEBUG"></log>
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 
