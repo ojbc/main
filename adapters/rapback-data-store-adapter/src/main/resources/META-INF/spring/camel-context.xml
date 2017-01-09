@@ -279,11 +279,13 @@
 					<log message="${body}" loggingLevel="DEBUG"></log>
 					<to uri="invocationFailedFileEndpoint"/>
 				</camel:doCatch>
+				<log message="Response message is sent"/>
 			</doTry>			
 		</route>
 		
 		<route id="resend_failed_identification_response_route">
 			<from uri="identificationRecordingResposneFileEndpoint" />
+			<log message="resending response file ${body}" loggingLevel="INFO"/>
 			<to uri="direct:sendIdentificationReportingResponseMessage" />
 		</route>
 		
