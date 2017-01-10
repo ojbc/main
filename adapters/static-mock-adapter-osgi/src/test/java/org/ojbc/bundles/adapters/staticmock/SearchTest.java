@@ -1829,7 +1829,8 @@ public class SearchTest extends AbstractStaticMockTest {
         //XmlUtils.printNode(personSearchRequestMessage);
         List<IdentifiableDocumentWrapper> matches = submitDocumentPersonSearch(personSearchRequestMessage);
         assertEquals(1, matches.size());
-        Document personSearchResults = staticMockQuery.searchDocuments(personSearchRequestMessage);
+        @SuppressWarnings("unused")
+		Document personSearchResults = staticMockQuery.searchDocuments(personSearchRequestMessage);
     }
 
     @Test
