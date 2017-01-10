@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,7 @@ import org.joda.time.Seconds;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.ojbc.bundles.adapters.staticmock.samplegen.staticname.custody.CustodyMatthewsSampleGenerator;
+import org.ojbc.bundles.adapters.staticmock.samplegen.staticname.firearmprohibition.FirearmPurchaseProhibitionMatthewsSampleGenerator;
 import org.ojbc.bundles.adapters.staticmock.samplegen.staticname.vehiclecrash.VehicleCrashMatthewsSampleGenerator;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -525,7 +527,7 @@ public abstract class AbstractSampleGenerator {
 	 *            the list of objects
 	 * @return the randomly selected member of the list
 	 */
-	protected final Object generateRandomValueFromList(List list) {
+	protected final Object generateRandomValueFromList(List<?> list) {
 		if (list.size() == 1) {
 			return list.get(0);
 		}
@@ -730,7 +732,7 @@ public abstract class AbstractSampleGenerator {
 	 */
 	protected final String randomString(String...items ){
 	
-		String randomString = (String)generateRandomValueFromList(items);
+		String randomString = (String)generateRandomValueFromList(Arrays.asList(items));
 		
 		return randomString;
 	}
@@ -811,6 +813,10 @@ public abstract class AbstractSampleGenerator {
 		List<Document> vehicleCrashDocList = new ArrayList<Document>();
 		
 		List<Document> vehicleCrashMatthewsDocList = new ArrayList<Document>();
+		
+		List<Document> firearmPurchaseProhibitionDocList = new ArrayList<Document>();
+
+		List<Document> firearmPurchaseMatthewsProhibitionDocList = new ArrayList<Document>();
 
 		if ("ALL".equals(type) || "CRIMINALHISTORY".equals(type)) {
 			generator = new CriminalHistorySampleGenerator();
@@ -862,6 +868,18 @@ public abstract class AbstractSampleGenerator {
 			vehicleCrashMatthewsDocList = vehicleCrashMatthewsGenerator.generateVehicleCrashDetailSamples(sampleCount);
 		}
 
+		if("ALL".equals(type) || "FIREARMPURCHASEPROHIBITION".equals(type)){
+			FirearmPurchaseProhibitionSampleGenerator firearmPurchaseProhibitionSampleGenerator = 
+					new FirearmPurchaseProhibitionSampleGenerator();			
+			firearmPurchaseProhibitionDocList = firearmPurchaseProhibitionSampleGenerator.generateSample(sampleCount, today);
+		}
+		
+		if("ALL".equals(type) || "FIREARMPURCHASEPROHIBITIONMATTHEWS".equals(type)){
+			FirearmPurchaseProhibitionMatthewsSampleGenerator firearmPurchaseProhibitionMatthewsSampleGenerator = 
+					new FirearmPurchaseProhibitionMatthewsSampleGenerator();			
+			firearmPurchaseMatthewsProhibitionDocList = firearmPurchaseProhibitionMatthewsSampleGenerator.generateSample(sampleCount, today);
+		}
+		
 
 		List<Document> allSamples = new ArrayList<Document>(criminalHistories.size() + warrants.size() + incidents.size() + firearmRegistrations.size() 
 				+ juvenileHistories.size() + custodyDocList.size() + courtCaseDocList.size());
@@ -875,6 +893,8 @@ public abstract class AbstractSampleGenerator {
 		allSamples.addAll(courtCaseDocList);
 		allSamples.addAll(vehicleCrashDocList);
 		allSamples.addAll(vehicleCrashMatthewsDocList);
+		allSamples.addAll(firearmPurchaseProhibitionDocList);
+		allSamples.addAll(firearmPurchaseMatthewsProhibitionDocList);
 
 		for (Document d : allSamples) {
 			

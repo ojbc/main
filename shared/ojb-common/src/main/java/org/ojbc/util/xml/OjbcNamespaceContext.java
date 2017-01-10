@@ -45,6 +45,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT = "http://ojbc.org/IEPD/Extensions/FirearmPurchaseProhibitionQueryResultsExtension/1.0";
 	public static final String NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT = "fppq-res-ext";
 	
+	public static final String NS_MAINE_FPP_CODES = "http://ojbc.org/IEPD/Extensions/Maine/FirearmPurchaseProhibitionCodes/1.0";
+	public static final String NS_PREFIX_MAINE_FPP_CODES = "me-fpp-codes";
+
 	public static final String NS_HUMAN_SERVIES = "http://release.niem.gov/niem/domains/humanServices/3.1/";
 	public static final String NS_PREFIX_HUMAN_SERVIES = "hs";
 	
