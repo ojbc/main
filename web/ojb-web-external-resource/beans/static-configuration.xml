@@ -129,6 +129,8 @@
 			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Jail" />
 		<entry key="Vehicle Crash"
 			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash" />
+		<entry key="Mental Health/Firearms prohibition"
+			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Firearms-Prohibition" />
 	</util:map>
 
 	<util:map id="systemsToQuery_people_disabled" map-class="java.util.LinkedHashMap">
