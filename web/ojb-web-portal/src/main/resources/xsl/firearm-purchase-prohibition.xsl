@@ -97,7 +97,15 @@
 				<td class="detailsLabel">Court ORI</td>
 				<td><xsl:value-of select="j:CourtOrder/j:CourtOrderIssuingCourt/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc:IdentificationID" /></td>
 				<td class="detailsLabel">Court Order Date</td>
-				<td><xsl:apply-templates select="j:CourtOrder/j:CourtOrderIssuingDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
+				
+				<xsl:choose>
+					<xsl:when test="normalize-space(j:CourtOrder/j:CourtOrderIssuingDate/nc:Date) != ''">
+						<td><xsl:apply-templates select="j:CourtOrder/j:CourtOrderIssuingDate/nc:Date" mode="formatDateAsMMDDYYYY"/></td>
+					</xsl:when>
+					<xsl:otherwise>
+						<td><xsl:text>Date Unkown</xsl:text></td>					
+					</xsl:otherwise>
+				</xsl:choose>
 			</tr>
 			<tr>
 				<td class="detailsLabel">Docket Number</td>
