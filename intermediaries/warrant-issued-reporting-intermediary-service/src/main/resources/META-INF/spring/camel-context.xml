@@ -91,11 +91,35 @@
 					
 					<camel:to uri="direct:callReportWarrantRejected"/>	
 				</camel:when>						
+									
+				<camel:when>				
+					<simple>${header.operationName} == 'ReportWarrantModification'</simple>
+					
+					<camel:to uri="direct:callReportWarrantModification"/>	
+				</camel:when>											
 										
 			</camel:choice>
 			
 		</route>
+	
+		<camel:route id="warrant_modification_route">
 		
+			<camel:from uri="direct:callReportWarrantModification" />
+	
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+	
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
+			</camel:setHeader>
+	
+			<camel:setHeader headerName="operationName">
+				<constant>ReportWarrantModification</constant>
+			</camel:setHeader>
+	
+			<log message="\n\n\n Sending Warrant Modification to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>
+	
+			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
+		</camel:route>		
 		
 		<camel:route id="warrant_issued_route">
 		
@@ -111,7 +135,7 @@
 				<constant>ReportWarrantIssued</constant>
 			</camel:setHeader>
 	
-			<log message="\n\n\n Sending to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>
+			<log message="\n\n\n Sending Warrant Issue to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>
 	
 			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
 		</camel:route>
@@ -130,6 +154,8 @@
 			<camel:setHeader headerName="operationName">
 				<constant>ReportWarrantAccepted</constant>
 			</camel:setHeader>
+			
+			<log message="\n\n\n Sending Warrant Accepted to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>	
 	
 			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
 		</camel:route>
@@ -148,6 +174,8 @@
 			<camel:setHeader headerName="operationName">
 				<constant>ReportWarrantRejected</constant>
 			</camel:setHeader>
+			
+			<log message="\n\n\n Sending Warrant Rejected to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>
 	
 			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
 		</camel:route>
