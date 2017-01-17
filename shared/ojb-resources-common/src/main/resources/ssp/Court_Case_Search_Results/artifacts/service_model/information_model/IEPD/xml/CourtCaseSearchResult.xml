@@ -17,8 +17,18 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<ccs-res-doc:CourtCaseSearchResults xmlns:ccs-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0" xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0 ../xsd/exchange_schema.xsd ">
-	<ccs-res-ext:CourtCaseSearchResult structures:id="Result_01">
+<ccs-res-doc:CourtCaseSearchResults
+	xmlns:ccs-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0"
+	xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
+	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0 ../xsd/exchange_schema.xsd ">
+	<ccs-res-ext:CourtCaseSearchResult
+		structures:id="Result_01">
 		<nc:Case structures:id="Case_01">
 			<nc:ActivityStatus>
 				<nc:StatusDescriptionText>current case status</nc:StatusDescriptionText>
@@ -37,7 +47,8 @@
 				</j:CaseCourt>
 				<j:CaseOtherIdentification>
 					<nc:IdentificationID>other case number</nc:IdentificationID>
-					<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
+					<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText
+					</nc:IdentificationCategoryDescriptionText>
 				</j:CaseOtherIdentification>
 			</j:CaseAugmentation>
 		</nc:Case>
@@ -65,7 +76,8 @@
 				<j:DriverLicense>
 					<j:DriverLicenseIdentification>
 						<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-						<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
+						<nc:IdentificationSourceText>nc:IdentificationSourceText
+						</nc:IdentificationSourceText>
 					</j:DriverLicenseIdentification>
 				</j:DriverLicense>
 				<j:PersonFBIIdentification>
@@ -77,8 +89,8 @@
 			</j:PersonAugmentation>
 		</nc:Person>
 		<cyfs:PersonCaseAssociation>
-			<nc:Person structures:ref="Person_01"/>
-			<nc:Case structures:ref="Case_01"/>
+			<nc:Person structures:ref="Person_01" />
+			<nc:Case structures:ref="Case_01" />
 		</cyfs:PersonCaseAssociation>
 		<ccs-res-ext:SourceSystemNameText>Alpha Court System </ccs-res-ext:SourceSystemNameText>
 		<intel:SystemIdentification>
@@ -96,7 +108,8 @@
 			</nc:LastUpdatedDate>
 		</nc:Metadata>
 	</ccs-res-ext:CourtCaseSearchResult>
-	<ccs-res-ext:CourtCaseSearchResult structures:id="Result_02">
+	<ccs-res-ext:CourtCaseSearchResult
+		structures:id="Result_02">
 		<nc:Case structures:id="Case_02">
 			<nc:CaseGeneralCategoryText>nc:CaseGeneralCategoryText</nc:CaseGeneralCategoryText>
 			<nc:CaseTrackingID>nc:CaseTrackingID</nc:CaseTrackingID>
@@ -111,7 +124,8 @@
 					<j:CourtName>nc:OrganizationName</j:CourtName>
 				</j:CaseCourt>
 				<j:CaseOtherIdentification>
-					<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
+					<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText
+					</nc:IdentificationCategoryDescriptionText>
 				</j:CaseOtherIdentification>
 			</j:CaseAugmentation>
 		</nc:Case>
@@ -139,7 +153,8 @@
 				<j:DriverLicense>
 					<j:DriverLicenseIdentification>
 						<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-						<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
+						<nc:IdentificationSourceText>nc:IdentificationSourceText
+						</nc:IdentificationSourceText>
 					</j:DriverLicenseIdentification>
 				</j:DriverLicense>
 				<j:PersonFBIIdentification>
@@ -151,15 +166,15 @@
 			</j:PersonAugmentation>
 		</nc:Person>
 		<cyfs:PersonCaseAssociation>
-			<nc:Person structures:ref="Person_02"/>
-			<nc:Case structures:ref="Case_02"/>
+			<nc:Person structures:ref="Person_02" />
+			<nc:Case structures:ref="Case_02" />
 		</cyfs:PersonCaseAssociation>
 		<ccs-res-ext:SourceSystemNameText>Alpha Court System </ccs-res-ext:SourceSystemNameText>
 		<intel:SystemIdentification>
 			<nc:IdentificationID>A0188904</nc:IdentificationID>
 			<nc:SystemName>Court</nc:SystemName>
 		</intel:SystemIdentification>
-	<ccs-res-ext:SearchResultCategoryText>Criminal History</ccs-res-ext:SearchResultCategoryText>
+		<ccs-res-ext:SearchResultCategoryText>Criminal History</ccs-res-ext:SearchResultCategoryText>
 		<ccs-res-ext:InformationOwningOrganization>
 			<nc:OrganizationBranchName>branch</nc:OrganizationBranchName>
 			<nc:OrganizationName>County Court</nc:OrganizationName>
