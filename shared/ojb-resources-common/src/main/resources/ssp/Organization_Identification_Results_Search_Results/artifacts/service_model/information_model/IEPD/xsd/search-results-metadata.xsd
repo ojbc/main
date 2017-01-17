@@ -17,22 +17,47 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" xmlns:tns="http://www.example.org/search-result-metadata" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" targetNamespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" elementFormDefault="qualified">
-	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" schemaLocation="access-denial.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" schemaLocation="search-request-error-reporting.xsd"/>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+	xmlns:tns="http://www.example.org/search-result-metadata" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
+		schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd" />
+	<xsd:import
+		namespace="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+		schemaLocation="access-denial.xsd" />
+	<xsd:import
+		namespace="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+		schemaLocation="search-request-error-reporting.xsd" />
 	<xsd:complexType name="SearchResultsMetadataType">
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="iad:InformationAccessDenial" minOccurs="0"/>
-					<xsd:element ref="srer:SearchErrors" minOccurs="0"/>
-					<xsd:element ref="srer:SearchRequestError" minOccurs="0"/>
+					<xsd:element ref="srm:TotalAuthorizedSearchResultsQuantity"
+						minOccurs="0" />
+					<xsd:element ref="iad:InformationAccessDenial"
+						minOccurs="0" />
+					<xsd:element ref="srer:SearchErrors" minOccurs="0" />
+					<xsd:element ref="srer:SearchRequestError" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="SearchResultsMetadata" type="srm:SearchResultsMetadataType"/>
+	<xsd:element name="SearchResultsMetadata" type="srm:SearchResultsMetadataType" />
+	<xsd:element name="TotalAuthorizedSearchResultsQuantity"
+		type="niem-xs:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>A number of all records that the user is
+				authorized to view.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>

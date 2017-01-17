@@ -116,4 +116,5 @@
   </w:Type>
   <w:Type w:name="niem-xs:boolean" w:isRequested="true"/>
   <w:Type w:name="niem-xs:decimal" w:isRequested="true"/>
+  <w:Type w:name="niem-xs:nonNegativeInteger" w:isRequested="true"/>
 </w:WantList>
