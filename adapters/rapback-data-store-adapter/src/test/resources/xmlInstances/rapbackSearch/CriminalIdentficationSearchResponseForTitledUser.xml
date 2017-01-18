@@ -63,4 +63,7 @@
          <nc30:SystemName>RapbackDataStore</nc30:SystemName>
       </intel30:SystemIdentification>
    </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+   <srm:SearchResultsMetadata xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0">
+      <srm:TotalAuthorizedSearchResultsQuantity>1</srm:TotalAuthorizedSearchResultsQuantity>
+   </srm:SearchResultsMetadata>
 </oirs-res-doc:OrganizationIdentificationResultsSearchResults>

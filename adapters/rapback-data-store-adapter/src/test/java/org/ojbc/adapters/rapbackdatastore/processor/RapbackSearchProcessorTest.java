@@ -33,6 +33,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.test.util.SAMLTokenTestUtils;
+import org.ojbc.test.util.XmlTestUtils;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.util.model.saml.SamlAttribute;
@@ -78,9 +79,9 @@ public class RapbackSearchProcessorTest {
         Document searchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, civilIdentificationSearchRequest);
         
         log.info("Civil identification search Response: \n" + OJBUtils.getStringFromDocument(searchResponeDoc));
-        IdentificationReportingResponseProcessorTest.assertAsExpected(
-        		OJBUtils.getStringFromDocument(searchResponeDoc), 
-        		"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseAgencySuperUser.xml");
+		XmlTestUtils.compareDocs(
+        		"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseAgencySuperUser.xml",
+        		searchResponeDoc);
 	}
 
 	@Test
@@ -99,9 +100,9 @@ public class RapbackSearchProcessorTest {
 		Document searchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, civilIdentificationSearchRequest);
 		
 		log.info("Civil identification search Response: \n" + OJBUtils.getStringFromDocument(searchResponeDoc));
-		IdentificationReportingResponseProcessorTest.assertAsExpected(
-				OJBUtils.getStringFromDocument(searchResponeDoc), 
-				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseSuperUser.xml");
+		XmlTestUtils.compareDocs(
+				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseSuperUser.xml",
+				searchResponeDoc);
 	}
 	
 	@Test
@@ -122,9 +123,9 @@ public class RapbackSearchProcessorTest {
 		Document searchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, civilIdentificationSearchRequest);
 		
 		log.info("Civil identification search Response: \n" + OJBUtils.getStringFromDocument(searchResponeDoc));
-		IdentificationReportingResponseProcessorTest.assertAsExpected(
-				OJBUtils.getStringFromDocument(searchResponeDoc), 
-				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseSuperUser.xml");
+		XmlTestUtils.compareDocs(
+				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseSuperUser.xml",
+				searchResponeDoc);
 	}
 	
 	@Test
@@ -145,9 +146,9 @@ public class RapbackSearchProcessorTest {
 		Document criminalSearchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, criminalIdentificationSearchRequest);
 		
 		log.info("Criminal identification search Response: \n" + OJBUtils.getStringFromDocument(criminalSearchResponeDoc));
-		IdentificationReportingResponseProcessorTest.assertAsExpected(
-				OJBUtils.getStringFromDocument(criminalSearchResponeDoc), 
-				"src/test/resources/xmlInstances/rapbackSearch/CriminalIdentficationSearchResponseSuperUser.xml");
+		XmlTestUtils.compareDocs(
+				"src/test/resources/xmlInstances/rapbackSearch/CriminalIdentficationSearchResponseSuperUser.xml", 
+				criminalSearchResponeDoc);
 	}
 	
 	@Test
@@ -168,9 +169,9 @@ public class RapbackSearchProcessorTest {
 		Document criminalSearchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, criminalIdentificationSearchRequest);
 		
 		log.info("Criminal identification search Response: \n" + OJBUtils.getStringFromDocument(criminalSearchResponeDoc));
-		IdentificationReportingResponseProcessorTest.assertAsExpected(
-				OJBUtils.getStringFromDocument(criminalSearchResponeDoc), 
-				"src/test/resources/xmlInstances/rapbackSearch/CriminalIdentficationSearchResponseForTitledUser.xml");
+		XmlTestUtils.compareDocs(
+				"src/test/resources/xmlInstances/rapbackSearch/CriminalIdentficationSearchResponseForTitledUser.xml",
+				criminalSearchResponeDoc);
 	}
 	
 	@Test
@@ -205,9 +206,9 @@ public class RapbackSearchProcessorTest {
 		searchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, civilIdentificationSearchRequest);
 		
 		log.info("Civil identification search Response: \n" + OJBUtils.getStringFromDocument(searchResponeDoc));
-		IdentificationReportingResponseProcessorTest.assertAsExpected(
-				OJBUtils.getStringFromDocument(searchResponeDoc), 
-				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseForTitledUser.xml");
+		XmlTestUtils.compareDocs(
+				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseForTitledUser.xml", 
+				searchResponeDoc);
 	}
 	
 	@Test
@@ -228,9 +229,9 @@ public class RapbackSearchProcessorTest {
 		Document searchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, civilIdentificationSearchRequest);
 		
 		log.info("Civil identification search Response: \n" + OJBUtils.getStringFromDocument(searchResponeDoc));
-		IdentificationReportingResponseProcessorTest.assertAsExpected(
-				OJBUtils.getStringFromDocument(searchResponeDoc), 
-				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseForAnyTitleUser.xml");
+		XmlTestUtils.compareDocs(
+				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseForAnyTitleUser.xml",
+				searchResponeDoc);
 	}
 	
 	@Test
@@ -249,9 +250,9 @@ public class RapbackSearchProcessorTest {
 		Document searchResponeDoc = rapbackSearchProcessor.returnRapbackSearchResponse(message, civilIdentificationSearchRequest);
 		
 		log.info("Civil identification search Response: \n" + OJBUtils.getStringFromDocument(searchResponeDoc));
-		IdentificationReportingResponseProcessorTest.assertAsExpected(
-				OJBUtils.getStringFromDocument(searchResponeDoc), 
-				"src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseCivilUser.xml");
+		
+		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/rapbackSearch/CivilIdentficationSearchResponseCivilUser.xml", 
+				searchResponeDoc);
 	}
 	
 	@Test 

@@ -83,6 +83,9 @@
          <nc30:SystemName>RapbackDataStore</nc30:SystemName>
       </intel30:SystemIdentification>
    </oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+   <srm:SearchResultsMetadata xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0">
+      <srm:TotalAuthorizedSearchResultsQuantity>1</srm:TotalAuthorizedSearchResultsQuantity>
+   </srm:SearchResultsMetadata>
    <nc30:EntityOrganization s30:id="ORG_01">
       <nc30:OrganizationName>Test Agency</nc30:OrganizationName>
       <jxdm50:OrganizationAugmentation>

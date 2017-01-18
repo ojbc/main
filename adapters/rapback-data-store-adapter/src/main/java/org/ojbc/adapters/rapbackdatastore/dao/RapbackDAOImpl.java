@@ -31,7 +31,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -638,7 +637,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 				paramMap.put("ori", ori);
 			
 				if ( isNotCivilAgencyUser(ori) ){
-					sb.append ( " AND (t.identification_category in ( :identificationCategoryList ))");
+					sb.append ( " AND (t.identification_category in ( :identificationCategoryList )) ");
 					List<String> identificationCategorys = getViewableIdentificationCategories(token, 
 							"CIVIL"); 
 					paramMap.put("identificationCategoryList", identificationCategorys.isEmpty() ? null : identificationCategorys);
@@ -646,6 +645,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			}
 		}
 		
+		sb.append("ORDER BY t.report_timestamp DESC "); 
 		List<IdentificationTransaction> identificationTransactions = 
 				namedParameterJdbcTemplate.query( sb.toString(), paramMap,
 						new FullIdentificationTransactionRowMapper());
@@ -780,6 +780,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "	AND (:excludeAvailableForSubscription  = false OR t.archived = true) "
 				+ "	AND (( :identificationReasonCode ) is null OR identification_category in (:identificationReasonCode)) ");
 		
+		sqlStringBuilder.append("ORDER BY t.report_timestamp DESC "); 
 		List<IdentificationTransaction> identificationTransactions = 
 				namedParameterJdbcTemplate.query( sqlStringBuilder.toString(), paramMap,  
 						new IdentificationTransactionRowMapper());
@@ -1078,7 +1079,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	@Override
-	public List<AgencyProfile> getAgencyProfiles(Set<String> oris) {
+	public List<AgencyProfile> getAgencyProfiles(List<String> oris) {
 		final String AGENCY_PROFILE_SELECT_BY_ORIS = "SELECT * FROM agency_profile a "
 				+ "LEFT JOIN agency_contact_email e ON e.agency_id = a.agency_id "
 				+ "WHERE agency_ori in (:oris)";
