@@ -42,10 +42,9 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_WSN_BROKERED;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.xml.parsers.DocumentBuilder;
@@ -156,17 +155,18 @@ public class RapbackSearchProcessor {
         	identificationTransactions = rapbackDAO.getCivilIdentificationTransactions(token, searchRequest);
         	
         	if (identificationTransactions != null && identificationTransactions.size() > 0){
-	        	Set<String> oris = getDistinctOris(identificationTransactions); 
+	        	List<String> oris = getDistinctOris(identificationTransactions); 
 	        	List<AgencyProfile> agencyProfiles = rapbackDAO.getAgencyProfiles(oris);
 	        	
 	        	buildSearchResults(identificationTransactions, rootElement, agencyProfiles, true);
-	        	
+	    		appendSearchResultMetaData(identificationTransactions.size(), rootElement);
 	        	appendOrganizationInfo(rootElement, agencyProfiles);
         	}
         }
         else if ("Criminal".equals(searchRequest.getIdentificationResultCategory())){
         	identificationTransactions = rapbackDAO.getCriminalIdentificationTransactions(token, searchRequest);
         	buildSearchResults(identificationTransactions, rootElement, null, false);
+    		appendSearchResultMetaData(identificationTransactions.size(), rootElement);
         }
         return document;
     }
@@ -281,13 +281,14 @@ public class RapbackSearchProcessor {
         	searchRequest.setReportedDateEndLocalDate(LocalDate.parse(endDateString));
         }
 	}
-	private Set<String> getDistinctOris(
+	private List<String> getDistinctOris(
 			List<IdentificationTransaction> identificationTransactions) {
-		Set<String> distinctOris = new HashSet<String>(); 
-		
-		for (IdentificationTransaction identificationTransaction: identificationTransactions){
-			distinctOris.add(identificationTransaction.getOwnerOri());
-		}
+
+		List<String> distinctOris = identificationTransactions.stream()
+			.limit(maxResultCount)
+			.map(i -> i.getOwnerOri())
+			.distinct()
+			.collect(Collectors.toList());
 		return distinctOris;
 	}
 
@@ -347,34 +348,47 @@ public class RapbackSearchProcessor {
 			}
 		}
 		
-		if (identificationTransactions.size() > maxResultCount){
-			buildTooManyResultElement(identificationTransactions.size(), rootElement); 
-		}
-		else{
-			for (IdentificationTransaction identificationTransaction : identificationTransactions){
-				Element organizationIdentificationResultsSearchResultElement = 
-						XmlUtils.appendElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
-								"OrganizationIdentificationResultsSearchResult");
-				appendIdentifiedPersonElement(organizationIdentificationResultsSearchResultElement, identificationTransaction);
-				appdendStatusElement(organizationIdentificationResultsSearchResultElement,
-						identificationTransaction, oriOrganizationIdMap);
-				
-				appendReasonCodeElement(isCivilResponse, identificationTransaction,
-						organizationIdentificationResultsSearchResultElement);
-				
-				appendDateElement(identificationTransaction.getTimestamp(), 
-						organizationIdentificationResultsSearchResultElement, 
-						"IdentificationReportedDate", NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
-				appendSourceSystemNameTextElement(organizationIdentificationResultsSearchResultElement);
+		identificationTransactions
+			.stream()
+			.limit(maxResultCount)
+			.forEach(s -> appendOrganizationIdentificationResultsSearchResult(rootElement, isCivilResponse, oriOrganizationIdMap, s));
+		
+	}
+
+	private void appendOrganizationIdentificationResultsSearchResult(Element rootElement, boolean isCivilResponse,
+			Map<String, String> oriOrganizationIdMap,
+			IdentificationTransaction identificationTransaction) {
+		Element organizationIdentificationResultsSearchResultElement = 
+				XmlUtils.appendElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
+						"OrganizationIdentificationResultsSearchResult");
+		appendIdentifiedPersonElement(organizationIdentificationResultsSearchResultElement, identificationTransaction);
+		appdendStatusElement(organizationIdentificationResultsSearchResultElement,
+				identificationTransaction, oriOrganizationIdMap);
+		
+		appendReasonCodeElement(isCivilResponse, identificationTransaction,
+				organizationIdentificationResultsSearchResultElement);
+		
+		appendDateElement(identificationTransaction.getTimestamp(), 
+				organizationIdentificationResultsSearchResultElement, 
+				"IdentificationReportedDate", NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
+		appendSourceSystemNameTextElement(organizationIdentificationResultsSearchResultElement);
  
-				Element systemIdentifierElement = XmlUtils.appendElement(
-						organizationIdentificationResultsSearchResultElement, NS_INTEL_30, "SystemIdentification");
-				Element identificationIdElement = XmlUtils.appendElement(systemIdentifierElement, NS_NC_30, "IdentificationID"); 
-				identificationIdElement.setTextContent(identificationTransaction.getTransactionNumber());  
-				Element systemNameElement = XmlUtils.appendElement(systemIdentifierElement, NS_NC_30, "SystemName");
-				systemNameElement.setTextContent(SYSTEM_NAME);
-			}
-		}
+		Element systemIdentifierElement = XmlUtils.appendElement(
+				organizationIdentificationResultsSearchResultElement, NS_INTEL_30, "SystemIdentification");
+		Element identificationIdElement = XmlUtils.appendElement(systemIdentifierElement, NS_NC_30, "IdentificationID"); 
+		identificationIdElement.setTextContent(identificationTransaction.getTransactionNumber());  
+		Element systemNameElement = XmlUtils.appendElement(systemIdentifierElement, NS_NC_30, "SystemName");
+		systemNameElement.setTextContent(SYSTEM_NAME);
+	}
+
+	private void appendSearchResultMetaData(int size, Element rootElement) {
+		Element searchResultsMetadata = XmlUtils.appendElement(rootElement,
+				NS_SEARCH_RESULTS_METADATA_EXT, "SearchResultsMetadata");
+		Element totalAuthorizedSearchResultsQuantity = XmlUtils.appendElement(
+				searchResultsMetadata, NS_SEARCH_RESULTS_METADATA_EXT,
+				"TotalAuthorizedSearchResultsQuantity");
+		totalAuthorizedSearchResultsQuantity.setTextContent(
+				String.valueOf(size));
 	}
 
 	private void appendReasonCodeElement(boolean isCivilResponse,
@@ -394,18 +408,6 @@ public class RapbackSearchProcessor {
 					"CriminalIdentificationReasonCode");
 		}
 		identificationReasonCode.setTextContent(identificationTransaction.getIdentificationCategory());
-	}
-
-	private void buildTooManyResultElement(int size, Element rootElement) {
-		Element searchResultsMetadata = XmlUtils.appendElement(rootElement, NS_SEARCH_RESULTS_METADATA_EXT, "SearchResultsMetadata"); 
-		Element searchErrors = XmlUtils.appendElement(searchResultsMetadata, NS_SEARCH_REQUEST_ERROR_REPORTING, "SearchErrors"); 
-		Element systemName = XmlUtils.appendElement(searchErrors, NS_NC_30, "SystemName");
-		systemName.setTextContent(SYSTEM_NAME);
-		Element searchResultsExceedThresholdError = 
-				XmlUtils.appendElement(searchErrors, NS_SEARCH_REQUEST_ERROR_REPORTING, "SearchResultsExceedThresholdError");
-		Element searchReultsRecordCount = 
-				XmlUtils.appendElement(searchResultsExceedThresholdError, NS_SEARCH_REQUEST_ERROR_REPORTING, "SearchResultsRecordCount");
-		searchReultsRecordCount.setTextContent(String.valueOf(size));
 	}
 
 	private void appendSourceSystemNameTextElement(

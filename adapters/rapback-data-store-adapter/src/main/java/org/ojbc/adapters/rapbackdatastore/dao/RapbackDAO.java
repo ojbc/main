@@ -17,7 +17,6 @@
 package org.ojbc.adapters.rapbackdatastore.dao;
 
 import java.util.List;
-import java.util.Set;
 
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
@@ -72,7 +71,7 @@ public interface RapbackDAO {
 	public void consolidateUcn(String currentUcn, String newUcn);
 	
 	public AgencyProfile getAgencyProfile(String ori);
-	public List<AgencyProfile> getAgencyProfiles(Set<String> oris);
+	public List<AgencyProfile> getAgencyProfiles(List<String> oris);
 	
 	public int archiveCivilIdentifications();
 	public int archiveCriminalIdentifications();
