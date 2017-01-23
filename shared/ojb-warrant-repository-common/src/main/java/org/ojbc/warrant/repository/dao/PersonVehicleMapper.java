@@ -32,15 +32,17 @@ public class PersonVehicleMapper implements RowMapper<PersonVehicle> {
 		personVehicle.setPersonID(rs.getInt("PersonID"));
 		personVehicle.setLicensePlateType(rs.getString("LicensePlateType"));
 		personVehicle.setVehicleIdentificationNumber(rs.getString("VehicleIdentificationNumber"));
-		personVehicle.setVehicleLicensePlateExpirationDate(rs.getString("VehicleLicensePlateExpirationDate"));
+		personVehicle.setVehicleLicensePlateExpirationDate(rs.getString("VehicleLicensePlateExpirationD"));
 		personVehicle.setVehicleLicenseStateCode(rs.getString("VehicleLicenseStateCode"));
 		personVehicle.setVehicleMake(rs.getString("VehicleMake"));
 		personVehicle.setVehicleModel(rs.getString("VehicleModel"));
-		personVehicle.setVehicleNonExpiringIndicator(rs.getBoolean("VehicleRegistrationNonExpiringIndicator"));
+		personVehicle.setVehicleNonExpiringIndicator(rs.getBoolean("VehicleNonExpiringIndicator"));
 		personVehicle.setVehiclePrimaryColor(rs.getString("VehiclePrimaryColor"));
 		personVehicle.setVehicleSecondaryColor(rs.getString("VehicleSecondaryColor"));
 		personVehicle.setVehicleStyle(rs.getString("VehicleStyle"));
 		personVehicle.setVehicleYear(rs.getString("VehicleYear"));
+		personVehicle.setVehicleLicensePlateNumber(rs.getString("VehicleLicensePlateNumber"));
+		personVehicle.setPersonVehicleID(rs.getInt("VehicleID"));
 		
     	return personVehicle;
 	}
