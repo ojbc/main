@@ -22,7 +22,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.hibernate.validator.constraints.NotBlank;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.portal.controllers.helpers.PersonSearchType;
 

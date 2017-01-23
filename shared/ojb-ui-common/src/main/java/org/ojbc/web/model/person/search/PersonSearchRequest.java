@@ -64,7 +64,6 @@ public class PersonSearchRequest implements Serializable{
 	private String personDriversLicenseNumber;
 	@Pattern(regexp="[A-Za-z0-9 -]*")
 	private String personDriversLicenseIssuer;
-	@Pattern(regexp=OjbcWebConstants.SID_REGEX)
 	private String personSID;
 	@Pattern(regexp=OjbcWebConstants.FBI_ID_REGEX)
 	private String personFBINumber;

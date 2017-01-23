@@ -20,12 +20,16 @@ import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 @Service
 public class PersonSearchCommandValidator {
 	
+    @Value("${sidRegex:([a-zA-Z]\\d+)?}")
+    String sidRegex;
+    
 	public void validate(PersonSearchCommand personSearchCommand, BindingResult errors) {
 		if (hasAgeRange(personSearchCommand) && hasDOB(personSearchCommand)) {
 			errors.rejectValue("ageRangeStart", "ageAndDOBAtSameTime", "Age and DOB cannot be entered at the same time");
@@ -38,6 +42,10 @@ public class PersonSearchCommandValidator {
 			        "SSN must be 9 digits seperated by dashes, (i.e. 999-99-9999)");
 		}
 
+		if (StringUtils.isNotBlank(advanceSearch.getPersonSID()) && !advanceSearch.getPersonSID().matches(sidRegex)){
+			errors.rejectValue("advanceSearch.personSID", "Pattern.personSearchCommand.advanceSearch.personSID",
+			        "invalid SID format");
+		}
 		if(hasDOB(personSearchCommand) ){
 			DateTime startDob = advanceSearch.getPersonDateOfBirthRangeStart();
 			DateTime endDob = advanceSearch.getPersonDateOfBirthRangeEnd();
