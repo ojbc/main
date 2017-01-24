@@ -28,6 +28,7 @@
 	xmlns:wmr-doc="http://ojbc.org/IEPD/Exchange/WarrantModificationReport/1.0"
 	xmlns:wrr-doc="http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0"
 	xmlns:war-doc="http://ojbc.org/IEPD/Exchange/WarrantAcceptedReport/1.0"
+	xmlns:wcr-doc="http://ojbc.org/IEPD/Exchange/WarrantCancelledReport/1.0"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -82,6 +83,13 @@
 				<camel:xpath>/wmr-doc:WarrantModificationReport</camel:xpath>
 				<camel:setHeader headerName="operationName">
 					<constant>ReportWarrantModification</constant>
+				</camel:setHeader>
+			</camel:filter>	
+
+			<camel:filter>
+				<camel:xpath>/wcr-doc:WarrantCancelledReport</camel:xpath>
+				<camel:setHeader headerName="operationName">
+					<constant>ReportWarrantCancelled</constant>
 				</camel:setHeader>
 			</camel:filter>	
 	                        		

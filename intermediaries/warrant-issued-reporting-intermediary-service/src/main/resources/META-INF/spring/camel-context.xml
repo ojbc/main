@@ -97,11 +97,36 @@
 					
 					<camel:to uri="direct:callReportWarrantModification"/>	
 				</camel:when>											
+
+				<camel:when>				
+					<simple>${header.operationName} == 'ReportWarrantCancelled'</simple>
+					
+					<camel:to uri="direct:callReportWarrantCancellation"/>	
+				</camel:when>																					
 										
 			</camel:choice>
 			
 		</route>
+
+		<camel:route id="warrant_cancellation_route">
+		
+			<camel:from uri="direct:callReportWarrantCancellation" />
 	
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+	
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
+			</camel:setHeader>
+	
+			<camel:setHeader headerName="operationName">
+				<constant>ReportWarrantCancelled</constant>
+			</camel:setHeader>
+	
+			<log message="\n\n\n Sending Warrant Cancellation to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>
+	
+			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
+		</camel:route>		
+			
 		<camel:route id="warrant_modification_route">
 		
 			<camel:from uri="direct:callReportWarrantModification" />
