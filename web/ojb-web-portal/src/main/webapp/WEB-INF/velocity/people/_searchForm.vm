@@ -20,33 +20,6 @@
           $.ajaxSetup({ cache: false });
  		  ojbc.handlePlaceholders(); 
  		  
-    	  $('#advancedSearchForm').validate({
-                rules: {
-                    "ageRangeStart": {
-                        digits: true
-                    },
-                    "ageRangeEnd": {
-                        digits: true
-                    },
-                    "heightInFeet": {
-                        digits: true
-                    },
-                    "heightInInches": {
-                        digits: true
-                    },
-                    "heightTolerance": {
-                        digits: true
-                    },
-                    "advanceSearch.personWeight": {
-                        digits: true
-                    },
-                    "weightTolerance": {
-                        digits: true
-                    }
-                 
-                }
-            });
-    
     	    var index = $('#searchTabs a[href="#${activeSearchTab}"]').parent().index();
     	    $( "#searchTabs" ).tabs({ active: index});
     	    
@@ -62,7 +35,6 @@
 	                break; 
 	       }        	  	    
     	    	
-    	    
     	    $( ".datePicker" ).datepicker({
     	       showOn: "both",
     	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
@@ -221,7 +193,7 @@
     </ul>
 	#parse('people/_simpleSearchTab.vm')
     <div id="advancedSearchTab">
-  	    <form id='advancedSearchForm' >
+  	    <form id='advancedSearchForm'>
             #if($errors.hasGlobalErrors())
                 #foreach( $globalError in $errors.globalErrors )
                     <div class="error"> $globalError.defaultMessage </div>
