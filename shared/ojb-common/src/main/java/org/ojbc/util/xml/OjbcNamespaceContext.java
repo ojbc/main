@@ -59,7 +59,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	
 	public static final String NS_WARRANT_MODIFICATION_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/WarrantModificationReport/1.0";
 	public static final String NS_PREFIX_WARRANT_MODIFICATION_REPORT_DOC_EXCH = "wmr-doc";
-	
+
+	public static final String NS_WARRANT_CANCELLATION_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/WarrantCancelledReport/1.0";
+	public static final String NS_PREFIX_WARRANT_CANCELLATION_REPORT_DOC_EXCH = "wcr-doc";
+
 	public static final String NS_SCREENING_3_1 = "http://release.niem.gov/niem/domains/screening/3.1/";
 	public static final String NS_PREFIX_SCREENING_3_1 = "scr31";
 	
@@ -793,7 +796,6 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_FIREARMS_PROHIBITION_EXT ="http://ojbc.org/IEPD/Extensions/FirearmPurchaseProhibitionQueryRequestExtension/1.0";
 	public static final String NS_PREFIX_FIREARMS_PROHIBITION_EXT ="fppq-req-ext";	
-	
 	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -1565,7 +1567,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT, NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT);		
 		
 		prefixToUriMap.put(NS_PREFIX_WARRANT_MODIFICATION_REPORT_DOC_EXCH, NS_WARRANT_MODIFICATION_REPORT_DOC_EXCH);
-		uriToPrefixMap.put(NS_WARRANT_MODIFICATION_REPORT_DOC_EXCH, NS_PREFIX_WARRANT_MODIFICATION_REPORT_DOC_EXCH);		
+		uriToPrefixMap.put(NS_WARRANT_MODIFICATION_REPORT_DOC_EXCH, NS_PREFIX_WARRANT_MODIFICATION_REPORT_DOC_EXCH);	
+		
+		prefixToUriMap.put(NS_PREFIX_WARRANT_CANCELLATION_REPORT_DOC_EXCH, NS_WARRANT_CANCELLATION_REPORT_DOC_EXCH);
+		uriToPrefixMap.put(NS_WARRANT_CANCELLATION_REPORT_DOC_EXCH, NS_PREFIX_WARRANT_CANCELLATION_REPORT_DOC_EXCH);	
 
 	}
 

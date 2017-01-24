@@ -164,7 +164,23 @@ public class CamelContextTest {
 		assertEquals("ReportWarrantRejected", ex.getIn().getHeader("operationName"));
 		assertEquals(CXF_OPERATION_NAMESPACE, ex.getIn().getHeader("operationNamespace"));
 
+		warrantIssueReportingServiceMockEndpoint.reset();
+		warrantIssueReportingServiceMockEndpoint.expectedMessageCount(1);
+
+        inputFile = new File("src/test/resources/xmlInstances/WarrantCancelledReport.xml");
+		assertNotNull(inputFile);
+		
+		//Kick off the process by copying the fileto the input directory 
+		FileUtils.copyFileToDirectory(inputFile, inputDirectory);
+
+		Thread.sleep(3000);
+		
 		warrantIssueReportingServiceMockEndpoint.assertIsSatisfied();
+		
+		ex = warrantIssueReportingServiceMockEndpoint.getExchanges().get(0);
+		assertEquals("ReportWarrantCancelled", ex.getIn().getHeader("operationName"));
+		assertEquals(CXF_OPERATION_NAMESPACE, ex.getIn().getHeader("operationNamespace"));
+
 	}
 	
 }
