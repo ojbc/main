@@ -21,7 +21,9 @@ import java.util.List;
 
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GivenAndSurNameExtractor extends SearchTermExtractorBase {
 
 	//matches any words that doesn't contain any numerics

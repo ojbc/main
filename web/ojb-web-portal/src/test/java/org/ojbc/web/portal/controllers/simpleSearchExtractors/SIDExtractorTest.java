@@ -24,19 +24,34 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration({
+        "classpath:dispatcher-servlet.xml",
+        "classpath:application-context.xml",
+        "classpath:static-configuration-demostate.xml", "classpath:security-context.xml"
+        })
+@ActiveProfiles("standalone")
+@DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class SIDExtractorTest {
 
+	@Autowired
 	SIDExtractor unit;
 	private PersonSearchRequest personSearchRequest;
 
 	@Before
 	public void setup() {
-		unit = new SIDExtractor();
 		personSearchRequest = new PersonSearchRequest();
 	}
 

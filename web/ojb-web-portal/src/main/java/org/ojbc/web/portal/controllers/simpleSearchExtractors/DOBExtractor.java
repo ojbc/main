@@ -21,7 +21,9 @@ import java.util.regex.Pattern;
 
 import org.joda.time.DateTime;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DOBExtractor extends SearchTermExtractorBase {
 
 	private Pattern pattern;

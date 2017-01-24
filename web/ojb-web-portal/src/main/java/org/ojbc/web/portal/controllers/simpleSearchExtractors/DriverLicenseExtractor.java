@@ -21,8 +21,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.ojbc.web.model.person.search.PersonSearchRequest;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class DriverLicenseExtractor extends SearchTermExtractorBase {
 
 	private Logger logger = Logger.getLogger(DriverLicenseExtractor.class.getName());

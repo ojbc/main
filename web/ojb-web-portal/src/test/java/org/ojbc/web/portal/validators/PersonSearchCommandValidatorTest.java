@@ -32,6 +32,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
+import org.ojbc.web.portal.controllers.helpers.PersonSearchType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -61,6 +62,7 @@ public class PersonSearchCommandValidatorTest {
 		personSearchCommand = new PersonSearchCommand();
 		advanceSearch = new PersonSearchRequest();
 		personSearchCommand.setAdvanceSearch(advanceSearch);
+		personSearchCommand.setSearchType(PersonSearchType.ADVANCED);
 		
 		errors = mock(BindingResult.class);
 	}
