@@ -21,6 +21,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
 import org.ojbc.web.portal.controllers.simpleSearchExtractors.DOBExtractor;
@@ -31,10 +33,11 @@ import org.ojbc.web.portal.controllers.simpleSearchExtractors.SIDExtractor;
 import org.ojbc.web.portal.controllers.simpleSearchExtractors.SSNExtractor;
 import org.ojbc.web.portal.controllers.simpleSearchExtractors.SearchTermExtractorInterface;
 import org.ojbc.web.portal.services.SearchTermsTokenizer;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 
+@Resource
 public class SimpleSearchParser {
 
 	@Resource
@@ -42,21 +45,26 @@ public class SimpleSearchParser {
 	
 	private List<SearchTermExtractorInterface> searchTermExtractors;
 	
-	public SimpleSearchParser() {
+	@Autowired
+	public SimpleSearchParser(SIDExtractor sidExtractor, 
+			SSNExtractor ssnExtractor,
+			DOBExtractor dobExtractor,
+			FBIIDExtractor fbiIdExtractor,
+			GivenAndSurNameExtractor givenAndSurNameExtractor) {
 		searchTermExtractors = new ArrayList<SearchTermExtractorInterface>();
-		searchTermExtractors.add(new SSNExtractor());
-		searchTermExtractors.add(new SIDExtractor());
-		searchTermExtractors.add(new DOBExtractor());
-		searchTermExtractors.add(new FBIIDExtractor());
-		searchTermExtractors.add(new GivenAndSurNameExtractor());  //this should run last
+		searchTermExtractors.add(ssnExtractor);
+		searchTermExtractors.add(sidExtractor);
+		searchTermExtractors.add(dobExtractor);
+		searchTermExtractors.add(fbiIdExtractor);
+		searchTermExtractors.add(givenAndSurNameExtractor);  //this should run last
 	}
 	
 	public void setDriverLicenseExtractor(DriverLicenseExtractor driverLicenseExtractor) {
 	       searchTermExtractors.add(1, driverLicenseExtractor);
 	}
 	
-	public PersonSearchRequest validateAndParseSimpleSearch(PersonSearchCommand personSearchCommand,
-	        BindingResult errors) {
+	public void validateAndParseSimpleSearch(PersonSearchCommand personSearchCommand,
+	        Errors errors) {
 		String simpleSearch = personSearchCommand.getSimpleSearch();
 
 		if (StringUtils.isBlank(simpleSearch)) {
@@ -76,11 +84,11 @@ public class SimpleSearchParser {
 			personSearchRequest.setSourceSystems(new ArrayList<String>(personSearchCommand.getAdvanceSearch().getSourceSystems()));
 		}
 		validateExtractedTerms(errors, personSearchRequest, searchTokens);
-		
-		return personSearchRequest;
+
+		personSearchCommand.setParsedPersonSearchRequest(personSearchRequest);
 	}
 
-	private void validateExtractedTerms(BindingResult errors, PersonSearchRequest personSearchRequest,
+	private void validateExtractedTerms(Errors errors, PersonSearchRequest personSearchRequest,
             List<String> searchTokens) {
 	    if(searchTokens.size() > 0){
 			errors.rejectValue("simpleSearch", "invalidTokens", "Unable to parse the following terms: " + StringEscapeUtils.escapeHtml(searchTokens.toString()));

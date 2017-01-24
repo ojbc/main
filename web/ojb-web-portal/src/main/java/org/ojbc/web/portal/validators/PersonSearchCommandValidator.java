@@ -16,21 +16,58 @@
  */
 package org.ojbc.web.portal.validators;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
+import org.ojbc.web.portal.controllers.helpers.SimpleSearchParser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 @Service
-public class PersonSearchCommandValidator {
+public class PersonSearchCommandValidator implements Validator {
 	
     @Value("${sidRegex:([a-zA-Z]\\d+)?}")
     String sidRegex;
     
-	public void validate(PersonSearchCommand personSearchCommand, BindingResult errors) {
+	@Resource
+	SimpleSearchParser simpleSearchParser;
+   
+	private boolean hasDOB(PersonSearchCommand personSearchCommand) {
+		PersonSearchRequest advanceSearch = personSearchCommand.getAdvanceSearch();
+		return advanceSearch.getPersonDateOfBirth() != null || advanceSearch.getPersonDateOfBirthRangeEnd() != null
+		        || advanceSearch.getPersonDateOfBirthRangeStart() != null;
+	}
+
+	private boolean hasAgeRange(PersonSearchCommand personSearchCommand) {
+		return personSearchCommand.getAgeRangeStart() != null || personSearchCommand.getAgeRangeEnd() != null;
+	}
+
+	@Override
+	public boolean supports(Class<?> clazz) {
+		return PersonSearchCommand.class.equals(clazz);
+	}
+
+	@Override
+	public void validate(Object target, Errors errors) {
+		PersonSearchCommand personSearchCommand = (PersonSearchCommand) target; 
+		
+		switch (personSearchCommand.getSearchType()){
+		case SIMPLE: 
+			simpleSearchParser.validateAndParseSimpleSearch(personSearchCommand, errors);
+			break;
+		default:
+			validateAdvancedSearch(errors, personSearchCommand);
+		}
+		
+	}
+
+	private void validateAdvancedSearch(Errors errors,
+			PersonSearchCommand personSearchCommand) {
 		if (hasAgeRange(personSearchCommand) && hasDOB(personSearchCommand)) {
 			errors.rejectValue("ageRangeStart", "ageAndDOBAtSameTime", "Age and DOB cannot be entered at the same time");
 		}
@@ -75,15 +112,5 @@ public class PersonSearchCommandValidator {
 		if(advanceSearch.getSourceSystems() == null || advanceSearch.getSourceSystems().size() == 0){
 			errors.reject("missingRequiredInput","No Source Systems to search are selected.");
 		}
-	}
-
-	private boolean hasDOB(PersonSearchCommand personSearchCommand) {
-		PersonSearchRequest advanceSearch = personSearchCommand.getAdvanceSearch();
-		return advanceSearch.getPersonDateOfBirth() != null || advanceSearch.getPersonDateOfBirthRangeEnd() != null
-		        || advanceSearch.getPersonDateOfBirthRangeStart() != null;
-	}
-
-	private boolean hasAgeRange(PersonSearchCommand personSearchCommand) {
-		return personSearchCommand.getAgeRangeStart() != null || personSearchCommand.getAgeRangeEnd() != null;
 	}
 }

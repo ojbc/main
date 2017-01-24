@@ -41,6 +41,8 @@ public class PersonSearchCommand implements Serializable{
 	private String simpleSearch;
 	private Integer ageRangeStart;
 	private Integer ageRangeEnd;
+	
+	private PersonSearchRequest parsedPersonSearchRequest;
 
 	public PersonSearchRequest getAdvanceSearch() {
 		return advanceSearch;
@@ -123,5 +125,13 @@ public class PersonSearchCommand implements Serializable{
     public void setSearchType(PersonSearchType searchType) {
         this.searchType = searchType;
     }
+
+	public PersonSearchRequest getParsedPersonSearchRequest() {
+		return parsedPersonSearchRequest;
+	}
+
+	public void setParsedPersonSearchRequest(PersonSearchRequest parsedPersonSearchRequest) {
+		this.parsedPersonSearchRequest = parsedPersonSearchRequest;
+	}
 
 }

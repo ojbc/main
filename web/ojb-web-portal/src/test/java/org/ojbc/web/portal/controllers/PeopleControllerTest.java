@@ -33,8 +33,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.PersonSearchInterface;
 import org.ojbc.web.SearchFieldMetadata;
@@ -49,17 +53,35 @@ import org.ojbc.web.portal.controllers.helpers.UserSession;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.portal.validators.PersonSearchCommandValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.validation.BindingResult;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration({
+        "classpath:dispatcher-servlet.xml",
+        "classpath:application-context.xml",
+        "classpath:static-configuration-demostate.xml", "classpath:security-context.xml"
+        })
+@ActiveProfiles("standalone")
+@DirtiesContext
 public class PeopleControllerTest {
+	@InjectMocks
 	private PeopleController unit;
 	private PersonSearchCommand personSearchCommand;
 	private PersonSearchInterface personSearchInterface;
 	private Map<String, Object> model;
 	private String federatedQueryId = "dafdasf-324rfdsaf-vddf";
+	@Mock
 	private PersonSearchCommandValidator personSearchCommandValidator;
 	private PersonSearchCommandUtils personSearchCommandUtils;
 	private SearchResultConverter searchResultConverter;
+	@Autowired
 	private SimpleSearchParser simpleSearchParser;
 	private ArgumentCaptor<Map> paramsCaptor;
 
@@ -73,16 +95,17 @@ public class PeopleControllerTest {
 
 	@Before
 	public void setup() {
+		MockitoAnnotations.initMocks(this);
 		personSearchCommand = new PersonSearchCommand();
 		model = new HashMap<String, Object>();
 		personSearchInterface = mock(PersonSearchInterface.class);
-		personSearchCommandValidator = mock(PersonSearchCommandValidator.class);
+//		personSearchCommandValidator = mock(PersonSearchCommandValidator.class);
 		personSearchCommandUtils = mock(PersonSearchCommandUtils.class);
 		errors = mock(BindingResult.class);
 		searchResultConverter = mock(SearchResultConverter.class);
 		detailsQueryInterface = mock(DetailsQueryInterface.class);
 		userSession = mock(UserSession.class);
-		simpleSearchParser = mock(SimpleSearchParser.class);
+//		simpleSearchParser = mock(SimpleSearchParser.class);
 		servletRequest = mock(HttpServletRequest.class);
 		samlService = mock(SamlService.class);
 		
@@ -116,6 +139,7 @@ public class PeopleControllerTest {
 				return detailsQueryInterface;
 			}
 		};
+		
 	}
 
 	@Test
@@ -195,7 +219,6 @@ public class PeopleControllerTest {
 
 		String expectedView = unit.advanceSearch(servletRequest, personSearchCommand, errors, model);
 
-		verify(personSearchCommandValidator).validate(personSearchCommand, errors);
 		verify(userSession).setMostRecentSearchResult("some xml");
 		verify(userSession).setMostRecentSearchType(PersonSearchType.ADVANCED);
 
@@ -282,12 +305,11 @@ public class PeopleControllerTest {
 	@SuppressWarnings("unchecked")
     @Test
 	public void simpleSearchSuccess() throws Exception {
-		PersonSearchRequest personSearchRequest = new PersonSearchRequest();
-		when(simpleSearchParser.validateAndParseSimpleSearch(personSearchCommand, errors)).thenReturn(
-		        personSearchRequest);
+		
+		simpleSearchParser.validateAndParseSimpleSearch(personSearchCommand, errors);
 		when(errors.hasErrors()).thenReturn(false);
 
-		when(personSearchInterface.invokePersonSearchRequest(personSearchRequest, federatedQueryId, null)).thenReturn(
+		when(personSearchInterface.invokePersonSearchRequest(personSearchCommand.getParsedPersonSearchRequest(), federatedQueryId, null)).thenReturn(
 		        "some search result");
 		when(searchResultConverter.convertPersonSearchResult(eq("some search result"),paramsCaptor.capture())).thenReturn(
 		        "some converted search result");
@@ -310,9 +332,7 @@ public class PeopleControllerTest {
 
 	@Test
 	public void simpleSearchFail() throws Exception {
-		PersonSearchRequest personSearchRequest = new PersonSearchRequest();
-		when(simpleSearchParser.validateAndParseSimpleSearch(personSearchCommand, errors)).thenReturn(
-		        personSearchRequest);
+		simpleSearchParser.validateAndParseSimpleSearch(personSearchCommand, errors);
 		when(errors.hasErrors()).thenReturn(true);
 
 		String expectedView = unit.simpleSearch( servletRequest, personSearchCommand, errors, model);
