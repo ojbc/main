@@ -122,9 +122,10 @@ public class PeopleController {
 	@Resource
 	SamlService samlService;
 
-	@InitBinder
+	@InitBinder("personSearchCommand")
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(DateTime.class, new DateTimePropertyEditor());
+		binder.addValidators(personSearchCommandValidator);
 	}
 
 	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
@@ -148,15 +149,12 @@ public class PeopleController {
 
 
 	@RequestMapping(value = "simpleSearch", method = RequestMethod.POST)
-	public String simpleSearch(HttpServletRequest request, @Valid @ModelAttribute("personSearchCommand") PersonSearchCommand personSearchCommand,
+	public String simpleSearch(HttpServletRequest request, @ModelAttribute("personSearchCommand") @Valid PersonSearchCommand personSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		
 		userSession.setMostRecentSearch(personSearchCommand);
 		userSession.setMostRecentSearchType(PersonSearchType.SIMPLE);
 		model.put("activeSearchTab", "simpleSearchTab");
-
-		PersonSearchRequest personSearchRequest = simpleSearchParser.validateAndParseSimpleSearch(personSearchCommand,
-		        errors);
 
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
@@ -164,7 +162,7 @@ public class PeopleController {
 			return personSearchForm;
 		}
 
-		return performSearchAndReturnResults(model, personSearchRequest, request); 
+		return performSearchAndReturnResults(model, personSearchCommand.getParsedPersonSearchRequest(), request); 
 	}
 
 	private void populateModelActiveSearchTabFromSession(Map<String, Object> model) {
@@ -242,13 +240,11 @@ public class PeopleController {
     }
 	
 	@RequestMapping(value = "advanceSearch", method = RequestMethod.POST)
-	public String advanceSearch(HttpServletRequest request, @ModelAttribute("personSearchCommand") @Valid PersonSearchCommand personSearchCommand,
+	public String advanceSearch(HttpServletRequest request,  @Valid @ModelAttribute("personSearchCommand") PersonSearchCommand personSearchCommand,
 	        BindingResult errors, Map<String, Object> model) throws Exception {
 		userSession.setMostRecentSearch(personSearchCommand);
 		userSession.setMostRecentSearchType(personSearchCommand.getSearchType());
 		model.put("activeSearchTab", personSearchCommand.getSearchType().name().toLowerCase() + "SearchTab");
-
-		personSearchCommandValidator.validate(personSearchCommand, errors);
 
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
@@ -266,6 +262,7 @@ public class PeopleController {
 			@RequestParam("searchResultCategory") String searchResultCategory,
 	        @ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
 	        Map<String, Object> model) {
+		log.info("in searchDetails");
 		try {
 			
 			processDetailRequest(request, systemName, detailsRequest, model);
@@ -365,6 +362,7 @@ public class PeopleController {
 
 
     private String getDetailResultViaWebService(String systemName, DetailsRequest detailsRequest, HttpServletRequest request) throws Exception {
+    	log.info("in getDetailResultViaWebService");
         String searchContent = config.getDetailsQueryBean().invokeRequest(detailsRequest, getFederatedQueryId(), 
 		        samlService.getSamlAssertion(request));
         return searchContent;

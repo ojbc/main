@@ -17,7 +17,9 @@
 package org.ojbc.web.portal.controllers.simpleSearchExtractors;
 
 import org.ojbc.web.model.person.search.PersonSearchRequest;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FBIIDExtractor extends SearchTermExtractorBase {
 	
 	// FBI ID patterns

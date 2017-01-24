@@ -24,6 +24,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.ojbc.web.OjbcWebConstants;
 import org.ojbc.web.SearchFieldMetadata;
@@ -144,7 +145,7 @@ public class PersonSearchRequest implements Serializable{
 		return personSID;
 	}
 	public void setPersonSID(String personSID) {
-		this.personSID = StringEscapeUtils.escapeHtml(personSID);
+		this.personSID = StringUtils.upperCase(StringEscapeUtils.escapeHtml(personSID));
 	}
 	public SearchFieldMetadata getPersonGivenNameMetaData() {
 		return personName.getGivenNameMetaData();
