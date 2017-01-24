@@ -139,8 +139,96 @@ public class CamelContextTest {
     	    }              
     	});       	
 
+    	// mock the web service endpoints
+    	context.getRouteDefinition("warrant_cancellation_route").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	
+    	    	// mock the adapter endpoint
+    	    	mockEndpointsAndSkip("cxf:bean:warrantIssuedReportingAdapterService*");    	    	
+    	    }              
+    	});  
+    	
 		context.start();		
 	}
+	
+	@Test
+	public void testContextWarrantCancellationRoute() throws Exception{
+		
+    	// will get one message
+		warrantReportingMockEndpoint.expectedMessageCount(1);
+		
+		//logging endpoint will get one message from derived routes.
+		loggingEndpoint.expectedMessageCount(1);
+		
+    	//Create a new exchange
+    	Exchange senderExchange = new DefaultExchange(context);
+    	
+    	//Test the entire web service route by sending through an warrant report
+		Document doc = createDocument();
+		List<SoapHeader> soapHeaders = new ArrayList<SoapHeader>();
+		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
+		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
+
+	    //Read the warrant report from the file system
+	    File inputFile = new File("src/test/resources/xmlInstances/warrantReporting/WarrantCancelledReport.xml");
+	    String inputStr = FileUtils.readFileToString(inputFile);
+	    
+	    assertNotNull(inputStr);
+	    
+	    senderExchange.getIn().setHeader("operationName", "ReportWarrantCancelled");
+	    senderExchange.getIn().setHeader("operationNamespace", "http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0");
+	    
+	    //Set it as the message message body
+	    senderExchange.getIn().setBody(inputStr);
+
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:WarrantIssuedReportingService", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		//Sleep while a response is generated
+		Thread.sleep(1000);
+
+		//Assert that the mock endpoint expectations are satisfied
+		warrantReportingMockEndpoint.assertIsSatisfied();
+		loggingEndpoint.assertIsSatisfied();
+		
+		//Get the first exchange (the only one)
+		Exchange ex = warrantReportingMockEndpoint.getExchanges().get(0);
+		
+		String opName = (String)ex.getIn().getHeader("operationName");
+		assertEquals("ReportWarrantCancelled", opName);
+		
+		String opNamespace = (String)ex.getIn().getHeader("operationNamespace");
+		assertEquals("http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0", opNamespace);
+
+		Document returnDocWarrantAdapter = ex.getIn().getBody(Document.class);
+
+		XmlUtils.printNode(returnDocWarrantAdapter);
+		
+		Node warrantRootNode = XmlUtils.xPathNodeSearch(returnDocWarrantAdapter, "/wcr-doc:WarrantCancelledReport");
+		
+		assertNotNull(warrantRootNode);
+
+		//Get the first exchange (the only one) to the logger
+		//This is what would be sent to the derived bundle
+		Exchange derivedBundleExchange = loggingEndpoint.getExchanges().get(0);
+
+		Document returnDocDerivedBundle = derivedBundleExchange.getIn().getBody(Document.class);
+
+		//Make sure the root node here is the message to the original exchange
+		Node derivedBundleMsgRootNode = XmlUtils.xPathNodeSearch(returnDocDerivedBundle, "/wcr-doc:WarrantCancelledReport");
+		assertNotNull(derivedBundleMsgRootNode);
+		
+		warrantReportingMockEndpoint.reset();
+		loggingEndpoint.reset();
+	}
+	
 
 	@Test
 	public void testContextWarrantModificationRoute() throws Exception{
@@ -199,7 +287,6 @@ public class CamelContextTest {
 
 		Document returnDocWarrantAdapter = ex.getIn().getBody(Document.class);
 
-		System.out.println("Print node");
 		XmlUtils.printNode(returnDocWarrantAdapter);
 		
 		Node warrantRootNode = XmlUtils.xPathNodeSearch(returnDocWarrantAdapter, "/wmr-doc:WarrantModificationReport");
