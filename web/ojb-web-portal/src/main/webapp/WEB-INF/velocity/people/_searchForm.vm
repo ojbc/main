@@ -214,8 +214,8 @@
     				        
     				        <div class="labelText" >
     				        	DOB From: 
-    				        		#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='datePicker mdate'")<br>
-    				        		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='datePicker mdate'")
+    				        		#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='mdate'")<br>
+    				        		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='mdate'")
     				        		#springBind("personSearchCommand.advanceSearch.personDateOfBirthRangeStart")
                                  #springShowErrors( "<br/>" "error" )
     				        </div>
