@@ -20,6 +20,7 @@ import static org.junit.Assert.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.Arrays;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -100,7 +101,7 @@ public class TestDatabaseLoad {
 
 		ResultSet rs1 = connection.createStatement().executeQuery("select * from booking where booking_number = '1234'");
 		assertTrue(rs1.next());
-		assertEquals("profile.jpg", rs1.getString("booking_photo"));
+		assertTrue(Arrays.equals("hello".getBytes(), rs1.getBytes("booking_photo")));
 		assertEquals("1234", rs1.getString("booking_number"));
 		
 		ResultSet rs2 = connection.createStatement().executeQuery("select * from charge where id = 1");
