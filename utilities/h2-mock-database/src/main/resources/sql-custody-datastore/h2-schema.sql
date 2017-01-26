@@ -76,7 +76,7 @@ CREATE TABLE booking (
                 booking_number VARCHAR(50) NOT NULL,
                 booking_date DATE,
                 facility VARCHAR(50),
-                booking_photo VARCHAR(250),
+                booking_photo BINARY,
                 actual_release_datetime TIMESTAMP,
                 commit_date DATE,
                 scheduled_release_date DATE,

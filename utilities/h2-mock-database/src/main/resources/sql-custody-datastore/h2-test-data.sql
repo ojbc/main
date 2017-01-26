@@ -22,7 +22,7 @@ INSERT INTO person(person_unique_identifier, sex_offender, allow_deposits, educa
 ('abc1234', false, true,'phd', 'francais', null, 'H', null, null, null, null, null, null, 'marge', null, 'NullValues', null, 'software engineer', 'ACT');
 
 INSERT INTO booking(person_id, booking_number, booking_date, facility, booking_photo, actual_release_datetime, commit_date, scheduled_release_date, block, bed, cell, case_status, inmate_work_release_indicator, inmate_worker_indicator, probationer_indicator, incarcerated_indicator) values
-(1, '1234', date '2000-01-01', 'county jail', 'profile.jpg', date '2000-01-01', date '2000-01-01', date '2000-01-01', 'a', '23', '7', '1', true, true, true, false);
+(1, '1234', date '2000-01-01', 'county jail', '68656c6c6f', date '2000-01-01', date '2000-01-01', date '2000-01-01', 'a', '23', '7', '1', true, true, true, false);
 
 INSERT INTO arrest(booking_id, arrest_unique_identifier, arrest_agency) VALUES (1, '9191919','Chips');
 
