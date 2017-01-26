@@ -65,7 +65,7 @@
 			
 		</camel:route>		
 		
-		<camel:route id="checkDatabaseForAcceptedWarrantsRoute" >
+		<camel:route id="checkDatabaseForAcceptedWarrantsRoute" autoStartup="{{warrantModConnnector.checkForAcceptedWarrants}}">
 			<camel:from uri="initiateWarrantModificationRequestTimerEndpoint"/>
 			<setBody>
        			<constant>SELECT WarrantID FROM Warrant WHERE StateWarrantRepositoryID is not null AND warrantModRequestSent = false</constant>
