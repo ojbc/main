@@ -204,16 +204,20 @@
   		</xsl:choose>
     </xsl:template>
     
+    <xsl:template match="nc:PersonName" mode="constructName">
+    	<xsl:if test="position() != 1">
+    		<xsl:text> / </xsl:text>
+        </xsl:if>	
+		<xsl:value-of select="concat(nc:PersonSurName,', ',nc:PersonGivenName)" />
+              
+    </xsl:template>
+    
     <xsl:template match="ch-doc:CriminalHistory/ch-ext:RapSheet" >
         <table class="detailsTable">
             <tr>
-            
-             <xsl:for-each select="rap:RapSheetPerson/nc:PersonName">
-                <td colspan="8" class="detailsFullName">
-                <xsl:value-of select="concat(nc:PersonSurName,', ',nc:PersonGivenName)" />
-                </td>
-             </xsl:for-each>
-             
+            	<td colspan="8" class="detailsFullName">
+           			<xsl:apply-templates select="rap:RapSheetPerson/nc:PersonName" mode="constructName"/> 
+           		</td>
             </tr>
             <tr>
                 <td colspan="8" class="detailsTitle">SUBJECT DETAILS</td>
@@ -296,18 +300,21 @@
             <tr>
                 <td colspan="2" class="detailsLabel">RESIDENCE ADDRESS</td>
                 
-                <xsl:for-each select="nc:Location/nc:LocationAddress">
-                <xsl:choose>
-                	<xsl:when test="nc:StructuredAddress">
-                		<xsl:variable name="addr" select="nc:StructuredAddress" />
-	               	    <td colspan="6"><xsl:value-of select="concat($addr/nc:LocationStreet,', ',$addr/nc:LocationCityName,', ',$addr/nc:LocationStateUSPostalServiceCode, ' ', $addr/nc:LocationPostalCode)"/></td>
-                	</xsl:when>
-	                <xsl:when test="nc:AddressFullText"> 
-	                	<xsl:variable name="addr" select="nc:AddressFullText" />
-	                	<td colspan="6"><xsl:value-of select="$addr"/></td>
-	                </xsl:when>
-            	</xsl:choose>
-            	</xsl:for-each>
+                 <td colspan="6">
+                	<xsl:apply-templates select="nc:Location/nc:LocationAddress" mode="constructAddress"/>
+                 </td>
+<!--                 <xsl:for-each select="nc:Location/nc:LocationAddress"> -->
+<!-- 	                <xsl:choose> -->
+<!-- 	                	<xsl:when test="nc:StructuredAddress"> -->
+<!-- 	                		<xsl:variable name="addr" select="nc:StructuredAddress" /> -->
+<!-- 		               	    <td colspan="6"><xsl:value-of select="concat($addr/nc:LocationStreet,', ',$addr/nc:LocationCityName,', ',$addr/nc:LocationStateUSPostalServiceCode, ' ', $addr/nc:LocationPostalCode)"/></td> -->
+<!-- 	                	</xsl:when> -->
+<!-- 		                <xsl:when test="nc:AddressFullText">  -->
+<!-- 		                	<xsl:variable name="addr" select="nc:AddressFullText" /> -->
+<!-- 		                	<td colspan="6"><xsl:value-of select="$addr"/></td> -->
+<!-- 		                </xsl:when> -->
+<!-- 	            	</xsl:choose> -->
+<!--             	</xsl:for-each> -->
             	
             </tr>
             <tr>
@@ -321,6 +328,21 @@
             </tr>  
         </table>
         
+    </xsl:template>
+    <xsl:template match="nc:LocationAddress" mode="constructAddress">
+    		<xsl:if test="position() != 1">
+    			<xsl:text> / </xsl:text>
+    		</xsl:if>
+ 	 		<xsl:choose>
+              	<xsl:when test="nc:StructuredAddress">
+              		<xsl:variable name="addr" select="nc:StructuredAddress" />
+              	   <xsl:value-of select="concat($addr/nc:LocationStreet,', ',$addr/nc:LocationCityName,', ',$addr/nc:LocationStateUSPostalServiceCode, ' ', $addr/nc:LocationPostalCode)"/>
+              	</xsl:when>
+               <xsl:when test="nc:AddressFullText"> 
+               	<xsl:variable name="addr" select="nc:AddressFullText" />
+               		<xsl:value-of select="$addr"/>
+               </xsl:when>
+          	</xsl:choose>
     </xsl:template>
     <xsl:template match="rap:SubjectCautionInformationText">
     	<xsl:value-of select="."/><br/>

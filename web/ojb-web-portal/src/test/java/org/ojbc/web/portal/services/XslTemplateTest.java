@@ -154,6 +154,11 @@ public class XslTemplateTest {
     public void criminalHistorySearchDetail() throws Exception {
         validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory.xml", "criminalHistory.html");
     }
+    
+    @Test
+    public void criminalHistoryWithMultipleAddresses() throws Exception {
+        validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory-multiple-addresses.xml", "criminalHistory-multiple-addresses.html");
+    }
 
     @Test
     public void incidentPersonSearchDetail() throws Exception {
