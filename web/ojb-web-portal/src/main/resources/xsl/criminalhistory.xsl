@@ -301,20 +301,9 @@
                 <td colspan="2" class="detailsLabel">RESIDENCE ADDRESS</td>
                 
                  <td colspan="6">
-                	<xsl:apply-templates select="nc:Location/nc:LocationAddress" mode="constructAddress"/>
+<!--                 	<xsl:apply-templates select="nc:Location/nc:LocationAddress" mode="constructAddress"/> -->
+						<xsl:apply-templates select="nc:ResidenceAssociation"/>
                  </td>
-<!--                 <xsl:for-each select="nc:Location/nc:LocationAddress"> -->
-<!-- 	                <xsl:choose> -->
-<!-- 	                	<xsl:when test="nc:StructuredAddress"> -->
-<!-- 	                		<xsl:variable name="addr" select="nc:StructuredAddress" /> -->
-<!-- 		               	    <td colspan="6"><xsl:value-of select="concat($addr/nc:LocationStreet,', ',$addr/nc:LocationCityName,', ',$addr/nc:LocationStateUSPostalServiceCode, ' ', $addr/nc:LocationPostalCode)"/></td> -->
-<!-- 	                	</xsl:when> -->
-<!-- 		                <xsl:when test="nc:AddressFullText">  -->
-<!-- 		                	<xsl:variable name="addr" select="nc:AddressFullText" /> -->
-<!-- 		                	<td colspan="6"><xsl:value-of select="$addr"/></td> -->
-<!-- 		                </xsl:when> -->
-<!-- 	            	</xsl:choose> -->
-<!--             	</xsl:for-each> -->
             	
             </tr>
             <tr>
@@ -329,8 +318,29 @@
         </table>
         
     </xsl:template>
+	
+	<xsl:template match="nc:ResidenceAssociation">
+		<xsl:variable name="position" select="position()"/>
+		<xsl:apply-templates select="nc:LocationReference">
+			<xsl:with-param name="position" select="$position"/>
+		</xsl:apply-templates>
+	</xsl:template>
+	<xsl:template match="nc:LocationReference">
+		<xsl:param name="position"/>
+		<xsl:variable name="locationID" select="@s:ref"/>
+		<xsl:apply-templates select="/ch-doc:CriminalHistory/ch-ext:RapSheet/nc:Location[@s:id=$locationID]">
+			<xsl:with-param name="position" select="$position"/>
+		</xsl:apply-templates>
+	</xsl:template>
+	<xsl:template match="nc:Location">
+		<xsl:param name="position"/>
+		<xsl:apply-templates select="nc:LocationAddress" mode="constructAddress">
+			<xsl:with-param name="position" select="$position"/>
+		</xsl:apply-templates>
+	</xsl:template>
     <xsl:template match="nc:LocationAddress" mode="constructAddress">
-    		<xsl:if test="position() != 1">
+    <xsl:param name="position"/>
+    		<xsl:if test="$position != 1">
     			<xsl:text> / </xsl:text>
     		</xsl:if>
  	 		<xsl:choose>
