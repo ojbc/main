@@ -143,6 +143,10 @@
 			<nc:PersonReference s:ref="P1"/>
 			<nc:LocationReference s:ref="L1"/>
 		</nc:ResidenceAssociation>
+		<nc:ResidenceAssociation>
+			<nc:PersonReference s:ref="P1"/>
+			<nc:LocationReference s:ref="L2"/>
+		</nc:ResidenceAssociation>
 		<ch-ext:RapSheetCycle>
 			<rap:CycleEarliestDate>
 				<nc:Date>1999-03-15</nc:Date>
