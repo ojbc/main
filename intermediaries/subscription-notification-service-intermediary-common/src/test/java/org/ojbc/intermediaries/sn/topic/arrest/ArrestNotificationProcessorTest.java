@@ -82,7 +82,7 @@ public class ArrestNotificationProcessorTest {
         Object receivedEmailBody = e.getOut().getBody();
         assertEquals(expectedEmailBody, receivedEmailBody);
         assertEquals("po1@localhost", e.getOut().getHeader(NotificationConstants.HEADER_TO));
-        
+        assertEquals("{http://demostate.gov/SystemNames/1.0}SystemA", e.getOut().getHeader(NotificationConstants.HEADER_SUBSCRIBING_SYSTEM_IDENTIFIER));
     }
     
     @Test

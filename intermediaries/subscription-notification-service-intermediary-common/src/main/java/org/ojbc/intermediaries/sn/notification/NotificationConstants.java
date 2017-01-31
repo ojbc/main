@@ -23,6 +23,7 @@ public class NotificationConstants {
     public static final String HEADER_BCC = "BCC";
     public static final String HEADER_BLOCKED = "blocked";
 	public static final String HEADER_SUBJECT = "subject";
+	public static final String HEADER_SUBSCRIBING_SYSTEM_IDENTIFIER = "subscribingSystemIdentifier";
 	public static final String HEADER_SUBJECT_IDENTIFIER = "subjectIdentifier";
     public static final String HEADER_EMAIL_NOTIFICATIONS = "emailNotifications";
     public static final String HEADER_NOTIFICATION_TOPIC = "notificationTopic";

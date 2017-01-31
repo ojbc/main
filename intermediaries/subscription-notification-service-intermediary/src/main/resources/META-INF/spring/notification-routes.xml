@@ -168,10 +168,11 @@
 
 		<camel:route>
 			<camel:from uri="direct:processEmailNotifications" />
-			<camel:log message="The email address(es) ${in.header.to} will be sent a notification.  To: ${in.header.to}, CC: ${in.header.cc}, BCC: ${in.header.bcc}"
+			<camel:log message="The email address(es) ${in.header.to} will be sent a notification.  To: ${in.header.to}, CC: ${in.header.cc}, BCC: ${in.header.bcc}.  Subscribing system identifer: ${in.header.subscribingSystemIdentifier}"
 				logName="notificationLogger" />
 
 			<removeHeaders pattern="emailBody" />
+			<removeHeaders pattern="subscribingSystemIdentifier" />
 
 			<!-- Update last notification sent timestamp here -->
 			<camel:to uri="bean:notificationsSentStrategy?method=updateNotificationSentTimestamp" />

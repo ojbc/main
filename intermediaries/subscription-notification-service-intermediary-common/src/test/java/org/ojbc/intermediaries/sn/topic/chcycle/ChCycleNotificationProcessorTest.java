@@ -75,6 +75,7 @@ public class ChCycleNotificationProcessorTest {
         
         assertEquals(EXPECTED_EMAIL_TEXT, e.getOut().getBody());
         assertEquals("po1@localhost", e.getOut().getHeader(NotificationConstants.HEADER_TO));
+        assertEquals("{http://ojbc.org}ProbationChCyleTrackingID", e.getOut().getHeader(NotificationConstants.HEADER_SUBSCRIBING_SYSTEM_IDENTIFIER));
         
     }
     
