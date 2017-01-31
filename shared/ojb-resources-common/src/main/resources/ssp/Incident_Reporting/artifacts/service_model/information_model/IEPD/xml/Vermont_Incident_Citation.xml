@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2015 Open Justice Broker Consortium
-
--->
+<!-- Unless explicitly acquired and licensed from Licensor under another 
+	license, the contents of this file are subject to the Reciprocal Public License 
+	("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You 
+	may not copy or use this file in either source code or executable form, except 
+	in compliance with the terms and conditions of the RPL All software distributed 
+	under the RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY 
+	OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL 
+	SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, 
+	FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See 
+	the RPL for specific language governing rights and limitations under the 
+	RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2015 Open Justice 
+	Broker Consortium -->
 <ir-doc:IncidentReport
 	xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
@@ -168,7 +162,7 @@
 								<nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
 								<nc:PersonHeightMeasure>
 									<nc:MeasurePointValue>5.07</nc:MeasurePointValue>
-									<nc:LengthUnitCode>C63</nc:LengthUnitCode>
+									<nc:LengthUnitCode>FOT</nc:LengthUnitCode>
 								</nc:PersonHeightMeasure>
 								<nc:PersonName>
 									<nc:PersonGivenName>Jennifer</nc:PersonGivenName>
@@ -298,12 +292,6 @@
 								<nc:VehicleMakeCode>TOYT</nc:VehicleMakeCode>
 							</nc:Vehicle>
 						</lexsdigest:EntityVehicle>
-						<!--lexsdigest:EntityVessel> <nc:Vessel s:id="VESSEL_01"> <nc:ItemColorDescriptionText/> 
-							<nc:ItemMakeName/> <nc:ItemModelName/> <nc:ItemModelYearDate>2010</nc:ItemModelYearDate> 
-							<nc:ConveyanceRegistrationPlateIdentification> <nc:IdentificationID>87YFR</nc:IdentificationID> 
-							<nc:IdentificationJurisdictionFIPS10-4Code>VT</nc:IdentificationJurisdictionFIPS10-4Code> 
-							</nc:ConveyanceRegistrationPlateIdentification> <nc:VesselHullIdentification> 
-							<nc:IdentificationID/> </nc:VesselHullIdentification> </nc:Vessel> </lexsdigest:EntityVessel -->
 						<!-- ======================= Associations ======================= -->
 						<lexsdigest:Associations>
 							<j:ActivityEnforcementOfficialAssociation>
@@ -385,12 +373,6 @@
 										lexslib:ref="LOCATION_01" />
 								</ndexia:LocationAugmentation>
 							</ndexia:Location>
-							<!-- <ndexia:Location> -->
-							<!-- <nc:LocationDescriptionText>Buffalo, NY</nc:LocationDescriptionText> -->
-							<!-- <ndexia:LocationAugmentation> -->
-							<!-- <lexslib:SameAsDigestReference lexslib:ref="LOCATION_02"/> -->
-							<!-- </ndexia:LocationAugmentation> -->
-							<!-- </ndexia:Location> -->
 							<ndexia:Location>
 								<nc:LocationHighway>
 									<nc:HighwayID>Rt. 89</nc:HighwayID>
