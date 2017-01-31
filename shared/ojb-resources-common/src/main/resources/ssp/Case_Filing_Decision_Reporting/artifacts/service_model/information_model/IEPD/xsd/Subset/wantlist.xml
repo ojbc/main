@@ -36,6 +36,7 @@
   <w:Element w:name="j:OffenseLocationAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:ActivityDateRange" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Address" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Base64BinaryObject" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Case" w:isReference="false" w:nillable="true"/>
@@ -223,6 +224,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:StatuteDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:StatuteOffenseIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ActivityType" w:isRequested="true">
     <w:ElementInType w:name="nc:ActivityIdentification"
@@ -256,6 +259,12 @@
     <w:ElementInType w:name="nc:CaseAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:DateRangeType" w:isRequested="false">
+    <w:ElementInType w:name="nc:StartDate" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:EndDate" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:DateType" w:isRequested="false">
     <w:ElementInType w:name="nc:DateRepresentation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -264,6 +273,8 @@
     <w:ElementInType w:name="nc:DocumentCategory" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:DocumentCreationDate"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:DocumentDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:DocumentEffectiveDate"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>

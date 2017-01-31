@@ -299,6 +299,7 @@
           <xs:element ref="j:StatuteCodeIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:StatuteCodeSectionIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:StatuteDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:StatuteOffenseIdentification" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -546,6 +547,11 @@
   <xs:element name="StatuteDescriptionText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A description of a statute.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="StatuteOffenseIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification of a criminal offense within a code book.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>
