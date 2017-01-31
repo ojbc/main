@@ -61,7 +61,11 @@
       <xs:documentation>A data type for a digital representation of an object encoded in a binary format.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="structures:ObjectType"/>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:BinaryObject" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="ConditionType">
@@ -224,6 +228,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:PersonBirthDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:PersonDigitalImage" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonEthnicity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:PersonRace" minOccurs="0" maxOccurs="unbounded"/>
@@ -316,6 +321,11 @@
   <xs:element name="Amount" type="niem-xs:decimal" nillable="true">
     <xs:annotation>
       <xs:documentation>An amount of money.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="BinaryObject" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a binary encoding of data.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ConditionSetDate" type="nc:DateType" nillable="true">
@@ -441,6 +451,11 @@
   <xs:element name="PersonBirthDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date a person was born.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonDigitalImage" type="nc:ImageType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A photograph or image of a person in a digital format.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="PersonEthnicity" abstract="true">

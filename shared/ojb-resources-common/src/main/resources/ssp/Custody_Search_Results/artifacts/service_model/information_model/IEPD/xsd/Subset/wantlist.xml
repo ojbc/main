@@ -141,6 +141,10 @@
     <w:ElementInType w:name="nc:Amount" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:BinaryType" w:isRequested="true">
+    <w:ElementInType w:name="nc:BinaryObject" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:ConditionType" w:isRequested="false">
     <w:ElementInType w:name="nc:ConditionSetDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -175,7 +179,7 @@
     <w:ElementInType w:name="nc:IdentificationSourceText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:ImageType" w:isRequested="false">
+  <w:Type w:name="nc:ImageType" w:isRequested="true">
     <w:ElementInType w:name="nc:ImageLocation" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -212,6 +216,8 @@
   <w:Type w:name="nc:PersonType" w:isRequested="false">
     <w:ElementInType w:name="nc:PersonBirthDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonDigitalImage"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonEthnicity" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonName" w:isReference="false"
@@ -253,5 +259,6 @@
     <w:Facet w:facet="enumeration" w:value="M"/>
     <w:Facet w:facet="enumeration" w:value="U"/>
   </w:Type>
+  <w:Type w:name="niem-xs:base64Binary" w:isRequested="true"/>
   <w:Type w:name="niem-xs:duration" w:isRequested="true"/>
 </w:WantList>
