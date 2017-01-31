@@ -20,6 +20,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
@@ -50,6 +51,7 @@
 					<xsd:element ref="cs-res-ext:CustodySearchResult"
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0" />
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -142,4 +144,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject"
+		type="niem-xs:base64Binary" xmime:expectedContentTypes="application/octet-stream, text/html">
+		</xsd:element>
 </xsd:schema>

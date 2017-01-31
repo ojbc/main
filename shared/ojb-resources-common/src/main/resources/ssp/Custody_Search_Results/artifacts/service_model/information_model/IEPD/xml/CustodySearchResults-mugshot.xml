@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<cs-res-doc:CustodySearchResults
+	xmlns:cs-res-doc="http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0"
+	xmlns:cs-res-ext="http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0 ../xsd/exchange_schema.xsd ">
+	<cs-res-ext:CustodySearchResult
+		structures:id="Result_01">
+		<nc:DocumentCreationDate>
+			<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+		</nc:DocumentCreationDate>
+		<nc:DocumentIdentification>
+			<nc:IdentificationID>record identification</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>record description</nc:IdentificationCategoryDescriptionText>
+		</nc:DocumentIdentification>
+		<nc:Person structures:ref="Person_01" />
+		<cs-res-ext:Booking structures:id="Booking_01">
+			<nc:ActivityDate>
+				<nc:DateTime>2013-12-17T09:30:00</nc:DateTime>
+			</nc:ActivityDate>
+			<j:BookingAgencyRecordIdentification>
+				<nc:IdentificationID>Booking ID</nc:IdentificationID>
+			</j:BookingAgencyRecordIdentification>
+			<j:BookingSubject>
+				<j:SubjectIdentification>
+					<nc:IdentificationID>Booking Number</nc:IdentificationID>
+				</j:SubjectIdentification>
+			</j:BookingSubject>
+		</cs-res-ext:Booking>
+		<j:Charge structures:id="Charge_01">
+			<j:ChargeCountQuantity>0</j:ChargeCountQuantity>
+			<j:ChargeDescriptionText>j:ChargeDescriptionText</j:ChargeDescriptionText>
+			<j:ChargeSentence>
+				<nc:ActivityDate>
+					<nc:Date>2001-08-16</nc:Date>
+				</nc:ActivityDate>
+				<j:SentenceTerm>
+					<j:TermDuration>P1M</j:TermDuration>
+				</j:SentenceTerm>
+			</j:ChargeSentence>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
+				</j:StatuteCodeIdentification>
+			</j:ChargeStatute>
+		</j:Charge>
+		<j:PersonChargeAssociation>
+			<nc:Person structures:ref="Person_01" />
+			<j:Charge structures:ref="Charge_01" />
+		</j:PersonChargeAssociation>
+		<j:ActivityChargeAssociation>
+			<nc:Activity structures:ref="Booking_01" />
+			<j:Charge structures:ref="Charge_01" />
+		</j:ActivityChargeAssociation>
+		<cs-res-ext:SourceSystemNameText>ASCO JMS</cs-res-ext:SourceSystemNameText>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>A0188904</nc:IdentificationID>
+			<nc:SystemName>Court</nc:SystemName>
+		</intel:SystemIdentification>
+		<cs-res-ext:SearchResultCategoryText>Criminal History</cs-res-ext:SearchResultCategoryText>
+		<cs-res-ext:InformationOwningOrganization>
+			<nc:OrganizationBranchName>branch</nc:OrganizationBranchName>
+			<nc:OrganizationName>County Court</nc:OrganizationName>
+		</cs-res-ext:InformationOwningOrganization>
+		<nc:Metadata structures:id="M001">
+			<nc:LastUpdatedDate>
+				<nc:Date>2014-12-10</nc:Date>
+			</nc:LastUpdatedDate>
+		</nc:Metadata>
+	</cs-res-ext:CustodySearchResult>
+	<cs-res-ext:CustodySearchResult
+		structures:id="Result_02">
+		<nc:DocumentCreationDate>
+			<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+		</nc:DocumentCreationDate>
+		<nc:DocumentIdentification>
+			<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
+		</nc:DocumentIdentification>
+		<nc:Person structures:ref="Person_02" />
+		<cs-res-ext:Booking structures:id="Booking_02">
+			<j:FingerprintDate>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</j:FingerprintDate>
+			<j:BookingSubject>
+				<j:SubjectIdentification>
+					<nc:IdentificationID>Booking Number</nc:IdentificationID>
+				</j:SubjectIdentification>
+			</j:BookingSubject>
+		</cs-res-ext:Booking>
+		<j:Charge structures:id="Charge_02">
+			<j:ChargeCountQuantity>0</j:ChargeCountQuantity>
+			<j:ChargeDescriptionText>j:ChargeDescriptionText</j:ChargeDescriptionText>
+			<j:ChargeSentence>
+				<nc:ActivityDate>
+					<nc:Date>2001-08-16</nc:Date>
+				</nc:ActivityDate>
+				<j:SentenceTerm>
+					<j:TermDuration>P2M</j:TermDuration>
+				</j:SentenceTerm>
+			</j:ChargeSentence>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
+				</j:StatuteCodeIdentification>
+			</j:ChargeStatute>
+		</j:Charge>
+		<j:PersonChargeAssociation>
+			<nc:Person structures:ref="Person_02" />
+			<j:Charge structures:ref="Charge_02" />
+		</j:PersonChargeAssociation>
+		<j:ActivityChargeAssociation>
+			<nc:Activity structures:ref="Booking_02" />
+			<j:Charge structures:ref="Charge_02" />
+		</j:ActivityChargeAssociation>
+		<cs-res-ext:SourceSystemNameText>Alpha Court System </cs-res-ext:SourceSystemNameText>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>A0188904</nc:IdentificationID>
+			<nc:SystemName>Court</nc:SystemName>
+		</intel:SystemIdentification>
+		<cs-res-ext:SearchResultCategoryText>Criminal History</cs-res-ext:SearchResultCategoryText>
+		<cs-res-ext:InformationOwningOrganization>
+			<nc:OrganizationBranchName>branch</nc:OrganizationBranchName>
+			<nc:OrganizationName>County Court</nc:OrganizationName>
+		</cs-res-ext:InformationOwningOrganization>
+		<nc:Metadata structures:id="M002">
+			<nc:LastUpdatedDate>
+				<nc:Date>2014-12-10</nc:Date>
+			</nc:LastUpdatedDate>
+		</nc:Metadata>
+	</cs-res-ext:CustodySearchResult>
+	<nc:Person structures:id="Person_01" structures:metadata="M001">
+		<nc:PersonBirthDate>
+			<nc:Date>2001-12-31</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonDigitalImage>
+			<cs-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=
+			</cs-res-ext:Base64BinaryObject>
+		</nc:PersonDigitalImage>
+		<nc:PersonName>
+			<nc:PersonGivenName>nc:PersonGivenName</nc:PersonGivenName>
+			<nc:PersonMiddleName>nc:PersonMiddleName</nc:PersonMiddleName>
+			<nc:PersonSurName>nc:PersonSurName</nc:PersonSurName>
+		</nc:PersonName>
+		<j:PersonRaceCode>A</j:PersonRaceCode>
+		<j:PersonSexCode>M</j:PersonSexCode>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>123-45-6789</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<j:PersonAugmentation>
+			<j:PersonProbationerIndicator>false</j:PersonProbationerIndicator>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>CO1298765678</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+		<cs-res-ext:PersonIncarceratedIndicator>true
+		</cs-res-ext:PersonIncarceratedIndicator>
+	</nc:Person>
+	<nc:Person structures:id="Person_02" structures:metadata="M002">
+		<nc:PersonBirthDate>
+			<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+		</nc:PersonBirthDate>
+		<nc:PersonDigitalImage>
+			<cs-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=
+			</cs-res-ext:Base64BinaryObject>
+		</nc:PersonDigitalImage>
+		<nc:PersonName>
+			<nc:PersonGivenName>nc:PersonGivenName</nc:PersonGivenName>
+			<nc:PersonMiddleName>nc:PersonMiddleName</nc:PersonMiddleName>
+			<nc:PersonSurName>nc:PersonSurName</nc:PersonSurName>
+		</nc:PersonName>
+		<j:PersonRaceCode>A</j:PersonRaceCode>
+		<j:PersonSexCode>M</j:PersonSexCode>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>123-45-6789</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<j:PersonAugmentation>
+			<j:PersonProbationerIndicator>false</j:PersonProbationerIndicator>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>CO1298765678</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+		<cs-res-ext:PersonIncarceratedIndicator>true
+		</cs-res-ext:PersonIncarceratedIndicator>
+	</nc:Person>
+</cs-res-doc:CustodySearchResults>
