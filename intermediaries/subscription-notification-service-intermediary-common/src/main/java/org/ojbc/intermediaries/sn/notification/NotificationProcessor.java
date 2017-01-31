@@ -188,6 +188,7 @@ public abstract class NotificationProcessor {
         String subject = emailFormatter.getEmailSubject(emailNotification);
         
         exchange.getOut().setBody(emailBody);
+        exchange.getOut().setHeader(NotificationConstants.HEADER_SUBSCRIBING_SYSTEM_IDENTIFIER, emailNotification.getSubscribingSystemIdentifier());
         exchange.getOut().setHeader(NotificationConstants.HEADER_SUBJECT, subject);
         exchange.getOut().setHeader(NotificationConstants.HEADER_TO, toAddressees);
         if (ccAddressees != null && !ccAddressees.isEmpty()) {
