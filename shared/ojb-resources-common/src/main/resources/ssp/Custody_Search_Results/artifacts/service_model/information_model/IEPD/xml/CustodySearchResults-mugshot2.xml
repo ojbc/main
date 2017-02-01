@@ -98,7 +98,7 @@
 			<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
 			<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
 		</nc:DocumentIdentification>
-		<nc:Person structures:ref="Person_02" />
+		<nc:Person structures:ref="Person_01" />
 		<cs-res-ext:Booking structures:id="Booking_02">
 			<j:FingerprintDate>
 				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
@@ -131,7 +131,7 @@
 			</j:ChargeStatute>
 		</j:Charge>
 		<j:PersonChargeAssociation>
-			<nc:Person structures:ref="Person_02" />
+			<nc:Person structures:ref="Person_01" />
 			<j:Charge structures:ref="Charge_02" />
 		</j:PersonChargeAssociation>
 		<j:ActivityChargeAssociation>
@@ -152,33 +152,6 @@
 	<nc:Person structures:id="Person_01">
 		<nc:PersonBirthDate>
 			<nc:Date>2001-12-31</nc:Date>
-		</nc:PersonBirthDate>
-		<nc:PersonDigitalImage>
-			<cs-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=
-			</cs-res-ext:Base64BinaryObject>
-		</nc:PersonDigitalImage>
-		<nc:PersonName>
-			<nc:PersonGivenName>nc:PersonGivenName</nc:PersonGivenName>
-			<nc:PersonMiddleName>nc:PersonMiddleName</nc:PersonMiddleName>
-			<nc:PersonSurName>nc:PersonSurName</nc:PersonSurName>
-		</nc:PersonName>
-		<j:PersonRaceCode>A</j:PersonRaceCode>
-		<j:PersonSexCode>M</j:PersonSexCode>
-		<nc:PersonSSNIdentification>
-			<nc:IdentificationID>123-45-6789</nc:IdentificationID>
-		</nc:PersonSSNIdentification>
-		<j:PersonAugmentation>
-			<j:PersonProbationerIndicator>false</j:PersonProbationerIndicator>
-			<j:PersonStateFingerprintIdentification>
-				<nc:IdentificationID>CO1298765678</nc:IdentificationID>
-			</j:PersonStateFingerprintIdentification>
-		</j:PersonAugmentation>
-		<cs-res-ext:PersonIncarceratedIndicator>true
-		</cs-res-ext:PersonIncarceratedIndicator>
-	</nc:Person>
-	<nc:Person structures:id="Person_02">
-		<nc:PersonBirthDate>
-			<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
 		</nc:PersonBirthDate>
 		<nc:PersonDigitalImage>
 			<cs-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=

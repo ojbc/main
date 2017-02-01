@@ -60,6 +60,7 @@
           <xs:element ref="j:FingerprintDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:BookingAgencyRecordIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:BookingSubject" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:BookingAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
