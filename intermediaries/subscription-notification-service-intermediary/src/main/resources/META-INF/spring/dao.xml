@@ -91,6 +91,15 @@
 		<property name="emailFormatter" ref="emailFormatter"/>
 	</bean>
 	
+	<bean id="chCycleNotificationProcessor"
+		class="org.ojbc.intermediaries.sn.topic.chcycle.ChCycleNotificationProcessor">
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
+		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
+		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
+		<property name="emailFormatter" ref="emailFormatter"/>
+	</bean>			
+	
 	<bean id="prosecutionDecisionUpdateNotificationProcessor"
 		class="org.ojbc.intermediaries.sn.topic.prosecutiondecisionupdate.ProsecutionDecisionUpdateNotificationProcessor">
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
