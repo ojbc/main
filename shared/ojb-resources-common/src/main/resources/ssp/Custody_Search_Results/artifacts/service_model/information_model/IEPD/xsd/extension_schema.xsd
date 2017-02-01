@@ -144,7 +144,14 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="LastUpdatedDate" type="nc:DateType"
+		substitutionGroup="j:BookingAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The last date booking information was updated.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject"
 		type="niem-xs:base64Binary" xmime:expectedContentTypes="application/octet-stream, text/html">
-		</xsd:element>
+	</xsd:element>
 </xsd:schema>
