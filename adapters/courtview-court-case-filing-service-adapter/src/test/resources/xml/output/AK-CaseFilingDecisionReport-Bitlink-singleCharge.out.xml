@@ -27,67 +27,58 @@
               xmlns:ijisniem="http://www.maximus.com/justice/IJISBroker/XSD/NIEM/">
    <RecordFilingRequest>
       <core:CoreFilingMessage>
+         <nc:DocumentDescriptionText>Initial</nc:DocumentDescriptionText>
          <ecf:SendingMDELocationID/>
          <ecf:SendingMDEProfileCode/>
          <criminalcase:CriminalCase>
             <nc:ActivityDate>
-               <nc:Date>2016-11-13</nc:Date>
+               <nc:Date>2017-02-02</nc:Date>
             </nc:ActivityDate>
-            <nc:CaseCategoryText>Felony</nc:CaseCategoryText>
-            <nc:CaseTrackingID>CD12951</nc:CaseTrackingID>
+            <nc:CaseCategoryText>Department of Public Safety
+		</nc:CaseCategoryText>
+            <nc:CaseTrackingID>Case Docket ID</nc:CaseTrackingID>
             <j:CaseAugmentation>
                <j:CaseCourt>
                   <nc:OrganizationName>District Court for the State of Alaska
 				</nc:OrganizationName>
-                  <j:CourtName>Third Judicial District of Alaska</j:CourtName>
+                  <j:CourtName>3AN</j:CourtName>
                </j:CaseCourt>
                <j:CaseCourtEvent>
                   <j:CourtEventSchedule>
                      <nc:ScheduleDate>
-                        <nc:Date>2016-12-14</nc:Date>
-                     </nc:ScheduleDate>
-                  </j:CourtEventSchedule>
-               </j:CaseCourtEvent>
-               <j:CaseCourtEvent>
-                  <j:CourtEventSchedule>
-                     <nc:ScheduleDate>
-                        <nc:Date>2016-12-29</nc:Date>
+                        <nc:Date>2016-12-07</nc:Date>
                      </nc:ScheduleDate>
                   </j:CourtEventSchedule>
                </j:CaseCourtEvent>
                <j:CaseDefendantParty>
                   <ecf:EntityPerson>
                      <nc:PersonBirthDate>
-                        <nc:Date>1980-07-26</nc:Date>
+                        <nc:Date>1963-01-01</nc:Date>
                      </nc:PersonBirthDate>
                      <nc:PersonName>
-                        <nc:PersonGivenName>Erin</nc:PersonGivenName>
-                        <nc:PersonMiddleName>D</nc:PersonMiddleName>
-                        <nc:PersonSurName>Smith</nc:PersonSurName>
-                        <nc:PersonFullName>Erin D Smith</nc:PersonFullName>
+                        <nc:PersonGivenName>John</nc:PersonGivenName>
+                        <nc:PersonMiddleName/>
+                        <nc:PersonSurName>Clark</nc:PersonSurName>
+                        <nc:PersonFullName>John Clark</nc:PersonFullName>
                      </nc:PersonName>
                      <nc:PersonOtherIdentification>
-                        <nc:IdentificationID>OL12345678</nc:IdentificationID>
-                        <nc:IdentificationCategoryText>ATV</nc:IdentificationCategoryText>
-                     </nc:PersonOtherIdentification>
-                     <nc:PersonOtherIdentification>
-                        <nc:IdentificationID>SI898709</nc:IdentificationID>
+                        <nc:IdentificationID>9999999</nc:IdentificationID>
                         <nc:IdentificationCategoryText>APSIN</nc:IdentificationCategoryText>
                      </nc:PersonOtherIdentification>
                      <nc:PersonOtherIdentification>
-                        <nc:IdentificationID>123456789</nc:IdentificationID>
+                        <nc:IdentificationID>999999</nc:IdentificationID>
                         <nc:IdentificationCategoryText>DL</nc:IdentificationCategoryText>
-                        <nc:IdentificationSourceText>Alaska</nc:IdentificationSourceText>
+                        <nc:IdentificationSourceText>AK</nc:IdentificationSourceText>
                      </nc:PersonOtherIdentification>
                      <ecf:PersonAugmentation>
                         <nc:ContactInformation>
                            <nc:ContactMailingAddress>
                               <nc:StructuredAddress>
                                  <nc:LocationStreet>
-                                    <nc:StreetFullText>123 N Oak Street Apt #123</nc:StreetFullText>
+                                    <nc:StreetFullText>100 West Main Street</nc:StreetFullText>
                                  </nc:LocationStreet>
-                                 <nc:LocationCityName>Anchorage</nc:LocationCityName>
-                                 <nc:LocationPostalCode>32678</nc:LocationPostalCode>
+                                 <nc:LocationCityName>ANCHORAGE</nc:LocationCityName>
+                                 <nc:LocationPostalCode>99501</nc:LocationPostalCode>
                               </nc:StructuredAddress>
                            </nc:ContactMailingAddress>
                         </nc:ContactInformation>
@@ -98,80 +89,79 @@
                   <nc:RoleOfPersonReference/>
                   <j:JudicialOfficialBarMembership>
                      <j:JudicialOfficialBarIdentification>
-                        <nc:IdentificationID>1205030</nc:IdentificationID>
+                        <nc:IdentificationID>00000000</nc:IdentificationID>
                      </j:JudicialOfficialBarIdentification>
                   </j:JudicialOfficialBarMembership>
                </j:CaseProsecutionAttorney>
             </j:CaseAugmentation>
-            <ijisniem:CaseAugmentation />
+            <ijisniem:CaseAugmentation/>
             <criminalcase:CaseArrest>
                <j:ArrestAgency>
                   <nc:OrganizationName>
-			Alaska Police Department
+			ANCHORAGE POLICE DEPARTMENT
+			
 		</nc:OrganizationName>
                </j:ArrestAgency>
                <j:ArrestAgencyRecordIdentification>
-                  <nc:IdentificationID>13-33222</nc:IdentificationID>
+                  <nc:IdentificationID>16-000000</nc:IdentificationID>
                </j:ArrestAgencyRecordIdentification>
                <j:ArrestOfficial>
                   <j:EnforcementOfficialBadgeIdentification>
-                     <nc:IdentificationID>EO568</nc:IdentificationID>
+                     <nc:IdentificationID>32457</nc:IdentificationID>
                   </j:EnforcementOfficialBadgeIdentification>
                </j:ArrestOfficial>
             </criminalcase:CaseArrest>
             <ijisniem:CriminalCaseCharge>
-               <j:ChargeDescriptionText>The Municipality of Anchorage, by and through its
-					undersigned attorney, charges that on or about the 13th day of
-					October, 2016, at or near Anchorage, Alaska, Erin D Smith did
-					commit the offense of CHILD NEGLECT, to wit:Erin D Smith did
-					intentionally, knowingly, or recklessly cause or permit a child,
-					M.P., to be inadequately supervised due to the demonstrated
-					inability or unwillingness of the parent to provide care for the
-					child at the time due to intoxication, addiction, or other
-					circumstance, which is in violation of Anchorage Municipal Code
-					8.10.040.B.7
-				</j:ChargeDescriptionText>
+               <j:ChargeDescriptionText/>
                <j:ChargeSequenceID>
-                  <nc:IdentificationID>001</nc:IdentificationID>
+                  <nc:IdentificationID>1</nc:IdentificationID>
                </j:ChargeSequenceID>
                <j:ChargeSeverityLevel>
-                  <j:SeverityLevelDescriptionText>Class A
+                  <j:SeverityLevelDescriptionText>CLASS B
 					</j:SeverityLevelDescriptionText>
                   <j:SeverityLevelIdentification>
-                     <nc:IdentificationSourceText>Misdemeanor</nc:IdentificationSourceText>
+                     <nc:IdentificationSourceText>DOMESTIC VIOLENCE</nc:IdentificationSourceText>
                   </j:SeverityLevelIdentification>
                </j:ChargeSeverityLevel>
                <j:ChargeStatute>
-                  <j:StatuteCodeIdentification>
-                     <nc:IdentificationID>AMC</nc:IdentificationID>
-                  </j:StatuteCodeIdentification>
                   <j:StatuteCodeSectionIdentification>
-                     <nc:IdentificationID>8.10.040.B.7</nc:IdentificationID>
+                     <nc:IdentificationID>8.30.110(A)(DV)</nc:IdentificationID>
                   </j:StatuteCodeSectionIdentification>
-                  <j:StatuteDescriptionText>CHILD NEGLECT</j:StatuteDescriptionText>
+                  <j:StatuteDescriptionText>VIOLATION OF CONDITION OF RELEASE (DV)
+					</j:StatuteDescriptionText>
+                  <j:StatuteOffenseIdentification>
+                     <nc:IdentificationID>
+						AMC830110A
+					</nc:IdentificationID>
+                  </j:StatuteOffenseIdentification>
                </j:ChargeStatute>
                <criminalcase:ChargeOffense>
                   <nc:ActivityIdentification>
-                     <nc:IdentificationID>1143299</nc:IdentificationID>
+                     <nc:IdentificationID>999999999</nc:IdentificationID>
                      <nc:IdentificationCategoryText>ATN</nc:IdentificationCategoryText>
                   </nc:ActivityIdentification>
                   <nc:ActivityIdentification>
-                     <nc:IdentificationID>CT4567</nc:IdentificationID>
+                     <nc:IdentificationID>1</nc:IdentificationID>
                      <nc:IdentificationCategoryText>CTN</nc:IdentificationCategoryText>
                   </nc:ActivityIdentification>
-                  <nc:ActivityDate>
-                     <nc:Date>2016-09-12</nc:Date>
-                  </nc:ActivityDate>
+                  <nc:ActivityDateRange>
+                     <nc:StartDate>
+                        <nc:Date>2016-06-05</nc:Date>
+                     </nc:StartDate>
+                     <nc:EndDate>
+                        <nc:Date>2016-06-05</nc:Date>
+                     </nc:EndDate>
+                  </nc:ActivityDateRange>
                   <nc:IncidentLocation>
-                     <nc:LocationDescriptionText>Smithville</nc:LocationDescriptionText>
+                     <nc:LocationDescriptionText>ANC</nc:LocationDescriptionText>
                   </nc:IncidentLocation>
                </criminalcase:ChargeOffense>
                <criminalcase:ChargeAmendedIndicator>false
 			</criminalcase:ChargeAmendedIndicator>
                <ijisniem:ChargeFilingDate>
-                  <nc:Date>2016-10-13</nc:Date>
+                  <nc:Date>2017-02-02</nc:Date>
                </ijisniem:ChargeFilingDate>
-               <ijisniem:DomesticViolenceIndicator>false
+               <ijisniem:DomesticViolenceIndicator>true
 				</ijisniem:DomesticViolenceIndicator>
             </ijisniem:CriminalCaseCharge>
          </criminalcase:CriminalCase>

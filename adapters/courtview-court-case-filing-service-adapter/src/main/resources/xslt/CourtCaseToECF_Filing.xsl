@@ -38,6 +38,7 @@
 		<RecordFiling>
 			<RecordFilingRequest>
 				<core:CoreFilingMessage>
+					<xsl:apply-templates select="nc30:DocumentDescriptionText" />
 					<xsl:apply-templates select="." mode="ecf" />
 					<xsl:apply-templates select="." mode="case" />
 					<!-- The following are required by ECF -->
@@ -124,6 +125,7 @@
 			<xsl:apply-templates select="j51:StatuteCodeIdentification" />
 			<xsl:apply-templates select="j51:StatuteCodeSectionIdentification" />
 			<xsl:apply-templates select="j51:StatuteDescriptionText" />
+			<xsl:apply-templates select="j51:StatuteOffenseIdentification" />
 		</j:ChargeStatute>
 	</xsl:template>
 	<xsl:template match="j51:StatuteCodeSectionIdentification">
@@ -211,11 +213,7 @@
 		</j:CaseCourtEvent>
 	</xsl:template>
 	<xsl:template match="j51:Offense">
-		<nc:ActivityDate>
-			<nc:Date>
-				<xsl:apply-templates select="nc30:ActivityDate/nc30:Date" />
-			</nc:Date>
-		</nc:ActivityDate>
+		<xsl:apply-templates select="nc30:ActivityDateRange" />
 	</xsl:template>
 	<xsl:template match="nc30:Person" mode="subject">
 		<xsl:variable name="locationID">
@@ -297,6 +295,11 @@
 		mode="ecf">
 		<ecf:SendingMDELocationID />
 		<ecf:SendingMDEProfileCode />
+	</xsl:template>
+	<xsl:template match="nc30:DocumentDescriptionText">
+		<nc:DocumentDescriptionText>
+			<xsl:value-of select="." />
+		</nc:DocumentDescriptionText>
 	</xsl:template>
 	<xsl:template match="nc30:DocumentFiledDate">
 		<nc:ActivityDate>
@@ -437,6 +440,13 @@
 			<xsl:value-of select="." />
 		</j:StatuteDescriptionText>
 	</xsl:template>
+	<xsl:template match="j51:StatuteOffenseIdentification">
+		<j:StatuteOffenseIdentification>
+			<nc:IdentificationID>
+				<xsl:value-of select="." />
+			</nc:IdentificationID>
+		</j:StatuteOffenseIdentification>
+	</xsl:template>
 	<xsl:template match="cfd-ext:VictimRightsAssertionCertificationIndicator">
 		<ijisniem:VictimRightsAssertionIndicator>
 			<xsl:value-of select="." />
@@ -475,6 +485,20 @@
 				<xsl:value-of select="." />
 			</nc:Date>
 		</ijisniem:ChargeFilingDate>
+	</xsl:template>
+	<xsl:template match="nc30:ActivityDateRange">
+		<nc:ActivityDateRange>
+			<nc:StartDate>
+				<nc:Date>
+					<xsl:apply-templates select="nc30:StartDate/nc30:Date" />
+				</nc:Date>
+			</nc:StartDate>
+			<nc:EndDate>
+				<nc:Date>
+					<xsl:apply-templates select="nc30:EndDate/nc30:Date" />
+				</nc:Date>
+			</nc:EndDate>
+		</nc:ActivityDateRange>
 	</xsl:template>
 	<xsl:template match="cfd-ext:ChargeDomesticViolenceIndicator">
 		<ijisniem:DomesticViolenceIndicator>
