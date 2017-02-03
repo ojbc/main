@@ -1,43 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2015 Open Justice Broker Consortium
-
--->
+<?xml version="1.0" encoding="utf-8"?>
 <cfd-doc:CaseFilingDecisionReport
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0 ../../../xsd/CaseFilingDecisionReport.xsd"
-	xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0"
-	xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0 ../../../xsd/CaseFilingDecisionReport.xsd">
 	<nc:DocumentCategoryText>INFORMATION</nc:DocumentCategoryText>
 	<nc:DocumentCreationDate>
 		<nc:Date>2016-12-08</nc:Date>
 	</nc:DocumentCreationDate>
-	<!-- Added new "DocumentDescriptionText element per Jason Emineth email 
-		on 1/31/17 JD -->
 	<nc:DocumentDescriptionText>Initial</nc:DocumentDescriptionText>
 	<nc:DocumentEffectiveDate>
-		<nc:Date>2016-12-28</nc:Date>
+		<nc:Date>2017-02-02</nc:Date>
 	</nc:DocumentEffectiveDate>
 	<nc:DocumentFiledDate>
-		<nc:Date>2016-12-28</nc:Date>
+		<nc:Date>2017-02-02</nc:Date>
 	</nc:DocumentFiledDate>
 	<cfd-ext:VictimRightsAssertionCertificationIndicator>true
 	</cfd-ext:VictimRightsAssertionCertificationIndicator>
@@ -50,13 +30,13 @@
 		<nc:CaseFiling>
 			<nc:DocumentCategoryName>INFORMATION</nc:DocumentCategoryName>
 			<nc:DocumentFiledDate>
-				<nc:Date>2016-12-28</nc:Date>
+				<nc:Date>2017-02-02</nc:Date>
 			</nc:DocumentFiledDate>
 		</nc:CaseFiling>
 		<j:CaseAugmentation>
 			<j:CaseCharge structures:id="CHG_001">
 				<j:ChargeFilingDate>
-					<nc:Date>2016-12-28</nc:Date>
+					<nc:Date>2017-02-02</nc:Date>
 				</j:ChargeFilingDate>
 				<j:ChargeSequenceID>1</j:ChargeSequenceID>
 				<j:ChargeSeverityLevel>
@@ -70,8 +50,6 @@
 					</j:StatuteCodeSectionIdentification>
 					<j:StatuteDescriptionText>VIOLATION OF CONDITION OF RELEASE (DV)
 					</j:StatuteDescriptionText>
-					<!-- Added "StatuteOffenseIdentification" element per Jason Emineth 
-						email on 1/31/17 JD -->
 					<j:StatuteOffenseIdentification>
 						<nc:IdentificationID>AMC830110A</nc:IdentificationID>
 					</j:StatuteOffenseIdentification>
@@ -85,7 +63,7 @@
 			</j:CaseCharge>
 			<j:CaseCharge structures:id="CHG_002">
 				<j:ChargeFilingDate>
-					<nc:Date>2016-12-28</nc:Date>
+					<nc:Date>2017-02-02</nc:Date>
 				</j:ChargeFilingDate>
 				<j:ChargeSequenceID>2</j:ChargeSequenceID>
 				<j:ChargeSeverityLevel>
@@ -99,6 +77,9 @@
 					</j:StatuteCodeSectionIdentification>
 					<j:StatuteDescriptionText>VIOLATING A PROTECTIVE ORDER
 					</j:StatuteDescriptionText>
+					<j:StatuteOffenseIdentification>
+						<nc:IdentificationID>AMC830110A</nc:IdentificationID>
+					</j:StatuteOffenseIdentification>
 				</j:ChargeStatute>
 				<j:ChargeText />
 				<j:ChargeTrackingIdentification>
@@ -110,8 +91,6 @@
 			<j:CaseCourt>
 				<nc:OrganizationName>District Court for the State of Alaska
 				</nc:OrganizationName>
-				<!-- Changed CourtName value per Jason Emineth email on 1/31/17 JD -->
-				<!-- <j:CourtName>Third Judicial District of Anchorage</j:CourtName> -->
 				<j:CourtName>3AN</j:CourtName>
 				<j:CourtCategoryCode>DIS</j:CourtCategoryCode>
 			</j:CaseCourt>
@@ -164,22 +143,24 @@
 		</cfd-ext:ArrestTrackingNumberIdentification>
 	</j:Arrest>
 	<j:Offense structures:id="OFF_001">
-		<!-- Added "ActivityDateRange" element per Jason Emineth email on 1/31/17 
-			JD -->
-		<!-- nc:ActivityDate> <nc:Date>2016-06-05</nc:Date> </nc:ActivityDate -->
 		<nc:ActivityDateRange>
 			<nc:StartDate>
-				<nc:Date>2016-10-18</nc:Date>
+				<nc:Date>2016-06-05</nc:Date>
 			</nc:StartDate>
 			<nc:EndDate>
-				<nc:Date>2016-10-19</nc:Date>
+				<nc:Date>2016-06-05</nc:Date>
 			</nc:EndDate>
 		</nc:ActivityDateRange>
 	</j:Offense>
 	<j:Offense structures:id="OFF_002">
-		<nc:ActivityDate>
-			<nc:Date>2016-06-05</nc:Date>
-		</nc:ActivityDate>
+		<nc:ActivityDateRange>
+			<nc:StartDate>
+				<nc:Date>2016-06-05</nc:Date>
+			</nc:StartDate>
+			<nc:EndDate>
+				<nc:Date>2016-06-05</nc:Date>
+			</nc:EndDate>
+		</nc:ActivityDateRange>
 	</j:Offense>
 	<nc:Person structures:id="DEF_001">
 		<nc:PersonBirthDate>
@@ -222,15 +203,9 @@
 		</nc:PersonName>
 	</nc:Person>
 	<nc:Location structures:id="OL_001">
-		<!-- Changed LocationDescriptionText value per Jason Emineth email on 1/31/17 
-			JD -->
-		<!-- nc:LocationDescriptionText>632 W 6TH AVE</nc:LocationDescriptionText -->
 		<nc:LocationDescriptionText>ANC</nc:LocationDescriptionText>
 	</nc:Location>
 	<nc:Location structures:id="OL_002">
-		<!-- Changed LocationDescriptionText value per Jason Emineth email on 1/31/17 
-			JD -->
-		<!-- nc:LocationDescriptionText>632 W 6TH AVE</nc:LocationDescriptionText -->
 		<nc:LocationDescriptionText>ANC</nc:LocationDescriptionText>
 	</nc:Location>
 	<nc:Location structures:id="RES_001">
