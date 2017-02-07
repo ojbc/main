@@ -20,13 +20,15 @@ import java.beans.PropertyEditorSupport;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 
 public class DateTimeJavaUtilPropertyEditor extends PropertyEditorSupport {
 		
-	private Logger logger = Logger.getLogger(DateTimeJavaUtilPropertyEditor.class.getName());
+	private final Log logger = LogFactory.getLog(this.getClass());
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		
@@ -54,7 +56,7 @@ public class DateTimeJavaUtilPropertyEditor extends PropertyEditorSupport {
 		try {
 			d = sdf.parse(text);
 		} catch (ParseException e) {
-			logger.severe("Could not parse date: " + text);
+			logger.error("Could not parse date: " + text);
 		}
 				
 		setValue(d);		

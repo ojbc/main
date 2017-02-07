@@ -19,9 +19,10 @@ package org.ojbc.web.portal.validators;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -29,8 +30,8 @@ import org.springframework.validation.BindingResult;
 @Service
 public class ChCycleSubscriptionValidator {
 	
-	private Logger logger = Logger.getLogger(ChCycleSubscriptionValidator.class.getName());
-		
+	private final Log logger = LogFactory.getLog(this.getClass());	
+	
 	public void validate(Subscription subscription, BindingResult errors){
 		
 		logger.info("* * * inside validate()");		

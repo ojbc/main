@@ -16,10 +16,10 @@
  */
 package org.ojbc.web.impl;
 
-import java.util.logging.Logger;
-
 import javax.annotation.Resource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.web.RapbackSearchInterface;
 import org.ojbc.web.WebUtils;
@@ -32,7 +32,7 @@ import org.w3c.dom.Element;
 @Profile({"rapbacks","standalone"})
 public class RapbackSearchMockImpl implements RapbackSearchInterface{
 		
-	private Logger logger = Logger.getLogger(RapbackSearchMockImpl.class.getName());
+	private final Log logger = LogFactory.getLog(this.getClass());
 	
 	@Resource
 	SearchResultConverter searchResultConverter;		

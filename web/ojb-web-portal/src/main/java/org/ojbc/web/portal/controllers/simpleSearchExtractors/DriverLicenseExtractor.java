@@ -16,17 +16,18 @@
  */
 package org.ojbc.web.portal.controllers.simpleSearchExtractors;
 
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DriverLicenseExtractor extends SearchTermExtractorBase {
 
-	private Logger logger = Logger.getLogger(DriverLicenseExtractor.class.getName());
+	private final Log logger = LogFactory.getLog(this.getClass());
 	
     private Pattern pattern;
     
@@ -67,7 +68,7 @@ public class DriverLicenseExtractor extends SearchTermExtractorBase {
             return true;
         }
         
-        logger.warning("\n\n\n * * * DriverLicenseExtractor.extractTermLocal() returning false (no match) * * *  \n\n\n");
+        logger.warn("\n\n\n * * * DriverLicenseExtractor.extractTermLocal() returning false (no match) * * *  \n\n\n");
         
         return false;
 
