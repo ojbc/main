@@ -16,8 +16,8 @@
  */
 package org.ojbc.web.impl;
 
-import java.util.logging.Logger;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.subscription.Unsubscription;
 import org.ojbc.web.UnsubscriptionInterface;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ import org.w3c.dom.Element;
 @Service
 public class UnsubscriptionMockImpl implements UnsubscriptionInterface{
 
-	private Logger logger = Logger.getLogger(UnsubscriptionMockImpl.class.getName());
+	private final Log logger = LogFactory.getLog(this.getClass());
 
 	@Override
 	public void unsubscribe(Unsubscription unsubscription, String federatedQueryID,  Element samlToken)

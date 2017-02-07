@@ -27,7 +27,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +35,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -108,7 +109,7 @@ public class SubscriptionsController {
 	
 	private static DocumentBuilder docBuilder;
 	
-	private Logger logger = Logger.getLogger(SubscriptionsController.class.getName());
+	private final Log logger = LogFactory.getLog(this.getClass());
 	
 	@Value("${validateSubscriptionButton:false}")
 	String validateSubscriptionButton;
@@ -384,7 +385,7 @@ public class SubscriptionsController {
 			dobDate = sdf.parse(rapSheetDate);
 			
 		} catch (ParseException e) {
-			logger.severe("Couldn't parse date: " + rapSheetDate);
+			logger.error("Couldn't parse date: " + rapSheetDate);
 			e.printStackTrace();
 		}		
 		return dobDate;
@@ -423,7 +424,7 @@ public class SubscriptionsController {
 				subscribedPersonNames = getAllPersonNamesFromRapsheet(rapSheetDoc);
 				
 			} catch (Exception e) {
-				logger.severe("Exception getting names from rapsheet \n" + e);
+				logger.error("Exception getting names from rapsheet \n" + e);
 			}				
 		}				
 		
@@ -679,7 +680,7 @@ public class SubscriptionsController {
 
 				errorsList = Arrays.asList("An error occurred while processing subscription");				
 								
-				logger.severe("Failed processing subscription: " + e);
+				logger.error("Failed processing subscription: " + e);
 			}									
 		}					
 		
@@ -921,7 +922,7 @@ public class SubscriptionsController {
 			List<String> invalidEmailList = subInvalidEmailResp.getInvalidEmailList();
 			
 			if(invalidEmailList == null || invalidEmailList.isEmpty()){
-				logger.warning("Determined Invalid email, but received no email address values");
+				logger.warn("Determined Invalid email, but received no email address values");
 			}
 			
 			rErrorMsg = "Invalid Email(s): ";
@@ -958,7 +959,7 @@ public class SubscriptionsController {
 		}else if(SubscriptionResponseType.SUBSCRIPTION_SUCCESS == responseType){
 		
 			rErrorMsg="";
-			logger.warning("Attempt was made to get subscription response error type for a scenario where the "
+			logger.warn("Attempt was made to get subscription response error type for a scenario where the "
 					+ "subscription response was actually 'success'");
 		
 		}else{
@@ -1075,7 +1076,7 @@ public class SubscriptionsController {
 										
 		if(allNamesList == null || allNamesList.isEmpty()){
 			model.put("initializationSucceeded", false);
-			logger.severe("Failed to lookup names for arrest subscription");
+			logger.error("Failed to lookup names for arrest subscription");
 		}else{
 			model.put("originalName", subscribedNames.getOriginalName());
 		}
@@ -1179,7 +1180,7 @@ public class SubscriptionsController {
 				if(faultableSoapResponse == null){
 					
 					failedIdList.add(iSubId);
-					logger.severe("FAILED! to validate id: " + iSubId);
+					logger.error("FAILED! to validate id: " + iSubId);
 					continue;
 				}
 				
@@ -1195,7 +1196,7 @@ public class SubscriptionsController {
 				
 			}catch(Exception e){				
 				failedIdList.add(iSubId);
-				logger.severe("FAILED! to validate id: " + iSubId + ", " + e);
+				logger.error("FAILED! to validate id: " + iSubId + ", " + e);
 			}														
 		}
 				
@@ -1337,7 +1338,7 @@ public class SubscriptionsController {
 			
 			e.printStackTrace();
 			
-			logger.severe("Failed retrieving subscriptions, ignoring informationMessage param: " + informationMessage );			
+			logger.error("Failed retrieving subscriptions, ignoring informationMessage param: " + informationMessage );			
 			
 			informationMessage = "Failed retrieving subscriptions";
 		}
@@ -1508,7 +1509,7 @@ public class SubscriptionsController {
 			searchContent = config.getPersonSearchBean().invokePersonSearchRequest(personSearchRequest,		
 					getFederatedQueryId(), samlAssertion);					
 		} catch (Exception e) {		
-			logger.severe("Exception thrown while invoking person search request:\n" + e);
+			logger.error("Exception thrown while invoking person search request:\n" + e);
 		}
 			
 		Document personSearchResultDoc = null;
@@ -1518,10 +1519,10 @@ public class SubscriptionsController {
 				DocumentBuilder docBuilder = getDocBuilder();		
 				personSearchResultDoc = docBuilder.parse(new InputSource(new StringReader(searchContent)));						
 			}catch(Exception e){
-				logger.severe("Exception thrown while parsing search content Document:\n" + e);
+				logger.error("Exception thrown while parsing search content Document:\n" + e);
 			}			
 		}else{
-			logger.severe("searchContent was blank");
+			logger.error("searchContent was blank");
 		}
 
 		NodeList psrNodeList = null;
@@ -1531,10 +1532,10 @@ public class SubscriptionsController {
 				psrNodeList = XmlUtils.xPathNodeListSearch(personSearchResultDoc, 
 						"/emrm-exc:EntityMergeResultMessage/emrm-exc:EntityContainer/emrm-ext:Entity/psres:PersonSearchResult");
 			} catch (Exception e) {
-				logger.severe("Exception thrown - getting nodes from PersonSearchResult:\n" + e);
+				logger.error("Exception thrown - getting nodes from PersonSearchResult:\n" + e);
 			}			
 		}else{
-			logger.severe("personSearchResultDoc was null");
+			logger.error("personSearchResultDoc was null");
 		}
 								
 		String systemId = null;
@@ -1544,10 +1545,10 @@ public class SubscriptionsController {
 				Node psrNode = psrNodeList.item(0);			
 				systemId = XmlUtils.xPathStringSearch(psrNode, "intel:SystemIdentifier/nc:IdentificationID");						
 			}catch(Exception e){
-				logger.severe("Exception thrown referencing IdentificationID xpath: \n" + e);
+				logger.error("Exception thrown referencing IdentificationID xpath: \n" + e);
 			}						
 		}else{
-			logger.severe("Search Results (SystemIdentifier/nc:IdentificationID) count != 1");
+			logger.error("Search Results (SystemIdentifier/nc:IdentificationID) count != 1");
 		}
 				
 		return systemId;
@@ -1574,11 +1575,11 @@ public class SubscriptionsController {
 					getFederatedQueryId(), samlAssertion);
 			
 		} catch (Exception e) {
-			logger.severe("Exception invoking details request:\n" + e);			
+			logger.error("Exception invoking details request:\n" + e);			
 		}
 									
 		if("noResponse".equals(detailsContent)){			
-			logger.severe("No response from Criminial History");			
+			logger.error("No response from Criminial History");			
 		}
 		
 		Document detailsDoc = null;
@@ -1587,7 +1588,7 @@ public class SubscriptionsController {
 			try {
 				detailsDoc = getDocBuilder().parse(new InputSource(new StringReader(detailsContent)));
 			} catch (Exception e){
-				logger.severe("Exception parsing detailsContent:\n" + detailsContent + "\n, exception:\n" + e);
+				logger.error("Exception parsing detailsContent:\n" + detailsContent + "\n, exception:\n" + e);
 			}		
 		}
 						
@@ -1604,7 +1605,7 @@ public class SubscriptionsController {
 					"/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:RapSheetPerson/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
 					
 		}catch(Exception e){
-			logger.severe("Exception while getting fbi id from rapsheet: \n" + e);
+			logger.error("Exception while getting fbi id from rapsheet: \n" + e);
 		}		
 		return fbiId;
 	}
@@ -1619,7 +1620,7 @@ public class SubscriptionsController {
 					"/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:Introduction/rap:RapSheetRequest/rap:RapSheetPerson/nc:PersonBirthDate/nc:Date");
 			
 		}catch(Exception e){
-			logger.severe("Exception while getting dob from rapsheet \n" + e);
+			logger.error("Exception while getting dob from rapsheet \n" + e);
 		}
 		
 		return dob;

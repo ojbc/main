@@ -26,12 +26,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.codec.CharEncoding;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.joda.time.DateTime;
@@ -66,7 +67,7 @@ public class XslTemplateTest {
     @Resource
     SearchResultConverter searchResultConverter;
     
-    private Logger logger = Logger.getLogger(XslTemplateTest.class.getName());
+    private final Log logger = LogFactory.getLog(this.getClass());
 
     @Before
     public void setup() {

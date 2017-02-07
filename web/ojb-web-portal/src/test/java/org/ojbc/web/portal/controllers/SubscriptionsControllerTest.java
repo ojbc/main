@@ -21,10 +21,11 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,7 +38,7 @@ import org.w3c.dom.Document;
 
 public class SubscriptionsControllerTest {
 		
-	private Logger logger = Logger.getLogger(SubscriptionsControllerTest.class.getName());
+	private static final Log logger = LogFactory.getLog(SubscriptionsControllerTest.class);
 	
 	private SubscriptionsController subController;	
 		

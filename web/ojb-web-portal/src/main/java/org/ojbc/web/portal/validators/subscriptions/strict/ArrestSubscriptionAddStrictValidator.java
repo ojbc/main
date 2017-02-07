@@ -20,9 +20,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,8 +33,8 @@ import org.springframework.validation.BindingResult;
 @Service("arrestSubscriptionAddStrictValidator")
 public class ArrestSubscriptionAddStrictValidator implements ArrestSubscriptionValidatorInterface{
 	
-	private Logger logger = Logger.getLogger(ArrestSubscriptionAddStrictValidator.class.getName());
-		
+	private final Log logger = LogFactory.getLog(this.getClass());	
+	
 	@Value("${showSubscriptionPurposeDropDown:false}")
 	Boolean showSubscriptionPurposeDropDown;
 	
