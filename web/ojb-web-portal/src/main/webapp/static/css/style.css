@@ -1006,6 +1006,11 @@ a.grayButton:hover {
 	height: 172px;
 }
 
+.personMugshot {
+    max-width: 180px;
+    max-height: 250px;
+}
+
 .detailsTable {
 	border-collapse: collapse;
 	width: 100%;
