@@ -18,6 +18,7 @@ package org.ojbc.intermediaries.sn.notification;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -41,6 +42,7 @@ public final class EmailNotification {
     private Set<String> bccAddressees = new HashSet<String>();
     private Set<String> blockedAddressees = new HashSet<String>();
     private NotificationRequest notificationRequest;
+    private Map<String, String> subscriptionSubjectIdentifiers;
     
     public EmailNotification() {
         super();
@@ -147,7 +149,7 @@ public final class EmailNotification {
         boolean ret = false;
         if (comp instanceof EmailNotification) {
             EmailNotification n = (EmailNotification) comp;
-            ret = n.subjectName.equals(subjectName) && n.subscribingSystemIdentifier.equals(subscribingSystemIdentifier) && n.toAddressees.equals(toAddressees) && n.ccAddressees.equals(ccAddressees) && n.bccAddressees.equals(bccAddressees) && n.subscriptionCategoryCode.equals(subscriptionCategoryCode);
+            ret = n.subjectName.equals(subjectName) && n.subscribingSystemIdentifier.equals(subscribingSystemIdentifier) && n.toAddressees.equals(toAddressees) && n.ccAddressees.equals(ccAddressees) && n.bccAddressees.equals(bccAddressees) && n.subscriptionCategoryCode.equals(subscriptionCategoryCode) && n.subscriptionSubjectIdentifiers.equals(subscriptionSubjectIdentifiers);
         }
         return ret;
     }
@@ -164,6 +166,7 @@ public final class EmailNotification {
         copy.blockedAddressees.addAll(blockedAddressees);
         copy.notificationRequest = notificationRequest;
         copy.subscriptionCategoryCode=subscriptionCategoryCode;
+        copy.subscriptionSubjectIdentifiers = subscriptionSubjectIdentifiers;
         return copy;
     }
 
@@ -186,9 +189,19 @@ public final class EmailNotification {
 				+ subscribingSystemIdentifier + ", subjectIdentifier="
 				+ subjectIdentifier + ", subscriptionCategoryCode="
 				+ subscriptionCategoryCode + ", toAddressees=" + toAddressees
+				+", subscriptionSubjectIdentifiers=" + subscriptionSubjectIdentifiers
 				+ ", ccAddressees=" + ccAddressees + ", bccAddressees="
 				+ bccAddressees + ", blockedAddressees=" + blockedAddressees
 				+ ", notificationRequest=" + notificationRequest + "]";
+	}
+
+	public Map<String, String> getSubscriptionSubjectIdentifiers() {
+		return subscriptionSubjectIdentifiers;
+	}
+
+	public void setSubscriptionSubjectIdentifiers(
+			Map<String, String> subscriptionSubjectIdentifiers) {
+		this.subscriptionSubjectIdentifiers = subscriptionSubjectIdentifiers;
 	}
 
 }

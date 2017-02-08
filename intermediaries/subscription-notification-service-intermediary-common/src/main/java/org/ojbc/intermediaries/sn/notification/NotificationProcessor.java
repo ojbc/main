@@ -263,6 +263,8 @@ public abstract class NotificationProcessor {
                         en = new EmailNotification();
                         emailNotifications.add(en);
                     }
+                    
+                    en.setSubscriptionSubjectIdentifiers(subscription.getSubscriptionSubjectIdentifiers());
                     en.setSubjectName(subscription.getPersonFullName());
                     en.setSubscribingSystemIdentifier(subscriptionSubscribingSystemName);
                     
