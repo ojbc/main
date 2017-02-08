@@ -25,8 +25,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -342,6 +344,9 @@ public class NotificationProcessorTest {
 
         List<Subscription> subscriptions = new ArrayList<Subscription>();
 
+        Map<String, String> subscriptionSubjectIdentifiers = new HashMap<String, String>();
+        subscriptionSubjectIdentifiers.put("subscriptionQualifier", "123");
+        
         Subscription subscription = new Subscription();
         Set<String> emailAddresses = new HashSet<String>();
         emailAddresses.add("po1@courts.hawaii.gov");
@@ -349,6 +354,7 @@ public class NotificationProcessorTest {
         subscription.setPersonFullName("Joe Smith");
         subscription.setTopic("topics:person/arrest");
         subscription.setSubscribingSystemIdentifier("{http://demostate.gov/SystemNames/1.0}SystemB");
+        subscription.setSubscriptionSubjectIdentifiers(subscriptionSubjectIdentifiers);
         subscriptions.add(subscription);
 
         subscription = new Subscription();
@@ -358,6 +364,7 @@ public class NotificationProcessorTest {
         subscription.setPersonFullName("Joe Smith");
         subscription.setTopic("topics:person/arrest");
         subscription.setSubscribingSystemIdentifier("{http://demostate.gov/SystemNames/1.0}SystemB");
+        subscription.setSubscriptionSubjectIdentifiers(subscriptionSubjectIdentifiers);
         subscriptions.add(subscription);
 
         File notificationMessageFile = new File("src/test/resources/xmlInstances/notificationMessage.xml");
@@ -369,6 +376,9 @@ public class NotificationProcessorTest {
 
         List<EmailNotification> emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
         Assert.assertEquals(1, emailNotifications.size());
+        
+        EmailNotification notificationToTest = emailNotifications.get(0);
+        assertEquals(subscriptionSubjectIdentifiers, notificationToTest.getSubscriptionSubjectIdentifiers());
 
         String emailAddress = emailNotifications.get(0).getToAddressees();
         Assert.assertEquals("po1@courts.hawaii.gov", emailAddress);

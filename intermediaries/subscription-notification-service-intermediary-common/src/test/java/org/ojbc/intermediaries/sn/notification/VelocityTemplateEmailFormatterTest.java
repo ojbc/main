@@ -55,7 +55,7 @@ public class VelocityTemplateEmailFormatterTest {
         
         VelocityTemplateEmailFormatter.EmailTemplate template = new VelocityTemplateEmailFormatter.EmailTemplate();
         template.setEmailSubjectTemplate("Notification subject is $emailNotification.subjectName for arrest, parole, subject");
-        template.setEmailBodyTemplate("Notification body is $emailNotification.subjectName for arrest, parole, body");
+        template.setEmailBodyTemplate("Notification body is $emailNotification.subjectName for arrest, parole, body.  Subject identifer is: $emailNotification.subscriptionSubjectIdentifiers.get('subscriptionQualifier')");
         
         NotificationFormatKey emailNotificationIdentifierKeyWrapperA = new NotificationFormatKey();
         emailNotificationIdentifierKeyWrapperA.setSubscribingSystemName("{http://demostate.gov/SystemNames/1.0}SystemA");
@@ -140,7 +140,7 @@ public class VelocityTemplateEmailFormatterTest {
         String emailSubject = formatter.getEmailSubject(email);
         assertEquals("Notification subject is offenderName for arrest, parole, subject", emailSubject);
         String emailBody = formatter.getEmailBody(email);
-        assertEquals("Notification body is offenderName for arrest, parole, body", emailBody);
+        assertEquals("Notification body is offenderName for arrest, parole, body.  Subject identifer is: 123", emailBody);
     }
 
     @Test
@@ -183,6 +183,11 @@ public class VelocityTemplateEmailFormatterTest {
 
     private EmailNotification buildArrestEmailNotification(Document notificationMessage, String systemName, String subscriptionCategoryCode) throws Exception {
         EmailNotification email = new EmailNotification();
+        
+        Map<String, String> subscriptionSubjectIdentifiers = new HashMap<String, String>();
+        subscriptionSubjectIdentifiers.put("subscriptionQualifier", "123");
+        
+        email.setSubscriptionSubjectIdentifiers(subscriptionSubjectIdentifiers);
         email.addToAddressee("email@address");
         email.setSubjectName("offenderName");
         email.setSubscribingSystemIdentifier(systemName);
