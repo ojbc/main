@@ -35,8 +35,16 @@
     <xsl:template match="/">
        <table>
             <tr>
-                <td style="vertical-align: top;"><div class="bigPersonImage"></div></td>
-                <td> 
+            	<xsl:choose>
+            		<xsl:when test="/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:PersonBiometricsAssociation/rap:PersonBiometrics/nc:PersonDigitalImage/nc:BinaryBase64Object">
+            			<td style="vertical-align: top;"><xsl:element name="img"><xsl:attribute name="id">imageHolder</xsl:attribute><xsl:attribute name="style">max-width: 180px;max-height: 250px;</xsl:attribute><xsl:attribute name="src">data:image/jpeg;base64,<xsl:value-of select="/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:PersonBiometricsAssociation/rap:PersonBiometrics/nc:PersonDigitalImage/nc:BinaryBase64Object"/></xsl:attribute></xsl:element></td>
+            		</xsl:when>
+            		<xsl:otherwise>
+            			<td style="vertical-align: top;"><div class="bigPersonImage"></div></td>		
+            		</xsl:otherwise>
+            	</xsl:choose>
+            	
+            	<td> 
                     <xsl:apply-templates /> 
                 </td>                
             </tr>
