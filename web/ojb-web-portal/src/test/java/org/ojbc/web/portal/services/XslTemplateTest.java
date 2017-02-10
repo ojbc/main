@@ -115,7 +115,25 @@ public class XslTemplateTest {
         validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory_no_court_charge.xml", "criminalHistory_no_court_charge.html");
     }
 
+    @Test
+    public void criminalHistorySearchDetail() throws Exception {
+        validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory.xml", "criminalHistory.html");
+    }
 
+    @Test
+    public void criminalHistorySearchDetailNoTroCustodySupervisionHeaders() throws Exception {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("chDisplaySupervisionTroCustodyHeaders", "true");
+        
+        validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory.xml", "criminalHistory.html", params);
+
+    }
+
+    @Test
+    public void criminalHistoryWithMultipleAddresses() throws Exception {
+        validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory-multiple-addresses.xml", "criminalHistory-multiple-addresses.html");
+    }
+    
     @Test
     public void reOrderedFirearmSearchResult() throws Exception {
         validatePersonSearchTransformation("xsl/firearmSearchResult.xsl", "reOrderedFirearmSearchResult.xml", "reOrderedFirearmSearchResult.html");
@@ -149,16 +167,6 @@ public class XslTemplateTest {
     @Test
     public void warrantAccessDenied() throws Exception {
         validatePersonSearchTransformation("xsl/warrants.xsl", "warrants-access-denied.xml", "warrants-access-denied.html");
-    }
-
-    @Test
-    public void criminalHistorySearchDetail() throws Exception {
-        validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory.xml", "criminalHistory.html");
-    }
-    
-    @Test
-    public void criminalHistoryWithMultipleAddresses() throws Exception {
-        validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory-multiple-addresses.xml", "criminalHistory-multiple-addresses.html");
     }
 
     @Test
@@ -320,7 +328,7 @@ public class XslTemplateTest {
                
         searchResultConverter.searchResultXsl = xsl;
         
-        String convertedHtmlPersonSearchResult = searchResultConverter.convertPersonSearchResult(sXmlInput, getPersonSearchParams());
+        String convertedHtmlPersonSearchResult = searchResultConverter.convertPersonSearchResult(sXmlInput, getDefaultPersonSearchParams());
                                     
         assertLinesEquals(expectedHtmlLineList, convertedHtmlPersonSearchResult);                                                    
     }
@@ -347,7 +355,7 @@ public class XslTemplateTest {
                
         searchResultConverter.searchResultXsl = xsl;
         
-        String convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getPersonSearchParams());
+        String convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getDefaultPersonSearchParams());
                                
         assertLinesEquals(expectedHtml, convertResult);
     }    
@@ -441,7 +449,7 @@ public class XslTemplateTest {
                
         searchResultConverter.searchResultXsl = xsl;
         
-        String convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getPersonSearchParams());
+        String convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getDefaultPersonSearchParams());
         
         logger.info("Converted Result:\n" + convertResult);
                         
@@ -499,8 +507,11 @@ public class XslTemplateTest {
         Assert.assertTrue(xmlUnitDiff.identical());
     }    
     
-
     private void validatePersonSearchTransformation(String xslPath, String inputXmlPath, String expectedHtmlPath) throws IOException {
+    	validatePersonSearchTransformation(xslPath, inputXmlPath, expectedHtmlPath, null);
+    }
+
+    private void validatePersonSearchTransformation(String xslPath, String inputXmlPath, String expectedHtmlPath, Map<String, Object> params) throws IOException {
         
     	ClassPathResource xsl = new ClassPathResource(xslPath);
         
@@ -513,7 +524,16 @@ public class XslTemplateTest {
                
         searchResultConverter.searchResultXsl = xsl;
         
-        String convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getPersonSearchParams());
+        String convertResult ="";
+        
+        if (params == null)
+        {	
+        	convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getDefaultPersonSearchParams());
+        }
+        else
+        {
+        	convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, params);
+        }	
         
         logger.info("Converted Result:\n" + convertResult);
                         
@@ -558,7 +578,7 @@ public class XslTemplateTest {
         return filterParamsMap;
     }
 
-    private Map<String, Object> getPersonSearchParams() {
+    private Map<String, Object> getDefaultPersonSearchParams() {
     	
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("start", 0);
@@ -566,6 +586,7 @@ public class XslTemplateTest {
         params.put("hrefBase", "pagination");
         params.put("validateSubscriptionButton", "true");
         params.put("messageIfNoResults", "You do not have any subscriptions.");
+        params.put("chDisplaySupervisionTroCustodyHeaders", "true");
         return params;
     }
 

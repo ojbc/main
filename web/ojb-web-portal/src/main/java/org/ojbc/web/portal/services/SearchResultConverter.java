@@ -76,7 +76,10 @@ public class SearchResultConverter implements ApplicationContextAware {
 
 	@Value("${rapbackValidationButtonShowingPeriod:30}")
 	Integer rapbackValidationButtonShowingPeriod;
-		
+
+	@Value("${chDisplaySupervisionTroCustodyHeaders:true}")
+	Boolean chDisplaySupervisionTroCustodyHeaders;
+
 	@Resource
 	Map<String,String> searchDetailToXsl;
 	
@@ -110,8 +113,10 @@ public class SearchResultConverter implements ApplicationContextAware {
     }
     
 	public String convertDetailSearchResult(String searchContent, String systemName, String activeAccordionId) {
-	    if (StringUtils.isNotBlank(activeAccordionId)) {
-	        Map<String, Object> params = new HashMap<String, Object>(); 
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("chDisplaySupervisionTroCustodyHeaders", chDisplaySupervisionTroCustodyHeaders);
+		
+		if (StringUtils.isNotBlank(activeAccordionId)) {
 	        params.put("activeAccordionId", activeAccordionId);
 	        return convertXml(searchContent, getResource(systemName), params);
 	    }
