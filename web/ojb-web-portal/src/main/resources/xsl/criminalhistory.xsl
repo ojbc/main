@@ -31,6 +31,8 @@
 	<xsl:import href="_formatters.xsl" />
 	
     <xsl:output method="html" encoding="UTF-8" />
+    
+    <xsl:param name="chDisplaySupervisionTroCustodyHeaders"/>
 
     <xsl:template match="/">
        <table>
@@ -49,63 +51,68 @@
                 </td>                
             </tr>
        </table>
-       <table class="detailsTable">
-			<tr>
-				<td colspan="8" class="detailsTitle">
-					SUPERVISION
-				</td>
-			</tr>
-       		<xsl:choose>
-				<xsl:when test="//ch-ext:RapSheetCycle/rap:Supervision/nc:ActivityCategoryText[.='SUPERVISION']">
-					<xsl:call-template name="supervisionTableRows" />
-				</xsl:when>
-				<xsl:otherwise>
-					<tr>
-						<td colspan="8">
-							No Supervision information available
-						</td>
-					</tr>
-				</xsl:otherwise>
-		</xsl:choose>
-       </table>
-       <table class="detailsTable">
-			<tr>
-				<td colspan="8" class="detailsTitle">
-					CUSTODY
-				</td>
-			</tr>
-       		<xsl:choose>
-				<xsl:when test="//ch-ext:RapSheetCycle/rap:Supervision/nc:ActivityCategoryText[.='CUSTODY']">
-					<xsl:call-template name="custodyTableRows"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<tr>
-						<td colspan="8">
-							No Custody information available
-						</td>
-					</tr>
-				</xsl:otherwise>
-		</xsl:choose>
-       </table>
-       <table class="detailsTable">
-			<tr>
-				<td colspan="8" class="detailsTitle">
-					TRO/PO
-				</td>
-			</tr>
-			<xsl:choose>
-				<xsl:when test="//ch-ext:RapSheet/ch-ext:Order">
-					<xsl:call-template name="TROPOTableRows" />
-				</xsl:when>
-				<xsl:otherwise>
-					<tr>
-						<td colspan="8">
-							No TRO/PO information available
-						</td>
-					</tr>
-				</xsl:otherwise>
+	       
+	   <xsl:if test="$chDisplaySupervisionTroCustodyHeaders = 'true'">
+	       <table class="detailsTable">
+				<tr>
+					<td colspan="8" class="detailsTitle">
+						SUPERVISION
+					</td>
+				</tr>
+	       		<xsl:choose>
+					<xsl:when test="//ch-ext:RapSheetCycle/rap:Supervision/nc:ActivityCategoryText[.='SUPERVISION']">
+						<xsl:call-template name="supervisionTableRows" />
+					</xsl:when>
+					<xsl:otherwise>
+						<tr>
+							<td colspan="8">
+								No Supervision information available
+							</td>
+						</tr>
+					</xsl:otherwise>
 			</xsl:choose>
-       </table>
+	       </table>
+	       <table class="detailsTable">
+				<tr>
+					<td colspan="8" class="detailsTitle">
+						CUSTODY
+					</td>
+				</tr>
+	       		<xsl:choose>
+					<xsl:when test="//ch-ext:RapSheetCycle/rap:Supervision/nc:ActivityCategoryText[.='CUSTODY']">
+						<xsl:call-template name="custodyTableRows"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<tr>
+							<td colspan="8">
+								No Custody information available
+							</td>
+						</tr>
+					</xsl:otherwise>
+			</xsl:choose>
+	       </table>
+	   
+	       
+	       <table class="detailsTable">
+				<tr>
+					<td colspan="8" class="detailsTitle">
+						TRO/PO
+					</td>
+				</tr>
+				<xsl:choose>
+					<xsl:when test="//ch-ext:RapSheet/ch-ext:Order">
+						<xsl:call-template name="TROPOTableRows" />
+					</xsl:when>
+					<xsl:otherwise>
+						<tr>
+							<td colspan="8">
+								No TRO/PO information available
+							</td>
+						</tr>
+					</xsl:otherwise>
+				</xsl:choose>
+	       </table>
+	   </xsl:if>    
        <table class="detailsTable"> 
              <tr>
                 <td colspan="8" class="detailsTitle">CRIMINAL HISTORY</td>
