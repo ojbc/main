@@ -96,8 +96,12 @@ public class SubscriptionQueryResultsProcessor {
 		subscription.setLastName(sLastName);
 				
 		String sid = XmlUtils.xPathStringSearch(personNode, 
-				"jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");		
-		subscription.setStateId(sid.trim());		
+				"jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
+		
+		if (StringUtils.isNotBlank(sid))
+		{	
+			subscription.setStateId(sid.trim());
+		}	
 	}
 	
 	

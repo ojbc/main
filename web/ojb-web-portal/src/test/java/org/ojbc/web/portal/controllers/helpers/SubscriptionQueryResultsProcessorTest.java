@@ -16,7 +16,7 @@
  */
 package org.ojbc.web.portal.controllers.helpers;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,7 +40,7 @@ public class SubscriptionQueryResultsProcessorTest {
 				
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				
-		Document sampleSubQueryResultsDoc = getSampleSubQueryResultsDoc();		
+		Document sampleSubQueryResultsDoc = getSampleSubQueryResultsDoc("src/test/resources/subscriptions/SampleSubscriptionQueryResults.xml");		
 		
 		SubscriptionQueryResultsProcessor subQueryResultsProcessor = new SubscriptionQueryResultsProcessor();
 		
@@ -75,9 +75,22 @@ public class SubscriptionQueryResultsProcessorTest {
 		assertEquals("62726", systemId);
 	}
 	
-	private Document getSampleSubQueryResultsDoc() throws Exception{
+	@Test
+	public void testParseSubQueryResultsNoSID() throws Exception{
+				
+		Document sampleSubQueryResultsDoc = getSampleSubQueryResultsDoc("src/test/resources/subscriptions/SampleSubscriptionQueryResultsNoSID.xml");		
 		
-		File rapSheetFile = new File("src/test/resources/subscriptions/SampleSubscriptionQueryResults.xml");
+		SubscriptionQueryResultsProcessor subQueryResultsProcessor = new SubscriptionQueryResultsProcessor();
+		
+		Subscription subscription = subQueryResultsProcessor.parseSubscriptionQueryResults(sampleSubQueryResultsDoc);
+		
+		assertNotNull(subscription);
+				
+	}
+	
+	private Document getSampleSubQueryResultsDoc(String filePath) throws Exception{
+		
+		File rapSheetFile = new File(filePath);
 		InputStream rapsheetInStream = new FileInputStream(rapSheetFile);				
 		DocumentBuilder docBuilder = getDocBuilder();		
 		Document rapSheetDoc = docBuilder.parse(rapsheetInStream);	
