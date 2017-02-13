@@ -1035,6 +1035,7 @@ public class SubscriptionsController {
 		}catch(Exception e){
 			
 			model.put("initializationSucceeded", false);			
+			e.printStackTrace();
 			logger.info("initialization FAILED for identificationID=" + identificationID + ":\n" + e.toString());
 		}
 		
