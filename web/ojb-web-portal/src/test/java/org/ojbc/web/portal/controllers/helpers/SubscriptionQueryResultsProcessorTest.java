@@ -78,7 +78,7 @@ public class SubscriptionQueryResultsProcessorTest {
 	@Test
 	public void testParseSubQueryResultsNoSID() throws Exception{
 				
-		Document sampleSubQueryResultsDoc = getSampleSubQueryResultsDoc("src/test/resources/subscriptions/SampleSubscriptionQueryResultsNoSID.xml");		
+		Document sampleSubQueryResultsDoc = getSampleSubQueryResultsDoc("src/test/resources/subscriptions/sampleSubscriptionQueryResultsNoSID.xml");		
 		
 		SubscriptionQueryResultsProcessor subQueryResultsProcessor = new SubscriptionQueryResultsProcessor();
 		
