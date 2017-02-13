@@ -76,9 +76,6 @@
 				<li>
 					<a href="#narrativeTab">NARRATIVE</a>
 				</li>
-				<li>
-					<a href="#documentTab">DOCUMENT(S)</a>
-				</li>
 			</ul>
 
 			<div id="detailsTab">
@@ -99,7 +96,6 @@
 			<div id="narrativeTab"> 
 				<xsl:call-template name="narrativeTab" />
 			</div>
-			<div id="documentTab"> </div>
 		</div>
 	</xsl:template>
 	
