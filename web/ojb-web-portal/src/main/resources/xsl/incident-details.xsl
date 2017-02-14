@@ -53,6 +53,11 @@
 						modalIframe.height(modalIframe.contents().find("body").height() + 16);
 					}
 				});
+				
+				$(".ui-dialog-content", parent.document).animate({
+        			scrollTop: $("#detailsTab").offset().top
+    			}, 2000);
+    							
 			});
 		</script>
 
