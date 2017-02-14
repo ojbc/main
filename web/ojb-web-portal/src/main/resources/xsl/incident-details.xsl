@@ -54,9 +54,9 @@
 					}
 				});
 				
-				$(".ui-dialog-content", parent.document).animate({
+				$("#modalContainer", parent.document).animate({
         			scrollTop: $("#detailsTab").offset().top
-    			}, 2000);
+    			}, 400);
     							
 			});
 		</script>
