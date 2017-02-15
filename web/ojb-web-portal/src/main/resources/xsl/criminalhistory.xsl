@@ -248,10 +248,10 @@
                 <td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID"/></td>
                 
                 <xsl:choose>
-                	<xsl:when test="normalize-space(rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationJurisdictionText) != ''">
+                	<xsl:when test="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationJurisdictionText">
                 		<td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationJurisdictionText"/></td>
                 	</xsl:when>
-                	<xsl:when test="normalize-space(rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/j:IdentificationJurisdictionNCICLSTACode) != ''">
+                	<xsl:when test="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/j:IdentificationJurisdictionNCICLSTACode">
                 		<td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/j:IdentificationJurisdictionNCICLSTACode"/></td>
                 	</xsl:when>
                 	<xsl:otherwise>
@@ -267,10 +267,10 @@
                 <td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID"/></td>
                 
                 <xsl:choose>
-                	<xsl:when test="normalize-space(rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText) != ''">
+                	<xsl:when test="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText">
                 		<td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText"/></td>
                 	</xsl:when>
-                	<xsl:when test="normalize-space(rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/j:IdentificationJurisdictionNCICLSTACode) != ''">
+                	<xsl:when test="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/j:IdentificationJurisdictionNCICLSTACode">
                 		<td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/j:IdentificationJurisdictionNCICLSTACode"/></td>
                 	</xsl:when>
                 	<xsl:otherwise>
