@@ -288,9 +288,14 @@
             <tr>
                 <td colspan="2" class="detailsLabel">SSN</td>
                 <td colspan="2">
-                    <xsl:call-template name="formatSSN">
-                   		<xsl:with-param name="ssn" select="rap:RapSheetPerson/nc:PersonSSNIdentification/nc:IdentificationID" />
-                    </xsl:call-template>
+                	<xsl:for-each select="rap:RapSheetPerson/nc:PersonSSNIdentification/nc:IdentificationID">
+	                    <xsl:call-template name="formatSSN">
+	                   		<xsl:with-param name="ssn" select="." />
+	                    </xsl:call-template>
+                		<xsl:if test="position() != last()">
+                			<xsl:text>, </xsl:text>
+                		</xsl:if>
+                	</xsl:for-each>
                 </td>
                 <td colspan="2" class="detailsLabel">WEIGHT</td>
                 <td colspan="2"><xsl:value-of select="rap:RapSheetPerson/nc:PersonWeightMeasure/nc:MeasurePointValue" /></td>

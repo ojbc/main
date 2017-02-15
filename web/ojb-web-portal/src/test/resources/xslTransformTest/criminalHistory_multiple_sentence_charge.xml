@@ -72,6 +72,9 @@
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123456789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
 			<nc:PersonWeightMeasure>
 				<nc:MeasurePointValue>100</nc:MeasurePointValue>
 				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
