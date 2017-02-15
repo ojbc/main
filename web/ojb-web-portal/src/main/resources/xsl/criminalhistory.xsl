@@ -280,8 +280,8 @@
             <tr>
                 <td colspan="2" class="detailsLabel">DOB</td>
                 
+               <td colspan="2">
                <xsl:for-each select="rap:RapSheetPerson/nc:PersonBirthDate">
-                <td colspan="2">
                 	<xsl:choose>
                 		<xsl:when test="nc:Date">
                 			 <xsl:call-template name="formatDate">
@@ -292,8 +292,11 @@
                 			<xsl:value-of select="nc:Year"/>
                 		</xsl:when>
                 	</xsl:choose>
-                 </td>
+			       <xsl:if test="position() != last()">
+			           <xsl:text>, </xsl:text>
+			       </xsl:if>
                 </xsl:for-each>
+                </td>
                 
                 <td colspan="2" class="detailsLabel">SCARS/MARKS/TATTOOS</td>
                 <td colspan="2">
@@ -383,21 +386,6 @@
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="nc:PersonAlternateName">
-		<xsl:param name="aliasCount"/>
-		<xsl:variable name="position" select="position()"/>
-		<xsl:choose>
-			<xsl:when test="nc:PersonFullName">
-				<xsl:value-of select="nc:PersonFullName"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="nc:PersonGivenName"/><xsl:text></xsl:text><xsl:value-of select="nc:PersonSurName"/>
-			</xsl:otherwise>
-		</xsl:choose>
-		<xsl:if test="$position!=$aliasCount">
-			<xsl:text>, </xsl:text>
-		</xsl:if>
-	</xsl:template>
 	<xsl:template name ="cycles" >
 		<script type="text/javascript" >
 			$(function () {

@@ -222,7 +222,18 @@
 	<xsl:template match="nc:PersonAlternateName | nc20:PersonAlternateName | nc:PersonName | nc20:PersonName">
 		<xsl:choose>
 			<xsl:when test="*:PersonGivenName and *:PersonSurName">
-				 <xsl:value-of select="concat(*:PersonGivenName, ' ', *:PersonSurName)"/>
+			 	<xsl:if test="*:PersonGivenName">
+			 		<xsl:value-of select="concat(*:PersonGivenName, ' ')"/>
+			 	</xsl:if>
+			 	<xsl:if test="*:PersonMiddleName">
+			 		<xsl:value-of select="concat(*:PersonMiddleName, ' ')"/>
+			 	</xsl:if>
+			 	<xsl:if test="*:PersonSurName">
+			 		<xsl:value-of select="*:PersonSurName"/>
+			 	</xsl:if>
+			 	<xsl:if test="*:PersonNameSuffixText">
+			 		<xsl:value-of select="' ', *:PersonNameSuffixText"/>
+			 	</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="*:PersonFullName"/>
