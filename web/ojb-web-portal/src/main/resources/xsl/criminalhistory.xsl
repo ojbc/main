@@ -467,7 +467,15 @@
 		<br />
 		<p><span class="sectionTitle" style="font-size:125%">ARREST CHARGE #<xsl:value-of select="position()" /></span></p>
 		<p><span class="smallLabel">Arrest Report Number (ARN): </span> <xsl:value-of select="j:ChargeTrackingIdentification/nc:IdentificationID" /></p>
-		<p><span class="smallLabel">Arrest Charge Description: </span> <xsl:value-of select="j:ChargeDescriptionText" /></p>
+		<xsl:if test="normalize-space(j:ChargeDescriptionText) != ''">
+			<p><span class="smallLabel">Arrest Charge Description: </span> <xsl:value-of select="j:ChargeDescriptionText" /></p>
+		</xsl:if>	
+		<xsl:if test="normalize-space(j:ChargeText) != ''">
+			<p><span class="smallLabel">Arrest Charge Text: </span> <xsl:value-of select="j:ChargeText" /></p>
+		</xsl:if>	
+		<xsl:if test="normalize-space(j:ChargeDescriptionText) = '' and normalize-space(j:ChargeText) =''">
+			<p><span class="smallLabel">Arrest Charge Description: </span></p>
+		</xsl:if>		
 		<p><span class="smallLabel">Arrest Charge Disposition: </span> <xsl:value-of select="j:ChargeDisposition/nc:DispositionDescriptionText" /></p>
 		<p><span class="smallLabel">Statute: </span> <xsl:value-of select="rap:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID" /></p>
 
@@ -546,7 +554,15 @@
 				<p><span class="detailsLabel">Court Charge</span></p>
 			</xsl:if>
 			<p><span class="smallLabel">Arrest Report Number (ARN): </span> <xsl:value-of select="j:ChargeTrackingIdentification/nc:IdentificationID" /></p>
-			<p><span class="smallLabel">Charge Description: </span> <xsl:value-of select="j:ChargeDescriptionText" /></p>
+			<xsl:if test="normalize-space(j:ChargeDescriptionText) != ''">
+				<p><span class="smallLabel">Charge Description: </span> <xsl:value-of select="j:ChargeDescriptionText" /></p>
+			</xsl:if>	
+			<xsl:if test="normalize-space(j:ChargeText) != ''">
+				<p><span class="smallLabel">Charge Text: </span> <xsl:value-of select="j:ChargeText" /></p>
+			</xsl:if>	
+			<xsl:if test="normalize-space(j:ChargeDescriptionText) = '' and normalize-space(j:ChargeText) =''">
+				<p><span class="smallLabel">Charge Description: </span></p>
+			</xsl:if>
 			<p><span class="smallLabel">Charge Disposition: </span> <xsl:value-of select="j:ChargeDisposition/nc:DispositionDescriptionText" /></p>
 			<p><span class="smallLabel">Statute: </span> <xsl:value-of select="rap:ChargeStatute/j:StatuteCodeIdentification/nc:IdentificationID" /></p>
 		</xsl:if>
