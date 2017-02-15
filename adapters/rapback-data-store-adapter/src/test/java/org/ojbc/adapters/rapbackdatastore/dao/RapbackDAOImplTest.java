@@ -106,11 +106,9 @@ public class RapbackDAOImplTest {
 		Integer subjectId = rapbackDAO.saveSubject(subject); 
 		
 		assertNotNull(subjectId);
-		assertEquals(6, subjectId.intValue()); 
 		
 		Subject persistedSubject = rapbackDAO.getSubject(subjectId); 
 		log.info(persistedSubject.toString());
-		assertEquals(Integer.valueOf(6), persistedSubject.getSubjectId());
 		assertEquals("1969-05-12", persistedSubject.getDob().toString("yyyy-MM-dd"));
 		assertEquals("B1234567", persistedSubject.getUcn());
 		assertNull(persistedSubject.getCriminalSid());
@@ -216,7 +214,6 @@ public class RapbackDAOImplTest {
 		criminalInitialResults.setSubject(identificationTransaction.getSubject());
 		Integer pkId = rapbackDAO.saveCriminalInitialResults(criminalInitialResults);
 		assertNotNull(pkId);
-		assertEquals(5, pkId.intValue()); 
 	}
 	
 	@Test
@@ -236,7 +233,6 @@ public class RapbackDAOImplTest {
 		
 		Integer pkId = rapbackDAO.saveCivilInitialResults(civilInitialResults);
 		assertNotNull(pkId);
-		assertEquals(11, pkId.intValue()); 
 		
 		CivilInitialResults persistedCivilInitialResults = 
 				(rapbackDAO.getCivilInitialResults(identificationTransaction.getOwnerOri())).get(2);
