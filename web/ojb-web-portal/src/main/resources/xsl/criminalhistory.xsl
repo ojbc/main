@@ -246,14 +246,38 @@
             <tr>
                 <td colspan="2" class="detailsLabel">SID/ISSUER</td>
                 <td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID"/></td>
-                <td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationJurisdictionText"/></td>
+                
+                <xsl:choose>
+                	<xsl:when test="normalize-space(rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationJurisdictionText) != ''">
+                		<td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationJurisdictionText"/></td>
+                	</xsl:when>
+                	<xsl:when test="normalize-space(rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/j:IdentificationJurisdictionNCICLSTACode) != ''">
+                		<td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/j:IdentificationJurisdictionNCICLSTACode"/></td>
+                	</xsl:when>
+                	<xsl:otherwise>
+                		<td colspan="1"></td>
+                	</xsl:otherwise>
+                </xsl:choose>
+                
                 <td colspan="2" class="detailsLabel">RACE</td>
                 <td colspan="2"><xsl:value-of select="rap:RapSheetPerson/rap:PersonRaceText" /></td>
             </tr>
             <tr>
                 <td colspan="2" class="detailsLabel">DL#/ISSUER</td>
                 <td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID"/></td>
-                <td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText"/></td>
+                
+                <xsl:choose>
+                	<xsl:when test="normalize-space(rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText) != ''">
+                		<td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText"/></td>
+                	</xsl:when>
+                	<xsl:when test="normalize-space(rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/j:IdentificationJurisdictionNCICLSTACode) != ''">
+                		<td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/j:IdentificationJurisdictionNCICLSTACode"/></td>
+                	</xsl:when>
+                	<xsl:otherwise>
+                		<td colspan="1"></td>
+                	</xsl:otherwise>
+                </xsl:choose>                
+                
                 <td colspan="2" class="detailsLabel">HEIGHT</td>
                 <td colspan="2">
                 	<xsl:call-template name="formatHeight">
