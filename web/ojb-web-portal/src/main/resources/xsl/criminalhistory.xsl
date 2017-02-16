@@ -255,12 +255,13 @@
                 <td colspan="2">
 	               	<xsl:for-each select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID">
 						<xsl:value-of select="."/>
+	               		<xsl:variable name="position" select="position()"/>
 		                <xsl:choose>
-		                	<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[position()]/nc:IdentificationJurisdictionText">
-		                		<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[position()]/nc:IdentificationJurisdictionText"/><xsl:text>)</xsl:text>
+		                	<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[$position]/nc:IdentificationJurisdictionText">
+		                		<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[$position]/nc:IdentificationJurisdictionText"/><xsl:text>)</xsl:text>
 		                	</xsl:when>
-		                	<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[position()]/j:IdentificationJurisdictionNCICLSTACode">
-		                		<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[position()]/j:IdentificationJurisdictionNCICLSTACode"/><xsl:text>)</xsl:text>
+		                	<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[$position]/j:IdentificationJurisdictionNCICLSTACode">
+		                		<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[$position]/j:IdentificationJurisdictionNCICLSTACode"/><xsl:text>)</xsl:text>
 		                	</xsl:when>
 		                </xsl:choose>
 						<xsl:if test="position() != last()">
@@ -284,12 +285,13 @@
             	<td colspan="2">
 	            	<xsl:for-each select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID">
 	            		<xsl:value-of select="."/>
+	            		<xsl:variable name="position" select="position()"/>
 	            		<xsl:choose>
-	            			<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification[position()]/nc:IdentificationJurisdictionText">
-	            				<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification[position()]/nc:IdentificationJurisdictionText"/><xsl:text>)</xsl:text>
+	            			<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense[$position]/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText">
+	            				<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense[$position]/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText"/><xsl:text>)</xsl:text>
 	            			</xsl:when>
-	            			<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification[position()]/j:IdentificationJurisdictionNCICLSTACode">
-	            				<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification[position()]/j:IdentificationJurisdictionNCICLSTACode"/><xsl:text>)</xsl:text>
+	            			<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense[$position]/nc:DriverLicenseIdentification/j:IdentificationJurisdictionNCICLSTACode">
+	            				<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense[$position]/nc:DriverLicenseIdentification/j:IdentificationJurisdictionNCICLSTACode"/><xsl:text>)</xsl:text>
 	            			</xsl:when>
 	            		</xsl:choose>
 	            		<xsl:if test="position() != last()">

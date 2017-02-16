@@ -83,6 +83,12 @@
 						<nc:IdentificationJurisdictionText>PA</nc:IdentificationJurisdictionText>
 					</nc:DriverLicenseIdentification>
 				</nc:DriverLicense>
+				<nc:DriverLicense>
+					<nc:DriverLicenseIdentification>
+						<nc:IdentificationID>99999999</nc:IdentificationID>
+						<nc:IdentificationJurisdictionText>WI</nc:IdentificationJurisdictionText>
+					</nc:DriverLicenseIdentification>
+				</nc:DriverLicense>				
 				<j:PersonFBIIdentification>
 					<nc:IdentificationID>12345678X9</nc:IdentificationID>
 				</j:PersonFBIIdentification>
