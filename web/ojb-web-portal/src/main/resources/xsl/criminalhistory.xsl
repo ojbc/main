@@ -241,42 +241,62 @@
                 <td colspan="2" class="detailsLabel">FBI#</td>
                 <td colspan="2"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonFBIIdentification/nc:IdentificationID" /></td>
                 <td colspan="2" class="detailsLabel">GENDER</td>
-                <td colspan="2"><xsl:value-of select="rap:RapSheetPerson/rap:PersonSexText" /></td>
+                <td colspan="2">
+					<xsl:for-each select="rap:RapSheetPerson/rap:PersonSexText">
+						<xsl:value-of select="."/>
+						<xsl:if test="position() != last()">
+							<xsl:text>, </xsl:text>
+						</xsl:if>
+					</xsl:for-each>
+                </td>
             </tr>
             <tr>
                 <td colspan="2" class="detailsLabel">SID/ISSUER</td>
-                <td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID"/></td>
-                
-                <xsl:choose>
-                	<xsl:when test="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationJurisdictionText">
-                		<td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationJurisdictionText"/></td>
-                	</xsl:when>
-                	<xsl:when test="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/j:IdentificationJurisdictionNCICLSTACode">
-                		<td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/j:IdentificationJurisdictionNCICLSTACode"/></td>
-                	</xsl:when>
-                	<xsl:otherwise>
-                		<td colspan="1"></td>
-                	</xsl:otherwise>
-                </xsl:choose>
+                <td colspan="2">
+	               	<xsl:for-each select="rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID">
+						<xsl:value-of select="."/>
+		                <xsl:choose>
+		                	<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[position()]/nc:IdentificationJurisdictionText">
+		                		<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[position()]/nc:IdentificationJurisdictionText"/><xsl:text>)</xsl:text>
+		                	</xsl:when>
+		                	<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[position()]/j:IdentificationJurisdictionNCICLSTACode">
+		                		<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification[position()]/j:IdentificationJurisdictionNCICLSTACode"/><xsl:text>)</xsl:text>
+		                	</xsl:when>
+		                </xsl:choose>
+						<xsl:if test="position() != last()">
+							<xsl:text>, </xsl:text>
+						</xsl:if>
+	               	</xsl:for-each>
+                </td>	
                 
                 <td colspan="2" class="detailsLabel">RACE</td>
-                <td colspan="2"><xsl:value-of select="rap:RapSheetPerson/rap:PersonRaceText" /></td>
+                <td colspan="2">
+					<xsl:for-each select="rap:RapSheetPerson/rap:PersonRaceText">
+						<xsl:value-of select="."/>
+						<xsl:if test="position() != last()">
+							<xsl:text>, </xsl:text>
+						</xsl:if>
+					</xsl:for-each>
+                </td>
             </tr>
             <tr>
                 <td colspan="2" class="detailsLabel">DL#/ISSUER</td>
-                <td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID"/></td>
-                
-                <xsl:choose>
-                	<xsl:when test="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText">
-                		<td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationJurisdictionText"/></td>
-                	</xsl:when>
-                	<xsl:when test="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/j:IdentificationJurisdictionNCICLSTACode">
-                		<td colspan="1"><xsl:value-of select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/j:IdentificationJurisdictionNCICLSTACode"/></td>
-                	</xsl:when>
-                	<xsl:otherwise>
-                		<td colspan="1"></td>
-                	</xsl:otherwise>
-                </xsl:choose>                
+            	<td colspan="2">
+	            	<xsl:for-each select="rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID">
+	            		<xsl:value-of select="."/>
+	            		<xsl:choose>
+	            			<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification[position()]/nc:IdentificationJurisdictionText">
+	            				<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification[position()]/nc:IdentificationJurisdictionText"/><xsl:text>)</xsl:text>
+	            			</xsl:when>
+	            			<xsl:when test="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification[position()]/j:IdentificationJurisdictionNCICLSTACode">
+	            				<xsl:text> (</xsl:text><xsl:value-of select="//rap:RapSheetPerson/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification[position()]/j:IdentificationJurisdictionNCICLSTACode"/><xsl:text>)</xsl:text>
+	            			</xsl:when>
+	            		</xsl:choose>
+	            		<xsl:if test="position() != last()">
+	            			<xsl:text>, </xsl:text>
+	            		</xsl:if>
+	            	</xsl:for-each>
+    			</td>        	
                 
                 <td colspan="2" class="detailsLabel">HEIGHT</td>
                 <td colspan="2">
@@ -302,9 +322,23 @@
             </tr>
             <tr>
             	<td colspan="2" class="detailsLabel">HAIR COLOR</td>
-                <td colspan="2"><xsl:value-of select="rap:RapSheetPerson/rap:PersonHairColorText" /></td>
+                <td colspan="2">
+					<xsl:for-each select="rap:RapSheetPerson/rap:PersonHairColorText">
+						<xsl:value-of select="."/>
+						<xsl:if test="position() != last()">
+							<xsl:text>, </xsl:text>
+						</xsl:if>
+					</xsl:for-each>
+                </td>
                 <td colspan="2" class="detailsLabel">EYE COLOR</td>
-                <td colspan="2"><xsl:value-of select="rap:RapSheetPerson/rap:PersonEyeColorText" /></td>
+                <td colspan="2">
+					<xsl:for-each select="rap:RapSheetPerson/rap:PersonEyeColorText">
+						<xsl:value-of select="."/>
+						<xsl:if test="position() != last()">
+							<xsl:text>, </xsl:text>
+						</xsl:if>
+					</xsl:for-each>
+                </td>
             </tr>
             <tr>
                 <td colspan="2" class="detailsLabel">DOB</td>
