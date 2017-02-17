@@ -182,7 +182,7 @@
 			//TODO possible refactor to avoid 2 ansync jquery ajax calls in a row
 		    ojbc.populateLeftBarContentFromUrl("#springUrl('/portal/landingLeftBar')");
 
-		    ojbc.populatePortalContentFromUrl("#springUrl('/portal/suggestionForm')");
+		    ojbc.populatePortalContentFromUrl("#springUrl('/suggestion/suggestionForm')");
 					    
 		    return false;
 		})

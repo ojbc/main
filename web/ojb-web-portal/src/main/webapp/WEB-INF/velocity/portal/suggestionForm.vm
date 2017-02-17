@@ -14,9 +14,30 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  *#
+ <script type="text/javascript">
+	  $(function() {
+ 	
+ 		    $('#emailFormSubmitButton').click (function(){
+                
+                var isValidate=$("#reportForm").valid();
+                if(!isValidate){
+                    alert("There are errors in your inputs, please correct them and try again");
+                }else {
+                    var formData = $("#reportForm").serialize();
+
+                    xhr = $.post("#springUrl('/suggestion/submitEmail')",formData,function(data) {
+				        $('#portalContent').html(data);
+			        }).fail(ojbc.displayFailMessage);
+			    }
+                
+    		});
+    	})
+</script>    		
+ 
+ 
 <div id="landingPageContent">
 <h1>Suggestions/Report a Problem Form</h1>
-<form action="suggestionConfirmation.vm" method="post" name="reportForm" enctype="multipart/form-data" onsubmit="return validateFields();">
+<form action="suggestionConfirmation.vm" method="post" id="reportForm" enctype="multipart/form-data" onsubmit="return validateFields();">
 
 	<table border ="0">
 		<tr>
@@ -24,7 +45,8 @@
 				The area that my Suggestion/Problem best relates to:
 			</td>
 			<td>
-				#parse("_hawaiiApplications.vm")
+				#springFormSingleSelect("suggestionFormCommand.suggestionFormRequest.suggestionProblem" $suggestionProblemList "" ) 
+			</td>
 			</td>
 		</tr>
 
@@ -33,11 +55,7 @@
 				The urgency of my issue is:
 			</td>
 			<td colspan="2">
-				<select id="importance" name="importance">
-					<option value="Critical">Critical</option>
-					<option value="Normal">Normal</option>
-					<option value="Cosmetic">Low/Cosmetic</option>
-				</select>
+				#springFormSingleSelect("suggestionFormCommand.suggestionFormRequest.urgency" $urgencyList "" ) 
 			</td>
 		</tr>
 
@@ -49,16 +67,8 @@
 				<p>
 					1. Please include step-by-step process of how you arrived at this issue</br>
 					2. Expected functionality (what you expected but did not get)</br>
-					3. Please attach any pertinent screenshots</br>
 				</p>
-				<textarea rows="10" cols="50" maxlength="1000" name="message">
-1.
-
-
-2.
-				</textarea>
-				</br></br>
-				<input type="Button" name="Attach" value="Attach a File"/>
+				#springFormTextarea("suggestionFormCommand.suggestionFormRequest.userFeedback" "class='defaultTextArea'")
 			</td>
 		</tr>
 
@@ -67,7 +77,7 @@
 				User Name:
 			</td>
 			<td colspan="2">
-				<input type="text" size="50" maxlength="50" name="name" id="name">
+				#springFormInput("suggestionFormCommand.suggestionFormRequest.userName" "placeholder='Name'")
 			</td>
 		</tr>
 		<tr>
@@ -75,7 +85,7 @@
 				User Agency:
 			</td>
 			<td colspan="2">
-				<input type="text" size="50" maxlength="50" name="userAgency" id="userAgency">
+				#springFormInput("suggestionFormCommand.suggestionFormRequest.userAgency" "placeholder='Agency'")
 			</td>
 		</tr>
 		<tr>
@@ -83,7 +93,7 @@
 				User Email Address:
 			</td>
 			<td colspan="2">
-				<input type="text" size="50" maxlength="50" name="email" id="email">
+				#springFormInput("suggestionFormCommand.suggestionFormRequest.userEmail" "placeholder='Email'")
 			</td>
 		</tr>
 		<tr>
@@ -91,7 +101,7 @@
 				User Phone Number:
 			</td>
 			<td colspan="2">
-				<input type="text" size="50" maxlength="50" name="userPhone" id="userPhone">
+				#springFormInput("suggestionFormCommand.suggestionFormRequest.userPhone" "placeholder='Phone Number'")
 			</td>
 		</tr>
 		<tr>
@@ -99,35 +109,13 @@
 				<!-- Disabling submit until we get email functionality in place
 				<input type="submit" name="Submit" value="Email administrator"/>
 				-->
-				<button type="button">Submit</button>
+				<a id="emailFormSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
 			<td>
 			<td>
 				&nbsp;
 			</td>
 			<td>
 				&nbsp;
-			</td>
-		</tr>
-	</table>
-
-	</br></br>
-	
-	<table hidden>
-		<tr>
-			<td>
-				Hidden values:
-			</td>
-			<td>
-				&nbsp;
-			</td>
-		</tr>
-
-		<tr>
-			<td>
-				SAML:
-			</td>
-			<td>
-				Pull SAML from session on "submit"?
 			</td>
 		</tr>
 	</table>

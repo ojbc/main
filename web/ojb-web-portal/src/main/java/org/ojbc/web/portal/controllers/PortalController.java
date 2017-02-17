@@ -188,11 +188,6 @@ public class PortalController implements ApplicationContextAware {
 	    return "portal/faq";
 	}
 
-    @RequestMapping("suggestionForm")
-    public String suggestionForm(){
-	    return "portal/suggestionForm";
-	}
-	
     @RequestMapping("index")
     public void index(HttpServletRequest request, Map<String, Object> model, Authentication authentication){
 

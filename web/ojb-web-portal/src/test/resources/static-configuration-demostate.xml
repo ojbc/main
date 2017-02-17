@@ -613,6 +613,20 @@
 		<!-- Vehicle Search to Incident list, not supported by static mock adapter-->
 		<entry key="{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS"/>
     </util:map>   
+    
+    	<util:map id="suggestionProblemList" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Suggestion" />
+		<entry key="portal" value="Portal" />
+		<entry key="query" value="Query" />
+		<entry key="subscriptionNotification" value="Subscription/Notification" />
+	</util:map>
+	
+	<util:map id="urgencyList" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Urgency" />
+		<entry key="normal" value="Normal" />
+		<entry key="critical" value="Critical" />
+		<entry key="low" value="Low/Cosmetic" />
+	</util:map>
 
 </beans>                      
 

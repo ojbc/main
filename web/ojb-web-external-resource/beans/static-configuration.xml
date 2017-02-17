@@ -673,6 +673,19 @@
 		<entry key="Available for Subscription" value="Available for Subscription" />
 		<entry key="Archived" value="Archived" />
 	</util:map>
-
+	
+	<util:map id="suggestionProblemList" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Suggestion" />
+		<entry key="portal" value="Portal" />
+		<entry key="query" value="Query" />
+		<entry key="subscriptionNotification" value="Subscription/Notification" />
+	</util:map>
+	
+	<util:map id="urgencyList" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Urgency" />
+		<entry key="normal" value="Normal" />
+		<entry key="critical" value="Critical" />
+		<entry key="low" value="Low/Cosmetic" />
+	</util:map>
 
 </beans>
