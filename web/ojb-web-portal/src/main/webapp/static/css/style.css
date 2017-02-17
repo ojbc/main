@@ -1362,4 +1362,15 @@ text-shadow: 0 1px #fff; */
 .detailDataTable thead th{
 	font-weight: bold;
 }
+
+/************************ Suggestion Form *****************************/	
 	
+.defaultTextArea {
+     display: block;
+     width: 400px;
+     height: 150px;
+     padding: 8px;
+     border: 1px solid #cccccc;
+     line-height: 130%;
+     font-size: 13px;
+}
