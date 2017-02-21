@@ -109,7 +109,7 @@
 				<!-- Disabling submit until we get email functionality in place
 				<input type="submit" name="Submit" value="Email administrator"/>
 				-->
-				<a id="emailFormSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
+				<a id="emailFormSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SUBMIT</a>
 			<td>
 			<td>
 				&nbsp;
