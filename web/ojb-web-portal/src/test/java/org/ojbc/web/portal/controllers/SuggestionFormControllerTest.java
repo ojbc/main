@@ -70,6 +70,7 @@ public class SuggestionFormControllerTest {
 		unit.ojbcMailSender = mockMailSender;
 		unit.suggestionFormResultsPage="portal/suggestionConfirmation";
 		unit.suggestionFormEmailRecipient="test@localhost";
+		unit.suggestionFormLandingPage="portal/suggestionForm";
 		
 		SuggestionFormRequest suggestionFormRequest = new SuggestionFormRequest();
 		
