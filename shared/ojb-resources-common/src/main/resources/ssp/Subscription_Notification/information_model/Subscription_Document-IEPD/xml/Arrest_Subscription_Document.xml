@@ -70,6 +70,6 @@
 	</submsg-ext:TriggeringEvents>
 	<submsg-ext:FederalRapSheetDisclosure>
 		<submsg-ext:FederalRapSheetDisclosureIndicator>true</submsg-ext:FederalRapSheetDisclosureIndicator>
-		<submsg-ext:FederalRapSheetDisclosureAttentionDesignationText></submsg-ext:FederalRapSheetDisclosureAttentionDesignationText>
+		<submsg-ext:FederalRapSheetDisclosureAttentionDesignationText>Detective George Jones</submsg-ext:FederalRapSheetDisclosureAttentionDesignationText>
 	</submsg-ext:FederalRapSheetDisclosure>
 </submsg-doc:SubscriptionMessage>
