@@ -61,4 +61,15 @@
 		</nc20:EndDate>
 	</nc20:DateRange>
 	<submsg-ext:CriminalSubscriptionReasonCode>CI</submsg-ext:CriminalSubscriptionReasonCode>
+	<submsg-ext:TriggeringEvents>
+		<submsg-ext:FederalTriggeringEventCode>ARREST</submsg-ext:FederalTriggeringEventCode>
+		<submsg-ext:FederalTriggeringEventCode>DEATH</submsg-ext:FederalTriggeringEventCode>
+		<submsg-ext:FederalTriggeringEventCode>NCIC-SOR</submsg-ext:FederalTriggeringEventCode>
+		<submsg-ext:FederalTriggeringEventCode>NCIC-WARRANT</submsg-ext:FederalTriggeringEventCode>
+		<submsg-ext:FederalTriggeringEventCode>DISPOSITION</submsg-ext:FederalTriggeringEventCode>
+	</submsg-ext:TriggeringEvents>
+	<submsg-ext:FederalRapSheetDisclosure>
+		<submsg-ext:FederalRapSheetDisclosureIndicator>true</submsg-ext:FederalRapSheetDisclosureIndicator>
+		<submsg-ext:FederalRapSheetDisclosureAttentionDesignationText></submsg-ext:FederalRapSheetDisclosureAttentionDesignationText>
+	</submsg-ext:FederalRapSheetDisclosure>
 </submsg-doc:SubscriptionMessage>
