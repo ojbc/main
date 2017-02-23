@@ -55,6 +55,9 @@ public class SuggestionFormController {
 	@Resource
 	SamlService samlService;
 	
+	@Value("${suggestionFormLandingPage:portal/suggestionForm}")
+	String suggestionFormLandingPage;
+	
 	@Resource(name="suggestionProblemList")
 	Map<String, String> suggestionProblemList;
 	
@@ -78,7 +81,7 @@ public class SuggestionFormController {
 		SuggestionFormCommand suggestionFormCommand = new SuggestionFormCommand();
 		model.put("suggestionFormCommand", suggestionFormCommand);
 
-		return "portal/suggestionForm";
+		return suggestionFormLandingPage;
 	}
 	
 	@RequestMapping(value = "submitEmail", method = RequestMethod.POST)
