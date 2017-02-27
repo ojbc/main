@@ -23,7 +23,14 @@ public class UserOTPDetails {
 	private String oneTimePassword;
 	private LocalTime expirationTimestamp;
 	private String emailAddress;
+	private boolean isUserAuthenticated;
 	
+	public boolean isUserAuthenticated() {
+		return isUserAuthenticated;
+	}
+	public void setUserAuthenticated(boolean isUserAuthenticated) {
+		this.isUserAuthenticated = isUserAuthenticated;
+	}
 	public String getEmailAddress() {
 		return emailAddress;
 	}

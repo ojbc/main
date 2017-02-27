@@ -29,16 +29,22 @@
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 	<context:annotation-config/>
   	<sec:http security="none" pattern="/static/**"/>
+  	
+  	<!-- this is used for policy ack -->
     <sec:http security="none" pattern="/403"/>   
     <sec:http security="none" pattern="/index.jsp"/>   
-    <sec:http security="none" pattern="/acknowlegePolicies"/>   
+    <sec:http security="none" pattern="/acknowlegePolicies"/>
+	
+	<!-- We should change this to require a SAML authentication role, if we can separate policy ack and portal roles, we can do this -->
+    <sec:http security="none" pattern="/otp/**"/>
+    
 	<sec:http realm="Portal Realm" auto-config='true' entry-point-ref="preAuthenticatedProcessingFilterEntryPoint" 
-		create-session="ifRequired" disable-url-rewriting="true" access-decision-manager-ref="accessDecisionManager" >
+		create-session="ifRequired" disable-url-rewriting="true" access-decision-manager-ref="accessDecisionManager" use-expressions="true">
         <!-- Allow non-secure access to static resources  -->
-        <sec:intercept-url pattern="/**" access="AUTHZ_PORTAL"/>   
+        <sec:intercept-url pattern="/**" access="hasRole('AUTHZ_PORTAL') and hasRole('AUTHZ_PORTAL_OTP')"/>
 		<sec:custom-filter ref="samlAuthenticationFilter" position="PRE_AUTH_FILTER"/>    
 		<sec:logout logout-success-url="/index.jsp"/>
-		<sec:access-denied-handler error-page="/403"/>
+		<sec:access-denied-handler ref="ojbcAccessDeniedHandler"/>
 		<sec:session-management session-fixation-protection="newSession"/>
 	</sec:http>
   
@@ -61,31 +67,19 @@
         <property name="checkForPrincipalChanges" value="true"/>
     </bean>
     
-<!-- 	<bean id="portalAuthenticationDetailsSource" class="org.ojb.web.portal.security.PortalAuthenticationDetailsSource" >
-        <property name="requireIdentityBasedAccessControl" value="${requireIdentityBasedAccessControl}"/>
-        <property name="accessControlServicesConfig" ref="accessControlServicesConfigBrokered"/>
-	</bean>
- -->	
     <bean id="preAuthenticatedProcessingFilterEntryPoint"
             class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"/>
             
-	<!-- this voter will have the default attributes -->
-	<bean id="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter" />
-	   
-	<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
-		<property name="rolePrefix" value="AUTHZ_" />
-	</bean>
-	
 	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
-		<constructor-arg>
-		    <list>
-		      <ref bean="roleVoter" />
-		      <ref bean="authenticatedVoter" />
-		    </list>
-		    
-		</constructor-arg>
-	</bean>
+	    <constructor-arg>
+	        <list>
+	            <bean class="org.springframework.security.web.access.expression.WebExpressionVoter"/>
+	            <bean class="org.springframework.security.access.vote.RoleVoter">
+	                <property name="rolePrefix" value="AUTHZ_"/>
+	            </bean>
+	            <bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+	        </list>
+	    </constructor-arg>
+	</bean>	
 	
-	<sec:global-method-security secured-annotations="enabled" 
-		access-decision-manager-ref="accessDecisionManager"/>
 </beans>

@@ -21,6 +21,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.security.UserOTPDetails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,8 @@ import org.springframework.stereotype.Service;
 @Service("OTPServiceMemoryImpl")
 public class OTPServiceMemoryImpl implements OTPService{
 
+	private final Log log = LogFactory.getLog(this.getClass());
+	
 	private ConcurrentHashMap<String, UserOTPDetails> otpMap = new ConcurrentHashMap<String, UserOTPDetails>();
 	
 	@Resource (name="${otpGeneratorBean:DefaultOtpGenerator}")
@@ -73,13 +77,49 @@ public class OTPServiceMemoryImpl implements OTPService{
 			
 			if (now.isBefore(expirationTimestamp) && expectedOneTimePassword.equals(enteredOtp))
 			{
+				otpMap.get(userIdentifier).setUserAuthenticated(true);
 				return true;
 			}	
 		}	
 		
 		return false;
 	}
+	
+	@Override
+	public boolean isUserAuthenticated(String userIdentifier) {
+		
+		log.info("Is user authenticated?" + userIdentifier);
+		
+		UserOTPDetails userOTPDetails = otpMap.get(userIdentifier);
+		
+		if (userOTPDetails != null)
+		{
+			if (userOTPDetails.isUserAuthenticated())
+			{
+				log.info("User Is authenticated");
+				
+				//Double check to make sure user is still within timeframe
+				LocalTime expirationTimestamp = userOTPDetails.getExpirationTimestamp();
+				LocalTime now = LocalTime.now();
+				
+				if (now.isBefore(expirationTimestamp))
+				{
+					return true;
+				}
 
+				//only allow one authentication per token
+				otpMap.remove(userIdentifier);
+				
+			}	
+			else
+			{
+				return false;
+			}	
+		}
+
+		return false;
+	}
+	
 	public ConcurrentHashMap<String, UserOTPDetails> getOtpMap() {
 		return otpMap;
 	}
