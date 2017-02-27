@@ -46,6 +46,8 @@
 					<xsd:element ref="nc:DateRange" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:SubscriptionIdentification" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
+					<xsd:element ref="submsg-ext:TriggeringEvents"/>
+					<xsd:element ref="submsg-ext:FederalRapSheetDisclosure" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:FingerprintDocumentRepresentation" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
@@ -235,6 +237,82 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="TriggeringEventsType">
+		<xsd:annotation>
+			<xsd:documentation>One or more events that would trigger notifications related to a subscription.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="submsg-ext:TriggeringEventRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="TriggeringEvents" type="submsg-ext:TriggeringEventsType"/>
+	<xsd:element name="TriggeringEventRepresentation" abstract="true"/>
+	<xsd:element name="FederalTriggeringEventCode" substitutionGroup="submsg-ext:TriggeringEventRepresentation" type="xsd:string"/>
+	<xsd:complexType name="FederalTriggeringEventCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="submsg-ext:FederalTriggeringEventCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="FederalTriggeringEventCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="ARREST">
+				<xsd:annotation>
+					<xsd:documentation>Arrests</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DISPOSITION">
+				<xsd:annotation>
+					<xsd:documentation>Dispositions</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-WARRANT">
+				<xsd:annotation>
+					<xsd:documentation>NCIC Warrant Entry, Modification, Deletion </xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-SOR">
+				<xsd:annotation>
+					<xsd:documentation>NCIC National Sex Offender Registry (NSOR) Entry, Modification, Deletion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DEATH">
+				<xsd:annotation>
+					<xsd:documentation>Death Notice</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="FederalRapSheetDisclosureType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="submsg-ext:FederalRapSheetDisclosureIndicator"/>
+					<xsd:element ref="submsg-ext:FederalRapSheetDisclosureAttentionDesignationText" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="FederalRapSheetDisclosure" type="submsg-ext:FederalRapSheetDisclosureType">
+		<xsd:annotation>
+			<xsd:documentation>Details about disclosing a subscription on a subject's federal criminal history.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FederalRapSheetDisclosureIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the subscription is to appear on the subject's federal rap sheet, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FederalRapSheetDisclosureAttentionDesignationText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A designation of the individual to whose attention a response is to be directed, relating to a subscription on a subject's rap sheet.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="SubscriptionModification" type="submsg-ext:SubscriptionModificationType">
 		<xsd:annotation>
 			<xsd:documentation>A modification to a subscription</xsd:documentation>
