@@ -82,6 +82,8 @@ public class PortalAccessControlTest {
         mockMvc = webAppContextSetup(wac)
         // Enable Spring Security
                 .addFilters(springSecurityFilter).alwaysDo(print()).build();
+        
+        portalAuthenticationDetailsSource.requireOtpAuthentication=false;
     }
     
     @Test

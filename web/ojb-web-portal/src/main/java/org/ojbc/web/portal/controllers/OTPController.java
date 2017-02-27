@@ -27,6 +27,7 @@ import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.portal.controllers.dto.OTPFormCommand;
 import org.ojbc.web.portal.services.OTPService;
 import org.ojbc.web.portal.services.SamlService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +50,10 @@ public class OTPController {
 	public String searchForm(HttpServletRequest request,
 	        Map<String, Object> model) throws Exception {
 
+		//We clear the authentication to force the portal details source method
+		//to be invoked.  Otherwise it thinks pre-auth is complete.
+		SecurityContextHolder.getContext().setAuthentication(null);
+		
 		OTPFormCommand otpFormCommand = new OTPFormCommand();
 		model.put("otpFormCommand", otpFormCommand);
 		

@@ -464,7 +464,7 @@ public class PortalController implements ApplicationContextAware {
 	private void debugPrintAssertion(Element assertionElement) throws Exception{
 		
 		if(assertionElement == null){
-			log.info("assertionElement was null, skipping debug output");
+			log.debug("assertionElement was null, skipping debug output");
 			return;
 		}
 		
@@ -474,7 +474,7 @@ public class PortalController implements ApplicationContextAware {
 		DOMSource source = new DOMSource(assertionElement);
 		transformer.transform(source, result);
 		String xmlString = result.getWriter().toString();
-		log.info(xmlString);
+		log.debug(xmlString);
 	}
 	
 	public static final class UserLogonInfo implements Serializable{
