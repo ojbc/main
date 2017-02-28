@@ -159,6 +159,17 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
+	public void testUniqueSubscriptionOwners()
+			throws Exception {
+		loadManualTestData();
+		List<String> uniqueOwners = subscriptionSearchQueryDAO.getUniqueSubscriptionOwners();
+				
+		assertEquals(1, uniqueOwners.size());
+		assertEquals("OJBC:IDP:OJBC:USER:admin", uniqueOwners.get(0));
+		
+	}
+	
+	@Test
 	@DirtiesContext
 	public void testSearchForSubscriptionsBySubscriptionOwner()
 			throws Exception {

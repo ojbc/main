@@ -141,6 +141,11 @@
 			</util:map>
 		</constructor-arg>
 	</bean>	
+	
+	<bean id="expiringSubscriptionsManager" class="org.ojbc.intermediaries.sn.notification.ExpiringSubscriptionsManager">
+		<property name="warningDaysBeforeExpiration" value="45"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+	</bean>		
 			
 	<bean id="rapbackDao" class="org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao">		
 		<property name="jdbcTemplate" ref="jdbcTemplate"/>
