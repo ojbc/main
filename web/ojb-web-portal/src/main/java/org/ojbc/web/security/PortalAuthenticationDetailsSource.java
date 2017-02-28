@@ -48,7 +48,7 @@ public class PortalAuthenticationDetailsSource implements
         AuthenticationDetailsSource<HttpServletRequest, PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails> {
     private final Log log = LogFactory.getLog(this.getClass());
    
-    @Value("${requireOtpAuthentication:true}")
+    @Value("${requireOtpAuthentication:false}")
     boolean requireOtpAuthentication;
     
 	@Resource (name="${otpServiceBean:OTPServiceMemoryImpl}")

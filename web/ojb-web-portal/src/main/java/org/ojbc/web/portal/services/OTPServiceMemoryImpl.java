@@ -17,6 +17,8 @@
 package org.ojbc.web.portal.services;
 
 import java.time.LocalTime;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Resource;
@@ -106,7 +108,7 @@ public class OTPServiceMemoryImpl implements OTPService{
 	@Override
 	public boolean isUserAuthenticated(String userIdentifier) {
 		
-		log.info("Is user authenticated?" + userIdentifier);
+		log.info("Is user authenticated? " + userIdentifier);
 		
 		UserOTPDetails userOTPDetails = otpMap.get(userIdentifier);
 		
@@ -122,9 +124,6 @@ public class OTPServiceMemoryImpl implements OTPService{
 				
 				if (now.isBefore(expirationTimestamp))
 				{
-					//only allow one authentication per token
-					otpMap.remove(userIdentifier);
-
 					return true;
 				}
 
@@ -135,9 +134,31 @@ public class OTPServiceMemoryImpl implements OTPService{
 			}	
 		}
 
+		removeOldEntries();
+		
 		return false;
 	}
 	
+	private void removeOldEntries() {
+		Iterator it = otpMap.entrySet().iterator();
+		while (it.hasNext()) {
+		    Map.Entry pair = (Map.Entry)it.next();
+
+		    UserOTPDetails userOTPDetails = (UserOTPDetails) pair.getValue();
+		    
+			//Remove expired tokens
+			LocalTime expirationTimestamp = userOTPDetails.getExpirationTimestamp();
+			LocalTime now = LocalTime.now();
+			
+			if (now.isAfter(expirationTimestamp))
+			{
+				log.info("Removing old token for: " + userOTPDetails.getEmailAddress());
+				it.remove(); // avoids a ConcurrentModificationException
+			}
+		}
+		
+	}
+
 	public ConcurrentHashMap<String, UserOTPDetails> getOtpMap() {
 		return otpMap;
 	}
