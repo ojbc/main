@@ -57,9 +57,6 @@ public class OTPServiceMemoryImplTest {
 		assertTrue(otpService.confirmOTP(emailAddress, oneTimePassword));
 		assertTrue(otpService.isUserAuthenticated(emailAddress));
 
-		//Can only use OTP once then it expires.  isUserAuthenticated expires password
-		assertFalse(otpService.isUserAuthenticated(emailAddress));
-		
 		oneTimePassword = otpService.generateOTP(emailAddress);
 		
 		//Sleep for two seconds so OTP expires
