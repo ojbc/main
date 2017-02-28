@@ -18,6 +18,9 @@ package org.ojbc.web.portal.services;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.ojbc.web.impl.MockMailSender;
 
@@ -36,6 +39,12 @@ public class OTPServiceMemoryImplTest {
 		otpService.otpGenerator = defaultOtpGenerator;
 		
 		EmailOutOfBandSendStrategy emailOutOfBandSendStrategy = new EmailOutOfBandSendStrategy();
+		
+		List<String> emailRecipientsLogMessageOnly = new ArrayList<String>();
+		emailRecipientsLogMessageOnly.add("someone@local.com");
+		
+		emailOutOfBandSendStrategy.emailRecipientsLogMessageOnly = emailRecipientsLogMessageOnly;
+		
 		emailOutOfBandSendStrategy.ojbcMailSender = new MockMailSender();
 		
 		otpService.otpOutOfBandSendStrategy = emailOutOfBandSendStrategy;

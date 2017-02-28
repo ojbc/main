@@ -16,8 +16,13 @@
  */
 package org.ojbc.web.portal.services;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -32,6 +37,11 @@ public class EmailOutOfBandSendStrategy implements  OtpOutOfBandSendStrategy {
 
 	@Resource (name="${ojbcMailSenderBean:mockMailSender}")
     JavaMailSender ojbcMailSender;	
+	
+    @Value("#{'${emailRecipientsLogMessageOnly:}'.split(',')}")
+    List<String> emailRecipientsLogMessageOnly;
+    
+    private final Log log = LogFactory.getLog(this.getClass());
 	
 	@Override
 	public void sendToken(String oneTimePassword, String recipient) {
@@ -49,8 +59,17 @@ public class EmailOutOfBandSendStrategy implements  OtpOutOfBandSendStrategy {
         email.setSubject(subject);
         email.setText(body.toString());
          
-        // sends the e-mail
-        ojbcMailSender.send(email);
+    	log.debug("Recipients where we only log their email and don't send:" + emailRecipientsLogMessageOnly);
+    	
+    	if (emailRecipientsLogMessageOnly.contains(recipient)){
+    		log.info("Email Recipient in Email Recipients Log Message Only List:" + emailRecipientsLogMessageOnly);
+    		log.info("Email Message body: " + body.toString());
+    	}	
+    	else
+    	{	
+	        // sends the e-mail
+ 	        ojbcMailSender.send(email);
+    	}    
 		
 	}
 
