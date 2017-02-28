@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<dataset>
+  <subscription_category subscription_category_code="F" subscription_category_description="Firearms"/>
+  <subscription_category subscription_category_code="I" subscription_category_description="Volunteer, Child Care/School Employee, Non-Criminal Justice Employment and Licensing"/>
+  <subscription_category subscription_category_code="J" subscription_category_description="Criminal Justice Employment"/>
+  <subscription_category subscription_category_code="CI" subscription_category_description="Criminal Justice Investigative"/>
+  <subscription_category subscription_category_code="CS" subscription_category_description="Criminal Justice - Supervision"/>
+  <subscription_category subscription_category_code="S" subscription_category_description="Security Clearance Information Act"/>
+
+  <subscription id="1" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2012-09-27" endDate="2017-03-01" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemA" subscriptionOwner="OJBC:IDP:OJBC:USER:admin1" subjectName="Wo K Fat" lastValidationDate="2013-08-27" timestamp="2013-08-27 15:08:33.0" active="1" agency_case_number="0123ABC" subscription_category_code='CI'/>
+  <subscription id="2" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-04-27" endDate="2017-03-01" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemA" subscriptionOwner="OJBC:IDP:OJBC:USER:admin1"  subjectName="Susan R Soe" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:06:25.0" active="1"/>
+  <subscription id="3" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-06-02" endDate="2017-03-01" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="OJBC:IDP:OJBC:USER:admin2"  subjectName="Woe K Fatt" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="1"/>
+  <notification_mechanism id="1" subscriptionId="1" notificationMechanismType="email" notificationAddress="po1@localhost"/>
+  <notification_mechanism id="2" subscriptionId="2" notificationMechanismType="email" notificationAddress="po2@localhost"/>
+  <notification_mechanism id="3" subscriptionId="3" notificationMechanismType="email" notificationAddress="po3@localhost"/>
+  <subscription_subject_identifier id="1" subscriptionId="1" identifierName="SID" identifierValue="A5008305"/>
+  <subscription_subject_identifier id="6" subscriptionId="2" identifierName="subscriptionQualifier" identifierValue="14602"/>
+  <subscription_subject_identifier id="8" subscriptionId="3" identifierName="SID" identifierValue="A5008305"/>
+</dataset>

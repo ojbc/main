@@ -187,6 +187,27 @@
 				</camel:otherwise>
 			</camel:choice>
 		</camel:route>
+
+		<camel:route id="notifyOfExpiringSubscriptionsRoute" autoStartup="{{publishSubscribe.notifyOfExpiringSubscriptions}}">
+			<camel:from uri="quartz://subscriptionNotification/notifyOfExpiringSubscriptionsTimer?cron={{publishSubscribe.notifyOfExpiringSubscriptionsCronTimer}}"/>			
+			
+			<camel:log message="Checking for expiring subscriptions"/>
+			
+			<camel:to uri="bean:expiringSubscriptionsManager?method=returnExpiringNotificationEmails"/>
+			
+			<camel:split>
+				<!-- The body is a list of Expiring Subscription Emails -->
+				<camel:simple>${body}</camel:simple>
+				
+				<camel:to uri="bean:expiringSubscriptionsManager?method=createCamelEmail"/>
+			
+				<!-- Don't enable emails until we get the subscription owner field saved -->
+<!-- 				<to uri="smtpEndpoint" /> -->
+				<camel:log message="About to send email: ${body}"/>
+				
+			</camel:split>
+
+		</camel:route>
 		
 		<camel:route id="checkNotificationsSentRoute" autoStartup="{{publishSubscribe.checkForNotifications}}">
 			<camel:from uri="quartz://subscriptionNotification/notificationsSentTimer?cron={{publishSubscribe.checkForNotificationsSentCronTimer}}"/>			

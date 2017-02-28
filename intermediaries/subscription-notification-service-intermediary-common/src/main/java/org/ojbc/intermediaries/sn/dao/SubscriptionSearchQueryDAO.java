@@ -565,6 +565,15 @@ public class SubscriptionSearchQueryDAO {
 
     }
     
+    public List<String> getUniqueSubscriptionOwners()
+    {
+    	String queryString = "SELECT distinct(subscriptionOwner) FROM subscription where subscriptionOwner <> 'SYSTEM' order by subscriptionOwner";
+    	
+    	List<String> subscriptionOwners = (List<String>) jdbcTemplate.queryForList(queryString, String.class);
+    	
+    	return subscriptionOwners;
+    }
+    
     private PreparedStatementCreator buildPreparedInsertStatementCreator(final String sql, final Object[] params) {
         return new PreparedStatementCreator() {
 
