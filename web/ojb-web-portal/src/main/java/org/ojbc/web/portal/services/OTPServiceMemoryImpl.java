@@ -21,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.security.UserOTPDetails;
@@ -37,8 +38,11 @@ public class OTPServiceMemoryImpl implements OTPService{
 	@Resource (name="${otpGeneratorBean:DefaultOtpGenerator}")
 	OtpGenerator otpGenerator;
 	
-	@Value("${otpValidityPeriodInMinutes:5}")
-	long otpValidityPeriodInMinutes;
+	/**
+	 * If string ends with 'M', minutes.  If string ends with 'S', seconds.
+	 */
+	@Value("${otpValidityPeriodInMinutes:5M}")
+	String otpValidityPeriod;
 	
 	@Resource (name="${otpOutOfBandSendStrategyBean:EmailOutOfBandSendStrategy}")
 	OtpOutOfBandSendStrategy otpOutOfBandSendStrategy;
@@ -53,7 +57,21 @@ public class OTPServiceMemoryImpl implements OTPService{
 		userOTPDetails.setOneTimePassword(oneTimePassword);
 		userOTPDetails.setEmailAddress(userIdentifier);
 		
-		LocalTime expirationTimestamp = LocalTime.now().plusMinutes(otpValidityPeriodInMinutes);
+		LocalTime expirationTimestamp = null;
+		
+		if (StringUtils.endsWith(String.valueOf(otpValidityPeriod), "M"))
+		{	
+			expirationTimestamp = LocalTime.now().plusMinutes(Long.valueOf(StringUtils.chomp(otpValidityPeriod.toUpperCase(), "M")));
+		} 
+		else if (StringUtils.endsWith(String.valueOf(otpValidityPeriod), "S"))
+		{
+			expirationTimestamp = LocalTime.now().plusSeconds(Long.valueOf(StringUtils.chomp(otpValidityPeriod.toUpperCase(), "S")));
+		}	
+		else
+		{
+			expirationTimestamp = LocalTime.now();
+		}	
+		
 		userOTPDetails.setExpirationTimestamp(expirationTimestamp);
 		
 		otpMap.put(userIdentifier, userOTPDetails);
@@ -104,12 +122,12 @@ public class OTPServiceMemoryImpl implements OTPService{
 				
 				if (now.isBefore(expirationTimestamp))
 				{
+					//only allow one authentication per token
+					otpMap.remove(userIdentifier);
+
 					return true;
 				}
 
-				//only allow one authentication per token
-				otpMap.remove(userIdentifier);
-				
 			}	
 			else
 			{

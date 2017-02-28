@@ -36,7 +36,7 @@ public class DefaultOtpGenerator implements OtpGenerator {
 	private Random rand = new SecureRandom();
 	
 	@Value("${otpLength:6}")
-	private int length;
+	int length;
 	
 	@Override
 	public String generateToken() {
