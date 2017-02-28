@@ -14,8 +14,15 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web.security;
+package org.ojbc.web.portal.services;
 
-public enum Authorities {
-    AUTHZ_PORTAL, AUTHZ_CRIMINAL_SUBSCRIPTION, AUTHZ_CIVIL_SUBSCRIPTION, AUTHZ_CRIMINAL_ID_RESULTS, AUTHZ_INCIDENT_DETAIL, AUTHZ_QUERY, AUTHZ_PORTAL_OTP; 
+/**
+ * Implementations of this interface generate random token strings.
+ */
+public interface OtpGenerator {
+	
+	/**
+	 * Generates a random token.
+	 */
+	public String generateToken();
 }
