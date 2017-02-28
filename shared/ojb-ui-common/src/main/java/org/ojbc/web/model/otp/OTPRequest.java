@@ -14,8 +14,29 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web.security;
+package org.ojbc.web.model.otp;
 
-public enum Authorities {
-    AUTHZ_PORTAL, AUTHZ_CRIMINAL_SUBSCRIPTION, AUTHZ_CIVIL_SUBSCRIPTION, AUTHZ_CRIMINAL_ID_RESULTS, AUTHZ_INCIDENT_DETAIL, AUTHZ_QUERY, AUTHZ_PORTAL_OTP; 
+import java.io.Serializable;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+public class OTPRequest implements Serializable{
+	
+	private static final long serialVersionUID = -6670649493078335583L;
+	
+	private String oneTimePassword;
+
+	public String getOneTimePassword() {
+		return oneTimePassword;
+	}
+
+	public void setOneTimePassword(String oneTimePassword) {
+		this.oneTimePassword = oneTimePassword;
+	}
+	
+	@Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);    
+    }
 }

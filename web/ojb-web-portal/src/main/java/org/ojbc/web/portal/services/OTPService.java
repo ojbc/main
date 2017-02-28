@@ -14,8 +14,13 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web.security;
+package org.ojbc.web.portal.services;
 
-public enum Authorities {
-    AUTHZ_PORTAL, AUTHZ_CRIMINAL_SUBSCRIPTION, AUTHZ_CIVIL_SUBSCRIPTION, AUTHZ_CRIMINAL_ID_RESULTS, AUTHZ_INCIDENT_DETAIL, AUTHZ_QUERY, AUTHZ_PORTAL_OTP; 
+public interface OTPService {
+
+	public String generateOTP(String userIdentifier);
+	
+	public boolean confirmOTP(String userIdentifier, String otp);
+	
+	public boolean isUserAuthenticated(String userIdentifier);
 }

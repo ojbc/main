@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -30,6 +31,7 @@ import org.ojb.web.portal.WebPortalConstants;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.WebUtils;
+import org.ojbc.web.portal.services.OTPService;
 import org.ojbc.web.security.config.AccessControlServicesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,6 +48,12 @@ public class PortalAuthenticationDetailsSource implements
         AuthenticationDetailsSource<HttpServletRequest, PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails> {
     private final Log log = LogFactory.getLog(this.getClass());
    
+    @Value("${requireOtpAuthentication:false}")
+    boolean requireOtpAuthentication;
+    
+	@Resource (name="${otpServiceBean:OTPServiceMemoryImpl}")
+	OTPService otpService;
+    
     @Value("${requireIdentityBasedAccessControl:false}")
     boolean requireIdentityBasedAccessControl;
     
@@ -80,6 +88,8 @@ public class PortalAuthenticationDetailsSource implements
     public PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails buildDetails(
             HttpServletRequest context) {
         
+    	log.info("\nEnter portal authentication details source\n");
+    	
         List<SimpleGrantedAuthority> grantedAuthorities = 
                 new ArrayList<SimpleGrantedAuthority>(); 
  
@@ -97,7 +107,26 @@ public class PortalAuthenticationDetailsSource implements
 	                    grantedAuthorities);
 	        }
         }
-    
+        
+        SimpleGrantedAuthority rolePortalUserOTP = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL_OTP.name());
+        
+        if (requireOtpAuthentication)
+        {	
+        	if (addOtpAuthenticationRole(samlAssertion))
+        	{
+        		grantedAuthorities.add(rolePortalUserOTP); 	
+        	}
+        	else
+        	{
+        		 return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, 
+ 	                    grantedAuthorities);
+        	}	
+        }    
+        else
+        {
+        	grantedAuthorities.add(rolePortalUserOTP);
+        }	
+        
         String principal = (String) context.getAttribute("principal");
         log.info("requireIdentityBasedAccessControl:" + requireIdentityBasedAccessControl);
         
@@ -175,6 +204,30 @@ public class PortalAuthenticationDetailsSource implements
         return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, 
                 grantedAuthorities);
     }
+
+	private boolean addOtpAuthenticationRole(Element samlAssertion) {
+   
+		if (otpService != null)
+		{
+			log.info("Validate OTP using service");
+			
+			String userEmail = "";
+			try {
+				userEmail = XmlUtils.xPathStringSearch(samlAssertion, "/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()");
+			} catch (Exception e) {
+				log.error("Unable to retrieve SAML assertion");
+				return false;
+			}
+
+			if (otpService.isUserAuthenticated(userEmail))
+			{
+				log.info("Role OTP should be granted");
+				return true;
+			}	
+		}
+		
+		return false;
+	}
 
 	@SuppressWarnings("unused")
 	private void grantOrDenyAuthority(List<SimpleGrantedAuthority> grantedAuthorities,

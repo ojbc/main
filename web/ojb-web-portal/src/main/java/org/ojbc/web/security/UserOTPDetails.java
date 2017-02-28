@@ -16,6 +16,38 @@
  */
 package org.ojbc.web.security;
 
-public enum Authorities {
-    AUTHZ_PORTAL, AUTHZ_CRIMINAL_SUBSCRIPTION, AUTHZ_CIVIL_SUBSCRIPTION, AUTHZ_CRIMINAL_ID_RESULTS, AUTHZ_INCIDENT_DETAIL, AUTHZ_QUERY, AUTHZ_PORTAL_OTP; 
+import java.time.LocalTime;
+
+public class UserOTPDetails {
+
+	private String oneTimePassword;
+	private LocalTime expirationTimestamp;
+	private String emailAddress;
+	private boolean isUserAuthenticated;
+	
+	public boolean isUserAuthenticated() {
+		return isUserAuthenticated;
+	}
+	public void setUserAuthenticated(boolean isUserAuthenticated) {
+		this.isUserAuthenticated = isUserAuthenticated;
+	}
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+	public String getOneTimePassword() {
+		return oneTimePassword;
+	}
+	public void setOneTimePassword(String oneTimePassword) {
+		this.oneTimePassword = oneTimePassword;
+	}
+	public LocalTime getExpirationTimestamp() {
+		return expirationTimestamp;
+	}
+	public void setExpirationTimestamp(LocalTime expirationTimestamp) {
+		this.expirationTimestamp = expirationTimestamp;
+	}
+	
 }
