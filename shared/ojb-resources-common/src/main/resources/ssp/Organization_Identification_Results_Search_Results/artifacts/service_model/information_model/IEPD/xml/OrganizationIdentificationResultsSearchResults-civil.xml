@@ -150,6 +150,9 @@ xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset
 			<nc:SystemName>RapbackDataStore</nc:SystemName>
 		</intel:SystemIdentification>
 	</oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+	<srm:SearchResultsMetadata>
+		<srm:TotalAuthorizedSearchResultsQuantity>46</srm:TotalAuthorizedSearchResultsQuantity>
+	</srm:SearchResultsMetadata>
 	<nc:EntityOrganization structures:id="ORG1">
 		<nc:OrganizationName>Agency ABC</nc:OrganizationName>
 		<j:OrganizationAugmentation>
