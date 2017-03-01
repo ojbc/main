@@ -37,6 +37,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.velocity.tools.generic.DateTool;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -60,6 +61,7 @@ import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
 import org.ojbc.web.model.subscription.response.common.SubscriptionResponse;
 import org.ojbc.web.model.subscription.response.common.SubscriptionResponseType;
 import org.ojbc.web.model.subscription.validation.SubscriptionValidationResponse;
+import org.ojbc.web.portal.controllers.PortalController.UserLogonInfo;
 import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
 import org.ojbc.web.portal.controllers.config.SubscriptionsControllerConfigInterface;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
@@ -98,10 +100,12 @@ import org.xml.sax.InputSource;
 @Controller
 @Profile({"subscriptions", "standalone"})
 @RequestMapping("/subscriptions/*")
-@SessionAttributes("subscription")
+@SessionAttributes({"subscription", "userLogonInfo"})
 public class SubscriptionsController {
 		
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
+	public static final String ARREST_TOPIC_SUB_TYPE_CI = "{http://ojbc.org/wsn/topics}:person/arrest-ci";
+	public static final String ARREST_TOPIC_SUB_TYPE_CS = "{http://ojbc.org/wsn/topics}:person/arrest-cs";
 	
 	public static final String INCIDENT_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/incident";	
 	
@@ -181,6 +185,11 @@ public class SubscriptionsController {
     	return subscriptionFilterProperties;
     } 	
 
+    @ModelAttribute("vmDateTool")
+    public DateTool getDateTool()  {
+    	return new DateTool();
+    }
+    
 	@RequestMapping(value = "subscriptionResults", method = RequestMethod.POST)
 	public String searchSubscriptions(HttpServletRequest request,	        
 	        Map<String, Object> model) {		
@@ -499,16 +508,21 @@ public class SubscriptionsController {
 		model.put("isStartDateEditable", isStartDateEditable);
 		
 		
+		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
 		
-		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE);
-		
-		Date defaultSubEndDate = endDateStrategy.getDefaultValue();
-		
-		boolean isEndDateEditable = endDateStrategy.isEditable();
-		
-		subscription.setSubscriptionEndDate(defaultSubEndDate);
-		
-		model.put("isEndDateEditable", isEndDateEditable);		
+		SubscriptionEndDateStrategy csEndDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE_CS);
+		if (userLogonInfo.lawEnforcementEmployerIndicator){
+			SubscriptionEndDateStrategy ciEndDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE_CI);
+			subscription.setSubscriptionEndDate(ciEndDateStrategy.getDefaultValue());
+			model.put("isEndDateEditable", ciEndDateStrategy.isEditable());
+			
+			model.put("csEndDateStrategy", csEndDateStrategy);
+			model.put("ciEndDateStrategy", ciEndDateStrategy);
+		}
+		else{
+			subscription.setSubscriptionEndDate(csEndDateStrategy.getDefaultValue());
+			model.put("isEndDateEditable", csEndDateStrategy.isEditable());
+		}
 	}
 	
 	
@@ -1373,8 +1387,19 @@ public class SubscriptionsController {
 	
 	
 	@ModelAttribute("subscriptionPurposeValueToLabelMap")
-	public Map<String, String> getSubscriptionPurposeValueToLabelMap() {
-		return subscriptionPurposeValueToLabelMap;
+	public Map<String, String> getSubscriptionPurposeValueToLabelMap(Map<String, ?> model) {
+		
+		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
+		
+		Map<String, String> subscriptionPurposeMap = new HashMap<>();
+		
+		if (userLogonInfo.lawEnforcementEmployerIndicator){
+			subscriptionPurposeMap.putAll(subscriptionPurposeValueToLabelMap);
+		}
+		else if (userLogonInfo.criminalJusticeEmployerIndicator){
+			subscriptionPurposeMap.put("CS", subscriptionPurposeValueToLabelMap.get("CS"));
+		}
+		return subscriptionPurposeMap;
 	}
 
 	private ChRapsheetData getChRapbackData(HttpServletRequest request, Subscription subscription) throws Exception{

@@ -248,7 +248,7 @@ public class PortalAuthenticationDetailsSource implements
 	        		+ samlAttribute.getAttibuteName() 
 	        		+ "']/saml2:AttributeValue");
 		} catch (Exception e) {
-			log.error("EmployerORI is missing in the Saml Assertion");
+			log.error(samlAttribute.getAttibuteName() + " is missing in the Saml Assertion");
 		}
 		return attributeValue;
 	}

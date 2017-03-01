@@ -76,11 +76,25 @@
     	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
     	       buttonImageOnly: true,
     	    });	        	        	     	      	    
-    	        	        	    			       			       				    	  
+    	        
+    	    $("#subscriptionForm").on("change", "#subscriptionPurpose", function(){
+    	    	if ($("#subscriptionPurpose").val()==="CI"){
+    	    		$("#subscriptionEndDate").val($("#ciDefaultEndDate").val());
+    	    	}
+    	    	else if ($("#subscriptionPurpose").val()==="CS"){
+    	    		$("#subscriptionEndDate").val($("#csDefaultEndDate").val());
+    	    	}
+    	    });    	        	    			       			       				    	  
 	  });
 	  	  
 </script>
 				
+#if($showSubscriptionPurposeDropDown)
+	<div>
+		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)		
+	</div>
+#end	
+			
 <div>
 	#springFormInput("subscription.stateId" "style='width:140px;' placeholder='SID Number'")
 	<a id="idLookupLink" class="grayButton" href="#"><span id="idLookupImg"></span></a>			
@@ -113,9 +127,9 @@
 		</td>
 		<td>
 			#if( ${isEndDateEditable} )
-				#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='enabledDatePicker' placeholder='No End Date'")
+				#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='enabledDatePicker' placeholder='End Date'")
 			#else
-				#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='disabledDatePicker' placeholder='No End Date' readonly='readonly' ")
+				#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='disabledDatePicker' placeholder='End Date' readonly='readonly' ")
 			#end	
 		</td>
 	</tr>
@@ -133,17 +147,12 @@
 <div>
 	#springFormInput("subscription.emailList[2]" "placeholder='Email Address 3'")
 </div>
-	       	    	        
 
-#if($showSubscriptionPurposeDropDown)
-	<div>
-		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)		
-	</div>
-#end	
-			
 #if($showCaseIdInput)
 	<div>
 		#springFormInput("subscription.caseId" "placeholder='Case Id'" )
 	</div>
 #end
 
+<input type="hidden" id="csDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $csEndDateStrategy.defaultValue)'/>
+<input type="hidden" id="ciDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $ciEndDateStrategy.defaultValue)'/>

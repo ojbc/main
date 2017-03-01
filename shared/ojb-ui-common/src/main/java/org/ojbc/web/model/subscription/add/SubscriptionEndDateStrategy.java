@@ -24,5 +24,7 @@ public interface SubscriptionEndDateStrategy {
 	public boolean isEditable();
 	
 	public Date getDefaultValue();
-
+	
+	public String getPeriod();
+	
 }

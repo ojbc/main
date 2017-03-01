@@ -16,7 +16,6 @@
  */
 package org.ojbc.web.portal.validators.subscriptions.strict;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,21 +24,16 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.subscription.Subscription;
+import org.ojbc.web.portal.validators.subscriptions.AbstractArrestSubscriptionValidator;
 import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 @Service("arrestSubscriptionAddStrictValidator")
-public class ArrestSubscriptionAddStrictValidator implements ArrestSubscriptionValidatorInterface{
+public class ArrestSubscriptionAddStrictValidator extends AbstractArrestSubscriptionValidator  
+	implements ArrestSubscriptionValidatorInterface{
 	
 	private final Log logger = LogFactory.getLog(this.getClass());	
-	
-	@Value("${showSubscriptionPurposeDropDown:false}")
-	Boolean showSubscriptionPurposeDropDown;
-	
-	@Value("${showCaseIdInput:false}")
-	Boolean showCaseIdInput;
 	
 	public void validate(Subscription subscription, BindingResult errors){
 						
@@ -100,14 +94,7 @@ public class ArrestSubscriptionAddStrictValidator implements ArrestSubscriptionV
 				
 				fieldToErrorMap.put("subscriptionEndDate", "End date may not occur before start date");
 			}else{
-				Calendar oneYearAfterStartCal = Calendar.getInstance();
-				oneYearAfterStartCal.setTime(subStartDate);
-				oneYearAfterStartCal.add(Calendar.YEAR, 1);
-				Date oneYearAfterStartDate = oneYearAfterStartCal.getTime();
-						
-				if(subEndDate.after(oneYearAfterStartDate)){
-					fieldToErrorMap.put("subscriptionEndDate", "End date may not occur more than one year after the start date");
-				}					
+				validateArrestSubEndDate(subscription, fieldToErrorMap, subEndDate);
 			}					
 		}			
 	

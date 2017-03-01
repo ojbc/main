@@ -30,4 +30,9 @@ public class BlankEditableEndDateStrategy implements SubscriptionEndDateStrategy
 		return null;
 	}
 
+	@Override
+	public String getPeriod() {
+		return "N/A";
+	}
+
 }

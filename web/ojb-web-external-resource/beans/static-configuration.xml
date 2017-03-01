@@ -44,7 +44,10 @@
 	<bean id="blankEditableEndDateStrategy"
 		class="org.ojbc.web.model.subscription.add.BlankEditableEndDateStrategy" />
 
-	<bean id="oneYearEditableEndDateStrategy" class="org.ojbc.web.model.subscription.add.OneYearEditableEndDateStrategy" />
+	<bean id="oneYearEditableEndDateStrategy" class="org.ojbc.web.model.subscription.add.EditableEndDateStrategy" />
+	<bean id="fiveYearEditableEndDateStrategy" class="org.ojbc.web.model.subscription.add.EditableEndDateStrategy" >
+		<constructor-arg name="period" value="5"></constructor-arg>
+	</bean>
 
 	<bean id="uneditableStartDateStrategy"
 		class="org.ojbc.web.model.subscription.edit.UneditableStartDateStrategy" />
@@ -69,8 +72,10 @@
 	</util:map>
 
 	<util:map id="subscriptionEndDateStrategyMap">
-		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
+		<entry key="{http://ojbc.org/wsn/topics}:person/arrest-ci"
 			value-ref="oneYearEditableEndDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/arrest-cs"
+			value-ref="fiveYearEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
 			value-ref="blankEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
