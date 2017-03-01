@@ -17,15 +17,45 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="#all">
+	
+	<xsl:template name="returnAgeFromDOB">
+		<xsl:param name="dateOfBirth"/>
+	    <xsl:choose>
+	        <xsl:when test="month-from-date(current-date()) > month-from-date($dateOfBirth) or month-from-date(current-date()) = month-from-date($dateOfBirth) and day-from-date(current-date()) >= day-from-date($dateOfBirth)">
+	            <xsl:value-of select="year-from-date(current-date()) - year-from-date($dateOfBirth)" />
+	        </xsl:when>
+	        <xsl:otherwise>
+	            <xsl:value-of select="year-from-date(current-date()) - year-from-date($dateOfBirth) - 1" />
+	        </xsl:otherwise>
+	    </xsl:choose>
+	</xsl:template>
+	
 
 	<xsl:template name="formatDate">
 		<xsl:param name="date" />
 			<xsl:if test="normalize-space($date) != ''">
-				<xsl:value-of select="concat(substring($date,6,2),'/',substring($date,9,2),'/',substring($date,3,2))" />
+				<xsl:value-of select="string-join((substring($date,6,2),substring($date,9,2),substring($date,1,4)),'/')" />
 			</xsl:if>
 	</xsl:template>
-
+	
+	<!-- Converts YYYY-MM-DD to MM/DD/YYYY -->
+	<xsl:template match="*|@*" mode="formatDateAsMMDDYYYY">
+		<xsl:value-of select="format-date(.,'[M01]/[D01]/[Y0001]')"/>
+	</xsl:template>
+	
+	<xsl:template match="*|@*" mode="formatDateTimeAsMMDDYYYY">
+		<xsl:value-of select="format-dateTime(.,'[M01]/[D01]/[Y0001]')"/>
+	</xsl:template>
+	
+	<!-- Converts YYYY-MM-DD to MM/DD/YYYY - HH:mm -->
+	<xsl:template match="*|@*" mode="formatDateTime">
+		<xsl:value-of select="format-dateTime(.,'[M01]/[D01]/[Y0001] - [H01]:[m01]')"/>
+	</xsl:template>
+	
 	<xsl:template name="formatSSN">
 		<xsl:param name="ssn" />
 	
@@ -185,12 +215,6 @@
 	</xsl:template>
 
 
-
-
-
-
-
-
 <!-- Methods below are "private" not intended to be used outside this file -->
 
 	<xsl:template name="getValueFromMapWithDefault">
@@ -207,4 +231,74 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+	
+	<xsl:template match="nc:PersonAlternateName | nc20:PersonAlternateName | nc:PersonName | nc20:PersonName">
+		<xsl:choose>
+			<xsl:when test="*:PersonGivenName and *:PersonSurName">
+			 	<xsl:if test="*:PersonGivenName">
+			 		<xsl:value-of select="concat(*:PersonGivenName, ' ')"/>
+			 	</xsl:if>
+			 	<xsl:if test="*:PersonMiddleName">
+			 		<xsl:value-of select="concat(*:PersonMiddleName, ' ')"/>
+			 	</xsl:if>
+			 	<xsl:if test="*:PersonSurName">
+			 		<xsl:value-of select="*:PersonSurName"/>
+			 	</xsl:if>
+			 	<xsl:if test="*:PersonNameSuffixText">
+			 		<xsl:value-of select="' ', *:PersonNameSuffixText"/>
+			 	</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="*:PersonFullName"/>
+			</xsl:otherwise>
+		</xsl:choose>
+       <xsl:if test="position() != last()">
+           <xsl:text>, </xsl:text>
+       </xsl:if>
+	</xsl:template>
+	
+	<xsl:template match="nc:PersonName | nc20:PersonName" mode="primaryName">
+		<b>
+			<xsl:choose>
+				<xsl:when test="*:PersonGivenName or *:PersonMiddleName or *:PersonSurName">
+					<xsl:value-of select="concat(*:PersonSurName, ', ',*:PersonGivenName)"/>
+					<xsl:if test="*:PersonMiddleName">
+						<xsl:value-of select="concat(' ',*:PersonMiddleName)"/>
+					</xsl:if>
+				</xsl:when>
+				<xsl:when test="*:PersonFullName[normalize-space()]">
+					<xsl:value-of select="*:PersonFullName" />
+				</xsl:when>
+			</xsl:choose>
+		</b>
+	</xsl:template>
+	<xsl:template match="nc:PersonName | nc20:PersonName" mode="firstNameFirst">
+		<xsl:choose>
+			<xsl:when test="*:PersonGivenName or *:PersonMiddleName or *:PersonSurName">
+				<xsl:value-of select="*:PersonGivenName"/><xsl:text> </xsl:text><xsl:value-of select="*:PersonMiddleName"/><xsl:text> </xsl:text><xsl:value-of select="*:PersonSurName"/>
+			</xsl:when>
+			<xsl:when test="*:PersonFullName[normalize-space()]">
+				<xsl:value-of select="*:PersonFullName" />
+			</xsl:when>
+		</xsl:choose> 
+	</xsl:template>
+
+	<xsl:template match="*|@*" mode="formatBooleanAsYesNo">
+		<xsl:call-template name="formatBooleanAsYesNo">
+			<xsl:with-param name="value" select="."></xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+
+	<xsl:template name="formatBooleanAsYesNo">
+		<xsl:param name="value"/>
+		<xsl:choose>
+			<xsl:when test="$value = 'true'">
+				<xsl:text>Yes</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>No</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
 </xsl:stylesheet>    
