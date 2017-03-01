@@ -39,13 +39,17 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.velocity.tools.generic.DateTool;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.web.SearchProfile;
 import org.ojbc.web.portal.controllers.dto.PersonFilterCommand;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
@@ -68,7 +72,7 @@ import org.w3c.dom.Element;
 
 @Controller
 @RequestMapping("/portal/*")
-@SessionAttributes({"sensitiveInfoAlert"})
+@SessionAttributes({"sensitiveInfoAlert", "userLogonInfo"})
 public class PortalController implements ApplicationContextAware {
 
 	static final String DEFAULT_USER_TIME_ONLINE = "0:00";
@@ -159,7 +163,6 @@ public class PortalController implements ApplicationContextAware {
 	SamlService samlService;
 	
 	private Map<String, Boolean> visibleProfileStateMap;
-	
 
 	public PortalController() {
 		XPathFactory xPathFactory = XPathFactory.newInstance();
@@ -199,8 +202,9 @@ public class PortalController implements ApplicationContextAware {
 		try {
 			Element assertionElement = samlService.getSamlAssertion(request);
 						
-			userLogonInfo = getUserLogonInfo(assertionElement);			
-			//note this will only have a value in production
+			userLogonInfo = getUserLogonInfo(assertionElement);	
+			model.put("userLogonInfo", userLogonInfo);
+			
 			userSession.setUserLogonInfo(userLogonInfo);
 			
 		} catch (Exception e) {
@@ -359,11 +363,17 @@ public class PortalController implements ApplicationContextAware {
 			String userAgency = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmployerName']/saml2:AttributeValue/text()", assertionElement,
 					XPathConstants.STRING);
 			
+	    	String criminalJusticeEmployerIndicatorString = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.CriminalJusticeEmployerIndicator);
+	    	userLogonInfo.criminalJusticeEmployerIndicator = BooleanUtils.toBoolean(criminalJusticeEmployerIndicatorString);
+	    	String lawEnforcementEmployerIndicatorString = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.LawEnforcementEmployerIndicator);
+	    	userLogonInfo.lawEnforcementEmployerIndicator = BooleanUtils.toBoolean(lawEnforcementEmployerIndicatorString); 
+	    	userLogonInfo.employerOri = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.EmployerORI);  
+
 			String sEmail = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()", assertionElement,
 					XPathConstants.STRING);
 
 			userLogonInfo.userNameString = (userFirstName == null ? "" : userFirstName) + " " + (userLastName == null ? "" : userLastName) + " / " + (userAgency == null ? "" : userAgency);
-			userLogonInfo.emailAddress = sEmail;			
+			userLogonInfo.emailAddress = sEmail;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -484,6 +494,9 @@ public class PortalController implements ApplicationContextAware {
 		public String userNameString;
 		public String timeOnlineString;
 		public String emailAddress;
+		public String employerOri; 
+		public Boolean criminalJusticeEmployerIndicator; 
+		public Boolean lawEnforcementEmployerIndicator;
 
 		private UserLogonInfo() {
 			userNameString = DEFAULT_USER_LOGON_MESSAGE;

@@ -53,6 +53,10 @@
 	<bean id="uneditableStartDateStrategy"
 		class="org.ojbc.web.model.subscription.edit.UneditableStartDateStrategy" />
 
+	<bean id="oneYearEditableEndDateStrategy" class="org.ojbc.web.model.subscription.add.EditableEndDateStrategy" />
+	<bean id="fiveYearEditableEndDateStrategy" class="org.ojbc.web.model.subscription.add.EditableEndDateStrategy" >
+		<constructor-arg name="period" value="5"></constructor-arg>
+	</bean>
 
 	<util:map id="subscriptionStartDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
@@ -62,6 +66,10 @@
 	</util:map>
 
 	<util:map id="subscriptionEndDateStrategyMap">
+		<entry key="{http://ojbc.org/wsn/topics}:person/arrest-ci"
+			value-ref="oneYearEditableEndDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/arrest-cs"
+			value-ref="fiveYearEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
 			value-ref="blankEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"

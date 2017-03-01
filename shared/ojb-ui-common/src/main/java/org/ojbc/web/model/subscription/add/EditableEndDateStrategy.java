@@ -19,8 +19,19 @@ package org.ojbc.web.model.subscription.add;
 import java.util.Calendar;
 import java.util.Date;
 
-public class OneYearEditableEndDateStrategy implements SubscriptionEndDateStrategy{
+public class EditableEndDateStrategy implements SubscriptionEndDateStrategy{
 
+	private Integer period = 1;
+	
+	public EditableEndDateStrategy(){
+		super();
+	}
+	
+	public EditableEndDateStrategy(Integer period) {
+		this(); 
+		this.period = period;  
+	}
+	
 	@Override
 	public boolean isEditable() {
 		return true;
@@ -31,11 +42,18 @@ public class OneYearEditableEndDateStrategy implements SubscriptionEndDateStrate
 		
 		Calendar cal = Calendar.getInstance();
 		
-		cal.add(Calendar.YEAR, 1);
+		cal.add(Calendar.YEAR, period);
 		
 		Date oneYearEndDate = cal.getTime();
 						
 		return oneYearEndDate;
 	}
+
+	@Override
+	public String getPeriod() {
+		return String.valueOf(period);
+	}
+	
+	
 
 }

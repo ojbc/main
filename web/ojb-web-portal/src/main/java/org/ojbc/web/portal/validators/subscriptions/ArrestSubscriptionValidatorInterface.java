@@ -26,4 +26,5 @@ public interface ArrestSubscriptionValidatorInterface {
 	public void validate(Subscription subscription, BindingResult errors);
 	
 	public Map<String, String> getValidationErrorsList(Subscription subscription);
+	
 }
