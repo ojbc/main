@@ -25,10 +25,10 @@
   <subscription_category subscription_category_code="CS" subscription_category_description="Criminal Justice - Supervision"/>
   <subscription_category subscription_category_code="S" subscription_category_description="Security Clearance Information Act"/>
 
-  <subscription id="1" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2012-09-27" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemA" subscriptionOwner="SYSTEM" subjectName="Wo K Fat" lastValidationDate="2013-08-27" timestamp="2013-08-27 15:08:33.0" active="1" agency_case_number="0123ABC" subscription_category_code='CI'/>
-  <subscription id="2" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-04-27" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemA" subscriptionOwner="SYSTEM"  subjectName="Jane R Doe" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:06:25.0" active="0" agency_case_number="0124ABC"/>
-  <subscription id="3" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-06-02" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="SYSTEM"  subjectName="Wo K Fat" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="1" agency_case_number="0123ABD"/>
-  <subscription id="4" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-06-02" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="SYSTEM"  subjectName="WO FAT" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="1" agency_case_number="0123ABE"/>
+  <subscription id="1" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2012-09-27" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemA" subscriptionOwner="SYSTEM" subscriptionOwnerEmailAddress="" subjectName="Wo K Fat" lastValidationDate="2013-08-27" timestamp="2013-08-27 15:08:33.0" active="1" agency_case_number="0123ABC" subscription_category_code='CI'/>
+  <subscription id="2" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-04-27" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemA" subscriptionOwner="SYSTEM" subscriptionOwnerEmailAddress=""  subjectName="Jane R Doe" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:06:25.0" active="0" agency_case_number="0124ABC"/>
+  <subscription id="3" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-06-02" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="SYSTEM" subscriptionOwnerEmailAddress=""  subjectName="Wo K Fat" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="1" agency_case_number="0123ABD"/>
+  <subscription id="4" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-06-02" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="SYSTEM" subscriptionOwnerEmailAddress=""  subjectName="WO FAT" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="1" agency_case_number="0123ABE"/>
   <notification_mechanism id="1" subscriptionId="1" notificationMechanismType="email" notificationAddress="po1@localhost"/>
   <notification_mechanism id="2" subscriptionId="2" notificationMechanismType="email" notificationAddress="po2@localhost"/>
   <notification_mechanism id="3" subscriptionId="3" notificationMechanismType="email" notificationAddress="po3@localhost"/>
@@ -45,12 +45,12 @@
   
   <!-- New data to support whitelist testing -->
   
-  <subscription id="5" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-10-01" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="SYSTEM"  subjectName="AL CAPONE" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="1" agency_case_number="0123ABF"/>
+  <subscription id="5" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-10-01" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="SYSTEM"  subscriptionOwnerEmailAddress="" subjectName="AL CAPONE" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="1" agency_case_number="0123ABF"/>
   <notification_mechanism id="6" subscriptionId="5" notificationMechanismType="email" notificationAddress="po100@localhost"/>
   <subscription_subject_identifier id="9" subscriptionId="5" identifierName="SID" identifierValue="A5008307"/>
   <subscription_subject_identifier id="10" subscriptionId="5" identifierName="subscriptionQualifier" identifierValue="20921"/>
 
-  <subscription id="6" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-10-01" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="SYSTEM"  subjectName="Al Capone" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="1" agency_case_number="0123ABG"/>
+  <subscription id="6" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-10-01" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="SYSTEM"  subscriptionOwnerEmailAddress="" subjectName="Al Capone" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="1" agency_case_number="0123ABG"/>
   <notification_mechanism id="7" subscriptionId="6" notificationMechanismType="email" notificationAddress="po6@localhost"/>
   <subscription_subject_identifier id="11" subscriptionId="6" identifierName="SID" identifierValue="A555555555"/>
   <subscription_subject_identifier id="12" subscriptionId="6" identifierName="subscriptionQualifier" identifierValue="20921"/>

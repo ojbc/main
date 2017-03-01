@@ -59,6 +59,10 @@ public class ArrestSubscriptionRequestTest {
 	    Document messageDocument = getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest.xml");
         
         Message message = new DefaultMessage();
+        
+        message.setHeader("subscriptionOwner", "someone");
+        message.setHeader("subscriptionOwnerEmailAddress", "email@local.gov");
+        
         message.setBody(messageDocument);
         
 		String allowedEmailAddressPatterns = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(localhost)";
@@ -73,6 +77,8 @@ public class ArrestSubscriptionRequestTest {
 		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
 		
 		assertThat(sub.getSubjectIdentifiers().size(), is(5));
+		assertThat(sub.getSubscriptionOwner(), is("someone"));
+		assertThat(sub.getSubscriptionOwnerEmailAddress(), is("email@local.gov"));
 		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
 		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
 		assertNull(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME));

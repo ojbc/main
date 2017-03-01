@@ -331,7 +331,7 @@ public class SubscriptionSearchQueryDAO {
      * @return the ID of the created (or updated) subscription
      */
     public Number subscribe(String subscriptionSystemId, String topic, String startDateString, String endDateString, Map<String, String> subjectIdentifiers, Set<String> emailAddresses, String offenderName,
-            String subscribingSystemId, String subscriptionQualifier, String reasonCategoryCode, String subscriptionOwner, LocalDate creationDateTime, String agencyCaseNumber) {
+            String subscribingSystemId, String subscriptionQualifier, String reasonCategoryCode, String subscriptionOwner, String subscriptionOwnerEmailAddress, LocalDate creationDateTime, String agencyCaseNumber) {
 
         Number ret = null;
 
@@ -397,8 +397,8 @@ public class SubscriptionSearchQueryDAO {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             this.jdbcTemplate.update(
                     buildPreparedInsertStatementCreator(
-                            "insert into subscription (topic, startDate, endDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active, subscription_category_code, lastValidationDate, agency_case_number) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
-                                fullyQualifiedTopic.trim(), startDate, endDate, subscribingSystemId.trim(), subscriptionOwner, offenderName.trim(), 1, reasonCategoryCode, creationDate, agencyCaseNumber
+                            "insert into subscription (topic, startDate, endDate, subscribingSystemIdentifier, subscriptionOwner, subscriptionOwnerEmailAddress, subjectName, active, subscription_category_code, lastValidationDate, agency_case_number) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
+                                fullyQualifiedTopic.trim(), startDate, endDate, subscribingSystemId.trim(), subscriptionOwner, subscriptionOwnerEmailAddress, offenderName.trim(), 1, reasonCategoryCode, creationDate, agencyCaseNumber
                             }), keyHolder);
 
             ret = keyHolder.getKey();
@@ -427,8 +427,8 @@ public class SubscriptionSearchQueryDAO {
 
             log.debug("Updating row in subscription table");
 
-            this.jdbcTemplate.update("update subscription set topic=?, startDate=?, endDate=?, subjectName=?, active=1, subscriptionOwner=?, lastValidationDate=? where id=?", new Object[] {
-                fullyQualifiedTopic.trim(), startDate, endDate, offenderName.trim(), subscriptionOwner, creationDate, subscriptions.get(0).getId()
+            this.jdbcTemplate.update("update subscription set topic=?, startDate=?, endDate=?, subjectName=?, active=1, subscriptionOwner=?, subscriptionOwnerEmailAddress=?, lastValidationDate=? where id=?", new Object[] {
+                fullyQualifiedTopic.trim(), startDate, endDate, offenderName.trim(), subscriptionOwner, subscriptionOwnerEmailAddress, creationDate, subscriptions.get(0).getId()
             });
 
             log.debug("Updating row in notification_mechanism table");
