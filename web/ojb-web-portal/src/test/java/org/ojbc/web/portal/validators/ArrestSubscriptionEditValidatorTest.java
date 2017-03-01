@@ -164,7 +164,7 @@ public class ArrestSubscriptionEditValidatorTest {
 		
 		String oneYearError = fieldToErrorMap.get("subscriptionEndDate");
 		
-		assertEquals("End date may not occur more than one year after the start date", oneYearError);				
+		assertEquals("End date may not be more than 1 year after the start date", oneYearError);				
 	}	
 	
 	

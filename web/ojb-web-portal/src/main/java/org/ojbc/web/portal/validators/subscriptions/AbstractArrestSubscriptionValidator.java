@@ -42,18 +42,29 @@ public class AbstractArrestSubscriptionValidator{
 	Map<String, SubscriptionEndDateStrategy> subscriptionEndDateStrategyMap;
 
 	public void validateArrestSubEndDate(Subscription subscription,
-			Map<String, String> fieldToErrorMap, Date subEndDate) {
-		SubscriptionEndDateStrategy endDateStrategy = null;
-		switch(StringUtils.trimToEmpty(subscription.getSubscriptionPurpose())){
-		case "CS": 
-			endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.ARREST_TOPIC_SUB_TYPE_CS);
-			break; 
-		default: 
-			endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.ARREST_TOPIC_SUB_TYPE_CI);
-		}
+			Map<String, String> fieldToErrorMap) {
 		
-		if(endDateStrategy.getDefaultValue() != null && subEndDate.after(endDateStrategy.getDefaultValue())){
-			fieldToErrorMap.put("subscriptionEndDate", "End date may not be more than " + endDateStrategy.getPeriod() + " year after the start date");
+		Date subEndDate = subscription.getSubscriptionEndDate();
+		Date subStartDate = subscription.getSubscriptionStartDate();
+		
+		if(subEndDate != null && subStartDate != null){			
+			if(subEndDate.before(subStartDate)){
+				fieldToErrorMap.put("subscriptionEndDate", "End date may not occur before start date");
+			}
+			else {
+				SubscriptionEndDateStrategy endDateStrategy = null;
+				switch(StringUtils.trimToEmpty(subscription.getSubscriptionPurpose())){
+				case "CS": 
+					endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.ARREST_TOPIC_SUB_TYPE_CS);
+					break; 
+				default: 
+					endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.ARREST_TOPIC_SUB_TYPE_CI);
+				}
+				
+				if(endDateStrategy.getDefaultValue() != null && subEndDate.after(endDateStrategy.getDefaultValue())){
+					fieldToErrorMap.put("subscriptionEndDate", "End date may not be more than " + endDateStrategy.getPeriod() + " year after the start date");
+				}
+			}
 		}
 	}
 

@@ -87,15 +87,7 @@ public class ArrestSubscriptionAddLenientValidator extends AbstractArrestSubscri
 			fieldToErrorMap.put("subscriptionStartDate", "Start date must be specified");
 		}
 		
-		Date subEndDate = subscription.getSubscriptionEndDate();
-		if(subEndDate != null && subStartDate != null){			
-			if(subEndDate.before(subStartDate)){
-				fieldToErrorMap.put("subscriptionEndDate", "End date may not occur before start date");
-			}else{
-				
-				validateArrestSubEndDate(subscription, fieldToErrorMap, subEndDate);									
-			}
-		}
+		validateArrestSubEndDate(subscription, fieldToErrorMap);
 	
 		if (fbiIdWarning) {
 			if(StringUtils.isBlank(subscription.getFbiId())){
