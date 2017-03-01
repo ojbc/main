@@ -25,24 +25,17 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.subscription.Subscription;
+import org.ojbc.web.portal.validators.subscriptions.AbstractArrestSubscriptionValidator;
 import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 @Service
-public class ArrestSubscriptionEditLenientValidator implements ArrestSubscriptionValidatorInterface{
+public class ArrestSubscriptionEditLenientValidator extends AbstractArrestSubscriptionValidator 
+	implements ArrestSubscriptionValidatorInterface{
 	
 	private final Log logger = LogFactory.getLog(this.getClass());
-	
-	@Value("${showSubscriptionPurposeDropDown:false}")
-	Boolean showSubscriptionPurposeDropDown;
-	
-	@Value("${showCaseIdInput:false}")
-	Boolean showCaseIdInput;
-	
-	@Value("${fbiIdWarning:false}")
-	Boolean fbiIdWarning;
 	
 	public void validate(Subscription subscription, BindingResult errors){
 		
@@ -95,23 +88,9 @@ public class ArrestSubscriptionEditLenientValidator implements ArrestSubscriptio
 		if(subStartDate == null){
 			fieldToErrorMap.put("subscriptionStartDate", "Start date must be specified");
 		}
+
+		validateArrestSubEndDate(subscription, fieldToErrorMap);
 		
-		Date subEndDate = subscription.getSubscriptionEndDate();
-		if(subEndDate != null && subStartDate != null){			
-			if(subEndDate.before(subStartDate)){
-				fieldToErrorMap.put("subscriptionEndDate", "End date may not occur before start date");
-			}else{				
-				Calendar oneYearAfterStartCal = Calendar.getInstance();
-				oneYearAfterStartCal.setTime(subStartDate);
-				oneYearAfterStartCal.add(Calendar.YEAR, 1);
-				Date oneYearAfterStartDate = oneYearAfterStartCal.getTime();
-						
-				if(subEndDate.after(oneYearAfterStartDate)){
-					fieldToErrorMap.put("subscriptionEndDate", "End date may not occur more than one year after the start date");
-				}													
-			}
-		}
-	
 		if (fbiIdWarning) {
 			if(StringUtils.isBlank(subscription.getFbiId())){
 				fieldToErrorMap.put("fbiId", "Criminal History is missing the FBI ID for this Person");
