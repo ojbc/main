@@ -625,7 +625,7 @@ public class TestSubscriptionSearchQueryDAO {
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
 				"topic", "2013-01-01", "2013-01-01", subjectIds,
 				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", currentDate,
+				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", "ownerEmail@local.gov", currentDate,
 				"0123ABC").intValue();
 
 		rs = s.executeQuery("select * from subscription");
@@ -656,6 +656,9 @@ public class TestSubscriptionSearchQueryDAO {
 				assertEquals(currentDate.toDateTimeAtStartOfDay().toDate(),
 						lastValidationDate.toDate());
 				assertEquals("0123ABC", rs.getString("agency_case_number"));
+				assertEquals("SYSTEM", rs.getString("subscriptionOwner"));
+				assertEquals("ownerEmail@local.gov", rs.getString("subscriptionOwnerEmailAddress"));
+				
 			}
 		}
 
@@ -725,7 +728,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
 				"topic", "2013-01-01", "2013-01-01", subjectIds, emailAddyList,
-				"offenderName", "systemName", "ABCDE", "CS", "SYSTEM",
+				"offenderName", "systemName", "ABCDE", "CS", "SYSTEM","ownerEmail@local.gov",
 				new LocalDate(), "0123ABC").intValue();
 
 		rs = s.executeQuery("select * from notification_mechanism where subscriptionid="
@@ -770,7 +773,7 @@ public class TestSubscriptionSearchQueryDAO {
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
 				"topic", "2013-01-01", "2013-01-01", subjectIds,
 				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", originalDate, "0123ABC")
+				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", "ownerEmail@local.gov", originalDate, "0123ABC")
 				.intValue();
 
 		rs = s.executeQuery("select * from subscription where id="
@@ -791,7 +794,7 @@ public class TestSubscriptionSearchQueryDAO {
 				.subscribe(null, "topic", "2013-01-01", "2013-01-02",
 						subjectIds,
 						new HashSet<String>(Arrays.asList("none@none.com")),
-						"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", 
+						"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", "ownerEmail@local.gov",
 						subsequentDate, "0123ABC").intValue();
 
 		assertEquals(oldSubscriptionId, subscriptionId); // same id, must have
@@ -815,6 +818,7 @@ public class TestSubscriptionSearchQueryDAO {
 			assertTrue(lastValidationDate.isAfter(originalDate
 					.toDateTimeAtStartOfDay()));
 			assertEquals("0123ABC", rs.getString("agency_case_number"));
+			assertEquals("ownerEmail@local.gov", rs.getString("subscriptionOwnerEmailAddress"));
 		}
 
 		assertEquals(1, recordCount);
@@ -842,7 +846,7 @@ public class TestSubscriptionSearchQueryDAO {
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
 				"topic1", "2013-01-01", "2013-01-01", subjectIds,
 				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", null, "SYSTEM", originalDate, "0123ABC")
+				"offenderName", "systemName", "ABCDE", null, "SYSTEM", "ownerEmail@local.gov", originalDate, "0123ABC")
 				.intValue();
 
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
@@ -855,7 +859,7 @@ public class TestSubscriptionSearchQueryDAO {
 				.subscribe(null, "topic2", "2013-01-01", "2013-01-02",
 						subjectIds,
 						new HashSet<String>(Arrays.asList("none@none.com")),
-						"offenderName", "systemName", "ABCDE", null, "SYSTEM",
+						"offenderName", "systemName", "ABCDE", null, "SYSTEM","ownerEmail@local.gov",
 						subsequentDate, "0123ABC").intValue();
 
 		assertFalse(secondSubscriptionId == subscriptionId); // because topic1
@@ -960,7 +964,7 @@ public class TestSubscriptionSearchQueryDAO {
 		subscriptionSearchQueryDAO.subscribe(null,
 				"{http://ojbc.org/wsn/topics}:person/arrest", "2015-11-03", "2016-11-02", subjectIds,
 				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", "I", "SYSTEM", currentDate,
+				"offenderName", "systemName", "ABCDE", "I", "SYSTEM", "ownerEmail@local.gov",currentDate,
 				"000001820140729014008339997").intValue();
 
 		ResultSet rsCountAfter = s.executeQuery("select count(*) as count from subscription");
