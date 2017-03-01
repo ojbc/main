@@ -21,6 +21,19 @@
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="#all">
+	
+	<xsl:template name="returnAgeFromDOB">
+		<xsl:param name="dateOfBirth"/>
+	    <xsl:choose>
+	        <xsl:when test="month-from-date(current-date()) > month-from-date($dateOfBirth) or month-from-date(current-date()) = month-from-date($dateOfBirth) and day-from-date(current-date()) >= day-from-date($dateOfBirth)">
+	            <xsl:value-of select="year-from-date(current-date()) - year-from-date($dateOfBirth)" />
+	        </xsl:when>
+	        <xsl:otherwise>
+	            <xsl:value-of select="year-from-date(current-date()) - year-from-date($dateOfBirth) - 1" />
+	        </xsl:otherwise>
+	    </xsl:choose>
+	</xsl:template>
+	
 
 	<xsl:template name="formatDate">
 		<xsl:param name="date" />
