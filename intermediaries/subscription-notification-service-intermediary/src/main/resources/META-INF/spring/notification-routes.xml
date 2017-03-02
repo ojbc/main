@@ -189,7 +189,7 @@
 		</camel:route>
 
 		<camel:route id="notifyOfExpiringSubscriptionsRoute" autoStartup="{{publishSubscribe.notifyOfExpiringSubscriptions}}">
-			<camel:from uri="quartz://subscriptionNotification/notifyOfExpiringSubscriptionsTimer?cron={{publishSubscribe.notifyOfExpiringSubscriptionsCronTimer}}"/>			
+			<camel:from uri="quartz2://subscriptionNotification/notifyOfExpiringSubscriptionsTimer?cron={{publishSubscribe.notifyOfExpiringSubscriptionsCronTimer}}"/>			
 			
 			<camel:log message="Checking for expiring subscriptions"/>
 			
@@ -210,7 +210,7 @@
 		</camel:route>
 		
 		<camel:route id="checkNotificationsSentRoute" autoStartup="{{publishSubscribe.checkForNotifications}}">
-			<camel:from uri="quartz://subscriptionNotification/notificationsSentTimer?cron={{publishSubscribe.checkForNotificationsSentCronTimer}}"/>			
+			<camel:from uri="quartz2://subscriptionNotification/notificationsSentTimer?cron={{publishSubscribe.checkForNotificationsSentCronTimer}}"/>			
 			
 			<camel:log message="Entering route to check when last notifications were sent" />
 			
