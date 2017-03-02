@@ -25,5 +25,10 @@ public class SubscriptionNotificationConstants {
 	
 	// constants used for arrest topic subscriptions/notifications
 	public static final String SID = "SID";
+	public static final String FBI_ID = "FBI_ID";
 	public static final String SUBSCRIPTION_QUALIFIER = "subscriptionQualifier";
+	
+	//Rapback constants
+	public static final String FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR = "federalRapSheetDisclosureIndicator";
+	public static final String FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT = "federalRapSheetDisclosureAttentionDesignationText";
 }

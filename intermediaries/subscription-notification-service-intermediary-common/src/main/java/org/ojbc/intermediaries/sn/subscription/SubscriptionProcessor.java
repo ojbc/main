@@ -73,7 +73,7 @@ public abstract class SubscriptionProcessor {
         Message incomingMsg = exchange.getIn();
         SubscriptionRequest request = makeSubscriptionRequestFromIncomingMessage(incomingMsg);
         
-        subscriptionSearchQueryDAO.subscribe(request.getSubscriptionSystemId(), request.getTopic(), request.getStartDateString(), request.getEndDateString(), request.getSubjectIdentifiers(), request.getEmailAddresses(),
+        subscriptionSearchQueryDAO.subscribe(request.getSubscriptionSystemId(), request.getTopic(), request.getStartDateString(), request.getEndDateString(), request.getSubjectIdentifiers(), request.getSubscriptionProperties(), request.getEmailAddresses(),
                 request.getSubjectName(), request.getSystemName(), request.getSubscriptionQualifier(), request.getReasonCategoryCode(),  request.getSubscriptionOwner(), request.getSubscriptionOwnerEmailAddress(), new LocalDate(), request.getAgencyCaseNumber());
         
         exchange.getOut().setBody(SubscriptionResponseBuilderUtil.createSubscribeResponse());

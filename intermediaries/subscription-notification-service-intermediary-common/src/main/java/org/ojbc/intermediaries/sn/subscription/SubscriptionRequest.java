@@ -61,6 +61,7 @@ public abstract class SubscriptionRequest {
 	protected String subscriptionQualifier;
 	protected String subscriptionSystemId;
 	protected Map<String, String> subjectIdentifiers;
+	protected Map<String, String> subscriptionProperties;
 	private String agencyCaseNumber; 	
 	private String reasonCategoryCode;
 	private String subscriptionOwner;
@@ -155,6 +156,7 @@ public abstract class SubscriptionRequest {
 		subscriptionOwnerEmailAddress = (String) message.getHeader("subscriptionOwnerEmailAddress");
 		
 		// subjectIdentifiers intentionally left out - should be populated by derived class 
+		// subscriptionProperties intentionally left out - should be populated by derived class
 	}
 	
 	public String getSubscriptionOwner() {
@@ -221,5 +223,12 @@ public abstract class SubscriptionRequest {
 		this.subjectIdentifiers = subjectIdentifiers;
 	}	
 	
-	
+	public Map<String, String> getSubscriptionProperties() {
+		return subscriptionProperties;
+	}
+
+	public void setSubscriptionProperties(Map<String, String> subscriptionProperties) {
+		this.subscriptionProperties = subscriptionProperties;
+	}
+
 }
