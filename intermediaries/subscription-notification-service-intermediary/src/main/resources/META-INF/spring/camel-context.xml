@@ -114,6 +114,11 @@
 						<camel:setHeader headerName="subscriptionOwner">
 							<constant>SYSTEM</constant>
 						</camel:setHeader>
+						
+						<!-- Auto subscriptions don't have an owner email address -->
+						<camel:setHeader headerName="subscriptionOwnerEmailAddress">
+							<constant></constant>
+						</camel:setHeader>
 						<camel:to uri="direct:processSubscription" />
 						<camel:doCatch>
 							<camel:exception>java.lang.Exception</camel:exception>

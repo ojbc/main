@@ -72,10 +72,9 @@ public abstract class SubscriptionProcessor {
     public void subscribe(Exchange exchange) throws Exception {
         Message incomingMsg = exchange.getIn();
         SubscriptionRequest request = makeSubscriptionRequestFromIncomingMessage(incomingMsg);
-        String subscriptionOwner = (String) incomingMsg.getHeader("subscriptionOwner");
         
         subscriptionSearchQueryDAO.subscribe(request.getSubscriptionSystemId(), request.getTopic(), request.getStartDateString(), request.getEndDateString(), request.getSubjectIdentifiers(), request.getEmailAddresses(),
-                request.getSubjectName(), request.getSystemName(), request.getSubscriptionQualifier(), request.getReasonCategoryCode(),  subscriptionOwner, new LocalDate(), request.getAgencyCaseNumber());
+                request.getSubjectName(), request.getSystemName(), request.getSubscriptionQualifier(), request.getReasonCategoryCode(),  request.getSubscriptionOwner(), request.getSubscriptionOwnerEmailAddress(), new LocalDate(), request.getAgencyCaseNumber());
         
         exchange.getOut().setBody(SubscriptionResponseBuilderUtil.createSubscribeResponse());
     }

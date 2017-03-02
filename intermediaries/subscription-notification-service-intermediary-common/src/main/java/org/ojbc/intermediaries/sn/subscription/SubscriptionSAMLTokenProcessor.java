@@ -38,6 +38,7 @@ public class SubscriptionSAMLTokenProcessor {
 	public void retrieveSAMLTokenFromMessageAndAddCamelHeader(Exchange exchange) throws Exception
 	{
 		String samlFederationID = null;
+		String samlEmailAddress = null;
 		
 		try
 		{
@@ -61,12 +62,20 @@ public class SubscriptionSAMLTokenProcessor {
 					{
 						XMLObject attributeValue = attribute.getAttributeValues().get(0);
 						String attributeValueAsString = attributeValue.getDOM().getTextContent();
-						log.debug(attributeValueAsString);
+						log.debug("Federation ID in SAML Token: " + attributeValueAsString);
 						
 						samlFederationID = attributeValueAsString;
-						break;
 					}
-					
+
+					if (attributeName.equals("gfipm:2.0:user:EmailAddressText"))
+					{
+						XMLObject attributeValue = attribute.getAttributeValues().get(0);
+						String attributeValueAsString = attributeValue.getDOM().getTextContent();
+						log.debug("Email Address in SAML Token: " + attributeValueAsString);
+						
+						samlEmailAddress = attributeValueAsString;
+					}
+
 					
 				}	
 				
@@ -76,6 +85,12 @@ public class SubscriptionSAMLTokenProcessor {
 			{	
 				exchange.getIn().setHeader("saml_FederationID", samlFederationID);
 			}
+
+			if (StringUtils.isNotEmpty(samlEmailAddress))
+			{	
+				exchange.getIn().setHeader("saml_EmailAddress", samlEmailAddress);
+			}
+
 		}	
 		catch(Exception ex)
 		{

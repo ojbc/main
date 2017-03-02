@@ -63,7 +63,18 @@ public abstract class SubscriptionRequest {
 	protected Map<String, String> subjectIdentifiers;
 	private String agencyCaseNumber; 	
 	private String reasonCategoryCode;
+	private String subscriptionOwner;
+	private String subscriptionOwnerEmailAddress;
 	
+	public String getSubscriptionOwnerEmailAddress() {
+		return subscriptionOwnerEmailAddress;
+	}
+
+	public void setSubscriptionOwnerEmailAddress(
+			String subscriptionOwnerEmailAddress) {
+		this.subscriptionOwnerEmailAddress = subscriptionOwnerEmailAddress;
+	}
+
 	public SubscriptionRequest(Message message, String allowedEmailAddressPatterns) throws Exception{
 		
 		//Get the message body as DOM
@@ -139,9 +150,21 @@ public abstract class SubscriptionRequest {
 		subscriptionQualifier = XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:SubscriptionQualifierIdentification/nc:IdentificationID");
 		subscriptionSystemId = XmlUtils.xPathStringSearch(subscriptionMsg,"submsg-ext:SubscriptionIdentification/nc:IdentificationID");
 		agencyCaseNumber = XmlUtils.xPathStringSearch(subscriptionMsg, "submsg-ext:SubscriptionRelatedCaseIdentification/nc:IdentificationID");
+		
+		subscriptionOwner = (String) message.getHeader("subscriptionOwner");
+		subscriptionOwnerEmailAddress = (String) message.getHeader("subscriptionOwnerEmailAddress");
+		
 		// subjectIdentifiers intentionally left out - should be populated by derived class 
 	}
 	
+	public String getSubscriptionOwner() {
+		return subscriptionOwner;
+	}
+
+	public void setSubscriptionOwner(String subscriptionOwner) {
+		this.subscriptionOwner = subscriptionOwner;
+	}
+
 	public String getTopic() {
 		return topic;
 	}

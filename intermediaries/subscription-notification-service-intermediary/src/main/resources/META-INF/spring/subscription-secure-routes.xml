@@ -51,6 +51,9 @@
 				<camel:setHeader headerName="subscriptionOwner"><simple>${in.headers.saml_FederationID}</simple></camel:setHeader>
 				<camel:log message="This is the subscription owner: ${in.headers.subscriptionOwner}"/>
 
+				<camel:setHeader headerName="subscriptionOwnerEmailAddress"><simple>${in.headers.saml_EmailAddress}</simple></camel:setHeader>
+				<camel:log message="This is the subscription owner email address: ${in.headers.subscriptionOwnerEmailAddress}"/>
+
 				<camel:to uri="direct:processSubscription"/>
 
 				<camel:doCatch >
@@ -90,7 +93,7 @@
 		
 						<camel:setHeader headerName="subscriptionOwner"><simple>${in.headers.saml_FederationID}</simple></camel:setHeader>
 						<camel:log message="This is the subscription owner: ${in.headers.subscriptionOwner}"/>
-		
+						
 						<camel:to uri="direct:processUnsubscription"/>
 		
 						<camel:doCatch >
