@@ -43,6 +43,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.ojbc.processor.subscription.subscribe.SubscriptionResponseProcessor;
 import org.ojbc.processor.subscription.validation.SubscriptionValidationResponseProcessor;
+import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.Unsubscription;
@@ -470,7 +471,7 @@ public class SubscriptionsController {
 		initDatesForAddArrestForm(subscription, model);
 				
 		// pre-populate an email field on the form w/email from saml token
-		String sEmail = userSession.getUserLogonInfo().emailAddress;
+		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
 		}
@@ -511,13 +512,13 @@ public class SubscriptionsController {
 		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
 		
 		SubscriptionEndDateStrategy csEndDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE_CS);
-		if (userLogonInfo.lawEnforcementEmployerIndicator){
+		if (userLogonInfo.getLawEnforcementEmployerIndicator()){
 			SubscriptionEndDateStrategy ciEndDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE_CI);
 			subscription.setSubscriptionEndDate(ciEndDateStrategy.getDefaultValue());
 			model.put("isEndDateEditable", ciEndDateStrategy.isEditable());
 			
-			model.put("csEndDateStrategy", csEndDateStrategy);
-			model.put("ciEndDateStrategy", ciEndDateStrategy);
+			model.put("csDefaultEndDate", csEndDateStrategy.getDefaultValue());
+			model.put("ciDefaultEndDate", ciEndDateStrategy.getDefaultValue());
 		}
 		else{
 			subscription.setSubscriptionEndDate(csEndDateStrategy.getDefaultValue());
@@ -614,7 +615,7 @@ public class SubscriptionsController {
 				
 		initDatesForAddIncidentForm(subscription, model);
 		
-		String sEmail = userSession.getUserLogonInfo().emailAddress;
+		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
 		
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
@@ -635,7 +636,7 @@ public class SubscriptionsController {
 				
 		initDatesForAddChCycleForm(subscription, model);
 		
-		String sEmail = userSession.getUserLogonInfo().emailAddress;
+		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
 		
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
@@ -1024,6 +1025,21 @@ public class SubscriptionsController {
 				
 				 initDatesForEditArrestForm(model);
 				 
+				UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
+				if (userLogonInfo.getLawEnforcementEmployerIndicator()) {
+
+					SubscriptionEndDateStrategy ciEndDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE_CI);
+					Date ciDefaultEndDate = OJBCDateUtils.getEndDate(subscription.getSubscriptionStartDate(),
+							ciEndDateStrategy.getPeriod());
+					model.put("ciDefaultEndDate", ciDefaultEndDate);
+					
+					SubscriptionEndDateStrategy csEndDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE_CS);
+					Date csDefaultEndDate = OJBCDateUtils.getEndDate(subscription.getSubscriptionStartDate(),
+							csEndDateStrategy.getPeriod());
+					model.put("ciDefaultEndDate", ciDefaultEndDate);
+					model.put("csDefaultEndDate", csDefaultEndDate);
+				}
+				 
 				 model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
 				
 				 model.put("showCaseIdInput", showCaseIdInput);
@@ -1393,10 +1409,10 @@ public class SubscriptionsController {
 		
 		Map<String, String> subscriptionPurposeMap = new HashMap<>();
 		
-		if (userLogonInfo.lawEnforcementEmployerIndicator){
+		if (userLogonInfo.getLawEnforcementEmployerIndicator()){
 			subscriptionPurposeMap.putAll(subscriptionPurposeValueToLabelMap);
 		}
-		else if (userLogonInfo.criminalJusticeEmployerIndicator){
+		else if (userLogonInfo.getCriminalJusticeEmployerIndicator()){
 			subscriptionPurposeMap.put("CS", subscriptionPurposeValueToLabelMap.get("CS"));
 		}
 		return subscriptionPurposeMap;

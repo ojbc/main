@@ -43,7 +43,6 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.velocity.tools.generic.DateTool;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.joda.time.format.DateTimeFormatter;
@@ -212,8 +211,8 @@ public class PortalController implements ApplicationContextAware {
 		}
 		
 		model.put("personFilterCommand", new PersonFilterCommand());
-		model.put("currentUserName", userLogonInfo.userNameString);
-		model.put("timeOnline", userLogonInfo.timeOnlineString);
+		model.put("currentUserName", userLogonInfo.getUserNameString());
+		model.put("timeOnline", userLogonInfo.getTimeOnlineString());
 		model.put("searchLinksHtml", getSearchLinksHtml(authentication));
 		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));				
 	}
@@ -354,7 +353,7 @@ public class PortalController implements ApplicationContextAware {
 			int minutesOnline = Minutes.minutesBetween(authnInstant, new DateTime()).getMinutes();
 			int hoursOnline = (int) minutesOnline / 60;
 			minutesOnline = minutesOnline % 60;
-			userLogonInfo.timeOnlineString = String.valueOf(hoursOnline) + ":" + (minutesOnline < 10 ? "0" : "") + String.valueOf(minutesOnline);
+			userLogonInfo.setTimeOnlineString(String.valueOf(hoursOnline) + ":" + (minutesOnline < 10 ? "0" : "") + String.valueOf(minutesOnline));
 
 			String userLastName = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:SurName']/saml2:AttributeValue/text()", assertionElement,
 					XPathConstants.STRING);
@@ -364,16 +363,16 @@ public class PortalController implements ApplicationContextAware {
 					XPathConstants.STRING);
 			
 	    	String criminalJusticeEmployerIndicatorString = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.CriminalJusticeEmployerIndicator);
-	    	userLogonInfo.criminalJusticeEmployerIndicator = BooleanUtils.toBoolean(criminalJusticeEmployerIndicatorString);
+	    	userLogonInfo.setCriminalJusticeEmployerIndicator(BooleanUtils.toBoolean(criminalJusticeEmployerIndicatorString));
 	    	String lawEnforcementEmployerIndicatorString = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.LawEnforcementEmployerIndicator);
-	    	userLogonInfo.lawEnforcementEmployerIndicator = BooleanUtils.toBoolean(lawEnforcementEmployerIndicatorString); 
-	    	userLogonInfo.employerOri = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.EmployerORI);  
+	    	userLogonInfo.setLawEnforcementEmployerIndicator(BooleanUtils.toBoolean(lawEnforcementEmployerIndicatorString)); 
+	    	userLogonInfo.setEmployerOri(SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.EmployerORI));  
 
 			String sEmail = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()", assertionElement,
 					XPathConstants.STRING);
 
-			userLogonInfo.userNameString = (userFirstName == null ? "" : userFirstName) + " " + (userLastName == null ? "" : userLastName) + " / " + (userAgency == null ? "" : userAgency);
-			userLogonInfo.emailAddress = sEmail;
+			userLogonInfo.setUserNameString((userFirstName == null ? "" : userFirstName) + " " + (userLastName == null ? "" : userLastName) + " / " + (userAgency == null ? "" : userAgency));
+			userLogonInfo.setEmailAddress(sEmail);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -491,16 +490,66 @@ public class PortalController implements ApplicationContextAware {
 		
 		private static final long serialVersionUID = 1L;
 		
-		public String userNameString;
-		public String timeOnlineString;
-		public String emailAddress;
-		public String employerOri; 
-		public Boolean criminalJusticeEmployerIndicator; 
-		public Boolean lawEnforcementEmployerIndicator;
+		private String userNameString;
+		private String timeOnlineString;
+		private String emailAddress;
+		private String employerOri; 
+		private Boolean criminalJusticeEmployerIndicator; 
+		private Boolean lawEnforcementEmployerIndicator;
 
 		private UserLogonInfo() {
-			userNameString = DEFAULT_USER_LOGON_MESSAGE;
-			timeOnlineString = DEFAULT_USER_TIME_ONLINE;
+			setUserNameString(DEFAULT_USER_LOGON_MESSAGE);
+			setTimeOnlineString(DEFAULT_USER_TIME_ONLINE);
+		}
+
+		public String getUserNameString() {
+			return userNameString;
+		}
+
+		public void setUserNameString(String userNameString) {
+			this.userNameString = userNameString;
+		}
+
+		public String getEmployerOri() {
+			return employerOri;
+		}
+
+		public void setEmployerOri(String employerOri) {
+			this.employerOri = employerOri;
+		}
+
+		public String getEmailAddress() {
+			return emailAddress;
+		}
+
+		public void setEmailAddress(String emailAddress) {
+			this.emailAddress = emailAddress;
+		}
+
+		public String getTimeOnlineString() {
+			return timeOnlineString;
+		}
+
+		public void setTimeOnlineString(String timeOnlineString) {
+			this.timeOnlineString = timeOnlineString;
+		}
+
+		public Boolean getCriminalJusticeEmployerIndicator() {
+			return criminalJusticeEmployerIndicator;
+		}
+
+		public void setCriminalJusticeEmployerIndicator(
+				Boolean criminalJusticeEmployerIndicator) {
+			this.criminalJusticeEmployerIndicator = criminalJusticeEmployerIndicator;
+		}
+
+		public Boolean getLawEnforcementEmployerIndicator() {
+			return lawEnforcementEmployerIndicator;
+		}
+
+		public void setLawEnforcementEmployerIndicator(
+				Boolean lawEnforcementEmployerIndicator) {
+			this.lawEnforcementEmployerIndicator = lawEnforcementEmployerIndicator;
 		}
 	}
 

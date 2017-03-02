@@ -16,12 +16,14 @@
  */
 package org.ojbc.web.portal.validators.subscriptions;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
+import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.web.model.subscription.add.SubscriptionEndDateStrategy;
 import org.ojbc.web.portal.controllers.SubscriptionsController;
@@ -57,11 +59,17 @@ public class AbstractArrestSubscriptionValidator{
 				case "CS": 
 					endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.ARREST_TOPIC_SUB_TYPE_CS);
 					break; 
-				default: 
+				case "CI": 
 					endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.ARREST_TOPIC_SUB_TYPE_CI);
+					break;
+				default: 
+					endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.ARREST_TOPIC_SUB_TYPE);
 				}
 				
-				if(endDateStrategy.getDefaultValue() != null && subEndDate.after(endDateStrategy.getDefaultValue())){
+				Date defaultEndDate = OJBCDateUtils.getEndDate(subStartDate,
+						endDateStrategy.getPeriod());
+
+				if(defaultEndDate != null && subEndDate.after(endDateStrategy.getDefaultValue())){
 					fieldToErrorMap.put("subscriptionEndDate", "End date may not be more than " + endDateStrategy.getPeriod() + " year after the start date");
 				}
 			}
