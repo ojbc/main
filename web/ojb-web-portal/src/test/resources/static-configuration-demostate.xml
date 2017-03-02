@@ -71,7 +71,7 @@
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest-cs"
 			value-ref="fiveYearEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
-			value-ref="blankEditableEndDateStrategy" />
+			value-ref="oneYearEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
 			value-ref="blankEditableEndDateStrategy" />
 	</util:map>

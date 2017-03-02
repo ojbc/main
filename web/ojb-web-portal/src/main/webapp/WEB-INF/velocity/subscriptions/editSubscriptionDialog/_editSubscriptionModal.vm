@@ -200,7 +200,7 @@
 
 
 <!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
-<div style="width:230px;height:440px;" id="subFormDiv">
+<div style="width:230px;height:460px;" id="subFormDiv">
 	<form id="subscriptionForm">  	
 							
 		#if(${subscription.topic}  == '{http://ojbc.org/wsn/topics}:person/arrest')	

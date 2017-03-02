@@ -50,8 +50,13 @@ public class EditableEndDateStrategy implements SubscriptionEndDateStrategy{
 	}
 
 	@Override
-	public String getPeriod() {
+	public String getPeriodString() {
 		return String.valueOf(period);
+	}
+	
+	@Override
+	public Integer getPeriod() {
+		return period;
 	}
 	
 	

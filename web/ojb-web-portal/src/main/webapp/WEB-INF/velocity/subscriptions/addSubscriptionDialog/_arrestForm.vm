@@ -88,6 +88,10 @@
 	  });
 	  	  
 </script>
+
+<div> 
+	<span class="subscriptionHint">ORI: $userLogonInfo.employerOri</span> 
+</div>				
 				
 #if($showSubscriptionPurposeDropDown)
 	<div>
@@ -154,5 +158,5 @@
 	</div>
 #end
 
-<input type="hidden" id="csDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $csEndDateStrategy.defaultValue)'/>
-<input type="hidden" id="ciDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $ciEndDateStrategy.defaultValue)'/>
+<input type="hidden" id="csDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)'/>
+<input type="hidden" id="ciDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $ciDefaultEndDate)'/>

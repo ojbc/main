@@ -25,6 +25,7 @@ public interface SubscriptionEndDateStrategy {
 	
 	public Date getDefaultValue();
 	
-	public String getPeriod();
+	public String getPeriodString();
+	public Integer getPeriod();
 	
 }

@@ -586,7 +586,10 @@ a.grayButton:hover {
 	background: url('../images/Subscriptions/icon-add-white.png') no-repeat center;
 }
 
-
+#subFormDiv {
+	width:230px;
+	height:440px;
+}
 /*************************** Search Content **************/
 #searchForm {
 	margin: 0;
@@ -962,7 +965,7 @@ a.grayButton:hover {
 
 #subscriptionModalButtonBar {
 	background: url('../images/Backgrounds/bg-tabs-footer.png') repeat-x;
-	width: 230px;
+	width: 100%;
 	height: 45px;
 	margin: 6px;
 	position: relative;
@@ -974,8 +977,8 @@ a.grayButton:hover {
 #subModalButtonDiv {
 	position: relative;
 	top:6px;
-	float:right;
-	margin: 4px 6px 0 0;
+	float:left;
+	margin: 9px 6px 0 0;
 }
 
 
@@ -1315,6 +1318,13 @@ text-shadow: 0 1px #fff; */
 .hint{
 	color:gray; 
 	font-size: small; 
+	font-weight: bold; 
+	padding: 1em;
+}
+
+.subscriptionHint{
+	color:gray; 
+	font-size: x-small; 
 	font-weight: bold; 
 	padding: 1em;
 }
