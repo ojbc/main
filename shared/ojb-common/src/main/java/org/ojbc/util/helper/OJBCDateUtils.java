@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -82,5 +83,26 @@ public final class OJBCDateUtils {
 		
 		return null;
 	}
+	
+	/**
+	 * @param startDate
+	 * @param period
+	 * @return the startDate + period * year
+	 */
+	public static Date getEndDate(Date startDate,
+			Integer period) {
+		
+		if (startDate != null && period != null){
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(startDate);
+			
+			calendar.add(Calendar.YEAR, period);
+			Date defaultEndDate = calendar.getTime();
+			return defaultEndDate;
+		}
+		
+		return null;
+	}
+
 
 }
