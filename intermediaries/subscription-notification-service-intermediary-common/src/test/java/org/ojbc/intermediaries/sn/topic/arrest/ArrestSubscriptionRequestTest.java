@@ -26,12 +26,12 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
-import org.ojbc.intermediaries.sn.exception.InvalidEmailAddressesException;
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultMessage;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.exception.InvalidEmailAddressesException;
 import org.w3c.dom.Document;
 
 public class ArrestSubscriptionRequestTest {
@@ -234,6 +234,53 @@ public class ArrestSubscriptionRequestTest {
 
 		
 	}
+	
+	@Test
+	public void testSubscriptionWithFederalTriggeringEventCode() throws Exception {
+
+	    Document messageDocument = getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequestWithRapbackData.xml");
+        
+        Message message = new DefaultMessage();
+        
+        message.setHeader("subscriptionOwner", "someone");
+        message.setHeader("subscriptionOwnerEmailAddress", "email@local.gov");
+        
+        message.setBody(messageDocument);
+        
+		String allowedEmailAddressPatterns = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(localhost)";
+		
+		ArrestSubscriptionRequest sub = new ArrestSubscriptionRequest(message, allowedEmailAddressPatterns);
+		
+		assertThat(sub.getSubscriptionQualifier(), is("1234578"));
+		assertThat(sub.getSubjectName(), is("Test Person"));
+		
+		//Assert size of set and only entry
+		assertThat(sub.getEmailAddresses().size(), is(1));
+		assertThat(sub.getEmailAddresses().contains("po6@localhost"), is(true));
+		
+		assertThat(sub.getSubjectIdentifiers().size(), is(6));
+		assertThat(sub.getSubscriptionOwner(), is("someone"));
+		assertThat(sub.getSubscriptionOwnerEmailAddress(), is("email@local.gov"));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A9999999"));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER), is("1234578"));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FIRST_NAME), is("Test"));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("Person"));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1972-08-02"));
+		assertThat(sub.getSubjectIdentifiers().get(SubscriptionNotificationConstants.FBI_ID), is("123456789"));
+		
+		Map<String, String> subscriptionProperties = sub.getSubscriptionProperties();
+		
+		assertThat(subscriptionProperties.size(), is(7));
+		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.ARREST.toString()), is("ARREST"));
+		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.DEATH.toString()), is("DEATH"));
+		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.NCIC_SOR.toString()), is("NCIC-SOR"));
+		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.NCIC_WARRANT.toString()), is("NCIC-WARRANT"));
+		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.DISPOSITION.toString()), is("DISPOSITION"));
+		assertThat(subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR.toString()), is("true"));		
+		assertThat(subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT.toString()), is("Detective George Jones"));				
+		
+	}
+		
 	
 	private Document getMessageBody(String filePath) throws Exception {
 		File inputFile = new File(filePath);

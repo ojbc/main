@@ -107,6 +107,8 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
                     
 	            	subscription.setSubscriptionOwner(rs.getString("subscriptionOwner"));
 	            	
+	            	subscription.setSubscriptionOwnerEmailAddress(rs.getString("subscriptionOwnerEmailAddress"));
+	            	
 	            	subscription.setPersonFullName(rs.getString("subjectName"));
 	            	
 	            	subscription.setSubscriptionIdentifier(String.valueOf(id));

@@ -81,8 +81,8 @@ public class ExpiringSubscriptionsManager {
 			
 			email.setMessageBody(MESSAGE_BODY.replace("<NUMBER_OF_EXPIRING_SUBSCRIPTIONS>", String.valueOf(numberOfExpiringSubscriptions)));
 			
-			//TODO: we will need to change this to the subscription owner email which needs to be added to the database.
-			email.setTo(entry.getKey());
+			//All subscriptions will have the same owner and email address so we can get the email address from the first subscription because there will be at least 1
+			email.setTo(entry.getValue().get(0).getSubscriptionOwnerEmailAddress());
 			email.setSubject(EMAIL_SUBJECT);
 			
 			emailsToSend.add(email);

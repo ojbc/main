@@ -88,8 +88,8 @@ public class TestExpiringSubscriptionsManager {
 		assertEquals(2, expiringSubscriptions.size());
 		
 		assertEquals("You have subscriptions expiring soon", expiringSubscriptions.get(0).getSubject());
-		assertEquals("OJBC:IDP:OJBC:USER:admin1", expiringSubscriptions.get(0).getTo());
-		assertEquals("OJBC:IDP:OJBC:USER:admin2", expiringSubscriptions.get(1).getTo());
+		assertEquals("admin1@local.gov", expiringSubscriptions.get(0).getTo());
+		assertEquals("admin2@local.gov", expiringSubscriptions.get(1).getTo());
 		
 		assertTrue(expiringSubscriptions.get(0).getMessageBody().startsWith("You have 2 Rap Back subscription"));
 		assertTrue(expiringSubscriptions.get(1).getMessageBody().startsWith("You have 1 Rap Back subscription"));
