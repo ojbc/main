@@ -614,6 +614,10 @@ public class TestSubscriptionSearchQueryDAO {
 				SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER,
 				"ABCDE");
 
+		Map<String, String> subscriptionProperties = new HashMap<String, String>();
+		subscriptionProperties.put("prop 1", "value 1");
+		subscriptionProperties.put("prop 2", "value 2");
+		
 		ResultSet rs = s.executeQuery("select * from subscription");
 
 		int recordCount = 0;
@@ -623,7 +627,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		LocalDate currentDate = new LocalDate();
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic", "2013-01-01", "2013-01-01", subjectIds,
+				"topic", "2013-01-01", "2013-01-01", subjectIds,subscriptionProperties,
 				new HashSet<String>(Arrays.asList("none@none.com")),
 				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", "ownerEmail@local.gov", currentDate,
 				"0123ABC").intValue();
@@ -702,6 +706,25 @@ public class TestSubscriptionSearchQueryDAO {
 		}
 
 		assertEquals(2, postRecordCount);
+		
+		rs = s.executeQuery("select * from subscription_properties where subscriptionid="
+				+ subscriptionId);
+
+		postRecordCount = 0;
+		while (rs.next()) {
+			postRecordCount++;
+			String identifierName = rs.getString("PROPERTYNAME");
+			if ("prop 1".equals(identifierName)) {
+				assertEquals("value 1", rs.getString("PROPERTYVALUE"));
+			} else if ("prop 2".equals(identifierName)) {
+				assertEquals("value 2", rs.getString("PROPERTYVALUE"));
+			} else {
+				throw new IllegalStateException("Unexpected identifier: "
+						+ identifierName);
+			}
+		}
+
+		assertEquals(2, postRecordCount);
 
 		s.close();
 
@@ -727,7 +750,7 @@ public class TestSubscriptionSearchQueryDAO {
 		emailAddyList.addAll(Arrays.asList("p1@none.com", "p2@none.com"));
 
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic", "2013-01-01", "2013-01-01", subjectIds, emailAddyList,
+				"topic", "2013-01-01", "2013-01-01", subjectIds, null, emailAddyList,
 				"offenderName", "systemName", "ABCDE", "CS", "SYSTEM","ownerEmail@local.gov",
 				new LocalDate(), "0123ABC").intValue();
 
@@ -771,7 +794,7 @@ public class TestSubscriptionSearchQueryDAO {
 				.parseDateTime("2013-01-01").toLocalDate();
 
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic", "2013-01-01", "2013-01-01", subjectIds,
+				"topic", "2013-01-01", "2013-01-01", subjectIds,null,
 				new HashSet<String>(Arrays.asList("none@none.com")),
 				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", "ownerEmail@local.gov", originalDate, "0123ABC")
 				.intValue();
@@ -792,7 +815,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		subscriptionId = subscriptionSearchQueryDAO
 				.subscribe(null, "topic", "2013-01-01", "2013-01-02",
-						subjectIds,
+						subjectIds, null,
 						new HashSet<String>(Arrays.asList("none@none.com")),
 						"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", "ownerEmail@local.gov",
 						subsequentDate, "0123ABC").intValue();
@@ -844,7 +867,7 @@ public class TestSubscriptionSearchQueryDAO {
 				.parseDateTime("2013-01-01").toLocalDate();
 
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic1", "2013-01-01", "2013-01-01", subjectIds,
+				"topic1", "2013-01-01", "2013-01-01", subjectIds, null,
 				new HashSet<String>(Arrays.asList("none@none.com")),
 				"offenderName", "systemName", "ABCDE", null, "SYSTEM", "ownerEmail@local.gov", originalDate, "0123ABC")
 				.intValue();
@@ -857,7 +880,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		int secondSubscriptionId = subscriptionSearchQueryDAO
 				.subscribe(null, "topic2", "2013-01-01", "2013-01-02",
-						subjectIds,
+						subjectIds, null,
 						new HashSet<String>(Arrays.asList("none@none.com")),
 						"offenderName", "systemName", "ABCDE", null, "SYSTEM","ownerEmail@local.gov",
 						subsequentDate, "0123ABC").intValue();
@@ -962,7 +985,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		LocalDate currentDate = new LocalDate();
 		subscriptionSearchQueryDAO.subscribe(null,
-				"{http://ojbc.org/wsn/topics}:person/arrest", "2015-11-03", "2016-11-02", subjectIds,
+				"{http://ojbc.org/wsn/topics}:person/arrest", "2015-11-03", "2016-11-02", subjectIds, null,
 				new HashSet<String>(Arrays.asList("none@none.com")),
 				"offenderName", "systemName", "ABCDE", "I", "SYSTEM", "ownerEmail@local.gov",currentDate,
 				"000001820140729014008339997").intValue();

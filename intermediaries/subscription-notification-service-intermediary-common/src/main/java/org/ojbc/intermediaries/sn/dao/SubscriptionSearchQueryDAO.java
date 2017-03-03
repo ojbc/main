@@ -59,7 +59,7 @@ public class SubscriptionSearchQueryDAO {
 
     private static final String CIVIL_SUBSCRIPTION_REASON_CODE = "I";
 
-	private static final String BASE_QUERY_STRING = "select s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subjectName, "
+	private static final String BASE_QUERY_STRING = "select s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
                     + " si.identifierName, s.subscription_category_code, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType "
                     + " from subscription s, notification_mechanism nm, subscription_subject_identifier si where nm.subscriptionId = s.id and si.subscriptionId = s.id ";
 
@@ -330,7 +330,7 @@ public class SubscriptionSearchQueryDAO {
      * @param subscriptionOwner
      * @return the ID of the created (or updated) subscription
      */
-    public Number subscribe(String subscriptionSystemId, String topic, String startDateString, String endDateString, Map<String, String> subjectIdentifiers, Set<String> emailAddresses, String offenderName,
+    public Number subscribe(String subscriptionSystemId, String topic, String startDateString, String endDateString, Map<String, String> subjectIdentifiers, Map<String, String> subscriptionProperties, Set<String> emailAddresses, String offenderName,
             String subscribingSystemId, String subscriptionQualifier, String reasonCategoryCode, String subscriptionOwner, String subscriptionOwnerEmailAddress, LocalDate creationDateTime, String agencyCaseNumber) {
 
         Number ret = null;
@@ -415,6 +415,14 @@ public class SubscriptionSearchQueryDAO {
                 this.jdbcTemplate.update("insert into subscription_subject_identifier (subscriptionId, identifierName, identifierValue) values (?,?,?)", keyHolder.getKey(), entry.getKey(),
                         entry.getValue());
             }
+
+            if (subscriptionProperties != null)
+            {	
+	            for (Map.Entry<String, String> entry : subscriptionProperties.entrySet()) {
+	                this.jdbcTemplate.update("insert into subscription_properties (subscriptionId, propertyname, propertyvalue) values (?,?,?)", keyHolder.getKey(), entry.getKey(),
+	                        entry.getValue());
+	            }
+            }    
         }
 
         // A subscriptions exists, let's update it
