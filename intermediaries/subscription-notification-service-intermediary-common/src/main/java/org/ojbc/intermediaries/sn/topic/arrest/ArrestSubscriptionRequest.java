@@ -80,6 +80,11 @@ public class ArrestSubscriptionRequest extends SubscriptionRequest {
 	    	subscriptionProperties.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, federalRapSheetDisclosureAttentionDesignationText);
 	    }	
 	    
+	    if (StringUtils.isNotBlank(getAgencyCaseNumber()))
+	    {
+	    	subscriptionProperties.put(SubscriptionNotificationConstants.AGENCY_CASE_NUMBER, getAgencyCaseNumber());
+	    }	
+	    
 	}
 
 	private void buildSubjectIdMap(String sid,String firstName, String lastName, String dateOfBirth, String fbiNumber) {
