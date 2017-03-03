@@ -17,12 +17,10 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<submsg-doc:SubscriptionMessage 
-	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
-	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+<submsg-doc:SubscriptionMessage
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
 	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0 ../xsd/Subscription_Document.xsd">
 	<submsg-ext:SubscriptionRelatedCaseIdentification>
 		<nc20:IdentificationID>0123ABC</nc20:IdentificationID>
@@ -60,5 +58,18 @@
 			<nc20:Date>2015-06-20</nc20:Date>
 		</nc20:EndDate>
 	</nc20:DateRange>
-	<submsg-ext:CivilSubscriptionReasonCode>I</submsg-ext:CivilSubscriptionReasonCode>
+	<submsg-ext:CivilSubscriptionReasonCode>I
+	</submsg-ext:CivilSubscriptionReasonCode>
+	<submsg-ext:TriggeringEvents>
+		<submsg-ext:FederalTriggeringEventCode>ARREST
+		</submsg-ext:FederalTriggeringEventCode>
+		<submsg-ext:FederalTriggeringEventCode>DEATH
+		</submsg-ext:FederalTriggeringEventCode>
+		<submsg-ext:FederalTriggeringEventCode>NCIC-SOR
+		</submsg-ext:FederalTriggeringEventCode>
+		<submsg-ext:FederalTriggeringEventCode>NCIC-WARRANT
+		</submsg-ext:FederalTriggeringEventCode>
+		<submsg-ext:FederalTriggeringEventCode>DISPOSITION
+		</submsg-ext:FederalTriggeringEventCode>
+	</submsg-ext:TriggeringEvents>
 </submsg-doc:SubscriptionMessage>
