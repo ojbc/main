@@ -16,48 +16,51 @@
  *#
 <script type="text/javascript">
 	  $(function() {	    	  
-    		
     		$('#idLookupLink').click(
     			function(){    	
-    			    			
-				  	var sidVal = $('#stateId').val();	
+		    		var sidPattern = new RegExp($("#sidRegexForAddSubscription").val());
+				  	var sidVal = $('#stateId').val();
+				  	
+				  	if (sidPattern.test(sidVal)){	
 				  					  					  					  	    					    						 
-					var requestUrl = '../subscriptions/personNames?identificationID=' + sidVal;												    						 
-    				    	
-    				// calls a spring mvc method returning a json string w/format key,value
-    				// where the key is an int index as a string - and the value is an object {first, last}
-    				// TODO - see if traditional java collection ie Map can be passed from spring mvc layer 
-    				// to js layer here instead of using json			    						     
-				    $.get(requestUrl, 
-			  			function(data){		  			  			
-	  						
-	  						//generate html drop-down options based on json values from java layer
-	  						var nameHtml = '<option value="">Name</option>';
-	  							  					  	
-	  						if(data != null && data != ''){
-								$.each(JSON.parse(data), function( index, value ) {
-													
-									if(index == 0){
-										// requirements give us the official name 1st
-										nameHtml += '<option value="' + value + '" selected>' + value + '</option>';
-									}else{
-										// display a (A) signifying alternate name
-										nameHtml += '<option value="' + value + '">' + value + ' (A) </option>';
-									}																														
-								});	  							  						
-	  						}else{
-	  							alert('Unable to process requested SID');
-	  						}
-	  							  					  							  					  							  											
-  							//TODO fix this to ensure it happens.  Full names have a middle initial whereas 
-  							// alternate names do not.  Either the controller or js should ensure the names 
-  							// can be compared for equality	  								  								  						
-  			 																			 							 											  	
-	  						$('#personNameSelect').html(nameHtml);	  							  										  													  							  					  						  				  				
-			  			}
-		  			).fail(ojbc.displayFailMessage);		  				     			       				
-    			}
-    		)    		
+						var requestUrl = '../subscriptions/personNames?identificationID=' + sidVal;												    						 
+	    				    	
+	    				// calls a spring mvc method returning a json string w/format key,value
+	    				// where the key is an int index as a string - and the value is an object {first, last}
+	    				// TODO - see if traditional java collection ie Map can be passed from spring mvc layer 
+	    				// to js layer here instead of using json			    						     
+					    $.get(requestUrl, 
+				  			function(data){		  			  			
+		  						
+		  						//generate html drop-down options based on json values from java layer
+		  						var nameHtml = '<option value="">Name</option>';
+		  							  					  	
+		  						if(data != null && data != ''){
+									$.each(JSON.parse(data), function( index, value ) {
+														
+										if(index == 0){
+											// requirements give us the official name 1st
+											nameHtml += '<option value="' + value + '" selected>' + value + '</option>';
+										}else{
+											// display a (A) signifying alternate name
+											nameHtml += '<option value="' + value + '">' + value + ' (A) </option>';
+										}																														
+									});	  							  						
+		  						}else{
+		  							alert('Unable to process requested SID');
+		  						}
+		  							  					  							  					  							  											
+	  							//TODO fix this to ensure it happens.  Full names have a middle initial whereas 
+	  							// alternate names do not.  Either the controller or js should ensure the names 
+	  							// can be compared for equality	  								  								  						
+	  			 																			 							 											  	
+		  						$('#personNameSelect').html(nameHtml);	  							  										  													  							  					  						  				  				
+				  			}
+			  			).fail(ojbc.displayFailMessage);
+		  			}else{
+		  				alert($("#sidRegexValidationErrorMessage").val());
+		  			}		  				     			       				
+			});    		
     		    	      		    	  			    		    	  
     		    	
     		// note hacked beforeShow property is a function to return false (ignores clicks and prevents 
@@ -160,3 +163,5 @@
 
 <input type="hidden" id="csDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)'/>
 <input type="hidden" id="ciDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $ciDefaultEndDate)'/>
+<input type="hidden" id="sidRegexForAddSubscription" value='$sidRegexForAddSubscription' />
+<input type="hidden" id="sidRegexValidationErrorMessage" value='$sidRegexValidationErrorMessage' />

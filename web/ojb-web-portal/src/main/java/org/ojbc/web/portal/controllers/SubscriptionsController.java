@@ -128,6 +128,12 @@ public class SubscriptionsController {
 	@Value("${fbiIdWarning:false}")
 	Boolean fbiIdWarning;
 	
+	@Value("${sidRegexForAddSubscription:[a-zA-Z0-9]+}")
+	String sidRegexForAddSubscription;
+	
+	@Value("${sidRegexValidationErrorMessage:SID should contain only Chars or Digits}")
+	String sidRegexValidationErrorMessage;
+	
 	@Resource
 	Map<String, SubscriptionStartDateStrategy> subscriptionStartDateStrategyMap;
 	
@@ -189,6 +195,16 @@ public class SubscriptionsController {
     @ModelAttribute("vmDateTool")
     public DateTool getDateTool()  {
     	return new DateTool();
+    }
+    
+    @ModelAttribute("sidRegexForAddSubscription")
+    public String getSidRegexForAddSubscription()  {
+    	return sidRegexForAddSubscription;
+    }
+    
+    @ModelAttribute("sidRegexValidationErrorMessage")
+    public String getSidRegexValidationErrorMessage()  {
+    	return sidRegexValidationErrorMessage;
     }
     
 	@RequestMapping(value = "subscriptionResults", method = RequestMethod.POST)
