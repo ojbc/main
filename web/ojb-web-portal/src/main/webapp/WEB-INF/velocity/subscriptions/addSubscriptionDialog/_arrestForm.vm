@@ -157,7 +157,7 @@
 
 #if($showCaseIdInput)
 	<div>
-		#springFormInput("subscription.caseId" "placeholder='Case Id'" )
+		#springFormInput("subscription.caseId" "placeholder='Case Id' maxlength='20'" )
 	</div>
 #end
 
