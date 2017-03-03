@@ -31,4 +31,6 @@ public class SubscriptionNotificationConstants {
 	//Rapback constants
 	public static final String FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR = "federalRapSheetDisclosureIndicator";
 	public static final String FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT = "federalRapSheetDisclosureAttentionDesignationText";
+	
+	public static final String AGENCY_CASE_NUMBER = "agencyCaseNumber";
 }
