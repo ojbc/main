@@ -18,6 +18,7 @@ package org.ojbc.intermediaries.sn.subscription;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -28,6 +29,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.topic.arrest.FederalTriggeringEventCode;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -69,6 +71,104 @@ public class SubscriptionSearchQueryProcessor {
         return doc;
     }
 
+    private static void createSubscriptionTriggeringEvents(Subscription subscription, Element root, String extensionSchema)
+    {
+//		<smext:TriggeringEvents>
+//			<smext:FederalTriggeringEventCode>ARREST</smext:FederalTriggeringEventCode>
+//		</smext:TriggeringEvents>
+    	
+    	Map<String, String> subscriptionProperties = subscription.getSubscriptionProperties();
+    	
+    	if (subscriptionProperties == null)
+    	{
+    		//No properties, just return
+    		return;
+    	}	
+    		
+    	boolean createWrapperElement = true;
+    	
+    	Element triggeringEventsElement = null;
+    	
+    	for (Map.Entry<String, String> entry : subscriptionProperties.entrySet()) {
+    	    if (inFederalTriggeringEventCodeEnum(entry.getKey().replace("-", "_")))
+    	    {
+
+    	    	if (createWrapperElement)
+    	    	{
+    	    		createWrapperElement = false;
+    	    		triggeringEventsElement = XmlUtils.appendElement(root, extensionSchema, "TriggeringEvents");
+    	    	}	
+    	    	
+    	    	Element federalTriggeringEventCode = XmlUtils.appendElement(triggeringEventsElement, extensionSchema, "FederalTriggeringEventCode");
+    	    	federalTriggeringEventCode.setTextContent(entry.getValue());
+    	    	
+    	    }	
+    	    
+    	}
+    }
+    
+    private static void createFederalRapSheetDisclosure(Subscription subscription, Element root, String extensionSchema)
+    {
+//	<smext:FederalRapSheetDisclosure>
+//		<smext:FederalRapSheetDisclosureIndicator>true</smext:FederalRapSheetDisclosureIndicator>
+//		<smext:FederalRapSheetDisclosureAttentionDesignationText>Detective George Jones</smext:FederalRapSheetDisclosureAttentionDesignationText>
+//	</smext:FederalRapSheetDisclosure>    	
+
+    	Map<String, String> subscriptionProperties = subscription.getSubscriptionProperties();
+    	
+    	if (subscriptionProperties == null)
+    	{
+    		//No properties, just return
+    		return;
+    	}	
+    	
+    	String federalRapSheetDisclosureIndicator = "";
+    	String federalRapSheetDisclosureAttentionDesignationText = "";
+
+    	for (Map.Entry<String, String> entry : subscriptionProperties.entrySet()) {
+    		
+    		if (entry.getKey().equals(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR))
+    		{
+    			federalRapSheetDisclosureIndicator = entry.getValue();
+    		}	
+
+    		if (entry.getKey().equals(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT))
+    		{
+    			federalRapSheetDisclosureAttentionDesignationText = entry.getValue();
+    		}	
+
+    	}
+    	
+	    if (StringUtils.isNotBlank(federalRapSheetDisclosureIndicator) || StringUtils.isNotBlank(federalRapSheetDisclosureAttentionDesignationText))
+	    {
+	    	Element federalRapSheetDisclosureElement = XmlUtils.appendElement(root, extensionSchema, "FederalRapSheetDisclosure");
+	    
+	    	if (StringUtils.isNotBlank(federalRapSheetDisclosureIndicator))
+	    	{		
+	    		Element federalRapSheetDisclosureIndicatorElement = XmlUtils.appendElement(federalRapSheetDisclosureElement, extensionSchema, "FederalRapSheetDisclosureIndicator");
+	    		federalRapSheetDisclosureIndicatorElement.setTextContent(federalRapSheetDisclosureIndicator);
+	    	}	
+
+	    	if (StringUtils.isNotBlank(federalRapSheetDisclosureAttentionDesignationText))
+	    	{		
+	    		Element federalRapSheetDisclosureAttentionDesignationTextElement = XmlUtils.appendElement(federalRapSheetDisclosureElement, extensionSchema, "FederalRapSheetDisclosureAttentionDesignationText");
+	    		federalRapSheetDisclosureAttentionDesignationTextElement.setTextContent(federalRapSheetDisclosureAttentionDesignationText);
+	    	}	
+
+	    }	
+    }    
+    
+    private static boolean inFederalTriggeringEventCodeEnum(String test) {
+
+        for (FederalTriggeringEventCode c : FederalTriggeringEventCode.values()) {
+            if (c.name().equals(test)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
     /**
      * Convert the list of POJOs to the equivalent XML document
      */
@@ -131,6 +231,17 @@ public class SubscriptionSearchQueryProcessor {
 		        endDateElement.setTextContent(subscriptionSearchResponse.getEndDate().toString("yyyy-MM-dd"));
 	        }    
         }    
+        
+//		<sqr-ext:SubscriptionRelatedCaseIdentification>
+//			<nc:IdentificationID>0123ABC</nc:IdentificationID>
+//		</sqr-ext:SubscriptionRelatedCaseIdentification>
+        if (StringUtils.isNotBlank(subscriptionSearchResponse.getAgencyCaseNumber()))
+        {
+            Element subscriptionRelatedCaseIdentification = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionRelatedCaseIdentification");
+            
+            Element identificationIDElement = XmlUtils.appendElement(subscriptionRelatedCaseIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
+            identificationIDElement.setTextContent(subscriptionSearchResponse.getAgencyCaseNumber());
+        }	
         
         Element subscriptionSubjectElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "SubscriptionSubject");
 
@@ -199,6 +310,10 @@ public class SubscriptionSearchQueryProcessor {
             Element reasonCodeElement = XmlUtils.appendElement(subscriptionElement, extensionSchema, "CriminalSubscriptionReasonCode");
             reasonCodeElement.setTextContent(categoryReasonCode);        	
         }        
+        
+        createSubscriptionTriggeringEvents(subscriptionSearchResponse, subscriptionElement, extensionSchema);
+        createFederalRapSheetDisclosure(subscriptionSearchResponse, subscriptionElement, extensionSchema);
+        
         return subscriptionElement;
     }
 
@@ -271,14 +386,27 @@ public class SubscriptionSearchQueryProcessor {
             }
 
             String sid = subscriptionSearchResponse.getSubscriptionSubjectIdentifiers().get(SubscriptionNotificationConstants.SID);
+            String fbiNumber = subscriptionSearchResponse.getSubscriptionSubjectIdentifiers().get(SubscriptionNotificationConstants.FBI_ID);
+            
 
-            if (StringUtils.isNotBlank(sid)) {
+            if (StringUtils.isNotBlank(sid) || StringUtils.isNotBlank(fbiNumber)) {
                 Element personAugmentationElement = XmlUtils.appendElement(personElement, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
 
-                Element personStateFingerprintIdentification = XmlUtils.appendElement(personAugmentationElement, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");
-
-                Element identificationIDElement = XmlUtils.appendElement(personStateFingerprintIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
-                identificationIDElement.setTextContent(sid);
+                if (StringUtils.isNotBlank(fbiNumber))
+                {		
+	                Element personFBIIdentification = XmlUtils.appendElement(personAugmentationElement, OjbcNamespaceContext.NS_JXDM_41, "PersonFBIIdentification");
+	
+	                Element identificationIDElement = XmlUtils.appendElement(personFBIIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
+	                identificationIDElement.setTextContent(fbiNumber);
+                }   
+                
+                if (StringUtils.isNotBlank(sid))
+                {		
+	                Element personStateFingerprintIdentification = XmlUtils.appendElement(personAugmentationElement, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");
+	
+	                Element identificationIDElement = XmlUtils.appendElement(personStateFingerprintIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
+	                identificationIDElement.setTextContent(sid);
+                }    
 
             }
         }

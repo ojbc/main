@@ -29,6 +29,7 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -149,17 +150,17 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            
 	            subscriptionSubjectIdentifiers.put(identifierName, identifierValue);
 	            
-	            if (identifierName.equals("lastName"))
+	            if (identifierName.equals(SubscriptionNotificationConstants.LAST_NAME))
 	            {
 	            	subscription.setPersonLastName(identifierValue);
 	            }	
 
-	            if (identifierName.equals("firstName"))
+	            if (identifierName.equals(SubscriptionNotificationConstants.FIRST_NAME))
 	            {
 	            	subscription.setPersonFirstName(identifierValue);
 	            }	
 
-	            if (identifierName.equals("dateOfBirth"))
+	            if (identifierName.equals(SubscriptionNotificationConstants.DATE_OF_BIRTH))
 	            {
 	            	subscription.setDateOfBirth(identifierValue);
 	            }	

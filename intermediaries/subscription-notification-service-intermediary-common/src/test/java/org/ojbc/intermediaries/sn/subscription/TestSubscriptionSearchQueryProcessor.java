@@ -27,8 +27,8 @@ import java.util.List;
 
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.topic.arrest.FederalTriggeringEventCode;
 import org.ojbc.util.xml.XmlUtils;
-
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormat;
@@ -66,9 +66,9 @@ public class TestSubscriptionSearchQueryProcessor {
         subjectIdentifiers.put("subscriptionQualifier", "2109639");
         subjectIdentifiers.put("dateOfBirth", "1960-10-02");
         subjectIdentifiers.put(SubscriptionNotificationConstants.SID, "A123456789");
-
+        
         Subscription subscriptionSearchResponse = returnSubscriptionSearchResponse("03/13/2013", "04/05/2014", TOPIC, "Joe", "Offender", "OJBC:IDP:OJBC:USER:admin", "61623",
-                "{http://demostate.gov/SystemNames/1.0}SystemC", emailAddresses, subjectIdentifiers);
+                "{http://demostate.gov/SystemNames/1.0}SystemC", emailAddresses, subjectIdentifiers, null);
 
         assertNotNull(subscriptionSearchResponse);
 
@@ -96,8 +96,15 @@ public class TestSubscriptionSearchQueryProcessor {
         subjectIdentifiers.put("dateOfBirth", "1960-10-02");
         subjectIdentifiers.put(SubscriptionNotificationConstants.SID, "A123456789");
         
+        HashMap<String, String> subscriptionProperties = new HashMap<String, String>();
+        subscriptionProperties.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR, "true");
+        subscriptionProperties.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "bill padmanabhan");
+        subscriptionProperties.put(FederalTriggeringEventCode.ARREST.toString(), FederalTriggeringEventCode.ARREST.toString());
+        subscriptionProperties.put(FederalTriggeringEventCode.DISPOSITION.toString(), FederalTriggeringEventCode.DISPOSITION.toString());
+
+        
         Subscription subscriptionSearchResponse = returnSubscriptionSearchResponseWithNullValidation("03/13/2013", "04/05/2014", "{http://ojbc.org/wsn/topics}:person/incident",
-                "Joe", "Offender", "OJBC:IDP:OJBC:USER:admin", "61623", "{http://demostate.gov/SystemNames/1.0}SystemC",emailAddresses, subjectIdentifiers);
+                "Joe", "Offender", "OJBC:IDP:OJBC:USER:admin", "61623", "{http://demostate.gov/SystemNames/1.0}SystemC",emailAddresses, subjectIdentifiers, subscriptionProperties,"");
         
         
         assertNotNull(subscriptionSearchResponse);
@@ -121,6 +128,10 @@ public class TestSubscriptionSearchQueryProcessor {
         
         String endDate = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date");
         assertEquals("2014-04-05",endDate);
+        
+        String agencyCaseNumber = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionRelatedCaseIdentification/nc:IdentificationID");
+        assertEquals("123",agencyCaseNumber);
+        
         
         String personReference = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionSubject/nc:RoleOfPersonReference/@s:ref");
         assertEquals("P0",personReference);
@@ -184,6 +195,15 @@ public class TestSubscriptionSearchQueryProcessor {
 
         String contactInfoReferenceReference2Id = XmlUtils.xPathStringSearch(contactInfoReference2, "@s:ref");
         assertEquals("SE0CE2",contactInfoReferenceReference2Id);
+        
+        NodeList triggeringEvents = XmlUtils.xPathNodeListSearch(subscription, "sqr-ext:Subscription/sqr-ext:TriggeringEvents/sqr-ext:FederalTriggeringEventCode");
+        
+        assertEquals(2, triggeringEvents.getLength());
+        assertEquals(FederalTriggeringEventCode.ARREST.toString(), triggeringEvents.item(0).getTextContent());
+        assertEquals(FederalTriggeringEventCode.DISPOSITION.toString(), triggeringEvents.item(1).getTextContent());
+        
+        assertEquals("true", XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:FederalRapSheetDisclosure/sqr-ext:FederalRapSheetDisclosureIndicator"));
+        assertEquals("bill padmanabhan", XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:FederalRapSheetDisclosure/sqr-ext:FederalRapSheetDisclosureAttentionDesignationText"));
 
     }
 
@@ -200,7 +220,7 @@ public class TestSubscriptionSearchQueryProcessor {
         subjectIdentifiers.put(SubscriptionNotificationConstants.SID, "A123456789");
 
         Subscription subscriptionSearchResponse = returnSubscriptionSearchResponse("03/13/2013", "04/05/2014", TOPIC, "Joe", "Offender", "OJBC:IDP:OJBC:USER:admin", "61623",
-                "{http://demostate.gov/SystemNames/1.0}SystemC", emailAddresses, subjectIdentifiers);
+                "{http://demostate.gov/SystemNames/1.0}SystemC", emailAddresses, subjectIdentifiers,null);
 
         assertNotNull(subscriptionSearchResponse);
 
@@ -232,7 +252,7 @@ public class TestSubscriptionSearchQueryProcessor {
         subjectIdentifiers.put(SubscriptionNotificationConstants.SID, "A123456789");
 
         Subscription subscriptionSearchResponse = returnSubscriptionSearchResponseWithNullValidation("03/13/2013", "04/05/2014", TOPIC, "Joe", "Offender", "OJBC:IDP:OJBC:USER:admin", "61623",
-                "{http://demostate.gov/SystemNames/1.0}SystemC", emailAddresses, subjectIdentifiers);
+                "{http://demostate.gov/SystemNames/1.0}SystemC", emailAddresses, subjectIdentifiers, null,"");
 
         assertNotNull(subscriptionSearchResponse);
 
@@ -327,7 +347,7 @@ public class TestSubscriptionSearchQueryProcessor {
     }
 
     private Subscription returnSubscriptionSearchResponseWithNullValidation(String startDate, String endDate, String topic, String firstName, String lastName, String subscriptionOwner,
-            String subscriptionIdentifier, String subscribingSystemIdentifier, LinkedHashSet<String> emailAddresses, HashMap<String, String> subscriptionSubjectIdentifiers) {
+            String subscriptionIdentifier, String subscribingSystemIdentifier, LinkedHashSet<String> emailAddresses, HashMap<String, String> subscriptionSubjectIdentifiers, HashMap<String, String> subscriptionProperties, String agencyCaseNumber) {
 
         Subscription subscriptionSearchResponse = new Subscription();
 
@@ -347,13 +367,15 @@ public class TestSubscriptionSearchQueryProcessor {
         subscriptionSearchResponse.setSubscribingSystemIdentifier(subscribingSystemIdentifier);
         subscriptionSearchResponse.setEmailAddressesToNotify(emailAddresses);
         subscriptionSearchResponse.setSubscriptionSubjectIdentifiers(subscriptionSubjectIdentifiers);
+        subscriptionSearchResponse.setSubscriptionProperties(subscriptionProperties);
+        subscriptionSearchResponse.setAgencyCaseNumber("123");
         return subscriptionSearchResponse;
     }
 
     private Subscription returnSubscriptionSearchResponse(String startDate, String endDate, String topic, String firstName, String lastName, String subscriptionOwner,
-            String subscriptionIdentifier, String subscribingSystemIdentifier, LinkedHashSet<String> emailAddresses, HashMap<String, String> subscriptionSubjectIdentifiers) {
+            String subscriptionIdentifier, String subscribingSystemIdentifier, LinkedHashSet<String> emailAddresses, HashMap<String, String> subscriptionSubjectIdentifiers, HashMap<String, String> subscriptionProperties) {
 
-        Subscription subscriptionSearchResponse = returnSubscriptionSearchResponseWithNullValidation(startDate, endDate, topic, firstName, lastName, subscriptionOwner, subscriptionIdentifier, subscribingSystemIdentifier, emailAddresses, subscriptionSubjectIdentifiers);
+        Subscription subscriptionSearchResponse = returnSubscriptionSearchResponseWithNullValidation(startDate, endDate, topic, firstName, lastName, subscriptionOwner, subscriptionIdentifier, subscribingSystemIdentifier, emailAddresses, subscriptionSubjectIdentifiers, subscriptionProperties,"");
 
         DateTime startDateDate = subscriptionSearchResponse.getStartDate();
         DateTime validationDueDate = startDateDate.plusDays(365);
