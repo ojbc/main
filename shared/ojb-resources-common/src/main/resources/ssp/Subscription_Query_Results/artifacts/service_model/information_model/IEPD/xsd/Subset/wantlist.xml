@@ -36,6 +36,8 @@
       w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
   <w:Type w:name="j:PersonAugmentationType" w:isRequested="true">
+    <w:ElementInType w:name="j:PersonFBIIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:PersonStateFingerprintIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
@@ -88,5 +90,6 @@
     <w:ElementInType w:name="nc:PersonName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
+  <w:Type w:name="niem-xsd:boolean" w:isRequested="true"/>
   <w:Type w:name="niem-xsd:decimal" w:isRequested="true"/>
 </w:WantList>
