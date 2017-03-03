@@ -23,7 +23,7 @@
 				  	
 				  	if (sidPattern.test(sidVal)){	
 				  					  					  					  	    					    						 
-						var requestUrl = '../subscriptions/personNames?identificationID=' + sidVal;												    						 
+						var requestUrl = '../subscriptions/sidLookup?identificationID=' + sidVal;												    						 
 	    				    	
 	    				// calls a spring mvc method returning a json string w/format key,value
 	    				// where the key is an int index as a string - and the value is an object {first, last}
@@ -32,12 +32,13 @@
 					    $.get(requestUrl, 
 				  			function(data){		  			  			
 		  						
+		  						alert(data.personNames.originalName);
+		  						console.log(data.personNames.allNames);
 		  						//generate html drop-down options based on json values from java layer
 		  						var nameHtml = '<option value="">Name</option>';
 		  							  					  	
-		  						if(data != null && data != ''){
-									$.each(JSON.parse(data), function( index, value ) {
-														
+		  						if(data != null && Object.keys(data.allNames).length > 0){
+									$.each(data.allNames, function( index, value ) {
 										if(index == 0){
 											// requirements give us the official name 1st
 											nameHtml += '<option value="' + value + '" selected>' + value + '</option>';
@@ -46,10 +47,13 @@
 											nameHtml += '<option value="' + value + '">' + value + ' (A) </option>';
 										}																														
 									});	  							  						
+									
+									$("#fbiIdDiv").html('FBI ID: ' + data.fbiId);
+																				  						
 		  						}else{
 		  							alert('Unable to process requested SID');
 		  						}
-		  							  					  							  					  							  											
+		  						
 	  							//TODO fix this to ensure it happens.  Full names have a middle initial whereas 
 	  							// alternate names do not.  Either the controller or js should ensure the names 
 	  							// can be compared for equality	  								  								  						
@@ -106,6 +110,9 @@
 	#springFormInput("subscription.stateId" "style='width:140px;' placeholder='SID Number'")
 	<a id="idLookupLink" class="grayButton" href="#"><span id="idLookupImg"></span></a>			
 </div>
+
+<div id="fbiIdDiv" class="subscriptionHint">
+</div> 
 
 <div>	
 	<!-- note since not linked with a spring pojo, this value will be appended to the url of the http request 

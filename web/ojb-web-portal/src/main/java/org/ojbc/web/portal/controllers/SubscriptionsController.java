@@ -65,6 +65,7 @@ import org.ojbc.web.model.subscription.validation.SubscriptionValidationResponse
 import org.ojbc.web.portal.controllers.PortalController.UserLogonInfo;
 import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
 import org.ojbc.web.portal.controllers.config.SubscriptionsControllerConfigInterface;
+import org.ojbc.web.portal.controllers.dto.SidLookupResult;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.DateTimeJavaUtilPropertyEditor;
 import org.ojbc.web.portal.controllers.helpers.DateTimePropertyEditor;
@@ -372,36 +373,28 @@ public class SubscriptionsController {
 	 *  Two-step process uses search service with sid to get system id
 	 *  which is passed into the detail service
 	 */
-	@RequestMapping(value="personNames", method = RequestMethod.GET)
-	public @ResponseBody String getPersonNames(HttpServletRequest request, 
-			@ModelAttribute("detailsRequest")DetailsRequest detailsRequest, 
-			Map<String, Object> model) {
-				
-		String rNamesJsonArray = null;
+	@RequestMapping(value="sidLookup", method = RequestMethod.GET)
+	public @ResponseBody SidLookupResult sidLookup(HttpServletRequest request, 
+			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
+			Map<String, Object> model) throws Exception {
 		
-		String personSid = detailsRequest.getIdentificationID();
-						
-		String systemId = null;
+		String systemId = getSystemIdFromPersonSID(request, detailsRequest);			
 		
-		if(StringUtils.isNotBlank(personSid)){			
-			
-			systemId = getSystemIdFromPersonSID(request, detailsRequest);			
-		}
-									
 		if(StringUtils.isNotBlank(systemId)){
 			
 			logger.info("using systemId: " + systemId);				
 			
 			Document rapSheetDoc = processDetailQueryCriminalHistory(request, systemId);	
-									
-			loadChDataFromRapsheet(rapSheetDoc, model);
-
-			// consider making UI retrieve names from subscription pojo, since ui already 
-			// retrieves dob and fbi from sub. pojo
-			rNamesJsonArray = prepareNamesFromRapSheetParsing(rapSheetDoc, model);
+			
+			SidLookupResult sidLookupResult = new SidLookupResult();
+			
+			sidLookupResult.setFbiId(getFbiIdFromRapsheet(rapSheetDoc));
+			sidLookupResult.setPersonNames(getAllPersonNamesFromRapsheet(rapSheetDoc));
+			
+			return sidLookupResult;
 		}									
-						
-		return rNamesJsonArray;
+		
+		return null;
 	}
 	
 	
@@ -1554,7 +1547,11 @@ public class SubscriptionsController {
 	 */
 	private String getSystemIdFromPersonSID(HttpServletRequest request,
 			DetailsRequest detailsRequestWithSid) {
-						
+
+		if (StringUtils.isBlank(detailsRequestWithSid.getIdentificationID())){
+			return null;
+		}
+		
 		logger.info("person sid: " + detailsRequestWithSid.getIdentificationID());
 		
 		PersonSearchRequest personSearchRequest = new PersonSearchRequest();				
