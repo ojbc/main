@@ -155,6 +155,11 @@ insert into subscription_subject_identifier(subscriptionId, identifierName, iden
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62726', 'firstName', 'Bart');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62726', 'lastName', 'Simpson');
 
+insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','ARREST','ARREST');
+insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','NCIC-WARRANT','NCIC-WARRANT');
+insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','federalRapSheetDisclosureIndicator','true');
+insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','federalRapSheetDisclosureAttentionDesignationText','Bill Padmanabhan');
+
 insert into finger_prints_type(finger_prints_type_id, finger_prints_type) values('1', 'FBI'); 
 insert into finger_prints_type(finger_prints_type_id, finger_prints_type) values('2', 'State'); 
 
