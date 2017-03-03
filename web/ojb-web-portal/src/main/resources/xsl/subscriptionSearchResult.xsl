@@ -28,6 +28,7 @@
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
 	xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	exclude-result-prefixes="#all">
 
 	<xsl:import href="_formatters.xsl" />
@@ -35,6 +36,7 @@
 	<xsl:param name="hrefBase"/>
 	<xsl:param name="validateSubscriptionButton"/>	
 	<xsl:param name="messageIfNoResults">You do not have any subscriptions.</xsl:param>
+	<xsl:param name="subscriptionExpirationAlertPeriod">0</xsl:param>
 	
 	<!-- TODO:Pass these in from the controller class -->
  	<xsl:param name="arrestTopic">{http://ojbc.org/wsn/topics}:person/arrest</xsl:param>
@@ -156,26 +158,7 @@
 						</xsl:call-template>
 					</td>					
 					
-										
-					<xsl:variable name="endDate" select="ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date"/>
-						
-					<xsl:choose>
-						<xsl:when test="$endDate &lt; current-date()">
-							<td style="color:red">
-								<xsl:call-template name="formatDate">
-									<xsl:with-param name="date" select="$endDate"/>
-								</xsl:call-template>
-							</td>		
-						</xsl:when>
-						<xsl:otherwise>					
-							<td>
-								<xsl:call-template name="formatDate">
-									<xsl:with-param name="date" select="$endDate"/>
-								</xsl:call-template>
-							</td>					
-						</xsl:otherwise>					
-					</xsl:choose>					
-					
+					<xsl:apply-templates select="ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date[normalize-space()]" mode="endDate"/>
 
 					<td>
 						<!-- TODO: get this from OJBC Static Config -->
@@ -247,4 +230,29 @@
 		</span>
 		<br />
 	</xsl:template>
+	
+	<xsl:template match="nc:Date" mode="endDate">
+		
+		<xsl:variable name="endDate" select="." as="xsd:date"/>
+		<xsl:variable name="expirationAlertStartDate">
+			<xsl:value-of select="$endDate - xsd:dayTimeDuration(string-join(('P', $subscriptionExpirationAlertPeriod, 'D'),''))"></xsl:value-of>
+		</xsl:variable>
+		<xsl:choose>
+			<xsl:when test="$expirationAlertStartDate &lt;= current-date()">
+				<td style="color:red">
+					<xsl:call-template name="formatDate">
+						<xsl:with-param name="date" select="."/> 
+					</xsl:call-template>
+				</td>		
+			</xsl:when>
+			<xsl:otherwise>					
+				<td>
+					<xsl:call-template name="formatDate">
+						<xsl:with-param name="date" select="."/>
+					</xsl:call-template>
+				</td>					
+			</xsl:otherwise>					
+		</xsl:choose>					
+	</xsl:template>
+	
 </xsl:stylesheet>

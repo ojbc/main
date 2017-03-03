@@ -315,11 +315,11 @@ public class XslTemplateTest {
         
         String sXmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/" + "subscriptionSearchResult.xml").getInputStream());
                         
-        sXmlInput = sXmlInput.replace("<nc:Date>@sub_end_date@</nc:Date>", "<nc:Date>" + CURRENT_DATE_yyyyMMdd +"</nc:Date>");
+        sXmlInput = sXmlInput.replace("@sub_end_date@", CURRENT_DATE_yyyyMMdd);
                         
         String sExpectedHtml = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult.html").getInputStream());
                         
-        sExpectedHtml = sExpectedHtml.replace("<td>@sub_end_date@</td>", "<td>" + CURRENT_DATE_MMddyyyy + "</td>");
+        sExpectedHtml = sExpectedHtml.replace("@sub_end_date@", CURRENT_DATE_MMddyyyy);
         
         List<String> expectedHtmlLineList = IOUtils.readLines(new ByteArrayInputStream(sExpectedHtml.getBytes()), CharEncoding.UTF_8);
                              

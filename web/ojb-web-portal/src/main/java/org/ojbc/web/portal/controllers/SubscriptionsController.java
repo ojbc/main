@@ -134,6 +134,9 @@ public class SubscriptionsController {
 	@Value("${sidRegexValidationErrorMessage:SID should contain only Chars or Digits}")
 	String sidRegexValidationErrorMessage;
 	
+	@Value("${subscriptionExpirationAlertPeriod}")
+	String subscriptionExpirationAlertPeriod;
+	
 	@Resource
 	Map<String, SubscriptionStartDateStrategy> subscriptionStartDateStrategyMap;
 	
@@ -1470,6 +1473,7 @@ public class SubscriptionsController {
 		params.put("purpose", purpose);
 		params.put("onBehalfOf", onBehalfOf);
 		params.put("validateSubscriptionButton", validateSubscriptionButton);
+		params.put("subscriptionExpirationAlertPeriod", subscriptionExpirationAlertPeriod);
 		return params;
 	}
 	
