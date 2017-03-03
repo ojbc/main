@@ -48,6 +48,7 @@ import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
+import org.ojbc.intermediaries.sn.topic.arrest.FederalTriggeringEventCode;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
 import org.ojbc.util.xml.XmlUtils;
 import org.apache.camel.CamelContext;
@@ -158,6 +159,20 @@ public class TestSubscriptionSearchQueryDAO {
 				new FlatXmlDataSetBuilder().build(manualTestFile));
 	}
 
+	@Test
+	public void testGetSubscriptionProperties()
+			throws Exception {
+		loadManualTestData();
+		Map<String, String> subscriptionProperties = subscriptionSearchQueryDAO.getSubscriptionProperties("1");
+				
+		assertEquals(4, subscriptionProperties.size());
+		
+		assertEquals(FederalTriggeringEventCode.ARREST.toString(), subscriptionProperties.get(FederalTriggeringEventCode.ARREST.toString()));
+		assertEquals(FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-"), subscriptionProperties.get(FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-")));
+		assertEquals("true", subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR));
+		assertEquals("Bill Padmanabhan", subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT));
+	}
+	
 	@Test
 	public void testUniqueSubscriptionOwners()
 			throws Exception {
@@ -364,6 +379,16 @@ public class TestSubscriptionSearchQueryDAO {
 		assertEquals("bill", subscription.getPersonFirstName());
 		assertEquals("padmanabhan", subscription.getPersonLastName());
 		assertEquals("1970-02-03", subscription.getDateOfBirth());
+		
+		assertNotNull(subscription.getSubscriptionProperties());
+		
+		assertEquals(4, subscription.getSubscriptionProperties().size());
+		
+		assertEquals(FederalTriggeringEventCode.ARREST.toString(), subscription.getSubscriptionProperties().get(FederalTriggeringEventCode.ARREST.toString()));
+		assertEquals(FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-"), subscription.getSubscriptionProperties().get(FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-")));
+		assertEquals("true", subscription.getSubscriptionProperties().get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR));
+		assertEquals("Bill Padmanabhan", subscription.getSubscriptionProperties().get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT));
+
 	}
 
 	@Test

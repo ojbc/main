@@ -24,16 +24,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.sql.DataSource;
 
-import org.ojbc.intermediaries.sn.notification.NotificationConstants;
-import org.ojbc.intermediaries.sn.notification.NotificationRequest;
-import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
-import org.ojbc.util.xml.XmlUtils;
 import org.apache.camel.Header;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.BooleanUtils;
@@ -45,6 +42,10 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.ojbc.intermediaries.sn.notification.NotificationConstants;
+import org.ojbc.intermediaries.sn.notification.NotificationRequest;
+import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -149,7 +150,13 @@ public class SubscriptionSearchQueryDAO {
             throw new IllegalStateException("Query did not return the correct number of results.");
         }
 
-        return subscriptions.get(0);
+        Subscription subscriptionToReturn = subscriptions.get(0); 
+        
+        Map<String, String> subscriptionProperties = getSubscriptionProperties(String.valueOf(subscriptionToReturn.getId()));
+        
+        subscriptionToReturn.setSubscriptionProperties(subscriptionProperties);
+        
+        return subscriptionToReturn; 
     }
 
     /**
@@ -580,6 +587,28 @@ public class SubscriptionSearchQueryDAO {
     	List<String> subscriptionOwners = (List<String>) jdbcTemplate.queryForList(queryString, String.class);
     	
     	return subscriptionOwners;
+    }
+    
+    Map<String, String > getSubscriptionProperties(String id)
+    {
+        String sqlQuery = "select * from subscription_properties where subscriptionId=?";
+
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sqlQuery, new Object[] {id});
+        		
+        Map<String, String > ret = new HashMap<String, String >();
+        
+        if (rows != null)
+        {
+        	for (Map<String, Object> row : rows)
+        	{
+        		String propertyName = (String)row.get("propertyName");
+        		String propertyValue = (String)row.get("propertyValue");
+        				
+        		ret.put(propertyName, propertyValue);
+        	}	
+        }	
+        
+        return ret;
     }
     
     private PreparedStatementCreator buildPreparedInsertStatementCreator(final String sql, final Object[] params) {
