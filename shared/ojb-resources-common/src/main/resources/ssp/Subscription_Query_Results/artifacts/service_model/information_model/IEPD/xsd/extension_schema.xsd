@@ -63,6 +63,7 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="sqr-ext:Subscription"/>
+					
 					<xsd:element ref="sqr-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="intel:SystemIdentifier" minOccurs="0"/>
 				</xsd:sequence>
@@ -76,13 +77,19 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
+				<xsd:element ref="sqr-ext:SubscriptionRelatedCaseIdentification" minOccurs="0"/>
 					<xsd:element ref="sqr-ext:SubscriptionSubjectRepresentation"/>
+						
+					
+					
 					<xsd:element ref="wsn-br:Topic"/>
 					<xsd:element ref="sqr-ext:SubscribedEntity" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="sqr-ext:SubscriptionOriginator" minOccurs="0"/>
 					<xsd:element ref="sqr-ext:SubscriptionValidation" minOccurs="0"/>
 					<xsd:element ref="sqr-ext:SubscriptionGracePeriod" minOccurs="0"/>
 					<xsd:element ref="sqr-ext:SubscriptionReasonRepresentation"/>
+					<xsd:element ref="sqr-ext:TriggeringEvents"/>
+					<xsd:element ref="sqr-ext:FederalRapSheetDisclosure" minOccurs="0"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -249,6 +256,10 @@
 			<xsd:documentation>A code value for the reason for creating a subscription</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	
+	
+	
+	
 	<xsd:complexType name="CriminalSubscriptionReasonCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="sqr-ext:CriminalSubscriptionReasonCodeSimpleType">
@@ -306,4 +317,87 @@
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
+	
+		<xsd:element name="SubscriptionRelatedCaseIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An identifier assigned to a case related to the subscription.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="TriggeringEventsType">
+		<xsd:annotation>
+			<xsd:documentation>One or more events that would trigger notifications related to a subscription.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="sqr-ext:TriggeringEventRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="TriggeringEvents" type="sqr-ext:TriggeringEventsType"/>
+	<xsd:element name="TriggeringEventRepresentation" abstract="true"/>
+	<xsd:element name="FederalTriggeringEventCode" substitutionGroup="sqr-ext:TriggeringEventRepresentation" type="xsd:string"/>
+	<xsd:complexType name="FederalTriggeringEventCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="sqr-ext:FederalTriggeringEventCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="FederalTriggeringEventCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="ARREST">
+				<xsd:annotation>
+					<xsd:documentation>Arrests</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DISPOSITION">
+				<xsd:annotation>
+					<xsd:documentation>Dispositions</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-WARRANT">
+				<xsd:annotation>
+					<xsd:documentation>NCIC Warrant Entry, Modification, Deletion </xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-SOR">
+				<xsd:annotation>
+					<xsd:documentation>NCIC National Sex Offender Registry (NSOR) Entry, Modification, Deletion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DEATH">
+				<xsd:annotation>
+					<xsd:documentation>Death Notice</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="FederalRapSheetDisclosureType">
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="sqr-ext:FederalRapSheetDisclosureIndicator"/>
+					<xsd:element ref="sqr-ext:FederalRapSheetDisclosureAttentionDesignationText" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="FederalRapSheetDisclosure" type="sqr-ext:FederalRapSheetDisclosureType">
+		<xsd:annotation>
+			<xsd:documentation>Details about disclosing a subscription on a subject's federal criminal history.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FederalRapSheetDisclosureIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the subscription is to appear on the subject's federal rap sheet, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FederalRapSheetDisclosureAttentionDesignationText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A designation of the individual to whose attention a response is to be directed, relating to a subscription on a subject's rap sheet.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
 </xsd:schema>
