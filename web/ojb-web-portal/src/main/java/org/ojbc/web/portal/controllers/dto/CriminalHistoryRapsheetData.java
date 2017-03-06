@@ -17,19 +17,23 @@
 package org.ojbc.web.portal.controllers.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.ojbc.web.portal.controllers.helpers.SubscribedPersonNames;
 
-public class SidLookupResult implements Serializable{
+public class CriminalHistoryRapsheetData implements Serializable{
 	
 	private static final long serialVersionUID = 2989647661256727602L;
 	
 	private String fbiId;
 	private SubscribedPersonNames personNames;
+	private LocalDate dob; 
 
 	public String getFbiId() {
 		return fbiId == null? "N/A" : fbiId;
@@ -62,5 +66,17 @@ public class SidLookupResult implements Serializable{
 		
 		return allNames; 
 	}
+
+	public LocalDate getDob() {
+		return dob;
+	}
+
+	public void setDob(LocalDate dob) {
+		this.dob = dob;
+	}
 	
+	public String getDobString(){
+		String dobString = dob != null? dob.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")):StringUtils.EMPTY;
+		return dobString;
+	}
 }

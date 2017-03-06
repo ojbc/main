@@ -32,8 +32,7 @@
 					    $.get(requestUrl, 
 				  			function(data){		  			  			
 		  						
-		  						alert(data.personNames.originalName);
-		  						console.log(data.personNames.allNames);
+		  						//console.log(data.allNames);
 		  						//generate html drop-down options based on json values from java layer
 		  						var nameHtml = '<option value="">Name</option>';
 		  							  					  	
