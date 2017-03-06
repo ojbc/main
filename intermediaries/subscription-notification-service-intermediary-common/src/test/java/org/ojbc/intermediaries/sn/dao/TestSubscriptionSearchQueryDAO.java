@@ -160,7 +160,41 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 
 	@Test
-	public void testGetSubscriptionProperties()
+	public void testUpdateSubscriptionProperties() throws Exception
+	{
+		loadManualTestData();
+		
+		Map<String, String> subscriptionPropertiesRequest = null;
+		Map<String, String> subscriptionPropertiesDatabase = null;
+		
+		//both null, no update
+		assertFalse(subscriptionSearchQueryDAO.updateSubscriptionProperties(subscriptionPropertiesRequest, subscriptionPropertiesDatabase));
+		
+		subscriptionPropertiesDatabase = subscriptionSearchQueryDAO.getSubscriptionProperties("1");
+		
+		//one is null, other isn't, update
+		assertTrue(subscriptionSearchQueryDAO.updateSubscriptionProperties(subscriptionPropertiesRequest, subscriptionPropertiesDatabase));
+		
+		subscriptionPropertiesRequest = new HashMap<String, String>();
+		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.ARREST.toString(), FederalTriggeringEventCode.ARREST.toString());
+		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-"), FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-"));
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR, "true");
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Bill Padmanabhan");
+		
+		//Both the same, no update
+		assertFalse(subscriptionSearchQueryDAO.updateSubscriptionProperties(subscriptionPropertiesRequest, subscriptionPropertiesDatabase));
+		
+		//Change one, update
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Frank Padmanabhan");
+		assertTrue(subscriptionSearchQueryDAO.updateSubscriptionProperties(subscriptionPropertiesRequest, subscriptionPropertiesDatabase));
+
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Bill Padmanabhan");
+		subscriptionPropertiesDatabase.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Frank Padmanabhan");
+		assertTrue(subscriptionSearchQueryDAO.updateSubscriptionProperties(subscriptionPropertiesRequest, subscriptionPropertiesDatabase));
+	}
+	
+	@Test
+	public void testSubscriptionProperties()
 			throws Exception {
 		loadManualTestData();
 		Map<String, String> subscriptionProperties = subscriptionSearchQueryDAO.getSubscriptionProperties("1");
@@ -171,6 +205,14 @@ public class TestSubscriptionSearchQueryDAO {
 		assertEquals(FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-"), subscriptionProperties.get(FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-")));
 		assertEquals("true", subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR));
 		assertEquals("Bill Padmanabhan", subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT));
+	
+		int rowsDeleted = subscriptionSearchQueryDAO.deleteSubscriptionProperties("1");
+		assertEquals(4, rowsDeleted);
+		
+		subscriptionSearchQueryDAO.saveSubscriptionProperties(subscriptionProperties, 1);
+		
+		assertEquals(4, subscriptionProperties.size());
+		
 	}
 	
 	@Test
@@ -838,9 +880,17 @@ public class TestSubscriptionSearchQueryDAO {
 
 		LocalDate subsequentDate = new LocalDate();
 
+		Map<String, String> subscriptionPropertiesRequest = new HashMap<String, String>();
+		
+		subscriptionPropertiesRequest = new HashMap<String, String>();
+		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.ARREST.toString(), FederalTriggeringEventCode.ARREST.toString());
+		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-"), FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-"));
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR, "true");
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Bill Padmanabhan");
+
 		subscriptionId = subscriptionSearchQueryDAO
 				.subscribe(null, "topic", "2013-01-01", "2013-01-02",
-						subjectIds, null,
+						subjectIds, subscriptionPropertiesRequest,
 						new HashSet<String>(Arrays.asList("none@none.com")),
 						"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", "ownerEmail@local.gov",
 						subsequentDate, "0123ABC").intValue();
@@ -870,7 +920,11 @@ public class TestSubscriptionSearchQueryDAO {
 		}
 
 		assertEquals(1, recordCount);
+		
+		Map<String, String> propertiesFromDatabase = subscriptionSearchQueryDAO.getSubscriptionProperties(String.valueOf(subscriptionId));
 
+		assertEquals(4, propertiesFromDatabase.size());	
+		
 		s.close();
 
 	}
