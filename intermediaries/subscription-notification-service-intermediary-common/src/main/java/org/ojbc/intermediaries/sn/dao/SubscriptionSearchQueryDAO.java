@@ -423,13 +423,7 @@ public class SubscriptionSearchQueryDAO {
                         entry.getValue());
             }
 
-            if (subscriptionProperties != null)
-            {	
-	            for (Map.Entry<String, String> entry : subscriptionProperties.entrySet()) {
-	                this.jdbcTemplate.update("insert into subscription_properties (subscriptionId, propertyname, propertyvalue) values (?,?,?)", keyHolder.getKey(), entry.getKey(),
-	                        entry.getValue());
-	            }
-            }    
+            saveSubscriptionProperties(subscriptionProperties, keyHolder.getKey().longValue());    
         }
 
         // A subscriptions exists, let's update it
@@ -442,23 +436,37 @@ public class SubscriptionSearchQueryDAO {
 
             log.debug("Updating row in subscription table");
 
+            long subscriptionID = subscriptions.get(0).getId();
+            
             this.jdbcTemplate.update("update subscription set topic=?, startDate=?, endDate=?, subjectName=?, active=1, subscriptionOwner=?, subscriptionOwnerEmailAddress=?, lastValidationDate=? where id=?", new Object[] {
-                fullyQualifiedTopic.trim(), startDate, endDate, offenderName.trim(), subscriptionOwner, subscriptionOwnerEmailAddress, creationDate, subscriptions.get(0).getId()
+                fullyQualifiedTopic.trim(), startDate, endDate, offenderName.trim(), subscriptionOwner, subscriptionOwnerEmailAddress, creationDate, subscriptionID
             });
 
             log.debug("Updating row in notification_mechanism table");
 
             // We will delete all email addresses associated with the subscription and re-add them
             this.jdbcTemplate.update("delete from notification_mechanism where subscriptionId = ?", new Object[] {
-                subscriptions.get(0).getId()
+                subscriptionID
             });
 
             for (String emailAddress : emailAddresses) {
-                this.jdbcTemplate.update("insert into notification_mechanism (subscriptionId, notificationMechanismType, notificationAddress) values (?,?,?)", subscriptions.get(0).getId(), NotificationConstants.NOTIFICATION_MECHANISM_EMAIL,
+                this.jdbcTemplate.update("insert into notification_mechanism (subscriptionId, notificationMechanismType, notificationAddress) values (?,?,?)", subscriptionID, NotificationConstants.NOTIFICATION_MECHANISM_EMAIL,
                         emailAddress);
             }
 
-            ret = subscriptions.get(0).getId();
+            String existingSubscriptionIDString = String.valueOf(subscriptionID);
+            
+            Map<String, String> subscriptionPropertiesFromExistingSubscription = getSubscriptionProperties(existingSubscriptionIDString);
+            
+            if(updateSubscriptionProperties(subscriptionProperties, subscriptionPropertiesFromExistingSubscription))
+            {
+            	deleteSubscriptionProperties(existingSubscriptionIDString);
+            	
+            	saveSubscriptionProperties(subscriptionProperties, subscriptionID); 
+
+            }	
+            
+            ret = subscriptionID;
 
         }
 
@@ -469,9 +477,80 @@ public class SubscriptionSearchQueryDAO {
         return ret;
 
     }
+
+	public int saveSubscriptionProperties(
+			Map<String, String> subscriptionProperties, long subscriptionID) {
+		
+		int rowsSaved = 0;
+		
+		if (subscriptionProperties != null)
+		{	
+		    for (Map.Entry<String, String> entry : subscriptionProperties.entrySet()) {
+		        int rowsUpdated = this.jdbcTemplate.update("insert into subscription_properties (subscriptionId, propertyname, propertyvalue) values (?,?,?)", subscriptionID, entry.getKey(),
+		                entry.getValue());
+		        
+		        if (rowsUpdated == 1)
+		        {
+		        	rowsSaved++;
+		        }	
+		    }
+		}
+		
+		return rowsSaved;
+	}
     
     
-    private void subscribeIdentificationTransaction(Number subscriptionId, String transactionNumber, String endDateString ){
+    boolean updateSubscriptionProperties(Map<String, String> subscriptionPropertiesFromRequest, Map<String, String> subscriptionPropertiesFromExistingSubscription) {
+    	
+    	//No subscription properties, no update required
+        if ((subscriptionPropertiesFromExistingSubscription == null) && (subscriptionPropertiesFromRequest == null))
+        {
+        	return false;
+        }	
+        
+        //One is null, the other isn't, update required
+        if ((subscriptionPropertiesFromExistingSubscription != null) && (subscriptionPropertiesFromRequest == null))
+        {
+        	return true;
+        }	
+        
+        //One is null, the other isn't, update required
+        if ((subscriptionPropertiesFromExistingSubscription == null) && (subscriptionPropertiesFromRequest != null))
+        {
+        	return true;
+        }	
+        
+        //Different sizes, update required
+        if (subscriptionPropertiesFromExistingSubscription.size() != subscriptionPropertiesFromRequest.size())
+        {
+        	return true;
+        }	
+
+        if (subscriptionPropertiesFromExistingSubscription.size() == subscriptionPropertiesFromRequest.size())
+        {
+        	for (Map.Entry<String, String> entry : subscriptionPropertiesFromExistingSubscription.entrySet()) {
+        	    
+        		//key in one map, not the other, update required
+        		if (!subscriptionPropertiesFromRequest.containsKey(entry.getKey()))
+        	    {
+        			return true;
+        	    }	
+        		else	
+        		{
+        			//values are different, update required
+        			if (!subscriptionPropertiesFromRequest.get(entry.getKey()).equals(entry.getValue()))
+        			{
+        				return true;
+        			}	
+        		}
+        		
+        	}
+        }	
+        
+		return false;
+	}
+
+	private void subscribeIdentificationTransaction(Number subscriptionId, String transactionNumber, String endDateString ){
     	final String IDENTIFICATION_TRANSACTION_SUBSCRIBE = "UPDATE identification_transaction "
     			+ "SET subscription_id = ?, available_for_subscription_start_date = ? WHERE transaction_number = ? ";
     	
@@ -589,9 +668,9 @@ public class SubscriptionSearchQueryDAO {
     	return subscriptionOwners;
     }
     
-    Map<String, String > getSubscriptionProperties(String id)
+    public Map<String, String > getSubscriptionProperties(String id)
     {
-        String sqlQuery = "select * from subscription_properties where subscriptionId=?";
+        String sqlQuery = "select * from subscription_properties where subscriptionId=? order by propertyName";
 
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sqlQuery, new Object[] {id});
         		
@@ -609,6 +688,15 @@ public class SubscriptionSearchQueryDAO {
         }	
         
         return ret;
+    }
+    
+    public int deleteSubscriptionProperties(String id)
+    {
+        String sqlQuery = "delete from subscription_properties where subscriptionId=?";
+
+        int rowsUpdated = jdbcTemplate.update(sqlQuery, new Object[] {id});
+        		
+        return rowsUpdated;
     }
     
     private PreparedStatementCreator buildPreparedInsertStatementCreator(final String sql, final Object[] params) {
