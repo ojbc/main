@@ -19,8 +19,6 @@ package org.ojbc.web.portal.controllers;
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
 
 import java.io.StringReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -65,7 +63,7 @@ import org.ojbc.web.model.subscription.validation.SubscriptionValidationResponse
 import org.ojbc.web.portal.controllers.PortalController.UserLogonInfo;
 import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
 import org.ojbc.web.portal.controllers.config.SubscriptionsControllerConfigInterface;
-import org.ojbc.web.portal.controllers.dto.SidLookupResult;
+import org.ojbc.web.portal.controllers.dto.CriminalHistoryRapsheetData;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.DateTimeJavaUtilPropertyEditor;
 import org.ojbc.web.portal.controllers.helpers.DateTimePropertyEditor;
@@ -374,104 +372,41 @@ public class SubscriptionsController {
 	 *  which is passed into the detail service
 	 */
 	@RequestMapping(value="sidLookup", method = RequestMethod.GET)
-	public @ResponseBody SidLookupResult sidLookup(HttpServletRequest request, 
-			@ModelAttribute("detailsRequest") DetailsRequest detailsRequest, 
-			Map<String, Object> model) throws Exception {
+	public @ResponseBody CriminalHistoryRapsheetData sidLookup(HttpServletRequest request, 
+			@RequestParam("identificationID") String sid) throws Exception {
 		
-		String systemId = getSystemIdFromPersonSID(request, detailsRequest);			
+		return getChRapsheetData(request, sid);
+			
+	}
+
+	private CriminalHistoryRapsheetData getChRapsheetData(HttpServletRequest request, String sid) throws Exception {
 		
-		if(StringUtils.isNotBlank(systemId)){
-			
-			logger.info("using systemId: " + systemId);				
-			
-			Document rapSheetDoc = processDetailQueryCriminalHistory(request, systemId);	
-			
-			SidLookupResult sidLookupResult = new SidLookupResult();
-			
+		CriminalHistoryRapsheetData sidLookupResult = new CriminalHistoryRapsheetData();
+		
+		Document rapSheetDoc = getRapsheetBySid(request, sid);
+
+		if (rapSheetDoc != null){
+		
 			sidLookupResult.setFbiId(getFbiIdFromRapsheet(rapSheetDoc));
 			sidLookupResult.setPersonNames(getAllPersonNamesFromRapsheet(rapSheetDoc));
-			
+			sidLookupResult.setDob(OJBCDateUtils.parseLocalDate(getDOBFromRapsheet(rapSheetDoc)));
 			return sidLookupResult;
-		}									
+		}
 		
 		return null;
 	}
-	
-	
-	private Date parseRapsheetDate(String rapSheetDate){
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Date dobDate = null;
-		try {
-			dobDate = sdf.parse(rapSheetDate);
-			
-		} catch (ParseException e) {
-			logger.error("Couldn't parse date: " + rapSheetDate);
-			e.printStackTrace();
-		}		
-		return dobDate;
-	}
-	
-	
-	private void loadChDataFromRapsheet(Document rapSheetDoc, Map<String, Object> model){
-		
-		Subscription subscription = (Subscription)model.get("subscription");
-		
-		logger.info("\n\n\n * * * * \n Subscription before loading CH data * * * * \n " + subscription + "\n\n\n");
-		
-		String dobString = getDOBFromRapsheet(rapSheetDoc);
-				
-		Date dobDate = parseRapsheetDate(dobString);
-		subscription.setDateOfBirth(dobDate);
-				
-		String fbiId = getFbiIdFromRapsheet(rapSheetDoc);		
-		subscription.setFbiId(fbiId);
-		
-		logger.info("\n\n\n * * * * * \n\n Populated Subscription from Rapsheet \n " + subscription + "* * * * * \n");
-				
-		// see if this is needed, because we already modified the object which is pass-by-reference
-		model.put("subscription", subscription);		
-	}
-	
-	
-	private String prepareNamesFromRapSheetParsing(Document rapSheetDoc, Map<String, Object> model){
-				
-		String rNamesJsonArray = null; 
-		
-		SubscribedPersonNames subscribedPersonNames = null;
-		
-		if(rapSheetDoc != null){
-			try {
-				subscribedPersonNames = getAllPersonNamesFromRapsheet(rapSheetDoc);
-				
-			} catch (Exception e) {
-				logger.error("Exception getting names from rapsheet \n" + e);
-			}				
-		}				
-		
-		if(subscribedPersonNames != null){
-			
-			List<String> allNamesList = new ArrayList<String>();
-			
-			allNamesList.add(subscribedPersonNames.getOriginalName());			
-			
-			allNamesList.addAll(subscribedPersonNames.getAlternateNamesList());
-			
-			JSONArray namesJsonArray = new JSONArray(allNamesList);
-			
-			rNamesJsonArray = namesJsonArray == null ? null : namesJsonArray.toString();
-			
-			model.put("originalName", subscribedPersonNames.getOriginalName());
-			
-			logger.info("returning all names: \n " + rNamesJsonArray + ", with original name: " + subscribedPersonNames.getOriginalName());									
-		}
-				
-		return rNamesJsonArray;		
-	}
-	
-	
 
+	private Document getRapsheetBySid(HttpServletRequest request, String sid) {
+		String systemId = getSystemIdFromPersonSID(request, sid);	
+		
+		Document rapSheetDoc = null; 
+		if (StringUtils.isNotBlank(systemId) ){
+			rapSheetDoc = processDetailQueryCriminalHistory(request, systemId);
+		}
+		return rapSheetDoc;
+	}
+	
+	
 	@RequestMapping(value="arrestForm", method=RequestMethod.POST)
 	public String getArrestForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
@@ -1027,12 +962,19 @@ public class SubscriptionsController {
 			
 			if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
-				 ChRapsheetData chRapsheetData = lookupChRapbackDataForArrestEdit(request, subscription, model);
-				
-				 allNamesList = chRapsheetData.formattedAlternateNamesList;				 
-				 subscription.setFbiId(chRapsheetData.fbiNumber);
+				 CriminalHistoryRapsheetData chRapsheetData = getChRapsheetData(request, subscription.getStateId());
 
-				 Date rapSheetDob = parseRapsheetDate(chRapsheetData.personDob);				 
+				 allNamesList = chRapsheetData.getAllNames();				 
+				 if(allNamesList == null || allNamesList.isEmpty()){
+					 model.put("initializationSucceeded", false);
+					 logger.error("Failed to lookup names for arrest subscription");
+				 }else{
+					 model.put("originalName", chRapsheetData.getPersonNames().getOriginalName());
+				 }
+				 
+				 subscription.setFbiId(chRapsheetData.getFbiId());
+
+				 Date rapSheetDob = java.sql.Date.valueOf(chRapsheetData.getDob());				 
 				 subscription.setDateOfBirth(rapSheetDob);
 				
 				 initDatesForEditArrestForm(model);
@@ -1083,53 +1025,6 @@ public class SubscriptionsController {
 		
 		return "subscriptions/editSubscriptionDialog/_editSubscriptionModal";
 	}
-	
-	
-	private class ChRapsheetData{
-		
-		List<String> formattedAlternateNamesList;
-		
-		SubscribedPersonNames subscribedPersonNames;
-		
-		String fbiNumber;
-				
-		String personDob;
-	}
-	
-	private ChRapsheetData lookupChRapbackDataForArrestEdit(HttpServletRequest request, Subscription subscription, 
-			Map<String, Object> model) throws Exception{
-		
-		List<String> allNamesList = new ArrayList<String>();
-		
-		ChRapsheetData chRapsheetData = getChRapbackData(request, subscription);
-		
-		SubscribedPersonNames subscribedNames = chRapsheetData.subscribedPersonNames;
-		
-		String originalName = subscribedNames == null ? null : subscribedNames.getOriginalName();
-										
-		if(StringUtils.isNotBlank(originalName)){
-			allNamesList.add(originalName);
-		}
-										
-		List<String> alternateNameList = subscribedNames == null ? null : subscribedNames.getAlternateNamesList();
-		
-		if(alternateNameList != null && !alternateNameList.isEmpty()){
-			allNamesList.addAll(subscribedNames.getAlternateNamesList());
-		}								
-										
-		if(allNamesList == null || allNamesList.isEmpty()){
-			model.put("initializationSucceeded", false);
-			logger.error("Failed to lookup names for arrest subscription");
-		}else{
-			model.put("originalName", subscribedNames.getOriginalName());
-		}
-				
-		chRapsheetData.formattedAlternateNamesList = allNamesList;
-		
-		
-		return chRapsheetData;
-	}
-	
 	
 	
 	private Subscription parseSubscriptionQueryResults(
@@ -1430,36 +1325,6 @@ public class SubscriptionsController {
 		return subscriptionPurposeMap;
 	}
 
-	private ChRapsheetData getChRapbackData(HttpServletRequest request, Subscription subscription) throws Exception{
-						
-		DetailsRequest detailsRequestWithStateId = new DetailsRequest();
-		detailsRequestWithStateId.setIdentificationID(subscription.getStateId());
-		
-		String crimHistSysIdFromPersonSid = getSystemIdFromPersonSID(request, detailsRequestWithStateId);
-		
-		if(StringUtils.isBlank(crimHistSysIdFromPersonSid)){
-			return null;
-		}
-		
-		Document rapSheetDoc = processDetailQueryCriminalHistory(request, crimHistSysIdFromPersonSid);	
-				
-		logger.info("Rapsheet doc for alt names: \n");		
-		XmlUtils.printNode(rapSheetDoc);
-		
-		SubscribedPersonNames subscribedPersonNames = getAllPersonNamesFromRapsheet(rapSheetDoc);
-				
-		logger.info("Subscription person names: \n"+ subscribedPersonNames.getOriginalName() + " + " 
-				+ Arrays.toString(subscribedPersonNames.getAlternateNamesList().toArray()));	
-				
-		ChRapsheetData chRapsheetData = new ChRapsheetData();		
-		chRapsheetData.subscribedPersonNames = subscribedPersonNames;		
-		chRapsheetData.fbiNumber = getFbiIdFromRapsheet(rapSheetDoc);
-		chRapsheetData.personDob = getDOBFromRapsheet(rapSheetDoc);
-		
-		return chRapsheetData;
-	}
-		
-	
 	private Map<String, Object> getParams(int start, String purpose, String onBehalfOf) {
 		
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -1469,7 +1334,6 @@ public class SubscriptionsController {
 		params.put("subscriptionExpirationAlertPeriod", subscriptionExpirationAlertPeriod);
 		return params;
 	}
-	
 
 	// note system id is used by the broker intermediary to recognize that this is 
 	// an edit.  The system id is not set for the add operation
@@ -1546,16 +1410,16 @@ public class SubscriptionsController {
 	 * @return systemId
 	 */
 	private String getSystemIdFromPersonSID(HttpServletRequest request,
-			DetailsRequest detailsRequestWithSid) {
+			String sid) {
 
-		if (StringUtils.isBlank(detailsRequestWithSid.getIdentificationID())){
+		if (StringUtils.isBlank(sid)){
 			return null;
 		}
 		
-		logger.info("person sid: " + detailsRequestWithSid.getIdentificationID());
+		logger.info("person sid: " + sid);
 		
 		PersonSearchRequest personSearchRequest = new PersonSearchRequest();				
-		personSearchRequest.setPersonSID(detailsRequestWithSid.getIdentificationID());	
+		personSearchRequest.setPersonSID(sid);	
 		
 		List<String> sourceSystemsList = Arrays.asList(OJBCWebServiceURIs.CRIMINAL_HISTORY_SEARCH);		
 		personSearchRequest.setSourceSystems(sourceSystemsList);
