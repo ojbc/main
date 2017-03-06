@@ -29,14 +29,12 @@
 	    				// where the key is an int index as a string - and the value is an object {first, last}
 	    				// TODO - see if traditional java collection ie Map can be passed from spring mvc layer 
 	    				// to js layer here instead of using json			    						     
-					    $.get(requestUrl, 
-				  			function(data){		  			  			
-		  						
-		  						//console.log(data.allNames);
+					    $.get(requestUrl, function(data){		  			  			
+		  						//console.log(data);
 		  						//generate html drop-down options based on json values from java layer
 		  						var nameHtml = '<option value="">Name</option>';
 		  							  					  	
-		  						if(data != null && Object.keys(data.allNames).length > 0){
+		  						if( data && Object.keys(data.allNames).length > 0){
 									$.each(data.allNames, function( index, value ) {
 										if(index == 0){
 											// requirements give us the official name 1st
