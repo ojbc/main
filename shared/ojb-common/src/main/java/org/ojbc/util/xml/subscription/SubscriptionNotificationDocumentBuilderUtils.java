@@ -149,8 +149,70 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		buildSubscriptionIdNode(subMsgNode, subscription);
 		
 		buildSubscriptionReasonCodeElement(subMsgNode, subscription);
+		
+		buildTriggeringEvents(subMsgNode, subscription);
+		
+		buildFederalRapSheetDisclosure(subMsgNode, subscription);
+		
 	}
 	
+	private static void buildFederalRapSheetDisclosure(Element subMsgNode,
+			Subscription subscription) {
+//	<smext:FederalRapSheetDisclosure>
+//		<smext:FederalRapSheetDisclosureIndicator>true</smext:FederalRapSheetDisclosureIndicator>
+//		<smext:FederalRapSheetDisclosureAttentionDesignationText>Detective George Jones</smext:FederalRapSheetDisclosureAttentionDesignationText>
+//	</smext:FederalRapSheetDisclosure>    	
+
+    	String federalRapSheetDisclosureIndicator = subscription.getFederalRapSheetDisclosureIndicator();
+    	String federalRapSheetDisclosureAttentionDesignationText = subscription.getFederalRapSheetDisclosureAttentionDesignationText();
+
+	    if (StringUtils.isNotBlank(federalRapSheetDisclosureIndicator) || StringUtils.isNotBlank(federalRapSheetDisclosureAttentionDesignationText))
+	    {
+	    	Element federalRapSheetDisclosureElement = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalRapSheetDisclosure");
+	    
+	    	if (StringUtils.isNotBlank(federalRapSheetDisclosureIndicator))
+	    	{		
+	    		Element federalRapSheetDisclosureIndicatorElement = XmlUtils.appendElement(federalRapSheetDisclosureElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalRapSheetDisclosureIndicator");
+	    		federalRapSheetDisclosureIndicatorElement.setTextContent(federalRapSheetDisclosureIndicator);
+	    	}	
+
+	    	if (StringUtils.isNotBlank(federalRapSheetDisclosureAttentionDesignationText))
+	    	{		
+	    		Element federalRapSheetDisclosureAttentionDesignationTextElement = XmlUtils.appendElement(federalRapSheetDisclosureElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalRapSheetDisclosureAttentionDesignationText");
+	    		federalRapSheetDisclosureAttentionDesignationTextElement.setTextContent(federalRapSheetDisclosureAttentionDesignationText);
+	    	}	
+
+	    }	
+		
+	}
+
+
+	private static void buildTriggeringEvents(Element subMsgNode,
+			Subscription subscription) {
+//	<submsg-ext:TriggeringEvents>
+//		<submsg-ext:FederalTriggeringEventCode>ARREST</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>DEATH</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>NCIC-SOR</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>NCIC-WARRANT</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>DISPOSITION</submsg-ext:FederalTriggeringEventCode>
+//	</submsg-ext:TriggeringEvents>
+		
+		
+		if (subscription.getFederalTriggeringEventCode() != null)
+		{	
+			Element triggeringEventsElement = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "TriggeringEvents");
+			
+	    	for (String triggeringEventCode : subscription.getFederalTriggeringEventCode())
+	    	{
+    	    	Element federalTriggeringEventCode = XmlUtils.appendElement(triggeringEventsElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalTriggeringEventCode");
+    	    	federalTriggeringEventCode.setTextContent(triggeringEventCode);
+
+	    	}	
+		}	
+	    	
+	}
+
+
 	private static void buildCaseIdElement(Element parentNode, Subscription subscription){
 		
 		String caseId = subscription.getCaseId();

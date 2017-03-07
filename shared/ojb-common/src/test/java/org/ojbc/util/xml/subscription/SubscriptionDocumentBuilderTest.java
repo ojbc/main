@@ -133,6 +133,24 @@ public class SubscriptionDocumentBuilderTest {
 		
 		String idSrcTxt = XmlUtils.xPathStringSearch(subMsgNode, "submsg-ext:SubscriptionIdentification/nc:IdentificationSourceText");
 		assertEquals("Subscriptions", idSrcTxt);
+		
+		String federalRapSheetDisclosureIndicator = XmlUtils.xPathStringSearch(subMsgNode, "submsg-ext:FederalRapSheetDisclosure/submsg-ext:FederalRapSheetDisclosureIndicator");
+		assertEquals("true", federalRapSheetDisclosureIndicator);
+
+		String federalRapSheetDisclosureAttentionDesignationText = XmlUtils.xPathStringSearch(subMsgNode, "submsg-ext:FederalRapSheetDisclosure/submsg-ext:FederalRapSheetDisclosureAttentionDesignationText");
+		assertEquals("Attention text", federalRapSheetDisclosureAttentionDesignationText);
+
+		NodeList triggeringEventCodes =XmlUtils.xPathNodeListSearch(subMsgNode, "submsg-ext:TriggeringEvents/submsg-ext:FederalTriggeringEventCode");
+		
+		List<String> triggeringEventCodesList = new ArrayList<String>();
+		
+		for(int i=0; i<triggeringEventCodes.getLength(); i++){			
+			Node triggeringEventCode = triggeringEventCodes.item(i);	
+			triggeringEventCodesList.add(triggeringEventCode.getTextContent());
+		}		
+		assertEquals(true, triggeringEventCodesList.contains("ARREST"));
+		assertEquals(true, triggeringEventCodesList.contains("DEATH"));
+		
 	}
 	
 	
@@ -165,6 +183,16 @@ public class SubscriptionDocumentBuilderTest {
 		subscription.setStateId("99999");
 		
 		subscription.setSystemId("88888");
+		
+		subscription.setFederalRapSheetDisclosureAttentionDesignationText("Attention text");
+		subscription.setFederalRapSheetDisclosureIndicator("true");
+		
+		List<String> triggeringEvents = new ArrayList<String>();
+		
+		triggeringEvents.add("ARREST");
+		triggeringEvents.add("DEATH");
+		
+		subscription.setFederalTriggeringEventCode(triggeringEvents);
 		
 		Document subMsgDoc = SubscriptionNotificationDocumentBuilderUtils.createSubscriptionRequest(subscription);		
 		
