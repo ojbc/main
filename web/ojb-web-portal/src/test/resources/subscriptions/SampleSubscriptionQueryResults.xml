@@ -104,6 +104,37 @@
                <nc:IdentificationID>HIJIS:IDP:HCJDC:USER:admin</nc:IdentificationID>
             </sqr-ext:SubscriptionOriginatorIdentification>
          </sqr-ext:SubscriptionOriginator>
+            <sqr-ext:SubscriptionValidation>
+                <sqr-ext:SubscriptionValidationDueDate>
+                    <nc:Date>2015-03-12</nc:Date>
+                </sqr-ext:SubscriptionValidationDueDate>
+                <sqr-ext:SubscriptionValidatedDate>
+                    <nc:Date>2014-03-12</nc:Date>
+                </sqr-ext:SubscriptionValidatedDate>
+            </sqr-ext:SubscriptionValidation>  
+            <sqr-ext:SubscriptionGracePeriod>
+                <sqr-ext:SubscriptionGracePeriodDateRange>
+                    <nc:StartDate>
+                        <nc:Date>2014-09-13</nc:Date>
+                    </nc:StartDate>
+                    <nc:EndDate>
+                        <nc:Date>2014-10-13</nc:Date>
+                    </nc:EndDate>
+                </sqr-ext:SubscriptionGracePeriodDateRange>
+            </sqr-ext:SubscriptionGracePeriod>            
+            <sqr-ext:CriminalSubscriptionReasonCode>CI
+            </sqr-ext:CriminalSubscriptionReasonCode>
+            <!-- OR sqr-ext:CivilSubscriptionReasonCode>I</sqr-ext:CivilSubscriptionReasonCode -->
+            <sqr-ext:TriggeringEvents>
+                <sqr-ext:FederalTriggeringEventCode>ARREST
+                </sqr-ext:FederalTriggeringEventCode>
+                <sqr-ext:FederalTriggeringEventCode>DEATH
+                </sqr-ext:FederalTriggeringEventCode>
+            </sqr-ext:TriggeringEvents>
+            <sqr-ext:FederalRapSheetDisclosure>
+                <sqr-ext:FederalRapSheetDisclosureIndicator>true</sqr-ext:FederalRapSheetDisclosureIndicator>
+                <sqr-ext:FederalRapSheetDisclosureAttentionDesignationText>Detective George Jones</sqr-ext:FederalRapSheetDisclosureAttentionDesignationText>
+            </sqr-ext:FederalRapSheetDisclosure>         
       </sqr-ext:Subscription>
       <sqr-ext:SourceSystemNameText>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</sqr-ext:SourceSystemNameText>
       <intel:SystemIdentifier>
