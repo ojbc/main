@@ -36,7 +36,7 @@ import org.w3c.dom.Document;
 public class SubscriptionQueryResultsProcessorTest {
 	
 	@Test
-	public void testParsSubQueryResults() throws Exception{
+	public void testParseSubQueryResults() throws Exception{
 				
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				
@@ -73,6 +73,17 @@ public class SubscriptionQueryResultsProcessorTest {
 		
 		String systemId = subscription.getSystemId();
 		assertEquals("62726", systemId);
+		
+		String federalRapSheetDisclosureAttentionDesignationText =  subscription.getFederalRapSheetDisclosureAttentionDesignationText();
+		assertEquals("Detective George Jones", federalRapSheetDisclosureAttentionDesignationText);
+		
+		String federalRapSheetDisclosureIndicator =  subscription.getFederalRapSheetDisclosureIndicator();
+		assertEquals("true", federalRapSheetDisclosureIndicator);
+		
+		assertNotNull(subscription.getFederalTriggeringEventCode());
+		assertEquals(2, subscription.getFederalTriggeringEventCode().size());
+		assertTrue(subscription.getFederalTriggeringEventCode().contains("DEATH"));
+		assertTrue(subscription.getFederalTriggeringEventCode().contains("ARREST"));
 	}
 	
 	@Test

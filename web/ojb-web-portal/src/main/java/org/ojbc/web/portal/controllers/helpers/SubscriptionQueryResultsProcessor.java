@@ -17,7 +17,9 @@
 package org.ojbc.web.portal.controllers.helpers;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.ojbc.util.xml.XmlUtils;
@@ -44,9 +46,45 @@ public class SubscriptionQueryResultsProcessor {
 
 		parseContactInfoNode(rootSubQueryResultsNode, subscription);
 		
+		parseFederalInformationNodes(subQueryResultNode, subscription);
+		
 		return subscription;
 	}		
 	
+	private void parseFederalInformationNodes(Node subQueryResultNode,
+			Subscription subscription) throws Exception {
+		
+		Node subscriptionNode = XmlUtils.xPathNodeSearch(subQueryResultNode, "sqr-ext:Subscription");
+		
+		String federalRapSheetDisclosureIndicator = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:FederalRapSheetDisclosure/sqr-ext:FederalRapSheetDisclosureIndicator");
+		
+		if (StringUtils.isNotEmpty(federalRapSheetDisclosureIndicator))
+		{
+			subscription.setFederalRapSheetDisclosureIndicator(federalRapSheetDisclosureIndicator.trim());
+		}	
+		
+		String federalRapSheetDisclosureAttentionDesignationText = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:FederalRapSheetDisclosure/sqr-ext:FederalRapSheetDisclosureAttentionDesignationText");
+		
+		if (StringUtils.isNotEmpty(federalRapSheetDisclosureAttentionDesignationText))
+		{
+			subscription.setFederalRapSheetDisclosureAttentionDesignationText(federalRapSheetDisclosureAttentionDesignationText);
+		}	
+		
+		NodeList triggeringEventCodes =XmlUtils.xPathNodeListSearch(subscriptionNode, "sqr-ext:TriggeringEvents/sqr-ext:FederalTriggeringEventCode");
+		
+		if (triggeringEventCodes != null)
+		{	
+			List<String> triggeringEventCodesList = new ArrayList<String>();
+			
+			for(int i=0; i<triggeringEventCodes.getLength(); i++){			
+				Node triggeringEventCode = triggeringEventCodes.item(i);	
+				triggeringEventCodesList.add(triggeringEventCode.getTextContent().trim());
+			}
+
+			subscription.setFederalTriggeringEventCode(triggeringEventCodesList);
+		}	
+	}
+
 	private void parseSubscriptionQueryResultNode(Node subQueryResultNode, 
 			Subscription subscription) throws Exception{
 					
