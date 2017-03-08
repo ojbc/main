@@ -55,6 +55,12 @@
 					<camel:to uri="bean:arrestNotificationProcessor?method=findSubscriptionsForNotification" />
 				</camel:when>
 				<camel:when>
+					<camel:simple>${in.header.notificationTopic} == 'rapback'</camel:simple>
+					
+					<camel:log message="Not implemented in this phase"/>
+					
+				</camel:when>
+				<camel:when>
 					<camel:simple>${in.header.notificationTopic} == 'incident'</camel:simple>
 					<camel:to uri="bean:incidentNotificationProcessor?method=findSubscriptionsForNotification" />
 				</camel:when>
@@ -82,6 +88,10 @@
 					<camel:when>
 						<camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
 						<camel:to uri="bean:arrestNotificationProcessor?method=createNotificationEmail" />
+					</camel:when>
+					<camel:when>
+						<camel:simple>${in.header.notificationTopic} == 'rapback'</camel:simple>
+						<camel:log message="Not implemented in this phase"/>
 					</camel:when>
 					<camel:when>
 						<camel:simple>${in.header.notificationTopic} == 'incident'</camel:simple>

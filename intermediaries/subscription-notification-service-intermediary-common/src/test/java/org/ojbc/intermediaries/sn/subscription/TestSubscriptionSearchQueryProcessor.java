@@ -27,7 +27,7 @@ import java.util.List;
 
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.dao.Subscription;
-import org.ojbc.intermediaries.sn.topic.arrest.FederalTriggeringEventCode;
+import org.ojbc.intermediaries.sn.topic.rapback.FederalTriggeringEventCode;
 import org.ojbc.util.xml.XmlUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;

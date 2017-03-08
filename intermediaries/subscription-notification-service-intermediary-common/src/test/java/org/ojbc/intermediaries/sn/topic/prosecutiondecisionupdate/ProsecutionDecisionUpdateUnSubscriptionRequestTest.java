@@ -41,7 +41,7 @@ public class ProsecutionDecisionUpdateUnSubscriptionRequestTest {
 		
 		Mockito.when(message.getBody(Document.class)).thenReturn(getMessageBody());
 		
-		ArrestUnSubscriptionRequest request = new ArrestUnSubscriptionRequest(message);
+		ProsecutionDecisionUpdateUnSubscriptionRequest request = new ProsecutionDecisionUpdateUnSubscriptionRequest(message);
 		
 		assertThat(request.getSubscriptionQualifier(), is("302593"));
 		Assert.assertNotNull(request.getEmailAddresses());
