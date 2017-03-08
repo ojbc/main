@@ -43,6 +43,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Profile("suggestionForm")
 public class SuggestionFormController {
 
+    @Value("${suggestionFormEmailFrom:test@localhost}")
+    String emailFrom;
+    
     @Value("${suggestionFormResultsPage:portal/suggestionConfirmation}")
     String suggestionFormResultsPage;
 
@@ -103,7 +106,8 @@ public class SuggestionFormController {
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setText(emailMessageBody);
-         
+        email.setFrom(emailFrom); 
+        
         // sends the e-mail
         ojbcMailSender.send(email);
 		

@@ -105,11 +105,18 @@
 			
 <div>
 	#springFormInput("subscription.stateId" "style='width:140px;' placeholder='SID Number'")
-	<a id="idLookupLink" class="grayButton" href="#"><span id="idLookupImg"></span></a>			
-</div>
+	<a id="idLookupLink" class="grayButton" href="#"><span id="idLookupImg"></span></a>
+	
+	<span id="fbiIdDiv" class="subscriptionHint"/>
+</div>			
 
-<div id="fbiIdDiv" class="subscriptionHint">
-</div> 
+<div>	
+	<!-- note since not linked with a spring pojo, this value will be appended to the url of the http request 
+	 	when the subscription is saved -->
+	<select id="personNameSelect" >
+		<option value="">Name</option>
+	</select> 
+</div>
 
 <div>	
 	<!-- note since not linked with a spring pojo, this value will be appended to the url of the http request 
