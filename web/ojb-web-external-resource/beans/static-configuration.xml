@@ -655,6 +655,7 @@
 	<util:map id="subscriptionTypeValueToLabelMap" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Subscription Type" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value="Arrest" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback" value="Rapback" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident" value="Incident" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment" value="ATN Assignment" />
 	</util:map>

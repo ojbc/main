@@ -36,10 +36,14 @@ public class CriminalHistoryRapsheetData implements Serializable{
 	private SubscribedPersonNames personNames;
 	private List<LocalDate> dobs; 
 
-	public String getFbiId() {
+	public String getFormattedFbiId() {
 		return fbiId == null? "N/A" : fbiId;
 	}
 
+	public String getFbiId() {
+		return fbiId;
+	}
+	
 	public void setFbiId(String fbiId) {
 		this.fbiId = fbiId;
 	}

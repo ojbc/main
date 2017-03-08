@@ -105,7 +105,7 @@ import org.xml.sax.InputSource;
 public class SubscriptionsController {
 		
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
-	public static final String RAPBACK_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest/rapback";
+	public static final String RAPBACK_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/rapback";
 	public static final String ARREST_TOPIC_SUB_TYPE_CI = "{http://ojbc.org/wsn/topics}:person/arrest-ci";
 	public static final String ARREST_TOPIC_SUB_TYPE_CS = "{http://ojbc.org/wsn/topics}:person/arrest-cs";
 	
@@ -439,6 +439,34 @@ public class SubscriptionsController {
 		return "subscriptions/addSubscriptionDialog/_arrestForm";
 	}
 	
+	@RequestMapping(value="rapbackForm", method=RequestMethod.POST)
+	public String getRapbackForm(HttpServletRequest request,
+			@ModelAttribute("subscription") Subscription subscription,
+			Map<String, Object> model) throws Exception{
+		
+		logger.info("inside getRapbackForm()");		
+		initDatesForAddArrestForm(subscription, model);
+		
+		// pre-populate an email field on the form w/email from saml token
+		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
+		if(StringUtils.isNotBlank(sEmail)){
+			subscription.getEmailList().add(sEmail);
+		}
+		
+		String purposeSelection = subscriptionDefaultsMap.get("purpose");
+		if(StringUtils.isNotEmpty(purposeSelection)){
+			subscription.setSubscriptionPurpose(purposeSelection);	
+		}		
+		
+		model.put("subscription", subscription);
+		
+		model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
+		
+		model.put("showCaseIdInput", showCaseIdInput);
+		
+		return "subscriptions/addSubscriptionDialog/_rapbackForm";
+	}
+	
 	
 	/**
 	 * note: uses pass-by-reference to modify subscription parameter
@@ -599,18 +627,18 @@ public class SubscriptionsController {
 	private void validateSubscription(Subscription subscription, BindingResult errors){
 				
 		logger.info("subscription: \n" + subscription);
-		
-		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-			
+		switch (subscription.getTopic()){
+		case ARREST_TOPIC_SUB_TYPE:
+		case RAPBACK_TOPIC_SUB_TYPE:
 			arrestSubscriptionAddValidator.validate(subscription, errors);
-			
-		}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-			
+			break; 
+		case INCIDENT_TOPIC_SUB_TYPE:
 			incidentSubscriptionAddValidator.validate(subscription, errors);
-			
-		}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-			
+			break; 
+		case CHCYCLE_TOPIC_SUB_TYPE: 
 			chCycleSubscriptionValidator.validate(subscription, errors);
+			break; 
+			
 		}
 	}
 	
@@ -661,7 +689,7 @@ public class SubscriptionsController {
 		
 		List<String> warningList = new ArrayList<String>();
 			
-		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getTopic())){			
+		if(RAPBACK_TOPIC_SUB_TYPE.equals(subscription.getTopic())){			
 			
 			if (fbiIdWarning){
 			
@@ -963,6 +991,41 @@ public class SubscriptionsController {
 			List<String> allNamesList = null;	
 			
 			if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
+				
+				 CriminalHistoryRapsheetData chRapsheetData = getChRapsheetData(request, subscription.getStateId());
+
+				 allNamesList = chRapsheetData.getAllNames();				 
+				 if(allNamesList == null || allNamesList.isEmpty()){
+					 model.put("initializationSucceeded", false);
+					 logger.error("Failed to lookup names for arrest subscription");
+				 }else{
+					 model.put("originalName", chRapsheetData.getPersonNames().getOriginalName());
+				 }
+				 
+				 subscription.setFbiId(chRapsheetData.getFbiId());
+
+				 initDatesForEditArrestForm(model);
+				 
+				UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
+				if (userLogonInfo.getLawEnforcementEmployerIndicator()) {
+
+					SubscriptionEndDateStrategy ciEndDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE_CI);
+					Date ciDefaultEndDate = OJBCDateUtils.getEndDate(subscription.getSubscriptionStartDate(),
+							ciEndDateStrategy.getPeriod());
+					model.put("ciDefaultEndDate", ciDefaultEndDate);
+					
+					SubscriptionEndDateStrategy csEndDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE_CS);
+					Date csDefaultEndDate = OJBCDateUtils.getEndDate(subscription.getSubscriptionStartDate(),
+							csEndDateStrategy.getPeriod());
+					model.put("ciDefaultEndDate", ciDefaultEndDate);
+					model.put("csDefaultEndDate", csDefaultEndDate);
+				}
+				 
+				 model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
+				
+				 model.put("showCaseIdInput", showCaseIdInput);
+				
+			}else if(RAPBACK_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
 				 CriminalHistoryRapsheetData chRapsheetData = getChRapsheetData(request, subscription.getStateId());
 

@@ -40,6 +40,7 @@
 	
 	<!-- TODO:Pass these in from the controller class -->
  	<xsl:param name="arrestTopic">{http://ojbc.org/wsn/topics}:person/arrest</xsl:param>
+ 	<xsl:param name="rapbackTopic">{http://ojbc.org/wsn/topics}:person/rapback</xsl:param>
 	<xsl:param name="incidentTopic">{http://ojbc.org/wsn/topics}:person/incident</xsl:param>
 	<xsl:param name="chCycleTopic">{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment</xsl:param>
 	
@@ -128,7 +129,7 @@
 					<td class="editButtonColumn"><a href="../subscriptions/editSubscription?identificationID={$subscriptionID}&amp;topic={$subscriptionTopic}" class="blueButton viewDetails" id="editSubscriptionLink{$subscriptionID}">EDIT</a></td>
 					<td>
 						<xsl:choose>
-							<xsl:when test="ext:Subscription/wsn-br:Topic = $arrestTopic">
+							<xsl:when test="ext:Subscription/wsn-br:Topic = $arrestTopic or ext:Subscription/wsn-br:Topic = $rapbackTopic">
 								<b>SID:</b><xsl:text> </xsl:text><xsl:value-of select="normalize-space($subjectPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID)"/>
 							</xsl:when>
 							<xsl:when test="ext:Subscription/wsn-br:Topic = $incidentTopic">
@@ -164,11 +165,11 @@
 						<!-- TODO: get this from OJBC Static Config -->
 						<xsl:choose>
 							<xsl:when test="ext:Subscription/wsn-br:Topic = $arrestTopic">Arrest</xsl:when>
+							<xsl:when test="ext:Subscription/wsn-br:Topic = $rapbackTopic">Rapback</xsl:when>
 							<xsl:when test="ext:Subscription/wsn-br:Topic = $incidentTopic">Incident</xsl:when>
 							<xsl:when test="ext:Subscription/wsn-br:Topic = $chCycleTopic">ATN Assignment</xsl:when>
 						</xsl:choose>
 					</td>
-										
 																				
 					<xsl:variable name="validationDueDate" select="ext:Subscription/ext:SubscriptionValidation/ext:SubscriptionValidationDueDate/nc:Date"/>
 						
