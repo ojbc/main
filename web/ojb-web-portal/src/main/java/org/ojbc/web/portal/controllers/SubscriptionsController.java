@@ -375,9 +375,11 @@ public class SubscriptionsController {
 	 */
 	@RequestMapping(value="sidLookup", method = RequestMethod.GET)
 	public @ResponseBody CriminalHistoryRapsheetData sidLookup(HttpServletRequest request, 
-			@RequestParam("identificationID") String sid) throws Exception {
-		
-		return getChRapsheetData(request, sid);
+			@RequestParam("identificationID") String sid,
+			@ModelAttribute("subscription") Subscription subscription) throws Exception {
+		CriminalHistoryRapsheetData rapsheetData = getChRapsheetData(request, sid);
+		subscription.setFbiId(rapsheetData.getFbiId());
+		return rapsheetData;
 			
 	}
 
