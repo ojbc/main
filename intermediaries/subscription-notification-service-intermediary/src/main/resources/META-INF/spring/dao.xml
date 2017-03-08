@@ -43,6 +43,13 @@
 		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
 	</bean>
 
+	<bean id="rapbackSubscriptionProcessor"
+		class="org.ojbc.intermediaries.sn.topic.rapback.RapbackSubscriptionProcessor">
+		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
+	</bean>
+
 	<bean id="courtDispositionUpdateProcessor"
 		class="org.ojbc.intermediaries.sn.topic.courtdispositionupdate.CourtDispositionUpdateSubscriptionProcessor">
 		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
@@ -72,6 +79,8 @@
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.chCycle.allowedEmailAddressPatterns}"/>
 	</bean>
+	
+	<!-- TODO: add rapbackNotificationProcessor -->
 	
 	<bean id="arrestNotificationProcessor"
 		class="org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationProcessor">

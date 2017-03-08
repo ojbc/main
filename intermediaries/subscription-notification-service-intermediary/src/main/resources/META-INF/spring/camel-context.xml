@@ -70,6 +70,14 @@
 							</camel:setHeader>
 						</camel:when>
 						<camel:when>
+							<camel:xpath>(normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='topics:person/rapback' and
+		      				//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or
+		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/rapback'</camel:xpath>
+							<camel:setHeader headerName="notificationTopic">
+								<constant>rapback</constant>
+							</camel:setHeader>
+						</camel:when>
+						<camel:when>
 							<camel:xpath>(normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='topics:person/incident' and
 		      				//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or
 		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/incident'</camel:xpath>
@@ -156,6 +164,12 @@
 					<camel:to uri="direct:processSubscriptionArrest" />
 				</camel:when>
 				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/rapback' and
+	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/rapback'</camel:xpath>
+					<camel:to uri="direct:processSubscriptionRapback" />
+				</camel:when>
+				<camel:when>
 					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/incident' and
 	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
 	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/incident'</camel:xpath>
@@ -222,6 +236,12 @@
 					<camel:to uri="direct:processUnsubscribeArrest" />
 				</camel:when>
 				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='topics:person/rapback' and
+	      			//wsnb2:Unsubscribe/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/rapback'</camel:xpath>
+					<camel:to uri="direct:processUnsubscribeRapback" />
+				</camel:when>
+				<camel:when>
 					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='topics:person/incident' and
 	      			//wsnb2:Unsubscribe/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
 	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/incident'</camel:xpath>
@@ -259,6 +279,17 @@
 			
 			<camel:log message="Processing Subscription (arrest)" />	
 								
+			<!-- this synchronous call is last because it modifies the message -->
+			<to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
+														
+		</camel:route>
+		
+		<camel:route id="processSubscriptionRapback_route">
+		
+			<camel:from uri="direct:processSubscriptionRapback" />
+			
+			<camel:log message="Processing Subscription (rapback)" />	
+								
 			<camel:multicast>				
 				<camel:choice>
 					<camel:when>
@@ -267,10 +298,10 @@
 					</camel:when>			 				 							 																														 				
 				</camel:choice>				
 				<!-- this synchronous call is last because it modifies the message -->
-				<to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
+				<to uri="bean:rapbackSubscriptionProcessor?method=subscribe" />
 														
 			</camel:multicast>						
-		</camel:route>
+		</camel:route>		
 		
 		<camel:route>
 			<camel:from uri="direct:processSubscriptionIncident" />
@@ -300,6 +331,16 @@
 			<camel:from uri="direct:processUnsubscribeArrest" />
 			
 			<camel:log message="Processing Unsubscription (arrest)" />
+						
+			<!-- side effect: at end, this call sets exchange body to the unsubscribe response message -->
+			<camel:to uri="bean:arrestSubscriptionProcessor?method=unsubscribe" />									
+			
+		</camel:route>
+		
+		<camel:route>
+			<camel:from uri="direct:processUnsubscribeRapback" />
+			
+			<camel:log message="Processing Unsubscription (rapback)" />
 			
 			<camel:choice>
 				<camel:when>
@@ -309,9 +350,9 @@
 			</camel:choice>
 			
 			<!-- side effect: at end, this call sets exchange body to the unsubscribe response message -->
-			<camel:to uri="bean:arrestSubscriptionProcessor?method=unsubscribe" />									
+			<camel:to uri="bean:rapbackSubscriptionProcessor?method=unsubscribe" />									
 			
-		</camel:route>
+		</camel:route>		
 		
 		<camel:route>
 			<camel:from uri="direct:processUnsubscribeIncident" />

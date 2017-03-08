@@ -14,37 +14,46 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.intermediaries.sn.topic.arrest;
+package org.ojbc.intermediaries.sn.topic.rapback;
 
 import java.util.HashMap;
+import java.util.List;
 
-import org.apache.camel.Message;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
-import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
+import org.ojbc.intermediaries.sn.subscription.UnSubscriptionRequest;
 import org.ojbc.util.xml.XmlUtils;
+import org.apache.camel.Message;
 
-public class ArrestSubscriptionRequest extends SubscriptionRequest {
+public class RapbackUnSubscriptionRequest extends UnSubscriptionRequest {
 
-	public ArrestSubscriptionRequest(Message message,
-			String allowedEmailAddressPatterns) throws Exception{
-		
-		super(message, allowedEmailAddressPatterns);
+	public RapbackUnSubscriptionRequest(Message message) throws Exception {
+		super(message);
 
-		String sid = XmlUtils.xPathStringSearch(document,"//submsg-exch:SubscriptionMessage/submsg-ext:Subject/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
-		
-		String firstName = XmlUtils.xPathStringSearch(document,"//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonGivenName");
-		String lastName = XmlUtils.xPathStringSearch(document,"//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonSurName");
-		String dateOfBirth = XmlUtils.xPathStringSearch(document,"//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonBirthDate/nc:Date");
+		String sid = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
+	
+		String firstName = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonGivenName");
+		String lastName = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonName/nc:PersonSurName");
+		String dateOfBirth = XmlUtils.xPathStringSearch(document,"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/nc:PersonBirthDate/nc:Date");
 		
 		buildSubjectIdMap(sid, firstName, lastName, dateOfBirth);
 	}
+	
+	public RapbackUnSubscriptionRequest(String topic, List<String> emailAddresses, String systemName, String subscriptionQualifier, String subjectIdentifier, String firstName, String lastName, String dateOfBirth) {
+		
+		super(topic, emailAddresses, systemName, subscriptionQualifier);
+		
+		
+		
+		buildSubjectIdMap(subjectIdentifier, firstName, lastName, dateOfBirth);
+	}
 
-	private void buildSubjectIdMap(String sid,String firstName, String lastName, String dateOfBirth) {
+	private void buildSubjectIdMap(String sid, String firstName, String lastName, String dateOfBirth) {
 		subjectIdentifiers = new HashMap<String, String>();
 		subjectIdentifiers.put(SubscriptionNotificationConstants.SID, sid);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.DATE_OF_BIRTH, dateOfBirth);
+		
 		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, subscriptionQualifier);
 	}
 

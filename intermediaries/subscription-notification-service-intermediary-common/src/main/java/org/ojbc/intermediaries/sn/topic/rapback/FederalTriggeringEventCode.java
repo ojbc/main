@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.intermediaries.sn.topic.arrest;
+package org.ojbc.intermediaries.sn.topic.rapback;
 
 public enum FederalTriggeringEventCode {
 	ARREST, DEATH,NCIC_SOR,NCIC_WARRANT,DISPOSITION;
