@@ -160,7 +160,7 @@
 	  	var subTypeTxt = $("#topic option:selected").text().trim();
 	  			
 		if(subTypeTxt == 'Arrest'){						
-			
+			$(".ui-dialog").width("700");
 	  		$.post("#springUrl('/subscriptions/arrestForm')", 
 	  			function(data){		  			
 	  				$('#subModalDynamicContents').html(data);			  						  				  				
@@ -168,7 +168,7 @@
 	  		).fail(ojbc.displayFailMessage);				
 															
 		}else if(subTypeTxt == 'Incident'){		
-						
+			$(".ui-dialog").width("240");
 	  		$.post("#springUrl('/subscriptions/incidentForm')", 
 	  			function(data){		  			
 	  				$('#subModalDynamicContents').html(data);			  						  				  				
@@ -176,7 +176,7 @@
 	  		).fail(ojbc.displayFailMessage);
 	  		
 	  	}else if(subTypeTxt == 'ATN Assignment'){
-	  	
+			$(".ui-dialog").width("240");
 	  		$.post("#springUrl('/subscriptions/chCycleForm')", 
 	  			function(data){		  			
 	  				$('#subModalDynamicContents').html(data);			  						  				  				
@@ -194,7 +194,7 @@
 <div style="width:480px;height:460px;" id="modalIframeSpinner"></div>
 
 <!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
-<div style="width:480px;height:460px;" id="subFormDiv">
+<div style="width:780px;height:460px;" id="subFormDiv">
 	<form id="subscriptionForm">  	  
 		<div>
 			#springFormSingleSelect("subscription.topic" $subscriptionTypeValueToLabelMap "onChange='refreshDisplayFromSubType()'")		

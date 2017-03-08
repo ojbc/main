@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -33,7 +34,7 @@ public class CriminalHistoryRapsheetData implements Serializable{
 	
 	private String fbiId;
 	private SubscribedPersonNames personNames;
-	private LocalDate dob; 
+	private List<LocalDate> dobs; 
 
 	public String getFbiId() {
 		return fbiId == null? "N/A" : fbiId;
@@ -67,16 +68,21 @@ public class CriminalHistoryRapsheetData implements Serializable{
 		return allNames; 
 	}
 
-	public LocalDate getDob() {
-		return dob;
+	public List<LocalDate> getDobs() {
+		return dobs;
 	}
 
-	public void setDob(LocalDate dob) {
-		this.dob = dob;
+	public void setDobs(List<LocalDate> dobs) {
+		this.dobs = dobs;
 	}
-	
-	public String getDobString(){
-		String dobString = dob != null? dob.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")):StringUtils.EMPTY;
-		return dobString;
+
+	public List<String> getDobStrings(){
+		if (dobs == null || dobs.isEmpty()) {
+			return null; 
+		}
+		
+		return dobs.stream()
+				.map(item->item.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")))
+				.collect(Collectors.toList());
 	}
 }

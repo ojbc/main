@@ -19,6 +19,7 @@ package org.ojbc.web.portal.controllers;
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
 
 import java.io.StringReader;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -104,6 +105,7 @@ import org.xml.sax.InputSource;
 public class SubscriptionsController {
 		
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
+	public static final String RAPBACK_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest/rapback";
 	public static final String ARREST_TOPIC_SUB_TYPE_CI = "{http://ojbc.org/wsn/topics}:person/arrest-ci";
 	public static final String ARREST_TOPIC_SUB_TYPE_CS = "{http://ojbc.org/wsn/topics}:person/arrest-cs";
 	
@@ -389,7 +391,7 @@ public class SubscriptionsController {
 		
 			sidLookupResult.setFbiId(getFbiIdFromRapsheet(rapSheetDoc));
 			sidLookupResult.setPersonNames(getAllPersonNamesFromRapsheet(rapSheetDoc));
-			sidLookupResult.setDob(OJBCDateUtils.parseLocalDate(getDOBFromRapsheet(rapSheetDoc)));
+			sidLookupResult.setDobs(getDobsFromRapsheet(rapSheetDoc));
 			return sidLookupResult;
 		}
 		
@@ -974,9 +976,6 @@ public class SubscriptionsController {
 				 
 				 subscription.setFbiId(chRapsheetData.getFbiId());
 
-				 Date rapSheetDob = java.sql.Date.valueOf(chRapsheetData.getDob());				 
-				 subscription.setDateOfBirth(rapSheetDob);
-				
 				 initDatesForEditArrestForm(model);
 				 
 				UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
@@ -1534,7 +1533,7 @@ public class SubscriptionsController {
 	}
 	
 	
-	private String getDOBFromRapsheet(Document rapSheetDoc){
+	private List<LocalDate> getDobsFromRapsheet(Document rapSheetDoc){
 		
 		String dob = null;
 		
@@ -1546,7 +1545,7 @@ public class SubscriptionsController {
 			logger.error("Exception while getting dob from rapsheet \n" + e);
 		}
 		
-		return dob;
+		return null;
 	}	
 	
 	SubscribedPersonNames getAllPersonNamesFromRapsheet(Document rapSheetDoc) throws Exception{

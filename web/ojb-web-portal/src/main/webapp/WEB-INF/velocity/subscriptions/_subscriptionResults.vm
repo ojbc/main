@@ -175,9 +175,9 @@
 			                           of: window
 					                },
 					                modal:true,
-							        width:500,
+							        maxWidth:900,
 							        height:550,
-							        resizable:false,
+							        resizable:true,
 							        open:function(event,ui){							        							        	
 							        	$('#addSubscriptionDialog').html(data);
 							        	$('#modalIframeSpinner').hide();
