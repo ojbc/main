@@ -45,7 +45,7 @@
 										}																														
 									});	  							  						
 									
-									$("#fbiIdDiv").html('FBI ID: ' + data.FormattedFbiId);
+									$("#fbiIdDiv").html('FBI ID: ' + data.formattedFbiId);
 																				  						
 		  						}else{
 		  							alert('Unable to process requested SID');
@@ -113,6 +113,9 @@
 <div>	
 	<!-- note since not linked with a spring pojo, this value will be appended to the url of the http request 
 	 	when the subscription is saved -->
+	<select id="personNameSelect" >
+		<option value="">Name</option>
+	</select> 
 	<select id="personNameSelect" >
 		<option value="">Name</option>
 	</select> 

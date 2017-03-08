@@ -1,0 +1,113 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2015 Open Justice Broker Consortium
+ *#
+<script type="text/javascript">
+	  $(function() {	
+	  	      	      		    		    			  		    			
+    	    $(".datePicker").datepicker({
+    	       showOn: "both",
+    	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+    	       buttonImageOnly: true
+    	    });	
+    	    
+    		// note hacked beforeShow property is a function to return false (ignores clicks and prevents 
+    		// displaying DatePicker - due to DatePicker limitation that doesn't honor readonly property.  DatePicker
+    		// allows being disabled but that prevents the html field value from being sent to the server when the form 
+    		// is serialized	    	   		    			
+    	    $(".disabledDatePicker").datepicker({
+    	       showOn: "both",
+    	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",    	  
+    	       buttonImageOnly: true,
+    	       beforeShow: function(i) {  return false; } 
+    	    });     	    
+    	    	    	        	            	    		       			       				    	   
+    	    $("#subscriptionForm").on("change", "#subscriptionPurpose", function(){
+    	    	if ($("#subscriptionPurpose").val()==="CI"){
+    	    		$("#subscriptionEndDate").val($("#ciDefaultEndDate").val());
+    	    	}
+    	    	else if ($("#subscriptionPurpose").val()==="CS"){
+    	    		$("#subscriptionEndDate").val($("#csDefaultEndDate").val());
+    	    	}
+    	    });    	        	    			       			       				    	  
+	  });	  
+</script>
+
+<div> 
+	<span class="subscriptionHint">ORI: $userLogonInfo.employerOri</span> 
+</div>				
+				
+#if(${showSubscriptionPurposeDropDown})
+	<div>
+		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)		
+	</div>	
+#end
+
+<div>
+	<input id="stateIdInput" placeholder="SID Number" value="${subscription.stateId}" readonly/>
+</div>
+
+<div>	
+	<!-- note since not linked with a spring pojo, this value will be appended to the url of the http request 
+	 	when the subscription is saved -->
+	<select id="personNameSelect">		
+		<option value="" selected>Name</option>			
+	</select> 
+</div>
+<table style="white-space:nowrap;">
+	<tr>
+		<td style="text-align:right;vertical-align:middle;">
+			<label>Start Date:</label>
+		</td>
+		<td>
+			#if(${isStartDateEditable})
+				#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='datePicker' placeholder='From'")
+			#else
+				#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly'")
+			#end			
+		</td>
+	</tr>
+	<tr>
+		<td style="text-align:right;vertical-align:middle;">
+			<label>End Date:</label>
+		</td>
+		<td>
+			#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='datePicker' placeholder='No End Date'")
+		</td>
+	</tr>
+</table>
+
+
+<div>
+	<!-- fix object being mapped to from list to something else or use regular html instead of velocity spring macro -->
+	#springFormInput("subscription.emailList[0]" "placeholder='Email Address 1'")
+</div>
+
+<div>
+	#springFormInput("subscription.emailList[1]" "placeholder='Email Address 2'")
+</div>
+
+<div>
+	#springFormInput("subscription.emailList[2]" "placeholder='Email Address 3'")
+</div>
+
+#if($showCaseIdInput)
+	<div>
+		#springFormInput("subscription.caseId" "placeholder='Case Id' maxlength='20'" )
+	</div>
+#end
+
+<input type="hidden" id="csDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)'/>
+<input type="hidden" id="ciDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $ciDefaultEndDate)'/>

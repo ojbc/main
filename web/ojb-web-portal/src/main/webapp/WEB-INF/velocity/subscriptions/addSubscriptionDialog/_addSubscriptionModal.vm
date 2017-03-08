@@ -25,11 +25,15 @@
     			function(){    			
 				  					  					  					  	
 				  	var subTypeTxt = $('#topic option:selected').text().trim();
-				  						
-					if(subTypeTxt == 'Arrest'){	
+									  						
+					if(subTypeTxt === 'Arrest'){	
 															
 						saveArrestSubscritption();
 																																	
+					}else if(subTypeTxt === 'Rapback'){
+												
+						saveRapbackSubscription();
+						
 					}else if(subTypeTxt == 'Incident'){
 												
 						saveIncidentSubscription();
@@ -88,6 +92,20 @@
   		).fail(ojbc.displayFailMessage);				  				  									  	  
 	  }
 	  
+	  function saveRapbackSubscription(){	 
+			    				    				
+		var personNameVal = $('#personNameSelect').val();
+		
+		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal;    				
+		
+  		$.get("#springUrl('/subscriptions/saveSubscription')", 
+  			formData,
+  			function(data){		  					  		  			  	
+				handleDisplayAfterSave(data);  					  		  									  						  						  				  			
+  			},
+  			"text"
+  		).fail(ojbc.displayFailMessage);				  				  									  	  
+	  }
 	  
 	  function handleDisplayAfterSave(messagesJson){
 	  
@@ -159,15 +177,22 @@
 	  	
 	  	var subTypeTxt = $("#topic option:selected").text().trim();
 	  			
-		if(subTypeTxt == 'Arrest'){						
-			$(".ui-dialog").width("700");
+		if(subTypeTxt === 'Arrest'){						
+			$(".ui-dialog").width("240");
 	  		$.post("#springUrl('/subscriptions/arrestForm')", 
 	  			function(data){		  			
 	  				$('#subModalDynamicContents').html(data);			  						  				  				
 	  			}
 	  		).fail(ojbc.displayFailMessage);				
+		}else if(subTypeTxt === 'Rapback'){						
+			$(".ui-dialog").width("700");
+	  		$.post("#springUrl('/subscriptions/rapbackForm')", 
+	  			function(data){		  			
+	  				$('#subModalDynamicContents').html(data);			  						  				  				
+	  			}
+	  		).fail(ojbc.displayFailMessage);				
 															
-		}else if(subTypeTxt == 'Incident'){		
+		}else if(subTypeTxt === 'Incident'){		
 			$(".ui-dialog").width("240");
 	  		$.post("#springUrl('/subscriptions/incidentForm')", 
 	  			function(data){		  			
@@ -175,7 +200,7 @@
 	  			}
 	  		).fail(ojbc.displayFailMessage);
 	  		
-	  	}else if(subTypeTxt == 'ATN Assignment'){
+	  	}else if(subTypeTxt === 'ATN Assignment'){
 			$(".ui-dialog").width("240");
 	  		$.post("#springUrl('/subscriptions/chCycleForm')", 
 	  			function(data){		  			
@@ -194,7 +219,7 @@
 <div style="width:480px;height:460px;" id="modalIframeSpinner"></div>
 
 <!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
-<div style="width:780px;height:460px;" id="subFormDiv">
+<div style="width:auto;height:460px;" id="subFormDiv">
 	<form id="subscriptionForm">  	  
 		<div>
 			#springFormSingleSelect("subscription.topic" $subscriptionTypeValueToLabelMap "onChange='refreshDisplayFromSubType()'")		

@@ -25,22 +25,27 @@
 				return;
 			}	  	  		
 	  	  		
-	  	  	if( '${subscription.topic}'  == '{http://ojbc.org/wsn/topics}:person/arrest'){
+	  	  	if( '${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/arrest' 
+	  	  		|| '${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/rapback'){
 	  	  		populateNamesDropDown();
 	  	  	}	  	  		
 
     		$('#editSubModalSaveLink').click(
     			function(){
     			    			    			       			    						
-					if('${subscription.topic}'  == '{http://ojbc.org/wsn/topics}:person/arrest'){						
+					if('${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/arrest'){						
 					
 						saveArrestSubscription();																						
 					
-					}else if('${subscription.topic}'  == '{http://ojbc.org/wsn/topics}:person/incident'){
+					}else if('${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/rapback'){						
+					
+						saveRapbackSubscription();																						
+					
+					}else if('${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/incident'){
 												
 						saveIncidentSubscription();	
 						
-					}else if('${subscription.topic}'  == '{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'){
+					}else if('${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'){
 						
 						saveChCycleSubscription();			
 						  				
@@ -109,6 +114,26 @@
 	  
 	  
 	function saveArrestSubscription(){
+							   	    			    				    		
+		var personNameVal = $('#personNameSelect').val();
+		  		
+		var topicVal = $('#topicSelect').val();
+			  					  						
+		var  stateIdVal = $('#stateIdInput').val(); 		  				 							
+		
+		// serialize() generates get request string for <springforminput> html fields 
+		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal + "&topic=" + topicVal + "&stateId=" + stateIdVal + "&systemId=" + '${subscription.systemId}';    				
+		    								    					    				
+  		$.get("#springUrl('/subscriptions/updateSubscription')", 
+  			formData,
+  			function(data){	  						  						  			
+				handleDisplayAfterSave(data);						  				  				
+  			},
+  			"text"
+  		).fail(ojbc.displayFailMessage);			
+	}  
+	 
+	function saveRapbackSubscription(){
 							   	    			    				    		
 		var personNameVal = $('#personNameSelect').val();
 		  		
@@ -212,6 +237,16 @@
 			</div> 		
 								
 			#parse("subscriptions/editSubscriptionDialog/_arrestForm.vm")	
+											
+		#elseif(${subscription.topic}  == '{http://ojbc.org/wsn/topics}:person/rapback')	
+		
+			<div>
+				<select disabled id="topicSelect">
+					<option selected="selected" value="{http://ojbc.org/wsn/topics}:person/rapback">Rapback</option>
+				</select>
+			</div> 		
+								
+			#parse("subscriptions/editSubscriptionDialog/_rapbackForm.vm")	
 											
 		#elseif(${subscription.topic} == '{http://ojbc.org/wsn/topics}:person/incident')	
 		
