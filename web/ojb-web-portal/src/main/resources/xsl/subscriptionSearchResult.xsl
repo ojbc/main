@@ -157,9 +157,9 @@
 							<xsl:with-param name="date" select="ext:Subscription/nc:ActivityDateRange/nc:StartDate/nc:Date"/>
 						</xsl:call-template>
 					</td>					
-					
-					<xsl:apply-templates select="ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date[normalize-space()]" mode="endDate"/>
-
+					<xsl:element name="td">
+						<xsl:apply-templates select="ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date[normalize-space()]" mode="endDate"/>
+					</xsl:element>
 					<td>
 						<!-- TODO: get this from OJBC Static Config -->
 						<xsl:choose>
@@ -239,18 +239,15 @@
 		</xsl:variable>
 		<xsl:choose>
 			<xsl:when test="$expirationAlertStartDate &lt;= current-date()">
-				<td style="color:red">
-					<xsl:call-template name="formatDate">
-						<xsl:with-param name="date" select="."/> 
-					</xsl:call-template>
-				</td>		
+				<xsl:attribute name="style">color:red</xsl:attribute>
+				<xsl:call-template name="formatDate">
+					<xsl:with-param name="date" select="."/> 
+				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>					
-				<td>
-					<xsl:call-template name="formatDate">
-						<xsl:with-param name="date" select="."/>
-					</xsl:call-template>
-				</td>					
+				<xsl:call-template name="formatDate">
+					<xsl:with-param name="date" select="."/>
+				</xsl:call-template>
 			</xsl:otherwise>					
 		</xsl:choose>					
 	</xsl:template>
