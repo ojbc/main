@@ -30,7 +30,7 @@
 	  	  	}	  	  		
 
 	  	  	if( '${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/rapback'){
-	  	  		$(".ui-dialog").width("700");
+	  	  		$(".ui-dialog").width("480");
 	  	  	}	  	  		
 
     		$('#editSubModalSaveLink').click(
@@ -228,7 +228,7 @@
 
 
 <!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
-<div style="width:230px;height:460px;" id="subFormDiv">
+<div style="width:auto;height:460px;" id="subFormDiv">
 	<form id="subscriptionForm">  	
 							
 		#if(${subscription.topic}  == '{http://ojbc.org/wsn/topics}:person/arrest')	

@@ -183,7 +183,7 @@
 	  			}
 	  		).fail(ojbc.displayFailMessage);				
 		}else if(subTypeTxt === 'Rapback'){						
-			$(".ui-dialog").width("700");
+			$(".ui-dialog").width("480");
 	  		$.post("#springUrl('/subscriptions/rapbackForm')", 
 	  			function(data){		  			
 	  				$('#subModalDynamicContents').html(data);			  						  				  				
