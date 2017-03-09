@@ -96,7 +96,7 @@
 			    				    				
 		var personNameVal = $('#personNameSelect').val();
 		
-		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal;    				
+		var formData = $('#subscriptionForm').serialize();    				
 		
   		$.get("#springUrl('/subscriptions/saveSubscription')", 
   			formData,
@@ -142,9 +142,7 @@
 	  function saveIncidentSubscription(){
 	  	  	  	
 	  	var firstName = $('#firstName').val();	  	
-	  	
 	  	var lastName = $('#lastName').val();
-	  	
 	  	// note we don't have a full name field, so just concatenate first & last with a space
 	  	var fullName = firstName + ' ' + lastName;
 	  		  

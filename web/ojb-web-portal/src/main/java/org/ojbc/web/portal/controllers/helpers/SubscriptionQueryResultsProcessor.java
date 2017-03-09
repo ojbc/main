@@ -83,6 +83,12 @@ public class SubscriptionQueryResultsProcessor {
 
 			subscription.setFederalTriggeringEventCode(triggeringEventCodesList);
 		}	
+		
+		String subscriptionPurpose = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:CriminalSubscriptionReasonCode|sqr-ext:CivilSubscriptionReasonCode");
+		subscription.setSubscriptionPurpose(subscriptionPurpose);
+		
+		String caseId = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:SubscriptionRelatedCaseIdentification/nc:IdentificationID");
+		subscription.setCaseId(caseId);
 	}
 
 	private void parseSubscriptionQueryResultNode(Node subQueryResultNode, 

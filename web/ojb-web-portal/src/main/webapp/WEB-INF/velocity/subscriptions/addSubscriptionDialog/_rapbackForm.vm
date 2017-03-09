@@ -18,7 +18,7 @@
 	  $(function() {	    	  
     		$('#idLookupLink').click(
     			function(){    	
-		    		var sidPattern = new RegExp($("#sidRegexForAddSubscription").val());
+		    		var sidPattern = new RegExp('$sidRegexForAddSubscription');
 				  	var sidVal = $('#stateId').val();
 				  	
 				  	if (sidPattern.test(sidVal)){	
@@ -33,7 +33,6 @@
 		  						//console.log(data);
 		  						//generate html drop-down options based on json values from java layer
 		  						var nameHtml = '<option value="">Name</option>';
-		  							  					  	
 		  						if( data && Object.keys(data.allNames).length > 0){
 									$.each(data.allNames, function( index, value ) {
 										if(index == 0){
@@ -46,6 +45,22 @@
 									});	  							  						
 									
 									$("#fbiIdDiv").html('FBI ID: ' + data.formattedFbiId);
+									
+									if (data.dobStrings && Object.keys(data.dobStrings).length > 0){
+									
+										var dateOfBirthDropdownHtml = $("#dateOfBirth").html();
+										
+										$.each(data.dobStrings, function( index, value ) {
+											if(index == 0){
+												dateOfBirthDropdownHtml += '<option value="' + value + '" selected>' + value + '</option>';
+											}else{
+												// display a (A) signifying alternate DOB
+												dateOfBirthDropdownHtml += '<option value="' + value + '">' + value + ' (A) </option>';
+											}																														
+										});	
+										
+										$('#dateOfBirth').html(dateOfBirthDropdownHtml)  							  						
+									}
 																				  						
 		  						}else{
 		  							alert('Unable to process requested SID');
@@ -55,11 +70,11 @@
 	  							// alternate names do not.  Either the controller or js should ensure the names 
 	  							// can be compared for equality	  								  								  						
 	  			 																			 							 											  	
-		  						$('#personNameSelect').html(nameHtml);	  							  										  													  							  					  						  				  				
+		  						$('#fullName').html(nameHtml);	  							  										  													  							  					  						  				  				
 				  			}
 			  			).fail(ojbc.displayFailMessage);
 		  			}else{
-		  				alert($("#sidRegexValidationErrorMessage").val());
+		  				alert('$sidRegexValidationErrorMessage');
 		  			}		  				     			       				
 			});    		
     		    	      		    	  			    		    	  
@@ -83,10 +98,10 @@
     	        
     	    $("#subscriptionForm").on("change", "#subscriptionPurpose", function(){
     	    	if ($("#subscriptionPurpose").val()==="CI"){
-    	    		$("#subscriptionEndDate").val($("#ciDefaultEndDate").val());
+    	    		$("#subscriptionEndDate").val('$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)');
     	    	}
     	    	else if ($("#subscriptionPurpose").val()==="CS"){
-    	    		$("#subscriptionEndDate").val($("#csDefaultEndDate").val());
+    	    		$("#subscriptionEndDate").val('$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)');
     	    	}
     	    });    	        	    			       			       				    	  
 	  });
@@ -113,11 +128,13 @@
 <div>	
 	<!-- note since not linked with a spring pojo, this value will be appended to the url of the http request 
 	 	when the subscription is saved -->
-	<select id="personNameSelect" >
+	#springBind("subscription.fullName")
+	<select id="${status.expression}" name="${status.expression}" value="$!status.value">
 		<option value="">Name</option>
 	</select> 
-	<select id="personNameSelect" >
-		<option value="">Name</option>
+	#springBind("subscription.dateOfBirth")
+	<select id="${status.expression}" name="${status.expression}" value="$!status.value">
+		<option value="">DOB</option>
 	</select> 
 </div>
 
@@ -133,8 +150,6 @@
 				#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly' ")				
 			#end					
 		</td>
-	</tr>
-	<tr>
 		<td style="text-align:right;vertical-align:middle;">
 			<label>End Date:</label>
 		</td>
@@ -166,8 +181,3 @@
 		#springFormInput("subscription.caseId" "placeholder='Case Id' maxlength='20'" )
 	</div>
 #end
-
-<input type="hidden" id="csDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)'/>
-<input type="hidden" id="ciDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $ciDefaultEndDate)'/>
-<input type="hidden" id="sidRegexForAddSubscription" value='$sidRegexForAddSubscription' />
-<input type="hidden" id="sidRegexValidationErrorMessage" value='$sidRegexValidationErrorMessage' />
