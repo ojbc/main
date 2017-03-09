@@ -1073,11 +1073,6 @@ public class SubscriptionsController {
 				initDatesForEditChCycleForm(model);
 			}
 											
-			if(allNamesList != null && !allNamesList.isEmpty()){
-				JSONArray namesJsonArray = new JSONArray(allNamesList);		
-				subscription.setPersonNamesJsonArray(namesJsonArray.toString());			
-			}						
-			
 			logger.info("Subscription Edit Request: " + subscription);
 									
 			model.put("subscription", subscription);	
