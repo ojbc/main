@@ -30,7 +30,7 @@ import org.ojbc.intermediaries.sn.util.SubjectIdentifierUtils;
 
 public class RapbackSubscriptionProcessor extends SubscriptionProcessor {
 
-	List<String> activeSubjectIdentifiers = new ArrayList<>(Arrays.asList(SubscriptionNotificationConstants.SID, SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER));
+	List<String> activeSubjectIdentifiers = new ArrayList<>(Arrays.asList(SubscriptionNotificationConstants.SID, SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, SubscriptionNotificationConstants.DATE_OF_BIRTH, SubscriptionNotificationConstants.FBI_ID));
 	
 	@Override
 	public SubscriptionRequest makeSubscriptionRequestFromIncomingMessage(

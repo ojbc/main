@@ -32,11 +32,22 @@
 			xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1">
 			<um:UnsubscriptionMessage>
 				<smext:Subject>
-					<jxdm41:PersonAugmentation>
-						<jxdm41:PersonStateFingerprintIdentification>
-							<nc20:IdentificationID>A9999999</nc20:IdentificationID>
-						</jxdm41:PersonStateFingerprintIdentification>
-					</jxdm41:PersonAugmentation>
+					<nc20:PersonBirthDate>
+						<nc20:Date>1972-08-02</nc20:Date>
+					</nc20:PersonBirthDate>
+                    <nc20:PersonName>
+						<nc20:PersonGivenName>Test</nc20:PersonGivenName>
+						<nc20:PersonSurName>Person</nc20:PersonSurName>
+                        <nc20:PersonFullName>Test Person</nc20:PersonFullName>
+                    </nc20:PersonName>
+                    <jxdm41:PersonAugmentation>
+						<jxdm41:PersonFBIIdentification>
+							<nc20:IdentificationID>123456789</nc20:IdentificationID>
+						</jxdm41:PersonFBIIdentification>
+                        <jxdm41:PersonStateFingerprintIdentification>
+                            <nc20:IdentificationID>A9999999</nc20:IdentificationID>
+                        </jxdm41:PersonStateFingerprintIdentification>
+                    </jxdm41:PersonAugmentation>
 				</smext:Subject>
 				<nc20:ContactEmailID />
 				<smext:SystemName>{http://demostate.gov/SystemNames/1.0}SystemA</smext:SystemName>

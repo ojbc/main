@@ -57,8 +57,21 @@
 				<camel:when>
 					<camel:simple>${in.header.notificationTopic} == 'rapback'</camel:simple>
 					
-					<camel:log message="Not implemented in this phase"/>
-					
+					<camel:choice>
+						<!-- This is an in state arrest notification -->
+						<camel:when>
+							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest</camel:xpath>
+						</camel:when>
+						
+						<!-- This is a federal arrest notification -->
+						<camel:when>
+							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingFederal</camel:xpath>
+						</camel:when>
+						<camel:otherwise>
+							<camel:log message="No known notifying message was in the notification.  Stopping route"/>
+							<camel:stop/>
+						</camel:otherwise>		
+					</camel:choice>				
 				</camel:when>
 				<camel:when>
 					<camel:simple>${in.header.notificationTopic} == 'incident'</camel:simple>
