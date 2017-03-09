@@ -122,6 +122,8 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            	    subscription.setGracePeriod(null);
 	            	}
 	            	
+	            	subscription.setAgencyCaseNumber(rs.getString("agency_case_number"));
+	            	
 	            	map.put(id, subscription);
 	            	
 	            }	
