@@ -25,9 +25,12 @@
 				return;
 			}	  	  		
 	  	  		
-	  	  	if( '${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/arrest' 
-	  	  		|| '${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/rapback'){
+	  	  	if( '${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/arrest' ){
 	  	  		populateNamesDropDown();
+	  	  	}	  	  		
+
+	  	  	if( '${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/rapback'){
+	  	  		$(".ui-dialog").width("700");
 	  	  	}	  	  		
 
     		$('#editSubModalSaveLink').click(
@@ -229,7 +232,6 @@
 	<form id="subscriptionForm">  	
 							
 		#if(${subscription.topic}  == '{http://ojbc.org/wsn/topics}:person/arrest')	
-		
 			<div>
 				<select disabled id="topicSelect">
 					<option selected="selected" value="{http://ojbc.org/wsn/topics}:person/arrest">Arrest</option>
@@ -239,7 +241,6 @@
 			#parse("subscriptions/editSubscriptionDialog/_arrestForm.vm")	
 											
 		#elseif(${subscription.topic}  == '{http://ojbc.org/wsn/topics}:person/rapback')	
-		
 			<div>
 				<select disabled id="topicSelect">
 					<option selected="selected" value="{http://ojbc.org/wsn/topics}:person/rapback">Rapback</option>

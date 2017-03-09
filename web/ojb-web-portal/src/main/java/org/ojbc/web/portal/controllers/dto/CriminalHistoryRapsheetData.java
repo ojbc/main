@@ -20,10 +20,11 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.ojbc.web.portal.controllers.helpers.SubscribedPersonNames;
@@ -72,6 +73,36 @@ public class CriminalHistoryRapsheetData implements Serializable{
 		return allNames; 
 	}
 
+	public Map<String, String> getNamesMap(){
+		
+		Map<String, String> namesMap = new LinkedHashMap<>();
+		
+		namesMap.put("", "Name");
+		
+		List<String> allNames = getAllNames();
+		
+		if (!allNames.isEmpty()){
+			allNames.forEach(name->namesMap.put(name, name));
+		}
+		
+		return namesMap; 
+	}
+	
+	public Map<String, String> getDobsMap(){
+		
+		Map<String, String> map = new LinkedHashMap<>();
+		
+		map.put("", "DOB");
+		
+		List<String> dobStrings = getDobStrings();
+		
+		if (null != dobStrings){
+			dobStrings.forEach(dobString->map.put(dobString, dobString));
+		}
+		
+		return map; 
+	}
+	
 	public List<LocalDate> getDobs() {
 		return dobs;
 	}

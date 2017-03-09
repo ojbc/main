@@ -21,13 +21,14 @@ import static org.ojbc.util.helper.UniqueIdUtils.getUniqueId;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -37,7 +38,8 @@ import org.w3c.dom.Element;
 
 public class SubscriptionNotificationDocumentBuilderUtils {				
 
-	private static final Logger logger = Logger.getLogger(SubscriptionNotificationDocumentBuilderUtils.class.getName());
+	@SuppressWarnings("unused")
+	private static final Log logger = LogFactory.getLog(SubscriptionNotificationDocumentBuilderUtils.class);
 	
 	private static final String SYSTEM_NAME = "{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB";
 	

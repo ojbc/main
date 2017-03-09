@@ -26,6 +26,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -1030,7 +1032,7 @@ public class SubscriptionsController {
 			}else if(RAPBACK_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
 				 CriminalHistoryRapsheetData chRapsheetData = getChRapsheetData(request, subscription.getStateId());
-
+				 model.put("rapsheetData", chRapsheetData);
 				 allNamesList = chRapsheetData.getAllNames();				 
 				 if(allNamesList == null || allNamesList.isEmpty()){
 					 model.put("initializationSucceeded", false);
@@ -1600,17 +1602,35 @@ public class SubscriptionsController {
 	
 	private List<LocalDate> getDobsFromRapsheet(Document rapSheetDoc){
 		
-		String dob = null;
+		List<LocalDate> dobs = new ArrayList<>();
 		
 		try{			
-			dob = XmlUtils.xPathStringSearch(rapSheetDoc, 
-					"/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:Introduction/rap:RapSheetRequest/rap:RapSheetPerson/nc:PersonBirthDate/nc:Date");
+			String primaryDobString = XmlUtils.xPathStringSearch(rapSheetDoc, 
+					"/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:Introduction/rap:RapSheetRequest/rap:RapSheetPerson/nc:PersonBirthDate"
+					+ "[@s:metadata =/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:Metadata[nc:CommentText='Primary']/@s:id]/nc:Date");
+			List<String> dobStrings = new ArrayList<>();
+			dobStrings.add(primaryDobString);
+			
+			NodeList aliasDobNodes = XmlUtils.xPathNodeListSearch(rapSheetDoc, 
+					"/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:Introduction/rap:RapSheetRequest/rap:RapSheetPerson/nc:PersonBirthDate"
+					+ "[@s:metadata =/ch-doc:CriminalHistory/ch-ext:RapSheet/rap:Metadata[nc:CommentText='Alias']/@s:id]/nc:Date");
+			for(int i=0; i < aliasDobNodes.getLength(); i++){
+				Node dobNode = aliasDobNodes.item(i);	
+				String dobString = dobNode.getTextContent();	
+				
+				dobStrings.add(dobString);
+			}
+			
+			dobs = dobStrings.stream()
+					.map(item -> OJBCDateUtils.parseLocalDate(item))
+					.filter(Objects::nonNull)
+					.collect(Collectors.toList());
 			
 		}catch(Exception e){
 			logger.error("Exception while getting dob from rapsheet \n" + e);
 		}
 		
-		return null;
+		return dobs;
 	}	
 	
 	SubscribedPersonNames getAllPersonNamesFromRapsheet(Document rapSheetDoc) throws Exception{
