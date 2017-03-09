@@ -70,8 +70,6 @@
 		  		  		  
 	function saveChCycleSubscription(){
 						  					  		
-		var subType = '${subscription.topic}';						  					  		
-		 			
 		var firstName = $('#firstName').val();			  	
 	  	
 	  	var lastName = $('#lastName').val();
@@ -80,7 +78,7 @@
 	  	var fullName = firstName + ' ' + lastName;
 						  					  					  				 									
 		// serialize() generates get request string for springforminput html fields
-		var formData = $('#subscriptionForm').serialize() + "&topic=" + subType + "&systemId=" + '${subscription.systemId}' + "&fullName=" + fullName;  
+		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
 								    				    			    			    				
   		$.get("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
@@ -94,8 +92,6 @@
 		  
 	function saveIncidentSubscription(){
 						  					  		
-		var subType = '${subscription.topic}';						  					  		
-		 			
 		var firstName = $('#firstName').val();			  	
 	  	
 	  	var lastName = $('#lastName').val();
@@ -104,7 +100,7 @@
 	  	var fullName = firstName + ' ' + lastName;
 						  					  					  				 									
 		// serialize() generates get request string for <springforminput> html fields
-		var formData = $('#subscriptionForm').serialize() + "&topic=" + subType + "&systemId=" + '${subscription.systemId}' + "&fullName=" + fullName;  
+		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
 								    				    			    			    				
   		$.get("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
@@ -120,12 +116,10 @@
 							   	    			    				    		
 		var personNameVal = $('#personNameSelect').val();
 		  		
-		var topicVal = $('#topicSelect').val();
-			  					  						
 		var  stateIdVal = $('#stateIdInput').val(); 		  				 							
 		
 		// serialize() generates get request string for <springforminput> html fields 
-		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal + "&topic=" + topicVal + "&stateId=" + stateIdVal + "&systemId=" + '${subscription.systemId}';    				
+		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal + "&stateId=" + stateIdVal + "&systemId=" + '${subscription.systemId}';    				
 		    								    					    				
   		$.get("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
@@ -138,14 +132,8 @@
 	 
 	function saveRapbackSubscription(){
 							   	    			    				    		
-		var personNameVal = $('#personNameSelect').val();
-		  		
-		var topicVal = $('#topicSelect').val();
-			  					  						
-		var  stateIdVal = $('#stateIdInput').val(); 		  				 							
-		
 		// serialize() generates get request string for <springforminput> html fields 
-		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal + "&topic=" + topicVal + "&stateId=" + stateIdVal + "&systemId=" + '${subscription.systemId}';    				
+		var formData = $('#subscriptionForm').serialize();    				
 		    								    					    				
   		$.get("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
@@ -230,43 +218,18 @@
 <!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
 <div style="width:auto;height:460px;" id="subFormDiv">
 	<form id="subscriptionForm">  	
+		<div>
+			#springFormSingleSelect("subscription.topic" $subscriptionTypeValueToLabelMap "disabled='disabled'")
+			#springFormHiddenInput("subscription.topic")		
+		</div>			
 							
 		#if(${subscription.topic}  == '{http://ojbc.org/wsn/topics}:person/arrest')	
-			<div>
-				<select disabled id="topicSelect">
-					<option selected="selected" value="{http://ojbc.org/wsn/topics}:person/arrest">Arrest</option>
-				</select>
-			</div> 		
-								
 			#parse("subscriptions/editSubscriptionDialog/_arrestForm.vm")	
-											
 		#elseif(${subscription.topic}  == '{http://ojbc.org/wsn/topics}:person/rapback')	
-			<div>
-				<select disabled id="topicSelect">
-					<option selected="selected" value="{http://ojbc.org/wsn/topics}:person/rapback">Rapback</option>
-				</select>
-			</div> 		
-								
 			#parse("subscriptions/editSubscriptionDialog/_rapbackForm.vm")	
-											
 		#elseif(${subscription.topic} == '{http://ojbc.org/wsn/topics}:person/incident')	
-		
-			<div>
-				<select disabled id="topicSelect">
-					<option selected="selected" value="{http://ojbc.org/wsn/topics}:person/incident">Incident</option>
-				</select> 		
-			</div>
-						
 			#parse("subscriptions/editSubscriptionDialog/_incidentForm.vm")	
-				
 		#elseif(${subscription.topic} == '{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment')	
-		
-			<div>
-				<select disabled id="topicSelect">
-					<option selected="selected" value='{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'>ATN Assignment</option>
-				</select> 		
-			</div>
-						
 			#parse("subscriptions/editSubscriptionDialog/_chCycleForm.vm")					
 		#end
 					    	        

@@ -56,12 +56,12 @@
 #end
 
 <div>
-	<input id="stateIdInput" placeholder="SID Number" value="${subscription.stateId}" readonly/>
+	#springFormInput("subscription.stateId" "style='width:140px;' readonly='readonly'")
 </div>
 
 <div>	
-	#springFormSingleSelect("subscription.fullName" $rapsheetData.namesMap)	
-	#springFormSingleSelect("subscription.dateOfBirth" $rapsheetData.dobsMap)
+	#springFormInput("subscription.fullName" "readonly='readonly' style='width:200px;'")	
+	#springFormInput("subscription.dateOfBirth" "readonly='readonly' tooltip='DOB' style='width:200px;'")
 </div>
 <div style="padding-left:12px;">
 		<label>Start Date:</label>
