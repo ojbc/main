@@ -58,6 +58,8 @@
   <notification_mechanism id="7" subscriptionId="6" notificationMechanismType="email" notificationAddress="po6@localhost"/>
   <subscription_subject_identifier id="11" subscriptionId="6" identifierName="SID" identifierValue="A9999999"/>
   <subscription_subject_identifier id="12" subscriptionId="6" identifierName="subscriptionQualifier" identifierValue="1234578"/>
+  <subscription_subject_identifier id="13" subscriptionId="6" identifierName="FBI_ID" identifierValue="123456789"/>
+  <subscription_subject_identifier id="14" subscriptionId="6" identifierName="dateOfBirth" identifierValue="1972-08-02"/>
   
   <subscription_properties subscriptionId="6" propertyName="ARREST" propertyValue="ARREST" />
   <subscription_properties subscriptionId="6" propertyName="NCIC_WARRANT" propertyValue="NCIC-WARRANT" />
