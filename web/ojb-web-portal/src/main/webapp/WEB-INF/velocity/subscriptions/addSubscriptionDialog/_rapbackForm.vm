@@ -138,30 +138,23 @@
 	</select> 
 </div>
 
-<table style="white-space:nowrap;">
-	<tr>
-		<td style="text-align:right;vertical-align:middle;">
-			<label>Start Date:</label>
-		</td>
-		<td>		
-			#if( ${isStartDateEditable} )
-				#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='enabledDatePicker' placeholder='From'")
-			#else
-				#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly' ")				
-			#end					
-		</td>
-		<td style="text-align:right;vertical-align:middle;">
-			<label>End Date:</label>
-		</td>
-		<td>
-			#if( ${isEndDateEditable} )
-				#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='enabledDatePicker' placeholder='End Date'")
-			#else
-				#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='disabledDatePicker' placeholder='End Date' readonly='readonly' ")
-			#end	
-		</td>
-	</tr>
-</table>
+<div style="padding-left:12px;">
+	<label>Start Date:</label>
+
+	#if( ${isStartDateEditable} )
+		#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='enabledDatePicker' placeholder='From'")
+	#else
+		#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly' ")				
+	#end					
+
+	<label>End Date:</label>
+
+	#if( ${isEndDateEditable} )
+		#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='enabledDatePicker' placeholder='End Date'")
+	#else
+		#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='disabledDatePicker' placeholder='End Date' readonly='readonly' ")
+	#end	
+</div>
 
 <div>
 	<!-- fix object being mapped to from list to something else or use regular html instead of velocity spring macro -->
