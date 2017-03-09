@@ -16,6 +16,7 @@
  *#
 <script type="text/javascript">
 	  $(function() {	
+	  	    $(document).tooltip();
 	  	      	      		    		    			  		    			
     	    $(".datePicker").datepicker({
     	       showOn: "both",
@@ -61,7 +62,7 @@
 
 <div>	
 	#springFormInput("subscription.fullName" "readonly='readonly' style='width:200px;'")	
-	#springFormInput("subscription.dateOfBirth" "readonly='readonly' tooltip='DOB' style='width:200px;'")
+	#springFormInput("subscription.dateOfBirth" "readonly='readonly' title='DOB' style='width:200px;'")
 </div>
 <div style="padding-left:12px;">
 		<label>Start Date:</label>
