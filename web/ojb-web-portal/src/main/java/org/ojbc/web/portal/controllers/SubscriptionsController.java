@@ -40,7 +40,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.tools.generic.DateTool;
 import org.joda.time.DateTime;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.ojbc.processor.subscription.subscribe.SubscriptionResponseProcessor;
 import org.ojbc.processor.subscription.validation.SubscriptionValidationResponseProcessor;
