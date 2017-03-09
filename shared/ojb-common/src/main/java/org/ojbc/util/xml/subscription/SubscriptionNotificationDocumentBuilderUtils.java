@@ -464,16 +464,28 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 
         	}
         	
-        	if (StringUtils.isNotBlank(unsubscription.getSid()))
+        	if (StringUtils.isNotBlank(unsubscription.getSid()) || StringUtils.isNotBlank(unsubscription.getSid()))
         	{
         		Element personAugmentation = XmlUtils.appendElement(subject, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
-        		
-        		Element personStateFingerprintIdentification = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");
-        		
-        		Element identificationID = XmlUtils.appendElement(personStateFingerprintIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
-        		identificationID.setTextContent(unsubscription.getSid());
+
+        		if (StringUtils.isNotBlank(unsubscription.getFbiNumber()))
+        		{		
+	        		Element personStateFingerprintIdentification = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_41, "PersonFBIIdentification");
+	        		
+	        		Element identificationID = XmlUtils.appendElement(personStateFingerprintIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
+	        		identificationID.setTextContent(unsubscription.getFbiNumber());
+        		}
+
+        		if (StringUtils.isNotBlank(unsubscription.getSid()))
+        		{		
+	        		Element personStateFingerprintIdentification = XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");
+	        		
+	        		Element identificationID = XmlUtils.appendElement(personStateFingerprintIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
+	        		identificationID.setTextContent(unsubscription.getSid());
+        		}
         		
         	}	
+        	
         	
         }	
         
