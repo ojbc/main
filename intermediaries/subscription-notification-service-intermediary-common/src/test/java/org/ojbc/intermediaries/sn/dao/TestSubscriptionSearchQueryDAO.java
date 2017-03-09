@@ -431,6 +431,7 @@ public class TestSubscriptionSearchQueryDAO {
 		assertEquals("true", subscription.getSubscriptionProperties().get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR));
 		assertEquals("Bill Padmanabhan", subscription.getSubscriptionProperties().get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT));
 
+		assertEquals("0123ABC",subscription.getAgencyCaseNumber());
 	}
 
 	@Test
