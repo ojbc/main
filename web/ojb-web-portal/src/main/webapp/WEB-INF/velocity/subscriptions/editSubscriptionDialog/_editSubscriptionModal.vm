@@ -25,10 +25,6 @@
 				return;
 			}	  	  		
 	  	  		
-	  	  	if( '${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/arrest' ){
-	  	  		populateNamesDropDown();
-	  	  	}	  	  		
-
 	  	  	if( '${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/rapback'){
 	  	  		$(".ui-dialog").width("480");
 	  	  	}	  	  		
@@ -174,31 +170,7 @@
 			   refreshAfterSaveSubscription();
 			}		  	  
 	  }
-	  
 	  	 
-  	function populateNamesDropDown(){ 
-  					
-		var nameHtml = '<option value="">Name</option>';
-			
-		var jsonNamesData = '${subscription.personNamesJsonArray}';						
-			  		 					  					  							  					  							  			
-		$.each(JSON.parse(jsonNamesData), function( index, value ) {
-															
-			if(value == '${originalName}'){						
-				nameHtml += '<option value="' + value + '">' + value + '</option>';							
-			}else{
-				// (A) for alternate name											
-				nameHtml += '<option value="' + value + '">' + value + ' (A) </option>';				
-			}																																													
-		});
-										  								  						
-		$('#personNameSelect').html(nameHtml);	
-		
-		//fullName represents user-selected name(possibly an alias)		
-		$('#personNameSelect').val('${subscription.fullName}');			
-	}
-	
-		  
 	  function refreshAfterSaveSubscription(){
 	  
 		$("#editSubscriptionDialog").dialog('close');
