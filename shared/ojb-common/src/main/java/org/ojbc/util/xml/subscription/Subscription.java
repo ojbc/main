@@ -57,8 +57,6 @@ public class Subscription implements Serializable {
 	//Agency case number
 	private String caseId;
 
-	private String personNamesJsonArray;
-	
 	private String systemName;
 
 	private String topic;
@@ -122,10 +120,6 @@ public class Subscription implements Serializable {
 		return caseId;
 	}
 
-	public String getPersonNamesJsonArray() {
-		return personNamesJsonArray;
-	}
-
 	public void setStateId(String stateId) {
 		this.stateId = stateId;
 	}
@@ -172,10 +166,6 @@ public class Subscription implements Serializable {
 
 	public void setCaseId(String caseId) {
 		this.caseId = caseId;
-	}
-
-	public void setPersonNamesJsonArray(String personNamesJsonArray) {
-		this.personNamesJsonArray = personNamesJsonArray;
 	}
 
 	public String getSystemName() {
