@@ -1410,6 +1410,7 @@ public class SubscriptionsController {
 			BindingResult errors,
 			Map<String, Object> model) throws Exception{					
 		
+		logger.info("\n* * * * inside updateSubscription() * * * *\n\n: " + subscription + "\n");
 		Element samlElement = samlService.getSamlAssertion(request);		
 						
 		// get potential spring mvc controller validation errors from validating UI values
