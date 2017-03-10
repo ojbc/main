@@ -21,14 +21,26 @@
         <rap:Metadata>
             <nc:ReportingOrganizationText>State CHRI</nc:ReportingOrganizationText>
         </rap:Metadata>
+        <rap:Metadata s:id="DOB01">
+			<nc:CommentText>Primary</nc:CommentText>
+		</rap:Metadata>
+		<rap:Metadata s:id="DOB02">
+			<nc:CommentText>Alias</nc:CommentText>
+		</rap:Metadata>
         <rap:Introduction>
             <rap:RapSheetRequest>
                 <rap:PurposeCode>A</rap:PurposeCode>
                 <rap:Attention>**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE AGENCIES ONLY**</rap:Attention>
                 <rap:RapSheetPerson>
-                    <nc:PersonBirthDate>
-                        <nc:Date>1993-11-10</nc:Date>
-                    </nc:PersonBirthDate>
+                   <nc:PersonBirthDate s:metadata="DOB01">
+						<nc:Date>1960-01-11</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonBirthDate  s:metadata="DOB02">
+						<nc:Date>1960-03-15</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonBirthDate  s:metadata="DOB02">
+						<nc:Date>1960-10-16</nc:Date>
+					</nc:PersonBirthDate>
                     <nc:PersonName>
                         <nc:PersonGivenName>Mary</nc:PersonGivenName>
                         <nc:PersonMiddleName>R</nc:PersonMiddleName>
