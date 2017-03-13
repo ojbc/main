@@ -116,6 +116,7 @@ public class VelocityTemplateEmailFormatter implements EmailFormatter {
         String topic = emailNotification.getNotificationRequest().getTopic();
         String subscribingSystem = emailNotification.getSubscribingSystemIdentifier();
         String subscriptionCategoryCode = emailNotification.getSubscriptionCategoryCode();
+        String notifyingSystemName = emailNotification.getNotificationRequest().getNotifyingSystemName();
         
         EmailTemplate ret = defaultEmailTemplate;
         Map<NotificationFormatKey, EmailTemplate> systemTemplateMap = topicSystemTemplateMap.get(topic);
@@ -125,6 +126,9 @@ public class VelocityTemplateEmailFormatter implements EmailFormatter {
         	
         	emailNotificationIdentifierKeyWrapper.setSubscribingSystemName(subscribingSystem);
         	emailNotificationIdentifierKeyWrapper.setSubscriptionCategoryCode(subscriptionCategoryCode);
+        	emailNotificationIdentifierKeyWrapper.setNotifyingSystemName(notifyingSystemName);
+        	
+        	log.info("Subscribing System: " + subscribingSystem + ", Subscription Category Code: " + subscriptionCategoryCode + ", Notifying system name: " + notifyingSystemName);
         	
             EmailTemplate mappedTemplate = systemTemplateMap.get(emailNotificationIdentifierKeyWrapper);
             if (mappedTemplate == null) {
@@ -132,8 +136,7 @@ public class VelocityTemplateEmailFormatter implements EmailFormatter {
             	NotificationFormatKey emailNotificationIdentifierKeyWrapperDefault = new NotificationFormatKey();
             	
             	emailNotificationIdentifierKeyWrapperDefault.setSubscribingSystemName("{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem");
-            	
-            	emailNotificationIdentifierKeyWrapperDefault.setSubscribingSystemName("{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem");
+            	emailNotificationIdentifierKeyWrapperDefault.setNotifyingSystemName("{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem");
             	emailNotificationIdentifierKeyWrapperDefault.setSubscriptionCategoryCode("default");
             	
                 mappedTemplate = systemTemplateMap.get(emailNotificationIdentifierKeyWrapperDefault);

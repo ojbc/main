@@ -61,11 +61,15 @@
 						<!-- This is an in state arrest notification -->
 						<camel:when>
 							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest</camel:xpath>
+							
+							<camel:to uri="bean:arrestNotificationProcessor?method=findSubscriptionsForNotification" />
 						</camel:when>
 						
 						<!-- This is a federal arrest notification -->
 						<camel:when>
 							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingFederal</camel:xpath>
+							
+							
 						</camel:when>
 						<camel:otherwise>
 							<camel:log message="No known notifying message was in the notification.  Stopping route"/>

@@ -16,10 +16,14 @@
  */
 package org.ojbc.intermediaries.sn.notification;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 public class NotificationFormatKey {
 
 	private String subscribingSystemName;
 	private String subscriptionCategoryCode;
+	private String notifyingSystemName;
 	
 	public String getSubscribingSystemName() {
 		return subscribingSystemName;
@@ -34,12 +38,26 @@ public class NotificationFormatKey {
 	public void setSubscriptionCategoryCode(String subscriptionCategoryCode) {
 		this.subscriptionCategoryCode = subscriptionCategoryCode;
 	}
-	
+	public String getNotifyingSystemName() {
+		return notifyingSystemName;
+	}
+	public void setNotifyingSystemName(String notifyingSystemName) {
+		this.notifyingSystemName = notifyingSystemName;
+	}	
+
+	@Override
+	 public String toString() {
+	  return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE); 
+	}
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime
+				* result
+				+ ((notifyingSystemName == null) ? 0 : notifyingSystemName
+						.hashCode());
 		result = prime
 				* result
 				+ ((subscribingSystemName == null) ? 0 : subscribingSystemName
@@ -52,37 +70,29 @@ public class NotificationFormatKey {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (!(obj instanceof NotificationFormatKey)) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		NotificationFormatKey other = (NotificationFormatKey) obj;
+		if (notifyingSystemName == null) {
+			if (other.notifyingSystemName != null)
+				return false;
+		} else if (!notifyingSystemName.equals(other.notifyingSystemName))
+			return false;
 		if (subscribingSystemName == null) {
-			if (other.subscribingSystemName != null) {
+			if (other.subscribingSystemName != null)
 				return false;
-			}
-		} else if (!subscribingSystemName.equals(other.subscribingSystemName)) {
+		} else if (!subscribingSystemName.equals(other.subscribingSystemName))
 			return false;
-		}
 		if (subscriptionCategoryCode == null) {
-			if (other.subscriptionCategoryCode != null) {
+			if (other.subscriptionCategoryCode != null)
 				return false;
-			}
 		} else if (!subscriptionCategoryCode
-				.equals(other.subscriptionCategoryCode)) {
+				.equals(other.subscriptionCategoryCode))
 			return false;
-		}
 		return true;
-	}
-	@Override
-	public String toString() {
-		return "EmailNotificationIdentifierKeyWrapper [subscribingSystemName="
-				+ subscribingSystemName + ", subscriptionCategoryCode="
-				+ subscriptionCategoryCode + "]";
 	}
 }

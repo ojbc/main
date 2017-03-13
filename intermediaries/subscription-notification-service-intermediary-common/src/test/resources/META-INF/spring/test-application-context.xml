@@ -131,11 +131,13 @@
 	<bean id="defaultSystemNotificationFormatKey" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
 		<property name="subscribingSystemName" value="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem"/>
 		<property name="subscriptionCategoryCode" value="default"/>
+		<property name="notifyingSystemName" value="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem"/>
 	</bean>
 
 	<bean id="nonCriminalJusticeSystemNotificationFormatKey" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
 		<property name="subscribingSystemName" value="{http://demostate.gov/SystemNames/1.0}SystemA"/>
 		<property name="subscriptionCategoryCode" value="I"/>
+		<property name="notifyingSystemName" value="http://www.hawaii.gov/arrestNotificationProducer"/>
 	</bean>
 	
 	<bean id="nonCriminalJusticeEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">

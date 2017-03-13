@@ -102,6 +102,7 @@ The notification had an event ID of: $emailNotification.notificationRequest.noti
 	<bean id="defaultSystemNotificationFormatKey" class="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
 		<property name="subscribingSystemName" value="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem"/>
 		<property name="subscriptionCategoryCode" value="default"/>
+		<property name="notifyingSystemName" value="{http://ojbc.org/OJB/Subscriptions/1.0}DefaultSystem"/>
 	</bean>
 
 	<bean id="defaultEmailFormatter" class="org.ojbc.intermediaries.sn.notification.VelocityTemplateEmailFormatter$EmailTemplate">

@@ -243,7 +243,7 @@ public class ArrestNotificationRequest extends NotificationRequest {
 	protected String getNotifyingSystemNameXPath() {
 		// Add this to IEPD if required in notification message
 		//TODO: For rapback, this xpath will need to be defined.
-		return  "''";
+		return  "/b-2:Notify/b-2:NotificationMessage/b-2:ProducerReference/add:Address";
 	}
 
 	@Override
