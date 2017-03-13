@@ -153,7 +153,7 @@ public abstract class NotificationProcessor {
         }
         
         if (emailNotifications.size() == 0) {
-            log.warn("No subscriptions found for subject " + request.getSubjectIdentifiers() + " and event date of " + NotificationBrokerUtils.returnFormattedNotificationEventDate(request.getNotificationEventDate(), request.isNotificationEventDateInclusiveOfTime()));
+            log.info("No subscriptions found for subject " + request.getSubjectIdentifiers() + " and event date of " + NotificationBrokerUtils.returnFormattedNotificationEventDate(request.getNotificationEventDate(), request.isNotificationEventDateInclusiveOfTime()));
         }
         
         return emailNotifications;
