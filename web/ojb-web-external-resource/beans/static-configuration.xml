@@ -666,6 +666,14 @@
 		<entry key="CI" value="Investigation" />
 	</util:map>
 
+	<util:map id="triggeringEventCodeMap" map-class="java.util.LinkedHashMap">
+		<entry key="ARREST" value="Arrest" />
+		<entry key="DISPOSITION" value="Disposition" />
+		<entry key="NCIC-WARRANT" value="NCIC Warrant" />
+		<entry key="NCIC-SOR" value="NCIC NSOR" />
+		<entry key="DEATH" value="Death Notice" />
+	</util:map>
+
 	<!-- for the filter subscription form -->
 	<util:map id="subscriptionFilterValueToLabelMap" map-class="java.util.LinkedHashMap">
 		<entry key="Active" value="Active" />
