@@ -15,99 +15,106 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  *#
 <script type="text/javascript">
-	  $(function() {	    	  
-    		$('#idLookupLink').click(
-    			function(){    	
-		    		var sidPattern = new RegExp('$sidRegexForAddSubscription');
-				  	var sidVal = $('#stateId').val();
-				  	
-				  	if (sidPattern.test(sidVal)){	
-				  					  					  					  	    					    						 
-						var requestUrl = '../subscriptions/sidLookup?identificationID=' + sidVal;												    						 
-	    				    	
-	    				// calls a spring mvc method returning a json string w/format key,value
-	    				// where the key is an int index as a string - and the value is an object {first, last}
-	    				// TODO - see if traditional java collection ie Map can be passed from spring mvc layer 
-	    				// to js layer here instead of using json			    						     
-					    $.get(requestUrl, function(data){		  			  			
-		  						//console.log(data);
-		  						//generate html drop-down options based on json values from java layer
-		  						var nameHtml = '<option value="">Name</option>';
-		  						if( data && Object.keys(data.allNames).length > 0){
-									$.each(data.allNames, function( index, value ) {
-										if(index == 0){
-											// requirements give us the official name 1st
-											nameHtml += '<option value="' + value + '" selected>' + value + '</option>';
-										}else{
-											// display a (A) signifying alternate name
-											nameHtml += '<option value="' + value + '">' + value + ' (A) </option>';
-										}																														
-									});	  							  						
-									
-									$("#fbiIdDiv").html('FBI ID: ' + data.formattedFbiId);
-									
-									if (data.dobStrings && Object.keys(data.dobStrings).length > 0){
-									
-										var dateOfBirthDropdownHtml = $("#dateOfBirth").html();
-										
-										$.each(data.dobStrings, function( index, value ) {
-											if(index == 0){
-												dateOfBirthDropdownHtml += '<option value="' + value + '" selected>' + value + '</option>';
-											}else{
-												// display a (A) signifying alternate DOB
-												dateOfBirthDropdownHtml += '<option value="' + value + '">' + value + ' (A) </option>';
-											}																														
-										});	
-										
-										$('#dateOfBirth').html(dateOfBirthDropdownHtml)  							  						
-									}
-																				  						
-		  						}else{
-		  							alert('Unable to process requested SID');
-		  						}
-		  						
-	  							//TODO fix this to ensure it happens.  Full names have a middle initial whereas 
-	  							// alternate names do not.  Either the controller or js should ensure the names 
-	  							// can be compared for equality	  								  								  						
-	  			 																			 							 											  	
-		  						$('#fullName').html(nameHtml);	  							  										  													  							  					  						  				  				
-				  			}
-			  			).fail(ojbc.displayFailMessage);
-		  			}else{
-		  				alert('$sidRegexValidationErrorMessage');
-		  			}		  				     			       				
-			});    		
+  $(function() {	
+	$('#triggeringEventsDiv input:nth-of-type(1)').prop('checked', true).attr("onclick", "return false");	  
+	$('#triggeringEventsDiv input:nth-of-type(4)').before('<br>');	  
+  		    	  
+	$('#idLookupLink').click(
+		function(){    	
+    		var sidPattern = new RegExp('$sidRegexForAddSubscription');
+		  	var sidVal = $('#stateId').val();
+		  	
+		  	if (sidPattern.test(sidVal)){	
+		  					  					  					  	    					    						 
+				var requestUrl = '../subscriptions/sidLookup?identificationID=' + sidVal;												    						 
+				    	
+				// calls a spring mvc method returning a json string w/format key,value
+				// where the key is an int index as a string - and the value is an object {first, last}
+				// TODO - see if traditional java collection ie Map can be passed from spring mvc layer 
+				// to js layer here instead of using json			    						     
+			    $.get(requestUrl, function(data){		  			  			
+  						//console.log(data);
+  						//generate html drop-down options based on json values from java layer
+  						var nameHtml = '<option value="">Name</option>';
+  						if( data && Object.keys(data.allNames).length > 0){
+							$.each(data.allNames, function( index, value ) {
+								if(index == 0){
+									// requirements give us the official name 1st
+									nameHtml += '<option value="' + value + '" selected>' + value + '</option>';
+								}else{
+									// display a (A) signifying alternate name
+									nameHtml += '<option value="' + value + '">' + value + ' (A) </option>';
+								}																														
+							});	  							  						
+							
+							$("#fbiIdDiv").html('FBI ID: ' + data.formattedFbiId);
+							
+							if (data.dobStrings && Object.keys(data.dobStrings).length > 0){
+							
+								var dateOfBirthDropdownHtml = $("#dateOfBirth").html();
+								
+								$.each(data.dobStrings, function( index, value ) {
+									if(index == 0){
+										dateOfBirthDropdownHtml += '<option value="' + value + '" selected>' + value + '</option>';
+									}else{
+										// display a (A) signifying alternate DOB
+										dateOfBirthDropdownHtml += '<option value="' + value + '">' + value + ' (A) </option>';
+									}																														
+								});	
+								
+								$('#dateOfBirth').html(dateOfBirthDropdownHtml)  							  						
+							}
+																		  						
+  						}else{
+  							alert('Unable to process requested SID');
+  						}
+  						
+						//TODO fix this to ensure it happens.  Full names have a middle initial whereas 
+						// alternate names do not.  Either the controller or js should ensure the names 
+						// can be compared for equality	  								  								  						
+		 																			 							 											  	
+  						$('#fullName').html(nameHtml);	  							  										  													  							  					  						  				  				
+		  			}
+	  			).fail(ojbc.displayFailMessage);
+  			}else{
+  				alert('$sidRegexValidationErrorMessage');
+  			}		  				     			       				
+	});    		
     		    	      		    	  			    		    	  
     		    	
-    		// note hacked beforeShow property is a function to return false (ignores clicks and prevents 
-    		// displaying DatePicker - due to DatePicker limitation that doesn't honor readonly property.  DatePicker
-    		// allows being disabled but that prevents the html field value from being sent to the server when the form 
-    		// is serialized	    	   		    			
-    	    $(".disabledDatePicker").datepicker({
-    	       showOn: "both",
-    	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",    	  
-    	       buttonImageOnly: true,
-    	       beforeShow: function(i) {  return false; } 
-    	    });	
+	// note hacked beforeShow property is a function to return false (ignores clicks and prevents 
+	// displaying DatePicker - due to DatePicker limitation that doesn't honor readonly property.  DatePicker
+	// allows being disabled but that prevents the html field value from being sent to the server when the form 
+	// is serialized	    	   		    			
+    $(".disabledDatePicker").datepicker({
+       showOn: "both",
+       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",    	  
+       buttonImageOnly: true,
+       beforeShow: function(i) {  return false; } 
+    });	
     	        	        	   
-    	    $(".enabledDatePicker").datepicker({
-    	       showOn: "both",
-    	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
-    	       buttonImageOnly: true,
-    	    });	        	        	     	      	    
+    $(".enabledDatePicker").datepicker({
+       showOn: "both",
+       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+       buttonImageOnly: true,
+    });	        	        	     	      	    
     	        
-    	    $("#subscriptionForm").on("change", "#subscriptionPurpose", function(){
-    	    	if ($("#subscriptionPurpose").val()==="CI"){
-    	    		$("#subscriptionEndDate").val('$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)');
-    	    	}
-    	    	else if ($("#subscriptionPurpose").val()==="CS"){
-    	    		$("#subscriptionEndDate").val('$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)');
-    	    	}
-    	    });    	        	    			       			       				    	  
-	  });
+    $("#subscriptionForm").on("change", "#subscriptionPurpose", function(){
+    	if ($("#subscriptionPurpose").val()==="CI"){
+    		$("#subscriptionEndDate").val('$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)');
+    	}
+    	else if ($("#subscriptionPurpose").val()==="CS"){
+    		$("#subscriptionEndDate").val('$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)');
+    	}
+    });    	        	    			       			       				    	  
+  });
 	  	  
 </script>
 
+<div id="triggeringEventsDiv" style="padding-left:12px;">
+	<label>Triggering Event:</label>
+	#springFormCheckboxes("subscription.federalTriggeringEventCode" $triggeringEventCodeMap "" "style='width: auto;'")
+</div>
 <div> 
 	<span class="subscriptionHint">ORI: $userLogonInfo.employerOri</span> 
 </div>				

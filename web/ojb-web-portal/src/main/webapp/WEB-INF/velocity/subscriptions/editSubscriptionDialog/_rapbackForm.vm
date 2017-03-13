@@ -15,41 +15,49 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  *#
 <script type="text/javascript">
-	  $(function() {	
-	  	    $(document).tooltip();
-	  	      	      		    		    			  		    			
-    	    $(".datePicker").datepicker({
-    	       showOn: "both",
-    	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
-    	       buttonImageOnly: true
-    	    });	
-    	    
-    		// note hacked beforeShow property is a function to return false (ignores clicks and prevents 
-    		// displaying DatePicker - due to DatePicker limitation that doesn't honor readonly property.  DatePicker
-    		// allows being disabled but that prevents the html field value from being sent to the server when the form 
-    		// is serialized	    	   		    			
-    	    $(".disabledDatePicker").datepicker({
-    	       showOn: "both",
-    	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",    	  
-    	       buttonImageOnly: true,
-    	       beforeShow: function(i) {  return false; } 
-    	    });     	    
-    	    	    	        	            	    		       			       				    	   
-    	    $("#subscriptionForm").on("change", "#subscriptionPurpose", function(){
-    	    	if ($("#subscriptionPurpose").val()==="CI"){
-    	    		$("#subscriptionEndDate").val($("#ciDefaultEndDate").val());
-    	    	}
-    	    	else if ($("#subscriptionPurpose").val()==="CS"){
-    	    		$("#subscriptionEndDate").val($("#csDefaultEndDate").val());
-    	    	}
-    	    });    	        	    			       			       				    	  
-	  });	  
+  $(function() {	
+	$('#triggeringEventsDiv input:nth-of-type(1)').prop('checked', true).attr("onclick", "return false");	  
+	$('#triggeringEventsDiv input:nth-of-type(4)').before('<br>');	  
+
+    $(document).tooltip();
+      	      		    		    			  		    			
+    $(".datePicker").datepicker({
+       showOn: "both",
+       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+       buttonImageOnly: true
+    });	
+    
+	// note hacked beforeShow property is a function to return false (ignores clicks and prevents 
+	// displaying DatePicker - due to DatePicker limitation that doesn't honor readonly property.  DatePicker
+	// allows being disabled but that prevents the html field value from being sent to the server when the form 
+	// is serialized	    	   		    			
+    $(".disabledDatePicker").datepicker({
+       showOn: "both",
+       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",    	  
+       buttonImageOnly: true,
+       beforeShow: function(i) {  return false; } 
+    });     	    
+    	    	        	            	    		       			       				    	   
+    $("#subscriptionForm").on("change", "#subscriptionPurpose", function(){
+    	if ($("#subscriptionPurpose").val()==="CI"){
+    		$("#subscriptionEndDate").val($("#ciDefaultEndDate").val());
+    	}
+    	else if ($("#subscriptionPurpose").val()==="CS"){
+    		$("#subscriptionEndDate").val($("#csDefaultEndDate").val());
+    	}
+    });    	        	    			       			       				    	  
+  });	  
 </script>
 
 <div> 
 	<span class="subscriptionHint">ORI: $userLogonInfo.employerOri</span> 
 </div>				
-				
+
+<div id="triggeringEventsDiv" style="padding-left:12px;">
+	<label>Triggering Event:</label>
+	#springFormCheckboxes("subscription.federalTriggeringEventCode" $triggeringEventCodeMap "" "style='width: auto;'")
+</div>
+ 				
 #if(${showSubscriptionPurposeDropDown})
 	<div>
 		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)		
