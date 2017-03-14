@@ -215,10 +215,10 @@
 </script>
 
 
-<div style="width:480px;height:460px;" id="modalIframeSpinner"></div>
+<div style="width:480px;height:480px;" id="modalIframeSpinner"></div>
 
 <!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
-<div style="width:auto;height:460px;" id="subFormDiv">
+<div style="width:auto;height:470px;" id="subFormDiv">
 	<form id="subscriptionForm">  	  
 		<div>
 			#springFormSingleSelect("subscription.topic" $subscriptionTypeValueToLabelMap "onChange='refreshDisplayFromSubType()'")		
