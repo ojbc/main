@@ -130,13 +130,13 @@
 			    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');			    			
 			    			 vSubDialog.dialog({                    
 					                position: {
-			                           my: "center",
-			                           at: "center",
-			                           of: window
+			                           my: "left top",
+			                           at: "left top",
+			                           of: $("#searchContent")
 					                },
 					                modal:true,
-							        width:240,
-							        height:550,
+							        maxWidth:480,
+							        maxHeight:580,
 							        resizable:false,
 							        open:function(event,ui){
 							        	$('#editSubscriptionDialog').html(data);

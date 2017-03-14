@@ -19,7 +19,7 @@
 	$('#triggeringEventsDiv input:nth-of-type(1)').prop('checked', true).attr("onclick", "return false");	  
 	$('#triggeringEventsDiv input:nth-of-type(4)').before('<br>');	  
 
-    $(document).tooltip();
+    $('#subscriptionForm').tooltip();
       	      		    		    			  		    			
     $(".datePicker").datepicker({
        showOn: "both",
@@ -37,15 +37,32 @@
        buttonImageOnly: true,
        beforeShow: function(i) {  return false; } 
     });     	    
+ 
+  	if( '${subscription.subscriptionPurpose}'  === 'CS'){
+		$('#federalRapSheetDisclosureIndicator').attr("onclick", "return false;");
+		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', false).focus();	  
+  	}
+  	
+    $("#subscriptionForm").on("change", "#federalRapSheetDisclosureIndicator", function(){
+    
+    	if ('${subscription.subscriptionPurpose}'==="CI"){
+	    	var checked = $(this).prop('checked');
+	    	//console.log("federalRapSheetDisclosureIndicator changed to " + checked);
+	    	if (checked){
+	    		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', null).focus();	  
+	    	}
+	    	else{
+	    		$('#federalRapSheetDisclosureAttentionDesignationText').val('');
+	    		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', true);	  
+	    	}
+    	}
+    	else if ('${subscription.subscriptionPurpose}'==="CS") {
+    		$('#federalRapSheetDisclosureAttentionDesignationText').focus();	  
+    	}
+    });  
+    
+  		  	  		
     	    	        	            	    		       			       				    	   
-    $("#subscriptionForm").on("change", "#subscriptionPurpose", function(){
-    	if ($("#subscriptionPurpose").val()==="CI"){
-    		$("#subscriptionEndDate").val($("#ciDefaultEndDate").val());
-    	}
-    	else if ($("#subscriptionPurpose").val()==="CS"){
-    		$("#subscriptionEndDate").val($("#csDefaultEndDate").val());
-    	}
-    });    	        	    			       			       				    	  
   });	  
 </script>
 
@@ -56,16 +73,17 @@
  				
 #if(${showSubscriptionPurposeDropDown})
 	<div>
-		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)
+		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap "disabled='disabled'")
+		#springFormHiddenInput("subscription.subscriptionPurpose")
 		
 		#springFormCheckbox("subscription.federalRapSheetDisclosureIndicator" "style='width: auto;' title='Federal Rap Sheet Disclosure Indicator'")
 		<label>Disclosure Indicator</label>
 	</div>
 	
 	<div>
-		#springFormInput("subscription.federalRapSheetDisclosureAttentionDesignationText" "placeholder='Disclosure Contact Info' style='width:250px' title='Federal RapSheet Disclosure Contact Info'" )
+		#springFormTextarea("subscription.federalRapSheetDisclosureAttentionDesignationText" "placeholder='Disclosure Contact Information' 
+			title='Federal RapSheet Disclosure Contact Info' rows='2' cols='25' maxlength='50'" )
 	</div>
-		
 #end
 
 <div>
@@ -104,6 +122,3 @@
 		#springFormInput("subscription.caseId" "placeholder='Case Id' maxlength='20' readonly='readonly'" )
 	</div>
 #end
-
-<input type="hidden" id="csDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)'/>
-<input type="hidden" id="ciDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $ciDefaultEndDate)'/>
