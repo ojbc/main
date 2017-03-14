@@ -49,10 +49,6 @@
   });	  
 </script>
 
-<div> 
-	<span class="subscriptionHint">ORI: $userLogonInfo.employerOri</span> 
-</div>				
-
 <div id="triggeringEventsDiv" style="padding-left:12px;">
 	<label>Triggering Event:</label>
 	#springFormCheckboxes("subscription.federalTriggeringEventCode" $triggeringEventCodeMap "" "style='width: auto;'")
@@ -60,8 +56,16 @@
  				
 #if(${showSubscriptionPurposeDropDown})
 	<div>
-		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)		
-	</div>	
+		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)
+		
+		#springFormCheckbox("subscription.federalRapSheetDisclosureIndicator" "style='width: auto;' title='Federal Rap Sheet Disclosure Indicator'")
+		<label>Disclosure Indicator</label>
+	</div>
+	
+	<div>
+		#springFormInput("subscription.federalRapSheetDisclosureAttentionDesignationText" "placeholder='Disclosure Contact Info' style='width:250px' title='Federal RapSheet Disclosure Contact Info'" )
+	</div>
+		
 #end
 
 <div>
@@ -97,7 +101,7 @@
 
 #if($showCaseIdInput)
 	<div>
-		#springFormInput("subscription.caseId" "placeholder='Case Id' maxlength='20'" )
+		#springFormInput("subscription.caseId" "placeholder='Case Id' maxlength='20' readonly='readonly'" )
 	</div>
 #end
 

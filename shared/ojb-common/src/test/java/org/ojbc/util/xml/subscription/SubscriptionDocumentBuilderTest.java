@@ -185,7 +185,7 @@ public class SubscriptionDocumentBuilderTest {
 		subscription.setSystemId("88888");
 		
 		subscription.setFederalRapSheetDisclosureAttentionDesignationText("Attention text");
-		subscription.setFederalRapSheetDisclosureIndicator("true");
+		subscription.setFederalRapSheetDisclosureIndicator(Boolean.TRUE);
 		
 		List<String> triggeringEvents = new ArrayList<String>();
 		
