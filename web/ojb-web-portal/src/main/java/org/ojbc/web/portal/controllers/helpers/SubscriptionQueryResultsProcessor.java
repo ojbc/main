@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.w3c.dom.Document;
@@ -58,17 +59,11 @@ public class SubscriptionQueryResultsProcessor {
 		
 		String federalRapSheetDisclosureIndicator = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:FederalRapSheetDisclosure/sqr-ext:FederalRapSheetDisclosureIndicator");
 		
-		if (StringUtils.isNotEmpty(federalRapSheetDisclosureIndicator))
-		{
-			subscription.setFederalRapSheetDisclosureIndicator(federalRapSheetDisclosureIndicator.trim());
-		}	
+		subscription.setFederalRapSheetDisclosureIndicator(BooleanUtils.toBooleanObject(federalRapSheetDisclosureIndicator));
 		
 		String federalRapSheetDisclosureAttentionDesignationText = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:FederalRapSheetDisclosure/sqr-ext:FederalRapSheetDisclosureAttentionDesignationText");
 		
-		if (StringUtils.isNotEmpty(federalRapSheetDisclosureAttentionDesignationText))
-		{
-			subscription.setFederalRapSheetDisclosureAttentionDesignationText(federalRapSheetDisclosureAttentionDesignationText);
-		}	
+		subscription.setFederalRapSheetDisclosureAttentionDesignationText(federalRapSheetDisclosureAttentionDesignationText);
 		
 		NodeList triggeringEventCodes =XmlUtils.xPathNodeListSearch(subscriptionNode, "sqr-ext:TriggeringEvents/sqr-ext:FederalTriggeringEventCode");
 		

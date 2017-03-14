@@ -16,8 +16,9 @@
  *#
 <script type="text/javascript">
   $(function() {	
-	$('#triggeringEventsDiv input:nth-of-type(1)').prop('checked', true).attr("onclick", "return false");	  
+	$('#triggeringEventsDiv input:nth-of-type(1)').prop('checked', true).attr("onclick", "return false;");	  
 	$('#triggeringEventsDiv input:nth-of-type(4)').before('<br>');	  
+    $(document).tooltip();
   		    	  
 	$('#idLookupLink').click(
 		function(){    	
@@ -102,11 +103,41 @@
     $("#subscriptionForm").on("change", "#subscriptionPurpose", function(){
     	if ($("#subscriptionPurpose").val()==="CI"){
     		$("#subscriptionEndDate").val('$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)');
+    		$('#federalRapSheetDisclosureIndicator').prop("onclick", null);
     	}
     	else if ($("#subscriptionPurpose").val()==="CS"){
     		$("#subscriptionEndDate").val('$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)');
+    		$('#federalRapSheetDisclosureIndicator').prop('checked', true);
+    		$('#federalRapSheetDisclosureIndicator').attr("onclick", "return false;");
+    		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', false).focus();	  
     	}
-    });    	        	    			       			       				    	  
+    	else{
+    		$("#subscriptionEndDate").val('');
+    		$('#federalRapSheetDisclosureIndicator').prop('checked', false);
+    		$('#federalRapSheetDisclosureIndicator').attr("onclick", "return false;");
+    		$('#federalRapSheetDisclosureAttentionDesignationText').val("");
+    		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', true);	  
+    	}
+    });
+    
+    $("#subscriptionForm").on("change", "#federalRapSheetDisclosureIndicator", function(){
+    
+    	if ($("#subscriptionPurpose").val()==="CI"){
+	    	var checked = $(this).prop('checked');
+	    	console.log("federalRapSheetDisclosureIndicator changed to " + checked);
+	    	if (checked){
+	    		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', null).focus();	  
+	    	}
+	    	else{
+	    		$('#federalRapSheetDisclosureAttentionDesignationText').val('');
+	    		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', true);	  
+	    	}
+    	}
+    	else if ($("#subscriptionPurpose").val()==="CS") {
+    		$('#federalRapSheetDisclosureAttentionDesignationText').focus();	  
+    	}
+    });  
+    
   });
 	  	  
 </script>
@@ -115,13 +146,17 @@
 	<label>Triggering Event:</label>
 	#springFormCheckboxes("subscription.federalTriggeringEventCode" $triggeringEventCodeMap "" "style='width: auto;'")
 </div>
-<div> 
-	<span class="subscriptionHint">ORI: $userLogonInfo.employerOri</span> 
-</div>				
 				
 #if($showSubscriptionPurposeDropDown)
 	<div>
-		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)		
+		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)
+				
+		#springFormCheckbox("subscription.federalRapSheetDisclosureIndicator" "style='width: auto;' title='Federal Rap Sheet Disclosure Indicator'")
+		<label>Disclosure Indicator</label>
+	</div>
+	
+	<div>
+		#springFormInput("subscription.federalRapSheetDisclosureAttentionDesignationText" "placeholder='Disclosure Contact Information' style='width:250px' title='Federal RapSheet Disclosure Contact Info' disabled='true'" )
 	</div>
 #end	
 			
