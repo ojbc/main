@@ -16,7 +16,11 @@
  */
 package org.ojbc.web.portal.controllers.helpers;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -77,8 +81,8 @@ public class SubscriptionQueryResultsProcessorTest {
 		String federalRapSheetDisclosureAttentionDesignationText =  subscription.getFederalRapSheetDisclosureAttentionDesignationText();
 		assertEquals("Detective George Jones", federalRapSheetDisclosureAttentionDesignationText);
 		
-		String federalRapSheetDisclosureIndicator =  subscription.getFederalRapSheetDisclosureIndicator();
-		assertEquals("true", federalRapSheetDisclosureIndicator);
+		Boolean federalRapSheetDisclosureIndicator =  subscription.getFederalRapSheetDisclosureIndicator();
+		assertThat(federalRapSheetDisclosureIndicator, is(true));
 		
 		assertNotNull(subscription.getFederalTriggeringEventCode());
 		assertEquals(2, subscription.getFederalTriggeringEventCode().size());
