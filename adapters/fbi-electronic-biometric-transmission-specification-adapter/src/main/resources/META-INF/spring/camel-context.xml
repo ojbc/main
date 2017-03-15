@@ -33,30 +33,9 @@
 
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />	
-	<import resource="properties-context.xml"/>
-	<import resource="cxf-endpoints.xml"/>	
 	
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="fbi-electronic-biometric-transmission-specification-adapter">
-	
-		<!-- 
-			#########################################################################################
-					File system Directories		
-			#########################################################################################
-		-->
-			<!-- alternative endpoint for testing: file system message input directory -->
-			<endpoint id="inputMessageDirEndpoint" 
-				uri="file://{{fbiEbtsAdapter.messageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move={{fbiEbtsAdapter.messageDirectory}}/processed/" />			
-
-			<!-- Test sending in sample fbi ngi response messages -->
-			<endpoint id="ngiResponseTestInputDirEndpoint" 
-				uri="file://{{fbiEbtsAdapter.ngiResponseMessageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move={{fbiEbtsAdapter.messageDirectory}}/processed/" />
-						
-			<!-- Our directory to store synchronous FBI responses with 'control number' information -->
-			<endpoint id="ngiControlNumberSynchResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_ControlNum_SynchResponse"/>
-
-			<!-- Our directory to store FBI asynchronous Subscription Acknowledgement responses -->
-			<endpoint id="ngiSubAcknowledgeAsynchResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_SubAcknowledge_AsynchResponse"/>
-			
+	  	<routeContextRef ref="ebtsFileDropRoutes"/>	
 		<!-- 
 			#########################################################################################
 					Web Service Endpoints
@@ -96,46 +75,13 @@
 		
 			<log message="\n\n\n EBTS adapter received request on: fbiEbtsSubscriptionManagerEndpoint \n\n\n"/>
 
-			<setHeader headerName="originalSubscriptionOperation">
-				<simple>${header.operationName}</simple>
-			</setHeader>
-			
 			<to uri="direct:processFbiEbtsRequest"/>
 										
-			<log message="\n\n\n Getting ready to send response for operation: ${header.originalSubscriptionOperation}  \n\n\n"/>			
+			<log message="\n\n\n Getting ready to send response for operation: ${header.operationName}  \n\n\n"/>			
 								
 			<to uri="bean:fbiEbtsResponseProcessor?method=sendFbiSubscribeManagerResponse"/>
 			
 		</camel:route>
-		
-		
-		<!--  for testing SUBSCRIBE by dropping message into adapter input directory -->
-		<camel:route id="fbiEbtsInputFileSubscribeDropRoute">
-		
-			<camel:from uri="inputMessageDirEndpoint"/>
-			
-			<camel:log message="\n\n FBI EBTS Adapter received File-Drop inbound message \n\n" />
-			
-			<camel:setHeader headerName="operationName">
-				<constant>Subscribe</constant>
-			</camel:setHeader>		
-		
-			<camel:to uri="direct:processFbiEbtsRequest"/>
-		
-			<!-- Save the fbi synchronous response(control number) to a file -->
-			<camel:setHeader headerName="CamelFileName">
-				<camel:simple>NGI_ControlNum_Resp_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</camel:simple>
-			</camel:setHeader>
-			
-			<camel:setHeader headerName="fbiResponseControlNumber">
-				<camel:xpath>/ngi-core:NGIControlNumber/text()</camel:xpath>												
-			</camel:setHeader>
-			
-			<camel:log message="\n\n Saving ControlNumber:  ${header.fbiResponseControlNumber} response xml to disk...\n\n"/>
-			
-			<camel:to uri="ngiControlNumberSynchResponseDir"/>
-		</camel:route>
-
 
 		<!-- Called by ojb s/n intermediary -->
 		<camel:route id="fbiEbtsInputWebServiceRoute">
@@ -201,20 +147,6 @@
 		
 		</route>
 		
-				
-		<route id="fbiNgiResponseTestInputRoute">
-				 
-		  <from uri="ngiResponseTestInputDirEndpoint"/>
-		  
-		  <log message="\n\n\n Using fbi ngi response TestInput route \n\n\n" loggingLevel="INFO"/>
-		  		  
-			<multicast parallelProcessing="false" >
-				<to uri="direct:processFbiNgiResponse"/>				
-				<to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>			
-			</multicast>				
-		</route>
-			
-						
 		<route id="fbiNgiResponseWebServiceRoute">		
 			
 			<from uri="ngiResponseServiceEndpoint"/>	
