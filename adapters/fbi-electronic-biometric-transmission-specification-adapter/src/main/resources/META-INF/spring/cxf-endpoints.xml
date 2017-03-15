@@ -77,7 +77,7 @@
     	xmlns:ngi="http://ws.cjis.gov/2014/08/01/ngi/services/risc">
     </cxf:cxfEndpoint>      
     
-    
+    <!-- Change this to the Federal Criminal History Update Repository Service SSP -->
 	<cxf:cxfEndpoint id="arrestReportingService"
 		address="${fbiEbtsAdapter.arrestReportingServiceEndpoint}"
 		wsdlURL="classpath:ssp/Arrest_Reporting/schema/RS_WS-SIP_v1.2/Arrest_Reporting_Service.wsdl"

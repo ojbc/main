@@ -99,7 +99,7 @@ public class CamelContextTest {
     	    }              
     	});      
     	
-    	context.getRouteDefinition("arrestNotificationRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("federalRapbackNotificationRoute").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {    	    	
     	    	mockEndpointsAndSkip("cxf:bean:arrestReportingService*");    	    	

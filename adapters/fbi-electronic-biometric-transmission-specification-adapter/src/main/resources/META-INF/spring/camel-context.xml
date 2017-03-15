@@ -57,6 +57,7 @@
 		<endpoint id="ngiResponseServiceEndpoint" 
 			uri="cxf:bean:ngiResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
+		<!-- Change this to the Federal Criminal History Update Repository Service SSP -->
 		<endpoint id="arrestReportingServiceEndpoint" 
 			uri="cxf:bean:arrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
@@ -185,9 +186,9 @@
 				<when>
 					<simple>${header.trxCatCode} == 'RBN' and ${header.rapBackTriggerCode} == '1'</simple>
 					
-					<log message="\n\n\n  Detected Arrest Message, processing... \n\n\n" loggingLevel="INFO"/>
+					<log message="\n\n\n  Detected Federal Rapback Notification, processing... \n\n\n" loggingLevel="INFO"/>
 					
-					<to uri="direct:processArrestNotification"/>				
+					<to uri="direct:processFederalRapbackNotification"/>				
 				</when>
 				<when>
 					<simple>${header.trxCatCode} == 'RBSR'</simple>
@@ -209,9 +210,9 @@
 		</camel:route>		
 		
 		
-		<route id="arrestNotificationRoute">
+		<route id="federalRapbackNotificationRoute">
 		
-			<from uri="direct:processArrestNotification"/>
+			<from uri="direct:processFederalRapbackNotification"/>
 			
 			<log message="\n\n\n processArrestNotification... \n\n\n" loggingLevel="INFO" />	
 						
@@ -225,7 +226,9 @@
 			
 			<to uri="xslt:xsl/Federal_To_Arrest_Report_Transform.xsl"/>
 			
-			<log message="\n\n\n ran Federal_To_Arrest_Report_Transform.xsl.  Sending to Arrest Reporting Service... \n\n" loggingLevel="INFO"/>
+			<log message="\n\n\n ran Federal_To_Arrest_Report_Transform.xsl.  Sending to Federal Criminal History Update Repository Service... \n\n" loggingLevel="INFO"/>
+			
+			<!-- Change this to the Federal Criminal History Update Repository Service SSP -->
 			
 			<camel:setHeader headerName="operationName"><constant>ReportArrest</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ArrestReportingService/1.0</constant></camel:setHeader>			
