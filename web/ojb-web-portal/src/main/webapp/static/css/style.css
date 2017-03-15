@@ -991,6 +991,10 @@ a.grayButton:hover {
 	margin: 9px 6px 0 0;
 }
 
+#triggeringEventsDiv {
+	padding-left: 12px; 
+	font-size: 12px;
+}
 
 #idLookupImg {
 	background:url('../images/Search Form/icon-search-gray.png') no-repeat center;	

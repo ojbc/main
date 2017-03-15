@@ -142,7 +142,7 @@
 	  	  
 </script>
 
-<div id="triggeringEventsDiv" style="padding-left:12px;">
+<div id="triggeringEventsDiv">
 	<label>Triggering Event:</label>
 	#springFormCheckboxes("subscription.federalTriggeringEventCode" $triggeringEventCodeMap "" "style='width: auto;'")
 </div>
