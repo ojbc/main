@@ -174,7 +174,7 @@ public class CamelContextTest {
 		Document notificationMessageDocument = ex.getIn().getBody(Document.class);
 
 		//Make sure the root node here is the message to the original exchange
-		Node rootNode = XmlUtils.xPathNodeSearch(notificationMessageDocument, "/cfd-doc:CaseFilingDecisionReport");
+		Node rootNode = XmlUtils.xPathNodeSearch(notificationMessageDocument, "/fchr-doc:FederalCriminalHistoryReport");
 		assertNotNull(rootNode);
 	}
 	

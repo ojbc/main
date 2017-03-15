@@ -17,234 +17,96 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<cfd-doc:CaseFilingDecisionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0 ../../../xsd/CaseFilingDecisionReport.xsd" xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0" xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<nc:DocumentCategoryText>String</nc:DocumentCategoryText>
-	<nc:DocumentCreationDate>
-		<nc:Date>1967-08-13</nc:Date>
-	</nc:DocumentCreationDate>
-	<nc:DocumentEffectiveDate>
-		<nc:Date>1967-08-13</nc:Date>
-	</nc:DocumentEffectiveDate>
-	<nc:DocumentFiledDate>
-		<nc:Date>1967-08-13</nc:Date>
-	</nc:DocumentFiledDate>
-	<cfd-ext:VictimRightsAssertionCertificationIndicator>true</cfd-ext:VictimRightsAssertionCertificationIndicator>
-	<cfd-ext:VictimRightsAssertionText>VRA Text</cfd-ext:VictimRightsAssertionText>
-	<nc:Case>
-		<nc:ActivityCategoryText>Case Category Text</nc:ActivityCategoryText>
-		<nc:CaseDocketID>Case Docket ID</nc:CaseDocketID>
-		<nc:CaseFiling>
-			<nc:DocumentCategoryName>DCN</nc:DocumentCategoryName>
-			<!-- nc:DocumentFiledDate>
-				<nc:Date>1967-08-13</nc:Date>
-			</nc:DocumentFiledDate-->
-		</nc:CaseFiling>
-		<j:CaseAugmentation>
-			<j:CaseCharge>
-				<j:ChargeApplicabilityText>String</j:ChargeApplicabilityText>
-				<j:ChargeFilingDate>
-					<nc:Date>1967-08-13</nc:Date>
-				</j:ChargeFilingDate>
-				<j:ChargeSequenceID>001</j:ChargeSequenceID>
-				<j:ChargeSeverityLevel>
-					<j:SeverityLevelDescriptionText>Class A</j:SeverityLevelDescriptionText>
-				</j:ChargeSeverityLevel>
-				<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
-				<j:ChargeStatute>
-					<j:StatuteCodeIdentification>
-						<nc:IdentificationID>AMC</nc:IdentificationID>
-						<nc:IdentificationJurisdiction>
-							<nc:JurisdictionText>Jurisdiction Text</nc:JurisdictionText>
-						</nc:IdentificationJurisdiction>
-					</j:StatuteCodeIdentification>
-					<j:StatuteCodeSectionIdentification>
-						<nc:IdentificationID>8.10.040.B.7</nc:IdentificationID>
-					</j:StatuteCodeSectionIdentification>
-					<j:StatuteDescriptionText>CHILD NEGLECT</j:StatuteDescriptionText>
-				</j:ChargeStatute>
-				<j:ChargeText>This is the charge text.</j:ChargeText>
-				<j:ChargeTrackingIdentification>
-					<nc:IdentificationID>Charge Tracking ID</nc:IdentificationID>
-				</j:ChargeTrackingIdentification>
-				<cfd-ext:ChargeDomesticViolenceIndicator>true</cfd-ext:ChargeDomesticViolenceIndicator>
-			</j:CaseCharge>
-			<j:CaseCourt>
-				<nc:OrganizationName>District Court for the State of Alaska</nc:OrganizationName>
-				<j:CourtName>Third Judicial District of Alaska</j:CourtName>
-				<j:CourtCategoryCode>DIS</j:CourtCategoryCode>
-			</j:CaseCourt>
-			<j:CaseCourtEvent>
-				<j:CourtEventAppearance>
-					<j:CourtAppearanceDate>
-						<nc:Date>1967-12-14</nc:Date>
-					</j:CourtAppearanceDate>
-				</j:CourtEventAppearance>
-			</j:CaseCourtEvent>
-			<j:CaseDefendantParty>
-				<nc:EntityPerson structures:ref="Defendant_01"/>
-			</j:CaseDefendantParty>
-			<j:CaseInitiatingParty>
-				<nc:EntityPerson structures:ref="Initiating_Party_01"/>
-			</j:CaseInitiatingParty>
-			<j:CaseJudge>
-				<nc:RoleOfPerson structures:ref="CJP_01"/>
-				<j:JudicialOfficialBarMembership>
-					<j:JudicialOfficialBarIdentification>
-						<nc:IdentificationID>String</nc:IdentificationID>
-						<nc:IdentificationJurisdiction>
-							<nc:JurisdictionText>Jurisdiction Text</nc:JurisdictionText>
-						</nc:IdentificationJurisdiction>
-					</j:JudicialOfficialBarIdentification>
-				</j:JudicialOfficialBarMembership>
-				<j:JudicialOfficialCategoryText>Position</j:JudicialOfficialCategoryText>
-			</j:CaseJudge>
-			<j:CaseProsecutionAttorney>
-				<nc:RoleOfPerson structures:ref="CPAP_01"/>
-				<j:JudicialOfficialBarMembership>
-					<j:JudicialOfficialBarIdentification>
-						<nc:IdentificationID>123456</nc:IdentificationID>
-						<nc:IdentificationJurisdiction>
-							<nc:JurisdictionText>Alaska</nc:JurisdictionText>
-						</nc:IdentificationJurisdiction>
-					</j:JudicialOfficialBarIdentification>
-				</j:JudicialOfficialBarMembership>
-				<j:JudicialOfficialCategoryText>Assistant Municipal Prosecutor</j:JudicialOfficialCategoryText>
-			</j:CaseProsecutionAttorney>
-		</j:CaseAugmentation>
-	</nc:Case>
-	<j:Arrest>
-		<j:ArrestAgency>
-			<nc:OrganizationName>Alaska Police Department</nc:OrganizationName>
-		</j:ArrestAgency>
-		<j:ArrestAgencyRecordIdentification>
-			<nc:IdentificationID>123-45678</nc:IdentificationID>
-			<nc:IdentificationJurisdiction>
-				<nc:JurisdictionText>Alaska Police Department</nc:JurisdictionText>
-			</nc:IdentificationJurisdiction>
-		</j:ArrestAgencyRecordIdentification>
-		<j:ArrestOfficial>
-			<j:EnforcementOfficialBadgeIdentification>
-				<nc:IdentificationID>String</nc:IdentificationID>
-				<nc:IdentificationJurisdiction>
-					<nc:JurisdictionText>Jurisdiction Text</nc:JurisdictionText>
-				</nc:IdentificationJurisdiction>
-			</j:EnforcementOfficialBadgeIdentification>
-		</j:ArrestOfficial>
-		<j:ArrestProbableCauseText>Probable Cause Text</j:ArrestProbableCauseText>
-		<cfd-ext:ArrestTrackingNumberIdentification>
-			<nc:IdentificationID>11228885</nc:IdentificationID>
-		</cfd-ext:ArrestTrackingNumberIdentification>
-	</j:Arrest>
-	<j:Offense structures:id="Offense_01">
-		<nc:ActivityDate>
-			<nc:Date>2012-01-23</nc:Date>
-		</nc:ActivityDate>
-	</j:Offense>
-	<nc:Person structures:id="Defendant_01">
+<fchr-doc:FederalCriminalHistoryReport
+	xmlns:fchr-ext="http://ojbc.org/IEPD/Extensions/FederalCriminalHistoryReportExtension/1.0"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:fchr-doc="http://ojbc.org/IEPD/Exchange/FederalCriminalHistoryReport/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FederalCriminalHistoryReport/1.0 ../xsd/FederalCriminalHistoryReport.xsd ">
+	<fchr-ext:TransactionDescriptiveRecord>
+		<fchr-ext:RecordCategoryCodeText>02</fchr-ext:RecordCategoryCodeText>
+		<!-- nc:DocumentCreationDate> <nc:DateTime>2001-12-31T12:00:00</nc:DateTime> 
+			</nc:DocumentCreationDate> <nc:DocumentFileControlID>nc:DocumentFileControlID</nc:DocumentFileControlID> 
+			<nc:DocumentSourceText>nc:DocumentSourceText</nc:DocumentSourceText -->
+		<fchr-ext:ImageReferenceIdentification>
+			<nc:IdentificationID>00</nc:IdentificationID>
+		</fchr-ext:ImageReferenceIdentification>
+		<fchr-ext:RecordForwardOrganization>
+			<nc:EntityOrganization>
+				<nc:OrganizationIdentification>
+					<nc:IdentificationID>WV1000000</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+				<nc:OrganizationIdentification>
+					<nc:IdentificationID>NY030025P</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+			</nc:EntityOrganization>
+		</fchr-ext:RecordForwardOrganization>
+		<fchr-ext:RecordControllingOrganization>
+			<nc:EntityOrganization>
+				<nc:OrganizationIdentification>
+					<nc:IdentificationID>NY0303000</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+			</nc:EntityOrganization>
+		</fchr-ext:RecordControllingOrganization>
+		<fchr-ext:FederalCriminalHistoryRecordDocument>
+			<nc:DocumentBinary>
+				<fchr-ext:Base64BinaryObject>U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=
+				</fchr-ext:Base64BinaryObject>
+			</nc:DocumentBinary>
+		</fchr-ext:FederalCriminalHistoryRecordDocument>
+		<fchr-ext:RapBackNotificationEvent>
+			<nc:ActivityDate>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</nc:ActivityDate>
+			<fchr-ext:RapBackActivityNotificationIdentification>
+				<nc:IdentificationID>123456</nc:IdentificationID>
+			</fchr-ext:RapBackActivityNotificationIdentification>
+			<fchr-ext:RapBackAttentionText>DET J Q PUBLIC
+			</fchr-ext:RapBackAttentionText>
+			<fchr-ext:RapBackExpirationDate>
+				<nc:Date>2010-02-24</nc:Date>
+			</fchr-ext:RapBackExpirationDate>
+			<fchr-ext:RapBackSubscriptionDate>
+				<nc:Date>2011-01-25</nc:Date>
+			</fchr-ext:RapBackSubscriptionDate>
+			<fchr-ext:RapBackSubscriptionIdentification>
+				<nc:IdentificationID>123456</nc:IdentificationID>
+			</fchr-ext:RapBackSubscriptionIdentification>
+			<fchr-ext:RapBackSubscriptionTermCode>5
+			</fchr-ext:RapBackSubscriptionTermCode>
+			<fchr-ext:RapBackTermDate>
+				<nc:Date>2015-01-01</nc:Date>
+			</fchr-ext:RapBackTermDate>
+			<fchr-ext:RapBackUserDefinedElementName>Element Name
+			</fchr-ext:RapBackUserDefinedElementName>
+			<fchr-ext:RapBackUserDefinedElementText>Element information
+			</fchr-ext:RapBackUserDefinedElementText>
+			<fchr-ext:RapBackEventDate>
+				<nc:Date>2013-03-29</nc:Date>
+			</fchr-ext:RapBackEventDate>
+			<fchr-ext:TriggeringEvents>
+				<fchr-ext:FederalTriggeringEventCode>ARREST
+				</fchr-ext:FederalTriggeringEventCode>
+			</fchr-ext:TriggeringEvents>
+			<fchr-ext:RapBackEventText>Event that triggered the rap back
+			</fchr-ext:RapBackEventText>
+		</fchr-ext:RapBackNotificationEvent>
+	</fchr-ext:TransactionDescriptiveRecord>
+	<nc:Person>
 		<nc:PersonBirthDate>
-			<nc:Date>1982-06-26</nc:Date>
+			<nc:Date>1977-08-25</nc:Date>
 		</nc:PersonBirthDate>
-		<nc:PersonDigitizedSignatureImage>
-			<nc:Base64BinaryObject>UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</nc:Base64BinaryObject>
-		</nc:PersonDigitizedSignatureImage>
 		<nc:PersonName>
-			<nc:PersonGivenName>James</nc:PersonGivenName>
-			<nc:PersonMiddleName>F</nc:PersonMiddleName>
-			<nc:PersonSurName>Smith</nc:PersonSurName>
-			<nc:PersonFullName>James F Smith</nc:PersonFullName>
+			<nc:PersonGivenName>ANTHONY</nc:PersonGivenName>
+			<nc:PersonMiddleName>JOHN</nc:PersonMiddleName>
+			<nc:PersonSurName>SMITH</nc:PersonSurName>
 		</nc:PersonName>
-		<nc:PersonPassportIdentification>
-			<nc:IdentificationID>String</nc:IdentificationID>
-			<nc:IdentificationJurisdiction>
-				<nc:JurisdictionText>Jurisdiction Text</nc:JurisdictionText>
-			</nc:IdentificationJurisdiction>
-		</nc:PersonPassportIdentification>
-		<nc:PersonStateIdentification>
-			<nc:IdentificationID>String</nc:IdentificationID>
-			<nc:IdentificationJurisdiction>
-				<nc:JurisdictionText>Jurisdiction Text</nc:JurisdictionText>
-			</nc:IdentificationJurisdiction>
-		</nc:PersonStateIdentification>
-		<cfd-ext:AlaskaPublicSafetyInformationNetworkIdentification>
-			<nc:IdentificationID>9999999999</nc:IdentificationID>
-		</cfd-ext:AlaskaPublicSafetyInformationNetworkIdentification>
-		<cfd-ext:OperatorLicenseIdentification>
-			<nc:IdentificationID>OL4576898</nc:IdentificationID>
-			<nc:IdentificationCategoryText>ATV</nc:IdentificationCategoryText>
-		</cfd-ext:OperatorLicenseIdentification>
 		<j:PersonAugmentation>
-			<j:DriverLicense>
-				<j:DriverLicenseIdentification>
-					<nc:IdentificationID>999999</nc:IdentificationID>
-					<nc:IdentificationJurisdiction>
-						<nc:JurisdictionText>Jurisdiction Text</nc:JurisdictionText>
-					</nc:IdentificationJurisdiction>
-				</j:DriverLicenseIdentification>
-				<cfd-ext:CDLHolderCode>2</cfd-ext:CDLHolderCode>
-			</j:DriverLicense>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>12345678</nc:IdentificationID>
+			</j:PersonFBIIdentification>
 		</j:PersonAugmentation>
 	</nc:Person>
-	<nc:Person structures:id="IPP_01">
-		<nc:PersonName>
-			<nc:PersonNamePrefixText>String</nc:PersonNamePrefixText>
-			<nc:PersonGivenName>Roger</nc:PersonGivenName>
-			<nc:PersonMiddleName>E</nc:PersonMiddleName>
-			<nc:PersonSurName>Jones</nc:PersonSurName>
-			<nc:PersonFullName>Roger E Jones</nc:PersonFullName>
-		</nc:PersonName>
-	</nc:Person>
-	<nc:Person structures:id="CJP_01">
-		<nc:PersonName>
-			<nc:PersonNamePrefixText/>
-			<nc:PersonGivenName>John</nc:PersonGivenName>
-			<nc:PersonMiddleName>H</nc:PersonMiddleName>
-			<nc:PersonSurName>Kinn</nc:PersonSurName>
-		</nc:PersonName>
-	</nc:Person>
-	<nc:Person structures:id="CPAP_01">
-		<nc:PersonName>
-			<nc:PersonNamePrefixText>Mr</nc:PersonNamePrefixText>
-			<nc:PersonGivenName>Mary</nc:PersonGivenName>
-			<nc:PersonMiddleName>R</nc:PersonMiddleName>
-			<nc:PersonSurName>Halpin</nc:PersonSurName>
-		</nc:PersonName>
-	</nc:Person>
-	<j:JudicialOfficial structures:id="Initiating_Party_01">
-		<nc:RoleOfPerson structures:ref="IPP_01"/>
-		<j:JudicialOfficialBarMembership>
-			<j:JudicialOfficialBarIdentification>
-				<nc:IdentificationID>String</nc:IdentificationID>
-				<nc:IdentificationJurisdiction>
-					<nc:JurisdictionText>Jurisdiction Text</nc:JurisdictionText>
-				</nc:IdentificationJurisdiction>
-			</j:JudicialOfficialBarIdentification>
-		</j:JudicialOfficialBarMembership>
-		<j:JudicialOfficialCategoryText>Position</j:JudicialOfficialCategoryText>
-	</j:JudicialOfficial>
-	<nc:Location structures:id="OL01">
-		<nc:LocationDescriptionText>Smithville</nc:LocationDescriptionText>
-	</nc:Location>
-	<nc:Location structures:id="RES01">
-		<nc:Address>
-			<nc:LocationStreet>
-				<nc:StreetFullText>123 N Oak Street Apt #5</nc:StreetFullText>
-			</nc:LocationStreet>
-			<nc:LocationCityName>Anchorage</nc:LocationCityName>
-			<nc:LocationStateUSPostalServiceCode>AK</nc:LocationStateUSPostalServiceCode>
-			<nc:LocationPostalCode>32678</nc:LocationPostalCode>
-		</nc:Address>
-	</nc:Location>
-	<nc:PersonResidenceAssociation>
-		<nc:Person structures:ref="Defendant_01"/>
-		<nc:Location structures:ref="RES01"/>
-	</nc:PersonResidenceAssociation>
-	<j:OffenseLocationAssociation>
-		<j:Offense structures:ref="Offense_01"/>
-		<nc:Location structures:ref="OL01"/>
-	</j:OffenseLocationAssociation>
-	<!-- cfd-ext:CaseFilingDecisionAttachment>
-		<nc:DocumentBinary>
-    		<cfd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cfd-ext:Base64BinaryObject>
-        </nc:DocumentBinary>
-	</cfd-ext:CaseFilingDecisionAttachment-->
-</cfd-doc:CaseFilingDecisionReport>
+</fchr-doc:FederalCriminalHistoryReport>
