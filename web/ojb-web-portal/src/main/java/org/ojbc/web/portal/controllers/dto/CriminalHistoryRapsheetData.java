@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.ojbc.web.model.person.search.PersonName;
 import org.ojbc.web.portal.controllers.helpers.SubscribedPersonNames;
 
 public class CriminalHistoryRapsheetData implements Serializable{
@@ -64,11 +66,11 @@ public class CriminalHistoryRapsheetData implements Serializable{
 		List<String> allNames = new ArrayList<>();
 		
 		if (personNames.getOriginalName() != null){
-			allNames.add(personNames.getOriginalName());
+			allNames.add(personNames.getOriginalName().getFullName());
 		}
 		
 		personNames.getAlternateNamesList()
-			.forEach(item->allNames.add(item));
+			.forEach(item->allNames.add(item.getFullName()));
 		
 		return allNames; 
 	}
@@ -101,6 +103,19 @@ public class CriminalHistoryRapsheetData implements Serializable{
 		}
 		
 		return map; 
+	}
+	
+	public Map<String, PersonName> getfullNameToPersonNameMap(){
+		Map<String, PersonName> fullNameToPersonNameMap = new HashMap<>();
+		
+		if (personNames.getOriginalName() != null){
+			fullNameToPersonNameMap.put(personNames.getOriginalName().getFullName(), personNames.getOriginalName());
+		}
+		
+		personNames.getAlternateNamesList()
+			.forEach(personName -> fullNameToPersonNameMap.put(personName.getFullName(), personName));
+		
+		return fullNameToPersonNameMap;
 	}
 	
 	public List<LocalDate> getDobs() {

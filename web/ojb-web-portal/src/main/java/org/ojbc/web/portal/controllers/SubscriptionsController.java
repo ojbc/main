@@ -50,6 +50,7 @@ import org.ojbc.util.xml.subscription.Unsubscription;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.SubscriptionInterface;
 import org.ojbc.web.model.person.query.DetailsRequest;
+import org.ojbc.web.model.person.search.PersonName;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.model.subscription.add.SubscriptionEndDateStrategy;
 import org.ojbc.web.model.subscription.add.SubscriptionStartDateStrategy;
@@ -103,7 +104,7 @@ import org.xml.sax.InputSource;
 @Controller
 @Profile({"subscriptions", "standalone"})
 @RequestMapping("/subscriptions/*")
-@SessionAttributes({"subscription", "userLogonInfo"})
+@SessionAttributes({"subscription", "userLogonInfo", "rapsheetData"})
 public class SubscriptionsController {
 		
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
@@ -369,9 +370,12 @@ public class SubscriptionsController {
 	@RequestMapping(value="sidLookup", method = RequestMethod.GET)
 	public @ResponseBody CriminalHistoryRapsheetData sidLookup(HttpServletRequest request, 
 			@RequestParam("identificationID") String sid,
-			@ModelAttribute("subscription") Subscription subscription) throws Exception {
+			@ModelAttribute("subscription") Subscription subscription,
+			Model model) throws Exception {
 		CriminalHistoryRapsheetData rapsheetData = getChRapsheetData(request, sid);
 		subscription.setFbiId(rapsheetData.getFbiId());
+		
+		model.addAttribute("rapsheetData", rapsheetData);
 		return rapsheetData;
 			
 	}
@@ -645,7 +649,8 @@ public class SubscriptionsController {
 	@RequestMapping(value="saveSubscription", method=RequestMethod.GET)
 	public  @ResponseBody String  saveSubscription(HttpServletRequest request,
 			@ModelAttribute("subscription") Subscription subscription,
-			BindingResult errors) {
+			BindingResult errors, 
+			Map<String, Object> model) {
 								
 		logger.info("\n\n\n * * * * inside saveSubscription() * * * * *\n\n: " + subscription + "\n\n\n");
 		
@@ -661,6 +666,8 @@ public class SubscriptionsController {
 		if(errorsList == null || errorsList.isEmpty()){		
 			
 			try {
+				
+				processSubscriptionName(subscription, model);
 				errorsList = processSubscribeOperation(subscription, samlElement);										
 				
 			} catch (Exception e) {
@@ -678,6 +685,16 @@ public class SubscriptionsController {
 		logger.info("\n\n Returning errors/warnings json:\n\n" + errorMsgsWarnMsgsJson);
 		
 		return errorMsgsWarnMsgsJson;
+	}
+
+	private void processSubscriptionName(Subscription subscription, Map<String, Object> model) {
+		if (RAPBACK_TOPIC_SUB_TYPE.equals(subscription.getTopic())) {
+			CriminalHistoryRapsheetData rapsheetData = (CriminalHistoryRapsheetData) model.get("rapsheetData"); 
+			
+			PersonName personName = rapsheetData.getfullNameToPersonNameMap().get(subscription.getFullName());
+			subscription.setFirstName(personName.getGivenName());
+			subscription.setLastName(personName.getSurName());
+		}
 	}		 
 	
 	List<String> getSubscriptionWarnings(Subscription subscription){
@@ -1022,19 +1039,16 @@ public class SubscriptionsController {
 				
 			}else if(RAPBACK_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
-				 CriminalHistoryRapsheetData chRapsheetData = getChRapsheetData(request, subscription.getStateId());
-				 model.put("rapsheetData", chRapsheetData);
-				 allNamesList = chRapsheetData.getAllNames();				 
-				 if(allNamesList == null || allNamesList.isEmpty()){
-					 model.put("initializationSucceeded", false);
-					 logger.error("Failed to lookup names for arrest subscription");
-				 }else{
-					 model.put("originalName", chRapsheetData.getPersonNames().getOriginalName());
-				 }
+				CriminalHistoryRapsheetData chRapsheetData = getChRapsheetData(request, subscription.getStateId());
+				model.put("rapsheetData", chRapsheetData);
+				if(chRapsheetData.getAllNames().isEmpty()){
+					model.put("initializationSucceeded", false);
+					logger.error("Failed to lookup names for arrest subscription");
+				}
 				 
-				 subscription.setFbiId(chRapsheetData.getFbiId());
+				subscription.setFbiId(chRapsheetData.getFbiId());
 
-				 initDatesForEditArrestForm(model);
+				initDatesForEditArrestForm(model);
 				 
 				UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
 				if (userLogonInfo.getLawEnforcementEmployerIndicator()) {
@@ -1051,9 +1065,9 @@ public class SubscriptionsController {
 					model.put("csDefaultEndDate", csDefaultEndDate);
 				}
 				 
-				 model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
+				model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
 				
-				 model.put("showCaseIdInput", showCaseIdInput);
+				model.put("showCaseIdInput", showCaseIdInput);
 				
 			}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
@@ -1406,6 +1420,9 @@ public class SubscriptionsController {
 		
 		if(errorsList == null || errorsList.isEmpty()){											
 			// get potential errors from processing subscribe operation
+			
+			//TODO this might not be needed if the subscription is populated with first name and last name when parsing the query results.
+			processSubscriptionName(subscription, model);
 			errorsList = processSubscribeOperation(subscription, samlElement);			
 		}
 						
@@ -1628,10 +1645,9 @@ public class SubscriptionsController {
 						
 		Node pNameNode = XmlUtils.xPathNodeSearch(rapSheetNode, "rap:Introduction/rap:RapSheetRequest/rap:RapSheetPerson/nc:PersonName");
 		
-		String personOrigFullName = getNameConcatinated(pNameNode);			
-		personOrigFullName = StringUtils.strip(personOrigFullName);
+		PersonName personOrigFullName = getPersonName(pNameNode);			
 		
-		if(StringUtils.isNotBlank(personOrigFullName)){			
+		if(personOrigFullName!= null){			
 			rSubscribedPersonNames.setOriginalName(personOrigFullName);			
 		}
 						
@@ -1641,10 +1657,10 @@ public class SubscriptionsController {
 		for(int i=0; i < altNameNodeList.getLength(); i++){
 			
 			Node iAltNameNode = altNameNodeList.item(i);	
-			String fullNameContinated = getNameConcatinated(iAltNameNode);	
+			PersonName personName = getPersonName(iAltNameNode);	
 			
-			if(StringUtils.isNotBlank(fullNameContinated)){
-				rSubscribedPersonNames.getAlternateNamesList().add(fullNameContinated);
+			if(personName.isNotEmpty()){
+				rSubscribedPersonNames.getAlternateNamesList().add(personName);
 			}								
 		}		
 		return rSubscribedPersonNames;		
@@ -1652,29 +1668,16 @@ public class SubscriptionsController {
 	
 
 	
-	String getNameConcatinated(Node nameNode) throws Exception{
+	PersonName getPersonName(Node nameNode) throws Exception{
 		
-		String fullName = "";
 		
 		String fName = XmlUtils.xPathStringSearch(nameNode, "nc:PersonGivenName");
 		String mName = XmlUtils.xPathStringSearch(nameNode, "nc:PersonMiddleName");		
 		String lName = XmlUtils.xPathStringSearch(nameNode, "nc:PersonSurName");	
 								
-		if(StringUtils.isNotBlank(fName)){
-			fullName += fName.trim();
-		}
-						
-		if(StringUtils.isNotBlank(mName)){
-			fullName += " " + mName.trim();
-		}
+		PersonName personName = new PersonName(fName, mName, lName);
 		
-		if(StringUtils.isNotBlank(lName)){
-			fullName += " " + lName.trim();
-		}
-		
-		fullName = StringUtils.trim(fullName);
-		
-		return fullName;	
+		return personName;	
 	}
 	
 	

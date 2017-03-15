@@ -101,10 +101,12 @@ public class SubscriptionsControllerTest {
 						
 		SubscribedPersonNames subscribedPersonNames = subController.getAllPersonNamesFromRapsheet(rapSheetDoc);
 		
-		String originalName = subscribedPersonNames.getOriginalName();
+		String originalName = subscribedPersonNames.getOriginalName().getFullName();
 		Assert.assertEquals("Mary R Billiot", originalName);
 		
-		String[] aAlternateNames = subscribedPersonNames.getAlternateNamesList().toArray(new String[]{});		
+		String[] aAlternateNames = subscribedPersonNames.getAlternateNamesList()
+				.stream().map(personName -> personName.getFullName())
+				.toArray(size -> new String[size]);		
 		Assert.assertArrayEquals(aExpectedAlternateNames, aAlternateNames);							
 	}
 	
