@@ -666,11 +666,8 @@ public class SubscriptionsController {
 		if(errorsList == null || errorsList.isEmpty()){		
 			
 			try {
-				CriminalHistoryRapsheetData rapsheetData = (CriminalHistoryRapsheetData) model.get("rapsheetData"); 
 				
-				PersonName personName = rapsheetData.getfullNameToPersonNameMap().get(subscription.getFullName());
-				subscription.setFirstName(personName.getGivenName());
-				subscription.setLastName(personName.getSurName());
+				processSubscriptionName(subscription, model);
 				errorsList = processSubscribeOperation(subscription, samlElement);										
 				
 			} catch (Exception e) {
@@ -688,6 +685,16 @@ public class SubscriptionsController {
 		logger.info("\n\n Returning errors/warnings json:\n\n" + errorMsgsWarnMsgsJson);
 		
 		return errorMsgsWarnMsgsJson;
+	}
+
+	private void processSubscriptionName(Subscription subscription, Map<String, Object> model) {
+		if (RAPBACK_TOPIC_SUB_TYPE.equals(subscription.getTopic())) {
+			CriminalHistoryRapsheetData rapsheetData = (CriminalHistoryRapsheetData) model.get("rapsheetData"); 
+			
+			PersonName personName = rapsheetData.getfullNameToPersonNameMap().get(subscription.getFullName());
+			subscription.setFirstName(personName.getGivenName());
+			subscription.setLastName(personName.getSurName());
+		}
 	}		 
 	
 	List<String> getSubscriptionWarnings(Subscription subscription){
@@ -1032,19 +1039,16 @@ public class SubscriptionsController {
 				
 			}else if(RAPBACK_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
-				 CriminalHistoryRapsheetData chRapsheetData = getChRapsheetData(request, subscription.getStateId());
-				 model.put("rapsheetData", chRapsheetData);
-				 allNamesList = chRapsheetData.getAllNames();				 
-				 if(allNamesList == null || allNamesList.isEmpty()){
-					 model.put("initializationSucceeded", false);
-					 logger.error("Failed to lookup names for arrest subscription");
-				 }else{
-					 model.put("originalName", chRapsheetData.getPersonNames().getOriginalName());
-				 }
+				CriminalHistoryRapsheetData chRapsheetData = getChRapsheetData(request, subscription.getStateId());
+				model.put("rapsheetData", chRapsheetData);
+				if(chRapsheetData.getAllNames().isEmpty()){
+					model.put("initializationSucceeded", false);
+					logger.error("Failed to lookup names for arrest subscription");
+				}
 				 
-				 subscription.setFbiId(chRapsheetData.getFbiId());
+				subscription.setFbiId(chRapsheetData.getFbiId());
 
-				 initDatesForEditArrestForm(model);
+				initDatesForEditArrestForm(model);
 				 
 				UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
 				if (userLogonInfo.getLawEnforcementEmployerIndicator()) {
@@ -1061,9 +1065,9 @@ public class SubscriptionsController {
 					model.put("csDefaultEndDate", csDefaultEndDate);
 				}
 				 
-				 model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
+				model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
 				
-				 model.put("showCaseIdInput", showCaseIdInput);
+				model.put("showCaseIdInput", showCaseIdInput);
 				
 			}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
@@ -1416,6 +1420,9 @@ public class SubscriptionsController {
 		
 		if(errorsList == null || errorsList.isEmpty()){											
 			// get potential errors from processing subscribe operation
+			
+			//TODO this might not be needed if the subscription is populated with first name and last name when parsing the query results.
+			processSubscriptionName(subscription, model);
 			errorsList = processSubscribeOperation(subscription, samlElement);			
 		}
 						
