@@ -109,8 +109,8 @@ public class SubscriptionsController {
 		
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
 	public static final String RAPBACK_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/rapback";
-	public static final String ARREST_TOPIC_SUB_TYPE_CI = "{http://ojbc.org/wsn/topics}:person/arrest-ci";
-	public static final String ARREST_TOPIC_SUB_TYPE_CS = "{http://ojbc.org/wsn/topics}:person/arrest-cs";
+	public static final String RAPBACK_TOPIC_SUB_TYPE_CI = "{http://ojbc.org/wsn/topics}:person/rapback/ci";
+	public static final String RAPBACK_TOPIC_SUB_TYPE_CS = "{http://ojbc.org/wsn/topics}:person/rapback/cs";
 	
 	public static final String INCIDENT_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/incident";	
 	
@@ -168,6 +168,12 @@ public class SubscriptionsController {
 	//TODO see if edit validator needs injection also
 	@Value("#{getObject('arrestSubscriptionAddValidator')}")
 	ArrestSubscriptionValidatorInterface arrestSubscriptionAddValidator;
+	
+	@Resource (name="${rapbackSubscriptionAddValidatorProcessorBean:rapbackSubscriptionAddStrictValidator}")
+	ArrestSubscriptionValidatorInterface rapbackSubscriptionAddValidator;
+	
+	@Resource (name="${rapbackSubscriptionEditValidatorProcessorBean:rapbackSubscriptionEditStrictValidator}")
+	ArrestSubscriptionValidatorInterface rapbackSubscriptionEditValidator;
 	
 	@Resource
 	ArrestSubscriptionValidatorInterface arrestSubscriptionEditValidator;
@@ -415,11 +421,11 @@ public class SubscriptionsController {
 		logger.info("inside arrestForm()");		
 				
 		Subscription subscription = new Subscription();
-		
-		initDatesForAddArrestForm(subscription, model);
+		initDatesForAddForm(subscription, model, ARREST_TOPIC_SUB_TYPE);
 				
 		// pre-populate an email field on the form w/email from saml token
-		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
+		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
+		String sEmail = userLogonInfo.getEmailAddress();
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
 		}
@@ -431,10 +437,6 @@ public class SubscriptionsController {
 							
 		model.put("subscription", subscription);
 		
-		model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
-		
-		model.put("showCaseIdInput", showCaseIdInput);
-		 				
 		return "subscriptions/addSubscriptionDialog/_arrestForm";
 	}
 	
@@ -444,7 +446,7 @@ public class SubscriptionsController {
 			Map<String, Object> model) throws Exception{
 		
 		logger.info("inside getRapbackForm()");		
-		initDatesForAddArrestForm(subscription, model);
+		initDatesForAddRapbackForm(subscription, model);
 		
 		// pre-populate an email field on the form w/email from saml token
 		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
@@ -473,23 +475,20 @@ public class SubscriptionsController {
 	 * pre-populate the subscription start date as a convenience to the user
 	 * this will be displayed on the modal
 	 */
-	private void initDatesForAddArrestForm(Subscription subscription, Map<String, Object> model){
+	private void initDatesForAddRapbackForm(Subscription subscription, Map<String, Object> model){
 				
-		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE);		
-		Date defaultSubStartDate = startDateStrategy.getDefaultValue();
-		
-		boolean isStartDateEditable = startDateStrategy.isEditable();
+		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(RAPBACK_TOPIC_SUB_TYPE);		
 				
-		subscription.setSubscriptionStartDate(defaultSubStartDate);
+		subscription.setSubscriptionStartDate(startDateStrategy.getDefaultValue());
 		
-		model.put("isStartDateEditable", isStartDateEditable);
+		model.put("isStartDateEditable", startDateStrategy.isEditable());
 		
 		
 		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
 		
-		SubscriptionEndDateStrategy csEndDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE_CS);
+		SubscriptionEndDateStrategy csEndDateStrategy = subscriptionEndDateStrategyMap.get(RAPBACK_TOPIC_SUB_TYPE_CS);
 		if (userLogonInfo.getLawEnforcementEmployerIndicator()){
-			SubscriptionEndDateStrategy ciEndDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE_CI);
+			SubscriptionEndDateStrategy ciEndDateStrategy = subscriptionEndDateStrategyMap.get(RAPBACK_TOPIC_SUB_TYPE_CI);
 			subscription.setSubscriptionEndDate(ciEndDateStrategy.getDefaultValue());
 			model.put("isEndDateEditable", ciEndDateStrategy.isEditable());
 			
@@ -503,84 +502,27 @@ public class SubscriptionsController {
 	}
 	
 	
-	private void initDatesForEditArrestForm(Map<String, Object> model){
+	private void initDatesForEditForm(Map<String, Object> model, String topic){
 		
-		SubscriptionStartDateStrategy arrestEditSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE);
+		SubscriptionStartDateStrategy editSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(topic);
 		
-		boolean isStartDateEditable = arrestEditSubStartDateStrategy.isEditable();
-		
-		model.put("isStartDateEditable", isStartDateEditable);
+		model.put("isStartDateEditable", editSubStartDateStrategy.isEditable());
 	}
 	
 	
-	private void initDatesForAddIncidentForm(Subscription subscription, Map<String, Object> model){
+	private void initDatesForAddForm(Subscription subscription, Map<String, Object> model, String topic){
 		
 		// START date
-		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);		
-		Date defaultStartDate = startDateStrategy.getDefaultValue();
-		
-		boolean isStartDateEditable = startDateStrategy.isEditable();
-		
-		subscription.setSubscriptionStartDate(defaultStartDate);
-				
-		model.put("isStartDateEditable", isStartDateEditable);		
-		
+		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(topic);		
+		subscription.setSubscriptionStartDate(startDateStrategy.getDefaultValue());
+		model.put("isStartDateEditable", startDateStrategy.isEditable());		
 		
 		//END date		
-		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);
-		Date defaultEndDate = endDateStrategy.getDefaultValue();
-		
-		boolean isEndDateEditable = endDateStrategy.isEditable();
-		
-		subscription.setSubscriptionEndDate(defaultEndDate);
-	
-		model.put("isEndDateEditable", isEndDateEditable);				
-	}
-
-	private void initDatesForEditIncidentForm(Map<String, Object> model){
-		
-		SubscriptionStartDateStrategy editIncidentSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(INCIDENT_TOPIC_SUB_TYPE);
-		
-		boolean isStartDateEditable = editIncidentSubStartDateStrategy.isEditable();
-		
-		model.put("isStartDateEditable", isStartDateEditable);		
+		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(topic);
+		subscription.setSubscriptionEndDate(endDateStrategy.getDefaultValue());
+		model.put("isEndDateEditable", endDateStrategy.isEditable());				
 	}
 	
-	
-
-	private void initDatesForAddChCycleForm(Subscription subscription, Map<String, Object> model){
-		
-		// START date
-		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(CHCYCLE_TOPIC_SUB_TYPE);		
-		Date defaultStartDate = startDateStrategy.getDefaultValue();
-		
-		boolean isStartDateEditable = startDateStrategy.isEditable();
-		
-		subscription.setSubscriptionStartDate(defaultStartDate);
-				
-		model.put("isStartDateEditable", isStartDateEditable);		
-		
-		
-		//END date		
-		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(CHCYCLE_TOPIC_SUB_TYPE);
-		Date defaultEndDate = endDateStrategy.getDefaultValue();
-		
-		boolean isEndDateEditable = endDateStrategy.isEditable();
-		
-		subscription.setSubscriptionEndDate(defaultEndDate);
-	
-		model.put("isEndDateEditable", isEndDateEditable);				
-	}
-	
-	private void initDatesForEditChCycleForm(Map<String, Object> model){
-		
-		SubscriptionStartDateStrategy editIncidentSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(CHCYCLE_TOPIC_SUB_TYPE);
-		
-		boolean isStartDateEditable = editIncidentSubStartDateStrategy.isEditable();
-		
-		model.put("isStartDateEditable", isStartDateEditable);		
-	}
-
 	@RequestMapping(value="incidentForm", method=RequestMethod.POST)
 	public String getIncidentForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
@@ -589,7 +531,7 @@ public class SubscriptionsController {
 		
 		Subscription subscription = new Subscription();
 				
-		initDatesForAddIncidentForm(subscription, model);
+		initDatesForAddForm(subscription, model, INCIDENT_TOPIC_SUB_TYPE);
 		
 		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
 		
@@ -610,7 +552,7 @@ public class SubscriptionsController {
 		
 		Subscription subscription = new Subscription();
 				
-		initDatesForAddChCycleForm(subscription, model);
+		initDatesForAddForm(subscription, model, CHCYCLE_TOPIC_SUB_TYPE);
 		
 		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
 		
@@ -628,8 +570,10 @@ public class SubscriptionsController {
 		logger.info("subscription: \n" + subscription);
 		switch (subscription.getTopic()){
 		case ARREST_TOPIC_SUB_TYPE:
-		case RAPBACK_TOPIC_SUB_TYPE:
 			arrestSubscriptionAddValidator.validate(subscription, errors);
+			break;
+		case RAPBACK_TOPIC_SUB_TYPE:
+			rapbackSubscriptionAddValidator.validate(subscription, errors);
 			break; 
 		case INCIDENT_TOPIC_SUB_TYPE:
 			incidentSubscriptionAddValidator.validate(subscription, errors);
@@ -999,69 +943,31 @@ public class SubscriptionsController {
 			Document subQueryResponseDoc = runSubscriptionQueryForEditModal(identificationID, request);
 			
 			Subscription subscription = parseSubscriptionQueryResults(subQueryResponseDoc);				
-						
-			List<String> allNamesList = null;	
 			
 			if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
-				 CriminalHistoryRapsheetData chRapsheetData = getChRapsheetData(request, subscription.getStateId());
-
-				 allNamesList = chRapsheetData.getAllNames();				 
-				 if(allNamesList == null || allNamesList.isEmpty()){
-					 model.put("initializationSucceeded", false);
-					 logger.error("Failed to lookup names for arrest subscription");
-				 }else{
-					 model.put("originalName", chRapsheetData.getPersonNames().getOriginalName());
-				 }
+				initDatesForEditForm(model, ARREST_TOPIC_SUB_TYPE);
 				 
-				 subscription.setFbiId(chRapsheetData.getFbiId());
-
-				 initDatesForEditArrestForm(model);
-				 
-				UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
-				if (userLogonInfo.getLawEnforcementEmployerIndicator()) {
-
-					SubscriptionEndDateStrategy ciEndDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE_CI);
-					Date ciDefaultEndDate = OJBCDateUtils.getEndDate(subscription.getSubscriptionStartDate(),
-							ciEndDateStrategy.getPeriod());
-					model.put("ciDefaultEndDate", ciDefaultEndDate);
-					
-					SubscriptionEndDateStrategy csEndDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE_CS);
-					Date csDefaultEndDate = OJBCDateUtils.getEndDate(subscription.getSubscriptionStartDate(),
-							csEndDateStrategy.getPeriod());
-					model.put("ciDefaultEndDate", ciDefaultEndDate);
-					model.put("csDefaultEndDate", csDefaultEndDate);
-				}
-				 
-				 model.put("showSubscriptionPurposeDropDown", showSubscriptionPurposeDropDown);
-				
-				 model.put("showCaseIdInput", showCaseIdInput);
+				SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(RAPBACK_TOPIC_SUB_TYPE_CI);
+				Date defaultEndDate = OJBCDateUtils.getEndDate(subscription.getSubscriptionStartDate(),
+						endDateStrategy.getPeriod());
+				model.put("defaultEndDate", defaultEndDate);
 				
 			}else if(RAPBACK_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
-				CriminalHistoryRapsheetData chRapsheetData = getChRapsheetData(request, subscription.getStateId());
-				model.put("rapsheetData", chRapsheetData);
-				if(chRapsheetData.getAllNames().isEmpty()){
-					model.put("initializationSucceeded", false);
-					logger.error("Failed to lookup names for arrest subscription");
-				}
-				 
-				subscription.setFbiId(chRapsheetData.getFbiId());
-
-				initDatesForEditArrestForm(model);
+				initDatesForEditForm(model, RAPBACK_TOPIC_SUB_TYPE);
 				 
 				UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
 				if (userLogonInfo.getLawEnforcementEmployerIndicator()) {
 
-					SubscriptionEndDateStrategy ciEndDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE_CI);
+					SubscriptionEndDateStrategy ciEndDateStrategy = subscriptionEndDateStrategyMap.get(RAPBACK_TOPIC_SUB_TYPE_CI);
 					Date ciDefaultEndDate = OJBCDateUtils.getEndDate(subscription.getSubscriptionStartDate(),
 							ciEndDateStrategy.getPeriod());
 					model.put("ciDefaultEndDate", ciDefaultEndDate);
 					
-					SubscriptionEndDateStrategy csEndDateStrategy = subscriptionEndDateStrategyMap.get(ARREST_TOPIC_SUB_TYPE_CS);
+					SubscriptionEndDateStrategy csEndDateStrategy = subscriptionEndDateStrategyMap.get(RAPBACK_TOPIC_SUB_TYPE_CS);
 					Date csDefaultEndDate = OJBCDateUtils.getEndDate(subscription.getSubscriptionStartDate(),
 							csEndDateStrategy.getPeriod());
-					model.put("ciDefaultEndDate", ciDefaultEndDate);
 					model.put("csDefaultEndDate", csDefaultEndDate);
 				}
 				 
@@ -1071,11 +977,11 @@ public class SubscriptionsController {
 				
 			}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
-				initDatesForEditIncidentForm(model);
+				initDatesForEditForm(model, INCIDENT_TOPIC_SUB_TYPE);
 			
 			}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
-				initDatesForEditChCycleForm(model);
+				initDatesForEditForm(model, CHCYCLE_TOPIC_SUB_TYPE);
 			}
 											
 			logger.info("Subscription Edit Request: " + subscription);
@@ -1421,8 +1327,6 @@ public class SubscriptionsController {
 		if(errorsList == null || errorsList.isEmpty()){											
 			// get potential errors from processing subscribe operation
 			
-			//TODO this might not be needed if the subscription is populated with first name and last name when parsing the query results.
-			processSubscriptionName(subscription, model);
 			errorsList = processSubscribeOperation(subscription, samlElement);			
 		}
 						
@@ -1444,6 +1348,10 @@ public class SubscriptionsController {
 			
 			arrestSubscriptionEditValidator.validate(subscription, errorsBindingResult);
 			
+		}else if(RAPBACK_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
+			
+			rapbackSubscriptionEditValidator.validate(subscription, errorsBindingResult);
+		
 		}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 			
 			incidentSubscriptionEditValidator.validate(subscription, errorsBindingResult);

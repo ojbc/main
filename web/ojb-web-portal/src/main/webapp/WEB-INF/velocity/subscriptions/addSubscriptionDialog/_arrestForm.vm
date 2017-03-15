@@ -45,8 +45,6 @@
 										}																														
 									});	  							  						
 									
-									$("#fbiIdDiv").html('FBI ID: ' + data.FormattedFbiId);
-																				  						
 		  						}else{
 		  							alert('Unable to process requested SID');
 		  						}
@@ -81,33 +79,13 @@
     	       buttonImageOnly: true,
     	    });	        	        	     	      	    
     	        
-    	    $("#subscriptionForm").on("change", "#subscriptionPurpose", function(){
-    	    	if ($("#subscriptionPurpose").val()==="CI"){
-    	    		$("#subscriptionEndDate").val($("#ciDefaultEndDate").val());
-    	    	}
-    	    	else if ($("#subscriptionPurpose").val()==="CS"){
-    	    		$("#subscriptionEndDate").val($("#csDefaultEndDate").val());
-    	    	}
-    	    });    	        	    			       			       				    	  
 	  });
 	  	  
 </script>
 
-<div> 
-	<span class="subscriptionHint">ORI: $userLogonInfo.employerOri</span> 
-</div>				
-				
-#if($showSubscriptionPurposeDropDown)
-	<div>
-		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)		
-	</div>
-#end	
-			
 <div>
 	#springFormInput("subscription.stateId" "style='width:140px;' placeholder='SID Number'")
 	<a id="idLookupLink" class="grayButton" href="#"><span id="idLookupImg"></span></a>
-	
-	<span id="fbiIdDiv" class="subscriptionHint"/>
 </div>			
 
 <div>	
@@ -157,12 +135,6 @@
 <div>
 	#springFormInput("subscription.emailList[2]" "placeholder='Email Address 3'")
 </div>
-
-#if($showCaseIdInput)
-	<div>
-		#springFormInput("subscription.caseId" "placeholder='Case Id' maxlength='20'" )
-	</div>
-#end
 
 <input type="hidden" id="csDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)'/>
 <input type="hidden" id="ciDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $ciDefaultEndDate)'/>

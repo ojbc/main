@@ -68,12 +68,6 @@ public class ArrestSubscriptionAddValidatorTest {
 								
 		String emailListError = fieldToErrorMap.get("emailList");
 		assertEquals("Email Address must be specified", emailListError);		
-				
-		String purposeError = fieldToErrorMap.get("subscriptionPurpose");
-		assertEquals("Purpose must be specified", purposeError);
-		
-		String caseIdError = fieldToErrorMap.get("caseId");
-		assertEquals("Case Id must be specified", caseIdError);
 	}
 		
 	

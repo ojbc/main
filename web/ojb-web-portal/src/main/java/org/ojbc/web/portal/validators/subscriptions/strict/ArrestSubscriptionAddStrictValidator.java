@@ -89,18 +89,6 @@ public class ArrestSubscriptionAddStrictValidator extends AbstractArrestSubscrip
 		
 		validateArrestSubEndDate(subscription, fieldToErrorMap);
 	
-		if (showSubscriptionPurposeDropDown) {
-			if(StringUtils.isBlank(subscription.getSubscriptionPurpose())){
-				fieldToErrorMap.put("subscriptionPurpose", "Purpose must be specified");
-			}
-		}
-		
-		if (showCaseIdInput) {
-			if(StringUtils.isBlank(subscription.getCaseId())){
-				fieldToErrorMap.put("caseId", "Case Id must be specified");
-			}
-		}
-				
 		boolean hasEmail = false;
 		
 		for(String iEmail : subscription.getEmailList()){

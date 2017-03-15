@@ -24,28 +24,28 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.subscription.Subscription;
-import org.ojbc.web.portal.validators.subscriptions.AbstractArrestSubscriptionValidator;
+import org.ojbc.web.portal.validators.subscriptions.AbstractRapbackSubscriptionValidator;
 import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 @Service
-public class ArrestSubscriptionAddLenientValidator extends AbstractArrestSubscriptionValidator 
-	implements ArrestSubscriptionValidatorInterface {
+public class RapbackSubscriptionEditLenientValidator extends AbstractRapbackSubscriptionValidator 
+	implements ArrestSubscriptionValidatorInterface{
 	
-	private final Log logger = LogFactory.getLog(this.getClass());	
+	private final Log logger = LogFactory.getLog(this.getClass());
 	
 	public void validate(Subscription subscription, BindingResult errors){
-						
-		logger.info("* * * inside validate()");		
 		
+		logger.info("* * * inside validate()");
+						
 		if(subscription == null){
 			return;
 		}
 				
 		Map<String, String> fieldToErrorMap = getValidationErrorsList(subscription);
 		
-		if(fieldToErrorMap ==  null){
+		if(fieldToErrorMap == null){			
 			return;
 		}
 		
@@ -58,22 +58,22 @@ public class ArrestSubscriptionAddLenientValidator extends AbstractArrestSubscri
 					
 	}
 	
-	
+			
 	public Map<String, String> getValidationErrorsList(Subscription subscription){
-		
+						
 		if(subscription == null){
 			return null;
 		}
 		
-		Map<String, String> fieldToErrorMap = new HashMap<String, String>();		
-						
+		Map<String, String> fieldToErrorMap = new HashMap<String, String>();
+				
 		String topic = subscription.getTopic(); 		
 		if(StringUtils.isBlank(topic)){			
-			fieldToErrorMap.put("subscriptionType", "Subscription type must be specified");			
+			fieldToErrorMap.put("subscriptionType", "Subscription type must be specified");
 		}
 				
 		String sid = subscription.getStateId();		
-		if(StringUtils.isBlank(sid)){			
+		if(StringUtils.isBlank(sid)){
 			fieldToErrorMap.put("stateId", "SID must be specified");
 		}
 		
@@ -86,9 +86,27 @@ public class ArrestSubscriptionAddLenientValidator extends AbstractArrestSubscri
 		if(subStartDate == null){
 			fieldToErrorMap.put("subscriptionStartDate", "Start date must be specified");
 		}
-		
+
 		validateArrestSubEndDate(subscription, fieldToErrorMap);
-	
+		
+		if (fbiIdWarning) {
+			if(StringUtils.isBlank(subscription.getFbiId())){
+				fieldToErrorMap.put("fbiId", "Criminal History is missing the FBI ID for this Person");
+			}
+		}
+		
+		if (showSubscriptionPurposeDropDown) {
+			if(StringUtils.isBlank(subscription.getSubscriptionPurpose())){
+				fieldToErrorMap.put("subscriptionPurpose", "Purpose must be specified");
+			}
+		}
+		
+		if (showCaseIdInput) {
+			if(StringUtils.isBlank(subscription.getCaseId())){
+				fieldToErrorMap.put("caseId", "Case Id must be specified");
+			}
+		}
+		
 		boolean hasEmail = false;
 		
 		for(String iEmail : subscription.getEmailList()){
@@ -99,11 +117,10 @@ public class ArrestSubscriptionAddLenientValidator extends AbstractArrestSubscri
 		
 		if(!hasEmail){
 			fieldToErrorMap.put("emailList", "Email Address must be specified");
-		}			
+		}
 		
-		return fieldToErrorMap;
+		return fieldToErrorMap;						
 	}
-
+	
 }
-
 

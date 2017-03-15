@@ -21,12 +21,23 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.web.model.subscription.add.SubscriptionEndDateStrategy;
 import org.ojbc.web.portal.controllers.SubscriptionsController;
+import org.springframework.beans.factory.annotation.Value;
 
-public class AbstractArrestSubscriptionValidator{
+public class AbstractRapbackSubscriptionValidator{
+	
+	@Value("${showSubscriptionPurposeDropDown:false}")
+	protected Boolean showSubscriptionPurposeDropDown;
+	
+	@Value("${showCaseIdInput:false}")
+	protected Boolean showCaseIdInput;
+	
+	@Value("${fbiIdWarning:false}")
+	protected Boolean fbiIdWarning;
 	
 	@Resource
 	Map<String, SubscriptionEndDateStrategy> subscriptionEndDateStrategyMap;
@@ -42,7 +53,18 @@ public class AbstractArrestSubscriptionValidator{
 				fieldToErrorMap.put("subscriptionEndDate", "End date may not occur before start date");
 			}
 			else {
-				SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.ARREST_TOPIC_SUB_TYPE);
+				SubscriptionEndDateStrategy endDateStrategy = null;
+				switch(StringUtils.trimToEmpty(subscription.getSubscriptionPurpose())){
+				case "CS": 
+					endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.RAPBACK_TOPIC_SUB_TYPE_CS);
+					break; 
+				case "CI": 
+					endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.RAPBACK_TOPIC_SUB_TYPE_CI);
+					break;
+				default: 
+					endDateStrategy = subscriptionEndDateStrategyMap.get(SubscriptionsController.ARREST_TOPIC_SUB_TYPE);
+				}
+				
 				Date defaultEndDate = OJBCDateUtils.getEndDate(subStartDate,
 						endDateStrategy.getPeriod());
 

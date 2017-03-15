@@ -70,8 +70,6 @@ public class Subscription implements Serializable {
 	
 	private List<String> federalTriggeringEventCode;
 	
-	private String subscriberOri; 
-	
 	public String getStateId() {
 		return stateId;
 	}
@@ -223,13 +221,5 @@ public class Subscription implements Serializable {
 	 public String toString() {
 	  return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE); 
 	 }
-
-	public String getSubscriberOri() {
-		return subscriberOri;
-	}
-
-	public void setSubscriberOri(String subscriberOri) {
-		this.subscriberOri = subscriberOri;
-	}
 
 }
