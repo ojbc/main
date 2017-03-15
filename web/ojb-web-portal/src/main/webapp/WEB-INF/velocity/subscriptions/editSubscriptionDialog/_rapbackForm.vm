@@ -89,7 +89,7 @@
 <div>
 	#springFormInput("subscription.stateId" "style='width:140px;' readonly='readonly'")
 	
-	<span id="fbiIdDiv" class="subscriptionHint">FBI ID: $subscription.fbiId</span>
+	<span id="fbiIdDiv" class="subscriptionHint">FBI ID: $!subscription.fbiId</span>
 </div>
 
 <div>	

@@ -16,7 +16,6 @@
  */
 package org.ojbc.web.portal.validators.subscriptions.lenient;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +26,6 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.web.portal.validators.subscriptions.AbstractArrestSubscriptionValidator;
 import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -90,24 +88,6 @@ public class ArrestSubscriptionEditLenientValidator extends AbstractArrestSubscr
 		}
 
 		validateArrestSubEndDate(subscription, fieldToErrorMap);
-		
-		if (fbiIdWarning) {
-			if(StringUtils.isBlank(subscription.getFbiId())){
-				fieldToErrorMap.put("fbiId", "Criminal History is missing the FBI ID for this Person");
-			}
-		}
-		
-		if (showSubscriptionPurposeDropDown) {
-			if(StringUtils.isBlank(subscription.getSubscriptionPurpose())){
-				fieldToErrorMap.put("subscriptionPurpose", "Purpose must be specified");
-			}
-		}
-		
-		if (showCaseIdInput) {
-			if(StringUtils.isBlank(subscription.getCaseId())){
-				fieldToErrorMap.put("caseId", "Case Id must be specified");
-			}
-		}
 		
 		boolean hasEmail = false;
 		

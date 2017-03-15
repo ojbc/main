@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.web.portal.validators.subscriptions.lenient;
+package org.ojbc.web.portal.validators.subscriptions.strict;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -24,14 +24,14 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.subscription.Subscription;
-import org.ojbc.web.portal.validators.subscriptions.AbstractArrestSubscriptionValidator;
+import org.ojbc.web.portal.validators.subscriptions.AbstractRapbackSubscriptionValidator;
 import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
-@Service
-public class ArrestSubscriptionAddLenientValidator extends AbstractArrestSubscriptionValidator 
-	implements ArrestSubscriptionValidatorInterface {
+@Service("rapbackSubscriptionAddStrictValidator")
+public class RapbackSubscriptionAddStrictValidator extends AbstractRapbackSubscriptionValidator  
+	implements ArrestSubscriptionValidatorInterface{
 	
 	private final Log logger = LogFactory.getLog(this.getClass());	
 	
@@ -89,6 +89,18 @@ public class ArrestSubscriptionAddLenientValidator extends AbstractArrestSubscri
 		
 		validateArrestSubEndDate(subscription, fieldToErrorMap);
 	
+		if (showSubscriptionPurposeDropDown) {
+			if(StringUtils.isBlank(subscription.getSubscriptionPurpose())){
+				fieldToErrorMap.put("subscriptionPurpose", "Purpose must be specified");
+			}
+		}
+		
+		if (showCaseIdInput) {
+			if(StringUtils.isBlank(subscription.getCaseId())){
+				fieldToErrorMap.put("caseId", "Case Id must be specified");
+			}
+		}
+				
 		boolean hasEmail = false;
 		
 		for(String iEmail : subscription.getEmailList()){

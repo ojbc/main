@@ -61,6 +61,8 @@
 	<util:map id="subscriptionStartDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
 			value-ref="currentUneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback"
+			value-ref="currentUneditableStartDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
 			value-ref="currentEditableStartDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
@@ -72,9 +74,11 @@
 	</util:map>
 
 	<util:map id="subscriptionEndDateStrategyMap">
-		<entry key="{http://ojbc.org/wsn/topics}:person/arrest-ci"
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback/ci"
 			value-ref="oneYearEditableEndDateStrategy" />
-		<entry key="{http://ojbc.org/wsn/topics}:person/arrest-cs"
+		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
+			value-ref="oneYearEditableEndDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback/cs"
 			value-ref="fiveYearEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
 			value-ref="blankEditableEndDateStrategy" />
@@ -85,6 +89,8 @@
 
 	<util:map id="editSubscriptionStartDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
+			value-ref="uneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback"
 			value-ref="uneditableStartDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
 			value-ref="uneditableStartDateStrategy" />

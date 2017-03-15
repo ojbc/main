@@ -126,7 +126,7 @@ public class SubscriptionQueryResultsProcessor {
 		}
 		      
 		String sFullName = XmlUtils.xPathStringSearch(personNode, "nc:PersonName/nc:PersonFullName");
-		subscription.setFullName(sFullName.trim());
+		subscription.setFullName(sFullName);
 		
 		String sFirstName = XmlUtils.xPathStringSearch(personNode, "nc:PersonName/nc:PersonGivenName");
 		subscription.setFirstName(sFirstName);
@@ -137,10 +137,12 @@ public class SubscriptionQueryResultsProcessor {
 		String sid = XmlUtils.xPathStringSearch(personNode, 
 				"jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
 		
-		if (StringUtils.isNotBlank(sid))
-		{	
-			subscription.setStateId(sid.trim());
-		}	
+		subscription.setStateId(sid);
+		
+		String fbiId = XmlUtils.xPathStringSearch(personNode, 
+				"jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
+		
+		subscription.setFbiId(fbiId);
 	}
 	
 	
