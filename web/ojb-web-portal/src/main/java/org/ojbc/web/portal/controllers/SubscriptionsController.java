@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -75,16 +76,14 @@ import org.ojbc.web.portal.controllers.helpers.SubscriptionQueryResultsProcessor
 import org.ojbc.web.portal.controllers.helpers.UserSession;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
-import org.ojbc.web.portal.validators.ChCycleSubscriptionValidator;
-import org.ojbc.web.portal.validators.IncidentSubscriptionAddValidator;
-import org.ojbc.web.portal.validators.IncidentSubscriptionEditValidator;
-import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
+import org.ojbc.web.portal.validators.subscriptions.SubscriptionValidator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -165,27 +164,8 @@ public class SubscriptionsController {
 	@Resource
 	SamlService samlService;
 		
-	//TODO see if edit validator needs injection also
-	@Value("#{getObject('arrestSubscriptionAddValidator')}")
-	ArrestSubscriptionValidatorInterface arrestSubscriptionAddValidator;
-	
-	@Resource (name="${rapbackSubscriptionAddValidatorProcessorBean:rapbackSubscriptionAddStrictValidator}")
-	ArrestSubscriptionValidatorInterface rapbackSubscriptionAddValidator;
-	
-	@Resource (name="${rapbackSubscriptionEditValidatorProcessorBean:rapbackSubscriptionEditStrictValidator}")
-	ArrestSubscriptionValidatorInterface rapbackSubscriptionEditValidator;
-	
 	@Resource
-	ArrestSubscriptionValidatorInterface arrestSubscriptionEditValidator;
-	
-	@Resource
-	IncidentSubscriptionAddValidator incidentSubscriptionAddValidator;
-	
-	@Resource
-	ChCycleSubscriptionValidator chCycleSubscriptionValidator;
-	
-	@Resource
-	IncidentSubscriptionEditValidator incidentSubscriptionEditValidator;
+	SubscriptionValidator subscriptionValidator;
 	
 	@Resource
 	SearchResultConverter searchResultConverter;
@@ -379,8 +359,6 @@ public class SubscriptionsController {
 			@ModelAttribute("subscription") Subscription subscription,
 			Model model) throws Exception {
 		CriminalHistoryRapsheetData rapsheetData = getChRapsheetData(request, sid);
-		subscription.setFbiId(rapsheetData.getFbiId());
-		
 		model.addAttribute("rapsheetData", rapsheetData);
 		return rapsheetData;
 			
@@ -400,7 +378,7 @@ public class SubscriptionsController {
 			return sidLookupResult;
 		}
 		
-		return null;
+		return sidLookupResult;
 	}
 
 	private Document getRapsheetBySid(HttpServletRequest request, String sid) {
@@ -565,34 +543,13 @@ public class SubscriptionsController {
 		return "subscriptions/addSubscriptionDialog/_chCycleForm";
 	}		
 	
-	private void validateSubscription(Subscription subscription, BindingResult errors){
-				
-		logger.info("subscription: \n" + subscription);
-		switch (subscription.getTopic()){
-		case ARREST_TOPIC_SUB_TYPE:
-			arrestSubscriptionAddValidator.validate(subscription, errors);
-			break;
-		case RAPBACK_TOPIC_SUB_TYPE:
-			rapbackSubscriptionAddValidator.validate(subscription, errors);
-			break; 
-		case INCIDENT_TOPIC_SUB_TYPE:
-			incidentSubscriptionAddValidator.validate(subscription, errors);
-			break; 
-		case CHCYCLE_TOPIC_SUB_TYPE: 
-			chCycleSubscriptionValidator.validate(subscription, errors);
-			break; 
-			
-		}
-	}
-	
-	
 	/**
 	 * @return
 	 * 		json array string of errors if any.  These can be used by the UI to display to the user
 	 */
-	@RequestMapping(value="saveSubscription", method=RequestMethod.GET)
+	@RequestMapping(value="saveSubscription", method=RequestMethod.POST)
 	public  @ResponseBody String  saveSubscription(HttpServletRequest request,
-			@ModelAttribute("subscription") Subscription subscription,
+			@ModelAttribute("subscription") @Valid Subscription subscription,
 			BindingResult errors, 
 			Map<String, Object> model) {
 								
@@ -600,7 +557,7 @@ public class SubscriptionsController {
 		
 		Element samlElement = samlService.getSamlAssertion(request);
 										
-		validateSubscription(subscription, errors);										
+//		validateSubscription(subscription, errors);										
 		
 		// retrieve any spring mvc validation errors from the controller
 		List<String> errorsList = getValidationBindingErrorsList(errors);
@@ -1270,10 +1227,11 @@ public class SubscriptionsController {
 	}
 	
 
-	@InitBinder
+	@InitBinder("subscription")
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(DateTime.class, new DateTimePropertyEditor());
 		binder.registerCustomEditor(Date.class, new DateTimeJavaUtilPropertyEditor());
+		binder.addValidators(subscriptionValidator);
 	}
 	
 	@ModelAttribute("subscriptionTypeValueToLabelMap")
@@ -1310,10 +1268,10 @@ public class SubscriptionsController {
 
 	// note system id is used by the broker intermediary to recognize that this is 
 	// an edit.  The system id is not set for the add operation
-	@RequestMapping(value="updateSubscription", method=RequestMethod.GET)
+	@RequestMapping(value="updateSubscription", method=RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public @ResponseBody String updateSubscription(HttpServletRequest request,
-			@ModelAttribute("subscription") Subscription subscription,
+			@ModelAttribute("subscription") @Valid Subscription subscription,
 			BindingResult errors,
 			Map<String, Object> model) throws Exception{					
 		
@@ -1321,7 +1279,7 @@ public class SubscriptionsController {
 		Element samlElement = samlService.getSamlAssertion(request);		
 						
 		// get potential spring mvc controller validation errors from validating UI values
-		validateSubscriptionUpdate(subscription, errors);		
+//		validateSubscriptionUpdate(subscription, errors);		
 						
 		List<String> errorsList = getValidationBindingErrorsList(errors);
 		
@@ -1341,30 +1299,7 @@ public class SubscriptionsController {
 	}
 	
 	
-	private void validateSubscriptionUpdate(Subscription subscription, BindingResult errorsBindingResult){
-								
-		logger.info("sub Edit Request = \n" + subscription);
-		
-		if(ARREST_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-			
-			arrestSubscriptionEditValidator.validate(subscription, errorsBindingResult);
-			
-		}else if(RAPBACK_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-			
-			rapbackSubscriptionEditValidator.validate(subscription, errorsBindingResult);
-		
-		}else if(INCIDENT_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-			
-			incidentSubscriptionEditValidator.validate(subscription, errorsBindingResult);
-		
-		}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-			
-			chCycleSubscriptionValidator.validate(subscription, errorsBindingResult);
-		}
-	}
-	
-	
-	private List<String> getValidationBindingErrorsList(BindingResult errors){
+	private List<String> getValidationBindingErrorsList(Errors errors){
 		
 		List<String> errorMsgList = null;
 		

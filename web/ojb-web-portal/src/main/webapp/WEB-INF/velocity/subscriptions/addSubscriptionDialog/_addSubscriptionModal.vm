@@ -67,7 +67,7 @@
 	  		  
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;    		
 					
-  		$.get("#springUrl('/subscriptions/saveSubscription')", 
+  		$.post("#springUrl('/subscriptions/saveSubscription')", 
   			formData,
   			function(data){		
   				handleDisplayAfterSave(data);  														  						  						  				  			
@@ -83,7 +83,7 @@
 		
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal;    				
 		
-  		$.get("#springUrl('/subscriptions/saveSubscription')", 
+  		$.post("#springUrl('/subscriptions/saveSubscription')", 
   			formData,
   			function(data){		  					  		  			  	
 				handleDisplayAfterSave(data);  					  		  									  						  						  				  			
@@ -98,7 +98,7 @@
 		
 		var formData = $('#subscriptionForm').serialize();    				
 		
-  		$.get("#springUrl('/subscriptions/saveSubscription')", 
+  		$.post("#springUrl('/subscriptions/saveSubscription')", 
   			formData,
   			function(data){		  					  		  			  	
 				handleDisplayAfterSave(data);  					  		  									  						  						  				  			
@@ -148,7 +148,7 @@
 	  		  
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;    		
 					
-  		$.get("#springUrl('/subscriptions/saveSubscription')", 
+  		$.post("#springUrl('/subscriptions/saveSubscription')", 
   			formData,
   			function(data){		
   				handleDisplayAfterSave(data);														  						  						  				  			
@@ -177,6 +177,7 @@
 	  			
 		if(subTypeTxt === 'Arrest'){						
 			$(".ui-dialog").width("240");
+			$("#ori").remove();
 	  		$.post("#springUrl('/subscriptions/arrestForm')", 
 	  			function(data){		  			
 	  				$('#subModalDynamicContents').html(data);			  						  				  				
@@ -184,7 +185,7 @@
 	  		).fail(ojbc.displayFailMessage);				
 		}else if(subTypeTxt === 'Rapback'){						
 			$(".ui-dialog").width("480");
-			$("#topic").after('<span class="subscriptionHint">ORI: $userLogonInfo.employerOri</span>');
+			$("#topic").after('<span class="subscriptionHint" id="ori">ORI: $userLogonInfo.employerOri</span>');
 	  		$.post("#springUrl('/subscriptions/rapbackForm')", 
 	  			function(data){		  			
 	  				$('#subModalDynamicContents').html(data);			  						  				  				
@@ -193,6 +194,7 @@
 															
 		}else if(subTypeTxt === 'Incident'){		
 			$(".ui-dialog").width("240");
+			$("#ori").remove();
 	  		$.post("#springUrl('/subscriptions/incidentForm')", 
 	  			function(data){		  			
 	  				$('#subModalDynamicContents').html(data);			  						  				  				
@@ -201,6 +203,7 @@
 	  		
 	  	}else if(subTypeTxt === 'ATN Assignment'){
 			$(".ui-dialog").width("240");
+			$("#ori").remove();
 	  		$.post("#springUrl('/subscriptions/chCycleForm')", 
 	  			function(data){		  			
 	  				$('#subModalDynamicContents').html(data);			  						  				  				

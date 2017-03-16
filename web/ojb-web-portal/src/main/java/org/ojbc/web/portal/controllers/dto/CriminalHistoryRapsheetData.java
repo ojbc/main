@@ -65,12 +65,14 @@ public class CriminalHistoryRapsheetData implements Serializable{
 	public List<String> getAllNames(){
 		List<String> allNames = new ArrayList<>();
 		
-		if (personNames.getOriginalName() != null){
-			allNames.add(personNames.getOriginalName().getFullName());
+		if (personNames != null){
+			if (personNames.getOriginalName() != null){
+				allNames.add(personNames.getOriginalName().getFullName());
+			}
+			
+			personNames.getAlternateNamesList()
+				.forEach(item->allNames.add(item.getFullName()));
 		}
-		
-		personNames.getAlternateNamesList()
-			.forEach(item->allNames.add(item.getFullName()));
 		
 		return allNames; 
 	}
@@ -108,12 +110,15 @@ public class CriminalHistoryRapsheetData implements Serializable{
 	public Map<String, PersonName> getfullNameToPersonNameMap(){
 		Map<String, PersonName> fullNameToPersonNameMap = new HashMap<>();
 		
-		if (personNames.getOriginalName() != null){
-			fullNameToPersonNameMap.put(personNames.getOriginalName().getFullName(), personNames.getOriginalName());
+		if (personNames != null){
+			if (personNames.getOriginalName() != null){
+				fullNameToPersonNameMap.put(personNames.getOriginalName().getFullName(), personNames.getOriginalName());
+				
+			}
+			
+			personNames.getAlternateNamesList()
+				.forEach(personName -> fullNameToPersonNameMap.put(personName.getFullName(), personName));
 		}
-		
-		personNames.getAlternateNamesList()
-			.forEach(personName -> fullNameToPersonNameMap.put(personName.getFullName(), personName));
 		
 		return fullNameToPersonNameMap;
 	}
@@ -135,4 +140,5 @@ public class CriminalHistoryRapsheetData implements Serializable{
 				.map(item->item.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")))
 				.collect(Collectors.toList());
 	}
+	
 }

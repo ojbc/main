@@ -19,11 +19,11 @@ package org.ojbc.web.portal.validators.subscriptions;
 import java.util.Map;
 
 import org.ojbc.util.xml.subscription.Subscription;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 
 public interface ArrestSubscriptionValidatorInterface {
 	
-	public void validate(Subscription subscription, BindingResult errors);
+	public void validate(Subscription subscription, Errors errors);
 	
 	public Map<String, String> getValidationErrorsList(Subscription subscription);
 	

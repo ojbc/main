@@ -169,13 +169,13 @@
 			    			 
 			    			 vSubDialog.dialog({                    
 					                position: {
-			                           my: "center",
-			                           at: "center",
-			                           of: window
+			                           my: "left top",
+			                           at: "left top",
+			                           of: $("#searchContent")
 					                },
 					                modal:true,
-							        maxWidth:900,
-							        height:550,
+							        maxWidth:480,
+							        maxHeight:550,
 							        resizable:true,
 							        open:function(event,ui){							        							        	
 							        	$('#addSubscriptionDialog').html(data);

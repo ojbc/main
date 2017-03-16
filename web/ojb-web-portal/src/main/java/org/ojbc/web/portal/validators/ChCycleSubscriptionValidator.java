@@ -25,14 +25,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 
 @Service
 public class ChCycleSubscriptionValidator {
 	
 	private final Log logger = LogFactory.getLog(this.getClass());	
 	
-	public void validate(Subscription subscription, BindingResult errors){
+	public void validate(Subscription subscription, Errors errors){
 		
 		logger.info("* * * inside validate()");		
 		
@@ -64,11 +64,6 @@ public class ChCycleSubscriptionValidator {
 		
 		Map<String, String> fieldToErrorMap = new HashMap<String, String>();		
 						
-		String topic = subscription.getTopic(); 		
-		if(StringUtils.isBlank(topic)){			
-			fieldToErrorMap.put("subscriptionType", "Subscription type must be specified");			
-		}				
-		
 		String fName = subscription.getFirstName();
 		if(StringUtils.isBlank(fName)){
 			fieldToErrorMap.put("firstName", "First name must be specified");
