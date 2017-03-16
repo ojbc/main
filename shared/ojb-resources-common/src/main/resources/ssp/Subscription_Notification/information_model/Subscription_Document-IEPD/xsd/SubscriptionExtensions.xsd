@@ -46,7 +46,7 @@
 					<xsd:element ref="nc:DateRange" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:SubscriptionIdentification" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:TriggeringEvents"/>
+					<xsd:element ref="submsg-ext:TriggeringEvents" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:FederalRapSheetDisclosure" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
 					<xsd:element ref="submsg-ext:FingerprintDocumentRepresentation" minOccurs="0" maxOccurs="unbounded"/>
