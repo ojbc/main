@@ -45,10 +45,10 @@
 	<!-- OJB Federal Criminal History Update Reporting Service, hosted by this intermediary -->
 	<cxf:cxfEndpoint id="federalCriminalHistoryUpdateReportingService"
 		address="${federalCriminalHistoryUpdateReportingService.serviceEndpoint}"
-		wsdlURL="classpath:ssp/Case_Filing_Decision_Reporting/schema/RS_WS-SIP_v1.2/Case_Filing_Decision_Reporting_Service.wsdl"
-		serviceName="ojbc:Case-Filing-Decision-Reporting-ServiceService" 
-		endpointName="ojbc:Case-Filing-Decision-Reporting-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/CaseFilingDecisionReportingService/1.0">
+		wsdlURL="classpath:ssp/Federal_Criminal_History_Update_Reporting/schemas/RS_WS-SIP_v1.2/Federal_Criminal_History_Update_Reporting_Service.wsdl"
+		serviceName="ojbc:Federal-Criminal-History-Update-Reporting-ServiceService" 
+		endpointName="ojbc:Federal-Criminal-History-Update-Reporting-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/FederalCriminalHistoryUpdateReporting/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="federalCriminalHistoryUpdateReportingServiceKeystoreProperties" />
