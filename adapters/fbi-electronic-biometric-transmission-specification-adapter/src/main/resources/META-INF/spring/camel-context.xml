@@ -58,8 +58,8 @@
 			uri="cxf:bean:ngiResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
 		<!-- Change this to the Federal Criminal History Update Repository Service SSP -->
-		<endpoint id="arrestReportingServiceEndpoint" 
-			uri="cxf:bean:arrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+		<endpoint id="federalCriminalHistoryUpdateReportingServiceEndpoint" 
+			uri="cxf:bean:federalCriminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
 		<endpoint id="subscriptionReportingServiceEndpoint" 
 			uri="cxf:bean:subscriptionReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
@@ -162,9 +162,9 @@
 				
 		
 		<!-- 
-			Receives from FBI NGI - either Subscription Acknowledgments or arrest notifications  			 
+			Receives from FBI NGI - either Subscription Acknowledgments or FBI rapback notifications  			 
 			* Subscription Acknowledgments from FBI NGI, saves them to disk and sends back a synchronous VOID response message to FBI
-			* Arrest Notifications: transforms and sends to Arrest Intermediary			
+			* FBI Rapback Notifications: transforms and sends to Federal Criminal History Reporting Service			
 		-->
 		<camel:route id="ngiResponseServiceRoute">
 		
@@ -214,7 +214,7 @@
 		
 			<from uri="direct:processFederalRapbackNotification"/>
 			
-			<log message="\n\n\n processArrestNotification... \n\n\n" loggingLevel="INFO" />	
+			<log message="\n\n\n process federal rapback notification... \n\n\n" loggingLevel="INFO" />	
 						
 			<setHeader headerName="rapsheet">			
 				<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText/text()</xpath>			
@@ -228,12 +228,10 @@
 			
 			<log message="\n\n\n ran Federal_To_Arrest_Report_Transform.xsl.  Sending to Federal Criminal History Update Repository Service... \n\n" loggingLevel="INFO"/>
 			
-			<!-- Change this to the Federal Criminal History Update Repository Service SSP -->
+			<camel:setHeader headerName="operationName"><constant>ReportNewCriminalHistoryEvent</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/FederalCriminalHistoryUpdateReporting/1.0</constant></camel:setHeader>			
 			
-			<camel:setHeader headerName="operationName"><constant>ReportArrest</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ArrestReportingService/1.0</constant></camel:setHeader>			
-			
-			<to uri="arrestReportingServiceEndpoint" />
+			<to uri="federalCriminalHistoryUpdateReportingServiceEndpoint" />
 		</route>
 		
 				
