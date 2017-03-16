@@ -79,7 +79,7 @@
 		// serialize() generates get request string for springforminput html fields
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
 								    				    			    			    				
-  		$.get("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
   			function(data){	  						  						  			
 				handleDisplayAfterSave(data);						  				  				
@@ -101,7 +101,7 @@
 		// serialize() generates get request string for <springforminput> html fields
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
 								    				    			    			    				
-  		$.get("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
   			function(data){	
   				handleDisplayAfterSave(data);						  				  				
@@ -120,7 +120,7 @@
 		// serialize() generates get request string for <springforminput> html fields 
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal + "&stateId=" + stateIdVal + "&systemId=" + '${subscription.systemId}';    				
 		    								    					    				
-  		$.get("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
   			function(data){	  						  						  			
 				handleDisplayAfterSave(data);						  				  				
@@ -134,7 +134,7 @@
 		// serialize() generates get request string for <springforminput> html fields 
 		var formData = $('#subscriptionForm').serialize();    				
 		    								    					    				
-  		$.get("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
   			function(data){	  						  						  			
 				handleDisplayAfterSave(data);						  				  				

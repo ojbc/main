@@ -48,7 +48,7 @@
 								}																														
 							});	  							  						
 							
-							$("#fbiIdDiv").html('FBI ID: ' + data.formattedFbiId);
+							$("#fbiId").val(data.fbiId);
 							
 							if (data.dobStrings && Object.keys(data.dobStrings).length > 0){
 							
@@ -102,7 +102,7 @@
     	        
     $("#subscriptionForm").on("change", "#subscriptionPurpose", function(){
     	if ($("#subscriptionPurpose").val()==="CI"){
-    		$("#subscriptionEndDate").val('$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)');
+    		$("#subscriptionEndDate").val('$vmDateTool.format("MM/dd/yyyy", $ciDefaultEndDate)');
     		$('#federalRapSheetDisclosureIndicator').prop("onclick", null);
     	}
     	else if ($("#subscriptionPurpose").val()==="CS"){
@@ -165,7 +165,7 @@
 	#springFormInput("subscription.stateId" "style='width:140px;' placeholder='SID Number'")
 	<a id="idLookupLink" class="grayButton" href="#"><span id="idLookupImg"></span></a>
 	
-	<span id="fbiIdDiv" class="subscriptionHint"/>
+	#springFormInput("subscription.fbiId" "style='margin-left:12px;' readonly='readonly' placeholder='FBI ID'")
 </div>			
 
 <div>	

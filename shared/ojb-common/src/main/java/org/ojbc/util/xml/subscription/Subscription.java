@@ -217,6 +217,10 @@ public class Subscription implements Serializable {
 		this.federalTriggeringEventCode = federalTriggeringEventCode;
 	}
 	
+	public String getFormattedFbiId() {
+		return fbiId == null? "N/A" : fbiId;
+	}
+
 	@Override
 	 public String toString() {
 	  return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE); 

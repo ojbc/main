@@ -27,7 +27,7 @@ import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.web.portal.validators.subscriptions.AbstractArrestSubscriptionValidator;
 import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 
 @Service("arrestSubscriptionAddStrictValidator")
 public class ArrestSubscriptionAddStrictValidator extends AbstractArrestSubscriptionValidator  
@@ -35,7 +35,7 @@ public class ArrestSubscriptionAddStrictValidator extends AbstractArrestSubscrip
 	
 	private final Log logger = LogFactory.getLog(this.getClass());	
 	
-	public void validate(Subscription subscription, BindingResult errors){
+	public void validate(Subscription subscription, Errors errors){
 						
 		logger.info("* * * inside validate()");		
 		

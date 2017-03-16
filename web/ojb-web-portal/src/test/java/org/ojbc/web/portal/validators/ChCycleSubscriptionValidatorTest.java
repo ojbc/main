@@ -37,9 +37,6 @@ public class ChCycleSubscriptionValidatorTest {
 									
 		Map<String, String> fieldToErrorMap = validator.getValidationErrorsList(subscription);	
 				
-		String subTypeError = fieldToErrorMap.get("subscriptionType");		
-		assertEquals("Subscription type must be specified", subTypeError);
-						
 		String fNameError = fieldToErrorMap.get("firstName");
 		assertEquals("First name must be specified", fNameError);
 		

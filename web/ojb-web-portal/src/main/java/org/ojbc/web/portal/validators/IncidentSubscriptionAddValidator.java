@@ -23,7 +23,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 
 @Service
 public class IncidentSubscriptionAddValidator {
@@ -31,10 +31,10 @@ public class IncidentSubscriptionAddValidator {
 	private final Log logger = LogFactory.getLog(this.getClass());
 	
 	public void validate(Subscription subscription,
-			BindingResult errors){
+			Errors errors){
 				
 		logger.info("* * * inside validate()");		
-				
+
 		String topic = subscription.getTopic(); 		
 		if(StringUtils.isBlank(topic)){
 			errors.rejectValue("subscriptionType", "Subscription type must be specified");
