@@ -27,9 +27,6 @@
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FederalCriminalHistoryReport/1.0 ../xsd/FederalCriminalHistoryReport.xsd ">
 	<fchr-ext:TransactionDescriptiveRecord>
 		<fchr-ext:RecordCategoryCodeText>02</fchr-ext:RecordCategoryCodeText>
-		<!-- nc:DocumentCreationDate> <nc:DateTime>2001-12-31T12:00:00</nc:DateTime> 
-			</nc:DocumentCreationDate> <nc:DocumentFileControlID>nc:DocumentFileControlID</nc:DocumentFileControlID> 
-			<nc:DocumentSourceText>nc:DocumentSourceText</nc:DocumentSourceText -->
 		<fchr-ext:ImageReferenceIdentification>
 			<nc:IdentificationID>00</nc:IdentificationID>
 		</fchr-ext:ImageReferenceIdentification>
@@ -56,15 +53,7 @@
 				</fchr-ext:Base64BinaryObject>
 			</nc:DocumentBinary>
 		</fchr-ext:FederalCriminalHistoryRecordDocument>
-		<fchr-ext:RapBackNotificationEvent>
-			<nc:ActivityDate>
-				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
-			</nc:ActivityDate>
-			<fchr-ext:RapBackActivityNotificationIdentification>
-				<nc:IdentificationID>123456</nc:IdentificationID>
-			</fchr-ext:RapBackActivityNotificationIdentification>
-			<fchr-ext:RapBackAttentionText>DET J Q PUBLIC
-			</fchr-ext:RapBackAttentionText>
+		<fchr-ext:RapBackSubscription>
 			<fchr-ext:RapBackExpirationDate>
 				<nc:Date>2010-02-24</nc:Date>
 			</fchr-ext:RapBackExpirationDate>
@@ -79,10 +68,20 @@
 			<fchr-ext:RapBackTermDate>
 				<nc:Date>2015-01-01</nc:Date>
 			</fchr-ext:RapBackTermDate>
-			<fchr-ext:RapBackUserDefinedElementName>Element Name
-			</fchr-ext:RapBackUserDefinedElementName>
-			<fchr-ext:RapBackUserDefinedElementText>Element information
-			</fchr-ext:RapBackUserDefinedElementText>
+			<fchr-ext:SubscriptionQualifierIdentification>
+				<nc:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7
+				</nc:IdentificationID>
+			</fchr-ext:SubscriptionQualifierIdentification>
+		</fchr-ext:RapBackSubscription>
+		<fchr-ext:RapBackNotificationEvent>
+			<nc:ActivityDate>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</nc:ActivityDate>
+			<fchr-ext:RapBackActivityNotificationIdentification>
+				<nc:IdentificationID>123456</nc:IdentificationID>
+			</fchr-ext:RapBackActivityNotificationIdentification>
+			<fchr-ext:RapBackAttentionText>DET J Q PUBLIC
+			</fchr-ext:RapBackAttentionText>
 			<fchr-ext:RapBackEventDate>
 				<nc:Date>2013-03-29</nc:Date>
 			</fchr-ext:RapBackEventDate>
@@ -107,6 +106,9 @@
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>12345678</nc:IdentificationID>
 			</j:PersonFBIIdentification>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>A398118900</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
 	</nc:Person>
 </war-doc:FederalCriminalHistoryReport>
