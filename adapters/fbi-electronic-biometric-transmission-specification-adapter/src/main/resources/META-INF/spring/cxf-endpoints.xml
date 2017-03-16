@@ -77,13 +77,13 @@
     	xmlns:ngi="http://ws.cjis.gov/2014/08/01/ngi/services/risc">
     </cxf:cxfEndpoint>      
     
-    <!-- Change this to the Federal Criminal History Update Repository Service SSP -->
-	<cxf:cxfEndpoint id="arrestReportingService"
-		address="${fbiEbtsAdapter.arrestReportingServiceEndpoint}"
-		wsdlURL="classpath:ssp/Arrest_Reporting/schema/RS_WS-SIP_v1.2/Arrest_Reporting_Service.wsdl"
-		serviceName="ojbc:Arrest-Reporting-ServiceService"  
-		endpointName="ojbc:Arrest-Reporting-Service" 
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/ArrestReportingService/1.0">
+    <!-- Federal Criminal History Update Repository Service -->
+	<cxf:cxfEndpoint id="federalCriminalHistoryUpdateReportingService"
+		address="${fbiEbtsAdapter.federalCriminalHistoryUpdateReportingServiceEndpoint}"
+		wsdlURL="classpath:ssp/Federal_Criminal_History_Update_Reporting/schemas/RS_WS-SIP_v1.2/Federal_Criminal_History_Update_Reporting_Service.wsdl"
+		serviceName="ojbc:Federal-Criminal-History-Update-Reporting-ServiceService" 
+		endpointName="ojbc:Federal-Criminal-History-Update-Reporting-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/FederalCriminalHistoryUpdateReporting/1.0">
 		<cxf:properties>
 			<entry key="mtom-enabled" value="true" />
 			<entry key="dataFormat" value="PAYLOAD" />
