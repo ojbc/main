@@ -632,7 +632,8 @@ public class SubscriptionsController {
 	}
 
 	private void processSubscriptionName(Subscription subscription, Map<String, Object> model) {
-		if (RAPBACK_TOPIC_SUB_TYPE.equals(subscription.getTopic())) {
+		if (RAPBACK_TOPIC_SUB_TYPE.equals(subscription.getTopic()) 
+				|| ARREST_TOPIC_SUB_TYPE.equalsIgnoreCase(subscription.getTopic())) {
 			CriminalHistoryRapsheetData rapsheetData = (CriminalHistoryRapsheetData) model.get("rapsheetData"); 
 			
 			PersonName personName = rapsheetData.getfullNameToPersonNameMap().get(subscription.getFullName());
