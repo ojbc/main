@@ -557,8 +557,6 @@ public class SubscriptionsController {
 		
 		Element samlElement = samlService.getSamlAssertion(request);
 										
-//		validateSubscription(subscription, errors);										
-		
 		// retrieve any spring mvc validation errors from the controller
 		List<String> errorsList = getValidationBindingErrorsList(errors);
 						

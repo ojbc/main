@@ -17,10 +17,10 @@
 package org.ojbc.web.portal.validators.subscriptions;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,8 +28,6 @@ import org.ojbc.util.helper.OJBCDateUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.web.model.subscription.add.SubscriptionEndDateStrategy;
 import org.ojbc.web.portal.controllers.SubscriptionsController;
-import org.ojbc.web.portal.validators.ChCycleSubscriptionValidator;
-import org.ojbc.web.portal.validators.IncidentSubscriptionAddValidator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
@@ -47,18 +45,6 @@ public class SubscriptionValidator implements Validator{
 	@Value("${showCaseIdInput:false}")
 	protected Boolean showCaseIdInput;
 	
-	@Value("${fbiIdWarning:false}")
-	protected Boolean fbiIdWarning;
-	
-	@Value("#{getObject('arrestSubscriptionAddValidator')}")
-	ArrestSubscriptionValidatorInterface arrestSubscriptionAddValidator;
-	
-	@Resource
-	IncidentSubscriptionAddValidator incidentSubscriptionAddValidator;
-	
-	@Resource
-	ChCycleSubscriptionValidator chCycleSubscriptionValidator;
-	
 	@Value("#{getObject('subscriptionEndDateStrategyMap')}")
 	Map<String, SubscriptionEndDateStrategy> subscriptionEndDateStrategyMap;
 
@@ -75,36 +61,74 @@ public class SubscriptionValidator implements Validator{
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "topic", "Subscription type must be specified");
 		
-		switch (subscription.getTopic()){
+		switch (StringUtils.trimToEmpty(subscription.getTopic())){
 		case SubscriptionsController.ARREST_TOPIC_SUB_TYPE:
-			arrestSubscriptionAddValidator.validate(subscription, errors);
+			validateArrestSubscription(subscription, errors);
 			break;
 		case SubscriptionsController.RAPBACK_TOPIC_SUB_TYPE:
 			validateRapbackSubscription(subscription, errors);
 			break; 
 		case SubscriptionsController.INCIDENT_TOPIC_SUB_TYPE:
-			incidentSubscriptionAddValidator.validate(subscription, errors);
+			validateGeneralSubscription(subscription, errors);
 			break; 
 		case SubscriptionsController.CHCYCLE_TOPIC_SUB_TYPE: 
-			chCycleSubscriptionValidator.validate(subscription, errors);
+			validateGeneralSubscription(subscription, errors);
 			break; 
-			
+		default: 
 		}
+	}
 
+	private void validateGeneralSubscription(Subscription subscription,
+			Errors errors) {
+				
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "First name must be specified");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "Last name must be specified");
+		ValidationUtils.rejectIfEmpty(errors, "dateOfBirth", "DOB must be specified");
+		ValidationUtils.rejectIfEmpty(errors, "subscriptionStartDate", "Start date must be specified");
+		validateEndDateNotBeforeStartDate(errors, 
+				subscription.getSubscriptionStartDate(), 
+				subscription.getSubscriptionEndDate());
+		validateEmailList(subscription, errors);
+		
+	}
+
+
+	private void validateEndDateNotBeforeStartDate(Errors errors, Date startDate, Date endDate) {
+		if(endDate != null && startDate != null){			
+			if(endDate.before(startDate)){
+				errors.rejectValue("subscriptionEndDate", "End date may not occur before start date");
+			}									
+		}
+	}
+
+
+	private void validateArrestSubscription(Subscription subscription,
+			Errors errors) {
+		ValidationUtils.rejectIfEmpty(errors, "stateId", "SID must be specified");
+		ValidationUtils.rejectIfEmpty(errors, "fullName", "Name must be specified");
+		ValidationUtils.rejectIfEmpty(errors, "subscriptionStartDate", "Start date must be specified");
+		validateSubscriptionEndDate(subscription, errors);
+		validateEmailList(subscription, errors);
 	}
 
 	private void validateRapbackSubscription(Subscription subscription, Errors errors){
-	
+		
+		List<String> federalTriggeringEventCode = subscription.getFederalTriggeringEventCode();
+		if (federalTriggeringEventCode == null 
+				|| federalTriggeringEventCode.stream().noneMatch(i->"ARREST".equals(i))){
+			errors.rejectValue("federalTriggeringEventCode", "Arrest triggering Event must be selected");
+		}
+		
 		if (showSubscriptionPurposeDropDown){
 			ValidationUtils.rejectIfEmpty(errors, "subscriptionPurpose", "Purpose must be specified");
 		}
 		
-		if ("CS".equals(subscription.getSubscriptionPurpose()) && !subscription.getFederalRapSheetDisclosureIndicator()){
+		if ("CS".equals(subscription.getSubscriptionPurpose()) && BooleanUtils.isNotTrue(subscription.getFederalRapSheetDisclosureIndicator())){
 			errors.rejectValue("federalRapSheetDisclosureIndicator", 
 					"Disclosure Indicator must be selected");
 		}
 
-		if (subscription.getFederalRapSheetDisclosureIndicator()){
+		if (BooleanUtils.isTrue(subscription.getFederalRapSheetDisclosureIndicator())){
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "federalRapSheetDisclosureAttentionDesignationText", 
 					"Disclosure contact info must be specified");
 		}
@@ -116,14 +140,9 @@ public class SubscriptionValidator implements Validator{
 		ValidationUtils.rejectIfEmpty(errors, "subscriptionStartDate", "Start date must be specified");
 		ValidationUtils.rejectIfEmpty(errors, "subscriptionEndDate", "End date must be specified");
 		
-		validateRapbackSubscriptionEndDate(subscription, errors);
+		validateSubscriptionEndDate(subscription, errors);
 		
-		boolean hasNoEmail = subscription.getEmailList().stream()
-				.filter(StringUtils::isNotBlank)
-				.count() == 0;
-		if (hasNoEmail){
-			errors.rejectValue("emailList", null, "Email Address must be specified");
-		}
+		validateEmailList(subscription, errors);
 		
 		if (showCaseIdInput){
 			ValidationUtils.rejectIfEmpty(errors, "caseId", "Case Id must be specified");
@@ -131,7 +150,17 @@ public class SubscriptionValidator implements Validator{
 		
 	}
 
-	public void validateRapbackSubscriptionEndDate(Subscription subscription,
+
+	private void validateEmailList(Subscription subscription, Errors errors) {
+		boolean hasNoEmail = subscription.getEmailList().stream()
+				.filter(StringUtils::isNotBlank)
+				.count() == 0;
+		if (hasNoEmail){
+			errors.rejectValue("emailList", "Email Address must be specified");
+		}
+	}
+
+	public void validateSubscriptionEndDate(Subscription subscription,
 			Errors errors) {
 		
 		Date subEndDate = subscription.getSubscriptionEndDate();
@@ -139,7 +168,7 @@ public class SubscriptionValidator implements Validator{
 		
 		if(subEndDate != null && subStartDate != null){			
 			if(subEndDate.before(subStartDate)){
-				errors.reject("End date may not occur before start date");
+				errors.rejectValue("subscriptionEndDate", "End date may not occur before start date");
 			}
 			else {
 				SubscriptionEndDateStrategy endDateStrategy = null;
@@ -157,7 +186,7 @@ public class SubscriptionValidator implements Validator{
 				Date defaultEndDate = OJBCDateUtils.getEndDate(subStartDate,
 						endDateStrategy.getPeriod());
 
-				if(defaultEndDate != null && subEndDate.after(endDateStrategy.getDefaultValue())){
+				if(defaultEndDate != null && subEndDate.after(defaultEndDate)){
 					errors.rejectValue("subscriptionEndDate", "End date may not be more than " + endDateStrategy.getPeriod() + " year after the start date");
 				}
 			}

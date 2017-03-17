@@ -52,12 +52,6 @@
 	<bean id="uneditableStartDateStrategy"
 		class="org.ojbc.web.model.subscription.edit.UneditableStartDateStrategy" />
 
-	<bean id="arrestSubscriptionAddValidator"
-			class="org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionAddStrictValidator" />
-
-	<bean id="arrestSubscriptionEditValidator"
-			class="org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionEditStrictValidator" />
-
 	<util:map id="subscriptionStartDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
 			value-ref="currentUneditableStartDateStrategy" />

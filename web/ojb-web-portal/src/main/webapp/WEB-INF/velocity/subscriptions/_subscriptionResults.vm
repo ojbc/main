@@ -130,9 +130,9 @@
 			    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');			    			
 			    			 vSubDialog.dialog({                    
 					                position: {
-			                           my: "left top",
-			                           at: "left top",
-			                           of: $("#searchContent")
+			                           my: "left bottom",
+			                           at: "left center",
+			                           of: $("#stateBanner")
 					                },
 					                modal:true,
 							        maxWidth:480,
@@ -169,9 +169,9 @@
 			    			 
 			    			 vSubDialog.dialog({                    
 					                position: {
-			                           my: "left top",
-			                           at: "left top",
-			                           of: $("#searchContent")
+			                           my: "center",
+			                           at: "center",
+			                           of: window
 					                },
 					                modal:true,
 							        maxWidth:480,
