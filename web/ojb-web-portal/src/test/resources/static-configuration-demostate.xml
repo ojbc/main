@@ -35,12 +35,6 @@
 
 	<bean id="searchTermsTokenizer" class="org.ojbc.web.portal.services.SearchTermsTokenizer" />
 
-	<bean id="arrestSubscriptionAddValidator" 
-		class="org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionAddStrictValidator" />
-	
-	<bean id="arrestSubscriptionEditValidator" 
-		class="org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionEditStrictValidator" />
-
 	<bean id="currentUneditableStartDateStrategy"
 		class="org.ojbc.web.model.subscription.add.CurrentUneditableStartDateStrategy" />
 
@@ -61,18 +55,24 @@
 	<util:map id="subscriptionStartDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
 			value-ref="currentUneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback"
+			value-ref="currentUneditableStartDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
+			value-ref="currentEditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
 			value-ref="currentEditableStartDateStrategy" />
 	</util:map>
 
 	<util:map id="subscriptionEndDateStrategyMap">
-		<entry key="{http://ojbc.org/wsn/topics}:person/arrest-ci"
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback/ci"
 			value-ref="oneYearEditableEndDateStrategy" />
-		<entry key="{http://ojbc.org/wsn/topics}:person/arrest-cs"
-			value-ref="fiveYearEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
 			value-ref="oneYearEditableEndDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback/cs"
+			value-ref="fiveYearEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
+			value-ref="blankEditableEndDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
 			value-ref="blankEditableEndDateStrategy" />
 	</util:map>
 
@@ -80,7 +80,11 @@
 	<util:map id="editSubscriptionStartDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
 			value-ref="uneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback"
+			value-ref="uneditableStartDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
+			value-ref="uneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
 			value-ref="uneditableStartDateStrategy" />
 	</util:map>
 
@@ -132,7 +136,7 @@
 
 	<util:map id="systemsToQuery_vehicles" map-class="java.util.LinkedHashMap">
 		<entry key="Law Enforcement RMS"
-			value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" />
+			value="{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS" />
 	</util:map>
 
 	<util:map id="systemsToQuery_vehicles_disabled" map-class="java.util.LinkedHashMap">
@@ -551,13 +555,23 @@
 	<util:map id="subscriptionTypeValueToLabelMap" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Subscription Type" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value="Arrest" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback" value="Rapback" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident" value="Incident" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment" value="ATN Assignment" />
 	</util:map>
 
 	<util:map id="subscriptionPurposeValueToLabelMap" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Subscription Purpose" />
 		<entry key="CS" value="Supervision" />
 		<entry key="CI" value="Investigation" />
+	</util:map>
+
+	<util:map id="triggeringEventCodeMap" map-class="java.util.LinkedHashMap">
+		<entry key="ARREST" value="Arrest" />
+		<entry key="DISPOSITION" value="Disposition" />
+		<entry key="NCIC-WARRANT" value="NCIC Warrant" />
+		<entry key="NCIC-SOR" value="NCIC NSOR" />
+		<entry key="DEATH" value="Death Notice" />
 	</util:map>
 
 	<!-- for the filter subscription form -->

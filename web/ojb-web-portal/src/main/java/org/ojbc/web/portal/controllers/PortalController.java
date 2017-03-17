@@ -334,7 +334,7 @@ public class PortalController implements ApplicationContextAware {
 		return "";
 	}
 
-	UserLogonInfo getUserLogonInfo(Element assertionElement) {
+	public UserLogonInfo getUserLogonInfo(Element assertionElement) {
 				
 		UserLogonInfo userLogonInfo = new UserLogonInfo();
 		

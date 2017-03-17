@@ -165,7 +165,7 @@
 	#springFormInput("subscription.stateId" "style='width:140px;' placeholder='SID Number'")
 	<a id="idLookupLink" class="grayButton" href="#"><span id="idLookupImg"></span></a>
 	
-	#springFormInput("subscription.fbiId" "style='margin-left:12px;' readonly='readonly' placeholder='FBI ID'")
+	#springFormInput("subscription.fbiId" "style='margin-left:50px;' readonly='readonly' placeholder='FBI ID: N/A'")
 </div>			
 
 <div>	

@@ -54,6 +54,7 @@ public class SamlServiceImpl implements SamlService{
 	public Element getSamlAssertion(HttpServletRequest request) {
 
 		Element assertion = null;
+		
 		try {
 			assertion = retrieveAssertionFromShibboleth(request);
 		} catch (Exception e) {
@@ -63,13 +64,14 @@ public class SamlServiceImpl implements SamlService{
 		if (assertion == null && getAllowQueriesWithoutSAMLToken()){
 			LOG.info("Creating demo user saml assertion.");
 			assertion = createDemoUserSamlAssertion();
-		}
+	}
 		
 		return assertion;
 	}
 	
 	Element retrieveAssertionFromShibboleth(HttpServletRequest request) throws Exception
 	{
+		if (request == null) return null;
 		// Note: pulled this straight from Andrew's demo JSP that displays the assertion and http request...
 		
 		/*

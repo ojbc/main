@@ -224,7 +224,7 @@
 <div style="width:auto;height:470px;" id="subFormDiv">
 	<form id="subscriptionForm">  	  
 		<div>
-			#springFormSingleSelect("subscription.topic" $subscriptionTypeValueToLabelMap "onChange='refreshDisplayFromSubType()'")		
+			#springFormSingleSelect("subscription.topic" $subscriptionTypeValueToLabelMap "onChange='refreshDisplayFromSubType()'")	
 		</div>			
 		
 		<div id="subModalDynamicContents"/>	 	    	        
