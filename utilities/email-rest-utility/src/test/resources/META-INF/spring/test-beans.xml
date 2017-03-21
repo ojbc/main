@@ -26,12 +26,9 @@
 	
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
 	
-	<bean id="OJBCHostNameVerifier" class="org.ojbc.util.rest.OJBCHostNameVerifier"/>
-	
     <bean id="clientHttpRequestFactory" class="org.ojbc.util.rest.RequestFactoryManager" factory-method="createHttpClient">
         <constructor-arg value="${emailRestUtility.truststoreLocation}"/>
         <constructor-arg value="${emailRestUtility.truststorePassword}"/>
-        <constructor-arg ref="OJBCHostNameVerifier"/>
     </bean>
 
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
