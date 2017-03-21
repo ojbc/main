@@ -137,7 +137,7 @@ public class SubscriptionsController {
 	@Value("${sidRegexValidationErrorMessage:SID should contain only Chars or Digits}")
 	String sidRegexValidationErrorMessage;
 	
-	@Value("${subscriptionExpirationAlertPeriod}")
+	@Value("${subscriptionExpirationAlertPeriod:0}")
 	String subscriptionExpirationAlertPeriod;
 	
 	@Resource
