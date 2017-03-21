@@ -24,22 +24,48 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hawaii-ext="http://ojbc.org/IEPD/Extensions/Hawaii/1.0"
 	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd ">
-	<notfm-ext:NotifyingArrest s:id="A001">
-		<notfm-ext:NotifyingActivityExtensions>
-			<hawaii-ext:AttorneyGeneralCaseDetails>
-				<hawaii-ext:AttorneyGeneralCaseIndicator>false
-				</hawaii-ext:AttorneyGeneralCaseIndicator>
-			</hawaii-ext:AttorneyGeneralCaseDetails>
-		</notfm-ext:NotifyingActivityExtensions>
+	<notfm-ext:NotifyingCriminalHistoryUpdate
+		s:id="d1e1">
 		<notfm-ext:NotifyingActivityReportingOrganization>
 			<nc:OrganizationName>FBI</nc:OrganizationName>
 		</notfm-ext:NotifyingActivityReportingOrganization>
+		<notfm-ext:NotifyingActivityReportingSystemNameText>SystemName
+		</notfm-ext:NotifyingActivityReportingSystemNameText>
 		<notfm-ext:NotifyingActivityReportingSystemURI>SystemURIHere
 		</notfm-ext:NotifyingActivityReportingSystemURI>
 		<notfm-ext:RelatedFBISubscription>
+			<notfm-ext:RapBackExpirationDate>
+				<nc:Date>2010-02-24</nc:Date>
+			</notfm-ext:RapBackExpirationDate>
+			<notfm-ext:RapBackSubscriptionDate>
+				<nc:Date>2011-01-25</nc:Date>
+			</notfm-ext:RapBackSubscriptionDate>
 			<notfm-ext:RecordRapBackSubscriptionIdentification>
-				<nc:IdentificationID>7689808</nc:IdentificationID>
+				<nc:IdentificationID>123456</nc:IdentificationID>
 			</notfm-ext:RecordRapBackSubscriptionIdentification>
+			<notfm-ext:RapBackSubscriptionTermCode>5
+			</notfm-ext:RapBackSubscriptionTermCode>
+			<notfm-ext:RapBackTermDate>
+				<nc:Date>2015-01-01</nc:Date>
+			</notfm-ext:RapBackTermDate>
+			<notfm-ext:SubscriptionQualifierIdentification>
+				<nc:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7
+				</nc:IdentificationID>
+			</notfm-ext:SubscriptionQualifierIdentification>
+			<notfm-ext:RapBackActivityNotificationIdentification>
+				<nc:IdentificationID>123456</nc:IdentificationID>
+			</notfm-ext:RapBackActivityNotificationIdentification>
+			<notfm-ext:RapBackAttentionText>DET J Q PUBLIC
+			</notfm-ext:RapBackAttentionText>
+			<notfm-ext:RapBackEventDate>
+				<nc:Date>2013-03-29</nc:Date>
+			</notfm-ext:RapBackEventDate>
+			<notfm-ext:TriggeringEvents>
+				<notfm-ext:FederalTriggeringEventCode>ARREST
+				</notfm-ext:FederalTriggeringEventCode>
+			</notfm-ext:TriggeringEvents>
+			<notfm-ext:RapBackEventText>Event that triggered the rap back
+			</notfm-ext:RapBackEventText>
 		</notfm-ext:RelatedFBISubscription>
 		<notfm-ext:CriminalHistoryRecordDocument>
 			<nc:DocumentBinary>
@@ -47,58 +73,27 @@
 				</notfm-ext:Base64BinaryObject>
 			</nc:DocumentBinary>
 		</notfm-ext:CriminalHistoryRecordDocument>
-		<j:Arrest>
-			<nc:ActivityDate>
-				<nc:Date>2013-09-06</nc:Date>
-			</nc:ActivityDate>
-			<j:ArrestAgency>
-				<nc:OrganizationName>Honolulu PD</nc:OrganizationName>
-			</j:ArrestAgency>
-			<j:ArrestCharge>
-				<j:ChargeDescriptionText>Assault</j:ChargeDescriptionText>
-				<j:ChargeIdentification>
-					<nc:IdentificationID>ARN-1234</nc:IdentificationID>
-				</j:ChargeIdentification>
-				<j:ChargeSeverityText>very severe</j:ChargeSeverityText>
-			</j:ArrestCharge>
-			<j:ArrestOfficial>
-				<nc:RoleOfPersonReference s:ref="P002" />
-			</j:ArrestOfficial>
-			<j:Booking>
-				<nc:ActivityDate>
-					<nc:Date>2013-09-06</nc:Date>
-				</nc:ActivityDate>
-				<j:BookingSubject>
-					<nc:RoleOfPersonReference s:ref="P001" />
-				</j:BookingSubject>
-			</j:Booking>
-		</j:Arrest>
-	</notfm-ext:NotifyingArrest>
+	</notfm-ext:NotifyingCriminalHistoryUpdate>
 	<nc:ActivityInvolvedPersonAssociation>
-		<nc:ActivityReference s:ref="A001" />
-		<nc:PersonReference s:ref="P001" />
+		<nc:ActivityReference s:ref="d1e1" />
+		<nc:PersonReference s:ref="d1e162" />
 	</nc:ActivityInvolvedPersonAssociation>
-	<j:Person s:id="P001">
+	<j:Person s:id="d1e162">
 		<nc:PersonBirthDate>
-			<nc:Date>1955-01-15</nc:Date>
+			<nc:Date>1975-02-20</nc:Date>
 		</nc:PersonBirthDate>
 		<nc:PersonName>
-			<nc:PersonGivenName>Homer</nc:PersonGivenName>
-			<nc:PersonSurName>Simpson</nc:PersonSurName>
+			<nc:PersonGivenName>Walter</nc:PersonGivenName>
+			<nc:PersonMiddleName>A</nc:PersonMiddleName>
+			<nc:PersonSurName>White</nc:PersonSurName>
 		</nc:PersonName>
 		<j:PersonAugmentation>
 			<j:PersonFBIIdentification>
-				<nc:IdentificationID>547579869</nc:IdentificationID>
+				<nc:IdentificationID>12345</nc:IdentificationID>
 			</j:PersonFBIIdentification>
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>12345</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
-	</j:Person>
-	<j:Person s:id="P002">
-		<nc:PersonName>
-			<nc:PersonGivenName>Clancy</nc:PersonGivenName>
-			<nc:PersonSurName>Wiggum</nc:PersonSurName>
-		</nc:PersonName>
 	</j:Person>
 </notfm-doc:NotificationMessage>
