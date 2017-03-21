@@ -28,6 +28,7 @@ import org.apache.camel.test.spring.UseAdviceWith;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.util.mail.Email;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
 

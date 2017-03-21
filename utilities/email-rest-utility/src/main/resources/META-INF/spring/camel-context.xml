@@ -29,7 +29,7 @@
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 
-	<context:component-scan base-package="org.ojbc.bundles.utilities.email" />
+	<context:component-scan base-package="org.ojbc.bundles.utilities.email, org.ojbc.util.mail" />
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring"
 		id="email_rest_utility_context">
