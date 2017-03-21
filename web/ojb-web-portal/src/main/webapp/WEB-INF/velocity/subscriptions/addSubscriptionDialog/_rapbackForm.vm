@@ -50,6 +50,8 @@
 							
 							$("#fbiId").val(data.fbiId);
 							
+							$("#fbiIdString").html(data.formattedFbiId)
+							
 							if (data.dobStrings && Object.keys(data.dobStrings).length > 0){
 							
 								var dateOfBirthDropdownHtml = $("#dateOfBirth").html();
@@ -165,7 +167,8 @@
 	#springFormInput("subscription.stateId" "style='width:140px;' placeholder='SID Number'")
 	<a id="idLookupLink" class="grayButton" href="#"><span id="idLookupImg"></span></a>
 	
-	#springFormInput("subscription.fbiId" "style='margin-left:50px;' readonly='readonly' placeholder='FBI ID: N/A'")
+	#springFormHiddenInput("subscription.fbiId")
+	<span class="subscriptionHint" style="position:relative; left: 10px;">FBI ID: <span id="fbiIdString">$subscription.formattedFbiId</span></span> 
 </div>			
 
 <div>	
@@ -199,6 +202,11 @@
 	#end	
 </div>
 
+#if($showCaseIdInput)
+	<div>
+		#springFormInput("subscription.caseId" "placeholder='Case ID' maxlength='20'" )
+	</div>
+#end
 <div>
 	<!-- fix object being mapped to from list to something else or use regular html instead of velocity spring macro -->
 	#springFormInput("subscription.emailList[0]" "placeholder='Email Address 1'")
@@ -212,8 +220,3 @@
 	#springFormInput("subscription.emailList[2]" "placeholder='Email Address 3'")
 </div>
 
-#if($showCaseIdInput)
-	<div>
-		#springFormInput("subscription.caseId" "placeholder='Case Id' maxlength='20'" )
-	</div>
-#end
