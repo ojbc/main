@@ -1,5 +1,3 @@
-package org.ojbc.bundles.utilities.email;
-
 /*
  * Unless explicitly acquired and licensed from Licensor under another license, the contents of
  * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
@@ -16,19 +14,25 @@ package org.ojbc.bundles.utilities.email;
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
+package org.ojbc.util.mail;
 
 import java.io.InputStream;
 
+import javax.annotation.Resource;
+import javax.mail.Address;
+import javax.mail.Message.RecipientType;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailPreparationException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * This is a simple mock implementation of the Spring Java Mail Sender that will
@@ -37,9 +41,15 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class MockMailSender implements JavaMailSender {
+public class RestMailSender implements JavaMailSender {
 
 	private final Log log = LogFactory.getLog(this.getClass());
+
+    @Resource
+    private RestTemplate restTemplate;
+    
+    @Value("${emailRestPostURI:https://localhost:8443/OJB/emailServer/email/sendEmail}")
+    private String emailRestPostURI;
 
 	@Override
 	public void send(final MimeMessagePreparator mimeMessagePreparator)
@@ -59,9 +69,30 @@ public class MockMailSender implements JavaMailSender {
 	@Override
 	public void send(MimeMessage mimeMessage) throws MailException {
 		try {
-			final String content = (String) mimeMessage.getContent();
-
-			log.info("Mail Message: " + content);
+			
+			String content = (String) mimeMessage.getContent();
+			String subject = mimeMessage.getSubject();
+			Address[] recipients = mimeMessage.getRecipients(RecipientType.TO);
+			
+			StringBuffer toSb = new StringBuffer();
+			
+			for (Address recipient : recipients)
+			{
+				toSb.append(recipient.toString());
+				toSb.append(",");
+			}	
+			
+			if (toSb.length() > 1)
+			{
+				toSb.setLength(toSb.length() - 1);
+			}	
+			
+			Email email = new Email();
+			email.setTo(toSb.toString());
+			email.setBody(content);
+			email.setSubject(subject);
+			
+			restTemplate.postForObject(emailRestPostURI, email, Email.class);
 			
 		} catch (final Exception e) {
 			throw new MailPreparationException(e);

@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.bundles.utilities.email;
+package org.ojbc.util.mail;
 
 public class Email {
     private String to;
