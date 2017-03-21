@@ -74,9 +74,6 @@
 			</fchr-ext:SubscriptionQualifierIdentification>
 		</fchr-ext:RapBackSubscription>
 		<fchr-ext:RapBackNotificationEvent>
-			<nc:ActivityDate>
-				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
-			</nc:ActivityDate>
 			<fchr-ext:RapBackActivityNotificationIdentification>
 				<nc:IdentificationID>123456</nc:IdentificationID>
 			</fchr-ext:RapBackActivityNotificationIdentification>

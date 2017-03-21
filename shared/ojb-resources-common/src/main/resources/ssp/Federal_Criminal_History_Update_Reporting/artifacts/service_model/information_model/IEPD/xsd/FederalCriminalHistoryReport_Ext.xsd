@@ -125,7 +125,8 @@
 	</xsd:complexType>
 	<xsd:element name="ImageReferenceIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identification for an image reference identification.
+			<xsd:documentation>A unique identification for an image reference
+				identification.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -180,19 +181,29 @@
 	<xsd:element name="RapBackActivityNotificationIdentification"
 		type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a rap back notification.
+			<xsd:documentation>A unique identification assigned to a rap back
+				notification.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RapBackAttentionText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>Attention information to link future Rap Back Activity Notifications to the right person or section within the subscribing entity.
+			<xsd:documentation>Attention information to link future Rap Back
+				Activity Notifications to the right person or section within the
+				subscribing entity.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RapBackEventDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>A date that a Rap Back Triggering Event occurred.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackSubscriptionTermCode" type="fchr-ext:RBSubscriptionTermCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A representation of the length of a Rap Back
+				Subscription Term.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -252,13 +263,6 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RapBackSubscriptionTermCode" type="fchr-ext:RBSubscriptionTermCodeType">
-		<xsd:annotation>
-			<xsd:documentation>A representation of the length of a Rap Back
-				Subscription Term.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="RapBackTermDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>A date identifying the end of the fee paid by the
@@ -269,7 +273,7 @@
 	<xsd:element name="SubscriptionQualifierIdentification"
 		type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A date identifying the end of the fee paid by the
+			<xsd:documentation>A qualifying subscription ID provided by the
 				Subscriber.
 			</xsd:documentation>
 		</xsd:annotation>
