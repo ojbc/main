@@ -53,5 +53,22 @@
 		</route>
 
 	</camel:camelContext>
+	
+	<!-- Production implementation of the JavaMailSender interface, supporting 
+		both JavaMail MimeMessages and Spring SimpleMailMessages -->
+	<bean id="ojbcMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${emailRestUtility.host}" />
+		<property name="port" value="${emailRestUtility.port}" />
+ 
+		<!-- The name of the property, following JavaBean naming conventions -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">false</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
 
 </beans>

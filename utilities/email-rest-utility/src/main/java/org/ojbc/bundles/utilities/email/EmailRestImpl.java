@@ -21,7 +21,10 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.mail.Email;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -29,12 +32,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailRestImpl implements EmailInterface {
 
-	@Resource (name="${ojbcMailSenderBean:mockMailSender}")
+	@Resource (name="${emailRestUtility.mailSenderBean:mockMailSender}")
 	JavaMailSender ojbcMailSender;
-
+	
+	@Value("${emailRestUtility.fromAddress:test@localhost.local}")
+	String fromAddress;
+	
+	private final Log log = LogFactory.getLog(this.getClass());
+	
 	public Response sendEmail(Email email) {
 
         SimpleMailMessage emailToSend = new SimpleMailMessage();
+        
+        emailToSend.setFrom(fromAddress);
         
         if (StringUtils.isBlank(email.getTo()) || StringUtils.isBlank(email.getSubject()) ||  StringUtils.isBlank(email.getBody()))
         {

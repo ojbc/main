@@ -17,32 +17,37 @@
 package org.ojbc.util.rest;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.KeyManagementException;
+import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 
 import org.apache.http.client.HttpClient;
+import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLContextBuilder;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.ssl.SSLContextBuilder;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 
 public class RequestFactoryManager {
 
-	 public static ClientHttpRequestFactory createHttpClient(String truststoreLocation, String truststorePassword, HostnameVerifier hostNameVerifier) 
+	 public static ClientHttpRequestFactory createHttpClient(String truststoreLocation, String truststorePassword) 
 			 throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException, CertificateException, IOException 
 	 {
-			SSLContext sslContext = new SSLContextBuilder()
-	        .loadTrustMaterial(new File(truststoreLocation),
-	        		truststorePassword.toCharArray()).build();
+		 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+		 
+		 	truststore.load(new FileInputStream(new File(truststoreLocation)),
+	        		truststorePassword.toCharArray());
+		 	
+			SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(truststore).build();
 			
-			SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslContext, hostNameVerifier);
+			SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslContext,new AllowAllHostnameVerifier());
 			
 			HttpClient httpClient = HttpClients.custom().setSSLSocketFactory(socketFactory).build();
 			ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(
