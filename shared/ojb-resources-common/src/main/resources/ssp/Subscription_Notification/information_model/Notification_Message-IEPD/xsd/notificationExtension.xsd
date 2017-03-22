@@ -116,9 +116,16 @@
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="notfm-ext:NotifyingActivityType">
 				<xsd:sequence>
-					<xsd:element ref="chu:CycleTrackingIdentifierAssignment"
-						minOccurs="0" />
+					<xsd:element ref="chu:CycleTrackingIdentifierAssignment" />
 				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="NotifyingFederalCriminalHistoryUpdateType"
+		abstract="false" mixed="false">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="notfm-ext:NotifyingActivityType">
+				<xsd:sequence />
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
@@ -182,6 +189,14 @@
 		substitutionGroup="notfm-ext:NotifyingActivity" nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>An incident that results in notification.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NotifyingFederalCriminalHistoryUpdate"
+		type="notfm-ext:NotifyingFederalCriminalHistoryUpdateType" abstract="false"
+		substitutionGroup="notfm-ext:NotifyingActivity" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>A federal incident that results in notification.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

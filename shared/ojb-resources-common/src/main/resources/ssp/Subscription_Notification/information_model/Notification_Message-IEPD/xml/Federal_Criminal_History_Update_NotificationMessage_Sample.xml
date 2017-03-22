@@ -24,7 +24,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hawaii-ext="http://ojbc.org/IEPD/Extensions/Hawaii/1.0"
 	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd ">
-	<notfm-ext:NotifyingCriminalHistoryUpdate
+	<notfm-ext:NotifyingFederalCriminalHistoryUpdate
 		s:id="d1e1">
 		<notfm-ext:NotifyingActivityReportingOrganization>
 			<nc:OrganizationName>FBI</nc:OrganizationName>
@@ -73,7 +73,7 @@
 				</notfm-ext:Base64BinaryObject>
 			</nc:DocumentBinary>
 		</notfm-ext:CriminalHistoryRecordDocument>
-	</notfm-ext:NotifyingCriminalHistoryUpdate>
+	</notfm-ext:NotifyingFederalCriminalHistoryUpdate>
 	<nc:ActivityInvolvedPersonAssociation>
 		<nc:ActivityReference s:ref="d1e1" />
 		<nc:PersonReference s:ref="d1e162" />
