@@ -162,7 +162,11 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     @Test
     public void testSubscriptionInvalidEmail() throws Exception {
     
+    	subscriptionProcessorMock.reset();
+    	unsubscriptionProcessorMock.reset();
+    	subscriptionValidationMock.reset();
     	subscriptionManagerServiceFaultMock.reset();
+
     	subscriptionManagerServiceFaultMock.expectedMessageCount(1);
     	
     	//Create a new exchange
@@ -216,7 +220,11 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     @Test
     public void testSubscriptionEndDateBeforeStartDate() throws Exception {
     
+    	subscriptionProcessorMock.reset();
+    	unsubscriptionProcessorMock.reset();
+    	subscriptionValidationMock.reset();
     	subscriptionManagerServiceFaultMock.reset();
+
     	subscriptionManagerServiceFaultMock.expectedMessageCount(1);
     	
     	//Create a new exchange
@@ -284,6 +292,10 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     public void testSubscriptionSingleEmailDefaultDateFollowedByTestForEdits() throws Exception {
     
     	subscriptionProcessorMock.reset();
+    	unsubscriptionProcessorMock.reset();
+    	subscriptionValidationMock.reset();
+    	subscriptionManagerServiceFaultMock.reset();
+    	
     	subscriptionProcessorMock.expectedMessageCount(1);
     	
     	//Create a new exchange
@@ -570,6 +582,10 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     public void testSubscriptionSingleEmailCustomDate() throws Exception {
     
     	subscriptionProcessorMock.reset();
+    	unsubscriptionProcessorMock.reset();
+    	subscriptionValidationMock.reset();
+    	subscriptionManagerServiceFaultMock.reset();
+
     	subscriptionProcessorMock.expectedMessageCount(1);
     	
     	Exchange senderExchange = createSenderExchangeSubscription();
@@ -650,6 +666,10 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     public void testSubscriptionSingleMultipleEmails() throws Exception {
     
     	subscriptionProcessorMock.reset();
+    	unsubscriptionProcessorMock.reset();
+    	subscriptionValidationMock.reset();
+    	subscriptionManagerServiceFaultMock.reset();
+    	
     	subscriptionProcessorMock.expectedMessageCount(1);
     	    	    	    	
     	Exchange senderExchange = createSenderExchangeSubscription();
@@ -728,7 +748,11 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     
     @Test
     public void testSubscriptionWithoutSAMLToken() throws Exception {
+    	subscriptionProcessorMock.reset();
+    	unsubscriptionProcessorMock.reset();
+    	subscriptionValidationMock.reset();
     	subscriptionManagerServiceFaultMock.reset();
+
     	subscriptionManagerServiceFaultMock.expectedMessageCount(1);
     	
     	//Create a new exchange
@@ -787,7 +811,11 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     
     @Test
     public void testUnsubscription() throws Exception {
+    	subscriptionProcessorMock.reset();
     	unsubscriptionProcessorMock.reset();
+    	subscriptionValidationMock.reset();
+    	subscriptionManagerServiceFaultMock.reset();
+
     	unsubscriptionProcessorMock.expectedMessageCount(1);
     	
     	//Create a new exchange
@@ -855,7 +883,11 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
 
     @Test
     public void testUnsubscriptionWithoutSAMLToken() throws Exception {
+    	subscriptionProcessorMock.reset();
+    	unsubscriptionProcessorMock.reset();
+    	subscriptionValidationMock.reset();
     	subscriptionManagerServiceFaultMock.reset();
+
     	subscriptionManagerServiceFaultMock.expectedMessageCount(1);
     	
     	//Create a new exchange
@@ -912,7 +944,11 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     
     @Test
     public void testSubscriptionValidation() throws Exception {
-    
+    	subscriptionProcessorMock.reset();
+    	unsubscriptionProcessorMock.reset();
+    	subscriptionValidationMock.reset();
+    	subscriptionManagerServiceFaultMock.reset();
+
     	subscriptionValidationMock.expectedMessageCount(1);
     	
     	//Create a new exchange
@@ -979,7 +1015,11 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     @Test
     public void testSubscriptionValidationInvalidMessage() throws Exception {
     
+    	subscriptionProcessorMock.reset();
+    	unsubscriptionProcessorMock.reset();
     	subscriptionValidationMock.reset();
+    	subscriptionManagerServiceFaultMock.reset();
+
     	subscriptionValidationMock.expectedMessageCount(1);
     	
     	//Create a new exchange
