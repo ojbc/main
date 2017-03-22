@@ -909,13 +909,6 @@ public class SearchTest extends AbstractStaticMockTest {
         List<IdentifiableDocumentWrapper> matches = staticMockQuery.incidentSearchDocumentsAsList(incidentSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
         assertEquals(1, matches.size());
         
-        // test short date version of this
-        
-        startDateElement.setTextContent("2012-05-13T21:23:00");
-        endDateElement.setTextContent("2012-05-14T01:59:59");
-        matches = staticMockQuery.incidentSearchDocumentsAsList(incidentSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
-        assertEquals(1, matches.size());
-
         // test date range with no matches
         
         startDateElement.setTextContent("1910-05-13T21:23:00-07:00");
@@ -924,6 +917,26 @@ public class SearchTest extends AbstractStaticMockTest {
         assertEquals(0, matches.size());
         
         // As demo scenarios identify issues, document them with tests here.
+        
+    }
+    
+    @Test
+    public void testIncidentSearchDatesShortDatesOnly() throws Exception {
+        Document incidentSearchRequestMessage = buildBaseIncidentSearchRequestMessage();
+        removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/isr:IncidentCategoryCode");
+        removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/nc:Location");
+        removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/jxdm41:ActivityLocationAssociation");
+        removeElement(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/nc:ActivityIdentification");
+        
+        Node startDateElement = XmlUtils.xPathNodeSearch(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/nc:ActivityDateRange/nc:StartDate/nc:DateTime");
+        Node endDateElement = XmlUtils.xPathNodeSearch(incidentSearchRequestMessage, "/isr-doc:IncidentSearchRequest/isr:Incident/nc:ActivityDateRange/nc:EndDate/nc:DateTime");
+        
+        // test short date version of this
+        
+        startDateElement.setTextContent("2012-05-13T21:23:00");
+        endDateElement.setTextContent("2012-05-14T01:59:59");
+        List<IdentifiableDocumentWrapper> matches = staticMockQuery.incidentSearchDocumentsAsList(incidentSearchRequestMessage, StaticMockQuery.DATE_FORMATTER_YYYY_MM_DD.parseDateTime("2013-07-03"));
+        assertEquals(1, matches.size());
         
     }
 
