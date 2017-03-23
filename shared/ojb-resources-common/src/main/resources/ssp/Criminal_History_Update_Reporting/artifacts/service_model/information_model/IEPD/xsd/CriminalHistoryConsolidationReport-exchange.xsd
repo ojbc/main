@@ -18,18 +18,20 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:cdr-report-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0"
-	xmlns:cdr-report-ext="http://ojbc.org/IEPD/Extension/CourtDispositionRecordingReport/1.0"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:chc-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
+	xmlns:chc-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
 	elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
 	<xsd:import
-		namespace="http://ojbc.org/IEPD/Extension/CourtDispositionRecordingReport/1.0"
-		schemaLocation="CourtDispositionRecordingReport-extension.xsd" />
-	<xsd:element name="CourtDispositionRecordingReport"
-		type="cdr-report-ext:CourtDispositionRecordingReportType">
-		<xsd:annotation>
-			<xsd:documentation>A report that contains information about a court
-				recording a disposition.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
+		namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
+		schemaLocation="./CriminalHistoryConsolidationReport-extension.xsd" />
+	<!-- Root data element for a Criminal History Consolidation Report -->
+	<xsd:element name="CriminalHistoryConsolidationReport"
+		type="chc-report-ext:CriminalHistoryConsolidationReportType" />
 </xsd:schema>
