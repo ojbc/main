@@ -45,11 +45,12 @@
 		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
 		<io-utils-version>1.3.2</io-utils-version>
 		<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>
-		<httpcomponents.version>4.2.5</httpcomponents.version>
+		<httpcomponents.version>4.3.3</httpcomponents.version>
 		<saxon-version>8.7</saxon-version>
 		<java-version>1.8</java-version>
 		<joda-time.version>2.2</joda-time.version>
 		<xmlunit.version>1.5</xmlunit.version>
+		<javax.mail.version>1.4.7</javax.mail.version>
 	</properties>
 
 	<dependencies>
@@ -144,7 +145,21 @@
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+         <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>		
+         <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>${javax.mail.version}</version>
+		</dependency>	
 		<!-- logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
