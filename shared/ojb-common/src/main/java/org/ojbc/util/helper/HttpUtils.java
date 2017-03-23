@@ -26,7 +26,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 /**
  * A set of utilities for dealing with Http streams.
@@ -42,7 +42,7 @@ public class HttpUtils {
 	 * @throws Exception
 	 */
 	public static String post(String payload, String url) throws Exception {
-		HttpClient client = new DefaultHttpClient();
+		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);
 		post.setEntity(new StringEntity(payload, Consts.UTF_8));
 		HttpResponse response = client.execute(post);

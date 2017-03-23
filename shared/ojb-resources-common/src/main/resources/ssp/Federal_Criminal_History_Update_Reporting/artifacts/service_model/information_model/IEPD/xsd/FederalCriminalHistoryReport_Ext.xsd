@@ -72,15 +72,40 @@
 						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="fchr-ext:CriminalHistoryDocumentRepresentation"
 						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="fchr-ext:RapBackSubscription"
+						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="fchr-ext:RapBackNotificationEvent"
 						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="RapBackSubscriptionType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a rap back subscription.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="fchr-ext:RapBackExpirationDate"
+						minOccurs="0" />
+					<xsd:element ref="fchr-ext:RapBackSubscriptionDate"
+						minOccurs="0" />
+					<xsd:element ref="fchr-ext:RapBackSubscriptionIdentification"
+						minOccurs="0" />
+					<xsd:element ref="fchr-ext:RapBackSubscriptionTermCode"
+						minOccurs="0" />
+					<xsd:element ref="fchr-ext:RapBackTermDate" minOccurs="0" />
+					<xsd:element ref="fchr-ext:SubscriptionQualifierIdentification"
+						minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:complexType name="RapBackNotificationEventType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a federal transaction.
+			<xsd:documentation>A data type for a rap back notification.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
@@ -91,20 +116,7 @@
 						minOccurs="0" />
 					<xsd:element ref="fchr-ext:RapBackAttentionText"
 						minOccurs="0" />
-					<xsd:element ref="fchr-ext:RapBackExpirationDate"
-						minOccurs="0" />
-					<xsd:element ref="fchr-ext:RapBackSubscriptionDate"
-						minOccurs="0" />
-					<xsd:element ref="fchr-ext:RapBackSubscriptionIdentification"
-						minOccurs="0" />
-					<xsd:element ref="fchr-ext:RapBackSubscriptionTermCode"
-						minOccurs="0" />
-					<xsd:element ref="fchr-ext:RapBackTermDate" minOccurs="0" />
-					<xsd:element ref="fchr-ext:RapBackUserDefinedElementName"
-						minOccurs="0" />
-					<xsd:element ref="fchr-ext:RapBackUserDefinedElementText"
-						minOccurs="0" />
-						<xsd:element ref="fchr-ext:RapBackEventDate" minOccurs="0" />
+					<xsd:element ref="fchr-ext:RapBackEventDate" minOccurs="0" />
 					<xsd:element ref="fchr-ext:TriggeringEvents" minOccurs="0" />
 					<xsd:element ref="fchr-ext:RapBackEventText" minOccurs="0" />
 				</xsd:sequence>
@@ -113,22 +125,20 @@
 	</xsd:complexType>
 	<xsd:element name="ImageReferenceIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a warrant
-				record.
+			<xsd:documentation>A unique identification for an image reference
+				identification.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RecordForwardOrganization" type="nc:EntityType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a warrant
-				record.
+			<xsd:documentation>An organization to whom a record is forwarded.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RecordControllingOrganization" type="nc:EntityType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a warrant
-				record.
+			<xsd:documentation>A record owning organization.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -137,7 +147,8 @@
 		<xsd:annotation>
 			<xsd:documentation>A document sent by the FBI that contains the
 				person's criminal history. Sometimes this is referred to as a
-				federal rap sheet.</xsd:documentation>
+				federal rap sheet.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CriminalHistoryDocumentRepresentation"
@@ -151,51 +162,48 @@
 		type="niem-xs:base64Binary" xmime:expectedContentType="text/plain" />
 	<xsd:element name="TransactionDescriptiveRecord" type="fchr-ext:TransactionDescriptiveType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a warrant
-				record.
+			<xsd:documentation>A record that contains descriptive information.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackSubscription" type="fchr-ext:RapBackSubscriptionType">
+		<xsd:annotation>
+			<xsd:documentation>A rap back subscription.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RapBackNotificationEvent" type="fchr-ext:RapBackNotificationEventType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a warrant
-				record.
+			<xsd:documentation>A rap back notification.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RapBackActivityNotificationIdentification"
 		type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a warrant
-				record.
+			<xsd:documentation>A unique identification assigned to a rap back
+				notification.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RapBackAttentionText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a warrant
-				record.
+			<xsd:documentation>Attention information to link future Rap Back
+				Activity Notifications to the right person or section within the
+				subscribing entity.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RapBackUserDefinedElementName" type="nc:TextType">
+	<xsd:element name="RapBackEventDate" type="nc:DateType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a warrant
-				record.
+			<xsd:documentation>A date that a Rap Back Triggering Event occurred.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RapBackUserDefinedElementText" type="nc:TextType">
+	<xsd:element name="RapBackSubscriptionTermCode" type="fchr-ext:RBSubscriptionTermCodeType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a warrant
-				record.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-		<xsd:element name="RapBackEventDate" type="nc:DateType">
-		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a warrant
-				record.
+			<xsd:documentation>A representation of the length of a Rap Back
+				Subscription Term.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -255,13 +263,6 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RapBackSubscriptionTermCode" type="fchr-ext:RBSubscriptionTermCodeType">
-		<xsd:annotation>
-			<xsd:documentation>A representation of the length of a Rap Back
-				Subscription Term.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
 	<xsd:element name="RapBackTermDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>A date identifying the end of the fee paid by the
@@ -269,10 +270,17 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="SubscriptionQualifierIdentification"
+		type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A qualifying subscription ID provided by the
+				Subscriber.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="RapBackEventText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A date identifying the end of the fee paid by the
-				Subscriber.
+			<xsd:documentation>Information about a Rap Back Triggering Event.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
