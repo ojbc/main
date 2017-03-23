@@ -57,7 +57,7 @@ public class FederalCriminalHIstoryTransformerServiceTest {
 				
 		String xslt = FileUtils.readFileToString(new File("src/main/resources/xslt/federalCriminalHistoryToNotification.xsl"));
 
-		transformAndValidate(xslt, xml,"src/test/resources/xmlInstances/output/Notification.xml", null);
+		transformAndValidate(xslt, xml,"src/test/resources/xmlInstances/output/CH_NotificationMessage_wAttach_Sample.xml", null);
 	}
 
 	@SuppressWarnings("unchecked")
