@@ -46,7 +46,7 @@
       </b:ProducerReference>
       <b:Message>
          <notfm-doc:NotificationMessage>
-            <notfm-ext:NotifyingFederalCriminalHistoryUpdate s:id="d1e2">
+            <notfm-ext:NotifyingFederalCriminalHistoryUpdate s:id="d1e1">
                <notfm-ext:NotifyingActivityReportingOrganization>
                   <nc:OrganizationName>FBI</nc:OrganizationName>
                </notfm-ext:NotifyingActivityReportingOrganization>
@@ -96,10 +96,10 @@
                </notfm-ext:CriminalHistoryRecordDocument>
             </notfm-ext:NotifyingFederalCriminalHistoryUpdate>
             <nc:ActivityInvolvedPersonAssociation>
-               <nc:ActivityReference s:ref="d1e2"/>
-               <nc:PersonReference s:ref="d1e58"/>
+               <nc:ActivityReference s:ref="d1e1"/>
+               <nc:PersonReference s:ref="d1e57"/>
             </nc:ActivityInvolvedPersonAssociation>
-            <j:Person s:id="d1e58">
+            <j:Person s:id="d1e57">
                <nc:PersonBirthDate>
                   <nc:Date>1977-08-25</nc:Date>
                </nc:PersonBirthDate>
@@ -121,3 +121,4 @@
       </b:Message>
    </b:NotificationMessage>
 </b:Notify>
+
