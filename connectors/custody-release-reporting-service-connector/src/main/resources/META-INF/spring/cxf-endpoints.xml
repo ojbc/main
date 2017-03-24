@@ -44,6 +44,15 @@
 	<camel:endpoint id="intermediaryEndpoint"
 		uri="cxf:bean:custoryReleaseReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${custody.intermediaryCxflogging}" />
 	
+	<cxf:rsServer id="custodyReleaseExchangeServer" address="${custody.restEndpoint}" loggingFeatureEnabled="true">
+	  <cxf:serviceBeans>
+	     <ref bean="resendCustodyReleaseExchangeImpl" />
+	  </cxf:serviceBeans>
+	  <cxf:providers>
+	     <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+	  </cxf:providers>
+	</cxf:rsServer>	
+	
     <cxf:cxfEndpoint 
         id="custoryReleaseReportingService"
         address="${custody.custodyReleaseReportingServiceEndpoint}" 
