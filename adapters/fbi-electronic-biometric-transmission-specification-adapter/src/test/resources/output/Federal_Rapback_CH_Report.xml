@@ -76,7 +76,7 @@
             <nc:Date>2013-03-29</nc:Date>
          </fchr-ext:RapBackEventDate>
          <fchr-ext:TriggeringEvents>
-            <fchr-ext:FederalTriggeringEventCode>NCIC-SOR</fchr-ext:FederalTriggeringEventCode>
+            <fchr-ext:FederalTriggeringEventCode>NCIC-SOR-MODIFICATION</fchr-ext:FederalTriggeringEventCode>
          </fchr-ext:TriggeringEvents>
          <fchr-ext:RapBackEventText>Event that triggered the rap back</fchr-ext:RapBackEventText>
       </fchr-ext:RapBackNotificationEvent>
