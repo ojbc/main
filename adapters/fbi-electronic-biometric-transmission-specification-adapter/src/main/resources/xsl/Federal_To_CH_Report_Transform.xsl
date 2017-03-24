@@ -185,14 +185,23 @@
 					<xsl:when test=".='2'">
 						<xsl:value-of select="'DISPOSITION'" />
 					</xsl:when>
-					<xsl:when test=".='4' or .='11'">
-						<xsl:value-of select="'OTHER'" />
+					<xsl:when test=".='5'">
+						<xsl:value-of select="'NCIC-WARRANT-ENTRY'" />
 					</xsl:when>
-					<xsl:when test=".='5' or .='6' or .='7'">
-						<xsl:value-of select="'NCIC-WARRANT'" />
+					<xsl:when test=".='7'">
+						<xsl:value-of select="'NCIC-WARRANT-MODIFICATION'" />
 					</xsl:when>
-					<xsl:when test=".='8' or .='9' or .='10'">
-						<xsl:value-of select="'NCIC-SOR'" />
+					<xsl:when test=".='6'">
+						<xsl:value-of select="'NCIC-WARRANT-DELETION'" />
+					</xsl:when>
+					<xsl:when test=".='8'">
+						<xsl:value-of select="'NCIC-SOR-ENTRY'" />
+					</xsl:when>
+					<xsl:when test=".='10'">
+						<xsl:value-of select="'NCIC-SOR-MODIFICATION'" />
+					</xsl:when>
+					<xsl:when test=".='9'">
+						<xsl:value-of select="'NCIC-SOR-DELETION'" />
 					</xsl:when>
 					<xsl:when test=".='12'">
 						<xsl:value-of select="'DEATH'" />
