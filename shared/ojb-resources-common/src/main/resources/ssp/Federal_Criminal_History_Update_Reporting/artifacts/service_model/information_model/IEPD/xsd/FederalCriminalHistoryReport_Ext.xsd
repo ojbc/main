@@ -322,16 +322,41 @@
 					<xsd:documentation>Dispositions</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="NCIC-WARRANT">
+			<xsd:enumeration value="NCIC-WARRANT-ENTRY">
 				<xsd:annotation>
-					<xsd:documentation>NCIC Warrant Entry, Modification, Deletion
+					<xsd:documentation>NCIC Warrant Entry
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="NCIC-SOR">
+			<xsd:enumeration value="NCIC-WARRANT-MODIFICATION">
+				<xsd:annotation>
+					<xsd:documentation>NCIC Warrant Modification
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-WARRANT-DELETION">
+				<xsd:annotation>
+					<xsd:documentation>NCIC Warrant Deletion
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-SOR-ENTRY">
+				<xsd:annotation>
+					<xsd:documentation>NCIC National Sex Offender Registry (NSOR) Entry
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-SOR-MODIFICATION">
 				<xsd:annotation>
 					<xsd:documentation>NCIC National Sex Offender Registry (NSOR)
-						Entry, Modification, Deletion
+						Modification
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-SOR-DELETION">
+				<xsd:annotation>
+					<xsd:documentation>NCIC National Sex Offender Registry (NSOR)
+						Deletion
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>

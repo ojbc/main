@@ -41,6 +41,7 @@
   <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonEyeColorCode" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PersonFBIIdentification" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonHairColorCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PersonRaceCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:PersonSexCode" w:isReference="false" w:nillable="false"/>

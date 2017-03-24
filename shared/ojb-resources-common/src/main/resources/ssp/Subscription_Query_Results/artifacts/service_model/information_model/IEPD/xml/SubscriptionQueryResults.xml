@@ -79,9 +79,9 @@
 				</sqr-ext:FederalTriggeringEventCode>
 				<sqr-ext:FederalTriggeringEventCode>DEATH
 				</sqr-ext:FederalTriggeringEventCode>
-				<sqr-ext:FederalTriggeringEventCode>NCIC-SOR
+				<sqr-ext:FederalTriggeringEventCode>NCIC-SOR-ENTRY
 				</sqr-ext:FederalTriggeringEventCode>
-				<sqr-ext:FederalTriggeringEventCode>NCIC-WARRANT
+				<sqr-ext:FederalTriggeringEventCode>NCIC-WARRANT-DELETION
 				</sqr-ext:FederalTriggeringEventCode>
 				<sqr-ext:FederalTriggeringEventCode>DISPOSITION
 				</sqr-ext:FederalTriggeringEventCode>
