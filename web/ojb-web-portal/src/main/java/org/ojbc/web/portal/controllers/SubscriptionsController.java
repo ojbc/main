@@ -77,6 +77,7 @@ import org.ojbc.web.portal.controllers.helpers.UserSession;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.portal.validators.subscriptions.SubscriptionValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
@@ -182,6 +183,9 @@ public class SubscriptionsController {
 	@Resource
 	SubscriptionsControllerConfigInterface subConfig;
 		
+	@Autowired
+	SubscriptionQueryResultsProcessor subQueryResultProcessor;
+
 	@ModelAttribute
     public void setupFormModelAttributes(Model model) {
         model.addAttribute("subscriptionFilterProperties", subscriptionFilterProperties);
@@ -958,8 +962,6 @@ public class SubscriptionsController {
 	private Subscription parseSubscriptionQueryResults(
 			Document subQueryResponseDoc) throws Exception {
 
-		SubscriptionQueryResultsProcessor subQueryResultProcessor = new SubscriptionQueryResultsProcessor();
-
 		Subscription subscription = subQueryResultProcessor
 				.parseSubscriptionQueryResults(subQueryResponseDoc);
 
@@ -1468,7 +1470,7 @@ public class SubscriptionsController {
 			}
 			
 			dobs = dobStrings.stream()
-					.map(item -> OJBCDateUtils.parseLocalDate(item))
+					.map(OJBCDateUtils::parseLocalDate)
 					.filter(Objects::nonNull)
 					.collect(Collectors.toList());
 			

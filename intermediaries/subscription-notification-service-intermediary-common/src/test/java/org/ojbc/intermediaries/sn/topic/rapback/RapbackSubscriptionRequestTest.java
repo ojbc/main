@@ -88,8 +88,8 @@ public class RapbackSubscriptionRequestTest {
 		assertThat(subscriptionProperties.size(), is(7));
 		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.ARREST.toString()), is("ARREST"));
 		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.DEATH.toString()), is("DEATH"));
-		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.NCIC_SOR.toString()), is("NCIC-SOR"));
-		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.NCIC_WARRANT.toString()), is("NCIC-WARRANT"));
+		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.NCIC_SOR_ENTRY.toString()), is("NCIC-SOR-ENTRY"));
+		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString()), is("NCIC-WARRANT-ENTRY"));
 		assertThat(subscriptionProperties.get(FederalTriggeringEventCode.DISPOSITION.toString()), is("DISPOSITION"));
 		assertThat(subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR.toString()), is("true"));		
 		assertThat(subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT.toString()), is("Detective George Jones"));				

@@ -177,7 +177,7 @@ public class TestSubscriptionSearchQueryDAO {
 		
 		subscriptionPropertiesRequest = new HashMap<String, String>();
 		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.ARREST.toString(), FederalTriggeringEventCode.ARREST.toString());
-		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-"), FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-"));
+		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"), FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"));
 		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR, "true");
 		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Bill Padmanabhan");
 		
@@ -202,7 +202,7 @@ public class TestSubscriptionSearchQueryDAO {
 		assertEquals(4, subscriptionProperties.size());
 		
 		assertEquals(FederalTriggeringEventCode.ARREST.toString(), subscriptionProperties.get(FederalTriggeringEventCode.ARREST.toString()));
-		assertEquals(FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-"), subscriptionProperties.get(FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-")));
+		assertEquals(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"), subscriptionProperties.get(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-")));
 		assertEquals("true", subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR));
 		assertEquals("Bill Padmanabhan", subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT));
 	
@@ -427,7 +427,7 @@ public class TestSubscriptionSearchQueryDAO {
 		assertEquals(4, subscription.getSubscriptionProperties().size());
 		
 		assertEquals(FederalTriggeringEventCode.ARREST.toString(), subscription.getSubscriptionProperties().get(FederalTriggeringEventCode.ARREST.toString()));
-		assertEquals(FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-"), subscription.getSubscriptionProperties().get(FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-")));
+		assertEquals(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"), subscription.getSubscriptionProperties().get(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-")));
 		assertEquals("true", subscription.getSubscriptionProperties().get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR));
 		assertEquals("Bill Padmanabhan", subscription.getSubscriptionProperties().get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT));
 
@@ -885,7 +885,7 @@ public class TestSubscriptionSearchQueryDAO {
 		
 		subscriptionPropertiesRequest = new HashMap<String, String>();
 		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.ARREST.toString(), FederalTriggeringEventCode.ARREST.toString());
-		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-"), FederalTriggeringEventCode.NCIC_WARRANT.toString().replace("_", "-"));
+		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"), FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"));
 		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR, "true");
 		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Bill Padmanabhan");
 

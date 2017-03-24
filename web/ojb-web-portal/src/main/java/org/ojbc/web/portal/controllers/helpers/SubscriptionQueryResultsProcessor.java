@@ -17,19 +17,26 @@
 package org.ojbc.web.portal.controllers.helpers;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+@Service
 public class SubscriptionQueryResultsProcessor {
+	
+	@Value("#{getObject('triggeringEventCodeTranslationInverseMap')}")
+	private Map<String, String> triggeringEventCodeTranslationInverseMap;
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");	
 	
@@ -69,14 +76,20 @@ public class SubscriptionQueryResultsProcessor {
 		
 		if (triggeringEventCodes != null)
 		{	
-			List<String> triggeringEventCodesList = new ArrayList<String>();
+			Set<String> triggeringEventCodesList = new HashSet<String>();
 			
 			for(int i=0; i<triggeringEventCodes.getLength(); i++){			
-				Node triggeringEventCode = triggeringEventCodes.item(i);	
-				triggeringEventCodesList.add(triggeringEventCode.getTextContent().trim());
+				Node triggeringEventCode = triggeringEventCodes.item(i);
+				
+				if (triggeringEventCodeTranslationInverseMap != null){
+					triggeringEventCodesList.add(triggeringEventCodeTranslationInverseMap.get(triggeringEventCode.getTextContent().trim()));
+				}
+				else{
+					triggeringEventCodesList.add(triggeringEventCode.getTextContent().trim());
+				}
 			}
 
-			subscription.setFederalTriggeringEventCode(triggeringEventCodesList);
+			subscription.getFederalTriggeringEventCode().addAll(triggeringEventCodesList);
 		}	
 		
 		String subscriptionPurpose = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:CriminalSubscriptionReasonCode|sqr-ext:CivilSubscriptionReasonCode");

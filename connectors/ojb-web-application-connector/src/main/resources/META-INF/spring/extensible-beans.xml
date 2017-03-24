@@ -104,7 +104,14 @@
 		<entry key="{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS"/>
     </util:map>   
         
-       
+	<util:map id="triggeringEventCodeTranslationMap" map-class="java.util.HashMap">
+		<entry key="ARREST" value="ARREST" />
+		<entry key="DISPOSITION" value="DISPOSITION" />
+		<entry key="NCIC-WARRANT" value="NCIC-WARRANT-ENTRY,NCIC-WARRANT-MODIFICATION,NCIC-WARRANT-DELETION" />
+		<entry key="NCIC-SOR" value="NCIC-SOR-ENTRY,NCIC-SOR-MODIFICATION,NCIC-SOR-DELETION" />
+		<entry key="DEATH" value="DEATH" />
+	</util:map>
+	
 	<!-- To override or add beans, add beans to a beans/web-connector-extension-beans.xml in the ojb-web-external-resource project -->
 	<!-- To override a bean, use the same bean ID as in the provided context -->
 	<!-- To activate the beans, you must specify the extension-beans profile -->

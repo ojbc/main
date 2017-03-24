@@ -156,7 +156,9 @@ insert into subscription_subject_identifier(subscriptionId, identifierName, iden
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62726', 'lastName', 'Simpson');
 
 insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','ARREST','ARREST');
-insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','NCIC-WARRANT','NCIC-WARRANT');
+insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','NCIC-WARRANT-ENTRY','NCIC-WARRANT-ENTRY');
+insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','NCIC-WARRANT-MODIFICATION','NCIC-WARRANT-MODIFICATION');
+insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','NCIC-WARRANT-DELETION','NCIC-WARRANT-DELETION');
 insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','federalRapSheetDisclosureIndicator','true');
 insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','federalRapSheetDisclosureAttentionDesignationText','Bill Padmanabhan');
 

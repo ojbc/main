@@ -156,6 +156,7 @@
 	   		<property name="subscriptionMessageProcessor" ref="subscriptionMessageProcessor"/>
 	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
 	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
+	   		<property name="triggeringEventCodeTranslationMap" ref="triggeringEventCodeTranslationMap"/>
 	   </bean>
 	  
 		<bean id="subscriptionMessageProcessor" class="org.ojbc.processor.FaultableSynchronousMessageProcessor" >

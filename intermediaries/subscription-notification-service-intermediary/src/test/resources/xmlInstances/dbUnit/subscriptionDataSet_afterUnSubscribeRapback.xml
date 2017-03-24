@@ -62,11 +62,11 @@
   <subscription_subject_identifier id="14" subscriptionId="6" identifierName="dateOfBirth" identifierValue="1972-08-02"/>
   
   <subscription_properties subscriptionId="6" propertyName="ARREST" propertyValue="ARREST" />
-  <subscription_properties subscriptionId="6" propertyName="NCIC_WARRANT" propertyValue="NCIC-WARRANT" />
+  <subscription_properties subscriptionId="6" propertyName="NCIC_WARRANT_ENTRY" propertyValue="NCIC-WARRANT-ENTRY" />
   <subscription_properties subscriptionId="6" propertyName="federalRapSheetDisclosureIndicator" propertyValue="true" />
   <subscription_properties subscriptionId="6" propertyName="agencyCaseNumber" propertyValue="0123ABG" />
   <subscription_properties subscriptionId="6" propertyName="DEATH" propertyValue="DEATH" />
-  <subscription_properties subscriptionId="6" propertyName="NCIC_SOR" propertyValue="NCIC-SOR" />
+  <subscription_properties subscriptionId="6" propertyName="NCIC_SOR_ENTRY" propertyValue="NCIC-SOR-ENTRY" />
   <subscription_properties subscriptionId="6" propertyName="federalRapSheetDisclosureAttentionDesignationText" propertyValue="Detective George Jones" />
   <subscription_properties subscriptionId="6" propertyName="DISPOSITION" propertyValue="DISPOSITION" />
   
