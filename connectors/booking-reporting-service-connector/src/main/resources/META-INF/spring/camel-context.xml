@@ -104,7 +104,31 @@
 		
 		</camel:route>						
 		
+		<route>
+			<from uri="cxfrs:bean:bookingExchangeServer" />
+			<log
+				message="Entering resend REST route: Http method ${header.CamelHttpMethod}" />
+			<log message="REST path is ${header.CamelHttpPath}" />
+			<log message="Operation name is ${header.operationName}" />
+			<choice>
+				<when>
+					<simple>${header.operationName} == 'resendExchange'</simple>
+					
+					<log message="About to resend booking record." />
+					
+					<camel:to uri="bean:resendBookingExchangeImpl?method=resendExchange"/>
+					
+				</when>
+			</choice>
+		</route>		
+		
 	</camel:camelContext>
+			
+	<bean id="resendBookingExchangeImpl" class="org.ojbc.connectors.bookingreporting.ResendBookingExchangeImpl">
+		<property name="pathToInputFolder" value="${bookingReporting.connectorFileDirectory}"/>
+		<property name="pathToProcessedFolder" value="${bookingReporting.connectorFileDirectory}/input/.camel"/>
+		<property name="fileNamePrefix" value="booking"/>
+	</bean>
 			
 	<!-- See this thread: http://stackoverflow.com/questions/11195506/increase-executor-queue-size-in-cxf-onewayprocessorinterceptor -->
     <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
