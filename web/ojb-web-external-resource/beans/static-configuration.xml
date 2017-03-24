@@ -674,6 +674,18 @@
 		<entry key="DEATH" value="Death Notice" />
 	</util:map>
 
+	<util:map id="triggeringEventCodeTranslationInverseMap" map-class="java.util.HashMap">
+		<entry key="ARREST" value="ARREST" />
+		<entry key="DISPOSITION" value="DISPOSITION" />
+		<entry key="NCIC-WARRANT-ENTRY" value="NCIC-WARRANT" />
+		<entry key="NCIC-WARRANT-MODIFICATION" value="NCIC-WARRANT" />
+		<entry key="NCIC-WARRANT-DELETION" value="NCIC-WARRANT" />
+		<entry key="NCIC-SOR-ENTRY" value="NCIC-SOR" />
+		<entry key="NCIC-SOR-MODIFICATION" value="NCIC-SOR" />
+		<entry key="NCIC-SOR-DELETION" value="NCIC-SOR" />
+		<entry key="DEATH" value="DEATH" />
+	</util:map>
+       
 	<!-- for the filter subscription form -->
 	<util:map id="subscriptionFilterValueToLabelMap" map-class="java.util.LinkedHashMap">
 		<entry key="Active" value="Active" />

@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.util.xml.subscription;
+package org.ojbc.processor.subscription.subscribe;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -25,15 +25,33 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.util.xml.subscription.Subscription;
+import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
+import org.ojbc.util.xml.subscription.Unsubscription;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"/META-INF/spring/spring-beans-ojb-web-application-connector-context.xml"})
+@ActiveProfiles(profiles={"person-search", "incident-search", "vehicle-search", "firearms-search","person-vehicle-to-incident-search", 
+		"warrants-query", "criminal-history-query", "firearms-query","incident-report-query", 
+		"subscriptions", "policy-acknowledgement", "access-control", "juvenile-query"})
 public class SubscriptionDocumentBuilderTest {
 		
+	
+	@Resource
+	private Map<String, String> triggeringEventCodeTranslationMap;
 	
 	@Test
 	public void testDocIsValid() throws Exception{
@@ -194,7 +212,7 @@ public class SubscriptionDocumentBuilderTest {
 		
 		subscription.setFederalTriggeringEventCode(triggeringEvents);
 		
-		Document subMsgDoc = SubscriptionNotificationDocumentBuilderUtils.createSubscriptionRequest(subscription);		
+		Document subMsgDoc = SubscriptionNotificationDocumentBuilderUtils.createSubscriptionRequest(subscription, triggeringEventCodeTranslationMap);		
 		
 		return subMsgDoc;		
 	}
