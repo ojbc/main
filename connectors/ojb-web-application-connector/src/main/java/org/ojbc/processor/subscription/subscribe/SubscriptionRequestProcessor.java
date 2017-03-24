@@ -16,6 +16,8 @@
  */
 package org.ojbc.processor.subscription.subscribe;
 
+import java.util.Map;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
@@ -49,6 +51,9 @@ public class SubscriptionRequestProcessor implements CamelContextAware, Subscrip
 	
 	private boolean allowQueriesWithoutSAMLToken;
 	
+	private Map<String, String> triggeringEventCodeTranslationMap; 
+	
+	
 	@Override
 	public FaultableSoapResponse subscribe(Subscription subscription,
 			String federatedQueryID,
@@ -73,7 +78,7 @@ public class SubscriptionRequestProcessor implements CamelContextAware, Subscrip
 				throw new Exception("No SAML token provided. Unable to perform query.");
 			}	
 			
-			Document requestMessage = SubscriptionNotificationDocumentBuilderUtils.createSubscriptionRequest(subscription);						
+			Document requestMessage = SubscriptionNotificationDocumentBuilderUtils.createSubscriptionRequest(subscription, triggeringEventCodeTranslationMap);						
 			
 			//Create exchange
 			Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);
@@ -136,6 +141,15 @@ public class SubscriptionRequestProcessor implements CamelContextAware, Subscrip
 	public void setSubscriptionMessageProcessor(
 			FaultableSynchronousMessageProcessor subscriptionMessageProcessor) {
 		this.subscriptionMessageProcessor = subscriptionMessageProcessor;
+	}
+
+	public Map<String, String> getTriggeringEventCodeTranslationMap() {
+		return triggeringEventCodeTranslationMap;
+	}
+
+	public void setTriggeringEventCodeTranslationMap(
+			Map<String, String> triggeringEventCodeTranslationMap) {
+		this.triggeringEventCodeTranslationMap = triggeringEventCodeTranslationMap;
 	}
 
 

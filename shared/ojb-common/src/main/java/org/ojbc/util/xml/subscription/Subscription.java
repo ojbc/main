@@ -68,7 +68,7 @@ public class Subscription implements Serializable {
 	
 	private String federalRapSheetDisclosureAttentionDesignationText;
 	
-	private List<String> federalTriggeringEventCode;
+	private List<String> federalTriggeringEventCode = new ArrayList<String>();
 	
 	public String getStateId() {
 		return stateId;

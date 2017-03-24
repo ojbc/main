@@ -19,8 +19,11 @@ package org.ojbc.util.xml.subscription;
 import static org.ojbc.util.helper.UniqueIdUtils.getUniqueId;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -54,7 +57,8 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
-	public static Document createSubscriptionRequest(Subscription subscription) throws ParserConfigurationException{
+	public static Document createSubscriptionRequest(Subscription subscription, 
+			Map<String,String> triggeringEventCodeTranslationMap) throws ParserConfigurationException{
 		
         Document subMsgDoc = createBlankDoc();        
         Element rootSubscribeElement = getRootSubscribeElement(subMsgDoc); 
@@ -65,7 +69,7 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 						
 		XmlUtils.appendElement(rootSubscribeElement, OjbcNamespaceContext.NS_B2, "SubscriptionPolicy");
 				
-		buildSubscriptionMessageNode(rootSubscribeElement, subscription);
+		buildSubscriptionMessageNode(rootSubscribeElement, subscription, triggeringEventCodeTranslationMap);
 		
 		OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(rootSubscribeElement);
 		
@@ -124,7 +128,8 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 	}
 	
 	
-	private static void buildSubscriptionMessageNode(Element parentNode, Subscription subscription){
+	private static void buildSubscriptionMessageNode(Element parentNode, 
+			Subscription subscription, Map<String, String> triggeringEventCodeTranslationMap){
 		
 		Element subMsgNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXCHANGE, "SubscriptionMessage");
 		
@@ -153,12 +158,13 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
 		buildSubscriptionReasonCodeElement(subMsgNode, subscription);
 		
-		buildTriggeringEvents(subMsgNode, subscription);
+		buildTriggeringEvents(subMsgNode, subscription, triggeringEventCodeTranslationMap);
 		
 		buildFederalRapSheetDisclosure(subMsgNode, subscription);
 		
 	}
 	
+
 	private static void buildFederalRapSheetDisclosure(Element subMsgNode,
 			Subscription subscription) {
 //	<smext:FederalRapSheetDisclosure>
@@ -185,32 +191,38 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 
 
 	private static void buildTriggeringEvents(Element subMsgNode,
-			Subscription subscription) {
+			Subscription subscription, Map<String, String> triggeringEventCodeTranslationMap) {
 //	<submsg-ext:TriggeringEvents>
 //		<submsg-ext:FederalTriggeringEventCode>ARREST</submsg-ext:FederalTriggeringEventCode>
 //		<submsg-ext:FederalTriggeringEventCode>DEATH</submsg-ext:FederalTriggeringEventCode>
-//		<submsg-ext:FederalTriggeringEventCode>NCIC-SOR</submsg-ext:FederalTriggeringEventCode>
-//		<submsg-ext:FederalTriggeringEventCode>NCIC-WARRANT</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>NCIC-SOR-ENTRY</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>NCIC-SOR-MODIFICATION</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>NCIC-SOR-DELETION</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>NCIC-WARRANT-ENTRY</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>NCIC-WARRANT-MODIFICATION</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>NCIC-WARRANT-DELETION</submsg-ext:FederalTriggeringEventCode>
+//		<submsg-ext:FederalTriggeringEventCode>DISPOSITION</submsg-ext:FederalTriggeringEventCode>
 //		<submsg-ext:FederalTriggeringEventCode>DISPOSITION</submsg-ext:FederalTriggeringEventCode>
 //	</submsg-ext:TriggeringEvents>
 		
 		
-		if (subscription.getFederalTriggeringEventCode() != null)
-		{	
+		if (subscription.getFederalTriggeringEventCode() != null && !subscription.getFederalTriggeringEventCode().isEmpty()) {	
 			Element triggeringEventsElement = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "TriggeringEvents");
 			
-	    	for (String triggeringEventCode : subscription.getFederalTriggeringEventCode())
-	    	{
+			List<String> translatedTriggeringEventCode = new ArrayList<>();
+			subscription.getFederalTriggeringEventCode().stream()
+				.map(triggeringEventCodeTranslationMap::get)
+				.forEach(code -> translatedTriggeringEventCode.addAll(Arrays.asList(StringUtils.split(code, ','))));
+			
+	    	for (String triggeringEventCode : translatedTriggeringEventCode) {
     	    	Element federalTriggeringEventCode = XmlUtils.appendElement(triggeringEventsElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalTriggeringEventCode");
     	    	federalTriggeringEventCode.setTextContent(triggeringEventCode);
-
 	    	}	
 		}	
-	    	
 	}
 
 
-	private static void buildCaseIdElement(Element parentNode, Subscription subscription){
+	private static void buildCaseIdElement(Element parentNode, Subscription subscription) {
 		
 		String caseId = subscription.getCaseId();
 		

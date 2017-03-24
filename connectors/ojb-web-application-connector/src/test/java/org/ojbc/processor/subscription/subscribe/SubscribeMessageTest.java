@@ -21,6 +21,9 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
@@ -29,14 +32,26 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Document;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"/META-INF/spring/spring-beans-ojb-web-application-connector-context.xml"})
+@ActiveProfiles(profiles={"person-search", "incident-search", "vehicle-search", "firearms-search","person-vehicle-to-incident-search", 
+		"warrants-query", "criminal-history-query", "firearms-query","incident-report-query", 
+		"subscriptions", "policy-acknowledgement", "access-control", "juvenile-query"})
 public class SubscribeMessageTest {
 	
 	private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
+	
+	@Resource
+	private Map<String, String> triggeringEventCodeTranslationMap;
 	
 	@Before
 	public void setup(){		
@@ -53,7 +68,7 @@ public class SubscribeMessageTest {
 		
 		Subscription subscription = getSampleSubscriptionPojo();
 		
-		Document generatedSubscriptinDoc = SubscriptionNotificationDocumentBuilderUtils.createSubscriptionRequest(subscription);	
+		Document generatedSubscriptinDoc = SubscriptionNotificationDocumentBuilderUtils.createSubscriptionRequest(subscription, triggeringEventCodeTranslationMap);	
 		
 		String subQualId = XmlUtils.xPathStringSearch(generatedSubscriptinDoc, "//submsg-ext:SubscriptionQualifierIdentification/nc:IdentificationID");
 		

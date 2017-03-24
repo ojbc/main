@@ -42,7 +42,7 @@
   <subscription_subject_identifier id="9" subscriptionId="3" identifierName="subscriptionQualifier" identifierValue="20919"/>
   
   <subscription_properties id="1" subscriptionId="1" propertyName="ARREST" propertyValue="ARREST"/>
-  <subscription_properties id="2" subscriptionId="1" propertyName="NCIC-WARRANT" propertyValue="NCIC-WARRANT"/>
+  <subscription_properties id="2" subscriptionId="1" propertyName="NCIC-WARRANT-ENTRY" propertyValue="NCIC-WARRANT-ENTRY"/>
   <subscription_properties id="3" subscriptionId="1" propertyName="federalRapSheetDisclosureIndicator" propertyValue="true"/>
   <subscription_properties id="4" subscriptionId="1" propertyName="federalRapSheetDisclosureAttentionDesignationText" propertyValue="Bill Padmanabhan"/>
   
