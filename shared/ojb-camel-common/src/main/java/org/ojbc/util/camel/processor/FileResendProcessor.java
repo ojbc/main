@@ -20,6 +20,8 @@ package org.ojbc.util.camel.processor;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -37,12 +39,8 @@ public class FileResendProcessor {
 	public static void resendFile(String recordNumber, String pathToInputFolder, String pathToProcessedFolder, String fileNamePrefix) throws Exception
 	{
 		List<File> files = FileResendProcessor.findFailedFile(recordNumber, pathToProcessedFolder, fileNamePrefix);
-		
-		if (files == null || files.size() != 1)
-		{
-			log.error("Unable to find file");
-			throw new IllegalStateException("Unable to find file");
-		}	
+						
+		File fileToResend = returnFileToSend(files);	
 		
 		LocalDateTime now = LocalDateTime.now();
 		String formatedDateTime = now.format(formatter);
@@ -55,11 +53,39 @@ public class FileResendProcessor {
 		//Start resent file name with RESEND_ so it doesn't match the fileNamePrefix
 		File destinationFolderAndFileName = new File(pathToInputFolder + "input/RESEND_" + recordNumber + "_" + fileNamePrefix + "_" + formatedDateTime + ".xml");
 		
-		File fileToResend = files.get(0);
-		
 		log.info("Resending file: " + destinationFolderAndFileName);
 		fileToResend.renameTo(destinationFolderAndFileName);
 		
+	}
+
+	static File returnFileToSend(List<File> files) throws Exception {
+		if (files == null)
+		{
+			log.error("Unable to find file");
+			throw new IllegalStateException("Unable to find file");
+		}	
+		
+		File fileToResend = null;
+		
+		if (files.size() == 1)
+		{
+			fileToResend = files.get(0);
+		}	
+		
+		if (files.size() > 1)
+		{
+			Collections.sort(files,
+				new Comparator<File>(){
+				    public int compare(File f1, File f2)
+				    {
+				        return Long.valueOf(f1.lastModified()).compareTo(f2.lastModified());
+				    } 
+			});
+				
+			fileToResend = files.get(files.size()-1);
+			
+		}
+		return fileToResend;
 	}
 
 	@SuppressWarnings("unchecked")
