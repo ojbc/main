@@ -27,14 +27,39 @@ import org.junit.Test;
 public class TestFileResendProcessor {
 
 	@Test
-	public void testFindFailedFile()
+	public void testFindFailedFiles()
 	{
 		List<File> files = FileResendProcessor.findFailedFile("9999999", "src/test/resources/xmlInstances/booking", "booking");
 		
 		assertNotNull(files);
-		assertEquals(1, files.size());
-		assertEquals("booking_9999999_20170323_110011192.xml", files.get(0).getName());
+		assertEquals(2, files.size());
 		
 	}	
+
+	/**
+	 * This test will return the file with the latest timestamp
+	 * 
+	 * @throws Exception
+	 */
 	
+	@Test
+	public void testFileToReturn() throws Exception
+	{
+		List<File> files = FileResendProcessor.findFailedFile("9999999", "src/test/resources/xmlInstances/booking", "booking");
+		
+		File fileToResend = FileResendProcessor.returnFileToSend(files);
+		
+		assertNotNull(fileToResend);
+		assertEquals("booking_9999999_20170324_110011192.xml", fileToResend.getAbsoluteFile().getName());
+	}	
+
+	@Test(expected=IllegalStateException.class)
+	public void testFileToReturnException() throws Exception
+	{
+		List<File> files = null;
+		
+		File fileToResend = FileResendProcessor.returnFileToSend(files);
+	}	
+
 }
+
