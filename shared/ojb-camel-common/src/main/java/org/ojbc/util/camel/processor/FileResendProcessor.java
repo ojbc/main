@@ -53,7 +53,7 @@ public class FileResendProcessor {
 		}	
 		
 		//Start resent file name with RESEND_ so it doesn't match the fileNamePrefix
-		File destinationFolderAndFileName = new File(pathToInputFolder + "input/RESEND_" + fileNamePrefix + "_" + formatedDateTime + ".xml");
+		File destinationFolderAndFileName = new File(pathToInputFolder + "input/RESEND_" + recordNumber + "_" + fileNamePrefix + "_" + formatedDateTime + ".xml");
 		
 		File fileToResend = files.get(0);
 		
