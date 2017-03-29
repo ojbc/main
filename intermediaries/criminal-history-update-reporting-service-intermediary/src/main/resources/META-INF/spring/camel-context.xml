@@ -118,7 +118,7 @@
 				<camel:to uri="xslt:xslt/prosecutionDecisionRecordingReportToNotifications.xsl"/>
 			</camel:filter>
 			
-			<camel:log message="After xslt transformation: \n ${body}" />
+			<camel:log message="After xslt transformation: \n ${body}" loggingLevel="DEBUG"/>
 						
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
