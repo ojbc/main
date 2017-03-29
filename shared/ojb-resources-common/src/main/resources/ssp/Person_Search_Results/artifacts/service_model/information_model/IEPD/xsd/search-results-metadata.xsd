@@ -34,8 +34,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="iad:InformationAccessDenial" minOccurs="0"/>
-					<xsd:element ref="srer:SearchErrors" minOccurs="0"/>
+					<xsd:element ref="iad:InformationAccessDenial" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="srer:SearchErrors" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="srer:SearchRequestError" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
