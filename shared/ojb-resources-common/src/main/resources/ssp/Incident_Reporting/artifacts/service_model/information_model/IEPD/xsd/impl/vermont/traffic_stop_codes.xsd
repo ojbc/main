@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+	xmlns:vt-ts-codes="http://ojbc.org/IEPD/Extensions/Vermont/TrafficStopCodes/1.0"
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/Vermont/TrafficStopCodes/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
+		schemaLocation="../../NIEM_2.0/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0"
+		schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
+		schemaLocation="../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
+		schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd" />
+	<xsd:import
+		namespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+		schemaLocation="../../Structured_Payloads/OJBC/Incident_Report_Structured_Payload.xsd" />
+	<xsd:annotation>
+		<xsd:documentation>Traffic Stop Codes
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:simpleType name="TrafficStopReasonCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Traffic Stop Reason code set
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="D">
+				<xsd:annotation>
+					<xsd:documentation>Suspicion of DWI
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="E">
+				<xsd:annotation>
+					<xsd:documentation>Externally Generated
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="I">
+				<xsd:annotation>
+					<xsd:documentation>Investigatory
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="M">
+				<xsd:annotation>
+					<xsd:documentation>Moving Violation
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="V">
+				<xsd:annotation>
+					<xsd:documentation>Vehicle Equipment
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="TrafficStopReasonCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="vt-ts-codes:TrafficStopReasonCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="TrafficStopReasonCode" type="vt-ts-codes:TrafficStopReasonCodeType"
+		substitutionGroup="inc-ext:TrafficStopReason">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the traffic stop search
+				category.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="TrafficStopSearchCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Traffic Stop Search Category code set
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="NS">
+				<xsd:annotation>
+					<xsd:documentation>No Search
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SPC">
+				<xsd:annotation>
+					<xsd:documentation>Probable Cause
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SRS">
+				<xsd:annotation>
+					<xsd:documentation>Reasonable Suspicion
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SW">
+				<xsd:annotation>
+					<xsd:documentation>Warrant
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="TrafficStopSearchCategoryCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="vt-ts-codes:TrafficStopSearchCategoryCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="TrafficStopSearchCategoryCode"
+		type="vt-ts-codes:TrafficStopSearchCategoryCodeType"
+		substitutionGroup="inc-ext:TrafficStopSearchCategory">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the traffic stop search
+				category.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="TrafficStopContrabandCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Traffic Stop Contraband code set
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="C">
+				<xsd:annotation>
+					<xsd:documentation>Contraband
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NC">
+				<xsd:annotation>
+					<xsd:documentation>No Contraband
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="X">
+				<xsd:annotation>
+					<xsd:documentation>No Search/Not Applicable
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="TrafficStopContrabandCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="vt-ts-codes:TrafficStopContrabandCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="TrafficStopContrabandCode"
+		type="vt-ts-codes:TrafficStopContrabandCodeType" substitutionGroup="inc-ext:TrafficStopContraband">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the traffic stop contraband.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="TrafficStopOutcomeCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Traffic Stop Outcome code set
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="A">
+				<xsd:annotation>
+					<xsd:documentation>Arrest
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="AW">
+				<xsd:annotation>
+					<xsd:documentation>Arrest for Warrant
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="N">
+				<xsd:annotation>
+					<xsd:documentation>No Action
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="T">
+				<xsd:annotation>
+					<xsd:documentation>Ticket/VCVC
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="V">
+				<xsd:annotation>
+					<xsd:documentation>Verbal Warning
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="W">
+				<xsd:annotation>
+					<xsd:documentation>Written Warning
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="TrafficStopOutcomeCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="vt-ts-codes:TrafficStopOutcomeCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="TrafficStopOutcomeCode" type="vt-ts-codes:TrafficStopOutcomeCodeType"
+		substitutionGroup="inc-ext:TrafficStopOutcome">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the traffic stop outcome.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
