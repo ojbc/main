@@ -38,6 +38,8 @@ public class FederatedQueryResponseHandlerAggregator {
 	private static final Log log = LogFactory.getLog( FederatedQueryResponseHandlerAggregator.class );
 	private Map<String, List<FederatedQueryProfile>> federatedQueryManager;
 	
+	private Map<String, String> addressToAdapterURIMap;
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void aggregateGroupMessagesString(Exchange groupedExchange)
 	{
@@ -124,6 +126,22 @@ public class FederatedQueryResponseHandlerAggregator {
 					if (exchange.getIn().getBody().getClass().getName().equals("org.apache.camel.component.cxf.CxfPayload"))
 					{
 						String searchProfileInResponseExchange = (String) exchange.getIn().getHeader("searchProfile");
+						
+						if (StringUtils.isEmpty(searchProfileInResponseExchange))
+						{
+							log.info("No search profile in message, try retrieving search profile from WS-Addressing 'From' Address");
+
+							HashMap<String, String> wsAddressingHeadersMap = OJBUtils.returnWSAddressingHeadersFromCamelSoapHeaders(exchange);
+							String wsAddressingFrom = wsAddressingHeadersMap.get("From");
+							
+							log.info("WS-Addressing 'From' Address" + wsAddressingFrom);	
+
+							if (addressToAdapterURIMap != null)
+							{
+								searchProfileInResponseExchange = addressToAdapterURIMap.get(wsAddressingFrom);
+							}	
+							
+						}	
 						
 						log.info("Response Recieved from: " + searchProfileInResponseExchange);
 						
@@ -214,7 +232,16 @@ public class FederatedQueryResponseHandlerAggregator {
 	public void setFederatedQueryManager(
 			Map<String, List<FederatedQueryProfile>> federatedQueryManager) {
 		this.federatedQueryManager = federatedQueryManager;
-	} 
+	}
+
+	public Map<String, String> getAddressToAdapterURIMap() {
+		return addressToAdapterURIMap;
+	}
+
+	public void setAddressToAdapterURIMap(Map<String, String> addressToAdapterURIMap) {
+		this.addressToAdapterURIMap = addressToAdapterURIMap;
+	}
+
 	
 
 }
