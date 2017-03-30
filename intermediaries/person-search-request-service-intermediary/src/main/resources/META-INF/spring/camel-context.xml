@@ -384,6 +384,7 @@
 		<property name="federatedQueryManager">
 			<ref bean="federatedQueryManager" />
 		</property>
+		<property name="addressToAdapterURIMap" ref="addressToAdapterURIMap"/>
 	</bean>
 
 	<bean id="entityResolutionResponseAggregator"
