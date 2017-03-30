@@ -90,8 +90,6 @@ public class DefaultFederatedSearchTimeoutProcessor implements FederatedQueryTim
 			}	
 		}
 
-		XmlUtils.printNode(response);		
-		
 		return response;
 		
 	}
