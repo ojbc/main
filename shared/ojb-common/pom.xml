@@ -51,6 +51,7 @@
 		<joda-time.version>2.2</joda-time.version>
 		<xmlunit.version>1.5</xmlunit.version>
 		<javax.mail.version>1.4.7</javax.mail.version>
+		<jackson.version>1.9.12</jackson.version>
 	</properties>
 
 	<dependencies>
@@ -82,6 +83,16 @@
 			<scope>test</scope>
 			<version>${httpcomponents.version}</version>
 		</dependency>
+         <dependency>
+             <groupId>org.codehaus.jackson</groupId>
+             <artifactId>jackson-jaxrs</artifactId>
+             <version>${jackson.version}</version>
+         </dependency>
+         <dependency>
+             <groupId>org.codehaus.jackson</groupId>
+             <artifactId>jackson-core-asl</artifactId>
+             <version>${jackson.version}</version>
+         </dependency>		
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-io</artifactId>

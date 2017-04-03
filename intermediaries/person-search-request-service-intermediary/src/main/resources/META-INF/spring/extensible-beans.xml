@@ -138,4 +138,21 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean id="addressToAdapterURIMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="addressToSystemNameMap" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-search-request-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<util:map map-class="java.util.HashMap" >
+				<entry key="${federatedQuery.personSearch.personSearchRequestCriminalHistoryEndpoint}" value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History" />
+				<entry key="${federatedQuery.personSearch.personSearchRequestWarrantsEndpoint}" value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants" />
+				<entry key="${federatedQuery.personSearch.personSearchRequestRMSEndpoint}" value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS"  />
+				<entry key="${federatedQuery.personSearch.personSearchRequestServiceFirearmsEndpoint}" value="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms"  />
+				<entry key="${federatedQuery.personSearch.personSearchRequestServiceJuvenileEndpoint}" value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory" />
+				<entry key="${federatedQuery.personSearch.personSearchRequestServiceCourtEndpoint}" value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court" />
+				<entry key="${federatedQuery.personSearch.personSearchRequestServiceJailEndpoint}" value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Jail"  />
+				<entry key="${federatedQuery.personSearch.personSearchRequestServiceVehicleCrashEndpoint}" value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash"  />
+				<entry key="${federatedQuery.personSearch.personSearchRequestServiceVehicleCrashEndpoint}" value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Firearms-Prohibition"  />
+			</util:map>
+		</constructor-arg>
+	</bean>	
 </beans>

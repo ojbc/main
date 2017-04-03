@@ -183,6 +183,19 @@ public class OJBUtils {
 
 	        	maps.setReplyTo(replyToRef);
 	        }
+	        
+	        String fromString = wsAddressingMessageProperties.get("From");
+
+	        if (StringUtils.isNotEmpty(fromString))
+	        {
+	        	AttributedURIType fromAttr = new AttributedURIType(); 
+	        	fromAttr.setValue(fromString); 
+	        	
+	        	EndpointReferenceType fromRef = new EndpointReferenceType();
+	        	fromRef.setAddress(fromAttr);
+
+	        	maps.setFrom(fromRef);
+	        }	        
 
 	        requestContext = new HashMap<String, Object>();
 	        requestContext.put(CLIENT_ADDRESSING_PROPERTIES, maps);

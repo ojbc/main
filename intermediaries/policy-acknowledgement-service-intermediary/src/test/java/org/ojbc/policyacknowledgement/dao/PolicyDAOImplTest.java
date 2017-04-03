@@ -71,7 +71,7 @@ public class PolicyDAOImplTest {
     
     @Test(expected = IllegalArgumentException.class)
     public void testAcknowledgeOutstandingPoliciesWithNonExistingFedId() {
-        policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:cchris", "H00000001");
+        policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:non-existent", "H00000001");
     }
     
     @Test(expected = IllegalArgumentException.class)

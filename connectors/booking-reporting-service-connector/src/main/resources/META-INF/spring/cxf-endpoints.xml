@@ -44,6 +44,15 @@
 	<camel:endpoint id="intermediaryEndpoint"
 		uri="cxf:bean:bookingReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${bookingReporting.intermediaryCxflogging}" />
 	
+	<cxf:rsServer id="bookingExchangeServer" address="${bookingReporting.restEndpoint}" loggingFeatureEnabled="true">
+	  <cxf:serviceBeans>
+	     <ref bean="resendBookingExchangeImpl" />
+	  </cxf:serviceBeans>
+	  <cxf:providers>
+	     <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+	  </cxf:providers>
+	</cxf:rsServer>	
+	
     <cxf:cxfEndpoint 
         id="bookingReportingService"
         address="${bookingReporting.bookingReportingServiceEndpoint}" 

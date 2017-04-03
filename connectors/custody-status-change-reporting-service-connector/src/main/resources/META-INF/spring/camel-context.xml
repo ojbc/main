@@ -101,7 +101,31 @@
 		
 		</camel:route>						
 		
+		<route>
+			<from uri="cxfrs:bean:custodyStatusChangeExchangeServer" />
+			<log
+				message="Entering resend REST route: Http method ${header.CamelHttpMethod}" />
+			<log message="REST path is ${header.CamelHttpPath}" />
+			<log message="Operation name is ${header.operationName}" />
+			<choice>
+				<when>
+					<simple>${header.operationName} == 'resendExchange'</simple>
+					
+					<log message="About to resend custody status change record." />
+					
+					<camel:to uri="bean:resendCustodyStatusChangeExchangeImpl?method=resendExchange"/>
+					
+				</when>
+			</choice>
+		</route>			
+		
 	</camel:camelContext>
+	
+	<bean id="resendCustodyStatusChangeExchangeImpl" class="org.ojbc.connectors.custodystatuschange.ResendCustodyStatusChangeExchangeImpl">
+		<property name="pathToInputFolder" value="${custody.connectorFileDirectory}"/>
+		<property name="pathToProcessedFolder" value="${custody.connectorFileDirectory}/input/.camel"/>
+		<property name="fileNamePrefix" value="custody_status_change"/>
+	</bean>	
 			
 </beans>
 
