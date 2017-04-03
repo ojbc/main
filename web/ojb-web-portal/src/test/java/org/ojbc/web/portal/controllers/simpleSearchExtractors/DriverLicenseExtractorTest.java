@@ -128,7 +128,7 @@ public class DriverLicenseExtractorTest {
 	@Test
 	public void testCustomPattern() {
 		unit.setDefaultStateOfIssue("HI");
-		unit.setDriversLicenseRegex("([a-zA-Z]{2})-(.+)|([Hh][0-9]{8})");
+		unit.setDriversLicenseRegex("([a-zA-Z]{2})-(.+)|([Hh1][0-9]{8})");
 		
 		unit.extractTerm(Arrays.asList("X12345678", "H1234567"), personSearchRequest);
 		assertThat(personSearchRequest.getPersonDriversLicenseNumber(), nullValue());
@@ -138,6 +138,8 @@ public class DriverLicenseExtractorTest {
 		assertThat(personSearchRequest.getPersonDriversLicenseNumber(),is("H12345678"));
 		assertThat(personSearchRequest.getPersonDriversLicenseIssuer(),is("HI"));
 		
+		unit.setDefaultStateOfIssue("WA");
+		unit.setDriversLicenseRegex("([a-zA-Z]{2}-)(.+)|([Ww][Aa][0-9]{7})");
 	}
 
 }

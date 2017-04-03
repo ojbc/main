@@ -18,7 +18,6 @@ package org.ojbc.util.rest;
 
 import java.io.InputStream;
 
-import javax.annotation.Resource;
 import javax.mail.Address;
 import javax.mail.Message.RecipientType;
 import javax.mail.internet.MimeMessage;
@@ -26,30 +25,24 @@ import javax.mail.internet.MimeMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.mail.Email;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailPreparationException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * This is a simple mock implementation of the Spring Java Mail Sender that will
- * log the mail message contents.   
+ * This is a REST implementation which will post the mail message to a REST service who will send it.   
  *
  */
 
-@Service
 public class RestMailSender implements JavaMailSender {
 
 	private final Log log = LogFactory.getLog(this.getClass());
 
-    @Resource
     private RestTemplate restTemplate;
     
-    @Value("${emailRestPostURI:https://localhost:8443/OJB/emailServer/email/sendEmail}")
     private String emailRestPostURI;
 
 	@Override
@@ -88,17 +81,23 @@ public class RestMailSender implements JavaMailSender {
 				toSb.setLength(toSb.length() - 1);
 			}	
 			
-			Email email = new Email();
-			email.setTo(toSb.toString());
-			email.setBody(content);
-			email.setSubject(subject);
-			
-			restTemplate.postForObject(emailRestPostURI, email, Email.class);
+			postMailMessage(content, subject, toSb.toString());
 			
 		} catch (final Exception e) {
 			throw new MailPreparationException(e);
 		}
 		
+	}
+
+	private void postMailMessage(String content, String subject,
+			String recipients) {
+		
+		Email email = new Email();
+		email.setTo(recipients);
+		email.setBody(content);
+		email.setSubject(subject);
+		
+		restTemplate.postForObject(emailRestPostURI, email, Email.class);
 	}
 
 	@Override
@@ -116,12 +115,27 @@ public class RestMailSender implements JavaMailSender {
 
 	@Override
 	public void send(SimpleMailMessage simpleMessage) throws MailException {
-		log.info("Mail Message (SimpleMailMessage): ");
+		log.info("Entering send Simple Mail Message ");
 		
-		if (simpleMessage != null)
-		{	
-			log.info("Mail Message: " + simpleMessage.getText());
+		String content = simpleMessage.getText();
+		String subject = simpleMessage.getSubject();
+		String[] recipients = simpleMessage.getTo();
+		
+		StringBuffer toSb = new StringBuffer();
+		
+		for (String recipient : recipients)
+		{
+			toSb.append(recipient.toString());
+			toSb.append(",");
 		}	
+		
+		if (toSb.length() > 1)
+		{
+			toSb.setLength(toSb.length() - 1);
+		}	
+		
+		
+		postMailMessage(content, subject, toSb.toString());
 	}
 
 	@Override
@@ -141,6 +155,22 @@ public class RestMailSender implements JavaMailSender {
 			throws MailException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public RestTemplate getRestTemplate() {
+		return restTemplate;
+	}
+
+	public void setRestTemplate(RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
+
+	public String getEmailRestPostURI() {
+		return emailRestPostURI;
+	}
+
+	public void setEmailRestPostURI(String emailRestPostURI) {
+		this.emailRestPostURI = emailRestPostURI;
 	}
 
 

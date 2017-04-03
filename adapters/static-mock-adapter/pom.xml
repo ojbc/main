@@ -237,15 +237,6 @@
 			</plugin>
 
 			<plugin>
-			  <groupId>org.apache.maven.plugins</groupId>
-			  <artifactId>maven-surefire-plugin</artifactId>
-			  <version>${maven-surefire-plugin-version}</version>
-			  <configuration>
-			      <argLine>-Xmx1800m</argLine>
-			  </configuration>
-			</plugin>
-
-			<plugin>
 				<groupId>org.apache.camel</groupId>
 				<artifactId>camel-maven-plugin</artifactId>
 				<version>${camel-version}</version>

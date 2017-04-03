@@ -43,7 +43,16 @@
 
 	<camel:endpoint id="intermediaryEndpoint"
 		uri="cxf:bean:custodyStatusChangeReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${custody.intermediaryCxflogging}" />
-	
+		
+	<cxf:rsServer id="custodyStatusChangeExchangeServer" address="${custody.restEndpoint}" loggingFeatureEnabled="true">
+	  <cxf:serviceBeans>
+	     <ref bean="resendCustodyStatusChangeExchangeImpl" />
+	  </cxf:serviceBeans>
+	  <cxf:providers>
+	     <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+	  </cxf:providers>
+	</cxf:rsServer>	
+		
     <cxf:cxfEndpoint 
         id="custodyStatusChangeReportingService"
         address="${custody.custodyStatusChangeReportingEndpoint}" 

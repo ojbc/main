@@ -21,8 +21,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.notification.EmailNotification;
 import org.ojbc.intermediaries.sn.notification.NotificationProcessor;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.util.SubjectIdentifierUtils;
@@ -57,6 +59,11 @@ public class RapbackNotificationProcessor extends NotificationProcessor {
 		return rapbackNotificationRequest;
 	}
 
+	@Override
+	public List<EmailNotification> findSubscriptionsForNotification(Exchange exchange) throws Exception {
+		return null;
+	}
+	
 	public List<String> getActiveSubjectIdentifiers() {
 		return activeSubjectIdentifiers;
 	}

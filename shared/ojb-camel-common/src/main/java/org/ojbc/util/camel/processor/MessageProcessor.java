@@ -164,7 +164,15 @@ public class MessageProcessor {
 			log.debug("WS Addressing Reply To Camel Header: " + replyTo);
 			wsAddressingMessageProperties.put("ReplyTo",replyTo);
 		}
-			
+
+		String from = (String)exchange.getIn().getHeader("WSAddressingFrom");
+
+		if (StringUtils.isNotEmpty(from))
+		{	
+			log.debug("WS Addressing from Camel Header: " + from);
+			wsAddressingMessageProperties.put("From",from);
+		}
+
 		//Call method to create proper request context map
 		Map<String, Object> requestContext = OJBUtils.setWSAddressingProperties(wsAddressingMessageProperties);
 		exchange.getOut().setHeader(Client.REQUEST_CONTEXT , requestContext);
