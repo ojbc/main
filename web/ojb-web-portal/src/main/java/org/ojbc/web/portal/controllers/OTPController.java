@@ -57,6 +57,15 @@ public class OTPController {
 		OTPFormCommand otpFormCommand = new OTPFormCommand();
 		model.put("otpFormCommand", otpFormCommand);
 		
+		//Send OTP as soon as the input form is shown
+		Element samlAssertion = samlService.getSamlAssertion(request);
+		
+		String userEmail = XmlUtils.xPathStringSearch(samlAssertion, "/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()");
+		
+		otpService.generateOTP(userEmail);
+		
+		model.put("otpInfoMessage", "Your One-Time Password (OTP) was sent to " + userEmail + ".  Please enter the OTP below.  If you did not receive the OTP, please click the 'Request OTP' below.");		
+		
 		return "otp/inputForm";
 	}
 	

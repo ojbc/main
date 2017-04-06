@@ -58,4 +58,5 @@ public class GlobalControllerAdvice {
 		log.error("Got exception when processing the request", ex); 
 		return "/error/500";
 	}
+    
 }
