@@ -21,12 +21,15 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.NotifyBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
@@ -49,8 +52,7 @@ public class CamelContextTest {
 
     private static final Log log = LogFactory.getLog( CamelContextTest.class );
 	
-	public static final String CXF_OPERATION_NAME = "ReportCriminalHistoryConsolidation";
-	public static final String CXF_OPERATION_NAMESPACE = "http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0";
+	public static final String CXF_OPERATION_NAMESPACE = "http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0";
     
     @Resource
     private ModelCamelContext context;
@@ -96,23 +98,38 @@ public class CamelContextTest {
 		{	
 			FileUtils.cleanDirectory(inputDirectory);
 		}
-		
 
-        File inputFile = new File("src/test/resources/xmlInstances/criminal_history_consolidation_report.xml");
+        testOperation(inputDirectory, "src/test/resources/xmlInstances/Court-Disposition-Recording-Report.xml","ReportCourtDispositionRecording");
+        testOperation(inputDirectory, "src/test/resources/xmlInstances/CriminalHistory-Expungement-Report.xml","ReportCriminalHistoryExpungement");
+        testOperation(inputDirectory, "src/test/resources/xmlInstances/CriminalHistory-IdentifierUpdate-Report.xml","ReportCriminalHistoryIdentifierUpdate");
+        testOperation(inputDirectory, "src/test/resources/xmlInstances/Cycle-Tracking-Identifier-Assignment-Report.xml","ReportCycleTrackingIdentifierAssignment");
+        testOperation(inputDirectory, "src/test/resources/xmlInstances/Prosecution-Decision-Recording-Report.xml","ReportProsecutionDecisionRecording");
+        testOperation(inputDirectory, "src/test/resources/xmlInstances/CriminalHistory-Consolidation-Report.xml", "ReportCriminalHistoryConsolidation");
+        
+		if (inputDirectory.exists())
+		{	
+			FileUtils.cleanDirectory(inputDirectory);
+		}
+
+	}
+
+	private void testOperation(File inputDirectory, String fileNameAndPath, String operationName) throws IOException,
+			InterruptedException {
+		File inputFile = new File(fileNameAndPath);
 		assertNotNull(inputFile);
 		
 		//Kick off the process by copying the process record file to the input directory 
 		FileUtils.copyFileToDirectory(inputFile, inputDirectory);
 
-		Thread.sleep(5000);
+		Thread.sleep(3000);
 		
 		criminalHistoryConsolidationReportingServiceMockEndpoint.assertIsSatisfied();
 		
 		Exchange ex = criminalHistoryConsolidationReportingServiceMockEndpoint.getExchanges().get(0);
-		assertEquals(ex.getIn().getHeader("operationName"), CXF_OPERATION_NAME);
-		assertEquals(ex.getIn().getHeader("operationNamespace"), CXF_OPERATION_NAMESPACE);
+		assertEquals(operationName,ex.getIn().getHeader("operationName"));
+		assertEquals(CXF_OPERATION_NAMESPACE, ex.getIn().getHeader("operationNamespace"));
 		
-		
+		criminalHistoryConsolidationReportingServiceMockEndpoint.reset();
 	}
 
 	
