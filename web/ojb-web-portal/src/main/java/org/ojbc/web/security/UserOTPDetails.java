@@ -50,4 +50,12 @@ public class UserOTPDetails {
 		this.expirationTimestamp = expirationTimestamp;
 	}
 	
+	@Override
+	public String toString() {
+		return "UserOTPDetails [oneTimePassword=" + oneTimePassword
+				+ ", expirationTimestamp=" + expirationTimestamp
+				+ ", emailAddress=" + emailAddress + ", isUserAuthenticated="
+				+ isUserAuthenticated + "]";
+	}
+	
 }
