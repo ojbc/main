@@ -22,6 +22,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:cdr-report-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0"
+	xmlns:chc-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
+	xmlns:che-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryExpungementReport/1.0"
+	xmlns:chiu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
+	xmlns:crimhistory-update-doc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:pdr-report-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -30,7 +36,7 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="criminal-history-consolidation-reporting-service-connector">
 	
 		<endpoint id="inputDirectory"
-			uri="file:///${criminalHistoryConsolidation.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${criminalHistoryConsolidation.ConnectorFileDirectory}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=${criminalHistoryConsolidation.deleteInputFiles}" />
+			uri="file:///${criminalHistoryConsolidation.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${criminalHistoryConsolidation.ConnectorFileDirectory}/error&amp;readLock=changed&amp;readLockCheckInterval=1000&amp;delete=${criminalHistoryConsolidation.deleteInputFiles}" />
 		
 		<camel:route id="Criminal_History_Consolidation_Connector_Route">
 		
@@ -83,12 +89,56 @@
 			
 			<camel:log message="In Direct Call Intermediary with body of: ${body}" loggingLevel="DEBUG"/>
 		
-			<camel:setHeader headerName="operationName">
-				<constant>ReportCriminalHistoryConsolidation</constant>
-			</camel:setHeader>
+			<camel:filter>
+				<camel:xpath>/crimhistory-update-doc:CycleTrackingIdentifierAssignmentReport</camel:xpath>
+
+				<camel:setHeader headerName="operationName">
+					<constant>ReportCycleTrackingIdentifierAssignment</constant>
+				</camel:setHeader>
+			</camel:filter>	
+
+			<camel:filter>
+				<camel:xpath>/cdr-report-doc:CourtDispositionRecordingReport</camel:xpath>
+	
+				<camel:setHeader headerName="operationName">
+					<constant>ReportCourtDispositionRecording</constant>
+				</camel:setHeader>
+			</camel:filter>
+
+			<camel:filter>
+				<camel:xpath>/pdr-report-doc:ProsecutionDecisionRecordingReport</camel:xpath>
+
+				<camel:setHeader headerName="operationName">
+					<constant>ReportProsecutionDecisionRecording</constant>
+				</camel:setHeader>
+			</camel:filter>
+		
+			<camel:filter>
+				<camel:xpath>/chc-report-doc:CriminalHistoryConsolidationReport</camel:xpath>
+		
+				<camel:setHeader headerName="operationName">
+					<constant>ReportCriminalHistoryConsolidation</constant>
+				</camel:setHeader>
+			</camel:filter>
+
+			<camel:filter>
+				<camel:xpath>/che-report-doc:CriminalHistoryExpungementReport</camel:xpath>
+
+				<camel:setHeader headerName="operationName">
+					<constant>ReportCriminalHistoryExpungement</constant>
+				</camel:setHeader>
+			</camel:filter>
 			
+			<camel:filter>
+				<camel:xpath>/chiu-report-doc:CriminalHistoryIdentifierUpdateReport</camel:xpath>
+			
+				<camel:setHeader headerName="operationName">
+					<constant>ReportCriminalHistoryIdentifierUpdate</constant>
+				</camel:setHeader>
+			</camel:filter>
+						
 			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0</constant>
+				<constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant>
 			</camel:setHeader>
 			
 			<camel:to uri="intermediaryEndpoint" />							

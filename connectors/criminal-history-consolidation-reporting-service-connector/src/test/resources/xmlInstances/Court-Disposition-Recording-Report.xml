@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<cdr-report-doc:CourtDispositionRecordingReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0 ../xsd/CourtDispositionRecordingReport-exchange.xsd http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0 ../xsd/impl/maine/disposition_codes.xsd" xmlns:cdr-report-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0" xmlns:cdr-report-ext="http://ojbc.org/IEPD/Extension/CourtDispositionRecordingReport/1.0" xmlns:me_disp_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<cdr-report-ext:CycleTrackingIdentification>
+		<nc:IdentificationID>123456A</nc:IdentificationID>
+	</cdr-report-ext:CycleTrackingIdentification>
+	<j:Charge structures:id="Charge_01">
+		<j:ChargeStatute>
+			<j:StatuteCodeIdentification>
+				<nc:IdentificationID>004290</nc:IdentificationID>
+			</j:StatuteCodeIdentification>
+		</j:ChargeStatute>
+		<j:ChargeTrackingIdentification>
+			<nc:IdentificationID>456</nc:IdentificationID>
+		</j:ChargeTrackingIdentification>
+	</j:Charge>
+	<j:Sentence structures:id="Sentence_01">
+		<nc:ActivityDate>
+			<nc:Date>2001-12-17</nc:Date>
+		</nc:ActivityDate>
+		<j:SentenceCondition>
+			<nc:ActivityDescriptionText>Sentence Condition</nc:ActivityDescriptionText>
+			<nc:ConditionDisciplinaryAction>
+				<nc:DisciplinaryActionFee>
+					<nc:ObligationDueAmount>
+						<nc:Amount>100.00</nc:Amount>
+					</nc:ObligationDueAmount>
+				</nc:DisciplinaryActionFee>
+				<nc:DisciplinaryActionRestitution>
+					<nc:ObligationDueAmount>
+						<nc:Amount>200.00</nc:Amount>
+					</nc:ObligationDueAmount>
+				</nc:DisciplinaryActionRestitution>
+			</nc:ConditionDisciplinaryAction>
+		</j:SentenceCondition>
+		<j:SentenceGroupingText>Consecutive/Concurrent Details</j:SentenceGroupingText>
+		<j:SentenceIssuerEntity>
+			<nc:EntityOrganization structures:ref="Org_001"/>
+		</j:SentenceIssuerEntity>
+		<j:SentenceTerm>
+			<j:TermDuration>P2Y</j:TermDuration>
+			<j:TermLifeIndicator>false</j:TermLifeIndicator>
+		</j:SentenceTerm>
+		<cdr-report-ext:SentenceDocketIdentification>
+			<nc:IdentificationID>Sentence Docket ID</nc:IdentificationID>
+		</cdr-report-ext:SentenceDocketIdentification>
+		<me_disp_codes:SentenceTermCategoryCode>ADMINISTRATIVE RELEASE CONTINUED</me_disp_codes:SentenceTermCategoryCode>
+	</j:Sentence>
+	<nc:Disposition structures:id="Disposition_01">
+		<me_disp_codes:CourtActionCode>ADMINISTRATIVE RELEASE VIOLATED</me_disp_codes:CourtActionCode>
+		<nc:DispositionEntity>
+			<nc:EntityOrganization structures:ref="Org_002"/>
+		</nc:DispositionEntity>
+		<nc:DispositionDate>
+			<nc:Date>2001-12-17</nc:Date>
+		</nc:DispositionDate>
+		<cdr-report-ext:DispositionIdentification>
+			<nc:IdentificationID>UTN</nc:IdentificationID>
+		</cdr-report-ext:DispositionIdentification>
+		<cdr-report-ext:DispositionDocketIdentification>
+			<nc:IdentificationID>Disposition Docket ID</nc:IdentificationID>
+		</cdr-report-ext:DispositionDocketIdentification>
+	</nc:Disposition>
+	<j:Subject structures:id="Subject_01">
+		<nc:RoleOfPerson structures:ref="P001"/>
+	</j:Subject>
+	<nc:Person structures:id="P001">
+		<nc:PersonBirthDate>
+			<nc:Date>2001-12-17</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Walter</nc:PersonGivenName>
+			<nc:PersonMiddleName>A</nc:PersonMiddleName>
+			<nc:PersonSurName>White</nc:PersonSurName>
+		</nc:PersonName>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>123456789</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonStateIdentification>
+			<nc:IdentificationID>SID23456</nc:IdentificationID>
+		</nc:PersonStateIdentification>
+		<j:PersonAugmentation>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>Fingerprint ID</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+	</nc:Person>
+	<nc:Organization structures:id="Org_001">
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>ME0000001</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</nc:Organization>
+	<nc:Organization structures:id="Org_002">
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>ME0000002</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</nc:Organization>
+	<j:PersonChargeAssociation>
+		<nc:Person structures:ref="Subject_01"/>
+		<j:Charge structures:ref="Charge_01"/>
+	</j:PersonChargeAssociation>
+	<j:ActivityChargeAssociation>
+		<nc:Activity structures:ref="Sentence_01"/>
+		<j:Charge structures:ref="Charge_01"/>
+	</j:ActivityChargeAssociation>
+	<cdr-report-ext:ChargeDispositionAssociation>
+		<j:Charge structures:ref="Charge_01"/>
+		<nc:Disposition structures:ref="Disposition_01"/>
+	</cdr-report-ext:ChargeDispositionAssociation>
+</cdr-report-doc:CourtDispositionRecordingReport>
