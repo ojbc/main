@@ -108,15 +108,17 @@ public class OTPServiceMemoryImpl implements OTPService{
 	@Override
 	public boolean isUserAuthenticated(String userIdentifier) {
 		
-		log.info("Is user authenticated? " + userIdentifier);
+		log.info("Entering Is user authenticated: " + userIdentifier);
 		
 		UserOTPDetails userOTPDetails = otpMap.get(userIdentifier);
 		
 		if (userOTPDetails != null)
 		{
+			log.info("User OTP details: " + userOTPDetails);
+			
 			if (userOTPDetails.isUserAuthenticated())
 			{
-				log.info("User Is authenticated");
+				log.info("User Is authenticated, check timestamp before proceeding.");
 				
 				//Double check to make sure user is still within timeframe
 				LocalTime expirationTimestamp = userOTPDetails.getExpirationTimestamp();
@@ -124,6 +126,8 @@ public class OTPServiceMemoryImpl implements OTPService{
 				
 				if (now.isBefore(expirationTimestamp))
 				{
+					log.info("Timestamp is valid returning true.");
+					
 					return true;
 				}
 
@@ -133,6 +137,8 @@ public class OTPServiceMemoryImpl implements OTPService{
 				return false;
 			}	
 		}
+		
+		log.info("Authentication and timestamp could not be validated.  Return false.");
 
 		removeOldEntries();
 		
