@@ -58,8 +58,6 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="nc:PersonStateIdentification"
-						minOccurs="0" />
 					<xsd:element ref="j:PersonStateFingerprintIdentification"
 						minOccurs="0" />
 					<xsd:element ref="j:PersonFBIIdentification" minOccurs="0" />

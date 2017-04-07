@@ -34,7 +34,8 @@
 		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
 	<xsd:complexType name="CriminalHistoryIdentifierUpdateReportType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for the identifier update of a criminal history for a person.
+			<xsd:documentation>A data type for the identifier update of a
+				criminal history for a person.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
@@ -54,19 +55,28 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="nc:PersonStateIdentification"
-						minOccurs="0" />
 					<xsd:element ref="j:PersonStateFingerprintIdentification"
 						minOccurs="0" />
+					<xsd:element ref="j:PersonFBIIdentification" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="IdentifierUpdateIdentifiers"
+	<xsd:element name="PreIdentifierUpdateIdentifiers"
 		type="chiu-report-ext:IdentifierUpdateIdentifierType"
 		substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>Person identifiers for the identifier update of a criminal history.
+			<xsd:documentation>Pre Person identifiers for the identifier update
+				of a criminal history.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PostIdentifierUpdateIdentifiers"
+		type="chiu-report-ext:IdentifierUpdateIdentifierType"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Post Person identifiers for the identifier update
+				of a criminal history.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
