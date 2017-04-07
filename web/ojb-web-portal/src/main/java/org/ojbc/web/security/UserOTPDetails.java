@@ -16,12 +16,12 @@
  */
 package org.ojbc.web.security;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class UserOTPDetails {
 
 	private String oneTimePassword;
-	private LocalTime expirationTimestamp;
+	private LocalDateTime expirationTimestamp;
 	private String emailAddress;
 	private boolean isUserAuthenticated;
 	
@@ -43,11 +43,19 @@ public class UserOTPDetails {
 	public void setOneTimePassword(String oneTimePassword) {
 		this.oneTimePassword = oneTimePassword;
 	}
-	public LocalTime getExpirationTimestamp() {
+	public LocalDateTime getExpirationTimestamp() {
 		return expirationTimestamp;
 	}
-	public void setExpirationTimestamp(LocalTime expirationTimestamp) {
+	public void setExpirationTimestamp(LocalDateTime expirationTimestamp) {
 		this.expirationTimestamp = expirationTimestamp;
 	}
+	@Override
+	public String toString() {
+		return "UserOTPDetails [oneTimePassword=" + oneTimePassword
+				+ ", expirationTimestamp=" + expirationTimestamp
+				+ ", emailAddress=" + emailAddress + ", isUserAuthenticated="
+				+ isUserAuthenticated + "]";
+	}
+
 	
 }

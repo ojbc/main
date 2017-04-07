@@ -16,7 +16,7 @@
  */
 package org.ojbc.web.portal.services;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -59,19 +59,19 @@ public class OTPServiceMemoryImpl implements OTPService{
 		userOTPDetails.setOneTimePassword(oneTimePassword);
 		userOTPDetails.setEmailAddress(userIdentifier);
 		
-		LocalTime expirationTimestamp = null;
+		LocalDateTime expirationTimestamp = null;
 		
 		if (StringUtils.endsWith(String.valueOf(otpValidityPeriod), "M"))
 		{	
-			expirationTimestamp = LocalTime.now().plusMinutes(Long.valueOf(StringUtils.chomp(otpValidityPeriod.toUpperCase(), "M")));
+			expirationTimestamp = LocalDateTime.now().plusMinutes(Long.valueOf(StringUtils.chomp(otpValidityPeriod.toUpperCase(), "M")));
 		} 
 		else if (StringUtils.endsWith(String.valueOf(otpValidityPeriod), "S"))
 		{
-			expirationTimestamp = LocalTime.now().plusSeconds(Long.valueOf(StringUtils.chomp(otpValidityPeriod.toUpperCase(), "S")));
+			expirationTimestamp = LocalDateTime.now().plusSeconds(Long.valueOf(StringUtils.chomp(otpValidityPeriod.toUpperCase(), "S")));
 		}	
 		else
 		{
-			expirationTimestamp = LocalTime.now();
+			expirationTimestamp = LocalDateTime.now();
 		}	
 		
 		userOTPDetails.setExpirationTimestamp(expirationTimestamp);
@@ -92,8 +92,8 @@ public class OTPServiceMemoryImpl implements OTPService{
 		{
 			String expectedOneTimePassword = userOTPDetails.getOneTimePassword();
 			
-			LocalTime expirationTimestamp = userOTPDetails.getExpirationTimestamp();
-			LocalTime now = LocalTime.now();
+			LocalDateTime expirationTimestamp = userOTPDetails.getExpirationTimestamp();
+			LocalDateTime now = LocalDateTime.now();
 			
 			if (now.isBefore(expirationTimestamp) && expectedOneTimePassword.equals(enteredOtp))
 			{
@@ -108,22 +108,26 @@ public class OTPServiceMemoryImpl implements OTPService{
 	@Override
 	public boolean isUserAuthenticated(String userIdentifier) {
 		
-		log.info("Is user authenticated? " + userIdentifier);
+		log.info("Entering Is user authenticated: " + userIdentifier);
 		
 		UserOTPDetails userOTPDetails = otpMap.get(userIdentifier);
 		
 		if (userOTPDetails != null)
 		{
+			log.info("User OTP details: " + userOTPDetails);
+			
 			if (userOTPDetails.isUserAuthenticated())
 			{
-				log.info("User Is authenticated");
+				log.info("User Is authenticated, check timestamp before proceeding.");
 				
 				//Double check to make sure user is still within timeframe
-				LocalTime expirationTimestamp = userOTPDetails.getExpirationTimestamp();
-				LocalTime now = LocalTime.now();
+				LocalDateTime expirationTimestamp = userOTPDetails.getExpirationTimestamp();
+				LocalDateTime now = LocalDateTime.now();
 				
 				if (now.isBefore(expirationTimestamp))
 				{
+					log.info("Timestamp is valid returning true.");
+					
 					return true;
 				}
 
@@ -133,6 +137,8 @@ public class OTPServiceMemoryImpl implements OTPService{
 				return false;
 			}	
 		}
+		
+		log.info("Authentication and timestamp could not be validated.  Return false.");
 
 		removeOldEntries();
 		
@@ -147,8 +153,8 @@ public class OTPServiceMemoryImpl implements OTPService{
 		    UserOTPDetails userOTPDetails = (UserOTPDetails) pair.getValue();
 		    
 			//Remove expired tokens
-			LocalTime expirationTimestamp = userOTPDetails.getExpirationTimestamp();
-			LocalTime now = LocalTime.now();
+			LocalDateTime expirationTimestamp = userOTPDetails.getExpirationTimestamp();
+			LocalDateTime now = LocalDateTime.now();
 			
 			if (now.isAfter(expirationTimestamp))
 			{
