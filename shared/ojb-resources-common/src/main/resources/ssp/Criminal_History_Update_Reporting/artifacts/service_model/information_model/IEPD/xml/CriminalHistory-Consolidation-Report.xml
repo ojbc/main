@@ -26,19 +26,16 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:Person>
 		<chc-report-ext:PreConsolidationIdentifiers>
-			<nc:PersonStateIdentification>
+			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>SID123456</nc:IdentificationID>
-			</nc:PersonStateIdentification>
+			</j:PersonStateFingerprintIdentification>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>FBI234567</nc:IdentificationID>
 			</j:PersonFBIIdentification>
 		</chc-report-ext:PreConsolidationIdentifiers>
 		<chc-report-ext:PostConsolidationIdentifiers>
-			<nc:PersonStateIdentification>
-				<nc:IdentificationID>SID3456789</nc:IdentificationID>
-			</nc:PersonStateIdentification>
 			<j:PersonStateFingerprintIdentification>
-				<nc:IdentificationID>Fingerprint ID</nc:IdentificationID>
+				<nc:IdentificationID>SID12333</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>FBI2095607</nc:IdentificationID>
