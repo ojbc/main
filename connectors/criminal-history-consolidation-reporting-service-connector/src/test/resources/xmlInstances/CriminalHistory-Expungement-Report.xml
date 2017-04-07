@@ -26,12 +26,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:Person>
 		<che-report-ext:ExpungementIdentifiers>
-			<nc:PersonStateIdentification>
-				<nc:IdentificationID>SID123456</nc:IdentificationID>
-			</nc:PersonStateIdentification>
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>SID123456</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>FBI234567</nc:IdentificationID>
+			</j:PersonFBIIdentification>
 		</che-report-ext:ExpungementIdentifiers>
 	</nc:Person>
 </che-report-doc:CriminalHistoryExpungementReport>
