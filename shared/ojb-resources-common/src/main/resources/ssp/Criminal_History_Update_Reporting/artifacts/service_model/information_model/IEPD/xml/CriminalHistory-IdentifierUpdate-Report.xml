@@ -25,13 +25,21 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:Person>
-		<chiu-report-ext:IdentifierUpdateIdentifiers>
-			<nc:PersonStateIdentification>
-				<nc:IdentificationID>SID123456</nc:IdentificationID>
-			</nc:PersonStateIdentification>
+		<chiu-report-ext:PreIdentifierUpdateIdentifiers>
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>SID123456</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
-		</chiu-report-ext:IdentifierUpdateIdentifiers>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>FBI234567</nc:IdentificationID>
+			</j:PersonFBIIdentification>
+		</chiu-report-ext:PreIdentifierUpdateIdentifiers>
+		<chiu-report-ext:PostIdentifierUpdateIdentifiers>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>SID123222</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>FBI234222</nc:IdentificationID>
+			</j:PersonFBIIdentification>
+		</chiu-report-ext:PostIdentifierUpdateIdentifiers>
 	</nc:Person>
 </chiu-report-doc:CriminalHistoryIdentifierUpdateReport>
