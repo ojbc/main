@@ -17,6 +17,8 @@
 package org.ojbc.adapters.rapbackdatastore;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -462,6 +464,51 @@ public class TestIdentficationRecordingAndResponse {
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
 		
+		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction("000001820140729014008340000");
+		assertThat(identificationTransaction, notNullValue());
+		assertThat(identificationTransaction.getSubject(), notNullValue());
+		assertThat(identificationTransaction.getSubject().getUcn(), is("B1234567"));
+		assertThat(identificationTransaction.getSubject().getCivilSid(), nullValue());
+		assertThat(identificationTransaction.getSubject().getCriminalSid(), nullValue());
+		assertThat(identificationTransaction.getSubject().getFirstName(), is("Joe"));
+		assertThat(identificationTransaction.getSubject().getLastName(), is("Smith"));
+		assertThat(identificationTransaction.getSubject().getMiddleInitial(), is("D"));
+		assertThat(identificationTransaction.getSubject().getSexCode(), is("M"));
+		assertThat(identificationTransaction.getSubject().getDob(), is(DateTime.parse("1950-01-02")));
+				
+		senderExchange = MessageUtils.createSenderExchange(context, 
+				"src/test/resources/xmlInstances/identificationReport/person_identification_rapsheet_results_state_criminal.xml");
+		
+		senderExchange.getIn().setHeader("operationName", "RecordPersonStateIdentificationResults");
+		identificationReportingResultMessageProcessor.reset();
+		returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		identificationReportingResultMessageProcessor.expectedMessageCount(1);
+		
+		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		
+		receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
+		body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
+		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
+		
+		identificationTransaction = rapbackDAO.getIdentificationTransaction("000001820140729014008340000");
+		assertThat(identificationTransaction, notNullValue());
+		assertThat(identificationTransaction.getSubject(), notNullValue());
+		assertThat(identificationTransaction.getSubject().getUcn(), is("B1234567"));
+		assertThat(identificationTransaction.getSubject().getCivilSid(), is("A123456"));
+		assertThat(identificationTransaction.getSubject().getCriminalSid(), nullValue());
+		assertThat(identificationTransaction.getSubject().getFirstName(), is("Joe"));
+		assertThat(identificationTransaction.getSubject().getLastName(), is("Smith"));
+		assertThat(identificationTransaction.getSubject().getMiddleInitial(), is("D"));
+		assertThat(identificationTransaction.getSubject().getSexCode(), is("M"));
+		assertThat(identificationTransaction.getSubject().getDob(), is(DateTime.parse("1950-01-02")));
+				
 	}
 	
 	@Test
