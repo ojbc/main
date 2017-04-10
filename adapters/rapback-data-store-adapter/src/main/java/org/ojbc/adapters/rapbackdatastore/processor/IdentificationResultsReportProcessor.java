@@ -20,14 +20,11 @@ import java.io.IOException;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
-import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
-import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Service;
@@ -132,34 +129,6 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 	private String getTransactionNumber(Node rootNode) throws Exception {
 		String transactionNumber = XmlUtils.xPathStringSearch(rootNode, "ident-ext:TransactionIdentification/nc30:IdentificationID");
 		return transactionNumber;
-	}
-
-	private void updateSubject(Node rootNode, String transactionNumber)
-			throws Exception {
-		IdentificationTransaction identificationTransaction = 
-				rapbackDAO.getIdentificationTransaction(transactionNumber); 
-		
-		Subject subject = identificationTransaction.getSubject(); 
-		
-		String fbiId = XmlUtils.xPathStringSearch(rootNode, 
-				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonFBIIdentification/nc30:IdentificationID");
-		if (StringUtils.isNotBlank(fbiId)){
-			subject.setUcn(fbiId);
-		}
-		
-		String civilSid = XmlUtils.xPathStringSearch(rootNode, 
-				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc30:IdentificationID");
-		if (StringUtils.isNotBlank(civilSid)){
-			subject.setCivilSid(civilSid);
-		}
-		
-		String criminalSid = XmlUtils.xPathStringSearch(rootNode, 
-				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator='true']/nc30:IdentificationID");
-		if (StringUtils.isNotBlank(criminalSid)){
-			subject.setCriminalSid(criminalSid);
-		}
-		
-		rapbackDAO.updateSubject(subject);
 	}
 
 }

@@ -67,6 +67,13 @@ public abstract class AbstractReportRepositoryProcessor {
 			if (StringUtils.isNotBlank(identificationCategory)){
 				rapbackDAO.updateIdentificationCategory(transactionNumber, identificationCategory);
 			}
+			else{
+				identificationCategory = XmlUtils.xPathStringSearch(rootNode, 
+						"ident-ext:CriminalIdentificationReasonCode");
+				if (StringUtils.isNotBlank(identificationCategory)){
+					updateSubject(rootNode, transactionNumber);
+				}
+			}
 			return;
 		}
 		
@@ -160,5 +167,34 @@ public abstract class AbstractReportRepositoryProcessor {
 			return null;
 		}
 	}
+	
+	void updateSubject(Node rootNode, String transactionNumber)
+			throws Exception {
+		IdentificationTransaction identificationTransaction = 
+				rapbackDAO.getIdentificationTransaction(transactionNumber); 
+		
+		Subject subject = identificationTransaction.getSubject(); 
+		
+		String fbiId = XmlUtils.xPathStringSearch(rootNode, 
+				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonFBIIdentification/nc30:IdentificationID");
+		if (StringUtils.isNotBlank(fbiId)){
+			subject.setUcn(fbiId);
+		}
+		
+		String civilSid = XmlUtils.xPathStringSearch(rootNode, 
+				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc30:IdentificationID");
+		if (StringUtils.isNotBlank(civilSid)){
+			subject.setCivilSid(civilSid);
+		}
+		
+		String criminalSid = XmlUtils.xPathStringSearch(rootNode, 
+				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator='true']/nc30:IdentificationID");
+		if (StringUtils.isNotBlank(criminalSid)){
+			subject.setCriminalSid(criminalSid);
+		}
+		
+		rapbackDAO.updateSubject(subject);
+	}
+
 
 }
