@@ -52,6 +52,21 @@
 		</cxf:properties> 
 	</cxf:cxfEndpoint>	
 	
+	<!-- hosted by rapback adapter, called by intermediary -->
+    <cxf:cxfEndpoint 
+        id="criminalhistoryUpdateReportingAdapterService"
+        address="${criminalHistoryReportingServiceEndpoint.adapterEndpoint}" 
+		wsdlURL="classpath:ssp/Criminal_History_Update_Reporting/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
+		serviceName="ojbc:Criminal-History-Update-Reporting-ServiceService" 
+		endpointName="ojbc:Criminal-History-Update-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="criminalHistoryReportingKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${criminalHistoryReporting.intermediarySigningUserAlias}" /> 
+		</cxf:properties>
+    </cxf:cxfEndpoint>	 	
+	
 	<!-- OJB Notification Broker Service, invoked by intermediary -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
 		address="${criminalHistoryUpdateReportingService.notificationBrokerEndpoint}"
