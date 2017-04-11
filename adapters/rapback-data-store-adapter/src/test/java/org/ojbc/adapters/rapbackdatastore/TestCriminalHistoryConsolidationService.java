@@ -24,6 +24,7 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,7 @@ import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
@@ -54,6 +56,9 @@ import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
@@ -72,23 +77,28 @@ import org.w3c.dom.Element;
         "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/dao.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/subscription-management-routes.xml"
       })
 @DirtiesContext
 public class TestCriminalHistoryConsolidationService {
-    private static final String COUNT_SID_A123457 = "select count(*) as rowcount from identification_subject "
-    		+ "where civil_sid = 'A123457' or criminal_Sid = 'A123457'";
-
-	private static final String COUNT_SID_A123458 = "select count(*) as rowcount from identification_subject "
-    		+ "where civil_sid = 'A123458' or criminal_Sid = 'A123458'";
 	
 	private static final Log log = LogFactory.getLog( TestCriminalHistoryConsolidationService.class );
 
-	private static final Object CXF_OPERATION_NAME_NOTIFICATION = "ReportCriminalHistoryConsolidation";
-	private static final Object CXF_OPERATION_NAMESPACE_NOTIFICATION = "http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0";
+	private static final Object CXF_OPERATION_NAME_NOTIFICATION = "ReportCriminalHistoryIdentifierUpdate";
+	private static final Object CXF_OPERATION_NAMESPACE_NOTIFICATION = "http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0";
+	
+	private static final String UCN_BASE_QUERY="select count(*) as rowcount from identification_subject where ucn = 'UCN_PLACEHOLDER'";
+	private static final String SID_BASE_QUERY="select count(*) as rowcount from identification_subject where civil_sid = 'SID_PLACEHOLDER' or criminal_Sid = 'SID_PLACEHOLDER'";
+	private static final String FBI_BASE_QUERY="select count(*) as rowcount from fbi_rap_back_subscription where ucn = 'UCN_PLACEHOLDER'";
+	
+	
     @Resource  
     private DataSource dataSource;  
-	
+
+    @Resource  
+    private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;  
+
     @Resource
     private ModelCamelContext context;
     
@@ -99,7 +109,7 @@ public class TestCriminalHistoryConsolidationService {
 	public void setUp() throws Exception {
 		
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
-    	context.getRouteDefinition("criminalHistoryConsolidationRequestRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("criminalHistoryUpdateReportingServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
     	    	// The line below allows us to bypass CXF and send a message directly into the route
@@ -118,44 +128,43 @@ public class TestCriminalHistoryConsolidationService {
 	@Test
 	public void testCriminalConsolidationService() throws Exception
 	{
+		//Initial database setup
 		Connection conn = dataSource.getConnection();
-		ResultSet rs = conn.createStatement().executeQuery(COUNT_SID_A123458);
+		ResultSet rs = conn.createStatement().executeQuery(StringUtils.replace(SID_BASE_QUERY, "SID_PLACEHOLDER", "A123458"));
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("rowcount"));
-		rs = conn.createStatement().executeQuery(COUNT_SID_A123457);
-		assertTrue(rs.next());
-		assertEquals(1,rs.getInt("rowcount"));
-		
-		String countSubjectUcn9222201 = "select count(*) as rowcount from identification_subject where ucn = '9222201'";
-		rs = conn.createStatement().executeQuery(countSubjectUcn9222201);
+		rs = conn.createStatement().executeQuery(StringUtils.replace(SID_BASE_QUERY, "SID_PLACEHOLDER", "A123457"));
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("rowcount"));
 		
-		String countSubjectUcn9222202 = "select count(*) as rowcount from identification_subject where ucn = '9222202'";
-		rs = conn.createStatement().executeQuery(countSubjectUcn9222202);
+		rs = conn.createStatement().executeQuery(StringUtils.replace(UCN_BASE_QUERY, "UCN_PLACEHOLDER", "9222201"));
+		assertTrue(rs.next());
+		assertEquals(1,rs.getInt("rowcount"));
+		
+		rs = conn.createStatement().executeQuery(StringUtils.replace(UCN_BASE_QUERY, "UCN_PLACEHOLDER", "9222202"));
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("rowcount"));
 
-		String countFbiSubscriptionUcn9222201 = "select count(*) as rowcount from fbi_rap_back_subscription where ucn = '9222201'";
-		rs = conn.createStatement().executeQuery(countFbiSubscriptionUcn9222201);
+		rs = conn.createStatement().executeQuery(StringUtils.replace(FBI_BASE_QUERY, "UCN_PLACEHOLDER", "9222201"));
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("rowcount"));
-		String countFbiSubscriptionUcn9222202 = "select count(*) as rowcount from fbi_rap_back_subscription where ucn = '9222202'";
-		rs = conn.createStatement().executeQuery(countFbiSubscriptionUcn9222202);
+
+		rs = conn.createStatement().executeQuery(StringUtils.replace(FBI_BASE_QUERY, "UCN_PLACEHOLDER", "9222202"));
 		assertTrue(rs.next());
 		assertEquals(0,rs.getInt("rowcount"));
 		
+		Map<String,String> subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, "A123457");
+		List<Subscription> subscriptions = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+		assertEquals(1, subscriptions.size());
 
     	//Create a new exchange
     	Exchange senderExchange = createSenderExchangeNotification();
     	
-	    //Read the notification with attachment request file from the file system
-	    File inputFile = new File("src/test/resources/xmlInstances/criminalHistoryConsolidation/criminal_history_consolidation_report.xml");
+	    //Read the criminal history update file from the file system
+	    File inputFile = new File("src/test/resources/xmlInstances/criminalHistoryUpdateReporting/CriminalHistory-Consolidation-Report.xml");
 	    String inputStr = FileUtils.readFileToString(inputFile);
 	    
 	    assertNotNull(inputStr);
-	    
-	    log.debug(inputStr);
 	    
 	    //Set it as the message message body
 	    senderExchange.getIn().setBody(inputStr);
@@ -169,26 +178,133 @@ public class TestCriminalHistoryConsolidationService {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		rs = conn.createStatement().executeQuery(COUNT_SID_A123457);
+		//Database after consolidation
+		rs = conn.createStatement().executeQuery(StringUtils.replace(SID_BASE_QUERY, "SID_PLACEHOLDER", "A123457"));
 		assertTrue(rs.next());
 		assertEquals(0,rs.getInt("rowcount"));
-		rs = conn.createStatement().executeQuery(COUNT_SID_A123458);
+		rs = conn.createStatement().executeQuery(StringUtils.replace(SID_BASE_QUERY, "SID_PLACEHOLDER", "A123458"));
 		assertTrue(rs.next());
 		assertEquals(2,rs.getInt("rowcount"));
 
-		rs = conn.createStatement().executeQuery(countSubjectUcn9222201);
+		rs = conn.createStatement().executeQuery(StringUtils.replace(UCN_BASE_QUERY, "UCN_PLACEHOLDER", "9222201"));
 		assertTrue(rs.next());
 		assertEquals(0,rs.getInt("rowcount"));
-		rs = conn.createStatement().executeQuery(countSubjectUcn9222202);
+		rs = conn.createStatement().executeQuery(StringUtils.replace(UCN_BASE_QUERY, "UCN_PLACEHOLDER", "9222202"));
 		assertTrue(rs.next());
 		assertEquals(2,rs.getInt("rowcount"));
 
-		rs = conn.createStatement().executeQuery(countFbiSubscriptionUcn9222201);
+		rs = conn.createStatement().executeQuery(StringUtils.replace(FBI_BASE_QUERY, "UCN_PLACEHOLDER", "9222201"));
 		assertTrue(rs.next());
 		assertEquals(0,rs.getInt("rowcount"));
-		rs = conn.createStatement().executeQuery(countFbiSubscriptionUcn9222202);
+		rs = conn.createStatement().executeQuery(StringUtils.replace(FBI_BASE_QUERY, "UCN_PLACEHOLDER", "9222202"));
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("rowcount"));
+		
+		subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, "A123457");
+		subscriptions = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+		assertEquals(0, subscriptions.size());
+
+		subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, "A123458");
+		subscriptions = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+		assertEquals(2, subscriptions.size());
+
+		
+	    //Read the criminal history update file from the file system
+	    inputFile = new File("src/test/resources/xmlInstances/criminalHistoryUpdateReporting/CriminalHistory-IdentifierUpdate-Report.xml");
+	    inputStr = FileUtils.readFileToString(inputFile);
+	    
+	    assertNotNull(inputStr);
+	    
+	    //Set it as the message message body
+	    senderExchange.getIn().setBody(inputStr);
+
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		returnExchange = template.send("direct:criminalHistoryConsolidationRequest", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		//Database after identifier update
+		rs = conn.createStatement().executeQuery(StringUtils.replace(SID_BASE_QUERY, "SID_PLACEHOLDER", "A123458"));
+		assertTrue(rs.next());
+		assertEquals(0,rs.getInt("rowcount"));
+		rs = conn.createStatement().executeQuery(StringUtils.replace(SID_BASE_QUERY, "SID_PLACEHOLDER", "XX123123"));
+		assertTrue(rs.next());
+		assertEquals(2,rs.getInt("rowcount"));
+
+		rs = conn.createStatement().executeQuery(StringUtils.replace(UCN_BASE_QUERY, "UCN_PLACEHOLDER", "9222202"));
+		assertTrue(rs.next());
+		assertEquals(0,rs.getInt("rowcount"));
+		rs = conn.createStatement().executeQuery(StringUtils.replace(UCN_BASE_QUERY, "UCN_PLACEHOLDER", "FBI123123"));
+		assertTrue(rs.next());
+		assertEquals(2,rs.getInt("rowcount"));
+
+		rs = conn.createStatement().executeQuery(StringUtils.replace(FBI_BASE_QUERY, "UCN_PLACEHOLDER", "9222202"));
+		assertTrue(rs.next());
+		assertEquals(0,rs.getInt("rowcount"));
+		rs = conn.createStatement().executeQuery(StringUtils.replace(FBI_BASE_QUERY, "UCN_PLACEHOLDER", "FBI123123"));
+		assertTrue(rs.next());
+		assertEquals(1,rs.getInt("rowcount"));		
+		
+		subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, "A123458");
+		subscriptions = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+		assertEquals(0, subscriptions.size());
+
+		subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, "XX123123");
+		subscriptions = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+		assertEquals(2, subscriptions.size());
+		
+		
+	    //Read the criminal history expungement file from the file system
+	    inputFile = new File("src/test/resources/xmlInstances/criminalHistoryUpdateReporting/CriminalHistory-Expungement-Report.xml");
+	    inputStr = FileUtils.readFileToString(inputFile);
+	    
+	    assertNotNull(inputStr);
+	    
+	    //Set it as the message message body
+	    senderExchange.getIn().setBody(inputStr);
+
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		returnExchange = template.send("direct:criminalHistoryConsolidationRequest", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		//Database after expungement, no changes expected
+		rs = conn.createStatement().executeQuery(StringUtils.replace(SID_BASE_QUERY, "SID_PLACEHOLDER", "A123458"));
+		assertTrue(rs.next());
+		assertEquals(0,rs.getInt("rowcount"));
+		rs = conn.createStatement().executeQuery(StringUtils.replace(SID_BASE_QUERY, "SID_PLACEHOLDER", "XX123123"));
+		assertTrue(rs.next());
+		assertEquals(2,rs.getInt("rowcount"));
+
+		rs = conn.createStatement().executeQuery(StringUtils.replace(UCN_BASE_QUERY, "UCN_PLACEHOLDER", "9222202"));
+		assertTrue(rs.next());
+		assertEquals(0,rs.getInt("rowcount"));
+		rs = conn.createStatement().executeQuery(StringUtils.replace(UCN_BASE_QUERY, "UCN_PLACEHOLDER", "FBI123123"));
+		assertTrue(rs.next());
+		assertEquals(2,rs.getInt("rowcount"));
+
+		rs = conn.createStatement().executeQuery(StringUtils.replace(FBI_BASE_QUERY, "UCN_PLACEHOLDER", "9222202"));
+		assertTrue(rs.next());
+		assertEquals(0,rs.getInt("rowcount"));
+		rs = conn.createStatement().executeQuery(StringUtils.replace(FBI_BASE_QUERY, "UCN_PLACEHOLDER", "FBI123123"));
+		assertTrue(rs.next());
+		assertEquals(1,rs.getInt("rowcount"));			
+		
+		subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, "A123458");
+		subscriptions = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+		assertEquals(0, subscriptions.size());
+
+		subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, "XX123123");
+		subscriptions = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+		assertEquals(2, subscriptions.size());
 
 	}
 	

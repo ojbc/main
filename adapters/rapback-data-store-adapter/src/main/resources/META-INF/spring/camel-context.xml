@@ -24,7 +24,6 @@
 	xmlns:context="http://www.springframework.org/schema/context" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -42,10 +41,10 @@
 		xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" 
 		xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
 		xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
-		xmlns:CHcr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
-		xmlns:CHcr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
-		xmlns:ira-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0"		
+		xmlns:ira-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0"
 		id="rapback-data-store-adapter">
+		
+		<camel:routeContextRef ref="subscription-management-routes" />
 
 		<endpoint id="subscriptionReportingAdapterEndpoint"
 			uri="cxf:bean:subscriptionReportingAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{rapbackDatastoreAdapter.cxflogging}}" />
@@ -65,9 +64,6 @@
 		<endpoint id="invocationFailedFileEndpoint"
 			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed" />
 			
-		<endpoint id="criminalHistoryConsolidationFileEndpoint"
-			uri="file://{{rapbackDatastoreAdapter.CriminalHistoryConsolidationInputDirectory}}/input?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/error&amp;move=processed/" />
-			
 		<endpoint id="criminalHistoryConsolidationFailedFileEndpoint"
 			uri="file://{{rapbackDatastoreAdapter.CriminalHistoryConsolidationInputDirectory}}/failed" />
 			
@@ -86,8 +82,8 @@
 			uri="cxf:bean:identificationResultsQueryResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
 
 		<!-- Criminal History Consolidation Request Endpoint -->
-		<endpoint id="criminalHistoryConsolidationReportingServiceEndpoint"
-			uri="cxf:bean:criminalHistoryConsolidationReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
+		<endpoint id="criminalHistoryUpdateReportingServiceEndpoint"
+			uri="cxf:bean:criminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
 
 		<endpoint id="identificationResultsModificationRequestServiceEndpoint"
 			uri="cxf:bean:identificationResultsModificationRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
@@ -101,6 +97,8 @@
 		<endpoint id="automaticArchivingCriminalTimerEndpoint"
 			uri="quartz2://rapbackDataStore/archiveCriminalTimer?cron={{rapbackDatastoreAdapter.archiveCriminalTimerCronExpression}}" />
 
+		<endpoint id="smtpEndpoint" uri="${smtpEndpoint}"/>
+		
 		<!-- Incident Reporting Route -->
 		<route id="identification_recording_service">
 		
@@ -422,49 +420,6 @@
 			</doTry>
 		</route>	
 			
-		<!-- Criminal History Consolidation Request flow -->
-		<route id="criminalHistoryConsolidationRequestRoute">
-			<from uri="criminalHistoryConsolidationReportingServiceEndpoint" />
-			<onException>
-				<exception>java.lang.Exception</exception>
-				<handled><constant>true</constant></handled>
-				<camel:log message="An exception was thrown: ${exception.cause.message}"
-					loggingLevel="WARN" />
-				<setHeader headerName="CamelFileName">
-					<simple>FailedCriminalHistoryConsolidationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
-				</setHeader>	
-				<to uri="criminalHistoryConsolidationFailedFileEndpoint"/>
-			</onException>
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-			<camel:setHeader headerName="currentSid">
-				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc:Person/CHcr-ext:PreConsolidationIdentifiers/nc:PersonStateIdentification/nc:IdentificationID</camel:xpath>
-			</camel:setHeader>
-			<camel:setHeader headerName="newSid">
-				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc:Person/CHcr-ext:PostConsolidationIdentifiers/nc:PersonStateIdentification/nc:IdentificationID</camel:xpath>
-			</camel:setHeader>
-			<camel:setHeader headerName="currentUcn">
-				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc:Person/CHcr-ext:PreConsolidationIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
-			</camel:setHeader>
-			<camel:setHeader headerName="newUcn">
-				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc:Person/CHcr-ext:PostConsolidationIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
-			</camel:setHeader>
-			<to uri="bean:criminalHistoryConsolidationProcessor?method=consolidateCriminalHistory" />
-			<log message="Criminal History consolidated"></log>
-		</route>
-
-		<!-- Automaticly Archive idled records flow -->
-		<route id="automaticArchivingCivilRoute">
-			<from uri="automaticArchivingCivilTimerEndpoint" />
-			<to uri="bean:rapbackDAO?method=archiveCivilIdentifications" />
-			<log message="Automatic archiving civil identifications completed"/>
-		</route>
-		
-		<route id="automaticArchivingCriminalRoute">
-			<from uri="automaticArchivingCriminalTimerEndpoint" />
-			<to uri="bean:rapbackDAO?method=archiveCriminalIdentifications" />
-			<log message="Automatic archiving completed"/>
-		</route>
-		
 		<!-- Identification Modification Results Query Request flow -->
 		<route id="identificationResultsModificationRequestServiceRoute">
 			<from uri="identificationResultsModificationRequestServiceEndpoint" />

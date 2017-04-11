@@ -858,7 +858,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	@Override
-	public void consolidateSid(String currentSid, String newSid) {
+	public void consolidateSidFederal(String currentSid, String newSid) {
 		final String SID_CONSOLIDATION = "UPDATE identification_subject "
 				+ "SET criminal_sid =(CASE WHEN criminal_sid = :currentSid THEN :newSid ELSE criminal_sid END), "
 				+ "	   civil_sid = (CASE WHEN civil_sid=:currentSid THEN :newSid ELSE civil_sid END)";
@@ -872,7 +872,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 
 	@Override
 	@Transactional
-	public void consolidateUcn(String currentUcn, String newUcn) {
+	public void consolidateUcnFederal(String currentUcn, String newUcn) {
 		final String FBI_SUBSCRIPTION_UCN_CONSOLIDATION = "UPDATE fbi_rap_back_subscription "
 				+ "SET ucn = :newUcn "
 				+ "WHERE ucn = :currentUcn";

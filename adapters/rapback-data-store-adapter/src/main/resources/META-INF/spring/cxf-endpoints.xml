@@ -174,23 +174,20 @@
 			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties> 
 	</cxf:cxfEndpoint>
-	
-	<!-- OJB Criminal History Consolidation Reporting Secure Service -->
-    <cxf:cxfEndpoint 
-        id="criminalHistoryConsolidationReportingService"
-        address="${rapbackDatastoreAdapter.criminalHistoryConsolidationReportingSecureEndpoint}" 
-		wsdlURL="classpath:ssp/Criminal_History_Consolidation_Reporting/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
-		serviceName="ojbc:Criminal-History-Consolidation-Reporting-ServiceService" 
-		endpointName="ojbc:Criminal-History-Consolidation-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">
-		<cxf:properties>
+    
+	<!-- hosted by this intermediary, invoked by connector -->
+	<cxf:cxfEndpoint id="criminalHistoryUpdateReportingService"
+		address="${rapbackDatastoreAdapter.criminalHistoryUpdateReportingSecureEndpoint}"
+		wsdlURL="classpath:ssp/Criminal_History_Update_Reporting/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
+		serviceName="ojbc:Criminal-History-Update-Reporting-ServiceService" 
+		endpointName="ojbc:Criminal-History-Update-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0">
+ 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="rapbackDatastoreAdapterKeystoreProperties" /> 
+			<entry key="ws-security.signature.properties" value-ref="rapbackDatastoreAdapterKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${rapbackDatastoreAdapter.keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-			<entry key="ws-security.validate.audience-restriction" value="false" />
-		</cxf:properties>
-    </cxf:cxfEndpoint>
+		</cxf:properties> 
+	</cxf:cxfEndpoint>	    
     
      <!-- Identification Results Modification Request Service, hosted by broker, called by requesting application (usually a portal) address is static-->
 	<cxf:cxfEndpoint 
