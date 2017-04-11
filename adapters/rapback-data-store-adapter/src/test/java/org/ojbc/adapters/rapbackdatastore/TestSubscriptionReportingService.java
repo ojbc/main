@@ -58,7 +58,8 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/dao.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/subscription-management-routes.xml"
       })
 public class TestSubscriptionReportingService {
 	

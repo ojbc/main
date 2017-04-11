@@ -379,7 +379,7 @@ public class RapbackDAOImplTest {
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("rowcount"));
 
-		rapbackDAO.consolidateSid("A123457", "A123458");
+		rapbackDAO.consolidateSidFederal("A123457", "A123458");
 		rs = conn.createStatement().executeQuery(COUNT_SID_A123457);
 		assertTrue(rs.next());
 		assertEquals(0,rs.getInt("rowcount"));
@@ -410,7 +410,7 @@ public class RapbackDAOImplTest {
 		assertTrue(rs.next());
 		assertEquals(0,rs.getInt("rowcount"));
 		
-		rapbackDAO.consolidateUcn("9222201", "9222202");
+		rapbackDAO.consolidateUcnFederal("9222201", "9222202");
 		rs = conn.createStatement().executeQuery(countSubjectUcn9222201);
 		assertTrue(rs.next());
 		assertEquals(0,rs.getInt("rowcount"));

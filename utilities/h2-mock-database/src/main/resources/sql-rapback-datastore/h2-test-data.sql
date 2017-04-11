@@ -139,11 +139,13 @@ insert into subscription_subject_identifier(subscriptionId, identifierName, iden
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62723', 'dateOfBirth', '1990-10-12');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62723', 'firstName', 'Test');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62723', 'lastName', 'Jane');
+insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62723', 'SID', 'A123457');
 
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62724', 'subscriptionQualifier', '2110224');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62724', 'dateOfBirth', '1990-10-12');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62724', 'firstName', 'Test');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62724', 'lastName', 'Jane');
+insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62724', 'SID', 'A123458');
 
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62725', 'subscriptionQualifier', '2110225');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62725', 'dateOfBirth', '1989-10-12');

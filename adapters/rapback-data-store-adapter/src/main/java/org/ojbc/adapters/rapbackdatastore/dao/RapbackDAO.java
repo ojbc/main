@@ -67,9 +67,9 @@ public interface RapbackDAO {
 	public void updateFbiRapbackSubscription(
 			FbiRapbackSubscription fbiRapbackSubscription);
 	
-	public void consolidateSid(String currentSid, String newSid);
-	public void consolidateUcn(String currentUcn, String newUcn);
-	
+	public void consolidateSidFederal(String currentSid, String newSid);
+	public void consolidateUcnFederal(String currentUcn, String newUcn);
+
 	public AgencyProfile getAgencyProfile(String ori);
 	public List<AgencyProfile> getAgencyProfiles(List<String> oris);
 	
