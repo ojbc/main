@@ -1046,7 +1046,11 @@ public class TestSubscriptionSearchQueryDAO {
 			throws Exception {
 		loadManualTestData();
 		subscriptionSearchQueryDAO
-				.consolidateSid("A5008305", "A5008306");
+				.updateSubscriptionSubjectIdentifier("A5008305", "A5008306","1",SubscriptionNotificationConstants.SID);
+
+		subscriptionSearchQueryDAO
+				.updateSubscriptionSubjectIdentifier("A5008305", "A5008306","3",SubscriptionNotificationConstants.SID);
+
 		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterSidConsolidation.xml");
 	}
 

@@ -47,8 +47,6 @@
     <camel:endpoint id="notificationBrokerServiceEndpoint" uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>    
 	<camel:endpoint id="notificationBrokerServiceSecureEndpoint" uri="cxf:bean:notificationBrokerServiceSecure?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>
 	
-	<camel:endpoint id="criminalHistoryConsolidationReportingServiceEndpoint" uri="cxf:bean:criminalHistoryConsolidationReportingService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}"/>
-
 	<!-- Hosted by s/n intermediary -->
 	<camel:endpoint id="subscriptionManagerServiceEndpoint" uri="cxf:bean:subscriptionManagerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.brokerServiceIntermediaryCxflogging}&amp;headerFilterStrategy=#OJBCCamelHeaderFilterStrategy"/>
 	
@@ -91,23 +89,6 @@
 		serviceName="ojbc:SecureNotificationBrokerServiceService" 
 		endpointName="ojbc:SecureNotificationBrokerService"
 		xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
-		<cxf:properties>
-			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" /> 
-			<entry key="ws-security.signature.username" value="${subscriptionSearchQuery.keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-			<entry key="ws-security.validate.audience-restriction" value="false" />
-		</cxf:properties>
-    </cxf:cxfEndpoint>
-        
-	<!-- OJB Criminal History Consolidation Reporting Secure Service -->
-    <cxf:cxfEndpoint 
-        id="criminalHistoryConsolidationReportingService"
-        address="${publishSubscribe.criminalHistoryConsolidationReportingSecureEndpoint}" 
-		wsdlURL="classpath:ssp/Criminal_History_Consolidation_Reporting/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
-		serviceName="ojbc:Criminal-History-Consolidation-Reporting-ServiceService" 
-		endpointName="ojbc:Criminal-History-Consolidation-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="subscriptionSearchQueryKeystoreProperties" /> 
