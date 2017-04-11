@@ -634,15 +634,15 @@ public class SubscriptionSearchQueryDAO {
         return returnCount;
     }
 
-    private final String SID_CONSOLIDATE = "UPDATE subscription_subject_identifier SET identifierValue = ? "
-    		+ "WHERE identifierName = 'SID' and identifierValue = ?"; 
+    private final String UPDATE_SUBJECT_IDENTIFER_BY_SUBSCRIPTION_ID = "UPDATE subscription_subject_identifier SET identifierValue = ? "
+    		+ "WHERE identifierName = ? and identifierValue = ? and subscriptionId = ?"; 
     /**
-     * Replace the currentSid in the subscripiton_subject_identifier with the newSid
+     * Update the subscripiton_subject_identifier using the provided parameters
      * @param currentSid
      * @param newSid
      */
-    public void consolidateSid(String currentSid, String newSid){
-    	this.jdbcTemplate.update(SID_CONSOLIDATE, newSid, currentSid);
+    public void updateSubscriptionSubjectIdentifier(String value, String newValue, String subscriptionId, String identiferName){
+    	this.jdbcTemplate.update(UPDATE_SUBJECT_IDENTIFER_BY_SUBSCRIPTION_ID, newValue, identiferName, value, subscriptionId);
     }
     
     static Object[] buildCriteriaArray(Map<String, String> subjectIdentifiers) {
