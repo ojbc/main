@@ -544,6 +544,36 @@ public class TestSubscriptionSearchQueryDAO {
 						"{http://demostate.gov/SystemNames/1.0}SystemA",
 						"SYSTEM", Collections.singletonMap("SID", "A5008305"));
 		assertEquals(1, subscriptions.size());
+		
+		subscriptions = subscriptionSearchQueryDAO
+				.queryForSubscription(
+						null,
+						null,
+						null, Collections.singletonMap("SID", "A5008305"));
+		assertEquals(2, subscriptions.size());
+
+		subscriptions = subscriptionSearchQueryDAO
+				.queryForSubscription(
+						"{http://ojbc.org/wsn/topics}:person/arrest",
+						null,
+						null, Collections.singletonMap("SID", "A5008305"));
+		assertEquals(2, subscriptions.size());
+		
+		subscriptions = subscriptionSearchQueryDAO
+				.queryForSubscription(
+						"{http://ojbc.org/wsn/topics}:person/arrest",
+						"{http://demostate.gov/SystemNames/1.0}SystemB",
+						null, Collections.singletonMap("SID", "A5008305"));
+		assertEquals(1, subscriptions.size());
+		
+		subscriptions = subscriptionSearchQueryDAO
+				.queryForSubscription(
+						null,
+						null,
+						null, Collections.singletonMap("subscriptionQualifier", "20920"));
+		assertEquals(1, subscriptions.size());
+
+
 	}
 
 	@Test(expected = IllegalStateException.class)
