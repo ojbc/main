@@ -300,7 +300,10 @@ public class SubscriptionSearchQueryDAO {
     }
 
     /**
-     * Retrieve the single subscription (in a list) that matches the specified subscribing system, the specified owner, and the specified subject
+     * Retrieves subscriptions that matches the specified subscribing system, the specified owner, and the specified subject
+     * 
+     * Either one of topic, subscribingSystemId, owner OR subjectIdentifiers must be entered
+     * 
      * @param subscribingSystemId
      * @param subscriptionOwner the federation-wide unique identifier for the person that owns the subscriptions. If there is no matching owner
      * @param subjectIdentifiers the identifiers for the subject of the event
@@ -309,13 +312,35 @@ public class SubscriptionSearchQueryDAO {
     public List<Subscription> queryForSubscription(String topic, String subscribingSystemId, String owner, Map<String, String> subjectIdentifiers) {
 
         List<Subscription> ret = new ArrayList<Subscription>();
+        
+        List<String> criteriaList = new ArrayList<String>();
+        
+        StringBuffer staticCriteria = new StringBuffer();
 
-        Object[] criteriaArray = new Object[] {
-            subscribingSystemId.trim(), owner, topic
-        };
+        if (StringUtils.isNotBlank(subscribingSystemId))
+        {
+        	criteriaList.add(subscribingSystemId.trim());
+        	staticCriteria.append(" and s.subscribingSystemIdentifier=?");
+        }	
+        
+        if (StringUtils.isNotBlank(owner))
+        {
+        	criteriaList.add(owner.trim());
+        	staticCriteria.append(" and s.subscriptionOwner = ?");
+        }	
+        
+        if (StringUtils.isNotBlank(topic))
+        {
+        	criteriaList.add(topic.trim());
+        	staticCriteria.append(" and s.topic=? ");
+        }	
+
+        Object[] criteriaArray = criteriaList.toArray(new Object[criteriaList.size()]);
+
         criteriaArray = ArrayUtils.addAll(criteriaArray, SubscriptionSearchQueryDAO.buildCriteriaArray(subjectIdentifiers));
-        String queryString = BASE_QUERY_STRING + " and s.subscribingSystemIdentifier=? and s.subscriptionOwner = ? and s.topic=? and "
-                + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIdentifiers.size());
+
+        String queryString = BASE_QUERY_STRING + staticCriteria.toString()
+                + " and " + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIdentifiers.size());
         ret = this.jdbcTemplate.query(queryString, criteriaArray, resultSetExtractor);
 
         return ret;
