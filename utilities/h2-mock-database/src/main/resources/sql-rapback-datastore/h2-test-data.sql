@@ -312,7 +312,7 @@ insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_cod
 	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, subscription_id, report_timestamp)
 values
 	('fbiSubscriptionId_3', 'CI', '5', '2015-12-19', '2019-12-19', '2014-10-19', false, '2', 
-	'9222201', '62725', {ts '2014-10-19 18:47:52.69'});			
+	'9222201', '62726', {ts '2014-10-19 18:47:52.69'});			
 	
 insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, rap_back_term_date,
 	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, subscription_id, report_timestamp)

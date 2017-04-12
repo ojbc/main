@@ -35,7 +35,8 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 
 final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<Subscription>>{
     
-    private static final Log log = LogFactory.getLog(SubscriptionResultsSetExtractor.class);
+    @SuppressWarnings("unused")
+	private static final Log log = LogFactory.getLog(SubscriptionResultsSetExtractor.class);
     
     private ValidationDueDateStrategy validationDueDateStrategy;
     private GracePeriodStrategy gracePeriodStrategy;

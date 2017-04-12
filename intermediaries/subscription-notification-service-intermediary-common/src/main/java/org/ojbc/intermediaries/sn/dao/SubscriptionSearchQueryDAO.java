@@ -46,6 +46,7 @@ import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -151,14 +152,34 @@ public class SubscriptionSearchQueryDAO {
         }
 
         Subscription subscriptionToReturn = subscriptions.get(0); 
-        
-        Map<String, String> subscriptionProperties = getSubscriptionProperties(String.valueOf(subscriptionToReturn.getId()));
-        
-        subscriptionToReturn.setSubscriptionProperties(subscriptionProperties);
+        setSubscriptionProperties(subscriptionToReturn);
         
         return subscriptionToReturn; 
     }
 
+	public Subscription findSubscriptionByFbiSubscriptionId(String fbiRelatedSubscriptionId){
+		
+		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
+                + "si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType "
+                + "FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
+                + "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id AND fbi_sub.subscription_id = s.id "
+                + "AND fbi_sub.FBI_SUBSCRIPTION_ID = ?";
+        List<Subscription> subscriptions = this.jdbcTemplate.query(sql, resultSetExtractor, fbiRelatedSubscriptionId);
+        
+        Subscription subscription = DataAccessUtils.singleResult(subscriptions);
+        
+        setSubscriptionProperties(subscription);
+        
+		return subscription;
+	}
+
+	private void setSubscriptionProperties(Subscription subscription) {
+		if (subscription != null){
+            Map<String, String> subscriptionProperties = getSubscriptionProperties(String.valueOf(subscription.getId()));
+            subscription.setSubscriptionProperties(subscriptionProperties);
+        }
+	}
+	
     /**
      * This method is retained for backwards compatibility and will pass null for subject identifiers.
      * The method it delegates to will use the subject identifiers defined in the notification request.
