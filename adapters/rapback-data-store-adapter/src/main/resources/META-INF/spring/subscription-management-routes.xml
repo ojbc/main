@@ -76,6 +76,19 @@
 			<camel:filter>
 				<camel:xpath>/che-report-doc:CriminalHistoryExpungementReport</camel:xpath>
 
+				<camel:setHeader headerName="currentSid">
+					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="newSid">
+					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="currentUcn">
+					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="newUcn">
+					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+
 				<camel:setHeader headerName="consolidationType">
 					<constant>criminalHistoryExpungementReport</constant>
 				</camel:setHeader>
