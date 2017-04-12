@@ -80,7 +80,14 @@
 		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.chCycle.allowedEmailAddressPatterns}"/>
 	</bean>
 	
-	<!-- TODO: add rapbackNotificationProcessor -->
+	<bean id="rapbackNotificationProcessor"
+		class="org.ojbc.intermediaries.sn.topic.rapback.RapbackNotificationProcessor">
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
+		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
+		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
+		<property name="emailFormatter" ref="emailFormatter"/>
+	</bean>
 	
 	<bean id="arrestNotificationProcessor"
 		class="org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationProcessor">
@@ -130,11 +137,7 @@
 		<property name="activeSubjectIdentifiers" ref="courtDispositionUpdateNotificationSubjectIdentifiers"/>
 		<property name="alternateConfiguredSubjectIdentifiers" ref="alternateConfiguredCourtDispositionUpdateNotificationSubjectIdentifiers"/>
 	</bean>
-	
-	<bean id="sidConsolidationProcessor" class="org.ojbc.intermediaries.sn.subscription.SidConsolidationProcessor">
-		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
-	</bean>
-	
+		
 	<bean id="subscriptionSearchQueryProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionSearchQueryProcessor"/>
 
 	<bean id="faultMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.FaultMessageProcessor"/>
