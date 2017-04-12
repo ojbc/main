@@ -27,10 +27,10 @@
 	<nc:Person>
 		<che-report-ext:ExpungementIdentifiers>
 			<j:PersonStateFingerprintIdentification>
-				<nc:IdentificationID>SID123456</nc:IdentificationID>
+				<nc:IdentificationID>XX123123</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 			<j:PersonFBIIdentification>
-				<nc:IdentificationID>FBI234567</nc:IdentificationID>
+				<nc:IdentificationID>FBI123123</nc:IdentificationID>
 			</j:PersonFBIIdentification>
 		</che-report-ext:ExpungementIdentifiers>
 	</nc:Person>
