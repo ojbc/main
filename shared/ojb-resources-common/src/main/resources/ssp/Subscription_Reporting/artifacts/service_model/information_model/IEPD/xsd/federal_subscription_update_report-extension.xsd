@@ -17,59 +17,89 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:fed_subcr_upd-ext="http://ojbc.org/IEPD/Extensions/FederalSubscriptionUpdateReportExtension/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extensions/FederalSubscriptionUpdateReportExtension/1.0" elementFormDefault="qualified">
-	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
-	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="./include_schema.xsd"/>
-	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmime_schema.xsd"/>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:fed_subcr_upd-ext="http://ojbc.org/IEPD/Extensions/FederalSubscriptionUpdateReportExtension/1.0"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/FederalSubscriptionUpdateReportExtension/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/"
+		schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
+		schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include"
+		schemaLocation="./include_schema.xsd" />
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime"
+		schemaLocation="./xmime_schema.xsd" />
 	<xsd:complexType name="FederalSubscriptionUpdateReportType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a set of details associated with the update of a federal subscription.</xsd:documentation>
+			<xsd:documentation>A data type for a set of details associated with
+				the update of a federal subscription.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="fed_subcr_upd-ext:RapBackSubscriptionData"/>
-					<xsd:element ref="j:Subject"/>
-					<xsd:element ref="nc:Person"/>
-					<xsd:element ref="fed_subcr_upd-ext:CriminalHistoryDocumentRepresentation" minOccurs="0"/>
+					<xsd:element ref="fed_subcr_upd-ext:RapBackSubscriptionData" />
+					<xsd:element ref="j:Subject" />
+					<xsd:element ref="nc:Person" />
+					<xsd:element
+						ref="fed_subcr_upd-ext:CriminalHistoryDocumentRepresentation"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="RapBackSubscriptionDataType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for details associated with a Rap Back subscription.</xsd:documentation>
+			<xsd:documentation>A data type for details associated with a Rap Back
+				subscription.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="fed_subcr_upd-ext:RapBackActivityNotificationFormatCode" minOccurs="0"/>
-					<xsd:element ref="fed_subcr_upd-ext:RapBackExpirationDate" minOccurs="0"/>
-					<xsd:element ref="fed_subcr_upd-ext:RapBackInStateOptOutIndicator" minOccurs="0"/>
-					<xsd:element ref="fed_subcr_upd-ext:RapBackSubscriptionDate" minOccurs="0"/>
-					<xsd:element ref="fed_subcr_upd-ext:RapBackSubscriptionIdentification" minOccurs="0"/>
-					<xsd:element ref="fed_subcr_upd-ext:RapBackSubscriptionTermCode" minOccurs="0"/>
-					<xsd:element ref="fed_subcr_upd-ext:RapBackTermDate" minOccurs="0"/>
+					<xsd:element
+						ref="fed_subcr_upd-ext:RapBackActivityNotificationFormatCode"
+						minOccurs="0" />
+					<xsd:element ref="fed_subcr_upd-ext:RapBackExpirationDate"
+						minOccurs="0" />
+					<xsd:element ref="fed_subcr_upd-ext:RapBackInStateOptOutIndicator"
+						minOccurs="0" />
+					<xsd:element ref="fed_subcr_upd-ext:RapBackSubscriptionDate"
+						minOccurs="0" />
+					<xsd:element ref="fed_subcr_upd-ext:RapBackSubscriptionIdentification"
+						minOccurs="0" />
+					<xsd:element ref="fed_subcr_upd-ext:RapBackSubscriptionTermCode"
+						minOccurs="0" />
+					<xsd:element ref="fed_subcr_upd-ext:RapBackTermDate"
+						minOccurs="0" />
+					<xsd:element ref="fed_subcr_upd-ext:StateSubscriptionIdentification"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="RBNFCodeType">
 		<xsd:annotation>
-			<xsd:documentation>A code type for the code indicating the type of rap back activity notification</xsd:documentation>
+			<xsd:documentation>A code type for the code indicating the type of
+				rap back activity notification</xsd:documentation>
 		</xsd:annotation>
 		<xsd:simpleContent>
 			<xsd:extension base="fed_subcr_upd-ext:RBNFCodeSimpleType">
-				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
 	<xsd:simpleType name="RBNFCodeSimpleType">
 		<xsd:annotation>
-			<xsd:documentation>An enumeration set for a type of rap back activity notification.</xsd:documentation>
+			<xsd:documentation>An enumeration set for a type of rap back activity
+				notification.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="1">
@@ -84,24 +114,28 @@
 			</xsd:enumeration>
 			<xsd:enumeration value="3">
 				<xsd:annotation>
-					<xsd:documentation>Identity History Summary to include the triggering event</xsd:documentation>
+					<xsd:documentation>Identity History Summary to include the
+						triggering event</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
 	<xsd:complexType name="RBSubscriptionTermCodeType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for the code indicating the rap back subscription term length.</xsd:documentation>
+			<xsd:documentation>A data type for the code indicating the rap back
+				subscription term length.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:simpleContent>
 			<xsd:extension base="fed_subcr_upd-ext:RBSubscriptionTermCodeSimpleType">
-				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
 	<xsd:simpleType name="RBSubscriptionTermCodeSimpleType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an enumeration representation of code designations for a rap back subscription term.</xsd:documentation>
+			<xsd:documentation>A data type for an enumeration representation of
+				code designations for a rap back subscription term.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="2">
@@ -121,55 +155,80 @@
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
-	<xsd:element name="RapBackSubscriptionData" type="fed_subcr_upd-ext:RapBackSubscriptionDataType">
+	<xsd:element name="RapBackSubscriptionData"
+		type="fed_subcr_upd-ext:RapBackSubscriptionDataType">
 		<xsd:annotation>
-			<xsd:documentation>Details associated with a Rap Back subscription.</xsd:documentation>
+			<xsd:documentation>Details associated with a Rap Back subscription.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RapBackExpirationDate" type="nc:DateType">
 		<xsd:annotation>
-			<xsd:documentation>A date a Rap Back Subscription expires under the Subscriber's Privacy Strategy.</xsd:documentation>
+			<xsd:documentation>A date a Rap Back Subscription expires under the
+				Subscriber's Privacy Strategy.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RapBackInStateOptOutIndicator" type="niem-xs:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if Submitter wishes to opt-out of receiving notifications for events originating within the submitter’s own state; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if Submitter wishes to opt-out of receiving
+				notifications for events originating within the submitter’s own
+				state; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RapBackSubscriptionDate" type="nc:DateType">
 		<xsd:annotation>
-			<xsd:documentation>The Date a rap back subscription was created.</xsd:documentation>
+			<xsd:documentation>The Date a rap back subscription was created.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RapBackSubscriptionIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>Unique identification assigned by NGI that identifies a rap back subscription as a whole.</xsd:documentation>
+			<xsd:documentation>Unique identification assigned by NGI that
+				identifies a rap back subscription as a whole.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RapBackSubscriptionTermCode" type="fed_subcr_upd-ext:RBSubscriptionTermCodeType">
+	<xsd:element name="StateSubscriptionIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A representation of the length of a Rap Back Subscription Term.</xsd:documentation>
+			<xsd:documentation>Unique identification assigned by a state that
+				identifies a subscription.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackSubscriptionTermCode"
+		type="fed_subcr_upd-ext:RBSubscriptionTermCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A representation of the length of a Rap Back
+				Subscription Term.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RapBackTermDate" type="nc:DateType">
 		<xsd:annotation>
-			<xsd:documentation>A date identifying the end of the fee paid by the Subscriber.</xsd:documentation>
+			<xsd:documentation>A date identifying the end of the fee paid by the
+				Subscriber.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RapBackActivityNotificationFormatCode" type="fed_subcr_upd-ext:RBNFCodeType" nillable="true">
+	<xsd:element name="RapBackActivityNotificationFormatCode"
+		type="fed_subcr_upd-ext:RBNFCodeType" nillable="true">
 		<xsd:annotation>
-			<xsd:documentation>A code indicating the type of rap back activity notification.</xsd:documentation>
+			<xsd:documentation>A code indicating the type of rap back activity
+				notification.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CriminalHistoryDocumentRepresentation" abstract="true">
+	<xsd:element name="CriminalHistoryDocumentRepresentation"
+		abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>A placeholder for a criminal history document.</xsd:documentation>
+			<xsd:documentation>A placeholder for a criminal history document.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CriminalHistoryDocument" type="nc:DocumentType" substitutionGroup="fed_subcr_upd-ext:CriminalHistoryDocumentRepresentation">
+	<xsd:element name="CriminalHistoryDocument" type="nc:DocumentType"
+		substitutionGroup="fed_subcr_upd-ext:CriminalHistoryDocumentRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A document that contains the person's criminal history. Sometimes this is referred to as a rap sheet..</xsd:documentation>
+			<xsd:documentation>A document that contains the person's criminal
+				history. Sometimes this is referred to as a rap sheet..
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xs:base64Binary" xmime:expectedContentType="text/plain"/>
+	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject"
+		type="niem-xs:base64Binary" xmime:expectedContentType="text/plain" />
 </xsd:schema>
