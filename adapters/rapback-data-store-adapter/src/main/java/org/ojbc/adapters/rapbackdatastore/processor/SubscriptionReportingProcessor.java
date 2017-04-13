@@ -148,6 +148,9 @@ public class SubscriptionReportingProcessor {
 		String rapBackSubscriptionIdentification = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr-ext:RapBackSubscriptionIdentification/nc30:IdentificationID");
 		fbiRapbackSubscription.setFbiSubscriptionId(rapBackSubscriptionIdentification);
 		
+		String stateSubscriptionIdentification = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr-ext:StateSubscriptionIdentification/nc30:IdentificationID");
+		fbiRapbackSubscription.setStateSubscriptionId(stateSubscriptionIdentification);
+		
 		String rapBackSubscriptionTermCode = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr-ext:RapBackSubscriptionTermCode");
 		fbiRapbackSubscription.setSubscriptionTerm(rapBackSubscriptionTermCode);
 		

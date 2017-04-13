@@ -20,6 +20,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -260,6 +262,7 @@ public class RapbackDAOImplTest {
 		fbiRapbackSubscription.setRapbackOptOutInState(Boolean.FALSE);
 		fbiRapbackSubscription.setSubscriptionTerm("2");
 		fbiRapbackSubscription.setUcn("LI3456789");
+		fbiRapbackSubscription.setStateSubscriptionId("62725");
 		
 		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
 		
@@ -274,6 +277,7 @@ public class RapbackDAOImplTest {
 		assertEquals(Boolean.FALSE, savedFbiRapbackSubscription.getRapbackOptOutInState());
 		assertEquals("2", savedFbiRapbackSubscription.getRapbackActivityNotificationFormat());
 		assertEquals("LI3456789", savedFbiRapbackSubscription.getUcn());
+		assertThat(savedFbiRapbackSubscription.getStateSubscriptionId(), is(62725)); 
 		
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat("3");
 		fbiRapbackSubscription.setSubscriptionTerm("5");
@@ -291,7 +295,7 @@ public class RapbackDAOImplTest {
 		assertEquals(Boolean.FALSE, updatedFbiRapbackSubscription.getRapbackOptOutInState());
 		assertEquals("3", updatedFbiRapbackSubscription.getRapbackActivityNotificationFormat());
 		assertEquals("LI3456789", updatedFbiRapbackSubscription.getUcn());
-		
+		assertThat(savedFbiRapbackSubscription.getStateSubscriptionId(), is(62725)); 
 	}
 	
 	@Test(expected=DuplicateKeyException.class)

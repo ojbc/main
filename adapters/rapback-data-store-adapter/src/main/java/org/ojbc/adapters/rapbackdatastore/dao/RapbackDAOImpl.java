@@ -388,8 +388,9 @@ public class RapbackDAOImpl implements RapbackDAO {
         final String FBI_RAP_BACK_SUBSCRIPTION_INSERT="insert into FBI_RAP_BACK_SUBSCRIPTION "
         		+ "(FBI_SUBSCRIPTION_ID, UCN, RAP_BACK_CATEGORY_CODE, RAP_BACK_SUBSCRIPTION_TERM_CODE, "
         		+ " RAP_BACK_EXPIRATION_DATE, RAP_BACK_START_DATE, RAP_BACK_TERM_DATE, "
-        		+ " RAP_BACK_OPT_OUT_IN_STATE_INDICATOR, RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT_CODE) "
-        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        		+ " RAP_BACK_OPT_OUT_IN_STATE_INDICATOR, RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT_CODE, "
+        		+ " SUBSCRIPTION_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(FBI_RAP_BACK_SUBSCRIPTION_INSERT, 
         				fbiRapbackSubscription.getFbiSubscriptionId(),
@@ -400,7 +401,8 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            toDate(fbiRapbackSubscription.getRapbackStartDate()),
         	            toDate(fbiRapbackSubscription.getRapbackTermDate()),
         	            fbiRapbackSubscription.getRapbackOptOutInState(),
-        	            fbiRapbackSubscription.getRapbackActivityNotificationFormat());
+        	            fbiRapbackSubscription.getRapbackActivityNotificationFormat(),
+        	            fbiRapbackSubscription.getStateSubscriptionId());
 	}
 
 	
