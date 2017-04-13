@@ -135,6 +135,7 @@ public class TestSubscriptionReportingService {
 		assertEquals(Boolean.FALSE, fbiRapbackSubscriptionAfterReporting.getRapbackOptOutInState());
 		assertEquals("2", fbiRapbackSubscriptionAfterReporting.getRapbackActivityNotificationFormat());
 		assertEquals("1234567898", fbiRapbackSubscriptionAfterReporting.getUcn());
+		assertEquals(Integer.valueOf(62725), fbiRapbackSubscriptionAfterReporting.getStateSubscriptionId());
 		
 		List<SubsequentResults> subsequentResults = rapbackDAO.getSubsequentResultsByUcn("1234567898");
 		assertEquals(1, subsequentResults.size());
@@ -162,12 +163,13 @@ public class TestSubscriptionReportingService {
 		assertEquals("123456", fbiRapbackSubscriptionAfterUpdate.getFbiSubscriptionId());
 		assertEquals("F", fbiRapbackSubscriptionAfterUpdate.getRapbackCategory());
 		assertEquals("5", fbiRapbackSubscriptionAfterUpdate.getSubscriptionTerm());
-		assertEquals(new DateTime(2013,2,24,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterUpdate.getRapbackExpirationDate());
+		assertEquals(new DateTime(2010,2,24,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterUpdate.getRapbackExpirationDate());
 		assertEquals(new DateTime(2015,1,1,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterUpdate.getRapbackTermDate());
 		assertEquals(new DateTime(2011,1,25,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterUpdate.getRapbackStartDate());
 		assertEquals(Boolean.FALSE, fbiRapbackSubscriptionAfterUpdate.getRapbackOptOutInState());
 		assertEquals("2", fbiRapbackSubscriptionAfterUpdate.getRapbackActivityNotificationFormat());
 		assertEquals("1234567898", fbiRapbackSubscriptionAfterUpdate.getUcn());
+		assertEquals(Integer.valueOf(62725), fbiRapbackSubscriptionAfterReporting.getStateSubscriptionId());
 		
 		List<SubsequentResults> subsequentResultsAfterUpdate = rapbackDAO.getSubsequentResultsByUcn("1234567898");
 		assertEquals(2, subsequentResultsAfterUpdate.size());

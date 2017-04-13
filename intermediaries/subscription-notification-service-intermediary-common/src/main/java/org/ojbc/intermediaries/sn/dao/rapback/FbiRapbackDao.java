@@ -178,6 +178,7 @@ public class FbiRapbackDao {
 			fbiSubscription.setRapbackOptOutInState(rs.getBoolean("rap_back_opt_out_in_state_indicator"));
 			fbiSubscription.setRapbackActivityNotificationFormat(rs.getString("rap_back_activity_notification_format_code"));
 			fbiSubscription.setUcn(rs.getString("ucn"));
+			fbiSubscription.setStateSubscriptionId(rs.getInt("subscription_id"));
 			fbiSubscription.setTimestamp(toDateTime(rs.getTimestamp("report_timestamp")));
 		
 			return fbiSubscription;
