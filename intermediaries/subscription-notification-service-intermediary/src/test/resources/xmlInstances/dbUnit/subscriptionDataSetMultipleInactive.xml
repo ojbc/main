@@ -18,8 +18,6 @@
 
 -->
 <dataset>
-
-  <!-- Rob's original test data -->
   <subscription_category subscription_category_code="F" subscription_category_description="Firearms"/>
   <subscription_category subscription_category_code="I" subscription_category_description="Volunteer, Child Care/School Employee, Non-Criminal Justice Employment and Licensing"/>
   <subscription_category subscription_category_code="J" subscription_category_description="Criminal Justice Employment"/>
@@ -27,10 +25,10 @@
   <subscription_category subscription_category_code="CS" subscription_category_description="Criminal Justice - Supervision"/>
   <subscription_category subscription_category_code="S" subscription_category_description="Security Clearance Information Act"/>
 
-  <subscription id="1" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2012-09-27" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemA" subscriptionOwner="SYSTEM" subscriptionOwnerEmailAddress="" subjectName="Wo K Fat" lastValidationDate="2013-08-27" timestamp="2013-08-27 15:08:33.0" active="1" agency_case_number="0123ABC" subscription_category_code='CI'/>
+  <subscription id="1" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2012-09-27" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemA" subscriptionOwner="SYSTEM" subscriptionOwnerEmailAddress="" subjectName="Wo K Fat" lastValidationDate="2013-08-27" timestamp="2013-08-27 15:08:33.0" active="0" agency_case_number="0123ABC" subscription_category_code='CI'/>
   <subscription id="2" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-04-27" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemA" subscriptionOwner="SYSTEM" subscriptionOwnerEmailAddress="" subjectName="Jane R Doe" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:06:25.0" active="0" agency_case_number="0124ABC"/>
-  <subscription id="3" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-06-02" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="SYSTEM" subscriptionOwnerEmailAddress="" subjectName="Wo K Fat" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="1" agency_case_number="0123ABD"/>
-  <subscription id="4" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-06-02" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="SYSTEM" subscriptionOwnerEmailAddress="" subjectName="WO FAT" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="1" agency_case_number="0123ABE"/>
+  <subscription id="3" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-06-02" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="SYSTEM" subscriptionOwnerEmailAddress="" subjectName="Wo K Fat" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="0" agency_case_number="0123ABD"/>
+  <subscription id="4" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-06-02" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="SYSTEM" subscriptionOwnerEmailAddress="" subjectName="WO FAT" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="0" agency_case_number="0123ABE"/>
   <notification_mechanism id="1" subscriptionId="1" notificationMechanismType="email" notificationAddress="po1@localhost"/>
   <notification_mechanism id="2" subscriptionId="2" notificationMechanismType="email" notificationAddress="po2@localhost"/>
   <notification_mechanism id="3" subscriptionId="3" notificationMechanismType="email" notificationAddress="po3@localhost"/>
@@ -44,32 +42,12 @@
   <subscription_subject_identifier id="6" subscriptionId="3" identifierName="subscriptionQualifier" identifierValue="20919"/>
   <subscription_subject_identifier id="7" subscriptionId="4" identifierName="SID" identifierValue="A5008306"/>
   <subscription_subject_identifier id="8" subscriptionId="4" identifierName="subscriptionQualifier" identifierValue="20920"/>
-
+  
   <!-- New data to support whitelist testing -->
   
   <subscription id="5" topic="{http://ojbc.org/wsn/topics}:person/arrest" startDate="2013-10-01" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemB" subscriptionOwner="SYSTEM" subscriptionOwnerEmailAddress="" subjectName="AL CAPONE" lastValidationDate="2013-09-05" timestamp="2013-09-05 09:18:40.0" active="1" agency_case_number="0123ABF"/>
   <notification_mechanism id="6" subscriptionId="5" notificationMechanismType="email" notificationAddress="po100@localhost"/>
   <subscription_subject_identifier id="9" subscriptionId="5" identifierName="SID" identifierValue="A5008307"/>
   <subscription_subject_identifier id="10" subscriptionId="5" identifierName="subscriptionQualifier" identifierValue="20921"/>
-  
-  <!-- New data added by this test case -->
-  
-  <subscription id="6" topic="{http://ojbc.org/wsn/topics}:person/rapback" startDate="2014-06-20" endDate="2015-06-20" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemA" subscriptionOwner="SYSTEM" subscriptionOwnerEmailAddress="" subjectName="Test Person" lastValidationDate="2013-09-13" timestamp="2013-09-13 13:47:48.0" active="0" agency_case_number="0123ABG" subscription_category_code="CI"/>
-  <notification_mechanism id="7" subscriptionId="6" notificationMechanismType="email" notificationAddress="po6@localhost"/>
-  <subscription_subject_identifier id="11" subscriptionId="6" identifierName="SID" identifierValue="A9999999"/>
-  <subscription_subject_identifier id="12" subscriptionId="6" identifierName="subscriptionQualifier" identifierValue="1234578"/>
-  <subscription_subject_identifier id="13" subscriptionId="6" identifierName="FBI_ID" identifierValue="123456789"/>
-  <subscription_subject_identifier id="14" subscriptionId="6" identifierName="dateOfBirth" identifierValue="1972-08-02"/>
-  <subscription_subject_identifier id="15" subscriptionId="6" identifierName="firstName" identifierValue="Test"/>
-  <subscription_subject_identifier id="16" subscriptionId="6" identifierName="lastName" identifierValue="Person"/>
-  
-  <subscription_properties subscriptionId="6" propertyName="ARREST" propertyValue="ARREST" />
-  <subscription_properties subscriptionId="6" propertyName="NCIC_SOR_ENTRY" propertyValue="NCIC-SOR-ENTRY" />
-  <subscription_properties subscriptionId="6" propertyName="federalRapSheetDisclosureIndicator" propertyValue="true" />
-  <subscription_properties subscriptionId="6" propertyName="agencyCaseNumber" propertyValue="0123ABG" />
-  <subscription_properties subscriptionId="6" propertyName="NCIC_WARRANT_ENTRY" propertyValue="NCIC-WARRANT-ENTRY" />
-  <subscription_properties subscriptionId="6" propertyName="DEATH" propertyValue="DEATH" />
-  <subscription_properties subscriptionId="6" propertyName="federalRapSheetDisclosureAttentionDesignationText" propertyValue="Detective George Jones" />
-  <subscription_properties subscriptionId="6" propertyName="DISPOSITION" propertyValue="DISPOSITION" />
-  
+
 </dataset>

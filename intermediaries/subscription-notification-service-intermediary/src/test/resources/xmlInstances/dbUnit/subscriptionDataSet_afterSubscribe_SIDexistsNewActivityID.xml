@@ -54,7 +54,8 @@
   <notification_mechanism id="7" subscriptionId="6" notificationMechanismType="email" notificationAddress="po6@localhost"/>
   <subscription_subject_identifier id="11" subscriptionId="6" identifierName="SID" identifierValue="A5008307"/>
   <subscription_subject_identifier id="12" subscriptionId="6" identifierName="subscriptionQualifier" identifierValue="20922"/>
-
+  <subscription_subject_identifier id="13" subscriptionId="6" identifierName="firstName" identifierValue="Al"/>
+  <subscription_subject_identifier id="14" subscriptionId="6" identifierName="lastName" identifierValue="Capone"/>
 
   <notifications_sent/>	
 

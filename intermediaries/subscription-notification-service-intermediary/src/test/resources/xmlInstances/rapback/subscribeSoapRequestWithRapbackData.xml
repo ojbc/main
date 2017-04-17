@@ -76,8 +76,8 @@
 				<smext:TriggeringEvents>
 					<smext:FederalTriggeringEventCode>ARREST</smext:FederalTriggeringEventCode>
 					<smext:FederalTriggeringEventCode>DEATH</smext:FederalTriggeringEventCode>
-					<smext:FederalTriggeringEventCode>NCIC-SOR</smext:FederalTriggeringEventCode>
-					<smext:FederalTriggeringEventCode>NCIC-WARRANT</smext:FederalTriggeringEventCode>
+					<smext:FederalTriggeringEventCode>NCIC-SOR-ENTRY</smext:FederalTriggeringEventCode>
+					<smext:FederalTriggeringEventCode>NCIC-WARRANT-ENTRY</smext:FederalTriggeringEventCode>
 					<smext:FederalTriggeringEventCode>DISPOSITION</smext:FederalTriggeringEventCode>
 				</smext:TriggeringEvents>
 				<smext:FederalRapSheetDisclosure>
