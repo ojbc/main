@@ -45,6 +45,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.notification.filter.DefaultNotificationFilterStrategy;
 import org.ojbc.intermediaries.sn.notification.filter.DuplicateNotificationFilterStrategy;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationProcessor;
 import org.ojbc.util.model.BooleanPropertyWrapper;
@@ -351,6 +352,8 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
         //There will now be zero notifications because this is a duplicate message
         notifyAndAssertBasics("notificationSoapRequest-incident.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingIncident/jxdm41:Incident/nc:ActivityDate", 
                 null, 0);
+        
+        incidentNotificationProcessor.setNotificationFilterStrategy(new DefaultNotificationFilterStrategy());
         
     }
     
