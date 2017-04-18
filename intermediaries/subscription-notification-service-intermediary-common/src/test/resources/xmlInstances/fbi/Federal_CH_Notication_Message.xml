@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+    
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+    
+    http://opensource.org/licenses/RPL-1.5
+    
+    Copyright 2012-2015 Open Justice Broker Consortium
+    
+-->
+<b:Notify xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+    xmlns:add="http://www.w3.org/2005/08/addressing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+    xmlns:s="http://niem.gov/niem/structures/2.0"
+    xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+    xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+    xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+    xmlns:xop="http://www.w3.org/2004/08/xop/include">
+    <b:NotificationMessage>
+        <b:SubscriptionReference>
+            <add:Address>http://www.ojbc.org/SubscriptionManager</add:Address>
+            <add:ReferenceParameters/>
+            <add:Metadata/>
+        </b:SubscriptionReference>
+        <b:Topic xmlns:topics="http://ojbc.org/wsn/topics"
+            Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/rapback</b:Topic>
+        <b:ProducerReference>
+            <add:Address>http://www.ojbc.org/arrestNotificationProducer</add:Address>
+            <add:ReferenceParameters/>
+            <add:Metadata/>
+        </b:ProducerReference>
+        <b:Message>
+            <notfm-doc:NotificationMessage>
+                <notfm-ext:NotifyingFederalCriminalHistoryUpdate s:id="d1e1">
+                    <notfm-ext:NotifyingActivityReportingOrganization>
+                        <nc:OrganizationName>FBI</nc:OrganizationName>
+                    </notfm-ext:NotifyingActivityReportingOrganization>
+                    <notfm-ext:NotifyingActivityReportingSystemNameText>FBI EBTS</notfm-ext:NotifyingActivityReportingSystemNameText>
+                    <notfm-ext:NotifyingActivityReportingSystemURI>SystemURIHere </notfm-ext:NotifyingActivityReportingSystemURI>
+                    <notfm-ext:RelatedFBISubscription>
+                        <notfm-ext:RapBackExpirationDate>
+                            <nc:Date>2010-02-24</nc:Date>
+                        </notfm-ext:RapBackExpirationDate>
+                        <notfm-ext:RapBackSubscriptionDate>
+                            <nc:Date>2011-01-25</nc:Date>
+                        </notfm-ext:RapBackSubscriptionDate>
+                        <notfm-ext:RecordRapBackSubscriptionIdentification>
+                            <nc:IdentificationID>123456</nc:IdentificationID>
+                        </notfm-ext:RecordRapBackSubscriptionIdentification>
+                        <notfm-ext:RapBackSubscriptionTermCode>5 </notfm-ext:RapBackSubscriptionTermCode>
+                        <notfm-ext:RapBackTermDate>
+                            <nc:Date>2015-01-01</nc:Date>
+                        </notfm-ext:RapBackTermDate>
+                        <notfm-ext:SubscriptionQualifierIdentification>
+                            <nc:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7</nc:IdentificationID>
+                        </notfm-ext:SubscriptionQualifierIdentification>
+                        <notfm-ext:RapBackActivityNotificationIdentification>
+                            <nc:IdentificationID>123456</nc:IdentificationID>
+                        </notfm-ext:RapBackActivityNotificationIdentification>
+                        <notfm-ext:RapBackAttentionText>DET J Q PUBLIC </notfm-ext:RapBackAttentionText>
+                        <notfm-ext:RapBackEventDate>
+                            <nc:Date>2013-03-29</nc:Date>
+                        </notfm-ext:RapBackEventDate>
+                        <notfm-ext:TriggeringEvents>
+                            <notfm-ext:FederalTriggeringEventCode>ARREST</notfm-ext:FederalTriggeringEventCode>
+                        </notfm-ext:TriggeringEvents>
+                        <notfm-ext:RapBackEventText>Event that triggered the rap back</notfm-ext:RapBackEventText>
+                    </notfm-ext:RelatedFBISubscription>
+                    <notfm-ext:CriminalHistoryRecordDocument>
+                        <nc:DocumentBinary>
+                            <notfm-ext:Base64BinaryObject>U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=</notfm-ext:Base64BinaryObject>
+                        </nc:DocumentBinary>
+                    </notfm-ext:CriminalHistoryRecordDocument>
+                </notfm-ext:NotifyingFederalCriminalHistoryUpdate>
+                <nc:ActivityInvolvedPersonAssociation>
+                    <nc:ActivityReference s:ref="d1e1"/>
+                    <nc:PersonReference s:ref="d1e57"/>
+                </nc:ActivityInvolvedPersonAssociation>
+                <j:Person s:id="d1e57">
+                    <nc:PersonBirthDate>
+                        <nc:Date>1977-08-25</nc:Date>
+                    </nc:PersonBirthDate>
+                    <nc:PersonName>
+                        <nc:PersonGivenName>Charlie</nc:PersonGivenName>
+                        <nc:PersonSurName>Macdonald</nc:PersonSurName>
+                    </nc:PersonName>
+                    <j:PersonAugmentation>
+                        <j:PersonFBIIdentification>
+                            <nc:IdentificationID>223276SG5</nc:IdentificationID>
+                        </j:PersonFBIIdentification>
+                        <j:PersonStateFingerprintIdentification>
+                            <nc:IdentificationID>A5186353</nc:IdentificationID>
+                        </j:PersonStateFingerprintIdentification>
+                    </j:PersonAugmentation>
+                </j:Person>
+            </notfm-doc:NotificationMessage>
+        </b:Message>
+    </b:NotificationMessage>
+</b:Notify>

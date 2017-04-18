@@ -62,14 +62,18 @@
 						<camel:when>
 							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest</camel:xpath>
 							
+							<camel:log message="In state arrest notification received for rapback topic"/>
+							
 							<camel:to uri="bean:arrestNotificationProcessor?method=findSubscriptionsForNotification" />
 						</camel:when>
 						
 						<!-- This is a federal arrest notification -->
 						<camel:when>
-							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingFederal</camel:xpath>
+							<camel:xpath>//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingFederalCriminalHistoryUpdate</camel:xpath>
 							
+							<camel:log message="Federal notification received for rapback topic"/>
 							
+							<camel:to uri="bean:rapbackNotificationProcessor?method=findRapbackSubscriptionForNotification" />
 						</camel:when>
 						<camel:otherwise>
 							<camel:log message="No known notifying message was in the notification.  Stopping route"/>
@@ -108,7 +112,7 @@
 					</camel:when>
 					<camel:when>
 						<camel:simple>${in.header.notificationTopic} == 'rapback'</camel:simple>
-						<camel:log message="Not implemented in this phase"/>
+						<camel:to uri="bean:rapbackNotificationProcessor?method=createNotificationEmail" />
 					</camel:when>
 					<camel:when>
 						<camel:simple>${in.header.notificationTopic} == 'incident'</camel:simple>
