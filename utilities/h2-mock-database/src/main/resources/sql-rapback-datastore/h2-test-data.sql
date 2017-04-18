@@ -104,6 +104,7 @@ insert into subscription(id, topic, startDate, endDate, lastValidationDate, subs
 insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subscriptionOwnerEmailAddress, subjectName, active) values ('62724','{http://ojbc.org/wsn/topics}:person/arrest', '2014-10-15', '2015-10-15', '2014-10-15', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'admin@local.gov','Test W Jane', '1');
 insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subscriptionOwnerEmailAddress, subjectName, active) values ('62725','{http://ojbc.org/wsn/topics}:person/arrest', '2015-09-19', '2016-10-19', '2015-09-19', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'admin@local.gov','Lisa W Simpson', '1');
 insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subscriptionOwnerEmailAddress, subjectName, active) values ('62726','{http://ojbc.org/wsn/topics}:person/arrest', '2015-10-16', '2016-10-19', '2015-10-16', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'admin@local.gov','Bart Simpson', '1');
+insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subscriptionOwnerEmailAddress, subjectName, active, subscription_category_code) values ('62727','{http://ojbc.org/wsn/topics}:person/rapback', '2015-10-16', '2020-10-19', '2015-10-16', '{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB', 'OJBC:IDP:OJBC:USER:admin', 'admin@local.gov','El Barto', '1', 'CI');
 
 insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62727','{http://ojbc.org/wsn/topics}:person/arrest', '2015-10-16', '2016-10-19', '2015-10-16', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'PortalUnsubscribe FbiUcnTest', '1');
 
@@ -156,6 +157,8 @@ insert into subscription_subject_identifier(subscriptionId, identifierName, iden
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62726', 'dateOfBirth', '1987-10-10');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62726', 'firstName', 'Bart');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62726', 'lastName', 'Simpson');
+
+insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62727', 'SID', 'A123457');
 
 insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','ARREST','ARREST');
 insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','NCIC-WARRANT-ENTRY','NCIC-WARRANT-ENTRY');

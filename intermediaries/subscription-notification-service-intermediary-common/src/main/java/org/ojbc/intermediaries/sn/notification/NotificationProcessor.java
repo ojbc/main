@@ -234,7 +234,7 @@ public abstract class NotificationProcessor {
         
     }
     
-    List<EmailNotification> createUniqueNotifications(List<Subscription> subscriptions, NotificationRequest request) {
+    protected List<EmailNotification> createUniqueNotifications(List<Subscription> subscriptions, NotificationRequest request) {
         
         List<EmailNotification> emailNotifications = new ArrayList<EmailNotification>();
 

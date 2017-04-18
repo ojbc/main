@@ -58,6 +58,14 @@
 								<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultArrestEmailFormatter"/>
 							</util:map>
 						</entry>
+						<entry key="{http://ojbc.org/wsn/topics}:person/rapback">
+							<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+								<entry key-ref="inStateArrestNotificationFormatKeyCI" value-ref="defaultArrestEmailFormatter" />
+								<entry key-ref="inStateArrestNotificationFormatKeyCS" value-ref="defaultArrestEmailFormatter" />
+								<entry key-ref="rapbackNotificationFormatKeyCI" value-ref="defaultRapbackEmailFormatter" />
+								<entry key-ref="rapbackNotificationFormatKeyCS" value-ref="defaultRapbackEmailFormatter" />
+							</util:map>
+						</entry>
 						<entry key="{http://ojbc.org/wsn/topics}:person/incident">
 							<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
 								<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultIncidentEmailFormatter"/>

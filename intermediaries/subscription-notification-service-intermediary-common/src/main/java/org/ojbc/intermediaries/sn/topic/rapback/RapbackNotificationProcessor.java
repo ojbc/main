@@ -23,11 +23,18 @@ import java.util.Map;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.notification.EmailNotification;
 import org.ojbc.intermediaries.sn.notification.NotificationProcessor;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
+import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
 import org.ojbc.intermediaries.sn.util.SubjectIdentifierUtils;
+import org.ojbc.util.xml.XmlUtils;
+import org.w3c.dom.Document;
 
 public class RapbackNotificationProcessor extends NotificationProcessor {
 	
@@ -35,7 +42,9 @@ public class RapbackNotificationProcessor extends NotificationProcessor {
 	
 	List<List<String>> alternateConfiguredSubjectIdentifiers;
 	
-	//TODO: Update in a future rapback phase
+	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;
+	
+	private static final Log log = LogFactory.getLog( ArrestNotificationRequest.class );
 	
 	@Override
 	protected NotificationRequest makeNotificationRequestFromIncomingMessage(Message msg) throws Exception{
@@ -59,9 +68,30 @@ public class RapbackNotificationProcessor extends NotificationProcessor {
 		return rapbackNotificationRequest;
 	}
 
-	@Override
-	public List<EmailNotification> findSubscriptionsForNotification(Exchange exchange) throws Exception {
-		return null;
+	public List<EmailNotification> findRapbackSubscriptionForNotification(Exchange exchange) throws Exception {
+		
+		Document notificationMessage = exchange.getIn().getBody(Document.class);
+		
+		String fbiRelatedSubscriptionID = XmlUtils.xPathStringSearch(notificationMessage, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingFederalCriminalHistoryUpdate/notfm-ext:RelatedFBISubscription/notfm-ext:SubscriptionQualifierIdentification/nc:IdentificationID");
+		log.debug("FBI related subscription ID");
+		
+		List<Subscription> subscriptions = new ArrayList<Subscription>();
+		
+		//Get subscription here
+		Subscription subscription = subscriptionSearchQueryDAO.findSubscriptionByFbiSubscriptionId(fbiRelatedSubscriptionID);
+		
+		log.debug("Matched rapback subscription: " + subscription);
+		
+		subscriptions.add(subscription);
+		
+		NotificationRequest request = makeNotificationRequestFromIncomingMessage(exchange.getIn());
+		
+		List<EmailNotification> emailNotifications = createUniqueNotifications(subscriptions, request);
+		
+		log.info("Email notifications: " + emailNotifications);
+		
+		return emailNotifications;
+		
 	}
 	
 	public List<String> getActiveSubjectIdentifiers() {
@@ -79,6 +109,15 @@ public class RapbackNotificationProcessor extends NotificationProcessor {
 	public void setAlternateConfiguredSubjectIdentifiers(
 			List<List<String>> alternateConfiguredSubjectIdentifiers) {
 		this.alternateConfiguredSubjectIdentifiers = alternateConfiguredSubjectIdentifiers;
+	}
+
+	public SubscriptionSearchQueryDAO getSubscriptionSearchQueryDAO() {
+		return subscriptionSearchQueryDAO;
+	}
+
+	public void setSubscriptionSearchQueryDAO(
+			SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
+		this.subscriptionSearchQueryDAO = subscriptionSearchQueryDAO;
 	}
 	
 }
