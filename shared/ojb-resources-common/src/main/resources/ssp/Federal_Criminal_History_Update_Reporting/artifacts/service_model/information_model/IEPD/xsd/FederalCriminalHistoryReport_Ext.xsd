@@ -117,7 +117,7 @@
 					<xsd:element ref="fchr-ext:RapBackAttentionText"
 						minOccurs="0" />
 					<xsd:element ref="fchr-ext:RapBackEventDate" minOccurs="0" />
-					<xsd:element ref="fchr-ext:TriggeringEvents" minOccurs="0" />
+					<xsd:element ref="fchr-ext:TriggeringEvents" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="fchr-ext:RapBackEventText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
