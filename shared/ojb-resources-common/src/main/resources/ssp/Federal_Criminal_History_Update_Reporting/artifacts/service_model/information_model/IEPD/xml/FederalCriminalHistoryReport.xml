@@ -86,6 +86,9 @@
 				<fchr-ext:FederalTriggeringEventCode>ARREST
 				</fchr-ext:FederalTriggeringEventCode>
 			</fchr-ext:TriggeringEvents>
+						<fchr-ext:TriggeringEvents>
+				<fchr-ext:FederalTriggeringEventCode>DISPOSITION</fchr-ext:FederalTriggeringEventCode>
+			</fchr-ext:TriggeringEvents>
 			<fchr-ext:RapBackEventText>Event that triggered the rap back
 			</fchr-ext:RapBackEventText>
 		</fchr-ext:RapBackNotificationEvent>
