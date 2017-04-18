@@ -79,18 +79,24 @@
 			</fchr-ext:RapBackActivityNotificationIdentification>
 			<fchr-ext:RapBackAttentionText>DET J Q PUBLIC
 			</fchr-ext:RapBackAttentionText>
-			<fchr-ext:RapBackEventDate>
-				<nc:Date>2013-03-29</nc:Date>
-			</fchr-ext:RapBackEventDate>
-			<fchr-ext:TriggeringEvents>
+			<fchr-ext:TriggeringEvent>
+				<fchr-ext:RapBackEventDate>
+					<nc:Date>2013-03-29</nc:Date>
+				</fchr-ext:RapBackEventDate>
 				<fchr-ext:FederalTriggeringEventCode>ARREST
 				</fchr-ext:FederalTriggeringEventCode>
-			</fchr-ext:TriggeringEvents>
-						<fchr-ext:TriggeringEvents>
-				<fchr-ext:FederalTriggeringEventCode>DISPOSITION</fchr-ext:FederalTriggeringEventCode>
-			</fchr-ext:TriggeringEvents>
-			<fchr-ext:RapBackEventText>Event that triggered the rap back
-			</fchr-ext:RapBackEventText>
+				<fchr-ext:RapBackEventText>Event that triggered the rap back
+				</fchr-ext:RapBackEventText>
+			</fchr-ext:TriggeringEvent>
+			<fchr-ext:TriggeringEvent>
+				<fchr-ext:RapBackEventDate>
+					<nc:Date>2013-03-29</nc:Date>
+				</fchr-ext:RapBackEventDate>
+				<fchr-ext:FederalTriggeringEventCode>DISPOSITION
+				</fchr-ext:FederalTriggeringEventCode>
+				<fchr-ext:RapBackEventText>Event that triggered the rap back
+				</fchr-ext:RapBackEventText>
+			</fchr-ext:TriggeringEvent>
 		</fchr-ext:RapBackNotificationEvent>
 	</fchr-ext:TransactionDescriptiveRecord>
 	<nc:Person>
