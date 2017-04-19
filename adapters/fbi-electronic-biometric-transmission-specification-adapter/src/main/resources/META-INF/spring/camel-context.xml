@@ -222,11 +222,11 @@
 			
 			<to uri="bean:rapsheetMtomProcessor?method=convertToBase64Binary"/>		
 		
-			<log message="\n\n\n Transforming Federal_To_Arrest_Report_Transform.xsl... \n\n\n" loggingLevel="INFO"/>
+			<log message="\n\n\n Transforming Federal_To_CH_Report_Transform.xsl... \n\n\n" loggingLevel="INFO"/>
 			
-			<to uri="xslt:xsl/Federal_To_Arrest_Report_Transform.xsl"/>
+			<to uri="xslt:xsl/Federal_To_CH_Report_Transform.xsl"/>
 			
-			<log message="\n\n\n ran Federal_To_Arrest_Report_Transform.xsl.  Sending to Federal Criminal History Update Repository Service... \n\n" loggingLevel="INFO"/>
+			<log message="\n\n\n ran Federal_To_CH_Report_Transform.xsl.  Sending to Federal Criminal History Update Repository Service... \n\n" loggingLevel="INFO"/>
 			
 			<camel:setHeader headerName="operationName"><constant>ReportNewCriminalHistoryEvent</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/FederalCriminalHistoryUpdateReporting/1.0</constant></camel:setHeader>			
