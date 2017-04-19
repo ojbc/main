@@ -430,16 +430,22 @@ public class SubscriptionsController {
 		logger.info("inside getRapbackForm()");		
 		initDatesForAddRapbackForm(subscription, model);
 		
+		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
 		// pre-populate an email field on the form w/email from saml token
-		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
+		String sEmail = userLogonInfo.getEmailAddress();
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
 		}
 		
-		String purposeSelection = subscriptionDefaultsMap.get("purpose");
-		if(StringUtils.isNotEmpty(purposeSelection)){
-			subscription.setSubscriptionPurpose(purposeSelection);	
-		}		
+		if (userLogonInfo.getLawEnforcementEmployerIndicator()){
+			String purposeSelection = subscriptionDefaultsMap.get("purpose");
+			if(StringUtils.isNotEmpty(purposeSelection)){
+				subscription.setSubscriptionPurpose(purposeSelection);	
+			}		
+		}
+		else{
+			subscription.setSubscriptionPurpose("CS");	
+		}
 		
 		model.put("subscription", subscription);
 		
