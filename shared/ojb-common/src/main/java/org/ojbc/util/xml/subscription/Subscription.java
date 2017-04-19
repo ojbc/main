@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -119,7 +120,7 @@ public class Subscription implements Serializable {
 	}
 
 	public void setStateId(String stateId) {
-		this.stateId = stateId;
+		this.stateId = StringUtils.trimToEmpty(stateId);
 	}
 
 	public void setFbiId(String fbiId) {
