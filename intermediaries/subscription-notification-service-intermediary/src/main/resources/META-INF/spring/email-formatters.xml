@@ -42,7 +42,6 @@ Event Date: $rapbackTriggeringEvent.triggeringEventDate
 Event Text: $rapbackTriggeringEvent.triggeringEventText
 
 #end
- 
 For more information, please run a criminal history background on this individual.]]></value>
 		</property>
 	</bean>    
