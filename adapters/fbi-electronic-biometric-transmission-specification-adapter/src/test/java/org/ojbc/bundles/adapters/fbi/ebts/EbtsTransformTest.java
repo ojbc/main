@@ -28,6 +28,8 @@ import javax.xml.transform.Source;
 import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ws.security.util.Base64;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
@@ -41,6 +43,8 @@ import org.xml.sax.SAXException;
 public class EbtsTransformTest {
 	
 	private XsltTransformer xsltTransformer;
+	
+	private static final Log log = LogFactory.getLog( EbtsTransformTest.class );
 	
 	@Before
 	public void init(){
@@ -183,6 +187,8 @@ public class EbtsTransformTest {
 			
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
 				
+		log.debug("Tranformed XML: " + actualTransformedXml);
+		
 		String expectedXmlString = FileUtils.readFileToString(
 				new File("src/test/resources/output/Federal_Rapback_CH_Report.xml"));
 							
