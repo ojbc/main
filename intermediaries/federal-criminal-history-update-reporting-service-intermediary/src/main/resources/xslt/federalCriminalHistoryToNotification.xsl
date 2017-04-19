@@ -116,7 +116,7 @@
 	</xsl:template>
 	<xsl:template match="fchr-ext:RapBackSubscriptionTermCode">
 		<notfm-ext:RapBackSubscriptionTermCode>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(.)" />
 		</notfm-ext:RapBackSubscriptionTermCode>
 	</xsl:template>
 	<xsl:template match="fchr-ext:RapBackTermDate">
@@ -142,7 +142,7 @@
 	</xsl:template>
 	<xsl:template match="fchr-ext:RapBackAttentionText">
 		<notfm-ext:RapBackAttentionText>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(.)" />
 		</notfm-ext:RapBackAttentionText>
 	</xsl:template>
 	<xsl:template match="fchr-ext:TriggeringEvent"
@@ -160,19 +160,19 @@
 	</xsl:template>
 	<xsl:template match="fchr-ext:FederalTriggeringEventCode">
 		<notfm-ext:FederalTriggeringEventCode>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(.)" />
 		</notfm-ext:FederalTriggeringEventCode>
 	</xsl:template>
 	<xsl:template match="fchr-ext:RapBackEventText">
 		<notfm-ext:RapBackEventText>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(.)" />
 		</notfm-ext:RapBackEventText>
 	</xsl:template>
 	<xsl:template match="fchr-ext:FederalCriminalHistoryRecordDocument">
 		<notfm-ext:CriminalHistoryRecordDocument>
 			<nc:DocumentBinary>
 				<notfm-ext:Base64BinaryObject>
-					<xsl:value-of select="." />
+					<xsl:value-of select="normalize-space(.)" />
 				</notfm-ext:Base64BinaryObject>
 			</nc:DocumentBinary>
 		</notfm-ext:CriminalHistoryRecordDocument>
@@ -211,17 +211,17 @@
 	</xsl:template>
 	<xsl:template match="nc30:PersonGivenName">
 		<nc:PersonGivenName>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(.)" />
 		</nc:PersonGivenName>
 	</xsl:template>
 	<xsl:template match="nc30:PersonMiddleName">
 		<nc:PersonMiddleName>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(.)" />
 		</nc:PersonMiddleName>
 	</xsl:template>
 	<xsl:template match="nc30:PersonSurName">
 		<nc:PersonSurName>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(.)" />
 		</nc:PersonSurName>
 	</xsl:template>
 	<xsl:template match="j51:PersonAugmentation">
@@ -242,12 +242,12 @@
 	</xsl:template>
 	<xsl:template match="nc30:Date">
 		<nc:Date>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(.)" />
 		</nc:Date>
 	</xsl:template>
 	<xsl:template match="nc30:IdentificationID">
 		<nc:IdentificationID>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(.)" />
 		</nc:IdentificationID>
 	</xsl:template>
 </xsl:stylesheet>

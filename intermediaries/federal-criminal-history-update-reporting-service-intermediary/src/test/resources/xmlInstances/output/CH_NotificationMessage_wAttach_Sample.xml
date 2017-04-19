@@ -60,43 +60,35 @@
                   <notfm-ext:RecordRapBackSubscriptionIdentification>
                      <nc:IdentificationID>123456</nc:IdentificationID>
                   </notfm-ext:RecordRapBackSubscriptionIdentification>
-                  <notfm-ext:RapBackSubscriptionTermCode>5
-			</notfm-ext:RapBackSubscriptionTermCode>
+                  <notfm-ext:RapBackSubscriptionTermCode>5</notfm-ext:RapBackSubscriptionTermCode>
                   <notfm-ext:RapBackTermDate>
                      <nc:Date>2015-01-01</nc:Date>
                   </notfm-ext:RapBackTermDate>
                   <notfm-ext:SubscriptionQualifierIdentification>
-                     <nc:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7
-				</nc:IdentificationID>
+                     <nc:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7</nc:IdentificationID>
                   </notfm-ext:SubscriptionQualifierIdentification>
                   <notfm-ext:RapBackActivityNotificationIdentification>
                      <nc:IdentificationID>123456</nc:IdentificationID>
                   </notfm-ext:RapBackActivityNotificationIdentification>
-                  <notfm-ext:RapBackAttentionText>DET J Q PUBLIC
-			</notfm-ext:RapBackAttentionText>
+                  <notfm-ext:RapBackAttentionText>DET J Q PUBLIC</notfm-ext:RapBackAttentionText>
                   <notfm-ext:TriggeringEvent>
                      <notfm-ext:RapBackEventDate>
                         <nc:Date>2013-03-29</nc:Date>
                      </notfm-ext:RapBackEventDate>
-                     <notfm-ext:FederalTriggeringEventCode>ARREST
-				</notfm-ext:FederalTriggeringEventCode>
-                     <notfm-ext:RapBackEventText>Event that triggered the rap back
-				</notfm-ext:RapBackEventText>
+                     <notfm-ext:FederalTriggeringEventCode>ARREST</notfm-ext:FederalTriggeringEventCode>
+                     <notfm-ext:RapBackEventText>Event that triggered the rap back</notfm-ext:RapBackEventText>
                   </notfm-ext:TriggeringEvent>
                   <notfm-ext:TriggeringEvent>
                      <notfm-ext:RapBackEventDate>
                         <nc:Date>2013-03-29</nc:Date>
                      </notfm-ext:RapBackEventDate>
-                     <notfm-ext:FederalTriggeringEventCode>DISPOSITION
-				</notfm-ext:FederalTriggeringEventCode>
-                     <notfm-ext:RapBackEventText>Event that triggered the rap back
-				</notfm-ext:RapBackEventText>
+                     <notfm-ext:FederalTriggeringEventCode>DISPOSITION</notfm-ext:FederalTriggeringEventCode>
+                     <notfm-ext:RapBackEventText>Event that triggered the rap back</notfm-ext:RapBackEventText>
                   </notfm-ext:TriggeringEvent>
                </notfm-ext:RelatedFBISubscription>
                <notfm-ext:CriminalHistoryRecordDocument>
                   <nc:DocumentBinary>
-                     <notfm-ext:Base64BinaryObject>U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=
-				</notfm-ext:Base64BinaryObject>
+                     <notfm-ext:Base64BinaryObject>U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=</notfm-ext:Base64BinaryObject>
                   </nc:DocumentBinary>
                </notfm-ext:CriminalHistoryRecordDocument>
             </notfm-ext:NotifyingFederalCriminalHistoryUpdate>
