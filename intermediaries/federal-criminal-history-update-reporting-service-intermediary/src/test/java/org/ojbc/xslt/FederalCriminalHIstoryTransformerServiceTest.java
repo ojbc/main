@@ -20,13 +20,14 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.xml.transform.sax.SAXSource;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
@@ -38,6 +39,8 @@ import org.xml.sax.InputSource;
 
 public class FederalCriminalHIstoryTransformerServiceTest {
 
+	private static final Log log = LogFactory.getLog(FederalCriminalHIstoryTransformerServiceTest.class);
+	
 	XsltTransformerService unit;
 
 	@Before
@@ -67,6 +70,8 @@ public class FederalCriminalHIstoryTransformerServiceTest {
 		String sXmlRoot = XmlUtils.getRootNodeAsString(expectedResultsFilePath);
 		
 		String transformedXml = unit.transform(createSource(inputXmlPath), createSource(xslPath), params);		
+		
+		log.debug("Transformed XML:" + transformedXml);
 		
 		Diff diff = new Diff(sXmlRoot, transformedXml);
 		
