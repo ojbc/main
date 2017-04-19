@@ -176,15 +176,11 @@
 				<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ebts:TransactionCategoryCode/text()</xpath>
 			</camel:setHeader>
 
-			<camel:setHeader headerName="rapBackTriggerCode">
-			 	<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData/ebts:TransactionRapBackTriggeringEvent/ebts:RapBackTriggeringEventCode/text()</xpath>
-			</camel:setHeader>
-			
-			<log message="\n\n\n trxCatCode: ${header.trxCatCode}, rapBackTriggerCode: ${header.rapBackTriggerCode} \n\n\n" loggingLevel="INFO"/>
+			<log message="\nTransaction Category Code: ${header.trxCatCode}\n" loggingLevel="INFO"/>
 
 			<choice>
 				<when>
-					<simple>${header.trxCatCode} == 'RBN' and ${header.rapBackTriggerCode} == '1'</simple>
+					<simple>${header.trxCatCode} == 'RBN'</simple>
 					
 					<log message="\n\n\n  Detected Federal Rapback Notification, processing... \n\n\n" loggingLevel="INFO"/>
 					

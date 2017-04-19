@@ -80,6 +80,11 @@ public class RapbackNotificationProcessor extends NotificationProcessor {
 		//Get subscription here
 		Subscription subscription = subscriptionSearchQueryDAO.findSubscriptionByFbiSubscriptionId(fbiRelatedSubscriptionID);
 		
+		if (subscription == null)
+		{
+			throw new IllegalStateException("Unable to find FBI subscription for FBI related subscription ID: " + fbiRelatedSubscriptionID);
+		}	
+		
 		log.debug("Matched rapback subscription: " + subscription);
 		
 		subscriptions.add(subscription);
