@@ -169,28 +169,6 @@ public class EbtsTransformTest {
 	}
 	
 	@Test
-	public void ArrestReportTestEbtsTransform() throws Exception{
-		
-		InputStream inputFileStream = new FileInputStream("src/test/resources/input/FBI_Rapback_Activity_Notification_Arrest.xml");
-		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
-		
-		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/Federal_To_Arrest_Report_Transform.xsl"); 				
-		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
-		
-		Map<String, Object> xsltParamMap = getXsltParamMap();
-		String rapsheetString = "Subject's Rap Sheet goes here";
-		xsltParamMap.put("base64Rapsheet", Base64.encode(rapsheetString.getBytes()));
-			
-		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
-				
-		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/output/Federal_Rapback_Arrest_Report.xml"));
-							
-		compareXml(expectedXmlString, actualTransformedXml);							
-	}
-	
-	
-	@Test
 	public void CriminalHistoryReportTestEbtsTransform() throws Exception{
 		
 		InputStream inputFileStream = new FileInputStream("src/test/resources/input/FBI_Rapback_Activity_Notification.xml");
