@@ -20,6 +20,10 @@
 	$('#triggeringEventsDiv input:nth-of-type(4)').before('<br>');	  
     $('#subscriptionForm').tooltip();
   		    	  
+	if ($("#subscriptionPurpose").val()==="CS"){
+		setupDisclosureFieldsForSupervision();
+	}	    	
+	
 	$('#idLookupLink').click(
 		function(){    	
     		var sidPattern = new RegExp('$sidRegexForAddSubscription');
@@ -108,11 +112,9 @@
     		$('#federalRapSheetDisclosureIndicator').prop("onclick", null);
     	}
     	else if ($("#subscriptionPurpose").val()==="CS"){
-    		$("#subscriptionEndDate").val('$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)');
-    		$('#federalRapSheetDisclosureIndicator').prop('checked', true);
-    		$('#federalRapSheetDisclosureIndicator').attr("onclick", "return false;");
-    		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', false).focus();	  
-    	}
+			$("#subscriptionEndDate").val('$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)');
+			setupDisclosureFieldsForSupervision();
+		}	    	
     	else{
     		$("#subscriptionEndDate").val('');
     		$('#federalRapSheetDisclosureIndicator').prop('checked', false);
@@ -140,6 +142,12 @@
     	}
     });  
     
+    
+    function setupDisclosureFieldsForSupervision(){
+		$('#federalRapSheetDisclosureIndicator').prop('checked', true);
+		$('#federalRapSheetDisclosureIndicator').attr("onclick", "return false;");
+		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', false).focus();	  
+    }
   });
 	  	  
 </script>
