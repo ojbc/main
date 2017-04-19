@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Unless explicitly acquired and licensed from Licensor under another 
-	license, the contents of this file are subject to the Reciprocal Public License 
-	("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You 
-	may not copy or use this file in either source code or executable form, except 
-	in compliance with the terms and conditions of the RPL All software distributed 
-	under the RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY 
-	OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL 
-	SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, 
-	FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See 
-	the RPL for specific language governing rights and limitations under the 
-	RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2015 Open Justice 
-	Broker Consortium -->
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
 <itl:NISTBiometricInformationExchangePackage
 	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
 	xmlns:itl="http://biometrics.nist.gov/standard/2011" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
@@ -56,17 +62,14 @@
 				<ansi-nist:DomainVersionNumberIdentification>
 					<nc:IdentificationID>EBTS 10.0</nc:IdentificationID>
 				</ansi-nist:DomainVersionNumberIdentification>
-				<ansi-nist:TransactionDomainName>NORAM
-				</ansi-nist:TransactionDomainName>
+				<ansi-nist:TransactionDomainName>NORAM</ansi-nist:TransactionDomainName>
 			</ansi-nist:TransactionDomain>
 			<!--APS 1.016, Optional -->
 			<ansi-nist:TransactionApplicationProfile>
 				<!--APO -->
-				<ansi-nist:ApplicationProfileOrganizationName>DoD
-				</ansi-nist:ApplicationProfileOrganizationName>
+				<ansi-nist:ApplicationProfileOrganizationName>DoD</ansi-nist:ApplicationProfileOrganizationName>
 				<!--APN -->
-				<ansi-nist:ApplicationProfileName>EBTS
-				</ansi-nist:ApplicationProfileName>
+				<ansi-nist:ApplicationProfileName>EBTS</ansi-nist:ApplicationProfileName>
 				<!--APV -->
 				<ansi-nist:ApplicationProfileVersionIdentification>
 					<nc:IdentificationID>3.0</nc:IdentificationID>
@@ -75,29 +78,23 @@
 			<ansi-nist:TransactionImageResolutionDetails>
 				<!--NSR 1.011 Non-zero values apply to Type-4 and Type-7 fingerprint 
 					records only. -->
-				<ansi-nist:NativeScanningResolutionValue>00.00
-				</ansi-nist:NativeScanningResolutionValue>
+				<ansi-nist:NativeScanningResolutionValue>00.00</ansi-nist:NativeScanningResolutionValue>
 				<!--NTR 1.012 Non-zero values apply to Type-4 and Type-7 fingerprint 
 					records only. -->
-				<ansi-nist:NominalTransmittingResolutionValue>00.00
-				</ansi-nist:NominalTransmittingResolutionValue>
+				<ansi-nist:NominalTransmittingResolutionValue>00.00</ansi-nist:NominalTransmittingResolutionValue>
 			</ansi-nist:TransactionImageResolutionDetails>
 			<!--VER 1.002 -->
-			<ansi-nist:TransactionMajorVersionValue>05
-			</ansi-nist:TransactionMajorVersionValue>
-			<ansi-nist:TransactionMinorVersionValue>00
-			</ansi-nist:TransactionMinorVersionValue>
+			<ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
+			<ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
 			<!--PRY 1.006, Optional -->
-			<ansi-nist:TransactionPriorityValue>5
-			</ansi-nist:TransactionPriorityValue>
+			<ansi-nist:TransactionPriorityValue>5</ansi-nist:TransactionPriorityValue>
 			<!--TOT 1.004 -->
 			<ebts:TransactionCategoryCode>RBN</ebts:TransactionCategoryCode>
 			<!--CNT 1.003 -->
 			<ansi-nist:TransactionContentSummary>
 				<ansi-nist:ContentFirstRecordCategoryCode>1
 				</ansi-nist:ContentFirstRecordCategoryCode>
-				<ansi-nist:ContentRecordQuantity>01
-				</ansi-nist:ContentRecordQuantity>
+				<ansi-nist:ContentRecordQuantity>01</ansi-nist:ContentRecordQuantity>
 				<ansi-nist:ContentRecordSummary>
 					<ansi-nist:ImageReferenceIdentification>
 						<nc:IdentificationID>00</nc:IdentificationID>
@@ -107,8 +104,7 @@
 			</ansi-nist:TransactionContentSummary>
 			<!--DCS 1.015, Optional -->
 			<ansi-nist:TransactionCharacterSetDirectory>
-				<ansi-nist:CharacterSetCommonNameCode>UTF-8
-				</ansi-nist:CharacterSetCommonNameCode>
+				<ansi-nist:CharacterSetCommonNameCode>UTF-8</ansi-nist:CharacterSetCommonNameCode>
 				<ansi-nist:CharacterSetIndexCode>0</ansi-nist:CharacterSetIndexCode>
 				<ansi-nist:CharacterSetVersionIdentification>
 					<nc:IdentificationID>000</nc:IdentificationID>
@@ -139,11 +135,9 @@
 				</ansi-nist:RecordForwardOrganizations>
 				<ebts:RecordRapBackData>
 					<!-- RBNI 2.2041 -->
-					<ebts:RecordRapBackActivityNotificationID>123456 
-					</ebts:RecordRapBackActivityNotificationID>
+					<ebts:RecordRapBackActivityNotificationID>123456</ebts:RecordRapBackActivityNotificationID>
 					<!-- RBATN 2.2070, Optional -->
-					<ebts:RecordRapBackAttentionText>DET J Q PUBLIC 
-					</ebts:RecordRapBackAttentionText>
+					<ebts:RecordRapBackAttentionText>DET J Q PUBLIC</ebts:RecordRapBackAttentionText>
 					<!-- RBXD 2.2015 -->
 					<ebts:RecordRapBackExpirationDate>
 						<nc:Date>2010-02-24</nc:Date>
@@ -153,11 +147,9 @@
 						<nc:Date>2011-01-25</nc:Date>
 					</ebts:RecordRapBackSubscriptionDate>
 					<!-- RBSI 2.2048 -->
-					<ebts:RecordRapBackSubscriptionID>123456 
-					</ebts:RecordRapBackSubscriptionID>
+					<ebts:RecordRapBackSubscriptionID>123456</ebts:RecordRapBackSubscriptionID>
 					<!-- RBST 2.2071, Optional -->
-					<ebts:RecordRapBackSubscriptionTerm>5 
-					</ebts:RecordRapBackSubscriptionTerm>
+					<ebts:RecordRapBackSubscriptionTerm>5</ebts:RecordRapBackSubscriptionTerm>
 					<!-- RBTD 2.2049, Optional -->
 					<ebts:RecordRapBackTermDate>
 						<nc:Date>2015-01-01</nc:Date>
@@ -165,19 +157,15 @@
 					<!-- RBUD 2.2064 (0..10) -->
 					<ebts:RecordRapBackUserDefinedElement>
 						<!-- 2.2064A -->
-						<ebts:UserDefinedElementName>State Fingerprint ID 
-						</ebts:UserDefinedElementName>
+						<ebts:UserDefinedElementName>State Fingerprint ID</ebts:UserDefinedElementName>
 						<!-- 2.2064B -->
-						<ebts:UserDefinedElementText>A398118900 
-						</ebts:UserDefinedElementText>
+						<ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
 					</ebts:RecordRapBackUserDefinedElement>
 					<ebts:RecordRapBackUserDefinedElement>
 						<!-- 2.2064A -->
-						<ebts:UserDefinedElementName>Subscription Qualifier ID 
-						</ebts:UserDefinedElementName>
+						<ebts:UserDefinedElementName>Subscription Qualifier ID</ebts:UserDefinedElementName>
 						<!-- 2.2064B -->
-						<ebts:UserDefinedElementText>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7 
-						</ebts:UserDefinedElementText>
+						<ebts:UserDefinedElementText>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7</ebts:UserDefinedElementText>
 					</ebts:RecordRapBackUserDefinedElement>
 					<!-- RBTED 2.2069, Optional -->
 					<ebts:TransactionRapBackTriggeringEvent>
@@ -188,8 +176,7 @@
 						<!-- RBT 2.2069B -->
 						<ebts:RapBackTriggeringEventCode>10</ebts:RapBackTriggeringEventCode>
 						<!-- RBEI 2.2069C -->
-						<ebts:RapBackEventText>Event that triggered the rap back 
-						</ebts:RapBackEventText>
+						<ebts:RapBackEventText>Event that triggered the rap back</ebts:RapBackEventText>
 					</ebts:TransactionRapBackTriggeringEvent>
 					<ebts:TransactionRapBackTriggeringEvent>
 						<!-- DORBE 2.2069A -->
@@ -200,15 +187,13 @@
 						<ebts:RapBackTriggeringEventCode>12 
 						</ebts:RapBackTriggeringEventCode>
 						<!-- RBEI 2.2069C -->
-						<ebts:RapBackEventText>Second Event that triggered the rap back 
-						</ebts:RapBackEventText>
+						<ebts:RapBackEventText>Second Event that triggered the rap back</ebts:RapBackEventText>
 					</ebts:TransactionRapBackTriggeringEvent>
 				</ebts:RecordRapBackData>
 				<ebts:RecordTransactionData>
 					<ebts:TransactionResponseData>
 						<!--ERS 2.075, Optional -->
-						<ebts:TransactionElectronicRapSheetText>Subject's Rap Sheet goes
-							here</ebts:TransactionElectronicRapSheetText>
+						<ebts:TransactionElectronicRapSheetText>Subject's Rap Sheet goes here</ebts:TransactionElectronicRapSheetText>
 					</ebts:TransactionResponseData>
 				</ebts:RecordTransactionData>
 				<ebts:RecordTransactionActivity>

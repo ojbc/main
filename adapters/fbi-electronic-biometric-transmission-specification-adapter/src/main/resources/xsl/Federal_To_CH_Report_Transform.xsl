@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Unless explicitly acquired and licensed from Licensor under another 
-	license, the contents of this file are subject to the Reciprocal Public License 
-	("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You 
-	may not copy or use this file in either source code or executable form, except 
-	in compliance with the terms and conditions of the RPL All software distributed 
-	under the RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY 
-	OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL 
-	SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, 
-	FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See 
-	the RPL for specific language governing rights and limitations under the 
-	RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2015 Open Justice 
-	Broker Consortium -->
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:fchr-doc="http://ojbc.org/IEPD/Exchange/FederalCriminalHistoryReport/1.0"
@@ -50,7 +56,7 @@
 	</xsl:template>
 	<xsl:template match="ansi-nist:RecordCategoryCode">
 		<fchr-ext:RecordCategoryCodeText>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(.)" />
 		</fchr-ext:RecordCategoryCodeText>
 	</xsl:template>
 	<xsl:template match="ansi-nist:ImageReferenceIdentification">
@@ -111,14 +117,12 @@
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackSubscriptionID">
 		<fchr-ext:RapBackSubscriptionIdentification>
-			<nc:IdentificationID>
-				<xsl:value-of select="." />
-			</nc:IdentificationID>
+			<nc:IdentificationID><xsl:value-of select="normalize-space(.)" /></nc:IdentificationID>
 		</fchr-ext:RapBackSubscriptionIdentification>
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackSubscriptionTerm">
 		<fchr-ext:RapBackSubscriptionTermCode>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(.)" />
 		</fchr-ext:RapBackSubscriptionTermCode>
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackTermDate">
@@ -128,15 +132,13 @@
 	</xsl:template>
 	<xsl:template match="ebts:UserDefinedElementText" mode="subqid">
 		<fchr-ext:SubscriptionQualifierIdentification>
-			<nc:IdentificationID>
-				<xsl:value-of select="." />
-			</nc:IdentificationID>
+			<nc:IdentificationID><xsl:value-of select="normalize-space(.)" /></nc:IdentificationID>
 		</fchr-ext:SubscriptionQualifierIdentification>
 	</xsl:template>
 	<xsl:template match="ebts:UserDefinedElementText" mode="sid">
 		<j:PersonStateFingerprintIdentification>
 			<nc:IdentificationID>
-				<xsl:value-of select="." />
+				<xsl:value-of select="normalize-space(.)" />
 			</nc:IdentificationID>
 		</j:PersonStateFingerprintIdentification>
 	</xsl:template>
@@ -151,13 +153,13 @@
 	<xsl:template match="ebts:RecordRapBackActivityNotificationID">
 		<fchr-ext:RapBackActivityNotificationIdentification>
 			<nc:IdentificationID>
-				<xsl:value-of select="." />
+				<xsl:value-of select="normalize-space(.)" />
 			</nc:IdentificationID>
 		</fchr-ext:RapBackActivityNotificationIdentification>
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackAttentionText">
 		<fchr-ext:RapBackAttentionText>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(.)" />
 		</fchr-ext:RapBackAttentionText>
 	</xsl:template>
 	<xsl:template match="ebts:TransactionRapBackTriggeringEvent"
@@ -208,7 +210,7 @@
 	</xsl:template>
 	<xsl:template match="ebts:RapBackEventText">
 		<fchr-ext:RapBackEventText>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(.)" />
 		</fchr-ext:RapBackEventText>
 	</xsl:template>
 	<xsl:template match="ebts:RecordSubject">
@@ -221,7 +223,7 @@
 	<xsl:template match="nc20:PersonBirthDate/nc20:Date">
 		<nc:PersonBirthDate>
 			<nc:Date>
-				<xsl:value-of select="." />
+				<xsl:value-of select="normalize-space(.)" />
 			</nc:Date>
 		</nc:PersonBirthDate>
 	</xsl:template>
@@ -248,20 +250,16 @@
 	</xsl:template>
 	<xsl:template match="j41:PersonFBIIdentification">
 		<j:PersonFBIIdentification>
-			<nc:IdentificationID>
-				<xsl:value-of select="." />
-			</nc:IdentificationID>
+			<nc:IdentificationID><xsl:value-of select="normalize-space(.)" /></nc:IdentificationID>
 		</j:PersonFBIIdentification>
 	</xsl:template>
 	<!-- MATCH -->
 	<xsl:template match="nc20:IdentificationID">
-		<nc:IdentificationID>
-			<xsl:value-of select="." />
-		</nc:IdentificationID>
+		<nc:IdentificationID><xsl:value-of select="normalize-space(.)" /></nc:IdentificationID>
 	</xsl:template>
 	<xsl:template match="nc20:Date">
 		<nc:Date>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(.)" />
 		</nc:Date>
 	</xsl:template>
 </xsl:stylesheet>
