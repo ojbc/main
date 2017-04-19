@@ -362,7 +362,7 @@ public class SubscriptionsController {
 			@RequestParam("identificationID") String sid,
 			@ModelAttribute("subscription") Subscription subscription,
 			Model model) throws Exception {
-		CriminalHistoryRapsheetData rapsheetData = getChRapsheetData(request, sid);
+		CriminalHistoryRapsheetData rapsheetData = getChRapsheetData(request, StringUtils.trimToEmpty(sid));
 		model.addAttribute("rapsheetData", rapsheetData);
 		return rapsheetData;
 			

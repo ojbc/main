@@ -24,68 +24,68 @@
 		setupDisclosureFieldsForSupervision();
 	}	    	
 	
-	$('#idLookupLink').click(
-		function(){    	
-    		var sidPattern = new RegExp('$sidRegexForAddSubscription');
-		  	var sidVal = $('#stateId').val();
-		  	
-		  	if (sidPattern.test(sidVal)){	
-		  					  					  					  	    					    						 
-				var requestUrl = '../subscriptions/sidLookup?identificationID=' + sidVal;												    						 
-				    	
-				// calls a spring mvc method returning a json string w/format key,value
-				// where the key is an int index as a string - and the value is an object {first, last}
-				// TODO - see if traditional java collection ie Map can be passed from spring mvc layer 
-				// to js layer here instead of using json			    						     
-			    $.get(requestUrl, function(data){		  			  			
-  						//console.log(data);
-  						//generate html drop-down options based on json values from java layer
-  						var nameHtml = '<option value="">Name</option>';
-  						if( data && Object.keys(data.allNames).length > 0){
-							$.each(data.allNames, function( index, value ) {
+	$('#idLookupLink').click(function(){    	
+		var sidPattern = new RegExp('$sidRegexForAddSubscription');
+	  	var sidVal = $('#stateId').val();
+	  	
+		var nameHtml = '<option value="">Name</option>';
+		var dateOfBirthDropdownHtml='<option value="">DOB</option>';
+	  	if (sidPattern.test(sidVal)){	
+	  					  					  					  	    					    						 
+			var requestUrl = '../subscriptions/sidLookup?identificationID=' + sidVal;												    						 
+			    	
+			// calls a spring mvc method returning a json string w/format key,value
+			// where the key is an int index as a string - and the value is an object {first, last}
+			// TODO - see if traditional java collection ie Map can be passed from spring mvc layer 
+			// to js layer here instead of using json			    						     
+		    $.get(requestUrl, function(data){		  			  			
+					//console.log(data);
+					//generate html drop-down options based on json values from java layer
+					if( data && Object.keys(data.allNames).length > 0){
+						$.each(data.allNames, function( index, value ) {
+							if(index == 0){
+								// requirements give us the official name 1st
+								nameHtml += '<option value="' + value + '" selected>' + value + '</option>';
+							}else{
+								// display a (A) signifying alternate name
+								nameHtml += '<option value="' + value + '">' + value + ' (A) </option>';
+							}																														
+						});	  							  						
+						
+						$("#fbiId").val(data.fbiId);
+						
+						$("#fbiIdString").html(data.formattedFbiId)
+						
+						if (data.dobStrings && Object.keys(data.dobStrings).length > 0){
+						
+							$.each(data.dobStrings, function( index, value ) {
 								if(index == 0){
-									// requirements give us the official name 1st
-									nameHtml += '<option value="' + value + '" selected>' + value + '</option>';
+									dateOfBirthDropdownHtml += '<option value="' + value + '" selected>' + value + '</option>';
 								}else{
-									// display a (A) signifying alternate name
-									nameHtml += '<option value="' + value + '">' + value + ' (A) </option>';
+									// display a (A) signifying alternate DOB
+									dateOfBirthDropdownHtml += '<option value="' + value + '">' + value + ' (A) </option>';
 								}																														
-							});	  							  						
-							
-							$("#fbiId").val(data.fbiId);
-							
-							$("#fbiIdString").html(data.formattedFbiId)
-							
-							if (data.dobStrings && Object.keys(data.dobStrings).length > 0){
-							
-								var dateOfBirthDropdownHtml = $("#dateOfBirth").html();
-								
-								$.each(data.dobStrings, function( index, value ) {
-									if(index == 0){
-										dateOfBirthDropdownHtml += '<option value="' + value + '" selected>' + value + '</option>';
-									}else{
-										// display a (A) signifying alternate DOB
-										dateOfBirthDropdownHtml += '<option value="' + value + '">' + value + ' (A) </option>';
-									}																														
-								});	
-								
-								$('#dateOfBirth').html(dateOfBirthDropdownHtml)  							  						
-							}
-																		  						
-  						}else{
-  							alert('Unable to process requested SID');
-  						}
-  						
-						//TODO fix this to ensure it happens.  Full names have a middle initial whereas 
-						// alternate names do not.  Either the controller or js should ensure the names 
-						// can be compared for equality	  								  								  						
-		 																			 							 											  	
-  						$('#fullName').html(nameHtml);	  							  										  													  							  					  						  				  				
-		  			}
-	  			).fail(ojbc.displayFailMessage);
-  			}else{
-  				alert('$sidRegexValidationErrorMessage');
-  			}		  				     			       				
+							});	
+						}
+																	  						
+					}else{
+						alert('Unable to process requested SID');
+						$("#fbiId").val("");
+						$("#fbiIdString").html("N/A")
+					}
+					
+					$('#fullName').html(nameHtml);
+					$('#dateOfBirth').html(dateOfBirthDropdownHtml)  	  							  										  													  							  					  						  				  				
+	  			}
+  			).fail(ojbc.displayFailMessage);
+		}else{
+			alert('$sidRegexValidationErrorMessage');
+			$('#fullName').html(nameHtml);
+			$('#dateOfBirth').html(dateOfBirthDropdownHtml)
+			$("#fbiId").val("");
+			$("#fbiIdString").html("N/A")
+			  	  							  										  													  							  					  						  				  				
+		}	
 	});    		
     		    	      		    	  			    		    	  
     		    	
