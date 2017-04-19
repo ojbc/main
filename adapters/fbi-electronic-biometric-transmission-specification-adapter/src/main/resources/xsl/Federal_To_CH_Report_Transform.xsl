@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
-
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
-
-    http://opensource.org/licenses/RPL-1.5
-
-    Copyright 2012-2015 Open Justice Broker Consortium
-
--->
+<!-- Unless explicitly acquired and licensed from Licensor under another 
+	license, the contents of this file are subject to the Reciprocal Public License 
+	("RPL") Version 1.5, or subsequent versions as allowed by the RPL, and You 
+	may not copy or use this file in either source code or executable form, except 
+	in compliance with the terms and conditions of the RPL All software distributed 
+	under the RPL is provided strictly on an "AS IS" basis, WITHOUT WARRANTY 
+	OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL 
+	SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, 
+	FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See 
+	the RPL for specific language governing rights and limitations under the 
+	RPL. http://opensource.org/licenses/RPL-1.5 Copyright 2012-2015 Open Justice 
+	Broker Consortium -->
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:fchr-doc="http://ojbc.org/IEPD/Exchange/FederalCriminalHistoryReport/1.0"
@@ -150,12 +144,8 @@
 		<fchr-ext:RapBackNotificationEvent>
 			<xsl:apply-templates select="ebts:RecordRapBackActivityNotificationID" />
 			<xsl:apply-templates select="ebts:RecordRapBackAttentionText" />
-			<xsl:apply-templates
-				select="ebts:TransactionRapBackTriggeringEvent/ebts:RapBackEventDate" />
-			<xsl:apply-templates
-				select="ebts:TransactionRapBackTriggeringEvent/ebts:RapBackTriggeringEventCode" />
-			<xsl:apply-templates
-				select="ebts:TransactionRapBackTriggeringEvent/ebts:RapBackEventText" />
+			<xsl:apply-templates select="ebts:TransactionRapBackTriggeringEvent"
+				mode="event" />
 		</fchr-ext:RapBackNotificationEvent>
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackActivityNotificationID">
@@ -170,45 +160,51 @@
 			<xsl:value-of select="." />
 		</fchr-ext:RapBackAttentionText>
 	</xsl:template>
+	<xsl:template match="ebts:TransactionRapBackTriggeringEvent"
+		mode="event">
+		<fchr-ext:TriggeringEvent>
+			<xsl:apply-templates select="ebts:RapBackEventDate" />
+			<xsl:apply-templates select="ebts:RapBackTriggeringEventCode" />
+			<xsl:apply-templates select="ebts:RapBackEventText" />
+		</fchr-ext:TriggeringEvent>
+	</xsl:template>
 	<xsl:template match="ebts:RapBackEventDate">
 		<fchr-ext:RapBackEventDate>
 			<xsl:apply-templates select="nc20:Date" />
 		</fchr-ext:RapBackEventDate>
 	</xsl:template>
 	<xsl:template match="ebts:RapBackTriggeringEventCode">
-		<fchr-ext:TriggeringEvents>
-			<fchr-ext:FederalTriggeringEventCode>
-				<xsl:choose>
-					<xsl:when test=".='1' or .='3'">
-						<xsl:value-of select="'ARREST'" />
-					</xsl:when>
-					<xsl:when test=".='2'">
-						<xsl:value-of select="'DISPOSITION'" />
-					</xsl:when>
-					<xsl:when test=".='5'">
-						<xsl:value-of select="'NCIC-WARRANT-ENTRY'" />
-					</xsl:when>
-					<xsl:when test=".='7'">
-						<xsl:value-of select="'NCIC-WARRANT-MODIFICATION'" />
-					</xsl:when>
-					<xsl:when test=".='6'">
-						<xsl:value-of select="'NCIC-WARRANT-DELETION'" />
-					</xsl:when>
-					<xsl:when test=".='8'">
-						<xsl:value-of select="'NCIC-SOR-ENTRY'" />
-					</xsl:when>
-					<xsl:when test=".='10'">
-						<xsl:value-of select="'NCIC-SOR-MODIFICATION'" />
-					</xsl:when>
-					<xsl:when test=".='9'">
-						<xsl:value-of select="'NCIC-SOR-DELETION'" />
-					</xsl:when>
-					<xsl:when test=".='12'">
-						<xsl:value-of select="'DEATH'" />
-					</xsl:when>
-				</xsl:choose>
-			</fchr-ext:FederalTriggeringEventCode>
-		</fchr-ext:TriggeringEvents>
+		<fchr-ext:FederalTriggeringEventCode>
+			<xsl:choose>
+				<xsl:when test="normalize-space(.)='1' or .='3'">
+					<xsl:value-of select="'ARREST'" />
+				</xsl:when>
+				<xsl:when test="normalize-space(.)='2'">
+					<xsl:value-of select="'DISPOSITION'" />
+				</xsl:when>
+				<xsl:when test="normalize-space(.)='5'">
+					<xsl:value-of select="'NCIC-WARRANT-ENTRY'" />
+				</xsl:when>
+				<xsl:when test="normalize-space(.)='7'">
+					<xsl:value-of select="'NCIC-WARRANT-MODIFICATION'" />
+				</xsl:when>
+				<xsl:when test="normalize-space(.)='6'">
+					<xsl:value-of select="'NCIC-WARRANT-DELETION'" />
+				</xsl:when>
+				<xsl:when test="normalize-space(.)='8'">
+					<xsl:value-of select="'NCIC-SOR-ENTRY'" />
+				</xsl:when>
+				<xsl:when test="normalize-space(.)='10'">
+					<xsl:value-of select="'NCIC-SOR-MODIFICATION'" />
+				</xsl:when>
+				<xsl:when test="normalize-space(.)='9'">
+					<xsl:value-of select="'NCIC-SOR-DELETION'" />
+				</xsl:when>
+				<xsl:when test="normalize-space(.)='12'">
+					<xsl:value-of select="'DEATH'" />
+				</xsl:when>
+			</xsl:choose>
+		</fchr-ext:FederalTriggeringEventCode>
 	</xsl:template>
 	<xsl:template match="ebts:RapBackEventText">
 		<fchr-ext:RapBackEventText>
