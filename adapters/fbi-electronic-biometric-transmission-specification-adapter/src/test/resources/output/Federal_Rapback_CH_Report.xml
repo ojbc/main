@@ -66,7 +66,7 @@
             <nc:Date>2015-01-01</nc:Date>
          </fchr-ext:RapBackTermDate>
          <fchr-ext:SubscriptionQualifierIdentification>
-            <nc:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7</nc:IdentificationID>
+            <nc:IdentificationID>fbiSubscriptionId_3</nc:IdentificationID>
          </fchr-ext:SubscriptionQualifierIdentification>
       </fchr-ext:RapBackSubscription>
       <fchr-ext:RapBackNotificationEvent>
