@@ -38,11 +38,11 @@
 	-->
 	<!-- alternative endpoint for testing: file system message input directory -->
 	<camel:endpoint id="inputMessageDirEndpoint" 
-		uri="file://{{fbiEbtsAdapter.messageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move={{fbiEbtsAdapter.messageDirectory}}/processed/" />			
+		uri="file://{{fbiEbtsAdapter.messageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move=processed/" />			
 
 	<!-- Test sending in sample fbi ngi response messages -->
 	<camel:endpoint id="ngiResponseTestInputDirEndpoint" 
-		uri="file://{{fbiEbtsAdapter.ngiResponseMessageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move={{fbiEbtsAdapter.messageDirectory}}/processed/" />
+		uri="file://{{fbiEbtsAdapter.ngiResponseMessageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move=processed/" />
 				
 	<!-- Our directory to store synchronous FBI responses with 'control number' information -->
 	<camel:endpoint id="ngiControlNumberSynchResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_ControlNum_SynchResponse"/>
