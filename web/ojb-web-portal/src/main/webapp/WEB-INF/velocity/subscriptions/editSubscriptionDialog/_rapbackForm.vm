@@ -105,6 +105,11 @@
 		<label>End Date:</label>
 		#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='datePicker' placeholder='No End Date'")
 </div>
+#if($showCaseIdInput)
+	<div>
+		#springFormInput("subscription.caseId" "placeholder='Case Id' maxlength='20' readonly='readonly'" )
+	</div>
+#end
 <div>
 	<!-- fix object being mapped to from list to something else or use regular html instead of velocity spring macro -->
 	#springFormInput("subscription.emailList[0]" "placeholder='Email Address 1'")
@@ -118,8 +123,3 @@
 	#springFormInput("subscription.emailList[2]" "placeholder='Email Address 3'")
 </div>
 
-#if($showCaseIdInput)
-	<div>
-		#springFormInput("subscription.caseId" "placeholder='Case Id' maxlength='20' readonly='readonly'" )
-	</div>
-#end
