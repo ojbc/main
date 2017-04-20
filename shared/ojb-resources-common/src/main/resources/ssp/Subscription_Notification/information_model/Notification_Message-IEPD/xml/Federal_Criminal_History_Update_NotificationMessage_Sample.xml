@@ -57,15 +57,24 @@
 			</notfm-ext:RapBackActivityNotificationIdentification>
 			<notfm-ext:RapBackAttentionText>DET J Q PUBLIC
 			</notfm-ext:RapBackAttentionText>
-			<notfm-ext:RapBackEventDate>
-				<nc:Date>2013-03-29</nc:Date>
-			</notfm-ext:RapBackEventDate>
-			<notfm-ext:TriggeringEvents>
+			<notfm-ext:TriggeringEvent>
+				<notfm-ext:RapBackEventDate>
+					<nc:Date>2013-03-29</nc:Date>
+				</notfm-ext:RapBackEventDate>
 				<notfm-ext:FederalTriggeringEventCode>ARREST
 				</notfm-ext:FederalTriggeringEventCode>
-			</notfm-ext:TriggeringEvents>
-			<notfm-ext:RapBackEventText>Event that triggered the rap back
-			</notfm-ext:RapBackEventText>
+				<notfm-ext:RapBackEventText>Event that triggered the rap back
+				</notfm-ext:RapBackEventText>
+			</notfm-ext:TriggeringEvent>
+			<notfm-ext:TriggeringEvent>
+				<notfm-ext:RapBackEventDate>
+					<nc:Date>2013-03-29</nc:Date>
+				</notfm-ext:RapBackEventDate>
+				<notfm-ext:FederalTriggeringEventCode>DISPOSITION
+				</notfm-ext:FederalTriggeringEventCode>
+				<notfm-ext:RapBackEventText>Event that triggered the rap back
+				</notfm-ext:RapBackEventText>
+			</notfm-ext:TriggeringEvent>
 		</notfm-ext:RelatedFBISubscription>
 		<notfm-ext:CriminalHistoryRecordDocument>
 			<nc:DocumentBinary>

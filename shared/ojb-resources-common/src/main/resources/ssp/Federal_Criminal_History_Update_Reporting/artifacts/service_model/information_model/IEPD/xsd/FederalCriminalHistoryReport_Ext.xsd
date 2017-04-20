@@ -116,9 +116,8 @@
 						minOccurs="0" />
 					<xsd:element ref="fchr-ext:RapBackAttentionText"
 						minOccurs="0" />
-					<xsd:element ref="fchr-ext:RapBackEventDate" minOccurs="0" />
-					<xsd:element ref="fchr-ext:TriggeringEvents" minOccurs="0" />
-					<xsd:element ref="fchr-ext:RapBackEventText" minOccurs="0" />
+					<xsd:element ref="fchr-ext:TriggeringEvent" minOccurs="0"
+						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -284,7 +283,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:complexType name="TriggeringEventsType">
+	<xsd:complexType name="TriggeringEventType">
 		<xsd:annotation>
 			<xsd:documentation>One or more events that would trigger
 				notifications related to a subscription.
@@ -293,13 +292,15 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
+					<xsd:element ref="fchr-ext:RapBackEventDate" minOccurs="0" />
 					<xsd:element ref="fchr-ext:TriggeringEventRepresentation"
-						minOccurs="0" maxOccurs="unbounded" />
+						minOccurs="0" />
+					<xsd:element ref="fchr-ext:RapBackEventText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="TriggeringEvents" type="fchr-ext:TriggeringEventsType" />
+	<xsd:element name="TriggeringEvent" type="fchr-ext:TriggeringEventType" />
 	<xsd:element name="TriggeringEventRepresentation" abstract="true" />
 	<xsd:element name="FederalTriggeringEventCode"
 		substitutionGroup="fchr-ext:TriggeringEventRepresentation" type="fchr-ext:FederalTriggeringEventCodeSimpleType" />
