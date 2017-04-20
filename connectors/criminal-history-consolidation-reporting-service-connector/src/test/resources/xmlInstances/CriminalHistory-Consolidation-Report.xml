@@ -27,18 +27,18 @@
 	<nc:Person>
 		<chc-report-ext:PreConsolidationIdentifiers>
 			<j:PersonStateFingerprintIdentification>
-				<nc:IdentificationID>SID123456</nc:IdentificationID>
+				<nc:IdentificationID>A123457</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 			<j:PersonFBIIdentification>
-				<nc:IdentificationID>FBI234567</nc:IdentificationID>
+				<nc:IdentificationID>9222201</nc:IdentificationID>
 			</j:PersonFBIIdentification>
 		</chc-report-ext:PreConsolidationIdentifiers>
 		<chc-report-ext:PostConsolidationIdentifiers>
 			<j:PersonStateFingerprintIdentification>
-				<nc:IdentificationID>SID12333</nc:IdentificationID>
+				<nc:IdentificationID>A123458</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 			<j:PersonFBIIdentification>
-				<nc:IdentificationID>FBI2095607</nc:IdentificationID>
+				<nc:IdentificationID>9222202</nc:IdentificationID>
 			</j:PersonFBIIdentification>
 		</chc-report-ext:PostConsolidationIdentifiers>
 	</nc:Person>

@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
+import org.ojbc.intermediaries.sn.notification.RapbackTriggeringEvent;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -39,7 +40,7 @@ public class RapbackNotificationRequest extends NotificationRequest {
 	
 	private String SID;
 	private String UCN;
-	private List<String> eventTypes;
+	private List<RapbackTriggeringEvent> triggeringEvents;
 	
 	public RapbackNotificationRequest(Message message) throws Exception{
 	    this(message.getBody(Document.class));
@@ -51,17 +52,32 @@ public class RapbackNotificationRequest extends NotificationRequest {
 	    SID = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
 	    UCN = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
 
-	    eventTypes = new ArrayList<String>();
+	    triggeringEvents = new ArrayList<RapbackTriggeringEvent>();
 	    
-	    NodeList eventTypeNodeList = XmlUtils.xPathNodeListSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingFederalCriminalHistoryUpdate/notfm-ext:RelatedFBISubscription/notfm-ext:TriggeringEvents/notfm-ext:FederalTriggeringEventCode");
+	    NodeList eventTypeNodeList = XmlUtils.xPathNodeListSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingFederalCriminalHistoryUpdate/notfm-ext:RelatedFBISubscription/notfm-ext:TriggeringEvent");
 	
 	    if (eventTypeNodeList != null)
 	    {
 			for(int i=0; i<eventTypeNodeList.getLength(); i++){
 				Node childNode = eventTypeNodeList.item(i);
-				String eventType = childNode.getTextContent();
+				
+				String triggeringEventCode = XmlUtils.xPathStringSearch(childNode, "notfm-ext:FederalTriggeringEventCode");
+				String triggeringEventText = XmlUtils.xPathStringSearch(childNode, "notfm-ext:RapBackEventText");
+				String triggeringEventDate = XmlUtils.xPathStringSearch(childNode, "notfm-ext:RapBackEventDate/nc:Date");
 
-				eventTypes.add(eventType);
+				if (StringUtils.isNotBlank(triggeringEventDate))
+				{
+					DateTime triggeringEventDateTime = XmlUtils.parseXmlDate(triggeringEventDate);
+					triggeringEventDate = triggeringEventDateTime.toString("MM-dd-yyyy");
+				}
+					
+				RapbackTriggeringEvent triggeringEvent = new RapbackTriggeringEvent();
+				
+				triggeringEvent.setTriggeringEventCode(triggeringEventCode);
+				triggeringEvent.setTriggeringEventDate(triggeringEventDate);
+				triggeringEvent.setTriggeringEventText(triggeringEventText);
+				
+				triggeringEvents.add(triggeringEvent);
 			}	
 	    }	
 	    subjectIdentifiers = new HashMap<String, String>();
@@ -77,8 +93,8 @@ public class RapbackNotificationRequest extends NotificationRequest {
     
 	@Override
 	protected String getNotificationEventDateRootXpath() {
-
-		return "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingFederalCriminalHistoryUpdate/notfm-ext:RelatedFBISubscription/notfm-ext:RapBackEventDate";
+		//Notification date is per event and set by subclass
+		return "";
 	}
 
 	@Override
@@ -139,18 +155,10 @@ public class RapbackNotificationRequest extends NotificationRequest {
 		UCN = uCN;
 	}
 
-	public List<String> getEventTypes() {
-		return eventTypes;
-	}
-
-	public void setEventTypes(List<String> eventTypes) {
-		this.eventTypes = eventTypes;
-	}
-
 	@Override
 	public String toString() {
 		return "RapbackNotificationRequest [SID=" + SID + ", UCN=" + UCN
-				+ ", eventTypes=" + eventTypes + ", requestDocument="
+				+ ", triggeringEvents=" + triggeringEvents + ", requestDocument="
 				+ requestDocument + ", notificationEventDate="
 				+ notificationEventDate
 				+ ", isNotificationEventDateInclusiveOfTime="
@@ -171,5 +179,15 @@ public class RapbackNotificationRequest extends NotificationRequest {
 				+ ", alternateSubjectIdentifiers="
 				+ alternateSubjectIdentifiers + ", topic=" + topic + "]";
 	}
+
+	public List<RapbackTriggeringEvent> getTriggeringEvents() {
+		return triggeringEvents;
+	}
+
+	public void setTriggeringEvents(List<RapbackTriggeringEvent> triggeringEvents) {
+		this.triggeringEvents = triggeringEvents;
+	}
+
+
 
 }

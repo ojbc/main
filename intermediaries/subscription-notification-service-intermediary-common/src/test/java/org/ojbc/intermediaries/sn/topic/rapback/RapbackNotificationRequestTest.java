@@ -17,7 +17,6 @@
 package org.ojbc.intermediaries.sn.topic.rapback;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
@@ -25,6 +24,7 @@ import org.apache.camel.Message;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.notification.RapbackTriggeringEvent;
 import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
 import org.w3c.dom.Document;
 
@@ -39,7 +39,6 @@ public class RapbackNotificationRequestTest {
 		RapbackNotificationRequest request = new RapbackNotificationRequest(message);
 		
 		assertThat(request.isNotificationEventDateInclusiveOfTime(), is(false));
-		assertThat(request.getNotificationEventDate().toString("yyyy-MM-dd"), is("2013-03-29"));
 		assertThat(request.getPersonFirstName(), is("Charlie"));
 		assertNull(request.getPersonMiddleName());
 		assertThat(request.getPersonLastName(), is("Macdonald"));
@@ -51,11 +50,22 @@ public class RapbackNotificationRequestTest {
 		assertThat(request.getSubjectIdentifiers().size(), is(1));
 		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.SID), is("A5186353"));
 		
+		assertThat(request.getTriggeringEvents().size(), is(2));
+		
+		RapbackTriggeringEvent event1 = request.getTriggeringEvents().get(0);
+		RapbackTriggeringEvent event2 = request.getTriggeringEvents().get(1);
+		
+		assertThat(event1.getTriggeringEventCode(), is("ARREST"));
+		assertThat(event1.getTriggeringEventDate(), is("01-29-2013"));
+		assertThat(event1.getTriggeringEventText(), is("Event 1 that triggered the rap back"));
+		
+		assertThat(event2.getTriggeringEventCode(), is("DISPOSITION"));
+		assertThat(event2.getTriggeringEventDate(), is("02-28-2013"));
+		assertThat(event2.getTriggeringEventText(), is("Event 2 that triggered the rap back"));
+		
+		
 		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/rapback"));
 		
-        assertEquals(2013, request.getNotificationEventDate().getYear());
-        assertEquals(3, request.getNotificationEventDate().getMonthOfYear());
-        assertEquals(29, request.getNotificationEventDate().getDayOfMonth());
 		
 	}
 

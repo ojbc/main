@@ -36,11 +36,12 @@
 			<value><![CDATA[The FBI has reported an event involving an individual to whom you are subscribed:
 SID: $emailNotification.notificationRequest.subjectIdentifiers.get("SID")
 UCN: $emailNotification.notificationRequest.UCN
-#foreach ($eventTypeString in $emailNotification.notificationRequest.eventTypes)
-Event Type: $eventTypeString
+#foreach ($rapbackTriggeringEvent in $emailNotification.notificationRequest.triggeringEvents)
+Event Type: $rapbackTriggeringEvent.triggeringEventCode
+Event Date: $rapbackTriggeringEvent.triggeringEventDate
+Event Text: $rapbackTriggeringEvent.triggeringEventText
+
 #end
-Event Date: $emailNotification.notificationRequest.eventDateTimeDisplay
- 
 For more information, please run a criminal history background on this individual.]]></value>
 		</property>
 	</bean>    

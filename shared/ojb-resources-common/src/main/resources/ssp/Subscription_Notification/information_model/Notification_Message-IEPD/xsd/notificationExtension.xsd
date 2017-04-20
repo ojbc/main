@@ -174,12 +174,8 @@
 						minOccurs="0" />
 					<xsd:element ref="notfm-ext:RapBackAttentionText"
 						minOccurs="0" />
-					<xsd:element ref="notfm-ext:RapBackEventDate"
-						minOccurs="0" />
-					<xsd:element ref="notfm-ext:TriggeringEvents"
-						minOccurs="0" />
-					<xsd:element ref="notfm-ext:RapBackEventText"
-						minOccurs="0" />
+					<xsd:element ref="notfm-ext:TriggeringEvent" minOccurs="0"
+						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -394,13 +390,13 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="TriggeringEvents" type="notfm-ext:TriggeringEventsType">
+	<xsd:element name="TriggeringEvent" type="notfm-ext:TriggeringEventType">
 		<xsd:annotation>
 			<xsd:documentation>A rap back triggering event code.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:complexType name="TriggeringEventsType">
+	<xsd:complexType name="TriggeringEventType">
 		<xsd:annotation>
 			<xsd:documentation>One or more events that would trigger
 				notifications related to a subscription.
@@ -409,8 +405,12 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
+					<xsd:element ref="notfm-ext:RapBackEventDate"
+						minOccurs="0" />
 					<xsd:element ref="notfm-ext:TriggeringEventRepresentation"
-						minOccurs="0" maxOccurs="unbounded" />
+						minOccurs="0" />
+					<xsd:element ref="notfm-ext:RapBackEventText"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
