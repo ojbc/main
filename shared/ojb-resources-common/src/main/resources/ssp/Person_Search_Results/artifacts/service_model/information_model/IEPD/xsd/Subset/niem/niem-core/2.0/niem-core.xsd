@@ -71,7 +71,12 @@
       </xsd:appinfo>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="s:ComplexObjectType"/>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="nc:AssociationBeginDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:AssociationEndDate" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   <xsd:complexType name="CaseType">
@@ -521,6 +526,16 @@
       <xsd:appinfo>
         <i:Base i:name="AddressDeliveryPoint"/>
       </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="AssociationBeginDate" type="nc:DateType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A date an association begins.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="AssociationEndDate" type="nc:DateType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A date an association ends.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="Case" type="nc:CaseType" nillable="true">
