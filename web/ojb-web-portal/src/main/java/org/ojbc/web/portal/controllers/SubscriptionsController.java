@@ -616,7 +616,7 @@ public class SubscriptionsController {
 			if (fbiIdWarning){
 			
 				if(StringUtils.isEmpty(subscription.getFbiId())){
-					warningList.add("FBI ID missing. Subscription with the FBI is pending.");
+					warningList.add("FBI UCN does no exist. Subscription with the FBI will not be created. If a FBI UCN is received in the future, an FBI subscription will automatically be created and you will be notified.");
 				}				
 			}
 		}			

@@ -209,7 +209,7 @@
                             	</xsl:call-template> 
                             </td>
                         </tr>
-                        <xsl:variable name="addr" select="$personSearchResult/nc:Location/nc:LocationAddress/nc:StructuredAddress" />
+                        <xsl:variable name="addr" select="$personSearchResult/nc:Location[1]/nc:LocationAddress/nc:StructuredAddress" />
                         <tr>
                             <td class="detailsLabel">ADDRESS</td>
                             <td>

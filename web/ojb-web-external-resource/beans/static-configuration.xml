@@ -662,8 +662,8 @@
 
 	<util:map id="subscriptionPurposeValueToLabelMap" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Subscription Purpose" />
-		<entry key="CS" value="Supervision" />
-		<entry key="CI" value="Investigation" />
+		<entry key="CS" value="Criminal Supervision" />
+		<entry key="CI" value="Criminal Investigation" />
 	</util:map>
 
 	<util:map id="triggeringEventCodeMap" map-class="java.util.LinkedHashMap">
