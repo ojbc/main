@@ -84,7 +84,7 @@ public class SubscriptionValidator implements Validator{
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "First name must be specified");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "Last name must be specified");
 		ValidationUtils.rejectIfEmpty(errors, "dateOfBirth", "DOB must be specified");
-		ValidationUtils.rejectIfEmpty(errors, "subscriptionStartDate", "Start date must be specified");
+		ValidationUtils.rejectIfEmpty(errors, "subscriptionStartDate", "Start Date must be specified");
 		validateEndDateNotBeforeStartDate(errors, 
 				subscription.getSubscriptionStartDate(), 
 				subscription.getSubscriptionEndDate());
@@ -96,7 +96,7 @@ public class SubscriptionValidator implements Validator{
 	private void validateEndDateNotBeforeStartDate(Errors errors, Date startDate, Date endDate) {
 		if(endDate != null && startDate != null){			
 			if(endDate.before(startDate)){
-				errors.rejectValue("subscriptionEndDate", "End date may not occur before start date");
+				errors.rejectValue("subscriptionEndDate", "End Date may not occur before Start Date");
 			}									
 		}
 	}
@@ -106,7 +106,7 @@ public class SubscriptionValidator implements Validator{
 			Errors errors) {
 		ValidationUtils.rejectIfEmpty(errors, "stateId", "SID must be specified");
 		ValidationUtils.rejectIfEmpty(errors, "fullName", "Name must be specified");
-		ValidationUtils.rejectIfEmpty(errors, "subscriptionStartDate", "Start date must be specified");
+		ValidationUtils.rejectIfEmpty(errors, "subscriptionStartDate", "Start Date must be specified");
 		validateSubscriptionEndDate(subscription, errors);
 		validateEmailList(subscription, errors);
 	}
@@ -130,22 +130,22 @@ public class SubscriptionValidator implements Validator{
 
 		if (BooleanUtils.isTrue(subscription.getFederalRapSheetDisclosureIndicator())){
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "federalRapSheetDisclosureAttentionDesignationText", 
-					"Disclosure contact info must be specified");
+					"Disclosure Contact Information must be specified");
 		}
 		
 		ValidationUtils.rejectIfEmpty(errors, "stateId", "SID must be specified");
 		ValidationUtils.rejectIfEmpty(errors, "fullName", "Name must be specified");
 		ValidationUtils.rejectIfEmpty(errors, "dateOfBirth", "Date of Birth must be specified");
 		
-		ValidationUtils.rejectIfEmpty(errors, "subscriptionStartDate", "Start date must be specified");
-		ValidationUtils.rejectIfEmpty(errors, "subscriptionEndDate", "End date must be specified");
+		ValidationUtils.rejectIfEmpty(errors, "subscriptionStartDate", "Start Date must be specified");
+		ValidationUtils.rejectIfEmpty(errors, "subscriptionEndDate", "End Date must be specified");
 		
 		validateSubscriptionEndDate(subscription, errors);
 		
 		validateEmailList(subscription, errors);
 		
 		if (showCaseIdInput){
-			ValidationUtils.rejectIfEmpty(errors, "caseId", "Case Id must be specified");
+			ValidationUtils.rejectIfEmpty(errors, "caseId", "Case ID must be specified");
 		}
 		
 	}
@@ -168,7 +168,7 @@ public class SubscriptionValidator implements Validator{
 		
 		if(subEndDate != null && subStartDate != null){			
 			if(subEndDate.before(subStartDate)){
-				errors.rejectValue("subscriptionEndDate", "End date may not occur before start date");
+				errors.rejectValue("subscriptionEndDate", "End Date may not occur before Start Date");
 			}
 			else {
 				SubscriptionEndDateStrategy endDateStrategy = null;
@@ -187,7 +187,7 @@ public class SubscriptionValidator implements Validator{
 						endDateStrategy.getPeriod());
 
 				if(defaultEndDate != null && subEndDate.after(defaultEndDate)){
-					errors.rejectValue("subscriptionEndDate", "End date may not be more than " + endDateStrategy.getPeriod() + " year after the start date");
+					errors.rejectValue("subscriptionEndDate", "End Date may not be more than " + endDateStrategy.getPeriod() + " year after the Start Date");
 				}
 			}
 		}

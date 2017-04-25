@@ -60,7 +60,9 @@ public class SubscriptionsControllerTest {
 		
 		String warning0 = warningList.get(0);
 		
-		Assert.assertEquals("FBI ID missing. Subscription with the FBI is pending.", warning0);
+		Assert.assertEquals("FBI UCN does no exist. Subscription with the FBI will not be created. "
+				+ "If a FBI UCN is received in the future, an FBI subscription will automatically "
+				+ "be created and you will be notified.", warning0);
 	}
 	
 	@Test

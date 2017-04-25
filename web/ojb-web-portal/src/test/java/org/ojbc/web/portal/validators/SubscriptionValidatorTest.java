@@ -56,14 +56,14 @@ public class SubscriptionValidatorTest {
 		errors = new BeanPropertyBindingResult(subscription, "subscription");
 		subscriptionValidator.validate(subscription, errors);
 		assertThat(errors.getErrorCount(), is(1));
-		assertThat(errors.getFieldError("subscriptionEndDate").getCode(), is("End date may not occur before start date"));
+		assertThat(errors.getFieldError("subscriptionEndDate").getCode(), is("End Date may not occur before Start Date"));
 	}
 		
 	private void assertEndDateBeyondRange(Subscription subscription, int years) {
 		errors = new BeanPropertyBindingResult(subscription, "subscription");
 		subscriptionValidator.validate(subscription, errors);
 		assertThat(errors.getErrorCount(), is(1));
-		assertThat(errors.getFieldError("subscriptionEndDate").getCode(), is("End date may not be more than " + years + " year after the start date"));
+		assertThat(errors.getFieldError("subscriptionEndDate").getCode(), is("End Date may not be more than " + years + " year after the Start Date"));
 	}
 	
 	private void assertNoErrors(Subscription subscription) {
@@ -77,7 +77,7 @@ public class SubscriptionValidatorTest {
 		subscriptionValidator.validate(subscription, errors);
 		assertThat(errors.getErrorCount(), is(1));
 		assertThat(errors.getFieldError("federalRapSheetDisclosureAttentionDesignationText").getCode(),
-				is("Disclosure contact info must be specified"));
+				is("Disclosure Contact Information must be specified"));
 	}
 	
 	private void assertDisclosureIndicatorNotSelected(Subscription subscription) {
@@ -222,7 +222,7 @@ public class SubscriptionValidatorTest {
 		assertThat(errors.hasFieldErrors("emailList"), is(true));
 		assertThat(errors.getFieldError("stateId").getCode(), is("SID must be specified"));
 		assertThat(errors.getFieldError("fullName").getCode(), is("Name must be specified"));
-		assertThat(errors.getFieldError("subscriptionStartDate").getCode(), is("Start date must be specified"));
+		assertThat(errors.getFieldError("subscriptionStartDate").getCode(), is("Start Date must be specified"));
 		assertThat(errors.getFieldError("emailList").getCode(), is("Email Address must be specified"));
 	}
 	
@@ -236,7 +236,7 @@ public class SubscriptionValidatorTest {
 		assertThat(errors.getFieldError("firstName").getCode(), is("First name must be specified"));
 		assertThat(errors.getFieldError("lastName").getCode(), is("Last name must be specified"));
 		assertThat(errors.getFieldError("dateOfBirth").getCode(), is("DOB must be specified"));
-		assertThat(errors.getFieldError("subscriptionStartDate").getCode(), is("Start date must be specified"));
+		assertThat(errors.getFieldError("subscriptionStartDate").getCode(), is("Start Date must be specified"));
 		assertThat(errors.getFieldError("emailList").getCode(), is("Email Address must be specified"));
 	}
 	
@@ -258,10 +258,10 @@ public class SubscriptionValidatorTest {
 		assertThat(errors.getFieldError("stateId").getCode(), is("SID must be specified"));
 		assertThat(errors.getFieldError("fullName").getCode(), is("Name must be specified"));
 		assertThat(errors.getFieldError("dateOfBirth").getCode(), is("Date of Birth must be specified"));
-		assertThat(errors.getFieldError("subscriptionStartDate").getCode(), is("Start date must be specified"));
-		assertThat(errors.getFieldError("subscriptionEndDate").getCode(), is("End date must be specified"));
+		assertThat(errors.getFieldError("subscriptionStartDate").getCode(), is("Start Date must be specified"));
+		assertThat(errors.getFieldError("subscriptionEndDate").getCode(), is("End Date must be specified"));
 		assertThat(errors.getFieldError("emailList").getCode(), is("Email Address must be specified"));
-		assertThat(errors.getFieldError("caseId").getCode(), is("Case Id must be specified"));
+		assertThat(errors.getFieldError("caseId").getCode(), is("Case ID must be specified"));
 	}
 	
 	@Test

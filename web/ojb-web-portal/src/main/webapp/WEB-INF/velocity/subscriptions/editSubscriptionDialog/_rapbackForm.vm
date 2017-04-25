@@ -88,7 +88,7 @@
 
 <div>
 	#springFormInput("subscription.stateId" "readonly='readonly' title='SID'")
-	<span class="subscriptionHint">FBI ID: <span id="fbiIdString">$subscription.formattedFbiId</span></span> 
+	<span class="subscriptionHint">FBI UCN: <span id="fbiIdString">$subscription.formattedFbiId</span></span> 
 </div>
 
 <div>	
