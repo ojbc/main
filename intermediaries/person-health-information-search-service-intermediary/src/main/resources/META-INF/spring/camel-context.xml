@@ -52,11 +52,37 @@
 		<endpoint id="personHealthSearchClientResultsEndpoint" 
 			uri="cxf:bean:personHealthSearchClientResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>                        
 
+		<endpoint id="inputDirectory"
+			uri="file:///${filedrop}/input?idempotent=true&amp;moveFailed=${filedrop}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;sortBy=file:modified" />
+
+		<endpoint id="outputDirectory"
+			uri="file:///${filedrop}/output" />
+
+
+		<route id="personHealthRequest_filedrop_Route">
+
+			<from uri="inputDirectory" />
+			
+			<log message="\n\n\n personHealthRequest_filedrop_Route... \n\n\n"/>
+			
+			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
+						
+			<to uri="direct:processPersonHealthRequest" />		
+		
+		</route>
+
 		<route id="personHealthRequest_webservice_Route">
 
 			<from uri="personHealthSearchIntermediaryRequestEndpoint" />
 			
 			<log message="\n\n\n personHealthRequest_webservice_Route... \n\n\n"/>
+			
+			<!-- Get WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />	
+			
+			<!-- Add reply to address(configured elsewhere) to the map using the federated 
+				query guid as the key -->
+			<camel:to uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
 			
 			<to uri="direct:processPersonHealthRequest" />		
 		
@@ -68,14 +94,7 @@
 			<camel:from uri="direct:processPersonHealthRequest" />
 			
 			<camel:to uri="direct:dbAuditLog"/>
-			
-			<!-- Get WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />				
 						
-			<!-- Add reply to address(configured elsewhere) to the map using the federated 
-				query guid as the key -->
-			<camel:to uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
-			
 			<camel:wireTap uri="direct:startPersonHealthReqTimer"/>
 
 			<camel:log message="\n\n\n Timer started... \n\n\n"/>
@@ -166,6 +185,14 @@
 
 				<log message="\n\n\n completed aggregated body: \n\n ${body} \n\n\n" loggingLevel="DEBUG"/>
 				
+				<camel:choice>
+					<camel:when>
+						<camel:simple>${properties:writeResponseToFileSystemAndStop} == 'true'</camel:simple>
+						<camel:to uri="outputDirectory"/>
+						<camel:stop/>
+					</camel:when>
+				</camel:choice>		
+				
 				<camel:to uri="direct:sendResponseToClientOfThisIntermediary"/>
 
 			</aggregate>
@@ -247,4 +274,5 @@
 		<property name ="endpointReplyToMap" ref="endpointReplyToMap"/>
 	</bean>				
 					
+	<bean id="uuidGenerator" class="org.ojbc.util.camel.helper.OJBUtils"/>				
 </beans>
