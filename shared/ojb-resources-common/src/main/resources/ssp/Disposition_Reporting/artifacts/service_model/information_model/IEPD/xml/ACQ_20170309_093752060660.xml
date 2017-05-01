@@ -1,0 +1,133 @@
+<?xml version = "1.0" encoding = "UTF-8" standalone = "yes"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<Recordset>
+	<SubmissionSubmittedDate>2017-03-09</SubmissionSubmittedDate>
+	<SubmissionSubmittedTime>09:37:52</SubmissionSubmittedTime>
+	<Person>
+		<PersonSSNID>583911947</PersonSSNID>
+		<PersonSurName>Gonzalez</PersonSurName>
+		<PersonGivenName>Carlos</PersonGivenName>
+		<PersonMiddleName></PersonMiddleName>
+		<PersonBirthDate>1982-03-12</PersonBirthDate>
+		<PersonStateID>A6097227</PersonStateID>
+		<Court>1F</Court>
+		<Location>HK</Location>
+		<CaseOfficialCaseID>1FFC-17-0000134</CaseOfficialCaseID>
+		<CaseInitiationType>O</CaseInitiationType>
+		<PartyStatus>AC</PartyStatus>
+		<PartyReasonInactive></PartyReasonInactive>
+		<DeferralReturnDate></DeferralReturnDate>
+		<CasePenalSummonsIndicator></CasePenalSummonsIndicator>
+		<CaseDefenseAttorney></CaseDefenseAttorney>
+		<Judge></Judge>
+		<FeeAmount>0</FeeAmount>
+		<PreviousCourtEvent>CNF</PreviousCourtEvent>
+		<PreviousCourtEventDate>2017-03-08</PreviousCourtEventDate>
+		<NextCourtEvent></NextCourtEvent>
+		<NextCourtEventDate></NextCourtEventDate>
+		<RegisteredOffenderID>9289C15</RegisteredOffenderID>
+		<Warrant>
+			<ActivityID>F111700090</ActivityID>
+			<DocumentPostDate>2017-03-08</DocumentPostDate>
+		</Warrant>
+		<Charge>
+			<ChargeSequenceID>1</ChargeSequenceID>
+			<ChargeID>17076194-001</ChargeID>
+			<ActivityDate>2017-02-27</ActivityDate>
+			<ChargeDescriptionText>Abuse of family and household members
+			</ChargeDescriptionText>
+			<InitialCaseCharge>HRS 709-906(1)</InitialCaseCharge>
+			<FinalCaseCharge>HRS 709-906(1)</FinalCaseCharge>
+			<InitialChargeSeverityLevel>MD</InitialChargeSeverityLevel>
+			<FinalChargeSeverityLevel>MD</FinalChargeSeverityLevel>
+			<InitialChargeModifier></InitialChargeModifier>
+			<FinalChargeModifier></FinalChargeModifier>
+			<InitialPleaCode>G</InitialPleaCode>
+			<FinalPleaCode>G</FinalPleaCode>
+			<InitialPleaDate>2017-03-03</InitialPleaDate>
+			<FinalPleaDate>2017-03-03</FinalPleaDate>
+			<Disposition>ACQ</Disposition>
+			<DispositionDate>2017-03-03</DispositionDate>
+			<FeeAmount>0</FeeAmount>
+		</Charge>
+		<Sentence>
+			<CaseCharge>HRS 709-906(1)</CaseCharge>
+			<ChargeSequenceID>1</ChargeSequenceID>
+			<ActivityID>1</ActivityID>
+			<ActivityDate>2017-03-03</ActivityDate>
+			<Suspended>Yes</Suspended>
+			<SentenceTerm>$55</SentenceTerm>
+			<MethodofServing></MethodofServing>
+			<ChargeSentence>CV2</ChargeSentence>
+			<SentenceCondition></SentenceCondition>
+		</Sentence>
+		<Sentence>
+			<CaseCharge>HRS 709-906(1)</CaseCharge>
+			<ChargeSequenceID>1</ChargeSequenceID>
+			<ActivityID>2</ActivityID>
+			<ActivityDate>2017-03-03</ActivityDate>
+			<Suspended>Yes</Suspended>
+			<SentenceTerm>$12</SentenceTerm>
+			<MethodofServing></MethodofServing>
+			<ChargeSentence>FIN</ChargeSentence>
+			<SentenceCondition></SentenceCondition>
+		</Sentence>
+		<Sentence>
+			<CaseCharge>HRS 709-906(1)</CaseCharge>
+			<ChargeSequenceID>1</ChargeSequenceID>
+			<ActivityID>3</ActivityID>
+			<ActivityDate>2017-03-03</ActivityDate>
+			<Suspended>Yes</Suspended>
+			<SentenceTerm>$250</SentenceTerm>
+			<MethodofServing></MethodofServing>
+			<ChargeSentence>DAF</ChargeSentence>
+			<SentenceCondition></SentenceCondition>
+		</Sentence>
+		<Sentence>
+			<CaseCharge>HRS 709-906(1)</CaseCharge>
+			<ChargeSequenceID>1</ChargeSequenceID>
+			<ActivityID>4</ActivityID>
+			<ActivityDate>2017-03-03</ActivityDate>
+			<Suspended>Yes</Suspended>
+			<SentenceTerm>$65</SentenceTerm>
+			<MethodofServing></MethodofServing>
+			<ChargeSentence>DE</ChargeSentence>
+			<SentenceCondition></SentenceCondition>
+		</Sentence>
+		<Sentence>
+			<CaseCharge>HRS 709-906(1)</CaseCharge>
+			<ChargeSequenceID>1</ChargeSequenceID>
+			<ActivityID>5</ActivityID>
+			<ActivityDate>2017-03-03</ActivityDate>
+			<Suspended>Yes</Suspended>
+			<SentenceTerm>$45</SentenceTerm>
+			<MethodofServing></MethodofServing>
+			<ChargeSentence>ICF</ChargeSentence>
+			<SentenceCondition></SentenceCondition>
+		</Sentence>
+		<Docket>
+			<DocketCode>BWFC</DocketCode>
+			<DocketDate>2017-03-08</DocketDate>
+			<DocketType>Bench Warrant Family Criminal</DocketType>
+			<DocketMinutes>Docket entry for the letter produced on 08-MAR-2017 by
+				IG_VR. BW# F111700090.</DocketMinutes>
+		</Docket>
+	</Person>
+</Recordset>

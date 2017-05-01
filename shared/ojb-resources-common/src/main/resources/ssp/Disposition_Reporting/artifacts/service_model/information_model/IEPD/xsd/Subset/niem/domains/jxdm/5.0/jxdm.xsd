@@ -126,6 +126,7 @@
           <xs:element ref="j:CaseCharge" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseCourt" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseCourtEvent" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseDefendantParty" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseDefenseAttorney" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseHearing" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseJudge" minOccurs="0" maxOccurs="unbounded"/>
@@ -238,6 +239,14 @@
           <xs:element ref="j:CourtEventAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CourtOrderType">
+    <xs:annotation>
+      <xs:documentation>A data type for a direction of a judge not including a judgement, which determines some point or directs some steps in proceedings.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType"/>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="CourtType">
@@ -485,6 +494,14 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="WarrantType">
+    <xs:annotation>
+      <xs:documentation>A data type for an authorization for an enforcement official to perform a specified action.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="j:CourtOrderType"/>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:element name="ActivityArrestAssociation" type="j:ActivityArrestAssociationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An association between an activity and an arrest.</xs:documentation>
@@ -563,6 +580,11 @@
   <xs:element name="CaseCourtEvent" type="j:CourtEventType" nillable="true">
     <xs:annotation>
       <xs:documentation>A court occurrence related to a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseDefendantParty" type="nc:EntityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An entity being charged or sued in a court of law.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CaseDefenseAttorney" type="j:CaseOfficialType" nillable="true">
@@ -1028,6 +1050,11 @@
   <xs:element name="TermMinimumDuration" type="niem-xs:duration" nillable="true">
     <xs:annotation>
       <xs:documentation>A minimum range or duration for a term.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Warrant" type="j:WarrantType">
+    <xs:annotation>
+      <xs:documentation>An authorization for an enforcement official to perform a specified action.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>
