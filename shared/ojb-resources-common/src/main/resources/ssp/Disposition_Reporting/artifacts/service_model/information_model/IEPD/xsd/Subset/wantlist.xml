@@ -80,6 +80,7 @@
   <w:Element w:name="j:SentenceGroupingText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:SentenceTerm" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Subject" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:Warrant" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityPersonAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Address" w:isReference="false" w:nillable="true"/>
@@ -161,6 +162,8 @@
     <w:ElementInType w:name="j:CaseCourt" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseCourtEvent" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CaseDefendantParty" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseDefenseAttorney"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -375,6 +378,7 @@
     <w:ElementInType w:name="j:TermAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:WarrantType" w:isRequested="true"/>
   <w:Type w:name="nc:ActivityPersonAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Activity" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -463,6 +467,8 @@
   </w:Type>
   <w:Type w:name="nc:EntityType" w:isRequested="false">
     <w:ElementInType w:name="nc:EntityRepresentation"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:EntityAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:IdentificationType" w:isRequested="false">
