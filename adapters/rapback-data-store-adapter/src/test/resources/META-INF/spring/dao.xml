@@ -52,6 +52,7 @@
 			<constructor-arg name="map">
 				<util:map>
 					<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value-ref="staticValidationDueDateStrategy" />
+					<entry key="{http://ojbc.org/wsn/topics}:person/rapback" value-ref="staticValidationDueDateStrategy" />
 				</util:map>
 			</constructor-arg>
 		</bean>
