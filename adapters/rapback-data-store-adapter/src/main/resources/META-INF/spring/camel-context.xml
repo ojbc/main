@@ -61,6 +61,9 @@
 		<endpoint id="identificationRecordingResposneFileEndpoint"
 			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed/identificationResponse?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed/identificationResponse/error&amp;move=processed/&amp;scheduler=quartz2&amp;scheduler.cron={{rapbackDatastoreAdapter.resendFailedIdResponseCronExpression}}" />
 			
+		<endpoint id="identificationReportingResponseServiceEndpoint"
+			uri="cxf:bean:identificationReportingResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}&amp;synchronous=true" />
+		
 		<endpoint id="invocationFailedFileEndpoint"
 			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed" />
 			
@@ -263,11 +266,20 @@
 			<from uri="direct:sendIdentificationReportingResponseMessage"/>
 			
 			<doTry>
-				<log message="* * * Calling MessageProcessor sendResponseMessage * * *"/>
+				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+	
+				<camel:setHeader headerName="operationName">
+		            <constant>SubmitPersonIdentificationReportResponse</constant>
+		        </camel:setHeader>
+		        
+		        <camel:setHeader headerName="operationNamespace">
+		            <constant>http://ojbc.org/Services/WSDL/IdentificationReportingResponseService/1.0</constant>
+		        </camel:setHeader>
+				<to uri="identificationReportingResponseServiceEndpoint" />
 				
-				<to uri="bean:identificationReportingResultMessageProcessor?method=sendResponseMessage"/>
-				<camel:doCatch>
-					<exception>java.lang.Exception</exception>
+ 				<camel:doCatch>
+					<exception>java.lang.Throwable</exception>
+					<camel:log message="get exception"></camel:log>
 					<camel:log 
 						message="Failed to send the identification Response message: ${exception.cause.message}"
 						loggingLevel="WARN" />
@@ -277,8 +289,8 @@
 					<log message="${body}" loggingLevel="DEBUG"></log>
 					<to uri="invocationFailedFileEndpoint"/>
 				</camel:doCatch>
-				<log message="Response message is sent"/>
-			</doTry>			
+ 				<log message="Response message is sent" />
+ 			</doTry>			
 		</route>
 		
 		<route id="resend_failed_identification_response_route">
@@ -470,11 +482,5 @@
 	</bean>
 	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-	
-	<bean id="identificationReportingResultMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor">
-		<property name="operationName"><value>SubmitPersonIdentificationReportResponse</value></property>
-		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/IdentificationReportingResponseService/1.0</value></property>
-		<property name="destinationEndpoint"><value>identificationReportingResponseService</value></property>
-	</bean>
 	
 </beans>

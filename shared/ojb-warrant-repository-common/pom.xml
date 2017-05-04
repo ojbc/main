@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-warrant-repository-common</artifactId>
-	<name>ojb-ui-common</name>
+	<name>OJB :: ojb-warrant-repository-common :: shared</name>
 	<packaging>jar</packaging>
 	<url>http://www.ojbc.org</url>
 
