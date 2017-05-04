@@ -5063,6 +5063,12 @@
     <w:ElementInType w:name="nc:AddressRepresentation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
+  <w:Type w:name="nc:AssociationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:AssociationBeginDate"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:AssociationEndDate"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:ContactInformationType" w:isRequested="false">
     <w:ElementInType w:name="nc:ContactMeans" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>

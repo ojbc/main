@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xs:schema targetNamespace="http://release.niem.gov/niem/codes/fbi_ucr/3.0/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:ucr="http://release.niem.gov/niem/codes/fbi_ucr/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <xs:annotation>
+    <xs:documentation>Crime reporting codes from Uniform Crime Reporting.
+Source: FBI Crminal Justice Information Systems (CJIS) Division; 
+Publication: CJIS Div UCR Program - 
+NIBRS Technical Specification; 
+Version: 1.0; 
+Date: 16 April 2012; 
+http://www.fbi.gov/about-us/cjis/ucr/nibrs_technical_specification_version_1.0_final_04-16-2012.pdf</xs:documentation>
+  </xs:annotation>
+  <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:simpleType name="LocationCategoryCodeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for kinds or functional descriptions of a location.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="01">
+        <xs:annotation>
+          <xs:documentation>air/ bus/ train terminal</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="02">
+        <xs:annotation>
+          <xs:documentation>bank/ savings and loan</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="03">
+        <xs:annotation>
+          <xs:documentation>bar/ nightclub</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="04">
+        <xs:annotation>
+          <xs:documentation>church/ synagogue/ temple/ mosque</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="05">
+        <xs:annotation>
+          <xs:documentation>commercial/ office building</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="06">
+        <xs:annotation>
+          <xs:documentation>construction site</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="07">
+        <xs:annotation>
+          <xs:documentation>convenience store</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="08">
+        <xs:annotation>
+          <xs:documentation>department/ discount/ store</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="09">
+        <xs:annotation>
+          <xs:documentation>drug store/ doctor's office/ hospital</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="10">
+        <xs:annotation>
+          <xs:documentation>field/ woods</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="11">
+        <xs:annotation>
+          <xs:documentation>government/ public building</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="12">
+        <xs:annotation>
+          <xs:documentation>grocery/ supermarket</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="13">
+        <xs:annotation>
+          <xs:documentation>highway/ road/ alley/ street/ sidewalk</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="14">
+        <xs:annotation>
+          <xs:documentation>hotel/ motel/ etc.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="15">
+        <xs:annotation>
+          <xs:documentation>jail/ prison/ penetentiary/ corrections facility</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="16">
+        <xs:annotation>
+          <xs:documentation>lake/ waterway/ beach</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="17">
+        <xs:annotation>
+          <xs:documentation>liquor store</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="18">
+        <xs:annotation>
+          <xs:documentation>parking/ drop lot/ garage</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="19">
+        <xs:annotation>
+          <xs:documentation>rental storage facility</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="20">
+        <xs:annotation>
+          <xs:documentation>residence/ home</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="21">
+        <xs:annotation>
+          <xs:documentation>restaurant</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="22">
+        <xs:annotation>
+          <xs:documentation>school/ college</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="23">
+        <xs:annotation>
+          <xs:documentation>service/ gas station</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="24">
+        <xs:annotation>
+          <xs:documentation>specialty store</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="25">
+        <xs:annotation>
+          <xs:documentation>other/ unknown</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="37">
+        <xs:annotation>
+          <xs:documentation>Abandoned/ Condemned Structure</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="38">
+        <xs:annotation>
+          <xs:documentation>Amusement Park</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="39">
+        <xs:annotation>
+          <xs:documentation>Arena/ Stadium/ Fairgrounds/Coliseum</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="40">
+        <xs:annotation>
+          <xs:documentation>ATM Separate from Bank</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="41">
+        <xs:annotation>
+          <xs:documentation>Auto Dealership New/Used</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="42">
+        <xs:annotation>
+          <xs:documentation>Camp/ Campground</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="44">
+        <xs:annotation>
+          <xs:documentation>Daycare Facility</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="45">
+        <xs:annotation>
+          <xs:documentation>Dock/ Wharf/ Freight/Modal Terminal</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="46">
+        <xs:annotation>
+          <xs:documentation>Farm Facility</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="47">
+        <xs:annotation>
+          <xs:documentation>Gambling Facility/ Casino/ Race Track</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="48">
+        <xs:annotation>
+          <xs:documentation>Industrial Site</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="49">
+        <xs:annotation>
+          <xs:documentation>Military Installation</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="50">
+        <xs:annotation>
+          <xs:documentation>Park/ Playground</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="51">
+        <xs:annotation>
+          <xs:documentation>Rest Area</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="52">
+        <xs:annotation>
+          <xs:documentation>School - College/ University</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="53">
+        <xs:annotation>
+          <xs:documentation>School - Elementary/ Secondary</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="54">
+        <xs:annotation>
+          <xs:documentation>Shelter - Mission/ Homeless</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="55">
+        <xs:annotation>
+          <xs:documentation>Shopping Mall</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="56">
+        <xs:annotation>
+          <xs:documentation>Tribal Lands</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="57">
+        <xs:annotation>
+          <xs:documentation>Community Center</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="LocationCategoryCodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for kinds or functional descriptions of a location.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ucr:LocationCategoryCodeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

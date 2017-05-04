@@ -91,8 +91,8 @@ public class TestIdentficationRecordingAndResponse {
 	@EndpointInject(uri = "mock:failedInvocation")
     protected MockEndpoint failedInvocationEndpoint;
 	
-    @EndpointInject(uri = "mock:bean:identificationReportingResultMessageProcessor")
-    protected MockEndpoint identificationReportingResultMessageProcessor;
+    @EndpointInject(uri = "mock:cxf:bean:identificationReportingResponseService")
+    protected MockEndpoint identificationReportingResponseService;
     
 	@Test
 	public void contextStartup() {
@@ -117,7 +117,7 @@ public class TestIdentficationRecordingAndResponse {
     	    @Override
     	    public void configure() throws Exception {
     	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	mockEndpointsAndSkip("bean:identificationReportingResultMessageProcessor*");
+    	    	mockEndpointsAndSkip("cxf:bean:identificationReportingResponseService*");
     	    }              
     	});
     	context.start();
@@ -128,7 +128,7 @@ public class TestIdentficationRecordingAndResponse {
 	@DirtiesContext
 	public void testIdentificationRecordingServiceError() throws Exception
 	{
-		identificationReportingResultMessageProcessor.reset();
+		identificationReportingResponseService.reset();
 		
 		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction("000001820140729014008340000"); 
 		assertNull(identificationTransaction);
@@ -145,11 +145,11 @@ public class TestIdentficationRecordingAndResponse {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		identificationReportingResultMessageProcessor.expectedMessageCount(1);
+		identificationReportingResponseService.expectedMessageCount(1);
 		
-		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		identificationReportingResponseService.assertIsSatisfied();
 		
-		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
+		Exchange receivedExchange = identificationReportingResponseService.getExchanges().get(0);
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_failure_response.xml");
 		
@@ -169,7 +169,7 @@ public class TestIdentficationRecordingAndResponse {
 	private void civilRecordingRequestSuccess() throws Exception, IOException,
 			InterruptedException, SAXException {
 		
-		identificationReportingResultMessageProcessor.reset();
+		identificationReportingResponseService.reset();
 		
 		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
 		assertNull(identificationTransaction);
@@ -188,11 +188,11 @@ public class TestIdentficationRecordingAndResponse {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		identificationReportingResultMessageProcessor.expectedMessageCount(1);
+		identificationReportingResponseService.expectedMessageCount(1);
 		
-		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		identificationReportingResponseService.assertIsSatisfied();
 		
-		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
+		Exchange receivedExchange = identificationReportingResponseService.getExchanges().get(0);
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
 		
@@ -233,8 +233,8 @@ public class TestIdentficationRecordingAndResponse {
 			throw new Exception(returnExchange.getException());
 		}
 		
-		identificationReportingResultMessageProcessor.expectedMessageCount(2);
-		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		identificationReportingResponseService.expectedMessageCount(2);
+		identificationReportingResponseService.assertIsSatisfied();
 		identificationTransaction = 
 				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER);
 		
@@ -266,7 +266,7 @@ public class TestIdentficationRecordingAndResponse {
 	public void testCivilVechsRecordingRequestSuccess() throws Exception, IOException,
 	InterruptedException, SAXException {
 		
-		identificationReportingResultMessageProcessor.reset();
+		identificationReportingResponseService.reset();
 		
 		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
 		assertNull(identificationTransaction);
@@ -285,11 +285,11 @@ public class TestIdentficationRecordingAndResponse {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		identificationReportingResultMessageProcessor.expectedMessageCount(1);
+		identificationReportingResponseService.expectedMessageCount(1);
 		
-		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		identificationReportingResponseService.assertIsSatisfied();
 		
-		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
+		Exchange receivedExchange = identificationReportingResponseService.getExchanges().get(0);
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
 		
@@ -324,7 +324,7 @@ public class TestIdentficationRecordingAndResponse {
 	public void testCivilVechsNoHCJDCRecordingRequestSuccess() throws Exception, IOException,
 	InterruptedException, SAXException {
 		
-		identificationReportingResultMessageProcessor.reset();
+		identificationReportingResponseService.reset();
 		
 		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
 		assertNull(identificationTransaction);
@@ -343,11 +343,11 @@ public class TestIdentficationRecordingAndResponse {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		identificationReportingResultMessageProcessor.expectedMessageCount(1);
+		identificationReportingResponseService.expectedMessageCount(1);
 		
-		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		identificationReportingResponseService.assertIsSatisfied();
 		
-		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
+		Exchange receivedExchange = identificationReportingResponseService.getExchanges().get(0);
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
 		
@@ -393,11 +393,11 @@ public class TestIdentficationRecordingAndResponse {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		identificationReportingResultMessageProcessor.expectedMessageCount(3);
+		identificationReportingResponseService.expectedMessageCount(3);
 		
-		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		identificationReportingResponseService.assertIsSatisfied();
 		
-		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(2);
+		Exchange receivedExchange = identificationReportingResponseService.getExchanges().get(2);
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
 		
@@ -441,7 +441,7 @@ public class TestIdentficationRecordingAndResponse {
 	
 	public void criminalRecordingResultServiceSuccess() throws Exception
 	{
-		identificationReportingResultMessageProcessor.reset();
+		identificationReportingResponseService.reset();
 		
 		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
 				"src/test/resources/xmlInstances/identificationReport/person_identification_rapsheet_results_fbi_criminal.xml");
@@ -457,11 +457,11 @@ public class TestIdentficationRecordingAndResponse {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		identificationReportingResultMessageProcessor.expectedMessageCount(1);
+		identificationReportingResponseService.expectedMessageCount(1);
 		
-		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		identificationReportingResponseService.assertIsSatisfied();
 		
-		Exchange receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
+		Exchange receivedExchange = identificationReportingResponseService.getExchanges().get(0);
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
 		
@@ -481,7 +481,7 @@ public class TestIdentficationRecordingAndResponse {
 				"src/test/resources/xmlInstances/identificationReport/person_identification_rapsheet_results_state_criminal.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonStateIdentificationResults");
-		identificationReportingResultMessageProcessor.reset();
+		identificationReportingResponseService.reset();
 		returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
 		
 		//Use getException to see if we received an exception
@@ -490,11 +490,11 @@ public class TestIdentficationRecordingAndResponse {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		identificationReportingResultMessageProcessor.expectedMessageCount(1);
+		identificationReportingResponseService.expectedMessageCount(1);
 		
-		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		identificationReportingResponseService.assertIsSatisfied();
 		
-		receivedExchange = identificationReportingResultMessageProcessor.getExchanges().get(0);
+		receivedExchange = identificationReportingResponseService.getExchanges().get(0);
 		body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
 		
@@ -516,7 +516,7 @@ public class TestIdentficationRecordingAndResponse {
 	@DirtiesContext
 	public void testIgnoreCriminalRecordingRequest() throws Exception
 	{
-		identificationReportingResultMessageProcessor.reset();
+		identificationReportingResponseService.reset();
 		
 		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
 				"src/test/resources/xmlInstances/identificationReport/person_identification_request_state_criminal.xml");
@@ -532,9 +532,9 @@ public class TestIdentficationRecordingAndResponse {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		identificationReportingResultMessageProcessor.expectedMessageCount(0);
+		identificationReportingResponseService.expectedMessageCount(0);
 		
-		identificationReportingResultMessageProcessor.assertIsSatisfied();
+		identificationReportingResponseService.assertIsSatisfied();
 		
 	}
 }

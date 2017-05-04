@@ -182,6 +182,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:EntityRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:EntityAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -629,6 +630,11 @@
   <xs:element name="DocumentSource" type="nc:EntityType" nillable="true">
     <xs:annotation>
       <xs:documentation>An entity that was the source of a document.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="EntityAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for EntityType.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="EntityOrganization" type="nc:OrganizationType" substitutionGroup="nc:EntityRepresentation">
