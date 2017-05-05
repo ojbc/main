@@ -81,7 +81,7 @@
 	    		</table>
 	    	</xsl:when>
 	    	<xsl:otherwise>
-	    		<xsl:if test="($entityContainer &gt; 0) and (count($tooManyResultsErrors) = 0)">
+	    		<xsl:if test="($entityContainer >= 0) and (count($tooManyResultsErrors) = 0)">
 	    			No Matches Found
 	    		</xsl:if>
 	    	</xsl:otherwise>
@@ -160,7 +160,7 @@
                 <td class="hidden">
                     <xsl:variable name="systemSource"><xsl:value-of select="normalize-space(ext1:SourceSystemNameText)"/></xsl:variable>
                     <xsl:variable name="queryType"><xsl:text>Person</xsl:text></xsl:variable>
-                    <a href="{concat('../people/searchDetails?identificationID=',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=' , intel:SystemIdentifier/intel:SystemName,'&amp;identificationSourceText=',$systemSource,'&amp;purpose=',$purpose,'&amp;onBehalfOf=',$onBehalfOf,'&amp;queryType=',$queryType)}" 
+                    <a href="{concat('../people/searchDetails?identificationID=',intel:SystemIdentifier/nc:IdentificationID , '&amp;systemName=' , intel:SystemIdentifier/intel:SystemName,'&amp;identificationSourceText=',$systemSource,'&amp;purpose=',$purpose,'&amp;onBehalfOf=',$onBehalfOf,'&amp;queryType=',$queryType, '&amp;searchResultCategory=',ext1:SearchResultCategoryText)}" 
                         class="blueButton viewDetails" searchName='{intel:SystemIdentifier/intel:SystemName} Detail' 
                         
                             appendPersonData="{concat('personalInformation-',$personId)}"
@@ -209,7 +209,7 @@
                             	</xsl:call-template> 
                             </td>
                         </tr>
-                        <xsl:variable name="addr" select="$personSearchResult/nc:Location/nc:LocationAddress/nc:StructuredAddress" />
+                        <xsl:variable name="addr" select="$personSearchResult/nc:Location[1]/nc:LocationAddress/nc:StructuredAddress" />
                         <tr>
                             <td class="detailsLabel">ADDRESS</td>
                             <td>
@@ -233,8 +233,21 @@
                             <td><xsl:value-of select="$personSearchResult/ext1:Person/nc:PersonWeightMeasure/nc:MeasurePointValue"/></td>
                         </tr>
                         <tr>
-                            <td class="detailsLabel">STATE</td>
-                            <td><xsl:value-of select="$addr/nc:LocationStateNCICRESCode"/></td>
+                            <td class="detailsLabel">STATE</td>                                                        
+                            <xsl:variable name="stateCodeNcic" select="$addr/nc:LocationStateNCICRESCode" />
+							<xsl:variable name="stateCodeFIPS5" select="$addr/nc:LocationStateFIPS5-2AlphaCode" />
+							<td>
+								<xsl:choose>
+									<xsl:when test="$stateCodeNcic != ''">
+										<xsl:value-of select="$stateCodeNcic"/>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:if test="$stateCodeFIPS5 != ''">
+											<xsl:value-of select="$stateCodeFIPS5"/>
+										</xsl:if>																
+									</xsl:otherwise>
+								</xsl:choose>
+							</td>														                                                                                 
                             <td class="detailsLabel">HEIGHT</td>
                             <td>
                             	<xsl:call-template name="formatHeight">
@@ -270,8 +283,7 @@
                         <tr>
                             <td class="detailsLabel">DL#</td>
                             <td><xsl:value-of select="$personSearchResult/ext1:Person/j:PersonAugmentation/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID"/></td>
-                            <td class="detailsLabel">SCARS/MARKS/TATTOOS</td>
-<!--                             <td><xsl:value-of select="$personSearchResult/ext1:Person/nc:PersonPhysicalFeature"/></td> -->
+                            <td class="detailsLabel">SCARS/MARKS/TATTOOS</td> 
 							<td><xsl:apply-templates select="$personSearchResult/ext1:Person/nc:PersonPhysicalFeature"/></td>
                         </tr>
                         <tr>
@@ -322,17 +334,4 @@
 		<span class="error">System <xsl:value-of select="../intel:SystemName" /> returned too many records, please refine your criteria.</span><br />
 	</xsl:template>
 	
-	<xsl:template match="nc:PersonAlternateName">
-		<xsl:choose>
-			<xsl:when test="nc:PersonGivenName or nc:PersonSurName">
-				 <xsl:value-of select="concat(nc:PersonGivenName, ' ', nc:PersonSurName)"/>
-			</xsl:when>
-			<xsl:when test="nc:PersonFullName">
-				<xsl:value-of select="nc:PersonFullName"/>
-			</xsl:when>
-		</xsl:choose>
-       <xsl:if test="position() != last()">
-           <xsl:text>, </xsl:text>
-       </xsl:if>
-	</xsl:template>
 </xsl:stylesheet>

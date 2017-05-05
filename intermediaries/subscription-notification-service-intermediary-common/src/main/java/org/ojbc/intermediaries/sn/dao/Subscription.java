@@ -47,6 +47,8 @@ public class Subscription {
 	private Map<String, String> subscriptionSubjectIdentifiers;
 	
 	private String subscriptionOwner;
+	private String subscriptionOwnerEmailAddress;
+
 	private String subscriptionIdentifier;
 	private String subscribingSystemIdentifier;
 	
@@ -57,6 +59,8 @@ public class Subscription {
 	private String agencyCaseNumber; 
 	private String subscriptionCategoryCode; 
 
+	private Map<String, String> subscriptionProperties;
+	
     public DateTime getValidationDueDate() {
 	    return validationDueDate;
 	}
@@ -193,5 +197,21 @@ public class Subscription {
 		this.subscriptionCategoryCode = subscriptionCategoryCode;
 	}
 
+	public String getSubscriptionOwnerEmailAddress() {
+		return subscriptionOwnerEmailAddress;
+	}
+
+	public void setSubscriptionOwnerEmailAddress(
+			String subscriptionOwnerEmailAddress) {
+		this.subscriptionOwnerEmailAddress = subscriptionOwnerEmailAddress;
+	}
+
+	public Map<String, String> getSubscriptionProperties() {
+		return subscriptionProperties;
+	}
+
+	public void setSubscriptionProperties(Map<String, String> subscriptionProperties) {
+		this.subscriptionProperties = subscriptionProperties;
+	}
 
 }

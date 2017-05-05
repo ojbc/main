@@ -17,7 +17,8 @@
 package org.ojbc.bundles.intermediaries;
 
 import static junit.framework.Assert.assertTrue;
-import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+
+import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
 import org.junit.Test;
 import org.junit.runner.RunWith;

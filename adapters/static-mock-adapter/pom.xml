@@ -36,27 +36,23 @@
 	</parent>
 
 	<properties>
-		<camel-version>2.10.7</camel-version>
-		<slf4j-version>1.6.4</slf4j-version>
-		<log4j-version>1.2.16</log4j-version>
-		<cxf-version>2.6.4</cxf-version>
-		<saxon-version>8.7</saxon-version>
-		<servlet-api-version>2.5</servlet-api-version>
-		<bouncycastle-version>140</bouncycastle-version>
-		<commons-lang-version>2.4</commons-lang-version>
-		<spring-version>3.0.7.RELEASE</spring-version>
+		<camel-version>2.14.4</camel-version>
+		<slf4j-version>1.7.10</slf4j-version>
+		<log4j-version>1.2.17</log4j-version>
+		<cxf-version>3.0.5</cxf-version>
+		<commons-lang-version>2.6</commons-lang-version>
+		<spring-version>3.2.11.RELEASE</spring-version>
 		<apache-commons-io-version>1.3.2</apache-commons-io-version>
 		<xmlunit-version>1.3</xmlunit-version>
-		<jodatime-version>1.6.2</jodatime-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
 		<h2-mock-database-version>[1.0.1,)</h2-mock-database-version>
-		<ojb-camel-common-version>1.0.0</ojb-camel-common-version>
-		<ojb-common-version>[2.0.1,)</ojb-common-version>
+		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
+		<ojb-common-version>[3.0.0,)</ojb-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
-		<static-mock-adapter-version>[1.0.15,)</static-mock-adapter-version>
-
+		<static-mock-adapter-version>[1.0.16,)</static-mock-adapter-version>
+		<java-version>1.8</java-version>
 	</properties>
 
 	<dependencies>
@@ -106,12 +102,6 @@
 
 		<!-- ws-security -->
 		<dependency>
-			<groupId>bouncycastle</groupId>
-			<artifactId>bcprov-jdk16</artifactId>
-			<version>${bouncycastle-version}</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-ws-security</artifactId>
 			<version>${cxf-version}</version>
@@ -123,17 +113,12 @@
 			<version>${commons-lang-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>${jodatime-version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>${apache-commons-io-version}</version>
 		</dependency>
-		<!-- OJB Shared Bundles -->
 
+		<!-- OJB Shared Bundles -->
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-camel-common</artifactId>
@@ -160,21 +145,21 @@
 
 		<!-- for testing -->
 		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-test-spring</artifactId>
-			<version>${camel-version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-test</artifactId>
-			<version>${camel-version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-core</artifactId>
+		  <version>${spring-version}</version>
+		  <optional>true</optional>
+		</dependency>	
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-test-spring3</artifactId>
+			<version>${camel-version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -229,8 +214,7 @@
 			<resource>
 				<directory>${basedir}/src/main/resources</directory>
 				<includes>
-					<include>META-INF/spring/**</include>
-					<include>*.*</include>
+					<include>**/*</include>
 				</includes>
 			</resource>
 			<resource>
@@ -247,18 +231,9 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
 				</configuration>
-			</plugin>
-
-			<plugin>
-			  <groupId>org.apache.maven.plugins</groupId>
-			  <artifactId>maven-surefire-plugin</artifactId>
-			  <version>${maven-surefire-plugin-version}</version>
-			  <configuration>
-			      <argLine>-Xmx1800m</argLine>
-			  </configuration>
 			</plugin>
 
 			<plugin>
@@ -278,25 +253,14 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+						<DynamicImport-Package>*</DynamicImport-Package>
 						<Import-Package>
 							org.h2.jdbcx,
-							META-INF.cxf,
-							META-INF.cxf.osgi,
 							org.springframework.beans.factory.config,
 							javax.xml.namespace,
 							org.ojbc.bundles.adapters.staticmock.*,
 							*
-			</Import-Package>
-						<Export-Package>
-						</Export-Package>
-						<Require-Bundle>
-							org.apache.cxf.bundle,
-							org.ojbc.bundles.shared.ojb-common,
-							org.ojbc.bundles.shared.ojb-camel-common,
-							org.ojbc.bundles.shared.ojb-resources-common,
-							org.ojbc.bundles.adapters.static-mock-adapter-osgi
-	        </Require-Bundle>
-						<Bundle-Activator>org.apache.camel.impl.osgi.Activator</Bundle-Activator>
+							</Import-Package>
 						<Bundle-Name>${pom.name}</Bundle-Name>
 					</instructions>
 				</configuration>

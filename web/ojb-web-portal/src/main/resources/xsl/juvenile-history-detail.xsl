@@ -83,6 +83,7 @@
 				<xsl:value-of select="upper-case(substring-before(substring-after(/child::node()/cext:JuvenileHistoryCategoryCode, 'Juvenile'), 'History'))"></xsl:value-of>
 			</xsl:variable>
 			<xsl:variable name="id"><xsl:value-of select="child::node()/cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationID"/></xsl:variable>
+			<xsl:variable name="identificationSourceText"><xsl:value-of select="child::node()/cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationSourceText"/></xsl:variable>
 			<xsl:for-each select="tokenize($queryTypes, '\|')">
 				<xsl:variable name="queryType"><xsl:value-of select="replace(., ' ','')"/></xsl:variable>
 				<xsl:variable name="isActiveTab" select="upper-case($responseType) eq $queryType"/>
@@ -98,7 +99,7 @@
 							<xsl:choose>
 								<xsl:when test="$isActiveTab">#</xsl:when>
 								<xsl:otherwise>
-									<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id , '&amp;systemName=Juvenile History' , '&amp;identificationSourceText={http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory','&amp;queryType=',$queryType)"/>
+									<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id , '&amp;systemName=Juvenile History' , '&amp;identificationSourceText=',$identificationSourceText,'&amp;queryType=',$queryType)"/>
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:attribute>
@@ -224,7 +225,7 @@
 			<xsl:attribute name="id">
 				<xsl:value-of select="$id"/>
 			</xsl:attribute>
-			PLACEMENT <xsl:value-of select="$id"/>
+			<xsl:value-of select="placement-codes:PlacementCategoryCode"></xsl:value-of><xsl:text> </xsl:text><xsl:apply-templates select="nc:ActivityDateRange/nc:StartDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 		</xsl:element>
 		<div>
 			<table class="detailsTable">
@@ -355,7 +356,8 @@
 			<xsl:attribute name="id">
 				<xsl:value-of select="$id"/>
 			</xsl:attribute>
-			OFFENSE <xsl:value-of select="$id"/>
+			<xsl:value-of select="j:Offense/j:OffenseName |j:Offesne/j:OffenseDesignation"/><xsl:text> </xsl:text><xsl:call-template name="formatDate"><xsl:with-param name="date" select="j:Charge/j:ChargeFilingDate/nc:Date"></xsl:with-param></xsl:call-template>
+			
 		</xsl:element>
 		<div>
 			<table class="detailsTable">
@@ -415,6 +417,9 @@
 				<xsl:variable name="id">
 					<xsl:value-of select="preceding::cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationID"/>
 				</xsl:variable>
+				<xsl:variable name="identificationSourceText">
+					<xsl:value-of select="preceding::cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationSourceText"/>
+				</xsl:variable>
 				<xsl:variable name="queryType">
 					<xsl:value-of select="normalize-space(substring-before(substring-after(cext:JuvenileHistoryCategoryCode, 'Juvenile'),'History'))"></xsl:value-of>
 				</xsl:variable>
@@ -426,7 +431,7 @@
 					<xsl:if test="position() != 1"><br/></xsl:if>
 					<xsl:element name="a">
 						<xsl:attribute name="href">
-							<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id,'&amp;systemName=Juvenile History' , '&amp;identificationSourceText={http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory','&amp;queryType=',$queryType,'&amp;activeAccordionId=',$relatedRecordId)"/>
+							<xsl:value-of select="concat('../people/searchDetails?identificationID=',$id,'&amp;systemName=Juvenile History' , '&amp;identificationSourceText=', $identificationSourceText, '&amp;queryType=',$queryType,'&amp;activeAccordionId=',$relatedRecordId)"/>
 						</xsl:attribute>
 						<xsl:value-of select="$queryType"/><xsl:text> ID: </xsl:text><xsl:value-of select="$relatedRecordId"></xsl:value-of>
 					</xsl:element>
@@ -556,21 +561,19 @@
 				</td>
 				<td class="detailsLabel">CITY</td>
 				<td><xsl:value-of select="nc:Location[@s:id = $childLocationId]/nc:Address/nc:LocationCityName" /></td>
-				<td class="detailsLabel">SOURCE DEVISION</td>
+				<td class="detailsLabel">SOURCE DIVISION</td>
 				<td>
 					<xsl:value-of select="cext:JuvenileInformationAvailabilityMetadata/cext:JuvenileInformationOwnerOrganization/nc:OrganizationBranchName"></xsl:value-of>
 				</td>
 			</tr>
 			<tr>
-				<td class="detailsLabel">CHILD IDENTIFIER</td>
-				<td>
-					<xsl:value-of select="preceding-sibling::cext:JuvenileHistoryQueryCriteria/cext:JuvenileInformationRecordID/nc:IdentificationID"/>
-				</td>
+				<td class="detailsLabel">FILE NUMBER</td>
+				<td> </td>
 				<td class="detailsLabel">STATE</td>
 				<td><xsl:value-of select="nc:Location[@s:id = $childLocationId]/nc:Address/nc:LocationStateFIPS5-2AlphaCode
 					|nc:Location[@s:id = $childLocationId]/nc:Address/nc:LocationCanadianProvinceCode" /></td>
-				<td class="detailsLabel">RECORD NUMBER</td>
-				<td><xsl:value-of select="cext:JuvenileInformationAvailabilityMetadata/cext:JuvenileInformationRecordID/nc:IdentificationID" /></td>
+				<td class="detailsLabel"></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td class="detailsLabel">PARENT(S)</td>

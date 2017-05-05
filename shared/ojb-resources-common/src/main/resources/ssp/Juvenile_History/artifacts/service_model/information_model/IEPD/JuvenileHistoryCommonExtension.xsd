@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema 
+	xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" targetNamespace="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.0/" schemaLocation="./Subset/niem/domains/cyfs/3.0/cyfs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:annotation>
+		<xsd:appinfo>
+			<appinfo:ConformantIndicator>true</appinfo:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:simpleType name="JuvenileInformationAvailabilityCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>An enumeration specifying the whether information is available or not.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="FOUND">
+				<xsd:annotation>
+					<xsd:documentation>Value indicating the information was found.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NOT FOUND">
+				<xsd:annotation>
+					<xsd:documentation>Value indicating the information was not found.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="UNKNOWN">
+				<xsd:annotation>
+					<xsd:documentation>Value indicating the information availability could not be obtained because of a system problem.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="JuvenileHistoryCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>An enumeration specifying a juvenile history category.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="JuvenileCasePlanHistory">
+				<xsd:annotation>
+					<xsd:documentation>A juvenile history category value for a case plan history.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JuvenileHearingHistory">
+				<xsd:annotation>
+					<xsd:documentation>A juvenile history category value for a hearing history.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JuvenileIntakeHistory">
+				<xsd:annotation>
+					<xsd:documentation>A juvenile history category value for an intake history.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JuvenileOffenseHistory">
+				<xsd:annotation>
+					<xsd:documentation>A juvenile history category value for an offense history.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JuvenilePlacementHistory">
+				<xsd:annotation>
+					<xsd:documentation>A juvenile history category value for a placement history.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="JuvenileReferralHistory">
+				<xsd:annotation>
+					<xsd:documentation>A juvenile history category value for a referral history.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="JuvenileHistoryQueryCriteriaType">
+		<xsd:annotation>
+			<xsd:documentation>A type to specify query parameters to the Juvenile History service.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="jh-ext:JuvenileInformationRecordID"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="JuvenileHistoryType">
+		<xsd:annotation>
+			<xsd:documentation>A type for information about a juvenile and the organization providing the status.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="jh-ext:JuvenileInformationAvailabilityCode"/>
+					<xsd:element ref="jh-ext:JuvenileInformationAvailabilityMetadata" minOccurs="0"/>
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="cyfs:ParentChildAssociation" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="RelatedJuvenileHistoryRecordsType">
+		<xsd:annotation>
+			<xsd:documentation>A type to specify related juvenile history records.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="jh-ext:RelatedJuvenileHistoryRecord" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="RelatedJuvenileHistoryRecordType">
+		<xsd:annotation>
+			<xsd:documentation>A type to specify a juvenile history and the juvenile history system of record.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="jh-ext:JuvenileHistoryCategoryCode" minOccurs="0"/>
+					<xsd:choice>
+						<xsd:element ref="jh-ext:JuvenileInformationRecordID" minOccurs="0" maxOccurs="unbounded"/>
+						<xsd:element ref="jh-ext:RelatedJuvenileHistoryRecordNotSupportedIndicator" />
+					</xsd:choice>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="JuvenileInformationAvailabilityMetadataType">
+		<xsd:annotation>
+			<xsd:documentation>A type to describe additional information about juvenile information, such as owner of the data, location for detail information, etc..</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:MetadataType">
+				<xsd:sequence>
+					<xsd:element ref="jh-ext:JuvenileInformationOwnerOrganization" minOccurs="0"/>
+					<xsd:element ref="jh-ext:JuvenileInformationRecordID" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="cyfs:CourtCase" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="JuvenileInformationAvailabilityCode" type="jh-ext:JuvenileInformationAvailabilityCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>An element that specifies whether a piece of information is available or not.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JuvenileHistoryCategoryCode" type="jh-ext:JuvenileHistoryCategoryCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>An element that specifies the category of a juvenile history.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JuvenileInformationAvailabilityMetadata" type="jh-ext:JuvenileInformationAvailabilityMetadataType">
+		<xsd:annotation>
+			<xsd:documentation>An element that specifies additional information about a juvenile, such as owner of the data, location for detail information, etc.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JuvenileHistoryQueryCriteria" type="jh-ext:JuvenileHistoryQueryCriteriaType">
+		<xsd:annotation>
+			<xsd:documentation>An element that specifies query parameters to the Juvenile History service.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RelatedJuvenileHistoryRecords" type="jh-ext:RelatedJuvenileHistoryRecordsType">
+		<xsd:annotation>
+			<xsd:documentation>An element that specifies related juvenile history records.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RelatedJuvenileHistoryRecord" type="jh-ext:RelatedJuvenileHistoryRecordType">
+		<xsd:annotation>
+			<xsd:documentation>An element that specifies a related juvenile history record.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JuvenileInformationOwnerOrganization" type="nc:OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>An organization that has more information on a juvenile.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JuvenileInformationRecordID" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A record identifier for information on a juvenile.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RelatedJuvenileHistoryRecordNotSupportedIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a system does not support linking a specific kind of juvenile history record to another kind of juvenile history record.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

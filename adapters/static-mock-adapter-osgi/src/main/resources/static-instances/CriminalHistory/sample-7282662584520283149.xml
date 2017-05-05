@@ -37,7 +37,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P65">
+        <rap:RapSheetPerson s:id="P65">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>Kathy E</nc:PersonGivenName>
                 <nc:PersonSurName>Puckett</nc:PersonSurName>
@@ -72,7 +72,7 @@
                     <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P65"/>
             <nc:Biometric>

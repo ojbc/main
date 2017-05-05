@@ -92,7 +92,12 @@ public class EmailEnhancementStrategyTest {
         n.setSubscribingSystemIdentifier("subscribingSystemName");
         n.addToAddressee("foo@localhost");
         n.setSubscriptionCategoryCode("default");
-
+        
+        Map<String, String> subscriptionSubjectIdentifiers = new HashMap<String, String>();
+        subscriptionSubjectIdentifiers.put("subscriptionQualifier", "123");
+        
+        n.setSubscriptionSubjectIdentifiers(subscriptionSubjectIdentifiers);
+        
         EmailNotification d = new DefaultEmailEnhancementStrategy().enhanceEmail(n);
         assertEquals(n, d);
 

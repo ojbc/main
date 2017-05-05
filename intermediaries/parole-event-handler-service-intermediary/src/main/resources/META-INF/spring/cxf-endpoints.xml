@@ -55,7 +55,7 @@
 	<!-- OJB Notification Broker Service, invoked by intermediary -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
 		address="${publishSubscribe.notificationBrokerEndpoint}"
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSNotification.wsdl"
 		serviceName="ojb-nb:NotificationBrokerServiceService" endpointName="ojb-nb:NotificationBrokerService"
 		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
 	</cxf:cxfEndpoint>
@@ -63,7 +63,7 @@
 	<!-- OJB Subscription Manager Service, invoked by intermediary -->
 	<cxf:cxfEndpoint id="subscriptionManagerService"
 		address="${publishSubscribe.subscriptionManagerEndpoint}"
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSubscriptionManager.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSubscriptionManager.wsdl"
 		serviceName="ojb-sm:SubscriptionManagerServiceService" endpointName="ojb-sm:SubscriptionManager"
 		xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
 	</cxf:cxfEndpoint>
@@ -71,7 +71,7 @@
 	<!-- OJB Parole Event Handler Service, hosted by intermediary -->
 	<cxf:cxfEndpoint id="paroleEventHandlerService"
 		address="${publishSubscribe.paroleEventHandlerEndpoint}"
-		wsdlURL="classpath:service-specifications/Parole_Event_Handler_Service/schema/SIP_WS_1.2/Parole_Event_Handler_Service.wsdl"
+		wsdlURL="classpath:ssp/Parole_Event_Handler/schema/SIP_WS_1.2/Parole_Event_Handler_Service.wsdl"
 		serviceName="ojbcParole:Parole-Event-Handler-ServiceService"
 		endpointName="ojbcParole:Parole-Event-Handler-Service"
 		xmlns:ojbcParole="http://ojbc.org/Services/WSDL/Parole_Event_Handler_Service/1.0">

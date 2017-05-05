@@ -33,6 +33,7 @@
 		<property name="validationDueDateStrategy" ref="validationDueDateStrategy"/>
 		<property name="gracePeriodStrategy" ref="gracePeriodStrategy"/>
 		<property name="validationExemptionFilter" ref="validationExemptionFilter"/>
+		<property name="fbiSubscriptionMember" value="${publishSubscribe.fbiSubscriptionMember:false}"/>
     </bean>
 
 	<bean id="arrestSubscriptionProcessor"
@@ -40,6 +41,29 @@
 		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
+	</bean>
+
+	<bean id="rapbackSubscriptionProcessor"
+		class="org.ojbc.intermediaries.sn.topic.rapback.RapbackSubscriptionProcessor">
+		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
+	</bean>
+
+	<bean id="courtDispositionUpdateProcessor"
+		class="org.ojbc.intermediaries.sn.topic.courtdispositionupdate.CourtDispositionUpdateSubscriptionProcessor">
+		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
+		<property name="activeSubjectIdentifiers" ref="courtDispositionUpdateSubscriptionSubjectIdentifiers"/>
+	</bean>
+
+	<bean id="prosecutionDecisionUpdateProcessor"
+		class="org.ojbc.intermediaries.sn.topic.prosecutiondecisionupdate.ProsecutionDecisionUpdateSubscriptionProcessor">
+		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.arrest.allowedEmailAddressPatterns}"/>
+		<property name="activeSubjectIdentifiers" ref="prosecutionDecisionUpdateSubscriptionSubjectIdentifiers"/>
 	</bean>
 
 	<bean id="incidentSubscriptionProcessor"
@@ -54,6 +78,15 @@
 		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.chCycle.allowedEmailAddressPatterns}"/>
+	</bean>
+	
+	<bean id="rapbackNotificationProcessor"
+		class="org.ojbc.intermediaries.sn.topic.rapback.RapbackNotificationProcessor">
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
+		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
+		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
+		<property name="emailFormatter" ref="emailFormatter"/>
 	</bean>
 	
 	<bean id="arrestNotificationProcessor"
@@ -81,12 +114,30 @@
 		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
 		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
 		<property name="emailFormatter" ref="emailFormatter"/>
+	</bean>			
+	
+	<bean id="prosecutionDecisionUpdateNotificationProcessor"
+		class="org.ojbc.intermediaries.sn.topic.prosecutiondecisionupdate.ProsecutionDecisionUpdateNotificationProcessor">
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
+		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
+		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
+		<property name="emailFormatter" ref="emailFormatter"/>
+		<property name="activeSubjectIdentifiers" ref="activeProsecutionDecisionUpdateNotificationSubjectIdentifiers"/>
+		<property name="alternateConfiguredSubjectIdentifiers" ref="alternateConfiguredProsecutionDecisionUpdateNotificationSubjectIdentifiers"/>
 	</bean>	
 	
-	<bean id="sidConsolidationProcessor" class="org.ojbc.intermediaries.sn.subscription.SidConsolidationProcessor">
+	<bean id="courtDispositionUpdateNotificationProcessor"
+		class="org.ojbc.intermediaries.sn.topic.courtdispositionupdate.CourtDispositionUpdateNotificationProcessor">
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
+		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
+		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
+		<property name="emailFormatter" ref="emailFormatter"/>
+		<property name="activeSubjectIdentifiers" ref="courtDispositionUpdateNotificationSubjectIdentifiers"/>
+		<property name="alternateConfiguredSubjectIdentifiers" ref="alternateConfiguredCourtDispositionUpdateNotificationSubjectIdentifiers"/>
 	</bean>
-	
+		
 	<bean id="subscriptionSearchQueryProcessor" class="org.ojbc.intermediaries.sn.subscription.SubscriptionSearchQueryProcessor"/>
 
 	<bean id="faultMessageProcessor" class="org.ojbc.intermediaries.sn.subscription.FaultMessageProcessor"/>
@@ -102,6 +153,11 @@
 			</util:map>
 		</constructor-arg>
 	</bean>	
+	
+	<bean id="expiringSubscriptionsManager" class="org.ojbc.intermediaries.sn.notification.ExpiringSubscriptionsManager">
+		<property name="warningDaysBeforeExpiration" value="45"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+	</bean>		
 			
 	<bean id="rapbackDao" class="org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao">		
 		<property name="jdbcTemplate" ref="jdbcTemplate"/>

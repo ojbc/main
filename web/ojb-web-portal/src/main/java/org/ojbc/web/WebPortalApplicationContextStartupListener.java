@@ -55,104 +55,83 @@ public class WebPortalApplicationContextStartupListener implements
 			    {           
 					LOG.debug("Current profile: " + profile);
 				
-					if (profile.equals("person-search"))
-					{	
+					switch (profile) {
+					case "person-search":
 						camelContext.startRoute("personMergeSearchResultsHandlerRoute");
-						continue;
-					}
-
-					if (profile.equals("incident-search"))
-					{	
+						break;
+					case "incident-search":
 						camelContext.startRoute("incidentSearchResultsHandlerRoute");
-						continue;
-					}
-
-					if (profile.equals("vehicle-search"))
-					{	
+						break;
+					case "vehicle-search":
 						camelContext.startRoute("vehicleSearchResultsHandlerRoute");
-						continue;
-					}
-
-					if (profile.equals("firearms-search"))
-					{	
+						break;
+					case "firearms-search":
 						camelContext.startRoute("firearmSearchResultsHandlerRoute");
-						continue;
-					}
-
-					if (profile.equals("person-vehicle-to-incident-search"))
-					{	
+						break;
+					case "person-vehicle-to-incident-search":
 						camelContext.startRoute("personVehicleToIncidentSearchResultsHandlerRoute");
-						continue;
-					}
-
-					if (profile.equals("warrants-query"))
-					{	
+						break;
+					case "warrants-query":
 						camelContext.startRoute("personQueryResultsHandlerWarrantsServiceRoute");
-						continue;
-					}
-
-					if (profile.equals("criminal-history-query"))
-					{	
+						break;
+					case "criminal-history-query":
 						camelContext.startRoute("personQueryResultsHandlerCriminalHistoryServiceRoute");
-						continue;
-					}
-
-					if (profile.equals("incident-report-query"))
-					{	
+						break; 
+					case "incident-report-query":
 						camelContext.startRoute("incidentReportResultsHandlerServiceRoute");
-						continue;
-					}
-
-					if (profile.equals("firearms-query"))
-					{	
+						break;
+					case "firearms-query":
 						camelContext.startRoute("firearmRegistrationQueryResultsHandlerRoute");
-						continue;
-					}
-
-					if (profile.equals("subscriptions"))
-					{	
+						break;
+					case "subscriptions":
 						camelContext.startRoute("subscriptionSearchResultsHandlerRoute");
 						camelContext.startRoute("subscriptionQueryResultsHandlerRoute");
-						continue;
-					}
-
-					if (profile.equals("access-control"))
-					{	
+						break;
+					case "access-control":
 						camelContext.startRoute("identityBasedAccessControlResultsHandlerRoute");
-						continue;
-					}
-
-					if (profile.equals("policy-acknowledgement"))
-					{	
+						break;
+					case "policy-acknowledgement":
 						camelContext.startRoute("policyAcknowledgementRecordingResultsHandlerRoute");
-						continue;
-					}
-				
-                    if (profile.equals("juvenile-query"))
-                    {   
+						break;
+					case "juvenile-query":
                         camelContext.startRoute("juvenileOffenseHistoryResultsHandlerRoute");
                         camelContext.startRoute("juvenileCasePlanHistoryResultsHandlerRoute");
                         camelContext.startRoute("juvenilePlacementHistoryResultsHandlerRoute");
                         camelContext.startRoute("juvenileReferralHistoryResultsHandlerRoute");
                         camelContext.startRoute("juvenileIntakeHistoryResultsHandlerRoute");
                         camelContext.startRoute("juvenileHearingHistoryResultsHandlerRoute");
-                        continue;
-                    }
-                    if (profile.equals("rapback-search"))
-                    {   
-                    	camelContext.startRoute("rapbackSearchResultsHandlerRoute");
-                    	continue;
-                    }
-                    if (profile.equals("initial-results-query"))
-                    {   
-                    	camelContext.startRoute("identificationResultsQueryResultsHandlerRoute");
-                    	continue;
-                    }
-                    if (profile.equals("identification-results-modification"))
-                    {   
-                    	camelContext.startRoute("identificationResultsModificationResultsHandlerRoute");
-                    	continue;
-                    }
+                        break;
+					case "rapback-search":
+						camelContext.startRoute("rapbackSearchResultsHandlerRoute");
+						break;
+					case "initial-results-query":
+						camelContext.startRoute("identificationResultsQueryResultsHandlerRoute");
+						break;
+					case "identification-results-modification":
+						camelContext.startRoute("identificationResultsModificationResultsHandlerRoute");
+						break;
+					case "person-to-court-case-search":
+						camelContext.startRoute("personToCourtCaseSearchResultsHandlerRoute");
+						break;
+					case "court-case-query":
+						camelContext.startRoute("courtCaseQueryResultsHandlerRoute");
+						break;
+					case "person-to-custody-search":
+						camelContext.startRoute("personToCustodySearchResultsHandlerRoute");
+						break;
+					case "custody-query":
+						camelContext.startRoute("custodyQueryResultsHandlerRoute");
+						break;
+					case "vehicle-crash-query":
+						camelContext.startRoute("vehicleCrashQueryResultsHandlerRoute");
+						break;
+					case "firearms-purchase-prohibition-query":
+						camelContext.startRoute("firearmsPurchaseProhibitionQueryResultsHandlerRoute");
+						break;
+					default:
+						break;
+					}
+
 			    }
 				
 			} catch (Exception e) {

@@ -17,66 +17,207 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
 
-  <!-- Note Not setting parent to ojb main root pom, to avoic cyclic issue -->
+	<!-- Note Not setting parent to ojb main root pom, to avoid cyclic issue -->
 
-  <groupId>org.ojbc.build</groupId>
-  <artifactId>ojb-build-common</artifactId>
-  <version>1.0.0</version>
+	<groupId>org.ojbc.build</groupId>
+	<artifactId>ojb-build-common</artifactId>
+	<version>1.0.0</version>
 
-  <name>ojb-build-common</name>
+	<name>${project.groupId}:${project.artifactId}</name>
+	<description>A component of the OJBC</description>
+	<url>http://www.ojbc.org/</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+	<licenses>
+		<license>
+			<name>RPL-1.5 - OJBC</name>
+			<url>http://opensource.org/licenses/RPL-1.5</url>
+		</license>
+	</licenses>
 
-  <build>
+	<developers>
+		<developer>
+			<name>OJBC Developers</name>
+			<email>info@ojbc.org</email>
+			<organization>OJBC</organization>
+			<organizationUrl>http://www.ojbc.org/</organizationUrl>
+		</developer>
+	</developers>
 
-    <!-- Hack: Duplicate declaration of plugin - instead of inheriting from
-        root pom, to prevent cyclic dependency -->
-    <plugins>
-      <plugin>
-        <groupId>com.mycila</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <version>2.9</version>
+	<scm>
+	  <connection>https://github.com/ojbc/main</connection>
+	  <developerConnection>https://github.com/ojbc/main.git</developerConnection>
+	  <url>https://github.com/ojbc/main</url>
+	</scm>
 
-        <configuration>
-          <!-- Reference license on plugin classpath -->
-          <header>src/main/resources/ojb-license.txt</header>
-          <includes>
-            <include>**/*.java</include>
-            <include>**/*.xml</include>
-            <include>**/*.xslt</include>
-            <include>**/*.xsd</include>
-            <include>**/*.wsdl</include>
-            <include>**/*.xsl</include>
-            <include>**/*.xslt</include>
-            <include>**/*.vm</include>
-            <include>**/*.html</include>
-            <include>**/*.js</include>
-            <include>**/*.sql</include>
-          </includes>
-          <mapping>
-            <java>SLASHSTAR_STYLE</java>
-            <wsdl>XML_STYLE</wsdl>
-            <xslt>XML_STYLE</xslt>
-            <sql>SLASHSTAR_STYLE</sql>
-          </mapping>
-        </configuration>
-        <executions>
-            <!-- bind check goal to run on its default phase(validate) -->
-            <execution>
-                <goals>
-                    <goal>check</goal>
-                </goals>
-            </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
+
+	<build>
+
+		<!-- Hack: Duplicate declaration of plugin - instead of inheriting from
+			root pom, to prevent cyclic dependency -->
+		<plugins>
+
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.3</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+
+
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>2.9</version>
+
+				<configuration>
+					<!-- Reference license on plugin classpath -->
+					<header>src/main/resources/ojb-license.txt</header>
+					<includes>
+						<include>**/*.java</include>
+						<include>**/*.xml</include>
+						<include>**/*.xslt</include>
+						<include>**/*.xsd</include>
+						<include>**/*.wsdl</include>
+						<include>**/*.xsl</include>
+						<include>**/*.xslt</include>
+						<include>**/*.vm</include>
+						<include>**/*.html</include>
+						<include>**/*.js</include>
+						<include>**/*.sql</include>
+					</includes>
+					<mapping>
+						<java>SLASHSTAR_STYLE</java>
+						<wsdl>XML_STYLE</wsdl>
+						<xslt>XML_STYLE</xslt>
+						<sql>SLASHSTAR_STYLE</sql>
+					</mapping>
+				</configuration>
+				<executions>
+					<!-- bind check goal to run on its default phase(validate) -->
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+
+		<profile>
+			<id>release</id>
+
+			<build>
+				<plugins>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.3</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.9.1</version>
+						<configuration>
+							<failOnError>false</failOnError>
+							<quiet>true</quiet>
+						</configuration>
+						<executions>
+							<execution>
+								<id>attach-javadoc</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+
+						<dependencies>
+							<!-- Reference jar with javadoc dir TODO: get working so readme included -->
+							<dependency>
+								<groupId>org.ojbc.build</groupId>
+								<artifactId>ojb-build-common</artifactId>
+								<version>1.0.0</version>
+							</dependency>
+						</dependencies>
+
+						<executions>
+							<execution>
+								<id>empty-javadoc-jar</id>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<configuration>
+									<classifier>javadoc</classifier>
+									<classesDirectory>javadoc</classesDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.5</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

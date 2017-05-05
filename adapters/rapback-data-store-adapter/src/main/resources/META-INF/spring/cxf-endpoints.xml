@@ -42,7 +42,7 @@
 	<!-- Identification Recording Adapter - hosted by the rapback data store adapter, called by the intermediary -->
 	<cxf:cxfEndpoint id="identificationRecordingAdapter"
 		address="${rapbackDatastoreAdapter.IdentificationRecordingEndpoint}"
-		wsdlURL="classpath:service-specifications/Identification_Recording_Service/schemas/SIP_WS_1.3/Identification_Recording_Service.wsdl"
+		wsdlURL="classpath:ssp/Identification_Recording/schemas/SIP_WS_1.3/Identification_Recording_Service.wsdl"
 		serviceName="ojbc:Identification-Recording-ServiceService" endpointName="ojbc:Identification-Recording-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationRecordingService/1.0">
 		<cxf:properties>
@@ -57,7 +57,7 @@
 	<!-- Identification Response Handler - hosted by the intermediary, called by the rapback data store adapter -->
 	<cxf:cxfEndpoint id="identificationReportingResponseService"
 		address="${rapbackDatastoreAdapter.identificationReportingResponseServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Identification_Reporting_Response_Service/schemas/SIP_WS_1.3/Identification_Reporting_Response_Service.wsdl"
+		wsdlURL="classpath:ssp/Identification_Reporting_Response/schemas/SIP_WS_1.3/Identification_Reporting_Response_Service.wsdl"
 		serviceName="ojbc:Identification-Reporting-Response-ServiceService"
 		endpointName="ojbc:Identification-Reporting-Response-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationReportingResponseService/1.0">
@@ -78,7 +78,7 @@
     <cxf:cxfEndpoint 
         id="rapbackSearchRequestService"
         address="${rapbackDatastoreAdapter.rapbackSearchRequestEndpoint}"
-		wsdlURL="classpath:service-specifications/Organization_Identification_Results_Search_Request_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Organization_Identification_Results_Search_Request/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Request_Service.wsdl"
 		serviceName="ojbc:Organization_Identification_Results_Search_Request_Service_Service" 
 		endpointName="ojbc:Organization_Identification_Results_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchRequestService/1.0">
@@ -87,6 +87,7 @@
 			<entry key="ws-security.signature.properties" value-ref="rapbackDatastoreAdapterKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${rapbackDatastoreAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
     </cxf:cxfEndpoint>
     
@@ -97,7 +98,7 @@
     <cxf:cxfEndpoint 
         id="rapbackSearchResponseService"
 		address="${rapbackDatastoreAdapter.rapbackSearchResponseEndpoint}"
-        wsdlURL="classpath:service-specifications/Organization_Identification_Results_Search_Results_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Results_Service.wsdl"
+        wsdlURL="classpath:ssp/Organization_Identification_Results_Search_Results/schema/SIP_WS_1.2/Organization_Identification_Results_Search_Results_Service.wsdl"
         serviceName="ojbc:OrganizationIdentificationResults_Search_Results_Service_Service"
         endpointName="ojbc:OrganizationIdentificationResults_Search_Results_Secure_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsSearchResultsService/1.0"
@@ -119,7 +120,7 @@
     <cxf:cxfEndpoint 
         id="identificationResultsQueryRequestService"
         address="${rapbackDatastoreAdapter.identificationResultsRequestEndpoint}"
-		wsdlURL="classpath:service-specifications/Organization_Identification_Results_Query_Request_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Query_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Organization_Identification_Results_Query_Request/schema/SIP_WS_1.2/Organization_Identification_Results_Query_Request_Service.wsdl"
 		serviceName="ojbc:Organization_Identification_Results_Query_Request_Service_Service" 
 		endpointName="ojbc:Organization_Identification_Results_Query_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryRequestService/1.0">
@@ -128,6 +129,7 @@
 			<entry key="ws-security.signature.properties" value-ref="rapbackDatastoreAdapterKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${rapbackDatastoreAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
     </cxf:cxfEndpoint>
     
@@ -138,7 +140,7 @@
     <cxf:cxfEndpoint 
         id="identificationResultsQueryResponseService"
 		address="${rapbackDatastoreAdapter.identificationResultsQueryResponseEndpoint}"
-        wsdlURL="classpath:service-specifications/Organization_Identification_Results_Query_Results_Service/schema/SIP_WS_1.2/Organization_Identification_Results_Query_Results_Service.wsdl"
+        wsdlURL="classpath:ssp/Organization_Identification_Results_Query_Results/schema/SIP_WS_1.2/Organization_Identification_Results_Query_Results_Service.wsdl"
         serviceName="ojbc:Organization_Identification_Results_Query_Results_Service_Service"
         endpointName="ojbc:Organization_Identification_Results_Query_Results_Secure_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/OrganizationIdentificationResultsQueryResultsService/1.0">
@@ -160,38 +162,38 @@
 	<!-- Subscription Reporting Adapter - hosted by the rapback data store adapter, called by the intermediary -->
 	<cxf:cxfEndpoint id="subscriptionReportingAdapter"
 		address="${rapbackDatastoreAdapter.subscriptionReportingEndpoint}"
-		wsdlURL="classpath:service-specifications/Subscription_Reporting_Service/schemas/SIP_WS_1.3/Subscription_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Reporting/schemas/SIP_WS_1.3/Subscription_Reporting_Service.wsdl"
 		serviceName="ojbc:Subscription-Reporting-ServiceService" endpointName="ojbc:Subscription-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0">
 		<cxf:properties>
+        	<entry key="mtom-enabled" value="true"/>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="rapbackDatastoreAdapterKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${rapbackDatastoreAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties> 
 	</cxf:cxfEndpoint>
-	
-	<!-- OJB Criminal History Consolidation Reporting Secure Service -->
-    <cxf:cxfEndpoint 
-        id="criminalHistoryConsolidationReportingService"
-        address="${rapbackDatastoreAdapter.criminalHistoryConsolidationReportingSecureEndpoint}" 
-		wsdlURL="classpath:service-specifications/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
-		serviceName="ojbc:Criminal-History-Consolidation-Reporting-ServiceService" 
-		endpointName="ojbc:Criminal-History-Consolidation-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">
-		<cxf:properties>
+    
+	<!-- hosted by this intermediary, invoked by connector -->
+	<cxf:cxfEndpoint id="criminalHistoryUpdateReportingService"
+		address="${rapbackDatastoreAdapter.criminalHistoryUpdateReportingSecureEndpoint}"
+		wsdlURL="classpath:ssp/Criminal_History_Update_Reporting/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
+		serviceName="ojbc:Criminal-History-Update-Reporting-ServiceService" 
+		endpointName="ojbc:Criminal-History-Update-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0">
+ 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="rapbackDatastoreAdapterKeystoreProperties" /> 
+			<entry key="ws-security.signature.properties" value-ref="rapbackDatastoreAdapterKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${rapbackDatastoreAdapter.keystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-		</cxf:properties>
-    </cxf:cxfEndpoint>
+		</cxf:properties> 
+	</cxf:cxfEndpoint>	    
     
      <!-- Identification Results Modification Request Service, hosted by broker, called by requesting application (usually a portal) address is static-->
 	<cxf:cxfEndpoint 
 	        id="identificationResultsModificationRequestService"
 	        address="${rapbackDatastoreAdapter.identificationResultsModificationRequestServiceEndpoint}"
-	        wsdlURL="classpath:service-specifications/Identification_Results_Modification_Request_Service/schema/SIP_WS_1.2/Identification_Results_Modification_Request_Service.wsdl"
+	        wsdlURL="classpath:ssp/Identification_Results_Modification_Request/schema/SIP_WS_1.2/Identification_Results_Modification_Request_Service.wsdl"
 	        serviceName="ojbc:Identification_Results_Modification_Request_Service_Service"
 			endpointName="ojbc:Identification_Results_Modification_Request_Secure_Service"
 	        xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0"
@@ -201,6 +203,7 @@
 			<entry key="ws-security.signature.properties" value-ref="rapbackDatastoreAdapterKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${rapbackDatastoreAdapter.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
     </cxf:cxfEndpoint>
     
@@ -208,7 +211,7 @@
     <cxf:cxfEndpoint 
         id="identificationResultsModificationResponseService"
         address="${rapbackDatastoreAdapter.identificationResultsModificationResponseServiceEndpoint}"
-        wsdlURL="classpath:service-specifications/Identification_Results_Modification_Response_Service/schema/SIP_WS_1.2/Identification_Results_Modification_Response_Service.wsdl"
+        wsdlURL="classpath:ssp/Identification_Results_Modification_Response/schema/SIP_WS_1.2/Identification_Results_Modification_Response_Service.wsdl"
         serviceName="ojbc:Identification_Results_Modification_Response_Service_Service"
 		endpointName="ojbc:Identification_Results_Modification_Response_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0"

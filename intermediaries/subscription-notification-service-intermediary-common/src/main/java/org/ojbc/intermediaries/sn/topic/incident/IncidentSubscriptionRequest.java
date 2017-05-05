@@ -17,13 +17,11 @@
 package org.ojbc.intermediaries.sn.topic.incident;
 
 import java.util.HashMap;
-import java.util.Set;
 
+import org.apache.camel.Message;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.util.xml.XmlUtils;
-
-import org.apache.camel.Message;
 
 public class IncidentSubscriptionRequest extends SubscriptionRequest {
 
@@ -36,14 +34,6 @@ public class IncidentSubscriptionRequest extends SubscriptionRequest {
 		String dateOfBirth = XmlUtils.xPathStringSearch(document,"//submsg-exch:SubscriptionMessage/submsg-ext:Subject/nc:PersonBirthDate/nc:Date");
 		
 	
-		buildSubjectIdMap(firstName, lastName, dateOfBirth);
-	}
-	
-	public IncidentSubscriptionRequest(String topic, String startDateString, String endDateString, Set<String> emailAddresses, String systemName, 
-			String subjectName, String firstName, String lastName, String dateOfBirth, String subscriptionQualifier, String subjectIdentifier) {
-		
-		super(topic, startDateString, endDateString, emailAddresses, systemName, subjectName, subscriptionQualifier);
-		
 		buildSubjectIdMap(firstName, lastName, dateOfBirth);
 	}
 

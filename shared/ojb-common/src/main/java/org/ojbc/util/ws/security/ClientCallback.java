@@ -16,12 +16,12 @@
  */
 package org.ojbc.util.ws.security;
 
-import org.apache.ws.security.WSPasswordCallback;
+import java.io.IOException;
 
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 
-import java.io.IOException;
+import org.apache.wss4j.common.ext.WSPasswordCallback;
 
 /**
  * Simple password callback handler. This just checks if the password for the private key

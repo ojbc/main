@@ -46,12 +46,15 @@ public class TestDefaultFederatedSearchTimeoutProcessor {
 		
 		List<String> endpointsThatDidNotRespond = new ArrayList<String>();
 		endpointsThatDidNotRespond.add("http://ojbc.org/system1");
+		endpointsThatDidNotRespond.add("http://ojbc.org/system2");
 		
 		Map<String, String> uriToErrorMessageMap = new HashMap<String, String>();
 		uriToErrorMessageMap.put("http://ojbc.org/system1", "System one did not repond");
+		uriToErrorMessageMap.put("http://ojbc.org/system2", "System two did not repond");
 		
 		Map<String, String> uriToErrorSystemNameMap= new HashMap<String, String>();
 		uriToErrorSystemNameMap.put("http://ojbc.org/system1", "Records Management System One");
+		uriToErrorSystemNameMap.put("http://ojbc.org/system2", "Records Management System Two");
 		
 		fstp.setUriToErrorMessageMap(uriToErrorMessageMap);
 		fstp.setUriToErrorSystemNameMap(uriToErrorSystemNameMap);
@@ -66,9 +69,12 @@ public class TestDefaultFederatedSearchTimeoutProcessor {
 	
 		assertNotNull(updatedResponseDocument);
 		
-		assertEquals("System one did not repond",XmlUtils.xPathStringSearch(updatedResponseDocument, "/OJBAggregateResponseWrapper/psres-doc:PersonSearchResults/srm:SearchResultsMetadata/srer:SearchRequestError/srer:ErrorText"));
-		assertEquals("Records Management System One",XmlUtils.xPathStringSearch(updatedResponseDocument, "/OJBAggregateResponseWrapper/psres-doc:PersonSearchResults/srm:SearchResultsMetadata/srer:SearchRequestError/intel:SystemName"));
-		
+		assertEquals("System one did not repond",XmlUtils.xPathStringSearch(updatedResponseDocument, "/OJBAggregateResponseWrapper/psres-doc:PersonSearchResults/srm:SearchResultsMetadata/srer:SearchRequestError[1]/srer:ErrorText"));
+		assertEquals("Records Management System One",XmlUtils.xPathStringSearch(updatedResponseDocument, "/OJBAggregateResponseWrapper/psres-doc:PersonSearchResults/srm:SearchResultsMetadata/srer:SearchRequestError[1]/intel:SystemName"));
+
+		assertEquals("System two did not repond",XmlUtils.xPathStringSearch(updatedResponseDocument, "/OJBAggregateResponseWrapper/psres-doc:PersonSearchResults/srm:SearchResultsMetadata/srer:SearchRequestError[2]/srer:ErrorText"));
+		assertEquals("Records Management System Two",XmlUtils.xPathStringSearch(updatedResponseDocument, "/OJBAggregateResponseWrapper/psres-doc:PersonSearchResults/srm:SearchResultsMetadata/srer:SearchRequestError[2]/intel:SystemName"));
+
 	}
 	
 	/**

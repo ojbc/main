@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wir-doc="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0"
+	xmlns:war-doc="http://ojbc.org/IEPD/Exchange/WarrantAcceptedReport/1.0"
+	xmlns:wrr-doc="http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0"
+	xmlns:wcr-doc="http://ojbc.org/IEPD/Exchange/WarrantCancelledReport/1.0"
+	xmlns:wmr-doc="http://ojbc.org/IEPD/Exchange/WarrantModificationReport/1.0"
+	xmlns:tns="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	targetNamespace="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0">
+	<wsdl:import
+		namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
+		location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/WarrantIssuedReport.xsd" />
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/WarrantAcceptedReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/WarrantAcceptedReport.xsd" />
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/WarrantRejectedReport.xsd" />
+			<xsd:import
+				namespace="http://ojbc.org/IEPD/Exchange/WarrantCancelledReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/WarrantCancelledReport.xsd" />
+			<xsd:import
+				namespace="http://ojbc.org/IEPD/Exchange/WarrantModificationReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/WarrantModificationReport.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="WarrantIssuedReport">
+		<wsdl:part name="WarrantIssuedReport" element="wir-doc:WarrantIssuedReport" />
+	</wsdl:message>
+	<wsdl:message name="WarrantAcceptedReport">
+		<wsdl:part name="WarrantAcceptedReport" element="war-doc:WarrantAcceptedReport" />
+	</wsdl:message>
+	<wsdl:message name="WarrantRejectedReport">
+		<wsdl:part name="WarrantRejectedReport" element="wrr-doc:WarrantRejectedReport" />
+	</wsdl:message>
+	<wsdl:message name="WarrantCancelledReport">
+		<wsdl:part name="WarrantCancelledReport" element="wcr-doc:WarrantCancelledReport" />
+	</wsdl:message>
+	<wsdl:message name="WarrantModificationReport">
+		<wsdl:part name="WarrantModificationReport" element="wmr-doc:WarrantModificationReport" />
+	</wsdl:message>
+	<wsdl:portType name="Warrant-Issued-Reporting-Service">
+		<wsdl:operation name="ReportWarrantIssued">
+			<wsdl:input name="WarrantIssuedReport" message="tns:WarrantIssuedReport" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantAccepted">
+			<wsdl:input name="WarrantAcceptedReport" message="tns:WarrantAcceptedReport" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantRejected">
+			<wsdl:input name="WarrantRejectedReport" message="tns:WarrantRejectedReport" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantCancelled">
+			<wsdl:input name="WarrantCancelledReport" message="tns:WarrantCancelledReport" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantModification">
+			<wsdl:input name="WarrantModificationReport" message="tns:WarrantModificationReport" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<!-- Secure, GFIPM-conforming binding -->
+	<wsdl:binding name="Warrant-Issued-Reporting-Secure-ServiceSOAPBinding"
+		type="tns:Warrant-Issued-Reporting-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
+		<wsdl:operation name="ReportWarrantIssued">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantIssued"
+				style="document" />
+			<wsdl:input name="WarrantIssuedReport">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantAccepted">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantAccepted"
+				style="document" />
+			<wsdl:input name="WarrantAcceptedReport">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantRejected">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantRejected"
+				style="document" />
+			<wsdl:input name="WarrantRejectedReport">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantCancelled">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantCancelled"
+				style="document" />
+			<wsdl:input name="WarrantCancelledReport">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantModification">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantModification"
+				style="document" />
+			<wsdl:input name="WarrantModificationReport">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="Warrant-Issued-Reporting-ServiceSOAPBinding"
+		type="tns:Warrant-Issued-Reporting-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsaw:UsingAddressing wsdl:required="true" />
+		<wsdl:operation name="ReportWarrantIssued">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantIssued"
+				style="document" />
+			<wsdl:input name="WarrantIssuedReport">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantAccepted">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantAccepted"
+				style="document" />
+			<wsdl:input name="WarrantAcceptedReport">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantRejected">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantRejected"
+				style="document" />
+			<wsdl:input name="WarrantRejectedReport">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantCancelled">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantCancelled"
+				style="document" />
+			<wsdl:input name="WarrantCancelledReport">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportWarrantModification">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0/ReportWarrantModification"
+				style="document" />
+			<wsdl:input name="WarrantModificationReport">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Warrant-Issued-Reporting-ServiceService">
+		<wsdl:port name="Warrant-Issued-Reporting-Service"
+			binding="tns:Warrant-Issued-Reporting-ServiceSOAPBinding">
+			<soap:address location="localhost" />
+		</wsdl:port>
+		<wsdl:port name="Warrant-Issued-Reporting-Secure-Service"
+			binding="tns:Warrant-Issued-Reporting-Secure-ServiceSOAPBinding">
+			<soap:address location="http://localhost/secure" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

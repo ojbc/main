@@ -17,12 +17,13 @@
 package org.ojbc.web.impl;
 
 import java.util.Arrays;
-import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.IdentificationResultsQueryInterface;
-import org.ojbc.web.model.IdentificationResultsQueryResponse;
+import org.ojbc.web.model.identificationresult.search.IdentificationResultsQueryResponse;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ import org.w3c.dom.Element;
 public class IdentificationResultsQueryMockImpl implements IdentificationResultsQueryInterface{
 		
 	@SuppressWarnings("unused")
-	private Logger logger = Logger.getLogger(IdentificationResultsQueryMockImpl.class.getName());
+	private final Log logger = LogFactory.getLog(this.getClass());
 	
 	@Resource
 	SearchResultConverter searchResultConverter;		

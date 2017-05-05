@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:wir-doc="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0"
+	xmlns:wmr-doc="http://ojbc.org/IEPD/Exchange/WarrantModificationReport/1.0"
+	xmlns:wrr-doc="http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0"
+	xmlns:war-doc="http://ojbc.org/IEPD/Exchange/WarrantAcceptedReport/1.0"
+	xmlns:wcr-doc="http://ojbc.org/IEPD/Exchange/WarrantCancelledReport/1.0"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       ">
+	<!-- needed cxf imports -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />	
+	
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="warrant-issue-reporting-service-connector">
+	
+		<endpoint id="inputDir"
+			uri="file:///${warrantIssueReporting.ConnectorFileDirectory}/input?idempotent=true&amp;moveFailed=${warrantIssueReporting.ConnectorFileDirectory}/error&amp;move=processed/&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500" />
+
+		<endpoint id="deadLetterDir"
+			uri="file:///${warrantIssueReporting.ConnectorFileDirectory}/deadLetter" />
+			
+		<!-- Warrant Issue Reporting Service Handler -->
+		<camel:route id="WarrantIssueReportingServiceHandlerRoute">
+		
+			<camel:from uri="inputDir" />
+			<camel:log
+				message="Received file for Warrant Issue Report Processing: ${file:name}" />
+			
+			<camel:convertBodyTo type="java.lang.String" charset="UTF-8"/>
+			
+			<camel:to uri="direct:derivedRoutes"/>	
+
+			<camel:log message="This is the ${body}" loggingLevel="DEBUG"/>
+
+			<camel:filter>
+				<camel:xpath>/wir-doc:WarrantIssuedReport</camel:xpath>
+				<camel:setHeader headerName="operationName">
+					<constant>ReportWarrantIssued</constant>
+				</camel:setHeader>
+			</camel:filter>
+			
+			<camel:filter>
+				<camel:xpath>/war-doc:WarrantAcceptedReport</camel:xpath>
+				<camel:setHeader headerName="operationName">
+					<constant>ReportWarrantAccepted</constant>
+				</camel:setHeader>
+			</camel:filter>	
+
+			<camel:filter>
+				<camel:xpath>/wrr-doc:WarrantRejectedReport</camel:xpath>
+				<camel:setHeader headerName="operationName">
+					<constant>ReportWarrantRejected</constant>
+				</camel:setHeader>
+			</camel:filter>
+			
+			<camel:filter>
+				<camel:xpath>/wmr-doc:WarrantModificationReport</camel:xpath>
+				<camel:setHeader headerName="operationName">
+					<constant>ReportWarrantModification</constant>
+				</camel:setHeader>
+			</camel:filter>	
+
+			<camel:filter>
+				<camel:xpath>/wcr-doc:WarrantCancelledReport</camel:xpath>
+				<camel:setHeader headerName="operationName">
+					<constant>ReportWarrantCancelled</constant>
+				</camel:setHeader>
+			</camel:filter>	
+	                        		
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
+			</camel:setHeader>
+			
+			<log message="This is the operation name: ${in.headers.operationName}"/>
+			
+			<camel:throttle timePeriodMillis="1000">
+				<constant>1</constant>
+				<camel:to uri="warrantIssueReportingServiceEndpoint" />
+			</camel:throttle>
+			
+			<camel:log message="Called intermediary" />
+
+		</camel:route>
+		
+		
+		<camel:route id="WarrantIssueReportingConnector_DerivedRoutes">
+
+			<camel:from uri="direct:derivedRoutes"/>
+		
+			<!-- Set up member specific endpoints -->
+			<camel:setHeader headerName="routingSlipDerivedRoutes">
+				<simple>{{warrantIssueReporting.camelEndpointsToCall}}</simple>
+			</camel:setHeader>
+
+			<camel:log message="routingSlipDerivedRoutes: ${in.headers.routingSlipDerivedRoutes}" loggingLevel="DEBUG"/>
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
+				
+				<camel:recipientList>
+					<camel:header>routingSlipDerivedRoutes</camel:header>
+				</camel:recipientList>
+			</camel:filter>			
+		
+		</camel:route>		
+		
+
+	</camel:camelContext>
+	
+</beans>

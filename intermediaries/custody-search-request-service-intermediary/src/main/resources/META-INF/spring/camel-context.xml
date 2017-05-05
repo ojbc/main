@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:ext="http://ojbc.org/IEPD/Extensions/CustodySearchRequestExtension/1.0"
+	xmlns:extResults="http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0"
+	xmlns:cs-res-doc="http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0"
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
+
+	<!-- needed cxf imports -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="custody_search_request_service_intermediary">
+
+		<!-- Search Request and Response Federated Endpoints -->
+		<endpoint id="custodySearchRequestServiceEndpoint"
+			uri="cxf:bean:custodySearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.custodySearchIntermediaryCxflogging}" />
+
+		<camel:endpoint id="custodySearchRequestServiceAdapterEndpoint"
+			uri="cxf:bean:custodySearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.custodySearchIntermediaryCxflogging}" />
+
+		<endpoint id="custodySearchResultServiceEndpoint"
+			uri="cxf:bean:custodySearchResultsService?dataFormat=PAYLOAD&amp;allowStreaming=false&amp;loggingFeatureEnabled=${federatedQuery.custodySearchIntermediaryCxflogging}" />
+
+		<endpoint id="presentCustodySearchResultsServiceEndpoint" 
+			uri="cxf:bean:presentCustodySearchResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.custodySearchIntermediaryCxflogging}"/>                        
+
+		<camel:route>
+			<camel:from uri="custodySearchRequestServiceEndpoint" />
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:federatedQuery.custodySearch.dbAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>
+
+			<camel:choice>
+				<camel:when>
+					<camel:method bean="accessControlProcessor" method="authorize" />
+					<camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}"/>
+				</camel:when>
+				<camel:otherwise>
+					<camel:log message="access control returned false, access message: ${in.headers.accessControlResponseMessage}"/>
+				</camel:otherwise>
+			</camel:choice>
+
+			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
+			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
+
+			<!-- Perform Xpath query to get list of systems to call and set as Camel Header -->
+			<!-- Change this XPath to match what you need -->
+			<camel:setHeader headerName="federatedQueryEndpointsNodeList">
+				<camel:xpath>//ext:SourceSystemNameText</camel:xpath>
+			</camel:setHeader>
+			<camel:log message="endpoints: ${header.federatedQueryEndpointsNodeList}" />
+			
+			<!-- Since all endpoints share the same operation and namespace, it is here -->
+			<camel:setHeader headerName="operationName"><constant>SubmitCustodySearchRequest</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0</constant></camel:setHeader>
+									
+			<!-- Call method to populate federated query map -->
+			<camel:to uri="bean:federatedQueryMessageProcessor?method=processSystemName" />
+
+			<!-- Add the reply to address to the map using the federated query guid as the key -->
+			<camel:to uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
+
+			<!-- Set search request as message body header.  We will split on the source system name and will need the original request -->
+			<camel:setHeader headerName="requestMessageBody">
+				<camel:simple resultType="org.w3c.dom.Document">${body}</camel:simple>
+			</camel:setHeader>
+
+			<!-- This wiretap will start the message timer. -->
+			<camel:wireTap uri="direct:startFederatedQueryTimer"/>
+
+			<camel:log message="\n\n\n Timer started \n\n\n"/>
+
+			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
+				<camel:xpath>//ext:SourceSystemNameText</camel:xpath>
+				<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}"/>	
+				
+				<camel:recipientList>
+					<camel:header>webServiceEndpointToCall</camel:header>
+				</camel:recipientList>
+				
+			</camel:split>
+
+		</camel:route>
+
+
+		<camel:route>
+			<from uri="direct:startFederatedQueryTimer"/>
+			<setBody>
+				<constant>START_QUERY_TIMER</constant>
+			</setBody>
+			<camel:to uri="direct:aggregateFederatedQuery" />		
+		</camel:route>
+
+
+		<camel:route>
+			<from uri="direct:aggregateFederatedQuery" />
+			
+			<log message="\n\n\n In aggregator with correlation id: ${in.header.federatedQueryRequestGUID}"/>
+			
+			<aggregate groupExchanges="true" eagerCheckCompletion="true">
+			
+				<correlationExpression>
+					<camel:header>federatedQueryRequestGUID</camel:header>
+				</correlationExpression>
+				
+				<completionTimeout>
+					<camel:simple>${properties:federatedQuery.custodySearchIntermediaryFederatedQueryTimeout}</camel:simple>
+				</completionTimeout>
+				
+				<completionSize>
+					<header>federatedQueryNumberOfEndpointsRequested</header>
+				</completionSize>
+				
+				<log message="\n\n\n completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}. Timeout for aggregations set at: {{federatedQuery.custodySearchIntermediaryFederatedQueryTimeout}}"></log>
+				
+				<to uri="bean:federatedQueryResponseAggregator?method=aggregateGroupMessagesString" />
+
+				<log message="\n\n\n Completed aggregated body: ${body}" loggingLevel="DEBUG"/>
+				
+				<to uri="bean:defaultFederatedSearchTimeoutProcessor?method=createErrorMessagesForEndpointsThatTimedOut"/>
+				
+				<camel:to uri="direct:processFederatedResponse"/>
+
+			</aggregate>
+		</camel:route>
+
+		<!-- Place all response web services routes here.  There can be multiple services here. -->
+		<!-- Search Results Handler Route -->
+		<camel:route>
+		
+			<camel:from uri="custodySearchResultServiceEndpoint" />
+				
+			<camel:log message="Entering Search Results Handler"/>
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:federatedQuery.custodySearch.dbAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>
+
+			<camel:setHeader headerName="searchProfile">
+				<camel:xpath resultType="java.lang.String">//extResults:SourceSystemNameText/text()</camel:xpath>
+			</camel:setHeader>
+			
+			<camel:log message="System name returned: ${in.headers.searchProfile}"/>
+			
+			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+			
+			<camel:log message="\n\n\n Calling Aggregator" />
+			
+			<camel:to uri="direct:aggregateFederatedQuery" />
+			
+		</camel:route>
+
+
+		<!-- Process aggregated federated responses here -->
+		<camel:route id="processFederatedResponseRoute">
+		
+			<camel:from uri="direct:processFederatedResponse"/>
+			
+			<camel:setHeader headerName="searchResponseNodeCount">			
+				<xpath resultType="java.lang.String">count(//extResults:CustodySearchResult)</xpath>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="errorResponseNodeCount">
+				<xpath resultType="java.lang.String">count(//srm:SearchResultsMetadata)</xpath>
+			</camel:setHeader>
+
+			<camel:setHeader headerName="custodySearchContainerNodeCount">
+				<xpath resultType="java.lang.String">count(//cs-res-doc:CustodySearchResults)</xpath>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="custodySearchMaxRecords">
+				<camel:simple>{{federatedQuery.custodySearchIntermediaryMaxRecords}}</camel:simple>
+			</camel:setHeader>
+			
+			
+			<log message="Error nodes: ${in.headers.errorResponseNodeCount}, Search Nodes: ${in.headers.searchResponseNodeCount}, custody search max records: ${in.headers.custodySearchMaxRecords}"/>
+			
+			<!-- In this case, we have exceeded the number of records allowed by the intermediary, create error and return -->
+			<camel:filter>
+				<camel:simple>${in.header.searchResponseNodeCount} > ${in.headers.custodySearchMaxRecords}</camel:simple>
+				<camel:log message="\n\n\n The search results count (${in.header.searchResponseNodeCount}) is greater than the max records allowed (${in.headers.custodySearchMaxRecords})"/>				
+			</camel:filter>
+						
+			<!-- In this case, we have errors but no search results -->
+			<camel:filter>
+				<camel:simple>${in.header.searchResponseNodeCount} == 0 and ${in.header.errorResponseNodeCount} > 0</camel:simple>
+				<camel:log message="\n\n\n No search results returned, however, response contains error results"/>				
+				<camel:stop/>
+			</camel:filter>
+
+			<!-- In this case, we have no errors and no search results, not even a container, create an error message and return -->
+			<camel:filter>
+				<camel:simple>${in.header.custodySearchContainerNodeCount} == 0</camel:simple>				
+				<camel:log message="\n\n\n No search results or error results, not even a container, the adapter timed or had an issue"/>				
+			</camel:filter>
+			
+			<camel:to uri="direct:presentCustodySearchResults"/>
+		</camel:route>
+
+		<camel:route id="presentCustodySearchResults">
+			<from uri="direct:presentCustodySearchResults"/>
+			
+			<!-- This line remove the OJBWrapper element that the aggregator adds, This XPath works because we only have one response -->
+			<camel:setBody><xpath>/OJBAggregateResponseWrapper/*[1]</xpath></camel:setBody>
+			
+			<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>
+
+			<camel:to uri="bean:wsAddressingReplyToManager?method=removeReplyToAddress"/>
+			
+			<camel:to uri="bean:WSAddressingEndpointProcessor?method=processReplyToAddress" />	
+				
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
+			
+            		<camel:setHeader headerName="operationName">
+            			<constant>SubmitCustodySearchResults</constant>
+            		</camel:setHeader>
+	        		<camel:setHeader headerName="operationNamespace">
+	        			<constant>http://ojbc.org/Services/WSDL/CustodySearchResultsService/1.0</constant>
+	        		</camel:setHeader>
+					
+					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
+					
+					<camel:log message="About to send custody search result response message to ${in.headers.recipientListReplyToEndpoint}" />			
+								
+					<camel:recipientList>
+						<camel:header>recipientListReplyToEndpoint</camel:header>
+					</camel:recipientList>
+				</camel:when>
+				<camel:otherwise>
+					<camel:log message="Unable to find endpoint for replyTo address: ${in.headers.WSAddressingReplyTo}"/>
+				</camel:otherwise>		
+			</camel:choice>	
+		</camel:route>
+
+	</camel:camelContext>
+
+	<!-- Spring Beans -->
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+
+	<util:map map-class="java.util.HashMap" id="federatedQueryManager" />
+
+	<bean id="federatedQueryResponseAggregator"
+		class="org.ojbc.util.fedquery.processor.FederatedQueryResponseHandlerAggregator">
+		<property name="federatedQueryManager">
+			<ref bean="federatedQueryManager" />
+		</property>
+	</bean>
+
+
+	<bean id="federatedQueryMessageProcessor" class="org.ojbc.util.fedquery.processor.FederatedQueryMessageProcessor">
+		<property name="federatedQueryManager">
+			<ref bean="federatedQueryManager" />
+		</property>
+	</bean>
+
+	<!-- Used to retrieve and persist SAML tokens -->
+	<bean id="camelSAMLTokenProcessor" class="org.ojbc.util.camel.security.saml.CamelSAMLTokenProcessor">
+		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	</bean>
+	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
+	
+	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
+		<property name="OJBSamlMap" ref="ojbSamlMap"/>
+	</bean>
+
+	<bean id="prepareFederateQueryMessage" class="org.ojbc.util.fedquery.processor.PrepareFederatedQueryMessage">
+		<property name="exchangeDestinationLookupStrategy" ref="exchangeDestinationLookupStrategy"/>	
+	</bean>
+
+	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
+		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
+	</bean>
+	
+	<bean id="accessControlProcessor" class="org.ojbc.util.camel.processor.accesscontrol.AccessControlProcessor" />
+
+	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
+		<property name ="endpointReplyToMap" ref="endpointReplyToMap"/>
+	</bean>	
+	
+</beans>

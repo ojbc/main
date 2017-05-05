@@ -16,12 +16,13 @@
  */
 package org.ojbc.intermediaries.pretrial.tests;
 
-import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+import static junit.framework.Assert.assertTrue;
+
+import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
-import static junit.framework.Assert.assertTrue;
 
 @UseAdviceWith  // NOTE: this causes Camel contexts to not start up automatically
 @RunWith(CamelSpringJUnit4ClassRunner.class)

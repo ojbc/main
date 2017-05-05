@@ -44,7 +44,7 @@
 	<cxf:cxfEndpoint 
 	        id="identificationResultsModificationRequestService"
 	        address="${identificationModification.identificationResultsModificationRequestServiceEndpoint}"
-	        wsdlURL="classpath:service-specifications/Identification_Results_Modification_Request_Service/schema/SIP_WS_1.2/Identification_Results_Modification_Request_Service.wsdl"
+	        wsdlURL="classpath:ssp/Identification_Results_Modification_Request/schema/SIP_WS_1.2/Identification_Results_Modification_Request_Service.wsdl"
 	        serviceName="ojbc:Identification_Results_Modification_Request_Service_Service"
 			endpointName="ojbc:Identification_Results_Modification_Request_Secure_Service"
 	        xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0"
@@ -54,6 +54,7 @@
 			<entry key="ws-security.signature.properties" value-ref="identificationResultsModificationKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${identificationModification.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
     </cxf:cxfEndpoint>
 
@@ -61,7 +62,7 @@
     <cxf:cxfEndpoint 
         id="identificationResultsModificationResponseService"
         address="${identificationModification.identificationResultsModificationResponseServiceEndpoint}"
-        wsdlURL="classpath:service-specifications/Identification_Results_Modification_Response_Service/schema/SIP_WS_1.2/Identification_Results_Modification_Response_Service.wsdl"
+        wsdlURL="classpath:ssp/Identification_Results_Modification_Response/schema/SIP_WS_1.2/Identification_Results_Modification_Response_Service.wsdl"
         serviceName="ojbc:Identification_Results_Modification_Response_Service_Service"
 		endpointName="ojbc:Identification_Results_Modification_Response_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0"
@@ -81,7 +82,7 @@
     <!-- Identification Results Modification Request Service, hosted by adapter, called by broker -->
 	<cxf:cxfEndpoint id="identificationResultsModificationRequestServiceAdapter"
 		address="${identificationModification.identificationResultsModificationRequestServiceAdapterEndpoint}"
-        wsdlURL="classpath:service-specifications/Identification_Results_Modification_Request_Service/schema/SIP_WS_1.2/Identification_Results_Modification_Request_Service.wsdl"
+        wsdlURL="classpath:ssp/Identification_Results_Modification_Request/schema/SIP_WS_1.2/Identification_Results_Modification_Request_Service.wsdl"
         serviceName="ojbc:Identification_Results_Modification_Request_Service_Service"
 		endpointName="ojbc:Identification_Results_Modification_Request_Secure_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationRequestService/1.0"
@@ -98,7 +99,7 @@
     <cxf:cxfEndpoint 
         id="presentIdentificationResultsModificationResponseService"
         address="${identificationModification.presentIdentificationResultsModificationResponseServiceEndpoint}"
-        wsdlURL="classpath:service-specifications/Identification_Results_Modification_Response_Service/schema/SIP_WS_1.2/Identification_Results_Modification_Response_Service.wsdl"
+        wsdlURL="classpath:ssp/Identification_Results_Modification_Response/schema/SIP_WS_1.2/Identification_Results_Modification_Response_Service.wsdl"
         serviceName="ojbc:Identification_Results_Modification_Response_Service_Service"
 		endpointName="ojbc:Identification_Results_Modification_Response_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationResultsModificationResponseService/1.0"

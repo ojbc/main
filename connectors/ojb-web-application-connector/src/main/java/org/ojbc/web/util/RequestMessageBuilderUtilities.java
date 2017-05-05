@@ -16,19 +16,20 @@
  */
 package org.ojbc.web.util;
 
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_REQUEST;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_SUBSEQUENT_RESULTS_QUERY_REQUEST;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST;
-import static org.ojbc.web.OjbcWebConstants.CIVIL_SUBSCRIPTION_REASON_CODE;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
@@ -37,12 +38,12 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.helper.NIEMXMLUtils;
 import org.ojbc.util.helper.OJBCXMLUtils;
+import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.OjbcWebConstants;
 import org.ojbc.web.SearchFieldMetadata;
-import org.ojbc.web.model.IdentificationResultsCategory;
 import org.ojbc.web.model.firearm.search.FirearmSearchRequest;
 import org.ojbc.web.model.firearm.search.FirearmSearchRequestDomUtils;
 import org.ojbc.web.model.incident.search.IncidentSearchRequest;
@@ -50,8 +51,6 @@ import org.ojbc.web.model.incident.search.IncidentSearchRequestDomUtils;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequestDomUtils;
-import org.ojbc.web.model.subscription.Subscription;
-import org.ojbc.web.model.subscription.Unsubscription;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequestDomUtils;
 import org.w3c.dom.Document;
@@ -382,43 +381,6 @@ public class RequestMessageBuilderUtilities {
 		return doc;
 	}
 
-	public static Document createUnubscriptionRequest(Unsubscription unsubscription) throws Exception{
-		
-		String subscriptionIdentificationId = unsubscription.getSubscriptionId();
-		
-		Document doc = OJBCXMLUtils.createDocument();
-        Element root = doc.createElementNS(OjbcNamespaceContext.NS_B2, "Unsubscribe");
-        doc.appendChild(root);
-        root.setPrefix(OjbcNamespaceContext.NS_PREFIX_B2);
-		
-        Element unsubscriptionMessage = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_UNBSUB_MSG_EXCHANGE, "UnsubscriptionMessage");
-        
-        Element subscriptionIdentification = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionIdentification");
-        
-        Element identificationID = XmlUtils.appendElement(subscriptionIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
-        identificationID.setTextContent(subscriptionIdentificationId);
-                
-		String reasonCode = unsubscription.getReasonCode();
-        if (CIVIL_SUBSCRIPTION_REASON_CODE.equals(reasonCode)){
-	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CivilSubscriptionReasonCode");
-	        reasonCodeElement.setTextContent(reasonCode);
-        }
-        else{
-	        Element reasonCodeElement = XmlUtils.appendElement(unsubscriptionMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
-	        reasonCodeElement.setTextContent(reasonCode);
-        }
-        
-		Element topicExpNode = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_B2, "TopicExpression");		
-		XmlUtils.addAttribute(topicExpNode, null, "Dialect", TOPIC_EXPRESSION_DIALECT);		
-		topicExpNode.setTextContent(unsubscription.getTopic());
-		
-		OjbcNamespaceContext ojbNamespaceCtxt = new OjbcNamespaceContext();
-		ojbNamespaceCtxt.populateRootNamespaceDeclarations(doc.getDocumentElement());
-		
-		return doc;
-	}
-	
-	
 	public static Document createValidateSubscriptionRequest(String subscriptionId, String topic, String reasonCode) throws Exception{
 		
 		Document doc = OJBCXMLUtils.createDocument();		
@@ -453,15 +415,6 @@ public class RequestMessageBuilderUtilities {
 		return doc;
 	}
 	
-
-	public static Document createSubscriptionRequest(Subscription subscription) throws Exception{
-
-		SubscriptionDocumentBuilder subscriptionDocumentBuilder = new SubscriptionDocumentBuilder();		
-		Document subAddReqDoc = subscriptionDocumentBuilder.buildSubscribeDoc(subscription);	
-		
-		return subAddReqDoc;
-	}
-
     public static Document createPolicyAcknowledgementRecordingRequest() throws Exception {
         Document doc = OJBCXMLUtils.createDocument();       
         Element rootElement = doc.createElementNS(OjbcNamespaceContext.NS_ACKNOWLEGEMENT_RECORDING_REQUEST_EXCHANGE, 
@@ -511,7 +464,8 @@ public class RequestMessageBuilderUtilities {
     }
     
 
-    public static Document createPolicyBasedAccessControlRequest(Element samlToken, String requestedResource) throws Exception {
+    public static Document createPolicyBasedAccessControlRequest(Element samlToken, String... requestedResources) throws Exception {
+    	
         Document document = OJBCXMLUtils.createDocument();       
         Element rootElement = document.createElementNS(OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST, 
                 OjbcNamespaceContext.NS_PREFIX_ACCESS_CONTROL_REQUEST 
@@ -651,15 +605,17 @@ public class RequestMessageBuilderUtilities {
                 + "saml2:Attribute[@Name='gfipm:2.0:user:EmployeePositionName']/saml2:AttributeValue");
         employeePositionName.setTextContent(employeePositionNameValue);
         
-        Element requestedResourceURI = XmlUtils.appendElement(rootElement, 
-                OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST_EXT, "RequestedResourceURI"); 
-        requestedResourceURI.setTextContent(requestedResource);
-
+        for (String requestedResource : requestedResources){
+	        Element requestedResourceURI = XmlUtils.appendElement(rootElement, 
+	                OjbcNamespaceContext.NS_ACCESS_CONTROL_REQUEST_EXT, "RequestedResourceURI"); 
+	        requestedResourceURI.setTextContent(requestedResource);
+        }
+        
         log.debug("\nCreated Request:\n" + OJBUtils.getStringFromDocument(document));
         return document;
     }
 
-	public static Document createRapbackSearchRequest(IdentificationResultsCategory category) throws Exception {
+	public static Document createRapbackSearchRequest(IdentificationResultSearchRequest searchRequest) throws Exception {
         Document document = OJBCXMLUtils.createDocument();       
         Element rootElement = document.createElementNS(OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST, 
                 OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST 
@@ -671,13 +627,92 @@ public class RequestMessageBuilderUtilities {
         		OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT);
         rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_STRUCTURES_30, 
         		OjbcNamespaceContext.NS_STRUCTURES_30);
+        rootElement.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_NC_30, 
+        		OjbcNamespaceContext.NS_NC_30);
 
-        Element identificationResultsCategoryCode  = XmlUtils.appendElement(rootElement, 
-                OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
-                "IdentificationResultsCategoryCode"); 
-        identificationResultsCategoryCode.setTextContent(category.name());
+        appendIdentificationSearchRequestPerson(searchRequest, rootElement);
+        appendIdentificationReportedDateRange(searchRequest, rootElement);
+        
+        if (searchRequest.getIdentificationTransactionStatus() != null){
+	        for ( String identificationTransactionState: searchRequest.getIdentificationTransactionStatus()){
+	        	XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+	        			"IdentificationResultStatusCode", identificationTransactionState);
+	        }
+        }
+        
+        XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+        		"IdentificationResultsCategoryCode", searchRequest.getIdentificationResultCategory());
+        
+        if (searchRequest.getCivilIdentificationReasonCodes() != null){
+	        for ( String civilIdentificationReasonCode: searchRequest.getCivilIdentificationReasonCodes()){
+	        	XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+	        			"CivilIdentificationReasonCode", civilIdentificationReasonCode);
+	        }
+        }
 
+        if (searchRequest.getCriminalIdentificationReasonCodes() != null){
+	        for ( String criminalIdentificationReasonCode: searchRequest.getCriminalIdentificationReasonCodes()){
+	        	XmlUtils.appendTextElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+	        			"CriminalIdentificationReasonCode", criminalIdentificationReasonCode);
+	        }
+        }
+        
 		return document;
+	}
+
+	private static void appendIdentificationReportedDateRange(
+			IdentificationResultSearchRequest searchRequest, Element rootElement) {
+		if (searchRequest.getReportedDateStartDate() != null || 
+        		searchRequest.getReportedDateEndDate() != null){
+        	Element identificationReportedDateRange = 
+        			XmlUtils.appendElement(rootElement, 
+        					OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT, 
+        					"IdentificationReportedDateRange");
+        	
+    		appendDateWapper(identificationReportedDateRange, "StartDate", NS_NC_30, searchRequest.getReportedDateStartLocalDate()); 
+    		appendDateWapper(identificationReportedDateRange, "EndDate", NS_NC_30, searchRequest.getReportedDateEndLocalDate()); 
+        }
+	}
+
+    public static final void appendDateWapper( Element parent, 
+			String elementName, String wrapperElementNS, LocalDate localDate) {
+		if (localDate != null){
+			Element dateWrapperElement = XmlUtils.appendElement(parent, wrapperElementNS, elementName);
+			Element date = XmlUtils.appendElement(dateWrapperElement, NS_NC_30, "Date");
+			date.setTextContent(localDate.toString());
+		}
+	}
+
+	private static void appendIdentificationSearchRequestPerson(
+			IdentificationResultSearchRequest searchRequest, Element rootElement) {
+		if (StringUtils.isNotBlank(searchRequest.getFirstName()) 
+        		|| StringUtils.isNotBlank(searchRequest.getLastName()) 
+        		|| StringUtils.isNotBlank(searchRequest.getOtn())){
+        	Element person = XmlUtils.appendElement(rootElement, NS_NC_30, "Person");
+        	
+        	if (StringUtils.isNotBlank(searchRequest.getFirstName())
+        			|| StringUtils.isNotBlank(searchRequest.getLastName())){
+        		Element personName = XmlUtils.appendElement(person, NS_NC_30, "PersonName");
+        		if (StringUtils.isNotBlank(searchRequest.getFirstName())){
+        			Element personGivenName = XmlUtils.appendElement(personName, NS_NC_30, "PersonGivenName");
+        			personGivenName.setTextContent(searchRequest.getFirstName().trim());
+        		}
+        		if (StringUtils.isNotBlank(searchRequest.getLastName())){
+        			Element personSurName = XmlUtils.appendElement(personName, NS_NC_30, "PersonSurName");
+        			personSurName.setTextContent(searchRequest.getLastName().trim());
+        		}
+        	}
+        	
+        	if (StringUtils.isNotBlank(searchRequest.getOtn())){
+        		Element identifiedPersonTrackingIdentification = 
+        				XmlUtils.appendElement(person, 
+        						OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_REQUEST_EXT,
+        						"IdentifiedPersonTrackingIdentification");
+        		Element identificationId = 
+        				XmlUtils.appendElement(identifiedPersonTrackingIdentification, NS_NC_30, "IdentificationID");
+        		identificationId.setTextContent(searchRequest.getOtn());
+        	}
+        }
 	}
 
 	public static Document createIdentificationInitialResultsQueryRequest(
@@ -741,6 +776,119 @@ public class RequestMessageBuilderUtilities {
         systemName.setTextContent(IDENTIFICATION_RESULTS_ARCHIVE_REQUEST_SYSTEM_NAME);
         
 		return document;
+	}
+
+	public static String createPersonToCourtCaseSearchRequest(
+			String identificationID, String identificationSourceText) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<ccs-req-doc:CourtCaseSearchRequest");
+		sb.append("	xmlns:ccs-req-doc=\"http://ojbc.org/IEPD/Exchange/CourtCaseSearchRequest/1.0\"");
+		sb.append("	xmlns:ccs-req-ext=\"http://ojbc.org/IEPD/Extensions/CourtCaseSearchRequestExtension/1.0\"");
+		sb.append("	xmlns:nc=\"http://release.niem.gov/niem/niem-core/3.0/\">");
+		sb.append("	<nc:Person>");
+		sb.append("		<ccs-req-ext:PersonRecordIdentification>");
+		sb.append("			<nc:IdentificationID>" + identificationID + "</nc:IdentificationID>");
+		sb.append("		</ccs-req-ext:PersonRecordIdentification>");
+		sb.append("	</nc:Person>");
+		sb.append("	<ccs-req-ext:SourceSystemNameText>" + identificationSourceText + "</ccs-req-ext:SourceSystemNameText>");
+		sb.append("</ccs-req-doc:CourtCaseSearchRequest>");
+		
+		return sb.toString();
+	}
+
+	public static String createCourtCaseQueryRequest(String identificationID,
+			String identificationSourceText) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<ccq-req-doc:CourtCaseQueryRequest");
+		sb.append("	xmlns:ccq-req-doc=\"http://ojbc.org/IEPD/Exchange/CourtCaseQueryRequest/1.0\"");
+		sb.append("	xmlns:ccq-req-ext=\"http://ojbc.org/IEPD/Extensions/CourtCaseQueryRequestExtension/1.0\"");
+		sb.append("	xmlns:nc=\"http://release.niem.gov/niem/niem-core/3.0/\">");
+		sb.append("	<ccq-req-ext:CourtCaseRecordIdentification>");
+		sb.append("		<nc:IdentificationID>" + identificationID + "</nc:IdentificationID>");
+		sb.append("		<nc:IdentificationSourceText>" + identificationSourceText + "</nc:IdentificationSourceText>");
+		sb.append("	</ccq-req-ext:CourtCaseRecordIdentification>");
+		sb.append("</ccq-req-doc:CourtCaseQueryRequest>");
+		return sb.toString();
+	}
+
+	public static String createPersonToCustodySearchRequest(
+			String identificationID, String identificationSourceText) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<cs-req-doc:CustodySearchRequest");
+		sb.append("	xmlns:cs-req-doc=\"http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0\"");
+		sb.append("	xmlns:cs-req-ext=\"http://ojbc.org/IEPD/Extensions/CustodySearchRequestExtension/1.0\"");
+		sb.append("	xmlns:nc=\"http://release.niem.gov/niem/niem-core/3.0/\">");
+		sb.append("	<nc:Person>");
+		sb.append("		<cs-req-ext:PersonRecordIdentification>");
+		sb.append("			<nc:IdentificationID>" + identificationID + "</nc:IdentificationID>");
+		sb.append("		</cs-req-ext:PersonRecordIdentification>");
+		sb.append("	</nc:Person>");
+		sb.append("	<cs-req-ext:SourceSystemNameText>" + identificationSourceText + "</cs-req-ext:SourceSystemNameText>");
+		sb.append("</cs-req-doc:CustodySearchRequest>");
+		
+		return sb.toString();
+	}
+
+	public static String createCustodyQueryRequest(String identificationID,
+			String identificationSourceText) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<cq-req-doc:CustodyQueryRequest");
+		sb.append("	xmlns:cq-req-doc=\"http://ojbc.org/IEPD/Exchange/CustodyQueryRequest/1.0\"");
+		sb.append("	xmlns:cq-req-ext=\"http://ojbc.org/IEPD/Extensions/CustodyQueryRequestExtension/1.0\"");
+		sb.append("	xmlns:nc=\"http://release.niem.gov/niem/niem-core/3.0/\">");
+		sb.append("	<cq-req-ext:CustodyRecordIdentification>");
+		sb.append("		<nc:IdentificationID>" + identificationID + "</nc:IdentificationID>");
+		sb.append("		<nc:IdentificationSourceText>" + identificationSourceText + "</nc:IdentificationSourceText>");
+		sb.append("	</cq-req-ext:CustodyRecordIdentification>");
+		sb.append("</cq-req-doc:CustodyQueryRequest>");
+		return sb.toString();
+	}
+
+	public static String createVehicleCrashQueryRequest(
+			DetailsRequest detailRequest) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<vcq-req-doc:VehicleCrashQueryRequest");
+		sb.append("	xmlns:vcq-req-doc=\"http://ojbc.org/IEPD/Exchange/VehicleCrashQueryRequest/1.0\"");
+		sb.append("	xmlns:vcq-req-ext=\"http://ojbc.org/IEPD/Extensions/VehicleCrashQueryRequestExtension/1.0\"");
+		sb.append("	xmlns:nc=\"http://release.niem.gov/niem/niem-core/3.0/\">");
+		sb.append("	<vcq-req-ext:VehicleCrashIdentification>");
+		sb.append("		<nc:IdentificationID>" + detailRequest.getIdentificationID() + "</nc:IdentificationID>");
+		sb.append("		<nc:IdentificationSourceText>" + detailRequest.getIdentificationSourceText() + "</nc:IdentificationSourceText>");
+		sb.append("	</vcq-req-ext:VehicleCrashIdentification>");
+		sb.append("</vcq-req-doc:VehicleCrashQueryRequest>");
+		return sb.toString();
+	}
+	
+	//	<fppq-req-doc:FirearmPurchaseProhibitionQueryRequest
+	//		xmlns:fppq-req-doc="http://ojbc.org/IEPD/Exchange/FirearmPurchaseProhibitionQueryRequest/1.0"
+	//		xmlns:fppq-req-ext="http://ojbc.org/IEPD/Extensions/FirearmPurchaseProhibitionQueryRequestExtension/1.0"
+	//		xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/">
+	//		<fppq-req-ext:FirearmPurchaseProhibitionSystemIdentification>
+	//			<nc:IdentificationID>System Record ID</nc:IdentificationID>
+	//			<nc:SystemName>System Name</nc:SystemName>
+	//		</fppq-req-ext:FirearmPurchaseProhibitionSystemIdentification>
+	//	</fppq-req-doc:FirearmPurchaseProhibitionQueryRequest>
+	public static Document createfirearmsPurchaseProhibition(
+			DetailsRequest firearmsPurchaseProhibitionRequest) throws Exception {
+		
+        Document doc = OJBCXMLUtils.createDocument();       
+        Element rootElement = doc.createElementNS(OjbcNamespaceContext.NS_FIREARMS_PROHIBITION_DOC, 
+                "FirearmPurchaseProhibitionQueryRequest");
+        doc.appendChild(rootElement);
+        
+        Element firearmPurchaseProhibitionSystemIdentification = XmlUtils.appendElement(rootElement, 
+                OjbcNamespaceContext.NS_FIREARMS_PROHIBITION_EXT, 
+                "FirearmPurchaseProhibitionSystemIdentification");
+        
+        Element identificationId = XmlUtils.appendElement(firearmPurchaseProhibitionSystemIdentification, OjbcNamespaceContext.NS_NC_30, "IdentificationID");
+        identificationId.setTextContent(firearmsPurchaseProhibitionRequest.getIdentificationID());
+        
+        Element identificationSourceText = XmlUtils.appendElement(firearmPurchaseProhibitionSystemIdentification, OjbcNamespaceContext.NS_NC_30, "SystemName");
+        identificationSourceText.setTextContent(OJBCWebServiceURIs.FIREARMS_PURCHASE_PROHIBITION_QUERY);
+
+        return doc;
 	}	
     
 }

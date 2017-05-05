@@ -17,8 +17,10 @@
 package org.ojbc.adapters.rapbackdatastore.processor;
 
 import java.text.SimpleDateFormat;
-
-import jline.internal.Log;
+import java.util.List;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
@@ -29,6 +31,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.w3c.dom.Document;
@@ -36,17 +39,44 @@ import org.w3c.dom.Node;
 
 public abstract class AbstractReportRepositoryProcessor {
 
+    @Value("#{'${rapbackDatastoreAdapter.actingFbiOriForCivilPrivateAgencies:}'.split(',')}")
+    private List<String> actingFbiOriForCivilPrivateAgencies;
+    
+    @Value("${rapbackDatastoreAdapter.civilPrivateAgencyOriRegex:}")
+    private String civilPrivateAgencyOriRegex;
+    
+    private Pattern civilPrivateAgencyOriPattern; 
+    
 	@Autowired
 	protected RapbackDAO rapbackDAO;
 	
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    
+    private static final Logger logger = Logger.getLogger(AbstractReportRepositoryProcessor.class.getName());
     	
     @Transactional
 	public abstract void processReport(@Body Document report, Exchange exchange) throws Exception;
 
 	protected void processIdentificationTransaction(Node rootNode, String transactionNumber)
 			throws Exception {
+		
+		if (rapbackDAO.isExistingTransactionNumber(transactionNumber)){
+			String identificationCategory = XmlUtils.xPathStringSearch(rootNode, 
+					"ident-ext:CivilIdentificationReasonCode");
+			if (StringUtils.isNotBlank(identificationCategory)){
+				rapbackDAO.updateIdentificationCategory(transactionNumber, identificationCategory);
+			}
+			else{
+				identificationCategory = XmlUtils.xPathStringSearch(rootNode, 
+						"ident-ext:CriminalIdentificationReasonCode");
+				if (StringUtils.isNotBlank(identificationCategory)){
+					updateSubject(rootNode, transactionNumber);
+				}
+			}
+			return;
+		}
+		
 		IdentificationTransaction identificationTransaction = new IdentificationTransaction(); 
 		
 		identificationTransaction.setTransactionNumber(transactionNumber);
@@ -56,16 +86,29 @@ public abstract class AbstractReportRepositoryProcessor {
 		Subject subject = buildSubject(subjectNode) ;
 		identificationTransaction.setSubject(subject);
 		
-		String otn = XmlUtils.xPathStringSearch(subjectNode, "ident-ext:PersonTrackingIdentidication/nc30:IdentificationID");
+		String otn = XmlUtils.xPathStringSearch(subjectNode, "ident-ext:PersonTrackingIdentification/nc30:IdentificationID");
 		identificationTransaction.setOtn(otn);
-		
-		String ownerOri = XmlUtils.xPathStringSearch(rootNode, "ident-ext:IdentificationApplicantOrganization/"
-				+ "jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
-		identificationTransaction.setOwnerOri(ownerOri);
 		
 		String ownerProgramOca = XmlUtils.xPathStringSearch(rootNode, "//ident-ext:IdentificationApplicantOrganization/"
 				+ "nc30:OrganizationIdentification/nc30:IdentificationID");
-		identificationTransaction.setOwnerProgramOca(ownerProgramOca);
+		
+		if ( civilPrivateAgencyOriPattern == null){
+			civilPrivateAgencyOriPattern = Pattern.compile(civilPrivateAgencyOriRegex);	
+		}
+		
+		Matcher matcher = civilPrivateAgencyOriPattern.matcher(StringUtils.trimToEmpty(ownerProgramOca));
+		
+		String ownerOri = XmlUtils.xPathStringSearch(rootNode, "ident-ext:IdentificationApplicantOrganization/"
+				+ "jxdm50:OrganizationAugmentation/jxdm50:OrganizationORIIdentification/nc30:IdentificationID");
+		
+		if (actingFbiOriForCivilPrivateAgencies.contains(ownerOri) 
+				&& matcher.find()){
+			identificationTransaction.setOwnerOri(matcher.group(0));
+			identificationTransaction.setOwnerProgramOca(ownerProgramOca);
+		}else{
+			identificationTransaction.setOwnerOri(ownerOri);
+			identificationTransaction.setOwnerProgramOca(ownerProgramOca);
+		}
 		
 		String identificationCategory = XmlUtils.xPathStringSearch(rootNode, "ident-ext:CivilIdentificationReasonCode|ident-ext:CriminalIdentificationReasonCode");
 		identificationTransaction.setIdentificationCategory(identificationCategory);
@@ -118,10 +161,40 @@ public abstract class AbstractReportRepositoryProcessor {
 					+ "ident-ext:StateIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
 					+ "ident-ext:FBIIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject");
 			return Base64.decode(base64BinaryData);
-		} catch (Exception e) {
-			Log.error("Failed to retrieve binary data from the message");
+			
+		} catch (Exception e) {			
+			logger.severe("Failed to retrieve binary data from the message: " + e.getMessage());			
 			return null;
 		}
 	}
+	
+	void updateSubject(Node rootNode, String transactionNumber)
+			throws Exception {
+		IdentificationTransaction identificationTransaction = 
+				rapbackDAO.getIdentificationTransaction(transactionNumber); 
+		
+		Subject subject = identificationTransaction.getSubject(); 
+		
+		String fbiId = XmlUtils.xPathStringSearch(rootNode, 
+				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonFBIIdentification/nc30:IdentificationID");
+		if (StringUtils.isNotBlank(fbiId)){
+			subject.setUcn(fbiId);
+		}
+		
+		String civilSid = XmlUtils.xPathStringSearch(rootNode, 
+				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator='true']/nc30:IdentificationID");
+		if (StringUtils.isNotBlank(civilSid)){
+			subject.setCivilSid(civilSid);
+		}
+		
+		String criminalSid = XmlUtils.xPathStringSearch(rootNode, 
+				"jxdm50:Subject/nc30:RoleOfPerson/jxdm50:PersonAugmentation/jxdm50:PersonStateFingerprintIdentification[ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator='true']/nc30:IdentificationID");
+		if (StringUtils.isNotBlank(criminalSid)){
+			subject.setCriminalSid(criminalSid);
+		}
+		
+		rapbackDAO.updateSubject(subject);
+	}
+
 
 }

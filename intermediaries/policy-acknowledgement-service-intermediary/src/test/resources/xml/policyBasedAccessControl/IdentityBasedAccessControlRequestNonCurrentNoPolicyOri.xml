@@ -1,0 +1,70 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<acr:IdentityBasedAccessControlRequest xmlns:acr="http://ojbc.org/IEPD/Exchange/AccessControlRequest/1.0" 
+		xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" 
+		xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+		xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:ext="http://ojbc.org/IEPD/Extensions/AccessControlRequestExtension/1.0" 
+		xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+		xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/AccessControlRequest/1.0 ../xsd/IdentityBasedAccessControlRequest.xsd ">
+	<ext:PersonIdentity>
+	  <nc30:IdentityPersonRepresentation structures:id="P001">
+	  	<nc30:PersonName>
+	  		<nc30:PersonGivenName>Walter</nc30:PersonGivenName>
+	  		<nc30:PersonSurName>White</nc30:PersonSurName>
+	  	</nc30:PersonName>
+	  </nc30:IdentityPersonRepresentation>
+	  <ext:IdentityIdentification>
+	  	<nc30:IdentificationID>HIJIS:IDP:HCJDC:USER:hpotter</nc30:IdentificationID>
+	  </ext:IdentityIdentification>
+	  <ext:FederatedQueryUserIndicator>true</ext:FederatedQueryUserIndicator>
+	  <nc30:ContactInformationAssociation>
+		<nc30:ContactEntity>
+			<nc30:EntityPerson structures:ref="P001"/>
+		</nc30:ContactEntity>
+	  	<nc30:ContactInformation>
+	  		<nc30:ContactEmailID>test@test.com</nc30:ContactEmailID>
+	  		<nc30:ContactTelephoneNumber>
+	  			<nc30:FullTelephoneNumber>
+	  				<nc30:TelephoneNumberFullID>555-555-1234</nc30:TelephoneNumberFullID>
+	  			</nc30:FullTelephoneNumber>
+	  		</nc30:ContactTelephoneNumber>
+	  	</nc30:ContactInformation>
+	  </nc30:ContactInformationAssociation>
+	  <nc30:PersonEmploymentAssociation>
+	  	<nc30:Employee structures:ref="P001"/>
+	  	<nc30:Employer>
+	  		<nc30:EntityOrganization>
+	  			<nc30:OrganizationName>Agency Name</nc30:OrganizationName>
+	  			<nc30:OrganizationUnitName>Division</nc30:OrganizationUnitName>
+	  			<j:OrganizationAugmentation>
+	  				<j:OrganizationORIIdentification>
+	  					<nc30:IdentificationID>NoPolicyOri1</nc30:IdentificationID>
+	  				</j:OrganizationORIIdentification>
+	  			</j:OrganizationAugmentation>
+	  			<ext:CriminalJusticeOrganizationIndicator>true</ext:CriminalJusticeOrganizationIndicator>
+	  			<ext:LawEnforcementOrganizationIndicator>true</ext:LawEnforcementOrganizationIndicator>
+	  		</nc30:EntityOrganization>
+	  	</nc30:Employer>
+	  	<nc30:EmployeePositionName>Sergeant</nc30:EmployeePositionName>
+	  </nc30:PersonEmploymentAssociation>
+	</ext:PersonIdentity>
+	<ext:RequestedResourceURI>{http://ojbc.org/OJB_Portal/1.0}OJB</ext:RequestedResourceURI>
+</acr:IdentityBasedAccessControlRequest>

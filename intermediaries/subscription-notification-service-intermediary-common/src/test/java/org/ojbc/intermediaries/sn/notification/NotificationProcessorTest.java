@@ -25,8 +25,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -48,7 +50,7 @@ import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.intermediaries.sn.notification.filter.NotificationFilterStrategy;
-import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
+import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -81,7 +83,7 @@ public class NotificationProcessorTest {
 
             @Override
             protected NotificationRequest makeNotificationRequestFromIncomingMessage(Message msg) throws Exception {
-                return new ArrestNotificationRequest(msg);
+            	return TestNotificationBuilderUtil.returnArrestNotificationRequestForTesting(msg);
             }
 
         };
@@ -120,12 +122,7 @@ public class NotificationProcessorTest {
 
         notificationProcessor.setEmailEnhancementStrategy(d);
 
-        notificationProcessor.findSubscriptionsForNotification(e);
-
-        // this mimics the component of the Camel route that splits the notifications
-
-        @SuppressWarnings("unchecked")
-        List<EmailNotification> emailNotifications = (List<EmailNotification>) e.getIn().getHeader(NotificationConstants.HEADER_EMAIL_NOTIFICATIONS);
+        List<EmailNotification> emailNotifications = notificationProcessor.findSubscriptionsForNotification(e);
         assertEquals(2, emailNotifications.size());
 
         boolean foundPO1 = false;
@@ -176,9 +173,8 @@ public class NotificationProcessorTest {
             }
         });
 
-        notificationProcessor.findSubscriptionsForNotification(e);
-        assertEquals(Boolean.TRUE, e.getProperty(Exchange.ROUTE_STOP));
-
+        List<EmailNotification> emailNotifications = notificationProcessor.findSubscriptionsForNotification(e);
+        assertEquals(0, emailNotifications.size());
     }
 
     @Test
@@ -195,9 +191,8 @@ public class NotificationProcessorTest {
         Message inMessage = e.getIn();
         inMessage.setBody(notificationMessageDocument);
 
-        notificationProcessor.findSubscriptionsForNotification(e);
-
-        assertEquals(Boolean.TRUE, e.getProperty(Exchange.ROUTE_STOP));
+        List<EmailNotification> notifications = notificationProcessor.findSubscriptionsForNotification(e);
+        assertEquals(0, notifications.size());
 
     }
 
@@ -226,8 +221,9 @@ public class NotificationProcessorTest {
         List<EmailNotification> emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
         Assert.assertEquals(2, emailNotifications.size());
 
-        Assert.assertEquals("po1@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
-        Assert.assertEquals("po2@courts.hawaii.gov", emailNotifications.get(1).getToAddressees());
+        Assert.assertEquals("po2@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
+        Assert.assertEquals("po1@courts.hawaii.gov", emailNotifications.get(1).getToAddressees());
+        
 
     }
 
@@ -267,7 +263,7 @@ public class NotificationProcessorTest {
         List<EmailNotification> emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
         Assert.assertEquals(2, emailNotifications.size());
 
-        Assert.assertEquals("po1@courts.hawaii.gov,po2@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
+        Assert.assertEquals("po2@courts.hawaii.gov,po1@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
         Assert.assertEquals("po3@courts.hawaii.gov", emailNotifications.get(1).getToAddressees());
 
     }
@@ -311,7 +307,7 @@ public class NotificationProcessorTest {
         List<EmailNotification> emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
         Assert.assertEquals(1, emailNotifications.size());
 
-        Assert.assertEquals("po1@courts.hawaii.gov,po2@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
+        Assert.assertEquals("po2@courts.hawaii.gov,po1@courts.hawaii.gov", emailNotifications.get(0).getToAddressees());
 
         subscriptions = new ArrayList<Subscription>();
 
@@ -348,6 +344,9 @@ public class NotificationProcessorTest {
 
         List<Subscription> subscriptions = new ArrayList<Subscription>();
 
+        Map<String, String> subscriptionSubjectIdentifiers = new HashMap<String, String>();
+        subscriptionSubjectIdentifiers.put("subscriptionQualifier", "123");
+        
         Subscription subscription = new Subscription();
         Set<String> emailAddresses = new HashSet<String>();
         emailAddresses.add("po1@courts.hawaii.gov");
@@ -355,6 +354,7 @@ public class NotificationProcessorTest {
         subscription.setPersonFullName("Joe Smith");
         subscription.setTopic("topics:person/arrest");
         subscription.setSubscribingSystemIdentifier("{http://demostate.gov/SystemNames/1.0}SystemB");
+        subscription.setSubscriptionSubjectIdentifiers(subscriptionSubjectIdentifiers);
         subscriptions.add(subscription);
 
         subscription = new Subscription();
@@ -364,6 +364,7 @@ public class NotificationProcessorTest {
         subscription.setPersonFullName("Joe Smith");
         subscription.setTopic("topics:person/arrest");
         subscription.setSubscribingSystemIdentifier("{http://demostate.gov/SystemNames/1.0}SystemB");
+        subscription.setSubscriptionSubjectIdentifiers(subscriptionSubjectIdentifiers);
         subscriptions.add(subscription);
 
         File notificationMessageFile = new File("src/test/resources/xmlInstances/notificationMessage.xml");
@@ -375,6 +376,9 @@ public class NotificationProcessorTest {
 
         List<EmailNotification> emailNotifications = notificationProcessor.createUniqueNotifications(subscriptions, request);
         Assert.assertEquals(1, emailNotifications.size());
+        
+        EmailNotification notificationToTest = emailNotifications.get(0);
+        assertEquals(subscriptionSubjectIdentifiers, notificationToTest.getSubscriptionSubjectIdentifiers());
 
         String emailAddress = emailNotifications.get(0).getToAddressees();
         Assert.assertEquals("po1@courts.hawaii.gov", emailAddress);

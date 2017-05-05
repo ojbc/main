@@ -35,9 +35,16 @@
 		<pax-exam.version>3.6.0</pax-exam.version>
 		<pax-url.version>2.0.0</pax-url.version>
 		<felix-version>3.2.2</felix-version>
-		<karaf-version>2.2.11</karaf-version>
-		<slf4j-version>1.7.4</slf4j-version>
-		<camel.version>2.10.7</camel.version>
+		<karaf-version>3.0.5</karaf-version>
+		<slf4j-version>1.7.10</slf4j-version>
+		<camel.version>2.14.4</camel.version>
+		<java-version>1.8</java-version>
+		
+		<bundle-a-version>1.0.0</bundle-a-version>
+		<bundle-b-version>1.0.0</bundle-b-version>
+		<bundle-c-version>1.0.0</bundle-c-version>
+		<osgi-common-version>[1.0.0,)</osgi-common-version>
+		<osgi-test-common-version>1.0.0</osgi-test-common-version>		
 	</properties>
 
 	<dependencies>
@@ -100,22 +107,22 @@
 		<dependency>
 			<groupId>org.ojbc.bundles.prototypes</groupId>
 			<artifactId>Bundle_A_Test</artifactId>
-			<version>1.0.0</version>
+			<version>${bundle-a-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.ojbc.bundles.prototypes</groupId>
 			<artifactId>Bundle_B_Test</artifactId>
-			<version>1.0.0</version>
+			<version>${bundle-b-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-osgi-common</artifactId>
-			<version>1.0.0</version>
+			<version>${osgi-common-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-osgi-test-common</artifactId>
-			<version>1.0.0</version>
+			<version>${osgi-test-common-version}</version>
 		</dependency>
 
 	<!-- The following dependencies can be used to download the karaf deps to your local maven repo so that Pax Exam will work offline. -->
@@ -170,8 +177,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
 				</configuration>
 			</plugin>
 			<plugin>

@@ -21,12 +21,19 @@
           
 		  ojbc.handlePlaceholders(); 
 		  
-    	  $('#searchForm').validate({
-              rules: {
-              }
-          });
-    
-    	    $( "#searchTabs" ).tabs({ active: 0});
+    	  var index = $('#searchTabs a[href="#${activeSearchTab}"]').parent().index();
+    	  
+    	  $( "#searchTabs" ).tabs({ active: index});
+    	    
+    	  switch(index){
+	          case 0:  
+	                $("#search-tab-title").html("ADVANCED SEARCH: JUVENILE");
+	                break; 
+              default:
+	                $("#search-tab-title").html("SIMPLE SEARCH: PERSON");
+	                break; 
+	      }        	  	    
+    	    	
     	    
     	    $( ".datePicker" ).datepicker({
     	       showOn: "both",
@@ -50,11 +57,15 @@
     		  	}
     		)
 
-    	   $("a[href='\\#juvenileSearchTab']").click (
+    	    $("a[href='\\#juvenileSearchTab']").click (
                 function(){
-                   $("#search-tab-title").html("ADVANCED SEARCH: PERSON");
+                   $("#search-tab-title").html("ADVANCED SEARCH: JUVENILE");
                 }
             )
+            $("a[href='\\#simpleSearchTab']").click (function(){
+               $("#search-tab-title").html("SIMPLE SEARCH: PERSON");
+            });
+            
             
 			$('#sourceSystemsCheckBoxes').html($('#sourceSystems').html());
 			$('#sourceSystemsCheckBoxesDisabled').html($('#sourceSystemsDisabled').html());
@@ -80,6 +91,28 @@
                   }).fail(ojbc.displayFailMessage)
               });
 
+            $('#simpleSearchClearButton').click (function(event){
+                  
+                  ojbc.clearSearchPurposeFields();
+                  ojbc.clearSearchResultsFilterFields();
+                  $.get("#springUrl('/people/searchForm?resetForm=true')", function(data) {
+                    $('#portalContent').html(data);
+                  }).fail(ojbc.displayFailMessage)
+            });
+            
+    		$('#simpleSearchSubmitButton').click (function(){
+    		    ojbc.clearPlaceholders();
+                var formData = $('#simpleSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
+		  		$.post("#springUrl('/people/simpleSearch')",formData,function(data) {
+				      $('#portalContent').html(data);
+			    }).fail(ojbc.displayFailMessage);
+		  	});
+    	  
+            $("#simpleSearchForm").submit(function(event){
+            	event.preventDefault();
+		        $('#simpleSearchSubmitButton').click();
+			});
+			
 			//This allows the input fields on the search form to submit form with enter key
 			$('#juvenileSearchTab input').keyup(function(e) {
 			    if (e.keyCode == 13) {
@@ -112,7 +145,9 @@
     <div id="search-tab-title">PERSON SEARCH</div>
     <ul>
         <li><a href="#juvenileSearchTab">ADVANCED SEARCH</a></li>
+        <li><a href="#simpleSearchTab">SIMPLE SEARCH</a></li>
     </ul>
+	#parse('people/_simpleSearchTab.vm')
 	#parse('people/_juvenileSearchTab.vm')
   
   

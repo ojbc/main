@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
@@ -51,9 +52,13 @@ public class SamlServiceImpl implements SamlService{
     @Value("${webapplication.allowQueriesWithoutSAMLToken:false}")
     private Boolean allowQueriesWithoutSAMLToken;
 
+    @Value("${webapplication.demoLawEnforcementEmployerIndicator:true}")
+    private Boolean demoLawEnforcementEmployerIndicator;
+    
 	public Element getSamlAssertion(HttpServletRequest request) {
 
 		Element assertion = null;
+		
 		try {
 			assertion = retrieveAssertionFromShibboleth(request);
 		} catch (Exception e) {
@@ -61,14 +66,16 @@ public class SamlServiceImpl implements SamlService{
 		}
 		
 		if (assertion == null && getAllowQueriesWithoutSAMLToken()){
+			LOG.info("Creating demo user saml assertion.");
 			assertion = createDemoUserSamlAssertion();
-		}
+	}
 		
 		return assertion;
 	}
 	
 	Element retrieveAssertionFromShibboleth(HttpServletRequest request) throws Exception
 	{
+		if (request == null) return null;
 		// Note: pulled this straight from Andrew's demo JSP that displays the assertion and http request...
 		
 		/*
@@ -134,11 +141,19 @@ public class SamlServiceImpl implements SamlService{
     	Element samlAssertion = null;
         try {
             Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+//            customAttributes.put(SamlAttribute.FederationId, "");
             customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
 //                customAttributes.put(SamlAttribute.FederationId.getAttibuteName(), "HIJIS:IDP:HCJDC:USER:demouser4");
             customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+            customAttributes.put(SamlAttribute.FirearmsRegistrationRecordsPersonnelIndicator, "true");
+            customAttributes.put(SamlAttribute.SupervisoryRoleIndicator, "true");
+//            customAttributes.put(SamlAttribute.FederatedQueryUserIndicator, "");
 //                customAttributes.put("gfipm:2.0:user:EmployerORI", "H00000001");
             
+            if (BooleanUtils.isNotTrue(demoLawEnforcementEmployerIndicator)){
+        		customAttributes.put(SamlAttribute.LawEnforcementEmployerIndicator, "false");
+            }
+
             samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
                     SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
                     SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);

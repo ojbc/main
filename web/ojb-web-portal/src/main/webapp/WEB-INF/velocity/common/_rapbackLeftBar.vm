@@ -15,26 +15,30 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  *#
 <div id="leftBarDiv">
-
-	<form id="filterRapbackForm">
-		<p class="headerText">Hide Selected</p>
-		<div>
-			<select id="rapbacksFilter">
-				<option value="">Please select...</option>
-				#foreach ($mapEntry in $rapbackFilterOptionsMap.entrySet())
-					#if ( $mapEntry.value.equals("Archived") )
-						<option value="$mapEntry.value" selected>$mapEntry.key</option>
-					#else
-						<option value="$mapEntry.value">$mapEntry.key</option>
-					#end
-				#end
-			</select>
-		</div>					
-	</form>
-	<input type="button" id="clearFilterButton" style="margin:4px 0" class="blueButton" value="CLEAR"></input>
-	<div class="horizontalDivide"/>
+	#*
+	*<form id="filterRapbackForm">
+	*	<p class="headerText">Hide Selected</p>
+	*	<div>
+	*		<select id="rapbacksFilter">
+	*			<option value="">Please select...</option>
+	*			#foreach ($mapEntry in $rapbackFilterOptionsMap.entrySet())
+	*				#if ( $mapEntry.value.equals("Archived") )
+	*					<option value="$mapEntry.value" selected>$mapEntry.key</option>
+	*				#else
+	*					<option value="$mapEntry.value">$mapEntry.key</option>
+	*				#end
+	*			#end
+	*		</select>
+	*	</div>					
+	*</form>
+	*<input type="button" id="clearFilterButton" style="margin:4px 0" class="blueButton" value="CLEAR"></input>
+	*<div class="horizontalDivide"/>
+	*#
 	
 	<p id="checkbox-subsequentReuslts">
 		<input type="checkbox" name="hasSubsequentResults" id="hasSubsequentResults" value="hasSubsequentResults"><span class="fieldText" >Has Subsequent Results</span>
+	</p>
+	<p id="checkbox-show-archived-only">
+		<input type="checkbox" name="showArchivedOnly" id="showArchivedOnly" value="showArchivedOnly"><span class="fieldText" >Show Archived Only</span>
 	</p>
 </div>

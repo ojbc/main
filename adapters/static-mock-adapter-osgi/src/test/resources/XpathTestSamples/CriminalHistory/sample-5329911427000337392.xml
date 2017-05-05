@@ -37,7 +37,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P7">
+        <rap:RapSheetPerson s:id="P7">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>Larry A</nc:PersonGivenName>
                 <nc:PersonSurName>Ivey</nc:PersonSurName>
@@ -72,7 +72,7 @@
                     <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P7"/>
             <nc:Biometric>

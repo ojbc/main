@@ -16,16 +16,60 @@
  */
 package org.ojbc.intermediaries.sn.topic.arrest;
 
-import org.ojbc.intermediaries.sn.notification.NotificationProcessor;
-import org.ojbc.intermediaries.sn.notification.NotificationRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.camel.Message;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.notification.NotificationProcessor;
+import org.ojbc.intermediaries.sn.notification.NotificationRequest;
+import org.ojbc.intermediaries.sn.util.SubjectIdentifierUtils;
 
 public class ArrestNotificationProcessor extends NotificationProcessor {
-
+	
+	List<String> activeSubjectIdentifiers= new ArrayList<>(Arrays.asList(SubscriptionNotificationConstants.SID));
+	
+	List<List<String>> alternateConfiguredSubjectIdentifiers;
+	
 	@Override
 	protected NotificationRequest makeNotificationRequestFromIncomingMessage(Message msg) throws Exception{
-		return new ArrestNotificationRequest(msg);
+		
+		ArrestNotificationRequest arrestNotificationRequest = new ArrestNotificationRequest(msg); 
+		
+		Map<String, String> allowedSubjectIdentifiers = arrestNotificationRequest.getSubjectIdentifiers();
+
+		Map<String, String> finalSubjectIdentifiers = SubjectIdentifierUtils.returnFinalSubjectIdentifiers(allowedSubjectIdentifiers, activeSubjectIdentifiers);	
+		arrestNotificationRequest.setSubjectIdentifiers(finalSubjectIdentifiers);
+		
+		if (alternateConfiguredSubjectIdentifiers != null)
+		{
+			for (List<String> alternateConfiguredSubjectIdentifier : alternateConfiguredSubjectIdentifiers)
+			{
+				Map<String, String> finalAlternateSubjectIdentifiers = SubjectIdentifierUtils.returnFinalSubjectIdentifiers(allowedSubjectIdentifiers, alternateConfiguredSubjectIdentifier);
+				arrestNotificationRequest.getAlternateSubjectIdentifiers().add(finalAlternateSubjectIdentifiers);
+			}	
+		}	
+		
+		return arrestNotificationRequest;
+	}
+
+	public List<String> getActiveSubjectIdentifiers() {
+		return activeSubjectIdentifiers;
+	}
+
+	public void setActiveSubjectIdentifiers(List<String> activeSubjectIdentifiers) {
+		this.activeSubjectIdentifiers = activeSubjectIdentifiers;
+	}
+
+	public List<List<String>> getAlternateConfiguredSubjectIdentifiers() {
+		return alternateConfiguredSubjectIdentifiers;
+	}
+
+	public void setAlternateConfiguredSubjectIdentifiers(
+			List<List<String>> alternateConfiguredSubjectIdentifiers) {
+		this.alternateConfiguredSubjectIdentifiers = alternateConfiguredSubjectIdentifiers;
 	}
 	
 }

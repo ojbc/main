@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.0/"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
+	xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
+	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.1/"
+		schemaLocation="./Subset/niem/domains/cyfs/3.1/cyfs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/"
+		schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
+		schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.1/"
+		schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+		schemaLocation="query-results-metadata.xsd" />
+	<xsd:import
+		namespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+		schemaLocation="query-request-error-reporting.xsd" />
+	<xsd:complexType name="CourtCaseQueryResultsType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for set of details associated with
+				query results from a court.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:DocumentType">
+				<xsd:sequence>
+					<xsd:element ref="intel:SystemIdentification"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:AppellateCase" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="nc:Identity" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ContactInformation" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="j:Citation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:DrivingIncident" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Detention" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:BailBond" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Warrant" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Fee" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Vehicle" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ConveyanceRegistration" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="nc:Program" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Probation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Victim" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:DisciplinaryActionRestitution"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0" />
+					<xsd:element ref="nc:RelatedCaseAssociation" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityFeeAssociation" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityVictimAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityIncidentAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ObligationPersonAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ContactInformationAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonConveyanceAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonResidenceAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonAliasIdentityAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:SourceSystemNameText"
+						minOccurs="0" />
+					<xsd:element ref="ccq-res-ext:QueryResultCategoryText"
+						minOccurs="0" />
+					<xsd:element ref="ccq-res-ext:InformationOwningOrganization"
+						minOccurs="0" />
+					<xsd:element ref="nc:Metadata" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="srm:QueryResultsMetadata" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CaseAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for additional information about a
+				case.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:AugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="ccq-res-ext:CaseSealedIndicator"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:RemandDate" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:CaseUnderAdvisementDate"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:JuryRequestedIndicator"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:JuryVerdictIndicator"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:FailureToPayHoldIndefiniteIndicator"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:FailureToPayHoldDate"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:FailureToAppearHoldDate"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:FailureToComplyHoldDate"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:FailureToPayVictimHoldDate"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ViolationAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for additional information about a
+				violation.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:AugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="ccq-res-ext:DrivingPointNumberText"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:DrivingPointNumberReducedText"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element
+						ref="ccq-res-ext:PersonBloodAlcoholContentTestRefusedIndicator"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:PersonBloodAlcoholContentNumberText"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CitationAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for additional information about a
+				citation.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:AugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="j:CourtAppearanceDate" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="j:OffenseDomesticViolenceIndicator"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:VehicleOverweightMeasure"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:CourtAppearanceRequiredIndicator"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:InjuryIndicator"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:SchoolZoneIndicator"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:ConstructionZoneIndicator"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:LicenseSurrenderedIndicator"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:FatalityIndicator"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:HazardousMaterialsIndicator"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:NuclearMaterialsIndicator"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SenentceAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for additional information about a
+				sentence.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:AugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="ccq-res-ext:SentenceDeferredDate"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:SentenceConfinementComment"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:SentenceConfinementCategoryText"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:OrganizationName" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="ccq-res-ext:SentenceWorkReleaseIndicator"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="CaseAugmentation" type="ccq-res-ext:CaseAugmentationType"
+		substitutionGroup="nc:CaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a case.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ViolationAugmentation" type="ccq-res-ext:ViolationAugmentationType"
+		substitutionGroup="nc:IncidentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a case.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CitationAugmentation" type="ccq-res-ext:CitationAugmentationType"
+		substitutionGroup="j:CitationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a case.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseSealedIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the case is sealed; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RemandDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>Date a person is taken into custody.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseUnderAdvisementDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>Date a court takes a case under advisement.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JuryRequestedIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if jury trial requested; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JuryVerdictIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if jury reached a verdict; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FailureToPayHoldIndefiniteIndicator"
+		type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if failure to pay hold is indefinite; false
+				otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirstCourtAppearance" type="j:CourtAppearanceType"
+		substitutionGroup="j:CourtEventAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>First appearance in court required of a party.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NewCourtAppearance" type="j:CourtAppearanceType"
+		substitutionGroup="j:CourtEventAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>New appearance in court required of a party.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TrialByText" type="nc:TextType"
+		substitutionGroup="j:CourtEventAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Date of a trial to ensure it is speedy.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SpeedyTrialDate" type="nc:DateType"
+		substitutionGroup="j:CourtEventAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Date of a trial to ensure it is speedy.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtEventCommentsText" type="nc:TextType"
+		substitutionGroup="j:CourtEventAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Comments provided regarding a court event.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="HearingMinuteOrderDescriptionText" type="nc:TextType"
+		substitutionGroup="j:CourtEventAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Minute orders from a hearing</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FailureToPayHoldDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date that will trigger consequence for a
+				failure to pay.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FailureToAppearHoldDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date that will trigger consequence for a
+				failure to appear.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FailureToComplyHoldDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date that will trigger consequence for a
+				failure to comply.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FailureToPayVictimHoldDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date that will trigger consequence for a
+				failure to pay victim.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DrivingPointNumberText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The number of driving points.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DrivingPointNumberReducedText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The number of driving points to reduce
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonBloodAlcoholContentTestRefusedIndicator"
+		type="xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a defendant refuses to take a blood
+				alcohol test; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JuvenileDefendantIndicator" type="xsd:boolean"
+		substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a defendant is a juvenile; false
+				otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonInmateIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An identification of a person based on a person
+				assigend prison number..
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CommentsForCourtClerk" type="nc:TextType"
+		substitutionGroup="j:CourtEventAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a defendant is a juvenile; false
+				otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VehicleOverweightMeasure" type="nc:MeasureType">
+		<xsd:annotation>
+			<xsd:documentation>Overweight measure of vehicle and cargo.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtAppearanceRequiredIndicator" type="xsd:boolean"
+		substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a court appearance is required; false
+				otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InjuryIndicator" type="xsd:boolean"
+		substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an injury occured; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SchoolZoneIndicator" type="xsd:boolean"
+		substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an incident occured within a school zone;
+				false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ConstructionZoneIndicator" type="xsd:boolean"
+		substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an incident occured within a school zone;
+				false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="HazardousMaterialsIndicator" type="xsd:boolean"
+		substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an incident included hazardous materials;
+				false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NuclearMaterialsIndicator" type="xsd:boolean"
+		substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an incident included nuclear materials;
+				false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LicenseSurrenderedIndicator" type="xsd:boolean"
+		substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a license is surrendered; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FatalityIndicator" type="xsd:boolean"
+		substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a fatality occured; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceDeferredDate" type="nc:DateType"
+		substitutionGroup="j:SentenceAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A date to which sentencing is deferred.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceConfinementComment" type="nc:TextType"
+		substitutionGroup="j:SentenceAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Confinement comments related to a sentence.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceConfinementCategoryText" type="nc:TextType"
+		substitutionGroup="j:SentenceAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A type of sentence confinement.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceConcurrentIndicator" type="xsd:boolean"
+		substitutionGroup="j:SentenceAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>true if sentences run concurrent; false otherwise
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ElectronicContactIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:ContactInformationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification for an electronic contact.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceWorkReleaseIndicator" type="xsd:boolean"
+		substitutionGroup="j:SentenceAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if sentence includes work release; false
+				otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InformationOwningOrganization" type="nc:OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>The organization that owns information contained
+				in the result.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SourceSystemNameText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The name of a system that returned the result.
+				This can be used to retrieve additional information about the person
+				in the search result.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="QueryResultCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the kind of result.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonRecordIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A system-assigned unique identifier for a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

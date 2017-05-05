@@ -21,29 +21,31 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.web.WebUtils;
-import org.ojbc.web.model.subscription.Subscription;
 import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
 import org.ojbc.web.portal.controllers.helpers.SubscribedPersonNames;
 import org.w3c.dom.Document;
 
 public class SubscriptionsControllerTest {
 		
-	private Logger logger = Logger.getLogger(SubscriptionsControllerTest.class.getName());
+	private static final Log logger = LogFactory.getLog(SubscriptionsControllerTest.class);
 	
 	private SubscriptionsController subController;	
 		
 	@Before
 	public void init(){		
-		subController = new SubscriptionsController();		
+		subController = new SubscriptionsController();	
+		subController.fbiIdWarning = true; 
 	}
 	
 	
@@ -52,13 +54,15 @@ public class SubscriptionsControllerTest {
 		
 		Subscription sub = new Subscription();
 		
-		sub.setSubscriptionType("{http://ojbc.org/wsn/topics}:person/arrest");
+		sub.setTopic("{http://ojbc.org/wsn/topics}:person/rapback");
 		
 		List<String> warningList = subController.getSubscriptionWarnings(sub);
 		
 		String warning0 = warningList.get(0);
 		
-		Assert.assertEquals("FBI ID missing. Subscription with the FBI is pending.", warning0);
+		Assert.assertEquals("FBI UCN does no exist. Subscription with the FBI will not be created. "
+				+ "If a FBI UCN is received in the future, an FBI subscription will automatically "
+				+ "be created and you will be notified.", warning0);
 	}
 	
 	@Test
@@ -70,7 +74,7 @@ public class SubscriptionsControllerTest {
 		
 		String jsonMsgs = subController.getErrorsWarningsJson(errorList, warningList);
 		
-		Assert.assertEquals("{\"errors\":[\"Error1\",\"Error2\"],\"warnings\":[\"Warn1\",\"Warn2\"]}", jsonMsgs);
+		Assert.assertEquals("{\"warnings\":[\"Warn1\",\"Warn2\"],\"errors\":[\"Error1\",\"Error2\"]}", jsonMsgs);
 		
 		logger.info("json errors:\n" + jsonMsgs);
 	}
@@ -99,10 +103,12 @@ public class SubscriptionsControllerTest {
 						
 		SubscribedPersonNames subscribedPersonNames = subController.getAllPersonNamesFromRapsheet(rapSheetDoc);
 		
-		String originalName = subscribedPersonNames.getOriginalName();
+		String originalName = subscribedPersonNames.getOriginalName().getFullName();
 		Assert.assertEquals("Mary R Billiot", originalName);
 		
-		String[] aAlternateNames = subscribedPersonNames.getAlternateNamesList().toArray(new String[]{});		
+		String[] aAlternateNames = subscribedPersonNames.getAlternateNamesList()
+				.stream().map(personName -> personName.getFullName())
+				.toArray(size -> new String[size]);		
 		Assert.assertArrayEquals(aExpectedAlternateNames, aAlternateNames);							
 	}
 	

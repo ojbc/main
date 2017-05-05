@@ -41,7 +41,7 @@
      <cxf:cxfEndpoint 
         id="fbiEbtsService"
         address="${fbiEbtsAdapter.secureEndpoint}" 
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSNotification.wsdl"
 		serviceName="ojb-nb:NotificationBrokerServiceService" 
 		endpointName="ojb-nb:NotificationBrokerService"
 		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
@@ -50,7 +50,7 @@
 
 	<cxf:cxfEndpoint id="fbiEbtsSubscriptionManagerService"
 		address="${fbiEbtsAdapter.unsubscribeServiceEndpoint}" 
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSubscriptionManager.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSubscriptionManager.wsdl"
 		serviceName="ojb-sm:SubscriptionManagerServiceService"
 		 xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
 	</cxf:cxfEndpoint>        
@@ -77,13 +77,13 @@
     	xmlns:ngi="http://ws.cjis.gov/2014/08/01/ngi/services/risc">
     </cxf:cxfEndpoint>      
     
-    
-	<cxf:cxfEndpoint id="arrestReportingService"
-		address="${fbiEbtsAdapter.arrestReportingServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Arrest_Reporting_Service/schema/RS_WS-SIP_v1.2/Arrest_Reporting_Service.wsdl"
-		serviceName="ojbc:Arrest-Reporting-ServiceService"  
-		endpointName="ojbc:Arrest-Reporting-Service" 
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/ArrestReportingService/1.0">
+    <!-- Federal Criminal History Update Repository Service -->
+	<cxf:cxfEndpoint id="federalCriminalHistoryUpdateReportingService"
+		address="${fbiEbtsAdapter.federalCriminalHistoryUpdateReportingServiceEndpoint}"
+		wsdlURL="classpath:ssp/Federal_Criminal_History_Update_Reporting/schemas/RS_WS-SIP_v1.2/Federal_Criminal_History_Update_Reporting_Service.wsdl"
+		serviceName="ojbc:Federal-Criminal-History-Update-Reporting-ServiceService" 
+		endpointName="ojbc:Federal-Criminal-History-Update-Reporting-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/FederalCriminalHistoryUpdateReporting/1.0">
 		<cxf:properties>
 			<entry key="mtom-enabled" value="true" />
 			<entry key="dataFormat" value="PAYLOAD" />
@@ -101,11 +101,12 @@
 	
 	<cxf:cxfEndpoint id="subscriptionReportingService"
 		address="${fbiEbtsAdapter.subscriptionReportingServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Subscription_Reporting_Service/schemas/SIP_WS_1.3/Subscription_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Reporting/schemas/SIP_WS_1.3/Subscription_Reporting_Service.wsdl"
 		serviceName="ojbc:Subscription-Reporting-ServiceService" 
 		endpointName="ojbc:Subscription-Reporting-Secure-Service" 
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0">
 		<cxf:properties>
+			<entry key="mtom-enabled" value="true"/>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="fbiEbtsAdapterKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${fbiEbtsAdapter.keystoreCertificateAlias}" />
@@ -150,6 +151,28 @@
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
 	</http:conduit>       
     
-    <!-- NOTE assuming osgi container(karaf) handles providing server side ssl for hosted services -->
+    <!-- The Jetty server context will optionally provide a unique port for the FBI.  If the spring profile jetty-server is not active, it is ignore -->
+    
+    <beans profile="jetty-server">
+		<httpj:engine-factory id="HttpsServerSettings"
+			bus="cxf">
+			<httpj:engine port="${fbiEbtsAdapter.fbiPortNumber}">
+				<httpj:tlsServerParameters>
+					<sec:keyManagers keyPassword="${fbiEbtsAdapter.keyPassword}">
+						<sec:keyStore type="jks" password="${fbiEbtsAdapter.keystorePassword}" file="${fbiEbtsAdapter.keystoreLocation}" />
+					</sec:keyManagers>
+					<sec:cipherSuitesFilter>
+						    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+						    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+						    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+						    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+					</sec:cipherSuitesFilter>
+					<sec:clientAuthentication want="false"
+						required="false" />
+				</httpj:tlsServerParameters>
+			</httpj:engine>
+		</httpj:engine-factory>  	
+	</beans>
+      
 </beans>
 

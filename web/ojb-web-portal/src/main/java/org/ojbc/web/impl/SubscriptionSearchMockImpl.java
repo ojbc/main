@@ -17,10 +17,11 @@
 package org.ojbc.web.impl;
 
 import java.io.InputStream;
-import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.SubscriptionSearchInterface;
 import org.ojbc.web.WebUtils;
 import org.ojbc.web.portal.services.SearchResultConverter;
@@ -30,7 +31,7 @@ import org.w3c.dom.Element;
 @Service
 public class SubscriptionSearchMockImpl implements SubscriptionSearchInterface{
 		
-	private Logger logger = Logger.getLogger(SubscriptionSearchMockImpl.class.getName());
+	private final Log logger = LogFactory.getLog(this.getClass());
 	
 	@Resource
 	SearchResultConverter searchResultConverter;		

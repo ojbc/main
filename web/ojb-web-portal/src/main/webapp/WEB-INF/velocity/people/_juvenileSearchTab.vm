@@ -42,7 +42,7 @@
 			        <div class="radioButtonBar" > #springFormRadioButtons("personSearchCommand.advanceSearch.alias.surNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "") </div>   
 			        
 			        <div class="labelText" >
-			        	DOB Range: #springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='datePicker mdate' placeholder='From'")#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='datePicker mdate' placeholder='End'")
+			        	DOB Range: #springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='mdate' placeholder='From'")#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='mdate' placeholder='End'")
 			        		#springBind("personSearchCommand.advanceSearch.personDateOfBirthRangeStart")
                          #springShowErrors( "<br/>" "error" )
 			        </div>

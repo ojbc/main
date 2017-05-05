@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -36,6 +37,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.NotifyBuilder;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultExchange;
@@ -47,8 +49,9 @@ import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.MessageImpl;
-import org.apache.ws.security.SAMLTokenPrincipal;
-import org.apache.ws.security.saml.ext.AssertionWrapper;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
+import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.util.camel.helper.OJBUtils;
@@ -142,6 +145,11 @@ public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificatio
     @Test
     public void testSubscriptionSearch() throws Exception {
     
+    	NotifyBuilder notifySearch = new NotifyBuilder(context).whenReceivedSatisfied(subscriptionSearchResultsMock).create();
+    	NotifyBuilder notifySaml = new NotifyBuilder(context).whenReceivedSatisfied(subscriptionSAMLTokenProcessorSearchMock).create();
+    	
+    	subscriptionSearchResultsMock.reset();
+    	subscriptionSAMLTokenProcessorSearchMock.reset();
     	
     	subscriptionSearchResultsMock.expectedMessageCount(1);
     	subscriptionSAMLTokenProcessorSearchMock.expectedMessageCount(1);
@@ -191,8 +199,8 @@ public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificatio
 			throw new Exception(returnExchange.getException());
 		}	
 
-		//Sleep while a response is generated
-		Thread.sleep(3000);
+		notifySearch.matches(10, TimeUnit.SECONDS);
+		notifySaml.matches(10, TimeUnit.SECONDS);
 		
 		//Assert that the mock endpoint expectations are satisfied
 		subscriptionSAMLTokenProcessorSearchMock.assertIsSatisfied();
@@ -235,13 +243,15 @@ public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificatio
 		Assertion samlToken = SAMLTokenUtils.createStaticAssertionWithCustomAttributes("https://idp.ojbc-local.org:9443/idp/shibboleth",
 				SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
 		
-		SAMLTokenPrincipal principal = new SAMLTokenPrincipal(new AssertionWrapper(samlToken));
+		SAMLTokenPrincipal principal = new SAMLTokenPrincipalImpl(new SamlAssertionWrapper(samlToken));
 		return principal;
 	}
 
     @Test
     public void testSubscriptionSearchWithoutSAMLToken() throws Exception {
     
+    	NotifyBuilder notify = new NotifyBuilder(context).whenReceivedSatisfied(subscriptionSearchResultsMock).create();
+    	
     	subscriptionSearchResultsMock.reset();
     	subscriptionSearchResultsMock.expectedMessageCount(1);
     	
@@ -283,8 +293,7 @@ public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificatio
 			throw new Exception(returnExchange.getException());
 		}	
 
-		//Sleep while a response is generated
-		Thread.sleep(3000);
+		notify.matches(10, TimeUnit.SECONDS);
 		
 		subscriptionSearchResultsMock.assertIsSatisfied();
 		
@@ -301,6 +310,9 @@ public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificatio
     @Test
     public void testSubscriptionSearchNullValidationDate() throws Exception {
     
+    	NotifyBuilder notifySearch = new NotifyBuilder(context).whenReceivedSatisfied(subscriptionSearchResultsMock).create();
+    	NotifyBuilder notifySaml = new NotifyBuilder(context).whenReceivedSatisfied(subscriptionSAMLTokenProcessorSearchMock).create();
+
     	subscriptionSearchResultsMock.reset();
     	subscriptionSAMLTokenProcessorSearchMock.reset();
     	
@@ -355,8 +367,8 @@ public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificatio
 			throw new Exception(returnExchange.getException());
 		}	
 
-		//Sleep while a response is generated
-		Thread.sleep(3000);
+		notifySearch.matches(10, TimeUnit.SECONDS);
+		notifySaml.matches(10, TimeUnit.SECONDS);
 		
 		//Assert that the mock endpoint expectations are satisfied
 		subscriptionSAMLTokenProcessorSearchMock.assertIsSatisfied();
@@ -391,7 +403,11 @@ public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificatio
     
     @Test
     public void testSubscriptionQuery() throws Exception {
-    
+    	NotifyBuilder notifySearch = new NotifyBuilder(context).whenReceivedSatisfied(subscriptionSearchResultsMock).create();
+    	NotifyBuilder notifySaml = new NotifyBuilder(context).whenReceivedSatisfied(subscriptionSAMLTokenProcessorSearchMock).create();
+    	
+    	subscriptionQueryResultsMock.reset();
+    	subscriptionSAMLTokenProcessorQueryMock.reset();
     	
     	subscriptionQueryResultsMock.expectedMessageCount(1);
     	subscriptionSAMLTokenProcessorQueryMock.expectedMessageCount(1);
@@ -441,9 +457,9 @@ public class CamelContextSearchQueryTest extends AbstractSubscriptionNotificatio
 			throw new Exception(returnExchange.getException());
 		}	
 
-		//Sleep while a response is generated
-		Thread.sleep(3000);
-		
+		notifySearch.matches(10, TimeUnit.SECONDS);
+		notifySaml.matches(10, TimeUnit.SECONDS);
+
 		//Assert that the mock endpoint expectations are satisfied
 		subscriptionSAMLTokenProcessorQueryMock.assertIsSatisfied();
 

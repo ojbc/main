@@ -15,20 +15,96 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
 /*This is the default test data loaded into h2 when this is deployed */
-insert into subscription_category(subscription_category_code, subscription_category_description) values('F', 'Firearms'); 
-insert into subscription_category(subscription_category_code, subscription_category_description) values('I', 'Volunteer, Child Care/School Employee, Non-Criminal Justice Employment and Licensing'); 
-insert into subscription_category(subscription_category_code, subscription_category_description) values('J', 'Criminal Justice Employment'); 
-insert into subscription_category(subscription_category_code, subscription_category_description) values('CI', 'Criminal Justice Investigative'); 
-insert into subscription_category(subscription_category_code, subscription_category_description) values('CS', 'Criminal Justice - Supervision'); 
-insert into subscription_category(subscription_category_code, subscription_category_description) values('S', 'Security Clearance Information Act'); 
+use rapback_datastore;
 
-insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62720','{http://ojbc.org/wsn/topics}:person/incident', '2011-10-19', NULL, '2011-10-19', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'MICHAEL Smith-Jones', '1');
-insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62721','{http://ojbc.org/wsn/topics}:person/incident', '2011-10-19', NULL, '2011-10-19', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'MICHAEL Smith-Jones', '1');
-insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62722','{http://ojbc.org/wsn/topics}:person/incident', '2011-10-19', NULL, '2011-10-19', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'MICHAEL Smith-Jones', '1');
-insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62723','{http://ojbc.org/wsn/topics}:person/arrest', '2014-10-15', '2015-10-15', '2014-10-15', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'Test W Jane', '1');
-insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62724','{http://ojbc.org/wsn/topics}:person/arrest', '2014-10-15', '2015-10-15', '2014-10-15', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'Test W Jane', '1');
-insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62725','{http://ojbc.org/wsn/topics}:person/arrest', '2015-09-19', '2016-10-19', '2015-09-19', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'Lisa W Simpson', '1');
-insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62726','{http://ojbc.org/wsn/topics}:person/arrest', '2015-10-16', '2016-10-19', '2015-10-16', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'Bart Simpson', '1');
+insert into subscription_category(subscription_category_code, subscription_category_description) values('CI', 'Criminal Justice Investigative');
+insert into subscription_category(subscription_category_code, subscription_category_description) values('CS', 'Criminal Justice Supervision');
+
+insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('1', 'F', 'Firearms','CIVIL'); 
+insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('2', 'I', 'Volunteer, Child Care/School Employee, Non-Criminal Justice Employment and Licensing', 'CIVIL'); 
+insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('3', 'J', 'Criminal Justice Employment', 'CIVIL'); 
+insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('4', 'CAR', 'Criminal Tenprint Submission', 'CRIMINAL'); 
+insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('5', 'SOR', 'Sex Offender Registry', 'CRIMINAL'); 
+insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('6', 'S', 'Security Clearance Information Act', 'CIVIL'); 
+
+insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR ) values ('1', '1234567890', 'Demo Agency', true, false); 
+insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR ) values ('2', '68796860', 'Test Agency', true, true); 
+insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR ) values ('3', 'HCJDC', 'IT Agency', true, false); 
+
+insert into ojbc_user(ojbc_user_id, federation_id, agency_id, super_user_indicator) values(1, 'HIJIS:IDP:HCJDC:USER:hpotter', 2, false); 
+insert into ojbc_user(ojbc_user_id, federation_id, agency_id, super_user_indicator) values(2, 'HIJIS:IDP:HCJDC:USER:demouser', 1, false); 
+insert into ojbc_user(ojbc_user_id, federation_id, agency_id, super_user_indicator) values(3, 'HIJIS:IDP:HCJDC:USER:superuser', 3, true);
+
+insert into agency_super_user(supervised_agency, ojbc_user_id) values(1, 2);  
+insert into agency_super_user(supervised_agency, ojbc_user_id) values(1, 1);  
+insert into agency_super_user(supervised_agency, ojbc_user_id) values(2, 1);  
+
+insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('1', '1', 'demo.agency@localhost'); 
+insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('2', '1', 'demo.agency2@localhost'); 	
+insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('3', '2', 'test.agency@localhost'); 
+insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('4', '2', 'test.agency2@localhost'); 	
+
+insert into department(department_id, department_name, agency_id) values ('1', 'Kauai PD A&T Records', '2'); 
+insert into department(department_id, department_name, agency_id) values ('2', 'Kauai PD A&T R&D', '2'); 
+insert into department(department_id, department_name, agency_id) values ('3', 'Honolulu PD Records and ID Division', '1'); 
+insert into department(department_id, department_name, agency_id) values ('4', 'Central Receiving Division', '1');
+insert into department(department_id, department_name, agency_id) values ('5', 'Test Division', '1');
+
+insert into job_title(job_title_id, department_id, title_description) values('1', '1', 'ID Tech1');
+insert into job_title(job_title_id, department_id, title_description) values('2', '1', 'Senior Clerk');
+insert into job_title(job_title_id, department_id, title_description) values('3', '1', 'Police Records Unit Supervisor');
+insert into job_title(job_title_id, department_id, title_description) values('4', '1', 'Weapons Registration Clerk');
+insert into job_title(job_title_id, department_id, title_description) values('5', '1', 'Police Record Clerk');
+insert into job_title(job_title_id, department_id, title_description) values('6', '1', 'Police Analyst');
+insert into job_title(job_title_id, department_id, title_description) values('7', '2', 'Police Sergeant');
+insert into job_title(job_title_id, department_id, title_description) values('8', '3', 'Sworn Supervisors');
+insert into job_title(job_title_id, department_id, title_description) values('9', '3', 'Fingerprint Examiners');
+insert into job_title(job_title_id, department_id, title_description) values('10', '3', 'Fingerprint Technicians');
+insert into job_title(job_title_id, department_id, title_description) values('11', '3', 'Firearms Unit (both Civilian and Sworn)');
+insert into job_title(job_title_id, department_id, title_description) values('12', '3', 'ID Section clerks');
+insert into job_title(job_title_id, department_id, title_description) values('13', '3', 'Senior Clerk Typist');
+insert into job_title(job_title_id, department_id, title_description) values('14', '4', 'All Sworn Personnel');
+insert into job_title(job_title_id, department_id, title_description) values('15', '5', 'Any');
+
+insert into job_title_privilege(job_title_id, identification_category_id) values ('1', '4');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('1', '3');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('1', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('1', '5');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('2', '4');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('2', '3');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('2', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('2', '5');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('3', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('4', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('5', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('6', '5');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('7', '3');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('8', '4');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('8', '3');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('8', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('8', '5');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('9', '4');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('9', '3');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('9', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('9', '5');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('10', '4');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('10', '3');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('10', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('10', '5');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('11', '1');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('12', '5');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('13', '5');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('14', '4');
+insert into job_title_privilege(job_title_id, identification_category_id) values ('15', '1');
+
+insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subscriptionOwnerEmailAddress, subjectName, active) values ('62720','{http://ojbc.org/wsn/topics}:person/incident', '2011-10-19', NULL, '2011-10-19', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'admin@local.gov','MICHAEL Smith-Jones', '1');
+insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subscriptionOwnerEmailAddress, subjectName, active) values ('62721','{http://ojbc.org/wsn/topics}:person/incident', '2011-10-19', NULL, '2011-10-19', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'admin@local.gov','MICHAEL Smith-Jones', '1');
+insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subscriptionOwnerEmailAddress, subjectName, active) values ('62722','{http://ojbc.org/wsn/topics}:person/incident', '2011-10-19', NULL, '2011-10-19', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'admin@local.gov','MICHAEL Smith-Jones', '1');
+insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subscriptionOwnerEmailAddress, subjectName, active) values ('62723','{http://ojbc.org/wsn/topics}:person/arrest', '2014-10-15', '2015-10-15', '2014-10-15', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'admin@local.gov','Test W Jane', '1');
+insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subscriptionOwnerEmailAddress, subjectName, active) values ('62724','{http://ojbc.org/wsn/topics}:person/arrest', '2014-10-15', '2015-10-15', '2014-10-15', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'admin@local.gov','Test W Jane', '1');
+insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subscriptionOwnerEmailAddress, subjectName, active) values ('62725','{http://ojbc.org/wsn/topics}:person/arrest', '2015-09-19', '2016-10-19', '2015-09-19', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'admin@local.gov','Lisa W Simpson', '1');
+insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subscriptionOwnerEmailAddress, subjectName, active) values ('62726','{http://ojbc.org/wsn/topics}:person/arrest', '2015-10-16', '2016-10-19', '2015-10-16', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'admin@local.gov','Bart Simpson', '1');
+insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subscriptionOwnerEmailAddress, subjectName, active, subscription_category_code) values ('62727','{http://ojbc.org/wsn/topics}:person/rapback', '2015-10-16', '2020-10-19', '2015-10-16', '{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB', 'OJBC:IDP:OJBC:USER:admin', 'admin@local.gov','El Barto', '1', 'CI');
 
 insert into subscription(id, topic, startDate, endDate, lastValidationDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active) values ('62727','{http://ojbc.org/wsn/topics}:person/arrest', '2015-10-16', '2016-10-19', '2015-10-16', '{http://demostate.gov/SystemNames/1.0}SystemC', 'OJBC:IDP:OJBC:USER:admin', 'PortalUnsubscribe FbiUcnTest', '1');
 
@@ -64,11 +140,13 @@ insert into subscription_subject_identifier(subscriptionId, identifierName, iden
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62723', 'dateOfBirth', '1990-10-12');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62723', 'firstName', 'Test');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62723', 'lastName', 'Jane');
+insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62723', 'SID', 'A123457');
 
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62724', 'subscriptionQualifier', '2110224');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62724', 'dateOfBirth', '1990-10-12');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62724', 'firstName', 'Test');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62724', 'lastName', 'Jane');
+insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62724', 'SID', 'A123458');
 
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62725', 'subscriptionQualifier', '2110225');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62725', 'dateOfBirth', '1989-10-12');
@@ -79,6 +157,15 @@ insert into subscription_subject_identifier(subscriptionId, identifierName, iden
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62726', 'dateOfBirth', '1987-10-10');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62726', 'firstName', 'Bart');
 insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62726', 'lastName', 'Simpson');
+
+insert into subscription_subject_identifier(subscriptionId, identifierName, identifierValue) values('62727', 'SID', 'A123457');
+
+insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','ARREST','ARREST');
+insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','NCIC-WARRANT-ENTRY','NCIC-WARRANT-ENTRY');
+insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','NCIC-WARRANT-MODIFICATION','NCIC-WARRANT-MODIFICATION');
+insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','NCIC-WARRANT-DELETION','NCIC-WARRANT-DELETION');
+insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','federalRapSheetDisclosureIndicator','true');
+insert into subscription_properties(subscriptionId, propertyName, propertyValue) values('62726','federalRapSheetDisclosureAttentionDesignationText','Bill Padmanabhan');
 
 insert into finger_prints_type(finger_prints_type_id, finger_prints_type) values('1', 'FBI'); 
 insert into finger_prints_type(finger_prints_type_id, finger_prints_type) values('2', 'State'); 
@@ -120,23 +207,23 @@ insert into IDENTIFICATION_SUBJECT(subject_id, ucn, civil_sid, criminal_sid, dob
 	values ('5', '1234','A123461', 'C1234570', '1989-10-12', 'Unsubscribe', 'FbiUcnTest', 'W','F');	
 	
 
-insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, Subscription_ID, AVAILABLE_FOR_SUBSCRIPTION_START_DATE) 
-	values ('000001820140729014008339990', '1', '0400024', '68796860', 'ID12345', 'I', 'false', '62724', '2015-10-16');
-insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, AVAILABLE_FOR_SUBSCRIPTION_START_DATE) 
-	values ('000001820140729014008339991', '2', '12344', '68796860', 'ID12345', 'CAR', 'false','2015-08-01' );
-insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, Subscription_ID, AVAILABLE_FOR_SUBSCRIPTION_START_DATE) 
-	values ('000001820140729014008339993', '1', '0400024', '1234567890', 'ID12345', 'I', 'false', '62723', '2015-10-16');
-insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED) 
-	values ('000001820140729014008339994', '2', '12344', '1234567890', 'ID12345', 'CAR', 'false');
-insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, Subscription_ID, AVAILABLE_FOR_SUBSCRIPTION_START_DATE) 
-	values ('000001820140729014008339995', '3', '0400025', '1234567890', 'ID12345', 'I', 'false', '62725', '2016-10-20');
-insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, Subscription_ID, AVAILABLE_FOR_SUBSCRIPTION_START_DATE) 
-	values ('000001820140729014008339996', '2', '12344', '1234567890', 'ID12345', 'I', 'false', '62726', '2016-10-20');
-insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED) 
-	values ('000001820140729014008339997', '4', '0400026', '1234567890', 'ID12345', 'I', 'false');
+insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, Subscription_ID, AVAILABLE_FOR_SUBSCRIPTION_START_DATE, REPORT_TIMESTAMP) 
+	values ('000001820140729014008339990', '1', '0400024', '68796860', 'ID12345', 'F', 'false', '62724', '2015-10-16', '2015-10-16');
+insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, AVAILABLE_FOR_SUBSCRIPTION_START_DATE, REPORT_TIMESTAMP) 
+	values ('000001820140729014008339991', '2', '12344', '68796860', 'ID12345', 'CAR', 'false','2015-08-01', '2015-08-01' );
+insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, Subscription_ID, AVAILABLE_FOR_SUBSCRIPTION_START_DATE, REPORT_TIMESTAMP) 
+	values ('000001820140729014008339993', '1', '0400024', '1234567890', 'ID12345', 'F', 'false', '62723', '2015-10-16', '2015-10-16');
+insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, REPORT_TIMESTAMP) 
+	values ('000001820140729014008339994', '2', '12344', '1234567890', 'ID12345', 'CAR', 'false', '2015-10-10');
+insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, Subscription_ID, AVAILABLE_FOR_SUBSCRIPTION_START_DATE, REPORT_TIMESTAMP) 
+	values ('000001820140729014008339995', '3', '0400025', '1234567890', 'ID12345', 'J', 'false', '62725', '2016-10-20', '2016-10-20');
+insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, Subscription_ID, AVAILABLE_FOR_SUBSCRIPTION_START_DATE, REPORT_TIMESTAMP) 
+	values ('000001820140729014008339996', '2', '12344', '1234567890', 'ID12345', 'F', 'false', '62726', '2016-10-20', '2016-10-20');
+insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, REPORT_TIMESTAMP) 
+	values ('000001820140729014008339997', '4', '0400026', '1234567890', 'ID12345', 'J', 'false', '2015-10-20');
 	
-insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, Subscription_ID, AVAILABLE_FOR_SUBSCRIPTION_START_DATE) 
-	values ('000001820140729014008339998', '5', '0400025', '1234567890', 'ID12345', 'I', 'false', '62727', '2016-10-20');	
+insert into IDENTIFICATION_TRANSACTION (TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, IDENTIFICATION_CATEGORY, ARCHIVED, Subscription_ID, AVAILABLE_FOR_SUBSCRIPTION_START_DATE, REPORT_TIMESTAMP) 
+	values ('000001820140729014008339998', '5', '0400025', '1234567890', 'ID12345', 'F', 'false', '62727', '2016-10-20','2016-10-20');	
 
 /*http://stackoverflow.com/questions/2607326/insert-a-blob-via-a-sql-script*/
 insert into CIVIL_FINGER_PRINTS (TRANSACTION_NUMBER, FINGER_PRINTS_FILE, FINGER_PRINTS_TYPE_ID) 
@@ -201,7 +288,7 @@ insert into CIVIL_INITIAL_RAP_SHEET (CIVIL_INITIAL_RESULT_ID, RAP_SHEET) values 
 insert into CIVIL_INITIAL_RAP_SHEET (CIVIL_INITIAL_RESULT_ID, RAP_SHEET) values ('2', '78DA0B2E492C4975CE2CCBCC094A2C08CE484D2D010042CC0715');	
 insert into CIVIL_INITIAL_RAP_SHEET (CIVIL_INITIAL_RESULT_ID, RAP_SHEET) values ('2', '78DA0B2E492C4975CE2CCBCC094A2C08CE484D2D3102004A130747');	
 insert into CIVIL_INITIAL_RAP_SHEET (CIVIL_INITIAL_RESULT_ID, RAP_SHEET) values ('3', '78DAB558DB6EDB48127D37E07F68CC0E307620D9A415DD122CB02DB2657542911A5EEC78DE1889B63923915A928AD7F3F57BAA49EA6253CE22C87680D8EEAEEBA9EAAA6A1A9FA4E70BCFBF383D31DC8BDB9BF148DA634DBB30EAFD7753579A57BDBEDE7B0F1AFF8B7F48787AA20F3E74DF33AD7FD9D12EAF34BDCB34ADDB6BDED73A3A9B7C2957256B62BA975796A66BFA70D6DAA93A3DE1BE7DF989DB829115EC1FBA5632BD6B5C8C19AE9C4A9B5B6C02BB1DF78EB9C2705C93B1668677A727C764D512655264E962332FE234392A662BCB7F8C7396856B963F4651C19EC29CAD157BB46071C2B2285FA7491EB12265C563C4EED3E5327D8A93079CFC7B13E5C50712024C99BD597D8D3276B08635646E49CCE4E290E0F464B6C9D629E41BE922DA3F9140B228A2A4F4E2601DA0ABE97AB7F42382BDF769B60A150B6C2F0E5DC31FF9E6EB9FD1BC78EDCC3CFC168545AE9C616781F79151E4DB5ABFDDD1CE7FEE560978344FB30599F435CC81749A2C9FF19FB28AC04C4A30E1C473BAC96AACDB81617F00665B5847D13CDC00BC70B188C9EB9CA5195B44CBA8FC63153EB3AF117E00DAB06061F2CC8A7815B558C892E80982E6E9FA19E8A49BE582082B35B0E7E9314A40132DF03B3025E0723A4C0A067D17A55BA72787BE1E2C1FF95CE7327EF382D12761F8CC777022B6C463C7B29C5B695FB3C0138CDB26849AD2F304DD095F3A364478BE2B0DFADD035BC519D8A670D9CC756EA44727CC133E84B9FE84499BF9D2B70499376831C3310573C66C2CC0C12DA4A2B80E2C25DB6367C6D83D6F8159C9675DED42BF6AB1910331D7CE8D70EDA9B07DDC4DE4224CB31D7B7FF7F4043FA42F85C778E04F1C57FE214C7210BE4E25CC815BC29DB9D2F6BDCA35E021E48D50219626B18FA5A16C5167C0CA63D300896D3B38BA23A8E08F296FA41970CB83843DA1A46CC27D45B4AFEBF4E4565A161B09C25419644C84F159D16DAB0D0AD841BDF10823256924512E0F8DDBD18C7C2E6D081DBBCE549197777FCAEFB6FA3CC712D61D0503B90E8A59E0CE1C04D715BF07882528080BE28093C4B51F719C3A81EF41BD925EE205DF402366DCF509F916B62D45CAAF856DDC31C7658818F20161DA054205E7EE0295645CE10893A615D8F0A9925FE5670D9532E677804DF0739BF1D9CC020AA495189C313091C06FCA3F53D6AA5C36852FDC6DC202C7D3132F903E1F490B1610120C3284ED1107FE10D399E5DC912BCC9B70844AE571E9325CA83556F83AB319F23AB04914C5D2013714B6489241EC02A157B4DC3002971320E356296BCF6748321CBB0A9FB4EB58B3C6485F30756E0A439A0AFDADDF706DE20496A98207D632474BF7C40BE7469C402DA13EB44592397B0108608255FAB0F57EC23D64874008C6603429DC7449B8E7D87C84EBEDCBA9282306112ED51602A442E765C4155A24112E590A02DF41E070571DF8CAC99CDD3D63958BC8CD19CA4F3015A5BBD781B47C42170C7784BD7B2D2EB94B150AD7000A6E27D298949EB982B2CA76E8664222920A97402AE73DBFCCF3831474287B5516DF4A6F2FA784B9CBE01D36A099A0ECA874287DDF13C5A94EA0FE805C70D723CFEA68FF96339A8F1879EAED5F6CEF0E3773DA7AA1A60E361A0DB64DF0ECD71C64AD21CCC0AD0C9970E4618BED05239899BC0A455DDE1877E15C43B156A57AECEE6AB1DEBBE8D0E0F69D0EBADA60AA40EBDA6CBB287AE63C4DFEDC24E500F414178FAAADCE375946FD8B5A7CB85E2FE3793928B4AB6EF842E0AE1752FFBBDF149B2C3ADEFBF872C942C8072F746471949311451827E518A54611BA6E959610C2EACEAF2CBAC7141265EB2C8685F374B50EB338A7161E260BB68E3292544F2D79B8A25167117F8B179B7089FC68B288E6211A0DD2FB6A0EDA4E1C59F4B05986E4D9D767B60C9F28C1D47484B90F222B8FC9A8F4FE3E9EC7E1B21444E09239D554B1439CC8C9B07535CA6DA1BBA001EF75FCDE1C60D9CB8AC4BE33C07AD54C670396B35C89FF247C8FEEBC1A14511F50875AE5C0C8CEF8677E4E375F54C7137ECBA53C3CF0020F25A1DE1A5BD4557DC7C6093AEB946F4F6A3D28ACB614AFB6AF85830AE1FBBB13B2A159EFDEC994BBF29045B8A5F977DBDD9DDB6694CFB3784DA9FCD624EE1588388DDF4D87D5283EBCC2D2B45727BEAD0D07FD5EF77D879DF9F6393BB26EFC21AD013BBBF15F8D83BB3591BC3BE877F45E979D4DE41B84168739DD5E077456E573AAB2D18B7097E3E2F9B82FB547B5DD57F8F5AADF19747A83E1E949B7DF1D0EFBBD7E8F64426AF49F4676379C47ECAD05B4A355B86C20BA7D8C8B88644FA2F8E1B1682038B26F529470654771563CC2D2DFB4C12F0D9A755D6BB4481FF6AEDA9ADED67AC7613DB6F461BFDFD6B51FE4EDE93FAEB7DB53BCFA0FF16A3FCEDB1FB4B56E5BEFAB4085718637E8327D914EE2396ADA6E4E8751963E250D27A3E5466583370FB3BCC5A661F6177E502DF5C3A248D31C35EAC5F3779B10BBEB8D3A93AE56682F15AF5C850F1158314E303E3231901F2ED40CEEFB8E4393863A1734E6608846139EBE52D4C2AEAABA34E581A045CF1D6F8609107BE0BBB6388674AF81EF96A60C569F97F6B80D3AF6ED71E5F5A4B4A3BC83B3255DB63AF1773C069EB57F4749FE18AF8F81EE474912E579F412BE2089A9C7A9C297975ADE6A3C0D5F62D8DB8DE79F6F2F663CCF511B344D676F13E21D1966CB986607F18D26145504CA141D0EDB7A99DEED9FB49001E59CB2D5B2BB103B6D158D8111E5A0CA7EFF84BEA6F08728993F6FEBA8D4B4F7BA86C6E219D20F68249C39F462C0303EA3AF728F61F6D090FC7B77BA22B110D10C0D8046CA31464CBCC5D9AF3A7DCB7BD1ECA26F916A104882BF12BA93C7B55C1DD7428DF853C06D0E7B29B7D5C45C7E79D099F3C7FFA2F5E745CD4837198216E718B1E2BD8F6267DB343BAF895EC586D5278781A98F7E2EFE07269E619EB77DBCD2F170E8B1A9431F8266C22D5F12B79778428CCEFFEFB17961D158BDFF7EC5A473FE464160F4E1457C51AF3DFACC409F79BE53101AD02D13A321ED3FEEAEC5C72DA75885F192F1C502172927CE4D9948FF5AA6F370F998E60548CB53F5A1F2D884E5CC30AABA926957838EAE0F3AC3AACABE63F44FD82679553DC8CABDFF02322F8890');	
-insert into CIVIL_INITIAL_RAP_SHEET (CIVIL_INITIAL_RESULT_ID, RAP_SHEET) values ('4', '78DA0B2E492C4975CE2CCBCC094A2C08CE484D2D010042CC0715');	
+insert into CIVIL_INITIAL_RAP_SHEET (CIVIL_INITIAL_RESULT_ID, RAP_SHEET) values ('4', '78DAB558DB6EDB48127D37E07F68CC0E307620D9A415DD122CB02DB2657542911A5EEC78DE1889B63923915A928AD7F3F57BAA49EA6253CE22C87680D8EEAEEBA9EAAA6A1A9FA4E70BCFBF383D31DC8BDB9BF148DA634DBB30EAFD7753579A57BDBEDE7B0F1AFF8B7F48787AA20F3E74DF33AD7FD9D12EAF34BDCB34ADDB6BDED73A3A9B7C2957256B62BA975796A66BFA70D6DAA93A3DE1BE7DF989DB829115EC1FBA5632BD6B5C8C19AE9C4A9B5B6C02BB1DF78EB9C2705C93B1668677A727C764D512655264E962332FE234392A662BCB7F8C7396856B963F4651C19EC29CAD157BB46071C2B2285FA7491EB12265C563C4EED3E5327D8A93079CFC7B13E5C50712024C99BD597D8D3276B08635646E49CCE4E290E0F464B6C9D629E41BE922DA3F9140B228A2A4F4E2601DA0ABE97AB7F42382BDF769B60A150B6C2F0E5DC31FF9E6EB9FD1BC78EDCC3CFC168545AE9C616781F79151E4DB5ABFDDD1CE7FEE560978344FB30599F435CC81749A2C9FF19FB28AC04C4A30E1C473BAC96AACDB81617F00665B5847D13CDC00BC70B188C9EB9CA5195B44CBA8FC63153EB3AF117E00DAB06061F2CC8A7815B558C892E80982E6E9FA19E8A49BE582082B35B0E7E9314A40132DF03B3025E0723A4C0A067D17A55BA72787BE1E2C1FF95CE7327EF382D12761F8CC777022B6C463C7B29C5B695FB3C0138CDB26849AD2F304DD095F3A364478BE2B0DFADD035BC519D8A670D9CC756EA44727CC133E84B9FE84499BF9D2B70499376831C3310573C66C2CC0C12DA4A2B80E2C25DB6367C6D83D6F8159C9675DED42BF6AB1910331D7CE8D70EDA9B07DDC4DE4224CB31D7B7FF7F4043FA42F85C778E04F1C57FE214C7210BE4E25CC815BC29DB9D2F6BDCA35E021E48D50219626B18FA5A16C5167C0CA63D300896D3B38BA23A8E08F296FA41970CB83843DA1A46CC27D45B4AFEBF4E4565A161B09C25419644C84F159D16DAB0D0AD841BDF10823256924512E0F8DDBD18C7C2E6D081DBBCE549197777FCAEFB6FA3CC712D61D0503B90E8A59E0CE1C04D715BF07882528080BE28093C4B51F719C3A81EF41BD925EE205DF402366DCF509F916B62D45CAAF856DDC31C7658818F20161DA054205E7EE0295645CE10893A615D8F0A9925FE5670D9532E677804DF0739BF1D9CC020AA495189C313091C06FCA3F53D6AA5C36852FDC6DC202C7D3132F903E1F490B1610120C3284ED1107FE10D399E5DC912BCC9B70844AE571E9325CA83556F83AB319F23AB04914C5D2013714B6489241EC02A157B4DC3002971320E356296BCF6748321CBB0A9FB4EB58B3C6485F30756E0A439A0AFDADDF706DE20496A98207D632474BF7C40BE7469C402DA13EB44592397B0108608255FAB0F57EC23D64874008C6603429DC7449B8E7D87C84EBEDCBA9282306112ED51602A442E765C4155A24112E590A02DF41E070571DF8CAC99CDD3D63958BC8CD19CA4F3015A5BBD781B47C42170C7784BD7B2D2EB94B150AD7000A6E27D298949EB982B2CA76E8664222920A97402AE73DBFCCF3831474287B5516DF4A6F2FA784B9CBE01D36A099A0ECA874287DDF13C5A94EA0FE805C70D723CFEA68FF96339A8F1879EAED5F6CEF0E3773DA7AA1A60E361A0DB64DF0ECD71C64AD21CCC0AD0C9970E4618BED05239899BC0A455DDE1877E15C43B156A57AECEE6AB1DEBBE8D0E0F69D0EBADA60AA40EBDA6CBB287AE63C4DFEDC24E500F414178FAAADCE375946FD8B5A7CB85E2FE3793928B4AB6EF842E0AE1752FFBBDF149B2C3ADEFBF872C942C8072F746471949311451827E518A54611BA6E959610C2EACEAF2CBAC7141265EB2C8685F374B50EB338A7161E260BB68E3292544F2D79B8A25167117F8B179B7089FC68B288E6211A0DD2FB6A0EDA4E1C59F4B05986E4D9D767B60C9F28C1D47484B90F222B8FC9A8F4FE3E9EC7E1B21444E09239D554B1439CC8C9B07535CA6DA1BBA001EF75FCDE1C60D9CB8AC4BE33C07AD54C670396B35C89FF247C8FEEBC1A14511F50875AE5C0C8CEF8677E4E375F54C7137ECBA53C3CF0020F25A1DE1A5BD4557DC7C6093AEB946F4F6A3D28ACB614AFB6AF85830AE1FBBB13B2A159EFDEC994BBF29045B8A5F977DBDD9DDB6694CFB3784DA9FCD624EE1588388DDF4D87D5283EBCC2D2B45727BEAD0D07FD5EF77D879DF9F6393BB26EFC21AD013BBBF15F8D83BB3591BC3BE877F45E979D4DE41B84168739DD5E077456E573AAB2D18B7097E3E2F9B82FB547B5DD57F8F5AADF19747A83E1E949B7DF1D0EFBBD7E8F64426AF49F4676379C47ECAD05B4A355B86C20BA7D8C8B88644FA2F8E1B1682038B26F529470654771563CC2D2DFB4C12F0D9A755D6BB4481FF6AEDA9ADED67AC7613DB6F461BFDFD6B51FE4EDE93FAEB7DB53BCFA0FF16A3FCEDB1FB4B56E5BEFAB4085718637E8327D914EE2396ADA6E4E8751963E250D27A3E5466583370FB3BCC5A661F6177E502DF5C3A248D31C35EAC5F3779B10BBEB8D3A93AE56682F15AF5C850F1158314E303E3231901F2ED40CEEFB8E4393863A1734E6608846139EBE52D4C2AEAABA34E581A045CF1D6F8609107BE0BBB6388674AF81EF96A60C569F97F6B80D3AF6ED71E5F5A4B4A3BC83B3255DB63AF1773C069EB57F4749FE18AF8F81EE474912E579F412BE2089A9C7A9C297975ADE6A3C0D5F62D8DB8DE79F6F2F663CCF511B344D676F13E21D1966CB986607F18D26145504CA141D0EDB7A99DEED9FB49001E59CB2D5B2BB103B6D158D8111E5A0CA7EFF84BEA6F08728993F6FEBA8D4B4F7BA86C6E219D20F68249C39F462C0303EA3AF728F61F6D090FC7B77BA22B110D10C0D8046CA31464CBCC5D9AF3A7DCB7BD1ECA26F916A104882BF12BA93C7B55C1DD7428DF853C06D0E7B29B7D5C45C7E79D099F3C7FFA2F5E745CD4837198216E718B1E2BD8F6267DB343BAF895EC586D5278781A98F7E2EFE07269E619EB77DBCD2F170E8B1A9431F8266C22D5F12B79778428CCEFFEFB17961D158BDFF7EC5A473FE464160F4E1457C51AF3DFACC409F79BE53101AD02D13A321ED3FEEAEC5C72DA75885F192F1C502172927CE4D9948FF5AA6F370F998E60548CB53F5A1F2D884E5CC30AABA926957838EAE0F3AC3AACABE63F44FD82679553DC8CABDFF02322F8890');	
 
 insert into CRIMINAL_INITIAL_RESULTS (CRIMINAL_INITIAL_RESULT_ID, TRANSACTION_NUMBER, SEARCH_RESULT_FILE, RESULTS_SENDER_ID) 
 			values ('1', '000001820140729014008339991', '78DAF34D2C49CE0000059401EE', '1');
@@ -213,36 +300,28 @@ insert into CRIMINAL_INITIAL_RESULTS (CRIMINAL_INITIAL_RESULT_ID, TRANSACTION_NU
 			values ('4', '000001820140729014008339994', '78DAAD555D6FA240147D37F13FDC7DD8F052C2E047ADB34842D1AE340A8DD0ECF308834E96AFC018659BFDEF3B608D35B5966E4BC23019CEB9F79C3B3733DA9AC791AEAD290974ADE065448197191D499CEEB8E21785A4B75BDA3759860C9E32B2A2F232A7E4B74C424E730C24DA92B2F80BB27C80F1009EC234E1724862169518661B9F0504CC3429D2885E81C7625A804DB7B0486392FC801A5DB03F1430A8D7D9EE24DAFAABA229B5395D536AABED96585AA641A96B9C2C85E92D0BF87A24A9087D976099E601CD4712AACC83C673810A8457B64A46924F1361BD2ECB6BEA0BBC48550DD5BBA7887F63C2A95249C680064A17291DA4F6017571EF061EE695CA67E891ABEC87FC6264CDF5168EFD53D71E056C4AB68431307316B3844470BF2938F32988E4A27035A1CAF428C21C6817D24285AD8DFE87E3135D56201659C87CC2599A804B49EEAF61418B4DC43F2888E7FBF999C93B5ADFDC4C23CB22212DA9A51C6BFE265EE8CE44135208F33406978B9D3DC36C28F24C6B9DA48D68C8AB659B54AD33B35CE30A5C6BFEE03AF645B907DED8B9C5E0981EA81D508737C34624D7B531F4077D79389407D783413312DD61B89BCC8DD9A4117E417CE1686AFC322CCBB01B57F042FE175D85C176606E78E6F40B025B630C86DAE9F6FACDCA77776B81BD8997D53139EC8807A99F57E178624F500F21D4E93752E19806066FE27A9FCF6DAC68E28B23786ADE8FCD8F847BEEF6E3777FF02AF5D5D36EFD034689F124', '2');
 			
 insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, rap_back_term_date, 
-	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
+	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, report_timestamp)
 values
 	('fbiSubscriptionId', 'CI', '5', '2015-12-19', '2019-12-19', '2014-10-19', false, '2', 
 	'123456789', {ts '2014-10-19 18:47:52.69'});			
 	
 insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, rap_back_term_date,
-	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
+	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, report_timestamp)
 values
 	('fbiSubscriptionId_2', 'CI', '2', '2015-12-19','2016-12-19', '2014-10-19', false, '1', 
 	'074644NG0', {ts '2014-10-19 18:47:52.69'});	
 	
 insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, rap_back_term_date, 
-	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
+	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, subscription_id, report_timestamp)
 values
 	('fbiSubscriptionId_3', 'CI', '5', '2015-12-19', '2019-12-19', '2014-10-19', false, '2', 
-	'9222201', {ts '2014-10-19 18:47:52.69'});			
+	'9222201', '62726', {ts '2014-10-19 18:47:52.69'});			
 	
 insert into fbi_rap_back_subscription(fbi_subscription_id, rap_back_category_code, rap_back_subscription_term_code, rap_back_expiration_date, rap_back_term_date,
-	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, timestamp)
+	rap_back_start_date, rap_back_opt_out_in_state_indicator, rap_back_activity_notification_format_code, ucn, subscription_id, report_timestamp)
 values
 	('UnsubscribeFbiUcnIdTest', 'CI', '2', '2015-12-19','2016-12-19', '2014-10-19', false, '1', 
-	'1234', {ts '2014-10-19 18:47:52.69'});	
+	'1234', '62727', {ts '2014-10-19 18:47:52.69'});	
 	
 insert into subsequent_results(ucn, rap_sheet, results_sender_id) values('9222201', '78DAB558DB6EDB48127D37E07F68CC0E307620D9A415DD122CB02DB2657542911A5EEC78DE1889B63923915A928AD7F3F57BAA49EA6253CE22C87680D8EEAEEBA9EAAA6A1A9FA4E70BCFBF383D31DC8BDB9BF148DA634DBB30EAFD7753579A57BDBEDE7B0F1AFF8B7F48787AA20F3E74DF33AD7FD9D12EAF34BDCB34ADDB6BDED73A3A9B7C2957256B62BA975796A66BFA70D6DAA93A3DE1BE7DF989DB829115EC1FBA5632BD6B5C8C19AE9C4A9B5B6C02BB1DF78EB9C2705C93B1668677A727C764D512655264E962332FE234392A662BCB7F8C7396856B963F4651C19EC29CAD157BB46071C2B2285FA7491EB12265C563C4EED3E5327D8A93079CFC7B13E5C50712024C99BD597D8D3276B08635646E49CCE4E290E0F464B6C9D629E41BE922DA3F9140B228A2A4F4E2601DA0ABE97AB7F42382BDF769B60A150B6C2F0E5DC31FF9E6EB9FD1BC78EDCC3CFC168545AE9C616781F79151E4DB5ABFDDD1CE7FEE560978344FB30599F435CC81749A2C9FF19FB28AC04C4A30E1C473BAC96AACDB81617F00665B5847D13CDC00BC70B188C9EB9CA5195B44CBA8FC63153EB3AF117E00DAB06061F2CC8A7815B558C892E80982E6E9FA19E8A49BE582082B35B0E7E9314A40132DF03B3025E0723A4C0A067D17A55BA72787BE1E2C1FF95CE7327EF382D12761F8CC777022B6C463C7B29C5B695FB3C0138CDB26849AD2F304DD095F3A364478BE2B0DFADD035BC519D8A670D9CC756EA44727CC133E84B9FE84499BF9D2B70499376831C3310573C66C2CC0C12DA4A2B80E2C25DB6367C6D83D6F8159C9675DED42BF6AB1910331D7CE8D70EDA9B07DDC4DE4224CB31D7B7FF7F4043FA42F85C778E04F1C57FE214C7210BE4E25CC815BC29DB9D2F6BDCA35E021E48D50219626B18FA5A16C5167C0CA63D300896D3B38BA23A8E08F296FA41970CB83843DA1A46CC27D45B4AFEBF4E4565A161B09C25419644C84F159D16DAB0D0AD841BDF10823256924512E0F8DDBD18C7C2E6D081DBBCE549197777FCAEFB6FA3CC712D61D0503B90E8A59E0CE1C04D715BF07882528080BE28093C4B51F719C3A81EF41BD925EE205DF402366DCF509F916B62D45CAAF856DDC31C7658818F20161DA054205E7EE0295645CE10893A615D8F0A9925FE5670D9532E677804DF0739BF1D9CC020AA495189C313091C06FCA3F53D6AA5C36852FDC6DC202C7D3132F903E1F490B1610120C3284ED1107FE10D399E5DC912BCC9B70844AE571E9325CA83556F83AB319F23AB04914C5D2013714B6489241EC02A157B4DC3002971320E356296BCF6748321CBB0A9FB4EB58B3C6485F30756E0A439A0AFDADDF706DE20496A98207D632474BF7C40BE7469C402DA13EB44592397B0108608255FAB0F57EC23D64874008C6603429DC7449B8E7D87C84EBEDCBA9282306112ED51602A442E765C4155A24112E590A02DF41E070571DF8CAC99CDD3D63958BC8CD19CA4F3015A5BBD781B47C42170C7784BD7B2D2EB94B150AD7000A6E27D298949EB982B2CA76E8664222920A97402AE73DBFCCF3831474287B5516DF4A6F2FA784B9CBE01D36A099A0ECA874287DDF13C5A94EA0FE805C70D723CFEA68FF96339A8F1879EAED5F6CEF0E3773DA7AA1A60E361A0DB64DF0ECD71C64AD21CCC0AD0C9970E4618BED05239899BC0A455DDE1877E15C43B156A57AECEE6AB1DEBBE8D0E0F69D0EBADA60AA40EBDA6CBB287AE63C4DFEDC24E500F414178FAAADCE375946FD8B5A7CB85E2FE3793928B4AB6EF842E0AE1752FFBBDF149B2C3ADEFBF872C942C8072F746471949311451827E518A54611BA6E959610C2EACEAF2CBAC7141265EB2C8685F374B50EB338A7161E260BB68E3292544F2D79B8A25167117F8B179B7089FC68B288E6211A0DD2FB6A0EDA4E1C59F4B05986E4D9D767B60C9F28C1D47484B90F222B8FC9A8F4FE3E9EC7E1B21444E09239D554B1439CC8C9B07535CA6DA1BBA001EF75FCDE1C60D9CB8AC4BE33C07AD54C670396B35C89FF247C8FEEBC1A14511F50875AE5C0C8CEF8677E4E375F54C7137ECBA53C3CF0020F25A1DE1A5BD4557DC7C6093AEB946F4F6A3D28ACB614AFB6AF85830AE1FBBB13B2A159EFDEC994BBF29045B8A5F977DBDD9DDB6694CFB3784DA9FCD624EE1588388DDF4D87D5283EBCC2D2B45727BEAD0D07FD5EF77D879DF9F6393BB26EFC21AD013BBBF15F8D83BB3591BC3BE877F45E979D4DE41B84168739DD5E077456E573AAB2D18B7097E3E2F9B82FB547B5DD57F8F5AADF19747A83E1E949B7DF1D0EFBBD7E8F64426AF49F4676379C47ECAD05B4A355B86C20BA7D8C8B88644FA2F8E1B1682038B26F529470654771563CC2D2DFB4C12F0D9A755D6BB4481FF6AEDA9ADED67AC7613DB6F461BFDFD6B51FE4EDE93FAEB7DB53BCFA0FF16A3FCEDB1FB4B56E5BEFAB4085718637E8327D914EE2396ADA6E4E8751963E250D27A3E5466583370FB3BCC5A661F6177E502DF5C3A248D31C35EAC5F3779B10BBEB8D3A93AE56682F15AF5C850F1158314E303E3231901F2ED40CEEFB8E4393863A1734E6608846139EBE52D4C2AEAABA34E581A045CF1D6F8609107BE0BBB6388674AF81EF96A60C569F97F6B80D3AF6ED71E5F5A4B4A3BC83B3255DB63AF1773C069EB57F4749FE18AF8F81EE474912E579F412BE2089A9C7A9C297975ADE6A3C0D5F62D8DB8DE79F6F2F663CCF511B344D676F13E21D1966CB986607F18D26145504CA141D0EDB7A99DEED9FB49001E59CB2D5B2BB103B6D158D8111E5A0CA7EFF84BEA6F08728993F6FEBA8D4B4F7BA86C6E219D20F68249C39F462C0303EA3AF728F61F6D090FC7B77BA22B110D10C0D8046CA31464CBCC5D9AF3A7DCB7BD1ECA26F916A104882BF12BA93C7B55C1DD7428DF853C06D0E7B29B7D5C45C7E79D099F3C7FFA2F5E745CD4837198216E718B1E2BD8F6267DB343BAF895EC586D5278781A98F7E2EFE07269E619EB77DBCD2F170E8B1A9431F8266C22D5F12B79778428CCEFFEFB17961D158BDFF7EC5A473FE464160F4E1457C51AF3DFACC409F79BE53101AD02D13A321ED3FEEAEC5C72DA75885F192F1C502172927CE4D9948FF5AA6F370F998E60548CB53F5A1F2D884E5CC30AABA926957838EAE0F3AC3AACABE63F44FD82679553DC8CABDFF02322F8890', '1');
 insert into subsequent_results(ucn, rap_sheet, results_sender_id) values('9222201', '78DA0B2E492C4955082E4D2A4E2D2C4DCD2B51284A2D2ECD2929D603007D3709B1', '2');
-
-insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION ) values ('1', '1234567890', 'Demo Agency', 'true'); 
-insert into AGENCY_PROFILE(AGENCY_ID, AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION ) values ('2', '68796860', 'Test Agency', 'true'); 
-
-insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('1', '1', 'demo.agency@localhost'); 
-insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('2', '1', 'demo.agency2@localhost'); 	
-insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('3', '2', 'test.agency@localhost'); 
-insert into AGENCY_CONTACT_EMAIL(AGENCY_CONTACT_EMAIL_ID , AGENCY_ID , AGENCY_EMAIL) values('4', '2', 'test.agency2@localhost'); 	

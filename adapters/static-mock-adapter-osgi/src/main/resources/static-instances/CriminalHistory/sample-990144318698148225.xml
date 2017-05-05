@@ -37,7 +37,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P12">
+        <rap:RapSheetPerson s:id="P12">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>Kimberly T</nc:PersonGivenName>
                 <nc:PersonSurName>Webb</nc:PersonSurName>
@@ -72,7 +72,7 @@
                     <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P12"/>
             <nc:Biometric>

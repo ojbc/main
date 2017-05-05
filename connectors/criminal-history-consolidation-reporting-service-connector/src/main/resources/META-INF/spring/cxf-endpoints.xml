@@ -47,10 +47,10 @@
     <cxf:cxfEndpoint 
         id="criminalhistoryConsolidationReportingService"
         address="${criminalHistoryConsolidation.criminalHistoryConsolidationReportingServiceEndpoint}" 
-		wsdlURL="classpath:service-specifications/Criminal_History_Consolidation_Reporting_Service/schemas/SIP_WS_1.3/Criminal_History_Consolidation_Reporting_Service.wsdl"
-		serviceName="ojbc:Criminal-History-Consolidation-Reporting-ServiceService" 
-		endpointName="ojbc:Criminal-History-Consolidation-Reporting-Secure-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryConsolidationReportingService/1.0">
+		wsdlURL="classpath:ssp/Criminal_History_Update_Reporting/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
+		serviceName="ojbc:Criminal-History-Update-Reporting-ServiceService" 
+		endpointName="ojbc:Criminal-History-Update-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="criminalHistoryConsolidationReportingKeystoreProperties" /> 

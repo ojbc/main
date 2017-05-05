@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<crr-doc:CustodyReleaseReport
+	xmlns:crr-doc="http://ojbc.org/IEPD/Exchange/CustodyReleaseReport/1.0"
+	xmlns:crr-ext="http://ojbc.org/IEPD/Extensions/CustodyReleaseReportExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:hs="http://release.niem.gov/niem/domains/humanServices/3.1/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/"
+	xmlns:pc-bkg-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodyReleaseReport/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0 ../xsd/impl/pima_county/booking_codes.xsd">
+	<crr-ext:Custody>
+	<j:Booking>
+		<nc:ActivityDate>
+			<nc:DateTime>2015-12-23T03:02:00Z</nc:DateTime>
+		</nc:ActivityDate>
+		<j:BookingAgency>
+			<nc:OrganizationName>PCSD</nc:OrganizationName>
+		</j:BookingAgency>
+		<j:BookingAgencyRecordIdentification>
+			<nc:IdentificationID>151223012</nc:IdentificationID>
+		</j:BookingAgencyRecordIdentification>
+		<j:BookingSubject>
+			<nc:RoleOfPerson structures:ref="d1e3" />
+		</j:BookingSubject>
+	</j:Booking>
+	<nc:Person structures:id="d1e3">
+		<nc:PersonBirthDate>
+			<nc:Date>1985-05-18</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>bill</nc:PersonGivenName>
+			<nc:PersonMiddleName>a</nc:PersonMiddleName>
+			<nc:PersonSurName>smith</nc:PersonSurName>
+			<crr-ext:PersonNameIdentification>
+				<nc:IdentificationID>99999</nc:IdentificationID>
+			</crr-ext:PersonNameIdentification>
+		</nc:PersonName>
+		<pc-bkg-codes:PersonRaceCode>2</pc-bkg-codes:PersonRaceCode>
+		<nc:PersonSexText>F</nc:PersonSexText>
+		<crr-ext:PersonBehavioralHealthInformation
+			structures:ref="PBHI_01" />
+		<crr-ext:PersonCareEpisode structures:ref="PCE_01" />
+	</nc:Person>
+	<crr-ext:BehavioralHealthInformation
+		structures:id="PBHI_01">
+		<crr-ext:SeriousMentalIllnessIndicator>true
+		</crr-ext:SeriousMentalIllnessIndicator>
+		<crr-ext:HighRiskNeedsIndicator>true</crr-ext:HighRiskNeedsIndicator>
+		<crr-ext:SubstanceAbuseIndicator>true</crr-ext:SubstanceAbuseIndicator>
+		<crr-ext:GeneralMentalHealthConditionIndicator>false
+		</crr-ext:GeneralMentalHealthConditionIndicator>
+		<j:Evaluation>
+			<j:EvaluationDiagnosisDescriptionText>Schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
+		</j:Evaluation>
+		<nc:Treatment>
+			<nc:ActivityDateRange>
+				<nc:StartDate>
+					<nc:Date>2016-01-01</nc:Date>
+				</nc:StartDate>
+			</nc:ActivityDateRange>
+			<nc:TreatmentText>person was treated</nc:TreatmentText>
+			<nc:TreatmentProvider>
+				<nc:EntityOrganization>
+					<nc:OrganizationName>Treatment Providing Organization Name
+					</nc:OrganizationName>
+				</nc:EntityOrganization>
+			</nc:TreatmentProvider>
+			<crr-ext:TreatmentCourtOrderedIndicator>true
+			</crr-ext:TreatmentCourtOrderedIndicator>
+			<crr-ext:TreatmentActiveIndicator>true
+			</crr-ext:TreatmentActiveIndicator>
+		</nc:Treatment>
+		<crr-ext:PrescribedMedication>
+			<cyfs:Medication>
+				<nc:ItemName>Zyprexa</nc:ItemName>
+				<crr-ext:MedicationGenericProductIdentification>
+					<nc:IdentificationID>58-20-00-60-10-01-05</nc:IdentificationID>
+				</crr-ext:MedicationGenericProductIdentification>
+			</cyfs:Medication>
+			<cyfs:MedicationDispensingDate>
+				<nc:Date>2016-01-01</nc:Date>
+			</cyfs:MedicationDispensingDate>
+			<cyfs:MedicationDoseMeasure>
+				<nc:MeasureValueText>3mg</nc:MeasureValueText>
+			</cyfs:MedicationDoseMeasure>
+		</crr-ext:PrescribedMedication>
+		<hs:MedicaidIndicator>true</hs:MedicaidIndicator>
+		<crr-ext:RegionalBehavioralHealthAuthorityAssignmentText>79</crr-ext:RegionalBehavioralHealthAuthorityAssignmentText>
+	</crr-ext:BehavioralHealthInformation>
+	<crr-ext:CareEpisode structures:id="PCE_01">
+		<nc:ActivityDateRange>
+			<nc:StartDate>
+				<nc:Date>2016-01-01</nc:Date>
+			</nc:StartDate>
+			<nc:EndDate>
+				<nc:Date>2016-04-01</nc:Date>
+			</nc:EndDate>
+		</nc:ActivityDateRange>
+	</crr-ext:CareEpisode>
+	</crr-ext:Custody>
+</crr-doc:CustodyReleaseReport>

@@ -84,7 +84,7 @@ public class SubscriptionProcessorTest {
         Exchange e = new DefaultExchange((CamelContext) null);
         Message m = e.getIn();
         m.setHeader("operationName", "Unsubscribe");
-        ArrestUnSubscriptionRequest request = new ArrestUnSubscriptionRequest("{http://ojbc.org/wsn/topics}:person/arrest", Arrays.asList("emailAddress"), "systemName", "12345", "subjectId");
+        ArrestUnSubscriptionRequest request = new ArrestUnSubscriptionRequest("{http://ojbc.org/wsn/topics}:person/arrest", Arrays.asList("emailAddress"), "systemName", "12345", "subjectId","first", "last", "10-10-2001");
         unit.setTopic(request.getTopic());
         unit.processUnSubscriptionRequest(request, m, "SYSTEM");
         assertTrue(e.getOut().isFault());
@@ -93,7 +93,7 @@ public class SubscriptionProcessorTest {
     @Test
     public void testProcessUnSubscriptionRequest_invalidTopic() throws Exception {
         Message m = new DefaultMessage();
-        ArrestUnSubscriptionRequest request = new ArrestUnSubscriptionRequest("arbitraryTopic", Arrays.asList("emailAddress"), "systemName", "12345", "subjectId");
+        ArrestUnSubscriptionRequest request = new ArrestUnSubscriptionRequest("arbitraryTopic", Arrays.asList("emailAddress"), "systemName", "12345", "subjectId","first", "last", "10-10-2001");
         unit.setTopic("validTopic");
         unit.processUnSubscriptionRequest(request, m, "SYSTEM");
         assertEquals("<ResourceUnknownFault xmlns=\"http://docs.oasis-open.org/wsrf/bf-2\"/>", m.getBody());

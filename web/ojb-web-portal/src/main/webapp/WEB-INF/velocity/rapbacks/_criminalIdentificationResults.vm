@@ -16,6 +16,35 @@
  *#
 <!DOCTYPE html>
 <script type="text/javascript">
+
+ 	/* Custom filtering function which will hide or show records based on the values selected in the filtered column input fields */
+	$.fn.dataTable.ext.search.push(
+	    function( settings, data, dataIndex ) {
+	    	var showArchivedOnly = $('#showArchivedOnly').is(":checked");
+	    	var hideArchived = $('#hideArchived').is(":checked");
+	        var status = data[4] ; // use data for the status column
+	    	
+	    	if ( showArchivedOnly ){
+	    		if ( status ==='Archived'){
+	    			return true; 
+	    		}
+	    		else{
+	    			return false; 
+    			}
+	    	}
+	    	
+	    	if ( hideArchived ){
+	    		if ( status ==='Archived'){
+	    			return false; 
+	    		}
+	    		else{
+	    			return true; 
+    			}
+	    	}
+	    	
+	    	return true;
+	    }
+	);
  
 	$(function() {
 	  
@@ -24,11 +53,13 @@
 		optTable = {
 			"pagingType": "full_numbers",
 			"pageLength": 50,
+			"order": [[ 1, "asc" ]],
+			stateSave: true, 
 			"language": {
         		"emptyTable": "No criminal identification record available"
    			 },
 			"columnDefs": [{
-				targets: [ 3 ],
+				targets: [ 5 ],
 			    searchable: false, 
 			    sortable: false
 			} ]
@@ -36,6 +67,49 @@
 		
 		var oTable = $("#searchResultsTable").DataTable( optTable);
 
+		$('#filterColumn').on("change", '#showArchivedOnly', function() {
+			if ($('#showArchivedOnly').is(":checked")){
+				$('#hideArchived').attr('checked', false);
+			}
+        	oTable.draw();
+    	} );
+
+		$('#filterColumn').on("change", '#hideArchived', function() {
+			if ($('#hideArchived').is(":checked")){
+				$('#showArchivedOnly').attr('checked', false);
+			}
+        	oTable.draw();
+    	} );
+    	
+    	$('#searchResultsTable').on('click', 'a.archive',function() {
+    		$.get("#springUrl('/rapbacks/archive')", {transactionNumber: $(this).attr("id")}, function(data) {
+				if (data === 'success'){
+					refreshSearchResultsTable();
+				}
+				else{
+					showErrorMessage(data);
+				}	
+																      
+			}).fail(ojbc.displayFailMessage);
+    	});
+    	
+    	function showErrorMessage(data){
+			if ( $( "#informationMessages" ).length ) {
+			    $( "#informationMessages" ).html(data);
+			}
+			else {
+				$( "#searchResultsTable_wrapper" ).prepend( '<span class="error" id="informationMessages" >'+data+'</span>' );
+			}
+    	}
+    	
+    	function refreshSearchResultsTable(){
+    		$.post("#springUrl('/rapbacks/criminalIdentificationsResults')", function(data) {
+				$('#portalContent').html(data);	
+			}).fail(ojbc.displayFailMessage);
+							    
+			return false;
+    	}
+    	
     	$('#searchResultsTable').on('click', 'a.initialResults',function() {
             var url = this.href;
             var dialog = $('<div style="display:none"  title="Identification Initial Results" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
@@ -73,6 +147,20 @@
             return false;
         });
     	
+		$('#returnToSearchSubmitButton').click (function(){
+	  		$.get("#springUrl('/rapbacks/criminalIdentificationSearchForm')",function(data) {
+	  			$('#portalContent').html(data);
+		    }).fail(ojbc.displayFailMessage)
+	  	}); 
+		
+		$('#newSearchSubmitButton').click (function(){
+			ojbc.clearSearchPurposeFields();
+			ojbc.clearSearchResultsFilterFields();
+	  		$.get("#springUrl('/rapbacks/criminalIdentificationSearchForm?resetForm=true')",function(data) {
+			      $('#portalContent').html(data);
+			    }).fail(ojbc.displayFailMessage)
+		});
+
 	});
 </script>
 	
@@ -81,6 +169,17 @@
 
     <div id="searchResultsHeader"> 
         <p id="search-results-title">MANAGE CRIMINAL IDENTIFICATION</p>
+        <div style="float:right" >
+            <a id="returnToSearchSubmitButton" class="grayButton" >
+                <img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Results/icon-back.png')" alt="Search Icon"/>
+                RETURN TO SEARCH
+            </a>
+            <a id="newSearchSubmitButton" class="grayButton" >
+                <img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/>
+                NEW SEARCH
+            </a>
+        </div>
+        
     </div>
     
     <div style="padding:10px">

@@ -32,7 +32,7 @@ public class TestPersonQueryResponseErrorBuilderUtils {
 		//XmlUtils.printNode(doc);		
 
         // ensure the document we generated is valid by using the xsd to validate it
-        XmlUtils.validateInstance("service-specifications/Criminal_History_Query_Results_Service/artifacts/service_model/information_model/Criminal_History-IEPD/xsd", 
+        XmlUtils.validateInstance("ssp/Criminal_History_Query_Results/artifacts/service_model/information_model/IEPD/xsd", 
         		"NIEM_2.1", "Criminal_History.xsd", doc);
 
 	}	

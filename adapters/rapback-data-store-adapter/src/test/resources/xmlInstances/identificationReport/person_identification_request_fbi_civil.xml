@@ -57,5 +57,5 @@
 			<ident-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</ident-ext:Base64BinaryObject>
 		</nc:DocumentBinary>
 	</ident-ext:FederalFingerprintBasedIdentificationRequestDocument>
-	<ident-ext:CivilIdentificationReasonCode>I</ident-ext:CivilIdentificationReasonCode>
+	<ident-ext:CivilIdentificationReasonCode>J</ident-ext:CivilIdentificationReasonCode>
 </pidreq-doc:PersonFederalIdentificationRequest>

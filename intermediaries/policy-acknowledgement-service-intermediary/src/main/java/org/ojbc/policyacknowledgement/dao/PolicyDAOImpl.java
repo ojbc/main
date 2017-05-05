@@ -29,6 +29,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -54,6 +55,9 @@ public class PolicyDAOImpl implements PolicyDAO {
 	private static final String ATTRIBUTES_MISSING_OR_INVALID="Login Error:  One or more required user attributes are missing or not valid";
 	private static final String PRIVACY_COMPLIANCE_ERROR="Privacy Compliance Error:  No Agency Privacy Policy associated with this user's ORI";
 	
+    @Value("#{'${policyAcknowledgement.orisWithoutPrivacyPolicy:}'.split(',')}")
+    private List<String> orisWithoutPrivacyPolicy;
+    
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.insertUser = new SimpleJdbcInsert(dataSource).withTableName("ojbc_user").usingGeneratedKeyColumns("id");
@@ -95,16 +99,19 @@ public class PolicyDAOImpl implements PolicyDAO {
     /**
      * Make sure there is a privacy policy associated with the ORI. 
      */
-    private final String POLICY_COUNT_BY_ORI = "SELECT count(*) FROM policy p "
+    private final String POLICY_COUNT_BY_ORI = "SELECT count(*) > 0 FROM policy p "
             + "LEFT JOIN policy_ori po ON po.policy_id = p.id "
             + "LEFT JOIN ori o ON o.id = po.ori_id "
             + "WHERE o.ori = ? AND p.active = true "; 
     private void validateOriPolicyCompliance(String ori) {
         
-        int count = jdbcTemplate.queryForInt(POLICY_COUNT_BY_ORI, ori);
-        if (count == 0) {
+    	if (isCivilOri(ori)) 
+    		return; 
+    	
+        Boolean oriCompliance = jdbcTemplate.queryForObject(POLICY_COUNT_BY_ORI, Boolean.class, ori);
+        if (!oriCompliance) {
             log.error(PRIVACY_COMPLIANCE_ERROR + " :" + ori);
-            throw new IllegalArgumentException(PRIVACY_COMPLIANCE_ERROR + " :" + ori); 
+            throw new IllegalArgumentException(PRIVACY_COMPLIANCE_ERROR + ": " + ori); 
         }
     }
 
@@ -176,13 +183,20 @@ public class PolicyDAOImpl implements PolicyDAO {
 		}
 	}
 
-	private final String USER_COUNT_BY_FED_ID = "SELECT count(*) FROM ojbc_user WHERE federation_id = :federationId"; 
+	private final String USER_COUNT_BY_FED_ID = "SELECT count(*)=1 FROM ojbc_user WHERE federation_id = :federationId"; 
     @Override
     public boolean isExistingUser(String federationId) {
         validateFedId(federationId);
         
-        int count = jdbcTemplate.queryForInt(USER_COUNT_BY_FED_ID, federationId);
-        return count == 1;
+        Boolean existing = jdbcTemplate.queryForObject(USER_COUNT_BY_FED_ID, Boolean.class, federationId);
+        return existing;
+    }
+    
+    public boolean isCivilOri(String ori) {
+    	final String sql = "select count(*)=1 from ori t where t.ori =? and civil_ori_indicator = true"; 
+    	
+    	Boolean isCivilOri = jdbcTemplate.queryForObject(sql, Boolean.class, ori);
+    	return isCivilOri;
     }
     
     private final String GET_USER_ID_BY_FED_ID = "SELECT id FROM ojbc_user WHERE federation_id = ?"; 
@@ -201,12 +215,12 @@ public class PolicyDAOImpl implements PolicyDAO {
         return key.longValue(); 
     }
     
-    private final String ORI_COUNT_BY_ORI_LIST = "SELECT count(*) FROM ori t WHERE t.ori = ?; "; 
+    private final String ORI_COUNT_BY_ORI_LIST = "SELECT count(*)>0 FROM ori t WHERE t.ori = ?; "; 
     private boolean isValidOri(String ori){
         
         if (StringUtils.isBlank(ori)) return false; 
         
-        int count = jdbcTemplate.queryForInt(ORI_COUNT_BY_ORI_LIST, ori);
-        return count > 0; 
+        Boolean valid = jdbcTemplate.queryForObject(ORI_COUNT_BY_ORI_LIST, Boolean.class, ori);
+        return valid; 
     }
 }

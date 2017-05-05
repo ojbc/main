@@ -16,25 +16,20 @@
  */
 package org.ojbc.bundles.adapters.staticmock;
 
-import java.io.IOException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.ojbc.bundles.adapters.staticmock.StaticMockQuery;
-import org.ojbc.util.xml.OjbcNamespaceContext;
-import org.ojbc.util.xml.XmlUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
+import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public abstract class AbstractStaticMockTest {
 
@@ -44,19 +39,27 @@ public abstract class AbstractStaticMockTest {
 
 	@Before
 	public void setUp() throws Exception {
+		
 		log = LogFactory.getLog(getClass());
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setNamespaceAware(true);
 		documentBuilder = dbf.newDocumentBuilder();
-		staticMockQuery = new StaticMockQuery("XpathTestSamples/CriminalHistory", "XpathTestSamples/Warrant", "XpathTestSamples/Incident", "XpathTestSamples/FirearmRegistration", "XpathTestSamples/JuvenileHistory");
+		
+		staticMockQuery = new StaticMockQuery("XpathTestSamples/CriminalHistory", "XpathTestSamples/Warrant", "XpathTestSamples/Incident", 
+				"XpathTestSamples/FirearmRegistration", "XpathTestSamples/JuvenileHistory", "XpathTestSamples/Custody", "XpathTestSamples/CourtCase", 
+				"XpathTestSamples/VehicleCrash", "XpathTestSamples/FirearmProhibition");				
 	}
 
 	protected Document buildBasePersonSearchRequestMessagePersonNameOnly(String systemId) throws Exception {
+		
 		Document personSearchRequestMessage = buildBasePersonSearchRequestMessage(systemId);
 		Element personElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Person");
 		NodeList children = personElement.getChildNodes();
+		
 		int childCount = children.getLength();
+		
 		for (int i = childCount - 1; i >= 0; i--) {
+			
 			Node child = children.item(i);
 			if (!("PersonName".equals(child.getLocalName()))) {
 				personElement.removeChild(child);
@@ -113,6 +116,38 @@ public abstract class AbstractStaticMockTest {
 		systemElement.setTextContent(systemId);
 		return ret;
 	}
+	
+	protected Document buildCustodySearchRequestMessage(String systemId) throws Exception{
+	
+		PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
+		
+		Resource resource = resourceResolver.getResource("TestRequestMessages/CustodySearchRequest.xml");
+		
+		Document custodySearchRequestDoc = documentBuilder.parse(resource.getInputStream());
+		
+		Element idElement = (Element) XmlUtils.xPathNodeSearch(custodySearchRequestDoc, "/cs-req-doc:CustodySearchRequest/nc30:Person/cs-req-ext:PersonRecordIdentification/nc30:IdentificationID");
+		idElement.setTextContent(systemId);
+				
+		return custodySearchRequestDoc;
+	}
+	
+	
+	protected Document buildCourtCasePersonSearchRequestMessage(String personRecId) throws Exception{
+		
+		PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
+		
+		Resource resource = resourceResolver.getResource("TestRequestMessages/CourtCaseSearchRequest.xml");
+		
+		Document courtCaseSearchRequestDoc = documentBuilder.parse(resource.getInputStream());
+
+		Element personRecIdElement = (Element)XmlUtils.xPathNodeSearch(courtCaseSearchRequestDoc, 
+				"//ccs-req-doc:CourtCaseSearchRequest/nc30:Person/ccs-req-ext:PersonRecordIdentification/nc30:IdentificationID");
+		
+		personRecIdElement.setTextContent(personRecId);		
+		
+		return courtCaseSearchRequestDoc;		
+	}
+	
 
 	protected Document buildJuvenilePersonSearchRequestMessage(String systemId) throws Exception {
 		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
@@ -216,22 +251,43 @@ public abstract class AbstractStaticMockTest {
 	}
 
 	protected Document buildFullResultsPersonSearchRequest() throws Exception {
+		
 		Document personSearchRequestMessage = buildBasePersonSearchRequestMessagePersonNameOnly(StaticMockQuery.CRIMINAL_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
+		
 		Element personElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:Person");
 		Element personNameElement = (Element) XmlUtils.xPathNodeSearch(personElement, "nc:PersonName");
 		Element lastNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonSurName");
 		lastNameElement.setTextContent("Ivey");
 		Element firstNameElement = (Element) XmlUtils.xPathNodeSearch(personNameElement, "nc:PersonGivenName");
 		firstNameElement.setTextContent("Larry");
+		
 		Element sourceSystemTextElement = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest/psr:SourceSystemNameText");
+		
 		Element root = (Element) XmlUtils.xPathNodeSearch(personSearchRequestMessage, "psr-doc:PersonSearchRequest");
-		sourceSystemTextElement = XmlUtils.insertElementBefore(root, sourceSystemTextElement, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");
+		
+		sourceSystemTextElement = XmlUtils.insertElementBefore(root, sourceSystemTextElement, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");		
 		sourceSystemTextElement.setTextContent(StaticMockQuery.WARRANT_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
-		sourceSystemTextElement = XmlUtils.insertElementBefore(root, sourceSystemTextElement, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");
+		
+		sourceSystemTextElement = XmlUtils.insertElementBefore(root, sourceSystemTextElement, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");		
 		sourceSystemTextElement.setTextContent(StaticMockQuery.INCIDENT_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
-		sourceSystemTextElement = XmlUtils.insertElementBefore(root, sourceSystemTextElement, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");
+		
+		sourceSystemTextElement = XmlUtils.insertElementBefore(root, sourceSystemTextElement, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");		
 		sourceSystemTextElement.setTextContent(StaticMockQuery.FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID);
+		
+		Element custodySourceSystemElement = XmlUtils.insertElementBefore(root, sourceSystemTextElement, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");		
+		custodySourceSystemElement.setTextContent(StaticMockQuery.CUSTODY_PERSON_SEARCH_SYSTEM_ID);
+		
+		Element courtCaseSourceSystemElement = XmlUtils.insertElementBefore(root, custodySourceSystemElement, OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");		
+		courtCaseSourceSystemElement.setTextContent(StaticMockQuery.COURT_CASE_PERSON_SEARCH_SYSTEM_ID);
+		
+		Element vehicleCrashSourceSystemElement = XmlUtils.insertElementBefore(root, courtCaseSourceSystemElement, 
+				OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "SourceSystemNameText");	
+		
+		vehicleCrashSourceSystemElement.setTextContent(StaticMockQuery.VEHICLE_CRASH_SEARCH_SYSTEM_ID);
+				
 		return personSearchRequestMessage;
 	}
 
 }
+
+

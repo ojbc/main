@@ -41,7 +41,7 @@
 	<!-- hosted by this intermediary, invoked by connector -->
 	<cxf:cxfEndpoint id="CriminalHistoryUpdateReportingService"
 		address="${criminalHistoryReportingServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Criminal_History_Update_Reporting_Service/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Criminal_History_Update_Reporting/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
 		serviceName="ojbc:Criminal-History-Update-Reporting-ServiceService" 
 		endpointName="ojbc:Criminal-History-Update-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0">
@@ -52,10 +52,25 @@
 		</cxf:properties> 
 	</cxf:cxfEndpoint>	
 	
+	<!-- hosted by rapback adapter, called by intermediary -->
+    <cxf:cxfEndpoint 
+        id="criminalhistoryUpdateReportingAdapterService"
+        address="${criminalHistoryReportingServiceEndpoint.adapterEndpoint}" 
+		wsdlURL="classpath:ssp/Criminal_History_Update_Reporting/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
+		serviceName="ojbc:Criminal-History-Update-Reporting-ServiceService" 
+		endpointName="ojbc:Criminal-History-Update-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="criminalHistoryReportingKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${criminalHistoryReporting.intermediarySigningUserAlias}" /> 
+		</cxf:properties>
+    </cxf:cxfEndpoint>	 	
+	
 	<!-- OJB Notification Broker Service, invoked by intermediary -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
 		address="${criminalHistoryUpdateReportingService.notificationBrokerEndpoint}"
-		wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/OJBWSNotification.wsdl"
+		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSNotification.wsdl"
 		serviceName="ojb-nb:NotificationBrokerServiceService" 
 		endpointName="ojb-nb:NotificationBrokerService"
 		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
@@ -79,25 +94,7 @@
 		</http:tlsClientParameters>
 		<http:client AutoRedirect="true" Connection="Keep-Alive" />
 	</http:conduit>	              
-              
-	<httpj:engine-factory bus="cxf">
-		<httpj:engine port="${criminalHistoryReportingService.portNumber}"> 
-			<httpj:tlsServerParameters>
-				<sec:keyManagers keyPassword="${criminalHistoryReporting.intermediaryKeyPassword}">
-					<sec:keyStore type="jks" 
-						password="${criminalHistoryReporting.intermediaryKeystorePassword}" 
-						file="${criminalHistoryReporting.intermediaryKeystoreLocation}" />
-				</sec:keyManagers>
-				<sec:cipherSuitesFilter>
-					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
-					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-					    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
-					    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
-				</sec:cipherSuitesFilter>
-			</httpj:tlsServerParameters>
-		</httpj:engine>
-	</httpj:engine-factory>               
-                            	          
+
 	<!-- 
 		Define a Properties object with the properties required by the org.apache.ws.security.components.crypto.Merlin 
 		WSS4j Crypto implementation. This crypto config is used for signature creation and validation. 

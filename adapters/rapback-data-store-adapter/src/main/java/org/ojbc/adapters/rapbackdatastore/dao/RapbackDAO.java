@@ -18,6 +18,7 @@ package org.ojbc.adapters.rapbackdatastore.dao;
 
 import java.util.List;
 
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
@@ -30,6 +31,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
+import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 
 
 public interface RapbackDAO {
@@ -44,6 +46,7 @@ public interface RapbackDAO {
 	public Integer saveCivilInitialRapSheet(final CivilInitialRapSheet civilInitialRapSheet);
 	public Integer saveCivilInitialResults(final CivilInitialResults civilInitialResults);
 	public Integer getCivilIntialResultsId(String transactionNumber, ResultSender resultSender);
+	public List<CivilInitialResults> getCivilInitialResults(String transactionNumber, ResultSender resultSender);
 	public Integer saveCriminalInitialResults(final CriminalInitialResults criminalInitialResults);
 	public void saveFbiRapbackSubscription(final FbiRapbackSubscription fbiRapbackSubscription);
 	
@@ -52,21 +55,32 @@ public interface RapbackDAO {
 	public List<CivilInitialResults> getCivilInitialResults(String ori);
 	public List<CivilInitialResults> getIdentificationCivilInitialResults(String transactionNumber);
 	public List<CriminalInitialResults> getIdentificationCriminalInitialResults(String transactionNumber);
-	public List<IdentificationTransaction> getCivilIdentificationTransactions(String ori);
-	public List<IdentificationTransaction> getCriminalIdentificationTransactions(String ori);
-	public String getIdentificationCategory(String transactionNumber); 
+	public List<IdentificationTransaction> getCivilIdentificationTransactions(SAMLTokenPrincipal token, 
+			IdentificationResultSearchRequest searchRequest);
+	public List<IdentificationTransaction> getCriminalIdentificationTransactions(SAMLTokenPrincipal token,
+			IdentificationResultSearchRequest searchRequest);
+	public String getIdentificationCategoryType(String transactionNumber); 
+	public Boolean isExistingTransactionNumber(String transactionNumber); 
+	public void updateIdentificationCategory(String transactionNumber, String identificationCategory);
 	
 	public void updateSubject(Subject subject);
 	public void updateFbiRapbackSubscription(
 			FbiRapbackSubscription fbiRapbackSubscription);
 	
-	public void consolidateSid(String currentSid, String newSid);
-	public void consolidateUcn(String currentUcn, String newUcn);
-	
+	public void consolidateSidFederal(String currentSid, String newSid);
+	public void consolidateUcnFederal(String currentUcn, String newUcn);
+
 	public AgencyProfile getAgencyProfile(String ori);
+	public List<AgencyProfile> getAgencyProfiles(List<String> oris);
 	
-	public int archive();
+	public int archiveCivilIdentifications();
+	public int archiveCriminalIdentifications();
 	public int archiveIdentificationResult(String transactionNumber);
 	
 	public List<SubsequentResults> getSubsequentResults(String transactionNumber);
+	public List<SubsequentResults> getSubsequentResultsByUcn(String ucn);
+	
+	public List<String> getViewableIdentificationCategories(
+			SAMLTokenPrincipal token, String identificationCategoryType);
+
 }

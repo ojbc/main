@@ -1,0 +1,121 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2015 Open Justice Broker Consortium
+ *#
+ <script type="text/javascript">
+	  $(function() {
+	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
+          $.ajaxSetup({ cache: false });
+ 		  ojbc.handlePlaceholders(); 
+ 		  ojbc.handleEsc();
+    	  $( "#searchTabs" ).tabs();
+    	  
+		    $( ".datePicker" ).datepicker({
+		       showOn: "both",
+		       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+		       buttonImageOnly: true,
+		       shortYearCutoff: "+10",
+		       dateFormat: 'mm/dd/yy',
+		       onClose: function(dateText, inst) {
+		  		$(this).datepicker('option', 'dateFormat', 'mm/dd/yy');      
+		       }
+		    });
+		    
+			$('#advanceSearchSubmitButton').click (function(){
+	        	ojbc.clearPlaceholders();
+	            var formData = $('#advancedSearchForm').serialize();
+	        
+	  	       	xhr = $.post("#springUrl('/rapbacks/rapbackAdvancedSearch')",formData,function(data) {
+			        $('#portalContent').html(data);
+		        }).fail(ojbc.displayFailMessage);
+			});
+		
+		   $("a[href='\\#advancedSearchTab']").click (function(){
+		       $("#search-tab-title").html("ADVANCED SEARCH: RAP BACK");
+		   });
+           
+	        $('#advanceSearchClearButton').click (function(event){
+			  ojbc.clearSearchPurposeFields();
+			  ojbc.clearSearchResultsFilterFields();
+			  $.get("#springUrl('/rapbacks/searchForm?resetForm=true')", function(data) {
+			    $('#portalContent').html(data);
+			    
+			  }).fail(ojbc.displayFailMessage)
+	      	});
+	
+			//This allows the input fields on the search form to submit form with enter key
+			$('#advancedSearchTab input').keyup(function(e) {
+			    if (e.keyCode == 13) {
+			        $('#advanceSearchSubmitButton').click();
+			    }
+			});
+	
+			//This allows the select fields on the search form to submit form with enter key			
+			$('#advancedSearchTab select').keyup(function(e) {
+			    if (e.keyCode == 13) {
+			        $('#advanceSearchSubmitButton').click();
+			    }
+			});			
+	
+	  });
+  </script>
+
+<div id="searchTabs" class="contentBox">
+    <div id="search-tab-title">ADVANCED SEARCH: RAP BACK</div>
+    <ul>
+        <li><a href="#advancedSearchTab">ADVANCED SEARCH</a></li>
+    </ul>
+    <div id="advancedSearchTab">
+  	    <form id='advancedSearchForm' >
+            #if($errors.hasGlobalErrors())
+                #foreach( $globalError in $errors.globalErrors )
+                    <div class="error"> $globalError.defaultMessage </div>
+                #end
+            #end
+			<input type="hidden" name="${status.expression}" value="ADVANCED" /><br>
+    	  		<table>
+    	  			<tr>
+    	  				<td>
+    				        <p class="searchSubHeader"> NAME</p>
+    				        <div>#springFormInput("rapbackSearchRequest.firstName" "placeholder='First Name'") </div>
+    				        <div>#springFormInput("rapbackSearchRequest.lastName" "placeholder='Last Name'")</div>
+    				        <div>#springFormInput("rapbackSearchRequest.otn" "placeholder='OTN'")</div>
+    				        
+   				        	<div class="labelText" >
+    				        	<p class="searchSubHeader">Reported Date </p>
+    				        	 From: #springFormInput("rapbackSearchRequest.reportedDateStartDate" "class='datePicker mdate' style='width: 25%;'" )
+    				        		&nbsp;To:&nbsp;#springFormInput("rapbackSearchRequest.reportedDateEndDate"  "class='datePicker mdate' style='width: 25%;'")
+    				        		#springBind("rapbackSearchRequest.reportedDateStartDate")
+                                #springShowErrors( "<br/>" "error" )
+    				        </div>
+							
+							<div class="labelText">
+								<p class="searchSubHeader"> Identification Result Status</p>
+								#springFormCheckboxes("rapbackSearchRequest.identificationTransactionStatus" $identificationResultStatusCodeMap " " "")
+							</div>    				        
+							<div class="labelText">
+								<p class="searchSubHeader"> Civil Identification Reason Code</p>
+								#springFormCheckboxes("rapbackSearchRequest.civilIdentificationReasonCodes" $civilIdentificationReasonCodeMap "<br>" "")
+							</div>    				        
+    		        	</td>
+    	        	<tr>
+    	        </table>
+    	        <div class="searchCancelSection" >
+    	        	<a id="advanceSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
+    	        	<a id="advanceSearchClearButton" class="grayButton"  >CLEAR</a>
+    	        </div>
+		    </form>
+        </div>
+</div>

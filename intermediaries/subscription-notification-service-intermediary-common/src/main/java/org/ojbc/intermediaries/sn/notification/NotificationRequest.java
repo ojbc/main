@@ -25,9 +25,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-import org.joda.time.Years;
-import org.joda.time.format.DateTimeFormat;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -66,6 +63,7 @@ public abstract class NotificationRequest {
     protected List<String> officerNames = new ArrayList<String>();
     
     protected Map<String, String> subjectIdentifiers;
+    protected List<Map<String, String>> alternateSubjectIdentifiers = new ArrayList<Map<String,String>>();
 
     protected String topic;
 
@@ -179,34 +177,43 @@ public abstract class NotificationRequest {
             log.error("Unable to find person reference. Unable to XQuery for person name.");
         }
 
-        NodeList officerReferences = XmlUtils.xPathNodeListSearch(document, getOfficerNameReferenceXPath());
-
-		if (officerReferences != null && officerReferences.getLength() > 0) {
-            for (int i = 0; i < officerReferences.getLength(); i++) {
-                if (officerReferences.item(i).getNodeType() == Node.ATTRIBUTE_NODE) {
-
-                    String officerReference = officerReferences.item(i).getTextContent();
-                    String officerName = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + officerReference + "']/nc:PersonName/nc:PersonFullName");
-                    
-                    if (StringUtils.isNotEmpty(officerName))
-                    {	
-                    	officerNames.add(StringUtils.strip(officerName));
-                    }	
-                }
-            }
-		}    
-
+        if (StringUtils.isNotEmpty(getOfficerNameReferenceXPath()))
+        {	
+	        NodeList officerReferences = XmlUtils.xPathNodeListSearch(document, getOfficerNameReferenceXPath());
+	
+			if (officerReferences != null && officerReferences.getLength() > 0) {
+	            for (int i = 0; i < officerReferences.getLength(); i++) {
+	                if (officerReferences.item(i).getNodeType() == Node.ATTRIBUTE_NODE) {
+	
+	                    String officerReference = officerReferences.item(i).getTextContent();
+	                    String officerName = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id='" + officerReference + "']/nc:PersonName/nc:PersonFullName");
+	                    
+	                    if (StringUtils.isNotEmpty(officerName))
+	                    {	
+	                    	officerNames.add(StringUtils.strip(officerName));
+	                    }	
+	                }
+	            }
+			}    
+        }	
+			
         notificationEventIdentifier = XmlUtils.xPathStringSearch(document, getNotificationEventIdentifierXpath());
         notificationEventIdentifier = StringUtils.strip(notificationEventIdentifier);
 
-        notifyingAgencyName = XmlUtils.xPathStringSearch(document, getNotifyingAgencyXpath());
-        notifyingAgencyName = StringUtils.strip(notifyingAgencyName);
-
+        if (StringUtils.isNotBlank(getNotifyingAgencyXpath()))
+        {	
+	        notifyingAgencyName = XmlUtils.xPathStringSearch(document, getNotifyingAgencyXpath());
+	        notifyingAgencyName = StringUtils.strip(notifyingAgencyName);
+        }    
+	        
         notifyingAgencyOri = StringUtils.trimToNull(XmlUtils.xPathStringSearch(document, getNotifyingAgencyOriXpath()));
         
-        notifyingAgencyPhoneNumber = XmlUtils.xPathStringSearch(document, getNotificationAgencyPhoneNumberXpath());
-        notifyingAgencyPhoneNumber = StringUtils.strip(notifyingAgencyPhoneNumber);
-
+        if (StringUtils.isNotBlank(getNotificationAgencyPhoneNumberXpath()))
+        {	
+	        notifyingAgencyPhoneNumber = XmlUtils.xPathStringSearch(document, getNotificationAgencyPhoneNumberXpath());
+	        notifyingAgencyPhoneNumber = StringUtils.strip(notifyingAgencyPhoneNumber);
+        }    
+	        
         notifyingSystemName = XmlUtils.xPathStringSearch(document, getNotifyingSystemNameXPath());
         notifyingSystemName = StringUtils.strip(notifyingSystemName);
 
@@ -324,6 +331,14 @@ public abstract class NotificationRequest {
 
 	public String getNotifyingAgencyOri() {
 		return notifyingAgencyOri;
+	}
+
+	public void setSubjectIdentifiers(Map<String, String> subjectIdentifiers) {
+		this.subjectIdentifiers = subjectIdentifiers;
+	}
+
+	public List<Map<String, String>> getAlternateSubjectIdentifiers() {
+		return alternateSubjectIdentifiers;
 	}
 
 }

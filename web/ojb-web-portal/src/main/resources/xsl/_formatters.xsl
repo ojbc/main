@@ -21,6 +21,19 @@
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="#all">
+	
+	<xsl:template name="returnAgeFromDOB">
+		<xsl:param name="dateOfBirth"/>
+	    <xsl:choose>
+	        <xsl:when test="month-from-date(current-date()) > month-from-date($dateOfBirth) or month-from-date(current-date()) = month-from-date($dateOfBirth) and day-from-date(current-date()) >= day-from-date($dateOfBirth)">
+	            <xsl:value-of select="year-from-date(current-date()) - year-from-date($dateOfBirth)" />
+	        </xsl:when>
+	        <xsl:otherwise>
+	            <xsl:value-of select="year-from-date(current-date()) - year-from-date($dateOfBirth) - 1" />
+	        </xsl:otherwise>
+	    </xsl:choose>
+	</xsl:template>
+	
 
 	<xsl:template name="formatDate">
 		<xsl:param name="date" />
@@ -32,6 +45,15 @@
 	<!-- Converts YYYY-MM-DD to MM/DD/YYYY -->
 	<xsl:template match="*|@*" mode="formatDateAsMMDDYYYY">
 		<xsl:value-of select="format-date(.,'[M01]/[D01]/[Y0001]')"/>
+	</xsl:template>
+	
+	<xsl:template match="*|@*" mode="formatDateTimeAsMMDDYYYY">
+		<xsl:value-of select="format-dateTime(.,'[M01]/[D01]/[Y0001]')"/>
+	</xsl:template>
+	
+	<!-- Converts YYYY-MM-DD to MM/DD/YYYY - HH:mm -->
+	<xsl:template match="*|@*" mode="formatDateTime">
+		<xsl:value-of select="format-dateTime(.,'[M01]/[D01]/[Y0001] - [H01]:[m01]')"/>
 	</xsl:template>
 	
 	<xsl:template name="formatSSN">
@@ -210,14 +232,25 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template match="nc:PersonAlternateName | nc:PersonName">
+	<xsl:template match="nc:PersonAlternateName | nc20:PersonAlternateName | nc:PersonName | nc20:PersonName">
 		<xsl:choose>
-			<xsl:when test="nc:PersonGivenName or nc:PersonSurName">
-				 <xsl:value-of select="concat(nc:PersonGivenName, ' ', nc:PersonSurName)"/>
+			<xsl:when test="*:PersonGivenName and *:PersonSurName">
+			 	<xsl:if test="*:PersonGivenName">
+			 		<xsl:value-of select="concat(*:PersonGivenName, ' ')"/>
+			 	</xsl:if>
+			 	<xsl:if test="*:PersonMiddleName">
+			 		<xsl:value-of select="concat(*:PersonMiddleName, ' ')"/>
+			 	</xsl:if>
+			 	<xsl:if test="*:PersonSurName">
+			 		<xsl:value-of select="*:PersonSurName"/>
+			 	</xsl:if>
+			 	<xsl:if test="*:PersonNameSuffixText">
+			 		<xsl:value-of select="' ', *:PersonNameSuffixText"/>
+			 	</xsl:if>
 			</xsl:when>
-			<xsl:when test="nc:PersonFullName">
-				<xsl:value-of select="nc:PersonFullName"/>
-			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="*:PersonFullName"/>
+			</xsl:otherwise>
 		</xsl:choose>
        <xsl:if test="position() != last()">
            <xsl:text>, </xsl:text>

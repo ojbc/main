@@ -41,7 +41,7 @@
          </jxdm41:PersonAugmentation>
       </smext:Subject>
       <nc20:ContactEmailID>officer.email@local.gov</nc20:ContactEmailID>
-      <smext:SystemName>systemUri</smext:SystemName>
+      <smext:SystemName>{http://objc.org/ProbationCase/1.0}ProbationAuthority</smext:SystemName>
       <smext:SubscriptionQualifierIdentification>
          <nc20:IdentificationID>9999999</nc20:IdentificationID>
       </smext:SubscriptionQualifierIdentification>

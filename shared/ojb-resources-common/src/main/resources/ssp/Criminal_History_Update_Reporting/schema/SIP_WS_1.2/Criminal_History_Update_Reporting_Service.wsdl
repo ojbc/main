@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:crimhistory-update-doc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:cdr-report-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0"
+	xmlns:pdr-report-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0"
+	xmlns:chc-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
+	xmlns:che-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryExpungementReport/1.0"
+	xmlns:chiu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
+	xmlns:tns="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	targetNamespace="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0">
+	<wsdl:import
+		namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
+		location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import
+				namespace="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CycleTrackingIdentifierAssignmentReport-exchange.xsd" />
+			<xsd:import
+				namespace="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CourtDispositionRecordingReport-exchange.xsd" />
+			<xsd:import
+				namespace="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/ProsecutionDecisionRecordingReport-exchange.xsd" />
+			<xsd:import
+				namespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CriminalHistoryConsolidationReport-exchange.xsd" />
+			<xsd:import
+				namespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryExpungementReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CriminalHistoryExpungementReport-exchange.xsd" />
+			<xsd:import
+				namespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CriminalHistoryIdentifierUpdateReport-exchange.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="CycleTrackingIdentifierAssignmentReport">
+		<wsdl:part name="CycleTrackingIdentifierAssignmentReport"
+			element="crimhistory-update-doc:CycleTrackingIdentifierAssignmentReport" />
+	</wsdl:message>
+	<wsdl:message name="CourtDispositionRecordingReport">
+		<wsdl:part name="CourtDispositionRecordingReport"
+			element="cdr-report-doc:CourtDispositionRecordingReport" />
+	</wsdl:message>
+	<wsdl:message name="ProsecutionDecisionRecordingReport">
+		<wsdl:part name="ProsecutionDecisionRecordingReport"
+			element="pdr-report-doc:ProsecutionDecisionRecordingReport" />
+	</wsdl:message>
+	<wsdl:message name="CriminalHistoryConsolidationReport">
+		<wsdl:part name="CriminalHistoryConsolidationReport"
+			element="chc-report-doc:CriminalHistoryConsolidationReport" />
+	</wsdl:message>
+	<wsdl:message name="CriminalHistoryExpungementReport">
+		<wsdl:part name="CriminalHistoryExpungementReport"
+			element="che-report-doc:CriminalHistoryExpungementReport" />
+	</wsdl:message>
+	<wsdl:message name="CriminalHistoryIdentifierUpdateReport">
+		<wsdl:part name="CriminalHistoryIdentifierUpdateReport"
+			element="chiu-report-doc:CriminalHistoryIdentifierUpdateReport" />
+	</wsdl:message>
+	<wsdl:portType name="Criminal-History-Update-Reporting-Service">
+		<wsdl:operation name="ReportCycleTrackingIdentifierAssignment">
+			<wsdl:documentation>This action corresponds with the
+				criminalHistoryCycleTrackingIdentifierAssignment subscription topic.
+			</wsdl:documentation>
+			<wsdl:input name="CycleTrackingIdentifierAssignmentReport"
+				message="tns:CycleTrackingIdentifierAssignmentReport" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportCourtDispositionRecording">
+			<wsdl:input name="CourtDispositionRecordingReport"
+				message="tns:CourtDispositionRecordingReport" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportProsecutionDecisionRecording">
+			<wsdl:input name="ProsecutionDecisionRecordingReport"
+				message="tns:ProsecutionDecisionRecordingReport" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportCriminalHistoryConsolidation">
+			<wsdl:input name="CriminalHistoryConsolidationReport"
+				message="tns:CriminalHistoryConsolidationReport" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportCriminalHistoryExpungement">
+			<wsdl:input name="CriminalHistoryExpungementReport"
+				message="tns:CriminalHistoryExpungementReport" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportCriminalHistoryIdentifierUpdate">
+			<wsdl:input name="CriminalHistoryIdentifierUpdateReport"
+				message="tns:CriminalHistoryIdentifierUpdateReport" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding
+		name="Criminal-History-Update-Reporting-Secure-ServiceSOAPBinding"
+		type="tns:Criminal-History-Update-Reporting-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
+		<wsdl:operation name="ReportCycleTrackingIdentifierAssignment">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0/ReportCycleTrackingIdentifierAssignment"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportCourtDispositionRecording">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0/ReportCourtDispositionRecording"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportProsecutionDecisionRecording">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0/ReportProsecutionDecisionRecording"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportCriminalHistoryConsolidation">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0/ReportCriminalHistoryConsolidation"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportCriminalHistoryExpungement">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0/ReportCriminalHistoryExpungement"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportCriminalHistoryIdentifierUpdate">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0/ReportCriminalHistoryIdentifierUpdate"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<!-- TEMPORARY UNSECURE BINDING -->
+	<wsdl:binding name="Criminal-History-Update-Reporting-ServiceSOAPBinding"
+		type="tns:Criminal-History-Update-Reporting-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="ReportCycleTrackingIdentifierAssignment">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0/ReportCycleTrackingIdentifierAssignment"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Criminal-History-Update-Reporting-ServiceService">
+		<wsdl:port name="Criminal-History-Update-Reporting-Service"
+			binding="tns:Criminal-History-Update-Reporting-ServiceSOAPBinding">
+			<soap:address location="http://localhost/" />
+		</wsdl:port>
+		<wsdl:port name="Criminal-History-Update-Reporting-Secure-Service"
+			binding="tns:Criminal-History-Update-Reporting-Secure-ServiceSOAPBinding">
+			<soap:address location="http://localhost/secure" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

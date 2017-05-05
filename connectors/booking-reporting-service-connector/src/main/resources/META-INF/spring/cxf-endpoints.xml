@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:policy="http://cxf.apache.org/policy" 
+	xmlns:wsp="http://www.w3.org/2006/07/ws-policy"
+	xmlns:camel="http://camel.apache.org/schema/spring" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:http="http://cxf.apache.org/transports/http/configuration"
+	xmlns:sec="http://cxf.apache.org/configuration/security" 
+	xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	   http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+       http://www.w3.org/2006/07/ws-policy http://www.w3.org/2006/07/ws-policy.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+       http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd  
+       http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+
+	<camel:endpoint id="intermediaryEndpoint"
+		uri="cxf:bean:bookingReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${bookingReporting.intermediaryCxflogging}" />
+	
+	<cxf:rsServer id="bookingExchangeServer" address="${bookingReporting.restEndpoint}" loggingFeatureEnabled="true">
+	  <cxf:serviceBeans>
+	     <ref bean="resendBookingExchangeImpl" />
+	  </cxf:serviceBeans>
+	  <cxf:providers>
+	     <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+	  </cxf:providers>
+	</cxf:rsServer>	
+	
+    <cxf:cxfEndpoint 
+        id="bookingReportingService"
+        address="${bookingReporting.bookingReportingServiceEndpoint}" 
+		wsdlURL="classpath:ssp/Booking_Reporting/schemas/RS_WS-SIP_v1.2/Booking_Reporting_Service.wsdl"
+		serviceName="ojbc:Booking-Reporting-ServiceService" 
+		endpointName="ojbc:Booking-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/BookingReportingService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="bookingReportingKeystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${bookingReporting.keystoreCertificateAlias}" /> 
+		</cxf:properties>
+    </cxf:cxfEndpoint>	 
+			      	
+	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
+	    <property name="passwords">
+            <map>
+                <entry key="${bookingReporting.keystoreCertificateAlias}" value="${bookingReporting.keyPassword}"/>
+            </map>
+        </property>
+	</bean>		
+	
+	<util:properties id="bookingReportingKeystoreProperties">
+		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${bookingReporting.keystorePassword}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.alias">${bookingReporting.keystoreCertificateAlias}</prop>
+		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${bookingReporting.keystoreLocation}</prop>
+	</util:properties>			      	
+		      	
+	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${bookingReporting.truststorePassword}"
+					file="${bookingReporting.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>	
+							
+</beans>

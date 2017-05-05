@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<phisr-doc:PersonHealthInformationSearchRequest
+	xmlns:phisr-doc="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchRequest/1.0"
+	xmlns:phisr-ext="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchRequest/1.0"
+	xmlns:pc-phi-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/PersonHealthInformationCodes/1.0"
+	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchRequest/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/PimaCounty/PersonHealthInformationCodes/1.0 ../xsd/impl/pima_county/phi_codes.xsd">
+	<nc30:Person structures:id="P001">
+		<nc30:PersonBirthDate>
+			<nc30:Date>1959-09-07</nc30:Date>
+		</nc30:PersonBirthDate>
+		<pc-phi-codes:PersonEthnicityCode>LATINO</pc-phi-codes:PersonEthnicityCode>
+		<nc30:PersonName>
+			<nc30:PersonGivenName>Walter</nc30:PersonGivenName>
+			<nc30:PersonMiddleName>Hartwell</nc30:PersonMiddleName>
+			<nc30:PersonSurName>White</nc30:PersonSurName>
+		</nc30:PersonName>
+		<pc-phi-codes:PersonRaceCode>1</pc-phi-codes:PersonRaceCode>
+		<jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
+		<phisr-ext:PersonTemporaryIdentification>
+			<nc30:IdentificationID>1234567890</nc30:IdentificationID>
+		</phisr-ext:PersonTemporaryIdentification>
+		<phisr-ext:PersonSystemAssignedIdentification>
+			<nc30:IdentificationID>ABCDEFGHIJK1234567890</nc30:IdentificationID>
+		</phisr-ext:PersonSystemAssignedIdentification>
+	</nc30:Person>
+	<nc30:Identity structures:id="ALIAS001">
+		<nc30:IdentityPersonRepresentation>
+			<nc30:PersonBirthDate>
+				<nc30:Date>1960-10-07</nc30:Date>
+			</nc30:PersonBirthDate>
+			<nc30:PersonName>
+				<nc30:PersonGivenName>Walter</nc30:PersonGivenName>
+				<nc30:PersonSurName>Heisenberg</nc30:PersonSurName>
+			</nc30:PersonName>
+			<jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
+		</nc30:IdentityPersonRepresentation>
+	</nc30:Identity>
+	<nc30:Identity structures:id="ALIAS002">
+		<nc30:IdentityPersonRepresentation>
+			<nc30:PersonBirthDate>
+				<nc30:Date>1959-09-07</nc30:Date>
+			</nc30:PersonBirthDate>
+			<nc30:PersonName>
+				<nc30:PersonGivenName>Walt</nc30:PersonGivenName>
+				<nc30:PersonMiddleName>Hartwell</nc30:PersonMiddleName>
+				<nc30:PersonSurName>Jackson</nc30:PersonSurName>
+			</nc30:PersonName>
+			<jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
+		</nc30:IdentityPersonRepresentation>
+	</nc30:Identity>
+	<nc30:Identity structures:id="ALIAS003">
+		<nc30:IdentityPersonRepresentation>
+			<nc30:PersonBirthDate>
+				<nc30:Date>1961-09-09</nc30:Date>
+			</nc30:PersonBirthDate>
+			<nc30:PersonName>
+				<nc30:PersonGivenName>Walt</nc30:PersonGivenName>
+				<nc30:PersonSurName>White</nc30:PersonSurName>
+			</nc30:PersonName>
+			<jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
+		</nc30:IdentityPersonRepresentation>
+	</nc30:Identity>
+	<nc30:PersonAliasIdentityAssociation>
+		<nc30:Person structures:ref="P001" />
+		<nc30:Identity structures:ref="ALIAS001" />
+		<nc30:Identity structures:ref="ALIAS002" />
+		<nc30:Identity structures:ref="ALIAS003" />
+	</nc30:PersonAliasIdentityAssociation>
+	<phisr-ext:SourceSystemNameText>System Name</phisr-ext:SourceSystemNameText>
+</phisr-doc:PersonHealthInformationSearchRequest>

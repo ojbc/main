@@ -37,7 +37,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P28">
+        <rap:RapSheetPerson s:id="P28">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>Kirk O</nc:PersonGivenName>
                 <nc:PersonSurName>Northcutt</nc:PersonSurName>
@@ -68,7 +68,7 @@
                     <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P28"/>
             <nc:Biometric>

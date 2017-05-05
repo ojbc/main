@@ -78,9 +78,6 @@
 			<to uri="direct:processProbationDocument"/>
 		</camel:route>
 
-
-
-
 		<!-- Probation Service Handler -->
 		<camel:route>
 			<camel:from uri="probationEventHandlerServiceEndpoint" />
@@ -99,19 +96,17 @@
 			
 			<camel:log message="\n\n\n Processing Probation document...\n\n\n" />
 
+			<camel:setHeader headerName="systemName">
+				<camel:xpath>//pcext:SystemName/text()</camel:xpath>
+			</camel:setHeader>
+
+			<camel:to uri="bean:systemNameToTopicExpressionMapper?method=populateTopicExpressionHeader" />
+			
+			<log message="\n\n\n System Name: ${header.systemName}, TOPIC: ${in.header.topicExpression} \n\n\n"/>
+
 			<camel:filter>
 				<camel:simple>${in.header.operationName} == 'Report-Probation-Case-Initiation'</camel:simple>
 								
-				<camel:setHeader headerName="systemName">
-					<camel:xpath>//pcext:SystemName/text()</camel:xpath>
-				</camel:setHeader>
-
-
-				<camel:to uri="bean:systemNameToTopicExpressionMapper?method=populateTopicExpressionHeader" />
-				
-				<log message="\n\n\n System Name: ${header.systemName}, TOPIC: ${in.header.topicExpression} \n\n\n"/>
-				
-				
 				<camel:setHeader headerName="officerEmailAddress">
 					<camel:xpath>//nc20:ContactInformation/nc20:ContactEmailID/text()</camel:xpath>
 				</camel:setHeader>
@@ -176,7 +171,7 @@
 		</camel:route>
 
 
-		<camel:route>
+		<camel:route  id="transformAndInvokeSubscriptionProcessorRoute">
 			
 			<camel:from uri="direct:transformAndInvokeSubscriptionProcessor" />
 			
@@ -195,7 +190,7 @@
 		</camel:route>
 
 
-		<camel:route>
+		<camel:route id="transformAndInvokeUnsubscriptionProbationProcessorRoute">
 		
 			<camel:from uri="direct:transformAndInvokeUnsubscriptionProbationProcessor" />
 			

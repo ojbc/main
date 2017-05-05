@@ -34,7 +34,6 @@
   <modules>
  	<module>Util_Bundle</module>
   <module>Bundle_Integration_Test_Common</module>
-  <module>Bundle_Integration_Test</module>
  	<module>Bundle_A_Test</module>
  	<module>Bundle_B_Test</module>
  	<module>Bundle_C_Test</module>

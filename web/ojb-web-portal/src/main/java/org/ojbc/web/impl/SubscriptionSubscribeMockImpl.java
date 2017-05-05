@@ -16,8 +16,8 @@
  */
 package org.ojbc.web.impl;
 
+import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.web.SubscriptionInterface;
-import org.ojbc.web.model.subscription.Subscription;
 import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;

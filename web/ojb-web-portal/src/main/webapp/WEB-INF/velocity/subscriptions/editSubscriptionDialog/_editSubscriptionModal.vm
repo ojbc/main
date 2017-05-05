@@ -25,22 +25,29 @@
 				return;
 			}	  	  		
 	  	  		
-	  	  	if( '${subscription.subscriptionType}'  == '{http://ojbc.org/wsn/topics}:person/arrest'){
-	  	  		populateNamesDropDown();
+	  	  	if( '${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/rapback'){
+	  	  		$(".ui-dialog").width("480");
+	  	  		$(".ui-dialog").height("560");
+	  	  		$("#subFormDiv").height("480");
+				$("#topic").after('<span class="subscriptionHint">ORI: $userLogonInfo.employerOri</span>');
 	  	  	}	  	  		
 
     		$('#editSubModalSaveLink').click(
     			function(){
     			    			    			       			    						
-					if('${subscription.subscriptionType}'  == '{http://ojbc.org/wsn/topics}:person/arrest'){						
+					if('${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/arrest'){						
 					
 						saveArrestSubscription();																						
 					
-					}else if('${subscription.subscriptionType}'  == '{http://ojbc.org/wsn/topics}:person/incident'){
+					}else if('${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/rapback'){						
+					
+						saveRapbackSubscription();																						
+					
+					}else if('${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/incident'){
 												
 						saveIncidentSubscription();	
 						
-					}else if('${subscription.subscriptionType}'  == '{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'){
+					}else if('${subscription.topic}'  === '{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'){
 						
 						saveChCycleSubscription();			
 						  				
@@ -62,8 +69,6 @@
 		  		  		  
 	function saveChCycleSubscription(){
 						  					  		
-		var subType = '${subscription.subscriptionType}';						  					  		
-		 			
 		var firstName = $('#firstName').val();			  	
 	  	
 	  	var lastName = $('#lastName').val();
@@ -72,9 +77,9 @@
 	  	var fullName = firstName + ' ' + lastName;
 						  					  					  				 									
 		// serialize() generates get request string for springforminput html fields
-		var formData = $('#subscriptionForm').serialize() + "&subscriptionType=" + subType + "&systemId=" + '${subscription.systemId}' + "&fullName=" + fullName;  
+		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
 								    				    			    			    				
-  		$.get("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
   			function(data){	  						  						  			
 				handleDisplayAfterSave(data);						  				  				
@@ -86,8 +91,6 @@
 		  
 	function saveIncidentSubscription(){
 						  					  		
-		var subType = '${subscription.subscriptionType}';						  					  		
-		 			
 		var firstName = $('#firstName').val();			  	
 	  	
 	  	var lastName = $('#lastName').val();
@@ -96,9 +99,9 @@
 	  	var fullName = firstName + ' ' + lastName;
 						  					  					  				 									
 		// serialize() generates get request string for <springforminput> html fields
-		var formData = $('#subscriptionForm').serialize() + "&subscriptionType=" + subType + "&systemId=" + '${subscription.systemId}' + "&fullName=" + fullName;  
+		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
 								    				    			    			    				
-  		$.get("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
   			function(data){	
   				handleDisplayAfterSave(data);						  				  				
@@ -112,14 +115,26 @@
 							   	    			    				    		
 		var personNameVal = $('#personNameSelect').val();
 		  		
-		var topicVal = $('#topicSelect').val();
-			  					  						
 		var  stateIdVal = $('#stateIdInput').val(); 		  				 							
 		
 		// serialize() generates get request string for <springforminput> html fields 
-		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal + "&subscriptionType=" + topicVal + "&stateId=" + stateIdVal + "&systemId=" + '${subscription.systemId}';    				
+		var formData = $('#subscriptionForm').serialize() + "&fullName=" + personNameVal + "&stateId=" + stateIdVal + "&systemId=" + '${subscription.systemId}';    				
 		    								    					    				
-  		$.get("#springUrl('/subscriptions/updateSubscription')", 
+  		$.post("#springUrl('/subscriptions/updateSubscription')", 
+  			formData,
+  			function(data){	  						  						  			
+				handleDisplayAfterSave(data);						  				  				
+  			},
+  			"text"
+  		).fail(ojbc.displayFailMessage);			
+	}  
+	 
+	function saveRapbackSubscription(){
+							   	    			    				    		
+		// serialize() generates get request string for <springforminput> html fields 
+		var formData = $('#subscriptionForm').serialize();    				
+		    								    					    				
+  		$.post("#springUrl('/subscriptions/updateSubscription')", 
   			formData,
   			function(data){	  						  						  			
 				handleDisplayAfterSave(data);						  				  				
@@ -158,31 +173,7 @@
 			   refreshAfterSaveSubscription();
 			}		  	  
 	  }
-	  
 	  	 
-  	function populateNamesDropDown(){ 
-  					
-		var nameHtml = '<option value="">Name</option>';
-			
-		var jsonNamesData = '${subscription.personNamesJsonArray}';						
-			  		 					  					  							  					  							  			
-		$.each(JSON.parse(jsonNamesData), function( index, value ) {
-															
-			if(value == '${originalName}'){						
-				nameHtml += '<option value="' + value + '">' + value + '</option>';							
-			}else{
-				// (A) for alternate name											
-				nameHtml += '<option value="' + value + '">' + value + ' (A) </option>';				
-			}																																													
-		});
-										  								  						
-		$('#personNameSelect').html(nameHtml);	
-		
-		//fullName represents user-selected name(possibly an alias)		
-		$('#personNameSelect').val('${subscription.fullName}');			
-	}
-	
-		  
 	  function refreshAfterSaveSubscription(){
 	  
 		$("#editSubscriptionDialog").dialog('close');
@@ -200,37 +191,20 @@
 
 
 <!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
-<div style="width:230px;height:440px;" id="subFormDiv">
+<div style="width:auto;height:auto;" id="subFormDiv">
 	<form id="subscriptionForm">  	
+		<div>
+			#springFormSingleSelect("subscription.topic" $subscriptionTypeValueToLabelMap "disabled='disabled'")
+			#springFormHiddenInput("subscription.topic")		
+		</div>			
 							
-		#if(${subscription.subscriptionType}  == '{http://ojbc.org/wsn/topics}:person/arrest')	
-		
-			<div>
-				<select disabled id="topicSelect">
-					<option selected="selected" value="{http://ojbc.org/wsn/topics}:person/arrest">Arrest</option>
-				</select>
-			</div> 		
-								
+		#if(${subscription.topic}  == '{http://ojbc.org/wsn/topics}:person/arrest')	
 			#parse("subscriptions/editSubscriptionDialog/_arrestForm.vm")	
-											
-		#elseif(${subscription.subscriptionType} == '{http://ojbc.org/wsn/topics}:person/incident')	
-		
-			<div>
-				<select disabled id="topicSelect">
-					<option selected="selected" value="{http://ojbc.org/wsn/topics}:person/incident">Incident</option>
-				</select> 		
-			</div>
-						
+		#elseif(${subscription.topic}  == '{http://ojbc.org/wsn/topics}:person/rapback')	
+			#parse("subscriptions/editSubscriptionDialog/_rapbackForm.vm")	
+		#elseif(${subscription.topic} == '{http://ojbc.org/wsn/topics}:person/incident')	
 			#parse("subscriptions/editSubscriptionDialog/_incidentForm.vm")	
-				
-		#elseif(${subscription.subscriptionType} == '{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment')	
-		
-			<div>
-				<select disabled id="topicSelect">
-					<option selected="selected" value='{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'>ATN Assignment</option>
-				</select> 		
-			</div>
-						
+		#elseif(${subscription.topic} == '{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment')	
 			#parse("subscriptions/editSubscriptionDialog/_chCycleForm.vm")					
 		#end
 					    	        

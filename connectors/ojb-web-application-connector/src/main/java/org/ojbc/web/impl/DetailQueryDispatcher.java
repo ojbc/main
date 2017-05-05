@@ -23,11 +23,17 @@ import javax.annotation.Resource;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.processor.person.query.CourtCaseQueryRequestProcessor;
 import org.ojbc.processor.person.query.CriminalHistoryRequestProcessor;
+import org.ojbc.processor.person.query.CustodyQueryRequestProcessor;
 import org.ojbc.processor.person.query.FirearmRegistrationQueryRequestProcessor;
+import org.ojbc.processor.person.query.FirearmsPurchaseProhibitionRequestProcessor;
 import org.ojbc.processor.person.query.IncidentReportRequestProcessor;
 import org.ojbc.processor.person.query.JuvenileQueryRequestProcessor;
+import org.ojbc.processor.person.query.PersonToCourtCaseSearchRequestProcessor;
+import org.ojbc.processor.person.query.PersonToCustodySearchRequestProcessor;
 import org.ojbc.processor.person.query.PersonVehicleToIncidentSearchRequestProcessor;
+import org.ojbc.processor.person.query.VehicleCrashQueryRequestProcessor;
 import org.ojbc.processor.person.query.WarrantsRequestProcessor;
 import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.OJBCWebServiceURIs;
@@ -63,6 +69,24 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 
 	@Autowired(required=false)
 	private PersonVehicleToIncidentSearchRequestProcessor personVehicleToIncidentSearchRequestProcessor;
+	
+	@Autowired(required=false)
+	private PersonToCourtCaseSearchRequestProcessor personToCourtCaseSearchRequestProcessor;
+	
+	@Autowired(required=false)
+	private CourtCaseQueryRequestProcessor courtCaseQueryRequestProcessor;
+	
+	@Autowired(required=false)
+	private VehicleCrashQueryRequestProcessor vehicleCrashQueryRequestProcessor;
+
+	@Autowired(required=false)
+	private FirearmsPurchaseProhibitionRequestProcessor firearmsPurchaseProhibitionRequestProcessor;
+
+	@Autowired(required=false)
+	private PersonToCustodySearchRequestProcessor personToCustodySearchRequestProcessor;
+	
+	@Autowired(required=false)
+	private CustodyQueryRequestProcessor custodyQueryRequestProcessor;
 	
 	@Autowired(required=false)
 	private FirearmRegistrationQueryRequestProcessor firearmRegistrationQueryRequestProcessor;
@@ -104,8 +128,8 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 
 		String requestIdSrcTxt = request.getIdentificationSourceText().trim();
 
-		log.info("Identification Source text in request: " + requestIdSrcTxt);
-		log.info("Identification ID in request: " + request.getIdentificationID());
+		log.info("Identification Source text in request: " + StringUtils.trimToEmpty(requestIdSrcTxt));
+		log.info("Identification ID in request: " + StringUtils.trimToEmpty(request.getIdentificationID()));
 		
 		//Check the map to see if there is a mapping of search URI to query URI
 		if (searchURIToQueryURIMap != null)
@@ -141,9 +165,36 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 			return firearmRegistrationQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
 		} else if(requestIdSrcTxt.contains(OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_PERSON)){
+			
 			return firearmRegistrationQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
-		} else if (OJBCWebServiceURIs.JUVENILE_HISTORY.equals(requestIdSrcTxt)) {
+		} else if (OJBCWebServiceURIs.COURT_CASE.equals(requestIdSrcTxt)){
+			
+			return personToCourtCaseSearchRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
+		} else if (OJBCWebServiceURIs.COURT_CASE_DETAIL.equals(requestIdSrcTxt)){
+			
+			return courtCaseQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
+		} else if (OJBCWebServiceURIs.JAIL.equals(requestIdSrcTxt)){
+			
+			return personToCustodySearchRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
+		} else if (OJBCWebServiceURIs.JAIL_DETAIL.equals(requestIdSrcTxt)){
+			
+			return custodyQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
+		} else if (OJBCWebServiceURIs.VEHICLE_CRASH.equals(requestIdSrcTxt)){
+			
+			return vehicleCrashQueryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
+		} else if (OJBCWebServiceURIs.FIREARMS_PURCHASE_PROHIBITION.equals(requestIdSrcTxt)) {
+			
+			return firearmsPurchaseProhibitionRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
+		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
+			
+			log.info("Juvenile request query type: " + request.getQueryType());
 			
 			if (request.getQueryType() == null){
 				throw new RuntimeException("Query type required for Juvenile queries");
@@ -167,7 +218,7 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 				return juvenileReferralHistoryRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			}	
 		}		
-		
+
 		throw new RuntimeException("Unknown source: " + requestIdSrcTxt);
 
 	}

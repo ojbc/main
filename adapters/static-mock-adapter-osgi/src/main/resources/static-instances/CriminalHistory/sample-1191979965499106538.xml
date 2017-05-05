@@ -37,7 +37,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P37">
+        <rap:RapSheetPerson s:id="P37">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>Lydia T</nc:PersonGivenName>
                 <nc:PersonSurName>Range</nc:PersonSurName>
@@ -68,7 +68,7 @@
                     <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P37"/>
             <nc:Biometric>

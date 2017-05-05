@@ -39,7 +39,7 @@
        http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd
        ">
 
-	<bean id="passwordCallbackHandler" class="org.ojbc.bundles.intermediaries.ws.security.ClientCallbackMap">
+	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
             <map>
                 <entry key="${NDExSubmission.ndexSigningUserAlias}" value="${NDExSubmission.intermediaryKeyPassword}"/>
@@ -66,7 +66,7 @@
 	<!-- OJB NDEx Submission Service -->
 	<cxf:cxfEndpoint id="N-DexSubmissionServiceFacade"
 		address="${NDExSubmission.N-DexSubmissionServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Incident_Reporting_Service/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Incident_Reporting/schema/SIP_WS_1.2/Incident_Reporting_Service.wsdl"
 		serviceName="ojbc:Incident-Reporting-ServiceService" endpointName="ojbc:Incident-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
  		<cxf:properties>
@@ -109,7 +109,7 @@
 		<!-- OJB NDEx Submission Service -->
 <!-- 	<cxf:cxfEndpoint id="N-DexActualServiceEndpoint" -->
 <!-- 		address="${NDExSubmission.N-DexActualServiceEndpoint}" -->
-<!-- 		wsdlURL="classpath:service-specifications/N-DEx-IncidentArrest-2.1.1/wsdl/AI_W_WebService.wsdl" -->
+<!-- 		wsdlURL="classpath:ssp/N-DEx-IncidentArrest-2.1.1/wsdl/AI_W_WebService.wsdl" -->
 <!-- 		serviceName="ndex:AI_W_SourceDataIntegrationService" endpointName="ndex:AI_W_SourceDataIntegrationServicePort" -->
 <!-- 		xmlns:ndex="urn://com.raytheon.ndex.ai.webservice"> -->
 <!-- 	</cxf:cxfEndpoint> -->

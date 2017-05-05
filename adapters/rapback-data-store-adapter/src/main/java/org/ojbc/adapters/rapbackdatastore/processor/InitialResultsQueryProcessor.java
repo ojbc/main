@@ -90,9 +90,9 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
     	Document document = documentBuilder.newDocument();
     	Element rootElement = createInitialResultsQueryResponseRootElement(document);
     	
-    	String identificationCategory = rapbackDAO.getIdentificationCategory(transactionNumber);
+    	String identificationCategoryType = rapbackDAO.getIdentificationCategoryType(transactionNumber);
     	
-    	if ("I".equals(identificationCategory)){
+    	if ("CIVIL".equals(identificationCategoryType)){
     		buildResponseWithCivilInitialResults(transactionNumber, rootElement);
     	}
     	else{
@@ -134,6 +134,7 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
 	private void buildResponseWithCivilInitialResults(String transactionNumber, Element rootElement) {
 		List<CivilInitialResults> civilInitialResults = 
     			rapbackDAO.getIdentificationCivilInitialResults(transactionNumber); 
+		log.debug("CivilInitialResults: " + civilInitialResults.toString());
         
         for (CivilInitialResults civilInitialResult: civilInitialResults){
         	createSearchResultDocumentElement(civilInitialResult, rootElement);

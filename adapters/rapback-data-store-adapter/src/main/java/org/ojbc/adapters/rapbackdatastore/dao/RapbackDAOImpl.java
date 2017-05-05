@@ -20,9 +20,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +38,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.joda.time.DateTime;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
@@ -47,7 +54,11 @@ import org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.helper.ZipUtils;
+import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
+import org.ojbc.util.model.rapback.IdentificationTransactionState;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
@@ -56,6 +67,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -74,9 +86,12 @@ public class RapbackDAOImpl implements RapbackDAO {
     @Autowired
     private TopicMapValidationDueDateStrategy validationDueDateStrategy;
 	
-    @Value("${rapbackDatastoreAdapter.idlePeriod:60}")
-    private Integer idlePeriod;
-
+    @Value("${rapbackDatastoreAdapter.civilIdlePeriod:60}")
+    private Integer civilIdlePeriod;
+    
+    @Value("${rapbackDatastoreAdapter.criminalIdlePeriod:60}")
+    private Integer criminalIdlePeriod;
+    
 	@Override
 	public Integer saveSubject(final Subject subject) {
         log.debug("Inserting row into IDENTIFICATION_SUBJECT table : " + subject);
@@ -127,6 +142,10 @@ public class RapbackDAOImpl implements RapbackDAO {
 		return date == null? null : new DateTime(date); 
 	}
 	
+	private DateTime toDateTime(Timestamp timestamp){
+		return timestamp == null? null : new DateTime(timestamp); 
+	}
+	
 	private java.sql.Date toSqlDate(DateTime date){
 		return date == null? null : new java.sql.Date(date.getMillis()); 
 	}
@@ -142,8 +161,8 @@ public class RapbackDAOImpl implements RapbackDAO {
         log.debug("Inserting row into IDENTIFICATION_TRANSACTION table : " + identificationTransaction.toString());
         
         final String IDENTIFICATION_TRANSACTION_INSERT="INSERT into IDENTIFICATION_TRANSACTION "
-        		+ "(TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, ARCHIVED, IDENTIFICATION_CATEGORY) "
-        		+ "values (?, ?, ?, ?, ?, ?, ?)";
+        		+ "(TRANSACTION_NUMBER, SUBJECT_ID, OTN, OWNER_ORI, OWNER_PROGRAM_OCA, ARCHIVED, IDENTIFICATION_CATEGORY, AVAILABLE_FOR_SUBSCRIPTION_START_DATE) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
         
         Integer subjectId  = null; 
         if ( identificationTransaction.getSubject() == null){
@@ -163,7 +182,8 @@ public class RapbackDAOImpl implements RapbackDAO {
         		identificationTransaction.getOwnerOri(),
         		identificationTransaction.getOwnerProgramOca(), 
         		BooleanUtils.isTrue(identificationTransaction.getArchived()),
-        		identificationTransaction.getIdentificationCategory()); 
+        		identificationTransaction.getIdentificationCategory(), 
+        		Calendar.getInstance().getTime()); 
 	}
 
 	@Override
@@ -368,8 +388,9 @@ public class RapbackDAOImpl implements RapbackDAO {
         final String FBI_RAP_BACK_SUBSCRIPTION_INSERT="insert into FBI_RAP_BACK_SUBSCRIPTION "
         		+ "(FBI_SUBSCRIPTION_ID, UCN, RAP_BACK_CATEGORY_CODE, RAP_BACK_SUBSCRIPTION_TERM_CODE, "
         		+ " RAP_BACK_EXPIRATION_DATE, RAP_BACK_START_DATE, RAP_BACK_TERM_DATE, "
-        		+ " RAP_BACK_OPT_OUT_IN_STATE_INDICATOR, RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT_CODE) "
-        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        		+ " RAP_BACK_OPT_OUT_IN_STATE_INDICATOR, RAP_BACK_ACTIVITY_NOTIFICATION_FORMAT_CODE, "
+        		+ " SUBSCRIPTION_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(FBI_RAP_BACK_SUBSCRIPTION_INSERT, 
         				fbiRapbackSubscription.getFbiSubscriptionId(),
@@ -380,7 +401,8 @@ public class RapbackDAOImpl implements RapbackDAO {
         	            toDate(fbiRapbackSubscription.getRapbackStartDate()),
         	            toDate(fbiRapbackSubscription.getRapbackTermDate()),
         	            fbiRapbackSubscription.getRapbackOptOutInState(),
-        	            fbiRapbackSubscription.getRapbackActivityNotificationFormat());
+        	            fbiRapbackSubscription.getRapbackActivityNotificationFormat(),
+        	            fbiRapbackSubscription.getStateSubscriptionId());
 	}
 
 	
@@ -423,11 +445,12 @@ public class RapbackDAOImpl implements RapbackDAO {
 		IdentificationTransaction identificationTransaction = new IdentificationTransaction();
 		identificationTransaction.setTransactionNumber( rs.getString("transaction_number") );
 		identificationTransaction.setOtn(rs.getString("otn"));
-		identificationTransaction.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
+		identificationTransaction.setTimestamp(toDateTime(rs.getTimestamp("report_timestamp")));
 		identificationTransaction.setOwnerOri(rs.getString("owner_ori"));
 		identificationTransaction.setOwnerProgramOca(rs.getString("owner_program_oca"));
 		identificationTransaction.setIdentificationCategory(rs.getString("identification_category"));
 		identificationTransaction.setArchived(BooleanUtils.isTrue(rs.getBoolean("archived")));
+		identificationTransaction.setAvailableForSubscriptionStartDate(toDateTime(rs.getTimestamp("Available_For_Subscription_Start_Date")));
 
 		Integer subjectId = rs.getInt("subject_id");
 		
@@ -505,8 +528,8 @@ public class RapbackDAOImpl implements RapbackDAO {
 	
 	@Override
 	public List<CivilInitialResults> getCivilInitialResults(String ownerOri) {
-		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.timestamp as timestamp_received, "
-				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, s.* "
+		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, "
+				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, t.available_for_subscription_start_date, s.* "
 				+ "FROM civil_initial_results c "
 				+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
@@ -544,7 +567,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 			log.error("Got exception extracting the search result file for " + 
 					civilInitialResults.getTransactionNumber(), e);
 		}
-		civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("timestamp")));
+		civilInitialResults.setTimestamp(toDateTime(rs.getTimestamp("report_timestamp")));
 		return civilInitialResults;
 	}
 
@@ -563,34 +586,206 @@ public class RapbackDAOImpl implements RapbackDAO {
 
 	@Override
 	public List<IdentificationTransaction> getCivilIdentificationTransactions(
-			String ori) {
-		final String CIVIL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
-				+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.*, sub.*, "
+			SAMLTokenPrincipal token, IdentificationResultSearchRequest searchRequest) {
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append( "SELECT t.transaction_number, t.identification_category, "
+				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, "
+				+ "s.*, sub.*, "
 				+ "(select count(*) > 0 from subsequent_results subsq where subsq.ucn = s.ucn) as having_subsequent_result "
 				+ "FROM identification_transaction t "
 				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
 				+ "LEFT OUTER JOIN subscription sub ON sub.id = t.subscription_id "
-				+ "WHERE t.owner_ori = ? AND (select count(*)>0 from "
-				+ "	civil_initial_results c where c.transaction_number = t.transaction_number)"; 
+				+ "WHERE (select count(*)>0 from "
+				+ "	civil_initial_results c where c.transaction_number = t.transaction_number) "
+				+ "	AND (:firstName is null OR upper(s.first_name) like concat(upper(:firstName), '%')) "
+				+ " AND (:lastName is null OR upper(s.last_name) like concat(upper(:lastName), '%' ) )"
+				+ "	AND (:otn is null OR t.otn = :otn ) "
+				+ "	AND (:startDate is null OR t.report_timestamp >= :startDate ) "
+				+ "	AND (:endDate is null OR t.report_timestamp <= :endDate ) "
+				+ "	AND (:excludeArchived = false OR t.archived != true ) "
+				+ "	AND (:excludeSubscribed = false OR (t.archived = true OR sub.id is null OR sub.id <= 0 OR sub.active = false )) "
+				+ "	AND (:excludeAvailableForSubscription  = false OR (t.archived = true OR (sub.id > 0 AND sub.active = true))) "
+				+ "	AND ( ( :identificationReasonCode ) is null OR t.identification_category in ( :identificationReasonCode )) ");
 		
+		Map<String, Object> paramMap = new HashMap<String, Object>(); 
+		paramMap.put("firstName", searchRequest.getFirstName() );
+		paramMap.put("lastName", searchRequest.getLastName()); 
+		paramMap.put("otn", searchRequest.getOtn()); 
+		paramMap.put("startDate", searchRequest.getReportedDateStartDate()); 
+		paramMap.put("endDate", getMaxOfDay(searchRequest.getReportedDateEndDate())); 
+		paramMap.put("excludeArchived", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Archived)); 
+		paramMap.put("excludeSubscribed", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Subscribed)); 
+		paramMap.put("excludeAvailableForSubscription", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Available_for_Subscription)); 
+		paramMap.put("identificationReasonCode", searchRequest.getCivilIdentificationReasonCodes().isEmpty() ? null : new HashSet<String>(searchRequest.getCivilIdentificationReasonCodes())); 
+
+        String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
+        String federationId = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.FederationId);
+        
+        log.info("ORI: " + ori + " federation ID: " + federationId);
+        
+        boolean isNotSuperUser = isNotSuperUser(ori, federationId); 
+        log.info("Is super super user? " + BooleanUtils.isNotTrue(isNotSuperUser));
+        List<String> viewableAgencies = getViewableAgencies(ori, federationId); 
+        
+		if ( isNotSuperUser){
+			
+			if (viewableAgencies != null && !viewableAgencies.isEmpty()){
+				sb.append( "AND (t.owner_ori in ( :oriList )) "); 
+				paramMap.put("oriList", viewableAgencies);
+			}
+			else {
+				sb.append( "AND (t.owner_ori = :ori) "); 
+				paramMap.put("ori", ori);
+			
+				if ( isNotCivilAgencyUser(ori) ){
+					sb.append ( " AND (t.identification_category in ( :identificationCategoryList )) ");
+					List<String> identificationCategorys = getViewableIdentificationCategories(token, 
+							"CIVIL"); 
+					paramMap.put("identificationCategoryList", identificationCategorys.isEmpty() ? null : identificationCategorys);
+				}
+			}
+		}
+		
+		sb.append("ORDER BY t.report_timestamp DESC "); 
 		List<IdentificationTransaction> identificationTransactions = 
-				jdbcTemplate.query(CIVIL_IDENTIFICATION_TRANSACTION_SELECT, 
-						new FullIdentificationTransactionRowMapper(), ori);
+				namedParameterJdbcTemplate.query( sb.toString(), paramMap,
+						new FullIdentificationTransactionRowMapper());
 		return identificationTransactions;
+	}
+
+	private boolean isExcluding(List<String> statusCriteria, IdentificationTransactionState state) {
+		return statusCriteria!= null && statusCriteria.size() > 0 && !statusCriteria.contains(state.toString());
+	}
+
+	private boolean isSuperUser(String ori, String federationId) {
+		if (StringUtils.isBlank(ori) || StringUtils.isBlank(federationId)){
+			return false; 
+		}
+		
+		final String sql = "SELECT count(*) = 1 FROM ojbc_user u "
+				+ "LEFT JOIN agency_profile a ON a.agency_id = u.agency_id "
+				+ "WHERE a.agency_ori = ? AND u.federation_id = ? "
+				+ "		AND super_user_indicator = true"; 
+		
+		return jdbcTemplate.queryForObject(sql, Boolean.class, ori, federationId);
+	}
+	
+	private boolean isNotSuperUser(String ori, String federationId) {
+		return !isSuperUser(ori , federationId);
+	}
+
+	private List<String> getViewableAgencies(String ori, String federationId) {
+		
+		if (StringUtils.isBlank(ori) || StringUtils.isBlank(federationId)){
+			return null; 
+		}
+		
+		final String sql = "SELECT ap.agency_ori FROM ojbc_user u "
+				+ "LEFT JOIN agency_profile ua ON ua.agency_id = u.agency_id "
+				+ "LEFT JOIN agency_super_user asu ON asu.ojbc_user_id = u.ojbc_user_id "
+				+ "LEFT JOIN agency_profile ap ON ap.agency_id = asu.supervised_agency "
+				+ "WHERE u.federation_id = ? and ua.agency_ori = ?";
+		return jdbcTemplate.queryForList(sql, String.class, federationId, ori);
+	}
+	
+	private boolean isCivilAgencyUser(String ori) {
+		if (StringUtils.isBlank(ori)){
+			return false;
+		}
+		
+		final String sql = "SELECT count(*) = 1 FROM agency_profile a "
+				+ "	WHERE a.agency_ori=? AND civil_agency_indicator = true"; 
+		return jdbcTemplate.queryForObject(sql, Boolean.class, ori);
+	}
+	
+	private boolean isNotCivilAgencyUser(String ori) {
+		return !isCivilAgencyUser(ori);
+	}
+	
+	public List<String> getViewableIdentificationCategories(
+		SAMLTokenPrincipal token, String identificationCategoryType) {
+		final String sql = "select i.identification_category_code from identification_category i "
+				+ "left join job_title_privilege j on j.identification_category_id = i.identification_category_id "
+				+ "left join job_title t on t.job_title_id = j.job_title_id "
+				+ "left join department d on d.department_id = t.department_id "
+				+ "left join agency_profile a on a.agency_id = d.agency_id "
+				+ "where identification_category_type = :identificationCategoryType  "
+				+ "		AND agency_ori = :agencyOri "
+				+ "		AND department_name = :departmentName "
+				+ "		AND ( title_description = :titleDescription OR title_description = 'Any')";
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("identificationCategoryType", identificationCategoryType);
+		paramMap.put("agencyOri", SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI));
+		paramMap.put("departmentName", SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerSubUnitName));
+		paramMap.put("titleDescription", SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployeePositionName));
+		
+		List<String> identificationCategories = namedParameterJdbcTemplate.queryForList(sql, paramMap, String.class);
+		return identificationCategories;
 	}
 
 	@Override
 	public List<IdentificationTransaction> getCriminalIdentificationTransactions(
-			String ori) {
-		final String CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT = "SELECT t.transaction_number, t.identification_category, "
-				+ "t.timestamp as transaction_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, s.* "
+			SAMLTokenPrincipal token, IdentificationResultSearchRequest searchRequest) {
+		StringBuilder sqlStringBuilder = new StringBuilder("SELECT t.transaction_number, t.identification_category, "
+				+ "t.report_timestamp, t.otn, t.owner_ori,  t.owner_program_oca, t.archived, t.available_for_subscription_start_date, "
+				+ "s.* "
 				+ "FROM identification_transaction t "
-				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
-				+ "WHERE t.owner_ori = ? and (select count(*)>0 from "
-				+ "	criminal_initial_results c where c.transaction_number = t.transaction_number)"; 
+				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id ");
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("firstName", searchRequest.getFirstName());
+		paramMap.put("lastName", searchRequest.getLastName()); 
+		paramMap.put("otn", searchRequest.getOtn()); 
+		paramMap.put("startDate", searchRequest.getReportedDateStartDate()); 
+		paramMap.put("endDate", getMaxOfDay(searchRequest.getReportedDateEndDate())); 
+		paramMap.put("excludeArchived", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Archived)); 
+		paramMap.put("excludeAvailableForSubscription", isExcluding(searchRequest.getIdentificationTransactionStatus(), IdentificationTransactionState.Available_for_Subscription)); 
+		paramMap.put("identificationReasonCode", searchRequest.getCriminalIdentificationReasonCodes().isEmpty() ? null : searchRequest.getCriminalIdentificationReasonCodes());
+		
+        String ori = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.EmployerORI); 
+        String federationId = SAMLTokenUtils.getAttributeValueFromSamlToken(token, SamlAttribute.FederationId); 
+        
+        log.info("ORI: " + ori + " federation ID: " + federationId);
+        
+		if ( isSuperUser(ori, federationId)){
+			sqlStringBuilder.append(" WHERE " ); 
+		}
+		else {
+	        List<String> viewableAgencies = getViewableAgencies(ori, federationId); 
+	        
+	        if (viewableAgencies != null && !viewableAgencies.isEmpty()){
+				sqlStringBuilder.append(" WHERE t.owner_ori in (:oriList) AND " ); 
+				paramMap.put("oriList", viewableAgencies);
+	        }
+	        else {
+				sqlStringBuilder.append(" WHERE t.owner_ori = :ori AND " ); 
+				paramMap.put("ori", ori);
+			
+				sqlStringBuilder.append(" t.identification_category in ( :identificationCategoryList ) AND ");
+				
+				List<String> identificationCategorys = 
+						getViewableIdentificationCategories(token, "CRIMINAL"); 
+				paramMap.put("identificationCategoryList", identificationCategorys.isEmpty() ? null : identificationCategorys);
+			}
+		}
+		
+		sqlStringBuilder.append(" (select count(*)>0 from criminal_initial_results c where c.transaction_number = t.transaction_number) ");
+		sqlStringBuilder.append(
+				  " AND (:firstName is null OR upper(s.first_name) like concat(upper(:firstName), '%')) "
+				+ " AND (:lastName is null OR upper(s.last_name) like concat(upper(:lastName), '%' ) )"
+				+ "	AND (:otn is null OR t.otn = :otn ) "
+				+ "	AND (:startDate is null OR t.report_timestamp >= :startDate ) "
+				+ "	AND (:endDate is null OR t.report_timestamp <= :endDate ) "
+				+ "	AND (:excludeArchived = false OR t.archived != true ) "
+				+ "	AND (:excludeAvailableForSubscription  = false OR t.archived = true) "
+				+ "	AND (( :identificationReasonCode ) is null OR identification_category in (:identificationReasonCode)) ");
+		
+		sqlStringBuilder.append("ORDER BY t.report_timestamp DESC "); 
 		List<IdentificationTransaction> identificationTransactions = 
-				jdbcTemplate.query(CRIMINAL_IDENTIFICATION_TRANSACTION_SELECT, 
-						new IdentificationTransactionRowMapper(), ori);
+				namedParameterJdbcTemplate.query( sqlStringBuilder.toString(), paramMap,  
+						new IdentificationTransactionRowMapper());
 		return identificationTransactions;
 	}
 
@@ -665,7 +860,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	@Override
-	public void consolidateSid(String currentSid, String newSid) {
+	public void consolidateSidFederal(String currentSid, String newSid) {
 		final String SID_CONSOLIDATION = "UPDATE identification_subject "
 				+ "SET criminal_sid =(CASE WHEN criminal_sid = :currentSid THEN :newSid ELSE criminal_sid END), "
 				+ "	   civil_sid = (CASE WHEN civil_sid=:currentSid THEN :newSid ELSE civil_sid END)";
@@ -679,7 +874,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 
 	@Override
 	@Transactional
-	public void consolidateUcn(String currentUcn, String newUcn) {
+	public void consolidateUcnFederal(String currentUcn, String newUcn) {
 		final String FBI_SUBSCRIPTION_UCN_CONSOLIDATION = "UPDATE fbi_rap_back_subscription "
 				+ "SET ucn = :newUcn "
 				+ "WHERE ucn = :currentUcn";
@@ -705,14 +900,14 @@ public class RapbackDAOImpl implements RapbackDAO {
 				+ "LEFT JOIN agency_contact_email e ON e.agency_id = a.agency_id "
 				+ "WHERE agency_ori = ?";
 		
-		AgencyProfile agencyProfile = jdbcTemplate.query(AGENCY_PROFILE_SELECT_BY_ORI, new AgencyProfileResultSetExtractor(), ori);
-		return agencyProfile;
+		List<AgencyProfile> agencyProfiles = jdbcTemplate.query(AGENCY_PROFILE_SELECT_BY_ORI, new AgencyProfileResultSetExtractor(), ori);
+		return DataAccessUtils.singleResult(agencyProfiles);
 	}
 
-	private class AgencyProfileResultSetExtractor implements ResultSetExtractor<AgencyProfile> {
+	private class AgencyProfileResultSetExtractor implements ResultSetExtractor<List<AgencyProfile>> {
 
 		@Override
-		public AgencyProfile extractData(ResultSet rs)
+		public List<AgencyProfile> extractData(ResultSet rs)
 				throws SQLException, DataAccessException {
             Map<Integer, AgencyProfile> map = new HashMap<Integer, AgencyProfile>();
             AgencyProfile agencyProfile = null;
@@ -742,25 +937,46 @@ public class RapbackDAOImpl implements RapbackDAO {
                 }
 	              
             }
-            return agencyProfile;
+            
+            return (List<AgencyProfile>) new ArrayList<AgencyProfile>(map.values());
+
 		}
 
 	}
 
 	@Override
-	public int archive() {
+	public int archiveCivilIdentifications() {
 		log.info("Archiving records that have been available "
-				+ "for subscription for over " + idlePeriod + " days.");
+				+ "for subscription for over " + civilIdlePeriod + " days.");
 		final String sql = "UPDATE identification_transaction t "
-				+ "SET t.archived = 'true' "
-				+ "WHERE t.archived = 'false' AND t.available_for_subscription_start_date < ?";
+				+ "SET t.archived = true "
+				+ "WHERE (select count(*)>0 FROM civil_initial_results c where c.transaction_number = t.transaction_number) "
+				+ "	AND t.archived = false  AND t.available_for_subscription_start_date < ?";
 		
 		DateTime currentDate = new DateTime(); 
-		DateTime comparableDate = currentDate.minusDays(idlePeriod);
+		DateTime comparableDate = currentDate.minusDays(civilIdlePeriod);
 		log.info("Comparable Date:" + comparableDate);
 		
 		int updatedRows = jdbcTemplate.update(sql, comparableDate.toDate());
-		log.info("Archived " + updatedRows + " rows that have been idle for over " + idlePeriod + " days ");
+		log.info("Archived " + updatedRows + " rows that have been idle for over " + civilIdlePeriod + " days ");
+		return updatedRows;
+	}
+	
+	@Override
+	public int archiveCriminalIdentifications() {
+		log.info("Archiving records that have been available "
+				+ "for subscription for over " + criminalIdlePeriod + " days.");
+		final String sql = "UPDATE identification_transaction t "
+				+ "SET t.archived = true "
+				+ "WHERE (select count(*)>0 FROM criminal_initial_results c where c.transaction_number = t.transaction_number) "
+				+ "AND t.archived = false  AND t.available_for_subscription_start_date < ?";
+		
+		DateTime currentDate = new DateTime(); 
+		DateTime comparableDate = currentDate.minusDays(criminalIdlePeriod);
+		log.info("Comparable Date:" + comparableDate);
+		
+		int updatedRows = jdbcTemplate.update(sql, comparableDate.toDate());
+		log.info("Archived " + updatedRows + " rows that have been idle for over " + criminalIdlePeriod + " days ");
 		return updatedRows;
 	}
 
@@ -769,7 +985,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		log.info("Archiving record with transaction number " + transactionNumber);
 		
 		final String sql = "UPDATE identification_transaction t "
-				+ "SET t.archived = 'true' "
+				+ "SET t.archived = true "
 				+ "WHERE t.transaction_number = ?";
 		int result = jdbcTemplate.update(sql, transactionNumber);
 		return result;
@@ -799,6 +1015,18 @@ public class RapbackDAOImpl implements RapbackDAO {
 			subsequentResult.setResultsSender(ResultSender.values()[rs.getInt("results_sender_id") -1]);
 			return subsequentResult;
 		}
+	}
+
+	@Override
+	public List<SubsequentResults> getSubsequentResultsByUcn(String ucn) {
+		log.info("Retreiving subsequent results by FBI ID " + ucn);
+		
+		final String sql ="SELECT subs.* FROM subsequent_results subs "
+				+ "WHERE subs.ucn = ?";
+		
+		List<SubsequentResults> subsequentResults = 
+				jdbcTemplate.query(sql, new SubsequentResultRowMapper(), ucn);
+		return subsequentResults;
 	}
 
 	@Override
@@ -832,7 +1060,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 						+ criminalInitialResults.getTransactionNumber(), e);
 			}
 			criminalInitialResults.setTimestamp(toDateTime(rs
-					.getTimestamp("timestamp")));
+					.getTimestamp("report_timestamp")));
 
 			return criminalInitialResults;
 		}
@@ -840,14 +1068,74 @@ public class RapbackDAOImpl implements RapbackDAO {
 	}
 
 	@Override
-	public String getIdentificationCategory(String transactionNumber) {
+	public String getIdentificationCategoryType(String transactionNumber) {
 		log.info("Retrieving identification category by transaction number : " + transactionNumber);
 		
-		final String sql = "SELECT identification_category FROM identification_transaction t WHERE t.transaction_number = ?"; 
+		final String sql = "SELECT identification_category_type FROM identification_transaction t "
+				+ "LEFT JOIN identification_category c ON c.identification_category_code = t.identification_category "
+				+ "WHERE t.transaction_number = ?"; 
 		
 		List<String> results = jdbcTemplate.queryForList(sql, String.class, transactionNumber);
 		
 		return DataAccessUtils.singleResult(results);
+	}
+
+	@Override
+	public List<AgencyProfile> getAgencyProfiles(List<String> oris) {
+		final String AGENCY_PROFILE_SELECT_BY_ORIS = "SELECT * FROM agency_profile a "
+				+ "LEFT JOIN agency_contact_email e ON e.agency_id = a.agency_id "
+				+ "WHERE agency_ori in (:oris)";
+		
+		MapSqlParameterSource parameters = new MapSqlParameterSource();
+		parameters.addValue("oris", oris);
+		
+		List<AgencyProfile> agencyProfiles = namedParameterJdbcTemplate.query(AGENCY_PROFILE_SELECT_BY_ORIS, parameters, new AgencyProfileResultSetExtractor());
+		return agencyProfiles;
+	}
+
+	@Override
+	public Boolean isExistingTransactionNumber(String transactionNumber) {
+		
+		if (StringUtils.isBlank(transactionNumber)) return false; 
+		
+		final String sql = "SELECT count(*)>0 FROM identification_transaction t WHERE t.transaction_number = ?";
+		
+		Boolean existing = jdbcTemplate.queryForObject(sql, Boolean.class, transactionNumber);
+		return existing;
+	}
+
+	@Override
+	public List<CivilInitialResults> getCivilInitialResults(
+			String transactionNumber, ResultSender resultSender) {
+		final String CIVIL_INITIAL_RESULTS_SELECT = "SELECT c.*, t.identification_category, t.report_timestamp, "
+				+ "t.otn, t.owner_ori, t.owner_program_oca, t.archived, t.available_for_subscription_start_date, s.* "
+				+ "FROM civil_initial_results c "
+				+ "LEFT OUTER JOIN identification_transaction t ON t.transaction_number = c.transaction_number "
+				+ "LEFT OUTER JOIN identification_subject s ON s.subject_id = t.subject_id "
+				+ "WHERE c.TRANSACTION_NUMBER  = ? AND c.RESULTS_SENDER_ID = ?";
+		
+		List<CivilInitialResults> civilIntialResults = 
+				jdbcTemplate.query(CIVIL_INITIAL_RESULTS_SELECT, 
+						new CivilInitialResultsRowMapper(), transactionNumber, resultSender.ordinal() + 1);
+		return civilIntialResults;
+	}
+
+	public static java.sql.Timestamp getMaxOfDay(Date date){
+		if (date != null){
+			LocalDate localDate= new java.sql.Date(date.getTime()).toLocalDate();
+			return java.sql.Timestamp.valueOf(LocalDateTime.of(localDate, LocalTime.MAX));
+		}
+		
+		return null; 
+	}
+
+	@Override
+	public void updateIdentificationCategory(String transactionNumber,
+			String identificationCategory) {
+		final String sql = "UPDATE identification_transaction "
+				+ "SET identification_category = ? "
+				+ "WHERE transaction_number  = ? ";
+		jdbcTemplate.update(sql, identificationCategory, transactionNumber);
 	}
 
 }

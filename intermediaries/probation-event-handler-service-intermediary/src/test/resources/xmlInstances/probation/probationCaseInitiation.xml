@@ -17,7 +17,7 @@
 
 -->
 <pci:ProbationCaseInitiation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProbationCaseInitiation/1.0 ../../../../../../OJB_Resources/src/main/resources/service-specifications/Probation_Event_Handler_Service/schema/information/Probation_Case-IEPD/xsd/Probation_Case_Initiation.xsd"
+ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProbationCaseInitiation/1.0 ../../../../../../OJB_Resources/src/main/resources/ssp/Probation_Event_Handler/schema/information/Probation_Case-IEPD/xsd/Probation_Case_Initiation.xsd"
  xmlns:pci="http://ojbc.org/IEPD/Exchange/ProbationCaseInitiation/1.0"
  xmlns:pcext="http://ojbc.org/IEPD/Extensions/ProbationCase/1.0">
       <pcext:ProbationCase>

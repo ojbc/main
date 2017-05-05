@@ -16,19 +16,17 @@
  */
 package org.ojbc.bundles.adapters.staticmock;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.ojbc.bundles.adapters.staticmock.IdentifiableDocumentWrapper;
-import org.ojbc.bundles.adapters.staticmock.StaticMockQuery;
-import org.ojbc.util.xml.OjbcNamespaceContext;
-import org.ojbc.util.xml.XmlUtils;
-
 import org.junit.Test;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -38,10 +36,10 @@ public class QueryTest extends AbstractStaticMockTest {
     public void testFirearmQuery() throws Exception {
         Document responseDocument = doFirearmTestQuery("sample-9006054698886898174.xml:F1", StaticMockQuery.FIREARM_MOCK_ADAPTER_QUERY_BY_FIREARM_SYSTEM_ID, "firearm-doc:FirearmRegistrationQueryResults");
         List<String> schemaPaths = new ArrayList<String>();
-        String iepdRootPath = "service-specifications/Firearm_Registration_Query_Results_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd/";
+        String iepdRootPath = "ssp/Firearm_Registration_Query_Results/artifacts/service_model/information_model/IEPD/xsd/";
         schemaPaths.add(iepdRootPath + "impl/demostate/demostate-firearm-codes.xsd");
         XmlUtils.validateInstance(iepdRootPath, "Subset/niem", "exchange_schema.xsd", schemaPaths, responseDocument);
-        //XmlUtils.validateInstance("service-specifications/Firearm_Registration_Query_Results_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Results_IEPD/xsd", "Subset/niem", "exchange_schema.xsd", responseDocument);
+        //XmlUtils.validateInstance("ssp/Firearm_Registration_Query_Results/artifacts/service_model/information_model/IEPD/xsd", "Subset/niem", "exchange_schema.xsd", responseDocument);
     }
 
     @Test
@@ -63,6 +61,22 @@ public class QueryTest extends AbstractStaticMockTest {
     public void testFirearmRegistrationPersonQuery() throws Exception {
         doPersonTestQuery("sample-9006054698886898174.xml", StaticMockQuery.FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID, "firearm-doc:PersonFirearmRegistrationQueryResults");
     }
+    
+    @Test
+    public void testCustodyPersonQuery() throws ParserConfigurationException, Exception{
+    	doPersonTestQuery("sample-CustodyCaseQueryResults2.xml", StaticMockQuery.CUSTODY_QUERY_SYSTEM_ID, "cq-res-exch:CustodyQueryResults");
+    }
+    
+    @Test
+    public void testCourtCasePersonQuery() throws ParserConfigurationException, Exception{
+    	doPersonTestQuery("sample-CourtCaseQueryResults3.xml", StaticMockQuery.COURT_CASE_QUERY_SYSTEM_ID, "ccq-res-doc:CourtCaseQueryResults");
+    }    
+    
+    @Test
+    public void testVehicleCrashPersonQuery() throws ParserConfigurationException, Exception{    	
+    	doPersonTestQuery("sample-VehicleCrash.xml", StaticMockQuery.VEHICLE_CRASH_QUERY_SYSTEM_ID, "vcq-res-doc:VehicleCrashQueryResults");    	
+    }
+    
     
     @Test
     public void testJuvenileHistoryQueries() throws Exception {
@@ -121,6 +135,7 @@ public class QueryTest extends AbstractStaticMockTest {
     }
 
     private void doPersonTestQuery(String identifier, String systemId, String rootElementName) throws ParserConfigurationException, Exception {
+    	
         Document queryRequestMessage = buildPersonQueryRequestMessage(systemId, identifier);
         //XmlUtils.printNode(queryRequestMessage);
         List<IdentifiableDocumentWrapper> resultingDocuments = staticMockQuery.queryDocuments(queryRequestMessage);

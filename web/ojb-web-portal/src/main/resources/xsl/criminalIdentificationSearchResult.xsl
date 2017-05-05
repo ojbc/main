@@ -22,7 +22,7 @@
 	xmlns:oirsr="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
 	xmlns:oirsr-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" 
 	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" 
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" 
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
@@ -45,6 +45,15 @@
 		<xsl:apply-templates select="$tooManyResultsErrors" />
 
 		<xsl:if test="(not($tooManyResultsErrors) and not($accessDenialReasons) and not($requestErrors))">
+			<xsl:variable name="containedResultCount">
+				<xsl:value-of select="count(oirsr-ext:OrganizationIdentificationResultsSearchResult)"></xsl:value-of>
+			</xsl:variable>
+			<xsl:if test="$containedResultCount &lt; srm:SearchResultsMetadata/srm:TotalAuthorizedSearchResultsQuantity">
+				<span class="hint">
+					The most recent <xsl:value-of select="$containedResultCount"/> of <xsl:value-of select="srm:SearchResultsMetadata/srm:TotalAuthorizedSearchResultsQuantity"/>
+					entries are loaded. Please refine your search with the RETURN TO SEARCH button.
+				</span>
+			</xsl:if>
 			<xsl:call-template name="rapbacks"/>
 		</xsl:if>
 	</xsl:template>
@@ -54,8 +63,10 @@
 				<thead>
 					<tr>
 						<th>NAME</th>
-						<th>DOB</th>
 						<th>OTN</th>
+						<th>ID DATE</th>
+						<th>TYPE</th>
+						<th>STATUS</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -71,16 +82,34 @@
 		<tr>
 			<td><xsl:apply-templates select="child::oirsr-ext:IdentifiedPerson/nc:PersonName" mode="primaryName"></xsl:apply-templates></td>
 			<td>
-				<xsl:apply-templates select="child::oirsr-ext:IdentifiedPerson/nc:PersonBirthDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
-			</td>
-			<td>
 				<xsl:value-of select="oirsr-ext:IdentifiedPerson/oirsr-ext:IdentifiedPersonTrackingIdentification/nc:IdentificationID"></xsl:value-of>
-			</td>					
+			</td>	
+			<td>
+				<xsl:apply-templates select="oirsr-ext:IdentificationReportedDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+			</td>				
+			<td>
+				<xsl:value-of select="oirsr-ext:CriminalIdentificationReasonCode"></xsl:value-of>
+			</td>	
+			<td>
+				<xsl:if test="oirsr-ext:IdentificationResultStatusCode = 'Archived'">
+					<xsl:text>Archived</xsl:text>
+				</xsl:if>
+			</td>	
 			<td align="right" width="115px">
+				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
 				<a href="{concat('../rapbacks/initialResults?transactionNumber=',intel:SystemIdentification/nc:IdentificationID)}" 
 					class="blueIcon initialResults" style="margin-right:3px" title="Initial Results"><i class="fa fa-file-text-o fa-lg"></i></a>
 			</td>
 		</tr>
+	</xsl:template>
+	
+	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="unsubscribed">
+ 		<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive">
+			<xsl:attribute name="id">
+				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
+			</xsl:attribute>
+			<i class="fa fa-archive fa-lg"></i>
+		</a>
 	</xsl:template>
 	
 	<xsl:template match="iad:InformationAccessDenial">

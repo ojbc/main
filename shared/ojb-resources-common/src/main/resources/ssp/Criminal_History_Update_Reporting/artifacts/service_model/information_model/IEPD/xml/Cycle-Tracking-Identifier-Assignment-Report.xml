@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<crimhistory-update-doc:CycleTrackingIdentifierAssignmentReport
+	xmlns:crimhistory-update-doc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:crimhistory-update-ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+	xmlns:s="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:me-chrg-codes-v1="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0 ../xsd/CycleTrackingIdentifierAssignmentReport-exchange.xsd">
+	<crimhistory-update-ext:CycleTrackingIdentifierAssignment>
+		<nc:ActivityDate>
+			<nc:DateTime>2014-10-03T06:54:00</nc:DateTime>
+		</nc:ActivityDate>
+		<crimhistory-update-ext:CycleTrackingIdentification>
+			<nc:IdentificationID>123456A</nc:IdentificationID>
+		</crimhistory-update-ext:CycleTrackingIdentification>
+		<j:OriginatorOrganization s:ref="ORG001" />
+		<j:CaseProsecutionAttorney>
+			<crimhistory-update-ext:ProsecutionAttorneyOrganization
+				s:ref="ORG002" />
+		</j:CaseProsecutionAttorney>
+		<nc:Case>
+			<j:ActivityAugmentation>
+				<j:CaseNumberText>1234</j:CaseNumberText>
+			</j:ActivityAugmentation>
+		</nc:Case>
+		<j:Charge s:id="C001">
+			<j:ChargeDescriptionText>ROBBERY</j:ChargeDescriptionText>
+			<j:ChargeEnhancingFactor>
+				<j:ChargeEnhancingFactorDescriptionText>modifier description</j:ChargeEnhancingFactorDescriptionText>
+				<me-chrg-codes-v1:ChargeEnhancingFactorCode>S</me-chrg-codes-v1:ChargeEnhancingFactorCode>
+			</j:ChargeEnhancingFactor>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>004290</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<j:StatuteText>17-A MRSA SUBSECTION 651(1)(D)</j:StatuteText>
+			</j:ChargeStatute>
+			<j:ChargeTrackingIdentification>
+				<nc:IdentificationID>123</nc:IdentificationID>
+			</j:ChargeTrackingIdentification>
+		</j:Charge>
+		<j:Charge s:id="C002">
+			<j:ChargeDescriptionText>ROBBERY</j:ChargeDescriptionText>
+			<j:ChargeEnhancingFactor>
+				<j:ChargeEnhancingFactorDescriptionText>modifier description</j:ChargeEnhancingFactorDescriptionText>
+				<me-chrg-codes-v1:ChargeEnhancingFactorCode>A</me-chrg-codes-v1:ChargeEnhancingFactorCode>
+			</j:ChargeEnhancingFactor>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>04291</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<j:StatuteText>19-A Subsection 651(1)(B)</j:StatuteText>
+			</j:ChargeStatute>
+			<j:ChargeTrackingIdentification>
+				<nc:IdentificationID>456</nc:IdentificationID>
+			</j:ChargeTrackingIdentification>
+		</j:Charge>
+		<j:Arrest>
+			<nc:ActivityDate>
+				<nc:Date>2014-06-10</nc:Date>
+			</nc:ActivityDate>
+		</j:Arrest>
+		<j:Offense s:id="O001">
+			<nc:ActivityDate>
+				<nc:Date>2014-06-10</nc:Date>
+			</nc:ActivityDate>
+		</j:Offense>
+		<j:Subject>
+			<nc:RoleOfPerson s:ref="P001" />
+		</j:Subject>
+		<j:OffenseChargeAssociation>
+			<j:Offense s:ref="O001"/>
+			<j:Charge s:ref="C001"/>
+		</j:OffenseChargeAssociation>
+		<j:OffenseChargeAssociation>
+			<j:Offense s:ref="O001"/>
+			<j:Charge s:ref="C002"/>
+		</j:OffenseChargeAssociation>
+	</crimhistory-update-ext:CycleTrackingIdentifierAssignment>
+	<nc:Organization s:id="ORG001">
+		<nc:OrganizationName>Portland Police Department</nc:OrganizationName>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>ME0000000</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</nc:Organization>
+	<nc:Organization s:id="ORG002">
+		<nc:OrganizationName>Cumberland County Prosecutor</nc:OrganizationName>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>ME0000001</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</nc:Organization>
+	<nc:Person s:id="P001">
+		<nc:PersonBirthDate>
+			<nc:Date>1962-02-20</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Walter</nc:PersonGivenName>
+			<nc:PersonMiddleName>A</nc:PersonMiddleName>
+			<nc:PersonSurName>White</nc:PersonSurName>
+		</nc:PersonName>
+	</nc:Person>
+</crimhistory-update-doc:CycleTrackingIdentifierAssignmentReport>

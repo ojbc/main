@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,8 +42,11 @@ import org.joda.time.Days;
 import org.joda.time.Seconds;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.bundles.adapters.staticmock.samplegen.staticname.custody.CustodyMatthewsSampleGenerator;
+import org.ojbc.bundles.adapters.staticmock.samplegen.staticname.firearmprohibition.FirearmPurchaseProhibitionMatthewsSampleGenerator;
+import org.ojbc.bundles.adapters.staticmock.samplegen.staticname.vehiclecrash.VehicleCrashMatthewsSampleGenerator;
 import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -393,6 +397,37 @@ public abstract class AbstractSampleGenerator {
 		return ret.toString();
 	}
 
+	
+
+	
+	/**
+	 * Intended to be overridden to provide static common last name sample ie "Matthews"
+	 * 
+	 * @param iGeneratedPerson
+	 * 		A random person object - not used when returning static name
+	 * @return
+	 * 		A last name, either random or statically returned if implemented that way
+	 */
+	protected String getLastNameSample(PersonElementWrapper personElementWrapper){
+	
+		return personElementWrapper.lastName;
+	}
+	
+	
+	/**
+	 * Intended to be overridden to provide a static common first name sample ie Joey
+	 * 
+	 * @param personElementWrapper
+	 * 		A random person object - not used when returning static name
+	 * @return
+	 *  	A first name, either random or statically returned if implemented that way
+	 */
+	protected String getFirstNameSample(PersonElementWrapper personElementWrapper){
+	
+		return personElementWrapper.firstName;
+	}
+	
+	
 	/**
 	 * Add multiple elements with the specified qualified name to the parent. The number of elements to add is randomly generated out of a Poisson
 	 * distribution with mean meanCount.
@@ -492,13 +527,41 @@ public abstract class AbstractSampleGenerator {
 	 *            the list of objects
 	 * @return the randomly selected member of the list
 	 */
-	protected final Object generateRandomValueFromList(List list) {
+	protected final Object generateRandomValueFromList(List<?> list) {
 		if (list.size() == 1) {
 			return list.get(0);
 		}
 		int i = randomGenerator.nextInt(0, list.size() - 1);
 		return list.get(i);
 	}
+	
+	
+	protected String getRandomBooleanString(){
+		
+		boolean sampleFlag = coinFlip(.5);
+		
+		String sSampleFlag = String.valueOf(sampleFlag);
+		
+		return sSampleFlag;
+	}
+	
+	protected String getRandomName(){
+		
+		PersonElementWrapper person = null;
+		
+		String fullName = null;
+		
+		try{
+			person = getRandomIdentity(null);
+		}catch(Exception e){
+			e.printStackTrace();
+		}				 
+		
+		fullName = person.firstName + " " + person.middleName + " " + person.lastName;
+		 
+		return fullName;
+	}
+	
 
 	/**
 	 * Generates a random letter from the alphabet
@@ -549,6 +612,7 @@ public abstract class AbstractSampleGenerator {
 	}
 
 	private void loadIdentityMap() throws IOException {
+		
 		BufferedReader br = getIdentityFileReader();
 		String line = null;
 		//long start = System.currentTimeMillis();
@@ -636,6 +700,7 @@ public abstract class AbstractSampleGenerator {
 	}
 
 	private BufferedReader getIdentityFileReader() {
+		
 		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("static-files/GeneratedIdentities.csv");
 		BufferedReader br = new BufferedReader(new InputStreamReader(inputStream), 1024 * 10);
 		return br;
@@ -656,6 +721,39 @@ public abstract class AbstractSampleGenerator {
 		int line = randomGenerator.nextInt(0, zipList.size() - 1);
 		return zipList.get(line).city;
 	}
+	
+	
+	/**
+	 * Gets a random string from the input
+	 * @param items
+	 * 	 input items to get a random string from
+	 * @return
+	 * 	 random string
+	 */
+	protected final String randomString(String...items ){
+	
+		String randomString = (String)generateRandomValueFromList(Arrays.asList(items));
+		
+		return randomString;
+	}
+	
+		
+	protected final String randomDate() throws IOException{
+		
+		return randomDate("yyyy-MM-dd");
+	}
+	
+	
+	protected final String randomDate(String sdfDateFormat) throws IOException{
+		
+		PersonElementWrapper randomPerson = getRandomIdentity(null);
+		
+		String sDob = randomPerson.birthdate.toString(sdfDateFormat); 
+		
+		return sDob;		
+	}
+	
+	
 
 	/**
 	 * Get a randomly selected county that is within the specified state, from US Postal Service data
@@ -677,7 +775,9 @@ public abstract class AbstractSampleGenerator {
 	protected static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
 	protected static final DateTimeFormatter DATE_FORMATTER_MM_DD_YYYY = DateTimeFormat.forPattern("MM/dd/yyyy");
 
-	public static void main(String[] args) throws Exception {
+	
+	
+	public static void runGenerator(String[] args) throws Exception{
 
 		if (args.length < 3) {
 			printUsage();
@@ -695,11 +795,28 @@ public abstract class AbstractSampleGenerator {
 
 		AbstractPersonSampleGenerator generator = null;
 		DateTime today = new DateTime();
+		
 		List<Document> criminalHistories = new ArrayList<Document>();
+		
 		List<Document> warrants = new ArrayList<Document>();
+		
 		List<Document> incidents = new ArrayList<Document>();
+		
 		List<Document> firearmRegistrations = new ArrayList<Document>();
+		
 		List<Document> juvenileHistories = new ArrayList<Document>();
+		
+		List<Document> custodyDocList = new ArrayList<Document>();
+		
+		List<Document> courtCaseDocList = new ArrayList<Document>();
+		
+		List<Document> vehicleCrashDocList = new ArrayList<Document>();
+		
+		List<Document> vehicleCrashMatthewsDocList = new ArrayList<Document>();
+		
+		List<Document> firearmPurchaseProhibitionDocList = new ArrayList<Document>();
+
+		List<Document> firearmPurchaseMatthewsProhibitionDocList = new ArrayList<Document>();
 
 		if ("ALL".equals(type) || "CRIMINALHISTORY".equals(type)) {
 			generator = new CriminalHistorySampleGenerator();
@@ -725,29 +842,82 @@ public abstract class AbstractSampleGenerator {
 			JuvenileHistorySampleGenerator jhsg = new JuvenileHistorySampleGenerator();
 			juvenileHistories = jhsg.generateSample(sampleCount, today, null);
 		}
+		
+		if("ALL".equals(type) || "CUSTODY".equals(type)){			
+			CustodySampleGenerator custodySampleGenerator = new CustodySampleGenerator();			
+			custodyDocList = custodySampleGenerator.generateCustodySamples(sampleCount);
+		}
 
-		List<Document> allSamples = new ArrayList<Document>(criminalHistories.size() + warrants.size() + incidents.size() + firearmRegistrations.size() + juvenileHistories.size());
+		if("ALL".equals(type) || "CUSTODYMATTHEWS".equals(type)){			
+			CustodySampleGenerator custodyMatthewSampleGenerator = new CustodyMatthewsSampleGenerator();			
+			custodyDocList = custodyMatthewSampleGenerator.generateCustodySamples(sampleCount);
+		}
+		
+		if("ALL".equals(type) || "COURTCASE".equals(type)){			
+			CourtCaseSampleGenerator courtCaseGenerator = new CourtCaseSampleGenerator();			
+			courtCaseDocList = courtCaseGenerator.generateCourtCaseSamples(sampleCount);
+		}
+		
+		if("ALL".equals(type) || "VEHICLECRASH".equals(type)){
+			VehicleCrashSampleGenerator vehicleCrashGenerator = new VehicleCrashSampleGenerator();			
+			vehicleCrashDocList = vehicleCrashGenerator.generateVehicleCrashDetailSamples(sampleCount);
+		}
+
+		if("ALL".equals(type) || "VEHICLECRASHMATTHEWS".equals(type)){
+			VehicleCrashSampleGenerator vehicleCrashMatthewsGenerator = new VehicleCrashMatthewsSampleGenerator();			
+			vehicleCrashMatthewsDocList = vehicleCrashMatthewsGenerator.generateVehicleCrashDetailSamples(sampleCount);
+		}
+
+		if("ALL".equals(type) || "FIREARMPURCHASEPROHIBITION".equals(type)){
+			FirearmPurchaseProhibitionSampleGenerator firearmPurchaseProhibitionSampleGenerator = 
+					new FirearmPurchaseProhibitionSampleGenerator();			
+			firearmPurchaseProhibitionDocList = firearmPurchaseProhibitionSampleGenerator.generateSample(sampleCount, today);
+		}
+		
+		if("ALL".equals(type) || "FIREARMPURCHASEPROHIBITIONMATTHEWS".equals(type)){
+			FirearmPurchaseProhibitionMatthewsSampleGenerator firearmPurchaseProhibitionMatthewsSampleGenerator = 
+					new FirearmPurchaseProhibitionMatthewsSampleGenerator();			
+			firearmPurchaseMatthewsProhibitionDocList = firearmPurchaseProhibitionMatthewsSampleGenerator.generateSample(sampleCount, today);
+		}
+		
+
+		List<Document> allSamples = new ArrayList<Document>(criminalHistories.size() + warrants.size() + incidents.size() + firearmRegistrations.size() 
+				+ juvenileHistories.size() + custodyDocList.size() + courtCaseDocList.size());
+		
 		allSamples.addAll(criminalHistories);
 		allSamples.addAll(warrants);
 		allSamples.addAll(incidents);
 		allSamples.addAll(firearmRegistrations);
-		allSamples.addAll(juvenileHistories);
+		allSamples.addAll(juvenileHistories);		
+		allSamples.addAll(custodyDocList);
+		allSamples.addAll(courtCaseDocList);
+		allSamples.addAll(vehicleCrashDocList);
+		allSamples.addAll(vehicleCrashMatthewsDocList);
+		allSamples.addAll(firearmPurchaseProhibitionDocList);
+		allSamples.addAll(firearmPurchaseMatthewsProhibitionDocList);
 
 		for (Document d : allSamples) {
+			
 			File f = File.createTempFile("sample-", ".xml", destinationFile);
 			FileOutputStream fos = new FileOutputStream(f);
 			XmlUtils.printNode(d, fos);
 			fos.close();
 		}
 
-		System.out.println("Wrote " + allSamples.size() + " files to " + destinationFile.getAbsolutePath());
+		LOG.info("Wrote " + allSamples.size() + " files to " + destinationFile.getAbsolutePath());		
+		
+	}
+	
+	
+	public static void main(String[] args) throws Exception {
 
+		runGenerator(args);
 	}
 
 	static void printUsage() {
-
-		System.out.println("Usage: java " + AbstractPersonSampleGenerator.class.getName() + " [Incident|CriminalHistory|Warrant|Firearm|JuvenileHistory|All] [number of samples] [destination directory]");
-
+		
+		LOG.info("Usage: java " + AbstractPersonSampleGenerator.class.getName() 
+				+ " [Incident|CriminalHistory|Warrant|Firearm|JuvenileHistory|Custody|CourtCase|VehicleCrash|VEHICLECRASHMATTHEWS|All] [number of samples] [destination directory]");
 	}
 
 }

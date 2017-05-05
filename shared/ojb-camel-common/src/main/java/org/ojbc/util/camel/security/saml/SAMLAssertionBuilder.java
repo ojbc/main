@@ -23,16 +23,16 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.ws.security.components.crypto.Crypto;
-import org.apache.ws.security.components.crypto.CryptoFactory;
-import org.apache.ws.security.components.crypto.Merlin;
-import org.apache.ws.security.saml.ext.AssertionWrapper;
-import org.apache.ws.security.saml.ext.OpenSAMLBootstrap;
-import org.apache.ws.security.saml.ext.bean.AttributeBean;
-import org.apache.ws.security.saml.ext.bean.AttributeStatementBean;
-import org.apache.ws.security.saml.ext.bean.AuthenticationStatementBean;
-import org.apache.ws.security.saml.ext.builder.SAML2ComponentBuilder;
-import org.apache.ws.security.saml.ext.builder.SAML2Constants;
+import org.apache.wss4j.common.crypto.Crypto;
+import org.apache.wss4j.common.crypto.CryptoFactory;
+import org.apache.wss4j.common.crypto.Merlin;
+import org.apache.wss4j.common.saml.OpenSAMLBootstrap;
+import org.apache.wss4j.common.saml.SamlAssertionWrapper;
+import org.apache.wss4j.common.saml.bean.AttributeBean;
+import org.apache.wss4j.common.saml.bean.AttributeStatementBean;
+import org.apache.wss4j.common.saml.bean.AuthenticationStatementBean;
+import org.apache.wss4j.common.saml.builder.SAML2ComponentBuilder;
+import org.apache.wss4j.common.saml.builder.SAML2Constants;
 import org.joda.time.DateTime;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.opensaml.saml2.core.Assertion;
@@ -52,10 +52,16 @@ import org.w3c.dom.Element;
 
 public class SAMLAssertionBuilder {
 	
-    public static final String SECURITY_CRYPTO_PROVIDER_KEY = "org.apache.ws.security.crypto.provider";
-    public static final String SECURITY_CRYPTO_PROVIDER_VALUE = "org.apache.ws.security.components.crypto.Merlin";
-    public static final String MERLIN_KEYSTORE_TYPE_VALUE = "jks";
-    
+    static final String SECURITY_CRYPTO_PROVIDER_KEY = "org.apache.wss4j.crypto.merlin.keystore.provider";
+    static final String SECURITY_CRYPTO_PROVIDER_VALUE = "org.apache.wss4j.common.crypto.Merlin";
+    static final String MERLIN_KEYSTORE_TYPE_VALUE = "jks";
+    static final String USER_HOME=System.getProperty("user.home");
+    static final String MERLIN_KEYSTORE_FILE_VALUE = USER_HOME + "/ojb-certs/idp/idp-keystore.jks";
+    static final String MERLIN_KEYSTORE_PASSWORD_VALUE = "idp-keystore";
+    static final String MERLIN_KEYSTORE_ALIAS_VALUE = "idp-key";
+    static final String KEY_PASSWORD_VALUE = "idp-key";
+	
+
     /**
      * Location of keystore on file system
      */
@@ -198,8 +204,12 @@ public class SAMLAssertionBuilder {
 			
 		//Sign the assertion, we use the AssertionWrapper provides by WSS4J to do the signing
 		//The SAMLTokenProvider shows how to do this
-		AssertionWrapper assertionWrapper = new AssertionWrapper(assertion);
+		SamlAssertionWrapper assertionWrapper = new SamlAssertionWrapper(assertion);
 	
+		String alias = "";
+		String password = "";
+		Crypto signatureCrypto = null;
+		
 		if (StringUtils.isNotEmpty(keyAlias) 
 			&& 	StringUtils.isNotEmpty(keystorePassword)
 			&& 	StringUtils.isNotEmpty(keystoreLocation)
@@ -208,24 +218,39 @@ public class SAMLAssertionBuilder {
 		{	
 		
 			Properties sigProperties = new Properties();
-			
-			sigProperties.put(SECURITY_CRYPTO_PROVIDER_KEY, SECURITY_CRYPTO_PROVIDER_VALUE);
-			sigProperties.put(Merlin.KEYSTORE_TYPE, MERLIN_KEYSTORE_TYPE_VALUE);
-			sigProperties.put(Merlin.KEYSTORE_ALIAS, keyAlias);
-			sigProperties.put(Merlin.KEYSTORE_PASSWORD, keystorePassword );
-			sigProperties.put(Merlin.KEYSTORE_FILE, keystoreLocation);
+			sigProperties.put("org.apache.wss4j.crypto.provider", SECURITY_CRYPTO_PROVIDER_VALUE);
+			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_TYPE, MERLIN_KEYSTORE_TYPE_VALUE);
+			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_ALIAS, keyAlias);
+			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_PASSWORD, keystorePassword );
+			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_FILE, keystoreLocation);
 	        
-			Crypto signatureCrypto = CryptoFactory.getInstance(sigProperties);
+			signatureCrypto = CryptoFactory.getInstance(sigProperties);
 			
-			String alias = sigProperties.getProperty(Merlin.KEYSTORE_ALIAS);
-	
-			String password = keyPassword;
+			alias = sigProperties.getProperty(Merlin.PREFIX + Merlin.KEYSTORE_ALIAS);
+
+			password = keyPassword;
+		}
+		else
+		{
+			Properties sigProperties = new Properties();
+			sigProperties.put("org.apache.wss4j.crypto.provider", SECURITY_CRYPTO_PROVIDER_VALUE);
+			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_TYPE, MERLIN_KEYSTORE_TYPE_VALUE);
+			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_ALIAS, MERLIN_KEYSTORE_ALIAS_VALUE);
+			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_PASSWORD, MERLIN_KEYSTORE_PASSWORD_VALUE );
+			sigProperties.put(Merlin.PREFIX + Merlin.KEYSTORE_FILE, MERLIN_KEYSTORE_FILE_VALUE);
+	        
+			signatureCrypto = CryptoFactory.getInstance(sigProperties);
 			
-			assertionWrapper.signAssertion(
-					alias, password, signatureCrypto, false, defaultCanonicalizationAlgorithm,
-		            defaultRSASignatureAlgorithm
-		        );
+			alias = sigProperties.getProperty(Merlin.PREFIX + Merlin.KEYSTORE_ALIAS);
+
+			password = KEY_PASSWORD_VALUE;
 		}	
+
+		assertionWrapper.signAssertion(
+				alias, password, signatureCrypto, false, defaultCanonicalizationAlgorithm,
+	            defaultRSASignatureAlgorithm
+	        );
+	
 		
 		// if you don't do this, it appears that the assertion object does not get fully created. uncomment the second line if you want to display it to stdout
 		assertionWrapper.assertionToString();
@@ -256,7 +281,7 @@ public class SAMLAssertionBuilder {
 		AttributeBean attributeBean = new AttributeBean();
 		attributeBean.setQualifiedName(qualifiedName);
 		
-		List<String> values = new ArrayList<String>();
+		List<Object> values = new ArrayList<Object>();
 		values.add(value);
 		attributeBean.setAttributeValues(values);
 		return attributeBean;
@@ -293,6 +318,4 @@ public class SAMLAssertionBuilder {
 	public void setKeyPassword(String keyPassword) {
 		this.keyPassword = keyPassword;
 	}
-
-	
 }

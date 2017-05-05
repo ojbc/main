@@ -25,7 +25,7 @@
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>fbi-electronic-biometric-transmission-specification-adapter</artifactId>
 	<packaging>bundle</packaging>
-
+	<version>1.0.1</version>
 	<name>OJB :: fbi-electronic-biometric-transmission-specification-adapter :: adapter</name>
 	<url>http://www.ojbc.org</url>
 
@@ -39,17 +39,18 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
-		<camel.version>2.10.4</camel.version>
-		<spring-version>3.0.7.RELEASE</spring-version>
-		<cxf-version>2.6.4</cxf-version>
-		<camel-version>2.10.3</camel-version>
-		<ojb-common-version>2.0.5</ojb-common-version>
-		<ojb-camel-common-version>1.0.0</ojb-camel-common-version>
-		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>		
+		<camel-version>2.14.4</camel-version>
+		<spring-version>3.2.11.RELEASE</spring-version>
+		<cxf-version>3.0.5</cxf-version>
+		<ojb-common-version>[3.0.0,)</ojb-common-version>
+		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
+		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<xmlunit.version>1.5</xmlunit.version>
-		<sn-interm-cmn-version>1.0.1</sn-interm-cmn-version>
+		<sn-interm-cmn-version>[1.0.1,)</sn-interm-cmn-version>
 		<junit-version>4.8.1</junit-version>
-		<java-version>1.6</java-version>
+		<java-version>1.8</java-version>
+		<saxon-version>9.5.1-5</saxon-version>
+		<wss4j-version>1.5.6</wss4j-version>
 	</properties>
 
 	<dependencies>
@@ -61,22 +62,27 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core</artifactId>
-			<version>${camel.version}</version>
+			<version>${camel-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-cxf</artifactId>
-			<version>${camel.version}</version>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-saxon</artifactId>
+			<version>${camel-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-spring</artifactId>
-			<version>${camel.version}</version>
+			<version>${camel-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
+			<version>${junit-version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -97,7 +103,6 @@
 			<artifactId>ojb-resources-common</artifactId>
 			<version>${ojb-resources-common-version}</version>
 		</dependency>
-
 
 		<!-- CXF libs -->
 
@@ -127,6 +132,11 @@
 			<version>${cxf-version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.ws.security</groupId>
+			<artifactId>wss4j</artifactId>
+			<version>${wss4j-version}</version>
+		</dependency>
 
 		<!-- for testing -->
 		<dependency>
@@ -143,15 +153,15 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-test-spring</artifactId>
+			<artifactId>camel-test-spring3</artifactId>
 			<version>${camel-version}</version>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
 			<version>${xmlunit.version}</version>
-		</dependency>		
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -170,16 +180,17 @@
 					<target>${java-version}</target>
 				</configuration>
 			</plugin>
-			
-		      <plugin>
-		        <groupId>org.apache.maven.plugins</groupId>
-		        <artifactId>maven-surefire-plugin</artifactId>
-		        <version>${maven-surefire-plugin-version}</version>
-		        <!-- Extra memory needed for camel context test to reference large arrest reporting wsdl -->
-		        <configuration>
-		            <argLine>-Xmx1048m</argLine>
-		        </configuration>
-		      </plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin-version}</version>
+				<!-- Extra memory needed for camel context test to reference large arrest 
+					reporting wsdl -->
+				<configuration>
+					<argLine>-Xmx1048m</argLine>
+				</configuration>
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.felix</groupId>
@@ -190,17 +201,15 @@
 					<instructions>
 						<DynamicImport-Package>*</DynamicImport-Package>
 						<Import-Package>
-							META-INF.cxf,
-							META-INF.cxf.osgi,
 							org.springframework.beans.factory.config,
 							javax.xml.namespace,
-							service-specifications.*,
+							ssp.*,
 							org.ojbc.*,
 							*
 						</Import-Package>
 						<Export-Package>
 						</Export-Package>
-				        <Bundle-Name>${pom.name}</Bundle-Name>
+						<Bundle-Name>${pom.name}</Bundle-Name>
 					</instructions>
 				</configuration>
 			</plugin>

@@ -25,12 +25,12 @@ import org.apache.camel.ExchangePattern;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.processor.MessageProcessor;
+import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.web.RapbackSearchInterface;
-import org.ojbc.web.model.IdentificationResultsCategory;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.stereotype.Service;
@@ -53,7 +53,7 @@ public class RapbackSearchRequestProcessor extends RequestResponseProcessor impl
 	
 	private static final Log log = LogFactory.getLog( RapbackSearchRequestProcessor.class );
 	
-	public String invokeRapbackSearchRequest(IdentificationResultsCategory category, Element samlToken) throws Exception
+	public String invokeRapbackSearchRequest(IdentificationResultSearchRequest searchRequest, Element samlToken) throws Exception
 	{
 		if (allowQueriesWithoutSAMLToken)
 		{	
@@ -70,7 +70,7 @@ public class RapbackSearchRequestProcessor extends RequestResponseProcessor impl
 		}	
 		
 		//POJO to XML Request
-		Document rapbackSearchRequestPayload = RequestMessageBuilderUtilities.createRapbackSearchRequest(category);
+		Document rapbackSearchRequestPayload = RequestMessageBuilderUtilities.createRapbackSearchRequest(searchRequest);
 		
 		//Create exchange
 		Exchange senderExchange = new DefaultExchange(camelContext, ExchangePattern.InOnly);

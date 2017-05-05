@@ -31,22 +31,21 @@
 	</parent>
 
 	<properties>
-		<spring.version>3.0.7.RELEASE</spring.version>
-		<camel.version>2.10.7</camel.version>
-		<java.version>1.6</java.version>
+		<spring.version>3.2.11.RELEASE</spring.version>
+		<camel.version>2.14.4</camel.version>
+		<java.version>1.8</java.version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<commons-logging-version>1.1.1</commons-logging-version>
-		<slf4j-version>1.6.4</slf4j-version>
+		<slf4j-version>1.7.10</slf4j-version>		
+		<osgi-common-version>[1.0.0,)</osgi-common-version>
 	</properties>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-osgi-common</artifactId>
-			<version>1.0.0</version>
+			<version>${osgi-common-version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core</artifactId>
@@ -76,16 +75,6 @@
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-
-		<resources>
-			<resource>
-				<directory>${basedir}/src/main/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>**/*.*</include>
-				</includes>
-			</resource>
-		</resources>
 
 		<plugins>
 			<plugin>

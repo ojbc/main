@@ -24,8 +24,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultExchange;
-import org.apache.geronimo.mail.util.Base64;
+import org.apache.ws.security.util.Base64;
 import org.junit.Test;
+
 
 public class RapsheetProcessorTest {
 		
@@ -37,14 +38,15 @@ public class RapsheetProcessorTest {
 		CamelContext camelContext = new DefaultCamelContext();		
 		Exchange exchange = new DefaultExchange(camelContext);
 		
-		exchange.getIn().setHeader("rapsheet", "<Fbi></Fbi>");		
 		rapsheetMtomProcessor.convertToBase64Binary(exchange, "<Fbi></Fbi>");
 				
-		byte[] base64String = (byte[]) exchange.getIn().getHeader("base64Rapsheet");
+		String sBase64Rapsheet = exchange.getIn().getHeader("base64Rapsheet", String.class);						
 		
-		byte[] rapsheet = Base64.decode(base64String);		
-		Assert.assertEquals("<Fbi></Fbi>", new String(rapsheet));		
+		byte[] rapsheetBytes = Base64.decode(sBase64Rapsheet);
+		
+		String sRapsheetBytes = new String(rapsheetBytes);
+		
+		Assert.assertEquals("<Fbi></Fbi>", sRapsheetBytes);		
 	}
 }
-
 

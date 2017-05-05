@@ -17,12 +17,18 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<fed_subcr-doc:FederalSubscriptionCreationReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FederalSubscriptionCreationReport/1.0 ../xsd/federal_subscription_creation_report_schema.xsd" xmlns:fed_subcr-doc="http://ojbc.org/IEPD/Exchange/FederalSubscriptionCreationReport/1.0" xmlns:fed_subcr-ext="http://ojbc.org/IEPD/Extensions/FederalSubscriptionCreationReportExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<fed_subcr-doc:FederalSubscriptionCreationReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FederalSubscriptionCreationReport/1.0 ../xsd/federal_subscription_creation_report_schema.xsd"
+	xmlns:fed_subcr-doc="http://ojbc.org/IEPD/Exchange/FederalSubscriptionCreationReport/1.0"
+	xmlns:fed_subcr-ext="http://ojbc.org/IEPD/Extensions/FederalSubscriptionCreationReportExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<fed_subcr-ext:RapBackSubscriptionData>
 		<fed_subcr-ext:RapBackActivityNotificationFormatCode>2</fed_subcr-ext:RapBackActivityNotificationFormatCode>
 		<fed_subcr-ext:RapBackCategoryCode>F</fed_subcr-ext:RapBackCategoryCode>
 		<fed_subcr-ext:RapBackExpirationDate>
-			<nc:Date>2012-02-24</nc:Date>
+			<nc:Date>2010-02-24</nc:Date>
 		</fed_subcr-ext:RapBackExpirationDate>
 		<fed_subcr-ext:RapBackInStateOptOutIndicator>false</fed_subcr-ext:RapBackInStateOptOutIndicator>
 		<fed_subcr-ext:RapBackSubscriptionDate>
@@ -35,15 +41,25 @@
 		<fed_subcr-ext:RapBackTermDate>
 			<nc:Date>2015-01-01</nc:Date>
 		</fed_subcr-ext:RapBackTermDate>
+		<fed_subcr-ext:StateSubscriptionIdentification>
+			<nc:IdentificationID>62725</nc:IdentificationID>
+		</fed_subcr-ext:StateSubscriptionIdentification>
 	</fed_subcr-ext:RapBackSubscriptionData>
 	<j:Subject>
-		<nc:RoleOfPerson structures:ref="RBP_01"/>
+		<nc:RoleOfPerson structures:ref="RBP_01" />
 	</j:Subject>
 	<nc:Person structures:id="RBP_01">
 		<j:PersonAugmentation>
 			<j:PersonFBIIdentification>
-				<nc:IdentificationID>LI34567898</nc:IdentificationID>
+				<nc:IdentificationID>1234567898</nc:IdentificationID>
 			</j:PersonFBIIdentification>
 		</j:PersonAugmentation>
 	</nc:Person>
+	<fed_subcr-ext:CriminalHistoryDocument
+		structures:id="Doc_01">
+		<nc:DocumentBinary>
+			<fed_subcr-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=
+			</fed_subcr-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
+	</fed_subcr-ext:CriminalHistoryDocument>
 </fed_subcr-doc:FederalSubscriptionCreationReport>

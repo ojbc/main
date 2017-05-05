@@ -59,7 +59,7 @@
     <cxf:cxfEndpoint 
         id="accessControlRequestService"
         address="${symbol_dollar}{accessControl.accessControlRequestEndpoint}"
-		wsdlURL="classpath:service-specifications/Access_Control_Request_Service/schemas/SIP_WS_1.3/Access_Control_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Access_Control_Request/schemas/SIP_WS_1.3/Access_Control_Request_Service.wsdl"
 		serviceName="ojbc:Access-Control-Request-ServiceService" 
 		endpointName="ojbc:Access-Control-Request-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0">

@@ -16,32 +16,64 @@
  */
 package org.ojbc.intermediaries.sn.topic.arrest;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.camel.Message;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionProcessor;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.intermediaries.sn.subscription.UnSubscriptionRequest;
-
-import org.apache.camel.Message;
+import org.ojbc.intermediaries.sn.util.SubjectIdentifierUtils;
 
 public class ArrestSubscriptionProcessor extends SubscriptionProcessor {
 
+	List<String> activeSubjectIdentifiers = Arrays.asList(SubscriptionNotificationConstants.SID, 
+			SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER,
+			SubscriptionNotificationConstants.FIRST_NAME, 
+			SubscriptionNotificationConstants.LAST_NAME);
+	
 	@Override
 	public SubscriptionRequest makeSubscriptionRequestFromIncomingMessage(
 			Message msg) throws Exception{
 
-		return new ArrestSubscriptionRequest(msg,allowedEmailAddressPatterns);
+		ArrestSubscriptionRequest arrestSubscriptionRequest = new ArrestSubscriptionRequest(msg,allowedEmailAddressPatterns);
+		
+		Map<String, String> allowedSubjectIdentifiers = arrestSubscriptionRequest.getSubjectIdentifiers();
+
+		Map<String, String> finalSubjectIdentifiers = SubjectIdentifierUtils.returnFinalSubjectIdentifiers(allowedSubjectIdentifiers, activeSubjectIdentifiers);	
+		arrestSubscriptionRequest.setSubjectIdentifiers(finalSubjectIdentifiers);
+		
+		return arrestSubscriptionRequest;
 	}
 
 	@Override
 	public UnSubscriptionRequest makeUnSubscriptionRequestFromIncomingMessage(
 			Message msg) throws Exception{
 
-		return new ArrestUnSubscriptionRequest(msg);
+		UnSubscriptionRequest unSubscriptionRequest = new ArrestUnSubscriptionRequest(msg);
+		
+		Map<String, String> allowedSubjectIdentifiers = unSubscriptionRequest.getSubjectIdentifiers();
+		
+		Map<String, String> finalSubjectIdentifiers = SubjectIdentifierUtils.returnFinalSubjectIdentifiers(allowedSubjectIdentifiers, activeSubjectIdentifiers);	
+		unSubscriptionRequest.setSubjectIdentifiers(finalSubjectIdentifiers);
+
+		return unSubscriptionRequest;
 	}
 
 	@Override
 	protected String getTopic() {
 		
 		return "{http://ojbc.org/wsn/topics}:person/arrest";
+	}
+
+	public List<String> getActiveSubjectIdentifiers() {
+		return activeSubjectIdentifiers;
+	}
+
+	public void setActiveSubjectIdentifiers(List<String> activeSubjectIdentifiers) {
+		this.activeSubjectIdentifiers = activeSubjectIdentifiers;
 	}
 
 }

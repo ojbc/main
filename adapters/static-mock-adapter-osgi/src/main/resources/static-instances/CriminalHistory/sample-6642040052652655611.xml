@@ -37,7 +37,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P47">
+        <rap:RapSheetPerson s:id="P47">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>Bonnie O</nc:PersonGivenName>
                 <nc:PersonSurName>Macon</nc:PersonSurName>
@@ -72,7 +72,7 @@
                     <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P47"/>
             <nc:Biometric>

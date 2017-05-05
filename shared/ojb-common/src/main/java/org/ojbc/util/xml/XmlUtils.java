@@ -47,15 +47,12 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
-import org.custommonkey.xmlunit.DetailedDiff;
-import org.custommonkey.xmlunit.Diff;
-import org.custommonkey.xmlunit.Difference;
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatterBuilder;
 import org.joda.time.format.DateTimeParser;
 import org.joda.time.format.ISODateTimeFormat;
-import org.junit.Assert;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -234,7 +231,7 @@ public class XmlUtils {
         XPath xpath = XPathFactory.newInstance().newXPath();
         xpath.setNamespaceContext(OJBC_NAMESPACE_CONTEXT);
         XPathExpression expression = xpath.compile(xPath);
-        return (String) expression.evaluate(context, XPathConstants.STRING);
+        return StringUtils.trimToNull((String) expression.evaluate(context, XPathConstants.STRING));
     }
     
     /**
@@ -305,8 +302,29 @@ public class XmlUtils {
         parent.setAttributeNode(ret);
         return ret;
     }
-
+    
     /**
+     * if textValue is not blank, create a new element under the parent element with the namespace and 
+     * elementName, then set the textContent of the element to the textValue. 
+     * 
+     * if textValue is blank,  do nothing. 
+     * 
+     * @param parent
+     * @param namespace
+     * @param elementName
+     * @param textValue
+     */
+    public static final void appendTextElement(Element parent, String namespace,
+			String elementName, String textValue) {
+		if (StringUtils.isNotBlank(textValue)){
+			Element personEthnicityText = 
+					XmlUtils.appendElement(parent, namespace, elementName);
+			personEthnicityText.setTextContent(textValue);
+		}
+	}
+
+
+   /**
      * Create a new element with the specified namespace and name, insert it under the specified parent but before the specified sibling, and return it
      * 
      * @param parent
@@ -592,25 +610,4 @@ public class XmlUtils {
 		return domSource;
 	}
 	
-	
-	public static void compareDocs(String expectedXmlDocFileClasspath, Document actualXmlDocument) throws Exception{
-		
-		File xmlFile = new File(expectedXmlDocFileClasspath);
-		
-		Document expectedXmlDoc = parseFileToDocument(xmlFile);
-		
-		compareDocs(expectedXmlDoc, actualXmlDocument);		
-	}
-	
-	public static void compareDocs(Document expectedXmlDoc, Document actualXmlDocument){
-		
-		Diff diff = new Diff(expectedXmlDoc, actualXmlDocument);						
-		DetailedDiff detailedDiff = new DetailedDiff(diff);
-		
-		List<Difference> diffList = detailedDiff.getAllDifferences();		
-		int diffCount = diffList == null ? 0 : diffList.size();
-		
-		Assert.assertEquals(detailedDiff.toString(), 0, diffCount);
-	}
-    
 }

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<firearm-doc:FirearmRegistrationQueryResults
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0 ../xsd/impl/hawaii/hawaii-statewide-firearm-codes.xsd http://ojbc.org/IEPD/Extensions/demostate/FirearmCodes/1.0 ../xsd/impl/demostate/demostate-firearm-codes.xsd"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:firearm-doc="http://ojbc.org/IEPD/Exchange/FirearmRegistrationQueryResults/1.0"
+	xmlns:firearm-ext="http://ojbc.org/IEPD/Extensions/FirearmRegistrationQueryResults/1.0"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+	xmlns:firearms-hi="http://ojbc.org/IEPD/Extensions/Hawaii/FirearmCodes/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:Person s:id="REGISTRANT">
+		<nc:PersonBirthDate>
+			<nc:Date>1969-01-27</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonBirthLocation>
+			<nc:LocationAddress>
+				<nc:StructuredAddress>
+					<nc:LocationCityName>Cityville</nc:LocationCityName>
+					<nc:LocationStateName>CA</nc:LocationStateName>
+					<nc:LocationPostalCode>19380</nc:LocationPostalCode>
+				</nc:StructuredAddress>
+			</nc:LocationAddress>
+		</nc:PersonBirthLocation>
+		<nc:PersonCitizenshipText>USA</nc:PersonCitizenshipText>
+		<nc:PersonComplexionText>Fair</nc:PersonComplexionText>
+		<nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
+		<nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
+		<nc:PersonHeightMeasure>
+			<nc:MeasureText>72</nc:MeasureText>
+			<nc:LengthUnitCode>inches</nc:LengthUnitCode>
+		</nc:PersonHeightMeasure>
+		<nc:PersonName>
+			<nc:PersonGivenName>John</nc:PersonGivenName>
+			<nc:PersonMiddleName>J</nc:PersonMiddleName>
+			<nc:PersonSurName>Smith</nc:PersonSurName>
+		</nc:PersonName>
+		<nc:PersonRaceCode>B</nc:PersonRaceCode>
+		<nc:PersonSexCode>F</nc:PersonSexCode>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>123456789</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonStateIdentification>
+			<nc:IdentificationID>67890-</nc:IdentificationID>
+		</nc:PersonStateIdentification>
+		<nc:PersonWeightMeasure>
+			<nc:MeasureText>185</nc:MeasureText>
+			<nc:WeightUnitCode>lbs</nc:WeightUnitCode>
+		</nc:PersonWeightMeasure>
+	</nc:Person>
+	<firearm-ext:Firearm s:id="FIREARM">
+		<nc:ItemSerialIdentification>
+			<nc:IdentificationID>123456789</nc:IdentificationID>
+		</nc:ItemSerialIdentification>
+		<nc:ItemModelName>Firearm</nc:ItemModelName>
+		<nc:FirearmCategoryCode>E</nc:FirearmCategoryCode>
+		<nc:FirearmCategoryDescriptionCode>A
+		</nc:FirearmCategoryDescriptionCode>
+		<nc:FirearmBarrelLengthMeasure>
+			<nc:MeasureText>25</nc:MeasureText>
+			<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+		</nc:FirearmBarrelLengthMeasure>
+		<firearms-hi:FirearmCaliberCode>4</firearms-hi:FirearmCaliberCode>
+		<nc:FirearmCaliberText>4</nc:FirearmCaliberText>
+		<nc:FirearmGaugeText>.410</nc:FirearmGaugeText>
+		<firearms-hi:FirearmMakeCode>BHE</firearms-hi:FirearmMakeCode>
+		<firearm-ext:FirearmMakeText>BELKNAP</firearm-ext:FirearmMakeText>
+		<firearm-ext:FirearmReceivedDate>
+			<nc:Date>2000-06-07</nc:Date>
+		</firearm-ext:FirearmReceivedDate>
+		<firearm-ext:FirearmImporter>Simpson</firearm-ext:FirearmImporter>
+		<firearm-ext:FirearmAcquisition>
+			<firearm-ext:FirearmAcquisitionSourceDescriptionText>Dick's Sporting Goods</firearm-ext:FirearmAcquisitionSourceDescriptionText>
+			<firearm-ext:FirearmAcquisitionLocationAddress>
+				<nc:AddressFullText>123 Main Street</nc:AddressFullText>
+			</firearm-ext:FirearmAcquisitionLocationAddress>
+		</firearm-ext:FirearmAcquisition>
+		<firearm-ext:FirearmStatus>
+			<nc:StatusDate>
+				<nc:Date>2013-02-06</nc:Date>
+			</nc:StatusDate>
+			<firearms-hi:FirearmStatusCode>S</firearms-hi:FirearmStatusCode>
+		</firearm-ext:FirearmStatus>
+	</firearm-ext:Firearm>
+	<firearm-ext:FirearmRegistrant>
+		<firearm-ext:FirearmRegistrantCommentsText>This guy is a good guy.</firearm-ext:FirearmRegistrantCommentsText>
+		<firearm-ext:FirearmRegistrantLawEnforcementOfficersSafetyActIndicator>
+			true</firearm-ext:FirearmRegistrantLawEnforcementOfficersSafetyActIndicator>
+		<nc:RoleOfPersonReference s:ref="REGISTRANT" />
+	</firearm-ext:FirearmRegistrant>
+	<firearm-ext:ItemRegistration s:id="REGISTRATION">
+		<nc:RegistrationIdentification>
+			<nc:IdentificationID>123456</nc:IdentificationID>
+		</nc:RegistrationIdentification>
+		<nc:LocationCountyName>Williams</nc:LocationCountyName>
+		<nc:RegistrationEffectiveDate>
+			<nc:Date>2000-06-07</nc:Date>
+		</nc:RegistrationEffectiveDate>
+		<firearm-ext:AgeAtRegistration>
+			<nc:MeasureText>24</nc:MeasureText>
+		</firearm-ext:AgeAtRegistration>
+		<firearm-ext:RegistrationFingerprintDate>
+			<nc:Date>1999-01-12</nc:Date>
+		</firearm-ext:RegistrationFingerprintDate>
+		<firearm-ext:PermitNumber>987654321</firearm-ext:PermitNumber>
+		<firearm-ext:PermitDate>
+			<nc:Date>2012-11-03</nc:Date>
+		</firearm-ext:PermitDate>
+		<firearm-ext:RegistrationStatus>
+			<nc:StatusDate>
+				<nc:Date>2012-01-01</nc:Date>
+			</nc:StatusDate>
+			<firearms-hi:FirearmRegistrationStatusCode>A</firearms-hi:FirearmRegistrationStatusCode>
+		</firearm-ext:RegistrationStatus>
+		<firearm-ext:RegistrationNotesText>Notes</firearm-ext:RegistrationNotesText>
+	</firearm-ext:ItemRegistration>
+	<nc:DriverLicense s:id="DL-1">
+		<nc:DriverLicenseIdentification>
+			<nc:IdentificationID>DL5939685</nc:IdentificationID>
+		</nc:DriverLicenseIdentification>
+	</nc:DriverLicense>
+	<nc:Location s:id="LOC-1">
+		<nc:LocationAddress>
+			<nc:StructuredAddress>
+				<nc:AddressDeliveryPointText>123 Main Street
+				</nc:AddressDeliveryPointText>
+				<nc:LocationCityName>Cityville</nc:LocationCityName>
+				<nc:LocationStateName>CA</nc:LocationStateName>
+				<nc:LocationPostalCode />
+			</nc:StructuredAddress>
+		</nc:LocationAddress>
+	</nc:Location>
+	<nc:ContactInformation s:id="PHONE-1">
+		<nc:ContactTelephoneNumber>
+			<nc:FullTelephoneNumber>
+				<nc:TelephoneNumberFullID>555-666-7777</nc:TelephoneNumberFullID>
+			</nc:FullTelephoneNumber>
+		</nc:ContactTelephoneNumber>
+	</nc:ContactInformation>
+	<nc:ContactInformation s:id="CONTACT-BUSINESS">
+		<nc:ContactTelephoneNumber>
+			<nc:FullTelephoneNumber>
+				<nc:TelephoneNumberFullID>111-222-3333</nc:TelephoneNumberFullID>
+			</nc:FullTelephoneNumber>
+		</nc:ContactTelephoneNumber>
+		<nc:ContactEntity>
+			<nc:EntityOrganization>
+				<nc:OrganizationLocation>
+					<nc:LocationAddress>
+						<nc:StructuredAddress>
+							<nc:AddressDeliveryPointText>321 Oak Street
+							</nc:AddressDeliveryPointText>
+							<nc:LocationCityName>Cityville</nc:LocationCityName>
+							<nc:LocationStateName>CA</nc:LocationStateName>
+							<nc:LocationPostalCode />
+						</nc:StructuredAddress>
+					</nc:LocationAddress>
+				</nc:OrganizationLocation>
+			</nc:EntityOrganization>
+		</nc:ContactEntity>
+	</nc:ContactInformation>
+	<nc:PropertyRegistrationAssociation>
+		<nc:ItemRegistrationReference s:ref="REGISTRATION" />
+		<nc:ItemReference s:ref="FIREARM" />
+		<nc:ItemRegistrationHolderReference
+			s:ref="REGISTRANT" />
+	</nc:PropertyRegistrationAssociation>
+	<nc:ResidenceAssociation>
+		<nc:PersonReference s:ref="REGISTRANT" />
+		<nc:LocationReference s:ref="LOC-1" />
+	</nc:ResidenceAssociation>
+	<nc:PersonContactInformationAssociation>
+		<nc:PersonReference s:ref="REGISTRANT" />
+		<nc:ContactInformationReference s:ref="PHONE-1" />
+	</nc:PersonContactInformationAssociation>
+	<nc:PersonEmploymentAssociation>
+		<nc:EmployeeReference s:ref="REGISTRANT" />
+		<nc:EmployeeOccupationText>Contractor</nc:EmployeeOccupationText>
+	</nc:PersonEmploymentAssociation>
+	<nc:EmployeeContactInformationAssociation>
+		<nc:PersonReference s:ref="REGISTRANT" />
+		<nc:ContactInformationReference s:ref="CONTACT-BUSINESS" />
+	</nc:EmployeeContactInformationAssociation>
+	<j:PersonDriverLicenseAssociation>
+		<nc:DriverLicenseReference s:ref="DL-1" />
+		<nc:PersonReference s:ref="REGISTRANT" />
+	</j:PersonDriverLicenseAssociation>
+</firearm-doc:FirearmRegistrationQueryResults>

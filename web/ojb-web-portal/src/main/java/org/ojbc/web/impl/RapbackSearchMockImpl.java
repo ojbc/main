@@ -16,13 +16,13 @@
  */
 package org.ojbc.web.impl;
 
-import java.util.logging.Logger;
-
 import javax.annotation.Resource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.web.RapbackSearchInterface;
 import org.ojbc.web.WebUtils;
-import org.ojbc.web.model.IdentificationResultsCategory;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -32,19 +32,19 @@ import org.w3c.dom.Element;
 @Profile({"rapbacks","standalone"})
 public class RapbackSearchMockImpl implements RapbackSearchInterface{
 		
-	private Logger logger = Logger.getLogger(RapbackSearchMockImpl.class.getName());
+	private final Log logger = LogFactory.getLog(this.getClass());
 	
 	@Resource
 	SearchResultConverter searchResultConverter;		
 	
     @Override
-    public String invokeRapbackSearchRequest(IdentificationResultsCategory category, Element samlToken)
+    public String invokeRapbackSearchRequest(IdentificationResultSearchRequest searchRequest, Element samlToken)
             throws Exception {
         logger.info("Getting mock rapback search results.");
         
         String searchResult = WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
-                "/service-specifications/Organization_Identification_Results_Search_Results_Service"
-                + "/artifacts/service_model/information_model/Organization_Identification_Results_Search_Results_IEPD/xml/OrganizationIdentificationResultsSearchResults.xml"));	
+                "/ssp/Organization_Identification_Results_Search_Results"
+                + "/artifacts/service_model/information_model/IEPD/xml/OrganizationIdentificationResultsSearchResults.xml"));	
         
         return searchResult;
     }

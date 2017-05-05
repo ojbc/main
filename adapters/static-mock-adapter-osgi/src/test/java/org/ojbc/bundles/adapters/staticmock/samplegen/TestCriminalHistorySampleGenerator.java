@@ -43,7 +43,7 @@ public class TestCriminalHistorySampleGenerator extends AbstractPersonSampleGene
 
     @Override
     protected String getIEPDRootPath() {
-        return "service-specifications/Criminal_History_Query_Results_Service/artifacts/service_model/information_model/Criminal_History-IEPD/xsd/";
+        return "ssp/Criminal_History_Query_Results/artifacts/service_model/information_model/IEPD/xsd/";
     }
 
 }

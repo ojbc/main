@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<wm-req-doc:WarrantModificationRequest
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0 ../xsd/WarrantModificationRequest.xsd"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:wm-req-doc="http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0"
+	xmlns:wm-req-ext="http://ojbc.org/IEPD/Extensions/WarrantModificationRequestExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:scr="http://release.niem.gov/niem/domains/screening/3.1/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:Case structures:id="Case_01">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>CN</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:CaseDocketID>17159-85</nc:CaseDocketID>
+		<wm-req-ext:CriminalTrackingNumber>638700043102
+		</wm-req-ext:CriminalTrackingNumber>
+		<j:CaseAugmentation>
+			<j:CaseCharge>
+				<wm-req-ext:GeneralOffenseCharacterDescriptionText>Z
+				</wm-req-ext:GeneralOffenseCharacterDescriptionText>
+				<wm-req-ext:ChargeCodeText>4901</wm-req-ext:ChargeCodeText>
+				<wm-req-ext:OriginalOffenseCodeText>750.112
+				</wm-req-ext:OriginalOffenseCodeText>
+			</j:CaseCharge>
+		</j:CaseAugmentation>
+	</nc:Case>
+	<j:Warrant structures:id="Warrant_01">
+		<j:CourtOrderDesignatedSubject>
+			<nc:RoleOfPerson structures:ref="Person_01" />
+		</j:CourtOrderDesignatedSubject>
+		<j:CourtOrderEnforcementAgency>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>MI3300282</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+			<wm-req-ext:AgencyRecordIdentification>
+				<nc:IdentificationID>2016-1110</nc:IdentificationID>
+			</wm-req-ext:AgencyRecordIdentification>
+		</j:CourtOrderEnforcementAgency>
+		<j:CourtOrderIssuingCourt>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>MI130055J</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</j:CourtOrderIssuingCourt>
+		<j:CourtOrderIssuingDate>
+			<nc:Date>2015-08-13</nc:Date>
+		</j:CourtOrderIssuingDate>
+		<j:CourtOrderRequestEntity>
+			<nc:EntityPerson>
+				<wm-req-ext:PersonEmployeeIdentification>
+					<nc:IdentificationID>SGT SHELL</nc:IdentificationID>
+				</wm-req-ext:PersonEmployeeIdentification>
+			</nc:EntityPerson>
+		</j:CourtOrderRequestEntity>
+		<j:WarrantAppearanceBail>
+			<j:BailSetAmount>
+				<nc:Amount>5000</nc:Amount>
+			</j:BailSetAmount>
+		</j:WarrantAppearanceBail>
+		<wm-req-ext:WarrantAugmentation>
+			<wm-req-ext:StateWarrantRepositoryIdentification>
+				<nc:IdentificationID>40275031</nc:IdentificationID>
+			</wm-req-ext:StateWarrantRepositoryIdentification>
+			<nc:ExpirationDate>
+				<nc:Date>2017-08-13</nc:Date>
+			</nc:ExpirationDate>
+			<wm-req-ext:ExtraditionIndicator>true
+			</wm-req-ext:ExtraditionIndicator>
+			<wm-req-ext:ExtraditionLimitCodeText>1
+			</wm-req-ext:ExtraditionLimitCodeText>
+			<wm-req-ext:SubjectPickupRadiusCodeText>500
+			</wm-req-ext:SubjectPickupRadiusCodeText>
+			<wm-req-ext:WarrantBroadcastCodeText>MI3300282
+			</wm-req-ext:WarrantBroadcastCodeText>
+			<wm-req-ext:WarrantCommentText>STATE PRISON
+			</wm-req-ext:WarrantCommentText>
+			<wm-req-ext:WarrantEntryCategoryCodeText>3
+			</wm-req-ext:WarrantEntryCategoryCodeText>
+		</wm-req-ext:WarrantAugmentation>
+	</j:Warrant>
+	<nc:Person structures:id="Person_01">
+		<nc:PersonBirthDate>
+			<nc:Date>1980-01-01</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonBirthLocation>
+			<nc:LocationCategoryText>NY</nc:LocationCategoryText>
+		</nc:PersonBirthLocation>
+		<nc:PersonEthnicityText>N</nc:PersonEthnicityText>
+		<nc:PersonEyeColorText>BLK</nc:PersonEyeColorText>
+		<nc:PersonHairColorText>ONG</nc:PersonHairColorText>
+		<nc:PersonHeightMeasure>
+			<nc:MeasureValueText>71</nc:MeasureValueText>
+			<nc:MeasureUnitText>inches</nc:MeasureUnitText>
+		</nc:PersonHeightMeasure>
+		<nc:PersonPhysicalFeature>
+			<nc:PhysicalFeatureDescriptionText>343
+			</nc:PhysicalFeatureDescriptionText>
+		</nc:PersonPhysicalFeature>
+		<nc:PersonRaceText>W</nc:PersonRaceText>
+		<nc:PersonSexText>F</nc:PersonSexText>
+		<nc:PersonSkinToneText>LBR</nc:PersonSkinToneText>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>598213455</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonWeightMeasure>
+			<nc:MeasureValueText>165</nc:MeasureValueText>
+			<nc:MeasureUnitText>lbs</nc:MeasureUnitText>
+		</nc:PersonWeightMeasure>
+		<j:PersonAugmentation>
+			<j:DriverLicense>
+				<j:DriverLicenseCardIdentification>
+					<nc:IdentificationID>D616067108888</nc:IdentificationID>
+					<nc:IdentificationJurisdiction>
+						<j:JurisdictionNCICLISCode>MI</j:JurisdictionNCICLISCode>
+					</nc:IdentificationJurisdiction>
+				</j:DriverLicenseCardIdentification>
+			</j:DriverLicense>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>537K4</nc:IdentificationID>
+			</j:PersonFBIIdentification>
+			<j:PersonBirthplaceCode>NY</j:PersonBirthplaceCode>
+		</j:PersonAugmentation>
+		<wm-req-ext:PersonCautionCodeText>00
+		</wm-req-ext:PersonCautionCodeText>
+		<wm-req-ext:PersonMiscellaneousRecordIdentification>
+			<nc:IdentificationID>MR456782</nc:IdentificationID>
+		</wm-req-ext:PersonMiscellaneousRecordIdentification>
+	</nc:Person>
+	<nc:Vehicle structures:id="Vehicle_01">
+		<nc:ConveyanceColorPrimaryText>BGE</nc:ConveyanceColorPrimaryText>
+		<nc:ConveyanceColorSecondaryText>BRO</nc:ConveyanceColorSecondaryText>
+		<nc:ItemMakeName>INFI</nc:ItemMakeName>
+		<nc:ItemModelName>FX5</nc:ItemModelName>
+		<nc:ItemModelYearDate>2009</nc:ItemModelYearDate>
+		<nc:ItemStyleText>4D</nc:ItemStyleText>
+		<nc:VehicleIdentification>
+			<nc:IdentificationID>JNRAS18W89M150182</nc:IdentificationID>
+		</nc:VehicleIdentification>
+	</nc:Vehicle>
+	<j:ConveyanceRegistration structures:id="Reg_01">
+		<j:RegistrationExpirationDate>
+			<nc:YearMonthDate>2017-11</nc:YearMonthDate>
+		</j:RegistrationExpirationDate>
+		<j:JurisdictionNCICLISCode>MI</j:JurisdictionNCICLISCode>
+		<j:ConveyanceRegistrationPlateIdentification>
+			<nc:IdentificationID>999YZZ</nc:IdentificationID>
+		</j:ConveyanceRegistrationPlateIdentification>
+		<j:ConveyanceRegistrationPlateCategoryText>PC
+		</j:ConveyanceRegistrationPlateCategoryText>
+	</j:ConveyanceRegistration>
+	<nc:ContactInformation>
+		<nc:ContactMailingAddress structures:id="Address_01">
+			<nc:LocationStreet>
+				<nc:StreetFullText>6407 Cedar Ave</nc:StreetFullText>
+			</nc:LocationStreet>
+			<nc:LocationCityName>Saginaw</nc:LocationCityName>
+			<nc:LocationCountyName>Taylor</nc:LocationCountyName>
+			<nc:LocationStateName>MI</nc:LocationStateName>
+			<nc:LocationPostalCode>63412</nc:LocationPostalCode>
+			<wm-req-ext:AddressCategoryText>Mail</wm-req-ext:AddressCategoryText>
+		</nc:ContactMailingAddress>
+	</nc:ContactInformation>
+	<nc:ContactInformationAssociation>
+		<nc:ContactEntity>
+			<nc:EntityPerson structures:ref="Person_01" />
+		</nc:ContactEntity>
+		<nc:ContactInformation>
+			<nc:ContactMailingAddress structures:ref="Address_01" />
+		</nc:ContactInformation>
+	</nc:ContactInformationAssociation>
+	<j:ConveyanceRegistrationAssociation>
+		<j:ItemRegistration structures:ref="Reg_01" />
+		<nc:Item structures:ref="Vehicle_01" />
+	</j:ConveyanceRegistrationAssociation>
+	<nc:PersonConveyanceAssociation>
+		<nc:Person structures:ref="Person_01" />
+		<nc:Conveyance structures:ref="Vehicle_01" />
+	</nc:PersonConveyanceAssociation>
+	<j:ActivityWarrantAssociation>
+		<nc:Activity structures:ref="Case_01" />
+		<j:Warrant structures:ref="Warrant_01" />
+	</j:ActivityWarrantAssociation>
+</wm-req-doc:WarrantModificationRequest>

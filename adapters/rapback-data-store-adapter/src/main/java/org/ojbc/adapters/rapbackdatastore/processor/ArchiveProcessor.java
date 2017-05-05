@@ -51,14 +51,6 @@ public class ArchiveProcessor {
         documentBuilder = documentBuilderFactory.newDocumentBuilder();
     }
 
-	//<irm-resp-doc:IdentificationResultsModificationResponse 
-	//	xmlns:irm-resp-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsModificationResponse/1.0" 
-	//  xmlns:irm-resp-ext="http://ojbc.org/IEPD/Extensions/IdentificationResultsModificationResponse/1.0"
-	//  xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 	
-	//	>
-	//	<irm-resp-ext:IdentificationResultsModificationIndicator>true</irm-resp-ext:IdentificationResultsModificationIndicator>
-	//  <nc:SystemName>System_1</nc:SystemName>
-	//</irm-resp-doc:IdentificationResultsModifi
 	public Document processArchiveResult(@Header(value="archiveTransactionNumber") String transactionNumber, @Header(value="systemName") String systemName) throws Exception
 	{
 		int result = rapbackDAO.archiveIdentificationResult(transactionNumber);

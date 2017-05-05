@@ -68,7 +68,7 @@
 	<!-- OJB NDEx Submission Service -->
 	<cxf:cxfEndpoint id="N-DexActualServiceEndpoint"
 		address="${NDExSubmission.N-DexActualServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/N-DEx-IncidentArrest-2.1.1/wsdl/AI_W_WebService.wsdl"
+		wsdlURL="classpath:ssp/N-DEx-IncidentArrest-2.1.1/wsdl/AI_W_WebService.wsdl"
 		serviceName="ndex:AI_W_SourceDataIntegrationService" endpointName="ndex:AI_W_SourceDataIntegrationServicePort"
 		xmlns:ndex="urn://com.raytheon.ndex.ai.webservice">
 	</cxf:cxfEndpoint>

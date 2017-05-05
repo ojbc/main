@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<!-- Configures the Camel Context -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+       
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="booking-reporting-service-connector">
+	
+		<endpoint id="inputDirectory"
+			uri="file:///${bookingReporting.connectorFileDirectory}/input?idempotent=true&amp;moveFailed=${bookingReporting.connectorFileDirectory}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=${bookingReporting.deleteInputFiles}&amp;sortBy=file:modified&amp;delay=${bookingReporting.pollingInterval}${bookingReporting.cronSchedulerExpression}" />
+		
+		<camel:route id="Booking_Reporting_Connector_File_Drop_Route">
+		
+			<camel:from uri="inputDirectory" />
+						
+			<camel:log message="Booking Reporting Connector received input file: ${file:name}" />
+				
+			<camel:convertBodyTo type="java.lang.String" />
+						
+			<camel:log message="Booking Reporting Connector Message Body: ${body}" loggingLevel="DEBUG"/>			
+									
+			<camel:to uri="direct:derivedRoutes"/>				
+										
+			<camel:to uri="direct:callIntermediary"/>
+			
+			<camel:log message="Connecter after calling Intermediary" />	
+					
+		</camel:route>
+		
+						
+		<camel:route id="Booking_Reporting_Connector_Derived_Routes">
+
+			<camel:from uri="direct:derivedRoutes"/>
+		
+			<!-- Set up member specific endpoints -->
+			<camel:setHeader headerName="routingSlipDerivedRoutes"><simple>{{bookingReporting.camelEndpointsToCall}}</simple></camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
+				
+				<camel:log message="About to call derived routes using this routing slip: ${in.headers.routingSlipDerivedRoutes}"/>
+				
+				<camel:recipientList>
+					<camel:header>routingSlipDerivedRoutes</camel:header>
+				</camel:recipientList>
+			</camel:filter>			
+		
+		</camel:route>
+
+		<camel:route id="Booking_Reporting_Connector_DirectVM_Intermediary_Route">
+			<camel:from uri="direct-vm:bookingReportingConnectorCallIntermediary"/>
+			
+			<camel:log message="Recieved Direct VM invocation"/>
+			
+			<camel:to uri="direct:callIntermediary"/>
+		</camel:route>
+						
+		<camel:route id="Booking_Reporting_Connector_Intermediary_Route">
+		
+			<camel:from uri="direct:callIntermediary"/>
+			
+			<camel:convertBodyTo type="java.lang.String"/>
+			
+			<camel:log message="In Direct Call Intermediary with body of: ${body}" loggingLevel="DEBUG"/>
+		
+			<camel:setHeader headerName="operationName">
+				<constant>ReportBooking</constant>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/BookingReportingService/1.0</constant>
+			</camel:setHeader>
+
+			<camel:to uri="intermediaryEndpoint" />					
+			
+			<camel:log message="Called booking intermediary"/>	
+			
+	        <camel:delay>
+	            <simple>{{delayBetweenInvocationsInMillis}}</simple>
+	        </camel:delay>
+		
+		</camel:route>						
+		
+		<route>
+			<from uri="cxfrs:bean:bookingExchangeServer" />
+			<log
+				message="Entering resend REST route: Http method ${header.CamelHttpMethod}" />
+			<log message="REST path is ${header.CamelHttpPath}" />
+			<log message="Operation name is ${header.operationName}" />
+			<choice>
+				<when>
+					<simple>${header.operationName} == 'resendExchange'</simple>
+					
+					<log message="About to resend booking record." />
+					
+					<camel:to uri="bean:resendBookingExchangeImpl?method=resendExchange"/>
+					
+				</when>
+			</choice>
+		</route>		
+		
+	</camel:camelContext>
+			
+	<bean id="resendBookingExchangeImpl" class="org.ojbc.connectors.bookingreporting.ResendBookingExchangeImpl">
+		<property name="pathToInputFolder" value="${bookingReporting.connectorFileDirectory}"/>
+		<property name="pathToProcessedFolder" value="${bookingReporting.connectorFileDirectory}/input/.camel"/>
+		<property name="fileNamePrefix" value="booking"/>
+	</bean>
+			
+	<!-- See this thread: http://stackoverflow.com/questions/11195506/increase-executor-queue-size-in-cxf-onewayprocessorinterceptor -->
+    <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
+        <property name="name" value="default" />
+        <property name="queueSize" value="2048" />
+    </bean>				
+			
+</beans>
+

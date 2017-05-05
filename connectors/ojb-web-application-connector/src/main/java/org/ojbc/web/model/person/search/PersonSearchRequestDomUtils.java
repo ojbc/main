@@ -21,12 +21,19 @@ import org.ojbc.util.helper.NIEMXMLUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.ojbc.util.xml.OjbcNamespaceContext;
+import org.ojbc.util.xml.XmlUtils;
 
 public class PersonSearchRequestDomUtils {
 
 	public static Element createPersonsElement(Document doc, PersonSearchRequest psr) {
 
 		Element personElement = doc.createElementNS(OjbcNamespaceContext.NS_PERSON_SEARCH_REQUEST_EXT, "Person");
+		
+		if (psr.getPersonDateOfBirth() != null){
+			Element personBirthDate = NIEMXMLUtils.createElementDate(doc, "PersonBirthDate", psr.getPersonDateOfBirth());
+			XmlUtils.addAttribute(personBirthDate, OjbcNamespaceContext.NS_STRUCTURES, "metadata", "SM001");
+			personElement.appendChild(personBirthDate);
+		}
 		
 		//<nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
 		if (StringUtils.isNotBlank(psr.getPersonEyeColor()))

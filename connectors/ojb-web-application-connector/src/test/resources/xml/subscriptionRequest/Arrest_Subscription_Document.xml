@@ -51,7 +51,7 @@
         <nc:ContactEmailID>email@local.gov</nc:ContactEmailID>
         <submsg-ext:SystemName>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</submsg-ext:SystemName>
         <submsg-ext:SubscriptionQualifierIdentification>
-            <nc:IdentificationID>81ca8143-d563-4dec-b2ed-d66d9401e77b</nc:IdentificationID>
+            <nc:IdentificationID>@SUB_QUAL_ID@</nc:IdentificationID>
         </submsg-ext:SubscriptionQualifierIdentification>
         <nc:DateRange>
             <nc:StartDate>

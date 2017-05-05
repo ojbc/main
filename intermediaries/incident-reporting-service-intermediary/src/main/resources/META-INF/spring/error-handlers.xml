@@ -45,6 +45,10 @@
 		<camel:endpoint id="deadLetterDirChargeReferral"
 			uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterChargeReferral/?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
 
+		<camel:endpoint id="deadLetterDirChargeReferralReporting"
+			uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterChargeReferralReporting/?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
+			
+
 		<camel:endpoint id="deadLetterDirChargeReferralArchive"
 			uri="file:///${incidentReportingService.intermediaryFailed}/deadLetterChargeReferral/archive" />
 
@@ -141,6 +145,11 @@
 	<camel:errorHandler id="chargeReferralDeadLetterErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterDirChargeReferral">
 	    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
 	</camel:errorHandler>
+	
+	<!-- here we configure our DeadLetterChannel for incident report redelivery -->
+	<camel:errorHandler id="chargeReferralReportingDeadLetterErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterDirChargeReferralReporting">
+	    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
+	</camel:errorHandler>	
 	
 	<!-- here we configure our DeadLetterChannel for the dead letter channel redelivery -->
 	<camel:errorHandler id="deadLetterChannelErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterFatalError">

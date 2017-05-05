@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<oirs-res-doc:OrganizationIdentificationResultsSearchResults 
+xmlns:oirs-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0" 
+xmlns:oirs-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" 
+xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
+xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" 
+xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
+xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" 
+xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0" 
+xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" 
+xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://release.niem.gov/niem/domains/jxdm/5.0/ ../xsd/Subset/niem/domains/jxdm/5.0/jxdm.xsd http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0 ../xsd/exchange_schema.xsd ">
+	<oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+		<oirs-res-ext:IdentifiedPerson>
+			<nc:PersonBirthDate>
+				<nc:Date>1972-03-01</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>Michael</nc:PersonGivenName>
+				<nc:PersonSurName>Scott</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonAugmentation>
+				<j:PersonFBIIdentification>
+					<nc:IdentificationID>F987654321</nc:IdentificationID>
+				</j:PersonFBIIdentification>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A123456</nc:IdentificationID>
+					<oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
+			<!-- This is sometimes called the OTN -->
+			<oirs-res-ext:IdentifiedPersonTrackingIdentification>
+				<nc:IdentificationID>A1000999</nc:IdentificationID>
+			</oirs-res-ext:IdentifiedPersonTrackingIdentification>
+		</oirs-res-ext:IdentifiedPerson>
+		<oirs-res-ext:IdentificationResultStatusCode>Subscribed</oirs-res-ext:IdentificationResultStatusCode>
+		 <oirs-res-ext:IdentificationRequestingOrganization structures:ref="ORG1" xsi:nil="true"/>
+		<oirs-res-ext:Subscription>
+			<nc:ActivityDateRange>
+				<nc:StartDate>
+					<nc:Date>2014-03-12</nc:Date>
+				</nc:StartDate>
+				<nc:EndDate>
+					<nc:Date>2016-03-12</nc:Date>
+				</nc:EndDate>
+			</nc:ActivityDateRange>
+			<wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/civilArrest</wsn-br:Topic>
+			<oirs-res-ext:SubscriptionValidation>
+				<oirs-res-ext:SubscriptionValidationDueDate>
+					<nc:Date>2017-01-02</nc:Date>
+				</oirs-res-ext:SubscriptionValidationDueDate>
+			</oirs-res-ext:SubscriptionValidation>
+			<oirs-res-ext:SubscriptionIdentification>
+				<nc:IdentificationID>12345</nc:IdentificationID>
+			</oirs-res-ext:SubscriptionIdentification>
+		</oirs-res-ext:Subscription>
+		<oirs-res-ext:SubsequentResultsAvailableIndicator>true</oirs-res-ext:SubsequentResultsAvailableIndicator>
+		<oirs-res-ext:CivilIdentificationReasonCode>F</oirs-res-ext:CivilIdentificationReasonCode>
+		<oirs-res-ext:IdentificationReportedDate>
+			<nc:Date>2016-01-01</nc:Date>
+		</oirs-res-ext:IdentificationReportedDate>
+		<oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>123456</nc:IdentificationID>
+			<nc:SystemName>RapbackDataStore</nc:SystemName>
+		</intel:SystemIdentification>
+		
+	</oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+	<oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+		<oirs-res-ext:IdentifiedPerson>
+			<nc:PersonBirthDate>
+				<nc:Date>1983-11-11</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>Jim</nc:PersonGivenName>
+				<nc:PersonSurName>Halpert</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonAugmentation>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A9000000</nc:IdentificationID>
+					<oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
+			<!-- This is sometimes called the OTN -->
+			<oirs-res-ext:IdentifiedPersonTrackingIdentification>
+				<nc:IdentificationID>A1000999</nc:IdentificationID>
+			</oirs-res-ext:IdentifiedPersonTrackingIdentification>
+		</oirs-res-ext:IdentifiedPerson>
+		<oirs-res-ext:IdentificationResultStatusCode>Available for Subscription</oirs-res-ext:IdentificationResultStatusCode>
+		 <oirs-res-ext:IdentificationRequestingOrganization structures:ref="ORG1" xsi:nil="true"/>
+		<oirs-res-ext:SubsequentResultsAvailableIndicator>false</oirs-res-ext:SubsequentResultsAvailableIndicator>
+		<oirs-res-ext:CivilIdentificationReasonCode>I</oirs-res-ext:CivilIdentificationReasonCode>
+		<oirs-res-ext:IdentificationReportedDate>
+			<nc:Date>2016-01-01</nc:Date>
+		</oirs-res-ext:IdentificationReportedDate>
+		<oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>9876543</nc:IdentificationID>
+			<nc:SystemName>RapbackDataStore</nc:SystemName>
+		</intel:SystemIdentification>
+	</oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+	<oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+		<oirs-res-ext:IdentifiedPerson>
+			<nc:PersonBirthDate>
+				<nc:Date>1983-11-11</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>Bart</nc:PersonGivenName>
+				<nc:PersonSurName>Simpson</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonAugmentation>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>A81771818</nc:IdentificationID>
+					<oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</oirs-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
+			<!-- This is sometimes called the OTN -->
+			<oirs-res-ext:IdentifiedPersonTrackingIdentification>
+				<nc:IdentificationID>A1000998</nc:IdentificationID>
+			</oirs-res-ext:IdentifiedPersonTrackingIdentification>
+		</oirs-res-ext:IdentifiedPerson>
+		<oirs-res-ext:IdentificationResultStatusCode>Archived</oirs-res-ext:IdentificationResultStatusCode>
+		 <oirs-res-ext:IdentificationRequestingOrganization structures:ref="ORG1" xsi:nil="true"/>
+		<oirs-res-ext:SubsequentResultsAvailableIndicator>true</oirs-res-ext:SubsequentResultsAvailableIndicator>
+		<oirs-res-ext:CivilIdentificationReasonCode>J</oirs-res-ext:CivilIdentificationReasonCode>
+		<oirs-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirs-res-ext:SourceSystemNameText>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>9876543</nc:IdentificationID>
+			<nc:SystemName>RapbackDataStore</nc:SystemName>
+		</intel:SystemIdentification>
+	</oirs-res-ext:OrganizationIdentificationResultsSearchResult>
+	<srm:SearchResultsMetadata>
+		<srm:TotalAuthorizedSearchResultsQuantity>46</srm:TotalAuthorizedSearchResultsQuantity>
+	</srm:SearchResultsMetadata>
+	<nc:EntityOrganization structures:id="ORG1">
+		<nc:OrganizationName>Agency ABC</nc:OrganizationName>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>ORI1234</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</nc:EntityOrganization>
+	<nc:ContactInformationAssociation>
+		<nc:ContactEntity structures:ref="ORG1"/>
+		<nc:ContactInformation>
+			<nc:ContactEmailID>test@agency.org</nc:ContactEmailID>
+			<nc:ContactEmailID>test2@agency.org</nc:ContactEmailID>
+		</nc:ContactInformation>
+	</nc:ContactInformationAssociation>
+</oirs-res-doc:OrganizationIdentificationResultsSearchResults>

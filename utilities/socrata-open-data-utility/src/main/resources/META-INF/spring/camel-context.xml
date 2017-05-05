@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:ctx="http://www.springframework.org/schema/context" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="open-data-utility">
+
+		<endpoint id="incidentCSVResultDirectory"
+			uri="file://{{openDataUtility.csvDirectory}}" />
+			
+		<endpoint id ="socrataJSONEndpoint"
+			uri="http4://${openDataUtility.socrataHostandPort}/resource/${openDataUtility.socrataJSONResource}?authUsername=${openDataUtility.authUsername}&amp;authPassword=${openDataUtility.authPassword}&amp;authenticationPreemptive=true&amp;sslContextParametersRef=sslContextParameters"/>	
+
+       <dataFormats>
+          <bindy id="bindyDataformat" type="Csv" classType="org.ojbc.utilities.opendata.dao.model.IncidentArrest"/>
+        </dataFormats>
+
+		<camel:route id="Bulk_Upload_Route" autoStartup="{{openDataUtility.performBulkUpload}}">
+			<camel:from uri="quartz2://openData/incidentArrestBulkUploadTimer?cron={{openDataUtility.bulkUploadCronExpression}}"/>
+		
+			<camel:doTry>
+				<camel:log message="Incident Arrest Bulk Upload Quartz Route Firing.  Incident Arrest CSV file will be generated" />
+			
+				<camel:to uri="bean:openDataUtilityProcessor?method=retrieveAllIncidentsAndWriteToCSVFile"/>
+				
+				<camel:log message="CSV file processing is complete.  File written to: {{openDataUtility.csvDirectory}}" />
+				
+				<camel:doCatch >
+					<camel:exception>java.lang.Exception</camel:exception>
+					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
+				</camel:doCatch>
+			
+			</camel:doTry>
+		
+		</camel:route>
+		
+		<camel:route id="Incremental_Upload_Route" autoStartup="{{openDataUtility.performIncrementalUpdates}}">
+			<camel:from uri="quartz2://openData/incidentArrestIncrementalUploadTimer?cron={{openDataUtility.incrementalUploadCronExpression}}"/>
+		
+			<camel:doTry>
+				<camel:log message="Incident Arrest Quartz Route Firing.  Incident Arrest CSV file will be generated" />
+			
+				<camel:to uri="bean:incrementalUpdateUtilityProcessor?method=retrieveIncidentArrestsLists"/>
+				
+				<camel:filter>
+					<camel:simple>${body} == '[]'</camel:simple>
+					
+					<camel:log message="No upserts in JSON record set, stopping."/>
+					
+					<camel:stop/>
+					
+				</camel:filter>
+				
+				<camel:split streaming="true">
+            		<simple>${body}</simple>
+            		<camel:to uri="bean:incrementalUpdateUtilityProcessor?method=addIncidentArrestToJSONRequest"/>
+            		<camel:log message="Camel Split Index: ${in.headers.CamelSplitIndex} with JSON body of ${body}."/>
+					<camel:to uri="socrataJSONEndpoint"/>
+
+					<camel:log message="Response from Socrata JSON endpoint: ${body}"/>
+					
+				</camel:split>
+				
+				<camel:doCatch >
+					<camel:exception>java.lang.Exception</camel:exception>
+					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
+				</camel:doCatch>
+			
+			</camel:doTry>
+		
+		</camel:route>		
+		
+	</camel:camelContext>
+
+	<bean id="openDataDAOImpl" class="org.ojbc.utilities.opendata.dao.OpenDataDAOImpl">
+        <property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="csvExtractManager" class="org.ojbc.utilities.opendata.dao.CsvExtractManager">
+		<property name="csvFileRootDirectory" value="${openDataUtility.csvDirectory}"/>
+	</bean>
+	
+	<bean id="openDataUtilityProcessor" class="org.ojbc.utilities.opendata.processor.OpenDataUtilityProcessor">
+		<property name="openDataDAO" ref="openDataDAOImpl"/>
+		<property name="csvExtractManager" ref="csvExtractManager"/>
+	</bean>
+
+	<bean id="incrementalUpdateUtilityProcessor" class="org.ojbc.utilities.opendata.processor.IncrementalUpdateUtilityProcessor">
+		<property name="openDataDAO" ref="openDataDAOImpl"/>
+		<property name="lastUpdateFileManager" ref="lastUpdateFileManager"/>
+	</bean>
+	
+	<bean id="lastUpdateFileManager" class="org.ojbc.util.statemanager.LastUpdateFileManager">
+		<constructor-arg><value>${openDataUtility.lastUpdatedDateTimeFileLocation}</value></constructor-arg>
+		<constructor-arg><value>yyyy-MM-dd HH:mm:ss</value></constructor-arg>
+	</bean>
+	
+
+	<camel:sslContextParameters id="sslContextParameters">
+		<camel:trustManagers>
+			<camel:keyStore resource="certs/socrata.jks"
+				password="password" />
+		</camel:trustManagers>
+
+	</camel:sslContextParameters>	
+	
+</beans>

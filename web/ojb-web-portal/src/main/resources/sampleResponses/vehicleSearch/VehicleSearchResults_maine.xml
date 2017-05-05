@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<exc:EntityMergeResultMessage
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:exc="http://nij.gov/IEPD/Exchange/EntityMergeResultMessage/1.0"
+	xmlns:ext="http://nij.gov/IEPD/Extensions/EntityMergeResultMessageExtensions/1.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1">
+	<exc:EntityContainer>
+		<ext:Entity s:id="VSR001">
+			<veh-ext:VehicleSearchResult
+				xmlns:veh-ext="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
+				xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+				<veh-ext:Vehicle>
+					<nc:ItemCategoryText>Passenger Car</nc:ItemCategoryText>
+					<nc:ConveyanceColorPrimaryText>Grey, Silver
+					</nc:ConveyanceColorPrimaryText>
+					<nc:ItemMakeName>AUDI</nc:ItemMakeName>
+					<nc:ItemModelYearDate>2006</nc:ItemModelYearDate>
+					<nc:ConveyanceRegistrationPlateIdentification>
+						<nc:IdentificationID>9344NR</nc:IdentificationID>
+						<nc:IdentificationJurisdictionText>ME
+						</nc:IdentificationJurisdictionText>
+					</nc:ConveyanceRegistrationPlateIdentification>
+					<nc:VehicleIdentification>
+						<nc:IdentificationID>KMHCN46C66U034917</nc:IdentificationID>
+					</nc:VehicleIdentification>
+				</veh-ext:Vehicle>
+				<veh-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS
+				</veh-ext:SourceSystemNameText>
+				<intel:SystemIdentifier>
+					<nc:IdentificationID>sample-9125591193000624496.xml
+					</nc:IdentificationID>
+					<intel:SystemName>Law Enforcement RMS</intel:SystemName>
+				</intel:SystemIdentifier>
+			</veh-ext:VehicleSearchResult>
+		</ext:Entity>
+		<ext:Entity s:id="VSR002">
+			<veh-ext:VehicleSearchResult
+				xmlns:veh-ext="http://ojbc.org/IEPD/Extensions/VehicleSearchResults/1.0"
+				xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1">
+				<veh-ext:Vehicle>
+					<nc:ItemCategoryText>Passenger Car</nc:ItemCategoryText>
+					<nc:ConveyanceColorPrimaryText>Green
+					</nc:ConveyanceColorPrimaryText>
+					<nc:ItemMakeName>OTHER</nc:ItemMakeName>
+					<nc:ItemModelYearDate>2009</nc:ItemModelYearDate>
+					<nc:ConveyanceRegistrationPlateIdentification>
+						<nc:IdentificationID>5285KS</nc:IdentificationID>
+						<nc:IdentificationJurisdictionText>ME
+						</nc:IdentificationJurisdictionText>
+					</nc:ConveyanceRegistrationPlateIdentification>
+					<nc:VehicleIdentification>
+						<nc:IdentificationID>5NPET46C29H553366</nc:IdentificationID>
+					</nc:VehicleIdentification>
+				</veh-ext:Vehicle>
+				<veh-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS
+				</veh-ext:SourceSystemNameText>
+				<intel:SystemIdentifier>
+					<nc:IdentificationID>sample-9125591193000624496.xml
+					</nc:IdentificationID>
+					<intel:SystemName>Law Enforcement RMS</intel:SystemName>
+				</intel:SystemIdentifier>
+			</veh-ext:VehicleSearchResult>
+		</ext:Entity>
+	</exc:EntityContainer>
+	<exc:MergedRecords>
+		<ext:MergedRecord>
+			<ext:OriginalRecordReference s:ref="VSR001" />
+			<ext:MergeQuality>
+				<ext:StringDistanceStatistics>
+					<ext:AttributeXPath></ext:AttributeXPath>
+					<ext:StringDistanceMeanInRecord>0.0
+					</ext:StringDistanceMeanInRecord>
+					<ext:StringDistanceAverageInRecord>0.0
+					</ext:StringDistanceAverageInRecord>
+					<ext:StringDistanceStandardDeviationInRecord>0.0
+					</ext:StringDistanceStandardDeviationInRecord>
+				</ext:StringDistanceStatistics>
+			</ext:MergeQuality>
+		</ext:MergedRecord>
+		<ext:MergedRecord>
+			<ext:OriginalRecordReference s:ref="VSR002" />
+			<ext:MergeQuality>
+				<ext:StringDistanceStatistics>
+					<ext:AttributeXPath></ext:AttributeXPath>
+					<ext:StringDistanceMeanInRecord>0.0
+					</ext:StringDistanceMeanInRecord>
+					<ext:StringDistanceAverageInRecord>0.0
+					</ext:StringDistanceAverageInRecord>
+					<ext:StringDistanceStandardDeviationInRecord>0.0
+					</ext:StringDistanceStandardDeviationInRecord>
+				</ext:StringDistanceStatistics>
+			</ext:MergeQuality>
+		</ext:MergedRecord>
+	</exc:MergedRecords>
+</exc:EntityMergeResultMessage>

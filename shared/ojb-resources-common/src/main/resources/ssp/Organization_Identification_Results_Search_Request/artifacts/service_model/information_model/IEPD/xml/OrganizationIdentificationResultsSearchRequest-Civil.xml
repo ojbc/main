@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<oirs-req-doc:OrganizationIdentificationResultsSearchRequest
+	xmlns:oirs-req-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0"
+	xmlns:oirs-req-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchRequest/1.0"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchRequest/1.0 ../xsd/exchange_schema.xsd ">
+	<oirs-req-ext:IdentificationReportedDateRange>
+		<nc:StartDate>
+			<nc:Date>2016-03-03</nc:Date>
+		</nc:StartDate>
+		<nc:EndDate>
+			<nc:Date>2016-06-03</nc:Date>
+		</nc:EndDate>
+	</oirs-req-ext:IdentificationReportedDateRange>
+	<oirs-req-ext:IdentificationResultStatusCode>Available for Subscription</oirs-req-ext:IdentificationResultStatusCode>
+	<oirs-req-ext:IdentificationResultStatusCode>Subscribed</oirs-req-ext:IdentificationResultStatusCode>
+	<oirs-req-ext:IdentificationResultsCategoryCode>Civil</oirs-req-ext:IdentificationResultsCategoryCode>
+</oirs-req-doc:OrganizationIdentificationResultsSearchRequest>

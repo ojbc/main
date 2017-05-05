@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<cfd-doc:CaseFilingDecisionReport
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0">
+	<nc:DocumentCategoryText>INFORMATION</nc:DocumentCategoryText>
+  <nc:DocumentCreationDate>
+    <nc:Date>2016-12-08</nc:Date>
+  </nc:DocumentCreationDate>
+  <nc:DocumentDescriptionText>Initial</nc:DocumentDescriptionText>
+  <nc:DocumentEffectiveDate>
+    <nc:Date>2017-02-02</nc:Date>
+  </nc:DocumentEffectiveDate>
+  <nc:DocumentFiledDate>
+    <nc:Date>2017-02-02</nc:Date>
+  </nc:DocumentFiledDate>
+  <cfd-ext:VictimRightsAssertionCertificationIndicator>true</cfd-ext:VictimRightsAssertionCertificationIndicator>
+  <cfd-ext:VictimRightsAssertionText>VRA Text</cfd-ext:VictimRightsAssertionText>
+  <nc:Case>
+    <nc:ActivityCategoryText>Department of Public Safety</nc:ActivityCategoryText>
+    <nc:CaseDocketID>Case Docket ID</nc:CaseDocketID>
+    <nc:CaseFiling>
+      <nc:DocumentCategoryName>INFORMATION</nc:DocumentCategoryName>
+      <nc:DocumentFiledDate>
+        <nc:Date>2017-02-02</nc:Date>
+      </nc:DocumentFiledDate>
+    </nc:CaseFiling>
+    <j:CaseAugmentation>
+      <j:CaseCharge structures:id="CHG_001">
+        <j:ChargeFilingDate>
+          <nc:Date>2017-02-02</nc:Date>
+        </j:ChargeFilingDate>
+        <j:ChargeSequenceID>1</j:ChargeSequenceID>
+        <j:ChargeSeverityLevel>
+          <j:SeverityLevelDescriptionText>CLASS B</j:SeverityLevelDescriptionText>
+        </j:ChargeSeverityLevel>
+        <j:ChargeSeverityText>DOMESTIC VIOLENCE</j:ChargeSeverityText>
+        <j:ChargeStatute>
+          <j:StatuteCodeSectionIdentification>
+            <nc:IdentificationID>8.30.110(A)(DV)</nc:IdentificationID>
+          </j:StatuteCodeSectionIdentification>
+          <j:StatuteDescriptionText>VIOLATION OF CONDITION OF RELEASE (DV)</j:StatuteDescriptionText>
+          <j:StatuteOffenseIdentification>
+            <nc:IdentificationID>AMC830110A</nc:IdentificationID>
+          </j:StatuteOffenseIdentification>
+        </j:ChargeStatute>
+        <j:ChargeText />
+        <j:ChargeTrackingIdentification>
+          <nc:IdentificationID>1</nc:IdentificationID>
+        </j:ChargeTrackingIdentification>
+        <cfd-ext:ChargeDomesticViolenceIndicator>true</cfd-ext:ChargeDomesticViolenceIndicator>
+      </j:CaseCharge>
+      <j:CaseCharge structures:id="CHG_002">
+        <j:ChargeFilingDate>
+          <nc:Date>2017-02-02</nc:Date>
+        </j:ChargeFilingDate>
+        <j:ChargeSequenceID>2</j:ChargeSequenceID>
+        <j:ChargeSeverityLevel>
+          <j:SeverityLevelDescriptionText>CLASS A</j:SeverityLevelDescriptionText>
+        </j:ChargeSeverityLevel>
+        <j:ChargeSeverityText>DOMESTIC VIOLENCE</j:ChargeSeverityText>
+        <j:ChargeStatute>
+          <j:StatuteCodeSectionIdentification>
+            <nc:IdentificationID>8.30.105(A)(1)(DV)</nc:IdentificationID>
+          </j:StatuteCodeSectionIdentification>
+          <j:StatuteDescriptionText>VIOLATING A PROTECTIVE ORDER</j:StatuteDescriptionText>
+          <j:StatuteOffenseIdentification>
+            <nc:IdentificationID>AMC830110A</nc:IdentificationID>
+          </j:StatuteOffenseIdentification>
+        </j:ChargeStatute>
+        <j:ChargeText />
+        <j:ChargeTrackingIdentification>
+          <nc:IdentificationID>2</nc:IdentificationID>
+        </j:ChargeTrackingIdentification>
+        <cfd-ext:ChargeDomesticViolenceIndicator>true</cfd-ext:ChargeDomesticViolenceIndicator>
+      </j:CaseCharge>
+      <j:CaseCourt>
+        <nc:OrganizationName>District Court for the State of Alaska</nc:OrganizationName>
+        <j:CourtName>3AN</j:CourtName>
+        <j:CourtCategoryCode>DIS</j:CourtCategoryCode>
+      </j:CaseCourt>
+      <j:CaseCourtEvent>
+        <j:CourtEventAppearance>
+          <j:CourtAppearanceDate>
+            <nc:Date>2016-12-07</nc:Date>
+          </j:CourtAppearanceDate>
+        </j:CourtEventAppearance>
+      </j:CaseCourtEvent>
+      <j:CaseDefendantParty>
+        <nc:EntityPerson structures:ref="DEF_001" />
+      </j:CaseDefendantParty>
+      <j:CaseProsecutionAttorney>
+        <nc:RoleOfPerson structures:ref="CPAP_001" />
+        <j:JudicialOfficialBarMembership>
+          <j:JudicialOfficialBarIdentification>
+            <nc:IdentificationID>00000000</nc:IdentificationID>
+            <nc:IdentificationJurisdiction>
+              <nc:JurisdictionText>Jurisdiction Text</nc:JurisdictionText>
+            </nc:IdentificationJurisdiction>
+          </j:JudicialOfficialBarIdentification>
+        </j:JudicialOfficialBarMembership>
+        <j:JudicialOfficialCategoryText>MUNICIPAL PROSECUTOR</j:JudicialOfficialCategoryText>
+      </j:CaseProsecutionAttorney>
+    </j:CaseAugmentation>
+  </nc:Case>
+  <j:Arrest>
+    <j:ArrestAgency>
+      <nc:OrganizationName>ANCHORAGE POLICE DEPARTMENT</nc:OrganizationName>
+    </j:ArrestAgency>
+    <j:ArrestAgencyRecordIdentification>
+      <nc:IdentificationID>16-000000</nc:IdentificationID>
+      <nc:IdentificationJurisdiction>
+        <nc:JurisdictionText>Alaska Police Department</nc:JurisdictionText>
+      </nc:IdentificationJurisdiction>
+    </j:ArrestAgencyRecordIdentification>
+    <j:ArrestOfficial>
+      <j:EnforcementOfficialBadgeIdentification>
+        <nc:IdentificationID>32457</nc:IdentificationID>
+        <nc:IdentificationJurisdiction>
+          <nc:JurisdictionText>Jurisdiction Text</nc:JurisdictionText>
+        </nc:IdentificationJurisdiction>
+      </j:EnforcementOfficialBadgeIdentification>
+    </j:ArrestOfficial>
+    <cfd-ext:ArrestTrackingNumberIdentification>
+      <nc:IdentificationID>999999999</nc:IdentificationID>
+    </cfd-ext:ArrestTrackingNumberIdentification>
+  </j:Arrest>
+  <j:Offense structures:id="OFF_001">
+    <nc:ActivityDateRange>
+      <nc:StartDate>
+        <nc:Date>2016-06-05</nc:Date>
+      </nc:StartDate>
+      <nc:EndDate>
+        <nc:Date>2016-06-05</nc:Date>
+      </nc:EndDate>
+    </nc:ActivityDateRange>
+  </j:Offense>
+  <j:Offense structures:id="OFF_002">
+    <nc:ActivityDateRange>
+      <nc:StartDate>
+        <nc:Date>2016-06-05</nc:Date>
+      </nc:StartDate>
+      <nc:EndDate>
+        <nc:Date>2016-06-05</nc:Date>
+      </nc:EndDate>
+    </nc:ActivityDateRange>
+  </j:Offense>
+  <nc:Person structures:id="DEF_001">
+    <nc:PersonBirthDate>
+      <nc:Date>1963-01-01</nc:Date>
+    </nc:PersonBirthDate>
+    <nc:PersonName>
+      <nc:PersonNamePrefixText />
+      <nc:PersonGivenName>John</nc:PersonGivenName>
+      <nc:PersonMiddleName />
+      <nc:PersonSurName>Clark</nc:PersonSurName>
+      <nc:PersonNameSuffixText />
+      <nc:PersonFullName>John Clark</nc:PersonFullName>
+    </nc:PersonName>
+    <nc:PersonStateIdentification>
+      <nc:IdentificationID>9999999</nc:IdentificationID>
+      <nc:IdentificationJurisdiction>
+        <nc:JurisdictionText>APSINID</nc:JurisdictionText>
+      </nc:IdentificationJurisdiction>
+    </nc:PersonStateIdentification>
+    <j:PersonAugmentation>
+      <j:DriverLicense>
+        <j:DriverLicenseIdentification>
+          <nc:IdentificationID>999999</nc:IdentificationID>
+          <nc:IdentificationJurisdiction>
+            <nc:JurisdictionText>AK</nc:JurisdictionText>
+          </nc:IdentificationJurisdiction>
+        </j:DriverLicenseIdentification>
+        <cfd-ext:CDLHolderCode>1</cfd-ext:CDLHolderCode>
+      </j:DriverLicense>
+    </j:PersonAugmentation>
+  </nc:Person>
+  <nc:Person structures:id="CPAP_001">
+    <nc:PersonName>
+      <nc:PersonNamePrefixText />
+      <nc:PersonGivenName>Mary</nc:PersonGivenName>
+      <nc:PersonMiddleName>A</nc:PersonMiddleName>
+      <nc:PersonSurName>Jones</nc:PersonSurName>
+      <nc:PersonNameSuffixText />
+      <nc:PersonFullName>Mary A Jones</nc:PersonFullName>
+    </nc:PersonName>
+  </nc:Person>
+  <nc:Location structures:id="OL_001">
+    <nc:LocationDescriptionText>ANC</nc:LocationDescriptionText>
+  </nc:Location>
+  <nc:Location structures:id="OL_002">
+    <nc:LocationDescriptionText>ANC</nc:LocationDescriptionText>
+  </nc:Location>
+  <nc:Location structures:id="RES_001">
+    <nc:Address>
+      <nc:LocationStreet>
+        <nc:StreetFullText>100 West Main Street</nc:StreetFullText>
+      </nc:LocationStreet>
+      <nc:LocationCityName>ANCHORAGE</nc:LocationCityName>
+      <nc:LocationStateUSPostalServiceCode>AK</nc:LocationStateUSPostalServiceCode>
+      <nc:LocationPostalCode>99501</nc:LocationPostalCode>
+    </nc:Address>
+  </nc:Location>
+  <nc:PersonResidenceAssociation>
+    <nc:Person structures:ref="DEF_001" />
+    <nc:Location structures:ref="RES_001">
+      <nc:LocationDescriptionText />
+    </nc:Location>
+  </nc:PersonResidenceAssociation>
+  <j:OffenseChargeAssociation>
+    <j:Offense structures:ref="OFF_001" />
+    <j:Charge structures:ref="CHG_001" />
+  </j:OffenseChargeAssociation>
+  <j:OffenseChargeAssociation>
+    <j:Offense structures:ref="OFF_002" />
+    <j:Charge structures:ref="CHG_002" />
+  </j:OffenseChargeAssociation>
+  <j:OffenseLocationAssociation>
+    <j:Offense structures:ref="OFF_001" />
+    <nc:Location structures:ref="OL_001" />
+  </j:OffenseLocationAssociation>
+  <j:OffenseLocationAssociation>
+    <j:Offense structures:ref="OFF_002" />
+    <nc:Location structures:ref="OL_002" />
+  </j:OffenseLocationAssociation>
+</cfd-doc:CaseFilingDecisionReport>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:ccs-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.1/" schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.1/" schemaLocation="./Subset/niem/domains/cyfs/3.1/cyfs.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="search-results-metadata.xsd"/>
+	<xsd:complexType name="CourtCaseSearchResultsType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a set of details returned about one or more court cases, based on a Court Case Search Request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ccs-res-ext:CourtCaseSearchResult" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CourtCaseSearchResultType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a summary of court case information.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="nc:Case" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Person" maxOccurs="unbounded"/>
+					<xsd:element ref="cyfs:PersonCaseAssociation" maxOccurs="unbounded"/>
+					<xsd:element ref="ccs-res-ext:SourceSystemNameText" minOccurs="0"/>
+					<xsd:element ref="intel:SystemIdentification" minOccurs="0"/>
+					<xsd:element ref="ccs-res-ext:SearchResultCategoryText" minOccurs="0"/>
+					<xsd:element ref="ccs-res-ext:InformationOwningOrganization" minOccurs="0"/>
+					<xsd:element ref="nc:Metadata" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="CourtCaseSearchResult" type="ccs-res-ext:CourtCaseSearchResultType">
+		<xsd:annotation>
+			<xsd:documentation>A summary of court case information.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="InformationOwningOrganization" type="nc:OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>The organization that owns information contained in the search result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SourceSystemNameText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The name of a system that returned the search result. This can be used to retrieve additional information about the person in the search result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SearchResultCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the kind of search result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

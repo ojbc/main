@@ -28,6 +28,8 @@ import javax.xml.transform.Source;
 import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ws.security.util.Base64;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
@@ -41,6 +43,8 @@ import org.xml.sax.SAXException;
 public class EbtsTransformTest {
 	
 	private XsltTransformer xsltTransformer;
+	
+	private static final Log log = LogFactory.getLog( EbtsTransformTest.class );
 	
 	@Before
 	public void init(){
@@ -169,12 +173,12 @@ public class EbtsTransformTest {
 	}
 	
 	@Test
-	public void ArrestReportTestEbtsTransform() throws Exception{
+	public void CriminalHistoryReportTestEbtsTransform() throws Exception{
 		
-		InputStream inputFileStream = new FileInputStream("src/test/resources/input/FBI_Rapback_Activity_Notification_Arrest.xml");
+		InputStream inputFileStream = new FileInputStream("src/test/resources/input/FBI_Rapback_Activity_Notification.xml");
 		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
 		
-		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/Federal_To_Arrest_Report_Transform.xsl"); 				
+		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/Federal_To_CH_Report_Transform.xsl"); 				
 		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
 		
 		Map<String, Object> xsltParamMap = getXsltParamMap();
@@ -183,8 +187,10 @@ public class EbtsTransformTest {
 			
 		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
 				
+		log.debug("Tranformed XML: " + actualTransformedXml);
+		
 		String expectedXmlString = FileUtils.readFileToString(
-				new File("src/test/resources/output/Federal_Rapback_Arrest_Report.xml"));
+				new File("src/test/resources/output/Federal_Rapback_CH_Report.xml"));
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}

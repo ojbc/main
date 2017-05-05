@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:psres-ext="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xmlns:cyfs="http://niem.gov/niem/domains/cyfs/2.1/1"
+	xmlns:micodes="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchResultsCodes/1.0" 
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1" schemaLocation="Subset/niem/domains/intelligence/2.1/intelligence.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0" schemaLocation="search-results-metadata.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/domains/cyfs/2.1/1" schemaLocation="Subset/niem/domains/cyfs/2.1/1/cyfs.xsd"/>
+	<!--xsd:import namespace="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchResultsCodes/1.0" schemaLocation="impl/michigan/michigan-codes.xsd"/-->
+	<xsd:complexType name="PersonSearchResultsType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a set of details returned about
+				one or more people, based on a Person Search Request.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="psres-ext:PersonSearchResult" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="srm:SearchResultsMetadata" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="PersonSearchResult" type="psres-ext:PersonSearchResultType">
+		<xsd:annotation>
+			<xsd:documentation>A summary of person information.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="PersonSearchResultType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a summary of person information.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="psres-ext:Person" />
+					<xsd:element ref="psres-ext:Parent" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="cyfs:Placement" minOccurs="0" />
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="j:Case" minOccurs="0"/>
+					<xsd:element ref="nc:ResidenceAssociation" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="psres-ext:ParentChildAssociation" minOccurs="0" maxOccurs="unbounded"/>	
+					<xsd:element ref="nc:PersonContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="psres-ext:SourceSystemNameText" minOccurs="0"
+						maxOccurs="1" />
+					<xsd:element ref="intel:SystemIdentifier" minOccurs="0"/>
+					<xsd:element ref="psres-ext:SearchResultCategoryText" minOccurs="0"/>
+					<xsd:element ref="psres-ext:InformationOwningOrganization" minOccurs="0"/>
+					<xsd:element ref="nc:Metadata" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+		<xsd:element name="Parent" type="psres-ext:PersonType">
+		<xsd:annotation>
+			<xsd:documentation>A father or mother of a person.</xsd:documentation>
+			<xsd:documentation>This is based on an element with the same name in NIEM 3.0 CYFS domain.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="InformationOwningOrganization" type="j:OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>The organization that owns information contained in the search result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+	<xsd:element name="ParentReference" type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>A father or mother of a person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ParentChildAssociation" type="psres-ext:ParentChildAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>An association between a child and a person who is in a parent role toward that child.</xsd:documentation>
+			<xsd:documentation>This is based on an element with the same name in NIEM 3.0 CYFS domain.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="ParentChildAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for association between a child and a person who is in a parent role toward that child.</xsd:documentation>
+			<xsd:documentation>This is based on a type with the same name in NIEM 3.0 CYFS domain.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="psres-ext:ParentReference" maxOccurs="unbounded"/>
+					<xsd:element ref="psres-ext:ChildReference" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="ChildReference" type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>A person who was an unmarried minor at the time of his or her involvement in a judicial proceeding or non-judicial program.</xsd:documentation>
+			<xsd:documentation>This is based on an element with the same name in NIEM 3.0 CYFS domain.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="PersonType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a human being.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:PersonType">
+				<xsd:sequence>
+					<xsd:element ref="j:PersonAugmentation" minOccurs="0" />
+					<xsd:element ref="cyfs:PersonAugmentation" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="Person" type="psres-ext:PersonType">
+		<xsd:annotation>
+			<xsd:documentation>
+				A human being.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SourceSystemNameText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The name of a system that returned the search result. This can be used to retrieve additional information about the person in the search result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SearchResultCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the kind of search result.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

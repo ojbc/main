@@ -19,33 +19,36 @@ package org.ojbc.web.portal.controllers.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+import org.ojbc.web.model.person.search.PersonName;
+
 public class SubscribedPersonNames {
 	
-	private String originalName;
+	private PersonName originalName;
 	
 	// non null by contract - avoid NPE's from getter
-	private List<String> alternateNamesList = new ArrayList<String>();
+	private List<PersonName> alternateNamesList = new ArrayList<PersonName>();
 
-	public String getOriginalName() {
+	public PersonName getOriginalName() {
 		return originalName;
 	}
 
-	public List<String> getAlternateNamesList() {
+	public List<PersonName> getAlternateNamesList() {
 		return alternateNamesList;
 	}
 
-	public void setOriginalName(String originalName) {
+	public void setOriginalName(PersonName originalName) {
 		this.originalName = originalName;
 	}
 
-	public void setAlternateNamesList(List<String> alternateNamesList) {
+	public void setAlternateNamesList(List<PersonName> alternateNamesList) {
 		this.alternateNamesList = alternateNamesList;
 	}
 
 	@Override
 	public String toString() {
-		return "SubscribedPersonNames [originalName=" + originalName
-				+ ", alternateNamesList=" + alternateNamesList + "]";
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 		
 }

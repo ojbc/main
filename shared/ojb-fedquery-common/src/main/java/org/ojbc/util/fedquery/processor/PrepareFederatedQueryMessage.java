@@ -36,15 +36,13 @@ import org.w3c.dom.NodeList;
 /**
  * This processor is used by the Splitter to prepare the message for processing
  * 
- * It will set the follwing headers: 
+ * It will set the following headers: 
  * 	webServiceEndpointToCall.  This indicates what web service endpoint to call
  *  Exchange.DESTINATION_OVERRIDE_URL.  This indicates the address of the endpoint to call.
  *  
  *  It also preserves the WS Addressing message ID and replyTo values.
  *  
  *  Prior to calling the adapter, it will updated the source systems node to include the adapter that is being called.
- * 
- * @author Yogesh Chawla
  *
  */
 public class PrepareFederatedQueryMessage  implements Processor{
@@ -91,7 +89,7 @@ public class PrepareFederatedQueryMessage  implements Processor{
     	//Set WS-Addressing message properties header
     	exchange.getIn().setHeader(Client.REQUEST_CONTEXT , requestContext);
 		
-		//Remove obsolete headers to create clean exchange
+		//Remove obsolete headers to create clean exchange, the first argument '*' removes all headers, and the arguments that follows are headers that are preserved
 		exchange.getIn().removeHeaders("*", "federatedQueryRequestGUID", "operationName", "operationNamespace", "tokenID", "webServiceEndpointToCall", Client.REQUEST_CONTEXT, Exchange.DESTINATION_OVERRIDE_URL);
 	}
 

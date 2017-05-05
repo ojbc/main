@@ -299,7 +299,7 @@ public class PersonSearchCommandUtilsTest {
 		assertThat(clone.getPersonSocialSecurityNumber(),is("personSocialSecurityNumber"));
 		assertThat(clone.getPersonDriversLicenseNumber(),is("personDriversLicenseNumber"));
 		assertThat(clone.getPersonFBINumber(),is("personFBINumber"));
-		assertThat(clone.getPersonSID(),is("personSID"));
+		assertThat(clone.getPersonSID(),is("PERSONSID"));
 		assertThat(clone.getPersonGivenNameMetaData(),is(SearchFieldMetadata.ExactMatch));
 		assertThat(clone.getPersonSurNameMetaData(),is(SearchFieldMetadata.StartsWith));
 		assertThat(clone.getPersonDriversLicenseIssuer(),is("personDriversLicenseIssuer"));

@@ -54,7 +54,7 @@
 	    		
 	    	#elseif($homePage=="subscriptions")
 	    	
-	    		$.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
+	    		xhr = $.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
 	    		
 					$('#portalContent').html(data);	
 															
@@ -114,7 +114,7 @@
     		 
 		$('#subscriptionsLink').click(function() {	  
 	  				  				  					  					    			    	
-			$.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
+			xhr = $.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
     		
 				$('#portalContent').html(data);	
 														
@@ -132,24 +132,30 @@
     		 
 		$('#rapbackLink').click(function() {	  
 	  				  				  					  					    			    	
-			$.post("#springUrl('/portal/rapbackLeftBar')", function(data) {
-				    	
-    			$('#filterColumn').html(data);
-    			$('#filterColumn').css('visibility', 'visible');
-    		}).fail(ojbc.displayFailMessage);
-    		$.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
+    		xhr = $.post("#springUrl('/rapbacks/rapbackResults')", function(data) {
 				$('#portalContent').html(data);	
+			}).done(function(){
+				$.post("#springUrl('/portal/rapbackLeftBar')", function(data) {
+								    	
+	    			$('#filterColumn').html(data);
+	    			$('#filterColumn').css('visibility', 'visible');
+	    		}).fail(ojbc.displayFailMessage);
 			}).fail(ojbc.displayFailMessage);
 							    
 			return false;
 		});
 		
 		$('#criminalIdLink').click(function() {	  
-	  		$('#filterColumn').css('visibility', 'hidden');		  				  					  					    			    	
-    		$.post("#springUrl('/rapbacks/criminalIdentificationsResults')", function(data) {
+    		xhr = $.post("#springUrl('/rapbacks/criminalIdentificationsResults')", function(data) {
     		
 				$('#portalContent').html(data);	
 											
+			}).done(function(){
+			    $.post("#springUrl('/portal/criminalIdentificationLeftBar')", function(data) {
+					    	
+	    			$('#filterColumn').html(data);
+	    			$('#filterColumn').css('visibility', 'visible');
+	    		}).fail(ojbc.displayFailMessage);
 			}).fail(ojbc.displayFailMessage);
 							    
 			return false;
@@ -176,7 +182,7 @@
 			//TODO possible refactor to avoid 2 ansync jquery ajax calls in a row
 		    ojbc.populateLeftBarContentFromUrl("#springUrl('/portal/landingLeftBar')");
 
-		    ojbc.populatePortalContentFromUrl("#springUrl('/portal/suggestionForm')");
+		    ojbc.populatePortalContentFromUrl("#springUrl('/suggestion/suggestionForm')");
 					    
 		    return false;
 		})
@@ -187,9 +193,15 @@
 
 <div id="leftMenu">
 	#foreach($entry in $leftMenuLinks.entrySet())
-		#if( $entry.getKey() != "subscriptionsLink" || $sec.allGranted("AUTHZ_SUBSCRIPTION"))
-			<a id="$entry.getKey()" class="leftMenuLink" href="$entry.getValue()" target="_blank"><div></div>$leftMenuLinkTitles[$entry.getKey()] </a>
+		#if( $entry.getKey() != "subscriptionsLink" && $entry.getKey() != "rapbackLink" && $entry.getKey() != "criminalIdLink" 
+			&& $entry.getKey() != "queryLink" 
+			|| ($entry.getKey() == "subscriptionsLink" && $sec.allGranted("AUTHZ_CRIMINAL_SUBSCRIPTION")) 
+			|| $entry.getKey() == "rapbackLink" && $sec.allGranted("AUTHZ_CIVIL_SUBSCRIPTION") 
+			|| $entry.getKey() == "criminalIdLink" && $sec.allGranted("AUTHZ_CRIMINAL_ID_RESULTS")
+			|| $entry.getKey() == "queryLink" && $sec.allGranted("AUTHZ_QUERY"))
+			<a id="$entry.getKey()" class="leftMenuLink" href="$entry.getValue()" target="_blank"><div></div>$leftMenuLinkTitles[$entry.getKey()] </a> 
 		#end		
+		
 	#end		
 </div>
  

@@ -28,6 +28,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.FingerPrintsType;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -40,6 +41,7 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 	private RapbackDAO rapbackDAO;
 	
 	@Override
+	@Transactional
 	public void processReport(@Body Document report, Exchange exchange) throws Exception {
 		
 		log.info("Processing Identification Request report");

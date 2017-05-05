@@ -27,10 +27,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.adapters.rapbackdatastore.processor.IdentificationReportingResponseProcessor;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Document;
@@ -42,7 +42,7 @@ import org.xml.sax.SAXException;
         "classpath:META-INF/spring/dao.xml",
         "classpath:META-INF/spring/properties-context.xml",
 		})
-@DirtiesContext
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class IdentificationReportingResponseProcessorTest {
 	
 	@Autowired
@@ -56,7 +56,7 @@ public class IdentificationReportingResponseProcessorTest {
 	@Test
 	public void testCreateErrorResponse() throws SAXException, IOException {
 		Document document = identificationReportingResponseProcessor
-				.createErrorResponse("000001820140729014008340000", "Task ID");
+				.createErrorResponse("000001820140729014008340000", "Task ID-REPLY");
 		String documentString = OJBUtils.getStringFromDocument(document); 
 		System.out.println("Error doc: \n" + documentString );
 		
@@ -78,7 +78,7 @@ public class IdentificationReportingResponseProcessorTest {
 
 	@Test
 	public void testCreateSuccessResponse() throws IOException, SAXException {
-		Document document = identificationReportingResponseProcessor.createSuccessResponse("000001820140729014008340000", "Task ID");
+		Document document = identificationReportingResponseProcessor.createSuccessResponse("000001820140729014008340000", "Task ID-REPLY");
 		String documentString = OJBUtils.getStringFromDocument(document); 
 		System.out.println("Success doc: \n" + documentString );
 		assertAsExpected(documentString, "src/test/resources/xmlInstances/"

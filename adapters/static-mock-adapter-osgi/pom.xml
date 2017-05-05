@@ -23,32 +23,40 @@
 
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>static-mock-adapter-osgi</artifactId>
-	<version>1.0.15</version>
+	<version>1.0.16</version>
 	<packaging>bundle</packaging>
 	<name>OJB :: static-mock-adapter-osgi :: adapter</name>
 	<url>http://www.ojbc.org</url>
 
 	<parent>
 		<groupId>org.ojbc.build</groupId>
-	  <artifactId>ojb-adapters-aggregate</artifactId>
-	  <version>1.0.0</version>
+		<artifactId>ojb-adapters-aggregate</artifactId>
+		<version>1.0.0</version>
 	</parent>
 
 	<properties>
-		<slf4j-version>1.6.4</slf4j-version>
-		<commons-logging-version>1.1.1</commons-logging-version>
+		<commons-logging-version>1.1.3</commons-logging-version>
 		<junit-version>4.10</junit-version>
-		<log4j-version>1.2.16</log4j-version>
-		<jodatime-version>1.6.2</jodatime-version>
-		<spring-version>3.0.7.RELEASE</spring-version> <!-- Needs to be in sync with what's in the current version of SMX -->
+		<slf4j-version>1.7.10</slf4j-version>
+		<log4j-version>1.2.17</log4j-version>
+		<jodatime-version>2.2</jodatime-version>
+		<spring-version>3.2.11.RELEASE</spring-version> <!-- Needs to be in sync with what's in the current version of SMX -->
 		<commons-math-version>3.2</commons-math-version>
 		<ojbc-resources-version>1.0.0</ojbc-resources-version>
-		<ojb-common-version>[2.0.3,)</ojb-common-version>
+		<ojb-common-version>[3.0.0,)</ojb-common-version>
 		<spring-osgi-version>1.0.2</spring-osgi-version>
 		<osgi-core-version>1.4.0</osgi-core-version>
+		<java-version>1.8</java-version>
+		<ojb-test-common-version>1.0.0</ojb-test-common-version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-test-common</artifactId>
+			<version>1.0.0</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
@@ -115,8 +123,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
 				</configuration>
 			</plugin>
 			<plugin>

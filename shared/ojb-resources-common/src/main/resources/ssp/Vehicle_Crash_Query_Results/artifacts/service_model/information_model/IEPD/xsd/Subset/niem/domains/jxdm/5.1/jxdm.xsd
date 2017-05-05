@@ -1,0 +1,1317 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xs:schema targetNamespace="http://release.niem.gov/niem/domains/jxdm/5.1/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:ucr="http://release.niem.gov/niem/codes/fbi_ucr/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:mmucc="http://release.niem.gov/niem/codes/mmucc/3.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation>Justice</xs:documentation>
+  </xs:annotation>
+  <xs:import schemaLocation="../../../codes/fbi_ncic/3.1/fbi_ncic.xsd" namespace="http://release.niem.gov/niem/codes/fbi_ncic/3.1/"/>
+  <xs:import schemaLocation="../../../codes/fbi_ucr/3.0/fbi_ucr.xsd" namespace="http://release.niem.gov/niem/codes/fbi_ucr/3.0/"/>
+  <xs:import schemaLocation="../../../codes/mmucc/3.1/mmucc.xsd" namespace="http://release.niem.gov/niem/codes/mmucc/3.1/"/>
+  <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
+  <xs:import schemaLocation="../../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
+  <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:complexType name="ActivityAugmentationType">
+    <xs:annotation>
+      <xs:documentation>A data type for additional information about an activity.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:AugmentationType">
+        <xs:sequence>
+          <xs:element ref="j:Narrative" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CitationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an official summons to appear in court or pay a fine.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:CitationViolation" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CitationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CommercialVehicleType">
+    <xs:annotation>
+      <xs:documentation>A data type for a class of vehicle that includes motor vehicles with a gross vehicle weight rating of 26,001 pounds or more.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:VehicleType">
+        <xs:sequence>
+          <xs:element ref="j:MotorCarrier" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CommercialVehicleConfiguration" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ConveyanceRegistrationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a registration of a conveyance with an authority.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="j:ItemRegistrationType">
+        <xs:sequence>
+          <xs:element ref="j:ConveyanceRegistrationPlateIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CrashDriverLicenseType">
+    <xs:annotation>
+      <xs:documentation>A data type for information about a driver license of a person at the time of a crash.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="j:DriverLicenseType">
+        <xs:sequence>
+          <xs:element ref="j:CrashDriverLicenseCategory" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashDriverLicenseClass" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CrashDriverType">
+    <xs:annotation>
+      <xs:documentation>A data type for a motor vehicle driver involved in a traffic accident.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:DriverLicense" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashDriverDistraction" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashDriverViolation" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashDrivingViolation" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashDriverAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CrashInformationSourceType">
+    <xs:annotation>
+      <xs:documentation>A data type for the affiliation of a person completing a crash report.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:OrganizationORIIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashInformationSourceAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CrashNonMotoristType">
+    <xs:annotation>
+      <xs:documentation>A data type for a non-motorist involved in a Traffic Accident.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:NonMotoristActionBeforeCrash" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:NonMotoristContributingCircumstances" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:NonMotoristLocation" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashNonMotoristAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CrashPersonType">
+    <xs:annotation>
+      <xs:documentation>A data type for any person involved in a traffic accident.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashPersonInjury" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:AlcoholTestCategory" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:AlcoholTestResult" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:DrugTestCategory" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:DrugTestResult" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashPersonAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CrashType">
+    <xs:annotation>
+      <xs:documentation>A data type for a traffic accident.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="j:DrivingIncidentType">
+        <xs:sequence>
+          <xs:element ref="j:CrashInformationSource" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashWorkZone" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashVehicle" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashNonMotorist" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashPerson" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashEnvironmentContributingCircumstances" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashFirstHarmfulEventLocation" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashLightCondition" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashRoadContributingCircumstances" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashRoadSurfaceCondition" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashSchoolBusRelated" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashWeatherCondition" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CrashVehicleOccupantType">
+    <xs:annotation>
+      <xs:documentation>A data type for any vehicle occupant involved in a traffic accident.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:OccupantAirBagDeployed" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:OccupantEjection" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:OccupantProtectionSystemUse" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:OccupantSeat" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:OccupantSeatOtherLocation" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:OccupantSeatRow" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashVehicleOccupantAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CrashVehicleType">
+    <xs:annotation>
+      <xs:documentation>A data type for a motor vehicle involved in a traffic accident.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfItem" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:VehicleTrafficControlDeviceOperationalIndicator" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashVehicleLegalSpeedRateMeasure" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashDriver" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashVehicleOccupant" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:LocationRoadway" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashVehicleCategory" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:EventSequence" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Maneuver" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:MostDamagedArea" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:VehicleMostHarmfulEvent" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:TravelDirectionBeforeCrash" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:VehicleContributingCircumstances" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:VehicleDamageExtent" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:VehicleTrafficControlDeviceCategory" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashVehicleAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CrashWorkZoneType">
+    <xs:annotation>
+      <xs:documentation>A data type for a work zone where a crash occurred.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:CrashWorkZoneIndication" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:WorkZoneCategory" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:WorkZoneCrashLocation" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:WorkZoneWorkersPresenceIndication" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CrashWorkZoneAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DriverLicenseBaseEndorsementType">
+    <xs:annotation>
+      <xs:documentation>A data type for an endorsement on a driver license or driver license permit which authorizes the operation of specified types of vehicles carrying specified loads.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:DriverLicenseEndorsementText" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DriverLicenseBaseType">
+    <xs:annotation>
+      <xs:documentation>A data type for an authorization issued to a driver granting driving privileges.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DriverLicenseEndorsementType">
+    <xs:annotation>
+      <xs:documentation>A data type for an endorsement on a driver license which authorizes the operation of specified types of vehicles carrying specified loads.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="j:DriverLicenseBaseEndorsementType">
+        <xs:sequence>
+          <xs:element ref="j:DriverLicenseEndorsementAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DriverLicensePermitEndorsementType">
+    <xs:annotation>
+      <xs:documentation>A data type for an endorsement on a driver license permit which authorizes the operation of specified types of vehicles carrying specified loads.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="j:DriverLicenseBaseEndorsementType">
+        <xs:sequence>
+          <xs:element ref="j:DriverLicensePermitEndorsementAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DriverLicensePermitType">
+    <xs:annotation>
+      <xs:documentation>A data type for a driver license permit issued to a driver granting conditional or limited driving privileges.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="j:DriverLicenseBaseType">
+        <xs:sequence>
+          <xs:element ref="j:DriverLicensePermitStatus" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:DriverLicensePermitEndorsement" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DriverLicenseRestrictionType">
+    <xs:annotation>
+      <xs:documentation>A data type for a restriction applicable to a driver license.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="j:DrivingRestrictionType">
+        <xs:sequence>
+          <xs:element ref="j:DriverLicenseRestrictionAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DriverLicenseType">
+    <xs:annotation>
+      <xs:documentation>A data type for a license issued to a person granting driving privileges.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="j:DriverLicenseBaseType">
+        <xs:sequence>
+          <xs:element ref="j:DriverLicenseCardIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:DriverLicenseRestriction" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:DriverLicenseEndorsement" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:DriverLicenseAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DrivingIncidentType">
+    <xs:annotation>
+      <xs:documentation>A data type for details of an incident involving a vehicle.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:IncidentType">
+        <xs:sequence>
+          <xs:element ref="j:DrivingIncidentLegalSpeedRateMeasure" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DrivingRestrictionType">
+    <xs:annotation>
+      <xs:documentation>A data type for a restriction applicable to a driver permit or license.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:DrivingRestrictionValue" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EnforcementOfficialType">
+    <xs:annotation>
+      <xs:documentation>A data type for a person involved in the enforcement of law.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:EnforcementOfficialBadgeIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="IncidentAugmentationType">
+    <xs:annotation>
+      <xs:documentation>A data type for additional information about an incident.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:AugmentationType">
+        <xs:sequence>
+          <xs:element ref="j:IncidentDamagedItem" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:IncidentReportingOfficial" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:IncidentSubject" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:IncidentWitness" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ItemRegistrationAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an item and its registration information.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="j:ItemRegistration" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Item" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ItemRegistrationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a registration of a property item with an authority.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LocationRoadwayType">
+    <xs:annotation>
+      <xs:documentation>A data type for the part of the roadway where a traffic accident occurred.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:RoadwayGrade" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="MotorCarrierCategoryCodeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for a code set that categorizes a USDOT Number holder.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="B">
+        <xs:annotation>
+          <xs:documentation>Both (Carrier and Shipper), meaning that the entity is both a carrier and a shipper</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="C">
+        <xs:annotation>
+          <xs:documentation>Carrier, meaning that the entity is a carrier</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="R">
+        <xs:annotation>
+          <xs:documentation>Registrant, meaning that the entity is not carrier but has registered one or more vehicles in a PRISM State. (Generally, the entity or his vehicles are leased onto an authorized carrier).</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="S">
+        <xs:annotation>
+          <xs:documentation>Shipper, meaning that the entity is a shipper</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="MotorCarrierCategoryCodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for a code set that categorizes a USDOT Number holder.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="j:MotorCarrierCategoryCodeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="MotorCarrierType">
+    <xs:annotation>
+      <xs:documentation>A data type for an organization providing commercial motor vehicle transportation for compensation.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:OrganizationType">
+        <xs:sequence>
+          <xs:element ref="j:MotorCarrierCategory" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CommercialVehicle" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OtherInvolvedPersonType">
+    <xs:annotation>
+      <xs:documentation>A data type for a person who is involved in an activity, but does not meet the criteria for other roles.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PersonAugmentationType">
+    <xs:annotation>
+      <xs:documentation>A data type for additional information about a person.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:AugmentationType">
+        <xs:sequence>
+          <xs:element ref="j:DriverLicense" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PersonBloodAlcoholContentAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association that links a person to a Blood Alcohol Content (BAC) Test reading, measured due to a related activity such as an arrest or a driving incident.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="j:PersonBloodAlcoholContentNumberText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SubjectType">
+    <xs:annotation>
+      <xs:documentation>A data type for a person or organization that is involved or suspected of being involved in a violation of a criminal statute, ordinance or rule.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="VehicleAugmentationType">
+    <xs:annotation>
+      <xs:documentation>A data type for additional information about a vehicle.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:AugmentationType">
+        <xs:sequence>
+          <xs:element ref="j:VehicleUse" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="WitnessType">
+    <xs:annotation>
+      <xs:documentation>A data type for a person who has observed an incident.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ActivityAugmentation" type="j:ActivityAugmentationType" substitutionGroup="nc:ActivityAugmentationPoint" nillable="true">
+    <xs:annotation>
+      <xs:documentation>Additional information about an activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ActivityInformationApproverAssociation" type="nc:ActivityPersonAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between an activity and a person who approved information for that activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="AlcoholTestCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind of alcohol test given.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="AlcoholTestCategoryCode" type="mmucc:AlcoholTestCategoryCodeType" substitutionGroup="j:AlcoholTestCategory">
+    <xs:annotation>
+      <xs:documentation>A kind of Alcohol Test Given.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="AlcoholTestResult" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a status of BAC Test results.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="AlcoholTestResultCode" type="mmucc:AlcoholTestResultCodeType" substitutionGroup="j:AlcoholTestResult">
+    <xs:annotation>
+      <xs:documentation>A status of BAC Test results.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Citation" type="j:CitationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An official summons to appear in court or pay a fine given to a subject from a peace official due to a subjects violation or infraction of a law.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CitationAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CitationType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CitationViolation" type="nc:IncidentType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An activity that is a violation of a law or ordinance that results in a subject being given a citation.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CommercialVehicle" type="j:CommercialVehicleType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A class of vehicle that includes motor vehicles with a gross vehicle weight rating of 26,001 pounds or more.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CommercialVehicleCargoBodyCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind of body for buses and trucks more than 10,000 lbs (4,536 kg) GVWR.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CommercialVehicleCargoBodyCategoryCode" type="mmucc:VehicleCargoBodyCategoryCodeType" substitutionGroup="j:CommercialVehicleCargoBodyCategory">
+    <xs:annotation>
+      <xs:documentation>A kind of body for buses and trucks more than 10,000 lbs (4,536 kg) GVWR.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CommercialVehicleConfiguration" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an indication of the general configuration of commercial motor vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CommercialVehicleConfigurationCode" type="mmucc:CommercialVehicleConfigurationCodeType" substitutionGroup="j:CommercialVehicleConfiguration">
+    <xs:annotation>
+      <xs:documentation>An indication of the general configuration of commercial motor vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceColorPrimaryCode" type="ncic:VCOCodeType" substitutionGroup="nc:ItemColor" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A single, upper-most, front-most, or majority color of a vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceRegistration" type="j:ConveyanceRegistrationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A registration of a conveyance with an authority.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceRegistrationAssociation" type="j:ItemRegistrationAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between a property item and its registration.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConveyanceRegistrationPlateIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification on a metal plate fixed to a conveyance.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Crash" type="j:CrashType">
+    <xs:annotation>
+      <xs:documentation>A traffic accident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CrashType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashDriver" type="j:CrashDriverType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A motor vehicle driver involved into a traffic accident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashDriverAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CrashDriverType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashDriverDistraction" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a distraction which may have influenced the driver performance.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashDriverDistractionCode" type="mmucc:DriverDistractionCodeType" substitutionGroup="j:CrashDriverDistraction">
+    <xs:annotation>
+      <xs:documentation>A distraction which may have influenced the driver performance.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashDriverLicense" type="j:CrashDriverLicenseType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A driver license of a person at the time of a crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashDriverLicenseCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a current kind of an individual's driver license at the time of the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashDriverLicenseCategoryCode" type="mmucc:DriverLicenseCategoryCodeType" substitutionGroup="j:CrashDriverLicenseCategory" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A current kind of an individual's driver license at the time of the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashDriverLicenseClass" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a Type of License assigned by authorizing agent issuing a driver license to the individual.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashDriverLicenseClassCode" type="mmucc:DriverLicenseClassCodeType" substitutionGroup="j:CrashDriverLicenseClass">
+    <xs:annotation>
+      <xs:documentation>A Type of License assigned by authorizing agent issuing a driver license to the individual.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashDriverLicensePermitStatusCode" type="mmucc:DriverLicensePermitStatusCodeType" substitutionGroup="j:DriverLicensePermitStatus">
+    <xs:annotation>
+      <xs:documentation>A current status of an individuals driver license at the time of the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashDriverViolation" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a vehicle-related violation, which applies to a driver involved in a crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashDrivingRestrictionCode" type="mmucc:DrivingRestrictionCodeType" substitutionGroup="j:DrivingRestrictionValue" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A Restriction assigned to an individuals driver license by the license examiner.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashDrivingViolation" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an offense a driver was convicted of in relation to a driving incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashEnvironmentContributingCircumstances" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an apparent environmental condition which may have contributed to the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashEnvironmentContributingCircumstancesCode" type="mmucc:CrashEnvironmentContributingCircumstancesCodeType" substitutionGroup="j:CrashEnvironmentContributingCircumstances">
+    <xs:annotation>
+      <xs:documentation>An apparent environmental condition which may have contributed to the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashFirstHarmfulEventLocation" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a location of a first harmful event.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashFirstHarmfulEventLocationCode" type="mmucc:CrashFirstHarmfulEventLocationCodeType" substitutionGroup="j:CrashFirstHarmfulEventLocation">
+    <xs:annotation>
+      <xs:documentation>A location of a first harmful event.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashInformationSource" type="j:CrashInformationSourceType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An affiliation of the person completing the crash report.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashInformationSourceAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CrashInformationSourceType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashLightCondition" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a type/level of light that existed at the time of the motor vehicle crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashLightConditionCode" type="mmucc:CrashLightConditionCodeType" substitutionGroup="j:CrashLightCondition">
+    <xs:annotation>
+      <xs:documentation>A type/level of light that existed at the time of the motor vehicle crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashNonMotorist" type="j:CrashNonMotoristType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A non-motorist involved in a traffic accident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashNonMotoristAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CrashNonMotoristType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashPerson" type="j:CrashPersonType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person involved in a traffic accident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashPersonAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CrashPersonType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashPersonInjury" type="nc:InjuryType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An injury received by a person involved in a traffic accident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashRoadContributingCircumstances" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an apparent condition of the road which may have contributed to the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashRoadContributingCircumstancesCode" type="mmucc:CrashRoadContributingCircumstancesCodeType" substitutionGroup="j:CrashRoadContributingCircumstances">
+    <xs:annotation>
+      <xs:documentation>An apparent condition of the road which may have contributed to the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashRoadSurfaceCondition" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a roadway surface condition at the time and place of a crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashRoadSurfaceConditionCode" type="mmucc:CrashRoadSurfaceConditionCodeType" substitutionGroup="j:CrashRoadSurfaceCondition">
+    <xs:annotation>
+      <xs:documentation>A roadway surface condition at the time and place of a crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashSchoolBusRelated" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a school bus relation,</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashSchoolBusRelatedCode" type="mmucc:CrashSchoolBusRelatedCodeType" substitutionGroup="j:CrashSchoolBusRelated">
+    <xs:annotation>
+      <xs:documentation>A school bus relation,</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashVehicle" type="j:CrashVehicleType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A motor vehicle involved in a traffic accident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashVehicleAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CrashVehicleType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashVehicleCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind of motor vehicle unit.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashVehicleCategoryCode" type="mmucc:CrashVehicleCategoryCodeType" substitutionGroup="j:CrashVehicleCategory">
+    <xs:annotation>
+      <xs:documentation>A kind of motor vehicle unit.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashVehicleDamage" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an area of the motor vehicle that received the initial impact.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashVehicleDamageCode" type="mmucc:VehicleDamageCodeType" substitutionGroup="j:CrashVehicleDamage" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An area of the motor vehicle that received the initial impact.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashVehicleLegalSpeedRateMeasure" type="nc:MeasureType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An authorized speed limit for the motor vehicle at the time of the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashVehicleOccupant" type="j:CrashVehicleOccupantType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A vehicle occupant involved in a traffic accident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashVehicleOccupantAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CrashVehicleOccupantType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashWeatherCondition" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a prevailing atmospheric conditions that existed at the time of the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashWeatherConditionCode" type="mmucc:CrashWeatherConditionCodeType" substitutionGroup="j:CrashWeatherCondition">
+    <xs:annotation>
+      <xs:documentation>A prevailing atmospheric conditions that existed at the time of the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashWorkZone" type="j:CrashWorkZoneType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A Work Zone where the crash occurred.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashWorkZoneAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CrashWorkZoneType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashWorkZoneIndication" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a presence of a Work Zone.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CrashWorkZoneIndicationCode" type="mmucc:StandardSelectionCodeType" substitutionGroup="j:CrashWorkZoneIndication">
+    <xs:annotation>
+      <xs:documentation>A presence of a Work Zone.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DriverLicense" type="j:DriverLicenseType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A license issued to a person granting driving privileges.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DriverLicenseAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for DriverLicenseType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DriverLicenseCardIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification that is affixed to the raw materials (card stock, laminate, etc.) used in producing driver licenses and ID cards. The numbers are issued by the material's manufacturer and provide a unique reference to a card within a jurisdiction.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DriverLicenseEndorsement" type="j:DriverLicenseEndorsementType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An endorsement on a driver license or driver license permit which authorizes the operation of specified types of vehicles carrying specified loads.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DriverLicenseEndorsementAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for type j:DriverLicenseEndorsementType</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DriverLicenseEndorsementText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An endorsement on a driver license or driver license permit which authorizes the operation of specified types of vehicles carrying specified loads.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DriverLicensePermitEndorsement" type="j:DriverLicensePermitEndorsementType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An endorsement on a driver license which authorizes the operation of specified types of vehicles carrying specified loads.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DriverLicensePermitEndorsementAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for type j:DriverLicensePermitEndorsementType</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DriverLicensePermitStatus" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a current status of an individuals driver license permit.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DriverLicenseRestriction" type="j:DriverLicenseRestrictionType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A restriction on a driver license.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DriverLicenseRestrictionAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for type j:DriverLicenseRestrictionType</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DrivingIncident" type="j:DrivingIncidentType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An incident involving a vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DrivingIncidentLegalSpeedRateMeasure" type="nc:MeasureType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A legally designated speed limit in the area where an incident occurred.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DrivingRestrictionText" type="nc:TextType" substitutionGroup="j:DrivingRestrictionValue">
+    <xs:annotation>
+      <xs:documentation>A category of a driving restriction.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DrivingRestrictionValue" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a driving restriction.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DrugTestCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind of drug test.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DrugTestCategoryCode" type="mmucc:DrugTestCategoryCodeType" substitutionGroup="j:DrugTestCategory">
+    <xs:annotation>
+      <xs:documentation>A kind of drug test.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DrugTestResult" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a result of a drug test.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DrugTestResultCode" type="mmucc:DrugTestResultCodeType" substitutionGroup="j:DrugTestResult">
+    <xs:annotation>
+      <xs:documentation>A result of a drug test.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="EnforcementOfficialBadgeIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification used to refer to an enforcement official.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="EventSequence" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an event sequence related to this motor vehicle, including both non-collision as well as collision events.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="EventSequenceCode" type="mmucc:EventSequenceCodeType" substitutionGroup="j:EventSequence">
+    <xs:annotation>
+      <xs:documentation>An event sequence related to this motor vehicle, including both non-collision as well as collision events.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="IncidentAugmentation" type="j:IncidentAugmentationType" substitutionGroup="nc:IncidentAugmentationPoint" nillable="true">
+    <xs:annotation>
+      <xs:documentation>Additional information about an incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="IncidentDamagedItem" type="nc:ItemType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A property item that was damaged in an incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="IncidentReportingOfficial" type="j:EnforcementOfficialType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A peace official that submitted an incident report in an incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="IncidentSubject" type="j:SubjectType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person whose actions caused an incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="IncidentWitness" type="j:WitnessType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person who observed or has knowledge of an incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="InjuryLocationCode" type="mmucc:PersonInjuryLocationCodeType" substitutionGroup="nc:InjuryLocation">
+    <xs:annotation>
+      <xs:documentation>A primary or most obvious area of the persons body injured during the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ItemRegistration" type="j:ItemRegistrationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A registration of an item with an authority.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationCategoryCode" type="ucr:LocationCategoryCodeType" substitutionGroup="nc:LocationCategory">
+    <xs:annotation>
+      <xs:documentation>A kind or functional description of a location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationRoadway" type="j:LocationRoadwayType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A part of the roadway where Traffic Accident occurred.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationStateNCICLISCode" type="ncic:LISCodeType" substitutionGroup="nc:LocationState">
+    <xs:annotation>
+      <xs:documentation>A state, commonwealth, province, or other such geopolitical subdivision of a country.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Maneuver" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a controlled maneuver for this motor vehicle prior to the beginning of the sequence of events.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ManeuverCode" type="mmucc:ManeuverCodeType" substitutionGroup="j:Maneuver">
+    <xs:annotation>
+      <xs:documentation>A controlled maneuver for this motor vehicle prior to the beginning of the sequence of events.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="MostDamagedArea" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an area of the motor vehicle that was most damaged in a crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="MostDamagedAreaCode" type="mmucc:VehicleDamageCodeType" substitutionGroup="j:MostDamagedArea">
+    <xs:annotation>
+      <xs:documentation>An area of the motor vehicle that was most damaged in a crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="MotorCarrier" type="j:MotorCarrierType">
+    <xs:annotation>
+      <xs:documentation>An organization providing commercial motor vehicle transportation for compensation.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="MotorCarrierCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a categorization of a USDOT Number holder.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="MotorCarrierCategoryCode" type="j:MotorCarrierCategoryCodeType" substitutionGroup="j:MotorCarrierCategory">
+    <xs:annotation>
+      <xs:documentation>A categorization of a USDOT Number holder.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Narrative" type="nc:CommentType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An account as reported by an observer.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="NonMotoristActionBeforeCrash" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an action of the non-motorist prior to the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="NonMotoristActionBeforeCrashCode" type="mmucc:NonMotoristActionBeforeCrashCodeType" substitutionGroup="j:NonMotoristActionBeforeCrash">
+    <xs:annotation>
+      <xs:documentation>An action of the non-motorist prior to the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="NonMotoristContributingCircumstances" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an actions that the non-motorist was undertaking at the time of the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="NonMotoristContributingCircumstancesCode" type="mmucc:NonMotoristContributingCircumstancesCodeType" substitutionGroup="j:NonMotoristContributingCircumstances">
+    <xs:annotation>
+      <xs:documentation>An actions that the non-motorist was undertaking at the time of the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="NonMotoristLocation" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a non-motorist's location with respect to the roadway at the time of the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="NonMotoristLocationCode" type="mmucc:NonMotoristLocationCodeType" substitutionGroup="j:NonMotoristLocation">
+    <xs:annotation>
+      <xs:documentation>A non-motorist's location with respect to the roadway at the time of the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OccupantAirBagDeployed" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a deployment status of an air bag relative to the position in the vehicle for this occupant.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OccupantAirBagDeployedCode" type="mmucc:OccupantAirBagDeployedCodeType" substitutionGroup="j:OccupantAirBagDeployed">
+    <xs:annotation>
+      <xs:documentation>A deployment status of an air bag relative to the position in the vehicle for this occupant.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OccupantEjection" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an occupant completely or partially thrown from the interior of the motor vehicle, excluding motorcycles, as a result of a crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OccupantEjectionCode" type="mmucc:OccupantEjectionCodeType" substitutionGroup="j:OccupantEjection">
+    <xs:annotation>
+      <xs:documentation>An occupant completely or partially thrown from the interior of the motor vehicle, excluding motorcycles, as a result of a crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OccupantProtectionSystemUse" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a restraint equipment in use by the occupant, or the helmet use by a motorcyclist, at the time of the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OccupantProtectionSystemUseCode" type="mmucc:OccupantProtectionSystemUseCodeType" substitutionGroup="j:OccupantProtectionSystemUse">
+    <xs:annotation>
+      <xs:documentation>A restraint equipment in use by the occupant, or the helmet use by a motorcyclist, at the time of the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OccupantSeat" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an occupant's seat in the motor vehicle prior to the first event in the sequence of events.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OccupantSeatCode" type="mmucc:OccupantSeatCodeType" substitutionGroup="j:OccupantSeat">
+    <xs:annotation>
+      <xs:documentation>An occupant's seat in the motor vehicle prior to the first event in the sequence of events.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OccupantSeatOtherLocation" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a location of the vehicle occupant prior to the first event in the sequence of events.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OccupantSeatOtherLocationCode" type="mmucc:OccupantSeatOtherLocationCodeType" substitutionGroup="j:OccupantSeatOtherLocation">
+    <xs:annotation>
+      <xs:documentation>A location of the vehicle occupant prior to the first event in the sequence of events.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OccupantSeatRow" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an occupant's seat row in the motor vehicle prior to the first event in the sequence of events.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OccupantSeatRowCode" type="mmucc:OccupantSeatRowCodeType" substitutionGroup="j:OccupantSeatRow">
+    <xs:annotation>
+      <xs:documentation>An occupant's seat row in the motor vehicle prior to the first event in the sequence of events.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationIdentification" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an identification for an organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationORIIdentification" type="nc:IdentificationType" substitutionGroup="j:OrganizationIdentification" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A unique nine character NCIC identification (ORI) assigned to a justice-related organization by the FBI CJIS Division.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OtherInvolvedPerson" type="j:OtherInvolvedPersonType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person who is involved in an activity, but does not meet the criteria for other roles.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonAugmentation" type="j:PersonAugmentationType" substitutionGroup="nc:PersonAugmentationPoint" nillable="true">
+    <xs:annotation>
+      <xs:documentation>Additional information about a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonBloodAlcoholContentAssociation" type="j:PersonBloodAlcoholContentAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association that links a person to a Blood Alcohol Content (BAC) Test reading, measured due to a related activity such as an arrest or a driving incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonBloodAlcoholContentNumberText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A blood-alcohol percentage reading from a Blood Alcohol Test (BAC Test).</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonSexCode" type="ncic:SEXCodeType" substitutionGroup="nc:PersonSex">
+    <xs:annotation>
+      <xs:documentation>A gender or sex of a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="RoadwayGrade" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a geometric or layout and inclination characteristics of the roadway in the direction of travel for this vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="RoadwayGradeCode" type="mmucc:RoadwayGradeCodeType" substitutionGroup="j:RoadwayGrade">
+    <xs:annotation>
+      <xs:documentation>A geometric or layout and inclination characteristics of the roadway in the direction of travel for this vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TravelDirectionBeforeCrash" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a direction of a motor vehicles travel on the roadway before the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TravelDirectionBeforeCrashCode" type="mmucc:TravelDirectionBeforeCrashCodeType" substitutionGroup="j:TravelDirectionBeforeCrash">
+    <xs:annotation>
+      <xs:documentation>A direction of a motor vehicles travel on the roadway before the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleAugmentation" type="j:VehicleAugmentationType" substitutionGroup="nc:VehicleAugmentationPoint" nillable="true">
+    <xs:annotation>
+      <xs:documentation>Additional information about a vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleContributingCircumstances" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a pre-existing motor vehicle defect or maintenance condition that may have contributed to the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleContributingCircumstancesCode" type="mmucc:VehicleContributingCircumstancesCodeType" substitutionGroup="j:VehicleContributingCircumstances">
+    <xs:annotation>
+      <xs:documentation>A pre-existing motor vehicle defect or maintenance condition that may have contributed to the crash.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleDamageExtent" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an estimation of total damage to motor vehicle from crash. Disabling damage implies damage to the motor vehicle that is sufficient to require the motor vehicle to be towed or carried from the scene.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleDamageExtentCode" type="mmucc:VehicleDamageExtentCodeType" substitutionGroup="j:VehicleDamageExtent">
+    <xs:annotation>
+      <xs:documentation>An estimation of total damage to motor vehicle from crash. Disabling damage implies damage to the motor vehicle that is sufficient to require the motor vehicle to be towed or carried from the scene.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleMakeCode" type="ncic:VMACodeType" substitutionGroup="nc:VehicleMake">
+    <xs:annotation>
+      <xs:documentation>A manufacturer of a vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleModelCode" type="ncic:VMOCodeType" substitutionGroup="nc:VehicleModel">
+    <xs:annotation>
+      <xs:documentation>A specific design or class of vehicle made by a manufacturer.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleMostHarmfulEvent" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an event that resulted in the most severe injury or, if no injury, the greatest property damage involving this motor vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleMostHarmfulEventCode" type="mmucc:CrashHarmfulEventCodeType" substitutionGroup="j:VehicleMostHarmfulEvent">
+    <xs:annotation>
+      <xs:documentation>An event that resulted in the most severe injury or, if no injury, the greatest property damage involving this motor vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleTrafficControlDeviceCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind of traffic control device (TCD) applicable to this motor vehicle at the crash location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleTrafficControlDeviceCategoryCode" type="mmucc:VehicleTrafficControlDeviceCategoryCodeType" substitutionGroup="j:VehicleTrafficControlDeviceCategory">
+    <xs:annotation>
+      <xs:documentation>A kind of traffic control device (TCD) applicable to this motor vehicle at the crash location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleTrafficControlDeviceOperationalIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if traffic control device (TCD) applicable to the motor vehicle at the crash location was working properly; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleUse" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind of special function being served by this vehicle regardless of whether the function is marked on the vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="VehicleUseCode" type="mmucc:VehicleUseCodeType" substitutionGroup="j:VehicleUse">
+    <xs:annotation>
+      <xs:documentation>A kind of special function being served by this vehicle regardless of whether the function is marked on the vehicle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Witness" type="j:WitnessType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person who has observed an incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="WorkZoneCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind of Work Zone.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="WorkZoneCategoryCode" type="mmucc:WorkZoneCategoryCodeType" substitutionGroup="j:WorkZoneCategory">
+    <xs:annotation>
+      <xs:documentation>A kind of Work Zone.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="WorkZoneCrashLocation" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a crash location inside Work Zone.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="WorkZoneWorkersPresenceIndication" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an indication of whether workers are present in the work zone.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="WorkZoneWorkersPresenceIndicationCode" type="mmucc:WorkZoneWorkersPresenceIndicationCodeType" substitutionGroup="j:WorkZoneWorkersPresenceIndication">
+    <xs:annotation>
+      <xs:documentation>An indication of whether workers are present in the work zone.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

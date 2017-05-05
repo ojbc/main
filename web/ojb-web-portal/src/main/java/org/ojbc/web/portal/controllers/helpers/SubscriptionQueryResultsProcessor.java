@@ -18,15 +18,25 @@ package org.ojbc.web.portal.controllers.helpers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Subscription;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+@Service
 public class SubscriptionQueryResultsProcessor {
+	
+	@Value("#{getObject('triggeringEventCodeTranslationInverseMap')}")
+	private Map<String, String> triggeringEventCodeTranslationInverseMap;
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");	
 	
@@ -44,9 +54,51 @@ public class SubscriptionQueryResultsProcessor {
 
 		parseContactInfoNode(rootSubQueryResultsNode, subscription);
 		
+		parseFederalInformationNodes(subQueryResultNode, subscription);
+		
 		return subscription;
 	}		
 	
+	private void parseFederalInformationNodes(Node subQueryResultNode,
+			Subscription subscription) throws Exception {
+		
+		Node subscriptionNode = XmlUtils.xPathNodeSearch(subQueryResultNode, "sqr-ext:Subscription");
+		
+		String federalRapSheetDisclosureIndicator = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:FederalRapSheetDisclosure/sqr-ext:FederalRapSheetDisclosureIndicator");
+		
+		subscription.setFederalRapSheetDisclosureIndicator(BooleanUtils.toBooleanObject(federalRapSheetDisclosureIndicator));
+		
+		String federalRapSheetDisclosureAttentionDesignationText = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:FederalRapSheetDisclosure/sqr-ext:FederalRapSheetDisclosureAttentionDesignationText");
+		
+		subscription.setFederalRapSheetDisclosureAttentionDesignationText(federalRapSheetDisclosureAttentionDesignationText);
+		
+		NodeList triggeringEventCodes =XmlUtils.xPathNodeListSearch(subscriptionNode, "sqr-ext:TriggeringEvents/sqr-ext:FederalTriggeringEventCode");
+		
+		if (triggeringEventCodes != null)
+		{	
+			Set<String> triggeringEventCodesList = new HashSet<String>();
+			
+			for(int i=0; i<triggeringEventCodes.getLength(); i++){			
+				Node triggeringEventCode = triggeringEventCodes.item(i);
+				
+				if (triggeringEventCodeTranslationInverseMap != null){
+					triggeringEventCodesList.add(triggeringEventCodeTranslationInverseMap.get(triggeringEventCode.getTextContent().trim()));
+				}
+				else{
+					triggeringEventCodesList.add(triggeringEventCode.getTextContent().trim());
+				}
+			}
+
+			subscription.getFederalTriggeringEventCode().addAll(triggeringEventCodesList);
+		}	
+		
+		String subscriptionPurpose = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:CriminalSubscriptionReasonCode|sqr-ext:CivilSubscriptionReasonCode");
+		subscription.setSubscriptionPurpose(subscriptionPurpose);
+		
+		String caseId = XmlUtils.xPathStringSearch(subscriptionNode, "sqr-ext:SubscriptionRelatedCaseIdentification/nc:IdentificationID");
+		subscription.setCaseId(caseId);
+	}
+
 	private void parseSubscriptionQueryResultNode(Node subQueryResultNode, 
 			Subscription subscription) throws Exception{
 					
@@ -56,7 +108,7 @@ public class SubscriptionQueryResultsProcessor {
 		parseDateNode(dateRangeNode, subscription);				
 				
 		String topic = XmlUtils.xPathStringSearch(subscriptionNode, "wsn-br:Topic");
-		subscription.setSubscriptionType(topic.trim());
+		subscription.setTopic(topic.trim());
 		
 		String systemId = XmlUtils.xPathStringSearch(subQueryResultNode, "intel:SystemIdentifier/nc:IdentificationID");
 		subscription.setSystemId(systemId);		
@@ -87,7 +139,7 @@ public class SubscriptionQueryResultsProcessor {
 		}
 		      
 		String sFullName = XmlUtils.xPathStringSearch(personNode, "nc:PersonName/nc:PersonFullName");
-		subscription.setFullName(sFullName.trim());
+		subscription.setFullName(sFullName);
 		
 		String sFirstName = XmlUtils.xPathStringSearch(personNode, "nc:PersonName/nc:PersonGivenName");
 		subscription.setFirstName(sFirstName);
@@ -96,8 +148,14 @@ public class SubscriptionQueryResultsProcessor {
 		subscription.setLastName(sLastName);
 				
 		String sid = XmlUtils.xPathStringSearch(personNode, 
-				"jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");		
-		subscription.setStateId(sid.trim());		
+				"jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
+		
+		subscription.setStateId(sid);
+		
+		String fbiId = XmlUtils.xPathStringSearch(personNode, 
+				"jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
+		
+		subscription.setFbiId(fbiId);
 	}
 	
 	

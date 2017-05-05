@@ -32,6 +32,10 @@
 				<nc:PersonMiddleName>D</nc:PersonMiddleName>
 				<nc:PersonSurName>Smith</nc:PersonSurName>
 			</nc:PersonName>
+			<j:PersonSexCode>M</j:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>123456789</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
 			<ident-ext:PersonTrackingIdentification>
 				<nc:IdentificationID>OTN12345</nc:IdentificationID>
 			</ident-ext:PersonTrackingIdentification>

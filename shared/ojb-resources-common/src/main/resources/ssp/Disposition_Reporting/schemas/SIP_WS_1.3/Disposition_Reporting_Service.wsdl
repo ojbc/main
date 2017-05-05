@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:disp-doc="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0"
+	xmlns:tns="http://ojbc.org/Services/WSDL/DispositionReportingService/1.0"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	targetNamespace="http://ojbc.org/Services/WSDL/DispositionReportingService/1.0">
+	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/DispositionReport/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="DispositionReport">
+		<wsdl:part name="DispositionReport" element="disp-doc:DispositionReport" />
+	</wsdl:message>
+	<wsdl:portType name="Disposition-Reporting-Service">
+		<wsdl:operation name="ReportDisposition">
+			<wsdl:input name="DispositionReport" message="tns:DispositionReport" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<!-- Secure, GFIPM-conforming binding -->
+	<wsdl:binding name="Disposition-Reporting-Secure-ServiceSOAPBinding" type="tns:Disposition-Reporting-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
+		<wsdl:operation name="ReportDisposition">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/DispositionReportingService/1.0/ReportDisposition"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Disposition-Reporting-ServiceService">
+		<wsdl:port name="Disposition-Reporting-Secure-Service" binding="tns:Disposition-Reporting-Secure-ServiceSOAPBinding">
+			<soap:address location="http://localhost" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

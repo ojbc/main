@@ -49,11 +49,12 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
+ 				<artifactId>maven-bundle-plugin</artifactId>
 				<extensions>true</extensions>
+				<version>2.5.4</version>
 				<configuration>
-					<instructions>
-						<_exportcontents>service-specifications.*</_exportcontents>
+ 					<instructions>
+						<_exportcontents>ssp.*</_exportcontents>
 					</instructions>
 				</configuration>
 			</plugin>

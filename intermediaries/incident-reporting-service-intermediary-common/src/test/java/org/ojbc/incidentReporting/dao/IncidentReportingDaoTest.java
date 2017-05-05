@@ -16,6 +16,7 @@
  */
 package org.ojbc.incidentReporting.dao;
 
+import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
@@ -23,10 +24,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.util.helper.Hash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml"})
@@ -38,6 +39,7 @@ public class IncidentReportingDaoTest {
 	private IncidentReportingDaoImpl incidentReportingDaoImpl;
 
 	@Test
+	@DirtiesContext
 	public void testAddPersonInvolvement() throws Exception
 	{
 		String personInvolvementHash = Hash.sha256("Wallace_William_1976-01-01");

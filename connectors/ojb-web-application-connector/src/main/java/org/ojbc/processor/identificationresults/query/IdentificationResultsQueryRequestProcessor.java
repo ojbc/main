@@ -27,18 +27,18 @@ import org.apache.camel.CamelContextAware;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.impl.DefaultExchange;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.geronimo.mail.util.Base64;
-import org.ojbc.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.processor.MessageProcessor;
+import org.ojbc.util.camel.processor.RequestResponseProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.IdentificationResultsQueryInterface;
-import org.ojbc.web.model.IdentificationResultsQueryResponse;
+import org.ojbc.web.model.identificationresult.search.IdentificationResultsQueryResponse;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.stereotype.Service;
@@ -199,20 +199,33 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 	            if (base64BinaryNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
 	                Element element = (Element) base64BinaryNodes.item(i);
 	                String base64BinaryData = element.getTextContent();
-	                documents.add(new String(Base64.decode(base64BinaryData))); 
+	                
+	                if (StringUtils.isNotBlank(base64BinaryData)){
+	                	documents.add(new String(Base64.decodeBase64(base64BinaryData)));
+	                }
 	            }
 	        }
 	    }
 		return documents;
 	}
 
+	/**
+	 * 
+	 * @param body
+	 * @param xPath
+	 * @return The decoded binary64BinarayData or "" if the binaryData is null. 
+	 * @throws Exception
+	 * @throws IOException
+	 */
 	private String getDocument(Document body, String xPath)
 			throws Exception, IOException {
 
 		String base64BinaryData = 
 				XmlUtils.xPathStringSearch(body, xPath);
-		byte[] binaryData = Base64.decode(base64BinaryData);
-		return new String(binaryData);
+		byte[] binaryData = Base64.decodeBase64(base64BinaryData);
+		
+		String returnValue = binaryData != null? new String(binaryData): "";
+		return returnValue;
 	}
 
 	public CamelContext getCamelContext() {

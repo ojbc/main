@@ -19,20 +19,23 @@ package org.ojbc.web.portal.services;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.codec.CharEncoding;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,11 +59,15 @@ import org.xml.sax.SAXException;
 @ActiveProfiles("standalone")
 @DirtiesContext
 public class XslTemplateTest {
+	
+    private static final String CURRENT_DATE_yyyyMMdd = DateTime.now().toString("yyyy-MM-dd");
+    
+    private static final String CURRENT_DATE_MMddyyyy = DateTime.now().toString("MM/dd/yyyy");	
 
     @Resource
     SearchResultConverter searchResultConverter;
     
-    private Logger logger = Logger.getLogger(XslTemplateTest.class.getName());
+    private final Log logger = LogFactory.getLog(this.getClass());
 
     @Before
     public void setup() {
@@ -70,6 +77,27 @@ public class XslTemplateTest {
     	XMLUnit.setIgnoreComments(true);
     }    
 
+    
+    @Test
+    public void custodyDetailTest() throws IOException{
+    	validatePersonSearchTransformation("xsl/custody-detail.xsl", "CustodyDetails.xml", "CustodyDetails.html");
+    }
+    
+    @Test
+    public void courtCaseListTest() throws Exception {
+        validatePersonSearchTransformation("xsl/court-case-list.xsl", "courtCaseSearchResults.xml", "courtCaseSearchResults.html");
+    }
+
+    @Test
+    public void courtCaseDetailTest() throws Exception {
+    	validatePersonSearchTransformation("xsl/court-case-detail.xsl", "courtCaseQueryResults.xml", "courtCaseQueryResults.html");
+    }
+    
+    @Test
+    public void firearmPurchaseProhibitionDetailTest() throws Exception {
+    	validatePersonSearchTransformation("xsl/firearm-purchase-prohibition.xsl", "FirearmPurchaseProhibitionQueryResullts-maine.xml", "firearmPurchaseProhibitionQueryResults.html");
+    }
+    
     @Test
     public void searchResultEmpty() throws Exception {
         // an empty result document should be the same whether for vehicle, person or incident search
@@ -87,7 +115,25 @@ public class XslTemplateTest {
         validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory_no_court_charge.xml", "criminalHistory_no_court_charge.html");
     }
 
+    @Test
+    public void criminalHistorySearchDetail() throws Exception {
+        validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory.xml", "criminalHistory.html");
+    }
 
+    @Test
+    public void criminalHistorySearchDetailNoTroCustodySupervisionHeaders() throws Exception {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("chDisplaySupervisionTroCustodyHeaders", "true");
+        
+        validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory.xml", "criminalHistory.html", params);
+
+    }
+
+    @Test
+    public void criminalHistoryWithMultipleAddresses() throws Exception {
+        validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory-multiple-addresses.xml", "criminalHistory-multiple-addresses.html");
+    }
+    
     @Test
     public void reOrderedFirearmSearchResult() throws Exception {
         validatePersonSearchTransformation("xsl/firearmSearchResult.xsl", "reOrderedFirearmSearchResult.xml", "reOrderedFirearmSearchResult.html");
@@ -121,11 +167,6 @@ public class XslTemplateTest {
     @Test
     public void warrantAccessDenied() throws Exception {
         validatePersonSearchTransformation("xsl/warrants.xsl", "warrants-access-denied.xml", "warrants-access-denied.html");
-    }
-
-    @Test
-    public void criminalHistorySearchDetail() throws Exception {
-        validatePersonSearchTransformation("xsl/criminalhistory.xsl", "criminalHistory.xml", "criminalHistory.html");
     }
 
     @Test
@@ -262,13 +303,61 @@ public class XslTemplateTest {
     }
     
     @Test
-    public void subscriptionSearchResult() throws Exception {
-        validatePersonSearchTransformation("xsl/subscriptionSearchResult.xsl", "subscriptionSearchResult.xml", "subscriptionSearchResult.html");
+    public void vehicleCrashResult() throws Exception {
+        validatePersonSearchTransformation("xsl/vehicleCrashResult.xsl", "vehicleCrashResult.xml", "vehicleCrashResult.html");
     }
+    
+  
+    @Test
+    public void subscriptionSearchResult() throws Exception {    	                
+                    
+    	ClassPathResource xsl = new ClassPathResource("xsl/subscriptionSearchResult.xsl");
+        
+        String sXmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/" + "subscriptionSearchResult.xml").getInputStream());
+                        
+        sXmlInput = sXmlInput.replace("@sub_end_date@", CURRENT_DATE_yyyyMMdd);
+                        
+        String sExpectedHtml = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult.html").getInputStream());
+                        
+        sExpectedHtml = sExpectedHtml.replace("@sub_end_date@", CURRENT_DATE_MMddyyyy);
+        
+        List<String> expectedHtmlLineList = IOUtils.readLines(new ByteArrayInputStream(sExpectedHtml.getBytes()), CharEncoding.UTF_8);
+                             
+		// remove ojb license comment(19 lines) in memory, so it's not used in assertion
+		expectedHtmlLineList.subList(0, 18).clear();
+               
+        searchResultConverter.searchResultXsl = xsl;
+        
+        String convertedHtmlPersonSearchResult = searchResultConverter.convertPersonSearchResult(sXmlInput, getDefaultPersonSearchParams());
+                                    
+        assertLinesEquals(expectedHtmlLineList, convertedHtmlPersonSearchResult);                                                    
+    }
+    
+    
     
     @Test
     public void subscriptionSearchResultPastRedDates() throws Exception {
-        validatePersonSearchTransformation("xsl/subscriptionSearchResult.xsl", "subscriptionSearchResult_PastRedDates.xml", "subscriptionSearchResult_PastRedDates.html");
+    	                
+    	ClassPathResource xsl = new ClassPathResource("xsl/subscriptionSearchResult.xsl");
+        
+        String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult_PastRedDates.xml").getInputStream());
+                
+        xmlInput = xmlInput.replace("@sub_end_date@", CURRENT_DATE_yyyyMMdd);
+        
+        String sExpectedHtml = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult_PastRedDates.html").getInputStream());
+                        
+        sExpectedHtml = sExpectedHtml.replace("@sub_end_date@", CURRENT_DATE_MMddyyyy);
+        
+        List<String> expectedHtml = IOUtils.readLines(new ByteArrayInputStream(sExpectedHtml.getBytes()), CharEncoding.UTF_8);
+                
+		// remove ojb license comment(19 lines) in memory, so it's not used in assertion
+		expectedHtml.subList(0, 18).clear();
+               
+        searchResultConverter.searchResultXsl = xsl;
+        
+        String convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getDefaultPersonSearchParams());
+                               
+        assertLinesEquals(expectedHtml, convertResult);
     }    
     
                
@@ -338,14 +427,40 @@ public class XslTemplateTest {
         validatePersonSearchTransformation("xsl/subscriptionSearchResult.xsl", "SubscriptionSearchResults_TooManyResults.xml", "SubscriptionSearchResults_TooManyResults.html");
     }
     
+    
+    
     @Test
     public void subscriptionSearchResultFullName() throws Exception {
-        validatePersonSearchTransformation("xsl/subscriptionSearchResult.xsl", "subscriptionSearchResult_FullName.xml", "subscriptionSearchResult.html");
+    	                
+    	ClassPathResource xsl = new ClassPathResource("xsl/subscriptionSearchResult.xsl");
+        
+        String xmlInput = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult_FullName.xml").getInputStream());
+        
+        xmlInput = xmlInput.replace("@sub_end_date@", CURRENT_DATE_yyyyMMdd);
+        
+        String sExpectedHtml = IOUtils.toString(new ClassPathResource("xslTransformTest/subscriptionSearchResult.html").getInputStream());
+        
+        sExpectedHtml = sExpectedHtml.replace("@sub_end_date@", CURRENT_DATE_MMddyyyy);
+                
+        List<String> expectedHtml = IOUtils.readLines(new ByteArrayInputStream(sExpectedHtml.getBytes()), CharEncoding.UTF_8);                                
+                
+		// remove ojb license comment(19 lines) in memory, so it's not used in assertion
+		expectedHtml.subList(0, 18).clear();
+               
+        searchResultConverter.searchResultXsl = xsl;
+        
+        String convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getDefaultPersonSearchParams());
+        
+        logger.info("Converted Result:\n" + convertResult);
+                        
+        assertLinesEquals(expectedHtml, convertResult);                        
     }
 
+    
+    
     @Test
     public void rapbackSearchResult() throws Exception {
-        validateRapbackSearchTransformation("OrganizationIdentificationResultsSearchResults.xml", "rapbackSearchResult.html");
+        validateRapbackSearchTransformation("OrganizationIdentificationResultsSearchResults-civil.xml", "rapbackSearchResult.html");
     }
     
     @Test
@@ -353,7 +468,6 @@ public class XslTemplateTest {
         validateRapbackSearchTransformation("AccessDenial_OrganizationIdentificationResultsSearchResults.xml", "rapbackSearchAccessDenied.html");
         validateRapbackSearchTransformation("Error_OrganizationIdentificationResultsSearchResults.xml", "rapbackSearchRequestError.html");
         validateRapbackSearchTransformation("NoResults_OrganizationIdentificationResultsSearchResults.xml", "rapbackSearchNoRecord.html");
-        validateRapbackSearchTransformation("OrganizationIdentificationResultsSearchResults_FullName.xml", "rapbackSearchFullName.html");
     }
     
 
@@ -393,8 +507,11 @@ public class XslTemplateTest {
         Assert.assertTrue(xmlUnitDiff.identical());
     }    
     
-
     private void validatePersonSearchTransformation(String xslPath, String inputXmlPath, String expectedHtmlPath) throws IOException {
+    	validatePersonSearchTransformation(xslPath, inputXmlPath, expectedHtmlPath, null);
+    }
+
+    private void validatePersonSearchTransformation(String xslPath, String inputXmlPath, String expectedHtmlPath, Map<String, Object> params) throws IOException {
         
     	ClassPathResource xsl = new ClassPathResource(xslPath);
         
@@ -407,18 +524,27 @@ public class XslTemplateTest {
                
         searchResultConverter.searchResultXsl = xsl;
         
-        String convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getPersonSearchParams());
+        String convertResult ="";
+        
+        if (params == null)
+        {	
+        	convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getDefaultPersonSearchParams());
+        }
+        else
+        {
+        	convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, params);
+        }	
         
         logger.info("Converted Result:\n" + convertResult);
-        
+                        
         assertLinesEquals(expectedHtml, convertResult);
     }
     
     private void validateRapbackSearchTransformation(String inputXmlPath, String expectedHtmlPath) throws Exception {
         
         String xmlInput = WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
-                "/service-specifications/Organization_Identification_Results_Search_Results_Service"
-                + "/artifacts/service_model/information_model/Organization_Identification_Results_Search_Results_IEPD/xml/" + inputXmlPath));
+                "/ssp/Organization_Identification_Results_Search_Results"
+                + "/artifacts/service_model/information_model/IEPD/xml/" + inputXmlPath));
         
         List<String> expectedHtml = IOUtils.readLines(new ClassPathResource("xslTransformTest/" + expectedHtmlPath).getInputStream(), CharEncoding.UTF_8);
         
@@ -452,7 +578,7 @@ public class XslTemplateTest {
         return filterParamsMap;
     }
 
-    private Map<String, Object> getPersonSearchParams() {
+    private Map<String, Object> getDefaultPersonSearchParams() {
     	
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("start", 0);
@@ -460,6 +586,7 @@ public class XslTemplateTest {
         params.put("hrefBase", "pagination");
         params.put("validateSubscriptionButton", "true");
         params.put("messageIfNoResults", "You do not have any subscriptions.");
+        params.put("chDisplaySupervisionTroCustodyHeaders", "true");
         return params;
     }
 

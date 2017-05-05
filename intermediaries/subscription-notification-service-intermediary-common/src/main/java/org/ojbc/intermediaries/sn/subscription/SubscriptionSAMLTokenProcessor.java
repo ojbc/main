@@ -18,15 +18,14 @@ package org.ojbc.intermediaries.sn.subscription;
 
 import java.util.List;
 
-import org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException;
-
 import org.apache.camel.Exchange;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
-import org.apache.ws.security.SAMLTokenPrincipal;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
+import org.ojbc.intermediaries.sn.exception.InvalidSAMLTokenException;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
@@ -39,11 +38,12 @@ public class SubscriptionSAMLTokenProcessor {
 	public void retrieveSAMLTokenFromMessageAndAddCamelHeader(Exchange exchange) throws Exception
 	{
 		String samlFederationID = null;
+		String samlEmailAddress = null;
 		
 		try
 		{
 			Message cxfMessage = exchange.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE, Message.class);
-			SAMLTokenPrincipal token = (SAMLTokenPrincipal)cxfMessage.get("wss4j.principal.result");
+			SAMLTokenPrincipalImpl token = (SAMLTokenPrincipalImpl)cxfMessage.get("wss4j.principal.result");
 			Assertion assertion = token.getToken().getSaml2();
 			
 			if (assertion != null)
@@ -62,12 +62,20 @@ public class SubscriptionSAMLTokenProcessor {
 					{
 						XMLObject attributeValue = attribute.getAttributeValues().get(0);
 						String attributeValueAsString = attributeValue.getDOM().getTextContent();
-						log.debug(attributeValueAsString);
+						log.debug("Federation ID in SAML Token: " + attributeValueAsString);
 						
 						samlFederationID = attributeValueAsString;
-						break;
 					}
-					
+
+					if (attributeName.equals("gfipm:2.0:user:EmailAddressText"))
+					{
+						XMLObject attributeValue = attribute.getAttributeValues().get(0);
+						String attributeValueAsString = attributeValue.getDOM().getTextContent();
+						log.debug("Email Address in SAML Token: " + attributeValueAsString);
+						
+						samlEmailAddress = attributeValueAsString;
+					}
+
 					
 				}	
 				
@@ -77,6 +85,12 @@ public class SubscriptionSAMLTokenProcessor {
 			{	
 				exchange.getIn().setHeader("saml_FederationID", samlFederationID);
 			}
+
+			if (StringUtils.isNotEmpty(samlEmailAddress))
+			{	
+				exchange.getIn().setHeader("saml_EmailAddress", samlEmailAddress);
+			}
+
 		}	
 		catch(Exception ex)
 		{

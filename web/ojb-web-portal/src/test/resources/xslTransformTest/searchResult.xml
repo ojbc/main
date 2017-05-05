@@ -446,6 +446,10 @@
 				<srer:ErrorText>Communication timeout</srer:ErrorText>
 				<intel:SystemName>CJIS</intel:SystemName>
 			</srer:SearchRequestError>
+			<srer:SearchRequestError>
+				<srer:ErrorText>application error</srer:ErrorText>
+				<intel:SystemName>System 2</intel:SystemName>
+			</srer:SearchRequestError>			
 		</srm:SearchResultsMetadata>
 		<srm:SearchResultsMetadata>
 			<srer:SearchErrors>

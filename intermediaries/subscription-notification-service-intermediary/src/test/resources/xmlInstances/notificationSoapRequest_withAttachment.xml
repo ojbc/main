@@ -16,7 +16,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<!-- This is based on the OJB_Resources/src/main/resources/service-specifications/Subscription_Notification_Service/samples/notification/Arrest_NotificationMessage_Sample.xml -->
+<!-- This is based on the OJB_Resources/src/main/resources/ssp/Subscription_Notification/samples/notification/Arrest_NotificationMessage_Sample.xml -->
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:add="http://www.w3.org/2005/08/addressing" 
 	xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:topics="http://ojbc.org/wsn/topics"  xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"

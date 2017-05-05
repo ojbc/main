@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:prlci-doc="http://ojbc.org/IEPD/Exchange/ParoleCaseInitiation/1.0"
+	xmlns:prlct-doc="http://ojbc.org/IEPD/Exchange/ParoleCaseTermination/1.0" 
+	xmlns:prlcoc-doc="http://ojbc.org/IEPD/Exchange/ParoleCaseOfficerChange/1.0" 
+	xmlns:tns="http://ojbc.org/Services/WSDL/Parole_Event_Handler_Service/1.0"
+	targetNamespace="http://ojbc.org/Services/WSDL/Parole_Event_Handler_Service/1.0">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ParoleCaseOfficerChange/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Parole_Officer_Change.xsd" />
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ParoleCaseTermination/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Parole_Case_Termination.xsd" />
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ParoleCaseInitiation/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Parole_Case_Initiation.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="Parole-Case-Initiation">
+		<wsdl:part name="Parole-Case-Initiation" element="prlci-doc:ParoleCaseInitiation" />
+	</wsdl:message>
+	<wsdl:message name="Parole-Case-Termination">
+		<wsdl:part name="Parole-Case-Termination" element="prlct-doc:ParoleCaseTermination" />
+	</wsdl:message>
+	<wsdl:message name="Parole-Officer-Change">
+		<wsdl:part name="Parole-Officer-Change" element="prlcoc-doc:ParoleCaseOfficerChange" />
+	</wsdl:message>
+	<wsdl:portType name="Parole-Event-Handler-Service">
+		<wsdl:operation name="Report-Parole-Case-Initiation">
+			<wsdl:input name="Parole-Case-Initiation" message="tns:Parole-Case-Initiation" />
+		</wsdl:operation>
+		<wsdl:operation name="Report-Parole-Officer-Change">
+			<wsdl:input name="Parole-Officer-Change" message="tns:Parole-Officer-Change" />
+		</wsdl:operation>
+		<wsdl:operation name="Report-Parole-Case-Termination">
+			<wsdl:input name="Parole-Case-Termination" message="tns:Parole-Case-Termination" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="Parole-Event-Handler-ServiceSOAPBinding"
+		type="tns:Parole-Event-Handler-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="Report-Parole-Case-Initiation">
+			<soap:operation soapAction="Report-Parole-Case-Initiation"
+				style="document" />
+			<wsdl:input name="Parole-Case-Initiation">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="Report-Parole-Officer-Change">
+			<soap:operation soapAction="Report-Parole-Officer-Change"
+				style="document" />
+			<wsdl:input name="Parole-Officer-Change">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="Report-Parole-Case-Termination">
+			<soap:operation soapAction="Report-Parole-Case-Termination"
+				style="document" />
+			<wsdl:input name="Parole-Case-Termination">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Parole-Event-Handler-ServiceService">
+		<wsdl:port name="Parole-Event-Handler-Service"
+			binding="tns:Parole-Event-Handler-ServiceSOAPBinding">
+			<soap:address location="https://localhost" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

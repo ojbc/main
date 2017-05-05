@@ -46,14 +46,18 @@
 				<property name="federatedQueryEndpointMap">
 					<util:map map-class="java.util.HashMap">
 						<entry key="{http://ojbc.org/OJB_Portal/1.0}OJB" value="accessControlRequestServicePolicyAcknowledgementEndpoint" />
-						<entry key="{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB" value="direct:accessControlLocalRoute"/>
+						<entry key="{http://ojbc.org/OJB_Portal/CriminalSubscriptions/1.0}OJB" value="direct:accessControlLocalRoute"/>
+						<entry key="{http://ojbc.org/OJB_Portal/CivilSubscriptions/1.0}OJB" value="direct:accessControlLocalRoute"/>
+						<entry key="{http://ojbc.org/OJB_Portal/CriminalIdentificationResults/1.0}OJB" value="direct:accessControlLocalRoute"/>
 						<entry key="RMS_URI_DEMOSTATE" value="direct:accessControlLocalRoute"/>
 					</util:map>
 				</property>
 				<property name="adapterURItoAddressMap">
 					<util:map >
 						<entry key="{http://ojbc.org/OJB_Portal/1.0}OJB" value="${pdp.accessControlRequestPolicyAcknowledgementEndpoint}" />
-						<entry key="{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB" value="direct:accessControlLocalRoute" />
+						<entry key="{http://ojbc.org/OJB_Portal/CriminalSubscriptions/1.0}OJB" value="direct:accessControlLocalRoute" />
+						<entry key="{http://ojbc.org/OJB_Portal/CivilSubscriptions/1.0}OJB" value="direct:accessControlLocalRoute" />
+						<entry key="{http://ojbc.org/OJB_Portal/CriminalIdentificationResults/1.0}OJB" value="direct:accessControlLocalRoute" />
 						<entry key="RMS_URI_DEMOSTATE" value="direct:accessControlLocalRoute" />
 					</util:map>	
 				</property>

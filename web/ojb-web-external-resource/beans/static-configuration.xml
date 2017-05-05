@@ -44,19 +44,18 @@
 	<bean id="blankEditableEndDateStrategy"
 		class="org.ojbc.web.model.subscription.add.BlankEditableEndDateStrategy" />
 
-	<bean id="oneYearEditableEndDateStrategy" class="org.ojbc.web.model.subscription.add.OneYearEditableEndDateStrategy" />
+	<bean id="oneYearEditableEndDateStrategy" class="org.ojbc.web.model.subscription.add.EditableEndDateStrategy" />
+	<bean id="fiveYearEditableEndDateStrategy" class="org.ojbc.web.model.subscription.add.EditableEndDateStrategy" >
+		<constructor-arg name="period" value="5"></constructor-arg>
+	</bean>
 
 	<bean id="uneditableStartDateStrategy"
 		class="org.ojbc.web.model.subscription.edit.UneditableStartDateStrategy" />
 
-	<bean id="arrestSubscriptionAddValidator"
-			class="org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionAddStrictValidator" />
-
-	<bean id="arrestSubscriptionEditValidator"
-			class="org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionEditStrictValidator" />
-
 	<util:map id="subscriptionStartDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
+			value-ref="currentUneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback"
 			value-ref="currentUneditableStartDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
 			value-ref="currentEditableStartDateStrategy" />
@@ -69,8 +68,12 @@
 	</util:map>
 
 	<util:map id="subscriptionEndDateStrategyMap">
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback/ci"
+			value-ref="oneYearEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
 			value-ref="oneYearEditableEndDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback/cs"
+			value-ref="fiveYearEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
 			value-ref="blankEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
@@ -80,6 +83,8 @@
 
 	<util:map id="editSubscriptionStartDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
+			value-ref="uneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback"
 			value-ref="uneditableStartDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
 			value-ref="uneditableStartDateStrategy" />
@@ -123,6 +128,14 @@
 			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS" />
 		<entry key="Juvenile History"
 			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory" />
+		<entry key="Court"
+			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court" />
+		<entry key="Jail"
+			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Jail" />
+		<entry key="Vehicle Crash"
+			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash" />
+		<entry key="Mental Health/Firearms prohibition"
+			value="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Firearms-Prohibition" />
 	</util:map>
 
 	<util:map id="systemsToQuery_people_disabled" map-class="java.util.LinkedHashMap">
@@ -188,8 +201,7 @@
 
 	<!-- These left bar links are provided on the home page and can link to whatever the implementer desires -->
 	<util:map id="leftBarLinks">
-		<entry key="Link1" value="http://local.gov/link1" />
-		<entry key="Link2" value="http://local.gov/link2" />
+<!-- 		<entry key="Link1" value="http://local.gov/link1" /> -->
 	</util:map>
 
 	<!-- People-related maps -->
@@ -539,6 +551,12 @@
 		<entry key="SubscriptionResults" value="subscriptionSearchResult.xsl" />
 		<entry key="Juvenile History" value="juvenile-history-detail.xsl" />
 		<entry key="Juvenile Court Case Management System" value="juvenile-history-detail.xsl" />
+		<entry key="Court Case" value="court-case-list.xsl" />
+		<entry key="Custody" value="custody-list.xsl" />
+		<entry key="Court Case Detail" value="court-case-detail.xsl" />
+		<entry key="Custody Detail" value="custody-detail.xsl" />
+		<entry key="Vehicle Crash" value="vehicleCrashResult.xsl" />
+		<entry key="Firearm Purchase Prohibition" value="firearm-purchase-prohibition.xsl" />
 	</util:map>
 	<util:map id="placements" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Placement" />
@@ -637,16 +655,37 @@
 	<util:map id="subscriptionTypeValueToLabelMap" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Subscription Type" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value="Arrest" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback" value="Rapback" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident" value="Incident" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment" value="ATN Assignment" />
 	</util:map>
 
 	<util:map id="subscriptionPurposeValueToLabelMap" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Subscription Purpose" />
-		<entry key="CS" value="Supervision" />
-		<entry key="CI" value="Investigation" />
+		<entry key="CS" value="Criminal Supervision" />
+		<entry key="CI" value="Criminal Investigation" />
 	</util:map>
 
+	<util:map id="triggeringEventCodeMap" map-class="java.util.LinkedHashMap">
+		<entry key="ARREST" value="Arrest" />
+		<entry key="DISPOSITION" value="Disposition" />
+		<entry key="NCIC-WARRANT" value="NCIC Warrant" />
+		<entry key="NCIC-SOR" value="NCIC NSOR" />
+		<entry key="DEATH" value="Death Notice" />
+	</util:map>
+
+	<util:map id="triggeringEventCodeTranslationInverseMap" map-class="java.util.HashMap">
+		<entry key="ARREST" value="ARREST" />
+		<entry key="DISPOSITION" value="DISPOSITION" />
+		<entry key="NCIC-WARRANT-ENTRY" value="NCIC-WARRANT" />
+		<entry key="NCIC-WARRANT-MODIFICATION" value="NCIC-WARRANT" />
+		<entry key="NCIC-WARRANT-DELETION" value="NCIC-WARRANT" />
+		<entry key="NCIC-SOR-ENTRY" value="NCIC-SOR" />
+		<entry key="NCIC-SOR-MODIFICATION" value="NCIC-SOR" />
+		<entry key="NCIC-SOR-DELETION" value="NCIC-SOR" />
+		<entry key="DEATH" value="DEATH" />
+	</util:map>
+       
 	<!-- for the filter subscription form -->
 	<util:map id="subscriptionFilterValueToLabelMap" map-class="java.util.LinkedHashMap">
 		<entry key="Active" value="Active" />
@@ -657,9 +696,22 @@
 	<!-- Options in rapback search result filter drop down-->
 	<util:map id="rapbackFilterOptionsMap" map-class="java.util.LinkedHashMap">
 		<entry key="Subscribed" value="Subscribed" />
-		<entry key="Available for subscription" value="Available for subscription" />
+		<entry key="Available for Subscription" value="Available for Subscription" />
 		<entry key="Archived" value="Archived" />
 	</util:map>
-
+	
+	<util:map id="suggestionProblemList" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Suggestion" />
+		<entry key="portal" value="Portal" />
+		<entry key="query" value="Query" />
+		<entry key="subscriptionNotification" value="Subscription/Notification" />
+	</util:map>
+	
+	<util:map id="urgencyList" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Urgency" />
+		<entry key="normal" value="Normal" />
+		<entry key="critical" value="Critical" />
+		<entry key="low" value="Low/Cosmetic" />
+	</util:map>
 
 </beans>

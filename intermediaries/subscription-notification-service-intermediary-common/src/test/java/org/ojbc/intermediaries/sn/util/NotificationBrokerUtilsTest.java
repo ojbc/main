@@ -75,8 +75,6 @@ public class NotificationBrokerUtilsTest {
     	
 		List<String> offenseStrings = NotificationBrokerUtils.getOffenseStrings(offenses );
 		
-		System.out.println(offenseStrings);
-		
 		assertEquals("Offense Code: Offense 1 - NDEx Code<br/>Offense Description: Offense 1 Text<br/>", offenseStrings.get(0));
 		assertEquals("Offense Code: Offense 2 - Category Text<br/>Offense Description: Offense 2 Text<br/>", offenseStrings.get(1));
 		assertEquals("Offense Description: Offense 3 Text<br/>", offenseStrings.get(2));

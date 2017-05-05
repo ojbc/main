@@ -1,0 +1,71 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<sqr:SubscriptionQueryResults xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+    xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+    xmlns:sqr="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0"
+    xmlns:sqr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionQueryResults/1.0"
+    xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2">
+    <sqr-ext:SubscriptionQueryResult>
+        <sqr-ext:Subscription>
+            <nc:ActivityDateRange>
+                <nc:StartDate>
+                    <nc:Date>2017-02-07</nc:Date>
+                </nc:StartDate>
+            </nc:ActivityDateRange>
+            <sqr-ext:SubscriptionSubject>
+                <nc:RoleOfPersonReference s:ref="P0"/>
+            </sqr-ext:SubscriptionSubject>
+            <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete"
+                >{http://ojbc.org/wsn/topics}:person/incident</wsn-br:Topic>
+            <sqr-ext:SubscribedEntity s:id="SE0"/>
+            <sqr-ext:SubscriptionOriginator>
+                <sqr-ext:SubscriptionOriginatorIdentification>
+                    <nc:IdentificationID>USER:somebody</nc:IdentificationID>
+                </sqr-ext:SubscriptionOriginatorIdentification>
+            </sqr-ext:SubscriptionOriginator>
+            <sqr-ext:SubscriptionValidation>
+                <sqr-ext:SubscriptionValidatedDate>
+                    <nc:Date>2017-02-07</nc:Date>
+                </sqr-ext:SubscriptionValidatedDate>
+            </sqr-ext:SubscriptionValidation>
+        </sqr-ext:Subscription>
+        <sqr-ext:SourceSystemNameText>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</sqr-ext:SourceSystemNameText>
+        <intel:SystemIdentifier>
+            <nc:IdentificationID>99999</nc:IdentificationID>
+            <intel:SystemName>Subscriptions</intel:SystemName>
+        </intel:SystemIdentifier>
+    </sqr-ext:SubscriptionQueryResult>
+    <sqr-ext:Person s:id="P0">
+        <nc:PersonBirthDate>
+            <nc:Date>2017-02-06</nc:Date>
+        </nc:PersonBirthDate>
+        <nc:PersonName>
+            <nc:PersonFullName>test test</nc:PersonFullName>
+            <nc:PersonGivenName>test</nc:PersonGivenName>
+            <nc:PersonSurName>test</nc:PersonSurName>
+        </nc:PersonName>
+    </sqr-ext:Person>
+    <nc:ContactInformation s:id="SE0CE1">
+        <nc:ContactEmailID>someone@localhost.local</nc:ContactEmailID>
+    </nc:ContactInformation>
+    <sqr-ext:SubscribedEntityContactInformationAssociation>
+        <sqr-ext:SubscribedEntityReference s:ref="SE0"/>
+        <nc:ContactInformationReference s:ref="SE0CE1"/>
+    </sqr-ext:SubscribedEntityContactInformationAssociation>
+</sqr:SubscriptionQueryResults>

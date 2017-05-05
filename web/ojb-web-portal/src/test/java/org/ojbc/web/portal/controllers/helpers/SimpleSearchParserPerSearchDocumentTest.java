@@ -28,17 +28,28 @@ import javax.annotation.Resource;
 
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.validation.BindingResult;
 
 // Tests based on Simple Search Requirements Doc
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:static-configuration-demostate.xml"})
+@WebAppConfiguration
+@ContextConfiguration({
+        "classpath:dispatcher-servlet.xml",
+        "classpath:application-context.xml",
+        "classpath:static-configuration-demostate.xml", "classpath:security-context.xml"
+//        "classpath:/META-INF/spring/demostate/routes-demostate.xml",
+//        "classpath:/META-INF/spring/spring-beans-ojb-web-application-connector-context.xml" 
+        })
+@ActiveProfiles("standalone")
+@DirtiesContext
 public class SimpleSearchParserPerSearchDocumentTest {
 
     @Resource
@@ -56,67 +67,61 @@ public class SimpleSearchParserPerSearchDocumentTest {
 	@Test
 	public void searchForLastName() {
 		personSearchCommand.setSimpleSearch("Chow");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
 
-		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("Chow"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("Chow"));
 	}
 
 	@Test
 	public void searchForFirstNameAndLastName() {
 		personSearchCommand.setSimpleSearch("Norm Chow");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
 
-		assertThat(expectedPersonSearchRequest.getPersonGivenName(), is("Norm"));
-		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("Chow"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenName(), is("Norm"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("Chow"));
 		verifyZeroInteractions(errors);
 	}
 
 	@Test
 	public void searchForFirstNameAndLastNameTwo() {
 		personSearchCommand.setSimpleSearch("Van Halen");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
 
-		assertThat(expectedPersonSearchRequest.getPersonGivenName(), is("Van"));
-		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("Halen"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenName(), is("Van"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("Halen"));
 		verifyZeroInteractions(errors);
 	}
 
 	@Test
 	public void searchForFirstNameAndLastNameWithQuotes() {
 		personSearchCommand.setSimpleSearch("Eddie \"Van Halen\"");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
 
-		assertThat(expectedPersonSearchRequest.getPersonGivenName(), is("Eddie"));
-		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("Van Halen"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenName(), is("Eddie"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("Van Halen"));
 		verifyZeroInteractions(errors);
 	}
 
 	@Test
 	public void searchForFirstNameAndLastNameWithNoQuotes() {
 		personSearchCommand.setSimpleSearch("Eddie Van Halen");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-				.validateAndParseSimpleSearch(personSearchCommand, errors);
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
 		
-		assertThat(expectedPersonSearchRequest.getPersonGivenName(), is("Eddie"));
-		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("Van Halen"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenName(), is("Eddie"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("Van Halen"));
 		verifyZeroInteractions(errors);
 	}
 
 	@Test
 	public void searchForFirstNameAndLastNameAndDOB() {
 		personSearchCommand.setSimpleSearch("Norm Chow 05/03/1946 ");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
 
-		assertThat(expectedPersonSearchRequest.getPersonGivenName(), is("Norm"));
-		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("Chow"));
-		assertThat(expectedPersonSearchRequest.getPersonDateOfBirth().getMonthOfYear(), is(5));
-		assertThat(expectedPersonSearchRequest.getPersonDateOfBirth().getDayOfMonth(), is(3));
-		assertThat(expectedPersonSearchRequest.getPersonDateOfBirth().getYear(), is(1946));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenName(), is("Norm"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("Chow"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDateOfBirth().getMonthOfYear(), is(5));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDateOfBirth().getDayOfMonth(), is(3));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDateOfBirth().getYear(), is(1946));
 		verifyZeroInteractions(errors);
 	}
 
@@ -132,42 +137,38 @@ public class SimpleSearchParserPerSearchDocumentTest {
 	@Test
 	public void searchForSSN() {
 		personSearchCommand.setSimpleSearch("123-45-6789");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
 
-		assertThat(expectedPersonSearchRequest.getPersonSocialSecurityNumber(), is("123-45-6789"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSocialSecurityNumber(), is("123-45-6789"));
 		verifyZeroInteractions(errors);
 	}
 
 	@Test
 	public void searchForSID() {
 		personSearchCommand.setSimpleSearch("A123456");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
 
-		assertThat(expectedPersonSearchRequest.getPersonSID(), is("A123456"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSID(), is("A123456"));
 		verifyZeroInteractions(errors);
 	}
 
 	@Test
 	public void searchForSIDAndSSN() {
 		personSearchCommand.setSimpleSearch("A123456 123-45-6788");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
 
-		assertThat(expectedPersonSearchRequest.getPersonSocialSecurityNumber(), is("123-45-6788"));
-		assertThat(expectedPersonSearchRequest.getPersonSID(), is("A123456"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSocialSecurityNumber(), is("123-45-6788"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSID(), is("A123456"));
 		verifyZeroInteractions(errors);
 	}
 
 	@Test
 	public void searchForLastNameAndSSN() {
 		personSearchCommand.setSimpleSearch("Chow 123-45-6789");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-		        .validateAndParseSimpleSearch(personSearchCommand, errors);
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
 
-		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("Chow"));
-		assertThat(expectedPersonSearchRequest.getPersonSocialSecurityNumber(), is("123-45-6789"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("Chow"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSocialSecurityNumber(), is("123-45-6789"));
 		verifyZeroInteractions(errors);
 	}
 

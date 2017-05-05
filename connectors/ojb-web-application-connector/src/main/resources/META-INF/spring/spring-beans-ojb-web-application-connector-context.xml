@@ -43,6 +43,7 @@
 	<import resource="person-search.xml"/>
 	<import resource="incident-search.xml"/>
 	<import resource="vehicle-search.xml"/>
+	<import resource="vehicle-crash-query.xml"/>
 	<import resource="firearms-search.xml"/>
 	<import resource="person-vehicle-to-incident-search.xml"/>
 	
@@ -58,6 +59,13 @@
 	<import resource="rapback-search.xml"/>
 	<import resource="identification-results-query.xml"/>
 	<import resource="identification-results-modification.xml"/>
+	
+	<import resource="person-to-court-case-search.xml"/>
+	<import resource="court-case-query.xml"/>
+	<import resource="person-to-custody-search.xml"/>
+	<import resource="custody-query.xml"/>
+	
+	<import resource="firearms-prohibition-query.xml"/>
 	
 	<import resource="camel-context.xml"/>
 	

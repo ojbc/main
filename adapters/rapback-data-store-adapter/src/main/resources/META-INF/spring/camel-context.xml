@@ -24,7 +24,6 @@
 	xmlns:context="http://www.springframework.org/schema/context" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -36,15 +35,16 @@
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     
 	<camelContext xmlns="http://camel.apache.org/schema/spring" 
+		xmlns:pidrepres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationReportResponse/1.0" 
 		xmlns:pidreq-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationRequest/1.0"
 		xmlns:ident-ext="http://ojbc.org/IEPD/Extensions/IdentificationExtension/1.0"
 		xmlns:pidres-doc="http://ojbc.org/IEPD/Exchange/PersonIdentificationResults/1.0" 
 		xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
 		xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
-		xmlns:CHcr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
-		xmlns:CHcr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
-		xmlns:ira-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0"		
+		xmlns:ira-req-doc="http://ojbc.org/IEPD/Exchange/IdentificationResultsArchiveRequest/1.0"
 		id="rapback-data-store-adapter">
+		
+		<camel:routeContextRef ref="subscription-management-routes" />
 
 		<endpoint id="subscriptionReportingAdapterEndpoint"
 			uri="cxf:bean:subscriptionReportingAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{rapbackDatastoreAdapter.cxflogging}}" />
@@ -58,11 +58,14 @@
 		<endpoint id="subscriptionReportingFileEndpoint"
 			uri="file://{{rapbackDatastoreAdapter.SubscriptionReportingInputDirectory}}/input?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.SubscriptionReportingInputDirectory}}/error&amp;move=processed/" />
 
+		<endpoint id="identificationRecordingResposneFileEndpoint"
+			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed/identificationResponse?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed/identificationResponse/error&amp;move=processed/&amp;scheduler=quartz2&amp;scheduler.cron={{rapbackDatastoreAdapter.resendFailedIdResponseCronExpression}}" />
+			
+		<endpoint id="identificationReportingResponseServiceEndpoint"
+			uri="cxf:bean:identificationReportingResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}&amp;synchronous=true" />
+		
 		<endpoint id="invocationFailedFileEndpoint"
 			uri="file://{{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/failed" />
-			
-		<endpoint id="criminalHistoryConsolidationFileEndpoint"
-			uri="file://{{rapbackDatastoreAdapter.CriminalHistoryConsolidationInputDirectory}}/input?idempotent=true&amp;moveFailed={{rapbackDatastoreAdapter.IdentificationRecordingInputDirectory}}/error&amp;move=processed/" />
 			
 		<endpoint id="criminalHistoryConsolidationFailedFileEndpoint"
 			uri="file://{{rapbackDatastoreAdapter.CriminalHistoryConsolidationInputDirectory}}/failed" />
@@ -82,8 +85,8 @@
 			uri="cxf:bean:identificationResultsQueryResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
 
 		<!-- Criminal History Consolidation Request Endpoint -->
-		<endpoint id="criminalHistoryConsolidationReportingServiceEndpoint"
-			uri="cxf:bean:criminalHistoryConsolidationReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
+		<endpoint id="criminalHistoryUpdateReportingServiceEndpoint"
+			uri="cxf:bean:criminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
 
 		<endpoint id="identificationResultsModificationRequestServiceEndpoint"
 			uri="cxf:bean:identificationResultsModificationRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
@@ -92,15 +95,21 @@
 			uri="cxf:bean:identificationResultsModificationResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}" />
 
 		<!-- Automatic Archiving Timer Endpoint -->
-		<endpoint id="automaticArchivingTimerEndpoint"
-			uri="quartz://rapbackDataStore/archiveTimer?cron={{rapbackDatastoreAdapter.archiveTimerCronExpression}}" />
+		<endpoint id="automaticArchivingCivilTimerEndpoint"
+			uri="quartz2://rapbackDataStore/archiveCivilTimer?cron={{rapbackDatastoreAdapter.archiveCivilTimerCronExpression}}" />
+		<endpoint id="automaticArchivingCriminalTimerEndpoint"
+			uri="quartz2://rapbackDataStore/archiveCriminalTimer?cron={{rapbackDatastoreAdapter.archiveCriminalTimerCronExpression}}" />
 
+		<endpoint id="smtpEndpoint" uri="${smtpEndpoint}"/>
+		
 		<!-- Incident Reporting Route -->
 		<route id="identification_recording_service">
 		
 			<from uri="identificationRecordingAdapterEndpoint" />
-			
+									
 			<to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<log message="\n\n\n ********* \n  identification_recording_service \n\n msgId: ${header.federatedQueryRequestGUID}   \n\n\ ************** \n\n\n\n" />
 			
 			<to uri="direct:processIdentificationReport" />
 			
@@ -108,15 +117,43 @@
 		
 		<route id="identification_recording_service_filedrop">
 		
-			<from	uri="identificationRecordingFileEndpoint" />
-			
+			<from uri="identificationRecordingFileEndpoint" />
+			<choice>
+				<when>
+					<xpath>/pidreq-doc:PersonStateIdentificationRequest</xpath>
+					<setHeader headerName="operationName">
+						<camel:constant>RecordPersonStateIdentificationRequest</camel:constant>
+					</setHeader>
+				</when>
+				<when>
+					<xpath>/pidreq-doc:PersonFederalIdentificationRequest</xpath>
+					<setHeader headerName="operationName">
+						<camel:constant>RecordPersonFederalIdentificationRequest</camel:constant>
+					</setHeader>
+				</when>
+				<when>
+					<xpath>/pidres-doc:PersonStateIdentificationResults</xpath>
+					<setHeader headerName="operationName">
+						<camel:constant>RecordPersonStateIdentificationResults</camel:constant>
+					</setHeader>
+				</when>
+				<when>
+					<xpath>/pidres-doc:PersonFederalIdentificationResults</xpath>
+					<setHeader headerName="operationName">
+						<camel:constant>RecordPersonFederalIdentificationResults</camel:constant>
+					</setHeader>
+				</when>
+			</choice>
+			<log message="\n The in operation name '${in.header.operationName}' \n" loggingLevel="WARN"/>
 			<to uri="direct:processIdentificationReport" />
 		</route>
 		
 		<route id="identfication_recording_service_process_report">				
 			
 			<from uri="direct:processIdentificationReport" />
-
+			
+			<log message="* * *  processIdentificationReport 111   * * *"/>
+			
 			<setHeader headerName="identificationID">
 				<xpath resultType="java.lang.String">/pidreq-doc:PersonStateIdentificationRequest/ident-ext:TransactionIdentification/nc:IdentificationID
 					|/pidres-doc:PersonStateIdentificationResults/ident-ext:TransactionIdentification/nc:IdentificationID
@@ -131,6 +168,20 @@
 					|/pidreq-doc:PersonFederalIdentificationRequest/ident-ext:TransactionCategoryText
 				</xpath>
 			</setHeader>
+			
+			<camel:filter>
+				<camel:xpath>/pidreq-doc:PersonStateIdentificationRequest/ident-ext:CriminalIdentificationReasonCode 
+					|/pidreq-doc:PersonFederalIdentificationRequest/ident-ext:CriminalIdentificationReasonCode 
+				</camel:xpath>
+				<camel:log message="Ignore the identification request ${in.header.identificationID} with CriminalIdentificationReasonCode"></camel:log>
+				<camel:stop/>
+			</camel:filter>
+
+			<setHeader headerName="transactionCategoryText">
+				<camel:simple>${in.headers.transactionCategoryText}-REPLY</camel:simple>
+			</setHeader>
+				
+			<log message="* * * processIdentificationReport 2222   * * *"/>				
 				
 			<doTry>
 						
@@ -148,16 +199,21 @@
 						<to uri="bean:identificationResultsReportProcessor?method=processReport"/>
 					</when>
 					<otherwise>
-						<log message="The operation name '${in.header.operationName}' is not supported."></log>
+						<log message="\n The operation name '${in.header.operationName}' is not supported. \n" loggingLevel="WARN"/>
+						
 						<throwException ref="opertaionNameNotSupported"></throwException>
 					</otherwise>
 				</choice>
+				
+				<log message="\n\n\n * * *  Calling  direct:successfulIdentificationRecordingInvocation  * * * \n\n\n"/>
 				
 				<to uri="direct:successfulIdentificationRecordingInvocation"/>
 				
 				<doCatch >
 					<exception>java.lang.Exception</exception>
-					<log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
+
+					<log message="\n\n\n An exception was thrown: \n\n ${exception.stacktrace} \n\n\n" loggingLevel="ERROR"/>
+									
 					<to uri="direct:failedIdentificationRecordingInvocation"/>
 				</doCatch>
 			
@@ -167,13 +223,20 @@
 
 		<route id="successful_identification_recording_invocation_route">
 			<from uri="direct:successfulIdentificationRecordingInvocation"/>
+			
 			<to uri="bean:identificationReportingResponseProcessor?method=createSuccessResponse"/>
+			
+			<camel:log message="\n\n\n * * * After createSuccessResponse * * * \n\n\n" />
+			
 			<to uri="direct:sendIdentificationReportingResponseMessage"/>
 		</route>
 		
 		<route id="failed_identification_recording_invocation_route">
 			<from uri="direct:failedIdentificationRecordingInvocation"/>
 			
+			<setHeader headerName="CamelFileName">
+				<simple>identificationRecordingReport/FailedIdentificationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+			</setHeader>	
 			<camel:multicast>
 				<to uri="direct:deadLetterChannel"/>
 				<camel:pipeline>
@@ -185,16 +248,55 @@
 		
 		<route id="archive_failed_identification_report_route">
 			<from uri="direct:deadLetterChannel"/>
-			<setHeader headerName="CamelFileName">
-				<simple>identificationReport/FailedIdentificationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
-			</setHeader>	
+			
+			<choice>
+				<when>
+					<xpath>/pidrepres-doc:PersonIdentificationReportResponse</xpath>
+					<setHeader headerName="CamelFileName">
+						<simple>identificationResponse/FailedIdentificationResponse_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+					</setHeader>
+				</when>
+			</choice>		
 			<to uri="invocationFailedFileEndpoint"/>
 			<log message="Failed to process Identification Report document. File Name to archive is: ${in.headers.CamelFileName}"/>
 		</route>
 		
 		<route id="send_identification_reporting_response_route">
+			
 			<from uri="direct:sendIdentificationReportingResponseMessage"/>
-			<to uri="bean:identificationReportingResultMessageProcessor?method=sendResponseMessage"/>
+			
+			<doTry>
+				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+	
+				<camel:setHeader headerName="operationName">
+		            <constant>SubmitPersonIdentificationReportResponse</constant>
+		        </camel:setHeader>
+		        
+		        <camel:setHeader headerName="operationNamespace">
+		            <constant>http://ojbc.org/Services/WSDL/IdentificationReportingResponseService/1.0</constant>
+		        </camel:setHeader>
+				<to uri="identificationReportingResponseServiceEndpoint" />
+				
+ 				<camel:doCatch>
+					<exception>java.lang.Throwable</exception>
+					<camel:log message="get exception"></camel:log>
+					<camel:log 
+						message="Failed to send the identification Response message: ${exception.cause.message}"
+						loggingLevel="WARN" />
+					<setHeader headerName="CamelFileName">
+						<simple>identificationResponse/FailedIdentificationResponse_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+					</setHeader>	
+					<log message="${body}" loggingLevel="DEBUG"></log>
+					<to uri="invocationFailedFileEndpoint"/>
+				</camel:doCatch>
+ 				<log message="Response message is sent" />
+ 			</doTry>			
+		</route>
+		
+		<route id="resend_failed_identification_response_route">
+			<from uri="identificationRecordingResposneFileEndpoint" />
+			<log message="resending response file ${body}" loggingLevel="INFO"/>
+			<to uri="direct:sendIdentificationReportingResponseMessage" />
 		</route>
 		
 		<!-- Rapback Search Request flow -->
@@ -212,7 +314,7 @@
 			</onException>
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 			<to uri="bean:rapbackSearchProcessor?method=returnRapbackSearchResponse" />
-			<log message="${body}"></log>
+			<log message="${body}" loggingLevel="DEBUG"></log>
 			<to uri="direct:rapbackSearchResponse" />
 		</route>
 
@@ -259,7 +361,7 @@
 			<from uri="direct:identificationInitialResultsQueryResponse" />
 			
 			<to uri="bean:initialResultsQueryProcessor?method=returnInitialResultsQueryResponse" />
-			<log message="${body}"></log>
+			<log message="${body}" loggingLevel="DEBUG"></log>
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 
@@ -278,7 +380,7 @@
 			<from uri="direct:identificationSubsequentResultsQueryResponse" />
 			
 			<to uri="bean:subsequentResultsQueryProcessor?method=returnSubsequentResultsQueryResponse" />
-			<log message="${body}"></log>
+			<log message="${body}" loggingLevel="DEBUG"></log>
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 
@@ -322,48 +424,14 @@
 				<doCatch >
 					<exception>java.lang.Exception</exception>
 					<log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>	
+					<setHeader headerName="CamelFileName">
+						<simple>subscriptionReport/FailedSubscriptionReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+					</setHeader>	
 					<to uri="direct:deadLetterChannel"/>
 				</doCatch>
 			</doTry>
 		</route>	
 			
-		<!-- Criminal History Consolidation Request flow -->
-		<route id="criminalHistoryConsolidationRequestRoute">
-			<from uri="criminalHistoryConsolidationReportingServiceEndpoint" />
-			<onException>
-				<exception>java.lang.Exception</exception>
-				<handled><constant>true</constant></handled>
-				<camel:log message="An exception was thrown: ${exception.cause.message}"
-					loggingLevel="WARN" />
-				<setHeader headerName="CamelFileName">
-					<simple>FailedCriminalHistoryConsolidationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
-				</setHeader>	
-				<to uri="criminalHistoryConsolidationFailedFileEndpoint"/>
-			</onException>
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-			<camel:setHeader headerName="currentSid">
-				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc:Person/CHcr-ext:PreConsolidationIdentifiers/nc:PersonStateIdentification/nc:IdentificationID</camel:xpath>
-			</camel:setHeader>
-			<camel:setHeader headerName="newSid">
-				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc:Person/CHcr-ext:PostConsolidationIdentifiers/nc:PersonStateIdentification/nc:IdentificationID</camel:xpath>
-			</camel:setHeader>
-			<camel:setHeader headerName="currentUcn">
-				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc:Person/CHcr-ext:PreConsolidationIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
-			</camel:setHeader>
-			<camel:setHeader headerName="newUcn">
-				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc:Person/CHcr-ext:PostConsolidationIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
-			</camel:setHeader>
-			<to uri="bean:criminalHistoryConsolidationProcessor?method=consolidateCriminalHistory" />
-			<log message="Criminal History consolidated"></log>
-		</route>
-
-		<!-- Automaticly Archive idled records flow -->
-		<route id="automaticArchivingRoute">
-			<from uri="automaticArchivingTimerEndpoint" />
-			<to uri="bean:rapbackDAO?method=archive" />
-			<log message="Automatic archiving completed"/>
-		</route>
-		
 		<!-- Identification Modification Results Query Request flow -->
 		<route id="identificationResultsModificationRequestServiceRoute">
 			<from uri="identificationResultsModificationRequestServiceEndpoint" />
@@ -414,11 +482,5 @@
 	</bean>
 	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
-	
-	<bean id="identificationReportingResultMessageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor">
-		<property name="operationName"><value>SubmitPersonIdentificationReportResponse</value></property>
-		<property name="operationNamespace"><value>http://ojbc.org/Services/WSDL/IdentificationReportingResponseService/1.0</value></property>
-		<property name="destinationEndpoint"><value>identificationReportingResponseService</value></property>
-	</bean>
 	
 </beans>
