@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<itl:NISTBiometricInformationExchangePackage xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
+    xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+    xmlns:itl="http://biometrics.nist.gov/standard/2011"
+    xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://cjis.fbi.gov/fbi_ebts/10.0 ../../xsd/fbi_ebts/10.0/fbi_ebts.xsd">
+    
+    <!--******************************************************************-->
+    <!--Type-1 Record (Header Record) -->
+    <!--******************************************************************-->
+    <itl:PackageInformationRecord>
+        <!--RCC 1.001-->
+        <ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
+        <ansi-nist:Transaction>
+            <!--DAT 1.005-->
+            <ansi-nist:TransactionDate>
+                <nc:Date>2007-01-01</nc:Date>
+            </ansi-nist:TransactionDate>
+            <ansi-nist:TransactionDestinationOrganization>
+                <!--DAI 1.007-->
+                <nc:OrganizationIdentification>
+                    <nc:IdentificationID>WI013415Y</nc:IdentificationID>
+                </nc:OrganizationIdentification>
+            </ansi-nist:TransactionDestinationOrganization>
+            <ansi-nist:TransactionOriginatingOrganization>
+                <nc:OrganizationIdentification>
+                    <!--ORI 1.008-->
+                    <nc:IdentificationID>DCFBIWAA4</nc:IdentificationID>
+                </nc:OrganizationIdentification>
+            </ansi-nist:TransactionOriginatingOrganization>
+            <!--GMT 1.014, Optional-->
+            <ansi-nist:TransactionUTCDate>
+                <nc:DateTime>2007-01-01T00:00:01Z</nc:DateTime>
+            </ansi-nist:TransactionUTCDate>
+            <!--TCN 1.009-->
+            <ansi-nist:TransactionControlIdentification>
+                <nc:IdentificationID>5683956839</nc:IdentificationID>
+            </ansi-nist:TransactionControlIdentification>
+            <!--TCR 1.010, Optional-->
+            <ansi-nist:TransactionControlReferenceIdentification>
+                <nc:IdentificationID>1234567890</nc:IdentificationID>
+            </ansi-nist:TransactionControlReferenceIdentification>
+            <!--DOM 1.013-->
+            <ansi-nist:TransactionDomain>
+                <ansi-nist:DomainVersionNumberIdentification>
+                    <nc:IdentificationID>EBTS 10.0</nc:IdentificationID>
+                </ansi-nist:DomainVersionNumberIdentification>
+                <ansi-nist:TransactionDomainName>NORAM</ansi-nist:TransactionDomainName>
+            </ansi-nist:TransactionDomain>
+            <!--APS 1.016, Optional --> 
+            <ansi-nist:TransactionApplicationProfile>
+                <!--APO-->
+                <ansi-nist:ApplicationProfileOrganizationName>DoD</ansi-nist:ApplicationProfileOrganizationName>
+                <!--APN-->
+                <ansi-nist:ApplicationProfileName>EBTS</ansi-nist:ApplicationProfileName>
+                <!--APV-->
+                <ansi-nist:ApplicationProfileVersionIdentification>
+                    <nc:IdentificationID>3.0</nc:IdentificationID>
+                </ansi-nist:ApplicationProfileVersionIdentification>
+            </ansi-nist:TransactionApplicationProfile>
+            <ansi-nist:TransactionImageResolutionDetails>
+                <!--NSR 1.011 Non-zero values apply to Type-4 and Type-7 fingerprint records only.-->
+                <ansi-nist:NativeScanningResolutionValue>00.00</ansi-nist:NativeScanningResolutionValue>
+                <!--NTR 1.012  Non-zero values apply to Type-4 and Type-7 fingerprint records only.-->
+                <ansi-nist:NominalTransmittingResolutionValue>00.00</ansi-nist:NominalTransmittingResolutionValue>
+            </ansi-nist:TransactionImageResolutionDetails>
+            <!--VER 1.002-->
+            <ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
+            <ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
+            <!--PRY 1.006, Optional-->
+            <ansi-nist:TransactionPriorityValue>5</ansi-nist:TransactionPriorityValue>
+            <!--TOT 1.004-->
+            <ebts:TransactionCategoryCode>RBN</ebts:TransactionCategoryCode>
+            <!--CNT 1.003-->
+            <ansi-nist:TransactionContentSummary>
+                <ansi-nist:ContentFirstRecordCategoryCode>1</ansi-nist:ContentFirstRecordCategoryCode>
+                <ansi-nist:ContentRecordQuantity>01</ansi-nist:ContentRecordQuantity>
+                <ansi-nist:ContentRecordSummary>
+                    <ansi-nist:ImageReferenceIdentification>
+                        <nc:IdentificationID>00</nc:IdentificationID>
+                    </ansi-nist:ImageReferenceIdentification>
+                    <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+                </ansi-nist:ContentRecordSummary>
+            </ansi-nist:TransactionContentSummary>
+            <!--DCS 1.015, Optional -->
+            <ansi-nist:TransactionCharacterSetDirectory>
+                <ansi-nist:CharacterSetCommonNameCode>UTF-8</ansi-nist:CharacterSetCommonNameCode>
+                <ansi-nist:CharacterSetIndexCode>0</ansi-nist:CharacterSetIndexCode>
+                <ansi-nist:CharacterSetVersionIdentification>
+                    <nc:IdentificationID>000</nc:IdentificationID>
+                </ansi-nist:CharacterSetVersionIdentification>
+            </ansi-nist:TransactionCharacterSetDirectory>			
+        </ansi-nist:Transaction>
+    </itl:PackageInformationRecord>
+    <!--******************************************************************-->
+    <!--Type-2 Record (User Defined Descriptive Text Record)-->
+    <!--******************************************************************-->
+    <itl:PackageDescriptiveTextRecord>
+        <!--RCC 2.001-->
+        <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+        <!-- IDC 2.002-->
+        <ansi-nist:ImageReferenceIdentification>
+            <nc:IdentificationID>00</nc:IdentificationID>
+        </ansi-nist:ImageReferenceIdentification>
+        <itl:UserDefinedDescriptiveDetail>
+           <ebts:DomainDefinedDescriptiveFields>
+               <!-- SCO 2.007 (0..9)-->
+               <ansi-nist:RecordForwardOrganizations>
+                   <nc:OrganizationIdentification>
+                       <nc:IdentificationID>WV1000000</nc:IdentificationID>
+                   </nc:OrganizationIdentification>
+                   <nc:OrganizationIdentification>
+                       <nc:IdentificationID>NY030025P</nc:IdentificationID>
+                   </nc:OrganizationIdentification>
+               </ansi-nist:RecordForwardOrganizations>
+               <ebts:RecordRapBackData>
+                   <!-- RBNI 2.2041 -->
+                   <ebts:RecordRapBackActivityNotificationID>123456</ebts:RecordRapBackActivityNotificationID>
+                   <!-- RBATN 2.2070, Optional -->
+                   <ebts:RecordRapBackAttentionText>DET J Q PUBLIC</ebts:RecordRapBackAttentionText>
+                   <!-- RBXD 2.2015 -->
+                   <ebts:RecordRapBackExpirationDate>
+                       <nc:Date>2010-02-24</nc:Date>
+                   </ebts:RecordRapBackExpirationDate>
+                   <!-- RBSD 2.2054 -->
+                   <ebts:RecordRapBackSubscriptionDate>
+                       <nc:Date>2011-01-25</nc:Date>
+                   </ebts:RecordRapBackSubscriptionDate>
+                   <!-- RBSI 2.2048 -->
+                   <ebts:RecordRapBackSubscriptionID>123456</ebts:RecordRapBackSubscriptionID>
+                   <!-- RBST 2.2071, Optional -->
+                   <ebts:RecordRapBackSubscriptionTerm>5</ebts:RecordRapBackSubscriptionTerm>
+                   <!-- RBTD 2.2049, Optional-->
+                   <ebts:RecordRapBackTermDate>
+                       <nc:Date>2015-01-01</nc:Date>
+                   </ebts:RecordRapBackTermDate>
+                   <!-- RBUD 2.2064 (0..10) -->
+                   <ebts:RecordRapBackUserDefinedElement>
+                       <!-- 2.2064A -->
+                       <ebts:UserDefinedElementName>State Fingerprint ID</ebts:UserDefinedElementName>
+                       <!-- 2.2064B -->
+                       <ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
+                   </ebts:RecordRapBackUserDefinedElement>
+                   <!-- RBTED 2.2069, Optional -->
+                   <ebts:TransactionRapBackTriggeringEvent>
+                       <!-- DORBE 2.2069A -->
+                       <ebts:RapBackEventDate>
+                           <nc:Date>2013-03-29</nc:Date>
+                       </ebts:RapBackEventDate>
+                       <!-- RBEI 2.2069C -->
+					   <ebts:RapBackEventText> The Identity associated with UCN:%1 has been deleted from NGI, resulting in the deletion of your Rap Back Subscription ID#:%2</ebts:RapBackEventText>                   
+				</ebts:TransactionRapBackTriggeringEvent>
+
+               </ebts:RecordRapBackData>
+               <ebts:RecordTransactionData>
+                    <ebts:TransactionResponseData>
+                        <!--ERS 2.075, Optional-->
+                        <ebts:TransactionElectronicRapSheetText>Subject's Rap Sheet goes here</ebts:TransactionElectronicRapSheetText>
+                   </ebts:TransactionResponseData>
+               </ebts:RecordTransactionData>
+               <ebts:RecordTransactionActivity>
+                   <!--CRI 2.073 (1..3)-->
+                   <ebts:RecordControllingAgency>
+                       <nc:OrganizationIdentification>
+                           <nc:IdentificationID>NY0303000</nc:IdentificationID>
+                       </nc:OrganizationIdentification>
+                   </ebts:RecordControllingAgency>
+               </ebts:RecordTransactionActivity>
+               <ebts:RecordSubject>
+                    <!-- DOB 2.022-->
+                    <nc:PersonBirthDate>
+                        <nc:Date>1977-08-25</nc:Date>
+                    </nc:PersonBirthDate>
+                    <!--NAM 2.018-->
+                    <ebts:PersonName>
+                        <nc:PersonGivenName>ANTHONY</nc:PersonGivenName>
+                        <nc:PersonMiddleName>PAUL</nc:PersonMiddleName>
+                        <nc:PersonSurName>JONES</nc:PersonSurName>
+                    </ebts:PersonName>
+                    <!-- FBI 2.014-->
+                    <j:PersonFBIIdentification>
+                        <nc:IdentificationID>62760NY12</nc:IdentificationID>
+                    </j:PersonFBIIdentification>
+                </ebts:RecordSubject>
+            </ebts:DomainDefinedDescriptiveFields>
+        </itl:UserDefinedDescriptiveDetail>
+    </itl:PackageDescriptiveTextRecord>
+</itl:NISTBiometricInformationExchangePackage>
