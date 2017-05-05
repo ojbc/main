@@ -27,6 +27,9 @@
 	xmlns:crimhistory-update-doc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
 	xmlns:pdr-report-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0"
 	xmlns:cdr-report-doc="http://ojbc.org/IEPD/Exchange/CourtDispositionRecordingReport/1.0"	
+	xmlns:chc-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
+	xmlns:che-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryExpungementReport/1.0"
+	xmlns:chiu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
@@ -42,6 +45,8 @@
     	<camel:endpoint id="notificationBrokerServiceEndpoint" 
     		uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}"/>              
 	
+		<camel:endpoint id="criminalhistoryUpdateReportingAdapterServiceEndpoint"
+			uri="cxf:bean:criminalhistoryUpdateReportingAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${criminalHistoryReportingServiceIntermediaryCxflogging}" />
 	
 		<camel:route id="CriminalHistoryUpdateReportingServiceHandlerRoute">
 		
@@ -56,12 +61,37 @@
 			<camel:multicast>
 				<camel:pipeline>
 					<camel:filter>
+						<camel:simple>${properties:criminalHistoryUpdateReportingService.callRapbackAdapter} == true</camel:simple>
+						
+						<!-- only call criminal history consolidation on these actions -->
+						<camel:filter>
+							<camel:xpath>/chc-report-doc:CriminalHistoryConsolidationReport
+			 							or /che-report-doc:CriminalHistoryExpungementReport
+										or /chiu-report-doc:CriminalHistoryIdentifierUpdateReport
+							</camel:xpath>
+						
+							<camel:log message="About to call Criminal History consolidation"/>
+						
+							<camel:to uri="direct:callCriminalHistoryConsolidation"/>
+						</camel:filter>
+					</camel:filter>	
+				</camel:pipeline>	
+			
+				<camel:pipeline>
+					<camel:filter>
 						<camel:simple>${properties:criminalHistoryUpdateReportingService.callNotificationBroker} == true</camel:simple>
 						
-						<camel:log message="About to call notification broker endpoint"/>
+						<!-- only call notification broker on these actions -->
+						<camel:filter>
+							<camel:xpath>/crimhistory-update-doc:CycleTrackingIdentifierAssignmentReport
+										or /cdr-report-doc:CourtDispositionRecordingReport
+										or /pdr-report-doc:ProsecutionDecisionRecordingReport
+							</camel:xpath>
 						
-						<camel:to uri="direct:callNotificationBroker"/>
+							<camel:log message="About to call notification broker endpoint"/>
 						
+							<camel:to uri="direct:callNotificationBroker"/>
+						</camel:filter>
 					</camel:filter>	
 				</camel:pipeline>	
 				
@@ -94,6 +124,41 @@
 		
 		</camel:route>
 
+		<camel:route id="callCriminalHistoryConsolidationRoute">
+			<from uri="direct:callCriminalHistoryConsolidation"/>
+			
+			<camel:filter>
+				<camel:xpath>/chc-report-doc:CriminalHistoryConsolidationReport</camel:xpath>
+		
+				<camel:setHeader headerName="operationName">
+					<constant>ReportCriminalHistoryConsolidation</constant>
+				</camel:setHeader>
+			</camel:filter>
+
+			<camel:filter>
+				<camel:xpath>/che-report-doc:CriminalHistoryExpungementReport</camel:xpath>
+
+				<camel:setHeader headerName="operationName">
+					<constant>ReportCriminalHistoryExpungement</constant>
+				</camel:setHeader>
+			</camel:filter>
+			
+			<camel:filter>
+				<camel:xpath>/chiu-report-doc:CriminalHistoryIdentifierUpdateReport</camel:xpath>
+			
+				<camel:setHeader headerName="operationName">
+					<constant>ReportCriminalHistoryIdentifierUpdate</constant>
+				</camel:setHeader>
+			</camel:filter>
+						
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant>
+			</camel:setHeader>
+			
+			<camel:to uri="criminalhistoryUpdateReportingAdapterServiceEndpoint"/>
+			
+		</camel:route>
+
 
 	    <camel:route id="callNotificationBrokerRoute"> 
 			
@@ -118,7 +183,7 @@
 				<camel:to uri="xslt:xslt/prosecutionDecisionRecordingReportToNotifications.xsl"/>
 			</camel:filter>
 			
-			<camel:log message="After xslt transformation: \n ${body}" />
+			<camel:log message="After xslt transformation: \n ${body}" loggingLevel="DEBUG"/>
 						
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>

@@ -44,7 +44,8 @@ CREATE UNIQUE INDEX ON policy(policy_uri);
 
 CREATE TABLE `ori` (
   id int(11) NOT NULL AUTO_INCREMENT,
-  ori varchar(50) NOT NULL
+  ori varchar(50) NOT NULL,
+  civil_ori_indicator boolean NOT NULL
 );
 CREATE UNIQUE INDEX ON ori(ori); 
 

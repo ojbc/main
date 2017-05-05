@@ -32,12 +32,22 @@ import org.junit.runner.RunWith;
 import org.ojbc.web.SearchFieldMetadata;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.validation.BindingResult;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:static-configuration-demostate.xml"})
+@WebAppConfiguration
+@ContextConfiguration({
+        "classpath:dispatcher-servlet.xml",
+        "classpath:application-context.xml",
+        "classpath:static-configuration-demostate.xml", "classpath:security-context.xml"
+        })
+@ActiveProfiles("standalone")
+@DirtiesContext
 public class SimpleSearchParserTest {
 
 	private static final Log log = LogFactory.getLog(SimpleSearchParserTest.class);
@@ -100,108 +110,99 @@ public class SimpleSearchParserTest {
 	@Test
 	public void extractSSN() {
 		personSearchCommand.setSimpleSearch("555-66-7777");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-		        .validateAndParseSimpleSearch(personSearchCommand, errors);
-		assertThat(expectedPersonSearchRequest.getPersonSocialSecurityNumber(), is("555-66-7777"));
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSocialSecurityNumber(), is("555-66-7777"));
 
 		personSearchCommand.setSimpleSearch("  \"  777-88-9999  \"  ");
-		expectedPersonSearchRequest = unit.validateAndParseSimpleSearch(personSearchCommand, errors);
-		assertThat(expectedPersonSearchRequest.getPersonSocialSecurityNumber(), is("777-88-9999"));
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSocialSecurityNumber(), is("777-88-9999"));
 	}
 
 	@Test
 	public void extractSID() {
 		personSearchCommand.setSimpleSearch("A123456");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-		        .validateAndParseSimpleSearch(personSearchCommand, errors);
-		assertThat(expectedPersonSearchRequest.getPersonSID(), is("A123456"));
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSID(), is("A123456"));
 
 		personSearchCommand.setSimpleSearch("   \"  A5555555   \"");
-		expectedPersonSearchRequest = unit.validateAndParseSimpleSearch(personSearchCommand, errors);
-		assertThat(expectedPersonSearchRequest.getPersonSID(), is("A5555555"));
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSID(), is("A5555555"));
 	}
 
 	@Test
 	public void extractDOB() {
 		personSearchCommand.setSimpleSearch("05/03/1946");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-		        .validateAndParseSimpleSearch(personSearchCommand, errors);
-		assertThat(expectedPersonSearchRequest.getPersonDateOfBirth().getYear(), is(1946));
-		assertThat(expectedPersonSearchRequest.getPersonDateOfBirth().getMonthOfYear(), is(5));
-		assertThat(expectedPersonSearchRequest.getPersonDateOfBirth().getDayOfMonth(), is(3));
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDateOfBirth().getYear(), is(1946));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDateOfBirth().getMonthOfYear(), is(5));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDateOfBirth().getDayOfMonth(), is(3));
 
 		personSearchCommand.setSimpleSearch("  \"  05/03/1946   \"  ");
-		expectedPersonSearchRequest = unit.validateAndParseSimpleSearch(personSearchCommand, errors);
-		assertThat(expectedPersonSearchRequest.getPersonDateOfBirth().getYear(), is(1946));
-		assertThat(expectedPersonSearchRequest.getPersonDateOfBirth().getMonthOfYear(), is(5));
-		assertThat(expectedPersonSearchRequest.getPersonDateOfBirth().getDayOfMonth(), is(3));
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDateOfBirth().getYear(), is(1946));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDateOfBirth().getMonthOfYear(), is(5));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDateOfBirth().getDayOfMonth(), is(3));
 	}
 	
 	@Test
 	public void extractFBIID() {
 		personSearchCommand.setSimpleSearch("1234567");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-		        .validateAndParseSimpleSearch(personSearchCommand, errors);
-		assertThat(expectedPersonSearchRequest.getPersonFBINumber(), is("1234567"));
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonFBINumber(), is("1234567"));
 
 		personSearchCommand.setSimpleSearch("  \"  345678VD4   \"  ");
-		expectedPersonSearchRequest = unit.validateAndParseSimpleSearch(personSearchCommand, errors);
-		assertThat(expectedPersonSearchRequest.getPersonFBINumber(), is("345678VD4"));
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonFBINumber(), is("345678VD4"));
 	}
 
 	@Test
 	public void extractSurNameExactMatch() {
 		personSearchCommand.setSimpleSearch("lastName");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-		        .validateAndParseSimpleSearch(personSearchCommand, errors);
-		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("lastName"));
-		assertThat(expectedPersonSearchRequest.getPersonSurNameMetaData(), is(SearchFieldMetadata.ExactMatch));
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("lastName"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurNameMetaData(), is(SearchFieldMetadata.ExactMatch));
 
 		personSearchCommand.setSimpleSearch("  \" my last Name  \"");
-		expectedPersonSearchRequest = unit.validateAndParseSimpleSearch(personSearchCommand, errors);
-		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("my last Name"));
-		assertThat(expectedPersonSearchRequest.getPersonSurNameMetaData(), is(SearchFieldMetadata.ExactMatch));
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("my last Name"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurNameMetaData(), is(SearchFieldMetadata.ExactMatch));
 	}
 
 	@Test
 	public void extractSurNameStartsWith() {
 		personSearchCommand.setSimpleSearch("lastName*");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-				.validateAndParseSimpleSearch(personSearchCommand, errors);
-		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("lastName"));
-		assertThat(expectedPersonSearchRequest.getPersonSurNameMetaData(), is(SearchFieldMetadata.StartsWith));
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("lastName"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurNameMetaData(), is(SearchFieldMetadata.StartsWith));
 	}
 
 	@Test
 	public void extractGivenNameExactMatch() {
 		personSearchCommand.setSimpleSearch("firstName lastName");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-		        .validateAndParseSimpleSearch(personSearchCommand, errors);
-		assertThat(expectedPersonSearchRequest.getPersonGivenName(), is("firstName"));
-		assertThat(expectedPersonSearchRequest.getPersonGivenNameMetaData(), is(SearchFieldMetadata.ExactMatch));
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenName(), is("firstName"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenNameMetaData(), is(SearchFieldMetadata.ExactMatch));
 
 		personSearchCommand.setSimpleSearch("\"my first name\" lastName");
-		expectedPersonSearchRequest = unit.validateAndParseSimpleSearch(personSearchCommand, errors);
-		assertThat(expectedPersonSearchRequest.getPersonGivenName(), is("my first name"));
-		assertThat(expectedPersonSearchRequest.getPersonGivenNameMetaData(), is(SearchFieldMetadata.ExactMatch));
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenName(), is("my first name"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenNameMetaData(), is(SearchFieldMetadata.ExactMatch));
 	}
 
 	@Test
 	public void extractGivenNameStartsWith() {
 		personSearchCommand.setSimpleSearch("firstName* lastName");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-				.validateAndParseSimpleSearch(personSearchCommand, errors);
-		assertThat(expectedPersonSearchRequest.getPersonGivenName(), is("firstName"));
-		assertThat(expectedPersonSearchRequest.getPersonGivenNameMetaData(), is(SearchFieldMetadata.StartsWith));
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenName(), is("firstName"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenNameMetaData(), is(SearchFieldMetadata.StartsWith));
 	}
 	
 	@Test
 	public void extractDriverLicense() {
 	    personSearchCommand.setSimpleSearch("VA-VA9220223");
-	    PersonSearchRequest expectedPersonSearchRequest = unit
-        .validateAndParseSimpleSearch(personSearchCommand, errors);
-	    assertThat(expectedPersonSearchRequest.getPersonDriversLicenseNumber(),is("VA9220223"));
-        assertThat(expectedPersonSearchRequest.getPersonDriversLicenseIssuer(),is("VA"));
+	    unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+	    assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDriversLicenseNumber(),is("VA9220223"));
+        assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDriversLicenseIssuer(),is("VA"));
 	}
 
 	//TODO: Figure out why this fails on CI server
@@ -209,23 +210,21 @@ public class SimpleSearchParserTest {
 	@Ignore("This test is failing in CI, but not on dev machines. Need to troubleshoot.")
 	public void extractSurNameAndDriverLicense() {
 		personSearchCommand.setSimpleSearch("lastName WA1234567");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-				.validateAndParseSimpleSearch(personSearchCommand, errors);
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
 		
-		log.info("Person Search Request: " + expectedPersonSearchRequest);
+		log.info("Person Search Request: " + personSearchCommand.getParsedPersonSearchRequest());
 		
-		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("lastName"));
-		assertThat(expectedPersonSearchRequest.getPersonDriversLicenseNumber(),is("WA1234567"));
-		assertThat(expectedPersonSearchRequest.getPersonDriversLicenseIssuer(),is("WA"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("lastName"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDriversLicenseNumber(),is("WA1234567"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonDriversLicenseIssuer(),is("WA"));
 	}
 	
 	@Test
 	public void extractSurNameAndFBIID() {
 		personSearchCommand.setSimpleSearch("lastName 044445Z9");
-		PersonSearchRequest expectedPersonSearchRequest = unit
-				.validateAndParseSimpleSearch(personSearchCommand, errors);
-		assertThat(expectedPersonSearchRequest.getPersonSurName(), is("lastName"));
-		assertThat(expectedPersonSearchRequest.getPersonFBINumber(),is("044445Z9"));
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("lastName"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonFBINumber(),is("044445Z9"));
 	}
 	
 	@Test
@@ -236,10 +235,9 @@ public class SimpleSearchParserTest {
 		personSearchCommand.setSimpleSearch("lastName WA-JONESHT234B");
 		personSearchCommand.setAdvanceSearch(advanceSearch);
 		
-		PersonSearchRequest expectedPersonSearchRequest = unit
-				.validateAndParseSimpleSearch(personSearchCommand, errors);
+		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
 		
-		assertThat(expectedPersonSearchRequest.getOnBehalfOf(), is("onBehalfOf"));
-		assertThat(expectedPersonSearchRequest.getPurpose(), is("purpose"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getOnBehalfOf(), is("onBehalfOf"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPurpose(), is("purpose"));
 	}
 }

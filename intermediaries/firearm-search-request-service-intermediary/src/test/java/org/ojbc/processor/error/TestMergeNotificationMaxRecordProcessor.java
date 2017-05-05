@@ -24,8 +24,8 @@ import junit.framework.Assert;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.helpers.XMLUtils;
 import org.junit.Test;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
 public class TestMergeNotificationMaxRecordProcessor {
@@ -46,12 +46,12 @@ public class TestMergeNotificationMaxRecordProcessor {
 		//Read the firearm search request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/firearmSearchResults/firearmSearchResults.xml");
 
-		Document resultsDocument = XMLUtils.parse(inputFile);
+		Document resultsDocument = XmlUtils.parseFileToDocument(inputFile);
 		
 		String errorMessage = mergeNotificationMaxRecordProcessor.returnMergeNotificationErrorMessageTooManyRecords(resultsDocument, "1");
 	
 		log.debug(errorMessage);
 		
-		Assert.assertEquals("<exc:EntityMergeResultMessage xmlns:exc=\"http://nij.gov/IEPD/Exchange/EntityMergeResultMessage/1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:srer=\"http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0\" xmlns:intel=\"http://niem.gov/niem/domains/intelligence/2.1\" xmlns:srm=\"http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0\"> <exc:SearchResultsMetadataCollection> 	<srm:SearchResultsMetadata> 		<srer:SearchRequestError> 			<srer:ErrorText>The search results contained too many records, please refine your search.  The maximum combined number of records that will display is 1.<br />The Some County search results contained 3 records.<br />The  search results contained 0 records.<br /></srer:ErrorText> 			<intel:SystemName>All Systems</intel:SystemName> 		</srer:SearchRequestError> 	</srm:SearchResultsMetadata> </exc:SearchResultsMetadataCollection></exc:EntityMergeResultMessage>",errorMessage);
+		Assert.assertEquals("<exc:EntityMergeResultMessage xmlns:exc=\"http://nij.gov/IEPD/Exchange/EntityMergeResultMessage/1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:srer=\"http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0\" xmlns:intel=\"http://niem.gov/niem/domains/intelligence/2.1\" xmlns:srm=\"http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0\"> <exc:SearchResultsMetadataCollection> 	<srm:SearchResultsMetadata> 		<srer:SearchRequestError> 			<srer:ErrorText>The search results contained too many records, please refine your search.  The maximum combined number of records that will display is 1.<br />The  search results contained 0 records.<br />The Some County search results contained 3 records.<br /></srer:ErrorText> 			<intel:SystemName>All Systems</intel:SystemName> 		</srer:SearchRequestError> 	</srm:SearchResultsMetadata> </exc:SearchResultsMetadataCollection></exc:EntityMergeResultMessage>",errorMessage);
 	}
 }

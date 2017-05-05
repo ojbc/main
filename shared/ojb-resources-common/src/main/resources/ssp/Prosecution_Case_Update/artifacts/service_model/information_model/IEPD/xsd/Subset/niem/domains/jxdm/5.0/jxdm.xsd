@@ -1,0 +1,998 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xs:schema targetNamespace="http://release.niem.gov/niem/domains/jxdm/5.0/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <xs:annotation>
+    <xs:documentation>Justice</xs:documentation>
+  </xs:annotation>
+  <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
+  <xs:import schemaLocation="../../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
+  <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:complexType name="ActivityArrestAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an activity and an arrest.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ActivityCaseAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an activity and a case.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ActivityChargeAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an activity and a charge.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ActivityJudgeAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an activity and a judge.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Judge" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ActivitySubjectAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an activity and a subject.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ArrestType">
+    <xs:annotation>
+      <xs:documentation>A data type for the apprehension of a subject by a peace official.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:ArrestAgency" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ArrestCharge" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ArrestAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="BailType">
+    <xs:annotation>
+      <xs:documentation>A data type for details of a commitment made to secure the release of a subject being held in custody and suspected of a crime.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:BailSetAmount" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CaseAugmentationType">
+    <xs:annotation>
+      <xs:documentation>A data type for additional information about a case.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:AugmentationType">
+        <xs:sequence>
+          <xs:element ref="j:CaseCharge" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseCourt" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseCourtEvent" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseDefenseAttorney" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseHearing" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseJudge" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseOfficial" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseOtherIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseTrial" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CaseOfficialType">
+    <xs:annotation>
+      <xs:documentation>A data type for an official's involvement in a case.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="j:JudicialOfficialType">
+        <xs:sequence>
+          <xs:element ref="j:CaseOfficialCaseIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseOfficialCaseStatusText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseOfficialRoleDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseOfficialAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ChargeDispositionType">
+    <xs:annotation>
+      <xs:documentation>A data type for the results or processing of a charge.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:DispositionType">
+        <xs:sequence>
+          <xs:element ref="j:ChargeDispositionAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ChargeType">
+    <xs:annotation>
+      <xs:documentation>A data type for a formal allegation that a specific person has committed a specific offense.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:ChargeCategoryDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeOriginatorEntity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargePlea" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeSentence" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeSeverityLevel" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeSeverityText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeTrackingIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeCategory" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ConvictionType">
+    <xs:annotation>
+      <xs:documentation>A data type for a judgement that a defendant is guilty.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:ConvictionOffense" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CourtAppearanceType">
+    <xs:annotation>
+      <xs:documentation>A data type for an appearance required of a party in a court of law on a certain date.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:CourtAppearanceDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CourtAppearanceAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CourtEventType">
+    <xs:annotation>
+      <xs:documentation>A data type for a court occurrence.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:CourtEventAppearance" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CourtEventAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CourtType">
+    <xs:annotation>
+      <xs:documentation>A data type for a court or a unit of a court responsible for trying justice proceedings.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:OrganizationType">
+        <xs:sequence>
+          <xs:element ref="j:CourtName" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CourtAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="JudicialOfficialType">
+    <xs:annotation>
+      <xs:documentation>A data type for a person involved in a judicial area of government.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:JudicialOfficialRegistrationIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OffenseArrestAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a relationship between an offense and the arrest of a subject alleged to have committed the offense.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OffenseChargeAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a relationship between an offense that occurred and the formal charge that was assigned to it as a result of classifying the offense.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OffenseDispositionAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a relationship between an offense and the outcome of an activity that was triggered by the offense being committed in the first place.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Disposition" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OffenseType">
+    <xs:annotation>
+      <xs:documentation>A data type for an alleged violation of a statute, ordinance, or rule.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:OffenseDesignation" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:OffenseCategory" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:OffenseViolatedStatute" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:OffenseLevel" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:OffenseAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OrganizationAugmentationType">
+    <xs:annotation>
+      <xs:documentation>A data type for additional information about an organization.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:AugmentationType">
+        <xs:sequence>
+          <xs:element ref="j:OrganizationIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PersonAugmentationType">
+    <xs:annotation>
+      <xs:documentation>A data type for additional information about a person.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:AugmentationType">
+        <xs:sequence>
+          <xs:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:PersonAgeMeasure" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PersonChargeAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between a person and a charge.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:Charge" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PleaType">
+    <xs:annotation>
+      <xs:documentation>A data type for an answer which a defendant in an action at law makes to charges.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:PleaAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PresentenceInvestigationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an investigation occurring post conviction, but prior to sentence, that assesses a subject's probability of risk to the community in the form of future criminal behavior, the harm the offense caused and the need for restitution or cos</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:PresentenceInvestigationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PretrialInvestigationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an investigation occurring prior to trial that assesses the likelihood that a subject will fail to appear in court and the danger to the community posed by a subject.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:PretrialReleaseStatus" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:PretrialInvestigationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RegisteredOffenderType">
+    <xs:annotation>
+      <xs:documentation>A data type for information about a person who is required to register information with a law enforcement agency due to having been convicted of a certain type of crime.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:RegisteredOffenderIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SentenceType">
+    <xs:annotation>
+      <xs:documentation>A data type for a punishment resulting from conviction of charges in a court case.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:SentenceCharge" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SentenceCondition" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SentenceDeferredTerm" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SentenceGroupingText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SentenceIssuerEntity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SentenceSuspendedIndicator" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SentenceTerm" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SupervisionFineAmount" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SentenceAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SeverityLevelType">
+    <xs:annotation>
+      <xs:documentation>A data type for a sentencing guideline severity level assigned to a charge by a judge or supervising agency.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:SeverityLevelDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="StatuteType">
+    <xs:annotation>
+      <xs:documentation>A data type for a law, rule, or ordinance within a jurisdiction.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:StatuteCodeIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:StatuteCodeSectionIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:StatuteOffenseIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SubjectType">
+    <xs:annotation>
+      <xs:documentation>A data type for a person or organization that is involved or suspected of being involved in a violation of a criminal statute, ordinance or rule.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:SubjectIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="TermType">
+    <xs:annotation>
+      <xs:documentation>A data type for a duration length either in specific terms or as a range.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:TermDuration" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:TermLifeIndicator" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:TermMaximumDuration" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:TermMinimumDuration" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:TermAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ActivityArrestAssociation" type="j:ActivityArrestAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between an activity and an arrest.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ActivityCaseAssociation" type="j:ActivityCaseAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between an activity and a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ActivityChargeAssociation" type="j:ActivityChargeAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between an activity and a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ActivityJudgeAssociation" type="j:ActivityJudgeAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between an activity and a judge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="AmendedCharge" type="j:ChargeType">
+    <xs:annotation>
+      <xs:documentation>A charge that has been modified since the original charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Arrest" type="j:ArrestType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An apprehension of a subject by a peace official based on an observed or a reported violation of a law or ordinance, an outstanding arrest warrant, or probable cause information.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ArrestAgency" type="nc:OrganizationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An agency which employs the arresting official.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ArrestAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for ArrestType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ArrestCharge" type="j:ChargeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A formal allegation of a violation of a statute and/or ordinance in association with an arrest.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ArrestSubjectAssociation" type="j:ActivitySubjectAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A relationship between an arrest activity and a subject.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Bail" type="j:BailType">
+    <xs:annotation>
+      <xs:documentation>A commitment made (and possibly secured by cash or property) to secure the release of a subject being held in custody and suspected of a crime.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="BailSetAmount" type="nc:AmountType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A monetary amount approved for bail.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseAugmentation" type="j:CaseAugmentationType" substitutionGroup="nc:CaseAugmentationPoint" nillable="true">
+    <xs:annotation>
+      <xs:documentation>Additional information about a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseCharge" type="j:ChargeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A charge or accusation a person is being tried for in a court of law.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseCourt" type="j:CourtType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A court of law in which the case is being tried.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseCourtEvent" type="j:CourtEventType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A court occurrence related to a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseDefenseAttorney" type="j:CaseOfficialType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An attorney who defends a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseHearing" type="j:CourtEventType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An appearance before a judicial official conducted in person, by telephone, or by video. </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseJudge" type="j:CaseOfficialType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A judicial official assigned to a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseOfficial" type="j:CaseOfficialType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A justice official's involvement in a court case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseOfficialAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CaseOfficialType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseOfficialCaseIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A unique identification a justice official uses to identify a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseOfficialCaseStatusText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A status of a justice official's case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseOfficialRoleDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of the role a justice official played in a court case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseOtherIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A miscellaneous identification for a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CaseTrial" type="j:CourtEventType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A kind of hearing during which the final disposition of a case is determined.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Charge" type="j:ChargeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A formal allegation that a specific person has committed a specific offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for ChargeType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind of charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeCategoryDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of a crime category.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeCountQuantity" type="niem-xs:nonNegativeInteger" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A number of times a person is charged with committing the same crime.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A plain language description of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeDisposition" type="j:ChargeDispositionType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A result or processing of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeDispositionAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for ChargeDispositionType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A unique identification number assigned to a particular charge by an arresting agency, prosecuting attorney, or a court for case management purposes.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeOriginatorEntity" type="nc:EntityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An entity that originally filed a charge or a related predecessor charge if the charge was changed later by prosecution or the court.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargePlea" type="j:PleaType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An answer which a defendant in an action at law makes in response to a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeSentence" type="j:SentenceType">
+    <xs:annotation>
+      <xs:documentation>A sentence given to a person convicted of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeSequenceID" type="niem-xs:string" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A sequentially assigned identifier for charge tracking purposes.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeSeverityLevel" type="j:SeverityLevelType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A severity level of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeSeverityText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A level of severity of a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeStatute" type="j:StatuteType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A unique identifier of a law, rule, or ordinance within a jurisdiction that a person is accused of violating.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeTrackingIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A unique identification number assigned to an entire set of charges for an arrest. Different numbers may appear in the set if cases have been consolidated.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Conviction" type="j:ConvictionType">
+    <xs:annotation>
+      <xs:documentation>A judgment, based either on the verdict of a jury or judicial official or the guilty plea of a defendant, that the defendant is guilty.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ConvictionOffense" type="nc:IncidentType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An offense that a person has been found guilty of committing.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Court" type="j:CourtType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A court or a unit of a court responsible for trying justice proceedings.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtAppearance" type="j:CourtAppearanceType">
+    <xs:annotation>
+      <xs:documentation>An appearance required of a party in a court of law on a certain date.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtAppearanceAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CourtAppearanceType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtAppearanceDate" type="nc:DateType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A date on which a party must appear in court.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CourtType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtCharge" type="j:ChargeType">
+    <xs:annotation>
+      <xs:documentation>A charge a person is tried for in court.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtEventAppearance" type="j:CourtAppearanceType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An appearance in court required of a party</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtEventAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for CourtEventType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="CourtName" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of a unit of a court.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DispositionCategoryCodeText" type="nc:TextType" substitutionGroup="nc:DispositionCategory">
+    <xs:annotation>
+      <xs:documentation>A kind of disposition.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DiversionProgram" type="nc:ProgramType">
+    <xs:annotation>
+      <xs:documentation>A program designed to help a person give up a criminal lifestyle.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Judge" type="j:JudicialOfficialType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An official who hears and decides a case or who rules over a case proceeding.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="JudicialOfficialRegistrationIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification assigned to a judicial official after registering within a state or region.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Offense" type="j:OffenseType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An act or a course of action which may constitute a violation of a criminal statute, ordinance or rule that occurred during an incident.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseArrestAssociation" type="j:OffenseArrestAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A relationship between an offense and the arrest of a subject alleged to have committed the offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for OffenseType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind of offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseCategoryText" type="nc:TextType" substitutionGroup="j:OffenseCategory">
+    <xs:annotation>
+      <xs:documentation>A kind of offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseChargeAssociation" type="j:OffenseChargeAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A relationship between an offense that occurred and the formal charge that was assigned to it as a result of classifying the offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseDesignation" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a distinguishing designation of an offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseDispositionAssociation" type="j:OffenseDispositionAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A relationship between an offense and the outcome of an activity that was triggered by the offense being committed in the first place.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseLevel" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a level of an offense, such as a felony or misdemeanor.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseViolatedStatute" type="j:StatuteType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A set of details about a statute, rule, or ordinance that was violated as a result of an offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationAugmentation" type="j:OrganizationAugmentationType" substitutionGroup="nc:OrganizationAugmentationPoint">
+    <xs:annotation>
+      <xs:documentation>Additional information about an organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationIdentification" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for an identification for an organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationORIIdentification" type="nc:IdentificationType" substitutionGroup="j:OrganizationIdentification">
+    <xs:annotation>
+      <xs:documentation>A unique nine character NCIC identification (ORI) assigned to a justice-related organization by the FBI CJIS Division.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonAgeMeasure" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a measurement of the age of person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonAugmentation" type="j:PersonAugmentationType" substitutionGroup="nc:PersonAugmentationPoint" nillable="true">
+    <xs:annotation>
+      <xs:documentation>Additional information about a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonChargeAssociation" type="j:PersonChargeAssociationType">
+    <xs:annotation>
+      <xs:documentation>An association between a person and a charge issued to that person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonStateFingerprintIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identifier assigned to a person by a state identification bureau, generally based on submission of the person's fingerprints to the state's Automated Fingerprint Identification System (AFIS).</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PleaAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for PleaType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PresentenceInvestigation" type="j:PresentenceInvestigationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An investigation occurring post conviction, but prior to sentence, that assesses a subject's probability of risk to the community in the form of future criminal behavior, the harm the offense caused and the need for restitution or cost.  Also assesse</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PresentenceInvestigationAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for PresentenceInvestigationType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PretrialInvestigation" type="j:PretrialInvestigationType">
+    <xs:annotation>
+      <xs:documentation>An investigation occurring prior to trial that assesses the likelihood that a subject will fail to appear in court and the danger to the community posed by a subject.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PretrialInvestigationAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for PretrialInvestigationType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PretrialReleaseStatus" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a release status of a subject of pre-trial investigation.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ProsecutionCharge" type="j:ChargeType">
+    <xs:annotation>
+      <xs:documentation>A charge filed by a prosecuting attorney.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="RegisteredOffender" type="j:RegisteredOffenderType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person that is required to register their residential information with a local law enforcement agency due to having been convicted of a certain kind of crime.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="RegisteredOffenderIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification identifying a person as a certain kind of registered offender.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SanctionSuspendedObligation" type="nc:ObligationType">
+    <xs:annotation>
+      <xs:documentation>An amount of money or time requirement of a sanction that is no longer required to be paid.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for SentenceType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceCharge" type="j:ChargeType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A specific charge in a court case resulting in a sentence.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceCondition" type="nc:ConditionType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description and duration of a sentence component.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceDeferredTerm" type="j:TermType">
+    <xs:annotation>
+      <xs:documentation>A deferred term.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceGroupingText" type="nc:TextType">
+    <xs:annotation>
+      <xs:documentation>An order to how a sentence must be served.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceIssuerEntity" type="nc:EntityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An entity which issued a sentence.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceSuspendedIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if the sentence has been suspended; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SentenceTerm" type="j:TermType">
+    <xs:annotation>
+      <xs:documentation>A duration of a sentence. Specified as either a specific term in days-months-years or as a minimum - maximum range.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SeverityLevelDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A narrative description of a severity level assigned to a charge.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="StatuteCodeIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification number of a set of laws for a particular jurisdiction.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="StatuteCodeSectionIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification of a section or category within a code book.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="StatuteOffenseIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification of a criminal offense within a code book.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Subject" type="j:SubjectType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person who is involved or suspected of being involved in an incident or criminal activity.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SubjectIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An assigned identification that identifies a subject.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SupervisionFineAmount" type="nc:AmountType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A pecuniary criminal punishment or penalty payable to the public treasury</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TermAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for TermType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TermDuration" type="niem-xs:duration" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A specific range or duration of a term.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TermLifeIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if the term is not for a set duration length but for life; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TermMaximumDuration" type="niem-xs:duration" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A maximum range or duration for a term.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TermMinimumDuration" type="niem-xs:duration" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A minimum range or duration for a term.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

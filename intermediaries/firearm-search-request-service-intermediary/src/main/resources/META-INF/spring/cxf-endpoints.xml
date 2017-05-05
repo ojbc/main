@@ -41,7 +41,7 @@
 	<!-- Firearm Search Request Service, hosted by OJB  -->
 	<cxf:cxfEndpoint id="firearmSearchRequestFederatedService"
 		address="${federatedQuery.firearmSearch.firearmSearchFederatedServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Firearm_Search_Request_Service/schema/SIP_WS_1.2/Firearm_Search_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Firearm_Search_Request/schema/SIP_WS_1.2/Firearm_Search_Request_Service.wsdl"
 		serviceName="ojbc:Firearm_Search_Request_Service_Service" endpointName="ojbc:Firearm_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0">
 		<cxf:properties>
@@ -49,12 +49,13 @@
 			<entry key="ws-security.signature.properties" value-ref="firearmSearchRequestKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${federatedQuery.firearmSearch.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
 		</cxf:properties>
 	</cxf:cxfEndpoint>
 
 	<!-- Firearms Search Request Adapter, address will be set dynamically -->
 	<cxf:cxfEndpoint id="firearmSearchRequestServiceAdapter"
-		wsdlURL="classpath:service-specifications/Firearm_Search_Request_Service/schema/SIP_WS_1.2/Firearm_Search_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Firearm_Search_Request/schema/SIP_WS_1.2/Firearm_Search_Request_Service.wsdl"
 		serviceName="ojbc:Firearm_Search_Request_Service_Service" endpointName="ojbc:Firearm_Search_Request_Secure_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0">
 		<cxf:properties>
@@ -67,7 +68,7 @@
 
 	<cxf:cxfEndpoint id="firearmSearchResultsFederatedService"
 		address="${federatedQuery.firearmSearch.firearmSearchResultsFederatedServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Firearm_Search_Results_Service/schema/SIP_WS_1.2/Firearm_Search_Results_Service.wsdl"
+		wsdlURL="classpath:ssp/Firearm_Search_Results/schema/SIP_WS_1.2/Firearm_Search_Results_Service.wsdl"
 		serviceName="ojbc:Firearm_Search_Results_Service_Service" endpointName="ojbc:Firearm_Search_Results_Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmSearchResultsService/1.0">
 		 <cxf:features> 
@@ -85,7 +86,7 @@
     <!-- OJB Entity Resolution Request handler -->
 	<cxf:cxfEndpoint id="entityResolutionRequestService"
 		address="${federatedQuery.entityResolutionRequestEndpoint}"
-		wsdlURL="classpath:service-specifications/Entity_Resolution_Service/schemas/SIP_WS_1.3/Entity_Resolution_Service.wsdl"
+		wsdlURL="classpath:ssp/Entity_Resolution_Service/schemas/SIP_WS_1.3/Entity_Resolution_Service.wsdl"
 		serviceName="ers:Entity-Resolution-ServiceService" endpointName="ers:Entity-Resolution-Service"
 		xmlns:ers="http://nij.gov/Services/WSDL/EntityResolutionService/1.0">
 		<cxf:features>
@@ -102,7 +103,7 @@
 	<!-- OJB Merge Notification Service handler -->
 	<cxf:cxfEndpoint id="mergeNotificationService"
 		address="${federatedQuery.mergeNotificationServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
+		wsdlURL="classpath:ssp/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
 		serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
 		xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
 		<cxf:features>
@@ -119,7 +120,7 @@
 	<!-- Present Merge Notification Service Results -->
 	<cxf:cxfEndpoint id="presentMergeNotificationServiceResults"
 		address="${federatedQuery.firearmSearch.presentMergeNotificationResultsEndpoint}"
-		wsdlURL="classpath:service-specifications/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
+		wsdlURL="classpath:ssp/Merge_Notification_Service/schemas/SIP_RSWS_1.1/Merge_Notification_Service.wsdl"
 		serviceName="mns:Merge-Notification-ServiceService" endpointName="mns:Merge-Notification-Service"
 		xmlns:mns="http://nij.gov/Services/WSDL/MergeNotificationService/1.0">
 		<cxf:features>

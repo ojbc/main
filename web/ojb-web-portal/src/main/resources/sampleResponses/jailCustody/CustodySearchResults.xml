@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<cs-res-doc:CustodySearchResults
+	xmlns:cs-res-doc="http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0"
+	xmlns:cs-res-ext="http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0 ../xsd/exchange_schema.xsd ">
+	<cs-res-ext:CustodySearchResult structures:id="Result_01">
+		<nc:DocumentCreationDate>
+			<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+		</nc:DocumentCreationDate>
+		<nc:DocumentIdentification>
+			<nc:IdentificationID>record identification</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>record
+				description</nc:IdentificationCategoryDescriptionText>
+		</nc:DocumentIdentification>
+		<nc:Person structures:id="Person_01" structures:metadata="M001">
+			<nc:PersonBirthDate>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>nc:PersonGivenName</nc:PersonGivenName>
+				<nc:PersonMiddleName>nc:PersonMiddleName</nc:PersonMiddleName>
+				<nc:PersonSurName>nc:PersonSurName</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonSexText>nc:PersonSexText</nc:PersonSexText>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<j:PersonAugmentation>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>CO1298765678</nc:IdentificationID>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
+		</nc:Person>
+		<cs-res-ext:Booking structures:id="Booking_01">
+			<j:FingerprintDate>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</j:FingerprintDate>
+			<j:BookingSubject>
+				<j:SubjectIdentification>
+					<nc:IdentificationID>Booking Number</nc:IdentificationID>
+				</j:SubjectIdentification>
+			</j:BookingSubject>
+			<nc:Image>
+				<nc:ImageLocation>
+					<nc:LocationDescriptionText>http://asco.ojbc.org/inmatelookup/image/33334444</nc:LocationDescriptionText>
+				</nc:ImageLocation>
+			</nc:Image>
+		</cs-res-ext:Booking>
+		<j:Charge structures:id="Charge_01">
+			<j:ChargeCountQuantity>0</j:ChargeCountQuantity>
+			<j:ChargeDescriptionText>j:ChargeDescriptionText</j:ChargeDescriptionText>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
+				</j:StatuteCodeIdentification>
+			</j:ChargeStatute>
+		</j:Charge>
+		<j:PersonChargeAssociation>
+			<nc:Person structures:ref="Person_01"/>
+			<j:Charge structures:ref="Charge_01"/>
+		</j:PersonChargeAssociation>
+		<j:ActivityChargeAssociation>
+			<nc:Activity structures:ref="Booking_01"/>
+			<j:Charge structures:ref="Charge_01"/>
+		</j:ActivityChargeAssociation>
+		<cs-res-ext:SourceSystemNameText>ASCO JMS</cs-res-ext:SourceSystemNameText>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>A0188904</nc:IdentificationID>
+			<nc:SystemName>Court</nc:SystemName>
+		</intel:SystemIdentification>
+		<cs-res-ext:SearchResultCategoryText>Criminal History</cs-res-ext:SearchResultCategoryText>
+		<cs-res-ext:InformationOwningOrganization>
+			<nc:OrganizationBranchName>branch</nc:OrganizationBranchName>
+			<nc:OrganizationName>County Court</nc:OrganizationName>
+		</cs-res-ext:InformationOwningOrganization>
+		<nc:Metadata structures:id="M001">
+			<nc:LastUpdatedDate>
+				<nc:Date>2014-12-10</nc:Date>
+			</nc:LastUpdatedDate>
+		</nc:Metadata>
+	</cs-res-ext:CustodySearchResult>
+	<cs-res-ext:CustodySearchResult structures:id="Result_02">
+		<nc:DocumentCreationDate>
+			<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+		</nc:DocumentCreationDate>
+		<nc:DocumentIdentification>
+			<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+			<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
+		</nc:DocumentIdentification>
+		<nc:Person structures:id="Person_02" structures:metadata="M002">
+			<nc:PersonBirthDate>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</nc:PersonBirthDate>
+			<nc:PersonName>
+				<nc:PersonGivenName>nc:PersonGivenName</nc:PersonGivenName>
+				<nc:PersonMiddleName>nc:PersonMiddleName</nc:PersonMiddleName>
+				<nc:PersonSurName>nc:PersonSurName</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonSexText>nc:PersonSexText</nc:PersonSexText>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>123-45-6789</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<j:PersonAugmentation>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>CO1298765678</nc:IdentificationID>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
+		</nc:Person>
+		<cs-res-ext:Booking structures:id="Booking_02">
+			<j:FingerprintDate>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</j:FingerprintDate>
+			<j:BookingSubject>
+				<j:SubjectIdentification>
+					<nc:IdentificationID>Booking Number</nc:IdentificationID>
+				</j:SubjectIdentification>
+			</j:BookingSubject>
+			<nc:Image>
+				<nc:ImageLocation>
+					<nc:LocationDescriptionText>http://asco.ojbc.org/inmatelookup/image/33334444</nc:LocationDescriptionText>
+				</nc:ImageLocation>
+			</nc:Image>
+		</cs-res-ext:Booking>
+		<j:Charge structures:id="Charge_02">
+			<j:ChargeCountQuantity>0</j:ChargeCountQuantity>
+			<j:ChargeDescriptionText>j:ChargeDescriptionText</j:ChargeDescriptionText>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+					<nc:IdentificationCategoryDescriptionText>nc:IdentificationCategoryDescriptionText</nc:IdentificationCategoryDescriptionText>
+				</j:StatuteCodeIdentification>
+			</j:ChargeStatute>
+		</j:Charge>
+		<j:PersonChargeAssociation>
+			<nc:Person structures:ref="Person_02"/>
+			<j:Charge structures:ref="Charge_02"/>
+		</j:PersonChargeAssociation>
+		<j:ActivityChargeAssociation>
+			<nc:Activity structures:ref="Booking_02"/>
+			<j:Charge structures:ref="Charge_02"/>
+		</j:ActivityChargeAssociation>
+		<cs-res-ext:SourceSystemNameText>Alpha Court System </cs-res-ext:SourceSystemNameText>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>A0188904</nc:IdentificationID>
+			<nc:SystemName>Court</nc:SystemName>
+		</intel:SystemIdentification>
+		<cs-res-ext:SearchResultCategoryText>Criminal History</cs-res-ext:SearchResultCategoryText>
+		<cs-res-ext:InformationOwningOrganization>
+			<nc:OrganizationBranchName>branch</nc:OrganizationBranchName>
+			<nc:OrganizationName>County Court</nc:OrganizationName>
+		</cs-res-ext:InformationOwningOrganization>
+		<nc:Metadata structures:id="M002">
+			<nc:LastUpdatedDate>
+				<nc:Date>2014-12-10</nc:Date>
+			</nc:LastUpdatedDate>
+		</nc:Metadata>
+	</cs-res-ext:CustodySearchResult>
+</cs-res-doc:CustodySearchResults>

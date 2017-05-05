@@ -19,12 +19,19 @@ package org.ojbc.web.portal.controllers.simpleSearchExtractors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DriverLicenseExtractor extends SearchTermExtractorBase {
 
+	private final Log logger = LogFactory.getLog(this.getClass());
+	
     private Pattern pattern;
-    private String defaultStateOfIssue;
+    
+    private String defaultStateOfIssue;       
     
     public DriverLicenseExtractor() {
     }
@@ -41,20 +48,28 @@ public class DriverLicenseExtractor extends SearchTermExtractorBase {
 
     @Override
     protected boolean extractTermLocal(String token, PersonSearchRequest personSearchRequest) {
+    	
         Matcher matcher = pattern.matcher(token);
+        
         if (matcher.matches()) {
+        	
             if (matcher.groupCount() != 3) {
                 throw new IllegalStateException("Drivers License Extractors must have three regex groups");
             }
-            if (matcher.group(1) != null) {
+            
+            if (matcher.group(1) != null) {            	
                 personSearchRequest.setPersonDriversLicenseIssuer(matcher.group(1).substring(0, 2));
                 personSearchRequest.setPersonDriversLicenseNumber(matcher.group(2));
-            } else {
+                
+            } else {            	
                 personSearchRequest.setPersonDriversLicenseIssuer(defaultStateOfIssue);
                 personSearchRequest.setPersonDriversLicenseNumber(token);
             }
             return true;
         }
+        
+        logger.warn("\n\n\n * * * DriverLicenseExtractor.extractTermLocal() returning false (no match) * * *  \n\n\n");
+        
         return false;
 
     }

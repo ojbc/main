@@ -17,40 +17,39 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>incident-reporting-service-intermediary-common</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 
 	<name>OJB :: incident-reporting-service-intermediary-common :: intermediary</name>
 	<url>http://www.ojbc.org</url>
 
 	<parent>
 		<groupId>org.ojbc.build</groupId>
-	  <artifactId>ojb-intermediaries-aggregate</artifactId>
-	  <version>1.0.0</version>
+		<artifactId>ojb-intermediaries-aggregate</artifactId>
+		<version>1.0.0</version>
 	</parent>
 
 	<properties>
-		<jodatime-version>1.6.2</jodatime-version>
-		<commons-lang-version>2.4</commons-lang-version>
-		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
-		<ojb-camel-common-version>[1.0.0,)</ojb-camel-common-version>
-		<ojb-common-version>[2.0.0,)</ojb-common-version>
+		<camel-version>2.14.4</camel-version>
+		<jodatime-version>2.2</jodatime-version>
+		<commons-lang-version>2.6</commons-lang-version>
+		<ojb-common-version>[3.0.0,)</ojb-common-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-		<slf4j-version>1.6.4</slf4j-version>
-		<log4j-version>1.2.16</log4j-version>
+		<slf4j-version>1.7.12</slf4j-version>
+		<log4j-version>1.2.17</log4j-version>
 		<junit.version>4.10</junit.version>
 		<hamcrest.version>1.3.RC2</hamcrest.version>
 		<mockito.version>1.9.0</mockito.version>
 		<dbunit.version>2.4.9</dbunit.version>
 		<commonsIo.version>2.4</commonsIo.version>
-		<spring-version>3.0.7.RELEASE</spring-version>
-		<h2-mock-database-version>[1.0.0,)</h2-mock-database-version>
+		<spring-version>3.2.11.RELEASE</spring-version>	
+		<h2-mock-database-version>[2.0.0,)</h2-mock-database-version>
+		<java-version>1.8</java-version>
 	</properties>
 
 	<dependencies>
@@ -58,6 +57,12 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
 			<version>${spring-version}</version>
 		</dependency>
 
@@ -75,34 +80,37 @@
 		<!-- OJB Shared Bundles -->
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-camel-common</artifactId>
-			<version>${ojb-camel-common-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-common</artifactId>
 			<version>${ojb-common-version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.ojbc.bundles.shared</groupId>
-			<artifactId>ojb-resources-common</artifactId>
-			<version>${ojb-resources-common-version}</version>
-		</dependency>
-
+		<!-- Testing -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit-dep</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring-version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-core</artifactId>
+		  <version>${spring-version}</version>
+		  <optional>true</optional>
+		</dependency>	
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-test-spring3</artifactId>
+			<version>${camel-version}</version>
+			<scope>test</scope>
+		</dependency>
+			
 		<dependency>
 			<groupId>org.dbunit</groupId>
 			<artifactId>dbunit</artifactId>
@@ -128,7 +136,6 @@
 			</exclusions>
 		</dependency>
 
-		<!-- Test -->
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-library</artifactId>
@@ -158,22 +165,10 @@
 			<version>${commonsIo.version}</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-
-		<resources>
-			<resource>
-				<directory>${basedir}/src/main/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>META-INF/spring/**</include>
-					<include>**/*.*</include>
-				</includes>
-			</resource>
-		</resources>
 
 		<plugins>
 			<plugin>
@@ -181,8 +176,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
 				</configuration>
 			</plugin>
 
@@ -191,11 +186,11 @@
 				<artifactId>maven-bundle-plugin</artifactId>
 				<version>${maven-bundle-plugin-version}</version>
 				<extensions>true</extensions>
-				<configuration><instructions>
-					<DynamicImport-Package>*</DynamicImport-Package>
-					<Import-Package>javax.xml.*,*</Import-Package>
-					<Export-Package>org.ojbc.incidentReporting.*</Export-Package>
-				</instructions></configuration>
+				<configuration>
+					<instructions>
+						<Export-Package>org.ojbc.incidentReporting.*</Export-Package>
+					</instructions>
+				</configuration>
 			</plugin>
 
 		</plugins>

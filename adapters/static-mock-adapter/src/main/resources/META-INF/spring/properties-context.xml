@@ -32,14 +32,14 @@
 	<bean id="bridgePropertyPlaceholder"
 		class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
 		<property name="propertiesArray">
-			<array>
+			<util:list>
 				<!-- The .cfg file from the classpath will be consulted first, followed 
 					by the optional .cfg file under $KARAF_HOME/etc -->
 				<util:properties
 					location="classpath:static_mock_adapter.cfg" />
 				<osgix:cm-properties id="osgiProperties"
 					persistent-id="static_mock_adapter" />
-			</array>
+			</util:list>
 		</property>
 	</bean>
 

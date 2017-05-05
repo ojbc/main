@@ -22,7 +22,7 @@ import static junit.framework.Assert.assertNotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.ws.security.saml.ext.builder.SAML2Constants;
+import org.apache.wss4j.common.saml.builder.SAML2Constants;
 import org.junit.Test;
 import org.ojbc.util.camel.security.saml.SAMLAssertionBuilder;
 import org.ojbc.util.model.saml.SamlAttribute;

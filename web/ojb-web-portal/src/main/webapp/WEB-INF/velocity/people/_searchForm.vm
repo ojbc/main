@@ -19,34 +19,7 @@
 	      //to prevent IE from caching search forms, this has the effect that the input values are not remembered
           $.ajaxSetup({ cache: false });
  		  ojbc.handlePlaceholders(); 
-    	  
-    	  $('#advancedSearchForm').validate({
-                rules: {
-                    "ageRangeStart": {
-                        digits: true
-                    },
-                    "ageRangeEnd": {
-                        digits: true
-                    },
-                    "heightInFeet": {
-                        digits: true
-                    },
-                    "heightInInches": {
-                        digits: true
-                    },
-                    "heightTolerance": {
-                        digits: true
-                    },
-                    "advanceSearch.personWeight": {
-                        digits: true
-                    },
-                    "weightTolerance": {
-                        digits: true
-                    }
-                 
-                }
-            });
-    
+ 		  
     	    var index = $('#searchTabs a[href="#${activeSearchTab}"]').parent().index();
     	    $( "#searchTabs" ).tabs({ active: index});
     	    
@@ -62,7 +35,6 @@
 	                break; 
 	       }        	  	    
     	    	
-    	    
     	    $( ".datePicker" ).datepicker({
     	       showOn: "both",
     	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
@@ -82,7 +54,7 @@
                 	ojbc.clearPlaceholders();
                     var formData = $('#advancedSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val()
                 
-		  	       	$.post("#springUrl('/people/advanceSearch')",formData,function(data) {
+		  	       	xhr = $.post("#springUrl('/people/advanceSearch')",formData,function(data) {
 				        $('#portalContent').html(data);
 			        }).fail(ojbc.displayFailMessage);
 			    }
@@ -93,7 +65,7 @@
                 	ojbc.clearPlaceholders();
                     var formData = $('#juvenileSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
                 
-		  	       	$.post("#springUrl('/people/advanceSearch')",formData,function(data) {
+		  	       	xhr = $.post("#springUrl('/people/advanceSearch')",formData,function(data) {
 				        $('#portalContent').html(data);
 				        }).fail(ojbc.displayFailMessage);
     		  	}
@@ -102,7 +74,7 @@
     		$('#simpleSearchSubmitButton').click (function(){
     		    ojbc.clearPlaceholders();
                 var formData = $('#simpleSearchForm').serialize()+"&advanceSearch.sourceSystems="+ojbc.collectAllCheckBoxValues()+"&advanceSearch.purpose="+$('#purposeSelect').val()+"&advanceSearch.onBehalfOf="+$('#onBehalfOf').val();
-		  		$.post("#springUrl('/people/simpleSearch')",formData,function(data) {
+		  		xhr = $.post("#springUrl('/people/simpleSearch')",formData,function(data) {
 				      $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage);
 		  	});
@@ -219,24 +191,9 @@
         <li><a href="#advancedSearchTab">ADVANCED SEARCH</a></li>
         <li><a href="#simpleSearchTab">SIMPLE SEARCH</a></li>
     </ul>
-	<div id="simpleSearchTab">
-	    <form id='simpleSearchForm'>
-     		#springBind( "personSearchCommand.searchType" )
-			<input type="hidden" name="${status.expression}" value="SIMPLE" /><br/>
-	        <p> Enter search criteria below </p>
-            <div>   
-                #springFormInput("personSearchCommand.simpleSearch" "placeholder='Search Term(s)'") <br/>
-                #springShowErrors( "<br/>" "error" )
-             </div>
-	            
-	         <div class="searchCancelSection" >
-	            <a id="simpleSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
-	            <a id="simpleSearchClearButton" class="grayButton"  >CLEAR</a>
-	        </div>
-        </form>
-      </div>
-      <div id="advancedSearchTab">
-  	    <form id='advancedSearchForm' >
+	#parse('people/_simpleSearchTab.vm')
+    <div id="advancedSearchTab">
+  	    <form id='advancedSearchForm'>
             #if($errors.hasGlobalErrors())
                 #foreach( $globalError in $errors.globalErrors )
                     <div class="error"> $globalError.defaultMessage </div>
@@ -249,23 +206,23 @@
     	  			<tr>
     	  				<td>
     				        <p class="searchSubHeader"> NAME</p>
-    				        <div>#springFormInput("personSearchCommand.advanceSearch.personGivenName" "placeholder='First Name'") </div>
+    				        <div>#springFormInput("personSearchCommand.advanceSearch.personGivenName" "placeholder='First Name'") #springShowErrors( "<br/>" "error" )</div>
     				        <div class="radioButtonBar" >#springFormRadioButtons("personSearchCommand.advanceSearch.personGivenNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "" ) </div>   
-    				        <div>#springFormInput("personSearchCommand.advanceSearch.personMiddleName" "placeholder='Middle Name'")</div>
-    				        <div>#springFormInput("personSearchCommand.advanceSearch.personSurName" "placeholder='Last Name'")</div>
+    				        <div>#springFormInput("personSearchCommand.advanceSearch.personMiddleName" "placeholder='Middle Name'") #springShowErrors( "<br/>" "error" )</div>
+    				        <div>#springFormInput("personSearchCommand.advanceSearch.personSurName" "placeholder='Last Name'") #springShowErrors( "<br/>" "error" )</div>
     				        <div class="radioButtonBar" > #springFormRadioButtons("personSearchCommand.advanceSearch.personSurNameMetaData" {"StartsWith": "Starts With", "ExactMatch": "Exact Match"} "" "") </div>   
     				        
     				        <div class="labelText" >
     				        	DOB From: 
-    				        		#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='datePicker mdate'")<br>
-    				        		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='datePicker mdate'")
+    				        		#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeStart" "class='mdate'")<br>
+    				        		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#springFormInput("personSearchCommand.advanceSearch.personDateOfBirthRangeEnd"  "class='mdate'")
     				        		#springBind("personSearchCommand.advanceSearch.personDateOfBirthRangeStart")
                                  #springShowErrors( "<br/>" "error" )
     				        </div>
     				        
     				        <div class="labelText" >
     				        	Age Range:
-        			  		     #springFormInput("personSearchCommand.ageRangeStart" "") to #springFormInput("personSearchCommand.ageRangeEnd" "")<br/> 
+        			  		     #springFormInput("personSearchCommand.ageRangeStart" "class='shortDigit'") to #springFormInput("personSearchCommand.ageRangeEnd" "class='shortDigit'")<br/> 
     				        	 #springBind("personSearchCommand.ageRangeStart")
     				        	 #springShowErrors( "<br/>" "error" )
     				        </div>
@@ -276,24 +233,33 @@
     				        <div>#springFormSingleSelect("personSearchCommand.advanceSearch.personHairColor" $hairColors "") </div>
     				        
     				        <div class="labelText" >
-        				        Height #springFormInput("personSearchCommand.heightInFeet" "")' #springFormInput("personSearchCommand.heightInInches" "")" +/-#springFormInput("personSearchCommand.heightTolerance" "")" 
+        				        Height #springFormInput("personSearchCommand.heightInFeet" "class='shortDigit'")' #springFormInput("personSearchCommand.heightInInches" "class='shortDigit'")" +/-#springFormInput("personSearchCommand.heightTolerance" "class='shortDigit'")" 
         				        &nbsp;
-        				        Weight #springFormInput("personSearchCommand.advanceSearch.personWeight" "")+/-#springFormInput("personSearchCommand.weightTolerance" "")
+        				        Weight #springFormInput("personSearchCommand.advanceSearch.personWeight" "class='shortDigit'")+/-#springFormInput("personSearchCommand.weightTolerance" "class='shortDigit'")
     				        </div>
     		        	</td>
     		  			<td>
         			  		  <p class="searchSubHeader" >IDENTIFIERS</p>
         			  		  <div>
-        			  		     #springFormInput("personSearchCommand.advanceSearch.personSID" "placeholder='SID #'")<br/>
+        			  		     #springFormInput("personSearchCommand.advanceSearch.personSID" "placeholder='SID #'")
         			  		     #springShowErrors( "<br/>" "error" )
         			  		  </div>
-        			  		  <div>#springFormInput("personSearchCommand.advanceSearch.personFBINumber" "placeholder='FBI #'") </div>
+        			  		  <div>
+        			  		  	#springFormInput("personSearchCommand.advanceSearch.personFBINumber" "placeholder='FBI #'")
+        			  		  	#springShowErrors( "<br/>" "error" ) 
+        			  		  </div>
         			  		  <div>
         			  		     #springFormInput("personSearchCommand.advanceSearch.personSocialSecurityNumber" "placeholder='SSN (XXX-XX-XXXX)' class='ssn'")<br/> 
         			  		     #springShowErrors( "<br/>" "error" )
         			  		  </div>
-        			  		  <div>#springFormInput("personSearchCommand.advanceSearch.personDriversLicenseNumber" "placeholder='DL/ID #'") </div>
-        			  		  <div>#springFormInput("personSearchCommand.advanceSearch.personDriversLicenseIssuer" "placeholder='Issuer'") </div>
+        			  		  <div>
+        			  		  	 #springFormInput("personSearchCommand.advanceSearch.personDriversLicenseNumber" "placeholder='DL/ID #'")
+        			  		  	 #springShowErrors( "<br/>" "error" )
+        			  		   </div>
+        			  		  <div>
+        			  		  	#springFormInput("personSearchCommand.advanceSearch.personDriversLicenseIssuer" "placeholder='Issuer'")
+        			  		  	#springShowErrors( "<br/>" "error" ) 
+        			  		  </div>
     					</td>
     	        	<tr>
     	        </table>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema
+	xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:unece="http://niem.gov/niem/unece_rec20-misc/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0"
+	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+	xmlns:citation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
+	targetNamespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
+	version="4.0">
+	<xsd:annotation>
+		<xsd:documentation>CriminalCase</xsd:documentation>
+		<xsd:appinfo>
+			<i:ConformantIndicator>true</i:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
+		schemaLocation="../constraint/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
+		schemaLocation="../constraint/niem/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0"
+		schemaLocation="../constraint/niem/appinfo/2.0/appinfo.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
+		schemaLocation="../constraint/niem/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0"
+		schemaLocation="../constraint/niem/domains/jxdm/4.0/jxdm.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/ansi-nist/2.0"
+		schemaLocation="../constraint/niem/ansi-nist/2.0/ansi-nist.xsd" />
+	<xsd:import
+		namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+		schemaLocation="../common/ECF-4.0-CommonTypes.xsd" />
+	<xsd:import
+		namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
+		schemaLocation="ECF-4.0-CitationCase.xsd" />
+	<xsd:complexType name="ChargeType">
+		<xsd:annotation>
+			<xsd:documentation>The crime or violation a defendant is alleged or
+				found to have committed.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:ChargeType">
+				<xsd:sequence>
+					<xsd:element ref="ChargeOffense" />
+					<xsd:element ref="ChargeChargingAgencyJurisdictionStatute"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ChargeAmendedIndicator" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CriminalCaseType">
+		<xsd:annotation>
+			<xsd:documentation>Information required to initiate a new criminal
+				case in a court. "Criminal" includes felonies and misdemeanors.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:CaseType">
+				<xsd:sequence>
+					<xsd:element ref="j:CaseAugmentation" />
+					<!-- OJB Change for minOccurs="0" for extensions -->
+					<xsd:element ref="ecf:CaseAugmentation" minOccurs="0" />
+					<!-- OJB Change for minOccurs="0" for extensions -->
+					<xsd:element ref="CaseArrest" minOccurs="0" />
+					<!-- OJB Change for minOccurs="0" for extensions -->
+					<xsd:element ref="CaseCharge" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="PreliminaryHearingEstimatedDuration"
+						minOccurs="0" />
+					<xsd:element ref="ProsecutionRecommendedBailText"
+						minOccurs="0" />
+					<xsd:element ref="Sentence" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="citation:CitationCaseAugmentation"
+						minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FingerprintType">
+		<xsd:annotation>
+			<xsd:documentation>A representation or an encoding of the identifying
+				characteristics of a person's fingerprint.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ansi-nist:FingerprintType">
+				<xsd:sequence>
+					<xsd:element ref="FingerprintImage" minOccurs="0"
+						maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SentenceType">
+		<xsd:annotation>
+			<xsd:documentation>A sentence associated with a specific charge in a
+				case. A sentence may have multiple components (prison, probation,
+				post-incarceration supervision/probation fine, etc.).
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:SentenceType">
+				<xsd:sequence>
+					<xsd:element ref="SentenceConcurrentAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="SentenceFineAmount" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="j:ChargeReference" minOccurs="0"
+						maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SubjectType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a defendant.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:SubjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:PersonAugmentation" minOccurs="0" />
+					<xsd:element ref="ecf:PersonAugmentation" minOccurs="0" />
+					<xsd:element ref="PersonInCustodyIndicator" minOccurs="0" />
+					<xsd:element ref="WarrantIssuedIndicator" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="ArrestAgency" type="ecf:OrganizationType"
+		substitutionGroup="j:ArrestAgency">
+		<xsd:annotation>
+			<xsd:documentation>An agency which employs the arresting official.
+			</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/domains/jxdm/4.0"
+					i:name="ArrestAgency" />
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseArrest" type="j:ArrestType">
+		<xsd:annotation>
+			<xsd:documentation>The act of taking physical control over the person
+				of another by a law enforcement officer or other person acting under
+				color of law.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseCharge" type="ChargeType">
+		<xsd:annotation>
+			<xsd:documentation>The crime or violation a defendant is alleged or
+				found to have committed.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeAmendedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>An indicator that the charge submitted amends an
+				earlier submitted charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeChargingAgencyJurisdictionStatute"
+		type="j:StatuteType">
+		<xsd:annotation>
+			<xsd:documentation>An identifier of a section or category within a
+				code book that promulgates jurisdiction for the charging agency.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeOffense" type="nc:IncidentType">
+		<xsd:annotation>
+			<xsd:documentation>The offense or incident which resulted in the
+				charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalCase" type="CriminalCaseType"
+		substitutionGroup="nc:Case">
+		<xsd:annotation>
+			<xsd:documentation>Information required to initiate a new criminal
+				case in a court. "Criminal" includes felonies and misdemeanors.
+			</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/niem-core/2.0"
+					i:name="Case" />
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Fingerprint" type="FingerprintType"
+		substitutionGroup="nc:Fingerprint">
+		<xsd:annotation>
+			<xsd:documentation>Details about a representation of an image encoded
+				for XML.
+			</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/niem-core/2.0"
+					i:name="Fingerprint" />
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerprintImage" type="nc:ImageType">
+		<xsd:annotation>
+			<xsd:documentation>Details about a representation of an image encoded
+				for XML.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonInCustodyIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>An indicator of whether or not a defendant or
+				juvenile is held in a jail, prison, lock up or other facility.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PreliminaryHearingEstimatedDuration"
+		type="niem-xsd:duration">
+		<xsd:annotation>
+			<xsd:documentation>The prosecutor's estimate of the time that will be
+				required to conduct a preliminary hearing.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ProsecutionRecommendedBailText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The bail amount recommended by the prosecutor.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Sentence" type="SentenceType">
+		<xsd:annotation>
+			<xsd:documentation>A sentence associated with a specific charge in a
+				case. A sentence may have multiple components (prison, probation,
+				post-incarceration supervision/probation fine, etc.)..
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceConcurrentAssociation" type="nc:RelatedActivityAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>Reference to another sentence which is to be
+				served concurrent with this sentence. In the case of multiple
+				sentences without references to concurrent sentences, they are
+				assumed to be served consecutively.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SentenceFineAmount" type="nc:AmountType">
+		<xsd:annotation>
+			<xsd:documentation>The currency amount of a fine assigned to the
+				defendant by the court.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Subject" type="SubjectType"
+		substitutionGroup="j:ArrestSubject">
+		<xsd:annotation>
+			<xsd:documentation>The bail amount recommended by the prosecutor.
+			</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/domains/jxdm/4.0"
+					i:name="Subject" />
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="WarrantIssuedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Indicates whether an arrest warrant has been
+				issued against the defendant.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

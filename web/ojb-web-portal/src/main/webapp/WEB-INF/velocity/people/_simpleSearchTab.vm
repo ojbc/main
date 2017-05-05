@@ -1,0 +1,32 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2015 Open Justice Broker Consortium
+ *#
+	<div id="simpleSearchTab">
+	    <form id='simpleSearchForm'>
+     		#springBind( "personSearchCommand.searchType" )
+			<input type="hidden" name="${status.expression}" value="SIMPLE" /><br/>
+	        <p> Enter search criteria below </p>
+            <div>   
+                #springFormInput("personSearchCommand.simpleSearch" "placeholder='Search Term(s)'") <br/>
+                #springShowErrors( "<br/>" "error" )
+             </div>
+	            
+	         <div class="searchCancelSection" >
+	            <a id="simpleSearchSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> SEARCH</a>
+	            <a id="simpleSearchClearButton" class="grayButton"  >CLEAR</a>
+	        </div>
+        </form>
+      </div>

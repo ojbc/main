@@ -23,9 +23,10 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
-import org.apache.ws.security.SAMLTokenPrincipal;
-import org.apache.ws.security.saml.ext.builder.SAML2Constants;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
+import org.apache.wss4j.common.saml.builder.SAML2Constants;
 import org.ojbc.util.model.saml.SamlAttribute;
+import org.ojbc.util.xml.XmlUtils;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
@@ -236,6 +237,20 @@ public class SAMLTokenUtils {
 
         return null;
     }
+	
+	public static String getAttributeValue(Element samlAssertion, SamlAttribute samlAttribute) {
+		String attributeValue = null;
+		try {
+			attributeValue = XmlUtils.xPathStringSearch(samlAssertion, 
+			        "/saml2:Assertion/saml2:AttributeStatement[1]/"
+			        + "saml2:Attribute[@Name='" 
+	        		+ samlAttribute.getAttibuteName() 
+	        		+ "']/saml2:AttributeValue");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
+		return attributeValue;
+	}
 
     public static String getAttributeValueFromSamlToken(SAMLTokenPrincipal token,
             SamlAttribute samlAttribute) {

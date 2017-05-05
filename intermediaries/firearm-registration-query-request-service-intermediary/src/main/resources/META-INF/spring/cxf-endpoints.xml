@@ -47,7 +47,7 @@
 	<cxf:cxfEndpoint 
 	        id="firearmRegistrationQueryRequestService"
 	        address="${federatedQuery.firearms.firearmRegistrationQueryOJBEndpoint}"
-	        wsdlURL="classpath:service-specifications/Firearm_Registration_Query_Request_Service/schema/SIP_WS_1.2/Firearm_Registration_Query_Request_Service.wsdl"
+	        wsdlURL="classpath:ssp/Firearm_Registration_Query_Request/schema/SIP_WS_1.2/Firearm_Registration_Query_Request_Service.wsdl"
 	        serviceName="ojbc:Firearm_Registration_Query_Request_Service_Service"
 			endpointName="ojbc:Firearm_Registration_Query_Request_Secure_Service"
 	        xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0"
@@ -57,14 +57,15 @@
 			<entry key="ws-security.signature.properties" value-ref="firearmsRequestKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${federatedQuery.firearms.keystoreCertificateAlias}" />
 			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
-		</cxf:properties>
+			<entry key="ws-security.validate.audience-restriction" value="false" />
+ 		</cxf:properties>
     </cxf:cxfEndpoint>
 
     <!-- Firearms Query Results handler, hosted by broker, called by adapter, address is static --> 
     <cxf:cxfEndpoint 
         id="firearmRegistrationQueryResultsHandlerService"
         address="${federatedQuery.firearms.firearmRegistrationQueryResultsHandlerEndpoint}"
-        wsdlURL="classpath:service-specifications/Firearm_Registration_Query_Results_Service/schema/SIP_WS_1.2/Firearm_Registration_Query_Results_Service.wsdl"
+        wsdlURL="classpath:ssp/Firearm_Registration_Query_Results/schema/SIP_WS_1.2/Firearm_Registration_Query_Results_Service.wsdl"
         serviceName="ojbc:Firearm_Registration_Query_Results_Service_Service"
 		endpointName="ojbc:Firearm_Registration_Query_Results_Secure_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmRegistrationQueryResultsService/1.0"
@@ -83,7 +84,7 @@
                         
     <!-- Firearms Query Request Service Adapter, hosted by adapter, called by broker, address set dynamically -->
 	<cxf:cxfEndpoint id="firearmRegistrationQueryRequestServiceAdapter"
-        wsdlURL="classpath:service-specifications/Firearm_Registration_Query_Request_Service/schema/SIP_WS_1.2/Firearm_Registration_Query_Request_Service.wsdl"
+        wsdlURL="classpath:ssp/Firearm_Registration_Query_Request/schema/SIP_WS_1.2/Firearm_Registration_Query_Request_Service.wsdl"
         serviceName="ojbc:Firearm_Registration_Query_Request_Service_Service"
 		endpointName="ojbc:Firearm_Registration_Query_Request_Secure_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmRegistrationQueryRequestService/1.0">
@@ -99,7 +100,7 @@
     <cxf:cxfEndpoint 
         id="presentFirearmRegistrationQueryResultsService"
         address="${federatedQuery.firearms.presentFirearmRegistrationQueryResultsEndpoint}"
-        wsdlURL="classpath:service-specifications/Firearm_Registration_Query_Results_Service/schema/SIP_WS_1.2/Firearm_Registration_Query_Results_Service.wsdl"
+        wsdlURL="classpath:ssp/Firearm_Registration_Query_Results/schema/SIP_WS_1.2/Firearm_Registration_Query_Results_Service.wsdl"
         serviceName="ojbc:Firearm_Registration_Query_Results_Service_Service"
 		endpointName="ojbc:Firearm_Registration_Query_Results_Secure_Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/FirearmRegistrationQueryResultsService/1.0"

@@ -16,22 +16,28 @@
  */
 package org.ojbc.util.helper;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * See here: http://stackoverflow.com/questions/415953/how-can-i-generate-an-md5-hash
  * 
- * @author yogeshchawla
- *
  */
 public class Hash {
     /**
      * 
      * @param txt, text in plain format
-     * @param hashType MD5 OR SHA1
+     * @param hashType MD5,SHA-256 OR SHA1
      * @return hash in hashType 
      */
-    public static String getHash(String txt, String hashType) {
+    public static String getHash(String txt, String salt, String hashType) {
         try {
                     java.security.MessageDigest md = java.security.MessageDigest.getInstance(hashType);
+                    
+                    if (StringUtils.isNotBlank(salt))
+                    {
+                    	txt += salt;
+                    }	
+                    
                     byte[] array = md.digest(txt.getBytes());
                     StringBuffer sb = new StringBuffer();
                     for (int i = 0; i < array.length; ++i) {
@@ -45,15 +51,27 @@ public class Hash {
     }
 
     public static String md5(String txt) {
-        return Hash.getHash(txt, "MD5");
+        return Hash.getHash(txt,"", "MD5");
     }
 
     public static String sha1(String txt) {
-        return Hash.getHash(txt, "SHA1");
+        return Hash.getHash(txt, "","SHA1");
     }
 
     public static String sha256(String txt) {
-        return Hash.getHash(txt, "SHA-256");
+        return Hash.getHash(txt, "","SHA-256");
+    }
+    
+    public static String md5WithSalt(String txt, String salt) {
+        return Hash.getHash(txt,salt, "MD5");
+    }
+
+    public static String sha1WithSalt(String txt, String salt) {
+        return Hash.getHash(txt, salt,"SHA1");
+    }
+
+    public static String sha256WithSalt(String txt, String salt) {
+        return Hash.getHash(txt, salt,"SHA-256");
     }
 
     

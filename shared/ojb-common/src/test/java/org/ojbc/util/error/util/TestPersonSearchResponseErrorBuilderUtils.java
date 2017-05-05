@@ -36,7 +36,7 @@ public class TestPersonSearchResponseErrorBuilderUtils {
 		//XmlUtils.printNode(doc);		
 
         // ensure the document we generated is valid by using the xsd to validate it
-        XmlUtils.validateInstance("service-specifications/Person_Search_Results_Service/artifacts/service_model/information_model/Person_Search_Results_IEPD/xsd", 
+        XmlUtils.validateInstance("ssp/Person_Search_Results/artifacts/service_model/information_model/IEPD/xsd", 
         		"Subset/niem", "exchange_schema.xsd", doc);
 
 	}	
@@ -50,7 +50,7 @@ public class TestPersonSearchResponseErrorBuilderUtils {
 		//XmlUtils.printNode(doc);		
 
         // ensure the document we generated is valid by using the xsd to validate it
-        XmlUtils.validateInstance("service-specifications/Person_Search_Results_Service/artifacts/service_model/information_model/Person_Search_Results_IEPD/xsd", 
+        XmlUtils.validateInstance("ssp/Person_Search_Results/artifacts/service_model/information_model/IEPD/xsd", 
         		"Subset/niem", "exchange_schema.xsd", doc);
 
 	}	

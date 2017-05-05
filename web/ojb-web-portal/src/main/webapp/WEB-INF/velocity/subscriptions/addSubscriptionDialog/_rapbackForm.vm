@@ -1,0 +1,230 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2015 Open Justice Broker Consortium
+ *#
+<script type="text/javascript">
+  $(function() {	
+	$('#triggeringEventsDiv input:nth-of-type(1)').prop('checked', true).attr("onclick", "return false;");	  
+	$('#triggeringEventsDiv input:nth-of-type(4)').before('<br>');	  
+    $('#subscriptionForm').tooltip();
+  		    	  
+	if ($("#subscriptionPurpose").val()==="CS"){
+		setupDisclosureFieldsForSupervision(); 
+	}	    	
+	
+	$('#idLookupLink').click(function(){    	
+		var sidPattern = new RegExp('$sidRegexForAddSubscription');
+	  	var sidVal = $('#stateId').val();
+	  	
+		var nameHtml = '<option value="">Name</option>';
+		var dateOfBirthDropdownHtml='<option value="">DOB</option>';
+	  	if (sidPattern.test(sidVal)){	
+	  					  					  					  	    					    						 
+			var requestUrl = '../subscriptions/sidLookup?identificationID=' + sidVal;												    						 
+			    	
+			// calls a spring mvc method returning a json string w/format key,value
+			// where the key is an int index as a string - and the value is an object {first, last}
+			// TODO - see if traditional java collection ie Map can be passed from spring mvc layer 
+			// to js layer here instead of using json			    						     
+		    $.get(requestUrl, function(data){		  			  			
+					//console.log(data);
+					//generate html drop-down options based on json values from java layer
+					if( data && Object.keys(data.allNames).length > 0){
+						$.each(data.allNames, function( index, value ) {
+							if(index == 0){
+								// requirements give us the official name 1st
+								nameHtml += '<option value="' + value + '" selected>' + value + '</option>';
+							}else{
+								// display a (A) signifying alternate name
+								nameHtml += '<option value="' + value + '">' + value + ' (A) </option>';
+							}																														
+						});	  							  						
+						
+						$("#fbiId").val(data.fbiId);
+						
+						$("#fbiIdString").html(data.formattedFbiId)
+						
+						if (data.dobStrings && Object.keys(data.dobStrings).length > 0){
+						
+							$.each(data.dobStrings, function( index, value ) {
+								if(index == 0){
+									dateOfBirthDropdownHtml += '<option value="' + value + '" selected>' + value + '</option>';
+								}else{
+									// display a (A) signifying alternate DOB
+									dateOfBirthDropdownHtml += '<option value="' + value + '">' + value + ' (A) </option>';
+								}																														
+							});	
+						}
+																	  						
+					}else{
+						alert('Requested SID not found');
+						$("#fbiId").val("");
+						$("#fbiIdString").html("N/A")
+					}
+					
+					$('#fullName').html(nameHtml);
+					$('#dateOfBirth').html(dateOfBirthDropdownHtml)  	  							  										  													  							  					  						  				  				
+	  			}
+  			).fail(ojbc.displayFailMessage);
+		}else{
+			alert('$sidRegexValidationErrorMessage');
+			$('#fullName').html(nameHtml);
+			$('#dateOfBirth').html(dateOfBirthDropdownHtml)
+			$("#fbiId").val("");
+			$("#fbiIdString").html("N/A")
+			  	  							  										  													  							  					  						  				  				
+		}	
+	});    		
+    		    	      		    	  			    		    	  
+    		    	
+	// note hacked beforeShow property is a function to return false (ignores clicks and prevents 
+	// displaying DatePicker - due to DatePicker limitation that doesn't honor readonly property.  DatePicker
+	// allows being disabled but that prevents the html field value from being sent to the server when the form 
+	// is serialized	    	   		    			
+    $(".disabledDatePicker").datepicker({
+       showOn: "both",
+       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",    	  
+       buttonImageOnly: true,
+       beforeShow: function(i) {  return false; } 
+    });	
+    	        	        	   
+    $(".enabledDatePicker").datepicker({
+       showOn: "both",
+       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+       buttonImageOnly: true,
+    });	        	        	     	      	    
+    	        
+    $("#subscriptionForm").on("change", "#subscriptionPurpose", function(){
+    	if ($("#subscriptionPurpose").val()==="CI"){
+    		$("#subscriptionEndDate").val('$vmDateTool.format("MM/dd/yyyy", $ciDefaultEndDate)');
+    		$('#federalRapSheetDisclosureIndicator').prop("onclick", null);
+    	}
+    	else if ($("#subscriptionPurpose").val()==="CS"){
+			$("#subscriptionEndDate").val('$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)');
+			setupDisclosureFieldsForSupervision();
+		}	    	
+    	else{
+    		$("#subscriptionEndDate").val('');
+    		$('#federalRapSheetDisclosureIndicator').prop('checked', false);
+    		$('#federalRapSheetDisclosureIndicator').attr("onclick", "return false;");
+    		$('#federalRapSheetDisclosureAttentionDesignationText').val("");
+    		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', true);	  
+    	}
+    });
+    
+    $("#subscriptionForm").on("change", "#federalRapSheetDisclosureIndicator", function(){
+    
+    	if ($("#subscriptionPurpose").val()==="CI"){
+	    	var checked = $(this).prop('checked');
+	    	//console.log("federalRapSheetDisclosureIndicator changed to " + checked);
+	    	if (checked){
+	    		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', null).focus();	  
+	    	}
+	    	else{
+	    		$('#federalRapSheetDisclosureAttentionDesignationText').val('');
+	    		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', true);	  
+	    	}
+    	}
+    	else if ($("#subscriptionPurpose").val()==="CS") {
+    		$('#federalRapSheetDisclosureAttentionDesignationText').focus();	  
+    	}
+    });  
+    
+    
+    function setupDisclosureFieldsForSupervision(){
+		$('#federalRapSheetDisclosureIndicator').prop('checked', true);
+		$('#federalRapSheetDisclosureIndicator').attr("onclick", "return false;");
+		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', false).focus();	  
+    }
+  });
+	  	  
+</script>
+
+<div id="triggeringEventsDiv">
+	<label>Triggering Event:</label>
+	#springFormCheckboxes("subscription.federalTriggeringEventCode" $triggeringEventCodeMap "" "style='width: auto;'")
+</div>
+				
+#if($showSubscriptionPurposeDropDown)
+	<div>
+		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)
+				
+		#springFormCheckbox("subscription.federalRapSheetDisclosureIndicator" "style='width: auto;' title='Federal Rap Sheet Disclosure Indicator'")
+		<label>Disclosure on FBI IdHS</label>
+	</div>
+	
+	<div>
+		#springFormTextarea("subscription.federalRapSheetDisclosureAttentionDesignationText" "placeholder='Disclosure Contact Information' 
+			style='width:200px' title='Federal RapSheet Disclosure Contact Info' disabled='true' rows='2' cols='25' maxlength='50'" )
+	</div>
+#end	
+			
+<div>
+	#springFormInput("subscription.stateId" "style='width:140px;' placeholder='SID Number'")
+	<a id="idLookupLink" class="grayButton" href="#"><span id="idLookupImg"></span></a>
+	
+	#springFormHiddenInput("subscription.fbiId")
+	<span class="subscriptionHint" style="position:relative; left: 10px;">FBI UCN: <span id="fbiIdString">$subscription.formattedFbiId</span></span> 
+</div>			
+
+<div>	
+	<!-- note since not linked with a spring pojo, this value will be appended to the url of the http request 
+	 	when the subscription is saved -->
+	#springBind("subscription.fullName")
+	<select id="${status.expression}" name="${status.expression}" value="$!status.value">
+		<option value="">Name</option>
+	</select> 
+	#springBind("subscription.dateOfBirth")
+	<select id="${status.expression}" name="${status.expression}" value="$!status.value">
+		<option value="">DOB</option>
+	</select> 
+</div>
+
+<div style="padding-left:12px;">
+	<label>Start Date:</label>
+
+	#if( ${isStartDateEditable} )
+		#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='enabledDatePicker' placeholder='From'")
+	#else
+		#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly' ")				
+	#end					
+
+	<label>End Date:</label>
+
+	#if( ${isEndDateEditable} )
+		#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='enabledDatePicker' placeholder='End Date'")
+	#else
+		#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='disabledDatePicker' placeholder='End Date' readonly='readonly' ")
+	#end	
+</div>
+
+#if($showCaseIdInput)
+	<div>
+		#springFormInput("subscription.caseId" "placeholder='Case ID' maxlength='20'" )
+	</div>
+#end
+<div>
+	<!-- fix object being mapped to from list to something else or use regular html instead of velocity spring macro -->
+	#springFormInput("subscription.emailList[0]" "placeholder='Email Address 1'")
+</div>
+
+<div>
+	#springFormInput("subscription.emailList[1]" "placeholder='Email Address 2'")
+</div>
+
+<div>
+	#springFormInput("subscription.emailList[2]" "placeholder='Email Address 3'")
+</div>
+

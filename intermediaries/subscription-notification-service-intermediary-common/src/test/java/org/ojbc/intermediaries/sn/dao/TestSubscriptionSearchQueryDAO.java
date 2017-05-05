@@ -49,6 +49,7 @@ import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
+import org.ojbc.intermediaries.sn.topic.rapback.FederalTriggeringEventCode;
 import org.ojbc.util.xml.XmlUtils;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -158,6 +159,73 @@ public class TestSubscriptionSearchQueryDAO {
 				new FlatXmlDataSetBuilder().build(manualTestFile));
 	}
 
+	@Test
+	public void testUpdateSubscriptionProperties() throws Exception
+	{
+		loadManualTestData();
+		
+		Map<String, String> subscriptionPropertiesRequest = null;
+		Map<String, String> subscriptionPropertiesDatabase = null;
+		
+		//both null, no update
+		assertFalse(subscriptionSearchQueryDAO.updateSubscriptionProperties(subscriptionPropertiesRequest, subscriptionPropertiesDatabase));
+		
+		subscriptionPropertiesDatabase = subscriptionSearchQueryDAO.getSubscriptionProperties("1");
+		
+		//one is null, other isn't, update
+		assertTrue(subscriptionSearchQueryDAO.updateSubscriptionProperties(subscriptionPropertiesRequest, subscriptionPropertiesDatabase));
+		
+		subscriptionPropertiesRequest = new HashMap<String, String>();
+		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.ARREST.toString(), FederalTriggeringEventCode.ARREST.toString());
+		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"), FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"));
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR, "true");
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Bill Padmanabhan");
+		
+		//Both the same, no update
+		assertFalse(subscriptionSearchQueryDAO.updateSubscriptionProperties(subscriptionPropertiesRequest, subscriptionPropertiesDatabase));
+		
+		//Change one, update
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Frank Padmanabhan");
+		assertTrue(subscriptionSearchQueryDAO.updateSubscriptionProperties(subscriptionPropertiesRequest, subscriptionPropertiesDatabase));
+
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Bill Padmanabhan");
+		subscriptionPropertiesDatabase.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Frank Padmanabhan");
+		assertTrue(subscriptionSearchQueryDAO.updateSubscriptionProperties(subscriptionPropertiesRequest, subscriptionPropertiesDatabase));
+	}
+	
+	@Test
+	public void testSubscriptionProperties()
+			throws Exception {
+		loadManualTestData();
+		Map<String, String> subscriptionProperties = subscriptionSearchQueryDAO.getSubscriptionProperties("1");
+				
+		assertEquals(4, subscriptionProperties.size());
+		
+		assertEquals(FederalTriggeringEventCode.ARREST.toString(), subscriptionProperties.get(FederalTriggeringEventCode.ARREST.toString()));
+		assertEquals(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"), subscriptionProperties.get(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-")));
+		assertEquals("true", subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR));
+		assertEquals("Bill Padmanabhan", subscriptionProperties.get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT));
+	
+		int rowsDeleted = subscriptionSearchQueryDAO.deleteSubscriptionProperties("1");
+		assertEquals(4, rowsDeleted);
+		
+		subscriptionSearchQueryDAO.saveSubscriptionProperties(subscriptionProperties, 1);
+		
+		assertEquals(4, subscriptionProperties.size());
+		
+	}
+	
+	@Test
+	public void testUniqueSubscriptionOwners()
+			throws Exception {
+		loadManualTestData();
+		List<String> uniqueOwners = subscriptionSearchQueryDAO.getUniqueSubscriptionOwners();
+				
+		assertEquals(1, uniqueOwners.size());
+		assertEquals("OJBC:IDP:OJBC:USER:admin", uniqueOwners.get(0));
+		
+	}
+	
 	@Test
 	@DirtiesContext
 	public void testSearchForSubscriptionsBySubscriptionOwner()
@@ -353,6 +421,17 @@ public class TestSubscriptionSearchQueryDAO {
 		assertEquals("bill", subscription.getPersonFirstName());
 		assertEquals("padmanabhan", subscription.getPersonLastName());
 		assertEquals("1970-02-03", subscription.getDateOfBirth());
+		
+		assertNotNull(subscription.getSubscriptionProperties());
+		
+		assertEquals(4, subscription.getSubscriptionProperties().size());
+		
+		assertEquals(FederalTriggeringEventCode.ARREST.toString(), subscription.getSubscriptionProperties().get(FederalTriggeringEventCode.ARREST.toString()));
+		assertEquals(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"), subscription.getSubscriptionProperties().get(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-")));
+		assertEquals("true", subscription.getSubscriptionProperties().get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR));
+		assertEquals("Bill Padmanabhan", subscription.getSubscriptionProperties().get(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT));
+
+		assertEquals("0123ABC",subscription.getAgencyCaseNumber());
 	}
 
 	@Test
@@ -465,6 +544,36 @@ public class TestSubscriptionSearchQueryDAO {
 						"{http://demostate.gov/SystemNames/1.0}SystemA",
 						"SYSTEM", Collections.singletonMap("SID", "A5008305"));
 		assertEquals(1, subscriptions.size());
+		
+		subscriptions = subscriptionSearchQueryDAO
+				.queryForSubscription(
+						null,
+						null,
+						null, Collections.singletonMap("SID", "A5008305"));
+		assertEquals(2, subscriptions.size());
+
+		subscriptions = subscriptionSearchQueryDAO
+				.queryForSubscription(
+						"{http://ojbc.org/wsn/topics}:person/arrest",
+						null,
+						null, Collections.singletonMap("SID", "A5008305"));
+		assertEquals(2, subscriptions.size());
+		
+		subscriptions = subscriptionSearchQueryDAO
+				.queryForSubscription(
+						"{http://ojbc.org/wsn/topics}:person/arrest",
+						"{http://demostate.gov/SystemNames/1.0}SystemB",
+						null, Collections.singletonMap("SID", "A5008305"));
+		assertEquals(1, subscriptions.size());
+		
+		subscriptions = subscriptionSearchQueryDAO
+				.queryForSubscription(
+						null,
+						null,
+						null, Collections.singletonMap("subscriptionQualifier", "20920"));
+		assertEquals(1, subscriptions.size());
+
+
 	}
 
 	@Test(expected = IllegalStateException.class)
@@ -603,6 +712,10 @@ public class TestSubscriptionSearchQueryDAO {
 				SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER,
 				"ABCDE");
 
+		Map<String, String> subscriptionProperties = new HashMap<String, String>();
+		subscriptionProperties.put("prop 1", "value 1");
+		subscriptionProperties.put("prop 2", "value 2");
+		
 		ResultSet rs = s.executeQuery("select * from subscription");
 
 		int recordCount = 0;
@@ -612,9 +725,9 @@ public class TestSubscriptionSearchQueryDAO {
 
 		LocalDate currentDate = new LocalDate();
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic", "2013-01-01", "2013-01-01", subjectIds,
+				"topic", "2013-01-01", "2013-01-01", subjectIds,subscriptionProperties,
 				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", currentDate,
+				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", "ownerEmail@local.gov", currentDate,
 				"0123ABC").intValue();
 
 		rs = s.executeQuery("select * from subscription");
@@ -645,6 +758,9 @@ public class TestSubscriptionSearchQueryDAO {
 				assertEquals(currentDate.toDateTimeAtStartOfDay().toDate(),
 						lastValidationDate.toDate());
 				assertEquals("0123ABC", rs.getString("agency_case_number"));
+				assertEquals("SYSTEM", rs.getString("subscriptionOwner"));
+				assertEquals("ownerEmail@local.gov", rs.getString("subscriptionOwnerEmailAddress"));
+				
 			}
 		}
 
@@ -688,6 +804,25 @@ public class TestSubscriptionSearchQueryDAO {
 		}
 
 		assertEquals(2, postRecordCount);
+		
+		rs = s.executeQuery("select * from subscription_properties where subscriptionid="
+				+ subscriptionId);
+
+		postRecordCount = 0;
+		while (rs.next()) {
+			postRecordCount++;
+			String identifierName = rs.getString("PROPERTYNAME");
+			if ("prop 1".equals(identifierName)) {
+				assertEquals("value 1", rs.getString("PROPERTYVALUE"));
+			} else if ("prop 2".equals(identifierName)) {
+				assertEquals("value 2", rs.getString("PROPERTYVALUE"));
+			} else {
+				throw new IllegalStateException("Unexpected identifier: "
+						+ identifierName);
+			}
+		}
+
+		assertEquals(2, postRecordCount);
 
 		s.close();
 
@@ -713,8 +848,8 @@ public class TestSubscriptionSearchQueryDAO {
 		emailAddyList.addAll(Arrays.asList("p1@none.com", "p2@none.com"));
 
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic", "2013-01-01", "2013-01-01", subjectIds, emailAddyList,
-				"offenderName", "systemName", "ABCDE", "CS", "SYSTEM",
+				"topic", "2013-01-01", "2013-01-01", subjectIds, null, emailAddyList,
+				"offenderName", "systemName", "ABCDE", "CS", "SYSTEM","ownerEmail@local.gov",
 				new LocalDate(), "0123ABC").intValue();
 
 		rs = s.executeQuery("select * from notification_mechanism where subscriptionid="
@@ -757,9 +892,9 @@ public class TestSubscriptionSearchQueryDAO {
 				.parseDateTime("2013-01-01").toLocalDate();
 
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic", "2013-01-01", "2013-01-01", subjectIds,
+				"topic", "2013-01-01", "2013-01-01", subjectIds,null,
 				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", originalDate, "0123ABC")
+				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", "ownerEmail@local.gov", originalDate, "0123ABC")
 				.intValue();
 
 		rs = s.executeQuery("select * from subscription where id="
@@ -776,11 +911,19 @@ public class TestSubscriptionSearchQueryDAO {
 
 		LocalDate subsequentDate = new LocalDate();
 
+		Map<String, String> subscriptionPropertiesRequest = new HashMap<String, String>();
+		
+		subscriptionPropertiesRequest = new HashMap<String, String>();
+		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.ARREST.toString(), FederalTriggeringEventCode.ARREST.toString());
+		subscriptionPropertiesRequest.put(FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"), FederalTriggeringEventCode.NCIC_WARRANT_ENTRY.toString().replace("_", "-"));
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR, "true");
+		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Bill Padmanabhan");
+
 		subscriptionId = subscriptionSearchQueryDAO
 				.subscribe(null, "topic", "2013-01-01", "2013-01-02",
-						subjectIds,
+						subjectIds, subscriptionPropertiesRequest,
 						new HashSet<String>(Arrays.asList("none@none.com")),
-						"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", 
+						"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", "ownerEmail@local.gov",
 						subsequentDate, "0123ABC").intValue();
 
 		assertEquals(oldSubscriptionId, subscriptionId); // same id, must have
@@ -804,10 +947,15 @@ public class TestSubscriptionSearchQueryDAO {
 			assertTrue(lastValidationDate.isAfter(originalDate
 					.toDateTimeAtStartOfDay()));
 			assertEquals("0123ABC", rs.getString("agency_case_number"));
+			assertEquals("ownerEmail@local.gov", rs.getString("subscriptionOwnerEmailAddress"));
 		}
 
 		assertEquals(1, recordCount);
+		
+		Map<String, String> propertiesFromDatabase = subscriptionSearchQueryDAO.getSubscriptionProperties(String.valueOf(subscriptionId));
 
+		assertEquals(4, propertiesFromDatabase.size());	
+		
 		s.close();
 
 	}
@@ -829,9 +977,9 @@ public class TestSubscriptionSearchQueryDAO {
 				.parseDateTime("2013-01-01").toLocalDate();
 
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic1", "2013-01-01", "2013-01-01", subjectIds,
+				"topic1", "2013-01-01", "2013-01-01", subjectIds, null,
 				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", null, "SYSTEM", originalDate, "0123ABC")
+				"offenderName", "systemName", "ABCDE", null, "SYSTEM", "ownerEmail@local.gov", originalDate, "0123ABC")
 				.intValue();
 
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
@@ -842,9 +990,9 @@ public class TestSubscriptionSearchQueryDAO {
 
 		int secondSubscriptionId = subscriptionSearchQueryDAO
 				.subscribe(null, "topic2", "2013-01-01", "2013-01-02",
-						subjectIds,
+						subjectIds, null,
 						new HashSet<String>(Arrays.asList("none@none.com")),
-						"offenderName", "systemName", "ABCDE", null, "SYSTEM",
+						"offenderName", "systemName", "ABCDE", null, "SYSTEM","ownerEmail@local.gov",
 						subsequentDate, "0123ABC").intValue();
 
 		assertFalse(secondSubscriptionId == subscriptionId); // because topic1
@@ -881,8 +1029,7 @@ public class TestSubscriptionSearchQueryDAO {
 	@Test
 	@DirtiesContext
 	public void testBuildCriteriaArray() {
-		Object[] expectedResult = new Object[] { "SID", "1234",
-				"subscriptionQualifier", "ABCDE" };
+		Object[] expectedResult = new Object[] { "subscriptionQualifier", "ABCDE", "SID", "1234" };
 
 		Map<String, String> input = new HashMap<String, String>();
 		input.put("SID", "1234");
@@ -899,7 +1046,11 @@ public class TestSubscriptionSearchQueryDAO {
 			throws Exception {
 		loadManualTestData();
 		subscriptionSearchQueryDAO
-				.consolidateSid("A5008305", "A5008306");
+				.updateSubscriptionSubjectIdentifier("A5008305", "A5008306","1",SubscriptionNotificationConstants.SID);
+
+		subscriptionSearchQueryDAO
+				.updateSubscriptionSubjectIdentifier("A5008305", "A5008306","3",SubscriptionNotificationConstants.SID);
+
 		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterSidConsolidation.xml");
 	}
 
@@ -948,9 +1099,9 @@ public class TestSubscriptionSearchQueryDAO {
 
 		LocalDate currentDate = new LocalDate();
 		subscriptionSearchQueryDAO.subscribe(null,
-				"{http://ojbc.org/wsn/topics}:person/arrest", "2015-11-03", "2016-11-02", subjectIds,
+				"{http://ojbc.org/wsn/topics}:person/arrest", "2015-11-03", "2016-11-02", subjectIds, null,
 				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", "I", "SYSTEM", currentDate,
+				"offenderName", "systemName", "ABCDE", "I", "SYSTEM", "ownerEmail@local.gov",currentDate,
 				"000001820140729014008339997").intValue();
 
 		ResultSet rsCountAfter = s.executeQuery("select count(*) as count from subscription");
@@ -978,10 +1129,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		Message message = ex.getIn();
 
-		ArrestNotificationRequest request = new ArrestNotificationRequest(
-				message);
-
-		return request;
+		return TestNotificationBuilderUtil.returnArrestNotificationRequestForTesting(message);
 	}
 
 	private IncidentNotificationRequest returnIncidentNotificationRequest(

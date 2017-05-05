@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<psr-doc:PersonSearchRequest
+	xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
+	xmlns:psr-ext="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cyfs="http://niem.gov/niem/domains/cyfs/2.1/1"
+	xmlns:jh-placement-search-codes="http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchRequestCodes/1.0"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0 ../xsd/exchange_schema.xsd http://ojbc.org/IEPD/Extensions/Michigan/PersonSearchRequestCodes/1.0 ../xsd/impl/michigan/michigan-codes.xsd"
+	s:metadata="SM003">
+	<psr-ext:Person s:id="P001">
+		<nc:PersonAgeMeasure>
+			<nc:MeasureRangeValue>
+				<nc:RangeMinimumValue>38</nc:RangeMinimumValue>
+				<nc:RangeMaximumValue>42</nc:RangeMaximumValue>
+			</nc:MeasureRangeValue>
+		</nc:PersonAgeMeasure>
+		<nc:PersonAlternateName>
+			<nc:PersonGivenName>Mickey</nc:PersonGivenName>
+			<nc:PersonSurName>Mouse</nc:PersonSurName>
+		</nc:PersonAlternateName>
+		<nc:PersonBirthDate s:metadata="SM001">
+			<nc:Date>2012-11-12</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonEyeColorCode>XXX</nc:PersonEyeColorCode>
+		<nc:PersonHairColorCode>BLK</nc:PersonHairColorCode>
+		<nc:PersonHeightMeasure>
+			<nc:MeasureText>54</nc:MeasureText>
+			<!-- <nc:MeasureRangeValue> <nc:RangeMinimumValue>72</nc:RangeMinimumValue> 
+				<nc:RangeMaximumValue>75</nc:RangeMaximumValue> </nc:MeasureRangeValue> -->
+			<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+		</nc:PersonHeightMeasure>
+		<nc:PersonName>
+			<nc:PersonGivenName s:metadata="SM001">M</nc:PersonGivenName>
+			<nc:PersonMiddleName>M</nc:PersonMiddleName>
+			<nc:PersonSurName s:metadata="SM002">Scott</nc:PersonSurName>
+		</nc:PersonName>
+		<nc:PersonRaceCode>W</nc:PersonRaceCode>
+		<nc:PersonSexCode>M</nc:PersonSexCode>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>123456789</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonWeightMeasure>
+			<nc:MeasureText>150</nc:MeasureText>
+			<!-- <nc:MeasureRangeValue> <nc:RangeMinimumValue>200</nc:RangeMinimumValue> 
+				<nc:RangeMaximumValue>215</nc:RangeMaximumValue> </nc:MeasureRangeValue> -->
+			<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+		</nc:PersonWeightMeasure>
+		<psr-ext:PersonBirthDateRange>
+			<nc:StartDate>
+				<nc:Date>1970-01-01</nc:Date>
+			</nc:StartDate>
+			<nc:EndDate>
+				<nc:Date>1970-01-05</nc:Date>
+			</nc:EndDate>
+		</psr-ext:PersonBirthDateRange>
+		<j:PersonAugmentation>
+			<nc:DriverLicense>
+				<nc:DriverLicenseIdentification>
+					<nc:IdentificationID>12345</nc:IdentificationID>
+					<nc:IdentificationSourceText>VT</nc:IdentificationSourceText>
+				</nc:DriverLicenseIdentification>
+			</nc:DriverLicense>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>12345</nc:IdentificationID>
+			</j:PersonFBIIdentification>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>12345</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+	</psr-ext:Person>
+	<psr-ext:Parent s:id="PAR001">
+		<nc:PersonBirthDate>
+			<nc:Date>1957-09-13</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Walter</nc:PersonGivenName>
+			<nc:PersonSurName>White</nc:PersonSurName>
+		</nc:PersonName>
+	</psr-ext:Parent>
+	<cyfs:Placement>
+		<jh-placement-search-codes:PlacementCategoryCode>Foster Home</jh-placement-search-codes:PlacementCategoryCode>
+	</cyfs:Placement>
+	<nc:Location s:id="LOC01">
+		<nc:LocationAddress>
+			<nc:StructuredAddress>
+				<nc:LocationStreet>
+					<nc:StreetNumberText>123</nc:StreetNumberText>
+					<nc:StreetName>Main Street</nc:StreetName>
+				</nc:LocationStreet>
+				<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
+				<nc:LocationCityName>Anytown</nc:LocationCityName>
+				<nc:LocationStateFIPS5-2AlphaCode>MI
+				</nc:LocationStateFIPS5-2AlphaCode>
+				<nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+				<nc:LocationPostalCode>99199</nc:LocationPostalCode>
+			</nc:StructuredAddress>
+		</nc:LocationAddress>
+	</nc:Location>
+	<nc:ResidenceAssociation>
+		<nc:PersonReference s:ref="P001" />
+		<nc:LocationReference s:ref="LOC01" />
+	</nc:ResidenceAssociation>
+	<psr-ext:ParentChildAssociation>
+		<psr-ext:ParentReference s:ref="PAR001" />
+		<psr-ext:ChildReference s:ref="P001" />
+	</psr-ext:ParentChildAssociation>
+	<psr-ext:SourceSystemNameText>VIBRS RMS</psr-ext:SourceSystemNameText>
+	<psr-ext:SourceSystemNameText>Burlington PD</psr-ext:SourceSystemNameText>
+	<psr-ext:SearchMetadata s:id="SM001">
+		<psr-ext:SearchQualifierCode>exact</psr-ext:SearchQualifierCode>
+	</psr-ext:SearchMetadata>
+	<psr-ext:SearchMetadata s:id="SM002">
+		<psr-ext:SearchQualifierCode>startsWith</psr-ext:SearchQualifierCode>
+	</psr-ext:SearchMetadata>
+	<psr-ext:SearchMetadata s:id="SM003">
+		<psr-ext:SearchRequestOnBehalfOfText>John Doe
+		</psr-ext:SearchRequestOnBehalfOfText>
+		<psr-ext:SearchPurposeText>Criminal Justice
+		</psr-ext:SearchPurposeText>
+	</psr-ext:SearchMetadata>
+</psr-doc:PersonSearchRequest>

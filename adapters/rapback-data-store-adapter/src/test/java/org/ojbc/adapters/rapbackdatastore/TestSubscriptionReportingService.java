@@ -23,6 +23,8 @@ import static org.junit.Assert.assertTrue;
 import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.REPORT_FEDERAL_SUBSCRIPTION_CREATION;
 import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.REPORT_FEDERAL_SUBSCRIPTION_UPDATE;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.camel.EndpointInject;
@@ -32,7 +34,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -43,6 +45,7 @@ import org.junit.runner.RunWith;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
+import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -55,7 +58,8 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:META-INF/spring/properties-context.xml",
         "classpath:META-INF/spring/dao.xml",
         "classpath:META-INF/spring/h2-mock-database-application-context.xml",
-        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml"
+        "classpath:META-INF/spring/h2-mock-database-context-rapback-datastore.xml",
+        "classpath:META-INF/spring/subscription-management-routes.xml"
       })
 public class TestSubscriptionReportingService {
 	
@@ -99,9 +103,9 @@ public class TestSubscriptionReportingService {
 	
 	@Test
 	@DirtiesContext
-	public void testIdentificationRecordingService() throws Exception
+	public void testSubscriptionReportingService() throws Exception
 	{
-		FbiRapbackSubscription fbiRapbackSubscriptionBeforeCreationReporting = fbiSubscriptionDao.getFbiRapbackSubscription("F", "LI34567898"); 
+		FbiRapbackSubscription fbiRapbackSubscriptionBeforeCreationReporting = fbiSubscriptionDao.getFbiRapbackSubscription("F", "1234567898"); 
 		assertNull(fbiRapbackSubscriptionBeforeCreationReporting);
 		
     	Exchange senderExchange = MessageUtils.createSenderExchange(context, 
@@ -118,19 +122,25 @@ public class TestSubscriptionReportingService {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		FbiRapbackSubscription fbiRapbackSubscriptionAfterReporting = fbiSubscriptionDao.getFbiRapbackSubscription("F", "LI34567898");
+		FbiRapbackSubscription fbiRapbackSubscriptionAfterReporting = fbiSubscriptionDao.getFbiRapbackSubscription("F", "1234567898");
 		assertNotNull(fbiRapbackSubscriptionAfterReporting);
 		log.info(fbiRapbackSubscriptionAfterReporting.toString());
 		
 		assertEquals("123456", fbiRapbackSubscriptionAfterReporting.getFbiSubscriptionId());
 		assertEquals("F", fbiRapbackSubscriptionAfterReporting.getRapbackCategory());
 		assertEquals("5", fbiRapbackSubscriptionAfterReporting.getSubscriptionTerm());
-		assertEquals(new DateTime(2012,2,24,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterReporting.getRapbackExpirationDate());
+		assertEquals(new DateTime(2010,2,24,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterReporting.getRapbackExpirationDate());
 		assertEquals(new DateTime(2015,1,1,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterReporting.getRapbackTermDate());
 		assertEquals(new DateTime(2011,01,25,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterReporting.getRapbackStartDate());
 		assertEquals(Boolean.FALSE, fbiRapbackSubscriptionAfterReporting.getRapbackOptOutInState());
 		assertEquals("2", fbiRapbackSubscriptionAfterReporting.getRapbackActivityNotificationFormat());
-		assertEquals("LI34567898", fbiRapbackSubscriptionAfterReporting.getUcn());
+		assertEquals("1234567898", fbiRapbackSubscriptionAfterReporting.getUcn());
+		assertEquals(Integer.valueOf(62725), fbiRapbackSubscriptionAfterReporting.getStateSubscriptionId());
+		
+		List<SubsequentResults> subsequentResults = rapbackDAO.getSubsequentResultsByUcn("1234567898");
+		assertEquals(1, subsequentResults.size());
+		assertEquals("This is a criminal history", new String(subsequentResults.get(0).getRapSheet()));
+		log.info("Rap Sheet: " + new String(subsequentResults.get(0).getRapSheet()));
 		
     	Exchange fbiSubscriptionUpdateExchange = MessageUtils.createSenderExchange(context, 
     			"src/test/resources/xmlInstances/subscriptionReporting/federal_subscription_update_report.xml");
@@ -146,20 +156,25 @@ public class TestSubscriptionReportingService {
 			throw new Exception(returnUpdateExchange.getException());
 		}
 		
-		FbiRapbackSubscription fbiRapbackSubscriptionAfterUpdate = fbiSubscriptionDao.getFbiRapbackSubscription("F", "LI34567898");
+		FbiRapbackSubscription fbiRapbackSubscriptionAfterUpdate = fbiSubscriptionDao.getFbiRapbackSubscription("F", "1234567898");
 		assertNotNull(fbiRapbackSubscriptionAfterUpdate);
 		log.info(fbiRapbackSubscriptionAfterUpdate.toString());
 		
 		assertEquals("123456", fbiRapbackSubscriptionAfterUpdate.getFbiSubscriptionId());
 		assertEquals("F", fbiRapbackSubscriptionAfterUpdate.getRapbackCategory());
 		assertEquals("5", fbiRapbackSubscriptionAfterUpdate.getSubscriptionTerm());
-		assertEquals(new DateTime(2013,2,24,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterUpdate.getRapbackExpirationDate());
+		assertEquals(new DateTime(2010,2,24,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterUpdate.getRapbackExpirationDate());
 		assertEquals(new DateTime(2015,1,1,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterUpdate.getRapbackTermDate());
 		assertEquals(new DateTime(2011,1,25,0,0,0,0,DateTimeZone.getDefault()), fbiRapbackSubscriptionAfterUpdate.getRapbackStartDate());
 		assertEquals(Boolean.FALSE, fbiRapbackSubscriptionAfterUpdate.getRapbackOptOutInState());
 		assertEquals("2", fbiRapbackSubscriptionAfterUpdate.getRapbackActivityNotificationFormat());
-		assertEquals("LI34567898", fbiRapbackSubscriptionAfterUpdate.getUcn());
+		assertEquals("1234567898", fbiRapbackSubscriptionAfterUpdate.getUcn());
+		assertEquals(Integer.valueOf(62725), fbiRapbackSubscriptionAfterReporting.getStateSubscriptionId());
 		
+		List<SubsequentResults> subsequentResultsAfterUpdate = rapbackDAO.getSubsequentResultsByUcn("1234567898");
+		assertEquals(2, subsequentResultsAfterUpdate.size());
+		log.info("Rap Sheet 2: " + new String(subsequentResultsAfterUpdate.get(1).getRapSheet()));
+		assertEquals("This is a criminal history", new String(subsequentResultsAfterUpdate.get(1).getRapSheet()));
 	}
 	
 }

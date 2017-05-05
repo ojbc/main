@@ -36,6 +36,7 @@ import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
+import org.ojbc.web.model.person.query.DetailsRequest;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -164,6 +165,31 @@ public class RequestMessageBuilderUtilitiesTest {
         samlToken = SAMLTokenUtils.createStaticAssertionAsElement("https://idp.ojbc-local.org:9443/idp/shibboleth", 
                 SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
                 SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
+    }
+    
+    @Test
+    public void testCreatefirearmsPurchaseProhibition() throws Exception {
+    	
+    	DetailsRequest detailsRequest = new DetailsRequest();
+    	
+    	detailsRequest.setIdentificationID("System Record ID");
+    	detailsRequest.setIdentificationSourceText("System Name");
+    	
+    	Document document = RequestMessageBuilderUtilities.createfirearmsPurchaseProhibition(detailsRequest);
+    	
+    	String documentInString = OJBUtils.getStringFromDocument(document);
+    	log.debug("\nFirearms Prohibition Query Request:\n"+ StringUtils.trimToEmpty(documentInString));
+    	
+    	Assert.assertNotNull(document);
+    	
+    	File expectedReponseFile = new File("src/test/resources/xml/firearmsProhibitionQueryRequest/firearmsProhibitionQueryRequest.xml");
+    	String expectedResponseAsString = FileUtils.readFileToString(expectedReponseFile);
+    	
+    	//Use XML Unit to compare these files
+    	Diff myDiff = new Diff(documentInString, expectedResponseAsString);
+    	Assert.assertTrue("XML identical " + myDiff.toString(),
+    			myDiff.identical());     
+    	
     }
     
     @Test(expected = Exception.class)

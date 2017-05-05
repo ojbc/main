@@ -73,11 +73,11 @@
 		                    $('#incidentsSummary tr').removeClass("incidentSelected");
 		                    $(this).addClass("incidentSelected");
 		                    
-		                    var tempDiv = '<div id="incidentDetailTemp" style="height:50%;width:100%"/>';
+		                    var tempDiv = '<div id="modalIframeSpinner" style="height:50%;width:100%"/>';
 		                    // tempDiv for css spinner - replaced upon receipt of get data
 		                    $('#incidentDetailTabsHolder').html(tempDiv);                                         
 		                    
-		                    $.get("incidentDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
+		                    xhr=$.get("incidentDetails?identificationID="+identificationID+"&amp;systemName="+systemName+"&amp;identificationSourceText="+identificationSourceText,function(data) {
 		                      $('#incidentDetailTabsHolder').html(data);
 		                    }).fail(ojbc.displayIncidentDetailFailMessage);
 		                    

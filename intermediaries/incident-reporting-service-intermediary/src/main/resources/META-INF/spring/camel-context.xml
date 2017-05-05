@@ -29,6 +29,9 @@
     xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
     xmlns:ar="http://ojbc.org/IEPD/Exchange/ArrestReport/1.0"
     xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
+	xmlns:ir="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+	xmlns:iru="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0" 
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"  	
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -42,7 +45,7 @@
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
 		<camel:routeContextRef ref="errorHandlerRoutes"/>		
 
-		<!-- some CXF endpoints are inline to support testing -->	
+		<!-- Some CXF endpoints are inline to support testing -->	
 		<camel:endpoint id="incidentReportingServiceEndpoint"
 			uri="cxf:bean:IncidentReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
 
@@ -51,6 +54,9 @@
 
 		<camel:endpoint id="chargeReferralServiceEndpoint"
 				uri="cxf:bean:ChargeReferralService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />
+						
+		<camel:endpoint id="chargeReferralReportingServiceEndpoint" 
+			uri="cxf:bean:ChargeReferralReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}" />						
 			
 	    <camel:endpoint id="notificationBrokerServiceEndpoint" 
 	    	uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${incidentReportingService.incidentReportingServiceIntermediaryCxflogging}"/>                
@@ -103,6 +109,16 @@
 
 						</camel:filter>
 					</camel:pipeline>
+					
+					<camel:pipeline>
+						<camel:filter>
+							<camel:xpath>/ir:IncidentReport/lexspd:doPublish/lexs:PublishMessageContainer/lexs:PublishMessage/lexs:DataItemPackage/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:Incident/inc-ext:Charge</camel:xpath>							
+
+							<camel:to uri="direct:callChargeReferralReportingService" />
+
+						</camel:filter>
+					</camel:pipeline>										
+					
 					<camel:pipeline>
 						<camel:filter>
 							<camel:simple>${bean:callNotificationBrokerService.trim} == 'true'</camel:simple>
@@ -138,9 +154,20 @@
 				
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 						
-			<camel:setHeader headerName="operationName">
-				<constant>ReportIncident</constant>
-			</camel:setHeader>
+			<camel:filter>
+				<camel:xpath>/ir:IncidentReport</camel:xpath>
+				<camel:setHeader headerName="operationName">
+					<constant>ReportIncident</constant>
+				</camel:setHeader>
+			</camel:filter>
+			
+			<camel:filter>
+				<camel:xpath>/iru:IncidentReportUpdate</camel:xpath>
+				<camel:setHeader headerName="operationName">
+					<constant>ReportIncidentUpdate</constant>
+				</camel:setHeader>
+			</camel:filter>	
+			
 			<camel:setHeader headerName="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/IncidentReportingService/1.0</constant>
 			</camel:setHeader>				
@@ -178,13 +205,32 @@
             
         </camel:route>
         
+        
+        <camel:route id="CallChargeReferralReportingService_Route" errorHandlerRef="chargeReferralReportingDeadLetterErrorHandler">
+        
+            <from uri="direct:callChargeReferralReportingService"/>
+            
+            <log message="\n\n\n CallChargeReferralReportingService_Route... \n\n\n" />
+                        			
+			<camel:to uri="xslt:xslt/wrapChargeReferralReport.xslt"/>
+			
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+			
+			<camel:setHeader headerName="operationName"><constant>ReportChargeReferral</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0</constant></camel:setHeader>
+		
+			<to uri="chargeReferralReportingServiceEndpoint" />										
+				            
+        </camel:route>        
+        
+        
         <camel:route id="callNotificationBrokerServiceRoute">
         	
         	<camel:from uri="direct:callNotificationBrokerService"/>
         
 			<camel:log message="Processing Incident Report Notifications"/>
 						
-			<camel:to uri="xslt:xslt/incidentReportToNotifications.xsl?transformerFactory=sFactory"/>								
+			<camel:to uri="xslt:xslt/incidentReportToNotifications.xsl?saxon=true"/>								
 											
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
 							
@@ -307,8 +353,6 @@
     <bean id="callArrestReportingService" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="${incidentReportingService.callArrestReportingService}" />
     </bean>	
-	
-	<bean id="sFactory" class="net.sf.saxon.TransformerFactoryImpl"/>
 	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 	

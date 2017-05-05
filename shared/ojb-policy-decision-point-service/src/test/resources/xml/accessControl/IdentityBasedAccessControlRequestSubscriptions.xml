@@ -32,7 +32,7 @@
 	  	</nc30:PersonName>
 	  </nc30:IdentityPersonRepresentation>
 	  <ext:IdentityIdentification>
-	  	<nc30:IdentificationID>HIJIS:IDP:HCJDC:USER:ychawla</nc30:IdentificationID>
+	  	<nc30:IdentificationID>HIJIS:IDP:HCJDC:USER:hsimpson</nc30:IdentificationID>
 	  </ext:IdentityIdentification>
 	  <ext:FederatedQueryUserIndicator>true</ext:FederatedQueryUserIndicator>
 	  <nc30:ContactInformationAssociation>
@@ -66,5 +66,7 @@
 	  	<nc30:EmployeePositionName>Sergeant</nc30:EmployeePositionName>
 	  </nc30:PersonEmploymentAssociation>
 	</ext:PersonIdentity>
-	<ext:RequestedResourceURI>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</ext:RequestedResourceURI>
+	<ext:RequestedResourceURI>{http://ojbc.org/OJB_Portal/CriminalSubscriptions/1.0}OJB</ext:RequestedResourceURI>
+	<ext:RequestedResourceURI>{http://ojbc.org/OJB_Portal/CivilSubscriptions/1.0}OJB</ext:RequestedResourceURI>
+	<ext:RequestedResourceURI>{http://ojbc.org/OJB_Portal/CriminalIdentificationResults/1.0}OJB</ext:RequestedResourceURI>
 </acr:IdentityBasedAccessControlRequest>

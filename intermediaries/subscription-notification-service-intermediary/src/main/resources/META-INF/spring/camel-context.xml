@@ -18,14 +18,17 @@
 
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:util="http://www.springframework.org/schema/util" xmlns:wsnb2="http://docs.oasis-open.org/wsn/b-2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:wsnb2="http://docs.oasis-open.org/wsn/b-2"
 	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
 	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
 	xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
 	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
 	xmlns:xop="http://www.w3.org/2004/08/xop/include"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
 	xmlns:CHcr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
 	xmlns:CHcr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
 	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
@@ -39,6 +42,8 @@
 		<camel:propertyPlaceholder id="springPropertiesToLoad" location="ref:springProperties" />
 		<camel:routeContextRef ref="searchQueryRoutes" />
 		<camel:routeContextRef ref="subscriptionSecureRouteContext" />
+		<camel:routeContextRef ref="fbiRoutes" />
+		<camel:routeContextRef ref="notificationRoutes" />
   
 		<endpoint id="smtpEndpoint"
 			uri="${publishSubscribe.smtpServerProtocol}://${publishSubscribe.smtpServerName}:${publishSubscribe.smtpServerPort}/?password=${publishSubscribe.emailPassword}&amp;from=${publishSubscribe.emailFromAddress}&amp;username=${publishSubscribe.emailUserID}&amp;contentType=text/html" />
@@ -65,6 +70,14 @@
 							</camel:setHeader>
 						</camel:when>
 						<camel:when>
+							<camel:xpath>(normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='topics:person/rapback' and
+		      				//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or
+		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/rapback'</camel:xpath>
+							<camel:setHeader headerName="notificationTopic">
+								<constant>rapback</constant>
+							</camel:setHeader>
+						</camel:when>
+						<camel:when>
 							<camel:xpath>(normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='topics:person/incident' and
 		      				//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or
 		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/incident'</camel:xpath>
@@ -80,6 +93,22 @@
 								<constant>criminalHistoryCycleTrackingIdentifierAssignment</constant>
 							</camel:setHeader>
 						</camel:when>
+						<camel:when>
+							<camel:xpath>(normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='topics:person/CourtDispositionUpdate' and
+		      				//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or
+		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate'</camel:xpath>
+							<camel:setHeader headerName="notificationTopic">
+								<constant>courtDispositionUpdate</constant>
+							</camel:setHeader>
+						</camel:when>
+						<camel:when>
+							<camel:xpath>(normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='topics:person/ProsecutionDecisionUpdate' and
+		      				//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or
+		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/ProsecutionDecisionUpdate'</camel:xpath>
+							<camel:setHeader headerName="notificationTopic">
+								<constant>prosecutionDecisionUpdate</constant>
+							</camel:setHeader>
+						</camel:when>
 						<camel:otherwise>
 							<camel:log message="Notification does not contain a valid topic" />
 						</camel:otherwise>
@@ -92,6 +121,11 @@
 					<camel:doTry>
 						<camel:setHeader headerName="subscriptionOwner">
 							<constant>SYSTEM</constant>
+						</camel:setHeader>
+						
+						<!-- Auto subscriptions don't have an owner email address -->
+						<camel:setHeader headerName="subscriptionOwnerEmailAddress">
+							<constant></constant>
 						</camel:setHeader>
 						<camel:to uri="direct:processSubscription" />
 						<camel:doCatch>
@@ -130,6 +164,12 @@
 					<camel:to uri="direct:processSubscriptionArrest" />
 				</camel:when>
 				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/rapback' and
+	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/rapback'</camel:xpath>
+					<camel:to uri="direct:processSubscriptionRapback" />
+				</camel:when>
+				<camel:when>
 					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/incident' and
 	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
 	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/incident'</camel:xpath>
@@ -141,6 +181,21 @@
 	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'</camel:xpath>
 					<camel:to uri="direct:processSubscriptionChCycle" />
 				</camel:when>
+
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/CourtDispositionUpdate' and
+	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate'</camel:xpath>
+					<camel:to uri="direct:processSubscriptionCourtDispositionUpdate" />
+				</camel:when>
+
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/ProsecutionDecisionUpdate' and
+	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/ProsecutionDecisionUpdate'</camel:xpath>
+					<camel:to uri="direct:processSubscriptionProsecutionDecisionUpdate" />
+				</camel:when>
+				
 				<camel:otherwise>
 					<camel:log message="Subscription does not contain valid topic" />
 					<camel:throwException ref="invalidTopicException" />
@@ -181,6 +236,12 @@
 					<camel:to uri="direct:processUnsubscribeArrest" />
 				</camel:when>
 				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='topics:person/rapback' and
+	      			//wsnb2:Unsubscribe/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/rapback'</camel:xpath>
+					<camel:to uri="direct:processUnsubscribeRapback" />
+				</camel:when>
+				<camel:when>
 					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='topics:person/incident' and
 	      			//wsnb2:Unsubscribe/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
 	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/incident'</camel:xpath>
@@ -191,6 +252,18 @@
 	      			//wsnb2:Unsubscribe/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
 	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment'</camel:xpath>
 					<camel:to uri="direct:processUnsubscribeChCycle" />
+				</camel:when>
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='topics:person/CourtDispositionUpdate' and
+	      			//wsnb2:Unsubscribe/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate'</camel:xpath>
+					<camel:to uri="direct:processUnsubscribeCourtDispositionUpdate" />
+				</camel:when>
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='topics:person/ProsecutionDecisionUpdate' and
+	      			//wsnb2:Unsubscribe/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/ProsecutionDecisionUpdate'</camel:xpath>
+					<camel:to uri="direct:processUnsubscribeProsecutionDecisionUpdate" />
 				</camel:when>
 				<camel:otherwise>
 					<camel:log message="Unsubscription does not contain valid topic" />
@@ -206,6 +279,17 @@
 			
 			<camel:log message="Processing Subscription (arrest)" />	
 								
+			<!-- this synchronous call is last because it modifies the message -->
+			<to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
+														
+		</camel:route>
+		
+		<camel:route id="processSubscriptionRapback_route">
+		
+			<camel:from uri="direct:processSubscriptionRapback" />
+			
+			<camel:log message="Processing Subscription (rapback)" />	
+								
 			<camel:multicast>				
 				<camel:choice>
 					<camel:when>
@@ -214,135 +298,49 @@
 					</camel:when>			 				 							 																														 				
 				</camel:choice>				
 				<!-- this synchronous call is last because it modifies the message -->
-				<to uri="bean:arrestSubscriptionProcessor?method=subscribe" />
+				<to uri="bean:rapbackSubscriptionProcessor?method=subscribe" />
 														
 			</camel:multicast>						
-		</camel:route>
+		</camel:route>		
 		
-		
-		<route id="processPotentialFbiSubscription_Route">
-		
-			<from uri="direct:processPotentialFbiSubscription"/>
-		
-				<camel:choice>
-					<camel:when>
-						<camel:xpath>boolean(//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonFBIIdentification/nc20:IdentificationID/text()[1])</camel:xpath>					
-						
-						<camel:log message="\n\n\n\n Found FBI ID in message, processing... \n\n\n\n"/>
-						
-						<camel:to uri="bean:fbiSubscriptionProcessor?method=processSubscription"/>
-																																				
-						<camel:choice>
-							<camel:when>
-								<camel:simple>${header.sendSubToFbiEbtsAdapter} == true</camel:simple>
-								
-								<log message ="\n\n\n sendSubToFbiEbtsAdapter} == true ...\n\n\n"/>
-																
-								<to uri="direct:sendToCorrectEbtsEndpoint" />
-																																
-							</camel:when>
-							
-							<camel:otherwise>
-								<log message="\n\n\n Not sending to fbi ebts adapter! \n\n\n" loggingLevel="WARN" />
-							</camel:otherwise>
-						</camel:choice>																			
-						
-					</camel:when>													
-					<camel:otherwise>	
-																									
-						<camel:setHeader headerName="sid">
-							<camel:xpath>//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc20:IdentificationID/text()</camel:xpath>
-						</camel:setHeader>					
-						
-						<!-- rapback logger must be defined in karaf/etc/org.ops4j.pax.logging.cfg  Allows rare important message to go to file where 
-							it's easy to notice, but requires manual monitoring.  The src/test/resources/log4j.properties properties in this project has 
-							sample configuration for setting up the file logger -->
-						<camel:log message="\n\n\n\n There is no FBI ID available for SID:  ${header.sid}.  Not sending subscription to FBI.\n\n\n\n" logName="rapback"/>						
-					</camel:otherwise>							
-				</camel:choice>			
-		
-		</route>
-		
-		
-				
-		<route id="sendToCorrectEbtsEndpoint_Route">
-		
-			<from uri="direct:sendToCorrectEbtsEndpoint"/>
-		
-			<camel:choice>
-					<when>
-						<simple>${header.operationName} == 'Subscribe'</simple>
-								
-						<log message="\n\n\n operationName == 'Subscribe \n\n\n"/>
-														
-						<camel:to uri="direct:callFbiEbtsSubscriptionService"/>	
-					</when>
-					<camel:when>
-						<simple>${header.operationName} == 'Modify'</simple>
-						
-						<log message="\n\n\n operationName == 'Modify' \n\n\n" />
-															
-						<to uri="direct:callFbiEbtsModify" />
-					</camel:when>
-					<otherwise>
-						<log message="\n\n\n Fbi Operation not set. Not sending to ebts adapter! \n\n\n" loggingLevel="WARN" />
-					</otherwise>								
-			</camel:choice>
-										
-		</route>
-						
-		
-		<camel:route id="fbiEbtsSubscriptionSecureRoute">					
-			
-			<camel:from uri="direct:callFbiEbtsSubscriptionService" />
-			
-			<camel:log message="Calling fbi ebts service..."/>			
-						
-			<camel:setHeader headerName="operationName"><constant>Subscribe</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>										
-			
-			<camel:to uri="fbiEbtsSubscriptionRequestServiceEndpoint" />	
-			
-		</camel:route>
-		
-		
-		<route id="callFbiEbtsModify_Route">
-		
-			<from uri="direct:callFbiEbtsModify" />
-		
-			<log message="\n\n\n direct:callFbiEbtsModifyService... \n\n\n" />
-		
-			<setHeader headerName="operationName"><constant>Modify</constant></setHeader>			
-			<setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></setHeader>
-		
-			<to uri="fbiEbtsSubscriptionManagerEndpoint" />
-		</route>
-		
-
 		<camel:route>
 			<camel:from uri="direct:processSubscriptionIncident" />
 			<camel:log message="Processing Subscription (incident)" />
 			<camel:to uri="bean:incidentSubscriptionProcessor?method=subscribe" />
 		</camel:route>
-	
-												
+
 		<camel:route>
 			<camel:from uri="direct:processSubscriptionChCycle" />
 			<camel:log message="Processing Subscription(ChCycle)" />
 			<camel:to uri="bean:chCycleSubscriptionProcessor?method=subscribe" />
 		</camel:route>		
-			
+
 		<camel:route>
-			<camel:from uri="direct:processUnsubscribeChCycle" />
-			<camel:log message="Processing Unsubscription(ChCycle)" />
-			<camel:to uri="bean:chCycleSubscriptionProcessor?method=unsubscribe" />
-		</camel:route>
-	
-	
+			<camel:from uri="direct:processSubscriptionCourtDispositionUpdate" />
+			<camel:log message="Processing Subscription(Court Disposition Update)" />
+			<camel:to uri="bean:courtDispositionUpdateProcessor?method=subscribe" />
+		</camel:route>		
+
+		<camel:route>
+			<camel:from uri="direct:processSubscriptionProsecutionDecisionUpdate" />
+			<camel:log message="Processing Subscription(Prosecution Decision Update)" />
+			<camel:to uri="bean:prosecutionDecisionUpdateProcessor?method=subscribe" />
+		</camel:route>		
+			
 		<camel:route>
 			<camel:from uri="direct:processUnsubscribeArrest" />
 			
 			<camel:log message="Processing Unsubscription (arrest)" />
+						
+			<!-- side effect: at end, this call sets exchange body to the unsubscribe response message -->
+			<camel:to uri="bean:arrestSubscriptionProcessor?method=unsubscribe" />									
+			
+		</camel:route>
+		
+		<camel:route>
+			<camel:from uri="direct:processUnsubscribeRapback" />
+			
+			<camel:log message="Processing Unsubscription (rapback)" />
 			
 			<camel:choice>
 				<camel:when>
@@ -352,224 +350,34 @@
 			</camel:choice>
 			
 			<!-- side effect: at end, this call sets exchange body to the unsubscribe response message -->
-			<camel:to uri="bean:arrestSubscriptionProcessor?method=unsubscribe" />									
+			<camel:to uri="bean:rapbackSubscriptionProcessor?method=unsubscribe" />									
 			
-		</camel:route>
+		</camel:route>		
 		
-				
-		<camel:route id="processFbiUnsubscribeRoute">
-		
-			<from uri="direct:processFbiUnsubscription"/>								
-			
-			<log message="\n\n\n direct:processFbiUnsubscription... \n\n\n" loggingLevel="INFO" />	
-			
-			<setHeader headerName="shouldDeleteFbiSubscription">			
-				<simple>bean:fbiSubscriptionProcessor?method=shouldDeleteFbiSubscription</simple>			
-			</setHeader>	
-			
-			<log message="\n\n\n shouldDeleteFbiSubscription = ${header.shouldDeleteFbiSubscription} \n\n\n" loggingLevel="INFO"/>
-			
-			<camel:choice>
-				<camel:when>
-					<simple>${header.shouldDeleteFbiSubscription}</simple>
-					
-					<camel:log message="\n\n\n No more state subscriptions, so - Calling fbi ebts service to unsubscribe from FBI... \n\n\n"/>
-																				
-					<to uri="bean:fbiSubscriptionProcessor?method=prepareUnsubscribeMessageForFbiEbts"/>
-						
-					<convertBodyTo type="java.lang.String"/>
-									
-					<camel:to uri="fbiEbtsSubscriptionManagerEndpoint" />														
-				
-				</camel:when>	
-				
-				<camel:otherwise>			
-				
-					<log message="\n\n\n NOT DeleteFbiSubscription! (possible State Subscriptions remaining) \n\n\n" loggingLevel="WARN"/>		
-							
-					<to uri="bean:fbiSubscriptionProcessor?method=determineStateSubsEndDateLessThanFbiSubEndDate"/>
-					
-					<choice>
-						<when>
-							<simple>${header.stateSubsEndDateLessThanFbiSubEndDate}</simple>
-							
-							<log message="\n\n\n stateSubsEndDateLessThanFbiSubEndDate - so preparing maintenance subscription \n\n\n" />
-																																
-							<to uri="bean:fbiSubscriptionProcessor?method=prepareSubscriptionModificationFromUnsubscribe"/>
-																											
-							<to uri="fbiEbtsSubscriptionManagerEndpoint"/>
-						</when>	
-						
-						<camel:otherwise>
-							<log message="\n\n\n !stateSubsEndDateLessThanFbiSubEndDate \n\n\n" />
-						</camel:otherwise>				
-					</choice>
-																				
-				</camel:otherwise>			
-			</camel:choice>			
-			
-		</camel:route>
-			
-			
 		<camel:route>
 			<camel:from uri="direct:processUnsubscribeIncident" />
 			<camel:log message="Processing Unsubscription (incident)" />
 			<camel:to uri="bean:incidentSubscriptionProcessor?method=unsubscribe" />
 		</camel:route>
-
-		<camel:route id="processNotificationRoute">
-
-			<camel:from uri="direct:processNotification" />
-
-			<camel:choice>
-				<camel:when>
-					<camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
-					<camel:choice>
-						<camel:when>
-							<camel:xpath>normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/nc20:DocumentBinary/notfm-ext:Base64BinaryObject)!=''</camel:xpath>
-							<camel:setHeader headerName="base64BinaryData">
-								<camel:xpath resultType="java.lang.String">//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Message/notfm-doc:NotificationMessage/notfm-ext:NotifyingArrest/notfm-ext:CriminalHistoryRecordDocument/nc20:DocumentBinary/notfm-ext:Base64BinaryObject</camel:xpath>
-							</camel:setHeader>
-							<camel:to uri="bean:arrestNotificationAttachmentProcessor?method=processBase64BinaryObject"></camel:to>
-						</camel:when>
-					</camel:choice>
-					<camel:to uri="bean:arrestNotificationProcessor?method=findSubscriptionsForNotification" />
-				</camel:when>
-				<camel:when>
-					<camel:simple>${in.header.notificationTopic} == 'incident'</camel:simple>
-					<camel:to uri="bean:incidentNotificationProcessor?method=findSubscriptionsForNotification" />
-				</camel:when>
-				<camel:when>
-					<camel:simple>${in.header.notificationTopic} == 'criminalHistoryCycleTrackingIdentifierAssignment'</camel:simple>
-					<camel:to uri="bean:chCycleNotificationProcessor?method=findSubscriptionsForNotification" />
-				</camel:when>
-			</camel:choice>
-
-			<camel:split>
-
-				<camel:header>emailNotifications</camel:header>
-
-				<camel:choice>
-					<camel:when>
-						<camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>
-						<camel:to uri="bean:arrestNotificationProcessor?method=createNotificationEmail" />
-					</camel:when>
-					<camel:when>
-						<camel:simple>${in.header.notificationTopic} == 'incident'</camel:simple>
-						<camel:to uri="bean:incidentNotificationProcessor?method=createNotificationEmail" />
-					</camel:when>
-					<camel:when>
-						<camel:simple>${in.header.notificationTopic} == 'criminalHistoryCycleTrackingIdentifierAssignment'</camel:simple>
-						<camel:to uri="bean:chCycleNotificationProcessor?method=createNotificationEmail" />
-					</camel:when>
-				</camel:choice>
-
-				<camel:setHeader headerName="emailBody">
-					<camel:simple>${body}</camel:simple>
-				</camel:setHeader>
-
-				<camel:choice>
-					<camel:when>    			
-    				<!-- If this notification object has some blocked (non-whitelisted) email addresses -->
-						<camel:simple>${in.header.blocked} != '[]'</camel:simple>
-
-						<camel:split>
-
-							<camel:header>blocked</camel:header>
-
-							<camel:setHeader headerName="blockedAddress">
-								<camel:simple>${body}</camel:simple>
-							</camel:setHeader>
-							<camel:setBody>
-								<camel:simple>${header.emailBody}</camel:simple>
-							</camel:setBody>
-
-							<camel:setHeader headerName="CamelFileName">
-								<camel:simple>${date:now:yyyyMMdd}/${header.blockedAddress}_${in.header.subjectIdentifier}_${date:now:yyyy-MM-ddhhmmss}.txt</camel:simple>
-							</camel:setHeader>
-
-							<camel:log
-								message="The email address ${header.blockedAddress} is not in the white list and will be written to the file system with the name ${in.header.CamelFileName}"
-								logName="notificationLogger" />
-						
-						<!-- We throttle here in case multiple messages come in at the same time -->
-							<camel:throttle timePeriodMillis="1000">
-								<camel:constant>1</camel:constant>
-								<camel:to uri="notificationNonwhitelistFileDrop" />
-							</camel:throttle>
-
-						</camel:split>
-
-					</camel:when>
-
-					<camel:when>
-				
-					<!-- When this notification object has a non-null "to" address (i.e., a valid email can be sent) -->
-						<camel:simple>${in.header.to} != null</camel:simple>
-					
-						<camel:log message="headers: ${in.headers}" />
-						<camel:log message="Email Address is in whitelist: TO=${in.header.to}" />
-
-						<camel:to uri="direct:processEmailNotifications" />
-
-					</camel:when>
-
-					<camel:otherwise>
-
-						<camel:log loggingLevel="WARN"
-							message="Invalid email notification, contained no to: address and no blocked (non-whitelisted) addresses. Header info follows:" />
-						<camel:log loggingLevel="WARN" message="headers: ${in.headers}" />
-
-					</camel:otherwise>
-
-				</camel:choice>
-
-			</camel:split>
-
+			
+		<camel:route>
+			<camel:from uri="direct:processUnsubscribeChCycle" />
+			<camel:log message="Processing Unsubscription(ChCycle)" />
+			<camel:to uri="bean:chCycleSubscriptionProcessor?method=unsubscribe" />
 		</camel:route>
 
 		<camel:route>
-			<camel:from uri="direct:processEmailNotifications" />
-			<camel:log message="The email address(es) ${in.header.to} will be sent a notification.  To: ${in.header.to}, CC: ${in.header.cc}, BCC: ${in.header.bcc}"
-				logName="notificationLogger" />
-
-			<removeHeaders pattern="emailBody" />
-
-			<camel:choice>
-				<camel:when>
-					<method ref="sendEmailNotificationsByConfigurationProcessor" method="sendEmailNotificationsToRecipients" />
-					<camel:to uri="smtpEndpoint" />
-				</camel:when>
-				<camel:otherwise>
-					<camel:log message="No email will be sent, email property sendEmailNotifications set to false"></camel:log>
-				</camel:otherwise>
-			</camel:choice>
+			<camel:from uri="direct:processUnsubscribeCourtDispositionUpdate" />
+			<camel:log message="Processing Unsubscription (Court Disposition Update)" />
+			<camel:to uri="bean:courtDispositionUpdateProcessor?method=unsubscribe" />
 		</camel:route>
 
-		<!-- Criminal History Consolidation Request flow -->
-		<route id="criminalHistoryConsolidationRequestRoute">
-			<from uri="criminalHistoryConsolidationReportingServiceEndpoint" />
-			<onException>
-				<exception>java.lang.Exception</exception>
-				<handled><constant>true</constant></handled>
-				<camel:log message="An exception was thrown: ${exception.cause.message}"
-					loggingLevel="ERROR" />
-				<setHeader headerName="CamelFileName">
-					<simple>FailedCriminalHistoryConsolidationReport_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
-				</setHeader>	
-				<to uri="criminalHistoryConsolidationFailedFileEndpoint"/>
-			</onException>
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
-			<camel:setHeader headerName="currentSid">
-				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc30:Person/CHcr-ext:PreConsolidationIdentifiers/nc30:PersonStateIdentification/nc30:IdentificationID</camel:xpath>
-			</camel:setHeader>
-			<camel:setHeader headerName="newSid">
-				<camel:xpath resultType="java.lang.String">/CHcr-doc:CriminalHistoryConsolidationReport/nc30:Person/CHcr-ext:PostConsolidationIdentifiers/nc30:PersonStateIdentification/nc30:IdentificationID</camel:xpath>
-			</camel:setHeader>
-			<to uri="bean:sidConsolidationProcessor?method=consolidateSid" />
-			<log message="SID consolidated"></log>
-		</route>
-		
+		<camel:route>
+			<camel:from uri="direct:processUnsubscribeProsecutionDecisionUpdate" />
+			<camel:log message="Processing Unsubscription(Prosecution Decision Update)" />
+			<camel:to uri="bean:prosecutionDecisionUpdateProcessor?method=unsubscribe" />
+		</camel:route>
+			
 	</camel:camelContext>
 
 	<bean id="genericFaultProcessor" class="org.ojbc.intermediaries.sn.subscription.FaultMessageProcessor" />

@@ -28,7 +28,6 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.ojbc.bundles.adapters.staticmock.samplegen.JuvenileHistorySampleGenerator.IdentifiableHistoryComponent;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -38,7 +37,8 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 
 	private static final String ID_SOURCE_TEXT = "CMS";
 
-	private static final Log LOG = LogFactory.getLog(JuvenileHistorySampleGenerator.class);
+	@SuppressWarnings("unused")
+	private static final Log log = LogFactory.getLog(JuvenileHistorySampleGenerator.class);
 
 	private static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
 
@@ -234,11 +234,8 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 
 		Element root = d.getDocumentElement();
 
-		int i = 0;
 
 		for (OffenseCharge offense : history.offenseCharges) {
-
-			i++;
 
 			Element assn = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JXDM_50, "OffenseLocationAssociation");
 			Element e = XmlUtils.appendElement(assn, OjbcNamespaceContext.NS_JXDM_50, "Offense");
@@ -256,11 +253,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 
 		Element root = d.getDocumentElement();
 
-		int i = 0;
-
 		for (OffenseCharge offense : history.offenseCharges) {
-
-			i++;
 
 			Element offenseChargeElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JXDM_50, "OffenseChargeAssociation");
 			Element offenseElement = XmlUtils.appendElement(offenseChargeElement, OjbcNamespaceContext.NS_JXDM_50, "Offense");
@@ -305,11 +298,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 
 		Element root = d.getDocumentElement();
 
-		int i = 0;
-
 		for (Referral referral : history.referrals) {
-
-			i++;
 
 			Element referralElement = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "Referral");
 			XmlUtils.addAttribute(referralElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", referral.id);
@@ -561,6 +550,7 @@ public class JuvenileHistorySampleGenerator extends AbstractSampleGenerator {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	JuvenileHistory createJuvenileHistory(PersonElementWrapper kid, DateTime baseDate, String stateParam) throws IOException {
 		
 		// make these people kids

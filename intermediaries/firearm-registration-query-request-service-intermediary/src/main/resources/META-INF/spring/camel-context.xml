@@ -47,10 +47,10 @@
 			uri="cxf:bean:firearmRegistrationQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${firearmQuery.registration.firearmQueryIntermediaryCxflogging}" />
 
 	    <endpoint id="firearmRegistrationQueryRequestServiceAdapterEndpoint" 
-	    	uri="cxf:bean:firearmRegistrationQueryRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${firearmQuery.registration.firearmQueryIntermediaryCxflogging}"/>
+	    	uri="cxf:bean:firearmRegistrationQueryRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${firearmQuery.registration.firearmQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>
 		
 		<endpoint id="presentFirearmRegistrationQueryResultsServiceEndpoint" 
-			uri="cxf:bean:presentFirearmRegistrationQueryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${firearmQuery.registration.firearmQueryIntermediaryCxflogging}"/>                        
+			uri="cxf:bean:presentFirearmRegistrationQueryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${firearmQuery.registration.firearmQueryIntermediaryCxflogging}&amp;allowStreaming=false"/>                        
 
 
 		<!-- Federated Search Request Handler-->

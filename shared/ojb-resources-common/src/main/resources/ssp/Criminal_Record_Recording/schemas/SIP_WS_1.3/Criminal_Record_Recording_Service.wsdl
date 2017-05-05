@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:cr-doc="http://ojbc.org/IEPD/CriminalRecord/1.0" xmlns:tns="http://ojbc.org/Services/WSDL/CriminalRecordRecordingService/1.0" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://ojbc.org/Services/WSDL/CriminalRecordRecordingService/1.0">
+	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://ojbc.org/IEPD/CriminalRecord/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CriminalRecord.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="ArrestRecord">
+		<wsdl:part name="ArrestRecord" element="cr-doc:ArrestRecord"/>
+	</wsdl:message>
+	<wsdl:message name="ChargeRecord">
+		<wsdl:part name="ChargeRecord" element="cr-doc:ChargeRecord"/>
+	</wsdl:message>
+	<wsdl:message name="ChargeDispositionRecord">
+		<wsdl:part name="ChargeDispositionRecord" element="cr-doc:ChargeDispositionRecord"/>
+	</wsdl:message>
+	<wsdl:portType name="Criminal-Record-Recording-Service">
+		<wsdl:operation name="RecordArrest">
+			<wsdl:input name="RecordArrest" message="tns:ArrestRecord"/>
+		</wsdl:operation>
+		<wsdl:operation name="RecordCharge">
+			<wsdl:input name="RecordCharge" message="tns:ChargeRecord"/>
+		</wsdl:operation>
+		<wsdl:operation name="RecordChargeDisposition">
+			<wsdl:input name="RecordChargeDisposition" message="tns:ChargeDispositionRecord"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<!-- Secure, GFIPM-conforming binding -->
+	<wsdl:binding name="Criminal-Record-Recording-Secure-ServiceSOAPBinding" type="tns:Criminal-Record-Recording-Service">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsp:PolicyReference URI="#GFIPMSystemToSystem"/>
+		<wsdl:operation name="RecordArrest">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/CriminalRecordRecordingService/1.0/RecordArrest" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="RecordCharge">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/CriminalRecordRecordingService/1.0/RecordCharge" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="RecordChargeDisposition">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/CriminalRecordRecordingService/1.0/RecordChargeDisposition" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Criminal-Record-Recording-ServiceService">
+		<wsdl:port name="Criminal-Record-Recording-Secure-Service" binding="tns:Criminal-Record-Recording-Secure-ServiceSOAPBinding">
+			<soap:address location="http://localhost"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

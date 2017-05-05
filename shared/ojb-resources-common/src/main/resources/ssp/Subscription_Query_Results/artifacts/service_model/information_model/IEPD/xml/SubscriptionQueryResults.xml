@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<sqr-doc:SubscriptionQueryResults
+	xmlns:sqr-ext="http://ojbc.org/IEPD/Extensions/SubscriptionQueryResults/1.0"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:sqr-doc="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
+	xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionQueryResults/1.0 ../xsd/exchange_schema.xsd ">
+	<sqr-ext:SubscriptionQueryResult>
+		<sqr-ext:Subscription>
+			<nc:ActivityDateRange>
+				<nc:StartDate>
+					<nc:Date>2014-03-12</nc:Date>
+				</nc:StartDate>
+				<nc:EndDate>
+					<nc:Date>2016-03-12</nc:Date>
+				</nc:EndDate>
+			</nc:ActivityDateRange>
+			<sqr-ext:SubscriptionRelatedCaseIdentification>
+				<nc:IdentificationID>0123ABC</nc:IdentificationID>
+			</sqr-ext:SubscriptionRelatedCaseIdentification>
+			<sqr-ext:SubscriptionSubject>
+				<nc:RoleOfPersonReference s:ref="P001" />
+			</sqr-ext:SubscriptionSubject>
+			<wsn-br:Topic
+				Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
+			<sqr-ext:SubscribedEntity s:id="SE001" />
+			<sqr-ext:SubscriptionOriginator>
+				<sqr-ext:SubscriptionOriginatorIdentification>
+					<nc:IdentificationID>HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov
+					</nc:IdentificationID>
+				</sqr-ext:SubscriptionOriginatorIdentification>
+			</sqr-ext:SubscriptionOriginator>
+			<sqr-ext:SubscriptionValidation>
+				<sqr-ext:SubscriptionValidationDueDate>
+					<nc:Date>2015-03-12</nc:Date>
+				</sqr-ext:SubscriptionValidationDueDate>
+				<sqr-ext:SubscriptionValidatedDate>
+					<nc:Date>2014-03-12</nc:Date>
+				</sqr-ext:SubscriptionValidatedDate>
+			</sqr-ext:SubscriptionValidation>
+			<sqr-ext:SubscriptionGracePeriod>
+				<sqr-ext:SubscriptionGracePeriodDateRange>
+					<nc:StartDate>
+						<nc:Date>2014-09-13</nc:Date>
+					</nc:StartDate>
+					<nc:EndDate>
+						<nc:Date>2014-10-13</nc:Date>
+					</nc:EndDate>
+				</sqr-ext:SubscriptionGracePeriodDateRange>
+			</sqr-ext:SubscriptionGracePeriod>
+			<sqr-ext:CriminalSubscriptionReasonCode>CI
+			</sqr-ext:CriminalSubscriptionReasonCode>
+			<!-- OR sqr-ext:CivilSubscriptionReasonCode>I</sqr-ext:CivilSubscriptionReasonCode -->
+			<sqr-ext:TriggeringEvents>
+				<sqr-ext:FederalTriggeringEventCode>ARREST
+				</sqr-ext:FederalTriggeringEventCode>
+				<sqr-ext:FederalTriggeringEventCode>DEATH
+				</sqr-ext:FederalTriggeringEventCode>
+				<sqr-ext:FederalTriggeringEventCode>NCIC-SOR-ENTRY
+				</sqr-ext:FederalTriggeringEventCode>
+				<sqr-ext:FederalTriggeringEventCode>NCIC-WARRANT-DELETION
+				</sqr-ext:FederalTriggeringEventCode>
+				<sqr-ext:FederalTriggeringEventCode>DISPOSITION
+				</sqr-ext:FederalTriggeringEventCode>
+			</sqr-ext:TriggeringEvents>
+			<sqr-ext:FederalRapSheetDisclosure>
+				<sqr-ext:FederalRapSheetDisclosureIndicator>true
+				</sqr-ext:FederalRapSheetDisclosureIndicator>
+				<sqr-ext:FederalRapSheetDisclosureAttentionDesignationText>Detective
+					George Jones
+				</sqr-ext:FederalRapSheetDisclosureAttentionDesignationText>
+			</sqr-ext:FederalRapSheetDisclosure>
+		</sqr-ext:Subscription>
+		<sqr-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/Subscription_Search_Request_Service/Subscriptions/1.0}Submit-Subscription-Search</sqr-ext:SourceSystemNameText>
+		<intel:SystemIdentifier>
+			<nc:IdentificationID>19ec7fb5-4e29-4657-a86d-1a9711330e10,A109918642-HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov</nc:IdentificationID>
+			<intel:SystemName>Subscriptions</intel:SystemName>
+		</intel:SystemIdentifier>
+	</sqr-ext:SubscriptionQueryResult>
+	<sqr-ext:Person s:id="P001">
+		<nc:PersonBirthDate>
+			<nc:Date>1975-01-12</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Dwight</nc:PersonGivenName>
+			<nc:PersonSurName>Schrute</nc:PersonSurName>
+			<nc:PersonFullName>Dwight Schrute</nc:PersonFullName>
+		</nc:PersonName>
+		<j:PersonAugmentation>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>123456789</nc:IdentificationID>
+			</j:PersonFBIIdentification>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>A1099109188</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+	</sqr-ext:Person>
+	<nc:ContactInformation s:id="CI001">
+		<nc:ContactEmailID>probation_officer@gov.gov</nc:ContactEmailID>
+	</nc:ContactInformation>
+	<sqr-ext:SubscribedEntityContactInformationAssociation>
+		<sqr-ext:SubscribedEntityReference
+			s:ref="SE001" />
+		<nc:ContactInformationReference s:ref="CI001" />
+	</sqr-ext:SubscribedEntityContactInformationAssociation>
+</sqr-doc:SubscriptionQueryResults>

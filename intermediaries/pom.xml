@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -31,24 +32,33 @@
 
   <modules>
     <module>arrest-reporting-service-intermediary</module>
+    <module>behavioral-health-evaluation-reporting-service-intermediary</module>
+    <module>booking-reporting-service-intermediary</module>
+    <module>case-filing-decision-reporting-service-intermediary</module>
+    <module>charge-referral-reporting-service-intermediary</module>
+    <module>court-case-search-service-intermediary</module>
+    <module>court-case-query-service-intermediary</module>
     <module>criminal-history-update-reporting-service-intermediary</module>
+    <module>custody-query-service-intermediary</module>
+    <module>custody-search-request-service-intermediary</module>
     <module>disposition-reporting-service-intermediary</module>
+    <module>firearm-purchase-prohibition-query-request-service-intermediary</module>
     <module>firearm-registration-query-request-service-intermediary</module>
     <module>firearm-search-request-service-intermediary</module>
     <module>identification-reporting-service-intermediary</module>
+    <module>identification-results-modification-service-intermediary</module>
     <module>incident-report-request-service-intermediary</module>
     <module>incident-reporting-service-intermediary-common</module>
     <module>incident-reporting-service-intermediary</module>
     <module>incident-search-request-service-intermediary</module>
     <module>juvenile-history-service-intermediary</module>
-
-    <!--
-      Upgraded to Java 8 so it will need to be tested separately.
+    <module>organization-identification-results-query-service-intermediary</module>
+    <module>organization-identification-results-search-service-intermediary</module>
     <module>ndex-submission-service-intermediary</module>
-    -->
-
     <module>parole-event-handler-service-intermediary</module>
+    <module>person-health-information-search-service-intermediary</module>
     <module>person-query-service-criminal-history-intermediary</module>
+    <module>person-query-service-vehicle-crash-intermediary</module>
     <module>person-query-service-warrants-intermediary</module>
     <module>person-search-request-service-intermediary</module>
     <module>policy-acknowledgement-service-intermediary</module>
@@ -57,5 +67,9 @@
     <module>subscription-notification-service-intermediary-common</module>
     <module>subscription-notification-service-intermediary</module>
     <module>vehicle-search-request-service-intermediary</module>
+    <module>warrant-issued-reporting-intermediary-service</module>
+    <module>custody-status-change-reporting-service-intermediary</module>
+    <module>custody-release-reporting-service-intermediary</module>
+    <module>warrant-modification-service-intermediary</module>
   </modules>
 </project>

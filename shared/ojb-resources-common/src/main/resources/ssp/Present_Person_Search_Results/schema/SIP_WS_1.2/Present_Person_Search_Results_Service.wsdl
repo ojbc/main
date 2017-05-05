@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<wsdl:definitions 
+	xmlns="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:Q1="http://hijis.hawaii.gov/PersonSearchResultsCombined/1.0" 
+	xmlns:tns="http://hijis.hawaii.gov/ws/Present_Person_Search_Results_Service/1.0" 
+	targetNamespace="http://hijis.hawaii.gov/ws/Present_Person_Search_Results_Service/1.0"
+	xmlns:policy="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="http://hijis.hawaii.gov/PersonSearchResultsCombined/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/Person_Search_Results_-_Combined.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="Person-Search-Results---Combined">
+        <wsdl:part name="Person-Search-Results---Combined" element="Q1:PersonSearchResults"/>
+    </wsdl:message>
+    <wsdl:portType name="Present-Person-Search-Results-Service">
+        <wsdl:operation name="Report-Person-Search-Results---Resolved">
+            <wsdl:input name="Person-Search-Results---Combined" message="tns:Person-Search-Results---Combined"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="Present-Person-Search-Results-ServiceSOAPBinding" type="tns:Present-Person-Search-Results-Service">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#GFIPMSystemToSystem" />
+        <wsdl:operation name="Report-Person-Search-Results---Resolved">
+            <soap:operation soapAction="Report-Person-Search-Results---Resolved" style="document"/>
+            <wsdl:input name="Person-Search-Results---Combined">
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="Present-Person-Search-Results-ServiceService">
+        <wsdl:port name="Present-Person-Search-Results-Service" binding="tns:Present-Person-Search-Results-ServiceSOAPBinding">
+            <soap:address location="localhost"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

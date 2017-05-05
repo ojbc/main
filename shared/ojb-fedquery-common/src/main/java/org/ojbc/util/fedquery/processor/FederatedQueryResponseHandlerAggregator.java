@@ -24,6 +24,7 @@ import java.util.Map.Entry;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.component.cxf.CxfPayload;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.helper.OJBUtils;
@@ -37,20 +38,24 @@ public class FederatedQueryResponseHandlerAggregator {
 	private static final Log log = LogFactory.getLog( FederatedQueryResponseHandlerAggregator.class );
 	private Map<String, List<FederatedQueryProfile>> federatedQueryManager;
 	
+	private Map<String, String> addressToAdapterURIMap;
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void aggregateGroupMessagesString(Exchange groupedExchange)
 	{
 		List<Exchange> grouped = groupedExchange.getProperty(Exchange.GROUPED_EXCHANGE, List.class);
 		
-        StringBuffer sb = null;
+		StringBuffer sb = new StringBuffer();
+		sb.append("<OJBAggregateResponseWrapper>");
         
         List<String> endpointsThatDidNotRespond = new ArrayList<String>();
         
+        log.info("grouped size: " + grouped.size());
 		for (Exchange exchange : grouped)
 		{
 		
 			//This exchange is the message sent to start the federated query timer, it is an exchange with a string that says 'START_QUERY_TIMER'	
-			if (exchange.getIn().getBody().getClass().getName().equals("java.lang.String"))
+			if (exchange.getIn().getBody().getClass().getName().equals("java.lang.String") && exchange.getIn().getBody().equals("START_QUERY_TIMER"))
 			{
 				 String startMessage = exchange.getIn().getBody(String.class); 
 				 
@@ -68,18 +73,12 @@ public class FederatedQueryResponseHandlerAggregator {
 
 				 
 				 log.debug("Processing aggregator start message: " + startMessage);
-			}	
+				 
+				 continue; 
+			}
 			
 			if (exchange.getIn().getBody().getClass().getName().equals("org.apache.camel.component.cxf.CxfPayload"))
 			{
-				//This is the first exchange we are processing
-				if (sb == null)
-				{
-					//Create the XML wrapper start tag
-					sb = new StringBuffer();
-					sb.append("<OJBAggregateResponseWrapper>");
-					
-				}	
 				
 				//Uncomment the line below to see the individual aggregated message
 				//log.debug("This is the body of the exchange in the exchange group: " + exchange.getIn().getBody());
@@ -90,7 +89,16 @@ public class FederatedQueryResponseHandlerAggregator {
 		        String bodyAsString = OJBUtils.getStringFromDocument(elementList.get(0).getOwnerDocument());
 		        sb.append(bodyAsString);
 		        groupedExchange.getIn().getAttachments().putAll(exchange.getIn().getAttachments());
+		        continue; 
 			}	
+			
+				//Uncomment the line below to see the individual aggregated message
+				//log.debug("This is the body of the exchange in the exchange group: " + exchange.getIn().getBody());
+				
+			String response = exchange.getIn().getBody(String.class);
+			
+			if (StringUtils.isNotBlank(response));
+				sb.append(response);
 			
 		}	
 		
@@ -119,6 +127,22 @@ public class FederatedQueryResponseHandlerAggregator {
 					if (exchange.getIn().getBody().getClass().getName().equals("org.apache.camel.component.cxf.CxfPayload"))
 					{
 						String searchProfileInResponseExchange = (String) exchange.getIn().getHeader("searchProfile");
+						
+						if (StringUtils.isEmpty(searchProfileInResponseExchange))
+						{
+							log.info("No search profile in message, try retrieving search profile from WS-Addressing 'From' Address");
+
+							HashMap<String, String> wsAddressingHeadersMap = OJBUtils.returnWSAddressingHeadersFromCamelSoapHeaders(exchange);
+							String wsAddressingFrom = wsAddressingHeadersMap.get("From");
+							
+							log.info("WS-Addressing 'From' Address" + wsAddressingFrom);	
+
+							if (addressToAdapterURIMap != null)
+							{
+								searchProfileInResponseExchange = addressToAdapterURIMap.get(wsAddressingFrom);
+							}	
+							
+						}	
 						
 						log.info("Response Recieved from: " + searchProfileInResponseExchange);
 						
@@ -209,7 +233,16 @@ public class FederatedQueryResponseHandlerAggregator {
 	public void setFederatedQueryManager(
 			Map<String, List<FederatedQueryProfile>> federatedQueryManager) {
 		this.federatedQueryManager = federatedQueryManager;
-	} 
+	}
+
+	public Map<String, String> getAddressToAdapterURIMap() {
+		return addressToAdapterURIMap;
+	}
+
+	public void setAddressToAdapterURIMap(Map<String, String> addressToAdapterURIMap) {
+		this.addressToAdapterURIMap = addressToAdapterURIMap;
+	}
+
 	
 
 }

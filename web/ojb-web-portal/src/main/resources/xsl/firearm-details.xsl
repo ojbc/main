@@ -172,17 +172,24 @@
                 <td colspan="2"><xsl:value-of select="nc:PersonComplexionText" /></td>
             </tr>
             <tr>
-                <td colspan="2" class="detailsLabel">CURRENT CITIZENSHIP</td>
-                <td colspan="2"><xsl:value-of select="nc:PersonCitizenshipText" /></td>
+			    <td colspan="2" class="detailsLabel">DL#/ISSUER</td>
+			    <td colspan="1"><xsl:value-of select="/*/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationID"/></td>
+			    <td colspan="1"><xsl:value-of select="/*/nc:DriverLicense/nc:DriverLicenseIdentification/nc:IdentificationSourceText"/></td>
                 <td colspan="2" class="detailsLabel">STATE ID</td>
                 <td colspan="2"><xsl:value-of select="nc:PersonStateIdentification/nc:IdentificationID" /></td>
             </tr>   
             <tr>
-            	 <td colspan="2" class="detailsLabel">COMMENTS</td>
-                <td colspan="2"><xsl:value-of select="/*/firearm-ext:FirearmRegistrant[nc:RoleOfPersonReference/@s:ref=$pid]/firearm-ext:FirearmRegistrantCommentsText"/></td>
+                <td colspan="2" class="detailsLabel">CURRENT CITIZENSHIP</td>
+                <td colspan="2"><xsl:value-of select="nc:PersonCitizenshipText" /></td>                            
                 <td colspan="2" class="detailsLabel">LEOSA</td>
                 <td colspan="2"><xsl:value-of select="/*/firearm-ext:FirearmRegistrant[nc:RoleOfPersonReference/@s:ref=$pid]/firearm-ext:FirearmRegistrantLawEnforcementOfficersSafetyActIndicator"/></td>
-            </tr>           
+            </tr> 			
+            <tr>
+            	<td colspan="2" class="detailsLabel">COMMENTS</td>
+                <td colspan="2"><xsl:value-of select="/*/firearm-ext:FirearmRegistrant[nc:RoleOfPersonReference/@s:ref=$pid]/firearm-ext:FirearmRegistrantCommentsText"/></td>                
+                <td colspan="2" class="detailsLabel"><!-- EMPTY --></td>
+                <td colspan="2"><!-- EMPTY --></td>
+            </tr>   			                   
         </table>
     </xsl:template>
     

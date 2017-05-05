@@ -32,7 +32,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.commons.io.FileUtils;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
@@ -53,6 +53,7 @@ import org.w3c.dom.Element;
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/camel-context.xml",
+        "classpath:META-INF/spring/file-drop-routes.xml",
         "classpath:META-INF/spring/cxf-endpoints.xml",      
         "classpath:META-INF/spring/properties-context.xml",
         })
@@ -98,7 +99,7 @@ public class CamelContextTest {
     	    }              
     	});      
     	
-    	context.getRouteDefinition("arrestNotificationRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("federalRapbackNotificationRoute").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {    	    	
     	    	mockEndpointsAndSkip("cxf:bean:arrestReportingService*");    	    	

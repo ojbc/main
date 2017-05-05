@@ -22,7 +22,6 @@ import static junit.framework.Assert.assertNotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.cxf.helpers.XMLUtils;
 import org.junit.Test;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;

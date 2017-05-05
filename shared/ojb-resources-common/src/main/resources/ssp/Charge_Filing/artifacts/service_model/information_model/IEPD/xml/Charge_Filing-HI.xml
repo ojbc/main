@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<CoreFilingMessage xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../xsd/message/ECF-4.0-CoreFilingMessage.xsd">
+	<nc:DocumentApplicationName>X</nc:DocumentApplicationName>
+	<nc:DocumentFileControlID>X</nc:DocumentFileControlID>
+	<nc:DocumentStatus>
+		<nc:StatusText>X</nc:StatusText>
+		<nc:StatusDate>
+			<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
+		</nc:StatusDate>
+	</nc:DocumentStatus>
+	<nc:DocumentSubmitter>
+		<ecf:EntityOrganization>
+			<nc:OrganizationIdentification>
+				<nc:IdentificationID>X</nc:IdentificationID>
+			</nc:OrganizationIdentification>
+			<nc:OrganizationName>X</nc:OrganizationName>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc:IdentificationID>X</nc:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+			<ecf:OrganizationAugmentation>
+				<ecf:ElectronicServiceInformation>
+					<ecf:ServiceRecipientID>
+						<nc:IdentificationID>X</nc:IdentificationID>
+					</ecf:ServiceRecipientID>
+					<ecf:ReceivingMDELocationID>
+
+									</ecf:ReceivingMDELocationID>
+					<ecf:ReceivingMDEProfileCode>normalizedString</ecf:ReceivingMDEProfileCode>
+				</ecf:ElectronicServiceInformation>
+			</ecf:OrganizationAugmentation>
+		</ecf:EntityOrganization>
+	</nc:DocumentSubmitter>
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>91</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>MESSAGINGPROFILEID</ecf:SendingMDEProfileCode>
+	<criminal:CriminalCase xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0 ../xsd/casetype/ECF-4.0-CriminalCase.xsd">
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>X</nc:IdentificationID>
+			<nc:IdentificationCategoryText/>
+		</nc:ActivityIdentification>
+		<nc:CaseTitleText>X</nc:CaseTitleText>
+		<nc:CaseCategoryText>X</nc:CaseCategoryText>
+		<nc:CaseTrackingID>X</nc:CaseTrackingID>
+		<j:CaseAugmentation>
+			<j:CaseCourt>
+				<nc:OrganizationLocation>
+					<nc:LocationName>X</nc:LocationName>
+				</nc:OrganizationLocation>
+				<j:CourtName>X</j:CourtName>
+			</j:CaseCourt>
+		</j:CaseAugmentation>
+		<ecf:CaseAugmentation>
+			<ecf:CaseParticipant s:id="Person1">
+				<ecf:EntityPerson>
+					<nc:PersonBirthDate>
+						<nc:Date>1983-01-01</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonName>
+						<nc:PersonGivenName>John</nc:PersonGivenName>
+						<nc:PersonMiddleName>W.</nc:PersonMiddleName>
+						<nc:PersonSurName>Doe</nc:PersonSurName>
+					</nc:PersonName>
+					<nc:PersonOtherIdentification>
+						<nc:IdentificationID>1234-56-789</nc:IdentificationID>
+					</nc:PersonOtherIdentification>
+					<nc:PersonSexCode>M</nc:PersonSexCode>
+				</ecf:EntityPerson>
+				<ecf:CaseParticipantRoleCode/>
+				<nc:ContactInformation>
+					<nc:ContactMailingAddress>
+						<nc:StructuredAddress>
+							<nc:LocationStreet>
+								<nc:StreetFullText>123 Main St.</nc:StreetFullText>
+							</nc:LocationStreet>
+							<nc:LocationCityName>Anytown</nc:LocationCityName>
+							<nc:LocationStateName>IN</nc:LocationStateName>
+							<nc:LocationPostalCode>12345</nc:LocationPostalCode>
+						</nc:StructuredAddress>
+					</nc:ContactMailingAddress>
+					<nc:ContactInformationDescriptionText/>
+				</nc:ContactInformation>
+			</ecf:CaseParticipant>
+		</ecf:CaseAugmentation>
+		<criminal:CaseCharge>
+			<j:ChargeApplicabilityText>X</j:ChargeApplicabilityText>
+			<j:ChargeSeverityLevel>
+				<j:SeverityLevelDescriptionText>X</j:SeverityLevelDescriptionText>
+			</j:ChargeSeverityLevel>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>X</nc:IdentificationID>
+					<nc:IdentificationCategoryText>String</nc:IdentificationCategoryText>
+					<j:DrivingJurisdictionAuthorityNCICLSTACode>ND</j:DrivingJurisdictionAuthorityNCICLSTACode>
+					<nc:IdentificationSourceText>String</nc:IdentificationSourceText>
+				</j:StatuteCodeIdentification>
+				<j:StatuteCodeSectionIdentification>
+					<nc:IdentificationID>String</nc:IdentificationID>
+				</j:StatuteCodeSectionIdentification>
+				<j:StatuteDescriptionText>X</j:StatuteDescriptionText>
+				<j:StatuteLevelText>X</j:StatuteLevelText>
+			</j:ChargeStatute>
+			<criminal:ChargeOffense>
+				<nc:ActivityDate>
+					<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
+				</nc:ActivityDate>
+				<nc:ActivityDescriptionText/>
+			</criminal:ChargeOffense>
+			<criminal:ChargeAmendedIndicator>true</criminal:ChargeAmendedIndicator>
+		</criminal:CaseCharge>
+	</criminal:CriminalCase>
+	<FilingLeadDocument>
+		<ecf:DocumentMetadata>
+			<j:RegisterActionDescriptionText>String</j:RegisterActionDescriptionText>
+			<ecf:FilingAttorneyID/>
+			<ecf:FilingPartyID/>
+		</ecf:DocumentMetadata>
+		<ecf:DocumentRendition>
+			<ecf:DocumentRenditionMetadata>
+				<ecf:DocumentAttachment/>
+			</ecf:DocumentRenditionMetadata>
+		</ecf:DocumentRendition>
+	</FilingLeadDocument>
+</CoreFilingMessage>

@@ -46,7 +46,7 @@
 	<!-- OJB Identification Request Reporting Service, hosted by this intermediary -->
 	<cxf:cxfEndpoint id="IdentificationReportingService"
 		address="${identificationReportingService.identificationReportingServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Identification_Reporting_Service/schemas/SIP_WS_1.3/Identification_Reporting_Service.wsdl"
+		wsdlURL="classpath:ssp/Identification_Reporting/schemas/SIP_WS_1.3/Identification_Reporting_Service.wsdl"
 		serviceName="ojbc:Identification-Reporting-ServiceService" endpointName="ojbc:Identification-Reporting-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationReportingService/1.0">
  		<cxf:properties>
@@ -61,7 +61,7 @@
 	<!-- Identification Recording Service, called by this intermediary -->
 	<cxf:cxfEndpoint id="IdentificationRecordingService"
 		address="${identificationReportingService.identificationRecordingServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Identification_Recording_Service/schemas/SIP_WS_1.3/Identification_Recording_Service.wsdl"
+		wsdlURL="classpath:ssp/Identification_Recording/schemas/SIP_WS_1.3/Identification_Recording_Service.wsdl"
 		serviceName="ojbc:Identification-Recording-ServiceService" endpointName="ojbc:Identification-Recording-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationRecordingService/1.0">
  		<cxf:properties>
@@ -71,12 +71,33 @@
 			<entry key="ws-security.signature.properties" value-ref="identificationReportingKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${identificationReportingService.intermediarykeystoreCertificateAlias}" />
 		</cxf:properties>
-	</cxf:cxfEndpoint>              
-
+	</cxf:cxfEndpoint> 
+	             
+	<cxf:cxfEndpoint id="arrestReportingService"
+		address="${identificationReportingService.arrestReportingServiceEndpoint}"
+		wsdlURL="classpath:ssp/Arrest_Reporting/schema/RS_WS-SIP_v1.2/Arrest_Reporting_Service.wsdl"
+		serviceName="ojbc:Arrest-Reporting-ServiceService"  
+		endpointName="ojbc:Arrest-Reporting-Service" 
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/ArrestReportingService/1.0">
+		<cxf:properties>
+			<entry key="mtom-enabled" value="true" />
+			<entry key="dataFormat" value="PAYLOAD" />
+		</cxf:properties>
+		<cxf:features>
+			<policy:policies>
+				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+					<wsam:Addressing>
+						<wsp:Policy />
+					</wsam:Addressing>
+				</wsp:Policy>
+			</policy:policies>
+		</cxf:features>	 
+	</cxf:cxfEndpoint>
+	
 	<!-- Identification Response Handler - hosted by the intermediary, called by the rapback data store adapter -->
 	<cxf:cxfEndpoint id="identificationReportingResponseService"
 		address="${identificationReportingService.identificationReportingResponseServiceEndpoint}"
-		wsdlURL="classpath:service-specifications/Identification_Reporting_Response_Service/schemas/SIP_WS_1.3/Identification_Reporting_Response_Service.wsdl"
+		wsdlURL="classpath:ssp/Identification_Reporting_Response/schemas/SIP_WS_1.3/Identification_Reporting_Response_Service.wsdl"
 		serviceName="ojbc:Identification-Reporting-Response-ServiceService"
 		endpointName="ojbc:Identification-Reporting-Response-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/IdentificationReportingResponseService/1.0">

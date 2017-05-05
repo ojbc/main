@@ -57,6 +57,11 @@
 			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_PERSON" />
 		</entry>
 		
+		<!-- Person Vehicle Crash -->
+    	<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.VEHICLE_CRASH" />
+		</entry>
+		
 		<!-- Person to Incident list, not supported by static mock adapter --> 
 		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS"/>
 		
@@ -64,8 +69,25 @@
 		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory" 
 			value="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory"/>
 		
+		<!-- Court Case search --> 
+		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court" 
+			value="{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest"/>
+		
+		<!-- Court Case detail --> 
+		<entry key="{http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0}SubmitCourtCaseSearchRequest" 
+			value="{http://ojbc.org/Services/WSDL/Court_Case_Query_Request_Service/1.0}/SubmitCourtCaseQueryRequest"/>
+		
+		<!-- Jail Custody History detail --> 
+		<entry key="{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest" 
+			value="{http://ojbc.org/Services/WSDL/Custody_Query_Request_Service/1.0}SubmitCustodyQueryRequest"/>
+		
+		<!-- Jail Custody History search --> 
+		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Jail" 
+			value="{http://ojbc.org/Services/WSDL/CustodySearchRequestService/1.0}SubmitCustodySearchRequest"/>
+		
 		<!-- Incident List (person) to Incident Detail -->		
-		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS"/>
+		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS"
+			value="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS"/>
 		
 		<!-- INCIDENT SEARCH DETAIL QUERIES -->
 		<!-- Incident Search to Incident Detail -->		
@@ -82,7 +104,14 @@
 		<entry key="{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS"/>
     </util:map>   
         
-       
+	<util:map id="triggeringEventCodeTranslationMap" map-class="java.util.HashMap">
+		<entry key="ARREST" value="ARREST" />
+		<entry key="DISPOSITION" value="DISPOSITION" />
+		<entry key="NCIC-WARRANT" value="NCIC-WARRANT-ENTRY,NCIC-WARRANT-MODIFICATION,NCIC-WARRANT-DELETION" />
+		<entry key="NCIC-SOR" value="NCIC-SOR-ENTRY,NCIC-SOR-MODIFICATION,NCIC-SOR-DELETION" />
+		<entry key="DEATH" value="DEATH" />
+	</util:map>
+	
 	<!-- To override or add beans, add beans to a beans/web-connector-extension-beans.xml in the ojb-web-external-resource project -->
 	<!-- To override a bean, use the same bean ID as in the provided context -->
 	<!-- To activate the beans, you must specify the extension-beans profile -->

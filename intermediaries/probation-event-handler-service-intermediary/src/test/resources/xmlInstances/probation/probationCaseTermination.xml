@@ -17,7 +17,7 @@
 
 -->
 <pct:ProbationCaseTermination xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0 ../../../../../../OJB_Resources/src/main/resources/service-specifications/Probation_Event_Handler_Service/schema/information/Probation_Case-IEPD/xsd/Probation_Case_Termination.xsd"
+ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0 ../../../../../../OJB_Resources/src/main/resources/ssp/Probation_Event_Handler/schema/information/Probation_Case-IEPD/xsd/Probation_Case_Termination.xsd"
  xmlns:pct="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0"
  xmlns:pcext="http://ojbc.org/IEPD/Extensions/ProbationCase/1.0">
  	  <pcext:ProbationCase>
@@ -102,5 +102,5 @@
 	         <nc20:ContactInformationReference xmlns:s="http://niem.gov/niem/structures/2.0" s:ref="emaild3e12212"/>
 	      </nc20:PersonContactInformationAssociation>
       </pcext:ProbationCase>
-      <pcext:SystemName>systemUri</pcext:SystemName>
+      <pcext:SystemName>{http://objc.org/ProbationCase/1.0}ProbationAuthority</pcext:SystemName>
    </pct:ProbationCaseTermination>

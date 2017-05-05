@@ -46,22 +46,22 @@
 
 		<!-- Search Request and Response Federated Endpoints -->
 		<endpoint id="searchRequestFederatedServiceEndpoint"
-			uri="cxf:bean:vehicleSearchRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:vehicleSearchRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="searchResultsFederatedServiceEndpoint"
-			uri="cxf:bean:vehicleSearchResultsFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:vehicleSearchResultsFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 		<camel:endpoint id="vehicleSearchRequestServiceAdapterEndpoint"
-			uri="cxf:bean:vehicleSearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:vehicleSearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 	
  		<endpoint id="entityResolutionRequestServiceEndpoint"
-			uri="cxf:bean:entityResolutionRequestService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}" />
+			uri="cxf:bean:entityResolutionRequestService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}&amp;allowStreaming=false" />
 
  		<endpoint id="mergeNotificationServiceEndpoint"
-			uri="cxf:bean:mergeNotificationService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}" />
+			uri="cxf:bean:mergeNotificationService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}&amp;allowStreaming=false" />
 
 		<camel:endpoint id="presentMergeNotificationServiceResultsEndpoint"
-			uri="cxf:bean:presentMergeNotificationServiceResults?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:presentMergeNotificationServiceResults?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.vehicleSearch.vehicleSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 
 		<!-- Federated Search Request Handler-->

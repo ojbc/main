@@ -20,9 +20,10 @@
 	    //to prevent IE from caching search forms, this has the effect that the input values are not remembered
 	    $.ajaxSetup({ cache: false });
 	  
-  		$("#personSearchResultsTable").dataTable({
+  		$("#personSearchResultsTable").DataTable({
   			 "pagingType": "full_numbers",
   			 "pageLength": 50,
+  			 stateSave: true, 
 			 "columnDefs": [ {
 		            targets: [ 0 ],
 		            orderData: [ 0, 1 ]
@@ -65,9 +66,10 @@
 		#end
 		
 	 	$('#personSearchResultsTable').on('click', 'a.viewDetails',function() {
-            var url = this.href;
+            var url = this.href.replace('{', '%7B').replace('}', '%7D');
+            var searchCategory = $(this).parent().prev().prev().text(); 
             var title = $(this).attr('searchName');
-            var dialog = $('<div style="display:none"  title="' + title + '" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
+            var dialog = $('<div style="display:none"  title="' + title + '" id="modalContainer"><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
 			var dlgWidth = $(document).width() * .6;
 			var dlgHeight = $(window).height() * .95;
             dialog.dialog({
@@ -78,23 +80,27 @@
                     dialog.remove();
                 },
                 open: function(event,ui){
-					$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
-					$("#modalIframeSpinner").width($("#modalIframe").width());
-					$("#modalIframeSpinner").show();
-		     		
-		     		$("#modalIframe").load( function() {
-		     			//alert("Load event fired");
-						$("#modalIframeSpinner").hide();				
-												
-						var incidentsSummary = $("#modalIframe").contents().find("#incidentsSummary");
-						if (incidentsSummary.val() != null) {
-							$(this).css('height', incidentsSummary.height() + 200);
-						} else {
-							$(this).css('height', $(this).contents().find("body").height() + 16);
-						}
-					});
-					
-                 	$('#modalIframe').attr('src', url);		     		
+                
+                	if(searchCategory != 'Incident' || $sec.allGranted("AUTHZ_INCIDENT_DETAIL")){ 
+						console.log("spinning");
+						$("#modalIframeSpinner").height($("#modalIframe").height() * .5);
+						$("#modalIframeSpinner").width($("#modalIframe").width());
+						$("#modalIframeSpinner").show();
+			     		
+			     		$("#modalIframe").load( function() {
+			     			//alert("Load event fired");
+							$("#modalIframeSpinner").hide();				
+													
+							var incidentsSummary = $("#modalIframe").contents().find("#incidentsSummary");
+							if (incidentsSummary.val() != null) {
+								$(this).css('height', incidentsSummary.height() + 200);
+							} else {
+								$(this).css('height', $(this).contents().find("body").height() + 16);
+							}
+						});
+						
+	                 	$('#modalIframe').attr('src', url);		
+                 	}     		
 
                 },
                 position: {

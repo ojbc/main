@@ -18,7 +18,7 @@ package org.ojbc.intermediaries.sn.tests;
 
 import java.io.FileInputStream;
 
-import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.junit.runner.RunWith;
@@ -36,6 +36,8 @@ import org.springframework.test.context.ContextConfiguration;
 		"classpath:META-INF/spring/properties-context.xml",
 		"classpath:META-INF/spring/search-query-routes.xml",
 		"classpath:META-INF/spring/subscription-secure-routes.xml",
+		"classpath:META-INF/spring/fbi-routes.xml",
+		"classpath:META-INF/spring/notification-routes.xml",
 		"classpath:META-INF/spring/local-osgi-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
 		"classpath:META-INF/spring/h2-mock-database-context-subscription.xml",

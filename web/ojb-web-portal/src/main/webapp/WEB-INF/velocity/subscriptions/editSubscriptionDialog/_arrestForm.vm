@@ -34,23 +34,34 @@
     	       beforeShow: function(i) {  return false; } 
     	    });     	    
     	    	    	        	            	    		       			       				    	   
+    	    $("#subscriptionForm").on("change", "#subscriptionPurpose", function(){
+    	    	if ($("#subscriptionPurpose").val()==="CI"){
+    	    		$("#subscriptionEndDate").val($("#ciDefaultEndDate").val());
+    	    	}
+    	    	else if ($("#subscriptionPurpose").val()==="CS"){
+    	    		$("#subscriptionEndDate").val($("#csDefaultEndDate").val());
+    	    	}
+    	    });    	        	    			       			       				    	  
 	  });	  
 </script>
 
+<div> 
+	<span class="subscriptionHint">ORI: $userLogonInfo.employerOri</span> 
+</div>				
 				
+#if(${showSubscriptionPurposeDropDown})
+	<div>
+		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)		
+	</div>	
+#end
+
 <div>
 	<input id="stateIdInput" placeholder="SID Number" value="${subscription.stateId}" readonly/>
 </div>
 
 <div>	
-	<!-- note since not linked with a spring pojo, this value will be appended to the url of the http request 
-	 	when the subscription is saved -->
-	<select id="personNameSelect">		
-		<option value="" selected>Name</option>			
-	</select> 
+	#springFormInput("subscription.fullName" "readonly='readonly' style='width:200px;'")	
 </div>
-
-
 <table style="white-space:nowrap;">
 	<tr>
 		<td style="text-align:right;vertical-align:middle;">
@@ -88,10 +99,11 @@
 	#springFormInput("subscription.emailList[2]" "placeholder='Email Address 3'")
 </div>
 
-<div>
-	#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap)		
-</div>
-	       	    	        
-<div>
-	#springFormInput("subscription.caseId" "placeholder='Case Id'" )
-</div>	       	    	        
+#if($showCaseIdInput)
+	<div>
+		#springFormInput("subscription.caseId" "placeholder='Case Id' maxlength='20'" )
+	</div>
+#end
+
+<input type="hidden" id="csDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $csDefaultEndDate)'/>
+<input type="hidden" id="ciDefaultEndDate" value='$vmDateTool.format("MM/dd/yyyy", $ciDefaultEndDate)'/>

@@ -37,7 +37,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P92">
+        <rap:RapSheetPerson s:id="P92">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>Edna I</nc:PersonGivenName>
                 <nc:PersonSurName>Moore</nc:PersonSurName>
@@ -64,7 +64,7 @@
                     <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P92"/>
             <nc:Biometric>

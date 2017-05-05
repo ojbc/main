@@ -51,7 +51,7 @@
 	    <cxf:cxfEndpoint 
 	        id="notificationBrokerServiceSecure"
 	        address="${webapplication.subscription.notificationBrokerSecureEndpoint}" 
-			wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/Secure_OJBWSNotification.wsdl"
+			wsdlURL="classpath:ssp/Subscription_Notification/WSDL/Secure_OJBWSNotification.wsdl"
 			serviceName="ojbc:SecureNotificationBrokerServiceService" 
 			endpointName="ojbc:SecureNotificationBrokerService"
 			xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SecureNotificationBroker">
@@ -67,7 +67,7 @@
 	    <cxf:cxfEndpoint 
 	        id="subscriptionManagerServiceSecure"
 	        address="${webapplication.subscription.subscriptionManagerSecureEndpoint}" 
-			wsdlURL="classpath:service-specifications/Subscription_Notification_Service/WSDL/Secure_OJBWSubscriptionManager.wsdl"
+			wsdlURL="classpath:ssp/Subscription_Notification/WSDL/Secure_OJBWSubscriptionManager.wsdl"
 			serviceName="ojbc:SecureSubscriptionManagerServiceService" 
 			endpointName="ojbc:SecureSubscriptionManager"
 			xmlns:ojbc="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
@@ -86,7 +86,7 @@
 	    <cxf:cxfEndpoint 
 	        id="subscriptionQueryRequestService"
 	        address="${webapplication.subscriptionQuery.subscriptionQueryRequestEndpoint}"
-			wsdlURL="classpath:service-specifications/Subscription_Query_Request_Service/schema/SIP_WS_1.2/Subscription_Query_Request_Service.wsdl"
+			wsdlURL="classpath:ssp/Subscription_Query_Request/schema/SIP_WS_1.2/Subscription_Query_Request_Service.wsdl"
 			serviceName="ojbc:Subscription_Query_Request_Service_Service" 
 			endpointName="ojbc:Subscription_Query_Request_Secure_Service"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionQueryRequestService/1.0">
@@ -104,7 +104,7 @@
 	    <cxf:cxfEndpoint 
 	        id="subscriptionSearchRequestService"
 	        address="${webapplication.subscriptionSearch.subscriptionSearchRequestEndpoint}"
-			wsdlURL="classpath:service-specifications/Subscription_Search_Request_Service/schema/SIP_WS_1.2/Subscription_Search_Request_Service.wsdl"
+			wsdlURL="classpath:ssp/Subscription_Search_Request/schema/SIP_WS_1.2/Subscription_Search_Request_Service.wsdl"
 			serviceName="ojbc:Subscription_Search_Request_Service_Service" 
 			endpointName="ojbc:Subscription_Search_Request_Secure_Service"
 			xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionSearchRequestService/1.0">
@@ -156,6 +156,7 @@
 	   		<property name="subscriptionMessageProcessor" ref="subscriptionMessageProcessor"/>
 	   		<property name="OJBSamlMap" ref="ojbSamlMap"/>
 	   		<property name="allowQueriesWithoutSAMLToken" value="${webapplication.allowQueriesWithoutSAMLToken}"/>
+	   		<property name="triggeringEventCodeTranslationMap" ref="triggeringEventCodeTranslationMap"/>
 	   </bean>
 	  
 		<bean id="subscriptionMessageProcessor" class="org.ojbc.processor.FaultableSynchronousMessageProcessor" >

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<!DOCTYPE catalog PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN" "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <uri name="http://release.niem.gov/niem/appinfo/3.0/" uri="niem/appinfo/3.0/appinfo.xsd"/>
+  <uri name="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" uri="niem/codes/fbi_ncic/3.1/fbi_ncic.xsd"/>
+  <uri name="http://release.niem.gov/niem/codes/fbi_ucr/3.0/" uri="niem/codes/fbi_ucr/3.0/fbi_ucr.xsd"/>
+  <uri name="http://release.niem.gov/niem/conformanceTargets/3.0/" uri="niem/conformanceTargets/3.0/conformanceTargets.xsd"/>
+  <uri name="http://release.niem.gov/niem/domains/jxdm/5.1/" uri="niem/domains/jxdm/5.1/jxdm.xsd"/>
+  <uri name="http://release.niem.gov/niem/localTerminology/3.0/" uri="niem/localTerminology/3.0/localTerminology.xsd"/>
+  <uri name="http://release.niem.gov/niem/niem-core/3.0/" uri="niem/niem-core/3.0/niem-core.xsd"/>
+  <uri name="http://release.niem.gov/niem/proxy/xsd/3.0/" uri="niem/proxy/xsd/3.0/xs.xsd"/>
+  <uri name="http://release.niem.gov/niem/structures/3.0/" uri="niem/structures/3.0/structures.xsd"/>
+</catalog>

@@ -82,6 +82,8 @@ public class PortalAccessControlTest {
         mockMvc = webAppContextSetup(wac)
         // Enable Spring Security
                 .addFilters(springSecurityFilter).alwaysDo(print()).build();
+        
+        portalAuthenticationDetailsSource.requireOtpAuthentication=false;
     }
     
     @Test
@@ -124,7 +126,9 @@ public class PortalAccessControlTest {
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
         customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser1");
         customAttributes.put(SamlAttribute.EmployerORI, "H00000001");
-        
+    	customAttributes.put(SamlAttribute.LawEnforcementEmployerIndicator, "false");
+    	customAttributes.put(SamlAttribute.CriminalJusticeEmployerIndicator, "false");
+  
         Element samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
                 SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
                 SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
@@ -140,7 +144,7 @@ public class PortalAccessControlTest {
     @DirtiesContext
     public void denyAccessToNonCurrentUser() throws Exception {
         Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
-        customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:aowen");
+        customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:hpotter");
         customAttributes.put(SamlAttribute.EmployerORI, "H00000001");
         
         Element samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
@@ -193,5 +197,80 @@ public class PortalAccessControlTest {
                 + "One or more required user attributes are missing or not valid")); 
         
     }
+
+    @Test
+    @DirtiesContext
+    public void allowAccessToPortalAndAllSubscriptions() throws Exception {
+        Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+        customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
+        customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+        
+        Element samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
+                SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
+                SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
+        MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
+            .andExpect(status().isOk()).andReturn();
+        
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"subscriptionsLink\" class=\"leftMenuLink\" "
+                + "href=\"#\" target=\"_blank\"><div></div>Subscriptions </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"rapbackLink\" class=\"leftMenuLink\" "
+        		+ "href=\"#\" target=\"_blank\"><div></div>Applicant Rap Back </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"criminalIdLink\" class=\"leftMenuLink\" "
+        		+ "href=\"#\" target=\"_blank\"><div></div>Criminal Identification </a>")); 
+        Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"queryLink\" class=\"leftMenuLink\" "
+        		+ "href=\"#\" target=\"_blank\"><div></div>Query </a>")); 
+    }
+    
+    @Test
+    @DirtiesContext
+    public void allowAccessToPortalAndAllSubscriptionsAndQueryButton() throws Exception {
+    	Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+    	customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
+    	customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+    	customAttributes.put(SamlAttribute.LawEnforcementEmployerIndicator, "false");
+    	
+    	Element samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
+    			SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
+    			SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
+    	MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
+    			.andExpect(status().isOk()).andReturn();
+    	
+    	Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"subscriptionsLink\" class=\"leftMenuLink\" "
+    			+ "href=\"#\" target=\"_blank\"><div></div>Subscriptions </a>")); 
+    	Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"rapbackLink\" class=\"leftMenuLink\" "
+    			+ "href=\"#\" target=\"_blank\"><div></div>Applicant Rap Back </a>")); 
+    	Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"criminalIdLink\" class=\"leftMenuLink\" "
+    			+ "href=\"#\" target=\"_blank\"><div></div>Criminal Identification </a>")); 
+    	Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"queryLink\" class=\"leftMenuLink\" "
+    			+ "href=\"#\" target=\"_blank\"><div></div>Query </a>")); 
+    	
+    }
+    
+    @Test
+    @DirtiesContext
+    public void allowAccessToPortalAndAllSubscriptionsButQueryButton() throws Exception {
+    	Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
+    	customAttributes.put(SamlAttribute.FederationId, "HIJIS:IDP:HCJDC:USER:demouser");
+    	customAttributes.put(SamlAttribute.EmployerORI, "1234567890");
+    	customAttributes.put(SamlAttribute.LawEnforcementEmployerIndicator, "false");
+    	customAttributes.put(SamlAttribute.CriminalJusticeEmployerIndicator, "false");
+    	
+    	Element samlAssertion = SAMLTokenUtils.createStaticAssertionAsElement("http://ojbc.org/ADS/AssertionDelegationService", 
+    			SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, 
+    			SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
+    	MvcResult result = mockMvc.perform(get(SECURED_URI).requestAttr("samlAssertion", samlAssertion))
+    			.andExpect(status().isOk()).andReturn();
+    	
+    	Assert.assertFalse(result.getResponse().getContentAsString().contains("<a id=\"subscriptionsLink\" class=\"leftMenuLink\" "
+    			+ "href=\"#\" target=\"_blank\"><div></div>Subscriptions </a>")); 
+    	Assert.assertTrue(result.getResponse().getContentAsString().contains("<a id=\"rapbackLink\" class=\"leftMenuLink\" "
+    			+ "href=\"#\" target=\"_blank\"><div></div>Applicant Rap Back </a>")); 
+    	Assert.assertFalse(result.getResponse().getContentAsString().contains("<a id=\"criminalIdLink\" class=\"leftMenuLink\" "
+    			+ "href=\"#\" target=\"_blank\"><div></div>Criminal Identification </a>")); 
+    	Assert.assertFalse(result.getResponse().getContentAsString().contains("<a id=\"queryLink\" class=\"leftMenuLink\" "
+    			+ "href=\"#\" target=\"_blank\"><div></div>Query </a>")); 
+    	
+    }
+    
 
 }

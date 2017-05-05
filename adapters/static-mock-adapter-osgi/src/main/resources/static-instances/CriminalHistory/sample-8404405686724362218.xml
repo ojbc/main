@@ -37,7 +37,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P2">
+        <rap:RapSheetPerson s:id="P2">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>Kevin G</nc:PersonGivenName>
                 <nc:PersonSurName>Reyna</nc:PersonSurName>
@@ -76,7 +76,7 @@
                     <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P2"/>
             <nc:Biometric>

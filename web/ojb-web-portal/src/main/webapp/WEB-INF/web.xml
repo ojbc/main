@@ -64,6 +64,15 @@
         <role-name>AUTHZ_PORTAL</role-name>
     </security-role>
     <security-role>
-        <role-name>AUTHZ_SUBSCRIPTION</role-name>
+        <role-name>AUTHZ_CRIMINAL_SUBSCRIPTION</role-name>
+    </security-role>
+    <security-role>
+        <role-name>AUTHZ_CIVIL_SUBSCRIPTION</role-name>
+    </security-role>
+    <security-role>
+        <role-name>AUTHZ_CRIMINAL_ID_RESULTS</role-name>
+    </security-role>
+    <security-role>
+        <role-name>AUTHZ_QUERY</role-name>
     </security-role>
 </web-app>

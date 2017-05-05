@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:isres-doc="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0"
+	name="Incident_Search_Results_Service" targetNamespace="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+	<wsdl:import
+		namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/"
+		location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl" />
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://ojbc.org/Incident_Search_Results_Service/">
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IncidentSearchResults/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="Incident-Search-Results">
+		<wsdl:part element="isres-doc:IncidentSearchResults" name="Incident-Search-Results" />
+	</wsdl:message>
+	<wsdl:message name="Incident-Person-Search-Results">
+		<wsdl:part element="isres-doc:IncidentPersonSearchResults"
+			name="Incident-Person-Search-Results" />
+	</wsdl:message>
+	<wsdl:message name="Incident-Vehicle-Search-Results">
+		<wsdl:part element="isres-doc:IncidentVehicleSearchResults"
+			name="Incident-Vehicle-Search-Results" />
+	</wsdl:message>
+	<wsdl:portType name="Incident_Search_Results_Service">
+		<wsdl:operation name="SubmitIncidentSearchResults">
+			<wsdl:input message="tns:Incident-Search-Results" name="Incident-Search-Results"/>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitIncidentPersonSearchResults">
+			<wsdl:input message="tns:Incident-Person-Search-Results" name="Incident-Person-Search-Results"/>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitIncidentVehicleSearchResults">
+			<wsdl:input message="tns:Incident-Vehicle-Search-Results" name="Incident-Vehicle-Search-Results"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="Incident_Search_Results_ServiceSOAPBinding"
+		type="tns:Incident_Search_Results_Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsaw:UsingAddressing wsdl:required="true" />
+		<wsdl:operation name="SubmitIncidentSearchResults">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0/SubmitIncidentSearchResults" />
+			<wsdl:input name="Incident-Search-Results">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitIncidentPersonSearchResults">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0/SubmitIncidentPersonSearchResults" />
+			<wsdl:input name="Incident-Person-Search-Results">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitIncidentVehicleSearchResults">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0/SubmitIncidentVehicleSearchResults" />
+			<wsdl:input name="Incident-Vehicle-Search-Results">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<!-- Secure, GFIPM conformant binding -->
+	<wsdl:binding name="Incident_Search_Results_Secure_ServiceSOAPBinding"
+		type="tns:Incident_Search_Results_Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
+		<wsdl:operation name="SubmitIncidentSearchResults">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0/SubmitIncidentSearchResults" />
+			<wsdl:input name="Incident-Search-Results">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitIncidentPersonSearchResults">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0/SubmitIncidentPersonSearchResults" />
+			<wsdl:input name="Incident-Person-Search-Results">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="SubmitIncidentVehicleSearchResults">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/IncidentSearchResultsService/1.0/SubmitIncidentVehicleSearchResults" />
+			<wsdl:input name="Incident-Vehicle-Search-Results">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Incident_Search_Results_Service_Service">
+		<wsdl:port binding="tns:Incident_Search_Results_ServiceSOAPBinding"
+			name="Incident_Search_Results_Service">
+			<soap:address location="http://localhost/" />
+		</wsdl:port>
+		<wsdl:port binding="tns:Incident_Search_Results_Secure_ServiceSOAPBinding"
+			name="Incident_Search_Results_Secure_Service">
+			<soap:address location="http://localhost/secure" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -28,6 +28,7 @@
 	xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
 	xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
 	xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	exclude-result-prefixes="#all">
 
 	<xsl:import href="_formatters.xsl" />
@@ -35,9 +36,11 @@
 	<xsl:param name="hrefBase"/>
 	<xsl:param name="validateSubscriptionButton"/>	
 	<xsl:param name="messageIfNoResults">You do not have any subscriptions.</xsl:param>
+	<xsl:param name="subscriptionExpirationAlertPeriod">0</xsl:param>
 	
 	<!-- TODO:Pass these in from the controller class -->
  	<xsl:param name="arrestTopic">{http://ojbc.org/wsn/topics}:person/arrest</xsl:param>
+ 	<xsl:param name="rapbackTopic">{http://ojbc.org/wsn/topics}:person/rapback</xsl:param>
 	<xsl:param name="incidentTopic">{http://ojbc.org/wsn/topics}:person/incident</xsl:param>
 	<xsl:param name="chCycleTopic">{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment</xsl:param>
 	
@@ -121,12 +124,12 @@
 				<tr>
 					<td valign="middle">
 						<!-- note value in json format, so ui can parse it -->
-						<input type="checkbox" name="subscriptionRow" id="subscriptionCheckBox{$subscriptionID}" value='{{"id":"{$subscriptionID}","topic":"{$subscriptionTopic}","reasonCode":"{$reasonCode}"}}'/>
+						<input type="checkbox" name="subscriptionRow" class="subscriptionCheckBox" value='{{"id":"{$subscriptionID}","topic":"{$subscriptionTopic}","reasonCode":"{$reasonCode}"}}'/>
 					</td>				
 					<td class="editButtonColumn"><a href="../subscriptions/editSubscription?identificationID={$subscriptionID}&amp;topic={$subscriptionTopic}" class="blueButton viewDetails" id="editSubscriptionLink{$subscriptionID}">EDIT</a></td>
 					<td>
 						<xsl:choose>
-							<xsl:when test="ext:Subscription/wsn-br:Topic = $arrestTopic">
+							<xsl:when test="ext:Subscription/wsn-br:Topic = $arrestTopic or ext:Subscription/wsn-br:Topic = $rapbackTopic">
 								<b>SID:</b><xsl:text> </xsl:text><xsl:value-of select="normalize-space($subjectPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID)"/>
 							</xsl:when>
 							<xsl:when test="ext:Subscription/wsn-br:Topic = $incidentTopic">
@@ -155,37 +158,18 @@
 							<xsl:with-param name="date" select="ext:Subscription/nc:ActivityDateRange/nc:StartDate/nc:Date"/>
 						</xsl:call-template>
 					</td>					
-					
-										
-					<xsl:variable name="endDate" select="ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date"/>
-						
-					<xsl:choose>
-						<xsl:when test="$endDate &lt; current-date()">
-							<td style="color:red">
-								<xsl:call-template name="formatDate">
-									<xsl:with-param name="date" select="$endDate"/>
-								</xsl:call-template>
-							</td>		
-						</xsl:when>
-						<xsl:otherwise>					
-							<td>
-								<xsl:call-template name="formatDate">
-									<xsl:with-param name="date" select="$endDate"/>
-								</xsl:call-template>
-							</td>					
-						</xsl:otherwise>					
-					</xsl:choose>					
-					
-
+					<xsl:element name="td">
+						<xsl:apply-templates select="ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date[normalize-space()]" mode="endDate"/>
+					</xsl:element>
 					<td>
 						<!-- TODO: get this from OJBC Static Config -->
 						<xsl:choose>
 							<xsl:when test="ext:Subscription/wsn-br:Topic = $arrestTopic">Arrest</xsl:when>
+							<xsl:when test="ext:Subscription/wsn-br:Topic = $rapbackTopic">Rapback</xsl:when>
 							<xsl:when test="ext:Subscription/wsn-br:Topic = $incidentTopic">Incident</xsl:when>
 							<xsl:when test="ext:Subscription/wsn-br:Topic = $chCycleTopic">ATN Assignment</xsl:when>
 						</xsl:choose>
 					</td>
-										
 																				
 					<xsl:variable name="validationDueDate" select="ext:Subscription/ext:SubscriptionValidation/ext:SubscriptionValidationDueDate/nc:Date"/>
 						
@@ -247,4 +231,26 @@
 		</span>
 		<br />
 	</xsl:template>
+	
+	<xsl:template match="nc:Date" mode="endDate">
+		
+		<xsl:variable name="endDate" select="." as="xsd:date"/>
+		<xsl:variable name="expirationAlertStartDate">
+			<xsl:value-of select="$endDate - xsd:dayTimeDuration(string-join(('P', $subscriptionExpirationAlertPeriod, 'D'),''))"></xsl:value-of>
+		</xsl:variable>
+		<xsl:choose>
+			<xsl:when test="$expirationAlertStartDate &lt;= current-date()">
+				<xsl:attribute name="style">color:red</xsl:attribute>
+				<xsl:call-template name="formatDate">
+					<xsl:with-param name="date" select="."/> 
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>					
+				<xsl:call-template name="formatDate">
+					<xsl:with-param name="date" select="."/>
+				</xsl:call-template>
+			</xsl:otherwise>					
+		</xsl:choose>					
+	</xsl:template>
+	
 </xsl:stylesheet>

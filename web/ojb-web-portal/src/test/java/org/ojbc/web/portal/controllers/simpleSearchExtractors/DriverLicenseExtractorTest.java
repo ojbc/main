@@ -26,18 +26,30 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:static-configuration-demostate.xml"})
+@WebAppConfiguration
+@ContextConfiguration({
+        "classpath:dispatcher-servlet.xml",
+        "classpath:application-context.xml",
+        "classpath:static-configuration-demostate.xml", "classpath:security-context.xml"
+        })
+@ActiveProfiles("standalone")
+@DirtiesContext
 public class DriverLicenseExtractorTest {
 
+	private static final Logger logger = Logger.getLogger(DriverLicenseExtractorTest.class);
+	
 	@Resource
     DriverLicenseExtractor unit;
 	
@@ -91,18 +103,32 @@ public class DriverLicenseExtractorTest {
 		assertThat(personSearchRequest.getPersonDriversLicenseIssuer(),is("WA"));
 	}
 
+	
+	/*
+	 * Note: was observed to fail sometimes on mac and fedora with:
+	 * "expected 2, was 1". The code is intended to only extract "WA1234567",
+	 * leaving "noMatch" remaining - but sometimes returns both of them. Maybe a
+	 * non thread-safe collection is being modified concurrently. 
+	 */
 	@Test
-	public void removesExtractedToken() {
-		List<String> extractTerm = unit.extractTerm(Arrays.asList("WA1234567","noMatch"), personSearchRequest);
+	public void removesExtractedTokenTest() {
 		
-		assertThat(extractTerm.size(),is(1));
-		assertThat(extractTerm.get(0),is("noMatch"));
+		List<String> termList = Arrays.asList("WA1234567","noMatch");
+		
+		List<String> extractedTermList = unit.extractTerm(termList, personSearchRequest);
+
+		logger.info("\n\n\n Extracted Term List: \n\n\n" + extractedTermList);
+		
+		// failed sometimes when both strings are in List
+		assertThat(extractedTermList.size(),is(1));
+		
+		assertThat(extractedTermList.get(0),is("noMatch"));
 	}
 
 	@Test
 	public void testCustomPattern() {
 		unit.setDefaultStateOfIssue("HI");
-		unit.setDriversLicenseRegex("([a-zA-Z]{2})-(.+)|([Hh][0-9]{8})");
+		unit.setDriversLicenseRegex("([a-zA-Z]{2})-(.+)|([Hh1][0-9]{8})");
 		
 		unit.extractTerm(Arrays.asList("X12345678", "H1234567"), personSearchRequest);
 		assertThat(personSearchRequest.getPersonDriversLicenseNumber(), nullValue());
@@ -112,6 +138,8 @@ public class DriverLicenseExtractorTest {
 		assertThat(personSearchRequest.getPersonDriversLicenseNumber(),is("H12345678"));
 		assertThat(personSearchRequest.getPersonDriversLicenseIssuer(),is("HI"));
 		
+		unit.setDefaultStateOfIssue("WA");
+		unit.setDriversLicenseRegex("([a-zA-Z]{2}-)(.+)|([Ww][Aa][0-9]{7})");
 	}
 
 }

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<CaseFilingDecisionReport
+	xmlns="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0 ../../../xsd/CaseFilingDecisionReport.xsd">
+	<DocumentCategoryText xmlns="http://release.niem.gov/niem/niem-core/3.0/">INFORMATION
+	</DocumentCategoryText>
+	<DocumentCreationDate xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+		<Date>2016-12-08</Date>
+	</DocumentCreationDate>
+	<DocumentEffectiveDate xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+		<Date>2016-12-13</Date>
+	</DocumentEffectiveDate>
+	<DocumentFiledDate xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+		<Date>2016-12-13</Date>
+	</DocumentFiledDate>
+	<VictimRightsAssertionCertificationIndicator
+		xmlns="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0">true</VictimRightsAssertionCertificationIndicator>
+	<VictimRightsAssertionText
+		xmlns="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0">VRA Text</VictimRightsAssertionText>
+	<Case xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+		<ActivityCategoryText>Department of Public Safety
+		</ActivityCategoryText>
+		<CaseDocketID>Case Docket ID</CaseDocketID>
+		<CaseFiling>
+			<DocumentCategoryName>INFORMATION</DocumentCategoryName>
+			<DocumentFiledDate>
+				<Date>2016-12-13</Date>
+			</DocumentFiledDate>
+		</CaseFiling>
+		<!-- CHANGE ABSTRACT ELEMENT TO SUBSTITUTABLE ELEMENT -->
+		<!--CaseAugmentationPoint xsi:type="q1:CaseAugmentationType" xmlns:q1="http://release.niem.gov/niem/domains/jxdm/5.1/"> 
+			<q1:CaseCharge -->
+		<q1:CaseAugmentation xmlns:q1="http://release.niem.gov/niem/domains/jxdm/5.1/">
+			<!-- ADD "id" ATTRIBUTE TO CHARGE -->
+			<q1:CaseCharge xmlns:b="http://release.niem.gov/niem/structures/3.0/"
+				b:id="CHG_001">
+				<q1:ChargeFilingDate>
+					<Date>2016-12-13</Date>
+				</q1:ChargeFilingDate>
+				<q1:ChargeSequenceID>1</q1:ChargeSequenceID>
+				<q1:ChargeSeverityLevel>
+					<q1:SeverityLevelDescriptionText>CLASS B
+					</q1:SeverityLevelDescriptionText>
+				</q1:ChargeSeverityLevel>
+				<q1:ChargeSeverityText>DOMESTIC VIOLENCE</q1:ChargeSeverityText>
+				<q1:ChargeStatute>
+					<q1:StatuteCodeSectionIdentification>
+						<IdentificationID>8.30.110(A)(DV)</IdentificationID>
+					</q1:StatuteCodeSectionIdentification>
+					<q1:StatuteDescriptionText>VIOLATION OF CONDITION OF RELEASE (DV)
+					</q1:StatuteDescriptionText>
+				</q1:ChargeStatute>
+				<q1:ChargeText />
+				<q1:ChargeTrackingIdentification>
+					<IdentificationID>1</IdentificationID>
+				</q1:ChargeTrackingIdentification>
+				<!-- CHANGE ABSTRACT ELEMENT TO SUBSTITUTABLE ELEMENT -->
+				<!--q1:ChargeAugmentationPoint xsi:type="q2:boolean" xmlns:q2="http://release.niem.gov/niem/proxy/xsd/3.0/">true</q1:ChargeAugmentationPoint -->
+				<ChargeDomesticViolenceIndicator
+					xmlns="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0">true</ChargeDomesticViolenceIndicator>
+			</q1:CaseCharge>
+			<!-- ADD "id" ATTRIBUTE TO CHARGE -->
+			<!--q1:CaseCharge -->
+			<q1:CaseCharge b:id="CHG_002"
+				xmlns:b="http://release.niem.gov/niem/structures/3.0/">
+				<q1:ChargeFilingDate>
+					<Date>2016-12-13</Date>
+				</q1:ChargeFilingDate>
+				<q1:ChargeSequenceID>2</q1:ChargeSequenceID>
+				<q1:ChargeSeverityLevel>
+					<q1:SeverityLevelDescriptionText>CLASS A
+					</q1:SeverityLevelDescriptionText>
+				</q1:ChargeSeverityLevel>
+				<q1:ChargeSeverityText>DOMESTIC VIOLENCE</q1:ChargeSeverityText>
+				<q1:ChargeStatute>
+					<q1:StatuteCodeSectionIdentification>
+						<IdentificationID>8.30.105(A)(1)(DV)</IdentificationID>
+					</q1:StatuteCodeSectionIdentification>
+					<q1:StatuteDescriptionText>VIOLATING A PROTECTIVE ORDER
+					</q1:StatuteDescriptionText>
+				</q1:ChargeStatute>
+				<q1:ChargeText />
+				<q1:ChargeTrackingIdentification>
+					<IdentificationID>2</IdentificationID>
+				</q1:ChargeTrackingIdentification>
+				<!-- CHANGE ABSTRACT ELEMENT TO SUBSTITUTABLE ELEMENT -->
+				<!--q1:ChargeAugmentationPoint xsi:type="q3:boolean" xmlns:q3="http://release.niem.gov/niem/proxy/xsd/3.0/">true</q1:ChargeAugmentationPoint -->
+				<ChargeDomesticViolenceIndicator
+					xmlns="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0">true</ChargeDomesticViolenceIndicator>
+			</q1:CaseCharge>
+			<q1:CaseCourt>
+				<OrganizationName>District Court for the State of Alaska
+				</OrganizationName>
+				<q1:CourtName>Third Judicial District of Anchorage</q1:CourtName>
+				<q1:CourtCategoryCode>DIS</q1:CourtCategoryCode>
+			</q1:CaseCourt>
+			<q1:CaseCourtEvent>
+				<q1:CourtEventAppearance>
+					<q1:CourtAppearanceDate>
+						<Date>2016-09-07</Date>
+					</q1:CourtAppearanceDate>
+				</q1:CourtEventAppearance>
+			</q1:CaseCourtEvent>
+			<q1:CaseDefendantParty>
+				<EntityPerson b:ref="DEF_001"
+					xmlns:b="http://release.niem.gov/niem/structures/3.0/" />
+			</q1:CaseDefendantParty>
+			<q1:CaseProsecutionAttorney>
+				<RoleOfPerson b:ref="CPAP_001"
+					xmlns:b="http://release.niem.gov/niem/structures/3.0/" />
+				<q1:JudicialOfficialBarMembership>
+					<q1:JudicialOfficialBarIdentification>
+						<IdentificationID>0805018</IdentificationID>
+						<IdentificationJurisdiction>
+							<JurisdictionText>Jurisdiction Text</JurisdictionText>
+						</IdentificationJurisdiction>
+					</q1:JudicialOfficialBarIdentification>
+				</q1:JudicialOfficialBarMembership>
+				<q1:JudicialOfficialCategoryText>MUNICIPAL PROSECUTOR
+				</q1:JudicialOfficialCategoryText>
+			</q1:CaseProsecutionAttorney>
+		</q1:CaseAugmentation>
+	</Case>
+	<Arrest xmlns="http://release.niem.gov/niem/domains/jxdm/5.1/">
+		<ArrestAgency>
+			<OrganizationName xmlns="http://release.niem.gov/niem/niem-core/3.0/">ANCHORAGE POLICE DEPARTMENT
+			</OrganizationName>
+		</ArrestAgency>
+		<ArrestAgencyRecordIdentification>
+			<IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">16-100013
+			</IdentificationID>
+			<IdentificationJurisdiction
+				xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+				<JurisdictionText>Alaska Police Department</JurisdictionText>
+			</IdentificationJurisdiction>
+		</ArrestAgencyRecordIdentification>
+		<ArrestOfficial>
+			<EnforcementOfficialBadgeIdentification>
+				<IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">63022</IdentificationID>
+				<IdentificationJurisdiction
+					xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+					<JurisdictionText>Jurisdiction Text</JurisdictionText>
+				</IdentificationJurisdiction>
+			</EnforcementOfficialBadgeIdentification>
+		</ArrestOfficial>
+		<!-- CHANGE ABSTRACT ELEMENT TO SUBSTITUTABLE ELEMENT -->
+		<!-- ArrestAugmentationPoint xsi:type="q4:IdentificationType" xmlns:q4="http://release.niem.gov/niem/niem-core/3.0/"> 
+			<q4:IdentificationID>999999999</q4:IdentificationID> </ArrestAugmentationPoint -->
+		<ArrestTrackingNumberIdentification
+			xmlns="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0">
+			<IdentificationID xmlns="http://release.niem.gov/niem/niem-core/3.0/">999999999</IdentificationID>
+		</ArrestTrackingNumberIdentification>
+	</Arrest>
+	<Offense b:id="OFF_001" xmlns="http://release.niem.gov/niem/domains/jxdm/5.1/"
+		xmlns:b="http://release.niem.gov/niem/structures/3.0/">
+		<ActivityDate xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+			<Date>2016-06-05</Date>
+		</ActivityDate>
+	</Offense>
+	<Offense b:id="OFF_002" xmlns="http://release.niem.gov/niem/domains/jxdm/5.1/"
+		xmlns:b="http://release.niem.gov/niem/structures/3.0/">
+		<ActivityDate xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+			<Date>2016-06-05</Date>
+		</ActivityDate>
+	</Offense>
+	<Person b:id="DEF_001" xmlns="http://release.niem.gov/niem/niem-core/3.0/"
+		xmlns:b="http://release.niem.gov/niem/structures/3.0/">
+		<PersonBirthDate>
+			<Date>1963-01-01</Date>
+		</PersonBirthDate>
+		<PersonName>
+			<PersonNamePrefixText />
+			<PersonGivenName>MERIADOC</PersonGivenName>
+			<PersonMiddleName />
+			<PersonSurName>BRANDYBUCK</PersonSurName>
+			<PersonNameSuffixText />
+			<PersonFullName>MERIADOC BRANDYBUCK</PersonFullName>
+		</PersonName>
+		<PersonStateIdentification>
+			<IdentificationID>9999999</IdentificationID>
+			<IdentificationJurisdiction>
+				<JurisdictionText>APSINID</JurisdictionText>
+			</IdentificationJurisdiction>
+		</PersonStateIdentification>
+		<!-- CHANGE ABSTRACT ELEMENT TO SUBSTITUTABLE ELEMENT -->
+		<!-- PersonAugmentationPoint xsi:type="q5:PersonAugmentationType" xmlns:q5="http://release.niem.gov/niem/domains/jxdm/5.1/" -->
+		<q5:PersonAugmentation
+			xmlns:q5="http://release.niem.gov/niem/domains/jxdm/5.1/">
+			<q5:DriverLicense>
+				<q5:DriverLicenseIdentification>
+					<IdentificationID>999999</IdentificationID>
+					<IdentificationJurisdiction>
+						<JurisdictionText>AK</JurisdictionText>
+					</IdentificationJurisdiction>
+				</q5:DriverLicenseIdentification>
+				<!-- CHANGE ABSTRACT ELEMENT TO SUBSTITUTABLE ELEMENT -->
+				<!-- q5:DriverLicenseAugmentationPoint xsi:type="q5:CDLHolderCodeType">1</q5:DriverLicenseAugmentationPoint -->
+				<CDLHolderCode
+					xmlns="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0">2</CDLHolderCode>
+			</q5:DriverLicense>
+		</q5:PersonAugmentation>
+	</Person>
+	<Person b:id="CPAP_001" xmlns="http://release.niem.gov/niem/niem-core/3.0/"
+		xmlns:b="http://release.niem.gov/niem/structures/3.0/">
+		<PersonName>
+			<PersonNamePrefixText />
+			<PersonGivenName>SENECA</PersonGivenName>
+			<PersonMiddleName>A</PersonMiddleName>
+			<PersonSurName>THENO</PersonSurName>
+			<PersonNameSuffixText />
+			<PersonFullName>SENECA A THENO</PersonFullName>
+		</PersonName>
+	</Person>
+	<Location b:id="OL_001" xmlns="http://release.niem.gov/niem/niem-core/3.0/"
+		xmlns:b="http://release.niem.gov/niem/structures/3.0/">
+		<LocationDescriptionText>632 W 6TH AVE</LocationDescriptionText>
+	</Location>
+	<Location b:id="OL_002" xmlns="http://release.niem.gov/niem/niem-core/3.0/"
+		xmlns:b="http://release.niem.gov/niem/structures/3.0/">
+		<LocationDescriptionText>632 W 6TH AVE</LocationDescriptionText>
+	</Location>
+	<!-- NEED TO ADD MISSING DEFENDANT CONTACT INFORMATION (LOCATION) -->
+	<Location b:id="DLOC_001" xmlns="http://release.niem.gov/niem/niem-core/3.0/"
+		xmlns:b="http://release.niem.gov/niem/structures/3.0/">
+		<Address>
+			<LocationStreet>
+				<StreetFullText>Street</StreetFullText>
+			</LocationStreet>
+			<LocationCityName>Anchorage</LocationCityName>
+			<LocationStateUSPostalServiceCode>AK
+			</LocationStateUSPostalServiceCode>
+			<LocationPostalCode>11111</LocationPostalCode>
+		</Address>
+	</Location>
+	<!-- THE FOLLOWING ARE REQUIRED ASSOCIATIONS (BELOW) -->
+	<PersonResidenceAssociation
+		xmlns="http://release.niem.gov/niem/niem-core/3.0/">
+		<Person xmlns="http://release.niem.gov/niem/niem-core/3.0/"
+			xmlns:b="http://release.niem.gov/niem/structures/3.0/" b:ref="DEF_001" />
+		<Location xmlns="http://release.niem.gov/niem/niem-core/3.0/"
+			xmlns:b="http://release.niem.gov/niem/structures/3.0/" b:ref="DLOC_001" />
+	</PersonResidenceAssociation>
+	<OffenseChargeAssociation
+		xmlns="http://release.niem.gov/niem/domains/jxdm/5.1/">
+		<Offense xmlns="http://release.niem.gov/niem/domains/jxdm/5.1/"
+			xmlns:b="http://release.niem.gov/niem/structures/3.0/" b:ref="OFF_001" />
+		<Charge xmlns="http://release.niem.gov/niem/domains/jxdm/5.1/"
+			xmlns:b="http://release.niem.gov/niem/structures/3.0/" b:ref="CHG_001" />
+	</OffenseChargeAssociation>
+	<OffenseChargeAssociation
+		xmlns="http://release.niem.gov/niem/domains/jxdm/5.1/">
+		<Offense xmlns="http://release.niem.gov/niem/domains/jxdm/5.1/"
+			xmlns:b="http://release.niem.gov/niem/structures/3.0/" b:ref="OFF_002" />
+		<Charge xmlns="http://release.niem.gov/niem/domains/jxdm/5.1/"
+			xmlns:b="http://release.niem.gov/niem/structures/3.0/" b:ref="CHG_002" />
+	</OffenseChargeAssociation>
+	<!-- REQUIRED ASSOCIATIONS (ABOVE) -->
+	<OffenseLocationAssociation
+		xmlns="http://release.niem.gov/niem/domains/jxdm/5.1/">
+		<Offense b:ref="OFF_001" xmlns:b="http://release.niem.gov/niem/structures/3.0/" />
+		<Location b:ref="OL_001" xmlns="http://release.niem.gov/niem/niem-core/3.0/"
+			xmlns:b="http://release.niem.gov/niem/structures/3.0/" />
+	</OffenseLocationAssociation>
+	<OffenseLocationAssociation
+		xmlns="http://release.niem.gov/niem/domains/jxdm/5.1/">
+		<Offense b:ref="OFF_002" xmlns:b="http://release.niem.gov/niem/structures/3.0/" />
+		<Location b:ref="OL_002" xmlns="http://release.niem.gov/niem/niem-core/3.0/"
+			xmlns:b="http://release.niem.gov/niem/structures/3.0/" />
+	</OffenseLocationAssociation>
+</CaseFilingDecisionReport>

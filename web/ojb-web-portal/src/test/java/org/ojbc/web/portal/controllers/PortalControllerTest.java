@@ -96,7 +96,7 @@ public class PortalControllerTest {
 	{
 		String expectedSearchLinksHtml = "<a id=\"peopleSearchLink\" href=\"#\" class=\"blueButton\" style=\"border-bottom-right-radius: 0px; border-top-right-radius: 0px;\"><div  class=\"activeSearchLink\"></div>PERSON SEARCH</a><a id=\"incidentSearchLinkDisabled\" href=\"#\" class=\"grayButton\" style=\"border-radius: 0px 0px 0px 0px;\"><div ></div>INCIDENT SEARCH</a><a id=\"vehicleSearchLink\" href=\"#\" class=\"grayButton\" style=\"border-bottom-left-radius: 0px; border-top-left-radius: 0px;\"><div ></div>VEHICLE SEARCH</a>";
 		
-		unit.index(request, model);
+		unit.index(request, model, null);
 		assertThat((String) model.get("currentUserName"), is(PortalController.DEFAULT_USER_LOGON_MESSAGE));
 		assertThat((String) model.get("timeOnline"), is(PortalController.DEFAULT_USER_TIME_ONLINE));
 		assertThat((String) model.get("searchLinksHtml"), is(expectedSearchLinksHtml));
@@ -105,7 +105,7 @@ public class PortalControllerTest {
 	@Test
 	public void testIndexWithSAMLAssertion() throws Exception
 	{
-		unitWithSAMLToken.index(request, model);
+		unitWithSAMLToken.index(request, model, null);
 		assertThat((String) model.get("currentUserName"), is("Mickey Mouse / Olympia PD"));
 	}
 	
@@ -113,7 +113,7 @@ public class PortalControllerTest {
 	public void testBasicUserString() throws Exception
 	{
 		PortalController.UserLogonInfo userLogonInfo = unit.getUserLogonInfo(buildTestSamlAssertion("Mickey", "Mouse", "Olympia PD", "2013-03-16T18:04:19.526Z"));
-		assertEquals("Mickey Mouse / Olympia PD", userLogonInfo.userNameString);
+		assertEquals("Mickey Mouse / Olympia PD", userLogonInfo.getUserNameString());
 		
 	}
 	
@@ -121,7 +121,7 @@ public class PortalControllerTest {
 	public void testUserStringWithMissingSurname() throws Exception
 	{
 		PortalController.UserLogonInfo userLogonInfo = unit.getUserLogonInfo(buildTestSamlAssertion("Mickey", "", "Olympia PD", "2013-03-16T18:04:19.526Z"));
-		assertEquals("Mickey  / Olympia PD", userLogonInfo.userNameString);
+		assertEquals("Mickey  / Olympia PD", userLogonInfo.getUserNameString());
 		
 	}
 	
@@ -129,7 +129,7 @@ public class PortalControllerTest {
 	public void testUserStringWithMissingFirstName() throws Exception
 	{
 		PortalController.UserLogonInfo userLogonInfo = unit.getUserLogonInfo(buildTestSamlAssertion("", "Duck", "Olympia PD", "2013-03-16T18:04:19.526Z"));
-		assertEquals(" Duck / Olympia PD", userLogonInfo.userNameString);
+		assertEquals(" Duck / Olympia PD", userLogonInfo.getUserNameString());
 		
 	}
 	
@@ -142,7 +142,7 @@ public class PortalControllerTest {
 		// this might fail on a really slow machine (if the test takes more than a minute!)
 		int minutes = Minutes.minutesBetween(authnInstantDate, new DateTime()).getMinutes();
 		int minute =minutes % 60;
-		assertEquals(String.valueOf((int) minutes/60 + ":" + (minute<10? "0":"") + minute), userLogonInfo.timeOnlineString);
+		assertEquals(String.valueOf((int) minutes/60 + ":" + (minute<10? "0":"") + minute), userLogonInfo.getTimeOnlineString());
 	}
 	
 	private String buildTestSamlAssertionString(String userFirstName, String userLastName, String userAgency, String authnInstant) throws Exception {

@@ -24,13 +24,17 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
+
+import junit.framework.Assert;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
@@ -40,16 +44,21 @@ import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
+import org.custommonkey.xmlunit.DetailedDiff;
+import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.test.util.XmlTestUtils;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -81,8 +90,15 @@ public class CamelContextTest {
     @EndpointInject(uri = "mock:cxf:bean:identificationReportingResponseRecipient")
     protected MockEndpoint identificationRecordingResponseRecipientMock;
     
+    @EndpointInject(uri = "mock:cxf:bean:arrestReportingService")
+    protected MockEndpoint arrestReportingServiceMock;
+    
     @Before
 	public void setUp() throws Exception {
+		XMLUnit.setIgnoreWhitespace(true);
+    	XMLUnit.setIgnoreAttributeOrder(true);
+    	XMLUnit.setIgnoreComments(true);
+    	XMLUnit.setXSLTVersion("2.0");
 		
     	//We replace the 'from' web service endpoint with a direct endpoint we call in our test
     	context.getRouteDefinition("IdentificationReportingServiceHandlerRoute").adviceWith(context, new AdviceWithRouteBuilder() {
@@ -111,6 +127,13 @@ public class CamelContextTest {
     	    }              
     	});
     	
+    	context.getRouteDefinition("stateIdentificationReportServiceRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    		@Override
+    		public void configure() throws Exception {
+    			mockEndpointsAndSkip("cxf:bean:arrestReportingService*");
+    		}              
+    	});
+    	
 		context.start();		
 		
 	}
@@ -125,6 +148,7 @@ public class CamelContextTest {
 	}
 
 	@Test
+	@DirtiesContext
 	public void testReportingContextRoutes() throws Exception
 	{
 		identificationRecordingServiceMock.expectedMessageCount(1);
@@ -169,6 +193,58 @@ public class CamelContextTest {
 	}
 	
 	@Test
+	@DirtiesContext
+	public void testArrestReportingContextRoutes() throws Exception
+	{
+		identificationRecordingServiceMock.expectedMessageCount(1);
+		arrestReportingServiceMock.expectedMessageCount(1);
+    	//Create a new exchange
+    	Exchange senderExchange = new DefaultExchange(context);
+    	
+    	//Test the entire web service route by sending through an Identification Report
+		Document doc = createDocument();
+		List<SoapHeader> soapHeaders = new ArrayList<SoapHeader>();
+		soapHeaders.add(makeSoapHeader(doc, "http://www.w3.org/2005/08/addressing", "MessageID", "12345"));
+		senderExchange.getIn().setHeader(Header.HEADER_LIST , soapHeaders);
+
+	    //Read the Identification report file from the file system
+	    File inputFile = new File("src/test/resources/xmlInstances/identificationReport/person_identification_search_results_state_criminal.xml");
+	    String inputStr = FileUtils.readFileToString(inputFile);
+
+	    assertNotNull(inputStr);
+	    
+		senderExchange.getIn().setHeader("operationName", "ReportPersonStateIdentificationResults");
+	    //Set it as the message message body
+	    senderExchange.getIn().setBody(inputStr);
+
+	    //Send the one-way exchange.  Using template.send will send an one way message
+		Exchange returnExchange = template.send("direct:IdentificationReportingServiceEndpoint", senderExchange);
+
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		identificationRecordingServiceMock.assertIsSatisfied();
+		Exchange receivedExchange = identificationRecordingServiceMock.getExchanges().get(0);
+		String body = receivedExchange.getIn().getBody(String.class);
+		assertEquals(inputStr, body);
+		
+		arrestReportingServiceMock.assertIsSatisfied();
+		Exchange receivedArrestReportExchange = arrestReportingServiceMock.getExchanges().get(0);
+		String arrestReport = receivedArrestReportExchange.getIn().getBody(String.class);
+		
+	    //Read the Identification report file from the file system
+	    File expectedFile = new File("src/test/resources/xmlInstances/arrestReport/arrestReport.xml");
+	    String expectedString = FileUtils.readFileToString(expectedFile);
+
+		XmlTestUtils.compareDocs(expectedString, arrestReport, "lexs:MessageDateTime");		
+		
+	}
+	
+	@Test
+	@DirtiesContext
 	public void testReportingResponseRoute() throws Exception
 	{
 		identificationRecordingResponseRecipientMock.expectedMessageCount(1);

@@ -34,7 +34,7 @@
  	<srm:SearchResultsMetadata>
  		
  		<srer:SearchErrors>
- 			<intel:SystemName>Subscriptions</intel:SystemName>
+ 			<nc:SystemName>Subscriptions</nc:SystemName>
  			<srer:SearchResultsExceedThresholdError>
  				
  				<srer:SearchResultsRecordCount>25000</srer:SearchResultsRecordCount>

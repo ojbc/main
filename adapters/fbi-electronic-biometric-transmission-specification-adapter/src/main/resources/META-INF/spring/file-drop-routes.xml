@@ -1,0 +1,94 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:ctx="http://www.springframework.org/schema/context" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:ngi-core="http://ws.cjis.gov/2014/08/01/ngi/core/xsd" 
+	xmlns:itl="http://biometrics.nist.gov/standard/2011" 
+	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" 
+	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 
+		#########################################################################################
+				File system Directories		
+		#########################################################################################
+	-->
+	<!-- alternative endpoint for testing: file system message input directory -->
+	<camel:endpoint id="inputMessageDirEndpoint" 
+		uri="file://{{fbiEbtsAdapter.messageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move=processed/" />			
+
+	<!-- Test sending in sample fbi ngi response messages -->
+	<camel:endpoint id="ngiResponseTestInputDirEndpoint" 
+		uri="file://{{fbiEbtsAdapter.ngiResponseMessageDirectory}}/input?idempotent=true&amp;moveFailed={{fbiEbtsAdapter.messageDirectory}}/error&amp;move=processed/" />
+				
+	<!-- Our directory to store synchronous FBI responses with 'control number' information -->
+	<camel:endpoint id="ngiControlNumberSynchResponseDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_ControlNum_SynchResponse"/>
+
+	<routeContext id="ebtsFileDropRoutes" xmlns="http://camel.apache.org/schema/spring">
+
+		<!--  for testing SUBSCRIBE by dropping message into adapter input directory -->
+		<camel:route id="fbiEbtsInputFileSubscribeDropRoute">
+		
+			<camel:from uri="inputMessageDirEndpoint"/>
+			
+			<camel:log message="\n\n FBI EBTS Adapter received File-Drop inbound message \n\n" />
+			
+			<camel:setHeader headerName="operationName">
+				<constant>Subscribe</constant>
+			</camel:setHeader>		
+		
+			<camel:to uri="direct:processFbiEbtsRequest"/>
+		
+			<!-- Save the fbi synchronous response(control number) to a file -->
+			<camel:setHeader headerName="CamelFileName">
+				<camel:simple>NGI_ControlNum_Resp_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</camel:simple>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="fbiResponseControlNumber">
+				<camel:xpath>/ngi-core:NGIControlNumber/text()</camel:xpath>												
+			</camel:setHeader>
+			
+			<camel:log message="\n\n Saving ControlNumber:  ${header.fbiResponseControlNumber} response xml to disk...\n\n"/>
+			
+			<camel:to uri="ngiControlNumberSynchResponseDir"/>
+		</camel:route>
+
+				
+		<route id="fbiNgiResponseTestInputRoute">
+				 
+		  <from uri="ngiResponseTestInputDirEndpoint"/>
+		  
+		  <log message="\n\n\n Using fbi ngi response TestInput route \n\n\n" loggingLevel="INFO"/>
+		  		  
+			<multicast parallelProcessing="false" >
+				<to uri="direct:processFbiNgiResponse"/>				
+				<to uri="bean:ngiResponseProcessor?method=sendVoidResponse"/>			
+			</multicast>				
+		</route>
+
+	</routeContext>
+		
+</beans>

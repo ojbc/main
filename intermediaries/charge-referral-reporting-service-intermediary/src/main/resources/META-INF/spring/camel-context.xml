@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       ">
+       
+	<!-- needed cxf imports -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />	
+					
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
+	
+		<camel:endpoint id="chargeReferralReportingIntermediaryEndpoint"
+			uri="cxf:bean:chargeReferralReportingIntermediaryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chargeReferral.cxfLogging}&amp;allowStreaming=false" />
+		
+		<camel:endpoint id="chargeReferralReportingAdapterEndpoint"
+			uri="cxf:bean:chargeReferralReportingAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chargeReferral.cxfLogging}"/>
+			
+
+		<camel:route id="ChargeReferralReporting_Route">
+		
+			<camel:from uri="chargeReferralReportingIntermediaryEndpoint" />
+			
+			<camel:log message="\n\n\n Charge Referral Reporting Service Intermediary... \n\n\n"/>
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+									
+			<multicast>
+			
+				<pipeline>
+					<filter>
+						<simple>${properties:chargeReferral.callChargeReferralAdapter} == true</simple>
+					
+						<log message="\n\n\n Calling ChargeReferralAdapter... \n\n\n"/>
+						
+						<to uri="direct:callChargeReferralAdapter"/>					
+					</filter>
+				</pipeline>
+			
+				<pipeline>
+					<to uri="direct:callDerivedBundleChildRoutes"/>
+				</pipeline>
+			
+			</multicast>
+			
+		</camel:route>
+			
+			
+		<camel:route id="CallChargeReferralAdapter_Route">
+		
+			<camel:from uri="direct:callChargeReferralAdapter" />
+			
+			<camel:log message="\n\n\n callChargeReferralAdapter...\n\n\n" />
+							
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>							
+							
+			<camel:setHeader headerName="operationName">
+				<constant>ReportChargeReferral</constant>
+			</camel:setHeader>	
+			
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0</constant>
+			</camel:setHeader>						
+																	
+			<camel:to uri="chargeReferralReportingAdapterEndpoint" />
+			
+		</camel:route>					
+			
+			
+			
+		<route id="CallDerivedBundleChildRoutes_Route">
+		
+			<from uri="direct:callDerivedBundleChildRoutes"/>
+			
+			<camel:setHeader headerName="derivedRoutes">
+				<simple>{{chargeReferralReporting.camelEndpointsToCall}}</simple>
+			</camel:setHeader>
+			
+			<camel:filter>
+				<camel:simple>${in.headers.derivedRoutes} != ''</camel:simple>
+				
+				<camel:log message="\n\n\n Calling derived route...: ${in.headers.derivedRoutes} \n\n\n"/>
+				
+				<camel:recipientList>
+					<camel:header>derivedRoutes</camel:header>
+				</camel:recipientList>
+			</camel:filter>				
+				
+		</route>					
+					
+	</camel:camelContext>
+			
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+		
+</beans>
+
+
+
+

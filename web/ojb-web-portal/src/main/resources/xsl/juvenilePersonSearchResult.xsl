@@ -67,8 +67,7 @@
 		    				<th>DOB</th>
 		    				<th>GENDER</th>
 		    				<th>SSN</th>
-		    				<th>SID</th>
-		    				<th>CHILD ID</th>
+		    				<th>File Number</th>
 		    				<th>PLACEMENT</th>
 		    				<th>PARENT(S)</th>
 		    				<th>RACE</th>
@@ -137,7 +136,7 @@
             	<td><xsl:value-of select="$entityCount"/></td>
                 <td><xsl:apply-templates select="$personName" mode="primaryName"></xsl:apply-templates>
                 </td>
-            	<td ><xsl:value-of select="ext:InformationOwningOrganization/nc:OrganizationName"></xsl:value-of></td>
+            	<td ><xsl:value-of select="ext1:InformationOwningOrganization/nc:OrganizationName"></xsl:value-of></td>
             	<td ><xsl:apply-templates select="$person/nc:PersonAlternateName"/></td>
             	<td>
             		<xsl:if test="$person/nc:PersonBirthDate/nc:Date[. != '']">
@@ -152,16 +151,18 @@
             			<xsl:with-param name="ssn" select="$person/nc:PersonSSNIdentification/nc:IdentificationID" />
             		</xsl:call-template>
             	</td>
-            	<td><xsl:value-of select="$person/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID" /></td>
-            	<td><xsl:value-of select="intel:SystemIdentifier/nc:IdentificationID" /></td>
+            	<td><xsl:value-of select="j:Case/nc:ActivityIdentification/nc:IdentificationID" /></td>
             	<td><xsl:value-of select="cyfs:Placement/micodes:PlacementCategoryCode"/></td>
-            	<td><xsl:apply-templates select="ext:Parent/nc:PersonName"/></td>
+            	<td><xsl:apply-templates select="ext1:Parent/nc:PersonName"/></td>
                 <td><xsl:value-of select="$person/nc:PersonRaceCode" /></td>
             	<td><xsl:value-of select="$person/nc:PersonEthnicityCode"/></td>
             	<td><xsl:value-of select="$person/cyfs:PersonAugmentation/cyfs:TribalAffiliationText"/></td>
             	<td>
-            		<xsl:variable name="addr" select="nc:Location/nc:LocationAddress/nc:StructuredAddress" />
-            		<xsl:value-of select="concat($addr/nc:LocationStreet/nc:StreetNumberText,' ',$addr/nc:LocationStreet/nc:StreetName)"/>
+            		<xsl:variable name="addr" select="nc:Location[1]/nc:LocationAddress/nc:StructuredAddress" />
+            		
+            		<xsl:if test="normalize-space($addr/nc:LocationStreet/nc:StreetNumberText) != '' and normalize-space($addr/nc:LocationStreet/nc:StreetName) != ''">
+            			<xsl:value-of select="concat($addr/nc:LocationStreet/nc:StreetNumberText,' ',$addr/nc:LocationStreet/nc:StreetName)"/>
+            		</xsl:if>
             		
             		<xsl:if test="normalize-space($addr/nc:LocationStreet/nc:StreetFullText) != ''">
             			<xsl:value-of select="$addr/nc:LocationStreet/nc:StreetFullText"/>

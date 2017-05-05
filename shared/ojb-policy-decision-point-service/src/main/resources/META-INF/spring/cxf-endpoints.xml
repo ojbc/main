@@ -45,7 +45,7 @@
     <cxf:cxfEndpoint 
         id="accessControlRequestService"
         address="${pdp.accessControlRequestEndpoint}"
-		wsdlURL="classpath:service-specifications/Access_Control_Request_Service/schemas/SIP_WS_1.3/Access_Control_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Access_Control_Request/schemas/SIP_WS_1.3/Access_Control_Request_Service.wsdl"
 		serviceName="ojbc:Access-Control-Request-ServiceService" 
 		endpointName="ojbc:Access-Control-Request-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0">
@@ -63,7 +63,7 @@
     <cxf:cxfEndpoint 
         id="accessControlResponseService"
 		address="${pdp.accessControlResponseEndpoint}"
-        wsdlURL="classpath:service-specifications/Access_Control_Response_Service/schemas/SIP_WS_1.3/Access_Control_Response_Service.wsdl"
+        wsdlURL="classpath:ssp/Access_Control_Response/schemas/SIP_WS_1.3/Access_Control_Response_Service.wsdl"
         serviceName="ojbc:Access-Control-Response-ServiceService"
         endpointName="ojbc:Access-Control-Response-Secure-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/AccessControlResponseService/1.0"
@@ -84,7 +84,7 @@
     <cxf:cxfEndpoint 
         id="accessControlRequestServicePolicyAcknowledgement"
         address="${pdp.accessControlRequestPolicyAcknowledgementEndpoint}"
-		wsdlURL="classpath:service-specifications/Access_Control_Request_Service/schemas/SIP_WS_1.3/Access_Control_Request_Service.wsdl"
+		wsdlURL="classpath:ssp/Access_Control_Request/schemas/SIP_WS_1.3/Access_Control_Request_Service.wsdl"
 		serviceName="ojbc:Access-Control-Request-ServiceService" 
 		endpointName="ojbc:Access-Control-Request-Secure-Service"
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/AccessControlRequestService/1.0">
@@ -101,7 +101,7 @@
     <cxf:cxfEndpoint 
         id="accessControlResponseServicePolicyAcknowledgement"
 		address="${pdp.accessControlResponsePolicyAcknowledgementEndpoint}"
-        wsdlURL="classpath:service-specifications/Access_Control_Response_Service/schemas/SIP_WS_1.3/Access_Control_Response_Service.wsdl"
+        wsdlURL="classpath:ssp/Access_Control_Response/schemas/SIP_WS_1.3/Access_Control_Response_Service.wsdl"
         serviceName="ojbc:Access-Control-Response-ServiceService"
         endpointName="ojbc:Access-Control-Response-Secure-Service"
         xmlns:ojbc="http://ojbc.org/Services/WSDL/AccessControlResponseService/1.0"

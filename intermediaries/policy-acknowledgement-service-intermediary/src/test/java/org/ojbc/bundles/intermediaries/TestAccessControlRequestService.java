@@ -31,7 +31,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
 import org.apache.commons.io.FileUtils;
 import org.apache.cxf.endpoint.Client;
@@ -151,6 +151,25 @@ public class TestAccessControlRequestService {
         resultEndpoint.assertIsSatisfied();
     }
 
+    @Test
+    @DirtiesContext
+    public void testSendNonCurrentUserFromOriWithoutPrivacyPolicy() throws Exception {
+    	// Read the access control request file from the file system
+    	File inputFile = new File(
+    			"src/test/resources/xml/policyBasedAccessControl/IdentityBasedAccessControlRequestNonCurrentNoPolicyOri.xml");
+    	String requestBody = FileUtils.readFileToString(inputFile);
+    	
+    	@SuppressWarnings("unchecked")
+    	List<String> expectedBody = FileUtils.readLines(new File(
+    			"src/test/resources/xml/policyBasedAccessControl/AccessControlResponseForNonCurrentUserNoPolicyOri.xml"));
+    	
+    	resultEndpoint.expectedBodiesReceived(expectedBody.get(18));
+    	
+    	Map<String, Object> headers = SoapMessageUtils.createHeaders();
+    	template.sendBodyAndHeaders("direct:accessControlRequest", requestBody, headers);
+    	resultEndpoint.assertIsSatisfied();
+    }
+    
     @Test
     @DirtiesContext
     public void testSendEmptyUser() throws Exception {

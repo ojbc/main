@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:chc-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
+	xmlns:che-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryExpungementReport/1.0"
+	xmlns:chiu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
+	xmlns:chc-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
+	xmlns:che-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryExpungementReport/Extension/1.0"
+	xmlns:chiu-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierUpdateReport/Extension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<routeContext id="subscription-management-routes" xmlns="http://camel.apache.org/schema/spring">	
+			
+		<!-- Criminal History Update Reporting flow -->
+		<route id="criminalHistoryUpdateReportingServiceRoute">
+			<from uri="criminalHistoryUpdateReportingServiceEndpoint" />
+			<onException>
+				<exception>java.lang.Exception</exception>
+				<handled><constant>true</constant></handled>
+				<camel:log message="An exception was thrown: ${exception.cause.message}"
+					loggingLevel="WARN" />
+				<setHeader headerName="CamelFileName">
+					<simple>FailedCriminalHistoryUpdate_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</simple>
+				</setHeader>	
+				<to uri="criminalHistoryConsolidationFailedFileEndpoint"/>
+			</onException>
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:filter>
+				<camel:xpath>/chc-report-doc:CriminalHistoryConsolidationReport</camel:xpath>
+
+				<camel:setHeader headerName="currentSid">
+					<camel:xpath resultType="java.lang.String">/chc-report-doc:CriminalHistoryConsolidationReport/nc:Person/chc-report-ext:PreConsolidationIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="newSid">
+					<camel:xpath resultType="java.lang.String">/chc-report-doc:CriminalHistoryConsolidationReport/nc:Person/chc-report-ext:PostConsolidationIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="currentUcn">
+					<camel:xpath resultType="java.lang.String">/chc-report-doc:CriminalHistoryConsolidationReport/nc:Person/chc-report-ext:PreConsolidationIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="newUcn">
+					<camel:xpath resultType="java.lang.String">/chc-report-doc:CriminalHistoryConsolidationReport/nc:Person/chc-report-ext:PostConsolidationIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="consolidationType">
+					<constant>criminalHistoryConsolidationReport</constant>
+				</camel:setHeader>
+			</camel:filter>
+
+			<camel:filter>
+				<camel:xpath>/che-report-doc:CriminalHistoryExpungementReport</camel:xpath>
+
+				<camel:setHeader headerName="currentSid">
+					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="newSid">
+					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="currentUcn">
+					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="newUcn">
+					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+
+				<camel:setHeader headerName="consolidationType">
+					<constant>criminalHistoryExpungementReport</constant>
+				</camel:setHeader>
+
+			</camel:filter>
+			
+			<camel:filter>
+				<camel:xpath>/chiu-report-doc:CriminalHistoryIdentifierUpdateReport</camel:xpath>
+
+				<camel:setHeader headerName="currentSid">
+					<camel:xpath resultType="java.lang.String">/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/nc:Person/chiu-report-ext:PreIdentifierUpdateIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="newSid">
+					<camel:xpath resultType="java.lang.String">/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/nc:Person/chiu-report-ext:PostIdentifierUpdateIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="currentUcn">
+					<camel:xpath resultType="java.lang.String">/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/nc:Person/chiu-report-ext:PreIdentifierUpdateIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="newUcn">
+					<camel:xpath resultType="java.lang.String">/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/nc:Person/chiu-report-ext:PostIdentifierUpdateIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="consolidationType">
+					<constant>criminalHistoryIdentifierUpdateReport</constant>
+				</camel:setHeader>		
+			</camel:filter>
+			
+			<camel:log message="Current SID: ${in.headers.currentSid}, New SID:  ${in.headers.newSid}"/>
+			<camel:log message="Current UCN ${in.headers.currentUcn}, New UCN:  ${in.headers.newUcn}"/>
+			
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${in.headers.consolidationType} == 'criminalHistoryExpungementReport'</camel:simple>
+					
+					<log message="Process expungement"/>
+					<to uri="bean:criminalHistoryConsolidationProcessor?method=expungeCriminalHistory" />
+					<log message="Criminal History expunged"/>
+									
+				</camel:when>
+				<camel:when>
+					<camel:simple>${in.headers.consolidationType} == 'criminalHistoryIdentifierUpdateReport' or ${in.headers.consolidationType} == 'criminalHistoryConsolidationReport' </camel:simple>
+					<to uri="bean:criminalHistoryConsolidationProcessor?method=consolidateCriminalHistory" />
+					<log message="Criminal History consolidated"/>
+				</camel:when>
+						
+				<camel:otherwise>
+					<log message="Operation not recognized"/>
+				</camel:otherwise>
+			
+			</camel:choice>
+			
+			<log message="Body: ${body}"/>
+			
+			<camel:split>
+				<!-- The body is a map of Email Notifications -->
+				<camel:simple>${body}</camel:simple>
+			
+				<camel:to uri="bean:criminalHistoryConsolidationProcessor?method=returnCamelEmail"/>
+					
+				<camel:log message="headers: ${in.headers}" />
+
+				<camel:log message="The email address(es) ${in.header.to} will be sent a CH consolidation notification.  To: ${in.header.to}, CC: ${in.header.cc}, BCC: ${in.header.bcc}."
+					logName="notificationLogger" />
+	
+				<camel:filter>
+					<camel:simple>${properties:rapbackDatastoreAdapter.sendConsolidationNotificationEmails} == true</camel:simple>
+					<camel:to uri="smtpEndpoint" />
+				</camel:filter>
+
+			</camel:split>
+			
+		</route>
+
+		<!-- Automatically Archive idled records flow -->
+		<route id="automaticArchivingCivilRoute">
+			<from uri="automaticArchivingCivilTimerEndpoint" />
+			<to uri="bean:rapbackDAO?method=archiveCivilIdentifications" />
+			<log message="Automatic archiving civil identifications completed"/>
+		</route>
+		
+		<route id="automaticArchivingCriminalRoute">
+			<from uri="automaticArchivingCriminalTimerEndpoint" />
+			<to uri="bean:rapbackDAO?method=archiveCriminalIdentifications" />
+			<log message="Automatic archiving completed"/>
+		</route>
+	</routeContext>
+</beans>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0"
+	xmlns:iru-doc="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0"
+	xmlns:tns="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	targetNamespace="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0">
+	<wsdl:import namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SecurityPolicy/1.0/" location="../../../../policy-assertions/GFIPMSystemToSystem.wsdl"/>
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema/Incident_Report.xsd"/>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/IncidentReportUpdate/1.0" schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/exchange_schema/Incident_Report_Update.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="IncidentReport">
+		<wsdl:part name="IncidentReport" element="ir-doc:IncidentReport" />
+	</wsdl:message>
+	<wsdl:message name="IncidentReportUpdate">
+		<wsdl:part name="IncidentReportUpdate" element="iru-doc:IncidentReportUpdate" />
+	</wsdl:message>
+	<wsdl:portType name="Incident-Reporting-Service">
+		<wsdl:operation name="ReportIncident">
+			<wsdl:input name="IncidentReport" message="tns:IncidentReport" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportIncidentUpdate">
+			<wsdl:input name="IncidentReportUpdate" message="tns:IncidentReportUpdate" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="Incident-Reporting-ServiceSOAPBinding" type="tns:Incident-Reporting-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsaw:UsingAddressing wsdl:required="true" />
+		<wsdl:operation name="ReportIncident">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0/ReportIncident"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportIncidentUpdate">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0/ReportIncidentUpdate"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<!-- Secure, GFIPM-conforming binding -->
+	<wsdl:binding name="Incident-Reporting-Secure-ServiceSOAPBinding" type="tns:Incident-Reporting-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsp:PolicyReference URI="#GFIPMSystemToSystem" />
+		<wsdl:operation name="ReportIncident">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0/ReportIncident"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportIncidentUpdate">
+			<soap:operation soapAction="http://ojbc.org/Services/WSDL/IncidentReportingService/1.0/ReportIncidentUpdate"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Incident-Reporting-ServiceService">
+		<wsdl:port name="Incident-Reporting-Service" binding="tns:Incident-Reporting-ServiceSOAPBinding">
+			<soap:address location="http://localhost" />
+		</wsdl:port>
+		<wsdl:port name="Incident-Reporting-Secure-Service" binding="tns:Incident-Reporting-Secure-ServiceSOAPBinding">
+			<soap:address location="http://localhost/secure" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

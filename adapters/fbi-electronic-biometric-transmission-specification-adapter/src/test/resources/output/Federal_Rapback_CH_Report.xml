@@ -1,0 +1,116 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<fchr-doc:FederalCriminalHistoryReport xmlns:fchr-doc="http://ojbc.org/IEPD/Exchange/FederalCriminalHistoryReport/1.0"
+                                       xmlns:fchr-ext="http://ojbc.org/IEPD/Extensions/FederalCriminalHistoryReportExtension/1.0"
+                                       xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+                                       xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+                                       xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+                                       xmlns:structures="http://release.niem.gov/niem/structures/3.0/">
+   <fchr-ext:TransactionDescriptiveRecord>
+      <fchr-ext:RecordCategoryCodeText>02</fchr-ext:RecordCategoryCodeText>
+      <fchr-ext:ImageReferenceIdentification>
+         <nc:IdentificationID>00</nc:IdentificationID>
+      </fchr-ext:ImageReferenceIdentification>
+      <fchr-ext:RecordForwardOrganization>
+         <nc:EntityOrganization>
+            <nc:OrganizationIdentification>
+               <nc:IdentificationID>WV1000000</nc:IdentificationID>
+            </nc:OrganizationIdentification>
+            <nc:OrganizationIdentification>
+               <nc:IdentificationID>NY030025P</nc:IdentificationID>
+            </nc:OrganizationIdentification>
+         </nc:EntityOrganization>
+      </fchr-ext:RecordForwardOrganization>
+      <fchr-ext:RecordControllingOrganization>
+         <nc:EntityOrganization>
+            <nc:OrganizationIdentification>
+               <nc:IdentificationID>NY0303000</nc:IdentificationID>
+            </nc:OrganizationIdentification>
+         </nc:EntityOrganization>
+      </fchr-ext:RecordControllingOrganization>
+      <fchr-ext:FederalCriminalHistoryRecordDocument>
+         <nc:DocumentBinary>
+            <fchr-ext:Base64BinaryObject>U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=</fchr-ext:Base64BinaryObject>
+         </nc:DocumentBinary>
+      </fchr-ext:FederalCriminalHistoryRecordDocument>
+      <fchr-ext:RapBackSubscription>
+         <fchr-ext:RapBackExpirationDate>
+            <nc:Date>2010-02-24</nc:Date>
+         </fchr-ext:RapBackExpirationDate>
+         <fchr-ext:RapBackSubscriptionDate>
+            <nc:Date>2011-01-25</nc:Date>
+         </fchr-ext:RapBackSubscriptionDate>
+         <fchr-ext:RapBackSubscriptionIdentification>
+            <nc:IdentificationID>123456 
+					</nc:IdentificationID>
+         </fchr-ext:RapBackSubscriptionIdentification>
+         <fchr-ext:RapBackSubscriptionTermCode>5 
+					</fchr-ext:RapBackSubscriptionTermCode>
+         <fchr-ext:RapBackTermDate>
+            <nc:Date>2015-01-01</nc:Date>
+         </fchr-ext:RapBackTermDate>
+         <fchr-ext:SubscriptionQualifierIdentification>
+            <nc:IdentificationID>fbiSubscriptionId_3</nc:IdentificationID>
+         </fchr-ext:SubscriptionQualifierIdentification>
+      </fchr-ext:RapBackSubscription>
+      <fchr-ext:RapBackNotificationEvent>
+         <fchr-ext:RapBackActivityNotificationIdentification>
+            <nc:IdentificationID>123456 
+					</nc:IdentificationID>
+         </fchr-ext:RapBackActivityNotificationIdentification>
+         <fchr-ext:RapBackAttentionText>DET J Q PUBLIC 
+					</fchr-ext:RapBackAttentionText>
+         <fchr-ext:TriggeringEvent>
+            <fchr-ext:RapBackEventDate>
+               <nc:Date>2013-03-29</nc:Date>
+            </fchr-ext:RapBackEventDate>
+            <fchr-ext:FederalTriggeringEventCode>NCIC-SOR-MODIFICATION</fchr-ext:FederalTriggeringEventCode>
+            <fchr-ext:RapBackEventText>Event that triggered the rap back</fchr-ext:RapBackEventText>
+         </fchr-ext:TriggeringEvent>
+         <fchr-ext:TriggeringEvent>
+            <fchr-ext:RapBackEventDate>
+               <nc:Date>2013-03-29</nc:Date>
+            </fchr-ext:RapBackEventDate>
+            <fchr-ext:FederalTriggeringEventCode>DEATH</fchr-ext:FederalTriggeringEventCode>
+            <fchr-ext:RapBackEventText>Second Event that triggered the rap back 
+						</fchr-ext:RapBackEventText>
+         </fchr-ext:TriggeringEvent>
+      </fchr-ext:RapBackNotificationEvent>
+   </fchr-ext:TransactionDescriptiveRecord>
+   <nc:Person>
+						<nc:PersonBirthDate>
+         <nc:Date>1977-08-25</nc:Date>
+      </nc:PersonBirthDate>
+					<nc:PersonName>
+         <nc:PersonGivenName>ANTHONY</nc:PersonGivenName>
+         <nc:PersonMiddleName>JOHN</nc:PersonMiddleName>
+         <nc:PersonSurName>SMITH</nc:PersonSurName>
+      </nc:PersonName>
+      <j:PersonAugmentation>
+         <j:PersonFBIIdentification>
+            <nc:IdentificationID>
+						12345678
+					</nc:IdentificationID>
+         </j:PersonFBIIdentification>
+         <j:PersonStateFingerprintIdentification>
+            <nc:IdentificationID>A398118900</nc:IdentificationID>
+         </j:PersonStateFingerprintIdentification>
+      </j:PersonAugmentation>
+   </nc:Person>
+</fchr-doc:FederalCriminalHistoryReport>

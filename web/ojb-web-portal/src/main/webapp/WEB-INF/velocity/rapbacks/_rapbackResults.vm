@@ -17,36 +17,55 @@
 <!DOCTYPE html>
 <script type="text/javascript">
  
-	/* Custom filtering function which will search data in column 5 among filtered values */
+	/* Custom filtering function which will hide or show records based on the values selected in the filtered column input fields */
 	$.fn.dataTable.ext.search.push(
 	    function( settings, data, dataIndex ) {
+	    	var showArchivedOnly = $('#showArchivedOnly').is(":checked");
+	        var status = data[5] ; // use data for the status column
+	    	
+	    	var result = true; 
+	    	if ( showArchivedOnly ){
+	    		if ( status ==='Archived'){
+	    			result = true; 
+	    		}
+	    		else{
+	    			result = false; 
+    			}
+	    	}
+	    	
 	    	var hasSubsequentResultsChecked = $('#hasSubsequentResults').is(":checked");
 	 		var className = settings.aoData[dataIndex].nTr.className;
 	 		if (hasSubsequentResultsChecked && className.indexOf("subsequentResults") === -1) {
-	 			return false;
+	 			result = false;
 	 		}
 	 		
 	        var filter = $('#rapbacksFilter').val();
-	        var status = data[5] ; // use data for the status column
 	        if ( ( !filter || filter ==='') ||
 	             ( filter != status )){
-	            return true;
+	            result = result && true;
 	        }
-	        return false;
+	        else {
+	        	result = false;
+	        }
+	        
+	        return result;
 	    }
 	);
 	
 	$(function() {
 		$( document ).tooltip();
 		
+		numCols = $("#searchResultsTable").find('tr')[0].cells.length;
 		optTable = {
 			"pagingType": "full_numbers",
 			"pageLength": 50,
+			stateSave: true, 
+			"order": [[ 1, "asc" ]],
 			"language": {
         		"emptyTable": "No rapback record available"
    			 },
 			"columnDefs": [{
-				targets: [ 6 ],
+				targets: [ numCols -1 ],
 			    searchable: false, 
 			    sortable: false
 			} ]
@@ -64,6 +83,13 @@
     	} );
     	
 		$('#filterColumn').on("change", '#hasSubsequentResults', function() {
+        	oTable.draw();
+    	} );
+    	
+		$('#filterColumn').on("change", '#showArchivedOnly', function() {
+			if ($('#showArchivedOnly').is(":checked")){
+				$('#rapbacksFilter').val('');
+			}
         	oTable.draw();
     	} );
     	
@@ -180,7 +206,7 @@
 				        $( this ).dialog( "close" );
 			        },
 			        "No": function() {
-		            	if (recordStatus === "Archived" || recordStatus ==="Available for subscription"){
+		            	if (recordStatus === "Archived" || recordStatus ==="Available for Subscription"){
 		            		 $( this ).dialog( "close" );
 		            	}
 		            	else{
@@ -258,6 +284,22 @@
 																      
 			}).fail(ojbc.displayFailMessage);
 		}
+		
+		$('#returnToSearchSubmitButton').click (function(){
+	  		$.get("#springUrl('/rapbacks/searchForm')",function(data) {
+	  			$('#portalContent').html(data);
+		    }).fail(ojbc.displayFailMessage)
+	  	}); 
+		
+		$('#newSearchSubmitButton').click (function(){
+			ojbc.clearSearchPurposeFields();
+			ojbc.clearSearchResultsFilterFields();
+	  		$.get("#springUrl('/rapbacks/searchForm?resetForm=true')",function(data) {
+			      $('#portalContent').html(data);
+			    }).fail(ojbc.displayFailMessage)
+		});
+
+		
 	});
 </script>
 	
@@ -265,7 +307,18 @@
 <div id="searchResultsContainer" class="contentBox">
 
     <div id="searchResultsHeader"> 
-        <p id="search-results-title">MANAGE RAPBACK</p>
+        <p id="search-results-title">MANAGE RAP BACK</p>
+        <div style="float:right" >
+            <a id="returnToSearchSubmitButton" class="grayButton" >
+                <img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Results/icon-back.png')" alt="Search Icon"/>
+                RETURN TO SEARCH
+            </a>
+            <a id="newSearchSubmitButton" class="grayButton" >
+                <img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/>
+                NEW SEARCH
+            </a>
+        </div>
+        
     </div>
     
     <div style="padding:10px">

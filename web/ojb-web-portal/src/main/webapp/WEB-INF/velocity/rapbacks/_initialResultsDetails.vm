@@ -19,6 +19,7 @@
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/js/jquery-ui/css/search-theme/jquery-ui-base.css')">
         <link rel="stylesheet" type="text/css"  src="#springUrl('/static/js/jquery-ui/css/search-theme/jquery-ui-1.10.0.custom.min.css')" />
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
+        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/print-initial-results.css')" media="print">
         <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/modal-frame.css')">
         
         <script src="#springUrl('/static/js/jquery-ui/js/jquery-1.9.0.js')"></script>
@@ -29,15 +30,26 @@
         <script type="text/javascript">
 			$(function () {
 				$('#initialResultsDetailTabs').tabs({
+					create: function( event, ui ) {
+						var modalIframe = $("#modalIframe", parent.document);
+						modalIframe.height(modalIframe.contents().find("body").height() + 20);
+					},
 					activate: function( event, ui ) {
 						var modalIframe = $("#modalIframe", parent.document);
-						modalIframe.height(modalIframe.contents().find("body").height() + 16);
+						modalIframe.height(modalIframe.contents().find("body").height() + 20);
 					}
 				});
+				
+				$("#printButton").button();
+				
+				$("#printButton").on("click", function(){
+					window.print();
+				}); 
 			});
 		</script>
 
 		<div id="initialResultsDetailTabs">
+
 			<ul>
 				<li>
 					<a href="#stateInitialResultTab">State Initial Results</a>
@@ -45,18 +57,25 @@
 				<li>
 					<a href="#fbiInitialResultTab">FBI Initial Results</a>
 				</li>
+				<button id="printButton" style="float:right;">Print</button>
 			</ul>
 
 			<div id="stateInitialResultTab">
-				<p styel="font-size:small">$identificationResultsQueryResponse.stateSearchResultFile</p>
+				<!--A better way of checking String is not null or empty--> 
+				<!-- http://wiki.apache.org/velocity/CheckingForNull -->
+				#if( "$!identificationResultsQueryResponse.stateSearchResultFile" != "" ) 
+   					<div><pre>$identificationResultsQueryResponse.stateSearchResultFile</pre></div> 
+				#end
 				#foreach($item in $identificationResultsQueryResponse.stateCriminalHistoryRecordDocuments)
-					<p><pre>$item</pre></p>
+					<div class="rapsheet"><pre>$item</pre></div>
 				#end
 			</div>
 			<div id="fbiInitialResultTab">
-				<p>$identificationResultsQueryResponse.fbiSearchResultFile</p>
+				#if( "$!identificationResultsQueryResponse.fbiSearchResultFile" != "" ) 
+					<div><pre>$identificationResultsQueryResponse.fbiSearchResultFile</pre></div>
+				#end
 				#foreach($item in $identificationResultsQueryResponse.fbiIdentityHistorySummaryDocuments)
-					<p><pre>$item</pre></p>
+					<div class="rapsheet"><pre>$item</pre></div>
 				#end
 			</div>
 		</div>

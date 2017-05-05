@@ -29,12 +29,14 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<Subscription>>{
     
-    private static final Log log = LogFactory.getLog(SubscriptionResultsSetExtractor.class);
+    @SuppressWarnings("unused")
+	private static final Log log = LogFactory.getLog(SubscriptionResultsSetExtractor.class);
     
     private ValidationDueDateStrategy validationDueDateStrategy;
     private GracePeriodStrategy gracePeriodStrategy;
@@ -107,6 +109,8 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
                     
 	            	subscription.setSubscriptionOwner(rs.getString("subscriptionOwner"));
 	            	
+	            	subscription.setSubscriptionOwnerEmailAddress(rs.getString("subscriptionOwnerEmailAddress"));
+	            	
 	            	subscription.setPersonFullName(rs.getString("subjectName"));
 	            	
 	            	subscription.setSubscriptionIdentifier(String.valueOf(id));
@@ -118,6 +122,8 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            	    subscription.setValidationDueDate(null);
 	            	    subscription.setGracePeriod(null);
 	            	}
+	            	
+	            	subscription.setAgencyCaseNumber(rs.getString("agency_case_number"));
 	            	
 	            	map.put(id, subscription);
 	            	
@@ -147,17 +153,17 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            
 	            subscriptionSubjectIdentifiers.put(identifierName, identifierValue);
 	            
-	            if (identifierName.equals("lastName"))
+	            if (identifierName.equals(SubscriptionNotificationConstants.LAST_NAME))
 	            {
 	            	subscription.setPersonLastName(identifierValue);
 	            }	
 
-	            if (identifierName.equals("firstName"))
+	            if (identifierName.equals(SubscriptionNotificationConstants.FIRST_NAME))
 	            {
 	            	subscription.setPersonFirstName(identifierValue);
 	            }	
 
-	            if (identifierName.equals("dateOfBirth"))
+	            if (identifierName.equals(SubscriptionNotificationConstants.DATE_OF_BIRTH))
 	            {
 	            	subscription.setDateOfBirth(identifierValue);
 	            }	

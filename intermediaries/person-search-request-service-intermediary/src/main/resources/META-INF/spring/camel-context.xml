@@ -46,22 +46,22 @@
 
 		<!-- Search Request and Response Federated Endpoints -->
 		<endpoint id="searchRequestFederatedServiceEndpoint"
-			uri="cxf:bean:personSearchRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:personSearchRequestFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 		<camel:endpoint id="personSearchRequestServiceAdapterEndpoint"
-			uri="cxf:bean:personSearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:personSearchRequestServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 		<endpoint id="searchResultsFederatedServiceEndpoint"
-			uri="cxf:bean:personSearchResultsFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:personSearchResultsFederatedService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
  		<endpoint id="entityResolutionRequestServiceEndpoint"
-			uri="cxf:bean:entityResolutionRequestService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}" />
+			uri="cxf:bean:entityResolutionRequestService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}&amp;allowStreaming=false" />
 
  		<endpoint id="mergeNotificationServiceEndpoint"
-			uri="cxf:bean:mergeNotificationService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}" />
+			uri="cxf:bean:mergeNotificationService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.entityResolutionCxflogging}&amp;allowStreaming=false" />
 
 		<camel:endpoint id="presentMergeNotificationServiceResultsEndpoint"
-			uri="cxf:bean:presentMergeNotificationServiceResults?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}" />
+			uri="cxf:bean:presentMergeNotificationServiceResults?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${federatedQuery.personSearch.personSearchIntermediaryCxflogging}&amp;allowStreaming=false" />
 
 
 		<!-- Federated Search Request Handler-->
@@ -131,7 +131,7 @@
 
 			<camel:split onPrepareRef="prepareFederateQueryMessage" parallelProcessing="false">
 				<camel:xpath>//ext:SourceSystemNameText</camel:xpath>
-				<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}" loggingLevel="DEBUG"/>	
+				<camel:log message="This is the split body: ${body}.  This is the webservice endpoint to call: ${in.headers.webServiceEndpointToCall}"/>	
 				
 				<camel:recipientList>
 					<camel:header>webServiceEndpointToCall</camel:header>
@@ -247,6 +247,15 @@
 				<camel:simple>${in.header.searchResponseNodeCount} == 0 and ${in.header.errorResponseNodeCount} > 0</camel:simple>
 				<camel:log message="No search results returned, however, response contains error results"/>
 				<to uri="xslt:xslt/PersonSearchResultsErrorToMergeNotificationMessage.xsl"/>	
+				<camel:to uri="direct:sendMergeMessageResponse"/>
+				<camel:stop/>
+			</camel:filter>
+
+			<!-- In this case, we have errors and no search results, there is no need to call ER -->
+			<camel:filter>
+				<camel:simple>${in.header.searchResponseNodeCount} == 0 and ${in.header.errorResponseNodeCount} == 0</camel:simple>
+				<camel:log message="No search results returned or error results"/>
+				<to uri="xslt:xslt/NoPersonSearchResultsToMergeNotificationMessage.xsl"/>	
 				<camel:to uri="direct:sendMergeMessageResponse"/>
 				<camel:stop/>
 			</camel:filter>
@@ -375,6 +384,7 @@
 		<property name="federatedQueryManager">
 			<ref bean="federatedQueryManager" />
 		</property>
+		<property name="addressToAdapterURIMap" ref="addressToAdapterURIMap"/>
 	</bean>
 
 	<bean id="entityResolutionResponseAggregator"

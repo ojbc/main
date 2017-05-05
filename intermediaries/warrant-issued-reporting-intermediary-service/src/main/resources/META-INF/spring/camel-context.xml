@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       ">       						
+					
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
+	
+		<camel:endpoint id="warrantIssuedReportingServiceIntermediaryEndpoint"
+			uri="cxf:bean:warrantIssuedReportingIntermediaryService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantIssuedReporting.cxfLogging}&amp;allowStreaming=false" />
+		
+		<camel:endpoint id="warrantIssuedReportingServiceAdapterEndpoint"
+			uri="cxf:bean:warrantIssuedReportingAdapterService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${warrantIssuedReporting.cxfLogging}"/>
+			
+
+		<camel:route id="warrantIssuedReporting_Route">
+		
+			<camel:from uri="warrantIssuedReportingServiceIntermediaryEndpoint" />
+			
+			<camel:log message="\n\n\n Entering Warrant-Issued Reporting Service Intermediary... \n\n\n"/>
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+						
+			<camel:multicast>
+			
+				<pipeline>
+					<filter>
+						<simple>${properties:warrantIssuedReporting.callWarrantReportingAdapter} == true</simple>
+					
+						<log message="\n\n\n  Calling Warrant Adapter... \n\n\n"/>
+					
+						<to uri="direct:callWarrantReportingAdapter"/>
+					</filter>								
+				</pipeline>
+			
+				<pipeline>
+					<to uri="direct:callDerivedBundleChildRoutes"/>				
+				</pipeline>
+			
+			</camel:multicast>
+																															
+		</camel:route>
+		
+		
+		<route id="callWarrantAdapter_Route">
+			
+			<from uri="direct:callWarrantReportingAdapter"/>
+		
+			<camel:choice>
+			
+				<camel:when>				
+					<simple>${header.operationName} == 'ReportWarrantIssued'</simple>
+					
+					<log message="\n\n\n Running: direct:callReportWarrantIssued... \n\n\n"/>
+					
+					<camel:to uri="direct:callReportWarrantIssued"/>	
+				</camel:when>
+
+				<camel:when>				
+					<simple>${header.operationName} == 'ReportWarrantAccepted'</simple>
+					
+					<camel:to uri="direct:callReportWarrantAccepted"/>	
+				</camel:when>
+				
+				<camel:when>				
+					<simple>${header.operationName} == 'ReportWarrantRejected'</simple>
+					
+					<camel:to uri="direct:callReportWarrantRejected"/>	
+				</camel:when>						
+									
+				<camel:when>				
+					<simple>${header.operationName} == 'ReportWarrantModification'</simple>
+					
+					<camel:to uri="direct:callReportWarrantModification"/>	
+				</camel:when>											
+
+				<camel:when>				
+					<simple>${header.operationName} == 'ReportWarrantCancelled'</simple>
+					
+					<camel:to uri="direct:callReportWarrantCancellation"/>	
+				</camel:when>																					
+										
+			</camel:choice>
+			
+		</route>
+
+		<camel:route id="warrant_cancellation_route">
+		
+			<camel:from uri="direct:callReportWarrantCancellation" />
+	
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+	
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
+			</camel:setHeader>
+	
+			<camel:setHeader headerName="operationName">
+				<constant>ReportWarrantCancelled</constant>
+			</camel:setHeader>
+	
+			<log message="\n\n\n Sending Warrant Cancellation to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>
+	
+			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
+		</camel:route>		
+			
+		<camel:route id="warrant_modification_route">
+		
+			<camel:from uri="direct:callReportWarrantModification" />
+	
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+	
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
+			</camel:setHeader>
+	
+			<camel:setHeader headerName="operationName">
+				<constant>ReportWarrantModification</constant>
+			</camel:setHeader>
+	
+			<log message="\n\n\n Sending Warrant Modification to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>
+	
+			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
+		</camel:route>		
+		
+		<camel:route id="warrant_issued_route">
+		
+			<camel:from uri="direct:callReportWarrantIssued" />
+	
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+	
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
+			</camel:setHeader>
+	
+			<camel:setHeader headerName="operationName">
+				<constant>ReportWarrantIssued</constant>
+			</camel:setHeader>
+	
+			<log message="\n\n\n Sending Warrant Issue to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>
+	
+			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
+		</camel:route>
+		
+		
+		<camel:route id="warrant_accepted_route">
+		
+			<camel:from uri="direct:callReportWarrantAccepted" />
+	
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+	
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
+			</camel:setHeader>
+	
+			<camel:setHeader headerName="operationName">
+				<constant>ReportWarrantAccepted</constant>
+			</camel:setHeader>
+			
+			<log message="\n\n\n Sending Warrant Accepted to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>	
+	
+			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
+		</camel:route>
+		
+		
+		<camel:route id="warrant_rejected_route">
+		
+			<camel:from uri="direct:callReportWarrantRejected" />
+			
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+	
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/WarrantIssuedReportingService/1.0</constant>
+			</camel:setHeader>
+	
+			<camel:setHeader headerName="operationName">
+				<constant>ReportWarrantRejected</constant>
+			</camel:setHeader>
+			
+			<log message="\n\n\n Sending Warrant Rejected to warrantIssuedReportingServiceAdapterEndpoint... \n\n\n"/>
+	
+			<camel:to uri="warrantIssuedReportingServiceAdapterEndpoint" />
+		</camel:route>
+		
+		
+		
+		<camel:route id="callDerivedBundleChildRoutes_Route">
+			
+			<camel:from uri="direct:callDerivedBundleChildRoutes"/>
+		
+			<camel:setHeader headerName="derivedRoutes">
+				<simple>{{warrantIssuedReporting.camelEndpointsToCall}}</simple>
+			</camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.derivedRoutes} != ''</camel:simple>
+				
+				<camel:log message="\n\n\n Calling derived route: ${in.headers.derivedRoutes} ... \n\n\n"/>
+				
+				<camel:recipientList>
+					<camel:header>derivedRoutes</camel:header>
+				</camel:recipientList>
+			</camel:filter>							
+		
+		</camel:route>					
+								
+	</camel:camelContext>
+			
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+		
+</beans>
+

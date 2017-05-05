@@ -125,16 +125,16 @@ public class TestFaultMessageBuilderUtil {
 		Document document = docBuilder.newDocument();
 		document.adoptNode(faultResponse);
 
-		String iepdRootPath = "service-specifications/Subscription_Notification_Service/information_model/Subscription_Response-IEPD/xsd";
+		String iepdRootPath = "ssp/Subscription_Notification/information_model/Subscription_Response-IEPD/xsd";
 		XmlUtils.validateInstance(iepdRootPath, "Subscription_Fault_Response.xsd", document, new ResourceResolver(iepdRootPath));
 
 	}
 
 	private void validateAgainstWSNSpec(Document response) throws Exception {
-		String b2RootXsdPath = "service-specifications/Subscription_Notification_Service/WSDL/wsn/b-2.xsd";
-		String b2RootXsdDir = "service-specifications/Subscription_Notification_Service/WSDL/wsn";
-		String wsdlDir = "service-specifications/Subscription_Notification_Service/WSDL";
-		String subNotDir = "service-specifications/Subscription_Notification_Service";
+		String b2RootXsdPath = "ssp/Subscription_Notification/WSDL/wsn/b-2.xsd";
+		String b2RootXsdDir = "ssp/Subscription_Notification/WSDL/wsn";
+		String wsdlDir = "ssp/Subscription_Notification/WSDL";
+		String subNotDir = "ssp/Subscription_Notification";
 		List<String> xsdDirPaths = Arrays.asList(b2RootXsdDir, wsdlDir, subNotDir);
 		XmlUtils.validateInstanceWithAbsoluteClasspaths(b2RootXsdPath, xsdDirPaths, response);
 	}

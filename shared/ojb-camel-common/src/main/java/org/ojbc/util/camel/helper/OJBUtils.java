@@ -49,12 +49,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
-import org.apache.cxf.ws.addressing.AddressingBuilder;
 import org.apache.cxf.ws.addressing.AddressingProperties;
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.EndpointReferenceType;
 import org.apache.cxf.ws.addressing.ObjectFactory;
-import org.ojbc.util.camel.xml.xpath.OJBCamelXPath;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
@@ -160,8 +158,7 @@ public class OJBUtils {
 		if (!wsAddressingMessageProperties.isEmpty())
 		{	
 			// get Message Addressing Properties instance
-	        AddressingBuilder builder = AddressingBuilder.getAddressingBuilder();
-	        AddressingProperties maps = builder.newAddressingProperties();
+	        AddressingProperties maps = new AddressingProperties();
 	
 	        String messageID = wsAddressingMessageProperties.get("MessageID");
 	        
@@ -186,6 +183,19 @@ public class OJBUtils {
 
 	        	maps.setReplyTo(replyToRef);
 	        }
+	        
+	        String fromString = wsAddressingMessageProperties.get("From");
+
+	        if (StringUtils.isNotEmpty(fromString))
+	        {
+	        	AttributedURIType fromAttr = new AttributedURIType(); 
+	        	fromAttr.setValue(fromString); 
+	        	
+	        	EndpointReferenceType fromRef = new EndpointReferenceType();
+	        	fromRef.setAddress(fromAttr);
+
+	        	maps.setFrom(fromRef);
+	        }	        
 
 	        requestContext = new HashMap<String, Object>();
 	        requestContext.put(CLIENT_ADDRESSING_PROPERTIES, maps);
@@ -216,8 +226,7 @@ public class OJBUtils {
 		if (StringUtils.isNotEmpty(requestID))
 		{	
 			// get Message Addressing Properties instance
-	        AddressingBuilder builder = AddressingBuilder.getAddressingBuilder();
-	        AddressingProperties maps = builder.newAddressingProperties();
+	        AddressingProperties maps = new AddressingProperties();
 	
 	        // set MessageID property
 	        AttributedURIType messageIDAttr =
@@ -272,22 +281,6 @@ public class OJBUtils {
 	    }
 	} 
 
-	/**
-	 * This method can be used to get the WS addressing message ID if we are in message mode
-	 * 
-	 * @param exchange
-	 * @param messageID
-	 */
-	
-	public void setCamelFileNameFromWSAddressMessageID(Exchange exchange ,@OJBCamelXPath("//wsaw3c:MessageID/text()") String messageID)
-	{
-		log.debug("Message ID from WSA header: " + messageID);
-		
-		exchange.getIn().setHeader(Exchange.FILE_NAME, messageID + ".xml");
-		
-	
-	}
-	
 	public static Document returnDocumentFromClasspath(String pathToFile) throws Exception
 	{
 		XmlConverter converter = new XmlConverter();

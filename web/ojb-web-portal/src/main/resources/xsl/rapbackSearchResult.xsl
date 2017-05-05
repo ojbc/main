@@ -22,7 +22,7 @@
 	xmlns:oirsr="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationResultsSearchResults/1.0"
 	xmlns:oirsr-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsSearchResults/1.0" 
 	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" 
-	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" 
+	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" 
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" 
@@ -48,6 +48,15 @@
 		<xsl:apply-templates select="$tooManyResultsErrors" />
 
 		<xsl:if test="(not($tooManyResultsErrors) and not($accessDenialReasons) and not($requestErrors))">
+			<xsl:variable name="containedResultCount">
+				<xsl:value-of select="count(oirsr-ext:OrganizationIdentificationResultsSearchResult)"></xsl:value-of>
+			</xsl:variable>
+			<xsl:if test="$containedResultCount &lt; srm:SearchResultsMetadata/srm:TotalAuthorizedSearchResultsQuantity">
+				<span class="hint">
+					The most recent <xsl:value-of select="$containedResultCount"/> of <xsl:value-of select="srm:SearchResultsMetadata/srm:TotalAuthorizedSearchResultsQuantity"/>
+					entries are loaded. Please refine your search with the RETURN TO SEARCH button.
+				</span>
+			</xsl:if>
 			<xsl:call-template name="rapbacks"/>
 		</xsl:if>
 	</xsl:template>
@@ -58,8 +67,8 @@
 					<tr>
 						<th>NAME</th>
 						<th>OTN</th>
+						<th>ID DATE</th>
 						<th>START DATE</th>
-						<th>END DATE</th>
 						<th>VALIDATION DUE</th>
 						<th>STATUS</th>
 						<th></th>
@@ -83,11 +92,11 @@
 				<xsl:value-of select="oirsr-ext:IdentifiedPerson/oirsr-ext:IdentifiedPersonTrackingIdentification/nc:IdentificationID"></xsl:value-of>
 			</td>					
 			<td>
+				<xsl:apply-templates select="oirsr-ext:IdentificationReportedDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
+			</td>	
+			<td>
 				<xsl:apply-templates select="oirsr-ext:Subscription/nc:ActivityDateRange/nc:StartDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
 			</td>
-			<td>
-				<xsl:apply-templates select="oirsr-ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
-			</td>	
 			<xsl:variable name="validationDueDate" select="oirsr-ext:Subscription/oirsr-ext:SubscriptionValidation/oirsr-ext:SubscriptionValidationDueDate/nc:Date"/>				
 			<td>
 				<xsl:if test="$validationDueDate &lt; current-date()">
@@ -96,10 +105,12 @@
 				<xsl:apply-templates select="$validationDueDate" mode="formatDateAsMMDDYYYY"/>
 			</td>
 			<td>
-				<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
+				<xsl:if test="normalize-space(oirsr-ext:IdentificationResultStatusCode) != 'Available for Subscription'">
+					<xsl:value-of select="normalize-space(oirsr-ext:IdentificationResultStatusCode)"></xsl:value-of>
+				</xsl:if>
 			</td>
 			<td align="right" width="115px">
-				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for subscription']" mode="unsubscribed"/>
+				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Available for Subscription']" mode="unsubscribed"/>
 				<xsl:apply-templates select=".[normalize-space(oirsr-ext:IdentificationResultStatusCode) = 'Subscribed']" mode="subscribed"/>
 				<xsl:if test="oirsr-ext:SubsequentResultsAvailableIndicator = 'true'">
 					<a href="#" class="blueIcon subsequentResultConfirmation" style="margin-right:3px" title="Subsequent Results">
@@ -119,13 +130,15 @@
 	</xsl:template>
 	
 	<xsl:template match="oirsr-ext:OrganizationIdentificationResultsSearchResult" mode="unsubscribed">
+<!-- Hide the Subscribe button for phase 1 -->	
+<!-- 		
 		<a href="#" class="blueIcon subscribe" style="margin-right:3px" title="Subscribe">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
 			<i class="fa fa-rss fa-lg"/>
 		</a>
-		<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive">
+ -->		<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>

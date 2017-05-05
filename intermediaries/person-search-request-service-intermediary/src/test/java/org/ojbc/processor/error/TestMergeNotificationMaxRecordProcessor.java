@@ -24,8 +24,8 @@ import junit.framework.Assert;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.helpers.XMLUtils;
 import org.junit.Test;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
 public class TestMergeNotificationMaxRecordProcessor {
@@ -46,7 +46,7 @@ public class TestMergeNotificationMaxRecordProcessor {
 		//Read the person search request file from the file system
 	    File inputFile = new File("src/test/resources/xmlInstances/personSearchResults/personSearchResults.xml");
 
-		Document resultsDocument = XMLUtils.parse(inputFile);
+		Document resultsDocument = XmlUtils.parseFileToDocument(inputFile);
 		
 		String errorMessage = mergeNotificationMaxRecordProcessor.returnMergeNotificationErrorMessageTooManyRecords(resultsDocument, "1");
 	

@@ -16,12 +16,14 @@
  */
 package org.ojbc.processor.subscription.subscribe;
 
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
@@ -29,17 +31,27 @@ import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.ojbc.util.xml.XmlUtils;
-import org.ojbc.web.model.subscription.Subscription;
-import org.ojbc.web.util.RequestMessageBuilderUtilities;
+import org.ojbc.util.xml.subscription.Subscription;
+import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Document;
 
-// TODO enable when passing.  There's a random generated id that can't be asserted. 
-@Ignore
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"/META-INF/spring/spring-beans-ojb-web-application-connector-context.xml"})
+@ActiveProfiles(profiles={"person-search", "incident-search", "vehicle-search", "firearms-search","person-vehicle-to-incident-search", 
+		"warrants-query", "criminal-history-query", "firearms-query","incident-report-query", 
+		"subscriptions", "policy-acknowledgement", "access-control", "juvenile-query"})
 public class SubscribeMessageTest {
 	
 	private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
+	
+	@Resource
+	private Map<String, String> triggeringEventCodeTranslationMap;
 	
 	@Before
 	public void setup(){		
@@ -50,29 +62,35 @@ public class SubscribeMessageTest {
     	XMLUnit.setXSLTVersion("2.0");    	
 	}	
 	
-	@Ignore
+	
+	@Test
 	public void subscribeMessageTest() throws Exception{
 		
 		Subscription subscription = getSampleSubscriptionPojo();
 		
-		Document generatedSubscriptinDoc = RequestMessageBuilderUtilities.createSubscriptionRequest(subscription);
+		Document generatedSubscriptinDoc = SubscriptionNotificationDocumentBuilderUtils.createSubscriptionRequest(subscription, triggeringEventCodeTranslationMap);	
 		
-		Document expectedSubDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/xml/subscriptionRequest/Arrest_Subscription_Document.xml"));
+		String subQualId = XmlUtils.xPathStringSearch(generatedSubscriptinDoc, "//submsg-ext:SubscriptionQualifierIdentification/nc:IdentificationID");
 		
-		Diff diff = new Diff(expectedSubDoc, generatedSubscriptinDoc);
-		DetailedDiff detailDiff = new DetailedDiff(diff);
-		
+		String sGeneratedSubscriptionDoc = XmlUtils.getStringFromNode(generatedSubscriptinDoc);
+						
+		String sExpectedXmlSubDoc = XmlUtils.getRootNodeAsString("src/test/resources/xml/subscriptionRequest/Arrest_Subscription_Document.xml");				
+		sExpectedXmlSubDoc = sExpectedXmlSubDoc.replace("@SUB_QUAL_ID@", subQualId);
+						
+		Diff diff = new Diff(sExpectedXmlSubDoc, sGeneratedSubscriptionDoc);		
+		DetailedDiff detailDiff = new DetailedDiff(diff);		
 		List<Difference> diffList = detailDiff.getAllDifferences();
 		int diffCount = diffList.size();
 						
 		Assert.assertEquals(detailDiff.toString(), 0, diffCount);
 	}
 	
+	
 	private Subscription getSampleSubscriptionPojo() throws ParseException{
 		
 		Subscription subscription = new Subscription();
 
-		subscription.setSubscriptionType("topics:person/arrest");		
+		subscription.setTopic("topics:person/arrest");		
 		subscription.setCaseId("0123ABC");
 		
 		Date dob = SDF.parse("1972-08-02");		

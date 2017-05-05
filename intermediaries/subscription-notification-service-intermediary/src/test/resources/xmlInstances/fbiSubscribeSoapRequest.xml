@@ -41,6 +41,8 @@
                 <smext:Subject>
                     <nc:PersonName>
                         <nc:PersonFullName>Test Person</nc:PersonFullName>
+						<nc:PersonGivenName>Test</nc:PersonGivenName>
+						<nc:PersonSurName>Person</nc:PersonSurName>                        
                     </nc:PersonName>
                     <jxdm41:PersonAugmentation>                    
 						<jxdm41:PersonFBIIdentification>

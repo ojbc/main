@@ -22,17 +22,36 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 
 import java.util.Arrays;
 
+import javax.annotation.Resource;
+
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
+import org.ojbc.web.portal.controllers.helpers.PersonSearchType;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.validation.BindingResult;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration({
+        "classpath:dispatcher-servlet.xml",
+        "classpath:application-context.xml",
+        "classpath:static-configuration-demostate.xml", "classpath:security-context.xml"
+        })
+@ActiveProfiles("standalone")
+@DirtiesContext
 public class PersonSearchCommandValidatorTest {
-
+	
+	@Resource
 	PersonSearchCommandValidator unit;
 	private PersonSearchCommand personSearchCommand;
 	private BindingResult errors;
@@ -40,10 +59,10 @@ public class PersonSearchCommandValidatorTest {
 
 	@Before
 	public void setup() {
-		unit = new PersonSearchCommandValidator();
 		personSearchCommand = new PersonSearchCommand();
 		advanceSearch = new PersonSearchRequest();
 		personSearchCommand.setAdvanceSearch(advanceSearch);
+		personSearchCommand.setSearchType(PersonSearchType.ADVANCED);
 		
 		errors = mock(BindingResult.class);
 	}
@@ -83,23 +102,6 @@ public class PersonSearchCommandValidatorTest {
 		unit.validate(personSearchCommand, errors);
 		
 		Mockito.verify(errors,times(2)).rejectValue("advanceSearch.personSocialSecurityNumber", "ssnFormat","SSN must be 9 digits seperated by dashes, (i.e. 999-99-9999)");
-	}
-
-	@Test
-	public void stateIdentifierMustBeAlphaFollowBySomenumberOfDigits() {
-		personSearchCommand.getAdvanceSearch().setPersonSID("sdf");
-		unit.validate(personSearchCommand, errors);
-		
-		personSearchCommand.getAdvanceSearch().setPersonSID("A");
-		unit.validate(personSearchCommand, errors);
-		
-		personSearchCommand.getAdvanceSearch().setPersonSID("A123213A");
-		unit.validate(personSearchCommand, errors);
-
-		personSearchCommand.getAdvanceSearch().setPersonSID("123213A");
-		unit.validate(personSearchCommand, errors);
-		
-		Mockito.verify(errors,times(4)).rejectValue("advanceSearch.personSID", "sidFormat","SID must be a letter followed by digits , (i.e. A123456789)");
 	}
 
 	@Test

@@ -68,19 +68,24 @@
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.juvenile-history-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<bean class="org.ojbc.intermediaries.juvenilehistory.ServiceContextExchangeDestinationLookupStrategy">
-				<property name="historyTypeToAddressMap">
-					<util:map>
-						<entry key="CasePlan" value="${juvenileHistoryServices.casePlanHistoryRequestService.adapter.endpoint}" />
-						<entry key="Hearing" value="${juvenileHistoryServices.hearingHistoryRequestService.adapter.endpoint}" />
-						<entry key="Intake" value="${juvenileHistoryServices.intakeHistoryRequestService.adapter.endpoint}" />
-						<entry key="Offense" value="${juvenileHistoryServices.offenseHistoryRequestService.adapter.endpoint}" />
-						<entry key="Placement" value="${juvenileHistoryServices.placementHistoryRequestService.adapter.endpoint}" />
-						<entry key="Referral" value="${juvenileHistoryServices.referralHistoryRequestService.adapter.endpoint}" />
-					</util:map>
-				</property>
-
+				<property name="historyTypeToAddressMap" ref="historyTypeToAddressMap"/>
 		  	</bean>
 		</constructor-arg>
 	</bean>		
+	
+	<bean id="historyTypeToAddressMap" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="historyTypeToAddressMap" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.juvenile-history-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<util:map>
+				<entry key="CasePlan" value="${juvenileHistoryServices.casePlanHistoryRequestService.adapter.endpoint}" />
+				<entry key="Hearing" value="${juvenileHistoryServices.hearingHistoryRequestService.adapter.endpoint}" />
+				<entry key="Intake" value="${juvenileHistoryServices.intakeHistoryRequestService.adapter.endpoint}" />
+				<entry key="Offense" value="${juvenileHistoryServices.offenseHistoryRequestService.adapter.endpoint}" />
+				<entry key="Placement" value="${juvenileHistoryServices.placementHistoryRequestService.adapter.endpoint}" />
+				<entry key="Referral" value="${juvenileHistoryServices.referralHistoryRequestService.adapter.endpoint}" />
+			</util:map>
+		</constructor-arg>
+	</bean>
 	
 </beans>

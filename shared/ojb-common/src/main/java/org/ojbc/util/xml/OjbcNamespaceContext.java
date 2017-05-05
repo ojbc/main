@@ -38,10 +38,55 @@ import org.w3c.dom.NodeList;
 public final class OjbcNamespaceContext implements NamespaceContext {
 
 	private static final Log log = LogFactory.getLog(OjbcNamespaceContext.class);
-				
+		
+	public static final String NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS = "http://ojbc.org/IEPD/Exchange/FirearmPurchaseProhibitionQueryResults/1.0";
+	public static final String NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS = "fppq-res-doc";
+	
+	public static final String NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT = "http://ojbc.org/IEPD/Extensions/FirearmPurchaseProhibitionQueryResultsExtension/1.0";
+	public static final String NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT = "fppq-res-ext";
+	
+	public static final String NS_MAINE_FPP_CODES = "http://ojbc.org/IEPD/Extensions/Maine/FirearmPurchaseProhibitionCodes/1.0";
+	public static final String NS_PREFIX_MAINE_FPP_CODES = "me-fpp-codes";
+
+	public static final String NS_HUMAN_SERVIES = "http://release.niem.gov/niem/domains/humanServices/3.1/";
+	public static final String NS_PREFIX_HUMAN_SERVIES = "hs";
+	
+	public static final String NS_WARRANT_MOD_RESP_EXT = "http://ojbc.org/IEPD/Extensions/WarrantModificationResponseExtension/1.0";
+	public static final String NS_PREFIX_WARRANT_MOD_RESP_EXT = "wm-resp-ext";
+	
+	public static final String NS_WARRANT_MOD_RESP_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/WarrantModificationResponse/1.0";
+	public static final String NS_PREFIX_WARRANT_MOD_RESP_DOC_EXCH = "wm-resp-doc";
+	
+	public static final String NS_WARRANT_MODIFICATION_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/WarrantModificationReport/1.0";
+	public static final String NS_PREFIX_WARRANT_MODIFICATION_REPORT_DOC_EXCH = "wmr-doc";
+
+	public static final String NS_WARRANT_CANCELLATION_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/WarrantCancelledReport/1.0";
+	public static final String NS_PREFIX_WARRANT_CANCELLATION_REPORT_DOC_EXCH = "wcr-doc";
+
+	public static final String NS_SCREENING_3_1 = "http://release.niem.gov/niem/domains/screening/3.1/";
+	public static final String NS_PREFIX_SCREENING_3_1 = "scr31";
+	
+	public static final String NS_WARRANT_MOD_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/WarrantModificationRequest/1.0";
+	public static final String NS_PREFIX_WARRANT_MOD_DOC_EXCH = "wm-req-doc";	
+	
+	public static final String NS_WARRANT_MOD_REQ_EXT = "http://ojbc.org/IEPD/Extensions/WarrantModificationRequestExtension/1.0";
+	public static final String NS_PREFIX_WARRANT_MOD_REQ_EXT = "wm-req-ext";
+	
+	public static final String NS_BEHAVIOR_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/BehavioralHealthEvaluationRecord/1.0";
+	public static final String NS_PREFIX_BEHAVIOR_REPORT_DOC_EXCH = "bhr-doc";	
+	
+	public static final String NS_BEHAVIORAL_HEALTH_REPORT_DOC_EXT = "http://ojbc.org/IEPD/Extensions/BehavioralHealthEvaluationRecordExtension/1.0";
+	public static final String NS_PREFIX_BEHAVIORAL_HEALTH_REPORT_DOC_EXT = "bhr-ext";	
+	
+	public static final String NS_CASE_FILE_DECISION_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0";	
+	public static final String NS_PREFIX_CASE_FILE_DECISION_REPORT_DOC_EXCH = "cfd-doc";
+	
 	public static final String NS_NIST_BIO = "http://biometrics.nist.gov/standard/2011";
 	public static final String NS_NIST_BIO_PREFIX = "nistbio";
-	
+					
+	public static final String NS_CYFS_31 = "http://release.niem.gov/niem/domains/cyfs/3.1/";
+	public static final String NS_PREFIX_CYFS_31 = "cyfs31"; 
+		
 	public static final String NS_NIEM_BIO = "http://niem.gov/niem/biometrics/1.0";
 	public static final String NS_PREFIX_NIEM_BIO = "nbio";
 	
@@ -208,6 +253,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_JXDM_40 = "http://niem.gov/niem/domains/jxdm/4.0";
 	public static final String NS_JXDM_50 = "http://release.niem.gov/niem/domains/jxdm/5.0/";
+	
+	public static final String NS_JXDM_51 = "http://release.niem.gov/niem/domains/jxdm/5.1/";
+	public static final String NS_PREFIX_JXDM_51 = "jxdm51"; 	
+	
 	public static final String NS_USPS_STATES = "http://niem.gov/niem/usps_states/2.0";
 	public static final String NS_ERROR = "http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0";
 	public static final String NS_WARRANT_EXT = "http://ojbc.org/IEPD/Extensions/Warrants/1.0";
@@ -257,8 +306,74 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_PREFIX_PERSON_QUERY_REQUEST = "pqr";
 	public static final String NS_PERSON_SEARCH_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0";
 	public static final String NS_PREFIX_PERSON_SEARCH_REQUEST_EXT = "psr";
-	public static final String NS_PERSON_SEARCH_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0";
+	
+	public static final String NS_PERSON_SEARCH_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0";	
 	public static final String NS_PREFIX_PERSON_SEARCH_REQUEST_DOC = "psr-doc";
+					
+	public static final String NS_ME_VEHICLE_CRASH_CODES = "http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0";
+	public static final String NS_PREFIX_ME_VEHICLE_CRASH_CODES = "me-crash-codes";
+	
+	public static final String NS_VEHICLE_CRASH_QUERY_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/VehicleCrashQueryRequest/1.0";
+	public static final String NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_DOC = "vcq-req-doc";	
+			
+	public static final String NS_VEHICLE_CRASH_QUERY_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/VehicleCrashQueryRequestExtension/1.0";
+	public static final String NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_EXT = "vcq-req-ext";
+	
+	public static final String NS_VEHICLE_CRASH_QUERY_RESULT_EXT = "http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0";
+	public static final String NS_PREFIX_VEHICLE_CRASH_QUERY_RESULT_EXT = "vcq-res-ext";
+	
+	public static final String NS_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0";		
+	public static final String NS_PREFIX_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC = "vcq-res-doc";
+			
+	public static final String NS_ADAMS_CO_BOOKING_CODES_EXT = "http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0";
+	public static final String NS_PREFIX_ADAMS_CO_BOOKING_CODES_EXT = "ac-bkg-codes";
+	
+	public static final String NS_CUSTODY_SEARCH_REQ_EXCH = "http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0";
+	public static final String NS_PREFIX_CUSTODY_SEARCH_REQ_EXCH = "cs-req-doc";
+	
+	public static final String NS_CUSTODY_SEARCH_REQ_EXT = "http://ojbc.org/IEPD/Extensions/CustodySearchRequestExtension/1.0";	
+	public static final String NS_PREFIX_CUSTODY_SEARCH_REQ_EXT = "cs-req-ext";
+	
+	public static final String NS_CUSTODY_SEARCH_RES_EXT = "http://ojbc.org/IEPD/Extensions/CustodySearchResultsExtension/1.0";
+	public static final String NS_PREFIX_CUSTODY_SEARCH_RES_EXT = "cs-res-ext";		
+		
+	public static final String NS_CUSTODY_SEARCH_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/CustodySearchRequest/1.0";
+	public static final String NS_PREFIX_CUSTODY_SEARCH_REQUEST = "cs-req-doc";
+	
+	public static final String NS_CUSTODY_QUERY_RESULTS_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/CustodyQueryResults/1.0";	
+	public static final String NS_PREFIX_CUSTODY_QUERY_RESULTS_EXCH_DOC = "cq-res-exch";
+	
+	public static final String NS_CUSTODY_QUERY_RESULTS_EXT = "http://ojbc.org/IEPD/Extensions/CustodyQueryResultsExtension/1.0";	
+	public static final String NS_PREFIX_CUSTODY_QUERY_RESULTS_EXT = "cq-res-ext";	
+		
+	public static final String NS_CUSTODY_QUERY_REQUEST_EXCH = "http://ojbc.org/IEPD/Exchange/CustodyQueryRequest/1.0";	
+	public static final String NS_PREFIX_CUSTODY_QUERY_REQUEST_EXCH = "cq-req-doc";
+	
+	public static final String NS_CUSTODY_QUERY_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/CustodyQueryRequestExtension/1.0";	
+	public static final String NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT = "cq-req-ext";	
+	
+	public static final String NS_COURT_CASE_SEARCH_RESULTS_EXT = "http://ojbc.org/IEPD/Extensions/CourtCaseSearchResultsExtension/1.0";
+	public static final String NS_PREFIX_COURT_CASE_SEARCH_RESULTS_EXT = "ccs-res-ext"; 
+	
+	public static final String NS_COURT_CASE_SEARCH_REQUEST_DOC="http://ojbc.org/IEPD/Exchange/CourtCaseSearchRequest/1.0";
+	public static final String NS_PREFIX_COURT_CASE_SEARCH_REQUEST="ccs-req-doc";
+				
+	public static final String NS_COURT_CASE_SEARCH_REQ_EXT = "http://ojbc.org/IEPD/Extensions/CourtCaseSearchRequestExtension/1.0";
+	public static final String NS_PREFIX_COURT_CASE_SEARCH_REQ_EXT = "ccs-req-ext";
+			
+	public static final String NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0";
+	public static final String NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXCH_DOC = "ccq-res-doc";
+		
+	public static final String NS_COURT_CASE_QUERY_RESULTS_EXT = "http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0";
+	public static final String NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXT = "ccq-res-ext";
+		
+	public static final String NS_CUSTODY_SEARCH_RESULTS = "http://ojbc.org/IEPD/Exchange/CustodySearchResults/1.0";
+	public static final String NS_PREFIX_CUSTODY_SEARCH_RESULTS = "cs-res-doc";
+	
+	public static final String NS_COURT_CASE_SEARCH_RESULTS = "http://ojbc.org/IEPD/Exchange/CourtCaseSearchResults/1.0";
+	public static final String NS_PREFIX_COURT_CASE_SEARCH_RESULTS = "ccs-res-doc";
+	
+	
 	public static final String NS_PERSON_SEARCH_RESULTS_EXT = "http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0";
 	public static final String NS_PREFIX_PERSON_SEARCH_RESULTS_EXT = "psres";
 	public static final String NS_PERSON_SEARCH_RESULTS_DOC = "http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0";
@@ -275,6 +390,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_INTEL_30 = "http://release.niem.gov/niem/domains/intelligence/3.0/";
 	public static final String NS_PREFIX_INTEL_30 = "intel30";
+	
+	public static final String NS_INTEL_31 = "http://release.niem.gov/niem/domains/intelligence/3.1/";
+	public static final String NS_PREFIX_INTEL_31 = "intel31";		
 	
 	public static final String NS_SEARCH_RESULTS_METADATA_EXT = "http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0";
 	public static final String NS_PREFIX_SEARCH_RESULTS_METADATA_EXT = "srm";
@@ -451,8 +569,6 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_ARREST_REPORTING_SERVICE = "http://ojbc.org/IEPD/Exchange/ArrestReport/1.0";
 	public static final String NS_PREFIX_ARREST_REPORTING_SERVICE = "arrest-exch";
 	
-	//
-	
     public static final String NS_ARU = "http://ojbc.org/IEPD/Exchange/ArrestReportUpdate/1.0";
     public static final String NS_PREFIX_ARU = "aru";
     
@@ -491,9 +607,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     
     public static final String NS_HAWAII_HAJIS_DISPOSITION_CODES = "http://ojbc.org/IEPD/Extensions/Hawaii/HAJIS/DispositionCodes/1.0";
     public static final String NS_PREFIX_HAWAII_HAJIS_DISPOSITION_CODES = "hi_hajis_disp_codes";
-	
-	//
-    
+	    
     public static final String NS_AR_HAWAII_EXT = "http://ojbc.org/IEPD/Extensions/Hawaii/IncidentReportStructuredPayload/1.0";
     public static final String NS_PREFIX_AR_HAWAII_EXT = "ar-hi-ext";
     
@@ -607,13 +721,192 @@ public final class OjbcNamespaceContext implements NamespaceContext {
     
     public static final String NS_PREFIX_FEDERAL_SUBSCRIPTION_UPDATE_REPORT_EXT = "fed_subcr_upd-ext";
     public static final String NS_FEDERAL_SUBSCRIPTION_UPDATE_REPORT_EXT ="http://ojbc.org/IEPD/Extensions/FederalSubscriptionUpdateReportExtension/1.0";
-    
+
+	public static final String NS_COURT_CASE_QUERY_REQUEST_DOC ="http://ojbc.org/IEPD/Exchange/CourtCaseQueryRequest/1.0";
+	public static final String NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC ="ccq-req-doc";
+
+	public static final String NS_COURT_CASE_QUERY_REQ_EXT="http://ojbc.org/IEPD/Extensions/CourtCaseQueryRequestExtension/1.0";
+	public static final String NS_PREFIX_COURT_CASE_QUERY_REQ_EXT="ccq-req-ext";
+				
+	public static final String NS_WARRANT_REJECTED_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/WarrantRejectedReport/1.0";
+	public static final String NS_PREFIX_WARRANT_REJECTED_EXCH_DOC = "wrr-doc";	
+	
+	public static final String NS_PREFIX_WARRANT_ACCEPTED_REPORT_DOC_EXCH = "war-doc";
+	public static final String NS_WARRANT_ACCEPTED_REPORT_DOC_EXCH = "http://ojbc.org/IEPD/Exchange/WarrantAcceptedReport/1.0";
+	
+	public static final String NS_WARRANT_ISSUED_REPORT="http://ojbc.org/IEPD/Exchange/WarrantIssuedReport/1.0";
+	public static final String NS_PREFIX_WARRANT_ISSUED_REPORT="wir-doc";
+	
+	public static final String NS_WARRANT_ISSUED_REPORTING_EXT="http://ojbc.org/IEPD/Extensions/WarrantIssuedReportingExtension/1.0";
+	public static final String NS_PREFIX_WARRANT_ISSUED_REPORTING_EXT="wir-ext";
+
+	public static final String NS_CHARGE_REFERRAL_REPORTING="http://ojbc.org/IEPD/Exchange/ChargeReferralReporting/1.0";
+	public static final String NS_PREFIX_CHARGE_REFERRAL_REPORTING="crr-doc";
+	
+	public static final String NS_BOOKING_REPORTING = "http://ojbc.org/IEPD/Exchange/BookingReport/1.0";
+	public static final String NS_PREFIX_BOOKING_REPORTING="br-doc";
+	
+	public static final String NS_BOOKING_REPORTING_EXT = "http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0";
+	public static final String NS_PREFIX_BOOKING_REPORTING_EXT="br-ext";
+	
+	public static final String NS_CUSTODY_RELEASE_REPORTING = "http://ojbc.org/IEPD/Exchange/CustodyReleaseReport/1.0";
+	public static final String NS_PREFIX_CUSTODY_RELEASE_REPORTING="crr-exc";
+
+	public static final String NS_CUSTODY_RELEASE_REPORTING_EXT = "http://ojbc.org/IEPD/Extensions/CustodyReleaseReportExtension/1.0";
+	public static final String NS_PREFIX_CUSTODY_RELEASE_REPORTING_EXT="crr-ext";
+	
+	public static final String NS_IDENTIFIER_RESPONSE_DOC = "http://ojbc.org/IEPD/Exchange/IdentifierResponse/1.0";
+	public static final String NS_PREFIX_IDENTIFIER_RESPONSE_DOC="i-resp-doc";
+	
+	public static final String NS_CUSTODY_STATUS_CHANGE_DOC = "http://ojbc.org/IEPD/Exchange/CustodyStatusChangeReport/1.0";
+	public static final String NS_PREFIX_CUSTODY_STATUS_CHANGE_DOC="cscr-doc";
+	
+	public static final String NS_CUSTODY_STATUS_CHANGE_EXT = "http://ojbc.org/IEPD/Extensions/CustodyStatusChangeReportExtension/1.0";
+	public static final String NS_PREFIX_CUSTODY_STATUS_CHANGE_EXT="cscr-ext";
+
+	public static final String NS_COURT_DISPOSITION_UPDATE_EXT = "http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0";
+	public static final String NS_PREFIX_COURT_DISPOSITION_UPDATE_EXT="cdu-ext";
+
+	public static final String NS_PROSECUTION_DECISION_UPDATE_EXT = "http://ojbc.org/IEPD/Extensions/ProsecutionDecisionUpdate/1.0";
+	public static final String NS_PREFIX_PROSECUTION_DECISION_UPDATE_EXT="pdu-ext";
+	
+	public static final String NS_CORE_FILING_MESSAGE = "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0";
+	public static final String NS_PREFIX_CORE_FILING_MESSAGE="cfm";
+
+	public static final String NS_CITATION_CASE_DOC = "http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0";
+	public static final String NS_PREFIX_CITATION_CASE_DOC="ojb-cit-doc";
+
+	public static final String NS_CITATION_CASE_EXT = "http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0";
+	public static final String NS_PREFIX_CITATION_CASE_EXT="ojb-cit-ext";
+	
+	public static final String NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC = "http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchResults/1.0";
+	public static final String NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC ="phisres-doc";	
+	
+	public static final String NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT ="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchResults/1.0";
+	public static final String NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT ="phisres-ext";
+	
+	public static final String NS_PIMA_PERSON_HEALTH_INFORMATION_CODES ="http://ojbc.org/IEPD/Extensions/PimaCounty/PersonHealthInformationCodes/1.0";
+	public static final String NS_PREFIX_PIMA_PERSON_HEALTH_INFORMATION_CODES ="pc-phi-codes";	
+
+	public static final String NS_PIMA_BOOKING_CODES ="http://ojbc.org/IEPD/Extensions/PimaCounty/BookingCodes/1.0";
+	public static final String NS_PREFIX_PIMA_BOOKING_CODES ="pc-bkg-codes";	
+	
+	public static final String NS_FIREARMS_PROHIBITION_DOC ="http://ojbc.org/IEPD/Exchange/FirearmPurchaseProhibitionQueryRequest/1.0";
+	public static final String NS_PREFIX_FIREARMS_PROHIBITION_DOC ="fppq-req-doc";	
+
+	public static final String NS_FIREARMS_PROHIBITION_EXT ="http://ojbc.org/IEPD/Extensions/FirearmPurchaseProhibitionQueryRequestExtension/1.0";
+	public static final String NS_PREFIX_FIREARMS_PROHIBITION_EXT ="fppq-req-ext";	
+
+	public static final String NS_FEDERAL_CRIMINAL_HISTORY_REPORT_EXCH ="http://ojbc.org/IEPD/Exchange/FederalCriminalHistoryReport/1.0";
+	public static final String NS_PREFIX_FEDERAL_CRIMINAL_HISTORY_REPORT_EXCH ="fchr-doc";	
+
+	public static final String NS_FEDERAL_CRIMINAL_HISTORY_REPORT_EXT ="http://ojbc.org/IEPD/Extensions/FederalCriminalHistoryReportExtension/1.0";
+	public static final String NS_PREFIX_FEDERAL_CRIMINAL_HISTORY_REPORT_EXT ="fchr-ext";	
+
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
-
+	
+	
 	public OjbcNamespaceContext() {
+		
 		prefixToUriMap = new HashMap<String, String>();
-		uriToPrefixMap = new HashMap<String, String>();
+		uriToPrefixMap = new HashMap<String, String>();	
+		
+		prefixToUriMap.put(NS_PREFIX_PIMA_BOOKING_CODES, NS_PIMA_BOOKING_CODES);
+		uriToPrefixMap.put(NS_PIMA_BOOKING_CODES, NS_PREFIX_PIMA_BOOKING_CODES);
+		
+		prefixToUriMap.put(NS_PREFIX_PIMA_PERSON_HEALTH_INFORMATION_CODES, NS_PIMA_PERSON_HEALTH_INFORMATION_CODES);
+		uriToPrefixMap.put(NS_PIMA_PERSON_HEALTH_INFORMATION_CODES, NS_PREFIX_PIMA_PERSON_HEALTH_INFORMATION_CODES);
+		
+		prefixToUriMap.put(NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC, NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC);
+		uriToPrefixMap.put(NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC, NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT, NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT);
+		uriToPrefixMap.put(NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT, NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_CORE_FILING_MESSAGE, NS_CORE_FILING_MESSAGE);
+		uriToPrefixMap.put(NS_CORE_FILING_MESSAGE, NS_PREFIX_CORE_FILING_MESSAGE);
+
+		prefixToUriMap.put(NS_PREFIX_CITATION_CASE_DOC, NS_CITATION_CASE_DOC);
+		uriToPrefixMap.put(NS_CITATION_CASE_DOC, NS_PREFIX_CITATION_CASE_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_CITATION_CASE_EXT, NS_CITATION_CASE_EXT);
+		uriToPrefixMap.put(NS_CITATION_CASE_EXT, NS_PREFIX_CITATION_CASE_EXT);		
+
+		prefixToUriMap.put(NS_PREFIX_COURT_DISPOSITION_UPDATE_EXT, NS_COURT_DISPOSITION_UPDATE_EXT);
+		uriToPrefixMap.put(NS_COURT_DISPOSITION_UPDATE_EXT, NS_PREFIX_COURT_DISPOSITION_UPDATE_EXT);
+
+		prefixToUriMap.put(NS_PREFIX_PROSECUTION_DECISION_UPDATE_EXT, NS_PROSECUTION_DECISION_UPDATE_EXT);
+		uriToPrefixMap.put(NS_PROSECUTION_DECISION_UPDATE_EXT, NS_PREFIX_PROSECUTION_DECISION_UPDATE_EXT);
+
+		prefixToUriMap.put(NS_PREFIX_WARRANT_ISSUED_REPORT, NS_WARRANT_ISSUED_REPORT);
+		uriToPrefixMap.put(NS_WARRANT_ISSUED_REPORT, NS_PREFIX_WARRANT_ISSUED_REPORT);
+
+		prefixToUriMap.put(NS_PREFIX_WARRANT_ISSUED_REPORTING_EXT, NS_WARRANT_ISSUED_REPORTING_EXT);
+		uriToPrefixMap.put(NS_WARRANT_ISSUED_REPORTING_EXT, NS_PREFIX_WARRANT_ISSUED_REPORTING_EXT);
+
+		prefixToUriMap.put(NS_PREFIX_CHARGE_REFERRAL_REPORTING, NS_CHARGE_REFERRAL_REPORTING);
+		uriToPrefixMap.put(NS_CHARGE_REFERRAL_REPORTING, NS_PREFIX_CHARGE_REFERRAL_REPORTING);
+
+		prefixToUriMap.put(NS_PREFIX_CYFS_31, NS_CYFS_31);
+		uriToPrefixMap.put(NS_CYFS_31, NS_PREFIX_CYFS_31);
+				
+		prefixToUriMap.put(NS_PREFIX_ADAMS_CO_BOOKING_CODES_EXT, NS_ADAMS_CO_BOOKING_CODES_EXT);
+		uriToPrefixMap.put(NS_ADAMS_CO_BOOKING_CODES_EXT, NS_PREFIX_ADAMS_CO_BOOKING_CODES_EXT);
+												
+		prefixToUriMap.put(NS_PREFIX_ME_VEHICLE_CRASH_CODES, NS_ME_VEHICLE_CRASH_CODES);
+		uriToPrefixMap.put(NS_ME_VEHICLE_CRASH_CODES, NS_PREFIX_ME_VEHICLE_CRASH_CODES);				
+		
+		prefixToUriMap.put(NS_PREFIX_VEHICLE_CRASH_QUERY_RESULT_EXT, NS_VEHICLE_CRASH_QUERY_RESULT_EXT);
+		uriToPrefixMap.put(NS_VEHICLE_CRASH_QUERY_RESULT_EXT, NS_PREFIX_VEHICLE_CRASH_QUERY_RESULT_EXT);		
+		
+		prefixToUriMap.put(NS_PREFIX_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC, NS_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC);
+		uriToPrefixMap.put(NS_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC, NS_PREFIX_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC);		
+				
+		prefixToUriMap.put(NS_PREFIX_COURT_CASE_SEARCH_REQ_EXT, NS_COURT_CASE_SEARCH_REQ_EXT);
+		uriToPrefixMap.put(NS_COURT_CASE_SEARCH_REQ_EXT, NS_PREFIX_COURT_CASE_SEARCH_REQ_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_SEARCH_REQ_EXT, NS_CUSTODY_SEARCH_REQ_EXT);
+		uriToPrefixMap.put(NS_CUSTODY_SEARCH_REQ_EXT, NS_PREFIX_CUSTODY_SEARCH_REQ_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_SEARCH_REQ_EXCH, NS_CUSTODY_SEARCH_REQ_EXCH);
+		uriToPrefixMap.put(NS_CUSTODY_SEARCH_REQ_EXCH, NS_PREFIX_CUSTODY_SEARCH_REQ_EXCH);		
+		
+		prefixToUriMap.put(NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXT, NS_COURT_CASE_QUERY_RESULTS_EXT);
+		uriToPrefixMap.put(NS_COURT_CASE_QUERY_RESULTS_EXT, NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXT);		
+		
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_QUERY_RESULTS_EXT, NS_CUSTODY_QUERY_RESULTS_EXT);
+		uriToPrefixMap.put(NS_CUSTODY_QUERY_RESULTS_EXT, NS_PREFIX_CUSTODY_QUERY_RESULTS_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXCH_DOC, NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC);
+		uriToPrefixMap.put(NS_COURT_CASE_QUERY_RESULTS_EXCH_DOC, NS_PREFIX_COURT_CASE_QUERY_RESULTS_EXCH_DOC);		
+				
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_QUERY_RESULTS_EXCH_DOC, NS_CUSTODY_QUERY_RESULTS_EXCH_DOC);		
+		uriToPrefixMap.put(NS_CUSTODY_QUERY_RESULTS_EXCH_DOC, NS_PREFIX_CUSTODY_QUERY_RESULTS_EXCH_DOC);		
+		
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_SEARCH_RES_EXT, NS_CUSTODY_SEARCH_RES_EXT);
+		uriToPrefixMap.put(NS_CUSTODY_SEARCH_RES_EXT, NS_PREFIX_CUSTODY_SEARCH_RES_EXT);		
+		
+		prefixToUriMap.put(NS_PREFIX_INTEL_31, NS_INTEL_31);
+		uriToPrefixMap.put(NS_INTEL_31, NS_PREFIX_INTEL_31);
+		
+		prefixToUriMap.put(NS_PREFIX_COURT_CASE_SEARCH_RESULTS_EXT, NS_COURT_CASE_SEARCH_RESULTS_EXT);
+		uriToPrefixMap.put(NS_COURT_CASE_SEARCH_RESULTS_EXT, NS_PREFIX_COURT_CASE_SEARCH_RESULTS_EXT);		
+		
+		prefixToUriMap.put(NS_PREFIX_JXDM_51, NS_JXDM_51);
+		uriToPrefixMap.put(NS_JXDM_51, NS_PREFIX_JXDM_51);
+				
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_SEARCH_RESULTS, NS_CUSTODY_SEARCH_RESULTS);
+		uriToPrefixMap.put(NS_CUSTODY_SEARCH_RESULTS, NS_PREFIX_CUSTODY_SEARCH_RESULTS);
+		
+		prefixToUriMap.put(NS_PREFIX_COURT_CASE_SEARCH_RESULTS, NS_COURT_CASE_SEARCH_RESULTS);
+		uriToPrefixMap.put(NS_COURT_CASE_SEARCH_RESULTS, NS_PREFIX_COURT_CASE_SEARCH_RESULTS);
+				
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_SEARCH_REQUEST, NS_CUSTODY_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_CUSTODY_SEARCH_REQUEST_DOC, NS_PREFIX_CUSTODY_SEARCH_REQUEST);
+				
+		prefixToUriMap.put(NS_PREFIX_COURT_CASE_SEARCH_REQUEST, NS_COURT_CASE_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_COURT_CASE_SEARCH_REQUEST_DOC, NS_PREFIX_COURT_CASE_SEARCH_REQUEST);		
 				
 		prefixToUriMap.put(NS_NIST_BIO_PREFIX, NS_NIST_BIO);
 		uriToPrefixMap.put(NS_NIST_BIO, NS_NIST_BIO_PREFIX);
@@ -1191,6 +1484,106 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	    
 	    prefixToUriMap.put(NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST);
 	    uriToPrefixMap.put(NS_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST, NS_PREFIX_IDENTIFICATION_RESULTS_MODIFICATION_REQUEST);
+	    	    
+	    prefixToUriMap.put(NS_PREFIX_CASE_FILE_DECISION_REPORT_DOC_EXCH, NS_CASE_FILE_DECISION_REPORT_DOC_EXCH);
+	    uriToPrefixMap.put(NS_CASE_FILE_DECISION_REPORT_DOC_EXCH, NS_PREFIX_CASE_FILE_DECISION_REPORT_DOC_EXCH);	
+	    
+	    prefixToUriMap.put(NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC, NS_COURT_CASE_QUERY_REQUEST_DOC);
+	    uriToPrefixMap.put(NS_COURT_CASE_QUERY_REQUEST_DOC, NS_PREFIX_COURT_CASE_QUERY_REQUEST_DOC);	
+	    
+	    prefixToUriMap.put(NS_PREFIX_COURT_CASE_QUERY_REQ_EXT, NS_COURT_CASE_QUERY_REQ_EXT);
+	    uriToPrefixMap.put(NS_COURT_CASE_QUERY_REQ_EXT, NS_PREFIX_COURT_CASE_QUERY_REQ_EXT);	
+	    
+	    prefixToUriMap.put(NS_PREFIX_CUSTODY_QUERY_REQUEST_EXCH, NS_CUSTODY_QUERY_REQUEST_EXCH);
+	    uriToPrefixMap.put(NS_CUSTODY_QUERY_REQUEST_EXCH, NS_PREFIX_CUSTODY_QUERY_REQUEST_EXCH);	
+	    
+	    prefixToUriMap.put(NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT, NS_CUSTODY_QUERY_REQUEST_EXT);
+	    uriToPrefixMap.put(NS_CUSTODY_QUERY_REQUEST_EXT, NS_PREFIX_CUSTODY_QUERY_REQUEST_EXT);
+	    
+	    prefixToUriMap.put(NS_PREFIX_BEHAVIOR_REPORT_DOC_EXCH, NS_BEHAVIOR_REPORT_DOC_EXCH);
+	    uriToPrefixMap.put(NS_BEHAVIOR_REPORT_DOC_EXCH, NS_PREFIX_BEHAVIOR_REPORT_DOC_EXCH);	
+	    
+	    prefixToUriMap.put(NS_PREFIX_BOOKING_REPORTING, NS_BOOKING_REPORTING);
+	    uriToPrefixMap.put(NS_BOOKING_REPORTING, NS_PREFIX_BOOKING_REPORTING);	
+	    
+	    prefixToUriMap.put(NS_PREFIX_BOOKING_REPORTING_EXT, NS_BOOKING_REPORTING_EXT);
+	    uriToPrefixMap.put(NS_BOOKING_REPORTING_EXT, NS_PREFIX_BOOKING_REPORTING_EXT);		    
+		
+		prefixToUriMap.put(NS_PREFIX_WARRANT_ACCEPTED_REPORT_DOC_EXCH, NS_WARRANT_ACCEPTED_REPORT_DOC_EXCH);
+		uriToPrefixMap.put(NS_WARRANT_ACCEPTED_REPORT_DOC_EXCH, NS_PREFIX_WARRANT_ACCEPTED_REPORT_DOC_EXCH);		
+		
+		prefixToUriMap.put(NS_PREFIX_WARRANT_REJECTED_EXCH_DOC, NS_WARRANT_REJECTED_EXCH_DOC);
+		uriToPrefixMap.put(NS_WARRANT_REJECTED_EXCH_DOC, NS_PREFIX_WARRANT_REJECTED_EXCH_DOC);
+		
+		prefixToUriMap.put(NS_PREFIX_BEHAVIORAL_HEALTH_REPORT_DOC_EXT, NS_BEHAVIORAL_HEALTH_REPORT_DOC_EXT);
+		uriToPrefixMap.put(NS_BEHAVIORAL_HEALTH_REPORT_DOC_EXT, NS_PREFIX_BEHAVIORAL_HEALTH_REPORT_DOC_EXT);
+
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_RELEASE_REPORTING_EXT, NS_CUSTODY_RELEASE_REPORTING_EXT);
+		uriToPrefixMap.put(NS_CUSTODY_RELEASE_REPORTING_EXT, NS_PREFIX_CUSTODY_RELEASE_REPORTING_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_RELEASE_REPORTING, NS_CUSTODY_RELEASE_REPORTING);
+		uriToPrefixMap.put(NS_CUSTODY_RELEASE_REPORTING, NS_PREFIX_CUSTODY_RELEASE_REPORTING);
+		
+		prefixToUriMap.put(NS_PREFIX_IDENTIFIER_RESPONSE_DOC, NS_IDENTIFIER_RESPONSE_DOC);
+		uriToPrefixMap.put(NS_IDENTIFIER_RESPONSE_DOC, NS_PREFIX_IDENTIFIER_RESPONSE_DOC);
+		
+		prefixToUriMap.put(NS_PREFIX_WARRANT_MOD_REQ_EXT, NS_WARRANT_MOD_REQ_EXT);
+		uriToPrefixMap.put(NS_WARRANT_MOD_REQ_EXT, NS_PREFIX_WARRANT_MOD_REQ_EXT);	
+		
+		prefixToUriMap.put(NS_PREFIX_WARRANT_MOD_DOC_EXCH, NS_WARRANT_MOD_DOC_EXCH);
+		uriToPrefixMap.put(NS_WARRANT_MOD_DOC_EXCH, NS_PREFIX_WARRANT_MOD_DOC_EXCH);	
+		
+		prefixToUriMap.put(NS_PREFIX_SCREENING_3_1, NS_SCREENING_3_1);
+		uriToPrefixMap.put(NS_SCREENING_3_1, NS_PREFIX_SCREENING_3_1);
+		
+		prefixToUriMap.put(NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_DOC, NS_VEHICLE_CRASH_QUERY_REQUEST_DOC);
+		uriToPrefixMap.put(NS_VEHICLE_CRASH_QUERY_REQUEST_DOC, NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_DOC);			
+				
+		prefixToUriMap.put(NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_EXT, NS_VEHICLE_CRASH_QUERY_REQUEST_EXT);
+		uriToPrefixMap.put(NS_VEHICLE_CRASH_QUERY_REQUEST_EXT, NS_PREFIX_VEHICLE_CRASH_QUERY_REQUEST_EXT);			
+		
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_STATUS_CHANGE_DOC, NS_CUSTODY_STATUS_CHANGE_DOC);
+		uriToPrefixMap.put(NS_CUSTODY_STATUS_CHANGE_DOC, NS_PREFIX_CUSTODY_STATUS_CHANGE_DOC);			
+		
+		prefixToUriMap.put(NS_PREFIX_CUSTODY_STATUS_CHANGE_EXT, NS_CUSTODY_STATUS_CHANGE_EXT);
+		uriToPrefixMap.put(NS_CUSTODY_STATUS_CHANGE_EXT, NS_PREFIX_CUSTODY_STATUS_CHANGE_EXT);			
+				
+		prefixToUriMap.put(NS_PREFIX_WARRANT_MOD_RESP_DOC_EXCH, NS_WARRANT_MOD_RESP_DOC_EXCH);
+		uriToPrefixMap.put(NS_WARRANT_MOD_RESP_DOC_EXCH, NS_PREFIX_WARRANT_MOD_RESP_DOC_EXCH);
+				
+		prefixToUriMap.put(NS_PREFIX_WARRANT_MOD_RESP_DOC_EXCH, NS_WARRANT_MOD_RESP_DOC_EXCH);
+		uriToPrefixMap.put(NS_WARRANT_MOD_RESP_EXT, NS_PREFIX_WARRANT_MOD_RESP_EXT);
+				
+		prefixToUriMap.put(NS_PREFIX_WARRANT_MOD_RESP_EXT, NS_WARRANT_MOD_RESP_EXT);
+		uriToPrefixMap.put(NS_WARRANT_MOD_RESP_EXT, NS_PREFIX_WARRANT_MOD_RESP_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_HUMAN_SERVIES, NS_HUMAN_SERVIES);
+		uriToPrefixMap.put(NS_HUMAN_SERVIES, NS_PREFIX_HUMAN_SERVIES);		
+		
+		prefixToUriMap.put(NS_PREFIX_FIREARMS_PROHIBITION_DOC, NS_FIREARMS_PROHIBITION_DOC);
+		uriToPrefixMap.put(NS_FIREARMS_PROHIBITION_DOC, NS_PREFIX_FIREARMS_PROHIBITION_DOC);		
+
+		prefixToUriMap.put(NS_PREFIX_FIREARMS_PROHIBITION_EXT, NS_FIREARMS_PROHIBITION_EXT);
+		uriToPrefixMap.put(NS_FIREARMS_PROHIBITION_EXT, NS_PREFIX_FIREARMS_PROHIBITION_EXT);		
+
+		prefixToUriMap.put(NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS, NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS);
+		uriToPrefixMap.put(NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS, NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS);		
+		
+		prefixToUriMap.put(NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT, NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT);
+		uriToPrefixMap.put(NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT, NS_PREFIX_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS_EXT);		
+		
+		prefixToUriMap.put(NS_PREFIX_WARRANT_MODIFICATION_REPORT_DOC_EXCH, NS_WARRANT_MODIFICATION_REPORT_DOC_EXCH);
+		uriToPrefixMap.put(NS_WARRANT_MODIFICATION_REPORT_DOC_EXCH, NS_PREFIX_WARRANT_MODIFICATION_REPORT_DOC_EXCH);	
+		
+		prefixToUriMap.put(NS_PREFIX_WARRANT_CANCELLATION_REPORT_DOC_EXCH, NS_WARRANT_CANCELLATION_REPORT_DOC_EXCH);
+		uriToPrefixMap.put(NS_WARRANT_CANCELLATION_REPORT_DOC_EXCH, NS_PREFIX_WARRANT_CANCELLATION_REPORT_DOC_EXCH);	
+
+		prefixToUriMap.put(NS_PREFIX_FEDERAL_CRIMINAL_HISTORY_REPORT_EXCH, NS_FEDERAL_CRIMINAL_HISTORY_REPORT_EXCH);
+		uriToPrefixMap.put(NS_FEDERAL_CRIMINAL_HISTORY_REPORT_EXCH, NS_PREFIX_FEDERAL_CRIMINAL_HISTORY_REPORT_EXCH);	
+
+		prefixToUriMap.put(NS_PREFIX_FEDERAL_CRIMINAL_HISTORY_REPORT_EXT, NS_FEDERAL_CRIMINAL_HISTORY_REPORT_EXT);
+		uriToPrefixMap.put(NS_FEDERAL_CRIMINAL_HISTORY_REPORT_EXT, NS_PREFIX_FEDERAL_CRIMINAL_HISTORY_REPORT_EXT);	
+
 	}
 
 	@Override

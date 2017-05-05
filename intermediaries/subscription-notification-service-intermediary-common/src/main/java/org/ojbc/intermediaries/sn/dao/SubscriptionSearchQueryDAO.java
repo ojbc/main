@@ -24,18 +24,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.sql.DataSource;
 
-import org.ojbc.intermediaries.sn.notification.NotificationConstants;
-import org.ojbc.intermediaries.sn.notification.NotificationRequest;
-import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
-import org.ojbc.util.xml.XmlUtils;
 import org.apache.camel.Header;
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,6 +42,11 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.ojbc.intermediaries.sn.notification.NotificationConstants;
+import org.ojbc.intermediaries.sn.notification.NotificationRequest;
+import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
+import org.ojbc.util.xml.XmlUtils;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -58,8 +61,8 @@ public class SubscriptionSearchQueryDAO {
 
     private static final String CIVIL_SUBSCRIPTION_REASON_CODE = "I";
 
-	private static final String BASE_QUERY_STRING = "select s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subjectName, "
-                    + " si.identifierName, s.subscription_category_code, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType "
+	private static final String BASE_QUERY_STRING = "select s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
+                    + " si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType "
                     + " from subscription s, notification_mechanism nm, subscription_subject_identifier si where nm.subscriptionId = s.id and si.subscriptionId = s.id ";
 
     private static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
@@ -69,6 +72,7 @@ public class SubscriptionSearchQueryDAO {
     private JdbcTemplate jdbcTemplate;
     private SubscriptionResultsSetExtractor resultSetExtractor;
     private boolean baseNotificationsOnEventDate = true;
+    private boolean fbiSubscriptionMember = false;
     
     public SubscriptionSearchQueryDAO() {
         resultSetExtractor = new SubscriptionResultsSetExtractor();
@@ -147,21 +151,71 @@ public class SubscriptionSearchQueryDAO {
             throw new IllegalStateException("Query did not return the correct number of results.");
         }
 
-        return subscriptions.get(0);
+        Subscription subscriptionToReturn = subscriptions.get(0); 
+        setSubscriptionProperties(subscriptionToReturn);
+        
+        return subscriptionToReturn; 
     }
 
+	public Subscription findSubscriptionByFbiSubscriptionId(String fbiRelatedSubscriptionId){
+		
+		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
+                + "si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType "
+                + "FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
+                + "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id AND fbi_sub.subscription_id = s.id "
+                + "AND fbi_sub.FBI_SUBSCRIPTION_ID = ?";
+        List<Subscription> subscriptions = this.jdbcTemplate.query(sql, resultSetExtractor, fbiRelatedSubscriptionId);
+        
+        Subscription subscription = DataAccessUtils.singleResult(subscriptions);
+        
+        setSubscriptionProperties(subscription);
+        
+		return subscription;
+	}
+
+	private void setSubscriptionProperties(Subscription subscription) {
+		if (subscription != null){
+            Map<String, String> subscriptionProperties = getSubscriptionProperties(String.valueOf(subscription.getId()));
+            subscription.setSubscriptionProperties(subscriptionProperties);
+        }
+	}
+	
+    /**
+     * This method is retained for backwards compatibility and will pass null for subject identifiers.
+     * The method it delegates to will use the subject identifiers defined in the notification request.
+     * 
+     * @param notificationRequest
+     * @return
+     */
+    public List<Subscription> searchForSubscriptionsMatchingNotificationRequest(NotificationRequest notificationRequest) {
+    
+    	return searchForSubscriptionsMatchingNotificationRequest(notificationRequest, null);
+    }
+    
     /**
      * Search for subscriptions for the subjects using the Notification Request which contains specified identifiers, and that are/were active on the specified event date.  
      * This is essentially how you determine the applicable subscriptions for a specified event, so that you can then notify about that event.  This method will filter out
-     * any subscriptions that are passed the validation due date. 
+     * any subscriptions that are passed the validation due date.  This method allows the user to override the subject identifiers.  This is useful when querying for 
+     * alternateSubjectIdentifiers.
      * @param notificationRequest notification request containing all notification message components mapped to POJO
      * @return the list of subscriptions to be notified of the event
      */
-    public List<Subscription> searchForSubscriptionsMatchingNotificationRequest(NotificationRequest notificationRequest) {
+    public List<Subscription> searchForSubscriptionsMatchingNotificationRequest(NotificationRequest notificationRequest, Map<String, String> alternateSubjectIdentifiers) {
 
     	//Retrieve fields from notification request
     	DateTime eventDate = notificationRequest.getNotificationEventDate();
-    	Map<String, String> subjectIdentifiers = notificationRequest.getSubjectIdentifiers();
+    	
+    	Map<String, String> subjectIdentifiers = null;
+    	
+    	if (alternateSubjectIdentifiers != null)
+    	{
+    		subjectIdentifiers = alternateSubjectIdentifiers;
+    	}	
+    	else
+    	{	
+    		subjectIdentifiers = notificationRequest.getSubjectIdentifiers();
+    	}
+    	
     	//log.debug("baseNotificationsOnEventDate=" + baseNotificationsOnEventDate);
         DateTime notificationCompareDate = baseNotificationsOnEventDate ? eventDate : new DateTime();
         String notificationCompareDateString = DATE_FORMATTER_YYYY_MM_DD.print(notificationCompareDate);
@@ -267,7 +321,10 @@ public class SubscriptionSearchQueryDAO {
     }
 
     /**
-     * Retrieve the single subscription (in a list) that matches the specified subscribing system, the specified owner, and the specified subject
+     * Retrieves subscriptions that matches the specified subscribing system, the specified owner, and the specified subject
+     * 
+     * Either one of topic, subscribingSystemId, owner OR subjectIdentifiers must be entered
+     * 
      * @param subscribingSystemId
      * @param subscriptionOwner the federation-wide unique identifier for the person that owns the subscriptions. If there is no matching owner
      * @param subjectIdentifiers the identifiers for the subject of the event
@@ -276,13 +333,35 @@ public class SubscriptionSearchQueryDAO {
     public List<Subscription> queryForSubscription(String topic, String subscribingSystemId, String owner, Map<String, String> subjectIdentifiers) {
 
         List<Subscription> ret = new ArrayList<Subscription>();
+        
+        List<String> criteriaList = new ArrayList<String>();
+        
+        StringBuffer staticCriteria = new StringBuffer();
 
-        Object[] criteriaArray = new Object[] {
-            subscribingSystemId.trim(), owner, topic
-        };
+        if (StringUtils.isNotBlank(subscribingSystemId))
+        {
+        	criteriaList.add(subscribingSystemId.trim());
+        	staticCriteria.append(" and s.subscribingSystemIdentifier=?");
+        }	
+        
+        if (StringUtils.isNotBlank(owner))
+        {
+        	criteriaList.add(owner.trim());
+        	staticCriteria.append(" and s.subscriptionOwner = ?");
+        }	
+        
+        if (StringUtils.isNotBlank(topic))
+        {
+        	criteriaList.add(topic.trim());
+        	staticCriteria.append(" and s.topic=? ");
+        }	
+
+        Object[] criteriaArray = criteriaList.toArray(new Object[criteriaList.size()]);
+
         criteriaArray = ArrayUtils.addAll(criteriaArray, SubscriptionSearchQueryDAO.buildCriteriaArray(subjectIdentifiers));
-        String queryString = BASE_QUERY_STRING + " and s.subscribingSystemIdentifier=? and s.subscriptionOwner = ? and s.topic=? and "
-                + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIdentifiers.size());
+
+        String queryString = BASE_QUERY_STRING + staticCriteria.toString()
+                + " and " + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIdentifiers.size());
         ret = this.jdbcTemplate.query(queryString, criteriaArray, resultSetExtractor);
 
         return ret;
@@ -295,7 +374,7 @@ public class SubscriptionSearchQueryDAO {
      * @param topic
      * @param startDateString
      * @param endDateString
-     * @param subjectIds
+     * @param subjectIdentifiers
      * @param emailAddresses
      * @param offenderName
      * @param subscribingSystemId
@@ -304,8 +383,8 @@ public class SubscriptionSearchQueryDAO {
      * @param subscriptionOwner
      * @return the ID of the created (or updated) subscription
      */
-    public Number subscribe(String subscriptionSystemId, String topic, String startDateString, String endDateString, Map<String, String> subjectIds, Set<String> emailAddresses, String offenderName,
-            String subscribingSystemId, String subscriptionQualifier, String reasonCategoryCode, String subscriptionOwner, LocalDate creationDateTime, String agencyCaseNumber) {
+    public Number subscribe(String subscriptionSystemId, String topic, String startDateString, String endDateString, Map<String, String> subjectIdentifiers, Map<String, String> subscriptionProperties, Set<String> emailAddresses, String offenderName,
+            String subscribingSystemId, String subscriptionQualifier, String reasonCategoryCode, String subscriptionOwner, String subscriptionOwnerEmailAddress, LocalDate creationDateTime, String agencyCaseNumber) {
 
         Number ret = null;
 
@@ -350,16 +429,16 @@ public class SubscriptionSearchQueryDAO {
         log.debug("End Date String: " + endDateString);
         log.debug("System Name: " + subscribingSystemId);
         log.debug("Subscription System ID: " + subscriptionSystemId);
+        log.debug("Reason Category Code = " + reasonCategoryCode);
         
-        log.info("\n\n\n reasonCategoryCode = " + reasonCategoryCode + "\n\n\n");
         if(StringUtils.isEmpty(reasonCategoryCode)){
-        	log.warn("\n\n\n reasonCategoryCode empty, so inserting null into db \n\n\n");
+        	log.warn("Reason Category Code empty, so inserting null into db.");
         	reasonCategoryCode = null;
         }
         
         String fullyQualifiedTopic = NotificationBrokerUtils.getFullyQualifiedTopic(topic);
 
-        List<Subscription> subscriptions = getSubscriptions(subscriptionSystemId, fullyQualifiedTopic, subjectIds, subscribingSystemId, subscriptionOwner);
+        List<Subscription> subscriptions = getSubscriptions(subscriptionSystemId, fullyQualifiedTopic, subjectIdentifiers, subscribingSystemId, subscriptionOwner);
 
         // No Record exist, insert a new one
         if (subscriptions.size() == 0) {
@@ -371,8 +450,8 @@ public class SubscriptionSearchQueryDAO {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             this.jdbcTemplate.update(
                     buildPreparedInsertStatementCreator(
-                            "insert into subscription (topic, startDate, endDate, subscribingSystemIdentifier, subscriptionOwner, subjectName, active, subscription_category_code, lastValidationDate, agency_case_number) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
-                                fullyQualifiedTopic.trim(), startDate, endDate, subscribingSystemId.trim(), subscriptionOwner, offenderName.trim(), 1, reasonCategoryCode, creationDate, agencyCaseNumber
+                            "insert into subscription (topic, startDate, endDate, subscribingSystemIdentifier, subscriptionOwner, subscriptionOwnerEmailAddress, subjectName, active, subscription_category_code, lastValidationDate, agency_case_number) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
+                                fullyQualifiedTopic.trim(), startDate, endDate, subscribingSystemId.trim(), subscriptionOwner, subscriptionOwnerEmailAddress, offenderName.trim(), 1, reasonCategoryCode, creationDate, agencyCaseNumber
                             }), keyHolder);
 
             ret = keyHolder.getKey();
@@ -385,10 +464,12 @@ public class SubscriptionSearchQueryDAO {
 
             log.debug("Inserting row(s) into subscription_subject_identifier table");
 
-            for (Map.Entry<String, String> entry : subjectIds.entrySet()) {
+            for (Map.Entry<String, String> entry : subjectIdentifiers.entrySet()) {
                 this.jdbcTemplate.update("insert into subscription_subject_identifier (subscriptionId, identifierName, identifierValue) values (?,?,?)", keyHolder.getKey(), entry.getKey(),
                         entry.getValue());
             }
+
+            saveSubscriptionProperties(subscriptionProperties, keyHolder.getKey().longValue());    
         }
 
         // A subscriptions exists, let's update it
@@ -396,28 +477,42 @@ public class SubscriptionSearchQueryDAO {
             log.debug("Ensure that SIDs match before updating subscription");
 
             log.debug("Updating existing subscription");
-            log.debug("Subject Id Map: " + subjectIds);
+            log.debug("Subject Id Map: " + subjectIdentifiers);
             log.debug("Email Addresses: " + emailAddresses.toString());
 
             log.debug("Updating row in subscription table");
 
-            this.jdbcTemplate.update("update subscription set topic=?, startDate=?, endDate=?, subjectName=?, active=1, subscriptionOwner=?, lastValidationDate=? where id=?", new Object[] {
-                fullyQualifiedTopic.trim(), startDate, endDate, offenderName.trim(), subscriptionOwner, creationDate, subscriptions.get(0).getId()
+            long subscriptionID = subscriptions.get(0).getId();
+            
+            this.jdbcTemplate.update("update subscription set topic=?, startDate=?, endDate=?, subjectName=?, active=1, subscriptionOwner=?, subscriptionOwnerEmailAddress=?, lastValidationDate=? where id=?", new Object[] {
+                fullyQualifiedTopic.trim(), startDate, endDate, offenderName.trim(), subscriptionOwner, subscriptionOwnerEmailAddress, creationDate, subscriptionID
             });
 
             log.debug("Updating row in notification_mechanism table");
 
             // We will delete all email addresses associated with the subscription and re-add them
             this.jdbcTemplate.update("delete from notification_mechanism where subscriptionId = ?", new Object[] {
-                subscriptions.get(0).getId()
+                subscriptionID
             });
 
             for (String emailAddress : emailAddresses) {
-                this.jdbcTemplate.update("insert into notification_mechanism (subscriptionId, notificationMechanismType, notificationAddress) values (?,?,?)", subscriptions.get(0).getId(), NotificationConstants.NOTIFICATION_MECHANISM_EMAIL,
+                this.jdbcTemplate.update("insert into notification_mechanism (subscriptionId, notificationMechanismType, notificationAddress) values (?,?,?)", subscriptionID, NotificationConstants.NOTIFICATION_MECHANISM_EMAIL,
                         emailAddress);
             }
 
-            ret = subscriptions.get(0).getId();
+            String existingSubscriptionIDString = String.valueOf(subscriptionID);
+            
+            Map<String, String> subscriptionPropertiesFromExistingSubscription = getSubscriptionProperties(existingSubscriptionIDString);
+            
+            if(updateSubscriptionProperties(subscriptionProperties, subscriptionPropertiesFromExistingSubscription))
+            {
+            	deleteSubscriptionProperties(existingSubscriptionIDString);
+            	
+            	saveSubscriptionProperties(subscriptionProperties, subscriptionID); 
+
+            }	
+            
+            ret = subscriptionID;
 
         }
 
@@ -428,9 +523,80 @@ public class SubscriptionSearchQueryDAO {
         return ret;
 
     }
+
+	public int saveSubscriptionProperties(
+			Map<String, String> subscriptionProperties, long subscriptionID) {
+		
+		int rowsSaved = 0;
+		
+		if (subscriptionProperties != null)
+		{	
+		    for (Map.Entry<String, String> entry : subscriptionProperties.entrySet()) {
+		        int rowsUpdated = this.jdbcTemplate.update("insert into subscription_properties (subscriptionId, propertyname, propertyvalue) values (?,?,?)", subscriptionID, entry.getKey(),
+		                entry.getValue());
+		        
+		        if (rowsUpdated == 1)
+		        {
+		        	rowsSaved++;
+		        }	
+		    }
+		}
+		
+		return rowsSaved;
+	}
     
     
-    private void subscribeIdentificationTransaction(Number subscriptionId, String transactionNumber, String endDateString ){
+    boolean updateSubscriptionProperties(Map<String, String> subscriptionPropertiesFromRequest, Map<String, String> subscriptionPropertiesFromExistingSubscription) {
+    	
+    	//No subscription properties, no update required
+        if ((subscriptionPropertiesFromExistingSubscription == null) && (subscriptionPropertiesFromRequest == null))
+        {
+        	return false;
+        }	
+        
+        //One is null, the other isn't, update required
+        if ((subscriptionPropertiesFromExistingSubscription != null) && (subscriptionPropertiesFromRequest == null))
+        {
+        	return true;
+        }	
+        
+        //One is null, the other isn't, update required
+        if ((subscriptionPropertiesFromExistingSubscription == null) && (subscriptionPropertiesFromRequest != null))
+        {
+        	return true;
+        }	
+        
+        //Different sizes, update required
+        if (subscriptionPropertiesFromExistingSubscription.size() != subscriptionPropertiesFromRequest.size())
+        {
+        	return true;
+        }	
+
+        if (subscriptionPropertiesFromExistingSubscription.size() == subscriptionPropertiesFromRequest.size())
+        {
+        	for (Map.Entry<String, String> entry : subscriptionPropertiesFromExistingSubscription.entrySet()) {
+        	    
+        		//key in one map, not the other, update required
+        		if (!subscriptionPropertiesFromRequest.containsKey(entry.getKey()))
+        	    {
+        			return true;
+        	    }	
+        		else	
+        		{
+        			//values are different, update required
+        			if (!subscriptionPropertiesFromRequest.get(entry.getKey()).equals(entry.getValue()))
+        			{
+        				return true;
+        			}	
+        		}
+        		
+        	}
+        }	
+        
+		return false;
+	}
+
+	private void subscribeIdentificationTransaction(Number subscriptionId, String transactionNumber, String endDateString ){
     	final String IDENTIFICATION_TRANSACTION_SUBSCRIBE = "UPDATE identification_transaction "
     			+ "SET subscription_id = ?, available_for_subscription_start_date = ? WHERE transaction_number = ? ";
     	
@@ -462,7 +628,10 @@ public class SubscriptionSearchQueryDAO {
             String queryString = "update subscription s set s.active=0 where s.topic=? and s.id=?";
             returnCount = this.jdbcTemplate.update(queryString, criteriaArray);
 
-            unsubscribeIdentificationTransaction(Integer.valueOf(subscriptionSystemId));
+            log.debug("fbiSubscriptionMember? " + BooleanUtils.toStringTrueFalse(fbiSubscriptionMember));
+            if (fbiSubscriptionMember){
+            	unsubscribeIdentificationTransaction(Integer.valueOf(subscriptionSystemId));
+            }
             return returnCount;
 
         }
@@ -486,15 +655,15 @@ public class SubscriptionSearchQueryDAO {
         return returnCount;
     }
 
-    private final String SID_CONSOLIDATE = "UPDATE subscription_subject_identifier SET identifierValue = ? "
-    		+ "WHERE identifierName = 'SID' and identifierValue = ?"; 
+    private final String UPDATE_SUBJECT_IDENTIFER_BY_SUBSCRIPTION_ID = "UPDATE subscription_subject_identifier SET identifierValue = ? "
+    		+ "WHERE identifierName = ? and identifierValue = ? and subscriptionId = ?"; 
     /**
-     * Replace the currentSid in the subscripiton_subject_identifier with the newSid
+     * Update the subscripiton_subject_identifier using the provided parameters
      * @param currentSid
      * @param newSid
      */
-    public void consolidateSid(String currentSid, String newSid){
-    	this.jdbcTemplate.update(SID_CONSOLIDATE, newSid, currentSid);
+    public void updateSubscriptionSubjectIdentifier(String value, String newValue, String subscriptionId, String identiferName){
+    	this.jdbcTemplate.update(UPDATE_SUBJECT_IDENTIFER_BY_SUBSCRIPTION_ID, newValue, identiferName, value, subscriptionId);
     }
     
     static Object[] buildCriteriaArray(Map<String, String> subjectIdentifiers) {
@@ -536,6 +705,46 @@ public class SubscriptionSearchQueryDAO {
 
     }
     
+    public List<String> getUniqueSubscriptionOwners()
+    {
+    	String queryString = "SELECT distinct(subscriptionOwner) FROM subscription where subscriptionOwner <> 'SYSTEM' order by subscriptionOwner";
+    	
+    	List<String> subscriptionOwners = (List<String>) jdbcTemplate.queryForList(queryString, String.class);
+    	
+    	return subscriptionOwners;
+    }
+    
+    public Map<String, String > getSubscriptionProperties(String id)
+    {
+        String sqlQuery = "select * from subscription_properties where subscriptionId=? order by propertyName";
+
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sqlQuery, new Object[] {id});
+        		
+        Map<String, String > ret = new HashMap<String, String >();
+        
+        if (rows != null)
+        {
+        	for (Map<String, Object> row : rows)
+        	{
+        		String propertyName = (String)row.get("propertyName");
+        		String propertyValue = (String)row.get("propertyValue");
+        				
+        		ret.put(propertyName, propertyValue);
+        	}	
+        }	
+        
+        return ret;
+    }
+    
+    public int deleteSubscriptionProperties(String id)
+    {
+        String sqlQuery = "delete from subscription_properties where subscriptionId=?";
+
+        int rowsUpdated = jdbcTemplate.update(sqlQuery, new Object[] {id});
+        		
+        return rowsUpdated;
+    }
+    
     private PreparedStatementCreator buildPreparedInsertStatementCreator(final String sql, final Object[] params) {
         return new PreparedStatementCreator() {
 
@@ -553,5 +762,13 @@ public class SubscriptionSearchQueryDAO {
             }
         };
     }
+
+	public boolean isFbiSubscriptionMember() {
+		return fbiSubscriptionMember;
+	}
+
+	public void setFbiSubscriptionMember(boolean fbiSubscriptionMember) {
+		this.fbiSubscriptionMember = fbiSubscriptionMember;
+	}
 
 }

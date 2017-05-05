@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema
+	xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
+	targetNamespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	version="4.0">
+	<xsd:annotation>
+		<xsd:documentation>CoreFilingMessage</xsd:documentation>
+		<xsd:appinfo>
+			<i:ConformantIndicator>true</i:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
+		schemaLocation="../constraint/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
+		schemaLocation="../constraint/niem/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0"
+		schemaLocation="../constraint/niem/appinfo/2.0/appinfo.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
+		schemaLocation="../constraint/niem/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import
+		namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+		schemaLocation="../common/ECF-4.0-CommonTypes.xsd" />
+	<xsd:import
+			namespace="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
+			schemaLocation="../Criminal_Case-ext.xsd" />
+		
+		<xsd:complexType name="CoreFilingMessageType">
+			<xsd:annotation>
+				<xsd:documentation>The structure of a Filing including any Payment
+					Information will be documented in this section. This describes the
+					filing transaction between the Filing Assembly MDE and the Filing
+					Review MDE. This information will become part of the Record
+					Docketing between the Filing Review MDE and the Court Record MDE
+					but does not necessarily describe the information that is actually
+					stored in the Court Record.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:complexContent>
+				<xsd:extension base="ecf:ElectronicFilingMessageType">
+					<xsd:sequence>
+						<xsd:element ref="nc:Case" />
+						<xsd:element ref="FilingConfidentialityIndicator"
+							minOccurs="0" />
+						<!-- OJB Change -->
+						<!-- xsd:element ref="FilingLeadDocument" maxOccurs="unbounded"/ -->
+						<xsd:element ref="FilingLeadDocument" minOccurs="0"
+							maxOccurs="unbounded" />
+						<xsd:element ref="FilingConnectedDocument" minOccurs="0"
+							maxOccurs="unbounded" />
+					</xsd:sequence>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+		<xsd:element name="CoreFilingMessage" type="CoreFilingMessageType">
+			<xsd:annotation>
+				<xsd:documentation>The structure of a Filing including any Payment
+					Information will be documented in this section. This describes the
+					filing transaction between the Filing Assembly MDE and the Filing
+					Review MDE. This information will become part of the Record
+					Docketing between the Filing Review MDE and the Court Record MDE
+					but does not necessarily describe the information that is actually
+					stored in the Court Record.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="FilingConfidentialityIndicator" type="niem-xsd:boolean">
+			<xsd:annotation>
+				<xsd:documentation>Indicator by the filer that something in the
+					message requires sensitive or confidential treatment. (This
+					replaces the former "request to seal" document metadata.)
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="FilingConnectedDocument" type="ecf:DocumentType">
+			<xsd:annotation>
+				<xsd:documentation>A document included in a Filing that supports the
+					Document. This document is not separately entered on the docket or
+					register of actions.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="FilingLeadDocument" type="ecf:DocumentType">
+			<xsd:annotation>
+				<xsd:documentation>The pleading, motion or order that is the main
+					document in a Filing. A Document may have Attachments.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+</xsd:schema>

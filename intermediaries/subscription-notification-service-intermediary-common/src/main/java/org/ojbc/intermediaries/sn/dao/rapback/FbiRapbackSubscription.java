@@ -27,6 +27,7 @@ public class FbiRapbackSubscription implements Serializable{
 	private static final long serialVersionUID = 5492996006114314857L;
 	
 	private String fbiSubscriptionId; 
+	private Integer stateSubscriptionId; 
 	private String rapbackCategory;
 	private String subscriptionTerm;
 	private DateTime rapbackExpirationDate;
@@ -120,6 +121,18 @@ public class FbiRapbackSubscription implements Serializable{
 
 	public void setRapbackTermDate(DateTime rapbackTermDate) {
 		this.rapbackTermDate = rapbackTermDate;
+	}
+
+	public Integer getStateSubscriptionId() {
+		return stateSubscriptionId;
+	}
+
+	public void setStateSubscriptionId(Integer stateSubscriptionId) {
+		this.stateSubscriptionId = stateSubscriptionId;
+	}
+	
+	public void setStateSubscriptionId(String stateSubscriptionId) {
+		this.stateSubscriptionId = Integer.valueOf(stateSubscriptionId);
 	}
 
 }

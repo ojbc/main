@@ -37,7 +37,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P73">
+        <rap:RapSheetPerson s:id="P73">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>Amy V</nc:PersonGivenName>
                 <nc:PersonSurName>Tucker</nc:PersonSurName>
@@ -64,7 +64,7 @@
                     <nc:IdentificationJurisdictionText/>
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P73"/>
             <nc:Biometric>

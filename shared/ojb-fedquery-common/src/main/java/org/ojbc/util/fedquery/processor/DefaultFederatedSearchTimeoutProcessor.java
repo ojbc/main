@@ -23,6 +23,8 @@ import java.util.Map;
 import org.apache.camel.Body;
 import org.apache.camel.Header;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -45,6 +47,8 @@ import org.w3c.dom.Element;
  * 
  */
 public class DefaultFederatedSearchTimeoutProcessor implements FederatedQueryTimeoutProcessorStrategy{
+	
+	private final Log log = LogFactory.getLog(this.getClass());
 
 	private Map<String, String> uriToErrorMessageMap = new HashMap<String, String>();
 	
@@ -57,20 +61,27 @@ public class DefaultFederatedSearchTimeoutProcessor implements FederatedQueryTim
 	@Override
 	public Document createErrorMessagesForEndpointsThatTimedOut(@Body Document response, @Header("endpointsThatDidNotRespond") List<String> endpointsThatDidNotRespond) throws Exception {
 		
+		log.info("endpointsThatDidNotRespond:" + endpointsThatDidNotRespond);
+		log.info("uriToErrorMessageMap" + uriToErrorMessageMap);
+		
 		if (endpointsThatDidNotRespond == null || StringUtils.isBlank(parentElementName) || StringUtils.isBlank(parentElementNamespace))
 		{
 			return response;
 		}	
 		
+		Element searchResultsMetadata = null;
+		
 		for (String endpointThatDidNotRespond : endpointsThatDidNotRespond)
 		{
 			if (uriToErrorMessageMap.containsKey(endpointThatDidNotRespond))
 			{
-				Element wrapperElement = (Element)XmlUtils.xPathNodeSearch(response, "/OJBAggregateResponseWrapper");
 				
-				Element errorContainerElement = XmlUtils.appendElement(wrapperElement, parentElementNamespace, parentElementName);
-				
-				Element searchResultsMetadata = XmlUtils.appendElement(errorContainerElement, OjbcNamespaceContext.NS_SEARCH_RESULTS_METADATA_EXT, "SearchResultsMetadata");
+				if (searchResultsMetadata == null)
+				{	
+					Element wrapperElement = (Element)XmlUtils.xPathNodeSearch(response, "/OJBAggregateResponseWrapper");
+					Element errorContainerElement = XmlUtils.appendElement(wrapperElement, parentElementNamespace, parentElementName);
+					searchResultsMetadata = XmlUtils.appendElement(errorContainerElement, OjbcNamespaceContext.NS_SEARCH_RESULTS_METADATA_EXT, "SearchResultsMetadata");
+				}
 				
 				Element searchRequestError = XmlUtils.appendElement(searchResultsMetadata, OjbcNamespaceContext.NS_SEARCH_REQUEST_ERROR_REPORTING, "SearchRequestError");
 				
@@ -86,8 +97,6 @@ public class DefaultFederatedSearchTimeoutProcessor implements FederatedQueryTim
 			}	
 		}
 
-		XmlUtils.printNode(response);		
-		
 		return response;
 		
 	}

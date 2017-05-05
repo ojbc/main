@@ -26,38 +26,37 @@
 	<groupId>org.ojbc.bundles.shared</groupId>
 	<artifactId>ojb-policy-decision-point-service</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.0</version>
+	<version>1.0.2</version>
 
 	<name>OJB :: ojb-policy-decision-point-service :: shared</name>
 	<url>http://www.ojbc.org</url>
 
 	<parent>
 		<groupId>org.ojbc.build</groupId>
-	  <artifactId>ojb-shared-aggregate</artifactId>
-	  <version>1.0.0</version>
+		<artifactId>ojb-shared-aggregate</artifactId>
+		<version>1.0.0</version>
 	</parent>
 
 	<properties>
-		<camel-version>2.10.7</camel-version>
-		<slf4j-version>1.6.4</slf4j-version>
-		<log4j-version>1.2.16</log4j-version>
-		<cxf-version>2.6.4</cxf-version>
-		<saxon-version>8.7</saxon-version>
-		<servlet-api-version>2.5</servlet-api-version>
-		<bouncycastle-version>140</bouncycastle-version>
-		<ojb-camel-common>[1.0.0,)</ojb-camel-common>
-		<ojb-resources-common-version>1.0.0</ojb-resources-common-version>
-		<osgi-core-version>1.4.0</osgi-core-version>
-		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
-		<ojb-common-version>[2.0.1,)</ojb-common-version>
-		<ojb-fedquery-common>[1.0.2,)</ojb-fedquery-common>
-		<commons-lang-version>2.4</commons-lang-version>
-		<spring-version>3.0.7.RELEASE</spring-version>
+		<camel-version>2.14.4</camel-version>
+		<slf4j-version>1.7.10</slf4j-version>
+		<log4j-version>1.2.17</log4j-version>
+		<cxf-version>3.0.5</cxf-version>
+		<commons-lang-version>2.6</commons-lang-version>
+		<spring-version>3.2.11.RELEASE</spring-version>
 		<apache-commons-io-version>1.3.2</apache-commons-io-version>
+		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
+		<maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
+		<osgi-core-version>1.4.0</osgi-core-version>
+		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
+		<ojb-common-version>[3.0.0,)</ojb-common-version>
+		<ojb-fedquery-common-version>[2.0.0,)</ojb-fedquery-common-version>
+		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
+		<ojb-osgi-common-version>[1.0.0,)</ojb-osgi-common-version>
+		<ojb-test-common-version>1.0.0</ojb-test-common-version>
+		<java-version>1.8</java-version>
 		<commonsCodec.version>1.7</commonsCodec.version>
-		<jodatime-version>1.6.2</jodatime-version>
-	    <maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-	    <h2database-version>1.3.174</h2database-version>
+		<jackson-version>2.1.5</jackson-version>
 	    <balana-version>1.0.0.wso2v8</balana-version>
 	</properties>
 
@@ -91,13 +90,11 @@
 		</dependency>
 
 		<!-- CXF libs -->
-
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http</artifactId>
 			<version>${cxf-version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxws</artifactId>
@@ -121,12 +118,6 @@
 
 		<!-- ws-security -->
 		<dependency>
-			<groupId>bouncycastle</groupId>
-			<artifactId>bcprov-jdk16</artifactId>
-			<version>${bouncycastle-version}</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-ws-security</artifactId>
 			<version>${cxf-version}</version>
@@ -147,12 +138,12 @@
 	    <dependency>
 	      <groupId>org.ojbc.bundles.shared</groupId>
 	      <artifactId>ojb-fedquery-common</artifactId>
-	      <version>${ojb-fedquery-common}</version>
+	      <version>${ojb-fedquery-common-version}</version>
 	    </dependency>
 		<dependency>
 			<groupId>org.ojbc.bundles.shared</groupId>
 			<artifactId>ojb-camel-common</artifactId>
-			<version>${ojb-camel-common}</version>
+			<version>${ojb-camel-common-version}</version>
 		</dependency>
 
 		<dependency>
@@ -176,7 +167,7 @@
 		<!-- for testing -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-test-spring</artifactId>
+			<artifactId>camel-test-spring3</artifactId>
 			<version>${camel-version}</version>
 			<scope>test</scope>
 		</dependency>
@@ -188,11 +179,16 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-test-common</artifactId>
+			<version>${ojb-test-common-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>${commonsCodec.version}</version>
 		</dependency>
-
 		<!-- logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -210,26 +206,10 @@
 			<version>${log4j-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>${h2database-version}</version>
-		</dependency>
-		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
 			<version>2.2</version>
 		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>2.1.5</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.1.5</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -239,8 +219,7 @@
 			<resource>
 				<directory>${basedir}/src/main/resources</directory>
 				<includes>
-					<include>META-INF/spring/**</include>
-					<include>**/*.*</include>
+					<include>**/*</include>
 				</includes>
 			</resource>
 			<resource>
@@ -249,11 +228,7 @@
 					<include>*</include>
 				</includes>
 			</resource>
-			<resource>
-				<directory>${basedir}/src/main/java</directory>
-			</resource>
 		</resources>
-
 
 		<plugins>
 			<plugin>
@@ -261,8 +236,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
 				</configuration>
 			</plugin>
 
@@ -284,23 +259,24 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+						<DynamicImport-Package>*</DynamicImport-Package>
 						<Import-Package>
+							org.apache.commons.dbcp,
 							org.h2.jdbcx;resolution:=optional,
-							META-INF.cxf,
-							META-INF.cxf.osgi,
 							org.springframework.beans.factory.config,
 							javax.xml.namespace,
-							service-specifications.*,
+							ssp.*,
 							org.ojbc.*,
+							com.mysql.jdbc,
+							<!--packages needed to use annotation driven beans  -->
+							org.springframework.aop,
+							org.springframework.aop.framework,
+							net.sf.cglib.proxy,
+							net.sf.cglib.core,
+							net.sf.cglib.reflect,
+							org.aopalliance.aop,
 							*
 							</Import-Package>
-						<Require-Bundle>
-							org.apache.cxf.bundle,
-							org.ojbc.bundles.shared.ojb-common,
-							org.ojbc.bundles.shared.ojb-camel-common,
-							org.ojbc.bundles.shared.ojb-resources-common,
-						</Require-Bundle>
-						<Bundle-Activator>org.apache.camel.impl.osgi.Activator</Bundle-Activator>
 						<Bundle-Name>${pom.name}</Bundle-Name>
 					</instructions>
 				</configuration>

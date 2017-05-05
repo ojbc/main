@@ -22,6 +22,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.util.model.rapback.IdentificationTransactionState;
 
 public class IdentificationTransaction implements Serializable{
 
@@ -29,6 +30,7 @@ public class IdentificationTransaction implements Serializable{
 	private String transactionNumber;
 	private String otn; //PersonTrackingIdentidication
 	private DateTime timestamp;
+	private DateTime availableForSubscriptionStartDate;
 	private String ownerOri; 
 	private String ownerProgramOca;
 	private String identificationCategory; 
@@ -137,6 +139,15 @@ public class IdentificationTransaction implements Serializable{
 
 	public void setHavingSubsequentResults(Boolean havingSubsequentResults) {
 		this.havingSubsequentResults = havingSubsequentResults;
+	}
+
+	public DateTime getAvailableForSubscriptionStartDate() {
+		return availableForSubscriptionStartDate;
+	}
+
+	public void setAvailableForSubscriptionStartDate(
+			DateTime availableForSubscriptionStartDate) {
+		this.availableForSubscriptionStartDate = availableForSubscriptionStartDate;
 	}
 
 }

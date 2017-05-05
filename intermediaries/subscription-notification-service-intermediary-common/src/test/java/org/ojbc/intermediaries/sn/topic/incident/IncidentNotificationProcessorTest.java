@@ -86,6 +86,7 @@ public class IncidentNotificationProcessorTest {
         String receivedEmailBody = (String) e.getOut().getBody();
         assertEquals(EXPECTED_EMAIL_TEXT, receivedEmailBody);
         assertEquals("po1@localhost", e.getOut().getHeader(NotificationConstants.HEADER_TO));
+        assertEquals("{http://hijis.hawaii.gov/ParoleCase/1.0}HawaiiParolingAuthority", e.getOut().getHeader(NotificationConstants.HEADER_SUBSCRIBING_SYSTEM_IDENTIFIER));
         
     }
     

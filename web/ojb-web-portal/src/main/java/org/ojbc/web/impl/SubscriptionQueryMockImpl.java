@@ -16,10 +16,10 @@
  */
 package org.ojbc.web.impl;
 
-import java.util.logging.Logger;
-
 import javax.annotation.Resource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.SubscriptionQueryInterface;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.portal.services.SearchResultConverter;
@@ -29,8 +29,7 @@ import org.w3c.dom.Element;
 @Service
 public class SubscriptionQueryMockImpl implements SubscriptionQueryInterface{
 		
-	@SuppressWarnings("unused")
-    private Logger logger = Logger.getLogger(SubscriptionQueryMockImpl.class.getName());
+	private final Log logger = LogFactory.getLog(this.getClass());
 	
 	@Resource
 	SearchResultConverter searchResultConverter;		

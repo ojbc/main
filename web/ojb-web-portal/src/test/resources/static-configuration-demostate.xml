@@ -35,12 +35,6 @@
 
 	<bean id="searchTermsTokenizer" class="org.ojbc.web.portal.services.SearchTermsTokenizer" />
 
-	<bean id="arrestSubscriptionAddValidator" 
-		class="org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionAddStrictValidator" />
-	
-	<bean id="arrestSubscriptionEditValidator" 
-		class="org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionEditStrictValidator" />
-
 	<bean id="currentUneditableStartDateStrategy"
 		class="org.ojbc.web.model.subscription.add.CurrentUneditableStartDateStrategy" />
 
@@ -53,18 +47,32 @@
 	<bean id="uneditableStartDateStrategy"
 		class="org.ojbc.web.model.subscription.edit.UneditableStartDateStrategy" />
 
+	<bean id="oneYearEditableEndDateStrategy" class="org.ojbc.web.model.subscription.add.EditableEndDateStrategy" />
+	<bean id="fiveYearEditableEndDateStrategy" class="org.ojbc.web.model.subscription.add.EditableEndDateStrategy" >
+		<constructor-arg name="period" value="5"></constructor-arg>
+	</bean>
 
 	<util:map id="subscriptionStartDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
 			value-ref="currentUneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback"
+			value-ref="currentUneditableStartDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
+			value-ref="currentEditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
 			value-ref="currentEditableStartDateStrategy" />
 	</util:map>
 
 	<util:map id="subscriptionEndDateStrategyMap">
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback/ci"
+			value-ref="oneYearEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
-			value-ref="blankEditableEndDateStrategy" />
+			value-ref="oneYearEditableEndDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback/cs"
+			value-ref="fiveYearEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
+			value-ref="blankEditableEndDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
 			value-ref="blankEditableEndDateStrategy" />
 	</util:map>
 
@@ -72,7 +80,11 @@
 	<util:map id="editSubscriptionStartDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
 			value-ref="uneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback"
+			value-ref="uneditableStartDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
+			value-ref="uneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
 			value-ref="uneditableStartDateStrategy" />
 	</util:map>
 
@@ -124,7 +136,7 @@
 
 	<util:map id="systemsToQuery_vehicles" map-class="java.util.LinkedHashMap">
 		<entry key="Law Enforcement RMS"
-			value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS" />
+			value="{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS" />
 	</util:map>
 
 	<util:map id="systemsToQuery_vehicles_disabled" map-class="java.util.LinkedHashMap">
@@ -157,6 +169,8 @@
 		<entry key="stateGovLink" value="http://local.gov/" />
 		<entry key="queryLink" value="#" />
 		<entry key="subscriptionsLink" value="#" />
+		<entry key="rapbackLink" value="#" />
+		<entry key="criminalIdLink" value="#" />
 		<entry key="helpLink" value="#" />
 		<entry key="privacyPolicyLink" value="http://local.gov/privacy-policies/" />
 		<entry key="faqLink" value="#" />
@@ -514,6 +528,13 @@
 		<entry key="Statewide Firearm Registry" value="firearm-details.xsl" />
 		<entry key="Firearm Reg." value="firearm-details.xsl" />
 		<entry key="SubscriptionResults" value="subscriptionSearchResult.xsl" />
+		<entry key="Juvenile History" value="juvenile-history-detail.xsl" />
+		<entry key="Juvenile Court Case Management System" value="juvenile-history-detail.xsl" />
+		<entry key="Court Case" value="court-case-list.xsl" />
+		<entry key="Custody" value="custody-list.xsl" />
+		<entry key="Court Case Detail" value="court-case-detail.xsl" />
+		<entry key="Custody Detail" value="custody-detail.xsl" />
+		<entry key="Vehicle Crash" value="vehicleCrashResult.xsl" />
 	</util:map>
 
 	<!-- This map is used to allow conditional includes into the Velocity templates 
@@ -534,7 +555,9 @@
 	<util:map id="subscriptionTypeValueToLabelMap" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Subscription Type" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value="Arrest" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/rapback" value="Rapback" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident" value="Incident" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment" value="ATN Assignment" />
 	</util:map>
 
 	<util:map id="subscriptionPurposeValueToLabelMap" map-class="java.util.LinkedHashMap">
@@ -543,11 +566,88 @@
 		<entry key="CI" value="Investigation" />
 	</util:map>
 
+	<util:map id="triggeringEventCodeMap" map-class="java.util.LinkedHashMap">
+		<entry key="ARREST" value="Arrest" />
+		<entry key="DISPOSITION" value="Disposition" />
+		<entry key="NCIC-WARRANT" value="NCIC Warrant" />
+		<entry key="NCIC-SOR" value="NCIC NSOR" />
+		<entry key="DEATH" value="Death Notice" />
+	</util:map>
+
 	<!-- for the filter subscription form -->
 	<util:map id="subscriptionFilterValueToLabelMap" map-class="java.util.LinkedHashMap">
 		<entry key="Active" value="Active" />
 		<entry key="Inactive" value="Inactive" />
 		<entry key="Expiring" value="Expiring" />
+	</util:map>
+	
+    <util:map id="searchURIToQueryURIMap">
+    	<!-- PERSON SEARCH DETAIL QUERIES -->
+    	<!-- Person Warrants -->
+    	<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.WARRANTS" />
+		</entry>
+		
+		<!-- Person Criminal History -->
+    	<entry key ="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.CRIMINAL_HISTORY" />
+		</entry>
+		
+		<!-- Person Firearms -->
+    	<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Firearms/1.0}Submit-Person-Search---Firearms">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_PERSON" />
+		</entry>
+		
+		<!-- Person Vehicle Crash -->
+    	<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.VEHICLE_CRASH" />
+		</entry>
+		
+		<!-- Person to Incident list, not supported by static mock adapter --> 
+		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS"/>
+		
+		<!-- Juvenile History detail --> 
+		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-JuvenileHistory" 
+			value="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-JuvenileHistory"/>
+		
+		<!-- Court Case History detail --> 
+		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Court" 
+			value="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-Court"/>
+		
+		<!-- Jail Custody History detail --> 
+		<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Jail" 
+			value="{http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/1.0}Person-Query-Service-Jail"/>
+		
+		<!-- Incident List (person) to Incident Detail -->		
+		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentPersonSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS"/>
+		
+		<!-- INCIDENT SEARCH DETAIL QUERIES -->
+		<!-- Incident Search to Incident Detail -->		
+		<entry key="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentReportRequestService/1.0}SubmitIncidentIdentiferIncidentReportRequest-RMS"/>
+		
+		<!-- FIREARMS SEARCH DETAIL QUERIES -->
+		<!-- Firearms Search to Firearms Detail -->
+		<entry key="{http://ojbc.org/Services/WSDL/FirearmSearchRequestService/1.0}SubmitFirearmSearchRequest">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.FIREARMS_QUERY_REQUEST_BY_FIREARM" />
+		</entry>
+
+		<!-- VEHICLE SEARCH DETAIL QUERIES -->
+		<!-- Vehicle Search to Incident list, not supported by static mock adapter-->
+		<entry key="{http://ojbc.org/Services/WSDL/VehicleSearchRequestService/1.0}SubmitVehicleSearchRequest-RMS" value="{http://ojbc.org/Services/WSDL/IncidentSearchRequestService/1.0}SubmitIncidentVehicleSearchRequest-RMS"/>
+    </util:map>   
+    
+    	<util:map id="suggestionProblemList" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Suggestion" />
+		<entry key="portal" value="Portal" />
+		<entry key="query" value="Query" />
+		<entry key="subscriptionNotification" value="Subscription/Notification" />
+	</util:map>
+	
+	<util:map id="urgencyList" map-class="java.util.LinkedHashMap">
+		<entry key="" value="Urgency" />
+		<entry key="normal" value="Normal" />
+		<entry key="critical" value="Critical" />
+		<entry key="low" value="Low/Cosmetic" />
 	</util:map>
 
 </beans>                      

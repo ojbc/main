@@ -32,7 +32,7 @@
 	  	</nc30:PersonName>
 	  </nc30:IdentityPersonRepresentation>
 	  <ext:IdentityIdentification>
-	  	<nc30:IdentificationID>HIJIS:IDP:HCJDC:USER:ychawla</nc30:IdentificationID>
+	  	<nc30:IdentificationID>HIJIS:IDP:HCJDC:USER:hsimpson</nc30:IdentificationID>
 	  </ext:IdentityIdentification>
 	  <ext:FederatedQueryUserIndicator>true</ext:FederatedQueryUserIndicator>
 	  <nc30:ContactInformationAssociation>

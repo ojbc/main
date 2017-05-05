@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       ">
+	<!-- needed cxf imports -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />	
+					
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="bookingReportingServiceCamelContext">
+	
+		<camel:endpoint id="bookingReportingServiceEndpoint"
+			uri="cxf:bean:bookingReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${bookingReportingService.cxflogging}" />
+
+		<camel:endpoint id="bookingReportingServiceAdapterEndpoint"
+			uri="cxf:bean:bookingReportingServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${bookingReportingService.cxflogging}" />
+						
+		<!-- Booking Reporting Service Handler -->
+		<camel:route id="bookingReportingServiceHandlerRoute">
+			<camel:from uri="bookingReportingServiceEndpoint" />
+			
+			<camel:log message="Entering Booking Reporting Service Intermediary"/>
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+
+			<!-- This will alter the original message to enrich if a URI property is set in the configuration file -->
+			<camel:to uri="direct:enrichContent"/>
+
+			<!-- Multicast to the core services and derived bundle specific routes so each route gets original message.  -->
+			<!-- Booking Reporting Intermediary defines a booking reporting service adapter as a core service -->
+			<camel:multicast>				
+			
+				<camel:pipeline>
+					<camel:filter>
+						<camel:simple>${properties:bookingReportingService.callbookingReportingServiceAdapter} == true</camel:simple>
+						
+						<camel:log message="About to call booking reporting service adapter endpoint"/>
+						
+						<camel:to uri="direct:callBookingReportingServiceAdapter"/>
+						
+					</camel:filter>	
+				</camel:pipeline>	
+			
+				<camel:pipeline>
+					<camel:to uri="direct:derivedRoutes"/>
+				</camel:pipeline>
+			</camel:multicast>
+			
+		</camel:route>
+		
+		<camel:route id="enrichContentRoute">
+
+			<camel:from uri="direct:enrichContent"/>
+		
+			<!-- Set up derived endpoints -->
+			<camel:setHeader headerName="routingSlipEnrichContent"><simple>{{bookingReportingService.enrichContentURI}}</simple></camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipEnrichContent} != ''</camel:simple>
+				
+				<camel:log message="About to call content enricher using this routing slip: ${in.headers.routingSlipEnrichContent}"/>
+				
+				<camel:recipientList>
+					<camel:header>routingSlipEnrichContent</camel:header>
+				</camel:recipientList>
+			</camel:filter>			
+		
+		</camel:route>				
+		
+		<camel:route id="derivedRoutes">
+
+			<camel:from uri="direct:derivedRoutes"/>
+		
+			<!-- Set up derived endpoints -->
+			<camel:setHeader headerName="routingSlipDerivedRoutes"><simple>{{bookingReportingService.camelEndpointsToCall}}</simple></camel:setHeader>
+
+			<camel:filter>
+				<camel:simple>${in.headers.routingSlipDerivedRoutes} != ''</camel:simple>
+				
+				<camel:log message="About to call derived routes using this routing slip: ${in.headers.routingSlipDerivedRoutes}"/>
+				
+				<camel:recipientList>
+					<camel:header>routingSlipDerivedRoutes</camel:header>
+				</camel:recipientList>
+			</camel:filter>			
+		
+		</camel:route>		
+		
+		<route id="callBookingReportingServiceAdapter">
+            
+            <from uri="direct:callBookingReportingServiceAdapter"/>
+            
+            <log message="In booking reporting service adapter route" />
+											
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
+							
+			<camel:setHeader headerName="operationName"><constant>ReportBooking</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/BookingReportingService/1.0</constant></camel:setHeader>
+         
+			<camel:log message="This is the booking reporting service message: ${body}" loggingLevel="DEBUG"/>
+			
+            <camel:throttle timePeriodMillis="1000">
+            	<constant>1</constant>
+            	<to uri="bookingReportingServiceAdapterEndpoint"/>
+        	</camel:throttle>    
+            
+        </route>		
+		
+	</camel:camelContext>
+	
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	
+	<!-- See this thread: http://stackoverflow.com/questions/11195506/increase-executor-queue-size-in-cxf-onewayprocessorinterceptor -->
+    <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
+        <property name="name" value="default" />
+        <property name="queueSize" value="2048" />
+    </bean>	
+</beans>

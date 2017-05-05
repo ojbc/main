@@ -122,9 +122,10 @@
 				<simple>{{NDExSubmission.submittingAgencyName}}</simple>
 			</camel:setHeader>
 				
-			<camel:setBody>
-				<camel:xpath>//lexspd:doPublish</camel:xpath>
-			</camel:setBody>
+			<!-- We use this XSLT to put all namespaces in the root of the doPublish message to accommodate the ingester -->	
+			<camel:to uri="xslt:xslt/doPublishRoot.xsl"/>
+							
+			<camel:log message="Body after camel set body: ${body}" loggingLevel="DEBUG"/>
 			
 			<camel:convertBodyTo type="java.lang.String"/>
 			
@@ -183,12 +184,42 @@
 		<!-- Call N-DEx in a separate route so it has its own error handler -->		
 		<camel:route errorHandlerRef="ndexDeadLetterErrorHandler">
 			<camel:from uri="direct:callNdexService"/>
+			
+			<camel:log message="\n\nAbout to invoke N-DEx with this payload: ${body} \n\n"/>
+			
 			<camel:to uri="ndexWebserviceEndpoint"/>
 		</camel:route>
 		
+        <route id="recordCheck" autoStartup="{{NDExSubmission.performRecordCheck}}">
+			<camel:from
+				uri="quartz://ndexIntermediary/recordCheck?cron={{NDExSubmission.recordCheckCronExpression}}" />
+		
+			<camel:log message="Firing quartz timer to check for n-dex submissions" />
+		
+			<filter>
+				<method ref="fileAndDirectoryVerificationProcessor" method="doesDirectoryWithFilesExist" />
+				<camel:log message="Submissions sent today, stop route" />
+				<camel:stop />
+			</filter>
+		
+			<!-- If we get here the route was not stopped by the filter -->
+		
+			<camel:setHeader headerName="to">
+				<constant>{{NDExSubmission.emailNotificationRecipientMessageError}}</constant>
+			</camel:setHeader>
+		
+			<camel:setHeader headerName="subject">
+				<constant>Check broker to see if there are n-dex submissions.</constant>
+			</camel:setHeader>
+		
+			<to uri="deadLetterMail" />
+            	
+        </route>
+		
+		
 	</camel:camelContext>
 
-	<bean id="uniqueIDGeneratorBean" class="org.ojbc.bundles.intermediaries.ndex.util.UniqueIDGenerator"/>
+	<bean id="uniqueIDGeneratorBean" class="org.ojbc.util.ndex.util.UniqueIDGenerator"/>
 	
 	<bean id ="ndexORIProcessor" class="org.ojbc.processor.NdexORIProcessor">
 		<constructor-arg type="java.lang.String">
@@ -196,7 +227,7 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="NDExUtils" class="org.ojbc.bundles.intermediaries.ndex.util.NDexUtils">
+	<bean id="NDExUtils" class="org.ojbc.util.camel.helper.NDexUtils">
 		<property name="uniqueIDGenerator" ref="uniqueIDGeneratorBean"/>
 	</bean>
 
@@ -219,5 +250,9 @@
         <bean class="org.apache.http.conn.ssl.AllowAllHostnameVerifier"/>
       </property>
     </bean>	
+    
+    <bean id="fileAndDirectoryVerificationProcessor" class="org.ojbc.util.camel.processor.FileAndDirectoryVerificationProcessor">
+    	<property name="directoryPath" value="${NDExSubmission.FileSubmissionRoot}/ndexSubmissionResponse/success/"/>
+    </bean>
 
 </beans>

@@ -41,9 +41,21 @@
 
 		<endpoint id="personSearchRequestServiceEndpoint"
 			uri="cxf:bean:personSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personSearchRequestMockCxflogging}" />
-
+			
 		<endpoint id="personSearchResultsHandlerServiceEndpoint"
 			uri="cxf:bean:personSearchResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personSearchRequestMockCxflogging}" />
+					
+		<endpoint id="custodySearchRequestServiceEndpoint"
+			uri="cxf:bean:custodySearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.custodySearchRequestMockCxflogging}" />
+
+		<endpoint id="custodySearchResultsServiceEndpoint"
+			uri="cxf:bean:custodySearchResultsHandlerService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${genericMockAdapter.custodySearchRequestMockCxflogging}" />
+
+		<endpoint id="courtCaseSearchRequestServiceEndpoint"
+			uri="cxf:bean:courtCaseSearchRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.courtCaseSearchRequestMockCxflogging}" />
+
+		<endpoint id="courtCaseSearchResultsServiceEndpoint"
+			uri="cxf:bean:courtCaseSearchResultsHandlerService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${genericMockAdapter.courtCaseSearchRequestMockCxflogging}" />
 
 		<endpoint id="personSearchAdapterDir"
 			uri="file:///${genericMockAdapter.personSearchRequest.mockFileEndpoint}" />
@@ -71,6 +83,24 @@
 
 		<endpoint id="incidentSearchResultsServiceEndpoint"
 			uri="cxf:bean:IncidentSearchResultsService?dataFormat=PAYLOAD&amp;headerFilterStrategy=#dropAllMessageHeadersStrategy&amp;loggingFeatureEnabled=${genericMockAdapter.incidentSearchRequestMockCxflogging}" />
+
+		<endpoint id="custodyQueryRequestServiceEndpoint"
+			uri="cxf:bean:custodyQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.CustodyQueryMockCxflogging}" />
+
+		<endpoint id="custodyQueryResultsHandlerServiceEndpoint"
+			uri="cxf:bean:custodyQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.CustodyQueryMockCxflogging}" />
+
+		<endpoint id="courtCaseQueryRequestServiceEndpoint"
+			uri="cxf:bean:courtCaseQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.courtCaseQueryMockCxflogging}" />
+
+		<endpoint id="courtCaseQueryResultsServiceEndpoint"
+			uri="cxf:bean:courtCaseQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.courtCaseQueryMockCxflogging}" />
+
+		<endpoint id="vehicleCrashQueryRequestServiceEndpoint"
+			uri="cxf:bean:vehicleCrashQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.courtCaseQueryMockCxflogging}" />
+
+		<endpoint id="vehicleCrashQueryResultsServiceEndpoint"
+			uri="cxf:bean:vehicleCrashQueryResultsHandlerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.courtCaseQueryMockCxflogging}" />
 
 		<!-- Criminal History Query Endpoints -->
 		<endpoint id="personQueryRequestCriminalHistoryServiceEndpoint"
@@ -142,7 +172,6 @@
 		<endpoint id="juvenileReferralHistoryResultsServiceEndpoint"
 			uri="cxf:bean:juvenileReferralHistoryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
 			
-
 		<!-- File endpoints for Queries -->
 		<endpoint id="criminalHistoryAdapterDir"
 			uri="file:///${genericMockAdapter.personQuery.mockFileEndpoint}/criminalHistory/" />
@@ -156,6 +185,13 @@
 		<endpoint id="firearmRegistrationQueryDir"
 			uri="file:///${genericMockAdapter.personQuery.mockFileEndpoint}/firearmRegQuery/" />
 
+		<!--  firearms Purchase Prohibition Query -->
+		<endpoint id="firearmsPurchaseProhibitionQueryServiceEndpoint"
+			uri="cxf:bean:firearmsPurchaseProhibitionQueryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+
+		<endpoint id="firearmsPurchaseProhibitionQueryResultsServiceEndpoint"
+			uri="cxf:bean:firearmsPurchaseProhibitionQueryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${genericMockAdapter.personQueryMockCxflogging}" />
+			
 		<!-- Person Search Handler -->
 
 		<camel:route id="personSearchRequestService">
@@ -193,6 +229,81 @@
 			<camel:to uri="personSearchResultsHandlerServiceEndpoint" />
 			<camel:log message="Called Person Search Response Handler" />
 		</camel:route>
+
+
+
+		<camel:route id="custodySearchRequestService">
+			<camel:from uri="custodySearchRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+						
+			<camel:log message="\n\n\n Inside Custody Search Request Mock Adapter Route \n\n\n" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}${date:now:yyyy-MM-dd'T'HHmmssSSS}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID} and OJB State Context: ${in.headers.ojbStateContext}" />
+
+			<camel:log message="\n\n\n Calling static mock adapter processor...\n\n\n" />
+
+			<camel:to uri="bean:staticMockAdapterProcessor?method=search" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitCustodySearchResults</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/CustodySearchResultsService/1.0</constant>
+			</camel:setHeader>
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:log message="\n\n\n Calling Custody Search Response Handler... \n\n\n" />
+
+			<camel:to uri="custodySearchResultsServiceEndpoint" />
+			
+		</camel:route>
+
+
+		<camel:route id="courtCaseSearchRequestService">
+		
+			<camel:from uri="courtCaseSearchRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+						
+			<camel:log message="\n\n\n Inside Court Case Search Request Mock Adapter Route \n\n\n" />
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}${date:now:yyyy-MM-dd'T'HHmmssSSS}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log
+				message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID} and OJB State Context: ${in.headers.ojbStateContext}" />
+
+			<camel:log message="\n\n\n Calling static mock adapter processor...\n\n\n" />
+
+			<camel:to uri="bean:staticMockAdapterProcessor?method=search" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitCourtCaseSearchRequest</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/CourtCaseSearchRequestService/1.0</constant>
+			</camel:setHeader>
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:log message="\n\n\n Calling Court Case Search Response Handler... \n\n\n" />
+
+			<camel:to uri="courtCaseSearchResultsServiceEndpoint" />
+			
+		</camel:route>
+
 
 		<!-- Firearm Search Handler -->
 
@@ -381,7 +492,156 @@
 			<camel:to uri="personQueryResultsHandlerCriminalHistoryServiceEndpoint" />
 			<camel:log message="Called Criminal History Response Handler" />
 		</camel:route>
+		
+		
+		<!-- Custody Query Request Handler -->
+		<camel:route id="custodyQueryRequestRoute">
+		
+			<camel:from uri="custodyQueryRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+			
+			<camel:log message="\n\n\n Inside Custody Query Mock \n\n\n" />
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="\n\n\n Calling staticMockAdapterProcessor \n\n\n" />
+
+			<camel:to uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitCustodyQueryResults</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/CustodyQueryResultsService/1.0</constant>
+			</camel:setHeader>
+
+			<camel:log message="\n\n\n Calling Custody Query Result endpoint...  \n\n\n" />
+
+			<camel:to uri="custodyQueryResultsHandlerServiceEndpoint" />			
+			
+		</camel:route>		
+		
+		<!-- Firearm Purchase Prohibition Query Request Handler -->
+		<camel:route id="firearmsPurchaseProhibitionQueryServiceRoute">
+		
+			<camel:from uri="firearmsPurchaseProhibitionQueryServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+			
+			<camel:log message="\n\n\n Inside Firearms Purchase Prohibition Query Service Mock \n\n\n" />
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="\n\n\n Calling staticMockAdapterProcessor \n\n\n" />
+
+			<camel:to uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitFirearmPurchaseProhibitionQueryResults</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/Firearm_Purchase_Prohibition_Query_Results_Service/1.0</constant>
+			</camel:setHeader>
+
+			<camel:log message="\n\n\n Calling Firearm Purchase Prohibition Query Result endpoint...  \n\n\n" />
+
+			<camel:to uri="firearmsPurchaseProhibitionQueryResultsServiceEndpoint" />			
+			
+		</camel:route>				
+		
+		<!-- Court Case Query Request Handler -->
+		<camel:route id="courtCaseQueryRequestRoute">
+		
+			<camel:from uri="courtCaseQueryRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+			
+			<camel:log message="\n\n\n Inside Court Case Query Mock \n\n\n" />
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="\n\n\n Calling staticMockAdapterProcessor \n\n\n" />
+
+			<camel:to uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitCourtCaseQueryResults</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/CourtCaseQueryResultsService/1.0</constant>
+			</camel:setHeader>
+
+			<camel:log message="\n\n\n Calling Court Case Query Result endpoint...  \n\n\n" />
+
+			<camel:to uri="courtCaseQueryResultsServiceEndpoint" />			
+			
+		</camel:route>				
+		
+		<!-- Vehicle Crash Query Request Handler -->
+		<camel:route id="vehicleCrashQueryRequestRoute">
+		
+			<camel:from uri="vehicleCrashQueryRequestServiceEndpoint" />
+			
+			<camel:to uri="direct:auditLog"/>
+			
+			<camel:log message="\n\n\n Inside Vehicle Crash Query Mock \n\n\n" />
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
+			<camel:setHeader headerName="CamelFileName">
+				<simple>${in.header.platformSafeFileName}.xml</simple>
+			</camel:setHeader>
+
+			<camel:log message="WS-Addressing Message ID: ${in.headers.federatedQueryRequestGUID}" />
+
+			<camel:log message="\n\n\n Calling staticMockAdapterProcessor \n\n\n" />
+
+			<camel:to uri="bean:staticMockAdapterProcessor?method=query" />
+
+			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitVehicleCrashQueryResults</constant>
+			</camel:setHeader>
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/Vehicle_Crash_Query_Results_Service/1.0</constant>
+			</camel:setHeader>
+
+			<camel:log message="Calling Vehicle Crash Query Result endpoint...  " />
+
+			<camel:to uri="vehicleCrashQueryResultsServiceEndpoint" />			
+			
+		</camel:route>				
+		
 		<!-- Warrants Query Request Handler -->
 		<camel:route id="warrantQueryRequestService">
 			<camel:from uri="personQueryRequestWarrantsServiceEndpoint" />
@@ -517,13 +777,6 @@
 			<camel:to uri="personQueryFirearmRegistratonQueryResultsServiceEndpoint" />
 			<camel:log message="Called Firearm Query Response Handler" />
 		</camel:route>
-
-<!-- juvenileCasePlanHistoryRequestServiceEndpoint -->
-<!-- juvenileHearingHistoryRequestServiceEndpoint -->
-<!-- juvenileIntakeHistoryRequestServiceEndpoint -->
-<!-- juvenileOffenseHistoryRequestServiceEndpoint -->
-<!-- juvenilePlacementHistoryRequestServiceEndpoint -->
-<!-- juvenileReferralHistoryRequestServiceEndpoint -->
 
 		<!-- Juvenile Case Plan Request Handler -->
 		<camel:route id="juvenileCasePlanHistoryRequestServiceEndpointRoute">

@@ -22,9 +22,9 @@ import javax.annotation.Resource;
 
 import org.apache.camel.Body;
 import org.apache.camel.Header;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.xml.security.utils.Base64;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
@@ -46,7 +46,7 @@ public class ArrestNotificationAttachmentProcessor {
 		Node notificationMessageNode = XmlUtils.xPathNodeSearch(report, "//b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage");
 		
 		SubsequentResults subsequentResult = new SubsequentResults(); 
-		subsequentResult.setRapSheet(Base64.decode(baseb4BinaryData));
+		subsequentResult.setRapSheet(Base64.decodeBase64(baseb4BinaryData));
 		
 		String resultSenderString = XmlUtils.xPathStringSearch(notificationMessageNode, "notfm-ext:NotifyingArrest/notfm-ext:NotifyingActivityReportingOrganization/nc:OrganizationName");
 		if (ResultSender.FBI.name().equals(resultSenderString)){

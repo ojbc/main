@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+	xmlns:mmucc="http://release.niem.gov/niem/codes/mmucc/3.1/"
+	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
+	xmlns:vcq-res-ext="http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0"
+	xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0"
+	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/VehicleCrashQueryResultsExtension/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/"
+		schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
+		schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/codes/mmucc/3.1/"
+		schemaLocation="./Subset/niem/codes/mmucc/3.1/mmucc.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+		schemaLocation="query-results-metadata.xsd" />
+	<xsd:import
+		namespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+		schemaLocation="query-request-error-reporting.xsd" />
+	<xsd:complexType name="VehicleCrashQueryResultsType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for vehicle crash query results.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="vcq-res-ext:VehicleCrashReport"
+						minOccurs="0" />
+					<xsd:element ref="srm:QueryResultsMetadata" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="VehicleCrashReportType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a vehicle crash report.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:DocumentType">
+				<xsd:sequence>
+					<xsd:element ref="j:Crash" minOccurs="1" maxOccurs="1" />
+					<xsd:element ref="j:Citation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Person" maxOccurs="unbounded" />
+					<xsd:element ref="nc:EntityOrganization" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="nc:EntityPerson" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="nc:Location" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Vehicle" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ConveyanceRegistration" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="nc:Insurance" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="j:CrashDriverLicense" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="nc:ActivityPersonAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityInformationApproverAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:PersonBloodAlcoholContentAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ItemInsuranceAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonResidenceAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ActivityDocumentAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ConveyanceRegistrationAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonConveyanceAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="VehicleCrashReport" type="vcq-res-ext:VehicleCrashReportType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification assigned to vehicle crash
+				information.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VehicleUnitIdentification" type="nc:IdentificationType"
+		substitutionGroup="nc:VehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An identification use to reference a vehicle.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="HitRunIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:CrashVehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a vehicle was involved in a hit and run;
+				false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NoInsuranceIndicator" type="niem-xs:boolean"
+		substitutionGroup="nc:InsuranceAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an item has insurance; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="HazmatPlacardIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:CrashVehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a hazmat placard is being displyed on a
+				vehicle; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DocumentApprovedDate" type="nc:DateType"
+		substitutionGroup="nc:DocumentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a hazmat placard is being displyed on a
+				vehicle; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SceneArrivalDateTime" type="nc:DateType"
+		substitutionGroup="j:CrashAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The date/time an officer is at the scene.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CitationNumberPendingIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:CitationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a citation number is pending; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NearestIntersectingStreetFullText" type="nc:TextType"
+		substitutionGroup="nc:LocationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A complete reference to the nearest intersecting
+				street.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="OffRoadIncidentIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:CrashAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if an crash incident is off road; false
+				otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TotalDamageOverThresholdtIndicator"
+		type="niem-xs:boolean" substitutionGroup="j:CrashVehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if total damage is over threshold; false
+				otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NearWorkZoneIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:CrashWorkZoneAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a crash occurs near a work zone; false
+				otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!-- xsd:element name="WorkZoneWorkersPresentIndicator" type="niem-xs:boolean" 
+		substitutionGroup="j:CrashWorkZoneAugmentationPoint"> <xsd:annotation> <xsd:documentation>True 
+		if a crash occurs near a work zone; false otherwise.</xsd:documentation> 
+		</xsd:annotation> </xsd:element -->
+	<xsd:element name="EmergencyVehicleRespondingToSceneIndicator"
+		type="niem-xs:boolean" substitutionGroup="j:CrashVehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if emergency is responding to crash scene;
+				false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VehicleNineOrMoreSeatstIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:CrashVehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a vehicle has nine or more seats; false
+				otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ExemptVehicleIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:CrashVehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a vehicle is exempt; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AlcoholTestResultsPendingIndicator"
+		type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if alcohol test results are pending; false
+				otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DriverLicenseClassCodeText" type="nc:TextType"
+		substitutionGroup="j:DriverLicenseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A type of License assigned by authorizing agent
+				issuing a driver license to the individual.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FirstViolationDescriptionText" type="nc:TextType"
+		substitutionGroup="j:CrashDriverViolation">
+		<xsd:annotation>
+			<xsd:documentation>A description of a primary violation.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SecondViolationDescriptionText" type="nc:TextType"
+		substitutionGroup="j:CrashDriverViolation">
+		<xsd:annotation>
+			<xsd:documentation>A description of a secondary violation.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DistanceFromNearestIntersectionNumberText"
+		type="nc:TextType" substitutionGroup="nc:LocationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A distance from an intersection.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

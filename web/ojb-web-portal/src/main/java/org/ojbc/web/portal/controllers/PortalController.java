@@ -39,6 +39,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,15 +47,20 @@ import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.web.SearchProfile;
 import org.ojbc.web.portal.controllers.dto.PersonFilterCommand;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.UserSession;
 import org.ojbc.web.portal.services.SamlService;
+import org.ojbc.web.security.Authorities;
+import org.ojbc.web.security.SecurityContextUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,7 +71,7 @@ import org.w3c.dom.Element;
 
 @Controller
 @RequestMapping("/portal/*")
-@SessionAttributes({"sensitiveInfoAlert"})
+@SessionAttributes({"sensitiveInfoAlert", "userLogonInfo"})
 public class PortalController implements ApplicationContextAware {
 
 	static final String DEFAULT_USER_TIME_ONLINE = "0:00";
@@ -87,7 +93,7 @@ public class PortalController implements ApplicationContextAware {
 	public static final String STATE_LINK_TITLE = "State.gov";
     public static final String QUERY_LINK_TITLE = "Query";
 	public static final String SUBSCRIPTION_LINK_TITLE = "Subscriptions";
-	public static final String RAPBACK_LINK_TITLE = "Rap Back";
+	public static final String RAPBACK_LINK_TITLE = "Applicant Rap Back";
 	public static final String CRIMINAL_ID_LINK_TITLE = "Criminal Identification";
 	public static final String HELP_LINK_TITLE = "Help";
 	public static final String PRIVACY_LINK_TITLE = "Privacy Policies";
@@ -156,7 +162,6 @@ public class PortalController implements ApplicationContextAware {
 	SamlService samlService;
 	
 	private Map<String, Boolean> visibleProfileStateMap;
-	
 
 	public PortalController() {
 		XPathFactory xPathFactory = XPathFactory.newInstance();
@@ -185,13 +190,8 @@ public class PortalController implements ApplicationContextAware {
 	    return "portal/faq";
 	}
 
-    @RequestMapping("suggestionForm")
-    public String suggestionForm(){
-	    return "portal/suggestionForm";
-	}
-	
     @RequestMapping("index")
-    public void index(HttpServletRequest request, Map<String, Object> model){
+    public void index(HttpServletRequest request, Map<String, Object> model, Authentication authentication){
 
 		// To pull something from the header you want something like this
 		// String header = request.getHeader("currentUserName");
@@ -201,8 +201,9 @@ public class PortalController implements ApplicationContextAware {
 		try {
 			Element assertionElement = samlService.getSamlAssertion(request);
 						
-			userLogonInfo = getUserLogonInfo(assertionElement);			
-			//note this will only have a value in production
+			userLogonInfo = getUserLogonInfo(assertionElement);	
+			model.put("userLogonInfo", userLogonInfo);
+			
 			userSession.setUserLogonInfo(userLogonInfo);
 			
 		} catch (Exception e) {
@@ -210,9 +211,9 @@ public class PortalController implements ApplicationContextAware {
 		}
 		
 		model.put("personFilterCommand", new PersonFilterCommand());
-		model.put("currentUserName", userLogonInfo.userNameString);
-		model.put("timeOnline", userLogonInfo.timeOnlineString);
-		model.put("searchLinksHtml", getSearchLinksHtml());
+		model.put("currentUserName", userLogonInfo.getUserNameString());
+		model.put("timeOnline", userLogonInfo.getTimeOnlineString());
+		model.put("searchLinksHtml", getSearchLinksHtml(authentication));
 		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));				
 	}
 
@@ -232,6 +233,11 @@ public class PortalController implements ApplicationContextAware {
     @RequestMapping(value="rapbackLeftBar", method=RequestMethod.POST)
     public String rapbackLeftBar(Map<String, Object> model){   
         return "common/_rapbackLeftBar";
+    }
+    
+    @RequestMapping(value="criminalIdentificationLeftBar", method=RequestMethod.POST)
+    public String criminalIdentificationLeftBar(Map<String, Object> model){   
+    	return "common/_criminalIdentificationLeftBar";
     }
     
     @RequestMapping(value="leftBar", method=RequestMethod.POST)
@@ -260,12 +266,15 @@ public class PortalController implements ApplicationContextAware {
 		return "";
 	}
 
-	private List<SearchProfile> getActiveSearchProfiles() {
+	private List<SearchProfile> getActiveSearchProfiles(Authentication authentication) {
 		List<SearchProfile> visibleProfiles = new ArrayList<SearchProfile>();
 		
 		addProfileToReturnListIfVisible(visibleProfiles, "people", "PERSON SEARCH");
-		addProfileToReturnListIfVisible(visibleProfiles, "incident", "INCIDENT SEARCH");
-		addProfileToReturnListIfVisible(visibleProfiles, "vehicle", "VEHICLE SEARCH");
+		
+		if (authentication == null || SecurityContextUtils.hasAuthority(authentication, Authorities.AUTHZ_INCIDENT_DETAIL)){
+			addProfileToReturnListIfVisible(visibleProfiles, "incident", "INCIDENT SEARCH");
+			addProfileToReturnListIfVisible(visibleProfiles, "vehicle", "VEHICLE SEARCH");
+		}
 		addProfileToReturnListIfVisible(visibleProfiles, "firearm", "FIREARM SEARCH");
 		
 		return visibleProfiles;
@@ -278,15 +287,15 @@ public class PortalController implements ApplicationContextAware {
 		}
 	}
 	
-	String getSearchLinksHtml() {
+	String getSearchLinksHtml(Authentication authentication) {
 		StringBuilder links = new StringBuilder();
 		int cnt = 0;
 
-		for(SearchProfile profile : getActiveSearchProfiles()) {
+		for(SearchProfile profile : getActiveSearchProfiles(authentication)) {
 			links.append("<a id=\"").append(getLinkId(profile)).append("\" href=\"#\"");
 			String buttonClass = (cnt > 0) ? "grayButton" : "blueButton";
 			links.append(" class=\"" + buttonClass + "\"");
-			String style = calcLinkButtonStyleBasedOnPosition(cnt, getActiveSearchProfiles().size());
+			String style = calcLinkButtonStyleBasedOnPosition(cnt, getActiveSearchProfiles(authentication).size());
 			links.append(" style=\""  + style + "\"");
 			links.append(">");
 			links.append("<div ");
@@ -325,7 +334,7 @@ public class PortalController implements ApplicationContextAware {
 		return "";
 	}
 
-	UserLogonInfo getUserLogonInfo(Element assertionElement) {
+	public UserLogonInfo getUserLogonInfo(Element assertionElement) {
 				
 		UserLogonInfo userLogonInfo = new UserLogonInfo();
 		
@@ -344,7 +353,7 @@ public class PortalController implements ApplicationContextAware {
 			int minutesOnline = Minutes.minutesBetween(authnInstant, new DateTime()).getMinutes();
 			int hoursOnline = (int) minutesOnline / 60;
 			minutesOnline = minutesOnline % 60;
-			userLogonInfo.timeOnlineString = String.valueOf(hoursOnline) + ":" + (minutesOnline < 10 ? "0" : "") + String.valueOf(minutesOnline);
+			userLogonInfo.setTimeOnlineString(String.valueOf(hoursOnline) + ":" + (minutesOnline < 10 ? "0" : "") + String.valueOf(minutesOnline));
 
 			String userLastName = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:SurName']/saml2:AttributeValue/text()", assertionElement,
 					XPathConstants.STRING);
@@ -353,11 +362,17 @@ public class PortalController implements ApplicationContextAware {
 			String userAgency = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmployerName']/saml2:AttributeValue/text()", assertionElement,
 					XPathConstants.STRING);
 			
+	    	String criminalJusticeEmployerIndicatorString = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.CriminalJusticeEmployerIndicator);
+	    	userLogonInfo.setCriminalJusticeEmployerIndicator(BooleanUtils.toBoolean(criminalJusticeEmployerIndicatorString));
+	    	String lawEnforcementEmployerIndicatorString = SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.LawEnforcementEmployerIndicator);
+	    	userLogonInfo.setLawEnforcementEmployerIndicator(BooleanUtils.toBoolean(lawEnforcementEmployerIndicatorString)); 
+	    	userLogonInfo.setEmployerOri(SAMLTokenUtils.getAttributeValue(assertionElement, SamlAttribute.EmployerORI));  
+
 			String sEmail = (String) xPath.evaluate("/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()", assertionElement,
 					XPathConstants.STRING);
 
-			userLogonInfo.userNameString = (userFirstName == null ? "" : userFirstName) + " " + (userLastName == null ? "" : userLastName) + " / " + (userAgency == null ? "" : userAgency);
-			userLogonInfo.emailAddress = sEmail;			
+			userLogonInfo.setUserNameString((userFirstName == null ? "" : userFirstName) + " " + (userLastName == null ? "" : userLastName) + " / " + (userAgency == null ? "" : userAgency));
+			userLogonInfo.setEmailAddress(sEmail);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -458,7 +473,7 @@ public class PortalController implements ApplicationContextAware {
 	private void debugPrintAssertion(Element assertionElement) throws Exception{
 		
 		if(assertionElement == null){
-			log.info("assertionElement was null, skipping debug output");
+			log.debug("assertionElement was null, skipping debug output");
 			return;
 		}
 		
@@ -468,20 +483,73 @@ public class PortalController implements ApplicationContextAware {
 		DOMSource source = new DOMSource(assertionElement);
 		transformer.transform(source, result);
 		String xmlString = result.getWriter().toString();
-		log.info(xmlString);
+		log.debug(xmlString);
 	}
 	
 	public static final class UserLogonInfo implements Serializable{
 		
 		private static final long serialVersionUID = 1L;
 		
-		public String userNameString;
-		public String timeOnlineString;
-		public String emailAddress;
+		private String userNameString;
+		private String timeOnlineString;
+		private String emailAddress;
+		private String employerOri; 
+		private Boolean criminalJusticeEmployerIndicator; 
+		private Boolean lawEnforcementEmployerIndicator;
 
 		private UserLogonInfo() {
-			userNameString = DEFAULT_USER_LOGON_MESSAGE;
-			timeOnlineString = DEFAULT_USER_TIME_ONLINE;
+			setUserNameString(DEFAULT_USER_LOGON_MESSAGE);
+			setTimeOnlineString(DEFAULT_USER_TIME_ONLINE);
+		}
+
+		public String getUserNameString() {
+			return userNameString;
+		}
+
+		public void setUserNameString(String userNameString) {
+			this.userNameString = userNameString;
+		}
+
+		public String getEmployerOri() {
+			return employerOri;
+		}
+
+		public void setEmployerOri(String employerOri) {
+			this.employerOri = employerOri;
+		}
+
+		public String getEmailAddress() {
+			return emailAddress;
+		}
+
+		public void setEmailAddress(String emailAddress) {
+			this.emailAddress = emailAddress;
+		}
+
+		public String getTimeOnlineString() {
+			return timeOnlineString;
+		}
+
+		public void setTimeOnlineString(String timeOnlineString) {
+			this.timeOnlineString = timeOnlineString;
+		}
+
+		public Boolean getCriminalJusticeEmployerIndicator() {
+			return criminalJusticeEmployerIndicator;
+		}
+
+		public void setCriminalJusticeEmployerIndicator(
+				Boolean criminalJusticeEmployerIndicator) {
+			this.criminalJusticeEmployerIndicator = criminalJusticeEmployerIndicator;
+		}
+
+		public Boolean getLawEnforcementEmployerIndicator() {
+			return lawEnforcementEmployerIndicator;
+		}
+
+		public void setLawEnforcementEmployerIndicator(
+				Boolean lawEnforcementEmployerIndicator) {
+			this.lawEnforcementEmployerIndicator = lawEnforcementEmployerIndicator;
 		}
 	}
 

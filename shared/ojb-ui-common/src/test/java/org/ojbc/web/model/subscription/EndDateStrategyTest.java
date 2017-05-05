@@ -19,10 +19,10 @@ package org.ojbc.web.model.subscription;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.junit.Test;
-import org.ojbc.web.model.subscription.add.OneYearEditableEndDateStrategy;
-
 import junit.framework.Assert;
+
+import org.junit.Test;
+import org.ojbc.web.model.subscription.add.EditableEndDateStrategy;
 
 public class EndDateStrategyTest {
 	
@@ -34,7 +34,7 @@ public class EndDateStrategyTest {
 		int nextYear = currentDateCal.get(Calendar.YEAR);
 		
 		
-		OneYearEditableEndDateStrategy oneYearEditableEndDateStrategy = new OneYearEditableEndDateStrategy();
+		EditableEndDateStrategy oneYearEditableEndDateStrategy = new EditableEndDateStrategy();
 		
 		Date strategyDate = oneYearEditableEndDateStrategy.getDefaultValue();		
 		

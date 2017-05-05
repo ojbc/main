@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<core:CoreFilingMessage
+	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
+	xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
+	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../xsd/message/ECF-4.0-CoreFilingMessage.xsd">
+	<nc:DocumentIdentification>
+		<nc:IdentificationID>123456ABC</nc:IdentificationID>
+	</nc:DocumentIdentification>
+	<nc:DocumentInformationCutOffDate>
+		<nc:DateTime>2008-07-07T13:47:42.0Z</nc:DateTime>
+	</nc:DocumentInformationCutOffDate>
+	<nc:DocumentPostDate>
+		<nc:DateTime>2008-07-07T13:47:42.0Z</nc:DateTime>
+	</nc:DocumentPostDate>
+	<nc:DocumentSubmitter>
+		<ecf:EntityPerson>
+			<nc:PersonName>
+				<nc:PersonFullName>Jane Doe</nc:PersonFullName>
+			</nc:PersonName>
+			<nc:PersonOtherIdentification>
+				<nc:IdentificationID>tls</nc:IdentificationID>
+			</nc:PersonOtherIdentification>
+		</ecf:EntityPerson>
+	</nc:DocumentSubmitter>
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>91</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>MESSAGINGPROFILEID   </ecf:SendingMDEProfileCode>
+	<ojb-crim-ext:CriminalCase>
+		<nc:CaseTitleText>State vs. John Doe</nc:CaseTitleText>
+		<nc:CaseTrackingID>123456ABC</nc:CaseTrackingID>
+		<j:CaseAugmentation>
+			<j:CaseCourt>
+				<nc:OrganizationIdentification>
+					<nc:IdentificationID>1</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+				<j:CourtName>Municipal Court</j:CourtName>
+			</j:CaseCourt>
+			<j:CaseRespondentParty>
+				<nc:EntityPersonReference s:ref="Person1" />
+			</j:CaseRespondentParty>
+		</j:CaseAugmentation>
+		<ecf:CaseAugmentation>
+			<ecf:CaseParticipant s:id="Person1">
+				<ecf:EntityPerson>
+					<nc:PersonBirthDate>
+						<nc:Date>1983-01-01</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
+					<nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
+					<nc:PersonHeightMeasure>
+						<nc:MeasureText>81</nc:MeasureText>
+						<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+					</nc:PersonHeightMeasure>
+					<nc:PersonName>
+						<nc:PersonGivenName>John</nc:PersonGivenName>
+						<nc:PersonMiddleName>W.</nc:PersonMiddleName>
+						<nc:PersonSurName>Doe</nc:PersonSurName>
+					</nc:PersonName>
+					<nc:PersonOtherIdentification>
+						<nc:IdentificationID>1234-56-789</nc:IdentificationID>
+						<nc:IdentificationCategoryText>DriverLicense
+						</nc:IdentificationCategoryText>
+					</nc:PersonOtherIdentification>
+					<nc:PersonPhysicalFeature />
+					<nc:PersonRaceText>W</nc:PersonRaceText>
+					<nc:PersonSexCode>M</nc:PersonSexCode>
+					<nc:PersonTaxIdentification>
+						<nc:IdentificationID>123-45-67890</nc:IdentificationID>
+					</nc:PersonTaxIdentification>
+				</ecf:EntityPerson>
+				<ecf:CaseParticipantRoleCode />
+				<nc:ContactInformation>
+					<nc:ContactMailingAddress>
+						<nc:StructuredAddress>
+							<nc:LocationStreet>
+								<nc:StreetFullText>123 Main St.</nc:StreetFullText>
+							</nc:LocationStreet>
+							<nc:LocationCityName>Anytown</nc:LocationCityName>
+							<nc:LocationStateName>IN</nc:LocationStateName>
+							<nc:LocationPostalCode>12345</nc:LocationPostalCode>
+						</nc:StructuredAddress>
+					</nc:ContactMailingAddress>
+				</nc:ContactInformation>
+			</ecf:CaseParticipant>
+		</ecf:CaseAugmentation>
+		<criminal:CaseCharge>
+			<j:ChargeSequenceID>
+				<nc:IdentificationID>1</nc:IdentificationID>
+			</j:ChargeSequenceID>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>455</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<j:StatuteDescriptionText>Resisting Law Enforcement
+				</j:StatuteDescriptionText>
+				<j:StatuteOffenseIdentification>
+					<nc:IdentificationID>5-44-3-3(a)(1)</nc:IdentificationID>
+				</j:StatuteOffenseIdentification>
+			</j:ChargeStatute>
+			<criminal:ChargeOffense>
+				<nc:ActivityDate>
+					<nc:Date>2008-07-07</nc:Date>
+				</nc:ActivityDate>
+			</criminal:ChargeOffense>
+			<criminal:ChargeAmendedIndicator>false
+			</criminal:ChargeAmendedIndicator>
+		</criminal:CaseCharge>
+		<criminal:CaseCharge>
+			<j:ChargeSequenceID>
+				<nc:IdentificationID>2</nc:IdentificationID>
+			</j:ChargeSequenceID>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>1279</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<j:StatuteDescriptionText>Driving While Suspended
+				</j:StatuteDescriptionText>
+				<j:StatuteOffenseIdentification>
+					<nc:IdentificationID>9-24-19-2</nc:IdentificationID>
+				</j:StatuteOffenseIdentification>
+			</j:ChargeStatute>
+			<criminal:ChargeOffense>
+				<nc:ActivityDate>
+					<nc:Date>2008-07-07</nc:Date>
+				</nc:ActivityDate>
+			</criminal:ChargeOffense>
+			<criminal:ChargeAmendedIndicator>false
+			</criminal:ChargeAmendedIndicator>
+		</criminal:CaseCharge>
+		<criminal:CaseCharge>
+			<j:ChargeSequenceID>
+				<nc:IdentificationID>3</nc:IdentificationID>
+			</j:ChargeSequenceID>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>1287</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<j:StatuteDescriptionText>9-30-5-2(a): Operating a Vehicle While
+					Intoxicated</j:StatuteDescriptionText>
+				<j:StatuteOffenseIdentification>
+					<nc:IdentificationID>9-30-5-2(a)</nc:IdentificationID>
+				</j:StatuteOffenseIdentification>
+			</j:ChargeStatute>
+			<criminal:ChargeOffense>
+				<nc:ActivityDate>
+					<nc:Date>2008-07-07</nc:Date>
+				</nc:ActivityDate>
+			</criminal:ChargeOffense>
+			<criminal:ChargeAmendedIndicator>false
+			</criminal:ChargeAmendedIndicator>
+		</criminal:CaseCharge>
+		<criminal:CaseCharge>
+			<j:ChargeSequenceID>
+				<nc:IdentificationID>4</nc:IdentificationID>
+			</j:ChargeSequenceID>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>1140</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+				<j:StatuteDescriptionText>Operating a Vehicle with an ACE of .15 or
+					More</j:StatuteDescriptionText>
+			</j:ChargeStatute>
+			<criminal:ChargeOffense>
+				<nc:ActivityDate>
+					<nc:Date>2008-07-07</nc:Date>
+				</nc:ActivityDate>
+			</criminal:ChargeOffense>
+			<criminal:ChargeAmendedIndicator>false
+			</criminal:ChargeAmendedIndicator>
+		</criminal:CaseCharge>
+	</ojb-crim-ext:CriminalCase>
+	<core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator>
+	<core:FilingLeadDocument s:id="_123456ABC.app.doc">
+		<nc:DocumentApplicationName>Microsoft Word
+		</nc:DocumentApplicationName>
+		<nc:DocumentDescriptionText>Appearance</nc:DocumentDescriptionText>
+		<nc:DocumentLanguageCode>eng</nc:DocumentLanguageCode>
+		<ecf:DocumentMetadata>
+			<j:RegisterActionDescriptionText />
+			<ecf:FilingAttorneyID />
+			<ecf:FilingPartyID />
+		</ecf:DocumentMetadata>
+		<ecf:DocumentRendition>
+			<ecf:DocumentRenditionMetadata>
+				<ecf:DocumentAttachment s:id="Attachment1">
+					<nc:BinaryDescriptionText>application/msword
+					</nc:BinaryDescriptionText>
+					<nc:BinaryLocationURI>cid://Payload1</nc:BinaryLocationURI>
+				</ecf:DocumentAttachment>
+			</ecf:DocumentRenditionMetadata>
+		</ecf:DocumentRendition>
+	</core:FilingLeadDocument>
+	<core:FilingConnectedDocument s:id="_123456ABC.inf.doc">
+		<nc:DocumentApplicationName>Microsoft Word
+		</nc:DocumentApplicationName>
+		<nc:DocumentDescriptionText>Information</nc:DocumentDescriptionText>
+		<nc:DocumentSequenceID>1</nc:DocumentSequenceID>
+		<nc:DocumentLanguageCode>eng</nc:DocumentLanguageCode>
+		<ecf:DocumentMetadata>
+			<j:RegisterActionDescriptionText />
+			<ecf:ParentDocumentReference s:ref="_123456ABC.app.doc" />
+			<ecf:FilingAttorneyID />
+			<ecf:FilingPartyID />
+		</ecf:DocumentMetadata>
+		<ecf:DocumentRendition>
+			<ecf:DocumentRenditionMetadata>
+				<ecf:DocumentAttachment s:id="Attachment2">
+					<nc:BinaryDescriptionText>application/msword
+					</nc:BinaryDescriptionText>
+					<nc:BinaryLocationURI>cid://Payload2</nc:BinaryLocationURI>
+				</ecf:DocumentAttachment>
+			</ecf:DocumentRenditionMetadata>
+		</ecf:DocumentRendition>
+	</core:FilingConnectedDocument>
+</core:CoreFilingMessage>

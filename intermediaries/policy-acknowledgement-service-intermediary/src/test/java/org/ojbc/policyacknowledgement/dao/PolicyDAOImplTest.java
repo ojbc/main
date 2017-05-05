@@ -71,12 +71,12 @@ public class PolicyDAOImplTest {
     
     @Test(expected = IllegalArgumentException.class)
     public void testAcknowledgeOutstandingPoliciesWithNonExistingFedId() {
-        policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:cchris", "H00000001");
+        policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:non-existent", "H00000001");
     }
     
     @Test(expected = IllegalArgumentException.class)
     public void testAcknowledgeOutstandingPoliciesWithEmptyOris() {
-        policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:aowen", "");
+        policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:hpotter", "");
     }
     
     @Test
@@ -85,12 +85,12 @@ public class PolicyDAOImplTest {
         List<Policy> allPolicies = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:cchris", "H00000001"); 
         assertEquals(allPolicies.size(), 3); 
         
-        List<Policy> outStandingPoliciesForOwen = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:aowen", "H00000001"); 
+        List<Policy> outStandingPoliciesForOwen = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:hpotter", "H00000001"); 
         assertEquals(outStandingPoliciesForOwen.size(), 2); 
         assertTrue(outStandingPoliciesForOwen.get(0).getId() == 1); 
         assertTrue(outStandingPoliciesForOwen.get(1).getId() == 3); 
         
-        List<Policy> outStandingPoliciesForChawla = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:ychawla", "H00000001"); 
+        List<Policy> outStandingPoliciesForChawla = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:hsimpson", "H00000001"); 
         assertTrue(outStandingPoliciesForChawla.isEmpty()); 
     }
     
@@ -101,12 +101,12 @@ public class PolicyDAOImplTest {
         List<Policy> outStandingPoliciesForChris = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:cchris","H00000002"); 
         assertTrue(outStandingPoliciesForChris.isEmpty()); 
         
-        policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:aowen", "H00000001");
-        List<Policy> outStandingPoliciesForOwen = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:aowen","H00000001"); 
+        policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:hpotter", "H00000001");
+        List<Policy> outStandingPoliciesForOwen = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:hpotter","H00000001"); 
         assertTrue(outStandingPoliciesForOwen.isEmpty()); 
         
-        policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:ychawla", "H00000001");
-        List<Policy> outStandingPoliciesForChawla = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:ychawla","H00000001"); 
+        policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:hsimpson", "H00000001");
+        List<Policy> outStandingPoliciesForChawla = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:hsimpson","H00000001"); 
         assertTrue(outStandingPoliciesForChawla.isEmpty()); 
     }
 }

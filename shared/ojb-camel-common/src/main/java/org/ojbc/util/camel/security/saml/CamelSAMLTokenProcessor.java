@@ -21,7 +21,7 @@ import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
-import org.apache.ws.security.SAMLTokenPrincipal;
+import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.w3c.dom.Element;
 
 public class CamelSAMLTokenProcessor {

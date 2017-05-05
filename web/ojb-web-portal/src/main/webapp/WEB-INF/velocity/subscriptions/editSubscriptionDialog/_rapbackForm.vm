@@ -1,0 +1,125 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2015 Open Justice Broker Consortium
+ *#
+<script type="text/javascript">
+  $(function() {	
+	$('#triggeringEventsDiv input:nth-of-type(1)').prop('checked', true).attr("onclick", "return false");	  
+	$('#triggeringEventsDiv input:nth-of-type(4)').before('<br>');	  
+
+    $('#subscriptionForm').tooltip();
+      	      		    		    			  		    			
+    $(".datePicker").datepicker({
+       showOn: "both",
+       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
+       buttonImageOnly: true
+    });	
+    
+	// note hacked beforeShow property is a function to return false (ignores clicks and prevents 
+	// displaying DatePicker - due to DatePicker limitation that doesn't honor readonly property.  DatePicker
+	// allows being disabled but that prevents the html field value from being sent to the server when the form 
+	// is serialized	    	   		    			
+    $(".disabledDatePicker").datepicker({
+       showOn: "both",
+       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",    	  
+       buttonImageOnly: true,
+       beforeShow: function(i) {  return false; } 
+    });     	    
+ 
+  	if( '${subscription.subscriptionPurpose}'  === 'CS'){
+		$('#federalRapSheetDisclosureIndicator').attr("onclick", "return false;");
+		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', false).focus();	  
+  	}
+  	
+    $("#subscriptionForm").on("change", "#federalRapSheetDisclosureIndicator", function(){
+    
+    	if ('${subscription.subscriptionPurpose}'==="CI"){
+	    	var checked = $(this).prop('checked');
+	    	//console.log("federalRapSheetDisclosureIndicator changed to " + checked);
+	    	if (checked){
+	    		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', null).focus();	  
+	    	}
+	    	else{
+	    		$('#federalRapSheetDisclosureAttentionDesignationText').val('');
+	    		$('#federalRapSheetDisclosureAttentionDesignationText').prop('disabled', true);	  
+	    	}
+    	}
+    	else if ('${subscription.subscriptionPurpose}'==="CS") {
+    		$('#federalRapSheetDisclosureAttentionDesignationText').focus();	  
+    	}
+    });  
+    
+  		  	  		
+    	    	        	            	    		       			       				    	   
+  });	  
+</script>
+
+<div id="triggeringEventsDiv">
+	<label>Triggering Event:</label>
+	#springFormCheckboxes("subscription.federalTriggeringEventCode" $triggeringEventCodeMap "" "style='width: auto;'")
+</div>
+ 				
+#if(${showSubscriptionPurposeDropDown})
+	<div>
+		#springFormSingleSelect("subscription.subscriptionPurpose" $subscriptionPurposeValueToLabelMap "disabled='disabled'")
+		#springFormHiddenInput("subscription.subscriptionPurpose")
+		
+		#springFormCheckbox("subscription.federalRapSheetDisclosureIndicator" "style='width: auto;' title='Federal Rap Sheet Disclosure Indicator'")
+		<label>Disclosure Indicator</label>
+	</div>
+	
+	<div>
+		#springFormTextarea("subscription.federalRapSheetDisclosureAttentionDesignationText" "placeholder='Disclosure Contact Information' 
+			title='Federal RapSheet Disclosure Contact Info' rows='2' cols='25' maxlength='50'" )
+	</div>
+#end
+
+<div>
+	#springFormInput("subscription.stateId" "readonly='readonly' title='SID'")
+	<span class="subscriptionHint">FBI UCN: <span id="fbiIdString">$subscription.formattedFbiId</span></span> 
+</div>
+
+<div>	
+	#springFormInput("subscription.fullName" "readonly='readonly' style='width:200px;'")	
+	#springFormInput("subscription.dateOfBirth" "readonly='readonly' title='DOB' style='width:200px;'")
+</div>
+<div style="padding-left:12px;">
+		<label>Start Date:</label>
+		#if(${isStartDateEditable})
+			#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='datePicker' placeholder='From'")
+		#else
+			#springFormInput("subscription.subscriptionStartDate" "style='width:110px' class='disabledDatePicker' placeholder='From' readonly='readonly'")
+		#end			
+		<label>End Date:</label>
+		#springFormInput("subscription.subscriptionEndDate" "style='width:110px' class='datePicker' placeholder='No End Date'")
+</div>
+#if($showCaseIdInput)
+	<div>
+		#springFormInput("subscription.caseId" "placeholder='Case Id' maxlength='20' readonly='readonly'" )
+	</div>
+#end
+<div>
+	<!-- fix object being mapped to from list to something else or use regular html instead of velocity spring macro -->
+	#springFormInput("subscription.emailList[0]" "placeholder='Email Address 1'")
+</div>
+
+<div>
+	#springFormInput("subscription.emailList[1]" "placeholder='Email Address 2'")
+</div>
+
+<div>
+	#springFormInput("subscription.emailList[2]" "placeholder='Email Address 3'")
+</div>
+

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<core:CoreFilingMessage
+	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ojb-crim-doc="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0"
+	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
+	xmlns:criminalCase="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
+	xmlns:citationCase="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
+	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../xsd/message/ECF-4.0-CoreFilingMessage.xsd">
+	<nc:DocumentIdentification>
+		<nc:IdentificationID>123456ABC</nc:IdentificationID>
+	</nc:DocumentIdentification>
+	<nc:DocumentInformationCutOffDate>
+		<nc:DateTime>2008-07-07T13:47:42.0Z</nc:DateTime>
+	</nc:DocumentInformationCutOffDate>
+	<nc:DocumentPostDate>
+		<nc:DateTime>2008-07-07T13:47:42.0Z</nc:DateTime>
+	</nc:DocumentPostDate>
+	<nc:DocumentSubmitter>
+		<ecf:EntityPerson>
+			<nc:PersonName>
+				<nc:PersonFullName>Jane Doe</nc:PersonFullName>
+			</nc:PersonName>
+			<nc:PersonOtherIdentification>
+				<nc:IdentificationID>tls</nc:IdentificationID>
+			</nc:PersonOtherIdentification>
+		</ecf:EntityPerson>
+	</nc:DocumentSubmitter>
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>91</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>MESSAGINGPROFILEID   </ecf:SendingMDEProfileCode>
+	<ojb-crim-ext:CriminalCase>
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+			<nc:IdentificationCategoryText>nc:IdentificationCategoryText
+			</nc:IdentificationCategoryText>
+			<j:DrivingJurisdictionAuthorityNCICLSTACode>AB
+			</j:DrivingJurisdictionAuthorityNCICLSTACode>
+			<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText>
+		</nc:ActivityIdentification>
+		<nc:ActivityDate>
+			<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+		</nc:ActivityDate>
+		<nc:ActivityDescriptionText>nc:ActivityDescriptionText</nc:ActivityDescriptionText>
+		<nc:ActivityStatus>
+			<nc:StatusText>nc:StatusText</nc:StatusText>
+			<nc:StatusDate>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</nc:StatusDate>
+			<nc:StatusDescriptionText>nc:StatusDescriptionText</nc:StatusDescriptionText>
+		</nc:ActivityStatus>
+		<nc:ActivityDisposition>
+			<nc:DispositionDate>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</nc:DispositionDate>
+			<nc:DispositionDescriptionText>nc:DispositionDescriptionText</nc:DispositionDescriptionText>
+			<nc:DispositionText>nc:DispositionText</nc:DispositionText>
+			<nc:DispositionCategoryText>nc:DispositionCategoryText</nc:DispositionCategoryText>
+		</nc:ActivityDisposition>
+		<nc:CaseTitleText>nc:CaseTitleText</nc:CaseTitleText>
+		<nc:CaseCategoryText>nc:CaseCategoryText</nc:CaseCategoryText>
+		<nc:CaseTrackingID>nc:CaseTrackingID</nc:CaseTrackingID>
+		<nc:CaseDocketID>nc:CaseDocketID</nc:CaseDocketID>
+		<j:CaseAugmentation>
+			<j:CaseCharge>
+				<j:ChargeFilingDate> <nc:Date>1967-08-13</nc:Date> </j:ChargeFilingDate>
+				<j:ChargeSequenceID>
+					<nc:IdentificationID>02</nc:IdentificationID>
+				</j:ChargeSequenceID>
+				<j:ChargeSeverityLevel>
+					<j:SeverityLevelDescriptionText>Class A
+					</j:SeverityLevelDescriptionText>
+				</j:ChargeSeverityLevel>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>4657-93</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+					<j:StatuteCodeSectionIdentification>
+						<nc:IdentificationID>8.10.040.B.7</nc:IdentificationID>
+					</j:StatuteCodeSectionIdentification>
+					<j:StatuteDescriptionText>Attempted Robbery
+					</j:StatuteDescriptionText>
+					<j:StatuteOffenseIdentification>
+						<nc:IdentificationID>UOC 657879</nc:IdentificationID>
+					</j:StatuteOffenseIdentification>
+				</j:ChargeStatute>
+			</j:CaseCharge>
+			<j:CaseCourt>
+				<nc:OrganizationIdentification>
+					<nc:IdentificationID>3557</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+				<nc:OrganizationName>District Court for the State of Alaska
+				</nc:OrganizationName>
+				<j:CourtName>Third Judicial District of Alaska</j:CourtName>
+			</j:CaseCourt>
+			<j:CaseCourtEvent>
+				<j:CourtEventSchedule>
+					<nc:ScheduleDate>
+						<nc:Date>2015-12-06</nc:Date>
+					</nc:ScheduleDate>
+				</j:CourtEventSchedule>
+			</j:CaseCourtEvent>
+			<j:CaseDefendantParty>
+				<ecf:EntityPerson>
+					<nc:PersonBirthDate>
+						<nc:Date>1980-10-27</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonName>
+						<nc:PersonGivenName>Harold</nc:PersonGivenName>
+						<nc:PersonMiddleName>J</nc:PersonMiddleName>
+						<nc:PersonSurName>Raulli</nc:PersonSurName>
+						<nc:PersonNameSuffixText>Jr</nc:PersonNameSuffixText>
+						<nc:PersonFullName>Harold J. Raulli</nc:PersonFullName>
+					</nc:PersonName>
+					<nc:PersonOtherIdentification>
+						<nc:IdentificationID>Pas43567</nc:IdentificationID>
+						<nc:IdentificationCategoryText>Passport
+						</nc:IdentificationCategoryText>
+					</nc:PersonOtherIdentification>
+					<nc:PersonOtherIdentification>
+						<nc:IdentificationID>SID4567</nc:IdentificationID>
+						<nc:IdentificationCategoryText>State ID
+						</nc:IdentificationCategoryText>
+					</nc:PersonOtherIdentification>
+					<nc:PersonOtherIdentification>
+						<nc:IdentificationID>DL45678</nc:IdentificationID>
+						<nc:IdentificationCategoryText>Driver License
+						</nc:IdentificationCategoryText>
+						<nc:IdentificationSourceText>Alaska</nc:IdentificationSourceText>
+					</nc:PersonOtherIdentification>
+					<nc:PersonOtherIdentification>
+						<nc:IdentificationID>A54678</nc:IdentificationID>
+						<nc:IdentificationCategoryText>ASPIN
+						</nc:IdentificationCategoryText>
+					</nc:PersonOtherIdentification>
+					<nc:PersonOtherIdentification>
+						<nc:IdentificationID>OL45678</nc:IdentificationID>
+						<nc:IdentificationCategoryText>Operator License
+						</nc:IdentificationCategoryText>
+					</nc:PersonOtherIdentification>
+					<ecf:PersonAugmentation>
+						<nc:ContactInformation>
+							<nc:ContactMailingAddress>
+								<nc:StructuredAddress>
+									<nc:LocationStreet>
+										<nc:StreetFullText>123 N Oak Street Apt #5</nc:StreetFullText>
+									</nc:LocationStreet>
+									<nc:LocationCityName>Anchorage</nc:LocationCityName>
+									<nc:LocationPostalCode>21905</nc:LocationPostalCode>
+								</nc:StructuredAddress>
+							</nc:ContactMailingAddress>
+						</nc:ContactInformation>
+					</ecf:PersonAugmentation>
+				</ecf:EntityPerson>
+			</j:CaseDefendantParty>
+			<j:CaseInitiatingParty>
+				<ecf:EntityPerson>
+					<nc:PersonName>
+						<nc:PersonFullName>Rober T. Forgerty</nc:PersonFullName>
+					</nc:PersonName>
+				</ecf:EntityPerson>
+				<ecf:EntityOrganization>
+					<nc:OrganizationName>ACME Corporation</nc:OrganizationName>
+				</ecf:EntityOrganization>
+			</j:CaseInitiatingParty>
+			<j:CaseProsecutionAttorney>
+				<nc:RoleOfPersonReference s:ref="Prosecutor_01" />
+				<j:JudicialOfficialBarMembership>
+					<j:JudicialOfficialBarIdentification>
+						<nc:IdentificationID>1205030</nc:IdentificationID>
+					</j:JudicialOfficialBarIdentification>
+				</j:JudicialOfficialBarMembership>
+			</j:CaseProsecutionAttorney>
+		</j:CaseAugmentation>
+		<ecf:CaseAugmentation>
+			<ecf:CaseParticipant>
+				<ecf:EntityPerson s:id="Prosecutor_01">
+					<nc:PersonName>
+						<nc:PersonFullName>George M. Jones</nc:PersonFullName>
+					</nc:PersonName>
+				</ecf:EntityPerson>
+				<ecf:CaseParticipantRoleCode />
+			</ecf:CaseParticipant>
+		</ecf:CaseAugmentation>
+		<criminalCase:CaseArrest>
+			<j:ArrestAgency>
+				<nc:OrganizationName>Anchorage PD</nc:OrganizationName>
+			</j:ArrestAgency>
+			<j:ArrestAgencyRecordIdentification>
+				<nc:IdentificationID>AA4567889</nc:IdentificationID>
+			</j:ArrestAgencyRecordIdentification>
+			<j:ArrestOfficial>
+				<j:EnforcementOfficialBadgeIdentification>
+					<nc:IdentificationID>AO45678</nc:IdentificationID>
+				</j:EnforcementOfficialBadgeIdentification>
+			</j:ArrestOfficial>
+		</criminalCase:CaseArrest>
+		<criminalCase:CaseCharge>
+			<criminalCase:ChargeOffense s:id="Offense_01">
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>ATN34567</nc:IdentificationID>
+					<nc:IdentificationCategoryText>ATN</nc:IdentificationCategoryText>
+				</nc:ActivityIdentification>
+				<nc:ActivityDateRange>
+					<nc:StartDate>
+						<nc:Date>2015-09-10</nc:Date>
+					</nc:StartDate>
+				</nc:ActivityDateRange>
+			</criminalCase:ChargeOffense>
+			<criminalCase:ChargeAmendedIndicator>false</criminalCase:ChargeAmendedIndicator>
+		</criminalCase:CaseCharge>
+	</ojb-crim-ext:CriminalCase>
+	<core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator>
+	<core:FilingLeadDocument s:id="_123456ABC.app.doc">
+		<nc:DocumentApplicationName>Microsoft Word
+		</nc:DocumentApplicationName>
+		<nc:DocumentDescriptionText>Appearance</nc:DocumentDescriptionText>
+		<nc:DocumentLanguageCode>eng</nc:DocumentLanguageCode>
+		<ecf:DocumentMetadata>
+			<j:RegisterActionDescriptionText />
+			<ecf:FilingAttorneyID />
+			<ecf:FilingPartyID />
+		</ecf:DocumentMetadata>
+		<ecf:DocumentRendition>
+			<ecf:DocumentRenditionMetadata>
+				<ecf:DocumentAttachment s:id="Attachment1">
+					<nc:BinaryDescriptionText>application/msword
+					</nc:BinaryDescriptionText>
+					<nc:BinaryLocationURI>cid://Payload1</nc:BinaryLocationURI>
+				</ecf:DocumentAttachment>
+			</ecf:DocumentRenditionMetadata>
+		</ecf:DocumentRendition>
+	</core:FilingLeadDocument>
+	<core:FilingConnectedDocument s:id="_123456ABC.inf.doc">
+		<nc:DocumentApplicationName>Microsoft Word
+		</nc:DocumentApplicationName>
+		<nc:DocumentDescriptionText>Information</nc:DocumentDescriptionText>
+		<nc:DocumentSequenceID>1</nc:DocumentSequenceID>
+		<nc:DocumentLanguageCode>eng</nc:DocumentLanguageCode>
+		<ecf:DocumentMetadata>
+			<j:RegisterActionDescriptionText />
+			<ecf:ParentDocumentReference s:ref="_123456ABC.app.doc" />
+			<ecf:FilingAttorneyID />
+			<ecf:FilingPartyID />
+		</ecf:DocumentMetadata>
+		<ecf:DocumentRendition>
+			<ecf:DocumentRenditionMetadata>
+				<ecf:DocumentAttachment s:id="Attachment2">
+					<nc:BinaryDescriptionText>application/msword
+					</nc:BinaryDescriptionText>
+					<nc:BinaryLocationURI>cid://Payload2</nc:BinaryLocationURI>
+				</ecf:DocumentAttachment>
+			</ecf:DocumentRenditionMetadata>
+		</ecf:DocumentRendition>
+	</core:FilingConnectedDocument>
+</core:CoreFilingMessage>

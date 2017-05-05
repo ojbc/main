@@ -61,7 +61,6 @@ public class IdentificationReportingResponseProcessor{
 	public Document createErrorResponse(@Header("identificationID") String identificationID, 
 			@Header("transactionCategoryText") String transactionCategoryText) 
 	{
-		//TODO Check with ato whether we need to pass in the exception error message. 
 		return createResponse(identificationID, transactionCategoryText, IdentificationReportStatus.failure);
 	}
 

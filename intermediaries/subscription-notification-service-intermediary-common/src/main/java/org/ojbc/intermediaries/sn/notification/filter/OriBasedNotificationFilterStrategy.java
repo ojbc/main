@@ -19,12 +19,10 @@ package org.ojbc.intermediaries.sn.notification.filter;
 
 import java.util.List;
 
-import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
+import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 
 public class OriBasedNotificationFilterStrategy implements NotificationFilterStrategy{
 

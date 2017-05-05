@@ -20,10 +20,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -33,27 +34,25 @@ import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
+import org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.FingerPrintsType;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
-import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransactionState;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
-import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
+import org.ojbc.util.model.rapback.IdentificationTransactionState;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.annotation.ExpectedException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -73,6 +72,9 @@ public class RapbackDAOImplTest {
 	private static final String COUNT_SID_A123458 = "select count(*) as rowcount from identification_subject "
     		+ "where civil_sid = 'A123458' or criminal_Sid = 'A123458'";
 
+    @Value("${rapbackDatastoreAdapter.civilIdlePeriod:60}")
+    private Integer civilIdlePeriod;
+    
 	private static final String TRANSACTION_NUMBER = "000001820140729014008340000";
 
 	private final Log log = LogFactory.getLog(this.getClass());
@@ -93,17 +95,6 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
-	public void testRapbackDatastore() throws Exception {
-		
-		Connection conn = dataSource.getConnection();
-		ResultSet rs = conn.createStatement().executeQuery("select * from subscription");
-		assertTrue(rs.next());
-		assertEquals(62720,rs.getInt("id"));
-		rs = conn.createStatement().executeQuery("select * from IDENTIFICATION_SUBJECT");
-	}
-
-	@Test
-	@DirtiesContext
 	public void testSaveSubject() throws Exception {
 		Subject subject = new Subject(); 
 		subject.setUcn("B1234567");
@@ -117,11 +108,9 @@ public class RapbackDAOImplTest {
 		Integer subjectId = rapbackDAO.saveSubject(subject); 
 		
 		assertNotNull(subjectId);
-		assertEquals(6, subjectId.intValue()); 
 		
 		Subject persistedSubject = rapbackDAO.getSubject(subjectId); 
 		log.info(persistedSubject.toString());
-		assertEquals(Integer.valueOf(6), persistedSubject.getSubjectId());
 		assertEquals("1969-05-12", persistedSubject.getDob().toString("yyyy-MM-dd"));
 		assertEquals("B1234567", persistedSubject.getUcn());
 		assertNull(persistedSubject.getCriminalSid());
@@ -134,19 +123,18 @@ public class RapbackDAOImplTest {
 	}
 
 	@Test
-	@DirtiesContext
 	public void testSaveIdentificationTransactionWithSubject() throws Exception {
-		saveIdentificationTransaction(); 
+		saveIdentificationTransaction(TRANSACTION_NUMBER + "1"); 
 		IdentificationTransaction identificationTransaction = 
-				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
+				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER + "1"); 
 		assertNotNull(identificationTransaction); 
 		assertNotNull(identificationTransaction.getSubject()); 
 		log.info(identificationTransaction.toString());
 	}
 
-	private void saveIdentificationTransaction() {
+	private void saveIdentificationTransaction(String transactionNumber) {
 		IdentificationTransaction transaction = new IdentificationTransaction(); 
-		transaction.setTransactionNumber(TRANSACTION_NUMBER);
+		transaction.setTransactionNumber(transactionNumber);
 		transaction.setOtn("12345");
 		transaction.setOwnerOri("68796860");
 		transaction.setOwnerProgramOca("ID23457");
@@ -167,9 +155,7 @@ public class RapbackDAOImplTest {
 		rapbackDAO.saveIdentificationTransaction(transaction);
 	}
 
-	@Test
-	@DirtiesContext
-	@ExpectedException(IllegalArgumentException.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testSaveIdentificationTransactionWithoutSubject() throws Exception {
 		IdentificationTransaction transaction = new IdentificationTransaction(); 
 		transaction.setTransactionNumber(TRANSACTION_NUMBER);
@@ -177,30 +163,27 @@ public class RapbackDAOImplTest {
 		transaction.setOwnerOri("68796860");
 		transaction.setOwnerProgramOca("ID23457");
 		transaction.setIdentificationCategory("CAR");
-		transaction.setCurrentState(IdentificationTransactionState.Available_for_subscription);
+		transaction.setCurrentState(IdentificationTransactionState.Available_for_Subscription);
 		
 		rapbackDAO.saveIdentificationTransaction(transaction); 
 		
 	}
 	
 	@Test
-	@DirtiesContext
 	public void testSaveCivilFingerPrints() throws Exception {
 		
-		saveIdentificationTransaction();
+		saveIdentificationTransaction(TRANSACTION_NUMBER + "2");
 		
 		CivilFingerPrints civilFingerPrints = new CivilFingerPrints(); 
-		civilFingerPrints.setTransactionNumber(TRANSACTION_NUMBER);
+		civilFingerPrints.setTransactionNumber(TRANSACTION_NUMBER + "2");
 		civilFingerPrints.setFingerPrintsFile("FingerPrints".getBytes());
 		civilFingerPrints.setFingerPrintsType(FingerPrintsType.FBI);
 		
 		Integer pkId = rapbackDAO.saveCivilFingerPrints(civilFingerPrints);
 		assertNotNull(pkId);
-		assertEquals(11, pkId.intValue()); 
 	}
 	
 //	@Test
-//	@DirtiesContext
 //	public void testSaveCriminalFingerPrints() throws Exception {
 //		saveIdentificationTransaction();
 //		
@@ -216,46 +199,42 @@ public class RapbackDAOImplTest {
 //	}
 	
 	@Test
-	@DirtiesContext
 	public void testSaveCriminalInitialResults() throws Exception {
-		saveIdentificationTransaction();
+		saveIdentificationTransaction(TRANSACTION_NUMBER + "3");
 		
 		IdentificationTransaction identificationTransaction = 
-				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
+				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER + "3"); 
 		
 		assertNotNull(identificationTransaction); 
 		assertNotNull(identificationTransaction.getSubject()); 
 		
 		CriminalInitialResults criminalInitialResults = new CriminalInitialResults(); 
-		criminalInitialResults.setTransactionNumber(TRANSACTION_NUMBER);
+		criminalInitialResults.setTransactionNumber(TRANSACTION_NUMBER + "3");
 		criminalInitialResults.setSearchResultFile("Match".getBytes());
 		criminalInitialResults.setResultsSender(ResultSender.FBI);
 	
 		criminalInitialResults.setSubject(identificationTransaction.getSubject());
 		Integer pkId = rapbackDAO.saveCriminalInitialResults(criminalInitialResults);
 		assertNotNull(pkId);
-		assertEquals(5, pkId.intValue()); 
 	}
 	
 	@Test
-	@DirtiesContext
 	public void testSaveCivilInitialResults() throws Exception {
-		saveIdentificationTransaction();
+		saveIdentificationTransaction(TRANSACTION_NUMBER + "4");
 		
 		IdentificationTransaction identificationTransaction = 
-				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
+				rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER + "4"); 
 		
 		assertNotNull(identificationTransaction); 
 		assertNotNull(identificationTransaction.getSubject()); 
 		
 		CivilInitialResults civilInitialResults = new CivilInitialResults(); 
-		civilInitialResults.setTransactionNumber(TRANSACTION_NUMBER);
+		civilInitialResults.setTransactionNumber(TRANSACTION_NUMBER + "4");
 		civilInitialResults.setSearchResultFile("Match".getBytes());
 		civilInitialResults.setResultsSender(ResultSender.FBI);
 		
 		Integer pkId = rapbackDAO.saveCivilInitialResults(civilInitialResults);
 		assertNotNull(pkId);
-		assertEquals(11, pkId.intValue()); 
 		
 		CivilInitialResults persistedCivilInitialResults = 
 				(rapbackDAO.getCivilInitialResults(identificationTransaction.getOwnerOri())).get(2);
@@ -269,41 +248,9 @@ public class RapbackDAOImplTest {
 		Integer civilInitialRapSheetPkId = 
 				rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);  
 		assertNotNull(civilInitialRapSheetPkId);
-		assertEquals(7, civilInitialRapSheetPkId.intValue()); 
 	}
-	
+
 	@Test
-	@DirtiesContext
-	public void testGetCivilIdentificationTransactions() throws Exception {
-		List<IdentificationTransaction> transactions = 
-				rapbackDAO.getCivilIdentificationTransactions("1234567890");
-		assertEquals(4, transactions.size());
-	}
-	
-	@Test
-	@DirtiesContext
-	public void testGetCivilInitialResultsByTransactionNumber() throws Exception {
-		List<CivilInitialResults> civilInitialResults= 
-				rapbackDAO.getIdentificationCivilInitialResults("000001820140729014008339990");
-		log.info("Civil Initial Results count: " + civilInitialResults.size());
-		assertEquals(2, civilInitialResults.size());
-		log.info("Search result doc content: " + new String(civilInitialResults.get(0).getSearchResultFile()));
-		assertEquals(2110, civilInitialResults.get(0).getSearchResultFile().length);
-	}
-	
-	@Test
-	@DirtiesContext
-	public void testGetCivilInitialResults() throws Exception {
-		List<CivilInitialResults> civilInitialResults= 
-				rapbackDAO.getIdentificationCivilInitialResults("000001820140729014008339995");
-		log.info("Civil Initial Results count: " + civilInitialResults.size());
-		assertEquals(2, civilInitialResults.size());
-		log.info("Search result doc content: " + new String(civilInitialResults.get(0).getSearchResultFile()));
-		assertEquals(1832, civilInitialResults.get(0).getSearchResultFile().length);
-	}
-	
-	@Test
-	@DirtiesContext
 	public void testSaveAndUpdateFbiSubscription() throws Exception {
 		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription(); 
 		fbiRapbackSubscription.setFbiSubscriptionId("12345");
@@ -315,6 +262,7 @@ public class RapbackDAOImplTest {
 		fbiRapbackSubscription.setRapbackOptOutInState(Boolean.FALSE);
 		fbiRapbackSubscription.setSubscriptionTerm("2");
 		fbiRapbackSubscription.setUcn("LI3456789");
+		fbiRapbackSubscription.setStateSubscriptionId("62725");
 		
 		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
 		
@@ -329,6 +277,7 @@ public class RapbackDAOImplTest {
 		assertEquals(Boolean.FALSE, savedFbiRapbackSubscription.getRapbackOptOutInState());
 		assertEquals("2", savedFbiRapbackSubscription.getRapbackActivityNotificationFormat());
 		assertEquals("LI3456789", savedFbiRapbackSubscription.getUcn());
+		assertThat(savedFbiRapbackSubscription.getStateSubscriptionId(), is(62725)); 
 		
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat("3");
 		fbiRapbackSubscription.setSubscriptionTerm("5");
@@ -346,15 +295,13 @@ public class RapbackDAOImplTest {
 		assertEquals(Boolean.FALSE, updatedFbiRapbackSubscription.getRapbackOptOutInState());
 		assertEquals("3", updatedFbiRapbackSubscription.getRapbackActivityNotificationFormat());
 		assertEquals("LI3456789", updatedFbiRapbackSubscription.getUcn());
-		
+		assertThat(savedFbiRapbackSubscription.getStateSubscriptionId(), is(62725)); 
 	}
 	
-	@Test
-	@DirtiesContext
-	@ExpectedException(DuplicateKeyException.class)
+	@Test(expected=DuplicateKeyException.class)
 	public void testSaveFbiSubscriptionError() throws Exception {
 		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription(); 
-		fbiRapbackSubscription.setFbiSubscriptionId("12345");
+		fbiRapbackSubscription.setFbiSubscriptionId("fbiSubscriptionId");
 		fbiRapbackSubscription.setRapbackActivityNotificationFormat("2");
 		fbiRapbackSubscription.setRapbackCategory("CI");
 		fbiRapbackSubscription.setRapbackExpirationDate(new DateTime(2016, 5, 12,0,0,0,0));
@@ -362,47 +309,51 @@ public class RapbackDAOImplTest {
 		fbiRapbackSubscription.setRapbackTermDate(new DateTime(2016, 5, 12,0,0,0,0));
 		fbiRapbackSubscription.setRapbackOptOutInState(Boolean.FALSE);
 		fbiRapbackSubscription.setSubscriptionTerm("2");
-		fbiRapbackSubscription.setUcn("123456789");
+		fbiRapbackSubscription.setUcn("LI3456789");
 		
 		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
 		
 	}
 
 	@Test
-	@DirtiesContext
-	public void testGetAgencyProfile() throws Exception {
-		AgencyProfile agencyProfile = rapbackDAO.getAgencyProfile("1234567890");
-		log.info(agencyProfile.toString());
-		assertEquals(Integer.valueOf(1), agencyProfile.getId());
-		assertEquals("1234567890", agencyProfile.getAgencyOri());
-		assertEquals("Demo Agency", agencyProfile.getAgencyName());
-		assertEquals(Boolean.TRUE, agencyProfile.getFbiSubscriptionQualified());
-		assertEquals("demo.agency@localhost", agencyProfile.getEmails().get(0));
-		assertEquals("demo.agency2@localhost", agencyProfile.getEmails().get(1));
-		
-		AgencyProfile agencyProfileNull = rapbackDAO.getAgencyProfile("123456789");
-		assertNull(agencyProfileNull);
-	}
-	
-	@Test
-	@DirtiesContext
-	@Ignore
-	public void testArchive() throws Exception {
+	public void testArchiveCivil() throws Exception {
 		Connection conn = dataSource.getConnection();
+		DateTime currentDate = new DateTime(); 
+		DateTime comparableDate = currentDate.minusDays(civilIdlePeriod);
 		String countQualifiedToArchiveSql = "SELECT count(*) as rowcount "
-				+ "FROM identification_transaction "
-				+ "WHERE archived = 'false' "
-				+ "AND available_for_subscription_start_date < '2015-09-05'";
+				+ "FROM identification_transaction t "
+				+ "WHERE (select count(*)>0 FROM civil_initial_results c where c.transaction_number = t.transaction_number) "
+				+ "AND archived = 'false' "
+				+ "AND available_for_subscription_start_date < '" + comparableDate.toString(RapbackDataStoreAdapterConstants.YYYY_MM_DD) + "'";
 		ResultSet rs = conn.createStatement().executeQuery(countQualifiedToArchiveSql);
 		assertTrue(rs.next());
-		assertEquals(1,rs.getInt("rowcount"));
+		
+		int count = rs.getInt("rowcount");
 
-		int count = rapbackDAO.archive();
-		assertEquals(1, count);
+		int archivedCount = rapbackDAO.archiveCivilIdentifications();
+		assertEquals(count, archivedCount);
 	}
 	
 	@Test
-	@DirtiesContext
+	public void testArchiveCriminal() throws Exception {
+		Connection conn = dataSource.getConnection();
+		DateTime currentDate = new DateTime(); 
+		DateTime comparableDate = currentDate.minusDays(civilIdlePeriod);
+		String countQualifiedToArchiveSql = "SELECT count(*) as rowcount "
+				+ "FROM identification_transaction t "
+				+ "WHERE (select count(*)>0 FROM criminal_initial_results c where c.transaction_number = t.transaction_number) "
+				+ "AND archived = 'false' "
+				+ "AND available_for_subscription_start_date < '" + comparableDate.toString(RapbackDataStoreAdapterConstants.YYYY_MM_DD) + "'";
+		ResultSet rs = conn.createStatement().executeQuery(countQualifiedToArchiveSql);
+		assertTrue(rs.next());
+		
+		int count = rs.getInt("rowcount");
+		
+		int archivedCount = rapbackDAO.archiveCriminalIdentifications();
+		assertEquals(count, archivedCount);
+	}
+	
+	@Test
 	public void testArchiveIdentificationResult() throws Exception {
 		Connection conn = dataSource.getConnection();
 		String sql = "SELECT * "
@@ -423,31 +374,6 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
-	@DirtiesContext
-	public void testGetSubsequentResults() throws Exception {
-		
-		List<SubsequentResults> subsequentResults = rapbackDAO.getSubsequentResults("000001820140729014008339995");
-		assertEquals(2, subsequentResults.size());
-		SubsequentResults result1 = subsequentResults.get(0);
-		assertEquals(Long.valueOf(1), result1.getId());
-		assertEquals("9222201", result1.getUcn());
-		assertEquals(ResultSender.FBI, result1.getResultsSender());
-		
-		SubsequentResults result2 = subsequentResults.get(1);
-		assertEquals(Long.valueOf(2), result2.getId());
-		assertEquals("9222201", result2.getUcn());
-		assertEquals(ResultSender.State, result2.getResultsSender());
-		assertEquals(25, result2.getRapSheet().length);
-		log.info("result2 result:" + new String(result2.getRapSheet()));
-		log.info("result2 result size:" + result2.getRapSheet().length);
-		
-		List<SubsequentResults> emptySubsequentResults = rapbackDAO.getSubsequentResults("000001820140729014008339999");
-		assertEquals(0, emptySubsequentResults.size());
-	}
-
-	@Test
-	@DirtiesContext
-	@Ignore
 	public void testConsolidateSid() throws Exception {
 		Connection conn = dataSource.getConnection();
 		ResultSet rs = conn.createStatement().executeQuery(COUNT_SID_A123458);
@@ -457,7 +383,7 @@ public class RapbackDAOImplTest {
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("rowcount"));
 
-		rapbackDAO.consolidateSid("A123457", "A123458");
+		rapbackDAO.consolidateSidFederal("A123457", "A123458");
 		rs = conn.createStatement().executeQuery(COUNT_SID_A123457);
 		assertTrue(rs.next());
 		assertEquals(0,rs.getInt("rowcount"));
@@ -467,8 +393,6 @@ public class RapbackDAOImplTest {
 	}
 	
 	@Test
-	@DirtiesContext 
-	@Ignore
 	public void testConsolidateUcn() throws Exception {
 		Connection conn = dataSource.getConnection();
 		String countSubjectUcn9222201 = "select count(*) as rowcount from identification_subject where ucn = '9222201'";
@@ -490,7 +414,7 @@ public class RapbackDAOImplTest {
 		assertTrue(rs.next());
 		assertEquals(0,rs.getInt("rowcount"));
 		
-		rapbackDAO.consolidateUcn("9222201", "9222202");
+		rapbackDAO.consolidateUcnFederal("9222201", "9222202");
 		rs = conn.createStatement().executeQuery(countSubjectUcn9222201);
 		assertTrue(rs.next());
 		assertEquals(0,rs.getInt("rowcount"));

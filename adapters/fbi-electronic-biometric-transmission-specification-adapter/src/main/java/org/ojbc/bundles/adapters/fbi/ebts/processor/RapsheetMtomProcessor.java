@@ -20,8 +20,8 @@ import java.util.logging.Logger;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Header;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
-import org.apache.geronimo.mail.util.Base64;
 
 public class RapsheetMtomProcessor {
 	
@@ -34,7 +34,9 @@ public class RapsheetMtomProcessor {
 				
 		byte[] rapsheetXmlBytes = rapsheet.getBytes();
 		
-		exhange.getIn().setHeader("base64Rapsheet", Base64.encode(rapsheetXmlBytes));;
+		String sBase64Rapsheet = Base64.encodeBase64String(rapsheetXmlBytes);
+		
+		exhange.getIn().setHeader("base64Rapsheet", sBase64Rapsheet);
 	}
 
 }

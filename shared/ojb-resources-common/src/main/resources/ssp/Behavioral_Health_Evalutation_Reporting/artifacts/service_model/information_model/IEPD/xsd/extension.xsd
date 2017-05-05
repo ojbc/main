@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:bhr-ext="http://ojbc.org/IEPD/Extensions/BehavioralHealthEvaluationRecordExtension/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/BehavioralHealthEvaluationRecordExtension/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd"/>
+	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.1/" schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd"/>
+	<xsd:complexType name="BehavioralHealthEvaluationRecordType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for set of details associated with a behavioral health record.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:DocumentType">
+				<xsd:sequence>
+					<xsd:element ref="intel:SystemIdentification" maxOccurs="unbounded"/>
+					<xsd:element ref="bhr-ext:BehavioralHealthEvaluation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:ActivityPersonAssociation" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="BehavioralHealthEvaluationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an activity resulting in a behavioral health diagnosis.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:EvaluationType">
+				<xsd:sequence>
+					<xsd:element ref="bhr-ext:SeriousMentalHealthIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="bhr-ext:SeriousMentalHealthEncounterDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="bhr-ext:SeriousMentalHealthEncounterDate" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="bhr-ext:SeriousMentalHealthCategoryText" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="BehavioralHealthEvaluation" type="bhr-ext:BehavioralHealthEvaluationType">
+		<xsd:annotation>
+			<xsd:documentation>An activity resulting in a behavioral health diagnosis.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SeriousMentalHealthIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a subject is being held for an immigration violation; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SeriousMentalHealthDiagnosisDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Diagnosis description of serious mental health.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SeriousMentalHealthEncounterDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Encounter description of serious mental health encounter with law enforcement.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SeriousMentalHealthEncounterDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>Date of serious mental health encounter with law enforcement.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SeriousMentalHealthCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The type of serious mental health.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonPatientIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A patient identification assigned to a person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonIncomeText" type="nc:TextType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A person's income.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<!--xsd:element name="PersonNumberOfDependents" type="nc:nonNegativeIntegerType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The number of dependents of a person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element-->
+	<xsd:element name="VeteranStatusIndicator" type="niem-xs:boolean" substitutionGroup="nc:StatusAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a person has military veteran status; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonHousingStatus" type="nc:StatusType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Status of a person's housing situation.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonEmploymentStatus" type="nc:StatusType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Status of a person's employment.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EvaluationReferralDescriptionText" type="nc:TextType" substitutionGroup="j:EvaluationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Referral based on an evaluation.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EvaluationTreatmentServiceCodeText" type="nc:TextType" substitutionGroup="j:EvaluationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Treatment codes.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonIndexIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique index identifier for a person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

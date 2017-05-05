@@ -41,7 +41,7 @@
 				</rap:RapSheetPerson>
 			</rap:RapSheetRequest>
 		</rap:Introduction>
-		<ch-ext:Person s:id="P1">
+		<rap:RapSheetPerson s:id="P1">
 			<nc:PersonAlternateName>
 				<nc:PersonGivenName>Macaroni</nc:PersonGivenName>
 				<nc:PersonSurName>Mouse</nc:PersonSurName>
@@ -72,6 +72,9 @@
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>123456789</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>999999999</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
 			<nc:PersonWeightMeasure>
 				<nc:MeasurePointValue>100</nc:MeasurePointValue>
 				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
@@ -93,7 +96,7 @@
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
 			<rap:SubjectCautionInformationText>Caution information about the subject!</rap:SubjectCautionInformationText>
-		</ch-ext:Person>
+		</rap:RapSheetPerson>
 		<nc:Location s:id="L1">
 			<nc:LocationAddress>
 				<nc:StructuredAddress>

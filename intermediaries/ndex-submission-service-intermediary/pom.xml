@@ -18,50 +18,45 @@
 
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.ojbc.bundles.intermediaries</groupId>
 	<artifactId>ndex-submission-service-intermediary</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.1</version>
+	<version>1.0.4</version>
 
 	<name>OJB :: ndex-submission-service-intermediary :: intermediary</name>
 	<url>http://www.search.org</url>
 
+	<parent>
+		<groupId>org.ojbc.build</groupId>
+		<artifactId>ojb-intermediaries-aggregate</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
 	<properties>
-	  	<java.version>1.8</java.version>
-	  	<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
-	  	<camel-version>2.15.3</camel-version>
-		<slf4j-version>1.7.12</slf4j-version>
+		<java.version>1.8</java.version>
+		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
+		<camel-version>2.14.4</camel-version>
+		<slf4j-version>1.7.10</slf4j-version>
 		<log4j-version>1.2.17</log4j-version>
-		<cxf-version>3.0.6</cxf-version>
-	 	<spring-version>4.1.6.RELEASE</spring-version>	
-	 	<commons-lang-version>2.6</commons-lang-version>
-		
-		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>			
-		
+		<cxf-version>3.0.5</cxf-version>
+		<spring-version>3.2.11.RELEASE</spring-version>
+		<commons-lang-version>2.6</commons-lang-version>
+		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<apache-commons-io-version>1.3.2</apache-commons-io-version>
 		<commonsCodec.version>1.7</commonsCodec.version>
-		
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	
-	
-		<bouncycastle-version>140</bouncycastle-version>	
-		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
-
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<apache-commons-io-version>1.3.2</apache-commons-io-version>
 		<xmlunit-version>1.3</xmlunit-version>
-		<jodatime-version>1.6.2</jodatime-version>
-		
+		<ojb-camel-common>[2.0.0,)</ojb-camel-common>		
+		<ojb-common-version>[3.0.0,)</ojb-common-version>
+		<saxon-version>9.5.1-5</saxon-version>
 	</properties>
 
-	<parent>
-	  <groupId>org.ojbc.build</groupId>
-	  <artifactId>ojb-intermediaries-aggregate</artifactId>
-	  <version>1.0.0</version>
-	</parent>
 
 	<dependencies>
 		<dependency>
@@ -69,24 +64,36 @@
 			<artifactId>camel-http4</artifactId>
 			<version>${camel-version}</version>
 		</dependency>
-	    <dependency>
-	      <groupId>org.apache.camel</groupId>
-	      <artifactId>camel-core</artifactId>
-	      <version>${camel-version}</version>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.apache.camel</groupId>
-	      <artifactId>camel-spring</artifactId>
-	      <version>${camel-version}</version>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.apache.camel</groupId>
-	      <artifactId>camel-cxf</artifactId>
-	      <version>${camel-version}</version>
-	    </dependency>
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>${saxon-version}</version>
+		</dependency>
+
+		<!-- Camel libs -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-cxf</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-mail</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-quartz</artifactId>
 			<version>${camel-version}</version>
 		</dependency>
 
@@ -111,54 +118,55 @@
 			<artifactId>cxf-services-sts-core</artifactId>
 			<version>${cxf-version}</version>
 		</dependency>
-       <dependency>
-           <groupId>org.apache.cxf</groupId>
-           <artifactId>cxf-rt-transports-http-jetty</artifactId>
-           <version>${cxf-version}</version>
-       </dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<version>${cxf-version}</version>
+		</dependency>
 
 		<!-- ws-security -->
 		<dependency>
-			<groupId>bouncycastle</groupId>
-			<artifactId>bcprov-jdk16</artifactId>
-			<version>${bouncycastle-version}</version>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-ws-security</artifactId>
+			<version>${cxf-version}</version>
 		</dependency>
 
-        <dependency>
-           <groupId>org.apache.cxf</groupId>
-           <artifactId>cxf-rt-ws-security</artifactId>
-           <version>${cxf-version}</version>
-       </dependency>
-
-	 	<dependency>
-		    <groupId>commons-lang</groupId>
-		    <artifactId>commons-lang</artifactId>
-		    <version>${commons-lang-version}</version>
-		</dependency>
 		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>${jodatime-version}</version>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons-lang-version}</version>
 		</dependency>
 
 		<!-- OJB Shared Bundles -->
-	    <dependency>
-	      <groupId>org.ojbc.bundles.shared</groupId>
-	      <artifactId>ojb-resources-common</artifactId>
-	      <version>${ojb-resources-common-version}</version>
-	    </dependency>
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-resources-common</artifactId>
+			<version>${ojb-resources-common-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-common</artifactId>
+			<version>${ojb-common-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ojbc.bundles.shared</groupId>
+			<artifactId>ojb-camel-common</artifactId>
+			<version>${ojb-camel-common}</version>
+		</dependency>
 
 		<!-- for testing -->
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-test-spring</artifactId>
-			<version>${camel-version}</version>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-test-spring3</artifactId>
+			<version>${camel-version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -192,29 +200,8 @@
 		</dependency>
 	</dependencies>
 
-
 	<build>
 		<defaultGoal>install</defaultGoal>
-
-		<resources>
-			<resource>
-				<directory>${basedir}/src/main/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>META-INF/spring/**</include>
-					<include>xslt/*.*</include>
-					<include>*.*</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>${basedir}/src/main/config/dev</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>*</include>
-				</includes>
-			</resource>
-		</resources>
-
 
 		<plugins>
 			<plugin>
@@ -231,21 +218,19 @@
 				<version>${maven-bundle-plugin-version}</version>
 				<extensions>true</extensions>
 				<configuration>
-			      <instructions>
-					<DynamicImport-Package>*</DynamicImport-Package>
-					<Import-Package>
-					org.springframework.beans.factory.config,
-					javax.xml.namespace,
-					service-specifications.*,
-					org.ojbc.*,
-					org.apache.cxf.bus.spring,
-					org.apache.camel.spring.spi,
-					*
-					</Import-Package>
-					<Export-Package>
-					</Export-Package>
-			        <Bundle-Name>${pom.name}</Bundle-Name>
-			      </instructions>
+					<instructions>
+						<DynamicImport-Package>*</DynamicImport-Package>
+						<Import-Package>
+							org.springframework.beans.factory.config,
+							javax.xml.namespace,
+							ssp.*,
+							org.ojbc.*,
+							org.apache.cxf.bus.spring,
+							org.apache.camel.spring.spi,
+							*
+						</Import-Package>
+						<Bundle-Name>${pom.name}</Bundle-Name>
+					</instructions>
 				</configuration>
 			</plugin>
 

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<SOAP-ENV:Envelope 
+	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" 
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"  
+	xmlns:wsa="http://www.w3.org/2005/08/addressing" 
+	xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ soapenv.xsd">
+	<SOAP-ENV:Header>
+		<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" SOAP-ENV:mustUnderstand="1">
+			<wsu:Timestamp xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="Timestamp-12345">
+				<wsu:Created>2009-12-23T08:11:11.735Z</wsu:Created>
+				<wsu:Expires>2009-12-23T08:16:11.735Z</wsu:Expires>
+			</wsu:Timestamp>
+			<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="Signature-12345">
+				<ds:SignedInfo>
+					<ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+					<ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
+					<ds:Reference URI="#Id-12345">
+						<ds:Transforms>
+							<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+						</ds:Transforms>
+						<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+						<ds:DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk</ds:DigestValue>
+					</ds:Reference>
+					<ds:Reference URI="#Timestamp-12345">
+						<ds:Transforms>
+							<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+						</ds:Transforms>
+						<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+						<ds:DigestValue>dM8fK3UEbaFdUsl1PXNCcuLz6/M=</ds:DigestValue>
+					</ds:Reference>
+				</ds:SignedInfo>
+				<ds:SignatureValue>2LW4LfjAP5MZulRXONtdzhu7JpvZawfR4/5e2UEBJVMUGqB8c/zTVgG65Z2cIePYgWdw+ma+dWmuJdgqM+66hzZ5BMAH1sNRxL6onz0DOyuRnDYhEgNYgCjmN67Ok7Q0SQqnEfJ19B1WdAxqawspyLjXVyS4X5BisAG5G+25CrQ=</ds:SignatureValue>
+				<ds:KeyInfo Id="KeyId-12345">
+					<wsse:SecurityTokenReference xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="STRId-12345">
+						<wsse:KeyIdentifier EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509SubjectKeyIdentifier">+JGv39JjeaxQiilnwwc/wlWlITU=</wsse:KeyIdentifier>
+					</wsse:SecurityTokenReference>
+				</ds:KeyInfo>
+			</ds:Signature>
+		</wsse:Security>
+		<wsa:MessageID>uuid:6B29FC40-CA47-1067-B31D-00DD010662DA</wsa:MessageID>
+		<wsa:To>http://fabrikam123.com/serviceB/123</wsa:To>
+		<wsa:From>
+			<wsa:Address>http://Business456.com/serviceA/789</wsa:Address>
+		</wsa:From>
+		<wsa:Action>http://ojbc.org/Services/WSDL/JuvenileHistoryRequest/CasePlanRequest/1.0/SubmitJuvenileCasePlanHistoryQuery</wsa:Action>
+	</SOAP-ENV:Header>
+	<SOAP-ENV:Body>
+		<jh-req-doc:JuvenileHistoryQuery 
+			xmlns="http://release.niem.gov/niem/niem-core/3.0/" 
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xmlns:jh-req-doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0"
+			xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" 
+			xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileHistoryQuery/1.0 ../../../artifacts/service_model/information_model/IEPD/Query/JuvenileHistoryQuery.xsd">
+			<jh-ext:JuvenileHistoryQueryCriteria>
+				<jh-ext:JuvenileInformationRecordID>
+					<IdentificationID>100</IdentificationID>
+					<IdentificationSourceText>Court</IdentificationSourceText>
+				</jh-ext:JuvenileInformationRecordID>
+			</jh-ext:JuvenileHistoryQueryCriteria>
+		</jh-req-doc:JuvenileHistoryQuery>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

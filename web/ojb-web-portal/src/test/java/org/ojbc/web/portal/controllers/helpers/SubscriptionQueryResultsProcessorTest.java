@@ -16,7 +16,11 @@
  */
 package org.ojbc.web.portal.controllers.helpers;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,17 +34,17 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Test;
-import org.ojbc.web.model.subscription.Subscription;
+import org.ojbc.util.xml.subscription.Subscription;
 import org.w3c.dom.Document;
 
 public class SubscriptionQueryResultsProcessorTest {
 	
 	@Test
-	public void testParsSubQueryResults() throws Exception{
+	public void testParseSubQueryResults() throws Exception{
 				
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				
-		Document sampleSubQueryResultsDoc = getSampleSubQueryResultsDoc();		
+		Document sampleSubQueryResultsDoc = getSampleSubQueryResultsDoc("src/test/resources/subscriptions/SampleSubscriptionQueryResults.xml");		
 		
 		SubscriptionQueryResultsProcessor subQueryResultsProcessor = new SubscriptionQueryResultsProcessor();
 		
@@ -54,7 +58,7 @@ public class SubscriptionQueryResultsProcessorTest {
 		String sEndDate = sdf.format(dEndDate);
 		assertEquals("2014-05-01", sEndDate);
 				
-		String topic = subscription.getSubscriptionType();
+		String topic = subscription.getTopic();
 		assertEquals("{http://ojbc.org/wsn/topics}:person/arrest", topic);				
 				
 		String sFullName = subscription.getFullName();
@@ -73,11 +77,35 @@ public class SubscriptionQueryResultsProcessorTest {
 		
 		String systemId = subscription.getSystemId();
 		assertEquals("62726", systemId);
+		
+		String federalRapSheetDisclosureAttentionDesignationText =  subscription.getFederalRapSheetDisclosureAttentionDesignationText();
+		assertEquals("Detective George Jones", federalRapSheetDisclosureAttentionDesignationText);
+		
+		Boolean federalRapSheetDisclosureIndicator =  subscription.getFederalRapSheetDisclosureIndicator();
+		assertThat(federalRapSheetDisclosureIndicator, is(true));
+		
+		assertNotNull(subscription.getFederalTriggeringEventCode());
+		assertEquals(2, subscription.getFederalTriggeringEventCode().size());
+		assertTrue(subscription.getFederalTriggeringEventCode().contains("DEATH"));
+		assertTrue(subscription.getFederalTriggeringEventCode().contains("ARREST"));
 	}
 	
-	private Document getSampleSubQueryResultsDoc() throws Exception{
+	@Test
+	public void testParseSubQueryResultsNoSID() throws Exception{
+				
+		Document sampleSubQueryResultsDoc = getSampleSubQueryResultsDoc("src/test/resources/subscriptions/sampleSubscriptionQueryResultsNoSID.xml");		
 		
-		File rapSheetFile = new File("src/test/resources/subscriptions/SampleSubscriptionQueryResults.xml");
+		SubscriptionQueryResultsProcessor subQueryResultsProcessor = new SubscriptionQueryResultsProcessor();
+		
+		Subscription subscription = subQueryResultsProcessor.parseSubscriptionQueryResults(sampleSubQueryResultsDoc);
+		
+		assertNotNull(subscription);
+				
+	}
+	
+	private Document getSampleSubQueryResultsDoc(String filePath) throws Exception{
+		
+		File rapSheetFile = new File(filePath);
 		InputStream rapsheetInStream = new FileInputStream(rapSheetFile);				
 		DocumentBuilder docBuilder = getDocBuilder();		
 		Document rapSheetDoc = docBuilder.parse(rapsheetInStream);	

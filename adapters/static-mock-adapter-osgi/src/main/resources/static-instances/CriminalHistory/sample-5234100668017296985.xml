@@ -21,14 +21,23 @@
         <rap:Metadata>
             <nc:ReportingOrganizationText>State CHRI</nc:ReportingOrganizationText>
         </rap:Metadata>
+        <rap:Metadata s:id="DOB01">
+			<nc:CommentText>Primary</nc:CommentText>
+		</rap:Metadata>
+		<rap:Metadata s:id="DOB02">
+			<nc:CommentText>Alias</nc:CommentText>
+		</rap:Metadata>
         <rap:Introduction>
             <rap:RapSheetRequest>
                 <rap:PurposeCode>A</rap:PurposeCode>
                 <rap:Attention>**CONFIDENTIAL INFORMATION FOR CRIMINAL JUSTICE AGENCIES ONLY**</rap:Attention>
                 <rap:RapSheetPerson>
-                    <nc:PersonBirthDate>
-                        <nc:Date>1946-05-16</nc:Date>
-                    </nc:PersonBirthDate>
+                   <nc:PersonBirthDate s:metadata="DOB01">
+						<nc:Date>1960-01-11</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonBirthDate  s:metadata="DOB02">
+						<nc:Date>1960-03-15</nc:Date>
+					</nc:PersonBirthDate>
                     <nc:PersonName>
                         <nc:PersonGivenName>Steven</nc:PersonGivenName>
                         <nc:PersonMiddleName>R</nc:PersonMiddleName>
@@ -37,7 +46,7 @@
                 </rap:RapSheetPerson>
             </rap:RapSheetRequest>
         </rap:Introduction>
-        <ch-ext:Person s:id="P89">
+        <rap:RapSheetPerson s:id="P89">
             <nc:PersonAlternateName>
                 <nc:PersonGivenName>JoJo</nc:PersonGivenName>
                 <nc:PersonSurName>Matthews</nc:PersonSurName>
@@ -69,7 +78,7 @@
                 </jxdm41:PersonStateFingerprintIdentification>
             </jxdm41:PersonAugmentation>
             <rap:SubjectCautionInformationText>Known to carry a hatchet. </rap:SubjectCautionInformationText>
-        </ch-ext:Person>
+        </rap:RapSheetPerson>
         <rap:PersonBiometricsAssociation>
             <nc:PersonReference s:ref="P89"/>
             <nc:Biometric>

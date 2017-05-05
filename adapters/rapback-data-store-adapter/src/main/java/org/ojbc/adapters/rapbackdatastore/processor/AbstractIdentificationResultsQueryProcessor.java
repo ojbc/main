@@ -25,9 +25,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.ws.security.util.Base64;
 import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Element;
@@ -51,12 +51,6 @@ public class AbstractIdentificationResultsQueryProcessor {
 		stateCriminalHistoryRecordDocument,
 		stateSearchResultDocument
 	}
-
-	protected static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
-	
-	protected static final String CID = "cid:";
-
-	protected static final String ATTACHMENT_URL_FORE_STRING = "http://ojbc.org/identification/results/";
 
 	protected final Log log = LogFactory.getLog(this.getClass());
 
@@ -84,7 +78,7 @@ public class AbstractIdentificationResultsQueryProcessor {
 						NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, 
 						QueryResponseElementName.Base64BinaryObject.name());
 		
-		base64BinaryObject.setTextContent(Base64.encode(binaryData));
+		base64BinaryObject.setTextContent(Base64.encodeBase64String(binaryData));
 	}
 
 }

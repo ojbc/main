@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+<ccs-req-doc:CourtCaseSearchRequest xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseSearchRequest/1.0 ../xsd/exchange_schema.xsd" structures:metadata="SM003" xmlns:ccs-req-doc="http://ojbc.org/IEPD/Exchange/CourtCaseSearchRequest/1.0" xmlns:ccs-req-ext="http://ojbc.org/IEPD/Extensions/CourtCaseSearchRequestExtension/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<nc:Case>
+		<nc:CaseTrackingID>12345</nc:CaseTrackingID>
+		<nc:CaseDocketID>D5678799</nc:CaseDocketID>
+		<nc:CaseFiling>
+			<nc:DocumentFiledDate>
+				<nc:Date>2015-03-24</nc:Date>
+			</nc:DocumentFiledDate>
+		</nc:CaseFiling>
+		<j:CaseAugmentation>
+			<j:CaseCourt>
+				<j:CourtName>Court</j:CourtName>
+				<ccs-req-ext:CourtAugmentation>
+					<j:JurisdictionDistrictText>Anderson County
+					</j:JurisdictionDistrictText>
+				</ccs-req-ext:CourtAugmentation>
+			</j:CaseCourt>
+		</j:CaseAugmentation>
+	</nc:Case>
+	<nc:Person structures:id="Person_01">
+		<nc:PersonAgeMeasure>
+			<nc:MeasureIntegerRange>
+				<nc:RangeMaximumIntegerValue>50</nc:RangeMaximumIntegerValue>
+				<nc:RangeMinimumIntegerValue>40</nc:RangeMinimumIntegerValue>
+			</nc:MeasureIntegerRange>
+			<nc:MeasureDate/>
+			<nc:LengthUnitCode>4H</nc:LengthUnitCode>
+		</nc:PersonAgeMeasure>
+		<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
+		<nc:PersonHairColorText>Blonde</nc:PersonHairColorText>
+		<nc:PersonHeightMeasure>
+			<nc:MeasureIntegerRange>
+				<nc:RangeMaximumIntegerValue>511</nc:RangeMaximumIntegerValue>
+				<nc:RangeMinimumIntegerValue>506</nc:RangeMinimumIntegerValue>
+			</nc:MeasureIntegerRange>
+			<nc:MeasureDate/>
+			<nc:LengthUnitCode>4H</nc:LengthUnitCode>
+		</nc:PersonHeightMeasure>
+		<nc:PersonName>
+			<nc:PersonGivenName structures:metadata="SM001">David
+			</nc:PersonGivenName>
+			<nc:PersonMiddleName>P</nc:PersonMiddleName>
+			<nc:PersonSurName structures:metadata="SM002">Smith
+			</nc:PersonSurName>
+		</nc:PersonName>
+		<j:PersonRaceCode>W</j:PersonRaceCode>
+		<j:PersonSexCode>M</j:PersonSexCode>
+		<nc:PersonSSNIdentification>
+			<nc:IdentificationID>310923489</nc:IdentificationID>
+		</nc:PersonSSNIdentification>
+		<nc:PersonWeightMeasure>
+			<nc:MeasureIntegerRange>
+				<nc:RangeMaximumIntegerValue>200</nc:RangeMaximumIntegerValue>
+				<nc:RangeMinimumIntegerValue>170</nc:RangeMinimumIntegerValue>
+			</nc:MeasureIntegerRange>
+			<nc:MeasureDate/>
+			<nc:LengthUnitCode>A45</nc:LengthUnitCode>
+		</nc:PersonWeightMeasure>
+		<j:PersonAugmentation>
+			<j:DriverLicense>
+				<j:DriverLicenseCardIdentification>
+					<nc:IdentificationID>DL456789</nc:IdentificationID>
+					<nc:IdentificationSourceText>New York</nc:IdentificationSourceText>
+				</j:DriverLicenseCardIdentification>
+			</j:DriverLicense>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>FBI45678</nc:IdentificationID>
+			</j:PersonFBIIdentification>
+			<!--j:PersonNCICIdentification> <nc:IdentificationID>nc:IdentificationID</nc:IdentificationID> 
+				<nc:IdentificationSourceText>nc:IdentificationSourceText</nc:IdentificationSourceText> 
+				</j:PersonNCICIdentification -->
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+				<nc:IdentificationSourceText>State</nc:IdentificationSourceText>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+		<ccs-req-ext:PersonBirthDateRange>
+			<nc:StartDate>
+				<nc:Date>1982-02-23</nc:Date>
+			</nc:StartDate>
+			<nc:EndDate>
+				<nc:Date>1982-02-23</nc:Date>
+			</nc:EndDate>
+		</ccs-req-ext:PersonBirthDateRange>
+		<ccs-req-ext:PersonRecordIdentification>
+			<nc:IdentificationID>PR45678</nc:IdentificationID>
+		</ccs-req-ext:PersonRecordIdentification>
+	</nc:Person>
+	<nc:Location structures:id="Location_01">
+		<nc:Address>
+			<nc:AddressFullText>345 Main Street</nc:AddressFullText>
+			<nc:LocationCityName>Doral</nc:LocationCityName>
+			<nc:LocationStateUSPostalServiceCode>CO
+			</nc:LocationStateUSPostalServiceCode>
+			<nc:LocationPostalCode>12093</nc:LocationPostalCode>
+		</nc:Address>
+	</nc:Location>
+	<nc:PersonResidenceAssociation>
+		<nc:Person structures:ref="Person_01"/>
+		<nc:Location structures:ref="Location_01"/>
+	</nc:PersonResidenceAssociation>
+	<ccs-req-ext:SourceSystemNameText>RMS1
+	</ccs-req-ext:SourceSystemNameText>
+	<ccs-req-ext:SourceSystemNameText>RMS2
+	</ccs-req-ext:SourceSystemNameText>
+	<ccs-req-ext:SearchMetadata structures:id="SM001">
+		<ccs-req-ext:SearchQualifierCode>exact
+		</ccs-req-ext:SearchQualifierCode>
+	</ccs-req-ext:SearchMetadata>
+	<ccs-req-ext:SearchMetadata structures:id="SM002">
+		<ccs-req-ext:SearchQualifierCode>startsWith
+		</ccs-req-ext:SearchQualifierCode>
+	</ccs-req-ext:SearchMetadata>
+	<ccs-req-ext:SearchMetadata structures:id="SM003">
+		<ccs-req-ext:SearchRequestOnBehalfOfText>John Doe
+		</ccs-req-ext:SearchRequestOnBehalfOfText>
+		<ccs-req-ext:SearchPurposeText>Criminal Justice
+		</ccs-req-ext:SearchPurposeText>
+	</ccs-req-ext:SearchMetadata>
+</ccs-req-doc:CourtCaseSearchRequest>

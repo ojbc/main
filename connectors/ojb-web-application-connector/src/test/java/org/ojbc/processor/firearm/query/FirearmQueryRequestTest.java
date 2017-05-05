@@ -18,10 +18,10 @@ package org.ojbc.processor.firearm.query;
 
 import static org.junit.Assert.assertTrue;
 
-import org.apache.cxf.helpers.XMLUtils;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.util.RequestMessageBuilderUtilities;
@@ -92,8 +92,8 @@ public class FirearmQueryRequestTest {
 		
 		assertTrue(containsIdNode);
 
-		Document resultingDoc = XMLUtils.parse(sQueryRequest);
-		XmlUtils.validateInstance("service-specifications/Firearm_Registration_Query_Request_Service/artifacts/service_model/information_model/Firearm_Registration_Query_Request_IEPD/xsd", "Subset/niem", "exchange_schema.xsd",resultingDoc);
+		Document resultingDoc = OJBUtils.loadXMLFromString(sQueryRequest);
+		XmlUtils.validateInstance("ssp/Firearm_Registration_Query_Request/artifacts/service_model/information_model/IEPD/xsd", "Subset/niem", "exchange_schema.xsd",resultingDoc);
 		
 	}
 
