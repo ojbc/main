@@ -85,6 +85,11 @@
 				<xsd:sequence>
 					<xsd:element ref="sqr-ext:SubscriptionRelatedCaseIdentification"
 						minOccurs="0" />
+						
+							<xsd:element ref="sqr-ext:FBISubscription" minOccurs="0"
+						maxOccurs="unbounded" />
+						
+						
 					<xsd:element ref="sqr-ext:SubscriptionSubjectRepresentation" />
 					<xsd:element ref="wsn-br:Topic" />
 					<xsd:element ref="sqr-ext:SubscribedEntity" minOccurs="0"
@@ -109,6 +114,135 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	
+	
+	<xsd:element name="FBISubscription" type="sqr-ext:FBISubscriptionType">
+		<xsd:annotation>
+			<xsd:documentation>A subscription created by the Federal Bureau of
+				Investigation.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="FBISubscriptionType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a subscription created by the
+				Federal Bureau of Investigation.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
+				<xsd:sequence>
+					<xsd:element ref="sqr-ext:SubscriptionFBIIdentification" />
+					<xsd:element ref="sqr-ext:SubscriptionReasonRepresentation" />
+					<xsd:element ref="sqr-ext:RapBackSubscriptionTermCode"
+						minOccurs="0" />
+					<xsd:element ref="sqr-ext:RapBackActivityNotificationIdentification"
+						minOccurs="0" />
+					<xsd:element ref="sqr-ext:RapBackInStateOptOutIndicator"
+						minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SubscriptionFBIIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to a subscription
+				with the Federal Bureau of Investigation (FBI).
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="StateSubscriptionFBISubscriptionAssociation"
+		type="sqr-ext:StateSubscriptionFBISubscriptionAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>An relationship between one FBI Subscription and
+				one or more state subscriptions..
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="StateSubscriptionFBISubscriptionAssociationType">
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="sqr-ext:StateSubscriptionReference"
+						maxOccurs="unbounded" />
+					<xsd:element ref="sqr-ext:FBISubscriptionReference" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="StateSubscriptionReference" type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>A reference to a state subscription.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FBISubscriptionReference" type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>A reference to a FBI subscription.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="RapBackSubscriptionTermCode" type="sqr-ext:RBSubscriptionTermCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A representation of the length of a Rap Back
+				Subscription Term.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="RBSubscriptionTermCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the code indicating the rap back
+				subscription term length.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="sqr-ext:RBSubscriptionTermCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="RBSubscriptionTermCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an enumeration representation of
+				code designations for a rap back subscription term.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="2">
+				<xsd:annotation>
+					<xsd:documentation>Two year subscription term</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="5">
+				<xsd:annotation>
+					<xsd:documentation>Five year subscription term</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="L">
+				<xsd:annotation>
+					<xsd:documentation>Lifetime subscription term</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="RapBackActivityNotificationIdentification"
+		type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification assigned to a rap back
+				notification.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackInStateOptOutIndicator" type="xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if Submitter wishes to opt-out of receiving
+				notifications for events originating within the submitter’s own
+				state; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
 	<xsd:complexType name="PersonType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a human being.</xsd:documentation>
