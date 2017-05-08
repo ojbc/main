@@ -100,24 +100,13 @@
 		</ssr-ext:SubscriptionFBIIdentification>
 		<ssr-ext:CriminalSubscriptionReasonCode>CI
 		</ssr-ext:CriminalSubscriptionReasonCode>
-		<ssr-ext:RapBackSubscription>
-			<ssr-ext:RapBackExpirationDate>
-				<nc:Date>2010-02-24</nc:Date>
-			</ssr-ext:RapBackExpirationDate>
-			<ssr-ext:RapBackSubscriptionDate>
-				<nc:Date>2011-01-25</nc:Date>
-			</ssr-ext:RapBackSubscriptionDate>
-			<ssr-ext:RapBackSubscriptionIdentification>
-				<nc:IdentificationID>123456</nc:IdentificationID>
-			</ssr-ext:RapBackSubscriptionIdentification>
-			<ssr-ext:RapBackSubscriptionTermCode>5
-			</ssr-ext:RapBackSubscriptionTermCode>
-			<ssr-ext:RapBackActivityNotificationIdentification>
-				<nc:IdentificationID>12345</nc:IdentificationID>
-			</ssr-ext:RapBackActivityNotificationIdentification>
-			<ssr-ext:RapBackInStateOptOutIndicator>false
-			</ssr-ext:RapBackInStateOptOutIndicator>
-		</ssr-ext:RapBackSubscription>
+		<ssr-ext:RapBackSubscriptionTermCode>5
+		</ssr-ext:RapBackSubscriptionTermCode>
+		<ssr-ext:RapBackActivityNotificationIdentification>
+			<nc:IdentificationID>12345</nc:IdentificationID>
+		</ssr-ext:RapBackActivityNotificationIdentification>
+		<ssr-ext:RapBackInStateOptOutIndicator>false
+		</ssr-ext:RapBackInStateOptOutIndicator>
 	</ssr-ext:FBISubscription>
 	<ssr-ext:Person s:id="P001">
 		<nc:PersonName>

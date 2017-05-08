@@ -84,8 +84,12 @@
 				<xsd:sequence>
 					<xsd:element ref="ssr-ext:SubscriptionFBIIdentification" />
 					<xsd:element ref="ssr-ext:SubscriptionReasonRepresentation" />
-						<xsd:element ref="ssr-ext:RapBackSubscription"
-						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ssr-ext:RapBackSubscriptionTermCode"
+						minOccurs="0" />
+					<xsd:element ref="ssr-ext:RapBackActivityNotificationIdentification"
+						minOccurs="0" />
+					<xsd:element ref="ssr-ext:RapBackInStateOptOutIndicator"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -374,56 +378,6 @@
 		<xsd:annotation>
 			<xsd:documentation>An identifier for a subscription, provided by the
 				subscribing system - this is not guaranteed 100% unique.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:complexType name="RapBackSubscriptionType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for a rap back subscription.
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="s:ComplexObjectType">
-				<xsd:sequence>
-					<xsd:element ref="ssr-ext:RapBackExpirationDate"
-						minOccurs="0" />
-					<xsd:element ref="ssr-ext:RapBackSubscriptionDate"
-						minOccurs="0" />
-					<xsd:element ref="ssr-ext:RapBackSubscriptionIdentification"
-						minOccurs="0" />
-					<xsd:element ref="ssr-ext:RapBackSubscriptionTermCode"
-						minOccurs="0" />
-					<xsd:element ref="ssr-ext:RapBackActivityNotificationIdentification"
-						minOccurs="0" />
-					<xsd:element ref="ssr-ext:RapBackInStateOptOutIndicator"
-						minOccurs="0" />
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
-	<xsd:element name="RapBackSubscription" type="ssr-ext:RapBackSubscriptionType">
-		<xsd:annotation>
-			<xsd:documentation>A rap back subscription.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="RapBackExpirationDate" type="nc:DateType">
-		<xsd:annotation>
-			<xsd:documentation>A date a Rap Back Subscription expires under the
-				Subscriber's Privacy Strategy.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="RapBackSubscriptionDate" type="nc:DateType">
-		<xsd:annotation>
-			<xsd:documentation>The Date a rap back subscription was created.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="RapBackSubscriptionIdentification" type="nc:IdentificationType">
-		<xsd:annotation>
-			<xsd:documentation>Unique identification assigned by NGI that
-				identifies a rap back subscription as a whole.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
