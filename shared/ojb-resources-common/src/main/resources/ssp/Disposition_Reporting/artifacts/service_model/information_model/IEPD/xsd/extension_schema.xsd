@@ -450,6 +450,26 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="DocketType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a docket.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="disp-ext:DocketCodeText" minOccurs="0"
+						maxOccurs="1" />
+					<xsd:element ref="disp-ext:DocketDate" minOccurs="0"
+						maxOccurs="1" />
+					<xsd:element ref="disp-ext:DocketCategoryText"
+						minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="disp-ext:DocketMinutesText"
+						minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:element name="DeferredCase" type="nc:CaseType">
 		<xsd:annotation>
 			<xsd:documentation>A deferred disposition.</xsd:documentation>
@@ -1047,26 +1067,22 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DocketCodeText" type="nc:TextType"
-		substitutionGroup="disp-ext:CaseDocket">
+	<xsd:element name="DocketCodeText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A code for a docket.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DocketDate" type="nc:DateType"
-		substitutionGroup="disp-ext:CaseDocket">
+	<xsd:element name="DocketDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>A date for a docket.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DocketCategoryText" type="nc:TextType"
-		substitutionGroup="disp-ext:CaseDocket">
+	<xsd:element name="DocketCategoryText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>A type of docket.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DocketMinutesText" type="nc:TextType"
-		substitutionGroup="disp-ext:CaseDocket">
+	<xsd:element name="DocketMinutesText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>Minutes recorded in a docket.</xsd:documentation>
 		</xsd:annotation>
@@ -1094,6 +1110,13 @@
 	<xsd:element name="DeferralReturnDate" type="nc:DateType">
 		<xsd:annotation>
 			<xsd:documentation>A return date for a disposition referral.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Docket" type="disp-ext:DocketType"
+		substitutionGroup="disp-ext:CaseDocket">
+		<xsd:annotation>
+			<xsd:documentation>A calendar or list of cases for trial.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

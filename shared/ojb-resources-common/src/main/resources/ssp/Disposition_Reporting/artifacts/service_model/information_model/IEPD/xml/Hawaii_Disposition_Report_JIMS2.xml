@@ -164,12 +164,14 @@
 			<disp-ext:CaseFee>
 				<nc:Amount>138</nc:Amount>
 			</disp-ext:CaseFee>
-			<disp-ext:DocketCodeText></disp-ext:DocketCodeText>
-			<disp-ext:DocketDate>
-				<nc:Date>2016-09-04</nc:Date>
-			</disp-ext:DocketDate>
-			<disp-ext:DocketCategoryText></disp-ext:DocketCategoryText>
-			<disp-ext:DocketMinutesText></disp-ext:DocketMinutesText>
+			<disp-ext:Docket>
+				<disp-ext:DocketCodeText></disp-ext:DocketCodeText>
+				<disp-ext:DocketDate>
+					<nc:Date>2016-09-04</nc:Date>
+				</disp-ext:DocketDate>
+				<disp-ext:DocketCategoryText></disp-ext:DocketCategoryText>
+				<disp-ext:DocketMinutesText></disp-ext:DocketMinutesText>
+			</disp-ext:Docket>
 			<disp-ext:CaseInitiationCategoryCodeText>NEW
 			</disp-ext:CaseInitiationCategoryCodeText>
 		</disp-ext:CaseAugmentation>
