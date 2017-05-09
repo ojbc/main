@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       ">
+	<!-- needed cxf imports -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />	
+					
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="consentManagmentAdapterCamelContext">
+	
+		<camel:endpoint id="bookingReportingServiceEndpoint"
+			uri="cxf:bean:bookingReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${consentManagement.cxflogging}" />
+
+		<!-- Booking Reporting Service Handler -->
+		<camel:route id="bookingReportingServiceHandlerRoute">
+			<camel:from uri="bookingReportingServiceEndpoint" />
+			
+			<camel:log message="Entering Consent Management Adapter - booking route"/>
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:to uri="direct:processBooking"/>
+
+		</camel:route>
+
+		<!-- Booking Reporting Service Handler -->
+		<camel:route id="processBookingDirectRoute">
+			<camel:from uri="direct:processBooking" />
+			
+			<camel:log message="Entering direct route to process booking..."/>
+			
+			<!-- Process the message here and persis to the datastore -->
+			
+		</camel:route>
+
+		
+	</camel:camelContext>
+	
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	
+	<!-- See this thread: http://stackoverflow.com/questions/11195506/increase-executor-queue-size-in-cxf-onewayprocessorinterceptor -->
+    <bean id="cxf.default.workqueue" class="org.apache.cxf.workqueue.AutomaticWorkQueueImpl">
+        <property name="name" value="default" />
+        <property name="queueSize" value="2048" />
+    </bean>	
+</beans>

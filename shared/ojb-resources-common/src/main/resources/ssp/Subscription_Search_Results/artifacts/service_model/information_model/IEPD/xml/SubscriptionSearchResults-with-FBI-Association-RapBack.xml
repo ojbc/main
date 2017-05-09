@@ -100,6 +100,13 @@
 		</ssr-ext:SubscriptionFBIIdentification>
 		<ssr-ext:CriminalSubscriptionReasonCode>CI
 		</ssr-ext:CriminalSubscriptionReasonCode>
+		<ssr-ext:RapBackSubscriptionTermCode>5
+		</ssr-ext:RapBackSubscriptionTermCode>
+		<ssr-ext:RapBackActivityNotificationIdentification>
+			<nc:IdentificationID>12345</nc:IdentificationID>
+		</ssr-ext:RapBackActivityNotificationIdentification>
+		<ssr-ext:RapBackInStateOptOutIndicator>false
+		</ssr-ext:RapBackInStateOptOutIndicator>
 	</ssr-ext:FBISubscription>
 	<ssr-ext:Person s:id="P001">
 		<nc:PersonName>

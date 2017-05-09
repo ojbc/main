@@ -21,7 +21,6 @@
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="Subset/niem/domains/jxdm/4.1/jxdm.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/FirearmTypeCodes/1.0" schemaLocation="firearm_type_codes.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" schemaLocation="query-results-metadata.xsd"/>
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" schemaLocation="query-request-error-reporting.xsd"/>
@@ -200,12 +199,6 @@
 	<xsd:element name="FirearmImporter" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>ADD DESCRIPTION</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="FirearmTypeCode" type="FirearmTypeCodes:FirearmTypeCodeType">
-		<xsd:annotation>
-			<xsd:documentation>Firearm types..
-			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FirearmAction" type="nc:TextType">

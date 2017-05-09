@@ -98,6 +98,8 @@
 			</camel:setHeader>
 			
 			<log message="This is the operation name: ${in.headers.operationName}"/>
+
+			<camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace"/>
 			
 			<camel:throttle timePeriodMillis="1000">
 				<constant>1</constant>
