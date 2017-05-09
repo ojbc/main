@@ -86,7 +86,7 @@
 					<xsd:element ref="ssr-ext:SubscriptionReasonRepresentation" />
 					<xsd:element ref="ssr-ext:RapBackSubscriptionTermCode"
 						minOccurs="0" />
-					<xsd:element ref="ssr-ext:RapBackActivityNotificationIdentification"
+					<xsd:element ref="ssr-ext:RapBackActivityNotificationRepresentation"
 						minOccurs="0" />
 					<xsd:element ref="ssr-ext:RapBackInStateOptOutIndicator"
 						minOccurs="0" />
@@ -424,14 +424,59 @@
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
-	<xsd:element name="RapBackActivityNotificationIdentification"
-		type="nc:IdentificationType">
+	<xsd:element name="RapBackActivityNotificationRepresentation"
+		abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>A unique identification assigned to a rap back
+			<xsd:documentation>A representation of the type of rap back activity
 				notification.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="RapBackActivityNotificationFormatCode"
+		type="ssr-ext:RapBackActivityNotificationFormatCodeType"
+		substitutionGroup="ssr-ext:RapBackActivityNotificationRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A code indicating the type of rap back activity
+				notification.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="RapBackActivityNotificationFormatCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A code type for the code indicating the type of
+				rap back activity notification.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension
+				base="ssr-ext:RapBackActivityNotificationFormatCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="RapBackActivityNotificationFormatCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>An enumeration set for a type of rap back activity notification.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation>Pre-Notification</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="2">
+				<xsd:annotation>
+					<xsd:documentation>Triggering Event</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="3">
+				<xsd:annotation>
+					<xsd:documentation>Identity History Summary to include the triggering event</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
 	<xsd:element name="RapBackInStateOptOutIndicator" type="xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if Submitter wishes to opt-out of receiving
