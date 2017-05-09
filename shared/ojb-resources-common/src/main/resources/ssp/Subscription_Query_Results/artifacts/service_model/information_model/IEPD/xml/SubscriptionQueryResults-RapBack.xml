@@ -57,9 +57,7 @@
 				</sqr-ext:CriminalSubscriptionReasonCode>
 				<sqr-ext:RapBackSubscriptionTermCode>5
 				</sqr-ext:RapBackSubscriptionTermCode>
-				<sqr-ext:RapBackActivityNotificationIdentification>
-					<nc:IdentificationID>12345</nc:IdentificationID>
-				</sqr-ext:RapBackActivityNotificationIdentification>
+				<sqr-ext:RapBackActivityNotificationFormatCode>1</sqr-ext:RapBackActivityNotificationFormatCode>
 				<sqr-ext:RapBackInStateOptOutIndicator>false
 				</sqr-ext:RapBackInStateOptOutIndicator>
 			</sqr-ext:FBISubscription>
