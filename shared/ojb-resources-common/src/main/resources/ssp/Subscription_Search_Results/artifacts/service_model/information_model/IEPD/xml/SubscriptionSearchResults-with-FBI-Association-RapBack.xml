@@ -102,9 +102,7 @@
 		</ssr-ext:CriminalSubscriptionReasonCode>
 		<ssr-ext:RapBackSubscriptionTermCode>5
 		</ssr-ext:RapBackSubscriptionTermCode>
-		<ssr-ext:RapBackActivityNotificationIdentification>
-			<nc:IdentificationID>12345</nc:IdentificationID>
-		</ssr-ext:RapBackActivityNotificationIdentification>
+		<ssr-ext:RapBackActivityNotificationFormatCode>1</ssr-ext:RapBackActivityNotificationFormatCode>
 		<ssr-ext:RapBackInStateOptOutIndicator>false
 		</ssr-ext:RapBackInStateOptOutIndicator>
 	</ssr-ext:FBISubscription>
