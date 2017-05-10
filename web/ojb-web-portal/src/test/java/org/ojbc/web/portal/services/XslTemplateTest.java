@@ -328,9 +328,11 @@ public class XslTemplateTest {
                
         searchResultConverter.searchResultXsl = xsl;
         
-        String convertedHtmlPersonSearchResult = searchResultConverter.convertPersonSearchResult(sXmlInput, getDefaultPersonSearchParams());
+        String convertedHtmlSubscriptionSearchResult = searchResultConverter.convertPersonSearchResult(sXmlInput, getDefaultPersonSearchParams());
+        
+        System.out.println("convertedHtmlSubscriptionSearchResult: " + convertedHtmlSubscriptionSearchResult);
                                     
-        assertLinesEquals(expectedHtmlLineList, convertedHtmlPersonSearchResult);                                                    
+        assertLinesEquals(expectedHtmlLineList, convertedHtmlSubscriptionSearchResult);                                                    
     }
     
     
@@ -356,7 +358,7 @@ public class XslTemplateTest {
         searchResultConverter.searchResultXsl = xsl;
         
         String convertResult = searchResultConverter.convertPersonSearchResult(xmlInput, getDefaultPersonSearchParams());
-                               
+        System.out.println("convertedHtmlSubscriptionSearchResult: " + convertResult); 
         assertLinesEquals(expectedHtml, convertResult);
     }    
     

@@ -82,8 +82,7 @@
 						<th>NAME</th>
 						<th>START DATE</th>
 						<th>END DATE</th>
-						<th>TYPE</th>
-						<th>VALIDATION DUE</th>
+						<th>FBI SUBSCRIPTION</th>
 						<th>EMAIL ADDRESS</th>
 					</tr>
 				</thead>
@@ -161,39 +160,33 @@
 					<xsl:element name="td">
 						<xsl:apply-templates select="ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date[normalize-space()]" mode="endDate"/>
 					</xsl:element>
+
 					<td>
-						<!-- TODO: get this from OJBC Static Config -->
-						<xsl:choose>
-							<xsl:when test="ext:Subscription/wsn-br:Topic = $arrestTopic">Arrest</xsl:when>
-							<xsl:when test="ext:Subscription/wsn-br:Topic = $rapbackTopic">Rapback</xsl:when>
-							<xsl:when test="ext:Subscription/wsn-br:Topic = $incidentTopic">Incident</xsl:when>
-							<xsl:when test="ext:Subscription/wsn-br:Topic = $chCycleTopic">ATN Assignment</xsl:when>
-						</xsl:choose>
-					</td>
-																				
-					<xsl:variable name="validationDueDate" select="ext:Subscription/ext:SubscriptionValidation/ext:SubscriptionValidationDueDate/nc:Date"/>
-						
-					<xsl:choose>
-						<xsl:when test="$validationDueDate &lt; current-date()">
-							<td style="color:red">
-								<xsl:call-template name="formatDate">
-									<xsl:with-param name="date" select="$validationDueDate"/>
-								</xsl:call-template>
-							</td>		
-						</xsl:when>
-						<xsl:otherwise>					
-							<td>
-								<xsl:call-template name="formatDate">
-									<xsl:with-param name="date" select="$validationDueDate"/>
-								</xsl:call-template>
-							</td>					
-						</xsl:otherwise>					
-					</xsl:choose>	
+						<xsl:apply-templates select="." mode="fbiSubscription"/>
+					</td>		
 									
 					<td>
 						<xsl:apply-templates select="/p:SubscriptionSearchResults/ext:SubscribedEntityContactInformationAssociation[ext:SubscribedEntityReference/@s:ref=$subscribedEntity]"/>
 					</td>
 				</tr>
+	</xsl:template>
+	
+	<xsl:template match="ext:SubscriptionSearchResult" mode="fbiSubscription">
+		<xsl:variable name="subscriptionRefId">
+			<xsl:value-of select="ext:Subscription/@s:id"/>
+		</xsl:variable>
+		
+		<xsl:variable name="fbiSubscriptionRefId">
+			<xsl:value-of select="/p:SubscriptionSearchResults/ext:StateSubscriptionFBISubscriptionAssociation[ext:StateSubscriptionReference/@s:ref=$subscriptionRefId]
+				/ext:FBISubscriptionReference/@s:ref"/>
+		</xsl:variable>
+		
+		<xsl:choose>
+			<xsl:when test="/p:SubscriptionSearchResults/ext:FBISubscription/@s:id = $fbiSubscriptionRefId">
+				<xsl:text>true</xsl:text>				 
+			</xsl:when>
+			<xsl:otherwise><xsl:text>false</xsl:text></xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 	<xsl:template match="ext:SubscribedEntityContactInformationAssociation">

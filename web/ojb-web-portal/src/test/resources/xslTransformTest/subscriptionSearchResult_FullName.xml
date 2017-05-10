@@ -32,7 +32,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionSearchResults/1.0 ../xsd/exchange_schema.xsd ">
   <ext:SubscriptionSearchResult>
-    <ext:Subscription>
+    <ext:Subscription s:id="S001">
     	<nc:ActivityDateRange>
     		<nc:StartDate>
     			<nc:Date>2014-03-12</nc:Date>
@@ -67,7 +67,7 @@
 	</intel:SystemIdentifier>
   </ext:SubscriptionSearchResult>
   <ext:SubscriptionSearchResult>
-    <ext:Subscription>
+    <ext:Subscription s:id="S002">
     	<nc:ActivityDateRange>
     		<nc:StartDate>
     			<nc:Date>2014-03-12</nc:Date>
@@ -102,7 +102,7 @@
 	</intel:SystemIdentifier>
   </ext:SubscriptionSearchResult>
   <ext:SubscriptionSearchResult>
-    <ext:Subscription>
+    <ext:Subscription s:id="S003">
     	<nc:ActivityDateRange>
     		<nc:StartDate>
     			<nc:Date>2014-03-12</nc:Date>
@@ -137,7 +137,46 @@
 		<intel:SystemName>Subscriptions</intel:SystemName>
 	</intel:SystemIdentifier>
   </ext:SubscriptionSearchResult>
-
+    <ext:FBISubscription s:id="FBI001">
+        <nc:ActivityDateRange>
+            <nc:StartDate>
+                <nc:Date>2014-03-12</nc:Date>
+            </nc:StartDate>
+            <nc:EndDate>
+                <nc:Date>2019-03-12</nc:Date>
+            </nc:EndDate>
+        </nc:ActivityDateRange>
+        <ext:SubscriptionFBIIdentification>
+            <nc:IdentificationID>1234567</nc:IdentificationID>
+        </ext:SubscriptionFBIIdentification>
+        <ext:CriminalSubscriptionReasonCode>CI
+        </ext:CriminalSubscriptionReasonCode>
+        <ext:RapBackSubscriptionTermCode>5
+        </ext:RapBackSubscriptionTermCode>
+        <ext:RapBackActivityNotificationFormatCode>1</ext:RapBackActivityNotificationFormatCode>
+        <ext:RapBackInStateOptOutIndicator>false
+        </ext:RapBackInStateOptOutIndicator>
+    </ext:FBISubscription>
+    <ext:FBISubscription s:id="FBI002">
+        <nc:ActivityDateRange>
+            <nc:StartDate>
+                <nc:Date>2014-03-12</nc:Date>
+            </nc:StartDate>
+            <nc:EndDate>
+                <nc:Date>2015-03-12</nc:Date>
+            </nc:EndDate>
+        </nc:ActivityDateRange>
+        <ext:SubscriptionFBIIdentification>
+            <nc:IdentificationID>1234568</nc:IdentificationID>
+        </ext:SubscriptionFBIIdentification>
+        <ext:CriminalSubscriptionReasonCode>CI
+        </ext:CriminalSubscriptionReasonCode>
+        <ext:RapBackSubscriptionTermCode>1
+        </ext:RapBackSubscriptionTermCode>
+        <ext:RapBackActivityNotificationFormatCode>1</ext:RapBackActivityNotificationFormatCode>
+        <ext:RapBackInStateOptOutIndicator>false
+        </ext:RapBackInStateOptOutIndicator>
+    </ext:FBISubscription>
   <ext:Person s:id="P002">
   	<nc:PersonBirthDate>
   		<nc:Date>1972-03-01</nc:Date>
@@ -197,4 +236,12 @@
   	<ext:SubscribedEntityReference s:ref="SE004" />
   	<nc:ContactInformationReference s:ref="CI004" />
   </ext:SubscribedEntityContactInformationAssociation>
+  <ext:StateSubscriptionFBISubscriptionAssociation>
+      <ext:StateSubscriptionReference s:ref="S001" />
+      <ext:FBISubscriptionReference	s:ref="FBI001" />
+  </ext:StateSubscriptionFBISubscriptionAssociation>  
+  <ext:StateSubscriptionFBISubscriptionAssociation>
+      <ext:StateSubscriptionReference s:ref="S002" />
+      <ext:FBISubscriptionReference	s:ref="FBI002" />
+  </ext:StateSubscriptionFBISubscriptionAssociation>  
 </p:SubscriptionSearchResults>

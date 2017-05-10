@@ -36,7 +36,7 @@
   			     "aoColumns": [
 				      { "bSortable": false, "bSearchable":false },
 				      { "bSortable": false, "bSearchable":false },
-					      null, null,null, null, null, null, null
+					      null, null,null, null, null, null
 				    ] 
 	  		});
 	  		
