@@ -26,10 +26,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
+import org.ojbc.util.helper.OJBCDateUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -125,6 +128,23 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            	
 	            	subscription.setAgencyCaseNumber(rs.getString("agency_case_number"));
 	            	
+	    			String fbiSubscriptionId = rs.getString("fbi_subscription_id"); 
+	    			if (StringUtils.isNotBlank(fbiSubscriptionId)){
+	    				FbiRapbackSubscription fbiSubscription = new FbiRapbackSubscription();
+	    				fbiSubscription.setFbiSubscriptionId(fbiSubscriptionId);
+		    			fbiSubscription.setRapbackCategory(rs.getString("rap_back_category_code"));
+		    			fbiSubscription.setSubscriptionTerm(rs.getString("rap_back_subscription_term_code"));
+		    			fbiSubscription.setRapbackExpirationDate(OJBCDateUtils.toDateTime(rs.getDate("rap_back_expiration_date")));
+		    			fbiSubscription.setRapbackStartDate(OJBCDateUtils.toDateTime(rs.getDate("rap_back_start_date")));
+		    			fbiSubscription.setRapbackTermDate(OJBCDateUtils.toDateTime(rs.getDate("rap_back_term_date")));
+		    			fbiSubscription.setRapbackOptOutInState(rs.getBoolean("rap_back_opt_out_in_state_indicator"));
+		    			fbiSubscription.setRapbackActivityNotificationFormat(rs.getString("rap_back_activity_notification_format_code"));
+		    			fbiSubscription.setUcn(rs.getString("ucn"));
+		    			fbiSubscription.setStateSubscriptionId(rs.getInt("subscription_id"));
+		    			fbiSubscription.setTimestamp(OJBCDateUtils.toDateTime(rs.getTimestamp("report_timestamp")));
+		    			
+		    			subscription.setFbiRapbackSubscription(fbiSubscription);
+	    			}
 	            	map.put(id, subscription);
 	            	
 	            }	

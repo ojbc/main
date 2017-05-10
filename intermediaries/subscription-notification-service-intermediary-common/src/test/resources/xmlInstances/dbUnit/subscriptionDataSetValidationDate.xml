@@ -39,5 +39,16 @@
   <notification_mechanism id="20" subscriptionId="4" notificationMechanismType="email" notificationAddress="po4@localhost"/>
   <subscription_subject_identifier id="300" subscriptionId="4" identifierName="SID" identifierValue="NONE"/>
   <subscription_subject_identifier id="301" subscriptionId="4" identifierName="subscriptionQualifier" identifierValue="12345"/>
+  <fbi_rap_back_subscription fbi_subscription_id="fbiId1" 
+  	rap_back_expiration_date="2017-09-27" 
+  	rap_back_start_date="2012-09-27" 
+  	rap_back_term_date="2017-09-27"
+  	rap_back_opt_out_in_state_indicator="true" 
+  	rap_back_category_code="CI" 
+  	rap_back_activity_notification_format_code="1" 
+  	rap_back_subscription_term_code="5" 
+  	subscription_id="1"
+  	ucn="074644NG0" 
+  	report_timestamp="2013-08-27 15:08:33.0" />
     
 </dataset>

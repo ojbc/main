@@ -25,6 +25,7 @@ import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
 
 public final class OJBCDateUtils {
 	private static final Log log = LogFactory.getLog( OJBCDateUtils.class );
@@ -103,6 +104,10 @@ public final class OJBCDateUtils {
 		
 		return null;
 	}
+
+	public static DateTime toDateTime(Date date){
+	return date == null? null : new DateTime(date); 
+}
 
 
 }

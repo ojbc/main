@@ -23,6 +23,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 
 /**
  * Data Access Object for subscriptions.
@@ -60,6 +61,8 @@ public class Subscription {
 	private String subscriptionCategoryCode; 
 
 	private Map<String, String> subscriptionProperties;
+	
+	private FbiRapbackSubscription fbiRapbackSubscription;
 	
     public DateTime getValidationDueDate() {
 	    return validationDueDate;
@@ -212,6 +215,14 @@ public class Subscription {
 
 	public void setSubscriptionProperties(Map<String, String> subscriptionProperties) {
 		this.subscriptionProperties = subscriptionProperties;
+	}
+
+	public FbiRapbackSubscription getFbiRapbackSubscription() {
+		return fbiRapbackSubscription;
+	}
+
+	public void setFbiRapbackSubscription(FbiRapbackSubscription fbiRapbackSubscription) {
+		this.fbiRapbackSubscription = fbiRapbackSubscription;
 	}
 
 }

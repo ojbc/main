@@ -16,9 +16,11 @@
  */
 package org.ojbc.intermediaries.sn.subscription;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,9 +29,11 @@ import java.util.List;
 
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.topic.rapback.FederalTriggeringEventCode;
 import org.ojbc.util.xml.XmlUtils;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -111,7 +115,7 @@ public class TestSubscriptionSearchQueryProcessor {
         
         Document doc = processor.buildSubscriptionQueryResponseDoc(subscriptionSearchResponse);
 
-        //XmlUtils.printNode(doc);
+        XmlUtils.printNode(doc);
         
         //XmlUtils.validateInstance("ssp/Subscription_Search_Results/schema/information/Subscription_Search_Results_IEPD/xsd", 
         //      "Subset/niem", "exchange_schema.xsd", doc);
@@ -162,7 +166,7 @@ public class TestSubscriptionSearchQueryProcessor {
         assertEquals("Subscriptions",systemName);
         
         String personReferenceId = XmlUtils.xPathStringSearch(doc, "sqr:SubscriptionQueryResults/sqr-ext:Person/@s:id");
-        assertEquals("P0",personReferenceId);
+        assertEquals("P1",personReferenceId);
         
         String personBirthDate = XmlUtils.xPathStringSearch(doc, "sqr:SubscriptionQueryResults/sqr-ext:Person/nc:PersonBirthDate/nc:Date");
         assertEquals("1960-10-02",personBirthDate);
@@ -176,13 +180,13 @@ public class TestSubscriptionSearchQueryProcessor {
         String sid = XmlUtils.xPathStringSearch(doc, "/sqr:SubscriptionQueryResults/sqr-ext:Person/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
         assertEquals("A123456789",sid);
         
-        String email1 = XmlUtils.xPathStringSearch(doc, "/sqr:SubscriptionQueryResults/nc:ContactInformation[@s:id='SE0CE1']/nc:ContactEmailID");
+        String email1 = XmlUtils.xPathStringSearch(doc, "/sqr:SubscriptionQueryResults/nc:ContactInformation[@s:id='SE1CE1']/nc:ContactEmailID");
         assertEquals("a@b.com",email1);
         
-        String email2 = XmlUtils.xPathStringSearch(doc, "/sqr:SubscriptionQueryResults/nc:ContactInformation[@s:id='SE0CE2']/nc:ContactEmailID");
+        String email2 = XmlUtils.xPathStringSearch(doc, "/sqr:SubscriptionQueryResults/nc:ContactInformation[@s:id='SE1CE2']/nc:ContactEmailID");
         assertEquals("b@c.com",email2);
         
-        NodeList contactInfoReferenceNodes = XmlUtils.xPathNodeListSearch(doc, "/sqr:SubscriptionQueryResults/sqr-ext:SubscribedEntityContactInformationAssociation/sqr-ext:SubscribedEntityReference[@s:ref='SE0']/following-sibling::nc:ContactInformationReference");
+        NodeList contactInfoReferenceNodes = XmlUtils.xPathNodeListSearch(doc, "/sqr:SubscriptionQueryResults/sqr-ext:SubscribedEntityContactInformationAssociation/sqr-ext:SubscribedEntityReference[@s:ref='SE1']/following-sibling::nc:ContactInformationReference");
         assertNotNull(contactInfoReferenceNodes);
         
         assertEquals(2, contactInfoReferenceNodes.getLength());
@@ -191,10 +195,10 @@ public class TestSubscriptionSearchQueryProcessor {
         Node contactInfoReference2 = contactInfoReferenceNodes.item(1);
         
         String contactInfoReferenceReference1Id = XmlUtils.xPathStringSearch(contactInfoReference1, "@s:ref");
-        assertEquals("SE0CE1",contactInfoReferenceReference1Id);
+        assertEquals("SE1CE1",contactInfoReferenceReference1Id);
 
         String contactInfoReferenceReference2Id = XmlUtils.xPathStringSearch(contactInfoReference2, "@s:ref");
-        assertEquals("SE0CE2",contactInfoReferenceReference2Id);
+        assertEquals("SE1CE2",contactInfoReferenceReference2Id);
         
         NodeList triggeringEvents = XmlUtils.xPathNodeListSearch(subscription, "sqr-ext:Subscription/sqr-ext:TriggeringEvents/sqr-ext:FederalTriggeringEventCode");
         
@@ -261,7 +265,7 @@ public class TestSubscriptionSearchQueryProcessor {
 
         Document doc = processor.buildSubscriptionSearchResponseDoc(subscriptionSearchResponseList);
 
-        // XmlUtils.printNode(doc);
+        XmlUtils.printNode(doc);
 
         // XmlUtils.validateInstance("ssp/Subscription_Search_Results/schema/information/Subscription_Search_Results_IEPD/xsd",
         // "Subset/niem", "exchange_schema.xsd", doc);
@@ -272,6 +276,9 @@ public class TestSubscriptionSearchQueryProcessor {
 
         Node subscription = subscriptions.item(0);
         assertNotNull(subscription);
+        
+        String subscriptionRefId = XmlUtils.xPathStringSearch(subscription, "ssr-ext:Subscription/@s:id"); 
+        assertThat(subscriptionRefId, is("S001")); 
 
         String startDate = XmlUtils.xPathStringSearch(subscription, "ssr-ext:Subscription/nc:ActivityDateRange/nc:StartDate/nc:Date");
         assertEquals("2013-03-13", startDate);
@@ -280,7 +287,7 @@ public class TestSubscriptionSearchQueryProcessor {
         assertEquals("2014-04-05", endDate);
 
         String personReference = XmlUtils.xPathStringSearch(subscription, "ssr-ext:Subscription/ssr-ext:SubscriptionSubject/nc:RoleOfPersonReference/@s:ref");
-        assertEquals("P0", personReference);
+        assertEquals("P1", personReference);
 
         String topicDialect = XmlUtils.xPathStringSearch(subscription, "ssr-ext:Subscription/wsn-br:Topic/@Dialect");
         assertEquals("http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete", topicDialect);
@@ -289,7 +296,7 @@ public class TestSubscriptionSearchQueryProcessor {
         assertEquals(TOPIC, topic);
 
         String subscribedEntityReference = XmlUtils.xPathStringSearch(subscription, "ssr-ext:Subscription/ssr-ext:SubscribedEntity/@s:id");
-        assertEquals("SE0", subscribedEntityReference);
+        assertEquals("SE1", subscribedEntityReference);
 
         String subscriptionOwner = XmlUtils.xPathStringSearch(subscription, "ssr-ext:Subscription/ssr-ext:SubscriptionOriginator/ssr-ext:SubscriptionOriginatorIdentification/nc:IdentificationID");
         assertEquals("OJBC:IDP:OJBC:USER:admin", subscriptionOwner);
@@ -308,7 +315,7 @@ public class TestSubscriptionSearchQueryProcessor {
         assertEquals("Subscriptions", systemName);
 
         String personReferenceId = XmlUtils.xPathStringSearch(doc, "ssr:SubscriptionSearchResults/ssr-ext:Person/@s:id");
-        assertEquals("P0", personReferenceId);
+        assertEquals("P1", personReferenceId);
 
         String personBirthDate = XmlUtils.xPathStringSearch(doc, "ssr:SubscriptionSearchResults/ssr-ext:Person/nc:PersonBirthDate/nc:Date");
         assertEquals("1960-10-02", personBirthDate);
@@ -322,15 +329,15 @@ public class TestSubscriptionSearchQueryProcessor {
         String sid = XmlUtils.xPathStringSearch(doc, "/ssr:SubscriptionSearchResults/ssr-ext:Person/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
         assertEquals("A123456789", sid);
 
-        String email1 = XmlUtils.xPathStringSearch(doc, "/ssr:SubscriptionSearchResults/nc:ContactInformation[@s:id='SE0CE1']/nc:ContactEmailID");
+        String email1 = XmlUtils.xPathStringSearch(doc, "/ssr:SubscriptionSearchResults/nc:ContactInformation[@s:id='SE1CE1']/nc:ContactEmailID");
         assertEquals("a@b.com", email1);
 
-        String email2 = XmlUtils.xPathStringSearch(doc, "/ssr:SubscriptionSearchResults/nc:ContactInformation[@s:id='SE0CE2']/nc:ContactEmailID");
+        String email2 = XmlUtils.xPathStringSearch(doc, "/ssr:SubscriptionSearchResults/nc:ContactInformation[@s:id='SE1CE2']/nc:ContactEmailID");
         assertEquals("b@c.com", email2);
 
         NodeList contactInfoReferenceNodes = XmlUtils
                 .xPathNodeListSearch(doc,
-                        "/ssr:SubscriptionSearchResults/ssr-ext:SubscribedEntityContactInformationAssociation/ssr-ext:SubscribedEntityReference[@s:ref='SE0']/following-sibling::nc:ContactInformationReference");
+                        "/ssr:SubscriptionSearchResults/ssr-ext:SubscribedEntityContactInformationAssociation/ssr-ext:SubscribedEntityReference[@s:ref='SE1']/following-sibling::nc:ContactInformationReference");
         assertNotNull(contactInfoReferenceNodes);
 
         assertEquals(2, contactInfoReferenceNodes.getLength());
@@ -339,10 +346,39 @@ public class TestSubscriptionSearchQueryProcessor {
         Node contactInfoReference2 = contactInfoReferenceNodes.item(1);
 
         String contactInfoReferenceReference1Id = XmlUtils.xPathStringSearch(contactInfoReference1, "@s:ref");
-        assertEquals("SE0CE1", contactInfoReferenceReference1Id);
+        assertEquals("SE1CE1", contactInfoReferenceReference1Id);
 
         String contactInfoReferenceReference2Id = XmlUtils.xPathStringSearch(contactInfoReference2, "@s:ref");
-        assertEquals("SE0CE2", contactInfoReferenceReference2Id);
+        assertEquals("SE1CE2", contactInfoReferenceReference2Id);
+        
+        NodeList fbiSubScripitonNodes = XmlUtils.xPathNodeListSearch(doc, "/ssr:SubscriptionSearchResults/ssr-ext:FBISubscription"); 
+        assertNotNull(fbiSubScripitonNodes);
+        assertThat(fbiSubScripitonNodes.getLength(), is(1));
+        
+        Node fbiSubscriptionNode = fbiSubScripitonNodes.item(0);
+        String fbiSubscriptionRefId = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "@s:id");
+        assertThat(fbiSubscriptionRefId, is("FBI001"));
+        
+        String fbiSubStartDate = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "nc:ActivityDateRange/nc:StartDate/nc:Date");
+        assertEquals("2013-03-13", fbiSubStartDate);
+
+        String fbiSubEndDate = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "nc:ActivityDateRange/nc:EndDate/nc:Date");
+        assertEquals("2014-03-13", fbiSubEndDate);
+        
+        String fbiSubId = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "ssr-ext:SubscriptionFBIIdentification/nc:IdentificationID");
+        assertThat(fbiSubId, is("fbiId1"));
+
+        String criminalSubscriptionReasonCode = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "ssr-ext:CriminalSubscriptionReasonCode");
+        assertThat(criminalSubscriptionReasonCode, is("CI"));
+        
+        String rapBackSubscriptionTermCode = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "ssr-ext:RapBackSubscriptionTermCode");
+        assertThat(rapBackSubscriptionTermCode, is("1"));
+        
+        String rapBackActivityNotificationFormatCode = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "ssr-ext:RapBackActivityNotificationFormatCode");
+        assertThat(rapBackActivityNotificationFormatCode, is("1"));
+        
+        String rapBackInStateOptOutIndicator = XmlUtils.xPathStringSearch(fbiSubscriptionNode, "ssr-ext:RapBackInStateOptOutIndicator");
+        assertThat(rapBackInStateOptOutIndicator, is("true"));
 
     }
 
@@ -369,6 +405,19 @@ public class TestSubscriptionSearchQueryProcessor {
         subscriptionSearchResponse.setSubscriptionSubjectIdentifiers(subscriptionSubjectIdentifiers);
         subscriptionSearchResponse.setSubscriptionProperties(subscriptionProperties);
         subscriptionSearchResponse.setAgencyCaseNumber("123");
+        
+		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription();
+		fbiRapbackSubscription.setFbiSubscriptionId("fbiId1");
+		fbiRapbackSubscription.setRapbackCategory("CI");
+		fbiRapbackSubscription.setSubscriptionTerm("1");
+		fbiRapbackSubscription.setRapbackExpirationDate(subscriptionSearchResponse.getStartDate().plusDays(365));
+		fbiRapbackSubscription.setRapbackTermDate(subscriptionSearchResponse.getStartDate().plusDays(365));
+		fbiRapbackSubscription.setRapbackStartDate(subscriptionSearchResponse.getStartDate());
+		fbiRapbackSubscription.setRapbackOptOutInState(true);
+		fbiRapbackSubscription.setRapbackActivityNotificationFormat("1");
+		fbiRapbackSubscription.setUcn("074644NG0");
+		subscriptionSearchResponse.setFbiRapbackSubscription(fbiRapbackSubscription);
+
         return subscriptionSearchResponse;
     }
 
@@ -382,8 +431,20 @@ public class TestSubscriptionSearchQueryProcessor {
         subscriptionSearchResponse.setValidationDueDate(validationDueDate);
         subscriptionSearchResponse.setGracePeriod(new Interval(validationDueDate, validationDueDate.plusDays(30)));
         subscriptionSearchResponse.setLastValidationDate(startDateDate);
-        return subscriptionSearchResponse;
         
+		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription();
+		fbiRapbackSubscription.setFbiSubscriptionId("fbiId1");
+		fbiRapbackSubscription.setRapbackCategory("CI");
+		fbiRapbackSubscription.setSubscriptionTerm("1");
+		fbiRapbackSubscription.setRapbackExpirationDate(subscriptionSearchResponse.getStartDate().plusDays(365));
+		fbiRapbackSubscription.setRapbackTermDate(subscriptionSearchResponse.getStartDate().plusDays(365));
+		fbiRapbackSubscription.setRapbackStartDate(subscriptionSearchResponse.getStartDate());
+		fbiRapbackSubscription.setRapbackOptOutInState(true);
+		fbiRapbackSubscription.setRapbackActivityNotificationFormat("1");
+		fbiRapbackSubscription.setUcn("074644NG0");
+		subscriptionSearchResponse.setFbiRapbackSubscription(fbiRapbackSubscription);
+		return subscriptionSearchResponse;
+
     }
 
 }

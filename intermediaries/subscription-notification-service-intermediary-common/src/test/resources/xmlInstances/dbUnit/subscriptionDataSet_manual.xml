@@ -46,4 +46,26 @@
   <subscription_properties id="3" subscriptionId="1" propertyName="federalRapSheetDisclosureIndicator" propertyValue="true"/>
   <subscription_properties id="4" subscriptionId="1" propertyName="federalRapSheetDisclosureAttentionDesignationText" propertyValue="Bill Padmanabhan"/>
   
+  <fbi_rap_back_subscription fbi_subscription_id="fbiId1" 
+  	rap_back_expiration_date="2017-09-27" 
+  	rap_back_start_date="2012-09-27" 
+  	rap_back_term_date="2017-09-27"
+  	rap_back_opt_out_in_state_indicator="true" 
+  	rap_back_category_code="CI" 
+  	rap_back_activity_notification_format_code="1" 
+  	rap_back_subscription_term_code="5" 
+  	subscription_id="1"
+  	ucn="074644NG0" 
+  	report_timestamp="2013-08-27 15:08:33.0" />
+  <fbi_rap_back_subscription fbi_subscription_id="fbiId3" 
+  	rap_back_expiration_date="2018-06-02" 
+  	rap_back_start_date="2013-06-02" 
+  	rap_back_term_date="2018-06-02"
+  	rap_back_opt_out_in_state_indicator="true" 
+  	rap_back_category_code="CS" 
+  	rap_back_activity_notification_format_code="1" 
+  	rap_back_subscription_term_code="5" 
+  	subscription_id="3"
+  	ucn="074644NG1" 
+  	report_timestamp="2013-08-27 15:08:33.0" />
 </dataset>
