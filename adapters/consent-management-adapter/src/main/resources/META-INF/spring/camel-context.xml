@@ -23,14 +23,18 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:context="http://www.springframework.org/schema/context" 
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        ">
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />	
+					
+	<context:component-scan base-package="org.ojbc.bundles.adapters.consentmanagement" />					
 					
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="consentManagmentAdapterCamelContext">
 	
@@ -59,6 +63,30 @@
 			
 		</camel:route>
 
+		<camel:route id="consentDatastoreMaintenanceRoute">
+			<camel:from uri="quartz2://consentManagement/maintenanceTimer?cron={{consentManagement.cronExpression}}"/>
+		
+			<camel:log message="About to perform table maintenance."/>
+		</camel:route>
+		
+		<route>
+			<from uri="cxfrs:bean:consentRestServer" />
+			<log
+				message="Entering Consent REST route: Http method ${header.CamelHttpMethod}" />
+			<log message="REST path is ${header.CamelHttpPath}" />
+			<choice>
+				<when>
+					<simple>${header.operationName} == 'search'</simple>
+					<log message="Search operation called"/>
+					<bean ref="consentRestImpl" method="search" />
+				</when>
+				<when>
+					<simple>${header.operationName} == 'consent'</simple>
+					<log message="consent operation called"/>
+					<bean ref="consentRestImpl" method="consent" />
+				</when>
+			</choice>
+		</route>		
 		
 	</camel:camelContext>
 	
