@@ -51,6 +51,7 @@
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
 		<java-version>1.8</java-version>
+		<jackson.version>1.9.12</jackson.version>
 	</properties>
 
 	<dependencies>
@@ -68,6 +69,11 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-cxf</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-quartz2</artifactId>
 			<version>${camel-version}</version>
 		</dependency>
 
@@ -97,6 +103,18 @@
 			<artifactId>cxf-rt-transports-http-jetty</artifactId>
 			<version>${cxf-version}</version>
 		</dependency>
+		
+         <dependency>
+             <groupId>org.codehaus.jackson</groupId>
+             <artifactId>jackson-jaxrs</artifactId>
+             <version>${jackson.version}</version>
+         </dependency>
+         <dependency>
+             <groupId>org.codehaus.jackson</groupId>
+             <artifactId>jackson-core-asl</artifactId>
+             <version>${jackson.version}</version>
+         </dependency>		
+		
 
 		<!-- ws-security -->
 		<dependency>
