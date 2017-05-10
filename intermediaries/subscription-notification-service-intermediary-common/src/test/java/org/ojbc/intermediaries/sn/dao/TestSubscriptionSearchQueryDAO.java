@@ -45,6 +45,7 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
@@ -70,6 +71,7 @@ import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Days;
 import org.joda.time.Interval;
 import org.joda.time.LocalDate;
@@ -265,6 +267,18 @@ public class TestSubscriptionSearchQueryDAO {
 		assertEquals(2013, lastValidationDate.getYear());
 		assertEquals(8, lastValidationDate.getMonthOfYear());
 		assertEquals(27, lastValidationDate.getDayOfMonth());
+		
+		assertNotNull(response.getFbiRapbackSubscription());
+		FbiRapbackSubscription fbiRapbackSubscription = response.getFbiRapbackSubscription();
+		assertThat(fbiRapbackSubscription.getFbiSubscriptionId(), is("fbiId1"));
+		assertThat(fbiRapbackSubscription.getRapbackCategory(), is("CI"));
+		assertThat(fbiRapbackSubscription.getSubscriptionTerm(), is("5"));
+		assertThat(fbiRapbackSubscription.getRapbackExpirationDate(), is(new DateTime(2017,9,27,0,0,0,0,DateTimeZone.getDefault())));
+		assertThat(fbiRapbackSubscription.getRapbackTermDate(), is(new DateTime(2017,9,27,0,0,0,0,DateTimeZone.getDefault())));
+		assertThat(fbiRapbackSubscription.getRapbackStartDate(), is(new DateTime(2012,9,27,0,0,0,0,DateTimeZone.getDefault())));
+		assertThat(fbiRapbackSubscription.getRapbackOptOutInState(), is(true));
+		assertThat(fbiRapbackSubscription.getRapbackActivityNotificationFormat(), is("1"));
+		assertThat(fbiRapbackSubscription.getUcn(), is("074644NG0"));
 	}
 
 	@Test

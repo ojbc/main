@@ -61,10 +61,15 @@ public class SubscriptionSearchQueryDAO {
 
     private static final String CIVIL_SUBSCRIPTION_REASON_CODE = "I";
 
-	private static final String BASE_QUERY_STRING = "select s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
-                    + " si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType "
-                    + " from subscription s, notification_mechanism nm, subscription_subject_identifier si where nm.subscriptionId = s.id and si.subscriptionId = s.id ";
-
+	private static final String BASE_QUERY_STRING = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, "
+			+ "s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
+			+ "si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, "
+			+ "nm.notificationMechanismType, fs.* "
+			+ "FROM subscription s LEFT JOIN fbi_rap_back_subscription fs ON fs.subscription_id = s.id, "
+			+ "		notification_mechanism nm, "
+			+ "		subscription_subject_identifier si "
+			+ "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id ";
+	
     private static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
     
     private static final Log log = LogFactory.getLog(SubscriptionSearchQueryDAO.class);
@@ -126,9 +131,7 @@ public class SubscriptionSearchQueryDAO {
 
         String sqlQuery = "select count(*) from subscription where subscriptionOwner=? and active =1";
 
-        int subscriptionCountForOwner = this.jdbcTemplate.queryForInt(sqlQuery, new Object[] {
-            subscriptionOwner
-        });
+        int subscriptionCountForOwner = this.jdbcTemplate.queryForObject(sqlQuery, Integer.class, subscriptionOwner);
 
         return subscriptionCountForOwner;
     }
@@ -160,7 +163,8 @@ public class SubscriptionSearchQueryDAO {
 	public Subscription findSubscriptionByFbiSubscriptionId(String fbiRelatedSubscriptionId){
 		
 		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
-                + "si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType "
+                + "si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
+                + "fbi_sub.* "
                 + "FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
                 + "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id AND fbi_sub.subscription_id = s.id "
                 + "AND fbi_sub.FBI_SUBSCRIPTION_ID = ?";

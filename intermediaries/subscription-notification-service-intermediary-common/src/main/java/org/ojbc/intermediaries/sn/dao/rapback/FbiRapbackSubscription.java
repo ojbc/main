@@ -35,6 +35,7 @@ public class FbiRapbackSubscription implements Serializable{
 	private DateTime rapbackStartDate; 
 	private Boolean rapbackOptOutInState; 
 	private String rapbackActivityNotificationFormat; 
+	private String rapbackActivityNotificationFormatDescription; 
 	private String ucn;
 	private DateTime timestamp;
 	
@@ -133,6 +134,15 @@ public class FbiRapbackSubscription implements Serializable{
 	
 	public void setStateSubscriptionId(String stateSubscriptionId) {
 		this.stateSubscriptionId = Integer.valueOf(stateSubscriptionId);
+	}
+
+	public String getRapbackActivityNotificationFormatDescription() {
+		return rapbackActivityNotificationFormatDescription;
+	}
+
+	public void setRapbackActivityNotificationFormatDescription(
+			String rapbackActivityNotificationFormatDescription) {
+		this.rapbackActivityNotificationFormatDescription = rapbackActivityNotificationFormatDescription;
 	}
 
 }
