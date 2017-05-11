@@ -44,7 +44,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-custody-datastore.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-warrant-repository.xml",
-		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml"
+		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-consent-management-datastore.xml"
 		})
 @DirtiesContext
 public class TestDatabaseLoad {
@@ -71,6 +72,9 @@ public class TestDatabaseLoad {
 
     @Resource
     private DataSource warrantRepositorySource;
+
+    @Resource
+    private DataSource consentManagementDataSource;
 
 	@Test
 	public void testAuditlog() throws Exception {
@@ -164,4 +168,27 @@ public class TestDatabaseLoad {
 		assertEquals(1,rs.getInt("rowcount"));
 	}
 
+	@Test
+	public void testConsentManagmentDataLoad() throws Exception {
+
+		Connection conn = consentManagementDataSource.getConnection();
+		ResultSet rs = conn.createStatement().executeQuery("select count(*) as count from consent_decision_type");
+		
+		assertTrue(rs.next());
+		assertEquals(3,rs.getInt("count"));
+		
+		rs = conn.createStatement().executeQuery("select * from consent_decision_type");
+		
+		assertTrue(rs.next());
+		assertEquals(1,rs.getInt("ConsentDecisionTypeID"));
+		assertEquals("consent granted",rs.getString("ConsentDecisionDescription"));
+		
+		assertTrue(rs.next());
+		assertEquals(2,rs.getInt("ConsentDecisionTypeID"));
+		assertEquals("consent denied",rs.getString("ConsentDecisionDescription"));
+		
+		rs.next();
+		assertEquals(3,rs.getInt("ConsentDecisionTypeID"));
+		assertEquals("inmate not interviewed",rs.getString("ConsentDecisionDescription"));
+	}
 }
