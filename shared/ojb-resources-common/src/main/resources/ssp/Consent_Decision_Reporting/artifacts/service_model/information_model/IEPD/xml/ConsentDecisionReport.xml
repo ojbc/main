@@ -76,6 +76,15 @@
 			</j:Narrative>
 		</j:ActivityAugmentation>
 		<cdr-ext:ConsentDecisionCode>Consent Granted</cdr-ext:ConsentDecisionCode>
+		<cdr-ext:ConsentDecisionRecordingEntity>
+			<nc:EntityPerson>
+				<nc:PersonName>
+					<nc:PersonGivenName>Walter</nc:PersonGivenName>
+					<nc:PersonSurName>White</nc:PersonSurName>
+				</nc:PersonName>
+			</nc:EntityPerson>
+			<cdr-ext:RecordingEntityUsernameText>wwhite</cdr-ext:RecordingEntityUsernameText>
+		</cdr-ext:ConsentDecisionRecordingEntity>
 	</cdr-ext:ConsentDecision>
 	<nc:ActivityPersonAssociation>
 		<nc:Activity structures:ref="consent01" />
