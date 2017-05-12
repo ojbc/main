@@ -96,7 +96,7 @@
 					return false;
 				}
 				
-				console.log("checkedValues: " + checkedValues);
+				//console.log("checkedValues: " + checkedValues);
 										
 				var confirmUnsubscribe = confirm("Are you sure you want to unsubscribe?");				
 				
