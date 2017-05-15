@@ -167,7 +167,7 @@
                            <nc:Date>2013-03-29</nc:Date>
                        </ebts:RapBackEventDate>
                        <!-- RBEI 2.2069C -->
-                       <ebts:RapBackEventText>A Consolidation of NGI Identities has resulted in the information for deleted identity (ies) (UCN(s) %1 being consolidated with the retained Identity UCN %2.</ebts:RapBackEventText>
+                       <ebts:RapBackEventText>RB009 - A Consolidation of NGI Identities has resulted in the information for deleted identity (ies) (UCN(s) XXXXXXXXX being consolidated with the retained Identity UCN XXXXXXXXX.</ebts:RapBackEventText>
                    </ebts:TransactionRapBackTriggeringEvent>
 
                </ebts:RecordRapBackData>
