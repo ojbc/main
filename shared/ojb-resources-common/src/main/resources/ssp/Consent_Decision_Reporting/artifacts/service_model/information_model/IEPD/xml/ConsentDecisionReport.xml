@@ -63,7 +63,7 @@
 		</nc:PersonName>
 		<j:PersonSexCode>M</j:PersonSexCode>
 	</nc:Person>
-	<cdr-ext:ConsentDecision structures:id="consent01">
+	<cdr-ext:ConsentDecision>
 		<nc:ActivityIdentification>
 			<nc:IdentificationID>CD858</nc:IdentificationID>
 		</nc:ActivityIdentification>
@@ -86,8 +86,4 @@
 			<cdr-ext:RecordingEntityUsernameText>wwhite</cdr-ext:RecordingEntityUsernameText>
 		</cdr-ext:ConsentDecisionRecordingEntity>
 	</cdr-ext:ConsentDecision>
-	<nc:ActivityPersonAssociation>
-		<nc:Activity structures:ref="consent01" />
-		<nc:Person structures:ref="person01" />
-	</nc:ActivityPersonAssociation>
 </cdr-doc:ConsentDecisionReport>
