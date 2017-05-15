@@ -33,7 +33,7 @@
 	<nc:DocumentIdentification>
 		<nc:IdentificationID>1234</nc:IdentificationID>
 	</nc:DocumentIdentification>
-	<j:Booking structures:id="booking01">
+	<j:Booking>
 		<j:BookingAgency>
 			<nc:OrganizationName>ACME Jail</nc:OrganizationName>
 		</j:BookingAgency>
@@ -45,13 +45,13 @@
 				<nc:IdentificationID>J123456</nc:IdentificationID>
 			</nc:FacilityIdentification>
 		</j:BookingDetentionFacility>
+		<j:BookingSubject>
+			<nc:RoleOfPerson structures:ref="person01" />
+			<j:SubjectIdentification>
+				<nc:IdentificationID>S29858</nc:IdentificationID>
+			</j:SubjectIdentification>
+		</j:BookingSubject>
 	</j:Booking>
-	<j:Subject>
-		<nc:RoleOfPerson structures:ref="person01" />
-		<j:SubjectIdentification>
-			<nc:IdentificationID>S29858</nc:IdentificationID>
-		</j:SubjectIdentification>
-	</j:Subject>
 	<nc:Person structures:id="person01">
 		<nc:PersonBirthDate>
 			<nc:Date>1980-06-01</nc:Date>
@@ -88,7 +88,6 @@
 	</cdr-ext:ConsentDecision>
 	<nc:ActivityPersonAssociation>
 		<nc:Activity structures:ref="consent01" />
-		<nc:Activity structures:ref="booking01" />
 		<nc:Person structures:ref="person01" />
 	</nc:ActivityPersonAssociation>
 </cdr-doc:ConsentDecisionReport>
