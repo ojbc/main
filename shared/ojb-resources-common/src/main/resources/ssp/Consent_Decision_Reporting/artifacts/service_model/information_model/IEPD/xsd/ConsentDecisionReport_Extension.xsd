@@ -40,11 +40,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Booking" minOccurs="1" maxOccurs="1" />
+					<xsd:element ref="nc:Person" minOccurs="1" maxOccurs="1" />
 					<xsd:element ref="cdr-ext:ConsentDecision" minOccurs="1" />
-					<xsd:element ref="nc:ActivityPersonAssociation" minOccurs="0"
-						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>

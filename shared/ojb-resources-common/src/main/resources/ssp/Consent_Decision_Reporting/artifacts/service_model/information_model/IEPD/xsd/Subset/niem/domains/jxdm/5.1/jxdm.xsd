@@ -104,11 +104,6 @@
       <xs:documentation>A gender or sex of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="Subject" type="j:SubjectType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A person who is involved or suspected of being involved in an incident or criminal activity.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
   <xs:element name="SubjectIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An assigned identification that identifies a subject.</xs:documentation>
