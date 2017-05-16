@@ -27,6 +27,7 @@
 	xmlns:me-chrg-codes-v1="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0 ../xsd/CycleTrackingIdentifierAssignmentReport-exchange.xsd">
+	<crimhistory-update-ext:CriminalHistoryReportJurisdictionCode>State</crimhistory-update-ext:CriminalHistoryReportJurisdictionCode>
 	<crimhistory-update-ext:CycleTrackingIdentifierAssignment>
 		<nc:ActivityDate>
 			<nc:DateTime>2014-10-03T06:54:00</nc:DateTime>

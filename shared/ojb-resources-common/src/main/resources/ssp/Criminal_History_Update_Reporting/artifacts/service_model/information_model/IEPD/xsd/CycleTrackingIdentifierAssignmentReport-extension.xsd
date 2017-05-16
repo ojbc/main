@@ -17,63 +17,139 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:crimhistory-update-ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:me-chrg-codes-v1="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0" targetNamespace="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0" elementFormDefault="qualified">
-	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0" schemaLocation="impl/maine/maine-charge-codes.xsd"/>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:crimhistory-update-ext="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:me-chrg-codes-v1="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extension/CycleTrackingIdentifierAssignmentReport/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/"
+		schemaLocation="Subset/niem/domains/jxdm/5.0/jxdm.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Maine/ChargeCodes/1.0"
+		schemaLocation="impl/maine/maine-charge-codes.xsd" />
 	<xsd:complexType name="CycleTrackingIdentifierAssignmentReportType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a report that contains information about one or more assignments of a criminal history tracking identifier as well as information about charges, persons, and agencies involved in activity leading up to the request of the tracking identifier.</xsd:documentation>
+			<xsd:documentation>A data type for a report that contains information
+				about one or more assignments of a criminal history tracking
+				identifier as well as information about charges, persons, and
+				agencies involved in activity leading up to the request of the
+				tracking identifier.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="crimhistory-update-ext:CycleTrackingIdentifierAssignment"/>
-					<xsd:element ref="nc:Organization" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:Person"/>
+					<xsd:element
+						ref="crimhistory-update-ext:CriminalHistoryReportJurisdictionRepresentation"
+						minOccurs="0" maxOccurs="1" />
+					<xsd:element
+						ref="crimhistory-update-ext:CycleTrackingIdentifierAssignment" />
+					<xsd:element ref="nc:Organization" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Person" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="CycleTrackingIdentifierAssignmentType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an assignment of a tracking identifier.</xsd:documentation>
+			<xsd:documentation>A data type for an assignment of a tracking
+				identifier.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-					<xsd:element ref="crimhistory-update-ext:CycleTrackingIdentification"/>
-					<xsd:element ref="j:OriginatorOrganization"/>
-					<xsd:element ref="j:CaseProsecutionAttorney" minOccurs="0"/>
-					<xsd:element ref="nc:Case" minOccurs="0"/>
-					<xsd:element ref="j:Charge" maxOccurs="unbounded"/>
-					<xsd:element ref="j:Arrest" minOccurs="0"/>
-					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:Subject"/>
-					<xsd:element ref="j:OffenseChargeAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="crimhistory-update-ext:CycleTrackingIdentification" />
+					<xsd:element ref="j:OriginatorOrganization" />
+					<xsd:element ref="j:CaseProsecutionAttorney" minOccurs="0" />
+					<xsd:element ref="nc:Case" minOccurs="0" />
+					<xsd:element ref="j:Charge" maxOccurs="unbounded" />
+					<xsd:element ref="j:Arrest" minOccurs="0" />
+					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Subject" />
+					<xsd:element ref="j:OffenseChargeAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="CycleTrackingIdentifierAssignment" type="crimhistory-update-ext:CycleTrackingIdentifierAssignmentType">
+	<xsd:element name="CycleTrackingIdentifierAssignment"
+		type="crimhistory-update-ext:CycleTrackingIdentifierAssignmentType">
 		<xsd:annotation>
-			<xsd:documentation>An assignment of a tracking identifier.</xsd:documentation>
+			<xsd:documentation>An assignment of a tracking identifier.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CycleTrackingIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identifier issued for the purpose of tracking criminal activity and can be used to link this activity to a criminal history.</xsd:documentation>
+			<xsd:documentation>A unique identifier issued for the purpose of
+				tracking criminal activity and can be used to link this activity to
+				a criminal history.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ProsecutionAttorneyOrganization" type="nc:OrganizationType" substitutionGroup="j:CaseOfficialAugmentationPoint">
+	<xsd:element name="ProsecutionAttorneyOrganization" type="nc:OrganizationType"
+		substitutionGroup="j:CaseOfficialAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>An agency that institutes legal proceedings.</xsd:documentation>
+			<xsd:documentation>An agency that institutes legal proceedings.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ChargeEnhancingFactorCodeRepresentation" abstract="true" substitutionGroup="j:ChargeEnhancingFactorAugmentationPoint">
+	<xsd:element name="ChargeEnhancingFactorCodeRepresentation"
+		abstract="true" substitutionGroup="j:ChargeEnhancingFactorAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A code for a factor that modifies the charge.</xsd:documentation>
+			<xsd:documentation>A code for a factor that modifies the charge.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="CriminalHistoryReportJurisdictionRepresentation"
+		abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A data concept representing a report's
+				jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalHistoryReportJurisdictionCode"
+		type="crimhistory-update-ext:CriminalHistoryReportJurisdictionCodeType"
+		substitutionGroup="crimhistory-update-ext:CriminalHistoryReportJurisdictionRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A code for a report jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="CriminalHistoryReportJurisdictionCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A code type for a report jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension
+				base="crimhistory-update-ext:CriminalHistoryReportJurisdictionCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="CriminalHistoryReportJurisdictionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>An enumeration set for a report jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="State">
+				<xsd:annotation>
+					<xsd:documentation>A code value for a state report.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FBI">
+				<xsd:annotation>
+					<xsd:documentation>A code value for an FBI report.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
 </xsd:schema>
