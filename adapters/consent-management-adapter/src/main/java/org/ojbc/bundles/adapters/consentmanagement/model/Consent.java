@@ -16,9 +16,36 @@
  */
 package org.ojbc.bundles.adapters.consentmanagement.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Consent {
 
+	private Integer consentId;
+	
+	private Integer consentDecisionTypeID;
+	
+	private String bookingNumber;
+	
+	private String nameNumber;
+	
+	private String personFirstName;
+	
+	private String personMiddleName;
+	
+	private String personLastName;
+	
+	private String personGender;
+	
+	private LocalDate personDOB;
+	
 	private String consenterUserID;
+	
+	private String consentDocumentControlNumber;
+	
+	private LocalDateTime recordCreationTimestamp;
+	
+	private LocalDateTime consentDecisionTimestamp;
 
 	public String getConsenterUserID() {
 		return consenterUserID;
@@ -26,6 +53,117 @@ public class Consent {
 
 	public void setConsenterUserID(String consenterUserID) {
 		this.consenterUserID = consenterUserID;
+	}
+
+	public Integer getConsentId() {
+		return consentId;
+	}
+
+	public void setConsentId(Integer consentId) {
+		this.consentId = consentId;
+	}
+
+	public String getBookingNumber() {
+		return bookingNumber;
+	}
+
+	public void setBookingNumber(String bookingNumber) {
+		this.bookingNumber = bookingNumber;
+	}
+
+	public String getNameNumber() {
+		return nameNumber;
+	}
+
+	public void setNameNumber(String nameNumber) {
+		this.nameNumber = nameNumber;
+	}
+
+	public String getPersonFirstName() {
+		return personFirstName;
+	}
+
+	public void setPersonFirstName(String personFirstName) {
+		this.personFirstName = personFirstName;
+	}
+
+	public String getPersonMiddleName() {
+		return personMiddleName;
+	}
+
+	public void setPersonMiddleName(String personMiddleName) {
+		this.personMiddleName = personMiddleName;
+	}
+
+	public String getPersonLastName() {
+		return personLastName;
+	}
+
+	public void setPersonLastName(String personLastName) {
+		this.personLastName = personLastName;
+	}
+
+	public String getPersonGender() {
+		return personGender;
+	}
+
+	public void setPersonGender(String personGender) {
+		this.personGender = personGender;
+	}
+
+	public LocalDate getPersonDOB() {
+		return personDOB;
+	}
+
+	public void setPersonDOB(LocalDate personDOB) {
+		this.personDOB = personDOB;
+	}
+
+	public String getConsentDocumentControlNumber() {
+		return consentDocumentControlNumber;
+	}
+
+	public void setConsentDocumentControlNumber(String consentDocumentControlNumber) {
+		this.consentDocumentControlNumber = consentDocumentControlNumber;
+	}
+
+	public LocalDateTime getRecordCreationTimestamp() {
+		return recordCreationTimestamp;
+	}
+
+	public void setRecordCreationTimestamp(LocalDateTime recordCreationTimestamp) {
+		this.recordCreationTimestamp = recordCreationTimestamp;
+	}
+
+	public LocalDateTime getConsentDecisionTimestamp() {
+		return consentDecisionTimestamp;
+	}
+
+	public void setConsentDecisionTimestamp(LocalDateTime consentDecisionTimestamp) {
+		this.consentDecisionTimestamp = consentDecisionTimestamp;
+	}
+
+	public Integer getConsentDecisionTypeID() {
+		return consentDecisionTypeID;
+	}
+
+	public void setConsentDecisionTypeID(Integer consentDecisionTypeID) {
+		this.consentDecisionTypeID = consentDecisionTypeID;
+	}
+
+	@Override
+	public String toString() {
+		return "Consent [consentId=" + consentId + ", consentDecisionTypeID="
+				+ consentDecisionTypeID + ", bookingNumber=" + bookingNumber
+				+ ", nameNumber=" + nameNumber + ", personFirstName="
+				+ personFirstName + ", personMiddleName=" + personMiddleName
+				+ ", personLastName=" + personLastName + ", personGender="
+				+ personGender + ", personDOB=" + personDOB
+				+ ", consenterUserID=" + consenterUserID
+				+ ", consentDocumentControlNumber="
+				+ consentDocumentControlNumber + ", recordCreationTimestamp="
+				+ recordCreationTimestamp + ", consentDecisionTimestamp="
+				+ consentDecisionTimestamp + "]";
 	}
 	
 }

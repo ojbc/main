@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.bundles.adapters.consentmanagement.model.Consent;
 import org.ojbc.bundles.adapters.consentmanagement.model.ConsentSearch;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
 
@@ -37,7 +38,9 @@ import org.springframework.web.client.RestTemplate;
 		"classpath:META-INF/spring/properties-context.xml",
 		"classpath:META-INF/spring/camel-context.xml",
 		"classpath:META-INF/spring/test-beans.xml",
+		"classpath:META-INF/spring/dao.xml",
 		"classpath:META-INF/spring/cxf-endpoints.xml"})
+@DirtiesContext
 public class TestConsentRestImpl {
 
 	private Logger logger = Logger.getLogger(TestConsentRestImpl.class.getName());

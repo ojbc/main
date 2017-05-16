@@ -59,7 +59,7 @@
 			
 			<camel:log message="Entering direct route to process booking..."/>
 			
-			<!-- Process the message here and persis to the datastore -->
+			<!-- Process the message here and persist to the datastore -->
 			
 		</camel:route>
 
