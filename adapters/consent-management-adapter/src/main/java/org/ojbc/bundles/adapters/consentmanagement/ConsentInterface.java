@@ -18,6 +18,7 @@ package org.ojbc.bundles.adapters.consentmanagement;
 
 import javax.jws.WebService;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -25,17 +26,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.ojbc.bundles.adapters.consentmanagement.model.Consent;
-import org.ojbc.bundles.adapters.consentmanagement.model.ConsentSearch;
 
 @Path("/consentService")
 @WebService
 public interface ConsentInterface {
  
-   @POST
+   @GET
    @Path("/search")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
-   public Response search(ConsentSearch consentSearch);
+   public Response search();
    
    @POST
    @Path("/consent")

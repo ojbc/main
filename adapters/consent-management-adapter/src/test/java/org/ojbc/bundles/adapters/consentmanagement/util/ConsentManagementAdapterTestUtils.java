@@ -14,28 +14,28 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.bundles.adapters.consentmanagement.dao;
+package org.ojbc.bundles.adapters.consentmanagement.util;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.ojbc.bundles.adapters.consentmanagement.model.Consent;
 
-public interface ConsentManagementDAO {
-
-	public List<Consent> returnConsentRecordsFromLast24hours();
+public class ConsentManagementAdapterTestUtils {
 	
-	public List<Consent> searchForConsentRecords();
+	public static Consent returnConsent(Integer consentDecisionTypeID, String bookingNumber, String nameNumber, LocalDate personDob, String firstName, String gender, String lastName, String middleName, LocalDateTime recordCreationTimestamp) {
+		Consent consent = new Consent();
+		
+		consent.setConsentDecisionTypeID(consentDecisionTypeID);
+		consent.setBookingNumber(bookingNumber);
+		consent.setNameNumber(nameNumber);
+		consent.setPersonDOB(personDob);
+		consent.setPersonFirstName(firstName);
+		consent.setPersonGender(gender);
+		consent.setPersonLastName(lastName);
+		consent.setPersonMiddleName(middleName);
+		consent.setRecordCreationTimestamp(recordCreationTimestamp);
+		return consent;
+	}
 	
-	public void updateConsentRecordsWithNoInterview() throws Exception;
-	
-	public Integer saveConsentDecision(Consent consent);
-	
-	public void updateConsentDecision(Integer consentDecisionID, Integer consentDecisionTypeID, String consenterUserID, String consentDocumentControlNumber, LocalDateTime consentDecisionTimestamp);
-
-	public Integer retrieveConsentDecisionType(String consentDecision) throws Exception;
-	
-	public Consent returnConsentRecordfromId(Integer consentDecisionID);
-	
-	public void deleteAllConsentRecords();
 }

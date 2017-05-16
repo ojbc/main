@@ -16,7 +16,9 @@
  */
 package org.ojbc.bundles.adapters.consentmanagement.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,6 +35,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.bundles.adapters.consentmanagement.model.Consent;
+import org.ojbc.bundles.adapters.consentmanagement.util.ConsentManagementAdapterTestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -69,7 +72,7 @@ public class TestConsentManagementDaoImpl {
 	@Test
 	public void testReturnConsentRecordsFromLast24hours() throws Exception
 	{
-		Consent consent = returnConsent(null, "B1234", "N1234", LocalDate.parse("1975-02-01"), "TestFirst", "M", "TestLast", "TestMiddle", LocalDateTime.now().minusHours(25));
+		Consent consent = ConsentManagementAdapterTestUtils.returnConsent(null, "B1234", "N1234", LocalDate.parse("1975-02-01"), "TestFirst", "M", "TestLast", "TestMiddle", LocalDateTime.now().minusHours(25));
 		
 		consentManagementDAOImpl.saveConsentDecision(consent);
 		
@@ -96,7 +99,7 @@ public class TestConsentManagementDaoImpl {
 	@Test
 	public void testSave()
 	{
-		Consent consent = returnConsent(null, "B1234", "N1234", LocalDate.parse("1975-02-01"), "TestFirst", "M", "TestLast", "TestMiddle", LocalDateTime.now());
+		Consent consent = ConsentManagementAdapterTestUtils.returnConsent(null, "B1234", "N1234", LocalDate.parse("1975-02-01"), "TestFirst", "M", "TestLast", "TestMiddle", LocalDateTime.now());
 		
 		consentManagementDAOImpl.saveConsentDecision(consent);
 		
@@ -114,7 +117,7 @@ public class TestConsentManagementDaoImpl {
 	@Test
 	public void testUpdateConsentDecisionType() throws Exception
 	{
-		Consent consent = returnConsent(null, "B1234", "N1234", LocalDate.parse("1975-02-01"), "TestFirst", "M", "TestLast", "TestMiddle", LocalDateTime.now());
+		Consent consent = ConsentManagementAdapterTestUtils.returnConsent(null, "B1234", "N1234", LocalDate.parse("1975-02-01"), "TestFirst", "M", "TestLast", "TestMiddle", LocalDateTime.now());
 		
 		Integer consentDecisionID = consentManagementDAOImpl.saveConsentDecision(consent);
 		
@@ -134,18 +137,4 @@ public class TestConsentManagementDaoImpl {
 		assertNotNull(updatedRecord.getRecordCreationTimestamp());
 	}	
 
-	private Consent returnConsent(Integer consentDecisionTypeID, String bookingNumber, String nameNumber, LocalDate personDob, String firstName, String gender, String lastName, String middleName, LocalDateTime recordCreationTimestamp) {
-		Consent consent = new Consent();
-		
-		consent.setConsentDecisionTypeID(consentDecisionTypeID);
-		consent.setBookingNumber(bookingNumber);
-		consent.setNameNumber(nameNumber);
-		consent.setPersonDOB(personDob);
-		consent.setPersonFirstName(firstName);
-		consent.setPersonGender(gender);
-		consent.setPersonLastName(lastName);
-		consent.setPersonMiddleName(middleName);
-		consent.setRecordCreationTimestamp(recordCreationTimestamp);
-		return consent;
-	}
 }
