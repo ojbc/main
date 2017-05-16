@@ -16,6 +16,10 @@
  */
 package org.ojbc.bundles.adapters.consentmanagement;
 
+import static org.junit.Assert.assertEquals;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
@@ -26,8 +30,10 @@ import org.apache.camel.test.spring.UseAdviceWith;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.bundles.adapters.consentmanagement.dao.ConsentManagementDAOImpl;
 import org.ojbc.bundles.adapters.consentmanagement.model.Consent;
-import org.ojbc.bundles.adapters.consentmanagement.model.ConsentSearch;
+import org.ojbc.bundles.adapters.consentmanagement.util.ConsentManagementAdapterTestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
@@ -39,17 +45,23 @@ import org.springframework.web.client.RestTemplate;
 		"classpath:META-INF/spring/camel-context.xml",
 		"classpath:META-INF/spring/test-beans.xml",
 		"classpath:META-INF/spring/dao.xml",
-		"classpath:META-INF/spring/cxf-endpoints.xml"})
+        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-consent-management-datastore.xml",
+		"classpath:META-INF/spring/cxf-endpoints.xml"
+		})		
 @DirtiesContext
 public class TestConsentRestImpl {
 
-	private Logger logger = Logger.getLogger(TestConsentRestImpl.class.getName());
+	private Logger log = Logger.getLogger(TestConsentRestImpl.class.getName());
 	
     @Resource
     private ModelCamelContext context;
 
     @Resource
     private RestTemplate restTemplate;
+    
+	@Autowired
+	private ConsentManagementDAOImpl consentManagementDAOImpl;
     
 	@Before
 	public void setUp() throws Exception {
@@ -71,11 +83,39 @@ public class TestConsentRestImpl {
 	@Test
 	public void testSearch() throws Exception
 	{
+		Consent consent = ConsentManagementAdapterTestUtils.returnConsent(null, "B1234", "N1234", LocalDate.parse("1975-02-01"), "TestFirst", "F", "TestLast", "TestMiddle", LocalDateTime.now());
+		consentManagementDAOImpl.saveConsentDecision(consent);
+
+		Consent consent1 = ConsentManagementAdapterTestUtils.returnConsent(null, "B2345", "N234", LocalDate.parse("1974-03-01"), "TestFirst1", "M", "TestLast1", "TestMiddle1", LocalDateTime.now());
+		consentManagementDAOImpl.saveConsentDecision(consent1);
+
+		
 		final String uri = "http://localhost:9898/consentService/search";
 		
-		ConsentSearch consentSearch = new ConsentSearch();
+		Consent[] response = restTemplate.getForObject(uri, Consent[].class);
 		
-		restTemplate.postForLocation(uri, consentSearch);
+		if (response != null)
+		{	
+			log.info(response.toString());
+		}	
+		
+		Consent returnRecord1 = response[0];
+		assertEquals("B1234", returnRecord1.getBookingNumber());
+		assertEquals("N1234", returnRecord1.getNameNumber());
+		assertEquals("1975-02-01", returnRecord1.getPersonDOBString());
+		assertEquals("TestFirst", returnRecord1.getPersonFirstName());
+		assertEquals("TestMiddle", returnRecord1.getPersonMiddleName());
+		assertEquals("TestLast", returnRecord1.getPersonLastName());
+		assertEquals("F", returnRecord1.getPersonGender());
+		
+		Consent returnRecord2 = response[1];
+		assertEquals("B2345", returnRecord2.getBookingNumber());
+		assertEquals("N234", returnRecord2.getNameNumber());
+		assertEquals("1974-03-01", returnRecord2.getPersonDOBString());
+		assertEquals("TestFirst1", returnRecord2.getPersonFirstName());
+		assertEquals("TestMiddle1", returnRecord2.getPersonMiddleName());
+		assertEquals("TestLast1", returnRecord2.getPersonLastName());
+		assertEquals("M", returnRecord2.getPersonGender());
 
 	}
 

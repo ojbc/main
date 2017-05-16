@@ -19,6 +19,9 @@ package org.ojbc.bundles.adapters.consentmanagement.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 public class Consent {
 
 	private Integer consentId;
@@ -37,14 +40,19 @@ public class Consent {
 	
 	private String personGender;
 	
+	@JsonIgnore
 	private LocalDate personDOB;
+	
+	private String personDOBString;
 	
 	private String consenterUserID;
 	
 	private String consentDocumentControlNumber;
 	
+	@JsonIgnore
 	private LocalDateTime recordCreationTimestamp;
 	
+	@JsonIgnore
 	private LocalDateTime consentDecisionTimestamp;
 
 	public String getConsenterUserID() {
@@ -164,6 +172,22 @@ public class Consent {
 				+ consentDocumentControlNumber + ", recordCreationTimestamp="
 				+ recordCreationTimestamp + ", consentDecisionTimestamp="
 				+ consentDecisionTimestamp + "]";
+	}
+
+	public String getPersonDOBString() {
+		 if (StringUtils.isNotBlank(personDOBString))
+		 {
+			 return personDOBString;
+		 }	 
+		
+		 if (getPersonDOB() != null)
+		 {	 
+			 return getPersonDOB().toString();
+		 }
+		 else
+		 {
+			 return null;
+		 }	 
 	}
 	
 }

@@ -16,13 +16,16 @@
  */
 package org.ojbc.bundles.adapters.consentmanagement;
 
+import java.util.List;
+
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.bundles.adapters.consentmanagement.dao.ConsentManagementDAOImpl;
 import org.ojbc.bundles.adapters.consentmanagement.model.Consent;
-import org.ojbc.bundles.adapters.consentmanagement.model.ConsentSearch;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,10 +33,14 @@ public class ConsentRestImpl implements ConsentInterface {
 	
 	private final Log log = LogFactory.getLog(this.getClass());
 
+	@Autowired
+	private ConsentManagementDAOImpl consentManagementDAOImpl;
+	
 	@Override
-	public Response search(ConsentSearch consentSearch) {
-		// TODO Auto-generated method stub, still need to implement
-		return Response.status(Status.OK).build();
+	public Response search() {
+		List<Consent> consentRecordsWithNoConsentDecisions = consentManagementDAOImpl.searchForConsentRecords();
+		
+		return Response.status(Status.OK).entity(consentRecordsWithNoConsentDecisions).build();
 	}
 
 	@Override

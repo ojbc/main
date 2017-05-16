@@ -167,4 +167,17 @@ public class ConsentManagementDAOImpl implements ConsentManagementDAO {
 		
 	}
 
+	@Override
+	public List<Consent> searchForConsentRecords() {
+        
+        log.info("Returning consent records without consent decisions");        
+        
+		String sql = "SELECT * from consent_decision where ConsentDecisionTypeID is null";
+		
+		List<Consent> consentRecords = 
+				jdbcTemplate.query(sql, new ConsentRowMapper());
+		
+		return consentRecords;
+	}
+
 }
