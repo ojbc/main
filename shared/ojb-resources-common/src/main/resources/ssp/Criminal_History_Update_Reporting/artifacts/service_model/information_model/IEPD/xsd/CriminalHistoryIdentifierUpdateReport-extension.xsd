@@ -41,6 +41,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
+					<xsd:element
+						ref="chiu-report-ext:CriminalHistoryReportJurisdictionRepresentation"
+						minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="nc:Person" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -80,4 +83,52 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="CriminalHistoryReportJurisdictionRepresentation"
+		abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A data concept representing a report's
+				jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalHistoryReportJurisdictionCode"
+		type="chiu-report-ext:CriminalHistoryReportJurisdictionCodeType"
+		substitutionGroup="chiu-report-ext:CriminalHistoryReportJurisdictionRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A code for a report jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="CriminalHistoryReportJurisdictionCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A code type for a report jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension
+				base="chiu-report-ext:CriminalHistoryReportJurisdictionCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="CriminalHistoryReportJurisdictionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>An enumeration set for a report jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="State">
+				<xsd:annotation>
+					<xsd:documentation>A code value for a state report.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FBI">
+				<xsd:annotation>
+					<xsd:documentation>A code value for an FBI report.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
 </xsd:schema>
