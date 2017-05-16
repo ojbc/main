@@ -67,7 +67,7 @@ public class TestConsentManagementDaoImpl {
 	}
 	
 	@Test
-	public void testReturnConsentRecordsFromLast24hours()
+	public void testReturnConsentRecordsFromLast24hours() throws Exception
 	{
 		Consent consent = returnConsent(null, "B1234", "N1234", LocalDate.parse("1975-02-01"), "TestFirst", "M", "TestLast", "TestMiddle", LocalDateTime.now().minusHours(25));
 		
@@ -76,6 +76,21 @@ public class TestConsentManagementDaoImpl {
 		List<Consent> consents = consentManagementDAOImpl.returnConsentRecordsFromLast24hours();
 		
 		assertEquals(1, consents.size());
+		
+		Integer consentDecisionTypeID = consentManagementDAOImpl.retrieveConsentDecisionType(ConsentManagementConstants.INMATE_NOT_INTERVIEWED);
+		
+		consentManagementDAOImpl.updateConsentDecision(consents.get(0).getConsentId(), consentDecisionTypeID, null, null,LocalDateTime.now());
+		
+		Consent updatedRecord = consentManagementDAOImpl.returnConsentRecordfromId(consents.get(0).getConsentId());
+		
+		log.info(updatedRecord.toString());
+		
+		assertEquals(consentDecisionTypeID, updatedRecord.getConsentDecisionTypeID());
+		assertEquals(consents.get(0).getConsentId(), updatedRecord.getConsentId());
+		assertNull(updatedRecord.getConsenterUserID());
+		assertNull(updatedRecord.getConsentDocumentControlNumber());
+		assertNotNull(updatedRecord.getConsentDecisionTimestamp());
+		assertNotNull(updatedRecord.getRecordCreationTimestamp());		
 	}
 
 	@Test

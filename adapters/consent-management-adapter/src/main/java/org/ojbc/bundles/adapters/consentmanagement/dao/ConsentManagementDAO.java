@@ -25,6 +25,8 @@ public interface ConsentManagementDAO {
 
 	public List<Consent> returnConsentRecordsFromLast24hours();
 	
+	public void updateConsentRecordsWithNoInterview() throws Exception;
+	
 	public Integer saveConsentDecision(Consent consent);
 	
 	public void updateConsentDecision(Integer consentDecisionID, Integer consentDecisionTypeID, String consenterUserID, String consentDocumentControlNumber, LocalDateTime consentDecisionTimestamp);

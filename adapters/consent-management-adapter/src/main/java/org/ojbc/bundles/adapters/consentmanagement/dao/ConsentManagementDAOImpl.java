@@ -49,7 +49,7 @@ public class ConsentManagementDAOImpl implements ConsentManagementDAO {
         
         LocalDateTime date24hoursAgo = now.minusHours(24);
         
-        log.info("Updating records with no inmate interview, from 24 hours ago: " + date24hoursAgo.toString());        
+        log.info("Returning records with no inmate interview, from 24 hours ago: " + date24hoursAgo.toString());        
         
 		String sql = "SELECT * from consent_decision where RecordCreationTimestamp < ? and ConsentDecisionTypeID is null";
 		
@@ -64,6 +64,11 @@ public class ConsentManagementDAOImpl implements ConsentManagementDAO {
 	@Override
 	public Integer saveConsentDecision(Consent consent) {
 		log.debug("Inserting row into consent table: " + consent.toString());
+
+		if (consent.getRecordCreationTimestamp() == null)
+		{
+			consent.setRecordCreationTimestamp(LocalDateTime.now());
+		}	
 		
 		final String consentInsertStatement = "INSERT into consent_decision "
 				+ "(BookingNumber, NameNumber, PersonDOB, PersonFirstName, PersonGender, PersonLastName, PersonMiddleName, RecordCreationTimestamp, ConsentDecisionTypeID)"
@@ -143,6 +148,22 @@ public class ConsentManagementDAOImpl implements ConsentManagementDAO {
 		String sql = "delete from consent_decision";
 		
 		jdbcTemplate.update(sql);
+		
+	}
+
+	@Override
+	public void updateConsentRecordsWithNoInterview() throws Exception {
+		
+		List<Consent> recordsNotUpdated = this.returnConsentRecordsFromLast24hours();
+		
+		Integer consentDecisionTypeID = this.retrieveConsentDecisionType(ConsentManagementConstants.INMATE_NOT_INTERVIEWED);
+		
+		for (Consent record : recordsNotUpdated)
+		{
+			log.info("Person not interviewed in 24 hours.  Updating record: "  + record.getConsentId());
+			
+			this.updateConsentDecision(record.getConsentId(), consentDecisionTypeID, null, null, LocalDateTime.now());
+		}	
 		
 	}
 
