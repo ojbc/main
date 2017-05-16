@@ -43,6 +43,7 @@ import org.apache.cxf.headers.Header;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -51,7 +52,9 @@ import org.w3c.dom.Element;
 @ContextConfiguration(locations={
 		"classpath:META-INF/spring/camel-context.xml", 
 		"classpath:META-INF/spring/cxf-endpoints.xml",
-		"classpath:META-INF/spring/properties-context.xml"}) 
+		"classpath:META-INF/spring/dao.xml",
+		"classpath:META-INF/spring/properties-context.xml"})
+@DirtiesContext
 public class CamelContextTest {
 
 	@SuppressWarnings("unused")
