@@ -34,17 +34,9 @@
 		<nc:IdentificationID>1234</nc:IdentificationID>
 	</nc:DocumentIdentification>
 	<j:Booking>
-		<j:BookingAgency>
-			<nc:OrganizationName>ACME Jail</nc:OrganizationName>
-		</j:BookingAgency>
 		<j:BookingAgencyRecordIdentification>
 			<nc:IdentificationID>234567890</nc:IdentificationID>
 		</j:BookingAgencyRecordIdentification>
-		<j:BookingDetentionFacility>
-			<nc:FacilityIdentification>
-				<nc:IdentificationID>J123456</nc:IdentificationID>
-			</nc:FacilityIdentification>
-		</j:BookingDetentionFacility>
 		<j:BookingSubject>
 			<nc:RoleOfPerson structures:ref="person01" />
 			<j:SubjectIdentification>

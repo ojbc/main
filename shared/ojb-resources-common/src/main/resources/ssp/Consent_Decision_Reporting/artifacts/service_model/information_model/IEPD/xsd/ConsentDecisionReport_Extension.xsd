@@ -127,16 +127,6 @@
 					<xsd:documentation>Consent Denied.</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
-			<xsd:enumeration value="Inmate Never Seen">
-				<xsd:annotation>
-					<xsd:documentation>Inmate Never Seen.</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="Consent Not Obtained">
-				<xsd:annotation>
-					<xsd:documentation>Consent Not Obtained.</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
 </xsd:schema>
