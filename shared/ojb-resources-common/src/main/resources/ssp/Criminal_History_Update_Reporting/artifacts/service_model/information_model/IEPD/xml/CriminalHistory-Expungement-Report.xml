@@ -24,6 +24,7 @@
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<che-report-ext:CriminalHistoryReportJurisdictionCode>State</che-report-ext:CriminalHistoryReportJurisdictionCode>
 	<nc:Person>
 		<che-report-ext:ExpungementIdentifiers>
 			<j:PersonStateFingerprintIdentification>

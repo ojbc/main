@@ -41,6 +41,15 @@
 	   http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
 	   http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
        ">
+       
+	<cxf:rsServer id="consentRestServer" address="${consentManagement.restEndpoint}" loggingFeatureEnabled="true">
+	  <cxf:serviceBeans>
+	     <ref bean="consentRestImpl" />
+	  </cxf:serviceBeans>
+	  <cxf:providers>
+	     <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+	  </cxf:providers>
+	</cxf:rsServer>       
 	
 	<!-- OJB Booking Reporting Service, hosted by this adapter -->
     <cxf:cxfEndpoint 

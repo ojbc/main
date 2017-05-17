@@ -14,9 +14,9 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.bundles.intermediaries.bookingreporting;
+package org.ojbc.bundles.adapters.consentmanagement;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,19 +40,26 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.bundles.adapters.consentmanagement.dao.ConsentManagementDAOImpl;
+import org.ojbc.bundles.adapters.consentmanagement.model.Consent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 @RunWith(CamelSpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"classpath:META-INF/spring/camel-context.xml", 
-		"classpath:META-INF/spring/cxf-endpoints.xml",
-		"classpath:META-INF/spring/properties-context.xml"}) 
+@ContextConfiguration(locations={"classpath:META-INF/spring/properties-context.xml",
+		"classpath:META-INF/spring/dao.xml",
+		"classpath:META-INF/spring/camel-context.xml",
+        "classpath:META-INF/spring/h2-mock-database-application-context.xml",
+        "classpath:META-INF/spring/h2-mock-database-context-consent-management-datastore.xml",
+		"classpath:META-INF/spring/cxf-endpoints.xml"
+		})
+@DirtiesContext
 public class CamelContextTest {
 
 	@SuppressWarnings("unused")
@@ -66,7 +73,10 @@ public class CamelContextTest {
 	
     @Produce
     protected ProducerTemplate template;
-        
+    
+	@Autowired
+	private ConsentManagementDAOImpl consentManagementDAOImpl;
+    
     @EndpointInject(uri = "mock:direct:processBooking")
     protected MockEndpoint directEndpoint;
 
@@ -125,6 +135,10 @@ public class CamelContextTest {
 		Thread.sleep(3000);
 
 		directEndpoint.assertIsSatisfied();
+		
+		Consent consentRecord = consentManagementDAOImpl.returnConsentRecordfromId(1);
+		
+		assertNotNull(consentRecord);
 	}
 	
 	private SoapHeader makeSoapHeader(Document doc, String namespace, String localName, String value) {

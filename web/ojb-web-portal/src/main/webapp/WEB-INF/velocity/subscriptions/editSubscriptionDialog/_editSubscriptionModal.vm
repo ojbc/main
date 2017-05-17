@@ -97,7 +97,7 @@
 	  	
 	  	// note we don't have a full name field, so just concatenate first & last with a space
 	  	var fullName = firstName + ' ' + lastName;
-						  					  					  				 									
+		
 		// serialize() generates get request string for <springforminput> html fields
 		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
 								    				    			    			    				

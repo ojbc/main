@@ -50,7 +50,10 @@
 		<xmlunit-version>1.5</xmlunit-version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
 		<maven-surefire-plugin-version>2.17</maven-surefire-plugin-version>
+		<h2-mock-database-version>[2.0.2,)</h2-mock-database-version>
+		<commons-dbcp-version>1.2.2</commons-dbcp-version>
 		<java-version>1.8</java-version>
+		<jackson.version>1.9.12</jackson.version>
 	</properties>
 
 	<dependencies>
@@ -68,6 +71,11 @@
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-cxf</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-quartz2</artifactId>
 			<version>${camel-version}</version>
 		</dependency>
 
@@ -97,6 +105,18 @@
 			<artifactId>cxf-rt-transports-http-jetty</artifactId>
 			<version>${cxf-version}</version>
 		</dependency>
+		
+         <dependency>
+             <groupId>org.codehaus.jackson</groupId>
+             <artifactId>jackson-jaxrs</artifactId>
+             <version>${jackson.version}</version>
+         </dependency>
+         <dependency>
+             <groupId>org.codehaus.jackson</groupId>
+             <artifactId>jackson-core-asl</artifactId>
+             <version>${jackson.version}</version>
+         </dependency>		
+		
 
 		<!-- ws-security -->
 		<dependency>
@@ -109,6 +129,16 @@
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>${commons-lang-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>${commons-dbcp-version}</version>
 		</dependency>
 
 		<!-- OJB Shared Bundles -->
@@ -123,6 +153,13 @@
 			<artifactId>ojb-camel-common</artifactId>
 			<version>${ojb-camel-common-version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.ojbc.bundles.utilities</groupId>
+			<artifactId>h2-mock-database</artifactId>
+			<version>${h2-mock-database-version}</version>		 	
+			<scope>test</scope>		 	
+		</dependency>		
 
 		<!-- for testing -->
 		<dependency>
@@ -211,6 +248,7 @@
 					<instructions>
 						<DynamicImport-Package>*</DynamicImport-Package>
 						<Import-Package>
+							org.h2.jdbcx,
 							org.springframework.beans.factory.config,
 							javax.xml.namespace,
 							ssp.*,
