@@ -797,6 +797,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_FIREARMS_PROHIBITION_EXT ="http://ojbc.org/IEPD/Extensions/FirearmPurchaseProhibitionQueryRequestExtension/1.0";
 	public static final String NS_PREFIX_FIREARMS_PROHIBITION_EXT ="fppq-req-ext";	
 	
+	public static final String NS_CONSENT_DECISION_REPORTING_EXT ="http://ojbc.org/IEPD/Extensions/ConsentDecisionReporting/1.0";
+	public static final String NS_PREFIX_CONSENT_DECISION_REPORTING_EXT ="cdr-ext";	
+
+	public static final String NS_CONSENT_DECISION_REPORTING_DOC ="http://ojbc.org/IEPD/Exchange/ConsentDecisionReporting/1.0";
+	public static final String NS_PREFIX_CONSENT_DECISION_REPORTING_DOC ="cdr-doc";	
+	
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -1571,6 +1577,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap.put(NS_PREFIX_WARRANT_CANCELLATION_REPORT_DOC_EXCH, NS_WARRANT_CANCELLATION_REPORT_DOC_EXCH);
 		uriToPrefixMap.put(NS_WARRANT_CANCELLATION_REPORT_DOC_EXCH, NS_PREFIX_WARRANT_CANCELLATION_REPORT_DOC_EXCH);	
+
+		prefixToUriMap.put(NS_PREFIX_CONSENT_DECISION_REPORTING_DOC, NS_CONSENT_DECISION_REPORTING_DOC);
+		uriToPrefixMap.put(NS_CONSENT_DECISION_REPORTING_DOC, NS_PREFIX_CONSENT_DECISION_REPORTING_DOC);	
+
+		prefixToUriMap.put(NS_PREFIX_CONSENT_DECISION_REPORTING_EXT, NS_CONSENT_DECISION_REPORTING_EXT);
+		uriToPrefixMap.put(NS_CONSENT_DECISION_REPORTING_EXT, NS_PREFIX_CONSENT_DECISION_REPORTING_EXT);	
 
 	}
 
