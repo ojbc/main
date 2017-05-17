@@ -53,10 +53,14 @@ public class ConsentRestImpl implements ConsentInterface {
 		Integer consentDecisionTypeID = consent.getConsentDecisionTypeID();
 		
 		String consenterUserID = consent.getConsenterUserID();
+
+		String consenterFirstName= consent.getConsentUserFirstName();
+		
+		String consenterLastName= consent.getConsentUserLastName();
 		
 		String consentDocumentControlNumber = consent.getConsentDocumentControlNumber();
 		
-		if (consentDecisionID == null || consentDecisionTypeID==null || StringUtils.isBlank(consenterUserID) || StringUtils.isBlank(consentDocumentControlNumber))
+		if (consentDecisionID == null || consentDecisionTypeID==null || StringUtils.isBlank(consenterUserID) || StringUtils.isBlank(consentDocumentControlNumber) || StringUtils.isBlank(consenterFirstName) || StringUtils.isBlank(consenterLastName))
 		{
 			throw new Exception("Required fields were not provided");
 		}	
@@ -68,7 +72,7 @@ public class ConsentRestImpl implements ConsentInterface {
 			consentDecisionTimestamp = LocalDateTime.now();
 		}	
 		
-		consentManagementDAOImpl.updateConsentDecision(consentDecisionID, consentDecisionTypeID, consenterUserID, consentDocumentControlNumber, consentDecisionTimestamp);
+		consentManagementDAOImpl.updateConsentDecision(consentDecisionID, consentDecisionTypeID, consenterUserID, consenterFirstName, consenterLastName, consentDocumentControlNumber, consentDecisionTimestamp);
 		
 		return Response.status(Status.OK).build();
 	}

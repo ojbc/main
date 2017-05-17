@@ -37,6 +37,8 @@ CREATE TABLE consent_decision (
                 PersonGender VARCHAR(20) NOT NULL,
                 PersonDOB DATE,
                 ConsenterUserID VARCHAR(20),
+                ConsenterUserFirstName VARCHAR(30),
+                ConsenterUserLastName VARCHAR(30),
                 ConsentDocumentControlNumber VARCHAR(20),
                 RecordCreationTimestamp TIMESTAMP NOT NULL,
                 ConsentDecisionTimestamp TIMESTAMP,

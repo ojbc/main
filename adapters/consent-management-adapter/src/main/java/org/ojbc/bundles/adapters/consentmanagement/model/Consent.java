@@ -47,6 +47,10 @@ public class Consent {
 	
 	private String consenterUserID;
 	
+	private String consentUserFirstName;
+	
+	private String consentUserLastName;
+	
 	private String consentDocumentControlNumber;
 	
 	@JsonIgnore
@@ -159,21 +163,6 @@ public class Consent {
 		this.consentDecisionTypeID = consentDecisionTypeID;
 	}
 
-	@Override
-	public String toString() {
-		return "Consent [consentId=" + consentId + ", consentDecisionTypeID="
-				+ consentDecisionTypeID + ", bookingNumber=" + bookingNumber
-				+ ", nameNumber=" + nameNumber + ", personFirstName="
-				+ personFirstName + ", personMiddleName=" + personMiddleName
-				+ ", personLastName=" + personLastName + ", personGender="
-				+ personGender + ", personDOB=" + personDOB
-				+ ", consenterUserID=" + consenterUserID
-				+ ", consentDocumentControlNumber="
-				+ consentDocumentControlNumber + ", recordCreationTimestamp="
-				+ recordCreationTimestamp + ", consentDecisionTimestamp="
-				+ consentDecisionTimestamp + "]";
-	}
-
 	public String getPersonDOBString() {
 		 if (StringUtils.isNotBlank(personDOBString))
 		 {
@@ -188,6 +177,39 @@ public class Consent {
 		 {
 			 return null;
 		 }	 
+	}
+
+	public String getConsentUserFirstName() {
+		return consentUserFirstName;
+	}
+
+	public void setConsentUserFirstName(String consentUserFirstName) {
+		this.consentUserFirstName = consentUserFirstName;
+	}
+
+	public String getConsentUserLastName() {
+		return consentUserLastName;
+	}
+
+	public void setConsentUserLastName(String consentUserLastName) {
+		this.consentUserLastName = consentUserLastName;
+	}
+
+	@Override
+	public String toString() {
+		return "Consent [consentId=" + consentId + ", consentDecisionTypeID="
+				+ consentDecisionTypeID + ", bookingNumber=" + bookingNumber
+				+ ", nameNumber=" + nameNumber + ", personFirstName="
+				+ personFirstName + ", personMiddleName=" + personMiddleName
+				+ ", personLastName=" + personLastName + ", personGender="
+				+ personGender + ", personDOB=" + personDOB
+				+ ", personDOBString=" + personDOBString + ", consenterUserID="
+				+ consenterUserID + ", consentUserFirstName="
+				+ consentUserFirstName + ", consentUserLastName="
+				+ consentUserLastName + ", consentDocumentControlNumber="
+				+ consentDocumentControlNumber + ", recordCreationTimestamp="
+				+ recordCreationTimestamp + ", consentDecisionTimestamp="
+				+ consentDecisionTimestamp + "]";
 	}
 	
 }
