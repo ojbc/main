@@ -17,49 +17,124 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:pdr-report-ext="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:usps-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" targetNamespace="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0" elementFormDefault="qualified">
-	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
-	<xsd:import namespace="http://publication.niem.gov/niem/niem-core/3.0/1/" schemaLocation="Subset/niem/niem-core/3.0/1/niem-core.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="Subset/niem/domains/jxdm/5.0/jxdm.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd"/>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:pdr-report-ext="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:usps-3.0.1="http://publication.niem.gov/niem/niem-core/3.0/1/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	targetNamespace="http://ojbc.org/IEPD/Extension/ProsecutionDecisionRecordingReport/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://publication.niem.gov/niem/niem-core/3.0/1/"
+		schemaLocation="Subset/niem/niem-core/3.0/1/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/"
+		schemaLocation="Subset/niem/domains/jxdm/5.0/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
+		schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd" />
 	<xsd:complexType name="ProsecutionDecisionRecordingReportType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a report that contains information about the recording of a prosecutor's decision whether charges will proceed to the courts.</xsd:documentation>
+			<xsd:documentation>A data type for a report that contains information
+				about the recording of a prosecutor's decision whether charges will
+				proceed to the courts.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="pdr-report-ext:CycleTrackingIdentification"/>
-					<xsd:element ref="j:CaseProsecutionAttorney" minOccurs="0"/>
-					<xsd:element ref="j:Charge" maxOccurs="unbounded"/>
-					<xsd:element ref="j:Subject"/>
-					<xsd:element ref="nc:Person"/>
-					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element
+						ref="pdr-report-ext:CriminalHistoryReportJurisdictionRepresentation"
+						minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="pdr-report-ext:CycleTrackingIdentification" />
+					<xsd:element ref="j:CaseProsecutionAttorney" minOccurs="0" />
+					<xsd:element ref="j:Charge" maxOccurs="unbounded" />
+					<xsd:element ref="j:Subject" />
+					<xsd:element ref="nc:Person" />
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Organization" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonResidenceAssociation"
+						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:element name="CycleTrackingIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identifier issued for the purpose of tracking criminal activity and can be used to link this activity to a criminal history.</xsd:documentation>
+			<xsd:documentation>A unique identifier issued for the purpose of
+				tracking criminal activity and can be used to link this activity to
+				a criminal history.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ProsecutionAttorneyOrganization" type="nc:OrganizationType" substitutionGroup="j:CaseOfficialAugmentationPoint">
+	<xsd:element name="ProsecutionAttorneyOrganization" type="nc:OrganizationType"
+		substitutionGroup="j:CaseOfficialAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>An agency that institutes legal proceedings.</xsd:documentation>
+			<xsd:documentation>An agency that institutes legal proceedings.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ChargeToCourtIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+	<xsd:element name="ChargeToCourtIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if the charge will proceed to the courts; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if the charge will proceed to the courts;
+				false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="EndProsecutorChargeCycleIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
+	<xsd:element name="EndProsecutorChargeCycleIndicator" type="niem-xs:boolean"
+		substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>True if the charge cycle ends at the prosecutor segment; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if the charge cycle ends at the prosecutor
+				segment; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="CriminalHistoryReportJurisdictionRepresentation"
+		abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A data concept representing a report's
+				jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalHistoryReportJurisdictionCode"
+		type="pdr-report-ext:CriminalHistoryReportJurisdictionCodeType"
+		substitutionGroup="pdr-report-ext:CriminalHistoryReportJurisdictionRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A code for a report jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="CriminalHistoryReportJurisdictionCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A code type for a report jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension
+				base="pdr-report-ext:CriminalHistoryReportJurisdictionCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="CriminalHistoryReportJurisdictionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>An enumeration set for a report jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="State">
+				<xsd:annotation>
+					<xsd:documentation>A code value for a state report.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FBI">
+				<xsd:annotation>
+					<xsd:documentation>A code value for an FBI report.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
 </xsd:schema>

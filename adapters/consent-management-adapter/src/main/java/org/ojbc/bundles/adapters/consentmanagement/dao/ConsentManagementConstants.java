@@ -14,33 +14,13 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.bundles.adapters.consentmanagement;
+package org.ojbc.bundles.adapters.consentmanagement.dao;
 
-import javax.jws.WebService;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+public class ConsentManagementConstants {
 
-import org.ojbc.bundles.adapters.consentmanagement.model.Consent;
+	public static final String CONSENT_GRANTED = "consent granted";
 
-@Path("/consentService")
-@WebService
-public interface ConsentInterface {
- 
-   @GET
-   @Path("/search")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
-   public Response search();
-   
-   @POST
-   @Path("/consent")
-   @Produces(MediaType.APPLICATION_JSON)
-   @Consumes(MediaType.APPLICATION_JSON)
-   public Response consent(Consent consent);
-   
+	public static final String CONSENT_DENIED = "consent denied";
+	
+	public static final String INMATE_NOT_INTERVIEWED = "inmate not interviewed";
 }

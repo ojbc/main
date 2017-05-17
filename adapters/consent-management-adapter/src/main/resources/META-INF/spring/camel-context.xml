@@ -59,14 +59,19 @@
 			
 			<camel:log message="Entering direct route to process booking..."/>
 			
-			<!-- Process the message here and persis to the datastore -->
+			<bean ref="bookingXMLProcessor" method="processBookingReport" />
+			
+			<bean ref="consentManagementDAOImpl" method="saveConsentDecision" />
 			
 		</camel:route>
 
 		<camel:route id="consentDatastoreMaintenanceRoute">
 			<camel:from uri="quartz2://consentManagement/maintenanceTimer?cron={{consentManagement.cronExpression}}"/>
 		
-			<camel:log message="About to perform table maintenance."/>
+			<camel:log message="About to update consent records with no interview."/>
+			
+			<bean ref="consentManagementDAOImpl" method="updateConsentRecordsWithNoInterview" />
+			
 		</camel:route>
 		
 		<route>
