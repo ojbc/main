@@ -16,11 +16,13 @@
  */
 package org.ojbc.bundles.adapters.consentmanagement;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.bundles.adapters.consentmanagement.dao.ConsentManagementDAOImpl;
@@ -44,8 +46,30 @@ public class ConsentRestImpl implements ConsentInterface {
 	}
 
 	@Override
-	public Response consent(Consent consent) {
-		// TODO Auto-generated method stub, still need to implement
+	public Response consent(Consent consent) throws Exception {
+
+		Integer consentDecisionID = consent.getConsentId();
+		
+		Integer consentDecisionTypeID = consent.getConsentDecisionTypeID();
+		
+		String consenterUserID = consent.getConsenterUserID();
+		
+		String consentDocumentControlNumber = consent.getConsentDocumentControlNumber();
+		
+		if (consentDecisionID == null || consentDecisionTypeID==null || StringUtils.isBlank(consenterUserID) || StringUtils.isBlank(consentDocumentControlNumber))
+		{
+			throw new Exception("Required fields were not provided");
+		}	
+		
+		LocalDateTime consentDecisionTimestamp = consent.getConsentDecisionTimestamp();
+		
+		if (consentDecisionTimestamp == null)
+		{
+			consentDecisionTimestamp = LocalDateTime.now();
+		}	
+		
+		consentManagementDAOImpl.updateConsentDecision(consentDecisionID, consentDecisionTypeID, consenterUserID, consentDocumentControlNumber, consentDecisionTimestamp);
+		
 		return Response.status(Status.OK).build();
 	}
 	
