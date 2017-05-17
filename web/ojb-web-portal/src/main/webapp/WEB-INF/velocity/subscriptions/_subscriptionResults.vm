@@ -73,7 +73,7 @@
 					return false;
 				}				    				    
 				    				    
-				var urlRequest = '../subscriptions/validate?subIdToSubDataJson=' + checkedValues;
+				var urlRequest = encodeURI('../subscriptions/validate?subIdToSubDataJson=' + checkedValues);
 				
 				//call spring controller and refresh the current page with the subscription search results returned				 
 				$.post(urlRequest, function(data) {										
@@ -96,13 +96,13 @@
 					return false;
 				}
 				
-				console.log("checkedValues: " + checkedValues);
+				//console.log("checkedValues: " + checkedValues);
 										
 				var confirmUnsubscribe = confirm("Are you sure you want to unsubscribe?");				
 				
 				if(confirmUnsubscribe == true){
 																				
-					var urlRequest = '../subscriptions/unsubscribe?subIdToSubDataJson=' + checkedValues;					
+					var urlRequest = encodeURI('../subscriptions/unsubscribe?subIdToSubDataJson=' + checkedValues);					
 					
 					//call the unsubscribe operation and refresh the current page with the subscription search results returned				 
 					$.get(urlRequest, function(data) {										
@@ -123,7 +123,7 @@
 			$("a[id^='editSubscriptionLink']").click (
 				function(){  
 				
-					var editMvcUrl = this;
+					var editMvcUrl = encodeURI(this);
 					 	    		    			
 			  		$.get(editMvcUrl, 
 			  			function(data){			  			

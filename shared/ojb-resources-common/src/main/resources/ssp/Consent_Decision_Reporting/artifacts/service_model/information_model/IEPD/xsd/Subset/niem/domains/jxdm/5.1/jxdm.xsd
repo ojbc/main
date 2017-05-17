@@ -46,6 +46,7 @@
           <xs:element ref="j:BookingAgency" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:BookingAgencyRecordIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:BookingDetentionFacility" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:BookingSubject" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -88,6 +89,11 @@
       <xs:documentation>A state, county or city detention facility where a subject is detained as a result of booking.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="BookingSubject" type="j:SubjectType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person who is booked.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Narrative" type="nc:CommentType" nillable="true">
     <xs:annotation>
       <xs:documentation>An account as reported by an observer.</xs:documentation>
@@ -96,11 +102,6 @@
   <xs:element name="PersonSexCode" type="ncic:SEXCodeType" substitutionGroup="nc:PersonSex">
     <xs:annotation>
       <xs:documentation>A gender or sex of a person.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="Subject" type="j:SubjectType" nillable="true">
-    <xs:annotation>
-      <xs:documentation>A person who is involved or suspected of being involved in an incident or criminal activity.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="SubjectIdentification" type="nc:IdentificationType" nillable="true">

@@ -49,6 +49,8 @@
   <w:Element w:name="j:Subject" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Address" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:Base64BinaryObject" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:Binary" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Case" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Date" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:DateTime" w:isReference="false" w:nillable="true"/>
@@ -62,6 +64,7 @@
   <w:Element w:name="nc:ObligationDueAmount" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Organization" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Person" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:PersonAugmentationPoint" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonResidenceAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc-3.0.1:LocationStateUSPostalServiceCode"
@@ -122,6 +125,8 @@
   <w:Type w:name="j:PersonAugmentationType" w:isRequested="false">
     <w:ElementInType w:name="j:DriverLicense" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:PersonFBIIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:PersonStateFingerprintIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -189,6 +194,10 @@
     <w:ElementInType w:name="nc:Amount" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:BinaryType" w:isRequested="false">
+    <w:ElementInType w:name="nc:BinaryObject" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:ConditionType" w:isRequested="false">
     <w:ElementInType w:name="nc:ConditionDisciplinaryAction"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -213,6 +222,12 @@
     <w:ElementInType w:name="nc:DispositionAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:DocumentType" w:isRequested="true">
+    <w:ElementInType w:name="nc:DocumentCategory" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:DocumentBinary" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:EntityType" w:isRequested="false">
     <w:ElementInType w:name="nc:EntityRepresentation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
@@ -236,6 +251,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:OrganizationType" w:isRequested="false">
+    <w:ElementInType w:name="nc:OrganizationIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:OrganizationAugmentationPoint"
@@ -255,7 +272,7 @@
     <w:ElementInType w:name="nc:PersonSurName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
-  <w:Type w:name="nc:PersonType" w:isRequested="false">
+  <w:Type w:name="nc:PersonType" w:isRequested="true">
     <w:ElementInType w:name="nc:PersonBirthDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:PersonEyeColor" w:isReference="false"

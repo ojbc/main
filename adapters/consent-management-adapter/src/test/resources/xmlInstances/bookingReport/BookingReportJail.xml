@@ -17,108 +17,38 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<br-doc:BookingReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/BookingReport/1.0 ../xsd/exchange.xsd" xmlns:br-doc="http://ojbc.org/IEPD/Exchange/BookingReport/1.0" xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<nc:DocumentCreationDate>
-		<nc:DateTime>2012-12-17T09:30:47.0Z</nc:DateTime>
-	</nc:DocumentCreationDate>
-	<nc:DocumentIdentification>
-		<nc:IdentificationID>eDocumentID</nc:IdentificationID>
-	</nc:DocumentIdentification>
-	<intel:SystemIdentification>
-		<nc:IdentificationID>Source System ID</nc:IdentificationID>
-		<nc:SystemName>Source System Name</nc:SystemName>
-	</intel:SystemIdentification>
-	<j:Booking structures:id="Booking_01">
-		<nc:ActivityDate>
-			<nc:Date>2013-12-17</nc:Date>
-		</nc:ActivityDate>
-		<j:BookingDetentionFacility>
-			<nc:FacilityIdentification>
-				<nc:IdentificationID>Booking Facility ID</nc:IdentificationID>
-			</nc:FacilityIdentification>
-		</j:BookingDetentionFacility>
-		<j:BookingSubject>
-			<nc:RoleOfPerson structures:ref="Person_01"/>
-			<j:SubjectIdentification>
-				<nc:IdentificationID>Booking Number</nc:IdentificationID>
-			</j:SubjectIdentification>
-		</j:BookingSubject>
-	</j:Booking>
-	<j:Detention structures:id="Detention_01">
-		<nc:ActivityDateRange>
-			<nc:StartDate>
-				<nc:Date>2013-12-17</nc:Date>
-			</nc:StartDate>
-			<nc:EndDate>
-				<nc:Date>2014-11-23</nc:Date>
-			</nc:EndDate>
-		</nc:ActivityDateRange>
-		<j:SupervisionAugmentation>
-			<j:SupervisionReleaseDate>
-				<nc:Date>2014-12-17</nc:Date>
-			</j:SupervisionReleaseDate>
-			<j:SupervisionAreaIdentification>
-				<nc:IdentificationID>Cell Block A</nc:IdentificationID>
-			</j:SupervisionAreaIdentification>
-			<j:SupervisionBedIdentification>
-				<nc:IdentificationID>Bed 2</nc:IdentificationID>
-			</j:SupervisionBedIdentification>
-			<j:SupervisionCellIdentification>
-				<nc:IdentificationID>Cell 7</nc:IdentificationID>
-			</j:SupervisionCellIdentification>
-		</j:SupervisionAugmentation>
-		<br-ext:DetentiontImmigrationHoldIndicator>false</br-ext:DetentiontImmigrationHoldIndicator>
-		<br-ext:HoldForAgency>
-			<nc:OrganizationName>Agency</nc:OrganizationName>
-		</br-ext:HoldForAgency>
-	</j:Detention>
-	<j:BailBond structures:id="Bond_01">
-		<nc:ActivityCategoryText>Bond Type</nc:ActivityCategoryText>
-		<j:BailBondAmount>
-			<nc:Amount>500.00</nc:Amount>
-		</j:BailBondAmount>
-	</j:BailBond>
-	<j:Charge structures:id="Charge_01">
-		<j:ChargeDescriptionText>Desc</j:ChargeDescriptionText>
-		<j:ChargeSequenceID>Charge Sequence ID</j:ChargeSequenceID>
-		<j:ChargeStatute>
-			<j:StatuteCodeSectionIdentification>
-				<nc:IdentificationID>Charge Code ID</nc:IdentificationID>
-			</j:StatuteCodeSectionIdentification>
-		</j:ChargeStatute>
-	</j:Charge>
-	<cyfs:NextCourtEvent structures:id="Event_01">
-		<nc:ActivityDate>
-			<nc:Date>1968-12-17</nc:Date>
-		</nc:ActivityDate>
-	</cyfs:NextCourtEvent>
-	<nc:Person structures:id="Person_01">
-		<nc:PersonBirthDate>
-			<nc:Date>1968-12-17</nc:Date>
-		</nc:PersonBirthDate>
-		<nc:PersonEthnicityText>Ethnicity</nc:PersonEthnicityText>
-		<nc:PersonName>
-			<nc:PersonGivenName>First</nc:PersonGivenName>
-			<nc:PersonMiddleName>middle</nc:PersonMiddleName>
-			<nc:PersonSurName>Last</nc:PersonSurName>
-		</nc:PersonName>
-		<nc:PersonRaceText>Race</nc:PersonRaceText>
-		<nc:PersonSexText>Sex</nc:PersonSexText>
-		<nc:PersonSSNIdentification>
-			<nc:IdentificationID>123-45-6789</nc:IdentificationID>
-		</nc:PersonSSNIdentification>
-		<nc:PersonStateIdentification>
-			<nc:IdentificationID>CO123459878</nc:IdentificationID>
-		</nc:PersonStateIdentification>
-	</nc:Person>
-	<j:ActivityChargeAssociation>
-		<nc:Activity structures:ref="Booking_01"/>
-		<nc:Activity structures:ref="Event_01"/>
-		<nc:Activity structures:ref="Detention_01"/>
-		<j:Charge structures:ref="Charge_01"/>
-	</j:ActivityChargeAssociation>
-	<j:BailBondChargeAssociation>
-		<j:BailBond structures:ref="Bond_01"/>
-		<j:Charge structures:ref="Charge_01"/>
-	</j:BailBondChargeAssociation>
+<br-doc:BookingReport xmlns:br-doc="http://ojbc.org/IEPD/Exchange/BookingReport/1.0"
+    xmlns:br-ext="http://ojbc.org/IEPD/Extensions/BookingReportExtension/1.0"
+    xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+    xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+    xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <j:Booking>
+        <nc:ActivityDate>
+            <nc:DateTime>2017-05-15T13:01:00Z</nc:DateTime>
+        </nc:ActivityDate>
+        <j:BookingAgency>
+            <nc:OrganizationName>Agency</nc:OrganizationName>
+        </j:BookingAgency>
+        <j:BookingAgencyRecordIdentification>
+            <nc:IdentificationID>111111</nc:IdentificationID>
+        </j:BookingAgencyRecordIdentification>
+        <j:BookingSubject>
+            <nc:RoleOfPerson structures:ref="N10004"/>
+        </j:BookingSubject>
+    </j:Booking>
+    <nc:Person structures:id="N10004">
+        <nc:PersonBirthDate>
+            <nc:Date>1994-01-02</nc:Date>
+        </nc:PersonBirthDate>
+        <nc:PersonName>
+            <nc:PersonGivenName>Given</nc:PersonGivenName>
+            <nc:PersonMiddleName>Middle</nc:PersonMiddleName>
+            <nc:PersonSurName>Last</nc:PersonSurName>
+            <br-ext:PersonNameIdentification>
+                <nc:IdentificationID>222222</nc:IdentificationID>
+            </br-ext:PersonNameIdentification>
+        </nc:PersonName>
+        <nc:PersonSexText>M</nc:PersonSexText>
+    </nc:Person>
 </br-doc:BookingReport>

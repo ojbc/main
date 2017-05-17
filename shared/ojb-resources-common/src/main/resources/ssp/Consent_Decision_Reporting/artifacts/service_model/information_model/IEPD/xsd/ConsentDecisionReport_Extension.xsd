@@ -40,33 +40,51 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="j:Subject" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Booking" minOccurs="1" maxOccurs="1" />
+					<xsd:element ref="nc:Person" minOccurs="1" maxOccurs="1" />
 					<xsd:element ref="cdr-ext:ConsentDecision" minOccurs="1" />
-					<xsd:element ref="nc:ActivityPersonAssociation" minOccurs="0"
-						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="ConsentDecisionType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for permission for information to be
-				released.</xsd:documentation>
+			<xsd:documentation>A data type for permission for information to be released.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
 					<xsd:element ref="cdr-ext:ConsentDecisionRepresentation" />
+					<xsd:element ref="cdr-ext:ConsentDecisionRecordingEntity"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ConsentDecisionRecordingEntityType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the person responsible for documenting details of the consent decision.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:EntityType">
+				<xsd:sequence>
+					<xsd:element ref="cdr-ext:RecordingEntityUsernameText"/>
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:element name="ConsentDecision" type="cdr-ext:ConsentDecisionType">
 		<xsd:annotation>
-			<xsd:documentation>Permission for information to be released.
-			</xsd:documentation>
+			<xsd:documentation>Permission for information to be released.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ConsentDecisionRecordingEntity" type="cdr-ext:ConsentDecisionRecordingEntityType">
+		<xsd:annotation>
+			<xsd:documentation>The entity responsible for documenting details of the consent decision.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RecordingEntityUsernameText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The system-assigned username for the person responsible for documenting details of the consent decision.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ConsentDecisionRepresentation" abstract="true">
