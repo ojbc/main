@@ -74,7 +74,7 @@
 	    						$('#courtCaseTable tr').click(function () {
 	    						
 		    						var systemName =$(this).attr('systemName');
-		    						var identificationSourceText = $(this).attr('identificationSourceText');
+		    						var identificationSourceText = encodeURI($(this).attr('identificationSourceText'));
 		    						var identificationID = $(this).attr('identificationID');
 		    						
 		    						
