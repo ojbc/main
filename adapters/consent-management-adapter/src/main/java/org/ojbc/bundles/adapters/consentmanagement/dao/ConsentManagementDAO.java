@@ -14,18 +14,28 @@
  *
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
-package org.ojbc.bundles.adapters.consentmanagement.model;
+package org.ojbc.bundles.adapters.consentmanagement.dao;
 
-public class ConsentSearch {
+import java.time.LocalDateTime;
+import java.util.List;
 
-	private String personName;
+import org.ojbc.bundles.adapters.consentmanagement.model.Consent;
 
-	public String getPersonName() {
-		return personName;
-	}
+public interface ConsentManagementDAO {
 
-	public void setPersonName(String personName) {
-		this.personName = personName;
-	}
+	public List<Consent> returnConsentRecordsFromLast24hours();
 	
+	public List<Consent> searchForConsentRecords();
+	
+	public void updateConsentRecordsWithNoInterview() throws Exception;
+	
+	public Integer saveConsentDecision(Consent consent);
+	
+	public void updateConsentDecision(Integer consentDecisionID, Integer consentDecisionTypeID, String consenterUserID, String consentDocumentControlNumber, LocalDateTime consentDecisionTimestamp);
+
+	public Integer retrieveConsentDecisionType(String consentDecision) throws Exception;
+	
+	public Consent returnConsentRecordfromId(Integer consentDecisionID);
+	
+	public void deleteAllConsentRecords();
 }

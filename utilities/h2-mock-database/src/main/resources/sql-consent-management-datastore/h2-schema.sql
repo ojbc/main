@@ -20,42 +20,31 @@ DROP SCHEMA if EXISTS consent_management;
 CREATE SCHEMA consent_management;
 
 
-
 CREATE TABLE consent_decision_type (
                 ConsentDecisionTypeID IDENTITY NOT NULL,
                 ConsentDecisionDescription VARCHAR(25) NOT NULL,
                 CONSTRAINT ConsentDecisionTypeID PRIMARY KEY (ConsentDecisionTypeID)
 );
 
-CREATE TABLE consent (
-                ConsentID IDENTITY NOT NULL,
+CREATE TABLE consent_decision (
+                ConsentDecisionID IDENTITY NOT NULL,
+                ConsentDecisionTypeID INTEGER,
                 BookingNumber VARCHAR(20) NOT NULL,
                 NameNumber VARCHAR(20) NOT NULL,
-                PersonName VARCHAR(250) NOT NULL,
+                PersonFirstName VARCHAR(250) NOT NULL,
+                PersonMiddleName VARCHAR(250) NOT NULL,
+                PersonLastName VARCHAR(250) NOT NULL,
                 PersonGender VARCHAR(20) NOT NULL,
                 PersonDOB DATE,
                 ConsenterUserID VARCHAR(20),
                 ConsentDocumentControlNumber VARCHAR(20),
                 RecordCreationTimestamp TIMESTAMP NOT NULL,
                 ConsentDecisionTimestamp TIMESTAMP,
-                CONSTRAINT ConsentID PRIMARY KEY (ConsentID)
+                CONSTRAINT ConsentID PRIMARY KEY (ConsentDecisionID)
 );
 
-CREATE TABLE consent_decision (
-                ConsentDecisionID IDENTITY NOT NULL,
-                ConsentDecisionTypeID INTEGER NOT NULL,
-                ConsentID INTEGER NOT NULL,
-                CONSTRAINT ConsentDecisionID PRIMARY KEY (ConsentDecisionID)
-);
-
-ALTER TABLE consent_decision ADD CONSTRAINT Consent_Decision_Type_fk
+ALTER TABLE consent_decision ADD CONSTRAINT consent_decision_type_consent_fk
 FOREIGN KEY (ConsentDecisionTypeID)
 REFERENCES consent_decision_type (ConsentDecisionTypeID)
-ON DELETE CASCADE
-ON UPDATE CASCADE;
-
-ALTER TABLE consent_decision ADD CONSTRAINT Consent_Decision_fk
-FOREIGN KEY (ConsentID)
-REFERENCES consent (ConsentID)
-ON DELETE CASCADE
-ON UPDATE CASCADE;
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
