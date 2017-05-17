@@ -62,7 +62,7 @@
 		  		  		  
 	function saveChCycleSubscription(){
 						  					  		
-		var subType = '${subscription.topic}';						  					  		
+		var subType = encodeURI('${subscription.topic}');						  					  		
 		 			
 		var firstName = $('#firstName').val();			  	
 	  	
@@ -86,7 +86,7 @@
 		  
 	function saveIncidentSubscription(){
 						  					  		
-		var subType = '${subscription.topic}';						  					  		
+		var subType = encodeURI('${subscription.topic}');						  					  		
 		 			
 		var firstName = $('#firstName').val();			  	
 	  	
@@ -94,7 +94,8 @@
 	  	
 	  	// note we don't have a full name field, so just concatenate first & last with a space
 	  	var fullName = firstName + ' ' + lastName;
-						  					  					  				 									
+						  					  
+		//console.log($('#subscriptionForm').serialize());						  					  					  				 									
 		// serialize() generates get request string for <springforminput> html fields
 		var formData = $('#subscriptionForm').serialize() + "&topic=" + subType + "&systemId=" + '${subscription.systemId}' + "&fullName=" + fullName;  
 								    				    			    			    				
@@ -112,7 +113,7 @@
 							   	    			    				    		
 		var personNameVal = $('#personNameSelect').val();
 		  		
-		var topicVal = $('#topicSelect').val();
+		var topicVal = encodeURI($('#topicSelect').val());
 			  					  						
 		var  stateIdVal = $('#stateIdInput').val(); 		  				 							
 		
