@@ -79,6 +79,8 @@ public class TestConsentRestImpl {
 
 		consent.setConsentId(consentPk);
 		consent.setConsenterUserID("user ID consent");
+		consent.setConsentUserFirstName("userFirstName");
+		consent.setConsentUserLastName("userLastName");
 		consent.setConsentDocumentControlNumber("control");
 		consent.setConsentDecisionTypeID(1);
 		
@@ -88,6 +90,8 @@ public class TestConsentRestImpl {
 
 		assertEquals(1, updatedConsent.getConsentDecisionTypeID().intValue());
 		assertEquals("user ID consent", updatedConsent.getConsenterUserID());
+		assertEquals("userFirstName", updatedConsent.getConsentUserFirstName());
+		assertEquals("userLastName", updatedConsent.getConsentUserLastName());
 		assertEquals("control", updatedConsent.getConsentDocumentControlNumber());
 		assertNotNull(updatedConsent.getConsentDecisionTimestamp());
 	}
