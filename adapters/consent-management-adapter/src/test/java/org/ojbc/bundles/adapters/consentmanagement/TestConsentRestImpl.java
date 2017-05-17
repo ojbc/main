@@ -16,7 +16,7 @@
  */
 package org.ojbc.bundles.adapters.consentmanagement;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -74,10 +74,22 @@ public class TestConsentRestImpl {
 	{
 		final String uri = "http://localhost:9898/consentService/consent";
 		
-		Consent consent = new Consent();
+		Consent consent = ConsentManagementAdapterTestUtils.returnConsent(null, "B11111", "N2222", LocalDate.parse("1974-03-01"), "First", "M", "Last", "Middle", LocalDateTime.now());
+		Integer consentPk = consentManagementDAOImpl.saveConsentDecision(consent);
+
+		consent.setConsentId(consentPk);
+		consent.setConsenterUserID("user ID consent");
+		consent.setConsentDocumentControlNumber("control");
+		consent.setConsentDecisionTypeID(1);
 		
 		restTemplate.postForLocation(uri, consent);
+		
+		Consent updatedConsent = consentManagementDAOImpl.returnConsentRecordfromId(consentPk);
 
+		assertEquals(1, updatedConsent.getConsentDecisionTypeID().intValue());
+		assertEquals("user ID consent", updatedConsent.getConsenterUserID());
+		assertEquals("control", updatedConsent.getConsentDocumentControlNumber());
+		assertNotNull(updatedConsent.getConsentDecisionTimestamp());
 	}
 	
 	@Test
