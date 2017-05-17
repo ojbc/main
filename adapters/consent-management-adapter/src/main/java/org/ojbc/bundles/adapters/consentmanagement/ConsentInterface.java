@@ -41,6 +41,6 @@ public interface ConsentInterface {
    @Path("/consent")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
-   public Response consent(Consent consent);
+   public Response consent(Consent consent) throws Exception;
    
 }
