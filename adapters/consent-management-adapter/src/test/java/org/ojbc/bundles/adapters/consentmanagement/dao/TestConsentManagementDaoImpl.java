@@ -82,7 +82,7 @@ public class TestConsentManagementDaoImpl {
 		
 		Integer consentDecisionTypeID = consentManagementDAOImpl.retrieveConsentDecisionType(ConsentManagementConstants.INMATE_NOT_INTERVIEWED);
 		
-		consentManagementDAOImpl.updateConsentDecision(consents.get(0).getConsentId(), consentDecisionTypeID, null, null,LocalDateTime.now());
+		consentManagementDAOImpl.updateConsentDecision(consents.get(0).getConsentId(), consentDecisionTypeID, null, null,null, null, LocalDateTime.now());
 		
 		Consent updatedRecord = consentManagementDAOImpl.returnConsentRecordfromId(consents.get(0).getConsentId());
 		
@@ -123,7 +123,7 @@ public class TestConsentManagementDaoImpl {
 		
 		Integer consentDecisionTypeID = consentManagementDAOImpl.retrieveConsentDecisionType(ConsentManagementConstants.CONSENT_DENIED);
 		
-		consentManagementDAOImpl.updateConsentDecision(consentDecisionID, consentDecisionTypeID, "userId", "controlNumber",LocalDateTime.now());
+		consentManagementDAOImpl.updateConsentDecision(consentDecisionID, consentDecisionTypeID, "userId", "userFirst", "userLast", "controlNumber",LocalDateTime.now());
 		
 		Consent updatedRecord = consentManagementDAOImpl.returnConsentRecordfromId(consentDecisionID);
 		
@@ -132,6 +132,8 @@ public class TestConsentManagementDaoImpl {
 		assertEquals(consentDecisionTypeID, updatedRecord.getConsentDecisionTypeID());
 		assertEquals(consentDecisionID, updatedRecord.getConsentId());
 		assertEquals("userId", updatedRecord.getConsenterUserID());
+		assertEquals("userFirst", updatedRecord.getConsentUserFirstName());
+		assertEquals("userLast", updatedRecord.getConsentUserLastName());
 		assertEquals("controlNumber", updatedRecord.getConsentDocumentControlNumber());
 		assertNotNull(updatedRecord.getConsentDecisionTimestamp());
 		assertNotNull(updatedRecord.getRecordCreationTimestamp());

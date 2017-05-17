@@ -3164,4 +3164,73 @@
 		<TelephoneNumber>N/A</TelephoneNumber>
 	</ContactPerson>
 </EntityDescriptor>
+<!-- Pima County IdP -->
+
+ <EntityDescriptor 
+    	xmlns="urn:oasis:names:tc:SAML:2.0:metadata" 
+    	xmlns:ds="http://www.w3.org/2000/09/xmldsig#" 
+    	xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" 
+    	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    	entityID="https://jhda-idp.pima.gov/idp/shibboleth">
+
+        <Extensions xmlns:alg="urn:oasis:names:tc:SAML:metadata:algsupport">
+            <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+        </Extensions>
+
+        <IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" WantAuthnRequestsSigned="true">
+
+            <Extensions>
+                <shibmd:Scope regexp="false">pima.gov</shibmd:Scope>
+            </Extensions>
+
+            <KeyDescriptor>
+                <ds:KeyInfo>
+                    <ds:X509Data>
+                        <ds:X509Certificate>MIID3jCCAsYCCQCaxCMMfFU4RTANBgkqhkiG9w0BAQsFADCBsDELMAkGA1UEBhMC
+VVMxEDAOBgNVBAgMB0FyaXpvbmExDzANBgNVBAcMBlR1Y3NvbjEUMBIGA1UECgwL
+UGltYSBDb3VudHkxKjAoBgNVBAsMIUluZm9ybWF0aW9uIFRlY2hub2xvZ3kgRGVw
+YXJ0bWVudDEaMBgGA1UEAwwRamhkYS1JZHAucGltYS5nb3YxIDAeBgkqhkiG9w0B
+CQEWEWFuZHJld0BzZWFyY2gub3JnMB4XDTE2MDkwNzE2MDI0NloXDTI2MDkwNTE2
+MDI0NlowgbAxCzAJBgNVBAYTAlVTMRAwDgYDVQQIDAdBcml6b25hMQ8wDQYDVQQH
+DAZUdWNzb24xFDASBgNVBAoMC1BpbWEgQ291bnR5MSowKAYDVQQLDCFJbmZvcm1h
+dGlvbiBUZWNobm9sb2d5IERlcGFydG1lbnQxGjAYBgNVBAMMEWpoZGEtSWRwLnBp
+bWEuZ292MSAwHgYJKoZIhvcNAQkBFhFhbmRyZXdAc2VhcmNoLm9yZzCCASIwDQYJ
+KoZIhvcNAQEBBQADggEPADCCAQoCggEBAMlUlhVBWpAUkXPak86tQtLceSL7ux7U
+yGV/CHZOtfgl7xtsydyKH1ZroEjQQPcQdAYPooUl8rcUGvDuITWZ3QUdDp76s3l+
+vVhH9WTyYjhzalrWwqrRrpeIdGx/dn6FPgPPnRcceF9QcGVYJNfH4JyOJZTfdzub
+OmZkCzKQnnXJS3moh9gbUBR6O6q0pRI/UIo0RWWXd3d4fuiwzZVuGS0utY3ZGLKz
+rBbhsyYdnRROn0G2OBr6pRZn19EjNbJQhk9TorCVIFxKJ06vV6iS209BNPjxzMdc
+AJ9smhfW59l7ayGkIOUPdiggYEbVGuoehEt6fGyTg/zmJYUA+2BorQ8CAwEAATAN
+BgkqhkiG9w0BAQsFAAOCAQEAn34NmYrvA0atZEYckiMx5DPxMpo3xNHjCDloW62h
+oe5rccoKo/P/rWvoishGINI+zQcU4sy9yElITuvXvQX0p2Q4V0/u124r7A9E8kBj
+vjK3IBNVG7o2KtaxvCSMTKioiSxU6JchiLcx68M7ZCv5r8g45JxIjgR5Arpm0YLD
+WBIQWblG/luOlxWdot6P7iZsAuta8ZZbAmRwzzxqEAKGKXh+8DrBG4QyIWfoYfMM
+lD3i1DjArYSDQIAHQn8c0VNq5IFXEh8vw/jM7bDIvJDSlRh1blzyEKtGhR2R1uE/
+JSd+OgOuyrSA65hr1lHLV1C47WSCS1+7YegokiO47eMwIg==
+                        </ds:X509Certificate>
+                    </ds:X509Data>
+                </ds:KeyInfo>
+            </KeyDescriptor>
+
+            <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</NameIDFormat>
+            <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+
+            <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://jhda-idp.pima.gov/idp/profile/SAML2/POST/SSO"/>
+
+            <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://jhda-idp.pima.gov/idp/profile/SAML2/Redirect/SSO"/>
+
+        </IDPSSODescriptor>
+
+        <ContactPerson contactType="technical">
+            <GivenName>Sarah</GivenName>
+            <SurName>Davis</SurName>
+            <Company>OJBC</Company>
+            <EmailAddress>info@ojbc,org</EmailAddress>
+            <TelephoneNumber>916-555-1212</TelephoneNumber>
+        </ContactPerson>
+
+    </EntityDescriptor>
+
 </EntitiesDescriptor>
+
