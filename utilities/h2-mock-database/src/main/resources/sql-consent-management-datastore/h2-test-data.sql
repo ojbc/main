@@ -16,10 +16,10 @@
  */
 
 INSERT INTO consent_decision_type(ConsentDecisionTypeID, ConsentDecisionDescription) VALUES
-(1, 'consent granted');
+(1, 'Consent Granted');
 
 INSERT INTO consent_decision_type(ConsentDecisionTypeID, ConsentDecisionDescription) VALUES
-(2, 'consent denied');
+(2, 'Consent Denied');
 
 INSERT INTO consent_decision_type(ConsentDecisionTypeID, ConsentDecisionDescription) VALUES
 (3, 'inmate not interviewed');
