@@ -21,7 +21,6 @@
 	xmlns:cdr-doc="http://ojbc.org/IEPD/Exchange/ConsentDecisionReporting/1.0"
 	xmlns:cdr-ext="http://ojbc.org/IEPD/Extensions/ConsentDecisionReporting/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -60,7 +59,7 @@
 			<nc:IdentificationID>CD858</nc:IdentificationID>
 		</nc:ActivityIdentification>
 		<nc:ActivityDate>
-			<nc:Date>2017-03-26</nc:Date>
+			<nc:DateTime>2004-04-12T13:20:00</nc:DateTime>
 		</nc:ActivityDate>
 		<j:ActivityAugmentation>
 			<j:Narrative>
