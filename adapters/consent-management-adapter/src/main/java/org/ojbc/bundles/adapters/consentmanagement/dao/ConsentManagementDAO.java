@@ -38,4 +38,6 @@ public interface ConsentManagementDAO {
 	public Consent returnConsentRecordfromId(Integer consentDecisionID);
 	
 	public void deleteAllConsentRecords();
+	
+	public String retrieveConsentDecisionText(Integer consentDecisionTypeID) throws Exception;
 }
