@@ -120,6 +120,9 @@ public class ConsentXMLProcessor {
             Element personSurName = XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC_30, "nc:PersonSurName");
             personSurName.setTextContent(consent.getPersonLastName());
             
+            Element personSexCode = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_JXDM_51, "j:PersonSexCode");
+            personSexCode.setTextContent(consent.getPersonGender());
+            
 			//<cdr-ext:ConsentDecision>
 			//	<nc:ActivityIdentification>
 			//		<nc:IdentificationID>CD858</nc:IdentificationID>
