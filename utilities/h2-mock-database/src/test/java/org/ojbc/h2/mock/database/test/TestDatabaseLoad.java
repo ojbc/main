@@ -181,11 +181,11 @@ public class TestDatabaseLoad {
 		
 		assertTrue(rs.next());
 		assertEquals(1,rs.getInt("ConsentDecisionTypeID"));
-		assertEquals("consent granted",rs.getString("ConsentDecisionDescription"));
+		assertEquals("Consent Granted",rs.getString("ConsentDecisionDescription"));
 		
 		assertTrue(rs.next());
 		assertEquals(2,rs.getInt("ConsentDecisionTypeID"));
-		assertEquals("consent denied",rs.getString("ConsentDecisionDescription"));
+		assertEquals("Consent Denied",rs.getString("ConsentDecisionDescription"));
 		
 		rs.next();
 		assertEquals(3,rs.getInt("ConsentDecisionTypeID"));

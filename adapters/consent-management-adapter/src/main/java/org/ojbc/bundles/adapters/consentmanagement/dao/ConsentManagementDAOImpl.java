@@ -136,6 +136,20 @@ public class ConsentManagementDAOImpl implements ConsentManagementDAO {
 	}
 	
 	@Override
+	public String retrieveConsentDecisionText(Integer consentDecisionTypeID) throws Exception {
+		String sql = "SELECT ConsentDecisionDescription from consent_decision_type where consentDecisionTypeID =?";
+
+		if (consentDecisionTypeID == null)
+		{
+			throw new Exception("Unable to retrieve consent decision from ID: "  + consentDecisionTypeID);
+		}	
+		
+		String consentDecisionDescription = jdbcTemplate.queryForObject(sql, new Object[] {consentDecisionTypeID}, String.class);
+		
+		return consentDecisionDescription;
+	}
+	
+	@Override
 	public Consent returnConsentRecordfromId(Integer consentDecisionID) {
         
 		String sql = "SELECT * from consent_decision where consentDecisionID =?";
