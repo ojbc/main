@@ -16,6 +16,8 @@
  */
 package org.ojbc.bundles.adapters.consentmanagement.processor;
 
+import static org.junit.Assert.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -59,6 +61,20 @@ public class TestConsentXMLProcessor {
 		
 		XmlUtils.printNode(doc);
 		
-		//TODO: Add xpath tests here
+		assertEquals("First", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/nc30:Person/nc30:PersonName/nc30:PersonGivenName"));
+		assertEquals("Last", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/nc30:Person/nc30:PersonName/nc30:PersonSurName"));
+		assertEquals("middle", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/nc30:Person/nc30:PersonName/nc30:PersonMiddleName"));
+		assertEquals(LocalDate.now().toString(), XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/nc30:Person/nc30:PersonBirthDate/nc30:Date"));
+		assertEquals("M", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/nc30:Person/jxdm51:PersonSexCode"));
+
+		assertEquals("n1", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/jxdm51:Booking/jxdm51:BookingSubject/jxdm51:SubjectIdentification/nc30:IdentificationID"));
+		assertEquals("b1", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/jxdm51:Booking/jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID"));
+		
+		assertEquals("1", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/cdr-ext:ConsentDecision/nc30:ActivityIdentification/nc30:IdentificationID"));
+		assertEquals("Consent Granted", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/cdr-ext:ConsentDecision/cdr-ext:ConsentDecisionCode"));
+		assertEquals("consent first", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/cdr-ext:ConsentDecision/cdr-ext:ConsentDecisionRecordingEntity/nc30:EntityPerson/nc30:PersonName/nc30:PersonGivenName"));
+		assertEquals("consent last", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/cdr-ext:ConsentDecision/cdr-ext:ConsentDecisionRecordingEntity/nc30:EntityPerson/nc30:PersonName/nc30:PersonSurName"));
+		assertEquals("Consent user ID", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/cdr-ext:ConsentDecision/cdr-ext:ConsentDecisionRecordingEntity/cdr-ext:RecordingEntityUsernameText"));
+		assertNotNull(XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/cdr-ext:ConsentDecision/nc30:ActivityDate/nc30:DateTime"));
 	}
 }
