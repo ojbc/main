@@ -151,8 +151,11 @@ public class ConsentXMLProcessor {
             
             Element activityDate = XmlUtils.appendElement(consentDecision, OjbcNamespaceContext.NS_NC_30, "nc:ActivityDate");
             
-            Element consentDate = XmlUtils.appendElement(activityDate, OjbcNamespaceContext.NS_NC_30, "nc:DateTime");
-            consentDate.setTextContent(consent.getConsentDecisionTimestamp().toString());
+            if (consent.getConsentDecisionTimestamp() != null)
+            {	
+            	Element consentDate = XmlUtils.appendElement(activityDate, OjbcNamespaceContext.NS_NC_30, "nc:DateTime");
+            	consentDate.setTextContent(consent.getConsentDecisionTimestamp().toString());
+            }	
             
             String consentDescription = consentManagementDAOImpl.retrieveConsentDecisionText(consent.getConsentId());
 

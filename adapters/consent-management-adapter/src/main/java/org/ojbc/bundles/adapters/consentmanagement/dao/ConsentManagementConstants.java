@@ -18,9 +18,9 @@ package org.ojbc.bundles.adapters.consentmanagement.dao;
 
 public class ConsentManagementConstants {
 
-	public static final String CONSENT_GRANTED = "consent granted";
+	public static final String CONSENT_GRANTED = "Consent Granted";
 
-	public static final String CONSENT_DENIED = "consent denied";
+	public static final String CONSENT_DENIED = "Consent Denied";
 	
 	public static final String INMATE_NOT_INTERVIEWED = "inmate not interviewed";
 }

@@ -27,6 +27,7 @@ import org.ojbc.bundles.adapters.consentmanagement.model.Consent;
 import org.ojbc.bundles.adapters.consentmanagement.util.ConsentManagementAdapterTestUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.w3c.dom.Document;
@@ -40,6 +41,7 @@ import org.w3c.dom.Document;
         "classpath:META-INF/spring/h2-mock-database-context-consent-management-datastore.xml",
 		"classpath:META-INF/spring/cxf-endpoints.xml"
 		})
+@DirtiesContext
 public class TestConsentXMLProcessor {
 	
 	@Autowired
