@@ -41,6 +41,9 @@
 		<camel:endpoint id="bookingReportingServiceEndpoint"
 			uri="cxf:bean:bookingReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${consentManagement.cxflogging}" />
 
+		<camel:endpoint id="consentReportingServiceEndpoint"
+			uri="cxf:bean:consentReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${consentManagement.cxflogging}" />
+
 		<!-- Booking Reporting Service Handler -->
 		<camel:route id="bookingReportingServiceHandlerRoute">
 			<camel:from uri="bookingReportingServiceEndpoint" />
@@ -88,10 +91,37 @@
 				<when>
 					<simple>${header.operationName} == 'consent'</simple>
 					<log message="consent operation called"/>
+					
+					<camel:setProperty propertyName="originalBody">
+						<simple>${body}</simple>
+					</camel:setProperty>
+					
 					<bean ref="consentRestImpl" method="consent" />
+					
+					<camel:wireTap uri="direct:reportConsent">
+						<body><simple>${property.originalBody}</simple></body>
+					</camel:wireTap>
+					
 				</when>
 			</choice>
 		</route>		
+		
+		<route id="reportConsentRoute">
+			<from uri="direct:reportConsent"/>
+			
+			<bean ref="consentXMLProcessor" method="createConsentReport" />
+			
+        	<camel:setHeader headerName="operationName">
+        		<constant>ReportConsentDecision</constant>
+        	</camel:setHeader>
+       		<camel:setHeader headerName="operationNamespace">
+       			<constant>http://ojbc.org/Services/WSDL/ConsentDecisionReportingService/1.0</constant>
+       		</camel:setHeader>
+			
+			<camel:log message="Consent message to intermediary: ${body}" loggingLevel="DEBUG"/>
+			
+			<to uri="consentReportingServiceEndpoint"/>
+		</route>
 		
 	</camel:camelContext>
 	

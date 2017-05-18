@@ -61,10 +61,25 @@
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/BookingReportingService/1.0">
 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
-			<entry key="ws-security.signature.properties" value-ref="bookingReportingKeystoreProperties" /> 
+			<entry key="ws-security.signature.properties" value-ref="keystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${consentManagement.keystoreCertificateAlias}" /> 
 		</cxf:properties>
     </cxf:cxfEndpoint>	
+    
+	<!-- OJB Consent Reporting Service, hosted by this broker -->
+    <cxf:cxfEndpoint 
+        id="consentReportingService"
+        address="${consentManagement.intermediaryEndpoint}" 
+		wsdlURL="classpath:ssp/Consent_Decision_Reporting/schemas/SIP_WS_1.3/Consent_Decision_Reporting_Service.wsdl"
+		serviceName="ojbc:Consent-Decision-Reporting-ServiceService" 
+		endpointName="ojbc:Consent-Decision-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/ConsentDecisionReportingService/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="keystoreProperties" /> 
+			<entry key="ws-security.signature.username" value="${consentManagement.keystoreCertificateAlias}" /> 
+		</cxf:properties>
+    </cxf:cxfEndpoint>	    
 	
 	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">
@@ -74,7 +89,7 @@
         </property>
 	</bean>		
 	
-	<util:properties id="bookingReportingKeystoreProperties">
+	<util:properties id="keystoreProperties">
 		<prop key="org.apache.ws.security.crypto.provider">org.apache.ws.security.components.crypto.Merlin</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.type">jks</prop>
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.password">${consentManagement.keystorePassword}</prop>
