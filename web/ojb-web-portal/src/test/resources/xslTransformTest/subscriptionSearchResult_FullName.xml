@@ -190,6 +190,9 @@
   		<nc:PersonFullName>Dwight Schrute</nc:PersonFullName>
   	</nc:PersonName>
   	<j:PersonAugmentation>
+  		<j:PersonFBIIdentification>
+  			<nc:IdentificationID>A1099108</nc:IdentificationID>
+  		</j:PersonFBIIdentification>
   		<j:PersonStateFingerprintIdentification>
   			<nc:IdentificationID>A1099109188</nc:IdentificationID>
   		</j:PersonStateFingerprintIdentification>
@@ -203,6 +206,9 @@
   		<nc:PersonFullName>Xavier Andrews</nc:PersonFullName>
   	</nc:PersonName>
   	<j:PersonAugmentation>
+  		<j:PersonFBIIdentification>
+  			<nc:IdentificationID>A1099187</nc:IdentificationID>
+  		</j:PersonFBIIdentification>
   		<j:PersonStateFingerprintIdentification>
   			<nc:IdentificationID>A109918765</nc:IdentificationID>
   		</j:PersonStateFingerprintIdentification>

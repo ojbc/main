@@ -16,15 +16,14 @@
  */
 package org.ojbc.intermediaries.sn.subscription;
 
-import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
-import org.ojbc.intermediaries.sn.util.FaultMessageBuilderUtil;
-import org.ojbc.intermediaries.sn.util.SubscriptionResponseBuilderUtil;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
-import org.apache.camel.impl.DefaultExchange;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.LocalDate;
+import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
+import org.ojbc.intermediaries.sn.util.FaultMessageBuilderUtil;
+import org.ojbc.intermediaries.sn.util.SubscriptionResponseBuilderUtil;
 
 /**
  * The abstract base class for beans that process subscription and unsubscription requests.  There will be a concrete derivation of this class for each topic.
