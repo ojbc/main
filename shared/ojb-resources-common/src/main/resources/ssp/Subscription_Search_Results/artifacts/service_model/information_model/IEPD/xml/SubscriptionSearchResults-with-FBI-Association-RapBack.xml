@@ -112,6 +112,9 @@
 			<nc:PersonSurName>Schrute</nc:PersonSurName>
 		</nc:PersonName>
 		<j:PersonAugmentation>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>123456789</nc:IdentificationID>
+			</j:PersonFBIIdentification>
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>A1099109188</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
