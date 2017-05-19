@@ -66,7 +66,7 @@
 		</cxf:properties>
     </cxf:cxfEndpoint>	
     
-	<!-- OJB Consent Reporting Service, hosted by this broker -->
+	<!-- OJB Consent Reporting Service, hosted by the broker -->
     <cxf:cxfEndpoint 
         id="consentReportingService"
         address="${consentManagement.intermediaryEndpoint}" 
