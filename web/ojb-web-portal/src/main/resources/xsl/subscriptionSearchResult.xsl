@@ -120,55 +120,55 @@
 				</xsl:when>
 			</xsl:choose>
 		</xsl:variable>
-				<tr>
-					<td valign="middle">
-						<!-- note value in json format, so ui can parse it -->
-						<input type="checkbox" name="subscriptionRow" class="subscriptionCheckBox" value='{{"id":"{$subscriptionID}","topic":"{$subscriptionTopic}","reasonCode":"{$reasonCode}"}}'/>
-					</td>				
-					<td class="editButtonColumn"><a href="../subscriptions/editSubscription?identificationID={$subscriptionID}&amp;topic={$subscriptionTopic}" class="blueButton viewDetails" id="editSubscriptionLink{$subscriptionID}">EDIT</a></td>
-					<td>
-						<xsl:choose>
-							<xsl:when test="ext:Subscription/wsn-br:Topic = $arrestTopic or ext:Subscription/wsn-br:Topic = $rapbackTopic">
-								<b>SID:</b><xsl:text> </xsl:text><xsl:value-of select="normalize-space($subjectPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID)"/>
-							</xsl:when>
-							<xsl:when test="ext:Subscription/wsn-br:Topic = $incidentTopic">
-								<b>Name:</b><xsl:text> </xsl:text><xsl:value-of select="normalize-space($subjectName)"/><br/>
-								<b>DOB:</b><xsl:text> </xsl:text>
-									<xsl:call-template name="formatDate">
-										<xsl:with-param name="date" select="$subjectPerson/nc:PersonBirthDate/nc:Date"/>
-									</xsl:call-template>
-							</xsl:when>
-							<xsl:when test="ext:Subscription/wsn-br:Topic = $chCycleTopic">
-								<b>Name:</b><xsl:text> </xsl:text><xsl:value-of select="normalize-space($subjectName)"/><br/>
-								<b>DOB:</b><xsl:text> </xsl:text>
-									<xsl:call-template name="formatDate">
-										<xsl:with-param name="date" select="$subjectPerson/nc:PersonBirthDate/nc:Date"/>
-									</xsl:call-template>
-							</xsl:when>
-						</xsl:choose>
-					</td>
-					<td>
-						<xsl:value-of select="normalize-space($subjectName)"/>
-					</td>
-					
-										
-					<td>
-						<xsl:call-template name="formatDate">
-							<xsl:with-param name="date" select="ext:Subscription/nc:ActivityDateRange/nc:StartDate/nc:Date"/>
-						</xsl:call-template>
-					</td>					
-					<xsl:element name="td">
-						<xsl:apply-templates select="ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date[normalize-space()]" mode="endDate"/>
-					</xsl:element>
+		<tr>
+			<td valign="middle">
+				<!-- note value in json format, so ui can parse it -->
+				<input type="checkbox" name="subscriptionRow" class="subscriptionCheckBox" value='{{"id":"{$subscriptionID}","topic":"{$subscriptionTopic}","reasonCode":"{$reasonCode}"}}'/>
+			</td>				
+			<td class="editButtonColumn"><a href="../subscriptions/editSubscription?identificationID={$subscriptionID}&amp;topic={$subscriptionTopic}" class="blueButton viewDetails" id="editSubscriptionLink{$subscriptionID}">EDIT</a></td>
+			<td>
+				<xsl:choose>
+					<xsl:when test="ext:Subscription/wsn-br:Topic = $arrestTopic or ext:Subscription/wsn-br:Topic = $rapbackTopic">
+						<b>SID:</b><xsl:text> </xsl:text><xsl:value-of select="normalize-space($subjectPerson/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID)"/>
+					</xsl:when>
+					<xsl:when test="ext:Subscription/wsn-br:Topic = $incidentTopic">
+						<b>Name:</b><xsl:text> </xsl:text><xsl:value-of select="normalize-space($subjectName)"/><br/>
+						<b>DOB:</b><xsl:text> </xsl:text>
+							<xsl:call-template name="formatDate">
+								<xsl:with-param name="date" select="$subjectPerson/nc:PersonBirthDate/nc:Date"/>
+							</xsl:call-template>
+					</xsl:when>
+					<xsl:when test="ext:Subscription/wsn-br:Topic = $chCycleTopic">
+						<b>Name:</b><xsl:text> </xsl:text><xsl:value-of select="normalize-space($subjectName)"/><br/>
+						<b>DOB:</b><xsl:text> </xsl:text>
+							<xsl:call-template name="formatDate">
+								<xsl:with-param name="date" select="$subjectPerson/nc:PersonBirthDate/nc:Date"/>
+							</xsl:call-template>
+					</xsl:when>
+				</xsl:choose>
+			</td>
+			<td>
+				<xsl:value-of select="normalize-space($subjectName)"/>
+			</td>
+			
+								
+			<td>
+				<xsl:call-template name="formatDate">
+					<xsl:with-param name="date" select="ext:Subscription/nc:ActivityDateRange/nc:StartDate/nc:Date"/>
+				</xsl:call-template>
+			</td>					
+			<xsl:element name="td">
+				<xsl:apply-templates select="ext:Subscription/nc:ActivityDateRange/nc:EndDate/nc:Date[normalize-space()]" mode="endDate"/>
+			</xsl:element>
 
-					<td>
-						<xsl:apply-templates select="." mode="fbiSubscription"/>
-					</td>		
-									
-					<td>
-						<xsl:apply-templates select="/p:SubscriptionSearchResults/ext:SubscribedEntityContactInformationAssociation[ext:SubscribedEntityReference/@s:ref=$subscribedEntity]"/>
-					</td>
-				</tr>
+			<td>
+				<xsl:apply-templates select="." mode="fbiSubscription"/>
+			</td>		
+							
+			<td>
+				<xsl:apply-templates select="/p:SubscriptionSearchResults/ext:SubscribedEntityContactInformationAssociation[ext:SubscribedEntityReference/@s:ref=$subscribedEntity]"/>
+			</td>
+		</tr>
 	</xsl:template>
 	
 	<xsl:template match="ext:SubscriptionSearchResult" mode="fbiSubscription">
@@ -181,11 +181,13 @@
 				/ext:FBISubscriptionReference/@s:ref"/>
 		</xsl:variable>
 		
+		<xsl:variable name="subjectID" select="ext:Subscription/ext:SubscriptionSubject/nc:RoleOfPersonReference/@s:ref"/>
+		
 		<xsl:choose>
 			<xsl:when test="/p:SubscriptionSearchResults/ext:FBISubscription/@s:id = $fbiSubscriptionRefId">
-				<xsl:text>true</xsl:text>				 
+				<xsl:value-of select="../ext:Person[@s:id=$subjectID]/j:PersonAugmentation/j:PersonFBIIdentification/nc:IdentificationID"/>				 
 			</xsl:when>
-			<xsl:otherwise><xsl:text>false</xsl:text></xsl:otherwise>
+			<xsl:otherwise><xsl:text>None</xsl:text></xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 	
