@@ -38,6 +38,7 @@
     <xsd:complexContent>
       <xsd:extension base="s:AugmentationType">
         <xsd:sequence>
+          <xsd:element ref="j:PersonFBIIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
@@ -79,6 +80,11 @@
       <xsd:appinfo>
         <i:AppliesTo i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="PersonType"/>
       </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonFBIIdentification" type="nc:IdentificationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A number issued by the FBI's Automated Fingerprint Identification System (AFIS) based on submitted fingerprints.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="PersonStateFingerprintIdentification" type="nc:IdentificationType" nillable="true">
