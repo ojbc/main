@@ -31,11 +31,13 @@ public interface ConsentManagementDAO {
 	
 	public Integer saveConsentDecision(Consent consent);
 	
-	public void updateConsentDecision(Integer consentDecisionID, Integer consentDecisionTypeID, String consenterUserID, String consentDocumentControlNumber, LocalDateTime consentDecisionTimestamp);
+	public void updateConsentDecision(Integer consentDecisionID, Integer consentDecisionTypeID, String consenterUserID, String consenterUserFirstName, String consenterUserLastName, String consentDocumentControlNumber, LocalDateTime consentDecisionTimestamp);
 
 	public Integer retrieveConsentDecisionType(String consentDecision) throws Exception;
 	
 	public Consent returnConsentRecordfromId(Integer consentDecisionID);
 	
 	public void deleteAllConsentRecords();
+	
+	public String retrieveConsentDecisionText(Integer consentDecisionTypeID) throws Exception;
 }
