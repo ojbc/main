@@ -99,8 +99,8 @@ public class ConsentManagementDAOImpl implements ConsentManagementDAO {
 	}
 
 	@Override
-	public void updateConsentDecision(Integer consentDecisionID, Integer consentDecisionTypeID, String consenterUserID, String consentDocumentControlNumber, LocalDateTime consentDecisionTimestamp) {
-		String sql = "UPDATE consent_decision set ConsentDecisionTypeID = ?, ConsenterUserID = ?, ConsentDocumentControlNumber=?, ConsentDecisionTimestamp =? where consentDecisionID =?";
+	public void updateConsentDecision(Integer consentDecisionID, Integer consentDecisionTypeID, String consenterUserID, String consenterUserFirstName, String consenterUserLastName, String consentDocumentControlNumber, LocalDateTime consentDecisionTimestamp) {
+		String sql = "UPDATE consent_decision set ConsentDecisionTypeID = ?, ConsenterUserID = ?, ConsentDocumentControlNumber=?, ConsentDecisionTimestamp =?, ConsenterUserFirstName=?, ConsenterUserLastName=? where consentDecisionID =?";
 		
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(
@@ -112,7 +112,10 @@ public class ConsentManagementDAOImpl implements ConsentManagementDAO {
 				ps.setString(2, consenterUserID);
 				ps.setString(3, consentDocumentControlNumber);
 				DaoUtils.setPreparedStatementVariable(consentDecisionTimestamp, ps, 4);
-				ps.setInt(5, consentDecisionID);
+				ps.setString(5, consenterUserFirstName);
+				ps.setString(6, consenterUserLastName);
+				ps.setInt(7, consentDecisionID);
+				
 				return ps;
 			}
 		});		
@@ -130,6 +133,20 @@ public class ConsentManagementDAOImpl implements ConsentManagementDAO {
 		}	
 		
 		return consentDecisionTypeID;
+	}
+	
+	@Override
+	public String retrieveConsentDecisionText(Integer consentDecisionTypeID) throws Exception {
+		String sql = "SELECT ConsentDecisionDescription from consent_decision_type where consentDecisionTypeID =?";
+
+		if (consentDecisionTypeID == null)
+		{
+			throw new Exception("Unable to retrieve consent decision from ID: "  + consentDecisionTypeID);
+		}	
+		
+		String consentDecisionDescription = jdbcTemplate.queryForObject(sql, new Object[] {consentDecisionTypeID}, String.class);
+		
+		return consentDecisionDescription;
 	}
 	
 	@Override
@@ -162,7 +179,7 @@ public class ConsentManagementDAOImpl implements ConsentManagementDAO {
 		{
 			log.info("Person not interviewed in 24 hours.  Updating record: "  + record.getConsentId());
 			
-			this.updateConsentDecision(record.getConsentId(), consentDecisionTypeID, null, null, LocalDateTime.now());
+			this.updateConsentDecision(record.getConsentId(), consentDecisionTypeID, null, null, null, null, LocalDateTime.now());
 		}	
 		
 	}

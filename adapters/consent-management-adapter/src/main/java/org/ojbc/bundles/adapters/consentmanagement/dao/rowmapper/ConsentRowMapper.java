@@ -42,6 +42,8 @@ public class ConsentRowMapper implements RowMapper<Consent> {
 		consent.setBookingNumber(rs.getString("BookingNumber"));
 		consent.setConsentDocumentControlNumber(rs.getString("ConsentDocumentControlNumber"));
 		consent.setConsenterUserID(rs.getString("ConsenterUserID"));
+		consent.setConsentUserFirstName(rs.getString("ConsenterUserFirstName"));
+		consent.setConsentUserLastName(rs.getString("ConsenterUserLastName"));
 		consent.setNameNumber(rs.getString("NameNumber"));
 		consent.setPersonDOB(DaoUtils.getLocalDate(rs, "PersonDOB"));
 		consent.setRecordCreationTimestamp(DaoUtils.getLocalDateTime(rs, "RecordCreationTimestamp"));

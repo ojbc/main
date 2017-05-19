@@ -803,6 +803,13 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_FEDERAL_CRIMINAL_HISTORY_REPORT_EXT ="http://ojbc.org/IEPD/Extensions/FederalCriminalHistoryReportExtension/1.0";
 	public static final String NS_PREFIX_FEDERAL_CRIMINAL_HISTORY_REPORT_EXT ="fchr-ext";	
 
+	public static final String NS_CONSENT_DECISION_REPORTING_EXT ="http://ojbc.org/IEPD/Extensions/ConsentDecisionReporting/1.0";
+	public static final String NS_PREFIX_CONSENT_DECISION_REPORTING_EXT ="cdr-ext";	
+
+	public static final String NS_CONSENT_DECISION_REPORTING_DOC ="http://ojbc.org/IEPD/Exchange/ConsentDecisionReporting/1.0";
+	public static final String NS_PREFIX_CONSENT_DECISION_REPORTING_DOC ="cdr-doc";	
+	
+
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
 	
@@ -1582,7 +1589,14 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		uriToPrefixMap.put(NS_FEDERAL_CRIMINAL_HISTORY_REPORT_EXCH, NS_PREFIX_FEDERAL_CRIMINAL_HISTORY_REPORT_EXCH);	
 
 		prefixToUriMap.put(NS_PREFIX_FEDERAL_CRIMINAL_HISTORY_REPORT_EXT, NS_FEDERAL_CRIMINAL_HISTORY_REPORT_EXT);
-		uriToPrefixMap.put(NS_FEDERAL_CRIMINAL_HISTORY_REPORT_EXT, NS_PREFIX_FEDERAL_CRIMINAL_HISTORY_REPORT_EXT);	
+		uriToPrefixMap.put(NS_FEDERAL_CRIMINAL_HISTORY_REPORT_EXT, NS_PREFIX_FEDERAL_CRIMINAL_HISTORY_REPORT_EXT);
+			
+		prefixToUriMap.put(NS_PREFIX_CONSENT_DECISION_REPORTING_DOC, NS_CONSENT_DECISION_REPORTING_DOC);
+		uriToPrefixMap.put(NS_CONSENT_DECISION_REPORTING_DOC, NS_PREFIX_CONSENT_DECISION_REPORTING_DOC);	
+
+		prefixToUriMap.put(NS_PREFIX_CONSENT_DECISION_REPORTING_EXT, NS_CONSENT_DECISION_REPORTING_EXT);
+		uriToPrefixMap.put(NS_CONSENT_DECISION_REPORTING_EXT, NS_PREFIX_CONSENT_DECISION_REPORTING_EXT);	
+
 
 	}
 
