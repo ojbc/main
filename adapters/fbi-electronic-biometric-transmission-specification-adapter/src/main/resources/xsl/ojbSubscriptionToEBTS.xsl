@@ -55,7 +55,7 @@
 	<xsl:param name="destinationOrganizationORI" />
 	
 	<!-- ORI 1.007 -->
-	<xsl:param name="originatorOrganizationORI" />
+	<xsl:param name="originatorOrganizationORI" select="/b-2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:SubscribingOrganization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc20:IdentificationID" />
 	
 	<!-- TCN 1.009 -->
 	<xsl:param name="controlID" />
