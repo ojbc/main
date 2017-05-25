@@ -49,42 +49,50 @@
 	</xsd:complexType>
 	<xsd:complexType name="ConsentDecisionType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for permission for information to be released.</xsd:documentation>
+			<xsd:documentation>A data type for permission for information to be
+				released.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
 					<xsd:element ref="cdr-ext:ConsentDecisionRepresentation" />
-					<xsd:element ref="cdr-ext:ConsentDecisionRecordingEntity"/>
+					<xsd:element ref="cdr-ext:ConsentPurposeCode" />
+					<xsd:element ref="cdr-ext:ConsentDecisionRecordingEntity" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="ConsentDecisionRecordingEntityType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for the person responsible for documenting details of the consent decision.</xsd:documentation>
+			<xsd:documentation>A data type for the person responsible for
+				documenting details of the consent decision.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:EntityType">
 				<xsd:sequence>
-					<xsd:element ref="cdr-ext:RecordingEntityUsernameText"/>
+					<xsd:element ref="cdr-ext:RecordingEntityUsernameText" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:element name="ConsentDecision" type="cdr-ext:ConsentDecisionType">
 		<xsd:annotation>
-			<xsd:documentation>Permission for information to be released.</xsd:documentation>
+			<xsd:documentation>Permission for information to be released.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ConsentDecisionRecordingEntity" type="cdr-ext:ConsentDecisionRecordingEntityType">
+	<xsd:element name="ConsentDecisionRecordingEntity"
+		type="cdr-ext:ConsentDecisionRecordingEntityType">
 		<xsd:annotation>
-			<xsd:documentation>The entity responsible for documenting details of the consent decision.</xsd:documentation>
+			<xsd:documentation>The entity responsible for documenting details of
+				the consent decision.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RecordingEntityUsernameText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>The system-assigned username for the person responsible for documenting details of the consent decision.</xsd:documentation>
+			<xsd:documentation>The system-assigned username for the person
+				responsible for documenting details of the consent decision.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ConsentDecisionRepresentation" abstract="true">
@@ -125,6 +133,38 @@
 			<xsd:enumeration value="Consent Denied">
 				<xsd:annotation>
 					<xsd:documentation>Consent Denied.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="ConsentPurposeCode" type="cdr-ext:ConsentPurposeCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A code that represent consent purpose.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="ConsentPurposeCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the code indicating consent
+				purpose.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="cdr-ext:ConsentPurposeCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="ConsentPurposeCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an enumeration representation of
+				code designations for a consent purpose.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="pretrial services">
+				<xsd:annotation>
+					<xsd:documentation>Pretrial services.</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 		</xsd:restriction>

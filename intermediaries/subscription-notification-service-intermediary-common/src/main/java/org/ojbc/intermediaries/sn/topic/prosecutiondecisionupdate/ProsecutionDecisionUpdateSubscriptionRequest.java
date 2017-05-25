@@ -19,6 +19,7 @@ package org.ojbc.intermediaries.sn.topic.prosecutiondecisionupdate;
 import java.util.HashMap;
 
 import org.apache.camel.Message;
+import org.apache.commons.lang.StringUtils;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.util.xml.XmlUtils;
@@ -41,7 +42,12 @@ public class ProsecutionDecisionUpdateSubscriptionRequest extends SubscriptionRe
 
 	private void buildSubjectIdMap(String sid,String firstName, String lastName, String dateOfBirth) {
 		subjectIdentifiers = new HashMap<String, String>();
-		subjectIdentifiers.put(SubscriptionNotificationConstants.SID, sid);
+		
+		if (StringUtils.isNotBlank(sid))
+		{		
+			subjectIdentifiers.put(SubscriptionNotificationConstants.SID, sid);
+		}
+		
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.DATE_OF_BIRTH, dateOfBirth);
