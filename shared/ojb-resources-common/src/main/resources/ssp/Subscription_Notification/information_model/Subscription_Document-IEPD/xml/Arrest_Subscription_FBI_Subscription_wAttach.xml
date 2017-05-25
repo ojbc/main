@@ -17,7 +17,19 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<submsg-doc:SubscriptionMessage xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0" xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0 ../xsd/Subscription_Document.xsd">
+<submsg-doc:SubscriptionMessage
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0 ../xsd/Subscription_Document.xsd">
+	<submsg-ext:SubscribingOrganization>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc20:IdentificationID>2345576</nc20:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</submsg-ext:SubscribingOrganization>
 	<submsg-ext:SubscriptionRelatedCaseIdentification>
 		<nc20:IdentificationID>0123ABC</nc20:IdentificationID>
 	</submsg-ext:SubscriptionRelatedCaseIdentification>
@@ -53,7 +65,8 @@
 			<nc20:Date>2015-06-20</nc20:Date>
 		</nc20:EndDate>
 	</nc20:DateRange>
-	<submsg-ext:CriminalSubscriptionReasonCode>CI</submsg-ext:CriminalSubscriptionReasonCode>
+	<submsg-ext:CriminalSubscriptionReasonCode>CI
+	</submsg-ext:CriminalSubscriptionReasonCode>
 	<submsg-ext:RelatedFBISubscription>
 		<nc20:DateRange>
 			<nc20:StartDate>
@@ -66,14 +79,16 @@
 		<submsg-ext:SubscriptionFBIIdentification>
 			<nc20:IdentificationID>1234567</nc20:IdentificationID>
 		</submsg-ext:SubscriptionFBIIdentification>
-		<submsg-ext:CriminalSubscriptionReasonCode>CI</submsg-ext:CriminalSubscriptionReasonCode>
+		<submsg-ext:CriminalSubscriptionReasonCode>CI
+		</submsg-ext:CriminalSubscriptionReasonCode>
 		<submsg-ext:SubscriptionTerm>
 			<j:TermDuration>P1Y</j:TermDuration>
 		</submsg-ext:SubscriptionTerm>
 	</submsg-ext:RelatedFBISubscription>
 	<submsg-ext:FingerprintDocument>
 		<nc20:DocumentBinary>
-			<submsg-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</submsg-ext:Base64BinaryObject>
+			<submsg-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=
+			</submsg-ext:Base64BinaryObject>
 		</nc20:DocumentBinary>
 	</submsg-ext:FingerprintDocument>
 </submsg-doc:SubscriptionMessage>

@@ -17,39 +17,63 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extensions/Subscription/1.0">
-	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../Subset/niem/niem-core/2.0/niem-core.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="../../Subset/niem/domains/jxdm/4.1/jxdm.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1" schemaLocation="../../Subset/niem/domains/intelligence/2.1/intelligence.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../Subset/niem/structures/2.0/structures.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../Subset/niem/proxy/xsd/2.0/xsd.xsd"/>
-	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="./include_schema.xsd"/>
-	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmime_schema.xsd"/>
+<xsd:schema xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/Subscription/1.0">
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
+		schemaLocation="../../Subset/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1"
+		schemaLocation="../../Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.1"
+		schemaLocation="../../Subset/niem/domains/intelligence/2.1/intelligence.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
+		schemaLocation="../../Subset/niem/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
+		schemaLocation="../../Subset/niem/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include"
+		schemaLocation="./include_schema.xsd" />
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime"
+		schemaLocation="./xmime_schema.xsd" />
 	<xsd:complexType name="SubscriptionType">
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="submsg-ext:SubscriptionRelatedCaseIdentification" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:Subject"/>
+					<xsd:element ref="submsg-ext:SubscribingOrganization"
+						minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscriptionRelatedCaseIdentification"
+						minOccurs="0" />
+					<xsd:element ref="submsg-ext:Subject" />
 					<xsd:element ref="nc:ContactEmailID" maxOccurs="unbounded">
 						<xsd:annotation>
-							<xsd:documentation>An electronic mailing address by which a person or organization may be contacted.</xsd:documentation>
+							<xsd:documentation>An electronic mailing address by which a
+								person or organization may be contacted.</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element ref="submsg-ext:SystemName"/>
+					<xsd:element ref="submsg-ext:SystemName" />
 					<xsd:element ref="nc:Case" minOccurs="0">
 						<xsd:annotation>
-							<xsd:documentation>An aggregation of information about a set of related activities and events.</xsd:documentation>
+							<xsd:documentation>An aggregation of information about a set of
+								related activities and events.</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification" minOccurs="0"/>
-					<xsd:element ref="nc:DateRange" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:SubscriptionIdentification" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:TriggeringEvents" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:FederalRapSheetDisclosure" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:FingerprintDocumentRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification"
+						minOccurs="0" />
+					<xsd:element ref="nc:DateRange" minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscriptionIdentification"
+						minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation"
+						minOccurs="0" />
+					<xsd:element ref="submsg-ext:TriggeringEvents"
+						minOccurs="0" />
+					<xsd:element ref="submsg-ext:FederalRapSheetDisclosure"
+						minOccurs="0" />
+					<xsd:element ref="submsg-ext:RelatedFBISubscription"
+						minOccurs="0" />
+					<xsd:element ref="submsg-ext:FingerprintDocumentRepresentation"
+						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -59,75 +83,94 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:choice>
 					<xsd:sequence>
-						<xsd:element ref="submsg-ext:Subject" minOccurs="0"/>
-						<xsd:element ref="nc:ContactEmailID" minOccurs="0" maxOccurs="unbounded">
+						<xsd:element ref="submsg-ext:Subject" minOccurs="0" />
+						<xsd:element ref="nc:ContactEmailID" minOccurs="0"
+							maxOccurs="unbounded">
 							<xsd:annotation>
-								<xsd:documentation>An electronic mailing address by which a person or organization may be contacted.
+								<xsd:documentation>An electronic mailing address by which a
+									person or organization may be contacted.
 								</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
-						<xsd:element ref="submsg-ext:SystemName" minOccurs="0"/>
+						<xsd:element ref="submsg-ext:SystemName" minOccurs="0" />
 						<xsd:element ref="nc:Case" minOccurs="0">
 							<xsd:annotation>
-								<xsd:documentation>An aggregation of information about a set of related activities and events.</xsd:documentation>
+								<xsd:documentation>An aggregation of information about a set of
+									related activities and events.</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
-						<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification" minOccurs="0"/>
-						<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
-						<xsd:element ref="nc:DateRange" minOccurs="0"/>
-						<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
+						<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification"
+							minOccurs="0" />
+						<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation"
+							minOccurs="0" />
+						<xsd:element ref="nc:DateRange" minOccurs="0" />
+						<xsd:element ref="submsg-ext:RelatedFBISubscription"
+							minOccurs="0" />
 					</xsd:sequence>
 					<xsd:sequence>
-						<xsd:element ref="submsg-ext:SubscriptionIdentification"/>
-						<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
-						<xsd:element ref="submsg-ext:RelatedFBISubscription" minOccurs="0"/>
+						<xsd:element ref="submsg-ext:SubscriptionIdentification" />
+						<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation"
+							minOccurs="0" />
+						<xsd:element ref="submsg-ext:RelatedFBISubscription"
+							minOccurs="0" />
 					</xsd:sequence>
 				</xsd:choice>
 			</xsd:extension>
-			<!-- We need the choice here because unsubscriptions happen differently for automatic and manual subscriptions -->
+			<!-- We need the choice here because unsubscriptions happen differently 
+				for automatic and manual subscriptions -->
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="SubscriptionValidationType">
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="submsg-ext:SubscriptionIdentification"/>
-					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
+					<xsd:element ref="submsg-ext:SubscriptionIdentification" />
+					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:element name="SubscriptionIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identifier assigned to a subscription by the system that manages subscriptions.</xsd:documentation>
+			<xsd:documentation>A unique identifier assigned to a subscription by
+				the system that manages subscriptions.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubscriptionFBIIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identifier assigned to a subscription with the Federal Bureau of Investigation (FBI).</xsd:documentation>
+			<xsd:documentation>A unique identifier assigned to a subscription
+				with the Federal Bureau of Investigation (FBI).</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Subject" type="j:PersonType"/>
-	<xsd:element name="SystemName" type="nc:TextType"/>
-	<xsd:element name="SubscriptionQualifierIdentification" type="nc:IdentificationType">
+	<xsd:element name="Subject" type="j:PersonType" />
+	<xsd:element name="SystemName" type="nc:TextType" />
+	<xsd:element name="SubscriptionQualifierIdentification"
+		type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>An identifier for a subscription, provided by the entity requesting a subscription.</xsd:documentation>
+			<xsd:documentation>An identifier for a subscription, provided by the
+				entity requesting a subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="SubscriptionReasonRepresentation" abstract="true">
+	<xsd:element name="SubscriptionReasonRepresentation"
+		abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>The reason for creating a subscription</xsd:documentation>
+			<xsd:documentation>The reason for creating a subscription
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CriminalSubscriptionReasonCode" type="submsg-ext:CriminalSubscriptionReasonCodeType" substitutionGroup="submsg-ext:SubscriptionReasonRepresentation">
+	<xsd:element name="CriminalSubscriptionReasonCode"
+		type="submsg-ext:CriminalSubscriptionReasonCodeType"
+		substitutionGroup="submsg-ext:SubscriptionReasonRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A code value for the reason for creating a subscription</xsd:documentation>
+			<xsd:documentation>A code value for the reason for creating a
+				subscription</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="CriminalSubscriptionReasonCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="submsg-ext:CriminalSubscriptionReasonCodeSimpleType">
-				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
@@ -135,7 +178,8 @@
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="CI">
 				<xsd:annotation>
-					<xsd:documentation>Criminal Justice Investigation</xsd:documentation>
+					<xsd:documentation>Criminal Justice Investigation
+					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="CS">
@@ -145,15 +189,17 @@
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
-	<xsd:element name="CivilSubscriptionReasonCode" type="submsg-ext:CivilSubscriptionReasonCodeType" substitutionGroup="submsg-ext:SubscriptionReasonRepresentation">
+	<xsd:element name="CivilSubscriptionReasonCode"
+		type="submsg-ext:CivilSubscriptionReasonCodeType" substitutionGroup="submsg-ext:SubscriptionReasonRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A code value for the reason for creating a subscription</xsd:documentation>
+			<xsd:documentation>A code value for the reason for creating a
+				subscription</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="CivilSubscriptionReasonCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="submsg-ext:CivilSubscriptionReasonCodeSimpleType">
-				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
@@ -166,7 +212,8 @@
 			</xsd:enumeration>
 			<xsd:enumeration value="I">
 				<xsd:annotation>
-					<xsd:documentation>Volunteer, Child Care/School Employee, Non-Criminal Justice Employee and Licensing</xsd:documentation>
+					<xsd:documentation>Volunteer, Child Care/School Employee,
+						Non-Criminal Justice Employee and Licensing</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="J">
@@ -176,19 +223,24 @@
 			</xsd:enumeration>
 			<xsd:enumeration value="S">
 				<xsd:annotation>
-					<xsd:documentation>Security Clearance Information Act</xsd:documentation>
+					<xsd:documentation>Security Clearance Information Act
+					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
-	<xsd:element name="SubscriptionRelatedCaseIdentification" type="nc:IdentificationType">
+	<xsd:element name="SubscriptionRelatedCaseIdentification"
+		type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>An identifier assigned to a case related to the subscription.</xsd:documentation>
+			<xsd:documentation>An identifier assigned to a case related to the
+				subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RelatedFBISubscription" type="submsg-ext:FBISubscriptionType">
 		<xsd:annotation>
-			<xsd:documentation>A subscription created by the Federal Bureau of Investigation that is related to a specific State subscription.</xsd:documentation>
+			<xsd:documentation>A subscription created by the Federal Bureau of
+				Investigation that is related to a specific State subscription.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FBISubscription" type="submsg-ext:FBISubscriptionType">
@@ -198,64 +250,73 @@
 	</xsd:element>
 	<xsd:complexType name="FBISubscriptionType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a subscription created by the Federal Bureau of Investigation.</xsd:documentation>
+			<xsd:documentation>A data type for a subscription created by the
+				Federal Bureau of Investigation.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-					<xsd:element ref="nc:DateRange" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:SubscriptionFBIIdentification"/>
-					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:SubscriptionTerm" minOccurs="0"/>
+					<xsd:element ref="nc:DateRange" minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscriptionFBIIdentification" />
+					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation"
+						minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscriptionTerm"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="SubscriptionModificationMessageType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a request to modify an existing subscription.</xsd:documentation>
+			<xsd:documentation>A data type for a request to modify an existing
+				subscription.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="submsg-ext:Subject"/>
-					<xsd:element ref="submsg-ext:FBISubscription" minOccurs="0"/>
-					<xsd:element ref="submsg-ext:SubscriptionModification"/>
+					<xsd:element ref="submsg-ext:Subject" />
+					<xsd:element ref="submsg-ext:FBISubscription"
+						minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscriptionModification" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="SubscriptionModificationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for modifications that are to be applied to an existing subscription.</xsd:documentation>
+			<xsd:documentation>A data type for modifications that are to be
+				applied to an existing subscription.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-					<xsd:element ref="nc:DateRange" minOccurs="0"/>
+					<xsd:element ref="nc:DateRange" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="TriggeringEventsType">
 		<xsd:annotation>
-			<xsd:documentation>One or more events that would trigger notifications related to a subscription.</xsd:documentation>
+			<xsd:documentation>One or more events that would trigger
+				notifications related to a subscription.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="submsg-ext:TriggeringEventRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="submsg-ext:TriggeringEventRepresentation"
+						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="TriggeringEvents" type="submsg-ext:TriggeringEventsType"/>
-	<xsd:element name="TriggeringEventRepresentation" abstract="true"/>
-	<xsd:element name="FederalTriggeringEventCode" substitutionGroup="submsg-ext:TriggeringEventRepresentation" type="xsd:string"/>
+	<xsd:element name="TriggeringEvents" type="submsg-ext:TriggeringEventsType" />
+	<xsd:element name="TriggeringEventRepresentation" abstract="true" />
+	<xsd:element name="FederalTriggeringEventCode"
+		substitutionGroup="submsg-ext:TriggeringEventRepresentation" type="xsd:string" />
 	<xsd:complexType name="FederalTriggeringEventCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="submsg-ext:FederalTriggeringEventCodeSimpleType">
-				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
@@ -273,12 +334,14 @@
 			</xsd:enumeration>
 			<xsd:enumeration value="NCIC-WARRANT">
 				<xsd:annotation>
-					<xsd:documentation>NCIC Warrant Entry, Modification, Deletion </xsd:documentation>
+					<xsd:documentation>NCIC Warrant Entry, Modification, Deletion
+					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="NCIC-SOR">
 				<xsd:annotation>
-					<xsd:documentation>NCIC National Sex Offender Registry (NSOR) Entry, Modification, Deletion</xsd:documentation>
+					<xsd:documentation>NCIC National Sex Offender Registry (NSOR)
+						Entry, Modification, Deletion</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="DEATH">
@@ -292,46 +355,67 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="submsg-ext:FederalRapSheetDisclosureIndicator"/>
-					<xsd:element ref="submsg-ext:FederalRapSheetDisclosureAttentionDesignationText" minOccurs="0"/>
+					<xsd:element ref="submsg-ext:FederalRapSheetDisclosureIndicator" />
+					<xsd:element
+						ref="submsg-ext:FederalRapSheetDisclosureAttentionDesignationText"
+						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="FederalRapSheetDisclosure" type="submsg-ext:FederalRapSheetDisclosureType">
+	<xsd:element name="FederalRapSheetDisclosure"
+		type="submsg-ext:FederalRapSheetDisclosureType">
 		<xsd:annotation>
-			<xsd:documentation>Details about disclosing a subscription on a subject's federal criminal history.</xsd:documentation>
+			<xsd:documentation>Details about disclosing a subscription on a
+				subject's federal criminal history.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FederalRapSheetDisclosureIndicator" type="niem-xsd:boolean">
+	<xsd:element name="FederalRapSheetDisclosureIndicator"
+		type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the subscription is to appear on the subject's federal rap sheet, false otherwise.</xsd:documentation>
+			<xsd:documentation>True if the subscription is to appear on the
+				subject's federal rap sheet, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FederalRapSheetDisclosureAttentionDesignationText" type="nc:TextType">
+	<xsd:element name="FederalRapSheetDisclosureAttentionDesignationText"
+		type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A designation of the individual to whose attention a response is to be directed, relating to a subscription on a subject's rap sheet.</xsd:documentation>
+			<xsd:documentation>A designation of the individual to whose attention
+				a response is to be directed, relating to a subscription on a
+				subject's rap sheet.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubscriptionModification" type="submsg-ext:SubscriptionModificationType">
 		<xsd:annotation>
-			<xsd:documentation>A modification to a subscription</xsd:documentation>
+			<xsd:documentation>A modification to a subscription
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubscriptionTerm" type="j:TermType">
 		<xsd:annotation>
-			<xsd:documentation>The term for which a subscription is active.</xsd:documentation>
+			<xsd:documentation>The term for which a subscription is active.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FingerprintDocumentRepresentation" abstract="true">
+	<xsd:element name="FingerprintDocumentRepresentation"
+		abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>A placeholder for a fingerprint document.</xsd:documentation>
+			<xsd:documentation>A placeholder for a fingerprint document.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FingerprintDocument" type="nc:DocumentType" substitutionGroup="submsg-ext:FingerprintDocumentRepresentation">
+	<xsd:element name="FingerprintDocument" type="nc:DocumentType"
+		substitutionGroup="submsg-ext:FingerprintDocumentRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A document that contains a person's fingerprint.</xsd:documentation>
+			<xsd:documentation>A document that contains a person's fingerprint.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Base64BinaryObject" type="niem-xsd:base64Binary" substitutionGroup="nc:BinaryObject" xmime:expectedContentType="text/plain"/>
+	<xsd:element name="Base64BinaryObject" type="niem-xsd:base64Binary"
+		substitutionGroup="nc:BinaryObject" xmime:expectedContentType="text/plain" />
+	<xsd:element name="SubscribingOrganization" type="j:OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>The subscribing organization.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>
