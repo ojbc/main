@@ -52,6 +52,7 @@ import org.xml.sax.SAXException;
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/camel-context.xml",
+        "classpath:META-INF/spring/subscription-management-routes.xml",
         "classpath:META-INF/spring/spring-context.xml",
         "classpath:META-INF/spring/cxf-endpoints.xml",      
         "classpath:META-INF/spring/properties-context.xml",
