@@ -67,7 +67,7 @@ import org.springframework.web.client.RestTemplate;
 @DirtiesContext
 public class TestConsentRestImpl {
 	
-	private static final String URI_BASE = "http://localhost:9898/consentService/";
+	private static final String URI_BASE = "https://localhost:9898/consentService/";
 	private static final String CONSENT_UPDATE_URI = URI_BASE + "consent";
 	private static final String CONSENT_SEARCH_URI = URI_BASE + "search";
 
@@ -207,6 +207,7 @@ public class TestConsentRestImpl {
 	@Test
 	public void testSearch() throws Exception
 	{
+		
 		Consent[] response = restTemplate.getForObject(CONSENT_SEARCH_URI, Consent[].class);
 		
 		if (response != null)
