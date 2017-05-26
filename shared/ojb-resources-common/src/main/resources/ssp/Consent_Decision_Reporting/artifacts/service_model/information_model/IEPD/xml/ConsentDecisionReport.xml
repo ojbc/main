@@ -67,6 +67,7 @@
 			</j:Narrative>
 		</j:ActivityAugmentation>
 		<cdr-ext:ConsentDecisionCode>Consent Granted</cdr-ext:ConsentDecisionCode>
+		<cdr-ext:ConsentPurposeCode>pretrial services</cdr-ext:ConsentPurposeCode>
 		<cdr-ext:ConsentDecisionRecordingEntity>
 			<nc:EntityPerson>
 				<nc:PersonName>

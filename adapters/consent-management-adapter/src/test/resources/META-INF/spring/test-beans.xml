@@ -29,6 +29,9 @@
     <bean id="clientHttpRequestFactory" class="org.ojbc.util.rest.RequestFactoryManager" factory-method="createHttpClient">
         <constructor-arg value="${consentManagement.truststoreLocation}"/>
         <constructor-arg value="${consentManagement.truststorePassword}"/>
+        <constructor-arg value="${consentManagement.keystoreLocation}"/>
+        <constructor-arg value="${consentManagement.keystorePassword}"/>
+        <constructor-arg value="${consentManagement.keyPassword}"/>
     </bean>
 
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
