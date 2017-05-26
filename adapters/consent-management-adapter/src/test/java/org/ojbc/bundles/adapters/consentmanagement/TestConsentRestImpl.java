@@ -18,6 +18,9 @@ package org.ojbc.bundles.adapters.consentmanagement;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.logging.Logger;
@@ -27,6 +30,17 @@ import javax.annotation.Resource;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.JsonToken;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,6 +68,8 @@ import org.springframework.web.client.RestTemplate;
 public class TestConsentRestImpl {
 	
 	private static final String URI_BASE = "http://localhost:9898/consentService/";
+	private static final String CONSENT_UPDATE_URI = URI_BASE + "consent";
+	private static final String CONSENT_SEARCH_URI = URI_BASE + "search";
 
 	private Logger log = Logger.getLogger(TestConsentRestImpl.class.getName());
 	
@@ -84,6 +100,91 @@ public class TestConsentRestImpl {
 	}
 	
 	@Test
+	public void testConsentViaAPI() throws Exception {
+		
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		HttpPost postRequest = new HttpPost(CONSENT_UPDATE_URI);
+		
+		consent1.setConsenterUserID("user ID consent");
+		consent1.setConsentUserFirstName("userFirstName");
+		consent1.setConsentUserLastName("userLastName");
+		consent1.setConsentDocumentControlNumber("control");
+		consent1.setConsentDecisionTypeID(1);
+		
+		ObjectMapper om = new ObjectMapper();
+		String json = om.writeValueAsString(consent1);
+		//log.info(json);
+		StringEntity jsonS = new StringEntity(json);
+		jsonS.setContentType("application/json");
+		postRequest.setEntity(jsonS);
+		
+		CloseableHttpResponse response = httpClient.execute(postRequest);
+		assertEquals(200, response.getStatusLine().getStatusCode());
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+		assertNull(br.readLine());
+		
+		response.close();
+		
+		Consent updatedConsent = consentManagementDAOImpl.returnConsentRecordfromId(consent1.getConsentId());
+		
+		assertConsentBasePropertiesSame(consent1, updatedConsent);
+		assertConsentUpdatedPropertiesSame(consent1, updatedConsent);
+		assertNotNull(updatedConsent.getConsentDecisionTimestamp());
+		
+	}
+	
+	@Test
+	public void testSearchViaAPI() throws Exception {
+		
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		HttpGet getRequest = new HttpGet(CONSENT_SEARCH_URI);
+		getRequest.addHeader("accept", "application/json");
+		CloseableHttpResponse response = httpClient.execute(getRequest);
+		assertEquals(200, response.getStatusLine().getStatusCode());
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+		
+		StringBuffer content = new StringBuffer();
+		String output = null;
+		
+		while ((output = br.readLine()) != null) {
+			content.append(output);
+		}
+		
+		//log.info(content.toString());
+		
+		JsonFactory factory = new JsonFactory();
+		JsonParser parser = factory.createJsonParser(content.toString());
+		
+		assertEquals(JsonToken.START_ARRAY, parser.nextToken());
+		assertEquals(JsonToken.START_OBJECT, parser.nextToken());
+		
+		assertEquals(JsonToken.FIELD_NAME, parser.nextToken());
+		assertEquals("consentId", parser.getCurrentName());
+		parser.nextToken(); // we don't assert the value of the consent id because that will depend on context, how many times test has been run, etc.
+		
+		assertNextJsonValue(parser, "consentDecisionTypeID", JsonToken.VALUE_NUMBER_INT, "0");
+		assertNextJsonValue(parser, "bookingNumber", JsonToken.VALUE_STRING, "B1234");
+		assertNextJsonValue(parser, "nameNumber", JsonToken.VALUE_STRING, "N1234");
+		assertNextJsonValue(parser, "personFirstName", JsonToken.VALUE_STRING, "TestFirst");
+		assertNextJsonValue(parser, "personMiddleName", JsonToken.VALUE_STRING, "TestMiddle");
+		assertNextJsonValue(parser, "personLastName", JsonToken.VALUE_STRING, "TestLast");
+		assertNextJsonValue(parser, "personGender", JsonToken.VALUE_STRING, "F");
+		assertNextJsonValue(parser, "personDOBString", JsonToken.VALUE_STRING, "1975-02-01");
+		assertNextJsonValue(parser, "consenterUserID", JsonToken.VALUE_NULL, null);
+		assertNextJsonValue(parser, "consentUserFirstName", JsonToken.VALUE_NULL, null);
+		assertNextJsonValue(parser, "consentUserLastName", JsonToken.VALUE_NULL, null);
+		assertNextJsonValue(parser, "consentDocumentControlNumber", JsonToken.VALUE_NULL, null);
+		assertEquals(JsonToken.END_OBJECT, parser.nextToken());
+		assertEquals(JsonToken.START_OBJECT, parser.nextToken());
+		// no need to assert the rest
+
+		response.close();
+		
+	}
+
+	@Test
 	public void testConsent() throws Exception
 	{
 		
@@ -93,7 +194,7 @@ public class TestConsentRestImpl {
 		consent1.setConsentDocumentControlNumber("control");
 		consent1.setConsentDecisionTypeID(1);
 		
-		restTemplate.postForLocation(URI_BASE + "consent", consent1);
+		restTemplate.postForLocation(CONSENT_UPDATE_URI, consent1);
 		
 		Consent updatedConsent = consentManagementDAOImpl.returnConsentRecordfromId(consent1.getConsentId());
 		
@@ -106,7 +207,7 @@ public class TestConsentRestImpl {
 	@Test
 	public void testSearch() throws Exception
 	{
-		Consent[] response = restTemplate.getForObject(URI_BASE + "search", Consent[].class);
+		Consent[] response = restTemplate.getForObject(CONSENT_SEARCH_URI, Consent[].class);
 		
 		if (response != null)
 		{	
@@ -150,6 +251,15 @@ public class TestConsentRestImpl {
 		assertEquals(c1.getConsentUserFirstName(), c2.getConsentUserFirstName());
 		assertEquals(c1.getConsentUserLastName(), c2.getConsentUserLastName());
 		assertEquals(c1.getConsentDocumentControlNumber(), c2.getConsentDocumentControlNumber());
+	}
+	
+	private static final void assertNextJsonValue(JsonParser parser, String fieldName, JsonToken type, String value) throws IOException, JsonParseException {
+		assertEquals(JsonToken.FIELD_NAME, parser.nextToken());
+		assertEquals(fieldName, parser.getCurrentName());
+		assertEquals(type, parser.nextToken());
+		if (value != null) {
+			assertEquals(value, parser.getText());
+		}
 	}
 	
 }
