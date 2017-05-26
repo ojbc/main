@@ -84,9 +84,9 @@ public class RequestFactoryManager {
 	}	 
 	
 	 public static ClientHttpRequestFactory createHttpClientRequestFactory(String truststoreLocation, String truststorePassword) 
-			 throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException, CertificateException, IOException 
+			 throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException, CertificateException, IOException, UnrecoverableKeyException 
 	 {
-		 return createHttpClientRequestFactory(truststoreLocation, truststorePassword);
+		 return createHttpClientRequestFactory(truststoreLocation, truststorePassword,null,null,null);
 	 }
 
 
