@@ -72,7 +72,7 @@ public class TestConsentRestImpl {
 	@Test
 	public void testConsent() throws Exception
 	{
-		final String uri = "http://localhost:9898/consentService/consent";
+		final String uri = "https://localhost:9898/consentService/consent";
 		
 		Consent consent = ConsentManagementAdapterTestUtils.returnConsent(null, "B11111", "N2222", LocalDate.parse("1974-03-01"), "First", "M", "Last", "Middle", LocalDateTime.now());
 		Integer consentPk = consentManagementDAOImpl.saveConsentDecision(consent);
@@ -106,7 +106,7 @@ public class TestConsentRestImpl {
 		consentManagementDAOImpl.saveConsentDecision(consent1);
 
 		
-		final String uri = "http://localhost:9898/consentService/search";
+		final String uri = "https://localhost:9898/consentService/search";
 		
 		Consent[] response = restTemplate.getForObject(uri, Consent[].class);
 		

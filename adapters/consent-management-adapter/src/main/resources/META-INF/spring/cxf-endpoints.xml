@@ -97,4 +97,30 @@
 		<prop key="org.apache.ws.security.crypto.merlin.keystore.file">${consentManagement.keystoreLocation}</prop>
 	</util:properties>
 	
+   	<!-- 
+   		Used for INBOUND SSL/TLS Connection. CCA for external port
+   	-->
+	<httpj:engine-factory id="ClientAuthHttpsSettingsExternal" bus="cxf">
+		<httpj:engine port="${consentManagement.externalPortNumber}"> 
+			<httpj:tlsServerParameters>
+				<sec:keyManagers keyPassword="${consentManagement.keyPassword}">
+					<sec:keyStore type="jks" password="${consentManagement.keystorePassword}" file="${consentManagement.keystoreLocation}" />
+				</sec:keyManagers>
+				<sec:trustManagers>
+					<sec:keyStore type="JKS"
+						password="${consentManagement.truststorePassword}"
+						file="${consentManagement.truststoreLocation}" />
+				</sec:trustManagers>			
+				<sec:cipherSuitesFilter>
+					    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+					    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+					    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				</sec:cipherSuitesFilter>
+				<sec:clientAuthentication want="true"
+					required="true" />
+			</httpj:tlsServerParameters>
+		</httpj:engine>
+	</httpj:engine-factory>	
+	
 </beans>
