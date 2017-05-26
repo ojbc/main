@@ -16,7 +16,9 @@
  */
 package org.ojbc.bundles.adapters.consentmanagement;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,12 +32,11 @@ import javax.annotation.Resource;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.camel.test.spring.UseAdviceWith;
-import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
@@ -79,6 +80,9 @@ public class TestConsentRestImpl {
     @Resource
     private RestTemplate restTemplate;
     
+    @Resource
+    private HttpClient httpClient;
+    
 	@Autowired
 	private ConsentManagementDAOImpl consentManagementDAOImpl;
 
@@ -102,7 +106,6 @@ public class TestConsentRestImpl {
 	@Test
 	public void testConsentViaAPI() throws Exception {
 		
-		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost postRequest = new HttpPost(CONSENT_UPDATE_URI);
 		
 		consent1.setConsenterUserID("user ID consent");
@@ -118,13 +121,11 @@ public class TestConsentRestImpl {
 		jsonS.setContentType("application/json");
 		postRequest.setEntity(jsonS);
 		
-		CloseableHttpResponse response = httpClient.execute(postRequest);
+		HttpResponse response = httpClient.execute(postRequest);
 		assertEquals(200, response.getStatusLine().getStatusCode());
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
 		assertNull(br.readLine());
-		
-		response.close();
 		
 		Consent updatedConsent = consentManagementDAOImpl.returnConsentRecordfromId(consent1.getConsentId());
 		
@@ -137,10 +138,9 @@ public class TestConsentRestImpl {
 	@Test
 	public void testSearchViaAPI() throws Exception {
 		
-		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet getRequest = new HttpGet(CONSENT_SEARCH_URI);
 		getRequest.addHeader("accept", "application/json");
-		CloseableHttpResponse response = httpClient.execute(getRequest);
+		HttpResponse response = httpClient.execute(getRequest);
 		assertEquals(200, response.getStatusLine().getStatusCode());
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
@@ -180,8 +180,6 @@ public class TestConsentRestImpl {
 		assertEquals(JsonToken.START_OBJECT, parser.nextToken());
 		// no need to assert the rest
 
-		response.close();
-		
 	}
 
 	@Test
