@@ -3,3 +3,6 @@
 /.classpath
 /.project
 /.DS_Store
+.classpath
+.project
+web/ojb-web-consent-management/.settings
