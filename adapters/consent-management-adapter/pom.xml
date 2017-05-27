@@ -26,7 +26,6 @@
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>consent-management-adapter</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.0</version>
 	<name>OJB :: consent-management-adapter :: adapters</name>
 	<url>http://www.search.org</url>
 
