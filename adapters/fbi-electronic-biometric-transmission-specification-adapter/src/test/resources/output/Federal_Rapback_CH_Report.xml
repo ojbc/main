@@ -16,19 +16,19 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<fchr-doc:FederalCriminalHistoryReport xmlns:fchr-doc="http://ojbc.org/IEPD/Exchange/FederalCriminalHistoryReport/1.0"
-                                       xmlns:fchr-ext="http://ojbc.org/IEPD/Extensions/FederalCriminalHistoryReportExtension/1.0"
+<chr-doc:CriminalHistoryReport xmlns:chr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
+                                       xmlns:chr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryReportExtension/1.0"
                                        xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
                                        xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
                                        xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
                                        xmlns:structures="http://release.niem.gov/niem/structures/3.0/">
-<fchr-ext:CriminalHistoryReportJurisdictionCode></fchr-ext:CriminalHistoryReportJurisdictionCode>
-   <fchr-ext:TransactionDescriptiveRecord>
-      <fchr-ext:RecordCategoryCodeText>02</fchr-ext:RecordCategoryCodeText>
-      <fchr-ext:ImageReferenceIdentification>
+<chr-ext:CriminalHistoryReportJurisdictionCode></chr-ext:CriminalHistoryReportJurisdictionCode>
+   <chr-ext:TransactionDescriptiveRecord>
+      <chr-ext:RecordCategoryCodeText>02</chr-ext:RecordCategoryCodeText>
+      <chr-ext:ImageReferenceIdentification>
          <nc:IdentificationID>00</nc:IdentificationID>
-      </fchr-ext:ImageReferenceIdentification>
-      <fchr-ext:RecordForwardOrganization>
+      </chr-ext:ImageReferenceIdentification>
+      <chr-ext:RecordForwardOrganization>
          <nc:EntityOrganization>
             <nc:OrganizationIdentification>
                <nc:IdentificationID>WV1000000</nc:IdentificationID>
@@ -37,63 +37,63 @@
                <nc:IdentificationID>NY030025P</nc:IdentificationID>
             </nc:OrganizationIdentification>
          </nc:EntityOrganization>
-      </fchr-ext:RecordForwardOrganization>
-      <fchr-ext:RecordControllingOrganization>
+      </chr-ext:RecordForwardOrganization>
+      <chr-ext:RecordControllingOrganization>
          <nc:EntityOrganization>
             <nc:OrganizationIdentification>
                <nc:IdentificationID>NY0303000</nc:IdentificationID>
             </nc:OrganizationIdentification>
          </nc:EntityOrganization>
-      </fchr-ext:RecordControllingOrganization>
-      <fchr-ext:FederalCriminalHistoryRecordDocument>
+      </chr-ext:RecordControllingOrganization>
+      <chr-ext:FederalCriminalHistoryRecordDocument>
          <nc:DocumentBinary>
-            <fchr-ext:Base64BinaryObject>U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=</fchr-ext:Base64BinaryObject>
+            <chr-ext:Base64BinaryObject>U3ViamVjdCdzIFJhcCBTaGVldCBnb2VzIGhlcmU=</chr-ext:Base64BinaryObject>
          </nc:DocumentBinary>
-      </fchr-ext:FederalCriminalHistoryRecordDocument>
-      <fchr-ext:RapBackSubscription>
-         <fchr-ext:RapBackExpirationDate>
+      </chr-ext:FederalCriminalHistoryRecordDocument>
+      <chr-ext:RapBackSubscription>
+         <chr-ext:RapBackExpirationDate>
             <nc:Date>2010-02-24</nc:Date>
-         </fchr-ext:RapBackExpirationDate>
-         <fchr-ext:RapBackSubscriptionDate>
+         </chr-ext:RapBackExpirationDate>
+         <chr-ext:RapBackSubscriptionDate>
             <nc:Date>2011-01-25</nc:Date>
-         </fchr-ext:RapBackSubscriptionDate>
-         <fchr-ext:RapBackSubscriptionIdentification>
+         </chr-ext:RapBackSubscriptionDate>
+         <chr-ext:RapBackSubscriptionIdentification>
             <nc:IdentificationID>123456 
 					</nc:IdentificationID>
-         </fchr-ext:RapBackSubscriptionIdentification>
-         <fchr-ext:RapBackSubscriptionTermCode>5 
-					</fchr-ext:RapBackSubscriptionTermCode>
-         <fchr-ext:RapBackTermDate>
+         </chr-ext:RapBackSubscriptionIdentification>
+         <chr-ext:RapBackSubscriptionTermCode>5 
+					</chr-ext:RapBackSubscriptionTermCode>
+         <chr-ext:RapBackTermDate>
             <nc:Date>2015-01-01</nc:Date>
-         </fchr-ext:RapBackTermDate>
-         <fchr-ext:SubscriptionQualifierIdentification>
+         </chr-ext:RapBackTermDate>
+         <chr-ext:SubscriptionQualifierIdentification>
             <nc:IdentificationID>fbiSubscriptionId_3</nc:IdentificationID>
-         </fchr-ext:SubscriptionQualifierIdentification>
-      </fchr-ext:RapBackSubscription>
-      <fchr-ext:RapBackNotificationEvent>
-         <fchr-ext:RapBackActivityNotificationIdentification>
+         </chr-ext:SubscriptionQualifierIdentification>
+      </chr-ext:RapBackSubscription>
+      <chr-ext:RapBackNotificationEvent>
+         <chr-ext:RapBackActivityNotificationIdentification>
             <nc:IdentificationID>123456 
 					</nc:IdentificationID>
-         </fchr-ext:RapBackActivityNotificationIdentification>
-         <fchr-ext:RapBackAttentionText>DET J Q PUBLIC 
-					</fchr-ext:RapBackAttentionText>
-         <fchr-ext:TriggeringEvent>
-            <fchr-ext:RapBackEventDate>
+         </chr-ext:RapBackActivityNotificationIdentification>
+         <chr-ext:RapBackAttentionText>DET J Q PUBLIC 
+					</chr-ext:RapBackAttentionText>
+         <chr-ext:TriggeringEvent>
+            <chr-ext:RapBackEventDate>
                <nc:Date>2013-03-29</nc:Date>
-            </fchr-ext:RapBackEventDate>
-            <fchr-ext:FederalTriggeringEventCode>NCIC-SOR-MODIFICATION</fchr-ext:FederalTriggeringEventCode>
-            <fchr-ext:RapBackEventText>Event that triggered the rap back</fchr-ext:RapBackEventText>
-         </fchr-ext:TriggeringEvent>
-         <fchr-ext:TriggeringEvent>
-            <fchr-ext:RapBackEventDate>
+            </chr-ext:RapBackEventDate>
+            <chr-ext:FederalTriggeringEventCode>NCIC-SOR-MODIFICATION</chr-ext:FederalTriggeringEventCode>
+            <chr-ext:RapBackEventText>Event that triggered the rap back</chr-ext:RapBackEventText>
+         </chr-ext:TriggeringEvent>
+         <chr-ext:TriggeringEvent>
+            <chr-ext:RapBackEventDate>
                <nc:Date>2013-03-29</nc:Date>
-            </fchr-ext:RapBackEventDate>
-            <fchr-ext:FederalTriggeringEventCode>DEATH</fchr-ext:FederalTriggeringEventCode>
-            <fchr-ext:RapBackEventText>Second Event that triggered the rap back 
-						</fchr-ext:RapBackEventText>
-         </fchr-ext:TriggeringEvent>
-      </fchr-ext:RapBackNotificationEvent>
-   </fchr-ext:TransactionDescriptiveRecord>
+            </chr-ext:RapBackEventDate>
+            <chr-ext:FederalTriggeringEventCode>DEATH</chr-ext:FederalTriggeringEventCode>
+            <chr-ext:RapBackEventText>Second Event that triggered the rap back 
+						</chr-ext:RapBackEventText>
+         </chr-ext:TriggeringEvent>
+      </chr-ext:RapBackNotificationEvent>
+   </chr-ext:TransactionDescriptiveRecord>
    <nc:Person>
 						<nc:PersonBirthDate>
          <nc:Date>1977-08-25</nc:Date>
@@ -114,4 +114,4 @@
          </j:PersonStateFingerprintIdentification>
       </j:PersonAugmentation>
    </nc:Person>
-</fchr-doc:FederalCriminalHistoryReport>
+</chr-doc:CriminalHistoryReport>
