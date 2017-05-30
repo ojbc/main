@@ -20,9 +20,9 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:war-doc="http://ojbc.org/IEPD/Exchange/FederalCriminalHistoryReport/1.0"
-	xmlns:fchr-ext="http://ojbc.org/IEPD/Extensions/FederalCriminalHistoryReportExtension/1.0"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/FederalCriminalHistoryReport/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:war-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
+	xmlns:chr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryReportExtension/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
 		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
@@ -31,9 +31,9 @@
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/"
 		schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd" />
 	<xsd:import
-		namespace="http://ojbc.org/IEPD/Extensions/FederalCriminalHistoryReportExtension/1.0"
-		schemaLocation="./FederalCriminalHistoryReport_Ext.xsd" />
+		namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryReportExtension/1.0"
+		schemaLocation="./CriminalHistoryReport_Ext.xsd" />
 	<!-- Root data element -->
-	<xsd:element name="FederalCriminalHistoryReport"
-		type="fchr-ext:FederalCriminalHistoryReportType" />
+	<xsd:element name="CriminalHistoryReport"
+		type="chr-ext:CriminalHistoryReportType" />
 </xsd:schema>
