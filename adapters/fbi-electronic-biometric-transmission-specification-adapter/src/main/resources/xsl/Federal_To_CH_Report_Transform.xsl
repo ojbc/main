@@ -30,8 +30,10 @@
 	exclude-result-prefixes="ebts ansi-nist itl nc20 j41">
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes" />
 	<xsl:param name="base64Rapsheet" />
+	<xsl:param name="jurisdictionCode" />
 	<xsl:template match="/itl:NISTBiometricInformationExchangePackage">
 		<fchr-doc:FederalCriminalHistoryReport>
+			<xsl:apply-templates select="." mode="jurisdiction" />
 			<xsl:apply-templates select="itl:PackageDescriptiveTextRecord" />
 			<xsl:apply-templates
 				select="itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordSubject" />
@@ -117,7 +119,9 @@
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackSubscriptionID">
 		<fchr-ext:RapBackSubscriptionIdentification>
-			<nc:IdentificationID><xsl:value-of select="normalize-space(.)" /></nc:IdentificationID>
+			<nc:IdentificationID>
+				<xsl:value-of select="normalize-space(.)" />
+			</nc:IdentificationID>
 		</fchr-ext:RapBackSubscriptionIdentification>
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackSubscriptionTerm">
@@ -132,7 +136,9 @@
 	</xsl:template>
 	<xsl:template match="ebts:UserDefinedElementText" mode="subqid">
 		<fchr-ext:SubscriptionQualifierIdentification>
-			<nc:IdentificationID><xsl:value-of select="normalize-space(.)" /></nc:IdentificationID>
+			<nc:IdentificationID>
+				<xsl:value-of select="normalize-space(.)" />
+			</nc:IdentificationID>
 		</fchr-ext:SubscriptionQualifierIdentification>
 	</xsl:template>
 	<xsl:template match="ebts:UserDefinedElementText" mode="sid">
@@ -250,16 +256,25 @@
 	</xsl:template>
 	<xsl:template match="j41:PersonFBIIdentification">
 		<j:PersonFBIIdentification>
-			<nc:IdentificationID><xsl:value-of select="normalize-space(.)" /></nc:IdentificationID>
+			<nc:IdentificationID>
+				<xsl:value-of select="normalize-space(.)" />
+			</nc:IdentificationID>
 		</j:PersonFBIIdentification>
 	</xsl:template>
-	<!-- MATCH -->
 	<xsl:template match="nc20:IdentificationID">
-		<nc:IdentificationID><xsl:value-of select="normalize-space(.)" /></nc:IdentificationID>
+		<nc:IdentificationID>
+			<xsl:value-of select="normalize-space(.)" />
+		</nc:IdentificationID>
 	</xsl:template>
 	<xsl:template match="nc20:Date">
 		<nc:Date>
 			<xsl:value-of select="normalize-space(.)" />
 		</nc:Date>
+	</xsl:template>
+	<xsl:template match="itl:NISTBiometricInformationExchangePackage"
+		mode="jurisdiction">
+		<fchr-ext:CriminalHistoryReportJurisdictionCode>
+			<xsl:value-of select="normalize-space($jurisdictionCode)" />
+		</fchr-ext:CriminalHistoryReportJurisdictionCode>
 	</xsl:template>
 </xsl:stylesheet>

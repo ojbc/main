@@ -22,6 +22,7 @@
                                        xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
                                        xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
                                        xmlns:structures="http://release.niem.gov/niem/structures/3.0/">
+<fchr-ext:CriminalHistoryReportJurisdictionCode></fchr-ext:CriminalHistoryReportJurisdictionCode>
    <fchr-ext:TransactionDescriptiveRecord>
       <fchr-ext:RecordCategoryCodeText>02</fchr-ext:RecordCategoryCodeText>
       <fchr-ext:ImageReferenceIdentification>
