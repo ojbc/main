@@ -54,7 +54,6 @@
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="subscriptionReportingKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${subscriptionReportingService.intermediarykeystoreCertificateAlias}" />
-			<entry key="ws-security.saml2.validator" value-ref="ojbSimpleWSPSamlTokenValidator" />
 		</cxf:properties> 
 	</cxf:cxfEndpoint>
 	
@@ -66,7 +65,6 @@
 		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0">
 		<cxf:properties>
         	<entry key="mtom-enabled" value="true"/>
-			<entry key="ws-security.saml-callback-handler" value-ref="ojbSamlCallbackHandler"/>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="subscriptionReportingKeystoreProperties" /> 
 			<entry key="ws-security.signature.username" value="${subscriptionReportingService.intermediarykeystoreCertificateAlias}" />

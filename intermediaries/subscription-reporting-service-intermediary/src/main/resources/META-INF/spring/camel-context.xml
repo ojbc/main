@@ -58,13 +58,6 @@
 		
 	</camel:camelContext>
 
-	
-	<bean id="ojbSamlMap" class="org.ojbc.util.camel.security.saml.OJBSamlMap" />
-	
-	<bean class="org.ojbc.util.camel.security.saml.OJBSamlCallbackHandler" id="ojbSamlCallbackHandler">
-		<property name="OJBSamlMap" ref="ojbSamlMap"/>
-	</bean>		
-    
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />    
     	 
 </beans>

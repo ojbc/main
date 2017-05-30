@@ -43,7 +43,7 @@
 		<cxf-version>3.0.5</cxf-version>
 		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
 		<ojb-common-version>[3.0.0,)</ojb-common-version>
-		<ojb-osgi-common-version>1.0.0</ojb-osgi-common-version>
+		<ojb-osgi-common-version>[2.0.0,)</ojb-osgi-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<commons-lang-version>2.6</commons-lang-version>
 		<spring-version>3.2.11.RELEASE</spring-version>
