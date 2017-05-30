@@ -19,8 +19,8 @@
 -->
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:fchr-doc="http://ojbc.org/IEPD/Exchange/FederalCriminalHistoryReport/1.0"
-	xmlns:fchr-ext="http://ojbc.org/IEPD/Extensions/FederalCriminalHistoryReportExtension/1.0"
+	xmlns:chr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
+	xmlns:chr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryReportExtension/1.0"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
@@ -32,15 +32,15 @@
 	<xsl:param name="base64Rapsheet" />
 	<xsl:param name="jurisdictionCode" />
 	<xsl:template match="/itl:NISTBiometricInformationExchangePackage">
-		<fchr-doc:FederalCriminalHistoryReport>
+		<chr-doc:CriminalHistoryReport>
 			<xsl:apply-templates select="." mode="jurisdiction" />
 			<xsl:apply-templates select="itl:PackageDescriptiveTextRecord" />
 			<xsl:apply-templates
 				select="itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordSubject" />
-		</fchr-doc:FederalCriminalHistoryReport>
+		</chr-doc:CriminalHistoryReport>
 	</xsl:template>
 	<xsl:template match="itl:PackageDescriptiveTextRecord">
-		<fchr-ext:TransactionDescriptiveRecord>
+		<chr-ext:TransactionDescriptiveRecord>
 			<xsl:apply-templates select="ansi-nist:RecordCategoryCode" />
 			<xsl:apply-templates select="ansi-nist:ImageReferenceIdentification" />
 			<xsl:apply-templates
@@ -54,41 +54,41 @@
 			<xsl:apply-templates
 				select="itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordRapBackData"
 				mode="notification" />
-		</fchr-ext:TransactionDescriptiveRecord>
+		</chr-ext:TransactionDescriptiveRecord>
 	</xsl:template>
 	<xsl:template match="ansi-nist:RecordCategoryCode">
-		<fchr-ext:RecordCategoryCodeText>
+		<chr-ext:RecordCategoryCodeText>
 			<xsl:value-of select="normalize-space(.)" />
-		</fchr-ext:RecordCategoryCodeText>
+		</chr-ext:RecordCategoryCodeText>
 	</xsl:template>
 	<xsl:template match="ansi-nist:ImageReferenceIdentification">
-		<fchr-ext:ImageReferenceIdentification>
+		<chr-ext:ImageReferenceIdentification>
 			<xsl:apply-templates select="nc20:IdentificationID" />
-		</fchr-ext:ImageReferenceIdentification>
+		</chr-ext:ImageReferenceIdentification>
 	</xsl:template>
 	<xsl:template match="ansi-nist:RecordForwardOrganizations">
-		<fchr-ext:RecordForwardOrganization>
+		<chr-ext:RecordForwardOrganization>
 			<nc:EntityOrganization>
 				<xsl:apply-templates select="nc20:OrganizationIdentification" />
 			</nc:EntityOrganization>
-		</fchr-ext:RecordForwardOrganization>
+		</chr-ext:RecordForwardOrganization>
 	</xsl:template>
 	<xsl:template match="ebts:RecordControllingAgency">
-		<fchr-ext:RecordControllingOrganization>
+		<chr-ext:RecordControllingOrganization>
 			<nc:EntityOrganization>
 				<xsl:apply-templates select="nc20:OrganizationIdentification" />
 			</nc:EntityOrganization>
-		</fchr-ext:RecordControllingOrganization>
+		</chr-ext:RecordControllingOrganization>
 	</xsl:template>
 	<xsl:template match="itl:PackageDescriptiveTextRecord"
 		mode="rapsheet">
-		<fchr-ext:FederalCriminalHistoryRecordDocument>
+		<chr-ext:FederalCriminalHistoryRecordDocument>
 			<nc:DocumentBinary>
-				<fchr-ext:Base64BinaryObject>
+				<chr-ext:Base64BinaryObject>
 					<xsl:value-of select="$base64Rapsheet" />
-				</fchr-ext:Base64BinaryObject>
+				</chr-ext:Base64BinaryObject>
 			</nc:DocumentBinary>
-		</fchr-ext:FederalCriminalHistoryRecordDocument>
+		</chr-ext:FederalCriminalHistoryRecordDocument>
 	</xsl:template>
 	<xsl:template match="nc20:OrganizationIdentification">
 		<nc:OrganizationIdentification>
@@ -96,7 +96,7 @@
 		</nc:OrganizationIdentification>
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackData" mode="subscription">
-		<fchr-ext:RapBackSubscription>
+		<chr-ext:RapBackSubscription>
 			<xsl:apply-templates select="ebts:RecordRapBackExpirationDate" />
 			<xsl:apply-templates select="ebts:RecordRapBackSubscriptionDate" />
 			<xsl:apply-templates select="ebts:RecordRapBackSubscriptionID" />
@@ -105,41 +105,41 @@
 			<xsl:apply-templates
 				select="ebts:RecordRapBackUserDefinedElement/ebts:UserDefinedElementText[../ebts:UserDefinedElementName='Subscription Qualifier ID']"
 				mode="subqid" />
-		</fchr-ext:RapBackSubscription>
+		</chr-ext:RapBackSubscription>
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackExpirationDate">
-		<fchr-ext:RapBackExpirationDate>
+		<chr-ext:RapBackExpirationDate>
 			<xsl:apply-templates select="nc20:Date" />
-		</fchr-ext:RapBackExpirationDate>
+		</chr-ext:RapBackExpirationDate>
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackSubscriptionDate">
-		<fchr-ext:RapBackSubscriptionDate>
+		<chr-ext:RapBackSubscriptionDate>
 			<xsl:apply-templates select="nc20:Date" />
-		</fchr-ext:RapBackSubscriptionDate>
+		</chr-ext:RapBackSubscriptionDate>
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackSubscriptionID">
-		<fchr-ext:RapBackSubscriptionIdentification>
+		<chr-ext:RapBackSubscriptionIdentification>
 			<nc:IdentificationID>
 				<xsl:value-of select="normalize-space(.)" />
 			</nc:IdentificationID>
-		</fchr-ext:RapBackSubscriptionIdentification>
+		</chr-ext:RapBackSubscriptionIdentification>
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackSubscriptionTerm">
-		<fchr-ext:RapBackSubscriptionTermCode>
+		<chr-ext:RapBackSubscriptionTermCode>
 			<xsl:value-of select="normalize-space(.)" />
-		</fchr-ext:RapBackSubscriptionTermCode>
+		</chr-ext:RapBackSubscriptionTermCode>
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackTermDate">
-		<fchr-ext:RapBackTermDate>
+		<chr-ext:RapBackTermDate>
 			<xsl:apply-templates select="nc20:Date" />
-		</fchr-ext:RapBackTermDate>
+		</chr-ext:RapBackTermDate>
 	</xsl:template>
 	<xsl:template match="ebts:UserDefinedElementText" mode="subqid">
-		<fchr-ext:SubscriptionQualifierIdentification>
+		<chr-ext:SubscriptionQualifierIdentification>
 			<nc:IdentificationID>
 				<xsl:value-of select="normalize-space(.)" />
 			</nc:IdentificationID>
-		</fchr-ext:SubscriptionQualifierIdentification>
+		</chr-ext:SubscriptionQualifierIdentification>
 	</xsl:template>
 	<xsl:template match="ebts:UserDefinedElementText" mode="sid">
 		<j:PersonStateFingerprintIdentification>
@@ -149,40 +149,40 @@
 		</j:PersonStateFingerprintIdentification>
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackData" mode="notification">
-		<fchr-ext:RapBackNotificationEvent>
+		<chr-ext:RapBackNotificationEvent>
 			<xsl:apply-templates select="ebts:RecordRapBackActivityNotificationID" />
 			<xsl:apply-templates select="ebts:RecordRapBackAttentionText" />
 			<xsl:apply-templates select="ebts:TransactionRapBackTriggeringEvent"
 				mode="event" />
-		</fchr-ext:RapBackNotificationEvent>
+		</chr-ext:RapBackNotificationEvent>
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackActivityNotificationID">
-		<fchr-ext:RapBackActivityNotificationIdentification>
+		<chr-ext:RapBackActivityNotificationIdentification>
 			<nc:IdentificationID>
 				<xsl:value-of select="normalize-space(.)" />
 			</nc:IdentificationID>
-		</fchr-ext:RapBackActivityNotificationIdentification>
+		</chr-ext:RapBackActivityNotificationIdentification>
 	</xsl:template>
 	<xsl:template match="ebts:RecordRapBackAttentionText">
-		<fchr-ext:RapBackAttentionText>
+		<chr-ext:RapBackAttentionText>
 			<xsl:value-of select="normalize-space(.)" />
-		</fchr-ext:RapBackAttentionText>
+		</chr-ext:RapBackAttentionText>
 	</xsl:template>
 	<xsl:template match="ebts:TransactionRapBackTriggeringEvent"
 		mode="event">
-		<fchr-ext:TriggeringEvent>
+		<chr-ext:TriggeringEvent>
 			<xsl:apply-templates select="ebts:RapBackEventDate" />
 			<xsl:apply-templates select="ebts:RapBackTriggeringEventCode" />
 			<xsl:apply-templates select="ebts:RapBackEventText" />
-		</fchr-ext:TriggeringEvent>
+		</chr-ext:TriggeringEvent>
 	</xsl:template>
 	<xsl:template match="ebts:RapBackEventDate">
-		<fchr-ext:RapBackEventDate>
+		<chr-ext:RapBackEventDate>
 			<xsl:apply-templates select="nc20:Date" />
-		</fchr-ext:RapBackEventDate>
+		</chr-ext:RapBackEventDate>
 	</xsl:template>
 	<xsl:template match="ebts:RapBackTriggeringEventCode">
-		<fchr-ext:FederalTriggeringEventCode>
+		<chr-ext:FederalTriggeringEventCode>
 			<xsl:choose>
 				<xsl:when test="normalize-space(.)='1' or .='3'">
 					<xsl:value-of select="'ARREST'" />
@@ -212,12 +212,12 @@
 					<xsl:value-of select="'DEATH'" />
 				</xsl:when>
 			</xsl:choose>
-		</fchr-ext:FederalTriggeringEventCode>
+		</chr-ext:FederalTriggeringEventCode>
 	</xsl:template>
 	<xsl:template match="ebts:RapBackEventText">
-		<fchr-ext:RapBackEventText>
+		<chr-ext:RapBackEventText>
 			<xsl:value-of select="normalize-space(.)" />
-		</fchr-ext:RapBackEventText>
+		</chr-ext:RapBackEventText>
 	</xsl:template>
 	<xsl:template match="ebts:RecordSubject">
 		<nc:Person>
@@ -273,8 +273,8 @@
 	</xsl:template>
 	<xsl:template match="itl:NISTBiometricInformationExchangePackage"
 		mode="jurisdiction">
-		<fchr-ext:CriminalHistoryReportJurisdictionCode>
+		<chr-ext:CriminalHistoryReportJurisdictionCode>
 			<xsl:value-of select="normalize-space($jurisdictionCode)" />
-		</fchr-ext:CriminalHistoryReportJurisdictionCode>
+		</chr-ext:CriminalHistoryReportJurisdictionCode>
 	</xsl:template>
 </xsl:stylesheet>
