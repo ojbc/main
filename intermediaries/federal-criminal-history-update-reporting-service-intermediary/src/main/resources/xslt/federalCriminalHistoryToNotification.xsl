@@ -20,8 +20,8 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:b="http://docs.oasis-open.org/wsn/b-2"
 	xmlns:add="http://www.w3.org/2005/08/addressing"
-	xmlns:fchr-doc="http://ojbc.org/IEPD/Exchange/FederalCriminalHistoryReport/1.0"
-	xmlns:fchr-ext="http://ojbc.org/IEPD/Extensions/FederalCriminalHistoryReportExtension/1.0"
+	xmlns:chr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
+	xmlns:chr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryReportExtension/1.0"
 	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j51="http://release.niem.gov/niem/domains/jxdm/5.1/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
@@ -30,11 +30,11 @@
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
 	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
 	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
-	exclude-result-prefixes="fchr-doc fchr-ext nc30 j51 structures niem-xs"
+	exclude-result-prefixes="chr-doc chr-ext nc30 j51 structures niem-xs"
 	version="2.0">
 	<xsl:output indent="yes" method="xml" />
 	<xsl:strip-space elements="*" />
-	<xsl:template match="/fchr-doc:FederalCriminalHistoryReport">
+	<xsl:template match="/chr-doc:CriminalHistoryReport">
 		<b:Notify>
 			<b:NotificationMessage>
 				<b:SubscriptionReference>
@@ -77,9 +77,9 @@
 							<notfm-ext:NotifyingActivityReportingSystemNameText>FBI EBTS</notfm-ext:NotifyingActivityReportingSystemNameText>
 							<notfm-ext:NotifyingActivityReportingSystemURI>http://www.fbi.gov/federalRapbackNotification</notfm-ext:NotifyingActivityReportingSystemURI>
 							<xsl:apply-templates
-								select="fchr-ext:TransactionDescriptiveRecord/fchr-ext:RapBackSubscription" />
+								select="chr-ext:TransactionDescriptiveRecord/chr-ext:RapBackSubscription" />
 							<xsl:apply-templates
-								select="fchr-ext:TransactionDescriptiveRecord/fchr-ext:FederalCriminalHistoryRecordDocument" />
+								select="chr-ext:TransactionDescriptiveRecord/chr-ext:FederalCriminalHistoryRecordDocument" />
 						</notfm-ext:NotifyingFederalCriminalHistoryUpdate>
 						<xsl:apply-templates select="." mode="association" />
 						<xsl:apply-templates select="nc30:Person" />
@@ -88,87 +88,87 @@
 			</b:NotificationMessage>
 		</b:Notify>
 	</xsl:template>
-	<xsl:template match="fchr-ext:RapBackSubscription">
+	<xsl:template match="chr-ext:RapBackSubscription">
 		<notfm-ext:RelatedFBISubscription>
-			<xsl:apply-templates select="fchr-ext:RapBackExpirationDate" />
-			<xsl:apply-templates select="fchr-ext:RapBackSubscriptionDate" />
-			<xsl:apply-templates select="fchr-ext:RapBackSubscriptionIdentification" />
-			<xsl:apply-templates select="fchr-ext:RapBackSubscriptionTermCode" />
-			<xsl:apply-templates select="fchr-ext:RapBackTermDate" />
-			<xsl:apply-templates select="fchr-ext:SubscriptionQualifierIdentification" />
-			<xsl:apply-templates select="../fchr-ext:RapBackNotificationEvent" />
+			<xsl:apply-templates select="chr-ext:RapBackExpirationDate" />
+			<xsl:apply-templates select="chr-ext:RapBackSubscriptionDate" />
+			<xsl:apply-templates select="chr-ext:RapBackSubscriptionIdentification" />
+			<xsl:apply-templates select="chr-ext:RapBackSubscriptionTermCode" />
+			<xsl:apply-templates select="chr-ext:RapBackTermDate" />
+			<xsl:apply-templates select="chr-ext:SubscriptionQualifierIdentification" />
+			<xsl:apply-templates select="../chr-ext:RapBackNotificationEvent" />
 		</notfm-ext:RelatedFBISubscription>
 	</xsl:template>
-	<xsl:template match="fchr-ext:RapBackExpirationDate">
+	<xsl:template match="chr-ext:RapBackExpirationDate">
 		<notfm-ext:RapBackExpirationDate>
 			<xsl:apply-templates select="nc30:Date" />
 		</notfm-ext:RapBackExpirationDate>
 	</xsl:template>
-	<xsl:template match="fchr-ext:RapBackSubscriptionDate">
+	<xsl:template match="chr-ext:RapBackSubscriptionDate">
 		<notfm-ext:RapBackSubscriptionDate>
 			<xsl:apply-templates select="nc30:Date" />
 		</notfm-ext:RapBackSubscriptionDate>
 	</xsl:template>
-	<xsl:template match="fchr-ext:RapBackSubscriptionIdentification">
+	<xsl:template match="chr-ext:RapBackSubscriptionIdentification">
 		<notfm-ext:RecordRapBackSubscriptionIdentification>
 			<xsl:apply-templates select="nc30:IdentificationID" />
 		</notfm-ext:RecordRapBackSubscriptionIdentification>
 	</xsl:template>
-	<xsl:template match="fchr-ext:RapBackSubscriptionTermCode">
+	<xsl:template match="chr-ext:RapBackSubscriptionTermCode">
 		<notfm-ext:RapBackSubscriptionTermCode>
 			<xsl:value-of select="normalize-space(.)" />
 		</notfm-ext:RapBackSubscriptionTermCode>
 	</xsl:template>
-	<xsl:template match="fchr-ext:RapBackTermDate">
+	<xsl:template match="chr-ext:RapBackTermDate">
 		<notfm-ext:RapBackTermDate>
 			<xsl:apply-templates select="nc30:Date" />
 		</notfm-ext:RapBackTermDate>
 	</xsl:template>
-	<xsl:template match="fchr-ext:SubscriptionQualifierIdentification">
+	<xsl:template match="chr-ext:SubscriptionQualifierIdentification">
 		<notfm-ext:SubscriptionQualifierIdentification>
 			<xsl:apply-templates select="nc30:IdentificationID" />
 		</notfm-ext:SubscriptionQualifierIdentification>
 	</xsl:template>
-	<xsl:template match="fchr-ext:RapBackNotificationEvent">
+	<xsl:template match="chr-ext:RapBackNotificationEvent">
 		<xsl:apply-templates
-			select="fchr-ext:RapBackActivityNotificationIdentification" />
-		<xsl:apply-templates select="fchr-ext:RapBackAttentionText" />
-		<xsl:apply-templates select="fchr-ext:TriggeringEvent" mode="event" />
+			select="chr-ext:RapBackActivityNotificationIdentification" />
+		<xsl:apply-templates select="chr-ext:RapBackAttentionText" />
+		<xsl:apply-templates select="chr-ext:TriggeringEvent" mode="event" />
 	</xsl:template>
-	<xsl:template match="fchr-ext:RapBackActivityNotificationIdentification">
+	<xsl:template match="chr-ext:RapBackActivityNotificationIdentification">
 		<notfm-ext:RapBackActivityNotificationIdentification>
 			<xsl:apply-templates select="nc30:IdentificationID" />
 		</notfm-ext:RapBackActivityNotificationIdentification>
 	</xsl:template>
-	<xsl:template match="fchr-ext:RapBackAttentionText">
+	<xsl:template match="chr-ext:RapBackAttentionText">
 		<notfm-ext:RapBackAttentionText>
 			<xsl:value-of select="normalize-space(.)" />
 		</notfm-ext:RapBackAttentionText>
 	</xsl:template>
-	<xsl:template match="fchr-ext:TriggeringEvent"
+	<xsl:template match="chr-ext:TriggeringEvent"
 		mode="event">
 		<notfm-ext:TriggeringEvent>
-			<xsl:apply-templates select="fchr-ext:RapBackEventDate" />
-			<xsl:apply-templates select="fchr-ext:FederalTriggeringEventCode" />
-			<xsl:apply-templates select="fchr-ext:RapBackEventText" />
+			<xsl:apply-templates select="chr-ext:RapBackEventDate" />
+			<xsl:apply-templates select="chr-ext:FederalTriggeringEventCode" />
+			<xsl:apply-templates select="chr-ext:RapBackEventText" />
 		</notfm-ext:TriggeringEvent>
 	</xsl:template>
-	<xsl:template match="fchr-ext:RapBackEventDate">
+	<xsl:template match="chr-ext:RapBackEventDate">
 		<notfm-ext:RapBackEventDate>
 			<xsl:apply-templates select="nc30:Date" />
 		</notfm-ext:RapBackEventDate>
 	</xsl:template>
-	<xsl:template match="fchr-ext:FederalTriggeringEventCode">
+	<xsl:template match="chr-ext:FederalTriggeringEventCode">
 		<notfm-ext:FederalTriggeringEventCode>
 			<xsl:value-of select="normalize-space(.)" />
 		</notfm-ext:FederalTriggeringEventCode>
 	</xsl:template>
-	<xsl:template match="fchr-ext:RapBackEventText">
+	<xsl:template match="chr-ext:RapBackEventText">
 		<notfm-ext:RapBackEventText>
 			<xsl:value-of select="normalize-space(.)" />
 		</notfm-ext:RapBackEventText>
 	</xsl:template>
-	<xsl:template match="fchr-ext:FederalCriminalHistoryRecordDocument">
+	<xsl:template match="chr-ext:FederalCriminalHistoryRecordDocument">
 		<notfm-ext:CriminalHistoryRecordDocument>
 			<nc:DocumentBinary>
 				<notfm-ext:Base64BinaryObject>
@@ -177,7 +177,7 @@
 			</nc:DocumentBinary>
 		</notfm-ext:CriminalHistoryRecordDocument>
 	</xsl:template>
-	<xsl:template match="fchr-doc:FederalCriminalHistoryReport"
+	<xsl:template match="chr-doc:CriminalHistoryReport"
 		mode="association">
 		<nc:ActivityInvolvedPersonAssociation>
 			<nc:ActivityReference>
