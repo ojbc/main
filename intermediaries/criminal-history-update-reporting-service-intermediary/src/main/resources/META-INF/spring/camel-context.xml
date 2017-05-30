@@ -30,6 +30,7 @@
 	xmlns:chc-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
 	xmlns:che-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryExpungementReport/1.0"
 	xmlns:chiu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
+	xmlns:chr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
@@ -86,6 +87,7 @@
 							<camel:xpath>/crimhistory-update-doc:CycleTrackingIdentifierAssignmentReport
 										or /cdr-report-doc:CourtDispositionRecordingReport
 										or /pdr-report-doc:ProsecutionDecisionRecordingReport
+										or /chr-doc:CriminalHistoryReport
 							</camel:xpath>
 						
 							<camel:log message="About to call notification broker endpoint"/>
@@ -182,6 +184,11 @@
 				<camel:xpath>/pdr-report-doc:ProsecutionDecisionRecordingReport</camel:xpath>
 				<camel:to uri="xslt:xslt/prosecutionDecisionRecordingReportToNotifications.xsl"/>
 			</camel:filter>
+			
+			<camel:filter>
+				<camel:xpath>/chr-doc:CriminalHistoryReport</camel:xpath>
+				<camel:to uri="xslt:xslt/criminalHistoryToNotification.xsl"/>
+			</camel:filter>			
 			
 			<camel:log message="After xslt transformation: \n ${body}" loggingLevel="DEBUG"/>
 						

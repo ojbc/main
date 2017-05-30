@@ -99,6 +99,18 @@ public class CriminalHistoryUpdateReportingServiceTransformerTest {
 		
 		transformAndValidate(xslt, xml,"output/notifications/decision-notification.xml", paramsMap);
 	}
+	
+	@Test
+	public void criminalHistoryToNotificationsTransform() throws Exception{
+				
+		String xml = XmlUtils.getRootNodeAsString(
+				"src/test/resources/xmlInstances/criminalHistory/federalCriminalHistory.xml");
+		
+		String xslt = FileUtils.readFileToString(new File(
+				"src/main/resources/xslt/criminalHistoryToNotification.xsl"));
+
+		transformAndValidate(xslt, xml,"output/notifications/federalCriminalHistoryNotification.xml", null);
+	}	
 
 	private void transformAndValidate(String xslPath, String inputXmlPath, String expectedXMLPath, Map<String,Object> paramsMap) throws Exception {
 						
