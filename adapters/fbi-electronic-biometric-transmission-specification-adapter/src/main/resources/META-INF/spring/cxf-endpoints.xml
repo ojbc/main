@@ -76,42 +76,20 @@
     	endpointName="ngi:NGIResponsePort"
     	xmlns:ngi="http://ws.cjis.gov/2014/08/01/ngi/services/risc">
     </cxf:cxfEndpoint>      
-    
-    <!-- Federal Criminal History Update Repository Service -->
-	<cxf:cxfEndpoint id="federalCriminalHistoryUpdateReportingService"
-		address="${fbiEbtsAdapter.federalCriminalHistoryUpdateReportingServiceEndpoint}"
-		wsdlURL="classpath:ssp/Federal_Criminal_History_Update_Reporting/schemas/RS_WS-SIP_v1.2/Federal_Criminal_History_Update_Reporting_Service.wsdl"
-		serviceName="ojbc:Federal-Criminal-History-Update-Reporting-ServiceService" 
-		endpointName="ojbc:Federal-Criminal-History-Update-Reporting-Service"
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/FederalCriminalHistoryUpdateReporting/1.0">
-		<cxf:properties>
-			<entry key="mtom-enabled" value="true" />
-			<entry key="dataFormat" value="PAYLOAD" />
-		</cxf:properties>
-		<cxf:features>
-			<policy:policies>
-				<wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
-					<wsam:Addressing>
-						<wsp:Policy />
-					</wsam:Addressing>
-				</wsp:Policy>
-			</policy:policies>
-		</cxf:features>	 
-	</cxf:cxfEndpoint>
 	
-	<cxf:cxfEndpoint id="subscriptionReportingService"
-		address="${fbiEbtsAdapter.subscriptionReportingServiceEndpoint}"
-		wsdlURL="classpath:ssp/Subscription_Reporting/schemas/SIP_WS_1.3/Subscription_Reporting_Service.wsdl"
-		serviceName="ojbc:Subscription-Reporting-ServiceService" 
-		endpointName="ojbc:Subscription-Reporting-Secure-Service" 
-		xmlns:ojbc="http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0">
-		<cxf:properties>
-			<entry key="mtom-enabled" value="true"/>
+	<!-- hosted by this intermediary, invoked by connector -->
+	<cxf:cxfEndpoint id="criminalHistoryUpdateReportingService"
+		address="${rapbackDatastoreAdapter.criminalHistoryUpdateReportingSecureEndpoint}"
+		wsdlURL="classpath:ssp/Criminal_History_Update_Reporting/schema/SIP_WS_1.2/Criminal_History_Update_Reporting_Service.wsdl"
+		serviceName="ojbc:Criminal-History-Update-Reporting-ServiceService" 
+		endpointName="ojbc:Criminal-History-Update-Reporting-Secure-Service"
+		xmlns:ojbc="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0">
+ 		<cxf:properties>
 			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
 			<entry key="ws-security.signature.properties" value-ref="fbiEbtsAdapterKeystoreProperties" />
 			<entry key="ws-security.signature.username" value="${fbiEbtsAdapter.keystoreCertificateAlias}" />
-		</cxf:properties> 		
-	</cxf:cxfEndpoint>
+		</cxf:properties> 
+	</cxf:cxfEndpoint>	 	
     
    	<bean id="passwordCallbackHandler" class="org.ojbc.util.ws.security.ClientCallbackMap">
 	    <property name="passwords">

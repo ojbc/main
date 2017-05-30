@@ -58,8 +58,8 @@
 			uri="cxf:bean:ngiResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
 		<!-- Change this to the Federal Criminal History Update Repository Service SSP -->
-		<endpoint id="federalCriminalHistoryUpdateReportingServiceEndpoint" 
-			uri="cxf:bean:federalCriminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+		<endpoint id="criminalHistoryUpdateReportingServiceEndpoint" 
+			uri="cxf:bean:criminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
 		<endpoint id="subscriptionReportingServiceEndpoint" 
 			uri="cxf:bean:subscriptionReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
@@ -222,12 +222,12 @@
 			
 			<to uri="xslt:xsl/Federal_To_CH_Report_Transform.xsl"/>
 			
-			<log message="\n\n\n ran Federal_To_CH_Report_Transform.xsl.  Sending to Federal Criminal History Update Repository Service... \n\n" loggingLevel="INFO"/>
+			<log message="\n\n\n ran Federal_To_CH_Report_Transform.xsl.  Sending to Criminal History Update Repository Service... \n\n" loggingLevel="INFO"/>
 			
 			<camel:setHeader headerName="operationName"><constant>ReportNewCriminalHistoryEvent</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/FederalCriminalHistoryUpdateReporting/1.0</constant></camel:setHeader>			
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant></camel:setHeader>			
 			
-			<to uri="federalCriminalHistoryUpdateReportingServiceEndpoint" />
+			<to uri="criminalHistoryUpdateReportingServiceEndpoint" />
 		</route>
 		
 				
