@@ -37,7 +37,7 @@
 		<div class="row">
 
 			<div class="col-xs-9 tablediv">
-				<table id="inmate-table" class="table" cellspacing="0" width="100%"></table>
+				<table id="inmate-table" class="table"></table>
 			</div>
 			
 			<div class="col-xs-3" id="form-container">
@@ -66,7 +66,7 @@
 			</div>
 
 		</div>
-
+		
 	</div>
 
 
@@ -75,7 +75,7 @@
 	<script src="static/DataTables/DataTables-1.10.15/js/jquery.dataTables.js"></script>
 	<script src="static/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
 	<script src="static/DataTables/Select-1.2.2/js/dataTables.select.js"></script>
-	<script src="static/testdata.js"></script>
+	<script src="static/demodata.js"></script> <!-- make sure this appears before ConsentManagementForm.js -->
 	<script src="static/ConsentManagementForm.js"></script>
 	
 </body>
