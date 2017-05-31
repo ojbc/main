@@ -40,7 +40,7 @@ $(document).ready(
 				},
 				info : false,
 				lengthChange : false,
-				data : testdata,
+				data : demodata,
 				"columns" : [ {
 					"data" : "personLastName",
 					"title" : "Last Name"
