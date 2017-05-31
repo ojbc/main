@@ -109,6 +109,7 @@
 						<include>**/*.html</include>
 						<include>**/*.js</include>
 						<include>**/*.sql</include>
+						<include>**/*.css</include>
 					</includes>
 					<mapping>
 						<java>SLASHSTAR_STYLE</java>
