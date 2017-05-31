@@ -94,7 +94,12 @@ public class PortalAuthenticationDetailsSource implements
                 new ArrayList<SimpleGrantedAuthority>(); 
  
         Element samlAssertion = (Element)context.getAttribute("samlAssertion");
-        log.info("samlAssertion not null " + BooleanUtils.toStringYesNo(samlAssertion != null));
+        
+        if (samlAssertion == null)
+        {
+        	log.info("samlAssertion is null ");
+        }	
+        
         String ori = getAttributeValue(samlAssertion, SamlAttribute.EmployerORI);  
 
         SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
