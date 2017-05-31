@@ -117,6 +117,9 @@
 						<exclude>**/bin/**</exclude>
 						<!-- note not excluding static/js/ojb-web-portal.js -->
 						<exclude>**/ebts-10.0-ws-specification/**</exclude>
+						<exclude>**/ojb-web-consent-management/src/main/webapp/static/DataTables/**</exclude>
+						<exclude>**/ojb-web-consent-management/src/main/webapp/static/bootstrap/**</exclude>
+						<exclude>**/ojb-web-consent-management/src/main/webapp/static/jquery/**</exclude>
 					</excludes>
 					<includes>
 						<include>**/*.java</include>
