@@ -30,9 +30,18 @@
 			</j:OrganizationORIIdentification>
 		</j:OrganizationAugmentation>
 	</submsg-ext:SubscribingOrganization>
+	<submsg-ext:RecordControllingOrganization>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc20:IdentificationID>12046567</nc20:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</submsg-ext:RecordControllingOrganization>
 	<submsg-ext:SubscriptionRelatedCaseIdentification>
 		<nc20:IdentificationID>0123ABC</nc20:IdentificationID>
 	</submsg-ext:SubscriptionRelatedCaseIdentification>
+	<submsg-ext:RapBackActivityNotificationFormatCode>2</submsg-ext:RapBackActivityNotificationFormatCode>
+	<submsg-ext:RapBackInStateOptOutIndicator>false</submsg-ext:RapBackInStateOptOutIndicator>
 	<submsg-ext:Subject>
 		<nc20:PersonBirthDate>
 			<nc20:Date>1972-08-02</nc20:Date>
