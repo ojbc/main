@@ -17,136 +17,96 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<itl:NISTBiometricInformationExchangePackage
-	xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0" 
-	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
-	xmlns:itl="http://biometrics.nist.gov/standard/2011" 
-	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" 
-	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
-	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0">
-	
-	<itl:PackageInformationRecord>
-		<ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
-	
-		<ansi-nist:Transaction>
-			<ansi-nist:TransactionDate>
-				<nc20:Date>2015-07-14</nc20:Date>
-			</ansi-nist:TransactionDate>
-			
-			<ansi-nist:TransactionDestinationOrganization>
-            	<nc20:OrganizationIdentification>
-                 	<nc20:IdentificationID>WVIAFIS0Z</nc20:IdentificationID>
-            	</nc20:OrganizationIdentification>
-          	</ansi-nist:TransactionDestinationOrganization>
-          	<ansi-nist:TransactionOriginatingOrganization>
-               	<nc20:OrganizationIdentification>
-                    <nc20:IdentificationID>HI002595Y</nc20:IdentificationID>
-                </nc20:OrganizationIdentification>
-            </ansi-nist:TransactionOriginatingOrganization>
-            <ansi-nist:TransactionControlIdentification>
-             	<nc20:IdentificationID>9876500000</nc20:IdentificationID>
-            </ansi-nist:TransactionControlIdentification>
-            <ansi-nist:TransactionDomain>
-                <ansi-nist:DomainVersionNumberIdentification>
-                    <nc20:IdentificationID>EBTS 10.0</nc20:IdentificationID>
-                </ansi-nist:DomainVersionNumberIdentification>
-                <ansi-nist:TransactionDomainName>NORAM</ansi-nist:TransactionDomainName>
-            </ansi-nist:TransactionDomain>
-             <ansi-nist:TransactionImageResolutionDetails>
-                <ansi-nist:NativeScanningResolutionValue>00.00</ansi-nist:NativeScanningResolutionValue>
-                <ansi-nist:NominalTransmittingResolutionValue>00.00</ansi-nist:NominalTransmittingResolutionValue>
-            </ansi-nist:TransactionImageResolutionDetails>
-            <ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
-           	<ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
-			
-			<ebts:TransactionCategoryCode>RBSCRM</ebts:TransactionCategoryCode>
-			<ansi-nist:TransactionContentSummary>
-            	<ansi-nist:ContentFirstRecordCategoryCode>1</ansi-nist:ContentFirstRecordCategoryCode>
-            	<ansi-nist:ContentRecordQuantity>01</ansi-nist:ContentRecordQuantity>
-            	 <ansi-nist:ContentRecordSummary>
-                    <ansi-nist:ImageReferenceIdentification>
-                        <nc20:IdentificationID>00</nc20:IdentificationID>
-                    </ansi-nist:ImageReferenceIdentification>
-                    <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
-                </ansi-nist:ContentRecordSummary>
-            </ansi-nist:TransactionContentSummary>
-		</ansi-nist:Transaction>
-		
-	</itl:PackageInformationRecord>
-	
-	
-	<itl:PackageDescriptiveTextRecord>
-	
-		<ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
-
-		<ansi-nist:ImageReferenceIdentification>
-            <nc20:IdentificationID>00</nc20:IdentificationID>
-        </ansi-nist:ImageReferenceIdentification>
-	
-		<itl:UserDefinedDescriptiveDetail>
-		
-			<ebts:DomainDefinedDescriptiveFields>
-
-				<ansi-nist:RecordRapSheetRequestIndicator>true</ansi-nist:RecordRapSheetRequestIndicator>
-			
-				<ebts:RecordRapBackData>
-				
-					<ebts:RecordRapBackActivityNotificationFormatCode>3</ebts:RecordRapBackActivityNotificationFormatCode>
-			
-					<ebts:RecordRapBackCategoryCode>CI</ebts:RecordRapBackCategoryCode>
-				
-					<ebts:RecordRapBackDisclosureIndicator>false</ebts:RecordRapBackDisclosureIndicator>
-					
-					<ebts:RecordRapBackExpirationDate>
-						<nc20:Date>2015-06-20</nc20:Date>
-					</ebts:RecordRapBackExpirationDate>
-			
-					
-					
-					<ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
-					
-					<ansi-nist:RecordForwardOrganizations>
-                      <nc20:OrganizationIdentification>
-                          <nc20:IdentificationID>HI002595Y</nc20:IdentificationID>
-                      </nc20:OrganizationIdentification>
-		         	</ansi-nist:RecordForwardOrganizations>
-			
-					<ebts:RecordRapBackTriggeringEventCode>1</ebts:RecordRapBackTriggeringEventCode>
-					
-					<ebts:RecordRapBackUserDefinedElement>
-						<ebts:UserDefinedElementName>State Fingerprint ID</ebts:UserDefinedElementName>
-						<ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
-					</ebts:RecordRapBackUserDefinedElement>
-					
-				</ebts:RecordRapBackData>
-				
-				<ebts:RecordTransactionActivity>
-					<nc20:CaseTrackingID>HCJDC-CASE</nc20:CaseTrackingID>
-					<ebts:RecordControllingAgency>
-		                <nc20:OrganizationIdentification>
-		                    <nc20:IdentificationID>HI002595Y</nc20:IdentificationID>
-		                </nc20:OrganizationIdentification>
-               		</ebts:RecordControllingAgency>
-               	</ebts:RecordTransactionActivity>
-				
-				<ebts:RecordSubject>
-					<nc20:PersonBirthDate>
-						<nc20:Date>1972-08-02</nc20:Date>
-					</nc20:PersonBirthDate>
-					<ebts:PersonName>
-						<nc20:PersonGivenName>John</nc20:PersonGivenName>
-						<nc20:PersonSurName>Doe</nc20:PersonSurName>
-					</ebts:PersonName>
-					
-					<j:PersonFBIIdentification>
-                        <nc20:IdentificationID>123456789</nc20:IdentificationID>
-                    </j:PersonFBIIdentification>
-                    
-				</ebts:RecordSubject>
-			</ebts:DomainDefinedDescriptiveFields>
-		</itl:UserDefinedDescriptiveDetail>
-
-	</itl:PackageDescriptiveTextRecord>
-	
+<itl:NISTBiometricInformationExchangePackage xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                             xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
+                                             xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+                                             xmlns:itl="http://biometrics.nist.gov/standard/2011"
+                                             xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+                                             xmlns:j="http://niem.gov/niem/domains/jxdm/4.1">
+   <itl:PackageInformationRecord>
+      <ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
+      <ansi-nist:Transaction>
+         <ansi-nist:TransactionDate>
+            <nc20:Date/>
+         </ansi-nist:TransactionDate>
+         <ansi-nist:TransactionDestinationOrganization>
+            <nc20:OrganizationIdentification>
+               <nc20:IdentificationID/>
+            </nc20:OrganizationIdentification>
+         </ansi-nist:TransactionDestinationOrganization>
+         <ansi-nist:TransactionOriginatingOrganization>
+            <nc20:OrganizationIdentification>
+               <nc20:IdentificationID>2345576</nc20:IdentificationID>
+            </nc20:OrganizationIdentification>
+         </ansi-nist:TransactionOriginatingOrganization>
+         <ansi-nist:TransactionControlIdentification>
+            <nc20:IdentificationID/>
+         </ansi-nist:TransactionControlIdentification>
+         <ansi-nist:TransactionDomain>
+            <ansi-nist:DomainVersionNumberIdentification>
+               <nc20:IdentificationID/>
+            </ansi-nist:DomainVersionNumberIdentification>
+            <ansi-nist:TransactionDomainName/>
+         </ansi-nist:TransactionDomain>
+         <ansi-nist:TransactionImageResolutionDetails>
+            <ansi-nist:NativeScanningResolutionValue/>
+            <ansi-nist:NominalTransmittingResolutionValue/>
+         </ansi-nist:TransactionImageResolutionDetails>
+         <ansi-nist:TransactionMajorVersionValue/>
+         <ansi-nist:TransactionMinorVersionValue/>
+         <ansi-nist:TransactionContentSummary>
+            <ansi-nist:ContentFirstRecordCategoryCode/>
+            <ansi-nist:ContentRecordQuantity>
+						01
+					</ansi-nist:ContentRecordQuantity>
+            <ansi-nist:ContentRecordSummary>
+               <ansi-nist:ImageReferenceIdentification>
+                  <nc20:IdentificationID>00</nc20:IdentificationID>
+               </ansi-nist:ImageReferenceIdentification>
+               <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+            </ansi-nist:ContentRecordSummary>
+         </ansi-nist:TransactionContentSummary>
+      </ansi-nist:Transaction>
+   </itl:PackageInformationRecord>
+   <itl:PackageDescriptiveTextRecord>
+      <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+      <ansi-nist:ImageReferenceIdentification>
+         <nc20:IdentificationID>00</nc20:IdentificationID>
+      </ansi-nist:ImageReferenceIdentification>
+      <itl:UserDefinedDescriptiveDetail>
+         <ebts:DomainDefinedDescriptiveFields>
+            <ebts:RecordRapBackData>
+               <ebts:RecordRapBackActivityNotificationFormatCode>2</ebts:RecordRapBackActivityNotificationFormatCode>
+               <ebts:RecordRapBackDisclosureIndicator>true
+			</ebts:RecordRapBackDisclosureIndicator>
+               <ebts:RecordRapBackInStateOptOutIndicator>false</ebts:RecordRapBackInStateOptOutIndicator>
+               <ebts:RecordRapBackTriggeringEventCode>2</ebts:RecordRapBackTriggeringEventCode>
+               <ebts:RecordRapBackUserDefinedElement>
+                  <ebts:UserDefinedElementName>State Fingerprint ID
+			</ebts:UserDefinedElementName>
+                  <ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
+               </ebts:RecordRapBackUserDefinedElement>
+            </ebts:RecordRapBackData>
+            <ebts:RecordTransactionActivity>
+               <ebts:RecordControllingAgency>
+                  <nc20:OrganizationIdentification>
+                     <nc20:IdentificationID>157848</nc20:IdentificationID>
+                  </nc20:OrganizationIdentification>
+               </ebts:RecordControllingAgency>
+            </ebts:RecordTransactionActivity>
+            <ebts:RecordSubject>
+               <nc20:PersonBirthDate>
+				              <nc20:Date>1972-08-02</nc20:Date>
+			            </nc20:PersonBirthDate>
+               <ebts:PersonName>
+                  <nc20:PersonGivenName>John</nc20:PersonGivenName>
+                  <nc20:PersonSurName>Doe</nc20:PersonSurName>
+               </ebts:PersonName>
+               <j:PersonFBIIdentification>
+					             <nc20:IdentificationID>123456789</nc20:IdentificationID>
+				           </j:PersonFBIIdentification>
+            </ebts:RecordSubject>
+         </ebts:DomainDefinedDescriptiveFields>
+      </itl:UserDefinedDescriptiveDetail>
+   </itl:PackageDescriptiveTextRecord>
 </itl:NISTBiometricInformationExchangePackage>

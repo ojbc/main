@@ -17,9 +17,7 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-
-<b-2:Subscribe 
-	xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
+<b-2:Subscribe xmlns:b-2="http://docs.oasis-open.org/wsn/b-2"
 	xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
 	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
 	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
@@ -90,7 +88,8 @@
 				<nc20:Date>2015-06-20</nc20:Date>
 			</nc20:EndDate>
 		</nc20:DateRange>
-		<submsg-ext:CivilSubscriptionReasonCode>I</submsg-ext:CivilSubscriptionReasonCode>
+		<submsg-ext:CriminalSubscriptionReasonCode>CI
+		</submsg-ext:CriminalSubscriptionReasonCode>
 		<submsg-ext:TriggeringEvents>
 			<submsg-ext:FederalTriggeringEventCode>DISPOSITION</submsg-ext:FederalTriggeringEventCode>
 		</submsg-ext:TriggeringEvents>
