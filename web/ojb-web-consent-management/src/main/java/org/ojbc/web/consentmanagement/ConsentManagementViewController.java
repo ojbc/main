@@ -17,6 +17,7 @@
 package org.ojbc.web.consentmanagement;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -67,7 +68,7 @@ public class ConsentManagementViewController implements ServletContextAware {
 
 	@Override
 	public void setServletContext(ServletContext servletContext) {
-		InputStream is = servletContext.getResourceAsStream("index.jsp");
+		InputStream is = servletContext.getResourceAsStream("/index.jsp");
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		StringBuffer sb = new StringBuffer(1024*10);
 		String line = null;
@@ -79,6 +80,7 @@ public class ConsentManagementViewController implements ServletContextAware {
 			throw new RuntimeException(ioe);
 		}
 		indexJsp = sb.toString();
+		log.info("Read index.jsp file into cache, length=" + indexJsp.length() + " bytes.");
 	}
 
 }
