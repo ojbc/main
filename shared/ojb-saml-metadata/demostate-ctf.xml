@@ -4638,6 +4638,14 @@ JSd+OgOuyrSA65hr1lHLV1C47WSCS1+7YegokiO47eMwIg==
 				NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
 				FriendlyName="HIJIS User" xmlns="urn:oasis:names:tc:SAML:2.0:assertion" />
 		</IDPSSODescriptor>
+		<Organization xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata">
+			<OrganizationName xml:lang="en"
+				xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata">HIDTA</OrganizationName>
+			<OrganizationDisplayName xml:lang="en"
+				xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata">HIDTA</OrganizationDisplayName>
+			<OrganizationURL xml:lang="en"
+				xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata">tbd</OrganizationURL>
+		</Organization>
 		  <ContactPerson contactType="technical">
             <GivenName>Sarah</GivenName>
             <SurName>Davis</SurName>
