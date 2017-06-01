@@ -115,7 +115,7 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
 	
-	/* @Test
+	@Test
 	public void cancelSubscriptionTestEbtsTransform() throws IOException, SAXException{
 		
 		InputStream inputFileStream = new FileInputStream("src/test/resources/input/OJBC_unsubscribe.xml");
@@ -134,7 +134,6 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
 	
-		*/
 		
 	@Test
 	public void RapbackSubscriptionResponseTransform() throws IOException, SAXException{
