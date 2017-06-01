@@ -15,40 +15,28 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
 
-$(document).ready(
-		function() {
-			var table = $('#inmate-table').DataTable({
-				select : {
-					style : "single",
-					blurable : true
-				},
-				info : false,
-				lengthChange : false,
-				"columns" : [ {
-					"data" : "personLastName",
-					"title" : "Last Name"
-				}, {
-					"data" : "personFirstName",
-					"title" : "First Name"
-				}, {
-					"data" : "personDOBString",
-					"title" : "Date of Birth"
-				}, {
-					"data" : "bookingNumber",
-					"title" : "Booking Number"
-				}, {
-					"data" : "nameNumber",
-					"title" : "Name Number"
-				} ]
-			});
-			table.on('select', function(e, dt, type, indexes) {
-				var rowData = table.rows(indexes[0]).data()["0"];
-				$("#selected-patient-name")
-						.text(
-								rowData.personLastName + ", "
-										+ rowData.personFirstName);
-			})
-			table.draw();
-			refreshData();
+console.log('in the main context.js')
 
-		});
+refreshData = function() {
+    console.log('Still in demo mode, even in main context, pending ajax implementation...')
+    demodata = [ {
+	"consentId" : 1,
+	"bookingNumber" : "B1234",
+	"nameNumber" : "N1234",
+	"personFirstName" : "TestFirst",
+	"personMiddleName" : "TestMiddle",
+	"personLastName" : "TestLast",
+	"personGender" : "F",
+	"personDOBString" : "1975-02-01"
+    }, {
+	"consentId" : 2,
+	"bookingNumber" : "B2345",
+	"nameNumber" : "N234",
+	"personFirstName" : "TestFirst1",
+	"personMiddleName" : "TestMiddle1",
+	"personLastName" : "TestLast1",
+	"personGender" : "M",
+	"personDOBString" : "1974-03-01"
+    } ];
+    $('#inmate-table').DataTable().rows.add(demodata).draw()
+}

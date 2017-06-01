@@ -70,12 +70,12 @@
 	</div>
 
 
+	<!--/start-context-script/--><script src="static/context-demo.js"></script><!--/end-context-script/-->
 	<script src="static/jquery/jquery-3.2.1.min.js"></script>
 	<script src="static/bootstrap/js/bootstrap.min.js"></script>
 	<script src="static/DataTables/DataTables-1.10.15/js/jquery.dataTables.js"></script>
 	<script src="static/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
 	<script src="static/DataTables/Select-1.2.2/js/dataTables.select.js"></script>
-	<script src="static/demodata.js"></script> <!-- make sure this appears before ConsentManagementForm.js -->
 	<script src="static/ConsentManagementForm.js"></script>
 	
 </body>

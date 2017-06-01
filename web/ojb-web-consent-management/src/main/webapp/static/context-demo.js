@@ -15,7 +15,10 @@
  * Copyright 2012-2015 Open Justice Broker Consortium
  */
 
-demodata = [ {
+console.log('Demo data context javascript.  Returning demo (fake) data for demo purposes.')
+
+refreshData = function() {
+    demodata = [ {
 	"consentId" : 1,
 	"bookingNumber" : "B1234",
 	"nameNumber" : "N1234",
@@ -24,7 +27,7 @@ demodata = [ {
 	"personLastName" : "TestLast",
 	"personGender" : "F",
 	"personDOBString" : "1975-02-01"
-}, {
+    }, {
 	"consentId" : 2,
 	"bookingNumber" : "B2345",
 	"nameNumber" : "N234",
@@ -33,4 +36,6 @@ demodata = [ {
 	"personLastName" : "TestLast1",
 	"personGender" : "M",
 	"personDOBString" : "1974-03-01"
-} ];
+    } ];
+    $('#inmate-table').DataTable().rows.add(demodata).draw()
+}
