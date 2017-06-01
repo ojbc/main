@@ -115,7 +115,7 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
 	
-	@Test
+	/* @Test
 	public void cancelSubscriptionTestEbtsTransform() throws IOException, SAXException{
 		
 		InputStream inputFileStream = new FileInputStream("src/test/resources/input/OJBC_unsubscribe.xml");
@@ -133,6 +133,8 @@ public class EbtsTransformTest {
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
+	
+		*/
 		
 	@Test
 	public void RapbackSubscriptionResponseTransform() throws IOException, SAXException{
@@ -193,14 +195,14 @@ public class EbtsTransformTest {
 				new File("src/test/resources/output/Federal_Rapback_CH_Report.xml"));
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
-	}
+	} 
 	
 	
 	private Map<String, Object> getXsltParamMap(){
 	
 		Map<String, Object> xsltParamMap = new HashMap<String, Object>();
 		
-		xsltParamMap.put("rapBackTransactionDate", "2015-07-14");		
+		/* xsltParamMap.put("rapBackTransactionDate", "2015-07-14");		
 		xsltParamMap.put("rapBackNotificatonFormat", 3);
 		xsltParamMap.put("rapBackInStateOptOutIndicator", true);
 		xsltParamMap.put("rapBackTriggeringEvent", 1);		
@@ -221,7 +223,7 @@ public class EbtsTransformTest {
 		xsltParamMap.put("transactionContentSummaryContentRecordCountCriminal", "01");					
 		xsltParamMap.put("transactionContentSummaryContentRecordCountCivil", "03");				
 		xsltParamMap.put("rapBackDisclosureIndicator", "false");
-		xsltParamMap.put("civilRapBackSubscriptionTerm", "L");
+		xsltParamMap.put("civilRapBackSubscriptionTerm", "L"); */
 		
 		return xsltParamMap;
 	}
