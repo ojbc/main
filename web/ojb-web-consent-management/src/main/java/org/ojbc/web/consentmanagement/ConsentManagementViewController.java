@@ -30,7 +30,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.ServletContextAware;
 
@@ -55,12 +54,6 @@ public class ConsentManagementViewController implements ServletContextAware {
 		return buildPageResponse(model, request, true);
 	}
 
-	@RequestMapping({"/cm/assets/{assetname:.+}", "/cm-demo/assets/{assetname:.+}"})
-	public String assets(Model model, HttpServletRequest request, @PathVariable("assetname") String asset) {
-		log.info("Request: /.../assets/" + asset);
-		return asset;
-	}
-	
 	private ResponseEntity<String> buildPageResponse(Model model, HttpServletRequest request, boolean demo) {
 		String body = indexJsp;
 		if (!demo) {
