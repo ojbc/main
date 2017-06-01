@@ -46,8 +46,9 @@
 		<endpoint id="fbiEbtsWebServiceInputEndpoint"
 			uri="cxf:bean:fbiEbtsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 										
-		<!-- called by s/n intermediary -->
-		<endpoint id="fbiEbtsSubscriptionManagerEndpoint" uri="cxf:bean:fbiEbtsSubscriptionManagerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />									
+		<!-- called by s/n intermediary and rapback adapter for SID consolidation -->
+		<endpoint id="fbiEbtsSubscriptionManagerServiceEndpoint" 
+			uri="cxf:bean:fbiEbtsSubscriptionManagerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />									
 							
 		<!-- hosted at FBI, receives our subscription requests from this ebts adapter -->		
 		<endpoint id="ngiUserServiceRequestEndpoint" 
@@ -72,9 +73,9 @@
 				
 		<camel:route id="fbiEbtsSubscriptionManager_Route">
 		
-			<from uri="fbiEbtsSubscriptionManagerEndpoint"/>
+			<from uri="fbiEbtsSubscriptionManagerServiceEndpoint"/>
 		
-			<log message="\n\n\n EBTS adapter received request on: fbiEbtsSubscriptionManagerEndpoint \n\n\n"/>
+			<log message="\n\n\n EBTS adapter received request on: fbiEbtsSubscriptionManagerServiceEndpoint \n\n\n"/>
 
 			<to uri="direct:processFbiEbtsRequest"/>
 										
@@ -164,7 +165,7 @@
 		<!-- 
 			Receives from FBI NGI - either Subscription Acknowledgments or FBI rapback notifications  			 
 			* Subscription Acknowledgments from FBI NGI, saves them to disk and sends back a synchronous VOID response message to FBI
-			* FBI Rapback Notifications: transforms and sends to Federal Criminal History Reporting Service			
+			* FBI Rapback Notifications: transforms and sends to Criminal History Reporting Service			
 		-->
 		<camel:route id="ngiResponseServiceRoute">
 		
