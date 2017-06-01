@@ -71,5 +71,6 @@
     <module>custody-status-change-reporting-service-intermediary</module>
     <module>custody-release-reporting-service-intermediary</module>
     <module>warrant-modification-service-intermediary</module>
+    <module>vehicle-crash-reporting-service-intermediary</module>
   </modules>
 </project>
