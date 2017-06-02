@@ -25,6 +25,7 @@ import java.util.List;
 
 import javax.sql.rowset.serial.SerialBlob;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -239,12 +240,26 @@ public class FbiRapbackDao {
 	 * Decide whether the owner ORI of the transaction with the subscription ID has FBI subscription qualification. 
 	 * @param subscriptionId
 	 * @return
+	 * TODO do we need this method anymore? -hw
 	 */
 	public Boolean getfbiSubscriptionQualification(Integer subscriptionId){
 		final String sql = "SELECT fbi_subscription_qualification FROM agency_profile "
 				+ "WHERE agency_ori = (SELECT owner_ori FROM identification_transaction t WHERE t.subscription_id= ?)";	
 		List<Boolean> fbiSubscriptionQualifications = jdbcTemplate.queryForList(sql, Boolean.class, subscriptionId); 
 		return DataAccessUtils.singleResult(fbiSubscriptionQualifications);
+	}
+	
+	/**
+	 * Decide whether the owner ORI of the transaction with the subscription ID has FBI subscription qualification. 
+	 * @param subscriptionId
+	 * @return
+	 * TODO do we need this method anymore? -hw
+	 */
+	public Boolean hasFbiSubscription(Integer subscriptionId){
+		final String sql = "SELECT count(*) > 0 FROM fbi_rap_back_subscription t "
+				+ "WHERE t.subscription_id= ? ";	
+		Boolean hasFbiSubscription = jdbcTemplate.queryForObject(sql, Boolean.class, subscriptionId); 
+		return BooleanUtils.isTrue(hasFbiSubscription);
 	}
 	
 	public static String getFbiSubscriptionSelect() {
