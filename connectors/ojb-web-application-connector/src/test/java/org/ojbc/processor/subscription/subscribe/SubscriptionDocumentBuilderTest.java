@@ -151,7 +151,10 @@ public class SubscriptionDocumentBuilderTest {
 		
 		String idSrcTxt = XmlUtils.xPathStringSearch(subMsgNode, "submsg-ext:SubscriptionIdentification/nc:IdentificationSourceText");
 		assertEquals("Subscriptions", idSrcTxt);
-		
+
+		String ori = XmlUtils.xPathStringSearch(subMsgNode, "submsg-ext:SubscribingOrganization/jxdm41:OrganizationAugmentation/jxdm41:OrganizationORIIdentification/nc:IdentificationID");
+		assertEquals("1234567890", ori);
+
 		String federalRapSheetDisclosureIndicator = XmlUtils.xPathStringSearch(subMsgNode, "submsg-ext:FederalRapSheetDisclosure/submsg-ext:FederalRapSheetDisclosureIndicator");
 		assertEquals("true", federalRapSheetDisclosureIndicator);
 
@@ -201,6 +204,8 @@ public class SubscriptionDocumentBuilderTest {
 		subscription.setStateId("99999");
 		
 		subscription.setSystemId("88888");
+		
+		subscription.setOri("1234567890");
 		
 		subscription.setFederalRapSheetDisclosureAttentionDesignationText("Attention text");
 		subscription.setFederalRapSheetDisclosureIndicator(Boolean.TRUE);
