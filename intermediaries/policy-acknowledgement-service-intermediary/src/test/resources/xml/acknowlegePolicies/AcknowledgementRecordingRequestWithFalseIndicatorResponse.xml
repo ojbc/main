@@ -13,7 +13,7 @@
 
     http://opensource.org/licenses/RPL-1.5
 
-    Copyright 2012-2015 Open Justice Broker Consortium
+    Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
 <arr-exchange:AcknowledgementRecordingResponse xmlns:arr-exchange="http://ojbc.org/IEPD/Exchange/AcknowledgementRecordingResponse/1.0" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" xmlns:arrer="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingRequestErrorReporting/1.0" xmlns:arr-srm="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingResponseMetadata/1.0" xmlns:arr-ext="http://ojbc.org/IEPD/Extensions/AcknowledgementRecordingResponse/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/AcknowledgementRecordingResponse/1.0 ../xsd/exchange_schema.xsd"><arr-srm:AcknowledgementRecordingResponseMetadata><arrer:AcknowledgementRecordingRequestError><arrer:ErrorText>PolicyAcknowledgementIndicator in the request is set to 'false'. No action is taken.</arrer:ErrorText><nc30:SystemName>Policy Acknowledgement Service Intermediary</nc30:SystemName></arrer:AcknowledgementRecordingRequestError></arr-srm:AcknowledgementRecordingResponseMetadata></arr-exchange:AcknowledgementRecordingResponse>

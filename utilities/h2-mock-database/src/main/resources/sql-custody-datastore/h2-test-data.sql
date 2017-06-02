@@ -12,9 +12,8 @@
  *
  * http://opensource.org/licenses/RPL-1.5
  *
- * Copyright 2012-2015 Open Justice Broker Consortium
+ * Copyright 2012-2017 Open Justice Broker Consortium
  */
-
 INSERT INTO person(person_unique_identifier, sex_offender, allow_deposits, education, primary_language, dob, ethnicity, eye_color, hair_color, height, weight, race, sid, first_name, middle_name, last_name, sex, occupation, military_service) VALUES
 ('abc123', false, true,'phd', 'francais', date '2000-01-01', 'H', 'XXX', 'BLK', 54, 150, 'A', '123', 'homer', 'jay', 'simpson', 'M', 'software engineer', 'ACT');
 

@@ -12,9 +12,8 @@
  *
  * http://opensource.org/licenses/RPL-1.5
  *
- * Copyright 2012-2015 Open Justice Broker Consortium
+ * Copyright 2012-2017 Open Justice Broker Consortium
  */
-
 /*
  * You need to make these changes when generating from SQL PA:
  * You need to change BINARY to MEDIUMBLOB
@@ -194,6 +193,7 @@ CREATE TABLE SUBSCRIPTION (
                 LASTVALIDATIONDATE DATE DEFAULT NULL,
                 SUBSCRIBINGSYSTEMIDENTIFIER VARCHAR(100) NOT NULL,
                 SUBSCRIPTIONOWNER VARCHAR(100) NOT NULL,
+                SUBSCRIPTIONOWNEREMAILADDRESS VARCHAR(100),
                 SUBJECTNAME VARCHAR(100) NOT NULL,
                 AGENCY_CASE_NUMBER VARCHAR(100),
                 ACTIVE TINYINT NOT NULL,
