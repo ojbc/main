@@ -49,5 +49,6 @@ $(document).ready(
 			})
 			table.draw();
 			refreshData();
+			setInterval(refreshData, 10000);
 
 		});
