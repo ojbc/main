@@ -3,7 +3,7 @@
  * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
  * versions as allowed by the RPL, and You may not copy or use this file in either source code
  * or executable form, except in compliance with the terms and conditions of the RPL
- * 
+ *
  * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
  * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
  * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
@@ -12,7 +12,7 @@
  *
  * http://opensource.org/licenses/RPL-1.5
  *
- * Copyright 2012-2015 Open Justice Broker Consortium
+ * Copyright 2012-2017 Open Justice Broker Consortium
  */
 insert into Facility (FacilityID, FacilityDescription) values ('1', 'Pima County Adult Detention Complex');
 insert into Agency (AgencyID, AgencyDescription) values ('1', 'Department of Transportation');

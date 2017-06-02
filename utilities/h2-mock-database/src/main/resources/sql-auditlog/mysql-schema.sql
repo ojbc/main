@@ -12,7 +12,7 @@
  *
  * http://opensource.org/licenses/RPL-1.5
  *
- * Copyright 2012-2015 Open Justice Broker Consortium
+ * Copyright 2012-2017 Open Justice Broker Consortium
  */
 /*
  * This is MySQL specific DDL for auditing.  We need to find a permanent place for this

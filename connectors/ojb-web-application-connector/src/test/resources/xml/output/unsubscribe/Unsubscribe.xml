@@ -13,7 +13,7 @@
 
     http://opensource.org/licenses/RPL-1.5
 
-    Copyright 2012-2015 Open Justice Broker Consortium
+    Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
 <b-2:Unsubscribe xmlns:b-2="http://docs.oasis-open.org/wsn/b-2" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0" xmlns:unsubmsg-exch="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0">

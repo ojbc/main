@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2015 Open Justice Broker Consortium
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:ctx="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       ">
+    <!-- needed cxf imports -->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="person_health_context">
+	
+		<endpoint id="personHealthSearchIntermediaryRequestEndpoint"
+			uri="cxf:bean:personHealthSearchIntermediaryRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}" />
+
+	    <endpoint id="personHealthSearchAdapterRequestEndpoint" 
+	    	uri="cxf:bean:personHealthSearchAdapterRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>
+
+		<endpoint id="personHealthSearchIntermediaryResultsEndpoint"
+			uri="cxf:bean:personHealthSearchIntermediaryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}&amp;allowStreaming=false" />
+
+		<endpoint id="personHealthSearchIntermediaryResultsServiceNoWsSecurityEndpoint"
+			uri="cxf:bean:personHealthSearchIntermediaryResultsServiceNoWsSecurity?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}&amp;allowStreaming=false" />
+
+		<endpoint id="personHealthSearchClientResultsEndpoint" 
+			uri="cxf:bean:personHealthSearchClientResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>                        
+
+		<route id="personHealthRequest_webservice_Route">
+
+			<from uri="personHealthSearchIntermediaryRequestEndpoint" />
+			
+			<log message="\n\n\n personHealthRequest_webservice_Route... \n\n\n"/>
+			
+			<to uri="direct:processPersonHealthRequest" />		
+		
+		</route>
+
+
+		<camel:route id="processPersonHealthRequest_route">
+		
+			<camel:from uri="direct:processPersonHealthRequest" />
+			
+			<camel:to uri="direct:dbAuditLog"/>
+			
+			<!-- Get WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />				
+						
+			<!-- Add reply to address(configured elsewhere) to the map using the federated 
+				query guid as the key -->
+			<camel:to uri="bean:wsAddressingReplyToManager?method=putReplyToAddress"/>
+			
+			<camel:wireTap uri="direct:startPersonHealthReqTimer"/>
+
+			<camel:log message="\n\n\n Timer started... \n\n\n"/>
+			
+			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+						
+			<camel:setHeader headerName="operationName">
+				<constant>SubmitPersonHealthInformationSearchRequest</constant>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="operationNamespace">
+				<constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchRequestService/1.0</constant>
+			</camel:setHeader>			
+			
+			<to uri="personHealthSearchAdapterRequestEndpoint"/>
+			
+		</camel:route>			
+				     
+				      
+		<camel:route id="startPersonHealthReqTimer_route">
+		
+			<from uri="direct:startPersonHealthReqTimer"/>
+			
+			<setBody>
+				<constant>START_PERSON_HEALTH_TIMER</constant>
+			</setBody>
+			
+			<to uri="direct:aggregatePersonHealthResponse" />					
+		</camel:route>
+	
+	
+		<!--  Person Health Results Handler Route.  Called by Adapter -->
+		<!-- In some scenarios, the client can't use ws-security so we provide a SSL binding -->
+		<camel:route id="personHealthResultsHandlerNoWsSecurity_route">
+									
+			<camel:from uri="personHealthSearchIntermediaryResultsServiceNoWsSecurityEndpoint"/>
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:to uri="direct:dbAuditLog"/>
+			
+			<camel:log message="\n\n\n Receieved personHealthResponse, sending to Aggregator...\n\n\n" />
+			
+			<camel:to uri="direct:aggregatePersonHealthResponse" />
+		</camel:route>
+	
+		<!--  Person Health Results Handler Route.  Called by Adapter -->
+		<camel:route id="personHealthResultsHandler_route">
+									
+			<camel:from uri="personHealthSearchIntermediaryResultsEndpoint"/>
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:to uri="direct:dbAuditLog"/>
+			
+			<camel:log message="\n\n\n Receieved personHealthResponse, sending to Aggregator...\n\n\n" />
+			
+			<camel:to uri="direct:aggregatePersonHealthResponse" />
+		</camel:route>
+	
+	    <camel:route id="aggregatePersonHealthResponse_route">
+	    
+	      <from uri="direct:aggregatePersonHealthResponse" />
+	      
+			<log message="\n\n\n Aggregator correlation id: ${in.header.federatedQueryRequestGUID} \n\n\n"/>
+			
+			<aggregate groupExchanges="true" eagerCheckCompletion="true">
+			
+				<correlationExpression>
+					<camel:header>federatedQueryRequestGUID</camel:header>
+				</correlationExpression>
+				
+				<completionTimeout>
+					<camel:simple>${properties:personHealth.timeout}</camel:simple>
+				</completionTimeout>
+				
+				<!-- Completion size for 2 messages that arrive in this order:
+					1) Timer message 
+					2) personHealthResults 
+				-->						
+				<completionSize>
+					<constant>2</constant>					
+				</completionSize>
+				
+				<log message="\n\n\n personHealth Aggregator Completed by $simple{property.CamelAggregatedCompletedBy}, completion size $simple{property.CamelAggregatedSize}, aggregation key $simple{property.CamelAggregatedCorrelationKey}.  Timeout for aggregation set at: {{personHealth.timeout}} \n\n\n" />
+				
+				<to uri="bean:personHealthResponseAggregator?method=prepareResponseExchange" />
+
+				<log message="\n\n\n completed aggregated body: \n\n ${body} \n\n\n" loggingLevel="DEBUG"/>
+				
+				<camel:to uri="direct:sendResponseToClientOfThisIntermediary"/>
+
+			</aggregate>
+	      
+	    </camel:route>
+	    
+
+		<camel:route id="sendResponseToClientOfThisIntermediary_route">
+		
+			<from uri="direct:sendResponseToClientOfThisIntermediary" />
+								
+			<camel:to uri="bean:wsAddressingReplyToManager?method=getReplyToAddress"/>
+
+			<camel:to uri="bean:wsAddressingReplyToManager?method=removeReplyToAddress"/>
+			
+			<camel:to uri="bean:WSAddressingEndpointProcessor?method=processReplyToAddress" />	
+				
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${in.headers.recipientListReplyToEndpoint} != ''</camel:simple> 
+			
+					<camel:setHeader headerName="operationName">
+						<constant>SubmitPersonHealthInformationSearchResults</constant>
+					</camel:setHeader>	
+					
+					<camel:setHeader headerName="operationNamespace">
+						<constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchResultsService/1.0</constant>
+					</camel:setHeader>
+					
+					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
+					
+					<camel:log message="\n\n\n Sending PersonHealthInformationSearchResults message to ${in.headers.recipientListReplyToEndpoint} with destination override URL of: ${in.headers.CamelDestinationOverrideUrl}" />			
+								
+					<camel:recipientList>
+						<camel:header>recipientListReplyToEndpoint</camel:header>
+					</camel:recipientList>
+				</camel:when>
+				<camel:otherwise>
+					<camel:log message="\n\n\n Unable to find endpoint for replyTo address: ${in.headers.WSAddressingReplyTo}"/>
+				</camel:otherwise>		
+			</camel:choice>	
+			
+		</camel:route>	    
+	    
+	    	    
+		<route id="dbAuditlog_route">
+		
+			<from uri="direct:dbAuditLog"/>
+
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:personHealth.dbAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>					
+		</route>		
+					    
+	</camel:camelContext>
+  
+	<!-- Spring Beans -->
+	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+
+	<bean id="personHealthResponseAggregator"
+		class="org.ojbc.bundles.intermediaries.personhealthsearch.aggregator.PersonHealthResponseAggregator"/>
+			
+	<bean id="wsAddressingReplyToManager" class="org.ojbc.util.fedquery.processor.WSAddressingReplyToManager">
+		<property name="wsAddressingEndpointProcessor" ref="WSAddressingEndpointProcessor"/>
+	</bean>		
+			
+	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
+		<property name ="endpointReplyToMap" ref="endpointReplyToMap"/>
+	</bean>				
+					
+</beans>

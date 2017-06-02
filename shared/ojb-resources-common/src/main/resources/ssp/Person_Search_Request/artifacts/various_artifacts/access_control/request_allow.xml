@@ -13,7 +13,7 @@
 
     http://opensource.org/licenses/RPL-1.5
 
-    Copyright 2012-2015 Open Justice Broker Consortium
+    Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
 <Request xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" ReturnPolicyIdList="false" CombinedDecision="false">

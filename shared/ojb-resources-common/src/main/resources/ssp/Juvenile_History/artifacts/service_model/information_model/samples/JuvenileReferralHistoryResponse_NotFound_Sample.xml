@@ -14,7 +14,7 @@
 
     http://opensource.org/licenses/RPL-1.5
 
-    Copyright 2012-2015 Open Justice Broker Consortium
+    Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
 <jh-referral-doc:JuvenileReferralHistoryResponse xmlns="http://release.niem.gov/niem/niem-core/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:jh-ext="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileHistoryCommonExtension/1.0" xmlns:jh-referral-doc="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileReferralHistoryResponse/1.0" xmlns:jh-referral="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/1.0" xmlns:jh-referral-codes="http://ojbc.org/IEPD/Extension/JuvenileHistory/JuvenileReferralHistoryExtension/michigan/codes/1.0" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileHistory/JuvenileReferralHistoryResponse/1.0 ../Juvenile_History_IEPD/Referral/JuvenileReferralHistoryResponse.xsd">
