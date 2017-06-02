@@ -12,9 +12,8 @@
  *
  * http://opensource.org/licenses/RPL-1.5
  *
- * Copyright 2012-2015 Open Justice Broker Consortium
+ * Copyright 2012-2017 Open Justice Broker Consortium
  */
- 
 USE master
 IF EXISTS(select * from sys.databases where name='ojbc_booking_staging')
 DROP DATABASE ojbc_booking_staging

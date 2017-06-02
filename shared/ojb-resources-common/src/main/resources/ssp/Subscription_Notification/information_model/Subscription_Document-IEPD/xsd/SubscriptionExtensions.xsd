@@ -14,7 +14,7 @@
 
     http://opensource.org/licenses/RPL-1.5
 
-    Copyright 2012-2015 Open Justice Broker Consortium
+    Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
 <xsd:schema xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
@@ -43,20 +43,28 @@
 				<xsd:sequence>
 					<xsd:element ref="submsg-ext:SubscribingOrganization"
 						minOccurs="0" />
+					<xsd:element ref="submsg-ext:RecordControllingOrganization"
+						minOccurs="0" />
 					<xsd:element ref="submsg-ext:SubscriptionRelatedCaseIdentification"
+						minOccurs="0" />
+					<xsd:element ref="submsg-ext:RapBackActivityNotificationFormatCode"
+						minOccurs="0" />
+					<xsd:element ref="submsg-ext:RapBackInStateOptOutIndicator"
 						minOccurs="0" />
 					<xsd:element ref="submsg-ext:Subject" />
 					<xsd:element ref="nc:ContactEmailID" maxOccurs="unbounded">
 						<xsd:annotation>
 							<xsd:documentation>An electronic mailing address by which a
-								person or organization may be contacted.</xsd:documentation>
+								person or organization may be contacted.
+							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
 					<xsd:element ref="submsg-ext:SystemName" />
 					<xsd:element ref="nc:Case" minOccurs="0">
 						<xsd:annotation>
 							<xsd:documentation>An aggregation of information about a set of
-								related activities and events.</xsd:documentation>
+								related activities and events.
+							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
 					<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification"
@@ -96,7 +104,8 @@
 						<xsd:element ref="nc:Case" minOccurs="0">
 							<xsd:annotation>
 								<xsd:documentation>An aggregation of information about a set of
-									related activities and events.</xsd:documentation>
+									related activities and events.
+								</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
 						<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification"
@@ -134,13 +143,15 @@
 	<xsd:element name="SubscriptionIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>A unique identifier assigned to a subscription by
-				the system that manages subscriptions.</xsd:documentation>
+				the system that manages subscriptions.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubscriptionFBIIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>A unique identifier assigned to a subscription
-				with the Federal Bureau of Investigation (FBI).</xsd:documentation>
+				with the Federal Bureau of Investigation (FBI).
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Subject" type="j:PersonType" />
@@ -149,7 +160,8 @@
 		type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>An identifier for a subscription, provided by the
-				entity requesting a subscription.</xsd:documentation>
+				entity requesting a subscription.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubscriptionReasonRepresentation"
@@ -164,7 +176,8 @@
 		substitutionGroup="submsg-ext:SubscriptionReasonRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A code value for the reason for creating a
-				subscription</xsd:documentation>
+				subscription
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="CriminalSubscriptionReasonCodeType">
@@ -193,7 +206,8 @@
 		type="submsg-ext:CivilSubscriptionReasonCodeType" substitutionGroup="submsg-ext:SubscriptionReasonRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A code value for the reason for creating a
-				subscription</xsd:documentation>
+				subscription
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="CivilSubscriptionReasonCodeType">
@@ -213,7 +227,8 @@
 			<xsd:enumeration value="I">
 				<xsd:annotation>
 					<xsd:documentation>Volunteer, Child Care/School Employee,
-						Non-Criminal Justice Employee and Licensing</xsd:documentation>
+						Non-Criminal Justice Employee and Licensing
+					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="J">
@@ -233,7 +248,8 @@
 		type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>An identifier assigned to a case related to the
-				subscription.</xsd:documentation>
+				subscription.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RelatedFBISubscription" type="submsg-ext:FBISubscriptionType">
@@ -251,7 +267,8 @@
 	<xsd:complexType name="FBISubscriptionType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a subscription created by the
-				Federal Bureau of Investigation.</xsd:documentation>
+				Federal Bureau of Investigation.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
@@ -269,7 +286,8 @@
 	<xsd:complexType name="SubscriptionModificationMessageType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a request to modify an existing
-				subscription.</xsd:documentation>
+				subscription.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
@@ -285,7 +303,8 @@
 	<xsd:complexType name="SubscriptionModificationType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for modifications that are to be
-				applied to an existing subscription.</xsd:documentation>
+				applied to an existing subscription.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
@@ -298,7 +317,8 @@
 	<xsd:complexType name="TriggeringEventsType">
 		<xsd:annotation>
 			<xsd:documentation>One or more events that would trigger
-				notifications related to a subscription.</xsd:documentation>
+				notifications related to a subscription.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
@@ -312,7 +332,7 @@
 	<xsd:element name="TriggeringEvents" type="submsg-ext:TriggeringEventsType" />
 	<xsd:element name="TriggeringEventRepresentation" abstract="true" />
 	<xsd:element name="FederalTriggeringEventCode"
-		substitutionGroup="submsg-ext:TriggeringEventRepresentation" type="xsd:string" />
+		substitutionGroup="submsg-ext:TriggeringEventRepresentation" type="submsg-ext:FederalTriggeringEventCodeType" />
 	<xsd:complexType name="FederalTriggeringEventCodeType">
 		<xsd:simpleContent>
 			<xsd:extension base="submsg-ext:FederalTriggeringEventCodeSimpleType">
@@ -321,7 +341,7 @@
 		</xsd:simpleContent>
 	</xsd:complexType>
 	<xsd:simpleType name="FederalTriggeringEventCodeSimpleType">
-		<xsd:restriction base="xsd:token">
+		<xsd:restriction base="xsd:string">
 			<xsd:enumeration value="ARREST">
 				<xsd:annotation>
 					<xsd:documentation>Arrests</xsd:documentation>
@@ -341,7 +361,8 @@
 			<xsd:enumeration value="NCIC-SOR">
 				<xsd:annotation>
 					<xsd:documentation>NCIC National Sex Offender Registry (NSOR)
-						Entry, Modification, Deletion</xsd:documentation>
+						Entry, Modification, Deletion
+					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="DEATH">
@@ -367,14 +388,16 @@
 		type="submsg-ext:FederalRapSheetDisclosureType">
 		<xsd:annotation>
 			<xsd:documentation>Details about disclosing a subscription on a
-				subject's federal criminal history.</xsd:documentation>
+				subject's federal criminal history.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FederalRapSheetDisclosureIndicator"
 		type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if the subscription is to appear on the
-				subject's federal rap sheet, false otherwise.</xsd:documentation>
+				subject's federal rap sheet, false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FederalRapSheetDisclosureAttentionDesignationText"
@@ -382,7 +405,8 @@
 		<xsd:annotation>
 			<xsd:documentation>A designation of the individual to whose attention
 				a response is to be directed, relating to a subscription on a
-				subject's rap sheet.</xsd:documentation>
+				subject's rap sheet.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubscriptionModification" type="submsg-ext:SubscriptionModificationType">
@@ -416,6 +440,65 @@
 	<xsd:element name="SubscribingOrganization" type="j:OrganizationType">
 		<xsd:annotation>
 			<xsd:documentation>The subscribing organization.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RecordControllingOrganization" type="j:OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>The record owner.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackActivityNotificationFormatCode"
+		type="submsg-ext:RBNFCodeType" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>A code indicating the type of rap back activity
+				notification.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="RBNFCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A code type for the code indicating the type of
+				rap back activity notification
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="submsg-ext:RBNFCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="RBNFCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>An enumeration set for a type of rap back activity
+				notification.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation>Pre-Notification</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="2">
+				<xsd:annotation>
+					<xsd:documentation>Triggering Event</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="3">
+				<xsd:annotation>
+					<xsd:documentation>Identity History Summary to include the
+						triggering event
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="RapBackInStateOptOutIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if Submitter wishes to opt-out of receiving
+				notifications for events originating within the submitter’s own
+				state; false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
