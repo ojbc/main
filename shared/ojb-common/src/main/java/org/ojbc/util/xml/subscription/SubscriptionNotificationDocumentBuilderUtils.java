@@ -34,6 +34,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.helper.OJBCXMLUtils;
+import static org.ojbc.util.xml.OjbcNamespaceContext.*;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -133,6 +134,8 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
 		Element subMsgNode = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MSG_EXCHANGE, "SubscriptionMessage");
 		
+		buildOrganizationOriElement(subMsgNode, subscription);
+		
 		buildCaseIdElement(subMsgNode, subscription);
 												
 		buildSubjectElement(subMsgNode,subscription);	
@@ -164,6 +167,20 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
 	}
 	
+
+	private static void buildOrganizationOriElement(Element subMsgNode,
+			Subscription subscription) {
+		
+		if (StringUtils.isNotBlank(subscription.getOri())){
+			Element subscribingOrganization = XmlUtils.appendElement(subMsgNode, NS_SUB_MSG_EXT, "SubscribingOrganization");
+			Element organizationAugmentation = XmlUtils.appendElement(subscribingOrganization, NS_JXDM_41, "OrganizationAugmentation");
+			Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_41, "OrganizationORIIdentification");
+			Element identificationID = XmlUtils.appendElement(organizationORIIdentification, NS_NC, "IdentificationID");
+			identificationID.setTextContent(subscription.getOri());
+		}
+		
+	}
+
 
 	private static void buildFederalRapSheetDisclosure(Element subMsgNode,
 			Subscription subscription) {

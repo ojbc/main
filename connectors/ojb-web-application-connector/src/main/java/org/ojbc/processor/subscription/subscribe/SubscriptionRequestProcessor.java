@@ -28,6 +28,7 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.processor.FaultableSynchronousMessageProcessor;
 import org.ojbc.util.camel.security.saml.OJBSamlMap;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.SubscriptionNotificationDocumentBuilderUtils;
 import org.ojbc.web.SubscriptionInterface;
@@ -78,6 +79,7 @@ public class SubscriptionRequestProcessor implements CamelContextAware, Subscrip
 				throw new Exception("No SAML token provided. Unable to perform query.");
 			}	
 			
+			subscription.setOri(SAMLTokenUtils.getAttributeValue(samlToken, SamlAttribute.EmployerORI));
 			Document requestMessage = SubscriptionNotificationDocumentBuilderUtils.createSubscriptionRequest(subscription, triggeringEventCodeTranslationMap);						
 			
 			//Create exchange
