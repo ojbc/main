@@ -12,9 +12,8 @@
  *
  * http://opensource.org/licenses/RPL-1.5
  *
- * Copyright 2012-2015 Open Justice Broker Consortium
+ * Copyright 2012-2017 Open Justice Broker Consortium
  */
-
 -- Person Sex Codes
 insert into PersonSex(PersonSexDescription) values('M');
 insert into PersonSex(PersonSexDescription) values('F');
