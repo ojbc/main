@@ -56,6 +56,7 @@ public class ConsentManagementViewController implements ServletContextAware {
 			log.info("In server demo mode, replacing script tag in html to reference context-server-demo.js");
 			body = replaceJspModeJavascript(body, "context-server-demo.js");
 		} else {
+			// todo: fail here if no SAML assertion
 			log.info("In local demo mode, skipping script tag replacement, continuing to reference context-local-demo.js");
 		}
 		return new ResponseEntity<String>(body, HttpStatus.OK);
