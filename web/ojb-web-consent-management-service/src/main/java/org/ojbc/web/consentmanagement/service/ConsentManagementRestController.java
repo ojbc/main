@@ -20,17 +20,26 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 public class ConsentManagementRestController {
@@ -39,6 +48,8 @@ public class ConsentManagementRestController {
 	
 	private static final String SAML_HEADER_NAME = "saml";
 	public static final String DEMODATA_HEADER_NAME = "demodata-ok";
+	
+	private Random randomNumberGenerator = new Random();
 
 	@RequestMapping(value="/cm-api/search", method=RequestMethod.GET, produces="application/json")
 	public String search(HttpServletRequest request) throws IOException {
@@ -65,6 +76,23 @@ public class ConsentManagementRestController {
 			br.close();
 			ret = sb.toString();
 			
+			int numRecords = randomNumberGenerator.nextInt(14) + 1; // so we don't get zero
+			List<Map<String, String>> records = new ArrayList<>(numRecords);
+			for (int i=0;i < numRecords;i++) {
+				Map<String, String> record = new HashMap<>();
+				record.put("consentId", String.valueOf(i));
+				record.put("bookingNumber", RandomStringUtils.randomAlphanumeric(8));
+				record.put("nameNumber", RandomStringUtils.randomAlphanumeric(8));
+				record.put("personFirstName", getRandomValueFromArray(RandomInmateAttributes.FIRST_NAMES));
+				record.put("personMiddleName", getRandomValueFromArray(RandomInmateAttributes.FIRST_NAMES));
+				record.put("personLastName", getRandomValueFromArray(RandomInmateAttributes.LAST_NAMES));
+				record.put("personGender", getRandomValueFromArray(RandomInmateAttributes.GENDERS));
+				record.put("personDOBString", getRandomBirthdate());
+				records.add(record);
+			}
+			ObjectMapper mapper = new ObjectMapper();
+			ret = mapper.writeValueAsString(records);
+			
 			
 		} else {
 			// error?
@@ -79,6 +107,22 @@ public class ConsentManagementRestController {
 		// todo: get it for real (using ShibbolethSamlAssertionRetriever), then parse the xml with xpath etc.
 		// consider adding an enhancement to the ShibbolethSamlAssertionRetriever to do the parsing there to get the most common assertion info
 		return new HashMap<>();
+	}
+	
+	private String getRandomBirthdate() {
+		LocalDate d = LocalDate.of(1970, Month.JANUARY, 1);
+		d = d.plusDays(randomNumberGenerator.nextInt(365*30));
+		return d.format(DateTimeFormatter.ISO_LOCAL_DATE);
+	}
+	
+	private String getRandomValueFromArray(String[] values) {
+		return values[randomNumberGenerator.nextInt(values.length-1)];
+	}
+	
+	private static final class RandomInmateAttributes {
+		public static final String[] FIRST_NAMES = {"Thomas", "Richard", "Harrison", "Matthew", "John", "Mark", "Andrew", "Sally", "Sue", "Jane", "Jennifer"};
+		public static final String[] LAST_NAMES = {"Smith", "Jones", "Thompson", "Anderson", "Simpson", "Franklin", "Johnson"};
+		public static final String[] GENDERS = {"M","F"};
 	}
 
 }
