@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-console.log('Demo data context javascript.  Returning demo (fake) data for demo purposes.')
+console.log('Local demo data context javascript.  Returning demo (fake) data for demo purposes.')
 
 refreshData = function() {
     demodata = [ {
