@@ -70,7 +70,7 @@
 	</div>
 
 
-	<!--/start-context-script/--><script src="static/context-demo.js"></script><!--/end-context-script/-->
+	<!--/start-context-script/--><script src="static/context-local-demo.js"></script><!--/end-context-script/-->
 	<script src="static/jquery/jquery-3.2.1.min.js"></script>
 	<script src="static/bootstrap/js/bootstrap.min.js"></script>
 	<script src="static/DataTables/DataTables-1.10.15/js/jquery.dataTables.js"></script>

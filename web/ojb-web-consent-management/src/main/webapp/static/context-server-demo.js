@@ -19,6 +19,7 @@ refreshData = function() {
     $.ajax({
 	url : "/ojb-web-consent-management-service/cm-api/search",
 	headers : {
+	    "demodata-ok" : "true"
 	}
     }).done(function(data) {
 	console.log(data)

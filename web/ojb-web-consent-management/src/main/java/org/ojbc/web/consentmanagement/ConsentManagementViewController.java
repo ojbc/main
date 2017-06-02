@@ -17,7 +17,6 @@
 package org.ojbc.web.consentmanagement;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -31,6 +30,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.ServletContextAware;
 
@@ -41,29 +41,30 @@ public class ConsentManagementViewController implements ServletContextAware {
 	
 	private String indexJsp;
 	
-	@RequestMapping("/cm")
-	public ResponseEntity<String> cm(Model model, HttpServletRequest request) {
-		// todo: make sure request has the saml stuff in the header
-		log.info("Request: /cm");
-		return buildPageResponse(model, request, false);
+	@RequestMapping("/{mode:.+}")
+	public ResponseEntity<String> operation(Model model, HttpServletRequest request, @PathVariable String mode) {
+		return buildPageResponse(model, request, mode);
 	}
 
-	@RequestMapping("/cm-demo")
-	public ResponseEntity<String> cm_demo(Model model, HttpServletRequest request) {
-		// todo: make sure request has the saml stuff in the header
-		log.info("Request: /cm-demo");
-		return buildPageResponse(model, request, true);
-	}
-
-	private ResponseEntity<String> buildPageResponse(Model model, HttpServletRequest request, boolean demo) {
+	private ResponseEntity<String> buildPageResponse(Model model, HttpServletRequest request, String mode) {
+		log.info("Building page response, mode=" + mode);
 		String body = indexJsp;
-		if (!demo) {
+		if ("cm".equals(mode)) {
 			log.info("In normal mode, replacing script tag in html to reference context.js");
-			body = body.replaceFirst("(<!--/start-context-script/--><script src=\")(.+)(\"></script><!--/end-context-script/-->)", "$1static/context.js$3");
+			body = replaceJspModeJavascript(body, "context.js");
+		} else if ("cm-demo".equals(mode)) {
+			log.info("In server demo mode, replacing script tag in html to reference context-server-demo.js");
+			body = replaceJspModeJavascript(body, "context-server-demo.js");
 		} else {
-			log.info("In demo mode, skipping script tag replacement, continuing to reference context-demo.js");
+			log.info("In local demo mode, skipping script tag replacement, continuing to reference context-local-demo.js");
 		}
 		return new ResponseEntity<String>(body, HttpStatus.OK);
+	}
+	
+	private String replaceJspModeJavascript(String body, String jsFileName) {
+		return body.replaceFirst(
+				"(<!--/start-context-script/--><script src=\")(.+)(\"></script><!--/end-context-script/-->)",
+				"$1static/" + jsFileName + "$3");
 	}
 
 	@Override
