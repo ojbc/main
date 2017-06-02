@@ -19,5 +19,6 @@
 -->
 <dataset>
   <subscription/>	
-  <subscription_subject_identifier/>	
+  <subscription_subject_identifier/>
+  <subscription_category/>	
 </dataset>

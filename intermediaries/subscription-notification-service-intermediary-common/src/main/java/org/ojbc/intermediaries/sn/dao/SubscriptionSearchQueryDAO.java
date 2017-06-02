@@ -44,9 +44,11 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.ojbc.intermediaries.sn.notification.NotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -374,159 +376,186 @@ public class SubscriptionSearchQueryDAO {
     
     /**
      * Create a subscription (or update an existing one) given the input parameters
-     * @param subscriptionSystemId
-     * @param topic
-     * @param startDateString
-     * @param endDateString
-     * @param subjectIdentifiers
-     * @param emailAddresses
-     * @param offenderName
-     * @param subscribingSystemId
-     * @param subscriptionQualifier
-     * @param reasonCategoryCode
-     * @param subscriptionOwner
+     * @param request
+     * @param creationDateTime
      * @return the ID of the created (or updated) subscription
      */
-    public Number subscribe(String subscriptionSystemId, String topic, String startDateString, String endDateString, Map<String, String> subjectIdentifiers, Map<String, String> subscriptionProperties, Set<String> emailAddresses, String offenderName,
-            String subscribingSystemId, String subscriptionQualifier, String reasonCategoryCode, String subscriptionOwner, String subscriptionOwnerEmailAddress, LocalDate creationDateTime, String agencyCaseNumber) {
+    public Number subscribe(SubscriptionRequest request, LocalDate creationDateTime) {
+    	
+    	log.debug("Entering subscribe method");
+    	log.debug("SubscriptionRequest: " + request);
+    	
+    	Number ret = null;
+    	
+    	Date startDate = getStartDate(request.getStartDateString());
+    	// Many subscription message will not have end dates so we will need to
+    	// allow nulls
+    	Date endDate = getSqlDateFromString(request.getEndDateString());
+    	
+    	java.util.Date creationDate = creationDateTime.toDateTimeAtStartOfDay().toDate();
+    	
+    	
+    	String fullyQualifiedTopic = NotificationBrokerUtils.getFullyQualifiedTopic(request.getTopic());
+    	
+    	List<Subscription> subscriptions = getSubscriptions(request.getSubscriptionSystemId(), 
+    			fullyQualifiedTopic, request.getSubjectIdentifiers(), request.getSystemName(), request.getSubscriptionOwner());
+    	
+    	// No Record exist, insert a new one
+    	if (subscriptions.size() == 0) {
+    		
+    		ret = saveSubscription(request, startDate,
+    				endDate, creationDate, fullyQualifiedTopic);    
+    	}
+    	
+    	// A subscriptions exists, let's update it
+    	if (subscriptions.size() == 1) {
+    		log.debug("Ensure that SIDs match before updating subscription");
+    		log.debug("Updating existing subscription");
+    		log.debug("Updating row in subscription table");
+    		
+    		long subscriptionID = subscriptions.get(0).getId();
+    		
+    		updateSubscription(request.getSubjectName(), request.getSubscriptionOwner(),
+    				request.getSubscriptionOwnerEmailAddress(), startDate, endDate,
+    				creationDate, fullyQualifiedTopic, subscriptionID);
+    		
+    		updateEmailAddresses(new ArrayList<String>(request.getEmailAddresses()), subscriptionID);
+    		
+    		updateSubscriptionProperties(request.getSubscriptionProperties(), subscriptionID);	
+    		
+    		ret = subscriptionID;
+    		
+    	}
+    	
+    	if (ret != null && CIVIL_SUBSCRIPTION_REASON_CODE.equals(request.getReasonCategoryCode())){
+    		subscribeIdentificationTransaction(ret, request.getAgencyCaseNumber(), request.getEndDateString());
+    	}
+    	
+    	return ret;
+    	
+    }
+    
+	private Date getSqlDateFromString(String dateString) {
+		// Create SQL date from the end date string
+		Date endDate = null;
+        if (StringUtils.isNotBlank(dateString)) {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	
+			try {
+			    java.util.Date utilEndDate = formatter.parse(dateString.trim());
+			    endDate = new Date(utilEndDate.getTime());
+			} catch (ParseException e) {
+				throw new RuntimeException(e);
+			}
+        }
+		return endDate;
+	}
 
-        Number ret = null;
-
-        log.debug("Entering subscribe method");
-
-        // Use the current time as the start date
-        Date startDate = null;
-        Date endDate = null;
-
-        // If start date is not provided in the subscription message, use current date
+    /**
+     * If startDateString is blank, use current date
+     * @param startDateString
+     * @return
+     */
+	private Date getStartDate(String startDateString) {
+		Date startDate = null;
         if (StringUtils.isNotBlank(startDateString)) {
-            // Create SQL date from the end date string
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-            try {
-                java.util.Date utilStartDate = formatter.parse(startDateString.trim());
-                startDate = new Date(utilStartDate.getTime());
-            } catch (ParseException e) {
-            	throw new RuntimeException(e);
-            }
+            startDate = getSqlDateFromString(startDateString);
         } else {
             startDate = new Date(System.currentTimeMillis());
         }
+		return startDate;
+	}
 
-        // Many subscription message will not have end dates so we will need to
-        // allow nulls
-        if (StringUtils.isNotBlank(endDateString)) {
-            // Create SQL date from the end date string
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	private void updateSubscription(String offenderName, String subscriptionOwner,
+			String subscriptionOwnerEmailAddress, Date startDate, Date endDate,
+			java.util.Date creationDate, String fullyQualifiedTopic,
+			long subscriptionID) {
+		this.jdbcTemplate.update("update subscription set topic=?, startDate=?, endDate=?, subjectName=?, active=1, subscriptionOwner=?, subscriptionOwnerEmailAddress=?, lastValidationDate=? where id=?", new Object[] {
+		    fullyQualifiedTopic.trim(), startDate, endDate, offenderName.trim(), subscriptionOwner, subscriptionOwnerEmailAddress, creationDate, subscriptionID
+		});
+	}
 
-            try {
-                java.util.Date utilEndDate = formatter.parse(endDateString.trim());
-                endDate = new Date(utilEndDate.getTime());
-            } catch (ParseException e) {
-            	throw new RuntimeException(e);
+	private void updateSubscriptionProperties(Map<String, String> subscriptionProperties,
+			long subscriptionID) {
+		String existingSubscriptionIDString = String.valueOf(subscriptionID);
+		
+		Map<String, String> subscriptionPropertiesFromExistingSubscription = getSubscriptionProperties(existingSubscriptionIDString);
+		
+		if(updateSubscriptionProperties(subscriptionProperties, subscriptionPropertiesFromExistingSubscription))
+		{
+			deleteSubscriptionProperties(existingSubscriptionIDString);
+			
+			saveSubscriptionProperties(subscriptionProperties, subscriptionID); 
+
+		}
+	}
+
+	private void updateEmailAddresses(List<String> emailAddresses, long subscriptionID) {
+        log.debug("Updating row in notification_mechanism table");
+
+        // We will delete all email addresses associated with the subscription and re-add them
+        this.jdbcTemplate.update("delete from notification_mechanism where subscriptionId = ?", subscriptionID);
+
+	    saveEmailAddresses(emailAddresses, subscriptionID);
+	}
+
+	private void saveEmailAddresses(List<String> emailAddresses, long subscriptionID) {
+		this.jdbcTemplate.batchUpdate(
+    		"insert into notification_mechanism (subscriptionId, notificationMechanismType, notificationAddress) values (?,?,?)", 
+    		new BatchPreparedStatementSetter() { public void setValues(PreparedStatement ps, int i)
+                    throws SQLException {
+                ps.setLong(1, subscriptionID);
+                ps.setString(2, NotificationConstants.NOTIFICATION_MECHANISM_EMAIL);
+                ps.setString(3, emailAddresses.get(i));
             }
-        }
-        
-        java.util.Date creationDate = creationDateTime.toDateTimeAtStartOfDay().toDate();
-
-        log.debug("Start Date String: " + startDateString);
-        log.debug("End Date String: " + endDateString);
-        log.debug("System Name: " + subscribingSystemId);
-        log.debug("Subscription System ID: " + subscriptionSystemId);
-        log.debug("Reason Category Code = " + reasonCategoryCode);
-        
-        if(StringUtils.isEmpty(reasonCategoryCode)){
-        	log.warn("Reason Category Code empty, so inserting null into db.");
-        	reasonCategoryCode = null;
-        }
-        
-        String fullyQualifiedTopic = NotificationBrokerUtils.getFullyQualifiedTopic(topic);
-
-        List<Subscription> subscriptions = getSubscriptions(subscriptionSystemId, fullyQualifiedTopic, subjectIdentifiers, subscribingSystemId, subscriptionOwner);
-
-        // No Record exist, insert a new one
-        if (subscriptions.size() == 0) {
-
-            log.debug("No subscriptions exist, inserting new one");
-
-            log.debug("Inserting row into subscription table");
-
-            KeyHolder keyHolder = new GeneratedKeyHolder();
-            this.jdbcTemplate.update(
-                    buildPreparedInsertStatementCreator(
-                            "insert into subscription (topic, startDate, endDate, subscribingSystemIdentifier, subscriptionOwner, subscriptionOwnerEmailAddress, subjectName, active, subscription_category_code, lastValidationDate, agency_case_number) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
-                                fullyQualifiedTopic.trim(), startDate, endDate, subscribingSystemId.trim(), subscriptionOwner, subscriptionOwnerEmailAddress, offenderName.trim(), 1, reasonCategoryCode, creationDate, agencyCaseNumber
-                            }), keyHolder);
-
-            ret = keyHolder.getKey();
-            log.debug("Inserting row into notification_mechanism table");
-
-            for (String emailAddress : emailAddresses) {
-                this.jdbcTemplate.update("insert into notification_mechanism (subscriptionId, notificationMechanismType, notificationAddress) values (?,?,?)", keyHolder.getKey(), NotificationConstants.NOTIFICATION_MECHANISM_EMAIL,
-                        emailAddress);
+	            
+            public int getBatchSize() {
+                return emailAddresses.size();
             }
+        });
+	}
 
-            log.debug("Inserting row(s) into subscription_subject_identifier table");
+	private Number saveSubscription(SubscriptionRequest request, Date startDate, Date endDate,
+			java.util.Date creationDate, String fullyQualifiedTopic) {
+		
+//		private Number saveSubscription(Map<String, String> subjectIdentifiers,
+//				Map<String, String> subscriptionProperties,
+//				Set<String> emailAddresses, String offenderName,
+//				String subscribingSystemId, String reasonCategoryCode,
+//				String subscriptionOwner, String subscriptionOwnerEmailAddress,
+//				String agencyCaseNumber, Date startDate, Date endDate,
+//				java.util.Date creationDate, String fullyQualifiedTopic) {
+			
+		Number ret;
+		
+		log.debug("Inserting row into subscription table");
 
-            for (Map.Entry<String, String> entry : subjectIdentifiers.entrySet()) {
-                this.jdbcTemplate.update("insert into subscription_subject_identifier (subscriptionId, identifierName, identifierValue) values (?,?,?)", keyHolder.getKey(), entry.getKey(),
-                        entry.getValue());
-            }
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		this.jdbcTemplate.update(
+			buildPreparedInsertStatementCreator(
+                "insert into subscription ("
+                + "topic, startDate, endDate, subscribingSystemIdentifier, subscriptionOwner, "
+                + "subscriptionOwnerEmailAddress, subjectName, active, subscription_category_code, "
+                + "lastValidationDate, agency_case_number, ori) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
+                    fullyQualifiedTopic, startDate, endDate, request.getSystemName(), request.getSubscriptionOwner(), 
+                    request.getSubscriptionOwnerEmailAddress(), request.getSubjectName(), 1, request.getReasonCategoryCode(), 
+                    creationDate, request.getAgencyCaseNumber(), request.getOri()
+                }), keyHolder);
 
-            saveSubscriptionProperties(subscriptionProperties, keyHolder.getKey().longValue());    
-        }
+		ret = keyHolder.getKey();
 
-        // A subscriptions exists, let's update it
-        if (subscriptions.size() == 1) {
-            log.debug("Ensure that SIDs match before updating subscription");
+		saveEmailAddresses(new ArrayList<String>(request.getEmailAddresses()), ret.longValue());
+		
+		log.debug("Inserting row(s) into subscription_subject_identifier table");
 
-            log.debug("Updating existing subscription");
-            log.debug("Subject Id Map: " + subjectIdentifiers);
-            log.debug("Email Addresses: " + emailAddresses.toString());
+		for (Map.Entry<String, String> entry : request.getSubjectIdentifiers().entrySet()) {
+		    this.jdbcTemplate.update("insert into subscription_subject_identifier (subscriptionId, identifierName, identifierValue) values (?,?,?)", keyHolder.getKey(), entry.getKey(),
+		            entry.getValue());
+		}
 
-            log.debug("Updating row in subscription table");
-
-            long subscriptionID = subscriptions.get(0).getId();
-            
-            this.jdbcTemplate.update("update subscription set topic=?, startDate=?, endDate=?, subjectName=?, active=1, subscriptionOwner=?, subscriptionOwnerEmailAddress=?, lastValidationDate=? where id=?", new Object[] {
-                fullyQualifiedTopic.trim(), startDate, endDate, offenderName.trim(), subscriptionOwner, subscriptionOwnerEmailAddress, creationDate, subscriptionID
-            });
-
-            log.debug("Updating row in notification_mechanism table");
-
-            // We will delete all email addresses associated with the subscription and re-add them
-            this.jdbcTemplate.update("delete from notification_mechanism where subscriptionId = ?", new Object[] {
-                subscriptionID
-            });
-
-            for (String emailAddress : emailAddresses) {
-                this.jdbcTemplate.update("insert into notification_mechanism (subscriptionId, notificationMechanismType, notificationAddress) values (?,?,?)", subscriptionID, NotificationConstants.NOTIFICATION_MECHANISM_EMAIL,
-                        emailAddress);
-            }
-
-            String existingSubscriptionIDString = String.valueOf(subscriptionID);
-            
-            Map<String, String> subscriptionPropertiesFromExistingSubscription = getSubscriptionProperties(existingSubscriptionIDString);
-            
-            if(updateSubscriptionProperties(subscriptionProperties, subscriptionPropertiesFromExistingSubscription))
-            {
-            	deleteSubscriptionProperties(existingSubscriptionIDString);
-            	
-            	saveSubscriptionProperties(subscriptionProperties, subscriptionID); 
-
-            }	
-            
-            ret = subscriptionID;
-
-        }
-
-        if (ret != null && CIVIL_SUBSCRIPTION_REASON_CODE.equals(reasonCategoryCode)){
-        	subscribeIdentificationTransaction(ret, agencyCaseNumber, endDateString);
-        }
-        
-        return ret;
-
-    }
+		saveSubscriptionProperties(request.getSubscriptionProperties(), keyHolder.getKey().longValue());
+		return ret;
+	}
 
 	public int saveSubscriptionProperties(
 			Map<String, String> subscriptionProperties, long subscriptionID) {

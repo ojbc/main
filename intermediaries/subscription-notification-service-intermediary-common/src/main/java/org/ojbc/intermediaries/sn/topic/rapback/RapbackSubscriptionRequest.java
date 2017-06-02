@@ -31,6 +31,10 @@ import org.w3c.dom.NodeList;
 
 public class RapbackSubscriptionRequest extends SubscriptionRequest {
 
+	public RapbackSubscriptionRequest() {
+		super();
+	}
+	
 	public RapbackSubscriptionRequest(Message message,
 			String allowedEmailAddressPatterns) throws Exception{
 		
@@ -93,7 +97,7 @@ public class RapbackSubscriptionRequest extends SubscriptionRequest {
 		subjectIdentifiers.put(SubscriptionNotificationConstants.FIRST_NAME, firstName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.LAST_NAME, lastName);
 		subjectIdentifiers.put(SubscriptionNotificationConstants.DATE_OF_BIRTH, dateOfBirth);
-		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, subscriptionQualifier);
+		subjectIdentifiers.put(SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, getSubscriptionQualifier());
 		
 		if (StringUtils.isNotEmpty(fbiNumber))
 		{

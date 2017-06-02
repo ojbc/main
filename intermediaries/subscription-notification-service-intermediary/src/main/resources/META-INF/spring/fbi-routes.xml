@@ -135,51 +135,14 @@
 			
 			<log message="\n\n\n direct:processFbiUnsubscription... \n\n\n" loggingLevel="INFO" />	
 			
-			<setHeader headerName="shouldDeleteFbiSubscription">			
-				<simple>bean:fbiSubscriptionProcessor?method=shouldDeleteFbiSubscription</simple>			
-			</setHeader>	
-			
-			<log message="\n\n\n shouldDeleteFbiSubscription = ${header.shouldDeleteFbiSubscription} \n\n\n" loggingLevel="INFO"/>
-			
-			<camel:choice>
-				<camel:when>
-					<simple>${header.shouldDeleteFbiSubscription}</simple>
-					
-					<camel:log message="\n\n\n No more state subscriptions, so - Calling fbi ebts service to unsubscribe from FBI... \n\n\n"/>
+			<camel:log message="\n\n\n Calling fbi ebts service to unsubscribe from FBI... \n\n\n"/>
 																				
-					<to uri="bean:fbiSubscriptionProcessor?method=prepareUnsubscribeMessageForFbiEbts"/>
-						
-					<convertBodyTo type="java.lang.String"/>
-									
-					<camel:to uri="fbiEbtsSubscriptionManagerEndpoint" />														
+			<to uri="bean:fbiSubscriptionProcessor?method=prepareUnsubscribeMessageForFbiEbts"/>
 				
-				</camel:when>	
-				
-				<camel:otherwise>			
-				
-					<log message="\n\n\n NOT DeleteFbiSubscription! (possible State Subscriptions remaining) \n\n\n" loggingLevel="WARN"/>		
+			<convertBodyTo type="java.lang.String"/>
 							
-					<to uri="bean:fbiSubscriptionProcessor?method=determineStateSubsEndDateLessThanFbiSubEndDate"/>
-					
-					<choice>
-						<when>
-							<simple>${header.stateSubsEndDateLessThanFbiSubEndDate}</simple>
-							
-							<log message="\n\n\n stateSubsEndDateLessThanFbiSubEndDate - so preparing maintenance subscription \n\n\n" />
-																																
-							<to uri="bean:fbiSubscriptionProcessor?method=prepareSubscriptionModificationFromUnsubscribe"/>
-																											
-							<to uri="fbiEbtsSubscriptionManagerEndpoint"/>
-						</when>	
-						
-						<camel:otherwise>
-							<log message="\n\n\n !stateSubsEndDateLessThanFbiSubEndDate \n\n\n" />
-						</camel:otherwise>				
-					</choice>
-																				
-				</camel:otherwise>			
-			</camel:choice>			
-			
+			<camel:to uri="fbiEbtsSubscriptionManagerEndpoint" />														
+
 		</camel:route>		
 	</routeContext>
 		

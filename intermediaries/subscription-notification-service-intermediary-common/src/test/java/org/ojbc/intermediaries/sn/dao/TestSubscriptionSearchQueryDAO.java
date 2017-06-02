@@ -44,14 +44,6 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
-import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
-import org.ojbc.intermediaries.sn.notification.NotificationConstants;
-import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
-import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
-import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
-import org.ojbc.intermediaries.sn.topic.rapback.FederalTriggeringEventCode;
-import org.ojbc.util.xml.XmlUtils;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
@@ -80,6 +72,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
+import org.ojbc.intermediaries.sn.notification.NotificationConstants;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
+import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
+import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
+import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationRequest;
+import org.ojbc.intermediaries.sn.topic.rapback.FederalTriggeringEventCode;
+import org.ojbc.intermediaries.sn.topic.rapback.RapbackSubscriptionRequest;
+import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -737,12 +739,10 @@ public class TestSubscriptionSearchQueryDAO {
 			recordCount++;
 		}
 
+		SubscriptionRequest request = buildSubscriptionRequest(subjectIds,
+				subscriptionProperties);
 		LocalDate currentDate = new LocalDate();
-		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic", "2013-01-01", "2013-01-01", subjectIds,subscriptionProperties,
-				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", "ownerEmail@local.gov", currentDate,
-				"0123ABC").intValue();
+		int subscriptionId = subscriptionSearchQueryDAO.subscribe(request, currentDate).intValue();
 
 		rs = s.executeQuery("select * from subscription");
 
@@ -774,6 +774,7 @@ public class TestSubscriptionSearchQueryDAO {
 				assertEquals("0123ABC", rs.getString("agency_case_number"));
 				assertEquals("SYSTEM", rs.getString("subscriptionOwner"));
 				assertEquals("ownerEmail@local.gov", rs.getString("subscriptionOwnerEmailAddress"));
+				assertEquals("1234567890", rs.getString("ori"));
 				
 			}
 		}
@@ -842,6 +843,27 @@ public class TestSubscriptionSearchQueryDAO {
 
 	}
 
+	private SubscriptionRequest buildSubscriptionRequest(Map<String, String> subjectIds,
+			Map<String, String> subscriptionProperties) {
+		SubscriptionRequest request = new RapbackSubscriptionRequest();
+        request.setSubscriptionSystemId(null) ;
+		request.setTopic("topic");
+		request.setStartDateString("2013-01-01");
+		request.setEndDateString("2013-01-01"); 
+		request.setSubjectIdentifiers(subjectIds); 
+		request.setSubscriptionProperties(subscriptionProperties); 
+		request.setEmailAddresses(new HashSet<String>(Arrays.asList("none@none.com")));
+        request.setSubjectName("offenderName"); 
+        request.setSystemName("systemName"); 
+        request.setSubscriptionQualifier("ABCDE"); 
+        request.setReasonCategoryCode("CI");  
+        request.setSubscriptionOwner("SYSTEM"); 
+        request.setSubscriptionOwnerEmailAddress("ownerEmail@local.gov"); 
+        request.setAgencyCaseNumber("0123ABC");
+        request.setOri("1234567890");
+		return request;
+	}
+
 	@Test
 	@DirtiesContext
 	public void testSubscribe_multipleEmails() throws Exception {
@@ -861,10 +883,11 @@ public class TestSubscriptionSearchQueryDAO {
 		Set<String> emailAddyList = new HashSet<String>();
 		emailAddyList.addAll(Arrays.asList("p1@none.com", "p2@none.com"));
 
-		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic", "2013-01-01", "2013-01-01", subjectIds, null, emailAddyList,
-				"offenderName", "systemName", "ABCDE", "CS", "SYSTEM","ownerEmail@local.gov",
-				new LocalDate(), "0123ABC").intValue();
+		SubscriptionRequest request = buildSubscriptionRequest(subjectIds,
+				null);
+		request.setEmailAddresses(emailAddyList);
+		int subscriptionId = subscriptionSearchQueryDAO.subscribe(request,
+				new LocalDate()).intValue();
 
 		rs = s.executeQuery("select * from notification_mechanism where subscriptionid="
 				+ subscriptionId);
@@ -905,10 +928,8 @@ public class TestSubscriptionSearchQueryDAO {
 		LocalDate originalDate = DateTimeFormat.forPattern("yyyy-MM-dd")
 				.parseDateTime("2013-01-01").toLocalDate();
 
-		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic", "2013-01-01", "2013-01-01", subjectIds,null,
-				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", "ownerEmail@local.gov", originalDate, "0123ABC")
+		SubscriptionRequest request = buildSubscriptionRequest(subjectIds, null);
+		int subscriptionId = subscriptionSearchQueryDAO.subscribe(request, originalDate)
 				.intValue();
 
 		rs = s.executeQuery("select * from subscription where id="
@@ -933,12 +954,10 @@ public class TestSubscriptionSearchQueryDAO {
 		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_INDICATOR, "true");
 		subscriptionPropertiesRequest.put(SubscriptionNotificationConstants.FEDERAL_RAP_SHEET_DISCLOSURE_ATTENTION_DESIGNATION_TEXT, "Bill Padmanabhan");
 
+		SubscriptionRequest subRequest = buildSubscriptionRequest(subjectIds, subscriptionPropertiesRequest);
+		subRequest.setEndDateString("2013-01-02");
 		subscriptionId = subscriptionSearchQueryDAO
-				.subscribe(null, "topic", "2013-01-01", "2013-01-02",
-						subjectIds, subscriptionPropertiesRequest,
-						new HashSet<String>(Arrays.asList("none@none.com")),
-						"offenderName", "systemName", "ABCDE", "CI", "SYSTEM", "ownerEmail@local.gov",
-						subsequentDate, "0123ABC").intValue();
+				.subscribe(subRequest, subsequentDate).intValue();
 
 		assertEquals(oldSubscriptionId, subscriptionId); // same id, must have
 															// been an update
@@ -990,10 +1009,11 @@ public class TestSubscriptionSearchQueryDAO {
 		LocalDate originalDate = DateTimeFormat.forPattern("yyyy-MM-dd")
 				.parseDateTime("2013-01-01").toLocalDate();
 
-		int subscriptionId = subscriptionSearchQueryDAO.subscribe(null,
-				"topic1", "2013-01-01", "2013-01-01", subjectIds, null,
-				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", null, "SYSTEM", "ownerEmail@local.gov", originalDate, "0123ABC")
+		SubscriptionRequest subRequest = buildSubscriptionRequest(subjectIds, null);
+		subRequest.setTopic("topic1");
+		subRequest.setReasonCategoryCode(null);
+
+		int subscriptionId = subscriptionSearchQueryDAO.subscribe( subRequest, originalDate)
 				.intValue();
 
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
@@ -1002,12 +1022,11 @@ public class TestSubscriptionSearchQueryDAO {
 
 		LocalDate subsequentDate = new LocalDate();
 
+		subRequest.setTopic("topic2");
+		subRequest.setEndDateString("2013-01-02");
+		subRequest.setReasonCategoryCode(null);
 		int secondSubscriptionId = subscriptionSearchQueryDAO
-				.subscribe(null, "topic2", "2013-01-01", "2013-01-02",
-						subjectIds, null,
-						new HashSet<String>(Arrays.asList("none@none.com")),
-						"offenderName", "systemName", "ABCDE", null, "SYSTEM","ownerEmail@local.gov",
-						subsequentDate, "0123ABC").intValue();
+				.subscribe(subRequest, subsequentDate).intValue();
 
 		assertFalse(secondSubscriptionId == subscriptionId); // because topic1
 																// and topic2
@@ -1112,11 +1131,14 @@ public class TestSubscriptionSearchQueryDAO {
 		int recordCount = rsCountBefore.getInt("count");
 
 		LocalDate currentDate = new LocalDate();
-		subscriptionSearchQueryDAO.subscribe(null,
-				"{http://ojbc.org/wsn/topics}:person/arrest", "2015-11-03", "2016-11-02", subjectIds, null,
-				new HashSet<String>(Arrays.asList("none@none.com")),
-				"offenderName", "systemName", "ABCDE", "I", "SYSTEM", "ownerEmail@local.gov",currentDate,
-				"000001820140729014008339997").intValue();
+		SubscriptionRequest request = buildSubscriptionRequest(subjectIds, null);
+		request.setTopic("{http://ojbc.org/wsn/topics}:person/arrest");
+		request.setStartDateString("2015-11-03");
+		request.setEndDateString("2016-11-02");
+		request.setReasonCategoryCode("I");
+		request.setAgencyCaseNumber("000001820140729014008339997");
+		
+		subscriptionSearchQueryDAO.subscribe(request, currentDate).intValue();
 
 		ResultSet rsCountAfter = s.executeQuery("select count(*) as count from subscription");
 		assertTrue(rsCountAfter.next());

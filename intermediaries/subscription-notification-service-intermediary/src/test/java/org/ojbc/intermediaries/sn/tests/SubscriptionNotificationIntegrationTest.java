@@ -51,6 +51,7 @@ import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationProcessor;
 import org.ojbc.util.model.BooleanPropertyWrapper;
 import org.subethamail.wiser.WiserMessage;
 
+@SuppressWarnings("deprecation")
 public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptionNotificationIntegrationTest {
     
     private static final Log log = LogFactory.getLog(SubscriptionNotificationIntegrationTest.class);

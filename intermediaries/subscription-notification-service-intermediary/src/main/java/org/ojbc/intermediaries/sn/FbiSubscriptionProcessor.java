@@ -162,43 +162,49 @@ public class FbiSubscriptionProcessor {
     }
     
 	
-	public void prepareUnsubscribeMessageForFbiEbts(Exchange exchange) throws Exception{
+	public void prepareUnsubscribeMessageForFbiEbts(@Body Document document) throws Exception{
 				
-		Document unsubscribeDoc = exchange.getIn().getBody(Document.class);
+		String subscriptionId = XmlUtils.xPathStringSearch(document, 
+				"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID");
 				
-		String personFbiUcnId = XmlUtils.xPathStringSearch(unsubscribeDoc, 
-				"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:Subject/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");				
-				
-		if(StringUtils.isEmpty(personFbiUcnId)){
-			
-			personFbiUcnId = lookupFbiUcnId(unsubscribeDoc);	
-			
-			appendFbiUcnIdToUnsubscribeDoc(unsubscribeDoc, personFbiUcnId);			
-		}
-						
-		if(StringUtils.isNotEmpty(personFbiUcnId)){
-			
-			String categoryPurposeReason = XmlUtils.xPathStringSearch(unsubscribeDoc, 
-					"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode");			
-						
-			FbiRapbackSubscription fbiRapbackSubscription = lookupFbiSubscriptionFromRapbackDataStore(personFbiUcnId, categoryPurposeReason);			
-			
-			if(fbiRapbackSubscription != null && StringUtils.isNotEmpty(fbiRapbackSubscription.getFbiSubscriptionId())){
-				
-				String fbiSubId = fbiRapbackSubscription.getFbiSubscriptionId();
-				
-				appendFbiSubscriptionIdToUnsubscribeDoc(unsubscribeDoc, fbiSubId);	
-			}else{				
-				XmlUtils.printNode(unsubscribeDoc);
-				
-				throw new Exception("Was not able to get related fbi data to add to unsubscribe message");
-			}			
-		}else{
-			throw new Exception("Unable to set Unsubscribe FBI fields required to send to FBI EBTS adapter");
-		}			
+//		if(StringUtils.isEmpty(personFbiUcnId)){
+//			
+//			personFbiUcnId = lookupFbiUcnId(unsubscribeDoc);	
+//			
+//			appendFbiUcnIdToUnsubscribeDoc(unsubscribeDoc, personFbiUcnId);			
+//		}
+//						
+//		if(StringUtils.isNotEmpty(personFbiUcnId)){
+//			
+//			String categoryPurposeReason = XmlUtils.xPathStringSearch(unsubscribeDoc, 
+//					"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode");			
+//						
+//			FbiRapbackSubscription fbiRapbackSubscription = lookupFbiSubscriptionFromRapbackDataStore(personFbiUcnId, categoryPurposeReason);			
+//			
+//			if(fbiRapbackSubscription != null && StringUtils.isNotEmpty(fbiRapbackSubscription.getFbiSubscriptionId())){
+//				
+//				String fbiSubId = fbiRapbackSubscription.getFbiSubscriptionId();
+//				
+//				appendFbiSubscriptionIdToUnsubscribeDoc(unsubscribeDoc, fbiSubId);	
+//			}else{				
+//				XmlUtils.printNode(unsubscribeDoc);
+//				
+//				throw new Exception("Was not able to get related fbi data to add to unsubscribe message");
+//			}			
+//		}else{
+//			throw new Exception("Unable to set Unsubscribe FBI fields required to send to FBI EBTS adapter");
+//		}			
 	}
 	
 
+	/**
+	 * @deprecated
+	 * It is not needed any more since now the state subscription has a one to up-to-one relationship to FBI subscription. 
+	 * Will confirm and remove the method once the 6.0 tasks are done.  -hw 
+	 * @param exchange
+	 * @return
+	 * @throws Exception
+	 */
 	public boolean shouldDeleteFbiSubscription(Exchange exchange) throws Exception{
 		
 		logger.info("\n\n\n Process Unsubscribe... \n\n\n");
@@ -560,20 +566,18 @@ public class FbiSubscriptionProcessor {
 	}
 
 	public Boolean routeToProcessFbiUnsubscribeRoute(@Body Document document) throws Exception{
+		Boolean hasFbiSubscription = false; 
 		
 		if (BooleanUtils.isTrue(fbiSubscriptionMember)){
 			String subscriptionIdString = XmlUtils.xPathStringSearch(document, 
 					"//unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID");
 			
 			if (StringUtils.isNotBlank(subscriptionIdString)){
-				Boolean fbiSubscriptionQualification = rapbackDao.getfbiSubscriptionQualification(new Integer(subscriptionIdString));
-				if (BooleanUtils.isTrue(fbiSubscriptionQualification)){
-					return true;
-				}
+				hasFbiSubscription = rapbackDao.hasFbiSubscription(new Integer(subscriptionIdString));
 			}
 		}
 		
-		return false;
+		return hasFbiSubscription;
 	}
 	
 	public Boolean routeToProcessFbiSubscriptionRoute(@Body Document document) throws Exception{
