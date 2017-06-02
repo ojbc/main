@@ -69,8 +69,8 @@ import org.springframework.web.client.RestTemplate;
 public class TestConsentRestImpl {
 	
 	private static final String URI_BASE = "https://localhost:9898/consentService/";
-	private static final String CONSENT_UPDATE_URI = URI_BASE + "consent";
-	private static final String CONSENT_SEARCH_URI = URI_BASE + "search";
+	private static final String CONSENT_UPDATE_URI = URI_BASE + "recordConsentDecision";
+	private static final String CONSENT_SEARCH_URI = URI_BASE + "findPendingInmates";
 
 	private Logger log = Logger.getLogger(TestConsentRestImpl.class.getName());
 	
@@ -182,7 +182,7 @@ public class TestConsentRestImpl {
 
 	}
 
-	@Test
+	@Test(expected=Exception.class)
 	public void testConsent() throws Exception
 	{
 		
@@ -200,6 +200,8 @@ public class TestConsentRestImpl {
 		assertConsentUpdatedPropertiesSame(consent1, updatedConsent);
 		assertNotNull(updatedConsent.getConsentDecisionTimestamp());
 		
+		//If we try to consent the same record twice, an exception is thrown
+		restTemplate.postForLocation(CONSENT_UPDATE_URI, consent1);
 	}
 	
 	@Test

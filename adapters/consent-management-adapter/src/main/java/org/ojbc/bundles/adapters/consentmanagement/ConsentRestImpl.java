@@ -67,6 +67,13 @@ public class ConsentRestImpl implements ConsentInterface {
 		
 		LocalDateTime consentDecisionTimestamp = consent.getConsentDecisionTimestamp();
 		
+		Consent consentInDatabase = consentManagementDAOImpl.returnConsentRecordfromId(consentDecisionID);
+		
+		if (consentInDatabase.getConsentDecisionTimestamp() != null)
+		{
+			throw new Exception("Consent inforamtion already provided for this record.");
+		}	
+		
 		if (consentDecisionTimestamp == null)
 		{
 			consentDecisionTimestamp = LocalDateTime.now();
