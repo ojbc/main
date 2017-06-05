@@ -55,7 +55,7 @@
             uri="cxf:bean:identificationReportingResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationReportingService.cxflogging}" />
         
         <camel:endpoint id="identificationReportingResponseRecipientEndpoint"
-            uri="cxf:bean:identificationReportingResponseRecipient?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationReportingService.cxflogging}" />
+            uri="cxf:bean:identificationReportingResponseRecipient?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationReportingService.cxflogging}&amp;synchronous=true" />
         
         <camel:endpoint id="arrestReportingServiceEndpoint" 
 			uri="cxf:bean:arrestReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${identificationReportingService.cxflogging}" />
@@ -117,7 +117,7 @@
         </camel:route>
         
         <!-- Identification Reporting Service Handler -->
-        <camel:route id="identificationReportingResponseHandlerRoute">
+        <camel:route id="identificationReportingResponseHandlerRoute" errorHandlerRef="identifcationReportResponseErrorHandler">
         
             <camel:from uri="identificationReportingResponseServiceEndpoint" />        
         
@@ -133,8 +133,10 @@
             </camel:setHeader>
             
             <camel:log message="About to send identification recording response message to {{identificationReportingService.responseRecipientServiceEndpoint}}" />			
+            <camel:log message="About to send identification recording response message: ${body}" />			
             
             <camel:to uri="identificationReportingResponseRecipientEndpoint" />
+            <log message="Called {{identificationReportingService.responseRecipientServiceEndpoint}}" />
             
         </camel:route>
         
