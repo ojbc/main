@@ -12,7 +12,7 @@
  *
  * http://opensource.org/licenses/RPL-1.5
  *
- * Copyright 2012-2015 Open Justice Broker Consortium
+ * Copyright 2012-2017 Open Justice Broker Consortium
  */
 package org.ojbc.bundles.adapters.consentmanagement;
 
@@ -66,6 +66,13 @@ public class ConsentRestImpl implements ConsentInterface {
 		}	
 		
 		LocalDateTime consentDecisionTimestamp = consent.getConsentDecisionTimestamp();
+		
+		Consent consentInDatabase = consentManagementDAOImpl.returnConsentRecordfromId(consentDecisionID);
+		
+		if (consentInDatabase.getConsentDecisionTimestamp() != null)
+		{
+			throw new Exception("Consent inforamtion already provided for this record.");
+		}	
 		
 		if (consentDecisionTimestamp == null)
 		{

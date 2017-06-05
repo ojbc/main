@@ -13,7 +13,7 @@
 
     http://opensource.org/licenses/RPL-1.5
 
-    Copyright 2012-2015 Open Justice Broker Consortium
+    Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
 <ulexsr:doStructuredSearchRequest xmlns:em="http://niem.gov/niem/domains/emergencyManagement/2.0" xmlns:im="http://niem.gov/niem/domains/immigration/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:lexs="http://lexs.gov/lexs/4.0" xmlns:lexsdigest="http://lexs.gov/digest/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0" xmlns:psr-ext="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:scr="http://niem.gov/niem/domains/screening/2.0" xmlns:ulex="http://ulex.gov/ulex/2.0" xmlns:ulexcodes="http://ulex.gov/codes/2.0" xmlns:ulexlib="http://ulex.gov/library/2.0" xmlns:ulexsr="http://ulex.gov/searchretrieve/2.0" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">

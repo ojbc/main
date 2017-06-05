@@ -13,7 +13,7 @@
 
     http://opensource.org/licenses/RPL-1.5
 
-    Copyright 2012-2015 Open Justice Broker Consortium
+    Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
 <ac-doc:AccessControlResponse xmlns:ac-doc="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0" xmlns:acr-srm="http://ojbc.org/IEPD/Extensions/AccessControlResultsMetadata/1.0" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" xmlns:acrer="http://ojbc.org/IEPD/Extensions/AccessControlRequestErrorReporting/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/AccessControlResponse/1.0 ../xsd/exchange_schema.xsd"><acr-srm:AccessControlResultsMetadata><acrer:AccessControlRequestError><acrer:ErrorText>Login Error:  One or more required user attributes are missing or not valid</acrer:ErrorText><nc30:SystemName>Policy Acknowledgement Service Intermediary</nc30:SystemName></acrer:AccessControlRequestError></acr-srm:AccessControlResultsMetadata></ac-doc:AccessControlResponse>

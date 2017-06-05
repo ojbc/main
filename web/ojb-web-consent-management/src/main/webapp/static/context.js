@@ -12,31 +12,16 @@
  *
  * http://opensource.org/licenses/RPL-1.5
  *
- * Copyright 2012-2015 Open Justice Broker Consortium
+ * Copyright 2012-2017 Open Justice Broker Consortium
  */
 
-console.log('in the main context.js')
-
 refreshData = function() {
-    console.log('Still in demo mode, even in main context, pending ajax implementation...')
-    demodata = [ {
-	"consentId" : 1,
-	"bookingNumber" : "B1234",
-	"nameNumber" : "N1234",
-	"personFirstName" : "TestFirst",
-	"personMiddleName" : "TestMiddle",
-	"personLastName" : "TestLast",
-	"personGender" : "F",
-	"personDOBString" : "1975-02-01"
-    }, {
-	"consentId" : 2,
-	"bookingNumber" : "B2345",
-	"nameNumber" : "N234",
-	"personFirstName" : "TestFirst1",
-	"personMiddleName" : "TestMiddle1",
-	"personLastName" : "TestLast1",
-	"personGender" : "M",
-	"personDOBString" : "1974-03-01"
-    } ];
-    $('#inmate-table').DataTable().rows.add(demodata).draw()
+    $.ajax({
+	url : "/ojb-web-consent-management-service/cm-api/search",
+	headers : {
+	}
+    }).done(function(data) {
+	console.log(data)
+	$('#inmate-table').DataTable().rows.add(data).draw()
+    });
 }
