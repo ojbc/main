@@ -31,22 +31,19 @@
 	<!-- Assumes to be string: yyyy-MM-dd -->
 	<xsl:param name="rapBackTransactionDate" />
 	<!-- RBNF (2.2062) -->
-	<xsl:param name="rapBackNotificatonFormat"
-		select="/*/*/submsg-ext:RapBackActivityNotificationFormatCode" />
+	<xsl:param name="rapBackNotificatonFormat" />
 	<!-- RBC 2.2065 -->
 	<xsl:param name="recordRapBackCategoryCode" />
 	<!-- xsl:param name="rapBackDisclosureIndicator"/ -->
 	<!-- RBOO (2.2063) -->
-	<xsl:param name="rapBackInStateOptOutIndicator"
-		select="/*/*/submsg-ext:RapBackInStateOptOutIndicator" />
+	<xsl:param name="rapBackInStateOptOutIndicator" />
 	<!-- This field corresponds to RBT 2.2040 and specifies which Events will 
 		result in notifications sent to the subscriber -->
 	<!-- >xsl:param name="rapBackTriggeringEvent" / -->
 	<!-- DAI 1.007 -->
 	<xsl:param name="destinationOrganizationORI" />
 	<!-- ORI 1.007 -->
-	<xsl:param name="originatorOrganizationORI"
-		select="/*/*/submsg-ext:SubscribingOrganization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc20:IdentificationID" />
+	<xsl:param name="originatorOrganizationORI" />
 	<!-- TCN 1.009 -->
 	<xsl:param name="controlID" />
 	<!-- DOM 1.013 -->
@@ -61,7 +58,7 @@
 	<!-- xsl:param name="rapBackRecipient"/ -->
 	<!-- CRI 2.073 -->
 	<xsl:param name="controllingAgencyID"
-		select="/*/*/submsg-ext:RecordControllingOrganization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc20:IdentificationID" />
+		select="/*/*/submsg-ext:SubscribingOrganization/j:OrganizationAugmentation/j:OrganizationORIIdentification/nc20:IdentificationID" />
 	<!-- OCA 2.009 -->
 	<!-- xsl:param name="originatingAgencyCaseNumber"/ -->
 	<!-- Native Scanning Resolution (NSR 1.011) -->
@@ -74,45 +71,27 @@
 	<xsl:param name="transactionContentSummaryContentRecordCountCivil" />
 	<xsl:param name="civilRapBackSubscriptionTerm" />
 	<!-- TODO: These are pending feedback from HCJDC and FBI -->
-	<xsl:param name="fingerprintImage">
-		XXX
-	</xsl:param>
-	<xsl:param name="captureResolutionCode">
-		1
-	</xsl:param>
-	<xsl:param name="imageCompressionAlgorithmCode">
-		2
-	</xsl:param>
-	<xsl:param name="imageHorizontalLineLengthPixelQuantity">
-		80
-	</xsl:param>
-	<xsl:param name="imageVertialLineLengthPixelQuantity">
-		65
-	</xsl:param>
-	<xsl:param name="fingerPositionCode">
-		2
-	</xsl:param>
-	<xsl:param name="fingerprintImageImpressionCaptureCategoryCode">
-		3
-	</xsl:param>
+	<xsl:param name="fingerprintImage">XXX</xsl:param>
+	<xsl:param name="captureResolutionCode">1</xsl:param>
+	<xsl:param name="imageCompressionAlgorithmCode">2</xsl:param>
+	<xsl:param name="imageHorizontalLineLengthPixelQuantity">80</xsl:param>
+	<xsl:param name="imageVertialLineLengthPixelQuantity">65</xsl:param>
+	<xsl:param name="fingerPositionCode">2</xsl:param>
+	<xsl:param name="fingerprintImageImpressionCaptureCategoryCode">3</xsl:param>
 	<xsl:template match="/">
 		<xsl:apply-templates select="b-2:Subscribe" />
 		<xsl:apply-templates select="b-2:Unsubscribe" />
 		<xsl:apply-templates select="b-2:Modify" />
 	</xsl:template>
 	<xsl:template match="b-2:Subscribe">
-		<xsl:variable name="action">
-			newSubscription
-		</xsl:variable>
+		<xsl:variable name="action">newSubscription</xsl:variable>
 		<xsl:variable name="subscriptionCategory">
 			<xsl:choose>
 				<xsl:when
-					test="submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode">
-					civil
+					test="submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode">civil
 				</xsl:when>
 				<xsl:when
-					test="submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode">
-					criminal
+					test="submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode">criminal
 				</xsl:when>
 			</xsl:choose>
 		</xsl:variable>
@@ -122,17 +101,13 @@
 		</xsl:apply-templates>
 	</xsl:template>
 	<xsl:template match="b-2:Unsubscribe">
-		<xsl:variable name="action">
-			cancelSubscription
-		</xsl:variable>
+		<xsl:variable name="action">cancelSubscription</xsl:variable>
 		<xsl:apply-templates select="unsubmsg-doc:UnsubscriptionMessage">
 			<xsl:with-param name="action" select="$action" />
 		</xsl:apply-templates>
 	</xsl:template>
 	<xsl:template match="b-2:Modify">
-		<xsl:variable name="action">
-			modifySubscription
-		</xsl:variable>
+		<xsl:variable name="action">modifySubscription</xsl:variable>
 		<xsl:apply-templates select="smm:SubscriptionModificationMessage">
 			<xsl:with-param name="action" select="$action" />
 		</xsl:apply-templates>
@@ -254,12 +229,10 @@
 						<ebts:TransactionCategoryCode>RBMNT</ebts:TransactionCategoryCode>
 					</xsl:when>
 					<xsl:when test="$subscriptionCategory = 'civil'">
-						<ebts:TransactionCategoryCode>RBSCVL
-						</ebts:TransactionCategoryCode>
+						<ebts:TransactionCategoryCode>RBSCVL</ebts:TransactionCategoryCode>
 					</xsl:when>
 					<xsl:when test="$subscriptionCategory = 'criminal'">
-						<ebts:TransactionCategoryCode>RBSCRM
-						</ebts:TransactionCategoryCode>
+						<ebts:TransactionCategoryCode>RBSCRM</ebts:TransactionCategoryCode>
 					</xsl:when>
 				</xsl:choose>
 				<xsl:call-template name="buildTransactionContentSummary">
@@ -304,7 +277,7 @@
 						<!-- RBDI 2.2067, Optional -->
 						<ebts:RecordRapBackDisclosureIndicator>
 							<xsl:value-of
-								select="submsg-ext:FederalRapSheetDisclosure/submsg-ext:FederalRapSheetDisclosureIndicator" />
+								select="/*/*/submsg-ext:FederalRapSheetDisclosure/submsg-ext:FederalRapSheetDisclosureIndicator" />
 						</ebts:RecordRapBackDisclosureIndicator>
 						<!-- RBXD 2.2015 -->
 						<xsl:choose>
@@ -353,8 +326,7 @@
 						<xsl:choose>
 							<!-- This indicates that the maintenance is a "replace" -->
 							<xsl:when test="$action = 'modifySubscription'">
-								<ebts:TransactionRapBackMaintenanceCode>R
-								</ebts:TransactionRapBackMaintenanceCode>
+								<ebts:TransactionRapBackMaintenanceCode>R</ebts:TransactionRapBackMaintenanceCode>
 							</xsl:when>
 							<xsl:when test="$action = 'cancelSubscription'">
 								<ebts:TransactionRapBackMaintenanceCode>C
@@ -370,7 +342,7 @@
 							<xsl:when test="$action = 'newSubscription'">
 								<nc20:CaseTrackingID>
 									<xsl:value-of
-										select="nc20:Case/nc20:ActivityIdentification/nc20:IdentificationID" />
+										select="/*/*/submsg-ext:SubscriptionRelatedCaseIdentification/nc20:IdentificationID" />
 								</nc20:CaseTrackingID>
 							</xsl:when>
 						</xsl:choose>
