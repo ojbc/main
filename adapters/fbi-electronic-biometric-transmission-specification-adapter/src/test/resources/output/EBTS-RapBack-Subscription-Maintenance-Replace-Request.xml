@@ -23,7 +23,7 @@
                                              xmlns:itl="http://biometrics.nist.gov/standard/2011"
                                              xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
                                              xmlns:j="http://niem.gov/niem/domains/jxdm/4.1">
-   <itl:PackageInformationRecord>
+      <itl:PackageInformationRecord>
       <ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
       <ansi-nist:Transaction>
          <ansi-nist:TransactionDate>
@@ -36,7 +36,7 @@
          </ansi-nist:TransactionDestinationOrganization>
          <ansi-nist:TransactionOriginatingOrganization>
             <nc20:OrganizationIdentification>
-               <nc20:IdentificationID>2345576</nc20:IdentificationID>
+               <nc20:IdentificationID/>
             </nc20:OrganizationIdentification>
          </ansi-nist:TransactionOriginatingOrganization>
          <ansi-nist:TransactionControlIdentification>
@@ -54,6 +54,7 @@
          </ansi-nist:TransactionImageResolutionDetails>
          <ansi-nist:TransactionMajorVersionValue/>
          <ansi-nist:TransactionMinorVersionValue/>
+         <ebts:TransactionCategoryCode>RBMNT</ebts:TransactionCategoryCode>
          <ansi-nist:TransactionContentSummary>
             <ansi-nist:ContentFirstRecordCategoryCode/>
             <ansi-nist:ContentRecordQuantity>
@@ -76,16 +77,21 @@
       <itl:UserDefinedDescriptiveDetail>
          <ebts:DomainDefinedDescriptiveFields>
             <ebts:RecordRapBackData>
-               <ebts:RecordRapBackActivityNotificationFormatCode>2</ebts:RecordRapBackActivityNotificationFormatCode>
+               <ebts:RecordRapBackActivityNotificationFormatCode/>
                <ebts:RecordRapBackDisclosureIndicator>true
 			</ebts:RecordRapBackDisclosureIndicator>
-               <ebts:RecordRapBackInStateOptOutIndicator>false</ebts:RecordRapBackInStateOptOutIndicator>
+               <ebts:RecordRapBackExpirationDate>
+                  <nc20:Date>2015-04-01</nc20:Date>
+               </ebts:RecordRapBackExpirationDate>
+               <ebts:RecordRapBackInStateOptOutIndicator/>
+               <ebts:RecordRapBackSubscriptionID>1234567</ebts:RecordRapBackSubscriptionID>
                <ebts:RecordRapBackTriggeringEventCode>2</ebts:RecordRapBackTriggeringEventCode>
                <ebts:RecordRapBackUserDefinedElement>
                   <ebts:UserDefinedElementName>State Fingerprint ID
 			</ebts:UserDefinedElementName>
                   <ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
                </ebts:RecordRapBackUserDefinedElement>
+               <ebts:TransactionRapBackMaintenanceCode>R</ebts:TransactionRapBackMaintenanceCode>
             </ebts:RecordRapBackData>
             <ebts:RecordTransactionActivity>
                <ebts:RecordControllingAgency>

@@ -34,22 +34,16 @@
 	</b-2:Filter>
 	<b-2:SubscriptionPolicy />
 	<submsg-doc:SubscriptionMessage>
-		<submsg-ext:SubscribingOrganization>
+		<submsg-ext:SubscriptionRelatedCaseIdentification>
+		<nc20:IdentificationID>0123ABC</nc20:IdentificationID>
+	</submsg-ext:SubscriptionRelatedCaseIdentification>
+	<submsg-ext:SubscribingOrganization>
 			<j:OrganizationAugmentation>
 				<j:OrganizationORIIdentification>
 					<nc20:IdentificationID>2345576</nc20:IdentificationID>
 				</j:OrganizationORIIdentification>
 			</j:OrganizationAugmentation>
 		</submsg-ext:SubscribingOrganization>
-		<submsg-ext:RecordControllingOrganization>
-			<j:OrganizationAugmentation>
-				<j:OrganizationORIIdentification>
-					<nc20:IdentificationID>157848</nc20:IdentificationID>
-				</j:OrganizationORIIdentification>
-			</j:OrganizationAugmentation>
-		</submsg-ext:RecordControllingOrganization>
-		<submsg-ext:RapBackActivityNotificationFormatCode>2</submsg-ext:RapBackActivityNotificationFormatCode>
-		<submsg-ext:RapBackInStateOptOutIndicator>false</submsg-ext:RapBackInStateOptOutIndicator>
 		<submsg-ext:Subject>
 			<nc20:PersonBirthDate>
 				<nc20:Date>1972-08-02</nc20:Date>
@@ -71,25 +65,11 @@
 		<nc20:ContactEmailID>testimap@locahost</nc20:ContactEmailID>
 		<nc20:ContactEmailID>email@local.gov</nc20:ContactEmailID>
 		<submsg-ext:SystemName>portal</submsg-ext:SystemName>
-		<nc20:Case>
-			<nc20:ActivityIdentification>
-				<nc20:IdentificationID>TID123456</nc20:IdentificationID>
-			</nc20:ActivityIdentification>
-		</nc20:Case>
 		<submsg-ext:SubscriptionQualifierIdentification>
 			<nc20:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7
 			</nc20:IdentificationID>
 		</submsg-ext:SubscriptionQualifierIdentification>
-		<nc20:DateRange>
-			<nc20:StartDate>
-				<nc20:Date>2014-06-20</nc20:Date>
-			</nc20:StartDate>
-			<nc20:EndDate>
-				<nc20:Date>2015-06-20</nc20:Date>
-			</nc20:EndDate>
-		</nc20:DateRange>
-		<submsg-ext:CriminalSubscriptionReasonCode>CI
-		</submsg-ext:CriminalSubscriptionReasonCode>
+		<submsg-ext:CriminalSubscriptionReasonCode>CI</submsg-ext:CriminalSubscriptionReasonCode>
 		<submsg-ext:TriggeringEvents>
 			<submsg-ext:FederalTriggeringEventCode>DISPOSITION</submsg-ext:FederalTriggeringEventCode>
 		</submsg-ext:TriggeringEvents>

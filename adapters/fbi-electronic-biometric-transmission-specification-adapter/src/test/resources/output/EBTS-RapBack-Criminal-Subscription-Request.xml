@@ -17,13 +17,11 @@
     Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
-<itl:NISTBiometricInformationExchangePackage xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                                             xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
-                                             xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
-                                             xmlns:itl="http://biometrics.nist.gov/standard/2011"
-                                             xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
-                                             xmlns:j="http://niem.gov/niem/domains/jxdm/4.1">
-   <itl:PackageInformationRecord>
+<itl:NISTBiometricInformationExchangePackage
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
+	xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0" xmlns:itl="http://biometrics.nist.gov/standard/2011"
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1">
+	 <itl:PackageInformationRecord>
       <ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
       <ansi-nist:Transaction>
          <ansi-nist:TransactionDate>
@@ -36,7 +34,7 @@
          </ansi-nist:TransactionDestinationOrganization>
          <ansi-nist:TransactionOriginatingOrganization>
             <nc20:OrganizationIdentification>
-               <nc20:IdentificationID>2345576</nc20:IdentificationID>
+               <nc20:IdentificationID/>
             </nc20:OrganizationIdentification>
          </ansi-nist:TransactionOriginatingOrganization>
          <ansi-nist:TransactionControlIdentification>
@@ -75,11 +73,13 @@
       </ansi-nist:ImageReferenceIdentification>
       <itl:UserDefinedDescriptiveDetail>
          <ebts:DomainDefinedDescriptiveFields>
+            <ansi-nist:RecordRapSheetRequestIndicator/>
             <ebts:RecordRapBackData>
-               <ebts:RecordRapBackActivityNotificationFormatCode>2</ebts:RecordRapBackActivityNotificationFormatCode>
+               <ebts:RecordRapBackActivityNotificationFormatCode/>
+               <ebts:RecordRapBackCategoryCode>CI</ebts:RecordRapBackCategoryCode>
                <ebts:RecordRapBackDisclosureIndicator>true
 			</ebts:RecordRapBackDisclosureIndicator>
-               <ebts:RecordRapBackInStateOptOutIndicator>false</ebts:RecordRapBackInStateOptOutIndicator>
+               <ebts:RecordRapBackInStateOptOutIndicator/>
                <ebts:RecordRapBackTriggeringEventCode>2</ebts:RecordRapBackTriggeringEventCode>
                <ebts:RecordRapBackUserDefinedElement>
                   <ebts:UserDefinedElementName>State Fingerprint ID
@@ -88,9 +88,10 @@
                </ebts:RecordRapBackUserDefinedElement>
             </ebts:RecordRapBackData>
             <ebts:RecordTransactionActivity>
+               <nc20:CaseTrackingID>0123ABC</nc20:CaseTrackingID>
                <ebts:RecordControllingAgency>
                   <nc20:OrganizationIdentification>
-                     <nc20:IdentificationID>157848</nc20:IdentificationID>
+                     <nc20:IdentificationID>2345576</nc20:IdentificationID>
                   </nc20:OrganizationIdentification>
                </ebts:RecordControllingAgency>
             </ebts:RecordTransactionActivity>
