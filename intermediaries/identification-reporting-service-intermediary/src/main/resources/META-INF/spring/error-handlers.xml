@@ -38,4 +38,11 @@
 	    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
 	</camel:errorHandler>
 
+	<camel:errorHandler id="identifcationReportResponseErrorHandler" type="DeadLetterChannel" deadLetterUri="deadLetterDirIdentifcationRecordingResponse">
+	    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true"/>
+	</camel:errorHandler>
+	<camel:endpoint id="deadLetterDirIdentifcationRecordingResponse"
+		uri="file:///${identificationReportingService.intermediaryFailed}/deadLetter/identificationResponse?idempotent=true&amp;moveFailed=error&amp;move=processed/" />
+
+
 </beans>
