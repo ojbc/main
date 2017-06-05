@@ -109,3 +109,15 @@ updateUIState = function() {
     val = (rowSelected && dcnValue != '' && decisionValue != null);
     $("#consent-save-button").prop('disabled', !val);
 }
+
+refreshDataViaAjax = function(demodataOK) {
+    $.ajax({
+	url : "/ojb-web-consent-management-service/cm-api/findPendingInmates",
+	headers : {
+	    "demodata-ok" : demodataOK
+	}
+    }).done(function(data) {
+	console.log(data)
+	$('#inmate-table').DataTable().clear().rows.add(data).draw()
+    });
+}
