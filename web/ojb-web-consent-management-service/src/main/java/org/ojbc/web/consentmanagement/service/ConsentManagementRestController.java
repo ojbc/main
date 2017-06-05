@@ -16,7 +16,9 @@
  */
 package org.ojbc.web.consentmanagement.service;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,8 +39,8 @@ public class ConsentManagementRestController {
 	public static final String DEMODATA_HEADER_NAME = "demodata-ok";
 	
 
-	@RequestMapping(value="/cm-api/search", method=RequestMethod.GET, produces="application/json")
-	public String search(HttpServletRequest request) throws IOException {
+	@RequestMapping(value="/cm-api/findPendingInmates", method=RequestMethod.GET, produces="application/json")
+	public String findPendingInmates(HttpServletRequest request) throws IOException {
 		
 		String ret = null;
 		
@@ -57,6 +59,35 @@ public class ConsentManagementRestController {
 		}
 		
 		return ret;
+		
+	}
+	
+	@RequestMapping(value="/cm-api/recordConsentDecision", method=RequestMethod.POST, consumes="application/json")
+	public void recordConsentDecision(HttpServletRequest request) throws IOException {
+		
+		Map<String, String> samlHeaderInfo = getSamlHeaderInfo(request.getHeader(SAML_HEADER_NAME));
+		String demodataHeaderValue = request.getHeader(DEMODATA_HEADER_NAME);
+		
+		StringBuffer bodyBuf = new StringBuffer(1024);
+		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+		String line = null;
+		
+		while ((line = br.readLine()) != null) {
+			bodyBuf.append(line).append("\n");
+		}
+		
+		String body = bodyBuf.toString();
+		
+		if (!samlHeaderInfo.isEmpty()) {
+			
+			// todo: hit adapter
+			
+		} else if ("true".equals(demodataHeaderValue)) {
+			DemoConsentServiceImpl.getInstance().removeRecord(body);
+		} else {
+			// error?
+			log.error("No SAML assertion in request, and not allowing demo data to be returned");
+		}
 		
 	}
 	

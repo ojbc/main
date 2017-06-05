@@ -16,13 +16,5 @@
  */
 
 refreshData = function() {
-    $.ajax({
-	url : "/ojb-web-consent-management-service/cm-api/search",
-	headers : {
-	    "demodata-ok" : "true"
-	}
-    }).done(function(data) {
-	console.log(data)
-	$('#inmate-table').DataTable().clear().rows.add(data).draw()
-    });
+    refreshDataViaAjax("true")
 }
