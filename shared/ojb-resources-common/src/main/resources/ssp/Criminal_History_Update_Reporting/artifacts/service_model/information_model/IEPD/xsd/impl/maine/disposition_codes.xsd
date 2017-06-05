@@ -14,7 +14,7 @@
 
     http://opensource.org/licenses/RPL-1.5
 
-    Copyright 2012-2015 Open Justice Broker Consortium
+    Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
 <xsd:schema xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:i="http://release.niem.gov/niem/appinfo/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:cdr-report-ext="http://ojbc.org/IEPD/Extension/CourtDispositionRecordingReport/1.0" xmlns:me_disp_codes="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/Maine/DispositionCodes/1.0" version="1.0">
