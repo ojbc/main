@@ -25,6 +25,7 @@
 <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="static/DataTables/DataTables-1.10.15/css/dataTables.bootstrap.css" rel="stylesheet">
 <link href="static/DataTables/Select-1.2.2/css/select.bootstrap.css" rel="stylesheet">
+<link href="static/DataTables/Buttons-1.3.1/css/buttons.dataTables.min.css" rel="stylesheet">
 <link href="static/ConsentManagementForm.css" rel="stylesheet">
 </head>
 
@@ -60,7 +61,7 @@
 							<label> <input type="radio" name="decision" id="decisionDenied" value="Denied">Denied</label>
 						</div>
 					</div>
-					<button type="submit" class="btn btn-default">Save</button>
+					<button type="button" class="btn btn-default" id="consent-save-button">Save</button>
 				</form>
 				
 			</div>
@@ -76,6 +77,7 @@
 	<script src="static/DataTables/DataTables-1.10.15/js/jquery.dataTables.js"></script>
 	<script src="static/DataTables/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
 	<script src="static/DataTables/Select-1.2.2/js/dataTables.select.js"></script>
+	<script src="static/DataTables/Buttons-1.3.1/js/dataTables.buttons.min.js"></script>
 	<script src="static/ConsentManagementForm.js"></script>
 	
 </body>
