@@ -22,6 +22,6 @@ refreshData = function() {
 	}
     }).done(function(data) {
 	console.log(data)
-	$('#inmate-table').DataTable().rows.add(data).draw()
+	$('#inmate-table').DataTable().clear().rows.add(data).draw()
     });
 }

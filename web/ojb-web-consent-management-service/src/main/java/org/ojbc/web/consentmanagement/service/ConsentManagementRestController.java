@@ -16,14 +16,10 @@
  */
 package org.ojbc.web.consentmanagement.service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -39,6 +35,7 @@ public class ConsentManagementRestController {
 	
 	private static final String SAML_HEADER_NAME = "saml";
 	public static final String DEMODATA_HEADER_NAME = "demodata-ok";
+	
 
 	@RequestMapping(value="/cm-api/search", method=RequestMethod.GET, produces="application/json")
 	public String search(HttpServletRequest request) throws IOException {
@@ -53,19 +50,7 @@ public class ConsentManagementRestController {
 			// todo: hit adapter
 			
 		} else if ("true".equals(demodataHeaderValue)) {
-			
-			ServletContext context = request.getServletContext();
-			InputStream resourceContent = context.getResourceAsStream("/WEB-INF/demodata.json");
-			BufferedReader br = new BufferedReader(new InputStreamReader(resourceContent));
-			StringBuffer sb = new StringBuffer(1024);
-			String line = null;
-			while ((line = br.readLine()) != null) {
-				sb.append(line);
-			}
-			br.close();
-			ret = sb.toString();
-			
-			
+			ret = DemoConsentServiceImpl.getInstance().getDemoConsentRecords();
 		} else {
 			// error?
 			log.error("No SAML assertion in request, and not allowing demo data to be returned");

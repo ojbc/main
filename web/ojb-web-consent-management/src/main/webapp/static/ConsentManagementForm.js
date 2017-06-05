@@ -14,40 +14,98 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
+
+const REFRESH_INTERVAL_LENGTH = 10000;
+var refreshIntervalId = null;
+var table = null;
+
 $(document).ready(
 		function() {
-			var table = $('#inmate-table').DataTable({
-				select : {
-					style : "single",
-					blurable : true
-				},
-				info : false,
-				lengthChange : false,
-				"columns" : [ {
-					"data" : "personLastName",
-					"title" : "Last Name"
-				}, {
-					"data" : "personFirstName",
-					"title" : "First Name"
-				}, {
-					"data" : "personDOBString",
-					"title" : "Date of Birth"
-				}, {
-					"data" : "bookingNumber",
-					"title" : "Booking Number"
-				}, {
-					"data" : "nameNumber",
-					"title" : "Name Number"
-				} ]
-			});
-			table.on('select', function(e, dt, type, indexes) {
-				var rowData = table.rows(indexes[0]).data()["0"];
-				$("#selected-patient-name")
-						.text(
-								rowData.personLastName + ", "
-										+ rowData.personFirstName);
-			})
-			table.draw();
-			refreshData();
-
+	    table = $('#inmate-table').DataTable({
+		select : {
+		    style : "single"
+		},
+		dom: 'frtiBp',
+		info : false,
+		lengthChange : false,
+		columns : [ {
+		    "data" : "personLastName",
+		    "title" : "Last Name"
+		}, {
+		    "data" : "personFirstName",
+		    "title" : "First Name"
+		}, {
+		    "data" : "personDOBString",
+		    "title" : "Date of Birth"
+		}, {
+		    "data" : "bookingNumber",
+		    "title" : "Booking Number"
+		}, {
+		    "data" : "nameNumber",
+		    "title" : "Name Number"
+		} ],
+		buttons: [
+		            {
+		                text: 'Clear Selection',
+		                action: function () {
+		                    table.rows().deselect();
+		                    clearDecisionRecordFields();
+		                    updateUIState();
+		                }
+		            }
+		        ]
+	    });
+	    $('body').on('click', function() {
+		updateUIState();
+	    });
+	    $('#dcn').on('input', function() {
+		updateUIState();
+	    });
+	    table.on('select', function(e, dt, type, indexes) {
+		var rowData = table.rows(indexes[0]).data()["0"];
+		$("#selected-patient-name")
+			.text(
+				rowData.personLastName + ", "
+					+ rowData.personFirstName);
+		clearDecisionRecordFields();
+	    });
+	    table.draw();
+	    refreshData();
+	    refreshIntervalId = setInterval(refreshData, REFRESH_INTERVAL_LENGTH);
+	    $("#consent-save-button").prop('disabled', true);
+	    $("#consent-save-button").on('click', function() {
+		    console.log('save button clicked');
+		    row = table.row({selected: true}).data();
+		    console.log(row);
 		});
+	});
+
+clearDecisionRecordFields = function() {
+    $('#dcn').val('');
+    $('input[name=decision]:checked').prop('checked', false);
+}
+
+updateUIState = function() {
+    rowSelected = (table.rows({selected: true}).count() > 0);
+    dcnValue = $('#dcn').val();
+    decisionValue = $('input[name=decision]:checked').val();
+    //console.log("Selection? >> " + rowSelected + ', dcn=' + dcnValue + ', decision=' + decisionValue);
+    if (!rowSelected) {
+	if (refreshIntervalId == null) {
+	    refreshIntervalId = setInterval(refreshData, REFRESH_INTERVAL_LENGTH);
+	    //console.log('Starting refresh cycle...')
+	} else {
+	    //console.log('(Refresh cycle already running, doing nothing.)')
+	}
+    } else {
+	if (refreshIntervalId != null) {
+	    clearInterval(refreshIntervalId);
+	    refreshIntervalId = null;
+	    //console.log('...stopping refresh cycle.')
+	} else {
+	    //console.log('(Refresh cycle is already stopped, doing nothing.)')
+	}
+    }
+    val = (rowSelected && dcnValue != '' && decisionValue != null);
+    $("#consent-save-button").prop('disabled', !val);
+}

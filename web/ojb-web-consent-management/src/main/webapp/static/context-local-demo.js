@@ -36,5 +36,5 @@ refreshData = function() {
 	"personGender" : "M",
 	"personDOBString" : "1974-03-01"
     } ];
-    $('#inmate-table').DataTable().rows.add(demodata).draw()
+    $('#inmate-table').DataTable().clear().rows.add(demodata).draw()
 }
