@@ -17,6 +17,9 @@
 package org.ojbc.util.xml.subscription;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getUniqueId;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_41;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SUB_MSG_EXT;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,7 +37,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.helper.OJBCXMLUtils;
-import static org.ojbc.util.xml.OjbcNamespaceContext.*;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -57,6 +59,60 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 	private static final OjbcNamespaceContext OJBC_NAMESPACE_CONTEXT = new OjbcNamespaceContext();
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	
+	public static Document createSubscriptionModifyRequest(Subscription subscription) throws ParserConfigurationException{
+		
+        Document doc = createBlankDoc();        
+		
+        Element root = doc.createElementNS(OjbcNamespaceContext.NS_B2, "b-2:Modify");
+        doc.appendChild(root);
+        root.setPrefix(OjbcNamespaceContext.NS_PREFIX_B2);        
+        
+		buildSubscriptionModificationMessageNode(root, subscription, null);
+		
+		OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(root);
+		
+		return doc;
+	}
+	
+	private static void buildSubscriptionModificationMessageNode(Element parentNode, 
+			Subscription subscription, Map<String, String> triggeringEventCodeTranslationMap){
+		
+        Element subscriptionModificationMessage = XmlUtils.appendElement(parentNode, OjbcNamespaceContext.NS_SUB_MODIFY_MESSAGE, "smm:SubscriptionModificationMessage");
+	
+		buildOrganizationOriElement(subscriptionModificationMessage, subscription);
+		
+		buildCaseIdElement(subscriptionModificationMessage, subscription);
+												
+		buildSubjectElement(subscriptionModificationMessage,subscription);	
+		
+		buildEmailElements(subscriptionModificationMessage, subscription.getEmailList());
+		
+		Element sysNameNode = XmlUtils.appendElement(subscriptionModificationMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SystemName");
+		
+		if (StringUtils.isNotBlank(subscription.getSystemName()))
+		{
+			sysNameNode.setTextContent(subscription.getSystemName());
+		}	
+		else
+		{	
+			sysNameNode.setTextContent(SYSTEM_NAME);
+		}	
+		
+		buildSubQualIdNode(subscriptionModificationMessage, subscription);
+			
+		buildDateRangeNode(subscriptionModificationMessage, subscription);		
+		
+		buildSubscriptionIdNode(subscriptionModificationMessage, subscription);
+		
+		buildSubscriptionReasonCodeElement(subscriptionModificationMessage, subscription);
+		
+		buildTriggeringEvents(subscriptionModificationMessage, subscription, triggeringEventCodeTranslationMap);
+		
+		buildFederalRapSheetDisclosure(subscriptionModificationMessage, subscription);
+		
+	}	
+
 	
 	public static Document createSubscriptionRequest(Subscription subscription, 
 			Map<String,String> triggeringEventCodeTranslationMap) throws ParserConfigurationException{
@@ -226,15 +282,27 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		if (subscription.getFederalTriggeringEventCode() != null && !subscription.getFederalTriggeringEventCode().isEmpty()) {	
 			Element triggeringEventsElement = XmlUtils.appendElement(subMsgNode, OjbcNamespaceContext.NS_SUB_MSG_EXT, "TriggeringEvents");
 			
-			List<String> translatedTriggeringEventCode = new ArrayList<>();
-			subscription.getFederalTriggeringEventCode().stream()
-				.map(triggeringEventCodeTranslationMap::get)
-				.forEach(code -> translatedTriggeringEventCode.addAll(Arrays.asList(StringUtils.split(code, ','))));
+			if (triggeringEventCodeTranslationMap != null)
+			{	
+				List<String> translatedTriggeringEventCode = new ArrayList<>();
+				subscription.getFederalTriggeringEventCode().stream()
+					.map(triggeringEventCodeTranslationMap::get)
+					.forEach(code -> translatedTriggeringEventCode.addAll(Arrays.asList(StringUtils.split(code, ','))));
+				
+		    	for (String triggeringEventCode : translatedTriggeringEventCode) {
+	    	    	Element federalTriggeringEventCode = XmlUtils.appendElement(triggeringEventsElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalTriggeringEventCode");
+	    	    	federalTriggeringEventCode.setTextContent(triggeringEventCode);
+		    	}	
+
+			}	
+			else
+			{
+		    	for (String triggeringEventCode : subscription.getFederalTriggeringEventCode()) {
+	    	    	Element federalTriggeringEventCode = XmlUtils.appendElement(triggeringEventsElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalTriggeringEventCode");
+	    	    	federalTriggeringEventCode.setTextContent(triggeringEventCode);
+		    	}	
+			}
 			
-	    	for (String triggeringEventCode : translatedTriggeringEventCode) {
-    	    	Element federalTriggeringEventCode = XmlUtils.appendElement(triggeringEventsElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FederalTriggeringEventCode");
-    	    	federalTriggeringEventCode.setTextContent(triggeringEventCode);
-	    	}	
 		}	
 	}
 

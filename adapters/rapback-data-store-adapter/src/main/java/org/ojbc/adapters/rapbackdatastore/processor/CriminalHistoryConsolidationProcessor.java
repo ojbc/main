@@ -24,6 +24,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.camel.Header;
 import org.apache.commons.lang.StringUtils;
@@ -35,6 +36,7 @@ import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
 
 @Service
 public class CriminalHistoryConsolidationProcessor {
@@ -63,7 +65,7 @@ public class CriminalHistoryConsolidationProcessor {
      * @param newUcn
      * @throws Exception
      */
-    public List<CriminalHistoryConsolidationNotification> consolidateCriminalHistory(@Header("currentSid") String currentSid, 
+    public List<CriminalHistoryConsolidationNotification> consolidateCriminalHistory(Exchange exch, @Header("currentSid") String currentSid, 
     		@Header("newSid") String newSid, 
     		@Header("currentUcn") String currentUcn, 
     		@Header("newUcn") String newUcn,
@@ -89,8 +91,15 @@ public class CriminalHistoryConsolidationProcessor {
 	    	}
     	}	
     	
+    	Map<String,String> subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, currentSid);
+    	
+    	//Search for active subscriptions with matching SIDs
+    	List<Subscription> subscriptionsMatchingSID = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+
+    	exch.getIn().setHeader("subscriptionsToModify", subscriptionsMatchingSID);
+    	
     	List<CriminalHistoryConsolidationNotification> criminalHistoryConsolidationNotifications = returnCriminalHistoryConsolidations(
-				currentSid, newSid, currentUcn, newUcn, consolidationType);
+				currentSid, newSid, currentUcn, newUcn, consolidationType, subscriptionsMatchingSID);
 
     	return returnUniqueEmailNotifications(criminalHistoryConsolidationNotifications);
     	
@@ -115,21 +124,24 @@ public class CriminalHistoryConsolidationProcessor {
     	log.info("Current UCN: "  + currentUcn + ", new UCN: " + newUcn);
     	
     	List<CriminalHistoryConsolidationNotification> criminalHistoryConsolidationNotifications = returnCriminalHistoryConsolidations(
-				currentSid, newSid, currentUcn, newUcn, consolidationType);
-    	
+				currentSid, newSid, currentUcn, newUcn, consolidationType, null);
+
     	return returnUniqueEmailNotifications(criminalHistoryConsolidationNotifications);
     	
     }
     
 	List<CriminalHistoryConsolidationNotification> returnCriminalHistoryConsolidations(
-			String currentSid, String newSid, String currentUcn, String newUcn, String consolidationType) {
+			String currentSid, String newSid, String currentUcn, String newUcn, String consolidationType, List<Subscription> subscriptionsMatchingSID) {
 		//Consolidate SID and optionally UCN for members who use simple subscription database setup
     	//Query based on SID only
     	
     	Map<String,String> subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, currentSid);
     	
-    	//Search for active subscriptions with matching SIDs
-    	List<Subscription> subscriptionsMatchingSID = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+    	//Search for active subscriptions with matching SIDs only if null
+    	if (subscriptionsMatchingSID == null)
+    	{	
+    		subscriptionsMatchingSID = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+    	}	
     	
     	List<CriminalHistoryConsolidationNotification> criminalHistoryConsolidationNotifications = new ArrayList<CriminalHistoryConsolidationNotification>();
     	
@@ -235,6 +247,12 @@ public class CriminalHistoryConsolidationProcessor {
 		return emailSubject;
 	}
 
+	public Document returnSubscriptionModificationMessageFromSubscription(@Body Subscription subscription)
+	{
+		
+		return null;
+	}
+	
 	public void returnCamelEmail(Exchange ex)
 	{	
 		CriminalHistoryConsolidationNotification chcNotification = (CriminalHistoryConsolidationNotification) ex.getIn().getBody();
