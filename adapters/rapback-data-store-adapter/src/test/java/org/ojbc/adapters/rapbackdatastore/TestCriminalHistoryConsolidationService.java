@@ -34,11 +34,13 @@ import javax.sql.DataSource;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
@@ -62,12 +64,14 @@ import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.saml.SamlAttribute;
+import org.ojbc.util.xml.XmlUtils;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 @RunWith(CamelSpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -105,6 +109,9 @@ public class TestCriminalHistoryConsolidationService {
     @Produce
     protected ProducerTemplate template;
     
+    @EndpointInject(uri = "mock:cxf:bean:fbiEbtsSubscriptionManagerService")
+    protected MockEndpoint fbiEbtsSubscriptionManagerServiceMock;
+    
 	@Before
 	public void setUp() throws Exception {
 		
@@ -114,9 +121,20 @@ public class TestCriminalHistoryConsolidationService {
     	    public void configure() throws Exception {
     	    	// The line below allows us to bypass CXF and send a message directly into the route
     	    	replaceFromWith("direct:criminalHistoryConsolidationRequest");
+
     	    }              
     	});
 
+    	context.getRouteDefinition("reportSubscriptionChangeRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	// The line below allows us to bypass CXF and send a message directly into the route
+    	    	interceptSendToEndpoint("cxf:bean:fbiEbtsSubscriptionManagerService*").skipSendToOriginalEndpoint().to("mock:cxf:bean:fbiEbtsSubscriptionManagerService");
+
+    	    }              
+    	});
+
+    	
     	context.start();
 	}	
 	
@@ -128,6 +146,9 @@ public class TestCriminalHistoryConsolidationService {
 	@Test
 	public void testCriminalConsolidationService() throws Exception
 	{
+		fbiEbtsSubscriptionManagerServiceMock.reset();
+		fbiEbtsSubscriptionManagerServiceMock.expectedMessageCount(3);
+		
 		//Initial database setup
 		Connection conn = dataSource.getConnection();
 		ResultSet rs = conn.createStatement().executeQuery(StringUtils.replace(SID_BASE_QUERY, "SID_PLACEHOLDER", "A123458"));
@@ -305,7 +326,15 @@ public class TestCriminalHistoryConsolidationService {
 		subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, "XX123123");
 		subscriptions = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
 		assertEquals(2, subscriptions.size());
+		
+		fbiEbtsSubscriptionManagerServiceMock.assertIsSatisfied();
 
+		for (Exchange ex : fbiEbtsSubscriptionManagerServiceMock.getExchanges())
+		{
+			Document doc = (Document)ex.getIn().getBody();
+			Node subMsgNode = XmlUtils.xPathNodeSearch(doc, "//smm:SubscriptionModificationMessage");
+			assertNotNull(subMsgNode);
+		}	
 	}
 	
 	private Exchange createSenderExchangeNotification() throws Exception {

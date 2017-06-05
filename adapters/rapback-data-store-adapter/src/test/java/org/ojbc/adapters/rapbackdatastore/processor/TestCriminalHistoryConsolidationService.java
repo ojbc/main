@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.sql.DataSource;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -35,6 +34,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -55,9 +55,6 @@ public class TestCriminalHistoryConsolidationService {
 	
 	private static final Log log = LogFactory.getLog( TestCriminalHistoryConsolidationService.class );
 
-    @Resource  
-    private DataSource dataSource;  
-	
     @Resource
     private CriminalHistoryConsolidationProcessor criminalHistoryConsolidationProcessor;
     
@@ -68,7 +65,10 @@ public class TestCriminalHistoryConsolidationService {
     @Test
     public void testReturnCriminalHistoryConsolidations() throws Exception
     {
-    	List<CriminalHistoryConsolidationNotification> notifications = criminalHistoryConsolidationProcessor.consolidateCriminalHistory("A123457", "A123458", "9222201", "9222201", "criminalHistoryConsolidationReport");
+    	CamelContext ctx = new DefaultCamelContext(); 
+    	Exchange ex = new DefaultExchange(ctx);
+    	    
+    	List<CriminalHistoryConsolidationNotification> notifications = criminalHistoryConsolidationProcessor.consolidateCriminalHistory(ex, "A123457", "A123458", "9222201", "9222201", "criminalHistoryConsolidationReport");
     	
     	assertEquals(1, notifications.size());
     	
@@ -79,6 +79,12 @@ public class TestCriminalHistoryConsolidationService {
     	assertEquals("A123457 has been consolidated into A123458.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on A123458.  A new arrest may or may not have occurred.", notifications.get(0).getEmailBody());
     	
     	//See processor camel context test for the database method tests
+    	@SuppressWarnings("unchecked")
+		List<Subscription> subscriptions = (List<Subscription>)ex.getIn().getHeader("subscriptionsToModify");
+    	
+    	log.info("Subscriptions to modify: " + subscriptions);
+    	
+    	assertEquals(1, subscriptions.size());
     }
     
 	@Test

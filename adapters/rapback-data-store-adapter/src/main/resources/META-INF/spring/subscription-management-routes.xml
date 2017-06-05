@@ -30,10 +30,12 @@
 	xmlns:chiu-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierUpdateReport/Extension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="
 	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd	   
 	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<routeContext id="subscription-management-routes" xmlns="http://camel.apache.org/schema/spring">	
@@ -141,10 +143,14 @@
 			
 			<log message="Body: ${body}"/>
 			
+			<camel:wireTap uri="direct:reportSubscriptionChange">
+				<body><simple>${body}</simple></body>
+			</camel:wireTap>
+			
 			<camel:split>
 				<!-- The body is a map of Email Notifications -->
 				<camel:simple>${body}</camel:simple>
-			
+
 				<camel:to uri="bean:criminalHistoryConsolidationProcessor?method=returnCamelEmail"/>
 					
 				<camel:log message="headers: ${in.headers}" />
@@ -159,6 +165,40 @@
 
 			</camel:split>
 			
+		</route>
+
+		<route id="reportSubscriptionChangeRoute">
+			<camel:from uri="direct:reportSubscriptionChange"/>
+			
+			<camel:split>
+				<!-- The body is a map of Email Notifications -->
+				<camel:simple>${in.header.subscriptionsToModify}</camel:simple>
+
+
+				<camel:log message="Subscription to modify: ${body}"/>
+			
+				<!-- Create OJB OJBC_Subscription_Modify_Document.xml here -->
+				<to uri="bean:subscriptionModificationXMLProcessor?method=createOJBCsubscriptionModificationDocument" />
+				
+				<camel:log message="Subscription modification message: ${body}"/>
+				
+				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+			
+				<!-- Call broker here -->
+				<camel:setHeader headerName="operationName">
+		            <constant>Modify</constant>
+		        </camel:setHeader>
+		        
+		        <camel:setHeader headerName="operationNamespace">
+		            <constant>http://docs.oasis-open.org/wsn/bw-2</constant>
+		        </camel:setHeader>
+							
+				<camel:to uri="fbiEbtsSubscriptionManagerServiceEndpoint"/>
+				
+				<camel:delay>
+					<constant>1000</constant>
+				</camel:delay>
+			</camel:split>			
 		</route>
 
 		<!-- Automatically Archive idled records flow -->
