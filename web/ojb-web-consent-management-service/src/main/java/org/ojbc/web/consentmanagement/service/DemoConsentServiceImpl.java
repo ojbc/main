@@ -58,9 +58,10 @@ public class DemoConsentServiceImpl {
 			public void run() {
 				boolean writeSkipMessage = true;
 				while (true) {
-					if (records.size() < MAX_RECORD_COUNT) {
+					int size = records.size();
+					if (size < MAX_RECORD_COUNT) {
 						records.add(generateRandomDemoRecord());
-						log.info("Generated demo record, current size=" + records.size());
+						log.info("Generated demo record, current size=" + size);
 						writeSkipMessage = true;
 					} else {
 						if (writeSkipMessage) {
@@ -78,7 +79,7 @@ public class DemoConsentServiceImpl {
 	}
 
 	private Map<String, String> generateRandomDemoRecord() {
-		int consentId = records.size();
+		int consentId = getNextConsentId();
 		Map<String, String> record = new HashMap<>();
 		record.put("consentId", String.valueOf(consentId));
 		record.put("bookingNumber", RandomStringUtils.randomAlphanumeric(8));
@@ -89,6 +90,10 @@ public class DemoConsentServiceImpl {
 		record.put("personGender", getRandomValueFromArray(RandomInmateAttributes.GENDERS));
 		record.put("personDOBString", getRandomBirthdate());
 		return record;
+	}
+
+	private int getNextConsentId() {
+		return randomNumberGenerator.nextInt();
 	}
 	
 	public static final DemoConsentServiceImpl getInstance() {

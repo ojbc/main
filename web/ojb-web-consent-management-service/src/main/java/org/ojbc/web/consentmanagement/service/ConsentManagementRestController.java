@@ -62,8 +62,8 @@ public class ConsentManagementRestController {
 		
 	}
 	
-	@RequestMapping(value="/cm-api/recordConsentDecision", method=RequestMethod.POST, consumes="application/json")
-	public void recordConsentDecision(HttpServletRequest request) throws IOException {
+	@RequestMapping(value="/cm-api/recordConsentDecision", method=RequestMethod.POST, consumes="application/json", produces="application/json")
+	public String recordConsentDecision(HttpServletRequest request) throws IOException {
 		
 		Map<String, String> samlHeaderInfo = getSamlHeaderInfo(request.getHeader(SAML_HEADER_NAME));
 		String demodataHeaderValue = request.getHeader(DEMODATA_HEADER_NAME);
@@ -88,6 +88,8 @@ public class ConsentManagementRestController {
 			// error?
 			log.error("No SAML assertion in request, and not allowing demo data to be returned");
 		}
+		
+		return "{}";
 		
 	}
 	
