@@ -13,7 +13,7 @@
 
     http://opensource.org/licenses/RPL-1.5
 
-    Copyright 2012-2017 Open Justice Broker Consortium
+    Copyright 2012-2015 Open Justice Broker Consortium
 
 -->
 <xsl:stylesheet version="2.0"
@@ -88,11 +88,8 @@
 		<xsl:variable name="subscriptionCategory">
 			<xsl:choose>
 				<xsl:when
-					test="submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode">civil
-				</xsl:when>
-				<xsl:when
-					test="submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode">criminal
-				</xsl:when>
+					test="submsg-doc:SubscriptionMessage/submsg-ext:CivilSubscriptionReasonCode">civil</xsl:when>
+				<xsl:when test="submsg-doc:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode">criminal</xsl:when>
 			</xsl:choose>
 		</xsl:variable>
 		<xsl:apply-templates select="submsg-doc:SubscriptionMessage">
