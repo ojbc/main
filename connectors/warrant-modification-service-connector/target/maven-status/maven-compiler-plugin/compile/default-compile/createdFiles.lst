@@ -1,8 +1,0 @@
-org/ojbc/connectors/warrantmod/dao/WarrantsRepositoryBaseDAO.class
-org/ojbc/connectors/warrantmod/WarrantModMockInputProcessor.class
-org/ojbc/connectors/warrantmod/dao/WarrantsRepositoryBaseDaoImpl$WarrantResultSetExtractor.class
-org/ojbc/connectors/warrantmod/dao/WarrantsRepositoryBaseDaoImpl$PersonReulstSetExtractor.class
-org/ojbc/connectors/warrantmod/dao/WarrantsRepositoryBaseDaoImpl$1.class
-org/ojbc/connectors/warrantmod/WarrantModificationResponseProcessor.class
-org/ojbc/connectors/warrantmod/InitiateWarrantModificationRequestProcessor.class
-org/ojbc/connectors/warrantmod/dao/WarrantsRepositoryBaseDaoImpl.class
