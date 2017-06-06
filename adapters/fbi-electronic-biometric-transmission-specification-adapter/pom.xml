@@ -46,7 +46,7 @@
 		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>
 		<xmlunit.version>1.5</xmlunit.version>
-		<sn-interm-cmn-version>[1.0.1,)</sn-interm-cmn-version>
+		<sn-interm-cmn-version>[2.0.3,)</sn-interm-cmn-version>
 		<junit-version>4.8.1</junit-version>
 		<java-version>1.8</java-version>
 		<saxon-version>9.5.1-5</saxon-version>
