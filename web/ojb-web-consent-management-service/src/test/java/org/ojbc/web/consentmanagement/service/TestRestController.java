@@ -38,7 +38,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class TestRestController {
 	
-	private static final String CONSENT_SEARCH_URI = "http://localhost:8080/cm-api/search";
+	private static final String CONSENT_SEARCH_URI = "http://localhost:8080/cm-api/findPendingInmates";
 	
 	private final Log log = LogFactory.getLog(TestRestController.class);
 	
