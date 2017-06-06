@@ -12,7 +12,7 @@
  *
  * http://opensource.org/licenses/RPL-1.5
  *
- * Copyright 2012-2015 Open Justice Broker Consortium
+ * Copyright 2012-2017 Open Justice Broker Consortium
  */
 package org.ojbc.bundles.adapters.consentmanagement;
 
@@ -32,13 +32,13 @@ import org.ojbc.bundles.adapters.consentmanagement.model.Consent;
 public interface ConsentInterface {
  
    @GET
-   @Path("/search")
+   @Path("/findPendingInmates")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public Response search();
    
    @POST
-   @Path("/consent")
+   @Path("/recordConsentDecision")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public Response consent(Consent consent) throws Exception;
