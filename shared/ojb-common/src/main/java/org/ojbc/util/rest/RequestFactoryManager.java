@@ -12,21 +12,24 @@
  *
  * http://opensource.org/licenses/RPL-1.5
  *
- * Copyright 2012-2015 Open Justice Broker Consortium
+ * Copyright 2012-2017 Open Justice Broker Consortium
  */
 package org.ojbc.util.rest;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
 import javax.net.ssl.SSLContext;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -37,23 +40,53 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 
 public class RequestFactoryManager {
 
-	 public static ClientHttpRequestFactory createHttpClient(String truststoreLocation, String truststorePassword) 
-			 throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException, CertificateException, IOException 
+	 public static ClientHttpRequestFactory createHttpClientRequestFactory(String truststoreLocation, String truststorePassword, String keystoreLocation, String keystorePassword, String keypassword) 
+			 throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException, CertificateException, IOException, UnrecoverableKeyException 
 	 {
-		 	KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
-		 
-		 	truststore.load(new FileInputStream(new File(truststoreLocation)),
-	        		truststorePassword.toCharArray());
-		 	
-			SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(truststore).build();
-			
-			SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslContext,new AllowAllHostnameVerifier());
-			
-			HttpClient httpClient = HttpClients.custom().setSSLSocketFactory(socketFactory).build();
+		 	HttpClient httpClient = createHttpClient(truststoreLocation, truststorePassword, keystoreLocation,
+					keystorePassword, keypassword);
 			ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(
 			        httpClient);	
 			
 			return requestFactory;
+	 }
+
+	public static HttpClient createHttpClient(String truststoreLocation, String truststorePassword, String keystoreLocation, String keystorePassword, String keypassword)
+			throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException, FileNotFoundException, UnrecoverableKeyException, KeyManagementException {
+		
+		KeyStore truststore = KeyStore.getInstance(KeyStore.getDefaultType());
+		 
+		truststore.load(new FileInputStream(new File(truststoreLocation)),
+				truststorePassword.toCharArray());
+
+		SSLContextBuilder sslContextBuilder = new SSLContextBuilder();
+		
+		sslContextBuilder.loadTrustMaterial(truststore);
+		
+		if (StringUtils.isNotBlank(keystoreLocation) && StringUtils.isNotBlank(keystorePassword)&& StringUtils.isNotBlank(keypassword))
+		{	
+		 	KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+			 
+		 	keystore.load(new FileInputStream(new File(keystoreLocation)),
+		 			keystorePassword.toCharArray());
+		 	
+		 	sslContextBuilder.loadKeyMaterial(keystore, keypassword.toCharArray());
+		}	
+		 	
+		
+		SSLContext sslContext = sslContextBuilder.build();
+		
+		SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslContext,new AllowAllHostnameVerifier());
+		
+		HttpClient httpClient = HttpClients.custom().setSSLSocketFactory(socketFactory).build();
+		return httpClient;
+		
+	}	 
+	
+	 public static ClientHttpRequestFactory createHttpClientRequestFactory(String truststoreLocation, String truststorePassword) 
+			 throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException, CertificateException, IOException, UnrecoverableKeyException 
+	 {
+		 return createHttpClientRequestFactory(truststoreLocation, truststorePassword,null,null,null);
 	 }
 
 

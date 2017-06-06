@@ -13,7 +13,7 @@
 
     http://opensource.org/licenses/RPL-1.5
 
-    Copyright 2012-2015 Open Justice Broker Consortium
+    Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
 <ch-doc:CriminalHistory xmlns:ch-doc="http://ojbc.org/IEPD/Exchange/CriminalHistory/1.0" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:rap="http://nlets.org/niem2/rapsheet/1.0" xmlns:ch-ext="http://ojbc.org/IEPD/Extensions/CriminalHistory/1.0" xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1" xmlns:jxdm40="http://niem.gov/niem/domains/jxdm/4.0" xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:pqr="http://ojbc.org/IEPD/Exchange/PersonQueryRequest/1.0" xmlns:psr="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" xmlns:psr-doc="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0" xmlns:psres="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0" xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:screening="http://niem.gov/niem/domains/screening/2.0" xmlns:usps-states="http://niem.gov/niem/usps_states/2.0" xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0" xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0">

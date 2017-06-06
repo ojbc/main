@@ -14,7 +14,7 @@
 
     http://opensource.org/licenses/RPL-1.5
 
-    Copyright 2012-2015 Open Justice Broker Consortium
+    Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -22,9 +22,9 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
-	xmlns:fchr-ext="http://ojbc.org/IEPD/Extensions/FederalCriminalHistoryReportExtension/1.0"
+	xmlns:chr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryReportExtension/1.0"
 	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
-	targetNamespace="http://ojbc.org/IEPD/Extensions/FederalCriminalHistoryReportExtension/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryReportExtension/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
 		schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
@@ -38,18 +38,18 @@
 		schemaLocation="./include_schema.xsd" />
 	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime"
 		schemaLocation="./xmime_schema.xsd" />
-	<xsd:complexType name="FederalCriminalHistoryReportType">
+	<xsd:complexType name="CriminalHistoryReportType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a federal criminal history report.
+			<xsd:documentation>A data type for a criminal history report.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element
-						ref="fchr-ext:CriminalHistoryReportJurisdictionRepresentation"
+						ref="chr-ext:CriminalHistoryReportJurisdictionRepresentation"
 						minOccurs="0" maxOccurs="1" />
-					<xsd:element ref="fchr-ext:TransactionDescriptiveRecord"
+					<xsd:element ref="chr-ext:TransactionDescriptiveRecord"
 						minOccurs="0" maxOccurs="unbounded" />
 					<!-- xsd:element ref="j:Subject" minOccurs="1" maxOccurs="1" / -->
 					<xsd:element ref="nc:Person" minOccurs="1" maxOccurs="1" />
@@ -65,17 +65,17 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="fchr-ext:ImageReferenceIdentification"
+					<xsd:element ref="chr-ext:ImageReferenceIdentification"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="fchr-ext:RecordForwardOrganization"
+					<xsd:element ref="chr-ext:RecordForwardOrganization"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="fchr-ext:RecordControllingOrganization"
+					<xsd:element ref="chr-ext:RecordControllingOrganization"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="fchr-ext:CriminalHistoryDocumentRepresentation"
+					<xsd:element ref="chr-ext:CriminalHistoryDocumentRepresentation"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="fchr-ext:RapBackSubscription"
+					<xsd:element ref="chr-ext:RapBackSubscription"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="fchr-ext:RapBackNotificationEvent"
+					<xsd:element ref="chr-ext:RapBackNotificationEvent"
 						minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -89,16 +89,16 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="fchr-ext:RapBackExpirationDate"
+					<xsd:element ref="chr-ext:RapBackExpirationDate"
 						minOccurs="0" />
-					<xsd:element ref="fchr-ext:RapBackSubscriptionDate"
+					<xsd:element ref="chr-ext:RapBackSubscriptionDate"
 						minOccurs="0" />
-					<xsd:element ref="fchr-ext:RapBackSubscriptionIdentification"
+					<xsd:element ref="chr-ext:RapBackSubscriptionIdentification"
 						minOccurs="0" />
-					<xsd:element ref="fchr-ext:RapBackSubscriptionTermCode"
+					<xsd:element ref="chr-ext:RapBackSubscriptionTermCode"
 						minOccurs="0" />
-					<xsd:element ref="fchr-ext:RapBackTermDate" minOccurs="0" />
-					<xsd:element ref="fchr-ext:SubscriptionQualifierIdentification"
+					<xsd:element ref="chr-ext:RapBackTermDate" minOccurs="0" />
+					<xsd:element ref="chr-ext:SubscriptionQualifierIdentification"
 						minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -112,12 +112,12 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-					<!-- xsd:element ref="fchr-ext:RapBackCategoryCode" minOccurs="0"/ -->
-					<xsd:element ref="fchr-ext:RapBackActivityNotificationIdentification"
+					<!-- xsd:element ref="chr-ext:RapBackCategoryCode" minOccurs="0"/ -->
+					<xsd:element ref="chr-ext:RapBackActivityNotificationIdentification"
 						minOccurs="0" />
-					<xsd:element ref="fchr-ext:RapBackAttentionText"
+					<xsd:element ref="chr-ext:RapBackAttentionText"
 						minOccurs="0" />
-					<xsd:element ref="fchr-ext:TriggeringEvent" minOccurs="0"
+					<xsd:element ref="chr-ext:TriggeringEvent" minOccurs="0"
 						maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -143,7 +143,7 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FederalCriminalHistoryRecordDocument"
-		type="nc:DocumentType" substitutionGroup="fchr-ext:CriminalHistoryDocumentRepresentation">
+		type="nc:DocumentType" substitutionGroup="chr-ext:CriminalHistoryDocumentRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A document sent by the FBI that contains the
 				person's criminal history. Sometimes this is referred to as a
@@ -160,19 +160,19 @@
 	</xsd:element>
 	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject"
 		type="niem-xs:base64Binary" xmime:expectedContentType="text/plain" />
-	<xsd:element name="TransactionDescriptiveRecord" type="fchr-ext:TransactionDescriptiveType">
+	<xsd:element name="TransactionDescriptiveRecord" type="chr-ext:TransactionDescriptiveType">
 		<xsd:annotation>
 			<xsd:documentation>A record that contains descriptive information.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RapBackSubscription" type="fchr-ext:RapBackSubscriptionType">
+	<xsd:element name="RapBackSubscription" type="chr-ext:RapBackSubscriptionType">
 		<xsd:annotation>
 			<xsd:documentation>A rap back subscription.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RapBackNotificationEvent" type="fchr-ext:RapBackNotificationEventType">
+	<xsd:element name="RapBackNotificationEvent" type="chr-ext:RapBackNotificationEventType">
 		<xsd:annotation>
 			<xsd:documentation>A rap back notification.
 			</xsd:documentation>
@@ -200,7 +200,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RapBackSubscriptionTermCode" type="fchr-ext:RBSubscriptionTermCodeType">
+	<xsd:element name="RapBackSubscriptionTermCode" type="chr-ext:RBSubscriptionTermCodeType">
 		<xsd:annotation>
 			<xsd:documentation>A representation of the length of a Rap Back
 				Subscription Term.
@@ -214,7 +214,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:simpleContent>
-			<xsd:extension base="fchr-ext:RBSubscriptionTermCodeSimpleType">
+			<xsd:extension base="chr-ext:RBSubscriptionTermCodeSimpleType">
 				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
@@ -293,21 +293,21 @@
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="fchr-ext:RapBackEventDate" minOccurs="0" />
-					<xsd:element ref="fchr-ext:TriggeringEventRepresentation"
+					<xsd:element ref="chr-ext:RapBackEventDate" minOccurs="0" />
+					<xsd:element ref="chr-ext:TriggeringEventRepresentation"
 						minOccurs="0" />
-					<xsd:element ref="fchr-ext:RapBackEventText" minOccurs="0" />
+					<xsd:element ref="chr-ext:RapBackEventText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="TriggeringEvent" type="fchr-ext:TriggeringEventType" />
+	<xsd:element name="TriggeringEvent" type="chr-ext:TriggeringEventType" />
 	<xsd:element name="TriggeringEventRepresentation" abstract="true" />
 	<xsd:element name="FederalTriggeringEventCode"
-		substitutionGroup="fchr-ext:TriggeringEventRepresentation" type="fchr-ext:FederalTriggeringEventCodeSimpleType" />
+		substitutionGroup="chr-ext:TriggeringEventRepresentation" type="chr-ext:FederalTriggeringEventCodeSimpleType" />
 	<xsd:complexType name="FederalTriggeringEventCodeType">
 		<xsd:simpleContent>
-			<xsd:extension base="fchr-ext:FederalTriggeringEventCodeSimpleType">
+			<xsd:extension base="chr-ext:FederalTriggeringEventCodeSimpleType">
 				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
@@ -386,8 +386,8 @@
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CriminalHistoryReportJurisdictionCode"
-		type="fchr-ext:CriminalHistoryReportJurisdictionCodeType"
-		substitutionGroup="fchr-ext:CriminalHistoryReportJurisdictionRepresentation">
+		type="chr-ext:CriminalHistoryReportJurisdictionCodeType"
+		substitutionGroup="chr-ext:CriminalHistoryReportJurisdictionRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A code for a report jurisdiction.
 			</xsd:documentation>
@@ -400,7 +400,7 @@
 		</xsd:annotation>
 		<xsd:simpleContent>
 			<xsd:extension
-				base="fchr-ext:CriminalHistoryReportJurisdictionCodeSimpleType">
+				base="chr-ext:CriminalHistoryReportJurisdictionCodeSimpleType">
 				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
