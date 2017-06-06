@@ -12,7 +12,7 @@
  *
  * http://opensource.org/licenses/RPL-1.5
  *
- * Copyright 2012-2017 Open Justice Broker Consortium
+ * Copyright 2012-2015 Open Justice Broker Consortium
  */
 package org.ojbc.bundles.adapters.fbi.ebts;
 
@@ -139,7 +139,6 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
 	
-	*/
 		
 	@Test
 	public void RapbackSubscriptionResponseTransform() throws IOException, SAXException{
@@ -202,16 +201,16 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);							
 	} 
 	
-
+	*/
 	
 	private Map<String, Object> getXsltParamMap(){
 	
 		Map<String, Object> xsltParamMap = new HashMap<String, Object>();
-	/*
+	
 		xsltParamMap.put("rapBackTransactionDate", "2015-07-14");		
 		xsltParamMap.put("rapBackNotificatonFormat", 3);
 		xsltParamMap.put("rapBackInStateOptOutIndicator", true);
-		xsltParamMap.put("rapBackTriggeringEvent", 1);		
+		// xsltParamMap.put("rapBackTriggeringEvent", 1);		
 		xsltParamMap.put("destinationOrganizationORI", "WVIAFIS0Z");
 		xsltParamMap.put("originatorOrganizationORI", "HI002595Y");
 		xsltParamMap.put("controlID", "9876500000");
@@ -221,16 +220,17 @@ public class EbtsTransformTest {
 		xsltParamMap.put("transactionMinorVersion", "00");
 		xsltParamMap.put("rapSheetRequestIndicator", "true");
 		xsltParamMap.put("rapBackRecipient", "HI002595Y");
-		xsltParamMap.put("controllingAgencyID", "HI002595Y");
-		xsltParamMap.put("originatingAgencyCaseNumber", "HCJDC-CASE");
+		// xsltParamMap.put("controllingAgencyID", "HI002595Y");
+		// xsltParamMap.put("originatingAgencyCaseNumber", "HCJDC-CASE");
 		xsltParamMap.put("nativeScanningResolution", "00.00");
 		xsltParamMap.put("nominalTransmittingResolution", "00.00");
 		xsltParamMap.put("transactionContentSummaryContentFirstRecordCategoryCode", "1");
 		xsltParamMap.put("transactionContentSummaryContentRecordCountCriminal", "01");					
-		xsltParamMap.put("transactionContentSummaryContentRecordCountCivil", "03");				
-		xsltParamMap.put("rapBackDisclosureIndicator", "false");
-		xsltParamMap.put("civilRapBackSubscriptionTerm", "L");
-		*/
+		// xsltParamMap.put("transactionContentSummaryContentRecordCountCivil", "03");				
+		// xsltParamMap.put("rapBackDisclosureIndicator", "false");
+		// xsltParamMap.put("civilRapBackSubscriptionTerm", "L");	
+
+		
 		return xsltParamMap;
 	} 
 	
