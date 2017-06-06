@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:fchr-ext="http://ojbc.org/IEPD/Extensions/FederalCriminalHistoryReportExtension/1.0"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/FederalCriminalHistoryReportExtension/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
+		schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/"
+		schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd" />
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include"
+		schemaLocation="./include_schema.xsd" />
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime"
+		schemaLocation="./xmime_schema.xsd" />
+	<xsd:complexType name="FederalCriminalHistoryReportType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a federal criminal history report.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element
+						ref="fchr-ext:CriminalHistoryReportJurisdictionRepresentation"
+						minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="fchr-ext:TransactionDescriptiveRecord"
+						minOccurs="0" maxOccurs="unbounded" />
+					<!-- xsd:element ref="j:Subject" minOccurs="1" maxOccurs="1" / -->
+					<xsd:element ref="nc:Person" minOccurs="1" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="TransactionDescriptiveType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a federal transaction record.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:DocumentType">
+				<xsd:sequence>
+					<xsd:element ref="fchr-ext:ImageReferenceIdentification"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="fchr-ext:RecordForwardOrganization"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="fchr-ext:RecordControllingOrganization"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="fchr-ext:CriminalHistoryDocumentRepresentation"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="fchr-ext:RapBackSubscription"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="fchr-ext:RapBackNotificationEvent"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="RapBackSubscriptionType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a rap back subscription.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="fchr-ext:RapBackExpirationDate"
+						minOccurs="0" />
+					<xsd:element ref="fchr-ext:RapBackSubscriptionDate"
+						minOccurs="0" />
+					<xsd:element ref="fchr-ext:RapBackSubscriptionIdentification"
+						minOccurs="0" />
+					<xsd:element ref="fchr-ext:RapBackSubscriptionTermCode"
+						minOccurs="0" />
+					<xsd:element ref="fchr-ext:RapBackTermDate" minOccurs="0" />
+					<xsd:element ref="fchr-ext:SubscriptionQualifierIdentification"
+						minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="RapBackNotificationEventType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a rap back notification.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
+				<xsd:sequence>
+					<!-- xsd:element ref="fchr-ext:RapBackCategoryCode" minOccurs="0"/ -->
+					<xsd:element ref="fchr-ext:RapBackActivityNotificationIdentification"
+						minOccurs="0" />
+					<xsd:element ref="fchr-ext:RapBackAttentionText"
+						minOccurs="0" />
+					<xsd:element ref="fchr-ext:TriggeringEvent" minOccurs="0"
+						maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="ImageReferenceIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification for an image reference
+				identification.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RecordForwardOrganization" type="nc:EntityType">
+		<xsd:annotation>
+			<xsd:documentation>An organization to whom a record is forwarded.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RecordControllingOrganization" type="nc:EntityType">
+		<xsd:annotation>
+			<xsd:documentation>A record owning organization.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FederalCriminalHistoryRecordDocument"
+		type="nc:DocumentType" substitutionGroup="fchr-ext:CriminalHistoryDocumentRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A document sent by the FBI that contains the
+				person's criminal history. Sometimes this is referred to as a
+				federal rap sheet.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalHistoryDocumentRepresentation"
+		abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for a criminal history document.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject"
+		type="niem-xs:base64Binary" xmime:expectedContentType="text/plain" />
+	<xsd:element name="TransactionDescriptiveRecord" type="fchr-ext:TransactionDescriptiveType">
+		<xsd:annotation>
+			<xsd:documentation>A record that contains descriptive information.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackSubscription" type="fchr-ext:RapBackSubscriptionType">
+		<xsd:annotation>
+			<xsd:documentation>A rap back subscription.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackNotificationEvent" type="fchr-ext:RapBackNotificationEventType">
+		<xsd:annotation>
+			<xsd:documentation>A rap back notification.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackActivityNotificationIdentification"
+		type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification assigned to a rap back
+				notification.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackAttentionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Attention information to link future Rap Back
+				Activity Notifications to the right person or section within the
+				subscribing entity.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackEventDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>A date that a Rap Back Triggering Event occurred.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackSubscriptionTermCode" type="fchr-ext:RBSubscriptionTermCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A representation of the length of a Rap Back
+				Subscription Term.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="RBSubscriptionTermCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the code indicating the rap back
+				subscription term length.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="fchr-ext:RBSubscriptionTermCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="RBSubscriptionTermCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an enumeration representation of
+				code designations for a rap back subscription term.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="2">
+				<xsd:annotation>
+					<xsd:documentation>Two year subscription term</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="5">
+				<xsd:annotation>
+					<xsd:documentation>Five year subscription term</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="L">
+				<xsd:annotation>
+					<xsd:documentation>Lifetime subscription term</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="RapBackExpirationDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>A date a Rap Back Subscription expires under the
+				Subscriber's Privacy Strategy.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackSubscriptionDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The Date a rap back subscription was created.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackSubscriptionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>Unique identification assigned by NGI that
+				identifies a rap back subscription as a whole.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackTermDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>A date identifying the end of the fee paid by the
+				Subscriber.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionQualifierIdentification"
+		type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A qualifying subscription ID provided by the
+				Subscriber.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RapBackEventText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a Rap Back Triggering Event.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="TriggeringEventType">
+		<xsd:annotation>
+			<xsd:documentation>One or more events that would trigger
+				notifications related to a subscription.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="fchr-ext:RapBackEventDate" minOccurs="0" />
+					<xsd:element ref="fchr-ext:TriggeringEventRepresentation"
+						minOccurs="0" />
+					<xsd:element ref="fchr-ext:RapBackEventText" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="TriggeringEvent" type="fchr-ext:TriggeringEventType" />
+	<xsd:element name="TriggeringEventRepresentation" abstract="true" />
+	<xsd:element name="FederalTriggeringEventCode"
+		substitutionGroup="fchr-ext:TriggeringEventRepresentation" type="fchr-ext:FederalTriggeringEventCodeSimpleType" />
+	<xsd:complexType name="FederalTriggeringEventCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="fchr-ext:FederalTriggeringEventCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="FederalTriggeringEventCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="ARREST">
+				<xsd:annotation>
+					<xsd:documentation>Arrests</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DISPOSITION">
+				<xsd:annotation>
+					<xsd:documentation>Dispositions</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-WARRANT-ENTRY">
+				<xsd:annotation>
+					<xsd:documentation>NCIC Warrant Entry
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-WARRANT-MODIFICATION">
+				<xsd:annotation>
+					<xsd:documentation>NCIC Warrant Modification
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-WARRANT-DELETION">
+				<xsd:annotation>
+					<xsd:documentation>NCIC Warrant Deletion
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-SOR-ENTRY">
+				<xsd:annotation>
+					<xsd:documentation>NCIC National Sex Offender Registry (NSOR) Entry
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-SOR-MODIFICATION">
+				<xsd:annotation>
+					<xsd:documentation>NCIC National Sex Offender Registry (NSOR)
+						Modification
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NCIC-SOR-DELETION">
+				<xsd:annotation>
+					<xsd:documentation>NCIC National Sex Offender Registry (NSOR)
+						Deletion
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="DEATH">
+				<xsd:annotation>
+					<xsd:documentation>Death Notice</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="RecordCategoryCodeText" type="nc:TextType"
+		substitutionGroup="nc:DocumentCategory">
+		<xsd:annotation>
+			<xsd:documentation>A miscellaneous unique identification assigned to
+				a person record.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalHistoryReportJurisdictionRepresentation"
+		abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A data concept representing a report's
+				jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalHistoryReportJurisdictionCode"
+		type="fchr-ext:CriminalHistoryReportJurisdictionCodeType"
+		substitutionGroup="fchr-ext:CriminalHistoryReportJurisdictionRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A code for a report jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="CriminalHistoryReportJurisdictionCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A code type for a report jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension
+				base="fchr-ext:CriminalHistoryReportJurisdictionCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="CriminalHistoryReportJurisdictionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>An enumeration set for a report jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="State">
+				<xsd:annotation>
+					<xsd:documentation>A code value for a state report.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FBI">
+				<xsd:annotation>
+					<xsd:documentation>A code value for an FBI report.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>
