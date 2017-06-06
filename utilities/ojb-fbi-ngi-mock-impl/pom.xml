@@ -31,7 +31,6 @@
 
 	<groupId>org.ojbc.bundles.utilities</groupId>
 	<artifactId>ojb-fbi-ngi-mock-impl</artifactId>
-	<version>1.0.0</version>
 	
 	<packaging>bundle</packaging>	
 	<name>OJB :: ojb-fbi-ngi-mock-impl :: mockimpl</name>	

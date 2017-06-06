@@ -34,5 +34,6 @@
   <modules>
     <module>h2-mock-database</module>
     <module>ojb-connector-archetype</module>
-  </modules>
+<!--     <module>ojb-fbi-ngi-mock-impl</module>
+ -->  </modules>
 </project>

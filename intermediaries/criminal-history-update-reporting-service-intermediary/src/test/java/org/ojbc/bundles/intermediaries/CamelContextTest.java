@@ -48,7 +48,6 @@ import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.MessageImpl;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.util.camel.helper.OJBUtils;
@@ -66,7 +65,6 @@ import org.w3c.dom.Node;
 		"classpath:META-INF/spring/extensible-beans.xml",		
 		"classpath:META-INF/spring/local-osgi-context.xml",
 		"classpath:META-INF/spring/properties-context.xml"})
-@Ignore
 public class CamelContextTest {
 
     @Resource
