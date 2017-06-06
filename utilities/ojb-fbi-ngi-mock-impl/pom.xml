@@ -44,8 +44,8 @@
 		<spring-version>3.0.7.RELEASE</spring-version>
 		<cxf-version>2.6.4</cxf-version>
 		<camel-version>2.10.3</camel-version>
-		<ojb-common-version>[2.0.0,)</ojb-common-version>
-		<ojb-camel-common-version>[1.0.0,)</ojb-camel-common-version>
+		<ojb-common-version>[3.0.0,)</ojb-common-version>
+		<ojb-camel-common-version>[2.0.0,)</ojb-camel-common-version>
 		<ojb-resources-common-version>[1.0.0,)</ojb-resources-common-version>		
 		<xmlunit.version>1.5</xmlunit.version>
 		<maven-bundle-plugin-version>2.4.0</maven-bundle-plugin-version>
