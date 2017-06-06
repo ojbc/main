@@ -34,8 +34,8 @@
   <modules>
     <module>booking-reporting-service-connector</module>
     <module>case-filing-decision-reporting-service-connector</module>
-    <module>criminal-history-consolidation-reporting-service-connector</module>
-    <module>custody-release-reporting-service-connector</module>    
+<!--     <module>criminal-history-consolidation-reporting-service-connector</module>
+ -->    <module>custody-release-reporting-service-connector</module>    
     <module>custody-status-change-reporting-service-connector</module>
     <module>disposition-reporting-service-connector</module>
     <module>incident-reporting-service-connector</module>
