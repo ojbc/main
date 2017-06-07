@@ -49,10 +49,21 @@
 		<nc:RoleOfPerson structures:ref="RBP_01" />
 	</j:Subject>
 	<nc:Person structures:id="RBP_01">
+		<nc:PersonBirthDate>
+			<nc:Date>1972-08-02</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>ANTHONY</nc:PersonGivenName>
+			<nc:PersonMiddleName>PAUL</nc:PersonMiddleName>
+			<nc:PersonSurName>JONES</nc:PersonSurName>
+		</nc:PersonName>
 		<j:PersonAugmentation>
 			<j:PersonFBIIdentification>
-				<nc:IdentificationID>1234567898</nc:IdentificationID>
+				<nc:IdentificationID>123456789</nc:IdentificationID>
 			</j:PersonFBIIdentification>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>A398118900</nc:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
 	</nc:Person>
 	<fed_subcr-ext:CriminalHistoryDocument
