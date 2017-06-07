@@ -12,7 +12,7 @@
  *
  * http://opensource.org/licenses/RPL-1.5
  *
- * Copyright 2012-2015 Open Justice Broker Consortium
+ * Copyright 2012-2017 Open Justice Broker Consortium
  */
 package org.ojbc.bundles.adapters.fbi.ebts;
 
@@ -76,7 +76,6 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);					
 	}
 	
-	/*
 
 	@Test
 	public void newCivilSubscriptionTestEbtsTransform() throws Exception{
@@ -97,7 +96,6 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);					
 	}
 	
-	*/
 	
 	@Test
 	public void modifyCriminalSubscriptionTestEbtsTransform() throws IOException, SAXException{
@@ -118,7 +116,6 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
 	
-	/*
 	
 	@Test
 	public void cancelSubscriptionTestEbtsTransform() throws IOException, SAXException{
@@ -158,6 +155,8 @@ public class EbtsTransformTest {
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
+	
+	/*
 	
 	@Test
 	public void RapbackMaintenanceResponseTransform() throws IOException, SAXException{
@@ -226,9 +225,9 @@ public class EbtsTransformTest {
 		xsltParamMap.put("nominalTransmittingResolution", "00.00");
 		xsltParamMap.put("transactionContentSummaryContentFirstRecordCategoryCode", "1");
 		xsltParamMap.put("transactionContentSummaryContentRecordCountCriminal", "01");					
-		// xsltParamMap.put("transactionContentSummaryContentRecordCountCivil", "03");				
+		xsltParamMap.put("transactionContentSummaryContentRecordCountCivil", "03");				
 		// xsltParamMap.put("rapBackDisclosureIndicator", "false");
-		// xsltParamMap.put("civilRapBackSubscriptionTerm", "L");	
+		xsltParamMap.put("civilRapBackSubscriptionTerm", "L");	
 
 		
 		return xsltParamMap;
