@@ -174,9 +174,9 @@
                     <!-- RBUD 2.2064 (0..10) -->
                     <ebts:RecordRapBackUserDefinedElement>
                         <!-- 2.2064A -->
-                        <ebts:UserDefinedElementName>Element Name</ebts:UserDefinedElementName>
+                        <ebts:UserDefinedElementName>State Fingerprint ID</ebts:UserDefinedElementName>
                         <!-- 2.2064B -->
-                        <ebts:UserDefinedElementText>Element information</ebts:UserDefinedElementText>
+                        <ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
                     </ebts:RecordRapBackUserDefinedElement>
                 </ebts:RecordRapBackData>
                 <ebts:RecordTransactionData>
@@ -184,7 +184,7 @@
                         <!--MSG 2.060  (0..11)-->
                         <ebts:TransactionStatusText>MATCH MADE AGAINST SUBJECTS FINGERPRINTS ON 05/01/94. PLEASE NOTIFY SUBMITTING STATE IF MATCH RESULTS</ebts:TransactionStatusText>
                         <!--ERS 2.075, Optional-->
-                        <ebts:TransactionElectronicRapSheetText>Subject's Rap Sheet goes here</ebts:TransactionElectronicRapSheetText>				
+                        <ebts:TransactionElectronicRapSheetText>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</ebts:TransactionElectronicRapSheetText>				
                     </ebts:TransactionResponseData>
                 </ebts:RecordTransactionData>
                 <ebts:RecordTransactionActivity>

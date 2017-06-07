@@ -70,6 +70,11 @@
       <nc30:PersonBirthDate>
          <nc30:Date>1977-08-25</nc30:Date>
       </nc30:PersonBirthDate>
+      <nc30:PersonName>
+        <nc30:PersonGivenName>ANTHONY</nc30:PersonGivenName>
+        <nc30:PersonMiddleName>PAUL</nc30:PersonMiddleName>
+       <nc30:PersonSurName>JONES</nc30:PersonSurName>
+      </nc30:PersonName>
       <jxdm50:PersonAugmentation>
          <jxdm50:PersonFBIIdentification>
             <nc30:IdentificationID>62760NY12</nc30:IdentificationID>
