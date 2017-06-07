@@ -23,46 +23,52 @@
                                              xmlns:itl="http://biometrics.nist.gov/standard/2011"
                                              xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
                                              xmlns:j="http://niem.gov/niem/domains/jxdm/4.1">
-<itl:PackageInformationRecord>
+   <itl:PackageInformationRecord>
       <ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
-       <ansi-nist:Transaction>
-			<ansi-nist:TransactionDate>
-				<nc20:Date>2015-07-14</nc20:Date>
-			</ansi-nist:TransactionDate>
-			<ansi-nist:TransactionDestinationOrganization>
-            	<nc20:OrganizationIdentification>
-                 	<nc20:IdentificationID>WVIAFIS0Z</nc20:IdentificationID>
-            	</nc20:OrganizationIdentification>
-          	</ansi-nist:TransactionDestinationOrganization>
-          	<ansi-nist:TransactionOriginatingOrganization>
-               	<nc20:OrganizationIdentification>
-                    <nc20:IdentificationID>HI002595Y</nc20:IdentificationID>
-                </nc20:OrganizationIdentification>
-            </ansi-nist:TransactionOriginatingOrganization>
-            <ansi-nist:TransactionControlIdentification>
-             	<nc20:IdentificationID>9876500000</nc20:IdentificationID>
-            </ansi-nist:TransactionControlIdentification>
-            <ansi-nist:TransactionDomain>
-                <ansi-nist:DomainVersionNumberIdentification>
-                    <nc20:IdentificationID>EBTS 10.0</nc20:IdentificationID>
-                </ansi-nist:DomainVersionNumberIdentification>
-                <ansi-nist:TransactionDomainName>NORAM</ansi-nist:TransactionDomainName>
-            </ansi-nist:TransactionDomain>
-             <ansi-nist:TransactionImageResolutionDetails>
-                <ansi-nist:NativeScanningResolutionValue>00.00</ansi-nist:NativeScanningResolutionValue>
-                <ansi-nist:NominalTransmittingResolutionValue>00.00</ansi-nist:NominalTransmittingResolutionValue>
-            </ansi-nist:TransactionImageResolutionDetails>
-            <ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
-           	<ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
-         <ebts:TransactionCategoryCode>RBMNT</ebts:TransactionCategoryCode>
+      <ansi-nist:Transaction>
+         <ansi-nist:TransactionDate>
+            <nc20:Date/>
+         </ansi-nist:TransactionDate>
+         <ansi-nist:TransactionDestinationOrganization>
+            <nc20:OrganizationIdentification>
+               <nc20:IdentificationID/>
+            </nc20:OrganizationIdentification>
+         </ansi-nist:TransactionDestinationOrganization>
+         <ansi-nist:TransactionOriginatingOrganization>
+            <nc20:OrganizationIdentification>
+               <nc20:IdentificationID/>
+            </nc20:OrganizationIdentification>
+         </ansi-nist:TransactionOriginatingOrganization>
+         <ansi-nist:TransactionControlIdentification>
+            <nc20:IdentificationID/>
+         </ansi-nist:TransactionControlIdentification>
+         <ansi-nist:TransactionDomain>
+            <ansi-nist:DomainVersionNumberIdentification>
+               <nc20:IdentificationID/>
+            </ansi-nist:DomainVersionNumberIdentification>
+            <ansi-nist:TransactionDomainName/>
+         </ansi-nist:TransactionDomain>
+         <ansi-nist:TransactionImageResolutionDetails>
+            <ansi-nist:NativeScanningResolutionValue/>
+            <ansi-nist:NominalTransmittingResolutionValue/>
+         </ansi-nist:TransactionImageResolutionDetails>
+         <ansi-nist:TransactionMajorVersionValue/>
+         <ansi-nist:TransactionMinorVersionValue/>
+         <ebts:TransactionCategoryCode>RBSCVL</ebts:TransactionCategoryCode>
          <ansi-nist:TransactionContentSummary>
-         <ansi-nist:ContentFirstRecordCategoryCode>1</ansi-nist:ContentFirstRecordCategoryCode>
-         <ansi-nist:ContentRecordQuantity>01</ansi-nist:ContentRecordQuantity>
+            <ansi-nist:ContentFirstRecordCategoryCode/>
+            <ansi-nist:ContentRecordQuantity/>
             <ansi-nist:ContentRecordSummary>
                <ansi-nist:ImageReferenceIdentification>
                   <nc20:IdentificationID>00</nc20:IdentificationID>
                </ansi-nist:ImageReferenceIdentification>
                <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+            </ansi-nist:ContentRecordSummary>
+            <ansi-nist:ContentRecordSummary>
+               <ansi-nist:ImageReferenceIdentification>
+                  <nc20:IdentificationID>01</nc20:IdentificationID>
+               </ansi-nist:ImageReferenceIdentification>
+               <ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
             </ansi-nist:ContentRecordSummary>
          </ansi-nist:TransactionContentSummary>
       </ansi-nist:Transaction>
@@ -74,27 +80,26 @@
       </ansi-nist:ImageReferenceIdentification>
       <itl:UserDefinedDescriptiveDetail>
          <ebts:DomainDefinedDescriptiveFields>
+            <ansi-nist:RecordRapSheetRequestIndicator/>
             <ebts:RecordRapBackData>
-               <ebts:RecordRapBackActivityNotificationFormatCode>3</ebts:RecordRapBackActivityNotificationFormatCode>
+               <ebts:RecordRapBackActivityNotificationFormatCode/>
+               <ebts:RecordRapBackCategoryCode>I</ebts:RecordRapBackCategoryCode>
                <ebts:RecordRapBackDisclosureIndicator>true
 			</ebts:RecordRapBackDisclosureIndicator>
-               <ebts:RecordRapBackExpirationDate>
-                  <nc20:Date>2015-04-01</nc20:Date>
-               </ebts:RecordRapBackExpirationDate>
-               <ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
-               <ebts:RecordRapBackSubscriptionID>1234567</ebts:RecordRapBackSubscriptionID>
+               <ebts:RecordRapBackInStateOptOutIndicator/>
+               <ebts:RecordRapBackSubscriptionTerm/>
                <ebts:RecordRapBackTriggeringEventCode>2</ebts:RecordRapBackTriggeringEventCode>
                <ebts:RecordRapBackUserDefinedElement>
                   <ebts:UserDefinedElementName>State Fingerprint ID
 			</ebts:UserDefinedElementName>
                   <ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
                </ebts:RecordRapBackUserDefinedElement>
-               <ebts:TransactionRapBackMaintenanceCode>R</ebts:TransactionRapBackMaintenanceCode>
             </ebts:RecordRapBackData>
             <ebts:RecordTransactionActivity>
+               <nc20:CaseTrackingID>0123ABC</nc20:CaseTrackingID>
                <ebts:RecordControllingAgency>
                   <nc20:OrganizationIdentification>
-                     <nc20:IdentificationID>157848</nc20:IdentificationID>
+                     <nc20:IdentificationID>2345576</nc20:IdentificationID>
                   </nc20:OrganizationIdentification>
                </ebts:RecordControllingAgency>
             </ebts:RecordTransactionActivity>
@@ -113,4 +118,24 @@
          </ebts:DomainDefinedDescriptiveFields>
       </itl:UserDefinedDescriptiveDetail>
    </itl:PackageDescriptiveTextRecord>
+   <itl:PackageHighResolutionGrayscaleImageRecord>
+      <ansi-nist:RecordCategoryCode>04</ansi-nist:RecordCategoryCode>
+      <ansi-nist:ImageReferenceIdentification>
+         <nc20:IdentificationID>01</nc20:IdentificationID>
+      </ansi-nist:ImageReferenceIdentification>
+      <ansi-nist:FingerprintImage>
+         <nc20:BinaryBase64Object>XXX</nc20:BinaryBase64Object>
+         <ansi-nist:ImageCaptureDetail>
+            <ansi-nist:CaptureResolutionCode>1</ansi-nist:CaptureResolutionCode>
+         </ansi-nist:ImageCaptureDetail>
+         <ansi-nist:ImageCompressionAlgorithmCode>2</ansi-nist:ImageCompressionAlgorithmCode>
+         <ansi-nist:ImageHorizontalLineLengthPixelQuantity>80</ansi-nist:ImageHorizontalLineLengthPixelQuantity>
+         <ansi-nist:ImageVerticalLineLengthPixelQuantity>65</ansi-nist:ImageVerticalLineLengthPixelQuantity>
+         <ansi-nist:FingerprintImagePosition>
+            <ansi-nist:FingerPositionCode>2</ansi-nist:FingerPositionCode>
+         </ansi-nist:FingerprintImagePosition>
+         <ansi-nist:FingerprintImageImpressionCaptureCategoryCode>3
+					</ansi-nist:FingerprintImageImpressionCaptureCategoryCode>
+      </ansi-nist:FingerprintImage>
+   </itl:PackageHighResolutionGrayscaleImageRecord>
 </itl:NISTBiometricInformationExchangePackage>
