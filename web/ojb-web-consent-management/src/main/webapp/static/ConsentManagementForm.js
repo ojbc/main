@@ -65,6 +65,18 @@ $(document).ready(
 	    $("#consent-save-button").on('click', function() {
 		    //console.log('save button clicked');
 		    row = table.row({selected: true}).data();
+		    row.consentDocumentControlNumber=$('#dcn').val();
+		    
+		    if ($('input[name=decision]:checked').val() == 'Granted')
+		    {	
+		    	row.consentDecisionTypeID=1;
+		    }
+
+		    if ($('input[name=decision]:checked').val() == 'Denied')
+		    {	
+		    	row.consentDecisionTypeID=2;
+		    }
+		    
 		    //console.log(row);
 		    submitConsentDecision(row);
 		});
