@@ -15,7 +15,7 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 
-const REFRESH_INTERVAL_LENGTH = 10000;
+const REFRESH_INTERVAL_LENGTH = 60000;
 var refreshIntervalId = null;
 var table = null;
 
