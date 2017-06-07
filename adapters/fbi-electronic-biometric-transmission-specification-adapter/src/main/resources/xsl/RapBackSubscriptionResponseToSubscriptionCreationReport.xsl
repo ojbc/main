@@ -132,7 +132,7 @@
 			<xsl:attribute name="s30:id"><xsl:value-of
 				select="generate-id(/itl:NISTBiometricInformationExchangePackage/itl:PackageDescriptiveTextRecord/itl:UserDefinedDescriptiveDetail/ebts:DomainDefinedDescriptiveFields/ebts:RecordSubject)" /></xsl:attribute>
 			<xsl:apply-templates select="nc:PersonBirthDate" />
-			<xsl:apply-templates select="nc:PersonName" />
+			<xsl:apply-templates select="ebts:PersonName" />
 			<xsl:apply-templates select="." mode="augment" />
 		</nc30:Person>
 	</xsl:template>
@@ -141,7 +141,7 @@
 			<xsl:apply-templates select="nc:Date" />
 		</nc30:PersonBirthDate>
 	</xsl:template>
-	<xsl:template match="nc:PersonName">
+	<xsl:template match="ebts:PersonName">
 		<nc30:PersonName>
 			<xsl:apply-templates select="nc:PersonGivenName" />
 			<xsl:apply-templates select="nc:PersonMiddleName" />

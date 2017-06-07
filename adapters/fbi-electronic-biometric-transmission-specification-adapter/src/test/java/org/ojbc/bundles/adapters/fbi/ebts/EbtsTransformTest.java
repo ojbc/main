@@ -156,7 +156,6 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
 	
-	/*
 	
 	@Test
 	public void RapbackMaintenanceResponseTransform() throws IOException, SAXException{
@@ -176,6 +175,7 @@ public class EbtsTransformTest {
 							
 		compareXml(expectedXmlString, actualTransformedXml);							
 	}
+	
 	
 	@Test
 	public void CriminalHistoryReportTestEbtsTransform() throws Exception{
@@ -200,7 +200,6 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);							
 	} 
 	
-	*/
 	
 	private Map<String, Object> getXsltParamMap(){
 	
@@ -233,7 +232,6 @@ public class EbtsTransformTest {
 		return xsltParamMap;
 	} 
 	
-
 	
 	private static void compareXml(String expectedXmlString, String actualTransformedXml) throws SAXException, IOException{
 		
