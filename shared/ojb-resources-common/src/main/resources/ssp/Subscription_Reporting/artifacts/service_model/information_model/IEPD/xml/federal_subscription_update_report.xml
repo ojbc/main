@@ -17,48 +17,72 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<fed_subcr_upd-doc:FederalSubscriptionUpdateReport
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FederalSubscriptionUpdateReport/1.0 ../xsd/federal_subscription_update_report_schema.xsd"
-	xmlns:fed_subcr_upd-doc="http://ojbc.org/IEPD/Exchange/FederalSubscriptionUpdateReport/1.0"
-	xmlns:fed_subcr_upd-ext="http://ojbc.org/IEPD/Extensions/FederalSubscriptionUpdateReportExtension/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<fed_subcr_upd-ext:RapBackSubscriptionData>
-		<fed_subcr_upd-ext:RapBackActivityNotificationFormatCode>2</fed_subcr_upd-ext:RapBackActivityNotificationFormatCode>
-		<fed_subcr_upd-ext:RapBackExpirationDate>
-			<nc:Date>2010-02-24</nc:Date>
-		</fed_subcr_upd-ext:RapBackExpirationDate>
-		<fed_subcr_upd-ext:RapBackInStateOptOutIndicator>false</fed_subcr_upd-ext:RapBackInStateOptOutIndicator>
-		<fed_subcr_upd-ext:RapBackSubscriptionDate>
-			<nc:Date>2011-01-25</nc:Date>
-		</fed_subcr_upd-ext:RapBackSubscriptionDate>
-		<fed_subcr_upd-ext:RapBackSubscriptionIdentification>
-			<nc:IdentificationID>123456</nc:IdentificationID>
-		</fed_subcr_upd-ext:RapBackSubscriptionIdentification>
-		<fed_subcr_upd-ext:RapBackSubscriptionTermCode>5</fed_subcr_upd-ext:RapBackSubscriptionTermCode>
-		<fed_subcr_upd-ext:RapBackTermDate>
-			<nc:Date>2015-01-01</nc:Date>
-		</fed_subcr_upd-ext:RapBackTermDate>
-		<fed_subcr_upd-ext:StateSubscriptionIdentification>
-			<nc:IdentificationID>123</nc:IdentificationID>
-		</fed_subcr_upd-ext:StateSubscriptionIdentification>
-	</fed_subcr_upd-ext:RapBackSubscriptionData>
-	<j:Subject>
-		<nc:RoleOfPerson structures:ref="RBP_01" />
-	</j:Subject>
-	<nc:Person structures:id="RBP_01">
-		<j:PersonAugmentation>
-			<j:PersonFBIIdentification>
-				<nc:IdentificationID>1234567898</nc:IdentificationID>
-			</j:PersonFBIIdentification>
-		</j:PersonAugmentation>
-	</nc:Person>
-	<fed_subcr_upd-ext:CriminalHistoryDocument
-		structures:id="Doc_01">
-		<nc:DocumentBinary>
-			<fed_subcr_upd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=
-			</fed_subcr_upd-ext:Base64BinaryObject>
-		</nc:DocumentBinary>
-	</fed_subcr_upd-ext:CriminalHistoryDocument>
-</fed_subcr_upd-doc:FederalSubscriptionUpdateReport>
+<fed_subcr-doc:FederalSubscriptionUpdateReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                                 xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
+                                                 xmlns:itl="http://biometrics.nist.gov/standard/2011"
+                                                 xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+                                                 xmlns:fed_subcr-doc="http://ojbc.org/IEPD/Exchange/FederalSubscriptionUpdateReport/1.0"
+                                                 xmlns:fed_subcr_upd-ext="http://ojbc.org/IEPD/Extensions/FederalSubscriptionUpdateReportExtension/1.0"
+                                                 xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                                                 xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1"
+                                                 xmlns:jxdm50="http://release.niem.gov/niem/domains/jxdm/5.0/"
+                                                 xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
+                                                 xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
+                                                xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/FederalSubscriptionUpdateReport/1.0 ../xsd/federal_subscription_Update_report_schema.xsd">
+   <fed_subcr_upd-ext:RapBackSubscriptionData>
+      <fed_subcr_upd-ext:RapBackActivityNotificationFormatCode>2</fed_subcr_upd-ext:RapBackActivityNotificationFormatCode>
+      <fed_subcr_upd-ext:RapBackAttentionText>DET J Q PUBLIC</fed_subcr_upd-ext:RapBackAttentionText>
+      <fed_subcr_upd-ext:RapBackCategoryCode>F</fed_subcr_upd-ext:RapBackCategoryCode>
+      <fed_subcr_upd-ext:RapBackExpirationDate>
+         <nc30:Date>2010-02-24</nc30:Date>
+      </fed_subcr_upd-ext:RapBackExpirationDate>
+      <fed_subcr_upd-ext:RapBackInStateOptOutIndicator>false</fed_subcr_upd-ext:RapBackInStateOptOutIndicator>
+      <fed_subcr_upd-ext:RapBackSubscriptionDate>
+         <nc30:Date>2011-01-25</nc30:Date>
+      </fed_subcr_upd-ext:RapBackSubscriptionDate>
+      <fed_subcr_upd-ext:RapBackSubscriptionIdentification>
+         <nc30:IdentificationID>123456</nc30:IdentificationID>
+      </fed_subcr_upd-ext:RapBackSubscriptionIdentification>
+      <fed_subcr_upd-ext:RapBackSubscriptionTermCode>5</fed_subcr_upd-ext:RapBackSubscriptionTermCode>
+      <fed_subcr_upd-ext:RapBackTermDate>
+         <nc30:Date>2015-01-01</nc30:Date>
+      </fed_subcr_upd-ext:RapBackTermDate>
+      <fed_subcr_upd-ext:SubscriptionRelatedCaseIdentification>
+         <nc30:IdentificationID>Q880312465</nc30:IdentificationID>
+      </fed_subcr_upd-ext:SubscriptionRelatedCaseIdentification>
+      <fed_subcr_upd-ext:SubscribingOrganization>
+         <nc30:OrganizationIdentification>
+            <nc30:IdentificationID>NY0303000</nc30:IdentificationID>
+         </nc30:OrganizationIdentification>
+      </fed_subcr_upd-ext:SubscribingOrganization>
+      <fed_subcr_upd-ext:RecordForwardOrganization>
+         <nc30:OrganizationIdentification>
+            <nc30:IdentificationID>WV1000000</nc30:IdentificationID>
+         </nc30:OrganizationIdentification>
+         <nc30:OrganizationIdentification>
+            <nc30:IdentificationID>NY030025P</nc30:IdentificationID>
+         </nc30:OrganizationIdentification>
+      </fed_subcr_upd-ext:RecordForwardOrganization>
+   </fed_subcr_upd-ext:RapBackSubscriptionData>
+   <jxdm50:Subject>
+      <nc30:RoleOfPerson s30:ref="d1e381"/>
+   </jxdm50:Subject>
+   <nc30:Person s30:id="d1e381">
+      <nc30:PersonBirthDate>
+         <nc30:Date>1977-08-25</nc30:Date>
+      </nc30:PersonBirthDate>
+      <jxdm50:PersonAugmentation>
+         <jxdm50:PersonFBIIdentification>
+            <nc30:IdentificationID>62760NY12</nc30:IdentificationID>
+         </jxdm50:PersonFBIIdentification>
+         <jxdm50:PersonStateFingerprintIdentification>
+            <nc30:IdentificationID>A398118900</nc30:IdentificationID>
+         </jxdm50:PersonStateFingerprintIdentification>
+      </jxdm50:PersonAugmentation>
+   </nc30:Person>
+   <fed_subcr_upd-ext:CriminalHistoryDocument s30:id="d1e351">
+      <nc30:DocumentBinary>
+         <fed_subcr_upd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</fed_subcr_upd-ext:Base64BinaryObject>
+      </nc30:DocumentBinary>
+   </fed_subcr_upd-ext:CriminalHistoryDocument>
+</fed_subcr-doc:FederalSubscriptionUpdateReport>

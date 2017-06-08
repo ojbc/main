@@ -16,13 +16,33 @@
  */
 package org.ojbc.web.consentmanagement.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
+	
+	@Value("${truststoreLocation}")
+	private String truststoreLocation;
+	
+	@Value("${truststorePassword}")
+	private String truststorePassword;
+	
+	@Value("${keystoreLocation}")
+	private String keystoreLocation;
+	
+	@Value("${keystorePassword}")
+	private String keystorePassword;
+	
+	@Value("${keyPassword}")
+	private String keypassword;
 	
 	@Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -33,4 +53,10 @@ public class Application extends SpringBootServletInitializer {
         SpringApplication.run(Application.class, args);
     }
     
+	@Bean
+	public RestTemplate restTemplate(RestTemplateBuilder builder) throws Exception {
+	   // Do any additional configuration here
+	  ClientHttpRequestFactory clientHttpRequestFactory = RestFactoryUtils.createHttpClientRequestFactory(truststoreLocation, truststorePassword, keystoreLocation, keystorePassword, keypassword);	
+	  return new RestTemplate(clientHttpRequestFactory);
+	}	
 }

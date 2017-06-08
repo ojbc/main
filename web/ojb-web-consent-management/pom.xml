@@ -104,7 +104,7 @@
 	</dependencies>
 
 	<build>
-
+		<finalName>ojb-web-consent-management</finalName>
 		<plugins>
 
 			<plugin>

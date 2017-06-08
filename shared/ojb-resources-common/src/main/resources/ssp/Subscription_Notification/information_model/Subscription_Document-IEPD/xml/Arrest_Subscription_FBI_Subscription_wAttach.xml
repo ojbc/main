@@ -23,25 +23,16 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0 ../xsd/Subscription_Document.xsd">
-	<submsg-ext:SubscribingOrganization>
-		<j:OrganizationAugmentation>
-			<j:OrganizationORIIdentification>
-				<nc20:IdentificationID>2345576</nc20:IdentificationID>
-			</j:OrganizationORIIdentification>
-		</j:OrganizationAugmentation>
-	</submsg-ext:SubscribingOrganization>
-	<submsg-ext:RecordControllingOrganization>
-		<j:OrganizationAugmentation>
-			<j:OrganizationORIIdentification>
-				<nc20:IdentificationID>12046567</nc20:IdentificationID>
-			</j:OrganizationORIIdentification>
-		</j:OrganizationAugmentation>
-	</submsg-ext:RecordControllingOrganization>
 	<submsg-ext:SubscriptionRelatedCaseIdentification>
 		<nc20:IdentificationID>0123ABC</nc20:IdentificationID>
 	</submsg-ext:SubscriptionRelatedCaseIdentification>
-	<submsg-ext:RapBackActivityNotificationFormatCode>2</submsg-ext:RapBackActivityNotificationFormatCode>
-	<submsg-ext:RapBackInStateOptOutIndicator>false</submsg-ext:RapBackInStateOptOutIndicator>
+	<submsg-ext:SubscribingOrganization>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc20:IdentificationID>2345576</nc20:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</submsg-ext:SubscribingOrganization>
 	<submsg-ext:Subject>
 		<nc20:PersonBirthDate>
 			<nc20:Date>1972-08-02</nc20:Date>
@@ -66,14 +57,6 @@
 	<submsg-ext:SubscriptionQualifierIdentification>
 		<nc20:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7</nc20:IdentificationID>
 	</submsg-ext:SubscriptionQualifierIdentification>
-	<nc20:DateRange>
-		<nc20:StartDate>
-			<nc20:Date>2014-06-20</nc20:Date>
-		</nc20:StartDate>
-		<nc20:EndDate>
-			<nc20:Date>2015-06-20</nc20:Date>
-		</nc20:EndDate>
-	</nc20:DateRange>
 	<submsg-ext:CriminalSubscriptionReasonCode>CI
 	</submsg-ext:CriminalSubscriptionReasonCode>
 	<submsg-ext:RelatedFBISubscription>

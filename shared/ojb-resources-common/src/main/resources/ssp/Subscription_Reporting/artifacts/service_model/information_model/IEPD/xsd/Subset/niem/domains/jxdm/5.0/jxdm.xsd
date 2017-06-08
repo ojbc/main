@@ -31,6 +31,7 @@
       <xs:extension base="structures:AugmentationType">
         <xs:sequence>
           <xs:element ref="j:PersonFBIIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -55,6 +56,11 @@
   <xs:element name="PersonFBIIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A number issued by the FBI's Automated Fingerprint Identification System (AFIS) based on submitted fingerprints.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonStateFingerprintIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identifier assigned to a person by a state identification bureau, generally based on submission of the person's fingerprints to the state's Automated Fingerprint Identification System (AFIS).</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Subject" type="j:SubjectType" nillable="true">

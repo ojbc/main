@@ -28,7 +28,7 @@
 	<bean id="consentManagementDataSource" class="org.h2.jdbcx.JdbcConnectionPool" destroy-method="dispose">
         <constructor-arg>
             <bean class="org.h2.jdbcx.JdbcDataSource">
-                <property name="URL" value="jdbc:h2:tcp:localhost:49093/mem:consent-management-datasource"/>
+                <property name="URL" value="jdbc:h2:tcp:localhost:49093/mem:consent-management-datastore"/>
                 <property name="user" value="sa"/>
              </bean>
         </constructor-arg>
