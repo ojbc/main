@@ -3232,41 +3232,41 @@ JSd+OgOuyrSA65hr1lHLV1C47WSCS1+7YegokiO47eMwIg==
     </EntityDescriptor>
     
     <!-- Hawaii HIDTA IdP -->
-	<EntityDescriptor ID="_ed34cc4e-d439-4a4a-a360-c339fa5a95ea"
+	<EntityDescriptor ID="_9041b047-f81a-4e45-a0a6-ba587f6c0e10"
 		entityID="http://adfs.hi-hidta.org/adfs/services/trust" xmlns="urn:oasis:names:tc:SAML:2.0:metadata">
 		<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
 			<ds:SignedInfo>
 				<ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
 				<ds:SignatureMethod
 					Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
-				<ds:Reference URI="#_ed34cc4e-d439-4a4a-a360-c339fa5a95ea">
+				<ds:Reference URI="#_9041b047-f81a-4e45-a0a6-ba587f6c0e10">
 					<ds:Transforms>
 						<ds:Transform
 							Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
 						<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
 					</ds:Transforms>
 					<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
-					<ds:DigestValue>8xoFlW04ruHElpCAcxibK2sO0F+JtzFVXS7O2GN2JzY=
+					<ds:DigestValue>Sk3ZOw4qdhop1iV1qwdtHPXG14YeMKXy+sq4nDt+IW4=
 					</ds:DigestValue>
 				</ds:Reference>
 			</ds:SignedInfo>
-			<ds:SignatureValue>oxgleViDyfUYLJU8NUEvGODsSIIp+AcvlGP11MxBX6zUv8UmL/VbpVFQJ5ECTjSAEgReRgJ9HWyrVQpL49A8nM6AeRqPcpCMC23psxNDRRiEj5wvfdLkMSdxZnsk5BAZ4efHEkm+Y4H61dg3hOfvpgDBx7drO10na961k/v22122fS9ylxLdeUYzdLLX4rREClpE860KnXVRWfPP8pjQy38rXjMzQImZq/QCJyPaNOaLlab1g82ig6yMadckME3dcXVCAdRYluNPapZeHX5FUcR2cyQwrEu5Kkf7PFpcBFZQEMePmEsclxV3kPysmn9sTzOmp1BH7FFvkWCv3JaOWQ==
+			<ds:SignatureValue>ccP89znpP2D90C1GyP/kT5X2IF3xvhFxvKRdqbSFG1RrxioQSp+4GScjjgKOz5WWyAYIaCJ4IuPUHgSe2yNVE9Qa4qBRKVwmpK1j+ETgBkTasihJ974MgLHgXoH5mrkhzCCOQwm933LvMLA1GMc7RJdGepfQbQSUbG+1EES02Al/IlvMVw7RRoYq/BvPQ0+dRItSmpIBc6UyW3qcKWKs59nkP+WlGznHr8Yc0N64q+Fs789E8ngclYNhDK40tzUuIxZRWDkHac7mezv0XnshswXvlhkFxYKiQ+8r6Q3gLk8heXF2p9bnFrZOy9RcpNjnSBV3nxkz/ItE3L9QPu20TA==
 			</ds:SignatureValue>
 			<KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
 				<X509Data>
-					<X509Certificate>MIIC3jCCAcagAwIBAgIQJXOZC9xgirlB0sWahGHQPDANBgkqhkiG9w0BAQsFADArMSkwJwYDVQQDEyBBREZTIFNpZ25pbmcgLSBhZGZzLmhpLWhpZHRhLm9yZzAeFw0xNjExMjUxNzQ0MTVaFw0xNzExMjUxNzQ0MTVaMCsxKTAnBgNVBAMTIEFERlMgU2lnbmluZyAtIGFkZnMuaGktaGlkdGEub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4vS8Si8UREZsZ+SdJecj2qqr3EfPSsv8dlKWL+rjwNW5LOcoVy8mNovRS4+RL8kHjlkWK+CTFikLQ0C9/ZnMYNUohjeBi4sYcD2iLR6DpplQRADU+HFzuzRqt/ty5SKseabDKuw9J/E/0VAuMKtq5V44xg8+y1MeYx6WYn2OM8VyYsDWiqzaQl1Uoi/spMDvRdQfEjKCquHIuLWDKhXZBDTDFfGRD9FWrKNpjvwXfd9IyNHbxj4mG+37Vzpz/LZ3Tsj1O1ziz16J8LBO8cOx4I5v0PMNh54/B2RVwUt/kfs/Yx6a76RDPUs/W/ZjKiSzGUYdRJxbdxOXwzdhqzY6dwIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCA9bHTnEdbRypOkTgHw64Q4wgy0wuHbwlMFC8Sa1A9ahXNrPyaNyubpRrz8tX0iXASQUMu6y8D3bGrbszfPrM+XLpHJKWQSdMV9pzdAHgpujTDovCzcsP2QgUOTjJRN5v6lhQ8SArue/nQ946/F9l7q1M+N31ZnfFFJR9TjREfF8hYcAYUtU8PwMlcaWTXD4vuvs1zYtb2VUNfhY0B9wkJ4N7OJciOvN2bxLU7YIPzDbUOs6OEb7TZk0oTqzplbvqBd7sfhPDS2MNDKYf1J0/1iaBK7NYxZIN8lvZ5slikBUByT1zxDDvw6JoLZGO7HivszHFz+xRGhQQSj8U0OUX7
+					<X509Certificate>MIIC3jCCAcagAwIBAgIQKdg1IYxFtLdO3ov2PCLcADANBgkqhkiG9w0BAQsFADArMSkwJwYDVQQDEyBBREZTIFNpZ25pbmcgLSBhZGZzLmhpLWhpZHRhLm9yZzAeFw0xNzA2MDYyMTQ0MDdaFw0xODA2MDYyMTQ0MDdaMCsxKTAnBgNVBAMTIEFERlMgU2lnbmluZyAtIGFkZnMuaGktaGlkdGEub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyeZIbI9yOcm8bnRkZVY4klU+Z/zUG3y+nzy3dEdIomBRfSrTnX+VhactBiFnAr/pTI05vnwFRQ5aeiEQv4F4lX0VzpCGS5+Hgz4xyO0wyECMCPg3zb0opDS4cA2OSHY1KuPIIIKyIloUCjPxcH41aTgL9M+yUk6n4jCODBFI7Rp0JUsJew8a+yC1WyKHXU/CCg0wIXyS9lkoKDj3nSpYpKlB3AFav8d0CjfLBVCp/ejnhTsCUaCQdPVmcIUqdACyzKWA99r8AaffXoKlcDX8Ui8v4QKgZI2YJ7+T00CGMNl5TSreNj3g4oMNhZwDiXUXiQZqHIln3gjuDcpuFZsImQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQBSb4+sB4MFjuUt6KIUBpZ5hOtrBR4ZHFBC1gSWnCibiW6scw9LelCcSf9vKF61jyXUR1g11TolRvnJy9/XmZ1ilLo7cfaNqwlHu0vLFDExqYpuhelJFfxZT6+mvDS78nE6t5casKhln6Mj3yk55QCCKCl5sfcGTPvuah9afATFSysbc7P1v0KpXre3xNKop0TDSgte80vr7emgQvSk9w2/vKwe6LVSJ+KSOIPtYfth1ff51KtzHfG5/ZvjjiQpj7AHv4snOqAY/3kvRzq5vEv0gJiHF8ww2ekWVGVnfjWs9OeExAUbS2i8MRvvAYcJSuhvy1VwLBzn7xg8lkTL8rjN
 					</X509Certificate>
 				</X509Data>
 			</KeyInfo>
 		</ds:Signature>
 		<RoleDescriptor xsi:type="fed:ApplicationServiceType"
 			protocolSupportEnumeration="http://docs.oasis-open.org/ws-sx/ws-trust/200512 http://schemas.xmlsoap.org/ws/2005/02/trust http://docs.oasis-open.org/wsfed/federation/200706"
-			ServiceDisplayName="Hawaii HIDTA" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			ServiceDisplayName="Hawaii HIDTA AD FS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			xmlns:fed="http://docs.oasis-open.org/wsfed/federation/200706">
 			<KeyDescriptor use="encryption">
 				<KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
 					<X509Data>
-						<X509Certificate>MIIC5DCCAcygAwIBAgIQE1Jlov558LFIaVtyDy2cXTANBgkqhkiG9w0BAQsFADAuMSwwKgYDVQQDEyNBREZTIEVuY3J5cHRpb24gLSBhZGZzLmhpLWhpZHRhLm9yZzAeFw0xNjExMjUxNzQ0MTVaFw0xNzExMjUxNzQ0MTVaMC4xLDAqBgNVBAMTI0FERlMgRW5jcnlwdGlvbiAtIGFkZnMuaGktaGlkdGEub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApw+Gcz8c8oWyzyLD4oZpjeFHeX6MYBzDO3m+LxNNQ7f+mxp0TGs6zMnFrCIsSerIkqC7GAiJ69rXJz5oQrVnjyVjxt3NXSE/z9r3Wx2ssVFDAr2TPfz8+zABMNGpGmfzP+SN4QRel5NdJo7DxsA96CwmNvWDaLsPXVmPucgmSogms6oBbUsz7EfVKK/CU8MakcJfOrMN7D7i1X6D7OTSMXlHAykpgVzLylfnZxoG2n9FBG2+IbPxKiAN24qLT8Id6ktp+FlINYjgY2apyOMh/blYl9vqRqVLtpzhslgXZ1j5ocsf6Ozky0TC94gcdtiJCB3+mV2uiZa/aeA332lBeQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQA4RrKVgyk7mfC5ZhYm3hByVigqB4WhtgMmA6NqPPzYdoriV65wVgA7XM8LFXg53lBxbV1/aB0uymnzKe/uXWmOdcDdAQU3upVVSisOqhfI66+CCAOpJzBDuNzfYGFjGa/6nT2KlfZv6o4RmvN1ufyHej0oAva+S8hnTYMV5Hbds6n42XlTn4VF/bRGSwi7KEWKHSoDNLZtF2XaPiDbD+8psy5PLeYAUo86EPQzBWrQG3/AEIX7M7tLyvkOsTgwTxoDlPVWL0KMyTmEcgR4tqqyTjAxxSeXGoSW2T2mq7OSMh21qoY1SDdoTNZzuCOfZGF62p0mLEJB6B8JI/wGXjqD
+						<X509Certificate>MIIC5DCCAcygAwIBAgIQOarF/QxyfahEhzsf0fE1jTANBgkqhkiG9w0BAQsFADAuMSwwKgYDVQQDEyNBREZTIEVuY3J5cHRpb24gLSBhZGZzLmhpLWhpZHRhLm9yZzAeFw0xNzA2MDYyMTQ0MDdaFw0xODA2MDYyMTQ0MDdaMC4xLDAqBgNVBAMTI0FERlMgRW5jcnlwdGlvbiAtIGFkZnMuaGktaGlkdGEub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwmT7ENYDpVbKlEcZz2E4zMrSWT3Z4+3SKogkN3ov4M/XIWyeYGpKs31XLpH2tBFoBgkUm4dwOdUSIZsrvCWy+8wPYhdnUIy78NvrYT4bdistwyX8PWaGqQyDZHK6Ki0S98/+B2tA5GCDSA0vzwdA7euaWgKkUdu3VOEzZg7h9/K1oI0KiHZeYBnctN1zZVrwSoCUjFfCHba2LJF5cmEXYWzaXa7X0TleCjV5kWleU5Eeke8KscByE73V7kxYXo8U8hOrRyEoojf61HQ07bHC1zAFIOy2H1CDmLZfZu6AWcEjgN5XOBNTX1Mu2cI9WL5Hx6Dj1+4+HPHIP7L3/qi8IwIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCjzNNbinTPiwcJJseDbIA+67JWcZ4rx4QowYDGUmSbzT4LsoB9gJEBySrqx2Tq05hVr7pqttkYPvBgfkA/Cr2t/2xD9NVmzcEaSJQpngxLzHC+sDAofWDErE6VsdNQQpvUbkB8HjElVrKpb8Sln6ny8ZSA2qloaTTNMYmXZHd1c/70hwbAmcOjtek5yqoCETbFZloZSTiCkHbn12zosh0XbHDoSvYLiteGAAufoPNATTqitXMEK1q1p8pNQe3HucfhP/34f9voxjEA9Dx8UVt2LSmwxeis5wTDjrkilOyNcGxWX5QT76Iiji+Uk9wD4bMRGvXGWoU0NbFmHmNPKQLy
 						</X509Certificate>
 					</X509Data>
 				</KeyInfo>
@@ -3702,44 +3702,45 @@ JSd+OgOuyrSA65hr1lHLV1C47WSCS1+7YegokiO47eMwIg==
 					<auth:DisplayName>Alternate Login ID</auth:DisplayName>
 					<auth:Description>Alternate login ID of the user</auth:Description>
 				</auth:ClaimType>
-				<auth:ClaimType Uri="gfipm::user:EmailAddressText"
+				<auth:ClaimType Uri="gfipm:2.0:user:EmailAddressText"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS Email Address Text</auth:DisplayName>
-					<auth:Description>Email Address Text</auth:Description>
+					<auth:Description>HIJIS Email Address Text</auth:Description>
 				</auth:ClaimType>
-				<auth:ClaimType Uri="gfipm::user:EmployeePositionName"
+				<auth:ClaimType Uri="gfipm:2.0:user:EmployeePositionName"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS Job Title</auth:DisplayName>
-					<auth:Description>Position Name</auth:Description>
+					<auth:Description>HIJIS Job Title</auth:Description>
 				</auth:ClaimType>
-				<auth:ClaimType Uri="gfipm::user:EmployerName"
+				<auth:ClaimType Uri="gfipm:2.0:user:EmployerName"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS Agency</auth:DisplayName>
-					<auth:Description>Company</auth:Description>
+					<auth:Description>HIJIS Agency</auth:Description>
 				</auth:ClaimType>
 				<auth:ClaimType Uri="gfipm:2.0:user:EmployerSubUnitName"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS Division</auth:DisplayName>
-					<auth:Description>Department</auth:Description>
+					<auth:Description>HIJIS Division</auth:Description>
 				</auth:ClaimType>
 				<auth:ClaimType Uri="gfipm:2.0:user:GivenName"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS Given Name</auth:DisplayName>
-					<auth:Description>Given name</auth:Description>
+					<auth:Description>HIJIS Given Name</auth:Description>
 				</auth:ClaimType>
 				<auth:ClaimType Uri="gfipm:2.0:user:SurName"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS Sur Name</auth:DisplayName>
-					<auth:Description>Sur Name</auth:Description>
+					<auth:Description>HIJIS Sur Name</auth:Description>
 				</auth:ClaimType>
 				<auth:ClaimType Uri="gfipm:2.0:user:TelephoneNumber"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS Telephone Number</auth:DisplayName>
-					<auth:Description>Telephone Number</auth:Description>
+					<auth:Description>HIJIS Telephone Number</auth:Description>
 				</auth:ClaimType>
 				<auth:ClaimType Uri="gfipm:ext:user:FederatedQueryUserIndicator"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS User</auth:DisplayName>
+					<auth:Description>HIJIS User</auth:Description>
 				</auth:ClaimType>
 			</fed:ClaimTypesRequested>
 			<fed:TargetScopes>
@@ -3780,12 +3781,12 @@ JSd+OgOuyrSA65hr1lHLV1C47WSCS1+7YegokiO47eMwIg==
 		</RoleDescriptor>
 		<RoleDescriptor xsi:type="fed:SecurityTokenServiceType"
 			protocolSupportEnumeration="http://docs.oasis-open.org/ws-sx/ws-trust/200512 http://schemas.xmlsoap.org/ws/2005/02/trust http://docs.oasis-open.org/wsfed/federation/200706"
-			ServiceDisplayName="Hawaii HIDTA" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			ServiceDisplayName="Hawaii HIDTA AD FS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			xmlns:fed="http://docs.oasis-open.org/wsfed/federation/200706">
 			<KeyDescriptor use="signing">
 				<KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
 					<X509Data>
-						<X509Certificate>MIIC3jCCAcagAwIBAgIQJXOZC9xgirlB0sWahGHQPDANBgkqhkiG9w0BAQsFADArMSkwJwYDVQQDEyBBREZTIFNpZ25pbmcgLSBhZGZzLmhpLWhpZHRhLm9yZzAeFw0xNjExMjUxNzQ0MTVaFw0xNzExMjUxNzQ0MTVaMCsxKTAnBgNVBAMTIEFERlMgU2lnbmluZyAtIGFkZnMuaGktaGlkdGEub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4vS8Si8UREZsZ+SdJecj2qqr3EfPSsv8dlKWL+rjwNW5LOcoVy8mNovRS4+RL8kHjlkWK+CTFikLQ0C9/ZnMYNUohjeBi4sYcD2iLR6DpplQRADU+HFzuzRqt/ty5SKseabDKuw9J/E/0VAuMKtq5V44xg8+y1MeYx6WYn2OM8VyYsDWiqzaQl1Uoi/spMDvRdQfEjKCquHIuLWDKhXZBDTDFfGRD9FWrKNpjvwXfd9IyNHbxj4mG+37Vzpz/LZ3Tsj1O1ziz16J8LBO8cOx4I5v0PMNh54/B2RVwUt/kfs/Yx6a76RDPUs/W/ZjKiSzGUYdRJxbdxOXwzdhqzY6dwIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCA9bHTnEdbRypOkTgHw64Q4wgy0wuHbwlMFC8Sa1A9ahXNrPyaNyubpRrz8tX0iXASQUMu6y8D3bGrbszfPrM+XLpHJKWQSdMV9pzdAHgpujTDovCzcsP2QgUOTjJRN5v6lhQ8SArue/nQ946/F9l7q1M+N31ZnfFFJR9TjREfF8hYcAYUtU8PwMlcaWTXD4vuvs1zYtb2VUNfhY0B9wkJ4N7OJciOvN2bxLU7YIPzDbUOs6OEb7TZk0oTqzplbvqBd7sfhPDS2MNDKYf1J0/1iaBK7NYxZIN8lvZ5slikBUByT1zxDDvw6JoLZGO7HivszHFz+xRGhQQSj8U0OUX7
+						<X509Certificate>MIIC3jCCAcagAwIBAgIQKdg1IYxFtLdO3ov2PCLcADANBgkqhkiG9w0BAQsFADArMSkwJwYDVQQDEyBBREZTIFNpZ25pbmcgLSBhZGZzLmhpLWhpZHRhLm9yZzAeFw0xNzA2MDYyMTQ0MDdaFw0xODA2MDYyMTQ0MDdaMCsxKTAnBgNVBAMTIEFERlMgU2lnbmluZyAtIGFkZnMuaGktaGlkdGEub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyeZIbI9yOcm8bnRkZVY4klU+Z/zUG3y+nzy3dEdIomBRfSrTnX+VhactBiFnAr/pTI05vnwFRQ5aeiEQv4F4lX0VzpCGS5+Hgz4xyO0wyECMCPg3zb0opDS4cA2OSHY1KuPIIIKyIloUCjPxcH41aTgL9M+yUk6n4jCODBFI7Rp0JUsJew8a+yC1WyKHXU/CCg0wIXyS9lkoKDj3nSpYpKlB3AFav8d0CjfLBVCp/ejnhTsCUaCQdPVmcIUqdACyzKWA99r8AaffXoKlcDX8Ui8v4QKgZI2YJ7+T00CGMNl5TSreNj3g4oMNhZwDiXUXiQZqHIln3gjuDcpuFZsImQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQBSb4+sB4MFjuUt6KIUBpZ5hOtrBR4ZHFBC1gSWnCibiW6scw9LelCcSf9vKF61jyXUR1g11TolRvnJy9/XmZ1ilLo7cfaNqwlHu0vLFDExqYpuhelJFfxZT6+mvDS78nE6t5casKhln6Mj3yk55QCCKCl5sfcGTPvuah9afATFSysbc7P1v0KpXre3xNKop0TDSgte80vr7emgQvSk9w2/vKwe6LVSJ+KSOIPtYfth1ff51KtzHfG5/ZvjjiQpj7AHv4snOqAY/3kvRzq5vEv0gJiHF8ww2ekWVGVnfjWs9OeExAUbS2i8MRvvAYcJSuhvy1VwLBzn7xg8lkTL8rjN
 						</X509Certificate>
 					</X509Data>
 				</KeyInfo>
@@ -4225,44 +4226,45 @@ JSd+OgOuyrSA65hr1lHLV1C47WSCS1+7YegokiO47eMwIg==
 					<auth:DisplayName>Alternate Login ID</auth:DisplayName>
 					<auth:Description>Alternate login ID of the user</auth:Description>
 				</auth:ClaimType>
-				<auth:ClaimType Uri="gfipm::user:EmailAddressText"
+				<auth:ClaimType Uri="gfipm:2.0:user:EmailAddressText"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS Email Address Text</auth:DisplayName>
-					<auth:Description>Email Address Text</auth:Description>
+					<auth:Description>HIJIS Email Address Text</auth:Description>
 				</auth:ClaimType>
-				<auth:ClaimType Uri="gfipm::user:EmployeePositionName"
+				<auth:ClaimType Uri="gfipm:2.0:user:EmployeePositionName"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS Job Title</auth:DisplayName>
-					<auth:Description>Position Name</auth:Description>
+					<auth:Description>HIJIS Job Title</auth:Description>
 				</auth:ClaimType>
-				<auth:ClaimType Uri="gfipm::user:EmployerName"
+				<auth:ClaimType Uri="gfipm:2.0:user:EmployerName"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS Agency</auth:DisplayName>
-					<auth:Description>Company</auth:Description>
+					<auth:Description>HIJIS Agency</auth:Description>
 				</auth:ClaimType>
 				<auth:ClaimType Uri="gfipm:2.0:user:EmployerSubUnitName"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS Division</auth:DisplayName>
-					<auth:Description>Department</auth:Description>
+					<auth:Description>HIJIS Division</auth:Description>
 				</auth:ClaimType>
 				<auth:ClaimType Uri="gfipm:2.0:user:GivenName"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS Given Name</auth:DisplayName>
-					<auth:Description>Given name</auth:Description>
+					<auth:Description>HIJIS Given Name</auth:Description>
 				</auth:ClaimType>
 				<auth:ClaimType Uri="gfipm:2.0:user:SurName"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS Sur Name</auth:DisplayName>
-					<auth:Description>Sur Name</auth:Description>
+					<auth:Description>HIJIS Sur Name</auth:Description>
 				</auth:ClaimType>
 				<auth:ClaimType Uri="gfipm:2.0:user:TelephoneNumber"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS Telephone Number</auth:DisplayName>
-					<auth:Description>Telephone Number</auth:Description>
+					<auth:Description>HIJIS Telephone Number</auth:Description>
 				</auth:ClaimType>
 				<auth:ClaimType Uri="gfipm:ext:user:FederatedQueryUserIndicator"
 					Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
 					<auth:DisplayName>HIJIS User</auth:DisplayName>
+					<auth:Description>HIJIS User</auth:Description>
 				</auth:ClaimType>
 			</fed:ClaimTypesOffered>
 			<fed:SecurityTokenServiceEndpoint>
@@ -4294,7 +4296,7 @@ JSd+OgOuyrSA65hr1lHLV1C47WSCS1+7YegokiO47eMwIg==
 			<KeyDescriptor use="encryption">
 				<KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
 					<X509Data>
-						<X509Certificate>MIIC5DCCAcygAwIBAgIQE1Jlov558LFIaVtyDy2cXTANBgkqhkiG9w0BAQsFADAuMSwwKgYDVQQDEyNBREZTIEVuY3J5cHRpb24gLSBhZGZzLmhpLWhpZHRhLm9yZzAeFw0xNjExMjUxNzQ0MTVaFw0xNzExMjUxNzQ0MTVaMC4xLDAqBgNVBAMTI0FERlMgRW5jcnlwdGlvbiAtIGFkZnMuaGktaGlkdGEub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApw+Gcz8c8oWyzyLD4oZpjeFHeX6MYBzDO3m+LxNNQ7f+mxp0TGs6zMnFrCIsSerIkqC7GAiJ69rXJz5oQrVnjyVjxt3NXSE/z9r3Wx2ssVFDAr2TPfz8+zABMNGpGmfzP+SN4QRel5NdJo7DxsA96CwmNvWDaLsPXVmPucgmSogms6oBbUsz7EfVKK/CU8MakcJfOrMN7D7i1X6D7OTSMXlHAykpgVzLylfnZxoG2n9FBG2+IbPxKiAN24qLT8Id6ktp+FlINYjgY2apyOMh/blYl9vqRqVLtpzhslgXZ1j5ocsf6Ozky0TC94gcdtiJCB3+mV2uiZa/aeA332lBeQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQA4RrKVgyk7mfC5ZhYm3hByVigqB4WhtgMmA6NqPPzYdoriV65wVgA7XM8LFXg53lBxbV1/aB0uymnzKe/uXWmOdcDdAQU3upVVSisOqhfI66+CCAOpJzBDuNzfYGFjGa/6nT2KlfZv6o4RmvN1ufyHej0oAva+S8hnTYMV5Hbds6n42XlTn4VF/bRGSwi7KEWKHSoDNLZtF2XaPiDbD+8psy5PLeYAUo86EPQzBWrQG3/AEIX7M7tLyvkOsTgwTxoDlPVWL0KMyTmEcgR4tqqyTjAxxSeXGoSW2T2mq7OSMh21qoY1SDdoTNZzuCOfZGF62p0mLEJB6B8JI/wGXjqD
+						<X509Certificate>MIIC5DCCAcygAwIBAgIQOarF/QxyfahEhzsf0fE1jTANBgkqhkiG9w0BAQsFADAuMSwwKgYDVQQDEyNBREZTIEVuY3J5cHRpb24gLSBhZGZzLmhpLWhpZHRhLm9yZzAeFw0xNzA2MDYyMTQ0MDdaFw0xODA2MDYyMTQ0MDdaMC4xLDAqBgNVBAMTI0FERlMgRW5jcnlwdGlvbiAtIGFkZnMuaGktaGlkdGEub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwmT7ENYDpVbKlEcZz2E4zMrSWT3Z4+3SKogkN3ov4M/XIWyeYGpKs31XLpH2tBFoBgkUm4dwOdUSIZsrvCWy+8wPYhdnUIy78NvrYT4bdistwyX8PWaGqQyDZHK6Ki0S98/+B2tA5GCDSA0vzwdA7euaWgKkUdu3VOEzZg7h9/K1oI0KiHZeYBnctN1zZVrwSoCUjFfCHba2LJF5cmEXYWzaXa7X0TleCjV5kWleU5Eeke8KscByE73V7kxYXo8U8hOrRyEoojf61HQ07bHC1zAFIOy2H1CDmLZfZu6AWcEjgN5XOBNTX1Mu2cI9WL5Hx6Dj1+4+HPHIP7L3/qi8IwIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCjzNNbinTPiwcJJseDbIA+67JWcZ4rx4QowYDGUmSbzT4LsoB9gJEBySrqx2Tq05hVr7pqttkYPvBgfkA/Cr2t/2xD9NVmzcEaSJQpngxLzHC+sDAofWDErE6VsdNQQpvUbkB8HjElVrKpb8Sln6ny8ZSA2qloaTTNMYmXZHd1c/70hwbAmcOjtek5yqoCETbFZloZSTiCkHbn12zosh0XbHDoSvYLiteGAAufoPNATTqitXMEK1q1p8pNQe3HucfhP/34f9voxjEA9Dx8UVt2LSmwxeis5wTDjrkilOyNcGxWX5QT76Iiji+Uk9wD4bMRGvXGWoU0NbFmHmNPKQLy
 						</X509Certificate>
 					</X509Data>
 				</KeyInfo>
@@ -4302,7 +4304,7 @@ JSd+OgOuyrSA65hr1lHLV1C47WSCS1+7YegokiO47eMwIg==
 			<KeyDescriptor use="signing">
 				<KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
 					<X509Data>
-						<X509Certificate>MIIC3jCCAcagAwIBAgIQJXOZC9xgirlB0sWahGHQPDANBgkqhkiG9w0BAQsFADArMSkwJwYDVQQDEyBBREZTIFNpZ25pbmcgLSBhZGZzLmhpLWhpZHRhLm9yZzAeFw0xNjExMjUxNzQ0MTVaFw0xNzExMjUxNzQ0MTVaMCsxKTAnBgNVBAMTIEFERlMgU2lnbmluZyAtIGFkZnMuaGktaGlkdGEub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4vS8Si8UREZsZ+SdJecj2qqr3EfPSsv8dlKWL+rjwNW5LOcoVy8mNovRS4+RL8kHjlkWK+CTFikLQ0C9/ZnMYNUohjeBi4sYcD2iLR6DpplQRADU+HFzuzRqt/ty5SKseabDKuw9J/E/0VAuMKtq5V44xg8+y1MeYx6WYn2OM8VyYsDWiqzaQl1Uoi/spMDvRdQfEjKCquHIuLWDKhXZBDTDFfGRD9FWrKNpjvwXfd9IyNHbxj4mG+37Vzpz/LZ3Tsj1O1ziz16J8LBO8cOx4I5v0PMNh54/B2RVwUt/kfs/Yx6a76RDPUs/W/ZjKiSzGUYdRJxbdxOXwzdhqzY6dwIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCA9bHTnEdbRypOkTgHw64Q4wgy0wuHbwlMFC8Sa1A9ahXNrPyaNyubpRrz8tX0iXASQUMu6y8D3bGrbszfPrM+XLpHJKWQSdMV9pzdAHgpujTDovCzcsP2QgUOTjJRN5v6lhQ8SArue/nQ946/F9l7q1M+N31ZnfFFJR9TjREfF8hYcAYUtU8PwMlcaWTXD4vuvs1zYtb2VUNfhY0B9wkJ4N7OJciOvN2bxLU7YIPzDbUOs6OEb7TZk0oTqzplbvqBd7sfhPDS2MNDKYf1J0/1iaBK7NYxZIN8lvZ5slikBUByT1zxDDvw6JoLZGO7HivszHFz+xRGhQQSj8U0OUX7
+						<X509Certificate>MIIC3jCCAcagAwIBAgIQKdg1IYxFtLdO3ov2PCLcADANBgkqhkiG9w0BAQsFADArMSkwJwYDVQQDEyBBREZTIFNpZ25pbmcgLSBhZGZzLmhpLWhpZHRhLm9yZzAeFw0xNzA2MDYyMTQ0MDdaFw0xODA2MDYyMTQ0MDdaMCsxKTAnBgNVBAMTIEFERlMgU2lnbmluZyAtIGFkZnMuaGktaGlkdGEub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyeZIbI9yOcm8bnRkZVY4klU+Z/zUG3y+nzy3dEdIomBRfSrTnX+VhactBiFnAr/pTI05vnwFRQ5aeiEQv4F4lX0VzpCGS5+Hgz4xyO0wyECMCPg3zb0opDS4cA2OSHY1KuPIIIKyIloUCjPxcH41aTgL9M+yUk6n4jCODBFI7Rp0JUsJew8a+yC1WyKHXU/CCg0wIXyS9lkoKDj3nSpYpKlB3AFav8d0CjfLBVCp/ejnhTsCUaCQdPVmcIUqdACyzKWA99r8AaffXoKlcDX8Ui8v4QKgZI2YJ7+T00CGMNl5TSreNj3g4oMNhZwDiXUXiQZqHIln3gjuDcpuFZsImQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQBSb4+sB4MFjuUt6KIUBpZ5hOtrBR4ZHFBC1gSWnCibiW6scw9LelCcSf9vKF61jyXUR1g11TolRvnJy9/XmZ1ilLo7cfaNqwlHu0vLFDExqYpuhelJFfxZT6+mvDS78nE6t5casKhln6Mj3yk55QCCKCl5sfcGTPvuah9afATFSysbc7P1v0KpXre3xNKop0TDSgte80vr7emgQvSk9w2/vKwe6LVSJ+KSOIPtYfth1ff51KtzHfG5/ZvjjiQpj7AHv4snOqAY/3kvRzq5vEv0gJiHF8ww2ekWVGVnfjWs9OeExAUbS2i8MRvvAYcJSuhvy1VwLBzn7xg8lkTL8rjN
 						</X509Certificate>
 					</X509Data>
 				</KeyInfo>
@@ -4332,7 +4334,7 @@ JSd+OgOuyrSA65hr1lHLV1C47WSCS1+7YegokiO47eMwIg==
 			<KeyDescriptor use="encryption">
 				<KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
 					<X509Data>
-						<X509Certificate>MIIC5DCCAcygAwIBAgIQE1Jlov558LFIaVtyDy2cXTANBgkqhkiG9w0BAQsFADAuMSwwKgYDVQQDEyNBREZTIEVuY3J5cHRpb24gLSBhZGZzLmhpLWhpZHRhLm9yZzAeFw0xNjExMjUxNzQ0MTVaFw0xNzExMjUxNzQ0MTVaMC4xLDAqBgNVBAMTI0FERlMgRW5jcnlwdGlvbiAtIGFkZnMuaGktaGlkdGEub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApw+Gcz8c8oWyzyLD4oZpjeFHeX6MYBzDO3m+LxNNQ7f+mxp0TGs6zMnFrCIsSerIkqC7GAiJ69rXJz5oQrVnjyVjxt3NXSE/z9r3Wx2ssVFDAr2TPfz8+zABMNGpGmfzP+SN4QRel5NdJo7DxsA96CwmNvWDaLsPXVmPucgmSogms6oBbUsz7EfVKK/CU8MakcJfOrMN7D7i1X6D7OTSMXlHAykpgVzLylfnZxoG2n9FBG2+IbPxKiAN24qLT8Id6ktp+FlINYjgY2apyOMh/blYl9vqRqVLtpzhslgXZ1j5ocsf6Ozky0TC94gcdtiJCB3+mV2uiZa/aeA332lBeQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQA4RrKVgyk7mfC5ZhYm3hByVigqB4WhtgMmA6NqPPzYdoriV65wVgA7XM8LFXg53lBxbV1/aB0uymnzKe/uXWmOdcDdAQU3upVVSisOqhfI66+CCAOpJzBDuNzfYGFjGa/6nT2KlfZv6o4RmvN1ufyHej0oAva+S8hnTYMV5Hbds6n42XlTn4VF/bRGSwi7KEWKHSoDNLZtF2XaPiDbD+8psy5PLeYAUo86EPQzBWrQG3/AEIX7M7tLyvkOsTgwTxoDlPVWL0KMyTmEcgR4tqqyTjAxxSeXGoSW2T2mq7OSMh21qoY1SDdoTNZzuCOfZGF62p0mLEJB6B8JI/wGXjqD
+						<X509Certificate>MIIC5DCCAcygAwIBAgIQOarF/QxyfahEhzsf0fE1jTANBgkqhkiG9w0BAQsFADAuMSwwKgYDVQQDEyNBREZTIEVuY3J5cHRpb24gLSBhZGZzLmhpLWhpZHRhLm9yZzAeFw0xNzA2MDYyMTQ0MDdaFw0xODA2MDYyMTQ0MDdaMC4xLDAqBgNVBAMTI0FERlMgRW5jcnlwdGlvbiAtIGFkZnMuaGktaGlkdGEub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwmT7ENYDpVbKlEcZz2E4zMrSWT3Z4+3SKogkN3ov4M/XIWyeYGpKs31XLpH2tBFoBgkUm4dwOdUSIZsrvCWy+8wPYhdnUIy78NvrYT4bdistwyX8PWaGqQyDZHK6Ki0S98/+B2tA5GCDSA0vzwdA7euaWgKkUdu3VOEzZg7h9/K1oI0KiHZeYBnctN1zZVrwSoCUjFfCHba2LJF5cmEXYWzaXa7X0TleCjV5kWleU5Eeke8KscByE73V7kxYXo8U8hOrRyEoojf61HQ07bHC1zAFIOy2H1CDmLZfZu6AWcEjgN5XOBNTX1Mu2cI9WL5Hx6Dj1+4+HPHIP7L3/qi8IwIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCjzNNbinTPiwcJJseDbIA+67JWcZ4rx4QowYDGUmSbzT4LsoB9gJEBySrqx2Tq05hVr7pqttkYPvBgfkA/Cr2t/2xD9NVmzcEaSJQpngxLzHC+sDAofWDErE6VsdNQQpvUbkB8HjElVrKpb8Sln6ny8ZSA2qloaTTNMYmXZHd1c/70hwbAmcOjtek5yqoCETbFZloZSTiCkHbn12zosh0XbHDoSvYLiteGAAufoPNATTqitXMEK1q1p8pNQe3HucfhP/34f9voxjEA9Dx8UVt2LSmwxeis5wTDjrkilOyNcGxWX5QT76Iiji+Uk9wD4bMRGvXGWoU0NbFmHmNPKQLy
 						</X509Certificate>
 					</X509Data>
 				</KeyInfo>
@@ -4340,11 +4342,15 @@ JSd+OgOuyrSA65hr1lHLV1C47WSCS1+7YegokiO47eMwIg==
 			<KeyDescriptor use="signing">
 				<KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
 					<X509Data>
-						<X509Certificate>MIIC3jCCAcagAwIBAgIQJXOZC9xgirlB0sWahGHQPDANBgkqhkiG9w0BAQsFADArMSkwJwYDVQQDEyBBREZTIFNpZ25pbmcgLSBhZGZzLmhpLWhpZHRhLm9yZzAeFw0xNjExMjUxNzQ0MTVaFw0xNzExMjUxNzQ0MTVaMCsxKTAnBgNVBAMTIEFERlMgU2lnbmluZyAtIGFkZnMuaGktaGlkdGEub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4vS8Si8UREZsZ+SdJecj2qqr3EfPSsv8dlKWL+rjwNW5LOcoVy8mNovRS4+RL8kHjlkWK+CTFikLQ0C9/ZnMYNUohjeBi4sYcD2iLR6DpplQRADU+HFzuzRqt/ty5SKseabDKuw9J/E/0VAuMKtq5V44xg8+y1MeYx6WYn2OM8VyYsDWiqzaQl1Uoi/spMDvRdQfEjKCquHIuLWDKhXZBDTDFfGRD9FWrKNpjvwXfd9IyNHbxj4mG+37Vzpz/LZ3Tsj1O1ziz16J8LBO8cOx4I5v0PMNh54/B2RVwUt/kfs/Yx6a76RDPUs/W/ZjKiSzGUYdRJxbdxOXwzdhqzY6dwIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCA9bHTnEdbRypOkTgHw64Q4wgy0wuHbwlMFC8Sa1A9ahXNrPyaNyubpRrz8tX0iXASQUMu6y8D3bGrbszfPrM+XLpHJKWQSdMV9pzdAHgpujTDovCzcsP2QgUOTjJRN5v6lhQ8SArue/nQ946/F9l7q1M+N31ZnfFFJR9TjREfF8hYcAYUtU8PwMlcaWTXD4vuvs1zYtb2VUNfhY0B9wkJ4N7OJciOvN2bxLU7YIPzDbUOs6OEb7TZk0oTqzplbvqBd7sfhPDS2MNDKYf1J0/1iaBK7NYxZIN8lvZ5slikBUByT1zxDDvw6JoLZGO7HivszHFz+xRGhQQSj8U0OUX7
+						<X509Certificate>MIIC3jCCAcagAwIBAgIQKdg1IYxFtLdO3ov2PCLcADANBgkqhkiG9w0BAQsFADArMSkwJwYDVQQDEyBBREZTIFNpZ25pbmcgLSBhZGZzLmhpLWhpZHRhLm9yZzAeFw0xNzA2MDYyMTQ0MDdaFw0xODA2MDYyMTQ0MDdaMCsxKTAnBgNVBAMTIEFERlMgU2lnbmluZyAtIGFkZnMuaGktaGlkdGEub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyeZIbI9yOcm8bnRkZVY4klU+Z/zUG3y+nzy3dEdIomBRfSrTnX+VhactBiFnAr/pTI05vnwFRQ5aeiEQv4F4lX0VzpCGS5+Hgz4xyO0wyECMCPg3zb0opDS4cA2OSHY1KuPIIIKyIloUCjPxcH41aTgL9M+yUk6n4jCODBFI7Rp0JUsJew8a+yC1WyKHXU/CCg0wIXyS9lkoKDj3nSpYpKlB3AFav8d0CjfLBVCp/ejnhTsCUaCQdPVmcIUqdACyzKWA99r8AaffXoKlcDX8Ui8v4QKgZI2YJ7+T00CGMNl5TSreNj3g4oMNhZwDiXUXiQZqHIln3gjuDcpuFZsImQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQBSb4+sB4MFjuUt6KIUBpZ5hOtrBR4ZHFBC1gSWnCibiW6scw9LelCcSf9vKF61jyXUR1g11TolRvnJy9/XmZ1ilLo7cfaNqwlHu0vLFDExqYpuhelJFfxZT6+mvDS78nE6t5casKhln6Mj3yk55QCCKCl5sfcGTPvuah9afATFSysbc7P1v0KpXre3xNKop0TDSgte80vr7emgQvSk9w2/vKwe6LVSJ+KSOIPtYfth1ff51KtzHfG5/ZvjjiQpj7AHv4snOqAY/3kvRzq5vEv0gJiHF8ww2ekWVGVnfjWs9OeExAUbS2i8MRvvAYcJSuhvy1VwLBzn7xg8lkTL8rjN
 						</X509Certificate>
 					</X509Data>
 				</KeyInfo>
 			</KeyDescriptor>
+			<ArtifactResolutionService
+				Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"
+				Location="https://adfs.hi-hidta.org/adfs/services/trust/artifactresolution"
+				index="0" />
 			<SingleLogoutService
 				Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
 				Location="https://adfs.hi-hidta.org/adfs/ls/" />
@@ -4612,13 +4618,13 @@ JSd+OgOuyrSA65hr1lHLV1C47WSCS1+7YegokiO47eMwIg==
 			<Attribute Name="http://schemas.microsoft.com/ws/2013/11/alternateloginid"
 				NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
 				FriendlyName="Alternate Login ID" xmlns="urn:oasis:names:tc:SAML:2.0:assertion" />
-			<Attribute Name="gfipm::user:EmailAddressText"
+			<Attribute Name="gfipm:2.0:user:EmailAddressText"
 				NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
 				FriendlyName="HIJIS Email Address Text" xmlns="urn:oasis:names:tc:SAML:2.0:assertion" />
-			<Attribute Name="gfipm::user:EmployeePositionName"
+			<Attribute Name="gfipm:2.0:user:EmployeePositionName"
 				NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
 				FriendlyName="HIJIS Job Title" xmlns="urn:oasis:names:tc:SAML:2.0:assertion" />
-			<Attribute Name="gfipm::user:EmployerName"
+			<Attribute Name="gfipm:2.0:user:EmployerName"
 				NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
 				FriendlyName="HIJIS Agency" xmlns="urn:oasis:names:tc:SAML:2.0:assertion" />
 			<Attribute Name="gfipm:2.0:user:EmployerSubUnitName"
