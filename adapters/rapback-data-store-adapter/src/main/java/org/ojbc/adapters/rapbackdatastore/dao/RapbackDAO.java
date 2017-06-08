@@ -41,8 +41,6 @@ public interface RapbackDAO {
 	public Integer saveCivilFbiSubscriptionRecord(final CivilFbiSubscriptionRecord civilFbiSubscriptionRecord);
 	public Integer saveCriminalFbiSubscriptionRecord(final CriminalFbiSubscriptionRecord criminalFbiSubscriptionRecord);
 	public Integer saveCivilFingerPrints(final CivilFingerPrints civilFingerPrints);
-	//TODO remove this method when we are 100% certain the table is not needed. 
-//	public Integer saveCriminalFingerPrints(final CriminalFingerPrints criminalFingerPrints);
 	public Integer saveCivilInitialRapSheet(final CivilInitialRapSheet civilInitialRapSheet);
 	public Integer saveCivilInitialResults(final CivilInitialResults civilInitialResults);
 	public Integer getCivilIntialResultsId(String transactionNumber, ResultSender resultSender);
