@@ -34,6 +34,8 @@
     <module>ojb-web-util</module>
     <module>ojb-web-portal</module>
     <module>ojb-web-account-manager</module>
+<!--     <module>ojb-web-consent-management-service</module> -->
+<!--     <module>ojb-web-consent-management</module> -->
   </modules>
 
 </project>

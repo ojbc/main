@@ -16,17 +16,26 @@
  */
 package org.ojbc.web.consentmanagement.service;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import org.w3c.dom.Element;
 
 @RestController
 public class ConsentManagementRestController {
@@ -36,21 +45,40 @@ public class ConsentManagementRestController {
 	private static final String SAML_HEADER_NAME = "saml";
 	public static final String DEMODATA_HEADER_NAME = "demodata-ok";
 	
-
-	@RequestMapping(value="/cm-api/search", method=RequestMethod.GET, produces="application/json")
-	public String search(HttpServletRequest request) throws IOException {
+	@Value("${restBaseUrl}")
+	private String restBaseUrl;
+	
+	@Value("${allowUpdatesWithoutSamlToken:false}")
+	private Boolean allowUpdatesWithoutSamlToken;
+	
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	@Autowired
+	private SamlServiceImpl samlService;
+	
+	@RequestMapping(value="/cm-api/findPendingInmates", method=RequestMethod.GET, produces="application/json")
+	public String findPendingInmates(HttpServletRequest request) throws Exception {
+		
+		Map<String, String> samlHeaderInfo = new HashMap<String, String>();
+		
+		samlHeaderInfo = returnSamlHeaderInfo(request, samlHeaderInfo);		
+		
+		log.info("Saml Header Info: " + samlHeaderInfo.toString());
 		
 		String ret = null;
 		
-		Map<String, String> samlHeaderInfo = getSamlHeaderInfo(request.getHeader(SAML_HEADER_NAME));
 		String demodataHeaderValue = request.getHeader(DEMODATA_HEADER_NAME);
 		
-		if (!samlHeaderInfo.isEmpty()) {
-			
-			// todo: hit adapter
-			
-		} else if ("true".equals(demodataHeaderValue)) {
+		if ("true".equals(demodataHeaderValue)) {
 			ret = DemoConsentServiceImpl.getInstance().getDemoConsentRecords();
+			
+			return ret;
+		}	
+		
+		if (!samlHeaderInfo.isEmpty() || allowUpdatesWithoutSamlToken) {
+			ret = restTemplate.getForObject(restBaseUrl  + "/findPendingInmates", String.class);
+			
 		} else {
 			// error?
 			log.error("No SAML assertion in request, and not allowing demo data to be returned");
@@ -59,11 +87,86 @@ public class ConsentManagementRestController {
 		return ret;
 		
 	}
+
+	@RequestMapping(value="/cm-api/recordConsentDecision", method=RequestMethod.POST, consumes="application/json", produces="application/json")
+	public String recordConsentDecision(HttpServletRequest request, Map<String, String> model) throws Exception {
+		
+		Map<String, String> samlHeaderInfo = new HashMap<String, String>();
+		samlHeaderInfo = returnSamlHeaderInfo(request, samlHeaderInfo);			
+		
+		StringBuffer bodyBuf = new StringBuffer(1024);
+		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+		String line = null;
+		
+		while ((line = br.readLine()) != null) {
+			bodyBuf.append(line).append("\n");
+		}
+		
+		String body = bodyBuf.toString();
+		
+		log.debug("Body before SAML: " + body);
+		
+		if (!samlHeaderInfo.isEmpty())
+		{
+			body = addSamlData(body, samlHeaderInfo.get("GivenName"), samlHeaderInfo.get("SurName"), samlHeaderInfo.get("federationId"));
+		}			
+		
+		if (allowUpdatesWithoutSamlToken && samlHeaderInfo.isEmpty())
+		{
+			//Add fake SAML data
+			body = addSamlData(body,"testGiven", "testSurName","federationId");
+		}			
+		
+		log.info("Body after SAML: " + body);
+
+		String demodataHeaderValue = request.getHeader(DEMODATA_HEADER_NAME);
+		
+		if ("true".equals(demodataHeaderValue)) {
+			DemoConsentServiceImpl.getInstance().removeRecord(body);
+		} else if (!samlHeaderInfo.isEmpty() || allowUpdatesWithoutSamlToken) {
+				HttpHeaders headers = new HttpHeaders();
+				headers.setContentType(MediaType.APPLICATION_JSON);
+				HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+
+				restTemplate.postForLocation(restBaseUrl + "/recordConsentDecision", entity, body);
+		} else {
+				// error?
+				log.error("No SAML assertion in request, and not allowing demo data to be returned");
+		}
+		
+		return "{}";
+		
+	}
+
+	private Map<String, String> returnSamlHeaderInfo(
+			HttpServletRequest request, Map<String, String> samlHeaderInfo)
+			throws Exception {
+		if (!allowUpdatesWithoutSamlToken)
+		{	
+			Element samlAssertion = (Element)request.getAttribute("samlAssertion");
+			
+			if (samlAssertion == null)
+			{
+				samlAssertion = samlService.getSamlAssertion(request);
+			}
+			
+			if (samlAssertion != null)
+			{
+				throw new Exception("Unable to retrieve SAML assertion.");
+			}	
+			else
+			{
+				samlHeaderInfo = samlService.getSamlHeaderInfo(samlAssertion);
+			}	
+		}
+		return samlHeaderInfo;
+	}
 	
-	private Map<String, String> getSamlHeaderInfo(String headerValue) {
-		// todo: get it for real (using ShibbolethSamlAssertionRetriever), then parse the xml with xpath etc.
-		// consider adding an enhancement to the ShibbolethSamlAssertionRetriever to do the parsing there to get the most common assertion info
-		return new HashMap<>();
+	private String addSamlData(String body, String givenName, String surName, String federationId) {
+
+		body = StringUtils.replace(body, "\"consenterUserID\":null,\"consentUserFirstName\":null,\"consentUserLastName\":null",   
+										 "\"consenterUserID\":\"testUser\",\"consentUserFirstName\":\"testFirstName\",\"consentUserLastName\":\"testLastName\"");
+		return body;
 	}
 
 }

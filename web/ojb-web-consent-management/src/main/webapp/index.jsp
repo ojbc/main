@@ -64,12 +64,16 @@
 					<button type="button" class="btn btn-default" id="consent-save-button">Save</button>
 				</form>
 				
+				
 			</div>
+			
+			<div class="col-xs-12"><span class="status-label" id="status-label"></span></div>
 
 		</div>
 		
 	</div>
 
+	<div class="modal"></div>
 
 	<!--/start-context-script/--><script src="static/context-local-demo.js"></script><!--/end-context-script/-->
 	<script src="static/jquery/jquery-3.2.1.min.js"></script>

@@ -36,5 +36,12 @@ refreshData = function() {
 	"personGender" : "M",
 	"personDOBString" : "1974-03-01"
     } ];
-    $('#inmate-table').DataTable().clear().rows.add(demodata).draw()
+    var table = $('#inmate-table').DataTable();
+    if (table.rows().count() == 0) {
+	table.clear().rows.add(demodata).draw();
+    }
+}
+
+submitConsentDecision = function(consentDecisionJson) {
+    console.log("Local demo mode - mimicing submission of consent decision json: " + JSON.stringify(consentDecisionJson))
 }

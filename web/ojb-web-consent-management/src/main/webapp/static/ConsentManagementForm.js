@@ -15,7 +15,7 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 
-const REFRESH_INTERVAL_LENGTH = 10000;
+const REFRESH_INTERVAL_LENGTH = 60000;
 var refreshIntervalId = null;
 var table = null;
 
@@ -25,7 +25,6 @@ $(document).ready(
 		select : {
 		    style : "single"
 		},
-		dom: 'frtiBp',
 		info : false,
 		lengthChange : false,
 		columns : [ {
@@ -43,17 +42,7 @@ $(document).ready(
 		}, {
 		    "data" : "nameNumber",
 		    "title" : "Name Number"
-		} ],
-		buttons: [
-		            {
-		                text: 'Clear Selection',
-		                action: function () {
-		                    table.rows().deselect();
-		                    clearDecisionRecordFields();
-		                    updateUIState();
-		                }
-		            }
-		        ]
+		} ]
 	    });
 	    $('body').on('click', function() {
 		updateUIState();
@@ -74,38 +63,97 @@ $(document).ready(
 	    refreshIntervalId = setInterval(refreshData, REFRESH_INTERVAL_LENGTH);
 	    $("#consent-save-button").prop('disabled', true);
 	    $("#consent-save-button").on('click', function() {
-		    console.log('save button clicked');
+		    //console.log('save button clicked');
 		    row = table.row({selected: true}).data();
-		    console.log(row);
+		    row.consentDocumentControlNumber=$('#dcn').val();
+		    
+		    if ($('input[name=decision]:checked').val() == 'Granted')
+		    {	
+		    	row.consentDecisionTypeID=1;
+		    }
+
+		    if ($('input[name=decision]:checked').val() == 'Denied')
+		    {	
+		    	row.consentDecisionTypeID=2;
+		    }
+		    
+		    //console.log(row);
+		    submitConsentDecision(row);
 		});
 	});
 
 clearDecisionRecordFields = function() {
     $('#dcn').val('');
     $('input[name=decision]:checked').prop('checked', false);
+    $("#selected-patient-name").text('');
 }
 
 updateUIState = function() {
     rowSelected = (table.rows({selected: true}).count() > 0);
     dcnValue = $('#dcn').val();
     decisionValue = $('input[name=decision]:checked').val();
-    //console.log("Selection? >> " + rowSelected + ', dcn=' + dcnValue + ', decision=' + decisionValue);
-    if (!rowSelected) {
-	if (refreshIntervalId == null) {
-	    refreshIntervalId = setInterval(refreshData, REFRESH_INTERVAL_LENGTH);
-	    //console.log('Starting refresh cycle...')
-	} else {
-	    //console.log('(Refresh cycle already running, doing nothing.)')
-	}
-    } else {
-	if (refreshIntervalId != null) {
-	    clearInterval(refreshIntervalId);
-	    refreshIntervalId = null;
-	    //console.log('...stopping refresh cycle.')
-	} else {
-	    //console.log('(Refresh cycle is already stopped, doing nothing.)')
-	}
-    }
     val = (rowSelected && dcnValue != '' && decisionValue != null);
     $("#consent-save-button").prop('disabled', !val);
+    $("#status-label").html(table.rows().count() + " current inmates pending.");
+}
+
+refreshDataViaAjax = function(demodataOK) {
+    $('body').addClass("loading");
+	$.ajax(
+			{
+			    url : "/ojb-web-consent-management-service/cm-api/findPendingInmates",
+			    headers : {
+				"demodata-ok" : demodataOK
+			    }
+			}).done(function(data) {
+		    var newRows = [];
+		    var newConsentIds = [];
+		    for (i = 0; i < data.length; i++) {
+			newConsentIds.push(data[i].consentId);
+		    }
+		    var oldConsentIds = [];
+		    var removeIndex = -1;
+		    table.rows().every(function(rowIdx, tableLoop, rowLoop) {
+			var rowData = this.data();
+			if ($.inArray(rowData.consentId, newConsentIds) == -1) {
+			    removeIndex = rowIdx;
+			} else {
+			    oldConsentIds.push(rowData.consentId);
+			}
+		    });
+		    if (removeIndex != -1) {
+			table.row(removeIndex).remove();
+			// console.log("Removed row at index " + removeIndex);
+		    }
+		    for (i = 0; i < data.length; i++) {
+			if ($.inArray(data[i].consentId, oldConsentIds) == -1) {
+			    newRows.push(data[i]);
+			}
+		    }
+		    // console.log("Added " + newRows.length + " new rows")
+		    table.rows.add(newRows);
+		    table.draw(false);
+		    updateUIState();
+		    $('body').removeClass("loading");
+		});
+}
+
+submitConsentDecisionViaAjax = function(consentDecisionJson, demodataOK) {
+    $('body').addClass("loading");
+    $.ajax({
+	url : "/ojb-web-consent-management-service/cm-api/recordConsentDecision",
+	type: "POST",
+	data: JSON.stringify(consentDecisionJson),
+	contentType: "application/json",
+	dataType: "json",
+	processData: false,
+	headers : {
+	    "demodata-ok" : demodataOK
+	}
+    }).done(function(response) {
+	refreshDataViaAjax(demodataOK);
+	clearDecisionRecordFields();
+        updateUIState();
+        $('body').removeClass("loading");
+    });
 }

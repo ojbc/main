@@ -41,15 +41,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="submsg-ext:SubscribingOrganization"
-						minOccurs="0" />
-					<xsd:element ref="submsg-ext:RecordControllingOrganization"
-						minOccurs="0" />
 					<xsd:element ref="submsg-ext:SubscriptionRelatedCaseIdentification"
 						minOccurs="0" />
-					<xsd:element ref="submsg-ext:RapBackActivityNotificationFormatCode"
-						minOccurs="0" />
-					<xsd:element ref="submsg-ext:RapBackInStateOptOutIndicator"
+					<xsd:element ref="submsg-ext:SubscribingOrganization"
 						minOccurs="0" />
 					<xsd:element ref="submsg-ext:Subject" />
 					<xsd:element ref="nc:ContactEmailID" maxOccurs="unbounded">
@@ -292,7 +286,19 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
+					<xsd:element ref="submsg-ext:SubscriptionRelatedCaseIdentification"
+						minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscribingOrganization"
+						minOccurs="0" />
 					<xsd:element ref="submsg-ext:Subject" />
+					<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification"
+						minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation"
+						minOccurs="0" />
+					<xsd:element ref="submsg-ext:TriggeringEvents"
+						minOccurs="0" />
+					<xsd:element ref="submsg-ext:FederalRapSheetDisclosure"
+						minOccurs="0" />
 					<xsd:element ref="submsg-ext:FBISubscription"
 						minOccurs="0" />
 					<xsd:element ref="submsg-ext:SubscriptionModification" />
@@ -440,65 +446,6 @@
 	<xsd:element name="SubscribingOrganization" type="j:OrganizationType">
 		<xsd:annotation>
 			<xsd:documentation>The subscribing organization.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="RecordControllingOrganization" type="j:OrganizationType">
-		<xsd:annotation>
-			<xsd:documentation>The record owner.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="RapBackActivityNotificationFormatCode"
-		type="submsg-ext:RBNFCodeType" nillable="true">
-		<xsd:annotation>
-			<xsd:documentation>A code indicating the type of rap back activity
-				notification.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:complexType name="RBNFCodeType">
-		<xsd:annotation>
-			<xsd:documentation>A code type for the code indicating the type of
-				rap back activity notification
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:simpleContent>
-			<xsd:extension base="submsg-ext:RBNFCodeSimpleType">
-				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
-			</xsd:extension>
-		</xsd:simpleContent>
-	</xsd:complexType>
-	<xsd:simpleType name="RBNFCodeSimpleType">
-		<xsd:annotation>
-			<xsd:documentation>An enumeration set for a type of rap back activity
-				notification.
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:restriction base="xsd:token">
-			<xsd:enumeration value="1">
-				<xsd:annotation>
-					<xsd:documentation>Pre-Notification</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="2">
-				<xsd:annotation>
-					<xsd:documentation>Triggering Event</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-			<xsd:enumeration value="3">
-				<xsd:annotation>
-					<xsd:documentation>Identity History Summary to include the
-						triggering event
-					</xsd:documentation>
-				</xsd:annotation>
-			</xsd:enumeration>
-		</xsd:restriction>
-	</xsd:simpleType>
-	<xsd:element name="RapBackInStateOptOutIndicator" type="niem-xsd:boolean">
-		<xsd:annotation>
-			<xsd:documentation>True if Submitter wishes to opt-out of receiving
-				notifications for events originating within the submitter’s own
-				state; false otherwise.
-			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

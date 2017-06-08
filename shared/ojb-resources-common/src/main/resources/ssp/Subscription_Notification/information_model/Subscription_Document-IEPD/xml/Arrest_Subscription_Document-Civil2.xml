@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<submsg-doc:SubscriptionMessage
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
+	xmlns:submsg-doc="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/SubscriptionMessage/1.0 ../xsd/Subscription_Document.xsd">
+	<submsg-ext:SubscriptionRelatedCaseIdentification>
+		<nc20:IdentificationID>0123ABC</nc20:IdentificationID>
+	</submsg-ext:SubscriptionRelatedCaseIdentification>
+	<submsg-ext:SubscribingOrganization>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc20:IdentificationID>2345576</nc20:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</submsg-ext:SubscribingOrganization>
+		<submsg-ext:Subject>
+			<nc20:PersonBirthDate>
+				<nc20:Date>1972-08-02</nc20:Date>
+			</nc20:PersonBirthDate>
+			<nc20:PersonName>
+				<nc20:PersonGivenName>John</nc20:PersonGivenName>
+				<nc20:PersonSurName>Doe</nc20:PersonSurName>
+				<nc20:PersonFullName>John Doe</nc20:PersonFullName>
+			</nc20:PersonName>
+			<j:PersonAugmentation>
+				<j:PersonFBIIdentification>
+					<nc20:IdentificationID>123456789</nc20:IdentificationID>
+				</j:PersonFBIIdentification>
+				<j:PersonStateFingerprintIdentification>
+					<nc20:IdentificationID>A398118900</nc20:IdentificationID>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
+		</submsg-ext:Subject>
+		<nc20:ContactEmailID>testimap@locahost</nc20:ContactEmailID>
+		<nc20:ContactEmailID>email@local.gov</nc20:ContactEmailID>
+		<submsg-ext:SystemName>portal</submsg-ext:SystemName>
+		<submsg-ext:SubscriptionQualifierIdentification>
+			<nc20:IdentificationID>02E2A8B2-2D9C-4329-8EE4-7B84C36940A7
+			</nc20:IdentificationID>
+		</submsg-ext:SubscriptionQualifierIdentification>
+		<submsg-ext:CivilSubscriptionReasonCode>I</submsg-ext:CivilSubscriptionReasonCode>
+		<submsg-ext:TriggeringEvents>
+			<submsg-ext:FederalTriggeringEventCode>DISPOSITION</submsg-ext:FederalTriggeringEventCode>
+		</submsg-ext:TriggeringEvents>
+		<submsg-ext:FederalRapSheetDisclosure>
+			<submsg-ext:FederalRapSheetDisclosureIndicator>true
+			</submsg-ext:FederalRapSheetDisclosureIndicator>
+			<submsg-ext:FederalRapSheetDisclosureAttentionDesignationText>Attention Text</submsg-ext:FederalRapSheetDisclosureAttentionDesignationText>
+		</submsg-ext:FederalRapSheetDisclosure>
+</submsg-doc:SubscriptionMessage>
