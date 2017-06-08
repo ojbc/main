@@ -305,7 +305,7 @@
 						<xsl:choose>
 							<xsl:when test="$action = 'cancelSubscription'">
 								<xsl:apply-templates
-									select="/*/*/submsg-ext:RelatedFBISubscription/submsg-ext:SubscriptionFBIIdentification/nc20:IdentificationID"
+									select="/b-2:Unsubscribe/unsubmsg-doc:UnsubscriptionMessage/submsg-ext:RelatedFBISubscription"
 									mode="fbiSubscriptionID" />
 							</xsl:when>
 							<xsl:when test="$action = 'modifySubscription'">
