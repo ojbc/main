@@ -27,7 +27,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.sql.DataSource;
 
@@ -65,7 +64,8 @@ public class SubscriptionSearchQueryDAO {
 
 	private static final String BASE_QUERY_STRING = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, "
 			+ "s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
-			+ "si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, "
+			+ "si.identifierName, s.subscription_category_code, s.agency_case_number, s.ori, "
+			+ "si.identifierValue, nm.notificationAddress, "
 			+ "nm.notificationMechanismType, fs.* "
 			+ "FROM subscription s LEFT JOIN fbi_rap_back_subscription fs ON fs.subscription_id = s.id, "
 			+ "		notification_mechanism nm, "
@@ -165,7 +165,7 @@ public class SubscriptionSearchQueryDAO {
 	public Subscription findSubscriptionByFbiSubscriptionId(String fbiRelatedSubscriptionId){
 		
 		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
-                + "si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
+                + "s.ori, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
                 + "fbi_sub.* "
                 + "FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
                 + "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id AND fbi_sub.subscription_id = s.id "
@@ -182,7 +182,7 @@ public class SubscriptionSearchQueryDAO {
 	public Subscription findSubscriptionWithFbiInfoBySubscriptionId(String subscriptionId){
 		
 		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
-                + "si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
+                + "si.identifierName, s.subscription_category_code, s.agency_case_number, s.ori, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
                 + "fbi_sub.* "
                 + "FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
                 + "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id AND fbi_sub.subscription_id = s.id "

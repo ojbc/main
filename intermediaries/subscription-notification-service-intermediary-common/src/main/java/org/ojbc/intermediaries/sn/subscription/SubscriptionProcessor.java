@@ -144,13 +144,8 @@ public abstract class SubscriptionProcessor {
             return;
         }
 
-        log.debug("This is the topic:" + request.getTopic());
-        log.debug("This is the Subject Identifier map:" + request.getSubjectIdentifiers());
-        log.debug("This is the Email Address:" + request.getEmailAddresses());
-        log.debug("This is the System Name:" + request.getSystemName());
-        log.debug("This is the subscription qualifier:" + request.getSubscriptionQualifier());
-        log.debug("This is the subscription system identifer:" + request.getSubscriptionSystemId());
-
+        log.debug("UnSubscriptionRequest:" + request);
+        
         // Attempt to unsubscribe user
         int rowsUnsubscribed = subscriptionSearchQueryDAO.unsubscribe(request.getSubscriptionSystemId(), request.getTopic(), request.getSubjectIdentifiers(), request.getSystemName(), subscriptionOwner);
 
@@ -168,12 +163,12 @@ public abstract class SubscriptionProcessor {
 
     }
 
-    	public SubscriptionSearchQueryDAO getSubscriptionSearchQueryDAO() {
+	public SubscriptionSearchQueryDAO getSubscriptionSearchQueryDAO() {
 		return subscriptionSearchQueryDAO;
 	}
 
 	public void setSubscriptionSearchQueryDAO(
-			SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
+		SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
 		this.subscriptionSearchQueryDAO = subscriptionSearchQueryDAO;
 	}
 

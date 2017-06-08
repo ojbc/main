@@ -21,9 +21,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.ojbc.util.xml.XmlUtils;
-
 import org.apache.camel.Message;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -104,5 +105,10 @@ public abstract class UnSubscriptionRequest {
 	public void setSubjectIdentifiers(Map<String, String> subjectIdentifiers) {
 		this.subjectIdentifiers = subjectIdentifiers;
 	}
-	
+
+	@Override
+	 public String toString() {
+	  return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE); 
+	 }
+
 }

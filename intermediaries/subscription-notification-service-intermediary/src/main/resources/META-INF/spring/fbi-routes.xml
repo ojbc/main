@@ -131,15 +131,10 @@
 		<camel:route id="processFbiUnsubscribeRoute">
 		
 			<from uri="direct:processFbiUnsubscription"/>								
-			
-			<log message="\n\n\n direct:processFbiUnsubscription... \n\n\n" loggingLevel="INFO" />	
-			
-			<camel:log message="\n\n\n Calling fbi ebts service to unsubscribe from FBI... \n\n\n"/>
-																				
 			<to uri="bean:fbiSubscriptionProcessor?method=prepareUnsubscribeMessageForFbiEbts"/>
-				
+			
 			<convertBodyTo type="java.lang.String"/>
-							
+			<camel:log message="\n\n\n Calling fbi ebts service to unsubscribe from FBI... \n\n\n"/>
 			<camel:to uri="fbiEbtsSubscriptionManagerEndpoint" />														
 
 		</camel:route>		

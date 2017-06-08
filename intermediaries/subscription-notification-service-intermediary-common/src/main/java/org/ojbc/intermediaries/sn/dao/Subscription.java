@@ -59,6 +59,7 @@ public class Subscription {
 	
 	private String agencyCaseNumber; 
 	private String subscriptionCategoryCode; 
+	private String ori; 
 
 	private Map<String, String> subscriptionProperties;
 	
@@ -223,6 +224,14 @@ public class Subscription {
 
 	public void setFbiRapbackSubscription(FbiRapbackSubscription fbiRapbackSubscription) {
 		this.fbiRapbackSubscription = fbiRapbackSubscription;
+	}
+
+	public String getOri() {
+		return ori;
+	}
+
+	public void setOri(String ori) {
+		this.ori = ori;
 	}
 
 }
