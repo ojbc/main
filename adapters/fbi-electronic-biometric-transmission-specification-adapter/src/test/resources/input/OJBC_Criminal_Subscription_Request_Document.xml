@@ -35,9 +35,9 @@
 	<b-2:SubscriptionPolicy />
 	<submsg-doc:SubscriptionMessage>
 		<submsg-ext:SubscriptionRelatedCaseIdentification>
-		<nc20:IdentificationID>0123ABC</nc20:IdentificationID>
-	</submsg-ext:SubscriptionRelatedCaseIdentification>
-	<submsg-ext:SubscribingOrganization>
+			<nc20:IdentificationID>0123ABC</nc20:IdentificationID>
+		</submsg-ext:SubscriptionRelatedCaseIdentification>
+		<submsg-ext:SubscribingOrganization>
 			<j:OrganizationAugmentation>
 				<j:OrganizationORIIdentification>
 					<nc20:IdentificationID>2345576</nc20:IdentificationID>
