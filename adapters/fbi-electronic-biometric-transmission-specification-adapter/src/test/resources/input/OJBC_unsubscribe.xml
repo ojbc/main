@@ -24,35 +24,35 @@
 	xsi:schemaLocation="http://docs.oasis-open.org/wsn/b-2 ../../WSDL/wsn/b-2.xsd">
 	<unsubmsg-doc:UnsubscriptionMessage>
 		<submsg-ext:Subject>
-		<nc20:PersonBirthDate>
-			<nc20:Date>1972-08-02</nc20:Date>
-		</nc20:PersonBirthDate>
-		<nc20:PersonName>
-			<nc20:PersonGivenName>John</nc20:PersonGivenName>
-			<nc20:PersonSurName>Doe</nc20:PersonSurName>
-			<nc20:PersonFullName>John Doe</nc20:PersonFullName>
-		</nc20:PersonName>
-		<j:PersonAugmentation>
-			<j:PersonFBIIdentification>
-				<nc20:IdentificationID>123456789</nc20:IdentificationID>
-			</j:PersonFBIIdentification>
-			<j:PersonStateFingerprintIdentification>
-				<nc20:IdentificationID>A398118900</nc20:IdentificationID>
-			</j:PersonStateFingerprintIdentification>
-		</j:PersonAugmentation>
-	</submsg-ext:Subject>
-	<submsg-ext:SubscribingOrganization>
-		<j:OrganizationAugmentation>
-			<j:OrganizationORIIdentification>
-				<nc20:IdentificationID>2345576</nc20:IdentificationID>
-			</j:OrganizationORIIdentification>
-		</j:OrganizationAugmentation>
-	</submsg-ext:SubscribingOrganization>
-	<submsg-ext:RelatedFBISubscription>
-		<submsg-ext:SubscriptionFBIIdentification>
-			<nc20:IdentificationID>987654321</nc20:IdentificationID>
-		</submsg-ext:SubscriptionFBIIdentification>
-	</submsg-ext:RelatedFBISubscription>
+			<nc20:PersonBirthDate>
+				<nc20:Date>1972-08-02</nc20:Date>
+			</nc20:PersonBirthDate>
+			<nc20:PersonName>
+				<nc20:PersonGivenName>John</nc20:PersonGivenName>
+				<nc20:PersonSurName>Doe</nc20:PersonSurName>
+				<nc20:PersonFullName>John Doe</nc20:PersonFullName>
+			</nc20:PersonName>
+			<j:PersonAugmentation>
+				<j:PersonFBIIdentification>
+					<nc20:IdentificationID>123456789</nc20:IdentificationID>
+				</j:PersonFBIIdentification>
+				<j:PersonStateFingerprintIdentification>
+					<nc20:IdentificationID>A398118900</nc20:IdentificationID>
+				</j:PersonStateFingerprintIdentification>
+			</j:PersonAugmentation>
+		</submsg-ext:Subject>
+		<submsg-ext:SubscribingOrganization>
+			<j:OrganizationAugmentation>
+				<j:OrganizationORIIdentification>
+					<nc20:IdentificationID>2345576</nc20:IdentificationID>
+				</j:OrganizationORIIdentification>
+			</j:OrganizationAugmentation>
+		</submsg-ext:SubscribingOrganization>
+		<submsg-ext:RelatedFBISubscription>
+			<submsg-ext:SubscriptionFBIIdentification>
+				<nc20:IdentificationID>987654321</nc20:IdentificationID>
+			</submsg-ext:SubscriptionFBIIdentification>
+		</submsg-ext:RelatedFBISubscription>
 	</unsubmsg-doc:UnsubscriptionMessage>
 	<b-2:TopicExpression
 		Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">topics:person/arrest</b-2:TopicExpression>
