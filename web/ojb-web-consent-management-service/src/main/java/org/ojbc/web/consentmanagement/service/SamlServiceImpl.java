@@ -17,8 +17,9 @@
 package org.ojbc.web.consentmanagement.service;
 
 import java.io.InputStream;
+import java.io.StringWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +32,11 @@ import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
@@ -53,6 +59,16 @@ public class SamlServiceImpl {
 		Element assertion = null;
 		try {
 			assertion = retrieveAssertionFromShibboleth(request);
+			
+			Transformer transformer = TransformerFactory.newInstance().newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+			StreamResult result = new StreamResult(new StringWriter());
+			DOMSource source = new DOMSource(assertion);
+			transformer.transform(source, result);
+
+			String xmlString = result.getWriter().toString();
+			LOG.info("SAML Assertion: " + xmlString);			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -62,6 +78,10 @@ public class SamlServiceImpl {
 	
 	Element retrieveAssertionFromShibboleth(HttpServletRequest request) throws Exception
 	{
+		
+		LOG.info("Attempt to retrieve from Shibboleth.");
+		
+		
 		// Note: pulled this straight from Andrew's demo JSP that displays the assertion and http request...
 		
 		/*
@@ -100,7 +120,7 @@ public class SamlServiceImpl {
 		 * end of the fix
 		 */
 		 //Hard coded to pick up a single assertion...could loop through assertion headers if there will  be more than one
-		String assertionHttpHeaderName = request.getHeader("Shib-Assertion-01");
+		String assertionHttpHeaderName = request.getHeader("shibassertion01");
 		LOG.info("Loading assertion from: " + assertionHttpHeaderName);
 		
 		if(assertionHttpHeaderName == null){
@@ -108,10 +128,38 @@ public class SamlServiceImpl {
 			return null;
 		}
 		
-		URL url = new URL(assertionHttpHeaderName);
-		URLConnection con = url.openConnection();
+		assertionHttpHeaderName = assertionHttpHeaderName.replace("localhost", "159.233.28.58");
+		
+		
+		URL obj = new URL(assertionHttpHeaderName);
+		HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
+		
+		boolean redirect = false;
 
-		InputStream is = con.getInputStream();
+		// normally, 3xx is redirect
+		int status = conn.getResponseCode();
+		if (status != HttpURLConnection.HTTP_OK) {
+			if (status == HttpURLConnection.HTTP_MOVED_TEMP
+				|| status == HttpURLConnection.HTTP_MOVED_PERM
+					|| status == HttpURLConnection.HTTP_SEE_OTHER)
+			redirect = true;
+		}
+
+		LOG.info("Response Code ... " + status);
+
+		if (redirect) {
+
+			// get redirect url from "location" header field
+			String newUrl = conn.getHeaderField("Location");
+
+			// open the new connnection again
+			conn = (HttpURLConnection) new URL(newUrl).openConnection();
+
+			LOG.info("Redirect to URL : " + newUrl);
+
+		}		
+
+		InputStream is = conn.getInputStream();
 		
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setNamespaceAware(true);
@@ -123,8 +171,8 @@ public class SamlServiceImpl {
 	}
 	
 	private static final String SAML_XPATH_TEMPLATE="/saml2:Assertion/saml2:AttributeStatement[1]/"
-	        + "saml2:Attribute[@Name='gfipm:ext:user:REPLACE_THIS_ATTR']/saml2:AttributeValue";
-	
+	        + "saml2:Attribute[@Name='gfipm:2.0:user:REPLACE_THIS_ATTR']/saml2:AttributeValue";
+													
 	public Map<String, String> getSamlHeaderInfo(Element samlAssertion) {
 		Map<String, String> samlHeaderInfo = new HashMap<String, String>();
 		
@@ -133,11 +181,13 @@ public class SamlServiceImpl {
 		if (xPath == null)
 		{	
 			xPath = XPathFactory.newInstance().newXPath();
-	        xPath.setNamespaceContext(new UniversalNamespaceCache(samlAssertion.getOwnerDocument(), true));
+	        xPath.setNamespaceContext(new SamlNamespaceContext());
 		}    
 		
         try {
 			String givenName = xPath.evaluate(SAML_XPATH_TEMPLATE.replaceAll("REPLACE_THIS_ATTR", "GivenName"), samlAssertion);
+			
+			LOG.info("Saml Given Name: " + givenName + ", Xpath: " + SAML_XPATH_TEMPLATE.replaceAll("REPLACE_THIS_ATTR", "GivenName"));
 			
 			if (StringUtils.isNotBlank(givenName))
 			{
@@ -150,6 +200,8 @@ public class SamlServiceImpl {
 			{
 				samlHeaderInfo.put("SurName", surName);
 			}
+			
+			LOG.info("Saml Sur Name: " + surName);
 
 			String federationId = xPath.evaluate(SAML_XPATH_TEMPLATE.replaceAll("REPLACE_THIS_ATTR", "FederationId"), samlAssertion);
 			
@@ -157,6 +209,8 @@ public class SamlServiceImpl {
 			{
 				samlHeaderInfo.put("FederationId", federationId);
 			}
+			
+			LOG.info("Saml Federation ID: " + federationId);
 
         } catch (XPathExpressionException e) {
 			e.printStackTrace();
