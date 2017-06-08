@@ -323,6 +323,26 @@ public class XmlUtils {
 		}
 	}
 
+	public static void appendActivityDateRangeElement(Element parent, String namespace, DateTime startDate, DateTime endDate ) {
+		if (startDate != null || endDate != null)
+        {	
+	        Element activityDateRangeElement = XmlUtils.appendElement(parent, namespace, "ActivityDateRange");
+	        
+	        if (startDate != null)
+	        {	
+		        Element startDateParentElement = XmlUtils.appendElement(activityDateRangeElement, namespace, "StartDate");
+		        XmlUtils.appendTextElement(startDateParentElement, namespace, "Date", startDate.toString("yyyy-MM-dd"));
+	        }    
+	
+	        if (endDate != null)
+	        {	
+		        Element endDateParentElement = XmlUtils.appendElement(activityDateRangeElement, namespace, "EndDate");
+		        XmlUtils.appendTextElement(endDateParentElement, namespace, "Date", endDate.toString("yyyy-MM-dd"));
+	        }    
+        }
+	}
+
+
 
    /**
      * Create a new element with the specified namespace and name, insert it under the specified parent but before the specified sibling, and return it

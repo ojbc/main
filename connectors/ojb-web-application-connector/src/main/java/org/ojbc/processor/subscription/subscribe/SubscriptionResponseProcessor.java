@@ -36,6 +36,7 @@ import org.w3c.dom.NodeList;
 
 public class SubscriptionResponseProcessor {
 	
+	@SuppressWarnings("unused")
 	private Logger logger = Logger.getLogger(SubscriptionResponseProcessor.class.getName());
 				
 	
