@@ -269,34 +269,6 @@ public class RapbackDAOImpl implements RapbackDAO {
          return keyHolder.getKey().intValue();
 	}
 
-// TODO delete this when we are 100% sure the table is not needed any more. 
-//	final String CRIMINAL_FINGER_PRINTS_INSERT="insert into CRIMINAL_FINGER_PRINTS "
-//			+ "(TRANSACTION_NUMBER, FINGER_PRINTS_FILE, TRANSACTION_TYPE, FINGER_PRINTS_TYPE) "
-//			+ "values (?, ?, ?, ?)";
-//	@Override
-//	public Integer saveCriminalFingerPrints(
-//			final CriminalFingerPrints criminalFingerPrints) {
-//        log.debug("Inserting row into CRIMINAL_FINGER_PRINTS table : " + criminalFingerPrints.toString());
-//
-//        KeyHolder keyHolder = new GeneratedKeyHolder();
-//        jdbcTemplate.update(
-//        	    new PreparedStatementCreator() {
-//        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-//        	            PreparedStatement ps =
-//        	                connection.prepareStatement(CRIMINAL_FINGER_PRINTS_INSERT, 
-//        	                		new String[] {"TRANSACTION_NUMBER", "FINGER_PRINTS_FILE", "TRANSACTION_TYPE", "FINGER_PRINTS_TYPE"});
-//        	            ps.setString(1, criminalFingerPrints.getTransactionNumber());
-//        	            ps.setBlob(2, new SerialBlob(criminalFingerPrints.getFingerPrintsFile()));
-//        	            ps.setString(3, criminalFingerPrints.getTransactionType());
-//        	            ps.setString(4, criminalFingerPrints.getFingerPrintsType());
-//        	            return ps;
-//        	        }
-//        	    },
-//        	    keyHolder);
-//
-//         return keyHolder.getKey().intValue();
-//	}
-
 	@Override
 	public Integer saveCivilInitialRapSheet(
 			final CivilInitialRapSheet civilInitialRapSheet) {
