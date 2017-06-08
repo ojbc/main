@@ -78,6 +78,7 @@
                <ebts:RecordRapBackActivityNotificationFormatCode>3</ebts:RecordRapBackActivityNotificationFormatCode>
                <ebts:RecordRapBackDisclosureIndicator/>
                <ebts:RecordRapBackInStateOptOutIndicator>true</ebts:RecordRapBackInStateOptOutIndicator>
+                 <ebts:RecordRapBackSubscriptionID>987654321</ebts:RecordRapBackSubscriptionID>
                <ebts:RecordRapBackUserDefinedElement>
                   <ebts:UserDefinedElementName>State Fingerprint ID
 			</ebts:UserDefinedElementName>
