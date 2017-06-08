@@ -34,7 +34,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
@@ -60,22 +63,14 @@ public class SamlServiceImpl {
 		try {
 			assertion = retrieveAssertionFromShibboleth(request);
 			
-			Transformer transformer = TransformerFactory.newInstance().newTransformer();
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-
-			StreamResult result = new StreamResult(new StringWriter());
-			DOMSource source = new DOMSource(assertion);
-			transformer.transform(source, result);
-
-			String xmlString = result.getWriter().toString();
-			LOG.info("SAML Assertion: " + xmlString);			
+			//printAssertion(assertion);			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		return assertion;
 	}
-	
+
 	Element retrieveAssertionFromShibboleth(HttpServletRequest request) throws Exception
 	{
 		
@@ -220,5 +215,20 @@ public class SamlServiceImpl {
 		
 		return samlHeaderInfo;
 	}
+	
+	private void printAssertion(Element assertion)
+			throws TransformerConfigurationException,
+			TransformerFactoryConfigurationError, TransformerException {
+		Transformer transformer = TransformerFactory.newInstance().newTransformer();
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+		StreamResult result = new StreamResult(new StringWriter());
+		DOMSource source = new DOMSource(assertion);
+		transformer.transform(source, result);
+
+		String xmlString = result.getWriter().toString();
+		LOG.info("SAML Assertion: " + xmlString);
+	}
+		
 	
 }
