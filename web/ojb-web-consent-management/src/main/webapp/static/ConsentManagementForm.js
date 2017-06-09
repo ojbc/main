@@ -99,7 +99,12 @@ updateUIState = function() {
 
 handleRedirect = function(jqXHR, textStatus, errorThrown) {
     console.log("Redirecting to " + jqXHR.responseText);
-    window.location.href = jqXHR.responseText;
+    newLocation = jqXHR.responseText;
+    locationHeader = jqXHR.getResponseHeader('Location')
+    if (locationHeader != null && locationHeader.indexOf('SAML2/Redirect/SSO') !== -1) {
+	newLocation = locationHeader;
+    }
+    window.location.href = newLocation;
 }
 
 refreshDataViaAjax = function(demodataOK) {
