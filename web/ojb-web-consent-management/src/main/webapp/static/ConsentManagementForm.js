@@ -15,7 +15,7 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 
-const REFRESH_INTERVAL_LENGTH = 60000;
+const REFRESH_INTERVAL_LENGTH = 10000;
 var refreshIntervalId = null;
 var table = null;
 
@@ -97,6 +97,11 @@ updateUIState = function() {
     $("#status-label").html(table.rows().count() + " current inmates pending.");
 }
 
+handleRedirect = function(jqXHR, textStatus, errorThrown) {
+    console.log("Redirecting to " + jqXHR.responseText);
+    window.location.href = jqXHR.responseText;
+}
+
 refreshDataViaAjax = function(demodataOK) {
     $('body').addClass("loading");
 	$.ajax(
@@ -104,6 +109,10 @@ refreshDataViaAjax = function(demodataOK) {
 			    url : "/ojb-web-consent-management-service/cm-api/findPendingInmates",
 			    headers : {
 				"demodata-ok" : demodataOK
+			    },
+			    statusCode: {
+				301: handleRedirect,
+				302: handleRedirect
 			    }
 			}).done(function(data) {
 		    var newRows = [];

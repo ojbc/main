@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -30,7 +31,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,31 +60,30 @@ public class ConsentManagementRestController {
 	private SamlServiceImpl samlService;
 	
 	@RequestMapping(value="/cm-api/findPendingInmates", method=RequestMethod.GET, produces="application/json")
-	public String findPendingInmates(HttpServletRequest request) throws Exception {
+	public ResponseEntity<String> findPendingInmates(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		Map<String, String> samlHeaderInfo = returnSamlHeaderInfo(request);		
 		
 		log.info("Saml Header Info (find inmates): " + samlHeaderInfo.toString());
 		
-		String ret = null;
+		String body = null;
+		HttpStatus status = HttpStatus.OK;
 		
 		String demodataHeaderValue = request.getHeader(DEMODATA_HEADER_NAME);
 		
 		if ("true".equals(demodataHeaderValue)) {
-			ret = DemoConsentServiceImpl.getInstance().getDemoConsentRecords();
-			
-			return ret;
-		}	
-		
-		if (!samlHeaderInfo.isEmpty() || allowUpdatesWithoutSamlToken) {
-			ret = restTemplate.getForObject(restBaseUrl  + "/findPendingInmates", String.class);
-			
+			body = DemoConsentServiceImpl.getInstance().getDemoConsentRecords();
+			status = HttpStatus.FOUND;
+			body = "http://www.google.com";
+		} else if (!samlHeaderInfo.isEmpty() || allowUpdatesWithoutSamlToken) {
+			body = restTemplate.getForObject(restBaseUrl  + "/findPendingInmates", String.class);
 		} else {
-			// error?
 			log.error("No SAML assertion in request, and not allowing demo data to be returned");
+			body = "{message: 'No SAML assertion in request, disallowed'}";
+			status = HttpStatus.FORBIDDEN;
 		}
 		
-		return ret;
+		return new ResponseEntity<String>(body, status);
 		
 	}
 
