@@ -85,6 +85,8 @@
 				<xsd:sequence>
 					<xsd:element ref="sqr-ext:SubscriptionRelatedCaseIdentification"
 						minOccurs="0" />
+					<xsd:element ref="sqr-ext:SubscriptionIdentification"
+						minOccurs="0" />
 					<xsd:element ref="sqr-ext:FBISubscription" minOccurs="0"
 						maxOccurs="unbounded" />
 					<xsd:element ref="sqr-ext:SubscriptionSubjectRepresentation" />
@@ -666,6 +668,13 @@
 			<xsd:documentation>A designation of the individual to whose attention
 				a response is to be directed, relating to a subscription on a
 				subject's rap sheet.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to a subscription by
+				the system that manages subscriptions.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

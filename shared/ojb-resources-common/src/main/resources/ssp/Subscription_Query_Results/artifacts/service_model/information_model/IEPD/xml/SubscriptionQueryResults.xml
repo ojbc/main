@@ -41,6 +41,9 @@
 			<sqr-ext:SubscriptionRelatedCaseIdentification>
 				<nc:IdentificationID>0123ABC</nc:IdentificationID>
 			</sqr-ext:SubscriptionRelatedCaseIdentification>
+			<sqr-ext:SubscriptionIdentification>
+				<nc:IdentificationID>S395984</nc:IdentificationID>
+			</sqr-ext:SubscriptionIdentification>
 			<sqr-ext:SubscriptionSubject>
 				<nc:RoleOfPersonReference s:ref="P001" />
 			</sqr-ext:SubscriptionSubject>
