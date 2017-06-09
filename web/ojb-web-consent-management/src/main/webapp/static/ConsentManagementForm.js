@@ -100,7 +100,8 @@ updateUIState = function() {
 handleRedirect = function(jqXHR, textStatus, errorThrown) {
     console.log("Redirecting to " + jqXHR.responseText);
     newLocation = jqXHR.responseText;
-    locationHeader = jqXHR.getResponseHeader('Location')
+    locationHeader = jqXHR.getResponseHeader('Location');
+    console.log("Location header: " + locationHeader);
     if (locationHeader != null && locationHeader.indexOf('SAML2/Redirect/SSO') !== -1) {
 	newLocation = locationHeader;
     }
@@ -116,7 +117,6 @@ refreshDataViaAjax = function(demodataOK) {
 				"demodata-ok" : demodataOK
 			    },
 			    statusCode: {
-				301: handleRedirect,
 				302: handleRedirect
 			    }
 			}).done(function(data) {
