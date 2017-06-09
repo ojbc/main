@@ -73,8 +73,6 @@ public class ConsentManagementRestController {
 		
 		if ("true".equals(demodataHeaderValue)) {
 			body = DemoConsentServiceImpl.getInstance().getDemoConsentRecords();
-			status = HttpStatus.FOUND;
-			body = "http://www.google.com";
 		} else if (!samlHeaderInfo.isEmpty() || allowUpdatesWithoutSamlToken) {
 			body = restTemplate.getForObject(restBaseUrl  + "/findPendingInmates", String.class);
 		} else {
