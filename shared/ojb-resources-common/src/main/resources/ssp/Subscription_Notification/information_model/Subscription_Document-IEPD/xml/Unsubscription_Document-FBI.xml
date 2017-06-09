@@ -17,27 +17,36 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<unsubmsg-doc:UnsubscriptionMessage 
-	xmlns:nc20="http://niem.gov/niem/niem-core/2.0"
-	xmlns:unsubmsg-doc="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
+<unsubmsg-doc:UnsubscriptionMessage
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" xmlns:unsubmsg-doc="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0"
 	xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/UnsubscriptionMessage/1.0 ../xsd/Unsubscription_Document.xsd">
 	<submsg-ext:Subject>
 		<nc20:PersonBirthDate>
-			<nc20:Date>1980-01-01</nc20:Date>
+			<nc20:Date>1972-08-02</nc20:Date>
 		</nc20:PersonBirthDate>
 		<nc20:PersonName>
 			<nc20:PersonGivenName>John</nc20:PersonGivenName>
 			<nc20:PersonSurName>Doe</nc20:PersonSurName>
+			<nc20:PersonFullName>John Doe</nc20:PersonFullName>
 		</nc20:PersonName>
 		<j:PersonAugmentation>
 			<j:PersonFBIIdentification>
-				<nc20:IdentificationID>12345678</nc20:IdentificationID>
+				<nc20:IdentificationID>123456789</nc20:IdentificationID>
 			</j:PersonFBIIdentification>
+			<j:PersonStateFingerprintIdentification>
+				<nc20:IdentificationID>A398118900</nc20:IdentificationID>
+			</j:PersonStateFingerprintIdentification>
 		</j:PersonAugmentation>
 	</submsg-ext:Subject>
+	<submsg-ext:SubscribingOrganization>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc20:IdentificationID>2345576</nc20:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</submsg-ext:SubscribingOrganization>
 	<submsg-ext:RelatedFBISubscription>
 		<submsg-ext:SubscriptionFBIIdentification>
 			<nc20:IdentificationID>987654321</nc20:IdentificationID>

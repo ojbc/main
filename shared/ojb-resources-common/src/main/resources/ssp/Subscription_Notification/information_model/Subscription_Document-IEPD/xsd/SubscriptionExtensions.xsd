@@ -102,6 +102,8 @@
 								</xsd:documentation>
 							</xsd:annotation>
 						</xsd:element>
+						<xsd:element ref="submsg-ext:SubscribingOrganization"
+							minOccurs="0" />
 						<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification"
 							minOccurs="0" />
 						<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation"

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<saml2:Assertion xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
+	ID="_bf670aca9cb42949008841299188cd82" IssueInstant="2013-03-25T15:36:29.098Z"
+	Version="2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<saml2:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">https://idp.ojbc-local.org:9443/idp/shibboleth
+	</saml2:Issuer>
+	<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+		<ds:SignedInfo>
+			<ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+			<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+			<ds:Reference URI="#_bf670aca9cb42949008841299188cd82">
+				<ds:Transforms>
+					<ds:Transform
+						Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+					<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+						<ec:InclusiveNamespaces xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"
+							PrefixList="xs" />
+					</ds:Transform>
+				</ds:Transforms>
+				<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+				<ds:DigestValue>Zpj4ybdfy6igdpVAS4djPQ+l7UY=</ds:DigestValue>
+			</ds:Reference>
+		</ds:SignedInfo>
+		<ds:SignatureValue>qdzXfD8l+C3z9F6AjzHPvll3sdaBMiTvowMI1Sqgj1mTrXVURLQQ5gyw5STRmD6tMyt9qpUl2q4gsNWOowGf6hyTG6SUnQe1c2L1uc7aVMkuZzo5oXQbwNIPiHHwmUT3Dk8GmXv5n0FKXFPYiiO6H9AQzcMdHzMKp4fg92IZraFh3uyYW7h22wLEkC1ZVpYPkUjl5Sh9cqqYR5r413pr4HXljJyS0/oTILr4wqycLbMmZiFOCBb/qy8jhTXDAXGx+pZlNT/ZKaWZO4XfMEp3isQkTiLMEf9v5NKMMNkXU6j7TVLWK0tXJKxwGIdCK8Mnt244m7aMsx0NLINewot6CA==
+		</ds:SignatureValue>
+		<ds:KeyInfo>
+			<ds:X509Data>
+				<ds:X509Certificate>MIIDNDCCAhygAwIBAgIVAPnLO1ts9zdzZmJ9JzDusDFFUbehMA0GCSqGSIb3DQEBBQUAMB0xGzAZBgNVBAMTEmlkcC5vamJjLWxvY2FsLm9yZzAeFw0xMjA1MDcxNDMwNTdaFw0zMjA1MDcxNDMwNTdaMB0xGzAZBgNVBAMTEmlkcC5vamJjLWxvY2FsLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALSxsCMtBjTgYAcOqlqR4FPzAevZocrQLdpV0NaJ9JaW/dWhUVaZt5QokkMb55hmWmehclXAAPlayuU4OhKKMJYjTsYZLAy5In1OvhaNzhZJpoN99asFxT78CkWkydoYEFapx8whFbZIqVsBqxnLP67/M20aifcqFopQ9CrnlXtjhgCgS67DZwU8Mjr9uFkIHQkHeKOpxMTkNlf47cjous7jrMF00PNNXnjCyU3Bwvlv70bk75B50QptDv00LbRoL85JykmByNkqWaZ9dF71tUV1AYT3In6laq310Xhz1vse2W7BlP2gfIW2kFH0PVBVSm4igcN8aj/F0FS0U1oBLYsCAwEAAaNrMGkwSAYDVR0RBEEwP4ISaWRwLm9qYmMtbG9jYWwub3JnhilodHRwczovL2lkcC5vamJjLWxvY2FsLm9yZy9pZHAvc2hpYmJvbGV0aDAdBgNVHQ4EFgQUSuTsyCGs6M01HUB5h7jKBqQe2rcwDQYJKoZIhvcNAQEFBQADggEBAJT6Bymbjkx6vkYDUojMieyVo9kdp7na7ZdJ4dTp+tmjhOb5qUZR2JYlzUBHyyX8kxMVS3H4ihzo7lo8SaiAAI4AEnFplAZbQNh2BLCv40tfFljcscsmgkNWV38vS372OfkqOlILM0PsAdc7V5EhRPbkHepO3gNDv9Ni6jlFkF8pK8fMz0eahK18W3qXzoZuAOSfX0wyigjqespVC5MxYkNsY78wtWJZyixktc018SRT6aTx7AXrt/4s2IVqDNUE3eKKSXOp4LMiwS/kHJOi4icjRm7YL3axWI+pjXOagENRnfl/LkwPqqxGmb3lrF7iSz4JWUaFlMEqURTPSlaxrNk=
+				</ds:X509Certificate>
+			</ds:X509Data>
+		</ds:KeyInfo>
+	</ds:Signature>
+	<saml2:Subject>
+		<saml2:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
+			NameQualifier="https://idp.ojbc-local.org:9443/idp/shibboleth"
+			SPNameQualifier="https://sp.ojbc-local.org/shibboleth">_387c25449c33c64f8fef276365872728</saml2:NameID>
+		<saml2:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+			<saml2:SubjectConfirmationData Address="127.0.0.1"
+				InResponseTo="_8dd81c84a8d1248e40533b4f183c720d" NotOnOrAfter="2013-03-25T15:41:29.098Z"
+				Recipient="https://www.ojbc-local.org/Shibboleth.sso/SAML2/POST" />
+		</saml2:SubjectConfirmation>
+	</saml2:Subject>
+	<saml2:Conditions NotBefore="2013-03-25T15:36:29.098Z"
+		NotOnOrAfter="2013-03-25T15:41:29.098Z">
+		<saml2:AudienceRestriction>
+			<saml2:Audience>https://sp.ojbc-local.org/shibboleth</saml2:Audience>
+		</saml2:AudienceRestriction>
+	</saml2:Conditions>
+	<saml2:AuthnStatement AuthnInstant="2013-03-25T15:36:29.079Z"
+		SessionIndex="58ff4718ffa075f029352a4404e18b05afa5b1e663e022bab661de6ab9035b97">
+		<saml2:SubjectLocality Address="127.0.0.1" />
+		<saml2:AuthnContext>
+			<saml2:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport
+			</saml2:AuthnContextClassRef>
+		</saml2:AuthnContext>
+	</saml2:AuthnStatement>
+	<saml2:AttributeStatement>
+		<saml2:Attribute Name="gfipm:2.0:user:LocalId"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">admin</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:SurName"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">owen</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:ext:user:FederatedQueryUserIndicator"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">true</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:EmployerName"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">Department of Attorney General</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:EmployeePositionName"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">Sergeant</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:GivenName"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">andrew</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:CommonName"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">Andrew Owen</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:ext:user:CriminalJusticeEmployerIndicator"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">true</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:ext:user:LawEnforcementEmployerIndicator"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">true</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:FederationId"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">HIJIS:IDP:HCJDC:USER:admin</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:TelephoneNumber"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">916-215-3933</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:EmployerSubUnitName"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">HCJDC</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:EmailAddressText"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">andrew@search.org</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:EmployerORI"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">1234567890</saml2:AttributeValue>
+		</saml2:Attribute>
+		<saml2:Attribute Name="gfipm:2.0:user:IdentityProviderId"
+			NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+			<saml2:AttributeValue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="xs:string">HIJIS:IDP:HCJDC</saml2:AttributeValue>
+		</saml2:Attribute>
+	</saml2:AttributeStatement>
+</saml2:Assertion>
