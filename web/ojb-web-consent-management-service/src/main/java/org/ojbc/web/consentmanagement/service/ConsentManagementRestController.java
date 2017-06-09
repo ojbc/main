@@ -42,7 +42,6 @@ public class ConsentManagementRestController {
 	
 	private final Log log = LogFactory.getLog(ConsentManagementRestController.class);
 	
-	private static final String SAML_HEADER_NAME = "saml";
 	public static final String DEMODATA_HEADER_NAME = "demodata-ok";
 	
 	@Value("${restBaseUrl}")
@@ -60,11 +59,9 @@ public class ConsentManagementRestController {
 	@RequestMapping(value="/cm-api/findPendingInmates", method=RequestMethod.GET, produces="application/json")
 	public String findPendingInmates(HttpServletRequest request) throws Exception {
 		
-		Map<String, String> samlHeaderInfo = new HashMap<String, String>();
+		Map<String, String> samlHeaderInfo = returnSamlHeaderInfo(request);		
 		
-		samlHeaderInfo = returnSamlHeaderInfo(request, samlHeaderInfo);		
-		
-		log.info("Saml Header Info: " + samlHeaderInfo.toString());
+		log.info("Saml Header Info (find inmates): " + samlHeaderInfo.toString());
 		
 		String ret = null;
 		
@@ -91,8 +88,9 @@ public class ConsentManagementRestController {
 	@RequestMapping(value="/cm-api/recordConsentDecision", method=RequestMethod.POST, consumes="application/json", produces="application/json")
 	public String recordConsentDecision(HttpServletRequest request, Map<String, String> model) throws Exception {
 		
-		Map<String, String> samlHeaderInfo = new HashMap<String, String>();
-		samlHeaderInfo = returnSamlHeaderInfo(request, samlHeaderInfo);			
+		Map<String, String> samlHeaderInfo = returnSamlHeaderInfo(request);	
+		
+		log.info("Saml Header Info (record): " + samlHeaderInfo.toString());
 		
 		StringBuffer bodyBuf = new StringBuffer(1024);
 		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
@@ -108,7 +106,7 @@ public class ConsentManagementRestController {
 		
 		if (!samlHeaderInfo.isEmpty())
 		{
-			body = addSamlData(body, samlHeaderInfo.get("GivenName"), samlHeaderInfo.get("SurName"), samlHeaderInfo.get("federationId"));
+			body = addSamlData(body, samlHeaderInfo.get("GivenName"), samlHeaderInfo.get("SurName"), samlHeaderInfo.get("FederationId"));
 		}			
 		
 		if (allowUpdatesWithoutSamlToken && samlHeaderInfo.isEmpty())
@@ -139,18 +137,28 @@ public class ConsentManagementRestController {
 	}
 
 	private Map<String, String> returnSamlHeaderInfo(
-			HttpServletRequest request, Map<String, String> samlHeaderInfo)
+			HttpServletRequest request)
 			throws Exception {
+		
+		log.info("Entering return SAML header info.  (allowUpdatesWithoutSamlToken)" + allowUpdatesWithoutSamlToken);
+		
+		Map<String, String> samlHeaderInfo = new HashMap<String, String>();
+		
 		if (!allowUpdatesWithoutSamlToken)
 		{	
+			
+			log.info("Attempting to recieve SAML assertion");
+			
 			Element samlAssertion = (Element)request.getAttribute("samlAssertion");
 			
 			if (samlAssertion == null)
 			{
+				log.info("SAML assertion is null try to get it");
+				
 				samlAssertion = samlService.getSamlAssertion(request);
 			}
 			
-			if (samlAssertion != null)
+			if (samlAssertion == null)
 			{
 				throw new Exception("Unable to retrieve SAML assertion.");
 			}	
@@ -165,7 +173,7 @@ public class ConsentManagementRestController {
 	private String addSamlData(String body, String givenName, String surName, String federationId) {
 
 		body = StringUtils.replace(body, "\"consenterUserID\":null,\"consentUserFirstName\":null,\"consentUserLastName\":null",   
-										 "\"consenterUserID\":\"testUser\",\"consentUserFirstName\":\"testFirstName\",\"consentUserLastName\":\"testLastName\"");
+										 "\"consenterUserID\":\"" + federationId  + "\",\"consentUserFirstName\":\"" + givenName  + "\",\"consentUserLastName\":\"" + surName  + "\"");
 		return body;
 	}
 
