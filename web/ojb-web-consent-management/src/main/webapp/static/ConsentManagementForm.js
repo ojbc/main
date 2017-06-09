@@ -98,14 +98,8 @@ updateUIState = function() {
 }
 
 handleRedirect = function(jqXHR, textStatus, errorThrown) {
-    console.log("Redirecting to " + jqXHR.responseText);
-    newLocation = jqXHR.responseText;
-    locationHeader = jqXHR.getResponseHeader('Location');
-    console.log("Location header: " + locationHeader);
-    if (locationHeader != null && locationHeader.indexOf('SAML2/Redirect/SSO') !== -1) {
-	newLocation = locationHeader;
-    }
-    window.location.href = newLocation;
+    console.log("Received ajax redirect.  Refreshing page to trigger idp login.");
+    window.location.reload();
 }
 
 refreshDataViaAjax = function(demodataOK) {
