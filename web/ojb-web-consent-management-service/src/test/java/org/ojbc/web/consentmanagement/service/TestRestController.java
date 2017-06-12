@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,6 +45,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -75,6 +79,8 @@ public class TestRestController {
 	
 	@Value("${keyPassword}")
 	private String keypassword;    
+	
+	private static final String JSON_RETURN_VALUE = "{\"consenterUserID\":null,\"consentUserFirstName\":null,\"consentUserLastName\":null,\"consentId\":\"1604693378\",\"personGender\":\"M\",\"personLastName\":\"Anderson\",\"nameNumber\":\"SknI8dth\",\"personFirstName\":\"Sally\",\"personDOBString\":\"1997-11-24\",\"bookingNumber\":\"zMAgAcST\",\"personMiddleName\":\"Thomas\"}";
     
     @Before
     public void setUp() throws Exception {
@@ -83,6 +89,27 @@ public class TestRestController {
     	clientBuilder.setDefaultRequestConfig(requestConfig);
     	httpClient = clientBuilder.build();
     }
+    
+	@Test
+	public void testAddSamlData() throws Exception {
+
+		ConsentManagementRestController consentManagementRestController = new ConsentManagementRestController();
+		
+		String bodyReturn = consentManagementRestController.addSamlData(JSON_RETURN_VALUE, "givenTest", "surTest", "federationTest");
+		
+		log.info(bodyReturn);
+		
+	    ObjectMapper mapper = new ObjectMapper(); 
+	    TypeReference<HashMap<String,Object>> typeRef 
+	            = new TypeReference<HashMap<String,Object>>() {};
+
+	    HashMap<String,Object> o = mapper.readValue(bodyReturn, typeRef);
+	    
+	    assertEquals("givenTest",o.get("consentUserFirstName"));
+	    assertEquals("surTest",o.get("consentUserLastName"));
+	    assertEquals("federationTest",o.get("consenterUserID"));
+	    
+	}
     
 	@Test
 	public void testSearch() throws Exception {
