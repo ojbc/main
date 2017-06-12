@@ -24,7 +24,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +38,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.Element;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 public class ConsentManagementRestController {
@@ -170,10 +172,20 @@ public class ConsentManagementRestController {
 		return samlHeaderInfo;
 	}
 	
-	private String addSamlData(String body, String givenName, String surName, String federationId) {
+	String addSamlData(String body, String givenName, String surName, String federationId) throws Exception{
 
-		body = StringUtils.replace(body, "\"consenterUserID\":null,\"consentUserFirstName\":null,\"consentUserLastName\":null",   
-										 "\"consenterUserID\":\"" + federationId  + "\",\"consentUserFirstName\":\"" + givenName  + "\",\"consentUserLastName\":\"" + surName  + "\"");
+	    ObjectMapper mapper = new ObjectMapper(); 
+	    TypeReference<HashMap<String,Object>> typeRef 
+	            = new TypeReference<HashMap<String,Object>>() {};
+
+	    HashMap<String,Object> o = mapper.readValue(body, typeRef); 
+	    
+	    o.put("consenterUserID",federationId);
+	    o.put("consentUserFirstName",givenName);
+	    o.put("consentUserLastName",surName);
+	    
+	    body = mapper.writeValueAsString(o);
+		
 		return body;
 	}
 
