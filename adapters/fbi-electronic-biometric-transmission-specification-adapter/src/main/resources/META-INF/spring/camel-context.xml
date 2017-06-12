@@ -153,7 +153,7 @@
 			
 			<from uri="ngiResponseServiceEndpoint"/>	
 			
-			<log message="Using fbi ngi response Webservice route \n\n\n" loggingLevel="INFO"/>
+			<log message="Process FBI asynchronous response and send void message \n\n\n" loggingLevel="INFO"/>
 				
 			<multicast parallelProcessing="false" >
 				<to uri="direct:processFbiNgiResponse"/>				
@@ -200,7 +200,7 @@
 					<to uri="direct:processRapBackSubscriptionMaintenanceResponse"/>																				
 				</when>				
 				<otherwise>
-					  <log message="\n\n\n Unrecognized Message!! \n\n\n" loggingLevel="WARN"/> 
+					  <log message="\n\n\n Unrecognized Message from FBI!! \n\n\n" loggingLevel="WARN"/> 
 				</otherwise>						
 			</choice>
 											
@@ -236,6 +236,7 @@
 		
 			<from uri="direct:processRapbackSubscriptionResponse"/>
 		
+			<!-- Why is this in here? -->
 			<setHeader headerName="CamelFileName">
 				<simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</simple>
 			</setHeader>
@@ -262,6 +263,7 @@
 		
 			<from uri="direct:processRapBackSubscriptionMaintenanceResponse"/>
 		
+			<!-- Why is this in here? -->		
 			<setHeader headerName="CamelFileName">
 				<simple>NgiResponse_SubAck_${date:now:yyyyMMdd}_${date:now:HHmmss}.xml</simple>
 			</setHeader>
