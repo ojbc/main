@@ -94,6 +94,11 @@
 			</ebts:UserDefinedElementName>
                   <ebts:UserDefinedElementText>A398118900</ebts:UserDefinedElementText>
                </ebts:RecordRapBackUserDefinedElement>
+               <ebts:RecordRapBackUserDefinedElement>
+                  <ebts:UserDefinedElementName>State Subscription ID
+			</ebts:UserDefinedElementName>
+                  <ebts:UserDefinedElementText>S128483</ebts:UserDefinedElementText>
+               </ebts:RecordRapBackUserDefinedElement>
             </ebts:RecordRapBackData>
             <ebts:RecordTransactionActivity>
                <nc20:CaseTrackingID>0123ABC</nc20:CaseTrackingID>
