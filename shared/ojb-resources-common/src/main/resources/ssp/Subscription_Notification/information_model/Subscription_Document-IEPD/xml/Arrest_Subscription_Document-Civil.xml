@@ -58,6 +58,9 @@
 			<nc20:Date>2015-06-20</nc20:Date>
 		</nc20:EndDate>
 	</nc20:DateRange>
+	<submsg-ext:SubscriptionIdentification>
+		<nc20:IdentificationID>S128483</nc20:IdentificationID>
+	</submsg-ext:SubscriptionIdentification>
 	<submsg-ext:CivilSubscriptionReasonCode>I
 	</submsg-ext:CivilSubscriptionReasonCode>
 	<submsg-ext:TriggeringEvents>
