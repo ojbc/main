@@ -30,10 +30,13 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.camel.EndpointInject;
+import org.apache.camel.Exchange;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -54,13 +57,17 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.test.util.XmlTestUtils;
+import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.annotation.DirtiesContext;
+import org.w3c.dom.Document;
 
 @SuppressWarnings("deprecation")
 @DirtiesContext
 public class RapbackSubscriptionManagerTest extends AbstractSubscriptionNotificationTest {
-	
+    private final Log log = LogFactory.getLog(this.getClass());
+
 	@Resource
 	protected ModelCamelContext context;
 	
@@ -113,14 +120,23 @@ public class RapbackSubscriptionManagerTest extends AbstractSubscriptionNotifica
 	@Test
 	public void unsubscribe() throws Exception {
 		//Subscribe new record
+		fbiEbtsSubscriptionMockEndpoint.expectedMessageCount(1);
 		String response = invokeRequest("rapback/subscribeSoapRequestWithRapbackData.xml", notificationBrokerUrl);
 		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));
 		
+		fbiEbtsSubscriptionMockEndpoint.assertIsSatisfied();
+		
+		Exchange receivedExchange = fbiEbtsSubscriptionMockEndpoint.getExchanges().get(0);
+		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
+		log.info("Message to send to the EBTS adapter: " + body );
+		XmlTestUtils.compareDocs("src/test/resources/xmlInstances/rapback/output/subscribeRequestToEBTS.xml", body);
+
 		//Unsubscribe record and confirm with expected dataset
 		response = invokeRequest("rapback/unSubscribeSoapRequestRapback.xml", subscriptionManagerUrl);
 		assertThat(response, containsString(UNSUBSCRIBE_RESPONSE_ELEMENT_STRING));
 	    
 		compareDatabaseWithExpectedDataset("subscriptionDataSet_afterUnSubscribeRapback.xml");
+		
 	}
 
 	private ITable getFilteredTableFromDataset(IDataSet dataSet, String tableName) throws Exception {
