@@ -198,6 +198,22 @@ public class TestSubscriptionSearchQueryDAO {
 	}
 	
 	@Test
+	@DirtiesContext
+	public void testInsertSubjectIdentifiers() throws Exception
+	{
+		loadManualTestData();
+		
+		subscriptionSearchQueryDAO.insertSubjectIdentifier(1, "test", "someValue");
+		
+		List<Subscription> subs= subscriptionSearchQueryDAO.queryForSubscription("1");
+		
+		assertEquals(1, subs.size());
+		
+		assertEquals("someValue",subs.get(0).getSubscriptionSubjectIdentifiers().get("test"));
+		
+	}	
+	
+	@Test
 	public void testSubscriptionProperties()
 			throws Exception {
 		loadManualTestData();
