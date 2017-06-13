@@ -86,23 +86,8 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 												
 		buildSubjectElement(subscriptionModificationMessage,subscription);	
 		
-		buildEmailElements(subscriptionModificationMessage, subscription.getEmailList());
-		
-		Element sysNameNode = XmlUtils.appendElement(subscriptionModificationMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SystemName");
-		
-		if (StringUtils.isNotBlank(subscription.getSystemName()))
-		{
-			sysNameNode.setTextContent(subscription.getSystemName());
-		}	
-		else
-		{	
-			sysNameNode.setTextContent(SYSTEM_NAME);
-		}	
-		
 		buildSubQualIdNode(subscriptionModificationMessage, subscription);
 			
-		buildDateRangeNode(subscriptionModificationMessage, subscription);		
-		
 		buildSubscriptionIdNode(subscriptionModificationMessage, subscription);
 		
 		buildSubscriptionReasonCodeElement(subscriptionModificationMessage, subscription);
@@ -111,8 +96,31 @@ public class SubscriptionNotificationDocumentBuilderUtils {
 		
 		buildFederalRapSheetDisclosure(subscriptionModificationMessage, subscription);
 		
+		//Insert FBI ID here
+		buildFBISubscriptionIDNode(subscriptionModificationMessage, subscription);
+		
+		Element subscriptionModification = XmlUtils.appendElement(subscriptionModificationMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:SubscriptionModification");
+		
+		buildDateRangeNode(subscriptionModification, subscription);
 	}	
+	
+	private static void buildFBISubscriptionIDNode(
+			Element subscriptionModificationMessage, Subscription subscription) {
+		
+		Element fbiSubscription = XmlUtils.appendElement(subscriptionModificationMessage, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:FBISubscription");
+		
+		Element subscriptionFBIIdentification = XmlUtils.appendElement(fbiSubscription, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:SubscriptionFBIIdentification");
+		
+		Element idNode = XmlUtils.appendElement(subscriptionFBIIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
+		
+		idNode.setTextContent(subscription.getFbiSubscriptionID());
+		
+		Element criminalSubscriptionReasonCode = XmlUtils.appendElement(fbiSubscription, OjbcNamespaceContext.NS_SUB_MSG_EXT, "submsg-ext:CriminalSubscriptionReasonCode");
+		criminalSubscriptionReasonCode.setTextContent(subscription.getSubscriptionPurpose());
+		
 
+		
+	}
 	
 	public static Document createSubscriptionRequest(Subscription subscription, 
 			Map<String,String> triggeringEventCodeTranslationMap) throws ParserConfigurationException{
