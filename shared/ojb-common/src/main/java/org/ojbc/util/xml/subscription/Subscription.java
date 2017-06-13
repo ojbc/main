@@ -73,6 +73,8 @@ public class Subscription implements Serializable {
 	
 	private List<String> federalTriggeringEventCode = new ArrayList<String>();
 	
+	private String fbiSubscriptionID;
+	
 	public String getStateId() {
 		return stateId;
 	}
@@ -235,6 +237,14 @@ public class Subscription implements Serializable {
 
 	public void setOri(String ori) {
 		this.ori = ori;
+	}
+
+	public String getFbiSubscriptionID() {
+		return fbiSubscriptionID;
+	}
+
+	public void setFbiSubscriptionID(String fbiSubscriptionID) {
+		this.fbiSubscriptionID = fbiSubscriptionID;
 	}
 
 }
