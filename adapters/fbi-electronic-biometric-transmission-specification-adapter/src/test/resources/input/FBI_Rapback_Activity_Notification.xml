@@ -167,6 +167,12 @@
 						<!-- 2.2064B -->
 						<ebts:UserDefinedElementText>fbiSubscriptionId_3</ebts:UserDefinedElementText>
 					</ebts:RecordRapBackUserDefinedElement>
+					<ebts:RecordRapBackUserDefinedElement>
+                        <!-- 2.2064A -->
+                        <ebts:UserDefinedElementName>State Subscription ID</ebts:UserDefinedElementName>
+                        <!-- 2.2064B -->
+                        <ebts:UserDefinedElementText>S128483</ebts:UserDefinedElementText>
+                    </ebts:RecordRapBackUserDefinedElement>
 					<!-- RBTED 2.2069, Optional -->
 					<ebts:TransactionRapBackTriggeringEvent>
 						<!-- DORBE 2.2069A -->
