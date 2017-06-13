@@ -50,6 +50,9 @@
       <fed_subcr-ext:SubscriptionRelatedCaseIdentification>
          <nc30:IdentificationID>Q880312465</nc30:IdentificationID>
       </fed_subcr-ext:SubscriptionRelatedCaseIdentification>
+      <fed_subcr-ext:StateSubscriptionIdentification>
+      	<nc30:IdentificationID>S33222</nc30:IdentificationID>
+      </fed_subcr-ext:StateSubscriptionIdentification>
       <fed_subcr-ext:SubscribingOrganization>
          <nc30:OrganizationIdentification>
             <nc30:IdentificationID>NY0303000</nc30:IdentificationID>
