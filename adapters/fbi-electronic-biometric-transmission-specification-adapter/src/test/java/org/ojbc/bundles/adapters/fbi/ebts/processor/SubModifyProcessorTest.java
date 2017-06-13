@@ -55,6 +55,7 @@ public class SubModifyProcessorTest {
 		Diff diff = new Diff(expectedSubModRespDoc, generatedModRespDoc);
 		DetailedDiff detailDiff = new DetailedDiff(diff);
 		
+		@SuppressWarnings("unchecked")
 		List<Difference> difList = detailDiff.getAllDifferences();
 		int diffCount = difList == null ? 0 : difList.size();
 		
