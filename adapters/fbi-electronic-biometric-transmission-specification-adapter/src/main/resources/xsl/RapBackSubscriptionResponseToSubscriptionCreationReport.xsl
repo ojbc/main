@@ -57,6 +57,20 @@
 			<xsl:apply-templates select="ebts:RecordRapBackTermDate" />
 			<xsl:apply-templates
 				select="../ebts:RecordTransactionActivity/nc:CaseTrackingID" />
+				
+				
+			
+		
+			<xsl:if
+				test="ebts:RecordRapBackUserDefinedElement/ebts:UserDefinedElementName=normalize-space('State Subscription ID')">
+				<xsl:apply-templates
+					select="./ebts:RecordRapBackUserDefinedElement"
+					mode="stateSubscrID" />
+			</xsl:if>
+	
+			
+				
+				
 			<xsl:apply-templates
 				select="../ebts:RecordTransactionActivity/ebts:RecordControllingAgency" />
 			<xsl:apply-templates select="../ansi-nist:RecordForwardOrganizations" />
@@ -186,6 +200,14 @@
 				<xsl:value-of select="ebts:UserDefinedElementText" />
 			</nc30:IdentificationID>
 		</jxdm50:PersonStateFingerprintIdentification>
+	</xsl:template>
+	<xsl:template match="ebts:RecordRapBackUserDefinedElement"
+		mode="stateSubscrID">
+		 <fed_subcr-ext:StateSubscriptionIdentification>
+      		<nc30:IdentificationID>
+      			<xsl:value-of select="ebts:UserDefinedElementText" />
+      		</nc30:IdentificationID>
+      	</fed_subcr-ext:StateSubscriptionIdentification>
 	</xsl:template>
 	<xsl:template
 		match="ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText"
