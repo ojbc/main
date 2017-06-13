@@ -289,6 +289,14 @@
 			<camel:from uri="direct:processSubscriptionRapback" />
 			
 			<camel:log message="Processing Subscription (rapback)" />	
+			
+			<camel:setHeader headerName="subscriptionRequest">
+				<camel:method bean="rapbackSubscriptionProcessor" method="makeSubscriptionRequestFromIncomingMessage"/>
+			</camel:setHeader>
+								
+			<camel:setHeader headerName="subscriptionId">
+				<camel:method bean="subscriptionSearchQueryDAO" method="subscribe"/>
+			</camel:setHeader>
 								
 			<camel:multicast>				
 				<camel:choice>
@@ -298,7 +306,7 @@
 					</camel:when>			 				 							 																														 				
 				</camel:choice>				
 				<!-- this synchronous call is last because it modifies the message -->
-				<to uri="bean:rapbackSubscriptionProcessor?method=subscribe" />
+				<to uri="bean:org.ojbc.intermediaries.sn.util.SubscriptionResponseBuilderUtil?method=createSubscribeResponse()" />
 														
 			</camel:multicast>						
 		</camel:route>		

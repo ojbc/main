@@ -17,8 +17,7 @@
 package org.ojbc.intermediaries.sn.rapback;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -27,16 +26,15 @@ import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.XMLUnit;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
+import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiSubModDocBuilder;
-import org.ojbc.intermediaries.sn.dao.rapback.FbiSubscriptionModification;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
 public class FbiSubModDocBuilderTest {
-	
-	private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");		
 	
 	@Before
 	public void init() {
@@ -50,17 +48,19 @@ public class FbiSubModDocBuilderTest {
 	@Test
 	public void testFbiSubModDocBuilder() throws Exception{
 		
-		FbiSubscriptionModification fbiSubMod = getSampleFbiSubMod();
-		
 		FbiSubModDocBuilder fbiSubModDocBuilder = new FbiSubModDocBuilder();
 		
-		Document fbiSubModDoc = fbiSubModDocBuilder.buildFbiSubModDoc(fbiSubMod);		
+		Document subscriptionRequestDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/fbi/subscribeRequestWithRapbackData.xml"));
+		
+		Document fbiSubModDoc = fbiSubModDocBuilder.buildFbiSubModDoc(getSampleFbiSubscription(), subscriptionRequestDoc);		
 				
+		XmlUtils.printNode(fbiSubModDoc.getDocumentElement());
 		Document expectedSubModDoc = XmlUtils.parseFileToDocument(new File("src/test/resources/xmlInstances/fbi/FbiSubMod.xml"));
 				
 		Diff diff = new Diff(expectedSubModDoc, fbiSubModDoc);		
 		
 		DetailedDiff detailedDiff = new DetailedDiff(diff);		
+		@SuppressWarnings("unchecked")
 		List<Difference> diffList =  detailedDiff.getAllDifferences();		
 		int diffCount = diffList == null ? 0 : diffList.size();
 		
@@ -72,18 +72,29 @@ public class FbiSubModDocBuilderTest {
 	}
 		
 	
-	private FbiSubscriptionModification getSampleFbiSubMod() throws Exception{
+	private FbiRapbackSubscription getSampleFbiSubscription(){
 		
-		FbiSubscriptionModification fbiSubMod = new FbiSubscriptionModification();
+		FbiRapbackSubscription fbiRapbackSubscription = new FbiRapbackSubscription();
 		
-		fbiSubMod.setPersonFbiUcnId("123456789");		
-		fbiSubMod.setReasonCode("CI");		
-		fbiSubMod.setSubscriptionFbiId("1234567");
-				
-		Date subModEndDate = SDF.parse("2015-04-01");		
-		fbiSubMod.setSubModEndDate(subModEndDate);	
+		Calendar startCal = Calendar.getInstance();
+		startCal.set(2015, 0, 1);				
+		DateTime startDate = new DateTime(startCal.getTime());						
+		fbiRapbackSubscription.setRapbackStartDate(startDate);
+								
+		Calendar endCal = Calendar.getInstance();
+		endCal.set(2016, 0, 1);						
+		DateTime endDate = new DateTime(endCal.getTime());		
+		fbiRapbackSubscription.setRapbackExpirationDate(endDate);
+						
+		fbiRapbackSubscription.setSubscriptionTerm("P1Y");
+					
+		fbiRapbackSubscription.setRapbackCategory("CI");		
 		
-		return fbiSubMod;
+		fbiRapbackSubscription.setFbiSubscriptionId("1234567");
+		fbiRapbackSubscription.setUcn("123456789");
+		fbiRapbackSubscription.setStateSubscriptionId(Integer.valueOf(66));
+		
+		return fbiRapbackSubscription;
 	}
 
 }

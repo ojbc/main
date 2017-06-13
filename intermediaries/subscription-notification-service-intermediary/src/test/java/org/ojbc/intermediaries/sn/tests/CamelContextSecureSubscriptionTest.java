@@ -111,23 +111,14 @@ public class CamelContextSecureSubscriptionTest extends AbstractSubscriptionNoti
     	    }              
     	});
     	
-    	context.getRouteDefinition("fbiEbtsSubscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("sendToFbiEbtsAdapter").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {    	    
     	    	
     	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+				mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService*");
     	    }              
     	});    	    
-    	
-    	
-    	context.getRouteDefinition("callFbiEbtsModify_Route").adviceWith(context, new AdviceWithRouteBuilder() {
-			
-			@Override
-			public void configure() throws Exception {
-				mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService*");
-			}
-		});
-    	
     	
     	
     	context.getRouteDefinition("subscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {

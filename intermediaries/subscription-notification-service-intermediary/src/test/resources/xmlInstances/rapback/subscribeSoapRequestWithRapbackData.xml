@@ -41,6 +41,13 @@
             	<smext:SubscriptionRelatedCaseIdentification>
             		<nc20:IdentificationID>0123ABG</nc20:IdentificationID>
             	</smext:SubscriptionRelatedCaseIdentification>
+				<smext:SubscribingOrganization>
+					<jxdm41:OrganizationAugmentation>
+						<jxdm41:OrganizationORIIdentification>
+							<nc20:IdentificationID>157848</nc20:IdentificationID>
+						</jxdm41:OrganizationORIIdentification>
+					</jxdm41:OrganizationAugmentation>
+				</smext:SubscribingOrganization>
                 <smext:Subject>
 					<nc20:PersonBirthDate>
 						<nc20:Date>1972-08-02</nc20:Date>

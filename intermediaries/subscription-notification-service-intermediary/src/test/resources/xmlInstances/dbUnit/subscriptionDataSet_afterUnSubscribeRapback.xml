@@ -54,7 +54,7 @@
   
   <!-- New data added by this test case -->
   
-  <subscription id="6" topic="{http://ojbc.org/wsn/topics}:person/rapback" startDate="2014-06-20" endDate="2015-06-20" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemA" subscriptionOwner="SYSTEM" subscriptionOwnerEmailAddress="" subjectName="Test Person" lastValidationDate="2013-09-13" timestamp="2013-09-13 13:47:48.0" active="0" agency_case_number="0123ABG" subscription_category_code="CI"/>
+  <subscription id="6" topic="{http://ojbc.org/wsn/topics}:person/rapback" startDate="2014-06-20" endDate="2015-06-20" subscribingSystemIdentifier="{http://demostate.gov/SystemNames/1.0}SystemA" subscriptionOwner="SYSTEM" subscriptionOwnerEmailAddress="" subjectName="Test Person" lastValidationDate="2013-09-13" timestamp="2013-09-13 13:47:48.0" active="0" agency_case_number="0123ABG" subscription_category_code="CI" ori="157848"/>
   <notification_mechanism id="7" subscriptionId="6" notificationMechanismType="email" notificationAddress="po6@localhost"/>
   <subscription_subject_identifier id="11" subscriptionId="6" identifierName="SID" identifierValue="A9999999"/>
   <subscription_subject_identifier id="12" subscriptionId="6" identifierName="subscriptionQualifier" identifierValue="1234578"/>

@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.camel.Message;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionProcessor;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
@@ -30,6 +32,7 @@ import org.ojbc.intermediaries.sn.util.SubjectIdentifierUtils;
 
 public class RapbackSubscriptionProcessor extends SubscriptionProcessor {
 
+	private final Log log = LogFactory.getLog(this.getClass());
 	List<String> activeSubjectIdentifiers = new ArrayList<>(Arrays.asList(SubscriptionNotificationConstants.SID, SubscriptionNotificationConstants.SUBSCRIPTION_QUALIFIER, SubscriptionNotificationConstants.FIRST_NAME, SubscriptionNotificationConstants.LAST_NAME, SubscriptionNotificationConstants.DATE_OF_BIRTH, SubscriptionNotificationConstants.FBI_ID));
 	
 	@Override
@@ -43,6 +46,7 @@ public class RapbackSubscriptionProcessor extends SubscriptionProcessor {
 		Map<String, String> finalSubjectIdentifiers = SubjectIdentifierUtils.returnFinalSubjectIdentifiers(allowedSubjectIdentifiers, activeSubjectIdentifiers);	
 		rapbackSubscriptionRequest.setSubjectIdentifiers(finalSubjectIdentifiers);
 		
+		log.info("rapbackSubscriptionRequest: " + rapbackSubscriptionRequest);
 		return rapbackSubscriptionRequest;
 	}
 
