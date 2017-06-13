@@ -391,6 +391,10 @@ public class SubscriptionSearchQueryDAO {
 
     }
     
+    public Integer subscribe(@Header("subscriptionRequest")SubscriptionRequest request){
+    	Number subscriptionId = subscribe(request, new LocalDate());
+    	return subscriptionId.intValue();
+    }
     /**
      * Create a subscription (or update an existing one) given the input parameters
      * @param request

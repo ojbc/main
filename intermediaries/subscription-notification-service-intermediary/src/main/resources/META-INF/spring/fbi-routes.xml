@@ -31,103 +31,34 @@
 	<routeContext id="fbiRoutes" xmlns="http://camel.apache.org/schema/spring">		
 
 		<route id="processPotentialFbiSubscription_Route">
-		
 			<from uri="direct:processPotentialFbiSubscription"/>
-		
-				<camel:choice>
-					<camel:when>
-						<camel:xpath>boolean(//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonFBIIdentification/nc20:IdentificationID/text()[1])</camel:xpath>					
-						
-						<camel:log message="\n\n\n\n Found FBI ID in message, processing... \n\n\n\n"/>
-						
-						<camel:to uri="bean:fbiSubscriptionProcessor?method=processSubscription"/>
-																																				
-						<camel:choice>
-							<camel:when>
-								<camel:simple>${header.sendSubToFbiEbtsAdapter} == true</camel:simple>
-								
-								<log message ="\n\n\n sendSubToFbiEbtsAdapter} == true ...\n\n\n"/>
-																
-								<to uri="direct:sendToCorrectEbtsEndpoint" />
-																																
-							</camel:when>
-							
-							<camel:otherwise>
-								<log message="\n\n\n Not sending to fbi ebts adapter! \n\n\n" loggingLevel="WARN" />
-							</camel:otherwise>
-						</camel:choice>																			
-						
-					</camel:when>													
-					<camel:otherwise>	
-																									
-						<camel:setHeader headerName="sid">
-							<camel:xpath>//wsnb2:Subscribe/submsg-doc:SubscriptionMessage/submsg-ext:Subject/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc20:IdentificationID/text()</camel:xpath>
-						</camel:setHeader>					
-						
-						<!-- rapback logger must be defined in karaf/etc/org.ops4j.pax.logging.cfg  Allows rare important message to go to file where 
-							it's easy to notice, but requires manual monitoring.  The src/test/resources/log4j.properties properties in this project has 
-							sample configuration for setting up the file logger -->
-						<camel:log message="\n\n\n\n There is no FBI ID available for SID:  ${header.sid}.  Not sending subscription to FBI.\n\n\n\n" logName="rapback"/>						
-					</camel:otherwise>							
-				</camel:choice>			
-		
-		</route>
-		
-		
-				
-		<route id="sendToCorrectEbtsEndpoint_Route">
-		
-			<from uri="direct:sendToCorrectEbtsEndpoint"/>
-		
-			<camel:choice>
-					<when>
-						<simple>${header.operationName} == 'Subscribe'</simple>
-								
-						<log message="\n\n\n operationName == 'Subscribe \n\n\n"/>
-														
-						<camel:to uri="direct:callFbiEbtsSubscriptionService"/>	
-					</when>
-					<camel:when>
-						<simple>${header.operationName} == 'Modify'</simple>
-						
-						<log message="\n\n\n operationName == 'Modify' \n\n\n" />
-															
-						<to uri="direct:callFbiEbtsModify" />
-					</camel:when>
-					<otherwise>
-						<log message="\n\n\n Fbi Operation not set. Not sending to ebts adapter! \n\n\n" loggingLevel="WARN" />
-					</otherwise>								
-			</camel:choice>
-										
-		</route>
-						
-		
-		<camel:route id="fbiEbtsSubscriptionSecureRoute">					
+			<camel:to uri="bean:fbiSubscriptionProcessor?method=processSubscription"/>
 			
-			<camel:from uri="direct:callFbiEbtsSubscriptionService" />
-			
-			<camel:log message="Calling fbi ebts service..."/>			
-						
-			<camel:setHeader headerName="operationName"><constant>Subscribe</constant></camel:setHeader>	
+			<camel:to uri="direct:sentToFbiEbtsAdapter" />
+		
+		</route> 
+		
+		<route id="sendToFbiEbtsAdapter">
+			<from uri="direct:sentToFbiEbtsAdapter"/>								
+			<log message="\n operationName == ${header.operationName} \n"/>
+			<log message="\n message body: ${body} \n"/>
 			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>										
 			
-			<camel:to uri="fbiEbtsSubscriptionRequestServiceEndpoint" />	
-			
-		</camel:route>
-		
-		
-		<route id="callFbiEbtsModify_Route">
-		
-			<from uri="direct:callFbiEbtsModify" />
-		
-			<log message="\n\n\n direct:callFbiEbtsModifyService... \n\n\n" />
-		
-			<setHeader headerName="operationName"><constant>Modify</constant></setHeader>			
-			<setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></setHeader>
-		
-			<to uri="fbiEbtsSubscriptionManagerEndpoint" />
+			<camel:choice>
+				<when>
+					<simple>${header.operationName} == 'Subscribe' </simple>
+					<camel:to uri="fbiEbtsSubscriptionRequestServiceEndpoint" />	
+				</when>
+				<camel:when>
+					<simple>${header.operationName} == 'Modify'</simple>
+					<to uri="fbiEbtsSubscriptionManagerEndpoint" />
+				</camel:when>
+				<otherwise>
+					<log message="\n\n\n Fbi Operation not set. Not sending to ebts adapter! \n\n\n" loggingLevel="WARN" />
+				</otherwise>								
+			</camel:choice>
 		</route>
-		
+						
 		<camel:route id="processFbiUnsubscribeRoute">
 		
 			<from uri="direct:processFbiUnsubscription"/>								

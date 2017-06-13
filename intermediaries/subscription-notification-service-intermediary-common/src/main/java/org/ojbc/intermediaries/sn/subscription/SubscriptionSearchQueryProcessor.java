@@ -274,7 +274,7 @@ public class SubscriptionSearchQueryProcessor extends SubscriptionMessageProcess
         return subscriptionElement;
     }
 
-    private static void createSubscriptionEmails(List<Subscription> subscriptionSearchResponseList, Document doc, Element root, String extensionSchema) {
+	private static void createSubscriptionEmails(List<Subscription> subscriptionSearchResponseList, Document doc, Element root, String extensionSchema) {
         for (Subscription subscriptionSearchResponse : subscriptionSearchResponseList) {
 
             Set<String> emailAddresses = subscriptionSearchResponse.getEmailAddressesToNotify();

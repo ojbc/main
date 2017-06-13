@@ -16,41 +16,92 @@
  */
 package org.ojbc.intermediaries.sn.dao.rapback;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_41;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_SUB_MSG_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SUB_MSG_EXT;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 public class FbiSubModDocBuilder {
 	
-	private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
 	
+	private static final String YYYY_MM_DD = "yyyy-MM-dd";
+
 	private static final Logger logger = Logger.getLogger(FbiSubModDocBuilder.class);
 	
 	private static final OjbcNamespaceContext CTXT = new OjbcNamespaceContext();
 	
 	
-	public Document buildFbiSubModDoc(FbiSubscriptionModification fbiSubMod) throws Exception{
+	public Document buildFbiSubModDoc( FbiRapbackSubscription fbiRapbackSubscription, Document subscripitonDoc ) throws Exception{
 				
 		Document doc = OJBCXMLUtils.createDocument();
 		
 		Element modifyElement = doc.createElementNS(OjbcNamespaceContext.NS_B2, "Modify");
-		modifyElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_B2);		
+		modifyElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_B2);	
+		
+		modifyElement.setAttribute("xmlns:jxdm41", NS_JXDM_41 );
+		modifyElement.setAttribute("xmlns:" + NS_PREFIX_SUB_MSG_EXT, NS_SUB_MSG_EXT );
+		modifyElement.setAttribute("xmlns:nc", NS_NC);
+
 		doc.appendChild(modifyElement);
 				
 		Element subModMsgElement = XmlUtils.appendElement(modifyElement, OjbcNamespaceContext.NS_SUB_MODIFY_MESSAGE, "SubscriptionModificationMessage");
 		
-		buildSubjectElement(subModMsgElement, fbiSubMod);
+		Element subscriptionMessage = (Element) XmlUtils.xPathNodeSearch(subscripitonDoc, "/b-2:Subscribe/submsg-exch:SubscriptionMessage");
+		Node subscriptionRelatedCaseIdentification = XmlUtils.xPathNodeSearch(subscriptionMessage, 
+				"submsg-ext:SubscriptionRelatedCaseIdentification"); 
+		subModMsgElement.appendChild(doc.importNode(subscriptionRelatedCaseIdentification, true));
+		
+		Node subscribingOrganization = XmlUtils.xPathNodeSearch(subscriptionMessage, "submsg-ext:SubscribingOrganization");
+		if (subscribingOrganization != null){
+			subModMsgElement.appendChild(doc.importNode(subscribingOrganization,true));
+		}
+		
+		Node subject = XmlUtils.xPathNodeSearch(subscriptionMessage, "submsg-ext:Subject");
+		if (subject != null){
+			subModMsgElement.appendChild(doc.importNode(subject, true));
+		}
 				
-		buildFBISubscriptionElement(subModMsgElement, fbiSubMod);				
-					
-		buildSubModEndDateElement(subModMsgElement, fbiSubMod);				
+		Node subscriptionQualifierIdentification = XmlUtils.xPathNodeSearch(subscriptionMessage, "submsg-ext:SubscriptionQualifierIdentification");
+		if (subscriptionQualifierIdentification != null){
+			subModMsgElement.appendChild(doc.importNode(subscriptionQualifierIdentification, true));
+		}
+		
+		Element subscriptionIdentification = 
+				XmlUtils.appendElement(subModMsgElement, NS_SUB_MSG_EXT, "SubscriptionIdentification");
+		XmlUtils.appendTextElement(
+				subscriptionIdentification, NS_NC, "IdentificationID", fbiRapbackSubscription.getStateSubscriptionId().toString());
+
+		Node subscriptionReasonCode = XmlUtils.xPathNodeSearch(subscriptionMessage, 
+				"submsg-ext:CriminalSubscriptionReasonCode | submsg-ext:CivilSubscriptionReasonCode");
+		if (subscriptionReasonCode != null){
+			subModMsgElement.appendChild(doc.importNode(subscriptionReasonCode, true));
+		}
+		
+		Node triggeringEvents = XmlUtils.xPathNodeSearch(subscriptionMessage, "submsg-ext:TriggeringEvents");
+		if (triggeringEvents != null){
+			subModMsgElement.appendChild(doc.importNode(triggeringEvents, true));
+		}
+		
+		Node federalRapSheetDisclosure = XmlUtils.xPathNodeSearch(subscriptionMessage, "submsg-ext:FederalRapSheetDisclosure");
+		if (federalRapSheetDisclosure != null){
+			subModMsgElement.appendChild(doc.importNode(federalRapSheetDisclosure, true));
+		}
+		
+		Element fbiSubscription = buildFBISubscriptionElement(subModMsgElement, fbiRapbackSubscription);
+		if (subscriptionReasonCode != null){
+			fbiSubscription.appendChild(doc.importNode(subscriptionReasonCode, true));
+		}
+		
+		buildSubModEndDateElement(subModMsgElement, fbiRapbackSubscription);				
 		
 		CTXT.populateRootNamespaceDeclarations(doc.getDocumentElement());
 		
@@ -58,65 +109,22 @@ public class FbiSubModDocBuilder {
 	}
 
 
-	private Element buildSubjectElement(Element parent, FbiSubscriptionModification fbiSubMod){
+	private Element buildFBISubscriptionElement(Element parentElement, FbiRapbackSubscription fbiRapbackSubscription){
+	
+		Element fbiSubscriptionElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FBISubscription");
+			
+		Element subscriptionFBIIdentification = 
+				XmlUtils.appendElement(fbiSubscriptionElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionFBIIdentification");
+		XmlUtils.appendTextElement(subscriptionFBIIdentification, OjbcNamespaceContext.NS_NC, 
+				"IdentificationID", fbiRapbackSubscription.getFbiSubscriptionId());
 		
-		Element subjectElement = null;
-		
-		String fbiUcnId = fbiSubMod.getPersonFbiUcnId();
-		
-		if(StringUtils.isNotEmpty(fbiUcnId)){
-			
-			subjectElement = XmlUtils.appendElement(parent, OjbcNamespaceContext.NS_SUB_MSG_EXT, "Subject");
-			
-			Element personAugElement = XmlUtils.appendElement(subjectElement, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
-			
-			Element personFBIIdElement = XmlUtils.appendElement(personAugElement, OjbcNamespaceContext.NS_JXDM_41, "PersonFBIIdentification");
-			
-			Element personFbiIdValElement = XmlUtils.appendElement(personFBIIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
-			
-			personFbiIdValElement.setTextContent(fbiUcnId);			
-		}			
-		return subjectElement;
+		return fbiSubscriptionElement;
 	}
 	
 	
-	private void buildFBISubscriptionElement(Element parentElement, FbiSubscriptionModification fbiSubMod){
-	
-		String subId = fbiSubMod.getSubscriptionFbiId();
+	private void buildSubModEndDateElement(Element parentElement, FbiRapbackSubscription fbiRapbackSubscription){
 		
-		boolean hasSubId = StringUtils.isNotEmpty(subId);
-						
-		String reasonCode = fbiSubMod.getReasonCode();
-		
-		boolean hasReasonCode = StringUtils.isNotEmpty(reasonCode);
-				
-		if(hasSubId || hasReasonCode){
-				
-			Element fBISubscriptionElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "FBISubscription");
-			
-			if(hasSubId){				
-				
-				Element subFBIIdElement = XmlUtils.appendElement(fBISubscriptionElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, 
-						"SubscriptionFBIIdentification");
-				
-				Element subFBIIdValElement = XmlUtils.appendElement(subFBIIdElement, OjbcNamespaceContext.NS_NC, "IdentificationID");
-				
-				subFBIIdValElement.setTextContent(subId);				
-			}
-						
-			if(hasReasonCode){
-			
-				Element reasonCodeElement = XmlUtils.appendElement(fBISubscriptionElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "CriminalSubscriptionReasonCode");
-				
-				reasonCodeElement.setTextContent(reasonCode);				
-			}			
-		}		
-	}
-	
-	
-	private void buildSubModEndDateElement(Element parentElement, FbiSubscriptionModification fbiSubMod){
-		
-		Date subModEndDate = fbiSubMod.getSubModEndDate();
+		DateTime subModEndDate = fbiRapbackSubscription.getRapbackExpirationDate();
 						
 		if(subModEndDate != null){
 			
@@ -129,7 +137,7 @@ public class FbiSubModDocBuilder {
 			Element endDateValElement = XmlUtils.appendElement(endDateElement, OjbcNamespaceContext.NS_NC, "Date");
 			
 			try{
-				String sSubModEndDate = SDF.format(subModEndDate);
+				String sSubModEndDate = subModEndDate.toString(YYYY_MM_DD);
 				
 				endDateValElement.setTextContent(sSubModEndDate);
 				

@@ -139,6 +139,27 @@ public class FbiRapbackDao {
 		return DataAccessUtils.singleResult(fbiSubscriptions);
 	}
 	
+	/**
+	 * get FBI rapback subscription by subscription ID.
+	 * @param subscriptionId
+	 * @return
+	 */
+	public FbiRapbackSubscription getFbiRapbackSubscription(Integer subscriptionId) {
+		
+		logger.info("\n Using subscription ID: " + subscriptionId + " to find FBI subscription");
+		if ( subscriptionId == null || subscriptionId <= 0){
+			throw new IllegalArgumentException("Invalid subscription ID."); 
+		}
+		
+		final String sql = "SELECT * FROM fbi_rap_back_subscription "
+				+ "WHERE subscription_id = ?;";
+		
+		List<FbiRapbackSubscription> fbiSubscriptions = 
+				jdbcTemplate.query(sql, new FbiSubscriptionRowMapper(), subscriptionId);
+		
+		return DataAccessUtils.singleResult(fbiSubscriptions);
+	}
+	
 	
 	public Integer saveSubsequentResults(final SubsequentResults subsequentResults) {
         log.debug("Inserting row into SUBSEQUENT_RESULTS table : " + subsequentResults.toString());

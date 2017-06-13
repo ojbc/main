@@ -66,11 +66,13 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 	public void setUp() throws Exception {
 		super.setUp();
 		
-    	context.getRouteDefinition("fbiEbtsSubscriptionSecureRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("sendToFbiEbtsAdapter").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {    	    
     	    	
     	    	mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionRequestService*");
+				mockEndpointsAndSkip("cxf:bean:fbiEbtsSubscriptionManagerService*");
+
     	    }              
     	});    	    	
 	}
