@@ -39,7 +39,7 @@ h3 {
 	font-size: .8em;
 }
 
-.modal {
+.spinner-modal {
     display:    none;
     position:   fixed;
     z-index:    1000;
@@ -57,7 +57,11 @@ body.loading {
     overflow: hidden;   
 }
 
-body.loading .modal {
+body.loading .spinner-modal {
     display: block;
+}
+
+.confirm-dialog-info {
+	font-weight: bold;
 }
 

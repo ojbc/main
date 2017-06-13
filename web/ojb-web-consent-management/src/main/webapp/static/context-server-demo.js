@@ -19,6 +19,6 @@ refreshData = function() {
     refreshDataViaAjax("true")
 }
 
-submitConsentDecision = function(consentDecisionJson) {
-    submitConsentDecisionViaAjax(consentDecisionJson, "true")
+submitConsentDecision = function() {
+    submitConsentDecisionViaAjax(getConsentDecisionJson(), "true")
 }
