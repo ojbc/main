@@ -58,6 +58,9 @@
 			<xsl:apply-templates
 				select="../ebts:RecordTransactionActivity/nc:CaseTrackingID" />
 			<xsl:apply-templates
+				select="../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName=normalize-space('State Subscription ID')]/ebts:UserDefinedElementText"
+				mode="stateSubscrID" />
+			<xsl:apply-templates
 				select="../ebts:RecordTransactionActivity/ebts:RecordControllingAgency" />
 			<xsl:apply-templates select="../ansi-nist:RecordForwardOrganizations" />
 		</fed_subcr_upd-ext:RapBackSubscriptionData>
@@ -151,12 +154,9 @@
 	<xsl:template match="ebts:RecordSubject" mode="augment">
 		<jxdm50:PersonAugmentation>
 			<xsl:apply-templates select="jxdm41:PersonFBIIdentification" />
-			<xsl:if
-				test="../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement/ebts:UserDefinedElementName=normalize-space('State Fingerprint ID')">
-				<xsl:apply-templates
-					select="../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement"
-					mode="fingerPrint" />
-			</xsl:if>
+			<xsl:apply-templates
+				select="../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName=normalize-space('State Fingerprint ID')]/ebts:UserDefinedElementText"
+				mode="fingerPrint" />
 		</jxdm50:PersonAugmentation>
 	</xsl:template>
 	<xsl:template match="nc:PersonGivenName">
@@ -179,13 +179,19 @@
 			<xsl:apply-templates select="nc:IdentificationID" />
 		</jxdm50:PersonFBIIdentification>
 	</xsl:template>
-	<xsl:template match="ebts:RecordRapBackUserDefinedElement"
-		mode="fingerPrint">
+	<xsl:template match="ebts:UserDefinedElementText" mode="fingerPrint">
 		<jxdm50:PersonStateFingerprintIdentification>
 			<nc30:IdentificationID>
-				<xsl:value-of select="ebts:UserDefinedElementText" />
+				<xsl:value-of select="." />
 			</nc30:IdentificationID>
 		</jxdm50:PersonStateFingerprintIdentification>
+	</xsl:template>
+	<xsl:template match="ebts:UserDefinedElementText" mode="stateSubscrID">
+		<fed_subcr_upd-ext:StateSubscriptionIdentification>
+			<nc30:IdentificationID>
+				<xsl:value-of select="." />
+			</nc30:IdentificationID>
+		</fed_subcr_upd-ext:StateSubscriptionIdentification>
 	</xsl:template>
 	<xsl:template
 		match="ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText"
