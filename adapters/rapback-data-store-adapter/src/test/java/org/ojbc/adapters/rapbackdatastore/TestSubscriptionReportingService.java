@@ -109,7 +109,7 @@ public class TestSubscriptionReportingService {
 		assertNull(fbiRapbackSubscriptionBeforeCreationReporting);
 		
     	Exchange senderExchange = MessageUtils.createSenderExchange(context, 
-    			"src/test/resources/xmlInstances/subscriptionReporting/federal_subscription_creation_report.xml");
+    			"src/test/resources/xmlInstances/subscriptionReporting/RapBackSubscriptionCreationReport.xml");
 	    
     	senderExchange.getIn().setHeader("operationName", REPORT_FEDERAL_SUBSCRIPTION_CREATION);
     	
@@ -135,7 +135,7 @@ public class TestSubscriptionReportingService {
 		assertEquals(Boolean.FALSE, fbiRapbackSubscriptionAfterReporting.getRapbackOptOutInState());
 		assertEquals("2", fbiRapbackSubscriptionAfterReporting.getRapbackActivityNotificationFormat());
 		assertEquals("1234567898", fbiRapbackSubscriptionAfterReporting.getUcn());
-		assertEquals(Integer.valueOf(62725), fbiRapbackSubscriptionAfterReporting.getStateSubscriptionId());
+		assertEquals(Integer.valueOf(62727), fbiRapbackSubscriptionAfterReporting.getStateSubscriptionId());
 		
 		List<SubsequentResults> subsequentResults = rapbackDAO.getSubsequentResultsByUcn("1234567898");
 		assertEquals(1, subsequentResults.size());
@@ -143,7 +143,7 @@ public class TestSubscriptionReportingService {
 		log.info("Rap Sheet: " + new String(subsequentResults.get(0).getRapSheet()));
 		
     	Exchange fbiSubscriptionUpdateExchange = MessageUtils.createSenderExchange(context, 
-    			"src/test/resources/xmlInstances/subscriptionReporting/federal_subscription_update_report.xml");
+    			"src/test/resources/xmlInstances/subscriptionReporting/RapbackSubscriptionUpdateReport.xml");
 	    
     	fbiSubscriptionUpdateExchange.getIn().setHeader("operationName", REPORT_FEDERAL_SUBSCRIPTION_UPDATE);
     	
@@ -169,7 +169,7 @@ public class TestSubscriptionReportingService {
 		assertEquals(Boolean.FALSE, fbiRapbackSubscriptionAfterUpdate.getRapbackOptOutInState());
 		assertEquals("2", fbiRapbackSubscriptionAfterUpdate.getRapbackActivityNotificationFormat());
 		assertEquals("1234567898", fbiRapbackSubscriptionAfterUpdate.getUcn());
-		assertEquals(Integer.valueOf(62725), fbiRapbackSubscriptionAfterReporting.getStateSubscriptionId());
+		assertEquals(Integer.valueOf(62727), fbiRapbackSubscriptionAfterReporting.getStateSubscriptionId());
 		
 		List<SubsequentResults> subsequentResultsAfterUpdate = rapbackDAO.getSubsequentResultsByUcn("1234567898");
 		assertEquals(2, subsequentResultsAfterUpdate.size());
