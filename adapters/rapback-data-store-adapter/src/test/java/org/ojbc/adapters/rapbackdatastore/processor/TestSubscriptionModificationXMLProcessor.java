@@ -78,6 +78,8 @@ public class TestSubscriptionModificationXMLProcessor {
     	
     	assertNotNull(subscription);
     	
+    	subscription.setSubscriptionCategoryCode("CI");
+    	
     	log.info("Subscription retrieved from database: " + subscription);
     	
     	//This subscription does not have a SID or FBI ID.  Manually add one for testing
@@ -126,17 +128,12 @@ public class TestSubscriptionModificationXMLProcessor {
 			Node iEmailNode = emailNodeList.item(i);	
 			retrievedEmailList.add(iEmailNode.getTextContent());
 		}		
-		assertEquals(true, retrievedEmailList.contains("email107@email.com"));
-		assertEquals(true, retrievedEmailList.contains("email8@email.com"));
 		
-		String sysName = XmlUtils.xPathStringSearch(subMsgNode, "submsg-ext:SystemName");
-		assertEquals("{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB", sysName);
-				
 		String subQualId = XmlUtils.xPathStringSearch(subMsgNode, 
 				"submsg-ext:SubscriptionQualifierIdentification/nc:IdentificationID");
 		assertNotNull(subQualId);
 		
-		Node dateRangeNode = XmlUtils.xPathNodeSearch(subMsgNode, "nc:DateRange");
+		Node dateRangeNode = XmlUtils.xPathNodeSearch(subMsgNode, "submsg-ext:SubscriptionModification/nc:DateRange");
 		
 		String startDate =  XmlUtils.xPathStringSearch(dateRangeNode, "nc:StartDate/nc:Date");
 		assertEquals("2015-10-16", startDate);
@@ -165,7 +162,13 @@ public class TestSubscriptionModificationXMLProcessor {
 		assertEquals(true, triggeringEventCodesList.contains("ARREST"));
 		assertEquals(true, triggeringEventCodesList.contains("NCIC-WARRANT-ENTRY"));
 		assertEquals(true, triggeringEventCodesList.contains("NCIC-WARRANT-MODIFICATION"));
-    	
+		
+		String fbiSubscriptionID = XmlUtils.xPathStringSearch(subMsgNode, "submsg-ext:FBISubscription/submsg-ext:SubscriptionFBIIdentification/nc:IdentificationID");
+		assertEquals("fbiSubscriptionId_3", fbiSubscriptionID);
+
+		String criminalReasonCode = XmlUtils.xPathStringSearch(subMsgNode, "submsg-ext:FBISubscription/submsg-ext:CriminalSubscriptionReasonCode");
+		assertEquals("CI", criminalReasonCode);
+
     }
 	
 }
