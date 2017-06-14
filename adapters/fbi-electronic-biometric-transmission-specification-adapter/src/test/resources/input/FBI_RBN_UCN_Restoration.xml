@@ -167,7 +167,7 @@
                            <nc:Date>2013-03-29</nc:Date>
                        </ebts:RapBackEventDate>
                        <!-- RBEI 2.2069C -->
-					<ebts:RapBackEventText>RB017 – The Deletion action has been reversed in NGI for UCN XXXXXXXXX.  Rap Back ID# xxxxxx has been restored to its previous state</ebts:RapBackEventText>
+					<ebts:RapBackEventText>RB017 – The Deletion action has been reversed in NGI for UCN XXXXXXXXX.  Rap Back ID# yyyyyyy has been restored to its previous state</ebts:RapBackEventText>
 				</ebts:TransactionRapBackTriggeringEvent>
 
                </ebts:RecordRapBackData>
