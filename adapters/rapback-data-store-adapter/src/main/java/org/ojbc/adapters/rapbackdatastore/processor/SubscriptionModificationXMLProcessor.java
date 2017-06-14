@@ -118,8 +118,8 @@ public class SubscriptionModificationXMLProcessor {
             
             if (fbiSubscription != null)
             {	
-	            //TODO, when FBI subscription ID is available, it needs to be added to the Create Subscription Modify Request Message
-	            String fbiSubscriptionId = fbiSubscription.getFbiRapbackSubscription().getFbiSubscriptionId();
+	            String fbiSubscriptionID = fbiSubscription.getFbiRapbackSubscription().getFbiSubscriptionId();
+	            subscriptionXMLPojo.setFbiSubscriptionID(fbiSubscriptionID);
             }    
             
             doc = SubscriptionNotificationDocumentBuilderUtils.createSubscriptionModifyRequest(subscriptionXMLPojo);

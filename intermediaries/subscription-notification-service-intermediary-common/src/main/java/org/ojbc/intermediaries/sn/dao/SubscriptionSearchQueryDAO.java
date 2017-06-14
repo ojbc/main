@@ -578,6 +578,11 @@ public class SubscriptionSearchQueryDAO {
 		return ret;
 	}
 
+	public int insertSubjectIdentifier(long subscriptionID, String key, String value)
+	{
+	    return this.jdbcTemplate.update("insert into subscription_subject_identifier (subscriptionId, identifierName, identifierValue) values (?,?,?)", subscriptionID, key, value);
+	}
+	
 	public int saveSubscriptionProperties(
 			Map<String, String> subscriptionProperties, long subscriptionID) {
 		
