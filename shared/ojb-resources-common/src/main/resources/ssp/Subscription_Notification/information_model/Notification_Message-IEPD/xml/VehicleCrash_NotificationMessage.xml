@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<notfm-doc:NotificationMessage xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+	xmlns:vc="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd">
+	<notfm-ext:NotifyingVehicleCrash s:id="d1e1">
+		<notfm-ext:NotifyingActivityReportingSystemNameText>SystemName
+		</notfm-ext:NotifyingActivityReportingSystemNameText>
+		<notfm-ext:NotifyingActivityReportingSystemURI>SystemURIHere
+		</notfm-ext:NotifyingActivityReportingSystemURI>
+		<vc:VehicleCrash>
+			<j:Crash>
+				<nc:ActivityDate>
+					<nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
+				</nc:ActivityDate>
+				<j:CrashVehicle>
+					<nc:RoleOfItemReference s:ref="d1e174" />
+					<j:CrashDriver>
+						<nc:RoleOfPersonReference s:ref="d1e252" />
+					</j:CrashDriver>
+					<j:CrashVehicleOccupant>
+						<nc:RoleOfPersonReference s:ref="d1e252" />
+					</j:CrashVehicleOccupant>
+				</j:CrashVehicle>
+				<j:CrashVehicle>
+					<nc:RoleOfItemReference s:ref="d1e347" />
+					<j:CrashDriver>
+						<nc:RoleOfPersonReference s:ref="d1e425" />
+					</j:CrashDriver>
+					<j:CrashVehicleOccupant>
+						<nc:RoleOfPersonReference s:ref="d1e425" />
+						<nc:RoleOfPersonReference s:ref="d1e523" />
+					</j:CrashVehicleOccupant>
+				</j:CrashVehicle>
+				<nc:Location s:id="d1e44">
+					<nc:LocationHighway>
+						<nc:HighwayFullText>nc:HighwayFullText</nc:HighwayFullText>
+					</nc:LocationHighway>
+				</nc:Location>
+			</j:Crash>
+			<nc:Vehicle s:id="d1e174">
+				<nc:ConveyanceColorPrimaryText>Grey, Silver
+				</nc:ConveyanceColorPrimaryText>
+				<nc:ItemMakeName>AMERICAN MOTORS</nc:ItemMakeName>
+				<nc:ItemModelYearDate>2006</nc:ItemModelYearDate>
+				<nc:VehicleIdentification>
+					<nc:IdentificationID>KMHCN46C66U034917</nc:IdentificationID>
+				</nc:VehicleIdentification>
+			</nc:Vehicle>
+			<nc:Vehicle s:id="d1e347">
+				<nc:ConveyanceColorPrimaryText>Green</nc:ConveyanceColorPrimaryText>
+				<nc:ItemMakeName>FIAT</nc:ItemMakeName>
+				<nc:ItemModelYearDate>2009</nc:ItemModelYearDate>
+				<nc:VehicleIdentification>
+					<nc:IdentificationID>5NPET46C29H553366</nc:IdentificationID>
+				</nc:VehicleIdentification>
+			</nc:Vehicle>
+			<nc:ConveyanceRegistration s:id="d1e195">
+				<nc:ConveyanceRegistrationPlateIdentification>
+					<nc:IdentificationID>9344NR</nc:IdentificationID>
+					<j:IdentificationJurisdictionNCICLISCode>ME
+					</j:IdentificationJurisdictionNCICLISCode>
+				</nc:ConveyanceRegistrationPlateIdentification>
+			</nc:ConveyanceRegistration>
+			<nc:ConveyanceRegistration s:id="d1e368">
+				<nc:ConveyanceRegistrationPlateIdentification>
+					<nc:IdentificationID>5285KS</nc:IdentificationID>
+					<j:IdentificationJurisdictionNCICLISCode>ME
+					</j:IdentificationJurisdictionNCICLISCode>
+				</nc:ConveyanceRegistrationPlateIdentification>
+			</nc:ConveyanceRegistration>
+			<nc:ConveyanceRegistrationAssociation>
+				<nc:ItemRegistrationReference s:ref="d1e195" />
+				<nc:ItemReference s:ref="d1e174" />
+			</nc:ConveyanceRegistrationAssociation>
+			<nc:ConveyanceRegistrationAssociation>
+				<nc:ItemRegistrationReference s:ref="d1e368" />
+				<nc:ItemReference s:ref="d1e347" />
+			</nc:ConveyanceRegistrationAssociation>
+		</vc:VehicleCrash>
+	</notfm-ext:NotifyingVehicleCrash>
+	<j:Person s:id="d1e20">
+		<nc:PersonName>
+			<nc:PersonFullName>Dennis V. Matthews</nc:PersonFullName>
+		</nc:PersonName>
+	</j:Person>
+	<j:Person s:id="d1e252">
+		<nc:PersonBirthDate>
+			<nc:Date>1933-12-03</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Inez</nc:PersonGivenName>
+			<nc:PersonSurName>Craft</nc:PersonSurName>
+		</nc:PersonName>
+		<nc:PersonSexCode>M</nc:PersonSexCode>
+	</j:Person>
+	<j:Person s:id="d1e425">
+		<nc:PersonBirthDate>
+			<nc:Date>1979-04-08</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Betsy</nc:PersonGivenName>
+			<nc:PersonSurName>Walton</nc:PersonSurName>
+		</nc:PersonName>
+		<nc:PersonSexCode>M</nc:PersonSexCode>
+	</j:Person>
+	<j:Person s:id="d1e523">
+		<nc:PersonBirthDate>
+			<nc:Date>1989-06-12</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Joanne</nc:PersonGivenName>
+			<nc:PersonSurName>Walton</nc:PersonSurName>
+		</nc:PersonName>
+		<nc:PersonSexCode>F</nc:PersonSexCode>
+	</j:Person>
+	<j:Person s:id="d1e545">
+		<nc:PersonBirthDate>
+			<nc:Date>1976-02-14</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonGivenName>Walter</nc:PersonGivenName>
+			<nc:PersonSurName>Jones</nc:PersonSurName>
+		</nc:PersonName>
+		<nc:PersonSexCode>M</nc:PersonSexCode>
+	</j:Person>
+</notfm-doc:NotificationMessage>
