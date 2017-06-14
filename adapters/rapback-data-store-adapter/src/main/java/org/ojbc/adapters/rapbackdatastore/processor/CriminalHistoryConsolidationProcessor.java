@@ -36,7 +36,7 @@ import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.Document;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CriminalHistoryConsolidationProcessor {
@@ -55,6 +55,10 @@ public class CriminalHistoryConsolidationProcessor {
     private final static String EXPUNGEMENT_EMAIL_TEMPLATE ="<Old SID> has been deleted from CJIS-Hawaii and the State AFIS; you will no longer receive Rap Back notifications on this offender.  Please logon to the HIJIS Portal to update your subscription as necessary.";
     private final static String CONSOLIDATION_EMAIL_TEMPLATE ="<Old SID> has been consolidated into <New SID>.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on <New SID>.  A new arrest may or may not have occurred.";
     private final static String IDENTIFIER_UPDATE_EMAIL_TEMPLATE ="<Old SID> has been updated to <New SID>.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on <New SID>.  A new arrest may or may not have occurred.";
+    private final static String USER_FEDERAL_SUB_WITH_UCN_EMAIL_TEMPLATE="SID: <SID> \n UCN: <UCN>\n\nThe UCN associated to this SID has been updated.  Our records show you have an active State Rap Back subscription associated with this offender.  A federal Rap Back subscription was automatically created on your behalf.  Please log onto the HIJIS portal to verify or update your subscription as necessary.  For the updated criminal history record information, logon to OpenFox/NCIC to run a query on this UCN.";
+    private final static String HCJDC_FEDERAL_SUB_WITH_UCN_EMAIL_TEMPLATE="SID: <SID> \n UCN: <UCN>\n\nThe UCN associated to this SID has been updated.  Federal subscription added for user.";
+    private final static String HCJDC_UCN_MISMATCH_EMAIL_TEMPLATE="SID: <SID> \n UCN: <UCN>\n\nUCN mismatch.";
+    
     
     /**
      * Main behavior method, invoked from the Camel route, to replace the current SID with the new SID.
@@ -65,6 +69,7 @@ public class CriminalHistoryConsolidationProcessor {
      * @param newUcn
      * @throws Exception
      */
+    @Transactional
     public List<CriminalHistoryConsolidationNotification> consolidateCriminalHistory(Exchange exch, @Header("currentSid") String currentSid, 
     		@Header("newSid") String newSid, 
     		@Header("currentUcn") String currentUcn, 
@@ -96,7 +101,50 @@ public class CriminalHistoryConsolidationProcessor {
     	//Search for active subscriptions with matching SIDs
     	List<Subscription> subscriptionsMatchingSID = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
 
+    	List<Subscription> subscriptionsWithUCNMismatches = new ArrayList<Subscription>();
+    	List<Subscription> subscriptionsWithUCNAdded = new ArrayList<Subscription>();
+    			
+    	if (StringUtils.isNotEmpty(newUcn))
+    	{
+    		for (Subscription subscriptionMatchingSID : subscriptionsMatchingSID)
+    		{
+    			//Since we have a SID, we know Subject Identifiers are not null, no need to check
+    			Map<String,String> subscriptionSubjectIdentifiers = subscriptionMatchingSID.getSubscriptionSubjectIdentifiers();
+    			
+				String ucnInSubscription = subscriptionSubjectIdentifiers.get(SubscriptionNotificationConstants.FBI_ID);
+
+				if (StringUtils.isNotEmpty(ucnInSubscription))
+				{
+    				if (!newUcn.equals(ucnInSubscription))
+    				{
+    					//We don't have a match notify agency
+    					subscriptionsWithUCNMismatches.add(subscriptionMatchingSID);
+    				}
+    				else
+    				{
+    					log.info("UCN in consolidation message: "  + newUcn + " matches UCN in subscription" + ucnInSubscription);
+    				}	
+				}	
+				else
+				{
+					subscriptionMatchingSID.getSubscriptionSubjectIdentifiers().put(SubscriptionNotificationConstants.FBI_ID, "newUcn");
+					//Update subscription in database here
+					subscriptionSearchQueryDAO.insertSubjectIdentifier(subscriptionMatchingSID.getId(), SubscriptionNotificationConstants.FBI_ID, newUcn);
+					subscriptionsWithUCNAdded.add(subscriptionMatchingSID);
+				}	
+    		}	
+    	}
+    	
+    	List<CriminalHistoryConsolidationNotification> chcNotificationUcnMismatches = returnCriminalHistoryConsolidations(
+				currentSid, newSid, currentUcn, newUcn, "reportUCNMismatches", subscriptionsWithUCNAdded);
+    	
     	exch.getIn().setHeader("subscriptionsToModify", subscriptionsMatchingSID);
+    	
+    	//Results in an email to the agency
+    	exch.getIn().setHeader("chcNotificationUcnMismatches", chcNotificationUcnMismatches);
+    	
+    	//Results in a new federal subscription for user and email
+    	exch.getIn().setHeader("subscriptionsWithUCNAdded", subscriptionsWithUCNMismatches);
     	
     	List<CriminalHistoryConsolidationNotification> criminalHistoryConsolidationNotifications = returnCriminalHistoryConsolidations(
 				currentSid, newSid, currentUcn, newUcn, consolidationType, subscriptionsMatchingSID);
@@ -221,6 +269,11 @@ public class CriminalHistoryConsolidationProcessor {
 			emailBody = StringUtils.replace(emailBody, "<New SID>", newSid);
 		}	
 
+		if (chcNotification.getConsolidationType().equals("reportUCNMismatches"))
+		{
+			emailBody = StringUtils.replace(HCJDC_UCN_MISMATCH_EMAIL_TEMPLATE, "<Old SID>", currentSid);
+		}	
+			
 		return emailBody;
 	}
 
@@ -244,15 +297,14 @@ public class CriminalHistoryConsolidationProcessor {
 			emailSubject = "Criminal History Update for SID for: " + currentSid;
 		}	
 
+		if (chcNotification.getConsolidationType().equals("reportUCNMismatches"))
+		{
+			emailSubject = "UCN mismatch report for SID for: " + currentSid;
+		}	
+
 		return emailSubject;
 	}
 
-	public Document returnSubscriptionModificationMessageFromSubscription(@Body Subscription subscription)
-	{
-		
-		return null;
-	}
-	
 	public void returnCamelEmail(Exchange ex)
 	{	
 		CriminalHistoryConsolidationNotification chcNotification = (CriminalHistoryConsolidationNotification) ex.getIn().getBody();

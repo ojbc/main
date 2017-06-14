@@ -58,7 +58,6 @@
 		<endpoint id="ngiResponseServiceEndpoint" 
 			uri="cxf:bean:ngiResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
-		<!-- Change this to the Federal Criminal History Update Repository Service SSP -->
 		<endpoint id="criminalHistoryUpdateReportingServiceEndpoint" 
 			uri="cxf:bean:criminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
