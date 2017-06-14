@@ -157,7 +157,9 @@ public class SubscriptionReportingProcessor {
 		String rapBackTermDate = XmlUtils.xPathStringSearch(rapbackSubscriptionData, "fed_subcr-ext:RapBackTermDate/nc30:Date");
 		fbiRapbackSubscription.setRapbackTermDate(XmlUtils.parseXmlDate(rapBackTermDate));
 		
-		String ucn = XmlUtils.xPathStringSearch(rootNode, "nc30:Person[@s30:id=../jxdm50:Subject/nc30:RoleOfPerson/@s30:ref]/jxdm50:PersonAugmentation/jxdm50:PersonFBIIdentification/nc30:IdentificationID");
+		String ucn = XmlUtils.xPathStringSearch(rootNode, 
+				"nc30:Person[@s30:id=../jxdm50:Subject/nc30:RoleOfPerson/@s30:ref]/jxdm50:PersonAugmentation"
+				+ "/jxdm50:PersonFBIIdentification/nc30:IdentificationID");
 		fbiRapbackSubscription.setUcn(ucn);
 		return fbiRapbackSubscription;
 	}
