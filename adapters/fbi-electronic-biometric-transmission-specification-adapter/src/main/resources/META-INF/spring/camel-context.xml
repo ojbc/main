@@ -52,7 +52,7 @@
 							
 		<!-- hosted at FBI, receives our subscription requests from this ebts adapter -->		
 		<endpoint id="ngiUserServiceRequestEndpoint" 
-			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}&amp;headerFilterStrategy=#OJBCCamelHeaderFilterStrategy" />
+			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}&amp;synchronous=true" />
 		
 		<!-- Endpoint we expose to FBI so they can send us asynchronous Subscription Acknowledgement responses --> 
 		<endpoint id="ngiResponseServiceEndpoint" 
@@ -63,6 +63,8 @@
 		
 		<endpoint id="subscriptionReportingServiceEndpoint" 
 			uri="cxf:bean:subscriptionReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+		
+		<endpoint id="fbiDeadLetterDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_ControlNum_SynchResponse"/>					
 		
 		<!-- 
 			#########################################################################################
@@ -126,13 +128,15 @@
 		</camel:route>
 		
 		
-		<route id="processOperationRoute">
+		<route id="processOperationRoute" errorHandlerRef="deadLetterErrorHandler">
 		
 			<from uri="direct:processOperation" />
 			
 			<camel:to uri="direct:transformToFbiNgiMessage" />
 		
 			<camel:log message="\n\n Calling FBI NGI service...\n\n"/>			
+
+			<camel:removeHeaders pattern="*"/>
 
 			<camel:setHeader headerName="operationNameSpace">
 				<constant>http://ws.cjis.gov/2014/08/01/ngi/service</constant>
@@ -331,8 +335,6 @@
 	<bean id="uuidGenerator" class="org.ojbc.util.camel.helper.OJBUtils"/>
 	
 	<bean id="rapsheetMtomProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.RapsheetMtomProcessor"/>	
-	
-	<bean id="OJBCCamelHeaderFilterStrategy" class="org.ojbc.util.camel.header.filter.OJBCCamelHeaderFilterStrategy"/>
 	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
 </beans>
