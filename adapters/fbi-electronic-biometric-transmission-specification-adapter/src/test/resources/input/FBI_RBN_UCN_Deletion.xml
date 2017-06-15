@@ -167,7 +167,7 @@
                            <nc:Date>2013-03-29</nc:Date>
                        </ebts:RapBackEventDate>
                        <!-- RBEI 2.2069C -->
-					   <ebts:RapBackEventText>RB010 - The Identity associated with UCN:%1 has been deleted from NGI, resulting in the deletion of your Rap Back Subscription ID#:%2</ebts:RapBackEventText>                   
+					   <ebts:RapBackEventText>RB010 - The Identity associated with UCN:9999999 has been deleted from NGI, resulting in the deletion of your Rap Back Subscription ID#:8888888</ebts:RapBackEventText>                   
 				</ebts:TransactionRapBackTriggeringEvent>
 
                </ebts:RecordRapBackData>
