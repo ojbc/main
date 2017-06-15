@@ -142,9 +142,26 @@
 			
 			<log message="Body: ${body}"/>
 			
+			<!-- Report federal subscription changes to EBTS adapter -->
 			<camel:wireTap uri="direct:reportSubscriptionChange">
 				<body><simple>${body}</simple></body>
 			</camel:wireTap>
+
+			<!-- Notify agency of UCN mismatches via email -->
+			<camel:wireTap uri="direct:reportUCNMismatches">
+				<body><simple>${body}</simple></body>
+			</camel:wireTap>
+
+			<!-- Report new federal subscriptions with the UCN that was added -->
+			<camel:wireTap uri="direct:reportNewFederalSubscriptionsWithUCNAdded">
+				<body><simple>${body}</simple></body>
+			</camel:wireTap>
+			
+			<camel:to uri="direct:sendConsolidationsEmail"/>
+		</route>
+		
+		<route>
+			<camel:from uri="direct:sendConsolidationsEmail"/>
 			
 			<camel:split>
 				<!-- The body is a map of Email Notifications -->
@@ -163,14 +180,57 @@
 				</camel:filter>
 
 			</camel:split>
-			
 		</route>
 
+		<route id="reportUCNMismatchesRoute">
+			<camel:from uri="direct:reportUCNMismatches"/>
+
+			<camel:log message="Reporting UCN mismatches: ${in.header.subscriptionsWithUCNMismatches}" />
+			
+			<camel:to uri="direct:sendConsolidationsEmail"/>
+
+		</route>
+
+		<route id="reportNewFederalSubscriptionsWithUCNAddedRoute">
+			<camel:from uri="direct:reportNewFederalSubscriptionsWithUCNAdded"/>
+
+			<camel:split>
+				<!-- The body is a map of Subscriptions -->
+				<camel:simple>${in.header.subscriptionsToModify}</camel:simple>
+
+
+				<camel:log message="Subscription to modify: ${body}"/>
+			
+				<!-- Create OJB OJBC_Subscription_Document.xml here -->
+
+				
+				<camel:log message="Subscription modification message: ${body}"/>
+				
+				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+			
+				<!-- Call broker here -->
+				<camel:setHeader headerName="operationName">
+		            <constant>Subscribe</constant>
+		        </camel:setHeader>
+		        
+		        <camel:setHeader headerName="operationNamespace">
+		            <constant>http://docs.oasis-open.org/wsn/bw-2</constant>
+		        </camel:setHeader>
+							
+				<camel:to uri="fbiEbtsSubscriptionManagerServiceEndpoint"/>
+				
+				<camel:delay>
+					<constant>1000</constant>
+				</camel:delay>
+			</camel:split>			
+
+		</route>
+		
 		<route id="reportSubscriptionChangeRoute">
 			<camel:from uri="direct:reportSubscriptionChange"/>
 			
 			<camel:split>
-				<!-- The body is a map of Email Notifications -->
+				<!-- The body is a map of Subscriptions -->
 				<camel:simple>${in.header.subscriptionsToModify}</camel:simple>
 
 

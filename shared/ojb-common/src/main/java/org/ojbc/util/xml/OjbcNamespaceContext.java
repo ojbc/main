@@ -803,6 +803,8 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_CONSENT_DECISION_REPORTING_DOC ="http://ojbc.org/IEPD/Exchange/ConsentDecisionReporting/1.0";
 	public static final String NS_PREFIX_CONSENT_DECISION_REPORTING_DOC ="cdr-doc";	
 	
+	public static final String NS_EBTS ="http://cjis.fbi.gov/fbi_ebts/10.0";
+	public static final String NS_PREFIX_EBTS ="ebts";	
 
 	private Map<String, String> prefixToUriMap;
 	private Map<String, String> uriToPrefixMap;
@@ -812,7 +814,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();	
-		
+
+		prefixToUriMap.put(NS_PREFIX_EBTS, NS_EBTS);
+		uriToPrefixMap.put(NS_EBTS, NS_PREFIX_EBTS);
+
 		prefixToUriMap.put(NS_PREFIX_PIMA_BOOKING_CODES, NS_PIMA_BOOKING_CODES);
 		uriToPrefixMap.put(NS_PIMA_BOOKING_CODES, NS_PREFIX_PIMA_BOOKING_CODES);
 		

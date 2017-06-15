@@ -52,18 +52,19 @@
 							
 		<!-- hosted at FBI, receives our subscription requests from this ebts adapter -->		
 		<endpoint id="ngiUserServiceRequestEndpoint" 
-			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}&amp;headerFilterStrategy=#OJBCCamelHeaderFilterStrategy" />
+			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}&amp;synchronous=true" />
 		
 		<!-- Endpoint we expose to FBI so they can send us asynchronous Subscription Acknowledgement responses --> 
 		<endpoint id="ngiResponseServiceEndpoint" 
 			uri="cxf:bean:ngiResponseService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
-		<!-- Change this to the Federal Criminal History Update Repository Service SSP -->
 		<endpoint id="criminalHistoryUpdateReportingServiceEndpoint" 
 			uri="cxf:bean:criminalHistoryUpdateReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
 		<endpoint id="subscriptionReportingServiceEndpoint" 
 			uri="cxf:bean:subscriptionReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
+		
+		<endpoint id="fbiDeadLetterDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_ControlNum_SynchResponse"/>					
 		
 		<!-- 
 			#########################################################################################
@@ -127,13 +128,15 @@
 		</camel:route>
 		
 		
-		<route id="processOperationRoute">
+		<route id="processOperationRoute" errorHandlerRef="deadLetterErrorHandler">
 		
 			<from uri="direct:processOperation" />
 			
 			<camel:to uri="direct:transformToFbiNgiMessage" />
 		
 			<camel:log message="\n\n Calling FBI NGI service...\n\n"/>			
+
+			<camel:removeHeaders pattern="*"/>
 
 			<camel:setHeader headerName="operationNameSpace">
 				<constant>http://ws.cjis.gov/2014/08/01/ngi/service</constant>
@@ -185,7 +188,27 @@
 					
 					<log message="\n\n\n  Detected Federal Rapback Notification, processing... \n\n\n" loggingLevel="INFO"/>
 					
-					<to uri="direct:processFederalRapbackNotification"/>				
+					<camel:to uri="bean:rapbackEventTextProcessor?method=processRapbackEventText"/>
+					
+					<camel:choice>
+						<camel:when>
+							<camel:simple>${in.headers.RBN_Action} == 'UCN_CONSOLIDATION'</camel:simple>
+							<to uri="direct:processFederalRapbackConsolidation"/>	
+						</camel:when>
+						<camel:when>
+							<camel:simple>${in.headers.RBN_Action} == 'UCN_DELETION'</camel:simple>
+							<to uri="direct:processFederalRapbackDeletion"/>	
+						</camel:when>
+						<camel:when>
+							<camel:simple>${in.headers.RBN_Action} == 'UCN_RESTORATION'</camel:simple>
+							<to uri="direct:processFederalRapbackRestoration"/>	
+						</camel:when>
+						<camel:otherwise>
+							<to uri="direct:processFederalRapbackNotification"/>	
+						</camel:otherwise>
+					</camel:choice>
+					
+									
 				</when>
 				<when>
 					<simple>${header.trxCatCode} == 'RBSR'</simple>
@@ -205,7 +228,29 @@
 			</choice>
 											
 		</camel:route>		
+
+		<route id="processFederalRapbackConsolidationRoute">
 		
+			<from uri="direct:processFederalRapbackConsolidation"/>
+			
+			<camel:log message="Process Federal Consolidation"/>
+		</route>		
+
+		<route id="processFederalRapbackRestorationRoute">
+		
+			<from uri="direct:processFederalRapbackRestoration"/>
+			
+			<camel:log message="Process Federal Restoration"/>
+		
+		</route>		
+
+		<route id="processFederalRapbackDeletionRoute">
+		
+			<from uri="direct:processFederalRapbackDeletion"/>
+			
+			<camel:log message="Process Federal Deletion"/>
+		
+		</route>		
 		
 		<route id="federalRapbackNotificationRoute">
 		
@@ -333,7 +378,7 @@
 	
 	<bean id="rapsheetMtomProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.RapsheetMtomProcessor"/>	
 	
-	<bean id="OJBCCamelHeaderFilterStrategy" class="org.ojbc.util.camel.header.filter.OJBCCamelHeaderFilterStrategy"/>
-	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	
+	<bean id="rapbackEventTextProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.RapbackEventTextProcessor"/>
 </beans>

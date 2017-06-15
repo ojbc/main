@@ -54,7 +54,8 @@ import org.w3c.dom.Element;
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/camel-context.xml",
         "classpath:META-INF/spring/file-drop-routes.xml",
-        "classpath:META-INF/spring/cxf-endpoints.xml",      
+        "classpath:META-INF/spring/cxf-endpoints.xml",  
+        "classpath:META-INF/spring/error-handlers.xml",  
         "classpath:META-INF/spring/properties-context.xml",
         })
 public class CamelContextTest {
