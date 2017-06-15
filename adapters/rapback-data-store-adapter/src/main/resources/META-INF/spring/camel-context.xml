@@ -278,6 +278,8 @@
 		        <camel:setHeader headerName="operationNamespace">
 		            <constant>http://ojbc.org/Services/WSDL/IdentificationReportingResponseService/1.0</constant>
 		        </camel:setHeader>
+				<log message="About to send response file to the broker" loggingLevel="INFO"/>
+				
 				<to uri="identificationReportingResponseServiceEndpoint" />
 				
  				<camel:doCatch>
@@ -298,7 +300,7 @@
 		
 		<route id="resend_failed_identification_response_route">
 			<from uri="identificationRecordingResposneFileEndpoint" />
-			<log message="resending response file ${body}" loggingLevel="INFO"/>
+			<log message="resending response file ${in.header.CamelFileName}:  ${body}" loggingLevel="INFO"/>
 			<to uri="direct:sendIdentificationReportingResponseMessage" />
 		</route>
 		
