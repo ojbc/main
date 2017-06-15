@@ -188,7 +188,27 @@
 					
 					<log message="\n\n\n  Detected Federal Rapback Notification, processing... \n\n\n" loggingLevel="INFO"/>
 					
-					<to uri="direct:processFederalRapbackNotification"/>				
+					<camel:to uri="bean:rapbackEventTextProcessor?method=processRapbackEventText"/>
+					
+					<camel:choice>
+						<camel:when>
+							<camel:simple>${in.headers.RBN_Action} == 'UCN_CONSOLIDATION'</camel:simple>
+							<to uri="direct:processFederalRapbackConsolidation"/>	
+						</camel:when>
+						<camel:when>
+							<camel:simple>${in.headers.RBN_Action} == 'UCN_DELETION'</camel:simple>
+							<to uri="direct:processFederalRapbackDeletion"/>	
+						</camel:when>
+						<camel:when>
+							<camel:simple>${in.headers.RBN_Action} == 'UCN_RESTORATION'</camel:simple>
+							<to uri="direct:processFederalRapbackRestoration"/>	
+						</camel:when>
+						<camel:otherwise>
+							<to uri="direct:processFederalRapbackNotification"/>	
+						</camel:otherwise>
+					</camel:choice>
+					
+									
 				</when>
 				<when>
 					<simple>${header.trxCatCode} == 'RBSR'</simple>
@@ -208,7 +228,29 @@
 			</choice>
 											
 		</camel:route>		
+
+		<route id="processFederalRapbackConsolidationRoute">
 		
+			<from uri="direct:processFederalRapbackConsolidation"/>
+			
+			<camel:log message="Process Federal Consolidation"/>
+		</route>		
+
+		<route id="processFederalRapbackRestorationRoute">
+		
+			<from uri="direct:processFederalRapbackRestoration"/>
+			
+			<camel:log message="Process Federal Restoration"/>
+		
+		</route>		
+
+		<route id="processFederalRapbackDeletionRoute">
+		
+			<from uri="direct:processFederalRapbackDeletion"/>
+			
+			<camel:log message="Process Federal Deletion"/>
+		
+		</route>		
 		
 		<route id="federalRapbackNotificationRoute">
 		
@@ -337,4 +379,6 @@
 	<bean id="rapsheetMtomProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.RapsheetMtomProcessor"/>	
 	
 	<bean id="messageProcessor" class="org.ojbc.util.camel.processor.MessageProcessor" />
+	
+	<bean id="rapbackEventTextProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.RapbackEventTextProcessor"/>
 </beans>
