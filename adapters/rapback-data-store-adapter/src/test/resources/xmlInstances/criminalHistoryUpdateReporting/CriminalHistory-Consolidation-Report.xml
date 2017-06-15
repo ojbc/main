@@ -17,13 +17,14 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<chc-report-doc:CriminalHistoryConsolidationReport
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0 ../xsd/CriminalHistoryConsolidationReport-exchange.xsd"
-	xmlns:chc-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
-	xmlns:chc-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<chc-report-doc:CriminalHistoryConsolidationReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0 ../../../../../../../shared/ojb-resources-common/src/main/resources/ssp/Criminal_History_Update_Reporting/artifacts/service_model/information_model/IEPD/xsd/CriminalHistoryConsolidationReport-exchange.xsd"
+ xmlns:chc-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
+ xmlns:chc-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
+ xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+ xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+ xmlns:structures="http://release.niem.gov/niem/structures/3.0/">
+	<chc-report-ext:CriminalHistoryReportJurisdictionCode>State</chc-report-ext:CriminalHistoryReportJurisdictionCode>
 	<nc:Person>
 		<chc-report-ext:PreConsolidationIdentifiers>
 			<j:PersonStateFingerprintIdentification>

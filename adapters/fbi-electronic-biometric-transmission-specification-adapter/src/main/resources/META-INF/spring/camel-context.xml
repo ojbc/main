@@ -43,7 +43,7 @@
 		 -->
 
 		<!-- called by s/n intermediary -->
-		<endpoint id="fbiEbtsWebServiceInputEndpoint"
+		<endpoint id="fbiEbtsServiceEndpoint"
 			uri="cxf:bean:fbiEbtsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 										
 		<!-- called by s/n intermediary and rapback adapter for SID consolidation -->
@@ -89,7 +89,7 @@
 		<!-- Called by ojb s/n intermediary -->
 		<camel:route id="fbiEbtsInputWebServiceRoute">
 	
-			<camel:from uri="fbiEbtsWebServiceInputEndpoint" />
+			<camel:from uri="fbiEbtsServiceEndpoint" />
 			
 			<camel:log message="\n\n Fbi Adapter service received inbound message. \n\n" />													 						
 			

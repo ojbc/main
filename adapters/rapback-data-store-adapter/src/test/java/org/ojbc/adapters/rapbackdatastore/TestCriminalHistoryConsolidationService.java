@@ -353,14 +353,9 @@ public class TestCriminalHistoryConsolidationService {
 		
 		org.apache.cxf.message.Message message = new MessageImpl();
 		
-		//Add SAML token to request call
-		SAMLTokenPrincipal principal = createSAMLToken();
-		message.put("wss4j.principal.result", principal);
-		
 		senderExchange.getIn().setHeader(CxfConstants.CAMEL_CXF_MESSAGE, message);
  	    senderExchange.getIn().setHeader(CxfConstants.OPERATION_NAME, CXF_OPERATION_NAME_NOTIFICATION);
 	    senderExchange.getIn().setHeader(CxfConstants.OPERATION_NAMESPACE, CXF_OPERATION_NAMESPACE_NOTIFICATION);
-	    senderExchange.getIn().setHeader("notificationTopic", "arrest");
 		return senderExchange;
 	}
 
@@ -381,18 +376,4 @@ public class TestCriminalHistoryConsolidationService {
 		return doc;
 	}
 	
-	private SAMLTokenPrincipal createSAMLToken() throws Exception {
-		
-		Map<SamlAttribute, String> customAttributes = new HashMap<SamlAttribute, String>();
-		
-		customAttributes.put(SamlAttribute.EmployerSubUnitName, "OJBC:IDP:OJBC");
-		customAttributes.put(SamlAttribute.FederationId, "OJBC:IDP:OJBC:USER:admin");
-		customAttributes.put(SamlAttribute.IdentityProviderId, "OJBC");
-		
-		Assertion samlToken = SAMLTokenUtils.createStaticAssertionWithCustomAttributes("https://idp.ojbc-local.org:9443/idp/shibboleth",
-				SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS, SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1, true, true, customAttributes);
-		SAMLTokenPrincipal principal = new SAMLTokenPrincipalImpl(new SamlAssertionWrapper(samlToken));
-		return principal;
-	}
-
 }
