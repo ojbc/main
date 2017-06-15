@@ -234,6 +234,12 @@
 			<from uri="direct:processFederalRapbackConsolidation"/>
 			
 			<camel:log message="Process Federal Consolidation"/>
+			
+			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+			
+			<camel:setHeader headerName="operationName"><constant>ReportCriminalHistoryConsolidation</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant></camel:setHeader>			
+			
 		</route>		
 
 		<route id="processFederalRapbackRestorationRoute">
@@ -241,6 +247,11 @@
 			<from uri="direct:processFederalRapbackRestoration"/>
 			
 			<camel:log message="Process Federal Restoration"/>
+
+			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+			
+			<camel:setHeader headerName="operationName"><constant>ReportCriminalHistoryIdentifierUpdate</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant></camel:setHeader>			
 		
 		</route>		
 
@@ -249,7 +260,11 @@
 			<from uri="direct:processFederalRapbackDeletion"/>
 			
 			<camel:log message="Process Federal Deletion"/>
-		
+			
+			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+			
+			<camel:setHeader headerName="operationName"><constant>ReportCriminalHistoryExpungement</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant></camel:setHeader>			
 		</route>		
 		
 		<route id="federalRapbackNotificationRoute">
