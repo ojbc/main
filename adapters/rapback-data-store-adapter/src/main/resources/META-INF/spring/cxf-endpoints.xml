@@ -179,6 +179,15 @@
 		 xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
 	</cxf:cxfEndpoint>         
 	
+     <cxf:cxfEndpoint 
+        id="fbiEbtsNotificationBrokerService"
+        address="${rapbackDatastoreAdapter.ebtsAdapterSubscriptionManagementEndpoint}" 
+		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSNotification.wsdl"
+		serviceName="ojb-nb:NotificationBrokerServiceService" 
+		endpointName="ojb-nb:NotificationBrokerService"
+		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
+    </cxf:cxfEndpoint>   	
+	
 	<!-- hosted by this adapter, invoked by intermediary -->
 	<cxf:cxfEndpoint id="criminalHistoryUpdateReportingService"
 		address="${rapbackDatastoreAdapter.criminalHistoryUpdateReportingSecureEndpoint}"

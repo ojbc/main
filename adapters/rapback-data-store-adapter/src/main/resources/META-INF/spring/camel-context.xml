@@ -52,6 +52,9 @@
 		<endpoint id="fbiEbtsSubscriptionManagerServiceEndpoint" 
 			uri="cxf:bean:fbiEbtsSubscriptionManagerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{rapbackDatastoreAdapter.cxflogging}}" />									
 
+		<endpoint id="fbiEbtsNotificationBrokerServiceEndpoint" 
+			uri="cxf:bean:fbiEbtsNotificationBrokerService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{rapbackDatastoreAdapter.cxflogging}}" />									
+
 		<endpoint id="identificationRecordingAdapterEndpoint"
 			uri="cxf:bean:identificationRecordingAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{rapbackDatastoreAdapter.cxflogging}}" />
 

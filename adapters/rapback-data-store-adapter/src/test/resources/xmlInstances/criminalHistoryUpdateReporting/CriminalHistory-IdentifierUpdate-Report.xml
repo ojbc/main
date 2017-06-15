@@ -17,13 +17,14 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<chiu-report-doc:CriminalHistoryIdentifierUpdateReport
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0 ../xsd/CriminalHistoryIdentifierUpdateReport-exchange.xsd"
-	xmlns:chiu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
-	xmlns:chiu-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierUpdateReport/Extension/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<chiu-report-doc:CriminalHistoryIdentifierUpdateReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0 ../../../../../../../shared/ojb-resources-common/src/main/resources/ssp/Criminal_History_Update_Reporting/artifacts/service_model/information_model/IEPD/xsd/CriminalHistoryIdentifierUpdateReport-exchange.xsd"
+ xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+ xmlns:chiu-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierUpdateReport/Extension/1.0"
+ xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+ xmlns:chiu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
+ xmlns:structures="http://release.niem.gov/niem/structures/3.0/">
+	<chiu-report-ext:CriminalHistoryReportJurisdictionCode>State</chiu-report-ext:CriminalHistoryReportJurisdictionCode>
 	<nc:Person>
 		<chiu-report-ext:PreIdentifierUpdateIdentifiers>
 			<j:PersonStateFingerprintIdentification>
