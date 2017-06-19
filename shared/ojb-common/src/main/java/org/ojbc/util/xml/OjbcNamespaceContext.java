@@ -324,7 +324,10 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	
 	public static final String NS_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/VehicleCrashQueryResults/1.0";		
 	public static final String NS_PREFIX_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC = "vcq-res-doc";
-			
+
+	public static final String NS_VEHICLE_CRASH_EXT = "http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0";		
+	public static final String NS_PREFIX_VEHICLE_CRASH_EXT = "vc-ext";
+
 	public static final String NS_ADAMS_CO_BOOKING_CODES_EXT = "http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0";
 	public static final String NS_PREFIX_ADAMS_CO_BOOKING_CODES_EXT = "ac-bkg-codes";
 	
@@ -811,6 +814,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap = new HashMap<String, String>();
 		uriToPrefixMap = new HashMap<String, String>();	
+		
+		prefixToUriMap.put(NS_PREFIX_VEHICLE_CRASH_EXT, NS_VEHICLE_CRASH_EXT);
+		uriToPrefixMap.put(NS_VEHICLE_CRASH_EXT, NS_PREFIX_VEHICLE_CRASH_EXT);
 		
 		prefixToUriMap.put(NS_PREFIX_PIMA_BOOKING_CODES, NS_PIMA_BOOKING_CODES);
 		uriToPrefixMap.put(NS_PIMA_BOOKING_CODES, NS_PREFIX_PIMA_BOOKING_CODES);

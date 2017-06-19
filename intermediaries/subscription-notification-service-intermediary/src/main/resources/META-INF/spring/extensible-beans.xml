@@ -77,6 +77,11 @@
 								<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultProsecutionDecisionUpdateEmailFormatter"/>
 							</util:map>
 						</entry>
+						<entry key="{http://ojbc.org/wsn/topics}:person/vehicleCrash">
+							<util:map key-type="org.ojbc.intermediaries.sn.notification.NotificationFormatKey">
+								<entry key-ref="defaultSystemNotificationFormatKey" value-ref="defaultVehicleCrashEmailFormatter"/>
+							</util:map>
+						</entry>
 					</util:map>
 				</property>
 			</bean>

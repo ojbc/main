@@ -1,0 +1,109 @@
+<!--
+    
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+    
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+    
+    http://opensource.org/licenses/RPL-1.5
+    
+    Copyright 2012-2017 Open Justice Broker Consortium
+    
+-->
+<b:Notify xmlns:b="http://docs.oasis-open.org/wsn/b-2"
+    xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+    xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+    xmlns:s="http://niem.gov/niem/structures/2.0"
+    xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+    xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+    xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+    xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1">
+    <b:NotificationMessage>
+        <b:SubscriptionReference>
+            <add:Address>http://www.ojbc.org/SubscriptionManager</add:Address>
+            <add:ReferenceParameters/>
+            <add:Metadata/>
+        </b:SubscriptionReference>
+        <b:Topic xmlns:topics="http://ojbc.org/wsn/topics"
+            Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete"
+            >{http://ojbc.org/wsn/topics}:person/vehicleCrash</b:Topic>
+        <b:ProducerReference>
+            <add:Address>http://www.ojbc.org/notificationProducer</add:Address>
+            <add:ReferenceParameters/>
+            <add:Metadata/>
+        </b:ProducerReference>
+        <b:Message>
+            <notfm-doc:NotificationMessage xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+                xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+                xmlns:s="http://niem.gov/niem/structures/2.0"
+                xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+                xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+                xmlns:vc="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd">
+                <notfm-ext:NotifyingVehicleCrash s:id="d1e1">
+                    <notfm-ext:NotifyingActivityReportingSystemNameText>SystemName </notfm-ext:NotifyingActivityReportingSystemNameText>
+                    <notfm-ext:NotifyingActivityReportingSystemURI>SystemURIHere </notfm-ext:NotifyingActivityReportingSystemURI>
+                    <vc:VehicleCrash s:id="i01">
+                        <nc:ActivityDate>
+                            <nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
+                        </nc:ActivityDate>
+                        <j:CrashVehicle>
+                            <j:CrashDriver>
+                                <nc:RoleOfPersonReference s:ref="d1e252"/>
+                            </j:CrashDriver>
+                            <j:CrashVehicleOccupant>
+                                <nc:RoleOfPersonReference s:ref="d1e252"/>
+                            </j:CrashVehicleOccupant>
+                        </j:CrashVehicle>
+                        <nc:Location s:id="d1e44">
+                            <nc:LocationHighway>
+                                <nc:HighwayFullText>HighwayFullText</nc:HighwayFullText>
+                            </nc:LocationHighway>
+                        </nc:Location>
+                        <vc:CrashReportingAgency>
+                            <nc:OrganizationName>Auburn Police Department</nc:OrganizationName>
+                        </vc:CrashReportingAgency>
+                        <j:IncidentAugmentation>
+                            <j:IncidentReportingOfficial>
+                                <nc:RoleOfPersonReference s:ref="d1e20"/>
+                            </j:IncidentReportingOfficial>
+                        </j:IncidentAugmentation>
+                        <j:Citation>
+                            <nc:ActivityIdentification>
+                                <nc:IdentificationID>CitationNumber</nc:IdentificationID>
+                            </nc:ActivityIdentification>
+                        </j:Citation>
+                    </vc:VehicleCrash>
+                </notfm-ext:NotifyingVehicleCrash>
+                <nc:ActivityInvolvedPersonAssociation>
+                    <nc:ActivityReference s:ref="i01"/>
+                    <nc:PersonReference s:ref="d1e252"/>
+                    <nc:PersonActivityInvolvementText>Driver</nc:PersonActivityInvolvementText>
+                </nc:ActivityInvolvedPersonAssociation>
+                <j:Person s:id="d1e20">
+                    <nc:PersonName>
+                        <nc:PersonFullName>John V. Matthews</nc:PersonFullName>
+                    </nc:PersonName>
+                </j:Person>
+                <j:Person s:id="d1e252">
+                    <nc:PersonBirthDate>
+                        <nc:Date>1955-12-25</nc:Date>
+                    </nc:PersonBirthDate>
+                    <nc:PersonName>
+                        <nc:PersonGivenName>Jane</nc:PersonGivenName>
+                        <nc:PersonSurName>Doe</nc:PersonSurName>
+                    </nc:PersonName>
+                </j:Person>
+            </notfm-doc:NotificationMessage>
+        </b:Message>
+    </b:NotificationMessage>
+</b:Notify>
