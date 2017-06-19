@@ -64,6 +64,13 @@
 		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
 		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.incident.allowedEmailAddressPatterns}"/>
 	</bean>
+
+	<bean id="vehicleCrashSubscriptionProcessor"
+		class="org.ojbc.intermediaries.sn.topic.vehicleCrash.VehicleCrashSubscriptionProcessor">
+		<property name="faultMessageProcessor" ref="faultMessageProcessor"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="allowedEmailAddressPatterns" value="${publishSubscribe.chCycle.allowedEmailAddressPatterns}"/>
+	</bean>
 		
 	<bean id="chCycleSubscriptionProcessor"
 		class="org.ojbc.intermediaries.sn.topic.chcycle.ChCycleSubscriptionProcessor">
@@ -89,6 +96,15 @@
 		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
 		<property name="emailFormatter" ref="emailFormatter"/>
 	</bean>
+	
+	<bean id="vehicleCrashNotificationProcessor"
+		class="org.ojbc.intermediaries.sn.topic.vehicleCrash.VehicleCrashNotificationProcessor">
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO" />
+		<property name="notificationFilterStrategy" ref="notificationFilterStrategy"/>
+		<property name="emailEnhancementStrategy" ref="emailEnhancementStrategy"/>
+		<property name="consolidateEmailAddresses" value="${publishSubscribe.consolidateEmailAddresses}"/>
+		<property name="emailFormatter" ref="emailFormatter"/>
+	</bean>	
 	
 	<bean id="chCycleNotificationProcessor"
 		class="org.ojbc.intermediaries.sn.topic.chcycle.ChCycleNotificationProcessor">

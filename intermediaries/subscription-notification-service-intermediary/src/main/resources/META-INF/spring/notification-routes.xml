@@ -69,7 +69,11 @@
 					<camel:simple>${in.header.notificationTopic} == 'prosecutionDecisionUpdate'</camel:simple>
 					<camel:to uri="bean:prosecutionDecisionUpdateNotificationProcessor?method=findSubscriptionsForNotification" />
 				</camel:when>
-				
+				<camel:when>
+					<camel:simple>${in.header.notificationTopic} == 'VehicleCrash'</camel:simple>
+					<camel:to uri="bean:vehicleCrashNotificationProcessor?method=findSubscriptionsForNotification" />
+				</camel:when>
+
 			</camel:choice>
 
 			<camel:split>
@@ -97,6 +101,10 @@
 					<camel:when>
 						<camel:simple>${in.header.notificationTopic} == 'prosecutionDecisionUpdate'</camel:simple>
 						<camel:to uri="bean:prosecutionDecisionUpdateNotificationProcessor?method=createNotificationEmail" />
+					</camel:when>
+					<camel:when>
+						<camel:simple>${in.header.notificationTopic} == 'VehicleCrash'</camel:simple>
+						<camel:to uri="bean:vehicleCrashNotificationProcessor?method=createNotificationEmail" />
 					</camel:when>
 					
 				</camel:choice>
