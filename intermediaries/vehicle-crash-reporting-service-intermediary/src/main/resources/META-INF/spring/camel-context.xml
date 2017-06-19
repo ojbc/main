@@ -120,17 +120,25 @@
 			<!-- insert XSLT here -->			
 			<camel:to uri="xslt:xslt/vehicleCrashToNotification.xsl"/>								
 											
-			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
-							
-			<camel:setHeader headerName="operationName"><constant>Notify</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
-         
-			<camel:log message="This is the notification message: ${body}" loggingLevel="DEBUG"/>
-			
-            <camel:throttle timePeriodMillis="1000">
-            	<constant>1</constant>
-            	<to uri="notificationBrokerServiceEndpoint"/>
-        	</camel:throttle>    
+	        <camel:split streaming="true">
+				<tokenize token="wrapper" xml="true" inheritNamespaceTagName="notifications" includeTokens="false"/>
+	
+				<camel:setBody>
+					<camel:xpath>/wrapper/b:Notify</camel:xpath>
+				</camel:setBody>
+														
+				<camel:log message="This is the notification message: ${body}" loggingLevel="DEBUG"/>
+				
+				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>	
+				
+				<camel:setHeader headerName="operationName"><constant>Notify</constant></camel:setHeader>	
+				<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+				
+	            <camel:throttle timePeriodMillis="1000">
+	            	<constant>1</constant>
+	            	<to uri="notificationBrokerServiceEndpoint"/>
+	        	</camel:throttle>  
+			</camel:split>        	
             
         </route>
 
