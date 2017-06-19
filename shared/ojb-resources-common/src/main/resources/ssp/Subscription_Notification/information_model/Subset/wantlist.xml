@@ -29,11 +29,13 @@
   <w:Element w:name="j:ActivityChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Charge" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:Citation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Crash" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Disposition" w:isReference="true" w:nillable="false"/>
   <w:Element w:name="j:IdentificationJurisdictionNCICLISCode"
     w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:Incident" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:IncidentAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Offense" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:OffenseCategoryText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:OffenseChargeAssociation" w:isReference="false" w:nillable="false"/>
@@ -568,11 +570,14 @@
     <w:ElementInType w:name="j:ChargeTrackingIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
+  <w:Type w:name="j:CitationType" w:isRequested="true"/>
   <w:Type w:name="j:CrashDriverType" w:isRequested="false">
     <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="true"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:CrashType" w:isRequested="true">
+    <w:ElementInType w:name="j:CrashInformationSource"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CrashVehicle" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:Location" w:isReference="false"
@@ -600,7 +605,7 @@
     <w:ElementInType w:name="j:IncidentReportingOfficial"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="j:IncidentType" w:isRequested="false">
+  <w:Type w:name="j:IncidentType" w:isRequested="true">
     <w:ElementInType w:name="j:IncidentAugmentation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -764,7 +769,7 @@
     <w:ElementInType w:name="nc:IdentificationSourceText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
-  <w:Type w:name="nc:IncidentType" w:isRequested="false">
+  <w:Type w:name="nc:IncidentType" w:isRequested="true">
     <w:ElementInType w:name="nc:IncidentLocation" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>

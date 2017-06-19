@@ -115,6 +115,17 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="CitationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an official summons to appear in court or pay a fine.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="ActivityType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:ActivityType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="CrashDriverType">
     <xsd:annotation>
       <xsd:documentation>A data type for a motor vehicle driver involved in a traffic accident.</xsd:documentation>
@@ -130,6 +141,17 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="CrashInformationSourceType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for the affiliation of a person completing a crash report.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="CrashType">
     <xsd:annotation>
       <xsd:documentation>A data type for a traffic accident.</xsd:documentation>
@@ -140,6 +162,7 @@
     <xsd:complexContent>
       <xsd:extension base="j:DrivingIncidentType">
         <xsd:sequence>
+          <xsd:element ref="j:CrashInformationSource" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:CrashVehicle" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
@@ -510,6 +533,11 @@
       <xsd:documentation>A unique identifying number assigned to an entire set of charges for an arrest. Different numbers may appear in the set if cases have been consolidated.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="Citation" type="j:CitationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Details about an official summons to appear in court or pay a fine given to a subject from a peace official due to a subjects violation or infraction of a law.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="Crash" type="j:CrashType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A traffic accident.</xsd:documentation>
@@ -518,6 +546,11 @@
   <xsd:element name="CrashDriver" type="j:CrashDriverType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>Details about the motor vehicle driver involved into a traffic accident.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CrashInformationSource" type="j:CrashInformationSourceType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Affiliation of the person completing the crash report.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="CrashVehicle" type="j:CrashVehicleType" nillable="true">
