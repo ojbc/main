@@ -39,8 +39,6 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:CrashType">
 				<xsd:sequence>
-					<xsd:element ref="vc:CrashVehicleOccupant" minOccurs="1"
-						maxOccurs="unbounded" />
 					<xsd:element ref="vc:CrashReportingAgency" minOccurs="1"
 						maxOccurs="unbounded" />
 					<xsd:element ref="j:IncidentAugmentation" minOccurs="0"
@@ -50,34 +48,9 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:complexType name="CrashVehicleOccupantType">
-		<xsd:annotation>
-			<xsd:documentation>A data type for any vehicle occupant involved in a traffic accident..
-			</xsd:documentation>
-		</xsd:annotation>
-		<xsd:complexContent>
-			<xsd:extension base="j:CrashVehicleOccupantType">
-				<xsd:sequence>
-					<xsd:element ref="vc:OccupantCategoryCodeText"
-						minOccurs="0" maxOccurs="unbounded" />
-				</xsd:sequence>
-			</xsd:extension>
-		</xsd:complexContent>
-	</xsd:complexType>
 	<xsd:element name="VehicleCrash" type="vc:VehicleCrashType">
 		<xsd:annotation>
 			<xsd:documentation>A vehicle traffic accident.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="CrashVehicleOccupant" type="vc:CrashVehicleOccupantType">
-		<xsd:annotation>
-			<xsd:documentation>Common details about any vehicle occupant involved in a traffic accident.</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="OccupantCategoryCodeText" type="xsd:string">
-		<xsd:annotation>
-			<xsd:documentation>A code textthat describes the category of an occupant.
-			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CrashReportingAgency" type="nc:OrganizationType">
