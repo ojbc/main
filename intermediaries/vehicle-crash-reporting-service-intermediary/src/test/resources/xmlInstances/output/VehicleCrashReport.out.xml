@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -16,369 +17,224 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<vcr-doc:VehicleCrashReport xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:vcr-doc="http://ojbc.org/IEPD/Exchange/VehicleCrashReporting/1.0"
-	xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0"
-	xmlns:vcr-ext="http://ojbc.org/IEPD/Extensions/VehicleCrashReportingExtension/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/VehicleCrashReporting/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0 ../xsd/impl/maine/vehicle_crash_codes.xsd">
-	<nc:DocumentCreationDate>
-		<nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
-	</nc:DocumentCreationDate>
-	<nc:DocumentIdentification>
-		<nc:IdentificationID>14AUB-539-AC</nc:IdentificationID>
-	</nc:DocumentIdentification>
-	<vcr-ext:DocumentApprovedDate>
-		<nc:DateTime>2014-07-09T00:00:00-04:00</nc:DateTime>
-	</vcr-ext:DocumentApprovedDate>
-	<j:Crash structures:id="d1e25">
-		<nc:ActivityDate>
-			<nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
-		</nc:ActivityDate>
-		<j:ActivityAugmentation>
-			<j:Narrative>
-				<nc:CommentText>See sup. narrative. Matulonis VS Lovett. No P.I over
-					threshhold.</nc:CommentText>
-			</j:Narrative>
-		</j:ActivityAugmentation>
-		<j:IncidentAugmentation>
-			<j:IncidentDamagedItem>
-				<nc:ItemDescriptionText>DamageDescription</nc:ItemDescriptionText>
-				<nc:ItemOwner>
-					<nc:EntityOrganization structures:ref="d1e601" />
-				</nc:ItemOwner>
-			</j:IncidentDamagedItem>
-			<j:IncidentReportingOfficial>
-				<nc:RoleOfPerson structures:ref="d1e20" />
-				<j:EnforcementOfficialBadgeIdentification>
-					<nc:IdentificationID>578</nc:IdentificationID>
-				</j:EnforcementOfficialBadgeIdentification>
-			</j:IncidentReportingOfficial>
-			<j:IncidentWitness>
-				<nc:RoleOfPerson structures:ref="d1e545" />
-			</j:IncidentWitness>
-		</j:IncidentAugmentation>
-		<j:CrashInformationSource>
-			<j:OrganizationORIIdentification>
-				<nc:IdentificationID>ME0010100</nc:IdentificationID>
-			</j:OrganizationORIIdentification>
-			<me-crash-codes:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT</me-crash-codes:ReportingAgencyCodeText>
-		</j:CrashInformationSource>
-		<j:CrashWorkZone>
-			<me-crash-codes:WorkZoneWorkersPresentCodeText>Yes</me-crash-codes:WorkZoneWorkersPresentCodeText>
-			<me-crash-codes:LawEnforcementPresentAtWorkZoneCodeText>Unknown</me-crash-codes:LawEnforcementPresentAtWorkZoneCodeText>
-			<me-crash-codes:InOrNearWorkZoneCodeText>No</me-crash-codes:InOrNearWorkZoneCodeText>
-		</j:CrashWorkZone>
-		<j:CrashVehicle>
-			<nc:RoleOfItem structures:ref="d1e174" />
-			<j:CrashDriver>
-				<nc:RoleOfPerson structures:ref="d1e252" />
-				<me-crash-codes:CrashDriverDistractionCodeText>Not Distracted</me-crash-codes:CrashDriverDistractionCodeText>
-			</j:CrashDriver>
-			<j:CrashVehicleOccupant>
-				<nc:RoleOfPerson structures:ref="d1e252" />
-			</j:CrashVehicleOccupant>
-			<j:LocationRoadway>
-				<me-crash-codes:RoadwayGradeCodeText>On Grade</me-crash-codes:RoadwayGradeCodeText>
-			</j:LocationRoadway>
-			<me-crash-codes:CrashVehicleCategoryCodeText>Passenger Car</me-crash-codes:CrashVehicleCategoryCodeText>
-			<j:TravelDirectionBeforeCrashCode>2
-			</j:TravelDirectionBeforeCrashCode>
-			<j:VehicleContributingCircumstancesCode>1
-			</j:VehicleContributingCircumstancesCode>
-			<me-crash-codes:VehicleDamageExtentCodeText>Minor Damage</me-crash-codes:VehicleDamageExtentCodeText>
-			<me-crash-codes:VehicleTrafficControlDeviceCategoryCodeText>Advisory/Warning Sign</me-crash-codes:VehicleTrafficControlDeviceCategoryCodeText>
-			<vcr-ext:HazmatPlacardIndicator>false
-			</vcr-ext:HazmatPlacardIndicator>
-			<me-crash-codes:PostedSpeedLimitCodeText>25 Mph</me-crash-codes:PostedSpeedLimitCodeText>
-			<vcr-ext:VehicleNineOrMoreSeatstIndicator>false
-			</vcr-ext:VehicleNineOrMoreSeatstIndicator>
-			<vcr-ext:ExemptVehicleIndicator>false
-			</vcr-ext:ExemptVehicleIndicator>
-			<vcr-ext:EmergencyVehicleRespondingToSceneIndicator>false
-			</vcr-ext:EmergencyVehicleRespondingToSceneIndicator>
-			<vcr-ext:HitRunIndicator>false</vcr-ext:HitRunIndicator>
-		</j:CrashVehicle>
-		<j:CrashVehicle>
-			<nc:RoleOfItem structures:ref="d1e347" />
-			<j:CrashDriver>
-				<nc:RoleOfPerson structures:ref="d1e425" />
-				<me-crash-codes:CrashDriverDistractionCodeText>Not Distracted</me-crash-codes:CrashDriverDistractionCodeText>
-			</j:CrashDriver>
-			<j:CrashVehicleOccupant>
-				<nc:RoleOfPerson structures:ref="d1e425" />
-				<nc:RoleOfPerson structures:ref="d1e523" />
-			</j:CrashVehicleOccupant>
-			<j:LocationRoadway>
-				<me-crash-codes:RoadwayGradeCodeText>On Grade</me-crash-codes:RoadwayGradeCodeText>
-			</j:LocationRoadway>
-			<me-crash-codes:CrashVehicleCategoryCodeText>Passenger Car</me-crash-codes:CrashVehicleCategoryCodeText>
-			<j:TravelDirectionBeforeCrashCode>2
-			</j:TravelDirectionBeforeCrashCode>
-			<j:VehicleContributingCircumstancesCode>1
-			</j:VehicleContributingCircumstancesCode>
-			<me-crash-codes:VehicleDamageExtentCodeText>Minor Damage</me-crash-codes:VehicleDamageExtentCodeText>
-			<me-crash-codes:VehicleTrafficControlDeviceCategoryCodeText>Advisory/Warning Sign</me-crash-codes:VehicleTrafficControlDeviceCategoryCodeText>
-			<vcr-ext:HazmatPlacardIndicator>false
-			</vcr-ext:HazmatPlacardIndicator>
-			<me-crash-codes:PostedSpeedLimitCodeText>25 Mph</me-crash-codes:PostedSpeedLimitCodeText>
-			<vcr-ext:VehicleNineOrMoreSeatstIndicator>false
-			</vcr-ext:VehicleNineOrMoreSeatstIndicator>
-			<vcr-ext:ExemptVehicleIndicator>false
-			</vcr-ext:ExemptVehicleIndicator>
-			<vcr-ext:EmergencyVehicleRespondingToSceneIndicator>false
-			</vcr-ext:EmergencyVehicleRespondingToSceneIndicator>
-			<vcr-ext:HitRunIndicator>false</vcr-ext:HitRunIndicator>
-		</j:CrashVehicle>
-		<nc:Location structures:id="d1e44">
-			<nc:Address>
-				<me-crash-codes:CityOrTownCodeText>Auburn</me-crash-codes:CityOrTownCodeText>
-			</nc:Address>
-			<nc:AddressHighway>
-				<nc:HighwayFullText>264 MINOT AVE</nc:HighwayFullText>
-			</nc:AddressHighway>
-			<nc:Location2DGeospatialCoordinate>
-				<nc:GeographicCoordinateLatitude>
-					<nc:LatitudeDegreeValue>44.8</nc:LatitudeDegreeValue>
-				</nc:GeographicCoordinateLatitude>
-				<nc:GeographicCoordinateLongitude>
-					<nc:LongitudeDegreeValue>68.7</nc:LongitudeDegreeValue>
-				</nc:GeographicCoordinateLongitude>
-			</nc:Location2DGeospatialCoordinate>
-			<vcr-ext:NearestIntersectingStreetFullText>158 WESTERN AVE
-			</vcr-ext:NearestIntersectingStreetFullText>
-			<vcr-ext:DistanceFromNearestIntersectionNumberText>0.1
-			</vcr-ext:DistanceFromNearestIntersectionNumberText>
-			<me-crash-codes:DirectionFromNearestIntersectionCodeText>South</me-crash-codes:DirectionFromNearestIntersectionCodeText>
-			<me-crash-codes:DistanceFromNearestIntersectionNumberUnitCodeText>Miles</me-crash-codes:DistanceFromNearestIntersectionNumberUnitCodeText>
-		</nc:Location>
-		<me-crash-codes:CrashEnvironmentContributingCircumstancesCodeText>None</me-crash-codes:CrashEnvironmentContributingCircumstancesCodeText>
-		<me-crash-codes:CrashFirstHarmfulEventLocationCodeText>On Roadway</me-crash-codes:CrashFirstHarmfulEventLocationCodeText>
-		<j:CrashLightConditionCode>1</j:CrashLightConditionCode>
-		<j:CrashRoadContributingCircumstancesCode>5
-		</j:CrashRoadContributingCircumstancesCode>
-		<j:CrashRoadSurfaceConditionCode>1</j:CrashRoadSurfaceConditionCode>
-		<j:CrashSchoolBusRelatedCode>0</j:CrashSchoolBusRelatedCode>
-		<me-crash-codes:CrashWeatherConditionCodeText>Clear</me-crash-codes:CrashWeatherConditionCodeText>
-		<me-crash-codes:TrafficControlDeviceOperationalCodeText>Yes</me-crash-codes:TrafficControlDeviceOperationalCodeText>
-		<vcr-ext:SceneArrivalDateTime>
-			<nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
-		</vcr-ext:SceneArrivalDateTime>
-		<vcr-ext:OffRoadIncidentIndicator>false
-		</vcr-ext:OffRoadIncidentIndicator>
-	</j:Crash>
-	<j:Citation structures:id="d1e292">
-		<nc:ActivityIdentification>
-			<nc:IdentificationID>CitationNumber</nc:IdentificationID>
-		</nc:ActivityIdentification>
-	</j:Citation>
-	<nc:Person structures:id="d1e20">
-		<nc:PersonName>
-			<nc:PersonFullName>Dennis V. Matthews</nc:PersonFullName>
-		</nc:PersonName>
-	</nc:Person>
-	<nc:Person structures:id="d1e252">
-		<nc:PersonBirthDate>
-			<nc:Date>1933-12-03</nc:Date>
-		</nc:PersonBirthDate>
-		<nc:PersonName>
-			<nc:PersonGivenName>Inez</nc:PersonGivenName>
-			<nc:PersonSurName>Craft</nc:PersonSurName>
-		</nc:PersonName>
-		<j:PersonSexCode>M</j:PersonSexCode>
-		<j:PersonAugmentation>
-			<j:DriverLicense>
-				<j:DriverLicenseCardIdentification>
-					<nc:IdentificationID>8.61673e+006</nc:IdentificationID>
-					<nc:IdentificationJurisdiction>
-						<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
-					</nc:IdentificationJurisdiction>
-				</j:DriverLicenseCardIdentification>
-				<me-crash-codes:DriverLicenseStatusCodeText>Active</me-crash-codes:DriverLicenseStatusCodeText>
-				<me-crash-codes:DriverLicenseClassCodeText>C</me-crash-codes:DriverLicenseClassCodeText>
-			</j:DriverLicense>
-		</j:PersonAugmentation>
-		<me-crash-codes:AlcoholTestCategoryCodeText>Test Not Given</me-crash-codes:AlcoholTestCategoryCodeText>
-		<me-crash-codes:DrugTestCategoryCodeText>Test Not Given</me-crash-codes:DrugTestCategoryCodeText>
-		<me-crash-codes:PersonCategoryCodeText>Driver</me-crash-codes:PersonCategoryCodeText>
-	</nc:Person>
-	<nc:Person structures:id="d1e425">
-		<nc:PersonBirthDate>
-			<nc:Date>1979-04-08</nc:Date>
-		</nc:PersonBirthDate>
-		<nc:PersonName>
-			<nc:PersonGivenName>Betsy</nc:PersonGivenName>
-			<nc:PersonSurName>Walton</nc:PersonSurName>
-		</nc:PersonName>
-		<j:PersonSexCode>M</j:PersonSexCode>
-		<j:PersonAugmentation>
-			<j:DriverLicense>
-				<j:DriverLicenseCardIdentification>
-					<nc:IdentificationID>6.41741e+006</nc:IdentificationID>
-					<nc:IdentificationJurisdiction>
-						<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
-					</nc:IdentificationJurisdiction>
-				</j:DriverLicenseCardIdentification>
-				<me-crash-codes:DriverLicenseStatusCodeText>Active</me-crash-codes:DriverLicenseStatusCodeText>
-				<me-crash-codes:DriverLicenseClassCodeText>C</me-crash-codes:DriverLicenseClassCodeText>
-			</j:DriverLicense>
-		</j:PersonAugmentation>
-		<me-crash-codes:AlcoholTestCategoryCodeText>Breath</me-crash-codes:AlcoholTestCategoryCodeText>
-		<me-crash-codes:DrugTestCategoryCodeText>Blood</me-crash-codes:DrugTestCategoryCodeText>
-		<me-crash-codes:DrugTestResultCodeText>Negative</me-crash-codes:DrugTestResultCodeText>
-		<me-crash-codes:PersonCategoryCodeText>Driver/Owner</me-crash-codes:PersonCategoryCodeText>
-	</nc:Person>
-	<nc:Person structures:id="d1e523">
-		<nc:PersonBirthDate>
-			<nc:Date>1989-06-12</nc:Date>
-		</nc:PersonBirthDate>
-		<nc:PersonName>
-			<nc:PersonGivenName>Joanne</nc:PersonGivenName>
-			<nc:PersonSurName>Walton</nc:PersonSurName>
-		</nc:PersonName>
-		<j:PersonSexCode>F</j:PersonSexCode>
-		<me-crash-codes:PersonCategoryCodeText>Passenger</me-crash-codes:PersonCategoryCodeText>
-	</nc:Person>
-	<nc:Person structures:id="d1e545">
-		<nc:PersonBirthDate>
-			<nc:Date>1976-02-14</nc:Date>
-		</nc:PersonBirthDate>
-		<nc:PersonName>
-			<nc:PersonGivenName>Walter</nc:PersonGivenName>
-			<nc:PersonSurName>Jones</nc:PersonSurName>
-		</nc:PersonName>
-		<j:PersonSexCode>M</j:PersonSexCode>
-		<me-crash-codes:PersonCategoryCodeText>Witness</me-crash-codes:PersonCategoryCodeText>
-	</nc:Person>
-	<nc:Person structures:id="d1e139">
-		<nc:PersonOtherIdentification>
-			<nc:IdentificationID>APD501</nc:IdentificationID>
-		</nc:PersonOtherIdentification>
-	</nc:Person>
-	<nc:EntityOrganization structures:id="d1e601">
-		<nc:OrganizationName>Name</nc:OrganizationName>
-	</nc:EntityOrganization>
-	<nc:Location structures:id="d1e266">
-		<nc:Address>
-			<nc:LocationStreet>
-				<nc:StreetFullText>7 GRANIT RIDGE RD</nc:StreetFullText>
-			</nc:LocationStreet>
-			<nc:LocationCityName>CUMBERLAND FORESIDE</nc:LocationCityName>
-			<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
-		</nc:Address>
-	</nc:Location>
-	<nc:Location structures:id="d1e439">
-		<nc:Address>
-			<nc:LocationStreet>
-				<nc:StreetFullText>44 AUTUMN LN</nc:StreetFullText>
-			</nc:LocationStreet>
-			<nc:LocationCityName>LEWISTON</nc:LocationCityName>
-			<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
-		</nc:Address>
-	</nc:Location>
-	<nc:Location structures:id="d1e559">
-		<nc:Address>
-			<nc:LocationStreet>
-				<nc:StreetFullText>121 Lexington Ave</nc:StreetFullText>
-			</nc:LocationStreet>
-			<nc:LocationCityName>LEWISTON</nc:LocationCityName>
-			<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
-		</nc:Address>
-	</nc:Location>
-	<nc:Vehicle structures:id="d1e174">
-		<nc:ConveyanceColorPrimaryText>Grey, Silver
-		</nc:ConveyanceColorPrimaryText>
-		<nc:ItemMakeName>AMERICAN MOTORS</nc:ItemMakeName>
-		<nc:ItemModelYearDate>2006</nc:ItemModelYearDate>
-		<nc:VehicleIdentification>
-			<nc:IdentificationID>KMHCN46C66U034917</nc:IdentificationID>
-		</nc:VehicleIdentification>
-		<vcr-ext:VehicleUnitIdentification>
-			<nc:IdentificationID>1</nc:IdentificationID>
-		</vcr-ext:VehicleUnitIdentification>
-	</nc:Vehicle>
-	<nc:Vehicle structures:id="d1e347">
-		<nc:ConveyanceColorPrimaryText>Green</nc:ConveyanceColorPrimaryText>
-		<nc:ItemMakeName>FIAT</nc:ItemMakeName>
-		<nc:ItemModelYearDate>2009</nc:ItemModelYearDate>
-		<nc:VehicleIdentification>
-			<nc:IdentificationID>5NPET46C29H553366</nc:IdentificationID>
-		</nc:VehicleIdentification>
-		<vcr-ext:VehicleUnitIdentification>
-			<nc:IdentificationID>2</nc:IdentificationID>
-		</vcr-ext:VehicleUnitIdentification>
-	</nc:Vehicle>
-	<j:ConveyanceRegistration structures:id="d1e195">
-		<j:ConveyanceRegistrationPlateIdentification>
-			<nc:IdentificationID>9344NR</nc:IdentificationID>
-			<nc:IdentificationJurisdiction>
-				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
-			</nc:IdentificationJurisdiction>
-		</j:ConveyanceRegistrationPlateIdentification>
-	</j:ConveyanceRegistration>
-	<j:ConveyanceRegistration structures:id="d1e368">
-		<j:ConveyanceRegistrationPlateIdentification>
-			<nc:IdentificationID>5285KS</nc:IdentificationID>
-			<nc:IdentificationJurisdiction>
-				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
-			</nc:IdentificationJurisdiction>
-		</j:ConveyanceRegistrationPlateIdentification>
-	</j:ConveyanceRegistration>
-	<nc:Insurance structures:id="d1e207">
-		<nc:InsurancePolicyIdentification>
-			<nc:IdentificationID>925337643</nc:IdentificationID>
-		</nc:InsurancePolicyIdentification>
-		<nc:InsuranceCarrierName>ALLSTATE</nc:InsuranceCarrierName>
-		<vcr-ext:NoInsuranceIndicator>false</vcr-ext:NoInsuranceIndicator>
-	</nc:Insurance>
-	<nc:Insurance structures:id="d1e380">
-		<nc:InsurancePolicyIdentification>
-			<nc:IdentificationID>379063745-0</nc:IdentificationID>
-		</nc:InsurancePolicyIdentification>
-		<nc:InsuranceCarrierName>METROPOLITAN CASUALTY</nc:InsuranceCarrierName>
-		<vcr-ext:NoInsuranceIndicator>false</vcr-ext:NoInsuranceIndicator>
-	</nc:Insurance>
-	<j:ActivityInformationApproverAssociation>
-		<nc:Activity structures:ref="d1e25" />
-		<nc:Person structures:ref="d1e139" />
-	</j:ActivityInformationApproverAssociation>
-	<j:PersonBloodAlcoholContentAssociation>
-		<j:PersonBloodAlcoholContentNumberText>0.02</j:PersonBloodAlcoholContentNumberText>
-		<nc:Activity structures:ref="d1e25" />
-		<nc:Person structures:ref="d1e425" />
-	</j:PersonBloodAlcoholContentAssociation>
-	<nc:ItemInsuranceAssociation>
-		<nc:Insurance structures:ref="d1e207" />
-		<nc:Item structures:ref="d1e174" />
-	</nc:ItemInsuranceAssociation>
-	<nc:ItemInsuranceAssociation>
-		<nc:Insurance structures:ref="d1e380" />
-		<nc:Item structures:ref="d1e347" />
-	</nc:ItemInsuranceAssociation>
-	<nc:PersonResidenceAssociation>
-		<nc:Person structures:ref="d1e252" />
-		<nc:Location structures:ref="d1e266" />
-	</nc:PersonResidenceAssociation>
-	<nc:PersonResidenceAssociation>
-		<nc:Person structures:ref="d1e425" />
-		<nc:Location structures:ref="d1e439" />
-	</nc:PersonResidenceAssociation>
-	<nc:PersonResidenceAssociation>
-		<nc:Person structures:ref="d1e545" />
-		<nc:Location structures:ref="d1e559" />
-	</nc:PersonResidenceAssociation>
-	<nc:ActivityDocumentAssociation>
-		<nc:Activity structures:ref="d1e25" />
-		<nc:Document structures:ref="d1e292" />
-	</nc:ActivityDocumentAssociation>
-	<j:ConveyanceRegistrationAssociation>
-		<j:ItemRegistration structures:ref="d1e195" />
-		<nc:Item structures:ref="d1e174" />
-	</j:ConveyanceRegistrationAssociation>
-	<j:ConveyanceRegistrationAssociation>
-		<j:ItemRegistration structures:ref="d1e368" />
-		<nc:Item structures:ref="d1e347" />
-	</j:ConveyanceRegistrationAssociation>
-</vcr-doc:VehicleCrashReport>
+<wrapper xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:vc="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0"
+	xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+	xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+	xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:b="http://docs.oasis-open.org/wsn/b-2">
+	<b:Notify>
+		<b:NotificationMessage>
+			<b:SubscriptionReference>
+				<add:Address>http://www.ojbc.org/SubscriptionManager</add:Address>
+				<add:ReferenceParameters />
+				<add:Metadata />
+			</b:SubscriptionReference>
+			<b:Topic
+				Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete"> {http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate
+			</b:Topic>
+			<b:ProducerReference>
+				<add:Address>http://www.ojbc.org/CourtDispositionUpdateNotificationProducer
+				</add:Address>
+				<add:ReferenceParameters />
+				<add:Metadata />
+			</b:ProducerReference>
+			<b:Message>
+				<notification:NotificationMessage>
+					<notificationExt:NotifyingVehicleCrash>
+						<notificationExt:NotifyingActivityReportingSystemNameText>
+							{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB
+						</notificationExt:NotifyingActivityReportingSystemNameText>
+						<notificationExt:NotifyingActivityReportingSystemURI>SystemURIHere
+						</notificationExt:NotifyingActivityReportingSystemURI>
+						<vc:VehicleCrash s:id="N10002">
+							<nc:ActivityDate>
+								<nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
+							</nc:ActivityDate>
+							<j:CrashVehicle>
+								<j:CrashVehicleOccupant>
+									<nc:RoleOfPersonReference s:ref="d1e252" />
+								</j:CrashVehicleOccupant>
+							</j:CrashVehicle>
+							<nc:Location>
+								<nc:LocationHighway>
+									<nc:HighwayFullText>264 MINOT AVE</nc:HighwayFullText>
+								</nc:LocationHighway>
+							</nc:Location>
+							<me-crash-codes:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT
+							</me-crash-codes:ReportingAgencyCodeText>
+							<j:IncidentAugmentation>
+								<j:IncidentReportingOfficial>
+									<nc:RoleOfPersonReference s:id="d1e20" />
+								</j:IncidentReportingOfficial>
+							</j:IncidentAugmentation>
+							<j:Citation>
+								<nc:ActivityIdentification>
+									<nc:IdentificationID>CitationNumber</nc:IdentificationID>
+								</nc:ActivityIdentification>
+							</j:Citation>
+						</vc:VehicleCrash>
+					</notificationExt:NotifyingVehicleCrash>
+					<nc:ActivityInvolvedPersonAssociation>
+						<nc:ActivityReference s:ref="N10002" />
+						<nc:PersonReference s:ref="d1e252" />
+						<nc:PersonActivityInvolvementText>Driver
+						</nc:PersonActivityInvolvementText>
+					</nc:ActivityInvolvedPersonAssociation>
+					<j:Person s:id="d1e252">
+						<nc:PersonBirthDate>
+							<nc:Date>1933-12-03</nc:Date>
+						</nc:PersonBirthDate>
+						<nc:PersonName>
+							<nc:PersonGivenName>Inez</nc:PersonGivenName>
+							<nc:PersonSurName>Craft</nc:PersonSurName>
+						</nc:PersonName>
+					</j:Person>
+				</notification:NotificationMessage>
+			</b:Message>
+		</b:NotificationMessage>
+	</b:Notify>
+	<b:Notify>
+		<b:NotificationMessage>
+			<b:SubscriptionReference>
+				<add:Address>http://www.ojbc.org/SubscriptionManager</add:Address>
+				<add:ReferenceParameters />
+				<add:Metadata />
+			</b:SubscriptionReference>
+			<b:Topic
+				Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete"> {http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate
+			</b:Topic>
+			<b:ProducerReference>
+				<add:Address>http://www.ojbc.org/CourtDispositionUpdateNotificationProducer
+				</add:Address>
+				<add:ReferenceParameters />
+				<add:Metadata />
+			</b:ProducerReference>
+			<b:Message>
+				<notification:NotificationMessage>
+					<notificationExt:NotifyingVehicleCrash>
+						<notificationExt:NotifyingActivityReportingSystemNameText>
+							{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB
+						</notificationExt:NotifyingActivityReportingSystemNameText>
+						<notificationExt:NotifyingActivityReportingSystemURI>SystemURIHere
+						</notificationExt:NotifyingActivityReportingSystemURI>
+						<vc:VehicleCrash s:id="N10002">
+							<nc:ActivityDate>
+								<nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
+							</nc:ActivityDate>
+							<j:CrashVehicle>
+								<j:CrashVehicleOccupant>
+									<nc:RoleOfPersonReference s:ref="d1e425" />
+								</j:CrashVehicleOccupant>
+							</j:CrashVehicle>
+							<nc:Location>
+								<nc:LocationHighway>
+									<nc:HighwayFullText>264 MINOT AVE</nc:HighwayFullText>
+								</nc:LocationHighway>
+							</nc:Location>
+							<me-crash-codes:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT
+							</me-crash-codes:ReportingAgencyCodeText>
+							<j:IncidentAugmentation>
+								<j:IncidentReportingOfficial>
+									<nc:RoleOfPersonReference s:id="d1e20" />
+								</j:IncidentReportingOfficial>
+							</j:IncidentAugmentation>
+							<j:Citation>
+								<nc:ActivityIdentification>
+									<nc:IdentificationID>CitationNumber</nc:IdentificationID>
+								</nc:ActivityIdentification>
+							</j:Citation>
+						</vc:VehicleCrash>
+					</notificationExt:NotifyingVehicleCrash>
+					<nc:ActivityInvolvedPersonAssociation>
+						<nc:ActivityReference s:ref="N10002" />
+						<nc:PersonReference s:ref="d1e425" />
+						<nc:PersonActivityInvolvementText>Driver/Owner
+						</nc:PersonActivityInvolvementText>
+					</nc:ActivityInvolvedPersonAssociation>
+					<j:Person s:id="d1e425">
+						<nc:PersonBirthDate>
+							<nc:Date>1979-04-08</nc:Date>
+						</nc:PersonBirthDate>
+						<nc:PersonName>
+							<nc:PersonGivenName>Betsy</nc:PersonGivenName>
+							<nc:PersonSurName>Walton</nc:PersonSurName>
+						</nc:PersonName>
+					</j:Person>
+				</notification:NotificationMessage>
+			</b:Message>
+		</b:NotificationMessage>
+	</b:Notify>
+	<b:Notify>
+		<b:NotificationMessage>
+			<b:SubscriptionReference>
+				<add:Address>http://www.ojbc.org/SubscriptionManager</add:Address>
+				<add:ReferenceParameters />
+				<add:Metadata />
+			</b:SubscriptionReference>
+			<b:Topic
+				Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete"> {http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate
+			</b:Topic>
+			<b:ProducerReference>
+				<add:Address>http://www.ojbc.org/CourtDispositionUpdateNotificationProducer
+				</add:Address>
+				<add:ReferenceParameters />
+				<add:Metadata />
+			</b:ProducerReference>
+			<b:Message>
+				<notification:NotificationMessage>
+					<notificationExt:NotifyingVehicleCrash>
+						<notificationExt:NotifyingActivityReportingSystemNameText>
+							{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB
+						</notificationExt:NotifyingActivityReportingSystemNameText>
+						<notificationExt:NotifyingActivityReportingSystemURI>SystemURIHere
+						</notificationExt:NotifyingActivityReportingSystemURI>
+						<vc:VehicleCrash s:id="N10002">
+							<nc:ActivityDate>
+								<nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
+							</nc:ActivityDate>
+							<j:CrashVehicle>
+								<j:CrashVehicleOccupant>
+									<nc:RoleOfPersonReference s:ref="d1e523" />
+								</j:CrashVehicleOccupant>
+							</j:CrashVehicle>
+							<nc:Location>
+								<nc:LocationHighway>
+									<nc:HighwayFullText>264 MINOT AVE</nc:HighwayFullText>
+								</nc:LocationHighway>
+							</nc:Location>
+							<me-crash-codes:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT
+							</me-crash-codes:ReportingAgencyCodeText>
+							<j:IncidentAugmentation>
+								<j:IncidentReportingOfficial>
+									<nc:RoleOfPersonReference s:id="d1e20" />
+								</j:IncidentReportingOfficial>
+							</j:IncidentAugmentation>
+							<j:Citation>
+								<nc:ActivityIdentification>
+									<nc:IdentificationID>CitationNumber</nc:IdentificationID>
+								</nc:ActivityIdentification>
+							</j:Citation>
+						</vc:VehicleCrash>
+					</notificationExt:NotifyingVehicleCrash>
+					<nc:ActivityInvolvedPersonAssociation>
+						<nc:ActivityReference s:ref="N10002" />
+						<nc:PersonReference s:ref="d1e523" />
+						<nc:PersonActivityInvolvementText>Passenger
+						</nc:PersonActivityInvolvementText>
+					</nc:ActivityInvolvedPersonAssociation>
+					<j:Person s:id="d1e523">
+						<nc:PersonBirthDate>
+							<nc:Date>1989-06-12</nc:Date>
+						</nc:PersonBirthDate>
+						<nc:PersonName>
+							<nc:PersonGivenName>Joanne</nc:PersonGivenName>
+							<nc:PersonSurName>Walton</nc:PersonSurName>
+						</nc:PersonName>
+					</j:Person>
+				</notification:NotificationMessage>
+			</b:Message>
+		</b:NotificationMessage>
+	</b:Notify>
+</wrapper>
