@@ -21,62 +21,55 @@
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
 	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
-	xmlns:vc="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:vc="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0" xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd">
-	<notfm-ext:NotifyingVehicleCrash s:id="d1e1">
-		<notfm-ext:NotifyingActivityReportingSystemNameText>SystemName
-		</notfm-ext:NotifyingActivityReportingSystemNameText>
-		<notfm-ext:NotifyingActivityReportingSystemURI>SystemURIHere
-		</notfm-ext:NotifyingActivityReportingSystemURI>
-		<vc:VehicleCrash s:id="i01">
-			<nc:ActivityDate>
-				<nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
-			</nc:ActivityDate>
-			<j:CrashVehicle>
-				<j:CrashDriver>
-					<nc:RoleOfPersonReference s:ref="d1e252" />
-				</j:CrashDriver>
-				<j:CrashVehicleOccupant>
-					<nc:RoleOfPersonReference s:ref="d1e252" />
-				</j:CrashVehicleOccupant>
-			</j:CrashVehicle>
-			<nc:Location s:id="d1e44">
-				<nc:LocationHighway>
-					<nc:HighwayFullText>nc:HighwayFullText</nc:HighwayFullText>
-				</nc:LocationHighway>
-			</nc:Location>
-			<vc:CrashReportingAgency>
-				<nc:OrganizationName>Auburn Police Department</nc:OrganizationName>
-			</vc:CrashReportingAgency>
-			<j:IncidentAugmentation>
-				<j:IncidentReportingOfficial>
-					<nc:RoleOfPersonReference s:ref="d1e20" />
-				</j:IncidentReportingOfficial>
-			</j:IncidentAugmentation>
-			<j:Citation>
-				<nc:ActivityIdentification>
-					<nc:IdentificationID>CitationNumber</nc:IdentificationID>
-				</nc:ActivityIdentification>
-			</j:Citation>
-		</vc:VehicleCrash>
-	</notfm-ext:NotifyingVehicleCrash>
-	<nc:ActivityInvolvedPersonAssociation>
-		<nc:ActivityReference s:ref="i01" />
-		<nc:PersonReference s:ref="d1e252" />
-		<nc:PersonActivityInvolvementText>Driver</nc:PersonActivityInvolvementText>
-	</nc:ActivityInvolvedPersonAssociation>
-	<j:Person s:id="d1e20">
-		<nc:PersonName>
-			<nc:PersonFullName>Dennis V. Matthews</nc:PersonFullName>
-		</nc:PersonName>
-	</j:Person>
-	<j:Person s:id="d1e252">
-		<nc:PersonBirthDate>
-			<nc:Date>1933-12-03</nc:Date>
-		</nc:PersonBirthDate>
-		<nc:PersonName>
-			<nc:PersonGivenName>Inez</nc:PersonGivenName>
-			<nc:PersonSurName>Craft</nc:PersonSurName>
-		</nc:PersonName>
-	</j:Person>
-</notfm-doc:NotificationMessage>
+	<notfm-ext:NotifyingVehicleCrash>
+						<notfm-ext:NotifyingActivityReportingSystemNameText>
+							{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB
+						</notfm-ext:NotifyingActivityReportingSystemNameText>
+						<notfm-ext:NotifyingActivityReportingSystemURI>SystemURIHere
+						</notfm-ext:NotifyingActivityReportingSystemURI>
+						<vc:VehicleCrash s:id="N10002">
+							<nc:ActivityDate>
+								<nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
+							</nc:ActivityDate>
+							<j:CrashVehicle>
+								<j:CrashVehicleOccupant>
+									<nc:RoleOfPersonReference s:ref="d1e425" />
+								</j:CrashVehicleOccupant>
+							</j:CrashVehicle>
+							<nc:Location>
+								<nc:LocationHighway>
+									<nc:HighwayFullText>264 MINOT AVE</nc:HighwayFullText>
+								</nc:LocationHighway>
+							</nc:Location>
+							<me-crash-codes:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT
+							</me-crash-codes:ReportingAgencyCodeText>
+							<j:IncidentAugmentation>
+								<j:IncidentReportingOfficial>
+									<nc:RoleOfPersonReference s:id="d1e20" />
+								</j:IncidentReportingOfficial>
+							</j:IncidentAugmentation>
+							<j:Citation>
+								<nc:ActivityIdentification>
+									<nc:IdentificationID>CitationNumber</nc:IdentificationID>
+								</nc:ActivityIdentification>
+							</j:Citation>
+						</vc:VehicleCrash>
+					</notfm-ext:NotifyingVehicleCrash>
+					<nc:ActivityInvolvedPersonAssociation>
+						<nc:ActivityReference s:ref="N10002" />
+						<nc:PersonReference s:ref="d1e425" />
+						<nc:PersonActivityInvolvementText>Driver/Owner
+						</nc:PersonActivityInvolvementText>
+					</nc:ActivityInvolvedPersonAssociation>
+					<j:Person s:id="d1e425">
+						<nc:PersonBirthDate>
+							<nc:Date>1933-12-03</nc:Date>
+						</nc:PersonBirthDate>
+						<nc:PersonName>
+							<nc:PersonGivenName>Betsy</nc:PersonGivenName>
+							<nc:PersonSurName>Walton</nc:PersonSurName>
+						</nc:PersonName>
+					</j:Person>
+				</notfm-doc:NotificationMessage>
