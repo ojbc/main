@@ -73,6 +73,7 @@ import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.portal.validators.ChCycleSubscriptionValidator;
 import org.ojbc.web.portal.validators.IncidentSubscriptionAddValidator;
 import org.ojbc.web.portal.validators.IncidentSubscriptionEditValidator;
+import org.ojbc.web.portal.validators.VehicleCrashSubscriptionValidator;
 import org.ojbc.web.portal.validators.subscriptions.ArrestSubscriptionValidatorInterface;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -106,6 +107,8 @@ public class SubscriptionsController {
 	public static final String INCIDENT_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/incident";	
 	
 	public static final String CHCYCLE_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment";
+	
+	public static final String PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/vehicleCrash";
 	
 	private static DocumentBuilder docBuilder;
 	
@@ -156,7 +159,10 @@ public class SubscriptionsController {
 	
 	@Resource
 	ChCycleSubscriptionValidator chCycleSubscriptionValidator;
-	
+
+	@Resource
+	VehicleCrashSubscriptionValidator vehicleCrashSubscriptionValidator;
+
 	@Resource
 	IncidentSubscriptionEditValidator incidentSubscriptionEditValidator;
 	
@@ -581,6 +587,39 @@ public class SubscriptionsController {
 		model.put("isEndDateEditable", isEndDateEditable);				
 	}
 	
+	private void initDatesForAddVehicleCrashForm(Subscription subscription, Map<String, Object> model){
+		
+		// START date
+		SubscriptionStartDateStrategy startDateStrategy = subscriptionStartDateStrategyMap.get(PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE);		
+		Date defaultStartDate = startDateStrategy.getDefaultValue();
+		
+		boolean isStartDateEditable = startDateStrategy.isEditable();
+		
+		subscription.setSubscriptionStartDate(defaultStartDate);
+				
+		model.put("isStartDateEditable", isStartDateEditable);		
+		
+		
+		//END date		
+		SubscriptionEndDateStrategy endDateStrategy = subscriptionEndDateStrategyMap.get(PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE);
+		Date defaultEndDate = endDateStrategy.getDefaultValue();
+		
+		boolean isEndDateEditable = endDateStrategy.isEditable();
+		
+		subscription.setSubscriptionEndDate(defaultEndDate);
+	
+		model.put("isEndDateEditable", isEndDateEditable);				
+	}
+	
+	private void initDatesForEditVehicleCrashForm(Map<String, Object> model){
+		
+		SubscriptionStartDateStrategy editIncidentSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE);
+		
+		boolean isStartDateEditable = editIncidentSubStartDateStrategy.isEditable();
+		
+		model.put("isStartDateEditable", isStartDateEditable);		
+	}
+	
 	private void initDatesForEditChCycleForm(Map<String, Object> model){
 		
 		SubscriptionStartDateStrategy editIncidentSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(CHCYCLE_TOPIC_SUB_TYPE);
@@ -630,7 +669,28 @@ public class SubscriptionsController {
 		model.put("subscription", subscription);
 				
 		return "subscriptions/addSubscriptionDialog/_chCycleForm";
-	}		
+	}	
+	
+	@RequestMapping(value="vehicleCrashForm", method=RequestMethod.POST)
+	public String getVehicleCrashForm(HttpServletRequest request,
+			Map<String, Object> model) throws Exception{
+		
+		logger.info("inside getVehicleCrashForm()");
+		
+		Subscription subscription = new Subscription();
+				
+		initDatesForAddVehicleCrashForm(subscription, model);
+		
+		String sEmail = userSession.getUserLogonInfo().emailAddress;
+		
+		if(StringUtils.isNotBlank(sEmail)){
+			subscription.getEmailList().add(sEmail);
+		}
+				
+		model.put("subscription", subscription);
+				
+		return "subscriptions/addSubscriptionDialog/_vehicleCrashForm";
+	}
 	
 	private void validateSubscription(Subscription subscription, BindingResult errors){
 				
@@ -644,7 +704,12 @@ public class SubscriptionsController {
 			
 			incidentSubscriptionAddValidator.validate(subscription, errors);
 			
-		}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
+		} else if (PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
+
+			vehicleCrashSubscriptionValidator.validate(subscription, errors);
+		
+		}	
+		else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 			
 			chCycleSubscriptionValidator.validate(subscription, errors);
 		}
@@ -1019,8 +1084,12 @@ public class SubscriptionsController {
 				initDatesForEditIncidentForm(model);
 			
 			}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
-				
+
 				initDatesForEditChCycleForm(model);
+			
+			}else if(PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
+				
+				initDatesForEditVehicleCrashForm(model);
 			}
 											
 			if(allNamesList != null && !allNamesList.isEmpty()){

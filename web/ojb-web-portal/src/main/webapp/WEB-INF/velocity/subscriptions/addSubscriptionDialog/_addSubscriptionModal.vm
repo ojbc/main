@@ -38,6 +38,10 @@
 					
 						saveChCycleSubscription();
 										  						
+					} else if(subTypeTxt == 'Person Vehicle Crash'){
+						
+						savePersonVehicleCrashSubscription();
+					 
 					}else{
 						alert('Subscription type must be specified');
 					}    			    			    											    				    						  				  					
@@ -72,6 +76,25 @@
   		).fail(ojbc.displayFailMessage);		  
 	  }	  	  
 	  	  
+	  function savePersonVehicleCrashSubscription(){
+	  	  	  	
+	  	var firstName = $('#firstName').val();	  	
+	  	
+	  	var lastName = $('#lastName').val();
+	  	
+	  	// note we don't have a full name field, so just concatenate first & last with a space
+	  	var fullName = firstName + ' ' + lastName;
+	  		  
+		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;    		
+					
+  		$.get("#springUrl('/subscriptions/saveSubscription')", 
+  			formData,
+  			function(data){		
+  				handleDisplayAfterSave(data);  														  						  						  				  			
+  			},
+  			"text"
+  		).fail(ojbc.displayFailMessage);		  
+	  }	  	  	  	  
 	  	  
 	  function saveArrestSubscritption(){	  
 			    				    				
@@ -178,6 +201,14 @@
 	  	}else if(subTypeTxt == 'ATN Assignment'){
 	  	
 	  		$.post("#springUrl('/subscriptions/chCycleForm')", 
+	  			function(data){		  			
+	  				$('#subModalDynamicContents').html(data);			  						  				  				
+	  			}
+	  		).fail(ojbc.displayFailMessage);	  	
+	  						
+		}else if(subTypeTxt == 'Person Vehicle Crash'){
+	  	
+	  		$.post("#springUrl('/subscriptions/vehicleCrashForm')", 
 	  			function(data){		  			
 	  				$('#subModalDynamicContents').html(data);			  						  				  				
 	  			}

@@ -62,6 +62,8 @@
 			value-ref="currentEditableStartDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
 			value-ref="currentEditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/vehicleCrash"
+			value-ref="currentEditableStartDateStrategy" />
 	</util:map>
 
 	<util:map id="subscriptionDefaultsMap">
@@ -75,6 +77,8 @@
 			value-ref="blankEditableEndDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
 			value-ref="blankEditableEndDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/vehicleCrash"
+			value-ref="blankEditableEndDateStrategy" />
 	</util:map>
 
 
@@ -84,6 +88,8 @@
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"
 			value-ref="uneditableStartDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment"
+			value-ref="uneditableStartDateStrategy" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/vehicleCrash"
 			value-ref="uneditableStartDateStrategy" />
 	</util:map>
 
@@ -652,6 +658,7 @@
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest" value="Arrest" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident" value="Incident" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment" value="ATN Assignment" />
+		<entry key="{http://ojbc.org/wsn/topics}:person/vehicleCrash" value="Person Vehicle Crash" />
 	</util:map>
 
 	<util:map id="subscriptionPurposeValueToLabelMap" map-class="java.util.LinkedHashMap">
