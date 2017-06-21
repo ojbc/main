@@ -30,12 +30,7 @@
 	exclude-result-prefixes="s30 niem-xs nc30 j51 vcr-doc xs"
 	version="2.0">
 	<xsl:output indent="yes" method="xml" />
-	<xsl:param name="topic">
-		{http://ojbc.org/wsn/topics}:person/CourtDispositionUpdate
-	</xsl:param>
-	<xsl:param name="systemId">
-		{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB
-	</xsl:param>
+
 	<xsl:template match="/">
 	<wrapper>
 		<xsl:for-each
@@ -67,9 +62,7 @@
 				</b:SubscriptionReference>
 				<!--Optional: -->
 				<b:Topic
-					Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">
-					<xsl:value-of select="$topic" />
-				</b:Topic>
+					Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/vehicleCrash</b:Topic>
 				<!--Optional: -->
 				<b:ProducerReference>
 					<add:Address>http://www.ojbc.org/CourtDispositionUpdateNotificationProducer
@@ -87,11 +80,6 @@
 				<b:Message>
 					<notification:NotificationMessage>
 						<notificationExt:NotifyingVehicleCrash>
-							<notificationExt:NotifyingActivityReportingSystemNameText>
-								<xsl:value-of select="$systemId" />
-							</notificationExt:NotifyingActivityReportingSystemNameText>
-							<notificationExt:NotifyingActivityReportingSystemURI>SystemURIHere
-							</notificationExt:NotifyingActivityReportingSystemURI>
 							<vc:VehicleCrash>
 								<xsl:attribute name="s:id"><xsl:value-of
 									select="generate-id()" /></xsl:attribute>
