@@ -139,7 +139,7 @@ public class CamelContextTest {
 	{
 		
     	//Notification Broker will get one message
-		notificationBrokerServiceMock.expectedMessageCount(0);
+		notificationBrokerServiceMock.expectedMessageCount(3);
 		
 		//logging endpoint will get two messages, one from content enricher and one from derived routes.
 		loggingEndpoint.expectedMessageCount(2);
@@ -171,28 +171,27 @@ public class CamelContextTest {
 			throw new Exception(returnExchange.getException());
 		}	
 		
-		//Sleep while a response is generated
-		Thread.sleep(1000);
+		//set results wait time
+		notificationBrokerServiceMock.setResultWaitTime(10000);
 
 		//Assert that the mock endpoint expectations are satisfied
 		notificationBrokerServiceMock.assertIsSatisfied();
 		loggingEndpoint.assertIsSatisfied();
 		
 		//Get the first exchange (the only one)
-//		Exchange ex = notificationBrokerServiceMock.getExchanges().get(0);
-//		
-//		String opName = (String)ex.getIn().getHeader("operationName");
-//		assertEquals(CXF_OPERATION_NAME, opName);
-//		
-//		String opNamespace = (String)ex.getIn().getHeader("operationNamespace");
-//		assertEquals(CXF_OPERATION_NAMESPACE, opNamespace);
+		Exchange ex = notificationBrokerServiceMock.getExchanges().get(0);
+		
+		String opName = (String)ex.getIn().getHeader("operationName");
+		assertEquals(CXF_OPERATION_NAME, opName);
+		
+		String opNamespace = (String)ex.getIn().getHeader("operationNamespace");
+		assertEquals(CXF_OPERATION_NAMESPACE, opNamespace);
 
-//		Document notificationMessageDocument = ex.getIn().getBody(Document.class);
+		Document notificationMessageDocument = ex.getIn().getBody(Document.class);
 
-		//TODO: Uncomment assertion when XSLT is complete.
 		//Make sure the root node here is the message to the original exchange
-		//Node rootNode = XmlUtils.xPathNodeSearch(notificationMessageDocument, "/b-2:Notify");
-		//assertNotNull(rootNode);
+		Node rootNode = XmlUtils.xPathNodeSearch(notificationMessageDocument, "/b-2:Notify");
+		assertNotNull(rootNode);
 	}
 	
 	private SoapHeader makeSoapHeader(Document doc, String namespace, String localName, String value) {
