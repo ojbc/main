@@ -104,7 +104,7 @@
 						<camel:when>
 							<camel:xpath>(normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='topics:person/VehicleCrash' and
 		      				//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or
-		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/VehicleCrash'</camel:xpath>
+		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/vehicleCrash'</camel:xpath>
 							<camel:setHeader headerName="notificationTopic">
 								<constant>VehicleCrash</constant>
 							</camel:setHeader>
@@ -188,7 +188,7 @@
 				<camel:when>
 					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/VehicleCrash' and
 	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
-	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/VehicleCrash'</camel:xpath>
+	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/vehicleCrash'</camel:xpath>
 					
 					<camel:to uri="direct:processSubscriptionVehicleCrash" />
 					
@@ -260,7 +260,7 @@
 				<camel:when>
 					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='topics:person/VehicleCrash' and
 	      			//wsnb2:Unsubscribe/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
-	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/VehicleCrash'</camel:xpath>
+	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/vehicleCrash'</camel:xpath>
 					
 					<camel:to uri="direct:processUnsubscribeVehicleCrash" />
 					
@@ -366,7 +366,7 @@
 		<camel:route>
 			<camel:from uri="direct:processUnsubscribeVehicleCrash" />
 			<camel:log message="Processing Unsubscription(Vehicle Crash" />
-<!-- 			<camel:to uri="bean:prosecutionDecisionUpdateProcessor?method=unsubscribe" /> -->
+			<camel:to uri="bean:vehicleCrashSubscriptionProcessor?method=unsubscribe" />
 		</camel:route>
 
 		<!-- Criminal History Consolidation Request flow -->
