@@ -51,13 +51,13 @@ public class VehicleCrashNotificationProcessorTest {
     private static final String EXPECTED_EMAIL_TEXT = "The following individual, to who, you are subscribed, was involved in a vehicle crash. Details outlined below :\n"
 													+"<br/>\n"
 													+"Crash Location: HighwayFullText<br/>\n"
-													+"Crash Date/Time: 2014-07-07 23:00:00<br/>\n"
+													+"Crash Date/Time: 2017-06-22 15:08:15<br/>\n"
 													+"<br/>\n"
 													+"Subject Name: Doe, Jane<br/>\n"
 													+"Subject DOB:1955-12-25<br/>\n"
 													+"Subject Role: Driver<br/>\n"
 													+"Agency: Maine Auburn Police Department\n"
-													+"Officer: Dennis V. Matthews<br/>\n"
+													+"Officer: John V. Matthews<br/>\n"
 													+"Citation #:CitationNumber <br/>\n"
 													+"If you require more information, please utilize the Federated Query Tool – https://ojbc.maine.gov/ojb-web-portal/portal/index or call Maine State Police";
     

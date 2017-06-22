@@ -25,6 +25,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.camel.Message;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
@@ -34,6 +37,8 @@ import org.w3c.dom.Node;
 
 public class VehicleCrashNotificationRequestTest {
 
+	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss");
+	
 	@Test
 	public void test() throws Exception {
 		Message message = Mockito.mock(Message.class);
@@ -43,7 +48,10 @@ public class VehicleCrashNotificationRequestTest {
 		VehicleCrashNotificationRequest request = new VehicleCrashNotificationRequest(message);
 		
 		assertThat(request.isNotificationEventDateInclusiveOfTime(), is(true));
-		assertThat(request.getNotificationEventDate().toString("yyyy-MM-dd'T'HH:MM:ss"), is("2014-07-07T23:07:00"));
+		
+		DateTime notifiationEventDateTime = request.getNotificationEventDate();
+		assertThat(notifiationEventDateTime.toString(DATE_FORMATTER), is("2017-06-22T15:08:15"));
+		
 		assertThat(request.getNotifyingAgencyName(), is("Auburn Police Department"));
 		assertThat(request.getNotificationEventIdentifier(), is("CitationNumber"));
 		assertThat(request.getPersonFirstName(), is("Jane"));

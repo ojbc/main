@@ -54,7 +54,7 @@
                     <notfm-ext:NotifyingActivityReportingSystemURI>SystemURIHere </notfm-ext:NotifyingActivityReportingSystemURI>
                     <vc:VehicleCrash s:id="i01">
                         <nc:ActivityDate>
-                            <nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
+                            <nc:DateTime>2017-06-22T15:08:15</nc:DateTime>
                         </nc:ActivityDate>
                         <j:CrashVehicle>
                             <j:CrashDriver>
