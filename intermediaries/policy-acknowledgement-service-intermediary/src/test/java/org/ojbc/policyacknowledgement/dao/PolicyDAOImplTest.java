@@ -97,10 +97,6 @@ public class PolicyDAOImplTest {
     @Test
     @Transactional
     public void testAcknowledgeOutstandingPolicies() {
-        policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:cchris", "H00000002");
-        List<Policy> outStandingPoliciesForChris = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:cchris","H00000002"); 
-        assertTrue(outStandingPoliciesForChris.isEmpty()); 
-        
         policyDAO.acknowledgeOutstandingPolicies("HIJIS:IDP:HCJDC:USER:hpotter", "H00000001");
         List<Policy> outStandingPoliciesForOwen = policyDAO.getOutstandingPoliciesForUser("HIJIS:IDP:HCJDC:USER:hpotter","H00000001"); 
         assertTrue(outStandingPoliciesForOwen.isEmpty()); 
