@@ -18,6 +18,8 @@ package org.ojbc.web.portal.services;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +28,8 @@ import javax.xml.transform.sax.SAXSource;
 
 import org.apache.commons.codec.CharEncoding;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.portal.controllers.dto.PersonFilterCommand;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.springframework.beans.BeansException;
@@ -37,6 +41,7 @@ import org.xml.sax.InputSource;
 
 @Service
 public class SearchResultConverter implements ApplicationContextAware {
+	private final Log log = LogFactory.getLog(this.getClass());
 
 	@Resource
 	XsltTransformerService xsltTransformerService;
@@ -112,7 +117,7 @@ public class SearchResultConverter implements ApplicationContextAware {
         return convertXml(searchContent, rapbackSearchResultXsl, params);
     }
     
-	public String convertDetailSearchResult(String searchContent, String systemName, String activeAccordionId) {
+	public String convertDetailSearchResult(String searchContent, String systemName, String activeAccordionId) throws UnsupportedEncodingException {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("chDisplaySupervisionTroCustodyHeaders", chDisplaySupervisionTroCustodyHeaders);
 		
@@ -134,12 +139,14 @@ public class SearchResultConverter implements ApplicationContextAware {
 	    return convertXml(searchContent, identityBasedAccessControlResultXsl, params);
 	}	
 	
-	org.springframework.core.io.Resource getResource(String systemName){
-		systemName = systemName.trim();
-	
+	org.springframework.core.io.Resource getResource(String systemName) throws UnsupportedEncodingException{
+		systemName = URLDecoder.decode(StringUtils.trimToEmpty(systemName), "UTF-8");
+		log.info("systemName: " + systemName);
+//		log.info("searchDetailToXsl: " + searchDetailToXsl);
 		org.springframework.core.io.Resource resource = xsls.get(systemName);
 		if(resource == null){
 			resource = applicationContext.getResource("classpath:xsl/"+ searchDetailToXsl.get(systemName));
+			log.info("xsl resource to use: " + StringUtils.trimToEmpty(searchDetailToXsl.get(systemName)));
 			xsls.put(systemName, resource);
 		}
 		
