@@ -73,7 +73,25 @@
 		
 	</div>
 
-	<div class="modal"></div>
+	<div class="spinner-modal"></div>
+	
+  <div class="modal fade" id="confirmation-dialog" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Confirm Consent Decision</h4>
+        </div>
+        <div class="modal-body">
+          <p>Confirm that patient <span id="confirm-patient-name" class="confirm-dialog-info"></span> has <span id="confirm-consent-decision" class="confirm-dialog-info"></span> consent.  Are you sure?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="confirm-consent-decision-yes">Yes</button>
+          <button type="button" class="btn" id="confirm-consent-decision-no">No</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
 	<!--/start-context-script/--><script src="static/context-local-demo.js"></script><!--/end-context-script/-->
 	<script src="static/jquery/jquery-3.2.1.min.js"></script>

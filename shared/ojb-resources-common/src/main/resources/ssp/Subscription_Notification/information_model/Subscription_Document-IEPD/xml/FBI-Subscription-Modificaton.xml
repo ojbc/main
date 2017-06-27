@@ -32,6 +32,9 @@
 				</j:PersonFBIIdentification>
 			</j:PersonAugmentation>
 		</submsg-ext:Subject>
+		<submsg-ext:SubscriptionIdentification>
+			<nc20:IdentificationID>S128483</nc20:IdentificationID>
+		</submsg-ext:SubscriptionIdentification>
 		<submsg-ext:FBISubscription>
 			<submsg-ext:SubscriptionFBIIdentification>
 				<nc20:IdentificationID>1234567</nc20:IdentificationID>

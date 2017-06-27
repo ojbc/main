@@ -15,7 +15,7 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 
-const REFRESH_INTERVAL_LENGTH = 60000;
+const REFRESH_INTERVAL_LENGTH = 10000;
 var refreshIntervalId = null;
 var table = null;
 
@@ -51,36 +51,45 @@ $(document).ready(
 		updateUIState();
 	    });
 	    table.on('select', function(e, dt, type, indexes) {
-		var rowData = table.rows(indexes[0]).data()["0"];
-		$("#selected-patient-name")
-			.text(
-				rowData.personLastName + ", "
-					+ rowData.personFirstName);
 		clearDecisionRecordFields();
+		var rowData = table.row({selected: true}).data();
+		$("#selected-patient-name").text(rowData.personLastName + ", "+ rowData.personFirstName);
+	    });
+	    $("#consent-save-button").prop('disabled', true);
+	    $("#consent-save-button").on('click', function() {
+		var rowData = table.row({selected: true}).data();
+		$("#confirm-patient-name").text(rowData.personLastName + ", "+ rowData.personFirstName);
+		var decisionValue = $('input[name=decision]:checked').val().toLowerCase();
+		$("#confirm-consent-decision").text(decisionValue);
+		$('#confirmation-dialog').modal({backdrop: 'static', keyboard: false});
+	    });
+	    $("#confirm-consent-decision-no").on('click', function() {
+		$('#confirmation-dialog').modal('hide');
+	    });
+	    $("#confirm-consent-decision-yes").on('click', function() {
+		$('#confirmation-dialog').modal('hide');
+		submitConsentDecision();
 	    });
 	    table.draw();
 	    refreshData();
 	    refreshIntervalId = setInterval(refreshData, REFRESH_INTERVAL_LENGTH);
-	    $("#consent-save-button").prop('disabled', true);
-	    $("#consent-save-button").on('click', function() {
-		    //console.log('save button clicked');
-		    row = table.row({selected: true}).data();
-		    row.consentDocumentControlNumber=$('#dcn').val();
-		    
-		    if ($('input[name=decision]:checked').val() == 'Granted')
-		    {	
-		    	row.consentDecisionTypeID=1;
-		    }
-
-		    if ($('input[name=decision]:checked').val() == 'Denied')
-		    {	
-		    	row.consentDecisionTypeID=2;
-		    }
-		    
-		    //console.log(row);
-		    submitConsentDecision(row);
-		});
 	});
+
+getConsentDecisionJson = function() {
+    row = table.row({selected: true}).data();
+    row.consentDocumentControlNumber=$('#dcn').val();
+    
+    if ($('input[name=decision]:checked').val() == 'Granted')
+    {	
+    	row.consentDecisionTypeID=1;
+    }
+
+    if ($('input[name=decision]:checked').val() == 'Denied')
+    {	
+    	row.consentDecisionTypeID=2;
+    }
+    return row;
+}
 
 clearDecisionRecordFields = function() {
     $('#dcn').val('');
@@ -97,6 +106,11 @@ updateUIState = function() {
     $("#status-label").html(table.rows().count() + " current inmates pending.");
 }
 
+handleRedirect = function(jqXHR, textStatus, errorThrown) {
+    console.log("Received ajax redirect.  Refreshing page to trigger idp login.");
+    window.location.reload();
+}
+
 refreshDataViaAjax = function(demodataOK) {
     $('body').addClass("loading");
 	$.ajax(
@@ -104,6 +118,9 @@ refreshDataViaAjax = function(demodataOK) {
 			    url : "/ojb-web-consent-management-service/cm-api/findPendingInmates",
 			    headers : {
 				"demodata-ok" : demodataOK
+			    },
+			    statusCode: {
+				302: handleRedirect
 			    }
 			}).done(function(data) {
 		    var newRows = [];

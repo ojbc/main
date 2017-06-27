@@ -22,7 +22,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:cxf="http://camel.apache.org/schema/cxf" 
+	xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:b="http://docs.oasis-open.org/wsn/b-2" 
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
@@ -118,19 +119,23 @@
 			<camel:log message="Transform to vehicle crash notification message"/>
 											
 			<!-- insert XSLT here -->			
-			<camel:to uri="xslt:xslt/vehicleCrashToNotification.xsl"/>								
+			<camel:to uri="xslt:xslt/vehicleCrashToNotification.xsl"/>
 											
-			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>			
-							
-			<camel:setHeader headerName="operationName"><constant>Notify</constant></camel:setHeader>	
-			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
-         
-			<camel:log message="This is the notification message: ${body}" loggingLevel="DEBUG"/>
-			
-            <camel:throttle timePeriodMillis="1000">
-            	<constant>1</constant>
-            	<to uri="notificationBrokerServiceEndpoint"/>
-        	</camel:throttle>    
+	        <camel:split streaming="true">
+				<camel:xpath>/wrapper/b:Notify</camel:xpath>
+														
+				<camel:log message="This is the notification message: ${body}" loggingLevel="DEBUG"/>
+				
+				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>	
+				
+				<camel:setHeader headerName="operationName"><constant>Notify</constant></camel:setHeader>	
+				<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/brw-2</constant></camel:setHeader>
+				
+	            <camel:throttle timePeriodMillis="1000">
+	            	<constant>1</constant>
+	            	<to uri="notificationBrokerServiceEndpoint"/>
+	        	</camel:throttle>  
+			</camel:split>        	
             
         </route>
 

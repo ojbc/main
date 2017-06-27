@@ -52,7 +52,7 @@
 						maxOccurs="unbounded" />
 					<xsd:element ref="nc:EntityPerson" minOccurs="0"
 						maxOccurs="unbounded" />
-					<xsd:element ref="nc:Location" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Vehicle" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ConveyanceRegistration" minOccurs="0"
 						maxOccurs="unbounded" />

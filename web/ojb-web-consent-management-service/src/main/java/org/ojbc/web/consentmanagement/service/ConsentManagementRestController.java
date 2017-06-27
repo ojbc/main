@@ -22,20 +22,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.Element;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 public class ConsentManagementRestController {
@@ -57,31 +62,28 @@ public class ConsentManagementRestController {
 	private SamlServiceImpl samlService;
 	
 	@RequestMapping(value="/cm-api/findPendingInmates", method=RequestMethod.GET, produces="application/json")
-	public String findPendingInmates(HttpServletRequest request) throws Exception {
+	public ResponseEntity<String> findPendingInmates(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		Map<String, String> samlHeaderInfo = returnSamlHeaderInfo(request);		
 		
 		log.info("Saml Header Info (find inmates): " + samlHeaderInfo.toString());
 		
-		String ret = null;
+		String body = null;
+		HttpStatus status = HttpStatus.OK;
 		
 		String demodataHeaderValue = request.getHeader(DEMODATA_HEADER_NAME);
 		
 		if ("true".equals(demodataHeaderValue)) {
-			ret = DemoConsentServiceImpl.getInstance().getDemoConsentRecords();
-			
-			return ret;
-		}	
-		
-		if (!samlHeaderInfo.isEmpty() || allowUpdatesWithoutSamlToken) {
-			ret = restTemplate.getForObject(restBaseUrl  + "/findPendingInmates", String.class);
-			
+			body = DemoConsentServiceImpl.getInstance().getDemoConsentRecords();
+		} else if (!samlHeaderInfo.isEmpty() || allowUpdatesWithoutSamlToken) {
+			body = restTemplate.getForObject(restBaseUrl  + "/findPendingInmates", String.class);
 		} else {
-			// error?
 			log.error("No SAML assertion in request, and not allowing demo data to be returned");
+			body = "{message: 'No SAML assertion in request, disallowed'}";
+			status = HttpStatus.FORBIDDEN;
 		}
 		
-		return ret;
+		return new ResponseEntity<String>(body, status);
 		
 	}
 
@@ -170,10 +172,20 @@ public class ConsentManagementRestController {
 		return samlHeaderInfo;
 	}
 	
-	private String addSamlData(String body, String givenName, String surName, String federationId) {
+	String addSamlData(String body, String givenName, String surName, String federationId) throws Exception{
 
-		body = StringUtils.replace(body, "\"consenterUserID\":null,\"consentUserFirstName\":null,\"consentUserLastName\":null",   
-										 "\"consenterUserID\":\"" + federationId  + "\",\"consentUserFirstName\":\"" + givenName  + "\",\"consentUserLastName\":\"" + surName  + "\"");
+	    ObjectMapper mapper = new ObjectMapper(); 
+	    TypeReference<HashMap<String,Object>> typeRef 
+	            = new TypeReference<HashMap<String,Object>>() {};
+
+	    HashMap<String,Object> o = mapper.readValue(body, typeRef); 
+	    
+	    o.put("consenterUserID",federationId);
+	    o.put("consentUserFirstName",givenName);
+	    o.put("consentUserLastName",surName);
+	    
+	    body = mapper.writeValueAsString(o);
+		
 		return body;
 	}
 

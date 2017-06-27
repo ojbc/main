@@ -23,6 +23,7 @@
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:chu="http://ojbc.org/IEPD/Extensions/CriminalHistoryUpdate/1.0"
 	xmlns:cdu="http://ojbc.org/IEPD/Extensions/CourtDispositionUpdate/1.0"
+	xmlns:vc="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0"
 	xmlns:pdu="http://ojbc.org/IEPD/Extensions/ProsecutionDecisionUpdate/1.0"
 	xmlns:ndexiacodes="http://fbi.gov/cjis/N-DEx/IncidentArrest/codes/2.1"
 	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
@@ -53,6 +54,8 @@
 		schemaLocation="./include_schema.xsd" />
 	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime"
 		schemaLocation="./xmime_schema.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0"
+		schemaLocation="./VehicleCrash.xsd" />
 	<xsd:complexType name="NotifyingActivityType" abstract="true"
 		mixed="false">
 		<xsd:complexContent mixed="false">
@@ -139,6 +142,16 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="NotifyingVehicleCrashType"
+		abstract="false" mixed="false">
+		<xsd:complexContent mixed="false">
+			<xsd:extension base="notfm-ext:NotifyingActivityType">
+				<xsd:sequence>
+					<xsd:element ref="vc:VehicleCrash" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:complexType name="NotifyingProsecutionDecisionUpdateType"
 		abstract="false" mixed="false">
 		<xsd:complexContent mixed="false">
@@ -207,6 +220,14 @@
 	<xsd:element name="NotifyingProsecutionDecisionUpdate"
 		type="notfm-ext:NotifyingProsecutionDecisionUpdateType" abstract="false"
 		substitutionGroup="notfm-ext:NotifyingActivity" nillable="false">
+		<xsd:annotation>
+			<xsd:documentation>An incident that results in notification.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NotifyingVehicleCrash" type="notfm-ext:NotifyingVehicleCrashType"
+		abstract="false" substitutionGroup="notfm-ext:NotifyingActivity"
+		nillable="false">
 		<xsd:annotation>
 			<xsd:documentation>An incident that results in notification.
 			</xsd:documentation>

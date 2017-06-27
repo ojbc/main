@@ -295,6 +295,8 @@
 					<xsd:element ref="submsg-ext:Subject" />
 					<xsd:element ref="submsg-ext:SubscriptionQualifierIdentification"
 						minOccurs="0" />
+					<xsd:element ref="submsg-ext:SubscriptionIdentification"
+						minOccurs="0" />
 					<xsd:element ref="submsg-ext:SubscriptionReasonRepresentation"
 						minOccurs="0" />
 					<xsd:element ref="submsg-ext:TriggeringEvents"

@@ -41,7 +41,7 @@
 	   http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
        ">
        
-	<cxf:rsServer id="consentRestServer" address="${consentManagement.restEndpoint}" loggingFeatureEnabled="true">
+	<cxf:rsServer id="consentRestServer" address="${consentManagement.restEndpoint}" loggingFeatureEnabled="false">
 	  <cxf:serviceBeans>
 	     <ref bean="consentRestImpl" />
 	  </cxf:serviceBeans>
@@ -121,5 +121,24 @@
 			</httpj:tlsServerParameters>
 		</httpj:engine>
 	</httpj:engine-factory>	
+	
+	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
+	<http:conduit
+		name="https://.*">
+		<http:tlsClientParameters disableCNCheck="true">
+			<sec:trustManagers>
+				<sec:keyStore type="JKS"
+					password="${consentManagement.truststorePassword}"
+					file="${consentManagement.truststoreLocation}" />
+			</sec:trustManagers>
+			<sec:cipherSuitesFilter>
+				    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+				    <sec:include>TLS_RSA_WITH_AES_128_CBC_SHA</sec:include>
+				    <sec:include>SSL_RSA_WITH_3DES_EDE_CBC_SHA</sec:include>
+			</sec:cipherSuitesFilter>
+		</http:tlsClientParameters>
+		<http:client AutoRedirect="true" Connection="Keep-Alive" />
+	</http:conduit>		
 	
 </beans>
