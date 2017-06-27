@@ -116,6 +116,8 @@ public class SubscriptionsController {
 	
 	public static final String CHCYCLE_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment";
 	
+	public static final String PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/vehicleCrash";
+	
 	private static DocumentBuilder docBuilder;
 	
 	private final Log logger = LogFactory.getLog(this.getClass());
@@ -511,6 +513,15 @@ public class SubscriptionsController {
 		model.put("isEndDateEditable", endDateStrategy.isEditable());				
 	}
 	
+	private void initDatesForEditVehicleCrashForm(Map<String, Object> model){
+		
+		SubscriptionStartDateStrategy editIncidentSubStartDateStrategy = editSubscriptionStartDateStrategyMap.get(PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE);
+		
+		boolean isStartDateEditable = editIncidentSubStartDateStrategy.isEditable();
+		
+		model.put("isStartDateEditable", isStartDateEditable);		
+	}
+	
 	@RequestMapping(value="incidentForm", method=RequestMethod.POST)
 	public String getIncidentForm(HttpServletRequest request,
 			Map<String, Object> model) throws Exception{
@@ -521,7 +532,8 @@ public class SubscriptionsController {
 				
 		initDatesForAddForm(subscription, model, INCIDENT_TOPIC_SUB_TYPE);
 		
-		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
+		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
+		String sEmail = userLogonInfo.getEmailAddress();
 		
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
@@ -542,7 +554,8 @@ public class SubscriptionsController {
 				
 		initDatesForAddForm(subscription, model, CHCYCLE_TOPIC_SUB_TYPE);
 		
-		String sEmail = userSession.getUserLogonInfo().getEmailAddress();
+		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
+		String sEmail = userLogonInfo.getEmailAddress();
 		
 		if(StringUtils.isNotBlank(sEmail)){
 			subscription.getEmailList().add(sEmail);
@@ -551,7 +564,29 @@ public class SubscriptionsController {
 		model.put("subscription", subscription);
 				
 		return "subscriptions/addSubscriptionDialog/_chCycleForm";
-	}		
+	}	
+	
+	@RequestMapping(value="vehicleCrashForm", method=RequestMethod.POST)
+	public String getVehicleCrashForm(HttpServletRequest request,
+			Map<String, Object> model) throws Exception{
+		
+		logger.info("inside getVehicleCrashForm()");
+		
+		Subscription subscription = new Subscription();
+				
+		initDatesForAddForm(subscription, model, PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE);
+		
+		UserLogonInfo userLogonInfo = (UserLogonInfo) model.get("userLogonInfo");
+		String sEmail = userLogonInfo.getEmailAddress();
+		
+		if(StringUtils.isNotBlank(sEmail)){
+			subscription.getEmailList().add(sEmail);
+		}
+				
+		model.put("subscription", subscription);
+				
+		return "subscriptions/addSubscriptionDialog/_vehicleCrashForm";
+	}
 	
 	/**
 	 * @return
@@ -948,6 +983,9 @@ public class SubscriptionsController {
 			}else if(CHCYCLE_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
 				
 				initDatesForEditForm(model, CHCYCLE_TOPIC_SUB_TYPE);
+			}else if(PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE.equals(subscription.getTopic())){
+				
+				initDatesForEditVehicleCrashForm(model);
 			}
 											
 			logger.info("Subscription Edit Request: " + subscription);

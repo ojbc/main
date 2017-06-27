@@ -27,6 +27,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -149,7 +150,7 @@ public class SearchResultConverterTest {
 
 
 	@Test
-	public void loadResourceChompSpaces(){
+	public void loadResourceChompSpaces() throws UnsupportedEncodingException{
 		unit.getResource("   System   ");
 		unit.getResource("System 2");
 		
@@ -158,7 +159,7 @@ public class SearchResultConverterTest {
 	}
 
 	@Test
-	public void resourcesLoadOnceThenCached(){
+	public void resourcesLoadOnceThenCached() throws UnsupportedEncodingException{
 		when(applicationContext.getResource("classpath:xsl/searchDetail-system.xsl")).thenReturn(new ByteArrayResource("".getBytes()));
 		
 		Resource firstResource = unit.getResource("System");

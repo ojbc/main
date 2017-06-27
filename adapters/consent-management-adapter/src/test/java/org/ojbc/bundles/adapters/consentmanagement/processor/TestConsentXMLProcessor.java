@@ -73,7 +73,7 @@ public class TestConsentXMLProcessor {
 		assertEquals("b1", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/jxdm51:Booking/jxdm51:BookingAgencyRecordIdentification/nc30:IdentificationID"));
 		
 		assertEquals("1", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/cdr-ext:ConsentDecision/nc30:ActivityIdentification/nc30:IdentificationID"));
-		assertEquals("Consent Granted", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/cdr-ext:ConsentDecision/cdr-ext:ConsentDecisionCode"));
+		assertEquals("Consent Denied", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/cdr-ext:ConsentDecision/cdr-ext:ConsentDecisionCode"));
 		assertEquals("consent first", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/cdr-ext:ConsentDecision/cdr-ext:ConsentDecisionRecordingEntity/nc30:EntityPerson/nc30:PersonName/nc30:PersonGivenName"));
 		assertEquals("consent last", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/cdr-ext:ConsentDecision/cdr-ext:ConsentDecisionRecordingEntity/nc30:EntityPerson/nc30:PersonName/nc30:PersonSurName"));
 		assertEquals("Consent user ID", XmlUtils.xPathStringSearch(doc, "/cdr-doc:ConsentDecisionReport/cdr-ext:ConsentDecision/cdr-ext:ConsentDecisionRecordingEntity/cdr-ext:RecordingEntityUsernameText"));

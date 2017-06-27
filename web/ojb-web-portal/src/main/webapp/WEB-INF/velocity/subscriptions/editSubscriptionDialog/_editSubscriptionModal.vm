@@ -51,6 +51,10 @@
 						
 						saveChCycleSubscription();			
 						  				
+					}else if('${subscription.topic}'  == '{http://ojbc.org/wsn/topics}:person/vehicleCrash'){
+						
+						savePersonVehicleCrashSubscription();			
+						  				
 					}else{					
 						alert('Subscription type must be specified');
 					} 			  				  					
@@ -87,7 +91,27 @@
   			"text"
   		).fail(ojbc.displayFailMessage);		
 	}
-		  
+		
+	function savePersonVehicleCrashSubscription(){
+						  					  		
+		var firstName = $('#firstName').val();			  	
+	  	
+	  	var lastName = $('#lastName').val();
+	  	
+	  	// note we don't have a full name field, so just concatenate first & last with a space
+	  	var fullName = firstName + ' ' + lastName;
+						  					  					  				 									
+		// serialize() generates get request string for springforminput html fields
+		var formData = $('#subscriptionForm').serialize() + "&fullName=" + fullName;  
+								    				    			    			    				
+  		$.post("#springUrl('/subscriptions/updateSubscription')", 
+  			formData,
+  			function(data){	  						  						  			
+				handleDisplayAfterSave(data);						  				  				
+  			},
+  			"text"
+  		).fail(ojbc.displayFailMessage);		
+	}  
 		  
 	function saveIncidentSubscription(){
 						  					  		
@@ -206,6 +230,8 @@
 			#parse("subscriptions/editSubscriptionDialog/_incidentForm.vm")	
 		#elseif(${subscription.topic} == '{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment')	
 			#parse("subscriptions/editSubscriptionDialog/_chCycleForm.vm")					
+		#elseif(${subscription.topic} == '{http://ojbc.org/wsn/topics}:person/vehicleCrash')	
+			#parse("subscriptions/editSubscriptionDialog/_vehicleCrashForm.vm")					
 		#end
 					    	        
 	</form>

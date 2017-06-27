@@ -43,24 +43,22 @@ public class ConsentXMLProcessor {
 	{
 		Document doc = null;
 		
-        try {
+        DocumentBuilderFactory docBuilderFact = DocumentBuilderFactory.newInstance();
+        docBuilderFact.setNamespaceAware(true);
+        DocumentBuilder docBuilder = docBuilderFact.newDocumentBuilder();
 
-            DocumentBuilderFactory docBuilderFact = DocumentBuilderFactory.newInstance();
-            docBuilderFact.setNamespaceAware(true);
-            DocumentBuilder docBuilder = docBuilderFact.newDocumentBuilder();
+        doc = docBuilder.newDocument();
 
-            doc = docBuilder.newDocument();
-
-            Element root = doc.createElementNS(OjbcNamespaceContext.NS_CONSENT_DECISION_REPORTING_DOC, "ConsentDecisionReport");
-            doc.appendChild(root);
-            root.setPrefix(OjbcNamespaceContext.NS_PREFIX_CONSENT_DECISION_REPORTING_DOC);
-            
-            Element documentCreationDate = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "nc:DocumentCreationDate");
-            Element date = XmlUtils.appendElement(documentCreationDate, OjbcNamespaceContext.NS_NC_30, "nc:Date");
-            
-            LocalDate localDate = LocalDate.now();
-            date.setTextContent(localDate.toString());
-            
+        Element root = doc.createElementNS(OjbcNamespaceContext.NS_CONSENT_DECISION_REPORTING_DOC, "ConsentDecisionReport");
+        doc.appendChild(root);
+        root.setPrefix(OjbcNamespaceContext.NS_PREFIX_CONSENT_DECISION_REPORTING_DOC);
+        
+        Element documentCreationDate = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "nc:DocumentCreationDate");
+        Element date = XmlUtils.appendElement(documentCreationDate, OjbcNamespaceContext.NS_NC_30, "nc:Date");
+        
+        LocalDate localDate = LocalDate.now();
+        date.setTextContent(localDate.toString());
+        
 //        	<j:Booking>
 //	    		<j:BookingAgencyRecordIdentification>
 //	    			<nc:IdentificationID>234567890</nc:IdentificationID>
@@ -72,23 +70,23 @@ public class ConsentXMLProcessor {
 //	    			</j:SubjectIdentification>
 //	    		</j:BookingSubject>
 //	    	</j:Booking>            
-            
-            Element booking = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JXDM_51, "j:Booking");
-            
-            Element bookingAgencyRecordIdentification = XmlUtils.appendElement(booking, OjbcNamespaceContext.NS_JXDM_51, "j:BookingAgencyRecordIdentification");
-            
-            Element identificationId = XmlUtils.appendElement(bookingAgencyRecordIdentification, OjbcNamespaceContext.NS_NC_30, "nc:IdentificationID");
-            identificationId.setTextContent(consent.getBookingNumber());
-            
-            Element bookingSubject = XmlUtils.appendElement(booking, OjbcNamespaceContext.NS_JXDM_51, "j:BookingSubject");
-            
-            Element roleOfPerson = XmlUtils.appendElement(bookingSubject, OjbcNamespaceContext.NS_NC_30, "nc:RoleOfPerson");
-            XmlUtils.addAttribute(roleOfPerson, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "person01");
-            
-            Element subjectIdentification = XmlUtils.appendElement(bookingSubject, OjbcNamespaceContext.NS_JXDM_51, "j:SubjectIdentification");
-            Element identificationIdSubject = XmlUtils.appendElement(subjectIdentification, OjbcNamespaceContext.NS_NC_30, "nc:IdentificationID");
-            identificationIdSubject.setTextContent(consent.getNameNumber());
-            
+        
+        Element booking = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JXDM_51, "j:Booking");
+        
+        Element bookingAgencyRecordIdentification = XmlUtils.appendElement(booking, OjbcNamespaceContext.NS_JXDM_51, "j:BookingAgencyRecordIdentification");
+        
+        Element identificationId = XmlUtils.appendElement(bookingAgencyRecordIdentification, OjbcNamespaceContext.NS_NC_30, "nc:IdentificationID");
+        identificationId.setTextContent(consent.getBookingNumber());
+        
+        Element bookingSubject = XmlUtils.appendElement(booking, OjbcNamespaceContext.NS_JXDM_51, "j:BookingSubject");
+        
+        Element roleOfPerson = XmlUtils.appendElement(bookingSubject, OjbcNamespaceContext.NS_NC_30, "nc:RoleOfPerson");
+        XmlUtils.addAttribute(roleOfPerson, OjbcNamespaceContext.NS_STRUCTURES_30, "ref", "person01");
+        
+        Element subjectIdentification = XmlUtils.appendElement(bookingSubject, OjbcNamespaceContext.NS_JXDM_51, "j:SubjectIdentification");
+        Element identificationIdSubject = XmlUtils.appendElement(subjectIdentification, OjbcNamespaceContext.NS_NC_30, "nc:IdentificationID");
+        identificationIdSubject.setTextContent(consent.getNameNumber());
+        
 //	        <nc:Person structures:id="person01">
 //	    		<nc:PersonBirthDate>
 //	    			<nc:Date>1980-06-01</nc:Date>
@@ -100,92 +98,84 @@ public class ConsentXMLProcessor {
 //	    		</nc:PersonName>
 //	    		<j:PersonSexCode>M</j:PersonSexCode>
 //	    	</nc:Person>            
-            
-            Element person = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "nc:Person");
-            XmlUtils.addAttribute(roleOfPerson, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "person01");
-            
-            Element personDob = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "nc:PersonBirthDate");
-            
-            Element personDate = XmlUtils.appendElement(personDob, OjbcNamespaceContext.NS_NC_30, "nc:Date");
-            personDate.setTextContent(consent.getPersonDOBString());
-            
-            Element personName = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "nc:PersonName");
-            
-            Element personGivenName = XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC_30, "nc:PersonGivenName");
-            personGivenName.setTextContent(consent.getPersonFirstName());
-            
-            Element personMiddleName = XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC_30, "nc:PersonMiddleName");
-            personMiddleName.setTextContent(consent.getPersonMiddleName());
-            
-            Element personSurName = XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC_30, "nc:PersonSurName");
-            personSurName.setTextContent(consent.getPersonLastName());
-            
-            Element personSexCode = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_JXDM_51, "j:PersonSexCode");
-            personSexCode.setTextContent(consent.getPersonGender());
-            
-			//<cdr-ext:ConsentDecision>
-			//	<nc:ActivityIdentification>
-			//		<nc:IdentificationID>CD858</nc:IdentificationID>
-			//	</nc:ActivityIdentification>
-			//	<nc:ActivityDate>
-			//		<nc:Date>2017-03-26</nc:Date>
-			//	</nc:ActivityDate>
-			//	<cdr-ext:ConsentDecisionCode>Consent Granted</cdr-ext:ConsentDecisionCode>
-			//	<cdr-ext:ConsentDecisionRecordingEntity>
-			//		<nc:EntityPerson>
-			//			<nc:PersonName>
-			//				<nc:PersonGivenName>Walter</nc:PersonGivenName>
-			//				<nc:PersonSurName>White</nc:PersonSurName>
-			//			</nc:PersonName>
-			//		</nc:EntityPerson>
-			//		<cdr-ext:RecordingEntityUsernameText>wwhite</cdr-ext:RecordingEntityUsernameText>
-			//	</cdr-ext:ConsentDecisionRecordingEntity>
-			//</cdr-ext:ConsentDecision>            
-            
-            Element consentDecision = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_CONSENT_DECISION_REPORTING_EXT, "cdr-ext:ConsentDecision");
+        
+        Element person = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_NC_30, "nc:Person");
+        XmlUtils.addAttribute(roleOfPerson, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "person01");
+        
+        Element personDob = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "nc:PersonBirthDate");
+        
+        Element personDate = XmlUtils.appendElement(personDob, OjbcNamespaceContext.NS_NC_30, "nc:Date");
+        personDate.setTextContent(consent.getPersonDOBString());
+        
+        Element personName = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_NC_30, "nc:PersonName");
+        
+        Element personGivenName = XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC_30, "nc:PersonGivenName");
+        personGivenName.setTextContent(consent.getPersonFirstName());
+        
+        Element personMiddleName = XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC_30, "nc:PersonMiddleName");
+        personMiddleName.setTextContent(consent.getPersonMiddleName());
+        
+        Element personSurName = XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC_30, "nc:PersonSurName");
+        personSurName.setTextContent(consent.getPersonLastName());
+        
+        Element personSexCode = XmlUtils.appendElement(person, OjbcNamespaceContext.NS_JXDM_51, "j:PersonSexCode");
+        personSexCode.setTextContent(consent.getPersonGender());
+        
+		//<cdr-ext:ConsentDecision>
+		//	<nc:ActivityIdentification>
+		//		<nc:IdentificationID>CD858</nc:IdentificationID>
+		//	</nc:ActivityIdentification>
+		//	<nc:ActivityDate>
+		//		<nc:Date>2017-03-26</nc:Date>
+		//	</nc:ActivityDate>
+		//	<cdr-ext:ConsentDecisionCode>Consent Granted</cdr-ext:ConsentDecisionCode>
+		//	<cdr-ext:ConsentDecisionRecordingEntity>
+		//		<nc:EntityPerson>
+		//			<nc:PersonName>
+		//				<nc:PersonGivenName>Walter</nc:PersonGivenName>
+		//				<nc:PersonSurName>White</nc:PersonSurName>
+		//			</nc:PersonName>
+		//		</nc:EntityPerson>
+		//		<cdr-ext:RecordingEntityUsernameText>wwhite</cdr-ext:RecordingEntityUsernameText>
+		//	</cdr-ext:ConsentDecisionRecordingEntity>
+		//</cdr-ext:ConsentDecision>            
+        
+        Element consentDecision = XmlUtils.appendElement(root, OjbcNamespaceContext.NS_CONSENT_DECISION_REPORTING_EXT, "cdr-ext:ConsentDecision");
 
-            Element consentActivityIdentification = XmlUtils.appendElement(consentDecision, OjbcNamespaceContext.NS_NC_30, "nc:ActivityIdentification");
-            
-            Element consentIdentificationId = XmlUtils.appendElement(consentActivityIdentification, OjbcNamespaceContext.NS_NC_30, "nc:IdentificationID");
-            consentIdentificationId.setTextContent(consent.getConsentId().toString());
-            
-            Element activityDate = XmlUtils.appendElement(consentDecision, OjbcNamespaceContext.NS_NC_30, "nc:ActivityDate");
-            
-            if (consent.getConsentDecisionTimestamp() != null)
-            {	
-            	Element consentDate = XmlUtils.appendElement(activityDate, OjbcNamespaceContext.NS_NC_30, "nc:DateTime");
-            	consentDate.setTextContent(consent.getConsentDecisionTimestamp().toString());
-            }	
-            
-            String consentDescription = consentManagementDAOImpl.retrieveConsentDecisionText(consent.getConsentId());
-
-            Element consentDecisionCode = XmlUtils.appendElement(consentDecision, OjbcNamespaceContext.NS_CONSENT_DECISION_REPORTING_EXT, "cdr-ext:ConsentDecisionCode");
-            consentDecisionCode.setTextContent(consentDescription);
-            
-            Element consentDecisionRecordingEntity = XmlUtils.appendElement(consentDecision, OjbcNamespaceContext.NS_CONSENT_DECISION_REPORTING_EXT, "cdr-ext:ConsentDecisionRecordingEntity");
-            
-            Element entityPerson = XmlUtils.appendElement(consentDecisionRecordingEntity, OjbcNamespaceContext.NS_NC_30, "nc:EntityPerson");
-            
-            Element entityPersonName = XmlUtils.appendElement(entityPerson, OjbcNamespaceContext.NS_NC_30, "nc:PersonName");
-            
-            Element entityPersonGivenName = XmlUtils.appendElement(entityPersonName, OjbcNamespaceContext.NS_NC_30, "nc:PersonGivenName");
-            entityPersonGivenName.setTextContent(consent.getConsentUserFirstName());
-            
-            Element entityPersonSurName = XmlUtils.appendElement(entityPersonName, OjbcNamespaceContext.NS_NC_30, "nc:PersonSurName");
-            entityPersonSurName.setTextContent(consent.getConsentUserLastName());
-            
-            Element recordingEntityUsernameText = XmlUtils.appendElement(consentDecisionRecordingEntity, OjbcNamespaceContext.NS_CONSENT_DECISION_REPORTING_EXT, "cdr-ext:RecordingEntityUsernameText");
-            recordingEntityUsernameText.setTextContent(consent.getConsenterUserID());
-
+        Element consentActivityIdentification = XmlUtils.appendElement(consentDecision, OjbcNamespaceContext.NS_NC_30, "nc:ActivityIdentification");
+        
+        Element consentIdentificationId = XmlUtils.appendElement(consentActivityIdentification, OjbcNamespaceContext.NS_NC_30, "nc:IdentificationID");
+        consentIdentificationId.setTextContent(consent.getConsentId().toString());
+        
+        Element activityDate = XmlUtils.appendElement(consentDecision, OjbcNamespaceContext.NS_NC_30, "nc:ActivityDate");
+        
+        if (consent.getConsentDecisionTimestamp() != null)
+        {	
+        	Element consentDate = XmlUtils.appendElement(activityDate, OjbcNamespaceContext.NS_NC_30, "nc:DateTime");
+        	consentDate.setTextContent(consent.getConsentDecisionTimestamp().toString());
         }	
-        catch (Exception ex)
-        {
-        	log.error("An error occurred.");
-        	
-        	ex.printStackTrace();
-        } 
-            
-		
+        
+        String consentDescription = consentManagementDAOImpl.retrieveConsentDecisionText(consent.getConsentDecisionTypeID());
+
+        Element consentDecisionCode = XmlUtils.appendElement(consentDecision, OjbcNamespaceContext.NS_CONSENT_DECISION_REPORTING_EXT, "cdr-ext:ConsentDecisionCode");
+        consentDecisionCode.setTextContent(consentDescription);
+        
+        Element consentDecisionRecordingEntity = XmlUtils.appendElement(consentDecision, OjbcNamespaceContext.NS_CONSENT_DECISION_REPORTING_EXT, "cdr-ext:ConsentDecisionRecordingEntity");
+        
+        Element entityPerson = XmlUtils.appendElement(consentDecisionRecordingEntity, OjbcNamespaceContext.NS_NC_30, "nc:EntityPerson");
+        
+        Element entityPersonName = XmlUtils.appendElement(entityPerson, OjbcNamespaceContext.NS_NC_30, "nc:PersonName");
+        
+        Element entityPersonGivenName = XmlUtils.appendElement(entityPersonName, OjbcNamespaceContext.NS_NC_30, "nc:PersonGivenName");
+        entityPersonGivenName.setTextContent(consent.getConsentUserFirstName());
+        
+        Element entityPersonSurName = XmlUtils.appendElement(entityPersonName, OjbcNamespaceContext.NS_NC_30, "nc:PersonSurName");
+        entityPersonSurName.setTextContent(consent.getConsentUserLastName());
+        
+        Element recordingEntityUsernameText = XmlUtils.appendElement(consentDecisionRecordingEntity, OjbcNamespaceContext.NS_CONSENT_DECISION_REPORTING_EXT, "cdr-ext:RecordingEntityUsernameText");
+        recordingEntityUsernameText.setTextContent(consent.getConsenterUserID());
+
+
 		return doc;
 	}
 	

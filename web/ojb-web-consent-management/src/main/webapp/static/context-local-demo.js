@@ -42,6 +42,8 @@ refreshData = function() {
     }
 }
 
-submitConsentDecision = function(consentDecisionJson) {
-    console.log("Local demo mode - mimicing submission of consent decision json: " + JSON.stringify(consentDecisionJson))
+submitConsentDecision = function() {
+    console.log("Local demo mode - mimicing submission of consent decision json: " + JSON.stringify(getConsentDecisionJson()));
+    clearDecisionRecordFields();
+    updateUIState();
 }

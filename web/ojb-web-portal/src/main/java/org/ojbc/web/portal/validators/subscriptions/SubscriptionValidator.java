@@ -74,6 +74,9 @@ public class SubscriptionValidator implements Validator{
 		case SubscriptionsController.CHCYCLE_TOPIC_SUB_TYPE: 
 			validateGeneralSubscription(subscription, errors);
 			break; 
+		case SubscriptionsController.PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE:
+			validateGeneralSubscription(subscription, errors);
+			break; 
 		default: 
 		}
 	}

@@ -287,10 +287,16 @@ public class SubscriptionValidatorTest {
 		assertNoErrors(subscription);
 	}
 
+	public void testValidatingGoodVehicleCrashSubscription() throws Exception{
+		Subscription subscription = getGoodNonArrestSubscription(SubscriptionsController.PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE);
+		assertNoErrors(subscription);
+	}
+	
 	@Test
 	public void testValidatingGoodNonArrestSubscriptions() throws Exception{
 		testValidatingGoodIncidentSubscription(SubscriptionsController.CHCYCLE_TOPIC_SUB_TYPE);
 		testValidatingGoodIncidentSubscription(SubscriptionsController.INCIDENT_TOPIC_SUB_TYPE);
+		testValidatingGoodVehicleCrashSubscription();
 	}
 	
 	@Test

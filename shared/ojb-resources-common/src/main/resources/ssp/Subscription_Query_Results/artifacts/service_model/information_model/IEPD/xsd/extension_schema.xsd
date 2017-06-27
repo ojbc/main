@@ -85,8 +85,6 @@
 				<xsd:sequence>
 					<xsd:element ref="sqr-ext:SubscriptionRelatedCaseIdentification"
 						minOccurs="0" />
-					<xsd:element ref="sqr-ext:SubscriptionIdentification"
-						minOccurs="0" />
 					<xsd:element ref="sqr-ext:FBISubscription" minOccurs="0"
 						maxOccurs="unbounded" />
 					<xsd:element ref="sqr-ext:SubscriptionSubjectRepresentation" />

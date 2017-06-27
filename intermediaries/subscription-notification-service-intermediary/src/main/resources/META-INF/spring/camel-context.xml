@@ -109,6 +109,14 @@
 								<constant>prosecutionDecisionUpdate</constant>
 							</camel:setHeader>
 						</camel:when>
+						<camel:when>
+							<camel:xpath>(normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='topics:person/VehicleCrash' and
+		      				//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or
+		      				normalize-space(//wsnb2:Notify/wsnb2:NotificationMessage/wsnb2:Topic)='{http://ojbc.org/wsn/topics}:person/vehicleCrash'</camel:xpath>
+							<camel:setHeader headerName="notificationTopic">
+								<constant>VehicleCrash</constant>
+							</camel:setHeader>
+						</camel:when>
 						<camel:otherwise>
 							<camel:log message="Notification does not contain a valid topic" />
 						</camel:otherwise>
@@ -195,6 +203,15 @@
 	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/ProsecutionDecisionUpdate'</camel:xpath>
 					<camel:to uri="direct:processSubscriptionProsecutionDecisionUpdate" />
 				</camel:when>
+
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='topics:person/VehicleCrash' and
+	      			//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Subscribe/wsnb2:Filter/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/vehicleCrash'</camel:xpath>
+					
+					<camel:to uri="direct:processSubscriptionVehicleCrash" />
+					
+				</camel:when>
 				
 				<camel:otherwise>
 					<camel:log message="Subscription does not contain valid topic" />
@@ -265,6 +282,14 @@
 	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/ProsecutionDecisionUpdate'</camel:xpath>
 					<camel:to uri="direct:processUnsubscribeProsecutionDecisionUpdate" />
 				</camel:when>
+				<camel:when>
+					<camel:xpath>(normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='topics:person/VehicleCrash' and
+	      			//wsnb2:Unsubscribe/wsnb2:TopicExpression/namespace::*[name()='topics']='http://ojbc.org/wsn/topics') or 
+	      			normalize-space(//wsnb2:Unsubscribe/wsnb2:TopicExpression)='{http://ojbc.org/wsn/topics}:person/vehicleCrash'</camel:xpath>
+					
+					<camel:to uri="direct:processUnsubscribeVehicleCrash" />
+					
+				</camel:when>
 				<camel:otherwise>
 					<camel:log message="Unsubscription does not contain valid topic" />
 					<camel:to uri="bean:genericFaultProcessor?method=createFault" />
@@ -334,6 +359,12 @@
 			<camel:log message="Processing Subscription(Prosecution Decision Update)" />
 			<camel:to uri="bean:prosecutionDecisionUpdateProcessor?method=subscribe" />
 		</camel:route>		
+
+		<camel:route>
+			<camel:from uri="direct:processSubscriptionVehicleCrash" />
+			<camel:log message="Processing Subscription(Vehicle Crash)" />
+			<camel:to uri="bean:vehicleCrashSubscriptionProcessor?method=subscribe" />
+		</camel:route>		
 			
 		<camel:route>
 			<camel:from uri="direct:processUnsubscribeArrest" />
@@ -384,6 +415,12 @@
 			<camel:from uri="direct:processUnsubscribeProsecutionDecisionUpdate" />
 			<camel:log message="Processing Unsubscription(Prosecution Decision Update)" />
 			<camel:to uri="bean:prosecutionDecisionUpdateProcessor?method=unsubscribe" />
+		</camel:route>
+		
+		<camel:route>
+			<camel:from uri="direct:processUnsubscribeVehicleCrash" />
+			<camel:log message="Processing Unsubscription(Vehicle Crash" />
+			<camel:to uri="bean:vehicleCrashSubscriptionProcessor?method=unsubscribe" />
 		</camel:route>
 			
 	</camel:camelContext>

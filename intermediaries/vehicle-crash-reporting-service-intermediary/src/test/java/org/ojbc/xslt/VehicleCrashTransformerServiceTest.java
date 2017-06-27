@@ -31,6 +31,7 @@ import org.apache.commons.logging.LogFactory;
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
+import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +47,10 @@ public class VehicleCrashTransformerServiceTest {
 	@Before
 	public void setup() {
 		unit = new XsltTransformerService();
+		
+		//Tell XML Unit to ignore whitespace between elements and within elements
+		XMLUnit.setIgnoreWhitespace(true);
+		XMLUnit.setNormalizeWhitespace(true);		
 	}
 	
 	@After

@@ -119,6 +119,8 @@
 			
 			<camel:log message="Consent message to intermediary: ${body}" loggingLevel="DEBUG"/>
 			
+			<camel:log message="About to call consent intermediary"/>
+			
 			<to uri="consentReportingServiceEndpoint"/>
 		</route>
 		

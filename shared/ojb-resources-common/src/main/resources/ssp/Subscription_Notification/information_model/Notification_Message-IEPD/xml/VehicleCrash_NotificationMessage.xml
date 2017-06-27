@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<notfm-doc:NotificationMessage xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
+	xmlns:vc="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0" xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd">
+	<notfm-ext:NotifyingVehicleCrash>
+						<notfm-ext:NotifyingActivityReportingSystemNameText>
+							{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB
+						</notfm-ext:NotifyingActivityReportingSystemNameText>
+						<notfm-ext:NotifyingActivityReportingSystemURI>SystemURIHere
+						</notfm-ext:NotifyingActivityReportingSystemURI>
+						<vc:VehicleCrash s:id="N10002">
+							<nc:ActivityDate>
+								<nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
+							</nc:ActivityDate>
+							<j:CrashVehicle>
+								<j:CrashVehicleOccupant>
+									<nc:RoleOfPersonReference s:ref="d1e425" />
+								</j:CrashVehicleOccupant>
+							</j:CrashVehicle>
+							<nc:Location>
+								<nc:LocationHighway>
+									<nc:HighwayFullText>264 MINOT AVE</nc:HighwayFullText>
+								</nc:LocationHighway>
+							</nc:Location>
+							<me-crash-codes:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT
+							</me-crash-codes:ReportingAgencyCodeText>
+							<j:IncidentAugmentation>
+								<j:IncidentReportingOfficial>
+									<nc:RoleOfPersonReference s:id="d1e20" />
+								</j:IncidentReportingOfficial>
+							</j:IncidentAugmentation>
+							<j:Citation>
+								<nc:ActivityIdentification>
+									<nc:IdentificationID>CitationNumber</nc:IdentificationID>
+								</nc:ActivityIdentification>
+							</j:Citation>
+						</vc:VehicleCrash>
+					</notfm-ext:NotifyingVehicleCrash>
+					<nc:ActivityInvolvedPersonAssociation>
+						<nc:ActivityReference s:ref="N10002" />
+						<nc:PersonReference s:ref="d1e425" />
+						<nc:PersonActivityInvolvementText>Driver/Owner
+						</nc:PersonActivityInvolvementText>
+					</nc:ActivityInvolvedPersonAssociation>
+					<j:Person s:id="d1e425">
+						<nc:PersonBirthDate>
+							<nc:Date>1933-12-03</nc:Date>
+						</nc:PersonBirthDate>
+						<nc:PersonName>
+							<nc:PersonGivenName>Betsy</nc:PersonGivenName>
+							<nc:PersonSurName>Walton</nc:PersonSurName>
+						</nc:PersonName>
+					</j:Person>
+				</notfm-doc:NotificationMessage>
