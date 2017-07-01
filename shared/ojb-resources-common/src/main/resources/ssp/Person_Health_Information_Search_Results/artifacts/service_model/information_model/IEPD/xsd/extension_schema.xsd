@@ -65,6 +65,8 @@
 				<xsd:sequence>
 					<xsd:element ref="phisres-ext:BehavioralHealthStatusRepresentation"
 						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="phisres-ext:MentalHealthCategoryRepresentation"
+						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="jxdm51:Evaluation" minOccurs="0"
 						maxOccurs="unbounded" />
 					<xsd:element ref="nc30:Treatment" minOccurs="0"
@@ -104,6 +106,12 @@
 		<xsd:annotation>
 			<xsd:documentation>A representation of a person's behavioral health
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MentalHealthCategoryRepresentation"
+		abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A representation of a person's mental health classification</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PrescribedMedication" type="cyfs:MedicationUseType">
@@ -160,6 +168,12 @@
 				otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="TreatmentStatusCode" type="phisres-ext:TreatmentStatusCodeType"
+		substitutionGroup="nc30:TreatmentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code for the status of a specific treatment.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="SubstanceAbuseIndicator" type="niem-xsd:boolean"
 		substitutionGroup="phisres-ext:BehavioralHealthStatusRepresentation">
 		<xsd:annotation>
@@ -172,6 +186,13 @@
 		<xsd:annotation>
 			<xsd:documentation>True if the person is categorized as having a
 				general mental health condition, false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MentalHealthCategoryText"
+		type="niem-xsd:string" substitutionGroup="phisres-ext:MentalHealthCategoryRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A description of a person's behavioral health status.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -194,4 +215,38 @@
 				size. Commonly referred to a GPI.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	
+	<xsd:simpleType name="TreatmentStatusCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Treatment Status</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="ACTIVE">
+				<xsd:annotation>
+					<xsd:documentation>Active</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="INACTIVE">
+				<xsd:annotation>
+					<xsd:documentation>Inactive
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CRISIS">
+				<xsd:annotation>
+					<xsd:documentation>Crisis</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="TreatmentStatusCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Treatment Status</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="phisres-ext:TreatmentStatusCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
 </xsd:schema>
