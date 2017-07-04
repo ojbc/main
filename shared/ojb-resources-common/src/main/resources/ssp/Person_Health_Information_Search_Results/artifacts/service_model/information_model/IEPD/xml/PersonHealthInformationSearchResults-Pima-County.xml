@@ -44,7 +44,7 @@
 		<phisres-ext:SeriousMentalIllnessIndicator>true</phisres-ext:SeriousMentalIllnessIndicator>
 		<phisres-ext:SubstanceAbuseIndicator>true</phisres-ext:SubstanceAbuseIndicator>
 		<phisres-ext:GeneralMentalHealthConditionIndicator>false</phisres-ext:GeneralMentalHealthConditionIndicator>
-		<phisres-ext:MentalHealthCategoryText>Status</phisres-ext:MentalHealthCategoryText>
+		<phisres-ext:BehavioralHealthCategoryText>Serious Mental Illness</phisres-ext:BehavioralHealthCategoryText>
 		<jxdm51:Evaluation>
 			<jxdm51:EvaluationDiagnosisDescriptionText>Schizophrenia 295.10</jxdm51:EvaluationDiagnosisDescriptionText>
 		</jxdm51:Evaluation>

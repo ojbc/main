@@ -65,8 +65,6 @@
 				<xsd:sequence>
 					<xsd:element ref="phisres-ext:BehavioralHealthStatusRepresentation"
 						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="phisres-ext:MentalHealthCategoryRepresentation"
-						minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="jxdm51:Evaluation" minOccurs="0"
 						maxOccurs="unbounded" />
 					<xsd:element ref="nc30:Treatment" minOccurs="0"
@@ -106,12 +104,6 @@
 		<xsd:annotation>
 			<xsd:documentation>A representation of a person's behavioral health
 			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="MentalHealthCategoryRepresentation"
-		abstract="true">
-		<xsd:annotation>
-			<xsd:documentation>A representation of a person's mental health classification</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PrescribedMedication" type="cyfs:MedicationUseType">
@@ -189,10 +181,10 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MentalHealthCategoryText"
-		type="niem-xsd:string" substitutionGroup="phisres-ext:MentalHealthCategoryRepresentation">
+	<xsd:element name="BehavioralHealthCategoryText"
+		type="niem-xsd:string" substitutionGroup="phisres-ext:BehavioralHealthStatusRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A description of a person's behavioral health status.
+			<xsd:documentation>A description of a person's behavioral health classification.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
