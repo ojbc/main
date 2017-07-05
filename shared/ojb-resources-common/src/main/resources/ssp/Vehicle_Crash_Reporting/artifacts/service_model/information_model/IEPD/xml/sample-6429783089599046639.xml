@@ -266,12 +266,12 @@
          <vcr-ext:NoInsuranceIndicator>true</vcr-ext:NoInsuranceIndicator>
       </nc30:Insurance>
       <jxdm51:CrashDriverLicense s30:id="Driver_License_01">
-         <jxdm51:DriverLicenseCardIdentification>
+         <jxdm51:DriverLicenseIdentification>
             <nc30:IdentificationID>4UDxh8gL2</nc30:IdentificationID>
             <nc30:IdentificationJurisdiction>
                <jxdm51:LocationStateNCICLISCode>AL</jxdm51:LocationStateNCICLISCode>
             </nc30:IdentificationJurisdiction>
-         </jxdm51:DriverLicenseCardIdentification>
+         </jxdm51:DriverLicenseIdentification>
          <jxdm51:DriverLicenseRestriction>
             <jxdm51:DrivingRestrictionText>Glasses</jxdm51:DrivingRestrictionText>
          </jxdm51:DriverLicenseRestriction>

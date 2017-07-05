@@ -108,8 +108,8 @@
     <w:ElementInType w:name="j:ChargeAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="j:DriverLicenseType" w:isRequested="false">
-    <w:ElementInType w:name="j:DriverLicenseCardIdentification"
+  <w:Type w:name="j:DriverLicenseBaseType" w:isRequested="false">
+    <w:ElementInType w:name="j:DriverLicenseIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:OffenseChargeAssociationType" w:isRequested="false">
