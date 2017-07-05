@@ -77,10 +77,10 @@
 		</nc:PersonWeightMeasure>
 		<j:PersonAugmentation>
 			<j:DriverLicense>
-				<j:DriverLicenseCardIdentification>
+				<j:DriverLicenseIdentification>
 					<nc:IdentificationID>DL456789</nc:IdentificationID>
 					<nc:IdentificationSourceText>New York</nc:IdentificationSourceText>
-				</j:DriverLicenseCardIdentification>
+				</j:DriverLicenseIdentification>
 			</j:DriverLicense>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>FBI45678</nc:IdentificationID>

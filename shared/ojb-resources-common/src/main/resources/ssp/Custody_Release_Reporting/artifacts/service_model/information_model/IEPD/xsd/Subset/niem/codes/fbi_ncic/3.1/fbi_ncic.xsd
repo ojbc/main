@@ -47,12 +47,12 @@ https://www.leo.gov</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="KB">
         <xs:annotation>
-          <xs:documentation>Ellice - Gilbert Islands now Kiribati</xs:documentation>
+          <xs:documentation>Kiribati (formerly Gilbert Islands)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="KB">
         <xs:annotation>
-          <xs:documentation>Kiribati (formerly Gilbert Islands)</xs:documentation>
+          <xs:documentation>Ellice - Gilbert Islands now Kiribati</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="KB">
@@ -392,12 +392,12 @@ https://www.leo.gov</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="AE">
         <xs:annotation>
-          <xs:documentation>Anguilla (dependent territory of United Kingdom)</xs:documentation>
+          <xs:documentation>Saint Kitts - Anguilla (now separate)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="AE">
         <xs:annotation>
-          <xs:documentation>Saint Kitts - Anguilla (now separate)</xs:documentation>
+          <xs:documentation>Anguilla (dependent territory of United Kingdom)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="IO">
@@ -725,12 +725,12 @@ Curacao</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="UV">
         <xs:annotation>
-          <xs:documentation>Burkina Faso (known as Burkina, formerly Upper Volta)</xs:documentation>
+          <xs:documentation>Upper Volta (now Burkina Faso)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="UV">
         <xs:annotation>
-          <xs:documentation>Upper Volta (now Burkina Faso)</xs:documentation>
+          <xs:documentation>Burkina Faso (known as Burkina, formerly Upper Volta)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="TW">
@@ -2746,12 +2746,12 @@ Sikkim</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="FC">
         <xs:annotation>
-          <xs:documentation>Fond du Lac</xs:documentation>
+          <xs:documentation>Fond Du Lac Band of Lake Superior Chippewa, Minnesota</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="FC">
         <xs:annotation>
-          <xs:documentation>Fond Du Lac Band of Lake Superior Chippewa, Minnesota</xs:documentation>
+          <xs:documentation>Fond du Lac</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="FD">
