@@ -10983,12 +10983,12 @@ Sikkim (See India)--FOR REFERENCE ONLY</xs:documentation>
       </xs:enumeration>
       <xs:enumeration value="MAR">
         <xs:annotation>
-          <xs:documentation>Maroon</xs:documentation>
+          <xs:documentation>Burgundy (purple)</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="MAR">
         <xs:annotation>
-          <xs:documentation>Burgundy (purple)</xs:documentation>
+          <xs:documentation>Maroon</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="MUL/COL">

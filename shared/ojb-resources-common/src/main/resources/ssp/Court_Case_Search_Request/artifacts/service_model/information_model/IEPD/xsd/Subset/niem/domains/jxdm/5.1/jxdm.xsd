@@ -55,7 +55,11 @@
       <xs:documentation>A data type for an authorization issued to a driver granting driving privileges.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="structures:ObjectType"/>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:DriverLicenseIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="DriverLicenseType">
@@ -63,11 +67,7 @@
       <xs:documentation>A data type for a license issued to a person granting driving privileges.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="j:DriverLicenseBaseType">
-        <xs:sequence>
-          <xs:element ref="j:DriverLicenseCardIdentification" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
+      <xs:extension base="j:DriverLicenseBaseType"/>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="PersonAugmentationType">
@@ -122,9 +122,9 @@
       <xs:documentation>A license issued to a person granting driving privileges.</xs:documentation>
     </xs:annotation>
   </xs:element>
-  <xs:element name="DriverLicenseCardIdentification" type="nc:IdentificationType" nillable="true">
+  <xs:element name="DriverLicenseIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
-      <xs:documentation>An identification that is affixed to the raw materials (card stock, laminate, etc.) used in producing driver licenses and ID cards. The numbers are issued by the material's manufacturer and provide a unique reference to a card within a jurisdiction.</xs:documentation>
+      <xs:documentation>A driver license identification or driver license permit identification, including the number and state.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="JurisdictionDistrictText" type="nc:TextType" nillable="true">
