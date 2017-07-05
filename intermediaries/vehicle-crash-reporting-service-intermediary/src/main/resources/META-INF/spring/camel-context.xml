@@ -124,7 +124,7 @@
 	        <camel:split streaming="true">
 				<camel:xpath>/wrapper/b:Notify</camel:xpath>
 														
-				<camel:log message="This is the notification message: ${body}" loggingLevel="DEBUG"/>
+				<camel:log message="This is the vehicle crash notification message: ${body}" loggingLevel="DEBUG"/>
 				
 				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>	
 				
