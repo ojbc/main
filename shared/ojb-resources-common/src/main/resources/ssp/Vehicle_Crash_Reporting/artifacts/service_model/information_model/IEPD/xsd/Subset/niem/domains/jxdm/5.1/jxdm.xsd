@@ -321,6 +321,7 @@
     <xs:complexContent>
       <xs:extension base="j:DriverLicenseBaseType">
         <xs:sequence>
+          <xs:element ref="j:DriverLicenseCardIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:DriverLicenseRestriction" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:DriverLicenseEndorsement" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:DriverLicenseAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
@@ -880,6 +881,11 @@
   <xs:element name="DriverLicenseAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for DriverLicenseType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DriverLicenseCardIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identification that is affixed to the raw materials (card stock, laminate, etc.) used in producing driver licenses and ID cards. The numbers are issued by the material's manufacturer and provide a unique reference to a card within a jurisdiction.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="DriverLicenseEndorsement" type="j:DriverLicenseEndorsementType" nillable="true">

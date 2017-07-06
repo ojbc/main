@@ -3645,6 +3645,10 @@
     <w:ElementInType w:name="j:DriverLicenseIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:DriverLicenseType" w:isRequested="false">
+    <w:ElementInType w:name="j:DriverLicenseCardIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:ItemRegistrationAssociationType" w:isRequested="false">
     <w:ElementInType w:name="j:ItemRegistration" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>

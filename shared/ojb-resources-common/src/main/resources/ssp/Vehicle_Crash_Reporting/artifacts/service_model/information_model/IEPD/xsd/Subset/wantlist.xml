@@ -363,6 +363,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:DriverLicenseType" w:isRequested="true">
+    <w:ElementInType w:name="j:DriverLicenseCardIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:DriverLicenseRestriction"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:DriverLicenseEndorsement"
