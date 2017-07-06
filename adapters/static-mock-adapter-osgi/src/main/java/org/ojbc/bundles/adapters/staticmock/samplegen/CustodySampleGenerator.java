@@ -530,7 +530,7 @@ public class CustodySampleGenerator extends AbstractSampleGenerator{
 		
 		Element drivLicEl = XmlUtils.appendElement(personAugmentElement, OjbcNamespaceContext.NS_JXDM_51, "DriverLicense");
 		
-		Element drivLicCardIdEl = XmlUtils.appendElement(drivLicEl, OjbcNamespaceContext.NS_JXDM_51, "DriverLicenseCardIdentification");
+		Element drivLicCardIdEl = XmlUtils.appendElement(drivLicEl, OjbcNamespaceContext.NS_JXDM_51, "DriverLicenseIdentification");
 		
 		Element drivLicCardIdValEl = XmlUtils.appendElement(drivLicCardIdEl, OjbcNamespaceContext.NS_NC_30, "IdentificationID");		
 		drivLicCardIdValEl.setTextContent(RandomStringUtils.randomNumeric(9));

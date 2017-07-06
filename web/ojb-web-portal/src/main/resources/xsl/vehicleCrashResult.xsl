@@ -252,7 +252,7 @@
 					<td class="detailsLabel">Driver License #</td>
 					<td>
 						<xsl:value-of
-							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/j:PersonAugmentation/j:DriverLicense/j:DriverLicenseCardIdentification/nc:IdentificationID" />
+							select="ancestor::vcq-res-ext:VehicleCrashReport/nc:Person[@structures:id=$driverId]/j:PersonAugmentation/j:DriverLicense/j:DriverLicenseIdentification/nc:IdentificationID" />
 					</td>
 				</tr>
 				<tr>

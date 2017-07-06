@@ -2053,8 +2053,8 @@ public class StaticMockQuery {
 		xPaths.ssnXPath = "//nc30:PersonSSNIdentification/nc30:IdentificationID";		
 		xPaths.sidXPath = "/cq-res-exch:CustodyQueryResults/cq-res-ext:Custody/nc30:Person/jxdm51:PersonAugmentation/jxdm51:PersonStateFingerprintIdentification/nc30:IdentificationID";		
 		xPaths.fbiXPath = "//jxdm51:PersonAugmentation/jxdm51:PersonFBIIdentification/nc30:IdentificationID";		
-		xPaths.dlXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseCardIdentification/nc30:IdentificationID";		
-		xPaths.dlJurisdictionXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseCardIdentification/nc30:IdentificationSourceText";		
+		xPaths.dlXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc30:IdentificationID";		
+		xPaths.dlJurisdictionXPath = "//jxdm51:PersonAugmentation/jxdm51:DriverLicense/jxdm51:DriverLicenseIdentification/nc30:IdentificationSourceText";		
 		xPaths.lastNameXPath = "//nc30:PersonName/nc30:PersonSurName";
 		xPaths.middleNameXPath = "//nc30:PersonName/nc30:PersonMiddleName";
 		xPaths.firstNameXPath = "//nc30:PersonName/nc30:PersonGivenName";		
@@ -2139,10 +2139,10 @@ public class StaticMockQuery {
 		vehicleCrashDetailXpaths.fbiXPath = null;
 						
 		vehicleCrashDetailXpaths.dlXPath = 
-				"//jxdm51:CrashDriverLicense[@s30:id=//jxdm51:CrashDriver/jxdm51:DriverLicense/@s30:ref]/jxdm51:DriverLicenseCardIdentification/nc30:IdentificationID";
+				"//jxdm51:CrashDriverLicense[@s30:id=//jxdm51:CrashDriver/jxdm51:DriverLicense/@s30:ref]/jxdm51:DriverLicenseIdentification/nc30:IdentificationID";
 						
 		vehicleCrashDetailXpaths.dlJurisdictionXPath = 
-				"//jxdm51:CrashDriverLicense[@s30:id=//jxdm51:CrashDriver/jxdm51:DriverLicense/@s30:ref]/jxdm51:DriverLicenseCardIdentification//nc30:IdentificationJurisdiction/jxdm51:LocationStateNCICLISCode";
+				"//jxdm51:CrashDriverLicense[@s30:id=//jxdm51:CrashDriver/jxdm51:DriverLicense/@s30:ref]/jxdm51:DriverLicenseIdentification//nc30:IdentificationJurisdiction/jxdm51:LocationStateNCICLISCode";
 				
 		vehicleCrashDetailXpaths.lastNameXPath = 
 				"//nc30:Person[@s30:id=//jxdm51:CrashDriver/nc30:RoleOfPerson/@s30:ref]/nc30:PersonName/nc30:PersonSurName"; 
