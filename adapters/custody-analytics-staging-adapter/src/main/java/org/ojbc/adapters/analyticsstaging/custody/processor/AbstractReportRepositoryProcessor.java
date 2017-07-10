@@ -301,9 +301,8 @@ public abstract class AbstractReportRepositoryProcessor {
 				String treatmentAdmissionReason = BooleanUtils.toString(treatmentCourtOrdered, "Court-Ordered Treatment", "Other", null); 
 				treatment.setTreatmentAdmissionReasonTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.TreatmentAdmissionReasonType, treatmentAdmissionReason));
 				
-				Boolean treatmentActive = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentActiveIndicator"));
-				String treamentStatusType = BooleanUtils.toString(treatmentActive, "active", "inactive", null);
-				treatment.setTreatmentStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.TreatmentStatusType, treamentStatusType));
+				String treatmentStatus = XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentStatusCode");
+				treatment.setTreatmentStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.TreatmentStatusType, treatmentStatus));
 				
 				treatments.add(treatment);
 			}
