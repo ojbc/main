@@ -204,7 +204,7 @@ public class CamelContextPimaTest {
 		assertThat(treatment.getBehavioralHealthAssessmentID(), is(1));
 		assertThat(treatment.getTreatmentStartDate(), is(LocalDate.parse("2016-01-01"))); 
 		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), is(1));
-		assertThat(treatment.getTreatmentStatusTypeId(), is(1));
+		assertThat(treatment.getTreatmentStatusTypeId(), is(3));
 		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
 		
 		
