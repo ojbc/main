@@ -23,8 +23,12 @@ CREATE DATABASE ojbc_booking_staging
 Use ojbc_booking_staging
 
 /**
-* Copy DDL from SQL PA below here.  Modify timestamps in fact tables like this:
-*                `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+* Copy DDL from SQL PA below here.  
+* sed -i -e 's/BOOLEAN/BIT/g' analyticsDB-sqlserver.sql
+* sed -i -e 's/now()/getdate()/g' analyticsDB-sqlserver.sql 
+* sed -i -e 's/Date DATETIME/Date DATE/g' analyticsDB-sqlserver.sql 
+* sed -i -e 's/Time DATETIME/Time TIME/g' analyticsDB-sqlserver.sql 
+
 **/
 
 
@@ -186,6 +190,14 @@ CREATE TABLE BehavioralHealthAssessment (
                 EnrolledProviderName VARCHAR(100),
                 BehavioralHealthAssessmentTimestamp DATETIME DEFAULT getdate() NOT NULL,
                 CONSTRAINT BehavioralHealthAssessmentID PRIMARY KEY (BehavioralHealthAssessmentID)
+)
+
+CREATE TABLE BehavioralHealthCategory (
+                BehavioralHealthCategoryOD INT IDENTITY NOT NULL,
+                BehavioralHealthAssessmentID INT NOT NULL,
+                BehavioralHealthCategoryText VARCHAR(100) NOT NULL,
+                BehavioralHealthCategoryTimestamp DATETIME DEFAULT now() NOT NULL,
+                CONSTRAINT BehavioralHealthCategoryID PRIMARY KEY (BehavioralHealthCategoryOD)
 )
 
 CREATE TABLE BehavioralHealthAssessmentCategory (
@@ -515,6 +527,12 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 
 ALTER TABLE BehavioralHealthAssessmentCategory ADD CONSTRAINT BehavioralHealthAssessment_BehavioralHealthAssessmentCategory_fk
+FOREIGN KEY (BehavioralHealthAssessmentID)
+REFERENCES BehavioralHealthAssessment (BehavioralHealthAssessmentID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+
+ALTER TABLE BehavioralHealthCategory ADD CONSTRAINT BehavioralHealthAssessment_BehavioralHealthCategory_fk
 FOREIGN KEY (BehavioralHealthAssessmentID)
 REFERENCES BehavioralHealthAssessment (BehavioralHealthAssessmentID)
 ON DELETE NO ACTION

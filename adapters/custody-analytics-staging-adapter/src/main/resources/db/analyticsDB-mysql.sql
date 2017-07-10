@@ -23,8 +23,6 @@ use ojbc_booking_staging;
 *                `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 **/
 
-
-
 CREATE TABLE MedicaidStatusType (
                 MedicaidStatusTypeID INT NOT NULL,
                 MedicaidStatusTypeDescription VARCHAR(50) NOT NULL,
@@ -119,7 +117,7 @@ CREATE TABLE Location (
                 PostalCode VARCHAR(10),
                 LocationLatitude NUMERIC(14,10),
                 LocationLongitude NUMERIC(14,10),
-                LocationTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                LocationTimestamp `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (LocationID)
 );
 
@@ -186,7 +184,7 @@ CREATE TABLE Person (
                 ProgramEligibilityTypeID INT,
                 WorkReleaseStatusTypeID INT,
                 SexOffenderStatusTypeID INT,
-                PersonTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                PersonTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (PersonID)
 );
 
@@ -199,8 +197,17 @@ CREATE TABLE BehavioralHealthAssessment (
                 CareEpisodeEndDate DATE,
                 MedicaidStatusTypeID INT,
                 EnrolledProviderName VARCHAR(100),
-                BehavioralHealthAssessmentTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                BehavioralHealthAssessmentTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (BehavioralHealthAssessmentID)
+);
+
+
+CREATE TABLE BehavioralHealthCategory (
+                BehavioralHealthCategoryOD INT AUTO_INCREMENT NOT NULL,
+                BehavioralHealthAssessmentID INT NOT NULL,
+                BehavioralHealthCategoryText VARCHAR(100) NOT NULL,
+                BehavioralHealthCategoryTimestamp DATETIME DEFAULT now() NOT NULL,
+                PRIMARY KEY (BehavioralHealthCategoryOD)
 );
 
 
@@ -208,7 +215,7 @@ CREATE TABLE BehavioralHealthAssessmentCategory (
                 BehavioralHealthAssessmentCategoryID INT AUTO_INCREMENT NOT NULL,
                 BehavioralHealthAssessmentID INT NOT NULL,
                 AssessmentCategoryTypeID INT NOT NULL,
-                BehavioralHealthAssessmentCategoryTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                BehavioralHealthAssessmentCategoryTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (BehavioralHealthAssessmentCategoryID)
 );
 
@@ -219,7 +226,7 @@ CREATE TABLE PrescribedMedication (
                 MedicationDescription VARCHAR(80),
                 MedicationDispensingDate DATE,
                 MedicationDoseMeasure VARCHAR(10),
-                PrescribedMedicationTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                PrescribedMedicationTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (PrescribedMedicationID)
 );
 
@@ -231,7 +238,7 @@ CREATE TABLE Treatment (
                 TreatmentAdmissionReasonTypeID INT,
                 TreatmentStatusTypeID INT,
                 TreatmentProviderName VARCHAR(100),
-                TreatmentTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                TreatmentTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (TreatmentID)
 );
 
@@ -240,7 +247,7 @@ CREATE TABLE BehavioralHealthEvaluation (
                 BehavioralHealthEvaluationID INT AUTO_INCREMENT NOT NULL,
                 BehavioralHealthAssessmentID INT NOT NULL,
                 BehavioralHealthDiagnosisDescription VARCHAR(100),
-                BehavioralHealthEvaluationTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                BehavioralHealthEvaluationTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (BehavioralHealthEvaluationID)
 );
 
@@ -270,7 +277,7 @@ CREATE TABLE Booking (
                 SupervisionUnitTypeID INT,
                 InmateJailResidentIndicator BOOLEAN,
                 InmateCurrentLocation VARCHAR(100),
-                BookingTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                BookingTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (BookingID)
 );
 
@@ -282,7 +289,7 @@ CREATE TABLE CustodyRelease (
                 ReleaseDate DATE NOT NULL,
                 ReleaseTime TIME,
                 ReleaseCondition VARCHAR(200),
-                CustodyReleaseTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                CustodyReleaseTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (CustodyReleaseID)
 );
 
@@ -299,7 +306,7 @@ CREATE TABLE CustodyStatusChange (
                 SupervisionUnitTypeID INT,
                 InmateJailResidentIndicator BOOLEAN,
                 InmateCurrentLocation VARCHAR(100),
-                CustodyStatusChangeTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                CustodyStatusChangeTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (CustodyStatusChangeID)
 );
 
@@ -309,7 +316,7 @@ CREATE TABLE CustodyStatusChangeArrest (
                 CustodyStatusChangeID INT NOT NULL,
                 LocationID INT,
                 ArrestAgencyID INT,
-                CustodyStatusChangeArrestTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                CustodyStatusChangeArrestTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (CustodyStatusChangeArrestID)
 );
 
@@ -326,7 +333,7 @@ CREATE TABLE CustodyStatusChangeCharge (
                 ChargeJurisdictionTypeID INT,
                 ChargeClassTypeID INT,
                 BondStatusTypeID INT,
-                CustodyStatusChangeChargeTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                CustodyStatusChangeChargeTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (CustodyStatusChangeChargeID)
 );
 
@@ -336,7 +343,7 @@ CREATE TABLE BookingArrest (
                 BookingID INT NOT NULL,
                 LocationID INT,
                 ArrestAgencyID INT,
-                BookingArrestTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                BookingArrestTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (BookingArrestID)
 );
 
@@ -352,7 +359,7 @@ CREATE TABLE BookingCharge (
                 ChargeJurisdictionTypeID INT,
                 ChargeClassTypeID INT,
                 BondStatusTypeID INT,
-                BookingChargeTimestamp TIMESTAMP DEFAULT now() NOT NULL,
+                BookingChargeTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (BookingChargeID)
 );
 
@@ -544,6 +551,12 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE BehavioralHealthAssessmentCategory ADD CONSTRAINT behavioralhealthassessment_behavioralhealthassessmentcategory_fk
+FOREIGN KEY (BehavioralHealthAssessmentID)
+REFERENCES BehavioralHealthAssessment (BehavioralHealthAssessmentID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE BehavioralHealthCategory ADD CONSTRAINT behavioralhealthassessment_behavioralhealthcategory_fk
 FOREIGN KEY (BehavioralHealthAssessmentID)
 REFERENCES BehavioralHealthAssessment (BehavioralHealthAssessmentID)
 ON DELETE NO ACTION
