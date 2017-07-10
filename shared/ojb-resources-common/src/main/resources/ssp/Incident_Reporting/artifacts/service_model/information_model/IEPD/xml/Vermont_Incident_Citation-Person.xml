@@ -18,11 +18,10 @@
 
 -->
 <ir-doc:IncidentReport xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
-	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
-	xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd">
+	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd">
 	<lexspd:doPublish>
 		<lexs:PublishMessageContainer>
 			<lexs:PublishMessage>
@@ -159,8 +158,8 @@
 									<nc:IdentificationID>12345</nc:IdentificationID>
 								</j:EnforcementOfficialBadgeIdentification>
 							</j:EnforcementOfficial>
-							<!-- SUBJECT - PERSON -->
 						</lexsdigest:EntityPerson>
+						<!-- SUBJECT - PERSON -->
 						<lexsdigest:EntityPerson>
 							<lexsdigest:Person s:id="PERSON_03">
 								<nc:PersonAgeMeasure>
@@ -200,19 +199,6 @@
 								<nc:RoleOfPersonReference s:ref="PERSON_03" />
 							</j:CitationSubject>
 						</lexsdigest:EntityPerson>
-						<!-- SUBJECT - ORGANIZATION -->
-						<!--  lexsdigest:EntityOrganization>
-							<nc:Organization s:id="ORGANIZATION_01">
-								<nc:OrganizationName>ACME</nc:OrganizationName>
-							</nc:Organization-->
-							<!-- CITATION DELIVERY RECIPIENT - ORGANIZATION>
-						</lexsdigest:EntityOrganization>
-						<lexsdigest:EntityOrganization>
-							<nc:Organization s:id="ORGANIZATION_02">
-								<nc:OrganizationName>Morways Moving Company
-								</nc:OrganizationName>
-							</nc:Organization>
-						</lexsdigest:EntityOrganization-->
 						<!-- OFFICER AGENCY -->
 						<lexsdigest:EntityOrganization>
 							<nc:Organization s:id="AGENCY_01">
@@ -243,13 +229,9 @@
 									<nc:StructuredAddress>
 										<nc:LocationStreet>
 											<nc:StreetFullText>145 Austin Dr</nc:StreetFullText>
-											<nc:StreetNumberText>145</nc:StreetNumberText>
-											<nc:StreetName>Austin Dr</nc:StreetName>
-											<nc:StreetCategoryText>Street</nc:StreetCategoryText>
 										</nc:LocationStreet>
 										<nc:LocationCityName>Burlington</nc:LocationCityName>
 										<nc:LocationStateName>VT</nc:LocationStateName>
-										<nc:LocationCountryName>United States</nc:LocationCountryName>
 										<nc:LocationPostalCode>05401</nc:LocationPostalCode>
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
@@ -272,16 +254,7 @@
 							<nc:Location s:id="LOCATION_03">
 								<nc:LocationAddress>
 									<nc:StructuredAddress>
-										<nc:LocationStreet>
-											<nc:StreetFullText>123 Allen Drive</nc:StreetFullText>
-											<nc:StreetNumberText>123</nc:StreetNumberText>
-											<nc:StreetName>Allen Drive</nc:StreetName>
-											<nc:StreetCategoryText>Street</nc:StreetCategoryText>
-										</nc:LocationStreet>
 										<nc:LocationCityName>Milton</nc:LocationCityName>
-										<nc:LocationStateName>VT</nc:LocationStateName>
-										<nc:LocationCountryName>United States</nc:LocationCountryName>
-										<nc:LocationPostalCode>05468</nc:LocationPostalCode>
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
 							</nc:Location>
@@ -295,7 +268,6 @@
 											<nc:StreetFullText>100 State Street</nc:StreetFullText>
 										</nc:LocationStreet>
 										<nc:LocationCityName>Richmond</nc:LocationCityName>
-										<nc:LocationStateName>VT</nc:LocationStateName>
 										<nc:LocationPostalCode>05401-2277</nc:LocationPostalCode>
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
@@ -319,10 +291,6 @@
 						</lexsdigest:EntityVehicle>
 						<!-- ======================= Associations ======================= -->
 						<lexsdigest:Associations>
-							<j:ActivityEnforcementOfficialAssociation>
-								<nc:ActivityReference s:ref="INCIDENT_01" />
-								<nc:PersonReference s:ref="PERSON_021" />
-							</j:ActivityEnforcementOfficialAssociation>
 							<j:ActivityEnforcementOfficialAssociation>
 								<nc:ActivityReference s:ref="CITATION_01" />
 								<nc:PersonReference s:ref="PERSON_021" />
@@ -350,18 +318,10 @@
 								<nc:ActivityReference s:ref="INCIDENT_01" />
 								<nc:ActivityReference s:ref="OFFENSE_02" />
 							</lexsdigest:IncidentOffenseAssociation>
-							<lexsdigest:IncidentSubjectPersonAssociation>
-								<nc:ActivityReference s:ref="INCIDENT_01" />
-								<nc:PersonReference s:ref="SUBJECT_01" />
-							</lexsdigest:IncidentSubjectPersonAssociation>
 							<lexsdigest:PersonBirthLocationAssociation>
 								<nc:PersonReference s:ref="PERSON_03" />
 								<nc:LocationReference s:ref="LOCATION_02" />
 							</lexsdigest:PersonBirthLocationAssociation>
-							<!--  nc:ActivityInvolvedOrganizationAssociation>
-								<nc:ActivityReference s:ref="INCIDENT_01" />
-								<nc:OrganizationReference s:ref="ORGANIZATION_01" />
-							</nc:ActivityInvolvedOrganizationAssociation-->
 							<nc:ImmediateFamilyAssociation>
 								<nc:PersonParentReference s:ref="PERSON_01" />
 								<nc:PersonChildReference s:ref="PERSON_03" />
@@ -425,19 +385,11 @@
 								<ndexia:ActivityAugmentation>
 									<lexslib:SameAsDigestReference lexslib:ref="OFFENSE_01" />
 								</ndexia:ActivityAugmentation>
-								<ndexia:OffenseCode>Simple Assault</ndexia:OffenseCode>
-								<ndexia:OffenseText>Simple Assault 13 VSA 1023 13B</ndexia:OffenseText>
 							</ndexia:Offense>
 							<ndexia:Offense>
 								<ndexia:ActivityAugmentation>
 									<lexslib:SameAsDigestReference lexslib:ref="OFFENSE_02" />
 								</ndexia:ActivityAugmentation>
-								<j:Statute>
-									<j:StatuteCodeIdentification>
-										<nc:IdentificationID>SL3</nc:IdentificationID>
-									</j:StatuteCodeIdentification>
-								</j:Statute>
-								<ndexia:OffenseText>SL3 - 21-30 MPH Over Speed Limit - Work Zone</ndexia:OffenseText>
 							</ndexia:Offense>
 							<ndexia:EnforcementUnit>
 								<j:EnforcementUnitNumberIdentification>
@@ -491,7 +443,7 @@
 										<nc:IdentificationID>12FR655</nc:IdentificationID>
 									</j:StatuteCodeIdentification>
 								</inc-ext:CFRStatute>
-								<inc-ext:ViolationOffenseCode>1007A</inc-ext:ViolationOffenseCode>
+								<inc-ext:ViolationOffenseCode>23V1007B</inc-ext:ViolationOffenseCode>
 								<lexslib:SameAsDigestReference lexslib:ref="OFFENSE_02" />
 							</inc-ext:Offense>
 							<inc-ext:Charge>
@@ -503,12 +455,6 @@
 									<nc:IdentificationID>ID467023</nc:IdentificationID>
 								</inc-ext:EnforcementOfficialIdentification>
 								<lexslib:SameAsDigestReference lexslib:ref="OFFICER_01" />
-							</inc-ext:EnforcementOfficial>
-							<inc-ext:EnforcementOfficial>
-								<inc-ext:EnforcementOfficialIdentification>
-									<nc:IdentificationID>ID576357</nc:IdentificationID>
-								</inc-ext:EnforcementOfficialIdentification>
-								<lexslib:SameAsDigestReference lexslib:ref="OFFICER_02" />
 							</inc-ext:EnforcementOfficial>
 							<inc-ext:Person>
 								<inc-ext:PersonFishAndWildlifeLicenseIdentification>
@@ -558,17 +504,6 @@
 								<inc-ext:DriverLicenseCDLIndicator>false</inc-ext:DriverLicenseCDLIndicator>
 								<lexslib:SameAsDigestReference lexslib:ref="PERSON_03" />
 							</inc-ext:DriverLicense>
-							<!--  inc-ext:Organization>
-								<inc-ext:OrganizationDriverLicense>
-									<nc:DriverLicenseIdentification>
-										<nc:IdentificationID>12345678</nc:IdentificationID>
-										<j:IdentificationJurisdictionNCICLISCode>VT
-										</j:IdentificationJurisdictionNCICLISCode>
-									</nc:DriverLicenseIdentification>
-								</inc-ext:OrganizationDriverLicense>
-								<lexslib:SameAsDigestReference
-									lexslib:ref="ORGANIZATION_01" />
-							</inc-ext:Organization-->
 							<nc:PersonContactInformationAssociation>
 								<nc:PersonReference s:ref="PERSON_03" />
 								<nc:ContactInformationReference s:ref="LOCATION_01" />
@@ -593,16 +528,6 @@
 								<nc:DocumentReference s:ref="CITATION_01" />
 								<nc:EntityPersonReference s:ref="PERSON_03" />
 							</inc-ext:EntityDocumentAssociation>
-							<!--  inc-ext:EntityDocumentAssociation>
-								<nc:DocumentReference s:ref="CITATION_01" />
-								<nc:EntityOrganizationReference
-									s:ref="ORGANIZATION_01" />
-							</inc-ext:EntityDocumentAssociation-->
-							<!-- inc-ext:CitationDeliveryRecipientAssociation>
-								<inc-ext:CitationReference s:ref="CITATION_01" />
-								<nc:EntityOrganizationReference
-									s:ref="ORGANIZATION_02" />
-							</inc-ext:CitationDeliveryRecipientAssociation-->
 							<inc-ext:CitationDeliveryRecipientAssociation>
 								<inc-ext:CitationReference s:ref="CITATION_01" />
 								<nc:EntityPersonReference s:ref="PERSON_03" />
