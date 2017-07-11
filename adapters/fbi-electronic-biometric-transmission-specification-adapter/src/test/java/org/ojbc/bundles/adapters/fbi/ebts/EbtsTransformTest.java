@@ -200,6 +200,74 @@ public class EbtsTransformTest {
 		compareXml(expectedXmlString, actualTransformedXml);							
 	} 
 	
+	@Test
+	public void RBNToConsolidationReportTransform() throws Exception{
+		
+		InputStream inputFileStream = new FileInputStream("src/test/resources/input/FBI_RBN_UCN_Consolidation.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
+		
+		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/RBNToConsolidationReport.xsl"); 				
+		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
+		
+		Map<String, Object> xsltParamMap = getXsltParamMap();
+		String rapsheetString = "Subject's Rap Sheet goes here";
+		xsltParamMap.put("base64Rapsheet", Base64.encode(rapsheetString.getBytes()));
+			
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+				
+		log.debug("Tranformed XML: " + actualTransformedXml);
+		
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/CriminalHistory-Consolidation-Report.xml"));
+							
+		compareXml(expectedXmlString, actualTransformedXml);							
+	} 
+	
+	@Test
+	public void RBNToExpungementReportTransform() throws Exception{
+		
+		InputStream inputFileStream = new FileInputStream("src/test/resources/input/FBI_RBN_UCN_Deletion.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
+		
+		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/RBNToExpungementReport.xsl"); 				
+		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
+		
+		Map<String, Object> xsltParamMap = getXsltParamMap();
+		String rapsheetString = "Subject's Rap Sheet goes here";
+		xsltParamMap.put("base64Rapsheet", Base64.encode(rapsheetString.getBytes()));
+			
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+				
+		log.debug("Tranformed XML: " + actualTransformedXml);
+		
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/CriminalHistory-Deletion-Report.xml"));
+							
+		compareXml(expectedXmlString, actualTransformedXml);							
+	} 
+	
+	@Test
+	public void RBNToRestorationReportTransform() throws Exception{
+		
+		InputStream inputFileStream = new FileInputStream("src/test/resources/input/FBI_RBN_UCN_Restoration.xml");
+		Source inputFileSource = OJBUtils.createSaxSource(inputFileStream);
+		
+		InputStream xsltFileInStream = new FileInputStream("src/main/resources/xsl/RBNToRestorationReport.xsl"); 				
+		Source xsltSource = OJBUtils.createSaxSource(xsltFileInStream);
+		
+		Map<String, Object> xsltParamMap = getXsltParamMap();
+		String rapsheetString = "Subject's Rap Sheet goes here";
+		xsltParamMap.put("base64Rapsheet", Base64.encode(rapsheetString.getBytes()));
+			
+		String actualTransformedXml = xsltTransformer.transform(inputFileSource, xsltSource, xsltParamMap);		
+				
+		log.debug("Tranformed XML: " + actualTransformedXml);
+		
+		String expectedXmlString = FileUtils.readFileToString(
+				new File("src/test/resources/output/CriminalHistory-Restoration-Report.xml"));
+							
+		compareXml(expectedXmlString, actualTransformedXml);							
+	} 
 	
 	private Map<String, Object> getXsltParamMap(){
 	
@@ -227,11 +295,12 @@ public class EbtsTransformTest {
 		xsltParamMap.put("transactionContentSummaryContentRecordCountCivil", "03");				
 		// xsltParamMap.put("rapBackDisclosureIndicator", "false");
 		xsltParamMap.put("civilRapBackSubscriptionTerm", "L");	
-
+		xsltParamMap.put("deletedIdentity", "D123456");	
+		xsltParamMap.put("retainedIdentity", "R123456");	
+		xsltParamMap.put("restoredIdentity", "RES123456");
 		
 		return xsltParamMap;
 	} 
-	
 	
 	private static void compareXml(String expectedXmlString, String actualTransformedXml) throws SAXException, IOException{
 		
