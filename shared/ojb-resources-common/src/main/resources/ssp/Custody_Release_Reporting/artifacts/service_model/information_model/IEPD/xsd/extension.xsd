@@ -276,4 +276,48 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="BehavioralHealthCategoryText" type="niem-xs:string" substitutionGroup="crr-ext:BehavioralHealthStatusRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A description of a person's behavioral health classification.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TreatmentStatusCode" type="crr-ext:TreatmentStatusCodeType" substitutionGroup="nc:TreatmentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A code for the status of a specific treatment.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="TreatmentStatusCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Treatment Status</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="ACTIVE">
+				<xsd:annotation>
+					<xsd:documentation>Active</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="INACTIVE">
+				<xsd:annotation>
+					<xsd:documentation>Inactive
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="CRISIS">
+				<xsd:annotation>
+					<xsd:documentation>Crisis</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="TreatmentStatusCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Treatment Status</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="crr-ext:TreatmentStatusCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
 </xsd:schema>
