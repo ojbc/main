@@ -17,62 +17,51 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
-	xmlns:vt-ts-codes="http://ojbc.org/IEPD/Extensions/Vermont/TrafficStopCodes/1.0"
-	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
-	targetNamespace="http://ojbc.org/IEPD/Extensions/Vermont/TrafficStopCodes/1.0"
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:vt-ts-codes="http://ojbc.org/IEPD/Extensions/Vermont/TrafficStopCodes/1.0"
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/Vermont/TrafficStopCodes/1.0"
 	elementFormDefault="qualified">
-	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
-		schemaLocation="../../NIEM_2.0/niem-core/2.0/niem-core.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0"
-		schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
-		schemaLocation="../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
-		schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd" />
-	<xsd:import
-		namespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
-		schemaLocation="../../Structured_Payloads/OJBC/Incident_Report_Structured_Payload.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../NIEM_2.0/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" schemaLocation="../../Structured_Payloads/OJBC/Incident_Report_Structured_Payload.xsd" />
 	<xsd:annotation>
-		<xsd:documentation>Traffic Stop Codes
-		</xsd:documentation>
+		<xsd:documentation>Traffic Stop Codes</xsd:documentation>
 	</xsd:annotation>
 	<xsd:simpleType name="TrafficStopReasonCodeSimpleType">
 		<xsd:annotation>
-			<xsd:documentation>Traffic Stop Reason code set
-			</xsd:documentation>
+			<xsd:documentation>Traffic Stop Reason code set</xsd:documentation>
 		</xsd:annotation>
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="D">
 				<xsd:annotation>
-					<xsd:documentation>Suspicion of DWI
-					</xsd:documentation>
+					<xsd:documentation>Suspicion of DWI</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="E">
 				<xsd:annotation>
-					<xsd:documentation>Externally Generated
-					</xsd:documentation>
+					<xsd:documentation>Externally Generated</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="I">
 				<xsd:annotation>
-					<xsd:documentation>Investigatory
-					</xsd:documentation>
+					<xsd:documentation>Investigatory</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="M">
 				<xsd:annotation>
-					<xsd:documentation>Moving Violation
-					</xsd:documentation>
+					<xsd:documentation>Moving Violation</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="V">
 				<xsd:annotation>
-					<xsd:documentation>Vehicle Equipment
-					</xsd:documentation>
+					<xsd:documentation>Vehicle Equipment</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="O">
+				<xsd:annotation>
+					<xsd:documentation>Other</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 		</xsd:restriction>
@@ -84,42 +73,34 @@
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="TrafficStopReasonCode" type="vt-ts-codes:TrafficStopReasonCodeType"
-		substitutionGroup="inc-ext:TrafficStopReason">
+	<xsd:element name="TrafficStopReasonCode" type="vt-ts-codes:TrafficStopReasonCodeType" substitutionGroup="inc-ext:TrafficStopReason">
 		<xsd:annotation>
-			<xsd:documentation>A code that describes the traffic stop search
-				category.
-			</xsd:documentation>
+			<xsd:documentation>A code that describes the traffic stop search category.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:simpleType name="TrafficStopSearchCategoryCodeSimpleType">
 		<xsd:annotation>
-			<xsd:documentation>Traffic Stop Search Category code set
-			</xsd:documentation>
+			<xsd:documentation>Traffic Stop Search Category code set</xsd:documentation>
 		</xsd:annotation>
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="NS">
 				<xsd:annotation>
-					<xsd:documentation>No Search
-					</xsd:documentation>
+					<xsd:documentation>No Search</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="SPC">
 				<xsd:annotation>
-					<xsd:documentation>Probable Cause
-					</xsd:documentation>
+					<xsd:documentation>Probable Cause</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="SRS">
 				<xsd:annotation>
-					<xsd:documentation>Reasonable Suspicion
-					</xsd:documentation>
+					<xsd:documentation>Reasonable Suspicion</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="SW">
 				<xsd:annotation>
-					<xsd:documentation>Warrant
-					</xsd:documentation>
+					<xsd:documentation>Warrant</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 		</xsd:restriction>
@@ -131,37 +112,30 @@
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="TrafficStopSearchCategoryCode"
-		type="vt-ts-codes:TrafficStopSearchCategoryCodeType"
+	<xsd:element name="TrafficStopSearchCategoryCode" type="vt-ts-codes:TrafficStopSearchCategoryCodeType"
 		substitutionGroup="inc-ext:TrafficStopSearchCategory">
 		<xsd:annotation>
-			<xsd:documentation>A code that describes the traffic stop search
-				category.
-			</xsd:documentation>
+			<xsd:documentation>A code that describes the traffic stop search category.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:simpleType name="TrafficStopContrabandCodeSimpleType">
 		<xsd:annotation>
-			<xsd:documentation>Traffic Stop Contraband code set
-			</xsd:documentation>
+			<xsd:documentation>Traffic Stop Contraband code set</xsd:documentation>
 		</xsd:annotation>
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="C">
 				<xsd:annotation>
-					<xsd:documentation>Contraband
-					</xsd:documentation>
+					<xsd:documentation>Contraband</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="NC">
 				<xsd:annotation>
-					<xsd:documentation>No Contraband
-					</xsd:documentation>
+					<xsd:documentation>No Contraband</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="X">
 				<xsd:annotation>
-					<xsd:documentation>No Search/Not Applicable
-					</xsd:documentation>
+					<xsd:documentation>No Search/Not Applicable</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 		</xsd:restriction>
@@ -173,53 +147,44 @@
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="TrafficStopContrabandCode"
-		type="vt-ts-codes:TrafficStopContrabandCodeType" substitutionGroup="inc-ext:TrafficStopContraband">
+	<xsd:element name="TrafficStopContrabandCode" type="vt-ts-codes:TrafficStopContrabandCodeType" substitutionGroup="inc-ext:TrafficStopContraband">
 		<xsd:annotation>
-			<xsd:documentation>A code that describes the traffic stop contraband.
-			</xsd:documentation>
+			<xsd:documentation>A code that describes the traffic stop contraband.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:simpleType name="TrafficStopOutcomeCodeSimpleType">
 		<xsd:annotation>
-			<xsd:documentation>Traffic Stop Outcome code set
-			</xsd:documentation>
+			<xsd:documentation>Traffic Stop Outcome code set</xsd:documentation>
 		</xsd:annotation>
 		<xsd:restriction base="xsd:token">
 			<xsd:enumeration value="A">
 				<xsd:annotation>
-					<xsd:documentation>Arrest
-					</xsd:documentation>
+					<xsd:documentation>Arrest</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="AW">
 				<xsd:annotation>
-					<xsd:documentation>Arrest for Warrant
-					</xsd:documentation>
+					<xsd:documentation>Arrest for Warrant</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="N">
 				<xsd:annotation>
-					<xsd:documentation>No Action
-					</xsd:documentation>
+					<xsd:documentation>No Action</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="T">
 				<xsd:annotation>
-					<xsd:documentation>Ticket/VCVC
-					</xsd:documentation>
+					<xsd:documentation>Ticket/VCVC</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="V">
 				<xsd:annotation>
-					<xsd:documentation>Verbal Warning
-					</xsd:documentation>
+					<xsd:documentation>Verbal Warning</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 			<xsd:enumeration value="W">
 				<xsd:annotation>
-					<xsd:documentation>Written Warning
-					</xsd:documentation>
+					<xsd:documentation>Written Warning</xsd:documentation>
 				</xsd:annotation>
 			</xsd:enumeration>
 		</xsd:restriction>
@@ -231,11 +196,224 @@
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="TrafficStopOutcomeCode" type="vt-ts-codes:TrafficStopOutcomeCodeType"
-		substitutionGroup="inc-ext:TrafficStopOutcome">
+	<xsd:element name="TrafficStopOutcomeCode" type="vt-ts-codes:TrafficStopOutcomeCodeType" substitutionGroup="inc-ext:TrafficStopOutcome">
 		<xsd:annotation>
-			<xsd:documentation>A code that describes the traffic stop outcome.
-			</xsd:documentation>
+			<xsd:documentation>A code that describes the traffic stop outcome.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="IncidentWeatherConditionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Incident weather condition code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Clear">
+				<xsd:annotation>
+					<xsd:documentation>Clear</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Cloudy">
+				<xsd:annotation>
+					<xsd:documentation>Cloudy</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Raining">
+				<xsd:annotation>
+					<xsd:documentation>Raining</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Snowing">
+				<xsd:annotation>
+					<xsd:documentation>Snowing</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Fog">
+				<xsd:annotation>
+					<xsd:documentation>Fog</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Sleet">
+				<xsd:annotation>
+					<xsd:documentation>Sleet</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="IncidentWeatherConditionCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="vt-ts-codes:IncidentWeatherConditionCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="IncidentWeatherConditionCode" type="vt-ts-codes:IncidentWeatherConditionCodeType"
+		substitutionGroup="inc-ext:IncidentWeatherCondition">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the incident weather condition.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="IncidentHighwayConditionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Incident highway condition code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Dry">
+				<xsd:annotation>
+					<xsd:documentation>Dry</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Wet">
+				<xsd:annotation>
+					<xsd:documentation>Wet</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Muddy">
+				<xsd:annotation>
+					<xsd:documentation>Muddy</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Snowy">
+				<xsd:annotation>
+					<xsd:documentation>Snowy</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Ice">
+				<xsd:annotation>
+					<xsd:documentation>Ice</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Loose Material">
+				<xsd:annotation>
+					<xsd:documentation>Loose Material</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Concrete">
+				<xsd:annotation>
+					<xsd:documentation>Concrete</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Blacktop">
+				<xsd:annotation>
+					<xsd:documentation>Blacktop</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Gravel">
+				<xsd:annotation>
+					<xsd:documentation>Gravel</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Unimproved">
+				<xsd:annotation>
+					<xsd:documentation>Unimproved</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Divided Lanes">
+				<xsd:annotation>
+					<xsd:documentation>Divided Lanes</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="IncidentHighwayConditionCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="vt-ts-codes:IncidentHighwayConditionCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="IncidentHighwayConditionCode" type="vt-ts-codes:IncidentHighwayConditionCodeType"
+		substitutionGroup="inc-ext:IncidentHighwayCondition">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the incident highway condition.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="IncidentTrafficConditionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Incident traffic condition code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Light">
+				<xsd:annotation>
+					<xsd:documentation>Light</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Medium">
+				<xsd:annotation>
+					<xsd:documentation>Medium</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Heavy">
+				<xsd:annotation>
+					<xsd:documentation>Heavy</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Vehicle">
+				<xsd:annotation>
+					<xsd:documentation>Vehicle</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Pedestrian">
+				<xsd:annotation>
+					<xsd:documentation>Pedestrian</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Cross-Traffic">
+				<xsd:annotation>
+					<xsd:documentation>Cross-Traffic</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="IncidentTrafficConditionCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="vt-ts-codes:IncidentTrafficConditionCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="IncidentTrafficConditionCode" type="vt-ts-codes:IncidentTrafficConditionCodeType"
+		substitutionGroup="inc-ext:IncidentTrafficCondition">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the incident traffic condition.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="IncidentLightingConditionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Incident lighting condition code set</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Daylight">
+				<xsd:annotation>
+					<xsd:documentation>Daylight</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Darkness">
+				<xsd:annotation>
+					<xsd:documentation>Darkness</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Dawn/Dusk">
+				<xsd:annotation>
+					<xsd:documentation>Dawn/Dusk</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Other">
+				<xsd:annotation>
+					<xsd:documentation>Other</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="IncidentLightingConditionCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="vt-ts-codes:IncidentLightingConditionCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="IncidentLightingConditionCode" type="vt-ts-codes:IncidentLightingConditionCodeType"
+		substitutionGroup="inc-ext:IncidentLightingCondition">
+		<xsd:annotation>
+			<xsd:documentation>A code that describes the incident traffic condition.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
