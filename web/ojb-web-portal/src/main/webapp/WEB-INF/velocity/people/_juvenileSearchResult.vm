@@ -57,7 +57,7 @@
 			$(this).find("a.viewDetails").click();
 		}); 
 		
-		 $('a.viewDetails').click(function() {
+		$('#personSearchResultsTable').on('click', 'a.viewDetails',function() {
             var url = encodeURI(this.href);
             var dialog = $('<div style="display:none"  title="Juvenile History Detail" ><div style="display:none" id="personInformationInModal"/><div id="modalIframeSpinner"/><iframe id="modalIframe" src="" style="border:0;overflow:hidden;height:100%;width:99%" scrolling="no"  frameBorder="0" /></div>' ).appendTo('body');
 			var dlgWidth = $(document).width() * .6;
