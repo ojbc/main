@@ -19,8 +19,8 @@
 -->
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:che-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryExpungementReport/1.0"
-	xmlns:che-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryExpungementReport/Extension/1.0"
+	xmlns:chr-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryRestorationReport/1.0"
+	xmlns:chr-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryRestorationReport/Extension/1.0"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
@@ -29,13 +29,13 @@
 	xmlns:j41="http://niem.gov/niem/domains/jxdm/4.1"
 	exclude-result-prefixes="ebts ansi-nist itl nc20 j41">
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes" />
-	<xsl:param name="deletedIdentity" />
+	<xsl:param name="restoredIdentity" />
 	<xsl:param name="jurisdictionCode" select="'FBI'" />
 	<xsl:template match="/itl:NISTBiometricInformationExchangePackage">
-		<che-report-doc:CriminalHistoryExpungementReport>
+		<chr-report-doc:CriminalHistoryRestorationReport>
 			<xsl:apply-templates select="." mode="jurisdiction" />
 			<xsl:apply-templates select="." mode="UCN" />
-		</che-report-doc:CriminalHistoryExpungementReport>
+		</chr-report-doc:CriminalHistoryRestorationReport>
 	</xsl:template>
 	<xsl:template match="itl:NISTBiometricInformationExchangePackage"
 		mode="UCN">
@@ -45,18 +45,18 @@
 	</xsl:template>
 	<xsl:template match="itl:NISTBiometricInformationExchangePackage"
 		mode="postUCN">
-		<che-report-ext:ExpungementIdentifiers>
+		<chr-report-ext:RestorationIdentifiers>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>
-					<xsl:value-of select="$deletedIdentity" />
+					<xsl:value-of select="$restoredIdentity" />
 				</nc:IdentificationID>
 			</j:PersonFBIIdentification>
-		</che-report-ext:ExpungementIdentifiers>
+		</chr-report-ext:RestorationIdentifiers>
 	</xsl:template>
 	<xsl:template match="itl:NISTBiometricInformationExchangePackage"
 		mode="jurisdiction">
-		<che-report-ext:CriminalHistoryReportJurisdictionCode>
+		<chr-report-ext:CriminalHistoryReportJurisdictionCode>
 			<xsl:value-of select="normalize-space($jurisdictionCode)" />
-		</che-report-ext:CriminalHistoryReportJurisdictionCode>
+		</chr-report-ext:CriminalHistoryReportJurisdictionCode>
 	</xsl:template>
 </xsl:stylesheet>

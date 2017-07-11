@@ -31,7 +31,7 @@
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes" />
 	<xsl:param name="deletedIdentity" />
 	<xsl:param name="retainedIdentity" />
-	<xsl:param name="jurisdictionCode" select="'Federal'" />
+	<xsl:param name="jurisdictionCode" select="'FBI'" />
 	<xsl:template match="/itl:NISTBiometricInformationExchangePackage">
 		<chc-report-doc:CriminalHistoryConsolidationReport>
 			<xsl:apply-templates select="." mode="jurisdiction" />
