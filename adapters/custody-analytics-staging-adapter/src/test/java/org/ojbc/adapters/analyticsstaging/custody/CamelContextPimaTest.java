@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -190,6 +191,10 @@ public class CamelContextPimaTest {
 		assertThat(behavioralHealthAssessment.getCareEpisodeEndDate(), is(LocalDate.parse("2016-04-01")));
 		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
 		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(2));
+		
+		assertTrue(behavioralHealthAssessment.getBehavioralHealthCategoryTexts().size() == 2);
+		assertTrue(behavioralHealthAssessment.getBehavioralHealthCategoryTexts()
+				.containsAll( Arrays.asList("Serious Mental Illness", "Mental Problem")));
 		
 		List<KeyValue> assessmentCategories = analyticalDatastoreDAO.getBehavioralHealthAssessmentCategories(1);
 		assertThat(assessmentCategories.size(), is(3));

@@ -165,6 +165,7 @@
 		<br-ext:GeneralMentalHealthConditionIndicator>false
 		</br-ext:GeneralMentalHealthConditionIndicator>
 		<br-ext:BehavioralHealthCategoryText>Serious Mental Illness</br-ext:BehavioralHealthCategoryText>
+		<br-ext:BehavioralHealthCategoryText>Mental Problem</br-ext:BehavioralHealthCategoryText>
 		<j:Evaluation>
 			<j:EvaluationDiagnosisDescriptionText>Schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
 		</j:Evaluation>

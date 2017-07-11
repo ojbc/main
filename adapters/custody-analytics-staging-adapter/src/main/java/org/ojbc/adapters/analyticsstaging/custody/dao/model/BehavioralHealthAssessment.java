@@ -34,6 +34,7 @@ public class BehavioralHealthAssessment implements Serializable{
     private String enrolledProviderName;
     
     private List<String> behavioralHealthDiagnoses; 
+    private List<String> BehavioralHealthCategoryTexts; 
     private List<KeyValue> assessmentCategories = new ArrayList<KeyValue>(); 
     private List<PrescribedMedication> prescribedMedications; 
     private List<Treatment> treatments;
@@ -131,6 +132,15 @@ public class BehavioralHealthAssessment implements Serializable{
 
 	public void setAssessmentCategories(List<KeyValue> assessmentCategories) {
 		this.assessmentCategories = assessmentCategories;
+	}
+
+	public List<String> getBehavioralHealthCategoryTexts() {
+		return BehavioralHealthCategoryTexts;
+	}
+
+	public void setBehavioralHealthCategoryTexts(
+			List<String> behavioralHealthCategoryTexts) {
+		BehavioralHealthCategoryTexts = behavioralHealthCategoryTexts;
 	}
 
 }
