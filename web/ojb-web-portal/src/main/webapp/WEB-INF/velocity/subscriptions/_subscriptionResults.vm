@@ -58,8 +58,7 @@
 				}	  		
 			}
 	  		
-	  		
-			$('#validateLink').click (function() {
+			$('#subscriptionButtons').on('click', '#validateLink',function() {
 				var checkedValues = getCheckedValues();	
 																																			
 				if( !checkedValues ){
@@ -86,9 +85,7 @@
 			  }    				
     		 )	  
 	  
-	  		 
-			$('#unsubscribeLink').click (function() {
-																			
+  			$('#subscriptionButtons').on('click', '#unsubscribeLink',function() {
 				var checkedValues = getCheckedValues();	
 				
 				if(!checkedValues){
@@ -120,77 +117,70 @@
     		 )
     		 
 	  		// listener for click on any editSubscriptionLink button
-			$("a[id^='editSubscriptionLink']").click (
-				function(){  
-				
-					var editMvcUrl = encodeURI(this);
+	  		$('#searchResultsTable').on('click', 'a[id^="editSubscriptionLink"]',function() {
+				var editMvcUrl = encodeURI(this);
 					 	    		    			
-			  		$.get(editMvcUrl, 
-			  			function(data){			  			
-			  							  			
-			    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');			    			
-			    			 vSubDialog.dialog({                    
-					                position: {
-			                           my: "center",
-			                           at: "center",
-			                           of: window
-					                },
-					                modal:true,
-							        width:240,
-							        height:530,
-							        resizable:false,
-							        open:function(event,ui){
-							        	$('#editSubscriptionDialog').html(data);
-							        },
-							        close: function(event, ui){
-							        	$(this).dialog("close");
-							        	$('#editSubscriptionDialog').remove();
-							        }    	                                  
-			                    }); 			  						  				  				
-			  			}
-			  		).fail(ojbc.displayFailMessage);	
-			  		
-			  		//prevent default browser navigation to link<a> href url, because we're using the url 
-			  		// as a spring mvc call
-			  		return false;		  					  					  		                                                     
-    		 	}
-    		)   		 
+		  		$.get(editMvcUrl, 
+		  			function(data){			  			
+		  							  			
+		    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');			    			
+		    			 vSubDialog.dialog({                    
+				                position: {
+		                           my: "center",
+		                           at: "center",
+		                           of: window
+				                },
+				                modal:true,
+						        width:240,
+						        height:530,
+						        resizable:false,
+						        open:function(event,ui){
+						        	$('#editSubscriptionDialog').html(data);
+						        },
+						        close: function(event, ui){
+						        	$(this).dialog("close");
+						        	$('#editSubscriptionDialog').remove();
+						        }    	                                  
+		                    }); 			  						  				  				
+		  			}
+		  		).fail(ojbc.displayFailMessage);	
+		  		
+		  		//prevent default browser navigation to link<a> href url, because we're using the url 
+		  		// as a spring mvc call
+		  		return false;		  					  					  		                                                     
+		 	});   		 
 	  
-    	    
-     		$('#addSubLink').click (
-    			function(){    	    		
-    			
-    				// call the spring controller method we need by this GET URL request,
-    				// that method populates the mvc model map with objects needed that 
-    				// are used by the html in the modal velocity template file
-			  		$.post("#springUrl('/subscriptions/addSubscription')", 
-			  			function(data){			  			
-			  							  			
-			    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="addSubscriptionDialog" title="ADD SUBSCRIPTION"></div>').appendTo('body');			    			
-			    			 
-			    			 vSubDialog.dialog({                    
-					                position: {
-			                           my: "center",
-			                           at: "center",
-			                           of: window
-					                },
-					                modal:true,
-							        width:240,
-							        height:530,
-							        resizable:false,
-							        open:function(event,ui){							        							        	
-							        	$('#addSubscriptionDialog').html(data);
-							        	$('#modalIframeSpinner').hide();
-							        },
-							        close: function(event, ui){
-							        	$(this).dialog("close");
-							        	$('#addSubscriptionDialog').remove();
-							        }    	                                  
-			                    }); 			  						  				  				
-			  			}
-			  		).fail(ojbc.displayFailMessage);
-			  					  					  		                                                      
-    		  	}) 
+  			$('#subscriptionResultsContainer').on('click', '#addSubLink',function() {
+				// call the spring controller method we need by this GET URL request,
+				// that method populates the mvc model map with objects needed that 
+				// are used by the html in the modal velocity template file
+		  		$.post("#springUrl('/subscriptions/addSubscription')", 
+		  			function(data){			  			
+		  							  			
+		    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="addSubscriptionDialog" title="ADD SUBSCRIPTION"></div>').appendTo('body');			    			
+		    			 
+		    			 vSubDialog.dialog({                    
+				                position: {
+		                           my: "center",
+		                           at: "center",
+		                           of: window
+				                },
+				                modal:true,
+						        width:240,
+						        height:530,
+						        resizable:false,
+						        open:function(event,ui){							        							        	
+						        	$('#addSubscriptionDialog').html(data);
+						        	$('#modalIframeSpinner').hide();
+						        },
+						        close: function(event, ui){
+						        	$(this).dialog("close");
+						        	$('#addSubscriptionDialog').remove();
+						        }    	                                  
+		                    }); 			  						  				  				
+		  			}
+		  		).fail(ojbc.displayFailMessage);
+		  	}); 
     		
     		var searchBarIsHidden = $('#searchBar').is(':hidden');
     		
