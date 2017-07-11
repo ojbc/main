@@ -119,7 +119,7 @@ public class SamlServiceImpl {
 		LOG.info("Loading assertion from: " + assertionHttpHeaderName);
 		
 		if(assertionHttpHeaderName == null){
-			LOG.warn("Shib-Assertion-01 header was null, Returning null asssertion document element");
+			LOG.warn("shib-assertion-01 header was null, Returning null asssertion document element");
 			return null;
 		}
 		
