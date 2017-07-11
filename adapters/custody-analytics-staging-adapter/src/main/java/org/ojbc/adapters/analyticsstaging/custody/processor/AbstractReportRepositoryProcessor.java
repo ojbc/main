@@ -203,9 +203,34 @@ public abstract class AbstractReportRepositoryProcessor {
 				
 				assessment.setBehavioralHealthAssessmentId(assessmentId);
 				processEvaluationNodes(assessment, behavioralHealthInfoNode, extPrefix);
+				processBehavioralHealthCategoryTextNodes(assessment, behavioralHealthInfoNode, extPrefix);
 				processTreatmentNodes(assessment, behavioralHealthInfoNode, extPrefix);
 				processPrescribedMedications(assessment, behavioralHealthInfoNode, extPrefix);
 			}
+		}
+		
+	}
+
+	private void processBehavioralHealthCategoryTextNodes(
+			BehavioralHealthAssessment assessment,
+			Node behavioralHealthInfoNode, String extPrefix) throws Exception {
+		
+		NodeList behavioralHealthCategoryTextNodes = XmlUtils.xPathNodeListSearch(behavioralHealthInfoNode, extPrefix + ":BehavioralHealthCategoryText");
+		if (behavioralHealthCategoryTextNodes.getLength() > 0){
+			
+			List<String> behavioralHealthCategoryTexts = new ArrayList<>();
+			
+			for (int i= 0; i < behavioralHealthCategoryTextNodes.getLength(); i++){
+				String behavioralHealthCategoryText = behavioralHealthCategoryTextNodes.item(i).getTextContent(); 
+
+				if (StringUtils.isNotBlank(behavioralHealthCategoryText)){
+					behavioralHealthCategoryTexts.add(behavioralHealthCategoryText.trim());
+				}
+			}
+			assessment.setBehavioralHealthCategoryTexts(behavioralHealthCategoryTexts);
+			
+			analyticalDatastoreDAO.saveBehavioralHealthCategoryTexts(assessment.getBehavioralHealthAssessmentId(), behavioralHealthCategoryTexts);
+
 		}
 		
 	}

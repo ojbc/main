@@ -102,6 +102,10 @@ public interface AnalyticalDatastoreDAO {
 	public void savePrescribedMedications(final List<PrescribedMedication> prescribedMedications);
 	
 	public void updateCustodyStatusChangeBookingId(Integer bookingId, String bookingNumber); 
-	public void updateCustodyReleaseBookingId(Integer bookingId, String bookingNumber); 
+	public void updateCustodyReleaseBookingId(Integer bookingId, String bookingNumber);
+
+	public void saveBehavioralHealthCategoryTexts(
+			Integer behavioralHealthAssessmentId,
+			List<String> behavioralHealthCategoryTexts); 
 
 }
