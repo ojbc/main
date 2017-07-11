@@ -70,6 +70,7 @@
 		<crr-ext:SubstanceAbuseIndicator>true</crr-ext:SubstanceAbuseIndicator>
 		<crr-ext:GeneralMentalHealthConditionIndicator>false
 		</crr-ext:GeneralMentalHealthConditionIndicator>
+		<crr-ext:BehavioralHealthCategoryText>Serious Mental Illness</crr-ext:BehavioralHealthCategoryText>
 		<j:Evaluation>
 			<j:EvaluationDiagnosisDescriptionText>Schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
 		</j:Evaluation>
@@ -86,6 +87,7 @@
 					</nc:OrganizationName>
 				</nc:EntityOrganization>
 			</nc:TreatmentProvider>
+			<crr-ext:TreatmentStatusCode>CRISIS</crr-ext:TreatmentStatusCode>
 			<crr-ext:TreatmentCourtOrderedIndicator>true
 			</crr-ext:TreatmentCourtOrderedIndicator>
 			<crr-ext:TreatmentActiveIndicator>true
