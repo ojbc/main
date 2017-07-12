@@ -106,18 +106,8 @@
 						
 			<camel:choice>
 			  <camel:when>
-			    <simple>${header.operationName} == 'Modify'</simple>  			    
-			    <log message="\n\n\n Processing operation:  Modify \n\n\n" />    			    
-			    <to uri="direct:processOperation"/>    
-			  </camel:when>
-			  <when>
-			    <simple>${header.operationName} == 'Subscribe'</simple>			    
-			    <log message="\n\n\n Processing operation:  Subscribe \n\n\n" />  			    
-			    <to uri="direct:processOperation"/>
-			  </when>
-			  <when>
-			  	<simple>${header.operationName} == 'Unsubscribe'</simple>			  	
-			  	<log message="\n\n\n Processing operation:  Unsubscribe \n\n\n" />			  	
+			    <simple>${header.operationName} == 'Modify' or ${header.operationName} == 'Subscribe' or ${header.operationName} == 'Unsubscribe'</simple>			  	
+			  	<log message="\n\n\n Processing operation:  ${header.operationName} \n\n\n" />			  	
 			  	<to uri="direct:processOperation"/>
 			  </when>
 			  <otherwise>
