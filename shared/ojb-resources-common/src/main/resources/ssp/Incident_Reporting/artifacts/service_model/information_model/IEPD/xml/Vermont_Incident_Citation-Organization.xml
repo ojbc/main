@@ -188,7 +188,7 @@
 						<!-- SUBJECT - ORGANIZATION -->
 						<lexsdigest:EntityOrganization>
 							<nc:Organization s:id="ORGANIZATION_01">
-								<nc:OrganizationName>Berlin City Kia</nc:OrganizationName>
+								<nc:OrganizationName>ACME</nc:OrganizationName>
 							</nc:Organization>
 						</lexsdigest:EntityOrganization>
 						<!-- OFFICER AGENCY -->
@@ -202,7 +202,7 @@
 						<lexsdigest:EntityTelephoneNumber>
 							<lexsdigest:TelephoneNumber>
 								<nc:FullTelephoneNumber s:id="TELEPHONE_01">
-									<nc:TelephoneNumberFullID>802-864-3905</nc:TelephoneNumberFullID>
+									<nc:TelephoneNumberFullID>802-864-3333</nc:TelephoneNumberFullID>
 								</nc:FullTelephoneNumber>
 							</lexsdigest:TelephoneNumber>
 						</lexsdigest:EntityTelephoneNumber>
@@ -212,9 +212,9 @@
 								<nc:LocationAddress>
 									<nc:StructuredAddress>
 										<nc:LocationStreet>
-											<nc:StreetFullText> PO Box 514</nc:StreetFullText>
+											<nc:StreetFullText>123 Main Street</nc:StreetFullText>
 										</nc:LocationStreet>
-										<nc:LocationCityName>Williston</nc:LocationCityName>
+										<nc:LocationCityName>Burlington</nc:LocationCityName>
 										<nc:LocationStateName>VT</nc:LocationStateName>
 										<nc:LocationPostalCode>05495</nc:LocationPostalCode>
 									</nc:StructuredAddress>
