@@ -203,9 +203,34 @@ public abstract class AbstractReportRepositoryProcessor {
 				
 				assessment.setBehavioralHealthAssessmentId(assessmentId);
 				processEvaluationNodes(assessment, behavioralHealthInfoNode, extPrefix);
+				processBehavioralHealthCategoryTextNodes(assessment, behavioralHealthInfoNode, extPrefix);
 				processTreatmentNodes(assessment, behavioralHealthInfoNode, extPrefix);
 				processPrescribedMedications(assessment, behavioralHealthInfoNode, extPrefix);
 			}
+		}
+		
+	}
+
+	private void processBehavioralHealthCategoryTextNodes(
+			BehavioralHealthAssessment assessment,
+			Node behavioralHealthInfoNode, String extPrefix) throws Exception {
+		
+		NodeList behavioralHealthCategoryTextNodes = XmlUtils.xPathNodeListSearch(behavioralHealthInfoNode, extPrefix + ":BehavioralHealthCategoryText");
+		if (behavioralHealthCategoryTextNodes.getLength() > 0){
+			
+			List<String> behavioralHealthCategoryTexts = new ArrayList<>();
+			
+			for (int i= 0; i < behavioralHealthCategoryTextNodes.getLength(); i++){
+				String behavioralHealthCategoryText = behavioralHealthCategoryTextNodes.item(i).getTextContent(); 
+
+				if (StringUtils.isNotBlank(behavioralHealthCategoryText)){
+					behavioralHealthCategoryTexts.add(behavioralHealthCategoryText.trim());
+				}
+			}
+			assessment.setBehavioralHealthCategoryTexts(behavioralHealthCategoryTexts);
+			
+			analyticalDatastoreDAO.saveBehavioralHealthCategoryTexts(assessment.getBehavioralHealthAssessmentId(), behavioralHealthCategoryTexts);
+
 		}
 		
 	}
@@ -301,9 +326,8 @@ public abstract class AbstractReportRepositoryProcessor {
 				String treatmentAdmissionReason = BooleanUtils.toString(treatmentCourtOrdered, "Court-Ordered Treatment", "Other", null); 
 				treatment.setTreatmentAdmissionReasonTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.TreatmentAdmissionReasonType, treatmentAdmissionReason));
 				
-				Boolean treatmentActive = BooleanUtils.toBooleanObject(XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentActiveIndicator"));
-				String treamentStatusType = BooleanUtils.toString(treatmentActive, "active", "inactive", null);
-				treatment.setTreatmentStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.TreatmentStatusType, treamentStatusType));
+				String treatmentStatus = XmlUtils.xPathStringSearch(treatmentNode, extPrefix + ":TreatmentStatusCode");
+				treatment.setTreatmentStatusTypeId(descriptionCodeLookupService.retrieveCode(CodeTable.TreatmentStatusType, treatmentStatus));
 				
 				treatments.add(treatment);
 			}

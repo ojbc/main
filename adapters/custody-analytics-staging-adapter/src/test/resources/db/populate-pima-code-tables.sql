@@ -3,7 +3,7 @@
  * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
  * versions as allowed by the RPL, and You may not copy or use this file in either source code
  * or executable form, except in compliance with the terms and conditions of the RPL
- *
+ * 
  * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
  * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
  * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
@@ -293,3 +293,4 @@ insert into TreatmentAdmissionReasonType (TreatmentAdmissionReasonTypeID, Treatm
 insert into TreatmentAdmissionReasonType (TreatmentAdmissionReasonTypeID, TreatmentAdmissionReasonTypeDescription) values ('2', 'Other');
 insert into TreatmentStatusType (TreatmentStatusTypeID, TreatmentStatusTypeDescription) values ('1', 'Active');
 insert into TreatmentStatusType (TreatmentStatusTypeID, TreatmentStatusTypeDescription) values ('2', 'Inactive');
+insert into TreatmentStatusType (TreatmentStatusTypeID, TreatmentStatusTypeDescription) values ('3', 'Crisis');

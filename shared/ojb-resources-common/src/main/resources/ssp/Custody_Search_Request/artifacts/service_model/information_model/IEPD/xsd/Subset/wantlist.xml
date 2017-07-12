@@ -70,6 +70,10 @@
     <w:ElementInType w:name="j:CourtAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="j:DriverLicenseBaseType" w:isRequested="false">
+    <w:ElementInType w:name="j:DriverLicenseIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:DriverLicenseType" w:isRequested="false">
     <w:ElementInType w:name="j:DriverLicenseCardIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>

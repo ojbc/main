@@ -937,7 +937,7 @@ public class VehicleCrashSampleGenerator extends AbstractSampleGenerator {
 		XmlUtils.addAttribute(crashDriverLicElement, OjbcNamespaceContext.NS_STRUCTURES_30, "id", "Driver_License_01");
 
 		Element dlCardIdElement = XmlUtils.appendElement(crashDriverLicElement, OjbcNamespaceContext.NS_JXDM_51,
-				"DriverLicenseCardIdentification");
+				"DriverLicenseIdentification");
 
 		Element dlCardIdValueElement = XmlUtils.appendElement(dlCardIdElement, OjbcNamespaceContext.NS_NC_30,
 				"IdentificationID");

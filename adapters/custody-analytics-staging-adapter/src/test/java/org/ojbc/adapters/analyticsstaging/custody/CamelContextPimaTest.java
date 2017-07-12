@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -191,6 +192,10 @@ public class CamelContextPimaTest {
 		assertThat(behavioralHealthAssessment.getEnrolledProviderName(), is("79"));
 		assertThat(behavioralHealthAssessment.getMedicaidStatusTypeId(), is(2));
 		
+		assertTrue(behavioralHealthAssessment.getBehavioralHealthCategoryTexts().size() == 2);
+		assertTrue(behavioralHealthAssessment.getBehavioralHealthCategoryTexts()
+				.containsAll( Arrays.asList("Serious Mental Illness", "Mental Problem")));
+		
 		List<KeyValue> assessmentCategories = analyticalDatastoreDAO.getBehavioralHealthAssessmentCategories(1);
 		assertThat(assessmentCategories.size(), is(3));
 		assertThat(assessmentCategories.get(0).getValue(), is("Substance Abuse"));
@@ -204,7 +209,7 @@ public class CamelContextPimaTest {
 		assertThat(treatment.getBehavioralHealthAssessmentID(), is(1));
 		assertThat(treatment.getTreatmentStartDate(), is(LocalDate.parse("2016-01-01"))); 
 		assertThat(treatment.getTreatmentAdmissionReasonTypeId(), is(1));
-		assertThat(treatment.getTreatmentStatusTypeId(), is(1));
+		assertThat(treatment.getTreatmentStatusTypeId(), is(3));
 		assertThat(treatment.getTreatmentProviderName(), is("Treatment Providing Organization Name"));
 		
 		

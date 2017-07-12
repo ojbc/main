@@ -58,8 +58,7 @@
 				}	  		
 			}
 	  		
-	  		
-			$('#validateLink').click (function() {
+			$('#subscriptionButtons').on('click', '#validateLink',function() {
 				var checkedValues = getCheckedValues();	
 																																			
 				if( !checkedValues ){
@@ -86,9 +85,7 @@
 			  }    				
     		 )	  
 	  
-	  		 
-			$('#unsubscribeLink').click (function() {
-																			
+  			$('#subscriptionButtons').on('click', '#unsubscribeLink',function() {
 				var checkedValues = getCheckedValues();	
 				
 				if(!checkedValues){
@@ -120,43 +117,40 @@
     		 )
     		 
 	  		// listener for click on any editSubscriptionLink button
-			$("a[id^='editSubscriptionLink']").click (
-				function(){  
-				
-					var editMvcUrl = encodeURI(this);
+	  		$('#searchResultsTable').on('click', 'a[id^="editSubscriptionLink"]',function() {
+				var editMvcUrl = encodeURI(this);
 					 	    		    			
-			  		$.get(editMvcUrl, 
-			  			function(data){			  			
-			    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');			    			
-			    			 vSubDialog.dialog({                    
-					                position: {
-			                           my: "left top",
-			                           at: "left bottom",
-			                           of: $("#searchBar")
-					                },
-					                modal:true,
-							        maxWidth:480,
-							        maxHeight:580,
-							        resizable:false,
-							        open:function(event,ui){
-							        	$('#editSubscriptionDialog').html(data);
-							        },
-							        close: function(event, ui){
-							        	$(this).dialog("close");
-							        	$('#editSubscriptionDialog').remove();
-							        }    	                                  
-			                    }); 			  						  				  				
-			  			}
-			  		).fail(ojbc.displayFailMessage);	
-			  		
-			  		//prevent default browser navigation to link<a> href url, because we're using the url 
-			  		// as a spring mvc call
-			  		return false;		  					  					  		                                                     
-    		 	}
-    		)   		 
+		  		$.get(editMvcUrl, 
+		  			function(data){			  			
+		    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="editSubscriptionDialog" title="EDIT SUBSCRIPTION"/>').appendTo('body');			    			
+		    			 vSubDialog.dialog({                    
+				                position: {
+		                           my: "left top",
+		                           at: "left bottom",
+		                           of: $("#searchBar")
+				                },
+				                modal:true,
+						        maxWidth:480,
+						        maxHeight:580,
+						        resizable:false,
+						        open:function(event,ui){
+						        	$('#editSubscriptionDialog').html(data);
+						        },
+						        close: function(event, ui){
+						        	$(this).dialog("close");
+						        	$('#editSubscriptionDialog').remove();
+						        }    	                                  
+		                    }); 			  						  				  				
+		  			}
+		  		).fail(ojbc.displayFailMessage);	
+		  		
+		  		//prevent default browser navigation to link<a> href url, because we're using the url 
+		  		// as a spring mvc call
+		  		return false;		  					  					  		                                                     
+		 	});   		 
 	  
     	    
-     		$('#addSubLink').click (
+     		$('#subscriptionResultsContainer').on('click', '#addSubLink',function() {
     			function(){    	    		
     			
     				// call the spring controller method we need by this GET URL request,

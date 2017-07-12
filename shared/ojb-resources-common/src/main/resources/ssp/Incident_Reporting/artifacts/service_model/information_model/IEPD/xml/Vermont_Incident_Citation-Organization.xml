@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<ir-doc:IncidentReport xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd">
+	<lexspd:doPublish>
+		<lexs:PublishMessageContainer>
+			<lexs:PublishMessage>
+				<lexs:PDMessageMetadata>
+					<lexs:LEXSVersion>3.1.4</lexs:LEXSVersion>
+					<lexs:MessageDateTime>2012-08-02T10:30:04.048-04:00</lexs:MessageDateTime>
+					<lexs:MessageSequenceNumber>1</lexs:MessageSequenceNumber>
+					<lexs:DataSensitivity>SBU</lexs:DataSensitivity>
+				</lexs:PDMessageMetadata>
+				<lexs:DataSubmitterMetadata>
+					<lexs:SystemIdentifier>
+						<lexs:ORI>Vermont 99999</lexs:ORI>
+						<nc:OrganizationName>Vermont CJIS</nc:OrganizationName>
+						<lexs:SystemID>CJIS</lexs:SystemID>
+					</lexs:SystemIdentifier>
+					<lexs:SystemContact>
+						<nc:PersonGivenName>Joe</nc:PersonGivenName>
+						<nc:PersonSurName>Contact</nc:PersonSurName>
+						<nc:PersonFullName>Joe Contact</nc:PersonFullName>
+						<nc:ContactTelephoneNumber>
+							<nc:NANPTelephoneNumber>
+								<nc:TelephoneAreaCodeID>999</nc:TelephoneAreaCodeID>
+								<nc:TelephoneExchangeID>999</nc:TelephoneExchangeID>
+								<nc:TelephoneLineID>9999</nc:TelephoneLineID>
+							</nc:NANPTelephoneNumber>
+						</nc:ContactTelephoneNumber>
+						<nc:OrganizationName>Vermont CJIS data center</nc:OrganizationName>
+					</lexs:SystemContact>
+				</lexs:DataSubmitterMetadata>
+				<lexs:DataItemPackage>
+					<lexs:PackageMetadata>
+						<lexs:DataItemID>Incident ID goes here</lexs:DataItemID>
+						<lexs:DataItemContact>
+							<nc:PersonGivenName>Frank</nc:PersonGivenName>
+							<nc:PersonSurName>Smith</nc:PersonSurName>
+							<nc:PersonFullName>Frank Smith</nc:PersonFullName>
+							<nc:ContactTelephoneNumber>
+								<nc:NANPTelephoneNumber>
+									<nc:TelephoneAreaCodeID>999</nc:TelephoneAreaCodeID>
+									<nc:TelephoneExchangeID>999</nc:TelephoneExchangeID>
+									<nc:TelephoneLineID>9999</nc:TelephoneLineID>
+								</nc:NANPTelephoneNumber>
+							</nc:ContactTelephoneNumber>
+						</lexs:DataItemContact>
+						<lexs:DataItemReferenceID>Incident ID also goes here</lexs:DataItemReferenceID>
+						<lexs:DataItemPublishInstruction>Insert</lexs:DataItemPublishInstruction>
+						<lexs:DataItemStatus> Closed</lexs:DataItemStatus>
+						<lexs:DataOwnerMetadata>
+							<lexs:DataOwnerIdentifier>
+								<lexs:ORI>VT1234567</lexs:ORI>
+								<nc:OrganizationName>Brattelboro PD</nc:OrganizationName>
+								<lexs:SystemID>N-DEx Connector</lexs:SystemID>
+							</lexs:DataOwnerIdentifier>
+							<lexs:DataOwnerContact>
+								<nc:PersonGivenName>Bill</nc:PersonGivenName>
+								<nc:PersonSurName>Johnson</nc:PersonSurName>
+								<nc:PersonFullName>Bill Johnson</nc:PersonFullName>
+								<nc:ContactTelephoneNumber>
+									<nc:NANPTelephoneNumber>
+										<nc:TelephoneAreaCodeID>999</nc:TelephoneAreaCodeID>
+										<nc:TelephoneExchangeID>999</nc:TelephoneExchangeID>
+										<nc:TelephoneLineID>9999</nc:TelephoneLineID>
+									</nc:NANPTelephoneNumber>
+								</nc:ContactTelephoneNumber>
+							</lexs:DataOwnerContact>
+						</lexs:DataOwnerMetadata>
+						<lexs:DisseminationCriteriaValue>
+							<lexs:DisseminationCriteriaDomainText>N-DEx</lexs:DisseminationCriteriaDomainText>
+							<lexs:DisseminationCriteriaText>Green</lexs:DisseminationCriteriaText>
+						</lexs:DisseminationCriteriaValue>
+						<lexs:DataItemCategory>
+							<lexs:DataItemCategoryText>Incident Report</lexs:DataItemCategoryText>
+						</lexs:DataItemCategory>
+					</lexs:PackageMetadata>
+					<lexs:Digest>
+						<!-- INCIDENT -->
+						<lexsdigest:EntityActivity>
+							<nc:Activity s:id="INCIDENT_01">
+								<nc:ActivityIdentification>
+									<nc:IdentificationID>16MV010730</nc:IdentificationID>
+								</nc:ActivityIdentification>
+								<nc:ActivityCategoryText>Incident</nc:ActivityCategoryText>
+								<nc:ActivityDateRange>
+									<nc:StartDate>
+										<nc:DateTime>2016-12-13T11:07:22</nc:DateTime>
+									</nc:StartDate>
+									<nc:EndDate>
+										<nc:DateTime>2016-12-13T11:13:12</nc:DateTime>
+									</nc:EndDate>
+								</nc:ActivityDateRange>
+								<nc:ActivityDescriptionText> ---- 2138: Morris, M See template scanned below for particulars. Ticket mailed.
+								</nc:ActivityDescriptionText>
+							</nc:Activity>
+						</lexsdigest:EntityActivity>
+						<!-- OFFENSE -->
+						<lexsdigest:EntityActivity>
+							<nc:Activity s:id="OFFENSE_01">
+								<nc:ActivityCategoryText>Offense</nc:ActivityCategoryText>
+								<nc:ActivityDescriptionText>DUT - Dealer'S Use Of Temporary Number Plates Restricted</nc:ActivityDescriptionText>
+							</nc:Activity>
+						</lexsdigest:EntityActivity>
+						<!-- CITATION -->
+						<lexsdigest:EntityDocument>
+							<nc:Document s:id="CITATION_01">
+								<nc:DocumentIdentification>
+									<nc:IdentificationID>7000728</nc:IdentificationID>
+								</nc:DocumentIdentification>
+							</nc:Document>
+						</lexsdigest:EntityDocument>
+						<!-- OFFICER 1 -->
+						<lexsdigest:EntityPerson>
+							<lexsdigest:Person s:id="PERSON_021">
+								<nc:PersonName>
+									<nc:PersonFullName>Morris, Michael</nc:PersonFullName>
+								</nc:PersonName>
+							</lexsdigest:Person>
+							<j:EnforcementOfficial s:id="OFFICER_01">
+								<nc:RoleOfPersonReference s:ref="PERSON_021" />
+								<j:EnforcementOfficialBadgeIdentification>
+									<nc:IdentificationID>2138</nc:IdentificationID>
+								</j:EnforcementOfficialBadgeIdentification>
+							</j:EnforcementOfficial>
+						</lexsdigest:EntityPerson>
+						<!-- SUBJECT - PERSON -->
+						<lexsdigest:EntityPerson>
+							<lexsdigest:Person s:id="PERSON_03">
+								<nc:PersonAgeMeasure>
+									<nc:MeasurePointValue>51</nc:MeasurePointValue>
+									<nc:TimeUnitCode>ANN</nc:TimeUnitCode>
+								</nc:PersonAgeMeasure>
+								<nc:PersonBirthDate>
+									<nc:Date>1965-12-06</nc:Date>
+								</nc:PersonBirthDate>
+								<nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
+								<nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
+								<nc:PersonHeightMeasure>
+									<nc:MeasurePointValue>63</nc:MeasurePointValue>
+									<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+								</nc:PersonHeightMeasure>
+								<nc:PersonName>
+									<nc:PersonGivenName>Deborah</nc:PersonGivenName>
+									<nc:PersonMiddleName>A</nc:PersonMiddleName>
+									<nc:PersonSurName>Talcott</nc:PersonSurName>
+									<nc:PersonFullName>Talcott, Deborah A</nc:PersonFullName>
+								</nc:PersonName>
+								<nc:PersonSexCode>F</nc:PersonSexCode>
+								<nc:PersonWeightMeasure>
+									<nc:MeasurePointValue>150</nc:MeasurePointValue>
+									<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+								</nc:PersonWeightMeasure>
+								<j:PersonAugmentation>
+									<nc:DriverLicense>
+										<nc:DriverLicenseIdentification>
+											<nc:IdentificationID>70836335</nc:IdentificationID>
+											<j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
+										</nc:DriverLicenseIdentification>
+									</nc:DriverLicense>
+								</j:PersonAugmentation>
+							</lexsdigest:Person>
+							<j:CitationSubject s:id="SUBJECT_01">
+								<nc:RoleOfPersonReference s:ref="PERSON_03" />
+							</j:CitationSubject>
+						</lexsdigest:EntityPerson>
+						<!-- SUBJECT - ORGANIZATION -->
+						<lexsdigest:EntityOrganization>
+							<nc:Organization s:id="ORGANIZATION_01">
+								<nc:OrganizationName>Berlin City Kia</nc:OrganizationName>
+							</nc:Organization>
+						</lexsdigest:EntityOrganization>
+						<!-- OFFICER AGENCY -->
+						<lexsdigest:EntityOrganization>
+							<nc:Organization s:id="AGENCY_01">
+								<nc:OrganizationCategoryText>Criminal Justice</nc:OrganizationCategoryText>
+								<nc:OrganizationName>VT Department of Motor Vehicles</nc:OrganizationName>
+							</nc:Organization>
+						</lexsdigest:EntityOrganization>
+						<!-- ORGANIZATION PHONE -->
+						<lexsdigest:EntityTelephoneNumber>
+							<lexsdigest:TelephoneNumber>
+								<nc:FullTelephoneNumber s:id="TELEPHONE_01">
+									<nc:TelephoneNumberFullID>802-864-3905</nc:TelephoneNumberFullID>
+								</nc:FullTelephoneNumber>
+							</lexsdigest:TelephoneNumber>
+						</lexsdigest:EntityTelephoneNumber>
+						<!-- ORGANIZATION LOCATION -->
+						<lexsdigest:EntityLocation>
+							<nc:Location s:id="LOCATION_01">
+								<nc:LocationAddress>
+									<nc:StructuredAddress>
+										<nc:LocationStreet>
+											<nc:StreetFullText> PO Box 514</nc:StreetFullText>
+										</nc:LocationStreet>
+										<nc:LocationCityName>Williston</nc:LocationCityName>
+										<nc:LocationStateName>VT</nc:LocationStateName>
+										<nc:LocationPostalCode>05495</nc:LocationPostalCode>
+									</nc:StructuredAddress>
+								</nc:LocationAddress>
+							</nc:Location>
+						</lexsdigest:EntityLocation>
+						<!-- INCIDENT LOCATION -->
+						<lexsdigest:EntityLocation>
+							<nc:Location s:id="LOCATION_02">
+								<nc:LocationAddress>
+									<nc:StructuredAddress>
+										<nc:LocationCityName>Williston</nc:LocationCityName>
+									</nc:StructuredAddress>
+								</nc:LocationAddress>
+							</nc:Location>
+						</lexsdigest:EntityLocation>
+						<!-- VEHICLE -->
+						<lexsdigest:EntityVehicle>
+							<nc:Vehicle s:id="VEHICLE_01">
+								<nc:VehicleColorPrimaryCode>SIL</nc:VehicleColorPrimaryCode>
+								<nc:ItemModelYearDate>2015</nc:ItemModelYearDate>
+								<nc:VehicleStyleCode>SD</nc:VehicleStyleCode>
+								<nc:ConveyanceRegistrationPlateIdentification>
+									<nc:IdentificationID>ABC1234567</nc:IdentificationID>
+									<nc:IdentificationJurisdictionFIPS10-4Code>VT</nc:IdentificationJurisdictionFIPS10-4Code>
+								</nc:ConveyanceRegistrationPlateIdentification>
+								<nc:VehicleIdentification>
+									<nc:IdentificationID>VIN</nc:IdentificationID>
+								</nc:VehicleIdentification>
+								<nc:VehicleMakeCode>TOYT</nc:VehicleMakeCode>
+							</nc:Vehicle>
+						</lexsdigest:EntityVehicle>
+						<!-- ======================= Associations ======================= -->
+						<lexsdigest:Associations>
+							<!-- j:ActivityEnforcementOfficialAssociation>
+								<nc:ActivityReference s:ref="INCIDENT_01" />
+								<nc:PersonReference s:ref="PERSON_021" />
+								</j:ActivityEnforcementOfficialAssociation -->
+							<j:ActivityEnforcementOfficialAssociation>
+								<nc:ActivityReference s:ref="CITATION_01" />
+								<nc:PersonReference s:ref="PERSON_021" />
+							</j:ActivityEnforcementOfficialAssociation>
+							<lexsdigest:EntityTelephoneNumberAssociation>
+								<nc:OrganizationReference s:ref="ORGANIZATION_01" />
+								<lexsdigest:TelephoneNumberReference s:ref="TELEPHONE_01" />
+								<!-- Must include the following indicator for Organization phone number -->
+								<lexsdigest:TelephoneNumberPrimaryIndicator>true</lexsdigest:TelephoneNumberPrimaryIndicator>
+							</lexsdigest:EntityTelephoneNumberAssociation>
+							<lexsdigest:IncidentLocationAssociation>
+								<nc:ActivityReference s:ref="INCIDENT_01" />
+								<nc:LocationReference s:ref="LOCATION_02" />
+							</lexsdigest:IncidentLocationAssociation>
+							<lexsdigest:IncidentOffenseAssociation>
+								<nc:ActivityReference s:ref="INCIDENT_01" />
+								<nc:ActivityReference s:ref="OFFENSE_01" />
+							</lexsdigest:IncidentOffenseAssociation>
+							<nc:ActivityInvolvedOrganizationAssociation>
+								<nc:ActivityReference s:ref="INCIDENT_01" />
+								<nc:OrganizationReference s:ref="ORGANIZATION_01" />
+							</nc:ActivityInvolvedOrganizationAssociation>
+							<nc:ActivityInvolvedPersonAssociation>
+								<nc:ActivityReference s:ref="INCIDENT_01" />
+								<nc:PersonReference s:ref="PERSON_03" />
+								<nc:PersonActivityInvolvementText>Employee</nc:PersonActivityInvolvementText>
+							</nc:ActivityInvolvedPersonAssociation>
+							<nc:LocationOrganizationAssociation>
+								<nc:LocationReference s:ref="LOCATION_01" />
+								<nc:OrganizationReference s:ref="ORGANIZATION_01" />
+							</nc:LocationOrganizationAssociation>
+							<nc:PersonAssignedUnitAssociation>
+								<nc:PersonReference s:ref="PERSON_021" />
+								<nc:OrganizationReference s:ref="AGENCY_01" />
+							</nc:PersonAssignedUnitAssociation>
+							<nc:PersonConveyanceAssociation>
+								<nc:PersonReference s:ref="PERSON_03" />
+								<nc:ConveyanceReference s:ref="VEHICLE_01" />
+							</nc:PersonConveyanceAssociation>
+							<nc:TransportationAssociation>
+								<nc:ConveyanceReference s:ref="VEHICLE_01" />
+								<nc:ConveyanceOperatorReference s:ref="PERSON_03" />
+							</nc:TransportationAssociation>
+						</lexsdigest:Associations>
+					</lexs:Digest>
+					<!--======================= ndexia Payload ====================== -->
+					<lexs:StructuredPayload s:id="Payload1">
+						<lexs:StructuredPayloadMetadata>
+							<lexs:CommunityURI>http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1</lexs:CommunityURI>
+							<lexs:CommunityDescription>N-DEx IncidentArrest</lexs:CommunityDescription>
+							<lexs:CommunityVersion>2.1</lexs:CommunityVersion>
+						</lexs:StructuredPayloadMetadata>
+						<ndexia:IncidentReport>
+							<ndexia:Location>
+								<nc:LocationAddress>
+									<nc:StructuredAddress>
+										<nc:LocationStateUSPostalServiceCode>VT</nc:LocationStateUSPostalServiceCode>
+									</nc:StructuredAddress>
+								</nc:LocationAddress>
+								<ndexia:LocationAugmentation>
+									<lexslib:SameAsDigestReference lexslib:ref="LOCATION_01" />
+								</ndexia:LocationAugmentation>
+							</ndexia:Location>
+							<ndexia:Location>
+								<nc:LocationHighway>
+									<nc:HighwayID>US 91</nc:HighwayID>
+									<nc:HighwayPositionText>586 Marshall Ave, Williston, VT, 05495</nc:HighwayPositionText>
+								</nc:LocationHighway>
+								<ndexia:LocationAugmentation>
+									<lexslib:SameAsDigestReference lexslib:ref="LOCATION_02" />
+								</ndexia:LocationAugmentation>
+							</ndexia:Location>
+							<ndexia:Offense>
+								<ndexia:ActivityAugmentation>
+									<lexslib:SameAsDigestReference lexslib:ref="OFFENSE_01" />
+								</ndexia:ActivityAugmentation>
+							</ndexia:Offense>
+							<ndexia:EnforcementUnit>
+								<j:EnforcementUnitNumberIdentification>
+									<nc:IdentificationID>5001</nc:IdentificationID>
+								</j:EnforcementUnitNumberIdentification>
+								<ndexia:EnforcementUnitAugmentation>
+									<lexslib:SameAsDigestReference lexslib:ref="AGENCY_01" />
+								</ndexia:EnforcementUnitAugmentation>
+							</ndexia:EnforcementUnit>
+							<ndexia:Vehicle>
+								<nc:VehicleCMVIndicator>false</nc:VehicleCMVIndicator>
+								<ndexia:VehicleAugmentation>
+									<lexslib:SameAsDigestReference lexslib:ref="VEHICLE_01" />
+								</ndexia:VehicleAugmentation>
+							</ndexia:Vehicle>
+						</ndexia:IncidentReport>
+					</lexs:StructuredPayload>
+					<!--======================= OJBC Payload ====================== -->
+					<lexs:StructuredPayload s:id="Payload2">
+						<lexs:StructuredPayloadMetadata>
+							<lexs:CommunityURI>http://www.ojbc.org</lexs:CommunityURI>
+							<lexs:CommunityDescription>OJBC</lexs:CommunityDescription>
+							<lexs:CommunityVersion>1.0</lexs:CommunityVersion>
+						</lexs:StructuredPayloadMetadata>
+						<inc-ext:IncidentReport>
+							<inc-ext:Offense>
+								<inc-ext:OffenseViolatedStatute>
+									<j:StatuteCodeIdentification>
+										<nc:IdentificationID>23VSA460</nc:IdentificationID>
+									</j:StatuteCodeIdentification>
+								</inc-ext:OffenseViolatedStatute>
+								<inc-ext:CFRStatute>
+									<j:StatuteCodeIdentification>
+										<nc:IdentificationID>23CFR655</nc:IdentificationID>
+									</j:StatuteCodeIdentification>
+								</inc-ext:CFRStatute>
+								<inc-ext:ViolationOffenseCode>DUT</inc-ext:ViolationOffenseCode>
+								<inc-ext:DrivingOffensePoints>2</inc-ext:DrivingOffensePoints>
+								<inc-ext:OffenseFineAmountMinimum>47.00</inc-ext:OffenseFineAmountMinimum>
+								<inc-ext:OffenseFineAmountMaximum>1197.00</inc-ext:OffenseFineAmountMaximum>
+								<lexslib:SameAsDigestReference lexslib:ref="OFFENSE_01" />
+							</inc-ext:Offense>
+							<inc-ext:Charge>
+								<inc-ext:RelatedCriminalChargeIndicator>false</inc-ext:RelatedCriminalChargeIndicator>
+								<lexslib:SameAsDigestReference lexslib:ref="OFFENSE_01" />
+							</inc-ext:Charge>
+							<inc-ext:EnforcementOfficial>
+								<inc-ext:EnforcementOfficialIdentification>
+									<nc:IdentificationID>A2327</nc:IdentificationID>
+								</inc-ext:EnforcementOfficialIdentification>
+								<lexslib:SameAsDigestReference lexslib:ref="OFFICER_01" />
+							</inc-ext:EnforcementOfficial>
+							<inc-ext:Citation>
+								<inc-ext:CitationServedDate>
+									<nc:DateTime>2016-12-16T15:00:00</nc:DateTime>
+								</inc-ext:CitationServedDate>
+								<inc-ext:CitationViolationDate>
+									<nc:DateTime>2016-11-14T16:00:00</nc:DateTime>
+								</inc-ext:CitationViolationDate>
+								<inc-ext:CitationMunicipalityCode>Williston</inc-ext:CitationMunicipalityCode>
+								<inc-ext:CitationWaiverAmount>162.00</inc-ext:CitationWaiverAmount>
+								<inc-ext:CitationServedIndicator>false</inc-ext:CitationServedIndicator>
+								<inc-ext:CitationMailedIndicator>true</inc-ext:CitationMailedIndicator>
+								<lexslib:SameAsDigestReference lexslib:ref="CITATION_01" />
+							</inc-ext:Citation>
+							<inc-ext:Vehicle>
+								<inc-ext:VehicleHazardousMaterialIndicator>false</inc-ext:VehicleHazardousMaterialIndicator>
+								<lexslib:SameAsDigestReference lexslib:ref="VEHICLE_01" />
+							</inc-ext:Vehicle>
+							<inc-ext:DrivingIncident>
+								<nc:ActivityDescriptionText>Dealer failed to deliver transaction to DMV within 15 day limit. (26 days late) 16MV010730
+								</nc:ActivityDescriptionText>
+								<j:DrivingIncidentRecordedSpeedRate>
+									<nc:MeasurePointValue>0</nc:MeasurePointValue>
+									<nc:MeasureUnitText />
+								</j:DrivingIncidentRecordedSpeedRate>
+								<j:DrivingIncidentCollisionIndicator>false</j:DrivingIncidentCollisionIndicator>
+								<j:DrivingIncidentLegalSpeedRate>
+									<nc:MeasurePointValue>0</nc:MeasurePointValue>
+									<nc:MeasureUnitText />
+								</j:DrivingIncidentLegalSpeedRate>
+								<inc-ext:SubjectBloodAlcoholContentNumber>0</inc-ext:SubjectBloodAlcoholContentNumber>
+								<inc-ext:DrivingAccidentIndicator>false</inc-ext:DrivingAccidentIndicator>
+								<inc-ext:DrivingAccidentFatalityIndicator>false</inc-ext:DrivingAccidentFatalityIndicator>
+								<inc-ext:SeatBeltViolationIndicator>false</inc-ext:SeatBeltViolationIndicator>
+								<inc-ext:SeatBeltViolationCount>0</inc-ext:SeatBeltViolationCount>
+								<inc-ext:CivilReliefActIndicator>false</inc-ext:CivilReliefActIndicator>
+								<inc-ext:CivilReliefActJuvenileIndicator>false</inc-ext:CivilReliefActJuvenileIndicator>
+								<inc-ext:CivilReliefActOtherIndicator>false</inc-ext:CivilReliefActOtherIndicator>
+								<inc-ext:CivilReliefActOtherText>Defendant is an organization or a corporation</inc-ext:CivilReliefActOtherText>
+								<lexslib:SameAsDigestReference lexslib:ref="CITATION_01" />
+							</inc-ext:DrivingIncident>
+							<inc-ext:DriverLicense>
+								<inc-ext:DriverLicenseCDLIndicator>false</inc-ext:DriverLicenseCDLIndicator>
+								<lexslib:SameAsDigestReference lexslib:ref="PERSON_03" />
+							</inc-ext:DriverLicense>
+							<inc-ext:Organization>
+								<inc-ext:OrganizationDriverLicense>
+									<nc:DriverLicenseIdentification>
+										<nc:IdentificationID>11846050</nc:IdentificationID>
+										<j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
+									</nc:DriverLicenseIdentification>
+								</inc-ext:OrganizationDriverLicense>
+								<lexslib:SameAsDigestReference lexslib:ref="ORGANIZATION_01" />
+							</inc-ext:Organization>
+							<nc:PersonContactInformationAssociation>
+								<nc:PersonReference s:ref="PERSON_03" />
+								<nc:ContactInformationReference s:ref="LOCATION_01" />
+							</nc:PersonContactInformationAssociation>
+							<nc:ActivityDocumentAssociation>
+								<nc:ActivityReference s:ref="INCIDENT_01" />
+								<nc:DocumentReference s:ref="CITATION_01" />
+							</nc:ActivityDocumentAssociation>
+							<nc:ActivityDocumentAssociation>
+								<nc:ActivityReference s:ref="OFFENSE_01" />
+								<nc:DocumentReference s:ref="CITATION_01" />
+							</nc:ActivityDocumentAssociation>
+							<inc-ext:EntityDocumentAssociation>
+								<nc:DocumentReference s:ref="CITATION_01" />
+								<nc:EntityOrganizationReference s:ref="ORGANIZATION_01" />
+							</inc-ext:EntityDocumentAssociation>
+							<inc-ext:CitationDeliveryRecipientAssociation>
+								<inc-ext:CitationReference s:ref="CITATION_01" />
+								<nc:EntityOrganizationReference s:ref="ORGANIZATION_01" />
+							</inc-ext:CitationDeliveryRecipientAssociation>
+							<inc-ext:CitationIssuedLocationAssociation>
+								<inc-ext:CitationReference s:ref="CITATION_01" />
+								<nc:LocationReference s:ref="LOCATION_02" />
+							</inc-ext:CitationIssuedLocationAssociation>
+						</inc-ext:IncidentReport>
+					</lexs:StructuredPayload>
+				</lexs:DataItemPackage>
+			</lexs:PublishMessage>
+		</lexs:PublishMessageContainer>
+	</lexspd:doPublish>
+</ir-doc:IncidentReport>

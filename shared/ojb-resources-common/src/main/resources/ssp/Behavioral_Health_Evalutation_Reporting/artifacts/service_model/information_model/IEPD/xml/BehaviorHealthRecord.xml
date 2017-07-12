@@ -72,10 +72,10 @@
 		</nc:PersonSSNIdentification>
 		<j:PersonAugmentation>
 			<j:DriverLicense>
-				<j:DriverLicenseCardIdentification>
+				<j:DriverLicenseIdentification>
 					<nc:IdentificationID>Driver License ID</nc:IdentificationID>
 					<nc:IdentificationSourceText>Colorado</nc:IdentificationSourceText>
-				</j:DriverLicenseCardIdentification>
+				</j:DriverLicenseIdentification>
 			</j:DriverLicense>
 		</j:PersonAugmentation>
 		<bhr-ext:PersonEmploymentStatus>

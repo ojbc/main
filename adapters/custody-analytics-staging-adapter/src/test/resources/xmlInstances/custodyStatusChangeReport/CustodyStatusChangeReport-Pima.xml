@@ -77,6 +77,7 @@
 		<cscr-ext:SubstanceAbuseIndicator>true</cscr-ext:SubstanceAbuseIndicator>
 		<cscr-ext:GeneralMentalHealthConditionIndicator>false
 		</cscr-ext:GeneralMentalHealthConditionIndicator>
+		<cscr-ext:BehavioralHealthCategoryText>Serious Mental Illness</cscr-ext:BehavioralHealthCategoryText>
 		<j:Evaluation>
 			<j:EvaluationDiagnosisDescriptionText>Schizophrenia 295.10</j:EvaluationDiagnosisDescriptionText>
 		</j:Evaluation>
@@ -95,8 +96,7 @@
 			</nc:TreatmentProvider>
 			<cscr-ext:TreatmentCourtOrderedIndicator>true
 			</cscr-ext:TreatmentCourtOrderedIndicator>
-			<cscr-ext:TreatmentActiveIndicator>true
-			</cscr-ext:TreatmentActiveIndicator>
+			<cscr-ext:TreatmentStatusCode>CRISIS</cscr-ext:TreatmentStatusCode>
 		</nc:Treatment>
 		<cscr-ext:PrescribedMedication>
 			<cyfs:Medication>

@@ -311,10 +311,10 @@
          </nc30:PersonWeightMeasure>
          <jxdm51:PersonAugmentation>
             <jxdm51:DriverLicense>
-               <jxdm51:DriverLicenseCardIdentification>
+               <jxdm51:DriverLicenseIdentification>
                   <nc30:IdentificationID>927270337</nc30:IdentificationID>
                   <nc30:IdentificationSourceText>AE</nc30:IdentificationSourceText>
-               </jxdm51:DriverLicenseCardIdentification>
+               </jxdm51:DriverLicenseIdentification>
             </jxdm51:DriverLicense>
             <nc30:EmployeeOccupationCategoryText>Public Safety</nc30:EmployeeOccupationCategoryText>
             <jxdm51:PersonFBIIdentification>

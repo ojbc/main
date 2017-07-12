@@ -32,7 +32,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Address;
@@ -565,6 +567,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			Integer personId) {
 		final String sql = "SELECT * FROM BehavioralHealthAssessment b "
 				+ "LEFT JOIN BehavioralHealthEvaluation e ON e.BehavioralHealthAssessmentID = b.BehavioralHealthAssessmentID "
+				+ "LEFT JOIN BehavioralHealthCategory c ON c.BehavioralHealthAssessmentID = b.BehavioralHealthAssessmentID "
 				+ "WHERE b.PersonID = ?"; 
 		List<BehavioralHealthAssessment> behavioralHealthAssessments = 
 				jdbcTemplate.query(sql, new BehavioralHealthAssessmentResultSetExtractor(), personId);
@@ -580,6 +583,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
             while (rs.next()) {
 	            Integer behavioralHealthAssessmentId = DaoUtils.getInteger(rs,"behavioralHealthAssessmentId" ); 
 	            behavioralHealthAssessment  = map.get( behavioralHealthAssessmentId );
+	            
 	            if ( behavioralHealthAssessment  == null){
 	            	behavioralHealthAssessment = new BehavioralHealthAssessment();; 
 	    			behavioralHealthAssessment.setBehavioralHealthAssessmentId(DaoUtils.getInteger(rs,"behavioralHealthAssessmentId"));
@@ -591,11 +595,23 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	    			behavioralHealthAssessment.setEnrolledProviderName(rs.getString("EnrolledProviderName"));
 	    			
 	    			behavioralHealthAssessment.setBehavioralHealthDiagnoses(new ArrayList<String>());
+	    			behavioralHealthAssessment.setBehavioralHealthCategoryTexts(new ArrayList<String>());
 	            	map.put(behavioralHealthAssessmentId, behavioralHealthAssessment); 
 	            }
 	            
 				String behavioralHealthDiagnosis = rs.getString("BehavioralHealthDiagnosisDescription");
-				behavioralHealthAssessment.getBehavioralHealthDiagnoses().add(behavioralHealthDiagnosis);
+				
+				if (StringUtils.isNotBlank(behavioralHealthDiagnosis) && 
+						!behavioralHealthAssessment.getBehavioralHealthDiagnoses().contains(behavioralHealthDiagnosis)){
+					behavioralHealthAssessment.getBehavioralHealthDiagnoses().add(behavioralHealthDiagnosis);
+				}
+				
+				String behavioralHealthCategoryText = rs.getString("BehavioralHealthCategoryText");
+				if (StringUtils.isNotBlank(behavioralHealthCategoryText) && 
+						!behavioralHealthAssessment.getBehavioralHealthCategoryTexts().contains(behavioralHealthCategoryText)){
+					behavioralHealthAssessment.getBehavioralHealthCategoryTexts().add(behavioralHealthCategoryText);
+				}
+
             }
             return (List<BehavioralHealthAssessment>) new ArrayList<BehavioralHealthAssessment>(map.values());
 			
@@ -1363,6 +1379,32 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 				jdbcTemplate.query(sql, 
 						new KeyValueRowMapper(), behavioralHealthAssessmentId);
 		return keyValues;
+	}
+
+	@Override
+	public void saveBehavioralHealthCategoryTexts(
+			Integer behavioralHealthAssessmentId,
+			List<String> behavioralHealthCategoryTexts) {
+		log.info("Inserting row into BehavioralHealthCategory table: " + behavioralHealthCategoryTexts + 
+				" to BehavioralHealthAssessment " + behavioralHealthAssessmentId );
+		final String sqlString=
+				"INSERT INTO BehavioralHealthCategory (BehavioralHealthAssessmentID, BehavioralHealthCategoryText) "
+				+ "values (?,?)";
+		
+        jdbcTemplate.batchUpdate(sqlString, new BatchPreparedStatementSetter() {
+            public void setValues(PreparedStatement ps, int i)
+                throws SQLException {
+            	String behavioralHealthDiagnosis = behavioralHealthCategoryTexts.get(i);
+                ps.setInt(1, behavioralHealthAssessmentId);
+                ps.setString(2, behavioralHealthDiagnosis);
+            }
+	            
+            public int getBatchSize() {
+                return behavioralHealthCategoryTexts.size();
+            }
+        });
+		
+		
 	}
 
 }

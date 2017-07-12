@@ -115,11 +115,11 @@ public class SamlServiceImpl {
 		 * end of the fix
 		 */
 		 //Hard coded to pick up a single assertion...could loop through assertion headers if there will  be more than one
-		String assertionHttpHeaderName = request.getHeader("shibassertion01");
+		String assertionHttpHeaderName = request.getHeader("shib-assertion-01");
 		LOG.info("Loading assertion from: " + assertionHttpHeaderName);
 		
 		if(assertionHttpHeaderName == null){
-			LOG.warn("Shib-Assertion-01 header was null, Returning null asssertion document element");
+			LOG.warn("shib-assertion-01 header was null, Returning null asssertion document element");
 			return null;
 		}
 		

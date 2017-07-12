@@ -178,12 +178,12 @@
          <j:PersonSexCode>M</j:PersonSexCode>
          <j:PersonAugmentation>
             <j:DriverLicense>
-               <j:DriverLicenseCardIdentification>
+               <j:DriverLicenseIdentification>
                   <nc:IdentificationID>8.61673e+006</nc:IdentificationID>
                   <nc:IdentificationJurisdiction>
                      <j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
                   </nc:IdentificationJurisdiction>
-               </j:DriverLicenseCardIdentification>
+               </j:DriverLicenseIdentification>
                <me-crash-codes:DriverLicenseStatusCodeText>Active</me-crash-codes:DriverLicenseStatusCodeText>
                <me-crash-codes:DriverLicenseClassCodeText>C</me-crash-codes:DriverLicenseClassCodeText>
             </j:DriverLicense>
@@ -203,12 +203,12 @@
          <j:PersonSexCode>M</j:PersonSexCode>
          <j:PersonAugmentation>
             <j:DriverLicense>
-               <j:DriverLicenseCardIdentification>
+               <j:DriverLicenseIdentification>
                   <nc:IdentificationID>6.41741e+006</nc:IdentificationID>
                   <nc:IdentificationJurisdiction>
                      <j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
                   </nc:IdentificationJurisdiction>
-               </j:DriverLicenseCardIdentification>
+               </j:DriverLicenseIdentification>
                <me-crash-codes:DriverLicenseStatusCodeText>Active</me-crash-codes:DriverLicenseStatusCodeText>
                <me-crash-codes:DriverLicenseClassCodeText>C</me-crash-codes:DriverLicenseClassCodeText>
             </j:DriverLicense>

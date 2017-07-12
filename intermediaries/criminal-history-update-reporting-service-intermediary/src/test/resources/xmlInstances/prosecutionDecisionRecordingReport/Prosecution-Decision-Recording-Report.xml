@@ -77,9 +77,9 @@
 		</nc:PersonWeightMeasure>
 		<j:PersonAugmentation>
 			<j:DriverLicense>
-				<j:DriverLicenseCardIdentification>
+				<j:DriverLicenseIdentification>
 					<nc:IdentificationID>ME32456789</nc:IdentificationID>
-				</j:DriverLicenseCardIdentification>
+				</j:DriverLicenseIdentification>
 			</j:DriverLicense>
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>SID345667</nc:IdentificationID>

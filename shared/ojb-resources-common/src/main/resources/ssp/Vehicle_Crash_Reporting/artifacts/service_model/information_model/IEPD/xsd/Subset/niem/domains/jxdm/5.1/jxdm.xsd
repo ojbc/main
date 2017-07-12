@@ -258,7 +258,11 @@
       <xs:documentation>A data type for an authorization issued to a driver granting driving privileges.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="structures:ObjectType"/>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="j:DriverLicenseIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="DriverLicenseEndorsementType">
@@ -897,6 +901,11 @@
   <xs:element name="DriverLicenseEndorsementText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>An endorsement on a driver license or driver license permit which authorizes the operation of specified types of vehicles carrying specified loads.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DriverLicenseIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A driver license identification or driver license permit identification, including the number and state.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="DriverLicensePermitEndorsement" type="j:DriverLicensePermitEndorsementType" nillable="true">
