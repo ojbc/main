@@ -39,6 +39,13 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * 
+ * This class will test state criminal history updates and most common methods.
+ * Federal specific updates are in another class.
+ * 
+ *
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/camel-context.xml",
@@ -51,9 +58,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "classpath:META-INF/spring/subscription-management-routes.xml"
       })
 @DirtiesContext
-public class TestCriminalHistoryConsolidationService {
+public class TestCriminalHistoryConsolidationServiceState {
 	
-	private static final Log log = LogFactory.getLog( TestCriminalHistoryConsolidationService.class );
+	private static final Log log = LogFactory.getLog( TestCriminalHistoryConsolidationServiceState.class );
 
     @Resource
     private CriminalHistoryConsolidationProcessor criminalHistoryConsolidationProcessor;
@@ -68,7 +75,7 @@ public class TestCriminalHistoryConsolidationService {
     	CamelContext ctx = new DefaultCamelContext(); 
     	Exchange ex = new DefaultExchange(ctx);
     	    
-    	List<CriminalHistoryConsolidationNotification> notifications = criminalHistoryConsolidationProcessor.consolidateCriminalHistory(ex, "A123457", "A123458", "9222201", "9222201", "criminalHistoryConsolidationReport");
+    	List<CriminalHistoryConsolidationNotification> notifications = criminalHistoryConsolidationProcessor.consolidateCriminalHistoryState(ex, "A123457", "A123458", "9222201", "9222201", "criminalHistoryConsolidationReport");
     	
     	assertEquals(1, notifications.size());
     	
@@ -85,6 +92,19 @@ public class TestCriminalHistoryConsolidationService {
     	log.info("Subscriptions to modify: " + subscriptions);
     	
     	assertEquals(1, subscriptions.size());
+    	
+    	notifications = criminalHistoryConsolidationProcessor.expungeCriminalHistoryState("A123458", "", "criminalHistoryExpungementReport");
+    	
+    	assertEquals(2, notifications.size());
+    	
+    	assertEquals("admin@local.gov", notifications.get(0).getEmailTo());
+    	assertEquals("SID Expungement for: A123458", notifications.get(0).getEmailSubject());
+    	assertEquals("A123458 has been deleted from CJIS-Hawaii and the State AFIS; you will no longer receive Rap Back notifications on this offender.  Please logon to the HIJIS Portal to update your subscription as necessary.", notifications.get(0).getEmailBody());
+
+    	assertEquals("agencyemail@local.gov", notifications.get(1).getEmailTo());
+    	assertEquals("Agency Notification: SID Expungement for: A123458", notifications.get(1).getEmailSubject());
+    	assertEquals("A123458 EMAIL TEMPLATE PENDING", notifications.get(1).getEmailBody());
+
     }
     
 	@Test
@@ -109,40 +129,40 @@ public class TestCriminalHistoryConsolidationService {
 		 assertEquals("Some email body", ex.getIn().getBody(String.class));
 		 assertEquals(2, ex.getIn().getHeaders().size());
 	}
-
+	
 	@Test
-	public void testReturnEmailSubject() throws Exception
+	public void testReturnEmailSubjectState() throws Exception
 	{
     	CriminalHistoryConsolidationNotification chcNotification = new CriminalHistoryConsolidationNotification();
     	
 		chcNotification.setConsolidationType("criminalHistoryExpungementReport");
-		assertEquals("SID Expungement for: 123456", criminalHistoryConsolidationProcessor.returnEmailSubject(chcNotification, "123456"));
+		assertEquals("SID Expungement for: 123456", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
 		
 		chcNotification.setConsolidationType("criminalHistoryConsolidationReport");
-		assertEquals("Criminal History Consolidation for SID for: 123456", criminalHistoryConsolidationProcessor.returnEmailSubject(chcNotification, "123456"));
+		assertEquals("Criminal History Consolidation for SID for: 123456", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
 
 		chcNotification.setConsolidationType("criminalHistoryIdentifierUpdateReport");
-		assertEquals("Criminal History Update for SID for: 123456", criminalHistoryConsolidationProcessor.returnEmailSubject(chcNotification, "123456"));
+		assertEquals("Criminal History Update for SID for: 123456", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
 
 	}
 	
 	@Test
-	public void testReturnEmailBody() throws Exception
+	public void testReturnEmailBodyState() throws Exception
 	{
     	CriminalHistoryConsolidationNotification chcNotification = new CriminalHistoryConsolidationNotification();
     	String expectedEmailBody="";
     	
 		chcNotification.setConsolidationType("criminalHistoryExpungementReport");
 		expectedEmailBody="123456 has been deleted from CJIS-Hawaii and the State AFIS; you will no longer receive Rap Back notifications on this offender.  Please logon to the HIJIS Portal to update your subscription as necessary.";
-		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnEmailBody(chcNotification, "123456", "99999"));
+		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnStateNotificationEmailBody(chcNotification, "123456", "99999"));
 		
 		chcNotification.setConsolidationType("criminalHistoryConsolidationReport");
 		expectedEmailBody="123456 has been consolidated into 99999.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on 99999.  A new arrest may or may not have occurred.";
-		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnEmailBody(chcNotification, "123456", "99999"));
+		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnStateNotificationEmailBody(chcNotification, "123456", "99999"));
 
 		chcNotification.setConsolidationType("criminalHistoryIdentifierUpdateReport");
 		expectedEmailBody="123456 has been updated to 99999.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on 99999.  A new arrest may or may not have occurred.";
-		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnEmailBody(chcNotification, "123456", "99999"));
+		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnStateNotificationEmailBody(chcNotification, "123456", "99999"));
 
 	}	
 	
