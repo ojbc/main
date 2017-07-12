@@ -196,7 +196,7 @@ CREATE TABLE BehavioralHealthCategory (
                 BehavioralHealthCategoryOD INT IDENTITY NOT NULL,
                 BehavioralHealthAssessmentID INT NOT NULL,
                 BehavioralHealthCategoryText VARCHAR(100) NOT NULL,
-                BehavioralHealthCategoryTimestamp DATETIME DEFAULT now() NOT NULL,
+                BehavioralHealthCategoryTimestamp DATETIME DEFAULT getdate() NOT NULL,
                 CONSTRAINT BehavioralHealthCategoryID PRIMARY KEY (BehavioralHealthCategoryOD)
 )
 
