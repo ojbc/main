@@ -30,6 +30,7 @@
 	xmlns:che-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryExpungementReport/1.0"
 	xmlns:chiu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
 	xmlns:chr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
+	xmlns:chrestoration-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryRestorationReport/1.0"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
@@ -68,6 +69,7 @@
 							<camel:xpath>/chc-report-doc:CriminalHistoryConsolidationReport
 			 							or /che-report-doc:CriminalHistoryExpungementReport
 										or /chiu-report-doc:CriminalHistoryIdentifierUpdateReport
+										or /chrestoration-report-doc:CriminalHistoryRestorationReport
 							</camel:xpath>
 						
 							<camel:log message="About to call Criminal History consolidation"/>
@@ -151,7 +153,15 @@
 					<constant>ReportCriminalHistoryIdentifierUpdate</constant>
 				</camel:setHeader>
 			</camel:filter>
-						
+
+			<camel:filter>
+				<camel:xpath>/chrestoration-report-doc:CriminalHistoryRestorationReport</camel:xpath>
+			
+				<camel:setHeader headerName="operationName">
+					<constant>ReportCriminalHistoryRestoration</constant>
+				</camel:setHeader>				
+			</camel:filter>
+
 			<camel:setHeader headerName="operationNamespace">
 				<constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant>
 			</camel:setHeader>
