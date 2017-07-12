@@ -257,10 +257,7 @@
 			
 			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 			
-			
-			<!-- TODO: update operation name with appropriate operation name after WSDL update -->
-			
-			<camel:setHeader headerName="operationName"><constant>ReportCriminalHistoryIdentifierUpdate</constant></camel:setHeader>	
+			<camel:setHeader headerName="operationName"><constant>ReportCriminalHistoryRestoration</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant></camel:setHeader>			
 		
 		</route>		
