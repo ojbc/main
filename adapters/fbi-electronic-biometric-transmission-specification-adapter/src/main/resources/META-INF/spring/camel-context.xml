@@ -222,6 +222,9 @@
 									
 					<to uri="direct:processRapBackSubscriptionMaintenanceResponse"/>																				
 				</when>				
+				
+				<!-- TODO: add support for ERRA, which is an error -->
+				
 				<otherwise>
 					  <log message="\n\n\n Unrecognized Message from FBI!! \n\n\n" loggingLevel="WARN"/> 
 				</otherwise>						
@@ -235,6 +238,8 @@
 			
 			<camel:log message="Process Federal Consolidation"/>
 			
+			<camel:to uri="xslt:xsl/RBNToConsolidationReport.xsl"/>
+			
 			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 			
 			<camel:setHeader headerName="operationName"><constant>ReportCriminalHistoryConsolidation</constant></camel:setHeader>	
@@ -247,8 +252,13 @@
 			<from uri="direct:processFederalRapbackRestoration"/>
 			
 			<camel:log message="Process Federal Restoration"/>
-
+			
+			<camel:to uri="xslt:xsl/RBNToRestorationReport.xsl"/>
+			
 			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
+			
+			
+			<!-- TODO: update operation name with appropriate operation name after WSDL update -->
 			
 			<camel:setHeader headerName="operationName"><constant>ReportCriminalHistoryIdentifierUpdate</constant></camel:setHeader>	
 			<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0</constant></camel:setHeader>			
@@ -260,6 +270,8 @@
 			<from uri="direct:processFederalRapbackDeletion"/>
 			
 			<camel:log message="Process Federal Deletion"/>
+			
+			<camel:to uri="xslt:xsl/RBNToExpungementReport.xsl"/>
 			
 			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
 			
