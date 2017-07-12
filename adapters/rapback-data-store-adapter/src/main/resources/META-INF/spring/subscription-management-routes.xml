@@ -27,6 +27,8 @@
 	xmlns:chc-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
 	xmlns:che-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryExpungementReport/Extension/1.0"
 	xmlns:chiu-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierUpdateReport/Extension/1.0"
+	xmlns:chr-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryRestorationReport/1.0"
+	xmlns:chr-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryRestorationReport/Extension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:util="http://www.springframework.org/schema/util"
@@ -83,20 +85,14 @@
 				<camel:setHeader headerName="currentSid">
 					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
-				<camel:setHeader headerName="newSid">
-					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
-				</camel:setHeader>
 				<camel:setHeader headerName="currentUcn">
-					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
-				</camel:setHeader>
-				<camel:setHeader headerName="newUcn">
 					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/nc:Person/che-report-ext:ExpungementIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
 				</camel:setHeader>
 				<camel:setHeader headerName="consolidationType">
 					<constant>criminalHistoryExpungementReport</constant>
 				</camel:setHeader>
 				<camel:setHeader headerName="consolidationJurisdiction">
-					<camel:xpath resultType="java.lang.String">/chc-report-doc:CriminalHistoryConsolidationReport/che-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
+					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/che-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
 				</camel:setHeader>
 			</camel:filter>
 			
@@ -119,51 +115,91 @@
 					<constant>criminalHistoryIdentifierUpdateReport</constant>
 				</camel:setHeader>		
 				<camel:setHeader headerName="consolidationJurisdiction">
-					<camel:xpath resultType="java.lang.String">/chc-report-doc:CriminalHistoryConsolidationReport/chiu-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
+					<camel:xpath resultType="java.lang.String">/chiu-report-doc:CriminalHistoryIdentifierUpdateReport/chiu-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
 				</camel:setHeader>
 			</camel:filter>
+			
+			<camel:filter>
+				<camel:xpath>/chr-report-doc:CriminalHistoryRestorationReport</camel:xpath>
+
+				<camel:setHeader headerName="currentUcn">
+					<camel:xpath resultType="java.lang.String">/chr-report-doc:CriminalHistoryRestorationReport/nc:Person/chr-report-ext:RestorationIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				
+				<camel:setHeader headerName="consolidationType">
+					<constant>criminalHistoryRestorationReport</constant>
+				</camel:setHeader>		
+				
+				<camel:setHeader headerName="consolidationJurisdiction">
+					<camel:xpath resultType="java.lang.String">/chr-report-doc:CriminalHistoryRestorationReport/chr-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
+				</camel:setHeader>
+
+			</camel:filter>			
 			
 			<camel:log message="Current SID: ${in.headers.currentSid}, New SID:  ${in.headers.newSid}"/>
 			<camel:log message="Current UCN ${in.headers.currentUcn}, New UCN:  ${in.headers.newUcn}"/>
 			<camel:log message="Consolidation Type ${in.headers.consolidationType}, Consolidation Jurisdiction:  ${in.headers.consolidationJurisdiction}"/>
 			
-			<camel:choice>
-				<camel:when>
-					<camel:simple>${in.headers.consolidationType} == 'criminalHistoryExpungementReport'</camel:simple>
-					
-					<log message="Process expungement"/>
-					<to uri="bean:criminalHistoryConsolidationProcessor?method=expungeCriminalHistory" />
-					<log message="Criminal History expunged"/>
-									
-				</camel:when>
-				<camel:when>
-					<camel:simple>${in.headers.consolidationType} == 'criminalHistoryIdentifierUpdateReport' or ${in.headers.consolidationType} == 'criminalHistoryConsolidationReport' </camel:simple>
-					<to uri="bean:criminalHistoryConsolidationProcessor?method=consolidateCriminalHistory" />
-					<log message="Criminal History consolidated"/>
-				</camel:when>
+			<camel:filter>
+				<camel:simple>${in.headers.consolidationJurisdiction} == 'State'</camel:simple>
+				
+				<camel:choice>
+					<camel:when>
+						<camel:simple>${in.headers.consolidationType} == 'criminalHistoryExpungementReport'</camel:simple>
 						
-				<camel:otherwise>
-					<log message="Operation not recognized"/>
-				</camel:otherwise>
+						<log message="Process state expungement"/>
+						<to uri="bean:criminalHistoryConsolidationProcessor?method=expungeCriminalHistoryState" />
+						<log message="State Criminal History expunged"/>
+										
+					</camel:when>
+					<camel:when>
+						<camel:simple>${in.headers.consolidationType} == 'criminalHistoryIdentifierUpdateReport' or ${in.headers.consolidationType} == 'criminalHistoryConsolidationReport' </camel:simple>
+						<to uri="bean:criminalHistoryConsolidationProcessor?method=consolidateCriminalHistoryState" />
+						<log message="State Criminal History consolidated"/>
+					</camel:when>
+							
+					<camel:otherwise>
+						<log message="State Operation not recognized"/>
+					</camel:otherwise>
+				</camel:choice>
+			</camel:filter>
 			
-			</camel:choice>
+			<camel:filter>
+				<camel:simple>${in.headers.consolidationJurisdiction} == 'FBI'</camel:simple>
+				
+				<camel:choice>
+					<camel:when>
+						<camel:simple>${in.headers.consolidationType} == 'criminalHistoryRestorationReport'</camel:simple>
+						
+						<log message="Process federal restoration"/>
+						<to uri="bean:criminalHistoryConsolidationProcessor?method=federalUCNRestoration" />
+						<log message="Federal Criminal History expunged"/>
+										
+					</camel:when>
+					<camel:when>
+						<camel:simple>${in.headers.consolidationType} == 'criminalHistoryExpungementReport' or ${in.headers.consolidationType} == 'criminalHistoryConsolidationReport' </camel:simple>
+						<to uri="bean:criminalHistoryConsolidationProcessor?method=consolidateCriminalHistoryFederal" />
+						<log message="Federal Criminal History consolidated"/>
+					</camel:when>
+							
+					<camel:otherwise>
+						<log message="Federal Operation not recognized"/>
+					</camel:otherwise>
+				</camel:choice>				
+				
+			</camel:filter>
 			
 			<log message="Body: ${body}"/>
 			
-			<!-- Report federal subscription changes to EBTS adapter -->
+			<!-- Report federal subscription changes to EBTS adapter, what is this?  -->
 			<camel:wireTap uri="direct:reportSubscriptionChange">
 				<body><simple>${body}</simple></body>
 			</camel:wireTap>
 
-			<!-- Notify agency of UCN mismatches via email -->
-			<camel:wireTap uri="direct:reportUCNMismatches">
-				<body><simple>${body}</simple></body>
-			</camel:wireTap>
-
-			<!-- Report new federal subscriptions with the UCN that was added -->
+			<!-- Report new federal subscriptions with the UCN that was added  
 			<camel:wireTap uri="direct:reportNewFederalSubscriptionsWithUCNAdded">
 				<body><simple>${body}</simple></body>
-			</camel:wireTap>
+			</camel:wireTap>-->
 			
 			<camel:to uri="direct:sendConsolidationsEmail"/>
 		</route>
@@ -190,15 +226,6 @@
 			</camel:split>
 		</route>
 
-		<route id="reportUCNMismatchesRoute">
-			<camel:from uri="direct:reportUCNMismatches"/>
-
-			<camel:log message="Reporting UCN mismatches: ${in.header.subscriptionsWithUCNMismatches}" />
-			
-			<camel:to uri="direct:sendConsolidationsEmail"/>
-
-		</route>
-
 		<route id="reportNewFederalSubscriptionsWithUCNAddedRoute">
 			<camel:from uri="direct:reportNewFederalSubscriptionsWithUCNAdded"/>
 
@@ -212,7 +239,7 @@
 				<!-- Create OJB OJBC_Subscription_Document.xml here -->
 
 				
-				<camel:log message="Subscription modification message: ${body}"/>
+				<camel:log message="Subscription message: ${body}"/>
 				
 				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 			

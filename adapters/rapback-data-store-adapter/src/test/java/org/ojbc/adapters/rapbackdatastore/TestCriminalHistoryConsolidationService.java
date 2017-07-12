@@ -137,11 +137,6 @@ public class TestCriminalHistoryConsolidationService {
     	
     	context.start();
 	}	
-	
-	@Test
-	public void contextStartup() {
-		assertTrue(true);
-	}
 
 	@Test
 	public void testCriminalConsolidationService() throws Exception
