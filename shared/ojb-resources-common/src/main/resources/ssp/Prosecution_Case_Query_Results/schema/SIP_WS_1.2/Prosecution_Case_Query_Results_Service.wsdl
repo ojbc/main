@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:pcq-res-doc="http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryResults/1.0" 
+	xmlns:tns="http://ojbc.org/Services/WSDL/Prosecution_Case_Query_Results_Service/1.0"
+	targetNamespace="http://ojbc.org/Services/WSDL/Prosecution_Case_Query_Results_Service/1.0"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl">
+	<wsdl:import
+		namespace="http://ojbc.org/PolicyAssertions/WSDL/GFIPM_SAML_Token_SecurityPolicy/1.0/"
+		location="../../../../policy-assertions/GFIPMUserSystemToSystem.wsdl" />
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryResults/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/ProsecutionCaseQueryResults.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="Prosecution-Case-Query-Results">
+		<wsdl:part name="Prosecution-Case-Query-Results" element="pcq-res-doc:ProsecutionCaseQueryResults" />
+	</wsdl:message>
+	<wsdl:portType name="Prosecution-Case-Query-Results-Service">
+		<wsdl:operation name="SubmitProsecutionCaseQueryResults">
+			<wsdl:input name="Prosecution-Case-Query-Results" message="tns:Prosecution-Case-Query-Results" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="Prosecution-Case-Query-Results-Service_SecureSOAPBinding"
+		type="tns:Prosecution-Case-Query-Results-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsp:PolicyReference URI="#GFIPMUserSystemToSystem" />
+		<wsdl:operation name="SubmitProsecutionCaseQueryResults">
+			<soap:operation soapAction="SubmitProsecutionCaseQueryResults"
+				style="document" />
+			<wsdl:input name="Prosecution-Case-Query-Results">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="Prosecution-Case-Query-Results-ServiceSOAPBinding"
+		type="tns:Prosecution-Case-Query-Results-Service">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsaw:UsingAddressing wsdl:required="true" />
+		<wsdl:operation name="SubmitProsecutionCaseQueryResults">
+			<soap:operation soapAction="SubmitProsecutionCaseQueryResults"
+				style="document" />
+			<wsdl:input name="Prosecution-Case-Query-Results">
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Prosecution-Case-Query-Results-ServiceService">
+		<wsdl:port name="Prosecution-Case-Query-Results-Service"
+			binding="tns:Prosecution-Case-Query-Results-ServiceSOAPBinding">
+			<soap:address location="localhost" />
+		</wsdl:port>
+		<wsdl:port name="Prosecution-Case-Query-Results-Secure-Service"
+			binding="tns:Prosecution-Case-Query-Results-Service_SecureSOAPBinding">
+			<soap:address location="http://localhost/secure" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
