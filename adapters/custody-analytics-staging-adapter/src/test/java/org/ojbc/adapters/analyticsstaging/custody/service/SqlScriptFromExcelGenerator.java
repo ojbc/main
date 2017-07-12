@@ -66,7 +66,7 @@ public class SqlScriptFromExcelGenerator {
         		+ "*\n "
         		+ "* http://opensource.org/licenses/RPL-1.5\n "
         		+ "*\n "
-        		+ "* Copyright 2012-2015 Open Justice Broker Consortium\n "
+        		+ "* Copyright 2012-2017 Open Justice Broker Consortium\n "
         		+ "*/\n");
         
         for (int i=0; i<workbook.getNumberOfSheets(); i++){

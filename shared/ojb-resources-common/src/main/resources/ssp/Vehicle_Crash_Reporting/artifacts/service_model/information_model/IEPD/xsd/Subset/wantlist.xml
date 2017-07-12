@@ -337,7 +337,10 @@
     <w:ElementInType w:name="j:DriverLicenseEndorsementText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="j:DriverLicenseBaseType" w:isRequested="true"/>
+  <w:Type w:name="j:DriverLicenseBaseType" w:isRequested="true">
+    <w:ElementInType w:name="j:DriverLicenseIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="j:DriverLicenseEndorsementType" w:isRequested="true">
     <w:ElementInType
       w:name="j:DriverLicenseEndorsementAugmentationPoint"

@@ -268,11 +268,11 @@
 			</nc:PersonWeightMeasure>
 			<j:PersonAugmentation>
 				<j:DriverLicense>
-					<j:DriverLicenseCardIdentification>
+					<j:DriverLicenseIdentification>
 						<nc:IdentificationID>DL239486</nc:IdentificationID>
 						<nc:IdentificationSourceText>DL239486
 						</nc:IdentificationSourceText>
-					</j:DriverLicenseCardIdentification>
+					</j:DriverLicenseIdentification>
 				</j:DriverLicense>
 				<j:PersonProbationerIndicator>false</j:PersonProbationerIndicator>
 				<nc:EmployeeOccupationCategoryText>Truck Driver

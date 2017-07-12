@@ -265,12 +265,12 @@
          <vcq-res-ext:NoInsuranceIndicator>false</vcq-res-ext:NoInsuranceIndicator>
       </nc30:Insurance>
       <jxdm51:CrashDriverLicense s30:id="Driver_License_01">
-         <jxdm51:DriverLicenseCardIdentification>
+         <jxdm51:DriverLicenseIdentification>
             <nc30:IdentificationID>hwLlnccoJ</nc30:IdentificationID>
             <nc30:IdentificationJurisdiction>
                <jxdm51:LocationStateNCICLISCode>AR</jxdm51:LocationStateNCICLISCode>
             </nc30:IdentificationJurisdiction>
-         </jxdm51:DriverLicenseCardIdentification>
+         </jxdm51:DriverLicenseIdentification>
          <jxdm51:DriverLicenseRestriction>
             <jxdm51:DrivingRestrictionText>Evening</jxdm51:DrivingRestrictionText>
          </jxdm51:DriverLicenseRestriction>

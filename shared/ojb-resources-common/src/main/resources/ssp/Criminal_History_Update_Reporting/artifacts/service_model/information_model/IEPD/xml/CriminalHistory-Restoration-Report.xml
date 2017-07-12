@@ -17,31 +17,22 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<CHcr-doc:CriminalHistoryConsolidationReport
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0 ../xsd/criminal_history_consolidation_report.xsd"
-	xmlns:CHcr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
-	xmlns:CHcr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryConsolidationReport/Extension/1.0"
+<chr-report-doc:CriminalHistoryRestorationReport
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalHistoryRestorationReport/1.0 ../xsd/CriminalHistoryRestorationReport-exchange.xsd"
+	xmlns:chr-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryRestorationReport/1.0"
+	xmlns:chr-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryRestorationReport/Extension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<chr-report-ext:CriminalHistoryReportJurisdictionCode>State</chr-report-ext:CriminalHistoryReportJurisdictionCode>
 	<nc:Person>
-		<CHcr-ext:PreConsolidationIdentifiers>
+		<chr-report-ext:RestorationIdentifiers>
 			<j:PersonStateFingerprintIdentification>
-				<nc:IdentificationID>PreConsolidation Fingerprint ID
-				</nc:IdentificationID>
+				<nc:IdentificationID>SID123456</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
 			<j:PersonFBIIdentification>
 				<nc:IdentificationID>FBI234567</nc:IdentificationID>
 			</j:PersonFBIIdentification>
-		</CHcr-ext:PreConsolidationIdentifiers>
-		<CHcr-ext:PostConsolidationIdentifiers>
-			<j:PersonStateFingerprintIdentification>
-				<nc:IdentificationID>PostConsolidation Fingerprint ID
-				</nc:IdentificationID>
-			</j:PersonStateFingerprintIdentification>
-			<j:PersonFBIIdentification>
-				<nc:IdentificationID>FBI2095607</nc:IdentificationID>
-			</j:PersonFBIIdentification>
-		</CHcr-ext:PostConsolidationIdentifiers>
+		</chr-report-ext:RestorationIdentifiers>
 	</nc:Person>
-</CHcr-doc:CriminalHistoryConsolidationReport>
+</chr-report-doc:CriminalHistoryRestorationReport>
