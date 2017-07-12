@@ -715,14 +715,27 @@ public class SubscriptionSearchQueryDAO {
     }
 
     private final String UPDATE_SUBJECT_IDENTIFER_BY_SUBSCRIPTION_ID = "UPDATE subscription_subject_identifier SET identifierValue = ? "
-    		+ "WHERE identifierName = ? and identifierValue = ? and subscriptionId = ?"; 
+    		+ "WHERE identifierName = ? and identifierValue = ? and subscriptionId = ?";
+    
+    private final String DELETE_SUBJECT_IDENTIFER_BY_SUBSCRIPTION_ID = "DELETE from subscription_subject_identifier WHERE identifierName = ? and identifierValue = ? and subscriptionId = ?"; 
+
     /**
      * Update the subscripiton_subject_identifier using the provided parameters
      * @param currentSid
      * @param newSid
      */
     public void updateSubscriptionSubjectIdentifier(String value, String newValue, String subscriptionId, String identiferName){
-    	this.jdbcTemplate.update(UPDATE_SUBJECT_IDENTIFER_BY_SUBSCRIPTION_ID, newValue, identiferName, value, subscriptionId);
+    	
+    	if (StringUtils.isNotBlank(value) && StringUtils.isNotBlank(newValue))
+    	{	
+    		this.jdbcTemplate.update(UPDATE_SUBJECT_IDENTIFER_BY_SUBSCRIPTION_ID, newValue, identiferName, value, subscriptionId);
+    	}
+    	
+    	if (StringUtils.isNotBlank(value) && StringUtils.isBlank(newValue))
+    	{	
+    		this.jdbcTemplate.update(DELETE_SUBJECT_IDENTIFER_BY_SUBSCRIPTION_ID, newValue, identiferName, value, subscriptionId);
+    	}	
+
     }
     
     static Object[] buildCriteriaArray(Map<String, String> subjectIdentifiers) {
