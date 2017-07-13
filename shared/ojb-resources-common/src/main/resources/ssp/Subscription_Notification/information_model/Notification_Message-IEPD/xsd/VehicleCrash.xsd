@@ -21,7 +21,6 @@
 	xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:vc="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0"
-	xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
@@ -32,8 +31,6 @@
 		schemaLocation="../../Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
 		schemaLocation="../../Subset/niem/niem-core/2.0/niem-core.xsd" />
-	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0"
-		schemaLocation="./impl/maine/vehicle_crash_codes.xsd" />
 	<xsd:complexType name="VehicleCrashType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for information about a vehicle traffic accident.
@@ -42,7 +39,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:CrashType">
 				<xsd:sequence>
-					<xsd:element ref="me-crash-codes:ReportingAgencyCodeText" minOccurs="1"
+					<xsd:element ref="vc:ReportingAgencyCodeText" minOccurs="1"
 						maxOccurs="unbounded" />
 					<xsd:element ref="j:IncidentAugmentation" minOccurs="0"
 						maxOccurs="unbounded" />
