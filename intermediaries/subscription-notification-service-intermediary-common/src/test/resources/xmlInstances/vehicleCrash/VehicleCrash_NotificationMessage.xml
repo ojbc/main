@@ -69,9 +69,9 @@
                                 <nc:HighwayFullText>HighwayFullText</nc:HighwayFullText>
                             </nc:LocationHighway>
                         </nc:Location>
-                        <vc:CrashReportingAgency>
-                            <nc:OrganizationName>Auburn Police Department</nc:OrganizationName>
-                        </vc:CrashReportingAgency>
+                        <me-crash-codes:ReportingAgencyCodeText
+                                    xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0"
+                                    >Auburn Police Department</me-crash-codes:ReportingAgencyCodeText>
                         <j:IncidentAugmentation>
                             <j:IncidentReportingOfficial>
                                 <nc:RoleOfPersonReference s:ref="d1e20"/>
