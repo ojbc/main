@@ -77,7 +77,7 @@ public class TestCriminalHistoryConsolidationServiceState {
     	    
     	List<CriminalHistoryConsolidationNotification> notifications = criminalHistoryConsolidationProcessor.consolidateCriminalHistoryState(ex, "A123457", "A123458", "9222201", "9222201", "criminalHistoryConsolidationReport");
     	
-    	assertEquals(1, notifications.size());
+    	assertEquals(3, notifications.size());
     	
     	log.info("CH Notification: " + notifications.get(0));
     	
@@ -85,9 +85,18 @@ public class TestCriminalHistoryConsolidationServiceState {
     	assertEquals("Criminal History Consolidation for SID for: A123457", notifications.get(0).getEmailSubject());
     	assertEquals("A123457 has been consolidated into A123458.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on A123458.  A new arrest may or may not have occurred.", notifications.get(0).getEmailBody());
     	
+    	assertEquals("admin@local.gov", notifications.get(1).getEmailTo());
+    	assertEquals("UCN added during SID consolidation/federal subscription created for: A123457", notifications.get(1).getEmailSubject());
+    	assertEquals("SID: A123458 \n UCN: 9222201\n\nThe UCN associated to this SID has been updated.  Our records show you have an active State Rap Back subscription associated with this offender.  A federal Rap Back subscription was automatically created on your behalf.  Please log onto the HIJIS portal to verify or update your subscription as necessary.  For the updated criminal history record information, logon to OpenFox/NCIC to run a query on this UCN.", notifications.get(1).getEmailBody());
+
+    	assertEquals("agencyemail@local.gov", notifications.get(2).getEmailTo());
+    	assertEquals("Agency Notification: UCN added during SID consolidation/federal subscription created for: A123457", notifications.get(2).getEmailSubject());
+    	assertEquals("Agency: SID: A123458 \n UCN: 9222201\n\nThe UCN associated to this SID has been updated.  Federal subscription added for user.", notifications.get(2).getEmailBody());
+
+    	
     	//See processor camel context test for the database method tests
     	@SuppressWarnings("unchecked")
-		List<Subscription> subscriptions = (List<Subscription>)ex.getIn().getHeader("subscriptionsToModify");
+		List<Subscription> subscriptions = (List<Subscription>)ex.getIn().getHeader("subscriptionsMissingUCNtoAdd");
     	
     	log.info("Subscriptions to modify: " + subscriptions);
     	

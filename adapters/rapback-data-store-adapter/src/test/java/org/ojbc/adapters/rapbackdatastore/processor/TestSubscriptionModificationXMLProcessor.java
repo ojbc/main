@@ -142,7 +142,7 @@ public class TestSubscriptionModificationXMLProcessor {
 		assertEquals("2016-10-19", endDate);	
 		
 		String ori = XmlUtils.xPathStringSearch(subMsgNode, "submsg-ext:SubscribingOrganization/jxdm41:OrganizationAugmentation/jxdm41:OrganizationORIIdentification/nc:IdentificationID");
-		assertEquals("TODO: get ORI here", ori);
+		assertEquals("defaultORI", ori);
 
 		String federalRapSheetDisclosureIndicator = XmlUtils.xPathStringSearch(subMsgNode, "submsg-ext:FederalRapSheetDisclosure/submsg-ext:FederalRapSheetDisclosureIndicator");
 		assertEquals("true", federalRapSheetDisclosureIndicator);
