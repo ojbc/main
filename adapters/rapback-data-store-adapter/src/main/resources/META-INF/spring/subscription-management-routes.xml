@@ -191,15 +191,10 @@
 			
 			<log message="Body: ${body}"/>
 			
-			<!-- Report federal subscription changes to EBTS adapter, what is this?  -->
-			<camel:wireTap uri="direct:reportSubscriptionChange">
-				<body><simple>${body}</simple></body>
-			</camel:wireTap>
-
-			<!-- Report new federal subscriptions with the UCN that was added  
+			<!-- Report new federal subscriptions with the UCN that was added  -->
 			<camel:wireTap uri="direct:reportNewFederalSubscriptionsWithUCNAdded">
 				<body><simple>${body}</simple></body>
-			</camel:wireTap>-->
+			</camel:wireTap>
 			
 			<camel:to uri="direct:sendConsolidationsEmail"/>
 		</route>
@@ -231,13 +226,13 @@
 
 			<camel:split>
 				<!-- The body is a map of Subscriptions -->
-				<camel:simple>${in.header.subscriptionsToModify}</camel:simple>
+				<camel:simple>${in.header.subscriptionsMissingUCNtoAdd}</camel:simple>
 
 
-				<camel:log message="Subscription to modify: ${body}"/>
+				<camel:log message="Subscription to Add ${body}"/>
 			
 				<!-- Create OJB OJBC_Subscription_Document.xml here -->
-
+				<to uri="bean:subscriptionModificationXMLProcessor?method=createOJBCsubscriptionDocument" />
 				
 				<camel:log message="Subscription message: ${body}"/>
 				
@@ -252,6 +247,7 @@
 		            <constant>http://docs.oasis-open.org/wsn/brw-2</constant>
 		        </camel:setHeader>
 							
+				<!-- TODO: Update to call S/N broker -->			
 				<camel:to uri="fbiEbtsNotificationBrokerServiceEndpoint"/>
 				
 				<camel:delay>
@@ -261,40 +257,6 @@
 
 		</route>
 		
-		<route id="reportSubscriptionChangeRoute">
-			<camel:from uri="direct:reportSubscriptionChange"/>
-			
-			<camel:split>
-				<!-- The body is a map of Subscriptions -->
-				<camel:simple>${in.header.subscriptionsToModify}</camel:simple>
-
-
-				<camel:log message="Subscription to modify: ${body}"/>
-			
-				<!-- Create OJB OJBC_Subscription_Modify_Document.xml here -->
-				<to uri="bean:subscriptionModificationXMLProcessor?method=createOJBCsubscriptionModificationDocument" />
-				
-				<camel:log message="Subscription modification message: ${body}"/>
-				
-				<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
-			
-				<!-- Call broker here -->
-				<camel:setHeader headerName="operationName">
-		            <constant>Modify</constant>
-		        </camel:setHeader>
-		        
-		        <camel:setHeader headerName="operationNamespace">
-		            <constant>http://docs.oasis-open.org/wsn/bw-2</constant>
-		        </camel:setHeader>
-							
-				<camel:to uri="fbiEbtsSubscriptionManagerServiceEndpoint"/>
-				
-				<camel:delay>
-					<constant>1000</constant>
-				</camel:delay>
-			</camel:split>			
-		</route>
-
 		<!-- Automatically Archive idled records flow -->
 		<route id="automaticArchivingCivilRoute">
 			<from uri="automaticArchivingCivilTimerEndpoint" />

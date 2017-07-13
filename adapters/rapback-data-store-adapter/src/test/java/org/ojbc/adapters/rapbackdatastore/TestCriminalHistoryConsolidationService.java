@@ -109,8 +109,8 @@ public class TestCriminalHistoryConsolidationService {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:fbiEbtsSubscriptionManagerService")
-    protected MockEndpoint fbiEbtsSubscriptionManagerServiceMock;
+    @EndpointInject(uri = "mock:cxf:bean:fbiEbtsNotificationBrokerService")
+    protected MockEndpoint fbiEbtsNotificationBrokerServiceEndpointMock;
     
 	@Before
 	public void setUp() throws Exception {
@@ -125,11 +125,11 @@ public class TestCriminalHistoryConsolidationService {
     	    }              
     	});
 
-    	context.getRouteDefinition("reportSubscriptionChangeRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("reportNewFederalSubscriptionsWithUCNAddedRoute").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
     	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	interceptSendToEndpoint("cxf:bean:fbiEbtsSubscriptionManagerService*").skipSendToOriginalEndpoint().to("mock:cxf:bean:fbiEbtsSubscriptionManagerService");
+    	    	interceptSendToEndpoint("cxf:bean:fbiEbtsNotificationBrokerService*").skipSendToOriginalEndpoint().to("mock:cxf:bean:fbiEbtsNotificationBrokerService");
 
     	    }              
     	});
@@ -141,8 +141,8 @@ public class TestCriminalHistoryConsolidationService {
 	@Test
 	public void testCriminalConsolidationService() throws Exception
 	{
-		fbiEbtsSubscriptionManagerServiceMock.reset();
-		fbiEbtsSubscriptionManagerServiceMock.expectedMessageCount(3);
+		fbiEbtsNotificationBrokerServiceEndpointMock.reset();
+		fbiEbtsNotificationBrokerServiceEndpointMock.expectedMessageCount(3);
 		
 		//Initial database setup
 		Connection conn = dataSource.getConnection();
@@ -322,12 +322,13 @@ public class TestCriminalHistoryConsolidationService {
 		subscriptions = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
 		assertEquals(2, subscriptions.size());
 		
-		fbiEbtsSubscriptionManagerServiceMock.assertIsSatisfied();
+		fbiEbtsNotificationBrokerServiceEndpointMock.assertIsSatisfied();
 
-		for (Exchange ex : fbiEbtsSubscriptionManagerServiceMock.getExchanges())
+		for (Exchange ex : fbiEbtsNotificationBrokerServiceEndpointMock.getExchanges())
 		{
 			Document doc = (Document)ex.getIn().getBody();
-			Node subMsgNode = XmlUtils.xPathNodeSearch(doc, "//smm:SubscriptionModificationMessage");
+			XmlUtils.printNode(doc);
+			Node subMsgNode = XmlUtils.xPathNodeSearch(doc, "//b-2:Subscribe");
 			assertNotNull(subMsgNode);
 		}	
 	}
