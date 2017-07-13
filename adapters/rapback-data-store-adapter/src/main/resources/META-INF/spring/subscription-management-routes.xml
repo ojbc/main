@@ -247,8 +247,7 @@
 		            <constant>http://docs.oasis-open.org/wsn/brw-2</constant>
 		        </camel:setHeader>
 							
-				<!-- TODO: Update to call S/N broker -->			
-				<camel:to uri="fbiEbtsNotificationBrokerServiceEndpoint"/>
+				<camel:to uri="subscriptionManagerServiceEndpoint"/>
 				
 				<camel:delay>
 					<constant>1000</constant>

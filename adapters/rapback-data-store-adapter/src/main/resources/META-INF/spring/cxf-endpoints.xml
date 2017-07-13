@@ -37,6 +37,14 @@
     http://cxf.apache.org/configuration/security	http://cxf.apache.org/schemas/configuration/security.xsd
     http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
     ">
+    
+	<!-- OJB Subscription Manager Service, invoked by intermediary -->
+	<cxf:cxfEndpoint id="subscriptionManagerService"
+		address="${rapbackDatastoreAdapter.subscriptionManagerEndpoint}"
+		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSubscriptionManager.wsdl"
+		serviceName="ojb-sm:SubscriptionManagerServiceService" endpointName="ojb-sm:SubscriptionManager"
+		xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
+	</cxf:cxfEndpoint>    
 
 	<!-- Identification Recording Adapter - hosted by the rapback data store adapter, called by the intermediary -->
 	<cxf:cxfEndpoint id="identificationRecordingAdapter"

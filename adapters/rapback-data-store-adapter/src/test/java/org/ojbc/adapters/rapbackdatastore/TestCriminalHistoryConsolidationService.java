@@ -109,8 +109,8 @@ public class TestCriminalHistoryConsolidationService {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:fbiEbtsNotificationBrokerService")
-    protected MockEndpoint fbiEbtsNotificationBrokerServiceEndpointMock;
+    @EndpointInject(uri = "mock:cxf:bean:subscriptionManagerService")
+    protected MockEndpoint subscriptionManagerServiceEndpointMock;
     
 	@Before
 	public void setUp() throws Exception {
@@ -129,7 +129,7 @@ public class TestCriminalHistoryConsolidationService {
     	    @Override
     	    public void configure() throws Exception {
     	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	interceptSendToEndpoint("cxf:bean:fbiEbtsNotificationBrokerService*").skipSendToOriginalEndpoint().to("mock:cxf:bean:fbiEbtsNotificationBrokerService");
+    	    	interceptSendToEndpoint("cxf:bean:subscriptionManagerService*").skipSendToOriginalEndpoint().to("mock:cxf:bean:subscriptionManagerService");
 
     	    }              
     	});
@@ -141,8 +141,8 @@ public class TestCriminalHistoryConsolidationService {
 	@Test
 	public void testCriminalConsolidationService() throws Exception
 	{
-		fbiEbtsNotificationBrokerServiceEndpointMock.reset();
-		fbiEbtsNotificationBrokerServiceEndpointMock.expectedMessageCount(3);
+		subscriptionManagerServiceEndpointMock.reset();
+		subscriptionManagerServiceEndpointMock.expectedMessageCount(3);
 		
 		//Initial database setup
 		Connection conn = dataSource.getConnection();
@@ -322,9 +322,9 @@ public class TestCriminalHistoryConsolidationService {
 		subscriptions = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
 		assertEquals(2, subscriptions.size());
 		
-		fbiEbtsNotificationBrokerServiceEndpointMock.assertIsSatisfied();
+		subscriptionManagerServiceEndpointMock.assertIsSatisfied();
 
-		for (Exchange ex : fbiEbtsNotificationBrokerServiceEndpointMock.getExchanges())
+		for (Exchange ex : subscriptionManagerServiceEndpointMock.getExchanges())
 		{
 			Document doc = (Document)ex.getIn().getBody();
 			XmlUtils.printNode(doc);
