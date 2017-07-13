@@ -58,7 +58,10 @@
                            <nc:HighwayFullText>264 MINOT AVE</nc:HighwayFullText>
                         </nc:LocationHighway>
                      </nc:Location>
-                     <me-crash-codes:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT</me-crash-codes:ReportingAgencyCodeText>
+                     <vc:CrashReportingDate>
+                        <nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
+                     </vc:CrashReportingDate>
+                     <vc:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT</vc:ReportingAgencyCodeText>
                      <j:IncidentAugmentation>
                         <j:IncidentReportingOfficial>
                            <nc:RoleOfPersonReference s:id="d1e20"/>
@@ -120,7 +123,10 @@
                            <nc:HighwayFullText>264 MINOT AVE</nc:HighwayFullText>
                         </nc:LocationHighway>
                      </nc:Location>
-                     <me-crash-codes:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT</me-crash-codes:ReportingAgencyCodeText>
+                     <vc:CrashReportingDate>
+                        <nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
+                     </vc:CrashReportingDate>
+                     <vc:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT</vc:ReportingAgencyCodeText>
                      <j:IncidentAugmentation>
                         <j:IncidentReportingOfficial>
                            <nc:RoleOfPersonReference s:id="d1e20"/>
@@ -182,7 +188,10 @@
                            <nc:HighwayFullText>264 MINOT AVE</nc:HighwayFullText>
                         </nc:LocationHighway>
                      </nc:Location>
-                     <me-crash-codes:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT</me-crash-codes:ReportingAgencyCodeText>
+                     <vc:CrashReportingDate>
+                        <nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
+                     </vc:CrashReportingDate>
+                     <vc:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT</vc:ReportingAgencyCodeText>
                      <j:IncidentAugmentation>
                         <j:IncidentReportingOfficial>
                            <nc:RoleOfPersonReference s:id="d1e20"/>

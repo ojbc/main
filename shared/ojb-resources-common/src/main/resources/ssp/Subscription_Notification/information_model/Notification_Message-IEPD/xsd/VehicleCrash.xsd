@@ -39,6 +39,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:CrashType">
 				<xsd:sequence>
+					<xsd:element ref="vc:CrashReportingDate" minOccurs="0"
+						maxOccurs="unbounded" />
 					<xsd:element ref="vc:ReportingAgencyCodeText" minOccurs="1"
 						maxOccurs="unbounded" />
 					<xsd:element ref="j:IncidentAugmentation" minOccurs="0"
@@ -56,6 +58,12 @@
 	<xsd:element name="PersonCategoryCodeText" type="nc:TextType">
 		<xsd:annotation>
 			<xsd:documentation>Code text that describes the category of a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CrashReportingDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date a vehicle crash is reported.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
