@@ -81,7 +81,7 @@ public class VehicleCrashNotificationRequest extends NotificationRequest {
 
     @Override
     protected String getNotifyingAgencyXpath() {
-        return "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingVehicleCrash/vc-ext:VehicleCrash/*[local-name()='ReportingAgencyCodeText']";
+        return "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingVehicleCrash/vc-ext:VehicleCrash/vc-ext:ReportingAgencyCodeText";
     }
 
     @Override
