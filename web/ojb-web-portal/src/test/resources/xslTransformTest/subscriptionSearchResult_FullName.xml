@@ -137,7 +137,46 @@
 		<intel:SystemName>Subscriptions</intel:SystemName>
 	</intel:SystemIdentifier>
   </ext:SubscriptionSearchResult>
-
+    <ext:SubscriptionSearchResult>
+        <ext:Subscription>
+            <nc:ActivityDateRange>
+                <nc:StartDate>
+                    <nc:Date>2017-07-13</nc:Date>
+                </nc:StartDate>
+            </nc:ActivityDateRange>
+            <ext:SubscriptionSubject>
+                <nc:RoleOfPersonReference s:ref="P1"/>
+            </ext:SubscriptionSubject>
+            <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete"
+                >{http://ojbc.org/wsn/topics}:person/vehicleCrash</wsn-br:Topic>
+            <ext:SubscribedEntity s:id="SE1"/>
+            <ext:SubscriptionOriginator>
+                <ext:SubscriptionOriginatorIdentification>
+                    <nc:IdentificationID>DEMO:IDP:USER:testfull@local.gov</nc:IdentificationID>
+                </ext:SubscriptionOriginatorIdentification>
+            </ext:SubscriptionOriginator>
+            <ext:SubscriptionValidation>
+                <ext:SubscriptionValidatedDate>
+                    <nc:Date>2017-07-12</nc:Date>
+                </ext:SubscriptionValidatedDate>
+            </ext:SubscriptionValidation>
+        </ext:Subscription>
+        <ext:SourceSystemNameText>{http://ojbc.org/OJB_Portal/Subscriptions/1.0}OJB</ext:SourceSystemNameText>
+        <intel:SystemIdentifier>
+            <nc:IdentificationID>72772</nc:IdentificationID>
+            <intel:SystemName>Subscriptions</intel:SystemName>
+        </intel:SystemIdentifier>
+    </ext:SubscriptionSearchResult>  
+    <ext:Person s:id="P1">
+        <nc:PersonBirthDate>
+            <nc:Date>1990-01-01</nc:Date>
+        </nc:PersonBirthDate>
+        <nc:PersonName>
+            <nc:PersonFullName>TEST NAME</nc:PersonFullName>
+            <nc:PersonGivenName>TEST</nc:PersonGivenName>
+            <nc:PersonSurName>NAME</nc:PersonSurName>
+        </nc:PersonName>
+    </ext:Person>
   <ext:Person s:id="P002">
   	<nc:PersonBirthDate>
   		<nc:Date>1972-03-01</nc:Date>
