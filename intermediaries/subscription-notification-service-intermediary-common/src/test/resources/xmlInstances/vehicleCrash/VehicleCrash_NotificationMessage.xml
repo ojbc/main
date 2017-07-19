@@ -69,6 +69,9 @@
                                 <nc:HighwayFullText>HighwayFullText</nc:HighwayFullText>
                             </nc:LocationHighway>
                         </nc:Location>
+	                     <vc:CrashReportingDate>
+	                        <nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
+	                     </vc:CrashReportingDate>                        
                         <vc:ReportingAgencyCodeText>Auburn Police Department</vc:ReportingAgencyCodeText>
                         <j:IncidentAugmentation>
                             <j:IncidentReportingOfficial>

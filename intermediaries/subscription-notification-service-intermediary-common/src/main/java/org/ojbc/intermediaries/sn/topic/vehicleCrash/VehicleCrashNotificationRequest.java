@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.apache.camel.Message;
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
@@ -30,6 +31,7 @@ import org.w3c.dom.Document;
 public class VehicleCrashNotificationRequest extends NotificationRequest {
 
 	private String crashLocation;
+	private DateTime crashDate;
 	
     public VehicleCrashNotificationRequest(Message message) throws Exception {
         this(message.getBody(Document.class));
@@ -43,6 +45,10 @@ public class VehicleCrashNotificationRequest extends NotificationRequest {
                         "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/jxdm41:Person[@s:id=../nc:ActivityInvolvedPersonAssociation/nc:PersonReference/@s:ref]/nc:PersonBirthDate/nc:Date");
 
         buildSubjectIdMap(dateOfBirth);
+        
+        String crashDateString = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingVehicleCrash/vc-ext:VehicleCrash/nc:ActivityDate/nc:DateTime");
+        
+        crashDate = XmlUtils.parseXmlDateTime(crashDateString);
         
         crashLocation = XmlUtils.xPathStringSearch(document, "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingVehicleCrash/vc-ext:VehicleCrash/nc:Location/nc:LocationHighway/nc:HighwayFullText");
     }
@@ -76,7 +82,8 @@ public class VehicleCrashNotificationRequest extends NotificationRequest {
     @Override
     protected String getNotificationEventDateRootXpath() {
 
-        return "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingVehicleCrash/vc-ext:VehicleCrash/nc:ActivityDate";
+        return "/b-2:Notify/b-2:NotificationMessage/b-2:Message/notfm-exch:NotificationMessage/notfm-ext:NotifyingVehicleCrash/vc-ext:VehicleCrash/vc-ext:CrashReportingDate";
+        
     }
 
     @Override
@@ -115,7 +122,7 @@ public class VehicleCrashNotificationRequest extends NotificationRequest {
     }
 
     public String getCrashDateTimeDisplay() {
-        return NotificationBrokerUtils.returnFormattedNotificationEventDate(getNotificationEventDate(), isNotificationEventDateInclusiveOfTime());
+        return NotificationBrokerUtils.returnFormattedNotificationEventDate(getCrashDate(), isNotificationEventDateInclusiveOfTime());
     }
 
 	@Override
@@ -130,5 +137,15 @@ public class VehicleCrashNotificationRequest extends NotificationRequest {
 	public void setCrashLocation(String crashLocation) {
 		this.crashLocation = crashLocation;
 	}
+
+	public DateTime getCrashDate() {
+		return crashDate;
+	}
+
+	public void setCrashDate(DateTime crashDate) {
+		this.crashDate = crashDate;
+	}
+
+
 
 }

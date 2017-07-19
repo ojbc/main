@@ -50,7 +50,7 @@ public class VehicleCrashNotificationRequestTest {
 		assertThat(request.isNotificationEventDateInclusiveOfTime(), is(true));
 		
 		DateTime notifiationEventDateTime = request.getNotificationEventDate();
-		assertThat(notifiationEventDateTime.toString(DATE_FORMATTER), is("2017-06-22T15:08:15"));
+		assertThat(notifiationEventDateTime.toString(DATE_FORMATTER), is("2014-07-07T23:00:00"));
 		
 		assertThat(request.getNotifyingAgencyName(), is("Auburn Police Department"));
 		assertThat(request.getNotificationEventIdentifier(), is("CitationNumber"));
@@ -64,6 +64,7 @@ public class VehicleCrashNotificationRequestTest {
 		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.LAST_NAME), is("Doe"));
 		assertThat(request.getSubjectIdentifiers().get(SubscriptionNotificationConstants.DATE_OF_BIRTH), is("1955-12-25"));
 		assertThat(request.getCrashLocation(), is("HighwayFullText"));
+		assertThat(request.getCrashDateTimeDisplay(), is("2017-06-22 15:08:15"));
 		
 		assertThat(request.getTopic(), is("{http://ojbc.org/wsn/topics}:person/vehicleCrash"));
 		
