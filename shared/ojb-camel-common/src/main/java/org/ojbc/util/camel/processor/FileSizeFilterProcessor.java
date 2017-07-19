@@ -19,10 +19,14 @@ package org.ojbc.util.camel.processor;
 import java.io.File;
 
 import org.apache.camel.Exchange;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class FileSizeFilterProcessor {
 
 	private double fileSizeInKilobytes;
+	
+	private Log log = LogFactory.getLog(this.getClass());
 	
 	/**
 	 * This method will filter files less than a certain size.  If file size is 0, we just return.
@@ -51,6 +55,29 @@ public class FileSizeFilterProcessor {
 		}	
 
 	}
+	
+	public void filterFilesGreaterThanSpecifiedSize(Exchange ex)
+	{
+		log.info("Max file size in kilobytes: " + fileSizeInKilobytes);
+		
+		if (fileSizeInKilobytes == 0)
+		{
+			return;
+		}	
+		
+		File fileToProcess = ex.getIn().getBody(File.class);
+		
+		double bytes = fileToProcess.length();
+		double kilobytes = (bytes / 1024);
+		
+		log.info("File size in kilobytes: " + kilobytes);
+		
+		if (kilobytes > fileSizeInKilobytes)
+		{
+			ex.getIn().setHeader("fileSizeTooLarge", true);
+		}	
+
+	}	
 
 	public double getFileSizeInKilobytes() {
 		return fileSizeInKilobytes;
