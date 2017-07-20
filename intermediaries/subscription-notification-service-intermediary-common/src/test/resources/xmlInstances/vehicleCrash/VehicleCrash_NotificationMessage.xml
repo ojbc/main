@@ -70,7 +70,7 @@
                             </nc:LocationHighway>
                         </nc:Location>
 	                     <vc:CrashReportingDate>
-	                        <nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
+	                        <nc:DateTime>2016-06-22T15:08:15</nc:DateTime>
 	                     </vc:CrashReportingDate>                        
                         <vc:ReportingAgencyCodeText>Auburn Police Department</vc:ReportingAgencyCodeText>
                         <j:IncidentAugmentation>
