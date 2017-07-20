@@ -235,6 +235,7 @@
 						<lexsdigest:EntityVehicle>
 							<nc:Vehicle s:id="VEHICLE_01">
 								<nc:VehicleColorPrimaryCode>SIL</nc:VehicleColorPrimaryCode>
+								<nc:ItemModelName>Model</nc:ItemModelName>
 								<nc:ItemModelYearDate>2015</nc:ItemModelYearDate>
 								<nc:VehicleStyleCode>SD</nc:VehicleStyleCode>
 								<nc:ConveyanceRegistrationPlateIdentification>
