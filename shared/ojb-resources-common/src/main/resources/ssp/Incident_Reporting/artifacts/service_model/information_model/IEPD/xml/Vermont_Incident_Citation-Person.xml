@@ -21,8 +21,7 @@
 	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
 	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
-	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xmlns:vt-ts-codes="http://ojbc.org/IEPD/Extensions/Vermont/TrafficStopCodes/1.0"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd http://ojbc.org/IEPD/Extensions/Vermont/TrafficStopCodes/1.0 ../xsd/impl/vermont/traffic_stop_codes.xsd">
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd">
 	<lexspd:doPublish>
 		<lexs:PublishMessageContainer>
 			<lexs:PublishMessage>
@@ -168,7 +167,7 @@
 									<nc:TimeUnitCode>ANN</nc:TimeUnitCode>
 								</nc:PersonAgeMeasure>
 								<nc:PersonBirthDate>
-									<nc:Date>1965-12-16</nc:Date>
+									<nc:Date>1965-09-29</nc:Date>
 								</nc:PersonBirthDate>
 								<nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
 								<nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
@@ -190,7 +189,7 @@
 								<j:PersonAugmentation>
 									<nc:DriverLicense s:id="DL001">
 										<nc:DriverLicenseIdentification>
-											<nc:IdentificationID>1209345</nc:IdentificationID>
+											<nc:IdentificationID>41444812</nc:IdentificationID>
 											<j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
 										</nc:DriverLicenseIdentification>
 									</nc:DriverLicense>
@@ -211,7 +210,7 @@
 						<lexsdigest:EntityTelephoneNumber>
 							<lexsdigest:TelephoneNumber>
 								<nc:FullTelephoneNumber s:id="TELEPHONE_01">
-									<nc:TelephoneNumberFullID>806-383-1111</nc:TelephoneNumberFullID>
+									<nc:TelephoneNumberFullID>802-363-1111</nc:TelephoneNumberFullID>
 								</nc:FullTelephoneNumber>
 							</lexsdigest:TelephoneNumber>
 						</lexsdigest:EntityTelephoneNumber>
@@ -219,7 +218,7 @@
 						<lexsdigest:EntityTelephoneNumber>
 							<lexsdigest:TelephoneNumber>
 								<nc:FullTelephoneNumber s:id="TELEPHONE_02">
-									<nc:TelephoneNumberFullID>802-363-0046</nc:TelephoneNumberFullID>
+									<nc:TelephoneNumberFullID>802-363-1146</nc:TelephoneNumberFullID>
 								</nc:FullTelephoneNumber>
 							</lexsdigest:TelephoneNumber>
 						</lexsdigest:EntityTelephoneNumber>
@@ -230,9 +229,13 @@
 									<nc:StructuredAddress>
 										<nc:LocationStreet>
 											<nc:StreetFullText>145 Austin Dr</nc:StreetFullText>
+											<nc:StreetNumberText>145</nc:StreetNumberText>
+											<nc:StreetName>Austin Dr</nc:StreetName>
+											<nc:StreetCategoryText>Street</nc:StreetCategoryText>
 										</nc:LocationStreet>
 										<nc:LocationCityName>Burlington</nc:LocationCityName>
 										<nc:LocationStateName>VT</nc:LocationStateName>
+										<nc:LocationCountryName>United States</nc:LocationCountryName>
 										<nc:LocationPostalCode>05401</nc:LocationPostalCode>
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
@@ -243,7 +246,7 @@
 							<nc:Location s:id="LOCATION_02">
 								<nc:LocationAddress>
 									<nc:StructuredAddress>
-										<nc:LocationCityName>Buffalo</nc:LocationCityName>
+										<nc:LocationCityName>Athens</nc:LocationCityName>
 										<nc:LocationStateName>GA</nc:LocationStateName>
 										<nc:LocationCountryName>United States</nc:LocationCountryName>
 									</nc:StructuredAddress>
@@ -255,7 +258,16 @@
 							<nc:Location s:id="LOCATION_03">
 								<nc:LocationAddress>
 									<nc:StructuredAddress>
+										<nc:LocationStreet>
+											<nc:StreetFullText>123 Allen Drive</nc:StreetFullText>
+											<nc:StreetNumberText>123</nc:StreetNumberText>
+											<nc:StreetName>Allen Drive</nc:StreetName>
+											<nc:StreetCategoryText>Street</nc:StreetCategoryText>
+										</nc:LocationStreet>
 										<nc:LocationCityName>Milton</nc:LocationCityName>
+										<nc:LocationStateName>VT</nc:LocationStateName>
+										<nc:LocationCountryName>United States</nc:LocationCountryName>
+										<nc:LocationPostalCode>05468</nc:LocationPostalCode>
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
 							</nc:Location>
@@ -269,6 +281,7 @@
 											<nc:StreetFullText>100 State Street</nc:StreetFullText>
 										</nc:LocationStreet>
 										<nc:LocationCityName>Richmond</nc:LocationCityName>
+										<nc:LocationStateName>VT</nc:LocationStateName>
 										<nc:LocationPostalCode>05401-2277</nc:LocationPostalCode>
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
@@ -278,7 +291,7 @@
 						<lexsdigest:EntityVehicle>
 							<nc:Vehicle s:id="VEHICLE_01">
 								<nc:VehicleColorPrimaryCode>SIL</nc:VehicleColorPrimaryCode>
-								<nc:ItemModelName>Model</nc:ItemModelName>
+								<nc:ItemModelName>Corolla</nc:ItemModelName>
 								<nc:ItemModelYearDate>2015</nc:ItemModelYearDate>
 								<nc:VehicleStyleCode>SD</nc:VehicleStyleCode>
 								<nc:ConveyanceRegistrationPlateIdentification>
@@ -286,7 +299,7 @@
 									<nc:IdentificationJurisdictionFIPS10-4Code>VT</nc:IdentificationJurisdictionFIPS10-4Code>
 								</nc:ConveyanceRegistrationPlateIdentification>
 								<nc:VehicleIdentification>
-									<nc:IdentificationID>VIN123456</nc:IdentificationID>
+									<nc:IdentificationID>VIN</nc:IdentificationID>
 								</nc:VehicleIdentification>
 								<nc:VehicleMakeCode>TOYT</nc:VehicleMakeCode>
 							</nc:Vehicle>
@@ -445,7 +458,7 @@
 										<nc:IdentificationID>12FR655</nc:IdentificationID>
 									</j:StatuteCodeIdentification>
 								</inc-ext:CFRStatute>
-								<inc-ext:ViolationOffenseCode>23V1007B</inc-ext:ViolationOffenseCode>
+								<inc-ext:ViolationOffenseCode>1007A</inc-ext:ViolationOffenseCode>
 								<lexslib:SameAsDigestReference lexslib:ref="OFFENSE_02" />
 							</inc-ext:Offense>
 							<inc-ext:Charge>
@@ -478,7 +491,7 @@
 								<lexslib:SameAsDigestReference lexslib:ref="CITATION_01" />
 							</inc-ext:Citation>
 							<inc-ext:Vehicle>
-								<inc-ext:VehicleHazardousMaterialIndicator>false</inc-ext:VehicleHazardousMaterialIndicator>
+								<inc-ext:VehicleHazardousMaterialIndicator>true</inc-ext:VehicleHazardousMaterialIndicator>
 								<lexslib:SameAsDigestReference lexslib:ref="VEHICLE_01" />
 							</inc-ext:Vehicle>
 							<inc-ext:DrivingIncident>

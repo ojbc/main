@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
+	Unless explicitly acquired and licensed from Licensor under another license, the contents of
+	this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+	versions as allowed by the RPL, and You may not copy or use this file in either source code
+	or executable form, except in compliance with the terms and conditions of the RPL
 
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
+	All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+	WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+	WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+	PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+	governing rights and limitations under the RPL.
 
-    http://opensource.org/licenses/RPL-1.5
+	http://opensource.org/licenses/RPL-1.5
 
-    Copyright 2012-2017 Open Justice Broker Consortium
+	Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
 <ir-doc:IncidentReport xmlns:ir-doc="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
@@ -188,7 +188,7 @@
 						<!-- SUBJECT - ORGANIZATION -->
 						<lexsdigest:EntityOrganization>
 							<nc:Organization s:id="ORGANIZATION_01">
-								<nc:OrganizationName>ACME</nc:OrganizationName>
+								<nc:OrganizationName>Berlin City Kia</nc:OrganizationName>
 							</nc:Organization>
 						</lexsdigest:EntityOrganization>
 						<!-- OFFICER AGENCY -->
@@ -202,7 +202,7 @@
 						<lexsdigest:EntityTelephoneNumber>
 							<lexsdigest:TelephoneNumber>
 								<nc:FullTelephoneNumber s:id="TELEPHONE_01">
-									<nc:TelephoneNumberFullID>802-864-3333</nc:TelephoneNumberFullID>
+									<nc:TelephoneNumberFullID>802-864-3905</nc:TelephoneNumberFullID>
 								</nc:FullTelephoneNumber>
 							</lexsdigest:TelephoneNumber>
 						</lexsdigest:EntityTelephoneNumber>
@@ -212,10 +212,13 @@
 								<nc:LocationAddress>
 									<nc:StructuredAddress>
 										<nc:LocationStreet>
-											<nc:StreetFullText>123 Main Street</nc:StreetFullText>
+											<nc:StreetFullText> PO Box 514</nc:StreetFullText>
+											<nc:StreetName>PO Box 514</nc:StreetName>
+											<nc:StreetCategoryText>Street</nc:StreetCategoryText>
 										</nc:LocationStreet>
-										<nc:LocationCityName>Burlington</nc:LocationCityName>
+										<nc:LocationCityName>Williston</nc:LocationCityName>
 										<nc:LocationStateName>VT</nc:LocationStateName>
+										<nc:LocationCountryName>United States</nc:LocationCountryName>
 										<nc:LocationPostalCode>05495</nc:LocationPostalCode>
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
@@ -226,7 +229,16 @@
 							<nc:Location s:id="LOCATION_02">
 								<nc:LocationAddress>
 									<nc:StructuredAddress>
+										<nc:LocationStreet>
+											<nc:StreetFullText>586 Marshall Ave</nc:StreetFullText>
+											<nc:StreetNumberText>586</nc:StreetNumberText>
+											<nc:StreetName>Marshall Ave</nc:StreetName>
+											<nc:StreetCategoryText>Street</nc:StreetCategoryText>
+										</nc:LocationStreet>
 										<nc:LocationCityName>Williston</nc:LocationCityName>
+										<nc:LocationStateName>VT</nc:LocationStateName>
+										<nc:LocationCountryName>United States</nc:LocationCountryName>
+										<nc:LocationPostalCode>05495</nc:LocationPostalCode>
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
 							</nc:Location>
@@ -361,11 +373,6 @@
 										<nc:IdentificationID>23VSA460</nc:IdentificationID>
 									</j:StatuteCodeIdentification>
 								</inc-ext:OffenseViolatedStatute>
-								<inc-ext:CFRStatute>
-									<j:StatuteCodeIdentification>
-										<nc:IdentificationID>23CFR655</nc:IdentificationID>
-									</j:StatuteCodeIdentification>
-								</inc-ext:CFRStatute>
 								<inc-ext:ViolationOffenseCode>DUT</inc-ext:ViolationOffenseCode>
 								<inc-ext:DrivingOffensePoints>2</inc-ext:DrivingOffensePoints>
 								<inc-ext:OffenseFineAmountMinimum>47.00</inc-ext:OffenseFineAmountMinimum>
