@@ -44,11 +44,7 @@
 			<script src="#springUrl('/static/js/formValidation.js')"></script>
 		#end
 
-		#if( $customStyleCssPath != "" )
-	        <link rel="stylesheet" type="text/css" href="#springUrl($customStyleCssPath)">
-		#end
-		
-        <title>OJBC Portal</title>
+        <title>HIJIS Portal</title>
     </head>
     <body>
         <div id="pageRoot">

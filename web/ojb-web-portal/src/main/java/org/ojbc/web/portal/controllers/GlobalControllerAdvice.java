@@ -43,12 +43,16 @@ public class GlobalControllerAdvice {
     @Value("${singleClickForDetail:false}")
     Boolean singleClickForDetail;
 
+    @Value("${customStyleCssPath:}")
+    String customStyleCssPath;
+    
     @ModelAttribute
     public void setupModelAttributes(Model model) {
         model.addAttribute("bannerPath", bannerPath);
         model.addAttribute("themePath", themePath);
         model.addAttribute("secondaryOptionsDisplay", secondaryOptionsDisplay);
         model.addAttribute("singleClickForDetail", singleClickForDetail);
+        model.addAttribute("customStyleCssPath", customStyleCssPath);
     }
     
     @ExceptionHandler(Exception.class)
