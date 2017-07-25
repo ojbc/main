@@ -279,6 +279,7 @@
 						<lexsdigest:EntityVehicle>
 							<nc:Vehicle s:id="VEHICLE_01">
 								<nc:VehicleColorPrimaryCode>SIL</nc:VehicleColorPrimaryCode>
+								<nc:ItemModelName>Model</nc:ItemModelName>
 								<nc:ItemModelYearDate>2015</nc:ItemModelYearDate>
 								<nc:VehicleStyleCode>SD</nc:VehicleStyleCode>
 								<nc:ConveyanceRegistrationPlateIdentification>
@@ -500,6 +501,7 @@
 								<inc-ext:CivilReliefActJuvenileIndicator>true</inc-ext:CivilReliefActJuvenileIndicator>
 								<inc-ext:CivilReliefActOtherIndicator>true</inc-ext:CivilReliefActOtherIndicator>
 								<inc-ext:CivilReliefActOtherText>Text</inc-ext:CivilReliefActOtherText>
+								<inc-ext:EnforcementOfficialNotesText>Officer Notes</inc-ext:EnforcementOfficialNotesText>
 								<vt-ts-codes:TrafficStopReasonCode>M</vt-ts-codes:TrafficStopReasonCode>
 								<vt-ts-codes:TrafficStopSearchCategoryCode>SPC</vt-ts-codes:TrafficStopSearchCategoryCode>
 								<vt-ts-codes:TrafficStopContrabandCode>C</vt-ts-codes:TrafficStopContrabandCode>
