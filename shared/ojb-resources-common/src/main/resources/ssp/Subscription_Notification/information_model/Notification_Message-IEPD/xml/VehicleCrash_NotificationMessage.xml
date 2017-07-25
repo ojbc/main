@@ -21,7 +21,7 @@
 	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:notfm-doc="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
 	xmlns:notfm-ext="http://ojbc.org/IEPD/Extensions/Notification/1.0"
-	xmlns:vc="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0" xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:vc="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0 ../xsd/notificationExchange.xsd">
 	<notfm-ext:NotifyingVehicleCrash>
 						<notfm-ext:NotifyingActivityReportingSystemNameText>
@@ -43,8 +43,10 @@
 									<nc:HighwayFullText>264 MINOT AVE</nc:HighwayFullText>
 								</nc:LocationHighway>
 							</nc:Location>
-							<me-crash-codes:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT
-							</me-crash-codes:ReportingAgencyCodeText>
+							<vc:CrashReportingDate>
+								<nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
+							</vc:CrashReportingDate>
+							<vc:ReportingAgencyCodeText>AUBURN POLICE DEPARTMENT</vc:ReportingAgencyCodeText>
 							<j:IncidentAugmentation>
 								<j:IncidentReportingOfficial>
 									<nc:RoleOfPersonReference s:id="d1e20" />
