@@ -74,11 +74,12 @@ public class SimpleSearchParserPerSearchDocumentTest {
 
 	@Test
 	public void searchForFirstNameAndLastName() {
-		personSearchCommand.setSimpleSearch("Norm Chow");
+		personSearchCommand.setSimpleSearch("Norm Chow*");
 		unit.validateAndParseSimpleSearch(personSearchCommand, errors);
 
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonGivenName(), is("Norm"));
 		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurName(), is("Chow"));
+		assertThat(personSearchCommand.getParsedPersonSearchRequest().getPersonSurNameMetaData().toString(), is("StartsWith"));
 		verifyZeroInteractions(errors);
 	}
 
