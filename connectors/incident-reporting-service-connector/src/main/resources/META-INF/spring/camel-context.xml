@@ -54,6 +54,8 @@
 
 			<camel:log message="\n\n Message Body after potential derived route call: \n ${body} \n\n" />
 
+			<camel:removeHeaders pattern="*"/>
+
 			<camel:filter>
 				<camel:xpath>/ir:IncidentReport</camel:xpath>
 				<camel:setHeader headerName="operationName">

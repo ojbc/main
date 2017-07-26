@@ -27,7 +27,7 @@
         <link rel="stylesheet" type="text/css"  src="#springUrl('/static/js/jquery-datatable/css/jquery.dataTables.css')" />
 		<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.css">
-        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
+        <link rel="stylesheet" type="text/css" href="#springUrl($themePath)">
         <!--<link rel="stylesheet" type="text/css" href="#springUrl('/static/css/font-awesome-4.3.0/css/font-awesome.min.css')">-->
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 		
@@ -44,6 +44,10 @@
 			<script src="#springUrl('/static/js/formValidation.js')"></script>
 		#end
 
+		#if( $customStyleCssPath != "" )
+	        <link rel="stylesheet" type="text/css" href="#springUrl($customStyleCssPath)">
+		#end
+		
         <title>OJBC Portal</title>
     </head>
     <body>

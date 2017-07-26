@@ -17,32 +17,24 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:b="http://docs.oasis-open.org/wsn/b-2"
-	xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
-	xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0"
-	xmlns:vc="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:add="http://www.w3.org/2005/08/addressing" xmlns:notification="http://ojbc.org/IEPD/Exchange/NotificationMessage/1.0"
+	xmlns:notificationExt="http://ojbc.org/IEPD/Extensions/Notification/1.0" xmlns:vc="http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:vcr-doc="http://ojbc.org/IEPD/Exchange/VehicleCrashReporting/1.0"
-	xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0"
-	xmlns:j51="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:s30="http://release.niem.gov/niem/structures/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	exclude-result-prefixes="s30 niem-xs nc30 j51 vcr-doc xs"
-	version="2.0">
+	xmlns:me-crash-codes="http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0" xmlns:j51="http://release.niem.gov/niem/domains/jxdm/5.1/"
+	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" xmlns:s30="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" exclude-result-prefixes="s30 niem-xs nc30 j51 vcr-doc xs" version="2.0">
 	<xsl:output indent="yes" method="xml" />
-
 	<xsl:template match="/">
-	<wrapper>
-		<xsl:for-each
-			select="vcr-doc:VehicleCrashReport/j51:Crash/j51:CrashVehicle/j51:CrashVehicleOccupant/nc30:RoleOfPerson/@s30:ref">
-			<xsl:variable name="personID" select="." />
-			
-				<xsl:apply-templates select="/vcr-doc:VehicleCrashReport"
-					mode="wrapper">
+		<wrapper>
+			<xsl:for-each select="vcr-doc:VehicleCrashReport/j51:Crash/j51:CrashVehicle/j51:CrashVehicleOccupant/nc30:RoleOfPerson/@s30:ref">
+				<xsl:variable name="personID" select="." />
+				<xsl:apply-templates select="/vcr-doc:VehicleCrashReport" mode="wrapper">
 					<xsl:with-param name="personID" select="$personID" />
 				</xsl:apply-templates>
-		</xsl:for-each>
-	</wrapper>
+			</xsl:for-each>
+		</wrapper>
 	</xsl:template>
 	<xsl:template match="vcr-doc:VehicleCrashReport" mode="wrapper">
 		<xsl:param name="personID" />
@@ -61,8 +53,7 @@
 					<!--You may enter ANY elements at this point -->
 				</b:SubscriptionReference>
 				<!--Optional: -->
-				<b:Topic
-					Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/vehicleCrash</b:Topic>
+				<b:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/vehicleCrash</b:Topic>
 				<!--Optional: -->
 				<b:ProducerReference>
 					<add:Address>http://www.ojbc.org/CourtDispositionUpdateNotificationProducer
@@ -81,18 +72,15 @@
 					<notification:NotificationMessage>
 						<notificationExt:NotifyingVehicleCrash>
 							<vc:VehicleCrash>
-								<xsl:attribute name="s:id"><xsl:value-of
-									select="generate-id()" /></xsl:attribute>
+								<xsl:attribute name="s:id"><xsl:value-of select="generate-id()" /></xsl:attribute>
 								<xsl:apply-templates select="." mode="crash">
 									<xsl:with-param name="personID" select="$personID" />
 								</xsl:apply-templates>
 							</vc:VehicleCrash>
 						</notificationExt:NotifyingVehicleCrash>
-						<xsl:apply-templates
-							select="j51:Crash/j51:CrashVehicle/j51:CrashVehicleOccupant/nc30:RoleOfPerson[@s30:ref=$personID]"
+						<xsl:apply-templates select="j51:Crash/j51:CrashVehicle/j51:CrashVehicleOccupant/nc30:RoleOfPerson[@s30:ref=$personID]"
 							mode="activityInvolvedPerson" />
-						<xsl:apply-templates select="nc30:Person[@s30:id=$personID]"
-							mode="person">
+						<xsl:apply-templates select="nc30:Person[@s30:id=$personID]" mode="person">
 							<xsl:with-param name="personID" select="$personID" />
 						</xsl:apply-templates>
 					</notification:NotificationMessage>
@@ -103,17 +91,14 @@
 	<xsl:template match="vcr-doc:VehicleCrashReport" mode="crash">
 		<xsl:param name="personID" />
 		<xsl:apply-templates select="j51:Crash/nc30:ActivityDate" />
-		<xsl:apply-templates
-			select="j51:Crash/j51:CrashVehicle/j51:CrashVehicleOccupant/nc30:RoleOfPerson[@s30:ref=$personID]"
+		<xsl:apply-templates select="j51:Crash/j51:CrashVehicle/j51:CrashVehicleOccupant/nc30:RoleOfPerson[@s30:ref=$personID]"
 			mode="occupant">
 			<xsl:with-param name="personID" select="$personID" />
 		</xsl:apply-templates>
-		<xsl:apply-templates
-			select="j51:Crash/nc30:Location/nc30:AddressHighway/nc30:HighwayFullText" />
-		<xsl:apply-templates
-			select="j51:Crash/j51:CrashInformationSource/me-crash-codes:ReportingAgencyCodeText" />
-		<xsl:apply-templates
-			select="j51:Crash/j51:IncidentAugmentation/j51:IncidentReportingOfficial/nc30:RoleOfPerson"
+		<xsl:apply-templates select="j51:Crash/nc30:Location/nc30:AddressHighway/nc30:HighwayFullText" />
+		<xsl:apply-templates select="nc30:DocumentCreationDate/nc30:DateTime" />
+		<xsl:apply-templates select="j51:Crash/j51:CrashInformationSource/me-crash-codes:ReportingAgencyCodeText" />
+		<xsl:apply-templates select="j51:Crash/j51:IncidentAugmentation/j51:IncidentReportingOfficial/nc30:RoleOfPerson"
 			mode="official" />
 		<xsl:apply-templates select="j51:Citation" />
 	</xsl:template>
@@ -132,6 +117,13 @@
 			<xsl:value-of select="." />
 		</nc:DateTime>
 	</xsl:template>
+	<xsl:template match="nc30:DocumentCreationDate/nc30:DateTime">
+		<vc:CrashReportingDate>
+			<nc:DateTime>
+				<xsl:value-of select="." />
+			</nc:DateTime>
+		</vc:CrashReportingDate>
+	</xsl:template>
 	<xsl:template match="nc30:HighwayFullText">
 		<nc:Location>
 			<nc:LocationHighway>
@@ -141,14 +133,12 @@
 			</nc:LocationHighway>
 		</nc:Location>
 	</xsl:template>
-	<xsl:template match="j51:IncidentReportingOfficial/nc30:RoleOfPerson"
-		mode="official">
+	<xsl:template match="j51:IncidentReportingOfficial/nc30:RoleOfPerson" mode="official">
 		<xsl:variable name="officialID" select="@s30:ref" />
 		<j:IncidentAugmentation>
 			<j:IncidentReportingOfficial>
 				<nc:RoleOfPersonReference>
-					<xsl:attribute name="s:id"><xsl:value-of
-						select="$officialID" /></xsl:attribute>
+					<xsl:attribute name="s:id"><xsl:value-of select="$officialID" /></xsl:attribute>
 				</nc:RoleOfPersonReference>
 			</j:IncidentReportingOfficial>
 		</j:IncidentAugmentation>
@@ -172,33 +162,29 @@
 		<xsl:variable name="personID" select="@s30:ref" />
 		<nc:ActivityInvolvedPersonAssociation>
 			<nc:ActivityReference>
-				<xsl:attribute name="s:ref"> <xsl:value-of
-					select="generate-id(/vcr-doc:VehicleCrashReport)" /> 
+				<xsl:attribute name="s:ref"> <xsl:value-of select="generate-id(/vcr-doc:VehicleCrashReport)" /> 
 		</xsl:attribute>
 			</nc:ActivityReference>
 			<nc:PersonReference>
-				<xsl:attribute name="s:ref"> <xsl:value-of
-					select="$personID" /> 
+				<xsl:attribute name="s:ref"> <xsl:value-of select="$personID" /> 
 		</xsl:attribute>
 			</nc:PersonReference>
 			<nc:PersonActivityInvolvementText>
-				<xsl:value-of
-					select="/vcr-doc:VehicleCrashReport/nc30:Person[@s30:id=$personID]/me-crash-codes:PersonCategoryCodeText" />
+				<xsl:value-of select="/vcr-doc:VehicleCrashReport/nc30:Person[@s30:id=$personID]/me-crash-codes:PersonCategoryCodeText" />
 			</nc:PersonActivityInvolvementText>
 		</nc:ActivityInvolvedPersonAssociation>
 	</xsl:template>
 	<xsl:template match="me-crash-codes:ReportingAgencyCodeText">
-		<me-crash-codes:ReportingAgencyCodeText>
+		<vc:ReportingAgencyCodeText>
 			<xsl:value-of select="." />
-		</me-crash-codes:ReportingAgencyCodeText>
+		</vc:ReportingAgencyCodeText>
 	</xsl:template>
 	<xsl:template match="nc30:RoleOfPerson" mode="occupant">
 		<xsl:param name="personID" />
 		<j:CrashVehicle>
 			<j:CrashVehicleOccupant>
 				<nc:RoleOfPersonReference>
-					<xsl:attribute name="s:ref"><xsl:value-of
-						select="$personID" /></xsl:attribute>
+					<xsl:attribute name="s:ref"><xsl:value-of select="$personID" /></xsl:attribute>
 				</nc:RoleOfPersonReference>
 			</j:CrashVehicleOccupant>
 		</j:CrashVehicle>

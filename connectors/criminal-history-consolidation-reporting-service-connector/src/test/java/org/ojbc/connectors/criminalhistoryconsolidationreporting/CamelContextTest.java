@@ -38,6 +38,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -48,6 +49,7 @@ import org.springframework.test.context.ContextConfiguration;
 		"classpath:META-INF/spring/cxf-endpoints.xml",		
 		"classpath:META-INF/spring/properties-context.xml",
 		})
+@Ignore("The SSP has changed and will be replaced once merged back from rapbac branch.")
 public class CamelContextTest {
 
     private static final Log log = LogFactory.getLog( CamelContextTest.class );
