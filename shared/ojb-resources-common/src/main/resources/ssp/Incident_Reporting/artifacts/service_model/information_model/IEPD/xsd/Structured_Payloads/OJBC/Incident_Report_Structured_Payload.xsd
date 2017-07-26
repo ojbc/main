@@ -448,6 +448,7 @@
 					<xsd:element ref="inc-ext:CivilReliefActJuvenileIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:CivilReliefActOtherIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:CivilReliefActOtherText" minOccurs="0" />
+					<xsd:element ref="inc-ext:EnforcementOfficialNotesText" minOccurs="0" />
 					<xsd:element ref="inc-ext:TrafficStopReason" minOccurs="0" />
 					<xsd:element ref="inc-ext:TrafficStopSearchCategory" minOccurs="0" />
 					<xsd:element ref="inc-ext:TrafficStopContraband" minOccurs="0" />
@@ -1181,6 +1182,12 @@
 	<xsd:element name="OrganizationDriverLicense" type="inc-ext:DriverLicenseType">
 		<xsd:annotation>
 			<xsd:documentation>Details about a license issued to an organization granting driving privileges.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EnforcementOfficialNotesText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Incident notes provided by an enforcement official.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

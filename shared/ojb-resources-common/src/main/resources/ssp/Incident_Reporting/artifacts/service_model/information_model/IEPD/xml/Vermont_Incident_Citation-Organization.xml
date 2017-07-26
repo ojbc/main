@@ -213,9 +213,12 @@
 									<nc:StructuredAddress>
 										<nc:LocationStreet>
 											<nc:StreetFullText> PO Box 514</nc:StreetFullText>
+											<nc:StreetName>PO Box 514</nc:StreetName>
+											<nc:StreetCategoryText>Street</nc:StreetCategoryText>
 										</nc:LocationStreet>
 										<nc:LocationCityName>Williston</nc:LocationCityName>
 										<nc:LocationStateName>VT</nc:LocationStateName>
+										<nc:LocationCountryName>United States</nc:LocationCountryName>
 										<nc:LocationPostalCode>05495</nc:LocationPostalCode>
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
@@ -226,7 +229,16 @@
 							<nc:Location s:id="LOCATION_02">
 								<nc:LocationAddress>
 									<nc:StructuredAddress>
+										<nc:LocationStreet>
+											<nc:StreetFullText>586 Marshall Ave</nc:StreetFullText>
+											<nc:StreetNumberText>586</nc:StreetNumberText>
+											<nc:StreetName>Marshall Ave</nc:StreetName>
+											<nc:StreetCategoryText>Street</nc:StreetCategoryText>
+										</nc:LocationStreet>
 										<nc:LocationCityName>Williston</nc:LocationCityName>
+										<nc:LocationStateName>VT</nc:LocationStateName>
+										<nc:LocationCountryName>United States</nc:LocationCountryName>
+										<nc:LocationPostalCode>05495</nc:LocationPostalCode>
 									</nc:StructuredAddress>
 								</nc:LocationAddress>
 							</nc:Location>
@@ -235,6 +247,7 @@
 						<lexsdigest:EntityVehicle>
 							<nc:Vehicle s:id="VEHICLE_01">
 								<nc:VehicleColorPrimaryCode>SIL</nc:VehicleColorPrimaryCode>
+								<nc:ItemModelName>Model</nc:ItemModelName>
 								<nc:ItemModelYearDate>2015</nc:ItemModelYearDate>
 								<nc:VehicleStyleCode>SD</nc:VehicleStyleCode>
 								<nc:ConveyanceRegistrationPlateIdentification>
@@ -360,11 +373,6 @@
 										<nc:IdentificationID>23VSA460</nc:IdentificationID>
 									</j:StatuteCodeIdentification>
 								</inc-ext:OffenseViolatedStatute>
-								<inc-ext:CFRStatute>
-									<j:StatuteCodeIdentification>
-										<nc:IdentificationID>23CFR655</nc:IdentificationID>
-									</j:StatuteCodeIdentification>
-								</inc-ext:CFRStatute>
 								<inc-ext:ViolationOffenseCode>DUT</inc-ext:ViolationOffenseCode>
 								<inc-ext:DrivingOffensePoints>2</inc-ext:DrivingOffensePoints>
 								<inc-ext:OffenseFineAmountMinimum>47.00</inc-ext:OffenseFineAmountMinimum>

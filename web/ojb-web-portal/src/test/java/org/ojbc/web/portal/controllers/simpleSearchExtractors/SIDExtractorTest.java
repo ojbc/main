@@ -18,6 +18,7 @@ package org.ojbc.web.portal.controllers.simpleSearchExtractors;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
@@ -74,6 +75,32 @@ public class SIDExtractorTest {
 		unit.extractTerm(Arrays.asList("A1234"), personSearchRequest);
 		
 		assertThat(personSearchRequest.getPersonSID(),is("A1234"));
+		
+		String originalRegEx = unit.sidRegex;
+		
+		unit.sidRegex = "([C/c][O/o]\\d{7}+)";
+
+		unit.extractTerm(Arrays.asList("CO1234567"), personSearchRequest);
+		assertThat(personSearchRequest.getPersonSID(),is("CO1234567"));
+		personSearchRequest.setPersonSID(null);
+
+		unit.extractTerm(Arrays.asList("Co1234567"), personSearchRequest);
+		assertThat(personSearchRequest.getPersonSID(),is("CO1234567"));
+		personSearchRequest.setPersonSID(null);
+		
+		unit.extractTerm(Arrays.asList("co1234567"), personSearchRequest);
+		assertThat(personSearchRequest.getPersonSID(),is("CO1234567"));
+		personSearchRequest.setPersonSID(null);
+		
+		unit.extractTerm(Arrays.asList("cO1234567"), personSearchRequest);
+		assertThat(personSearchRequest.getPersonSID(),is("CO1234567"));
+		personSearchRequest.setPersonSID(null);
+
+		unit.extractTerm(Arrays.asList("CO12345678"), personSearchRequest);
+		assertNull(personSearchRequest.getPersonSID());
+		personSearchRequest.setPersonSID(null);
+		unit.sidRegex=originalRegEx;
+
 	}
 
 	@Test

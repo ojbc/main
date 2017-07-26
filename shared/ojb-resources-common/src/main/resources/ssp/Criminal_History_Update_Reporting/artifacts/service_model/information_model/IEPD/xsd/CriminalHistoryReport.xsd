@@ -20,7 +20,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:war-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:chr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
 	xmlns:chr-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryReportExtension/1.0"
 	targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
 	elementFormDefault="qualified">

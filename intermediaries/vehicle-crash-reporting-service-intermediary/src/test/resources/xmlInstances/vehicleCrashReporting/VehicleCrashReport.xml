@@ -25,7 +25,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/VehicleCrashReporting/1.0 ../xsd/exchange.xsd http://ojbc.org/IEPD/Extensions/Maine/VehicleCrashCodes/1.0 ../xsd/impl/maine/vehicle_crash_codes.xsd">
 	<nc:DocumentCreationDate>
-		<nc:DateTime>2014-07-08T00:00:00-04:00</nc:DateTime>
+		<nc:DateTime>2014-07-09T00:00:00-010:12</nc:DateTime>
 	</nc:DocumentCreationDate>
 	<nc:DocumentIdentification>
 		<nc:IdentificationID>14AUB-539-AC</nc:IdentificationID>

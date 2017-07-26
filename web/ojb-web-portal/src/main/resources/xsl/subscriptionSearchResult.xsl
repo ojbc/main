@@ -43,6 +43,7 @@
  	<xsl:param name="rapbackTopic">{http://ojbc.org/wsn/topics}:person/rapback</xsl:param>
 	<xsl:param name="incidentTopic">{http://ojbc.org/wsn/topics}:person/incident</xsl:param>
 	<xsl:param name="chCycleTopic">{http://ojbc.org/wsn/topics}:person/criminalHistoryCycleTrackingIdentifierAssignment</xsl:param>
+	<xsl:param name="personVehicleCrashTopic">{http://ojbc.org/wsn/topics}:person/vehicleCrash</xsl:param>
 	
 	<xsl:template match="/p:SubscriptionSearchResults">
 		<xsl:variable name="totalCount" select="count(ext:SubscriptionSearchResult)" />
@@ -144,6 +145,13 @@
 							<xsl:call-template name="formatDate">
 								<xsl:with-param name="date" select="$subjectPerson/nc:PersonBirthDate/nc:Date"/>
 							</xsl:call-template>
+					</xsl:when>
+					<xsl:when test="ext:Subscription/wsn-br:Topic = $personVehicleCrashTopic">
+						<b>Name:</b><xsl:text> </xsl:text><xsl:value-of select="normalize-space($subjectName)"/><br/>
+						<b>DOB:</b><xsl:text> </xsl:text>
+						<xsl:call-template name="formatDate">
+							<xsl:with-param name="date" select="$subjectPerson/nc:PersonBirthDate/nc:Date"/>
+						</xsl:call-template>
 					</xsl:when>
 				</xsl:choose>
 			</td>
