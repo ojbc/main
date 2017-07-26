@@ -17,7 +17,7 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xs:schema targetNamespace="http://release.niem.gov/niem/domains/jxdm/5.1/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/3.0/#ReferenceSchemaDocument" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:ansi_d20="http://release.niem.gov/niem/codes/ansi_d20/3.1/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema targetNamespace="http://release.niem.gov/niem/domains/jxdm/5.1/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/#ReferenceSchemaDocument" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:ansi_d20="http://release.niem.gov/niem/codes/ansi_d20/3.1/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>Justice</xs:documentation>
   </xs:annotation>
@@ -26,6 +26,19 @@
   <xs:import schemaLocation="../../../niem-core/3.0/niem-core.xsd" namespace="http://release.niem.gov/niem/niem-core/3.0/"/>
   <xs:import schemaLocation="../../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
   <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:complexType name="ActivityCaseAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an activity and a case.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Case" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ArrestType">
     <xs:annotation>
       <xs:documentation>A data type for the apprehension of a subject by a peace official.</xs:documentation>
@@ -38,6 +51,18 @@
           <xs:element ref="j:ArrestOfficial" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestProbableCauseText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="BookingType">
+    <xs:annotation>
+      <xs:documentation>A data type for an administrative step taken after an arrest subject is brought to a police station or detention facility.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:BookingAgency" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -108,6 +133,9 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="j:ChargeApplicabilityText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeCategoryDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeFilingDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSeverityLevel" minOccurs="0" maxOccurs="unbounded"/>
@@ -193,6 +221,23 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EntityTelephoneNumberAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a relationship between an entity (person or organization) and a telephone number.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="j:TelephoneNumberHomeIndicator" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:TelephoneNumberPrimaryIndicator" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:TelephoneNumberWorkIndicator" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:TelephoneNumber" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="JudicialOfficialBarMembershipType">
     <xs:annotation>
       <xs:documentation>A data type for a legal capacity in which a judicial official is able to practice law.</xs:documentation>
@@ -263,7 +308,11 @@
       <xs:documentation>A data type for an alleged violation of a statute, ordinance, or rule.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="nc:ActivityType"/>
+      <xs:extension base="nc:ActivityType">
+        <xs:sequence>
+          <xs:element ref="j:OffenseCategory" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="PersonAugmentationType">
@@ -274,6 +323,19 @@
       <xs:extension base="structures:AugmentationType">
         <xs:sequence>
           <xs:element ref="j:DriverLicense" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PersonContactAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for a relationship between a person and a contact person.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -305,6 +367,11 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:element name="ActivityCaseAssociation" type="j:ActivityCaseAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between an activity and a case.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="Arrest" type="j:ArrestType" nillable="true">
     <xs:annotation>
       <xs:documentation>An apprehension of a subject by a peace official based on an observed or a reported violation of a law or ordinance, an outstanding arrest warrant, or probable cause information.</xs:documentation>
@@ -333,6 +400,16 @@
   <xs:element name="ArrestProbableCauseText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>An observed or reported violation of a law or ordinance, which can be a sufficient cause to arrest a subject.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Booking" type="j:BookingType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An administrative step taken after an arrested subject is brought to a police station or detention facility, which involves entry of the subject's name and other relevant facts on the police blotter, and which may also include photographing,</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="BookingAgency" type="nc:OrganizationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An organization which processes a booking.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="CDLHolder" abstract="true">
@@ -403,6 +480,21 @@
   <xs:element name="ChargeAugmentationPoint" abstract="true">
     <xs:annotation>
       <xs:documentation>An augmentation point for ChargeType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeCategoryDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of a crime category.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeCountQuantity" type="niem-xs:nonNegativeInteger" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A number of times a person is charged with committing the same crime.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A plain language description of a charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeFilingDate" type="nc:DateType" nillable="true">
@@ -485,6 +577,11 @@
       <xs:documentation>An identification used to refer to an enforcement official.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="EntityTelephoneNumberAssociation" type="j:EntityTelephoneNumberAssociationType">
+    <xs:annotation>
+      <xs:documentation>A relationship between an entity (person or organization) and a telephone number, for example to indicate that a person has or uses a particular phone number.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="JudicialOfficial" type="j:JudicialOfficialType" nillable="true">
     <xs:annotation>
       <xs:documentation>A person involved in a judicial area of government.</xs:documentation>
@@ -520,6 +617,16 @@
       <xs:documentation>A relationship between an offense and the arrest of a subject alleged to have committed the offense.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="OffenseCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind of offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OffenseCategoryText" type="nc:TextType" substitutionGroup="j:OffenseCategory">
+    <xs:annotation>
+      <xs:documentation>A kind of offense.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="OffenseChargeAssociation" type="j:OffenseChargeAssociationType" nillable="true">
     <xs:annotation>
       <xs:documentation>A relationship between an offense that occurred and the formal charge that was assigned to it as a result of classifying the offense.</xs:documentation>
@@ -533,6 +640,11 @@
   <xs:element name="PersonAugmentation" type="j:PersonAugmentationType" substitutionGroup="nc:PersonAugmentationPoint">
     <xs:annotation>
       <xs:documentation>Additional information about a person.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="PersonStateFingerprintIdentification" type="nc:IdentificationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An identifier assigned to a person by a state identification bureau, generally based on submission of the person's fingerprints to the state's Automated Fingerprint Identification System (AFIS).</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="SeverityLevelDescriptionText" type="nc:TextType" nillable="true">
@@ -558,6 +670,21 @@
   <xs:element name="StatuteOffenseIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An identification of a criminal offense within a code book.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TelephoneNumberHomeIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if this is the person's home number; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TelephoneNumberPrimaryIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if this is the person's primary number; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="TelephoneNumberWorkIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if this is a work number; false otherwise.</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>

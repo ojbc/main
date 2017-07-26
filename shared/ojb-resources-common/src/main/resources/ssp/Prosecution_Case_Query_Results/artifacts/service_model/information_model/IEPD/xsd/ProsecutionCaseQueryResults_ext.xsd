@@ -60,19 +60,24 @@
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="pcq-res-ext:VictimRightsAssertionCertificationIndicator" />
-					<xsd:element ref="pcq-res-ext:VictimRightsAssertionText" />
+					<xsd:element ref="pcq-res-ext:VictimRightsAssertionCertificationIndicator" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="pcq-res-ext:VictimRightsAssertionText" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="nc:Case" />
-					<xsd:element ref="j:Arrest" />
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Identity" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:JudicialOfficial" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseArrestAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseChargeAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseLocationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -95,6 +100,33 @@
 	<xsd:element name="ChargeDomesticViolenceIndicator" type="niem-xs:boolean" substitutionGroup="j:ChargeAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if the charge involves domestic violence; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PartyIdentification" type="nc:IdentificationType" substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification for a party.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PartyRoleText" type="nc:TextType" substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The role assumed by a party.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonConfidentialIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if person information is confidential; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonJuvenileIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if person is a juvenile; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to a person that has been identified. Some jurisdictions refer to this as an
+				OTN.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>
