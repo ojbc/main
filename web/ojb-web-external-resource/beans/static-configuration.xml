@@ -55,7 +55,14 @@
 	<bean id="arrestSubscriptionEditValidator"
 			class="org.ojbc.web.portal.validators.subscriptions.strict.ArrestSubscriptionEditStrictValidator" />
 
-	<util:map id="subscriptionStartDateStrategyMap">
+	<util:map id="entityLogoutReturnUrlMap" map-class="java.util.LinkedHashMap">
+	    <entry key="http://ADFS.AD.CO.MAUI.HI.US/adfs/services/trust"
+	        value="https://adfs.ad.co.maui.hi.us/adfs/ls/" />
+	    <entry key="http://HCPAADFS.DYNDNS.ORG/adfs/services/trust"
+	        value="https://hcpaadfs.dyndns.org/adfs/ls/" />
+	</util:map>
+    
+   	<util:map id="subscriptionStartDateStrategyMap">
 		<entry key="{http://ojbc.org/wsn/topics}:person/arrest"
 			value-ref="currentUneditableStartDateStrategy" />
 		<entry key="{http://ojbc.org/wsn/topics}:person/incident"

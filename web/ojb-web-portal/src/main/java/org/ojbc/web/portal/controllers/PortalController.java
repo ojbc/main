@@ -46,6 +46,8 @@ import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
+import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
+import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.SearchProfile;
 import org.ojbc.web.portal.controllers.dto.PersonFilterCommand;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
@@ -152,6 +154,12 @@ public class PortalController implements ApplicationContextAware {
 	@Value("#{getObject('rapbackFilterOptionsMap')}")
 	Map<String, String> rapbackFilterOptionsMap;
 
+	@Value("#{getObject('entityLogoutReturnUrlMap')}")
+	Map<String, String> entityLogoutReturnUrlMap;
+	
+    @Value("${userSignOutUrl:defaultLogout}")
+    String userSignOutUrl;
+    
 	@Resource
 	UserSession userSession;
 	
@@ -213,6 +221,32 @@ public class PortalController implements ApplicationContextAware {
 		model.put("searchLinksHtml", getSearchLinksHtml(authentication));
 		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));				
 	}
+
+    @RequestMapping("performLogout")
+    public String performLogout(HttpServletRequest request, Map<String, Object> model, Authentication authentication) throws Exception{
+
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(userSignOutUrl);
+    	if (entityLogoutReturnUrlMap != null){
+    		Element samlAssertion = (Element)request.getAttribute("samlAssertion");
+    		String samlTokenIssuer = XmlUtils.xPathStringSearch( samlAssertion, "/saml2:Assertion/saml2:Issuer");
+    		String logoutReturnUrl = entityLogoutReturnUrlMap.get(samlTokenIssuer);
+    		
+    		if (StringUtils.isNotBlank(logoutReturnUrl)){
+    			sb.append("?return=");
+    			sb.append(logoutReturnUrl);
+    		}
+    	}
+
+    	return "redirect:" + sb.toString();
+	}
+
+    @RequestMapping("defaultLogout")
+    public String defaultLogout(HttpServletRequest request, Map<String, Object> model, Authentication authentication){
+    	
+    	return "portal/logout";
+    }
+    
 
     @RequestMapping("landingLeftBar")
     public String landingLeftBar(){
