@@ -161,6 +161,8 @@ public class PeopleController {
 			userSession.setMostRecentSearchResult(null);
 			return personSearchForm;
 		}
+		
+		log.debug("Searching for person: " + personSearchCommand.toString());
 
 		return performSearchAndReturnResults(model, personSearchCommand.getParsedPersonSearchRequest(), request); 
 	}

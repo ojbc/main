@@ -85,6 +85,7 @@
   <w:Element w:name="nc:AddressDeliveryPointText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Case" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:CaseDisposition" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:ContactEmailID" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ContactEntity" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ContactInformation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ContactInformationAssociation"

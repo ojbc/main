@@ -17,18 +17,12 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<ccq-res-doc:CourtCaseQueryResults
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange.xsd"
-	xmlns:ccq-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0"
-	xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
-	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
-	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
-	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
-	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
-	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ccq-res-doc:CourtCaseQueryResults xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0 ../xsd/exchange.xsd"
+	xmlns:ccq-res-doc="http://ojbc.org/IEPD/Exchange/CourtCaseQueryResults/1.0" xmlns:ccq-res-ext="http://ojbc.org/IEPD/Extensions/CourtCaseQueryResultsExtension/1.0"
+	xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0" xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:DocumentCreationDate>
 		<nc:DateTime>2001-12-17T09:30:47.0Z</nc:DateTime>
 	</nc:DocumentCreationDate>
@@ -144,8 +138,7 @@
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
 						<nc:IdentificationID>charge statute</nc:IdentificationID>
-						<nc:IdentificationCategoryDescriptionText>charge statute
-							description
+						<nc:IdentificationCategoryDescriptionText>charge statute description
 						</nc:IdentificationCategoryDescriptionText>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
@@ -169,8 +162,7 @@
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
 						<nc:IdentificationID>charge statute</nc:IdentificationID>
-						<nc:IdentificationCategoryDescriptionText>charge statute
-							description
+						<nc:IdentificationCategoryDescriptionText>charge statute description
 						</nc:IdentificationCategoryDescriptionText>
 					</j:StatuteCodeIdentification>
 				</j:ChargeStatute>
@@ -367,6 +359,7 @@
 			<nc:TelephoneNumberCategoryText>String
 			</nc:TelephoneNumberCategoryText>
 		</nc:ContactTelephoneNumber>
+		<nc:ContactEmailID>me@email.org</nc:ContactEmailID>
 		<ccq-res-ext:ElectronicContactIdentification>
 			<nc:IdentificationID>electronic ID</nc:IdentificationID>
 			<nc:IdentificationCategoryDescriptionText>type of electronic ID
@@ -547,7 +540,6 @@
 				</nc:StartDate>
 			</j:ModelYearRange>
 		</j:ConveyanceAugmentation>
-
 		<nc:VehicleCMVIndicator>true</nc:VehicleCMVIndicator>
 		<nc:VehicleIdentification>
 			<nc:IdentificationID>VIN number</nc:IdentificationID>
@@ -612,8 +604,7 @@
 		</nc:RoleOfPerson>
 		<j:VictimSeeksRestitutionDescriptionText>String</j:VictimSeeksRestitutionDescriptionText>
 	</j:Victim>
-	<nc:DisciplinaryActionRestitution
-		structures:id="Restitution_01">
+	<nc:DisciplinaryActionRestitution structures:id="Restitution_01">
 		<nc:ObligationDueAmount>
 			<nc:Amount>0.0</nc:Amount>
 		</nc:ObligationDueAmount>
@@ -759,7 +750,7 @@
 		<nc:Person structures:ref="Person_01" />
 		<nc:Identity structures:ref="Identity_01" />
 	</nc:PersonAliasIdentityAssociation>
-	<ccq-res-ext:SourceSystemNameText>Alpha Court System </ccq-res-ext:SourceSystemNameText>
+	<ccq-res-ext:SourceSystemNameText>Alpha Court System</ccq-res-ext:SourceSystemNameText>
 	<ccq-res-ext:QueryResultCategoryText>Criminal History</ccq-res-ext:QueryResultCategoryText>
 	<ccq-res-ext:InformationOwningOrganization>
 		<nc:OrganizationBranchName>branch</nc:OrganizationBranchName>

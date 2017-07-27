@@ -17,13 +17,15 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<pcq-res-doc:ProsecutionCaseQueryResults xmlns:pcq-res-doc="http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryResults/1.0"
-	xmlns:pcq-res-ext="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryResults/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryResults/1.0 ../xsd/ProsecutionCaseQueryResults.xsd">
-	<pcq-res-ext:ProsecutionCase>
-		<nc:DocumentCategoryText>Prosecution Criminal Case Filing</nc:DocumentCategoryText>
+<cfd-doc:CaseFilingDecisionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0 ../../../xsd/CaseFilingDecisionReport.xsd"
+	xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0"
+	xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
 		<nc:DocumentCreationDate>
 			<nc:Date>2016-11-13</nc:Date>
 		</nc:DocumentCreationDate>
@@ -33,14 +35,13 @@
 		<nc:DocumentFiledDate>
 			<nc:Date>2016-11-13</nc:Date>
 		</nc:DocumentFiledDate>
-		<pcq-res-ext:VictimRightsAssertionCertificationIndicator>true
-		</pcq-res-ext:VictimRightsAssertionCertificationIndicator>
-		<pcq-res-ext:VictimRightsAssertionText>VRA Text</pcq-res-ext:VictimRightsAssertionText>
-		<nc:Case>
+		<nc:Case structures:id="Case_01">
 			<nc:ActivityCategoryText>Felony</nc:ActivityCategoryText>
+			<nc:CaseTitleText>State vs.</nc:CaseTitleText>
 			<nc:CaseDocketID>CD12951</nc:CaseDocketID>
 			<nc:CaseFiling>
-				<nc:DocumentCategoryName>DCN</nc:DocumentCategoryName>
+				<nc:DocumentCategoryName>Type of document</nc:DocumentCategoryName>
+				<nc:DocumentCategoryDescriptionText>Document category</nc:DocumentCategoryDescriptionText>
 				<nc:DocumentFiledDate>
 					<nc:Date>2016-11-13</nc:Date>
 				</nc:DocumentFiledDate>
@@ -48,6 +49,10 @@
 			<j:CaseAugmentation>
 				<j:CaseCharge structures:id="Charge_01">
 					<j:ChargeApplicabilityText>Charge Applicability</j:ChargeApplicabilityText>
+					 <j:ChargeCategoryDescriptionText>Charge Category</j:ChargeCategoryDescriptionText>
+					<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+					<j:ChargeDescriptionText>
+	Charge Description</j:ChargeDescriptionText>
 					<j:ChargeFilingDate>
 						<nc:Date>2016-10-13</nc:Date>
 					</j:ChargeFilingDate>
@@ -60,7 +65,7 @@
 						<j:StatuteCodeIdentification>
 							<nc:IdentificationID>AMC</nc:IdentificationID>
 							<nc:IdentificationJurisdiction>
-								<nc:JurisdictionText>Jurisdiction Text</nc:JurisdictionText>
+								<nc:JurisdictionText>County</nc:JurisdictionText>
 							</nc:IdentificationJurisdiction>
 						</j:StatuteCodeIdentification>
 						<j:StatuteCodeSectionIdentification>
@@ -74,42 +79,11 @@
 					<j:ChargeTrackingIdentification>
 						<nc:IdentificationID>CT4567</nc:IdentificationID>
 					</j:ChargeTrackingIdentification>
-					<pcq-res-ext:ChargeDomesticViolenceIndicator>false</pcq-res-ext:ChargeDomesticViolenceIndicator>
-				</j:CaseCharge>
-				<j:CaseCharge structures:id="Charge_02">
-					<j:ChargeApplicabilityText>Charge Applicability</j:ChargeApplicabilityText>
-					<j:ChargeFilingDate>
-						<nc:Date>2016-10-16</nc:Date>
-					</j:ChargeFilingDate>
-					<j:ChargeSequenceID>001</j:ChargeSequenceID>
-					<j:ChargeSeverityLevel>
-						<j:SeverityLevelDescriptionText>Class A</j:SeverityLevelDescriptionText>
-					</j:ChargeSeverityLevel>
-					<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
-					<j:ChargeStatute>
-						<j:StatuteCodeIdentification>
-							<nc:IdentificationID>RGE</nc:IdentificationID>
-							<nc:IdentificationJurisdiction>
-								<nc:JurisdictionText>Jurisdiction Text</nc:JurisdictionText>
-							</nc:IdentificationJurisdiction>
-						</j:StatuteCodeIdentification>
-						<j:StatuteCodeSectionIdentification>
-							<nc:IdentificationID>21.10.060.B.1</nc:IdentificationID>
-						</j:StatuteCodeSectionIdentification>
-						<j:StatuteDescriptionText>CHILD ENDANGERMENT
-						</j:StatuteDescriptionText>
-					</j:ChargeStatute>
-					<j:ChargeText>The Municipality of Anchorage, by and through its undersigned attorney, charges that on or about the 13th day
-						of October, 2016, at or near Anchorage, Alaska...
-					</j:ChargeText>
-					<j:ChargeTrackingIdentification>
-						<nc:IdentificationID>CT4643</nc:IdentificationID>
-					</j:ChargeTrackingIdentification>
-					<pcq-res-ext:ChargeDomesticViolenceIndicator>false</pcq-res-ext:ChargeDomesticViolenceIndicator>
+					<cfd-ext:ChargeDomesticViolenceIndicator>false</cfd-ext:ChargeDomesticViolenceIndicator>
 				</j:CaseCharge>
 				<j:CaseCourt>
 					<nc:OrganizationName>District Court for the State of Hawaii</nc:OrganizationName>
-					<j:CourtName>Third Judicial District of Hawaii</j:CourtName>
+					<j:CourtName>Third Judicial District</j:CourtName>
 					<j:CourtCategoryCode>DIS</j:CourtCategoryCode>
 				</j:CaseCourt>
 				<j:CaseCourtEvent>
@@ -124,6 +98,17 @@
 				</j:CaseCourtEvent>
 				<j:CaseDefendantParty>
 					<nc:EntityPerson structures:ref="Defendant_01" />
+					<cfd-ext:PartyIdentification>
+						<nc:IdentificationID>1234567</nc:IdentificationID>
+					</cfd-ext:PartyIdentification>
+					<cfd-ext:PartyRoleText>Defendant</cfd-ext:PartyRoleText>
+				</j:CaseDefendantParty>
+				<j:CaseDefendantParty>
+					<nc:EntityOrganization structures:ref="Defendant_Org_01" />
+					<cfd-ext:PartyIdentification>
+						<nc:IdentificationID>35765</nc:IdentificationID>
+					</cfd-ext:PartyIdentification>
+					<cfd-ext:PartyRoleText>Defendant Org</cfd-ext:PartyRoleText>
 				</j:CaseDefendantParty>
 				<j:CaseInitiatingParty>
 					<nc:EntityPerson structures:ref="Initiating_Party_01" />
@@ -138,7 +123,7 @@
 							</nc:IdentificationJurisdiction>
 						</j:JudicialOfficialBarIdentification>
 					</j:JudicialOfficialBarMembership>
-					<j:JudicialOfficialCategoryText>Position</j:JudicialOfficialCategoryText>
+					<j:JudicialOfficialCategoryText>Case Judge</j:JudicialOfficialCategoryText>
 				</j:CaseJudge>
 				<j:CaseProsecutionAttorney>
 					<nc:RoleOfPerson structures:ref="CPAP_01" />
@@ -155,6 +140,9 @@
 			</j:CaseAugmentation>
 		</nc:Case>
 		<j:Arrest structures:id="Arrest_01">
+			<nc:ActivityDate>
+				<nc:Date>2016-09-12</nc:Date>
+			</nc:ActivityDate>
 			<j:ArrestAgency>
 				<nc:OrganizationName>Honolulu Police Department</nc:OrganizationName>
 			</j:ArrestAgency>
@@ -168,35 +156,48 @@
 				<j:EnforcementOfficialBadgeIdentification>
 					<nc:IdentificationID>EO568</nc:IdentificationID>
 					<nc:IdentificationJurisdiction>
-						<nc:JurisdictionText>Honolulu Police Departmentt</nc:JurisdictionText>
+						<nc:JurisdictionText>Honolulu Police Department</nc:JurisdictionText>
 					</nc:IdentificationJurisdiction>
 				</j:EnforcementOfficialBadgeIdentification>
 			</j:ArrestOfficial>
 			<j:ArrestProbableCauseText>According to police reports, a neighbor
 			called 911 because two young boys had been trying for nearly three
 			hours to get into their apartment... </j:ArrestProbableCauseText>
-			<pcq-res-ext:ArrestTrackingNumberIdentification>
+			<cfd-ext:ArrestTrackingNumberIdentification>
 				<nc:IdentificationID>1143299</nc:IdentificationID>
-			</pcq-res-ext:ArrestTrackingNumberIdentification>
+			</cfd-ext:ArrestTrackingNumberIdentification>
 		</j:Arrest>
+		<j:Booking structures:id="Booking_01">
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>B1234567</nc:IdentificationID>
+			</nc:ActivityIdentification>
+			<j:BookingAgency>
+				<nc:OrganizationName>Levitt County Jail</nc:OrganizationName>
+			</j:BookingAgency>
+		</j:Booking>
 		<j:Offense structures:id="Offense_01">
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>O12345</nc:IdentificationID>
+			</nc:ActivityIdentification>
 			<nc:ActivityDate>
-				<nc:Date>2016-09-12</nc:Date>
-			</nc:ActivityDate>
-		</j:Offense>
-		<j:Offense structures:id="Offense_02">
-			<nc:ActivityDate>
-				<nc:Date>2016-09-12</nc:Date>
+				<nc:DateTime>2016-09-12T04:30:00</nc:DateTime>
 			</nc:ActivityDate>
 		</j:Offense>
 		<nc:Person structures:id="Defendant_01">
 			<nc:PersonBirthDate>
 				<nc:Date>1980-07-26</nc:Date>
 			</nc:PersonBirthDate>
+			<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
+			<nc:PersonHairColorText>Brown</nc:PersonHairColorText>
+			<nc:PersonHeightMeasure>
+				<nc:MeasureValueText>68</nc:MeasureValueText>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
 			<nc:PersonName>
 				<nc:PersonGivenName>Laurie</nc:PersonGivenName>
 				<nc:PersonMiddleName>D</nc:PersonMiddleName>
 				<nc:PersonSurName>Smith</nc:PersonSurName>
+				<nc:PersonNameSuffixText>Jr</nc:PersonNameSuffixText>
 			</nc:PersonName>
 			<nc:PersonPassportIdentification>
 				<nc:IdentificationID>P79965</nc:IdentificationID>
@@ -204,12 +205,13 @@
 					<nc:JurisdictionText>US</nc:JurisdictionText>
 				</nc:IdentificationJurisdiction>
 			</nc:PersonPassportIdentification>
-			<nc:PersonStateIdentification>
-				<nc:IdentificationID>SI898709</nc:IdentificationID>
-				<nc:IdentificationJurisdiction>
-					<nc:JurisdictionText>Hawaii</nc:JurisdictionText>
-				</nc:IdentificationJurisdiction>
-			</nc:PersonStateIdentification>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>SSN12345</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasureValueText>160</nc:MeasureValueText>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
 			<j:PersonAugmentation>
 				<j:DriverLicense>
 					<j:DriverLicenseIdentification>
@@ -219,20 +221,30 @@
 						</nc:IdentificationJurisdiction>
 					</j:DriverLicenseIdentification>
 				</j:DriverLicense>
+				<j:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>SI898709</nc:IdentificationID>
+					<nc:IdentificationJurisdiction>
+						<nc:JurisdictionText>Hawaii</nc:JurisdictionText>
+					</nc:IdentificationJurisdiction>
+				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
+			<cfd-ext:PersonConfidentialIndicator>false</cfd-ext:PersonConfidentialIndicator>
+			<cfd-ext:PersonJuvenileIndicator>false</cfd-ext:PersonJuvenileIndicator>
+			<cfd-ext:IdentifiedPersonTrackingIdentification>
+				<nc:IdentificationID>I4567789</nc:IdentificationID>
+			</cfd-ext:IdentifiedPersonTrackingIdentification>
 		</nc:Person>
 		<nc:Person structures:id="IPP_01">
 			<nc:PersonName>
-				<nc:PersonNamePrefixText>String</nc:PersonNamePrefixText>
-				<nc:PersonGivenName>Erin</nc:PersonGivenName>
-				<nc:PersonMiddleName>E</nc:PersonMiddleName>
-				<nc:PersonSurName>Bennett</nc:PersonSurName>
-				<nc:PersonFullName>Erin E. Bennett</nc:PersonFullName>
+				<nc:PersonNamePrefixText>Mr</nc:PersonNamePrefixText>
+				<nc:PersonGivenName>Robert</nc:PersonGivenName>
+				<nc:PersonMiddleName>Thomas</nc:PersonMiddleName>
+				<nc:PersonSurName>Forgerty</nc:PersonSurName>
 			</nc:PersonName>
 		</nc:Person>
 		<nc:Person structures:id="CJP_01">
 			<nc:PersonName>
-				<nc:PersonNamePrefixText />
+				<nc:PersonNamePrefixText>Mr</nc:PersonNamePrefixText>
 				<nc:PersonGivenName>John</nc:PersonGivenName>
 				<nc:PersonMiddleName>P</nc:PersonMiddleName>
 				<nc:PersonSurName>Johnson</nc:PersonSurName>
@@ -246,6 +258,15 @@
 				<nc:PersonSurName>O'Hearn</nc:PersonSurName>
 			</nc:PersonName>
 		</nc:Person>
+		<nc:Identity structures:id="IDENT_01">
+			<nc:IdentityPersonRepresentation>
+				<nc:PersonName>
+					<nc:PersonGivenName>Laur</nc:PersonGivenName>
+					<nc:PersonMiddleName>Dee</nc:PersonMiddleName>
+					<nc:PersonSurName>Smitt</nc:PersonSurName>
+				</nc:PersonName>
+			</nc:IdentityPersonRepresentation>
+		</nc:Identity>
 		<j:JudicialOfficial structures:id="Initiating_Party_01">
 			<nc:RoleOfPerson structures:ref="IPP_01" />
 			<j:JudicialOfficialBarMembership>
@@ -258,19 +279,45 @@
 			</j:JudicialOfficialBarMembership>
 			<j:JudicialOfficialCategoryText>Position</j:JudicialOfficialCategoryText>
 		</j:JudicialOfficial>
+		<nc:Organization structures:id="Defendant_Org_01">
+			<nc:OrganizationName>ACME Corporation</nc:OrganizationName>
+		</nc:Organization>
 		<nc:Location structures:id="OL01">
 			<nc:LocationDescriptionText>Smithville</nc:LocationDescriptionText>
 		</nc:Location>
 		<nc:Location structures:id="RES01">
 			<nc:Address>
+				<nc:AddressSecondaryUnitText>Apt #3</nc:AddressSecondaryUnitText>
 				<nc:LocationStreet>
 					<nc:StreetFullText>123 N Oak Street Apt #123</nc:StreetFullText>
 				</nc:LocationStreet>
 				<nc:LocationCityName>Honolulu</nc:LocationCityName>
 				<nc:LocationStateUSPostalServiceCode>HI</nc:LocationStateUSPostalServiceCode>
-				<nc:LocationPostalCode>32678</nc:LocationPostalCode>
+				<nc:LocationCountryName>USA</nc:LocationCountryName>
+				<nc:LocationPostalCode>21905</nc:LocationPostalCode>
 			</nc:Address>
 		</nc:Location>
+		<nc:ContactInformation structures:id="Contact_Defendant_01">
+			<nc:ContactTelephoneNumber>
+				<nc:FullTelephoneNumber>
+					<nc:TelephoneNumberFullID>(453) 213-0324</nc:TelephoneNumberFullID>
+				</nc:FullTelephoneNumber>
+				<nc:TelephoneNumberCategoryText>Home</nc:TelephoneNumberCategoryText>
+			</nc:ContactTelephoneNumber>
+			<nc:ContactTelephoneNumber>
+				<nc:FullTelephoneNumber>
+					<nc:TelephoneNumberFullID>(456) 212-0290</nc:TelephoneNumberFullID>
+				</nc:FullTelephoneNumber>
+				<nc:TelephoneNumberCategoryText>Business</nc:TelephoneNumberCategoryText>
+			</nc:ContactTelephoneNumber>
+			<nc:ContactTelephoneNumber>
+				<nc:FullTelephoneNumber>
+					<nc:TelephoneNumberFullID>(456) 121-2345</nc:TelephoneNumberFullID>
+				</nc:FullTelephoneNumber>
+				<nc:TelephoneNumberCategoryText>Cell</nc:TelephoneNumberCategoryText>
+			</nc:ContactTelephoneNumber>
+			<nc:ContactEmailID>Defendant@flores.com</nc:ContactEmailID>
+		</nc:ContactInformation>
 		<nc:PersonResidenceAssociation>
 			<nc:Person structures:ref="Defendant_01" />
 			<nc:Location structures:ref="RES01" />
@@ -279,14 +326,18 @@
 			<j:Offense structures:ref="Offense_01" />
 			<j:Charge structures:ref="Charge_01" />
 		</j:OffenseChargeAssociation>
-		<j:OffenseChargeAssociation>
-			<j:Offense structures:ref="Offense_02" />
-			<j:Charge structures:ref="Charge_02" />
-		</j:OffenseChargeAssociation>
 		<j:OffenseLocationAssociation>
 			<j:Offense structures:ref="Offense_01" />
-			<j:Offense structures:ref="Offense_02" />
 			<nc:Location structures:ref="OL01" />
 		</j:OffenseLocationAssociation>
-	</pcq-res-ext:ProsecutionCase>
-</pcq-res-doc:ProsecutionCaseQueryResults>
+		<nc:ContactInformationAssociation>
+			<nc:ContactEntity structures:ref="Defendant_01" />
+			<nc:ContactInformation structures:ref="Contact_Defendant_01" />
+		</nc:ContactInformationAssociation>
+		<j:ActivityCaseAssociation>
+			<nc:Activity structures:ref="Arrest_01" />
+			<nc:Activity structures:ref="Booking_01" />
+			<nc:Activity structures:ref="Offense_01" />
+			<nc:Case structures:ref="Case_01" />
+		</j:ActivityCaseAssociation>
+</cfd-doc:CaseFilingDecisionReport>
