@@ -46,6 +46,15 @@ public class GlobalControllerAdvice {
     @Value("${customStyleCssPath:}")
     String customStyleCssPath;
     
+    @Value("${inactivityTimeout:false}")
+    Boolean inactivityTimeout;
+    
+    @Value("${showSignOutButton:false}")
+    Boolean showSignOutButton;
+    
+    @Value("${inactivityTimeoutInSeconds:1800}")
+    String inactivityTimeoutInSeconds;
+    
     @ModelAttribute
     public void setupModelAttributes(Model model) {
         model.addAttribute("bannerPath", bannerPath);
@@ -53,6 +62,9 @@ public class GlobalControllerAdvice {
         model.addAttribute("secondaryOptionsDisplay", secondaryOptionsDisplay);
         model.addAttribute("singleClickForDetail", singleClickForDetail);
         model.addAttribute("customStyleCssPath", customStyleCssPath);
+        model.addAttribute("inactivityTimeout", inactivityTimeout);
+        model.addAttribute("showSignOutButton", showSignOutButton);
+        model.addAttribute("inactivityTimeoutInSeconds", inactivityTimeoutInSeconds);
     }
     
     @ExceptionHandler(Exception.class)
