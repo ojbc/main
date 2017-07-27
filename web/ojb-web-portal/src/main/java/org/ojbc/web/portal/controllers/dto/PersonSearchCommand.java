@@ -37,7 +37,7 @@ public class PersonSearchCommand implements Serializable{
 	private Integer heightInFeet;
 	private Integer heightInInches;
 
-	@Pattern(regexp="[A-Za-z0-9 \"-]*")
+	@Pattern(regexp="[A-Za-z0-9* \"-]*")
 	private String simpleSearch;
 	private Integer ageRangeStart;
 	private Integer ageRangeEnd;
@@ -132,6 +132,18 @@ public class PersonSearchCommand implements Serializable{
 
 	public void setParsedPersonSearchRequest(PersonSearchRequest parsedPersonSearchRequest) {
 		this.parsedPersonSearchRequest = parsedPersonSearchRequest;
+	}
+
+	@Override
+	public String toString() {
+		return "PersonSearchCommand [advanceSearch=" + advanceSearch
+				+ ", searchType=" + searchType + ", weightTolerance="
+				+ weightTolerance + ", heightTolerance=" + heightTolerance
+				+ ", heightInFeet=" + heightInFeet + ", heightInInches="
+				+ heightInInches + ", simpleSearch=" + simpleSearch
+				+ ", ageRangeStart=" + ageRangeStart + ", ageRangeEnd="
+				+ ageRangeEnd + ", parsedPersonSearchRequest="
+				+ parsedPersonSearchRequest + "]";
 	}
 
 }

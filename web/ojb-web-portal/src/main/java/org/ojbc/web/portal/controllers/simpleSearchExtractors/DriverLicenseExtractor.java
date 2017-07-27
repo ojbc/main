@@ -68,7 +68,7 @@ public class DriverLicenseExtractor extends SearchTermExtractorBase {
             return true;
         }
         
-        logger.warn("\n\n\n * * * DriverLicenseExtractor.extractTermLocal() returning false (no match) * * *  \n\n\n");
+        logger.debug("DriverLicenseExtractor.extractTermLocal() returning false (no match)");
         
         return false;
 
