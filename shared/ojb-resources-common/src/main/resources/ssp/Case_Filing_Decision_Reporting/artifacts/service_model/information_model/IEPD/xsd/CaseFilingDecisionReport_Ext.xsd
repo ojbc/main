@@ -56,6 +56,7 @@
 					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="cfd-ext:CaseFilingDecisionAttachment" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseArrestAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseChargeAssociation" minOccurs="0" maxOccurs="unbounded" />

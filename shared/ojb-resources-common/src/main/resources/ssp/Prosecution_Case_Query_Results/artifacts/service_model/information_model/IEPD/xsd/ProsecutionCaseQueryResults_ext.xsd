@@ -21,9 +21,9 @@
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:pcq-res-ext="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryResults/1.0"
 	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
-	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryResults/1.0" elementFormDefault="qualified"
-	attributeFormDefault="qualified" version="1">
+	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryResults/1.0"
+	elementFormDefault="qualified" attributeFormDefault="qualified" version="1">
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
@@ -31,6 +31,8 @@
 	<xsd:import namespace="http://release.niem.gov/niem/appinfo/3.0/" schemaLocation="./Subset/niem/appinfo/3.0/appinfo.xsd" />
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" schemaLocation="query-results-metadata.xsd" />
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" schemaLocation="query-request-error-reporting.xsd" />
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="./include_schema.xsd" />
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmime_schema.xsd" />
 	<xsd:complexType name="ProsecutionCaseQueryResultsType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for prosecution case query results.</xsd:documentation>
@@ -60,8 +62,8 @@
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="pcq-res-ext:VictimRightsAssertionCertificationIndicator" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="pcq-res-ext:VictimRightsAssertionText" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="pcq-res-ext:VictimRightsAssertionCertificationIndicator" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="pcq-res-ext:VictimRightsAssertionText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Case" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
@@ -72,6 +74,7 @@
 					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="pcq-res-ext:ProsecutionCaseQueryResultsAttachment" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseArrestAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseChargeAssociation" minOccurs="0" maxOccurs="unbounded" />
@@ -129,4 +132,19 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ProsecutionCaseQueryResultsAttachment" type="nc:DocumentType"
+		substitutionGroup="pcq-res-ext:ProsecutionCaseQueryResultsRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>Prosecution case query results record for a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ProsecutionCaseQueryResultsRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for a prosecution case query results document.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Base64BinaryObject" type="niem-xsd:base64Binary" substitutionGroup="nc:BinaryObject"
+		xmime:expectedContentType="text/plain" />
 </xsd:schema>
