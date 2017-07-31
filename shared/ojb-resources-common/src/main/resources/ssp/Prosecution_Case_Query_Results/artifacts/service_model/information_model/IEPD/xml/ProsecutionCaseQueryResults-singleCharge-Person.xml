@@ -46,10 +46,10 @@
 			<j:CaseAugmentation>
 				<j:CaseCharge structures:id="Charge_01">
 					<j:ChargeApplicabilityText>Charge Applicability</j:ChargeApplicabilityText>
-					 <j:ChargeCategoryDescriptionText>Charge Category</j:ChargeCategoryDescriptionText>
+					<j:ChargeCategoryDescriptionText>Charge Category</j:ChargeCategoryDescriptionText>
 					<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
-					<j:ChargeDescriptionText>
-	Charge Description</j:ChargeDescriptionText>
+					<j:ChargeDescriptionText> Charge Description
+					</j:ChargeDescriptionText>
 					<j:ChargeFilingDate>
 						<nc:Date>2016-10-13</nc:Date>
 					</j:ChargeFilingDate>
@@ -315,6 +315,11 @@
 			</nc:ContactTelephoneNumber>
 			<nc:ContactEmailID>Defendant@flores.com</nc:ContactEmailID>
 		</nc:ContactInformation>
+		<pcq-res-ext:ProsecutionCaseQueryResultsAttachment structures:id="Doc_01">
+			<nc:DocumentBinary>
+				<pcq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</pcq-res-ext:Base64BinaryObject>
+			</nc:DocumentBinary>
+		</pcq-res-ext:ProsecutionCaseQueryResultsAttachment>
 		<nc:PersonResidenceAssociation>
 			<nc:Person structures:ref="Defendant_01" />
 			<nc:Location structures:ref="RES01" />
