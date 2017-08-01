@@ -30,6 +30,7 @@
     xmlns:srm="http://ojbc.org/IEPD/Extensions/SearchResultsMetadata/1.0"
     xmlns:srer="http://ojbc.org/IEPD/Extensions/SearchRequestErrorReporting/1.0"
     xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+    xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"    
     exclude-result-prefixes="#all">
 	<xsl:import href="_formatters.xsl" />
 	
@@ -113,6 +114,8 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+	
+	<xsl:template match="nc30:Person"/>
 	
 	<xsl:template match="cs-res-ext:CustodySearchResult">
 		
