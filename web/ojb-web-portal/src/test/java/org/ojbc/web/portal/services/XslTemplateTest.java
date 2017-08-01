@@ -306,7 +306,12 @@ public class XslTemplateTest {
     public void vehicleCrashResult() throws Exception {
         validatePersonSearchTransformation("xsl/vehicleCrashResult.xsl", "vehicleCrashResult.xml", "vehicleCrashResult.html");
     }
-    
+
+    @Test
+    public void custodyList() throws Exception {
+        validatePersonSearchTransformation("xsl/custody-list.xsl", "custodySearchResults.xml", "custodySearchResults.html");
+    }
+
   
     @Test
     public void subscriptionSearchResult() throws Exception {    	                
