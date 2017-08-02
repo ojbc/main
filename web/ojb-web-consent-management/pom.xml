@@ -24,14 +24,21 @@
 	<groupId>org.ojbc.web</groupId>
 	<artifactId>ojb-web-consent-management</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.0</version>
 	<name>ojb-web-consent-management</name>
 
+<!--
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.3.RELEASE</version>
 	</parent>
+-->
+
+	<parent>
+      <groupId>org.ojbc.build</groupId>
+      <artifactId>ojb-web-aggregate</artifactId>
+      <version>1.0.0</version>
+    </parent>
 
 	<properties>
 		<log4j-version>1.2.17</log4j-version>
@@ -41,8 +48,17 @@
 	<dependencies>
 
 		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-dependencies</artifactId>
+            <version>1.5.6.RELEASE</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+
+		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
+			<version>4.5.3</version>
 		</dependency>
 
 		<!-- spring boot -->
@@ -50,17 +66,20 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<version>1.5.6.RELEASE</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<version>1.5.6.RELEASE</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
+			<version>8.5.16</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -68,10 +87,12 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
+			<version>1.7.25</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.25</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -83,21 +104,25 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
+			<version>4.3.10.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+			<version>1.5.6.RELEASE</version>
             <scope>test</scope>
         </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-test</artifactId>
+			<version>1.5.6.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -113,6 +138,7 @@
 				<configuration>
 					<packagingExcludes>WEB-INF/lib/geronimo-servlet_2.5_spec-1.1.2.jar</packagingExcludes>
 					<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 
