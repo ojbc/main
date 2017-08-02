@@ -1,0 +1,44 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<util:map xmlns:util="urn:Util.map"
+          id="entityLogoutReturnUrlMap"
+          map-class="java.util.LinkedHashMap">
+   <entry key="https://secure-resource.search.org/idp/shibboleth"
+          value="NotAvailableInMetadata"/>
+   <entry key="https://secure-resource.search.org/shibboleth"
+          value="NotAvailableInMetadata"/>
+   <entry key="https://demo.ojbc.org/shibboleth"
+          value="https://demo.ojbc.org/Shibboleth.sso/SLO/Redirect"/>
+   <entry key="http://ADFS.AD.CO.MAUI.HI.US/adfs/services/trust"
+          value="https://adfs.ad.co.maui.hi.us/adfs/ls/"/>
+   <entry key="http://cchadfs.cchnl.hnl/adfs/services/trust"
+          value="https://cchadfs.cchnl.hnl/adfs/ls/"/>
+   <entry key="https://testapp01.ehawaii.gov/idp/shibboleth"
+          value="NotAvailableInMetadata"/>
+   <entry key="http://hijisFS.hawaii.local/adfs/services/trust"
+          value="https://hijisfs.hawaii.local/adfs/ls/"/>
+   <entry key="http://adfs-hjis-01.atg.intra.hawaii.gov/adfs/services/trust"
+          value="https://adfs-hjis-01.atg.intra.hawaii.gov/adfs/ls/"/>
+   <entry key="http://HCPAADFS.DYNDNS.ORG/adfs/services/trust"
+          value="https://hcpaadfs.dyndns.org/adfs/ls/"/>
+   <entry key="https://jhda-idp.pima.gov/idp/shibboleth"
+          value="NotAvailableInMetadata"/>
+   <entry key="http://adfs.hi-hidta.org/adfs/services/trust"
+          value="https://adfs.hi-hidta.org/adfs/ls/"/>
+</util:map>
