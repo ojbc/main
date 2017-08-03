@@ -42,7 +42,14 @@ public class XslFormattersTest{
 	public void setup() {
 		xsltTransformerService = new XsltTransformerService();
 	}
-	
+
+	@Test
+	public void formatTelephoneNumber() throws Exception{
+		assertThatCodeEquals("xslRunners/formatTelephone.xsl", "1 (333) 444 - 5 5 5 5", "1(333)444-5555");
+		assertThatCodeEquals("xslRunners/formatTelephone.xsl", "(333) 444 - 5 5 5 5", "(333)444-5555");
+		assertThatCodeEquals("xslRunners/formatTelephone.xsl", "Home Phone: (333) 444 - 5 5 5 5", "(333)444-5555");
+	}
+
 	@Test
 	public void formatDate() throws Exception{
 		assertThatCodeEquals("xslRunners/formatDate.xsl", "2021-12-23", "12/23/2021");

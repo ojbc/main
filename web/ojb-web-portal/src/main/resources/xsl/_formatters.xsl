@@ -111,6 +111,28 @@
 		</xsl:call-template>
 	</xsl:template>
 
+
+	<xsl:template name="formatTelephoneNumber">
+		<xsl:param name="tNumber" />
+        <xsl:if test="$tNumber != ''">    
+        	<xsl:variable name="tNumberDigitsOnly" select="replace($tNumber, '[^0-9]', '')"/>
+        	
+        	<xsl:choose>
+        		<xsl:when test="string-length($tNumberDigitsOnly) = 10">
+        			<xsl:value-of select="concat('(',substring($tNumberDigitsOnly,1,3),')',substring($tNumberDigitsOnly,4,3),'-',substring($tNumberDigitsOnly,7,4))"/>
+        		</xsl:when>
+        		<xsl:when test="string-length($tNumberDigitsOnly) = 11">
+        			<xsl:value-of select="concat(substring($tNumberDigitsOnly,1,1),'(',substring($tNumberDigitsOnly,2,3),')',substring($tNumberDigitsOnly,5,3),'-',substring($tNumberDigitsOnly,8,4))"/>
+        		</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$tNumber"/>		
+				</xsl:otherwise>        	
+        	</xsl:choose>
+			
+		</xsl:if>
+
+	</xsl:template>
+
 	<xsl:template name="formatHairColor">
 		<xsl:param name="hairColorCode" />
 		<xsl:variable name="map">
