@@ -53,7 +53,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class TestRestController {
 	
-	private static final String CONSENT_SEARCH_URI = "http://localhost:8080/cm-api/findPendingInmates";
+	private static final String CONSENT_SEARCH_URI = "http://localhost:8081/cm-api/findPendingInmates";
 	
 	private final Log log = LogFactory.getLog(TestRestController.class);
 	

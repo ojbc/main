@@ -59,6 +59,9 @@
 <div id="searchBar" >
 	<div style="float:right" id="loggedInUserInfo">
 		<img src="#springUrl('/static/images/Search Bar/icon-user.png')" alt="User Icon"/> Welcome, $!currentUserName
+		#if ($showSignOutButton)
+			&nbsp;| <a title="Sign out" href="#springUrl('/j_spring_security_logout')"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></a></i>
+		#end
 	</div>
 	<div style="float: left" id="searchBarButtonDiv">
 		<!-- do not add spaces between <a> tags -->

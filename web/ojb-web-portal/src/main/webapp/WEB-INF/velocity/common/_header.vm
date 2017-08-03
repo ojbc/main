@@ -22,6 +22,10 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <html> <!--<![endif]-->
 <html>
     <head>
+    	#if( $inactivityTimeout )
+	    	<meta http-equiv="refresh" content="$inactivityTimeoutInSeconds;URL='#springUrl("/j_spring_security_logout")'">
+        #end
+        
         <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
         <link rel="stylesheet" type="text/css"  src="#springUrl('/static/js/jquery-datatable/css/jquery.dataTables.css')" />

@@ -142,7 +142,7 @@ public class SearchResultConverter implements ApplicationContextAware {
 	org.springframework.core.io.Resource getResource(String systemName) throws UnsupportedEncodingException{
 		systemName = URLDecoder.decode(StringUtils.trimToEmpty(systemName), "UTF-8");
 		log.info("systemName: " + systemName);
-//		log.info("searchDetailToXsl: " + searchDetailToXsl);
+		log.info("searchDetailToXsl: " + searchDetailToXsl);
 		org.springframework.core.io.Resource resource = xsls.get(systemName);
 		if(resource == null){
 			resource = applicationContext.getResource("classpath:xsl/"+ searchDetailToXsl.get(systemName));
