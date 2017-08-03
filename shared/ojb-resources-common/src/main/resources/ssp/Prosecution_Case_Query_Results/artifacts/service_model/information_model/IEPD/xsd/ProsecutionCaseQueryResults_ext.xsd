@@ -21,9 +21,9 @@
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:pcq-res-ext="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryResults/1.0"
 	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
-	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryResults/1.0" elementFormDefault="qualified"
-	attributeFormDefault="qualified" version="1">
+	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryResults/1.0"
+	elementFormDefault="qualified" attributeFormDefault="qualified" version="1">
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
@@ -31,6 +31,8 @@
 	<xsd:import namespace="http://release.niem.gov/niem/appinfo/3.0/" schemaLocation="./Subset/niem/appinfo/3.0/appinfo.xsd" />
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" schemaLocation="query-results-metadata.xsd" />
 	<xsd:import namespace="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" schemaLocation="query-request-error-reporting.xsd" />
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="./include_schema.xsd" />
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmime_schema.xsd" />
 	<xsd:complexType name="ProsecutionCaseQueryResultsType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for prosecution case query results.</xsd:documentation>
@@ -60,19 +62,25 @@
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="pcq-res-ext:VictimRightsAssertionCertificationIndicator" />
-					<xsd:element ref="pcq-res-ext:VictimRightsAssertionText" />
+					<xsd:element ref="pcq-res-ext:VictimRightsAssertionCertificationIndicator" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="pcq-res-ext:VictimRightsAssertionText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Case" />
-					<xsd:element ref="j:Arrest" />
+					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Identity" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:JudicialOfficial" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="pcq-res-ext:ProsecutionCaseQueryResultsAttachment" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseArrestAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseChargeAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseLocationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -97,4 +105,46 @@
 			<xsd:documentation>True if the charge involves domestic violence; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="PartyIdentification" type="nc:IdentificationType" substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification for a party.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PartyRoleText" type="nc:TextType" substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The role assumed by a party.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonConfidentialIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if person information is confidential; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonJuvenileIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if person is a juvenile; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to a person that has been identified. Some jurisdictions refer to this as an
+				OTN.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ProsecutionCaseQueryResultsAttachment" type="nc:DocumentType"
+		substitutionGroup="pcq-res-ext:ProsecutionCaseQueryResultsRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>Prosecution case query results record for a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ProsecutionCaseQueryResultsRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for a prosecution case query results document.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Base64BinaryObject" type="niem-xsd:base64Binary" substitutionGroup="nc:BinaryObject"
+		xmime:expectedContentType="text/plain" />
 </xsd:schema>

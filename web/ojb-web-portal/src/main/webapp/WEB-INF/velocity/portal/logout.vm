@@ -1,0 +1,65 @@
+#*
+ * Unless explicitly acquired and licensed from Licensor under another license, the contents of
+ * this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+ * versions as allowed by the RPL, and You may not copy or use this file in either source code
+ * or executable form, except in compliance with the terms and conditions of the RPL
+ *
+ * All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+ * WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+ * WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+ * governing rights and limitations under the RPL.
+ *
+ * http://opensource.org/licenses/RPL-1.5
+ *
+ * Copyright 2012-2017 Open Justice Broker Consortium
+ *#
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+<!--[if IE 7 ]> <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]> <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]> <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html> <!--<![endif]-->
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="#springUrl('/static/js/jquery-ui/css/search-theme/jquery-ui-base.css')">
+        <link rel="stylesheet" type="text/css"  src="#springUrl('/static/js/jquery-ui/css/search-theme/jquery-ui-1.10.0.custom.min.css')" />
+        <link rel="stylesheet" type="text/css" href="#springUrl('/static/css/style.css')">
+
+        <script src="#springUrl('/static/js/jquery-ui/js/jquery-1.9.0.js')"></script>
+        <script src="#springUrl('/static/js/jquery-ui/js/jquery.validate.min.js')"></script>
+        <script src="#springUrl('/static/js/jquery-ui/js/jquery-ui-1.10.0.custom.min.js')"></script>
+        <script src="#springUrl('/static/js/ojb-web-portal.js')"></script>
+
+        <title>OJBC Portal Access Denied</title>
+         <script>
+			$(function() {
+				$( "#tabs" ).tabs();
+				
+				if ( $( "#acknowledgePoliciesForm" ).length ){
+					$("#acknowledgePoliciesForm").attr("action", "#springUrl('/acknowlegePolicies')"); 
+				}
+			});
+		</script>
+    </head>
+    <body>
+    	<div id="pageRoot">
+	        <div id="mainContent" style="margin-left: auto; margin-right: auto; width:884px;">
+			     <div id="stateBanner">
+			     	  #parse("common/_stateBanner.vm")
+			     </div>
+			     
+			     <div id="searchContent">
+					<div id="tabs">
+						<ul>
+							<li><a href="#tabs-1">Thanks</a></li>
+						</ul>
+						<div id="tabs-1" style="font-size: 12px;color: #333333;">
+							You've been logged out successfully. 
+						</div>
+					 </div>
+				 </div>
+			 </div>
+		 </div>
+	</body>
+</html>
