@@ -81,6 +81,8 @@
 			#end
 		</select>
 		<input id="onBehalfOf" type="text" />
+	#else
+		<div style="height:100px; width:100%; clear:both;"></div>
 	#end
 	
 	<div class="horizontalDivide"> </div>
