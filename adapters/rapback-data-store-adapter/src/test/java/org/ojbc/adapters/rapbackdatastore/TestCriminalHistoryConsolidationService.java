@@ -25,7 +25,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,9 +51,6 @@ import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.message.MessageImpl;
-import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
-import org.apache.wss4j.common.principal.SAMLTokenPrincipalImpl;
-import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,11 +58,7 @@ import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.dao.SubscriptionSearchQueryDAO;
 import org.ojbc.util.camel.helper.OJBUtils;
-import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
-import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.signature.SignatureConstants;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.w3c.dom.Document;
@@ -202,19 +194,20 @@ public class TestCriminalHistoryConsolidationService {
 		assertTrue(rs.next());
 		assertEquals(2,rs.getInt("rowcount"));
 
+		//On a state consolidation, we don't update the UCN, just notify
 		rs = conn.createStatement().executeQuery(StringUtils.replace(UCN_BASE_QUERY, "UCN_PLACEHOLDER", "9222201"));
 		assertTrue(rs.next());
-		assertEquals(0,rs.getInt("rowcount"));
+		assertEquals(1,rs.getInt("rowcount"));
 		rs = conn.createStatement().executeQuery(StringUtils.replace(UCN_BASE_QUERY, "UCN_PLACEHOLDER", "9222202"));
 		assertTrue(rs.next());
-		assertEquals(2,rs.getInt("rowcount"));
+		assertEquals(1,rs.getInt("rowcount"));
 
 		rs = conn.createStatement().executeQuery(StringUtils.replace(FBI_BASE_QUERY, "UCN_PLACEHOLDER", "9222201"));
 		assertTrue(rs.next());
-		assertEquals(0,rs.getInt("rowcount"));
+		assertEquals(1,rs.getInt("rowcount"));
 		rs = conn.createStatement().executeQuery(StringUtils.replace(FBI_BASE_QUERY, "UCN_PLACEHOLDER", "9222202"));
 		assertTrue(rs.next());
-		assertEquals(1,rs.getInt("rowcount"));
+		assertEquals(0,rs.getInt("rowcount"));
 		
 		subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, "A123457");
 		subscriptions = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
@@ -253,17 +246,17 @@ public class TestCriminalHistoryConsolidationService {
 
 		rs = conn.createStatement().executeQuery(StringUtils.replace(UCN_BASE_QUERY, "UCN_PLACEHOLDER", "9222202"));
 		assertTrue(rs.next());
-		assertEquals(0,rs.getInt("rowcount"));
+		assertEquals(1,rs.getInt("rowcount"));
 		rs = conn.createStatement().executeQuery(StringUtils.replace(UCN_BASE_QUERY, "UCN_PLACEHOLDER", "FBI123123"));
 		assertTrue(rs.next());
-		assertEquals(2,rs.getInt("rowcount"));
+		assertEquals(0,rs.getInt("rowcount"));
 
 		rs = conn.createStatement().executeQuery(StringUtils.replace(FBI_BASE_QUERY, "UCN_PLACEHOLDER", "9222202"));
 		assertTrue(rs.next());
 		assertEquals(0,rs.getInt("rowcount"));
 		rs = conn.createStatement().executeQuery(StringUtils.replace(FBI_BASE_QUERY, "UCN_PLACEHOLDER", "FBI123123"));
 		assertTrue(rs.next());
-		assertEquals(1,rs.getInt("rowcount"));		
+		assertEquals(0,rs.getInt("rowcount"));		
 		
 		subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, "A123458");
 		subscriptions = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
@@ -302,17 +295,17 @@ public class TestCriminalHistoryConsolidationService {
 
 		rs = conn.createStatement().executeQuery(StringUtils.replace(UCN_BASE_QUERY, "UCN_PLACEHOLDER", "9222202"));
 		assertTrue(rs.next());
-		assertEquals(0,rs.getInt("rowcount"));
+		assertEquals(1,rs.getInt("rowcount"));
 		rs = conn.createStatement().executeQuery(StringUtils.replace(UCN_BASE_QUERY, "UCN_PLACEHOLDER", "FBI123123"));
 		assertTrue(rs.next());
-		assertEquals(2,rs.getInt("rowcount"));
+		assertEquals(0,rs.getInt("rowcount"));
 
 		rs = conn.createStatement().executeQuery(StringUtils.replace(FBI_BASE_QUERY, "UCN_PLACEHOLDER", "9222202"));
 		assertTrue(rs.next());
 		assertEquals(0,rs.getInt("rowcount"));
 		rs = conn.createStatement().executeQuery(StringUtils.replace(FBI_BASE_QUERY, "UCN_PLACEHOLDER", "FBI123123"));
 		assertTrue(rs.next());
-		assertEquals(1,rs.getInt("rowcount"));			
+		assertEquals(0,rs.getInt("rowcount"));			
 		
 		subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, "A123458");
 		subscriptions = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
