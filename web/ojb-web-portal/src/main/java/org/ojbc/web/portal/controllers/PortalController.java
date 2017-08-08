@@ -104,6 +104,12 @@ public class PortalController implements ApplicationContextAware {
 	
 	private ApplicationContext applicationContext;
 	
+	@Value("${showReasonsForSearch:true}")
+	Boolean showReasonsForSearch;
+
+	@Value("${showDemographicsFilter:true}")
+	Boolean showDemographicsFilter;
+	
 	@Value("${sensitiveInfoAlert:false}")
 	Boolean sensitiveInfoAlert;
 	
@@ -273,6 +279,10 @@ public class PortalController implements ApplicationContextAware {
     @RequestMapping(value="leftBar", method=RequestMethod.POST)
        public String leftBar(HttpServletRequest request, @ModelAttribute("personFilterCommand") PersonFilterCommand personFilterCommand, 
 			Map<String, Object> model){
+    	
+    	model.put("showReasonsForSearch", showReasonsForSearch);
+    	model.put("showDemographicsFilter", showDemographicsFilter);
+    	
 	    return "common/_leftBar";
 	}
     

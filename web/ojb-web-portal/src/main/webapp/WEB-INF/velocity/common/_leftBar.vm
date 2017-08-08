@@ -71,15 +71,19 @@
     		
     </script>
     
-	<p class="headerText">REASONS FOR SEARCH </p>
-	<p class="instructionalText"> Enter Search Criteria Here:</p>
-	
-	<select id="purposeSelect"> 
-		#foreach($entry in $searchPurposes.entrySet())
-			<option value="$entry.getKey()">$entry.getValue()</>
-		#end
-	</select>
-	<input id="onBehalfOf" type="text" />
+    #if( $showReasonsForSearch )
+		<p class="headerText">REASONS FOR SEARCH </p>
+		<p class="instructionalText"> Enter Search Criteria Here:</p>
+		
+		<select id="purposeSelect"> 
+			#foreach($entry in $searchPurposes.entrySet())
+				<option value="$entry.getKey()">$entry.getValue()</>
+			#end
+		</select>
+		<input id="onBehalfOf" type="text" />
+	#else
+		<div style="height:100px; width:100%; clear:both;"></div>
+	#end
 	
 	<div class="horizontalDivide"> </div>
 	<p class="headerText">SYSTEMS AVAILABLE FOR QUERY</p>
@@ -91,10 +95,12 @@
 		<!-- This is a placeholder that will be filled in via the search forms -->
 	</div>
 		
-	<div class="horizontalDivide"> </div>	
-	<div id="demogFilterInfo">	
-		#parse("people/_searchFilter.vm")
-	</div>
-
+	#if( $showDemographicsFilter )
+		<div class="horizontalDivide"> </div>	
+		<div id="demogFilterInfo">	
+			#parse("people/_searchFilter.vm")
+		</div>
+	#end
+	
 </div>
 
