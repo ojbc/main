@@ -58,7 +58,8 @@ public class CriminalHistoryConsolidationProcessor {
     private final static String STATE_AGENCY_EXPUNGEMENT_EMAIL_TEMPLATE="<Old SID> EMAIL TEMPLATE PENDING";
     		
     private final static String STATE_CONSOLIDATION_EMAIL_TEMPLATE ="<Old SID> has been consolidated into <New SID>.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on <New SID>.  A new arrest may or may not have occurred.";
-    private final static String STATE_AGENCY_CONSOLIDATION_UCN_MISMATCH_EMAIL_TEMPLATE ="<Old SID> has been consolidated into <New SID>.  EMAIL TEMPLATE PENDING";
+    private final static String STATE_AGENCY_CONSOLIDATION_UCN_MISMATCH_EMAIL_TEMPLATE ="UCN MISMATCH AGENCY.  EMAIL TEMPLATE PENDING";
+    private final static String STATE_USER_CONSOLIDATION_UCN_MISMATCH_EMAIL_TEMPLATE ="New UCN: <New UCN>\nOld UCN: <Old UCN>\n\nThe UCNs stated above have been consolidated or updated in CJIS-Hawaii.  Our records show you have an active federal Rap Back subscription to one of these UCNs. Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to OpenFox/NCIC to run a query on the new UCN. A new arrest may or may not have occurred.\nYou may receive another notification once the UCN is updated in FBI NGI System."; 
     
     private final static String STATE_IDENTIFIER_UPDATE_EMAIL_TEMPLATE ="<Old SID> has been updated to <New SID>.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on <New SID>.  A new arrest may or may not have occurred.";
     
@@ -95,18 +96,14 @@ public class CriminalHistoryConsolidationProcessor {
     	
     	if (federalSubscriptionsEnabled)
     	{	
-    		log.info("Federal subscriptions enabled.  Consolidate SID and UCN.");
+    		log.info("Federal subscriptions enabled.  Consolidate SID however don't update UCN, notify agency and user.");
     		
-	    	//Consolidate SID and UCN for members who use rapback
+	    	//Consolidate SID for members who use rapback
 	    	if (StringUtils.isNotBlank(currentSid) && StringUtils.isNotBlank(newSid)){
 	    		log.info("Consolidating SID " + currentSid + " with " + newSid);
 	    		rapbackDAO.consolidateSidFederal(currentSid, newSid);
 	    	}
 	    	
-	    	if (StringUtils.isNotBlank(currentUcn) && StringUtils.isNotBlank(newUcn)){
-	    		log.info("Consolidating UCN " + currentUcn + " with " + newUcn);
-	    		rapbackDAO.consolidateUcnFederal(currentUcn, newUcn);
-	    	}
     	}	
     	
     	Map<String,String> subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, currentSid);
@@ -115,11 +112,13 @@ public class CriminalHistoryConsolidationProcessor {
     	List<Subscription> subscriptionsMatchingSID = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
 
     	//When handling a SID consolidation or update message, from in state, check that the new UCN received from matches what is on the active subscription.
-    	//If the new UCN does not match, notify the RB administrator via email.
-    	//If the new UCN matches, notify the subscription owner. ??????
-    	List<Subscription> subscriptionsWithUCNMismatches = new ArrayList<Subscription>();
+    	//If the new UCN does not match, notify the RB administrator
+    	//If the new UCN does match, notify the user
+    	List<Subscription> subscriptionsWithUCNMatches = new ArrayList<Subscription>();
     	List<Subscription> subscriptionsWithUCNAdded = new ArrayList<Subscription>();
-    	
+
+    	List<CriminalHistoryConsolidationNotification> subscriptionWithUcnMismatches = new ArrayList<CriminalHistoryConsolidationNotification>();
+    			
     	if (StringUtils.isNotEmpty(newUcn))
     	{
     		for (Subscription subscriptionMatchingSID : subscriptionsMatchingSID)
@@ -131,14 +130,29 @@ public class CriminalHistoryConsolidationProcessor {
 
 				if (StringUtils.isNotEmpty(ucnInSubscription))
 				{
-    				if (!newUcn.equals(ucnInSubscription))
+    				if (newUcn.equals(ucnInSubscription))
     				{
-    					//We don't have a match notify agency
-    					subscriptionsWithUCNMismatches.add(subscriptionMatchingSID);
+    					log.info("UCN in consolidation message: "  + newUcn + " matches UCN in subscription" + ucnInSubscription);
+    					
+    					//We have a match, notify user based on current requirements
+    					subscriptionsWithUCNMatches.add(subscriptionMatchingSID);
     				}
     				else
     				{
-    					log.info("UCN in consolidation message: "  + newUcn + " matches UCN in subscription" + ucnInSubscription);
+    					log.info("UCN in consolidation message: "  + newUcn + " does NOT match UCN in subscription" + ucnInSubscription + ".  Notify agency");
+    					
+    					CriminalHistoryConsolidationNotification consolidationNotificationForAgency = new CriminalHistoryConsolidationNotification();
+    					
+    		   			consolidationNotificationForAgency.setConsolidationType("reportUCNMismatchToAgency");
+    					consolidationNotificationForAgency.setEmailTo(agencyNotificationEmailAddress);
+    					
+    					String emailBody = StringUtils.replace(STATE_AGENCY_CONSOLIDATION_UCN_MISMATCH_EMAIL_TEMPLATE, "<Old UCN>", currentUcn);
+    					
+    					consolidationNotificationForAgency.setEmailBody(emailBody);
+    					consolidationNotificationForAgency.setEmailSubject(returnStateEmailSubject(consolidationNotificationForAgency, currentUcn));    		
+    		    		
+    					//Add UCN mismatch here
+    					subscriptionWithUcnMismatches.add(consolidationNotificationForAgency);
     				}	
 				}	
 				else
@@ -151,6 +165,7 @@ public class CriminalHistoryConsolidationProcessor {
     		}	
     	}
     	
+    	//These notifications are based on SID consolidation
     	List<CriminalHistoryConsolidationNotification> criminalHistoryConsolidationNotifications = returnStateCriminalHistoryConsolidations(
 				currentSid, newSid, currentUcn, newUcn, consolidationType, subscriptionsMatchingSID);
     	
@@ -159,31 +174,57 @@ public class CriminalHistoryConsolidationProcessor {
 
     	criminalHistoryConsolidationNotifications = returnUniqueEmailNotifications(criminalHistoryConsolidationNotifications);
     	
-    	//In addition to notifying the user, also notify the agency with a different email template
-    	if (!subscriptionsWithUCNMismatches.isEmpty())
-    	{
-			CriminalHistoryConsolidationNotification consolidationNotificationForAgency = new CriminalHistoryConsolidationNotification();
-			
-   			consolidationNotificationForAgency.setConsolidationType("reportUCNMismatchToAgency");
-			consolidationNotificationForAgency.setEmailTo(agencyNotificationEmailAddress);
-			
-			String emailBody = StringUtils.replace(STATE_AGENCY_CONSOLIDATION_UCN_MISMATCH_EMAIL_TEMPLATE, "<Old SID>", currentSid);
-			
-			consolidationNotificationForAgency.setEmailBody(emailBody);
-			consolidationNotificationForAgency.setEmailSubject(returnStateEmailSubject(consolidationNotificationForAgency, currentSid));    		
-    		
-			//Add UCN mismatch here
-			criminalHistoryConsolidationNotifications.add(consolidationNotificationForAgency);
-    	}	
+    	//Notify the user if the new UCN matches
+    	List<CriminalHistoryConsolidationNotification> ucnMatchNotifications = addUcnMatchNotifications(currentUcn, newUcn, subscriptionsWithUCNMatches);	
     	
+    	//Create federal subscriptions if No UCN is present
     	List<CriminalHistoryConsolidationNotification> federalSubscriptionNotifications = addFederalSubscriptionNotifications(currentSid, newSid, newUcn,
 				subscriptionsWithUCNAdded);	    	
     	
     	criminalHistoryConsolidationNotifications.addAll(federalSubscriptionNotifications);
+    	criminalHistoryConsolidationNotifications.addAll(ucnMatchNotifications);
+    	criminalHistoryConsolidationNotifications.addAll(subscriptionWithUcnMismatches);
+    	
     	
     	return criminalHistoryConsolidationNotifications;
     	
     }
+
+	private List<CriminalHistoryConsolidationNotification> addUcnMatchNotifications(
+			String currentUcn,
+			String newUcn,
+			List<Subscription> subscriptionsWithUCNMatches) {
+		
+		List<CriminalHistoryConsolidationNotification> criminalHistoryConsolidationNotifications  = new ArrayList<CriminalHistoryConsolidationNotification>();
+		
+		if (!subscriptionsWithUCNMatches.isEmpty())
+    	{
+			
+			for (Subscription subscription : subscriptionsWithUCNMatches)
+			{
+				CriminalHistoryConsolidationNotification consolidationNotificationForUser = new CriminalHistoryConsolidationNotification();
+				
+				consolidationNotificationForUser.setSubscription(subscription);
+				consolidationNotificationForUser.setConsolidationType("reportUCNMmatchToUser");
+				
+				String emailBody="";
+				
+				emailBody = StringUtils.replace(STATE_USER_CONSOLIDATION_UCN_MISMATCH_EMAIL_TEMPLATE, "<New UCN>", newUcn);
+				emailBody = StringUtils.replace(emailBody, "<Old UCN>", currentUcn);
+				
+				consolidationNotificationForUser.setEmailBody(emailBody);
+				
+				consolidationNotificationForUser.setEmailSubject(returnStateEmailSubject(consolidationNotificationForUser, currentUcn));
+				consolidationNotificationForUser.setEmailTo(subscription.getSubscriptionOwnerEmailAddress());
+				
+				criminalHistoryConsolidationNotifications.add(consolidationNotificationForUser);
+				
+			}				
+			
+    	}
+		
+		return criminalHistoryConsolidationNotifications;
+	}
 
 	private List<CriminalHistoryConsolidationNotification> addFederalSubscriptionNotifications(String currentSid,
 			String newSid, String newUcn,
@@ -403,7 +444,7 @@ public class CriminalHistoryConsolidationProcessor {
     
 	List<CriminalHistoryConsolidationNotification> returnStateCriminalHistoryConsolidations(
 			String currentSid, String newSid, String currentUcn, String newUcn, String consolidationType, List<Subscription> subscriptionsMatchingSID) {
-		//Consolidate SID and optionally UCN for members who use simple subscription database setup
+		//Consolidate SID but not UCN for members who use simple subscription database setup
     	//Query based on SID only
     	
     	Map<String,String> subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, currentSid);
@@ -424,7 +465,6 @@ public class CriminalHistoryConsolidationProcessor {
     		{
         		//Update SID in subject identifier table
         		subscriptionSearchQueryDAO.updateSubscriptionSubjectIdentifier(currentSid, newSid, subscription.getSubscriptionIdentifier(), SubscriptionNotificationConstants.SID);
-        		subscriptionSearchQueryDAO.updateSubscriptionSubjectIdentifier(currentUcn, newUcn, subscription.getSubscriptionIdentifier(), SubscriptionNotificationConstants.FBI_ID);
     			
     		}	
     		
@@ -502,45 +542,49 @@ public class CriminalHistoryConsolidationProcessor {
 	}
 
 	String returnStateEmailSubject(
-			CriminalHistoryConsolidationNotification chcNotification, String currentSid) {
+			CriminalHistoryConsolidationNotification chcNotification, String currentIdentifier) {
 		
 		String emailSubject = "";
 		
 		if (chcNotification.getConsolidationType().equals("criminalHistoryExpungementReport"))
 		{
-			emailSubject = "SID Expungement for: " + currentSid;
+			emailSubject = "SID Expungement for: " + currentIdentifier;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("criminalHistoryConsolidationReport"))
 		{
-			emailSubject = "Criminal History Consolidation for SID for: " + currentSid;
+			emailSubject = "Criminal History Consolidation for SID for: " + currentIdentifier;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("criminalHistoryIdentifierUpdateReport"))
 		{
-			emailSubject = "Criminal History Update for SID for: " + currentSid;
+			emailSubject = "Criminal History Update for SID for: " + currentIdentifier;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportSIDExpungementToAgency"))
 		{
-			emailSubject = "Agency Notification: SID Expungement for: " + currentSid;
+			emailSubject = "Agency Notification: SID Expungement for: " + currentIdentifier;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportUCNMismatchToAgency"))
 		{
-			emailSubject = "Agency Notification: UCN mismatch during SID consolidation for: " + currentSid;
+			emailSubject = "Agency Notification: UCN mismatch during SID consolidation for: " + currentIdentifier;
 		}	
 		
 		if (chcNotification.getConsolidationType().equals("reportUCNAddedToAgency"))
 		{
-			emailSubject = "Agency Notification: UCN added during SID consolidation/federal subscription created for: " + currentSid;
+			emailSubject = "Agency Notification: UCN added during SID consolidation/federal subscription created for: " + currentIdentifier;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportUCNAddedToUser"))
 		{
-			emailSubject = "UCN added during SID consolidation/federal subscription created for: " + currentSid;
+			emailSubject = "UCN added during SID consolidation/federal subscription created for: " + currentIdentifier;
 		}	
 
+		if (chcNotification.getConsolidationType().equals("reportUCNMmatchToUser"))
+		{
+			emailSubject = "UCN update occurred for: " + currentIdentifier;
+		}	
 		
 		return emailSubject;
 	}
