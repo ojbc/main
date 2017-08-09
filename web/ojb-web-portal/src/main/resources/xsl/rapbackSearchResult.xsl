@@ -138,7 +138,7 @@
 			</xsl:attribute>
 			<i class="fa fa-rss fa-lg"/>
 		</a>
- -->		<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive">
+ -->	<a href="#" class="blueIcon archive" style="margin-right:3px" title="Archive">
 			<xsl:attribute name="id">
 				<xsl:value-of select="normalize-space(intel:SystemIdentification/nc:IdentificationID)"/>
 			</xsl:attribute>
