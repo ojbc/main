@@ -35,6 +35,7 @@
           <xs:element ref="nc:ActivityIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityCategoryText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:ActivityDateRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:ActivityDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -256,7 +257,9 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:LocationAddressAbstract" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:LocationCategory" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:LocationDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:LocationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -447,6 +450,11 @@
   <xs:element name="ActivityDateRepresentation" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a date an activity occurs.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ActivityDescriptionText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A description of an activity.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ActivityIdentification" type="nc:IdentificationType" nillable="true">
@@ -687,6 +695,21 @@
   <xs:element name="LocationAddressAbstract" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a set of information, such as postal information, used to describe a location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for LocationType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationCategory" abstract="true">
+    <xs:annotation>
+      <xs:documentation>A data concept for a kind or functional description of a location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="LocationCategoryText" type="nc:TextType" substitutionGroup="nc:LocationCategory">
+    <xs:annotation>
+      <xs:documentation>A kind or functional description of a location.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="LocationCityName" type="nc:ProperNameTextType" nillable="true">

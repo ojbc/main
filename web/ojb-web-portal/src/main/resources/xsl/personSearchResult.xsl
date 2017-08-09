@@ -269,9 +269,10 @@
                             <td class="detailsLabel">HOME PHONE</td>
                             <td>
                                 <xsl:variable name="tNumber" select="nc:ContactInformation/nc:ContactTelephoneNumber/nc:FullTelephoneNumber/nc:TelephoneNumberFullID"/>
-                                <xsl:if test="$tNumber != ''">    
-                                	<xsl:value-of select="concat('(',substring($tNumber,1,3),')',substring($tNumber,5,3),'-',substring($tNumber,9,4))"/>
-                                </xsl:if>
+                                
+                            	<xsl:call-template name="formatTelephoneNumber" >
+                            		<xsl:with-param name="tNumber" select="$tNumber"/>
+                            	</xsl:call-template>
                             </td>
                             <td class="detailsLabel">EYE COLOR</td>
                             <td>
