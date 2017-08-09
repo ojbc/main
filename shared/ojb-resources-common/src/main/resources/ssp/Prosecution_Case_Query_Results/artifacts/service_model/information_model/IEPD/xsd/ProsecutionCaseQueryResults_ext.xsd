@@ -65,9 +65,11 @@
 					<xsd:element ref="pcq-res-ext:VictimRightsAssertionCertificationIndicator" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="pcq-res-ext:VictimRightsAssertionText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Case" />
+					<!--  xsd:element ref="nc:Incident" minOccurs="0" maxOccurs="unbounded" /-->
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Vehicle" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Person" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Identity" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:JudicialOfficial" minOccurs="0" maxOccurs="unbounded" />
