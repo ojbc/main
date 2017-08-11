@@ -59,6 +59,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,7 +70,7 @@ import org.w3c.dom.Element;
 
 @Controller
 @RequestMapping("/portal/*")
-@SessionAttributes({"sensitiveInfoAlert"})
+@SessionAttributes({"sensitiveInfoAlert", "userSignOutUrl"})
 public class PortalController implements ApplicationContextAware {
 
 	static final String DEFAULT_USER_TIME_ONLINE = "0:00";
@@ -202,7 +203,7 @@ public class PortalController implements ApplicationContextAware {
 	}
 
     @RequestMapping("index")
-    public void index(HttpServletRequest request, Map<String, Object> model, Authentication authentication){
+    public void index(HttpServletRequest request, Map<String, Object> model, Authentication authentication) throws Exception{
 
 		// To pull something from the header you want something like this
 		// String header = request.getHeader("currentUserName");
@@ -224,13 +225,14 @@ public class PortalController implements ApplicationContextAware {
 		model.put("currentUserName", userLogonInfo.userNameString);
 		model.put("timeOnline", userLogonInfo.timeOnlineString);
 		model.put("searchLinksHtml", getSearchLinksHtml(authentication));
-		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));				
+		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));
+		
+    	putUserSignoutUrlIntoModel(request, model);
 	}
 
-    @RequestMapping("performLogout")
-    public String performLogout(HttpServletRequest request, Map<String, Object> model, Authentication authentication) throws Exception{
-
-    	StringBuilder sb = new StringBuilder();
+	private void putUserSignoutUrlIntoModel(HttpServletRequest request, Map<String, Object> model)
+			throws Exception {
+		StringBuilder sb = new StringBuilder();
     	sb.append(userSignOutUrl);
     	if (entityLogoutReturnUrlMap != null){
     		Element samlAssertion = (Element)request.getAttribute("samlAssertion");
@@ -242,8 +244,16 @@ public class PortalController implements ApplicationContextAware {
     			sb.append(logoutReturnUrl);
     		}
     	}
+    	model.put("userSignOutUrl", sb.toString());
+	}
 
-    	return "redirect:" + sb.toString();
+    @RequestMapping("performLogout")
+    public String performLogout(HttpServletRequest request, Map<String, Object> model, Authentication authentication) throws Exception{
+
+    	String userSignoutUrl = (String) model.get("userSignOutUrl");
+		new SecurityContextLogoutHandler().logout(request, null, null);
+    	request.getSession().invalidate();
+    	return "redirect:" + userSignoutUrl;
 	}
 
     @RequestMapping("defaultLogout")
