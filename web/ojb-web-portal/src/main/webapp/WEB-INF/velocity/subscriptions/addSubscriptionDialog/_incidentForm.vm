@@ -39,7 +39,13 @@
     	       showOn: "both",
     	       buttonImage: "#springUrl('/static/images/Search Form/icon-calendar.png')",
     	       buttonImageOnly: true,
-    	    });	 
+    	       shortYearCutoff: "+10",
+    	       dateFormat: 'mm/dd/yy',
+      	       onClose: function(dateText, inst) {
+          		$(this).datepicker('option', 'dateFormat', 'mm/dd/yy');      
+    	       }
+    	    });
+    	    	  	    
 	  });	
 
 </script>
