@@ -35,6 +35,7 @@
     <sec:http security="none" pattern="/index.jsp"/>   
     <sec:http security="none" pattern="/acknowlegePolicies"/>
     <sec:http security="none" pattern="/portal/logout"/>
+    <sec:http security="none" pattern="/portal/performLogout"/>
 	
 	<!-- We should change this to require a SAML authentication role, if we can separate policy ack and portal roles, we can do this -->
     <sec:http security="none" pattern="/otp/**"/>
@@ -44,7 +45,7 @@
         <!-- Allow non-secure access to static resources  -->
         <sec:intercept-url pattern="/**" access="hasRole('AUTHZ_PORTAL') and hasRole('AUTHZ_PORTAL_OTP')"/>
 		<sec:custom-filter ref="samlAuthenticationFilter" position="PRE_AUTH_FILTER"/>    
-		<sec:logout logout-success-url="/portal/performLogout"/>
+		<sec:logout logout-success-url="/portal/performLogout" invalidate-session="false"/>
 		<sec:access-denied-handler ref="ojbcAccessDeniedHandler"/>
 		<sec:session-management session-fixation-protection="newSession"/>
 	</sec:http>
