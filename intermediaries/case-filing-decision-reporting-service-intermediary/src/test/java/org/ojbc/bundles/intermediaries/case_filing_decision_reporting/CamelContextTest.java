@@ -90,7 +90,9 @@ public class CamelContextTest {
     
     @EndpointInject(uri = "mock:cxf:bean:caseFilingDecisionReportingServiceAdapter")
     protected MockEndpoint courtCaseFilingServiceMockEndpoint;
-    
+
+    @EndpointInject(uri = "mock:cxf:bean:chargeReferralReportingAdapter")
+    protected MockEndpoint chargeReferralServiceMockEndpoint;
       
     @EndpointInject(uri = "mock:log:org.ojbc.intermediaries.case_filing_decision_reporting")
     protected MockEndpoint loggingEndpoint;
@@ -122,6 +124,15 @@ public class CamelContextTest {
     	    }              
     	});
     	
+    	//We mock the web service endpoints here
+    	context.getRouteDefinition("callChargeReferralRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	
+    	    	//We mock the charge referral endpoint
+    	    	mockEndpointsAndSkip("cxf:bean:chargeReferralReportingAdapter*");
+    	    }              
+    	});
     	
 		context.start();		
 	}
@@ -141,6 +152,7 @@ public class CamelContextTest {
 		
     	//Court Case Filing will get one message
 		courtCaseFilingServiceMockEndpoint.expectedMessageCount(1);
+		chargeReferralServiceMockEndpoint.expectedBodiesReceived(1);
 		
 		//logging endpoint will get two messages, one from content enricher and one from derived routes.
 		loggingEndpoint.expectedMessageCount(2);
@@ -177,6 +189,9 @@ public class CamelContextTest {
 
 		//Assert that the mock endpoint expectations are satisfied
 		courtCaseFilingServiceMockEndpoint.assertIsSatisfied();
+		
+		//TODO: Assert endpoint once transform to spec is complete
+		//chargeReferralServiceMockEndpoint.assertIsSatisfied();
 		loggingEndpoint.assertIsSatisfied();
 		
 		//Get the first exchange (the only one)
@@ -187,8 +202,6 @@ public class CamelContextTest {
 		
 		String opNamespace = (String)ex.getIn().getHeader("operationNamespace");
 		assertEquals("http://ojbc.org/Services/WSDL/CaseFilingDecisionReportingService/1.0", opNamespace);
-
-		Document returnDocumentCourtCaseFiling = ex.getIn().getBody(Document.class);
 
 		//Get the first exchange (the only one) to the logger
 		//This is what would be sent to the derived bundle
