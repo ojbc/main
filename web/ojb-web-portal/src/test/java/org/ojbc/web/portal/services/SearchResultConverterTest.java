@@ -35,7 +35,6 @@ import java.util.Map;
 import javax.xml.transform.sax.SAXSource;
 
 import org.apache.commons.io.IOUtils;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -43,7 +42,6 @@ import org.mockito.Mockito;
 import org.ojbc.web.portal.controllers.dto.PersonFilterCommand;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 public class SearchResultConverterTest {

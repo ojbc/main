@@ -26,11 +26,10 @@ import java.util.Arrays;
 
 import javax.annotation.Resource;
 
-import org.ojbc.web.model.person.search.PersonSearchRequest;
-import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.web.portal.controllers.dto.PersonSearchCommand;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
