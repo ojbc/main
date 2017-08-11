@@ -226,6 +226,7 @@ public class PortalController implements ApplicationContextAware {
 		model.put("timeOnline", userLogonInfo.timeOnlineString);
 		model.put("searchLinksHtml", getSearchLinksHtml(authentication));
 		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));
+		model.put("sensitiveInfoAlert", sensitiveInfoAlert);
 		
     	putUserSignoutUrlIntoModel(request, model);
 	}
@@ -248,11 +249,14 @@ public class PortalController implements ApplicationContextAware {
 	}
 
     @RequestMapping("performLogout")
-    public String performLogout(HttpServletRequest request, Map<String, Object> model, Authentication authentication) throws Exception{
-
+    public String performLogout(HttpServletRequest request, Map<String, Object> model) throws Exception{
     	String userSignoutUrl = (String) model.get("userSignOutUrl");
+    	if (request.getSession()!= null){
+    		model.remove("userSignOutUrl");
+    		model.remove("sensitiveInfoAlert");
+    		request.getSession().invalidate();
+    	}
 		new SecurityContextLogoutHandler().logout(request, null, null);
-    	request.getSession().invalidate();
     	return "redirect:" + userSignoutUrl;
 	}
 
@@ -424,10 +428,10 @@ public class PortalController implements ApplicationContextAware {
 		return userLogonInfo;
 	}
 
-	@ModelAttribute("sensitiveInfoAlert")
-	public Boolean getSensitiveInfoAlert() {
-	    return sensitiveInfoAlert;
-	}
+//	@ModelAttribute("sensitiveInfoAlert")
+//	public Boolean getSensitiveInfoAlert() {
+//	    return sensitiveInfoAlert;
+//	}
 	
     @ModelAttribute("sensitiveInfoAlertMessage")
     public String getSensitiveInfoAlertMessage() {
