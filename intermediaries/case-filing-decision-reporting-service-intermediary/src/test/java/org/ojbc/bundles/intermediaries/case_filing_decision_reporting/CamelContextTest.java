@@ -91,8 +91,8 @@ public class CamelContextTest {
     @EndpointInject(uri = "mock:cxf:bean:caseFilingDecisionReportingServiceAdapter")
     protected MockEndpoint courtCaseFilingServiceMockEndpoint;
 
-    @EndpointInject(uri = "mock:cxf:bean:chargeReferralReportingAdapter")
-    protected MockEndpoint chargeReferralServiceMockEndpoint;
+    @EndpointInject(uri = "mock:cxf:bean:chargeFilingAdapter")
+    protected MockEndpoint chargeFilingMockEndpoint;
       
     @EndpointInject(uri = "mock:log:org.ojbc.intermediaries.case_filing_decision_reporting")
     protected MockEndpoint loggingEndpoint;
@@ -125,12 +125,12 @@ public class CamelContextTest {
     	});
     	
     	//We mock the web service endpoints here
-    	context.getRouteDefinition("callChargeReferralRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	context.getRouteDefinition("callChargeFilingRoute").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
     	    public void configure() throws Exception {
     	    	
     	    	//We mock the charge referral endpoint
-    	    	mockEndpointsAndSkip("cxf:bean:chargeReferralReportingAdapter*");
+    	    	mockEndpointsAndSkip("cxf:bean:chargeFilingAdapter*");
     	    }              
     	});
     	
@@ -152,7 +152,7 @@ public class CamelContextTest {
 		
     	//Court Case Filing will get one message
 		courtCaseFilingServiceMockEndpoint.expectedMessageCount(1);
-		chargeReferralServiceMockEndpoint.expectedBodiesReceived(1);
+		chargeFilingMockEndpoint.expectedBodiesReceived(1);
 		
 		//logging endpoint will get two messages, one from content enricher and one from derived routes.
 		loggingEndpoint.expectedMessageCount(2);
@@ -191,7 +191,7 @@ public class CamelContextTest {
 		courtCaseFilingServiceMockEndpoint.assertIsSatisfied();
 		
 		//TODO: Assert endpoint once transform to spec is complete
-		//chargeReferralServiceMockEndpoint.assertIsSatisfied();
+		//chargeFilingMockEndpoint.assertIsSatisfied();
 		loggingEndpoint.assertIsSatisfied();
 		
 		//Get the first exchange (the only one)

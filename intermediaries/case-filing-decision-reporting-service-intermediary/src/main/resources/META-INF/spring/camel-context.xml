@@ -41,8 +41,8 @@
 		<camel:endpoint id="caseFilingDecisionReportingServiceAdapterEndpoint"
 			uri="cxf:bean:caseFilingDecisionReportingServiceAdapter?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${caseFilingDecisionReportingService.cxflogging}&amp;allowStreaming=false"/>
 
-		<camel:endpoint id="chargeReferralReportingAdapterEndpoint"
-			uri="cxf:bean:chargeReferralReportingAdapter?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${caseFilingDecisionReportingService.cxflogging}&amp;allowStreaming=false"/>
+		<camel:endpoint id="chargeFilingAdapterEndpoint"
+			uri="cxf:bean:chargeFilingAdapter?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${caseFilingDecisionReportingService.cxflogging}&amp;allowStreaming=false"/>
 			
 			
 		<!-- Case Filing Decision Reporting Service Handler -->
@@ -72,11 +72,11 @@
 
 				<camel:pipeline>
 					<camel:filter>
-						<camel:simple>${properties:caseFileDecisionReportCallChargeReferral} == true</camel:simple>
+						<camel:simple>${properties:caseFileDecisionReportCallChargeFiling} == true</camel:simple>
 						
-						<camel:log message="About to call court case filing endpoint"/>
+						<camel:log message="About to call charge filing endpoint"/>
 						
-						<camel:to uri="direct:callChargeReferral"/>
+						<camel:to uri="direct:callChargeFiling"/>
 						
 					</camel:filter>	
 				</camel:pipeline>	
@@ -127,34 +127,34 @@
 		
 		</camel:route>		
 
-		<route id="callChargeReferralRoute">
+		<route id="callChargeFilingRoute">
             
-            <from uri="direct:callChargeReferral"/>
+            <from uri="direct:callChargeFiling"/>
             
-            <log message="In Charge Referral route" />
+            <log message="In Charge Filing route" />
             
-            <log message="Transform to Charge Referral" />
+            <log message="Transform to Charge Filing" />
             
-            <to uri="xslt:xslt/caseFilingToChargeReferral.xslt"/>
+            <to uri="xslt:xslt/caseFilingToChargeFiling.xslt"/>
             
             <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>		
             
 			<camel:setHeader headerName="operationName">
-				<constant>ReportChargeReferral</constant>
+				<constant>FileCharges</constant>
 			</camel:setHeader>
 			
 			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/ChargeReferralReportingService/1.0</constant>
+				<constant>http://ojbc.org/Services/WSDL/ProsecutionChargeFilingService/1.0</constant>
 			</camel:setHeader>			  
 			
-			<camel:log message="This is the charge referral filing message: ${body}" loggingLevel="DEBUG"/>
+			<camel:log message="This is the charge filing message: ${body}" loggingLevel="DEBUG"/>
 			
             <camel:throttle timePeriodMillis="1000">
             	<constant>1</constant>
-            	<to uri="chargeReferralReportingAdapterEndpoint"/>
+            	<to uri="chargeFilingAdapterEndpoint"/>
         	</camel:throttle>    
 
-			<log message="Called Charge Referral Service adapter."/>
+			<log message="Called Charge Filing Service adapter."/>
 			
 		</route>
 		
