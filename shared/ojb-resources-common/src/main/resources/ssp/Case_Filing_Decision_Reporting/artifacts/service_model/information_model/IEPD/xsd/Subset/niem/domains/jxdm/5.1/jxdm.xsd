@@ -110,6 +110,7 @@
           <xs:element ref="j:CaseCourt" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseCourtEvent" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseDefendantParty" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:CaseDomesticViolenceIndicator" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseInitiatingParty" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseJudge" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:CaseProsecutionAttorney" minOccurs="0" maxOccurs="unbounded"/>
@@ -137,6 +138,7 @@
           <xs:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeFilingDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeQualifierText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSeverityLevel" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSeverityText" minOccurs="0" maxOccurs="unbounded"/>
@@ -447,6 +449,11 @@
       <xs:documentation>An entity being charged or sued in a court of law.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="CaseDomesticViolenceIndicator" type="niem-xs:boolean" nillable="true">
+    <xs:annotation>
+      <xs:documentation>True if the case involves domestic violence; false otherwise.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="CaseInitiatingParty" type="nc:EntityType" nillable="true">
     <xs:annotation>
       <xs:documentation>An entity that brings charges or a suit against another in a court of law. Can be either a victim in a criminal case or a plaintiff in a civil case.</xs:documentation>
@@ -500,6 +507,11 @@
   <xs:element name="ChargeFilingDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date a charge was filed.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeQualifierText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An additional piece of information that clarifies a charge.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeSequenceID" type="niem-xs:string" nillable="true">

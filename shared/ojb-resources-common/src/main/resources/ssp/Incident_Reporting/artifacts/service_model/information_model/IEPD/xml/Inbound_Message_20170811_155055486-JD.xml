@@ -23,7 +23,7 @@
 			<PublishMessage>
 				<PDMessageMetadata>
 					<LEXSVersion>tracs version</LEXSVersion>
-					<MessageDateTime>2017-08-08T13:50:59</MessageDateTime>
+					<MessageDateTime>2017-08-11T11:45:20</MessageDateTime>
 					<MessageSequenceNumber>1</MessageSequenceNumber>
 				</PDMessageMetadata>
 				<DataSubmitterMetadata>
@@ -67,8 +67,7 @@
 							<DataOwnerIdentifier>
 								<ORI>000</ORI>
 								<OrganizationName xmlns="http://niem.gov/niem/niem-core/2.0">DEFAULT LOCATION</OrganizationName>
-								<!-- Add required element SystemID -JD -->
-								<SystemID>N-DEx Connector</SystemID>
+								<SystemID>Computer Name</SystemID>
 							</DataOwnerIdentifier>
 							<DataOwnerContact>
 								<PersonGivenName xmlns="http://niem.gov/niem/niem-core/2.0">System</PersonGivenName>
@@ -100,7 +99,7 @@
 									<IdentificationSourceText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
 									<IdentificationStatus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
 								</ActivityIdentification>
-								<ActivityCategoryText>Indicent</ActivityCategoryText>
+								<ActivityCategoryText>Incident</ActivityCategoryText>
 								<ActivityDateRange>
 									<StartDate>
 										<Date>2017-07-17</Date>
@@ -121,11 +120,23 @@
 							</Activity>
 						</EntityActivity>
 						<EntityDocument xmlns="http://usdoj.gov/leisp/lexs/digest/3.1">
-							<!-- Need to add ID attribute to Document -JD -->
-							<!-- Document xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-								xsi:nil="true" / -->
-							<Document xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-								xmlns:b="http://niem.gov/niem/structures/2.0" b:id="CITATION01" />
+							<Document xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:b="http://niem.gov/niem/structures/2.0" b:id="CITATION01">
+								<DocumentCreationDate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+								<DocumentDescriptionText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+								<DocumentFileControlID xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+								<DocumentIdentification>
+									<IdentificationID>CITATION01</IdentificationID>
+									<IdentificationCategoryText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+									<IdentificationEffectiveDate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+									<IdentificationExpirationDate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+										xsi:nil="true" />
+									<IdentificationSourceText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+									<IdentificationStatus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+								</DocumentIdentification>
+								<DocumentKeywordText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+								<DocumentTitleText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+								<SecurityLevelText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+							</Document>
 						</EntityDocument>
 						<EntityPerson xmlns="http://usdoj.gov/leisp/lexs/digest/3.1">
 							<Person xmlns:b="http://niem.gov/niem/structures/2.0" b:id="PERSON02">
@@ -292,12 +303,9 @@
 						</EntityTelephoneNumber>
 						<EntityTelephoneNumber xmlns="http://usdoj.gov/leisp/lexs/digest/3.1">
 							<TelephoneNumber>
-								<!-- ID/IDREF attributes must be unique. b:id="Telephone_01 is already used above -JD -->
-								<!-- FullTelephoneNumber xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:b="http://niem.gov/niem/structures/2.0"
-									b:id="Telephone_01" -->
 								<FullTelephoneNumber xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:b="http://niem.gov/niem/structures/2.0"
 									b:id="Telephone_02">
-									<TelephoneNumberFullID>9987654321</TelephoneNumberFullID>
+									<TelephoneNumberFullID>1234567899</TelephoneNumberFullID>
 									<TelephoneSuffixID xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
 								</FullTelephoneNumber>
 								<TelephoneNumberCategoryCode xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
@@ -405,13 +413,10 @@
 									xsi:nil="true" />
 							</Location>
 						</EntityLocation>
-						<EntityVehicle xmlns="http://usdoj.gov/leisp/lexs/digest/3.1">
-							<!-- Need to add ID attribute for Vehicle -JD -->
-							<!-- Vehicle xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:q2="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
-								xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="q2:VehicleType" -->
+						<EntityVehicle xmlns="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:b="http://niem.gov/niem/structures/2.0"
+							b:id="VEHICLE01">
 							<Vehicle xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:q2="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
-								xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="q2:VehicleType" xmlns:b="http://niem.gov/niem/structures/2.0"
-								b:id="VEHICLE01">
+								xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="q2:VehicleType">
 								<ItemDescriptionText xsi:nil="true" />
 								<ItemRFIdentification xsi:nil="true" />
 								<ItemSerialIdentification xsi:nil="true" />
@@ -462,10 +467,8 @@
 								<PersonReference xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:b="http://niem.gov/niem/structures/2.0"
 									b:ref="PERSON01" />
 								<TelephoneNumberReference xmlns:b="http://niem.gov/niem/structures/2.0" b:ref="Telephone_02" />
-								<TelephoneNumberPrimaryIndicator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<TelephoneNumberHomeIndicator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
+								<TelephoneNumberPrimaryIndicator>true</TelephoneNumberPrimaryIndicator>
+								<TelephoneNumberHomeIndicator>true</TelephoneNumberHomeIndicator>
 								<TelephoneNumberWorkIndicator>true</TelephoneNumberWorkIndicator>
 								<TelephoneNumberEmergencyIndicator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 									xsi:nil="true" />
@@ -777,8 +780,6 @@
 									c:ref="OFFENSE01" />
 							</Charge>
 							<EnforcementOfficial>
-								<!-- IDREF should be PERSON02 (Officer)-JD -->
-								<!-- RoleOfPersonReference xmlns="http://niem.gov/niem/niem-core/2.0" b:ref="Administrator System" / -->
 								<RoleOfPersonReference xmlns="http://niem.gov/niem/niem-core/2.0" b:ref="PERSON02" />
 								<EnforcementOfficialBadgeIdentification xmlns="http://niem.gov/niem/domains/jxdm/4.0">
 									<IdentificationID xmlns="http://niem.gov/niem/niem-core/2.0">000</IdentificationID>
@@ -875,8 +876,6 @@
 									<IdentificationStatus xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 										xsi:nil="true" />
 								</PersonFishAndWildlifeLicenseIdentification>
-								<!-- All elements in the Structured Payload must have a SameAsDigestReference element that point back to a Digest element
-									-JD -->
 								<SameAsDigestReference xmlns="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:c="http://usdoj.gov/leisp/lexs/library/3.1"
 									c:ref="PERSON01" />
 							</Person>
@@ -940,51 +939,84 @@
 								<SameAsDigestReference xmlns="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:c="http://usdoj.gov/leisp/lexs/library/3.1"
 									c:ref="VEHICLE01" />
 							</Vehicle>
-							<Vehicle>
-								<ItemDescriptionText xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							<DrivingIncident>
+								<ActivityIdentification xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 									xsi:nil="true" />
-								<ItemRFIdentification xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+								<ActivityCategoryText xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 									xsi:nil="true" />
-								<ItemSerialIdentification xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<ItemValue xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<ItemCategoryText xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<ItemHeightMeasure xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<ItemLengthMeasure xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<ItemMakeName xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<ItemModelName xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<ItemModelYearDate xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<ItemSizeDescriptionText xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<VehicleStyleCode xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<ItemWeightMeasure xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<ItemWidthMeasure xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<ConveyanceEngineQuantity xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<VehicleCMVIndicator xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<VehicleIdentification xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<VehicleMakeCode xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<VehicleModelCode xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xsi:nil="true" />
-								<VehicleMotorCarrierIdentification xmlns="http://niem.gov/niem/niem-core/2.0"
-									xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
-								<VehicleHazardousMaterialIndicator>false</VehicleHazardousMaterialIndicator>
+								<DrivingIncidentRecordedSpeedRate xmlns="http://niem.gov/niem/domains/jxdm/4.0">
+									<MeasurePointValue xmlns="http://niem.gov/niem/niem-core/2.0">25</MeasurePointValue>
+									<MeasureUnitText xmlns="http://niem.gov/niem/niem-core/2.0">mph</MeasureUnitText>
+								</DrivingIncidentRecordedSpeedRate>
+								<DrivingIncidentLegalSpeedRate xmlns="http://niem.gov/niem/domains/jxdm/4.0">
+									<MeasurePointValue xmlns="http://niem.gov/niem/niem-core/2.0">0</MeasurePointValue>
+									<MeasureUnitText xmlns="http://niem.gov/niem/niem-core/2.0">mpg</MeasureUnitText>
+								</DrivingIncidentLegalSpeedRate>
+								<SubjectBloodAlcoholContentNumber>1</SubjectBloodAlcoholContentNumber>
+								<DrivingAccidentIndicator>false</DrivingAccidentIndicator>
+								<DrivingAccidentFatalityIndicator>false</DrivingAccidentFatalityIndicator>
+								<CivilReliefActIndicator>false</CivilReliefActIndicator>
+								<CivilReliefActOtherIndicator>true</CivilReliefActOtherIndicator>
 								<SameAsDigestReference xmlns="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:c="http://usdoj.gov/leisp/lexs/library/3.1"
 									c:ref="VEHICLE01" />
-							</Vehicle>
+							</DrivingIncident>
+							<DriverLicense>
+								<DriverLicenseIdentification xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+									xsi:nil="true" />
+								<DriverLicenseCDLIndicator>false</DriverLicenseCDLIndicator>
+								<SameAsDigestReference xmlns="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:c="http://usdoj.gov/leisp/lexs/library/3.1"
+									c:ref="PERSON01" />
+							</DriverLicense>
+							<PersonContactInformationAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
+								<AssociationBeginDate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+								<AssociationEndDate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+								<PersonReference b:ref="LOCATION04" />
+								<ContactInformationReference b:ref="LOCATION04" />
+							</PersonContactInformationAssociation>
+							<PersonContactInformationAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
+								<AssociationBeginDate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+								<AssociationEndDate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+								<PersonReference b:ref="LOCATION04" />
+								<ContactInformationReference b:ref="LOCATION04" />
+							</PersonContactInformationAssociation>
+							<ActivityDocumentAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
+								<AssociationBeginDate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+								<AssociationEndDate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+								<ActivityReference b:ref="OFFENSE01" />
+								<DocumentReference b:ref="CITATION01" />
+							</ActivityDocumentAssociation>
+							<ActivityDocumentAssociation xmlns="http://niem.gov/niem/niem-core/2.0">
+								<AssociationBeginDate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+								<AssociationEndDate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
+								<ActivityReference b:ref="OFFENSE01" />
+								<DocumentReference b:ref="CITATION01" />
+							</ActivityDocumentAssociation>
+							<EntityDocumentAssociation>
+								<AssociationBeginDate xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+									xsi:nil="true" />
+								<AssociationEndDate xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+									xsi:nil="true" />
+								<DocumentReference xmlns="http://niem.gov/niem/niem-core/2.0" b:ref="CITATION01" />
+								<!-- Since the Citation is for a person, "EntityOrganizationReference" MUST be "EntityPersonReference" -JD -->
+								<!--  EntityOrganizationReference xmlns="http://niem.gov/niem/niem-core/2.0" b:ref="PERSON01" /-->
+								<EntityPersonReference xmlns="http://niem.gov/niem/niem-core/2.0" b:ref="PERSON01" />
+							</EntityDocumentAssociation>
+							<CitationDeliveryRecipientAssociation>
+								<AssociationBeginDate xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+									xsi:nil="true" />
+								<AssociationEndDate xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+									xsi:nil="true" />
+								<CitationReference b:ref="CITATION01" />
+								<EntityOrganizationReference xmlns="http://niem.gov/niem/niem-core/2.0" b:ref="PERSON01" />
+							</CitationDeliveryRecipientAssociation>
+							<CitationIssuedLocationAssociation>
+								<AssociationBeginDate xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+									xsi:nil="true" />
+								<AssociationEndDate xmlns="http://niem.gov/niem/niem-core/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+									xsi:nil="true" />
+								<CitationReference b:ref="CITATION01" />
+								<LocationReference xmlns="http://niem.gov/niem/niem-core/2.0" b:ref="LOCATION03" />
+							</CitationIssuedLocationAssociation>
 						</IncidentReport>
 					</StructuredPayload>
 					<Narrative xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />

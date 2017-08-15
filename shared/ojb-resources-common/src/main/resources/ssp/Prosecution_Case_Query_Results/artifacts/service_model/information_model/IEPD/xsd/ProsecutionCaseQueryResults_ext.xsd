@@ -65,7 +65,7 @@
 					<xsd:element ref="pcq-res-ext:VictimRightsAssertionCertificationIndicator" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="pcq-res-ext:VictimRightsAssertionText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Case" />
-					<!--  xsd:element ref="nc:Incident" minOccurs="0" maxOccurs="unbounded" /-->
+					<xsd:element ref="nc:Incident" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded" />
@@ -77,6 +77,8 @@
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="pcq-res-ext:ProsecutionCaseQueryResultsAttachment" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonIdentityAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonConveyanceAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseArrestAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:OffenseChargeAssociation" minOccurs="0" maxOccurs="unbounded" />
@@ -117,6 +119,16 @@
 			<xsd:documentation>The role assumed by a party.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="PartyCategoryText" type="nc:TextType" substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The type of party.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PartyConfidentialIndicator" type="niem-xs:boolean" substitutionGroup="nc:EntityAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if party information is confidential; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="PersonConfidentialIndicator" type="niem-xs:boolean" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if person information is confidential; false otherwise.</xsd:documentation>
@@ -132,6 +144,31 @@
 			<xsd:documentation>A unique identifier assigned to a person that has been identified. Some jurisdictions refer to this as an
 				OTN.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseConfidentialIndicator" type="niem-xs:boolean" substitutionGroup="nc:CaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a case is confidential; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DefaultLocationIndicator" type="niem-xs:boolean" substitutionGroup="nc:LocationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a location is the default location; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PreferredLocationIndicator" type="niem-xs:boolean" substitutionGroup="nc:LocationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a location is the preferred location; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DriverLicenseCDLIndicator" type="niem-xs:boolean" substitutionGroup="j:DriverLicenseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a driver license is for a commercial vehicle; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VehicleHazmatIndicator" type="niem-xs:boolean" substitutionGroup="nc:VehicleAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a vehicle is carrying hazardous materials; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ProsecutionCaseQueryResultsAttachment" type="nc:DocumentType"
