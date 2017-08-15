@@ -39,10 +39,8 @@
 					<j:ChargeFilingDate>
 						<nc:Date>2016-10-13</nc:Date>
 					</j:ChargeFilingDate>
-					<j:ChargeSeverityLevel>
-						<j:SeverityLevelDescriptionText>Severity</j:SeverityLevelDescriptionText>
-					</j:ChargeSeverityLevel>
-					<j:ChargeSeverityText>Misdemeanor</j:ChargeSeverityText>
+					<j:ChargeQualifierText>Qualifier</j:ChargeQualifierText>
+					<j:ChargeSeverityText>Severity</j:ChargeSeverityText>
 					<j:ChargeStatute>
 						<j:StatuteCodeIdentification>
 							<nc:IdentificationID>Charge Code</nc:IdentificationID>
@@ -51,52 +49,53 @@
 					</j:ChargeStatute>
 				</j:CaseCharge>
 				<j:CaseCourt>
-					<nc:OrganizationName>District Court for the State of Hawaii</nc:OrganizationName>
-					<j:CourtName>Third Judicial District</j:CourtName>
+					<nc:OrganizationName>Court</nc:OrganizationName>
+					<j:CourtName>Location</j:CourtName>
 				</j:CaseCourt>
 				<j:CaseDefendantParty>
 					<nc:EntityPerson structures:ref="Defendant_01" />
 					<pcq-res-ext:PartyIdentification>
 						<nc:IdentificationID>1234567</nc:IdentificationID>
 					</pcq-res-ext:PartyIdentification>
-					<pcq-res-ext:PartyRoleText>Defendant</pcq-res-ext:PartyRoleText>
+					<pcq-res-ext:PartyRoleText>Party Role</pcq-res-ext:PartyRoleText>
+					<pcq-res-ext:PartyCategoryText>Party Type</pcq-res-ext:PartyCategoryText>
+					<pcq-res-ext:PartyConfidentialIndicator>false</pcq-res-ext:PartyConfidentialIndicator>
 				</j:CaseDefendantParty>
 				<j:CaseDefendantParty>
-					<nc:EntityOrganization structures:ref="Defendant_Org_01" />
+					<nc:EntityOrganization structures:ref="Defendant_Org_01">
+						<nc:OrganizationName>Defendant Organization</nc:OrganizationName>
+					</nc:EntityOrganization>
 					<pcq-res-ext:PartyIdentification>
 						<nc:IdentificationID>35765</nc:IdentificationID>
 					</pcq-res-ext:PartyIdentification>
-					<pcq-res-ext:PartyRoleText>Defendant Org</pcq-res-ext:PartyRoleText>
+					<pcq-res-ext:PartyRoleText>Party Role</pcq-res-ext:PartyRoleText>
+					<pcq-res-ext:PartyCategoryText>Party Type</pcq-res-ext:PartyCategoryText>
+					<pcq-res-ext:PartyConfidentialIndicator>false</pcq-res-ext:PartyConfidentialIndicator>
 				</j:CaseDefendantParty>
+				<j:CaseDomesticViolenceIndicator>false</j:CaseDomesticViolenceIndicator>
 				<j:CaseInitiatingParty>
 					<nc:EntityPerson structures:ref="Initiating_Party_01" />
 				</j:CaseInitiatingParty>
-				<j:CaseJudge>
-					<nc:RoleOfPerson structures:ref="CJP_01" />
-					<j:JudicialOfficialBarMembership>
-						<j:JudicialOfficialBarIdentification>
-							<nc:IdentificationID>BIN4567</nc:IdentificationID>
-							<nc:IdentificationJurisdiction>
-								<nc:JurisdictionText>Hawaii District Court</nc:JurisdictionText>
-							</nc:IdentificationJurisdiction>
-						</j:JudicialOfficialBarIdentification>
-					</j:JudicialOfficialBarMembership>
-					<j:JudicialOfficialCategoryText>Case Judge</j:JudicialOfficialCategoryText>
-				</j:CaseJudge>
-				<j:CaseProsecutionAttorney>
+				<!-- j:CaseProsecutionAttorney>
 					<nc:RoleOfPerson structures:ref="CPAP_01" />
 					<j:JudicialOfficialBarMembership>
-						<j:JudicialOfficialBarIdentification>
-							<nc:IdentificationID>1205030</nc:IdentificationID>
-							<nc:IdentificationJurisdiction>
-								<nc:JurisdictionText>Hawaii</nc:JurisdictionText>
-							</nc:IdentificationJurisdiction>
-						</j:JudicialOfficialBarIdentification>
+					<j:JudicialOfficialBarIdentification>
+					<nc:IdentificationID>1205030</nc:IdentificationID>
+					<nc:IdentificationJurisdiction>
+					<nc:JurisdictionText>Hawaii</nc:JurisdictionText>
+					</nc:IdentificationJurisdiction>
+					</j:JudicialOfficialBarIdentification>
 					</j:JudicialOfficialBarMembership>
 					<j:JudicialOfficialCategoryText>Assistant Municipal Prosecutor</j:JudicialOfficialCategoryText>
-				</j:CaseProsecutionAttorney>
+					</j:CaseProsecutionAttorney -->
 			</j:CaseAugmentation>
+			<pcq-res-ext:CaseConfidentialIndicator>false</pcq-res-ext:CaseConfidentialIndicator>
 		</nc:Case>
+		<nc:Incident structures:id="Incident_01">
+			<nc:ActivityIdentification>
+				<nc:IdentificationID>Incident Number</nc:IdentificationID>
+			</nc:ActivityIdentification>
+		</nc:Incident>
 		<j:Arrest structures:id="Arrest_01">
 			<nc:ActivityDate>
 				<nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
@@ -118,7 +117,15 @@
 				<nc:OrganizationName>Booking Agency</nc:OrganizationName>
 			</j:BookingAgency>
 		</j:Booking>
-		<nc:Vehicle structures:id="Vehicle_01"></nc:Vehicle>
+		<j:Offense structures:id="Offense_01">
+			<nc:ActivityDate>
+				<nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+			</nc:ActivityDate>
+		</j:Offense>
+		<nc:Vehicle structures:id="Vehicle_01">
+			<nc:VehicleCMVIndicator>false</nc:VehicleCMVIndicator>
+			<pcq-res-ext:VehicleHazmatIndicator>false</pcq-res-ext:VehicleHazmatIndicator>
+		</nc:Vehicle>
 		<nc:Person structures:id="Defendant_01">
 			<nc:PersonBirthDate>
 				<nc:Date>1980-07-26</nc:Date>
@@ -136,6 +143,7 @@
 				<nc:PersonSurName>Last</nc:PersonSurName>
 				<nc:PersonNameSuffixText>Suffix</nc:PersonNameSuffixText>
 			</nc:PersonName>
+			<nc:PersonSexText>Male</nc:PersonSexText>
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>SSN12345</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
@@ -151,6 +159,7 @@
 							<nc:JurisdictionText>Hawaii</nc:JurisdictionText>
 						</nc:IdentificationJurisdiction>
 					</j:DriverLicenseIdentification>
+					<pcq-res-ext:DriverLicenseCDLIndicator>false</pcq-res-ext:DriverLicenseCDLIndicator>
 				</j:DriverLicense>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>SI898709</nc:IdentificationID>
@@ -159,7 +168,7 @@
 			<pcq-res-ext:PersonConfidentialIndicator>false</pcq-res-ext:PersonConfidentialIndicator>
 			<pcq-res-ext:PersonJuvenileIndicator>false</pcq-res-ext:PersonJuvenileIndicator>
 			<pcq-res-ext:IdentifiedPersonTrackingIdentification>
-				<nc:IdentificationID>I4567789</nc:IdentificationID>
+				<nc:IdentificationID>OffenderTracking Number</nc:IdentificationID>
 			</pcq-res-ext:IdentifiedPersonTrackingIdentification>
 		</nc:Person>
 		<nc:Person structures:id="IPP_01">
@@ -170,23 +179,15 @@
 				<nc:PersonSurName>Forgerty</nc:PersonSurName>
 			</nc:PersonName>
 		</nc:Person>
-		<nc:Person structures:id="CJP_01">
+		<!-- nc:Person structures:id="CPAP_01">
 			<nc:PersonName>
-				<nc:PersonNamePrefixText>Mr</nc:PersonNamePrefixText>
-				<nc:PersonGivenName>John</nc:PersonGivenName>
-				<nc:PersonMiddleName>P</nc:PersonMiddleName>
-				<nc:PersonSurName>Johnson</nc:PersonSurName>
+			<nc:PersonNamePrefixText>Ms</nc:PersonNamePrefixText>
+			<nc:PersonGivenName>Mary</nc:PersonGivenName>
+			<nc:PersonMiddleName>P</nc:PersonMiddleName>
+			<nc:PersonSurName>O'Hearn</nc:PersonSurName>
 			</nc:PersonName>
-		</nc:Person>
-		<nc:Person structures:id="CPAP_01">
-			<nc:PersonName>
-				<nc:PersonNamePrefixText>Ms</nc:PersonNamePrefixText>
-				<nc:PersonGivenName>Mary</nc:PersonGivenName>
-				<nc:PersonMiddleName>P</nc:PersonMiddleName>
-				<nc:PersonSurName>O'Hearn</nc:PersonSurName>
-			</nc:PersonName>
-		</nc:Person>
-		<nc:Identity structures:id="IDENT_01">
+			</nc:Person -->
+		<nc:Identity structures:id="Identity_01">
 			<nc:IdentityPersonRepresentation>
 				<nc:PersonName>
 					<nc:PersonGivenName>Laur</nc:PersonGivenName>
@@ -210,7 +211,7 @@
 		<nc:Organization structures:id="Defendant_Org_01">
 			<nc:OrganizationName>ACME Corporation</nc:OrganizationName>
 		</nc:Organization>
-		<nc:Location structures:id="RES01">
+		<nc:Location structures:id="Residence_01">
 			<nc:Address>
 				<nc:AddressSecondaryUnitText>Apt #3</nc:AddressSecondaryUnitText>
 				<nc:LocationStreet>
@@ -221,6 +222,9 @@
 				<nc:LocationCountryName>USA</nc:LocationCountryName>
 				<nc:LocationPostalCode>21905</nc:LocationPostalCode>
 			</nc:Address>
+			<nc:LocationCategoryText>Address Type</nc:LocationCategoryText>
+			<pcq-res-ext:DefaultLocationIndicator>true</pcq-res-ext:DefaultLocationIndicator>
+			<pcq-res-ext:PreferredLocationIndicator>true</pcq-res-ext:PreferredLocationIndicator>
 		</nc:Location>
 		<nc:ContactInformation structures:id="Contact_Defendant_01">
 			<nc:ContactTelephoneNumber>
@@ -248,15 +252,28 @@
 				<pcq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</pcq-res-ext:Base64BinaryObject>
 			</nc:DocumentBinary>
 		</pcq-res-ext:ProsecutionCaseQueryResultsAttachment>
+		<nc:PersonIdentityAssociation>
+			<nc:Person structures:ref="Defendant_01" />
+			<nc:Identity structures:ref="Identity_01" />
+		</nc:PersonIdentityAssociation>
+		<nc:PersonConveyanceAssociation>
+			<nc:Person structures:ref="Defendant_01" />
+			<nc:Conveyance structures:ref="Vehicle_01" />
+		</nc:PersonConveyanceAssociation>
 		<nc:PersonResidenceAssociation>
 			<nc:Person structures:ref="Defendant_01" />
-			<nc:Location structures:ref="RES01" />
+			<nc:Location structures:ref="Residence_01" />
 		</nc:PersonResidenceAssociation>
+		<j:OffenseChargeAssociation>
+			<j:Offense structures:ref="Offense_01" />
+			<j:Charge structures:ref="Charge_01" />
+		</j:OffenseChargeAssociation>
 		<nc:ContactInformationAssociation>
 			<nc:ContactEntity structures:ref="Defendant_01" />
 			<nc:ContactInformation structures:ref="Contact_Defendant_01" />
 		</nc:ContactInformationAssociation>
 		<j:ActivityCaseAssociation>
+			<nc:Activity structures:ref="Incident_01" />
 			<nc:Activity structures:ref="Arrest_01" />
 			<nc:Activity structures:ref="Booking_01" />
 			<nc:Case structures:ref="Case_01" />
