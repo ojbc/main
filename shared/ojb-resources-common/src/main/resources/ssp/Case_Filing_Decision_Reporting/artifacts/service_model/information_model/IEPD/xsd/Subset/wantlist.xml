@@ -44,6 +44,7 @@
   <w:Element w:name="j:OffenseChargeAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:OffenseLocationAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="j:PersonSexCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityDate" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ActivityDateRange" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Address" w:isReference="false" w:nillable="true"/>
@@ -214,7 +215,7 @@
     <w:ElementInType w:name="j:CourtEventAppearance"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="j:CourtType" w:isRequested="false">
+  <w:Type w:name="j:CourtType" w:isRequested="true">
     <w:ElementInType w:name="j:CourtName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CourtCategory" w:isReference="false"
@@ -418,6 +419,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:LocationDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:LocationName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:LocationAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -427,8 +430,10 @@
     <w:ElementInType w:name="nc:MeasureUnit" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:OrganizationType" w:isRequested="false">
+  <w:Type w:name="nc:OrganizationType" w:isRequested="true">
     <w:ElementInType w:name="nc:OrganizationIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:OrganizationLocation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -1158,6 +1163,11 @@
     <w:Facet w:facet="enumeration" w:value="ZM"/>
     <w:Facet w:facet="enumeration" w:value="ZO"/>
     <w:Facet w:facet="enumeration" w:value="ZR"/>
+  </w:Type>
+  <w:Type w:name="ncic:SEXCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="F"/>
+    <w:Facet w:facet="enumeration" w:value="M"/>
+    <w:Facet w:facet="enumeration" w:value="U"/>
   </w:Type>
   <w:Type w:name="niem-xs:boolean" w:isRequested="true"/>
   <w:Type w:name="unece:LengthCodeSimpleType" w:isRequested="false">

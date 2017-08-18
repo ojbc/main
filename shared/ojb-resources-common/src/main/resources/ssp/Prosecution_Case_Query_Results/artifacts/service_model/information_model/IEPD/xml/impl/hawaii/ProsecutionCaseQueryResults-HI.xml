@@ -147,7 +147,7 @@
 				<nc:PersonSurName>Last</nc:PersonSurName>
 				<nc:PersonNameSuffixText>Suffix</nc:PersonNameSuffixText>
 			</nc:PersonName>
-			<nc:PersonSexText>M</nc:PersonSexText>
+			<j:PersonSexCode>M</j:PersonSexCode>
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>SSN12345</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
