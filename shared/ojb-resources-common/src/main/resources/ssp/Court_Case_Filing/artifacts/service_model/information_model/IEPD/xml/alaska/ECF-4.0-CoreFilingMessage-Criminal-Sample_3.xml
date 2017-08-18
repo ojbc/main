@@ -17,14 +17,10 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<core:CoreFilingMessage
-	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:ojb-crim-doc="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0"
-	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
-	xmlns:criminalCase="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
+<core:CoreFilingMessage xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ojb-crim-doc="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0"
+	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0" xmlns:criminalCase="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
 	xmlns:citationCase="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
 	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../xsd/message/ECF-4.0-CoreFilingMessage.xsd">
 	<nc:DocumentIdentification>
@@ -84,7 +80,6 @@
 		<nc:CaseDocketID>nc:CaseDocketID</nc:CaseDocketID>
 		<j:CaseAugmentation>
 			<j:CaseCharge>
-				<j:ChargeFilingDate> <nc:Date>1967-08-13</nc:Date> </j:ChargeFilingDate>
 				<j:ChargeSequenceID>
 					<nc:IdentificationID>02</nc:IdentificationID>
 				</j:ChargeSequenceID>
