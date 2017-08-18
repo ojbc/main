@@ -267,6 +267,7 @@
           <xs:element ref="nc:LocationAddressAbstract" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:LocationCategory" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:LocationDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:LocationName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:LocationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -293,6 +294,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:OrganizationIdentification" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:OrganizationLocation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationPrimaryContactInformation" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:OrganizationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
@@ -764,6 +766,11 @@
       <xs:documentation>A description of a location.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="LocationName" type="nc:ProperNameTextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name of a location.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="LocationPostalCode" type="niem-xs:string" nillable="true">
     <xs:annotation>
       <xs:documentation>An identifier of a post office-assigned zone for an address.</xs:documentation>
@@ -812,6 +819,11 @@
   <xs:element name="OrganizationIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An identification that references an organization.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="OrganizationLocation" type="nc:LocationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A location of an organization.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="OrganizationName" type="nc:TextType" nillable="true">
