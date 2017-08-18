@@ -24,9 +24,9 @@
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryResults/1.0 ../../../xsd/ProsecutionCaseQueryResults.xsd">
 	<pcq-res-ext:ProsecutionCase>
 		<nc:Case structures:id="Case_01">
-			<nc:ActivityCategoryText>Case Type</nc:ActivityCategoryText>
 			<nc:ActivityDescriptionText>Extended Case Title</nc:ActivityDescriptionText>
 			<nc:CaseTitleText>Short Case Title</nc:CaseTitleText>
+			<nc:CaseCategoryText>Case Type</nc:CaseCategoryText>
 			<nc:CaseFiling>
 				<nc:DocumentFiledDate>
 					<nc:DateTime>2016-11-13T12:40:00</nc:DateTime>
@@ -40,7 +40,9 @@
 						<nc:Date>2016-10-13</nc:Date>
 					</j:ChargeFilingDate>
 					<j:ChargeQualifierText>Qualifier</j:ChargeQualifierText>
-					<j:ChargeSeverityText>Severity</j:ChargeSeverityText>
+					<j:ChargeSeverityLevel>
+						<j:SeverityLevelDescriptionText>Severity</j:SeverityLevelDescriptionText>
+					</j:ChargeSeverityLevel>
 					<j:ChargeStatute>
 						<j:StatuteCodeIdentification>
 							<nc:IdentificationID>Charge Code</nc:IdentificationID>
@@ -49,8 +51,10 @@
 					</j:ChargeStatute>
 				</j:CaseCharge>
 				<j:CaseCourt>
-					<nc:OrganizationName>Court</nc:OrganizationName>
-					<j:CourtName>Location</j:CourtName>
+					<nc:OrganizationLocation>
+						<nc:LocationName>Location</nc:LocationName>
+					</nc:OrganizationLocation>
+					<j:CourtName>Court Name</j:CourtName>
 				</j:CaseCourt>
 				<j:CaseDefendantParty>
 					<nc:EntityPerson structures:ref="Defendant_01" />
@@ -143,7 +147,7 @@
 				<nc:PersonSurName>Last</nc:PersonSurName>
 				<nc:PersonNameSuffixText>Suffix</nc:PersonNameSuffixText>
 			</nc:PersonName>
-			<nc:PersonSexText>Male</nc:PersonSexText>
+			<nc:PersonSexText>M</nc:PersonSexText>
 			<nc:PersonSSNIdentification>
 				<nc:IdentificationID>SSN12345</nc:IdentificationID>
 			</nc:PersonSSNIdentification>
