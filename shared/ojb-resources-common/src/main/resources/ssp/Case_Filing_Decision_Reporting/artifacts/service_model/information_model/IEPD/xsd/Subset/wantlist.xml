@@ -55,6 +55,7 @@
   <w:Element w:name="nc:ContactInformation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ContactInformationAssociation"
     w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="nc:ContactMailingAddress" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ContactTelephoneNumber" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Date" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:DateRepresentation" w:isReference="false" w:nillable="true"/>
