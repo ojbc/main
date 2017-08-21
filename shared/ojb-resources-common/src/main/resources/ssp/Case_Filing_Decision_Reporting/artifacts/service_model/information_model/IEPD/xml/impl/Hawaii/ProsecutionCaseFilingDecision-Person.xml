@@ -50,6 +50,23 @@
 					<j:StatuteDescriptionText>CHILD NEGLECT</j:StatuteDescriptionText>
 				</j:ChargeStatute>
 			</j:CaseCharge>
+			<j:CaseCharge structures:id="Charge_02">
+				<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+				<j:ChargeDescriptionText>Description 2</j:ChargeDescriptionText>
+				<j:ChargeFilingDate>
+					<nc:Date>2016-10-13</nc:Date>
+				</j:ChargeFilingDate>
+				<j:ChargeQualifierText>Qualifier 2</j:ChargeQualifierText>
+				<j:ChargeSeverityLevel>
+					<j:SeverityLevelDescriptionText>Severity 2</j:SeverityLevelDescriptionText>
+				</j:ChargeSeverityLevel>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>Charge Code 2</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+					<j:StatuteDescriptionText>ASSAULT</j:StatuteDescriptionText>
+				</j:ChargeStatute>
+			</j:CaseCharge>
 			<j:CaseCourt>
 				<nc:OrganizationLocation>
 					<nc:LocationName>Location</nc:LocationName>
@@ -124,6 +141,11 @@
 	<j:Offense structures:id="Offense_01">
 		<nc:ActivityDate>
 			<nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+		</nc:ActivityDate>
+	</j:Offense>
+	<j:Offense structures:id="Offense_02">
+		<nc:ActivityDate>
+			<nc:DateTime>2016-09-02T08:20:00</nc:DateTime>
 		</nc:ActivityDate>
 	</j:Offense>
 	<nc:Vehicle structures:id="Vehicle_01">
@@ -271,6 +293,10 @@
 	<j:OffenseChargeAssociation>
 		<j:Offense structures:ref="Offense_01" />
 		<j:Charge structures:ref="Charge_01" />
+	</j:OffenseChargeAssociation>
+	<j:OffenseChargeAssociation>
+		<j:Offense structures:ref="Offense_02" />
+		<j:Charge structures:ref="Charge_02" />
 	</j:OffenseChargeAssociation>
 	<nc:ContactInformationAssociation>
 		<nc:ContactEntity structures:ref="Defendant_01" />

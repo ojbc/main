@@ -566,6 +566,11 @@
       <xs:documentation>An association between contact information and an entity.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ContactMailingAddress" type="nc:AddressType" substitutionGroup="nc:ContactMeans" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A postal address by which a person or organization may be contacted.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ContactMeans" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a means of contacting someone.</xs:documentation>
