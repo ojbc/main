@@ -51,6 +51,7 @@ import org.ojbc.web.SearchProfile;
 import org.ojbc.web.portal.controllers.dto.PersonFilterCommand;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.UserSession;
+import org.ojbc.web.portal.services.OTPService;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.security.Authorities;
 import org.ojbc.web.security.SecurityContextUtils;
@@ -73,6 +74,9 @@ import org.w3c.dom.Element;
 @SessionAttributes({"sensitiveInfoAlert", "userSignOutUrl"})
 public class PortalController implements ApplicationContextAware {
 
+	@Resource (name="${otpServiceBean:OTPServiceMemoryImpl}")
+	OTPService otpService;
+	
 	static final String DEFAULT_USER_TIME_ONLINE = "0:00";
 	static final String DEFAULT_USER_LOGON_MESSAGE = "Not Logged In";
 	
@@ -252,6 +256,26 @@ public class PortalController implements ApplicationContextAware {
     public String performLogout(HttpServletRequest request, Map<String, Object> model) throws Exception{
     	String userSignoutUrl = (String) model.get("userSignOutUrl");
     	if (request.getSession()!= null){
+    		
+    		if (otpService != null)
+    		{
+    			//Send OTP as soon as the input form is shown
+    			Element samlAssertion = samlService.getSamlAssertion(request);
+    			
+    			if (samlAssertion != null)
+    			{	
+	    			String userEmail = XmlUtils.xPathStringSearch(samlAssertion, "/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()");
+	
+	    			log.info("User email address to remove OTP authentication: " + userEmail);
+	    			
+	    			if (StringUtils.isNotBlank(userEmail))
+	    			{	
+	    				log.info("Unauthenticate user.");
+	    				otpService.unauthenticateUser(userEmail);
+	    			}	
+    			}	
+    		}	
+    		
     		model.remove("userSignOutUrl");
     		model.remove("sensitiveInfoAlert");
     		request.getSession().invalidate();
