@@ -17,19 +17,19 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<cfm:CoreFilingMessage
-	xmlns:cfm="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0"
-	xmlns:ojb-cit-doc="http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0"
-	xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0"
-	xmlns:vt-cit-codes="http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0"
-	xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
-	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+<cfm:CoreFilingMessage xmlns:cfm="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:ojb-cit-doc="http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0"
+	xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0" xmlns:vt-cit-codes="http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0"
+	xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../xsd/message/ECF-4.0-CoreFilingMessage.xsd http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0 ../../xsd/Citation_Case-doc.xsd http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0 ../../xsd/impl/vermont/citation_codes.xsd">
 	<ojb-cit-doc:CitationCase>
+		<ojb-cit-ext:CourtCaseReportingSystem>
+			<nc:IdentificationID>SystemID</nc:IdentificationID>
+			<intel:SystemName>System</intel:SystemName>
+		</ojb-cit-ext:CourtCaseReportingSystem>
 		<ojb-cit-ext:CaseAugmentation>
 			<ecf:PersonOrganizationAssociation>
 				<nc:PersonReference s:ref="OFFICER_01" />
@@ -37,8 +37,8 @@
 				<ecf:EntityAssociationTypeCode>String</ecf:EntityAssociationTypeCode>
 			</ecf:PersonOrganizationAssociation>
 			<!-- CASE PARTICIPANT: Subject Organization -->
-			<!-- >ojb-cit-ext:CaseParticipant> <ecf:EntityOrganization s:id="ORGANIZATION_01"> 
-				<nc:OrganizationName>ACME</nc:OrganizationName> </ecf:EntityOrganization> 
+			<!-- >ojb-cit-ext:CaseParticipant> <ecf:EntityOrganization s:id="ORGANIZATION_01">
+				<nc:OrganizationName>ACME</nc:OrganizationName> </ecf:EntityOrganization>
 				<ecf:CaseParticipantRoleCode/> </ojb-cit-ext:CaseParticipant -->
 			<!-- CASE PARTICIPANT: Citation Delivery Recipient -->
 			<ojb-cit-ext:CaseParticipant>
@@ -142,14 +142,12 @@
 							</nc:ContactTelephoneNumber>
 						</nc:ContactInformation>
 						<nc:PersonContactInformationAssociation>
-							<nc:ContactInformationReference
-								s:ref="PHONE_01" />
+							<nc:ContactInformationReference s:ref="PHONE_01" />
 							<nc:ContactInformationIsHomeIndicator>true
 							</nc:ContactInformationIsHomeIndicator>
 						</nc:PersonContactInformationAssociation>
 						<nc:PersonContactInformationAssociation>
-							<nc:ContactInformationReference
-								s:ref="PHONE_02" />
+							<nc:ContactInformationReference s:ref="PHONE_02" />
 							<nc:ContactInformationIsWorkIndicator>true
 							</nc:ContactInformationIsWorkIndicator>
 						</nc:PersonContactInformationAssociation>
@@ -201,8 +199,7 @@
 						</nc:ContactEntity>
 					</nc:OrganizationPrimaryContactInformation>
 				</j:CitationAgency>
-				<ojb-cit-ext:CitationIssuingOfficial
-					s:id="OFFICER_01">
+				<ojb-cit-ext:CitationIssuingOfficial s:id="OFFICER_01">
 					<nc:RoleOfPersonReference s:ref="PERSON_02" />
 					<j:EnforcementOfficialBadgeIdentification>
 						<nc:IdentificationID>12345</nc:IdentificationID>

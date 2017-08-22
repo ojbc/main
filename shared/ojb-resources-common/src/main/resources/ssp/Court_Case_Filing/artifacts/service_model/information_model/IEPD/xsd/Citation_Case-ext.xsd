@@ -17,94 +17,69 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
-	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
-	xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
-	xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0"
-	xmlns:vt-cit-codes="http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0"
-	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
-	targetNamespace="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0">
+<xsd:schema xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:intel="http://niem.gov/niem/domains/intelligence/2.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+	xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0"
+	xmlns:vt-cit-codes="http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0">
 	<xsd:annotation>
 		<xsd:documentation>CitationCase</xsd:documentation>
 		<xsd:appinfo>
 			<i:ConformantIndicator>true</i:ConformantIndicator>
 		</xsd:appinfo>
 	</xsd:annotation>
-	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
-		schemaLocation="./constraint/niem/niem-core/2.0/niem-core.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
-		schemaLocation="./constraint/niem/structures/2.0/structures.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0"
-		schemaLocation="./constraint/niem/appinfo/2.0/appinfo.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
-		schemaLocation="./constraint/niem/proxy/xsd/2.0/xsd.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0"
-		schemaLocation="./constraint/niem/domains/jxdm/4.0/jxdm.xsd" />
-	<xsd:import namespace="http://www.w3.org/2004/08/xop/include"
-		schemaLocation="./include_schema.xsd" />
-	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime"
-		schemaLocation="./xmime_schema.xsd" />
-	<xsd:import
-		namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
-		schemaLocation="./common/ECF-4.0-CommonTypes.xsd" />
-	<xsd:import
-		namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
-		schemaLocation="./casetype/ECF-4.0-CitationCase.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="./constraint/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="./constraint/niem/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="./constraint/niem/appinfo/2.0/appinfo.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="./constraint/niem/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="./constraint/niem/domains/jxdm/4.0/jxdm.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/intelligence/2.0" schemaLocation="./constraint/niem/domains/intelligence/2.0/intelligence.xsd" />
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="./include_schema.xsd" />
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmime_schema.xsd" />
+	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" schemaLocation="./common/ECF-4.0-CommonTypes.xsd" />
+	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" schemaLocation="./casetype/ECF-4.0-CitationCase.xsd" />
 	<xsd:complexType name="CitationCaseType">
 		<xsd:annotation>
-			<xsd:documentation>A charge issued by a law enforcement officer for a
-				"violation" requiring the person charged to plead guilty to the
-				charge or to appear in court to contest the charge. A citation is
-				issued in lieu of an arrest and booking. "Violations" are a subset
-				of "charges" for which a law enforcement officer is authorized to
-				issue a citation in lieu of arrest and booking. Examples: traffic
-				ticket, parking ticket or ticket issued for some other ordinance
-				violation such as barking dog or illegal dumping.
+			<xsd:documentation>A charge issued by a law enforcement officer for a "violation" requiring the person charged to plead
+				guilty to the charge or to appear in court to contest the charge. A citation is issued in lieu of an arrest and booking.
+				"Violations" are a subset of "charges" for which a law enforcement officer is authorized to issue a citation in lieu of
+				arrest and booking. Examples: traffic ticket, parking ticket or ticket issued for some other ordinance violation such as
+				barking dog or illegal dumping.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="ecf-cit:CitationCaseType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-cit-ext:CaseAugmentation"
-						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="ojb-cit-ext:CitationCaseAugmentation"
-						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="ojb-cit-ext:CitationDeliveryRecipientAssociation"
-						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:ImmediateFamilyAssociation"
-						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-cit-ext:CourtCaseReportingSystem" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-cit-ext:CaseAugmentation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-cit-ext:CitationCaseAugmentation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-cit-ext:CitationDeliveryRecipientAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ImmediateFamilyAssociation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="CaseAugmentationType">
 		<xsd:annotation>
-			<xsd:documentation>Additional information needed to initiate a court
-				case.
+			<xsd:documentation>Additional information needed to initiate a court case.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="ecf:CaseAugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-cit-ext:CaseParticipant"
-						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-cit-ext:CaseParticipant" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="CitationCaseAugmentationType">
 		<xsd:annotation>
-			<xsd:documentation>A charge issued by a law enforcement officer for a
-				"violation" requiring the person charged to plead guilty to the
-				charge or to appear in court to contest the charge. A citation is
-				issued in lieu of an arrest and booking. "Violations" are a subset
-				of "charges" for which a law enforcement officer is authorized to
-				issue a citation in lieu of arrest and booking. Examples: traffic
-				ticket, parking ticket or ticket issued for some other ordinance
-				violation such as barking dog or illegal dumping.
+			<xsd:documentation>A charge issued by a law enforcement officer for a "violation" requiring the person charged to plead
+				guilty to the charge or to appear in court to contest the charge. A citation is issued in lieu of an arrest and booking.
+				"Violations" are a subset of "charges" for which a law enforcement officer is authorized to issue a citation in lieu of
+				arrest and booking. Examples: traffic ticket, parking ticket or ticket issued for some other ordinance violation such as
+				barking dog or illegal dumping.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
@@ -122,8 +97,7 @@
 	</xsd:complexType>
 	<xsd:element name="CaseAugmentation" type="ojb-cit-ext:CaseAugmentationType">
 		<xsd:annotation>
-			<xsd:documentation>Additional information needed to initiate a court
-				case.
+			<xsd:documentation>Additional information needed to initiate a court case.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -135,21 +109,17 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:EntityType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-cit-ext:OrganizationDriverLicense"
-						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-cit-ext:OrganizationDriverLicense" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="ecf:CaseParticipantRoleCode" />
-					<xsd:element ref="nc:ContactInformation" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="Citation" type="ojb-cit-ext:CitationType"
-		nillable="true">
+	<xsd:element name="Citation" type="ojb-cit-ext:CitationType" nillable="true">
 		<xsd:annotation>
-			<xsd:documentation>Details about an official summons to appear in
-				court or pay a fine given to a subject from a peace official due to
-				a subjects violation or infraction of a law.
+			<xsd:documentation>Details about an official summons to appear in court or pay a fine given to a subject from a peace
+				official due to a subjects violation or infraction of a law.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -167,8 +137,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="ecf-cit:DrivingIncidentType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-cit-ext:DrivingIncidentAugmentation"
-						minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:DrivingIncidentAugmentation" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -181,20 +150,13 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-cit-ext:DrivingAccidentFatalityIndicator"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:SeatBeltViolationIndicator"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:SeatBeltViolationCount"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:CivilReliefActIndicator"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:CivilReliefActJuvenileIndicator"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:CivilReliefActOtherIndicator"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:CivilReliefActOtherText"
-						minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:DrivingAccidentFatalityIndicator" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:SeatBeltViolationIndicator" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:SeatBeltViolationCount" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:CivilReliefActIndicator" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:CivilReliefActJuvenileIndicator" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:CivilReliefActOtherIndicator" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:CivilReliefActOtherText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -207,8 +169,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="ecf-cit:VehicleType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-cit-ext:VehicleAugmentation"
-						minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:VehicleAugmentation" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -221,8 +182,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-cit-ext:VehicleHazardousMaterialIndicator"
-						minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:VehicleHazardousMaterialIndicator" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -235,20 +195,13 @@
 			<xsd:extension base="nc:IncidentType">
 				<xsd:sequence>
 					<xsd:element ref="j:Statute" minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:ViolationOffenseCode"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:MunicipalityOrdinanceIdentification"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:OffenseViolatedStatute"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:DrivingOffensePoints"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:OffenseFineAmountMinimum"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:OffenseFineAmountMaximum"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:RelatedCriminalChargeIndicator"
-						minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:ViolationOffenseCode" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:MunicipalityOrdinanceIdentification" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:OffenseViolatedStatute" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:DrivingOffensePoints" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:OffenseFineAmountMinimum" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:OffenseFineAmountMaximum" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:RelatedCriminalChargeIndicator" minOccurs="0" />
 					<xsd:element ref="ojb-cit-ext:CFRStatute" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -262,8 +215,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:EnforcementOfficialType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-cit-ext:EnforcementOfficialIdentification"
-						minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:EnforcementOfficialIdentification" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -276,10 +228,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:CitationType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-cit-ext:CitationIssuingOfficial"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:CitationAugmentation"
-						minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:CitationIssuingOfficial" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:CitationAugmentation" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -292,18 +242,12 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:AugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-cit-ext:CitationViolationDate"
-						minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="ojb-cit-ext:CitationMunicipality"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:CitationWaiverAmount"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:CitationServedIndicator"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:CitationMailedIndicator"
-						minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:CitationIssuedLocation"
-						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-cit-ext:CitationViolationDate" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-cit-ext:CitationMunicipality" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:CitationWaiverAmount" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:CitationServedIndicator" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:CitationMailedIndicator" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:CitationIssuedLocation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -316,8 +260,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:DriverLicenseType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-cit-ext:DriverLicenseCDLIndicator"
-						minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:DriverLicenseCDLIndicator" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -329,8 +272,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="ecf:PersonType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-cit-ext:PersonAugmentation"
-						minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:PersonAugmentation" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -343,19 +285,15 @@
 		<xsd:complexContent>
 			<xsd:extension base="ecf:PersonAugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-cit-ext:PersonDriverLicense"
-						minOccurs="0" />
-					<xsd:element
-						ref="ojb-cit-ext:PersonFishAndWildlifeLicenseIdentification"
-						minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:PersonDriverLicense" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:PersonFishAndWildlifeLicenseIdentification" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="CitationDeliveryRecipientAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an association between a delivery
-				recipient entity and a citation.
+			<xsd:documentation>A data type for an association between a delivery recipient entity and a citation.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
@@ -369,32 +307,25 @@
 	</xsd:complexType>
 	<xsd:element name="PersonDriverLicense" type="ojb-cit-ext:DriverLicenseType">
 		<xsd:annotation>
-			<xsd:documentation>Information about a license issued by a state or
-				federal entity authorizing operation of a motor vehicle on public
-				streets and highways.
+			<xsd:documentation>Information about a license issued by a state or federal entity authorizing operation of a motor vehicle
+				on public streets and highways.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<!-- ELEMENTS -->
-	<xsd:element name="CitationCaseAugmentation"
-		type="ojb-cit-ext:CitationCaseAugmentationType">
+	<xsd:element name="CitationCaseAugmentation" type="ojb-cit-ext:CitationCaseAugmentationType">
 		<xsd:annotation>
-			<xsd:documentation>A charge issued by a law enforcement officer for a
-				"violation" requiring the person charged to plead guilty to the
-				charge or to appear in court to contest the charge. A citation is
-				issued in lieu of an arrest and booking. "Violations" are a subset
-				of "charges" for which a law enforcement officer is authorized to
-				issue a citation in lieu of arrest and booking. Examples: traffic
-				ticket, parking ticket or ticket issued for some other ordinance
-				violation such as barking dog or illegal dumping.
+			<xsd:documentation>A charge issued by a law enforcement officer for a "violation" requiring the person charged to plead
+				guilty to the charge or to appear in court to contest the charge. A citation is issued in lieu of an arrest and booking.
+				"Violations" are a subset of "charges" for which a law enforcement officer is authorized to issue a citation in lieu of
+				arrest and booking. Examples: traffic ticket, parking ticket or ticket issued for some other ordinance violation such as
+				barking dog or illegal dumping.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="EntityPerson" type="ojb-cit-ext:PersonType"
-		substitutionGroup="nc:EntityRepresentation">
+	<xsd:element name="EntityPerson" type="ojb-cit-ext:PersonType" substitutionGroup="nc:EntityRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A person capable of bearing legal rights and
-				responsibilities.
+			<xsd:documentation>A person capable of bearing legal rights and responsibilities.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -423,8 +354,7 @@
 		</xsd:annotation>
 	</xsd:element>
 	<!-- OJB Augmentation Elements -->
-	<xsd:element name="DrivingIncidentAugmentation"
-		type="ojb-cit-ext:DrivingIncidentAugmentationType">
+	<xsd:element name="DrivingIncidentAugmentation" type="ojb-cit-ext:DrivingIncidentAugmentationType">
 		<xsd:annotation>
 			<xsd:documentation>Additional information about a driving incident.
 			</xsd:documentation>
@@ -461,68 +391,57 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CitationMunicipalityText" type="nc:TextType"
-		substitutionGroup="ojb-cit-ext:CitationMunicipality">
+	<xsd:element name="CitationMunicipalityText" type="nc:TextType" substitutionGroup="ojb-cit-ext:CitationMunicipality">
 		<xsd:annotation>
-			<xsd:documentation>A text description of the municipality where the
-				citation was written.
+			<xsd:documentation>A text description of the municipality where the citation was written.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CitationWaiverAmount" type="nc:AmountType">
 		<xsd:annotation>
-			<xsd:documentation>The amount of money paid for pleading admitted or
-				no contest to a citation.
+			<xsd:documentation>The amount of money paid for pleading admitted or no contest to a citation.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CitationServedIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the citation was handed to the subject;
-				false otherwise.
+			<xsd:documentation>True if the citation was handed to the subject; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CitationMailedIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the citation was mailed to the subject;
-				false otherwise.
+			<xsd:documentation>True if the citation was mailed to the subject; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonFishAndWildlifeLicenseIdentification"
-		type="nc:IdentificationType">
+	<xsd:element name="PersonFishAndWildlifeLicenseIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A Fish and Wildlife License number assigned to a
-				person.
+			<xsd:documentation>A Fish and Wildlife License number assigned to a person.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="EnforcementOfficialIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A unique identifier assigned to an enforcement
-				official.
+			<xsd:documentation>A unique identifier assigned to an enforcement official.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="VehicleHazardousMaterialIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if a vehicle is carrying hazardous material;
-				false otherwise.
+			<xsd:documentation>True if a vehicle is carrying hazardous material; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DrivingAccidentFatalityIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if a fatality occurred as a result of a
-				driving incident; false otherwise.
+			<xsd:documentation>True if a fatality occurred as a result of a driving incident; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SeatBeltViolationIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if a seat belt violation is associated with a
-				driving incident; false otherwise.
+			<xsd:documentation>True if a seat belt violation is associated with a driving incident; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -534,22 +453,19 @@
 	</xsd:element>
 	<xsd:element name="CivilReliefActIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the officer asked CRA and the subject
-				answered no; false otherwise.
+			<xsd:documentation>True if the officer asked CRA and the subject answered no; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CivilReliefActJuvenileIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the officer asked CRA and the subject is
-				under 17; false otherwise.
+			<xsd:documentation>True if the officer asked CRA and the subject is under 17; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CivilReliefActOtherIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the officer asked CRA and the subject
-				answered "other"; false otherwise.
+			<xsd:documentation>True if the officer asked CRA and the subject answered "other"; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -565,18 +481,15 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="MunicipalityOrdinanceIdentification"
-		type="nc:IdentificationType">
+	<xsd:element name="MunicipalityOrdinanceIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A municipality ordinance that has been violated
-				through an offense.
+			<xsd:documentation>A municipality ordinance that has been violated through an offense.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseViolatedStatute" type="j:StatuteType">
 		<xsd:annotation>
-			<xsd:documentation>A statute that has been violated through an
-				offense.
+			<xsd:documentation>A statute that has been violated through an offense.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -601,31 +514,26 @@
 	</xsd:element>
 	<xsd:element name="RelatedCriminalChargeIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if there is a realted criminal charge; false
-				otherwise.
+			<xsd:documentation>True if there is a realted criminal charge; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CFRStatute" type="j:StatuteType">
 		<xsd:annotation>
-			<xsd:documentation>Details about a Code of Federal Regulation (CFR)
-				unique identifier of a law, rule, or ordinance within a
+			<xsd:documentation>Details about a Code of Federal Regulation (CFR) unique identifier of a law, rule, or ordinance within a
 				jurisdiction.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DriverLicenseCDLIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if a driver license is a commercial driver's
-				license; false otherwise.
+			<xsd:documentation>True if a driver license is a commercial driver's license; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="CitationDeliveryRecipientAssociation"
-		type="ojb-cit-ext:CitationDeliveryRecipientAssociationType">
+	<xsd:element name="CitationDeliveryRecipientAssociation" type="ojb-cit-ext:CitationDeliveryRecipientAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>An association between a delivery recipient entity
-				and a citation.
+			<xsd:documentation>An association between a delivery recipient entity and a citation.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -642,8 +550,13 @@
 	</xsd:element>
 	<xsd:element name="OrganizationDriverLicense" type="ojb-cit-ext:DriverLicenseType">
 		<xsd:annotation>
-			<xsd:documentation>Details about a license issued to an organization
-				granting driving privileges.
+			<xsd:documentation>Details about a license issued to an organization granting driving privileges.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtCaseReportingSystem " type="intel:SystemIdentifierType">
+		<xsd:annotation>
+			<xsd:documentation>Details about a court case system.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
