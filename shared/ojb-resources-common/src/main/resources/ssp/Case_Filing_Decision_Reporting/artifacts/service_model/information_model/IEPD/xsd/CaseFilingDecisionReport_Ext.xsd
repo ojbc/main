@@ -58,6 +58,8 @@
 					<xsd:element ref="nc:Organization" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PrimaryDocument" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:SecondaryDocument" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="cfd-ext:CaseFilingDecisionAttachment" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonIdentityAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:PersonConveyanceAssociation" minOccurs="0" maxOccurs="unbounded" />
@@ -67,6 +69,7 @@
 					<xsd:element ref="j:OffenseLocationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ActivityDocumentAssociation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -110,18 +113,6 @@
 	<xsd:element name="CDLHolderCode" type="j:CDLHolderCodeType" substitutionGroup="j:DriverLicenseAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>A code indicating whether or not a driver has a CDL/CLP license.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="CaseFilingDecisionAttachment" type="nc:DocumentType" substitutionGroup="cfd-ext:CaseFilingDecisionRepresentation">
-		<xsd:annotation>
-			<xsd:documentation>State criminal history record for a person.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="CaseFilingDecisionRepresentation" abstract="true">
-		<xsd:annotation>
-			<xsd:documentation>A placeholder for a court case filing document.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -185,6 +176,44 @@
 	<xsd:element name="VehicleHazmatIndicator" type="niem-xs:boolean" substitutionGroup="nc:VehicleAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>True if a vehicle is carrying hazardous materials; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseInitiationMethodText" type="nc:TextType" substitutionGroup="nc:CaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A method used for initiation of a case.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PreviouslyFiledDocketText" type="nc:TextType" substitutionGroup="nc:DocumentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Previously filed docket entries.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DocumentPublicPartyViewingRestrictedIndicator" type="niem-xs:boolean" substitutionGroup="nc:DocumentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if the public and other parties are restricted from viewing the document; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DocumentPublicViewingRestrictedIndicator" type="niem-xs:boolean" substitutionGroup="nc:DocumentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if the public is restricted from viewing the document; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LeadDocumentIndicator" type="niem-xs:boolean" substitutionGroup="nc:DocumentAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if the document is the lead document; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseFilingDecisionAttachment" type="nc:DocumentType" substitutionGroup="cfd-ext:CaseFilingDecisionRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>State criminal history record for a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseFilingDecisionRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for a court case filing document.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Base64BinaryObject" type="niem-xsd:base64Binary" substitutionGroup="nc:BinaryObject"
