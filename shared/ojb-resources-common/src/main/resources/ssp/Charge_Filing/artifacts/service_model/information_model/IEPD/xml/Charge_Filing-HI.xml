@@ -17,48 +17,16 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<CoreFilingMessage xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../xsd/message/ECF-4.0-CoreFilingMessage.xsd">
-	<nc:DocumentApplicationName>X</nc:DocumentApplicationName>
-	<nc:DocumentFileControlID>X</nc:DocumentFileControlID>
-	<nc:DocumentStatus>
-		<nc:StatusText>X</nc:StatusText>
-		<nc:StatusDate>
-			<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
-		</nc:StatusDate>
-	</nc:DocumentStatus>
-	<nc:DocumentSubmitter>
-		<ecf:EntityOrganization>
-			<nc:OrganizationIdentification>
-				<nc:IdentificationID>X</nc:IdentificationID>
-			</nc:OrganizationIdentification>
-			<nc:OrganizationName>X</nc:OrganizationName>
-			<j:OrganizationAugmentation>
-				<j:OrganizationORIIdentification>
-					<nc:IdentificationID>X</nc:IdentificationID>
-				</j:OrganizationORIIdentification>
-			</j:OrganizationAugmentation>
-			<ecf:OrganizationAugmentation>
-				<ecf:ElectronicServiceInformation>
-					<ecf:ServiceRecipientID>
-						<nc:IdentificationID>X</nc:IdentificationID>
-					</ecf:ServiceRecipientID>
-					<ecf:ReceivingMDELocationID>
-
-									</ecf:ReceivingMDELocationID>
-					<ecf:ReceivingMDEProfileCode>normalizedString</ecf:ReceivingMDEProfileCode>
-				</ecf:ElectronicServiceInformation>
-			</ecf:OrganizationAugmentation>
-		</ecf:EntityOrganization>
-	</nc:DocumentSubmitter>
+<CoreFilingMessage xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../xsd/message/ECF-4.0-CoreFilingMessage.xsd">
 	<ecf:SendingMDELocationID>
 		<nc:IdentificationID>91</nc:IdentificationID>
 	</ecf:SendingMDELocationID>
 	<ecf:SendingMDEProfileCode>MESSAGINGPROFILEID</ecf:SendingMDEProfileCode>
-	<criminal:CriminalCase xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0 ../xsd/casetype/ECF-4.0-CriminalCase.xsd">
-		<nc:ActivityIdentification>
-			<nc:IdentificationID>X</nc:IdentificationID>
-			<nc:IdentificationCategoryText/>
-		</nc:ActivityIdentification>
+	<criminal:CriminalCase xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
+		xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0 ../xsd/casetype/ECF-4.0-CriminalCase.xsd">
 		<nc:CaseTitleText>X</nc:CaseTitleText>
 		<nc:CaseCategoryText>X</nc:CaseCategoryText>
 		<nc:CaseTrackingID>X</nc:CaseTrackingID>
@@ -71,7 +39,12 @@
 			</j:CaseCourt>
 		</j:CaseAugmentation>
 		<ecf:CaseAugmentation>
-			<ecf:CaseParticipant s:id="Person1">
+			<ecf:Alias>
+				<ecf:AliasAlternateName>ecf:AliasAlternateName</ecf:AliasAlternateName>
+				<ecf:AliasAlternateNameTypeCode>ecf:AliasAlternateNameTypeCode</ecf:AliasAlternateNameTypeCode>
+				<nc:EntityReference />
+			</ecf:Alias>
+			<ecf:CaseParticipant>
 				<ecf:EntityPerson>
 					<nc:PersonBirthDate>
 						<nc:Date>1983-01-01</nc:Date>
@@ -81,12 +54,12 @@
 						<nc:PersonMiddleName>W.</nc:PersonMiddleName>
 						<nc:PersonSurName>Doe</nc:PersonSurName>
 					</nc:PersonName>
-					<nc:PersonOtherIdentification>
-						<nc:IdentificationID>1234-56-789</nc:IdentificationID>
-					</nc:PersonOtherIdentification>
 					<nc:PersonSexCode>M</nc:PersonSexCode>
+					<nc:PersonStateIdentification>
+						<nc:IdentificationID>1234-56-789</nc:IdentificationID>
+					</nc:PersonStateIdentification>
 				</ecf:EntityPerson>
-				<ecf:CaseParticipantRoleCode/>
+				<ecf:CaseParticipantRoleCode>Defendant</ecf:CaseParticipantRoleCode>
 				<nc:ContactInformation>
 					<nc:ContactMailingAddress>
 						<nc:StructuredAddress>
@@ -98,7 +71,7 @@
 							<nc:LocationPostalCode>12345</nc:LocationPostalCode>
 						</nc:StructuredAddress>
 					</nc:ContactMailingAddress>
-					<nc:ContactInformationDescriptionText/>
+					<nc:ContactInformationDescriptionText />
 				</nc:ContactInformation>
 			</ecf:CaseParticipant>
 		</ecf:CaseAugmentation>
@@ -114,9 +87,6 @@
 					<j:DrivingJurisdictionAuthorityNCICLSTACode>ND</j:DrivingJurisdictionAuthorityNCICLSTACode>
 					<nc:IdentificationSourceText>String</nc:IdentificationSourceText>
 				</j:StatuteCodeIdentification>
-				<j:StatuteCodeSectionIdentification>
-					<nc:IdentificationID>String</nc:IdentificationID>
-				</j:StatuteCodeSectionIdentification>
 				<j:StatuteDescriptionText>X</j:StatuteDescriptionText>
 				<j:StatuteLevelText>X</j:StatuteLevelText>
 			</j:ChargeStatute>
@@ -124,7 +94,7 @@
 				<nc:ActivityDate>
 					<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
 				</nc:ActivityDate>
-				<nc:ActivityDescriptionText/>
+				<nc:ActivityDescriptionText />
 			</criminal:ChargeOffense>
 			<criminal:ChargeAmendedIndicator>true</criminal:ChargeAmendedIndicator>
 		</criminal:CaseCharge>
@@ -132,12 +102,12 @@
 	<FilingLeadDocument>
 		<ecf:DocumentMetadata>
 			<j:RegisterActionDescriptionText>String</j:RegisterActionDescriptionText>
-			<ecf:FilingAttorneyID/>
-			<ecf:FilingPartyID/>
+			<ecf:FilingAttorneyID />
+			<ecf:FilingPartyID />
 		</ecf:DocumentMetadata>
 		<ecf:DocumentRendition>
 			<ecf:DocumentRenditionMetadata>
-				<ecf:DocumentAttachment/>
+				<ecf:DocumentAttachment />
 			</ecf:DocumentRenditionMetadata>
 		</ecf:DocumentRendition>
 	</FilingLeadDocument>
