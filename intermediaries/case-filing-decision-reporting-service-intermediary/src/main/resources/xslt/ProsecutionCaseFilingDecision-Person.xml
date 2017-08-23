@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Unless explicitly acquired and licensed from Licensor under another license, the contents of
-    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
-    versions as allowed by the RPL, and You may not copy or use this file in either source code
-    or executable form, except in compliance with the terms and conditions of the RPL
+	Unless explicitly acquired and licensed from Licensor under another license, the contents of
+	this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+	versions as allowed by the RPL, and You may not copy or use this file in either source code
+	or executable form, except in compliance with the terms and conditions of the RPL
 
-    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
-    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
-    governing rights and limitations under the RPL.
+	All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+	WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+	WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+	PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+	governing rights and limitations under the RPL.
 
-    http://opensource.org/licenses/RPL-1.5
+	http://opensource.org/licenses/RPL-1.5
 
-    Copyright 2012-2017 Open Justice Broker Consortium
+	Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
 <cfd-doc:CaseFilingDecisionReport
@@ -24,10 +24,9 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:Case structures:id="Case_01">
-		<!--  nc:ActivityCategoryText>Case Type</nc:ActivityCategoryText-->
 		<nc:ActivityDescriptionText>Extended Case Title</nc:ActivityDescriptionText>
-			<nc:CaseCategoryText>Case Type</nc:CaseCategoryText>
 		<nc:CaseTitleText>Short Case Title</nc:CaseTitleText>
+		<nc:CaseCategoryText>Case Type</nc:CaseCategoryText>
 		<nc:CaseFiling>
 			<nc:DocumentFiledDate>
 				<nc:DateTime>2016-11-13T12:40:00</nc:DateTime>
@@ -41,10 +40,9 @@
 					<nc:Date>2016-10-13</nc:Date>
 				</j:ChargeFilingDate>
 				<j:ChargeQualifierText>Qualifier</j:ChargeQualifierText>
-				<!--  j:ChargeSeverityText>Severity</j:ChargeSeverityText-->
-			<j:ChargeSeverityLevel>
-				<j:SeverityLevelDescriptionText>Severity</j:SeverityLevelDescriptionText>
-			</j:ChargeSeverityLevel>
+				<j:ChargeSeverityLevel>
+					<j:SeverityLevelDescriptionText>Severity</j:SeverityLevelDescriptionText>
+				</j:ChargeSeverityLevel>
 				<j:ChargeStatute>
 					<j:StatuteCodeIdentification>
 						<nc:IdentificationID>Charge Code</nc:IdentificationID>
@@ -52,8 +50,24 @@
 					<j:StatuteDescriptionText>CHILD NEGLECT</j:StatuteDescriptionText>
 				</j:ChargeStatute>
 			</j:CaseCharge>
+			<j:CaseCharge structures:id="Charge_02">
+				<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
+				<j:ChargeDescriptionText>Description 2</j:ChargeDescriptionText>
+				<j:ChargeFilingDate>
+					<nc:Date>2016-10-13</nc:Date>
+				</j:ChargeFilingDate>
+				<j:ChargeQualifierText>Qualifier 2</j:ChargeQualifierText>
+				<j:ChargeSeverityLevel>
+					<j:SeverityLevelDescriptionText>Severity 2</j:SeverityLevelDescriptionText>
+				</j:ChargeSeverityLevel>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>Charge Code 2</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+					<j:StatuteDescriptionText>ASSAULT</j:StatuteDescriptionText>
+				</j:ChargeStatute>
+			</j:CaseCharge>
 			<j:CaseCourt>
-				<!--  nc:OrganizationName>Court</nc:OrganizationName-->
 				<nc:OrganizationLocation>
 					<nc:LocationName>Location</nc:LocationName>
 				</nc:OrganizationLocation>
@@ -129,6 +143,11 @@
 			<nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
 		</nc:ActivityDate>
 	</j:Offense>
+	<j:Offense structures:id="Offense_02">
+		<nc:ActivityDate>
+			<nc:DateTime>2016-09-02T08:20:00</nc:DateTime>
+		</nc:ActivityDate>
+	</j:Offense>
 	<nc:Vehicle structures:id="Vehicle_01">
 		<nc:VehicleCMVIndicator>false</nc:VehicleCMVIndicator>
 		<cfd-ext:VehicleHazmatIndicator>false</cfd-ext:VehicleHazmatIndicator>
@@ -150,8 +169,7 @@
 			<nc:PersonSurName>Last</nc:PersonSurName>
 			<nc:PersonNameSuffixText>Suffix</nc:PersonNameSuffixText>
 		</nc:PersonName>
-		<!--  nc:PersonSexText>Male</nc:PersonSexText-->
-		<nc:PersonSexCode>M</nc:PersonSexCode>
+		<j:PersonSexCode>M</j:PersonSexCode>
 		<nc:PersonSSNIdentification>
 			<nc:IdentificationID>SSN12345</nc:IdentificationID>
 		</nc:PersonSSNIdentification>
@@ -275,6 +293,10 @@
 	<j:OffenseChargeAssociation>
 		<j:Offense structures:ref="Offense_01" />
 		<j:Charge structures:ref="Charge_01" />
+	</j:OffenseChargeAssociation>
+	<j:OffenseChargeAssociation>
+		<j:Offense structures:ref="Offense_02" />
+		<j:Charge structures:ref="Charge_02" />
 	</j:OffenseChargeAssociation>
 	<nc:ContactInformationAssociation>
 		<nc:ContactEntity structures:ref="Defendant_01" />
