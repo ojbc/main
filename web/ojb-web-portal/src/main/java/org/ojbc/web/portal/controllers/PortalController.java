@@ -242,7 +242,12 @@ public class PortalController implements ApplicationContextAware {
     	if (entityLogoutReturnUrlMap != null){
     		Element samlAssertion = (Element)request.getAttribute("samlAssertion");
     		String samlTokenIssuer = XmlUtils.xPathStringSearch( samlAssertion, "/saml2:Assertion/saml2:Issuer");
+    		
+    		log.info("Saml Token Issuer: " + samlTokenIssuer);
+    		
     		String logoutReturnUrl = entityLogoutReturnUrlMap.get(samlTokenIssuer);
+    		
+    		log.info("Logout return URL: " + logoutReturnUrl);
     		
     		if (StringUtils.isNotBlank(logoutReturnUrl)){
     			sb.append("?return=");
