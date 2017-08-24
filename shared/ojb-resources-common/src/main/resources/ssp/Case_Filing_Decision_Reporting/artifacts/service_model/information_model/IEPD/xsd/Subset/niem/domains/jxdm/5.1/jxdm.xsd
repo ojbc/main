@@ -50,6 +50,7 @@
           <xs:element ref="j:ArrestAgencyRecordIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestOfficial" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestProbableCauseText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ArrestSubject" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ArrestAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -143,6 +144,7 @@
           <xs:element ref="j:ChargeSeverityLevel" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeSeverityText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeStatute" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="j:ChargeSubject" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeTrackingIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:ChargeAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
@@ -218,6 +220,7 @@
     <xs:complexContent>
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="j:EnforcementOfficialBadgeIdentification" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -369,6 +372,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="SubjectType">
+    <xs:annotation>
+      <xs:documentation>A data type for a person or organization that is involved or suspected of being involved in a violation of a criminal statute, ordinance or rule.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="structures:ObjectType">
+        <xs:sequence>
+          <xs:element ref="nc:RoleOfPerson" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:element name="ActivityCaseAssociation" type="j:ActivityCaseAssociationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An association between an activity and a case.</xs:documentation>
@@ -402,6 +417,11 @@
   <xs:element name="ArrestProbableCauseText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>An observed or reported violation of a law or ordinance, which can be a sufficient cause to arrest a subject.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ArrestSubject" type="j:SubjectType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person who is arrested.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Booking" type="j:BookingType" nillable="true">
@@ -532,6 +552,11 @@
   <xs:element name="ChargeStatute" type="j:StatuteType" nillable="true">
     <xs:annotation>
       <xs:documentation>A unique identifier of a law, rule, or ordinance within a jurisdiction that a person is accused of violating.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="ChargeSubject" type="j:SubjectType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A person accused of committing a specific offense.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="ChargeText" type="nc:TextType" nillable="true">
