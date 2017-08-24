@@ -25,6 +25,19 @@
   <xs:import schemaLocation="../../codes/usps_states/3.0/usps_states.xsd" namespace="http://release.niem.gov/niem/codes/usps_states/3.0/"/>
   <xs:import schemaLocation="../../proxy/xsd/3.0/xs.xsd" namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"/>
   <xs:import schemaLocation="../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:complexType name="ActivityDocumentAssociationType">
+    <xs:annotation>
+      <xs:documentation>A data type for an association between an activity and a document.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="nc:AssociationType">
+        <xs:sequence>
+          <xs:element ref="nc:Activity" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:Document" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ActivityType">
     <xs:annotation>
       <xs:documentation>A data type for a single or set of related actions, events, or process steps.</xs:documentation>
@@ -165,6 +178,8 @@
           <xs:element ref="nc:DocumentDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentEffectiveDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentFiledDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DocumentRelatedResourceText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DocumentAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -481,6 +496,11 @@
       <xs:documentation>A description of an activity.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="ActivityDocumentAssociation" type="nc:ActivityDocumentAssociationType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An association between an activity and a document.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="ActivityIdentification" type="nc:IdentificationType" nillable="true">
     <xs:annotation>
       <xs:documentation>An identification that references an activity.</xs:documentation>
@@ -601,6 +621,16 @@
       <xs:documentation>A full date and time.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="Document" type="nc:DocumentType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A paper or electronic document.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DocumentAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for DocumentType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="DocumentBinary" type="nc:BinaryType" nillable="true">
     <xs:annotation>
       <xs:documentation>A binary encoding of the content of a document.</xs:documentation>
@@ -644,6 +674,11 @@
   <xs:element name="DocumentFiledDate" type="nc:DateType" nillable="true">
     <xs:annotation>
       <xs:documentation>A date a document was officially filed with an organization or agency.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DocumentRelatedResourceText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A reference to another document or resource related to the document.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="EndDate" type="nc:DateType" nillable="true">
@@ -966,6 +1001,11 @@
       <xs:documentation>A measurement of the weight of a person.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="PrimaryDocument" type="nc:DocumentType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A main or primary document.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="RoleOf" abstract="true">
     <xs:annotation>
       <xs:documentation>A data concept for a property of a role object. This specifies the base object, of which the role object is a function.</xs:documentation>
@@ -974,6 +1014,11 @@
   <xs:element name="RoleOfPerson" type="nc:PersonType" substitutionGroup="nc:RoleOf" nillable="true">
     <xs:annotation>
       <xs:documentation>A person of whom the role object is a function.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SecondaryDocument" type="nc:DocumentType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A secondary or related document.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="StartDate" type="nc:DateType" nillable="true">

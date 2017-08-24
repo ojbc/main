@@ -33,7 +33,6 @@
                   <nc:PersonMiddleName>Middle</nc:PersonMiddleName>
                   <nc:PersonSurName>Last</nc:PersonSurName>
                </nc:PersonName>
-               <nc:PersonSexCode>M</nc:PersonSexCode>
                <nc:PersonStateIdentification>
                   <nc:IdentificationID>SI898709</nc:IdentificationID>
                </nc:PersonStateIdentification>
@@ -55,7 +54,7 @@
             </nc:ContactInformation>
          </ecf:CaseParticipant>
       </ecf:CaseAugmentation>
-      <criminal:CaseCharge s:id="d1e29">
+      <criminal:CaseCharge s:id="d1e26">
          <j:ChargeSeverityLevel>
             <j:SeverityLevelDescriptionText>Severity</j:SeverityLevelDescriptionText>
          </j:ChargeSeverityLevel>
@@ -68,6 +67,22 @@
          <criminal:ChargeOffense>
             <nc:ActivityDate>
                <nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+            </nc:ActivityDate>
+         </criminal:ChargeOffense>
+      </criminal:CaseCharge>
+      <criminal:CaseCharge s:id="d1e63">
+         <j:ChargeSeverityLevel>
+            <j:SeverityLevelDescriptionText>Severity 2</j:SeverityLevelDescriptionText>
+         </j:ChargeSeverityLevel>
+         <j:ChargeStatute>
+            <j:StatuteCodeIdentification>
+               <nc:IdentificationID>Charge Code 2</nc:IdentificationID>
+            </j:StatuteCodeIdentification>
+            <j:StatuteDescriptionText>ASSAULT</j:StatuteDescriptionText>
+         </j:ChargeStatute>
+         <criminal:ChargeOffense>
+            <nc:ActivityDate>
+               <nc:DateTime>2016-09-02T08:20:00</nc:DateTime>
             </nc:ActivityDate>
          </criminal:ChargeOffense>
       </criminal:CaseCharge>

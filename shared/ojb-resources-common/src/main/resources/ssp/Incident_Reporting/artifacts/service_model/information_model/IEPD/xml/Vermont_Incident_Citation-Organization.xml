@@ -252,7 +252,7 @@
 								<nc:VehicleStyleCode>SD</nc:VehicleStyleCode>
 								<nc:ConveyanceRegistrationPlateIdentification>
 									<nc:IdentificationID>ABC1234567</nc:IdentificationID>
-									<nc:IdentificationJurisdictionFIPS10-4Code>VT</nc:IdentificationJurisdictionFIPS10-4Code>
+									<j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
 								</nc:ConveyanceRegistrationPlateIdentification>
 								<nc:VehicleIdentification>
 									<nc:IdentificationID>VIN</nc:IdentificationID>

@@ -924,7 +924,6 @@
           <xsd:element ref="nc:OrganizationIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:OrganizationLocation" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="unbounded"/>
-          <xsd:element ref="nc:OrganizationOtherIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:OrganizationPrimaryContactInformation" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:OrganizationSubUnitName" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:OrganizationTaxIdentification" minOccurs="0" maxOccurs="unbounded"/>
@@ -2554,11 +2553,6 @@
   <xsd:element name="OrganizationName" type="nc:TextType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A name of an organization.</xsd:documentation>
-    </xsd:annotation>
-  </xsd:element>
-  <xsd:element name="OrganizationOtherIdentification" type="nc:IdentificationType" nillable="true">
-    <xsd:annotation>
-      <xsd:documentation>An identification assigned to an organization.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="OrganizationPrimaryContactInformation" type="nc:ContactInformationType" nillable="true">
