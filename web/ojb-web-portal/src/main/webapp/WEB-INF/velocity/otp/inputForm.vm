@@ -46,6 +46,13 @@
 					
 					});
 					
+					//This allows the input fields on the search form to submit form with enter key
+					$('#otpForm input').keyup(function(e) {
+					    if (e.keyCode == 13) {
+					        $('#submitOtpButton').click();
+					    }
+					});
+					
 				})
 		</script>   		
      </head>
