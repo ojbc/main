@@ -1,0 +1,212 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<cfm:CoreFilingMessage xmlns:cfm="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0"
+	xmlns:ojb-cit-doc="http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0" xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0"
+	xmlns:vt-cit-codes="http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0" xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../../xsd/message/ECF-4.0-CoreFilingMessage.xsd http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0 ../../../xsd/Citation_Case-doc.xsd http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0 ../../../xsd/impl/vermont/citation_codes.xsd">
+	<ojb-cit-doc:CitationCase>
+		<ojb-cit-ext:CourtCaseReportingSystem>
+			<nc:IdentificationID>TraCS</nc:IdentificationID>
+		</ojb-cit-ext:CourtCaseReportingSystem>
+		<ojb-cit-ext:CaseAugmentation>
+			<ecf:PersonOrganizationAssociation>
+				<nc:PersonReference s:ref="d1e133" />
+				<nc:OrganizationReference s:ref="d1e191" />
+				<ecf:EntityAssociationTypeCode />
+			</ecf:PersonOrganizationAssociation>
+			<ojb-cit-ext:CaseParticipant>
+				<ecf:EntityPerson s:id="d1e129">
+					<nc:PersonName>
+						<nc:PersonFullName>Morris, Michael</nc:PersonFullName>
+					</nc:PersonName>
+				</ecf:EntityPerson>
+				<ecf:CaseParticipantRoleCode />
+			</ojb-cit-ext:CaseParticipant>
+			<ojb-cit-ext:CaseParticipant>
+				<ecf:EntityOrganization s:id="d1e186">
+					<nc:OrganizationName>Berlin City Kia</nc:OrganizationName>
+					<nc:OrganizationPrimaryContactInformation>
+						<nc:ContactMailingAddress>
+							<nc:StructuredAddress>
+								<nc:LocationStreet>
+									<nc:StreetFullText> PO Box 514</nc:StreetFullText>
+								</nc:LocationStreet>
+								<nc:LocationCityName>Williston</nc:LocationCityName>
+								<nc:LocationStateName>VT</nc:LocationStateName>
+								<nc:LocationPostalCode>05495</nc:LocationPostalCode>
+							</nc:StructuredAddress>
+						</nc:ContactMailingAddress>
+						<nc:ContactTelephoneNumber>
+							<nc:FullTelephoneNumber>
+								<nc:TelephoneNumberFullID>802-864-3905</nc:TelephoneNumberFullID>
+							</nc:FullTelephoneNumber>
+						</nc:ContactTelephoneNumber>
+					</nc:OrganizationPrimaryContactInformation>
+				</ecf:EntityOrganization>
+				<ojb-cit-ext:OrganizationDriverLicense>
+					<nc:DriverLicenseIdentification>
+						<nc:IdentificationID>11846050</nc:IdentificationID>
+						<j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
+					</nc:DriverLicenseIdentification>
+				</ojb-cit-ext:OrganizationDriverLicense>
+				<ecf:CaseParticipantRoleCode />
+			</ojb-cit-ext:CaseParticipant>
+		</ojb-cit-ext:CaseAugmentation>
+		<ojb-cit-ext:CitationCaseAugmentation>
+			<j:CaseCharge>
+				<j:ChargeStatute s:id="d1e358">
+					<j:StatuteOffenseIdentification>
+						<nc:IdentificationID>DUT</nc:IdentificationID>
+					</j:StatuteOffenseIdentification>
+				</j:ChargeStatute>
+			</j:CaseCharge>
+			<ojb-cit-ext:Citation s:id="d1e123">
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>7000728</nc:IdentificationID>
+				</nc:ActivityIdentification>
+				<nc:ActivityDate>
+					<nc:DateTime>2016-12-16T15:00:00</nc:DateTime>
+				</nc:ActivityDate>
+				<j:CitationAgency s:id="d1e191">
+					<nc:OrganizationName>VT Department of Motor Vehicles</nc:OrganizationName>
+					<nc:OrganizationPrimaryContactInformation>
+						<nc:ContactEntity>
+							<ecf:EntityOrganization>
+								<nc:OrganizationIdentification>
+									<nc:IdentificationID>5001</nc:IdentificationID>
+								</nc:OrganizationIdentification>
+							</ecf:EntityOrganization>
+						</nc:ContactEntity>
+					</nc:OrganizationPrimaryContactInformation>
+				</j:CitationAgency>
+				<ojb-cit-ext:CitationIssuingOfficial s:id="d1e133">
+					<nc:RoleOfPersonReference s:ref="d1e129" />
+					<j:EnforcementOfficialBadgeIdentification>
+						<nc:IdentificationID>2138</nc:IdentificationID>
+					</j:EnforcementOfficialBadgeIdentification>
+					<ojb-cit-ext:EnforcementOfficialIdentification>
+						<nc:IdentificationID>A2327</nc:IdentificationID>
+					</ojb-cit-ext:EnforcementOfficialIdentification>
+				</ojb-cit-ext:CitationIssuingOfficial>
+				<ojb-cit-ext:CitationAugmentation>
+					<ojb-cit-ext:CitationViolationDate>
+						<nc:DateTime>2016-11-14T16:00:00</nc:DateTime>
+					</ojb-cit-ext:CitationViolationDate>
+					<vt-cit-codes:CitationMunicipalityCode>Williston</vt-cit-codes:CitationMunicipalityCode>
+					<ojb-cit-ext:CitationWaiverAmount>162.00</ojb-cit-ext:CitationWaiverAmount>
+					<ojb-cit-ext:CitationServedIndicator>false</ojb-cit-ext:CitationServedIndicator>
+					<ojb-cit-ext:CitationMailedIndicator>true</ojb-cit-ext:CitationMailedIndicator>
+					<ojb-cit-ext:CitationIssuedLocation>
+						<nc:LocationHighway>
+							<nc:HighwayID>US 91</nc:HighwayID>
+							<nc:HighwayPositionText>586 Marshall Ave, Williston, VT, 05495</nc:HighwayPositionText>
+						</nc:LocationHighway>
+					</ojb-cit-ext:CitationIssuedLocation>
+				</ojb-cit-ext:CitationAugmentation>
+			</ojb-cit-ext:Citation>
+			<ojb-cit-ext:Vehicle s:id="d1e246">
+				<nc:VehicleColorPrimaryCode>SIL</nc:VehicleColorPrimaryCode>
+				<nc:ItemModelName>Model</nc:ItemModelName>
+				<nc:ItemModelYearDate>2015</nc:ItemModelYearDate>
+				<nc:VehicleStyleCode>SD</nc:VehicleStyleCode>
+				<nc:ConveyanceRegistrationPlateIdentification>
+					<nc:IdentificationID>ABC1234567</nc:IdentificationID>
+					<j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
+				</nc:ConveyanceRegistrationPlateIdentification>
+				<nc:VehicleCMVIndicator>false</nc:VehicleCMVIndicator>
+				<nc:VehicleIdentification>
+					<nc:IdentificationID>VIN</nc:IdentificationID>
+				</nc:VehicleIdentification>
+				<nc:VehicleMakeCode>TOYT</nc:VehicleMakeCode>
+				<ojb-cit-ext:VehicleAugmentation>
+					<ojb-cit-ext:VehicleHazardousMaterialIndicator>false</ojb-cit-ext:VehicleHazardousMaterialIndicator>
+				</ojb-cit-ext:VehicleAugmentation>
+			</ojb-cit-ext:Vehicle>
+			<ojb-cit-ext:Offense>
+				<nc:ActivityDescriptionText>DUT - Dealer'S Use Of Temporary Number Plates Restricted</nc:ActivityDescriptionText>
+				<ojb-cit-ext:OffenseViolatedStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>23VSA460</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</ojb-cit-ext:OffenseViolatedStatute>
+				<ojb-cit-ext:DrivingOffensePoints>2</ojb-cit-ext:DrivingOffensePoints>
+				<ojb-cit-ext:OffenseFineAmountMinimum>47.00</ojb-cit-ext:OffenseFineAmountMinimum>
+				<ojb-cit-ext:OffenseFineAmountMaximum>1197.00</ojb-cit-ext:OffenseFineAmountMaximum>
+				<ojb-cit-ext:RelatedCriminalChargeIndicator>false</ojb-cit-ext:RelatedCriminalChargeIndicator>
+			</ojb-cit-ext:Offense>
+			<ojb-cit-ext:DrivingIncident s:id="d1e99">
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>16MV010730</nc:IdentificationID>
+				</nc:ActivityIdentification>
+				<nc:ActivityDateRange>
+					<nc:StartDate>
+						<nc:DateTime>2016-12-13T11:07:22</nc:DateTime>
+					</nc:StartDate>
+					<nc:EndDate>
+						<nc:DateTime>2016-12-13T11:13:12</nc:DateTime>
+					</nc:EndDate>
+				</nc:ActivityDateRange>
+				<nc:ActivityDescriptionText>Dealer failed to deliver transaction to DMV within 15 day limit. (26 days late) 16MV010730
+								</nc:ActivityDescriptionText>
+				<nc:IncidentLocation>
+					<nc:LocationAddress>
+						<nc:StructuredAddress>
+							<nc:LocationCityName>Williston</nc:LocationCityName>
+						</nc:StructuredAddress>
+					</nc:LocationAddress>
+					<nc:LocationHighway>
+						<nc:HighwayID>US 91</nc:HighwayID>
+						<nc:HighwayPositionText>586 Marshall Ave, Williston, VT, 05495</nc:HighwayPositionText>
+					</nc:LocationHighway>
+				</nc:IncidentLocation>
+				<j:DrivingIncidentRecordedSpeedRate>
+					<nc:MeasureText>0</nc:MeasureText>
+					<nc:MeasureUnitText />
+				</j:DrivingIncidentRecordedSpeedRate>
+				<j:DrivingIncidentLegalSpeedRate>
+					<nc:MeasureText>0</nc:MeasureText>
+					<nc:MeasureUnitText />
+				</j:DrivingIncidentLegalSpeedRate>
+				<j:IncidentAugmentation>
+					<j:IncidentTrafficAccidentInvolvedIndicator>false</j:IncidentTrafficAccidentInvolvedIndicator>
+				</j:IncidentAugmentation>
+				<nc:IncidentVehicleAssociation>
+					<nc:ActivityReference s:ref="d1e99" />
+					<nc:ConveyanceReference s:ref="d1e246" />
+				</nc:IncidentVehicleAssociation>
+				<ojb-cit-ext:DrivingIncidentAugmentation>
+					<ojb-cit-ext:DrivingAccidentFatalityIndicator>false</ojb-cit-ext:DrivingAccidentFatalityIndicator>
+					<ojb-cit-ext:SeatBeltViolationIndicator>false</ojb-cit-ext:SeatBeltViolationIndicator>
+					<ojb-cit-ext:SeatBeltViolationCount>0</ojb-cit-ext:SeatBeltViolationCount>
+					<ojb-cit-ext:CivilReliefActIndicator>false</ojb-cit-ext:CivilReliefActIndicator>
+					<ojb-cit-ext:CivilReliefActJuvenileIndicator>false</ojb-cit-ext:CivilReliefActJuvenileIndicator>
+					<ojb-cit-ext:CivilReliefActOtherIndicator>false</ojb-cit-ext:CivilReliefActOtherIndicator>
+					<ojb-cit-ext:CivilReliefActOtherText>Defendant is an organization or a corporation</ojb-cit-ext:CivilReliefActOtherText>
+				</ojb-cit-ext:DrivingIncidentAugmentation>
+			</ojb-cit-ext:DrivingIncident>
+		</ojb-cit-ext:CitationCaseAugmentation>
+		<ojb-cit-ext:CitationDeliveryRecipientAssociation>
+			<ojb-cit-ext:CitationReference s:ref="d1e123" />
+			<nc:EntityOrganizationReference s:ref="d1e186" />
+		</ojb-cit-ext:CitationDeliveryRecipientAssociation>
+	</ojb-cit-doc:CitationCase>
+</cfm:CoreFilingMessage>

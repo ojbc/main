@@ -87,7 +87,7 @@
 				<xsd:sequence>
 					<xsd:element ref="ojb-cit-ext:Citation" minOccurs="0" />
 					<xsd:element ref="ojb-cit-ext:Vehicle" minOccurs="0" />
-					<xsd:element ref="ojb-cit-ext:Offense" minOccurs="0" />
+					<xsd:element ref="ojb-cit-ext:Offense" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:choice minOccurs="0">
 						<xsd:element ref="ojb-cit-ext:DrivingIncident" />
 					</xsd:choice>

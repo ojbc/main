@@ -111,6 +111,7 @@
     <xsd:complexContent>
       <xsd:extension base="nc:ActivityType">
         <xsd:sequence>
+          <xsd:element ref="j:BookingAgency" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:BookingAgencyRecordIdentification" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
@@ -131,6 +132,7 @@
           <xsd:element ref="j:CaseCourtEvent" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:CaseDefendantParty" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:CaseDefenseAttorney" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:CaseDomesticViolenceIndicator" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:CaseInitiatingParty" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:CaseJudge" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:CaseLineageCase" minOccurs="0" maxOccurs="unbounded"/>
@@ -182,11 +184,14 @@
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
           <xsd:element ref="j:ChargeApplicabilityText" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:ChargeCountQuantity" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:ChargeDegreeText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:ChargeDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:ChargeDisposition" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:ChargeEnhancingAllegationCharge" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:ChargeFilingDate" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:ChargeNCICCode" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:ChargeQualifierText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:ChargeSequenceID" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:ChargeSeverityLevel" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="j:ChargeSpecialAllegationText" minOccurs="0" maxOccurs="unbounded"/>
@@ -682,6 +687,11 @@
       <xsd:documentation>Details about an administrative step taken after an arrested subject is brought to a police station or detention facility, which involves entry of the subject&amp;apos;s name and other relevant facts on the police &amp;quot;blotter&amp;quot;, and which may also include photographing, fingerprinting, and the like. </xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="BookingAgency" type="nc:OrganizationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An organization which processes a booking.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="BookingAgencyRecordIdentification" type="nc:IdentificationType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A booking identifier of the originating case agency.</xsd:documentation>
@@ -718,6 +728,11 @@
   <xsd:element name="CaseDefenseAttorney" type="j:CaseOfficialType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An attorney who defends a case.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CaseDomesticViolenceIndicator" type="niem-xsd:boolean" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>True if the case involves domestic violence; false otherwise.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="CaseInitiatingAttorney" type="j:CaseOfficialType" nillable="true">
@@ -793,6 +808,11 @@
       <xsd:documentation>A degree of involvement a person is being charged with committing in an offense.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="ChargeCountQuantity" type="niem-xsd:nonNegativeInteger" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A number of times a person is charged with committing the same crime.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="ChargeDegreeText" type="nc:TextType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A degree of a charge.</xsd:documentation>
@@ -811,6 +831,11 @@
   <xsd:element name="ChargeEnhancingAllegationCharge" type="j:ChargeType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A formal allegation, contained in at least one charging instrument, that a defendant has violated a statute and/or ordinance in association with an incident.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ChargeFilingDate" type="nc:DateType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A date a charge was filed.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="ChargeNCICCode" type="fbi:OFFCodeType" nillable="true">
