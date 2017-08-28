@@ -110,13 +110,14 @@
     		}).fail(ojbc.displayFailMessage);			    
 		    					   
 		    return false;
-		})
+		});
     		 
-		$('#subscriptionsLink').click(function() {	  
+		$('#leftMenu').on("click", "#subscriptionsLink", function() {	  
 	  				  				  					  					    			    	
 			xhr = $.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
-    		
-				$('#portalContent').html(data);	
+    			console.log("Data: "  + data); 
+				$('#portalContent').html(data);
+			}).done(function(){	
 														
 				$.post("#springUrl('/portal/subscriptionsLeftBar')", function(data) {
 					    	
@@ -128,7 +129,7 @@
 			}).fail(ojbc.displayFailMessage);
 			
 			return false;
-		})
+		});
     		 
 		$('#rapbackLink').click(function() {	  
 	  				  				  					  					    			    	
