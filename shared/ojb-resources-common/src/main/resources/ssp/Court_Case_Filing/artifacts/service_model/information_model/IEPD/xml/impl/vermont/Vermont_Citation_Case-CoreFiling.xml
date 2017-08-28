@@ -24,7 +24,7 @@
 	xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0" xmlns:vt-cit-codes="http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0"
 	xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
 	xmlns:xop="http://www.w3.org/2004/08/xop/include"
-	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../xsd/message/ECF-4.0-CoreFilingMessage.xsd http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0 ../../xsd/Citation_Case-doc.xsd http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0 ../../xsd/impl/vermont/citation_codes.xsd">
+	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../../xsd/message/ECF-4.0-CoreFilingMessage.xsd http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0 ../../../xsd/Citation_Case-doc.xsd http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0 ../../../xsd/impl/vermont/citation_codes.xsd">
 	<ojb-cit-doc:CitationCase>
 		<ojb-cit-ext:CourtCaseReportingSystem>
 			<nc:IdentificationID>SystemID</nc:IdentificationID>
