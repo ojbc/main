@@ -320,6 +320,10 @@
 				<pcq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</pcq-res-ext:Base64BinaryObject>
 			</nc:DocumentBinary>
 		</pcq-res-ext:ProsecutionCaseQueryResultsAttachment>
+		<nc:PersonIdentityAssociation>
+			<nc:Person structures:ref="Defendant_01" />
+			<nc:Identity structures:ref="RES01" />
+		</nc:PersonIdentityAssociation>
 		<nc:PersonResidenceAssociation>
 			<nc:Person structures:ref="Defendant_01" />
 			<nc:Location structures:ref="RES01" />
