@@ -35,7 +35,7 @@
 					<lexs:SystemIdentifier>
 						<lexs:ORI>Vermont 99999</lexs:ORI>
 						<nc:OrganizationName>Vermont CJIS</nc:OrganizationName>
-						<lexs:SystemID>CJIS</lexs:SystemID>
+						<lexs:SystemID>TraCS</lexs:SystemID>
 					</lexs:SystemIdentifier>
 					<lexs:SystemContact>
 						<nc:PersonGivenName>Joe</nc:PersonGivenName>

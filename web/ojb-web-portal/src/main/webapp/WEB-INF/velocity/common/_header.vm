@@ -23,7 +23,7 @@
 <html>
     <head>
     	#if( $inactivityTimeout )
-	    	<meta http-equiv="refresh" content="$inactivityTimeoutInSeconds;URL='#springUrl("/j_spring_security_logout")'">
+	    	<meta http-equiv="refresh" content="$inactivityTimeoutInSeconds;URL='#springUrl("/portal/performLogout")'">
         #end
         
         <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->

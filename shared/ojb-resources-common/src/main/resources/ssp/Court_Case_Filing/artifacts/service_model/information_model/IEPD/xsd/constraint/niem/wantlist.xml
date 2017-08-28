@@ -27,6 +27,7 @@
   xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
   xmlns:unece="http://niem.gov/niem/unece_rec20-misc/2.0"
   xmlns:fips_10-4="http://niem.gov/niem/fips_10-4/2.0"
+  xmlns:intel="http://niem.gov/niem/domains/intelligence/2.0"
   xmlns:fips_6-4="http://niem.gov/niem/fips_6-4/2.0"
   xmlns:iso_639-3="http://niem.gov/niem/iso_639-3/2.0"
   xmlns:iso_4217="http://niem.gov/niem/iso_4217/2.0"
@@ -9262,6 +9263,12 @@
     <w:Facet w:facet="enumeration" w:value="830"/>
     <w:Facet w:facet="enumeration" w:value="840"/>
   </w:Type>
+  <w:Type w:name="intel:SystemIdentifierType" w:isRequested="true">
+    <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="intel:SystemName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="iso_4217:CurrencyCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="ADP"/>
     <w:Facet w:facet="enumeration" w:value="AED"/>
@@ -17681,8 +17688,6 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:OrganizationOtherIdentification"
-      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationPrimaryContactInformation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationSubUnitName"

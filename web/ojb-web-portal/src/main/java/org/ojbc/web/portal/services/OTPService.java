@@ -23,4 +23,6 @@ public interface OTPService {
 	public boolean confirmOTP(String userIdentifier, String otp);
 	
 	public boolean isUserAuthenticated(String userIdentifier);
+	
+	public boolean unauthenticateUser(String userIdentifier);
 }

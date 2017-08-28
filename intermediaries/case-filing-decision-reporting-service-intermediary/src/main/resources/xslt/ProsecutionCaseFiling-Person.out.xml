@@ -1,0 +1,106 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<CoreFilingMessage xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+                   xmlns:xop="http://www.w3.org/2004/08/xop/include"
+                   xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
+                   xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+                   xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                   xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+                   xmlns:s="http://niem.gov/niem/structures/2.0">
+   <ecf:SendingMDELocationID>
+      <nc:IdentificationID/>
+   </ecf:SendingMDELocationID>
+   <ecf:SendingMDEProfileCode/>
+   <criminal:CriminalCase>
+      <nc:CaseTitleText>Short Case Title</nc:CaseTitleText>
+      <nc:CaseCategoryText>Case Type</nc:CaseCategoryText>
+      <j:CaseAugmentation>
+         <j:CaseCourt>
+            <nc:OrganizationLocation>
+               <nc:LocationName>Location</nc:LocationName>
+            </nc:OrganizationLocation>
+            <j:CourtName>Court Name</j:CourtName>
+         </j:CaseCourt>
+      </j:CaseAugmentation>
+      <ecf:CaseAugmentation>
+         <ecf:CaseParticipant>
+            <ecf:EntityPerson>
+               <nc:PersonBirthDate>
+                  <nc:Date>1980-07-26</nc:Date>
+               </nc:PersonBirthDate>
+               <nc:PersonName>
+                  <nc:PersonGivenName>First</nc:PersonGivenName>
+                  <nc:PersonMiddleName>Middle</nc:PersonMiddleName>
+                  <nc:PersonSurName>Last</nc:PersonSurName>
+               </nc:PersonName>
+               <nc:PersonSexCode>M</nc:PersonSexCode>
+               <nc:PersonStateIdentification>
+                  <nc:IdentificationID>SI898709</nc:IdentificationID>
+               </nc:PersonStateIdentification>
+            </ecf:EntityPerson>
+            <ecf:CaseParticipantRoleCode>Party Role</ecf:CaseParticipantRoleCode>
+            <ecf:CaseParticipantRoleCode>Party Role</ecf:CaseParticipantRoleCode>
+            <nc:ContactInformation>
+               <nc:ContactMailingAddress>
+                  <nc:StructuredAddress>
+                     <nc:LocationStreet>
+                        <nc:StreetFullText>123 N Oak Street Apt #123</nc:StreetFullText>
+                     </nc:LocationStreet>
+                     <nc:LocationCityName>Honolulu</nc:LocationCityName>
+                     <nc:LocationStateName>HI</nc:LocationStateName>
+                     <nc:LocationPostalCode>21905</nc:LocationPostalCode>
+                  </nc:StructuredAddress>
+               </nc:ContactMailingAddress>
+               <nc:ContactInformationDescriptionText>Address Type</nc:ContactInformationDescriptionText>
+            </nc:ContactInformation>
+         </ecf:CaseParticipant>
+      </ecf:CaseAugmentation>
+      <criminal:CaseCharge s:id="d1e29">
+         <j:ChargeSeverityLevel>
+            <j:SeverityLevelDescriptionText>Severity</j:SeverityLevelDescriptionText>
+         </j:ChargeSeverityLevel>
+         <j:ChargeStatute>
+            <j:StatuteCodeIdentification>
+               <nc:IdentificationID>Charge Code</nc:IdentificationID>
+            </j:StatuteCodeIdentification>
+            <j:StatuteDescriptionText>CHILD NEGLECT</j:StatuteDescriptionText>
+         </j:ChargeStatute>
+         <criminal:ChargeOffense>
+            <nc:ActivityDate>
+               <nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+            </nc:ActivityDate>
+         </criminal:ChargeOffense>
+      </criminal:CaseCharge>
+      <criminal:ChargeAmendedIndicator>false</criminal:ChargeAmendedIndicator>
+   </criminal:CriminalCase>
+   <FilingLeadDocument>
+      <ecf:DocumentMetadata>
+         <j:RegisterActionDescriptionText>String</j:RegisterActionDescriptionText>
+         <ecf:FilingAttorneyID/>
+         <ecf:FilingPartyID/>
+      </ecf:DocumentMetadata>
+      <ecf:DocumentRendition>
+         <ecf:DocumentRenditionMetadata>
+            <ecf:DocumentAttachment/>
+         </ecf:DocumentRenditionMetadata>
+      </ecf:DocumentRendition>
+   </FilingLeadDocument>
+</CoreFilingMessage>

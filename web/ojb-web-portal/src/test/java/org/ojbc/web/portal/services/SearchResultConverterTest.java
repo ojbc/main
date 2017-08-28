@@ -87,7 +87,7 @@ public class SearchResultConverterTest {
 
 		String searchContent = "some search content";
 
-		when(xsltTransformerService.transform(sourceXmlCaptor.capture(), sourceXslCaptor.capture(),paramsCaptor.capture())).thenReturn(
+		when(xsltTransformerService.transform(sourceXmlCaptor.capture(), sourceXslCaptor.capture(), paramsCaptor.capture())).thenReturn(
 		        "some transformed content");
 		String expectedResult = unit.convertPersonSearchResult(searchContent,null);
 

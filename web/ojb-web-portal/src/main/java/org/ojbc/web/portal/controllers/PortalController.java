@@ -54,6 +54,7 @@ import org.ojbc.web.SearchProfile;
 import org.ojbc.web.portal.controllers.dto.PersonFilterCommand;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
 import org.ojbc.web.portal.controllers.helpers.UserSession;
+import org.ojbc.web.portal.services.OTPService;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.security.Authorities;
 import org.ojbc.web.security.SecurityContextUtils;
@@ -62,6 +63,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,9 +74,12 @@ import org.w3c.dom.Element;
 
 @Controller
 @RequestMapping("/portal/*")
-@SessionAttributes({"sensitiveInfoAlert", "userLogonInfo"})
+@SessionAttributes({"sensitiveInfoAlert", "userLogonInfo", "userSignOutUrl"})
 public class PortalController implements ApplicationContextAware {
 
+	@Resource (name="${otpServiceBean:OTPServiceMemoryImpl}")
+	OTPService otpService;
+	
 	static final String DEFAULT_USER_TIME_ONLINE = "0:00";
 	static final String DEFAULT_USER_LOGON_MESSAGE = "Not Logged In";
 	
@@ -204,7 +209,7 @@ public class PortalController implements ApplicationContextAware {
 	}
 
     @RequestMapping("index")
-    public void index(HttpServletRequest request, Map<String, Object> model, Authentication authentication){
+    public void index(HttpServletRequest request, Map<String, Object> model, Authentication authentication) throws Exception{
 
 		// To pull something from the header you want something like this
 		// String header = request.getHeader("currentUserName");
@@ -227,26 +232,64 @@ public class PortalController implements ApplicationContextAware {
 		model.put("currentUserName", userLogonInfo.getUserNameString());
 		model.put("timeOnline", userLogonInfo.getTimeOnlineString());
 		model.put("searchLinksHtml", getSearchLinksHtml(authentication));
-		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));				
+		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));
+		model.put("sensitiveInfoAlert", sensitiveInfoAlert);
+		
+    	putUserSignoutUrlIntoModel(request, model);
 	}
 
-    @RequestMapping("performLogout")
-    public String performLogout(HttpServletRequest request, Map<String, Object> model, Authentication authentication) throws Exception{
-
-    	StringBuilder sb = new StringBuilder();
+	private void putUserSignoutUrlIntoModel(HttpServletRequest request, Map<String, Object> model)
+			throws Exception {
+		StringBuilder sb = new StringBuilder();
     	sb.append(userSignOutUrl);
     	if (entityLogoutReturnUrlMap != null){
     		Element samlAssertion = (Element)request.getAttribute("samlAssertion");
     		String samlTokenIssuer = XmlUtils.xPathStringSearch( samlAssertion, "/saml2:Assertion/saml2:Issuer");
+    		
+    		log.info("Saml Token Issuer: " + samlTokenIssuer);
+    		
     		String logoutReturnUrl = entityLogoutReturnUrlMap.get(samlTokenIssuer);
+    		
+    		log.info("Logout return URL: " + logoutReturnUrl);
     		
     		if (StringUtils.isNotBlank(logoutReturnUrl)){
     			sb.append("?return=");
     			sb.append(logoutReturnUrl);
     		}
     	}
+    	model.put("userSignOutUrl", sb.toString());
+	}
 
-    	return "redirect:" + sb.toString();
+    @RequestMapping("performLogout")
+    public String performLogout(HttpServletRequest request, Map<String, Object> model) throws Exception{
+    	String userSignoutUrl = (String) model.get("userSignOutUrl");
+    	if (request.getSession()!= null){
+    		
+    		if (otpService != null)
+    		{
+    			//Send OTP as soon as the input form is shown
+    			Element samlAssertion = samlService.getSamlAssertion(request);
+    			
+    			if (samlAssertion != null)
+    			{	
+	    			String userEmail = XmlUtils.xPathStringSearch(samlAssertion, "/saml2:Assertion/saml2:AttributeStatement[1]/saml2:Attribute[@Name='gfipm:2.0:user:EmailAddressText']/saml2:AttributeValue/text()");
+	
+	    			log.info("User email address to remove OTP authentication: " + userEmail);
+	    			
+	    			if (StringUtils.isNotBlank(userEmail))
+	    			{	
+	    				log.info("Unauthenticate user.");
+	    				otpService.unauthenticateUser(userEmail);
+	    			}	
+    			}	
+    		}	
+    		
+    		model.remove("userSignOutUrl");
+    		model.remove("sensitiveInfoAlert");
+    		request.getSession().invalidate();
+    	}
+		new SecurityContextLogoutHandler().logout(request, null, null);
+    	return "redirect:" + userSignoutUrl;
 	}
 
     @RequestMapping("defaultLogout")

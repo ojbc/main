@@ -145,6 +145,25 @@ public class OTPServiceMemoryImpl implements OTPService{
 		return false;
 	}
 	
+	@Override
+	public boolean unauthenticateUser(String userIdentifier) {
+		log.info("Entering unauthenticate user: " + userIdentifier);
+		
+		UserOTPDetails userOTPDetails = otpMap.get(userIdentifier);
+		
+		if (userOTPDetails != null)
+		{
+			otpMap.remove(userIdentifier);
+			return true;
+		}
+		
+		log.info("User is not authenticated.  Return false.");
+
+		removeOldEntries();
+		
+		return false;
+	}	
+	
 	private void removeOldEntries() {
 		Iterator it = otpMap.entrySet().iterator();
 		while (it.hasNext()) {
@@ -172,5 +191,7 @@ public class OTPServiceMemoryImpl implements OTPService{
 	public void setOtpMap(ConcurrentHashMap<String, UserOTPDetails> otpMap) {
 		this.otpMap = otpMap;
 	}
+
+
 
 }
