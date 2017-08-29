@@ -221,6 +221,7 @@
           <xsd:element ref="nc:CaseCategoryText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:CaseTrackingID" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:CaseDocketID" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:CaseFiling" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -352,6 +353,8 @@
         <xsd:sequence>
           <xsd:element ref="nc:DocumentApplicationName" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentBinary" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DocumentCategoryName" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DocumentCategoryText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentEffectiveDate" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentFileControlID" minOccurs="0" maxOccurs="unbounded"/>
@@ -360,6 +363,7 @@
           <xsd:element ref="nc:DocumentInformationCutOffDate" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentPostDate" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentReceivedDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DocumentRelatedResourceText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentSequenceID" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentStatus" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentLanguage" minOccurs="0" maxOccurs="unbounded"/>
@@ -717,6 +721,7 @@
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
           <xsd:element ref="nc:LocationAddress" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:LocationCategory" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:LocationDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:LocationHighway" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:LocationName" minOccurs="0" maxOccurs="unbounded"/>
@@ -924,6 +929,7 @@
           <xsd:element ref="nc:OrganizationIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:OrganizationLocation" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:OrganizationName" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:OrganizationOtherIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:OrganizationPrimaryContactInformation" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:OrganizationSubUnitName" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:OrganizationTaxIdentification" minOccurs="0" maxOccurs="unbounded"/>
@@ -1077,6 +1083,7 @@
           <xsd:element ref="nc:PersonPrimaryLanguage" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:PersonRace" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:PersonSex" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:PersonSSNIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:PersonStateIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:PersonTaxIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:PersonWeightMeasure" minOccurs="0" maxOccurs="unbounded"/>
@@ -1819,6 +1826,16 @@
       <xsd:documentation>A binary encoding of the content of a document.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="DocumentCategoryName" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A name of a category of information in a document.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DocumentCategoryText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A kind of document; a nature or genre of the content.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="DocumentDescriptionText" type="nc:TextType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A description of the content of a document.</xsd:documentation>
@@ -1870,6 +1887,11 @@
   <xsd:element name="DocumentReceivedDate" type="nc:DateType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A date a transmitted document was received.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DocumentRelatedResourceText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A reference to another document or resource related to the document.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="DocumentSequenceID" type="niem-xsd:string" nillable="true">
@@ -2299,6 +2321,19 @@
       <xsd:documentation>A geophysical location described by postal information.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="LocationCategory" abstract="true">
+    <xsd:annotation>
+      <xsd:documentation>A kind or functional description of a location.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="LocationCategoryText" type="nc:TextType" substitutionGroup="nc:LocationCategory">
+    <xsd:annotation>
+      <xsd:documentation>A kind or functional description of a location.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="LocationCategory"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="LocationCityName" type="nc:ProperNameTextType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A name of a city or town.</xsd:documentation>
@@ -2553,6 +2588,11 @@
   <xsd:element name="OrganizationName" type="nc:TextType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A name of an organization.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="OrganizationOtherIdentification" type="nc:IdentificationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An identification assigned to an organization.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="OrganizationPrimaryContactInformation" type="nc:ContactInformationType" nillable="true">
@@ -2814,6 +2854,11 @@
       <xsd:appinfo>
         <i:Base i:name="PersonRace"/>
       </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonSSNIdentification" type="nc:IdentificationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A unique reference to a living person; assigned by the United States Social Security Administration.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="PersonSex" abstract="true">

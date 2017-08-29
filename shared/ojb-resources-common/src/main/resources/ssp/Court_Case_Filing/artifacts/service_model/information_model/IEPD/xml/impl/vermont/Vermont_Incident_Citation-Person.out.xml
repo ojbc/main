@@ -1,0 +1,313 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<cfm:CoreFilingMessage xmlns:cfm="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ansi-nist="http://niem.gov/niem/ansi-nist/2.0" xmlns:ojb-cit-doc="http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0"
+	xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0" xmlns:vt-cit-codes="http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0"
+	xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../../xsd/message/ECF-4.0-CoreFilingMessage.xsd http://ojbc.org/IEPD/Exchange/CitationCaseDocument/1.0 ../../../xsd/Citation_Case-doc.xsd http://ojbc.org/IEPD/Extensions/Vermont/citationCodes/1.0 ../../../xsd/impl/vermont/citation_codes.xsd">
+	<ojb-cit-doc:CitationCase>
+         <ojb-cit-ext:CourtCaseReportingSystem>
+            <nc:IdentificationID>TraCS</nc:IdentificationID>
+         </ojb-cit-ext:CourtCaseReportingSystem>
+         <ojb-cit-ext:CaseAugmentation>
+            <ecf:PersonOrganizationAssociation>
+               <nc:PersonReference s:ref="d1e147"/>
+               <nc:OrganizationReference s:ref="d1e200"/>
+               <ecf:EntityAssociationTypeCode/>
+            </ecf:PersonOrganizationAssociation>
+            <ojb-cit-ext:CaseParticipant>
+               <ecf:EntityPerson s:id="d1e135">
+                  <nc:PersonName>
+                     <nc:PersonGivenName>Jack</nc:PersonGivenName>
+                     <nc:PersonSurName>Jones</nc:PersonSurName>
+                  </nc:PersonName>
+                  <ecf:PersonAugmentation>
+                     <nc:ContactInformation>
+                        <nc:ContactMailingAddress>
+                           <nc:StructuredAddress>
+                              <nc:LocationStreet>
+                                 <nc:StreetFullText>100 State Street</nc:StreetFullText>
+                              </nc:LocationStreet>
+                              <nc:LocationCityName>Richmond</nc:LocationCityName>
+                              <nc:LocationStateName>VT</nc:LocationStateName>
+                              <nc:LocationPostalCode>05401-2277</nc:LocationPostalCode>
+                           </nc:StructuredAddress>
+                        </nc:ContactMailingAddress>
+                     </nc:ContactInformation>
+                  </ecf:PersonAugmentation>
+               </ecf:EntityPerson>
+               <ecf:CaseParticipantRoleCode/>
+            </ojb-cit-ext:CaseParticipant>
+            <ojb-cit-ext:CaseParticipant>
+               <ecf:EntityPerson s:id="d1e143">
+                  <nc:PersonName>
+                     <nc:PersonFullName>Jesse James</nc:PersonFullName>
+                  </nc:PersonName>
+               </ecf:EntityPerson>
+               <ecf:CaseParticipantRoleCode/>
+            </ojb-cit-ext:CaseParticipant>
+            <ojb-cit-ext:CaseParticipant>
+               <ojb-cit-ext:EntityPerson s:id="d1e155">
+                  <nc:PersonBirthDate>
+                     <nc:Date>1965-09-29</nc:Date>
+                  </nc:PersonBirthDate>
+                  <nc:PersonBirthLocation>
+                     <nc:LocationAddress>
+                        <nc:StructuredAddress>
+                           <nc:LocationCityName>Athens</nc:LocationCityName>
+                           <nc:LocationStateName>GA</nc:LocationStateName>
+                           <nc:LocationCountryName>United States</nc:LocationCountryName>
+                        </nc:StructuredAddress>
+                     </nc:LocationAddress>
+                  </nc:PersonBirthLocation>
+                  <nc:PersonEyeColorCode>BRO</nc:PersonEyeColorCode>
+                  <nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
+                  <nc:PersonHeightMeasure>
+                     <nc:MeasureText>70</nc:MeasureText>
+                     <nc:MeasureUnitText>INH</nc:MeasureUnitText>
+                  </nc:PersonHeightMeasure>
+                  <nc:PersonName>
+                     <nc:PersonGivenName>Jennifer</nc:PersonGivenName>
+                     <nc:PersonMiddleName>J</nc:PersonMiddleName>
+                     <nc:PersonSurName>Jones</nc:PersonSurName>
+                     <nc:PersonFullName>Jones, Jennifer, J</nc:PersonFullName>
+                  </nc:PersonName>
+                  <nc:PersonSexCode>F</nc:PersonSexCode>
+                  <nc:PersonWeightMeasure>
+                     <nc:MeasureText>135</nc:MeasureText>
+                     <nc:MeasureUnitText>LBR</nc:MeasureUnitText>
+                  </nc:PersonWeightMeasure>
+                  <ojb-cit-ext:PersonAugmentation>
+                     <nc:ContactInformation>
+                        <nc:ContactMailingAddress>
+                           <nc:StructuredAddress>
+                              <nc:LocationStreet>
+                                 <nc:StreetFullText>145 Austin Dr</nc:StreetFullText>
+                              </nc:LocationStreet>
+                              <nc:LocationCityName>Burlington</nc:LocationCityName>
+                              <nc:LocationStateName>VT</nc:LocationStateName>
+                              <nc:LocationPostalCode>05401</nc:LocationPostalCode>
+                           </nc:StructuredAddress>
+                        </nc:ContactMailingAddress>
+                        <nc:ContactTelephoneNumber s:id="d1e208">
+                           <nc:FullTelephoneNumber>
+                              <nc:TelephoneNumberFullID>802-363-1111</nc:TelephoneNumberFullID>
+                           </nc:FullTelephoneNumber>
+                        </nc:ContactTelephoneNumber>
+                        <nc:ContactTelephoneNumber s:id="d1e214">
+                           <nc:FullTelephoneNumber>
+                              <nc:TelephoneNumberFullID>802-363-1146</nc:TelephoneNumberFullID>
+                           </nc:FullTelephoneNumber>
+                        </nc:ContactTelephoneNumber>
+                     </nc:ContactInformation>
+                     <nc:PersonContactInformationAssociation>
+                        <nc:ContactInformationReference s:ref="d1e208"/>
+                        <nc:ContactInformationIsHomeIndicator>true</nc:ContactInformationIsHomeIndicator>
+                     </nc:PersonContactInformationAssociation>
+                     <nc:PersonContactInformationAssociation>
+                        <nc:ContactInformationReference s:ref="d1e214"/>
+                        <nc:ContactInformationIsWorkIndicator>true</nc:ContactInformationIsWorkIndicator>
+                     </nc:PersonContactInformationAssociation>
+                     <ojb-cit-ext:PersonDriverLicense>
+                        <nc:DriverLicenseIdentification>
+                           <nc:IdentificationID>41444812</nc:IdentificationID>
+                           <j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
+                        </nc:DriverLicenseIdentification>
+                     </ojb-cit-ext:PersonDriverLicense>
+                     <ojb-cit-ext:PersonFishAndWildlifeLicenseIdentification>
+                        <nc:IdentificationID>12345678</nc:IdentificationID>
+                     </ojb-cit-ext:PersonFishAndWildlifeLicenseIdentification>
+                  </ojb-cit-ext:PersonAugmentation>
+               </ojb-cit-ext:EntityPerson>
+               <ecf:CaseParticipantRoleCode/>
+            </ojb-cit-ext:CaseParticipant>
+         </ojb-cit-ext:CaseAugmentation>
+         <ojb-cit-ext:CitationCaseAugmentation>
+            <j:CaseCharge>
+               <j:ChargeStatute s:id="d1e421">
+                  <j:StatuteOffenseIdentification>
+                     <nc:IdentificationID>23V1007A</nc:IdentificationID>
+                  </j:StatuteOffenseIdentification>
+               </j:ChargeStatute>
+            </j:CaseCharge>
+            <j:CaseCharge>
+               <j:ChargeStatute s:id="d1e439">
+                  <j:StatuteOffenseIdentification>
+                     <nc:IdentificationID>1007A</nc:IdentificationID>
+                  </j:StatuteOffenseIdentification>
+               </j:ChargeStatute>
+            </j:CaseCharge>
+            <ecf-cit:CitationSubject>
+               <nc:RoleOfPersonReference s:ref="d1e155"/>
+               <ecf-cit:PersonBloodAlcoholNumber>0.2</ecf-cit:PersonBloodAlcoholNumber>
+            </ecf-cit:CitationSubject>
+            <ojb-cit-ext:Citation s:id="d1e129">
+               <nc:ActivityIdentification>
+                  <nc:IdentificationID>82734800</nc:IdentificationID>
+               </nc:ActivityIdentification>
+               <nc:ActivityDate>
+                  <nc:DateTime>2012-08-02T10:30:04.048-04:00</nc:DateTime>
+               </nc:ActivityDate>
+               <j:CitationAgency s:id="d1e200">
+                  <nc:OrganizationName>Burlington Police Department</nc:OrganizationName>
+                  <nc:OrganizationPrimaryContactInformation>
+                     <nc:ContactEntity>
+                        <ecf:EntityOrganization>
+                           <nc:OrganizationIdentification>
+                              <nc:IdentificationID>VT0040100</nc:IdentificationID>
+                           </nc:OrganizationIdentification>
+                        </ecf:EntityOrganization>
+                     </nc:ContactEntity>
+                  </nc:OrganizationPrimaryContactInformation>
+               </j:CitationAgency>
+               <ojb-cit-ext:CitationIssuingOfficial s:id="d1e147">
+                  <nc:RoleOfPersonReference s:ref="d1e143"/>
+                  <j:EnforcementOfficialBadgeIdentification>
+                     <nc:IdentificationID>12345</nc:IdentificationID>
+                  </j:EnforcementOfficialBadgeIdentification>
+                  <ojb-cit-ext:EnforcementOfficialIdentification>
+                     <nc:IdentificationID>ID467023</nc:IdentificationID>
+                  </ojb-cit-ext:EnforcementOfficialIdentification>
+               </ojb-cit-ext:CitationIssuingOfficial>
+               <ojb-cit-ext:CitationAugmentation>
+                  <ojb-cit-ext:CitationViolationDate>
+                     <nc:DateTime>2012-08-02T10:30:04.048-04:00</nc:DateTime>
+                  </ojb-cit-ext:CitationViolationDate>
+                  <vt-cit-codes:CitationMunicipalityCode>Athens</vt-cit-codes:CitationMunicipalityCode>
+                  <ojb-cit-ext:CitationWaiverAmount>105.00</ojb-cit-ext:CitationWaiverAmount>
+                  <ojb-cit-ext:CitationServedIndicator>true</ojb-cit-ext:CitationServedIndicator>
+                  <ojb-cit-ext:CitationMailedIndicator>false</ojb-cit-ext:CitationMailedIndicator>
+                  <ojb-cit-ext:CitationIssuedLocation>
+                     <nc:LocationHighway>
+                        <nc:HighwayID>US 91</nc:HighwayID>
+                        <nc:HighwayPositionText>123 Allen Drive, Milton, VT, 05468</nc:HighwayPositionText>
+                     </nc:LocationHighway>
+                  </ojb-cit-ext:CitationIssuedLocation>
+               </ojb-cit-ext:CitationAugmentation>
+            </ojb-cit-ext:Citation>
+            <ojb-cit-ext:Vehicle s:id="d1e289">
+               <nc:VehicleColorPrimaryCode>SIL</nc:VehicleColorPrimaryCode>
+               <nc:ItemModelName>Model</nc:ItemModelName>
+               <nc:ItemModelYearDate>2015</nc:ItemModelYearDate>
+               <nc:VehicleStyleCode>SD</nc:VehicleStyleCode>
+               <nc:ConveyanceRegistrationPlateIdentification>
+                  <nc:IdentificationID>ABC1234567</nc:IdentificationID>
+                  <j:IdentificationJurisdictionNCICLISCode>VT</j:IdentificationJurisdictionNCICLISCode>
+               </nc:ConveyanceRegistrationPlateIdentification>
+               <nc:VehicleCMVIndicator>false</nc:VehicleCMVIndicator>
+               <nc:VehicleIdentification>
+                  <nc:IdentificationID>VIN</nc:IdentificationID>
+               </nc:VehicleIdentification>
+               <nc:VehicleMakeCode>TOYT</nc:VehicleMakeCode>
+               <ojb-cit-ext:VehicleAugmentation>
+                  <ojb-cit-ext:VehicleHazardousMaterialIndicator>true</ojb-cit-ext:VehicleHazardousMaterialIndicator>
+               </ojb-cit-ext:VehicleAugmentation>
+            </ojb-cit-ext:Vehicle>
+            <ojb-cit-ext:Offense>
+               <nc:ActivityDescriptionText>Simple Assault 13 VSA 1023 13B</nc:ActivityDescriptionText>
+               <ojb-cit-ext:OffenseViolatedStatute>
+                  <j:StatuteCodeIdentification>
+                     <nc:IdentificationID>20-124</nc:IdentificationID>
+                  </j:StatuteCodeIdentification>
+               </ojb-cit-ext:OffenseViolatedStatute>
+               <ojb-cit-ext:DrivingOffensePoints>2</ojb-cit-ext:DrivingOffensePoints>
+               <ojb-cit-ext:OffenseFineAmountMinimum>47.00</ojb-cit-ext:OffenseFineAmountMinimum>
+               <ojb-cit-ext:OffenseFineAmountMaximum>1197.00</ojb-cit-ext:OffenseFineAmountMaximum>
+               <ojb-cit-ext:RelatedCriminalChargeIndicator>false</ojb-cit-ext:RelatedCriminalChargeIndicator>
+               <ojb-cit-ext:CFRStatute>
+                  <j:StatuteCodeIdentification>
+                     <nc:IdentificationID>23CFR655</nc:IdentificationID>
+                  </j:StatuteCodeIdentification>
+               </ojb-cit-ext:CFRStatute>
+            </ojb-cit-ext:Offense>
+            <ojb-cit-ext:Offense>
+               <nc:ActivityDescriptionText>SL3 - 21-30 MPH Over Speed Limit - Work Zone</nc:ActivityDescriptionText>
+               <ojb-cit-ext:OffenseViolatedStatute>
+                  <j:StatuteCodeIdentification>
+                     <nc:IdentificationID>22-124</nc:IdentificationID>
+                  </j:StatuteCodeIdentification>
+               </ojb-cit-ext:OffenseViolatedStatute>
+               <ojb-cit-ext:CFRStatute>
+                  <j:StatuteCodeIdentification>
+                     <nc:IdentificationID>12FR655</nc:IdentificationID>
+                  </j:StatuteCodeIdentification>
+               </ojb-cit-ext:CFRStatute>
+            </ojb-cit-ext:Offense>
+            <ojb-cit-ext:DrivingIncident s:id="d1e99">
+               <nc:ActivityIdentification>
+                  <nc:IdentificationID>Law(15RM00998)</nc:IdentificationID>
+               </nc:ActivityIdentification>
+               <nc:ActivityDateRange>
+                  <nc:StartDate>
+                     <nc:DateTime>2016-08-10T07:10:42</nc:DateTime>
+                  </nc:StartDate>
+                  <nc:EndDate>
+                     <nc:DateTime>2016-08-17T20:24:41</nc:DateTime>
+                  </nc:EndDate>
+               </nc:ActivityDateRange>
+               <nc:ActivityDescriptionText>Speeding</nc:ActivityDescriptionText>
+               <nc:IncidentLocation>
+                  <nc:LocationAddress>
+                     <nc:StructuredAddress>
+                        <nc:LocationCityName>Milton</nc:LocationCityName>
+                     </nc:StructuredAddress>
+                  </nc:LocationAddress>
+                  <nc:LocationHighway>
+                     <nc:HighwayID>US 91</nc:HighwayID>
+                     <nc:HighwayPositionText>123 Allen Drive, Milton, VT, 05468</nc:HighwayPositionText>
+                  </nc:LocationHighway>
+               </nc:IncidentLocation>
+               <j:DrivingIncidentRecordedSpeedRate>
+                  <nc:MeasureText>30</nc:MeasureText>
+                  <nc:MeasureUnitText>mph</nc:MeasureUnitText>
+               </j:DrivingIncidentRecordedSpeedRate>
+               <j:DrivingIncidentLegalSpeedRate>
+                  <nc:MeasureText>40.</nc:MeasureText>
+                  <nc:MeasureUnitText>mph</nc:MeasureUnitText>
+               </j:DrivingIncidentLegalSpeedRate>
+               <j:IncidentAugmentation>
+                  <j:IncidentTrafficAccidentInvolvedIndicator>false</j:IncidentTrafficAccidentInvolvedIndicator>
+               </j:IncidentAugmentation>
+               <nc:IncidentVehicleAssociation>
+                  <nc:ActivityReference s:ref="d1e99"/>
+                  <nc:ConveyanceReference s:ref="d1e289"/>
+               </nc:IncidentVehicleAssociation>
+               <ojb-cit-ext:DrivingIncidentAugmentation>
+                  <ojb-cit-ext:DrivingAccidentFatalityIndicator>false</ojb-cit-ext:DrivingAccidentFatalityIndicator>
+                  <ojb-cit-ext:SeatBeltViolationIndicator>false</ojb-cit-ext:SeatBeltViolationIndicator>
+                  <ojb-cit-ext:CivilReliefActIndicator>true</ojb-cit-ext:CivilReliefActIndicator>
+                  <ojb-cit-ext:CivilReliefActJuvenileIndicator>true</ojb-cit-ext:CivilReliefActJuvenileIndicator>
+                  <ojb-cit-ext:CivilReliefActOtherIndicator>true</ojb-cit-ext:CivilReliefActOtherIndicator>
+                  <ojb-cit-ext:CivilReliefActOtherText>Text</ojb-cit-ext:CivilReliefActOtherText>
+               </ojb-cit-ext:DrivingIncidentAugmentation>
+            </ojb-cit-ext:DrivingIncident>
+         </ojb-cit-ext:CitationCaseAugmentation>
+         <ojb-cit-ext:CitationDeliveryRecipientAssociation>
+            <ojb-cit-ext:CitationReference s:ref="d1e129"/>
+            <nc:EntityPersonReference s:ref="d1e155"/>
+         </ojb-cit-ext:CitationDeliveryRecipientAssociation>
+         <nc:ImmediateFamilyAssociation>
+            <nc:PersonParentReference s:ref="d1e135"/>
+            <nc:PersonChildReference s:ref="d1e155"/>
+         </nc:ImmediateFamilyAssociation>
+      </ojb-cit-doc:CitationCase>
+   </cfm:CoreFilingMessage>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<core:CoreFilingMessage xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
+	xmlns:citation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../../xsd/message/ECF-4.0-CoreFilingMessage.xsd">
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>91</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>MESSAGINGPROFILEID</ecf:SendingMDEProfileCode>
+	<criminal:CriminalCase xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
+		xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0 ../xsd/casetype/ECF-4.0-CriminalCase.xsd">
+		<nc:ActivityDate>
+			<nc:DateTime>2016-11-13T12:40:00</nc:DateTime>
+		</nc:ActivityDate>
+		<nc:ActivityDescriptionText>Extended Case Title</nc:ActivityDescriptionText>
+		<nc:CaseTitleText>X</nc:CaseTitleText>
+		<nc:CaseCategoryText>X</nc:CaseCategoryText>
+		<nc:CaseTrackingID>X</nc:CaseTrackingID>
+		<j:CaseAugmentation>
+			<j:CaseCourt>
+				<nc:OrganizationLocation>
+					<nc:LocationName>X</nc:LocationName>
+				</nc:OrganizationLocation>
+				<j:CourtName>X</j:CourtName>
+			</j:CaseCourt>
+			<j:CaseDefendantParty>
+				<nc:EntityPersonReference s:ref="Defendant_01" />
+			</j:CaseDefendantParty>
+			<j:CaseInitiatingParty>
+				<nc:EntityPersonReference s:ref="Initiating_01" />
+			</j:CaseInitiatingParty>
+		</j:CaseAugmentation>
+		<ecf:CaseAugmentation>
+			<ecf:Alias>
+				<ecf:AliasAlternateName>Alias</ecf:AliasAlternateName>
+				<ecf:AliasAlternateNameTypeCode>ecf:Alias</ecf:AliasAlternateNameTypeCode>
+				<nc:EntityReference />
+			</ecf:Alias>
+			<ecf:CaseParticipant s:id="Defendant_01">
+				<ecf:EntityPerson>
+					<nc:PersonBirthDate>
+						<nc:Date>1983-01-01</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
+					<nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
+					<nc:PersonHeightMeasure>
+						<nc:MeasureText>68</nc:MeasureText>
+						<nc:MeasureUnitText>INH</nc:MeasureUnitText>
+					</nc:PersonHeightMeasure>
+					<nc:PersonName>
+						<nc:PersonNamePrefixText>Prefix</nc:PersonNamePrefixText>
+						<nc:PersonGivenName>First</nc:PersonGivenName>
+						<nc:PersonMiddleName>Middle</nc:PersonMiddleName>
+						<nc:PersonSurName>Last</nc:PersonSurName>
+						<nc:PersonNameSuffixText>Suffix</nc:PersonNameSuffixText>
+					</nc:PersonName>
+					<nc:PersonSexCode>M</nc:PersonSexCode>
+					<nc:PersonStateIdentification>
+						<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+					</nc:PersonStateIdentification>
+					<nc:PersonWeightMeasure>
+						<nc:MeasureText>nc:MeasureText</nc:MeasureText>
+						<nc:MeasureUnitText>nc:MeasureUnitText</nc:MeasureUnitText>
+					</nc:PersonWeightMeasure>
+					<ecf:PersonAugmentation>
+						<ecf:PersonDriverLicense>
+							<nc:DriverLicenseIdentification>
+								<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+								<j:DrivingJurisdictionAuthorityNCICLSTACode>ND</j:DrivingJurisdictionAuthorityNCICLSTACode>
+							</nc:DriverLicenseIdentification>
+						</ecf:PersonDriverLicense>
+					</ecf:PersonAugmentation>
+				</ecf:EntityPerson>
+				<ecf:CaseParticipantRoleCode>Defendant</ecf:CaseParticipantRoleCode>
+				<nc:ContactInformation>
+					<nc:ContactTelephoneNumber>
+						<nc:FullTelephoneNumber>
+							<nc:TelephoneNumberFullID>nc:TelephoneNumberFullID</nc:TelephoneNumberFullID>
+							<nc:TelephoneSuffixID>nc:TelephoneSuffixID</nc:TelephoneSuffixID>
+						</nc:FullTelephoneNumber>
+					</nc:ContactTelephoneNumber>
+					<nc:ContactMailingAddress>
+						<nc:StructuredAddress>
+							<nc:LocationStreet>
+								<nc:StreetFullText>123 Main St.</nc:StreetFullText>
+							</nc:LocationStreet>
+							<nc:LocationCityName>Anytown</nc:LocationCityName>
+							<nc:LocationStateName>IN</nc:LocationStateName>
+							<nc:LocationPostalCode>12345</nc:LocationPostalCode>
+						</nc:StructuredAddress>
+					</nc:ContactMailingAddress>
+					<nc:ContactInformationDescriptionText>nc:ContactInformationDescriptionText</nc:ContactInformationDescriptionText>
+				</nc:ContactInformation>
+			</ecf:CaseParticipant>
+			<ecf:CaseParticipant s:id="Officer_01">
+				<ecf:EntityPerson>
+					<nc:PersonName>
+						<nc:PersonGivenName>John</nc:PersonGivenName>
+						<nc:PersonMiddleName>W.</nc:PersonMiddleName>
+						<nc:PersonSurName>Doe</nc:PersonSurName>
+					</nc:PersonName>
+				</ecf:EntityPerson>
+				<ecf:CaseParticipantRoleCode>Arresting Officer</ecf:CaseParticipantRoleCode>
+			</ecf:CaseParticipant>
+			<ecf:CaseParticipant s:id="Initiating_01">
+				<ecf:EntityPerson>
+					<nc:PersonName>
+						<nc:PersonGivenName>John</nc:PersonGivenName>
+						<nc:PersonMiddleName>W.</nc:PersonMiddleName>
+						<nc:PersonSurName>Doe</nc:PersonSurName>
+					</nc:PersonName>
+				</ecf:EntityPerson>
+				<ecf:CaseParticipantRoleCode>Initiating Party</ecf:CaseParticipantRoleCode>
+			</ecf:CaseParticipant>
+		</ecf:CaseAugmentation>
+		<criminal:CaseArrest>
+			<nc:ActivityDate>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</nc:ActivityDate>
+			<j:ArrestAgency>
+				<nc:OrganizationName>nc:OrganizationName</nc:OrganizationName>
+			</j:ArrestAgency>
+			<j:ArrestAgencyRecordIdentification>
+				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+			</j:ArrestAgencyRecordIdentification>
+			<j:ArrestOfficial>
+				<nc:RoleOfPersonReference />
+			</j:ArrestOfficial>
+			<j:ArrestSubject>
+				<nc:RoleOfPersonReference />
+			</j:ArrestSubject>
+			<j:Booking>
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+				</nc:ActivityIdentification>
+				<j:BookingAgencyRecordIdentification>
+					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+				</j:BookingAgencyRecordIdentification>
+			</j:Booking>
+		</criminal:CaseArrest>
+		<criminal:CaseCharge>
+			<j:ChargeDescriptionText>j:ChargeDescriptionText</j:ChargeDescriptionText>
+			<j:ChargeSeverityLevel>
+				<j:SeverityLevelDescriptionText>X</j:SeverityLevelDescriptionText>
+			</j:ChargeSeverityLevel>
+			<j:ChargeStatute>
+				<j:StatuteCodeIdentification>
+					<nc:IdentificationID>X</nc:IdentificationID>
+				</j:StatuteCodeIdentification>
+			</j:ChargeStatute>
+			<criminal:ChargeOffense>
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>Incident #</nc:IdentificationID>
+				</nc:ActivityIdentification>
+				<nc:ActivityDate>
+					<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
+				</nc:ActivityDate>
+				<nc:ActivityDateRange>
+					<nc:StartDate>
+						<nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+					</nc:StartDate>
+					<nc:EndDate>
+						<nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+					</nc:EndDate>
+				</nc:ActivityDateRange>
+			</criminal:ChargeOffense>
+			<criminal:ChargeAmendedIndicator>true</criminal:ChargeAmendedIndicator>
+		</criminal:CaseCharge>
+		<citation:CitationCaseAugmentation>
+			<citation:Vehicle></citation:Vehicle>
+		</citation:CitationCaseAugmentation>
+	</criminal:CriminalCase>
+	<core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator>
+	<core:FilingLeadDocument s:id="_123456ABC.app.doc">
+		<nc:DocumentDescriptionText>Appearance</nc:DocumentDescriptionText>
+		<nc:DocumentLanguageCode>eng</nc:DocumentLanguageCode>
+		<ecf:DocumentMetadata>
+			<j:RegisterActionDescriptionText />
+			<ecf:FilingAttorneyID />
+			<ecf:FilingPartyID />
+		</ecf:DocumentMetadata>
+		<ecf:DocumentRendition>
+			<ecf:DocumentRenditionMetadata>
+				<ecf:DocumentAttachment s:id="Attachment1">
+					<nc:BinaryDescriptionText>application/msword
+					</nc:BinaryDescriptionText>
+					<nc:BinaryLocationURI>cid://Payload1</nc:BinaryLocationURI>
+				</ecf:DocumentAttachment>
+			</ecf:DocumentRenditionMetadata>
+		</ecf:DocumentRendition>
+	</core:FilingLeadDocument>
+	<core:FilingConnectedDocument s:id="_123456ABC.inf.doc">
+		<nc:DocumentDescriptionText>Information</nc:DocumentDescriptionText>
+		<nc:DocumentLanguageCode>eng</nc:DocumentLanguageCode>
+		<ecf:DocumentMetadata>
+			<j:RegisterActionDescriptionText />
+			<ecf:ParentDocumentReference s:ref="_123456ABC.app.doc" />
+			<ecf:FilingAttorneyID />
+			<ecf:FilingPartyID />
+		</ecf:DocumentMetadata>
+		<ecf:DocumentRendition>
+			<ecf:DocumentRenditionMetadata>
+				<ecf:DocumentAttachment s:id="Attachment2">
+					<nc:BinaryDescriptionText>application/msword
+					</nc:BinaryDescriptionText>
+					<nc:BinaryLocationURI>cid://Payload2</nc:BinaryLocationURI>
+				</ecf:DocumentAttachment>
+			</ecf:DocumentRenditionMetadata>
+		</ecf:DocumentRendition>
+	</core:FilingConnectedDocument>
+</core:CoreFilingMessage>
