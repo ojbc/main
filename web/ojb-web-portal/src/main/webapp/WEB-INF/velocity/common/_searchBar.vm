@@ -58,7 +58,7 @@
 
 <div id="searchBar" >
 	<div style="float:right" id="loggedInUserInfo">
-		<img src="#springUrl('/static/images/Search Bar/icon-user.png')" alt="User Icon"/> Welcome, $!currentUserName
+		<i class="fa fa-user" aria-hidden="true" style="color: black"></i> Welcome, $!currentUserName
 		#if ($showSignOutButton)
 			&nbsp;| <a title="Sign out" href="#springUrl('/portal/performLogout')" id="signOut"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></a></i>
 		#end
