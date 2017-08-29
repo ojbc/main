@@ -26,7 +26,7 @@
 	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
 	xmlns:criminalCase="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
 	xmlns:citationCase="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
-	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../xsd/message/ECF-4.0-CoreFilingMessage.xsd">
+	xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../../../xsd/message/ECF-4.0-CoreFilingMessage.xsd">
 	<nc:DocumentIdentification>
 		<nc:IdentificationID>123456ABC</nc:IdentificationID>
 	</nc:DocumentIdentification>

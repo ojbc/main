@@ -17,14 +17,11 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
-	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
-	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
-	xmlns:ecf-crim="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
-	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
-	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+<xsd:schema xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+	xmlns:ecf-crim="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
+	xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0" xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
 	targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0">
 	<xsd:annotation>
 		<xsd:documentation>CriminalCase</xsd:documentation>
@@ -32,31 +29,34 @@
 			<i:ConformantIndicator>true</i:ConformantIndicator>
 		</xsd:appinfo>
 	</xsd:annotation>
-	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0"
-		schemaLocation="./constraint/niem/niem-core/2.0/niem-core.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0"
-		schemaLocation="./constraint/niem/structures/2.0/structures.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0"
-		schemaLocation="./constraint/niem/appinfo/2.0/appinfo.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0"
-		schemaLocation="./constraint/niem/proxy/xsd/2.0/xsd.xsd" />
-	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0"
-		schemaLocation="./constraint/niem/domains/jxdm/4.0/jxdm.xsd" />
-	<xsd:import
-		namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
-		schemaLocation="./common/ECF-4.0-CommonTypes.xsd" />
-	<xsd:import
-		namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
-		schemaLocation="./casetype/ECF-4.0-CriminalCase.xsd" />
-		
-			<xsd:import
-		namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
-		schemaLocation="./message/ECF-4.0-CoreFilingMessage.xsd" />
-		
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="./constraint/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="./constraint/niem/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="./constraint/niem/appinfo/2.0/appinfo.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="./constraint/niem/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="./constraint/niem/domains/jxdm/4.0/jxdm.xsd" />
+	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" schemaLocation="./common/ECF-4.0-CommonTypes.xsd" />
+	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" schemaLocation="./casetype/ECF-4.0-CriminalCase.xsd" />
+	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" schemaLocation="./casetype/ECF-4.0-CitationCase.xsd" />
+	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" schemaLocation="./message/ECF-4.0-CoreFilingMessage.xsd" />
+	<xsd:complexType name="CoreFilingMessageType">
+		<xsd:annotation>
+			<xsd:documentation>The structure of a Filing including any Payment Information will be documented in this section. This describes the filing
+				transaction between the Filing Assembly MDE and the Filing Review MDE. This information will become part of the Record Docketing between the
+				Filing Review MDE and the Court Record MDE but does not necessarily describe the information that is actually stored in the Court Record.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="core:CoreFilingMessageType">
+				<xsd:sequence>
+					<xsd:element ref="ojb-crim-ext:FilingLeadDocument" minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:FilingConnectedDocument" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:complexType name="CriminalCaseType">
 		<xsd:annotation>
-			<xsd:documentation>Information required to initiate a new criminal
-				case in a court. "Criminal" includes felonies and misdemeanors.
+			<xsd:documentation>Information required to initiate a new criminal case in a court. "Criminal" includes felonies and misdemeanors.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
@@ -64,54 +64,51 @@
 				<xsd:sequence>
 					<xsd:element ref="ojb-crim-ext:VictimRights" minOccurs="0" />
 					<xsd:element ref="j:CaseAugmentation" minOccurs="0" />
-					<xsd:element ref="ojb-crim-ext:CaseAugmentation"
-						minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:CaseAugmentation" minOccurs="0" />
 					<xsd:element ref="ojb-crim-ext:CaseArrest" minOccurs="0" />
-					<xsd:element ref="ojb-crim-ext:CaseCharge" minOccurs="0"
-						maxOccurs="unbounded" />
+					<xsd:element ref="ojb-crim-ext:CaseCharge" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-crim-ext:CitationCaseAugmentation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="CaseAugmentationType">
 		<xsd:annotation>
-			<xsd:documentation>Additional information needed to initiate a court
-				case.
+			<xsd:documentation>Additional information needed to initiate a court case.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="ecf:CaseAugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-crim-ext:CaseParticipant"
-						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-crim-ext:CaseParticipant" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-crim-ext:CaseDefendantParty" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-crim-ext:CaseInitiatingParty" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-crim-ext:CaseInitiationMethodText" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="ArrestType">
 		<xsd:annotation>
-			<xsd:documentation>Additional information about a case arrest.
-			</xsd:documentation>
+			<xsd:documentation>A data type for the apprehension of a subject by a peace official.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:ArrestType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-crim-ext:ArrestTrackingNumberIdentification"
-						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-crim-ext:ArrestTrackingNumberIdentification" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="ChargeType">
 		<xsd:annotation>
-			<xsd:documentation>Additional information about a case charge.
+			<xsd:documentation>A data type for a formal allegation that a specific person has committed a specific offense.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="ecf-crim:ChargeType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-crim-ext:ChargeDomesticViolenceIndicator"
-						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-crim-ext:ChargeDomesticViolenceIndicator" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -124,33 +121,34 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:EntityType">
 				<xsd:sequence>
-					<!-- xsd:element ref="ecf:CaseParticipantRoleCode -->
+					<xsd:element ref="ojb-crim-ext:PersonAugmentation" minOccurs="0" />
+					<xsd:element ref="ecf:CaseParticipantRoleCode" minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:ContactInformation" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="DriverLicenseType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for driver license information.
+			<xsd:documentation>A data type for a license issued to a person granting driving privileges.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:DriverLicenseType">
 				<xsd:sequence>
-					<!--xsd:element ref="ojb-crim-ext:CDLHolderCode" minOccurs="0"/ -->
+					<xsd:element ref="ojb-crim-ext:DriverLicenseCDLIndicator" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="PersonType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a person.</xsd:documentation>
+			<xsd:documentation>A data type for a human being.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="ecf:PersonType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-crim-ext:PersonAugmentation"
-						minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:PersonAugmentation" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -163,56 +161,140 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element
-						ref="ojb-crim-ext:VictimRightsAssertionCertificationIndicator"
-						minOccurs="0" />
-					<xsd:element ref="ojb-crim-ext:VictimRightsAssertionText"
-						minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:VictimRightsAssertionCertificationIndicator" minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:VictimRightsAssertionText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="PersonAugmentationType">
 		<xsd:annotation>
-			<xsd:documentation>Additional information about a person.
-			</xsd:documentation>
+			<xsd:documentation>Additional information about a person.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="ecf:PersonAugmentationType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-crim-ext:PersonDriverLicense"
-						minOccurs="0" />
-					<xsd:element
-						ref="ojb-crim-ext:PublicSafetyInformationNetworkIdentification"
-						minOccurs="0" />
-					<xsd:element ref="ojb-crim-ext:PersonOperatorLicenseIdentification"
-						minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:PersonDriverLicense" minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:PublicSafetyInformationNetworkIdentification" minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:PersonOperatorLicenseIdentification" minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:PersonConfidentialIndicator" minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:PersonJuvenileIndicator" minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:IdentifiedPersonTrackingIdentification" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<!-- ELEMENTS -->
-	<xsd:element name="CriminalCase" type="ojb-crim-ext:CriminalCaseType"
-		substitutionGroup="nc:Case" />
+	<xsd:complexType name="EntityType">
+		<xsd:annotation>
+			<xsd:documentation>A person, organization, or thing capable of bearing legal rights and responsibilities.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:EntityType">
+				<xsd:sequence>
+					<xsd:element ref="ojb-crim-ext:PartyIdentification" minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:PartyRoleText" minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:PartyCategoryText" minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:PartyConfidentialIndicator" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ContactInformationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for how to contact a person or an organization.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ContactInformationType">
+				<xsd:sequence>
+					<xsd:element ref="ojb-crim-ext:ContactMailingAddress" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ContactMailingAddressType">
+		<xsd:annotation>
+			<xsd:documentation>A type for a postal address by which a person or organization may be contacted.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AddressType">
+				<xsd:sequence>
+					<!-- nc:LocationCategoryText>Address Type</nc:LocationCategoryText -->
+					<xsd:element ref="ojb-crim-ext:DefaultLocationIndicator" minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:PreferredLocationIndicator" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CitationCaseAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for additional information about a charge issued by a law enforcement officer for a "violation" requiring the
+				person charged to plead guilty to the charge or to appear in court to contest the charge. A citation is issued in lieu of an arrest and
+				booking. "Violations" are a subset of "charges" for which a law enforcement officer is authorized to issue a citation in lieu of arrest and
+				booking. Examples: traffic ticket, parking ticket or ticket issued for some other ordinance violation such as barking dog or illegal
+				dumping.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ecf-cit:CitationCaseAugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="ojb-crim-ext:Vehicle" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="VehicleType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a motor-driven conveyance designed to carry its operator, and optionally passengers and cargo, over land.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ecf-cit:VehicleType">
+				<xsd:sequence>
+					<xsd:element ref="ojb-crim-ext:VehicleHazmatIndicator" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="DocumentType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a paper or electronic document.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ecf:DocumentType">
+				<xsd:sequence>
+					<xsd:element ref="ojb-crim-ext:PreviouslyFiledDocketText" minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:DocumentPublicPartyViewingRestrictedIndicator" minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:DocumentPublicViewingRestrictedIndicator" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="CriminalCase" type="ojb-crim-ext:CriminalCaseType" substitutionGroup="nc:Case">
+		<xsd:annotation>
+			<xsd:documentation>Information required to initiate a new criminal case in a court. "Criminal" includes felonies and misdemeanors.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="CaseArrest" type="ojb-crim-ext:ArrestType">
 		<xsd:annotation>
-			<xsd:documentation>The act of taking physical control over the person
-				of another by a law enforcement officer or other person acting under
+			<xsd:documentation>The act of taking physical control over the person of another by a law enforcement officer or other person acting under
 				color of law.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CaseCharge" type="ojb-crim-ext:ChargeType">
 		<xsd:annotation>
-			<xsd:documentation>The crime or violation a defendant is alleged or
-				found to have committed.
+			<xsd:documentation>The crime or violation a defendant is alleged or found to have committed.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CaseAugmentation" type="ojb-crim-ext:CaseAugmentationType">
 		<xsd:annotation>
-			<xsd:documentation>Additional information needed to initiate a court
-				case.
+			<xsd:documentation>Additional information needed to initiate a court case.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -222,43 +304,33 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="EntityPerson" type="ojb-crim-ext:PersonType"
-		substitutionGroup="nc:EntityRepresentation">
+	<xsd:element name="EntityPerson" type="ojb-crim-ext:PersonType" substitutionGroup="nc:EntityRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A person capable of bearing legal rights and
-				responsibilities.
+			<xsd:documentation>A person capable of bearing legal rights and responsibilities.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonDriverLicense" type="ojb-crim-ext:DriverLicenseType">
 		<xsd:annotation>
-			<xsd:documentation>Information about a license issued by a state or
-				federal entity authorizing operation of a motor vehicle on public
-				streets and highways.
+			<xsd:documentation>Information about a license issued by a state or federal entity authorizing operation of a motor vehicle on public streets
+				and highways.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="VictimRights" type="ojb-crim-ext:VictimRightsType">
 		<xsd:annotation>
-			<xsd:documentation>Information about a license issued by a state or
-				federal entity authorizing operation of a motor vehicle on public
-				streets and highways.
+			<xsd:documentation>Victim rights information.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PublicSafetyInformationNetworkIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A Public Safety Information Network Identifier for a person.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PublicSafetyInformationNetworkIdentification"
-		type="nc:IdentificationType">
+	<xsd:element name="VictimRightsAssertionCertificationIndicator" type="xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>A Public Safety Information Network Identifier for
-				a person.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="VictimRightsAssertionCertificationIndicator"
-		type="xsd:boolean">
-		<xsd:annotation>
-			<xsd:documentation>True if a victim rights certificate applies; false
-				otherwise.
+			<xsd:documentation>True if a victim rights certificate applies; false otherwise.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -267,46 +339,156 @@
 			<xsd:documentation>Victim Rights Assertion text.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="ArrestTrackingNumberIdentification"
-		type="nc:IdentificationType">
+	<xsd:element name="ArrestTrackingNumberIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A tracking number associated with an arrest.
-			</xsd:documentation>
+			<xsd:documentation>A tracking number associated with an arrest.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="PersonOperatorLicenseIdentification"
-		type="nc:IdentificationType">
+	<xsd:element name="PersonOperatorLicenseIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>A license to operate a device (e.g., snowmobile,
-				ATC).
-			</xsd:documentation>
+			<xsd:documentation>A license to operate a device (e.g., snowmobile, ATC).</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ChargeDomesticViolenceIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the charge involves domestic violence;
-				false otherwise.
-			</xsd:documentation>
+			<xsd:documentation>True if the charge involves domestic violence; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<!--xsd:element name="CDLHolderCode" type="j:CDLHolderCodeType"> <xsd:annotation> 
-		<xsd:documentation>A code indicating whether or not a driver has a CDL/CLP 
-		license.</xsd:documentation> </xsd:annotation> </xsd:element -->
-	<!--xsd:element name="CourtCaseFilingAttachment" type="ojb-crim-ext:CourtCaseFilingAttachmentType"> 
-		<xsd:annotation> <xsd:documentation>State criminal history record for a person.</xsd:documentation> 
-		</xsd:annotation> </xsd:element -->
 	<xsd:element name="CourtCaseFilingRepresentation" abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>A placeholder for a court case filing document.
-			</xsd:documentation>
+			<xsd:documentation>A placeholder for a court case filing document.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<!-- OJB Augmentation Elements -->
 	<xsd:element name="PersonAugmentation" type="ojb-crim-ext:PersonAugmentationType">
 		<xsd:annotation>
-			<xsd:documentation>Additional information about a person.
+			<xsd:documentation>Additional information about a person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PartyIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification for a party.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PartyRoleText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The role assumed by a party.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PartyCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The type of party.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PartyConfidentialIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if party information is confidential; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonConfidentialIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person information is confidential; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonJuvenileIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person is a juvenile; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to a person that has been identified. Some jurisdictions refer to this as an OTN.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<!-- OJB Elements -->
+	<xsd:element name="CaseDefendantParty" type="ojb-crim-ext:EntityType">
+		<xsd:annotation>
+			<xsd:documentation>An entity being charged or sued in a court of law.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseInitiatingParty" type="ojb-crim-ext:EntityType">
+		<xsd:annotation>
+			<xsd:documentation>An entity that brings charges or a suit against another in a court of law. Can be either a victim in a criminal case or a
+				plaintiff in a civil case.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DefaultLocationIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a location is the default location; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PreferredLocationIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a location is the preferred location; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DriverLicenseCDLIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a driver license is for a commercial vehicle; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VehicleHazmatIndicator">
+		<xsd:annotation>
+			<xsd:documentation>True if a vehicle is carrying hazardous materials; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseInitiationMethodText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A method used for initiation of a case.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PreviouslyFiledDocketText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>Previously filed docket entries.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DocumentPublicPartyViewingRestrictedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the public and other parties are restricted from viewing the document; false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DocumentPublicViewingRestrictedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the public is restricted from viewing the document; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ContactInformation" type="ojb-crim-ext:ContactInformationType">
+		<xsd:annotation>
+			<xsd:documentation>Data for how to contact a person or an organization.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ContactMailingAddress" type="ojb-crim-ext:ContactMailingAddressType">
+		<xsd:annotation>
+			<xsd:documentation>A postal address by which a person or organization may be contacted.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CitationCaseAugmentation" type="ojb-crim-ext:CitationCaseAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a charge issued by a law enforcement officer for a "violation" requiring the person charged
+				to plead guilty to the charge or to appear in court to contest the charge. A citation is issued in lieu of an arrest and booking.
+				"Violations" are a subset of "charges" for which a law enforcement officer is authorized to issue a citation in lieu of arrest and booking.
+				Examples: traffic ticket, parking ticket or ticket issued for some other ordinance violation such as barking dog or illegal dumping.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Vehicle" type="ojb-crim-ext:VehicleType">
+		<xsd:annotation>
+			<xsd:documentation>A motor-driven conveyance designed to carry its operator, and optionally passengers and cargo, over land.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FilingLeadDocument" type="ojb-crim-ext:DocumentType">
+		<xsd:annotation>
+			<xsd:documentation>The pleading, motion or order that is the main document in a Filing. A Document may have Attachments.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FilingConnectedDocument" type="ojb-crim-ext:DocumentType">
+		<xsd:annotation>
+			<xsd:documentation>A document included in a Filing that supports the Document. This document is not separately entered on the docket or
+				register of actions.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>
