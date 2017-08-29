@@ -130,11 +130,6 @@ public class SubscriptionValidator implements Validator{
 			errors.rejectValue("federalRapSheetDisclosureIndicator", 
 					"Disclosure Indicator must be selected");
 		}
-
-		if (BooleanUtils.isTrue(subscription.getFederalRapSheetDisclosureIndicator())){
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "federalRapSheetDisclosureAttentionDesignationText", 
-					"Disclosure Contact Information must be specified");
-		}
 		
 		ValidationUtils.rejectIfEmpty(errors, "stateId", "SID must be specified");
 		ValidationUtils.rejectIfEmpty(errors, "fullName", "Name must be specified");

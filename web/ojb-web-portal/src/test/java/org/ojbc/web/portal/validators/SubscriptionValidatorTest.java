@@ -75,9 +75,7 @@ public class SubscriptionValidatorTest {
 	private void assertDisclosureAttentionDesignationTextMissing(Subscription subscription) {
 		errors = new BeanPropertyBindingResult(subscription, "subscription");
 		subscriptionValidator.validate(subscription, errors);
-		assertThat(errors.getErrorCount(), is(1));
-		assertThat(errors.getFieldError("federalRapSheetDisclosureAttentionDesignationText").getCode(),
-				is("Disclosure Contact Information must be specified"));
+		assertThat(errors.getErrorCount(), is(0));
 	}
 	
 	private void assertDisclosureIndicatorNotSelected(Subscription subscription) {
