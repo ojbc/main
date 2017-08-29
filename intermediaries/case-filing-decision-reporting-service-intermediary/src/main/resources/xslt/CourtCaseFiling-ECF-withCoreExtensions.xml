@@ -30,7 +30,7 @@
 		<nc:ActivityDescriptionText>Extended Case Title</nc:ActivityDescriptionText>
 		<nc:CaseTitleText>X</nc:CaseTitleText>
 		<nc:CaseCategoryText>X</nc:CaseCategoryText>
-		<nc:CaseTrackingID>X</nc:CaseTrackingID>
+		<!--  nc:CaseTrackingID>X</nc:CaseTrackingID-->
 		<nc:CaseFiling>
 			<nc:DocumentFiledDate>
 				<nc:DateTime>2016-11-13T12:40:00</nc:DateTime>
@@ -42,7 +42,6 @@
 					<nc:LocationName>X</nc:LocationName>
 				</nc:OrganizationLocation>
 				<j:CourtName>X</j:CourtName>
-				<!-- j:CourtCategoryCode>DIS</j:CourtCategoryCode -->
 			</j:CaseCourt>
 			<j:CaseDomesticViolenceIndicator>false</j:CaseDomesticViolenceIndicator>
 		</j:CaseAugmentation>
@@ -102,40 +101,23 @@
 					<nc:ContactTelephoneNumber>
 						<nc:FullTelephoneNumber>
 							<nc:TelephoneNumberFullID>nc:TelephoneNumberFullID</nc:TelephoneNumberFullID>
+							<nc:TelephoneSuffixID>nc:TelephoneSuffixID</nc:TelephoneSuffixID>
 						</nc:FullTelephoneNumber>
 					</nc:ContactTelephoneNumber>
 					<nc:ContactEmailID>me@email.com</nc:ContactEmailID>
-					<nc:ContactInformationDescriptionText>Home</nc:ContactInformationDescriptionText>
+					<nc:ContactInformationDescriptionText>nc:ContactInformationDescriptionText</nc:ContactInformationDescriptionText>
 					<ojb-crim-ext:ContactMailingAddress>
 						<nc:StructuredAddress>
-							<nc:AddressSecondaryUnitText>Apt #3</nc:AddressSecondaryUnitText>
 							<nc:LocationStreet>
 								<nc:StreetFullText>123 Main St.</nc:StreetFullText>
 							</nc:LocationStreet>
 							<nc:LocationCityName>Anytown</nc:LocationCityName>
 							<nc:LocationStateName>IN</nc:LocationStateName>
-							<nc:LocationCountryName>USA</nc:LocationCountryName>
 							<nc:LocationPostalCode>12345</nc:LocationPostalCode>
 						</nc:StructuredAddress>
 						<ojb-crim-ext:DefaultLocationIndicator>true</ojb-crim-ext:DefaultLocationIndicator>
 						<ojb-crim-ext:PreferredLocationIndicator>true</ojb-crim-ext:PreferredLocationIndicator>
 					</ojb-crim-ext:ContactMailingAddress>
-				</ojb-crim-ext:ContactInformation>
-				<ojb-crim-ext:ContactInformation>
-					<nc:ContactTelephoneNumber>
-						<nc:FullTelephoneNumber>
-							<nc:TelephoneNumberFullID>nc:TelephoneNumberFullID</nc:TelephoneNumberFullID>
-						</nc:FullTelephoneNumber>
-					</nc:ContactTelephoneNumber>
-					<nc:ContactInformationDescriptionText>Business</nc:ContactInformationDescriptionText>
-				</ojb-crim-ext:ContactInformation>
-				<ojb-crim-ext:ContactInformation>
-					<nc:ContactTelephoneNumber>
-						<nc:FullTelephoneNumber>
-							<nc:TelephoneNumberFullID>nc:TelephoneNumberFullID</nc:TelephoneNumberFullID>
-						</nc:FullTelephoneNumber>
-					</nc:ContactTelephoneNumber>
-					<nc:ContactInformationDescriptionText>Cell</nc:ContactInformationDescriptionText>
 				</ojb-crim-ext:ContactInformation>
 			</ojb-crim-ext:CaseParticipant>
 			<ojb-crim-ext:CaseParticipant s:id="Officer_01">
@@ -163,14 +145,13 @@
 				<ojb-crim-ext:PartyIdentification>
 					<nc:IdentificationID>1234567</nc:IdentificationID>
 				</ojb-crim-ext:PartyIdentification>
-				<ojb-crim-ext:PartyRoleText>Party Type</ojb-crim-ext:PartyRoleText>
+				<ojb-crim-ext:PartyRoleText>Party Role</ojb-crim-ext:PartyRoleText>
 				<ojb-crim-ext:PartyCategoryText>Party Type</ojb-crim-ext:PartyCategoryText>
 				<ojb-crim-ext:PartyConfidentialIndicator>false</ojb-crim-ext:PartyConfidentialIndicator>
 			</ojb-crim-ext:CaseDefendantParty>
 			<ojb-crim-ext:CaseInitiatingParty>
 				<nc:EntityPersonReference s:ref="Initiating_01" />
-				<ojb-crim-ext:PartyRoleText>Party Type</ojb-crim-ext:PartyRoleText>
-				<ojb-crim-ext:PartyCategoryText>Party Type</ojb-crim-ext:PartyCategoryText>
+				<ojb-crim-ext:PartyRoleText>Party Role</ojb-crim-ext:PartyRoleText>
 			</ojb-crim-ext:CaseInitiatingParty>
 			<ojb-crim-ext:CaseInitiationMethodText>Method Text</ojb-crim-ext:CaseInitiationMethodText>
 		</ojb-crim-ext:CaseAugmentation>
@@ -185,12 +166,15 @@
 				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
 			</j:ArrestAgencyRecordIdentification>
 			<j:ArrestOfficial>
-				<nc:RoleOfPersonReference s:ref="Officer_01" />
+				<nc:RoleOfPersonReference />
 			</j:ArrestOfficial>
 			<j:ArrestSubject>
-				<nc:RoleOfPersonReference s:ref="Defendant_01" />
+				<nc:RoleOfPersonReference />
 			</j:ArrestSubject>
 			<j:Booking>
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+				</nc:ActivityIdentification>
 				<j:BookingAgency>
 					<nc:OrganizationName>Booking Agency</nc:OrganizationName>
 				</j:BookingAgency>
