@@ -115,7 +115,6 @@
 		$('#leftMenu').on("click", "#subscriptionsLink", function() {	  
 	  				  				  					  					    			    	
 			xhr = $.post("#springUrl('/subscriptions/subscriptionResults')", function(data) {
-    			console.log("Data: "  + data); 
 				$('#portalContent').html(data);
 			}).done(function(){	
 														
