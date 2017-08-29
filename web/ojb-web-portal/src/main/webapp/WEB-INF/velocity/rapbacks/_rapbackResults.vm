@@ -16,7 +16,6 @@
  *#
 <!DOCTYPE html>
 <script type="text/javascript">
- 
 	/* Custom filtering function which will hide or show records based on the values selected in the filtered column input fields */
 	$.fn.dataTable.ext.search.push(
 	    function( settings, data, dataIndex ) {
@@ -55,44 +54,48 @@
 	$(function() {
 		$( document ).tooltip();
 		
-		numCols = $("#searchResultsTable").find('tr')[0].cells.length;
-		optTable = {
-			"pagingType": "full_numbers",
-			"pageLength": 50,
-			stateSave: true, 
-			"order": [[ 1, "asc" ]],
-			"language": {
-        		"emptyTable": "No rapback record available"
-   			 },
-			"columnDefs": [{
-				targets: [ numCols -1 ],
-			    searchable: false, 
-			    sortable: false
-			} ]
-        };
+		#if ($("#searchResultsTable"))
+			numCols = $("#searchResultsTable").find('tr')[0].cells.length;
+			
+			optTable = {
+				"pagingType": "full_numbers",
+				"pageLength": 50,
+				stateSave: true, 
+				"order": [[ 1, "asc" ]],
+				"language": {
+	        		"emptyTable": "No rapback record available"
+	   			 },
+				"columnDefs": [{
+					targets: [ numCols -1 ],
+				    searchable: false, 
+				    sortable: false
+				} ]
+	        };
 		
-		var oTable = $("#searchResultsTable").DataTable( optTable);
-		
-		$('#filterColumn').on("change", '#rapbacksFilter', function() {
-        	oTable.draw();
-    	} );
+			var oTable = $("#searchResultsTable").DataTable( optTable);
+			
+			$('#filterColumn').on("change", '#rapbacksFilter', function() {
+    	    	oTable.draw();
+    		} );
 	  		
-		$('#filterColumn').on("click", '#clearFilterButton', function() {
-			$('#rapbacksFilter').val('');
-        	oTable.draw();
-    	} );
-    	
-		$('#filterColumn').on("change", '#hasSubsequentResults', function() {
-        	oTable.draw();
-    	} );
-    	
-		$('#filterColumn').on("change", '#showArchivedOnly', function() {
-			if ($('#showArchivedOnly').is(":checked")){
+			$('#filterColumn').on("click", '#clearFilterButton', function() {
 				$('#rapbacksFilter').val('');
-			}
-        	oTable.draw();
-    	} );
+	        	oTable.draw();
+	    	} );
     	
+			$('#filterColumn').on("change", '#hasSubsequentResults', function() {
+	        	oTable.draw();
+	    	} );
+    	
+			$('#filterColumn').on("change", '#showArchivedOnly', function() {
+				if ($('#showArchivedOnly').is(":checked")){
+					$('#rapbacksFilter').val('');
+				}
+	        	oTable.draw();
+	    	} );
+		#end 
+		
+		
     	$('#searchResultsTable').on('click', 'a.subscribe',function() {
     		$.get("#springUrl('/rapbacks/subscribe')", {transactionNumber: $(this).attr("id")}, function(data) {
     		
@@ -298,9 +301,8 @@
 			      $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage)
 		});
-
 		
-	});
+	}); 
 </script>
 	
 	
