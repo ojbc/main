@@ -45,7 +45,7 @@
 						$.each(data.allNames, function( index, value ) {
 							if(index == 0){
 								// requirements give us the official name 1st
-								nameHtml += '<option value="' + value + '" selected>' + value + '</option>';
+								nameHtml = '<option value="' + value + '" selected>' + value + '</option>';
 							}else{
 								// display a (A) signifying alternate name
 								nameHtml += '<option value="' + value + '">' + value + ' (A) </option>';
@@ -60,7 +60,7 @@
 						
 							$.each(data.dobStrings, function( index, value ) {
 								if(index == 0){
-									dateOfBirthDropdownHtml += '<option value="' + value + '" selected>' + value + '</option>';
+									dateOfBirthDropdownHtml = '<option value="' + value + '" selected>' + value + '</option>';
 								}else{
 									// display a (A) signifying alternate DOB
 									dateOfBirthDropdownHtml += '<option value="' + value + '">' + value + ' (A) </option>';
