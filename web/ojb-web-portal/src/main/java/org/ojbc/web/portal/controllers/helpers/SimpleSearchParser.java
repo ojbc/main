@@ -34,7 +34,6 @@ import org.ojbc.web.portal.controllers.simpleSearchExtractors.SSNExtractor;
 import org.ojbc.web.portal.controllers.simpleSearchExtractors.SearchTermExtractorInterface;
 import org.ojbc.web.portal.services.SearchTermsTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 
 @Resource

@@ -29,6 +29,7 @@ import org.w3c.dom.Element;
 @Service
 public class SubscriptionQueryMockImpl implements SubscriptionQueryInterface{
 		
+	@SuppressWarnings("unused")
 	private final Log logger = LogFactory.getLog(this.getClass());
 	
 	@Resource
