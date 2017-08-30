@@ -615,9 +615,7 @@ public class SubscriptionsController {
 				errorsList = processSubscribeOperation(subscription, samlElement);										
 				
 			} catch (Exception e) {
-
 				errorsList = Arrays.asList("An error occurred while processing subscription");				
-								
 				logger.error("Failed processing subscription: " + e);
 			}									
 		}					
@@ -893,9 +891,14 @@ public class SubscriptionsController {
 			
 			SubscriptionRequestErrorResponse invalidReqResp = (SubscriptionRequestErrorResponse)subResponse;
 			
-			rErrorMsg = "Invalid Request: \n";
-			rErrorMsg += invalidReqResp.getRequestErrorSystemName() + "\n";
-			rErrorMsg += invalidReqResp.getRequestErrorTxt();
+			if (invalidReqResp.getRequestErrorTxt().contains("InvalidEmailAddressesException")){
+				rErrorMsg = "The subscription request contains an invalid e-mail address"; 
+			}
+			else{
+				rErrorMsg = "Invalid Request: \n";
+				rErrorMsg += invalidReqResp.getRequestErrorSystemName() + "\n";
+				rErrorMsg += invalidReqResp.getRequestErrorTxt();
+			}
 			
 		}else if(SubscriptionResponseType.UNSUBSCRIPTION_ACCESS_DENIAL == responseType){
 			
