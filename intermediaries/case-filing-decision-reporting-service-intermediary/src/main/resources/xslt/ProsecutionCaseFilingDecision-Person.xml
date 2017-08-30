@@ -17,12 +17,12 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<cfd-doc:CaseFilingDecisionReport
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0 ../../../xsd/CaseFilingDecisionReport.xsd"
+<cfd-doc:CaseFilingDecisionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0 ../../../xsd/CaseFilingDecisionReport.xsd"
 	xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0" xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<!-- SAMPLE FILE - Elements Added as ECF Extensions in the Court Case Filing SSP are commented below -->
 	<nc:Case structures:id="Case_01">
 		<nc:ActivityDescriptionText>Extended Case Title</nc:ActivityDescriptionText>
 		<nc:CaseTitleText>Short Case Title</nc:CaseTitleText>
@@ -49,23 +49,7 @@
 					</j:StatuteCodeIdentification>
 					<j:StatuteDescriptionText>CHILD NEGLECT</j:StatuteDescriptionText>
 				</j:ChargeStatute>
-			</j:CaseCharge>
-			<j:CaseCharge structures:id="Charge_02">
-				<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
-				<j:ChargeDescriptionText>Description 2</j:ChargeDescriptionText>
-				<j:ChargeFilingDate>
-					<nc:Date>2016-10-13</nc:Date>
-				</j:ChargeFilingDate>
-				<j:ChargeQualifierText>Qualifier 2</j:ChargeQualifierText>
-				<j:ChargeSeverityLevel>
-					<j:SeverityLevelDescriptionText>Severity 2</j:SeverityLevelDescriptionText>
-				</j:ChargeSeverityLevel>
-				<j:ChargeStatute>
-					<j:StatuteCodeIdentification>
-						<nc:IdentificationID>Charge Code 2</nc:IdentificationID>
-					</j:StatuteCodeIdentification>
-					<j:StatuteDescriptionText>ASSAULT</j:StatuteDescriptionText>
-				</j:ChargeStatute>
+				<j:ChargeSubject structures:ref="Defendant_01" />
 			</j:CaseCharge>
 			<j:CaseCourt>
 				<nc:OrganizationLocation>
@@ -82,34 +66,13 @@
 				<cfd-ext:PartyCategoryText>Party Type</cfd-ext:PartyCategoryText>
 				<cfd-ext:PartyConfidentialIndicator>false</cfd-ext:PartyConfidentialIndicator>
 			</j:CaseDefendantParty>
-			<j:CaseDefendantParty>
-				<nc:EntityOrganization structures:ref="Defendant_Org_01">
-					<nc:OrganizationName>Defendant Organization</nc:OrganizationName>
-				</nc:EntityOrganization>
-				<cfd-ext:PartyIdentification>
-					<nc:IdentificationID>35765</nc:IdentificationID>
-				</cfd-ext:PartyIdentification>
-				<cfd-ext:PartyRoleText>Party Role</cfd-ext:PartyRoleText>
-				<cfd-ext:PartyCategoryText>Party Type</cfd-ext:PartyCategoryText>
-				<cfd-ext:PartyConfidentialIndicator>false</cfd-ext:PartyConfidentialIndicator>
-			</j:CaseDefendantParty>
 			<j:CaseDomesticViolenceIndicator>false</j:CaseDomesticViolenceIndicator>
 			<j:CaseInitiatingParty>
-				<nc:EntityPerson structures:ref="Initiating_Party_01" />
+				<nc:EntityPerson structures:ref="Initiating_01" />
+				<cfd-ext:PartyCategoryText>Party Type</cfd-ext:PartyCategoryText>
 			</j:CaseInitiatingParty>
-			<!-- j:CaseProsecutionAttorney>
-				<nc:RoleOfPerson structures:ref="CPAP_01" />
-				<j:JudicialOfficialBarMembership>
-				<j:JudicialOfficialBarIdentification>
-				<nc:IdentificationID>1205030</nc:IdentificationID>
-				<nc:IdentificationJurisdiction>
-				<nc:JurisdictionText>Hawaii</nc:JurisdictionText>
-				</nc:IdentificationJurisdiction>
-				</j:JudicialOfficialBarIdentification>
-				</j:JudicialOfficialBarMembership>
-				<j:JudicialOfficialCategoryText>Assistant Municipal Prosecutor</j:JudicialOfficialCategoryText>
-				</j:CaseProsecutionAttorney -->
 		</j:CaseAugmentation>
+		<cfd-ext:CaseInitiationMethodText>Case Initiation Method</cfd-ext:CaseInitiationMethodText>
 		<cfd-ext:CaseConfidentialIndicator>false</cfd-ext:CaseConfidentialIndicator>
 	</nc:Case>
 	<nc:Incident structures:id="Incident_01">
@@ -127,8 +90,8 @@
 		<j:ArrestAgencyRecordIdentification>
 			<nc:IdentificationID>Arrest Report #</nc:IdentificationID>
 		</j:ArrestAgencyRecordIdentification>
-		<j:ArrestOfficial>
-		</j:ArrestOfficial>
+		<j:ArrestOfficial structures:ref="Officer_01" />
+		<j:ArrestSubject structures:ref="Defendant_01" />
 	</j:Arrest>
 	<j:Booking structures:id="Booking_01">
 		<nc:ActivityIdentification>
@@ -142,11 +105,14 @@
 		<nc:ActivityDate>
 			<nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
 		</nc:ActivityDate>
-	</j:Offense>
-	<j:Offense structures:id="Offense_02">
-		<nc:ActivityDate>
-			<nc:DateTime>2016-09-02T08:20:00</nc:DateTime>
-		</nc:ActivityDate>
+		<nc:ActivityDateRange>
+			<nc:StartDate>
+				<nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+			</nc:StartDate>
+			<nc:EndDate>
+				<nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+			</nc:EndDate>
+		</nc:ActivityDateRange>
 	</j:Offense>
 	<nc:Vehicle structures:id="Vehicle_01">
 		<nc:VehicleCMVIndicator>false</nc:VehicleCMVIndicator>
@@ -187,6 +153,7 @@
 				</j:DriverLicenseIdentification>
 				<cfd-ext:DriverLicenseCDLIndicator>false</cfd-ext:DriverLicenseCDLIndicator>
 			</j:DriverLicense>
+			<!-- ECF Only has PersonStateIdentification -->
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>SI898709</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
@@ -197,22 +164,20 @@
 			<nc:IdentificationID>OffenderTracking Number</nc:IdentificationID>
 		</cfd-ext:IdentifiedPersonTrackingIdentification>
 	</nc:Person>
-	<nc:Person structures:id="IPP_01">
+	<nc:Person structures:id="Initiating_01">
 		<nc:PersonName>
-			<nc:PersonNamePrefixText>Mr</nc:PersonNamePrefixText>
 			<nc:PersonGivenName>Robert</nc:PersonGivenName>
 			<nc:PersonMiddleName>Thomas</nc:PersonMiddleName>
 			<nc:PersonSurName>Forgerty</nc:PersonSurName>
 		</nc:PersonName>
 	</nc:Person>
-	<!-- nc:Person structures:id="CPAP_01">
+	<nc:Person structures:id="Officer_01">
 		<nc:PersonName>
-		<nc:PersonNamePrefixText>Ms</nc:PersonNamePrefixText>
-		<nc:PersonGivenName>Mary</nc:PersonGivenName>
-		<nc:PersonMiddleName>P</nc:PersonMiddleName>
-		<nc:PersonSurName>O'Hearn</nc:PersonSurName>
+			<nc:PersonGivenName>Tom</nc:PersonGivenName>
+			<nc:PersonMiddleName>E</nc:PersonMiddleName>
+			<nc:PersonSurName>Fleming</nc:PersonSurName>
 		</nc:PersonName>
-		</nc:Person -->
+	</nc:Person>
 	<nc:Identity structures:id="Identity_01">
 		<nc:IdentityPersonRepresentation>
 			<nc:PersonName>
@@ -222,18 +187,6 @@
 			</nc:PersonName>
 		</nc:IdentityPersonRepresentation>
 	</nc:Identity>
-	<j:JudicialOfficial structures:id="Initiating_Party_01">
-		<nc:RoleOfPerson structures:ref="IPP_01" />
-		<j:JudicialOfficialBarMembership>
-			<j:JudicialOfficialBarIdentification>
-				<nc:IdentificationID>BI5467</nc:IdentificationID>
-				<nc:IdentificationJurisdiction>
-					<nc:JurisdictionText>Hawaii</nc:JurisdictionText>
-				</nc:IdentificationJurisdiction>
-			</j:JudicialOfficialBarIdentification>
-		</j:JudicialOfficialBarMembership>
-		<j:JudicialOfficialCategoryText>Position</j:JudicialOfficialCategoryText>
-	</j:JudicialOfficial>
 	<nc:Organization structures:id="Defendant_Org_01">
 		<nc:OrganizationName>ACME Corporation</nc:OrganizationName>
 	</nc:Organization>
@@ -273,6 +226,24 @@
 		</nc:ContactTelephoneNumber>
 		<nc:ContactEmailID>Defendant@flores.com</nc:ContactEmailID>
 	</nc:ContactInformation>
+	<nc:PrimaryDocument structures:id="LeadDocument">
+		<nc:DocumentCategoryText>Document Category</nc:DocumentCategoryText>
+		<nc:DocumentCategoryName>Document Type</nc:DocumentCategoryName>
+		<nc:DocumentDescriptionText>Notes</nc:DocumentDescriptionText>
+		<nc:DocumentRelatedResourceText>D4355</nc:DocumentRelatedResourceText>
+		<cfd-ext:PreviouslyFiledDocketText>Docket Entry</cfd-ext:PreviouslyFiledDocketText>
+		<cfd-ext:DocumentPublicPartyViewingRestrictedIndicator>false</cfd-ext:DocumentPublicPartyViewingRestrictedIndicator>
+		<cfd-ext:DocumentPublicViewingRestrictedIndicator>true</cfd-ext:DocumentPublicViewingRestrictedIndicator>
+		<cfd-ext:LeadDocumentIndicator>true</cfd-ext:LeadDocumentIndicator>
+	</nc:PrimaryDocument>
+	<nc:SecondaryDocument structures:id="Document_01">
+		<nc:DocumentCategoryText>Document Category</nc:DocumentCategoryText>
+		<nc:DocumentCategoryName>Document Type</nc:DocumentCategoryName>
+		<nc:DocumentDescriptionText>Notes</nc:DocumentDescriptionText>
+		<cfd-ext:PreviouslyFiledDocketText>Docket Entry</cfd-ext:PreviouslyFiledDocketText>
+		<cfd-ext:DocumentPublicPartyViewingRestrictedIndicator>false</cfd-ext:DocumentPublicPartyViewingRestrictedIndicator>
+		<cfd-ext:DocumentPublicViewingRestrictedIndicator>true</cfd-ext:DocumentPublicViewingRestrictedIndicator>
+	</nc:SecondaryDocument>
 	<cfd-ext:CaseFilingDecisionAttachment structures:id="Doc_01">
 		<nc:DocumentBinary>
 			<cfd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cfd-ext:Base64BinaryObject>
@@ -293,10 +264,6 @@
 	<j:OffenseChargeAssociation>
 		<j:Offense structures:ref="Offense_01" />
 		<j:Charge structures:ref="Charge_01" />
-	</j:OffenseChargeAssociation>
-	<j:OffenseChargeAssociation>
-		<j:Offense structures:ref="Offense_02" />
-		<j:Charge structures:ref="Charge_02" />
 	</j:OffenseChargeAssociation>
 	<nc:ContactInformationAssociation>
 		<nc:ContactEntity structures:ref="Defendant_01" />

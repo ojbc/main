@@ -19,9 +19,8 @@
 -->
 <pcq-res-doc:ProsecutionCaseQueryResults xmlns:pcq-res-doc="http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryResults/1.0"
 	xmlns:pcq-res-ext="http://ojbc.org/IEPD/Extension/ProsecutionCaseQueryResults/1.0" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryResults/1.0 ../../../xsd/ProsecutionCaseQueryResults.xsd">
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ProsecutionCaseQueryResults/1.0 ../../../xsd/ProsecutionCaseQueryResults.xsd">
 	<pcq-res-ext:ProsecutionCase>
 		<nc:Case structures:id="Case_01">
 			<nc:ActivityDescriptionText>Extended Case Title</nc:ActivityDescriptionText>
@@ -56,6 +55,7 @@
 						<nc:LocationName>Location</nc:LocationName>
 					</nc:OrganizationLocation>
 					<j:CourtName>Court Name</j:CourtName>
+					<j:CourtCategoryCode>DIS</j:CourtCategoryCode>
 				</j:CaseCourt>
 				<j:CaseDefendantParty>
 					<nc:EntityPerson structures:ref="Defendant_01" />
