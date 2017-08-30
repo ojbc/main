@@ -263,6 +263,9 @@ public class PortalController implements ApplicationContextAware {
     @RequestMapping("performLogout")
     public String performLogout(HttpServletRequest request, Map<String, Object> model) throws Exception{
     	String userSignoutUrl = (String) model.get("userSignOutUrl");
+    	
+    	log.info("User Signout URL: " + userSignoutUrl);
+    	
     	if (request.getSession()!= null){
     		
     		if (otpService != null)

@@ -293,6 +293,7 @@
 				<nc:LocationCountryName>USA</nc:LocationCountryName>
 				<nc:LocationPostalCode>21905</nc:LocationPostalCode>
 			</nc:Address>
+			<nc:LocationCategoryText>Location Category</nc:LocationCategoryText>
 		</nc:Location>
 		<nc:ContactInformation structures:id="Contact_Defendant_01">
 			<nc:ContactTelephoneNumber>
