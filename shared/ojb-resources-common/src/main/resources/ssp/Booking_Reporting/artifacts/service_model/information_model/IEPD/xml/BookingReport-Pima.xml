@@ -117,7 +117,8 @@
 		<nc:PersonName>
 			<nc:PersonGivenName>HOMER</nc:PersonGivenName>
 			<nc:PersonMiddleName>DONALD</nc:PersonMiddleName>
-			<nc:PersonMiddleName>SIMPSON</nc:PersonMiddleName>
+			<nc:PersonSurName>SIMPSON</nc:PersonSurName>
+			<nc:PersonNameSuffixText>Jr.</nc:PersonNameSuffixText>
 		</nc:PersonName>
 		<nc:PersonPrimaryLanguage>
 			<nc:LanguageName>ENGL</nc:LanguageName>
