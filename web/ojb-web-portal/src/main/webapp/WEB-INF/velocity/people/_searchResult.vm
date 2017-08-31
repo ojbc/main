@@ -24,6 +24,7 @@
   			 "pagingType": "full_numbers",
   			 "pageLength": 50,
   			 stateSave: true, 
+  			 colReorder: true,
 			 "columnDefs": [ {
 		            targets: [ 0 ],
 		            orderData: [ 0, 1 ]

@@ -55,6 +55,7 @@
 			"pageLength": 50,
 			"order": [[ 1, "asc" ]],
 			stateSave: true, 
+			colReorder: true,
 			"language": {
         		"emptyTable": "No criminal identification record available"
    			 },

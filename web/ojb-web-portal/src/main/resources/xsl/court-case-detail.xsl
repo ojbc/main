@@ -56,7 +56,8 @@
 					$('#criminalCaseTabs').tabs();
 					$('#partyTabs').tabs();
 					$('.detailDataTable').DataTable({
- 						"dom": 'rt' 
+ 						"dom": 'rt',
+ 						colReorder: true 
 					});
 			});
 		</script>
