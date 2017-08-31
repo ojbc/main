@@ -109,6 +109,9 @@ public class PortalController implements ApplicationContextAware {
 	
 	private ApplicationContext applicationContext;
 	
+    @Value("${requireOtpAuthentication:false}")
+    Boolean requireOtpAuthentication;
+	
 	@Value("${showReasonsForSearch:true}")
 	Boolean showReasonsForSearch;
 
@@ -276,7 +279,7 @@ public class PortalController implements ApplicationContextAware {
 	
 	    			log.info("User email address to remove OTP authentication: " + userEmail);
 	    			
-	    			if (StringUtils.isNotBlank(userEmail))
+	    			if (StringUtils.isNotBlank(userEmail) && requireOtpAuthentication)
 	    			{	
 	    				log.info("Unauthenticate user.");
 	    				otpService.unauthenticateUser(userEmail);
