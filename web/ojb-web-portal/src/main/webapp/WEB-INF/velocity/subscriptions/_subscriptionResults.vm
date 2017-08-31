@@ -32,6 +32,7 @@
 		 "pagingType": "full_numbers",
 		 "pageLength": 25,
 		 stateSave: true,
+		 colReorder: true,
 	     "aoColumns": [
 		      { "bSortable": false, "bSearchable":false },
 		      { "bSortable": false, "bSearchable":false },

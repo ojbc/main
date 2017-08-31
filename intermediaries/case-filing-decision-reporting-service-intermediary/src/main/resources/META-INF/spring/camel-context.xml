@@ -135,7 +135,7 @@
             
             <log message="Transform to Charge Filing" />
             
-            <to uri="xslt:xslt/caseFilingToChargeFiling.xslt"/>
+            <to uri="xslt:xslt/caseFilingDecisionToCourtCaseFiling.xslt"/>
             
             <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>		
             

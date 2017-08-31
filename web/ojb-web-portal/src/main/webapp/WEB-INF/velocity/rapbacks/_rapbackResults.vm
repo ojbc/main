@@ -60,7 +60,8 @@
 			optTable = {
 				"pagingType": "full_numbers",
 				"pageLength": 50,
-				stateSave: true, 
+				stateSave: true,
+				colReorder: true, 
 				"order": [[ 1, "asc" ]],
 				"language": {
 	        		"emptyTable": "No rapback record available"
