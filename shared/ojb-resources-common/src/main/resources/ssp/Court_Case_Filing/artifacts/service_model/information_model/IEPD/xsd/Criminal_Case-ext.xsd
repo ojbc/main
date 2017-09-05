@@ -153,6 +153,15 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="OrganizationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an organization.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ecf:OrganizationType">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
 	<xsd:complexType name="VictimRightsType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for victim rights information.
@@ -307,6 +316,12 @@
 	<xsd:element name="EntityPerson" type="ojb-crim-ext:PersonType" substitutionGroup="nc:EntityRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A person capable of bearing legal rights and responsibilities.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EntityOrganization" type="ojb-crim-ext:OrganizationType" substitutionGroup="nc:EntityRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>An organization capable of bearing legal rights and responsibilities.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

@@ -22,7 +22,6 @@
   <uri name="http://niem.gov/niem/ansi-nist/2.0" uri="ansi-nist/2.0/ansi-nist.xsd"/>
   <uri name="http://niem.gov/niem/ansi_d20/2.0" uri="ansi_d20/2.0/ansi_d20.xsd"/>
   <uri name="http://niem.gov/niem/appinfo/2.0" uri="appinfo/2.0/appinfo.xsd"/>
-  <uri name="http://niem.gov/niem/domains/intelligence/2.0" uri="domains/intelligence/2.0/intelligence.xsd"/>
   <uri name="http://niem.gov/niem/domains/jxdm/4.0" uri="domains/jxdm/4.0/jxdm.xsd"/>
   <uri name="http://niem.gov/niem/domains/screening/2.0" uri="domains/screening/2.0/screening.xsd"/>
   <uri name="http://niem.gov/niem/fbi/2.0" uri="fbi/2.0/fbi.xsd"/>
