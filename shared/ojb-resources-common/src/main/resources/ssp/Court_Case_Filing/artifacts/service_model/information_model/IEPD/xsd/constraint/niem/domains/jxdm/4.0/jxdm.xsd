@@ -277,6 +277,7 @@
       <xsd:extension base="nc:OrganizationType">
         <xsd:sequence>
           <xsd:element ref="j:CourtName" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="j:CourtCategoryCode" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -914,6 +915,11 @@
   <xsd:element name="CourtAppearanceDate" type="nc:DateType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A date on which a party must appear in court.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CourtCategoryCode" type="ansi_d20:CourtCategoryCodeType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A kind of court.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="CourtEvent" type="j:CourtEventType" nillable="true">
