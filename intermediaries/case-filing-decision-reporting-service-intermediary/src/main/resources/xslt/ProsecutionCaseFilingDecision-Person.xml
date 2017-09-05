@@ -22,7 +22,6 @@
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<!-- SAMPLE FILE - Elements Added as ECF Extensions in the Court Case Filing SSP are commented below -->
 	<nc:Case structures:id="Case_01">
 		<nc:ActivityDescriptionText>Extended Case Title</nc:ActivityDescriptionText>
 		<nc:CaseTitleText>Short Case Title</nc:CaseTitleText>
@@ -56,6 +55,7 @@
 					<nc:LocationName>Location</nc:LocationName>
 				</nc:OrganizationLocation>
 				<j:CourtName>Court Name</j:CourtName>
+				<j:CourtCategoryCode>DIS</j:CourtCategoryCode>
 			</j:CaseCourt>
 			<j:CaseDefendantParty>
 				<nc:EntityPerson structures:ref="Defendant_01" />
