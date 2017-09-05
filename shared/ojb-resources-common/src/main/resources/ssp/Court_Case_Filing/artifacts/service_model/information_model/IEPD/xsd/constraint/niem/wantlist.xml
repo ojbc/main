@@ -27,7 +27,6 @@
   xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
   xmlns:unece="http://niem.gov/niem/unece_rec20-misc/2.0"
   xmlns:fips_10-4="http://niem.gov/niem/fips_10-4/2.0"
-  xmlns:intel="http://niem.gov/niem/domains/intelligence/2.0"
   xmlns:fips_6-4="http://niem.gov/niem/fips_6-4/2.0"
   xmlns:iso_639-3="http://niem.gov/niem/iso_639-3/2.0"
   xmlns:iso_4217="http://niem.gov/niem/iso_4217/2.0"
@@ -156,6 +155,7 @@
   <w:Element w:name="nc:ItemColorDescriptionText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LanguageCode" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Location" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:LocationCategoryText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:LocationCountryFIPS10-4Code"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:LocationCountryName" w:isReference="false" w:nillable="true"/>
@@ -255,6 +255,43 @@
     <w:Facet w:facet="enumeration" w:value="4"/>
     <w:Facet w:facet="enumeration" w:value="5"/>
     <w:Facet w:facet="enumeration" w:value="9"/>
+  </w:Type>
+  <w:Type w:name="ansi_d20:CourtCategoryCodeSimpleType" w:isRequested="false">
+    <w:Facet w:facet="enumeration" w:value="ADM"/>
+    <w:Facet w:facet="enumeration" w:value="CHA"/>
+    <w:Facet w:facet="enumeration" w:value="CIR"/>
+    <w:Facet w:facet="enumeration" w:value="CIT"/>
+    <w:Facet w:facet="enumeration" w:value="CIV"/>
+    <w:Facet w:facet="enumeration" w:value="COC"/>
+    <w:Facet w:facet="enumeration" w:value="COR"/>
+    <w:Facet w:facet="enumeration" w:value="CRI"/>
+    <w:Facet w:facet="enumeration" w:value="DIS"/>
+    <w:Facet w:facet="enumeration" w:value="DOT"/>
+    <w:Facet w:facet="enumeration" w:value="FED"/>
+    <w:Facet w:facet="enumeration" w:value="GEN"/>
+    <w:Facet w:facet="enumeration" w:value="HUS"/>
+    <w:Facet w:facet="enumeration" w:value="JPC"/>
+    <w:Facet w:facet="enumeration" w:value="JUS"/>
+    <w:Facet w:facet="enumeration" w:value="JUV"/>
+    <w:Facet w:facet="enumeration" w:value="LEC"/>
+    <w:Facet w:facet="enumeration" w:value="MAG"/>
+    <w:Facet w:facet="enumeration" w:value="MAY"/>
+    <w:Facet w:facet="enumeration" w:value="MUN"/>
+    <w:Facet w:facet="enumeration" w:value="OTH"/>
+    <w:Facet w:facet="enumeration" w:value="POL"/>
+    <w:Facet w:facet="enumeration" w:value="SJC"/>
+    <w:Facet w:facet="enumeration" w:value="SPL"/>
+    <w:Facet w:facet="enumeration" w:value="SSP"/>
+    <w:Facet w:facet="enumeration" w:value="SUM"/>
+    <w:Facet w:facet="enumeration" w:value="SUP"/>
+    <w:Facet w:facet="enumeration" w:value="TJC"/>
+    <w:Facet w:facet="enumeration" w:value="TRA"/>
+    <w:Facet w:facet="enumeration" w:value="TRI"/>
+    <w:Facet w:facet="enumeration" w:value="TWN"/>
+    <w:Facet w:facet="enumeration" w:value="UNK"/>
+    <w:Facet w:facet="enumeration" w:value="USC"/>
+    <w:Facet w:facet="enumeration" w:value="USM"/>
+    <w:Facet w:facet="enumeration" w:value="USS"/>
   </w:Type>
   <w:Type w:name="ansi_d20:DriverLicenseClassCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="A"/>
@@ -9263,12 +9300,6 @@
     <w:Facet w:facet="enumeration" w:value="830"/>
     <w:Facet w:facet="enumeration" w:value="840"/>
   </w:Type>
-  <w:Type w:name="intel:SystemIdentifierType" w:isRequested="true">
-    <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="intel:SystemName" w:isReference="false"
-      w:minOccurs="0" w:maxOccurs="unbounded"/>
-  </w:Type>
   <w:Type w:name="iso_4217:CurrencyCodeSimpleType" w:isRequested="false">
     <w:Facet w:facet="enumeration" w:value="ADP"/>
     <w:Facet w:facet="enumeration" w:value="AED"/>
@@ -17102,6 +17133,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:BookingType" w:isRequested="false">
+    <w:ElementInType w:name="j:BookingAgency" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:BookingAgencyRecordIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
@@ -17115,6 +17148,8 @@
     <w:ElementInType w:name="j:CaseDefendantParty" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseDefenseAttorney"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CaseDomesticViolenceIndicator"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:CaseInitiatingParty"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -17144,6 +17179,8 @@
   <w:Type w:name="j:ChargeType" w:isRequested="true">
     <w:ElementInType w:name="j:ChargeApplicabilityText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ChargeCountQuantity"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeDegreeText" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeDescriptionText"
@@ -17152,8 +17189,12 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeEnhancingAllegationCharge"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ChargeFilingDate" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeNCICCode" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:ChargeQualifierText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeSequenceID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="j:ChargeSeverityLevel"
@@ -17193,6 +17234,8 @@
   </w:Type>
   <w:Type w:name="j:CourtType" w:isRequested="false">
     <w:ElementInType w:name="j:CourtName" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="j:CourtCategoryCode" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:DocumentCourtAssociationType" w:isRequested="false">
@@ -17404,6 +17447,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:CaseDocketID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:CaseFiling" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:ContactInformationType" w:isRequested="false">
     <w:ElementInType w:name="nc:ContactMeans" w:isReference="false"
@@ -17459,6 +17504,10 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:DocumentBinary" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:DocumentCategoryName"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:DocumentCategoryText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:DocumentDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:DocumentEffectiveDate"
@@ -17474,6 +17523,8 @@
     <w:ElementInType w:name="nc:DocumentPostDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:DocumentReceivedDate"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:DocumentRelatedResourceText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:DocumentSequenceID"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -17603,6 +17654,8 @@
   <w:Type w:name="nc:LocationType" w:isRequested="false">
     <w:ElementInType w:name="nc:LocationAddress" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:LocationCategory" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:LocationDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:LocationHighway" w:isReference="false"
@@ -17688,6 +17741,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:OrganizationOtherIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationPrimaryContactInformation"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:OrganizationSubUnitName"
@@ -17789,6 +17844,8 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonSex" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonSSNIdentification"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonStateIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonTaxIdentification"

@@ -42,7 +42,7 @@
 					<nc:LocationName>X</nc:LocationName>
 				</nc:OrganizationLocation>
 				<j:CourtName>X</j:CourtName>
-				<!-- j:CourtCategoryCode>DIS</j:CourtCategoryCode -->
+				<j:CourtCategoryCode>DIS</j:CourtCategoryCode>
 			</j:CaseCourt>
 			<j:CaseDomesticViolenceIndicator>false</j:CaseDomesticViolenceIndicator>
 		</j:CaseAugmentation>
@@ -253,6 +253,9 @@
 		</ecf:DocumentMetadata>
 		<ecf:DocumentRendition>
 			<ecf:DocumentRenditionMetadata>
+				<nc:DocumentBinary>
+					<nc:BinaryBase64Object>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</nc:BinaryBase64Object>
+				</nc:DocumentBinary>
 				<ecf:DocumentAttachment s:id="Attachment1">
 					<nc:BinaryDescriptionText>application/msword
 					</nc:BinaryDescriptionText>
@@ -277,6 +280,9 @@
 		</ecf:DocumentMetadata>
 		<ecf:DocumentRendition>
 			<ecf:DocumentRenditionMetadata>
+				<nc:DocumentBinary>
+					<nc:BinaryBase64Object>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</nc:BinaryBase64Object>
+				</nc:DocumentBinary>
 				<ecf:DocumentAttachment s:id="Attachment2">
 					<nc:BinaryDescriptionText>application/msword
 					</nc:BinaryDescriptionText>

@@ -57,7 +57,7 @@
     	
     	<xsl:choose>
 	    	<xsl:when test="($totalCount &gt; 0)">
-	    		<table class="searchResultsTable display" id="personSearchResultsTable">
+	    		<table class="searchResultsTable display responsive" id="personSearchResultsTable" style="width: 100%; border-spacing: 0;">
 	    			<thead>
 		    			<tr>
 		    				<th>ENTITY</th>
@@ -127,15 +127,15 @@
             <xsl:variable name="person" select="ext1:Person"/>    
             <xsl:variable name="personName" select="$person/nc:PersonName"/>
             <tr>
-            	<td ><xsl:value-of select="$entityCount"/></td>
-                <td >
+            	<td style="width:5%;"><xsl:value-of select="$entityCount"/></td>
+                <td style="width:15%;">
                     <b>
                     <xsl:value-of select="concat($personName/nc:PersonSurName, ', ',$personName/nc:PersonGivenName, ' ',$personName/nc:PersonMiddleName )" />
                     </b>
                 </td>
                 <td ><xsl:value-of select="$person/j:PersonAugmentation/j:PersonFBIIdentification/nc:IdentificationID" /></td>
                 <td ><xsl:value-of select="$person/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID" /></td>
-                <td style="width:30%;">
+                <td style="width:10%;">
                     <xsl:call-template name="formatSSN">
                     	<xsl:with-param name="ssn" select="$person/nc:PersonSSNIdentification/nc:IdentificationID" />
                     </xsl:call-template>
@@ -154,7 +154,7 @@
                 	<xsl:apply-templates select="$person/nc:PersonBirthDate/nc:Date" mode="formatDateAsMMDDYYYY"/>
                 </td>
                 <td ><xsl:value-of select="ext1:SearchResultCategoryText" /></td>
-                <td ><xsl:value-of select="intel:SystemIdentifier/intel:SystemName" /></td>
+                <td style="width:15%;"><xsl:value-of select="intel:SystemIdentifier/intel:SystemName" /></td>
 
                 
                 <td class="hidden">

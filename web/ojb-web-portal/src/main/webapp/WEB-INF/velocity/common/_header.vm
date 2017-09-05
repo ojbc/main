@@ -26,9 +26,10 @@
 	    	<meta http-equiv="refresh" content="$inactivityTimeoutInSeconds;URL='#springUrl("/portal/performLogout")'">
         #end
         
-        <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
         <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-        <link rel="stylesheet" type="text/css"  src="#springUrl('/static/js/jquery-datatable/css/jquery.dataTables.css')" />
+        <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"  rel="stylesheet" type="text/css"  />
+        <!--<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css"  rel="stylesheet" type="text/css"  />-->
+        
 		<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.css">
         <link rel="stylesheet" type="text/css"  src="#springUrl('/static/js/jquery-datatable/css/colReorder.dataTables.css')" />
@@ -36,10 +37,10 @@
         <!--<link rel="stylesheet" type="text/css" href="#springUrl('/static/css/font-awesome-4.3.0/css/font-awesome.min.css')">-->
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 		
-        <script src="#springUrl('/static/js/jquery-ui/js/jquery.validate.min.js')"></script>
+        <script src="#springUrl('/static/js/jquery-ui/js/jquery.validate.min.js')"></script>  
         <script src="#springUrl('/static/js/jquery-ui/js/jquery-ui-1.10.0.custom.min.js')"></script>
-        <!--<script src="#springUrl('/static/js/jquery-datatable/js/jquery.dataTables.js')"></script>-->
-        <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+        <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+		<!--<script type="text/javascript" src="//cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>-->
         <script src="//cdn.datatables.net/plug-ins/3cfcc339e89/integration/jqueryui/dataTables.jqueryui.js"></script>
         <script src="#springUrl('/static/js/jquery-datatable/js/dataTables.colReorder.min.js')"></script>
         

@@ -78,26 +78,6 @@
 			<nc:IdentificationID>Incident Number</nc:IdentificationID>
 		</nc:ActivityIdentification>
 	</nc:Incident>
-	<j:Arrest structures:id="Arrest_01">
-		<nc:ActivityDate>
-			<nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
-		</nc:ActivityDate>
-		<j:ArrestAgency>
-			<nc:OrganizationName>Arrest Agency</nc:OrganizationName>
-		</j:ArrestAgency>
-		<j:ArrestAgencyRecordIdentification>
-			<nc:IdentificationID>Arrest Report #</nc:IdentificationID>
-		</j:ArrestAgencyRecordIdentification>
-		<j:ArrestOfficial structures:ref="Officer_01" />
-	</j:Arrest>
-	<j:Booking structures:id="Booking_01">
-		<nc:ActivityIdentification>
-			<nc:IdentificationID>Booking #</nc:IdentificationID>
-		</nc:ActivityIdentification>
-		<j:BookingAgency>
-			<nc:OrganizationName>Booking Agency</nc:OrganizationName>
-		</j:BookingAgency>
-	</j:Booking>
 	<j:Offense structures:id="Offense_01">
 		<nc:ActivityDate>
 			<nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
@@ -179,8 +159,6 @@
 	</nc:ContactInformationAssociation>
 	<j:ActivityCaseAssociation>
 		<nc:Activity structures:ref="Incident_01" />
-		<nc:Activity structures:ref="Arrest_01" />
-		<nc:Activity structures:ref="Booking_01" />
 		<nc:Case structures:ref="Case_01" />
 	</j:ActivityCaseAssociation>
 </cfd-doc:CaseFilingDecisionReport>
