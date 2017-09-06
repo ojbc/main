@@ -32,10 +32,12 @@ import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.notification.EmailNotification;
 import org.ojbc.intermediaries.sn.notification.RapbackTriggeringEvent;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@DirtiesContext
 @ContextConfiguration(locations={
 		"classpath:META-INF/spring/test-application-context.xml",
 		"classpath:META-INF/spring/h2-mock-database-application-context.xml",		
