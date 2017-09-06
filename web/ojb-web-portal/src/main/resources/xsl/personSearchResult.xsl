@@ -57,7 +57,7 @@
     	
     	<xsl:choose>
 	    	<xsl:when test="($totalCount &gt; 0)">
-	    		<table class="searchResultsTable display responsive" id="personSearchResultsTable" style="width: 100%; border-spacing: 0;">
+	    		<table class="searchResultsTable display" id="personSearchResultsTable">
 	    			<thead>
 		    			<tr>
 		    				<th>ENTITY</th>
