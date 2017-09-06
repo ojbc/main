@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -48,9 +47,6 @@ public class AuditDaoImplTest {
 	@Resource
 	private AuditDAOImpl auditDAOImpl;
 	
-    @Resource  
-    private DataSource dataSourceAudit;  
-
 	@Before
 	public void setUp() throws Exception {
 		assertNotNull(auditDAOImpl);
