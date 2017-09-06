@@ -17,13 +17,14 @@
 
 -->
 <xsl:stylesheet version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0" xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0"
-	xmlns:j51="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" xmlns:citation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0"
-	xmlns:ojb-crim-doc="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0" xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0" 
-	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
-	xmlns:s="http://niem.gov/niem/structures/2.0" exclude-result-prefixes="cfd-doc cfd-ext j51 nc30 niem-xs structures">
+	xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0"
+	xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0" xmlns:j51="http://release.niem.gov/niem/domains/jxdm/5.1/"
+	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0"
+	xmlns:citation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" xmlns:ojb-crim-doc="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0"
+	xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:s="http://niem.gov/niem/structures/2.0"
+	exclude-result-prefixes="cfd-doc cfd-ext j51 nc30 niem-xs structures">
 	<xsl:output indent="yes" method="xml" omit-xml-declaration="yes" />
 	<xsl:template match="cfd-doc:CaseFilingDecisionReport">
 		<ojb-crim-doc:CoreFilingMessage xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0">
@@ -38,7 +39,6 @@
 				<xsl:apply-templates
 					select="nc30:Case/j51:CaseAugmentation/j51:CaseCharge[@structures:id=../../../j51:OffenseChargeAssociation/j51:Charge/@structures:ref]"
 					mode="charge" />
-
 			</ojb-crim-ext:CriminalCase>
 			<!-- FilingLeadDocument element required by ECF -->
 			<FilingLeadDocument>
@@ -56,71 +56,62 @@
 		</ojb-crim-doc:CoreFilingMessage>
 	</xsl:template>
 	<xsl:template match="nc30:Case">
-	<xsl:apply-templates select="nc30:ActivityDescriptionText" />
+		<xsl:apply-templates select="nc30:ActivityDescriptionText" />
 		<xsl:apply-templates select="nc30:CaseTitleText" />
 		<xsl:apply-templates select="nc30:CaseCategoryText" />
 		<xsl:apply-templates select="nc30:CaseFiling" />
 		<xsl:apply-templates select="j51:CaseAugmentation/j51:CaseCourt" />
 		<xsl:apply-templates select="j51:CaseAugmentation/j51:CaseDomesticViolenceIndicator" />
 	</xsl:template>
-	
-	
 	<xsl:template match="j51:CaseCourt">
 		<j:CaseAugmentation>
 			<j:CaseCourt>
 				<xsl:apply-templates select="nc30:OrganizationLocation/nc30:LocationName" mode="court" />
 				<xsl:apply-templates select="j51:CourtName" />
+				<xsl:apply-templates select="j51:CourtCategoryCode" />
 			</j:CaseCourt>
 		</j:CaseAugmentation>
 	</xsl:template>
 	<xsl:template match="cfd-doc:CaseFilingDecisionReport" mode="ecfAugmentation">
 		<ojb-crim-ext:CaseAugmentation>
-		
-		<xsl:apply-templates
-					select="/cfd-doc:CaseFilingDecisionReport/nc30:Identity[@structures:id=../nc30:PersonIdentityAssociation[nc30:Person/@structures:ref=/cfd-doc:CaseFilingDecisionReport/nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty/nc30:EntityPerson/@structures:ref]/nc30:Identity/@structures:ref]"
-					mode="alias" />
-		
-		
-		
-		
-			<ojb-crim-ext:CaseParticipant>
-				<xsl:apply-templates
-					select="nc30:Person[@structures:id=../nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty/nc30:EntityPerson/@structures:ref]"
-					mode="defendant" />
-				<xsl:apply-templates
-					select="nc30:Location[@structures:id=../nc30:PersonResidenceAssociation/nc30:Location/@structures:ref]/nc30:Address" mode="residence" />
-			</ojb-crim-ext:CaseParticipant>
+			<!-- xsl:apply-templates
+				select="/cfd-doc:CaseFilingDecisionReport/nc30:Identity[@structures:id=../nc30:PersonIdentityAssociation[nc30:Person/@structures:ref=/cfd-doc:CaseFilingDecisionReport/nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty/nc30:EntityPerson/@structures:ref]/nc30:Identity/@structures:ref]"
+				mode="alias" / -->
+			<xsl:apply-templates select="nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty" />
 		</ojb-crim-ext:CaseAugmentation>
+	</xsl:template>
+	<xsl:template match="j51:CaseDefendantParty">
+		<ojb-crim-ext:CaseParticipant>
+			<xsl:attribute name="s:id"><xsl:value-of select="generate-id(.)" /></xsl:attribute>
+			<xsl:variable name="CPid" select="nc30:EntityPerson/@structures:ref" />
+			<JIMMY>
+				<xsl:value-of select="$CPid" />
+			</JIMMY>
+			<xsl:apply-templates select="../../../nc30:Person[@structures:id=$CPid]" mode="defendant" />
+			<xsl:apply-templates
+				select="../../../nc30:ContactInformation[@structures:id=../nc30:ContactInformationAssociation[nc30:ContactEntity/@structures:ref=$CPid]/nc30:ContactInformation/@structures:ref]" />
+			<xsl:apply-templates
+				select="../../../nc30:Location[@structures:id=../nc30:PersonResidenceAssociation[nc30:Person/@structures:ref=$CPid]/nc30:Location/@structures:ref]/nc30:Address" />
+		</ojb-crim-ext:CaseParticipant>
 	</xsl:template>
 	<xsl:template match="nc30:Person" mode="defendant">
 		<ecf:EntityPerson>
-			<xsl:apply-templates select="nc30:PersonBirthDate" />
-			<xsl:apply-templates select="nc30:PersonName" />
-			<xsl:apply-templates select="nc30:PersonSexCode" />
-			<xsl:apply-templates select="j51:PersonAugmentation/j51:PersonStateFingerprintIdentification/nc30:IdentificationID"
-				mode="SID" />
+			<xsl:copy-of select="node()" copy-namespaces="no" />
 		</ecf:EntityPerson>
 		<xsl:apply-templates select="../nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty/cfd-ext:PartyRoleText" />
 	</xsl:template>
-	<xsl:template match="nc30:PersonName">
-		<nc:PersonName>
-			<xsl:apply-templates select="nc30:PersonGivenName" />
-			<xsl:apply-templates select="nc30:PersonMiddleName" />
-			<xsl:apply-templates select="nc30:PersonSurName" />
-		</nc:PersonName>
+	<xsl:template match="nc30:ContactInformation">
+		<xsl:copy-of select="." copy-namespaces="no" />
 	</xsl:template>
-	<xsl:template match="nc30:Address" mode="residence">
-		<nc:ContactInformation>
-			<nc:ContactMailingAddress>
-				<nc:StructuredAddress>
-					<xsl:apply-templates select="nc30:LocationStreet/nc30:StreetFullText" />
-					<xsl:apply-templates select="nc30:LocationCityName" />
-					<xsl:apply-templates select="nc30:LocationStateUSPostalServiceCode" />
-					<xsl:apply-templates select="nc30:LocationPostalCode" />
-				</nc:StructuredAddress>
-			</nc:ContactMailingAddress>
-			<xsl:apply-templates select="../nc30:LocationCategoryText" />
-		</nc:ContactInformation>
+	<xsl:template match="nc30:Address">
+		<nc:ContactMailingAddress>
+			<nc:StructuredAddress>
+				<xsl:copy-of select="node()" copy-namespaces="no" />
+			</nc:StructuredAddress>
+		</nc:ContactMailingAddress>
+		<xsl:apply-templates select="../nc30:LocationCategoryText" />
+		<xsl:copy-of select="../cfd-ext:DefaultLocationIndicator" copy-namespaces="no" />
+		<xsl:copy-of select="../cfd-ext:PreferredLocationIndicator" copy-namespaces="no" />
 	</xsl:template>
 	<xsl:template match="j51:CaseCharge" mode="charge">
 		<xsl:variable name="chargeid" select="./@structures:id" />
@@ -149,34 +140,30 @@
 		</nc:ActivityDate>
 	</xsl:template>
 	<!-- MATCH -->
-		<xsl:template match="nc30:ActivityDescriptionText">
+	<xsl:template match="nc30:ActivityDescriptionText">
 		<nc:ActivityDescriptionText>
-		<xsl:value-of select="normalize-space(.)" />
+			<xsl:value-of select="normalize-space(.)" />
 		</nc:ActivityDescriptionText>
 	</xsl:template>
-	
 	<xsl:template match="nc30:CaseTitleText">
 		<nc:CaseTitleText>
 			<xsl:value-of select="normalize-space(.)" />
 		</nc:CaseTitleText>
 	</xsl:template>
-	
 	<xsl:template match="nc30:CaseCategoryText">
 		<nc:CaseCategoryText>
 			<xsl:value-of select="normalize-space(.)" />
 		</nc:CaseCategoryText>
 	</xsl:template>
-	
-		<xsl:template match="nc30:CaseFiling">
+	<xsl:template match="nc30:CaseFiling">
 		<nc:CaseFiling>
 			<nc:DocumentFiledDate>
 				<nc:DateTime>
-				<xsl:value-of select="normalize-space(.)" />
+					<xsl:value-of select="normalize-space(.)" />
 				</nc:DateTime>
 			</nc:DocumentFiledDate>
 		</nc:CaseFiling>
 	</xsl:template>
-	
 	<xsl:template match="nc30:LocationName" mode="court">
 		<nc:OrganizationLocation>
 			<nc:LocationName>
@@ -189,70 +176,10 @@
 			<xsl:value-of select="normalize-space(.)" />
 		</j:CourtName>
 	</xsl:template>
-	<xsl:template match="nc30:PersonBirthDate">
-		<nc:PersonBirthDate>
-			<xsl:apply-templates select="nc30:Date" />
-		</nc:PersonBirthDate>
-	</xsl:template>
-	<xsl:template match="nc30:PersonGivenName">
-		<nc:PersonGivenName>
+	<xsl:template match="j51:CourtCategoryCode">
+		<j:CourtCategoryCode>
 			<xsl:value-of select="normalize-space(.)" />
-		</nc:PersonGivenName>
-	</xsl:template>
-	<xsl:template match="nc30:PersonMiddleName">
-		<nc:PersonMiddleName>
-			<xsl:value-of select="normalize-space(.)" />
-		</nc:PersonMiddleName>
-	</xsl:template>
-	<xsl:template match="nc30:PersonSurName">
-		<nc:PersonSurName>
-			<xsl:value-of select="normalize-space(.)" />
-		</nc:PersonSurName>
-	</xsl:template>
-	<xsl:template match="nc30:PersonSexCode">
-		<nc:PersonSexCode>
-			<xsl:value-of select="normalize-space(.)" />
-		</nc:PersonSexCode>
-	</xsl:template>
-	<xsl:template match="nc30:IdentificationID" mode="SID">
-		<nc:PersonStateIdentification>
-			<nc:IdentificationID>
-				<xsl:value-of select="normalize-space(.)" />
-			</nc:IdentificationID>
-		</nc:PersonStateIdentification>
-	</xsl:template>
-	<xsl:template match="cfd-ext:PartyRoleText">
-		<ecf:CaseParticipantRoleCode>
-			<xsl:value-of select="normalize-space(.)" />
-		</ecf:CaseParticipantRoleCode>
-	</xsl:template>
-	<xsl:template match="nc30:StreetFullText">
-		<nc:LocationStreet>
-			<nc:StreetFullText>
-				<xsl:value-of select="normalize-space(.)" />
-			</nc:StreetFullText>
-		</nc:LocationStreet>
-	</xsl:template>
-	<xsl:template match="nc30:LocationCityName">
-		<nc:LocationCityName>
-			<xsl:value-of select="normalize-space(.)" />
-		</nc:LocationCityName>
-	</xsl:template>
-	<xsl:template match="nc30:LocationStateUSPostalServiceCode">
-		<nc:LocationStateName>
-			<xsl:value-of select="normalize-space(.)" />
-		</nc:LocationStateName>
-	</xsl:template>
-	<xsl:template match="nc30:LocationPostalCode">
-		<nc:LocationPostalCode>
-			<xsl:value-of select="normalize-space(.)" />
-		</nc:LocationPostalCode>
-	</xsl:template>
-	<!-- NOTE: For equating LocationCategoryText with ContactInformationDescriptionText -->
-	<xsl:template match="nc30:LocationCategoryText">
-		<nc:ContactInformationDescriptionText>
-			<xsl:value-of select="normalize-space(.)" />
-		</nc:ContactInformationDescriptionText>
+		</j:CourtCategoryCode>
 	</xsl:template>
 	<xsl:template match="j51:SeverityLevelDescriptionText">
 		<j:ChargeSeverityLevel>
@@ -273,25 +200,20 @@
 			<xsl:value-of select="normalize-space(.)" />
 		</j:StatuteDescriptionText>
 	</xsl:template>
-		<xsl:template match="j51:CaseDomesticViolenceIndicator">
+	<xsl:template match="j51:CaseDomesticViolenceIndicator">
 		<j:CaseDomesticViolenceIndicator>
-		<xsl:value-of select="normalize-space(.)" />
+			<xsl:value-of select="normalize-space(.)" />
 		</j:CaseDomesticViolenceIndicator>
 	</xsl:template>
-	
-	
-		<xsl:template match="nc30:Identity" mode="alias">
+	<xsl:template match="nc30:Identity" mode="alias">
 		<ecf:Alias>
-		<xsl:apply-templates select="nc30:LocationStateUSPostalServiceCode" />
-				<ecf:AliasAlternateName>Alias</ecf:AliasAlternateName>
-				<ecf:AliasAlternateNameTypeCode>ecf:Alias</ecf:AliasAlternateNameTypeCode>
-				<nc:EntityReference />
-			</ecf:Alias>
+			<ecf:AliasAlternateName>Alias</ecf:AliasAlternateName>
+			<ecf:AliasAlternateNameTypeCode>ecf:Alias</ecf:AliasAlternateNameTypeCode>
+			<nc:EntityReference>
+				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(.)" /></xsl:attribute>
+			</nc:EntityReference>
+		</ecf:Alias>
 	</xsl:template>
-	
-	
-	
-	
 	<xsl:template match="nc30:Date">
 		<nc:Date>
 			<xsl:value-of select="normalize-space(.)" />
