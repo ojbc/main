@@ -18,11 +18,13 @@ package org.ojbc.intermediaries.sn.notification;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.ojbc.intermediaries.sn.dao.Subscription;
 
 /**
  * The class of objects representing email-based notifications.  This class is used to communicate between processors and through steps in the
@@ -43,6 +45,8 @@ public final class EmailNotification {
     private Set<String> blockedAddressees = new HashSet<String>();
     private NotificationRequest notificationRequest;
     private Map<String, String> subscriptionSubjectIdentifiers;
+    private Subscription subscription;
+    private List<RapbackTriggeringEvent> triggeringEvents;
     
     public EmailNotification() {
         super();
@@ -182,19 +186,6 @@ public final class EmailNotification {
 		this.subscriptionCategoryCode = subscriptionCategoryCode;
 	}
 
-	@Override
-	public String toString() {
-		return "EmailNotification [subjectName=" + subjectName
-				+ ", subscribingSystemIdentifier="
-				+ subscribingSystemIdentifier + ", subjectIdentifier="
-				+ subjectIdentifier + ", subscriptionCategoryCode="
-				+ subscriptionCategoryCode + ", toAddressees=" + toAddressees
-				+", subscriptionSubjectIdentifiers=" + subscriptionSubjectIdentifiers
-				+ ", ccAddressees=" + ccAddressees + ", bccAddressees="
-				+ bccAddressees + ", blockedAddressees=" + blockedAddressees
-				+ ", notificationRequest=" + notificationRequest + "]";
-	}
-
 	public Map<String, String> getSubscriptionSubjectIdentifiers() {
 		return subscriptionSubjectIdentifiers;
 	}
@@ -202,6 +193,37 @@ public final class EmailNotification {
 	public void setSubscriptionSubjectIdentifiers(
 			Map<String, String> subscriptionSubjectIdentifiers) {
 		this.subscriptionSubjectIdentifiers = subscriptionSubjectIdentifiers;
+	}
+
+	public Subscription getSubscription() {
+		return subscription;
+	}
+
+	public void setSubscription(Subscription subscription) {
+		this.subscription = subscription;
+	}
+
+	@Override
+	public String toString() {
+		return "EmailNotification [subjectName=" + subjectName
+				+ ", subscribingSystemIdentifier="
+				+ subscribingSystemIdentifier + ", subjectIdentifier="
+				+ subjectIdentifier + ", subscriptionCategoryCode="
+				+ subscriptionCategoryCode + ", toAddressees=" + toAddressees
+				+ ", ccAddressees=" + ccAddressees + ", bccAddressees="
+				+ bccAddressees + ", blockedAddressees=" + blockedAddressees
+				+ ", notificationRequest=" + notificationRequest
+				+ ", subscriptionSubjectIdentifiers="
+				+ subscriptionSubjectIdentifiers + ", subscription="
+				+ subscription + "]";
+	}
+
+	public List<RapbackTriggeringEvent> getTriggeringEvents() {
+		return triggeringEvents;
+	}
+
+	public void setTriggeringEvents(List<RapbackTriggeringEvent> triggeringEvents) {
+		this.triggeringEvents = triggeringEvents;
 	}
 
 }
