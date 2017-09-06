@@ -45,7 +45,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/spring/h2-mock-database-context-custody-datastore.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-warrant-repository.xml",
 		"classpath:META-INF/spring/h2-mock-database-context-incident-reporting-state-cache.xml",
-		"classpath:META-INF/spring/h2-mock-database-context-consent-management-datastore.xml"
+		"classpath:META-INF/spring/h2-mock-database-context-consent-management-datastore.xml",
+		"classpath:META-INF/spring/h2-mock-database-context-enhanced-auditlog.xml"
 		})
 @DirtiesContext
 public class TestDatabaseLoad {
