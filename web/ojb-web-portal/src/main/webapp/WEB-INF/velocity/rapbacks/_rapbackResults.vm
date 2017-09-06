@@ -54,7 +54,7 @@
 	$(function() {
 		$( document ).tooltip();
 		
-		#if ($("#searchResultsTable"))
+		if ($("#searchResultsTable")){
 			numCols = $("#searchResultsTable").find('tr')[0].cells.length;
 			
 			optTable = {
@@ -94,8 +94,7 @@
 				}
 	        	oTable.draw();
 	    	} );
-		#end 
-		
+		}
 		
     	$('#searchResultsTable').on('click', 'a.subscribe',function() {
     		$.get("#springUrl('/rapbacks/subscribe')", {transactionNumber: $(this).attr("id")}, function(data) {
