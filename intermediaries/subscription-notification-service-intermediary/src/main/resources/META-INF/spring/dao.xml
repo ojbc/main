@@ -187,5 +187,18 @@
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
  	   <constructor-arg ref="dataSource"/>
 	</bean>
+	
+	<bean id="notificationLoggingProcessor" class="org.ojbc.intermediaries.sn.notification.NotificationLoggingProcessor">
+		<property name="auditDaoImpl" ref="auditDAOImpl"/>
+	</bean>
+	
+	<bean id="auditDAOImpl" class="org.ojbc.intermediaries.sn.dao.audit.AuditDAOImpl">		
+		<property name="jdbcTemplateAudit" ref="jdbcTemplateAudit"/>
+	</bean>
+	
+	
+	<bean id="jdbcTemplateAudit" class="org.springframework.jdbc.core.JdbcTemplate">
+ 	   <constructor-arg ref="dataSourceAudit"/>
+	</bean>
 			
 </beans>
