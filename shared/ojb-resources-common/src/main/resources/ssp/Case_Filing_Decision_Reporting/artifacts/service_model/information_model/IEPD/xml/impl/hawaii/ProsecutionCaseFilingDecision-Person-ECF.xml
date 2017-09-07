@@ -228,6 +228,9 @@
 		<!--# nc:ContactEmailID>Defendant@flores.com</nc:ContactEmailID -->
 	</nc:ContactInformation>
 	<nc:PrimaryDocument structures:id="LeadDocument">
+		<nc:DocumentBinary>
+			<cfd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cfd-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 		<!--# nc:DocumentCategoryText>Document Category</nc:DocumentCategoryText -->
 		<!--# nc:DocumentCategoryName>Document Type</nc:DocumentCategoryName -->
 		<nc:DocumentDescriptionText>Notes</nc:DocumentDescriptionText>
@@ -239,6 +242,9 @@
 	</nc:PrimaryDocument>
 	<!-- We may be able to handle the following extensions in existing ECF "Core" without extension -->
 	<nc:SecondaryDocument structures:id="Document_01">
+		<nc:DocumentBinary>
+			<cfd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cfd-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 		<!--# nc:DocumentCategoryText>Document Category</nc:DocumentCategoryText -->
 		<!--# nc:DocumentCategoryName>Document Type</nc:DocumentCategoryName -->
 		<nc:DocumentDescriptionText>Notes</nc:DocumentDescriptionText>

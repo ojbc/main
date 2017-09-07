@@ -53,9 +53,8 @@
       </j:CaseAugmentation>
       <j:CaseDomesticViolenceIndicator>false</j:CaseDomesticViolenceIndicator>
       <ojb-crim-ext:CaseAugmentation>
-         <ojb-crim-ext:CaseParticipant s:id="d1e80">
-            <JIMMY xmlns="">Defendant_01</JIMMY>
-            <ecf:EntityPerson>
+         <ojb-crim-ext:CaseParticipant s:id="d1e82">
+            <ojb-crim-ext:EntityPerson>
 		             <nc:PersonBirthDate xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
 			               <nc:Date>1980-07-26</nc:Date>
 		             </nc:PersonBirthDate>
@@ -100,8 +99,8 @@
 		             <cfd-ext:IdentifiedPersonTrackingIdentification xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0">
 			               <nc:IdentificationID xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">OffenderTracking Number</nc:IdentificationID>
 		             </cfd-ext:IdentifiedPersonTrackingIdentification>
-	           </ecf:EntityPerson>
-            <ecf:CaseParticipantRoleCode>Party Role</ecf:CaseParticipantRoleCode>
+	           </ojb-crim-ext:EntityPerson>
+            <ecf:CaseParticipantRoleCode>Defendant</ecf:CaseParticipantRoleCode>
             <nc:ContactInformation xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
                                    xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
                                    structures:id="Contact_Defendant_01">
@@ -136,13 +135,70 @@
 			               <nc:LocationCountryName xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">USA</nc:LocationCountryName>
 			               <nc:LocationPostalCode xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">21905</nc:LocationPostalCode>
 		             </nc:StructuredAddress>
-            </nc:ContactMailingAddress>
-            <nc:ContactInformationDescriptionText>Address Type</nc:ContactInformationDescriptionText>
-            <cfd-ext:DefaultLocationIndicator xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0">true</cfd-ext:DefaultLocationIndicator>
+            </nc:ContactMailingAddress>Address Type<cfd-ext:DefaultLocationIndicator xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0">true</cfd-ext:DefaultLocationIndicator>
             <cfd-ext:PreferredLocationIndicator xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0">true</cfd-ext:PreferredLocationIndicator>
          </ojb-crim-ext:CaseParticipant>
+         <ojb-crim-ext:CaseParticipant s:id="d1e149">
+            <ecf:EntityPerson>
+		             <nc:PersonName xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+			               <nc:PersonGivenName>Tom</nc:PersonGivenName>
+			               <nc:PersonMiddleName>E</nc:PersonMiddleName>
+			               <nc:PersonSurName>Fleming</nc:PersonSurName>
+		             </nc:PersonName>
+	           </ecf:EntityPerson>
+            <ecf:CaseParticipantRoleCode>Arresting Officer</ecf:CaseParticipantRoleCode>
+         </ojb-crim-ext:CaseParticipant>
+         <ojb-crim-ext:CaseParticipant s:id="d1e306">
+            <ecf:EntityPerson>
+		             <nc:PersonName xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+			               <nc:PersonGivenName>Robert</nc:PersonGivenName>
+			               <nc:PersonMiddleName>Thomas</nc:PersonMiddleName>
+			               <nc:PersonSurName>Forgerty</nc:PersonSurName>
+		             </nc:PersonName>
+	           </ecf:EntityPerson>
+            <ecf:CaseParticipantRoleCode>Initiating Party</ecf:CaseParticipantRoleCode>
+         </ojb-crim-ext:CaseParticipant>
+         <ojb-crim-ext:CaseDefendantParty>
+            <nc:EntityPersonReference s:ref="d1e82"/>
+            <ojb-crim-ext:PartyIdentification>
+               <nc:IdentificationID>1234567</nc:IdentificationID>
+            </ojb-crim-ext:PartyIdentification>
+            <ojb-crim-ext:PartyRoleText>Party Role</ojb-crim-ext:PartyRoleText>
+            <ojb-crim-ext:PartyCategoryText>Party Type</ojb-crim-ext:PartyCategoryText>
+            <ojb-crim-ext:PartyConfidentialIndicator>false</ojb-crim-ext:PartyConfidentialIndicator>
+         </ojb-crim-ext:CaseDefendantParty>
+         <ojb-crim-ext:CaseInitiatingParty>
+            <nc:EntityPersonReference s:ref="d1e24"/>
+            <ojb-crim-ext:PartyCategoryText>Party Type</ojb-crim-ext:PartyCategoryText>
+         </ojb-crim-ext:CaseInitiatingParty>
       </ojb-crim-ext:CaseAugmentation>
-      <criminal:CaseCharge s:id="d1e26">
+      <ojb-crim-ext:CaseArrest s:id="d1e129">
+         <nc:ActivityDate xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+			         <nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+		       </nc:ActivityDate>
+         <j:ArrestAgency xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/">
+			         <nc:OrganizationName xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">Arrest Agency</nc:OrganizationName>
+		       </j:ArrestAgency>
+         <j:ArrestAgencyRecordIdentification xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/">
+			         <nc:IdentificationID xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">Arrest Report #</nc:IdentificationID>
+		       </j:ArrestAgencyRecordIdentification>
+         <JIMMY xmlns="">Officer_01</JIMMY>
+         <j:ArrestOfficial>
+            <nc:RoleOfPersonReference s:ref="d1e149"/>
+         </j:ArrestOfficial>
+         <j:ArrestSubject>
+            <nc:RoleOfPersonReference s:id="d1e151"/>
+         </j:ArrestSubject>
+         <j:Booking s:id="d1e154">
+		          <nc:ActivityIdentification xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+			            <nc:IdentificationID>Booking #</nc:IdentificationID>
+		          </nc:ActivityIdentification>
+		          <j:BookingAgency xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/">
+			            <nc:OrganizationName xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">Booking Agency</nc:OrganizationName>
+		          </j:BookingAgency>
+	        </j:Booking>
+      </ojb-crim-ext:CaseArrest>
+      <ojb-crim-ext:CaseCharge s:id="d1e26">
          <j:ChargeSeverityLevel>
             <j:SeverityLevelDescriptionText>Severity</j:SeverityLevelDescriptionText>
          </j:ChargeSeverityLevel>
@@ -153,22 +209,92 @@
             <j:StatuteDescriptionText>CHILD NEGLECT</j:StatuteDescriptionText>
          </j:ChargeStatute>
          <criminal:ChargeOffense>
-            <nc:ActivityDate>
-               <nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
-            </nc:ActivityDate>
+            <j:Offense xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+                       xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+                       structures:id="Offense_01">
+		             <nc:ActivityDate xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+			               <nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+		             </nc:ActivityDate>
+		             <nc:ActivityDateRange xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+			               <nc:StartDate>
+				                 <nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+			               </nc:StartDate>
+			               <nc:EndDate>
+				                 <nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+			               </nc:EndDate>
+		             </nc:ActivityDateRange>
+	           </j:Offense>
+            <j:Offense xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+                       xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+                       structures:id="Offense_01">
+		             <nc:ActivityDate xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+			               <nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+		             </nc:ActivityDate>
+		             <nc:ActivityDateRange xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+			               <nc:StartDate>
+				                 <nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+			               </nc:StartDate>
+			               <nc:EndDate>
+				                 <nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+			               </nc:EndDate>
+		             </nc:ActivityDateRange>
+	           </j:Offense>
          </criminal:ChargeOffense>
-      </criminal:CaseCharge>
+      </ojb-crim-ext:CaseCharge>
+      <ojb-crim-ext:CitationCaseAugmentation>
+         <ojb-crim-ext:Vehicle>
+		          <nc:VehicleCMVIndicator xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">false</nc:VehicleCMVIndicator>
+		          <cfd-ext:VehicleHazmatIndicator xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0">false</cfd-ext:VehicleHazmatIndicator>
+	        </ojb-crim-ext:Vehicle>
+      </ojb-crim-ext:CitationCaseAugmentation>
    </ojb-crim-ext:CriminalCase>
-   <FilingLeadDocument>
+   <ojb-crim-ext:FilingLeadDocument s:ref="d1e440">
+      <nc:DocumentCategoryName xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">Document Type</nc:DocumentCategoryName>
+      <nc:DocumentCategoryText xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">Document Category</nc:DocumentCategoryText>
+      <nc:DocumentDescriptionText xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">Notes</nc:DocumentDescriptionText>
+      <nc:DocumentRelatedResourceText xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">D4355</nc:DocumentRelatedResourceText>
+      <nc:DocumentLanguageCode>eng</nc:DocumentLanguageCode>
       <ecf:DocumentMetadata>
-         <j:RegisterActionDescriptionText>String</j:RegisterActionDescriptionText>
+         <j:RegisterActionDescriptionText/>
          <ecf:FilingAttorneyID/>
          <ecf:FilingPartyID/>
       </ecf:DocumentMetadata>
       <ecf:DocumentRendition>
          <ecf:DocumentRenditionMetadata>
-            <ecf:DocumentAttachment/>
+            <nc:DocumentBinary>
+               <nc:BinaryBase64Object>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</nc:BinaryBase64Object>
+            </nc:DocumentBinary>
+            <ecf:DocumentAttachment>
+               <nc:BinaryDescriptionText/>
+               <nc:BinaryLocationURI/>
+            </ecf:DocumentAttachment>
          </ecf:DocumentRenditionMetadata>
       </ecf:DocumentRendition>
-   </FilingLeadDocument>
+      <ojb-crim-ext:PreviouslyFiledDocketText>Docket Entry</ojb-crim-ext:PreviouslyFiledDocketText>
+      <ojb-crim-ext:DocumentPublicPartyViewingRestrictedIndicator>false</ojb-crim-ext:DocumentPublicPartyViewingRestrictedIndicator>
+   </ojb-crim-ext:FilingLeadDocument>
+   <ojb-crim-ext:FilingConnectedDocument s:ref="d1e474">
+      <nc:DocumentCategoryName xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">Document Type</nc:DocumentCategoryName>
+      <nc:DocumentCategoryText xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">Document Category</nc:DocumentCategoryText>
+      <nc:DocumentDescriptionText xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">Notes</nc:DocumentDescriptionText>
+      <nc:DocumentLanguageCode>eng</nc:DocumentLanguageCode>
+      <ecf:DocumentMetadata>
+         <j:RegisterActionDescriptionText/>
+         <ecf:FilingAttorneyID/>
+         <ecf:FilingPartyID/>
+      </ecf:DocumentMetadata>
+      <ecf:DocumentRendition>
+         <ecf:DocumentRenditionMetadata>
+            <nc:DocumentBinary>
+               <nc:BinaryBase64Object>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</nc:BinaryBase64Object>
+            </nc:DocumentBinary>
+            <ecf:DocumentAttachment>
+               <nc:BinaryDescriptionText/>
+               <nc:BinaryLocationURI/>
+            </ecf:DocumentAttachment>
+         </ecf:DocumentRenditionMetadata>
+      </ecf:DocumentRendition>
+      <ojb-crim-ext:PreviouslyFiledDocketText>Docket Entry</ojb-crim-ext:PreviouslyFiledDocketText>
+      <ojb-crim-ext:DocumentPublicPartyViewingRestrictedIndicator>false</ojb-crim-ext:DocumentPublicPartyViewingRestrictedIndicator>
+   </ojb-crim-ext:FilingConnectedDocument>
 </ojb-crim-doc:CoreFilingMessage>
