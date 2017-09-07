@@ -45,6 +45,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.dao.audit.AuditDAO;
+import org.ojbc.intermediaries.sn.dao.audit.NotificationsSent;
 import org.ojbc.intermediaries.sn.notification.filter.DefaultNotificationFilterStrategy;
 import org.ojbc.intermediaries.sn.notification.filter.DuplicateNotificationFilterStrategy;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationProcessor;
@@ -61,6 +63,9 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 	
 	@Resource
 	protected IncidentNotificationProcessor incidentNotificationProcessor;
+	
+	@Resource
+	protected AuditDAO auditDaoImpl;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -175,6 +180,14 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 		
 		verifyNotificationForSubscribeSoapRequest(emails);
 		
+		assertNotNull(auditDaoImpl);
+		
+		NotificationsSent notificationsSent = auditDaoImpl.retrieveNotificationSentById(1);
+		
+		assertNotNull(notificationsSent);
+		
+		//Additional assertions in the AuditDaoImpl test
+		assertEquals(62728, notificationsSent.getSubscription().getId());
 	}
 
 	@Test

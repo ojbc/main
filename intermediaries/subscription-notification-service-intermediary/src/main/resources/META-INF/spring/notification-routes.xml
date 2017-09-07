@@ -108,6 +108,8 @@
 				<!-- The body is a list of Email Notifications -->
 				<camel:simple>${body}</camel:simple>
 
+				<camel:to uri="bean:notificationLoggingProcessor?method=logNotification"/>
+
 				<camel:choice>
 					<camel:when>
 						<camel:simple>${in.header.notificationTopic} == 'arrest'</camel:simple>

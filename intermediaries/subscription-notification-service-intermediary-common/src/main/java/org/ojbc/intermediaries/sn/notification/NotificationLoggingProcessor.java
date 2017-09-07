@@ -19,10 +19,13 @@ package org.ojbc.intermediaries.sn.notification;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.intermediaries.sn.dao.Subscription;
+import org.ojbc.intermediaries.sn.dao.audit.AuditDAO;
 
 public class NotificationLoggingProcessor {
 
 	private static final Log log = LogFactory.getLog(NotificationProcessor.class);
+	
+	private AuditDAO auditDaoImpl;
 	
 	public void logNotification(EmailNotification emailNotification)
 	{
@@ -39,10 +42,18 @@ public class NotificationLoggingProcessor {
 		
 		if (subscription != null)
 		{
-				
+			auditDaoImpl.saveNotificationLogEntry(emailNotification);
 		}	
 		
 		
+	}
+
+	public AuditDAO getAuditDaoImpl() {
+		return auditDaoImpl;
+	}
+
+	public void setAuditDaoImpl(AuditDAO auditDaoImpl) {
+		this.auditDaoImpl = auditDaoImpl;
 	}
 	
 	
