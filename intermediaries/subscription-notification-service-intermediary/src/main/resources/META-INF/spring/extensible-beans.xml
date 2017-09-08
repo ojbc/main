@@ -109,7 +109,7 @@
 	</bean>
 
 	<bean id="dataSourceAudit" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
-		<constructor-arg name="beanName" value="dataSource" />
+		<constructor-arg name="beanName" value="dataSourceAudit" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.subscription-notification-service-intermediary-context" />
 		<constructor-arg name="defaultObject">
 			<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
