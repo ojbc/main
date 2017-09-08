@@ -181,7 +181,7 @@
 			<xsd:documentation>Additional information about a person.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="ecf:PersonAugmentationType">
+			<xsd:extension base="j:PersonAugmentationType">
 				<xsd:sequence>
 					<xsd:element ref="ojb-crim-ext:PersonDriverLicense" minOccurs="0" />
 					<xsd:element ref="ojb-crim-ext:PublicSafetyInformationNetworkIdentification" minOccurs="0" />

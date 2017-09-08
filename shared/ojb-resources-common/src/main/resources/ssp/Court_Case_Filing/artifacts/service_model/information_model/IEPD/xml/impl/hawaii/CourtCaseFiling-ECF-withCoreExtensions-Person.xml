@@ -83,6 +83,9 @@
 						<nc:MeasureUnitText>nc:MeasureUnitText</nc:MeasureUnitText>
 					</nc:PersonWeightMeasure>
 					<ojb-crim-ext:PersonAugmentation>
+						<j:PersonStateFingerprintIdentification>
+							<nc:IdentificationID>SI898709</nc:IdentificationID>
+						</j:PersonStateFingerprintIdentification>
 						<ojb-crim-ext:PersonDriverLicense>
 							<nc:DriverLicenseIdentification>
 								<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
@@ -104,22 +107,7 @@
 							<nc:TelephoneNumberFullID>nc:TelephoneNumberFullID</nc:TelephoneNumberFullID>
 						</nc:FullTelephoneNumber>
 					</nc:ContactTelephoneNumber>
-					<nc:ContactEmailID>me@email.com</nc:ContactEmailID>
 					<nc:ContactInformationDescriptionText>Home</nc:ContactInformationDescriptionText>
-					<ojb-crim-ext:ContactMailingAddress>
-						<nc:StructuredAddress>
-							<nc:AddressSecondaryUnitText>Apt #3</nc:AddressSecondaryUnitText>
-							<nc:LocationStreet>
-								<nc:StreetFullText>123 Main St.</nc:StreetFullText>
-							</nc:LocationStreet>
-							<nc:LocationCityName>Anytown</nc:LocationCityName>
-							<nc:LocationStateName>IN</nc:LocationStateName>
-							<nc:LocationCountryName>USA</nc:LocationCountryName>
-							<nc:LocationPostalCode>12345</nc:LocationPostalCode>
-						</nc:StructuredAddress>
-						<ojb-crim-ext:DefaultLocationIndicator>true</ojb-crim-ext:DefaultLocationIndicator>
-						<ojb-crim-ext:PreferredLocationIndicator>true</ojb-crim-ext:PreferredLocationIndicator>
-					</ojb-crim-ext:ContactMailingAddress>
 				</ojb-crim-ext:ContactInformation>
 				<ojb-crim-ext:ContactInformation>
 					<nc:ContactTelephoneNumber>
@@ -136,6 +124,23 @@
 						</nc:FullTelephoneNumber>
 					</nc:ContactTelephoneNumber>
 					<nc:ContactInformationDescriptionText>Cell</nc:ContactInformationDescriptionText>
+				</ojb-crim-ext:ContactInformation>
+				<ojb-crim-ext:ContactInformation>
+					<nc:ContactEmailID>me@email.com</nc:ContactEmailID>
+					<ojb-crim-ext:ContactMailingAddress>
+						<nc:StructuredAddress>
+							<nc:AddressSecondaryUnitText>Apt #3</nc:AddressSecondaryUnitText>
+							<nc:LocationStreet>
+								<nc:StreetFullText>123 Main St.</nc:StreetFullText>
+							</nc:LocationStreet>
+							<nc:LocationCityName>Anytown</nc:LocationCityName>
+							<nc:LocationStateName>IN</nc:LocationStateName>
+							<nc:LocationCountryName>USA</nc:LocationCountryName>
+							<nc:LocationPostalCode>12345</nc:LocationPostalCode>
+						</nc:StructuredAddress>
+						<ojb-crim-ext:DefaultLocationIndicator>true</ojb-crim-ext:DefaultLocationIndicator>
+						<ojb-crim-ext:PreferredLocationIndicator>true</ojb-crim-ext:PreferredLocationIndicator>
+					</ojb-crim-ext:ContactMailingAddress>
 				</ojb-crim-ext:ContactInformation>
 			</ojb-crim-ext:CaseParticipant>
 			<ojb-crim-ext:CaseParticipant s:id="Officer_01">
