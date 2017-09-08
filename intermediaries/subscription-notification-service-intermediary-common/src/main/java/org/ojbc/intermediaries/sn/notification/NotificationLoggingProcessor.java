@@ -30,19 +30,24 @@ public class NotificationLoggingProcessor {
 	public void logNotification(EmailNotification emailNotification)
 	{
 		
-		log.info("Email Notification to log (Notification Processor): " + emailNotification);
-		
-		if (emailNotification.getBlockedAddresseeSet() !=null && emailNotification.getBlockedAddresseeSet().size() > 0)
-		{
-			log.info("Notification contains blocked addresses, don't log: " + emailNotification.getBlockedAddresseeSet());
-			return;
-		}	
-		
-		Subscription subscription = emailNotification.getSubscription();
-		
-		if (subscription != null)
-		{
-			auditDaoImpl.saveNotificationLogEntry(emailNotification);
+		try {
+			log.info("Email Notification to log (Notification Processor): " + emailNotification);
+			
+			if (emailNotification.getBlockedAddresseeSet() !=null && emailNotification.getBlockedAddresseeSet().size() > 0)
+			{
+				log.info("Notification contains blocked addresses, don't log: " + emailNotification.getBlockedAddresseeSet());
+				return;
+			}	
+			
+			Subscription subscription = emailNotification.getSubscription();
+			
+			if (subscription != null)
+			{
+				auditDaoImpl.saveNotificationLogEntry(emailNotification);
+			}
+		} catch (Exception e) {
+			log.error("Unable to log notification!");
+			e.printStackTrace();
 		}	
 		
 		
