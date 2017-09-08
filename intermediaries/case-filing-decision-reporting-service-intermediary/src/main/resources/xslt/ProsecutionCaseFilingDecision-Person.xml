@@ -187,6 +187,15 @@
 			</nc:PersonName>
 		</nc:IdentityPersonRepresentation>
 	</nc:Identity>
+		<nc:Identity structures:id="Identity_02">
+		<nc:IdentityPersonRepresentation>
+			<nc:PersonName>
+				<nc:PersonGivenName>Laur</nc:PersonGivenName>
+				<nc:PersonMiddleName>D</nc:PersonMiddleName>
+				<nc:PersonSurName>Smit</nc:PersonSurName>
+			</nc:PersonName>
+		</nc:IdentityPersonRepresentation>
+	</nc:Identity>
 	<nc:Organization structures:id="Defendant_Org_01">
 		<nc:OrganizationName>ACME Corporation</nc:OrganizationName>
 	</nc:Organization>
@@ -258,6 +267,7 @@
 	<nc:PersonIdentityAssociation>
 		<nc:Person structures:ref="Defendant_01" />
 		<nc:Identity structures:ref="Identity_01" />
+		<nc:Identity structures:ref="Identity_02" />
 	</nc:PersonIdentityAssociation>
 	<nc:PersonConveyanceAssociation>
 		<nc:Person structures:ref="Defendant_01" />

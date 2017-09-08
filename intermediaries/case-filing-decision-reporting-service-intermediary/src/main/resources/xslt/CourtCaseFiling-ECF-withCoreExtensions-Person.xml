@@ -90,6 +90,9 @@
 							</nc:DriverLicenseIdentification>
 							<ojb-crim-ext:DriverLicenseCDLIndicator>false</ojb-crim-ext:DriverLicenseCDLIndicator>
 						</ojb-crim-ext:PersonDriverLicense>
+						<ojb-crim-ext:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>SI898709</nc:IdentificationID>
+			</ojb-crim-ext:PersonStateFingerprintIdentification>
 						<ojb-crim-ext:PersonConfidentialIndicator>false</ojb-crim-ext:PersonConfidentialIndicator>
 						<ojb-crim-ext:PersonJuvenileIndicator>false</ojb-crim-ext:PersonJuvenileIndicator>
 						<ojb-crim-ext:IdentifiedPersonTrackingIdentification>

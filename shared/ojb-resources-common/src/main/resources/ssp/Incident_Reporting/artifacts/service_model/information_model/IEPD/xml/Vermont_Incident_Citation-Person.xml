@@ -509,6 +509,7 @@
 								<inc-ext:DrivingAccidentIndicator>false</inc-ext:DrivingAccidentIndicator>
 								<inc-ext:DrivingAccidentFatalityIndicator>false</inc-ext:DrivingAccidentFatalityIndicator>
 								<inc-ext:SeatBeltViolationIndicator>false</inc-ext:SeatBeltViolationIndicator>
+								<inc-ext:SeatBeltViolationCount>3</inc-ext:SeatBeltViolationCount>
 								<inc-ext:CivilReliefActIndicator>true</inc-ext:CivilReliefActIndicator>
 								<inc-ext:CivilReliefActJuvenileIndicator>true</inc-ext:CivilReliefActJuvenileIndicator>
 								<inc-ext:CivilReliefActOtherIndicator>true</inc-ext:CivilReliefActOtherIndicator>
