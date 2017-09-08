@@ -23,13 +23,11 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.notification.EmailNotification;
 import org.ojbc.intermediaries.sn.notification.RapbackTriggeringEvent;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -41,7 +39,6 @@ public class AuditDAOImpl implements AuditDAO {
 
 	private static final Log log = LogFactory.getLog(AuditDAOImpl.class);
 	
-    @Autowired
 	private JdbcTemplate jdbcTemplateAudit;
 	
     public void setDataSource(DataSource dataSource) {

@@ -187,7 +187,7 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 		assertNotNull(notificationsSent);
 		
 		//Additional assertions in the AuditDaoImpl test
-		assertEquals(62728, notificationsSent.getSubscription().getId());
+		assertNotNull(notificationsSent.getSubscription().getId());
 	}
 
 	@Test
