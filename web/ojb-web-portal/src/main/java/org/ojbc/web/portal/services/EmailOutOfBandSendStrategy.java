@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,6 +42,9 @@ public class EmailOutOfBandSendStrategy implements  OtpOutOfBandSendStrategy {
     @Value("#{'${emailRecipientsLogMessageOnly:}'.split(',')}")
     List<String> emailRecipientsLogMessageOnly;
     
+    @Value("${emailFromAddress:}")
+    private String emailFromAddress;
+    
     private final Log log = LogFactory.getLog(this.getClass());
 	
 	@Override
@@ -58,6 +62,11 @@ public class EmailOutOfBandSendStrategy implements  OtpOutOfBandSendStrategy {
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setText(body.toString());
+        
+        if (StringUtils.isNoneBlank(emailFromAddress))
+        {	
+        	email.setFrom(emailFromAddress);
+        }	
          
     	log.debug("Recipients where we only log their email and don't send:" + emailRecipientsLogMessageOnly);
     	
