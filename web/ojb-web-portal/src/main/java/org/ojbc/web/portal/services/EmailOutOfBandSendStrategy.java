@@ -47,11 +47,11 @@ public class EmailOutOfBandSendStrategy implements  OtpOutOfBandSendStrategy {
 	public void sendToken(String oneTimePassword, String recipient) {
 		
 		StringBuilder body = new StringBuilder();
-		body.append("Here is your one time password: " + oneTimePassword );
+		body.append("Here is your One-Time password: " + oneTimePassword );
 		
         // takes input from e-mail form
         String recipientAddress = recipient;
-        String subject = "Your One Time Password";
+        String subject = "Your One-Time Password";
          
         // creates a simple e-mail object
         SimpleMailMessage email = new SimpleMailMessage();

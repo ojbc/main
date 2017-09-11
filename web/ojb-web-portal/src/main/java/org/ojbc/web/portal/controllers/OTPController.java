@@ -64,7 +64,7 @@ public class OTPController {
 		
 		otpService.generateOTP(userEmail);
 		
-		model.put("otpInfoMessage", "Your One-Time Password (OTP) was sent to " + userEmail + ".  Please enter the OTP below.  If you did not receive the OTP, please click the 'Request OTP' below.");		
+		model.put("otpInfoMessage", "Your One-Time Password (OTP) was sent to " + userEmail + ".  Please enter the OTP above.  If you did not receive the OTP, please click the 'Request New OTP' below.");		
 		
 		return "otp/inputForm";
 	}
@@ -80,7 +80,7 @@ public class OTPController {
 		
 		otpService.generateOTP(userEmail);
 		
-		model.put("otpInfoMessage", "Your One Time Password sent to: " + userEmail);
+		model.put("otpInfoMessage", "Your One-Time Password sent to: " + userEmail);
 		
 		log.info("About to return view");
 		
@@ -107,7 +107,7 @@ public class OTPController {
 		else
 		{
 			log.warn("OTP Denied for: " + userEmail);
-			model.put("otpInfoMessageError", "Your One Time Password was invalid.  Please try again or request new One Time Password.");
+			model.put("otpInfoMessageError", "Your One-Time Password was invalid.  Please try again or request new One-Time Password.");
 			return "otp/inputForm";	
 		}
 
