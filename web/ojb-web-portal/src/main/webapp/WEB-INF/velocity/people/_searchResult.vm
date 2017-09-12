@@ -52,6 +52,48 @@
 			      $('#portalContent').html(data);
 			    }).fail(ojbc.displayFailMessage)
 		});
+		
+		$('#personSearchResultsTable').on('click', '#personSearchSubButton',function() {
+			// call the spring controller method we need by this GET URL request,
+			// that method populates the mvc model map with objects needed that 
+			// are used by the html in the modal velocity template file
+			
+			var firstName = ($(this).attr('firstName'));
+			var lastName = ($(this).attr('lastName'));
+			var dob = ($(this).attr('dob'));
+			var sid = ($(this).attr('sid'));
+			
+			var subscription = "firstName=" +  firstName + "&lastName=" + lastName +  "&dob=" + dob + "&sid=" + sid + "&sourcePage=personSearch";
+			
+			var sourcePage="personSearch";		
+						
+	  		$.post("#springUrl('/subscriptions/addSubscription')", subscription,
+	  			function(data){			  			
+	  							  			
+	    			 var vSubDialog = $('<div style="display:none;overflow:hidden" class="contentBox" id="addSubscriptionDialog" title="ADD SUBSCRIPTION"></div>').appendTo('body');			    			
+	    			 
+	    			 vSubDialog.dialog({                    
+			                position: {
+	                           my: "center",
+	                           at: "center",
+	                           of: window
+			                },
+			                modal:true,
+					        width:240,
+					        height:530,
+					        resizable:false,
+					        open:function(event,ui){							        							        	
+					        	$('#addSubscriptionDialog').html(data);
+					        	$('#modalIframeSpinner').hide();
+					        },
+					        close: function(event, ui){
+					        	$(this).dialog("close");
+					        	$('#addSubscriptionDialog').remove();
+					        }    	                                  
+	                    }); 			  						  				  				
+	  			}
+	  		).fail(ojbc.displayFailMessage);
+	  	}); 		
 
 		#if($singleClickForDetail){
 			$("#personSearchResultsTable").on('click', 'tbody tr', function(){

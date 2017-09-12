@@ -18,6 +18,7 @@ package org.ojbc.web.portal.controllers;
 
 import static org.ojbc.util.helper.UniqueIdUtils.getFederatedQueryId;
 
+import java.io.Serializable;
 import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -111,6 +112,11 @@ public class SubscriptionsController {
 	public static final String PERSON_VEHICLE_CRASH_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/vehicleCrash";
 	
 	private static DocumentBuilder docBuilder;
+	
+	private SimpleDateFormat dateFormDOB = new SimpleDateFormat("yyyy-MM-dd");
+
+	@Value("${defaultPersonSearchSubscriptionTopic:}")
+	String defaultPersonSearchSubscriptionTopic;
 	
 	private final Log logger = LogFactory.getLog(this.getClass());
 	
@@ -316,10 +322,42 @@ public class SubscriptionsController {
 	 * to create the subscription
 	 */
 	@RequestMapping(value="addSubscription", method = RequestMethod.POST)
-	public String getAddSubscriptionModal(HttpServletRequest request,
+	public String getAddSubscriptionModal(HttpServletRequest request,@RequestParam Map<String,String> allRequestParams,
 			Map<String, Object> model) throws Exception{
-								
+		
+		logger.debug("All request params: " + allRequestParams.toString());
+		
 		Subscription subscription = new Subscription();
+
+		String firstName = allRequestParams.get("firstName");
+		
+		if (StringUtils.isNotBlank(firstName))
+		{
+			subscription.setFirstName(firstName);
+		}	
+		
+		String lastName = allRequestParams.get("lastName");
+
+		if (StringUtils.isNotBlank(lastName))
+		{
+			subscription.setLastName(lastName);
+		}	
+
+		String sid = allRequestParams.get("sid");
+
+		if (StringUtils.isNotBlank(sid))
+		{
+			subscription.setStateId(sid);
+		}	
+
+		String dob = allRequestParams.get("dob");
+
+		if (StringUtils.isNotBlank(dob))
+		{
+			Date testDob = dateFormDOB.parse(dob);
+			subscription.setDateOfBirth(testDob);
+		}	
+
 		
 		// if there is only one real subscription type option, make it selected
 		Map<String, String> subTypeMap =  getTopicValueToLabelMap();
@@ -334,7 +372,21 @@ public class SubscriptionsController {
 				}
 			}						
 		}
-					
+		
+		if (StringUtils.isNotBlank(defaultPersonSearchSubscriptionTopic))
+		{	
+			subscription.setTopic(defaultPersonSearchSubscriptionTopic);
+		}
+		
+		String sourcePage = allRequestParams.get("sourcePage");
+		
+		if (StringUtils.isNotBlank(sourcePage))
+		{	
+			model.put("sourcePage", sourcePage);
+			logger.info("Source page: " + sourcePage);
+		}
+		
+		
 		model.put("subscription", subscription);
 			
 		logger.info("inside addSubscription()");
@@ -462,7 +514,14 @@ public class SubscriptionsController {
 		
 		logger.info("inside arrestForm()");		
 				
-		Subscription subscription = new Subscription();
+		Subscription subscription = (Subscription) model.get("subscription");
+		
+		if (subscription == null)
+		{
+			subscription = new Subscription();
+		}	
+		
+		logger.info("Subscription: " + subscription.toString());
 		
 		initDatesForAddArrestForm(subscription, model);
 				
@@ -635,8 +694,15 @@ public class SubscriptionsController {
 		
 		logger.info("inside incidentForm()");
 		
-		Subscription subscription = new Subscription();
-				
+		Subscription subscription = (Subscription) model.get("subscription");
+		
+		if (subscription == null)
+		{
+			subscription = new Subscription();
+		}	
+		
+		logger.debug("Subscription: " + subscription.toString());
+		
 		initDatesForAddIncidentForm(subscription, model);
 		
 		String sEmail = userSession.getUserLogonInfo().emailAddress;
@@ -656,7 +722,14 @@ public class SubscriptionsController {
 		
 		logger.info("inside getChCycleForm()");
 		
-		Subscription subscription = new Subscription();
+		Subscription subscription = (Subscription) model.get("subscription");
+		
+		if (subscription == null)
+		{
+			subscription = new Subscription();
+		}	
+		
+		logger.info("Subscription: " + subscription.toString());
 				
 		initDatesForAddChCycleForm(subscription, model);
 		
@@ -677,7 +750,14 @@ public class SubscriptionsController {
 		
 		logger.info("inside getVehicleCrashForm()");
 		
-		Subscription subscription = new Subscription();
+		Subscription subscription = (Subscription) model.get("subscription");
+		
+		if (subscription == null)
+		{
+			subscription = new Subscription();
+		}	
+		
+		logger.info("Subscription: " + subscription.toString());
 				
 		initDatesForAddVehicleCrashForm(subscription, model);
 		
@@ -721,11 +801,13 @@ public class SubscriptionsController {
 	 * 		json array string of errors if any.  These can be used by the UI to display to the user
 	 */
 	@RequestMapping(value="saveSubscription", method=RequestMethod.GET)
-	public  @ResponseBody String  saveSubscription(HttpServletRequest request,
+	public  @ResponseBody SaveSubscriptionResponse  saveSubscription(HttpServletRequest request, @RequestParam Map<String,String> allRequestParams,
 			@ModelAttribute("subscription") Subscription subscription,
 			BindingResult errors) {
 								
 		logger.info("\n\n\n * * * * inside saveSubscription() * * * * *\n\n: " + subscription + "\n\n\n");
+		
+		String sourcePage = allRequestParams.get("sourcePage");
 		
 		Element samlElement = samlService.getSamlAssertion(request);
 										
@@ -755,7 +837,17 @@ public class SubscriptionsController {
 		
 		logger.info("\n\n Returning errors/warnings json:\n\n" + errorMsgsWarnMsgsJson);
 		
-		return errorMsgsWarnMsgsJson;
+		SaveSubscriptionResponse subscriptionResponse = new SaveSubscriptionResponse();
+		
+		subscriptionResponse.setErrorMsgsWarnMsgsJson(errorMsgsWarnMsgsJson);
+		
+		if (StringUtils.isNotBlank(sourcePage))
+		{	
+			subscriptionResponse.setSourcePage(sourcePage);
+			logger.info("Source page: " + sourcePage);
+		}
+		
+		return subscriptionResponse;
 	}		 
 	
 	List<String> getSubscriptionWarnings(Subscription subscription){
@@ -1763,6 +1855,28 @@ public class SubscriptionsController {
 			docBuilder = fact.newDocumentBuilder();			
 		}				
 		return docBuilder;
+	}	
+	
+	public class SaveSubscriptionResponse implements Serializable{
+		
+		private static final long serialVersionUID = 1L;
+		
+		public String errorMsgsWarnMsgsJson;
+		public String sourcePage;
+		
+		public String getErrorMsgsWarnMsgsJson() {
+			return errorMsgsWarnMsgsJson;
+		}
+		public void setErrorMsgsWarnMsgsJson(String errorMsgsWarnMsgsJson) {
+			this.errorMsgsWarnMsgsJson = errorMsgsWarnMsgsJson;
+		}
+		public String getSourcePage() {
+			return sourcePage;
+		}
+		public void setSourcePage(String sourcePage) {
+			this.sourcePage = sourcePage;
+		}
+
 	}	
 	
 }
