@@ -187,7 +187,7 @@
 			</nc:PersonName>
 		</nc:IdentityPersonRepresentation>
 	</nc:Identity>
-		<nc:Identity structures:id="Identity_02">
+	<nc:Identity structures:id="Identity_02">
 		<nc:IdentityPersonRepresentation>
 			<nc:PersonName>
 				<nc:PersonGivenName>Laur</nc:PersonGivenName>

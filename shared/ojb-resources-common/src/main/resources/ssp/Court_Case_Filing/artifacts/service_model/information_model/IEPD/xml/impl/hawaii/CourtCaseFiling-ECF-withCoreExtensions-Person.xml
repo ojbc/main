@@ -101,30 +101,30 @@
 					</ojb-crim-ext:PersonAugmentation>
 				</ojb-crim-ext:EntityPerson>
 				<ecf:CaseParticipantRoleCode>Defendant</ecf:CaseParticipantRoleCode>
-				<ojb-crim-ext:ContactInformation>
+				<nc:ContactInformation>
 					<nc:ContactTelephoneNumber>
 						<nc:FullTelephoneNumber>
 							<nc:TelephoneNumberFullID>nc:TelephoneNumberFullID</nc:TelephoneNumberFullID>
 						</nc:FullTelephoneNumber>
 					</nc:ContactTelephoneNumber>
 					<nc:ContactInformationDescriptionText>Home</nc:ContactInformationDescriptionText>
-				</ojb-crim-ext:ContactInformation>
-				<ojb-crim-ext:ContactInformation>
+				</nc:ContactInformation>
+				<nc:ContactInformation>
 					<nc:ContactTelephoneNumber>
 						<nc:FullTelephoneNumber>
 							<nc:TelephoneNumberFullID>nc:TelephoneNumberFullID</nc:TelephoneNumberFullID>
 						</nc:FullTelephoneNumber>
 					</nc:ContactTelephoneNumber>
 					<nc:ContactInformationDescriptionText>Business</nc:ContactInformationDescriptionText>
-				</ojb-crim-ext:ContactInformation>
-				<ojb-crim-ext:ContactInformation>
+				</nc:ContactInformation>
+				<nc:ContactInformation>
 					<nc:ContactTelephoneNumber>
 						<nc:FullTelephoneNumber>
 							<nc:TelephoneNumberFullID>nc:TelephoneNumberFullID</nc:TelephoneNumberFullID>
 						</nc:FullTelephoneNumber>
 					</nc:ContactTelephoneNumber>
 					<nc:ContactInformationDescriptionText>Cell</nc:ContactInformationDescriptionText>
-				</ojb-crim-ext:ContactInformation>
+				</nc:ContactInformation>
 				<ojb-crim-ext:ContactInformation>
 					<nc:ContactEmailID>me@email.com</nc:ContactEmailID>
 					<ojb-crim-ext:ContactMailingAddress>
@@ -138,6 +138,7 @@
 							<nc:LocationCountryName>USA</nc:LocationCountryName>
 							<nc:LocationPostalCode>12345</nc:LocationPostalCode>
 						</nc:StructuredAddress>
+						<ojb-crim-ext:ContactMailingAddressCategoryText>Type of address location</ojb-crim-ext:ContactMailingAddressCategoryText>
 						<ojb-crim-ext:DefaultLocationIndicator>true</ojb-crim-ext:DefaultLocationIndicator>
 						<ojb-crim-ext:PreferredLocationIndicator>true</ojb-crim-ext:PreferredLocationIndicator>
 					</ojb-crim-ext:ContactMailingAddress>
@@ -220,9 +221,6 @@
 				</j:StatuteCodeIdentification>
 			</j:ChargeStatute>
 			<criminal:ChargeOffense>
-				<nc:ActivityIdentification>
-					<nc:IdentificationID>Incident #</nc:IdentificationID>
-				</nc:ActivityIdentification>
 				<nc:ActivityDate>
 					<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
 				</nc:ActivityDate>
