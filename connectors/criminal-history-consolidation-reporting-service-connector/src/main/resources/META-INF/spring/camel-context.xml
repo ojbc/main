@@ -27,6 +27,7 @@
 	xmlns:che-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryExpungementReport/1.0"
 	xmlns:chiu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
 	xmlns:crimhistory-update-doc="http://ojbc.org/IEPD/Exchange/CycleTrackingIdentifierAssignmentReport/1.0"
+	xmlns:chid-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierDeletionReport/1.0"
 	xmlns:pdr-report-doc="http://ojbc.org/IEPD/Exchange/ProsecutionDecisionRecordingReport/1.0"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -134,6 +135,14 @@
 			
 				<camel:setHeader headerName="operationName">
 					<constant>ReportCriminalHistoryIdentifierUpdate</constant>
+				</camel:setHeader>
+			</camel:filter>
+
+			<camel:filter>
+				<camel:xpath>/chid-report-doc:CriminalHistoryIdentifierDeletionReport</camel:xpath>
+			
+				<camel:setHeader headerName="operationName">
+					<constant>ReportCriminalHistoryIdentifierDeletion</constant>
 				</camel:setHeader>
 			</camel:filter>
 						
