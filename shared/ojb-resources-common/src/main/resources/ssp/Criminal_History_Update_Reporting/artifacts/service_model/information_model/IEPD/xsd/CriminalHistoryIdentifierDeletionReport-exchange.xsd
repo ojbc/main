@@ -20,18 +20,18 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:chid-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
-	xmlns:chid-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierUpdateReport/Extension/1.0"
-	targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
+	xmlns:chid-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierDeletionReport/1.0"
+	xmlns:chid-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierDeletionReport/Extension/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierDeletionReport/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
 		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
 		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
 	<xsd:import
-		namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierUpdateReport/Extension/1.0"
-		schemaLocation="./CriminalHistoryIdentifierUpdateReport-extension.xsd" />
-	<!-- Root data element for a Criminal History Identifier Update Report -->
-	<xsd:element name="CriminalHistoryIdentifierUpdateReport"
-		type="chid-report-ext:CriminalHistoryIdentifierUpdateReportType" />
+		namespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierDeletionReport/Extension/1.0"
+		schemaLocation="./CriminalHistoryIdentifierDeletionReport-extension.xsd" />
+	<!-- Root data element for a Criminal History Identifier Deletion Report -->
+	<xsd:element name="CriminalHistoryIdentifierDeletionReport"
+		type="chid-report-ext:CriminalHistoryIdentifierDeletionReportType" />
 </xsd:schema>

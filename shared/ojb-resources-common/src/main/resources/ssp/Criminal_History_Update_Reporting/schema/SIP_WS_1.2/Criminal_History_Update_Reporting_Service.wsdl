@@ -26,6 +26,7 @@
 	xmlns:chc-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryConsolidationReport/1.0"
 	xmlns:che-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryExpungementReport/1.0"
 	xmlns:chiu-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
+	xmlns:chid-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierDeletionReport/1.0"
 	xmlns:chr-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryRestorationReport/1.0"
 	xmlns:chr-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryReport/1.0"
 	xmlns:tns="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0"
@@ -54,6 +55,9 @@
 			<xsd:import
 				namespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierUpdateReport/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CriminalHistoryIdentifierUpdateReport-exchange.xsd" />
+			<xsd:import
+				namespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierDeletionReport/1.0"
+				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CriminalHistoryIdentifierDeletionReport-exchange.xsd" />
 			<xsd:import
 				namespace="http://ojbc.org/IEPD/Exchange/CriminalHistoryRestorationReport/1.0"
 				schemaLocation="../../artifacts/service_model/information_model/IEPD/xsd/CriminalHistoryRestorationReport-exchange.xsd" />
@@ -85,6 +89,10 @@
 	<wsdl:message name="CriminalHistoryIdentifierUpdateReport">
 		<wsdl:part name="CriminalHistoryIdentifierUpdateReport"
 			element="chiu-report-doc:CriminalHistoryIdentifierUpdateReport" />
+	</wsdl:message>
+	<wsdl:message name="CriminalHistoryIdentifierDeletionReport">
+		<wsdl:part name="CriminalHistoryIdentifierDeletionReport"
+			element="chid-report-doc:CriminalHistoryIdentifierDeletionReport" />
 	</wsdl:message>
 	<wsdl:message name="CriminalHistoryRestorationReport">
 		<wsdl:part name="CriminalHistoryRestorationReport"
@@ -120,6 +128,10 @@
 		<wsdl:operation name="ReportCriminalHistoryIdentifierUpdate">
 			<wsdl:input name="CriminalHistoryIdentifierUpdateReport"
 				message="tns:CriminalHistoryIdentifierUpdateReport" />
+		</wsdl:operation>
+		<wsdl:operation name="ReportCriminalHistoryIdentifierDeletion">
+			<wsdl:input name="CriminalHistoryIdentifierDeletionReport"
+				message="tns:CriminalHistoryIdentifierDeletionReport" />
 		</wsdl:operation>
 		<wsdl:operation name="ReportCriminalHistoryRestoration">
 			<wsdl:input name="CriminalHistoryRestorationReport"
@@ -178,6 +190,14 @@
 		<wsdl:operation name="ReportCriminalHistoryIdentifierUpdate">
 			<soap:operation
 				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0/ReportCriminalHistoryIdentifierUpdate"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ReportCriminalHistoryIdentifierDeletion">
+			<soap:operation
+				soapAction="http://ojbc.org/Services/WSDL/CriminalHistoryUpdateReportingService/1.0/ReportCriminalHistoryIdentifierDeletion"
 				style="document" />
 			<wsdl:input>
 				<soap:body use="literal" />
