@@ -107,6 +107,7 @@ public class CamelContextTest {
         testOperation(inputDirectory, "src/test/resources/xmlInstances/Cycle-Tracking-Identifier-Assignment-Report.xml","ReportCycleTrackingIdentifierAssignment");
         testOperation(inputDirectory, "src/test/resources/xmlInstances/Prosecution-Decision-Recording-Report.xml","ReportProsecutionDecisionRecording");
         testOperation(inputDirectory, "src/test/resources/xmlInstances/CriminalHistory-Consolidation-Report.xml", "ReportCriminalHistoryConsolidation");
+        testOperation(inputDirectory, "src/test/resources/xmlInstances/CriminalHistoryIdentifierDeletionReport.xml", "ReportCriminalHistoryIdentifierDeletion");
         
 		if (inputDirectory.exists())
 		{	
