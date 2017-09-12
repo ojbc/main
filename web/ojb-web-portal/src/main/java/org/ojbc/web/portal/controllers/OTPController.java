@@ -64,7 +64,7 @@ public class OTPController {
 		
 		otpService.generateOTP(userEmail);
 		
-		model.put("otpInfoMessage", "Your One-Time Password (OTP) was sent to " + userEmail + ".  Please enter the OTP above.  If you did not receive the OTP, please click the 'Request New OTP' below.");		
+		model.put("otpInfoMessage", "Your One-Time Password (OTP) was sent to " + userEmail + ".  Please enter the OTP above.  If you did not receive the OTP, please click the 'Request New OTP' link below.");		
 		
 		return "otp/inputForm";
 	}
