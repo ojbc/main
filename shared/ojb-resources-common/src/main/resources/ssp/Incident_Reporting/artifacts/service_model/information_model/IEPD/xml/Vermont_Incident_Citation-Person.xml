@@ -433,7 +433,7 @@
 							<inc-ext:Offense>
 								<inc-ext:OffenseViolatedStatute>
 									<j:StatuteCodeIdentification>
-										<nc:IdentificationID>20-124</nc:IdentificationID>
+										<nc:IdentificationID>23VSA1007</nc:IdentificationID>
 									</j:StatuteCodeIdentification>
 								</inc-ext:OffenseViolatedStatute>
 								<inc-ext:CFRStatute>
@@ -441,7 +441,7 @@
 										<nc:IdentificationID>23CFR655</nc:IdentificationID>
 									</j:StatuteCodeIdentification>
 								</inc-ext:CFRStatute>
-								<inc-ext:ViolationOffenseCode>23V1007A</inc-ext:ViolationOffenseCode>
+								<inc-ext:ViolationOffenseCode>SL2</inc-ext:ViolationOffenseCode>
 								<inc-ext:DrivingOffensePoints>2</inc-ext:DrivingOffensePoints>
 								<inc-ext:OffenseFineAmountMinimum>47.00</inc-ext:OffenseFineAmountMinimum>
 								<inc-ext:OffenseFineAmountMaximum>1197.00</inc-ext:OffenseFineAmountMaximum>

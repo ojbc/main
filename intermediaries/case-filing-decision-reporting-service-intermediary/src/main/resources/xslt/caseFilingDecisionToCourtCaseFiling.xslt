@@ -53,7 +53,6 @@
 		<xsl:apply-templates select="nc30:CaseCategoryText" />
 		<xsl:apply-templates select="nc30:CaseFiling" />
 		<xsl:apply-templates select="j51:CaseAugmentation/j51:CaseCourt" />
-		<xsl:apply-templates select="j51:CaseAugmentation/j51:CaseDomesticViolenceIndicator" />
 	</xsl:template>
 	<xsl:template match="j51:CaseCourt">
 		<j:CaseAugmentation>
@@ -62,6 +61,7 @@
 				<xsl:apply-templates select="j51:CourtName" />
 				<xsl:apply-templates select="j51:CourtCategoryCode" />
 			</j:CaseCourt>
+			<xsl:apply-templates select="j51:CaseAugmentation/j51:CaseDomesticViolenceIndicator" />
 		</j:CaseAugmentation>
 	</xsl:template>
 	<xsl:template match="cfd-doc:CaseFilingDecisionReport" mode="ecfAugmentation">
@@ -83,12 +83,10 @@
 			<xsl:attribute name="s:id"><xsl:value-of select="generate-id(./nc30:EntityPerson)" /></xsl:attribute>
 			<xsl:variable name="CPid" select="nc30:EntityPerson/@structures:ref" />
 			<xsl:apply-templates select="../../../nc30:Person[@structures:id=$CPid]" mode="defendant" />
-				<ojb-crim-ext:ContactInformation>
 			<xsl:apply-templates
 				select="../../../nc30:ContactInformation[@structures:id=../nc30:ContactInformationAssociation[nc30:ContactEntity/@structures:ref=$CPid]/nc30:ContactInformation/@structures:ref]" />
 			<xsl:apply-templates
 				select="../../../nc30:Location[@structures:id=../nc30:PersonResidenceAssociation[nc30:Person/@structures:ref=$CPid]/nc30:Location/@structures:ref]/nc30:Address" />
-		</ojb-crim-ext:ContactInformation>
 		</ojb-crim-ext:CaseParticipant>
 	</xsl:template>
 	<xsl:template match="j51:CaseDefendantParty" mode="party">
@@ -97,21 +95,20 @@
 				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(./nc30:EntityPerson)" /></xsl:attribute>
 			</nc:EntityPersonReference>
 			<xsl:apply-templates select="cfd-ext:PartyIdentification" />
-			<xsl:apply-templates select="cfd-ext:PartyRoleText" />
+			<!-- xsl:apply-templates select="cfd-ext:PartyRoleText" / -->
 			<xsl:apply-templates select="cfd-ext:PartyCategoryText" />
 			<xsl:apply-templates select="cfd-ext:PartyConfidentialIndicator" />
 		</ojb-crim-ext:CaseDefendantParty>
 	</xsl:template>
 	<xsl:template match="nc30:Person" mode="defendant">
 		<ojb-crim-ext:EntityPerson>
-			<xsl:copy-of select="nc30:PersonBirthDate" copy-namespaces="no" />
+			<xsl:copy-of select="nc30:PersonBirthDate" />
 			<xsl:copy-of select="nc30:PersonEyeColorText" copy-namespaces="no" />
 			<xsl:copy-of select="nc30:PersonHairColorText" copy-namespaces="no" />
 			<xsl:copy-of select="nc30:PersonHeightMeasure" copy-namespaces="no" />
 			<xsl:copy-of select="nc30:PersonName" copy-namespaces="no" />
 			<xsl:copy-of select="j51:PersonSexCode" copy-namespaces="no" />
 			<xsl:copy-of select="nc30:PersonSSNIdentification" copy-namespaces="no" />
-			
 			<xsl:copy-of select="nc30:PersonWeightMeasure" copy-namespaces="no" />
 			<xsl:apply-templates select="j51:PersonAugmentation" />
 		</ojb-crim-ext:EntityPerson>
@@ -125,15 +122,11 @@
 					<xsl:value-of select="normalize-space(j51:DriverLicense/cfd-ext:DriverLicenseCDLIndicator)" />
 				</ojb-crim-ext:DriverLicenseCDLIndicator>
 			</ojb-crim-ext:PersonDriverLicense>
-			
 			<ojb-crim-ext:PersonStateFingerprintIdentification>
-			<nc:IdentificationID>
-				<xsl:value-of select="normalize-space(j51:PersonStateFingerprintIdentification/nc30:IdentificationID)" />
-			</nc:IdentificationID>
+				<nc:IdentificationID>
+					<xsl:value-of select="normalize-space(j51:PersonStateFingerprintIdentification/nc30:IdentificationID)" />
+				</nc:IdentificationID>
 			</ojb-crim-ext:PersonStateFingerprintIdentification>
-			
-		
-			
 			<ojb-crim-ext:PersonConfidentialIndicator>
 				<xsl:value-of select="normalize-space(../cfd-ext:PersonConfidentialIndicator)" />
 			</ojb-crim-ext:PersonConfidentialIndicator>
@@ -148,24 +141,37 @@
 		</ojb-crim-ext:PersonAugmentation>
 	</xsl:template>
 	<xsl:template match="nc30:ContactInformation">
-
-		<xsl:copy-of select="node()" copy-namespaces="no" />
-		
-
-		
-		
-		
-		
+		<nc:ContactInformation>
+			<xsl:copy-of select="nc30:ContactTelephoneNumber" copy-namespaces="no" />
+			<xsl:copy-of select="nc30:ContactEmailID" copy-namespaces="no" />
+		</nc:ContactInformation>
 	</xsl:template>
 	<xsl:template match="nc30:Address">
-		<nc:ContactMailingAddress>
-			<nc:StructuredAddress>
-				<xsl:copy-of select="node()" copy-namespaces="no" />
-			</nc:StructuredAddress>
-		</nc:ContactMailingAddress>
-		<xsl:apply-templates select="../nc30:LocationCategoryText" />
-		<xsl:copy-of select="../cfd-ext:DefaultLocationIndicator" copy-namespaces="no" />
-		<xsl:copy-of select="../cfd-ext:PreferredLocationIndicator" copy-namespaces="no" />
+		<ojb-crim-ext:ContactInformation>
+			<ojb-crim-ext:ContactMailingAddress>
+				<nc:StructuredAddress>
+					<xsl:copy-of select="node()" copy-namespaces="no" />
+				</nc:StructuredAddress>
+				<xsl:apply-templates select="../nc30:LocationCategoryText" />
+				<xsl:apply-templates select="../cfd-ext:DefaultLocationIndicator" />
+				<xsl:apply-templates select="../cfd-ext:PreferredLocationIndicator" />
+			</ojb-crim-ext:ContactMailingAddress>
+		</ojb-crim-ext:ContactInformation>
+	</xsl:template>
+	<xsl:template match="nc30:LocationCategoryText">
+		<ojb-crim-ext:ContactMailingAddressCategoryText>
+			<xsl:value-of select="normalize-space(.)" />
+		</ojb-crim-ext:ContactMailingAddressCategoryText>
+	</xsl:template>
+	<xsl:template match="cfd-ext:DefaultLocationIndicator">
+		<ojb-crim-ext:DefaultLocationIndicator>
+			<xsl:value-of select="normalize-space(.)" />
+		</ojb-crim-ext:DefaultLocationIndicator>
+	</xsl:template>
+	<xsl:template match="cfd-ext:PreferredLocationIndicator">
+		<ojb-crim-ext:PreferredLocationIndicator>
+			<xsl:value-of select="normalize-space(.)" />
+		</ojb-crim-ext:PreferredLocationIndicator>
 	</xsl:template>
 	<xsl:template match="nc30:Person" mode="officer">
 		<ojb-crim-ext:CaseParticipant>
@@ -236,27 +242,25 @@
 		<xsl:variable name="chargeid" select="./@structures:id" />
 		<ojb-crim-ext:CaseCharge>
 			<xsl:attribute name="s:id"><xsl:value-of select="generate-id(.)" /></xsl:attribute>
-			<xsl:apply-templates select="j51:ChargeSeverityLevel/j51:SeverityLevelDescriptionText" />
-			<xsl:apply-templates select="j51:ChargeStatute" />
+			<xsl:copy-of select="j51:ChargeCountQuantity" copy-namespaces="no" />
+			<xsl:copy-of select="j51:ChargeDescriptionText" copy-namespaces="no" />
+			<xsl:copy-of select="j51:ChargeFilingDate" copy-namespaces="no" />
+			<xsl:copy-of select="j51:ChargeQualifierText" copy-namespaces="no" />
+			<xsl:copy-of select="j51:ChargeSeverityLevel" copy-namespaces="no" />
+			<xsl:copy-of select="j51:ChargeStatute" copy-namespaces="no" />
 			<xsl:apply-templates
 				select="../../../j51:Offense[@structures:id=../j51:OffenseChargeAssociation[j51:Charge/@structures:ref=$chargeid]/j51:Offense/@structures:ref]" />
 			<!-- Required by ECF but not in the Hawaii Prosecution Case Filing Decision -->
 			<criminal:ChargeAmendedIndicator>false</criminal:ChargeAmendedIndicator>
 		</ojb-crim-ext:CaseCharge>
 	</xsl:template>
-	<xsl:template match="j51:ChargeStatute">
-		<j:ChargeStatute>
-			<xsl:apply-templates select="j51:StatuteCodeIdentification" />
-			<xsl:apply-templates select="j51:StatuteDescriptionText" />
-		</j:ChargeStatute>
-	</xsl:template>
 	<xsl:template match="j51:Offense">
 		<criminal:ChargeOffense>
 			<xsl:if test="nc30:ActivityDate!=''">
-				<xsl:copy-of select="." copy-namespaces="no" />
+				<xsl:copy-of select="nc30:ActivityDate" copy-namespaces="no" />
 			</xsl:if>
 			<xsl:if test="nc30:ActivityDateRange!=''">
-				<xsl:copy-of select="." copy-namespaces="no" />
+				<xsl:copy-of select="nc30:ActivityDateRange" copy-namespaces="no" />
 			</xsl:if>
 		</criminal:ChargeOffense>
 	</xsl:template>
@@ -265,7 +269,6 @@
 			<xsl:apply-templates select="nc30:DateTime" />
 		</nc:ActivityDate>
 	</xsl:template>
-	<!-- MATCH -->
 	<xsl:template match="nc30:ActivityDescriptionText">
 		<nc:ActivityDescriptionText>
 			<xsl:value-of select="normalize-space(.)" />
@@ -306,20 +309,6 @@
 		<j:CourtCategoryCode>
 			<xsl:value-of select="normalize-space(.)" />
 		</j:CourtCategoryCode>
-	</xsl:template>
-	<xsl:template match="j51:SeverityLevelDescriptionText">
-		<j:ChargeSeverityLevel>
-			<j:SeverityLevelDescriptionText>
-				<xsl:value-of select="normalize-space(.)" />
-			</j:SeverityLevelDescriptionText>
-		</j:ChargeSeverityLevel>
-	</xsl:template>
-	<xsl:template match="j51:StatuteCodeIdentification">
-		<j:StatuteCodeIdentification>
-			<nc:IdentificationID>
-				<xsl:value-of select="normalize-space(.)" />
-			</nc:IdentificationID>
-		</j:StatuteCodeIdentification>
 	</xsl:template>
 	<xsl:template match="j51:StatuteDescriptionText">
 		<j:StatuteDescriptionText>
@@ -420,7 +409,7 @@
 			</ecf:DocumentRendition>
 			<xsl:apply-templates select="cfd-ext:PreviouslyFiledDocketText" />
 			<xsl:apply-templates select="cfd-ext:DocumentPublicPartyViewingRestrictedIndicator" />
-			<xsl:apply-templates select="ojb-crim-ext:DocumentPublicViewingRestrictedIndicator" />
+			<xsl:apply-templates select="cfd-ext:DocumentPublicViewingRestrictedIndicator" />
 		</ojb-crim-ext:FilingLeadDocument>
 	</xsl:template>
 	<xsl:template match="nc30:SecondaryDocument">
@@ -451,7 +440,7 @@
 			</ecf:DocumentRendition>
 			<xsl:apply-templates select="cfd-ext:PreviouslyFiledDocketText" />
 			<xsl:apply-templates select="cfd-ext:DocumentPublicPartyViewingRestrictedIndicator" />
-			<xsl:apply-templates select="ojb-crim-ext:DocumentPublicViewingRestrictedIndicator" />
+			<xsl:apply-templates select="cfd-ext:DocumentPublicViewingRestrictedIndicator" />
 		</ojb-crim-ext:FilingConnectedDocument>
 	</xsl:template>
 	<xsl:template match="cfd-ext:PreviouslyFiledDocketText">
