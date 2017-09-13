@@ -130,7 +130,13 @@
   		).fail(ojbc.displayFailMessage);				  				  									  	  
 	  }
 	  
-	  function handleDisplayAfterSave(messagesJson){
+	  function handleDisplayAfterSave(subscriptionResponse){
+	  		
+	  
+	  		var parsedData = JSON.parse(subscriptionResponse);
+	  
+	  		var messagesJson = parsedData.errorMsgsWarnMsgsJson;
+	  		var sourcePage = parsedData.sourcePage;
 	  
 	  		var messagesJsFromSubscribeJson = ''; 
 			var errorsArray = '';
@@ -156,8 +162,16 @@
 				    	displayMessage += '\n ' + value;																											
 				  	});
 				  	alert(displayMessage);
-			   }				
-			   refreshAfterSaveSubscription();
+			   }	
+			   if (sourcePage === 'personSearch')
+			   {		
+			   		$("#addSubscriptionDialog").dialog('close');
+					alert("Your subscription was saved successfully. Click the subscriptions link to view it.");
+			   }
+			   else
+			   {			
+			   		refreshAfterSaveSubscription();
+			   }	
 			}		  	  
 	  }
 	  
@@ -258,7 +272,9 @@
 			#springFormSingleSelect("subscription.topic" $subscriptionTypeValueToLabelMap "onChange='refreshDisplayFromSubType()'")	
 		</div>			
 		
-		<div id="subModalDynamicContents"/>	 	    	        
+		<div id="subModalDynamicContents"/>
+		
+		<input type="hidden" id="sourcePage" name="sourcePage" value="${sourcePage}"/>	 	    	        
 	</form>
 </div>
   

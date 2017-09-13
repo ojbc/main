@@ -37,7 +37,8 @@
 	<xsl:param name="hrefBase" />
 	<xsl:param name="purpose" />
 	<xsl:param name="onBehalfOf" />
-	
+	<xsl:param name="showPersonSearchToSubscriptionButton" />
+
 
 
     <xsl:template match="/exc:EntityMergeResultMessage">
@@ -71,7 +72,10 @@
 		    				<th>DOB</th>
 		    				<th>TYPE</th>
 		    				<th>SYSTEM</th>
-		    				<th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
+                            <xsl:if test="$showPersonSearchToSubscriptionButton">		    			    
+		    				  <th>ACTION</th>
+                            </xsl:if>
+		    			    <th class="hidden"><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></th>
 		    			</tr>
 	    			</thead>
 	    			<tbody>
@@ -177,6 +181,11 @@
                        </xsl:if>
                     
                 </td>
+                <xsl:if test="$showPersonSearchToSubscriptionButton">
+                    <td>
+                    	<a id="personSearchSubButton" href="#" sid="{$person/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID}" firstName="{$personName/nc:PersonGivenName}" lastName="{$personName/nc:PersonSurName}" dob="{$person/nc:PersonBirthDate/nc:Date}"><img src="../static/images/Search%20Results/icon-mail.png"/></a>
+                    </td>
+                </xsl:if>    
             </tr>
         </xsl:for-each>
     </xsl:template>

@@ -229,6 +229,9 @@
 	<nc:PrimaryDocument structures:id="LeadDocument">
 		<nc:DocumentCategoryText>Document Category</nc:DocumentCategoryText>
 		<nc:DocumentCategoryName>Document Type</nc:DocumentCategoryName>
+		<nc:DocumentBinary>
+			<cfd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cfd-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 		<nc:DocumentDescriptionText>Notes</nc:DocumentDescriptionText>
 		<nc:DocumentRelatedResourceText>D4355</nc:DocumentRelatedResourceText>
 		<cfd-ext:PreviouslyFiledDocketText>Docket Entry</cfd-ext:PreviouslyFiledDocketText>
@@ -239,6 +242,9 @@
 	<nc:SecondaryDocument structures:id="Document_01">
 		<nc:DocumentCategoryText>Document Category</nc:DocumentCategoryText>
 		<nc:DocumentCategoryName>Document Type</nc:DocumentCategoryName>
+		<nc:DocumentBinary>
+			<cfd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cfd-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 		<nc:DocumentDescriptionText>Notes</nc:DocumentDescriptionText>
 		<cfd-ext:PreviouslyFiledDocketText>Docket Entry</cfd-ext:PreviouslyFiledDocketText>
 		<cfd-ext:DocumentPublicPartyViewingRestrictedIndicator>false</cfd-ext:DocumentPublicPartyViewingRestrictedIndicator>

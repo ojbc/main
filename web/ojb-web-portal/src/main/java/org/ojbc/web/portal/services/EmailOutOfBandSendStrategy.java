@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,23 +42,31 @@ public class EmailOutOfBandSendStrategy implements  OtpOutOfBandSendStrategy {
     @Value("#{'${emailRecipientsLogMessageOnly:}'.split(',')}")
     List<String> emailRecipientsLogMessageOnly;
     
+    @Value("${emailFromAddress:}")
+    private String emailFromAddress;
+    
     private final Log log = LogFactory.getLog(this.getClass());
 	
 	@Override
 	public void sendToken(String oneTimePassword, String recipient) {
 		
 		StringBuilder body = new StringBuilder();
-		body.append("Here is your one time password: " + oneTimePassword );
+		body.append("Here is your One-Time password: " + oneTimePassword );
 		
         // takes input from e-mail form
         String recipientAddress = recipient;
-        String subject = "Your One Time Password";
+        String subject = "Your One-Time Password";
          
         // creates a simple e-mail object
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setText(body.toString());
+        
+        if (StringUtils.isNoneBlank(emailFromAddress))
+        {	
+        	email.setFrom(emailFromAddress);
+        }	
          
     	log.debug("Recipients where we only log their email and don't send:" + emailRecipientsLogMessageOnly);
     	

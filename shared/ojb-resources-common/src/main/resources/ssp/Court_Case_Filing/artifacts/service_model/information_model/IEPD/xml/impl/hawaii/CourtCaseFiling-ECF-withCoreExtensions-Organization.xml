@@ -53,6 +53,14 @@
 					<nc:OrganizationName>ACME Corp.</nc:OrganizationName>
 				</ojb-crim-ext:EntityOrganization>
 				<ecf:CaseParticipantRoleCode>Defendant</ecf:CaseParticipantRoleCode>
+				<nc:ContactInformation>
+					<nc:ContactTelephoneNumber>
+						<nc:FullTelephoneNumber>
+							<nc:TelephoneNumberFullID>nc:TelephoneNumberFullID</nc:TelephoneNumberFullID>
+						</nc:FullTelephoneNumber>
+					</nc:ContactTelephoneNumber>
+					<nc:ContactInformationDescriptionText>Business</nc:ContactInformationDescriptionText>
+				</nc:ContactInformation>
 				<ojb-crim-ext:ContactInformation>
 					<nc:ContactTelephoneNumber>
 						<nc:FullTelephoneNumber>
@@ -60,6 +68,8 @@
 						</nc:FullTelephoneNumber>
 					</nc:ContactTelephoneNumber>
 					<nc:ContactInformationDescriptionText>Business</nc:ContactInformationDescriptionText>
+				</ojb-crim-ext:ContactInformation>
+				<ojb-crim-ext:ContactInformation>
 					<ojb-crim-ext:ContactMailingAddress>
 						<nc:StructuredAddress>
 							<nc:AddressSecondaryUnitText>Suite 214</nc:AddressSecondaryUnitText>
@@ -72,14 +82,6 @@
 							<nc:LocationPostalCode>12345</nc:LocationPostalCode>
 						</nc:StructuredAddress>
 					</ojb-crim-ext:ContactMailingAddress>
-				</ojb-crim-ext:ContactInformation>
-				<ojb-crim-ext:ContactInformation>
-					<nc:ContactTelephoneNumber>
-						<nc:FullTelephoneNumber>
-							<nc:TelephoneNumberFullID>nc:TelephoneNumberFullID</nc:TelephoneNumberFullID>
-						</nc:FullTelephoneNumber>
-					</nc:ContactTelephoneNumber>
-					<nc:ContactInformationDescriptionText>Business</nc:ContactInformationDescriptionText>
 				</ojb-crim-ext:ContactInformation>
 			</ojb-crim-ext:CaseParticipant>
 			<ojb-crim-ext:CaseParticipant s:id="Officer_01">

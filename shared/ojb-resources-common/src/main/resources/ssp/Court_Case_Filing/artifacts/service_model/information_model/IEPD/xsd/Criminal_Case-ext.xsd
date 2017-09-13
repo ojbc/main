@@ -123,7 +123,8 @@
 				<xsd:sequence>
 					<xsd:element ref="ojb-crim-ext:PersonAugmentation" minOccurs="0" />
 					<xsd:element ref="ecf:CaseParticipantRoleCode" minOccurs="0" />
-					<xsd:element ref="ojb-crim-ext:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-crim-ext:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -181,7 +182,7 @@
 			<xsd:documentation>Additional information about a person.</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="ecf:PersonAugmentationType">
+			<xsd:extension base="j:PersonAugmentationType">
 				<xsd:sequence>
 					<xsd:element ref="ojb-crim-ext:PersonDriverLicense" minOccurs="0" />
 					<xsd:element ref="ojb-crim-ext:PublicSafetyInformationNetworkIdentification" minOccurs="0" />
@@ -230,7 +231,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:AddressType">
 				<xsd:sequence>
-					<!-- nc:LocationCategoryText>Address Type</nc:LocationCategoryText -->
+					<xsd:element ref="ojb-crim-ext:ContactMailingAddressCategoryText" minOccurs="0" />
 					<xsd:element ref="ojb-crim-ext:DefaultLocationIndicator" minOccurs="0" />
 					<xsd:element ref="ojb-crim-ext:PreferredLocationIndicator" minOccurs="0" />
 				</xsd:sequence>
@@ -425,6 +426,11 @@
 			<xsd:documentation>An entity that brings charges or a suit against another in a court of law. Can be either a victim in a criminal case or a
 				plaintiff in a civil case.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ContactMailingAddressCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A type of contact mailing address.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="DefaultLocationIndicator" type="niem-xsd:boolean">
