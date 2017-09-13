@@ -101,8 +101,8 @@ public class TestCriminalHistoryConsolidationService {
     @Produce
     protected ProducerTemplate template;
     
-    @EndpointInject(uri = "mock:cxf:bean:subscriptionManagerService")
-    protected MockEndpoint subscriptionManagerServiceEndpointMock;
+    @EndpointInject(uri = "mock:cxf:bean:notificationBrokerService")
+    protected MockEndpoint notificationBrokerServiceEndpointMock;
     
 	@Before
 	public void setUp() throws Exception {
@@ -121,7 +121,7 @@ public class TestCriminalHistoryConsolidationService {
     	    @Override
     	    public void configure() throws Exception {
     	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	interceptSendToEndpoint("cxf:bean:subscriptionManagerService*").skipSendToOriginalEndpoint().to("mock:cxf:bean:subscriptionManagerService");
+    	    	interceptSendToEndpoint("cxf:bean:notificationBrokerService*").skipSendToOriginalEndpoint().to("mock:cxf:bean:notificationBrokerService");
 
     	    }              
     	});
@@ -133,8 +133,8 @@ public class TestCriminalHistoryConsolidationService {
 	@Test
 	public void testCriminalConsolidationService() throws Exception
 	{
-		subscriptionManagerServiceEndpointMock.reset();
-		subscriptionManagerServiceEndpointMock.expectedMessageCount(3);
+		notificationBrokerServiceEndpointMock.reset();
+		notificationBrokerServiceEndpointMock.expectedMessageCount(3);
 		
 		//Initial database setup
 		Connection conn = dataSource.getConnection();
@@ -315,9 +315,9 @@ public class TestCriminalHistoryConsolidationService {
 		subscriptions = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
 		assertEquals(2, subscriptions.size());
 		
-		subscriptionManagerServiceEndpointMock.assertIsSatisfied();
+		notificationBrokerServiceEndpointMock.assertIsSatisfied();
 
-		for (Exchange ex : subscriptionManagerServiceEndpointMock.getExchanges())
+		for (Exchange ex : notificationBrokerServiceEndpointMock.getExchanges())
 		{
 			Document doc = (Document)ex.getIn().getBody();
 			XmlUtils.printNode(doc);

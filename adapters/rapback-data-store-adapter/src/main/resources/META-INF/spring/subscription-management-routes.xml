@@ -247,7 +247,7 @@
 		            <constant>http://docs.oasis-open.org/wsn/brw-2</constant>
 		        </camel:setHeader>
 							
-				<camel:to uri="subscriptionManagerServiceEndpoint"/>
+				<camel:to uri="notificationBrokerServiceEndpoint"/>
 				
 				<camel:delay>
 					<constant>1000</constant>
