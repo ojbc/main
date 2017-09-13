@@ -183,7 +183,7 @@
                 </td>
                 <xsl:if test="$showPersonSearchToSubscriptionButton">
                     <td>
-                    	<a title="Subscribe" id="personSearchSubButton" href="#" sid="{$person/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID}" firstName="{$personName/nc:PersonGivenName}" lastName="{$personName/nc:PersonSurName}" dob="{$person/nc:PersonBirthDate/nc:Date}"><img src="../static/images/Search%20Results/icon-mail.png"/></a>
+                    	<a title="Subscribe" id="personSearchSubButton" href="#" class="blueIcon subscribe" sid="{$person/j:PersonAugmentation/j:PersonStateFingerprintIdentification/nc:IdentificationID}" firstName="{$personName/nc:PersonGivenName}" lastName="{$personName/nc:PersonSurName}" dob="{$person/nc:PersonBirthDate/nc:Date}"><i class="fa fa-rss fa-lg"/></a>
                     </td>
                 </xsl:if>    
             </tr>
