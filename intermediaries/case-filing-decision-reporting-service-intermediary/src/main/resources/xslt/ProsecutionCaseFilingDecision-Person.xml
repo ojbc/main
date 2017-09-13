@@ -187,6 +187,15 @@
 			</nc:PersonName>
 		</nc:IdentityPersonRepresentation>
 	</nc:Identity>
+	<nc:Identity structures:id="Identity_02">
+		<nc:IdentityPersonRepresentation>
+			<nc:PersonName>
+				<nc:PersonGivenName>Laur</nc:PersonGivenName>
+				<nc:PersonMiddleName>D</nc:PersonMiddleName>
+				<nc:PersonSurName>Smit</nc:PersonSurName>
+			</nc:PersonName>
+		</nc:IdentityPersonRepresentation>
+	</nc:Identity>
 	<nc:Organization structures:id="Defendant_Org_01">
 		<nc:OrganizationName>ACME Corporation</nc:OrganizationName>
 	</nc:Organization>
@@ -229,6 +238,9 @@
 	<nc:PrimaryDocument structures:id="LeadDocument">
 		<nc:DocumentCategoryText>Document Category</nc:DocumentCategoryText>
 		<nc:DocumentCategoryName>Document Type</nc:DocumentCategoryName>
+		<nc:DocumentBinary>
+			<cfd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cfd-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 		<nc:DocumentDescriptionText>Notes</nc:DocumentDescriptionText>
 		<nc:DocumentRelatedResourceText>D4355</nc:DocumentRelatedResourceText>
 		<cfd-ext:PreviouslyFiledDocketText>Docket Entry</cfd-ext:PreviouslyFiledDocketText>
@@ -239,6 +251,9 @@
 	<nc:SecondaryDocument structures:id="Document_01">
 		<nc:DocumentCategoryText>Document Category</nc:DocumentCategoryText>
 		<nc:DocumentCategoryName>Document Type</nc:DocumentCategoryName>
+		<nc:DocumentBinary>
+			<cfd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cfd-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 		<nc:DocumentDescriptionText>Notes</nc:DocumentDescriptionText>
 		<cfd-ext:PreviouslyFiledDocketText>Docket Entry</cfd-ext:PreviouslyFiledDocketText>
 		<cfd-ext:DocumentPublicPartyViewingRestrictedIndicator>false</cfd-ext:DocumentPublicPartyViewingRestrictedIndicator>
@@ -252,6 +267,7 @@
 	<nc:PersonIdentityAssociation>
 		<nc:Person structures:ref="Defendant_01" />
 		<nc:Identity structures:ref="Identity_01" />
+		<nc:Identity structures:ref="Identity_02" />
 	</nc:PersonIdentityAssociation>
 	<nc:PersonConveyanceAssociation>
 		<nc:Person structures:ref="Defendant_01" />

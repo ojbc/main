@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:chid-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierDeletionReport/Extension/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierDeletionReport/Extension/1.0"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/"
+		schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/"
+		schemaLocation="./Subset/niem/domains/jxdm/5.0/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/"
+		schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/"
+		schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:complexType name="CriminalHistoryIdentifierDeletionReportType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a set of details associated with
+				the deletion of a criminal history for a person.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element
+						ref="chid-report-ext:CriminalHistoryReportJurisdictionRepresentation"
+						minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="nc:Person" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="IdentifierDeletionIdentifierType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a set of person identifiers
+				associated with the deletion of a criminal history.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="j:PersonStateFingerprintIdentification"
+						minOccurs="0" />
+					<xsd:element ref="j:PersonFBIIdentification" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="IdentifierDeletionIdentifiers"
+		type="chid-report-ext:IdentifierDeletionIdentifierType" substitutionGroup="nc:PersonAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Person identifiers for a criminal history.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalHistoryReportJurisdictionRepresentation"
+		abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A data concept representing a report's
+				jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CriminalHistoryReportJurisdictionCode"
+		type="chid-report-ext:CriminalHistoryReportJurisdictionCodeType"
+		substitutionGroup="chid-report-ext:CriminalHistoryReportJurisdictionRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A code for a report jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="CriminalHistoryReportJurisdictionCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A code type for a report jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension
+				base="chid-report-ext:CriminalHistoryReportJurisdictionCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="CriminalHistoryReportJurisdictionCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>An enumeration set for a report jurisdiction.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="State">
+				<xsd:annotation>
+					<xsd:documentation>A code value for a state report.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FBI">
+				<xsd:annotation>
+					<xsd:documentation>A code value for an FBI report.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

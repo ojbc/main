@@ -49,6 +49,9 @@ public class SearchResultConverter implements ApplicationContextAware {
 	@Value("${personSearchResultXslLocation:classpath:xsl/personSearchResult.xsl}")
 	org.springframework.core.io.Resource searchResultXsl;
 	
+	@Value("${showPersonSearchToSubscriptionButton:false}")
+	Boolean showPersonSearchToSubscriptionButton;
+	
 	@Value("${vehicleSearchResultXslLocation:classpath:xsl/vehicleSearchResult.xsl}")
 	org.springframework.core.io.Resource vehicleSearchResultXsl;
 	
@@ -93,6 +96,14 @@ public class SearchResultConverter implements ApplicationContextAware {
 	private Map<String, org.springframework.core.io.Resource > xsls = new HashMap<String, org.springframework.core.io.Resource>();
 	
 	public String convertPersonSearchResult(String searchContent, Map<String, Object> params){
+		
+		log.debug("Show subscription button?" + showPersonSearchToSubscriptionButton);
+		
+		if (showPersonSearchToSubscriptionButton != null)
+		{	
+			params.put("showPersonSearchToSubscriptionButton", showPersonSearchToSubscriptionButton);
+		}	
+		
 		return convertXml(searchContent, searchResultXsl, params);
 	}
 	

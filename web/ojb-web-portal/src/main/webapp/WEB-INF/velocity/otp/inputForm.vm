@@ -31,7 +31,7 @@
         <script src="#springUrl('/static/js/jquery-ui/js/jquery-ui-1.10.0.custom.min.js')"></script>
         <script src="#springUrl('/static/js/ojb-web-portal.js')"></script>
 
-        <title>OJBC One Time Password Authentication</title>
+        <title>OJBC One-Time Password Authentication</title>
        
 		 <script type="text/javascript">
 			  $(function() {
@@ -64,16 +64,16 @@
 			    <div id="searchContent">
 				<form method="post" id="otpForm">
 				
-					<table border ="0">
+					<table border ="0" width="100%">
 						<tr>
 							<td>
-								<p>Enter One Time Password Sent to your email address:</p>
+								<p>Enter the One-Time Password Sent to your email address:</p>
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<div class="labelText">
-									#springFormInput("otpFormCommand.otpRequest.oneTimePassword" "placeholder='One Time Password'")
+									#springFormInput("otpFormCommand.otpRequest.oneTimePassword" "placeholder='One-Time Password'")
 								</div>	
 							</td>
 						</tr>
@@ -92,8 +92,8 @@
 							<td>
 									<br/>
 									<br/>
-									<a id="requestOtpSubmitButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/> REQUEST OTP</a>
-									<a id="submitOtpButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Search Icon"/>SUBMIT OTP</a>
+									<a id="submitOtpButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Submit OTP"/>SUBMIT OTP</a>
+									<p style="float: right; margin:0;padding:0;"><a id="requestOtpSubmitButton" href="#" alt="Request OTP">Request New OTP</a></p>
 							</td>
 						</tr>
 					</table>	

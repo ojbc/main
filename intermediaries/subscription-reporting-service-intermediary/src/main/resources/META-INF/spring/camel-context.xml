@@ -51,6 +51,10 @@
 			
 			<camel:from uri="subscriptionReportingRequestServiceEndpoint" />												
 						
+			<to uri="bean:messageProcessor?method=processRequestPayload" />						
+						
+			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />						
+						
 			<camel:to uri="subscriptionReportingRequestAdapterEndpoint" />
 			
 		</camel:route>
