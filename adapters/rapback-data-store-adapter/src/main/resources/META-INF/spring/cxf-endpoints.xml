@@ -45,6 +45,14 @@
 		serviceName="ojb-sm:SubscriptionManagerServiceService" endpointName="ojb-sm:SubscriptionManager"
 		xmlns:ojb-sm="http://www.ojbc.org/SubscribeNotify/SubscriptionManager">
 	</cxf:cxfEndpoint>    
+	
+	<!-- OJB Notification Broker Service, invoked by intermediary -->
+	<cxf:cxfEndpoint id="notificationBrokerService"
+		address="${rapbackDatastoreAdapter.notificationBrokerEndpoint}"
+		wsdlURL="classpath:ssp/Subscription_Notification/WSDL/OJBWSNotification.wsdl"
+		serviceName="ojb-nb:NotificationBrokerServiceService" endpointName="ojb-nb:NotificationBrokerService"
+		xmlns:ojb-nb="http://www.ojbc.org/SubscribeNotify/NotificationBroker">
+	</cxf:cxfEndpoint>	
 
 	<!-- Identification Recording Adapter - hosted by the rapback data store adapter, called by the intermediary -->
 	<cxf:cxfEndpoint id="identificationRecordingAdapter"

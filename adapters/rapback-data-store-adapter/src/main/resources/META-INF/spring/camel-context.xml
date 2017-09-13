@@ -103,6 +103,9 @@
 		<camel:endpoint id="subscriptionManagerServiceEndpoint" 
 			uri="cxf:bean:subscriptionManagerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}"/>                
 
+		<camel:endpoint id="notificationBrokerServiceEndpoint" 
+			uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${rapbackSearch.cxflogging}"/>                
+
 		<!-- Automatic Archiving Timer Endpoint -->
 		<endpoint id="automaticArchivingCivilTimerEndpoint"
 			uri="quartz2://rapbackDataStore/archiveCivilTimer?cron={{rapbackDatastoreAdapter.archiveCivilTimerCronExpression}}" />
