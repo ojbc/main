@@ -29,6 +29,8 @@
 	xmlns:chiu-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierUpdateReport/Extension/1.0"
 	xmlns:chr-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryRestorationReport/1.0"
 	xmlns:chr-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryRestorationReport/Extension/1.0"
+	xmlns:chid-report-doc="http://ojbc.org/IEPD/Exchange/CriminalHistoryIdentifierDeletionReport/1.0"
+	xmlns:chid-report-ext="http://ojbc.org/IEPD/Extensions/CriminalHistoryIdentifierDeletionReport/Extension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" 
 	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
 	xmlns:util="http://www.springframework.org/schema/util"
@@ -95,6 +97,25 @@
 					<camel:xpath resultType="java.lang.String">/che-report-doc:CriminalHistoryExpungementReport/che-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
 				</camel:setHeader>
 			</camel:filter>
+			
+			<camel:filter>
+				<camel:xpath>/chid-report-doc:CriminalHistoryIdentifierDeletionReport</camel:xpath>
+
+				<camel:log message="Identifier deletion requested.  Treated as expungement report." />
+
+				<camel:setHeader headerName="currentSid">
+					<camel:xpath resultType="java.lang.String">/chid-report-doc:CriminalHistoryIdentifierDeletionReport/nc:Person/chid-report-ext:IdentifierDeletionIdentifiers/j:PersonStateFingerprintIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="currentUcn">
+					<camel:xpath resultType="java.lang.String">/chid-report-doc:CriminalHistoryIdentifierDeletionReport/nc:Person/chid-report-ext:IdentifierDeletionIdentifiers/j:PersonFBIIdentification/nc:IdentificationID</camel:xpath>
+				</camel:setHeader>
+				<camel:setHeader headerName="consolidationType">
+					<constant>criminalHistoryExpungementReport</constant>
+				</camel:setHeader>
+				<camel:setHeader headerName="consolidationJurisdiction">
+					<camel:xpath resultType="java.lang.String">/chid-report-doc:CriminalHistoryIdentifierDeletionReport/chid-report-ext:CriminalHistoryReportJurisdictionCode</camel:xpath>
+				</camel:setHeader>
+			</camel:filter>			
 			
 			<camel:filter>
 				<camel:xpath>/chiu-report-doc:CriminalHistoryIdentifierUpdateReport</camel:xpath>
