@@ -71,6 +71,7 @@ public class SuggestionFormControllerTest {
 		unit.suggestionFormResultsPage="portal/suggestionConfirmation";
 		unit.suggestionFormEmailRecipient="test@localhost";
 		unit.suggestionFormLandingPage="portal/suggestionForm";
+		unit.suggestionFormSubject="OJBC Portal Email Suggestion";
 		
 		SuggestionFormRequest suggestionFormRequest = new SuggestionFormRequest();
 		
