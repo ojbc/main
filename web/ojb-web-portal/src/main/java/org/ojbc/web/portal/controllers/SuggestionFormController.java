@@ -63,6 +63,10 @@ public class SuggestionFormController {
 	
 	@Resource(name="suggestionProblemList")
 	Map<String, String> suggestionProblemList;
+
+	@Value("${suggestionFormSubject:OJBC Portal Email Suggestion}")
+	String suggestionFormSubject;
+
 	
 	@Resource(name="urgencyList")
 	Map<String, String> urgencyList;
@@ -99,7 +103,7 @@ public class SuggestionFormController {
 		
         // takes input from e-mail form
         String recipientAddress = suggestionFormEmailRecipient;
-        String subject = "OJBC Portal Email Suggestion";
+        String subject = suggestionFormSubject;
          
         // creates a simple e-mail object
         SimpleMailMessage email = new SimpleMailMessage();
