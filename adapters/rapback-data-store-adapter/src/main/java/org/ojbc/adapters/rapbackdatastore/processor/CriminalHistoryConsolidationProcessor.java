@@ -67,12 +67,12 @@ public class CriminalHistoryConsolidationProcessor {
     private final static String FEDERAL_AGENCY_SUB_WITH_UCN_EMAIL_TEMPLATE="Agency: SID: <New SID> \n UCN: <New UCN>\n\nThe UCN associated to this SID has been updated.  Federal subscription added for user.";
     
     private final static String FEDERAL_USER_UCN_CONSOLIDATION_EMAIL_TEMPLATE="New UCN: <New UCN> \n Old UCN: <Old UCN>\n\nThe FBI's NGI System has consolidated the UCNs stated above. Our records show you have an active federal Rap Back subscription to one of these UCNs. Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to OpenFox/NCIC to run a query on the new UCN. A new arrest may or may not have occurred. You may receive another notification once the UCN is updated in CJIS-Hawaii.";
-    private final static String FEDERAL_AGENCY_UCN_CONSOLIDATION_EMAIL_TEMPLATE="New UCN: <New UCN> \n Old UCN: <Old UCN>\n\n  EMAIL TEMPLATE PENDING";
+    private final static String FEDERAL_AGENCY_UCN_CONSOLIDATION_EMAIL_TEMPLATE="New UCN: <New UCN> \n Old UCN: <Old UCN>\n\nThe FBI's NGI System has consolidated the UCNs stated above. The corresponding State subscription(s) was updated with the consolidated UCN received in the RBN.";
     
     private final static String FEDERAL_USER_UCN_EXPUNGEMENT_EMAIL_TEMPLATE="Deleted UCN:  <Old UCN> \n This UCN has been deleted from the FBI's NGI System; you will no longer receive federal Rap Back notifications on this offender.  Should a new UCN be reassigned to this offender, a new federal Rap Back subscrition will automatically occur.  Please logon to the HIJIS Portal to update your subscription, if necessary.";
-    private final static String FEDERAL_AGENCY_UCN_EXPUNGEMENT_EMAIL_TEMPLATE="Deleted UCN:  <Old UCN> \n\n  EMAIL TEMPLATE PENDING";
+    private final static String FEDERAL_AGENCY_UCN_EXPUNGEMENT_EMAIL_TEMPLATE="Deleted UCN:  <Old UCN> \n\nThis UCN has been deleted from the FBI's NGI System.\n\nNotifications for this offender will no longer be sent for Federal Rap Back.";
 
-    private final static String FEDERAL_AGENCY_UCN_RESTORATION_EMAIL_TEMPLATE="RESTORATION EMAIL TEMPLATE PENDING";
+    private final static String FEDERAL_AGENCY_UCN_RESTORATION_EMAIL_TEMPLATE="Restored UCN: <Old SID>\n\nThis UCN was restored to the FBI's NGI System.";
     
     /**
      * Main behavior method, invoked from the Camel route, to replace the current SID with the new SID.
