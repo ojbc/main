@@ -92,7 +92,7 @@ public class TestCriminalHistoryConsolidationServiceFederal {
     	//Confirm agency gets email
     	assertEquals("agencyemail@local.gov", notifications.get(1).getEmailTo());
     	assertEquals("Agency UCN consolidation report for UNC for: 1", notifications.get(1).getEmailSubject());
-    	assertEquals("New UCN: 2 \n Old UCN: 1\n\n  EMAIL TEMPLATE PENDING", notifications.get(1).getEmailBody());
+    	assertEquals("New UCN: 2 \n Old UCN: 1\n\nThe FBI's NGI System has consolidated the UCNs stated above. The corresponding State subscription(s) was updated with the consolidated UCN received in the RBN.", notifications.get(1).getEmailBody());
 
     	//Confirm we have one sub with the FBI ID of 2
     	Map<String,String> subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.FBI_ID, "2");
@@ -115,7 +115,7 @@ public class TestCriminalHistoryConsolidationServiceFederal {
 
     	assertEquals("agencyemail@local.gov", notifications.get(1).getEmailTo());
     	assertEquals("Agency UCN expungement report for UNC for: 2", notifications.get(1).getEmailSubject());
-    	assertEquals("Deleted UCN:  2 \n\n  EMAIL TEMPLATE PENDING", notifications.get(1).getEmailBody());
+    	assertEquals("Deleted UCN:  2 \n\nThis UCN has been deleted from the FBI's NGI System.\n\nNotifications for this offender will no longer be sent for Federal Rap Back.", notifications.get(1).getEmailBody());
     	
     	//Since we expunged the FBI ID, confirm that it is no longer there.
     	subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.FBI_ID, "2");
@@ -142,7 +142,7 @@ public class TestCriminalHistoryConsolidationServiceFederal {
     	
     	assertEquals("agencyemail@local.gov", notifications.get(0).getEmailTo());
     	assertEquals("UCN Restoration message for: 9222201", notifications.get(0).getEmailSubject());
-    	assertEquals("RESTORATION EMAIL TEMPLATE PENDING", notifications.get(0).getEmailBody());
+    	assertEquals("Restored UCN: 9222201\n\nThis UCN was restored to the FBI's NGI System.", notifications.get(0).getEmailBody());
 
     }
     
@@ -173,7 +173,7 @@ public class TestCriminalHistoryConsolidationServiceFederal {
     	String expectedEmailBody="";
     	
 		chcNotification.setConsolidationType("reportUCNConsolidationToAgency");
-		expectedEmailBody="New UCN: 99999 \n Old UCN: 123456\n\n  EMAIL TEMPLATE PENDING";
+		expectedEmailBody="New UCN: 99999 \n Old UCN: 123456\n\nThe FBI's NGI System has consolidated the UCNs stated above. The corresponding State subscription(s) was updated with the consolidated UCN received in the RBN.";
 		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnFederalNotificationEmailBody(chcNotification, "123456", "99999"));
 		
 		chcNotification.setConsolidationType("reportUCNConsolidationToUser");
@@ -181,7 +181,7 @@ public class TestCriminalHistoryConsolidationServiceFederal {
 		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnFederalNotificationEmailBody(chcNotification, "123456", "99999"));
 
 		chcNotification.setConsolidationType("reportUCNExpungementToAgency");
-		expectedEmailBody="Deleted UCN:  123456 \n\n  EMAIL TEMPLATE PENDING";
+		expectedEmailBody="Deleted UCN:  123456 \n\nThis UCN has been deleted from the FBI's NGI System.\n\nNotifications for this offender will no longer be sent for Federal Rap Back.";
 		assertEquals(expectedEmailBody, criminalHistoryConsolidationProcessor.returnFederalNotificationEmailBody(chcNotification, "123456", "99999"));
 
 		chcNotification.setConsolidationType("reportUCNExpungementToUser");
