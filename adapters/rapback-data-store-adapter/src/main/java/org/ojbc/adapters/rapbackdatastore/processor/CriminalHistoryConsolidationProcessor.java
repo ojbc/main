@@ -58,7 +58,7 @@ public class CriminalHistoryConsolidationProcessor {
     private final static String STATE_AGENCY_EXPUNGEMENT_EMAIL_TEMPLATE="<Old SID> EMAIL TEMPLATE PENDING";
     		
     private final static String STATE_CONSOLIDATION_EMAIL_TEMPLATE ="<Old SID> has been consolidated into <New SID>.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on <New SID>.  A new arrest may or may not have occurred.";
-    private final static String STATE_AGENCY_CONSOLIDATION_UCN_MISMATCH_EMAIL_TEMPLATE ="UCN MISMATCH AGENCY.  EMAIL TEMPLATE PENDING";
+    private final static String STATE_AGENCY_CONSOLIDATION_UCN_MISMATCH_EMAIL_TEMPLATE ="New SID/ UCN: <New SID>/ <New UCN>\n\nOld SID/ UCN: <Old SID>/ <Old UCN>\n\nThe UCN stated above has been consolidated or updated in CJIS-Hawaii. The new UCN or SID do not match what is on the subscription.\n\nFollow up with CRID Section to verify or correct the UCN or SID and then verify that any subscriptions were updated, as appropriate.";
     private final static String STATE_USER_CONSOLIDATION_UCN_MISMATCH_EMAIL_TEMPLATE ="New UCN: <New UCN>\nOld UCN: <Old UCN>\n\nThe UCNs stated above have been consolidated or updated in CJIS-Hawaii.  Our records show you have an active federal Rap Back subscription to one of these UCNs. Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to OpenFox/NCIC to run a query on the new UCN. A new arrest may or may not have occurred.\nYou may receive another notification once the UCN is updated in FBI NGI System."; 
     
     private final static String STATE_IDENTIFIER_UPDATE_EMAIL_TEMPLATE ="<Old SID> has been updated to <New SID>.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on <New SID>.  A new arrest may or may not have occurred.";
@@ -434,7 +434,7 @@ public class CriminalHistoryConsolidationProcessor {
 		consolidationNotificationForAgency.setEmailTo(agencyNotificationEmailAddress);
 		
 		String emailBody = StringUtils.replace(FEDERAL_AGENCY_UCN_RESTORATION_EMAIL_TEMPLATE, "<Old SID>", currentUcn);
-		consolidationNotificationForAgency.setEmailSubject("UCN Restoration message for: " + currentUcn);
+		consolidationNotificationForAgency.setEmailSubject("Rap Back: UCN Restored by FBI: " + currentUcn);
 		consolidationNotificationForAgency.setEmailBody(emailBody);    
     	
 		criminalHistoryConsolidationNotifications.add(consolidationNotificationForAgency);
@@ -548,17 +548,17 @@ public class CriminalHistoryConsolidationProcessor {
 		
 		if (chcNotification.getConsolidationType().equals("criminalHistoryExpungementReport"))
 		{
-			emailSubject = "SID Expungement for: " + currentIdentifier;
+			emailSubject = "Rap Back: UCN Deleted by HCJDC: " + currentIdentifier;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("criminalHistoryConsolidationReport"))
 		{
-			emailSubject = "Criminal History Consolidation for SID for: " + currentIdentifier;
+			emailSubject = "Rap Back: UCN & SID Consolidated/Updated by HCJDC: " + currentIdentifier;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("criminalHistoryIdentifierUpdateReport"))
 		{
-			emailSubject = "Criminal History Update for SID for: " + currentIdentifier;
+			emailSubject = "Rap Back: UCN & SID Consolidated/Updated by HCJDC: " + currentIdentifier;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportSIDExpungementToAgency"))
@@ -573,12 +573,12 @@ public class CriminalHistoryConsolidationProcessor {
 		
 		if (chcNotification.getConsolidationType().equals("reportUCNAddedToAgency"))
 		{
-			emailSubject = "Agency Notification: UCN added during SID consolidation/federal subscription created for: " + currentIdentifier;
+			emailSubject = "Rap Back: Federal Subscription Created: " + currentIdentifier;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportUCNAddedToUser"))
 		{
-			emailSubject = "UCN added during SID consolidation/federal subscription created for: " + currentIdentifier;
+			emailSubject = "Rap Back: Federal Subscription Created: " + currentIdentifier;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportUCNMmatchToUser"))
@@ -626,22 +626,22 @@ public class CriminalHistoryConsolidationProcessor {
 		
 		if (chcNotification.getConsolidationType().equals("reportUCNConsolidationToAgency"))
 		{
-			emailSubject = "Agency UCN consolidation report for UNC for: " + currentUcn;
+			emailSubject = "Rap Back: UCN Consolidation by FBI: " + currentUcn;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportUCNConsolidationToUser"))
 		{
-			emailSubject = "UCN consolidation report for UNC for: " + currentUcn;
+			emailSubject = "Rap Back: UCN Consolidation by FBI: " + currentUcn;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportUCNExpungementToAgency"))
 		{
-			emailSubject = "Agency UCN expungement report for UNC for: " + currentUcn;
+			emailSubject = "Rap Back: UCN Deleted by FBI: " + currentUcn;
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportUCNExpungementToUser"))
 		{
-			emailSubject = "UCN expungement report for UNC for: " + currentUcn;
+			emailSubject = "Rap Back: UCN Deleted by FBI: " + currentUcn;
 		}	
 
 		return emailSubject;
