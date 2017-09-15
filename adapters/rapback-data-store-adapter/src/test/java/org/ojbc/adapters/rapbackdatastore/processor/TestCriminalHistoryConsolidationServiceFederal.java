@@ -86,12 +86,12 @@ public class TestCriminalHistoryConsolidationServiceFederal {
     	
     	//Confirm user gets email
     	assertEquals("admin@local.gov", notifications.get(0).getEmailTo());
-    	assertEquals("UCN consolidation report for UNC for: 1", notifications.get(0).getEmailSubject());
+    	assertEquals("Rap Back: UCN Consolidation by FBI: 1", notifications.get(0).getEmailSubject());
     	assertEquals("New UCN: 2 \n Old UCN: 1\n\nThe FBI's NGI System has consolidated the UCNs stated above. Our records show you have an active federal Rap Back subscription to one of these UCNs. Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to OpenFox/NCIC to run a query on the new UCN. A new arrest may or may not have occurred. You may receive another notification once the UCN is updated in CJIS-Hawaii.", notifications.get(0).getEmailBody());
 
     	//Confirm agency gets email
     	assertEquals("agencyemail@local.gov", notifications.get(1).getEmailTo());
-    	assertEquals("Agency UCN consolidation report for UNC for: 1", notifications.get(1).getEmailSubject());
+    	assertEquals("Rap Back: UCN Consolidation by FBI: 1", notifications.get(1).getEmailSubject());
     	assertEquals("New UCN: 2 \n Old UCN: 1\n\nThe FBI's NGI System has consolidated the UCNs stated above. The corresponding State subscription(s) was updated with the consolidated UCN received in the RBN.", notifications.get(1).getEmailBody());
 
     	//Confirm we have one sub with the FBI ID of 2
@@ -110,11 +110,11 @@ public class TestCriminalHistoryConsolidationServiceFederal {
     	log.info("Federal Expungement Notification Agency: " + notifications.get(1));
     	
     	assertEquals("admin@local.gov", notifications.get(0).getEmailTo());
-    	assertEquals("UCN expungement report for UNC for: 2", notifications.get(0).getEmailSubject());
+    	assertEquals("Rap Back: UCN Deleted by FBI: 2", notifications.get(0).getEmailSubject());
     	assertEquals("Deleted UCN:  2 \n This UCN has been deleted from the FBI's NGI System; you will no longer receive federal Rap Back notifications on this offender.  Should a new UCN be reassigned to this offender, a new federal Rap Back subscrition will automatically occur.  Please logon to the HIJIS Portal to update your subscription, if necessary.", notifications.get(0).getEmailBody());
 
     	assertEquals("agencyemail@local.gov", notifications.get(1).getEmailTo());
-    	assertEquals("Agency UCN expungement report for UNC for: 2", notifications.get(1).getEmailSubject());
+    	assertEquals("Rap Back: UCN Deleted by FBI: 2", notifications.get(1).getEmailSubject());
     	assertEquals("Deleted UCN:  2 \n\nThis UCN has been deleted from the FBI's NGI System.\n\nNotifications for this offender will no longer be sent for Federal Rap Back.", notifications.get(1).getEmailBody());
     	
     	//Since we expunged the FBI ID, confirm that it is no longer there.
