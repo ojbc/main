@@ -18,8 +18,8 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:vt-ts-codes="http://ojbc.org/IEPD/Extensions/Vermont/TrafficStopCodes/1.0"
-	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/Vermont/TrafficStopCodes/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:ojb-ts-codes="http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0"
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0"
 	elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../NIEM_2.0/niem-core/2.0/niem-core.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd" />
@@ -68,12 +68,12 @@
 	</xsd:simpleType>
 	<xsd:complexType name="TrafficStopReasonCodeType">
 		<xsd:simpleContent>
-			<xsd:extension base="vt-ts-codes:TrafficStopReasonCodeSimpleType">
+			<xsd:extension base="ojb-ts-codes:TrafficStopReasonCodeSimpleType">
 				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="TrafficStopReasonCode" type="vt-ts-codes:TrafficStopReasonCodeType" substitutionGroup="inc-ext:TrafficStopReason">
+	<xsd:element name="TrafficStopReasonCode" type="ojb-ts-codes:TrafficStopReasonCodeType" substitutionGroup="inc-ext:TrafficStopReason">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the traffic stop search category.</xsd:documentation>
 		</xsd:annotation>
@@ -107,12 +107,12 @@
 	</xsd:simpleType>
 	<xsd:complexType name="TrafficStopSearchCategoryCodeType">
 		<xsd:simpleContent>
-			<xsd:extension base="vt-ts-codes:TrafficStopSearchCategoryCodeSimpleType">
+			<xsd:extension base="ojb-ts-codes:TrafficStopSearchCategoryCodeSimpleType">
 				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="TrafficStopSearchCategoryCode" type="vt-ts-codes:TrafficStopSearchCategoryCodeType"
+	<xsd:element name="TrafficStopSearchCategoryCode" type="ojb-ts-codes:TrafficStopSearchCategoryCodeType"
 		substitutionGroup="inc-ext:TrafficStopSearchCategory">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the traffic stop search category.</xsd:documentation>
@@ -142,12 +142,12 @@
 	</xsd:simpleType>
 	<xsd:complexType name="TrafficStopContrabandCodeType">
 		<xsd:simpleContent>
-			<xsd:extension base="vt-ts-codes:TrafficStopContrabandCodeSimpleType">
+			<xsd:extension base="ojb-ts-codes:TrafficStopContrabandCodeSimpleType">
 				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="TrafficStopContrabandCode" type="vt-ts-codes:TrafficStopContrabandCodeType" substitutionGroup="inc-ext:TrafficStopContraband">
+	<xsd:element name="TrafficStopContrabandCode" type="ojb-ts-codes:TrafficStopContrabandCodeType" substitutionGroup="inc-ext:TrafficStopContraband">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the traffic stop contraband.</xsd:documentation>
 		</xsd:annotation>
@@ -191,12 +191,12 @@
 	</xsd:simpleType>
 	<xsd:complexType name="TrafficStopOutcomeCodeType">
 		<xsd:simpleContent>
-			<xsd:extension base="vt-ts-codes:TrafficStopOutcomeCodeSimpleType">
+			<xsd:extension base="ojb-ts-codes:TrafficStopOutcomeCodeSimpleType">
 				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="TrafficStopOutcomeCode" type="vt-ts-codes:TrafficStopOutcomeCodeType" substitutionGroup="inc-ext:TrafficStopOutcome">
+	<xsd:element name="TrafficStopOutcomeCode" type="ojb-ts-codes:TrafficStopOutcomeCodeType" substitutionGroup="inc-ext:TrafficStopOutcome">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the traffic stop outcome.</xsd:documentation>
 		</xsd:annotation>
@@ -240,12 +240,12 @@
 	</xsd:simpleType>
 	<xsd:complexType name="IncidentWeatherConditionCodeType">
 		<xsd:simpleContent>
-			<xsd:extension base="vt-ts-codes:IncidentWeatherConditionCodeSimpleType">
+			<xsd:extension base="ojb-ts-codes:IncidentWeatherConditionCodeSimpleType">
 				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="IncidentWeatherConditionCode" type="vt-ts-codes:IncidentWeatherConditionCodeType"
+	<xsd:element name="IncidentWeatherConditionCode" type="ojb-ts-codes:IncidentWeatherConditionCodeType"
 		substitutionGroup="inc-ext:IncidentWeatherCondition">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the incident weather condition.</xsd:documentation>
@@ -315,12 +315,12 @@
 	</xsd:simpleType>
 	<xsd:complexType name="IncidentHighwayConditionCodeType">
 		<xsd:simpleContent>
-			<xsd:extension base="vt-ts-codes:IncidentHighwayConditionCodeSimpleType">
+			<xsd:extension base="ojb-ts-codes:IncidentHighwayConditionCodeSimpleType">
 				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="IncidentHighwayConditionCode" type="vt-ts-codes:IncidentHighwayConditionCodeType"
+	<xsd:element name="IncidentHighwayConditionCode" type="ojb-ts-codes:IncidentHighwayConditionCodeType"
 		substitutionGroup="inc-ext:IncidentHighwayCondition">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the incident highway condition.</xsd:documentation>
@@ -365,12 +365,12 @@
 	</xsd:simpleType>
 	<xsd:complexType name="IncidentTrafficConditionCodeType">
 		<xsd:simpleContent>
-			<xsd:extension base="vt-ts-codes:IncidentTrafficConditionCodeSimpleType">
+			<xsd:extension base="ojb-ts-codes:IncidentTrafficConditionCodeSimpleType">
 				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="IncidentTrafficConditionCode" type="vt-ts-codes:IncidentTrafficConditionCodeType"
+	<xsd:element name="IncidentTrafficConditionCode" type="ojb-ts-codes:IncidentTrafficConditionCodeType"
 		substitutionGroup="inc-ext:IncidentTrafficCondition">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the incident traffic condition.</xsd:documentation>
@@ -405,12 +405,12 @@
 	</xsd:simpleType>
 	<xsd:complexType name="IncidentLightingConditionCodeType">
 		<xsd:simpleContent>
-			<xsd:extension base="vt-ts-codes:IncidentLightingConditionCodeSimpleType">
+			<xsd:extension base="ojb-ts-codes:IncidentLightingConditionCodeSimpleType">
 				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
-	<xsd:element name="IncidentLightingConditionCode" type="vt-ts-codes:IncidentLightingConditionCodeType"
+	<xsd:element name="IncidentLightingConditionCode" type="ojb-ts-codes:IncidentLightingConditionCodeType"
 		substitutionGroup="inc-ext:IncidentLightingCondition">
 		<xsd:annotation>
 			<xsd:documentation>A code that describes the incident traffic condition.</xsd:documentation>

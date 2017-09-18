@@ -25,8 +25,8 @@
 	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
 	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
 	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
-	xmlns:vt-ts-codes="http://ojbc.org/IEPD/Extensions/Vermont/TrafficStopCodes/1.0"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd http://ojbc.org/IEPD/Extensions/Vermont/TrafficStopCodes/1.0 ../xsd/impl/vermont/traffic_stop_codes.xsd">
+	xmlns:ojb-ts-codes="http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0 ../xsd/Structured_Payloads/OJBC/traffic_stop_codes.xsd">
 	<lexspd:doPublish>
 		<lexs:PublishMessageContainer>
 			<lexs:PublishMessage>
@@ -238,10 +238,10 @@
 						</lexs:StructuredPayloadMetadata>
 						<inc-ext:IncidentReport>
 							<inc-ext:DrivingIncident>
-								<vt-ts-codes:TrafficStopReasonCode>M</vt-ts-codes:TrafficStopReasonCode>
-								<vt-ts-codes:TrafficStopSearchCategoryCode>SPC</vt-ts-codes:TrafficStopSearchCategoryCode>
-								<vt-ts-codes:TrafficStopContrabandCode>C</vt-ts-codes:TrafficStopContrabandCode>
-								<vt-ts-codes:TrafficStopOutcomeCode>A</vt-ts-codes:TrafficStopOutcomeCode>
+								<ojb-ts-codes:TrafficStopReasonCode>M</ojb-ts-codes:TrafficStopReasonCode>
+								<ojb-ts-codes:TrafficStopSearchCategoryCode>SPC</ojb-ts-codes:TrafficStopSearchCategoryCode>
+								<ojb-ts-codes:TrafficStopContrabandCode>C</ojb-ts-codes:TrafficStopContrabandCode>
+								<ojb-ts-codes:TrafficStopOutcomeCode>A</ojb-ts-codes:TrafficStopOutcomeCode>
 								<lexslib:SameAsDigestReference
 									lexslib:ref="INCIDENT_01" />
 							</inc-ext:DrivingIncident>
