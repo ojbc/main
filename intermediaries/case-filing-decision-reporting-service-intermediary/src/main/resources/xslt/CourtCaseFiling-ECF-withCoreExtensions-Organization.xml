@@ -48,67 +48,11 @@
 		</j:CaseAugmentation>
 		<ecf:CaseAugmentation />
 		<ojb-crim-ext:CaseAugmentation>
-			<ecf:Alias>
-				<ecf:AliasAlternateName>Alias</ecf:AliasAlternateName>
-				<ecf:AliasAlternateNameTypeCode>ecf:Alias</ecf:AliasAlternateNameTypeCode>
-				<nc:EntityReference s:ref="Defendant_01" />
-			</ecf:Alias>
 			<ojb-crim-ext:CaseParticipant s:id="Defendant_01">
-				<ojb-crim-ext:EntityPerson>
-					<nc:PersonBirthDate>
-						<nc:Date>1983-01-01</nc:Date>
-					</nc:PersonBirthDate>
-					<nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
-					<nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
-					<nc:PersonHeightMeasure>
-						<nc:MeasureText>68</nc:MeasureText>
-						<nc:MeasureUnitText>INH</nc:MeasureUnitText>
-					</nc:PersonHeightMeasure>
-					<nc:PersonName>
-						<nc:PersonNamePrefixText>Prefix</nc:PersonNamePrefixText>
-						<nc:PersonGivenName>First</nc:PersonGivenName>
-						<nc:PersonMiddleName>Middle</nc:PersonMiddleName>
-						<nc:PersonSurName>Last</nc:PersonSurName>
-						<nc:PersonNameSuffixText>Suffix</nc:PersonNameSuffixText>
-					</nc:PersonName>
-					<nc:PersonSexCode>M</nc:PersonSexCode>
-					<nc:PersonSSNIdentification>
-						<nc:IdentificationID>SSN</nc:IdentificationID>
-					</nc:PersonSSNIdentification>
-					<nc:PersonStateIdentification>
-						<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-					</nc:PersonStateIdentification>
-					<nc:PersonWeightMeasure>
-						<nc:MeasureText>nc:MeasureText</nc:MeasureText>
-						<nc:MeasureUnitText>nc:MeasureUnitText</nc:MeasureUnitText>
-					</nc:PersonWeightMeasure>
-					<ojb-crim-ext:PersonAugmentation>
-						<ojb-crim-ext:PersonDriverLicense>
-							<nc:DriverLicenseIdentification>
-								<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-								<j:DrivingJurisdictionAuthorityNCICLSTACode>ND</j:DrivingJurisdictionAuthorityNCICLSTACode>
-							</nc:DriverLicenseIdentification>
-							<ojb-crim-ext:DriverLicenseCDLIndicator>false</ojb-crim-ext:DriverLicenseCDLIndicator>
-						</ojb-crim-ext:PersonDriverLicense>
-						<j:PersonStateFingerprintIdentification>
-							<nc:IdentificationID>SI898709</nc:IdentificationID>
-						</j:PersonStateFingerprintIdentification>
-						<ojb-crim-ext:PersonConfidentialIndicator>false</ojb-crim-ext:PersonConfidentialIndicator>
-						<ojb-crim-ext:PersonJuvenileIndicator>false</ojb-crim-ext:PersonJuvenileIndicator>
-						<ojb-crim-ext:IdentifiedPersonTrackingIdentification>
-							<nc:IdentificationID>OffenderTracking Number</nc:IdentificationID>
-						</ojb-crim-ext:IdentifiedPersonTrackingIdentification>
-					</ojb-crim-ext:PersonAugmentation>
-				</ojb-crim-ext:EntityPerson>
+				<ojb-crim-ext:EntityOrganization>
+					<nc:OrganizationName>ACME Corp.</nc:OrganizationName>
+				</ojb-crim-ext:EntityOrganization>
 				<ecf:CaseParticipantRoleCode>Defendant</ecf:CaseParticipantRoleCode>
-				<nc:ContactInformation>
-					<nc:ContactTelephoneNumber>
-						<nc:FullTelephoneNumber>
-							<nc:TelephoneNumberFullID>nc:TelephoneNumberFullID</nc:TelephoneNumberFullID>
-						</nc:FullTelephoneNumber>
-					</nc:ContactTelephoneNumber>
-					<nc:ContactInformationDescriptionText>Home</nc:ContactInformationDescriptionText>
-				</nc:ContactInformation>
 				<nc:ContactInformation>
 					<nc:ContactTelephoneNumber>
 						<nc:FullTelephoneNumber>
@@ -117,19 +61,18 @@
 					</nc:ContactTelephoneNumber>
 					<nc:ContactInformationDescriptionText>Business</nc:ContactInformationDescriptionText>
 				</nc:ContactInformation>
-				<nc:ContactInformation>
+				<ojb-crim-ext:ContactInformation>
 					<nc:ContactTelephoneNumber>
 						<nc:FullTelephoneNumber>
 							<nc:TelephoneNumberFullID>nc:TelephoneNumberFullID</nc:TelephoneNumberFullID>
 						</nc:FullTelephoneNumber>
 					</nc:ContactTelephoneNumber>
-					<nc:ContactInformationDescriptionText>Cell</nc:ContactInformationDescriptionText>
-				</nc:ContactInformation>
+					<nc:ContactInformationDescriptionText>Business</nc:ContactInformationDescriptionText>
+				</ojb-crim-ext:ContactInformation>
 				<ojb-crim-ext:ContactInformation>
-					<nc:ContactEmailID>me@email.com</nc:ContactEmailID>
 					<ojb-crim-ext:ContactMailingAddress>
 						<nc:StructuredAddress>
-							<nc:AddressSecondaryUnitText>Apt #3</nc:AddressSecondaryUnitText>
+							<nc:AddressSecondaryUnitText>Suite 214</nc:AddressSecondaryUnitText>
 							<nc:LocationStreet>
 								<nc:StreetFullText>123 Main St.</nc:StreetFullText>
 							</nc:LocationStreet>
@@ -138,21 +81,8 @@
 							<nc:LocationCountryName>USA</nc:LocationCountryName>
 							<nc:LocationPostalCode>12345</nc:LocationPostalCode>
 						</nc:StructuredAddress>
-						<ojb-crim-ext:ContactMailingAddressCategoryText>Type of address location</ojb-crim-ext:ContactMailingAddressCategoryText>
-						<ojb-crim-ext:DefaultLocationIndicator>true</ojb-crim-ext:DefaultLocationIndicator>
-						<ojb-crim-ext:PreferredLocationIndicator>true</ojb-crim-ext:PreferredLocationIndicator>
 					</ojb-crim-ext:ContactMailingAddress>
 				</ojb-crim-ext:ContactInformation>
-			</ojb-crim-ext:CaseParticipant>
-			<ojb-crim-ext:CaseParticipant s:id="Officer_01">
-				<ecf:EntityPerson>
-					<nc:PersonName>
-						<nc:PersonGivenName>John</nc:PersonGivenName>
-						<nc:PersonMiddleName>W.</nc:PersonMiddleName>
-						<nc:PersonSurName>Doe</nc:PersonSurName>
-					</nc:PersonName>
-				</ecf:EntityPerson>
-				<ecf:CaseParticipantRoleCode>Arresting Officer</ecf:CaseParticipantRoleCode>
 			</ojb-crim-ext:CaseParticipant>
 			<ojb-crim-ext:CaseParticipant s:id="Initiating_01">
 				<ecf:EntityPerson>
@@ -165,13 +95,12 @@
 				<ecf:CaseParticipantRoleCode>Initiating Party</ecf:CaseParticipantRoleCode>
 			</ojb-crim-ext:CaseParticipant>
 			<ojb-crim-ext:CaseDefendantParty>
-				<nc:EntityPersonReference s:ref="Defendant_01" />
+				<nc:EntityOrganizationReference s:ref="Defendant_01" />
 				<ojb-crim-ext:PartyIdentification>
 					<nc:IdentificationID>1234567</nc:IdentificationID>
 				</ojb-crim-ext:PartyIdentification>
 				<ojb-crim-ext:PartyRoleText>Party Type</ojb-crim-ext:PartyRoleText>
 				<ojb-crim-ext:PartyCategoryText>Party Type</ojb-crim-ext:PartyCategoryText>
-				<ojb-crim-ext:PartyConfidentialIndicator>false</ojb-crim-ext:PartyConfidentialIndicator>
 			</ojb-crim-ext:CaseDefendantParty>
 			<ojb-crim-ext:CaseInitiatingParty>
 				<nc:EntityPersonReference s:ref="Initiating_01" />
@@ -180,31 +109,6 @@
 			</ojb-crim-ext:CaseInitiatingParty>
 			<ojb-crim-ext:CaseInitiationMethodText>Method Text</ojb-crim-ext:CaseInitiationMethodText>
 		</ojb-crim-ext:CaseAugmentation>
-		<ojb-crim-ext:CaseArrest>
-			<nc:ActivityDate>
-				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
-			</nc:ActivityDate>
-			<j:ArrestAgency>
-				<nc:OrganizationName>nc:OrganizationName</nc:OrganizationName>
-			</j:ArrestAgency>
-			<j:ArrestAgencyRecordIdentification>
-				<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-			</j:ArrestAgencyRecordIdentification>
-			<j:ArrestOfficial>
-				<nc:RoleOfPersonReference s:ref="Officer_01" />
-			</j:ArrestOfficial>
-			<j:ArrestSubject>
-				<nc:RoleOfPersonReference s:ref="Defendant_01" />
-			</j:ArrestSubject>
-			<j:Booking>
-				<j:BookingAgency>
-					<nc:OrganizationName>Booking Agency</nc:OrganizationName>
-				</j:BookingAgency>
-				<j:BookingAgencyRecordIdentification>
-					<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
-				</j:BookingAgencyRecordIdentification>
-			</j:Booking>
-		</ojb-crim-ext:CaseArrest>
 		<ojb-crim-ext:CaseCharge>
 			<j:ChargeCountQuantity>1</j:ChargeCountQuantity>
 			<j:ChargeDescriptionText>j:ChargeDescriptionText</j:ChargeDescriptionText>
@@ -221,6 +125,9 @@
 				</j:StatuteCodeIdentification>
 			</j:ChargeStatute>
 			<criminal:ChargeOffense>
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>Incident #</nc:IdentificationID>
+				</nc:ActivityIdentification>
 				<nc:ActivityDate>
 					<nc:DateTime>2001-12-17T09:30:47</nc:DateTime>
 				</nc:ActivityDate>

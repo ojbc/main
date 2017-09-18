@@ -28,8 +28,7 @@
                                 xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
                                 xmlns:nc="http://niem.gov/niem/niem-core/2.0"
                                 xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
-                                xmlns:s="http://niem.gov/niem/structures/2.0"
-                                xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CriminalCaseDocument/1.0 ../../../xsd/Criminal_Case-doc.xsd">
+                                xmlns:s="http://niem.gov/niem/structures/2.0">
    <ecf:SendingMDELocationID>
       <nc:IdentificationID/>
    </ecf:SendingMDELocationID>
@@ -49,63 +48,13 @@
                <nc:LocationName>Location</nc:LocationName>
             </nc:OrganizationLocation>
             <j:CourtName>Court Name</j:CourtName>
-            <j:CourtCategoryCode>DIS</j:CourtCategoryCode>
          </j:CaseCourt>
       </j:CaseAugmentation>
       <ojb-crim-ext:CaseAugmentation>
-         <ecf:Alias>
-            <ecf:AliasAlternateName>Laur Dee Smitt</ecf:AliasAlternateName>
-            <ecf:AliasAlternateNameTypeCode>ecf:Alias</ecf:AliasAlternateNameTypeCode>
-            <nc:EntityReference s:ref="d1e82"/>
-         </ecf:Alias>
-         <ecf:Alias>
-            <ecf:AliasAlternateName>Laur D Smit</ecf:AliasAlternateName>
-            <ecf:AliasAlternateNameTypeCode>ecf:Alias</ecf:AliasAlternateNameTypeCode>
-            <nc:EntityReference s:ref="d1e82"/>
-         </ecf:Alias>
-         <ojb-crim-ext:CaseParticipant s:id="d1e82">
-            <ojb-crim-ext:EntityPerson>
-               <nc:PersonBirthDate>
-                  <nc:Date>1980-07-26</nc:Date>
-               </nc:PersonBirthDate>
-               <nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
-               <nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
-               <nc:PersonHeightMeasure>
-                  <nc:MeasureText>68</nc:MeasureText>
-                  <nc:MeasureUnitText>INH</nc:MeasureUnitText>
-               </nc:PersonHeightMeasure>
-               <nc:PersonName>
-                  <nc:PersonGivenName>First</nc:PersonGivenName>
-                  <nc:PersonMiddleName>Middle</nc:PersonMiddleName>
-                  <nc:PersonSurName>Last</nc:PersonSurName>
-                  <nc:PersonNameSuffixText>Suffix</nc:PersonNameSuffixText>
-               </nc:PersonName>
-               <nc:PersonSexCode>M</nc:PersonSexCode>
-               <nc:PersonSSNIdentification>
-                  <nc:IdentificationID>SSN12345</nc:IdentificationID>
-               </nc:PersonSSNIdentification>
-               <nc:PersonWeightMeasure>
-                  <nc:MeasureText>160</nc:MeasureText>
-                  <nc:MeasureUnitText>LBR</nc:MeasureUnitText>
-               </nc:PersonWeightMeasure>
-               <ojb-crim-ext:PersonAugmentation>
-                  <j:PersonStateFingerprintIdentification>
-                     <nc:IdentificationID>SI898709</nc:IdentificationID>
-                  </j:PersonStateFingerprintIdentification>
-                  <ojb-crim-ext:PersonDriverLicense>
-                     <nc:DriverLicenseIdentification>
-                        <nc:IdentificationID>123456789</nc:IdentificationID>
-                        <j:DrivingJurisdictionAuthorityNCICLSTACode>HI</j:DrivingJurisdictionAuthorityNCICLSTACode>
-                     </nc:DriverLicenseIdentification>
-                     <ojb-crim-ext:DriverLicenseCDLIndicator>false</ojb-crim-ext:DriverLicenseCDLIndicator>
-                  </ojb-crim-ext:PersonDriverLicense>
-                  <ojb-crim-ext:PersonConfidentialIndicator>false</ojb-crim-ext:PersonConfidentialIndicator>
-                  <ojb-crim-ext:PersonJuvenileIndicator>false</ojb-crim-ext:PersonJuvenileIndicator>
-                  <ojb-crim-ext:IdentifiedPersonTrackingIdentification>
-                     <nc:IdentificationID>OffenderTracking Number</nc:IdentificationID>
-                  </ojb-crim-ext:IdentifiedPersonTrackingIdentification>
-               </ojb-crim-ext:PersonAugmentation>
-            </ojb-crim-ext:EntityPerson>
+         <ojb-crim-ext:CaseParticipant s:id="d1e79">
+            <ojb-crim-ext:EntityOrganization>
+               <nc:OrganizationName>ACME Corporation</nc:OrganizationName>
+            </ojb-crim-ext:EntityOrganization>
             <ecf:CaseParticipantRoleCode>Defendant</ecf:CaseParticipantRoleCode>
             <nc:ContactInformation>
                <nc:ContactTelephoneNumber>
@@ -113,26 +62,8 @@
                      <nc:TelephoneNumberFullID>(453) 213-0324</nc:TelephoneNumberFullID>
                   </nc:FullTelephoneNumber>
                </nc:ContactTelephoneNumber>
-               <nc:ContactInformationDescriptionText>Home</nc:ContactInformationDescriptionText>
-            </nc:ContactInformation>
-            <nc:ContactInformation>
-               <nc:ContactTelephoneNumber>
-                  <nc:FullTelephoneNumber>
-                     <nc:TelephoneNumberFullID>(456) 212-0290</nc:TelephoneNumberFullID>
-                  </nc:FullTelephoneNumber>
-               </nc:ContactTelephoneNumber>
-               <nc:ContactInformationDescriptionText>Business</nc:ContactInformationDescriptionText>
-            </nc:ContactInformation>
-            <nc:ContactInformation>
-               <nc:ContactTelephoneNumber>
-                  <nc:FullTelephoneNumber>
-                     <nc:TelephoneNumberFullID>(456) 121-2345</nc:TelephoneNumberFullID>
-                  </nc:FullTelephoneNumber>
-               </nc:ContactTelephoneNumber>
-               <nc:ContactInformationDescriptionText>Cell</nc:ContactInformationDescriptionText>
             </nc:ContactInformation>
             <ojb-crim-ext:ContactInformation>
-               <nc:ContactEmailID>Defendant@flores.com</nc:ContactEmailID>
                <ojb-crim-ext:ContactMailingAddress>
                   <nc:StructuredAddress>
                      <nc:AddressSecondaryUnitText>Apt #3</nc:AddressSecondaryUnitText>
@@ -144,23 +75,10 @@
                      <nc:LocationCountryName>USA</nc:LocationCountryName>
                      <nc:LocationPostalCode>21905</nc:LocationPostalCode>
                   </nc:StructuredAddress>
-                  <ojb-crim-ext:ContactMailingAddressCategoryText>Address Type</ojb-crim-ext:ContactMailingAddressCategoryText>
-                  <ojb-crim-ext:DefaultLocationIndicator>true</ojb-crim-ext:DefaultLocationIndicator>
-                  <ojb-crim-ext:PreferredLocationIndicator>true</ojb-crim-ext:PreferredLocationIndicator>
                </ojb-crim-ext:ContactMailingAddress>
             </ojb-crim-ext:ContactInformation>
          </ojb-crim-ext:CaseParticipant>
-         <ojb-crim-ext:CaseParticipant s:id="d1e152">
-            <ecf:EntityPerson>
-               <nc:PersonName>
-                  <nc:PersonGivenName>Tom</nc:PersonGivenName>
-                  <nc:PersonMiddleName>E</nc:PersonMiddleName>
-                  <nc:PersonSurName>Fleming</nc:PersonSurName>
-               </nc:PersonName>
-            </ecf:EntityPerson>
-            <ecf:CaseParticipantRoleCode>Arresting Officer</ecf:CaseParticipantRoleCode>
-         </ojb-crim-ext:CaseParticipant>
-         <ojb-crim-ext:CaseParticipant s:id="d1e105">
+         <ojb-crim-ext:CaseParticipant s:id="d1e96">
             <ecf:EntityPerson>
                <nc:PersonName>
                   <nc:PersonGivenName>Robert</nc:PersonGivenName>
@@ -171,46 +89,18 @@
             <ecf:CaseParticipantRoleCode>Initiating Party</ecf:CaseParticipantRoleCode>
          </ojb-crim-ext:CaseParticipant>
          <ojb-crim-ext:CaseDefendantParty>
-            <nc:EntityPersonReference s:ref="d1e82"/>
+            <nc:EntityPersonReference s:ref=""/>
             <ojb-crim-ext:PartyIdentification>
                <nc:IdentificationID>1234567</nc:IdentificationID>
             </ojb-crim-ext:PartyIdentification>
             <ojb-crim-ext:PartyRoleText>Party Role</ojb-crim-ext:PartyRoleText>
-            <ojb-crim-ext:PartyCategoryText>Party Type</ojb-crim-ext:PartyCategoryText>
-            <ojb-crim-ext:PartyConfidentialIndicator>false</ojb-crim-ext:PartyConfidentialIndicator>
          </ojb-crim-ext:CaseDefendantParty>
          <ojb-crim-ext:CaseInitiatingParty>
-            <nc:EntityPersonReference s:ref="d1e105"/>
-            <ojb-crim-ext:PartyRoleText>Party Role</ojb-crim-ext:PartyRoleText>
+            <nc:EntityPersonReference s:ref="d1e96"/>
             <ojb-crim-ext:PartyCategoryText>Party Type</ojb-crim-ext:PartyCategoryText>
          </ojb-crim-ext:CaseInitiatingParty>
          <ojb-crim-ext:CaseInitiationMethodText>Case Initiation Method</ojb-crim-ext:CaseInitiationMethodText>
       </ojb-crim-ext:CaseAugmentation>
-      <ojb-crim-ext:CaseArrest s:id="d1e132">
-         <nc:ActivityDate>
-            <nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
-         </nc:ActivityDate>
-         <j:ArrestAgency>
-            <nc:OrganizationName>Arrest Agency</nc:OrganizationName>
-         </j:ArrestAgency>
-         <j:ArrestAgencyRecordIdentification>
-            <nc:IdentificationID>Arrest Report #</nc:IdentificationID>
-         </j:ArrestAgencyRecordIdentification>
-         <j:ArrestOfficial>
-            <nc:RoleOfPersonReference s:ref="d1e152"/>
-         </j:ArrestOfficial>
-         <j:ArrestSubject>
-            <nc:RoleOfPersonReference s:ref="d1e82"/>
-         </j:ArrestSubject>
-         <j:Booking s:id="d1e157">
-            <nc:ActivityIdentification>
-               <nc:IdentificationID>Booking #</nc:IdentificationID>
-            </nc:ActivityIdentification>
-            <j:BookingAgency>
-               <nc:OrganizationName>Booking Agency</nc:OrganizationName>
-            </j:BookingAgency>
-         </j:Booking>
-      </ojb-crim-ext:CaseArrest>
       <ojb-crim-ext:CaseCharge s:id="d1e26">
          <j:ChargeCountQuantity>1</j:ChargeCountQuantity>
          <j:ChargeDescriptionText>Description</j:ChargeDescriptionText>
@@ -241,12 +131,6 @@
          </criminal:ChargeOffense>
          <criminal:ChargeAmendedIndicator>false</criminal:ChargeAmendedIndicator>
       </ojb-crim-ext:CaseCharge>
-      <ojb-crim-ext:CitationCaseAugmentation>
-         <ojb-crim-ext:Vehicle>
-            <nc:VehicleCMVIndicator>false</nc:VehicleCMVIndicator>
-            <ojb-crim-ext:VehicleHazmatIndicator>false</ojb-crim-ext:VehicleHazmatIndicator>
-         </ojb-crim-ext:Vehicle>
-      </ojb-crim-ext:CitationCaseAugmentation>
    </ojb-crim-ext:CriminalCase>
    <core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator>
    <ojb-crim-ext:FilingLeadDocument>
@@ -254,6 +138,7 @@
       <nc:DocumentCategoryText>Document Category</nc:DocumentCategoryText>
       <nc:DocumentDescriptionText>Notes</nc:DocumentDescriptionText>
       <nc:DocumentRelatedResourceText>D4355</nc:DocumentRelatedResourceText>
+      <nc:DocumentRelatedResourceText>D1212</nc:DocumentRelatedResourceText>
       <nc:DocumentLanguageCode>eng</nc:DocumentLanguageCode>
       <ecf:DocumentMetadata>
          <j:RegisterActionDescriptionText/>
@@ -263,7 +148,7 @@
       <ecf:DocumentRendition>
          <ecf:DocumentRenditionMetadata>
             <nc:DocumentBinary>
-               <nc:BinaryBase64Object>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</nc:BinaryBase64Object>
+               <nc:BinaryBase64Object/>
             </nc:DocumentBinary>
             <ecf:DocumentAttachment>
                <nc:BinaryDescriptionText/>
@@ -288,7 +173,7 @@
       <ecf:DocumentRendition>
          <ecf:DocumentRenditionMetadata>
             <nc:DocumentBinary>
-               <nc:BinaryBase64Object>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</nc:BinaryBase64Object>
+               <nc:BinaryBase64Object/>
             </nc:DocumentBinary>
             <ecf:DocumentAttachment>
                <nc:BinaryDescriptionText/>
