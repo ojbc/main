@@ -50,15 +50,11 @@
             <j:CourtName>Court Name</j:CourtName>
             <j:CourtCategoryCode>DIS</j:CourtCategoryCode>
          </j:CaseCourt>
+         <j:CaseDomesticViolenceIndicator>false</j:CaseDomesticViolenceIndicator>
       </j:CaseAugmentation>
       <ojb-crim-ext:CaseAugmentation>
          <ecf:Alias>
             <ecf:AliasAlternateName>Laur Dee Smitt</ecf:AliasAlternateName>
-            <ecf:AliasAlternateNameTypeCode>ecf:Alias</ecf:AliasAlternateNameTypeCode>
-            <nc:EntityReference s:ref="d1e82"/>
-         </ecf:Alias>
-         <ecf:Alias>
-            <ecf:AliasAlternateName>Laur D Smit</ecf:AliasAlternateName>
             <ecf:AliasAlternateNameTypeCode>ecf:Alias</ecf:AliasAlternateNameTypeCode>
             <nc:EntityReference s:ref="d1e82"/>
          </ecf:Alias>
@@ -67,8 +63,8 @@
                <nc:PersonBirthDate>
                   <nc:Date>1980-07-26</nc:Date>
                </nc:PersonBirthDate>
-               <nc:PersonEyeColorCode>BLU</nc:PersonEyeColorCode>
-               <nc:PersonHairColorCode>BRO</nc:PersonHairColorCode>
+               <nc:PersonEyeColorCode>Blue</nc:PersonEyeColorCode>
+               <nc:PersonHairColorCode>Brown</nc:PersonHairColorCode>
                <nc:PersonHeightMeasure>
                   <nc:MeasureText>68</nc:MeasureText>
                   <nc:MeasureUnitText>INH</nc:MeasureUnitText>
@@ -94,7 +90,7 @@
                   <ojb-crim-ext:PersonDriverLicense>
                      <nc:DriverLicenseIdentification>
                         <nc:IdentificationID>123456789</nc:IdentificationID>
-                        <j:DrivingJurisdictionAuthorityNCICLSTACode>HI</j:DrivingJurisdictionAuthorityNCICLSTACode>
+                        <j:DrivingJurisdictionAuthorityNCICLSTACode>Hawaii</j:DrivingJurisdictionAuthorityNCICLSTACode>
                      </nc:DriverLicenseIdentification>
                      <ojb-crim-ext:DriverLicenseCDLIndicator>false</ojb-crim-ext:DriverLicenseCDLIndicator>
                   </ojb-crim-ext:PersonDriverLicense>
@@ -149,7 +145,7 @@
                </ojb-crim-ext:ContactMailingAddress>
             </ojb-crim-ext:ContactInformation>
          </ojb-crim-ext:CaseParticipant>
-         <ojb-crim-ext:CaseParticipant s:id="d1e152">
+         <ojb-crim-ext:CaseParticipant s:id="d1e149">
             <ecf:EntityPerson>
                <nc:PersonName>
                   <nc:PersonGivenName>Tom</nc:PersonGivenName>
@@ -180,12 +176,11 @@
          </ojb-crim-ext:CaseDefendantParty>
          <ojb-crim-ext:CaseInitiatingParty>
             <nc:EntityPersonReference s:ref="d1e105"/>
-            <ojb-crim-ext:PartyRoleText>Party Role</ojb-crim-ext:PartyRoleText>
             <ojb-crim-ext:PartyCategoryText>Party Type</ojb-crim-ext:PartyCategoryText>
          </ojb-crim-ext:CaseInitiatingParty>
          <ojb-crim-ext:CaseInitiationMethodText>Case Initiation Method</ojb-crim-ext:CaseInitiationMethodText>
       </ojb-crim-ext:CaseAugmentation>
-      <ojb-crim-ext:CaseArrest s:id="d1e132">
+      <ojb-crim-ext:CaseArrest s:id="d1e129">
          <nc:ActivityDate>
             <nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
          </nc:ActivityDate>
@@ -196,12 +191,12 @@
             <nc:IdentificationID>Arrest Report #</nc:IdentificationID>
          </j:ArrestAgencyRecordIdentification>
          <j:ArrestOfficial>
-            <nc:RoleOfPersonReference s:ref="d1e152"/>
+            <nc:RoleOfPersonReference s:ref="d1e149"/>
          </j:ArrestOfficial>
          <j:ArrestSubject>
             <nc:RoleOfPersonReference s:ref="d1e82"/>
          </j:ArrestSubject>
-         <j:Booking s:id="d1e157">
+         <j:Booking s:id="d1e154">
             <nc:ActivityIdentification>
                <nc:IdentificationID>Booking #</nc:IdentificationID>
             </nc:ActivityIdentification>
@@ -240,12 +235,6 @@
          </criminal:ChargeOffense>
          <criminal:ChargeAmendedIndicator>false</criminal:ChargeAmendedIndicator>
       </ojb-crim-ext:CaseCharge>
-      <ojb-crim-ext:CitationCaseAugmentation>
-         <ojb-crim-ext:Vehicle>
-            <nc:VehicleCMVIndicator>false</nc:VehicleCMVIndicator>
-            <ojb-crim-ext:VehicleHazmatIndicator>false</ojb-crim-ext:VehicleHazmatIndicator>
-         </ojb-crim-ext:Vehicle>
-      </ojb-crim-ext:CitationCaseAugmentation>
    </ojb-crim-ext:CriminalCase>
    <core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator>
    <ojb-crim-ext:FilingLeadDocument>

@@ -17,8 +17,7 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<cfd-doc:CaseFilingDecisionReport
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0 ../../../xsd/CaseFilingDecisionReport.xsd"
+<cfd-doc:CaseFilingDecisionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0 ../../../xsd/CaseFilingDecisionReport.xsd"
 	xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0" xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0"
 	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
@@ -56,6 +55,7 @@
 					<nc:LocationName>Location</nc:LocationName>
 				</nc:OrganizationLocation>
 				<j:CourtName>Court Name</j:CourtName>
+				<j:CourtCategoryCode>DIS</j:CourtCategoryCode>
 			</j:CaseCourt>
 			<j:CaseDefendantParty>
 				<nc:EntityOrganization structures:ref="Defendant_01" />
@@ -63,10 +63,13 @@
 					<nc:IdentificationID>1234567</nc:IdentificationID>
 				</cfd-ext:PartyIdentification>
 				<cfd-ext:PartyRoleText>Party Role</cfd-ext:PartyRoleText>
+				<cfd-ext:PartyCategoryText>Party Type</cfd-ext:PartyCategoryText>
+				<cfd-ext:PartyConfidentialIndicator>false</cfd-ext:PartyConfidentialIndicator>
 			</j:CaseDefendantParty>
 			<j:CaseDomesticViolenceIndicator>false</j:CaseDomesticViolenceIndicator>
 			<j:CaseInitiatingParty>
 				<nc:EntityPerson structures:ref="Initiating_01" />
+				<cfd-ext:PartyRoleText>Party Role</cfd-ext:PartyRoleText>
 				<cfd-ext:PartyCategoryText>Party Type</cfd-ext:PartyCategoryText>
 			</j:CaseInitiatingParty>
 		</j:CaseAugmentation>
@@ -106,6 +109,7 @@
 			<nc:FullTelephoneNumber>
 				<nc:TelephoneNumberFullID>(453) 213-0324</nc:TelephoneNumberFullID>
 			</nc:FullTelephoneNumber>
+			<nc:TelephoneNumberCategoryText>Business</nc:TelephoneNumberCategoryText>
 		</nc:ContactTelephoneNumber>
 		<nc:ContactMailingAddress>
 			<nc:AddressSecondaryUnitText>Apt #3</nc:AddressSecondaryUnitText>
@@ -121,6 +125,9 @@
 	<nc:PrimaryDocument structures:id="LeadDocument">
 		<nc:DocumentCategoryText>Document Category</nc:DocumentCategoryText>
 		<nc:DocumentCategoryName>Document Type</nc:DocumentCategoryName>
+		<nc:DocumentBinary>
+			<cfd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cfd-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 		<nc:DocumentDescriptionText>Notes</nc:DocumentDescriptionText>
 		<nc:DocumentRelatedResourceText>D4355</nc:DocumentRelatedResourceText>
 		<nc:DocumentRelatedResourceText>D1212</nc:DocumentRelatedResourceText>
@@ -132,6 +139,9 @@
 	<nc:SecondaryDocument structures:id="Document_01">
 		<nc:DocumentCategoryText>Document Category</nc:DocumentCategoryText>
 		<nc:DocumentCategoryName>Document Type</nc:DocumentCategoryName>
+		<nc:DocumentBinary>
+			<cfd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cfd-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 		<nc:DocumentDescriptionText>Notes</nc:DocumentDescriptionText>
 		<cfd-ext:PreviouslyFiledDocketText>Docket Entry</cfd-ext:PreviouslyFiledDocketText>
 		<cfd-ext:DocumentPublicPartyViewingRestrictedIndicator>false</cfd-ext:DocumentPublicPartyViewingRestrictedIndicator>

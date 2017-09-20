@@ -84,16 +84,6 @@
 					</ojb-crim-ext:ContactMailingAddress>
 				</ojb-crim-ext:ContactInformation>
 			</ojb-crim-ext:CaseParticipant>
-			<ojb-crim-ext:CaseParticipant s:id="Officer_01">
-				<ecf:EntityPerson>
-					<nc:PersonName>
-						<nc:PersonGivenName>John</nc:PersonGivenName>
-						<nc:PersonMiddleName>W.</nc:PersonMiddleName>
-						<nc:PersonSurName>Doe</nc:PersonSurName>
-					</nc:PersonName>
-				</ecf:EntityPerson>
-				<ecf:CaseParticipantRoleCode>Arresting Officer</ecf:CaseParticipantRoleCode>
-			</ojb-crim-ext:CaseParticipant>
 			<ojb-crim-ext:CaseParticipant s:id="Initiating_01">
 				<ecf:EntityPerson>
 					<nc:PersonName>
@@ -152,12 +142,6 @@
 			</criminal:ChargeOffense>
 			<criminal:ChargeAmendedIndicator>true</criminal:ChargeAmendedIndicator>
 		</ojb-crim-ext:CaseCharge>
-		<ojb-crim-ext:CitationCaseAugmentation>
-			<ojb-crim-ext:Vehicle>
-				<nc:VehicleCMVIndicator>false</nc:VehicleCMVIndicator>
-				<ojb-crim-ext:VehicleHazmatIndicator>false</ojb-crim-ext:VehicleHazmatIndicator>
-			</ojb-crim-ext:Vehicle>
-		</ojb-crim-ext:CitationCaseAugmentation>
 	</ojb-crim-ext:CriminalCase>
 	<core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator>
 	<ojb-crim-ext:FilingLeadDocument s:id="_123456ABC.app.doc">
