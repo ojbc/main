@@ -61,7 +61,7 @@
 				<xsl:apply-templates select="j51:CourtName" />
 				<xsl:apply-templates select="j51:CourtCategoryCode" />
 			</j:CaseCourt>
-			<xsl:apply-templates select="j51:CaseAugmentation/j51:CaseDomesticViolenceIndicator" />
+			<xsl:apply-templates select="../j51:CaseDomesticViolenceIndicator" />
 		</j:CaseAugmentation>
 	</xsl:template>
 	<xsl:template match="cfd-doc:CaseFilingDecisionReport" mode="ecfAugmentation">
@@ -72,13 +72,18 @@
 			<xsl:if test="nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty/nc30:EntityPerson">
 				<xsl:apply-templates select="nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty" mode="defendantPerson" />
 			</xsl:if>
-						<xsl:if test="nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty/nc30:EntityOrganization">
+			<xsl:if test="nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty/nc30:EntityOrganization">
 				<xsl:apply-templates select="nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty" mode="defendantOrganization" />
 			</xsl:if>
 			<xsl:apply-templates select="nc30:Person[@structures:id=../j51:Arrest/j51:ArrestOfficial/@structures:ref]" mode="officer" />
 			<xsl:apply-templates
 				select="nc30:Person[@structures:id=../nc30:Case/j51:CaseAugmentation/j51:CaseInitiatingParty/nc30:EntityPerson/@structures:ref]" mode="initiating" />
-			<xsl:apply-templates select="nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty" mode="party" />
+			<xsl:if test="nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty/nc30:EntityPerson">
+				<xsl:apply-templates select="nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty" mode="partyPerson" />
+			</xsl:if>
+			<xsl:if test="nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty/nc30:EntityOrganization">
+				<xsl:apply-templates select="nc30:Case/j51:CaseAugmentation/j51:CaseDefendantParty" mode="partyOrganization" />
+			</xsl:if>
 			<xsl:apply-templates select="nc30:Case/j51:CaseAugmentation/j51:CaseInitiatingParty" mode="party" />
 			<xsl:apply-templates select="nc30:Case/cfd-ext:CaseInitiationMethodText" />
 		</ojb-crim-ext:CaseAugmentation>
@@ -98,7 +103,6 @@
 			</ojb-crim-ext:ContactInformation>
 		</ojb-crim-ext:CaseParticipant>
 	</xsl:template>
-	
 	<xsl:template match="j51:CaseDefendantParty" mode="defendantOrganization">
 		<ojb-crim-ext:CaseParticipant>
 			<xsl:attribute name="s:id"><xsl:value-of select="generate-id(./nc30:EntityOrganization)" /></xsl:attribute>
@@ -107,20 +111,27 @@
 			<xsl:apply-templates
 				select="../../../nc30:ContactInformation[@structures:id=../nc30:ContactInformationAssociation[nc30:ContactEntity/@structures:ref=$CPid]/nc30:ContactInformation/@structures:ref]" />
 			<ojb-crim-ext:ContactInformation>
-				
 				<xsl:apply-templates
 					select="../../../nc30:ContactInformation[@structures:id=../nc30:ContactInformationAssociation[nc30:ContactEntity/@structures:ref=$CPid]/nc30:ContactInformation/@structures:ref]/nc30:ContactMailingAddress" />
 			</ojb-crim-ext:ContactInformation>
 		</ojb-crim-ext:CaseParticipant>
 	</xsl:template>
-	
-
-	
-	<xsl:template match="j51:CaseDefendantParty" mode="party">
+	<xsl:template match="j51:CaseDefendantParty" mode="partyPerson">
 		<ojb-crim-ext:CaseDefendantParty>
 			<nc:EntityPersonReference>
 				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(./nc30:EntityPerson)" /></xsl:attribute>
 			</nc:EntityPersonReference>
+			<xsl:apply-templates select="cfd-ext:PartyIdentification" />
+			<xsl:apply-templates select="cfd-ext:PartyRoleText" />
+			<xsl:apply-templates select="cfd-ext:PartyCategoryText" />
+			<xsl:apply-templates select="cfd-ext:PartyConfidentialIndicator" />
+		</ojb-crim-ext:CaseDefendantParty>
+	</xsl:template>
+	<xsl:template match="j51:CaseDefendantParty" mode="partyOrganization">
+		<ojb-crim-ext:CaseDefendantParty>
+			<nc:EntityOrganizationReference>
+				<xsl:attribute name="s:ref"><xsl:value-of select="generate-id(./nc30:EntityOrganization)" /></xsl:attribute>
+			</nc:EntityOrganizationReference>
 			<xsl:apply-templates select="cfd-ext:PartyIdentification" />
 			<xsl:apply-templates select="cfd-ext:PartyRoleText" />
 			<xsl:apply-templates select="cfd-ext:PartyCategoryText" />
@@ -141,22 +152,14 @@
 		</ojb-crim-ext:EntityPerson>
 		<ecf:CaseParticipantRoleCode>Defendant</ecf:CaseParticipantRoleCode>
 	</xsl:template>
-	
-	
-			<xsl:template match="nc30:Organization" mode="defendantOrganization">
-		
-
+	<xsl:template match="nc30:Organization" mode="defendantOrganization">
 		<ojb-crim-ext:EntityOrganization>
-					<nc:OrganizationName>
-			<xsl:value-of select="normalize-space(nc30:OrganizationName)" />
-					</nc:OrganizationName>
-				</ojb-crim-ext:EntityOrganization>
-				
+			<nc:OrganizationName>
+				<xsl:value-of select="normalize-space(nc30:OrganizationName)" />
+			</nc:OrganizationName>
+		</ojb-crim-ext:EntityOrganization>
 		<ecf:CaseParticipantRoleCode>Defendant</ecf:CaseParticipantRoleCode>
 	</xsl:template>
-	
-	
-	
 	<xsl:template match="j51:PersonAugmentation">
 		<ojb-crim-ext:PersonAugmentation>
 			<xsl:apply-templates select="j51:PersonStateFingerprintIdentification" />
@@ -602,9 +605,9 @@
 	</xsl:template>
 	<xsl:template match="cfd-doc:CaseFilingDecisionReport" mode="citation">
 		<xsl:if test="../nc30:Vehicle">
-		<ojb-crim-ext:CitationCaseAugmentation>
-			<xsl:apply-templates select="nc30:Vehicle" />
-		</ojb-crim-ext:CitationCaseAugmentation>
+			<ojb-crim-ext:CitationCaseAugmentation>
+				<xsl:apply-templates select="nc30:Vehicle" />
+			</ojb-crim-ext:CitationCaseAugmentation>
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="nc30:Vehicle">

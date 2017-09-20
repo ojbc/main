@@ -52,8 +52,8 @@ public class CaseFilingDecisionTransformTest {
 		xsltTransformer = new XsltTransformer();		
 	}	
 
-	/* @Test
-	public void courtCaseFilingDecisionToCourtCaseFiling() throws Exception{		
+	 @Test
+	public void courtCaseFilingDecisionToCourtCaseFilingPerson() throws Exception{		
 		
 		DetailedDiff detailedDiff = runTransform("src/test/resources/xmlInstances/input/HI-ProsecutionCaseFilingDecision-Person.xml",
 				"src/main/resources/xslt/caseFilingDecisionToCourtCaseFiling.xslt",
@@ -63,7 +63,18 @@ public class CaseFilingDecisionTransformTest {
         
         Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());						
 	}
-*/
+	 
+	 @Test
+		public void courtCaseFilingDecisionToCourtCaseFilingOrganization() throws Exception{		
+			
+			DetailedDiff detailedDiff = runTransform("src/test/resources/xmlInstances/input/HI-ProsecutionCaseFilingDecision-Organization.xml",
+					"src/main/resources/xslt/caseFilingDecisionToCourtCaseFiling.xslt",
+					"src/test/resources/xmlInstances/output/HI-ProsecutionCaseFilingDecision-Organization.out.xml");
+	        
+			List<Difference> differenceList = detailedDiff.getAllDifferences();
+	        
+	        Assert.assertEquals(detailedDiff.toString(), 0, differenceList.size());						
+		}
 	private DetailedDiff runTransform(String inputFileClasspath, String xsltClasspath, String expectedOutputFileClasspath) throws Exception{
 
 		File inputFile = new File(inputFileClasspath);		

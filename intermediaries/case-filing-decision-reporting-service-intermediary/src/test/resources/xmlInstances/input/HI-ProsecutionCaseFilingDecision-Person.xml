@@ -69,7 +69,6 @@
 			<j:CaseDomesticViolenceIndicator>false</j:CaseDomesticViolenceIndicator>
 			<j:CaseInitiatingParty>
 				<nc:EntityPerson structures:ref="Initiating_01" />
-				<cfd-ext:PartyRoleText>Party Role</cfd-ext:PartyRoleText>
 				<cfd-ext:PartyCategoryText>Party Type</cfd-ext:PartyCategoryText>
 			</j:CaseInitiatingParty>
 		</j:CaseAugmentation>
@@ -123,8 +122,8 @@
 		<nc:PersonBirthDate>
 			<nc:Date>1980-07-26</nc:Date>
 		</nc:PersonBirthDate>
-		<nc:PersonEyeColorText>BLU</nc:PersonEyeColorText>
-		<nc:PersonHairColorText>BRO</nc:PersonHairColorText>
+		<nc:PersonEyeColorText>Blue</nc:PersonEyeColorText>
+		<nc:PersonHairColorText>Brown</nc:PersonHairColorText>
 		<nc:PersonHeightMeasure>
 			<nc:MeasureValueText>68</nc:MeasureValueText>
 			<nc:LengthUnitCode>INH</nc:LengthUnitCode>
@@ -149,12 +148,11 @@
 				<j:DriverLicenseIdentification>
 					<nc:IdentificationID>123456789</nc:IdentificationID>
 					<nc:IdentificationJurisdiction>
-						<nc:JurisdictionText>HI</nc:JurisdictionText>
+						<nc:JurisdictionText>Hawaii</nc:JurisdictionText>
 					</nc:IdentificationJurisdiction>
 				</j:DriverLicenseIdentification>
 				<cfd-ext:DriverLicenseCDLIndicator>false</cfd-ext:DriverLicenseCDLIndicator>
 			</j:DriverLicense>
-			<!-- ECF Only has PersonStateIdentification -->
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>SI898709</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>
@@ -185,15 +183,6 @@
 				<nc:PersonGivenName>Laur</nc:PersonGivenName>
 				<nc:PersonMiddleName>Dee</nc:PersonMiddleName>
 				<nc:PersonSurName>Smitt</nc:PersonSurName>
-			</nc:PersonName>
-		</nc:IdentityPersonRepresentation>
-	</nc:Identity>
-	<nc:Identity structures:id="Identity_02">
-		<nc:IdentityPersonRepresentation>
-			<nc:PersonName>
-				<nc:PersonGivenName>Laur</nc:PersonGivenName>
-				<nc:PersonMiddleName>D</nc:PersonMiddleName>
-				<nc:PersonSurName>Smit</nc:PersonSurName>
 			</nc:PersonName>
 		</nc:IdentityPersonRepresentation>
 	</nc:Identity>
@@ -268,7 +257,6 @@
 	<nc:PersonIdentityAssociation>
 		<nc:Person structures:ref="Defendant_01" />
 		<nc:Identity structures:ref="Identity_01" />
-		<nc:Identity structures:ref="Identity_02" />
 	</nc:PersonIdentityAssociation>
 	<nc:PersonConveyanceAssociation>
 		<nc:Person structures:ref="Defendant_01" />
