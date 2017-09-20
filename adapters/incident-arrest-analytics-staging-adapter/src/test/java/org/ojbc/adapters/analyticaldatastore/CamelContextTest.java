@@ -66,6 +66,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Person;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
+import org.ojbc.adapters.analyticaldatastore.dao.model.TrafficStop;
 import org.ojbc.adapters.analyticaldatastore.processor.AbstractReportRepositoryProcessor;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -295,7 +296,22 @@ public class CamelContextTest {
 		
 		//Assert it has the same PK
 		assertEquals(incidentPk, incidents.get(0).getIncidentID().intValue());
+		
+		List<TrafficStop> trafficStops = analyticalDatastoreDAOImpl.returnTrafficStopsFromIncident(incidentPk);
+		
+		assertEquals(1, trafficStops.size());
 
+		log.info("Traffic Stop: " + trafficStops.get(0));
+		
+		assertEquals("M", trafficStops.get(0).getTrafficStopReasonDescription());
+		assertEquals("C", trafficStops.get(0).getTrafficStopContrabandStatus());
+		assertEquals("A", trafficStops.get(0).getTrafficStopOutcomeDescription());
+		assertEquals("SPC", trafficStops.get(0).getTrafficStopSearchTypeDescription());
+	
+		assertEquals("CHEV", trafficStops.get(0).getVehicleMake());
+		assertEquals("MAL", trafficStops.get(0).getVehicleModel());
+		assertEquals(Integer.valueOf(2005), trafficStops.get(0).getVehicleYear());
+		assertEquals("GA", trafficStops.get(0).getVehicleRegistrationState());
 	}
 	
 	@Test
