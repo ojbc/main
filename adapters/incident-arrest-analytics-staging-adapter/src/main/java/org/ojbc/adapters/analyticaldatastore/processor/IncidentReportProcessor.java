@@ -33,6 +33,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.IncidentType;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Arrest;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Charge;
 import org.ojbc.adapters.analyticaldatastore.dao.model.Incident;
+import org.ojbc.adapters.analyticaldatastore.dao.model.TrafficStop;
 import org.ojbc.adapters.analyticaldatastore.util.AnalyticalDataStoreUtils;
 import org.ojbc.util.lucene.personid.IdentifierGenerationStrategy;
 import org.ojbc.util.xml.XmlUtils;
@@ -252,7 +253,87 @@ public class IncidentReportProcessor extends AbstractReportRepositoryProcessor {
 		processCircumstanceCodes(incidentReport, incidentPk);
 		
 		processArrests(incidentReport, incidentPk, reportingSystem);
+		
+		processTrafficStopData(incidentReport, incidentPk);
 			
+	}
+
+	private void processTrafficStopData(Document incidentReport,
+			Integer incidentPk) throws Exception {
+		
+		TrafficStop trafficStop = new TrafficStop();
+		
+		trafficStop.setIncidentID(incidentPk);
+	
+		//<inc-ext:DrivingIncident>
+		//	<ojb-ts-codes:TrafficStopReasonCode>M</ojb-ts-codes:TrafficStopReasonCode>
+		//	<ojb-ts-codes:TrafficStopSearchCategoryCode>SPC</ojb-ts-codes:TrafficStopSearchCategoryCode>
+		//	<ojb-ts-codes:TrafficStopContrabandCode>C</ojb-ts-codes:TrafficStopContrabandCode>
+		//	<ojb-ts-codes:TrafficStopOutcomeCode>A</ojb-ts-codes:TrafficStopOutcomeCode>
+		//	<lexslib:SameAsDigestReference
+		//		lexslib:ref="INCIDENT_01" />
+		//</inc-ext:DrivingIncident>
+		
+		
+		String trafficStopReasonDescription = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:DrivingIncident/ojb-ts-codes:TrafficStopReasonCode");
+		log.debug("Traffic stop reason: " + trafficStopReasonDescription);
+		trafficStop.setTrafficStopReasonDescription(trafficStopReasonDescription);
+		
+		String trafficStopSearchCategoryCode = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:DrivingIncident/ojb-ts-codes:TrafficStopSearchCategoryCode");
+		log.debug("Traffic stop reason: " + trafficStopSearchCategoryCode);
+		trafficStop.setTrafficStopSearchTypeDescription(trafficStopSearchCategoryCode);
+		
+		String trafficStopContrabandCode = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE  + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:DrivingIncident/ojb-ts-codes:TrafficStopContrabandCode");
+		log.debug("Traffic stop contraband code: " + trafficStopContrabandCode);
+		trafficStop.setTrafficStopContrabandStatus(trafficStopContrabandCode);
+
+		String trafficStopOutcomeCode = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DATA_ITEM_PACKAGE + "/lexs:StructuredPayload/inc-ext:IncidentReport/inc-ext:DrivingIncident/ojb-ts-codes:TrafficStopOutcomeCode");
+		log.debug("Traffic stop outcome code: " + trafficStopOutcomeCode);
+		trafficStop.setTrafficStopOutcomeDescription(trafficStopOutcomeCode);
+		
+		//Vehicle Make
+		String vehicleMake = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityVehicle/nc:Vehicle/nc:VehicleMakeCode");
+		log.debug("Vehicle Make: " + vehicleMake);
+		trafficStop.setVehicleMake(vehicleMake);
+		
+		//Vehicle Model
+		String vehicleModel = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityVehicle/nc:Vehicle/nc:VehicleModelCode");
+		log.debug("Vehicle Model: " + vehicleModel);
+		trafficStop.setVehicleModel(vehicleModel);
+		
+		//Vehicle Year
+		String vehicleYear = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityVehicle/nc:Vehicle/nc:ItemModelYearDate");
+		log.debug("Vehicle Year: " + vehicleYear);
+		
+		if (StringUtils.isNotBlank(vehicleYear))
+		{	
+			trafficStop.setVehicleYear(Integer.valueOf(vehicleYear));
+		}	
+		
+		//Vehicle Registration State
+		String vehicleState = XmlUtils.xPathStringSearch(incidentReport, PATH_TO_LEXS_DIGEST + "/lexsdigest:EntityVehicle/nc:Vehicle/nc:ConveyanceRegistrationPlateIdentification/jxdm40:IdentificationJurisdictionNCICLISCode");
+		log.debug("Vehicle State: " + vehicleState);
+		trafficStop.setVehicleRegistrationState(vehicleState);
+		
+		//TODO: Figure out where to get 'driver' info from.
+		
+		
+		boolean trafficStopHasData = false;
+		
+		if (StringUtils.isNotBlank(trafficStopReasonDescription) || StringUtils.isNotBlank(trafficStopSearchCategoryCode) || StringUtils.isNotBlank(trafficStopContrabandCode) || StringUtils.isNotBlank(trafficStopOutcomeCode))
+		{
+			trafficStopHasData = true;
+		}	
+		
+		if (trafficStopHasData)
+		{	
+			analyticalDatastoreDAO.saveTrafficStopData(trafficStop);
+		}	
+		else
+		{
+			log.info("No traffic stop data.  Will not save traffic stop entry.");
+		}	
+		
 	}
 
 	private void processIncidentType(Document incidentReport, Integer incidentPk) throws Exception {

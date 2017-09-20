@@ -155,6 +155,26 @@ CREATE TABLE Incident (
 COMMENT ON COLUMN Incident.RecordType IS 'N for new record, U for update to previous record, D for delete';
 
 
+CREATE TABLE TrafficStop (
+                TrafficStopID IDENTITY NOT NULL,
+                IncidentID INTEGER NOT NULL,
+                TrafficStopReasonDescription VARCHAR(1),
+                TrafficStopSearchTypeDescription VARCHAR(3),
+                TrafficStopContrabandStatus VARCHAR(2),
+                TrafficStopOutcomeDescription VARCHAR(2),
+                DriverAge INTEGER,
+                DriverSex VARCHAR(1),
+                DriverRace VARCHAR(1),
+                DriverResidenceTown VARCHAR(80),
+                DriverResidenceState VARCHAR(2),
+                VehicleMake VARCHAR(20),
+                VehicleModel VARCHAR(20),
+                VehicleYear INTEGER,
+                VehicleRegistrationState VARCHAR(2),
+                CONSTRAINT TrafficStopID PRIMARY KEY (TrafficStopID)
+);
+
+
 CREATE TABLE IncidentType (
                 IncidentTypeID IDENTITY NOT NULL,
                 IncidentID INTEGER NOT NULL,
@@ -278,6 +298,12 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE IncidentType ADD CONSTRAINT Incident_IncidentType_fk
+FOREIGN KEY (IncidentID)
+REFERENCES Incident (IncidentID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE TrafficStop ADD CONSTRAINT Incident_TrafficStop_fk
 FOREIGN KEY (IncidentID)
 REFERENCES Incident (IncidentID)
 ON DELETE NO ACTION

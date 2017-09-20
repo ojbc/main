@@ -16,7 +16,9 @@
  */
 package org.ojbc.adapters.analyticaldatastore.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -45,6 +47,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
+import org.ojbc.adapters.analyticaldatastore.dao.model.TrafficStop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -176,6 +179,46 @@ public class TestAnalyticalDatastoreDAOImpl {
 		
 		int chargePk = analyticalDatastoreDAOImpl.saveCharge(charge);
 		assertEquals(1, chargePk);
+		
+		TrafficStop trafficStop = new TrafficStop();
+		
+		trafficStop.setDriverAge(25);
+		trafficStop.setDriverRace("A");
+		trafficStop.setDriverResidenceState("WI");
+		trafficStop.setDriverResidenceTown("cross plains");
+		trafficStop.setDriverSex("F");
+		trafficStop.setIncidentID(incidentPk);
+		trafficStop.setTrafficStopContrabandStatus("CS");
+		trafficStop.setTrafficStopOutcomeDescription("OD");
+		trafficStop.setTrafficStopReasonDescription("R");
+		trafficStop.setTrafficStopSearchTypeDescription("S");
+		trafficStop.setVehicleMake("FORD");
+		trafficStop.setVehicleModel("EXPLORER");
+		trafficStop.setVehicleRegistrationState("WI");
+		trafficStop.setVehicleYear(1999);
+		
+		Integer trafficStopPk = analyticalDatastoreDAOImpl.saveTrafficStopData(trafficStop);
+		log.info("Traffic stop PK: " + trafficStopPk);
+		
+		assertNotNull(trafficStopPk);
+		
+		List<TrafficStop> trafficStops = analyticalDatastoreDAOImpl.returnTrafficStopsFromIncident(incidentPk);
+		
+		assertEquals(1, trafficStops.size());
+		
+		TrafficStop trafficStopFromDatabase = trafficStops.get(0);
+		assertEquals(new Integer(25), trafficStopFromDatabase.getDriverAge());
+		assertEquals("A", trafficStopFromDatabase.getDriverRace());
+		assertEquals("WI", trafficStopFromDatabase.getDriverResidenceState());
+		assertEquals("cross plains", trafficStopFromDatabase.getDriverResidenceTown());
+		assertEquals(new Integer(999999999), trafficStopFromDatabase.getIncidentID());
+		assertEquals("CS", trafficStopFromDatabase.getTrafficStopContrabandStatus());
+		assertEquals("OD", trafficStopFromDatabase.getTrafficStopOutcomeDescription());
+		assertEquals("R", trafficStopFromDatabase.getTrafficStopReasonDescription());
+		assertEquals("S", trafficStopFromDatabase.getTrafficStopSearchTypeDescription());
+		assertEquals("FORD", trafficStopFromDatabase.getVehicleMake());
+		assertEquals("EXPLORER", trafficStopFromDatabase.getVehicleModel());
+		assertEquals("WI", trafficStopFromDatabase.getVehicleRegistrationState());
 		
 		analyticalDatastoreDAOImpl.deleteIncident(incidentPk);
 		

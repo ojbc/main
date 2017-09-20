@@ -41,6 +41,7 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
+import org.ojbc.adapters.analyticaldatastore.dao.model.TrafficStop;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -933,6 +934,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 	String INCIDENT_ARREST_DELETE = "delete from Arrest where IncidentID = ?";
 	String INCIDENT_CIRCUMSTANCE_DELETE = "delete from IncidentCircumstance where IncidentID = ?";
 	String INCIDENT_TYPE_DELETE = "delete from IncidentType where IncidentID = ?";
+	String INCIDENT_TRAFFIC_STOP_DELETE = "delete from TrafficStop where IncidentID = ?";
 	@Override
 	public void deleteIncident(Integer incidentID) throws Exception{
 		 
@@ -951,6 +953,7 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 		}
 		jdbcTemplate.update(INCIDENT_CIRCUMSTANCE_DELETE, incidentID);
 		jdbcTemplate.update(INCIDENT_TYPE_DELETE,incidentID);
+		jdbcTemplate.update(INCIDENT_TRAFFIC_STOP_DELETE, incidentID);
 		int resultSize = this.jdbcTemplate.update(INCIDENT_DELETE, incidentID);
 		
 		if (resultSize == 0)
@@ -1006,5 +1009,69 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
 			}
 
 		
+	}
+
+	@Override
+	public Integer saveTrafficStopData(TrafficStop trafficStop) {
+        log.debug("Inserting row into Traffic Stop table");
+
+        final String trafficStopInsertStatement="INSERT into TrafficStop (IncidentID, TrafficStopReasonDescription,DriverAge,DriverRace,DriverResidenceTown,TrafficStopSearchTypeDescription,VehicleModel,"
+        		+ "TrafficStopOutcomeDescription,DriverResidenceState,VehicleYear,VehicleMake,TrafficStopContrabandStatus,DriverSex,VehicleRegistrationState) "
+        		+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(trafficStopInsertStatement, new String[] {"TrafficStopID"});
+        	            ps.setInt(1, trafficStop.getIncidentID());
+        	            ps.setString(2, trafficStop.getTrafficStopReasonDescription());
+        	            
+        	            if (trafficStop.getDriverAge() != null){
+        	            	ps.setInt(3, trafficStop.getDriverAge());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(3, java.sql.Types.NULL);
+        	            }	
+        	            
+        	            ps.setString(4, trafficStop.getDriverRace());
+        	            ps.setString(5, trafficStop.getDriverResidenceTown());
+        	            ps.setString(6, trafficStop.getTrafficStopSearchTypeDescription());
+        	            ps.setString(7, trafficStop.getVehicleModel());
+        	            ps.setString(8, trafficStop.getTrafficStopOutcomeDescription());
+        	            ps.setString(9, trafficStop.getDriverResidenceState());
+        	            
+        	            if (trafficStop.getVehicleYear() != null){
+        	            	ps.setInt(10, trafficStop.getVehicleYear());
+        	            }
+        	            else
+        	            {
+        	            	ps.setNull(10, java.sql.Types.NULL);
+        	            }	
+        	            
+        	            ps.setString(11, trafficStop.getVehicleMake());
+        	            
+        	            ps.setString(12, trafficStop.getTrafficStopContrabandStatus());
+        	            ps.setString(13, trafficStop.getDriverSex());
+        	            ps.setString(14, trafficStop.getVehicleRegistrationState());
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+        
+         return keyHolder.getKey().intValue();			
+         
+	}
+
+	@Override
+	public List<TrafficStop> returnTrafficStopsFromIncident(Integer incidentPk) {
+		String sql = "select * from TrafficStop where IncidentID = ?";
+		 
+		List<TrafficStop> TrafficStops = this.jdbcTemplate.query(sql, new Object[] { incidentPk },new TrafficStopRowMapper());
+		
+		return TrafficStops;
 	}
 }

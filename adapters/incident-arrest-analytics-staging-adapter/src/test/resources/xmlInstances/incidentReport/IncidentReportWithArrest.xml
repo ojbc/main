@@ -18,6 +18,10 @@
 -->
 <IncidentReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../../../../../../../shared/ojb-resources-common/src/main/resources/ssp/Incident_Reporting/artifacts/service_model/information_model/IEPD/xsd/exchange_schema/Incident_Report.xsd"
+ xmlns:ojb-ts-codes="http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0"
+ xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
+ xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" 
+ xmlns:s="http://niem.gov/niem/structures/2.0"  
  xmlns="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0">
     <doPublish xmlns="http://usdoj.gov/leisp/lexs/publishdiscover/3.1">
         <PublishMessageContainer xmlns="http://usdoj.gov/leisp/lexs/3.1">
@@ -334,6 +338,19 @@
                                 </nc:LocationAddress>
                             </nc:Location>
                         </EntityLocation>
+						<!-- SUBJECT VEHICLE -->
+						<EntityVehicle xmlns="http://usdoj.gov/leisp/lexs/digest/3.1">
+							<nc:Vehicle s:id="VEHICLE_01" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                                xmlns:s="http://niem.gov/niem/structures/2.0">
+								<nc:ItemModelYearDate>2005</nc:ItemModelYearDate>
+								<nc:ConveyanceRegistrationPlateIdentification>
+									<j:IdentificationJurisdictionNCICLISCode  xmlns:j="http://niem.gov/niem/domains/jxdm/4.0">GA</j:IdentificationJurisdictionNCICLISCode>
+								</nc:ConveyanceRegistrationPlateIdentification>
+								<nc:VehicleMakeCode>CHEV</nc:VehicleMakeCode>
+								<nc:VehicleModelCode>MAL</nc:VehicleModelCode>
+							</nc:Vehicle>
+						</EntityVehicle>
+                        
                         <Associations xmlns="http://usdoj.gov/leisp/lexs/digest/3.1">
                             <j:ActivityEnforcementOfficialAssociation
                                 xmlns:j="http://niem.gov/niem/domains/jxdm/4.0">
@@ -573,6 +590,14 @@
                                     xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
                                     lexslib:ref="INCIDENTLOCATION15999999999"/>
                             </ext:Location>
+							<ext:DrivingIncident>
+								<ojb-ts-codes:TrafficStopReasonCode>M</ojb-ts-codes:TrafficStopReasonCode>
+								<ojb-ts-codes:TrafficStopSearchCategoryCode>SPC</ojb-ts-codes:TrafficStopSearchCategoryCode>
+								<ojb-ts-codes:TrafficStopContrabandCode>C</ojb-ts-codes:TrafficStopContrabandCode>
+								<ojb-ts-codes:TrafficStopOutcomeCode>A</ojb-ts-codes:TrafficStopOutcomeCode>
+								<lexslib:SameAsDigestReference
+									lexslib:ref="INCIDENT_01" />
+							</ext:DrivingIncident>                            
                         </ext:IncidentReport>
                     </StructuredPayload>
                 </DataItemPackage>

@@ -31,12 +31,15 @@ import org.ojbc.adapters.analyticaldatastore.dao.model.PersonRace;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PersonSex;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialService;
 import org.ojbc.adapters.analyticaldatastore.dao.model.PretrialServiceParticipation;
+import org.ojbc.adapters.analyticaldatastore.dao.model.TrafficStop;
 
 public interface AnalyticalDatastoreDAO {
 
 	public Integer saveAgency(Agency agency);
 	
 	public Integer saveIncident(Incident incident);
+	
+	public Integer saveTrafficStopData(TrafficStop trafficStop);
 	
 	public Integer saveIncidentType(IncidentType incidentType);
 	
@@ -78,6 +81,8 @@ public interface AnalyticalDatastoreDAO {
 	public List<Arrest> searchForArrestsByIncidentPk(Integer incidentPk);
 	
 	public List<Charge> returnChargesFromArrest(Integer arrestId);
+	
+	public List<TrafficStop> returnTrafficStopsFromIncident(Integer incidentPk);
 	
 	public List<IncidentCircumstance> returnCircumstancesFromIncident(Integer incidentPk);
 	

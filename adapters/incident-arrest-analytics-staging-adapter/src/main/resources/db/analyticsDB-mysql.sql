@@ -161,6 +161,26 @@ CREATE TABLE Incident (
 ALTER TABLE Incident MODIFY COLUMN RecordType CHAR(1) COMMENT 'ete';
 
 
+CREATE TABLE TrafficStop (
+                TrafficStopID INT AUTO_INCREMENT NOT NULL,
+                IncidentID INT NOT NULL,
+                TrafficStopReasonDescription VARCHAR(1),
+                TrafficStopSearchTypeDescription VARCHAR(3),
+                TrafficStopContrabandStatus VARCHAR(2),
+                TrafficStopOutcomeDescription VARCHAR(2),
+                DriverAge INT,
+                DriverSex VARCHAR(1),
+                DriverRace VARCHAR(1),
+                DriverResidenceTown VARCHAR(80),
+                DriverResidenceState VARCHAR(2),
+                VehicleMake VARCHAR(20),
+                VehicleModel VARCHAR(20),
+                VehicleYear INT,
+                VehicleRegistrationState VARCHAR(2),
+                PRIMARY KEY (TrafficStopID)
+);
+
+
 CREATE TABLE IncidentType (
                 IncidentTypeID INT AUTO_INCREMENT NOT NULL,
                 IncidentID INT NOT NULL,
@@ -284,6 +304,12 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 ALTER TABLE IncidentType ADD CONSTRAINT incident_incidenttype_fk
+FOREIGN KEY (IncidentID)
+REFERENCES Incident (IncidentID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE TrafficStop ADD CONSTRAINT incident_trafficstop_fk
 FOREIGN KEY (IncidentID)
 REFERENCES Incident (IncidentID)
 ON DELETE NO ACTION
