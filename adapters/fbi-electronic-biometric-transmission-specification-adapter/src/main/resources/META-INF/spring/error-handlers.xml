@@ -23,16 +23,38 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:camel="http://camel.apache.org/schema/spring"
-	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" 
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:nc20="http://niem.gov/niem/niem-core/2.0" 
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        ">
 	
 	<!-- here we configure our DeadLetterChannel for the dead letter channel redelivery -->
-	<camel:errorHandler id="deadLetterErrorHandler" type="DeadLetterChannel" deadLetterUri="fbiDeadLetterDir">
+	<camel:errorHandler id="deadLetterErrorHandler" type="DeadLetterChannel" deadLetterUri="direct:fbiDeadLetterChannel">
 	    <camel:redeliveryPolicy maximumRedeliveries="${maximumRedeliveries}" redeliveryDelay="${redeliveryDelay}" logHandled="true" asyncDelayedRedelivery="true" logStackTrace="true" />
 	</camel:errorHandler>
+
+	<routeContext id="fbiErrorHandlingRoutes" xmlns="http://camel.apache.org/schema/spring">
+
+		<camel:route id="fbiDeadLetterChannelRoute">
+		
+			<camel:from uri="direct:fbiDeadLetterChannel"/>
+			
+			<camel:log message="FBI Dead Letter Channel Entered, unable to send to FBI." />
+			
+			<camel:setHeader headerName="fbiID">
+				<camel:xpath resultType="java.lang.String">//j:PersonFBIIdentification/nc20:IdentificationID</camel:xpath>
+			</camel:setHeader>
+			
+			<camel:setHeader headerName="CamelFileName">
+				<camel:simple>FBI_Submission_Error_${in.headers.fbiID}_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+			</camel:setHeader>
+			
+			<camel:to uri="fbiDeadLetterDir"/>
+		</camel:route>
+
+	</routeContext>
+	
 	
 </beans>

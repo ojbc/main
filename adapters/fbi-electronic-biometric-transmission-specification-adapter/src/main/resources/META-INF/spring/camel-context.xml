@@ -36,6 +36,8 @@
 	
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="fbi-electronic-biometric-transmission-specification-adapter">
 	  	<routeContextRef ref="ebtsFileDropRoutes"/>	
+	  	<routeContextRef ref="fbiErrorHandlingRoutes"/>
+	  	
 		<!-- 
 			#########################################################################################
 					Web Service Endpoints
@@ -109,7 +111,7 @@
 			    <simple>${header.operationName} == 'Modify' or ${header.operationName} == 'Subscribe' or ${header.operationName} == 'Unsubscribe'</simple>			  	
 			  	<log message="\n\n\n Processing operation:  ${header.operationName} \n\n\n" />			  	
 			  	<to uri="direct:processOperation"/>
-			  </when>
+			  </camel:when>
 			  <otherwise>
 			  	<log message="\n\n\n Unknown operation: ${header.operationName}  - Not processing!  \n\n\n" loggingLevel="ERROR"/>
 			  </otherwise>			  
