@@ -66,7 +66,9 @@
 		<endpoint id="subscriptionReportingServiceEndpoint" 
 			uri="cxf:bean:subscriptionReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}" />
 		
-		<endpoint id="fbiDeadLetterDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/NGI_ControlNum_SynchResponse"/>					
+		<endpoint id="fbiDeadLetterDir" uri="file://{{fbiEbtsAdapter.messageDirectory}}/output/fbiConnectionFailures"/>	
+		
+		<endpoint id="smtpEndpoint" uri="${smtpEndpoint}"/>				
 		
 		<!-- 
 			#########################################################################################
@@ -169,7 +171,7 @@
 			<camel:log message="\n\n ngiResponseService... \n\n"/>
 
 			<camel:setHeader headerName="trxCatCode">
-				<xpath>/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ebts:TransactionCategoryCode/text()</xpath>
+				<xpath resultType="java.lang.String">/itl:NISTBiometricInformationExchangePackage/itl:PackageInformationRecord/ansi-nist:Transaction/ebts:TransactionCategoryCode</xpath>
 			</camel:setHeader>
 
 			<log message="\nTransaction Category Code: ${header.trxCatCode}\n" loggingLevel="INFO"/>
@@ -214,8 +216,12 @@
 									
 					<to uri="direct:processRapBackSubscriptionMaintenanceResponse"/>																				
 				</when>				
-				
-				<!-- TODO: add support for ERRA, which is an error -->
+				<when>
+					<simple>${header.trxCatCode} == 'ERRA'</simple>
+					<log message="\n\n\n Handling message as Rapback Subscription Error Response \n\n\n" loggingLevel="INFO"/>	
+									
+					<to uri="direct:processSubscriptionErrorResponse"/>																				
+				</when>				
 				
 				<otherwise>
 					  <log message="\n\n\n Unrecognized Message from FBI!! \n\n\n" loggingLevel="WARN"/> 
@@ -223,6 +229,18 @@
 			</choice>
 											
 		</camel:route>		
+		
+		<route id="processSubscriptionErrorResponseRoute">
+		
+			<from uri="direct:processSubscriptionErrorResponse"/>
+			
+			<camel:log message="Send email notification of error"/>
+			
+			<camel:to uri="bean:fbiEmailErrorProcessor?method=createErrorEmail"/>
+			
+			<camel:to uri="smtpEndpoint"/>
+
+		</route>		
 
 		<route id="processFederalRapbackConsolidationRoute">
 		
@@ -385,6 +403,10 @@
 		</camel:route>				
 
 	</camel:camelContext>
+	
+	<bean id="fbiEmailErrorProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.FbiEmailErrorProcessor">
+		<property name="toEmailAddress" value="${fbiEbtsAdapter.errorToAddress}"/>
+	</bean>	
 		
 	<bean id="ngiResponseProcessor" class="org.ojbc.bundles.adapters.fbi.ebts.processor.NgiResponseProcessor"/>
 	
