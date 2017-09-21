@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<itl:NISTBiometricInformationExchangePackage
+    xmlns:ansi-nist="http://niem.gov/niem/biometrics/1.0"
+    xmlns:ebts="http://cjis.fbi.gov/fbi_ebts/10.0"
+    xmlns:itl="http://biometrics.nist.gov/standard/2011"
+    xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <!--Type-1 Record (Header Record)-->
+    <itl:PackageInformationRecord>
+        <ansi-nist:RecordCategoryCode>01</ansi-nist:RecordCategoryCode>
+        <ansi-nist:Transaction>
+            <!--DAT 1.005-->
+            <ansi-nist:TransactionDate>
+                <nc:Date>2017-08-24</nc:Date>
+            </ansi-nist:TransactionDate>
+            <ansi-nist:TransactionDestinationOrganization>
+                <nc:OrganizationIdentification>
+                    <!--DAI 1.007-->
+                    <nc:IdentificationID>ORI999999</nc:IdentificationID>
+                </nc:OrganizationIdentification>
+            </ansi-nist:TransactionDestinationOrganization>
+            <ansi-nist:TransactionOriginatingOrganization>
+                <!--ORI 1.008-->
+                <nc:OrganizationIdentification>
+                    <nc:IdentificationID>999999</nc:IdentificationID>
+                </nc:OrganizationIdentification>
+            </ansi-nist:TransactionOriginatingOrganization>
+            <!--TCN 1.009-->
+            <ansi-nist:TransactionControlIdentification>
+                <nc:IdentificationID>E9999999999</nc:IdentificationID>
+            </ansi-nist:TransactionControlIdentification>
+            <!--TCR 1.010-->
+            <ansi-nist:TransactionControlReferenceIdentification>
+                <nc:IdentificationID>0000000000</nc:IdentificationID>
+            </ansi-nist:TransactionControlReferenceIdentification>
+            <!--DOM 1.013-->
+            <ansi-nist:TransactionDomain>
+                <ansi-nist:DomainVersionNumberIdentification>
+                    <nc:IdentificationID>EBTS 10.0</nc:IdentificationID>
+                </ansi-nist:DomainVersionNumberIdentification>
+                <ansi-nist:TransactionDomainName>Domain</ansi-nist:TransactionDomainName>
+            </ansi-nist:TransactionDomain>
+            <ansi-nist:TransactionImageResolutionDetails>
+                <!--NSR 1.011-->
+                <ansi-nist:NativeScanningResolutionValue>00.00</ansi-nist:NativeScanningResolutionValue>
+                <!--NTR 1.012-->
+                <ansi-nist:NominalTransmittingResolutionValue>00.00</ansi-nist:NominalTransmittingResolutionValue>
+            </ansi-nist:TransactionImageResolutionDetails>
+            <!--VER 1.002-->
+            <ansi-nist:TransactionMajorVersionValue>05</ansi-nist:TransactionMajorVersionValue>
+            <ansi-nist:TransactionMinorVersionValue>00</ansi-nist:TransactionMinorVersionValue>
+            <!--TOT 1.004-->
+            <ebts:TransactionCategoryCode>ERRA</ebts:TransactionCategoryCode>
+            <!--CNT 1.003-->
+            <ansi-nist:TransactionContentSummary>
+                <ansi-nist:ContentFirstRecordCategoryCode>01</ansi-nist:ContentFirstRecordCategoryCode>
+                <ansi-nist:ContentRecordQuantity>1</ansi-nist:ContentRecordQuantity>
+                <ansi-nist:ContentRecordSummary>
+                    <ansi-nist:ImageReferenceIdentification>
+                        <nc:IdentificationID>00</nc:IdentificationID>
+                    </ansi-nist:ImageReferenceIdentification>
+                    <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+                </ansi-nist:ContentRecordSummary>
+            </ansi-nist:TransactionContentSummary>
+        </ansi-nist:Transaction>
+    </itl:PackageInformationRecord>
+    <!--******************************************************************-->
+    <!--Type-2 Record (User Defined Descriptive Text Record)-->
+    <!--******************************************************************-->
+    <itl:PackageDescriptiveTextRecord>
+        <ansi-nist:RecordCategoryCode>02</ansi-nist:RecordCategoryCode>
+        <!-- IDC 2.002-->
+        <ansi-nist:ImageReferenceIdentification>
+            <nc:IdentificationID>00</nc:IdentificationID>
+        </ansi-nist:ImageReferenceIdentification>
+        <itl:UserDefinedDescriptiveDetail>
+            <ebts:DomainDefinedDescriptiveFields>
+                <ebts:RecordTransactionData>
+                    <ebts:TransactionResponseData>
+                        <!--MSG 2.060-->
+                        <ebts:TransactionStatusText>This is the transaction text</ebts:TransactionStatusText>
+                    </ebts:TransactionResponseData>
+                </ebts:RecordTransactionData>
+                <ebts:RecordTransactionActivity>
+                    <!--CRI 2.073-->
+                    <ebts:RecordControllingAgency>
+                        <nc:OrganizationIdentification>
+                            <nc:IdentificationID>999999</nc:IdentificationID>
+                        </nc:OrganizationIdentification>
+                    </ebts:RecordControllingAgency>
+                </ebts:RecordTransactionActivity>
+            </ebts:DomainDefinedDescriptiveFields>
+        </itl:UserDefinedDescriptiveDetail>
+    </itl:PackageDescriptiveTextRecord>
+</itl:NISTBiometricInformationExchangePackage>
