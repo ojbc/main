@@ -89,10 +89,10 @@ public class CamelContextTest {
     protected ProducerTemplate template;
     
     @EndpointInject(uri = "mock:cxf:bean:caseFilingDecisionReportingServiceAdapter")
-    protected MockEndpoint courtCaseFilingServiceMockEndpoint;
+    protected MockEndpoint caseFilingDecisionReportingServiceEndpoint;
 
-    @EndpointInject(uri = "mock:cxf:bean:chargeFilingAdapter")
-    protected MockEndpoint chargeFilingMockEndpoint;
+    @EndpointInject(uri = "mock:cxf:bean:courtCaseFilingServiceAdapter")
+    protected MockEndpoint courtCaseFilingServiceAdapterEndpoint;
       
     @EndpointInject(uri = "mock:log:org.ojbc.intermediaries.case_filing_decision_reporting")
     protected MockEndpoint loggingEndpoint;
@@ -107,7 +107,7 @@ public class CamelContextTest {
     	    @Override
     	    public void configure() throws Exception {
     	    	// The line below allows us to bypass CXF and send a message directly into the route
-    	    	replaceFromWith("direct:caseFilingDecisionReportingServiceEndpoint");
+    	    	replaceFromWith("direct:caseFilingDecisionReportingServiceWebServiceEndpoint");
     	    	mockEndpoints("log:org.ojbc.intermediaries.case_filing_decision_reporting*");
     	    	
     	    }              
@@ -130,20 +130,11 @@ public class CamelContextTest {
     	    public void configure() throws Exception {
     	    	
     	    	//We mock the charge referral endpoint
-    	    	mockEndpointsAndSkip("cxf:bean:chargeFilingAdapter*");
+    	    	mockEndpointsAndSkip("cxf:bean:courtCaseFilingServiceAdapter*");
     	    }              
     	});
     	
 		context.start();		
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-	
-	@Test
-	public void contextStartup() {
-		assertTrue(true);
 	}
 
 	@Test
@@ -151,8 +142,8 @@ public class CamelContextTest {
 	{
 		
     	//Court Case Filing will get one message
-		courtCaseFilingServiceMockEndpoint.expectedMessageCount(1);
-		chargeFilingMockEndpoint.expectedBodiesReceived(1);
+		caseFilingDecisionReportingServiceEndpoint.expectedMessageCount(1);
+		courtCaseFilingServiceAdapterEndpoint.expectedBodiesReceived(1);
 		
 		//logging endpoint will get two messages, one from content enricher and one from derived routes.
 		loggingEndpoint.expectedMessageCount(2);
@@ -176,7 +167,7 @@ public class CamelContextTest {
 	    senderExchange.getIn().setBody(inputStr);
 
 	    //Send the one-way exchange.  Using template.send will send an one way message
-		Exchange returnExchange = template.send("direct:caseFilingDecisionReportingServiceEndpoint", senderExchange);
+		Exchange returnExchange = template.send("direct:caseFilingDecisionReportingServiceWebServiceEndpoint", senderExchange);
 		
 		//Use getException to see if we received an exception
 		if (returnExchange.getException() != null)
@@ -185,17 +176,15 @@ public class CamelContextTest {
 		}	
 		
 		//Sleep while a response is generated
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 
 		//Assert that the mock endpoint expectations are satisfied
-		courtCaseFilingServiceMockEndpoint.assertIsSatisfied();
+		caseFilingDecisionReportingServiceEndpoint.assertIsSatisfied();
 		
-		//TODO: Assert endpoint once transform to spec is complete
-		//chargeFilingMockEndpoint.assertIsSatisfied();
 		loggingEndpoint.assertIsSatisfied();
 		
 		//Get the first exchange (the only one)
-		Exchange ex = courtCaseFilingServiceMockEndpoint.getExchanges().get(0);
+		Exchange ex = caseFilingDecisionReportingServiceEndpoint.getExchanges().get(0);
 		
 		String opName = (String)ex.getIn().getHeader("operationName");
 		assertEquals("ReportCaseFilingDecision", opName);
@@ -212,6 +201,9 @@ public class CamelContextTest {
 		//Make sure the root node here is the message to the original exchange
 		Node rootNode = XmlUtils.xPathNodeSearch(returnDocumentDerivedBundle, "/cfd-doc:CaseFilingDecisionReport");
 		assertNotNull(rootNode);
+		
+		//courtCaseFilingServiceAdapterEndpoint.assertIsSatisfied();
+		
 	}
 	
 	private SoapHeader makeSoapHeader(Document doc, String namespace, String localName, String value) {
