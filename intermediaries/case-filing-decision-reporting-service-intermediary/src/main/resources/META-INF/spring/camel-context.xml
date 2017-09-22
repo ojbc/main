@@ -35,14 +35,17 @@
 					
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="mainCamelContext">
 	
+		<!-- Hosted by this intermediary -->
 		<camel:endpoint id="caseFilingDecisionReportingServiceEndpoint"
-			uri="cxf:bean:CaseFilingDecisionReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${caseFilingDecisionReportingService.cxflogging}&amp;allowStreaming=false" />
+			uri="cxf:bean:caseFilingDecisionReportingService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${caseFilingDecisionReportingService.cxflogging}&amp;allowStreaming=false" />
 		
+		<!-- Adapter, called by this intermediary -->
 		<camel:endpoint id="caseFilingDecisionReportingServiceAdapterEndpoint"
 			uri="cxf:bean:caseFilingDecisionReportingServiceAdapter?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${caseFilingDecisionReportingService.cxflogging}&amp;allowStreaming=false"/>
 
-		<camel:endpoint id="chargeFilingAdapterEndpoint"
-			uri="cxf:bean:chargeFilingAdapter?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${caseFilingDecisionReportingService.cxflogging}&amp;allowStreaming=false"/>
+		<!-- Adapter, called by this intermediary -->
+		<camel:endpoint id="courtCaseFilingServiceAdapterEndpoint"
+			uri="cxf:bean:courtCaseFilingServiceAdapter?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${caseFilingDecisionReportingService.cxflogging}&amp;allowStreaming=false"/>
 			
 			
 		<!-- Case Filing Decision Reporting Service Handler -->
@@ -140,21 +143,24 @@
             <camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>		
             
 			<camel:setHeader headerName="operationName">
-				<constant>FileCharges</constant>
+				<constant>FileCourtCase</constant>
 			</camel:setHeader>
 			
 			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/ProsecutionChargeFilingService/1.0</constant>
+				<constant>http://ojbc.org/Services/WSDL/CourtCaseFilingService/1.0</constant>
 			</camel:setHeader>			  
 			
 			<camel:log message="This is the charge filing message: ${body}" loggingLevel="DEBUG"/>
 			
             <camel:throttle timePeriodMillis="1000">
             	<constant>1</constant>
-            	<to uri="chargeFilingAdapterEndpoint"/>
+            	
+            	<camel:log message="Court Case Filing Message: ${body}" loggingLevel="DEBUG"/>
+            	
+            	<to uri="courtCaseFilingServiceAdapterEndpoint"/>
+            	
+            	<log message="Called Court Case Filing Service adapter."/>
         	</camel:throttle>    
-
-			<log message="Called Charge Filing Service adapter."/>
 			
 		</route>
 		
