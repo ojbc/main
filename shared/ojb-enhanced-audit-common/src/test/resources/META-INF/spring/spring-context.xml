@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:tx="http://www.springframework.org/schema/tx"	
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+ 	<context:annotation-config />
+ 	
+	<context:component-scan base-package="org.ojbc.audit.enhanced" />
+
+	<!-- Transaction manager and scan for annotations -->
+	<tx:annotation-driven transaction-manager="transactionManager"
+		proxy-target-class="true" />
+		
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+ 	   <constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="namedParameterJdbcTemplate" 
+      class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+ 	   <constructor-arg ref="dataSource"/>
+	</bean>
+
+	<bean id="enhancedAuditDAOImpl" class="org.ojbc.audit.enhanced.dao.EnhancedAuditDAOImpl"/>
+	
+	<bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+	    <property name="driverClassName" value="org.h2.jdbcx.JdbcDataSource" />
+	    <property name="url" value="jdbc:h2:mem:enhanced-auditlog" />
+	    <property name="username" value="sa" />
+	    <property name="password" value="" />
+	</bean>
+
+	<!-- Spring Embeded DB -->
+	<jdbc:initialize-database data-source="dataSource">
+	    <jdbc:script location="classpath:sql-enhanced-auditlog/h2-schema.sql"/>
+	 </jdbc:initialize-database>
+
+	<bean id="h2Server" class="org.h2.tools.Server" factory-method="createTcpServer" init-method="start" destroy-method="stop" depends-on="h2WebServer">
+	    <constructor-arg value="-tcp,-tcpAllowOthers,-tcpPort,9092"/>
+	</bean>
+	<bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
+	    <constructor-arg value="-web,-webAllowOthers,-webPort,8082"/>
+	</bean>
+	       
+</beans>
