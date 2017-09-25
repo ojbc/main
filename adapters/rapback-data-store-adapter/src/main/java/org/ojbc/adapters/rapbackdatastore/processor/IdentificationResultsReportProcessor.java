@@ -69,7 +69,9 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		CriminalInitialResults criminalInitialResults = new CriminalInitialResults(); 
 		criminalInitialResults.setTransactionNumber(transactionNumber);
 		
-		criminalInitialResults.setSearchResultFile(	getBinaryData(rootNode));
+		criminalInitialResults.setSearchResultFile(	getBinaryData(rootNode, 
+				"ident-ext:StateIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
+				+ "ident-ext:FBIIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject"));
 		
 		if (rootNode.getLocalName().equals("PersonFederalIdentificationResults")){
 			criminalInitialResults.setResultsSender(ResultSender.FBI);
@@ -103,10 +105,9 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		
 		Integer initialResultsPkId = rapbackDAO.getCivilIntialResultsId(transactionNumber, civilInitialResults.getResultsSender());
 		
-		//TODO set identificationTransaction.currentState;
-		
 		if (initialResultsPkId == null){
-			civilInitialResults.setSearchResultFile(getBinaryData(rootNode));
+			civilInitialResults.setSearchResultFile(
+					getBinaryData(rootNode, "ident-ext:StateIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|ident-ext:FBIIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject"));
 			rapbackDAO.saveCivilInitialResults(civilInitialResults);
 		}
 		else{
@@ -121,7 +122,8 @@ public class IdentificationResultsReportProcessor extends AbstractReportReposito
 		CivilInitialRapSheet civilInitialRapSheet = new CivilInitialRapSheet();
 		civilInitialRapSheet.setCivilIntitialResultId(initialResultsPkId);
 		
-		civilInitialRapSheet.setRapSheet(getBinaryData(rootNode));
+		civilInitialRapSheet.setRapSheet(getBinaryData(rootNode, "StateCriminalHistoryRecordDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
+				+ "ident-ext:FBIIdentityHistorySummaryDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject"));
 		
 		rapbackDAO.saveCivilInitialRapSheet(civilInitialRapSheet);
 	}

@@ -40,7 +40,8 @@ import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.xml.security.utils.Base64;
+import org.apache.commons.codec.binary.Base64;
+
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -398,6 +399,29 @@ public class TestIdentficationRecordingAndResponse {
 		
 		Exchange receivedExchange = identificationReportingResponseService.getExchanges().get(2);
 		String body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
+		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_failure_response.xml");
+		
+		identificationReportingResponseService.reset();
+		Exchange searchResultSenderExchange = MessageUtils.createSenderExchange(context, 
+				"src/test/resources/xmlInstances/identificationReport/person_identification_search_results_fbi_civil.xml");
+		                                                              
+		searchResultSenderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationResults");
+		
+		//Send the one-way exchange.  Using template.send will send an one way message
+		returnExchange = template.send("direct:identificationRecordingServiceEndpoint", searchResultSenderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		identificationReportingResponseService.expectedMessageCount(1);
+		
+		identificationReportingResponseService.assertIsSatisfied();
+		
+		receivedExchange = identificationReportingResponseService.getExchanges().get(0);
+		body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
 		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
 		
 		IdentificationTransaction identificationTransaction = rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
@@ -427,7 +451,60 @@ public class TestIdentficationRecordingAndResponse {
 		
 		CivilInitialResults civilInitialResult = civilInitialResults.get(0);
 		assertTrue(civilInitialResult.getRapsheets().isEmpty());
-		assertThat(civilInitialResult.getSearchResultFile(), is(Base64.decode("VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=")));
+		assertThat(civilInitialResult.getSearchResultFile(), is(Base64.decodeBase64("VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk")));
+		
+		
+		//Send the rap sheet exchange.  
+		identificationReportingResponseService.reset();
+		senderExchange = MessageUtils.createSenderExchange(context, 
+				"src/test/resources/xmlInstances/identificationReport/person_identification_rapsheet_results_fbi_civil.xml");
+		
+		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationResults");
+		returnExchange = template.send("direct:identificationRecordingServiceEndpoint", senderExchange);
+		
+		//Use getException to see if we received an exception
+		if (returnExchange.getException() != null)
+		{	
+			throw new Exception(returnExchange.getException());
+		}	
+		
+		identificationReportingResponseService.expectedMessageCount(1);
+		
+		identificationReportingResponseService.assertIsSatisfied();
+		
+		receivedExchange = identificationReportingResponseService.getExchanges().get(0);
+		body = OJBUtils.getStringFromDocument(receivedExchange.getIn().getBody(Document.class));
+		assertAsExpected(body, "src/test/resources/xmlInstances/identificationReportingResponse/person_identification_report_success_response.xml");
+		
+		identificationTransaction = rapbackDAO.getIdentificationTransaction(TRANSACTION_NUMBER); 
+		assertNotNull(identificationTransaction);
+		assertThat(identificationTransaction.getTransactionNumber(), is(TRANSACTION_NUMBER));
+		assertThat(identificationTransaction.getOtn(), is("OTN12345"));
+		assertThat(identificationTransaction.getOwnerOri(), is("68796860"));
+		assertThat(identificationTransaction.getOwnerProgramOca(), is("ID23457"));
+		assertThat(identificationTransaction.getIdentificationCategory(), is("J"));
+		assertThat(identificationTransaction.getArchived(), is(false));
+		
+		assertNotNull(identificationTransaction.getSubject());
+		
+		subject = identificationTransaction.getSubject(); 
+		assertThat(subject.getUcn(), is("B1234567"));
+		assertNull(subject.getCriminalSid());
+		assertNull(subject.getCivilSid());
+		assertThat(subject.getFirstName(), is("Joe"));
+		assertThat(subject.getLastName(), is("Smith"));
+		assertThat(subject.getMiddleInitial(), is("D"));
+		assertThat( subject.getDob(), is(DateTime.parse("1900-01-01")));
+		assertThat(subject.getSexCode(), is("M"));
+		
+		civilInitialResults = rapbackDAO.getIdentificationCivilInitialResults(TRANSACTION_NUMBER);
+		
+		assertThat(civilInitialResults.size(), is(1));
+		
+		civilInitialResult = civilInitialResults.get(0);
+		assertThat(civilInitialResult.getSearchResultFile(), is(Base64.decodeBase64("VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk")));
+		assertThat(civilInitialResult.getRapsheets().size(), is(1));
+		assertThat(civilInitialResult.getRapsheets().get(0), is(Base64.decodeBase64("VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk")));
 		
 	}
 	
@@ -443,7 +520,7 @@ public class TestIdentficationRecordingAndResponse {
 		identificationReportingResponseService.reset();
 		
 		Exchange senderExchange = MessageUtils.createSenderExchange(context, 
-				"src/test/resources/xmlInstances/identificationReport/person_identification_rapsheet_results_fbi_criminal.xml");
+				"src/test/resources/xmlInstances/identificationReport/person_identification_search_results_fbi_criminal.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonFederalIdentificationResults");
 		
@@ -477,7 +554,7 @@ public class TestIdentficationRecordingAndResponse {
 		assertThat(identificationTransaction.getSubject().getDob(), is(DateTime.parse("1950-01-02")));
 				
 		senderExchange = MessageUtils.createSenderExchange(context, 
-				"src/test/resources/xmlInstances/identificationReport/person_identification_rapsheet_results_state_criminal.xml");
+				"src/test/resources/xmlInstances/identificationReport/person_identification_search_results_state_criminal.xml");
 		
 		senderExchange.getIn().setHeader("operationName", "RecordPersonStateIdentificationResults");
 		identificationReportingResponseService.reset();
