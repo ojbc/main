@@ -18,7 +18,8 @@ package org.ojbc.adapters.rapbackdatastore.processor;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,7 +54,7 @@ public abstract class AbstractReportRepositoryProcessor {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     
-    private static final Logger logger = Logger.getLogger(AbstractReportRepositoryProcessor.class.getName());
+    private static final Log log = LogFactory.getLog( AbstractReportRepositoryProcessor.class );
     	
     @Transactional
 	public abstract void processReport(@Body Document report, Exchange exchange) throws Exception;
@@ -150,21 +151,20 @@ public abstract class AbstractReportRepositoryProcessor {
 		return subject;
 	}
 
-	protected byte[] getBinaryData(Node rootNode) {
+	protected byte[] getBinaryData(Node rootNode, String xPath) {
 		String base64BinaryData;
 		try {
-			base64BinaryData = XmlUtils.xPathStringSearch(rootNode, 
-					"ident-ext:FederalFingerprintBasedIdentificationRequestDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
-					+ "ident-ext:FBIIdentityHistorySummaryDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
-					+ "ident-ext:StateFingerprintBasedIdentificationRequestDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
-					+ "ident-ext:StateCriminalHistoryRecordDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
-					+ "ident-ext:StateIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
-					+ "ident-ext:FBIIdentificationSearchResultDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject");
+			base64BinaryData = XmlUtils.xPathStringSearch(rootNode, xPath);
+			
+			if (base64BinaryData == null){
+				throw new IllegalArgumentException("Failed to retrieve binary data from the message xPath: " + xPath);
+			}
+			
 			return Base64.decode(base64BinaryData);
 			
 		} catch (Exception e) {			
-			logger.severe("Failed to retrieve binary data from the message: " + e.getMessage());			
-			return null;
+			log.error("Failed to retrieve binary data from the message: " + e.getMessage());			
+			throw new IllegalArgumentException("Failed to retrieve binary data from the message xPath: " + xPath);
 		}
 	}
 	
