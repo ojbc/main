@@ -55,7 +55,7 @@
 							
 		<!-- hosted at FBI, receives our subscription requests from this ebts adapter -->		
 		<endpoint id="ngiUserServiceRequestEndpoint" 
-			uri="cxf:bean:ngiUserService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${fbiEbtsAdapter.cxflogging}&amp;synchronous=true" />
+			uri="https4://${fbiEbtsAdapter.ngiUserServiceEndpoint}" />
 		
 		<!-- Endpoint we expose to FBI so they can send us asynchronous Subscription Acknowledgement responses --> 
 		<endpoint id="ngiResponseServiceEndpoint" 
@@ -137,17 +137,11 @@
 
 			<camel:removeHeaders pattern="*"/>
 
-			<camel:setHeader headerName="operationNameSpace">
-				<constant>http://ws.cjis.gov/2014/08/01/ngi/service</constant>
-			</camel:setHeader>
-
-			<camel:setHeader headerName="operationName">
-				<constant>submitRequest</constant>
-			</camel:setHeader>
-		
+			<camel:to uri="xslt:xsl/SOAPWrapper.xsl"/>
+					
 			<camel:to uri="ngiUserServiceRequestEndpoint"/>
 						
-			<camel:log message="\n\n\n Received FBI NGI ControlNumber synchronous response \n\n\n"/>					
+			<camel:log message="\n\n\n Received FBI NGI ControlNumber synchronous response: ${body} \n\n\n"/>					
 		
 		</route>
 		
@@ -218,7 +212,7 @@
 					<log message="\n\n\n Handling message as Rapback Subscription Response \n\n\n" loggingLevel="INFO"/>	
 									
 					<camel:setHeader headerName="CamelFileName">
-						<camel:simple>FBI_Subscription_Response_${in.headers.controlID}.xml</camel:simple>
+						<camel:simple>FBI_Subscription_Response_${in.headers.transactionControlReferenceIdentification}.xml</camel:simple>
 					</camel:setHeader>
 					
 					<camel:setHeader headerName="pathToResponseFile">
