@@ -140,6 +140,23 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
     	return (locDateTime == null ? null : Timestamp.valueOf(locDateTime));
     }
 
+	public JdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
+	}
+
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
+	public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
+		return namedParameterJdbcTemplate;
+	}
+
+	public void setNamedParameterJdbcTemplate(
+			NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+	}
+
 
 
 }
