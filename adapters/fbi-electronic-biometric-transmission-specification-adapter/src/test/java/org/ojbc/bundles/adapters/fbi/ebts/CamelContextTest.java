@@ -57,6 +57,7 @@ import org.w3c.dom.Element;
         "classpath:META-INF/spring/cxf-endpoints.xml",  
         "classpath:META-INF/spring/error-handlers.xml",  
         "classpath:META-INF/spring/properties-context.xml",
+        "classpath:META-INF/spring/dao.xml"
         })
 public class CamelContextTest {
 	
