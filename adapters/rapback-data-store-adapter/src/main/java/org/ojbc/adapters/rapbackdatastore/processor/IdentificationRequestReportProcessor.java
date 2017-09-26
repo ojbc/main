@@ -67,7 +67,10 @@ public class IdentificationRequestReportProcessor extends AbstractReportReposito
 			civilFingerPrints.setFingerPrintsType(FingerPrintsType.State);
 		}
 		
-		byte[] binaryData = getBinaryData(rootNode);
+		byte[] binaryData = getBinaryData(rootNode, 
+				"ident-ext:FederalFingerprintBasedIdentificationRequestDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject|"
+				+ "ident-ext:StateFingerprintBasedIdentificationRequestDocument/nc30:DocumentBinary/ident-ext:Base64BinaryObject"
+				);
 		
 		civilFingerPrints.setFingerPrintsFile(binaryData);
 		rapbackDAO.saveCivilFingerPrints(civilFingerPrints);

@@ -35,10 +35,6 @@
 			<j:PersonAugmentation>
 				<j:PersonStateFingerprintIdentification>
 					<nc:IdentificationID>A123456</nc:IdentificationID>
-					<ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>true</ident-ext:FingerprintIdentificationIssuedForCriminalPurposeIndicator>
-				</j:PersonStateFingerprintIdentification>
-				<j:PersonStateFingerprintIdentification>
-					<nc:IdentificationID>L456789</nc:IdentificationID>
 					<ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true</ident-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
 				</j:PersonStateFingerprintIdentification>
 			</j:PersonAugmentation>
