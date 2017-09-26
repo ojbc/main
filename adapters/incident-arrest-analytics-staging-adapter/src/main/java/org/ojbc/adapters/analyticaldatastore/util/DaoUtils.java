@@ -19,6 +19,9 @@ package org.ojbc.adapters.analyticaldatastore.util;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.commons.lang.StringUtils;
+
+
 public class DaoUtils {
 
 	/**
@@ -41,6 +44,11 @@ public class DaoUtils {
 	public static Character getIndicatorValueForDatabase(String indicatorValue)
 	{
 		Character returnValue = null;
+		
+		if (StringUtils.isBlank(indicatorValue))
+		{
+			return null;
+		}	
 		
 		if (indicatorValue.equalsIgnoreCase("true"))
 		{

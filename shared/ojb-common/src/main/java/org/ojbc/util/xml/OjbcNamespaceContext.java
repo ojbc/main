@@ -799,13 +799,16 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_FIREARMS_PROHIBITION_EXT ="http://ojbc.org/IEPD/Extensions/FirearmPurchaseProhibitionQueryRequestExtension/1.0";
 	public static final String NS_PREFIX_FIREARMS_PROHIBITION_EXT ="fppq-req-ext";	
-
+	
 	public static final String NS_CONSENT_DECISION_REPORTING_EXT ="http://ojbc.org/IEPD/Extensions/ConsentDecisionReporting/1.0";
 	public static final String NS_PREFIX_CONSENT_DECISION_REPORTING_EXT ="cdr-ext";	
 
 	public static final String NS_CONSENT_DECISION_REPORTING_DOC ="http://ojbc.org/IEPD/Exchange/ConsentDecisionReporting/1.0";
 	public static final String NS_PREFIX_CONSENT_DECISION_REPORTING_DOC ="cdr-doc";	
-	
+
+	public static final String NS_TRAFFIC_STOP_CODES ="http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0";
+	public static final String NS_PREFIX_TRAFFIC_STOP_CODES ="ojb-ts-codes";	
+
 	public static final String NS_EBTS ="http://cjis.fbi.gov/fbi_ebts/10.0";
 	public static final String NS_PREFIX_EBTS ="ebts";	
 
@@ -1595,6 +1598,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 		prefixToUriMap.put(NS_PREFIX_CONSENT_DECISION_REPORTING_EXT, NS_CONSENT_DECISION_REPORTING_EXT);
 		uriToPrefixMap.put(NS_CONSENT_DECISION_REPORTING_EXT, NS_PREFIX_CONSENT_DECISION_REPORTING_EXT);	
+		
+		prefixToUriMap.put(NS_PREFIX_TRAFFIC_STOP_CODES, NS_TRAFFIC_STOP_CODES);
+		uriToPrefixMap.put(NS_TRAFFIC_STOP_CODES, NS_PREFIX_TRAFFIC_STOP_CODES);	
 
 
 	}

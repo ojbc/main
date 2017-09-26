@@ -20,7 +20,7 @@
 <xsd:schema xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0"
-	xmlns:vt-ts-codes="http://ojbc.org/IEPD/Extensions/Vermont/TrafficStopCodes/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
+	xmlns:ojb-ts-codes="http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../NIEM_2.0/niem-core/2.0/niem-core.xsd" />
