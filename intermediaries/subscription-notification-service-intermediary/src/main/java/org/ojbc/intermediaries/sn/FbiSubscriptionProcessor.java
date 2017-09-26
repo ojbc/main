@@ -23,8 +23,6 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SUB_MSG_EXT;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.annotation.Resource;
-
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.camel.Header;
@@ -45,7 +43,6 @@ import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestSubscriptionRequest;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -56,13 +53,10 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-	@Resource(name="rapbackDao")
 	private FbiRapbackDao rapbackDao;	
 	
-	@Resource(name="subscriptionSearchQueryDAO")
-	private SubscriptionSearchQueryDAO subscriptionDAO;	
+	private SubscriptionSearchQueryDAO subscriptionSearchQueryDAO;	
 	
-    @Value("${publishSubscribe.fbiSubscriptionMember:false}")
     private Boolean fbiSubscriptionMember;
     
 	FbiSubModDocBuilder fbiSubModDocBuilder; 
@@ -77,7 +71,7 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 		String subscriptionId = XmlUtils.xPathStringSearch(document, 
 				"/b-2:Unsubscribe/unsubmsg-exch:UnsubscriptionMessage/submsg-ext:SubscriptionIdentification/nc:IdentificationID");
 				
-		Subscription subscription = subscriptionDAO.findSubscriptionWithFbiInfoBySubscriptionId(subscriptionId);
+		Subscription subscription = subscriptionSearchQueryDAO.findSubscriptionWithFbiInfoBySubscriptionId(subscriptionId);
 		log.info("Prepare to unsubscribe Subscription:" + subscription);
 		
 		appendFbiSubscriptionInfoToUnsubscribeMessage(document, subscription);
@@ -352,10 +346,15 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 		String ucn = XmlUtils.xPathStringSearch(document, 
 				"//submsg-exch:SubscriptionMessage/submsg-ext:Subject/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
 		
+		log.info("UCN: " + ucn + ", FBI subscription member: " + fbiSubscriptionMember);
+		
 		if (BooleanUtils.isTrue(fbiSubscriptionMember) && StringUtils.isNotBlank(ucn)){
 			
 			String criminalSubscriptionReasonCode = XmlUtils.xPathStringSearch(document, 
 					"//submsg-exch:SubscriptionMessage/submsg-ext:CriminalSubscriptionReasonCode");
+			
+			log.info("Criminal Subscription Reason Code: " + criminalSubscriptionReasonCode );
+			
 			if (StringUtils.isNotBlank(criminalSubscriptionReasonCode)){
 				return true;
 			}
@@ -373,6 +372,31 @@ public class FbiSubscriptionProcessor extends SubscriptionMessageProcessor {
 		}
 		
 		return false;
+	}
+
+	public FbiRapbackDao getRapbackDao() {
+		return rapbackDao;
+	}
+
+	public void setRapbackDao(FbiRapbackDao rapbackDao) {
+		this.rapbackDao = rapbackDao;
+	}
+
+	public SubscriptionSearchQueryDAO getSubscriptionSearchQueryDAO() {
+		return subscriptionSearchQueryDAO;
+	}
+
+	public void setSubscriptionSearchQueryDAO(
+			SubscriptionSearchQueryDAO subscriptionSearchQueryDAO) {
+		this.subscriptionSearchQueryDAO = subscriptionSearchQueryDAO;
+	}
+
+	public Boolean getFbiSubscriptionMember() {
+		return fbiSubscriptionMember;
+	}
+
+	public void setFbiSubscriptionMember(Boolean fbiSubscriptionMember) {
+		this.fbiSubscriptionMember = fbiSubscriptionMember;
 	}
 }
 

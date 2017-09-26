@@ -322,11 +322,16 @@
 			<camel:setHeader headerName="subscriptionId">
 				<camel:method bean="subscriptionSearchQueryDAO" method="subscribe"/>
 			</camel:setHeader>
+			
+			<camel:log message="Subscription ID from subscribe method: ${in.headers.subscriptionId}"/>					
 								
 			<camel:multicast>				
 				<camel:choice>
 					<camel:when>
 						<camel:simple>bean:fbiSubscriptionProcessor?method=routeToProcessFbiSubscriptionRoute</camel:simple>
+						
+						<camel:log message="Process FBI subscription, processor returned true."/>
+						
 						<to uri="direct:processPotentialFbiSubscription"/>
 					</camel:when>			 				 							 																														 				
 				</camel:choice>				
@@ -457,7 +462,11 @@
 		<property name="propagationBehaviorName" value="PROPAGATION_REQUIRED" />
 	</bean>
 	
-	<bean id="fbiSubscriptionProcessor" class="org.ojbc.intermediaries.sn.FbiSubscriptionProcessor" />
+	<bean id="fbiSubscriptionProcessor" class="org.ojbc.intermediaries.sn.FbiSubscriptionProcessor" >
+		<property name="rapbackDao" ref="rapbackDao"/>
+		<property name="subscriptionSearchQueryDAO" ref="subscriptionSearchQueryDAO"/>
+		<property name="fbiSubscriptionMember" value="${publishSubscribe.fbiSubscriptionMember}"/>
+	</bean>
 	
 	<bean id="arrestNotificationAttachmentProcessor" class="org.ojbc.intermediaries.sn.ArrestNotificationAttachmentProcessor" />
 	
