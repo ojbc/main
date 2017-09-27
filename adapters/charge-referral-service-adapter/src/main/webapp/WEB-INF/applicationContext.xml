@@ -38,6 +38,12 @@
 		<camel:endpoint id="chargeReferralAdapterServiceEndpoint"
 			uri="cxf:bean:chargeReferralAdapterService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${chargeReferral.cxflogging}&amp;allowStreaming=false"/>
 
+		<camel:endpoint id="fileDropEndpoint"
+			uri="file:///${chargeReferral.fileDirectory}/input?idempotent=true&amp;moveFailed=${chargeReferral.fileDirectory}/error&amp;move=processed/&amp;include=.*.xml&amp;readLock=changed&amp;readLockCheckInterval=2500"/>
+
+		<camel:endpoint id="fileOutputEndpoint"
+			uri="file:///${chargeReferral.fileDirectory}/output"/>
+
 		<!-- Charge Referral Service Handler -->
 		<camel:route id="chargeReferralAdapterServiceHandlerRoute">
 		
@@ -49,9 +55,30 @@
 			
 			<convertBodyTo type="java.lang.String"/>
 			
-			<camel:to uri="bean:chargeReferralMessageProcessor?method=processMessage"/>
+			<!-- Can be used to process the XML document using xpath 
+			<camel:to uri="bean:chargeReferralMessageProcessor?method=processMessage"/>-->
+			
+			<camel:setHeader headerName="CamelFileName">
+				<camel:simple>Charge_Referral_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+			</camel:setHeader>	
+			
+			<!-- Can be used to drop the web service message to a folder -->
+			<camel:to uri="fileOutputEndpoint"/>
 			
 		</camel:route>
+		
+		<!-- Charge Referral File Drop endpoint (can be used to assist with testing or calling a charge referral service -->
+		<camel:route id="chargeReferralAdapterFileDropEndpointRoute">
+		
+			<camel:from uri="fileDropEndpoint" />
+			
+			<camel:log message="Entering Charge Referral File Drop Endpoint"/>
+			
+			<convertBodyTo type="java.lang.String"/>
+			
+			<camel:to uri="chargeReferralAdapterServiceEndpoint"/>
+			
+		</camel:route>		
 		
 	</camel:camelContext>
 	
