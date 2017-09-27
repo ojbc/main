@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- FYI to connect to an in-memory H2 database remotely, use a URL like:  jdbc:h2:tcp:localhost:49093/mem:enhanced-auditlog -->
+	<bean id="enhancedAuditLogDataSource" class="org.h2.jdbcx.JdbcConnectionPool" destroy-method="dispose">
+        <constructor-arg>
+            <bean class="org.h2.jdbcx.JdbcDataSource">
+            	<!-- FYI to connect to an in-memory H2 database remotely, use a URL like:  jdbc:h2:tcp:demoserver.ojbc-local.org:49093/mem:enhanced-auditlog -->
+                <property name="URL" value="jdbc:h2:tcp:localhost:49093/mem:enhanced-auditlog"/>
+                <property name="user" value="sa"/>
+             </bean>
+        </constructor-arg>
+    </bean>
+    
+    <jdbc:initialize-database data-source="enhancedAuditLogDataSource" ignore-failures="ALL">
+		<jdbc:script location="classpath:sql-enhanced-auditlog/h2-schema.sql"/>
+	</jdbc:initialize-database>
+	
+</beans>
