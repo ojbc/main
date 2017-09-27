@@ -236,7 +236,7 @@
 					<log message="\n\n\n Handling message as Rapback Subscription Error Response \n\n\n" loggingLevel="INFO"/>	
 									
 					<camel:setHeader headerName="CamelFileName">
-						<camel:simple>FBI_Subscription_Response_${in.headers.controlID}.xml</camel:simple>
+						<camel:simple>FBI_Subscription_Response_${in.headers.transactionControlReferenceIdentification}.xml</camel:simple>
 					</camel:setHeader>
 					
 					<camel:setHeader headerName="pathToResponseFile">
