@@ -141,7 +141,7 @@ public class TestCriminalHistoryConsolidationServiceFederal {
     	log.info("UCN Restoration Notification: " + notifications.get(0));
     	
     	assertEquals("agencyemail@local.gov", notifications.get(0).getEmailTo());
-    	assertEquals("UCN Restoration message for: 9222201", notifications.get(0).getEmailSubject());
+    	assertEquals("Rap Back: UCN Restored by FBI: 9222201", notifications.get(0).getEmailSubject());
     	assertEquals("Restored UCN: 9222201\n\nThis UCN was restored to the FBI's NGI System.", notifications.get(0).getEmailBody());
 
     }
@@ -153,16 +153,16 @@ public class TestCriminalHistoryConsolidationServiceFederal {
     	CriminalHistoryConsolidationNotification chcNotification = new CriminalHistoryConsolidationNotification();
     	
 		chcNotification.setConsolidationType("reportUCNConsolidationToAgency");
-		assertEquals("Agency UCN consolidation report for UNC for: 123456", criminalHistoryConsolidationProcessor.returnFederalEmailSubject(chcNotification, "123456"));
+		assertEquals("Rap Back: UCN Consolidation by FBI: 123456", criminalHistoryConsolidationProcessor.returnFederalEmailSubject(chcNotification, "123456"));
 		
 		chcNotification.setConsolidationType("reportUCNConsolidationToUser");
-		assertEquals("UCN consolidation report for UNC for: 123456", criminalHistoryConsolidationProcessor.returnFederalEmailSubject(chcNotification, "123456"));
+		assertEquals("Rap Back: UCN Consolidation by FBI: 123456", criminalHistoryConsolidationProcessor.returnFederalEmailSubject(chcNotification, "123456"));
 
 		chcNotification.setConsolidationType("reportUCNExpungementToAgency");
-		assertEquals("Agency UCN expungement report for UNC for: 123456", criminalHistoryConsolidationProcessor.returnFederalEmailSubject(chcNotification, "123456"));
+		assertEquals("Rap Back: UCN Deleted by FBI: 123456", criminalHistoryConsolidationProcessor.returnFederalEmailSubject(chcNotification, "123456"));
 
 		chcNotification.setConsolidationType("reportUCNExpungementToUser");
-		assertEquals("UCN expungement report for UNC for: 123456", criminalHistoryConsolidationProcessor.returnFederalEmailSubject(chcNotification, "123456"));
+		assertEquals("Rap Back: UCN Deleted by FBI: 123456", criminalHistoryConsolidationProcessor.returnFederalEmailSubject(chcNotification, "123456"));
 
 	}
 	
