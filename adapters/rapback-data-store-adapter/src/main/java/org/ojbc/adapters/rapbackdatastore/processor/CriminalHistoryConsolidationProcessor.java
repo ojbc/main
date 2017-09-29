@@ -110,6 +110,16 @@ public class CriminalHistoryConsolidationProcessor {
     	
     	//Search for active subscriptions with matching SIDs
     	List<Subscription> subscriptionsMatchingSID = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+    	
+    	//If no subscription with current SID, look for subscriptions with new SID
+    	if (subscriptionsMatchingSID == null || subscriptionsMatchingSID.size() == 0)
+    	{    	
+    		subjectIdentifiers = Collections.singletonMap(SubscriptionNotificationConstants.SID, newSid);
+    	
+	    	//Search for active subscriptions with matching SIDs
+	    	subscriptionsMatchingSID = subscriptionSearchQueryDAO.queryForSubscription(null, null, null, subjectIdentifiers);
+    		
+    	}	
 
     	//When handling a SID consolidation or update message, from in state, check that the new UCN received from matches what is on the active subscription.
     	//If the new UCN does not match, notify the RB administrator
@@ -548,17 +558,17 @@ public class CriminalHistoryConsolidationProcessor {
 		
 		if (chcNotification.getConsolidationType().equals("criminalHistoryExpungementReport"))
 		{
-			emailSubject = "Rap Back: UCN Deleted by HCJDC: " + currentIdentifier;
+			emailSubject = "Rap Back: SID Deletion by HCJDC";
 		}	
 
 		if (chcNotification.getConsolidationType().equals("criminalHistoryConsolidationReport"))
 		{
-			emailSubject = "Rap Back: UCN & SID Consolidated/Updated by HCJDC: " + currentIdentifier;
+			emailSubject = "Rap Back: SID Consolidation by HCJDC";
 		}	
 
 		if (chcNotification.getConsolidationType().equals("criminalHistoryIdentifierUpdateReport"))
 		{
-			emailSubject = "Rap Back: UCN & SID Consolidated/Updated by HCJDC: " + currentIdentifier;
+			emailSubject = "Rap Back: SID Update by HCJDC";
 		}	
 
 		if (chcNotification.getConsolidationType().equals("reportSIDExpungementToAgency"))
