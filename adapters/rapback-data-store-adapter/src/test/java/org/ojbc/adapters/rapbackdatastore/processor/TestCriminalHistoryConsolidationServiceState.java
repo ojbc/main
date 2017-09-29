@@ -82,7 +82,7 @@ public class TestCriminalHistoryConsolidationServiceState {
     	log.info("CH Notification: " + notifications.get(0));
     	
     	assertEquals("admin@local.gov", notifications.get(0).getEmailTo());
-    	assertEquals("Rap Back: UCN & SID Consolidated/Updated by HCJDC: A123458", notifications.get(0).getEmailSubject());
+    	assertEquals("Rap Back: SID Consolidation by HCJDC", notifications.get(0).getEmailSubject());
     	assertEquals("A123458 has been consolidated into A9999999.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on A9999999.  A new arrest may or may not have occurred.", notifications.get(0).getEmailBody());
     	
     	assertEquals("admin@local.gov", notifications.get(1).getEmailTo());
@@ -107,7 +107,7 @@ public class TestCriminalHistoryConsolidationServiceState {
     	assertEquals(2, notifications.size());
     	
     	assertEquals("admin@local.gov", notifications.get(0).getEmailTo());
-    	assertEquals("Rap Back: UCN Deleted by HCJDC: A9999999", notifications.get(0).getEmailSubject());
+    	assertEquals("Rap Back: SID Deletion by HCJDC", notifications.get(0).getEmailSubject());
     	assertEquals("A9999999 has been deleted from CJIS-Hawaii and the State AFIS; you will no longer receive Rap Back notifications on this offender.  Please logon to the HIJIS Portal to update your subscription as necessary.", notifications.get(0).getEmailBody());
 
     	assertEquals("agencyemail@local.gov", notifications.get(1).getEmailTo());
@@ -123,7 +123,7 @@ public class TestCriminalHistoryConsolidationServiceState {
     	
     	assertEquals(2, notifications.size());
     	assertEquals("criminalHistoryConsolidationReport",notifications.get(0).getConsolidationType());
-    	assertEquals("Rap Back: UCN & SID Consolidated/Updated by HCJDC: A9999999",notifications.get(0).getEmailSubject());
+    	assertEquals("Rap Back: SID Consolidation by HCJDC",notifications.get(0).getEmailSubject());
     	assertEquals("A9999999 has been consolidated into A8888888.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on A8888888.  A new arrest may or may not have occurred.",notifications.get(0).getEmailBody());
     	
     	assertEquals("reportUCNMmatchToUser",notifications.get(1).getConsolidationType());
@@ -161,13 +161,13 @@ public class TestCriminalHistoryConsolidationServiceState {
     	CriminalHistoryConsolidationNotification chcNotification = new CriminalHistoryConsolidationNotification();
     	
 		chcNotification.setConsolidationType("criminalHistoryExpungementReport");
-		assertEquals("SID Expungement for: 123456", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
+		assertEquals("Rap Back: SID Deletion by HCJDC", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
 		
 		chcNotification.setConsolidationType("criminalHistoryConsolidationReport");
-		assertEquals("Criminal History Consolidation for SID for: 123456", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
+		assertEquals("Rap Back: SID Consolidation by HCJDC", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
 
 		chcNotification.setConsolidationType("criminalHistoryIdentifierUpdateReport");
-		assertEquals("Criminal History Update for SID for: 123456", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
+		assertEquals("Rap Back: SID Update by HCJDC", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
 
 		
 		chcNotification.setConsolidationType("reportSIDExpungementToAgency");
@@ -177,10 +177,10 @@ public class TestCriminalHistoryConsolidationServiceState {
 		assertEquals("Agency Notification: UCN mismatch during SID consolidation for: 123456", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
 		
 		chcNotification.setConsolidationType("reportUCNAddedToAgency");
-		assertEquals("Agency Notification: UCN added during SID consolidation/federal subscription created for: 123456", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
+		assertEquals("Rap Back: Federal Subscription Created: 123456", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
 		
 		chcNotification.setConsolidationType("reportUCNAddedToUser");
-		assertEquals("UCN added during SID consolidation/federal subscription created for: 123456", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
+		assertEquals("Rap Back: Federal Subscription Created: 123456", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
 		
 		chcNotification.setConsolidationType("reportUCNMmatchToUser");
 		assertEquals("UCN update occurred for: 123456", criminalHistoryConsolidationProcessor.returnStateEmailSubject(chcNotification, "123456"));
