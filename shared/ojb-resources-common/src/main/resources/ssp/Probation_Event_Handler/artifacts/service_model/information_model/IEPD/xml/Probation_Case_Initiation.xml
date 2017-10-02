@@ -84,6 +84,9 @@
 					<nc20:IdentificationID>A0324</nc20:IdentificationID>
 				</jxdm41:PersonStateFingerprintIdentification>
 			</jxdm41:PersonAugmentation>
+			<pc-ext:PersonPersistentIdentification>
+				<nc20:IdentificationID>1234556</nc20:IdentificationID>
+			</pc-ext:PersonPersistentIdentification>
 		</pc-ext:Probationer>
 		<pc-ext:ProbationerIdentity s:id="d1e46">
 			<nc20:IdentityPersonRepresentation>
