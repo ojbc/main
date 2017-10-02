@@ -16,8 +16,7 @@
  */
 package org.ojbc.bundles.intermediaries;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.File;
 
@@ -72,6 +71,9 @@ public class CamelContextTest {
     @EndpointInject(uri = "mock:cxf:bean:notificationBrokerService")
     protected MockEndpoint notificationBrokerServiceMockEndpoint;
     
+    @EndpointInject(uri = "mock:cxf:bean:probationAnalyticsAdapterService")
+    protected MockEndpoint probationAnalyticsAdapterServiceMockEndpoint;
+    
     @EndpointInject(uri = "mock:direct:transformAndInvokeUnsubscriptionProbationProcessor")
     protected MockEndpoint derivedUnsubscriptionEndpoint;
     
@@ -113,12 +115,25 @@ public class CamelContextTest {
     	    }              
     	});
 
+    	//We mock the web service endpoints that we call here for analytics
+    	context.getRouteDefinition("callProbationAnalyticsAdapterRoute").adviceWith(context, new AdviceWithRouteBuilder() {
+    	    @Override
+    	    public void configure() throws Exception {
+    	    	
+    	    	//We mock the subscription manager endpoint
+    	    	mockEndpointsAndSkip("cxf:bean:probationAnalyticsAdapterService*");
+    	    	
+    	    }              
+    	});
     	
 		context.start();		
 	}
     
 	@Test
 	public void testUnsubscriptionRoute() throws Exception{
+		
+		probationAnalyticsAdapterServiceMockEndpoint.reset();
+		probationAnalyticsAdapterServiceMockEndpoint.expectedMessageCount(1);
 		
     	//Subscription Manager will get one message - an unsubscribe message
 		subscriptionManagerServiceMockEndpoint.expectedMessageCount(1);
@@ -169,7 +184,7 @@ public class CamelContextTest {
 
 		Document unsubscriptionDocument = ex.getIn().getBody(Document.class);
 		
-		XmlUtils.printNode(unsubscriptionDocument);
+		//XmlUtils.printNode(unsubscriptionDocument);
 
 		String topic = XmlUtils.xPathStringSearch(unsubscriptionDocument, "/b-2:Unsubscribe/b-2:TopicExpression");
 		
@@ -178,11 +193,27 @@ public class CamelContextTest {
 		
 		log.info("Unsubscription topic is: " + topic);
 		
+		probationAnalyticsAdapterServiceMockEndpoint.assertIsSatisfied();
+		
+		ex = probationAnalyticsAdapterServiceMockEndpoint.getExchanges().get(0);
+		
+		Document analyticsDocument = ex.getIn().getBody(Document.class);
+		
+		assertNotNull(analyticsDocument);
+		
+		assertEquals("5c72b646d5570db45f98ad3287a23acaff6f2c21922096c714ced37d3163f838", XmlUtils.xPathStringSearch(analyticsDocument, "/pct:ProbationCaseTermination/pcext:ProbationCase/pcext:Supervision/pcext:Probationer/pcext:PersonPersistentIdentification/nc:IdentificationID"));
+		
+		assertNull(XmlUtils.xPathStringSearch(analyticsDocument, "/pct:ProbationCaseTermination/pcext:ProbationCase/pcext:Supervision/pcext:Probationer/nc:PersonName"));
+		assertNull(XmlUtils.xPathStringSearch(analyticsDocument, "/pct:ProbationCaseTermination/pcext:ProbationCase/pcext:Supervision/pcext:Probationer/nc:PersonSSNIdentification"));
+		assertNull(XmlUtils.xPathStringSearch(analyticsDocument, "/pct:ProbationCaseTermination/pcext:ProbationCase/pcext:Supervision/pcext:Probationer/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification"));
 		
 	}
 	
 	@Test
 	public void testSubscriptionRoute() throws Exception{
+		
+		probationAnalyticsAdapterServiceMockEndpoint.reset();
+		probationAnalyticsAdapterServiceMockEndpoint.expectedMessageCount(1);
 		
     	//Subscription Manager will get one message - a subscribe message
 		notificationBrokerServiceMockEndpoint.expectedMessageCount(1);
@@ -233,7 +264,7 @@ public class CamelContextTest {
 
 		Document subscriptionDocument = ex.getIn().getBody(Document.class);
 		
-		XmlUtils.printNode(subscriptionDocument);
+		//XmlUtils.printNode(subscriptionDocument);
 
 		String topic = XmlUtils.xPathStringSearch(subscriptionDocument, "/b-2:Subscribe/b-2:Filter/b-2:TopicExpression");
 		
@@ -242,6 +273,21 @@ public class CamelContextTest {
 		
 		log.info("Subscription topic is: " + topic);
 		
+		probationAnalyticsAdapterServiceMockEndpoint.assertIsSatisfied();
+		
+		ex = probationAnalyticsAdapterServiceMockEndpoint.getExchanges().get(0);
+		
+		Document analyticsDocument = ex.getIn().getBody(Document.class);
+		
+		assertNotNull(analyticsDocument);
+		
+		//XmlUtils.printNode(analyticsDocument);
+		
+		assertEquals("5b57c0c45e42a4ef4e6c28e78dc1c555d6b943ea3287353445ff80cc516627db", XmlUtils.xPathStringSearch(analyticsDocument, "/pci:ProbationCaseInitiation/pcext:ProbationCase/pcext:Supervision/pcext:Probationer/pcext:PersonPersistentIdentification/nc:IdentificationID"));
+		
+		assertNull(XmlUtils.xPathStringSearch(analyticsDocument, "/pci:ProbationCaseInitiation/pcext:ProbationCase/pcext:Supervision/pcext:Probationer/nc:PersonName"));
+		assertNull(XmlUtils.xPathStringSearch(analyticsDocument, "/pci:ProbationCaseInitiation/pcext:ProbationCase/pcext:Supervision/pcext:Probationer/nc:PersonSSNIdentification"));
+		assertNull(XmlUtils.xPathStringSearch(analyticsDocument, "/pci:ProbationCaseInitiation/pcext:ProbationCase/pcext:Supervision/pcext:Probationer/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification"));
 		
 	}	
 	

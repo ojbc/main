@@ -36,6 +36,7 @@
     <camel:endpoint id="probationEventHandlerServiceEndpoint" uri="cxf:bean:probationEventHandlerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.probation.probationEventHandlerServiceIntermediaryCxflogging}"/>                        
     <camel:endpoint id="notificationBrokerServiceEndpoint" uri="cxf:bean:notificationBrokerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.probation.probationEventHandlerServiceIntermediaryCxflogging}"/>                
     <camel:endpoint id="subscriptionManagerServiceEndpoint" uri="cxf:bean:subscriptionManagerService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.probation.probationEventHandlerServiceIntermediaryCxflogging}"/>                
+    <camel:endpoint id="probationAnalyticsAdapterServiceEndpoint" uri="cxf:bean:probationAnalyticsAdapterService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${subscriptionNotification.probation.probationEventHandlerServiceIntermediaryCxflogging}"/>
     
 	<!-- OJB Notification Broker Service, invoked by intermediary -->
 	<cxf:cxfEndpoint id="notificationBrokerService"
@@ -62,6 +63,14 @@
 		xmlns:probation="http://ojbc.org/Services/WSDL/Probation_Event_Handler_Service/1.0">
 	</cxf:cxfEndpoint>
 	
+	<!-- OJB Probation Hander Service - Adapter, optionally Called by this intermediary -->
+	<cxf:cxfEndpoint id="probationAnalyticsAdapterService"
+		address="${publishSubscribe.probationAnalyticsAdapterServiceEndpoint}"
+		wsdlURL="classpath:ssp/Probation_Event_Handler/schema/SIP_WS_1.2/Probation_Event_Handler_Service.wsdl"
+		serviceName="probation:Probation-Event-Handler-ServiceService"
+		endpointName="probation:Probation-Event-Handler-Service"
+		xmlns:probation="http://ojbc.org/Services/WSDL/Probation_Event_Handler_Service/1.0">
+	</cxf:cxfEndpoint>
 
 	<!-- Used for SSL/TLS Connection. No CCA, just SSL. -->
 	<http:conduit
