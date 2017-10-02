@@ -619,6 +619,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	
 	public static final String NS_HAWAII_BOOKING_REPORT_EXT = "http://hijis.hawaii.gov/BookingReportExtension/1.0";
 	public static final String NS_PREFIX_HAWAII_BOOKING_REPORT_EXT = "hi-br-ext";
+
+	public static final String NS_HAWAII_ARREST_REPORT = "http://hijis.hawaii.gov/ArrestReport/1.0";
+	public static final String NS_PREFIX_HAWAII_ARREST_REPORT = "hi-arr";
 	
 	public static final String NS_CRIMINAL_RECORD = "http://ojbc.org/IEPD/CriminalRecord/1.0";
 	public static final String NS_PREFIX_CRIMINAL_RECORD = "cr";
@@ -1595,6 +1598,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		
 		prefixToUriMap.put(NS_PREFIX_TRAFFIC_STOP_CODES, NS_TRAFFIC_STOP_CODES);
 		uriToPrefixMap.put(NS_TRAFFIC_STOP_CODES, NS_PREFIX_TRAFFIC_STOP_CODES);	
+
+		prefixToUriMap.put(NS_PREFIX_HAWAII_ARREST_REPORT, NS_HAWAII_ARREST_REPORT);
+		uriToPrefixMap.put(NS_HAWAII_ARREST_REPORT, NS_PREFIX_HAWAII_ARREST_REPORT);	
 
 	}
 
