@@ -33,35 +33,15 @@ CREATE TABLE ProbationTermination (
 );
 
 
-CREATE TABLE Supervisor (
-                SupervisorID INT AUTO_INCREMENT NOT NULL,
-                SupervisorGivenName VARCHAR(200) NOT NULL,
-                SupervisorSurName VARCHAR(200) NOT NULL,
-                SupervisorORI VARCHAR(100),
-                SupervisorTimestamp DATETIME DEFAULT now()  NOT NULL,
-                PRIMARY KEY (SupervisorID)
-);
-
-
-CREATE TABLE OtherIdentification (
-                OtherIdentificationIdentificationID INT AUTO_INCREMENT NOT NULL,
-                SupervisorID INT NOT NULL,
-                OtherIdentificationValue VARCHAR(100) NOT NULL,
-                OtherIdentificationType VARCHAR(50) NOT NULL,
-                OtherIdentificationTimestamp DATETIME DEFAULT now()  NOT NULL,
-                PRIMARY KEY (OtherIdentificationIdentificationID)
-);
-
-ALTER TABLE OtherIdentification COMMENT 'Supervisor Other Identification';
-
-
 CREATE TABLE Probation (
                 ProbationID INT AUTO_INCREMENT NOT NULL,
-                SupervisorID INT NOT NULL,
                 ProbationIdentification VARCHAR(100) NOT NULL,
                 SupervisionPersonStatus VARCHAR(100),
                 SupervisionStartDate DATE NOT NULL,
                 SupervisionLevelText VARCHAR(50) NOT NULL,
+                ProbationOfficerBagdeID VARCHAR(100),
+                ProbationOfficerSupervisorBadgeID VARCHAR(100),
+                ProbationAgencyORI VARCHAR(100),
                 PersonUniqueIdentifier VARCHAR(50) NOT NULL,
                 PersonBirthDate DATE,
                 PersonRaceText VARCHAR(50),
@@ -99,12 +79,6 @@ CREATE TABLE Arrest (
                 BookingReleaseTime TIME,
                 BookingSubjectCustodyTransferDate DATE,
                 BookingSubjectCustodyTransferTime TIME,
-                GreenboxIdentPCN VARCHAR(100) NOT NULL,
-                GreenboxIdentProcessControlFlag VARCHAR(50) NOT NULL,
-                GreenboxIdentOBTSActionCode VARCHAR(50) NOT NULL,
-                GreenboxIdentReadOnly VARCHAR(50) NOT NULL,
-                GreenboxIdentRecordType VARCHAR(50) NOT NULL,
-                GreenboxIdentOBTSControlFlag VARCHAR(50) NOT NULL,
                 PersonUniqueIdentifier VARCHAR(50) NOT NULL,
                 PersonBirthDate DATE,
                 PersonHairColorCode VARCHAR(50),
@@ -129,18 +103,6 @@ CREATE TABLE ArrestCharge (
                 PRIMARY KEY (ArrestChargeID)
 );
 
-
-ALTER TABLE Probation ADD CONSTRAINT supervisor_supervision_fk
-FOREIGN KEY (SupervisorID)
-REFERENCES Supervisor (SupervisorID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE OtherIdentification ADD CONSTRAINT supervisor_otheridentification_fk
-FOREIGN KEY (SupervisorID)
-REFERENCES Supervisor (SupervisorID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
 
 ALTER TABLE Arrest ADD CONSTRAINT arrestagencyid_arrest_fk
 FOREIGN KEY (ArrestAgencyID)

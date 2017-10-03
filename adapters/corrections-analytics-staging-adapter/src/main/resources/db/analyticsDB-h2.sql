@@ -18,7 +18,6 @@ Drop schema if exists ojbc_corrections_staging;
 
 CREATE schema ojbc_corrections_staging;
 
-
 CREATE TABLE ProbationTermination (
                 ProbationTerminationID IDENTITY NOT NULL,
                 ProbationIdentification VARCHAR(100) NOT NULL,
@@ -27,35 +26,15 @@ CREATE TABLE ProbationTermination (
                 CONSTRAINT ProbationTerminationID PRIMARY KEY (ProbationTerminationID)
 );
 
-
-CREATE TABLE Supervisor (
-                SupervisorID IDENTITY NOT NULL,
-                SupervisorGivenName VARCHAR(200) NOT NULL,
-                SupervisorSurName VARCHAR(200) NOT NULL,
-                SupervisorORI VARCHAR(100),
-                SupervisorTimestamp TIMESTAMP DEFAULT now()  NOT NULL,
-                CONSTRAINT SupervisorID PRIMARY KEY (SupervisorID)
-);
-
-
-CREATE TABLE OtherIdentification (
-                OtherIdentificationIdentificationID IDENTITY NOT NULL,
-                SupervisorID INTEGER NOT NULL,
-                OtherIdentificationValue VARCHAR(100) NOT NULL,
-                OtherIdentificationType VARCHAR(50) NOT NULL,
-                OtherIdentificationTimestamp TIMESTAMP DEFAULT now()  NOT NULL,
-                CONSTRAINT OtherIdentificationIdentificationID PRIMARY KEY (OtherIdentificationIdentificationID)
-);
-COMMENT ON TABLE OtherIdentification IS 'Supervisor Other Identification';
-
-
 CREATE TABLE Probation (
                 ProbationID IDENTITY NOT NULL,
-                SupervisorID INTEGER NOT NULL,
                 ProbationIdentification VARCHAR(100) NOT NULL,
                 SupervisionPersonStatus VARCHAR(100),
                 SupervisionStartDate DATE NOT NULL,
                 SupervisionLevelText VARCHAR(50) NOT NULL,
+                ProbationOfficerBagdeID VARCHAR(100),
+                ProbationOfficerSupervisorBadgeID VARCHAR(100),
+                ProbationAgencyORI VARCHAR(100),
                 PersonUniqueIdentifier VARCHAR(50) NOT NULL,
                 PersonBirthDate DATE,
                 PersonRaceText VARCHAR(50),
@@ -63,7 +42,6 @@ CREATE TABLE Probation (
                 SupervisionTimestamp TIMESTAMP DEFAULT now()  NOT NULL,
                 CONSTRAINT ProbationId PRIMARY KEY (ProbationID)
 );
-
 
 CREATE TABLE ArrestAgencyID (
                 ArrestAgencyID IDENTITY NOT NULL,
@@ -93,12 +71,6 @@ CREATE TABLE Arrest (
                 BookingReleaseTime TIME,
                 BookingSubjectCustodyTransferDate DATE,
                 BookingSubjectCustodyTransferTime TIME,
-                GreenboxIdentPCN VARCHAR(100) NOT NULL,
-                GreenboxIdentProcessControlFlag VARCHAR(50) NOT NULL,
-                GreenboxIdentOBTSActionCode VARCHAR(50) NOT NULL,
-                GreenboxIdentReadOnly VARCHAR(50) NOT NULL,
-                GreenboxIdentRecordType VARCHAR(50) NOT NULL,
-                GreenboxIdentOBTSControlFlag VARCHAR(50) NOT NULL,
                 PersonUniqueIdentifier VARCHAR(50) NOT NULL,
                 PersonBirthDate DATE,
                 PersonHairColorCode VARCHAR(50),
@@ -123,18 +95,6 @@ CREATE TABLE ArrestCharge (
                 CONSTRAINT ArrestChargeID PRIMARY KEY (ArrestChargeID)
 );
 
-
-ALTER TABLE Probation ADD CONSTRAINT Supervisor_Supervision_fk
-FOREIGN KEY (SupervisorID)
-REFERENCES Supervisor (SupervisorID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
-
-ALTER TABLE OtherIdentification ADD CONSTRAINT Supervisor_OtherIdentification_fk
-FOREIGN KEY (SupervisorID)
-REFERENCES Supervisor (SupervisorID)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION;
 
 ALTER TABLE Arrest ADD CONSTRAINT ArrestAgencyID_Arrest_fk
 FOREIGN KEY (ArrestAgencyID)
