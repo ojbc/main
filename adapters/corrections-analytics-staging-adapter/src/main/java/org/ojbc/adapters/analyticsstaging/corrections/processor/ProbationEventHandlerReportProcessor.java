@@ -23,9 +23,9 @@ import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 
 @Component
-public class CriminalIdentificationReportProcessor extends AbstractReportRepositoryProcessor {
+public class ProbationEventHandlerReportProcessor extends AbstractReportRepositoryProcessor {
 
-	private static final Log log = LogFactory.getLog( CriminalIdentificationReportProcessor.class );
+	private static final Log log = LogFactory.getLog( ProbationEventHandlerReportProcessor.class );
 	
 	public void processReport(Document report) throws Exception
 	{
