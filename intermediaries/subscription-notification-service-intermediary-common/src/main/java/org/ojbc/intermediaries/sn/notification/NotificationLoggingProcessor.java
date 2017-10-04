@@ -16,6 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.notification;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.intermediaries.sn.dao.Subscription;
@@ -47,7 +48,7 @@ public class NotificationLoggingProcessor {
 			}
 		} catch (Exception e) {
 			log.error("Unable to log notification!");
-			e.printStackTrace();
+			log.error(ExceptionUtils.getStackTrace(e));
 		}	
 		
 		
