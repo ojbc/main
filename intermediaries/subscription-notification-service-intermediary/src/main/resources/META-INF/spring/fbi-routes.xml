@@ -47,10 +47,16 @@
 			<camel:choice>
 				<when>
 					<simple>${header.operationName} == 'Subscribe' </simple>
+					
+					<camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace"/>
+					
 					<camel:to uri="fbiEbtsSubscriptionRequestServiceEndpoint" />	
 				</when>
 				<camel:when>
 					<simple>${header.operationName} == 'Modify'</simple>
+					
+					<camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace"/>
+					
 					<to uri="fbiEbtsSubscriptionManagerEndpoint" />
 				</camel:when>
 				<otherwise>

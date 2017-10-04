@@ -305,7 +305,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		loadMultiTopicTestData();
 
-		ArrestNotificationRequest request = returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305Topic1.xml");
+		ArrestNotificationRequest request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305Topic1.xml");
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
 				.searchForSubscriptionsMatchingNotificationRequest(request);
 
@@ -333,7 +333,7 @@ public class TestSubscriptionSearchQueryDAO {
 				.setValidationDueDateStrategy(validationDueDateStrategy);
 		subscriptionSearchQueryDAO.setGracePeriodStrategy(gracePeriodStrategy);
 
-		ArrestNotificationRequest request = returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008308.xml");
+		ArrestNotificationRequest request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008308.xml");
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
 				.searchForSubscriptionsMatchingNotificationRequest(request);
 
@@ -472,7 +472,7 @@ public class TestSubscriptionSearchQueryDAO {
 			throws Exception {
 		loadBasicTestData();
 
-		ArrestNotificationRequest request = returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305.xml");
+		ArrestNotificationRequest request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305.xml");
 
 		// one SID, two subscriptions, each with one email address
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
@@ -482,7 +482,7 @@ public class TestSubscriptionSearchQueryDAO {
 			assertEquals(1, subscription.getEmailAddressesToNotify().size());
 		}
 		// one SID, one subscription, two email addresses
-		request = returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008306.xml");
+		request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008306.xml");
 		subscriptions = subscriptionSearchQueryDAO
 				.searchForSubscriptionsMatchingNotificationRequest(request);
 		assertEquals(1, subscriptions.size());
@@ -497,7 +497,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		loadValidationDateTestData();
 
-		ArrestNotificationRequest request = returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305.xml");
+		ArrestNotificationRequest request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305.xml");
 		DateTime eventDate = request.getNotificationEventDate();
 
 		// one subscription with default validation due date strategy
@@ -548,7 +548,7 @@ public class TestSubscriptionSearchQueryDAO {
 			throws Exception {
 		loadBasicTestData();
 
-		ArrestNotificationRequest request = returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5012703.xml");
+		ArrestNotificationRequest request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5012703.xml");
 
 		// Inactive subscription
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO
@@ -614,7 +614,7 @@ public class TestSubscriptionSearchQueryDAO {
 			throws Exception {
 		loadNullLastValidationDateTestData();
 
-		ArrestNotificationRequest request = returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305.xml");
+		ArrestNotificationRequest request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305.xml");
 
 		subscriptionSearchQueryDAO
 				.searchForSubscriptionsMatchingNotificationRequest(request);
@@ -1168,20 +1168,6 @@ public class TestSubscriptionSearchQueryDAO {
 		Date availableForSubscriptionStartDateAfter = rsAvalibaleDateAfterSubscribe.getDate("AVAILABLE_FOR_SUBSCRIPTION_START_DATE");
 		log.info("availableForSubscriptionStartDate after subscribe: " + availableForSubscriptionStartDateAfter);
 		assertTrue(DateUtils.isSameDay(availableForSubscriptionStartDateAfter, XmlUtils.parseXmlDate("2016-11-03").toDate()));
-	}
-
-	private ArrestNotificationRequest returnArrestNotificationRequest(
-			String pathToNotificationRequest) throws Exception {
-		CamelContext ctx = new DefaultCamelContext();
-		Exchange ex = new DefaultExchange(ctx);
-
-		ex.getIn().setBody(
-				TestNotificationBuilderUtil
-						.getMessageBody(pathToNotificationRequest));
-
-		Message message = ex.getIn();
-
-		return TestNotificationBuilderUtil.returnArrestNotificationRequestForTesting(message);
 	}
 
 	private IncidentNotificationRequest returnIncidentNotificationRequest(

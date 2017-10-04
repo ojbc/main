@@ -30,6 +30,8 @@ public class NotificationsSent {
 	
 	private List<NotificationProperties> notificationProperties;
 
+	private String notifyingSystemName;
+	
 	public long getNotificationSentId() {
 		return notificationSentId;
 	}
@@ -62,6 +64,14 @@ public class NotificationsSent {
 	public void setNotificationProperties(
 			List<NotificationProperties> notificationProperties) {
 		this.notificationProperties = notificationProperties;
+	}
+
+	public String getNotifyingSystemName() {
+		return notifyingSystemName;
+	}
+
+	public void setNotifyingSystemName(String notifyingSystemName) {
+		this.notifyingSystemName = notifyingSystemName;
 	}
 
 	
