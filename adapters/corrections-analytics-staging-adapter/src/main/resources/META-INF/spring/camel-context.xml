@@ -46,10 +46,16 @@
 		<endpoint id="arrestReportingFileEndpoint"
 			uri="file://{{corrections.stagingAdapter.inputDirectory}}/arrestReport/input?idempotent=true&amp;moveFailed={{corrections.stagingAdapter.inputDirectory}}/arrestReport/error&amp;recursive=true&amp;delete=true&amp;maxMessagesPerPoll=100" />
 
+ 		<endpoint id="probationEventHandlerServiceAdapterEndpoint"
+			uri="cxf:bean:probationEventHandlerServiceAdapter?dataFormat=PAYLOAD&amp;loggingFeatureEnabled={{corrections.stagingAdapter.cxflogging}}" />
+
+		<endpoint id="probationEventHandlerFileEndpoint"
+			uri="file://{{corrections.stagingAdapter.inputDirectory}}/probationEventHandler/input?idempotent=true&amp;moveFailed={{corrections.stagingAdapter.inputDirectory}}/probationEventHandler/error&amp;recursive=true&amp;delete=true&amp;maxMessagesPerPoll=100" />
+
 		<endpoint id="invocationFailedFileEndpoint"
 			uri="file://{{corrections.stagingAdapter.inputDirectory}}/failed" />
 
-		<!-- Booking Reporting Route -->
+		<!-- Arrest Reporting Route -->
 		<camel:route id="arrest_reporting_service" >
 		
 			<camel:from	uri="arrestReportingServiceAdapterEndpoint" />
@@ -84,6 +90,49 @@
 					</camel:setHeader>	
 
 					<log message="Arrest Report document failure. File Name to persist is: ${in.headers.CamelFileName}"/>
+					
+					<camel:to uri="direct:failedInvocation"/>
+				</camel:doCatch>
+			
+			</camel:doTry>
+			
+		</camel:route>		
+
+		<!-- Probation Event Handler Reporting Route -->
+		<camel:route id="probation_event_handler_service" >
+		
+			<camel:from	uri="probationEventHandlerServiceAdapterEndpoint" />
+			
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
+			
+			<camel:to uri="direct:processProbationEventHandlerReport" />
+			
+		</camel:route>	
+		
+		<camel:route id="probation_event_handler_filedrop">
+			<camel:from	uri="probationEventHandlerFileEndpoint" />
+			<camel:to uri="direct:processProbationEventHandlerReport" />
+		</camel:route>
+		
+		<camel:route id="process_probation_event_handler_report" startupOrder="2">				
+			
+			<camel:from	uri="direct:processProbationEventHandlerReport" />
+
+			<camel:doTry>
+						
+				<camel:log message="Here is the inbound booking report message: ${body}" loggingLevel="DEBUG"/>
+				
+				<camel:to uri="bean:probationEventHandlerReportProcessor?method=processReport"/>
+				
+				<camel:doCatch >
+					<camel:exception>java.lang.Exception</camel:exception>
+					<camel:log message="An exception was thrown: ${exception.stacktrace}" loggingLevel="INFO"/>				
+					
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>probationEventHandler/FailedIncident_${date:now:yyyyMMdd}_${date:now:HHmmssSS}.xml</camel:simple>
+					</camel:setHeader>	
+
+					<log message="Probation Event Handler Report document failure. File Name to persist is: ${in.headers.CamelFileName}"/>
 					
 					<camel:to uri="direct:failedInvocation"/>
 				</camel:doCatch>
