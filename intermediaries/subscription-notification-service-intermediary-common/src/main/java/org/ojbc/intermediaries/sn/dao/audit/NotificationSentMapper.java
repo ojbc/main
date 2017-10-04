@@ -40,6 +40,8 @@ public class NotificationSentMapper implements RowMapper<NotificationsSent> {
 		
 		notificationsSent.setSubscription(subscription);
 		
+		notificationsSent.setNotifyingSystemName(rs.getString("NOTIFYING_SYSTEM_NAME"));
+		
 		return notificationsSent;
 		
 	}

@@ -21,7 +21,11 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
 import org.apache.camel.Message;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.DefaultExchange;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
 import org.ojbc.util.xml.XmlUtils;
@@ -61,4 +65,18 @@ public class TestNotificationBuilderUtil {
  		
  		return arrestNotificationRequest;
 	 }
+	
+	public static ArrestNotificationRequest returnArrestNotificationRequest(
+			String pathToNotificationRequest) throws Exception {
+		CamelContext ctx = new DefaultCamelContext();
+		Exchange ex = new DefaultExchange(ctx);
+
+		ex.getIn().setBody(
+				TestNotificationBuilderUtil
+						.getMessageBody(pathToNotificationRequest));
+
+		Message message = ex.getIn();
+
+		return TestNotificationBuilderUtil.returnArrestNotificationRequestForTesting(message);
+	}
 }

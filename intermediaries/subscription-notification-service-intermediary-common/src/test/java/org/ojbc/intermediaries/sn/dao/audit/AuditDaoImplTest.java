@@ -32,6 +32,8 @@ import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.intermediaries.sn.notification.EmailNotification;
 import org.ojbc.intermediaries.sn.notification.RapbackTriggeringEvent;
+import org.ojbc.intermediaries.sn.testutil.TestNotificationBuilderUtil;
+import org.ojbc.intermediaries.sn.topic.arrest.ArrestNotificationRequest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -55,7 +57,7 @@ public class AuditDaoImplTest {
 	}
 	
 	@Test
-	public void testLogNotification()
+	public void testLogNotification() throws Exception
 	{
 		EmailNotification emailNotification = new EmailNotification();
 		
@@ -88,7 +90,11 @@ public class AuditDaoImplTest {
 		
 		
 		emailNotification.setSubscription(subscription);
+		
+		ArrestNotificationRequest request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305.xml");
 
+		emailNotification.setNotificationRequest(request);
+		
 		Integer notificationPk = auditDAOImpl.saveNotificationLogEntry(emailNotification);
 		
 		log.info("Notification Saved PK: "  + notificationPk);
@@ -103,6 +109,7 @@ public class AuditDaoImplTest {
 		assertEquals("owner@email.com", notificationsSent.getSubscription().getSubscriptionOwnerEmailAddress());
 		assertEquals("probation", notificationsSent.getSubscription().getSubscribingSystemIdentifier());
 		assertEquals("arrest", notificationsSent.getSubscription().getTopic());
+		assertEquals("http://www.hawaii.gov/arrestNotificationProducer", notificationsSent.getNotifyingSystemName());
 		
 		assertEquals(6, notificationsSent.getNotificationMechanisms().size());
 		
