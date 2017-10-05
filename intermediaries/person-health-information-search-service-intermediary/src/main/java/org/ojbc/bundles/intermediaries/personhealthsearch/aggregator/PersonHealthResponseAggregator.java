@@ -19,6 +19,7 @@ package org.ojbc.bundles.intermediaries.personhealthsearch.aggregator;
 import java.util.List;
 
 import org.apache.camel.Exchange;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 public class PersonHealthResponseAggregator {
@@ -43,6 +44,18 @@ public class PersonHealthResponseAggregator {
 		}
 				
 		Exchange timerExchange = groupExchList.get(0);	
+		
+		String requestFileName = (String)timerExchange.getIn().getHeader("inboundFileName");
+		
+		if (StringUtils.isNotEmpty(requestFileName))
+		{
+			requestFileName = StringUtils.lowerCase(requestFileName);
+			
+			requestFileName = StringUtils.replace(requestFileName, "request", "response");
+			
+			groupedExchange.getIn().setHeader("CamelFileName", requestFileName);
+		}	
+		
 		
 		Exchange personHealthResponseExchange = groupExchList.get(1);
 				
