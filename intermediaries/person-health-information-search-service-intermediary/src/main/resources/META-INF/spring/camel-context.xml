@@ -64,6 +64,10 @@
 			
 			<log message="\n\n\n personHealthRequest_filedrop_Route... \n\n\n"/>
 			
+			<camel:setHeader headerName="inboundFileName">
+				<camel:simple>${in.headers.CamelFileNameOnly}</camel:simple>
+			</camel:setHeader>
+			
 			<setHeader headerName="federatedQueryRequestGUID"><simple>bean:uuidGenerator?method=generateUUID</simple></setHeader>
 						
 			<to uri="direct:processPersonHealthRequest" />		
@@ -95,20 +99,48 @@
 			<camel:to uri="direct:dbAuditLog"/>
 						
 			<camel:wireTap uri="direct:startPersonHealthReqTimer"/>
-
+			
 			<camel:log message="\n\n\n Timer started... \n\n\n"/>
-			
-			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+
+			<!-- processor here -->
+			<camel:choice>
+				<camel:when>
+					<camel:method bean="personHealthFileSearchProcessor" method="searchForPersonHealthResponse"/>
+					
+					<camel:log message="PHI response exists on file system. Don't call web service"/>
+					
+					<camel:to uri="bean:personHealthFileSearchProcessor?method=retreivePersonHealthInfo"/>
+					
+					<camel:to uri="direct:aggregatePersonHealthResponse"/>
+					
+				</camel:when>
+				<camel:otherwise>			
+					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
+								
+					<camel:setHeader headerName="operationName">
+						<constant>SubmitPersonHealthInformationSearchRequest</constant>
+					</camel:setHeader>
+					
+					<camel:setHeader headerName="operationNamespace">
+						<constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchRequestService/1.0</constant>
+					</camel:setHeader>			
+					
+					<to uri="personHealthSearchAdapterRequestEndpoint"/>
+					
+					<camel:filter>
+						<camel:simple>${properties:useDelayBetweenInvocations} == true</camel:simple>
 						
-			<camel:setHeader headerName="operationName">
-				<constant>SubmitPersonHealthInformationSearchRequest</constant>
-			</camel:setHeader>
-			
-			<camel:setHeader headerName="operationNamespace">
-				<constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchRequestService/1.0</constant>
-			</camel:setHeader>			
-			
-			<to uri="personHealthSearchAdapterRequestEndpoint"/>
+						<camel:log message="Starting delay"/>
+						
+						<camel:delay>
+				            <simple>{{delayBetweenInvocationsInMillis}}</simple>
+				        </camel:delay>
+				        
+				        <camel:log message="Ending delay"/>
+			        </camel:filter>
+					
+				</camel:otherwise>
+			</camel:choice>
 			
 		</camel:route>			
 				     
@@ -271,6 +303,10 @@
 			
 	<bean id="WSAddressingEndpointProcessor" class="org.ojbc.util.camel.processor.WSAddressingEndpointProcessor">
 		<property name ="endpointReplyToMap" ref="endpointReplyToMap"/>
+	</bean>				
+	
+	<bean id="personHealthFileSearchProcessor" class="org.ojbc.bundles.intermediaries.personhealthsearch.processor.PersonHealthFileSearchProcessor">
+		<property name="responseRootFilePath" value="${filedrop}/output"/>
 	</bean>				
 					
 	<bean id="uuidGenerator" class="org.ojbc.util.camel.helper.OJBUtils"/>				

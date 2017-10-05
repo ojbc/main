@@ -17,13 +17,14 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<phisr-doc:PersonHealthInformationSearchRequest
-	xmlns:phisr-doc="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchRequest/1.0"
+<phisreq-doc:PersonHealthInformationSearchRequest
+	xmlns:phisreq-doc="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchRequest/1.0"
 	xmlns:nc30="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:phisr-ext="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchRequest/1.0"
+	xmlns:phisreq-ext="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchRequest/1.0"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:jxdm51="http://release.niem.gov/niem/domains/jxdm/5.1/"
+	xmlns:pc-phi-codes="http://ojbc.org/IEPD/Extensions/PimaCounty/PersonHealthInformationCodes/1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchRequest/1.0 ../xsd/exchange_schema.xsd http://release.niem.gov/niem/domains/jxdm/5.1/ ../xsd/Subset/niem/domains/jxdm/5.1/jxdm.xsd">
 	<nc30:Person structures:id="P001">
@@ -36,11 +37,11 @@
 			<nc30:PersonMiddleName>Hartwell</nc30:PersonMiddleName>
 			<nc30:PersonSurName>White</nc30:PersonSurName>
 		</nc30:PersonName>
-		<jxdm51:PersonRaceCode>W</jxdm51:PersonRaceCode>
+		<pc-phi-codes:PersonRaceCode>W</pc-phi-codes:PersonRaceCode>
 		<jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
-		<phisr-ext:PersonTemporaryIdentification>
+		<phisreq-ext:PersonTemporaryIdentification>
 			 <nc30:IdentificationID>1234567890</nc30:IdentificationID>
-		</phisr-ext:PersonTemporaryIdentification>
+		</phisreq-ext:PersonTemporaryIdentification>
 	</nc30:Person>
 	<nc30:Identity structures:id="ALIAS001">
 		<nc30:IdentityPersonRepresentation>
@@ -85,5 +86,5 @@
 		<nc30:Identity structures:ref="ALIAS002"/>
 		<nc30:Identity structures:ref="ALIAS003"/>
 	</nc30:PersonAliasIdentityAssociation>
-	<phisr-ext:SourceSystemNameText>System Name</phisr-ext:SourceSystemNameText>
-</phisr-doc:PersonHealthInformationSearchRequest>
+	<phisreq-ext:SourceSystemNameText>System Name</phisreq-ext:SourceSystemNameText>
+</phisreq-doc:PersonHealthInformationSearchRequest>
