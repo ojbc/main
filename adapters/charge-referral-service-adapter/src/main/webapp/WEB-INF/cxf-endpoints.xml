@@ -43,7 +43,7 @@
 	    
 	<!-- hosted by this adapter -->
 	<cxf:cxfEndpoint id="chargeReferralAdapterService"
-		address="${chargeReferralAdapterEndpoint}"
+		address="${chargeReferralAdapterEndpointHosted}"
 		wsdlURL="classpath:ssp/Charge_Referral/schema/SIP_WS_1.2/Charge_Referral_Service.wsdl"
 		serviceName="ojbc:Charge-Referral-ServiceService" 
 		endpointName="Charge-Referral-Service"

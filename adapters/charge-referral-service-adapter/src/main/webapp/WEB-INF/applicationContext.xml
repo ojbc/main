@@ -76,6 +76,10 @@
 			
 			<convertBodyTo type="java.lang.String"/>
 			
+			<camel:setHeader headerName="CamelDestinationOverrideUrl">
+				<camel:simple>${properties:chargeReferralAdapterEndpointToCall}</camel:simple>
+			</camel:setHeader>
+			
 			<camel:to uri="chargeReferralAdapterServiceEndpoint"/>
 			
 		</camel:route>		
