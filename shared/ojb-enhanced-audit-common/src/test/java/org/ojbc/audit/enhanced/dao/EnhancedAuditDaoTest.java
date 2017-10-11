@@ -17,17 +17,26 @@
 package org.ojbc.audit.enhanced.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import junit.framework.Assert;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -37,7 +46,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "classpath:META-INF/spring/spring-context.xml"})
 @DirtiesContext
 public class EnhancedAuditDaoTest {
-		
+	
+	private static final Log log = LogFactory.getLog(EnhancedAuditDaoTest.class);
+	
 	@Resource
 	private EnhancedAuditDAO enhancedAuditDao;
 		
@@ -46,7 +57,85 @@ public class EnhancedAuditDaoTest {
 	
 		Assert.assertNotNull(enhancedAuditDao);
 	}
+	
+	@Test
+	public void testPersonSearchMethods() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
 		
+		PersonSearchRequest psr = new PersonSearchRequest();
+		
+		LocalDate dobTo = LocalDate.now();
+		LocalDate dobFrom = dobTo.minusYears(20);
+		
+		psr.setDobFrom(dobFrom);
+		psr.setDobTo(dobTo);
+		psr.setDriverLicenseId("DL123");
+		psr.setDriverLiscenseIssuer("WI");
+		psr.setEyeCode("BLK");
+		psr.setHairCode("BRN");
+		psr.setFbiNumber("FBI123");
+		psr.setFirstName("first");
+		psr.setFirstNameQualifier(1);
+		psr.setLastName("last");
+		psr.setLastNameQualifier(1);
+		psr.setMessageId("123456");
+		psr.setMiddleName("middle");
+		psr.setOnBehalfOf("onbehalf");
+		psr.setPurpose("purpose");
+		psr.setRaceCode("race");
+		psr.setSsn("123-45-7890");
+		psr.setStateId("state");
+		
+		enhancedAuditDao.savePersonSearchRequest(psr);
+		
+		List<String> systemsToSearch=new ArrayList<String>();
+		
+		systemsToSearch.add("system1");
+		systemsToSearch.add("system2");
+		
+		psr.setSystemsToSearch(null);
+		psr.setUserInfofk(userInfoPk);
+	}
+	
+
+	@Test
+	public void testUserInfoMethods() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+		
+		assertNotNull(userInfoPk);
+		
+		UserInfo userInfoFromDatabase = enhancedAuditDao.retrieveUserInfoFromId(userInfoPk);
+		
+		log.debug("User Info From Database: " + userInfoFromDatabase.toString());
+		
+		assertEquals("Employer Name", userInfoFromDatabase.getEmployerName());
+		assertEquals("Sub Unit", userInfoFromDatabase.getEmployerSubunitName());
+		assertEquals("Fed ID", userInfoFromDatabase.getFederationId());
+		assertEquals("IDP", userInfoFromDatabase.getIdentityProviderId());
+		assertEquals("email", userInfoFromDatabase.getUserEmailAddress());
+		assertEquals("first", userInfoFromDatabase.getUserFirstName());
+		assertEquals("last", userInfoFromDatabase.getUserLastName());
+		
+	}
+
+	private Integer saveUserInfo() {
+		UserInfo userInfo = new UserInfo();
+		
+		userInfo.setEmployerName("Employer Name");
+		userInfo.setEmployerSubunitName("Sub Unit");
+		userInfo.setFederationId("Fed ID");
+		userInfo.setIdentityProviderId("IDP");
+		userInfo.setUserEmailAddress("email");
+		userInfo.setUserFirstName("first");
+		userInfo.setUserLastName("last");
+		
+		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userInfo);
+		return userInfoPk;
+	}	
+	
+	
 	@Test
 	public void testFederalSubscriptionMethods() throws Exception
 	{
@@ -76,5 +165,6 @@ public class EnhancedAuditDaoTest {
 		assertEquals("ERRA", federalRapbackSubscriptionFromDatabase.getTransactionCategoryCode());
 		
 	}
+
 }
 
