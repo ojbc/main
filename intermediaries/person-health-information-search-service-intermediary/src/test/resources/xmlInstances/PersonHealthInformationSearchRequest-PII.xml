@@ -39,9 +39,9 @@
 		</nc30:PersonName>
 		<pc-phi-codes:PersonRaceCode>W</pc-phi-codes:PersonRaceCode>
 		<jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
-		<phisreq-ext:PersonTemporaryIdentification>
+		<phisreq-ext:PersonSystemAssignedIdentification>
 			 <nc30:IdentificationID>1234567890</nc30:IdentificationID>
-		</phisreq-ext:PersonTemporaryIdentification>
+		</phisreq-ext:PersonSystemAssignedIdentification>
 	</nc30:Person>
 	<nc30:Identity structures:id="ALIAS001">
 		<nc30:IdentityPersonRepresentation>

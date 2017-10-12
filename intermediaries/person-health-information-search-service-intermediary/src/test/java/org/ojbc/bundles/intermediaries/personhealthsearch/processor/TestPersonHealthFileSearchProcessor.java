@@ -48,7 +48,7 @@ public class TestPersonHealthFileSearchProcessor {
 		
 		logger.info("Extracted file name: " + fileName);
 		
-		assertEquals("response_Walter_Hartwell_White_1959-09-07_M_W_1234567890.xml", fileName);
+		assertEquals("Walter_Hartwell_White_1959-09-07_M_W_1234567890", fileName);
 		
 		String hashedExtractedFileName = "response_" + Hash.md5("Walter_Hartwell_White_1959-09-07_M_W_1234567890") + ".xml";
 		
@@ -58,7 +58,7 @@ public class TestPersonHealthFileSearchProcessor {
 		
 		String responseFile = personHealthFileSearchProcessor.retreivePersonHealthInfo(requestMessage);
 		
-		logger.debug("Response File from file system: " + responseFile);
+		logger.info("Response File from file system: " + responseFile);
 		
 		assertTrue(responseFile.endsWith("</phisres-doc:PersonHealthInformationSearchResults>"));
 	}

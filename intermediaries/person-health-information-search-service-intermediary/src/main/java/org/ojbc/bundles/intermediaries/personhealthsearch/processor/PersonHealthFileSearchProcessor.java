@@ -84,8 +84,6 @@ public class PersonHealthFileSearchProcessor {
 		
 		StringBuffer extractedFilename = new StringBuffer();
 		
-		extractedFilename.append("response_");
-		
 		String firstName = XmlUtils.xPathStringSearch(requestMessage, "/phisreq-doc:PersonHealthInformationSearchRequest/nc30:Person/nc30:PersonName/nc30:PersonGivenName");
 		logger.info("Person First Name: "  + firstName);
 		
@@ -166,7 +164,7 @@ public class PersonHealthFileSearchProcessor {
 			extractedFilename.append("._");
 		}		
 
-		String personNameNumber = XmlUtils.xPathStringSearch(requestMessage, "/phisreq-doc:PersonHealthInformationSearchRequest/nc30:Person/phisreq-ext:PersonTemporaryIdentification/nc30:IdentificationID");
+		String personNameNumber = XmlUtils.xPathStringSearch(requestMessage, "/phisreq-doc:PersonHealthInformationSearchRequest/nc30:Person/phisreq-ext:PersonSystemAssignedIdentification/nc30:IdentificationID");
 		logger.info("Person Name Number: "  + personNameNumber);
 		
 		if (StringUtils.isNotBlank(personNameNumber))
@@ -181,8 +179,6 @@ public class PersonHealthFileSearchProcessor {
 
 		extractedFilename.deleteCharAt(extractedFilename.lastIndexOf("_"));
 		
-		extractedFilename.append(".xml");
-				
 		return extractedFilename.toString();
 		
 	}
