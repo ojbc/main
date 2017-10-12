@@ -52,7 +52,7 @@
 			uri="cxf:bean:personHealthSearchClientResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>                        
 
 		<endpoint id="inputDirectory"
-			uri="file:///${filedrop}/input?idempotent=true&amp;moveFailed=${filedrop}/error&amp;readLock=changed&amp;maxMessagesPerPoll=20&amp;readLockCheckInterval=2500&amp;sortBy=file:modified${personHealth.cronSchedulerExpression}" />
+			uri="file:///${filedrop}/input?idempotent=true&amp;moveFailed=${filedrop}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;sortBy=file:modified${personHealth.cronSchedulerExpression}" />
 
 		<endpoint id="outputDirectory"
 			uri="file:///${filedrop}/output" />
