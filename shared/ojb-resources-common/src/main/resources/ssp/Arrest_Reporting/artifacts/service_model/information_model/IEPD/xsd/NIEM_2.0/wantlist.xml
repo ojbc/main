@@ -89,9 +89,11 @@
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ArrestOfficial" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ArrestProbableCauseText" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ArrestSequenceID" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ArrestSubject" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ArrestSubjectCountCode" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ArrestSummonsIndicator" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Attorney" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:BailSubject" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:BookingEmployee" w:isReference="false" w:nillable="true"/>
@@ -386,6 +388,7 @@
   <w:Element w:name="nc:LanguageName" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Lessee" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Lessor" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:Locale" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Location" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:LocationAltitudeMeasure" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:LocationCategoryText" w:isReference="false" w:nillable="true"/>
@@ -507,6 +510,7 @@
   <w:Element w:name="nc:PersonSkinToneText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonTemporaryAssignedUnitAssociation"
     w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:PersonUSCitizenIndicator" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonUnionStatusCode" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonWeightMeasure" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonWorkerAssociation" w:isReference="false" w:nillable="true"/>
@@ -28761,6 +28765,12 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="true"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:LocaleType" w:isRequested="false">
+    <w:ElementInType w:name="nc:LocaleDistrictName"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:LocalePoliceBeatText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:LocationContactInformationAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Location" w:isReference="true"

@@ -104,6 +104,7 @@
 			<xsd:extension base="nc:LocationType">
 				<xsd:sequence>
 					<xsd:element ref="it:LocationIdentification"/>
+					<xsd:element ref="nc:Locale" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>
@@ -156,6 +157,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:ArrestType">
 				<xsd:sequence>
+				<xsd:element ref="j:ArrestProbableCauseText" minOccurs="0"/>
+				<xsd:element ref="j:ArrestSummonsIndicator" minOccurs="0"/>
 					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
 				</xsd:sequence>
 			</xsd:extension>

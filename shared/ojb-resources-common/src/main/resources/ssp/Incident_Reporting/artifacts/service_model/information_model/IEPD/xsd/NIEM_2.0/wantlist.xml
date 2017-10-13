@@ -95,9 +95,11 @@
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ArrestCharge" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ArrestOfficial" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ArrestProbableCauseText" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ArrestSequenceID" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ArrestSubject" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ArrestSubjectCountCode" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="j:ArrestSummonsIndicator" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Attorney" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:BailSubject" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Bond" w:isReference="false" w:nillable="false"/>
@@ -415,6 +417,7 @@
   <w:Element w:name="nc:LocationCountyName" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:LocationEmergencyServicesAssociation"
     w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:LocationLocale" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:LocationNeighboringPersonAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:LocationOrganizationAssociation"
@@ -29654,6 +29657,12 @@
       w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="true"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:LocaleType" w:isRequested="false">
+    <w:ElementInType w:name="nc:LocaleDistrictName"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:LocalePoliceBeatText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:LocationContactInformationAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Location" w:isReference="true"

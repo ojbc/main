@@ -1012,6 +1012,22 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:complexType name="LocaleType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for a geopolitical area.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="Object"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:ComplexObjectType">
+        <xsd:sequence>
+          <xsd:element ref="nc:LocaleDistrictName" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:LocalePoliceBeatText" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="LocationContactInformationAssociationType">
     <xsd:annotation>
       <xsd:documentation>A data type for an association between a location and contact information.</xsd:documentation>
@@ -3515,6 +3531,16 @@
       <xsd:documentation>An entity which conveys vehicles by way of a lease.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="LocaleDistrictName" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A name given to an area of land defined for administrative or official purposes.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="LocalePoliceBeatText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An identification of a police beat that encompasses a location.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="LocationReference" type="s:ReferenceType">
     <xsd:annotation>
       <xsd:documentation>Details about a physical location.</xsd:documentation>
@@ -3621,6 +3647,11 @@
   <xsd:element name="LocationHighway" type="nc:HighwayType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A major public road.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="LocationLocale" type="nc:LocaleType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A geopolitical area.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="LocationMapLocation" type="nc:MapLocationType" nillable="true">
