@@ -21,8 +21,8 @@
 	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
 	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
-	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xmlns:vt-ts-codes="http://ojbc.org/IEPD/Extensions/Vermont/TrafficStopCodes/1.0"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd http://ojbc.org/IEPD/Extensions/Vermont/TrafficStopCodes/1.0 ../xsd/impl/vermont/traffic_stop_codes.xsd">
+	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xmlns:ojb-ts-codes="http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/IncidentReport/1.0 ../xsd/exchange_schema/Incident_Report.xsd http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0 ../xsd/Structured_Payloads/OJBC/traffic_stop_codes.xsd">
 	<lexspd:doPublish>
 		<lexs:PublishMessageContainer>
 			<lexs:PublishMessage>
@@ -502,14 +502,14 @@
 								<inc-ext:CivilReliefActOtherIndicator>true</inc-ext:CivilReliefActOtherIndicator>
 								<inc-ext:CivilReliefActOtherText>Text</inc-ext:CivilReliefActOtherText>
 								<inc-ext:EnforcementOfficialNotesText>Officer Notes</inc-ext:EnforcementOfficialNotesText>
-								<vt-ts-codes:TrafficStopReasonCode>M</vt-ts-codes:TrafficStopReasonCode>
-								<vt-ts-codes:TrafficStopSearchCategoryCode>SPC</vt-ts-codes:TrafficStopSearchCategoryCode>
-								<vt-ts-codes:TrafficStopContrabandCode>C</vt-ts-codes:TrafficStopContrabandCode>
-								<vt-ts-codes:TrafficStopOutcomeCode>A</vt-ts-codes:TrafficStopOutcomeCode>
-								<vt-ts-codes:IncidentWeatherConditionCode>Raining</vt-ts-codes:IncidentWeatherConditionCode>
-								<vt-ts-codes:IncidentHighwayConditionCode>Wet</vt-ts-codes:IncidentHighwayConditionCode>
-								<vt-ts-codes:IncidentTrafficConditionCode>Light</vt-ts-codes:IncidentTrafficConditionCode>
-								<vt-ts-codes:IncidentLightingConditionCode>Daylight</vt-ts-codes:IncidentLightingConditionCode>
+								<ojb-ts-codes:TrafficStopReasonCode>M</ojb-ts-codes:TrafficStopReasonCode>
+								<ojb-ts-codes:TrafficStopSearchCategoryCode>SPC</ojb-ts-codes:TrafficStopSearchCategoryCode>
+								<ojb-ts-codes:TrafficStopContrabandCode>C</ojb-ts-codes:TrafficStopContrabandCode>
+								<ojb-ts-codes:TrafficStopOutcomeCode>A</ojb-ts-codes:TrafficStopOutcomeCode>
+								<ojb-ts-codes:IncidentWeatherConditionCode>Raining</ojb-ts-codes:IncidentWeatherConditionCode>
+								<ojb-ts-codes:IncidentHighwayConditionCode>Wet</ojb-ts-codes:IncidentHighwayConditionCode>
+								<ojb-ts-codes:IncidentTrafficConditionCode>Light</ojb-ts-codes:IncidentTrafficConditionCode>
+								<ojb-ts-codes:IncidentLightingConditionCode>Daylight</ojb-ts-codes:IncidentLightingConditionCode>
 								<inc-ext:SpeedMeasurementDeviceTest>
 									<inc-ext:RadarDeviceTest>
 										<inc-ext:MeasurementDeviceIdentification>

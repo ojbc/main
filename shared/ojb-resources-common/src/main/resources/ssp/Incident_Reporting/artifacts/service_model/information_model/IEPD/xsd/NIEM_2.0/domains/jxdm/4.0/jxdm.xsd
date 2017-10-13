@@ -877,6 +877,11 @@
       <xsd:documentation>A peace official who makes an arrest.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="ArrestProbableCauseText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An observed or reported violation of a law or ordinance, which can be a sufficient cause to arrest a subject.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="ArrestResistedIndicator" type="niem-xsd:boolean" nillable="true">
     <xsd:annotation>
       <xsd:documentation>True if a subject resisted arrest; false otherwise.</xsd:documentation>
@@ -895,6 +900,11 @@
   <xsd:element name="ArrestSubjectCountCode" type="fbi:MultipleArresteeSegmentsCodeType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An indication of whether or not to count or score an arrested subject in a system to avoid duplicate counts in the event that the subject may be a part of multiple arrests.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ArrestSummonsIndicator" type="niem-xsd:boolean" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>True if an arrest occurred due to a summons; false otherwise.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="Attorney" type="j:JudicialOfficialType" nillable="true">

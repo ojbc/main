@@ -27,7 +27,6 @@
   <uri name="http://niem.gov/niem/domains/emergencyManagement/2.0" uri="domains/emergencyManagement/2.0/emergencyManagement.xsd"/>
   <uri name="http://niem.gov/niem/domains/immigration/2.0" uri="domains/immigration/2.0/immigration.xsd"/>
   <uri name="http://niem.gov/niem/domains/intelligence/2.0" uri="domains/intelligence/2.0/intelligence.xsd"/>
-  <uri name="http://niem.gov/niem/domains/internationalTrade/2.0" uri="domains/internationalTrade/2.0/internationalTrade.xsd"/>
   <uri name="http://niem.gov/niem/domains/jxdm/4.0" uri="domains/jxdm/4.0/jxdm.xsd"/>
   <uri name="http://niem.gov/niem/domains/screening/2.0" uri="domains/screening/2.0/screening.xsd"/>
   <uri name="http://niem.gov/niem/fbi/2.0" uri="fbi/2.0/fbi.xsd"/>

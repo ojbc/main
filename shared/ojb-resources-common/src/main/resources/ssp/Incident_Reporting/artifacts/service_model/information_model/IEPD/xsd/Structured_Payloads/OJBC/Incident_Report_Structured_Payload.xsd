@@ -224,8 +224,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="ChargeLocationAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a relationship between a charge and a location where activity took place that resulted in
-				the charge.
+			<xsd:documentation>A data type for a relationship between a charge and a location where activity took place that resulted in the charge.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
@@ -368,6 +367,7 @@
 					<xsd:element ref="inc-ext:PersonDNACollectionRequiredIndicator" minOccurs="0" />
 					<xsd:element ref="inc-ext:PersonDepartmentOfCorrectionsIdentification" minOccurs="0" />
 					<xsd:element ref="inc-ext:PersonFishAndWildlifeLicenseIdentification" minOccurs="0" />
+					<xsd:element ref="inc-ext:PersonEmployeeIdentification" minOccurs="0" />
 					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -403,8 +403,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="BookingType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an administrative step taken after an arrest subject is brought to a police station or
-				detention facility.
+			<xsd:documentation>A data type for an administrative step taken after an arrest subject is brought to a police station or detention facility.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
@@ -485,8 +484,7 @@
 	</xsd:complexType>
 	<xsd:complexType name="VehicleType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a motor-driven conveyance designed to carry its operator, and optionally passengers and
-				cargo, over land.
+			<xsd:documentation>A data type for a motor-driven conveyance designed to carry its operator, and optionally passengers and cargo, over land.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
@@ -594,8 +592,7 @@
 	</xsd:element>
 	<xsd:element name="IncidentReportableToDistrictAttorneyIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the details of the incident require that it must be reported to the district attorney, false
-				otherwise
+			<xsd:documentation>True if the details of the incident require that it must be reported to the district attorney, false otherwise
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -742,8 +739,8 @@
 	</xsd:element>
 	<xsd:element name="SpatialReferenceIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>Aunique value used to unambiguously identify projected, unprojected, and local spatial coordinate system
-				definitions. commonly referred to as SRID.
+			<xsd:documentation>Aunique value used to unambiguously identify projected, unprojected, and local spatial coordinate system definitions.
+				commonly referred to as SRID.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -807,9 +804,9 @@
 	</xsd:complexType>
 	<xsd:complexType name="BondType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for Details about an agreement between a bondsman and a subject in which a bondsman pays the
-				subject's bail or portion of the bail in exchange for certain conditions, including the payment of a certain amount of money
-				and the reappearance of the subject in court on the required date.
+			<xsd:documentation>A data type for Details about an agreement between a bondsman and a subject in which a bondsman pays the subject's bail or
+				portion of the bail in exchange for certain conditions, including the payment of a certain amount of money and the reappearance of the
+				subject in court on the required date.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
@@ -941,9 +938,9 @@
 	</xsd:element>
 	<xsd:element name="Booking" type="inc-ext:BookingType">
 		<xsd:annotation>
-			<xsd:documentation>Details about an administrative step taken after an arrested subject is brought to a police station or
-				detention facility, which involves entry of the subject's name and other relevant facts on the police "blotter", and which
-				may also include photographing, fingerprinting, and the like.
+			<xsd:documentation>Details about an administrative step taken after an arrested subject is brought to a police station or detention facility,
+				which involves entry of the subject's name and other relevant facts on the police "blotter", and which may also include photographing,
+				fingerprinting, and the like.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -969,9 +966,9 @@
 	</xsd:element>
 	<xsd:element name="Bond" type="inc-ext:BondType">
 		<xsd:annotation>
-			<xsd:documentation>Details about an agreement between a bondsman and a subject in which a bondsman pays the subject's bail or
-				portion of the bail in exchange for certain conditions, including the payment of a certain amount of money and the
-				reappearance of the subject in court on the required date.
+			<xsd:documentation>Details about an agreement between a bondsman and a subject in which a bondsman pays the subject's bail or portion of the
+				bail in exchange for certain conditions, including the payment of a certain amount of money and the reappearance of the subject in court on
+				the required date.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -1001,14 +998,20 @@
 	</xsd:element>
 	<xsd:element name="Citation" type="inc-ext:CitationType">
 		<xsd:annotation>
-			<xsd:documentation>Details about an official summons to appear in court or pay a fine given to a subject from a peace
-				official due to a subjects violation or infraction of a law.
+			<xsd:documentation>Details about an official summons to appear in court or pay a fine given to a subject from a peace official due to a
+				subjects violation or infraction of a law.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="PersonFishAndWildlifeLicenseIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>A Fish and Wildlife License number assigned to a person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonEmployeeIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>An employee number assigned to a person.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -1145,8 +1148,7 @@
 	</xsd:element>
 	<xsd:element name="CFRStatute" type="j:StatuteType">
 		<xsd:annotation>
-			<xsd:documentation>Details about a Code of Federal Regulation (CFR) unique identifier of a law, rule, or ordinance within a
-				jurisdiction.
+			<xsd:documentation>Details about a Code of Federal Regulation (CFR) unique identifier of a law, rule, or ordinance within a jurisdiction.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
