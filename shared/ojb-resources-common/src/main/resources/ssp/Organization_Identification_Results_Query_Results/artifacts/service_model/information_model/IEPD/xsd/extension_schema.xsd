@@ -17,19 +17,19 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" 
-xmlns:oirq-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" 
-xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
-xmlns:xop="http://www.w3.org/2004/08/xop/include" 
-xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/"
-targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" elementFormDefault="qualified">
-	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd"/>
-	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd"/>
-	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="./include_schema.xsd"/>
-	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmime_schema.xsd"/>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:oirq-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" elementFormDefault="qualified">
+	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="Subset/niem/niem-core/3.0/niem-core.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="Subset/niem/structures/3.0/structures.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.0/" schemaLocation="Subset/niem/domains/jxdm/5.0/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.0/" schemaLocation="Subset/niem/domains/intelligence/3.0/intelligence.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd" />
+	<xsd:import namespace="http://docs.oasis-open.org/wsn/br-2" schemaLocation="WS-Notification/wsn/br-2.xsd" />
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="./include_schema.xsd" />
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmime_schema.xsd" />
 	<xsd:complexType name="IdentificationInitialResultsQueryResultsType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a message to submit organization identification results query results.</xsd:documentation>
@@ -37,8 +37,20 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResul
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="oirq-res-ext:IdentificationSearchResultsRepresentation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="oirq-res-ext:IdentificationCriminalHistoryRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="oirq-res-ext:IdentifiedPerson" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="oirq-res-ext:IdentificationResultStatusRepresentation" />
+					<xsd:element ref="oirq-res-ext:IdentificationRequestingOrganization" />
+					<xsd:element ref="oirq-res-ext:Subscription" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:SubsequentResultsAvailableIndicator" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:IdentificationReasonRepresentation" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:IdentificationReportedDate" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:SourceSystemNameText" minOccurs="0" />
+					<xsd:element ref="intel:SystemIdentification" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:SearchResultCategoryText" minOccurs="0" />
+					<xsd:element ref="nc:EntityOrganization" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="oirq-res-ext:IdentificationSearchResultsRepresentation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="oirq-res-ext:IdentificationCriminalHistoryRepresentation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -50,11 +62,287 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResul
 		<xsd:complexContent>
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
-					<xsd:element ref="oirq-res-ext:IdentificationCriminalHistoryRepresentation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="oirq-res-ext:IdentifiedPerson" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="oirq-res-ext:IdentificationResultStatusRepresentation" />
+					<xsd:element ref="oirq-res-ext:IdentificationRequestingOrganization" />
+					<xsd:element ref="oirq-res-ext:Subscription" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:SubsequentResultsAvailableIndicator" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:IdentificationReasonRepresentation" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:IdentificationReportedDate" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:SourceSystemNameText" minOccurs="0" />
+					<xsd:element ref="intel:SystemIdentification" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:SearchResultCategoryText" minOccurs="0" />
+					<xsd:element ref="nc:EntityOrganization" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="oirq-res-ext:IdentificationCriminalHistoryRepresentation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="SubscriptionType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a subscription.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:ActivityType">
+				<xsd:sequence>
+					<xsd:element ref="wsn-br:Topic" />
+					<xsd:element ref="oirq-res-ext:SubscriptionValidation" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:SubscriptionGracePeriod" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:SubscriptionIdentification" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="Subscription" type="oirq-res-ext:SubscriptionType">
+		<xsd:annotation>
+			<xsd:documentation>A subscription.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier for a subscription.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionValidation" type="oirq-res-ext:SubscriptionValidationType">
+		<xsd:annotation>
+			<xsd:documentation>The details about validation requirements for a subscription.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionGracePeriod" type="oirq-res-ext:SubscriptionGracePeriodType">
+		<xsd:annotation>
+			<xsd:documentation>The details about the grace period of a subscription.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="SubscriptionValidationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the details about validation requirements for a subscription.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="oirq-res-ext:SubscriptionValidationDueDate" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:SubscriptionValidatedDate" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SubscriptionValidationDueDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date by which a subscription owner is required to confirm the subscription should still be active.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionValidatedDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date that a subscription owner last validated the subscriptions.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="SubscriptionGracePeriodType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the details about validation requirements for a subscription.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="oirq-res-ext:SubscriptionGracePeriodDateRange" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SubscriptionGracePeriodDateRange" type="nc:DateRangeType">
+		<xsd:annotation>
+			<xsd:documentation>The range of dates that a subscription is in a grace period.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionInGracePeriodIndicator" type="xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the subscription is currently in a grace period, false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="IdentifiedPersonType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a human being.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:PersonType">
+				<xsd:sequence>
+					<xsd:element ref="j:PersonAugmentation" minOccurs="0" />
+					<xsd:element ref="oirq-res-ext:IdentifiedPersonTrackingIdentification" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identifier assigned to a person that has been identified. Some jurisdictions refer to this as an OTN.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IdentifiedPerson" type="oirq-res-ext:IdentifiedPersonType">
+		<xsd:annotation>
+			<xsd:documentation> A human being.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SourceSystemNameText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The name of a system that returned the search result.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SearchResultCategoryText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of the kind of search result.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscribedEntity" type="oirq-res-ext:SubscribedEntityType">
+		<xsd:annotation>
+			<xsd:documentation>An entity in a subscription that wishes to be notified.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="SubscribedEntityType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an entity in a subscription that wishes to be notified.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType" />
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SubscriptionOriginatorType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for the entity that created the subscription.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="structures:ObjectType">
+				<xsd:sequence>
+					<xsd:element ref="oirq-res-ext:SubscriptionOriginatorIdentification" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SubscriptionOriginatorIdentification">
+		<xsd:annotation>
+			<xsd:documentation>A way of uniquely identifying the originator of a subscription.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionOriginator">
+		<xsd:annotation>
+			<xsd:documentation>An entity that created the subscription.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IdentificationResultStatusRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A state of a specific identification.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IdentificationResultStatusCode" type="oirq-res-ext:IdentificationResultStatusCodeType" substitutionGroup="oirq-res-ext:IdentificationResultStatusRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A code for a state of a specific identification.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="IdentificationResultStatusCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="oirq-res-ext:IdentificationResultStatusCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="IdentificationResultStatusCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="Archived" />
+			<xsd:enumeration value="Available for Subscription" />
+			<xsd:enumeration value="Subscribed" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="FingerprintIdentificationIssuedForCivilPurposeIndicator" type="niem-xs:boolean" substitutionGroup="nc:IdentificationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for a civil background
+				check, false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FingerprintIdentificationIssuedForCriminalPurposeIndicator" type="niem-xs:boolean" substitutionGroup="nc:IdentificationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for an arrest, false
+				otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubsequentResultsAvailableIndicator" type="niem-xs:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if a given identification result has one or more subsequent results related to it, false otherwise.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CivilIdentificationReasonCode" type="oirq-res-ext:CivilIdentificationReasonCodeType" substitutionGroup="oirq-res-ext:IdentificationReasonRepresentation" />
+	<xsd:complexType name="CivilIdentificationReasonCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="oirq-res-ext:CivilIdentificationReasonCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="CivilIdentificationReasonCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="F">
+				<xsd:annotation>
+					<xsd:documentation>Firearms</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="I">
+				<xsd:annotation>
+					<xsd:documentation>Volunteer, Child Care/School Employee, Non-Criminal Justice Employee and Licensing</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="J">
+				<xsd:annotation>
+					<xsd:documentation>Criminal Justice Employee</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="S">
+				<xsd:annotation>
+					<xsd:documentation>Security Clearance Information Act</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="CriminalIdentificationReasonCode" type="oirq-res-ext:CriminalIdentificationReasonCodeType" substitutionGroup="oirq-res-ext:IdentificationReasonRepresentation" />
+	<xsd:complexType name="CriminalIdentificationReasonCodeType">
+		<xsd:simpleContent>
+			<xsd:extension base="oirq-res-ext:CriminalIdentificationReasonCodeSimpleType">
+				<xsd:attributeGroup ref="structures:SimpleObjectAttributeGroup" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="CriminalIdentificationReasonCodeSimpleType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="CAR">
+				<xsd:annotation>
+					<xsd:documentation>Criminal Tenprint Submission</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="SOR">
+				<xsd:annotation>
+					<xsd:documentation>Sex Offender Registry</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="IdentificationReasonRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A representation of a reason why someone is being identified.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IdentificationReportedDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date that a person's identification was reported by an identifying authority.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IdentificationRequestingOrganization" type="nc:OrganizationType" nillable="true">
+		<xsd:annotation>
+			<xsd:documentation>The organization that requested identification of an individual.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="IdentificationSearchResultsRepresentation" abstract="true">
 		<xsd:annotation>
 			<xsd:documentation>A placeholder for an identification request document.</xsd:documentation>
@@ -72,7 +360,9 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResul
 	</xsd:element>
 	<xsd:element name="StateIdentificationSearchResultDocument" type="nc:DocumentType" substitutionGroup="oirq-res-ext:IdentificationSearchResultsRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A document usually returned by a State criminal history repository, based on a biometric submission, indicating whether a person has a criminal history with the state..</xsd:documentation>
+			<xsd:documentation>A document usually returned by a State criminal history repository, based on a biometric submission, indicating whether a
+				person has a criminal history with the state..
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FBIIdentityHistorySummaryDocument" type="nc:DocumentType" substitutionGroup="oirq-res-ext:IdentificationCriminalHistoryRepresentation">
@@ -82,8 +372,10 @@ targetNamespace="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResul
 	</xsd:element>
 	<xsd:element name="FBIIdentificationSearchResultDocument" type="nc:DocumentType" substitutionGroup="oirq-res-ext:IdentificationSearchResultsRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A document returned by the FBI, based on a biometric submission, indicating whether a person has a criminal history with the FBI.</xsd:documentation>
+			<xsd:documentation>A document returned by the FBI, based on a biometric submission, indicating whether a person has a criminal history with
+				the FBI.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xsd:base64Binary" xmime:expectedContentType="text/plain"/>
+	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xs:base64Binary" xmime:expectedContentType="text/plain" />
 </xsd:schema>
