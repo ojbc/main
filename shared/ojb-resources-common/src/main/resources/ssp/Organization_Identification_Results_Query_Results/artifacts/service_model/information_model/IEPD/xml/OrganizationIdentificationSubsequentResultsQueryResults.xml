@@ -17,27 +17,82 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<oisrq-res-doc:OrganizationIdentificationSubsequentResultsQueryResults 
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationSubsequentResultsQueryResults/1.0 ../xsd/SubsequentResultsQueryResults_schema.xsd" 
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" 
-	xmlns:oisrq-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationSubsequentResultsQueryResults/1.0" 
-	xmlns:oirq-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" 
-	xmlns:xop="http://www.w3.org/2004/08/xop/include"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" >
+<oisrq-res-doc:OrganizationIdentificationSubsequentResultsQueryResults
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationSubsequentResultsQueryResults/1.0 ../xsd/SubsequentResultsQueryResults_schema.xsd"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:oisrq-res-doc="http://ojbc.org/IEPD/Exchange/OrganizationIdentificationSubsequentResultsQueryResults/1.0"
+	xmlns:oirq-res-ext="http://ojbc.org/IEPD/Extensions/OrganizationIdentificationResultsQueryResults/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.0/" xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.0/">
+	<oirq-res-ext:IdentifiedPerson>
+		<nc:PersonBirthDate>
+			<nc:Date>1972-03-01</nc:Date>
+		</nc:PersonBirthDate>
+		<nc:PersonName>
+			<nc:PersonFullName>Michael Scott</nc:PersonFullName>
+		</nc:PersonName>
+		<j:PersonAugmentation>
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>F987654321</nc:IdentificationID>
+			</j:PersonFBIIdentification>
+			<j:PersonStateFingerprintIdentification>
+				<nc:IdentificationID>A123456</nc:IdentificationID>
+				<oirq-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>true
+				</oirq-res-ext:FingerprintIdentificationIssuedForCivilPurposeIndicator>
+			</j:PersonStateFingerprintIdentification>
+		</j:PersonAugmentation>
+		<!-- This is sometimes called the OTN -->
+		<oirq-res-ext:IdentifiedPersonTrackingIdentification>
+			<nc:IdentificationID>A1000999</nc:IdentificationID>
+		</oirq-res-ext:IdentifiedPersonTrackingIdentification>
+	</oirq-res-ext:IdentifiedPerson>
+	<oirq-res-ext:IdentificationResultStatusCode>Subscribed</oirq-res-ext:IdentificationResultStatusCode>
+	<oirq-res-ext:IdentificationRequestingOrganization structures:ref="ORG1" xsi:nil="true" />
+	<oirq-res-ext:Subscription>
+		<nc:ActivityDateRange>
+			<nc:StartDate>
+				<nc:Date>2014-03-12</nc:Date>
+			</nc:StartDate>
+			<nc:EndDate>
+				<nc:Date>2016-03-12</nc:Date>
+			</nc:EndDate>
+		</nc:ActivityDateRange>
+		<wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/civilArrest</wsn-br:Topic>
+		<oirq-res-ext:SubscriptionValidation>
+			<oirq-res-ext:SubscriptionValidationDueDate>
+				<nc:Date>2017-01-02</nc:Date>
+			</oirq-res-ext:SubscriptionValidationDueDate>
+		</oirq-res-ext:SubscriptionValidation>
+		<oirq-res-ext:SubscriptionIdentification>
+			<nc:IdentificationID>12345</nc:IdentificationID>
+		</oirq-res-ext:SubscriptionIdentification>
+	</oirq-res-ext:Subscription>
+	<oirq-res-ext:SubsequentResultsAvailableIndicator>true</oirq-res-ext:SubsequentResultsAvailableIndicator>
+	<oirq-res-ext:SourceSystemNameText>http://ojbc.org/Services/WSDL/Organization_Identification_Results_Search_Request_Service/Subscriptions/1.0}RapbackDatastore</oirq-res-ext:SourceSystemNameText>
+	<intel:SystemIdentification>
+		<nc:IdentificationID>123456</nc:IdentificationID>
+		<nc:SystemName>RapbackDataStore</nc:SystemName>
+	</intel:SystemIdentification>
+	<nc:EntityOrganization structures:id="ORG1">
+		<nc:OrganizationName>Agency ABC</nc:OrganizationName>
+		<j:OrganizationAugmentation>
+			<j:OrganizationORIIdentification>
+				<nc:IdentificationID>ORI1234</nc:IdentificationID>
+			</j:OrganizationORIIdentification>
+		</j:OrganizationAugmentation>
+	</nc:EntityOrganization>
 	<oirq-res-ext:StateCriminalHistoryRecordDocument structures:id="Doc_02">
 		<nc:DocumentBinary>
-				<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
+			<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
 		</nc:DocumentBinary>
 	</oirq-res-ext:StateCriminalHistoryRecordDocument>
 	<oirq-res-ext:FBIIdentityHistorySummaryDocument structures:id="Doc_04">
 		<nc:DocumentBinary>
-				<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
+			<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
 		</nc:DocumentBinary>
 	</oirq-res-ext:FBIIdentityHistorySummaryDocument>
 	<oirq-res-ext:FBIIdentityHistorySummaryDocument structures:id="Doc_05">
 		<nc:DocumentBinary>
-				<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
+			<oirq-res-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</oirq-res-ext:Base64BinaryObject>
 		</nc:DocumentBinary>
 	</oirq-res-ext:FBIIdentityHistorySummaryDocument>
 </oisrq-res-doc:OrganizationIdentificationSubsequentResultsQueryResults>
