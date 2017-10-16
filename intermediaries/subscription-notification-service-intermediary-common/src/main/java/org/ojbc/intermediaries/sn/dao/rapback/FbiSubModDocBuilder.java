@@ -16,9 +16,7 @@
  */
 package org.ojbc.intermediaries.sn.dao.rapback;
 
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_41;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_SUB_MSG_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SUB_MSG_EXT;
 
 import org.apache.log4j.Logger;
@@ -37,19 +35,11 @@ public class FbiSubModDocBuilder {
 
 	private static final Logger logger = Logger.getLogger(FbiSubModDocBuilder.class);
 	
-	private static final OjbcNamespaceContext CTXT = new OjbcNamespaceContext();
-	
-	
 	public Document buildFbiSubModDoc( FbiRapbackSubscription fbiRapbackSubscription, Document subscripitonDoc ) throws Exception{
 				
 		Document doc = OJBCXMLUtils.createDocument();
 		
 		Element modifyElement = doc.createElementNS(OjbcNamespaceContext.NS_B2, "Modify");
-		modifyElement.setPrefix(OjbcNamespaceContext.NS_PREFIX_B2);	
-		
-		modifyElement.setAttribute("xmlns:jxdm41", NS_JXDM_41 );
-		modifyElement.setAttribute("xmlns:" + NS_PREFIX_SUB_MSG_EXT, NS_SUB_MSG_EXT );
-		modifyElement.setAttribute("xmlns:nc", NS_NC);
 
 		doc.appendChild(modifyElement);
 				
@@ -102,8 +92,6 @@ public class FbiSubModDocBuilder {
 		}
 		
 		buildSubModEndDateElement(subModMsgElement, fbiRapbackSubscription);				
-		
-		CTXT.populateRootNamespaceDeclarations(doc.getDocumentElement());
 		
 		return doc;
 	}
