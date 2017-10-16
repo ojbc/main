@@ -57,6 +57,8 @@
 					
 					<camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace"/>
 					
+					<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
+
 					<to uri="fbiEbtsSubscriptionManagerEndpoint" />
 				</camel:when>
 				<otherwise>
@@ -72,6 +74,9 @@
 			
 			<convertBodyTo type="java.lang.String"/>
 			<camel:log message="\n\n\n Calling fbi ebts service to unsubscribe from FBI... \n\n\n"/>
+			
+			<camel:setHeader headerName="operationNamespace"><constant>http://docs.oasis-open.org/wsn/bw-2</constant></camel:setHeader>
+			
 			<camel:to uri="fbiEbtsSubscriptionManagerEndpoint" />														
 
 		</camel:route>		
