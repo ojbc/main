@@ -58,7 +58,7 @@
 			<xsl:apply-templates
 				select="../ebts:RecordTransactionActivity/nc:CaseTrackingID" />
 			<xsl:apply-templates
-				select="../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName=normalize-space('State Subscription ID')]/ebts:UserDefinedElementText"
+				select="../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName=normalize-space('STATE SUBSCRIPTION ID')]/ebts:UserDefinedElementText"
 				mode="stateSubscrID" />
 			<xsl:apply-templates
 				select="../ebts:RecordTransactionActivity/ebts:RecordControllingAgency" />
@@ -155,7 +155,7 @@
 		<jxdm50:PersonAugmentation>
 			<xsl:apply-templates select="jxdm41:PersonFBIIdentification" />
 			<xsl:apply-templates
-				select="../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName=normalize-space('State Fingerprint ID')]/ebts:UserDefinedElementText"
+				select="../ebts:RecordRapBackData/ebts:RecordRapBackUserDefinedElement[ebts:UserDefinedElementName=normalize-space('STATE FINGERPRINT ID')]/ebts:UserDefinedElementText"
 				mode="fingerPrint" />
 		</jxdm50:PersonAugmentation>
 	</xsl:template>
