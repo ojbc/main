@@ -74,7 +74,7 @@
 								$('#custodyTable tr').click(function () {
 								
 									var systemName =$(this).attr('systemName');
-									var identificationSourceText = encode($(this).attr('identificationSourceText'));
+									var identificationSourceText = encodeURI($(this).attr('identificationSourceText'));
 									var identificationID = $(this).attr('identificationID');
 																		
 									$('#custodyTable tr').removeClass("selected");
