@@ -100,7 +100,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:PersonType">
 				<xsd:sequence>
-					<xsd:element ref="ojbc:PersonPersistentIdentification" />
+					<xsd:element ref="ojbc:PersonPersistentIdentification" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
