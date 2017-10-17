@@ -17,15 +17,18 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:it="http://niem.gov/niem/domains/internationalTrade/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0">
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../NIEM_2.0/niem-core/2.0/niem-core.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/domains/internationalTrade/2.0" schemaLocation="../../NIEM_2.0/domains/internationalTrade/2.0/internationalTrade.xsd"/>
-	<xsd:import namespace="http://usdoj.gov/leisp/lexs/library/3.1" schemaLocation="../../lexs/library/3.1/library.xsd"/>
-	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="../../include_schema.xsd"/>
-	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="../../xmime_schema.xsd"/>
+<xsd:schema xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ojbc="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:it="http://niem.gov/niem/domains/internationalTrade/2.0"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extensions/ArrestReportStructuredPayload/1.0">
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../NIEM_2.0/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/internationalTrade/2.0" schemaLocation="../../NIEM_2.0/domains/internationalTrade/2.0/internationalTrade.xsd" />
+	<xsd:import namespace="http://usdoj.gov/leisp/lexs/library/3.1" schemaLocation="../../lexs/library/3.1/library.xsd" />
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="../../include_schema.xsd" />
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="../../xmime_schema.xsd" />
 	<xsd:annotation>
 		<xsd:documentation>Structured payload for the OJBC Arrest Report</xsd:documentation>
 	</xsd:annotation>
@@ -36,20 +39,20 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
-					<xsd:element ref="ojbc:RecordCategoryText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ojbc:RelatedFBISubscription" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ojbc:DocumentRequestorDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ojbc:Person" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ojbc:Location" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ojbc:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ojbc:Offense" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ojbc:Arrest" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ojbc:Booking" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ojbc:Warrant" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:LocationContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:ActivityArrestAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ojbc:ArrestDocumentRepresentation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ojbc:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="ojbc:RecordCategoryText" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojbc:RelatedFBISubscription" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojbc:DocumentRequestorDescriptionText" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojbc:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojbc:Location" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojbc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojbc:Offense" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojbc:Arrest" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojbc:Booking" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojbc:Warrant" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:LocationContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityArrestAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojbc:ArrestDocumentRepresentation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojbc:PersonStateFingerprintIdentification" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -58,8 +61,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:IdentificationType">
 				<xsd:sequence>
-					<xsd:element ref="ojbc:FingerprintIdentificationIssuedPurposeRepresentation"/>
-					<xsd:element ref="lexslib:SameAsDigestReference"/>
+					<xsd:element ref="ojbc:FingerprintIdentificationIssuedPurposeRepresentation" />
+					<xsd:element ref="lexslib:SameAsDigestReference" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -74,14 +77,20 @@
 			<xsd:documentation>A purpose for assigning a fingerprint ID.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FingerprintIdentificationIssuedForCivilPurposeIndicator" type="niem-xsd:boolean" substitutionGroup="ojbc:FingerprintIdentificationIssuedPurposeRepresentation">
+	<xsd:element name="FingerprintIdentificationIssuedForCivilPurposeIndicator" type="niem-xsd:boolean"
+		substitutionGroup="ojbc:FingerprintIdentificationIssuedPurposeRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for a civil background check, false otherwise.</xsd:documentation>
+			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for a civil background
+				check, false otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FingerprintIdentificationIssuedForCriminalPurposeIndicator" type="niem-xsd:boolean" substitutionGroup="ojbc:FingerprintIdentificationIssuedPurposeRepresentation">
+	<xsd:element name="FingerprintIdentificationIssuedForCriminalPurposeIndicator" type="niem-xsd:boolean"
+		substitutionGroup="ojbc:FingerprintIdentificationIssuedPurposeRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for an arrest, false otherwise.</xsd:documentation>
+			<xsd:documentation>True if a fingerprint-based identification number was assigned based on fingerprints submitted for an arrest, false
+				otherwise.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="PersonType">
@@ -91,7 +100,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:PersonType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="ojbc:PersonPersistentIdentification" />
+					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -103,9 +113,9 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:LocationType">
 				<xsd:sequence>
-					<xsd:element ref="it:LocationIdentification"/>
-					<xsd:element ref="nc:Locale" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="it:LocationIdentification" />
+					<xsd:element ref="nc:Locale" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -117,8 +127,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="nc:ContactEntityDescriptionText" maxOccurs="unbounded"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:ContactEntityDescriptionText" maxOccurs="unbounded" />
+					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -130,7 +140,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:OrganizationType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -142,10 +152,10 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-					<xsd:element ref="ojbc:OffenseViolatedStatute" minOccurs="0"/>
-					<xsd:element ref="ojbc:OffenseModifier" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="ojbc:OffenseCodeText" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="ojbc:OffenseViolatedStatute" minOccurs="0" />
+					<xsd:element ref="ojbc:OffenseModifier" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojbc:OffenseCodeText" minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -157,21 +167,22 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:ArrestType">
 				<xsd:sequence>
-				<xsd:element ref="j:ArrestProbableCauseText" minOccurs="0"/>
-				<xsd:element ref="j:ArrestSummonsIndicator" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="j:ArrestProbableCauseText" minOccurs="0" />
+					<xsd:element ref="j:ArrestSummonsIndicator" minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="BookingType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an administrative step taken after an arrest subject is brought to a police station or detention facility.</xsd:documentation>
+			<xsd:documentation>A data type for an administrative step taken after an arrest subject is brought to a police station or detention facility.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:BookingType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -183,7 +194,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:WarrantType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -195,8 +206,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ojbc:OffenseModifierRepresentation" maxOccurs="unbounded"/>
-					<xsd:element ref="ojbc:OffenseModifierDescriptionText" minOccurs="0"/>
+					<xsd:element ref="ojbc:OffenseModifierRepresentation" maxOccurs="unbounded" />
+					<xsd:element ref="ojbc:OffenseModifierDescriptionText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -208,7 +219,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="ojbc:RecordRapBackSubscriptionIdentification" minOccurs="0"/>
+					<xsd:element ref="ojbc:RecordRapBackSubscriptionIdentification" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -250,7 +261,10 @@
 	</xsd:element>
 	<xsd:element name="Booking" type="ojbc:BookingType">
 		<xsd:annotation>
-			<xsd:documentation>Details about an administrative step taken after an arrested subject is brought to a police station or detention facility, which involves entry of the subject's name and other relevant facts on the police "blotter", and which may also include photographing, fingerprinting, and the like.</xsd:documentation>
+			<xsd:documentation>Details about an administrative step taken after an arrested subject is brought to a police station or detention facility,
+				which involves entry of the subject's name and other relevant facts on the police "blotter", and which may also include photographing,
+				fingerprinting, and the like.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Warrant" type="ojbc:WarrantType">
@@ -260,7 +274,9 @@
 	</xsd:element>
 	<xsd:element name="Offense" type="ojbc:OffenseType">
 		<xsd:annotation>
-			<xsd:documentation>An act or a course of action which may constitute a violation of a criminal statute, ordinance or rule that occurred during an incident.</xsd:documentation>
+			<xsd:documentation>An act or a course of action which may constitute a violation of a criminal statute, ordinance or rule that occurred
+				during an incident.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="RecordCategoryText" type="nc:TextType">
@@ -268,38 +284,40 @@
 			<xsd:documentation>A type of record.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="DocumentRequestorDescriptionText" type="nc:TextType"/>
+	<xsd:element name="DocumentRequestorDescriptionText" type="nc:TextType" />
 	<xsd:annotation>
 		<xsd:documentation>A description of the entity requesting a document.</xsd:documentation>
 	</xsd:annotation>
 	<xsd:element name="OffenseModifierRepresentation" abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>An abstract representation of sub-category for an offense </xsd:documentation>
+			<xsd:documentation>An abstract representation of sub-category for an offense</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseModifierText" type="nc:TextType" substitutionGroup="ojbc:OffenseModifierRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A text representation special classification of an offense. </xsd:documentation>
+			<xsd:documentation>A text representation special classification of an offense.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseCodeText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A records management system's representation of an offense code. </xsd:documentation>
+			<xsd:documentation>A records management system's representation of an offense code.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseModifierDescriptionText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A description for a special classification of an offense. </xsd:documentation>
+			<xsd:documentation>A description for a special classification of an offense.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseModifier" type="ojbc:OffenseModifierType">
 		<xsd:annotation>
-			<xsd:documentation>A special classification of an offense. </xsd:documentation>
+			<xsd:documentation>A special classification of an offense.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FederalCriminalHistoryRecordDocument" type="nc:DocumentType" substitutionGroup="ojbc:ArrestDocumentRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A document sent by the FBI that contains the person's criminal history. Sometimes this is referred to as a federal rap sheet.</xsd:documentation>
+			<xsd:documentation>A document sent by the FBI that contains the person's criminal history. Sometimes this is referred to as a federal rap
+				sheet.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="ArrestDocumentRepresentation" abstract="true">
@@ -317,5 +335,12 @@
 			<xsd:documentation>An identification associated with a rap back subscription.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xsd:base64Binary" xmime:expectedContentType="text/plain"/>
+	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xsd:base64Binary" xmime:expectedContentType="text/plain" />
+	<xsd:element name="PersonPersistentIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique and timeless identifier assigned to an individual and always belongs to that individual. This allows for
+				identifying activities and information that belong to a person without always needing to share PII about that individual.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 </xsd:schema>
