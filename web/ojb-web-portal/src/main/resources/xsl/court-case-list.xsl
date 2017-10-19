@@ -123,7 +123,17 @@
             >
             <xsl:attribute name="identificationID"><xsl:value-of select="intel:SystemIdentification/nc:IdentificationID"/></xsl:attribute>
             
-            <td><xsl:value-of select="nc:Case/nc:CaseTrackingID"/></td>
+            <td>
+            	<xsl:choose>
+            		<xsl:when test="nc:Case/nc:CaseTrackingID !=''">
+            				<xsl:value-of select="nc:Case/nc:CaseTrackingID"/>
+            		</xsl:when>
+            		<xsl:otherwise>
+            			<xsl:value-of select="$associatedCaseId"></xsl:value-of>
+            		</xsl:otherwise>
+            	</xsl:choose>
+            
+            </td>
             <td>
             	<xsl:value-of select="normalize-space(nc:Case/j:CaseAugmentation/j:CaseCourt/j:CourtName)"/>
             	<xsl:text> vs. </xsl:text>
