@@ -598,10 +598,15 @@
 					<xsl:value-of select="nc:PersonEthnicityText"></xsl:value-of>	
 				</th>
 				<th colspan="2"><label>Juvenile: </label>
+					<xsl:variable name="sortedCitationDates">
+	         		 	<xsl:perform-sort select="parent::ccq-res-doc:CourtCaseQueryResults/j:Citation/j:CitationViolation/nc:ActivityDate/nc:Date">
+					     <xsl:sort select="."/>
+					  </xsl:perform-sort>
+       				 </xsl:variable>
+       				 <xsl:variable name="latestCitationDate" select="$sortedCitationDates/nc:Date[last()]"/>
 					<xsl:call-template name="getJuvenileIndicator">
 						<xsl:with-param name="birthDate" select="nc:PersonBirthDate/nc:Date"/>
-						<xsl:with-param name="violationDate" 
-							select="parent::ccq-res-doc:CourtCaseQueryResults/j:Citation/j:CitationViolation/nc:ActivityDate/nc:Date"/>
+						<xsl:with-param name="violationDate" select="$latestCitationDate"/>					
 					</xsl:call-template>	
 				</th>
 			</tr>
