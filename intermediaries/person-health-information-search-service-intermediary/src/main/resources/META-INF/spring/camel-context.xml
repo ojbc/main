@@ -307,7 +307,7 @@
 		<property name="requestFileDelayInMillis" value="5000"/>
 		<property name="startHour" value="20"/>
 		<property name="endHour" value="3"/>
-		<property name="checkTime" value="true"/>
+		<property name="checkTime" value="${performTimeCheckForLoading}"/>
 	</bean>				
 					
 	<bean id="uuidGenerator" class="org.ojbc.util.camel.helper.OJBUtils"/>				
