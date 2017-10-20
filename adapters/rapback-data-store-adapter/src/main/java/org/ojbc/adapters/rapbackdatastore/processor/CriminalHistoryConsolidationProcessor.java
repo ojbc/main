@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -53,6 +54,9 @@ public class CriminalHistoryConsolidationProcessor {
 
     @Value("${rapbackDatastoreAdapter.agencyNotificationEmailAddress:agencyemail@local.gov}")
     private String agencyNotificationEmailAddress;
+    
+    @Value("${rapbackDatastoreAdapter.consolidateEmailAddresses:false}")
+    private boolean consolidateEmailAddresses;
     
     private final static String STATE_USER_EXPUNGEMENT_EMAIL_TEMPLATE ="<Old SID> has been deleted from CJIS-Hawaii and the State AFIS; you will no longer receive Rap Back notifications on this offender.  Please logon to the HIJIS Portal to update your subscription as necessary.";
     private final static String STATE_AGENCY_EXPUNGEMENT_EMAIL_TEMPLATE="<Old SID> EMAIL TEMPLATE PENDING";
@@ -225,7 +229,8 @@ public class CriminalHistoryConsolidationProcessor {
 				consolidationNotificationForUser.setEmailBody(emailBody);
 				
 				consolidationNotificationForUser.setEmailSubject(returnStateEmailSubject(consolidationNotificationForUser, currentUcn));
-				consolidationNotificationForUser.setEmailTo(subscription.getSubscriptionOwnerEmailAddress());
+				
+				addCriminalHistoryNotificationEmails(criminalHistoryConsolidationNotifications, consolidationNotificationForUser, subscription);
 				
 				criminalHistoryConsolidationNotifications.add(consolidationNotificationForUser);
 				
@@ -273,7 +278,7 @@ public class CriminalHistoryConsolidationProcessor {
 				consolidationNotificationForUser.setEmailBody(emailBody);
 				
 				consolidationNotificationForUser.setEmailSubject(returnStateEmailSubject(consolidationNotificationForUser, currentSid));
-				consolidationNotificationForUser.setEmailTo(subscription.getSubscriptionOwnerEmailAddress());
+				addCriminalHistoryNotificationEmails(criminalHistoryConsolidationNotifications, consolidationNotificationForUser, subscription);
 				
 				criminalHistoryConsolidationNotifications.add(consolidationNotificationForUser);
 				
@@ -356,12 +361,11 @@ public class CriminalHistoryConsolidationProcessor {
 	    		{
 	    			chcNotification.setConsolidationType("reportUCNExpungementToUser");
 	    		}	
-
-	    		chcNotification.setEmailTo(subscriptionMatchingFBIID.getSubscriptionOwnerEmailAddress());
+	    		
 	    		chcNotification.setEmailBody(returnFederalNotificationEmailBody(chcNotification, currentUcn, newUcn));
 	    		chcNotification.setEmailSubject(returnFederalEmailSubject(chcNotification, currentUcn));
 	    		
-	    		criminalHistoryConsolidationNotifications.add(chcNotification);
+	    		addCriminalHistoryNotificationEmails(criminalHistoryConsolidationNotifications, chcNotification, subscriptionMatchingFBIID);
 				
 			}	
 		}
@@ -482,11 +486,11 @@ public class CriminalHistoryConsolidationProcessor {
     		
     		chcNotification.setSubscription(subscription);
     		chcNotification.setConsolidationType(consolidationType);
-    		chcNotification.setEmailTo(subscription.getSubscriptionOwnerEmailAddress());
     		chcNotification.setEmailBody(returnStateNotificationEmailBody(chcNotification, currentSid, newSid));
     		chcNotification.setEmailSubject(returnStateEmailSubject(chcNotification, currentSid));
+
+    		addCriminalHistoryNotificationEmails(criminalHistoryConsolidationNotifications, chcNotification, subscription);
     		
-    		criminalHistoryConsolidationNotifications.add(chcNotification);
     		
     	}
     	
@@ -494,6 +498,40 @@ public class CriminalHistoryConsolidationProcessor {
 	}    
     
 	
+	private void addCriminalHistoryNotificationEmails(
+			List<CriminalHistoryConsolidationNotification> criminalHistoryConsolidationNotifications, CriminalHistoryConsolidationNotification chcNotification,
+			Subscription subscription) {
+			
+			Set<String> emailAddressesToNotify = subscription.getEmailAddressesToNotify();
+			
+			if (consolidateEmailAddresses)
+			{
+				String commaSeperateEmails = String.join(",", emailAddressesToNotify);
+				
+				if (!emailAddressesToNotify.contains(subscription.getSubscriptionOwnerEmailAddress()))
+				{
+					commaSeperateEmails = commaSeperateEmails + "," + subscription.getSubscriptionOwnerEmailAddress();
+				}	
+				
+				chcNotification.setEmailTo(commaSeperateEmails);
+				
+				criminalHistoryConsolidationNotifications.add(chcNotification);
+			}	
+			else
+			{	
+				chcNotification.setEmailTo(subscription.getSubscriptionOwnerEmailAddress());
+				criminalHistoryConsolidationNotifications.add(chcNotification);
+
+				for(String emailAddress : emailAddressesToNotify)
+				{
+					CriminalHistoryConsolidationNotification uniqueCCN = new CriminalHistoryConsolidationNotification(chcNotification);
+					uniqueCCN.setEmailTo(emailAddress);
+					criminalHistoryConsolidationNotifications.add(uniqueCCN);
+				}
+				
+			}	
+	}
+
 	/**
 	 * This method will make sure we only have unique notifications by creating a map using the 'to' address 
 	 * and then converting that back to a list
