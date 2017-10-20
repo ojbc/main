@@ -19,6 +19,7 @@ package org.ojbc.bundles.intermediaries.personhealthsearch.processor;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalTime;
 
 import org.apache.camel.Body;
 import org.apache.commons.lang.StringUtils;
@@ -32,6 +33,59 @@ public class PersonHealthFileSearchProcessor {
 
 	private Logger logger = Logger.getLogger(PersonHealthResponseAggregator.class);
 	private String responseRootFilePath;
+	private String requestFileRepositoryPath;
+	private String requestFilePath;
+	private Integer requestFileDelayInMillis;
+	private Integer startHour;
+	private Integer endHour;
+	private boolean checkTime;
+	
+	public void processRequestFileRepository() throws Exception
+	{
+		final File folder = new File(requestFileRepositoryPath);
+		
+	    for (final File fileEntry : folder.listFiles()) {
+	        if (!fileEntry.isDirectory()) {
+	        	
+	            if (outsideAllowedTimeInterval())
+	            {
+	            	logger.info("\n\n\n\n\nOutside allowed time interval, exit!!\n\n\n\n");
+	            	return;
+	            }	
+	            
+	            logger.info("File Name: " + fileEntry.getName());
+	            
+	            boolean isMoved = fileEntry.renameTo(new File(requestFilePath + "/" + fileEntry.getName()));
+	            if (isMoved) 
+	            {
+	                logger.info("File Moved to: " + requestFilePath + "/" + fileEntry.getName());
+	            }
+	            else
+	            {
+	            	logger.error("Unable to create .done file: " + requestFilePath + "/" + fileEntry.getName() );
+	            }	
+	            
+	            Thread.sleep(requestFileDelayInMillis);
+
+	        }
+	    }
+	}
+	
+	private boolean outsideAllowedTimeInterval() {
+		LocalTime now = LocalTime.now();
+		
+		logger.info("Current hour: " + now.getHour() + ", start hour: " + startHour + " end hour: " + endHour);
+		
+		if (checkTime)
+		{	
+			if (now.getHour() < startHour && now.getHour() >= endHour)
+			{
+				return true;
+			}	
+		}
+		
+		return false;
+	}
 	
 	public boolean searchForPersonHealthResponse(@Body Document requestMessage) throws Exception
 	{
@@ -76,6 +130,9 @@ public class PersonHealthFileSearchProcessor {
 		{
 			content = new String(Files.readAllBytes(Paths.get(responseRootFilePath + "/" + hashedExtractedFileName)));
 		}	
+		
+		//Allow timer to be the first exchange
+		Thread.sleep(1000);
 		
 		return content;
 	}
@@ -189,6 +246,54 @@ public class PersonHealthFileSearchProcessor {
 
 	public void setResponseRootFilePath(String responseRootFilePath) {
 		this.responseRootFilePath = responseRootFilePath;
+	}
+
+	public String getRequestFileRepositoryPath() {
+		return requestFileRepositoryPath;
+	}
+
+	public void setRequestFileRepositoryPath(String requestFileRepositoryPath) {
+		this.requestFileRepositoryPath = requestFileRepositoryPath;
+	}
+
+	public Integer getRequestFileDelayInMillis() {
+		return requestFileDelayInMillis;
+	}
+
+	public void setRequestFileDelayInMillis(Integer requestFileDelayInMillis) {
+		this.requestFileDelayInMillis = requestFileDelayInMillis;
+	}
+
+	public Integer getStartHour() {
+		return startHour;
+	}
+
+	public void setStartHour(Integer startHour) {
+		this.startHour = startHour;
+	}
+
+	public Integer getEndHour() {
+		return endHour;
+	}
+
+	public void setEndHour(Integer endHour) {
+		this.endHour = endHour;
+	}
+
+	public String getRequestFilePath() {
+		return requestFilePath;
+	}
+
+	public void setRequestFilePath(String requestFilePath) {
+		this.requestFilePath = requestFilePath;
+	}
+
+	public boolean isCheckTime() {
+		return checkTime;
+	}
+
+	public void setCheckTime(boolean checkTime) {
+		this.checkTime = checkTime;
 	}
 
 }
