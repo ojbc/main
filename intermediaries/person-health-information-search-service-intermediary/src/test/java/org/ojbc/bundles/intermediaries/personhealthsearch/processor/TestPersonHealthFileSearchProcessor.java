@@ -23,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.ojbc.bundles.intermediaries.personhealthsearch.aggregator.PersonHealthResponseAggregator;
 import org.ojbc.util.camel.helper.OJBUtils;
@@ -32,6 +33,24 @@ import org.w3c.dom.Document;
 public class TestPersonHealthFileSearchProcessor {
 
 	private Logger logger = Logger.getLogger(PersonHealthResponseAggregator.class);
+
+	@Test
+	@Ignore
+	public void testProcessRequestFileRepository() throws Exception
+	{
+		PersonHealthFileSearchProcessor personHealthFileSearchProcessor = new PersonHealthFileSearchProcessor();
+		
+		personHealthFileSearchProcessor.setRequestFileRepositoryPath("/tmp/ojb/demo/custodyBooking/booking/PHI/inputRepository");
+		
+		personHealthFileSearchProcessor.setRequestFilePath("/tmp/ojb/demo/custodyBooking/booking/PHI/input");
+		
+		personHealthFileSearchProcessor.setRequestFileDelayInMillis(3000);
+		
+		personHealthFileSearchProcessor.setStartHour(12);
+		personHealthFileSearchProcessor.setEndHour(1);
+		
+		personHealthFileSearchProcessor.processRequestFileRepository();
+	}
 	
 	@Test
 	public void testExtractFileName() throws Exception
