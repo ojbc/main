@@ -30,6 +30,19 @@ public class CriminalHistoryConsolidationNotification {
 	
 	private String emailSubject;
 	
+	public CriminalHistoryConsolidationNotification() {
+		super();
+	}
+	
+	public CriminalHistoryConsolidationNotification(CriminalHistoryConsolidationNotification originalNotification) {
+		super();
+		this.subscription = originalNotification.subscription; //shallow clone
+		this.consolidationType = originalNotification.consolidationType;
+		this.emailTo = originalNotification.emailTo;
+		this.emailBody = originalNotification.emailBody;
+		this.emailSubject = originalNotification.emailSubject;
+	}
+
 	public Subscription getSubscription() {
 		return subscription;
 	}
