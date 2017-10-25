@@ -22,7 +22,7 @@ public class TestUserInfoProcessor {
 	@Test
 	public void testProcessPersonSearchRequest() throws Exception
 	{
-		UserInfoProcessor userInfoProcessor = new UserInfoProcessor();
+		AbstractUserInfoProcessor userInfoProcessor = new UserInfoNullObjectProcessor();
 
 		SAMLAssertionBuilder sab = new SAMLAssertionBuilder();
 		

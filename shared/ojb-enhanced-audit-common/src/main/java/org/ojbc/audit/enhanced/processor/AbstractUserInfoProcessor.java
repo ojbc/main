@@ -19,45 +19,19 @@ package org.ojbc.audit.enhanced.processor;
 import java.util.List;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.component.cxf.common.message.CxfConstants;
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.message.Message;
-import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
-import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
 import org.opensaml.xml.XMLObject;
 
-public class UserInfoProcessor {
+public abstract class AbstractUserInfoProcessor {
 
-	private static final Log log = LogFactory.getLog(UserInfoProcessor.class);
+	private static final Log log = LogFactory.getLog(AbstractUserInfoProcessor.class);
 	
-	private EnhancedAuditDAO enhancedAuditDAO;
-	
-	public Integer auditUserInfo(Exchange exchange)
-	{
-		Integer userInfoPk = null;
-		
-		try {
-			Message cxfMessage = exchange.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE, Message.class);
-			SAMLTokenPrincipal token = (SAMLTokenPrincipal)cxfMessage.get("wss4j.principal.result");
-			Assertion assertion = token.getToken().getSaml2();
-
-			UserInfo userInfo = processUserInfoRequest(assertion);
-			
-			enhancedAuditDAO.saveUserInfo(userInfo);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("Unable to audit user info request: " + ExceptionUtils.getStackTrace(e));
-		}
-		
-		return userInfoPk;
-	}
+	public abstract Integer auditUserInfo(Exchange exchange);
 	
 	UserInfo processUserInfoRequest(Assertion assertion) throws Exception
 	{
@@ -147,14 +121,6 @@ public class UserInfoProcessor {
 		}	
 		
         return userInfoRequest;
-	}
-
-	public EnhancedAuditDAO getEnhancedAuditDAO() {
-		return enhancedAuditDAO;
-	}
-
-	public void setEnhancedAuditDAO(EnhancedAuditDAO enhancedAuditDAO) {
-		this.enhancedAuditDAO = enhancedAuditDAO;
 	}
 	
 }

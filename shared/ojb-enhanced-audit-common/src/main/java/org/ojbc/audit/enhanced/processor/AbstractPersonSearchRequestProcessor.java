@@ -24,10 +24,8 @@ import java.util.List;
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -35,45 +33,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class PersonSearchRequestProcessor {
+public abstract class AbstractPersonSearchRequestProcessor {
 
-	private static final Log log = LogFactory.getLog(PersonSearchRequestProcessor.class);
-	
-	private EnhancedAuditDAO enhancedAuditDAO;
+	private static final Log log = LogFactory.getLog(AbstractPersonSearchRequestProcessor.class);
 	
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
-	private UserInfoProcessor userInfoProcessor;
-	
-	public void auditPersonSearchRequest(Exchange exchange, @Body Document document)
-	{
-		try {
-			
-			Integer userInfoPk = userInfoProcessor.auditUserInfo(exchange);
-			
-			PersonSearchRequest personSearchRequest = processPersonSearchRequest(document);
-			
-			personSearchRequest.setUserInfofk(userInfoPk);
-			
-			Integer personSearchRequestPK = enhancedAuditDAO.savePersonSearchRequest(personSearchRequest);
-			
-			for (String systemToSearch : personSearchRequest.getSystemsToSearch())
-			{
-				Integer systemToSearchPK = enhancedAuditDAO.retrieveSystemToSearchIDFromURI(systemToSearch);
-				
-				if (personSearchRequestPK != null && systemToSearchPK != null)
-				{
-					enhancedAuditDAO.savePersonSystemToSearch(personSearchRequestPK, systemToSearchPK);
-				}	
-				
-			}	
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("Unable to audit person search request: " + ExceptionUtils.getStackTrace(e));
-		}
-		
-	}
+	public abstract void auditPersonSearchRequest(Exchange exchange, @Body Document document);
 	
 	PersonSearchRequest processPersonSearchRequest(Document document) throws Exception
 	{
@@ -97,10 +63,8 @@ public class PersonSearchRequestProcessor {
                 String personGivenNameQualiferCode = XmlUtils.xPathStringSearch(document, 
                 		"/psr-doc:PersonSearchRequest/psr:SearchMetadata[@s:id = '" + personGivenNameID + "']/psr:SearchQualifierCode");
 
-                if (StringUtils.isNotEmpty(personGivenNameQualiferCode)) {
-                	
-                    personSearchRequest.setFirstNameQualifier(enhancedAuditDAO.retrieveSearchQualifierCodeIDfromCodeName(personGivenNameQualiferCode));
-                }
+                personSearchRequest.setFirstNameQualifierCode(personGivenNameQualiferCode);
+                
             }
 
             String personSurNameID = XmlUtils.xPathStringSearch(personName, "nc:PersonSurName/@s:metadata");
@@ -110,10 +74,7 @@ public class PersonSearchRequestProcessor {
                 String personSurNameQualiferCode = XmlUtils.xPathStringSearch(document, 
                 		"/psr-doc:PersonSearchRequest/psr:SearchMetadata[@s:id = '" + personSurNameID + "']/psr:SearchQualifierCode");
 
-                if (StringUtils.isNotEmpty(personSurNameQualiferCode)) {
-
-                    personSearchRequest.setLastNameQualifier(enhancedAuditDAO.retrieveSearchQualifierCodeIDfromCodeName(personSurNameQualiferCode));
-                }
+                personSearchRequest.setLastNameQualifierCode(personSurNameQualiferCode);
             }
 
             String s = XmlUtils.xPathStringSearch(personName, "nc:PersonSurName");
@@ -221,20 +182,4 @@ public class PersonSearchRequestProcessor {
         return personSearchRequest;
 	}
 
-	public EnhancedAuditDAO getEnhancedAuditDAO() {
-		return enhancedAuditDAO;
-	}
-
-	public void setEnhancedAuditDAO(EnhancedAuditDAO enhancedAuditDAO) {
-		this.enhancedAuditDAO = enhancedAuditDAO;
-	}
-
-	public UserInfoProcessor getUserInfoProcessor() {
-		return userInfoProcessor;
-	}
-
-	public void setUserInfoProcessor(UserInfoProcessor userInfoProcessor) {
-		this.userInfoProcessor = userInfoProcessor;
-	}
-	
 }
