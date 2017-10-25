@@ -65,8 +65,8 @@ public class TestPersonSearchRequestProcessor {
 		assertEquals("BLU", personSearchRequest.getEyeCode());
 		assertEquals("BLK", personSearchRequest.getHairCode());
 		assertEquals(2, personSearchRequest.getSystemsToSearch().size());
-		assertEquals("{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History", personSearchRequest.getSystemsToSearch().get(0));
-		assertEquals("{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants", personSearchRequest.getSystemsToSearch().get(1));
+		assertEquals("{system1}URI", personSearchRequest.getSystemsToSearch().get(0));
+		assertEquals("{system2}URI", personSearchRequest.getSystemsToSearch().get(1));
 		
 	}
 	

@@ -61,6 +61,12 @@ public class PersonSearchRequestProcessor {
 			
 			for (String systemToSearch : personSearchRequest.getSystemsToSearch())
 			{
+				Integer systemToSearchPK = enhancedAuditDAO.retrieveSystemToSearchIDFromURI(systemToSearch);
+				
+				if (personSearchRequestPK != null && systemToSearchPK != null)
+				{
+					enhancedAuditDAO.savePersonSystemToSearch(personSearchRequestPK, systemToSearchPK);
+				}	
 				
 			}	
 			

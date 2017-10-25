@@ -69,8 +69,8 @@
          </PersonStateFingerprintIdentification>
       </PersonAugmentation>
    </Person>
-   <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0">{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Criminal_History/1.0}Submit-Person-Search---Criminal-History</SourceSystemNameText>
-   <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0">{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants</SourceSystemNameText>
+   <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0">{system1}URI</SourceSystemNameText>
+   <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0">{system2}URI</SourceSystemNameText>
    <SearchMetadata xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" NS1:id="SM001">
       <SearchQualifierCode>exact</SearchQualifierCode>
    </SearchMetadata>
