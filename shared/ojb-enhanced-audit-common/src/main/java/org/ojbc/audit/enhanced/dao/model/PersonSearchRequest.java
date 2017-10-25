@@ -24,6 +24,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public class PersonSearchRequest {
 
+	private Integer personSearchRequestID;
+	
 	private String firstName;
 	
 	private Integer firstNameQualifier;
@@ -256,5 +258,13 @@ public class PersonSearchRequest {
 
 	public void setLastNameQualifierCode(String lastNameQualifierCode) {
 		this.lastNameQualifierCode = lastNameQualifierCode;
+	}
+
+	public Integer getPersonSearchRequestID() {
+		return personSearchRequestID;
+	}
+
+	public void setPersonSearchRequestID(Integer personSearchRequestID) {
+		this.personSearchRequestID = personSearchRequestID;
 	}
 }

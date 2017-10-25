@@ -54,6 +54,9 @@ public class PersonSearchRequestSQLProcessor extends AbstractPersonSearchRequest
                 personSearchRequest.setLastNameQualifier(enhancedAuditDAO.retrieveSearchQualifierCodeIDfromCodeName(personSearchRequest.getLastNameQualifierCode()));
             }
 			
+            String messageId = (String) exchange.getIn().getHeader("federatedQueryRequestGUID");
+            personSearchRequest.setMessageId(messageId);
+            
 			Integer personSearchRequestPK = enhancedAuditDAO.savePersonSearchRequest(personSearchRequest);
 			
 			for (String systemToSearch : personSearchRequest.getSystemsToSearch())
@@ -80,6 +83,14 @@ public class PersonSearchRequestSQLProcessor extends AbstractPersonSearchRequest
 
 	public void setEnhancedAuditDAO(EnhancedAuditDAO enhancedAuditDAO) {
 		this.enhancedAuditDAO = enhancedAuditDAO;
+	}
+
+	public UserInfoSQLProcessor getUserInfoProcessor() {
+		return userInfoProcessor;
+	}
+
+	public void setUserInfoProcessor(UserInfoSQLProcessor userInfoProcessor) {
+		this.userInfoProcessor = userInfoProcessor;
 	}
 
 
