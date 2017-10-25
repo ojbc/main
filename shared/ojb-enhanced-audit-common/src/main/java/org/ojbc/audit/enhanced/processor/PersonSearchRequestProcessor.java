@@ -53,8 +53,6 @@ public class PersonSearchRequestProcessor {
 			
 			PersonSearchRequest personSearchRequest = processPersonSearchRequest(document);
 			
-			//convert first and last name qualifiers
-			
 			personSearchRequest.setUserInfofk(userInfoPk);
 			
 			Integer personSearchRequestPK = enhancedAuditDAO.savePersonSearchRequest(personSearchRequest);
@@ -71,7 +69,6 @@ public class PersonSearchRequestProcessor {
 			}	
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			log.error("Unable to audit person search request: " + ExceptionUtils.getStackTrace(e));
 		}
