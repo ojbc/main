@@ -36,6 +36,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -87,7 +88,7 @@ public class EnhancedAuditDaoTest {
 		psr.setSsn("123-45-7890");
 		psr.setStateId("state");
 		
-		enhancedAuditDao.savePersonSearchRequest(psr);
+		Integer psrIdFromSave = enhancedAuditDao.savePersonSearchRequest(psr);
 		
 		List<String> systemsToSearch=new ArrayList<String>();
 		
@@ -96,6 +97,27 @@ public class EnhancedAuditDaoTest {
 		
 		psr.setSystemsToSearch(null);
 		psr.setUserInfofk(userInfoPk);
+		
+		Integer psrIdFromRetreive = enhancedAuditDao.retrievePersonSearchIDfromMessageID("123456");
+		
+		log.info("ID from save: " + psrIdFromSave);
+		log.info("ID from retreive: " + psrIdFromRetreive);
+		
+		assertEquals(psrIdFromSave, psrIdFromRetreive);
+		
+		PersonSearchResult psResult = new PersonSearchResult();
+		
+		psResult.setPersonSearchRequestId(psrIdFromRetreive);
+		psResult.setSearchResultsCount(5);
+		psResult.setSystemSearchResultURI("{system1}URI");
+		
+		Integer systemToSearchID = enhancedAuditDao.retrieveSystemToSearchIDFromURI(psResult.getSystemSearchResultURI());
+		
+		psResult.setSystemSearchResultID(systemToSearchID);
+		
+		Integer psresultIdFromSave = enhancedAuditDao.savePersonSearchResult(psResult);
+		
+		assertNotNull(psresultIdFromSave);
 	}
 	
 
@@ -120,6 +142,7 @@ public class EnhancedAuditDaoTest {
 		
 	}
 
+	
 	private Integer saveUserInfo() {
 		UserInfo userInfo = new UserInfo();
 		

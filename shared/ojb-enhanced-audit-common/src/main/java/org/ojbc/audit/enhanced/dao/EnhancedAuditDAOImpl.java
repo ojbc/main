@@ -30,6 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.SearchQualifierCodes;
 import org.ojbc.audit.enhanced.dao.model.SystemsToSearch;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
@@ -62,7 +63,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		if (systemsToSearch.isEmpty())
 		{	
-			final String SELECT_STATEMENT="SELECT * from SEARCH_QUALIFIER_CODES";
+			final String SELECT_STATEMENT="SELECT * from SYSTEMS_TO_SEARCH";
 	
 			List<SystemsToSearch> systemsToSearchlist = jdbcTemplate.query(SELECT_STATEMENT, new SystemsToSearchRowMapper());
 			
@@ -184,6 +185,36 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	}	
 	
 	@Override
+	public Integer savePersonSearchResult(PersonSearchResult personSearchResult) {
+        log.debug("Inserting row into PERSON_SEARCH_RESULTS table : " + personSearchResult);
+        
+        final String PERSON_SEARCH_RESULT_INSERT="INSERT into PERSON_SEARCH_RESULTS "
+        		+ "(PERSON_SEARCH_REQUEST_ID,SYSTEMS_TO_SEARCH_ID,SEARCH_RESULTS_ERROR_INDICATOR,SEARCH_RESULTS_ERROR_TEXT,SEARCH_RESULTS_TIMEOUT_INDICATOR,SEARCH_RESULTS_COUNT)"
+        		+ "values (?, ?, ?, ?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(PERSON_SEARCH_RESULT_INSERT, new String[] {"PERSON_SEARCH_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getPersonSearchRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSystemSearchResultID(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsErrorIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsErrorText(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsTimeoutIndicator(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsCount(), ps, 6);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}
+
+	
+	@Override
 	public Integer savePersonSearchRequest(
 			PersonSearchRequest personSearchRequest) {
 		
@@ -258,6 +289,32 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		List<FederalRapbackSubscription> federalRapbackSubscriptions = jdbcTemplate.query(SUBSCRIPTION_SELECT, new FederalRapbackSubscriptionRowMapper(), transactionControlNumber);
 		return DataAccessUtils.singleResult(federalRapbackSubscriptions);	
+	}
+	
+	@Override
+	public Integer retrievePersonSearchIDfromMessageID(String messageId) {
+		final String SUBSCRIPTION_SELECT="SELECT * FROM PERSON_SEARCH_REQUEST WHERE MESSAGE_ID = ?";
+		
+		Integer ret = null;
+		
+		List<PersonSearchRequest> personSearchRequests = jdbcTemplate.query(SUBSCRIPTION_SELECT, new PersonSearchRequestRowMapper(), messageId);
+		
+		if (personSearchRequests == null)
+		{
+			throw new IllegalStateException("Unable to retrieve person search request ID");
+		}
+		
+		if (personSearchRequests.size() == 0 ||  personSearchRequests.size() > 1)
+		{
+			throw new IllegalStateException("Query returned zero or more than person search request, size: " + personSearchRequests.size());
+		}
+		
+		if (personSearchRequests.size() == 1)
+		{
+			ret = personSearchRequests.get(0).getPersonSearchRequestID();
+		}	
+
+		return ret;
 	}
 	
 
@@ -358,6 +415,27 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		}
 	}
 	
+	private final class PersonSearchRequestRowMapper implements RowMapper<PersonSearchRequest> {
+		public PersonSearchRequest mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			PersonSearchRequest personSearchRequest = buildPersonSearchRequest(rs);
+			return personSearchRequest;
+		}
+
+		private PersonSearchRequest buildPersonSearchRequest(
+				ResultSet rs) throws SQLException{
+
+			PersonSearchRequest personSearchRequest = new PersonSearchRequest();
+			
+			personSearchRequest.setMessageId(rs.getString("MESSAGE_ID"));
+			personSearchRequest.setPersonSearchRequestID(rs.getInt("PERSON_SEARCH_REQUEST_ID"));
+			
+			return personSearchRequest;
+		}
+	}
+	
+	
+	
 	private LocalDateTime toLocalDateTime(Timestamp timestamp){
 		return timestamp == null? null : timestamp.toLocalDateTime();
 	}
@@ -382,6 +460,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 	}
+
 
 
 }

@@ -18,6 +18,7 @@ package org.ojbc.audit.enhanced.dao;
 
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 
 
@@ -31,6 +32,8 @@ public interface EnhancedAuditDAO {
 	
 	public Integer savePersonSearchRequest(PersonSearchRequest personSearchRequest);
 	
+	public Integer savePersonSearchResult(PersonSearchResult personSearchResult);
+	
 	public Integer saveUserInfo(UserInfo userInfo);
 	
 	public UserInfo retrieveUserInfoFromId(Integer userInfoPk);
@@ -40,5 +43,7 @@ public interface EnhancedAuditDAO {
 	public Integer retrieveSearchQualifierCodeIDfromCodeName(String codeName);
 	
 	public Integer savePersonSystemToSearch(Integer pearchSearchPk, Integer systemsToSearchPk);
+	
+	public Integer retrievePersonSearchIDfromMessageID(String messageId);
 	
 }
