@@ -35,6 +35,24 @@
 		</constructor-arg>
 	</bean>
 
+	<bean id="personSearchSQLLoggingProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="personSearchSQLLoggingProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-search-request-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.audit.enhanced.processor.PersonSearchRequestNullObjectProcessor">
+				<property name="userInfoProcessor" ref="userInfoSQLProcessor"/>
+			</bean>		
+		</constructor-arg>
+	</bean>
+
+	<bean id="userInfoSQLProcessor" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
+		<constructor-arg name="beanName" value="userInfoSQLProcessor" />
+		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-search-request-service-intermediary-context" />
+		<constructor-arg name="defaultObject">
+			<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor"/>
+		</constructor-arg>
+	</bean>
+
 	<bean id="dataSource" class="org.ojbc.util.osgi.SubstitutableObjectFactoryBean" factory-method="getObject">
 		<constructor-arg name="beanName" value="dataSource" />
 		<constructor-arg name="ojbcContext" ref="org.ojbc.bundles.intermediaries.person-search-request-service-intermediary-context" />

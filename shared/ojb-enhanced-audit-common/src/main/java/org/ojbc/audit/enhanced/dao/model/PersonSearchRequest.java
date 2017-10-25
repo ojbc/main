@@ -28,11 +28,15 @@ public class PersonSearchRequest {
 	
 	private Integer firstNameQualifier;
 	
+	private String firstNameQualifierCode;
+	
 	private String middleName;
 	
 	private String lastName;
 	
 	private Integer lastNameQualifier;
+	
+	private String lastNameQualifierCode;
 	
 	private LocalDate dobFrom;
 	
@@ -236,5 +240,21 @@ public class PersonSearchRequest {
 
 	public void setLastNameQualifier(Integer lastNameQualifier) {
 		this.lastNameQualifier = lastNameQualifier;
+	}
+
+	public String getFirstNameQualifierCode() {
+		return firstNameQualifierCode;
+	}
+
+	public void setFirstNameQualifierCode(String firstNameQualifierCode) {
+		this.firstNameQualifierCode = firstNameQualifierCode;
+	}
+
+	public String getLastNameQualifierCode() {
+		return lastNameQualifierCode;
+	}
+
+	public void setLastNameQualifierCode(String lastNameQualifierCode) {
+		this.lastNameQualifierCode = lastNameQualifierCode;
 	}
 }
