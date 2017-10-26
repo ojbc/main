@@ -28,6 +28,16 @@ public class PersonSearchResponseSQLProcessor extends AbstractPersonSearchRespon
 			{
 				personSearchResult.setSystemSearchResultID(systemToSearchPK);
 			}	
+			else
+			{
+				systemToSearchPK = enhancedAuditDAO.retrieveSystemToSearchIDFromSystemName(personSearchResult.getSystemName());
+				
+				if (systemToSearchPK != null)
+				{
+					personSearchResult.setSystemSearchResultID(systemToSearchPK);
+				}	
+
+			}	
 
 			Integer personSearchRequestPK = enhancedAuditDAO.retrievePersonSearchIDfromMessageID(messageID);
 			

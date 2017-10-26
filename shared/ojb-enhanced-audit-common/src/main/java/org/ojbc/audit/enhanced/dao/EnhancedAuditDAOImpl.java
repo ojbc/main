@@ -54,14 +54,16 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
     
 	private Map<String, Integer> searchQualifierCodes= new HashMap<String, Integer>();
 	
-	private Map<String, Integer> systemsToSearch= new HashMap<String, Integer>();
+	private Map<String, Integer> systemsToSearchByURI= new HashMap<String, Integer>();
+	
+	private Map<String, Integer> systemsToSearchByName= new HashMap<String, Integer>();
 	
     private final Log log = LogFactory.getLog(this.getClass());
 
 	@Override
 	public Integer retrieveSystemToSearchIDFromURI(String uri) {
 		
-		if (systemsToSearch.isEmpty())
+		if (systemsToSearchByURI.isEmpty())
 		{	
 			final String SELECT_STATEMENT="SELECT * from SYSTEMS_TO_SEARCH";
 	
@@ -69,15 +71,34 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			
 			for (SystemsToSearch systemToSearch : systemsToSearchlist)
 			{
-				systemsToSearch.put(systemToSearch.getSystemUri(),systemToSearch.getSystemsToSearchId());
+				systemsToSearchByURI.put(systemToSearch.getSystemUri(),systemToSearch.getSystemsToSearchId());
 			}	
 		}	
 		
-		Integer id = systemsToSearch.get(uri);
+		Integer id = systemsToSearchByURI.get(uri);
 		
 		return id;
 	}
 
+	@Override
+	public Integer retrieveSystemToSearchIDFromSystemName(String systemName) {
+		
+		if (systemsToSearchByName.isEmpty())
+		{	
+			final String SELECT_STATEMENT="SELECT * from SYSTEMS_TO_SEARCH";
+	
+			List<SystemsToSearch> systemsToSearchlist = jdbcTemplate.query(SELECT_STATEMENT, new SystemsToSearchRowMapper());
+			
+			for (SystemsToSearch systemToSearch : systemsToSearchlist)
+			{
+				systemsToSearchByName.put(systemToSearch.getSystemName(),systemToSearch.getSystemsToSearchId());
+			}	
+		}	
+		
+		Integer id = systemsToSearchByName.get(systemName);
+		
+		return id;
+	}
 
 	@Override
 	public Integer retrieveSearchQualifierCodeIDfromCodeName(String codeName) {
