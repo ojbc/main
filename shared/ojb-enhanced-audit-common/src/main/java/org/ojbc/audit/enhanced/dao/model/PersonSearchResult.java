@@ -8,6 +8,7 @@ public class PersonSearchResult {
 	private Integer personSearchRequestId;
 	private Integer systemSearchResultID;
 	private String systemSearchResultURI;
+	private String systemName;
 	private Boolean searchResultsErrorIndicator;
 	private Integer personSearchResultsId;
 	private String searchResultsErrorText;
@@ -66,6 +67,12 @@ public class PersonSearchResult {
 	
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
+	public String getSystemName() {
+		return systemName;
+	}
+	public void setSystemName(String systemName) {
+		this.systemName = systemName;
 	}
 
 }

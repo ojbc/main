@@ -40,6 +40,8 @@ public interface EnhancedAuditDAO {
 	
 	public Integer retrieveSystemToSearchIDFromURI(String uri);
 	
+	public Integer retrieveSystemToSearchIDFromSystemName(String systemName);
+	
 	public Integer retrieveSearchQualifierCodeIDfromCodeName(String codeName);
 	
 	public Integer savePersonSystemToSearch(Integer pearchSearchPk, Integer systemsToSearchPk);
