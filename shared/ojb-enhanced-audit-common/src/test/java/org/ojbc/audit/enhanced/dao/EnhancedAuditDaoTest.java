@@ -37,6 +37,7 @@ import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
+import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -189,5 +190,23 @@ public class EnhancedAuditDaoTest {
 		
 	}
 
+	@Test
+	public void testQueryMethods() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+		
+		QueryRequest queryRequest = new QueryRequest();
+		
+		queryRequest.setIdentificationId("123");
+		queryRequest.setIdentificationSourceText("Source");
+		queryRequest.setMessageId("123456");
+		queryRequest.setUserInfofk(userInfoPk);
+		
+		Integer queryPk = enhancedAuditDao.saveQueryRequest(queryRequest);
+		
+		assertNotNull(queryPk);
+		
+		
+	}
 }
 

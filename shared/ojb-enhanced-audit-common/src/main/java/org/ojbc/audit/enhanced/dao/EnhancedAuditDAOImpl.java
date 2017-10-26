@@ -29,6 +29,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.SearchQualifierCodes;
@@ -204,6 +205,34 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
          return keyHolder.getKey().intValue();	        
 	}	
+	
+	@Override
+	public Integer saveQueryRequest(QueryRequest queryRequest) {
+		
+        log.debug("Inserting row into QUERY_REQUEST table : " + queryRequest);
+        
+        final String QUERY_REQUEST_INSERT="INSERT into QUERY_REQUEST "
+        		+ "(MESSAGE_ID,IDENTIFICATION_ID,USER_INFO_ID,SYSTEM_NAME) "
+        		+ "values (?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(QUERY_REQUEST_INSERT, new String[] {"QUERY_REQUEST_ID"});
+        	            DaoUtils.setPreparedStatementVariable(queryRequest.getMessageId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(queryRequest.getIdentificationId(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(queryRequest.getUserInfofk(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(queryRequest.getIdentificationSourceText(), ps, 4);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	        
+	}
 	
 	@Override
 	public Integer savePersonSearchResult(PersonSearchResult personSearchResult) {
