@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xsd:schema 
+  targetNamespace="http://docs.oasis-open.org/wsn/b-2"   
+  xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2"
+  xmlns:wsa="http://www.w3.org/2005/08/addressing"
+  xmlns:wsrf-bf="http://docs.oasis-open.org/wsrf/bf-2"
+  xmlns:wstop="http://docs.oasis-open.org/wsn/t-1"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  elementFormDefault="qualified"  attributeFormDefault="unqualified">
+
+<!-- ======================== Imports  ============================ -->
+  
+  <xsd:import namespace="http://www.w3.org/2005/08/addressing"
+              schemaLocation="../addressing/2005/08/addressing/ws-addr.xsd" 
+  />
+
+  <xsd:import namespace="http://docs.oasis-open.org/wsrf/bf-2"
+              schemaLocation="../wsrf/bf-2.xsd" 
+  />
+  <xsd:import namespace="http://docs.oasis-open.org/wsn/t-1"
+              schemaLocation="t-1.xsd" 
+  />
+  
+<!-- ===================== Misc. Helper Types ===================== -->
+
+  <xsd:complexType name="QueryExpressionType" mixed="true">
+
+    <xsd:sequence>
+      <xsd:any minOccurs="0" maxOccurs="1" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="Dialect" type="xsd:anyURI" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="TopicExpressionType" mixed="true">
+    <xsd:sequence>
+      <xsd:any minOccurs="0" maxOccurs="1" processContents="lax" />
+
+    </xsd:sequence>
+    <xsd:attribute name="Dialect" type="xsd:anyURI" use="required" />
+    <xsd:anyAttribute/>
+  </xsd:complexType>
+
+  <xsd:complexType name="FilterType">
+    <xsd:sequence>
+      <xsd:any minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+
+  </xsd:complexType>
+
+  <xsd:complexType name="SubscriptionPolicyType">
+    <xsd:sequence>
+      <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+<!-- =============== Resource Property Related  =================== -->
+<!-- ======== Resource Properties for NotificationProducer ======== -->
+  <xsd:element name="TopicExpression" type="wsnt:TopicExpressionType"/>
+
+  <xsd:element name="FixedTopicSet" type="xsd:boolean" default="true"/>
+  <xsd:element name="TopicExpressionDialect" type="xsd:anyURI"/>
+              
+  <xsd:element name="NotificationProducerRP">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="wsnt:TopicExpression"        
+                     minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element ref="wsnt:FixedTopicSet"        
+                     minOccurs="0" maxOccurs="1" />
+        <xsd:element ref="wsnt:TopicExpressionDialect"
+                     minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element ref="wstop:TopicSet"
+                     minOccurs="0" maxOccurs="1" />
+
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+<!-- ======== Resource Properties for SubscriptionManager ========= -->       
+  <xsd:element name="ConsumerReference" 
+               type="wsa:EndpointReferenceType" />
+  <xsd:element name="Filter" type="wsnt:FilterType" />
+  <xsd:element name="SubscriptionPolicy"                                                                                                                                                                   		      type="wsnt:SubscriptionPolicyType" />
+
+
+  <xsd:element name="CreationTime" type="xsd:dateTime" />
+
+  
+  <xsd:element name="SubscriptionManagerRP" >
+    <xsd:complexType>
+      <xsd:sequence>
+         <xsd:element ref="wsnt:ConsumerReference"        
+                      minOccurs="1" maxOccurs="1" />
+         <xsd:element ref="wsnt:Filter"
+                      minOccurs="0" maxOccurs="1" />
+         <xsd:element ref="wsnt:SubscriptionPolicy" 
+                      minOccurs="0" maxOccurs="1" />
+         <xsd:element ref="wsnt:CreationTime" 
+                      minOccurs="0" maxOccurs="1" />
+      </xsd:sequence>
+    </xsd:complexType>
+
+  </xsd:element>
+
+<!-- ================= Notification Metadata  ===================== -->
+  <xsd:element name="SubscriptionReference" 
+               type="wsa:EndpointReferenceType" />
+  <xsd:element name="Topic" 
+               type="wsnt:TopicExpressionType" />
+  <xsd:element name="ProducerReference" 
+               type="wsa:EndpointReferenceType" />
+
+<!-- ================== Message Helper Types  ===================== -->
+  <xsd:complexType name="NotificationMessageHolderType" >
+    <xsd:sequence>
+      <xsd:element ref="wsnt:SubscriptionReference" 
+                   minOccurs="0" maxOccurs="1" />
+
+      <xsd:element ref="wsnt:Topic" 
+                   minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="wsnt:ProducerReference" 
+                   minOccurs="0" maxOccurs="1" />
+      <xsd:element name="Message">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:any namespace="##any" processContents="lax"
+                     minOccurs="1" maxOccurs="1"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="NotificationMessage"
+               type="wsnt:NotificationMessageHolderType"/>
+
+<!-- ========== Message Types for NotificationConsumer  =========== -->
+  <xsd:element name="Notify" >
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="wsnt:NotificationMessage"
+                     minOccurs="1" maxOccurs="unbounded" />
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+<!-- ========== Message Types for NotificationProducer  =========== -->
+
+  <xsd:simpleType name="AbsoluteOrRelativeTimeType">
+    <xsd:union memberTypes="xsd:dateTime xsd:duration" />
+  </xsd:simpleType>
+
+  <xsd:element name="CurrentTime" type="xsd:dateTime" />
+
+  <xsd:element name="TerminationTime" 
+               nillable="true" type="xsd:dateTime" />
+
+  <xsd:element name="ProducerProperties"
+               type="wsnt:QueryExpressionType" />
+
+  <xsd:element name="MessageContent"
+               type="wsnt:QueryExpressionType" />
+
+  <xsd:element name="UseRaw"><xsd:complexType/></xsd:element>
+
+  <xsd:element name="Subscribe" >
+    <xsd:complexType>
+
+      <xsd:sequence>
+        <xsd:element name="ConsumerReference" 
+                     type="wsa:EndpointReferenceType"
+                     minOccurs="1" maxOccurs="1" />
+        <xsd:element name="Filter" 
+                     type="wsnt:FilterType" 
+                     minOccurs="0" maxOccurs="1" />
+        <xsd:element name="InitialTerminationTime" 
+                     type="wsnt:AbsoluteOrRelativeTimeType"
+                     nillable="true"
+                     minOccurs="0" maxOccurs="1" />
+        <xsd:element name="SubscriptionPolicy"
+                     minOccurs="0" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:any namespace="##any" processContents="lax"
+                       minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+        
+  <xsd:element name="SubscribeResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+
+        <xsd:element name="SubscriptionReference" 
+                     type="wsa:EndpointReferenceType"
+                     minOccurs="1" maxOccurs="1" />
+        <xsd:element ref="wsnt:CurrentTime"
+                     minOccurs="0" maxOccurs="1" />
+        <xsd:element ref="wsnt:TerminationTime"
+                     minOccurs="0" maxOccurs="1" />
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+                  
+  <xsd:element name="GetCurrentMessage">
+    <xsd:complexType>
+
+      <xsd:sequence>
+        <xsd:element name="Topic" 
+                     type="wsnt:TopicExpressionType" />
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetCurrentMessageResponse">
+    <xsd:complexType>
+
+      <xsd:sequence>
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:complexType name="SubscribeCreationFailedFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="SubscribeCreationFailedFault" 
+               type="wsnt:SubscribeCreationFailedFaultType"/>
+
+  <xsd:complexType name="InvalidFilterFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType">
+        <xsd:sequence>
+          <xsd:element name="UnknownFilter" type="xsd:QName"
+                       minOccurs="1" maxOccurs="unbounded"/>
+
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="InvalidFilterFault"
+               type="wsnt:InvalidFilterFaultType"/>
+
+  <xsd:complexType name="TopicExpressionDialectUnknownFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="TopicExpressionDialectUnknownFault" 
+               type="wsnt:TopicExpressionDialectUnknownFaultType"/>
+
+  <xsd:complexType name="InvalidTopicExpressionFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="InvalidTopicExpressionFault" 
+               type="wsnt:InvalidTopicExpressionFaultType"/>
+
+  <xsd:complexType name="TopicNotSupportedFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="TopicNotSupportedFault" 
+               type="wsnt:TopicNotSupportedFaultType"/>
+
+  <xsd:complexType name="MultipleTopicsSpecifiedFaultType">
+
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="MultipleTopicsSpecifiedFault" 
+               type="wsnt:MultipleTopicsSpecifiedFaultType"/>
+
+  <xsd:complexType name="InvalidProducerPropertiesExpressionFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="InvalidProducerPropertiesExpressionFault" 
+             type="wsnt:InvalidProducerPropertiesExpressionFaultType"/>
+
+  <xsd:complexType name="InvalidMessageContentExpressionFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="InvalidMessageContentExpressionFault" 
+             type="wsnt:InvalidMessageContentExpressionFaultType"/>
+
+  <xsd:complexType name="UnrecognizedPolicyRequestFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType">
+		<xsd:sequence>
+             <xsd:element name="UnrecognizedPolicy" type="xsd:QName"
+                           minOccurs="0" maxOccurs="unbounded"/>
+         </xsd:sequence>
+      </xsd:extension>
+
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="UnrecognizedPolicyRequestFault" 
+             type="wsnt:UnrecognizedPolicyRequestFaultType"/>
+
+  <xsd:complexType name="UnsupportedPolicyRequestFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType">
+		<xsd:sequence>
+             <xsd:element name="UnsupportedPolicy" type="xsd:QName"
+                           minOccurs="0" maxOccurs="unbounded"/>
+
+         </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="UnsupportedPolicyRequestFault" 
+             type="wsnt:UnsupportedPolicyRequestFaultType"/>
+
+  <xsd:complexType name="NotifyMessageNotSupportedFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="NotifyMessageNotSupportedFault" 
+             type="wsnt:NotifyMessageNotSupportedFaultType"/>
+
+  <xsd:complexType name="UnacceptableInitialTerminationTimeFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType">
+        <xsd:sequence>
+          <xsd:element name="MinimumTime" type="xsd:dateTime"/>
+
+          <xsd:element name="MaximumTime" type="xsd:dateTime"
+              minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="UnacceptableInitialTerminationTimeFault"
+              type="wsnt:UnacceptableInitialTerminationTimeFaultType"/>
+
+  <xsd:complexType name="NoCurrentMessageOnTopicFaultType">
+    <xsd:complexContent>
+
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="NoCurrentMessageOnTopicFault" 
+               type="wsnt:NoCurrentMessageOnTopicFaultType"/>
+
+<!-- ======== Message Types for PullPoint  ======================== -->
+  <xsd:element name="GetMessages">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="MaximumNumber" 
+                     type="xsd:nonNegativeInteger"
+                     minOccurs="0"/>
+
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:anyAttribute/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetMessagesResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+
+        <xsd:element ref="wsnt:NotificationMessage" 
+                     minOccurs="0" maxOccurs="unbounded" />
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:anyAttribute/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="DestroyPullPoint">
+    <xsd:complexType>
+
+      <xsd:sequence>
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:anyAttribute/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="DestroyPullPointResponse">
+    <xsd:complexType>
+
+      <xsd:sequence>
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:anyAttribute/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:complexType name="UnableToGetMessagesFaultType">
+    <xsd:complexContent>
+
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="UnableToGetMessagesFault" 
+               type="wsnt:UnableToGetMessagesFaultType"/>
+
+<xsd:complexType name="UnableToDestroyPullPointFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+    </xsd:complexContent>
+
+  </xsd:complexType>
+
+  <xsd:element name="UnableToDestroyPullPointFault" 
+               type="wsnt:UnableToDestroyPullPointFaultType"/>
+
+<!-- ======== Message Types for Create PullPoint  ================= -->
+  <xsd:element name="CreatePullPoint">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+
+      <xsd:anyAttribute/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="CreatePullPointResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="PullPoint"
+                     type="wsa:EndpointReferenceType"/>
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+
+      </xsd:sequence>
+      <xsd:anyAttribute/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:complexType name="UnableToCreatePullPointFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+    </xsd:complexContent>
+
+  </xsd:complexType>
+  <xsd:element name="UnableToCreatePullPointFault" 
+               type="wsnt:UnableToCreatePullPointFaultType"/>
+
+<!-- ======== Message Types for Base SubscriptionManager  ========= -->
+  <xsd:element name="Renew">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="TerminationTime" 
+                     type="wsnt:AbsoluteOrRelativeTimeType"
+                     nillable="true"
+                     minOccurs="1" maxOccurs="1" />
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="RenewResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="wsnt:TerminationTime" 
+                      minOccurs="1" maxOccurs="1" />
+        <xsd:element ref="wsnt:CurrentTime" 
+                      minOccurs="0" maxOccurs="1" />
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:complexType name="UnacceptableTerminationTimeFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType">
+        <xsd:sequence>
+          <xsd:element name="MinimumTime" type="xsd:dateTime"/>
+
+          <xsd:element name="MaximumTime" type="xsd:dateTime"
+              minOccurs="0"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="UnacceptableTerminationTimeFault"
+              type="wsnt:UnacceptableTerminationTimeFaultType"/>
+
+  <xsd:element name="Unsubscribe">
+    <xsd:complexType>
+
+      <xsd:sequence>
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="UnsubscribeResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:complexType name="UnableToDestroySubscriptionFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+    </xsd:complexContent>
+
+  </xsd:complexType>
+  <xsd:element name="UnableToDestroySubscriptionFault" 
+               type="wsnt:UnableToDestroySubscriptionFaultType"/>
+
+<!-- ====== Message Types for Pausable SubscriptionManager  ======= -->
+
+  <xsd:element name="PauseSubscription">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="PauseSubscriptionResponse" >
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+
+  </xsd:element>
+
+  <xsd:element name="ResumeSubscription">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="ResumeSubscriptionResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:complexType name="PauseFailedFaultType">
+
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="PauseFailedFault" 
+               type="wsnt:PauseFailedFaultType"/>
+
+  <xsd:complexType name="ResumeFailedFaultType">
+    <xsd:complexContent>
+      <xsd:extension base="wsrf-bf:BaseFaultType"/>
+
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="ResumeFailedFault" 
+               type="wsnt:ResumeFailedFaultType"/>
+
+</xsd:schema>

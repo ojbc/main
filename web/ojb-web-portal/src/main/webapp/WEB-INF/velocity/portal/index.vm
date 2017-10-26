@@ -16,8 +16,19 @@
  *#
 #parse("common/_header.vm")
 <script>
+
+	var idleTime;
+	
 	$(function(){
 	   
+		#if( $inactivityTimeout )
+	        reloadPage();
+	        $('html').on('mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick', function () {
+	            clearTimeout(idleTime);
+	            reloadPage();
+	        });
+        #end
+        
 		$("#demogFilterInfo").hide();
 		
 	 	$(document).ajaxStart(function(){
@@ -95,6 +106,13 @@
 															      
 		}).fail(ojbc.displayFailMessage);	
 	#end
+	
+	function reloadPage() {
+	    clearTimeout(idleTime);
+	    idleTime = setTimeout(function () {
+	        window.location='#springUrl("/portal/performLogout")';
+	    }, $inactivityTimeoutInSeconds * 1000);
+	}
 	
 </script>
 <div>

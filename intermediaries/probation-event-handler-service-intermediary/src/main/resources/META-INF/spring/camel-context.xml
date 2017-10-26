@@ -28,6 +28,7 @@
 	xmlns:pcext="http://ojbc.org/IEPD/Extensions/ProbationCase/1.0"
 	xmlns:jxdm41="http://niem.gov/niem/domains/jxdm/4.1" 
 	xmlns:pci="http://ojbc.org/IEPD/Exchange/ProbationCaseInitiation/1.0"
+	xmlns:pct="http://ojbc.org/IEPD/Exchange/ProbationCaseTermination/1.0"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -88,10 +89,59 @@
 			<camel:to uri="direct:processProbationDocument" />
 		</camel:route>
 
+		<camel:route id="callProbationAnalyticsAdapterRoute">
+			
+			<camel:from uri="direct:callProbationAnalyticsAdapter"/>
+			
+			<camel:choice>
+				<camel:when>
+					<simple>${in.header.operationName} == 'Report-Probation-Case-Initiation'</simple>
+					<camel:setHeader headerName="sid">
+						<camel:xpath resultType="java.lang.String">/pci:ProbationCaseInitiation/pcext:ProbationCase/pcext:Supervision/pcext:Probationer/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc20:IdentificationID/text()</camel:xpath>																		
+					</camel:setHeader>		
+					
+					<log message="\n\n\n From CaseInit: got SID: ${header.sid} \n\n\n" loggingLevel="INFO"/>
+				</camel:when>				
+				<camel:when>
+					<simple>${in.header.operationName} == 'Report-Probation-Case-Termination'</simple>
+					<camel:setHeader headerName="sid">
+						<camel:xpath resultType="java.lang.String">/pct:ProbationCaseTermination/pcext:ProbationCase/pcext:Supervision/pcext:Probationer/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc20:IdentificationID/text()</camel:xpath>						
+					</camel:setHeader>	
+					
+					<log message="\n\n\n From CaseTermination: got SID: ${header.sid} \n\n\n" loggingLevel="INFO"/>										
+				</camel:when>	
+				<camel:otherwise>
+					<log message="\n\n\n Unrecognized Operation! \n\n\n" loggingLevel="WARN"/>
+				</camel:otherwise>			
+			</camel:choice>														
+			
+			
+			<!-- The XML Hash Processor wasn't properly updating the value so a custom processor had to do the job -->
+			<camel:to uri="bean:probationHashProcessor?method=hashSID"/>
+			
+			<camel:to uri="xslt:xslt/probationDocumentAnonymization.xsl"/>
+			
+			<camel:log message="Anonymized and hashed message: ${body}"/>
+			
+			<camel:log message="About to call probation adapter" />
+
+			<camel:to uri="probationAnalyticsAdapterServiceEndpoint"/>
+		
+		</camel:route>
 
 		<camel:route id="processProbationDocRoute">
 		
 			<camel:from uri="direct:processProbationDocument" />
+			
+			<camel:filter>
+				<camel:simple>${properties:callProbationAnalyticsAdapter} == 'true'</camel:simple>
+				
+				<camel:log message="About to call probation analytics adapter"/>
+				
+				<camel:wireTap copy="true" uri="direct:callProbationAnalyticsAdapter"/>
+				
+			</camel:filter>		
+			
 			
 			<camel:log message="\n\n\n Processing Probation document...\n\n\n" />
 
@@ -231,5 +281,13 @@
         <property name="name" value="default" />
         <property name="queueSize" value="2048" />
     </bean>
+    
+    <bean id ="xmlHashProcessor" class="org.ojbc.util.security.XmlHashProcessor">
+		<property name="salt" value="${saltValue}"/>  	
+  	</bean>
+
+	<bean id ="probationHashProcessor" class="org.ojbc.intermediaries.probation.ProbationHashProcessor">
+		<property name="xmlHashProcessor" ref="xmlHashProcessor"/>  	
+  	</bean>
 
 </beans>

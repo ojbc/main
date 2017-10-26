@@ -109,6 +109,7 @@
 						</nc:FullTelephoneNumber>
 					</nc:ContactTelephoneNumber>
 				</nc:ContactInformation>
+
 				<nc:ResidenceAssociation>
 					<nc:PersonReference s:ref="P001" />
 					<nc:LocationReference s:ref="L001" />
@@ -387,6 +388,13 @@
 						</nc:FullTelephoneNumber>
 					</nc:ContactTelephoneNumber>
 				</nc:ContactInformation>
+				<nc:ContactInformation s:id="CI0099">
+					<nc:ContactTelephoneNumber>
+						<nc:FullTelephoneNumber>
+							<nc:TelephoneNumberFullID>123-456-7890</nc:TelephoneNumberFullID>
+						</nc:FullTelephoneNumber>
+					</nc:ContactTelephoneNumber>
+				</nc:ContactInformation>
 				<nc:ResidenceAssociation>
 					<nc:PersonReference s:ref="P004" />
 					<nc:LocationReference s:ref="L004" />
@@ -395,6 +403,11 @@
 					<nc:PersonReference s:ref="P004" />
 					<nc:ContactInformationReference
 						s:ref="CI004" />
+				</nc:PersonContactInformationAssociation>
+				<nc:PersonContactInformationAssociation>
+					<nc:PersonReference s:ref="P004" />
+					<nc:ContactInformationReference
+						s:ref="CI0099" />	
 				</nc:PersonContactInformationAssociation>
 				<ext1:SourceSystemNameText>{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-RMS</ext1:SourceSystemNameText>
 				<intel:SystemIdentifier>

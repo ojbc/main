@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xsd:schema 
+    xmlns="http://www.w3.org/2001/XMLSchema" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:wsa="http://www.w3.org/2005/08/addressing"
+    xmlns:wsn-br="http://docs.oasis-open.org/wsn/br-2"
+    xmlns:wsn-b="http://docs.oasis-open.org/wsn/b-2"
+    xmlns:wsrf-bf="http://docs.oasis-open.org/wsrf/bf-2"      
+    xmlns:wstop="http://docs.oasis-open.org/wsn/t-1"
+    targetNamespace="http://docs.oasis-open.org/wsn/br-2"   
+    elementFormDefault="qualified"  
+    attributeFormDefault="unqualified">
+    
+    <!-- ======================== Imports  ============================ -->
+    
+    <xsd:import namespace="http://www.w3.org/2005/08/addressing"
+        schemaLocation="../addressing/2005/08/addressing/ws-addr.xsd"/>
+    
+    <xsd:import namespace="http://docs.oasis-open.org/wsrf/bf-2"
+        schemaLocation="../wsrf/bf-2.xsd"/>
+    
+    <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2"
+        schemaLocation="b-2.xsd"/>
+    
+    <xsd:import namespace="http://docs.oasis-open.org/wsn/t-1"
+        schemaLocation="t-1.xsd"/>
+    
+    <!-- ======== Resource Properties for NotificationBroker ========== -->
+    <xsd:element name="RequiresRegistration" type="xsd:boolean"/>         
+    
+    <!-- ====== Resource Properties for PublisherRegistration ========= -->
+    <xsd:element name="PublisherReference" 
+        type="wsa:EndpointReferenceType"/>
+    <xsd:element name="ConsumerReference" 
+        type="wsa:EndpointReferenceType"/>
+    <xsd:element name="Topic"
+        type="wsn-b:TopicExpressionType"/>
+    <xsd:element name="Demand" 
+        type="xsd:boolean"/>
+    <xsd:element name="CreationTime" 
+        type="xsd:dateTime"/>
+    <xsd:element name="NotificationBrokerRP">
+        
+        <xsd:complexType>
+            <xsd:sequence>
+                <!-- From NotificationProducer -->
+                <xsd:element ref="wsn-b:TopicExpression"        
+                    minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element ref="wsn-b:FixedTopicSet"        
+                    minOccurs="0" maxOccurs="1" />
+                <xsd:element ref="wsn-b:TopicExpressionDialect"
+                    minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element ref="wstop:TopicSet"
+                    minOccurs="0" maxOccurs="1" />
+                <!-- NotificationBroker specific  -->
+                <xsd:element ref="wsn-br:RequiresRegistration"        
+                    minOccurs="1" maxOccurs="1" />        
+            </xsd:sequence>
+            
+        </xsd:complexType>
+    </xsd:element>
+    
+    <!-- ====== Resource Properties for PublisherRegistration ========= -->
+    <xsd:element name="PublisherRegistrationRP">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="wsn-br:PublisherReference"        
+                    minOccurs="0" maxOccurs="1" />
+                <xsd:element ref="wsn-br:Topic"        
+                    minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element ref="wsn-br:Demand"        
+                    minOccurs="1" maxOccurs="1" />
+                
+                <xsd:element ref="wsn-br:CreationTime"        
+                    minOccurs="0" maxOccurs="1" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <!-- ========== Message Types for NotificationBroker  ============ -->
+    <xsd:element name="RegisterPublisher">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="PublisherReference" 
+                    type="wsa:EndpointReferenceType" 
+                    minOccurs="0" maxOccurs="1" />
+                
+                <xsd:element name="Topic" 
+                    type="wsn-b:TopicExpressionType"
+                    minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element name="Demand" 
+                    type="xsd:boolean" default="false" 
+                    minOccurs="0" maxOccurs="1" />
+                <xsd:element name="InitialTerminationTime" 
+                    type="xsd:dateTime"
+                    minOccurs="0" maxOccurs="1" />
+                <xsd:any namespace="##other" processContents="lax"
+                    minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="RegisterPublisherResponse"> 
+        <xsd:complexType>
+            
+            <xsd:sequence>
+                <xsd:element name="PublisherRegistrationReference" 
+                    type="wsa:EndpointReferenceType"
+                    minOccurs="1" maxOccurs="1" />
+                <xsd:element name="ConsumerReference" 
+                    type="wsa:EndpointReferenceType"
+                    minOccurs="0" maxOccurs="1" />
+                
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:complexType name="PublisherRegistrationRejectedFaultType">
+        <xsd:complexContent>
+            
+            <xsd:extension base="wsrf-bf:BaseFaultType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="PublisherRegistrationRejectedFault" 
+        type="wsn-br:PublisherRegistrationRejectedFaultType"/>
+    
+    <xsd:complexType name="PublisherRegistrationFailedFaultType">
+        <xsd:complexContent>
+            <xsd:extension base="wsrf-bf:BaseFaultType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    
+    <xsd:element name="PublisherRegistrationFailedFault" 
+        type="wsn-br:PublisherRegistrationFailedFaultType"/>
+    
+    
+    
+    <xsd:element name="DestroyRegistration">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:any namespace="##other" processContents="lax"
+                    minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:anyAttribute/>
+        </xsd:complexType>
+        
+    </xsd:element>
+    
+    <xsd:element name="DestroyRegistrationResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:any namespace="##other" processContents="lax"
+                    minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:anyAttribute/>
+        </xsd:complexType>
+        
+    </xsd:element>
+    
+    <xsd:complexType name="ResourceNotDestroyedFaultType">
+        <xsd:complexContent>
+            <xsd:extension base="wsrf-bf:BaseFaultType"/>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="ResourceNotDestroyedFault" 
+        type="wsn-br:ResourceNotDestroyedFaultType"/>
+    
+</xsd:schema>

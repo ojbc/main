@@ -60,6 +60,9 @@ public class TestXMLHashProcessor {
 		//Hash the booking number directly without using Xpaths and confirm the values are the same.
 		String hashedValeuDirect = Hash.sha256WithSalt("Booking Number", "salty");
 		assertEquals(hashedValeuDirect, bookingNumber);
+		
+		String directlyHashedValue = hashProcessor.returnHashedValue("SHA-256", "Booking Number");
+		assertEquals("52e575df62f6b86d8c2c897ed34a4aa18d706938487a3bf7866b0fe3079fc31d", directlyHashedValue);
 	}
 	
 }

@@ -277,11 +277,10 @@
                         <tr>
                             <td class="detailsLabel">HOME PHONE</td>
                             <td>
-                                <xsl:variable name="tNumber" select="nc:ContactInformation/nc:ContactTelephoneNumber/nc:FullTelephoneNumber/nc:TelephoneNumberFullID"/>
-                                
-                            	<xsl:call-template name="formatTelephoneNumber" >
-                            		<xsl:with-param name="tNumber" select="$tNumber"/>
-                            	</xsl:call-template>
+                            	<xsl:variable name="ciCount" select="count(nc:ContactInformation)"/>
+                            	<xsl:apply-templates select="nc:ContactInformation" mode="homePhone">
+                            		<xsl:with-param name="ciCount" select="$ciCount"/>
+                            	</xsl:apply-templates>
                             </td>
                             <td class="detailsLabel">EYE COLOR</td>
                             <td>
@@ -328,6 +327,18 @@
         </table>
     
     </xsl:template>
+    
+    <xsl:template match="nc:ContactInformation" mode="homePhone">
+    	<xsl:param name="ciCount"/>
+    	<xsl:variable name="position" select="position()"/>
+    	<xsl:variable name="tNumber" select="normalize-space(nc:ContactTelephoneNumber/nc:FullTelephoneNumber/nc:TelephoneNumberFullID)"/>
+                           
+           	<xsl:call-template name="formatTelephoneNumber" >
+           		<xsl:with-param name="tNumber" select="$tNumber"/>
+           	</xsl:call-template>
+           	<xsl:if test="$ciCount != $position"><xsl:text>, </xsl:text></xsl:if>
+    </xsl:template>
+    
     <xsl:template match="nc:PersonPhysicalFeature">
 		<p><xsl:value-of select="nc:PhysicalFeatureCategoryText"/><xsl:text> </xsl:text><xsl:value-of select="nc:PhysicalFeatureDescriptionText"/><xsl:text> </xsl:text><xsl:value-of select="nc:PhysicalFeatureLocationText"/></p>
 	</xsl:template>

@@ -29,6 +29,11 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
+import org.ojbc.audit.enhanced.dao.model.SearchQualifierCodes;
+import org.ojbc.audit.enhanced.dao.model.SystemsToSearch;
+import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.ojbc.util.helper.DaoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
@@ -47,8 +52,53 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
     @Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     
-    private final Log log = LogFactory.getLog(this.getClass());
+	private Map<String, Integer> searchQualifierCodes= new HashMap<String, Integer>();
 	
+	private Map<String, Integer> systemsToSearch= new HashMap<String, Integer>();
+	
+    private final Log log = LogFactory.getLog(this.getClass());
+
+	@Override
+	public Integer retrieveSystemToSearchIDFromURI(String uri) {
+		
+		if (systemsToSearch.isEmpty())
+		{	
+			final String SELECT_STATEMENT="SELECT * from SYSTEMS_TO_SEARCH";
+	
+			List<SystemsToSearch> systemsToSearchlist = jdbcTemplate.query(SELECT_STATEMENT, new SystemsToSearchRowMapper());
+			
+			for (SystemsToSearch systemToSearch : systemsToSearchlist)
+			{
+				systemsToSearch.put(systemToSearch.getSystemUri(),systemToSearch.getSystemsToSearchId());
+			}	
+		}	
+		
+		Integer id = systemsToSearch.get(uri);
+		
+		return id;
+	}
+
+
+	@Override
+	public Integer retrieveSearchQualifierCodeIDfromCodeName(String codeName) {
+		
+		final String SELECT_STATEMENT="SELECT * from SEARCH_QUALIFIER_CODES";
+
+		if (searchQualifierCodes.isEmpty())
+		{	
+			List<SearchQualifierCodes> searchQualifierCodesList = jdbcTemplate.query(SELECT_STATEMENT, new SearchQualifierCodesRowMapper());
+			
+			for (SearchQualifierCodes searchQualifierCode : searchQualifierCodesList)
+			{
+				searchQualifierCodes.put(searchQualifierCode.getCodeName(),searchQualifierCode.getSearchQualifierCodesId());
+			}
+		}	
+			
+		Integer id = searchQualifierCodes.get(codeName);
+		
+		return id;
+	}
+
 	@Override
 	public Integer saveFederalRapbackSubscription(
 			FederalRapbackSubscription federalRapbackSubscription) {
@@ -76,6 +126,139 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
          return keyHolder.getKey().intValue();	
     }
+	
+	@Override
+	public Integer savePersonSystemToSearch(Integer pearchSearchPk, Integer systemsToSearchPk) {
+		
+        log.debug("Inserting rows into PERSON_SYSTEMS_TO_SEARCH table : " + systemsToSearchPk.toString());
+        
+        final String PERSON_SYSTEMS_TO_SEARCH_INSERT="INSERT into PERSON_SYSTEMS_TO_SEARCH "
+        		+ "(PERSON_SEARCH_REQUEST_ID, SYSTEMS_TO_SEARCH_ID) "
+        		+ "values (?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(PERSON_SYSTEMS_TO_SEARCH_INSERT, new String[] {"USER_INFO_ID"});
+        	            DaoUtils.setPreparedStatementVariable(pearchSearchPk, ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(systemsToSearchPk, ps, 2);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	        
+	}	
+	
+	@Override
+	public Integer saveUserInfo(UserInfo userInfo) {
+		
+        log.debug("Inserting row into USER_INFO table : " + userInfo);
+        
+        final String USER_INFO_INSERT="INSERT into USER_INFO "
+        		+ "(USER_FIRST_NAME,IDENTITY_PROVIDER_ID,EMPLOYER_NAME,USER_EMAIL_ADDRESS,USER_LAST_NAME,EMPLOYER_SUBUNIT_NAME,FEDERATION_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(USER_INFO_INSERT, new String[] {"USER_INFO_ID"});
+        	            DaoUtils.setPreparedStatementVariable(userInfo.getUserFirstName(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(userInfo.getIdentityProviderId(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(userInfo.getEmployerName(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(userInfo.getUserEmailAddress(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(userInfo.getUserLastName(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(userInfo.getEmployerSubunitName(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(userInfo.getFederationId(), ps, 7);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	        
+	}	
+	
+	@Override
+	public Integer savePersonSearchResult(PersonSearchResult personSearchResult) {
+        log.debug("Inserting row into PERSON_SEARCH_RESULTS table : " + personSearchResult);
+        
+        final String PERSON_SEARCH_RESULT_INSERT="INSERT into PERSON_SEARCH_RESULTS "
+        		+ "(PERSON_SEARCH_REQUEST_ID,SYSTEMS_TO_SEARCH_ID,SEARCH_RESULTS_ERROR_INDICATOR,SEARCH_RESULTS_ERROR_TEXT,SEARCH_RESULTS_TIMEOUT_INDICATOR,SEARCH_RESULTS_COUNT)"
+        		+ "values (?, ?, ?, ?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(PERSON_SEARCH_RESULT_INSERT, new String[] {"PERSON_SEARCH_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getPersonSearchRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSystemSearchResultID(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsErrorIndicator(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsErrorText(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsTimeoutIndicator(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsCount(), ps, 6);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}
+
+	
+	@Override
+	public Integer savePersonSearchRequest(
+			PersonSearchRequest personSearchRequest) {
+		
+        log.debug("Inserting row into PERSON_SEARCH_REQUEST table : " + personSearchRequest);
+        
+        final String FEDERAL_RAPBACK_SUBSCRIPTION_INSERT="INSERT into PERSON_SEARCH_REQUEST "
+        		+ "(DOB_START_DATE, RACE, EYE_COLOR,HAIR_COLOR,DRIVERS_LICENSE_NUMBER,DOB_END_DATE,ON_BEHALF_OF,FIRST_NAME_QUALIFIER_CODE_ID,SID,MIDDLE_NAME,"
+        		+ "LAST_NAME_QUALIFIER_CODE_ID,PURPOSE,LAST_NAME,FIRST_NAME,GENDER,MESSAGE_ID,USER_INFO_ID,DRIVERS_LICENSE_ISSUER,FBI_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?,?, ?, ?,?, ?, ?, ?, ?, ?,?, ?, ?, ?)";
+        
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(FEDERAL_RAPBACK_SUBSCRIPTION_INSERT, new String[] {"PERSON_SEARCH_REQUEST_ID"});
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getDobFrom(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getRaceCode(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getEyeCode(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getHairCode(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getDriverLicenseId(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getDobTo(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getOnBehalfOf(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getFirstNameQualifier(), ps, 8);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getStateId(), ps, 9);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getMiddleName(), ps, 10);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getLastNameQualifier(), ps, 11);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getPurpose(), ps, 12);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getLastName(), ps, 13);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getFirstName(), ps, 14);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getGenderCode(), ps, 15);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getMessageId(), ps, 16);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getUserInfofk(), ps, 17);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getDriverLiscenseIssuer(), ps, 18);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getFbiNumber(), ps, 19);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}		
 
 	@Override
 	public void updateFederalRapbackSubscriptionWithResponse(
@@ -108,6 +291,67 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		return DataAccessUtils.singleResult(federalRapbackSubscriptions);	
 	}
 	
+	@Override
+	public Integer retrievePersonSearchIDfromMessageID(String messageId) {
+		final String SUBSCRIPTION_SELECT="SELECT * FROM PERSON_SEARCH_REQUEST WHERE MESSAGE_ID = ?";
+		
+		Integer ret = null;
+		
+		List<PersonSearchRequest> personSearchRequests = jdbcTemplate.query(SUBSCRIPTION_SELECT, new PersonSearchRequestRowMapper(), messageId);
+		
+		if (personSearchRequests == null)
+		{
+			throw new IllegalStateException("Unable to retrieve person search request ID");
+		}
+		
+		if (personSearchRequests.size() == 0 ||  personSearchRequests.size() > 1)
+		{
+			throw new IllegalStateException("Query returned zero or more than person search request, size: " + personSearchRequests.size());
+		}
+		
+		if (personSearchRequests.size() == 1)
+		{
+			ret = personSearchRequests.get(0).getPersonSearchRequestID();
+		}	
+
+		return ret;
+	}
+	
+
+	@Override
+	public UserInfo retrieveUserInfoFromId(Integer userInfoPk) {
+		final String USER_INFO_SELECT="SELECT * FROM USER_INFO WHERE USER_INFO_ID = ?";
+		
+		List<UserInfo> userInfo = jdbcTemplate.query(USER_INFO_SELECT, new UserInfoRowMapper(), userInfoPk);
+		return DataAccessUtils.singleResult(userInfo);	
+	}	
+	
+	private final class UserInfoRowMapper implements RowMapper<UserInfo> {
+		public UserInfo mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			UserInfo userInfo = buildUserInfo(rs);
+			return userInfo;
+		}
+
+		private UserInfo buildUserInfo(
+				ResultSet rs) throws SQLException{
+
+			UserInfo userInfo = new UserInfo();
+			
+			userInfo.setUserInfoId(rs.getInt("USER_INFO_ID"));
+			userInfo.setEmployerName(rs.getString("EMPLOYER_NAME"));
+			userInfo.setUserFirstName(rs.getString("USER_FIRST_NAME"));
+			userInfo.setIdentityProviderId(rs.getString("IDENTITY_PROVIDER_ID"));
+			//userInfo.setu(rs.getString("USER_INFO_ID"));
+			userInfo.setUserEmailAddress(rs.getString("USER_EMAIL_ADDRESS"));
+			userInfo.setUserLastName(rs.getString("USER_LAST_NAME"));
+			userInfo.setEmployerSubunitName(rs.getString("EMPLOYER_SUBUNIT_NAME"));
+			userInfo.setFederationId(rs.getString("FEDERATION_ID"));
+			
+			return userInfo;
+		}
+	}	
+	
 	private final class FederalRapbackSubscriptionRowMapper implements RowMapper<FederalRapbackSubscription> {
 		public FederalRapbackSubscription mapRow(ResultSet rs, int rowNum)
 				throws SQLException {
@@ -131,6 +375,66 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			return federalRapbackSubscription;
 		}
 	}
+	
+	private final class SearchQualifierCodesRowMapper implements RowMapper<SearchQualifierCodes> {
+		public SearchQualifierCodes mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			SearchQualifierCodes searchQualifierCode = buildSearchQualifierCode(rs);
+			return searchQualifierCode;
+		}
+
+		private SearchQualifierCodes buildSearchQualifierCode(
+				ResultSet rs) throws SQLException{
+
+			SearchQualifierCodes searchQualifierCode = new SearchQualifierCodes();
+			
+			searchQualifierCode.setCodeName(rs.getString("CODE_NAME"));
+			searchQualifierCode.setSearchQualifierCodesId(rs.getInt("SEARCH_QUALIFIER_CODES_ID"));
+			
+			return searchQualifierCode;
+		}
+	}
+	
+	private final class SystemsToSearchRowMapper implements RowMapper<SystemsToSearch> {
+		public SystemsToSearch mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			SystemsToSearch systemToSearch = buildSystemToSearch(rs);
+			return systemToSearch;
+		}
+
+		private SystemsToSearch buildSystemToSearch(
+				ResultSet rs) throws SQLException{
+
+			SystemsToSearch systemsToSearch = new SystemsToSearch();
+			
+			systemsToSearch.setSystemName(rs.getString("SYSTEM_NAME"));
+			systemsToSearch.setSystemsToSearchId(rs.getInt("SYSTEMS_TO_SEARCH_ID"));
+			systemsToSearch.setSystemUri(rs.getString("SYSTEM_URI"));
+			
+			return systemsToSearch;
+		}
+	}
+	
+	private final class PersonSearchRequestRowMapper implements RowMapper<PersonSearchRequest> {
+		public PersonSearchRequest mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			PersonSearchRequest personSearchRequest = buildPersonSearchRequest(rs);
+			return personSearchRequest;
+		}
+
+		private PersonSearchRequest buildPersonSearchRequest(
+				ResultSet rs) throws SQLException{
+
+			PersonSearchRequest personSearchRequest = new PersonSearchRequest();
+			
+			personSearchRequest.setMessageId(rs.getString("MESSAGE_ID"));
+			personSearchRequest.setPersonSearchRequestID(rs.getInt("PERSON_SEARCH_REQUEST_ID"));
+			
+			return personSearchRequest;
+		}
+	}
+	
+	
 	
 	private LocalDateTime toLocalDateTime(Timestamp timestamp){
 		return timestamp == null? null : timestamp.toLocalDateTime();

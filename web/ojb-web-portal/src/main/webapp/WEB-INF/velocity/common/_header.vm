@@ -22,10 +22,6 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <html> <!--<![endif]-->
 <html>
     <head>
-    	#if( $inactivityTimeout )
-	    	<meta http-equiv="refresh" content="$inactivityTimeoutInSeconds;URL='#springUrl("/portal/performLogout")'">
-        #end
-        
         <script src="//code.jquery.com/jquery-1.12.4.js"></script>
         <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"  rel="stylesheet" type="text/css"  />
         <!--<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css"  rel="stylesheet" type="text/css"  />-->

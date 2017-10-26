@@ -79,6 +79,9 @@
 						<nc20:IdentificationID>A01222</nc20:IdentificationID>
 					</jxdm41:PersonStateFingerprintIdentification>
 				</jxdm41:PersonAugmentation>
+				<pc-ext:PersonPersistentIdentification>
+					<nc20:IdentificationID>1234556</nc20:IdentificationID>
+				</pc-ext:PersonPersistentIdentification>
 			</pc-ext:Probationer>
 			<pc-ext:SupervisionIdentification>
 				<nc20:IdentificationID>1234</nc20:IdentificationID>
