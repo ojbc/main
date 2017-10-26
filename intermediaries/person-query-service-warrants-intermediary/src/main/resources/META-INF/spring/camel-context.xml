@@ -72,6 +72,22 @@
 			
 			<camel:choice>
 				<camel:when>
+					<camel:simple>${properties:personQuery.warrants.dbEnancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>
+			
+			
+			<camel:choice>
+				<camel:when>
 					<camel:method bean="accessControlProcessor" method="authorize" />
 					<camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}"/>
 				</camel:when>
