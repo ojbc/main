@@ -619,6 +619,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	
 	public static final String NS_HAWAII_BOOKING_REPORT_EXT = "http://hijis.hawaii.gov/BookingReportExtension/1.0";
 	public static final String NS_PREFIX_HAWAII_BOOKING_REPORT_EXT = "hi-br-ext";
+
+	public static final String NS_HAWAII_ARREST_REPORT = "http://hijis.hawaii.gov/ArrestReport/1.0";
+	public static final String NS_PREFIX_HAWAII_ARREST_REPORT = "hi-arr";
 	
 	public static final String NS_CRIMINAL_RECORD = "http://ojbc.org/IEPD/CriminalRecord/1.0";
 	public static final String NS_PREFIX_CRIMINAL_RECORD = "cr";
@@ -782,6 +785,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_CITATION_CASE_EXT = "http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0";
 	public static final String NS_PREFIX_CITATION_CASE_EXT="ojb-cit-ext";
 	
+	public static final String NS_PERSON_HEALTH_INFORMATION_SEARCH_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchRequest/1.0";
+	public static final String NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_REQUEST_DOC ="phisreq-doc";	
+	
+	public static final String NS_PERSON_HEALTH_INFORMATION_SEARCH_REQUEST_EXT ="http://ojbc.org/IEPD/Extensions/PersonHealthInformationSearchRequest/1.0";
+	public static final String NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_REQUEST_EXT ="phisreq-ext";
+	
 	public static final String NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC = "http://ojbc.org/IEPD/Exchange/PersonHealthInformationSearchResults/1.0";
 	public static final String NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_DOC ="phisres-doc";	
 	
@@ -839,6 +848,12 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT, NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT);
 		uriToPrefixMap.put(NS_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT, NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_RESULTS_EXT);
 		
+		prefixToUriMap.put(NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_REQUEST_DOC, NS_PERSON_HEALTH_INFORMATION_SEARCH_REQUEST_DOC);
+		uriToPrefixMap.put(NS_PERSON_HEALTH_INFORMATION_SEARCH_REQUEST_DOC, NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_REQUEST_DOC);
+
+		prefixToUriMap.put(NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_REQUEST_EXT, NS_PERSON_HEALTH_INFORMATION_SEARCH_REQUEST_EXT);
+		uriToPrefixMap.put(NS_PERSON_HEALTH_INFORMATION_SEARCH_REQUEST_EXT, NS_PREFIX_PERSON_HEALTH_INFORMATION_SEARCH_REQUEST_EXT);
+				
 		prefixToUriMap.put(NS_PREFIX_CORE_FILING_MESSAGE, NS_CORE_FILING_MESSAGE);
 		uriToPrefixMap.put(NS_CORE_FILING_MESSAGE, NS_PREFIX_CORE_FILING_MESSAGE);
 
@@ -1602,6 +1617,9 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 		prefixToUriMap.put(NS_PREFIX_TRAFFIC_STOP_CODES, NS_TRAFFIC_STOP_CODES);
 		uriToPrefixMap.put(NS_TRAFFIC_STOP_CODES, NS_PREFIX_TRAFFIC_STOP_CODES);	
 
+
+		prefixToUriMap.put(NS_PREFIX_HAWAII_ARREST_REPORT, NS_HAWAII_ARREST_REPORT);
+		uriToPrefixMap.put(NS_HAWAII_ARREST_REPORT, NS_PREFIX_HAWAII_ARREST_REPORT);	
 
 	}
 

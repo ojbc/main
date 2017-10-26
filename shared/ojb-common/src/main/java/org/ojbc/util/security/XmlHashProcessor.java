@@ -45,6 +45,16 @@ public class XmlHashProcessor {
 		//Get element value
 		String elementValue = XmlUtils.xPathStringSearch(xmlDocument, xPath);
 		
+		String hashedElementValue = returnHashedValue(hashType, elementValue);
+		
+		//Update element value with hashed value
+		Element elementToHash = (Element) XmlUtils.xPathNodeSearch(xmlDocument, xPath);
+		
+		elementToHash.setTextContent(hashedElementValue);
+		
+	}
+
+	public String returnHashedValue(String hashType, String elementValue) {
 		String hashedElementValue = "";
 		
 		//Hash the value
@@ -64,11 +74,7 @@ public class XmlHashProcessor {
 		{
 			throw new IllegalArgumentException("Hash Type is not valid.");
 		}
-		
-		//Update element value with hashed value
-		Element elementToHash = (Element) XmlUtils.xPathNodeSearch(xmlDocument, xPath);
-		
-		elementToHash.setTextContent(hashedElementValue);
+		return hashedElementValue;
 	}
 
 	public String getSalt() {

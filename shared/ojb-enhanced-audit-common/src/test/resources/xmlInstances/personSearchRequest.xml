@@ -1,0 +1,81 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<PersonSearchRequest xmlns="http://ojbc.org/IEPD/Exchange/PersonSearchRequest/1.0"
+                     xmlns:NS1="http://niem.gov/niem/structures/2.0"
+                     NS1:id="SM003">
+   <Person xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0">
+      <PersonEyeColorCode xmlns="http://niem.gov/niem/niem-core/2.0">BLU</PersonEyeColorCode>
+      <PersonHairColorCode xmlns="http://niem.gov/niem/niem-core/2.0">BLK</PersonHairColorCode>
+      <PersonHeightMeasure xmlns="http://niem.gov/niem/niem-core/2.0">
+         <MeasureRangeValue>
+            <RangeMinimumValue>50</RangeMinimumValue>
+            <RangeMaximumValue>75</RangeMaximumValue>
+         </MeasureRangeValue>
+         <LengthUnitCode>INH</LengthUnitCode>
+      </PersonHeightMeasure>
+      <PersonName xmlns="http://niem.gov/niem/niem-core/2.0">
+         <PersonGivenName NS1:metadata="SM001">Frank</PersonGivenName>
+         <PersonMiddleName>f</PersonMiddleName>
+         <PersonSurName NS1:metadata="SM001">Smith</PersonSurName>
+      </PersonName>
+      <PersonRaceCode xmlns="http://niem.gov/niem/niem-core/2.0">I</PersonRaceCode>
+      <PersonSexCode xmlns="http://niem.gov/niem/niem-core/2.0">M</PersonSexCode>
+      <PersonSSNIdentification xmlns="http://niem.gov/niem/niem-core/2.0">
+         <IdentificationID>123456789</IdentificationID>
+      </PersonSSNIdentification>
+      <PersonWeightMeasure xmlns="http://niem.gov/niem/niem-core/2.0">
+         <MeasureRangeValue>
+            <RangeMinimumValue>200</RangeMinimumValue>
+            <RangeMaximumValue>225</RangeMaximumValue>
+         </MeasureRangeValue>
+         <WeightUnitCode>LBR</WeightUnitCode>
+      </PersonWeightMeasure>
+      <PersonBirthDateRange>
+         <StartDate xmlns="http://niem.gov/niem/niem-core/2.0">
+            <nc:Date xmlns:nc="http://niem.gov/niem/niem-core/2.0">1990-05-30</nc:Date>
+         </StartDate>
+         <EndDate xmlns="http://niem.gov/niem/niem-core/2.0">
+            <nc:Date xmlns:nc="http://niem.gov/niem/niem-core/2.0">2000-05-30</nc:Date>
+         </EndDate>
+      </PersonBirthDateRange>
+      <PersonAugmentation xmlns="http://niem.gov/niem/domains/jxdm/4.1">
+         <DriverLicense xmlns="http://niem.gov/niem/niem-core/2.0">
+            <DriverLicenseIdentification>
+               <IdentificationID>D123456789</IdentificationID>
+               <IdentificationSourceText>WI</IdentificationSourceText>
+            </DriverLicenseIdentification>
+         </DriverLicense>
+         <PersonFBIIdentification>
+            <IdentificationID xmlns="http://niem.gov/niem/niem-core/2.0">FBI12345</IdentificationID>
+         </PersonFBIIdentification>
+         <PersonStateFingerprintIdentification>
+            <IdentificationID xmlns="http://niem.gov/niem/niem-core/2.0">A123456789</IdentificationID>
+         </PersonStateFingerprintIdentification>
+      </PersonAugmentation>
+   </Person>
+   <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0">{system1}URI</SourceSystemNameText>
+   <SourceSystemNameText xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0">{system2}URI</SourceSystemNameText>
+   <SearchMetadata xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" NS1:id="SM001">
+      <SearchQualifierCode>exact</SearchQualifierCode>
+   </SearchMetadata>
+   <SearchMetadata xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" NS1:id="OBO3">
+      <SearchRequestOnBehalfOfText>On Behalf Of</SearchRequestOnBehalfOfText>
+      <SearchPurposeText>This is the purpose</SearchPurposeText>
+   </SearchMetadata>
+</PersonSearchRequest>

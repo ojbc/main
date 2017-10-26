@@ -73,7 +73,7 @@
 						<tr>
 							<td>
 								<div class="labelText">
-									#springFormInput("otpFormCommand.otpRequest.oneTimePassword" "placeholder='One-Time Password'")
+									#springFormInput("otpFormCommand.otpRequest.oneTimePassword" "placeholder='One-Time Password' autocomplete='off' ")
 								</div>	
 							</td>
 						</tr>

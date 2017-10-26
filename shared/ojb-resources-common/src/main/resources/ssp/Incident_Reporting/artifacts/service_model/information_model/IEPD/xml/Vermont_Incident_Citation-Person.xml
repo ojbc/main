@@ -430,6 +430,10 @@
 							<lexs:CommunityVersion>1.0</lexs:CommunityVersion>
 						</lexs:StructuredPayloadMetadata>
 						<inc-ext:IncidentReport>
+							<inc-ext:Incident>
+								<inc-ext:IncidentWarningIndicator>true</inc-ext:IncidentWarningIndicator>
+								<lexslib:SameAsDigestReference lexslib:ref="INCIDENT_01" />
+							</inc-ext:Incident>
 							<inc-ext:Offense>
 								<inc-ext:MunicipalityOrdinanceIdentification>
 									<nc:IdentificationID>20-124</nc:IdentificationID>

@@ -53,6 +53,7 @@
           <xsd:element maxOccurs="1" minOccurs="0" ref="pc-ext:PersonCitizenshipIsUSIndicator"/>
           <xsd:element maxOccurs="1" minOccurs="0" ref="pc-ext:PersonEducationDegreeText"/>
           <xsd:element maxOccurs="unbounded" minOccurs="0" ref="pc-ext:PersonDrugAndAlcoholHistoryText"/>
+          <xsd:element ref="pc-ext:PersonPersistentIdentification" minOccurs="0"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -106,6 +107,11 @@
   <xsd:element name="SupervisionIdentification" type="Q4:IdentificationType">
   	<xsd:annotation>
   		<xsd:documentation>A unique identifier assigned to a supervision</xsd:documentation>
+  	</xsd:annotation>
+  </xsd:element>
+   <xsd:element name="PersonPersistentIdentification" type="Q4:IdentificationType">
+  	<xsd:annotation>
+  		<xsd:documentation>A guaranteed unique identifier for a person.</xsd:documentation>
   	</xsd:annotation>
   </xsd:element>
 </xsd:schema>
