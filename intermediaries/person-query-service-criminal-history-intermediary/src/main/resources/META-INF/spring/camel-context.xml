@@ -55,6 +55,9 @@
 		<camel:route>
 			<camel:from uri="searchRequestFederatedServiceEndpoint" />
 			
+			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+			
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:personQuery.criminalHistory.dbAuditLog} == 'true'</camel:simple>
@@ -95,9 +98,6 @@
 				</camel:otherwise>
 			</camel:choice>			
 			
-			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
-
 			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
 			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
 
