@@ -118,6 +118,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			
 		Integer id = searchQualifierCodes.get(codeName);
 		
+		log.debug("Code Name: " + codeName + ", qualifier code id: " + id);
+		
 		return id;
 	}
 

@@ -51,7 +51,7 @@ public class TestPersonSearchProcessor {
 		userInfoSQLProcessor.setEnhancedAuditDAO(enhancedAuditDao);
 		personSearchRequestProcessor.setEnhancedAuditDAO(enhancedAuditDao);
 		
-		personSearchRequestProcessor.setUserInfoProcessor(userInfoSQLProcessor);
+		personSearchRequestProcessor.setUserInfoSQLProcessor(userInfoSQLProcessor);
 		
         File inputFile = new File("src/test/resources/xmlInstances/personSearchRequest.xml");
 

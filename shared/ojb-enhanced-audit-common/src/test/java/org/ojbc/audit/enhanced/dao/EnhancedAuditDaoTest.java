@@ -64,6 +64,8 @@ public class EnhancedAuditDaoTest {
 	public void testPersonSearchMethods() throws Exception
 	{
 		Integer userInfoPk = saveUserInfo();
+		assertNotNull(userInfoPk);
+		log.info("User info pk: " + userInfoPk);
 		
 		PersonSearchRequest psr = new PersonSearchRequest();
 		
@@ -88,6 +90,7 @@ public class EnhancedAuditDaoTest {
 		psr.setRaceCode("race");
 		psr.setSsn("123-45-7890");
 		psr.setStateId("state");
+		psr.setUserInfofk(userInfoPk);
 		
 		Integer psrIdFromSave = enhancedAuditDao.savePersonSearchRequest(psr);
 		
@@ -97,7 +100,6 @@ public class EnhancedAuditDaoTest {
 		systemsToSearch.add("system2");
 		
 		psr.setSystemsToSearch(null);
-		psr.setUserInfofk(userInfoPk);
 		
 		Integer psrIdFromRetreive = enhancedAuditDao.retrievePersonSearchIDfromMessageID("123456");
 		
