@@ -44,7 +44,7 @@ public class UserInfoSQLProcessor extends AbstractUserInfoProcessor {
 
 			UserInfo userInfo = processUserInfoRequest(assertion);
 			
-			enhancedAuditDAO.saveUserInfo(userInfo);
+			userInfoPk = enhancedAuditDAO.saveUserInfo(userInfo);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
