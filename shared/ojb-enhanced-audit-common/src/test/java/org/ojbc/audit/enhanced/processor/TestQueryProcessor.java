@@ -22,7 +22,7 @@ import org.apache.wss4j.common.saml.SamlAssertionWrapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
-import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.signature.SignatureConstants;
@@ -35,9 +35,9 @@ import org.w3c.dom.Document;
 @ContextConfiguration(locations = {
         "classpath:META-INF/spring/spring-context.xml"})
 @DirtiesContext
-public class TestPersonSearchProcessor {
+public class TestQueryProcessor {
 
-	private static final Log log = LogFactory.getLog(TestPersonSearchProcessor.class);
+	private static final Log log = LogFactory.getLog(TestQueryProcessor.class);
 	
 	@Resource
 	private EnhancedAuditDAO enhancedAuditDao;
@@ -45,42 +45,27 @@ public class TestPersonSearchProcessor {
 	@Test
 	public void testProcessPersonSearchRequest() throws Exception
 	{
-		PersonSearchRequestSQLProcessor personSearchRequestProcessor = new PersonSearchRequestSQLProcessor();
+		QueryRequestSQLProcessor queryRequestProcessor = new QueryRequestSQLProcessor();
 		UserInfoSQLProcessor userInfoSQLProcessor = new UserInfoSQLProcessor();
 		
 		userInfoSQLProcessor.setEnhancedAuditDAO(enhancedAuditDao);
-		personSearchRequestProcessor.setEnhancedAuditDAO(enhancedAuditDao);
+		queryRequestProcessor.setEnhancedAuditDAO(enhancedAuditDao);
 		
-		personSearchRequestProcessor.setUserInfoSQLProcessor(userInfoSQLProcessor);
+		queryRequestProcessor.setUserInfoProcessor(userInfoSQLProcessor);
 		
-        File inputFile = new File("src/test/resources/xmlInstances/personSearchRequest.xml");
+        File inputFile = new File("src/test/resources/xmlInstances/Person_Query_Request.xml");
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         DocumentBuilder db = dbf.newDocumentBuilder();
         Document document = db.parse(inputFile);
 		
-		PersonSearchRequest personSearchRequest = personSearchRequestProcessor.processPersonSearchRequest(document);
+		QueryRequest queryRequest = queryRequestProcessor.processPersonQueryRequest(document);
 		
-		log.info(personSearchRequest.toString());
+		log.info(queryRequest.toString());
 		
-		assertEquals("Frank", personSearchRequest.getFirstName());
-		//assertEquals(new Integer(2), personSearchRequest.getFirstNameQualifier());
-		assertEquals("f", personSearchRequest.getMiddleName());
-		assertEquals("Smith", personSearchRequest.getLastName());
-		//assertEquals(new Integer(2), personSearchRequest.getLastNameQualifier());
-		assertEquals("123456789", personSearchRequest.getSsn());
-		assertEquals("D123456789", personSearchRequest.getDriverLicenseId());
-		assertEquals("WI", personSearchRequest.getDriverLiscenseIssuer());
-		assertEquals("FBI12345", personSearchRequest.getFbiNumber());
-		assertEquals("A123456789", personSearchRequest.getStateId());
-		assertEquals("I", personSearchRequest.getRaceCode());
-		assertEquals("M", personSearchRequest.getGenderCode());
-		assertEquals("BLU", personSearchRequest.getEyeCode());
-		assertEquals("BLK", personSearchRequest.getHairCode());
-		assertEquals(2, personSearchRequest.getSystemsToSearch().size());
-		assertEquals("{system1}URI", personSearchRequest.getSystemsToSearch().get(0));
-		assertEquals("{system2}URI", personSearchRequest.getSystemsToSearch().get(1));
+		assertEquals("1234", queryRequest.getIdentificationId());
+		assertEquals("CJIS-Hawaii", queryRequest.getIdentificationSourceText());
 
 		CamelContext ctx = new DefaultCamelContext(); 
 		    
@@ -97,24 +82,8 @@ public class TestPersonSearchProcessor {
 		senderExchange.getIn().setHeader(CxfConstants.CAMEL_CXF_MESSAGE, message);
 		senderExchange.getIn().setHeader("federatedQueryRequestGUID", "123456");
 		
-		personSearchRequestProcessor.auditPersonSearchRequest(senderExchange, document);
+		queryRequestProcessor.auditPersonQueryRequest(senderExchange, document);
 		
-		PersonSearchResponseSQLProcessor personSearchResponseSQLProcessor = new PersonSearchResponseSQLProcessor();
-		
-		personSearchResponseSQLProcessor.setEnhancedAuditDAO(enhancedAuditDao);
-		
-        inputFile = new File("src/test/resources/xmlInstances/personSearchResponse.xml");
-
-        document = db.parse(inputFile);
-		
-        personSearchResponseSQLProcessor.auditPersonSearchResponse(document, "123456");
-
-        inputFile = new File("src/test/resources/xmlInstances/ErrorMessage-PersonSearchResults.xml");
-
-        document = db.parse(inputFile);
-		
-        personSearchResponseSQLProcessor.auditPersonSearchResponse(document, "123456");
-
 	}
 	
 }

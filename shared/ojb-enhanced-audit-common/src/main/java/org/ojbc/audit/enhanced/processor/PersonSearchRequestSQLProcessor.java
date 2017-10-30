@@ -32,13 +32,15 @@ public class PersonSearchRequestSQLProcessor extends AbstractPersonSearchRequest
 	
 	private EnhancedAuditDAO enhancedAuditDAO;
 	
-	private UserInfoSQLProcessor userInfoProcessor;
+	private UserInfoSQLProcessor userInfoSQLProcessor;
 	
 	public void auditPersonSearchRequest(Exchange exchange, @Body Document document)
 	{
 		try {
 			
-			Integer userInfoPk = userInfoProcessor.auditUserInfo(exchange);
+			Integer userInfoPk = userInfoSQLProcessor.auditUserInfo(exchange);
+			
+			log.debug("User Info FK: " + userInfoPk);
 			
 			PersonSearchRequest personSearchRequest = processPersonSearchRequest(document);
 			
@@ -85,14 +87,13 @@ public class PersonSearchRequestSQLProcessor extends AbstractPersonSearchRequest
 		this.enhancedAuditDAO = enhancedAuditDAO;
 	}
 
-	public UserInfoSQLProcessor getUserInfoProcessor() {
-		return userInfoProcessor;
+	public UserInfoSQLProcessor getUserInfoSQLProcessor() {
+		return userInfoSQLProcessor;
 	}
 
-	public void setUserInfoProcessor(UserInfoSQLProcessor userInfoProcessor) {
-		this.userInfoProcessor = userInfoProcessor;
+	public void setUserInfoSQLProcessor(UserInfoSQLProcessor userInfoSQLProcessor) {
+		this.userInfoSQLProcessor = userInfoSQLProcessor;
 	}
-
 
 	
 }

@@ -16,42 +16,44 @@
  */
 package org.ojbc.audit.enhanced.processor;
 
+import org.apache.camel.Body;
 import org.apache.camel.Exchange;
-import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.message.Message;
-import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
-import org.ojbc.audit.enhanced.dao.model.UserInfo;
-import org.opensaml.saml2.core.Assertion;
+import org.ojbc.audit.enhanced.dao.model.QueryRequest;
+import org.w3c.dom.Document;
 
-public class UserInfoSQLProcessor extends AbstractUserInfoProcessor {
+public class QueryRequestSQLProcessor extends AbstractQueryRequestProcessor {
 
-	private static final Log log = LogFactory.getLog(UserInfoSQLProcessor.class);
+	private static final Log log = LogFactory.getLog(QueryRequestSQLProcessor.class);
 	
 	private EnhancedAuditDAO enhancedAuditDAO;
 	
-	public Integer auditUserInfo(Exchange exchange)
+	private UserInfoSQLProcessor userInfoProcessor;
+	
+	public void auditPersonQueryRequest(Exchange exchange, @Body Document document)
 	{
-		Integer userInfoPk = null;
-		
 		try {
-			Message cxfMessage = exchange.getIn().getHeader(CxfConstants.CAMEL_CXF_MESSAGE, Message.class);
-			SAMLTokenPrincipal token = (SAMLTokenPrincipal)cxfMessage.get("wss4j.principal.result");
-			Assertion assertion = token.getToken().getSaml2();
-
-			UserInfo userInfo = processUserInfoRequest(assertion);
 			
-			userInfoPk = enhancedAuditDAO.saveUserInfo(userInfo);
+			Integer userInfoPk = userInfoProcessor.auditUserInfo(exchange);
+			
+			QueryRequest queryRequest = processPersonQueryRequest(document);
+			
+			queryRequest.setUserInfofk(userInfoPk);
+			
+            String messageId = (String) exchange.getIn().getHeader("federatedQueryRequestGUID");
+            queryRequest.setMessageId(messageId);
+            
+			enhancedAuditDAO.saveQueryRequest(queryRequest);
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("Unable to audit user info request: " + ExceptionUtils.getStackTrace(e));
+			log.error("Unable to audit person search request: " + ExceptionUtils.getStackTrace(e));
 		}
 		
-		return userInfoPk;
 	}
 	
 	public EnhancedAuditDAO getEnhancedAuditDAO() {
@@ -61,5 +63,15 @@ public class UserInfoSQLProcessor extends AbstractUserInfoProcessor {
 	public void setEnhancedAuditDAO(EnhancedAuditDAO enhancedAuditDAO) {
 		this.enhancedAuditDAO = enhancedAuditDAO;
 	}
+
+	public UserInfoSQLProcessor getUserInfoProcessor() {
+		return userInfoProcessor;
+	}
+
+	public void setUserInfoProcessor(UserInfoSQLProcessor userInfoProcessor) {
+		this.userInfoProcessor = userInfoProcessor;
+	}
+
+
 	
 }
