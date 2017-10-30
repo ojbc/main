@@ -110,7 +110,7 @@
 	function reloadPage() {
 	    clearTimeout(idleTime);
 	    idleTime = setTimeout(function () {
-	        window.location='#springUrl("/portal/performLogout")';
+	        $(location).attr('href','#springUrl("/portal/performLogout")');
 	    }, $inactivityTimeoutInSeconds * 1000);
 	}
 	
