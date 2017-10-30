@@ -67,6 +67,9 @@
 		<camel:route>
 			<camel:from uri="searchRequestFederatedServiceEndpoint" />
 
+			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:federatedQuery.personSearch.dbAuditLog} == 'true'</camel:simple>
@@ -106,9 +109,6 @@
 					<camel:log message="access control returned false, access message: ${in.headers.accessControlResponseMessage}"/>
 				</camel:otherwise>
 			</camel:choice>
-
-			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
 
 			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
 			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>

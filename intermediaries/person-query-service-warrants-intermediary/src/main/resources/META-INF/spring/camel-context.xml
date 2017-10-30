@@ -55,6 +55,9 @@
 		<camel:route>
 			<camel:from uri="searchRequestFederatedServiceEndpoint" />
 			
+			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
+			
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:personQuery.warrants.dbAuditLog} == 'true'</camel:simple>
@@ -72,6 +75,22 @@
 			
 			<camel:choice>
 				<camel:when>
+					<camel:simple>${properties:personQuery.warrants.dbEnancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:queryRequestSQLLoggingProcessor?method=auditPersonQueryRequest"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>
+			
+			
+			<camel:choice>
+				<camel:when>
 					<camel:method bean="accessControlProcessor" method="authorize" />
 					<camel:log message="access control returned true, access message: ${in.headers.accessControlResponseMessage}"/>
 				</camel:when>
@@ -80,9 +99,6 @@
 				</camel:otherwise>
 			</camel:choice>			
 			
-			<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
-			<camel:to uri="bean:messageProcessor?method=processRequestPayload" />
-
 			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
 			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
 

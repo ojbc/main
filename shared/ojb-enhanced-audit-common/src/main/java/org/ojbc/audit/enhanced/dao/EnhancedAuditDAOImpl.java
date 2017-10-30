@@ -29,6 +29,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.SearchQualifierCodes;
@@ -54,14 +55,16 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
     
 	private Map<String, Integer> searchQualifierCodes= new HashMap<String, Integer>();
 	
-	private Map<String, Integer> systemsToSearch= new HashMap<String, Integer>();
+	private Map<String, Integer> systemsToSearchByURI= new HashMap<String, Integer>();
+	
+	private Map<String, Integer> systemsToSearchByName= new HashMap<String, Integer>();
 	
     private final Log log = LogFactory.getLog(this.getClass());
 
 	@Override
 	public Integer retrieveSystemToSearchIDFromURI(String uri) {
 		
-		if (systemsToSearch.isEmpty())
+		if (systemsToSearchByURI.isEmpty())
 		{	
 			final String SELECT_STATEMENT="SELECT * from SYSTEMS_TO_SEARCH";
 	
@@ -69,15 +72,34 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			
 			for (SystemsToSearch systemToSearch : systemsToSearchlist)
 			{
-				systemsToSearch.put(systemToSearch.getSystemUri(),systemToSearch.getSystemsToSearchId());
+				systemsToSearchByURI.put(systemToSearch.getSystemUri(),systemToSearch.getSystemsToSearchId());
 			}	
 		}	
 		
-		Integer id = systemsToSearch.get(uri);
+		Integer id = systemsToSearchByURI.get(uri);
 		
 		return id;
 	}
 
+	@Override
+	public Integer retrieveSystemToSearchIDFromSystemName(String systemName) {
+		
+		if (systemsToSearchByName.isEmpty())
+		{	
+			final String SELECT_STATEMENT="SELECT * from SYSTEMS_TO_SEARCH";
+	
+			List<SystemsToSearch> systemsToSearchlist = jdbcTemplate.query(SELECT_STATEMENT, new SystemsToSearchRowMapper());
+			
+			for (SystemsToSearch systemToSearch : systemsToSearchlist)
+			{
+				systemsToSearchByName.put(systemToSearch.getSystemName(),systemToSearch.getSystemsToSearchId());
+			}	
+		}	
+		
+		Integer id = systemsToSearchByName.get(systemName);
+		
+		return id;
+	}
 
 	@Override
 	public Integer retrieveSearchQualifierCodeIDfromCodeName(String codeName) {
@@ -95,6 +117,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		}	
 			
 		Integer id = searchQualifierCodes.get(codeName);
+		
+		log.debug("Code Name: " + codeName + ", qualifier code id: " + id);
 		
 		return id;
 	}
@@ -183,6 +207,34 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 
          return keyHolder.getKey().intValue();	        
 	}	
+	
+	@Override
+	public Integer saveQueryRequest(QueryRequest queryRequest) {
+		
+        log.debug("Inserting row into QUERY_REQUEST table : " + queryRequest);
+        
+        final String QUERY_REQUEST_INSERT="INSERT into QUERY_REQUEST "
+        		+ "(MESSAGE_ID,IDENTIFICATION_ID,USER_INFO_ID,SYSTEM_NAME) "
+        		+ "values (?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(QUERY_REQUEST_INSERT, new String[] {"QUERY_REQUEST_ID"});
+        	            DaoUtils.setPreparedStatementVariable(queryRequest.getMessageId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(queryRequest.getIdentificationId(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(queryRequest.getUserInfofk(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(queryRequest.getIdentificationSourceText(), ps, 4);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	        
+	}
 	
 	@Override
 	public Integer savePersonSearchResult(PersonSearchResult personSearchResult) {

@@ -37,6 +37,7 @@ import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
+import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -63,6 +64,8 @@ public class EnhancedAuditDaoTest {
 	public void testPersonSearchMethods() throws Exception
 	{
 		Integer userInfoPk = saveUserInfo();
+		assertNotNull(userInfoPk);
+		log.info("User info pk: " + userInfoPk);
 		
 		PersonSearchRequest psr = new PersonSearchRequest();
 		
@@ -87,6 +90,7 @@ public class EnhancedAuditDaoTest {
 		psr.setRaceCode("race");
 		psr.setSsn("123-45-7890");
 		psr.setStateId("state");
+		psr.setUserInfofk(userInfoPk);
 		
 		Integer psrIdFromSave = enhancedAuditDao.savePersonSearchRequest(psr);
 		
@@ -96,7 +100,6 @@ public class EnhancedAuditDaoTest {
 		systemsToSearch.add("system2");
 		
 		psr.setSystemsToSearch(null);
-		psr.setUserInfofk(userInfoPk);
 		
 		Integer psrIdFromRetreive = enhancedAuditDao.retrievePersonSearchIDfromMessageID("123456");
 		
@@ -189,5 +192,23 @@ public class EnhancedAuditDaoTest {
 		
 	}
 
+	@Test
+	public void testQueryMethods() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+		
+		QueryRequest queryRequest = new QueryRequest();
+		
+		queryRequest.setIdentificationId("123");
+		queryRequest.setIdentificationSourceText("Source");
+		queryRequest.setMessageId("123456");
+		queryRequest.setUserInfofk(userInfoPk);
+		
+		Integer queryPk = enhancedAuditDao.saveQueryRequest(queryRequest);
+		
+		assertNotNull(queryPk);
+		
+		
+	}
 }
 

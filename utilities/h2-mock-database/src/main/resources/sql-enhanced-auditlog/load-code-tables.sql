@@ -15,7 +15,7 @@
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
 
-insert into SEARCH_QUALIFIER_CODES(CODE_NAME) values ('startswith');
+insert into SEARCH_QUALIFIER_CODES(CODE_NAME) values ('startsWith');
 insert into SEARCH_QUALIFIER_CODES(CODE_NAME) values ('exact');
 
 insert into SYSTEMS_TO_SEARCH(SYSTEM_NAME, SYSTEM_URI) values ('system1','{system1}URI');

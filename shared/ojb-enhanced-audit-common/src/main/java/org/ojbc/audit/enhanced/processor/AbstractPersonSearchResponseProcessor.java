@@ -18,11 +18,13 @@ package org.ojbc.audit.enhanced.processor;
 
 import org.apache.camel.Body;
 import org.apache.camel.Header;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public abstract class AbstractPersonSearchResponseProcessor {
@@ -47,6 +49,26 @@ public abstract class AbstractPersonSearchResponseProcessor {
         		personSearchResult.setSystemSearchResultURI(systemSearchResultURI);
         	}
         }	
+        
+        Node searchResultsMetaata = XmlUtils.xPathNodeSearch(document, "/psres-doc:PersonSearchResults/srm:SearchResultsMetadata");
+        
+        if (searchResultsMetaata != null)
+        {
+        	String errorText = XmlUtils.xPathStringSearch(searchResultsMetaata, "srer:SearchRequestError/srer:ErrorText");
+        	
+        	if (StringUtils.isNotBlank(errorText))
+        	{
+        		personSearchResult.setSearchResultsErrorIndicator(true);
+        		personSearchResult.setSearchResultsErrorText(errorText);
+        	}	
+        	
+        	String systemName = XmlUtils.xPathStringSearch(searchResultsMetaata, "srer:SearchRequestError/intel:SystemName");
+        	personSearchResult.setSystemName(systemName);
+
+        }	
+        
+        //TODO: figure out how to handle timeouts, too many results, access denied
+        //PERSON_SEARCH_RESULTS.SEARCH_RESULTS_TIMEOUT_INDICATOR
         
         log.debug("Person Search Result: " + personSearchResult.toString());
 
