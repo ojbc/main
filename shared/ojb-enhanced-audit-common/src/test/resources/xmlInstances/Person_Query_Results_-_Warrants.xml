@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<warrant:Warrants xmlns:jxdm="http://niem.gov/niem/domains/jxdm/4.1"
+	xmlns:usps-states="http://niem.gov/niem/usps_states/2.0"
+	xmlns:error="http://ojbc.org/IEPD/Extensions/PersonQueryErrorReporting/1.0"
+	xmlns:warrant-ext="http://ojbc.org/IEPD/Extensions/Warrants/1.0"
+	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:warrant="http://ojbc.org/IEPD/Exchange/Warrants/1.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/Warrants/1.0 ../xsd/Person_Query_Results_-_Warrants.xsd">
+	<warrant-ext:eBWResults>
+		<jxdm:Person s:id="P1">
+			<nc:PersonAgeMeasure>
+				<nc:MeasurePointValue>53</nc:MeasurePointValue>
+			</nc:PersonAgeMeasure>
+			<nc:PersonBirthDate>
+				<nc:Date>1960-01-15</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonHeightMeasure>
+				<nc:MeasurePointValue>72.0</nc:MeasurePointValue>
+				<nc:LengthUnitCode>INH</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>Mickey</nc:PersonGivenName>
+				<nc:PersonMiddleName>M</nc:PersonMiddleName>
+				<nc:PersonSurName>Mouse</nc:PersonSurName>
+			</nc:PersonName>
+			<nc:PersonOtherIdentification>
+				<nc:IdentificationID>@1011031</nc:IdentificationID>
+				<nc:IdentificationSourceText>JIMS</nc:IdentificationSourceText>
+			</nc:PersonOtherIdentification>
+			<nc:PersonPhysicalFeature>
+				<nc:PhysicalFeatureCategoryText>tattoo
+				</nc:PhysicalFeatureCategoryText>
+				<nc:PhysicalFeatureDescriptionText>bald eagle</nc:PhysicalFeatureDescriptionText>
+				<nc:PhysicalFeatureLocationText>left arm
+                </nc:PhysicalFeatureLocationText>
+			</nc:PersonPhysicalFeature>
+			<nc:PersonRaceCode>B</nc:PersonRaceCode>
+			<nc:PersonSexCode>M</nc:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>123456789</nc:IdentificationID>
+				<nc:IdentificationSourceText>SSA</nc:IdentificationSourceText>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasurePointValue>200.00</nc:MeasurePointValue>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+			<jxdm:PersonAugmentation>
+				<nc:DriverLicense>
+					<nc:DriverLicenseIdentification>
+						<nc:IdentificationID>H1234567</nc:IdentificationID>
+						<nc:IdentificationSourceText>HI</nc:IdentificationSourceText>
+					</nc:DriverLicenseIdentification>
+				</nc:DriverLicense>
+				<jxdm:PersonFBIIdentification>
+					<nc:IdentificationID>888888888</nc:IdentificationID>
+				</jxdm:PersonFBIIdentification>
+				<jxdm:PersonStateFingerprintIdentification>
+					<nc:IdentificationID>999999999</nc:IdentificationID>
+					<nc:IdentificationSourceText>HI</nc:IdentificationSourceText>
+				</jxdm:PersonStateFingerprintIdentification>
+			</jxdm:PersonAugmentation>
+		</jxdm:Person>
+		<nc:Location>
+			<nc:LocationAddress>
+				<nc:StructuredAddress>
+					<nc:LocationStreet>
+						<nc:StreetNumberText>1202</nc:StreetNumberText>
+						<nc:StreetName>Main Street</nc:StreetName>
+					</nc:LocationStreet>
+					<nc:LocationCityName>Scranton</nc:LocationCityName>
+					<nc:LocationStateNCICRESCode>PA</nc:LocationStateNCICRESCode>
+					<nc:LocationPostalCode>18501</nc:LocationPostalCode>
+				</nc:StructuredAddress>
+				<!-- <nc:AddressFullText>102 Main Street Scranton PA 18501</nc:AddressFullText> -->
+			</nc:LocationAddress>
+		</nc:Location>
+		<warrant-ext:eBWResult>
+			<jxdm:Case>
+				<nc:ActivityStatus>
+					<nc:StatusDescriptionText>Open</nc:StatusDescriptionText>
+				</nc:ActivityStatus>
+				<nc:CaseDocketID>1DTA-09-00068</nc:CaseDocketID>
+			</jxdm:Case>
+			<warrant-ext:eBWWarrantStatus>Active</warrant-ext:eBWWarrantStatus>
+			<jxdm:Bail>
+				<nc:ActivityStatus>
+					<nc:StatusDescriptionText>Posted</nc:StatusDescriptionText>
+				</nc:ActivityStatus>
+				<jxdm:BailSetAmount>250.0</jxdm:BailSetAmount>
+			</jxdm:Bail>
+			<jxdm:Warrant>
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>jxdm0914057</nc:IdentificationID>
+				</nc:ActivityIdentification>
+				<nc:ActivityStatus>
+					<nc:StatusDescriptionText>Active</nc:StatusDescriptionText>
+				</nc:ActivityStatus>
+				<jxdm:CourtOrderDesignatedSubject>
+					<nc:RoleOfPersonReference s:ref="P1" />
+				</jxdm:CourtOrderDesignatedSubject>
+				<jxdm:CourtOrderIssuingDate>
+					<nc:Date>2009-03-05</nc:Date>
+				</jxdm:CourtOrderIssuingDate>
+				<jxdm:CourtOrderJurisdiction>
+					<nc:JurisdictionText>HN (Honolulu Division)</nc:JurisdictionText>
+				</jxdm:CourtOrderJurisdiction>
+				<jxdm:CourtOrderStatus>
+					<nc:StatusDescriptionText>Open</nc:StatusDescriptionText>
+				</jxdm:CourtOrderStatus>
+				<jxdm:WarrantLevelText>Traffic</jxdm:WarrantLevelText>
+			</jxdm:Warrant>
+		</warrant-ext:eBWResult>
+		<warrant-ext:eBWResult>
+			<jxdm:Case>
+				<nc:ActivityStatus>
+					<nc:StatusDescriptionText>Open</nc:StatusDescriptionText>
+				</nc:ActivityStatus>
+				<nc:CaseDocketID>2BSD-09-00068</nc:CaseDocketID>
+			</jxdm:Case>
+			<warrant-ext:eBWWarrantStatus>Active</warrant-ext:eBWWarrantStatus>
+			<jxdm:Bail>
+				<nc:ActivityStatus>
+					<nc:StatusDescriptionText>Posted</nc:StatusDescriptionText>
+				</nc:ActivityStatus>
+				<jxdm:BailSetAmount>250.0</jxdm:BailSetAmount>
+			</jxdm:Bail>
+			<jxdm:Warrant>
+				<nc:ActivityIdentification>
+					<nc:IdentificationID>jxdm0914057</nc:IdentificationID>
+				</nc:ActivityIdentification>
+				<nc:ActivityStatus>
+					<nc:StatusDescriptionText>Active</nc:StatusDescriptionText>
+				</nc:ActivityStatus>
+				<jxdm:CourtOrderDesignatedSubject>
+					<nc:RoleOfPersonReference s:ref="P1" />
+				</jxdm:CourtOrderDesignatedSubject>
+				<jxdm:CourtOrderIssuingDate>
+					<nc:Date>2010-03-05</nc:Date>
+				</jxdm:CourtOrderIssuingDate>
+				<jxdm:CourtOrderJurisdiction>
+					<nc:JurisdictionText>HN (Honolulu Division)</nc:JurisdictionText>
+				</jxdm:CourtOrderJurisdiction>
+				<jxdm:CourtOrderStatus>
+					<nc:StatusDescriptionText>Open</nc:StatusDescriptionText>
+				</jxdm:CourtOrderStatus>
+				<jxdm:WarrantLevelText>Traffic</jxdm:WarrantLevelText>
+			</jxdm:Warrant>
+		</warrant-ext:eBWResult>
+	</warrant-ext:eBWResults>
+</warrant:Warrants>

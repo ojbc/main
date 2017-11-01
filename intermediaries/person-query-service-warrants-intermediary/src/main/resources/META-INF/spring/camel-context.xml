@@ -82,7 +82,7 @@
 						
 				        <doCatch>
 				            <exception>java.lang.Exception</exception>
-				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.stacktrace}"/>
 				        </doCatch>
 					</camel:doTry>
 				</camel:when>
@@ -160,9 +160,17 @@
 		<camel:route>
 			<camel:from uri="personQueryResultsHandlerWarrantsServiceEndpoint"/>
 			
+			<camel:log message="Entering Person Query Results Handler Warrants"></camel:log>
+			<camel:setHeader headerName="searchProfile">
+				<constant>{http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0}Person-Query-Service---Warrants</constant>
+			</camel:setHeader>
+			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+			
 			<camel:choice>
 				<camel:when>
 					<camel:simple>${properties:personQuery.warrants.dbAuditLog} == 'true'</camel:simple>
+					
+					<camel:log message="Enhanced auditing of person query Warrants result"/>
 					
 					<camel:doTry>
 						<camel:to uri="bean:sqlLoggingProcessor?method=logExchange"/>
@@ -175,11 +183,21 @@
 				</camel:when>
 			</camel:choice>
 			
-			<camel:log message="Entering Person Query Results Handler Warrants"></camel:log>
-			<camel:setHeader headerName="searchProfile">
-				<constant>{http://ojbc.org/Services/WSDL/Person_Query_Service-Warrants/1.0}Person-Query-Service---Warrants</constant>
-			</camel:setHeader>
-			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:personQuery.warrants.dbEnancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:personQueryWarrantResponseSQLProcessor?method=auditPersonQueryWarrantResponseResponse"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>			
+						
 			<camel:log message="Calling Aggregator" />
 			<camel:to uri="direct:aggregateFederatedQuery" />
 		</camel:route>
