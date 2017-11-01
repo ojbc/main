@@ -5,6 +5,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public class QueryRequest {
 
+	private Integer queryRequestId;
 	private String identificationId;
 	private String identificationSourceText;
 	private Integer userInfofk;
@@ -37,6 +38,12 @@ public class QueryRequest {
 	}
 	public void setMessageId(String messageId) {
 		this.messageId = messageId;
+	}
+	public Integer getQueryRequestId() {
+		return queryRequestId;
+	}
+	public void setQueryRequestId(Integer queryRequestId) {
+		this.queryRequestId = queryRequestId;
 	}
 	
 }
