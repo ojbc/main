@@ -29,6 +29,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
@@ -182,7 +183,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
         log.debug("Inserting row into USER_INFO table : " + userInfo);
         
-        final String USER_INFO_INSERT="INSERT into USER_INFO "
+        final String USER_INFO_INSERT="INSERT into USER_INFO "  
         		+ "(USER_FIRST_NAME,IDENTITY_PROVIDER_ID,EMPLOYER_NAME,USER_EMAIL_ADDRESS,USER_LAST_NAME,EMPLOYER_SUBUNIT_NAME,FEDERATION_ID) "
         		+ "values (?, ?, ?, ?, ?, ?, ?)";
         
@@ -206,6 +207,43 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	    keyHolder);
 
          return keyHolder.getKey().intValue();	        
+	}	
+	
+	@Override
+	public Integer savePersonQueryCriminalHistoryResponse(
+			PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponse) {
+		
+		log.debug("Inserting row into CRIMINAL_HISTORY_QUERY_RESULTS table : " + personQueryCriminalHistoryResponse.toString());
+		
+        final String CRIMINAL_HISTORY_QUERY_RESULTS_INSERT="INSERT into CRIMINAL_HISTORY_QUERY_RESULTS "  
+        		+ "(FIRST_NAME, MIDDLE_NAME, LAST_NAME, SID, FBI_ID, QUERY_REQUEST_ID, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_TIMEOUT_INDICATOR,QUERY_RESULTS_ERROR_INDICATOR,SYSTEM_NAME,MESSAGE_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(CRIMINAL_HISTORY_QUERY_RESULTS_INSERT, new String[] {"CRIMINAL_HISTORY_QUERY_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getFirstName(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getMiddleName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getLastName(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getSid(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getFbiId(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getQueryRequestId(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getQueryResultsErrorText(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.isQueryResultsTimeoutIndicator(), ps, 8);
+        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.isQueryResultsErrorIndicator(), ps, 9);
+        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getSystemName(), ps, 10);
+        	            DaoUtils.setPreparedStatementVariable(personQueryCriminalHistoryResponse.getMessageId(), ps, 11);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	        
+
 	}	
 	
 	@Override
@@ -369,6 +407,32 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		return ret;
 	}
 	
+	@Override
+	public Integer retrievePersonQueryIDfromMessageID(String messageId) {
+		final String SUBSCRIPTION_SELECT="SELECT * FROM QUERY_REQUEST WHERE MESSAGE_ID = ?";
+		
+		Integer ret = null;
+		
+		List<QueryRequest> personQueryRequests = jdbcTemplate.query(SUBSCRIPTION_SELECT, new PersonQueryRequestRowMapper(), messageId);
+		
+		if (personQueryRequests == null)
+		{
+			throw new IllegalStateException("Unable to retrieve person query request ID");
+		}
+		
+		if (personQueryRequests.size() == 0 ||  personQueryRequests.size() > 1)
+		{
+			throw new IllegalStateException("Query returned zero or more than person query request, size: " + personQueryRequests.size());
+		}
+		
+		if (personQueryRequests.size() == 1)
+		{
+			ret = personQueryRequests.get(0).getQueryRequestId();
+		}	
+
+		return ret;	
+	}
+
 
 	@Override
 	public UserInfo retrieveUserInfoFromId(Integer userInfoPk) {
@@ -486,6 +550,25 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		}
 	}
 	
+	private final class PersonQueryRequestRowMapper implements RowMapper<QueryRequest> {
+		public QueryRequest mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			QueryRequest queryRequest = buildQueryRequest(rs);
+			return queryRequest;
+		}
+
+		private QueryRequest buildQueryRequest(
+				ResultSet rs) throws SQLException{
+
+			QueryRequest queryRequest = new QueryRequest();
+			
+			queryRequest.setMessageId(rs.getString("MESSAGE_ID"));
+			queryRequest.setQueryRequestId(rs.getInt("QUERY_REQUEST_ID"));
+			
+			return queryRequest;
+		}
+	}
+	
 	
 	
 	private LocalDateTime toLocalDateTime(Timestamp timestamp){
@@ -512,7 +595,5 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 	}
-
-
 
 }
