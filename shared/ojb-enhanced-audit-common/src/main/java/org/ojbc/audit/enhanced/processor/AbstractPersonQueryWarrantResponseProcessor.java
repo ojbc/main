@@ -18,9 +18,11 @@ package org.ojbc.audit.enhanced.processor;
 
 import org.apache.camel.Body;
 import org.apache.camel.Header;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
+import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
 
 public abstract class AbstractPersonQueryWarrantResponseProcessor {
@@ -32,8 +34,53 @@ public abstract class AbstractPersonQueryWarrantResponseProcessor {
 	PersonQueryWarrantResponse processPersonQueryWarrantResponse(Document document) throws Exception
 	{
 		PersonQueryWarrantResponse personQueryWarrantResponse = new PersonQueryWarrantResponse();
+		
+		String givenName = XmlUtils.xPathStringSearch(document, "/warrant:Warrants/warrant-ext:eBWResults/jxdm41:Person/nc:PersonName/nc:PersonGivenName");
+		
+		if (StringUtils.isNotBlank(givenName))
+		{
+			personQueryWarrantResponse.setFirstName(givenName);
+		}	
 
-		//TODO: set the xpaths here
+		String middleName = XmlUtils.xPathStringSearch(document, "/warrant:Warrants/warrant-ext:eBWResults/jxdm41:Person/nc:PersonName/nc:PersonMiddleName");
+		
+		if (StringUtils.isNotBlank(middleName))
+		{
+			personQueryWarrantResponse.setMiddleName(middleName);
+		}	
+
+		String lastName = XmlUtils.xPathStringSearch(document, "/warrant:Warrants/warrant-ext:eBWResults/jxdm41:Person/nc:PersonName/nc:PersonSurName");
+		
+		if (StringUtils.isNotBlank(lastName))
+		{
+			personQueryWarrantResponse.setLastName(lastName);
+		}	
+
+		String fbiId = XmlUtils.xPathStringSearch(document, "/warrant:Warrants/warrant-ext:eBWResults/jxdm41:Person/jxdm41:PersonAugmentation/jxdm41:PersonFBIIdentification/nc:IdentificationID");
+		
+		if (StringUtils.isNotBlank(fbiId))
+		{
+			personQueryWarrantResponse.setFbiId(fbiId);
+		}
+		
+		String sid = XmlUtils.xPathStringSearch(document, "/warrant:Warrants/warrant-ext:eBWResults/jxdm41:Person/jxdm41:PersonAugmentation/jxdm41:PersonStateFingerprintIdentification/nc:IdentificationID");
+		
+		if (StringUtils.isNotBlank(sid))
+		{
+			personQueryWarrantResponse.setSid(sid);
+		}			
+
+		personQueryWarrantResponse.setSystemName("Warrants");
+
+		String errorText = XmlUtils.xPathStringSearch(document, "/warrant:Warrants/warrant-ext:eBWResults/qrm:QueryResultsMetadata/qrer:QueryRequestError/qrer:ErrorText");
+		
+		if (StringUtils.isNotBlank(errorText))
+		{
+			personQueryWarrantResponse.setQueryResultsErrorText(errorText);
+		}			
+
+		log.debug("Warrant Response: " + personQueryWarrantResponse.toString());
+		
              
         return personQueryWarrantResponse;
 	}

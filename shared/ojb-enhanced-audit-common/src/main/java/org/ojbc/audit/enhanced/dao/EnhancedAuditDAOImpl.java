@@ -30,6 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
+import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
@@ -245,6 +246,42 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
          return keyHolder.getKey().intValue();	        
 
 	}	
+	
+	@Override
+	public Integer savePersonQueryWarrantResponse(
+			PersonQueryWarrantResponse personQueryWarrantResponse) {
+		
+		log.debug("Inserting row into WARRANT_QUERY_RESULTS table : " + personQueryWarrantResponse.toString());
+		
+        final String WARRANT_QUERY_RESULTS_INSERT="INSERT into WARRANT_QUERY_RESULTS "  
+        		+ "(FIRST_NAME, MIDDLE_NAME, LAST_NAME, SID, FBI_ID, QUERY_REQUEST_ID, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_TIMEOUT_INDICATOR,QUERY_RESULTS_ERROR_INDICATOR,SYSTEM_NAME,MESSAGE_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(WARRANT_QUERY_RESULTS_INSERT, new String[] {"CRIMINAL_HISTORY_QUERY_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getFirstName(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getMiddleName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getLastName(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getSid(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getFbiId(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getQueryRequestId(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getQueryResultsErrorText(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.isQueryResultsTimeoutIndicator(), ps, 8);
+        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.isQueryResultsErrorIndicator(), ps, 9);
+        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getSystemName(), ps, 10);
+        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getMessageId(), ps, 11);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}
 	
 	@Override
 	public Integer saveQueryRequest(QueryRequest queryRequest) {

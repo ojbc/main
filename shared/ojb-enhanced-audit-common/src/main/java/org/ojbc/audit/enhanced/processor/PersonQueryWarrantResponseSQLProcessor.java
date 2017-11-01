@@ -6,9 +6,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
-import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
-import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.w3c.dom.Document;
 
 public class PersonQueryWarrantResponseSQLProcessor extends AbstractPersonQueryWarrantResponseProcessor {
@@ -26,6 +24,8 @@ public class PersonQueryWarrantResponseSQLProcessor extends AbstractPersonQueryW
 			
 			personQueryWarrantResponse = processPersonQueryWarrantResponse(document);
 			
+			personQueryWarrantResponse.setMessageId(messageID);
+			
 			Integer personQueryPk = enhancedAuditDAO.retrievePersonQueryIDfromMessageID(messageID);
 			
 			if (personQueryPk != null)
@@ -33,7 +33,7 @@ public class PersonQueryWarrantResponseSQLProcessor extends AbstractPersonQueryW
 				personQueryWarrantResponse.setQueryRequestId(personQueryPk);
 			}	
 			
-			//enhancedAuditDAO.save
+			enhancedAuditDAO.savePersonQueryWarrantResponse(personQueryWarrantResponse);
 			
 			log.info(personQueryWarrantResponse.toString());
 			
