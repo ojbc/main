@@ -35,6 +35,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
@@ -207,6 +208,21 @@ public class EnhancedAuditDaoTest {
 		Integer queryPk = enhancedAuditDao.saveQueryRequest(queryRequest);
 		
 		assertNotNull(queryPk);
+		
+		PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponse = new PersonQueryCriminalHistoryResponse();
+		
+		personQueryCriminalHistoryResponse.setQueryRequestId(queryPk);
+		personQueryCriminalHistoryResponse.setSystemName("Criminal History");
+		personQueryCriminalHistoryResponse.setMessageId("123456");
+		personQueryCriminalHistoryResponse.setFbiId("12345");
+		personQueryCriminalHistoryResponse.setFirstName("first");
+		personQueryCriminalHistoryResponse.setMiddleName("middle");
+		personQueryCriminalHistoryResponse.setLastName("last");
+		personQueryCriminalHistoryResponse.setSid("SID123456");
+		
+		Integer queryResponsePk = enhancedAuditDao.savePersonQueryCriminalHistoryResponse(personQueryCriminalHistoryResponse);
+		
+		assertNotNull(queryResponsePk);
 		
 		
 	}
