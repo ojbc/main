@@ -52,10 +52,13 @@
 			uri="cxf:bean:personHealthSearchClientResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>                        
 
 		<endpoint id="inputDirectory"
-			uri="file:///${filedrop}/input?idempotent=true&amp;moveFailed=${filedrop}/error${personHealth.cronSchedulerExpression}" />
-
+			uri="file:///${filedrop}/input?idempotent=true&amp;moveFailed=${filedrop}/error&amp;readLock=changed&amp;readLockCheckInterval=100&amp;delete=false&amp;sortBy=file:modified&amp;delay=1${personHealth.cronSchedulerExpression}" />
+																			
 		<endpoint id="outputDirectory"
 			uri="file:///${filedrop}/output" />
+
+		<endpoint id="outputDirectoryRequestsWithNoCachedResponses"
+			uri="file:///${filedrop}/outputRequestsWithNoCachedResponses" />
 
 
 		<route id="personHealthRequest_filedrop_Route">
@@ -114,7 +117,21 @@
 					<camel:to uri="direct:aggregatePersonHealthResponse"/>
 					
 				</camel:when>
-				<camel:otherwise>			
+				<camel:otherwise>
+					
+					<camel:log message="Optionally call web service"/>
+							
+					<camel:choice>
+						<camel:when>
+							<camel:simple>${properties:savedRequestsWithoutCachedResponseToFileSystem} == 'true'</camel:simple>
+							
+							<camel:log message="Write request to file system and stop"/>
+							
+							<camel:to uri="outputDirectoryRequestsWithNoCachedResponses"/>
+							<camel:stop/>
+						</camel:when>
+					</camel:choice>						
+				
 					<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
 								
 					<camel:setHeader headerName="operationName">
