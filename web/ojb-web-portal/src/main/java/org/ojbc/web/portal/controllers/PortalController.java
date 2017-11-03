@@ -249,6 +249,7 @@ public class PortalController implements ApplicationContextAware {
     		Element samlAssertion = (Element)request.getAttribute("samlAssertion");
     		String samlTokenIssuer = XmlUtils.xPathStringSearch( samlAssertion, "/saml2:Assertion/saml2:Issuer");
     		
+    		log.info("Test login with the new jquery click");
     		log.info("Saml Token Issuer: " + samlTokenIssuer);
     		
     		String logoutReturnUrl = entityLogoutReturnUrlMap.get(samlTokenIssuer);

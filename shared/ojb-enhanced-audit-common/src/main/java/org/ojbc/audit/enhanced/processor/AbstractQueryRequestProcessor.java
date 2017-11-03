@@ -18,6 +18,7 @@ package org.ojbc.audit.enhanced.processor;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
@@ -36,7 +37,17 @@ public abstract class AbstractQueryRequestProcessor {
 
         String identificationId = XmlUtils.xPathStringSearch(document, "//nc:IdentificationID");
 
+        if (StringUtils.isBlank(identificationId))
+        {
+        	identificationId = XmlUtils.xPathStringSearch(document, "//nc30:IdentificationID");
+        }	
+        
         String identificationSourceText = XmlUtils.xPathStringSearch(document, "//nc:IdentificationSourceText");
+        
+        if (StringUtils.isBlank(identificationSourceText))
+        {
+        	identificationSourceText = XmlUtils.xPathStringSearch(document, "//nc30:SystemName");
+        }	
         
         personQueryRequest.setIdentificationId(identificationId);
         personQueryRequest.setIdentificationSourceText(identificationSourceText);
