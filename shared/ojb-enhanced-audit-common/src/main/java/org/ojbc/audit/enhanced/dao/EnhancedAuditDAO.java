@@ -17,6 +17,8 @@
 package org.ojbc.audit.enhanced.dao;
 
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
@@ -34,6 +36,10 @@ public interface EnhancedAuditDAO {
 	public FederalRapbackSubscription retrieveFederalRapbackSubscriptionFromTCN(String transactionControlNumber);
 	
 	public Integer savePersonSearchRequest(PersonSearchRequest personSearchRequest);
+	
+	public Integer saveIdentificationSearchRequest(IdentificationSearchRequest identificationSearchRequest);
+	
+	public Integer saveidentificationSearchResponse(IdentificationSearchResult identificationSearchResult);
 	
 	public Integer saveQueryRequest(QueryRequest queryRequest);
 	
@@ -58,5 +64,7 @@ public interface EnhancedAuditDAO {
 	public Integer retrievePersonSearchIDfromMessageID(String messageId);
 	
 	public Integer retrievePersonQueryIDfromMessageID(String messageId);
+	
+	public Integer retrieveOrganizationIdentificationIDfromMessageID(String messageId);
 	
 }

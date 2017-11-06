@@ -35,6 +35,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
@@ -226,5 +227,31 @@ public class EnhancedAuditDaoTest {
 		
 		
 	}
+	
+	@Test
+	public void testIdentificationMethods() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+		
+		LocalDate dobTo = LocalDate.now();
+		LocalDate dobFrom = dobTo.minusYears(1);
+		String messageId="88337755";
+		
+		IdentificationSearchRequest identificationSearchRequest = new IdentificationSearchRequest();
+		
+		identificationSearchRequest.setFirstName("first");
+		identificationSearchRequest.setIdentificationResultsStatus("status");
+		identificationSearchRequest.setLastName("last");
+		identificationSearchRequest.setMessageId(messageId);
+		identificationSearchRequest.setOtn("OTN");
+		identificationSearchRequest.setReasonCode("reason");
+		identificationSearchRequest.setReportedFromDate(dobFrom);
+		identificationSearchRequest.setReportedToDate(dobTo);
+		identificationSearchRequest.setUserInfoId(userInfoPk);
+		
+		Integer identificationSearchRequestPK = enhancedAuditDao.saveIdentificationSearchRequest(identificationSearchRequest);
+		
+		assertNotNull(identificationSearchRequestPK);
+	}	
 }
 
