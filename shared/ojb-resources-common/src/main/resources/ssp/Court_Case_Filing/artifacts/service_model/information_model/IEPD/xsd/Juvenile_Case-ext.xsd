@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:ecf-juv="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:JuvenileCase-4.0"
+	xmlns:ojb-juv-ext="http://ojbc.org/IEPD/Extensions/JuvenileCaseExtension/1.0" xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/JuvenileCaseExtension/1.0">
+	<xsd:annotation>
+		<xsd:documentation>JuvenileCase</xsd:documentation>
+		<xsd:appinfo>
+			<i:ConformantIndicator>true</i:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="./constraint/niem/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="./constraint/niem/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="./constraint/niem/appinfo/2.0/appinfo.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="./constraint/niem/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="./constraint/niem/domains/jxdm/4.0/jxdm.xsd" />
+	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" schemaLocation="./common/ECF-4.0-CommonTypes.xsd" />
+	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:JuvenileCase-4.0" schemaLocation="./casetype/ECF-4.0-JuvenileCase.xsd" />
+	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" schemaLocation="./message/ECF-4.0-CoreFilingMessage.xsd" />
+	<xsd:complexType name="CoreFilingMessageType">
+		<xsd:annotation>
+			<xsd:documentation>The structure of a Filing including any Payment Information will be documented in this section. This describes the filing
+				transaction between the Filing Assembly MDE and the Filing Review MDE. This information will become part of the Record Docketing between the
+				Filing Review MDE and the Court Record MDE but does not necessarily describe the information that is actually stored in the Court Record.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="core:CoreFilingMessageType">
+				<xsd:sequence>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="JuvenileCaseType">
+		<xsd:annotation>
+			<xsd:documentation>A delinquency or dependency case.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ecf-juv:JuvenileCaseType">
+				<xsd:sequence>
+					<xsd:element ref="j:CaseAugmentation" minOccurs="0" />
+					<xsd:element ref="ojb-juv-ext:CaseAugmentation" minOccurs="0" />
+					<xsd:element ref="ojb-juv-ext:JuvenileCaseJuvenile" minOccurs="0" />
+					<xsd:element ref="ojb-juv-ext:JuvenileCaseCaseworker" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CaseAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information needed to initiate a court case.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ecf:CaseAugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="ojb-juv-ext:CaseParticipant" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:CaseOtherEntity" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-juv-ext:AddOnCharge" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Offense" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-juv-ext:PoliceReportCount" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ojb-juv-ext:PoliceReportNumber" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="JuvenileType">
+		<xsd:annotation>
+			<xsd:documentation>A type for minor who is the subject of a delinquency or dependency case.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ecf-juv:JuvenileType">
+				<xsd:sequence>
+					<xsd:element ref="ojb-juv-ext:JuvenileAugmentation" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CaseworkerType">
+		<xsd:annotation>
+			<xsd:documentation>A type for a person who manages a juvenile case.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="nc:RoleOfPersonReference" minOccurs="0" />
+					<xsd:element ref="ojb-juv-ext:CaseworkerStaffIdentification" minOccurs="0" />
+					<xsd:element ref="ojb-juv-ext:CaseworkerAssignmentDateRange" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CaseParticipantType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a case participant.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:EntityType">
+				<xsd:sequence>
+					<xsd:element ref="ojb-juv-ext:PersonAugmentation" minOccurs="0" />
+					<xsd:element ref="ecf:CaseParticipantRoleCode" minOccurs="0" />
+					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PersonType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a human being.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ecf:PersonType">
+				<xsd:sequence>
+					<xsd:element ref="ojb-juv-ext:PersonAugmentation" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PersonAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a person.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="j:PersonAugmentationType">
+				<xsd:sequence>
+					<xsd:element ref="ojb-juv-ext:PersonJuvenileIndicator" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="JuvenileAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a juvenile.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ojb-juv-ext:GeneralJuvenileNoteText" minOccurs="0" />
+					<xsd:element ref="ojb-juv-ext:SpecialJuvenileDescriptionText" minOccurs="0" />
+					<xsd:element ref="ojb-juv-ext:SpecialJuvenileDateRange" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="JuvenileCase" type="ojb-juv-ext:JuvenileCaseType" substitutionGroup="nc:Case">
+		<xsd:annotation>
+			<xsd:documentation>A delinquency or dependency case.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JuvenileCaseJuvenile" type="ojb-juv-ext:JuvenileType">
+		<xsd:annotation>
+			<xsd:documentation>The minor who is the subject of this delinquency or dependency case.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JuvenileCaseCaseworker" type="ojb-juv-ext:CaseworkerType">
+		<xsd:annotation>
+			<xsd:documentation>A person who manages a juvenile case.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JuvenileAugmentation" type="ojb-juv-ext:JuvenileAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a juvenile.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseAugmentation" type="ojb-juv-ext:CaseAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information needed to initiate a court case.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseParticipant" type="ojb-juv-ext:CaseParticipantType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a case participant.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EntityPerson" type="ojb-juv-ext:PersonType" substitutionGroup="nc:EntityRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A person capable of bearing legal rights and responsibilities.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonAugmentation" type="ojb-juv-ext:PersonAugmentationType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information about a person.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonJuvenileIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if person is a juvenile; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PoliceReportCount" type="niem-xsd:nonNegativeInteger">
+		<xsd:annotation>
+			<xsd:documentation>Police report count.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PoliceReportNumber" type="niem-xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>The local police report number associated with a case.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AddOnCharge" type="j:ChargeType">
+		<xsd:annotation>
+			<xsd:documentation>Add On Charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GeneralJuvenileNoteText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>General notes regarding a juvenile.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SpecialJuvenileDescriptionText" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A description of special juvenile information.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SpecialJuvenileDateRange" type="nc:DateRangeType">
+		<xsd:annotation>
+			<xsd:documentation>A date range for a special juvenile designation.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseworkerStaffIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification assigned to a caseworker staff member.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseworkerAssignmentDateRange" type="nc:DateRangeType">
+		<xsd:annotation>
+			<xsd:documentation>An assignment date range for a caseworker.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
