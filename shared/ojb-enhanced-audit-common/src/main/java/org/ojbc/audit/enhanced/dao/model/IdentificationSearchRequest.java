@@ -1,6 +1,7 @@
 package org.ojbc.audit.enhanced.dao.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -9,7 +10,7 @@ public class IdentificationSearchRequest {
 
 	private String firstName;
 	private String lastName;
-	private String reasonCode;
+	private List<String> reasonCode;
 	private String identificationResultsStatus;
 	private String otn;
 	private Integer identificationSearchRequestId;
@@ -29,12 +30,6 @@ public class IdentificationSearchRequest {
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-	public String getReasonCode() {
-		return reasonCode;
-	}
-	public void setReasonCode(String reasonCode) {
-		this.reasonCode = reasonCode;
 	}
 	public String getOtn() {
 		return otn;
@@ -82,5 +77,11 @@ public class IdentificationSearchRequest {
 	
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
+	public List<String> getReasonCode() {
+		return reasonCode;
+	}
+	public void setReasonCode(List<String> reasonCode) {
+		this.reasonCode = reasonCode;
 	}
 }

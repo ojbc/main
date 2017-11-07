@@ -13,6 +13,8 @@ public class PersonSearchResult {
 	private Integer personSearchResultsId;
 	private String searchResultsErrorText;
 	private Boolean searchResultsTimeoutIndicator;
+	private Boolean searchResultsAccessDeniedIndicator;
+	private String searchResultsAccessDeniedText;
 	private Integer searchResultsCount;
 	
 	public Integer getPersonSearchRequestId() {
@@ -73,6 +75,20 @@ public class PersonSearchResult {
 	}
 	public void setSystemName(String systemName) {
 		this.systemName = systemName;
+	}
+	public Boolean getSearchResultsAccessDeniedIndicator() {
+		return searchResultsAccessDeniedIndicator;
+	}
+	public void setSearchResultsAccessDeniedIndicator(
+			Boolean searchResultsAccessDeniedIndicator) {
+		this.searchResultsAccessDeniedIndicator = searchResultsAccessDeniedIndicator;
+	}
+	public String getSearchResultsAccessDeniedText() {
+		return searchResultsAccessDeniedText;
+	}
+	public void setSearchResultsAccessDeniedText(
+			String searchResultsAccessDeniedText) {
+		this.searchResultsAccessDeniedText = searchResultsAccessDeniedText;
 	}
 
 }

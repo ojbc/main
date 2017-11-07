@@ -48,8 +48,18 @@ public class IdentificationSearchRequestSQLProcessor extends AbstractIdentificat
             String messageId = (String) exchange.getIn().getHeader("federatedQueryRequestGUID");
             identificationSearchRequest.setMessageId(messageId);
             
-			enhancedAuditDAO.saveIdentificationSearchRequest(identificationSearchRequest);
+			Integer identificationSearchRequestID = enhancedAuditDAO.saveIdentificationSearchRequest(identificationSearchRequest);
 			
+			for (String identificationReasonDescription : identificationSearchRequest.getReasonCode())
+			{
+				Integer identificationSearchReasonCode = enhancedAuditDAO.retrieveIdentificationReasonCodeFromDescription(identificationReasonDescription);
+				
+				if (identificationSearchRequestID != null && identificationSearchReasonCode != null)
+				{
+					enhancedAuditDAO.saveIdentificationReasonCode(identificationSearchReasonCode, identificationSearchRequestID);
+				}	
+				
+			}	
 			
 		} catch (Exception e) {
 			e.printStackTrace();

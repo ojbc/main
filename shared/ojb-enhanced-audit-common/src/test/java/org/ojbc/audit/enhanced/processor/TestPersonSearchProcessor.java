@@ -114,6 +114,12 @@ public class TestPersonSearchProcessor {
         document = db.parse(inputFile);
 		
         personSearchResponseSQLProcessor.auditPersonSearchResponse(document, "123456");
+        
+        inputFile = new File("src/test/resources/xmlInstances/ErrorReported-PersonSearchResults.xml");
+
+        document = db.parse(inputFile);
+		
+        personSearchResponseSQLProcessor.auditPersonSearchResponse(document, "123456");
 
 	}
 	
