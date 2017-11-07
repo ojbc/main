@@ -80,13 +80,16 @@
 			<xsd:extension base="nc:CaseType">
 				<xsd:sequence>
 					<xsd:element ref="j:CaseAugmentation"/>
-					<xsd:element ref="ecf:CaseAugmentation"/>
-					<xsd:element ref="JuvenileCaseJuvenile"/>
+					<xsd:element ref="ecf:CaseAugmentation" minOccurs="0"/>
+					<!-- OJB Change for minOccurs="0" for extensions -->
+					<xsd:element ref="JuvenileCaseJuvenile" minOccurs="0"/>
 					<xsd:element ref="CaseArrest" minOccurs="0"/>
 					<xsd:element ref="DependencyAllegation" minOccurs="0" maxOccurs="unbounded"/>
 					<xsd:choice minOccurs="0" maxOccurs="unbounded">
-						<xsd:element ref="DelinquentAct"/>
-						<xsd:element ref="StatusOffenseAct"/>
+					<!-- OJB Change for minOccurs="0" for extensions -->
+						<xsd:element ref="DelinquentAct" minOccurs="0"/>
+					<!-- OJB Change for minOccurs="0" for extensions -->
+						<xsd:element ref="StatusOffenseAct" minOccurs="0"/>
 					</xsd:choice>
 				</xsd:sequence>
 			</xsd:extension>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<cfd-doc:CaseFilingDecisionReport xmlns:ansi_d20="http://release.niem.gov/niem/codes/ansi_d20/3.1/"
+	xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0" xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/" xmlns:usps="http://release.niem.gov/niem/codes/usps_states/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0 CaseFilingDecisionReport.xsd ">
+	<cyfs:JuvenileCase>
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityDisposition>
+			<nc:DispositionDate>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</nc:DispositionDate>
+			<nc:DispositionDescriptionText>nc:DispositionDescriptionText</nc:DispositionDescriptionText>
+		</nc:ActivityDisposition>
+		<j:CaseAugmentation>
+			<j:CaseCharge>
+				<j:ChargeQualifierText>j:ChargeQualifierText</j:ChargeQualifierText>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:CaseCharge>
+		</j:CaseAugmentation>
+		<cyfs:Caseworker>
+		<nc:RoleOfPerson/>
+		
+		</cyfs:Caseworker>
+		<cyfs:Juvenile>
+			<nc:RoleOfPerson/>
+		</cyfs:Juvenile>
+	
+	</cyfs:JuvenileCase>
+</cfd-doc:CaseFilingDecisionReport>
