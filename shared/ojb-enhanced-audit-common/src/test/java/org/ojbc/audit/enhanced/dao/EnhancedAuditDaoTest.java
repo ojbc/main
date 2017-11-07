@@ -115,6 +115,9 @@ public class EnhancedAuditDaoTest {
 		psResult.setPersonSearchRequestId(psrIdFromRetreive);
 		psResult.setSearchResultsCount(5);
 		psResult.setSystemSearchResultURI("{system1}URI");
+		psResult.setSearchResultsAccessDeniedText("Access Denied text");
+		psResult.setSearchResultsAccessDeniedIndicator(true);
+		psResult.setSearchResultsErrorText("search results error text");
 		
 		Integer systemToSearchID = enhancedAuditDao.retrieveSystemToSearchIDFromURI(psResult.getSystemSearchResultURI());
 		
@@ -244,7 +247,14 @@ public class EnhancedAuditDaoTest {
 		identificationSearchRequest.setLastName("last");
 		identificationSearchRequest.setMessageId(messageId);
 		identificationSearchRequest.setOtn("OTN");
-		identificationSearchRequest.setReasonCode("reason");
+		
+		List<String> reasonCodes = new ArrayList<String>();
+		
+		reasonCodes.add("reason1");
+		reasonCodes.add("reason2");
+		
+		identificationSearchRequest.setReasonCode(reasonCodes);
+		
 		identificationSearchRequest.setReportedFromDate(dobFrom);
 		identificationSearchRequest.setReportedToDate(dobTo);
 		identificationSearchRequest.setUserInfoId(userInfoPk);
@@ -252,6 +262,20 @@ public class EnhancedAuditDaoTest {
 		Integer identificationSearchRequestPK = enhancedAuditDao.saveIdentificationSearchRequest(identificationSearchRequest);
 		
 		assertNotNull(identificationSearchRequestPK);
+		
+		Integer reasonCode1 = enhancedAuditDao.retrieveIdentificationReasonCodeFromDescription("reason1");
+		Integer reasonCode2 = enhancedAuditDao.retrieveIdentificationReasonCodeFromDescription("reason2");
+		
+		assertNotNull(reasonCode1);
+		assertNotNull(reasonCode2);
+		
+		Integer joinerPk1 = enhancedAuditDao.saveIdentificationReasonCode(reasonCode1, identificationSearchRequestPK);
+		Integer joinerPk2 = enhancedAuditDao.saveIdentificationReasonCode(reasonCode2, identificationSearchRequestPK);
+		
+		assertNotNull(joinerPk1);
+		assertNotNull(joinerPk2);
+		
+		
 	}	
 }
 

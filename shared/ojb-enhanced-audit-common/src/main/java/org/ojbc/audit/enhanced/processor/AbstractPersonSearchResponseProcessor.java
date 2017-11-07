@@ -62,13 +62,34 @@ public abstract class AbstractPersonSearchResponseProcessor {
         		personSearchResult.setSearchResultsErrorText(errorText);
         	}	
         	
+        	String accessDenialReasonText = XmlUtils.xPathStringSearch(searchResultsMetaata, "iad:InformationAccessDenial/iad:InformationAccessDenialReasonText");
+        	
+        	if (StringUtils.isNotBlank(accessDenialReasonText))
+        	{
+        		personSearchResult.setSearchResultsAccessDeniedIndicator(true);
+        		personSearchResult.setSearchResultsAccessDeniedText(accessDenialReasonText);
+        	}	
+
+        	String searchResultsRecordCount = XmlUtils.xPathStringSearch(searchResultsMetaata, "srer:SearchErrors/srer:SearchResultsExceedThresholdError/srer:SearchResultsRecordCount");
+        	
+        	if (StringUtils.isNotBlank(searchResultsRecordCount))
+        	{
+        		if (StringUtils.isNotEmpty(searchResultsRecordCount))
+        		{
+        			try {
+						personSearchResult.setSearchResultsCount(Integer.valueOf(searchResultsRecordCount));
+					} catch (Exception e) {
+						log.error("Unable to set search results error count when too many records returned.");
+					}
+        			
+        			personSearchResult.setSearchResultsErrorText("Person search returned too many results");
+        		}	
+        	}	        	
+        	
         	String systemName = XmlUtils.xPathStringSearch(searchResultsMetaata, "srer:SearchRequestError/intel:SystemName");
         	personSearchResult.setSystemName(systemName);
 
         }	
-        
-        //TODO: figure out how to handle timeouts, too many results, access denied
-        //PERSON_SEARCH_RESULTS.SEARCH_RESULTS_TIMEOUT_INDICATOR
         
         log.debug("Person Search Result: " + personSearchResult.toString());
 
