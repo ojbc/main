@@ -47,6 +47,9 @@
 			<nc:IdentificationID>A1000999</nc:IdentificationID>
 		</oirq-res-ext:IdentifiedPersonTrackingIdentification>
 	</oirq-res-ext:IdentifiedPerson>
+	<oirq-res-ext:PersonIdentificationDate>
+		<nc:Date>2017-11-02</nc:Date>
+	</oirq-res-ext:PersonIdentificationDate>
 	<oirq-res-ext:IdentificationResultStatusCode>Archived</oirq-res-ext:IdentificationResultStatusCode>
 	<oirq-res-ext:IdentificationRequestingOrganization structures:ref="ORG1" xsi:nil="true" />
 	<oirq-res-ext:SubsequentResultsAvailableIndicator>true</oirq-res-ext:SubsequentResultsAvailableIndicator>
