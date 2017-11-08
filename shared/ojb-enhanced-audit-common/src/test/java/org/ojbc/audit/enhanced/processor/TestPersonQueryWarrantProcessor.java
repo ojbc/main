@@ -77,6 +77,17 @@ public class TestPersonQueryWarrantProcessor {
 		assertEquals("Warrants", personQueryWarrantResponse.getSystemName());
 		
 		personQueryResponseProcessor.auditPersonQueryWarrantResponseResponse(document, "999888777666555");
+		
+		inputFile = new File("src/test/resources/xmlInstances/warrants-access-denied.xml");
+		
+        document = db.parse(inputFile);
+		
+		personQueryWarrantResponse = personQueryResponseProcessor.processPersonQueryWarrantResponse(document);
+		
+		log.info(personQueryWarrantResponse.toString());
+		
+		assertEquals(true, personQueryWarrantResponse.isQueryResultsAccessDeniedIndicator());
+		assertEquals("User does not meet requirements to access warrants.", personQueryWarrantResponse.getQueryResultsErrorText());
 
 	}
 	

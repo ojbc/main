@@ -28,6 +28,7 @@ public class PersonQueryWarrantResponse {
 	private String queryResultsErrorText;
 	private boolean queryResultsTimeoutIndicator;
 	private boolean queryResultsErrorIndicator;
+	private boolean queryResultsAccessDeniedIndicator;
 	private String fbiId;
 	private String sid;
 	private String systemName;
@@ -102,5 +103,12 @@ public class PersonQueryWarrantResponse {
 	
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
+	public boolean isQueryResultsAccessDeniedIndicator() {
+		return queryResultsAccessDeniedIndicator;
+	}
+	public void setQueryResultsAccessDeniedIndicator(
+			boolean queryResultsAccessDeniedIndicator) {
+		this.queryResultsAccessDeniedIndicator = queryResultsAccessDeniedIndicator;
 	}
 }
