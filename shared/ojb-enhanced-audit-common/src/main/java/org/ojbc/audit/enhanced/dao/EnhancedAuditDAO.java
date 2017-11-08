@@ -24,6 +24,7 @@ import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
+import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 
@@ -54,6 +55,8 @@ public interface EnhancedAuditDAO {
 	
 	public Integer saveUserInfo(UserInfo userInfo);
 	
+	public Integer savePrintResults(PrintResults printResults);
+	
 	public UserInfo retrieveUserInfoFromId(Integer userInfoPk);
 	
 	public Integer retrieveSystemToSearchIDFromURI(String uri);
@@ -73,5 +76,7 @@ public interface EnhancedAuditDAO {
 	public Integer retrievePersonQueryIDfromMessageID(String messageId);
 	
 	public Integer retrieveOrganizationIdentificationIDfromMessageID(String messageId);
+	
+	public PrintResults retrievePrintResultsfromMessageID(String messageId);
 	
 }
