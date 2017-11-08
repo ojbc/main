@@ -35,6 +35,7 @@ import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
+import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
@@ -179,6 +180,16 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		return id;
 	}
+	
+
+	@Override
+	public PrintResults retrievePrintResultsfromMessageID(String messageId) {
+		
+		final String PRINT_RESULTS_SELECT="SELECT * FROM PRINT_RESULTS WHERE MESSAGE_ID = ?";
+		
+		List<PrintResults> printResults = jdbcTemplate.query(PRINT_RESULTS_SELECT, new PrintResultsRowMapper(), messageId);
+		return DataAccessUtils.singleResult(printResults);		
+	}
 
 	@Override
 	public Integer saveFederalRapbackSubscription(
@@ -206,6 +217,33 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	    keyHolder);
 
          return keyHolder.getKey().intValue();	
+    }
+	
+	@Override
+	public Integer savePrintResults(PrintResults printResults) {
+        log.debug("Inserting row into PRINT_RESULTS table : " + printResults.toString());
+        
+        final String PRINT_RESULTS_INSERT="INSERT into PRINT_RESULTS "
+        		+ "(SYSTEM_NAME, DESCRIPTION, MESSAGE_ID) "
+        		+ "values (?, ?, ?)";
+        
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(PRINT_RESULTS_INSERT, new String[] {"PRINT_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(printResults.getSystemName(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(printResults.getDescription(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(printResults.getMessageId(), ps, 3);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		
     }
 	
 	@Override
@@ -799,7 +837,25 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		}
 	}
 	
-	
+	private final class PrintResultsRowMapper implements RowMapper<PrintResults> {
+		public PrintResults mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			PrintResults printResults = buildPrintResults(rs);
+			return printResults;
+		}
+
+		private PrintResults buildPrintResults(
+				ResultSet rs) throws SQLException{
+
+			PrintResults printResults = new PrintResults();
+			
+			printResults.setMessageId(rs.getString("MESSAGE_ID"));
+			printResults.setSystemName(rs.getString("SYSTEM_NAME"));
+			printResults.setDescription(rs.getString("DESCRIPTION"));
+			
+			return printResults;
+		}
+	}
 	
 	private LocalDateTime toLocalDateTime(Timestamp timestamp){
 		return timestamp == null? null : timestamp.toLocalDateTime();
@@ -825,6 +881,5 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 	}
-
 
 }

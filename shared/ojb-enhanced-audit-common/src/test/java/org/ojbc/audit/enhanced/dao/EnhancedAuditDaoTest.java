@@ -39,6 +39,7 @@ import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
+import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.springframework.test.annotation.DirtiesContext;
@@ -276,6 +277,26 @@ public class EnhancedAuditDaoTest {
 		assertNotNull(joinerPk2);
 		
 		
+	}	
+	
+	@Test
+	public void testSavePrintResults() throws Exception
+	{
+		PrintResults printResults = new PrintResults();
+		
+		printResults.setDescription("description");
+		printResults.setMessageId("123456");
+		printResults.setSystemName("system name");
+		
+		Integer prPk = enhancedAuditDao.savePrintResults(printResults);
+		
+		assertNotNull(prPk);
+		
+		PrintResults printResultsResponse = enhancedAuditDao.retrievePrintResultsfromMessageID("123456");
+		
+		assertEquals("description", printResultsResponse.getDescription());
+		assertEquals("123456", printResultsResponse.getMessageId());
+		assertEquals("system name", printResultsResponse.getSystemName());
 	}	
 }
 
