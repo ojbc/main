@@ -77,6 +77,14 @@ public class TestPersonQueryCriminalHistoryProcessor {
 		assertEquals("Criminal History", personQueryCriminalHistoryResponse.getSystemName());
 		
 		personQueryResponseProcessor.auditPersonQueryCriminalHistoryResponseResponse(document, "999888777666555");
+		
+        inputFile = new File("src/test/resources/xmlInstances/Person_Query_Result_Criminal_History_Error.xml");
+
+        document = db.parse(inputFile);
+		
+		PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponseError = personQueryResponseProcessor.processPersonQueryCriminalHistoryResponse(document);
+
+		assertEquals("Error text example", personQueryCriminalHistoryResponseError.getQueryResultsErrorText());
 
 	}
 	

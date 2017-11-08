@@ -79,9 +79,17 @@ public abstract class AbstractPersonQueryWarrantResponseProcessor {
 			personQueryWarrantResponse.setQueryResultsErrorText(errorText);
 		}			
 
+		String informationAccessDenialReasonText = XmlUtils.xPathStringSearch(document, "/warrant:Warrants/warrant-ext:eBWResults/qrm:QueryResultsMetadata/iad:InformationAccessDenial/iad:InformationAccessDenialReasonText");
+		
+		if (StringUtils.isNotBlank(informationAccessDenialReasonText))
+		{
+			personQueryWarrantResponse.setQueryResultsAccessDeniedIndicator(true);
+			personQueryWarrantResponse.setQueryResultsErrorText(informationAccessDenialReasonText);
+			
+		}			
+
 		log.debug("Warrant Response: " + personQueryWarrantResponse.toString());
 		
-             
         return personQueryWarrantResponse;
 	}
 
