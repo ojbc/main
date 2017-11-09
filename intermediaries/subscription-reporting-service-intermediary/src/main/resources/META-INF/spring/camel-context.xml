@@ -53,8 +53,6 @@
 						
 			<to uri="bean:messageProcessor?method=processRequestPayload" />			
 						
-			<to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage" />
-			
 			<camel:filter>
 				<camel:simple>${in.headers.operationName} == 'Subscribe'</camel:simple>
 				
@@ -70,6 +68,8 @@
 				<camel:setHeader headerName="operationNamespace"><constant>http://ojbc.org/Services/WSDL/SubscriptionReportingService/1.0</constant></camel:setHeader>					
 				
 			</camel:filter>
+			
+			<camel:removeHeaders pattern="*" excludePattern="operationName|operationNamespace"/>
 			
 			<camel:log message="Subscription reporting intermediary about to call subscription reporting adapter."/>
 						

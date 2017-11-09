@@ -83,7 +83,7 @@
       <submsg-ext:SubscriptionModification xmlns:submsg-ext="http://ojbc.org/IEPD/Extensions/Subscription/1.0">
          <nc:DateRange xmlns:nc="http://niem.gov/niem/niem-core/2.0">
             <nc:EndDate>
-               <nc:Date>2016-01-01</nc:Date>
+               <nc:Date>2015-06-20</nc:Date>
             </nc:EndDate>
          </nc:DateRange>
       </submsg-ext:SubscriptionModification>
