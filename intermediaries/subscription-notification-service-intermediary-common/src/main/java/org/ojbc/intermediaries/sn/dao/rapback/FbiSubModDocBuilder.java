@@ -19,8 +19,8 @@ package org.ojbc.intermediaries.sn.dao.rapback;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_SUB_MSG_EXT;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
 import org.ojbc.util.helper.OJBCXMLUtils;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
@@ -91,7 +91,7 @@ public class FbiSubModDocBuilder {
 			fbiSubscription.appendChild(doc.importNode(subscriptionReasonCode, true));
 		}
 		
-		buildSubModEndDateElement(subModMsgElement, fbiRapbackSubscription);				
+		buildSubModEndDateElement(subModMsgElement, subscripitonDoc);				
 		
 		return doc;
 	}
@@ -110,11 +110,16 @@ public class FbiSubModDocBuilder {
 	}
 	
 	
-	private void buildSubModEndDateElement(Element parentElement, FbiRapbackSubscription fbiRapbackSubscription){
+	private void buildSubModEndDateElement(Element parentElement, Document subscriptionDoc){
 		
-		DateTime subModEndDate = fbiRapbackSubscription.getRapbackExpirationDate();
+		String subscriptionModificationEndDate = null;
+		try {
+			subscriptionModificationEndDate = XmlUtils.xPathStringSearch(subscriptionDoc, "/b-2:Subscribe/submsg-exch:SubscriptionMessage/nc:DateRange/nc:EndDate/nc:Date");
+		} catch (Exception e1) {
+			logger.error("Unable to set FBI subscription end date");
+		}
 						
-		if(subModEndDate != null){
+		if(StringUtils.isNotEmpty(subscriptionModificationEndDate)){
 			
 			Element subModElement = XmlUtils.appendElement(parentElement, OjbcNamespaceContext.NS_SUB_MSG_EXT, "SubscriptionModification");
 			
@@ -125,9 +130,7 @@ public class FbiSubModDocBuilder {
 			Element endDateValElement = XmlUtils.appendElement(endDateElement, OjbcNamespaceContext.NS_NC, "Date");
 			
 			try{
-				String sSubModEndDate = subModEndDate.toString(YYYY_MM_DD);
-				
-				endDateValElement.setTextContent(sSubModEndDate);
+				endDateValElement.setTextContent(subscriptionModificationEndDate);
 				
 			}catch(Exception e){
 				logger.error("Cannot format date");
