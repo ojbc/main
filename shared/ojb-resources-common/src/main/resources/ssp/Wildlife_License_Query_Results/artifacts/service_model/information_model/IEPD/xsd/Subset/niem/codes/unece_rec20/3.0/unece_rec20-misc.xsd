@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xs:schema targetNamespace="http://release.niem.gov/niem/codes/unece_rec20/3.0/" version="1" xsi:schemaLocation="http://release.niem.gov/niem/appinfo/3.0/ ../../../appinfo/3.0/appinfo.xsd http://release.niem.gov/niem/conformanceTargets/3.0/ ../../../conformanceTargets/3.0/conformanceTargets.xsd" ct:conformanceTargets="http://reference.niem.gov/niem/specification/naming-and-design-rules/4.0/#ReferenceSchemaDocument" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:ct="http://release.niem.gov/niem/conformanceTargets/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <xs:annotation>
+    <xs:documentation>Miscellaneous unit of measure codes.
+Source: UN Economic Commission for Europe (UNECE); 
+Publication: UNECE Recommendation No. 20 Revision 8; 
+Version: Revision 8; 
+Date: 2012; 
+http://www.unece.org/tradewelcome/areas-of-work/un-centre-for-trade-facilitation-and-e-business-uncefact/outputs/cefactrecommendationsrec-index/list-of-trade-facilitation-recommendations-n-16-to-20.html</xs:documentation>
+  </xs:annotation>
+  <xs:import schemaLocation="../../../structures/3.0/structures.xsd" namespace="http://release.niem.gov/niem/structures/3.0/"/>
+  <xs:simpleType name="LengthCodeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for units of measurements for a length value.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="4H">
+        <xs:annotation>
+          <xs:documentation>micrometre (micron)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="77">
+        <xs:annotation>
+          <xs:documentation>milli-inch</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="A11">
+        <xs:annotation>
+          <xs:documentation>angstrom</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="A12">
+        <xs:annotation>
+          <xs:documentation>astronomical unit</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="A45">
+        <xs:annotation>
+          <xs:documentation>decametre</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="A71">
+        <xs:annotation>
+          <xs:documentation>femtometre</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AK">
+        <xs:annotation>
+          <xs:documentation>fathom</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="B57">
+        <xs:annotation>
+          <xs:documentation>light year</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="C45">
+        <xs:annotation>
+          <xs:documentation>nanometre</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="C52">
+        <xs:annotation>
+          <xs:documentation>picometre</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="C63">
+        <xs:annotation>
+          <xs:documentation>parsec</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CMT">
+        <xs:annotation>
+          <xs:documentation>centimetre</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DMT">
+        <xs:annotation>
+          <xs:documentation>decimetre</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FOT">
+        <xs:annotation>
+          <xs:documentation>foot</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HMT">
+        <xs:annotation>
+          <xs:documentation>hectometre</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="INH">
+        <xs:annotation>
+          <xs:documentation>inch</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KMT">
+        <xs:annotation>
+          <xs:documentation>kilometre</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="M7">
+        <xs:annotation>
+          <xs:documentation>micro-inch</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MMT">
+        <xs:annotation>
+          <xs:documentation>millimetre</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MTR">
+        <xs:annotation>
+          <xs:documentation>metre</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NMI">
+        <xs:annotation>
+          <xs:documentation>nautical mile</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SMI">
+        <xs:annotation>
+          <xs:documentation>mile (statute mile)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="X1">
+        <xs:annotation>
+          <xs:documentation>Gunter's chain</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="YRD">
+        <xs:annotation>
+          <xs:documentation>yard</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="LengthCodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for units of measurements for a length value.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="unece:LengthCodeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="MassCodeSimpleType">
+    <xs:annotation>
+      <xs:documentation>A data type for units of measurement for a weight value.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="2U">
+        <xs:annotation>
+          <xs:documentation>megagram</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="APZ">
+        <xs:annotation>
+          <xs:documentation>troy ounce or apothecary ounce</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CGM">
+        <xs:annotation>
+          <xs:documentation>centigram</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CWA">
+        <xs:annotation>
+          <xs:documentation>hundred pounds (cwt) / hundred weight (US)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CWI">
+        <xs:annotation>
+          <xs:documentation>hundred weight (UK)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DG">
+        <xs:annotation>
+          <xs:documentation>decigram</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DJ">
+        <xs:annotation>
+          <xs:documentation>decagram</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DTN">
+        <xs:annotation>
+          <xs:documentation>decitonne</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GRM">
+        <xs:annotation>
+          <xs:documentation>gram</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="GRN">
+        <xs:annotation>
+          <xs:documentation>grain</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HGM">
+        <xs:annotation>
+          <xs:documentation>hectogram</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KGM">
+        <xs:annotation>
+          <xs:documentation>kilogram</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="KTN">
+        <xs:annotation>
+          <xs:documentation>kilotonne</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LBR">
+        <xs:annotation>
+          <xs:documentation>pound</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LTN">
+        <xs:annotation>
+          <xs:documentation>ton (UK) or long ton (US)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MC">
+        <xs:annotation>
+          <xs:documentation>microgram</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MGM">
+        <xs:annotation>
+          <xs:documentation>milligram</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ONZ">
+        <xs:annotation>
+          <xs:documentation>ounce (avoirdupois)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="STI">
+        <xs:annotation>
+          <xs:documentation>stone (UK)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="STN">
+        <xs:annotation>
+          <xs:documentation>ton (US) or short ton (UK/US)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="TNE">
+        <xs:annotation>
+          <xs:documentation>tonne (metric ton)</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="MassCodeType">
+    <xs:annotation>
+      <xs:documentation>A data type for units of measurement for a weight value.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="unece:MassCodeSimpleType">
+        <xs:attributeGroup ref="structures:SimpleObjectAttributeGroup"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>
