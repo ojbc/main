@@ -35,9 +35,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
+import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.springframework.test.annotation.DirtiesContext;
@@ -114,6 +116,9 @@ public class EnhancedAuditDaoTest {
 		psResult.setPersonSearchRequestId(psrIdFromRetreive);
 		psResult.setSearchResultsCount(5);
 		psResult.setSystemSearchResultURI("{system1}URI");
+		psResult.setSearchResultsAccessDeniedText("Access Denied text");
+		psResult.setSearchResultsAccessDeniedIndicator(true);
+		psResult.setSearchResultsErrorText("search results error text");
 		
 		Integer systemToSearchID = enhancedAuditDao.retrieveSystemToSearchIDFromURI(psResult.getSystemSearchResultURI());
 		
@@ -226,5 +231,72 @@ public class EnhancedAuditDaoTest {
 		
 		
 	}
+	
+	@Test
+	public void testIdentificationMethods() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+		
+		LocalDate dobTo = LocalDate.now();
+		LocalDate dobFrom = dobTo.minusYears(1);
+		String messageId="88337755";
+		
+		IdentificationSearchRequest identificationSearchRequest = new IdentificationSearchRequest();
+		
+		identificationSearchRequest.setFirstName("first");
+		identificationSearchRequest.setIdentificationResultsStatus("status");
+		identificationSearchRequest.setLastName("last");
+		identificationSearchRequest.setMessageId(messageId);
+		identificationSearchRequest.setOtn("OTN");
+		
+		List<String> reasonCodes = new ArrayList<String>();
+		
+		reasonCodes.add("reason1");
+		reasonCodes.add("reason2");
+		
+		identificationSearchRequest.setReasonCode(reasonCodes);
+		
+		identificationSearchRequest.setReportedFromDate(dobFrom);
+		identificationSearchRequest.setReportedToDate(dobTo);
+		identificationSearchRequest.setUserInfoId(userInfoPk);
+		
+		Integer identificationSearchRequestPK = enhancedAuditDao.saveIdentificationSearchRequest(identificationSearchRequest);
+		
+		assertNotNull(identificationSearchRequestPK);
+		
+		Integer reasonCode1 = enhancedAuditDao.retrieveIdentificationReasonCodeFromDescription("reason1");
+		Integer reasonCode2 = enhancedAuditDao.retrieveIdentificationReasonCodeFromDescription("reason2");
+		
+		assertNotNull(reasonCode1);
+		assertNotNull(reasonCode2);
+		
+		Integer joinerPk1 = enhancedAuditDao.saveIdentificationReasonCode(reasonCode1, identificationSearchRequestPK);
+		Integer joinerPk2 = enhancedAuditDao.saveIdentificationReasonCode(reasonCode2, identificationSearchRequestPK);
+		
+		assertNotNull(joinerPk1);
+		assertNotNull(joinerPk2);
+		
+		
+	}	
+	
+	@Test
+	public void testSavePrintResults() throws Exception
+	{
+		PrintResults printResults = new PrintResults();
+		
+		printResults.setDescription("description");
+		printResults.setMessageId("123456");
+		printResults.setSystemName("system name");
+		
+		Integer prPk = enhancedAuditDao.savePrintResults(printResults);
+		
+		assertNotNull(prPk);
+		
+		PrintResults printResultsResponse = enhancedAuditDao.retrievePrintResultsfromMessageID("123456");
+		
+		assertEquals("description", printResultsResponse.getDescription());
+		assertEquals("123456", printResultsResponse.getMessageId());
+		assertEquals("system name", printResultsResponse.getSystemName());
+	}	
 }
 

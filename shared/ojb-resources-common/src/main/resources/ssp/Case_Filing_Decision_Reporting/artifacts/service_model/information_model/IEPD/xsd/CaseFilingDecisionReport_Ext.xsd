@@ -18,16 +18,16 @@
 
 -->
 <xsd:schema xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
-	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0"
 	xmlns:niem-xsd="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
 	xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0"
 	elementFormDefault="qualified" attributeFormDefault="qualified" version="1">
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
+	<xsd:import namespace="http://release.niem.gov/niem/domains/cyfs/3.1/" schemaLocation="./Subset/niem/domains/cyfs/3.1/cyfs.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/structures/3.0/" schemaLocation="./Subset/niem/structures/3.0/structures.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="./Subset/niem/proxy/xsd/3.0/xs.xsd" />
-	<xsd:import namespace="http://release.niem.gov/niem/proxy/xsd/3.0/" schemaLocation="Subset/niem/proxy/xsd/3.0/xs.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/appinfo/3.0/" schemaLocation="./Subset/niem/appinfo/3.0/appinfo.xsd" />
 	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="./include_schema.xsd" />
 	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmime_schema.xsd" />
@@ -46,7 +46,8 @@
 				<xsd:sequence>
 					<xsd:element ref="cfd-ext:VictimRightsAssertionCertificationIndicator" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="cfd-ext:VictimRightsAssertionText" minOccurs="0" maxOccurs="unbounded" />
-					<xsd:element ref="nc:Case" />
+					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="1" />
+					<xsd:element ref="cyfs:JuvenileCase" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="nc:Incident" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Arrest" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:Booking" minOccurs="0" maxOccurs="unbounded" />
@@ -70,12 +71,13 @@
 					<xsd:element ref="nc:ContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="j:ActivityCaseAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ActivityDocumentAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="cyfs:AssociatedPersonChildAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonEmploymentAssociation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="AlaskaPublicSafetyInformationNetworkIdentification" type="nc:IdentificationType"
-		substitutionGroup="nc:PersonAugmentationPoint">
+	<xsd:element name="AlaskaPublicSafetyInformationNetworkIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
 			<xsd:documentation>An Alaska APSIN Identifier for a person.
 			</xsd:documentation>
@@ -148,8 +150,7 @@
 	</xsd:element>
 	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType" substitutionGroup="nc:PersonAugmentationPoint">
 		<xsd:annotation>
-			<xsd:documentation>A unique identifier assigned to a person that has been identified. Some jurisdictions refer to this as an
-				OTN.
+			<xsd:documentation>A unique identifier assigned to a person that has been identified. Some jurisdictions refer to this as an OTN.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
@@ -216,6 +217,71 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="Base64BinaryObject" type="niem-xsd:base64Binary" substitutionGroup="nc:BinaryObject"
-		xmime:expectedContentType="text/plain" />
+	<xsd:element name="CaseReceivedDate" type="nc:DateType" substitutionGroup="cyfs:JuvenileCaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The date a case is received from law enforcement or other agency.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PoliceReportCount" type="niem-xs:nonNegativeInteger" substitutionGroup="cyfs:JuvenileCaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Police report count.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PoliceReportNumber" type="niem-xs:string" substitutionGroup="cyfs:JuvenileCaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The local police report number associated with a case.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ReferringPoliceAgency" type="nc:OrganizationType" substitutionGroup="cyfs:JuvenileCaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>The police agency referring the case.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AddOnCharge" type="j:ChargeType" substitutionGroup="cyfs:JuvenileCaseAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>Add On Charge.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GeneralJuvenileNoteText" type="nc:TextType" substitutionGroup="cyfs:JuvenileAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>General notes regarding a juvenile.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SpecialJuvenileDescriptionText" type="nc:TextType" substitutionGroup="cyfs:JuvenileAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A description of special juvenile information.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SpecialJuvenileDateRange" type="nc:DateRangeType" substitutionGroup="cyfs:JuvenileAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A date range for a special juvenile designation.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseworkerStaffIdentification" type="nc:IdentificationType" substitutionGroup="cyfs:CaseworkerAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A unique identification assigned to a caseworker staff member.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseworkerAssignmentDateRange" type="nc:DateRangeType" substitutionGroup="cyfs:CaseworkerAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>An assignment date range for a caseworker.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AssociatedPerson" type="nc:PersonType" substitutionGroup="cyfs:AssociatedPersonChildAssociationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>A person associated with another person.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Base64BinaryObject" type="niem-xsd:base64Binary" substitutionGroup="nc:BinaryObject" xmime:expectedContentType="text/plain" />
 </xsd:schema>

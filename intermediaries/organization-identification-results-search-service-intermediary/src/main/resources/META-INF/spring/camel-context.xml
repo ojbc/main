@@ -66,6 +66,21 @@
 			<!-- Create new exchange using Camel header as the WS Addressing Message ID -->
 			<camel:to uri="bean:messageProcessor?method=processRequestPayload"/>
 			
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:rapbackSearchIntermediary.dbEnancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:organizationIdentificationSearchSQLLoggingProcessor?method=auditIdentificationSearchRequest"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}" loggingLevel="ERROR"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>			
+			
 			<!-- Get the SAML Token from the request message and put into OJB SAML Map -->
 			<camel:to uri="bean:camelSAMLTokenProcessor?method=retrieveSAMLTokenFromMessage"/>
 
@@ -261,6 +276,41 @@
         <entry key="${rapbackSearchIntermediary.presentRapbackSearchResultEndpoint}" value="presentRapbackSearchResultServiceEndpoint"/>
   	</util:map>
 	
+	<bean id="userInfoSQLProcessor" class="org.ojbc.audit.enhanced.processor.UserInfoSQLProcessor">
+        <property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
+    </bean>	
+	
+	<bean class="org.ojbc.audit.enhanced.processor.IdentificationSearchRequestSQLProcessor" id ="organizationIdentificationSearchSQLLoggingProcessor">
+        <property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
+        <property name="userInfoSQLProcessor" ref="userInfoSQLProcessor"/>
+    </bean>    
+
+	<bean class="org.ojbc.audit.enhanced.processor.UserInfoNullObjectProcessor" id="userInfoProcessor"/>
+		<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+ 	   <constructor-arg ref="dataSourceEnhancedAudit"/>
+	</bean>
+	
+	<bean id="namedParameterJdbcTemplate" 
+      class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+ 	   <constructor-arg ref="dataSourceEnhancedAudit"/>
+	</bean>
+
+	<bean id="enhancedAuditDAOImpl" class="org.ojbc.audit.enhanced.dao.EnhancedAuditDAOImpl">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+		<property name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
+	</bean>    
+    
+	<bean id="dataSourceEnhancedAudit" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${enhancedAudit.dataSource.driverClass}" />
+		<property name="url" value="${enhancedAudit.dataSource.jdbcUrl}" />
+		<property name="username" value="${enhancedAudit.dataSource.user}" />
+		<property name="password" value="${enhancedAudit.dataSource.password}" />
+		<property name="initialSize" value="${enhancedAudit.dataSource.minPoolSize}" />
+		<property name="maxActive" value="${enhancedAudit.dataSource.maxPoolSize}" />
+		<property name="validationQuery" value="select 1" />
+		<property name="testOnBorrow" value="true" />
+	</bean>
 	
 </beans>
 

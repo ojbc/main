@@ -27,6 +27,7 @@
   <uri name="http://release.niem.gov/niem/codes/unece_rec20/3.0/" uri="codes/unece_rec20/3.0/unece_rec20-misc.xsd"/>
   <uri name="http://release.niem.gov/niem/codes/usps_states/3.0/" uri="codes/usps_states/3.0/usps_states.xsd"/>
   <uri name="http://release.niem.gov/niem/conformanceTargets/3.0/" uri="conformanceTargets/3.0/conformanceTargets.xsd"/>
+  <uri name="http://release.niem.gov/niem/domains/cyfs/3.1/" uri="domains/cyfs/3.1/cyfs.xsd"/>
   <uri name="http://release.niem.gov/niem/domains/jxdm/5.1/" uri="domains/jxdm/5.1/jxdm.xsd"/>
   <uri name="http://release.niem.gov/niem/localTerminology/3.0/" uri="localTerminology/3.0/localTerminology.xsd"/>
   <uri name="http://release.niem.gov/niem/niem-core/3.0/" uri="niem-core/3.0/niem-core.xsd"/>
