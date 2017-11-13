@@ -43,6 +43,16 @@
 				$("#printButton").button();
 				
 				$("#printButton").on("click", function(){
+
+					var activeTabIdx = $('#initialResultsDetailTabs').tabs('option','active');
+
+					// ID OF ACTIVE TAB
+					// make sure to change #tabs to your selector for tabs
+					var selector = '#initialResultsDetailTabs > ul > li';
+					var activeTabID = $(selector).eq(activeTabIdx).attr('id');
+
+					$.post("#springUrl('/rapbacks/auditPrintResults')", { messageId: $(this).attr('messageId'), activeTab: activeTabID} );					
+
 					window.print();
 				}); 
 			});
@@ -51,13 +61,13 @@
 		<div id="initialResultsDetailTabs">
 
 			<ul>
-				<li>
+				<li id="State Initial Results">
 					<a href="#stateInitialResultTab">State Initial Results</a>
 				</li>
-				<li>
+				<li id="FBI Initial Results">
 					<a href="#fbiInitialResultTab">FBI Initial Results</a>
 				</li>
-				<button id="printButton" style="float:right;">Print</button>
+				<button id="printButton" style="float:right;" messageId="$identificationResultsQueryResponse.messageId">Print</button>
 			</ul>
 
 			<div id="stateInitialResultTab">
