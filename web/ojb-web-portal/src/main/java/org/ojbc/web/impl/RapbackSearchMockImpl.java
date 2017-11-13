@@ -40,13 +40,13 @@ public class RapbackSearchMockImpl implements RapbackSearchInterface{
     @Override
     public String invokeRapbackSearchRequest(IdentificationResultSearchRequest searchRequest, Element samlToken)
             throws Exception {
-        logger.info("Getting mock rapback search results.");
+
+    	System.out.println(searchRequest);
+		System.out.println("------------------------------------------------------------------");
+
+		return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
+		        "/sampleResponses/organizationIdentificationSearchResults/OrganizationIdentificationResultsSearchResults.xml"));
         
-        String searchResult = WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
-                "/ssp/Organization_Identification_Results_Search_Results"
-                + "/artifacts/service_model/information_model/IEPD/xml/OrganizationIdentificationResultsSearchResults.xml"));	
-        
-        return searchResult;
     }
 
 	
