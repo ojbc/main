@@ -101,8 +101,12 @@ public class IdentificationResultsQueryRequestProcessor extends RequestResponseP
 		putRequestInMap(federatedQueryID);
 		
 		Exchange responseExchange = pollMapForResponseExchange(federatedQueryID);
+				
+		IdentificationResultsQueryResponse identificationResultsQueryResponse = retrieveResponse(responseExchange, initialResultsQuery);
 		
-		return retrieveResponse(responseExchange, initialResultsQuery);
+		identificationResultsQueryResponse.setMessageId(federatedQueryID);
+		
+		return identificationResultsQueryResponse;
 	}
 
 	private IdentificationResultsQueryResponse retrieveResponse(

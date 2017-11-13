@@ -25,7 +25,7 @@
        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
        ">
 	
-	<cxf:rsServer id="auditServer" address="${auditRestUtility.emailRestEndpoint}" loggingFeatureEnabled="true">
+	<cxf:rsServer id="auditServer" address="${auditRestUtility.auditRestEndpoint}" loggingFeatureEnabled="true">
 	  <cxf:serviceBeans>
 	     <ref bean="auditRestImpl" />
 	  </cxf:serviceBeans>
