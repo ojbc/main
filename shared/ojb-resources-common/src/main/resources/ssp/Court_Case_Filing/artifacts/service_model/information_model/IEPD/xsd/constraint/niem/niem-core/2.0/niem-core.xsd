@@ -2669,6 +2669,14 @@
       </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="PersonCitizenshipText" type="nc:TextType" substitutionGroup="nc:PersonCitizenship" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A county that assigns rights, duties, and privileges to a person because of the birth or naturalization of the person in that country.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="PersonCitizenship"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="PersonContactInformationAssociation" type="nc:PersonContactInformationAssociationType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An association between a person and contact information.</xsd:documentation>

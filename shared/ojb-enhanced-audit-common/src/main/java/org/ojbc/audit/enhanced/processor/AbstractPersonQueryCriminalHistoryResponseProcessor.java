@@ -70,6 +70,14 @@ public abstract class AbstractPersonQueryCriminalHistoryResponseProcessor {
 			personQueryCriminalHistoryResponse.setSid(sid);
 		}			
 
+		String errorText = XmlUtils.xPathStringSearch(document, "/ch-doc:CriminalHistory/error:PersonQueryResultError/error:ErrorText");
+		
+		if (StringUtils.isNotBlank(errorText))
+		{
+			personQueryCriminalHistoryResponse.setQueryResultsErrorText(errorText);
+			personQueryCriminalHistoryResponse.setQueryResultsErrorIndicator(true);
+		}			
+
 		personQueryCriminalHistoryResponse.setSystemName("Criminal History");
 		
 		log.debug("Criminal History Response: " + personQueryCriminalHistoryResponse.toString());

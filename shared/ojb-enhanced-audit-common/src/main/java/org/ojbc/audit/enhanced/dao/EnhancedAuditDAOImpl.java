@@ -29,8 +29,13 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.IdentificationSearchReasonCodes;
+import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
+import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
@@ -60,6 +65,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	private Map<String, Integer> systemsToSearchByURI= new HashMap<String, Integer>();
 	
 	private Map<String, Integer> systemsToSearchByName= new HashMap<String, Integer>();
+	
+	private Map<String, Integer> identificationReasonCodes= new HashMap<String, Integer>();
 	
     private final Log log = LogFactory.getLog(this.getClass());
 
@@ -102,6 +109,55 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
 		return id;
 	}
+	
+	@Override
+	public Integer retrieveIdentificationReasonCodeFromDescription(
+			String description) {
+		if (identificationReasonCodes.isEmpty())
+		{	
+			final String SELECT_STATEMENT="SELECT * from IDENTIFICATION_SEARCH_REASON_CODE";
+	
+			List<IdentificationSearchReasonCodes> identificationSearchReasonCodes = jdbcTemplate.query(SELECT_STATEMENT, new IdentificationSearchReasonCodeRowMapper());
+			
+			for (IdentificationSearchReasonCodes identificationSearchReasonCode : identificationSearchReasonCodes)
+			{
+				identificationReasonCodes.put(identificationSearchReasonCode.getIdentificationReasonCodeDescription(),identificationSearchReasonCode.getIdentificationSearchReasonCodeId());
+			}	
+		}	
+		
+		Integer id = identificationReasonCodes.get(description);
+		
+		return id;
+	}
+
+	@Override
+	public Integer saveIdentificationReasonCode(
+			Integer identificationSearchReasonCodeId,
+			Integer identificationSearchRequestId) {
+		
+        log.debug("Inserting rows into IDENTIFICATION_REASON_CODE_JOINER table");
+        
+        final String IDENTIFICATION_REASON_CODE_JOINER_INSERT="INSERT into IDENTIFICATION_REASON_CODE_JOINER "
+        		+ "(IDENTIFICATION_SEARCH_REASON_CODE_ID, IDENTIFICATION_SEARCH_REQUEST_ID) "
+        		+ "values (?,?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(IDENTIFICATION_REASON_CODE_JOINER_INSERT, new String[] {"IDENTIFICATION_REASON_CODE_JOINER_ID"});
+        	            DaoUtils.setPreparedStatementVariable(identificationSearchReasonCodeId, ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(identificationSearchRequestId, ps, 2);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	        
+
+	}
 
 	@Override
 	public Integer retrieveSearchQualifierCodeIDfromCodeName(String codeName) {
@@ -123,6 +179,16 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		log.debug("Code Name: " + codeName + ", qualifier code id: " + id);
 		
 		return id;
+	}
+	
+
+	@Override
+	public PrintResults retrievePrintResultsfromMessageID(String messageId) {
+		
+		final String PRINT_RESULTS_SELECT="SELECT * FROM PRINT_RESULTS WHERE MESSAGE_ID = ?";
+		
+		List<PrintResults> printResults = jdbcTemplate.query(PRINT_RESULTS_SELECT, new PrintResultsRowMapper(), messageId);
+		return DataAccessUtils.singleResult(printResults);		
 	}
 
 	@Override
@@ -151,6 +217,33 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	    keyHolder);
 
          return keyHolder.getKey().intValue();	
+    }
+	
+	@Override
+	public Integer savePrintResults(PrintResults printResults) {
+        log.debug("Inserting row into PRINT_RESULTS table : " + printResults.toString());
+        
+        final String PRINT_RESULTS_INSERT="INSERT into PRINT_RESULTS "
+        		+ "(SYSTEM_NAME, DESCRIPTION, MESSAGE_ID) "
+        		+ "values (?, ?, ?)";
+        
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(PRINT_RESULTS_INSERT, new String[] {"PRINT_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(printResults.getSystemName(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(printResults.getDescription(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(printResults.getMessageId(), ps, 3);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		
     }
 	
 	@Override
@@ -210,6 +303,33 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
          return keyHolder.getKey().intValue();	        
 	}	
 	
+
+	@Override
+	public Integer saveFirearmsQueryResponse(
+			FirearmsQueryResponse firearmsQueryResponse) {
+		log.debug("Inserting row into FIREARMS_QUERY_RESULTS table : " + firearmsQueryResponse.toString());
+		
+        final String FIREARMS_QUERY_RESULTS_INSERT="INSERT into CRIMINAL_HISTORY_QUERY_RESULTS "  
+        		+ "(FIRST_NAME, MIDDLE_NAME, LAST_NAME, SID, FBI_ID, QUERY_REQUEST_ID, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_TIMEOUT_INDICATOR,QUERY_RESULTS_ERROR_INDICATOR,SYSTEM_NAME,MESSAGE_ID) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(FIREARMS_QUERY_RESULTS_INSERT, new String[] {"CRIMINAL_HISTORY_QUERY_RESULTS_ID"});
+        	            //DaoUtils.setPreparedStatementVariable(firearmsQueryResponse.getFirstName(), ps, 1);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	        
+
+	}	
+	
 	@Override
 	public Integer savePersonQueryCriminalHistoryResponse(
 			PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponse) {
@@ -254,7 +374,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		log.debug("Inserting row into WARRANT_QUERY_RESULTS table : " + personQueryWarrantResponse.toString());
 		
         final String WARRANT_QUERY_RESULTS_INSERT="INSERT into WARRANT_QUERY_RESULTS "  
-        		+ "(FIRST_NAME, MIDDLE_NAME, LAST_NAME, SID, FBI_ID, QUERY_REQUEST_ID, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_TIMEOUT_INDICATOR,QUERY_RESULTS_ERROR_INDICATOR,SYSTEM_NAME,MESSAGE_ID) "
+        		+ "(FIRST_NAME, MIDDLE_NAME, LAST_NAME, SID, FBI_ID, QUERY_REQUEST_ID, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_TIMEOUT_INDICATOR,QUERY_RESULTS_ERROR_INDICATOR,QUERY_RESULTS_ACCESS_DENIED_INDICATOR,SYSTEM_NAME,MESSAGE_ID) "
         		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -272,8 +392,9 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getQueryResultsErrorText(), ps, 7);
         	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.isQueryResultsTimeoutIndicator(), ps, 8);
         	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.isQueryResultsErrorIndicator(), ps, 9);
-        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getSystemName(), ps, 10);
-        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getMessageId(), ps, 11);
+        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.isQueryResultsAccessDeniedIndicator(), ps, 10);
+        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getSystemName(), ps, 11);
+        	            DaoUtils.setPreparedStatementVariable(personQueryWarrantResponse.getMessageId(), ps, 12);
         	            
         	            return ps;
         	        }
@@ -316,8 +437,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         log.debug("Inserting row into PERSON_SEARCH_RESULTS table : " + personSearchResult);
         
         final String PERSON_SEARCH_RESULT_INSERT="INSERT into PERSON_SEARCH_RESULTS "
-        		+ "(PERSON_SEARCH_REQUEST_ID,SYSTEMS_TO_SEARCH_ID,SEARCH_RESULTS_ERROR_INDICATOR,SEARCH_RESULTS_ERROR_TEXT,SEARCH_RESULTS_TIMEOUT_INDICATOR,SEARCH_RESULTS_COUNT)"
-        		+ "values (?, ?, ?, ?, ?, ?)";
+        		+ "(PERSON_SEARCH_REQUEST_ID,SYSTEMS_TO_SEARCH_ID,SEARCH_RESULTS_ERROR_INDICATOR,SEARCH_RESULTS_ERROR_TEXT,SEARCH_RESULTS_TIMEOUT_INDICATOR,SEARCH_RESULTS_COUNT,SEARCH_RESULTS_ACCESS_DENIED_INDICATOR)"
+        		+ "values (?, ?, ?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -331,6 +452,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsErrorText(), ps, 4);
         	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsTimeoutIndicator(), ps, 5);
         	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsCount(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(personSearchResult.getSearchResultsAccessDeniedIndicator(), ps, 7);
         	            
         	            return ps;
         	        }
@@ -340,6 +462,69 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
          return keyHolder.getKey().intValue();	
 	}
 
+	@Override
+	public Integer saveIdentificationSearchRequest(
+			IdentificationSearchRequest identificationSearchRequest) {
+		
+        log.debug("Inserting row into IDENTIFICATION_SEARCH_REQUEST table : " + identificationSearchRequest);
+        
+        final String IDENTIFICATION_SEARCH_REQUEST_INSERT="INSERT into IDENTIFICATION_SEARCH_REQUEST "
+        		+ "(FIRST_NAME, LAST_NAME, REPORTED_FROM_DATE, REPORTED_TO_DATE,USER_INFO_ID, MESSAGE_ID, IDENTIFICATION_RESULTS_STATUS, OTN) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(IDENTIFICATION_SEARCH_REQUEST_INSERT, new String[] {"IDENTIFICATION_SEARCH_REQUEST_ID"});
+        	            DaoUtils.setPreparedStatementVariable(identificationSearchRequest.getFirstName(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(identificationSearchRequest.getLastName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(identificationSearchRequest.getReportedFromDate(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(identificationSearchRequest.getReportedToDate(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(identificationSearchRequest.getUserInfoId(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(identificationSearchRequest.getMessageId(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(identificationSearchRequest.getIdentificationResultsStatus(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(identificationSearchRequest.getOtn(), ps, 8);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		
+         
+	}
+
+
+	@Override
+	public Integer saveidentificationSearchResponse(
+			IdentificationSearchResult identificationSearchResult) {
+		
+		log.debug("Inserting row into IDENTIFICATION_SEARCH_RESULTS table : " + identificationSearchResult);
+		
+        final String IDENTIFICATION_SEARCH_RESULT_INSERT="INSERT into IDENTIFICATION_SEARCH_RESULTS "
+        		+ "(MESSAGE_ID, IDENTIFICATION_SEARCH_REQUEST_ID, AVAILABLE_RESULTS)"
+        		+ "values (?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(IDENTIFICATION_SEARCH_RESULT_INSERT, new String[] {"IDENTIFICATION_SEARCH_RESULTS_ID"});
+        	            DaoUtils.setPreparedStatementVariable(identificationSearchResult.getMessageId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(identificationSearchResult.getIdentificationSearchRequestId(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(identificationSearchResult.getAvailableResults(), ps, 3);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}
 	
 	@Override
 	public Integer savePersonSearchRequest(
@@ -445,6 +630,33 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	}
 	
 	@Override
+	public Integer retrieveOrganizationIdentificationIDfromMessageID(
+			String messageId) {
+		final String SUBSCRIPTION_SELECT="SELECT * FROM PERSON_SEARCH_REQUEST WHERE MESSAGE_ID = ?";
+		
+		Integer ret = null;
+		
+		List<PersonSearchRequest> personSearchRequests = jdbcTemplate.query(SUBSCRIPTION_SELECT, new PersonSearchRequestRowMapper(), messageId);
+		
+		if (personSearchRequests == null)
+		{
+			throw new IllegalStateException("Unable to retrieve person search request ID");
+		}
+		
+		if (personSearchRequests.size() == 0 ||  personSearchRequests.size() > 1)
+		{
+			throw new IllegalStateException("Query returned zero or more than person search request, size: " + personSearchRequests.size());
+		}
+		
+		if (personSearchRequests.size() == 1)
+		{
+			ret = personSearchRequests.get(0).getPersonSearchRequestID();
+		}	
+
+		return ret;	
+	}	
+	
+	@Override
 	public Integer retrievePersonQueryIDfromMessageID(String messageId) {
 		final String SUBSCRIPTION_SELECT="SELECT * FROM QUERY_REQUEST WHERE MESSAGE_ID = ?";
 		
@@ -548,6 +760,26 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		}
 	}
 	
+	private final class IdentificationSearchReasonCodeRowMapper implements RowMapper<IdentificationSearchReasonCodes> {
+		public IdentificationSearchReasonCodes mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			IdentificationSearchReasonCodes identificationSearchReasonCodes = buildIdentificationSearchReasonCodes(rs);
+			return identificationSearchReasonCodes;
+		}
+
+		private IdentificationSearchReasonCodes buildIdentificationSearchReasonCodes(
+				ResultSet rs) throws SQLException{
+
+			IdentificationSearchReasonCodes identificationSearchReasonCodes = new IdentificationSearchReasonCodes();
+			
+			identificationSearchReasonCodes.setIdentificationReasonCodeDescription(rs.getString("IDENTIFICATION_REASON_CODE_DESCRIPTION"));
+			identificationSearchReasonCodes.setIdentificationSearchReasonCodeId(rs.getInt("IDENTIFICATION_SEARCH_REASON_CODE_ID"));
+			
+			return identificationSearchReasonCodes;
+		}
+	}
+
+	
 	private final class SystemsToSearchRowMapper implements RowMapper<SystemsToSearch> {
 		public SystemsToSearch mapRow(ResultSet rs, int rowNum)
 				throws SQLException {
@@ -606,7 +838,25 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		}
 	}
 	
-	
+	private final class PrintResultsRowMapper implements RowMapper<PrintResults> {
+		public PrintResults mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			PrintResults printResults = buildPrintResults(rs);
+			return printResults;
+		}
+
+		private PrintResults buildPrintResults(
+				ResultSet rs) throws SQLException{
+
+			PrintResults printResults = new PrintResults();
+			
+			printResults.setMessageId(rs.getString("MESSAGE_ID"));
+			printResults.setSystemName(rs.getString("SYSTEM_NAME"));
+			printResults.setDescription(rs.getString("DESCRIPTION"));
+			
+			return printResults;
+		}
+	}
 	
 	private LocalDateTime toLocalDateTime(Timestamp timestamp){
 		return timestamp == null? null : timestamp.toLocalDateTime();

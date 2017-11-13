@@ -17,10 +17,14 @@
 package org.ojbc.audit.enhanced.dao;
 
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
+import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryWarrantResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchResult;
+import org.ojbc.audit.enhanced.dao.model.PrintResults;
 import org.ojbc.audit.enhanced.dao.model.QueryRequest;
 import org.ojbc.audit.enhanced.dao.model.UserInfo;
 
@@ -35,15 +39,23 @@ public interface EnhancedAuditDAO {
 	
 	public Integer savePersonSearchRequest(PersonSearchRequest personSearchRequest);
 	
+	public Integer saveIdentificationSearchRequest(IdentificationSearchRequest identificationSearchRequest);
+	
+	public Integer saveidentificationSearchResponse(IdentificationSearchResult identificationSearchResult);
+	
 	public Integer saveQueryRequest(QueryRequest queryRequest);
 	
 	public Integer savePersonQueryCriminalHistoryResponse(PersonQueryCriminalHistoryResponse personQueryCriminalHistoryResponse);
+	
+	public Integer saveFirearmsQueryResponse(FirearmsQueryResponse firearmsQueryResponse);
 	
 	public Integer savePersonQueryWarrantResponse(PersonQueryWarrantResponse personQueryWarrantResponse);
 	
 	public Integer savePersonSearchResult(PersonSearchResult personSearchResult);
 	
 	public Integer saveUserInfo(UserInfo userInfo);
+	
+	public Integer savePrintResults(PrintResults printResults);
 	
 	public UserInfo retrieveUserInfoFromId(Integer userInfoPk);
 	
@@ -54,9 +66,17 @@ public interface EnhancedAuditDAO {
 	public Integer retrieveSearchQualifierCodeIDfromCodeName(String codeName);
 	
 	public Integer savePersonSystemToSearch(Integer pearchSearchPk, Integer systemsToSearchPk);
+
+	public Integer retrieveIdentificationReasonCodeFromDescription(String description);
 	
+	public Integer saveIdentificationReasonCode(Integer identificationSearchReasonCodeId, Integer identificationSearchRequestId);
+
 	public Integer retrievePersonSearchIDfromMessageID(String messageId);
 	
 	public Integer retrievePersonQueryIDfromMessageID(String messageId);
+	
+	public Integer retrieveOrganizationIdentificationIDfromMessageID(String messageId);
+	
+	public PrintResults retrievePrintResultsfromMessageID(String messageId);
 	
 }

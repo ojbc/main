@@ -18,13 +18,19 @@
 
 -->
 <w:WantList w:release="3.1" w:product="NIEM" w:nillableDefault="true"
-  xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
   xmlns:w="http://niem.gov/niem/wantlist/2.2"
-  xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/"
-  xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/"
-  xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+  xmlns:usps="http://release.niem.gov/niem/codes/usps_states/3.0/"
+  xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+  xmlns:ansi_d20="http://release.niem.gov/niem/codes/ansi_d20/3.1/"
   xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-  xmlns:usps="http://release.niem.gov/niem/codes/usps_states/3.0/" xmlns:ansi_d20="http://release.niem.gov/niem/codes/ansi_d20/3.1/">
+  xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+  xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/"
+  xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:cyfs="http://release.niem.gov/niem/domains/cyfs/3.1/">
+  <w:Element w:name="cyfs:AssociatedPersonChildAssociation"
+    w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="cyfs:JuvenileCase" w:isReference="false" w:nillable="false"/>
+  <w:Element w:name="cyfs:PersonAssociationCategoryDescriptionText"
+    w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:ActivityCaseAssociation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Arrest" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="j:Booking" w:isReference="false" w:nillable="true"/>
@@ -64,6 +70,7 @@
   <w:Element w:name="nc:DateTime" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:DocumentCategoryName" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:DocumentCategoryText" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:EmployeeOccupationText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:EntityOrganization" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:EntityPerson" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:FullTelephoneNumber" w:isReference="false" w:nillable="false"/>
@@ -84,7 +91,10 @@
   <w:Element w:name="nc:MeasureValueText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:Organization" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:Person" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:PersonCitizenshipText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonConveyanceAssociation"
+    w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:PersonEmploymentAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonEyeColorText" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:PersonHairColorText" w:isReference="false" w:nillable="false"/>
@@ -136,6 +146,35 @@
     <w:Facet w:facet="enumeration" w:value="USC"/>
     <w:Facet w:facet="enumeration" w:value="USM"/>
     <w:Facet w:facet="enumeration" w:value="USS"/>
+  </w:Type>
+  <w:Type w:name="cyfs:AssociatedPersonChildAssociationType" w:isRequested="true">
+    <w:ElementInType w:name="cyfs:Child" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="cyfs:PersonAssociationCategory"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType
+      w:name="cyfs:AssociatedPersonChildAssociationAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="cyfs:CaseworkerType" w:isRequested="false">
+    <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="cyfs:CaseworkerAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="cyfs:JuvenileCaseType" w:isRequested="false">
+    <w:ElementInType w:name="cyfs:Caseworker" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="cyfs:Juvenile" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="cyfs:JuvenileCaseAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="cyfs:JuvenileType" w:isRequested="false">
+    <w:ElementInType w:name="nc:RoleOfPerson" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="cyfs:JuvenileAugmentationPoint"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="j:ActivityCaseAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Activity" w:isReference="false"
@@ -335,6 +374,8 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:ActivityDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:ActivityDisposition"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:AddressType" w:isRequested="false">
     <w:ElementInType w:name="nc:AddressSecondaryUnitText"
@@ -385,6 +426,12 @@
   </w:Type>
   <w:Type w:name="nc:DateType" w:isRequested="false">
     <w:ElementInType w:name="nc:DateRepresentation"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
+  <w:Type w:name="nc:DispositionType" w:isRequested="false">
+    <w:ElementInType w:name="nc:DispositionDate" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:DispositionDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:DocumentType" w:isRequested="true">
@@ -473,6 +520,14 @@
     <w:ElementInType w:name="nc:Conveyance" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
+  <w:Type w:name="nc:PersonEmploymentAssociationType" w:isRequested="true">
+    <w:ElementInType w:name="nc:Employee" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:Employer" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:EmployeeOccupation"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+  </w:Type>
   <w:Type w:name="nc:PersonIdentityAssociationType" w:isRequested="false">
     <w:ElementInType w:name="nc:Person" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -503,6 +558,8 @@
   <w:Type w:name="nc:PersonType" w:isRequested="true">
     <w:ElementInType w:name="nc:PersonBirthDate" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:PersonCitizenship" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonDigitizedSignatureImage"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonEyeColor" w:isReference="false"
@@ -528,6 +585,10 @@
   </w:Type>
   <w:Type w:name="nc:StreetType" w:isRequested="false">
     <w:ElementInType w:name="nc:StreetFullText" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:StreetNumberText" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:StreetName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:TelephoneNumberType" w:isRequested="false">

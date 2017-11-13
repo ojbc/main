@@ -30,6 +30,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -48,11 +49,13 @@ import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
 import org.ojbc.web.portal.controllers.config.RapbackControllerConfigInterface;
 import org.ojbc.web.portal.controllers.config.SubscriptionsControllerConfigInterface;
+import org.ojbc.web.portal.rest.client.RestEnhancedAuditClient;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.ojbc.web.security.DocumentUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -61,6 +64,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -96,6 +100,9 @@ public class RapbackController {
 	RapbackControllerConfigInterface config;
 	
 	@Resource
+	RestEnhancedAuditClient restEnhancedAuditClient;
+	
+	@Resource
 	SubscriptionsControllerConfigInterface subConfig;
 	
     @Value("${rapbackSubscriptionPeriod:1}")
@@ -103,6 +110,12 @@ public class RapbackController {
     
     @Value("${rapbackSearchDateRange:1095}")
     Integer rapbackSearchDateRange;
+
+    @Value("${identificationResultsSystemName:Identification Results System}")
+    String identificationResultsSystemName;
+
+    @Value("${enableEnhancedAudit:false}")
+    Boolean enableEnhancedAudit;
     
     @ModelAttribute
     public void addModelAttributes(Model model) {
@@ -179,6 +192,40 @@ public class RapbackController {
 		}
 
 		return performRapbackSearchAndReturnResult(request, model, rapbackSearchRequest);
+	}
+	
+	@RequestMapping(value = "auditPrintResults", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void auditPrintResults(HttpServletRequest request,
+			@RequestParam String messageId,
+			@RequestParam String activeTab,
+	        Map<String, Object> model) throws Exception {
+
+		logger.info("Message ID: " + messageId);
+		logger.info("activeTab ID: " + activeTab);
+		logger.info("Identification results system name: " + identificationResultsSystemName);
+		
+		String description = "";
+		
+		if (StringUtils.isNotBlank(activeTab))
+		{
+			if (activeTab.equals("State Initial Results"))
+			{
+				description = "State Initial Results";
+			}	
+
+			if (activeTab.equals("FBI Initial Results"))
+			{
+				description = "FBI Initial Results";
+			}	
+
+		}
+		
+		if (enableEnhancedAudit)
+		{	
+			restEnhancedAuditClient.auditPrintResults(description, messageId, identificationResultsSystemName);
+		}	
+		
 	}
 
 	@RequestMapping(value = "criminalIdentificationAdvancedSearch", method = RequestMethod.POST)

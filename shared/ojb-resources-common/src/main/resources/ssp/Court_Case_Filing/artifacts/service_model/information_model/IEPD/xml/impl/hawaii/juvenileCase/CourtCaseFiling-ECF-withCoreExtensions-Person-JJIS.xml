@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<ojb-juv-doc:CoreFilingMessage xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
+	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ojb-juv-doc="http://ojbc.org/IEPD/Exchange/JuvenileCaseDocument/1.0"
+	xmlns:ojb-juv-ext="http://ojbc.org/IEPD/Extensions/JuvenileCaseExtension/1.0" xmlns:ecf-juv="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:JuvenileCase-4.0"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/JuvenileCaseDocument/1.0 ../../../../xsd/Juvenile_Case-doc.xsd">
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>91</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>MESSAGINGPROFILEID</ecf:SendingMDEProfileCode>
+	<ojb-juv-ext:JuvenileCase>
+		<nc:ActivityIdentification>
+			<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+		</nc:ActivityIdentification>
+		<nc:ActivityDisposition>
+			<nc:DispositionDate>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</nc:DispositionDate>
+			<nc:DispositionDescriptionText>nc:DispositionDescriptionText</nc:DispositionDescriptionText>
+		</nc:ActivityDisposition>
+		<nc:CaseFiling>
+			<nc:DocumentReceivedDate>
+				<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+			</nc:DocumentReceivedDate>
+		</nc:CaseFiling>
+		<j:CaseAugmentation>
+			<j:CaseCharge>
+				<j:ChargeQualifierText>j:ChargeQualifierText</j:ChargeQualifierText>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>nc:IdentificationID</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</j:CaseCharge>
+			<j:CaseInitiatingParty>
+				<nc:EntityOrganization>
+					<nc:OrganizationName>Referring Police Agency</nc:OrganizationName>
+				</nc:EntityOrganization>
+			</j:CaseInitiatingParty>
+		</j:CaseAugmentation>
+		<ojb-juv-ext:CaseAugmentation>
+			<ecf:Alias>
+				<ecf:AliasAlternateName>ecf:AliasAlternateName</ecf:AliasAlternateName>
+				<ecf:AliasAlternateNameTypeCode>ecf:AliasAlternateNameTypeCode</ecf:AliasAlternateNameTypeCode>
+				<nc:EntityReference s:ref="JJIS_Defendant" />
+			</ecf:Alias>
+			<ojb-juv-ext:CaseParticipant>
+				<ojb-juv-ext:EntityPerson s:id="JJIS_Defendant">
+					<nc:PersonBirthDate>
+						<nc:Date>1980-07-26</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonCitizenshipText>US</nc:PersonCitizenshipText>
+					<nc:PersonName>
+						<nc:PersonGivenName>First</nc:PersonGivenName>
+						<nc:PersonMiddleName>Middle</nc:PersonMiddleName>
+						<nc:PersonSurName>Last</nc:PersonSurName>
+						<nc:PersonNameSuffixText>Suffix</nc:PersonNameSuffixText>
+					</nc:PersonName>
+					<nc:PersonSexCode>M</nc:PersonSexCode>
+					<nc:PersonSSNIdentification>
+						<nc:IdentificationID>SSN</nc:IdentificationID>
+					</nc:PersonSSNIdentification>
+					<ojb-juv-ext:PersonAugmentation>
+						<ojb-juv-ext:PersonJuvenileIndicator>true</ojb-juv-ext:PersonJuvenileIndicator>
+					</ojb-juv-ext:PersonAugmentation>
+				</ojb-juv-ext:EntityPerson>
+				<ecf:CaseParticipantRoleCode>Defendant</ecf:CaseParticipantRoleCode>
+				<nc:ContactInformation>
+					<nc:ContactMailingAddress>
+						<nc:StructuredAddress>
+							<nc:AddressSecondaryUnitText>Apt #3</nc:AddressSecondaryUnitText>
+							<nc:LocationStreet>
+								<nc:StreetNumberText>102A</nc:StreetNumberText>
+								<nc:StreetName>StreetName</nc:StreetName>
+							</nc:LocationStreet>
+							<nc:LocationCityName>Honolulu</nc:LocationCityName>
+							<nc:LocationStateUSPostalServiceCode>HI</nc:LocationStateUSPostalServiceCode>
+						</nc:StructuredAddress>
+					</nc:ContactMailingAddress>
+					<nc:ContactTelephoneNumber>
+						<nc:FullTelephoneNumber>
+							<nc:TelephoneNumberFullID>nc:TelephoneNumberFullID</nc:TelephoneNumberFullID>
+						</nc:FullTelephoneNumber>
+					</nc:ContactTelephoneNumber>
+					<nc:ContactInformationDescriptionText>Home</nc:ContactInformationDescriptionText>
+				</nc:ContactInformation>
+			</ojb-juv-ext:CaseParticipant>
+			<ojb-juv-ext:CaseParticipant>
+				<nc:EntityPerson s:id="JJIS_Caseworker">
+					<nc:PersonName>
+						<nc:PersonFullName>Caseworker</nc:PersonFullName>
+					</nc:PersonName>
+				</nc:EntityPerson>
+				<ecf:CaseParticipantRoleCode>Caseworker</ecf:CaseParticipantRoleCode>
+			</ojb-juv-ext:CaseParticipant>
+			<ojb-juv-ext:CaseParticipant s:id="JJIS_Associate">
+				<nc:EntityPerson>
+					<nc:PersonBirthDate>
+						<nc:Date>1980-07-26</nc:Date>
+					</nc:PersonBirthDate>
+					<nc:PersonCitizenshipText>US</nc:PersonCitizenshipText>
+					<nc:PersonName>
+						<nc:PersonGivenName>First</nc:PersonGivenName>
+						<nc:PersonMiddleName>Middle</nc:PersonMiddleName>
+						<nc:PersonSurName>Last</nc:PersonSurName>
+						<nc:PersonNameSuffixText>Suffix</nc:PersonNameSuffixText>
+					</nc:PersonName>
+					<nc:PersonSexCode>M</nc:PersonSexCode>
+				</nc:EntityPerson>
+				<ecf:CaseParticipantRoleCode>Associate</ecf:CaseParticipantRoleCode>
+				<nc:ContactInformation>
+					<nc:ContactMailingAddress>
+						<nc:StructuredAddress>
+							<nc:AddressSecondaryUnitText>Apt #3</nc:AddressSecondaryUnitText>
+							<nc:LocationStreet>
+								<nc:StreetNumberText>102A</nc:StreetNumberText>
+								<nc:StreetName>StreetName</nc:StreetName>
+							</nc:LocationStreet>
+							<nc:LocationCityName>Honolulu</nc:LocationCityName>
+							<nc:LocationStateUSPostalServiceCode>HI</nc:LocationStateUSPostalServiceCode>
+						</nc:StructuredAddress>
+					</nc:ContactMailingAddress>
+					<nc:ContactTelephoneNumber>
+						<nc:FullTelephoneNumber>
+							<nc:TelephoneNumberFullID>nc:TelephoneNumberFullID</nc:TelephoneNumberFullID>
+						</nc:FullTelephoneNumber>
+					</nc:ContactTelephoneNumber>
+					<nc:ContactInformationDescriptionText>Home</nc:ContactInformationDescriptionText>
+				</nc:ContactInformation>
+				<nc:ContactInformation>
+					<nc:ContactTelephoneNumber>
+						<nc:FullTelephoneNumber>
+							<nc:TelephoneNumberFullID>nc:TelephoneNumberFullID</nc:TelephoneNumberFullID>
+						</nc:FullTelephoneNumber>
+					</nc:ContactTelephoneNumber>
+					<nc:ContactInformationDescriptionText>Work</nc:ContactInformationDescriptionText>
+				</nc:ContactInformation>
+			</ojb-juv-ext:CaseParticipant>
+			<ojb-juv-ext:AddOnCharge s:id="JJIS_Charge_02">
+				<j:ChargeQualifierText>JJIS Add On Charge Modifier</j:ChargeQualifierText>
+				<j:ChargeStatute>
+					<j:StatuteCodeIdentification>
+						<nc:IdentificationID>JJIS Add On Charge</nc:IdentificationID>
+					</j:StatuteCodeIdentification>
+				</j:ChargeStatute>
+			</ojb-juv-ext:AddOnCharge>
+			<j:Offense s:id="JJIS_Offense_01">
+				<nc:ActivityDate>
+					<nc:DateTime>2016-09-12T07:23:00</nc:DateTime>
+				</nc:ActivityDate>
+			</j:Offense>
+			<ojb-juv-ext:PoliceReportCount>1</ojb-juv-ext:PoliceReportCount>
+			<ojb-juv-ext:PoliceReportNumber>PR234567</ojb-juv-ext:PoliceReportNumber>
+		</ojb-juv-ext:CaseAugmentation>
+		<ojb-juv-ext:JuvenileCaseJuvenile>
+			<nc:RoleOfPersonReference s:ref="JJIS_Defendant" />
+			<ecf-juv:GuardianAssociation>
+				<nc:PersonGuardianReference s:ref="JJIS_Associate" />
+				<nc:PersonDependentReference s:ref="JJIS_Defendant" />
+				<ecf-juv:GuardianAssociationTypeCode>Parent</ecf-juv:GuardianAssociationTypeCode>
+			</ecf-juv:GuardianAssociation>
+			<!-- Required ECF Element -->
+			<ecf-juv:PersonEmancipatedIndicator>true</ecf-juv:PersonEmancipatedIndicator>
+			<ojb-juv-ext:JuvenileAugmentation>
+				<ojb-juv-ext:GeneralJuvenileNoteText>General Juvenile Notes</ojb-juv-ext:GeneralJuvenileNoteText>
+				<ojb-juv-ext:SpecialJuvenileDescriptionText>Special Juvenile Information</ojb-juv-ext:SpecialJuvenileDescriptionText>
+				<ojb-juv-ext:SpecialJuvenileDateRange>
+					<nc:StartDate>
+						<nc:Date>2001-12-31</nc:Date>
+					</nc:StartDate>
+					<nc:EndDate>
+						<nc:Date>2001-12-31</nc:Date>
+					</nc:EndDate>
+				</ojb-juv-ext:SpecialJuvenileDateRange>
+			</ojb-juv-ext:JuvenileAugmentation>
+		</ojb-juv-ext:JuvenileCaseJuvenile>
+		<ojb-juv-ext:JuvenileCaseCaseworker>
+			<nc:RoleOfPersonReference s:ref="JJIS_Caseworker" />
+			<ojb-juv-ext:CaseworkerStaffIdentification>
+				<nc:IdentificationID>DW7854</nc:IdentificationID>
+			</ojb-juv-ext:CaseworkerStaffIdentification>
+			<ojb-juv-ext:CaseworkerAssignmentDateRange>
+				<nc:StartDate>
+					<nc:Date>2001-12-31</nc:Date>
+				</nc:StartDate>
+				<nc:EndDate>
+					<nc:Date>2001-12-31</nc:Date>
+				</nc:EndDate>
+			</ojb-juv-ext:CaseworkerAssignmentDateRange>
+		</ojb-juv-ext:JuvenileCaseCaseworker>
+	</ojb-juv-ext:JuvenileCase>
+</ojb-juv-doc:CoreFilingMessage>

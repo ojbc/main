@@ -186,6 +186,7 @@
   <w:Element w:name="nc:PersonCitizenship" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonCitizenshipFIPS10-4Code"
     w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:PersonCitizenshipText" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonContactInformationAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:PersonDNA" w:isReference="false" w:nillable="true"/>

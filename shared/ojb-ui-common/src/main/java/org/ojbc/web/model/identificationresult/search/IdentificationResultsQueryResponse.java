@@ -27,6 +27,8 @@ public class IdentificationResultsQueryResponse {
 	private List<String> stateCriminalHistoryRecordDocuments;
 	private String fbiSearchResultFile; 
 	private List<String> fbiIdentityHistorySummaryDocuments;
+	private String messageId;
+	
 	public String getStateSearchResultFile() {
 		return stateSearchResultFile;
 	}
@@ -53,9 +55,13 @@ public class IdentificationResultsQueryResponse {
 			List<String> fbiIdentityHistorySummaryDocuments) {
 		this.fbiIdentityHistorySummaryDocuments = fbiIdentityHistorySummaryDocuments;
 	} 
-	
+	public String getMessageId() {
+		return messageId;
+	}
+	public void setMessageId(String messageId) {
+		this.messageId = messageId;
+	}
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
-	
 }

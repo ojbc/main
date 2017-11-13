@@ -38,6 +38,7 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="oirq-res-ext:IdentifiedPerson" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="oirq-res-ext:PersonIdentificationDate" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="oirq-res-ext:IdentificationResultStatusRepresentation" />
 					<xsd:element ref="oirq-res-ext:IdentificationRequestingOrganization" />
 					<xsd:element ref="oirq-res-ext:Subscription" minOccurs="0" />
@@ -63,6 +64,7 @@
 			<xsd:extension base="structures:ObjectType">
 				<xsd:sequence>
 					<xsd:element ref="oirq-res-ext:IdentifiedPerson" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="oirq-res-ext:PersonIdentificationDate" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="oirq-res-ext:IdentificationResultStatusRepresentation" />
 					<xsd:element ref="oirq-res-ext:IdentificationRequestingOrganization" />
 					<xsd:element ref="oirq-res-ext:Subscription" minOccurs="0" />
@@ -174,6 +176,12 @@
 	<xsd:element name="IdentifiedPersonTrackingIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
 			<xsd:documentation>A unique identifier assigned to a person that has been identified. Some jurisdictions refer to this as an OTN.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonIdentificationDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date the identification of a person occurred.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
