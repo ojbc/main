@@ -228,6 +228,18 @@
 				<when>
 					<simple>${header.trxCatCode} == 'RBMNTR'</simple>
 					<log message="\n\n\n Handling message as Rapback Subscription Maintenance Response \n\n\n" loggingLevel="INFO"/>	
+					
+					<camel:setHeader headerName="CamelFileName">
+						<camel:simple>FBI_Subscription_Response_${in.headers.transactionControlReferenceIdentification}.xml</camel:simple>
+					</camel:setHeader>
+					
+					<camel:setHeader headerName="pathToResponseFile">
+						<camel:simple>{{fbiEbtsAdapter.messageDirectory}}/output/fbiSubscriptions/responses/$simple{in.headers.CamelFileName}</camel:simple>
+					</camel:setHeader>
+					
+					<camel:wireTap copy="true" uri="fbiSubscriptionResponseDir"/>
+					
+					<camel:to uri="bean:fbiSubscriptionAuditProcessor?method=auditFBISubscriptionResponse"/>
 									
 					<to uri="direct:processRapBackSubscriptionMaintenanceResponse"/>																				
 				</when>				
