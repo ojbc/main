@@ -36,6 +36,7 @@
   <w:Element w:name="j:PersonAugmentation" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:AddressSecondaryUnitText" w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ContactInformation" w:isReference="false" w:nillable="true"/>
+  <w:Element w:name="nc:ContactMailingAddress" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="nc:ContactMobileTelephoneNumber"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:ContactTelephoneNumber" w:isReference="false" w:nillable="true"/>
@@ -5146,6 +5147,8 @@
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:PersonSurName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:PersonNameSuffixText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:PersonFullName" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
   </w:Type>
