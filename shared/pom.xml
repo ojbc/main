@@ -42,5 +42,6 @@
     <module>ojb-ui-common</module>
     <module>ojb-warrant-repository-common</module>
     <module>ojb-enhanced-audit-common</module>
+    <module>ojb-index-common</module>
   </modules>
 </project>
