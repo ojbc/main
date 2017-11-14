@@ -346,6 +346,7 @@
           <xsd:element ref="nc:PersonGivenName" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:PersonMiddleName" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:PersonSurName" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:PersonNameSuffixText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:PersonFullName" minOccurs="0" maxOccurs="1"/>
         </xsd:sequence>
       </xsd:extension>
@@ -564,6 +565,14 @@
   <xsd:element name="ContactInformationIsWorkIndicator" type="niem-xsd:boolean" nillable="true">
     <xsd:annotation>
       <xsd:documentation>True if the contact information is the employment contact information; false otherwise.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="ContactMailingAddress" type="nc:AddressType" substitutionGroup="nc:ContactMeans">
+    <xsd:annotation>
+      <xsd:documentation>A postal address by which a person or organization may be contacted.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="ContactMeans"/>
+      </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="ContactMeans" abstract="true">
@@ -868,6 +877,11 @@
   <xsd:element name="PersonName" type="nc:PersonNameType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A combination of names and/or titles by which a person is known.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PersonNameSuffixText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A term appended after the family name that qualifies the name.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="PersonPhysicalFeature" type="nc:PhysicalFeatureType" nillable="true">
