@@ -39,8 +39,9 @@ public class IdentificationSearchResponseSQLProcessor extends AbstractIdentifica
 			
 			IdentificationSearchResult identificationSearchResult = processIdentificationSearchResponse(document);
 			
-			//TODO: change this method
-			Integer identificationSearchRequestId = enhancedAuditDAO.retrievePersonSearchIDfromMessageID(messageID);
+			Integer identificationSearchRequestId = enhancedAuditDAO.retrieveOrganizationIdentificationIDfromMessageID(messageID);
+			
+			identificationSearchResult.setMessageId(messageID);
 			
 			if (identificationSearchRequestId != null)
 			{
