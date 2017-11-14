@@ -18,6 +18,8 @@ package org.ojbc.audit.enhanced.processor;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
@@ -27,6 +29,9 @@ import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public abstract class AbstractIdentificationSearchRequestProcessor {
 
@@ -38,7 +43,7 @@ public abstract class AbstractIdentificationSearchRequestProcessor {
 	
 	IdentificationSearchRequest processIdentificationSearchRequest(Document document) throws Exception
 	{
-		XmlUtils.printNode(document);
+		//XmlUtils.printNode(document);
 		
 		IdentificationSearchRequest identificationSearchRequest = new IdentificationSearchRequest();
 
@@ -83,9 +88,41 @@ public abstract class AbstractIdentificationSearchRequestProcessor {
         if(StringUtils.isNotBlank(endDate)){
         	identificationSearchRequest.setReportedToDate(LocalDate.parse(endDate, formatter));
         }
+       
+        NodeList civilReasonCode = XmlUtils.xPathNodeListSearch(document, "/oirs-req-doc:OrganizationIdentificationResultsSearchRequest/oirs-req-ext:CivilIdentificationReasonCode");
+        List<String> reasonCode = new ArrayList<String>();
         
-        //TODO: Process Reason code in a seperate table
+        if (civilReasonCode != null) {
+            int length = civilReasonCode.getLength();
+            for (int i = 0; i < length; i++) {
+                if (civilReasonCode.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                    Element reasonCodeElement = (Element) civilReasonCode.item(i);
+                    
+                    if (StringUtils.isNotBlank(reasonCodeElement.getTextContent()))
+                    {
+                    	reasonCode.add(reasonCodeElement.getTextContent());
+                    }		
+                }
+            }
+        }	
         
+        NodeList criminalReasonCode = XmlUtils.xPathNodeListSearch(document, "/oirs-req-doc:OrganizationIdentificationResultsSearchRequest/oirs-req-ext:CivilIdentificationReasonCode");
+        
+        if (criminalReasonCode != null) {
+            int length = criminalReasonCode.getLength();
+            for (int i = 0; i < length; i++) {
+                if (criminalReasonCode.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                    Element reasonCodeElement = (Element) criminalReasonCode.item(i);
+                    
+                    if (StringUtils.isNotBlank(reasonCodeElement.getTextContent()))
+                    {
+                    	reasonCode.add(reasonCodeElement.getTextContent());
+                    }		
+                }
+            }
+        }	        
+        
+        identificationSearchRequest.setReasonCode(reasonCode);
         
         return identificationSearchRequest;
 	}

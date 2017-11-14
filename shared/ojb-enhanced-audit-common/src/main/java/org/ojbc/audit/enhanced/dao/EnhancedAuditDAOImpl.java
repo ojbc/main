@@ -632,25 +632,25 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	@Override
 	public Integer retrieveOrganizationIdentificationIDfromMessageID(
 			String messageId) {
-		final String SUBSCRIPTION_SELECT="SELECT * FROM PERSON_SEARCH_REQUEST WHERE MESSAGE_ID = ?";
+		final String IDENTIFICATION_SELECT="SELECT * FROM IDENTIFICATION_SEARCH_REQUEST WHERE MESSAGE_ID = ?";
 		
 		Integer ret = null;
 		
-		List<PersonSearchRequest> personSearchRequests = jdbcTemplate.query(SUBSCRIPTION_SELECT, new PersonSearchRequestRowMapper(), messageId);
+		List<IdentificationSearchRequest> identificationSearchRequests = jdbcTemplate.query(IDENTIFICATION_SELECT, new IdentificationSearchRequestRowMapper(), messageId);
 		
-		if (personSearchRequests == null)
+		if (identificationSearchRequests == null)
 		{
-			throw new IllegalStateException("Unable to retrieve person search request ID");
+			throw new IllegalStateException("Unable to retrieve identification search request ID");
 		}
 		
-		if (personSearchRequests.size() == 0 ||  personSearchRequests.size() > 1)
+		if (identificationSearchRequests.size() == 0 ||  identificationSearchRequests.size() > 1)
 		{
-			throw new IllegalStateException("Query returned zero or more than person search request, size: " + personSearchRequests.size());
+			throw new IllegalStateException("Query returned zero or more than identification search request, size: " + identificationSearchRequests.size());
 		}
 		
-		if (personSearchRequests.size() == 1)
+		if (identificationSearchRequests.size() == 1)
 		{
-			ret = personSearchRequests.get(0).getPersonSearchRequestID();
+			ret = identificationSearchRequests.get(0).getIdentificationSearchRequestId();
 		}	
 
 		return ret;	
@@ -816,6 +816,25 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 			personSearchRequest.setPersonSearchRequestID(rs.getInt("PERSON_SEARCH_REQUEST_ID"));
 			
 			return personSearchRequest;
+		}
+	}
+	
+	private final class IdentificationSearchRequestRowMapper implements RowMapper<IdentificationSearchRequest> {
+		public IdentificationSearchRequest mapRow(ResultSet rs, int rowNum)
+				throws SQLException {
+			IdentificationSearchRequest identificationSearchRequest = buildIdentificationSearchRequest(rs);
+			return identificationSearchRequest;
+		}
+
+		private IdentificationSearchRequest buildIdentificationSearchRequest(
+				ResultSet rs) throws SQLException{
+
+			IdentificationSearchRequest identificationSearchRequest = new IdentificationSearchRequest();
+			
+			identificationSearchRequest.setMessageId(rs.getString("MESSAGE_ID"));
+			identificationSearchRequest.setIdentificationSearchRequestId(rs.getInt("IDENTIFICATION_SEARCH_REQUEST_ID"));
+			
+			return identificationSearchRequest;
 		}
 	}
 	
