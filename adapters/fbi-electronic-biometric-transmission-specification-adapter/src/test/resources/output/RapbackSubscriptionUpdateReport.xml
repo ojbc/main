@@ -83,9 +83,9 @@
          </jxdm50:PersonStateFingerprintIdentification>
       </jxdm50:PersonAugmentation>
    </nc30:Person>
-   <fed_subcr_upd-ext:CriminalHistoryDocument s30:id="d1e359">
-      <nc30:DocumentBinary>
-         <fed_subcr_upd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</fed_subcr_upd-ext:Base64BinaryObject>
-      </nc30:DocumentBinary>
-   </fed_subcr_upd-ext:CriminalHistoryDocument>
+<!--    <fed_subcr_upd-ext:CriminalHistoryDocument s30:id="d1e359"> -->
+<!--       <nc30:DocumentBinary> -->
+<!--          <fed_subcr_upd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</fed_subcr_upd-ext:Base64BinaryObject> -->
+<!--       </nc30:DocumentBinary> -->
+<!--    </fed_subcr_upd-ext:CriminalHistoryDocument> -->
 </fed_subcr-doc:FederalSubscriptionUpdateReport>
