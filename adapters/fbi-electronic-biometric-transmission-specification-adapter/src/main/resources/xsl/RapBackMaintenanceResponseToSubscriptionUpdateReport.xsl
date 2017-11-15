@@ -35,9 +35,10 @@
 		<fed_subcr-doc:FederalSubscriptionUpdateReport>
 			<xsl:apply-templates select="ebts:RecordRapBackData" />
 			<xsl:apply-templates select="ebts:RecordSubject" />
-			<xsl:apply-templates
-				select="ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText"
-				mode="rapsheet" />
+						<!-- ignoring the rap sheet as we work on CJ rap back.  will need to handle this when we start on civil -->
+<!-- 			<xsl:apply-templates -->
+<!-- 				select="ebts:RecordTransactionData/ebts:TransactionResponseData/ebts:TransactionElectronicRapSheetText" -->
+<!-- 				mode="rapsheet" /> -->
 		</fed_subcr-doc:FederalSubscriptionUpdateReport>
 	</xsl:template>
 	<xsl:template
