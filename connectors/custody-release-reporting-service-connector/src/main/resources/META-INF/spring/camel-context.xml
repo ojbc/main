@@ -31,6 +31,9 @@
 	
 		<endpoint id="inputDirectory"
 			uri="file:///${custody.connectorFileDirectory}/input?idempotent=true&amp;moveFailed=${custody.connectorFileDirectory}/error&amp;readLock=changed&amp;readLockCheckInterval=2500&amp;delete=${custody.deleteInputFiles}&amp;sortBy=file:modified&amp;delay=${custody.pollingInterval}" />
+
+		<endpoint id="errorDirectory"
+			uri="file:///${custody.connectorFileDirectory}/error?idempotent=true&amp;readLock=changed&amp;readLockCheckInterval=100&amp;delete=${custody.deleteInputFiles}&amp;sortBy=file:modified&amp;delay=${custody.pollingInterval}${custody.cronSchedulerRetryExpression}" />
 		
 		<camel:route id="Custody_Release_Reporting_Connector_File_Drop_Route">
 		
@@ -50,6 +53,14 @@
 					
 		</camel:route>
 		
+		<camel:route id="Custody_Release_Reporting_Connector_Retry_Error_Route">
+		
+			<camel:from uri="errorDirectory" />
+			
+			<camel:to uri="inputDirectory" />
+			
+		</camel:route>	
+				
 						
 		<camel:route id="Custody_Release_Reporting_Connector_Derived_Routes">
 
