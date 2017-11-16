@@ -23,7 +23,7 @@
 	xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/" xmlns:wlq-res-doc="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0"
 	xmlns:wlq-res-ext="http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryResultsExtension/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0 ../../../xsd/WildlifeLicenseQueryResults.xsd ">
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0 ../../../xsd/WildlifeLicenseQueryResults.xsd">
 	<wlq-res-ext:WildlifeLicenseReport>
 		<intel:SystemIdentification>
 			<nc:IdentificationID>12443645</nc:IdentificationID>
@@ -42,6 +42,9 @@
 				<nc:PersonSurName>Peabody</nc:PersonSurName>
 			</nc:PersonName>
 			<j:PersonSexCode>M</j:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>000000000</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
 			<nc:PersonWeightMeasure>
 				<nc:MeasureValueText>175</nc:MeasureValueText>
 				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
@@ -49,8 +52,10 @@
 		</nc:Person>
 		<nc:ContactInformation>
 			<nc:ContactMailingAddress structures:id="Mailing01">
-				<nc:AddressFullText>PO Box 231</nc:AddressFullText>
-				<nc:AddressSecondaryUnitText></nc:AddressSecondaryUnitText>
+				<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
+				<nc:LocationStreet>
+					<nc:StreetFullText>123 Main Street</nc:StreetFullText>
+				</nc:LocationStreet>
 				<nc:LocationCityName>Morrill</nc:LocationCityName>
 				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
 				<nc:LocationCountryName>USA</nc:LocationCountryName>
