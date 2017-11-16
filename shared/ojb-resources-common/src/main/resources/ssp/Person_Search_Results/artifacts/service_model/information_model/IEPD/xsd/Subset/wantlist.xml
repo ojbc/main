@@ -5207,6 +5207,8 @@
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:LocationPostalCode"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:LocationPostalExtensionCode"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:TelephoneNumberType" w:isRequested="false">
     <w:ElementInType w:name="nc:TelephoneNumberRepresentation"
