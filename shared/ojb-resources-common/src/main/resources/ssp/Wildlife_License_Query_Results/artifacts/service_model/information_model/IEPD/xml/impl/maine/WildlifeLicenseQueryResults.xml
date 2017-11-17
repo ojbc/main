@@ -50,8 +50,8 @@
 				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
 			</nc:PersonWeightMeasure>
 		</nc:Person>
-		<nc:ContactInformation>
-			<nc:ContactMailingAddress structures:id="Mailing01">
+		<nc:ContactInformation structures:id="Mailing01">
+			<nc:ContactMailingAddress>
 				<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
 				<nc:LocationStreet>
 					<nc:StreetFullText>123 Main Street</nc:StreetFullText>
@@ -62,8 +62,26 @@
 				<nc:LocationPostalCode>04952</nc:LocationPostalCode>
 				<nc:LocationPostalExtensionCode>3104</nc:LocationPostalExtensionCode>
 			</nc:ContactMailingAddress>
+			<nc:ContactTelephoneNumber>
+				<nc:FullTelephoneNumber>
+					<nc:TelephoneNumberFullID>315-921-0234</nc:TelephoneNumberFullID>
+				</nc:FullTelephoneNumber>
+			</nc:ContactTelephoneNumber>
 		</nc:ContactInformation>
 		<nc:Location structures:id="Residence01">
+			<nc:Address>
+				<nc:AddressSecondaryUnitText>Apt 2</nc:AddressSecondaryUnitText>
+				<nc:LocationStreet>
+					<nc:StreetFullText>123 South Ave.</nc:StreetFullText>
+				</nc:LocationStreet>
+				<nc:LocationCityName>Morrill</nc:LocationCityName>
+				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
+				<nc:LocationCountryName>USA</nc:LocationCountryName>
+				<nc:LocationPostalCode>04952</nc:LocationPostalCode>
+				<nc:LocationPostalExtensionCode>3104</nc:LocationPostalExtensionCode>
+			</nc:Address>
+		</nc:Location>
+		<nc:Location structures:id="Residence02">
 			<nc:Address>
 				<nc:AddressSecondaryUnitText>Apt 2</nc:AddressSecondaryUnitText>
 				<nc:LocationStreet>
@@ -86,5 +104,9 @@
 			<nc:Person structures:ref="Person01" />
 			<nc:Location structures:ref="Residence01" />
 		</nc:PersonResidenceAssociation>
+		<wlq-res-ext:PersonSecondaryResidenceAssociation>
+			<nc:Person structures:ref="Person01" />
+			<nc:Location structures:ref="Residence02" />
+		</wlq-res-ext:PersonSecondaryResidenceAssociation>
 	</wlq-res-ext:WildlifeLicenseReport>
 </wlq-res-doc:WildlifeLicenseQueryResults>
