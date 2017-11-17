@@ -29,9 +29,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
-import org.ojbc.audit.enhanced.dao.EnhancedAuditDAOImpl;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
-import org.ojbc.util.mail.Email;
+import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
 
@@ -85,6 +84,35 @@ public class TestAuditRestImpl {
 		assertEquals("description", printResultsFromDB.getDescription());
 		assertEquals("12345", printResultsFromDB.getMessageId());
 		assertEquals("system name", printResultsFromDB.getSystemName());
+	}
+	
+	@Test
+	public void testAuditRestUserLogin() throws Exception
+	{
+		final String uri = "http://localhost:9898/auditServer/audit/userLogin";
+		
+		UserInfo userInfo = new UserInfo();
+		
+		userInfo.setEmployerName("employer");
+		userInfo.setEmployerSubunitName("sub");
+		userInfo.setFederationId("fed");
+		userInfo.setIdentityProviderId("idpID");
+		userInfo.setUserEmailAddress("email");
+		userInfo.setUserFirstName("first");
+		userInfo.setUserLastName("last");
+		
+		UserInfo userInfoResults = restTemplate.postForObject(uri, userInfo, UserInfo.class);
+		
+		logger.info(userInfoResults.toString());
+		
+		assertEquals("employer", userInfoResults.getEmployerName());
+		assertEquals("sub", userInfoResults.getEmployerSubunitName());
+		assertEquals("fed", userInfoResults.getFederationId());
+		assertEquals("idpID", userInfoResults.getIdentityProviderId());
+		assertEquals("email", userInfoResults.getUserEmailAddress());
+		assertEquals("first", userInfoResults.getUserFirstName());
+		assertEquals("last", userInfoResults.getUserLastName());
+		
 	}
 	
 }

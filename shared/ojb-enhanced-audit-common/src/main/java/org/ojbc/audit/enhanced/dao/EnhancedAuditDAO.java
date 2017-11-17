@@ -55,6 +55,8 @@ public interface EnhancedAuditDAO {
 	
 	public Integer saveUserInfo(UserInfo userInfo);
 	
+	public Integer saveUserLogin(Integer userInfoPk);
+	
 	public Integer savePrintResults(PrintResults printResults);
 	
 	public UserInfo retrieveUserInfoFromId(Integer userInfoPk);
