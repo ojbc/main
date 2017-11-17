@@ -17,6 +17,7 @@
 package org.ojbc.bundles.intermediaries.personhealthsearch.processor;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalTime;
@@ -91,7 +92,35 @@ public class PersonHealthFileSearchProcessor {
 	{
 		boolean searchResponseFound = false;
 		
-		String extractedFileName = extractFileName(requestMessage);
+		searchResponseFound = findPersonHealthResponse(requestMessage, "");	
+		
+		if (searchResponseFound)
+		{
+			return true;
+		}	
+
+		for (int i=1; i<6; i++)
+		{
+			logger.info("Search for race with code: " + String.valueOf(i));
+			
+			searchResponseFound = findPersonHealthResponse(requestMessage, String.valueOf(i));
+
+			if (searchResponseFound)
+			{
+				return searchResponseFound;
+			}	
+
+		}	
+		
+		return searchResponseFound;
+	}
+
+	private boolean findPersonHealthResponse(Document requestMessage,
+			String race) throws Exception {
+		
+		boolean searchResponseFound = false;
+		
+		String extractedFileName = extractFileName(requestMessage,race);
 		
 		logger.info("File name before hashing: " + extractedFileName);
 		
@@ -109,14 +138,41 @@ public class PersonHealthFileSearchProcessor {
 		else
 		{
 			logger.info("Cached response not found.  Call web service.");
-		}	
-				
+		}
 		return searchResponseFound;
 	}
 	
 	public String retreivePersonHealthInfo(@Body Document requestMessage) throws Exception
 	{
-		String extractedFileName = extractFileName(requestMessage);
+		String content = returnPersonHealthInfoMessage(requestMessage,"");	
+		
+		if (StringUtils.isNotBlank(content))
+		{
+			return content;
+		}	
+		
+		for (int i=1; i<6; i++)
+		{
+			logger.info("Search for race with code: " + String.valueOf(i));
+			
+			String response = returnPersonHealthInfoMessage(requestMessage, String.valueOf(i));
+
+			if (StringUtils.isNotBlank(response))
+			{
+				return response;
+			}	
+
+		}	
+		
+		//Allow timer to be the first exchange
+		Thread.sleep(1000);
+		
+		return content;
+	}
+
+	private String returnPersonHealthInfoMessage(Document requestMessage, String race)
+			throws Exception, IOException {
+		String extractedFileName = extractFileName(requestMessage,race);
 		
 		String hashedExtractedFileName = "response_" + Hash.md5(extractedFileName) + ".xml";
 		
@@ -129,15 +185,11 @@ public class PersonHealthFileSearchProcessor {
 		if (phiResultsFile.isFile())
 		{
 			content = new String(Files.readAllBytes(Paths.get(responseRootFilePath + "/" + hashedExtractedFileName)));
-		}	
-		
-		//Allow timer to be the first exchange
-		Thread.sleep(1000);
-		
+		}
 		return content;
 	}
 
-	protected String extractFileName(Document requestMessage) throws Exception {
+	protected String extractFileName(Document requestMessage, String race) throws Exception {
 		
 		StringBuffer extractedFilename = new StringBuffer();
 		
@@ -195,7 +247,13 @@ public class PersonHealthFileSearchProcessor {
 		}			
 		
 		String sex = XmlUtils.xPathStringSearch(requestMessage, "/phisreq-doc:PersonHealthInformationSearchRequest/nc30:Person/jxdm51:PersonSexCode");
-		logger.info("Person Sex: "  + sex);
+		logger.info("Person Sex Code: "  + sex);
+
+		if (StringUtils.isBlank(sex))
+		{
+			sex = XmlUtils.xPathStringSearch(requestMessage, "/phisreq-doc:PersonHealthInformationSearchRequest/nc30:Person/nc30:PersonSexText");
+			logger.info("Person Sex Text: "  + sex);
+		}	
 		
 		if (StringUtils.isNotBlank(sex))
 		{
@@ -207,9 +265,12 @@ public class PersonHealthFileSearchProcessor {
 			extractedFilename.append("._");
 		}			
 				
-		
-		String race = XmlUtils.xPathStringSearch(requestMessage, "/phisreq-doc:PersonHealthInformationSearchRequest/nc30:Person/pc-phi-codes:PersonRaceCode");
-		logger.info("Person Race: "  + race);
+
+		if (StringUtils.isBlank(race))
+		{
+			race = XmlUtils.xPathStringSearch(requestMessage, "/phisreq-doc:PersonHealthInformationSearchRequest/nc30:Person/pc-phi-codes:PersonRaceCode");
+			logger.info("Person Race: "  + race);
+		}	
 		
 		if (StringUtils.isNotBlank(race))
 		{
