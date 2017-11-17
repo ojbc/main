@@ -65,8 +65,10 @@
 		</nc:ContactInformation>
 		<nc:Location structures:id="Residence01">
 			<nc:Address>
-				<nc:AddressFullText>127 South Main St</nc:AddressFullText>
 				<nc:AddressSecondaryUnitText>Apt 2</nc:AddressSecondaryUnitText>
+				<nc:LocationStreet>
+					<nc:StreetFullText>123 South Ave.</nc:StreetFullText>
+				</nc:LocationStreet>
 				<nc:LocationCityName>Morrill</nc:LocationCityName>
 				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
 				<nc:LocationCountryName>USA</nc:LocationCountryName>
