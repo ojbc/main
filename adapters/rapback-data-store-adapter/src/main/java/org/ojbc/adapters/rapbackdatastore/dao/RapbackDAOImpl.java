@@ -822,7 +822,7 @@ public class RapbackDAOImpl implements RapbackDAO {
                 	
                 	IdentificationTransaction identificationTransaction = 
                 			buildIdentificationTransaction(rs, false);
-        			identificationTransaction.setOwnerAencyName(rs.getString("AGENCY_NAME"));
+        			identificationTransaction.setOwnerAgencyName(rs.getString("AGENCY_NAME"));
                 	civilInitialResults.setIdentificationTransaction(identificationTransaction);
                 }
 	              
@@ -1076,7 +1076,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 					.getTimestamp("report_timestamp")));
 
 			IdentificationTransaction identificationTransaction = buildIdentificationTransaction(rs, false); 
-			identificationTransaction.setOwnerAencyName(rs.getString("AGENCY_NAME"));
+			identificationTransaction.setOwnerAgencyName(rs.getString("AGENCY_NAME"));
 			criminalInitialResults.setIdentificationTransaction(identificationTransaction);
 			
 			return criminalInitialResults;
