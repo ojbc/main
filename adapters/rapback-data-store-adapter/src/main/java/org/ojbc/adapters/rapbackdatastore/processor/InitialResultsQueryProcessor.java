@@ -16,7 +16,7 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.*;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
@@ -137,6 +137,7 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
 		log.debug("CivilInitialResults: " + civilInitialResults.toString());
         
         for (CivilInitialResults civilInitialResult: civilInitialResults){
+        	
         	createSearchResultDocumentElement(civilInitialResult, rootElement);
         	createHistorySummaryDocumentElement(civilInitialResult, rootElement);
         }
@@ -204,6 +205,10 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
         rootElement.setAttribute("xmlns:"+NS_PREFIX_NC_30, NS_NC_30);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_XOP, NS_XOP);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_XMIME, NS_XMIME);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_INTEL_30, NS_INTEL_30);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_JXDM_50, NS_JXDM_50);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_PROXY_XSD_30, NS_PROXY_XSD_30);
+        rootElement.setAttribute("xmlns:"+NS_PREFIX_WSN_BROKERED, NS_WSN_BROKERED);
         document.appendChild(rootElement);
 		return rootElement;
 	}

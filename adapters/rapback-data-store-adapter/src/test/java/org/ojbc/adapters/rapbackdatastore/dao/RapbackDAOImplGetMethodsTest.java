@@ -284,6 +284,8 @@ public class RapbackDAOImplGetMethodsTest {
 		assertNotNull(civilInitialResults.get(1).getIdentificationTransaction());
 		assertTrue(civilInitialResults.get(0).getIdentificationTransaction().getSubject().equals(
 				civilInitialResults.get(1).getIdentificationTransaction().getSubject()));
+		IdentificationTransaction identificationTransaction = civilInitialResults.get(0).getIdentificationTransaction();
+		assertThat(identificationTransaction.getOwnerAencyName(), equalTo("Test Agency"));
 		Subject subject = civilInitialResults.get(0).getIdentificationTransaction().getSubject(); 
 		log.info("Subject: " + subject);
 		assertThat(subject.getFirstName(), equalTo("Test"));
@@ -318,6 +320,9 @@ public class RapbackDAOImplGetMethodsTest {
 		assertNotNull(criminalInitialResults.get(1).getIdentificationTransaction());
 		assertTrue(criminalInitialResults.get(0).getIdentificationTransaction().getSubject().equals(
 				criminalInitialResults.get(1).getIdentificationTransaction().getSubject()));
+		IdentificationTransaction identificationTransaction = criminalInitialResults.get(0).getIdentificationTransaction();
+		assertThat(identificationTransaction.getOwnerAencyName(), equalTo("Demo Agency"));
+		
 		Subject subject = criminalInitialResults.get(0).getIdentificationTransaction().getSubject(); 
 		log.info("Subject: " + subject);
 
