@@ -16,9 +16,11 @@
  */
 package org.ojbc.adapters.rapbackdatastore.dao;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
@@ -32,9 +34,11 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +46,7 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackDao;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
@@ -274,6 +279,20 @@ public class RapbackDAOImplGetMethodsTest {
 		assertEquals(2, civilInitialResults.size());
 		log.info("Search result doc content: " + new String(civilInitialResults.get(0).getSearchResultFile()));
 		assertEquals(2110, civilInitialResults.get(0).getSearchResultFile().length);
+		
+		assertNotNull(civilInitialResults.get(0).getIdentificationTransaction());
+		assertNotNull(civilInitialResults.get(1).getIdentificationTransaction());
+		assertTrue(civilInitialResults.get(0).getIdentificationTransaction().getSubject().equals(
+				civilInitialResults.get(1).getIdentificationTransaction().getSubject()));
+		Subject subject = civilInitialResults.get(0).getIdentificationTransaction().getSubject(); 
+		log.info("Subject: " + subject);
+		assertThat(subject.getFirstName(), equalTo("Test"));
+		assertThat(subject.getLastName(), equalTo("Jane"));
+		assertThat(subject.getMiddleInitial(), equalTo("W"));
+		assertThat(subject.getCriminalSid(), equalTo("C1234567"));
+		assertThat(subject.getCivilSid(), equalTo("A123457"));
+		assertThat(subject.getUcn(), equalTo("B1234568"));
+		assertThat(subject.getSexCode(), equalTo("F"));
 	}
 	
 	@Test
@@ -294,6 +313,21 @@ public class RapbackDAOImplGetMethodsTest {
 		assertEquals(2, criminalInitialResults.size());
 		log.info("Search result doc content: " + new String(criminalInitialResults.get(0).getSearchResultFile()));
 		assertEquals(1832, criminalInitialResults.get(0).getSearchResultFile().length);
+		
+		assertNotNull(criminalInitialResults.get(0).getIdentificationTransaction());
+		assertNotNull(criminalInitialResults.get(1).getIdentificationTransaction());
+		assertTrue(criminalInitialResults.get(0).getIdentificationTransaction().getSubject().equals(
+				criminalInitialResults.get(1).getIdentificationTransaction().getSubject()));
+		Subject subject = criminalInitialResults.get(0).getIdentificationTransaction().getSubject(); 
+		log.info("Subject: " + subject);
+
+		assertTrue(DateUtils.isSameDay(subject.getDob().toDate(),  DateTime.parse("1987-10-10").toDate()));
+		assertThat(subject.getUcn(), equalTo("B1234569"));
+		assertThat(subject.getCriminalSid(), equalTo("C1234568"));
+		assertThat(subject.getCivilSid(), equalTo("A123458"));
+		assertThat(subject.getFirstName(), equalTo("Bart"));
+		assertThat(subject.getSexCode(), equalTo("M"));
+
 	}
 	
 	@Test
