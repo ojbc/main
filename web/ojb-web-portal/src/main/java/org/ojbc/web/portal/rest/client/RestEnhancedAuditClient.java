@@ -34,7 +34,7 @@ public class RestEnhancedAuditClient {
 	private RestTemplate restTemplate;
 	
 	@Value("${enhancedAuditServerBaseUrl:https://localhost:8443/OJB/}")
-	private String printResultsPostURI;
+	private String restServiceBaseUrl;
 
 	public void auditPrintResults(String description, String messageId,
 			String systemName) {
@@ -45,11 +45,91 @@ public class RestEnhancedAuditClient {
 		printResults.messageId = messageId;
 		printResults.systemName = systemName;
 		
-		restTemplate.postForObject(printResultsPostURI + "auditServer/audit/printResults", printResults, PrintResults.class);
+		restTemplate.postForObject(restServiceBaseUrl + "auditServer/audit/printResults", printResults, PrintResults.class);
 		
 		
 	}
 
+	public void auditUserLogin(String federationId, String employerName, String employerSubunitName, String firstName, String lastName, String emailAddress, String identityProviderId) {
+		
+		UserInfo userInfo = new UserInfo();
+		
+		userInfo.userEmailAddress = emailAddress;
+		userInfo.employerName = employerName;
+		userInfo.employerSubunitName = employerSubunitName;
+		userInfo.federationId = federationId;
+		userInfo.userFirstName = firstName;
+		userInfo.identityProviderId = identityProviderId;
+		userInfo.userLastName = lastName;
+		
+		restTemplate.postForObject(restServiceBaseUrl + "auditServer/audit/userLogin", userInfo, UserInfo.class);
+		
+	}
+
+	//To avoid a dependency on the ojb-audit-common, add UserInfo as a private class
+	private static class UserInfo {
+	
+		private Integer userInfoId;
+		private String userFirstName;
+		private String identityProviderId;
+		private String employerName;
+		private String userEmailAddress;
+		private String userLastName;
+		private String employerSubunitName;
+		private String federationId;
+		
+		public String getUserFirstName() {
+			return userFirstName;
+		}
+		public void setUserFirstName(String userFirstName) {
+			this.userFirstName = userFirstName;
+		}
+		public String getIdentityProviderId() {
+			return identityProviderId;
+		}
+		public void setIdentityProviderId(String identityProviderId) {
+			this.identityProviderId = identityProviderId;
+		}
+		public String getEmployerName() {
+			return employerName;
+		}
+		public void setEmployerName(String employerName) {
+			this.employerName = employerName;
+		}
+		public String getUserEmailAddress() {
+			return userEmailAddress;
+		}
+		public void setUserEmailAddress(String userEmailAddress) {
+			this.userEmailAddress = userEmailAddress;
+		}
+		public String getUserLastName() {
+			return userLastName;
+		}
+		public void setUserLastName(String userLastName) {
+			this.userLastName = userLastName;
+		}
+		public String getEmployerSubunitName() {
+			return employerSubunitName;
+		}
+		public void setEmployerSubunitName(String employerSubunitName) {
+			this.employerSubunitName = employerSubunitName;
+		}
+		public String getFederationId() {
+			return federationId;
+		}
+		public void setFederationId(String federationId) {
+			this.federationId = federationId;
+		}
+		public Integer getUserInfoId() {
+			return userInfoId;
+		}
+		public void setUserInfoId(Integer userInfoId) {
+			this.userInfoId = userInfoId;
+		}
+		
+		
+	}
+	
 	//To avoid a dependency on the ojb-audit-common, add print results as a private class
 	private static class PrintResults {
 
@@ -83,23 +163,8 @@ public class RestEnhancedAuditClient {
 			this.printResultsId = printResultsId;
 		}
 		
-}
-
-	public RestTemplate getRestTemplate() {
-		return restTemplate;
 	}
 
-	public void setRestTemplate(RestTemplate restTemplate) {
-		this.restTemplate = restTemplate;
-	}
-
-	public String getPrintResultsPostURI() {
-		return printResultsPostURI;
-	}
-
-	public void setPrintResultsPostURI(String printResultsPostURI) {
-		this.printResultsPostURI = printResultsPostURI;
-	}
 
 	public Log getLog() {
 		return log;

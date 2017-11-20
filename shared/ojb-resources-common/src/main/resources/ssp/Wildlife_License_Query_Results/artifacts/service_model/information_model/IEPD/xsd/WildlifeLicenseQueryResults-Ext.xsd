@@ -57,7 +57,21 @@
 					<xsd:element ref="nc:ContactInformation" minOccurs="1" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Location" minOccurs="1" maxOccurs="unbounded" />
 					<xsd:element ref="nc:ContactInformationAssociation" minOccurs="1" maxOccurs="unbounded" />
-					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="1" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonResidenceAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="wlq-res-ext:PersonSecondaryResidenceAssociation" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="PersonSecondaryResidenceAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for A second non-legal residence such as a camp or other dwelling.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="nc:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:Location" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -66,6 +80,11 @@
 		<xsd:annotation>
 			<xsd:documentation>A wildlife license report.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PersonSecondaryResidenceAssociation" type="wlq-res-ext:PersonSecondaryResidenceAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A second non-legal residence such as a camp or other dwelling.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

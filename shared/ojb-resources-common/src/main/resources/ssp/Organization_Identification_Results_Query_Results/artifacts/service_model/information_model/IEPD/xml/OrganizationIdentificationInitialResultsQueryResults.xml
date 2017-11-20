@@ -30,6 +30,7 @@
 		</nc:PersonBirthDate>
 		<nc:PersonName>
 			<nc:PersonGivenName>Michael</nc:PersonGivenName>
+			<nc:PersonMiddleName>Aaron</nc:PersonMiddleName>
 			<nc:PersonSurName>Scott</nc:PersonSurName>
 		</nc:PersonName>
 		<j:PersonAugmentation>

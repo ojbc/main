@@ -37,7 +37,6 @@
 			<nc30:PersonMiddleName>Hartwell</nc30:PersonMiddleName>
 			<nc30:PersonSurName>White</nc30:PersonSurName>
 		</nc30:PersonName>
-		<pc-phi-codes:PersonRaceCode>W</pc-phi-codes:PersonRaceCode>
 		<jxdm51:PersonSexCode>M</jxdm51:PersonSexCode>
 		<phisreq-ext:PersonSystemAssignedIdentification>
 			 <nc30:IdentificationID>1234567890</nc30:IdentificationID>
