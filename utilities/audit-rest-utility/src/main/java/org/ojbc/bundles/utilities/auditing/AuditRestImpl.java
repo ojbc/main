@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.EnhancedAuditDAO;
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
+import org.ojbc.audit.enhanced.dao.model.UserInfo;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -42,5 +43,16 @@ public class AuditRestImpl implements AuditInterface {
 		enhancedAuditDao.savePrintResults(printResults);
 		
 		return Response.status(Status.OK).entity(printResults).build();
+	}
+
+	@Override
+	public Response auditUserLogin(UserInfo userInfo) {
+		log.info("Audit user login info: " + userInfo.toString());
+		
+		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userInfo);
+		
+		enhancedAuditDao.saveUserLogin(userInfoPk);
+		
+		return Response.status(Status.OK).entity(userInfo).build();
 	}
 }
