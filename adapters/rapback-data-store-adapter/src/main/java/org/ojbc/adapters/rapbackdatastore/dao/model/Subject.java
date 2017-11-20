@@ -159,4 +159,83 @@ public class Subject implements Serializable{
 
     	return sb.toString();
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((civilSid == null) ? 0 : civilSid.hashCode());
+		result = prime * result
+				+ ((criminalSid == null) ? 0 : criminalSid.hashCode());
+		result = prime * result + ((dob == null) ? 0 : dob.hashCode());
+		result = prime * result
+				+ ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result
+				+ ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result
+				+ ((middleInitial == null) ? 0 : middleInitial.hashCode());
+		result = prime * result + ((sexCode == null) ? 0 : sexCode.hashCode());
+		result = prime * result
+				+ ((subjectId == null) ? 0 : subjectId.hashCode());
+		result = prime * result + ((ucn == null) ? 0 : ucn.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Subject other = (Subject) obj;
+		if (civilSid == null) {
+			if (other.civilSid != null)
+				return false;
+		} else if (!civilSid.equals(other.civilSid))
+			return false;
+		if (criminalSid == null) {
+			if (other.criminalSid != null)
+				return false;
+		} else if (!criminalSid.equals(other.criminalSid))
+			return false;
+		if (dob == null) {
+			if (other.dob != null)
+				return false;
+		} else if (!dob.equals(other.dob))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (middleInitial == null) {
+			if (other.middleInitial != null)
+				return false;
+		} else if (!middleInitial.equals(other.middleInitial))
+			return false;
+		if (sexCode == null) {
+			if (other.sexCode != null)
+				return false;
+		} else if (!sexCode.equals(other.sexCode))
+			return false;
+		if (subjectId == null) {
+			if (other.subjectId != null)
+				return false;
+		} else if (!subjectId.equals(other.subjectId))
+			return false;
+		if (ucn == null) {
+			if (other.ucn != null)
+				return false;
+		} else if (!ucn.equals(other.ucn))
+			return false;
+		return true;
+	}
 }
