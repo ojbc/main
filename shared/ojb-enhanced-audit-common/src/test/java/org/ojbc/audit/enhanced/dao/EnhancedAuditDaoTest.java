@@ -298,5 +298,17 @@ public class EnhancedAuditDaoTest {
 		assertEquals("123456", printResultsResponse.getMessageId());
 		assertEquals("system name", printResultsResponse.getSystemName());
 	}	
+
+	@Test
+	public void testSaveUserLogin() throws Exception
+	{
+		Integer userInfoPk = saveUserInfo();
+
+		Integer userLoginPk = enhancedAuditDao.saveUserLogin(userInfoPk);
+		
+		assertNotNull(userLoginPk);
+		
+	}	
+
 }
 

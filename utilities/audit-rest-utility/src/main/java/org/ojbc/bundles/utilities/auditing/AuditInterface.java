@@ -25,6 +25,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.ojbc.audit.enhanced.dao.model.PrintResults;
+import org.ojbc.audit.enhanced.dao.model.UserInfo;
 
 @Path("/audit")
 @WebService
@@ -35,4 +36,10 @@ public interface AuditInterface {
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public Response auditPrintResults(PrintResults printResults);
+   
+   @POST
+   @Path("/userLogin")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public Response auditUserLogin(UserInfo userInfo);
 }

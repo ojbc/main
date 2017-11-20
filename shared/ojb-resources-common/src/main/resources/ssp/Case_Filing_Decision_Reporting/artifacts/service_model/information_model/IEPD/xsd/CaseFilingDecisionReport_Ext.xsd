@@ -44,6 +44,7 @@
 		<xsd:complexContent mixed="false">
 			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
+					<xsd:element ref="cfd-ext:CaseFilingDecisionRepresentation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="cfd-ext:VictimRightsAssertionCertificationIndicator" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="cfd-ext:VictimRightsAssertionText" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="nc:Case" minOccurs="0" maxOccurs="1" />
@@ -207,13 +208,19 @@
 	</xsd:element>
 	<xsd:element name="CaseFilingDecisionAttachment" type="nc:DocumentType" substitutionGroup="cfd-ext:CaseFilingDecisionRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>State criminal history record for a person.
+			<xsd:documentation>A case filing decision document.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CaseFilingDecisionDescriptionText" type="nc:TextType" substitutionGroup="cfd-ext:CaseFilingDecisionRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>A description of a decision to file a case.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="CaseFilingDecisionRepresentation" abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>A placeholder for a court case filing document.
+			<xsd:documentation>A placeholder for a court case filing decision document.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

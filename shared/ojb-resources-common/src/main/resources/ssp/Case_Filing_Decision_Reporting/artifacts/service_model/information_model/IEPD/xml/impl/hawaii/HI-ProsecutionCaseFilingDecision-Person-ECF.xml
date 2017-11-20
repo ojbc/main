@@ -23,6 +23,7 @@
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<!-- SAMPLE FILE - Elements Added as ECF Extensions in the Court Case Filing SSP are commented below -->
+	<cfd-ext:CaseFilingDecisionDescriptionText>File Charges</cfd-ext:CaseFilingDecisionDescriptionText>
 	<nc:Case structures:id="Case_01">
 		<nc:ActivityDescriptionText>Extended Case Title</nc:ActivityDescriptionText>
 		<nc:CaseTitleText>Short Case Title</nc:CaseTitleText>

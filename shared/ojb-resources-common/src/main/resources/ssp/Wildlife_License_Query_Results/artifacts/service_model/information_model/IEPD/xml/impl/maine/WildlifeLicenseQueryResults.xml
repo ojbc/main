@@ -23,7 +23,7 @@
 	xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/" xmlns:wlq-res-doc="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0"
 	xmlns:wlq-res-ext="http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryResultsExtension/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0 ../../../xsd/WildlifeLicenseQueryResults.xsd ">
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0 ../../../xsd/WildlifeLicenseQueryResults.xsd">
 	<wlq-res-ext:WildlifeLicenseReport>
 		<intel:SystemIdentification>
 			<nc:IdentificationID>12443645</nc:IdentificationID>
@@ -42,26 +42,51 @@
 				<nc:PersonSurName>Peabody</nc:PersonSurName>
 			</nc:PersonName>
 			<j:PersonSexCode>M</j:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>000000000</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
 			<nc:PersonWeightMeasure>
 				<nc:MeasureValueText>175</nc:MeasureValueText>
 				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
 			</nc:PersonWeightMeasure>
 		</nc:Person>
-		<nc:ContactInformation>
-			<nc:ContactMailingAddress structures:id="Mailing01">
-				<nc:AddressFullText>PO Box 231</nc:AddressFullText>
-				<nc:AddressSecondaryUnitText></nc:AddressSecondaryUnitText>
+		<nc:ContactInformation structures:id="Mailing01">
+			<nc:ContactMailingAddress>
+				<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
+				<nc:LocationStreet>
+					<nc:StreetFullText>123 Main Street</nc:StreetFullText>
+				</nc:LocationStreet>
 				<nc:LocationCityName>Morrill</nc:LocationCityName>
 				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
 				<nc:LocationCountryName>USA</nc:LocationCountryName>
 				<nc:LocationPostalCode>04952</nc:LocationPostalCode>
 				<nc:LocationPostalExtensionCode>3104</nc:LocationPostalExtensionCode>
 			</nc:ContactMailingAddress>
+			<nc:ContactTelephoneNumber>
+				<nc:FullTelephoneNumber>
+					<nc:TelephoneNumberFullID>315-921-0234</nc:TelephoneNumberFullID>
+				</nc:FullTelephoneNumber>
+			</nc:ContactTelephoneNumber>
 		</nc:ContactInformation>
 		<nc:Location structures:id="Residence01">
 			<nc:Address>
-				<nc:AddressFullText>127 South Main St</nc:AddressFullText>
 				<nc:AddressSecondaryUnitText>Apt 2</nc:AddressSecondaryUnitText>
+				<nc:LocationStreet>
+					<nc:StreetFullText>123 South Ave.</nc:StreetFullText>
+				</nc:LocationStreet>
+				<nc:LocationCityName>Morrill</nc:LocationCityName>
+				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
+				<nc:LocationCountryName>USA</nc:LocationCountryName>
+				<nc:LocationPostalCode>04952</nc:LocationPostalCode>
+				<nc:LocationPostalExtensionCode>3104</nc:LocationPostalExtensionCode>
+			</nc:Address>
+		</nc:Location>
+		<nc:Location structures:id="Residence02">
+			<nc:Address>
+				<nc:AddressSecondaryUnitText>Apt 2</nc:AddressSecondaryUnitText>
+				<nc:LocationStreet>
+					<nc:StreetFullText>123 South Ave.</nc:StreetFullText>
+				</nc:LocationStreet>
 				<nc:LocationCityName>Morrill</nc:LocationCityName>
 				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
 				<nc:LocationCountryName>USA</nc:LocationCountryName>
@@ -79,5 +104,9 @@
 			<nc:Person structures:ref="Person01" />
 			<nc:Location structures:ref="Residence01" />
 		</nc:PersonResidenceAssociation>
+		<wlq-res-ext:PersonSecondaryResidenceAssociation>
+			<nc:Person structures:ref="Person01" />
+			<nc:Location structures:ref="Residence02" />
+		</wlq-res-ext:PersonSecondaryResidenceAssociation>
 	</wlq-res-ext:WildlifeLicenseReport>
 </wlq-res-doc:WildlifeLicenseQueryResults>

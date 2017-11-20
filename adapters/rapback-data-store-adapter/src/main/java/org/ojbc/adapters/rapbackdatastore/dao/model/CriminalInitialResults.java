@@ -33,7 +33,8 @@ public class CriminalInitialResults implements Serializable{
 	
 	private DateTime timestamp;
 	
-	private Subject subject; 
+	private Subject subject;
+	private IdentificationTransaction identificationTransaction;
 	
 	public CriminalInitialResults(){
 		super();
@@ -94,6 +95,14 @@ public class CriminalInitialResults implements Serializable{
 
 	public void setSearchResultFile(byte[] searchResultFile) {
 		this.searchResultFile = searchResultFile;
+	}
+
+	public IdentificationTransaction getIdentificationTransaction() {
+		return identificationTransaction;
+	}
+
+	public void setIdentificationTransaction(IdentificationTransaction identificationTransaction) {
+		this.identificationTransaction = identificationTransaction;
 	}
 
 }
