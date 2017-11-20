@@ -63,13 +63,14 @@ public class TestPersonHealthFileSearchProcessor {
 		
 		Document requestMessage = OJBUtils.loadXMLFromString(xml);
 		
-		String fileName = personHealthFileSearchProcessor.extractFileName(requestMessage);
+		String fileName = personHealthFileSearchProcessor.extractFileName(requestMessage,"");
 		
 		logger.info("Extracted file name: " + fileName);
 		
-		assertEquals("Walter_Hartwell_White_1959-09-07_M_W_1234567890", fileName);
+		//We explicitly remove race and expect the algorithm to find it by trying the value 1
+		assertEquals("Walter_Hartwell_White_1959-09-07_M_._1234567890", fileName);
 		
-		String hashedExtractedFileName = "response_" + Hash.md5("Walter_Hartwell_White_1959-09-07_M_W_1234567890") + ".xml";
+		String hashedExtractedFileName = "response_" + Hash.md5("Walter_Hartwell_White_1959-09-07_M_._1234567890") + ".xml";
 		
 		logger.info("Hashed File Name: " + hashedExtractedFileName);
 		

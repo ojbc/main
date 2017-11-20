@@ -31,6 +31,7 @@ import org.ojb.web.portal.WebPortalConstants;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.WebUtils;
+import org.ojbc.web.portal.rest.client.RestEnhancedAuditClient;
 import org.ojbc.web.portal.services.OTPService;
 import org.ojbc.web.security.config.AccessControlServicesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,12 @@ public class PortalAuthenticationDetailsSource implements
     @Value("#{'${orisWithoutIncidentDetailAccess:}'.split(',')}")
     private List<String> orisWithoutIncidentDetailAccess;
     
+    @Value("${enableEnhancedAudit:false}")
+    Boolean enableEnhancedAudit;
+
+	@Resource
+	RestEnhancedAuditClient restEnhancedAuditClient;
+
     @Autowired(required=false)
     private AccessControlServicesConfig accessControlServicesConfig; 
 
@@ -206,6 +213,24 @@ public class PortalAuthenticationDetailsSource implements
             }
         }
         
+        if (enableEnhancedAudit)
+        {
+        	try {
+				String employerName = getAttributeValue(samlAssertion, SamlAttribute.EmployerName);
+				String federationId = getAttributeValue(samlAssertion, SamlAttribute.FederationId);
+				String employerSubunitName = getAttributeValue(samlAssertion, SamlAttribute.EmployerSubUnitName);
+				String firstName = getAttributeValue(samlAssertion, SamlAttribute.GivenName);
+				String lastName = getAttributeValue(samlAssertion, SamlAttribute.SurName);
+				String emailAddress = getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText);
+				String identityProviderId = getAttributeValue(samlAssertion, SamlAttribute.IdentityProviderId);
+				
+				restEnhancedAuditClient.auditUserLogin(federationId, employerName, employerSubunitName, firstName, lastName, emailAddress, identityProviderId);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error("Unable to audit user login");
+			}
+        }	
+        
         return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, 
                 grantedAuthorities);
     }
@@ -253,7 +278,7 @@ public class PortalAuthenticationDetailsSource implements
 	        		+ samlAttribute.getAttibuteName() 
 	        		+ "']/saml2:AttributeValue");
 		} catch (Exception e) {
-			log.error(samlAttribute.getAttibuteName() + " is missing in the Saml Assertion");
+			log.error(samlAttribute.getAttibuteName() +" is missing in the Saml Assertion");
 		}
 		return attributeValue;
 	}

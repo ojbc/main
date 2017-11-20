@@ -766,10 +766,12 @@ public class RapbackDAOImpl implements RapbackDAO {
 	@Override
 	public List<CivilInitialResults> getIdentificationCivilInitialResults(
 			String transactionNumber) {
-		final String CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER = "SELECT c.*, r.* "
+		final String CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER = "SELECT c.*, r.*, i.*, s.* "
 				+ "FROM civil_initial_results c "
+				+ "LEFT OUTER JOIN IDENTIFICATION_TRANSACTION i ON i.transaction_number = c.transaction_number "
+				+ "LEFT OUTER JOIN IDENTIFICATION_SUBJECT s ON s.SUBJECT_ID = i.SUBJECT_ID "
 				+ "LEFT OUTER JOIN CIVIL_INITIAL_RAP_SHEET r ON r.CIVIL_INITIAL_RESULT_ID = c.CIVIL_INITIAL_RESULT_ID "
-				+ "WHERE transaction_number = ?";
+				+ "WHERE c.transaction_number = ?";
 		
 		List<CivilInitialResults> results= 
 				jdbcTemplate.query(CIVIL_INITIAL_RESULTS_BY_TRANSACTION_NUMBER, 
@@ -790,6 +792,10 @@ public class RapbackDAOImpl implements RapbackDAO {
                 if ( civilInitialResults  == null){
                 	civilInitialResults = buildCivilIntialResult(rs); 
                 	map.put(civilIntialResultId, civilInitialResults); 
+                	
+                	IdentificationTransaction identificationTransaction = 
+                			buildIdentificationTransaction(rs, false);
+                	civilInitialResults.setIdentificationTransaction(identificationTransaction);
                 }
 	              
                byte[] rapSheet = rs.getBytes("rap_sheet" );
@@ -1008,7 +1014,11 @@ public class RapbackDAOImpl implements RapbackDAO {
 			String transactionNumber) {
 		log.info("Retrieving criminal initial results by transaction number : " + transactionNumber);
 		
-		final String sql = "SELECT * FROM criminal_initial_results t WHERE t.transaction_number = ?";
+		final String sql = "SELECT t.*, i.*, s.* "
+				+ "FROM criminal_initial_results t "
+				+ "LEFT OUTER JOIN IDENTIFICATION_TRANSACTION i ON i.transaction_number = t.transaction_number "
+				+ "LEFT OUTER JOIN IDENTIFICATION_SUBJECT s ON s.SUBJECT_ID = i.SUBJECT_ID "
+				+ "WHERE t.transaction_number = ?";
 		List<CriminalInitialResults> criminalIntialResults = 
 				jdbcTemplate.query(sql, new CriminalInitialResultsRowMapper(), transactionNumber);
 		return criminalIntialResults;
@@ -1036,6 +1046,9 @@ public class RapbackDAOImpl implements RapbackDAO {
 			criminalInitialResults.setTimestamp(toDateTime(rs
 					.getTimestamp("report_timestamp")));
 
+			IdentificationTransaction identificationTransaction = buildIdentificationTransaction(rs, false); 
+			criminalInitialResults.setIdentificationTransaction(identificationTransaction);
+			
 			return criminalInitialResults;
 		}
 

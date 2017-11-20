@@ -247,6 +247,32 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
     }
 	
 	@Override
+	public Integer saveUserLogin(Integer userInfoPk) {
+        log.debug("Inserting row into USER_LOGIN table : " + userInfoPk);
+        
+        final String USER_LOGIN_INSERT="INSERT into USER_LOGIN "
+        		+ "(USER_INFO_ID) "
+        		+ "values (?)";
+        
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(USER_LOGIN_INSERT, new String[] {"USER_LOGIN_ID"});
+        	            DaoUtils.setPreparedStatementVariable(userInfoPk, ps, 1);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();		
+	}
+	
+	
+	@Override
 	public Integer savePersonSystemToSearch(Integer pearchSearchPk, Integer systemsToSearchPk) {
 		
         log.debug("Inserting rows into PERSON_SYSTEMS_TO_SEARCH table : " + systemsToSearchPk.toString());
