@@ -116,8 +116,21 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
     			rapbackDAO.getIdentificationCriminalInitialResults(transactionNumber);
 		
         for (CriminalInitialResults criminalInitialResult: criminalInitialResults){
-        	createSearchResultDocumentElement(criminalInitialResult, rootElement);
+    		IdentificationTransaction identificationTransaction = criminalInitialResult.getIdentificationTransaction();
+			appendIdentificationTransactionInfo(rootElement, identificationTransaction);
+    		createSearchResultDocumentElement(criminalInitialResult, rootElement);
         }
+	}
+
+	private void appendIdentificationTransactionInfo(Element rootElement,
+			IdentificationTransaction identificationTransaction) {
+		appendIdentifiedPersonElement(rootElement, identificationTransaction, 
+				NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
+		appendDateElement(identificationTransaction.getTimestamp(), rootElement, 
+				"IdentificationReportedDate", NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
+		appdendStatusElement(rootElement, identificationTransaction, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
+		appendReasonCodeElement(true, identificationTransaction,rootElement, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
+		appendOrganizationInfo(rootElement, identificationTransaction);
 	}
 
 	private void createSearchResultDocumentElement(
@@ -148,13 +161,7 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
         for (CivilInitialResults civilInitialResult: civilInitialResults){
         	
     		IdentificationTransaction identificationTransaction = civilInitialResult.getIdentificationTransaction();
-			appendIdentifiedPersonElement(rootElement, identificationTransaction, 
-    				NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
-    		appendDateElement(identificationTransaction.getTimestamp(), rootElement, 
-    				"IdentificationReportedDate", NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
-    		appdendStatusElement(rootElement, identificationTransaction, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
-    		appendReasonCodeElement(true, identificationTransaction,rootElement, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
-    		appendOrganizationInfo(rootElement, identificationTransaction);
+			appendIdentificationTransactionInfo(rootElement, identificationTransaction);
     		
         	createSearchResultDocumentElement(civilInitialResult, rootElement);
         	createHistorySummaryDocumentElement(civilInitialResult, rootElement);
