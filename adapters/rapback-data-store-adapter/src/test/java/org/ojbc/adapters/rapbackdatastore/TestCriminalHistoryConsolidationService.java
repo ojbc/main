@@ -79,6 +79,7 @@ import org.w3c.dom.Node;
 @DirtiesContext
 public class TestCriminalHistoryConsolidationService {
 	
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog( TestCriminalHistoryConsolidationService.class );
 
 	private static final Object CXF_OPERATION_NAME_NOTIFICATION = "ReportCriminalHistoryIdentifierUpdate";
