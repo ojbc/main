@@ -20,19 +20,15 @@ import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_30;
 
-import javax.annotation.Resource;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Element;
 
-public class AbstractIdentificationResultsQueryProcessor {
+public class AbstractIdentificationResultsQueryProcessor extends AbstractSearchQueryProcessor {
 	
 	protected enum QueryResponseElementName{
 		OrganizationIdentificationInitialResultsQueryResults, 
@@ -54,15 +50,8 @@ public class AbstractIdentificationResultsQueryProcessor {
 
 	protected final Log log = LogFactory.getLog(this.getClass());
 
-    @Resource
-    protected RapbackDAO rapbackDAO;
-
-    protected DocumentBuilder documentBuilder;
-
     public AbstractIdentificationResultsQueryProcessor() throws ParserConfigurationException {
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        documentBuilderFactory.setNamespaceAware(true);
-        documentBuilder = documentBuilderFactory.newDocumentBuilder();
+    	super();
     }
 
 	protected void appendDocumentElement(Element parentElement, QueryResponseElementName elementName, String documentId, byte[] binaryData) {

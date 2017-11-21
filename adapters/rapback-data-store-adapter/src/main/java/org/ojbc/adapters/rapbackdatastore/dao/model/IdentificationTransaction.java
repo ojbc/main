@@ -32,6 +32,7 @@ public class IdentificationTransaction implements Serializable{
 	private DateTime timestamp;
 	private DateTime availableForSubscriptionStartDate;
 	private String ownerOri; 
+	private String ownerAgencyName; 
 	private String ownerProgramOca;
 	private String identificationCategory; 
 	private Boolean archived; 
@@ -148,6 +149,14 @@ public class IdentificationTransaction implements Serializable{
 	public void setAvailableForSubscriptionStartDate(
 			DateTime availableForSubscriptionStartDate) {
 		this.availableForSubscriptionStartDate = availableForSubscriptionStartDate;
+	}
+
+	public String getOwnerAgencyName() {
+		return ownerAgencyName;
+	}
+
+	public void setOwnerAgencyName(String ownerAgencyName) {
+		this.ownerAgencyName = ownerAgencyName;
 	}
 
 }

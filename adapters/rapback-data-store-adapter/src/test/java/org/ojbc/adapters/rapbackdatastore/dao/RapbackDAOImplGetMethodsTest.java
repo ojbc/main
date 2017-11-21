@@ -284,6 +284,11 @@ public class RapbackDAOImplGetMethodsTest {
 		assertNotNull(civilInitialResults.get(1).getIdentificationTransaction());
 		assertTrue(civilInitialResults.get(0).getIdentificationTransaction().getSubject().equals(
 				civilInitialResults.get(1).getIdentificationTransaction().getSubject()));
+		IdentificationTransaction identificationTransaction = civilInitialResults.get(0).getIdentificationTransaction();
+		log.info("Idnetification: " + identificationTransaction);
+		assertThat(identificationTransaction.getOwnerAgencyName(), equalTo("Test Agency"));
+		assertNotNull(identificationTransaction.getSubscription());
+		assertThat(identificationTransaction.getHavingSubsequentResults(), equalTo(false));
 		Subject subject = civilInitialResults.get(0).getIdentificationTransaction().getSubject(); 
 		log.info("Subject: " + subject);
 		assertThat(subject.getFirstName(), equalTo("Test"));
@@ -293,16 +298,6 @@ public class RapbackDAOImplGetMethodsTest {
 		assertThat(subject.getCivilSid(), equalTo("A123457"));
 		assertThat(subject.getUcn(), equalTo("B1234568"));
 		assertThat(subject.getSexCode(), equalTo("F"));
-	}
-	
-	@Test
-	public void testGetCivilInitialResults() throws Exception {
-		List<CivilInitialResults> civilInitialResults= 
-				rapbackDAO.getIdentificationCivilInitialResults("000001820140729014008339995");
-		log.info("Civil Initial Results count: " + civilInitialResults.size());
-		assertEquals(2, civilInitialResults.size());
-		log.info("Search result doc content: " + new String(civilInitialResults.get(0).getSearchResultFile()));
-		assertEquals(1832, civilInitialResults.get(0).getSearchResultFile().length);
 	}
 	
 	@Test
@@ -318,6 +313,9 @@ public class RapbackDAOImplGetMethodsTest {
 		assertNotNull(criminalInitialResults.get(1).getIdentificationTransaction());
 		assertTrue(criminalInitialResults.get(0).getIdentificationTransaction().getSubject().equals(
 				criminalInitialResults.get(1).getIdentificationTransaction().getSubject()));
+		IdentificationTransaction identificationTransaction = criminalInitialResults.get(0).getIdentificationTransaction();
+		assertThat(identificationTransaction.getOwnerAgencyName(), equalTo("Demo Agency"));
+		
 		Subject subject = criminalInitialResults.get(0).getIdentificationTransaction().getSubject(); 
 		log.info("Subject: " + subject);
 
