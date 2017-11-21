@@ -16,18 +16,24 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
-import static org.ojbc.util.xml.OjbcNamespaceContext.*;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_50;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_INTEL_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_JXDM_50;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_NC_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT;
-import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_PROXY_XSD_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_STRUCTURES_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_WSN_BROKERED;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_XMIME;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PREFIX_XOP;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_PROXY_XSD_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_STRUCTURES_30;
+import static org.ojbc.util.xml.OjbcNamespaceContext.NS_WSN_BROKERED;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_XMIME;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_XOP;
 
@@ -41,6 +47,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
+import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
+import org.ojbc.util.model.rapback.IdentificationTransactionState;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -130,6 +138,7 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
 			break;
 		}
 	}
+	
 
 	private void buildResponseWithCivilInitialResults(String transactionNumber, Element rootElement) {
 		List<CivilInitialResults> civilInitialResults = 
@@ -138,9 +147,35 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
         
         for (CivilInitialResults civilInitialResult: civilInitialResults){
         	
+    		IdentificationTransaction identificationTransaction = civilInitialResult.getIdentificationTransaction();
+			appendIdentifiedPersonElement(rootElement, identificationTransaction, 
+    				NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
+    		appendDateElement(identificationTransaction.getTimestamp(), rootElement, 
+    				"IdentificationReportedDate", NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
+    		appdendStatusElement(rootElement, identificationTransaction, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
+    		appendReasonCodeElement(true, identificationTransaction,rootElement, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
+    		appendOrganizationInfo(rootElement, identificationTransaction);
+    		
         	createSearchResultDocumentElement(civilInitialResult, rootElement);
         	createHistorySummaryDocumentElement(civilInitialResult, rootElement);
         }
+	}
+
+	private void appdendStatusElement(Element parentElement, IdentificationTransaction identificationTransaction, String extNamespace) {
+		Element identificationResultStatusCode = XmlUtils.appendElement(parentElement, 
+				extNamespace, "IdentificationResultStatusCode");
+		
+		IdentificationTransactionState currentState = getCurrentState(identificationTransaction); 
+		identificationResultStatusCode.setTextContent(currentState.toString());
+		
+		Element identificationRequestingOrganization = 
+				XmlUtils.appendElement(parentElement,
+						extNamespace, "IdentificationRequestingOrganization");
+		XmlUtils.addAttribute(identificationRequestingOrganization, NS_STRUCTURES_30, "ref", "ORG1");
+		
+		appendSubsequentResultsAvailableIndicator(parentElement,
+				identificationTransaction.getHavingSubsequentResults(), 
+				extNamespace);
 	}
 
 
@@ -199,8 +234,6 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
         rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT, 
         		NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
-        rootElement.setAttribute("xmlns:"+NS_PREFIX_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
-        		NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_STRUCTURES_30, NS_STRUCTURES_30);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_NC_30, NS_NC_30);
         rootElement.setAttribute("xmlns:"+NS_PREFIX_XOP, NS_XOP);
@@ -212,4 +245,19 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
         document.appendChild(rootElement);
 		return rootElement;
 	}
+	
+	private void appendOrganizationInfo(Element rootElement,
+			IdentificationTransaction identificationTransaction) {
+		
+			Element entityOrganization = XmlUtils.appendElement(rootElement, NS_NC_30, "EntityOrganization");
+			XmlUtils.addAttribute(entityOrganization, NS_STRUCTURES_30, "id", "ORG1");
+			
+			Element organizationName = XmlUtils.appendElement(entityOrganization, NS_NC_30, "OrganizationName");
+			organizationName.setTextContent(identificationTransaction.getOwnerAgencyName());
+			Element organizationAugmentation = XmlUtils.appendElement(entityOrganization, NS_JXDM_50, "OrganizationAugmentation");
+			Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_50, "OrganizationORIIdentification");
+			Element identificationID = XmlUtils.appendElement(organizationORIIdentification, NS_NC_30, "IdentificationID");
+			identificationID.setTextContent(identificationTransaction.getOwnerOri());
+	}
+
 }
