@@ -19,7 +19,6 @@ package org.ojbc.adapters.rapbackdatastore.processor;
 import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.SOURCE_SYSTEM_NAME_TEXT;
 import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.SYSTEM_NAME;
 import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.TOPIC_DIALECT;
-import static org.ojbc.adapters.rapbackdatastore.RapbackDataStoreAdapterConstants.YYYY_MM_DD;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_INTEL_30;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_JXDM_50;
 import static org.ojbc.util.xml.OjbcNamespaceContext.NS_NC_30;
@@ -46,26 +45,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.annotation.Resource;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.camel.Body;
 import org.apache.camel.ExchangeException;
 import org.apache.camel.Header;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.message.Message;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.joda.time.DateTime;
-import org.ojbc.adapters.rapbackdatastore.dao.RapbackDAO;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
-import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.Subscription;
 import org.ojbc.util.camel.security.saml.SAMLTokenUtils;
 import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
@@ -80,14 +73,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 @Service
-public class RapbackSearchProcessor {
+public class RapbackSearchProcessor extends AbstractSearchQueryProcessor{
 
 	private final Log log = LogFactory.getLog(this.getClass());
-
-    @Resource
-    private RapbackDAO rapbackDAO;
-
-    private DocumentBuilder documentBuilder;
 
     @Value("${system.searchResultsExceedThreshold}")
     private Integer maxResultCount;
@@ -96,9 +84,7 @@ public class RapbackSearchProcessor {
     private String systemName;
 
     public RapbackSearchProcessor() throws ParserConfigurationException {
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        documentBuilderFactory.setNamespaceAware(true);
-        documentBuilder = documentBuilderFactory.newDocumentBuilder();
+    	super();
     }
 
     /**
@@ -361,12 +347,13 @@ public class RapbackSearchProcessor {
 		Element organizationIdentificationResultsSearchResultElement = 
 				XmlUtils.appendElement(rootElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
 						"OrganizationIdentificationResultsSearchResult");
-		appendIdentifiedPersonElement(organizationIdentificationResultsSearchResultElement, identificationTransaction);
+		appendIdentifiedPersonElement(organizationIdentificationResultsSearchResultElement, 
+				identificationTransaction, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
 		appdendStatusElement(organizationIdentificationResultsSearchResultElement,
 				identificationTransaction, oriOrganizationIdMap);
 		
 		appendReasonCodeElement(isCivilResponse, identificationTransaction,
-				organizationIdentificationResultsSearchResultElement);
+				organizationIdentificationResultsSearchResultElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
 		
 		appendDateElement(identificationTransaction.getTimestamp(), 
 				organizationIdentificationResultsSearchResultElement, 
@@ -389,25 +376,6 @@ public class RapbackSearchProcessor {
 				"TotalAuthorizedSearchResultsQuantity");
 		totalAuthorizedSearchResultsQuantity.setTextContent(
 				String.valueOf(size));
-	}
-
-	private void appendReasonCodeElement(boolean isCivilResponse,
-			IdentificationTransaction identificationTransaction,
-			Element organizationIdentificationResultsSearchResultElement) {
-		Element identificationReasonCode;
-		if (isCivilResponse){
-			identificationReasonCode = XmlUtils.appendElement(
-					organizationIdentificationResultsSearchResultElement, 
-					NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
-					"CivilIdentificationReasonCode");
-		}
-		else{
-			identificationReasonCode = XmlUtils.appendElement(
-					organizationIdentificationResultsSearchResultElement, 
-					NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
-					"CriminalIdentificationReasonCode");
-		}
-		identificationReasonCode.setTextContent(identificationTransaction.getIdentificationCategory());
 	}
 
 	private void appendSourceSystemNameTextElement(
@@ -436,7 +404,7 @@ public class RapbackSearchProcessor {
 		}
 		appendSubsequentResultsAvailableIndicator(
 				organizationIdentificationResultsSearchResultElement,
-				identificationTransaction.getHavingSubsequentResults());
+				identificationTransaction.getHavingSubsequentResults(), NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
 	}
 
 	private void appendIdentificationRequestingOrganization(
@@ -450,17 +418,6 @@ public class RapbackSearchProcessor {
 							NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentificationRequestingOrganization");
 			XmlUtils.addAttribute(identificationRequestingOrganization, NS_STRUCTURES_30, "ref", orgnizationId);
 		}
-	}
-
-	private void appendSubsequentResultsAvailableIndicator(
-			Element organizationIdentificationResultsSearchResultElement,
-			Boolean havingSubsequentResults) {
-		
-			Element subsequentResultsAvailableIndicator = 
-					XmlUtils.appendElement(organizationIdentificationResultsSearchResultElement, 
-							NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, 
-							"SubsequentResultsAvailableIndicator");
-			subsequentResultsAvailableIndicator.setTextContent(BooleanUtils.toString(havingSubsequentResults, "true", "false", "false"));
 	}
 
 	private void appendSubscriptionElement(
@@ -499,108 +456,6 @@ public class RapbackSearchProcessor {
 				subscriptionElement, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "SubscriptionValidation");
 		appendDateElement(validationDueDate, subscriptionValidation, "SubscriptionValidationDueDate", NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT);
 		
-	}
-
-	private void appendDateElement(DateTime dateObject, Element parentElement, 
-			String elementName, String wrapperElementNS) {
-		if (dateObject != null){
-			Element dateWrapperElement = XmlUtils.appendElement(parentElement, wrapperElementNS, elementName);
-			Element date = XmlUtils.appendElement(dateWrapperElement, NS_NC_30, "Date");
-			date.setTextContent(dateObject.toString(YYYY_MM_DD));
-		}
-	}
-
-	private IdentificationTransactionState getCurrentState(
-			IdentificationTransaction identificationTransaction) {
-		if (BooleanUtils.isTrue(identificationTransaction.getArchived())){
-			return IdentificationTransactionState.Archived;
-		}
-		else {
-			
-			Subscription subscription = identificationTransaction.getSubscription(); 
-			if (subscription != null && subscription.getActive() == Boolean.TRUE){
-				return IdentificationTransactionState.Subscribed;
-			}
-			else{
-				return IdentificationTransactionState.Available_for_Subscription;
-			}
-		}
-	}
-
-	private void appendIdentifiedPersonElement(Element organizationIdentificationResultsSearchResultElement,
-			IdentificationTransaction identificationTransaction) {
-		
-		Subject subject = identificationTransaction.getSubject();
-		Element identifiedPerson = XmlUtils.appendElement(organizationIdentificationResultsSearchResultElement, 
-				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentifiedPerson");
-		
-		if (subject.getDob() != null){
-			Element personBirthDateElement = 
-					XmlUtils.appendElement(identifiedPerson, NS_NC_30, "PersonBirthDate");
-			Element dateElement = XmlUtils.appendElement(personBirthDateElement, NS_NC_30, "Date");
-			dateElement.setTextContent(subject.getDob().toString(YYYY_MM_DD));
-		}
-		
-		Element personNameElement = XmlUtils.appendElement(identifiedPerson, NS_NC_30, "PersonName"); 
-		Element personFirstNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonGivenName");
-		personFirstNameElement.setTextContent(subject.getFirstName());
-		Element personMiddleNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonMiddleName");
-		personMiddleNameElement.setTextContent(subject.getMiddleInitial());
-		Element personSurNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonSurName");
-		personSurNameElement.setTextContent(subject.getLastName());
-		Element personFullNameElement = XmlUtils.appendElement(personNameElement, NS_NC_30, "PersonFullName");
-		personFullNameElement.setTextContent(subject.getFullName());
-		
-		appendPersonAugmentationElement(subject, identifiedPerson);
-		
-		Element identifiedPersonTrackingIdentification = XmlUtils.appendElement(identifiedPerson, 
-				NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "IdentifiedPersonTrackingIdentification");
-		Element identificationIdElement = XmlUtils.appendElement(
-				identifiedPersonTrackingIdentification, NS_NC_30, "IdentificationID");
-		identificationIdElement.setTextContent(identificationTransaction.getOtn());
-	}
-
-	private void appendPersonAugmentationElement(Subject subject, Element identifiedPerson) {
-		log.info("subject: " + subject.toString());
-		if (StringUtils.isNotBlank(subject.getUcn()) 
-				|| StringUtils.isNotBlank(subject.getCivilSid()) 
-				|| StringUtils.isNotBlank(subject.getCriminalSid())){
-			Element personAugmentation = XmlUtils.appendElement(identifiedPerson, NS_JXDM_50, "PersonAugmentation");
-			appendFbiIdElement(subject.getUcn(), personAugmentation);
-			appendSidElement(subject.getCivilSid(), personAugmentation, true);
-			appendSidElement(subject.getCriminalSid(), personAugmentation, false);
-		}
-	}
-
-	private void appendFbiIdElement(String ucn, Element personAugmentation) {
-		if (StringUtils.isNotBlank(ucn)){
-			Element personFBIIdentification = XmlUtils.appendElement(personAugmentation, NS_JXDM_50, "PersonFBIIdentification");
-			Element identificationID = 
-					XmlUtils.appendElement(personFBIIdentification, NS_NC_30, "IdentificationID");
-			identificationID.setTextContent(ucn);
-		}
-		
-	}
-
-	private void appendSidElement(String sid, Element personAugmentation, boolean isCivilSid) {
-		if (StringUtils.isNotBlank(sid)){
-			Element personStateFingerprintIdentification = 
-					XmlUtils.appendElement(personAugmentation, NS_JXDM_50, "PersonStateFingerprintIdentification");
-			Element identificationID = 
-					XmlUtils.appendElement(personStateFingerprintIdentification, NS_NC_30, "IdentificationID");
-			identificationID.setTextContent(sid);
-			if (isCivilSid){
-				Element fingerprintIdentificationIssuedForCivilPurposeIndicator =
-						XmlUtils.appendElement(personStateFingerprintIdentification, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "FingerprintIdentificationIssuedForCivilPurposeIndicator");
-				fingerprintIdentificationIssuedForCivilPurposeIndicator.setTextContent("true");
-			}
-			else{
-				Element fingerprintIdentificationIssuedForCriminalPurposeIndicator =
-						XmlUtils.appendElement(personStateFingerprintIdentification, NS_ORGANIZATION_IDENTIFICATION_RESULTS_SEARCH_RESULTS_EXT, "FingerprintIdentificationIssuedForCriminalPurposeIndicator");
-				fingerprintIdentificationIssuedForCriminalPurposeIndicator.setTextContent("true");
-			}
-				
-		}
 	}
 
     private Element createRapbackSearchResponseRootElement(Document document) {
