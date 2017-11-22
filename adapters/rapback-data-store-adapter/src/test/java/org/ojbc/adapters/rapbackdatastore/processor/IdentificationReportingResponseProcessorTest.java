@@ -27,6 +27,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.test.util.IgnoreNamedElementsDifferenceListener;
 import org.ojbc.util.camel.helper.OJBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -72,6 +73,7 @@ public class IdentificationReportingResponseProcessorTest {
         
         //Use XML Unit to compare these files
         Diff myDiff = new Diff(documentString, expectedResponseAsString);
+        myDiff.overrideDifferenceListener(new IgnoreNamedElementsDifferenceListener("nc30:Date"));
         Assert.assertTrue("XML identical " + myDiff.toString(),
                        myDiff.identical());
 	}
