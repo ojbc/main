@@ -87,6 +87,8 @@ public class PersonHealthRespAggregatorTest {
 		
 		groupedExchange.setProperty(Exchange.GROUPED_EXCHANGE, exchangeList);
 		
+		groupedExchange.setProperty(Exchange.AGGREGATED_COMPLETED_BY, "size");
+		
 		return groupedExchange;
 	}
 	
