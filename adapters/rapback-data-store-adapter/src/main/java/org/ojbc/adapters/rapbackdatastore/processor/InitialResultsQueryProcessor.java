@@ -117,19 +117,19 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
 		
         for (CriminalInitialResults criminalInitialResult: criminalInitialResults){
     		IdentificationTransaction identificationTransaction = criminalInitialResult.getIdentificationTransaction();
-			appendIdentificationTransactionInfo(rootElement, identificationTransaction);
+			appendIdentificationTransactionInfo(rootElement, identificationTransaction, false);
     		createSearchResultDocumentElement(criminalInitialResult, rootElement);
         }
 	}
 
 	private void appendIdentificationTransactionInfo(Element rootElement,
-			IdentificationTransaction identificationTransaction) {
+			IdentificationTransaction identificationTransaction, boolean isCivilResponse) {
 		appendIdentifiedPersonElement(rootElement, identificationTransaction, 
 				NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
 		appendDateElement(identificationTransaction.getTimestamp(), rootElement, 
 				"IdentificationReportedDate", NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
 		appdendStatusElement(rootElement, identificationTransaction, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
-		appendReasonCodeElement(true, identificationTransaction,rootElement, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
+		appendReasonCodeElement(isCivilResponse, identificationTransaction,rootElement, NS_ORGANIZATION_IDENTIFICATION_INITIAL_RESULTS_QUERY_RESULTS_EXT);
 		appendOrganizationInfo(rootElement, identificationTransaction);
 	}
 
@@ -161,7 +161,7 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
         for (CivilInitialResults civilInitialResult: civilInitialResults){
         	
     		IdentificationTransaction identificationTransaction = civilInitialResult.getIdentificationTransaction();
-			appendIdentificationTransactionInfo(rootElement, identificationTransaction);
+			appendIdentificationTransactionInfo(rootElement, identificationTransaction, true);
     		
         	createSearchResultDocumentElement(civilInitialResult, rootElement);
         	createHistorySummaryDocumentElement(civilInitialResult, rootElement);
