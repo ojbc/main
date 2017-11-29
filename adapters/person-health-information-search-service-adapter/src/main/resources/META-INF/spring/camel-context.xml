@@ -100,6 +100,14 @@
 			<!-- This will alter the response message to enrich if a URI property is set in the configuration file -->
 			<camel:to uri="direct:enrichResponse"/>
 			
+			<camel:to uri="direct:sendResponseMessage"/>
+		
+		</route>
+		
+		<camel:route id="sendResponseMessage" errorHandlerRef="responseErrorHandler">
+						
+			<camel:from uri="direct:sendResponseMessage"/>			
+						
 			<camel:log message="Response message: ${body}"/>
 			
 			<camel:to uri="bean:messageProcessor?method=prepareNewExchangeResponseMessage"/>
@@ -112,9 +120,11 @@
 				<constant>http://ojbc.org/Services/WSDL/PersonHealthInformationSearchResultsService/1.0</constant>
 			</camel:setHeader>
 			
-			<to uri="personHealthSearchIntermediaryResultsEndpoint" />		
+			<to uri="personHealthSearchIntermediaryResultsEndpoint" />	
+			
+			<camel:log message="Response message attempt to send complete."/>	
 		
-		</route>
+		</camel:route>
 		
 		<camel:route id="enrichRequestContentRoute">
 
