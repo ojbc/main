@@ -20,11 +20,9 @@ import java.util.List;
 
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
@@ -38,8 +36,6 @@ public interface RapbackDAO {
 	
 	public Integer saveSubject(final Subject subject);
 	public void saveIdentificationTransaction(IdentificationTransaction identificationTransaction);
-	public Integer saveCivilFbiSubscriptionRecord(final CivilFbiSubscriptionRecord civilFbiSubscriptionRecord);
-	public Integer saveCriminalFbiSubscriptionRecord(final CriminalFbiSubscriptionRecord criminalFbiSubscriptionRecord);
 	public Integer saveCivilFingerPrints(final CivilFingerPrints civilFingerPrints);
 	public Integer saveCivilInitialRapSheet(final CivilInitialRapSheet civilInitialRapSheet);
 	public Integer saveCivilInitialResults(final CivilInitialResults civilInitialResults);
