@@ -41,11 +41,9 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.wss4j.common.principal.SAMLTokenPrincipal;
 import org.joda.time.DateTime;
 import org.ojbc.adapters.rapbackdatastore.dao.model.AgencyProfile;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilFingerPrints;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialRapSheet;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CivilInitialResults;
-import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalFbiSubscriptionRecord;
 import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
@@ -184,60 +182,6 @@ public class RapbackDAOImpl implements RapbackDAO {
         		BooleanUtils.isTrue(identificationTransaction.getArchived()),
         		identificationTransaction.getIdentificationCategory(), 
         		Calendar.getInstance().getTime()); 
-	}
-
-	@Override
-	public Integer saveCivilFbiSubscriptionRecord(
-			final CivilFbiSubscriptionRecord civilFbiSubscriptionRecord) {
-        log.debug("Inserting row into CIVIL_FBI_SUBSCRIPTION_RECORD table : " + civilFbiSubscriptionRecord.toString());
-
-        final String CIVIL_FBI_SUBSCRIPTION_RECORD_INSERT="INSERT into CIVIL_FBI_SUBSCRIPTION_RECORD "
-        		+ "(SUBSCRIPTION_ID, FBI_SUBSCRIPTION_ID, CIVIL_INITIAL_RESULT_ID, LAST_MODIFIED_BY) "
-        		+ "values (?, ?, ?, ?)";
-        
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(CIVIL_FBI_SUBSCRIPTION_RECORD_INSERT, 
-        	                		new String[] {"SUBSCRIPTION_ID", "FBI_SUBSCRIPTION_ID", "CIVIL_INITIAL_RESULT_ID", "LAST_MODIFIED_BY"});
-        	            ps.setInt(1, civilFbiSubscriptionRecord.getSubscriptionId());
-        	            ps.setString(2, civilFbiSubscriptionRecord.getFbiSubscriptionId());
-        	            ps.setInt(3, civilFbiSubscriptionRecord.getCivilInitialResultId()); 
-        	            ps.setString(4, civilFbiSubscriptionRecord.getLastModifiedBy());
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();
-	}
-
-	@Override
-	public Integer saveCriminalFbiSubscriptionRecord(
-			final CriminalFbiSubscriptionRecord criminalFbiSubscriptionRecord) {
-        log.debug("Inserting row into CRIMINAL_FBI_SUBSCRIPTION_RECORD table : " + criminalFbiSubscriptionRecord.toString());
-        
-        final String CRIMINAL_FBI_SUBSCRIPTION_RECORD_INSERT="insert into CRIMINAL_FBI_SUBSCRIPTION_RECORD "
-        		+ "(SUBSCRIPTION_ID, FBI_SUBSCRIPTION_ID, FBI_OCA) "
-        		+ "values (?, ?, ?)";
-
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-        	    new PreparedStatementCreator() {
-        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-        	            PreparedStatement ps =
-        	                connection.prepareStatement(CRIMINAL_FBI_SUBSCRIPTION_RECORD_INSERT, 
-        	                		new String[] {"SUBSCRIPTION_ID", "FBI_SUBSCRIPTION_ID"});
-        	            ps.setInt(1, criminalFbiSubscriptionRecord.getSubscriptionId());
-        	            ps.setString(2, criminalFbiSubscriptionRecord.getFbiSubscriptionId());
-        	            return ps;
-        	        }
-        	    },
-        	    keyHolder);
-
-         return keyHolder.getKey().intValue();
 	}
 
 	@Override
