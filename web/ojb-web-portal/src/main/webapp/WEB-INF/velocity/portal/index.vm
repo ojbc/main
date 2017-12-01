@@ -34,7 +34,8 @@
 	 	$(document).ajaxStart(function(){
 	 	     		
 	 		if( $("#addSubscriptionDialog").dialog("isOpen") === true){
-	 		
+	 			$("#modalIframeSpinner").height($("#addSubscriptionDialog").height())
+	 			$("#modalIframeSpinner").width($("#addSubscriptionDialog").width())
 				$("#modalIframeSpinner").show();
 	
 	 		}
