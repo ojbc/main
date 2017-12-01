@@ -200,13 +200,16 @@
   		$("#addSubscriptionDialog").dialog('close');
   		
   		// redisplay subscription results having the new subscription 
+  		ojbc.showLoadingPane();
 		$.post("#springUrl('/subscriptions/subscriptionResults')", 
-			function(data) {										
+			function(data) {	
 		      $('#portalContent').html(data);					      
 			}
-		).fail(ojbc.displayFailMessage);	  
+		).fail(ojbc.displayFailMessage)
+		.always(function(){
+			$("#loadingAjaxPane").hide();	
+		});	  
 	  }
-	  
 	  
 	  function refreshDisplayFromSubType(){	  
 	  	
@@ -263,7 +266,7 @@
 </script>
 
 
-<div style="width:240px;height:480px;" id="modalIframeSpinner"></div>
+<div style="display:none; width:240px;height:480px;" id="modalIframeSpinner"></div>
 
 <!-- TODO see why w/h style was ignored when in css file, had to put it in html -->
 <div style="width:auto;height:470px;" id="subFormDiv">

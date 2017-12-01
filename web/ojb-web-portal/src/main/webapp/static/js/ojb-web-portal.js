@@ -34,13 +34,22 @@ $(function() {
 	   
 	   //Remove the load spinner on popup window detail retrieving
 	   if ($("#modalIframeSpinner").length){
-		   $("#modalIframeSpinner").remove();
+		   $("#modalIframeSpinner").hide();
 	   }
    });
 });
 
 ojbc = {
-	
+	showLoadingPane: function(){
+ 		var loadingDiv =  $("#loadingAjaxPane");
+ 		var portalContentDiv = $("#portalContent");
+		
+ 		loadingDiv.height(portalContentDiv.height());
+ 		loadingDiv.width(portalContentDiv.width());
+ 		
+      	$("#loadingAjaxPane").show();          	
+	},
+
 	handleEsc:function(){
 	   $("body").on("keyup", function(event){
 	  	  if ( event.keyCode == 27 ) {

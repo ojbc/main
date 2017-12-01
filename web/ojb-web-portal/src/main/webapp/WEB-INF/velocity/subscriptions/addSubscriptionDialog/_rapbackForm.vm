@@ -151,6 +151,7 @@
   });
 	  	  
 </script>
+<div style="display:none; width:480px;height:550px;" id="modalIframeSpinner"></div>
 
 <div id="triggeringEventsDiv">
 	<label>Triggering Event:</label>

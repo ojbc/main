@@ -781,6 +781,7 @@ public class SubscriptionsController {
 		}
 				
 		logger.info("Calling subscribe operation...");
+		logger.info("email lists: " + subscription.getEmailList()); 
 		
 		SubscriptionInterface subscribeBean = subConfig.getSubscriptionSubscribeBean();
 		
