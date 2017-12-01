@@ -123,7 +123,7 @@
 		                position: {
                            my: "left top",
                            at: "left bottom",
-                           of: $("#searchBar")
+                           of: $("#stateBanner")
 		                },
 		                modal:true,
 				        maxWidth:480,
