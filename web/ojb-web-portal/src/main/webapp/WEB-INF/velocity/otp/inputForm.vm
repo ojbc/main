@@ -35,7 +35,7 @@
        
 		 <script type="text/javascript">
 			  $(function() {
-			
+					$( "#accordion" ).accordion();
 					$('#submitOtpButton').click (function(){
 						$('#otpForm').attr('action', "#springUrl("/otp/submitOtp")").submit();
 					});
@@ -62,42 +62,48 @@
 			    </div>
 			     
 			    <div id="searchContent">
-				<form method="post" id="otpForm">
-				
-					<table border ="0" width="100%">
-						<tr>
-							<td>
-								<p>Enter the One-Time Password Sent to your email address:</p>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="labelText">
-									#springFormInput("otpFormCommand.otpRequest.oneTimePassword" "placeholder='One-Time Password' autocomplete='off' ")
-								</div>	
-							</td>
-						</tr>
-						<tr>
-							<td>
-								#if($otpInfoMessage)
-									$otpInfoMessage
-								#end	
-								
-								#if($otpInfoMessageError)
-									<div class="error">$otpInfoMessageError</div>
-								#end	
-							</td>
-						</tr>
-						<tr>
-							<td>
-									<br/>
-									<br/>
-									<a id="submitOtpButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Submit OTP"/>SUBMIT OTP</a>
-									<p style="float: right; margin:0;padding:0;"><a id="requestOtpSubmitButton" href="#" alt="Request OTP">Request New OTP</a></p>
-							</td>
-						</tr>
-					</table>	
-				</form>
+			    	<div id = "accordion"> 
+						<h3>OJBC One-Time Password Authentication</h3>
+			    		
+			    		<div style="font-size: 12px;color: #333333; padding: 1.5em; ">
+							<form method="post" id="otpForm">
+							
+								<table border ="0" width="100%">
+									<tr>
+										<td>
+											<p>Enter the One-Time Password Sent to your email address:</p>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="labelText">
+												#springFormInput("otpFormCommand.otpRequest.oneTimePassword" "placeholder='One-Time Password' autocomplete='off' ")
+											</div>	
+										</td>
+									</tr>
+									<tr>
+										<td>
+											#if($otpInfoMessage)
+												$otpInfoMessage
+											#end	
+											
+											#if($otpInfoMessageError)
+												<div class="error">$otpInfoMessageError</div>
+											#end	
+										</td>
+									</tr>
+									<tr>
+										<td>
+												<br/>
+												<br/>
+												<a id="submitOtpButton" class="blueButton" ><img style="position:relative; top:4px; margin-right:6px;"src="#springUrl('/static/images/Search%20Form/icon-search.png')" alt="Submit OTP"/>SUBMIT OTP</a>
+												<p style="float: right; margin:0;padding:0;"><a id="requestOtpSubmitButton" href="#" alt="Request OTP">Request New OTP</a></p>
+										</td>
+									</tr>
+								</table>	
+							</form>
+						</div>
+					</div>
 			 </div>
 		 </div>
 	</body>

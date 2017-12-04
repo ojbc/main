@@ -34,7 +34,7 @@ public class PersonHealthResponseAggregator {
 		List<Exchange> groupExchList = groupedExchange.getProperty(Exchange.GROUPED_EXCHANGE, List.class);
 		        					
 		if(groupExchList.isEmpty() || groupExchList.size() != 2 
-				|| !REQUEST_TIMER_MSG.equals(groupExchList.get(0).getIn().getBody(String.class)) ){
+				|| groupedExchange.getProperty(Exchange.AGGREGATED_COMPLETED_BY).equals("timeout") ){
 			
 			logger.error("\n\n\n Missing an exchange, Stopping route. \n\n\n");
 			
@@ -43,7 +43,25 @@ public class PersonHealthResponseAggregator {
 			return;
 		}
 				
-		Exchange timerExchange = groupExchList.get(0);	
+		Exchange exchange1 = groupExchList.get(0);
+		Exchange exchange2 = groupExchList.get(1);
+		
+		Exchange timerExchange = null;
+		Exchange messageExchange=null;
+		
+		if (exchange1.getIn().getBody().equals("START_PERSON_HEALTH_TIMER"))
+		{
+			timerExchange = exchange1;
+			messageExchange = exchange2;
+		}	
+
+		if (exchange2.getIn().getBody().equals("START_PERSON_HEALTH_TIMER"))
+		{
+			messageExchange = exchange1;
+			timerExchange = exchange2;
+		}	
+
+		
 		
 		String requestFileName = (String)timerExchange.getIn().getHeader("inboundFileName");
 		
@@ -57,7 +75,7 @@ public class PersonHealthResponseAggregator {
 		}	
 		
 		
-		Exchange personHealthResponseExchange = groupExchList.get(1);
+		Exchange personHealthResponseExchange = messageExchange;
 				
 		groupedExchange.getIn().setBody(personHealthResponseExchange.getIn().getBody(String.class));
 		
