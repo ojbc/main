@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<wlq-res-doc:WildlifeLicenseQueryResults xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:geo="http://release.niem.gov/niem/adapters/geospatial/3.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+	xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
+	xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/" xmlns:wlq-res-doc="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0"
+	xmlns:wlq-res-ext="http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryResultsExtension/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0 ../../../xsd/WildlifeLicenseQueryResults.xsd">
+	<wlq-res-ext:WildlifeLicenseReport>
+		<intel:SystemIdentification>
+			<nc:IdentificationID>12443645</nc:IdentificationID>
+			<nc:SystemName>External</nc:SystemName>
+		</intel:SystemIdentification>
+		<nc:Person structures:id="Person01">
+			<nc:PersonEyeColorText>BRN</nc:PersonEyeColorText>
+			<nc:PersonHairColorText>BRN</nc:PersonHairColorText>
+			<nc:PersonHeightMeasure>
+				<nc:MeasureValueText>6</nc:MeasureValueText>
+				<nc:LengthUnitCode>FOT</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>Joe</nc:PersonGivenName>
+				<nc:PersonMiddleName>Allan</nc:PersonMiddleName>
+				<nc:PersonSurName>Peabody</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonSexCode>M</j:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>000000000</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasureValueText>175</nc:MeasureValueText>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+		</nc:Person>
+		<nc:ContactInformation structures:id="Mailing01">
+			<nc:ContactMailingAddress>
+				<nc:AddressSecondaryUnitText>4B</nc:AddressSecondaryUnitText>
+				<nc:LocationStreet>
+					<nc:StreetFullText>123 Main Street</nc:StreetFullText>
+				</nc:LocationStreet>
+				<nc:LocationCityName>Morrill</nc:LocationCityName>
+				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
+				<nc:LocationCountryName>USA</nc:LocationCountryName>
+				<nc:LocationPostalCode>04952</nc:LocationPostalCode>
+				<nc:LocationPostalExtensionCode>3104</nc:LocationPostalExtensionCode>
+			</nc:ContactMailingAddress>
+			<nc:ContactTelephoneNumber>
+				<nc:FullTelephoneNumber>
+					<nc:TelephoneNumberFullID>315-921-0234</nc:TelephoneNumberFullID>
+				</nc:FullTelephoneNumber>
+			</nc:ContactTelephoneNumber>
+		</nc:ContactInformation>
+		<nc:Location structures:id="Residence01">
+			<nc:Address>
+				<nc:LocationCityName>Morrill</nc:LocationCityName>
+				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
+				<nc:LocationCountryName>USA</nc:LocationCountryName>
+			</nc:Address>
+			<wlq-res-ext:GeoCode>27020</wlq-res-ext:GeoCode>
+		</nc:Location>
+		<nc:Location structures:id="Residence02">
+			<nc:Address>
+				<nc:AddressSecondaryUnitText>Apt 2</nc:AddressSecondaryUnitText>
+				<nc:LocationStreet>
+					<nc:StreetFullText>123 South Ave.</nc:StreetFullText>
+				</nc:LocationStreet>
+				<nc:LocationCityName>Morrill</nc:LocationCityName>
+				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
+				<nc:LocationCountryName>USA</nc:LocationCountryName>
+				<nc:LocationPostalCode>04952</nc:LocationPostalCode>
+				<nc:LocationPostalExtensionCode>3104</nc:LocationPostalExtensionCode>
+			</nc:Address>
+		</nc:Location>
+		<nc:ContactInformationAssociation>
+			<nc:ContactEntity>
+				<nc:EntityPerson structures:ref="Person01" />
+			</nc:ContactEntity>
+			<nc:ContactInformation structures:ref="Mailing01" />
+		</nc:ContactInformationAssociation>
+		<nc:PersonResidenceAssociation>
+			<nc:Person structures:ref="Person01" />
+			<nc:Location structures:ref="Residence01" />
+		</nc:PersonResidenceAssociation>
+		<wlq-res-ext:PersonSecondaryResidenceAssociation>
+			<nc:Person structures:ref="Person01" />
+			<nc:Location structures:ref="Residence02" />
+		</wlq-res-ext:PersonSecondaryResidenceAssociation>
+	</wlq-res-ext:WildlifeLicenseReport>
+</wlq-res-doc:WildlifeLicenseQueryResults>
