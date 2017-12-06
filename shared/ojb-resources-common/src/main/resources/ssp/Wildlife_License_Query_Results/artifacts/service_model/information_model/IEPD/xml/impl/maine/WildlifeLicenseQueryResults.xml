@@ -18,8 +18,8 @@
 
 -->
 <wlq-res-doc:WildlifeLicenseQueryResults xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:geo="http://release.niem.gov/niem/adapters/geospatial/3.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
 	xmlns:qrm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
 	xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/" xmlns:wlq-res-doc="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0"
 	xmlns:wlq-res-ext="http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryResultsExtension/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -70,16 +70,11 @@
 		</nc:ContactInformation>
 		<nc:Location structures:id="Residence01">
 			<nc:Address>
-				<nc:AddressSecondaryUnitText>Apt 2</nc:AddressSecondaryUnitText>
-				<nc:LocationStreet>
-					<nc:StreetFullText>123 South Ave.</nc:StreetFullText>
-				</nc:LocationStreet>
 				<nc:LocationCityName>Morrill</nc:LocationCityName>
 				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
 				<nc:LocationCountryName>USA</nc:LocationCountryName>
-				<nc:LocationPostalCode>04952</nc:LocationPostalCode>
-				<nc:LocationPostalExtensionCode>3104</nc:LocationPostalExtensionCode>
 			</nc:Address>
+			<wlq-res-ext:GeoCode>27020</wlq-res-ext:GeoCode>
 		</nc:Location>
 		<nc:Location structures:id="Residence02">
 			<nc:Address>
