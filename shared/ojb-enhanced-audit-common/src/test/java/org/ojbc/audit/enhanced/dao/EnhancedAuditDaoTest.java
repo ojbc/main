@@ -304,7 +304,7 @@ public class EnhancedAuditDaoTest {
 	{
 		Integer userInfoPk = saveUserInfo();
 
-		Integer userLoginPk = enhancedAuditDao.saveUserLogin(userInfoPk);
+		Integer userLoginPk = enhancedAuditDao.saveUserAuthentication(userInfoPk, "login");
 		
 		assertNotNull(userLoginPk);
 		

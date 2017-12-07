@@ -703,4 +703,20 @@
 		<entry key="low" value="Low/Cosmetic" />
 	</util:map>
 
+   <!-- uncomment this to support enhanced auditing 
+   	<bean id="clientHttpRequestFactory" class="org.ojbc.util.rest.RequestFactoryManager" factory-method="createHttpClientRequestFactory">
+        <constructor-arg value="${webapplication.connector.truststoreLocation}"/>
+        <constructor-arg value="${webapplication.connector.truststorePassword}"/>
+    </bean>
+
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <constructor-arg ref="clientHttpRequestFactory"/>
+        <property name="messageConverters">
+	        <list>
+	            <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+	        </list>
+		</property>
+    </bean>	 
+   -->
+
 </beans>
