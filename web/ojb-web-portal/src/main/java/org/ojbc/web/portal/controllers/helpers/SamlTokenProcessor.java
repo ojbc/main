@@ -16,15 +16,20 @@
  */
 package org.ojbc.web.portal.controllers.helpers;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.OjbcNamespaceContext;
 import org.ojbc.util.xml.XmlUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 
 
 public class SamlTokenProcessor {
 	
+	private static final Log log = LogFactory.getLog(SamlTokenProcessor.class);
 	
 	public SamlTokenParsed parseSamlToken(Document samlTokenDoc) throws Exception {
 		
@@ -45,4 +50,17 @@ public class SamlTokenProcessor {
 		return samlTokenParsed;
 	}
 
+	public static String getAttributeValue(Element samlAssertion, SamlAttribute samlAttribute) {
+		String attributeValue = null;
+		try {
+			attributeValue = XmlUtils.xPathStringSearch(samlAssertion, 
+			        "/saml2:Assertion/saml2:AttributeStatement[1]/"
+			        + "saml2:Attribute[@Name='" 
+	        		+ samlAttribute.getAttibuteName() 
+	        		+ "']/saml2:AttributeValue");
+		} catch (Exception e) {
+			log.error(samlAttribute.getAttibuteName() +" is missing in the Saml Assertion");
+		}
+		return attributeValue;
+	}
 }
