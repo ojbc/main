@@ -40,7 +40,7 @@
 	    	uri="cxf:bean:personHealthSearchAdapterRequestService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}"/>
 
 		<endpoint id="personHealthSearchIntermediaryResultsEndpoint"
-			uri="cxf:bean:personHealthSearchIntermediaryResultsService?dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}" />
+			uri="cxf:bean:personHealthSearchIntermediaryResultsService?synchronous=true&amp;dataFormat=PAYLOAD&amp;loggingFeatureEnabled=${personHealth.cxflogging}" />
 
 
 		<route id="personHealthRequest_webservice_Route">
