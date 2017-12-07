@@ -247,12 +247,12 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
     }
 	
 	@Override
-	public Integer saveUserLogin(Integer userInfoPk) {
+	public Integer saveUserAuthentication(Integer userInfoPk, String action) {
         log.debug("Inserting row into USER_LOGIN table : " + userInfoPk);
         
         final String USER_LOGIN_INSERT="INSERT into USER_LOGIN "
-        		+ "(USER_INFO_ID) "
-        		+ "values (?)";
+        		+ "(USER_INFO_ID, ACTION) "
+        		+ "values (?,?)";
         
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -262,6 +262,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            PreparedStatement ps =
         	                connection.prepareStatement(USER_LOGIN_INSERT, new String[] {"USER_LOGIN_ID"});
         	            DaoUtils.setPreparedStatementVariable(userInfoPk, ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(action, ps, 2);
         	            
         	            return ps;
         	        }

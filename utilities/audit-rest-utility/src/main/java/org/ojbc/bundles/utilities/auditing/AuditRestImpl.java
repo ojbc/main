@@ -35,6 +35,10 @@ public class AuditRestImpl implements AuditInterface {
 	@Resource
 	private EnhancedAuditDAO enhancedAuditDao;
 	
+	private static final String LOGIN_ACTION="login";
+	
+	private static final String LOGOUT_ACTION="logout";
+	
 	@Override
 	public Response auditPrintResults(PrintResults printResults) {
 
@@ -51,7 +55,18 @@ public class AuditRestImpl implements AuditInterface {
 		
 		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userInfo);
 		
-		enhancedAuditDao.saveUserLogin(userInfoPk);
+		enhancedAuditDao.saveUserAuthentication(userInfoPk, LOGIN_ACTION);
+		
+		return Response.status(Status.OK).entity(userInfo).build();
+	}
+
+	@Override
+	public Response auditUserLogout(UserInfo userInfo) {
+		log.info("Audit user logout info: " + userInfo.toString());
+		
+		Integer userInfoPk = enhancedAuditDao.saveUserInfo(userInfo);
+		
+		enhancedAuditDao.saveUserAuthentication(userInfoPk, LOGOUT_ACTION);
 		
 		return Response.status(Status.OK).entity(userInfo).build();
 	}
