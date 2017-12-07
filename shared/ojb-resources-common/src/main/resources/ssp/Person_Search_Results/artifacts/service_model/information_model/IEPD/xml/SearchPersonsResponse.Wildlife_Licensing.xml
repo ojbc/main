@@ -40,11 +40,11 @@
             <nc:IdentificationID>122222222</nc:IdentificationID>
          </nc:PersonSSNIdentification>
       </psres-ext:Person>
-      <nc:ContactInformation s:id="d1e119">
-         <nc:ContactMailingAddress>
+      <nc:Location s:id="d1e119">
+         <nc:LocationAddress>
             <nc:StructuredAddress>
                <nc:LocationStreet>
-                  <nc:StreetFullText>444 RALSTON RD</nc:StreetFullText>
+                  <nc:StreetFullText>444 WILSON RD</nc:StreetFullText>
                </nc:LocationStreet>
                <nc:AddressSecondaryUnitText>BOX 222</nc:AddressSecondaryUnitText>
                <nc:LocationCityName>WINTERPORT</nc:LocationCityName>
@@ -52,16 +52,19 @@
                <nc:LocationPostalCode>04496</nc:LocationPostalCode>
                <nc:LocationPostalExtensionCode>3278</nc:LocationPostalExtensionCode>
             </nc:StructuredAddress>
-         </nc:ContactMailingAddress>
-      </nc:ContactInformation>
-      <nc:PersonContactInformationAssociation>
+         </nc:LocationAddress>
+      </nc:Location>
+      <nc:ResidenceAssociation>
          <nc:PersonReference s:ref="d1e35"/>
-         <nc:ContactInformationReference s:ref="d1e119"/>
-      </nc:PersonContactInformationAssociation>
+         <nc:LocationReference s:ref="d1e119"/>
+      </nc:ResidenceAssociation>
+      <psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing
+		</psres-ext:SourceSystemNameText>
       <intel:SystemIdentifier>
          <nc:IdentificationID>422222</nc:IdentificationID>
          <intel:SystemName>EXTERNAL</intel:SystemName>
       </intel:SystemIdentifier>
+      <psres-ext:SearchResultCategoryText>Wildlife Licensing</psres-ext:SearchResultCategoryText>
    </psres-ext:PersonSearchResult>
    <psres-ext:PersonSearchResult s:id="id2">
       <psres-ext:Person s:id="d1e210">
@@ -74,8 +77,8 @@
             <nc:PersonSurName>SMITH</nc:PersonSurName>
          </nc:PersonName>
       </psres-ext:Person>
-      <nc:ContactInformation s:id="d1e294">
-         <nc:ContactMailingAddress>
+      <nc:Location s:id="d1e294">
+         <nc:LocationAddress>
             <nc:StructuredAddress>
                <nc:LocationStreet>
                   <nc:StreetFullText>4 PEACE PIPE TRL</nc:StreetFullText>
@@ -86,15 +89,18 @@
                <nc:LocationPostalCode>02917</nc:LocationPostalCode>
                <nc:LocationPostalExtensionCode>2117</nc:LocationPostalExtensionCode>
             </nc:StructuredAddress>
-         </nc:ContactMailingAddress>
-      </nc:ContactInformation>
-      <nc:PersonContactInformationAssociation>
+         </nc:LocationAddress>
+      </nc:Location>
+      <nc:ResidenceAssociation>
          <nc:PersonReference s:ref="d1e210"/>
-         <nc:ContactInformationReference s:ref="d1e294"/>
-      </nc:PersonContactInformationAssociation>
+         <nc:LocationReference s:ref="d1e294"/>
+      </nc:ResidenceAssociation>
+      <psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing
+		</psres-ext:SourceSystemNameText>
       <intel:SystemIdentifier>
          <nc:IdentificationID>69531</nc:IdentificationID>
          <intel:SystemName>MOSES</intel:SystemName>
       </intel:SystemIdentifier>
+      <psres-ext:SearchResultCategoryText>Wildlife Licensing</psres-ext:SearchResultCategoryText>
    </psres-ext:PersonSearchResult>
 </psres-doc:PersonSearchResults>
