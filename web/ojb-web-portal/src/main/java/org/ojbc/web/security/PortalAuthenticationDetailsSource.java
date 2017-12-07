@@ -31,6 +31,7 @@ import org.ojb.web.portal.WebPortalConstants;
 import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.WebUtils;
+import org.ojbc.web.portal.controllers.helpers.SamlTokenProcessor;
 import org.ojbc.web.portal.rest.client.RestEnhancedAuditClient;
 import org.ojbc.web.portal.services.OTPService;
 import org.ojbc.web.security.config.AccessControlServicesConfig;
@@ -102,7 +103,7 @@ public class PortalAuthenticationDetailsSource implements
  
         Element samlAssertion = (Element)context.getAttribute("samlAssertion");
         log.info("samlAssertion not null " + BooleanUtils.toStringYesNo(samlAssertion != null));
-        String ori = getAttributeValue(samlAssertion, SamlAttribute.EmployerORI);  
+        String ori = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerORI);  
 
         SimpleGrantedAuthority rolePortalUser = new SimpleGrantedAuthority(Authorities.AUTHZ_PORTAL.name()); 
         
@@ -164,8 +165,8 @@ public class PortalAuthenticationDetailsSource implements
          * Check whether to grant other authorities only when PortalUser access is granted.  
          */
         if (grantedAuthorities.contains(rolePortalUser)) {
-        	String criminalJusticeEmployerIndicator = getAttributeValue(samlAssertion, SamlAttribute.CriminalJusticeEmployerIndicator); 
-        	String lawEnforcementEmployerIndicator = getAttributeValue(samlAssertion, SamlAttribute.LawEnforcementEmployerIndicator);
+        	String criminalJusticeEmployerIndicator = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.CriminalJusticeEmployerIndicator); 
+        	String lawEnforcementEmployerIndicator = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.LawEnforcementEmployerIndicator);
 
         	log.info("orisWithoutIncidentDetailAccess:" + orisWithoutIncidentDetailAccess);
         	log.info("Employer ORI:" + ori);
@@ -211,13 +212,13 @@ public class PortalAuthenticationDetailsSource implements
         if (enableEnhancedAudit)
         {
         	try {
-				String employerName = getAttributeValue(samlAssertion, SamlAttribute.EmployerName);
-				String federationId = getAttributeValue(samlAssertion, SamlAttribute.FederationId);
-				String employerSubunitName = getAttributeValue(samlAssertion, SamlAttribute.EmployerSubUnitName);
-				String firstName = getAttributeValue(samlAssertion, SamlAttribute.GivenName);
-				String lastName = getAttributeValue(samlAssertion, SamlAttribute.SurName);
-				String emailAddress = getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText);
-				String identityProviderId = getAttributeValue(samlAssertion, SamlAttribute.IdentityProviderId);
+				String employerName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerName);
+				String federationId = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.FederationId);
+				String employerSubunitName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerSubUnitName);
+				String firstName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.GivenName);
+				String lastName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.SurName);
+				String emailAddress = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText);
+				String identityProviderId = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.IdentityProviderId);
 				
 				restEnhancedAuditClient.auditUserLogin(federationId, employerName, employerSubunitName, firstName, lastName, emailAddress, identityProviderId);
 			} catch (Exception e) {
@@ -262,20 +263,6 @@ public class PortalAuthenticationDetailsSource implements
 		if (StringUtils.isNotBlank(accessDenied) && !Boolean.valueOf(accessDenied)) {
 			grantedAuthorities.add(new SimpleGrantedAuthority(authority.name()));
 		}
-	}
-
-	private String getAttributeValue(Element samlAssertion, SamlAttribute samlAttribute) {
-		String attributeValue = null;
-		try {
-			attributeValue = XmlUtils.xPathStringSearch(samlAssertion, 
-			        "/saml2:Assertion/saml2:AttributeStatement[1]/"
-			        + "saml2:Attribute[@Name='" 
-	        		+ samlAttribute.getAttibuteName() 
-	        		+ "']/saml2:AttributeValue");
-		} catch (Exception e) {
-			log.error(samlAttribute.getAttibuteName() +" is missing in the Saml Assertion");
-		}
-		return attributeValue;
 	}
 
     private String getAccessDeniedIndicator(String accessControlResponseString, String resourceURI) {

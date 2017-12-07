@@ -42,4 +42,11 @@ public interface AuditInterface {
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public Response auditUserLogin(UserInfo userInfo);
+
+   @POST
+   @Path("/userLogout")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public Response auditUserLogout(UserInfo userInfo);
+
 }

@@ -46,11 +46,14 @@ import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
+import org.ojbc.util.model.saml.SamlAttribute;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.web.SearchProfile;
 import org.ojbc.web.portal.controllers.dto.PersonFilterCommand;
 import org.ojbc.web.portal.controllers.dto.SubscriptionFilterCommand;
+import org.ojbc.web.portal.controllers.helpers.SamlTokenProcessor;
 import org.ojbc.web.portal.controllers.helpers.UserSession;
+import org.ojbc.web.portal.rest.client.RestEnhancedAuditClient;
 import org.ojbc.web.portal.services.OTPService;
 import org.ojbc.web.portal.services.SamlService;
 import org.ojbc.web.security.Authorities;
@@ -71,7 +74,7 @@ import org.w3c.dom.Element;
 
 @Controller
 @RequestMapping("/portal/*")
-@SessionAttributes({"sensitiveInfoAlert", "userSignOutUrl"})
+@SessionAttributes({"sensitiveInfoAlert", "userSignOutUrl", "samlAssertion"})
 public class PortalController implements ApplicationContextAware {
 
 	@Resource (name="${otpServiceBean:OTPServiceMemoryImpl}")
@@ -179,6 +182,12 @@ public class PortalController implements ApplicationContextAware {
 	@Resource
 	SamlService samlService;
 	
+    @Value("${enableEnhancedAudit:false}")
+    Boolean enableEnhancedAudit;
+    
+	@Resource
+	RestEnhancedAuditClient restEnhancedAuditClient;
+	
 	private Map<String, Boolean> visibleProfileStateMap;
 	
 
@@ -235,15 +244,18 @@ public class PortalController implements ApplicationContextAware {
 		model.put("stateSpecificInclude_preBodyClose", getStateSpecificInclude("preBodyClose"));
 		model.put("sensitiveInfoAlert", sensitiveInfoAlert);
 		
-    	putUserSignoutUrlIntoModel(request, model);
+    	putUserSignoutUrlAndSamlAssertionIntoModel(request, model);
 	}
 
-	private void putUserSignoutUrlIntoModel(HttpServletRequest request, Map<String, Object> model)
+	private void putUserSignoutUrlAndSamlAssertionIntoModel(HttpServletRequest request, Map<String, Object> model)
 			throws Exception {
 		StringBuilder sb = new StringBuilder();
     	sb.append(userSignOutUrl);
+    	
+    	Element samlAssertion = (Element)request.getAttribute("samlAssertion");
+    	
     	if (entityLogoutReturnUrlMap != null){
-    		Element samlAssertion = (Element)request.getAttribute("samlAssertion");
+    		
     		String samlTokenIssuer = XmlUtils.xPathStringSearch( samlAssertion, "/saml2:Assertion/saml2:Issuer");
     		
     		log.info("Test login with the new jquery click");
@@ -259,6 +271,7 @@ public class PortalController implements ApplicationContextAware {
     		}
     	}
     	model.put("userSignOutUrl", sb.toString());
+    	model.put("samlAssertion", samlAssertion);
 	}
 
     @RequestMapping("performLogout")
@@ -267,12 +280,32 @@ public class PortalController implements ApplicationContextAware {
     	
     	log.info("User Signout URL: " + userSignoutUrl);
     	
+		Element samlAssertion =  (Element) model.get("samlAssertion");
+		
+		//Enhanced audit logout here
+		if (enableEnhancedAudit)
+		{
+        	try {
+				String employerName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerName);
+				String federationId = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.FederationId);
+				String employerSubunitName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmployerSubUnitName);
+				String firstName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.GivenName);
+				String lastName = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.SurName);
+				String emailAddress = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.EmailAddressText);
+				String identityProviderId = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.IdentityProviderId);
+				
+				restEnhancedAuditClient.auditUserLogout(federationId, employerName, employerSubunitName, firstName, lastName, emailAddress, identityProviderId);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error("Unable to audit user logout");
+			}
+		}	
+		
     	if (request.getSession()!= null){
     		
     		if (otpService != null)
     		{
     			//Send OTP as soon as the input form is shown
-    			Element samlAssertion = samlService.getSamlAssertion(request);
     			
     			if (samlAssertion != null)
     			{	
