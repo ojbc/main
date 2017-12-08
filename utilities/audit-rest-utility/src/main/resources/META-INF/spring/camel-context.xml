@@ -48,6 +48,11 @@
 					<simple>${header.operationName} == 'auditUserLogin'</simple>
 					<to uri="direct:auditUserLogin" />
 				</when>
+
+				<when>
+					<simple>${header.operationName} == 'auditUserLogout'</simple>
+					<to uri="direct:auditUserLogout" />
+				</when>
 				
 			</choice>
 		</route>
@@ -61,6 +66,11 @@
 			<from uri="direct:auditUserLogin" />
 			<bean ref="auditRestImpl" method="auditUserLogin" />
 		</route>
+		
+		<route id="directAuditUserLogout">
+			<from uri="direct:auditUserLogout" />
+			<bean ref="auditRestImpl" method="auditUserLogout" />
+		</route>		
 	</camel:camelContext>
 	
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">

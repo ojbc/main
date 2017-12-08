@@ -65,6 +65,22 @@ public class RestEnhancedAuditClient {
 		restTemplate.postForObject(restServiceBaseUrl + "auditServer/audit/userLogin", userInfo, UserInfo.class);
 		
 	}
+	
+	public void auditUserLogout(String federationId, String employerName, String employerSubunitName, String firstName, String lastName, String emailAddress, String identityProviderId) {
+		
+		UserInfo userInfo = new UserInfo();
+		
+		userInfo.userEmailAddress = emailAddress;
+		userInfo.employerName = employerName;
+		userInfo.employerSubunitName = employerSubunitName;
+		userInfo.federationId = federationId;
+		userInfo.userFirstName = firstName;
+		userInfo.identityProviderId = identityProviderId;
+		userInfo.userLastName = lastName;
+		
+		restTemplate.postForObject(restServiceBaseUrl + "auditServer/audit/userLogout", userInfo, UserInfo.class);
+		
+	}
 
 	//To avoid a dependency on the ojb-audit-common, add UserInfo as a private class
 	private static class UserInfo {

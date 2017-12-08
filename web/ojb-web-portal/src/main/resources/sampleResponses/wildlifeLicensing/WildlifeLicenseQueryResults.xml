@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Unless explicitly acquired and licensed from Licensor under another license, the contents of
@@ -25,8 +26,7 @@
                                          xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/"
                                          xmlns:wlq-res-doc="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0"
                                          xmlns:wlq-res-ext="http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryResultsExtension/1.0"
-                                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                                         xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0 ../../../xsd/WildlifeLicenseQueryResults.xsd">
+                                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <wlq-res-ext:WildlifeLicenseReport structures:id="id1">
       <intel:SystemIdentification>
          <nc:IdentificationID>72306</nc:IdentificationID>
