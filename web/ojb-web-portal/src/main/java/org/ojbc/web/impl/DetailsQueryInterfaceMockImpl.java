@@ -97,6 +97,15 @@ public class DetailsQueryInterfaceMockImpl implements DetailsQueryInterface {
 //					"/sampleResponses/vehicleCrash/QueryResults-AccessDenied.xml"));
 			return WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
 					"/sampleResponses/vehicleCrash/CrashQueryResults.xml"));
+		} else if (OJBCWebServiceURIs.WILDLIFE_LICENSING.equals(requestIdSrcTxt)) {
+			// return
+			// WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
+			// "/sampleResponses/wildlifeLicensing/QueryResults-Error.xml"));
+			// return
+			// WebUtils.returnStringFromFilePath(getClass().getResourceAsStream(
+			// "/sampleResponses/wildlifeLicensing/QueryResults-AccessDenied.xml"));
+			return WebUtils.returnStringFromFilePath(getClass()
+					.getResourceAsStream("/sampleResponses/wildlifeLicensing/WildlifeLicenseQueryResults.xml"));
 		}
 		else if(requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
 	          if (request.getQueryType() == null){

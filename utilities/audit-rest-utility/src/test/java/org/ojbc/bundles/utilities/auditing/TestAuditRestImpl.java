@@ -115,4 +115,33 @@ public class TestAuditRestImpl {
 		
 	}
 	
+	@Test
+	public void testAuditRestUserLogout() throws Exception
+	{
+		final String uri = "http://localhost:9898/auditServer/audit/userLogout";
+		
+		UserInfo userInfo = new UserInfo();
+		
+		userInfo.setEmployerName("employer");
+		userInfo.setEmployerSubunitName("sub");
+		userInfo.setFederationId("fed");
+		userInfo.setIdentityProviderId("idpID");
+		userInfo.setUserEmailAddress("email");
+		userInfo.setUserFirstName("first");
+		userInfo.setUserLastName("last");
+		
+		UserInfo userInfoResults = restTemplate.postForObject(uri, userInfo, UserInfo.class);
+		
+		logger.info(userInfoResults.toString());
+		
+		assertEquals("employer", userInfoResults.getEmployerName());
+		assertEquals("sub", userInfoResults.getEmployerSubunitName());
+		assertEquals("fed", userInfoResults.getFederationId());
+		assertEquals("idpID", userInfoResults.getIdentityProviderId());
+		assertEquals("email", userInfoResults.getUserEmailAddress());
+		assertEquals("first", userInfoResults.getUserFirstName());
+		assertEquals("last", userInfoResults.getUserLastName());
+		
+	}	
+	
 }

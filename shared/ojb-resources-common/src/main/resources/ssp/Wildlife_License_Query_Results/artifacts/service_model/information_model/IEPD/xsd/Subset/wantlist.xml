@@ -18,15 +18,12 @@
 
 -->
 <w:WantList w:release="3.1" w:product="NIEM" w:nillableDefault="true"
-  xmlns:w="http://niem.gov/niem/wantlist/2.2"
   xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-  xmlns:gml="http://www.opengis.net/gml/3.2"
-  xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
-  xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-  xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+  xmlns:w="http://niem.gov/niem/wantlist/2.2"
   xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/"
-  xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/" xmlns:geo="http://release.niem.gov/niem/adapters/geospatial/3.0/">
-  <w:Element w:name="geo:LocationGeospatialPoint" w:isReference="false" w:nillable="false"/>
+  xmlns:ncic="http://release.niem.gov/niem/codes/fbi_ncic/3.1/"
+  xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
+  xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/">
   <w:Element w:name="intel:SystemIdentification" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:LocationStateNCICLISCode" w:isReference="false" w:nillable="false"/>
   <w:Element w:name="j:LocationStateNCICLSTACode" w:isReference="false" w:nillable="false"/>
@@ -52,10 +49,6 @@
   <w:Element w:name="nc:PersonResidenceAssociation"
     w:isReference="false" w:nillable="true"/>
   <w:Element w:name="nc:WeightUnitCode" w:isReference="false" w:nillable="false"/>
-  <w:Type w:name="geo:PointType" w:isRequested="false">
-    <w:ElementInType w:name="gml:Point" w:isReference="false"
-      w:minOccurs="1" w:maxOccurs="1"/>
-  </w:Type>
   <w:Type w:name="nc:AddressType" w:isRequested="false">
     <w:ElementInType w:name="nc:AddressFullText" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -107,7 +100,7 @@
   <w:Type w:name="nc:LocationType" w:isRequested="false">
     <w:ElementInType w:name="nc:LocationAddressAbstract"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
-    <w:ElementInType w:name="nc:LocationGeospatialCoordinate"
+    <w:ElementInType w:name="nc:LocationAugmentationPoint"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
   <w:Type w:name="nc:MeasureType" w:isRequested="false">

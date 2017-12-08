@@ -1,0 +1,106 @@
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<psres-doc:PersonSearchResults xmlns:psres-doc="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0"
+                               xmlns:psres-ext="http://ojbc.org/IEPD/Extensions/PersonSearchResults/1.0"
+                               xmlns:jxdm="http://niem.gov/niem/domains/jxdm/4.1"
+                               xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+                               xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
+                               xmlns:s="http://niem.gov/niem/structures/2.0"
+                               xmlns:intel="http://niem.gov/niem/domains/intelligence/2.1"
+                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                               xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/PersonSearchResults/1.0 ../xsd/exchange_schema.xsd">
+   <psres-ext:PersonSearchResult s:id="id1">
+      <psres-ext:Person s:id="d1e35">
+         <nc:PersonBirthDate>
+            <nc:Date>2001-12-31</nc:Date>
+         </nc:PersonBirthDate>
+         <nc:PersonName>
+            <nc:PersonGivenName>JOHN</nc:PersonGivenName>
+            <nc:PersonMiddleName>A.</nc:PersonMiddleName>
+            <nc:PersonSurName>SMITH</nc:PersonSurName>
+            <nc:PersonNameSuffixText>JR.</nc:PersonNameSuffixText>
+         </nc:PersonName>
+         <nc:PersonSSNIdentification>
+            <nc:IdentificationID>122222222</nc:IdentificationID>
+         </nc:PersonSSNIdentification>
+      </psres-ext:Person>
+      <nc:Location s:id="d1e119">
+         <nc:LocationAddress>
+            <nc:StructuredAddress>
+               <nc:LocationStreet>
+                  <nc:StreetFullText>444 WILSON RD</nc:StreetFullText>
+               </nc:LocationStreet>
+               <nc:AddressSecondaryUnitText>BOX 222</nc:AddressSecondaryUnitText>
+               <nc:LocationCityName>WINTERPORT</nc:LocationCityName>
+               <nc:LocationStateFIPS5-2AlphaCode>ME</nc:LocationStateFIPS5-2AlphaCode>
+               <nc:LocationPostalCode>04496</nc:LocationPostalCode>
+               <nc:LocationPostalExtensionCode>3278</nc:LocationPostalExtensionCode>
+            </nc:StructuredAddress>
+         </nc:LocationAddress>
+      </nc:Location>
+      <nc:ResidenceAssociation>
+         <nc:PersonReference s:ref="d1e35"/>
+         <nc:LocationReference s:ref="d1e119"/>
+      </nc:ResidenceAssociation>
+      <psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing
+		</psres-ext:SourceSystemNameText>
+      <intel:SystemIdentifier>
+         <nc:IdentificationID>422222</nc:IdentificationID>
+         <intel:SystemName>EXTERNAL</intel:SystemName>
+      </intel:SystemIdentifier>
+      <psres-ext:SearchResultCategoryText>Wildlife Licensing</psres-ext:SearchResultCategoryText>
+   </psres-ext:PersonSearchResult>
+   <psres-ext:PersonSearchResult s:id="id2">
+      <psres-ext:Person s:id="d1e210">
+         <nc:PersonBirthDate>
+            <nc:Date>2001-12-31</nc:Date>
+         </nc:PersonBirthDate>
+         <nc:PersonName>
+            <nc:PersonGivenName>JOHN</nc:PersonGivenName>
+            <nc:PersonMiddleName>E.</nc:PersonMiddleName>
+            <nc:PersonSurName>SMITH</nc:PersonSurName>
+         </nc:PersonName>
+      </psres-ext:Person>
+      <nc:Location s:id="d1e294">
+         <nc:LocationAddress>
+            <nc:StructuredAddress>
+               <nc:LocationStreet>
+                  <nc:StreetFullText>4 PEACE PIPE TRL</nc:StreetFullText>
+               </nc:LocationStreet>
+               <nc:AddressSecondaryUnitText>BOX 345</nc:AddressSecondaryUnitText>
+               <nc:LocationCityName>SMITHFIELD</nc:LocationCityName>
+               <nc:LocationStateFIPS5-2AlphaCode>RI</nc:LocationStateFIPS5-2AlphaCode>
+               <nc:LocationPostalCode>02917</nc:LocationPostalCode>
+               <nc:LocationPostalExtensionCode>2117</nc:LocationPostalExtensionCode>
+            </nc:StructuredAddress>
+         </nc:LocationAddress>
+      </nc:Location>
+      <nc:ResidenceAssociation>
+         <nc:PersonReference s:ref="d1e210"/>
+         <nc:LocationReference s:ref="d1e294"/>
+      </nc:ResidenceAssociation>
+      <psres-ext:SourceSystemNameText>{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing
+		</psres-ext:SourceSystemNameText>
+      <intel:SystemIdentifier>
+         <nc:IdentificationID>69531</nc:IdentificationID>
+         <intel:SystemName>MOSES</intel:SystemName>
+      </intel:SystemIdentifier>
+      <psres-ext:SearchResultCategoryText>Wildlife Licensing</psres-ext:SearchResultCategoryText>
+   </psres-ext:PersonSearchResult>
+</psres-doc:PersonSearchResults>

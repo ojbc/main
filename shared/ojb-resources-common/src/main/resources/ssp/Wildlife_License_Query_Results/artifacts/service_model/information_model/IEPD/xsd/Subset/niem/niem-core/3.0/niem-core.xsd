@@ -134,7 +134,7 @@
       <xs:extension base="structures:ObjectType">
         <xs:sequence>
           <xs:element ref="nc:LocationAddressAbstract" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element ref="nc:LocationGeospatialCoordinate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:LocationAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -370,6 +370,11 @@
       <xs:documentation>A data concept for a set of information, such as postal information, used to describe a location.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="LocationAugmentationPoint" abstract="true">
+    <xs:annotation>
+      <xs:documentation>An augmentation point for LocationType.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="LocationCityName" type="nc:ProperNameTextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A name of a city or town.</xs:documentation>
@@ -383,11 +388,6 @@
   <xs:element name="LocationCountryName" type="nc:ProperNameTextType" substitutionGroup="nc:LocationCountry">
     <xs:annotation>
       <xs:documentation>A name of a country, territory, dependency, or other such geopolitical subdivision of a location.</xs:documentation>
-    </xs:annotation>
-  </xs:element>
-  <xs:element name="LocationGeospatialCoordinate" abstract="true">
-    <xs:annotation>
-      <xs:documentation>A data concept for a geospatial location.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="LocationPostalCode" type="niem-xs:string" nillable="true">

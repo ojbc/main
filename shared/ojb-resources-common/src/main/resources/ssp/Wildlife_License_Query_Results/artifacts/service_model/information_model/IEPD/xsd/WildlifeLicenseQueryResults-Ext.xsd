@@ -19,10 +19,10 @@
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
 	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
-	xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:wlq-res-ext="http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryResultsExtension/1.0" xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0"
-	xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryResultsExtension/1.0"
-	elementFormDefault="qualified">
+	xmlns:geo="http://release.niem.gov/niem/adapters/geospatial/3.0/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
+	xmlns:appinfo="http://release.niem.gov/niem/appinfo/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wlq-res-ext="http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryResultsExtension/1.0"
+	xmlns:qrer="http://ojbc.org/IEPD/Extensions/QueryRequestErrorReporting/1.0" xmlns:srm="http://ojbc.org/IEPD/Extensions/QueryResultsMetadata/1.0"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryResultsExtension/1.0" elementFormDefault="qualified">
 	<xsd:import namespace="http://release.niem.gov/niem/niem-core/3.0/" schemaLocation="./Subset/niem/niem-core/3.0/niem-core.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/domains/jxdm/5.1/" schemaLocation="./Subset/niem/domains/jxdm/5.1/jxdm.xsd" />
 	<xsd:import namespace="http://release.niem.gov/niem/domains/intelligence/3.1/" schemaLocation="./Subset/niem/domains/intelligence/3.1/intelligence.xsd" />
@@ -85,6 +85,11 @@
 	<xsd:element name="PersonSecondaryResidenceAssociation" type="wlq-res-ext:PersonSecondaryResidenceAssociationType">
 		<xsd:annotation>
 			<xsd:documentation>A second non-legal residence such as a camp or other dwelling.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GeoCode" type="niem-xs:string" substitutionGroup="nc:LocationAugmentationPoint">
+		<xsd:annotation>
+			<xsd:documentation>GeoCode.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 </xsd:schema>

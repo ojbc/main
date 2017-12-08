@@ -570,6 +570,7 @@
 		<entry key="Custody Detail" value="custody-detail.xsl" />
 		<entry key="Vehicle Crash" value="vehicleCrashResult.xsl" />
 		<entry key="Firearm Purchase Prohibition" value="firearm-purchase-prohibition.xsl" />
+		<entry key="Wildlife Licensing" value="wildlifeLicensingResult.xsl" />
 	</util:map>
 	<util:map id="placements" map-class="java.util.LinkedHashMap">
 		<entry key="" value="Placement" />
@@ -727,5 +728,21 @@
 		<entry key="critical" value="Critical" />
 		<entry key="low" value="Low/Cosmetic" />
 	</util:map>
+
+   <!-- uncomment this to support enhanced auditing 
+   	<bean id="clientHttpRequestFactory" class="org.ojbc.util.rest.RequestFactoryManager" factory-method="createHttpClientRequestFactory">
+        <constructor-arg value="${webapplication.connector.truststoreLocation}"/>
+        <constructor-arg value="${webapplication.connector.truststorePassword}"/>
+    </bean>
+
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <constructor-arg ref="clientHttpRequestFactory"/>
+        <property name="messageConverters">
+	        <list>
+	            <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+	        </list>
+		</property>
+    </bean>	 
+   -->
 
 </beans>
