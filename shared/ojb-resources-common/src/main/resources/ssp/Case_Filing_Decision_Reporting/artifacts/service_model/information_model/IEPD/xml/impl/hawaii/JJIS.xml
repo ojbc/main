@@ -62,11 +62,6 @@
 				</nc:EndDate>
 			</cfd-ext:CaseworkerAssignmentDateRange>
 		</cyfs:Caseworker>
-		
-
-		
-		
-		
 		<cyfs:Juvenile>
 			<nc:RoleOfPerson structures:ref="JJIS_Defendant_01" />
 			<cfd-ext:GeneralJuvenileNoteText>General Juvenile Notes</cfd-ext:GeneralJuvenileNoteText>
