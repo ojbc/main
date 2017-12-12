@@ -96,7 +96,7 @@ public abstract class AbstractIdentificationQueryResponseProcessor {
 			identificationQueryResponse.setOri(ori);
 		}			
 		
-		String idDateString = XmlUtils.xPathStringSearch(document, "/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/oirq-res-ext:PersonIdentificationDate/nc30:Date");
+		String idDateString = XmlUtils.xPathStringSearch(document, "/oiirq-res-doc:OrganizationIdentificationInitialResultsQueryResults/oirq-res-ext:IdentificationReportedDate/nc30:Date");
 		
 		if (StringUtils.isNotBlank(idDateString))
 		{
