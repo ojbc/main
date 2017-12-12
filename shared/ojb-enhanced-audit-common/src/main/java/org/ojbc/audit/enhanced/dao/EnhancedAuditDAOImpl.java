@@ -30,6 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchReasonCodes;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
@@ -544,6 +545,40 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(identificationSearchResult.getMessageId(), ps, 1);
         	            DaoUtils.setPreparedStatementVariable(identificationSearchResult.getIdentificationSearchRequestId(), ps, 2);
         	            DaoUtils.setPreparedStatementVariable(identificationSearchResult.getAvailableResults(), ps, 3);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}
+	
+	@Override
+	public Integer saveidentificationQueryResponse(
+			IdentificationQueryResponse identificationQueryResponse) {
+
+		log.debug("Inserting row into IDENTIFICATION_RESULTS_QUERY_DETAIL table : " + identificationQueryResponse.toString());
+		
+        final String IDENTIFICATION_QUERY_INSERT="INSERT into IDENTIFICATION_RESULTS_QUERY_DETAIL "
+        		+ "(QUERY_REQUEST_ID, PERSON_FIRST_NAME, PERSON_MIDDLE_NAME,PERSON_LAST_NAME,OCA,SID,FBI_ID,ID_DATE,OTN) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(IDENTIFICATION_QUERY_INSERT, new String[] {"IDENTIFICATION_RESULTS_QUERY_DETAIL_ID"});
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getQueryRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getPersonFirstName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getPersonMiddleName(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getPersonLastName(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getOca(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getSid(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getFbiId(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getIdDate(), ps, 8);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getOtn(), ps, 9);
         	            
         	            return ps;
         	        }

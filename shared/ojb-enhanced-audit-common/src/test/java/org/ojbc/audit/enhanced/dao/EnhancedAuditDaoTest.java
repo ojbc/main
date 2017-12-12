@@ -35,6 +35,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
@@ -229,6 +230,22 @@ public class EnhancedAuditDaoTest {
 		
 		assertNotNull(queryResponsePk);
 		
+		IdentificationQueryResponse identificationQueryResponse = new IdentificationQueryResponse();
+		
+		identificationQueryResponse.setQueryRequestId(queryPk);
+		identificationQueryResponse.setFbiId("123");
+		identificationQueryResponse.setIdDate(LocalDate.now());
+		identificationQueryResponse.setMessageId("123456");
+		identificationQueryResponse.setOca("oca");
+		identificationQueryResponse.setOtn("otn");
+		identificationQueryResponse.setPersonFirstName("first");
+		identificationQueryResponse.setPersonMiddleName("middle");
+		identificationQueryResponse.setPersonLastName("last");
+		identificationQueryResponse.setSid("A123");
+		
+		Integer identificationQueryResponsePk = enhancedAuditDao.saveidentificationQueryResponse(identificationQueryResponse);
+		
+		assertNotNull(identificationQueryResponsePk);
 		
 	}
 	
