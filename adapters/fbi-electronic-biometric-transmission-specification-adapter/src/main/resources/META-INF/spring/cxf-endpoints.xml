@@ -175,8 +175,8 @@
 			bus="cxf">
 			<httpj:engine port="${fbiEbtsAdapter.fbiPortNumber}">
 				<httpj:tlsServerParameters>
-					<sec:keyManagers keyPassword="${fbiEbtsAdapter.keyPassword}">
-						<sec:keyStore type="jks" password="${fbiEbtsAdapter.keystorePassword}" file="${fbiEbtsAdapter.keystoreLocation}" />
+					<sec:keyManagers keyPassword="${fbiEbtsAdapter.fbi.keyPassword}">
+						<sec:keyStore type="jks" password="${fbiEbtsAdapter.fbi.keystorePassword}" file="${fbiEbtsAdapter.fbi.keystoreLocation}" />
 					</sec:keyManagers>
 					<sec:cipherSuitesFilter>
 						    <sec:include>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</sec:include>
