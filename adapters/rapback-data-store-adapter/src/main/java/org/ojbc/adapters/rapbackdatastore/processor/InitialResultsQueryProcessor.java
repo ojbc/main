@@ -258,13 +258,16 @@ public class InitialResultsQueryProcessor extends AbstractIdentificationResultsQ
 		
 			Element entityOrganization = XmlUtils.appendElement(rootElement, NS_NC_30, "EntityOrganization");
 			XmlUtils.addAttribute(entityOrganization, NS_STRUCTURES_30, "id", "ORG1");
-			
+			Element organizationIdentification = XmlUtils.appendElement(entityOrganization, NS_NC_30, "OrganizationIdentification");
+			Element identificationOrgID = XmlUtils.appendElement(organizationIdentification, NS_NC_30, "IdentificationID");
+			identificationOrgID.setTextContent(identificationTransaction.getOwnerProgramOca());
 			Element organizationName = XmlUtils.appendElement(entityOrganization, NS_NC_30, "OrganizationName");
 			organizationName.setTextContent(identificationTransaction.getOwnerAgencyName());
 			Element organizationAugmentation = XmlUtils.appendElement(entityOrganization, NS_JXDM_50, "OrganizationAugmentation");
 			Element organizationORIIdentification = XmlUtils.appendElement(organizationAugmentation, NS_JXDM_50, "OrganizationORIIdentification");
 			Element identificationID = XmlUtils.appendElement(organizationORIIdentification, NS_NC_30, "IdentificationID");
 			identificationID.setTextContent(identificationTransaction.getOwnerOri());
+			
 	}
 
 }
