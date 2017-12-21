@@ -192,7 +192,10 @@
           <xs:element ref="nc:DocumentDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentEffectiveDate" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentFiledDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DocumentFormatText" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentRelatedResourceText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DocumentTitleText" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element ref="nc:DocumentAuthor" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element ref="nc:DocumentAugmentationPoint" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
@@ -677,6 +680,11 @@
       <xs:documentation>An augmentation point for DocumentType.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="DocumentAuthor" type="nc:EntityType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>An entity primarily responsible for creating the intellectual content of the resource.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="DocumentBinary" type="nc:BinaryType" nillable="true">
     <xs:annotation>
       <xs:documentation>A binary encoding of the content of a document.</xs:documentation>
@@ -722,9 +730,19 @@
       <xs:documentation>A date a document was officially filed with an organization or agency.</xs:documentation>
     </xs:annotation>
   </xs:element>
+  <xs:element name="DocumentFormatText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A file format, content type (e.g., a MIME type), or physical format of a document.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
   <xs:element name="DocumentRelatedResourceText" type="nc:TextType" nillable="true">
     <xs:annotation>
       <xs:documentation>A reference to another document or resource related to the document.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="DocumentTitleText" type="nc:TextType" nillable="true">
+    <xs:annotation>
+      <xs:documentation>A name given to a document.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:element name="Employee" type="nc:PersonType" nillable="true">
