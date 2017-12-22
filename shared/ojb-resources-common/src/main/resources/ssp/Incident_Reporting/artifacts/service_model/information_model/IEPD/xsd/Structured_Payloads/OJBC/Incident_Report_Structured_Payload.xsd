@@ -20,13 +20,16 @@
 <xsd:schema xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
 	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:fbi="http://niem.gov/niem/fbi/2.0"
-	xmlns:ojb-ts-codes="http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0" targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
+	xmlns:ojb-ts-codes="http://ojbc.org/IEPD/Extensions/TrafficStopCodes/1.0" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+	targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../NIEM_2.0/niem-core/2.0/niem-core.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd" />
 	<xsd:import namespace="http://usdoj.gov/leisp/lexs/library/3.1" schemaLocation="../../lexs/library/3.1/library.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/fbi/2.0" schemaLocation="../../NIEM_2.0/fbi/2.0/fbi.xsd" />
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="../../include_schema.xsd" />
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="../../xmime_schema.xsd" />
 	<xsd:annotation>
 		<xsd:documentation>Structured payload for the Incident Report
 		</xsd:documentation>
@@ -73,6 +76,7 @@
 					<xsd:element ref="j:PersonDriverLicenseAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="inc-ext:CitationDeliveryRecipientAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="inc-ext:CitationIssuedLocationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentDocumentRepresentation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -1331,4 +1335,16 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="IncidentDocument" type="nc:DocumentType" substitutionGroup="inc-ext:IncidentDocumentRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>An incident related document.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IncidentDocumentRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for an incident document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xsd:base64Binary" xmime:expectedContentType="text/plain" />
 </xsd:schema>

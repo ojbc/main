@@ -29403,8 +29403,12 @@
     <w:ElementInType w:name="nc:DispositionCategoryText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
-  <w:Type w:name="nc:DocumentType" w:isRequested="false">
+  <w:Type w:name="nc:DocumentType" w:isRequested="true">
     <w:ElementInType w:name="nc:DocumentApplicationName"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:DocumentBinary" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:DocumentCategoryDescriptionText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:DocumentCategoryName"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
@@ -29416,6 +29420,10 @@
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:DocumentFileControlID"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:DocumentFiledDate" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:DocumentFormatText"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:DocumentIdentification"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:DocumentKeywordText"
@@ -29428,6 +29436,8 @@
       w:minOccurs="0" w:maxOccurs="1"/>
     <w:ElementInType w:name="nc:SecurityLevelText" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="1"/>
+    <w:ElementInType w:name="nc:DocumentAuthor" w:isReference="false"
+      w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:DocumentSubmitter" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
