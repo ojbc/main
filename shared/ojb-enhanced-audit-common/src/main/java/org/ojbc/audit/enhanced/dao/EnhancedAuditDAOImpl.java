@@ -403,7 +403,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
         final String WARRANT_QUERY_RESULTS_INSERT="INSERT into WARRANT_QUERY_RESULTS "  
         		+ "(FIRST_NAME, MIDDLE_NAME, LAST_NAME, SID, FBI_ID, QUERY_REQUEST_ID, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_TIMEOUT_INDICATOR,QUERY_RESULTS_ERROR_INDICATOR,QUERY_RESULTS_ACCESS_DENIED_INDICATOR,SYSTEM_NAME,MESSAGE_ID) "
-        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
