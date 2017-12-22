@@ -17,14 +17,10 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<cr-doc:ChargeReferral
-	xmlns:cr-doc="http://ojbc.org/IEPD/Exchange/ChargeReferral/1.0"
-	xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1"
-	xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1"
-	xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
-	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1"
-	xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+<cr-doc:ChargeReferral xmlns:cr-doc="http://ojbc.org/IEPD/Exchange/ChargeReferral/1.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:lexs="http://usdoj.gov/leisp/lexs/3.1" xmlns:lexspd="http://usdoj.gov/leisp/lexs/publishdiscover/3.1" xmlns:lexsdigest="http://usdoj.gov/leisp/lexs/digest/3.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0"
+	xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:ndexia="http://fbi.gov/cjis/N-DEx/IncidentArrest/2.1" xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/ChargeReferral/1.0 ../xsd/exchange_schema/Charge_Referral.xsd">
 	<lexspd:doPublish>
 		<lexs:PublishMessageContainer>
@@ -120,8 +116,7 @@
 										<nc:Date>2010-05-21</nc:Date>
 									</nc:EndDate>
 								</nc:ActivityDateRange>
-								<nc:ActivityDescriptionText>Witnesses reported seeing the
-									subject break into a house
+								<nc:ActivityDescriptionText>Witnesses reported seeing the subject break into a house
 								</nc:ActivityDescriptionText>
 							</nc:Activity>
 						</lexsdigest:EntityActivity>
@@ -255,8 +250,7 @@
 							</lexsdigest:Person>
 							<j:Witness>
 								<nc:RoleOfPersonReference s:ref="Witness_P1" />
-								<j:WitnessAccountDescriptionText>Witness saw the crime take
-									place.
+								<j:WitnessAccountDescriptionText>Witness saw the crime take place.
 								</j:WitnessAccountDescriptionText>
 							</j:Witness>
 						</lexsdigest:EntityPerson>
@@ -342,8 +336,7 @@
 							</lexsdigest:ActivityResponsiblePersonAssociation>
 							<lexsdigest:EntityTelephoneNumberAssociation>
 								<nc:PersonReference s:ref="Subject_P1" />
-								<lexsdigest:TelephoneNumberReference
-									s:ref="Res_Tel_1" />
+								<lexsdigest:TelephoneNumberReference s:ref="Res_Tel_1" />
 								<lexsdigest:TelephoneNumberPrimaryIndicator>true
 								</lexsdigest:TelephoneNumberPrimaryIndicator>
 								<lexsdigest:TelephoneNumberHomeIndicator>true
@@ -435,8 +428,7 @@
 								</nc:PersonPhysicalFeature>
 								<nc:PersonSkinToneCode>DRK</nc:PersonSkinToneCode>
 								<ndexia:PersonAugmentation>
-									<lexslib:SameAsDigestReference
-										lexslib:ref="Subject_P1" />
+									<lexslib:SameAsDigestReference lexslib:ref="Subject_P1" />
 									<j:DNACollectionStatusText>Processing
 									</j:DNACollectionStatusText>
 								</ndexia:PersonAugmentation>
@@ -450,8 +442,7 @@
 								<nc:LocationCategoryText>This is a house
 								</nc:LocationCategoryText>
 								<ndexia:LocationAugmentation>
-									<lexslib:SameAsDigestReference
-										lexslib:ref="Res_Loc_1" />
+									<lexslib:SameAsDigestReference lexslib:ref="Res_Loc_1" />
 								</ndexia:LocationAugmentation>
 							</ndexia:Location>
 						</ndexia:IncidentReport>
@@ -471,8 +462,7 @@
 									<j:ChargeSeverityText>Felony</j:ChargeSeverityText>
 									<j:ChargeText>Treason</j:ChargeText>
 								</inc-ext:Charge>
-								<lexslib:SameAsDigestReference
-									lexslib:ref="Offense_1" />
+								<lexslib:SameAsDigestReference lexslib:ref="Offense_1" />
 							</inc-ext:Incident>
 							<inc-ext:Person>
 								<nc:PersonEthnicityText>Unknown</nc:PersonEthnicityText>
@@ -484,25 +474,40 @@
 								<inc-ext:PersonDepartmentOfCorrectionsIdentification>
 									<nc:IdentificationID>0987654</nc:IdentificationID>
 								</inc-ext:PersonDepartmentOfCorrectionsIdentification>
-								<lexslib:SameAsDigestReference
-									lexslib:ref="Subject_P1" />
+								<lexslib:SameAsDigestReference lexslib:ref="Subject_P1" />
 							</inc-ext:Person>
 							<inc-ext:Warrant>
 								<j:WarrantExtraditionLimitationText>Within 50 miles
 								</j:WarrantExtraditionLimitationText>
 								<inc-ext:WarrantExtraditionRequestedIndicator>true
 								</inc-ext:WarrantExtraditionRequestedIndicator>
-								<inc-ext:WarrantExtraditionTransportationInstructionsText>Pick
-									up subject at county jail.
+								<inc-ext:WarrantExtraditionTransportationInstructionsText>Pick up subject at county jail.
 								</inc-ext:WarrantExtraditionTransportationInstructionsText>
 								<inc-ext:Bond>
 									<nc:ActivityCategoryText>Surety</nc:ActivityCategoryText>
 									<j:BondAmount>2000.00</j:BondAmount>
 									<inc-ext:BondCommentsText>Cash only</inc-ext:BondCommentsText>
 								</inc-ext:Bond>
-								<lexslib:SameAsDigestReference
-									lexslib:ref="Warrant_1" />
+								<lexslib:SameAsDigestReference lexslib:ref="Warrant_1" />
 							</inc-ext:Warrant>
+							<inc-ext:ChargeReferralDocument>
+								<nc:DocumentBinary>
+									<inc-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</inc-ext:Base64BinaryObject>
+								</nc:DocumentBinary>
+								<nc:DocumentCategoryDescriptionText>DocumentCategoryDescriptionText</nc:DocumentCategoryDescriptionText>
+								<nc:DocumentCreationDate>
+									<nc:DateTime>2001-12-28T12:00:00</nc:DateTime>
+								</nc:DocumentCreationDate>
+								<nc:DocumentDescriptionText>DocumentDescriptionText</nc:DocumentDescriptionText>
+								<nc:DocumentFiledDate>
+									<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+								</nc:DocumentFiledDate>
+								<nc:DocumentFormatText>DocumentFormatText</nc:DocumentFormatText>
+								<nc:DocumentTitleText>DocumentTitleText</nc:DocumentTitleText>
+								<nc:DocumentAuthor>
+									<nc:EntityOrganizationReference s:ref="Incident_Agency_1" />
+								</nc:DocumentAuthor>
+							</inc-ext:ChargeReferralDocument>
 						</inc-ext:IncidentReport>
 					</lexs:StructuredPayload>
 				</lexs:DataItemPackage>
