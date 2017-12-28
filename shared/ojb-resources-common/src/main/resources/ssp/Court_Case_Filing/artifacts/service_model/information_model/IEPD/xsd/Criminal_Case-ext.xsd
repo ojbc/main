@@ -22,7 +22,7 @@
 	xmlns:ecf-cit="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0"
 	xmlns:ecf-crim="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" xmlns:ojb-crim-ext="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0"
 	xmlns:ojb-cit-ext="http://ojbc.org/IEPD/Extensions/CitationCaseExtension/1.0" xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0"
-	targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0">
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extensions/CriminalCaseExtension/1.0">
 	<xsd:annotation>
 		<xsd:documentation>CriminalCase</xsd:documentation>
 		<xsd:appinfo>
@@ -38,6 +38,8 @@
 	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" schemaLocation="./casetype/ECF-4.0-CriminalCase.xsd" />
 	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CitationCase-4.0" schemaLocation="./casetype/ECF-4.0-CitationCase.xsd" />
 	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" schemaLocation="./message/ECF-4.0-CoreFilingMessage.xsd" />
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="./include_schema.xsd" />
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="./xmime_schema.xsd" />
 	<xsd:complexType name="CoreFilingMessageType">
 		<xsd:annotation>
 			<xsd:documentation>The structure of a Filing including any Payment Information will be documented in this section. This describes the filing
@@ -48,8 +50,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="core:CoreFilingMessageType">
 				<xsd:sequence>
-					<xsd:element ref="ojb-crim-ext:FilingLeadDocument" minOccurs="0" />
-					<xsd:element ref="ojb-crim-ext:FilingConnectedDocument" minOccurs="0" />
+					<xsd:element ref="ojb-crim-ext:CriminalCaseRepresentation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -274,7 +275,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="ecf:DocumentType">
+			<xsd:extension base="nc:DocumentType">
 				<xsd:sequence>
 					<xsd:element ref="ojb-crim-ext:PreviouslyFiledDocketText" minOccurs="0" />
 					<xsd:element ref="ojb-crim-ext:DocumentPublicPartyViewingRestrictedIndicator" minOccurs="0" />
@@ -499,17 +500,24 @@
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FilingLeadDocument" type="ojb-crim-ext:DocumentType">
+	<xsd:element name="FilingLeadDocument" type="ojb-crim-ext:DocumentType" substitutionGroup="ojb-crim-ext:CriminalCaseRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>The pleading, motion or order that is the main document in a Filing. A Document may have Attachments.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="FilingConnectedDocument" type="ojb-crim-ext:DocumentType">
+	<xsd:element name="FilingConnectedDocument" type="ojb-crim-ext:DocumentType" substitutionGroup="ojb-crim-ext:CriminalCaseRepresentation">
 		<xsd:annotation>
 			<xsd:documentation>A document included in a Filing that supports the Document. This document is not separately entered on the docket or
 				register of actions.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="CriminalCaseRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for a criminal case decision document.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Base64BinaryObject" type="niem-xsd:base64Binary" substitutionGroup="nc:BinaryObject" xmime:expectedContentType="text/plain" />
 </xsd:schema>
