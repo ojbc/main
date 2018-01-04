@@ -14,7 +14,7 @@
  *
  * Copyright 2012-2017 Open Justice Broker Consortium
  */
-package org.ojbc.adapters.analyticsstaging.custody.dao;
+package org.ojbc.adapter.analyticsstaging.custody.processor;
 
 import static org.junit.Assert.*;
 
@@ -32,9 +32,10 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ojbc.adapters.analyticsstaging.custody.dao.AnalyticalDatastoreDAO;
+import org.ojbc.adapters.analyticsstaging.custody.dao.TestAnalyticalDatastoreDAOImpl;
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Booking;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.KeyValue;
-import org.ojbc.adapters.analyticsstaging.custody.dao.model.Person;
+import org.ojbc.adapters.analyticsstaging.custody.processor.LastUpdateVerificationProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -48,7 +49,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		"classpath:META-INF/spring/cxf-endpoints.xml"
 		})
 @DirtiesContext
-public class TestAnalyticalDatastoreDAOImpl {
+public class TestLastUpdateVerificationProcessor {
 
 	@SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(TestAnalyticalDatastoreDAOImpl.class);
@@ -59,16 +60,20 @@ public class TestAnalyticalDatastoreDAOImpl {
 	@Autowired
 	private AnalyticalDatastoreDAO analyticalDatastoreDAO;
 	
+	@Autowired
+	private LastUpdateVerificationProcessor lastUpdateVerificationProcessor;
+	
 	@Before
 	public void setUp() throws Exception {
 		Assert.assertNotNull(analyticalDatastoreDAO);
-		Assert.assertNotNull(dataSource);
 	}
-	
+
 	@Test
-	public void testSaveBooking() throws Exception
+	public void testHasThereBeenABookingInTheLast24Hours()
 	{
-		int personPk = analyticalDatastoreDAO.savePerson(getStaticPerson());
+		assertFalse(lastUpdateVerificationProcessor.hasThereBeenABookingInLast24hours());
+		
+		int personPk = analyticalDatastoreDAO.savePerson(TestAnalyticalDatastoreDAOImpl.getStaticPerson());
 		assertEquals(1, personPk);
 		
 		Booking booking = new Booking();
@@ -85,43 +90,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int bookingPk = analyticalDatastoreDAO.saveBooking( booking );
 		assertEquals(1, bookingPk);
 		
-		LocalDateTime lastBookingDateTime = analyticalDatastoreDAO.getLastBookingDate();
-		assertNotNull(lastBookingDateTime);
-		log.info("Last Booking Date: " +  lastBookingDateTime.toString());
-		
-		analyticalDatastoreDAO.deleteBooking(bookingPk);
-		
-		Booking matchingBooking = analyticalDatastoreDAO.getBookingByBookingNumber("bookingNumber");
-		assertNull(matchingBooking);
+		assertTrue(lastUpdateVerificationProcessor.hasThereBeenABookingInLast24hours());
+	}
 
-		personPk = analyticalDatastoreDAO.savePerson(getStaticPerson());
-		booking.setPersonId(personPk);
-		
-		//Perform an subsequent save and confirm the same PK
-		booking.setBookingId(bookingPk);
-		int updatedbookingId = analyticalDatastoreDAO.saveBooking(booking);
-		assertEquals(updatedbookingId, bookingPk);
-		
-	}
-	
-	
-	public static Person getStaticPerson() {
-		Person person = new Person();
-		
-		person.setPersonRaceId(1);
-		person.setPersonSexId(2);
-		person.setPersonEthnicityTypeId(2);
-		person.setPersonBirthDate(LocalDate.parse("1966-06-01"));
-		person.setPersonUniqueIdentifier("123332123123unique");
-		person.setLanguageId(2);
-		person.setPersonAgeAtBooking(50);
-		person.setEducationLevel("College");
-		person.setOccupation("Lawyer");
-		person.setDomicileStatusTypeId(1);
-		person.setProgramEligibilityTypeId(1);
-		person.setWorkReleaseStatusTypeId(2);
-		person.setMilitaryServiceStatusType(new KeyValue(1, null));
-		return person;
-	}
-	
 }
