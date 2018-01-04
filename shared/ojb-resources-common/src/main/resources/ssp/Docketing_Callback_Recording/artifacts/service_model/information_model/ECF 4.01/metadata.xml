@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     Electronic Court Filing Version 4.01 Plus Errata 01
+     OASIS Standard incorporating Approved Errata 01
+     14 July 2014
+     Copyright (c) OASIS Open 2014. All Rights Reserved.
+     Source: http://docs.oasis-open.org/legalxml-courtfiling/specs/ecf/v4.01/ecf-v4.01-spec/errata01/os/gc/
+     -->
+<Metadata>
+    <URI>http://docs.oasis-open.org/legalxml-courtfiling/specs/ecf/v4.01</URI>
+    <Name>Electronic Court Filing 4.01</Name>
+    <Summary>OASIS LegaXML Electronic Court Filing 4.01 core specification.</Summary>
+    <Description>The LegalXML Electronic Court Filing 4.0 (ECF 4.01) specification consists of a set of non-proprietary XML and Web services specifications, along with clarifying explanations and amendments to those specifications, that have been added for the purpose of promoting interoperability among electronic court filing vendors and systems. ECF Version 4.01 is a maintenance release to address several minor schema and definition issues identified by implementers of the ECF 4.0 specification.</Description>
+    <Version>4.01</Version>
+    <URL>http://docs.oasis-open.org/legalxml-courtfiling/specs/ecf/v4.01/</URL>
+    <CreationDate>08/28/2008</CreationDate>
+    <LastRevisionDate>05/23/2013</LastRevisionDate>
+    <NextRevisionDate/>
+    <NIEMVersion>2.0</NIEMVersion>
+    <Security>Public</Security>
+    <Maturity>2</Maturity>
+    <Status>OASIS Standard</Status>
+    <Schedule></Schedule>
+    <Lineage>http://docs.oasis-open.org/legalxml-courtfiling/specs/ecf/v4.0</Lineage>
+    <Relationships/>
+    <Keywords>Electronic Service, efiling, eservice</Keywords>
+    <Domain>Justice, </Domain>
+    <ExchangePartners/>
+    <Process>Pre-disposition Court, </Process>
+    <TriggeringEvent>Prosecution Charging Decision, Motion Filing</TriggeringEvent>
+    <Conditions>if prosecutor finds sufficient evidence to file charges, </Conditions>
+    <Endorsements>Will be reviewed by the Joint Technology Committee of the National Association for Court Management (NACM) and the Conference of State Court Administrators (COSCA)</Endorsements>
+    <Sponsors>OASIS LegalXML Electronic Court Filing Technical Committee</Sponsors>
+    <Purpose>This specification describes the technical architecture and the functional features needed to accomplish a successful electronic court filing system, and defines both the normative (required) and non-normative (optional) business processes it supports.  The non-functional requirements associated with electronic filing transactions, as well as the actions and services needed to accomplish the transactions, such as network and security infrastruc-tures, are defined in related specifications. </Purpose>
+    <MessageExchangePatterns>message</MessageExchangePatterns>
+    <CommunicationsEnvironment/>
+    <ExchangePartnerCategories>Court, Defense, Prosecutor, State Administrative Office of the Courts,</ExchangePartnerCategories>
+    <AuthoritativeSource>
+        <Category>none</Category>
+        <Organization>
+            <Name>OASIS LegalXML Electronic Court Filing (ECF) Techncal Committee (TC)</Name>
+            <Address1>PO Box 455</Address1>
+            <Address2/>
+            <City>Billerica</City>
+            <State>MA</State>
+            <Zip>01821</Zip>
+            <Country>USA</Country>
+            <URL>http://oasis-open.org/legalxml-courtfiling</URL>
+        </Organization>
+        <PointOfContact>
+            <Name>James Cabral, MTG Management Consultants LLC</Name>
+            <Address1>1111 Third Ave, Suite 3010</Address1>
+            <Address2/>
+            <City>Seattle</City>
+            <State>WA</State>
+            <Zip>98101</Zip>
+            <Country>USA</Country>
+            <Phone>206-442-5010</Phone>
+            <Fax>206-442-5011</Fax>
+            <Email>jcabral@mtgmc.org</Email>
+        </PointOfContact>
+    </AuthoritativeSource>
+</Metadata>
