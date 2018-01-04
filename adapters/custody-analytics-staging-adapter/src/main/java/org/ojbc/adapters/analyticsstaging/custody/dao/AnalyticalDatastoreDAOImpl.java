@@ -26,13 +26,13 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -1405,6 +1405,31 @@ public class AnalyticalDatastoreDAOImpl implements AnalyticalDatastoreDAO{
         });
 		
 		
+	}
+
+	@Override
+	public LocalDateTime getLastBookingDate() {
+		
+		Timestamp maxBookingDateTimestamp = jdbcTemplate.queryForObject("SELECT max(bookingtimestamp) FROM Booking;", Timestamp.class);
+
+		if (maxBookingDateTimestamp == null)
+		{
+			return null;
+		}	
+		
+		return maxBookingDateTimestamp.toLocalDateTime();
+	}
+
+	@Override
+	public LocalDateTime getLastCustodyReleaseDate() {
+		Timestamp maxCustodyReleaseTimestamp = jdbcTemplate.queryForObject("SELECT max(CustodyReleaseTimestamp) FROM ojbc_booking_staging.CustodyRelease;", Timestamp.class);
+
+		if (maxCustodyReleaseTimestamp == null)
+		{
+			return null;
+		}	
+		
+		return maxCustodyReleaseTimestamp.toLocalDateTime();
 	}
 
 }

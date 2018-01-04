@@ -60,6 +60,8 @@
 
 		<endpoint id="invocationFailedFileEndpoint"
 			uri="file://{{custody.stagingAdapter.inputDirectory}}/failed" />
+			
+		<camel:endpoint id="mailEndpoint" uri="${custody.stagingAdapter.mailEndpoint}"/>			
 
 		<!-- Booking Reporting Route -->
 		<camel:route id="booking_reporting_service" >
@@ -193,6 +195,42 @@
 			<camel:log message="FileName: ${in.headers.CamelFileName} \n. An exception was thrown: ${exception.message}" loggingLevel="ERROR" logName="org.ojbc.adapters.analyticsstaging.logger"/>
 			
 			<camel:to uri="invocationFailedFileEndpoint"/>
+			
+		</camel:route>
+		
+		<camel:route id="verify_bookings_route">
+			<camel:from	uri="quartz2://custody/bookingVerification?cron={{custody.stagingAdapter.verificationCronExpression}}" />
+		
+			<camel:to uri="bean:lastUpdateVerificationProcessor?method=camelHasThereBeenABookingInLast24hours"/>
+			
+			<camel:filter>
+				<camel:simple>${in.headers.bookingError} == 'true'</camel:simple>
+				
+				<camel:setHeader headerName="subject">
+					<constant>No bookings in last 24 hours</constant>
+				</camel:setHeader>
+				
+				<camel:to uri="mailEndpoint"/>
+				
+			</camel:filter>
+			
+		</camel:route>
+
+		<camel:route id="verify_custody_release_route">
+			<camel:from	uri="quartz2://custody/custodyReleaseVerification?cron={{custody.stagingAdapter.verificationCronExpression}}" />
+			
+			<camel:to uri="bean:lastUpdateVerificationProcessor?method=camelHasThereBeenACustodyReleaseInLast24hours"/>
+			
+			<camel:filter>
+				<camel:simple>${in.headers.custodyReleaseError} == 'true'</camel:simple>
+				
+				<camel:setHeader headerName="subject">
+					<constant>No Custody Releases in last 24 hours</constant>
+				</camel:setHeader>
+				
+				<camel:to uri="mailEndpoint"/>				
+				
+			</camel:filter>
 			
 		</camel:route>
 		

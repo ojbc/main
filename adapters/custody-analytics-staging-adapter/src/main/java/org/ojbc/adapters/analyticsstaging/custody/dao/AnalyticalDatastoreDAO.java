@@ -16,6 +16,7 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.ojbc.adapters.analyticsstaging.custody.dao.model.Address;
@@ -89,6 +90,9 @@ public interface AnalyticalDatastoreDAO {
 	
 	public Person getPersonByBookingNumber(String bookingNumber);
 
+	public LocalDateTime getLastBookingDate();
+	public LocalDateTime getLastCustodyReleaseDate();
+	
 	public Integer saveBookingArrest(BookingArrest bookingArrest);
 	public Integer saveAddress(Address address);
 	public Integer saveCustodyStatusChangeArrest(CustodyStatusChangeArrest custodyStatusChangeArrest);
