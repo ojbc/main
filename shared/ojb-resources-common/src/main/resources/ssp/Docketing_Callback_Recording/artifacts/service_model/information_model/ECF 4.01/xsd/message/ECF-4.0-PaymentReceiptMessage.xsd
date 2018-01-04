@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     Electronic Court Filing Version 4.01 Plus Errata 01
+     OASIS Standard incorporating Approved Errata 01
+     14 July 2014
+     Copyright (c) OASIS Open 2014. All Rights Reserved.
+     Source: http://docs.oasis-open.org/legalxml-courtfiling/specs/ecf/v4.01/ecf-v4.01-spec/errata01/os/xsd/
+     -->
+<!--
+OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+ 
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to OASIS, except as needed for the purpose of developing OASIS specifications, in which case the procedures for copyrights defined in the OASIS Intellectual Property Rights document must be followed, or as required to translate it into languages other than English. 
+
+The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns. 
+
+This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+-->
+<xsd:schema xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:PaymentReceiptMessage-4.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:payment="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:PaymentMessage-4.0" targetNamespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:PaymentReceiptMessage-4.0" version="4.0">
+	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" schemaLocation="../common/ECF-4.0-CommonTypes.xsd"/>
+	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:PaymentMessage-4.0" schemaLocation="ECF-4.0-PaymentMessage.xsd"/>
+	<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" schemaLocation="http://docs.oasis-open.org/ubl/prd2-UBL-2.1/xsd/common/UBL-CommonAggregateComponents-2.1.xsd"/>
+	<xsd:element name="PaymentReceiptMessage" type="payment:PaymentMessageType">
+		<xsd:annotation>
+			<xsd:documentation>A receipt to the payment submitted with a filing.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     Electronic Court Filing Version 4.01 Plus Errata 01
+     OASIS Standard incorporating Approved Errata 01
+     14 July 2014
+     Copyright (c) OASIS Open 2014. All Rights Reserved.
+     Source: http://docs.oasis-open.org/legalxml-courtfiling/specs/ecf/v4.01/ecf-v4.01-spec/errata01/os/xml/
+     -->
+<ServiceInformationQueryMessage xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:ServiceInformationQueryMessage-4.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:ServiceInformationQueryMessage-4.0 ../xsd/message/ECF-4.0-ServiceInformationQueryMessage.xsd">
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>https://efilingprovider.com:8000</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
+	<ecf:QuerySubmitter>
+		<ecf:EntityPerson>
+			<nc:PersonOtherIdentification>
+				<nc:IdentificationID>1001</nc:IdentificationID>
+				<nc:IdentificationCategoryText>ECFFilerID</nc:IdentificationCategoryText>
+			</nc:PersonOtherIdentification>
+		</ecf:EntityPerson>
+	</ecf:QuerySubmitter>
+	<j:CaseCourt>
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID>01</nc:IdentificationID>
+		</nc:OrganizationIdentification>
+		<j:CourtName>King County Superior Court</j:CourtName>
+	</j:CaseCourt>
+	<nc:CaseTrackingID>KC-2008-1001</nc:CaseTrackingID>
+</ServiceInformationQueryMessage>
