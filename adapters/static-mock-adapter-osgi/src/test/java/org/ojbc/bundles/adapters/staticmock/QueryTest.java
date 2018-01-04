@@ -77,6 +77,10 @@ public class QueryTest extends AbstractStaticMockTest {
     	doPersonTestQuery("sample-VehicleCrash.xml", StaticMockQuery.VEHICLE_CRASH_QUERY_SYSTEM_ID, "vcq-res-doc:VehicleCrashQueryResults");    	
     }
     
+    @Test
+    public void testWildLifeLicensePersonQuery() throws ParserConfigurationException, Exception{    	
+    	doPersonTestQuery("sample-WildlifeLicense.xml", StaticMockQuery.WILDLIFE_LICENSE_QUERY_SYSTEM_ID, "wlq-res-doc:WildlifeLicenseQueryResults");    	
+    }
     
     @Test
     public void testJuvenileHistoryQueries() throws Exception {

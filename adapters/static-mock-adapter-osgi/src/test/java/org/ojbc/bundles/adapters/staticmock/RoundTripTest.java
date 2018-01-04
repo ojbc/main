@@ -56,7 +56,8 @@ public class RoundTripTest extends AbstractStaticMockTest {
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.FIREARM_MOCK_ADAPTER_SEARCH_SYSTEM_ID, StaticMockQuery.FIREARM_MOCK_ADAPTER_QUERY_BY_PERSON_SYSTEM_ID);        
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.CUSTODY_SEARCH_SYSTEM_ID, StaticMockQuery.CUSTODY_QUERY_SYSTEM_ID);         
         personSearchSystemToQuerySystemMap.put(StaticMockQuery.COURT_CASE_SEARCH_SYSTEM_ID, StaticMockQuery.COURT_CASE_QUERY_SYSTEM_ID);        
-        personSearchSystemToQuerySystemMap.put(StaticMockQuery.VEHICLE_CRASH_SEARCH_SYSTEM_ID, StaticMockQuery.VEHICLE_CRASH_QUERY_SYSTEM_ID);        
+        personSearchSystemToQuerySystemMap.put(StaticMockQuery.VEHICLE_CRASH_SEARCH_SYSTEM_ID, StaticMockQuery.VEHICLE_CRASH_QUERY_SYSTEM_ID); 
+        personSearchSystemToQuerySystemMap.put(StaticMockQuery.WILDLIFE_LICENSE_SEARCH_SYSTEM_ID, StaticMockQuery.WILDLIFE_LICENSE_QUERY_SYSTEM_ID); 
     }
     
     @Test
@@ -106,6 +107,7 @@ public class RoundTripTest extends AbstractStaticMockTest {
         boolean custodyResultFound = false;        
         boolean courtCaseResultFound = false;
         boolean vehicleCrashFound = false;
+        boolean wildlifeLicenseFound = false;
         
         for (Document queryRequest : queryRequests) {
         	        	
@@ -122,6 +124,8 @@ public class RoundTripTest extends AbstractStaticMockTest {
             Document doc = docWrapper.getDocument();
             assertNotNull(doc);
             
+            XmlUtils.printNode(doc);
+            
             incidentFound |= XmlUtils.nodeExists(doc, "/ir:IncidentReport");
             firearmFound |= XmlUtils.nodeExists(doc, "/firearm-doc:PersonFirearmRegistrationQueryResults");
             warrantFound |= XmlUtils.nodeExists(doc, "/warrant:Warrants");
@@ -129,6 +133,7 @@ public class RoundTripTest extends AbstractStaticMockTest {
             custodyResultFound |= XmlUtils.nodeExists(doc, "/cq-res-exch:CustodyQueryResults");            
             courtCaseResultFound |= XmlUtils.nodeExists(doc, "/ccq-res-doc:CourtCaseQueryResults");            
             vehicleCrashFound |= XmlUtils.nodeExists(doc, "/vcq-res-doc:VehicleCrashQueryResults");
+            wildlifeLicenseFound |= XmlUtils.nodeExists(doc, "/wlq-res-doc:WildlifeLicenseQueryResults");
         }
         assertTrue(incidentFound);
         assertTrue(firearmFound);
@@ -136,7 +141,8 @@ public class RoundTripTest extends AbstractStaticMockTest {
         assertTrue(chFound);        
         assertTrue(custodyResultFound);
         assertTrue(courtCaseResultFound);
-        assertTrue(vehicleCrashFound);        
+        assertTrue(vehicleCrashFound);
+        assertTrue(wildlifeLicenseFound);
     }
 
     private List<Document> buildQueryRequestMessages(Document searchResults) throws Exception {
