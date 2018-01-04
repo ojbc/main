@@ -58,7 +58,9 @@ public class SearchTest extends AbstractStaticMockTest {
         
         assertCorrectDocumentCount("src/test/resources/XpathTestSamples/CourtCase", staticMockQuery.getCourtCaseDocumentCount());
         
-        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/VehicleCrash", staticMockQuery.getVehicleCrashDocumentCount());        
+        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/VehicleCrash", staticMockQuery.getVehicleCrashDocumentCount());    
+        
+        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/WildlifeLicense", staticMockQuery.getWildlifeLicenseDocumentCount());  
     }
 
     @Test

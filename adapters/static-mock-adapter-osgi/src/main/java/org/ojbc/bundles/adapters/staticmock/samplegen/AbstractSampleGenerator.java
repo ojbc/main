@@ -814,6 +814,10 @@ public abstract class AbstractSampleGenerator {
 		
 		List<Document> vehicleCrashMatthewsDocList = new ArrayList<Document>();
 		
+		List<Document> wildlifeLicenseDocList = new ArrayList<Document>();
+		
+		List<Document> wildlifeLicenseMatthewsDocList = new ArrayList<Document>();
+		
 		List<Document> firearmPurchaseProhibitionDocList = new ArrayList<Document>();
 
 		List<Document> firearmPurchaseMatthewsProhibitionDocList = new ArrayList<Document>();
@@ -866,7 +870,17 @@ public abstract class AbstractSampleGenerator {
 		if("ALL".equals(type) || "VEHICLECRASHMATTHEWS".equals(type)){
 			VehicleCrashSampleGenerator vehicleCrashMatthewsGenerator = new VehicleCrashMatthewsSampleGenerator();			
 			vehicleCrashMatthewsDocList = vehicleCrashMatthewsGenerator.generateVehicleCrashDetailSamples(sampleCount);
+		} 
+		
+		if("ALL".equals(type) || "WILDLIFELICENSE".equals(type)){
+			WildlifeLicenseSampleGenerator wildlifeLicenseGenerator = new WildlifeLicenseSampleGenerator();			
+			wildlifeLicenseDocList = wildlifeLicenseGenerator.generateWildlifeLicenseDetailSamples(sampleCount);
 		}
+
+		// if("ALL".equals(type) || "WILDLIFELICENSEMATTHEWS".equals(type)){
+		//	WildlifeLicenseSampleGenerator wildlifeLicenseMatthewsGenerator = new WildlifeLicenseMatthewsSampleGenerator();			
+		//	wildlifeLicenseMatthewsDocList = wildlifeLicenseMatthewsGenerator.generateWildlifeLicenseDetailSamples(sampleCount);
+		//} 
 
 		if("ALL".equals(type) || "FIREARMPURCHASEPROHIBITION".equals(type)){
 			FirearmPurchaseProhibitionSampleGenerator firearmPurchaseProhibitionSampleGenerator = 
@@ -893,6 +907,8 @@ public abstract class AbstractSampleGenerator {
 		allSamples.addAll(courtCaseDocList);
 		allSamples.addAll(vehicleCrashDocList);
 		allSamples.addAll(vehicleCrashMatthewsDocList);
+		allSamples.addAll(wildlifeLicenseDocList);
+		allSamples.addAll(wildlifeLicenseMatthewsDocList);
 		allSamples.addAll(firearmPurchaseProhibitionDocList);
 		allSamples.addAll(firearmPurchaseMatthewsProhibitionDocList);
 
@@ -917,7 +933,7 @@ public abstract class AbstractSampleGenerator {
 	static void printUsage() {
 		
 		LOG.info("Usage: java " + AbstractPersonSampleGenerator.class.getName() 
-				+ " [Incident|CriminalHistory|Warrant|Firearm|JuvenileHistory|Custody|CourtCase|VehicleCrash|VEHICLECRASHMATTHEWS|All] [number of samples] [destination directory]");
+				+ " [Incident|CriminalHistory|Warrant|Firearm|JuvenileHistory|Custody|CourtCase|VehicleCrash|VEHICLECRASHMATTHEWS|WildlifeLicense|WILDLIFELICENSEMATTHEWS|All] [number of samples] [destination directory]");
 	}
 
 }
