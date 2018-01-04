@@ -41,6 +41,12 @@
        
     <util:map id="searchURIToQueryURIMap">
     	<!-- PERSON SEARCH DETAIL QUERIES -->
+    	<!-- Wildlife License -->
+    	<entry key="{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing">
+			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.WILDLIFE_LICENSING" />
+		</entry>
+
+
     	<!-- Person Warrants -->
     	<entry key="{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants">
 			<util:constant static-field="org.ojbc.web.OJBCWebServiceURIs.WARRANTS" />

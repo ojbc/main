@@ -93,7 +93,7 @@ public class RoundTripTest extends AbstractStaticMockTest {
         
         XmlUtils.printNode(searchResults);
         
-        int expectedResultCount = 7;
+        int expectedResultCount = 8;
         assertEquals(expectedResultCount, XmlUtils.xPathNodeListSearch(searchResults, "/psres-doc:PersonSearchResults/psres:PersonSearchResult").getLength());
         
         List<Document> queryRequests = buildQueryRequestMessages(searchResults);
