@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Electronic Court Filing Version 4.01 Plus Errata 01
+     OASIS Standard incorporating Approved Errata 01
+     14 July 2014
+     Copyright (c) OASIS Open 2014. All Rights Reserved.
+     Source: http://docs.oasis-open.org/legalxml-courtfiling/specs/ecf/v4.01/ecf-v4.01-spec/errata01/os/xsd/
+     -->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:a="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:AppInfo-4.0" targetNamespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:AppInfo-4.0" attributeFormDefault="qualified" version="1">
+	<xsd:annotation>
+		<xsd:documentation>ECF AppInfo</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="CodeListReference">
+		<xsd:annotation>
+			<xsd:documentation>References a genericode code list of acceptable values for an element.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="CanonicalURI" type="xsd:anyURI" use="required"/>
+			<xsd:attribute name="CanonicalVersionURI" type="xsd:anyURI" use="optional"/>
+			<xsd:attribute name="LocationURI" type="xsd:anyURI" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CourtPolicyDefinedCodeIndicator" type="xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Indicates a code list to be defined in court policy.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

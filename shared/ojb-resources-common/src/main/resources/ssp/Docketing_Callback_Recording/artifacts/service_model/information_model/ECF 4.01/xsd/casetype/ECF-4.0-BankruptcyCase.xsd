@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     Electronic Court Filing Version 4.01 Plus Errata 01
+     OASIS Standard incorporating Approved Errata 01
+     14 July 2014
+     Copyright (c) OASIS Open 2014. All Rights Reserved.
+     Source: http://docs.oasis-open.org/legalxml-courtfiling/specs/ecf/v4.01/ecf-v4.01-spec/errata01/os/xsd/
+     -->
+<!--
+OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+ 
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to OASIS, except as needed for the purpose of developing OASIS specifications, in which case the procedures for copyrights defined in the OASIS Intellectual Property Rights document must be followed, or as required to translate it into languages other than English. 
+
+The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns. 
+
+This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+-->
+<xsd:schema xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:BankruptcyCase-4.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:a="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:AppInfo-4.0" targetNamespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:BankruptcyCase-4.0" version="4.0">
+	<xsd:annotation>
+		<xsd:documentation>BankruptcyCase</xsd:documentation>
+		<xsd:appinfo>
+			<i:ConformantIndicator>true</i:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../constraint/niem/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../constraint/niem/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../constraint/niem/appinfo/2.0/appinfo.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../constraint/niem/proxy/xsd/2.0/xsd.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../constraint/niem/domains/jxdm/4.0/jxdm.xsd"/>
+	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" schemaLocation="../common/ECF-4.0-CommonTypes.xsd"/>
+	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:AppInfo-4.0" schemaLocation="../common/ECF-4.0-AppInfo.xsd"/>
+	<xsd:complexType name="BankruptcyCaseType">
+		<xsd:annotation>
+			<xsd:documentation>Additional information specific to bankruptcy cases.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:CaseType">
+				<xsd:sequence>
+					<xsd:element ref="j:CaseAugmentation"/>
+					<xsd:element ref="ecf:CaseAugmentation"/>
+					<xsd:element ref="AssetNoticeIndicator"/>
+					<xsd:element ref="NumberOfCreditorsValueLevelCode"/>
+					<xsd:element ref="EstimatedAssetsValueLevelCode"/>
+					<xsd:element ref="EstimatedDebtsValueLevelCode"/>
+					<xsd:element ref="SmallBusinessIndicator"/>
+					<xsd:element ref="Section1121eIndicator"/>
+					<xsd:element ref="DebtorTypeCode"/>
+					<xsd:element ref="JointPetitionIndicator"/>
+					<xsd:element ref="NatureOfDebtCode"/>
+					<xsd:element ref="VoluntaryIndicator"/>
+					<xsd:element ref="BankruptcyStatute"/>
+					<xsd:element ref="Debtor" maxOccurs="2"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="AssetNoticeIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Whether assets are available for distribution to creditors.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="BankruptcyCase" type="BankruptcyCaseType" substitutionGroup="nc:Case">
+		<xsd:annotation>
+			<xsd:documentation>Additional information specific to bankruptcy cases.</xsd:documentation>
+			<xsd:appinfo>
+				<i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="Case"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="BankruptcyStatute" type="j:StatuteType">
+		<xsd:annotation>
+			<xsd:documentation>Section 11 of the United States Code pertaining to bankruptcy. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DebtorTypeCode" type="xsd:normalizedString">
+		<xsd:annotation>
+			<xsd:documentation>"Form of Origin" indicator from the Bankruptcy Petition Form. Allowable values defined in ECF-4.0-DebtorTypeCode.gc.</xsd:documentation>
+			<xsd:appinfo>
+				<a:CodeListReference a:CanonicalURI="urn:oasis:names:tc:legalxml-courtfiling:codelist:gc:DebtorTypeCode" a:CanonicalVersionURI="urn:oasis:names:tc:legalxml-courtfiling:codelist:gc:DebtorTypeCode-4.0" a:LocationURI="../../gc/ECF-4.0-DebtorTypeCode.gc"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Debtor" type="nc:EntityType">
+		<xsd:annotation>
+			<xsd:documentation>A person or organization on whose behalf, or against whom, a bankruptcy petition is filed.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EstimatedAssetsValueLevelCode" type="xsd:normalizedString">
+		<xsd:annotation>
+			<xsd:documentation>A coded set of ranges of dollar values for assets. Generally used for statistical reporting, not case management.  Allowable values defined in ECF-4.0-ValueLevelCode.gc.</xsd:documentation>
+			<xsd:appinfo>
+				<a:CodeListReference a:CanonicalURI="urn:oasis:names:tc:legalxml-courtfiling:codelist:gc:EstimatedValueLevelCode" a:CanonicalVersionURI="urn:oasis:names:tc:legalxml-courtfiling:codelist:gc:EstimatedValueLevelCode-4.0" a:LocationURI="../../gc/ECF-4.0-EstimatedValueLevelCode.gc"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EstimatedDebtsValueLevelCode" type="xsd:normalizedString">
+		<xsd:annotation>
+			<xsd:documentation>A coded set of ranges of dollar values for debts. Generally used for statistical reporting, not case management.  Allowable values defined in ECF-4.0-ValueLevelCode.gc.</xsd:documentation>
+			<xsd:appinfo>
+				<a:CodeListReference a:CanonicalURI="urn:oasis:names:tc:legalxml-courtfiling:codelist:gc:EstimatedDebtsValueLevelCode" a:CanonicalVersionURI="urn:oasis:names:tc:legalxml-courtfiling:codelist:gc:EstimatedDebtsValueLevelCode-4.0" a:LocationURI="../../gc/ECF-4.0-EstimatedDebtsValueLevelCode.gc"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="JointPetitionIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Whether or not spouses are filing as joint debtors</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NatureOfDebtCode" type="xsd:normalizedString">
+		<xsd:annotation>
+			<xsd:documentation>Whether the debts involved in the case are "business" or "consumer".  Allowable values defined in ECF-4.0-NatureOfDebtCode.gc.</xsd:documentation>
+			<xsd:appinfo>
+				<a:CodeListReference a:CanonicalURI="urn:oasis:names:tc:legalxml-courtfiling:codelist:gc:NatureOfDebtCode" a:CanonicalVersionURI="urn:oasis:names:tc:legalxml-courtfiling:codelist:gc:NatureOfDebtCode-4.0" a:LocationURI="../../gc/ECF-4.0-NatureOfDebtCode.gc"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NumberOfCreditorsValueLevelCode" type="xsd:normalizedString">
+		<xsd:annotation>
+			<xsd:documentation>A coded set of ranges of numbers of creditors involved in the case.  Allowable values defined in ECF-4.0-NumberOfCreditorsValueLevelCode.gc.</xsd:documentation>
+			<xsd:appinfo>
+				<a:CodeListReference a:CanonicalURI="urn:oasis:names:tc:legalxml-courtfiling:codelist:gc:NumberOfCreditorsValueLevelCode" a:CanonicalVersionURI="urn:oasis:names:tc:legalxml-courtfiling:codelist:gc:NumberOfCreditorsValueLevelCode-4.0" a:LocationURI="../../gc/ECF-4.0-NumberOfCreditorsValueLevelCode.gc"/>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Section1121eIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>The debtor has elected to proceed under Section 1121 (e) of the bankruptcy code.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SmallBusinessIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Whether the initiating party is a small business, as defined in bankruptcy code.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VoluntaryIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Whether the debtor has initiated bankruptcy (true, corresponding to Federal code "V") or a creditor has initiated bankruptcy (false, corresponding to Federal code "I")</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
