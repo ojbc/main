@@ -1414,7 +1414,7 @@ public class SearchTest extends AbstractStaticMockTest {
         NodeList nodes = XmlUtils.xPathNodeListSearch(searchResults, "psres-doc:PersonSearchResults/psres:PersonSearchResult");
         
         int nodeCount = nodes.getLength();
-        assertEquals(7, nodeCount);
+        assertEquals(8, nodeCount);
         
         Element criminalHistoryResult = null;
         Element warrantResult = null;

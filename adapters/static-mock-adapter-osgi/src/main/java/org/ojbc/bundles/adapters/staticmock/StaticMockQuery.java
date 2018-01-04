@@ -94,7 +94,7 @@ public class StaticMockQuery {
 	
 	public static final String VEHICLE_CRASH_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Vehicle_Crash/1.0}Person-Query-Service---Vehicle-Crash";
 	
-	public static final String WILDLIFE_LICENSE_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-License";
+	public static final String WILDLIFE_LICENSE_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing";
 	
 	public static final String WILDLIFE_LICENSE_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Wildlife_License/1.0}Person-Query-Service---Wildlife-License";			
 	
@@ -1820,6 +1820,8 @@ public class StaticMockQuery {
 			
 			String systemId = systemElement.getTextContent();
 			
+			LOG.info("System name to search: " + systemId);
+			
 			if (CRIMINAL_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
 				rDocList.addAll(personSearchCriminalHistoryDocuments(personSearchRequestMessage, baseDate));
 				
@@ -2225,14 +2227,14 @@ public class StaticMockQuery {
 		wildlifeLicenseDetailXpaths.sidXPath = null;
 		wildlifeLicenseDetailXpaths.fbiXPath = null;
 						
-		/* wildlifeLicenseDetailXpaths.lastNameXPath = 
-				"//nc30:Person[@s30:id=//jxdm51:LicenseDriver/nc30:RoleOfPerson/@s30:ref]/nc30:PersonName/nc30:PersonSurName"; 
+		wildlifeLicenseDetailXpaths.lastNameXPath = 
+				"//nc30:Person/nc30:PersonName/nc30:PersonSurName"; 
 						
 		wildlifeLicenseDetailXpaths.middleNameXPath = 
-				"//nc30:Person[@s30:id=//jxdm51:LicenseDriver/nc30:RoleOfPerson/@s30:ref]/nc30:PersonName/nc30:PersonMiddleName";		
+				"//nc30:Person/nc30:PersonName/nc30:PersonMiddleName";		
 		
 		wildlifeLicenseDetailXpaths.firstNameXPath = 
-				"//nc30:Person[@s30:id=//jxdm51:LicenseDriver/nc30:RoleOfPerson/@s30:ref]/nc30:PersonName/nc30:PersonGivenName"; */
+				"//nc30:Person/nc30:PersonName/nc30:PersonGivenName";
 		
 		wildlifeLicenseDetailXpaths.eyeColorXPath = null;
 		wildlifeLicenseDetailXpaths.hairColorXPath = null;		

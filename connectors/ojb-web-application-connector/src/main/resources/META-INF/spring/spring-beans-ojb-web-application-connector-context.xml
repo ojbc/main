@@ -65,6 +65,8 @@
 	
 	<import resource="firearms-prohibition-query.xml"/>
 	
+	<import resource="wildlife-license-query.xml"/>
+	
 	<import resource="camel-context.xml"/>
 	
 	<!-- This context is intentionally loaded last as we want it to override any beans in this context -->

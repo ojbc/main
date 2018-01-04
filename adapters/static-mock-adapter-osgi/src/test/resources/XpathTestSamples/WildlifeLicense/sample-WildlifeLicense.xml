@@ -40,9 +40,9 @@
             <nc:LengthUnitCode>FOT</nc:LengthUnitCode>
          </nc:PersonHeightMeasure>
          <nc:PersonName>
-            <nc:PersonGivenName>JOHN</nc:PersonGivenName>
+            <nc:PersonGivenName>Larry</nc:PersonGivenName>
             <nc:PersonMiddleName>E.</nc:PersonMiddleName>
-            <nc:PersonSurName>SMITH</nc:PersonSurName>
+            <nc:PersonSurName>Ivey</nc:PersonSurName>
          </nc:PersonName>
          <j:PersonSexCode>M</j:PersonSexCode>
          <nc:PersonSSNIdentification>

@@ -87,6 +87,22 @@ public class RequestMessageBuilderUtilities {
 		return sb.toString();
 	}
 
+	public static String createPersonQueryWildlifeRequest(DetailsRequest detailsRequest)
+	{
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("<wlq-req-doc:WildlifeLicenseQueryRequest xmlns:wlq-req-doc=\"http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryRequest/1.0\" ");
+		sb.append("		xmlns:wlq-req-ext=\"http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryRequestExtension/1.0\" xmlns:nc=\"http://release.niem.gov/niem/niem-core/3.0/\" ");
+		sb.append("		> ");
+		sb.append("			<wlq-req-ext:WildlifeLicenseIdentification> ");
+		sb.append("						<nc:IdentificationID>" + detailsRequest.getIdentificationID() + "</nc:IdentificationID> ");
+		sb.append("						<nc:IdentificationSourceText>" + detailsRequest.getIdentificationSourceText() + "</nc:IdentificationSourceText> ");
+		sb.append("	</wlq-req-ext:WildlifeLicenseIdentification> ");
+		sb.append("</wlq-req-doc:WildlifeLicenseQueryRequest> ");
+		
+		return sb.toString();
+	}
+	
 	public static String createPersonToIncidentQueryRequest(String identificationID, String identificationSourceText)
 	{
 		StringBuffer sb = new StringBuffer();
