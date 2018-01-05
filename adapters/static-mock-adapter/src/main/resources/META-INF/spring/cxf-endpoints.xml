@@ -670,6 +670,47 @@
 		</cxf:features>
 	</cxf:cxfEndpoint>      
 	
+    <!-- 
+    	Wildlife Crash Request Service, hosted by this intermediary 
+    -->
+    <cxf:cxfEndpoint 
+        id="personQueryWildlifeLicenseRequestService"
+        address="${genericMockAdapter.wildlifeLicenseRequestEndpoint}"
+        wsdlURL="classpath:ssp/Wildlife_License_Query_Request/schema/SIP_WS_1.2/Wildlife_License_Query_Request_Service.wsdl"
+        serviceName="ojbc:Wildlife-License-Query-Request-ServiceService"
+        endpointName="ojbc:Wildlife-License-Query-Request-Secure-Service"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Wildlife_License_Query_Request_Service/1.0">
+		<cxf:properties>
+			<entry key="ws-security.callback-handler" value-ref="passwordCallbackHandler" />
+			<entry key="ws-security.signature.properties" value-ref="mockKeystoreProperties" />
+			<entry key="ws-security.signature.username"
+				value="${genericMockAdapter.keystoreCertificateAlias}" />
+			<entry key="ws-security.saml2.validator" value-ref="OJBSimpleWSPSamlTokenValidator" />
+			<entry key="ws-security.validate.audience-restriction" value="false" />
+		</cxf:properties>
+    </cxf:cxfEndpoint>
+	  
+    <!-- 
+    	Wildlife License results handler, hosted by this intermediary, called by adapter, address is static  
+    --> 
+    <cxf:cxfEndpoint 
+        id="personQueryWildlifeLicenseResultsService"
+        address="${genericMockAdapter.wildlifeLicenseResultsHandlerEndpoint}"
+        wsdlURL="classpath:ssp/Wildlife_License_Query_Results/schema/SIP_WS_1.2/Wildlife_License_Query_Results_Service.wsdl"
+        serviceName="ojbc:Wildlife-License-Query-Results-ServiceService"
+		endpointName="ojbc:Wildlife-License-Query-Results-Secure-Service"
+        xmlns:ojbc="http://ojbc.org/Services/WSDL/Wildlife_License_Query_Results_Service/1.0">
+     <cxf:features>
+      <policy:policies>
+        <wsp:Policy xmlns:wsam="http://www.w3.org/2007/02/addressing/metadata">
+          <wsam:Addressing>
+            <wsp:Policy/>
+          </wsam:Addressing>
+        </wsp:Policy>
+       </policy:policies>
+    </cxf:features>
+   </cxf:cxfEndpoint>  	
+	
 	
 	<!-- Juvenile Referral History Request Service, hosted by OJB -->
 	<cxf:cxfEndpoint id="juvenileReferralHistoryRequestService"

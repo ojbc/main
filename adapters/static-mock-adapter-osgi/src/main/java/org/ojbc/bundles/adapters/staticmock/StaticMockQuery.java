@@ -96,7 +96,7 @@ public class StaticMockQuery {
 	
 	public static final String WILDLIFE_LICENSE_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing";
 	
-	public static final String WILDLIFE_LICENSE_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Wildlife_License/1.0}Person-Query-Service---Wildlife-License";			
+	public static final String WILDLIFE_LICENSE_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Wildlife_License_Query_Request_Service/1.0}Person-Query-Service---Wildlife-License";
 	
 	public static final String WARRANT_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants";
 	
@@ -2247,9 +2247,9 @@ public class StaticMockQuery {
 		
 		wildlifeLicenseDetailXpaths.searchSystemId = WILDLIFE_LICENSE_SEARCH_SYSTEM_ID;
 		
-		wildlifeLicenseDetailXpaths.systemName = "Wildlife License";
+		wildlifeLicenseDetailXpaths.systemName = "Wildlife Licensing";
 		
-		wildlifeLicenseDetailXpaths.recordType = "Wildlife License";		
+		wildlifeLicenseDetailXpaths.recordType = "Wildlife Licensing";		
 		
 		return wildlifeLicenseDetailXpaths;				
 	}

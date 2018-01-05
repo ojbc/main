@@ -24,7 +24,7 @@
 	<groupId>org.ojbc.bundles.adapters</groupId>
 	<artifactId>static-mock-adapter</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.7</version>
+	<version>1.0.8</version>
 	<name>OJB :: static-mock-adapter :: adapter</name>
 	<url>http://www.ojbc.org</url>
 
