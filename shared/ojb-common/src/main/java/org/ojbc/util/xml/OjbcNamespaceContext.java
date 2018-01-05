@@ -328,7 +328,7 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 	public static final String NS_VEHICLE_CRASH_EXT = "http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0";		
 	public static final String NS_PREFIX_VEHICLE_CRASH_EXT = "vc-ext";
 	
-	public static final String NS_WILDLIFE_LICENSE_QUERY_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/WildLifeLicenseQueryRequest/1.0";
+	public static final String NS_WILDLIFE_LICENSE_QUERY_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryRequest/1.0";
 	public static final String NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_DOC = "wlq-req-doc";
 	
 	public static final String NS_WILDLIFE_LICENSE_QUERY_RESULT_EXT = "http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryResultsExtension/1.0";
