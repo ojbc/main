@@ -2223,10 +2223,11 @@ public class StaticMockQuery {
 		SearchValueXPaths wildlifeLicenseDetailXpaths = new SearchValueXPaths();				
 		
 		wildlifeLicenseDetailXpaths.ageXPath = null;		
-		wildlifeLicenseDetailXpaths.ssnXPath = null;
+		wildlifeLicenseDetailXpaths.ssnXPath = "//nc30:Person/nc30:PersonSSNIdentification/nc30:IdentificationID";
 		wildlifeLicenseDetailXpaths.sidXPath = null;
 		wildlifeLicenseDetailXpaths.fbiXPath = null;
-						
+		wildlifeLicenseDetailXpaths.sexXPath = "//nc30:Person/jxdm51:PersonSexCode";				
+		
 		wildlifeLicenseDetailXpaths.lastNameXPath = 
 				"//nc30:Person/nc30:PersonName/nc30:PersonSurName"; 
 						
@@ -2236,14 +2237,14 @@ public class StaticMockQuery {
 		wildlifeLicenseDetailXpaths.firstNameXPath = 
 				"//nc30:Person/nc30:PersonName/nc30:PersonGivenName";
 		
-		wildlifeLicenseDetailXpaths.eyeColorXPath = null;
-		wildlifeLicenseDetailXpaths.hairColorXPath = null;		
+		wildlifeLicenseDetailXpaths.eyeColorXPath = "//nc30:Person/nc30:PersonEyeColorText";
+		wildlifeLicenseDetailXpaths.hairColorXPath = "//nc30:Person/nc30:PersonHairColorText";		
 		wildlifeLicenseDetailXpaths.raceXPath = null;
 						
 		// wildlifeLicenseDetailXpaths.birthdateXPath = "//nc30:Person[@s30:id=//jxdm51:LicenseDriver/nc30:RoleOfPerson/@s30:ref]/nc30:PersonBirthDate/nc30:Date";
 		
-		wildlifeLicenseDetailXpaths.heightXPath = null;
-		wildlifeLicenseDetailXpaths.weightXPath = null;	
+		wildlifeLicenseDetailXpaths.heightXPath = "//nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureValueText";
+		wildlifeLicenseDetailXpaths.weightXPath = "//nc30:Person/nc30:PersonWeightMeasure/nc30:MeasureValueText";	
 		
 		wildlifeLicenseDetailXpaths.searchSystemId = WILDLIFE_LICENSE_SEARCH_SYSTEM_ID;
 		
