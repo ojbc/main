@@ -388,6 +388,9 @@
 								<ndexia:ActivityAugmentation>
 									<lexslib:SameAsDigestReference lexslib:ref="OFFENSE_01" />
 								</ndexia:ActivityAugmentation>
+								<j:IncidentFactor>
+									<j:IncidentFactorText>I89</j:IncidentFactorText>
+								</j:IncidentFactor>
 							</ndexia:Offense>
 							<ndexia:Offense>
 								<ndexia:ActivityAugmentation>
@@ -562,6 +565,7 @@
 							</inc-ext:DrivingIncident>
 							<inc-ext:DriverLicense>
 								<inc-ext:DriverLicenseCDLIndicator>false</inc-ext:DriverLicenseCDLIndicator>
+								<inc-ext:DriverLicenseCategoryCodeText>PO</inc-ext:DriverLicenseCategoryCodeText>
 								<lexslib:SameAsDigestReference lexslib:ref="PERSON_03" />
 							</inc-ext:DriverLicense>
 							<nc:PersonContactInformationAssociation>
