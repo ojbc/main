@@ -99,6 +99,8 @@ public class TestPersonSearchProcessor {
 		assertEquals("{system2}URI", personSearchRequest.getSystemsToSearch().get(1));
 		assertEquals("On Behalf Of", personSearchRequest.getOnBehalfOf());
 		assertEquals("This is the purpose", personSearchRequest.getPurpose());
+		assertEquals(Integer.valueOf(50), personSearchRequest.getHeightMin());
+		assertEquals(Integer.valueOf(75), personSearchRequest.getHeightMax());
 		
 		CamelContext ctx = new DefaultCamelContext(); 
 		    

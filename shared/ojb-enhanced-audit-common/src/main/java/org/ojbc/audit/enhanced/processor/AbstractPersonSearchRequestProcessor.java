@@ -112,6 +112,28 @@ public abstract class AbstractPersonSearchRequestProcessor {
                 personSearchRequest.setEyeCode(s);
             }
 
+            s = XmlUtils.xPathStringSearch(personNode, "nc:PersonHeightMeasure/nc:MeasureText");
+            
+            if (StringUtils.isNotEmpty(s))
+            {
+            	personSearchRequest.setHeight(Integer.valueOf(s));
+            }	
+            
+            s = XmlUtils.xPathStringSearch(personNode, "nc:PersonHeightMeasure/nc:MeasureRangeValue/nc:RangeMinimumValue");
+            
+            if (StringUtils.isNotEmpty(s))
+            {
+            	personSearchRequest.setHeightMin(Integer.valueOf(s));
+            }	
+
+            s = XmlUtils.xPathStringSearch(personNode, "nc:PersonHeightMeasure/nc:MeasureRangeValue/nc:RangeMaximumValue");
+            
+            if (StringUtils.isNotEmpty(s))
+            {
+            	personSearchRequest.setHeightMax(Integer.valueOf(s));
+            }	
+
+            
             String birthDateStartString = XmlUtils.xPathStringSearch(personNode, "psr:PersonBirthDateRange/nc:StartDate/nc:Date");
 
             String birthDateEndString = XmlUtils.xPathStringSearch(personNode, "psr:PersonBirthDateRange/nc:EndDate/nc:Date");
