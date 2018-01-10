@@ -325,7 +325,6 @@
 			<xsd:extension base="nc:DriverLicenseType">
 				<xsd:sequence>
 					<xsd:element ref="inc-ext:DriverLicenseCDLIndicator" minOccurs="0" />
-					<xsd:element ref="inc-ext:DriverLicenseCategoryCodeText" minOccurs="0" />
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -495,6 +494,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:VehicleType">
 				<xsd:sequence>
+					<xsd:element ref="nc:ConveyanceRegistrationPlateCategoryText" minOccurs="0" />
 					<xsd:element ref="inc-ext:VehicleHazardousMaterialIndicator" minOccurs="0" />
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
 				</xsd:sequence>
@@ -1160,12 +1160,6 @@
 	<xsd:element name="DriverLicenseCDLIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if a driver license is a commercial driver's license; false otherwise.
-			</xsd:documentation>
-		</xsd:annotation>
-	</xsd:element>
-	<xsd:element name="DriverLicenseCategoryCodeText" type="niem-xsd:string">
-		<xsd:annotation>
-			<xsd:documentation>A text representation of a driver license category.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>

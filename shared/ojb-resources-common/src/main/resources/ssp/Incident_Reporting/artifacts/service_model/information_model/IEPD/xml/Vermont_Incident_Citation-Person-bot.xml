@@ -482,6 +482,7 @@
 								<lexslib:SameAsDigestReference lexslib:ref="CITATION_01" />
 							</inc-ext:Citation>
 							<inc-ext:Vehicle>
+								<nc:ConveyanceRegistrationPlateCategoryText>PO</nc:ConveyanceRegistrationPlateCategoryText>
 								<inc-ext:VehicleHazardousMaterialIndicator>false</inc-ext:VehicleHazardousMaterialIndicator>
 								<lexslib:SameAsDigestReference lexslib:ref="VEHICLE_01" />
 							</inc-ext:Vehicle>
@@ -565,7 +566,6 @@
 							</inc-ext:DrivingIncident>
 							<inc-ext:DriverLicense>
 								<inc-ext:DriverLicenseCDLIndicator>false</inc-ext:DriverLicenseCDLIndicator>
-								<inc-ext:DriverLicenseCategoryCodeText>PO</inc-ext:DriverLicenseCategoryCodeText>
 								<lexslib:SameAsDigestReference lexslib:ref="PERSON_03" />
 							</inc-ext:DriverLicense>
 							<nc:PersonContactInformationAssociation>
