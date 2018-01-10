@@ -342,6 +342,9 @@
 								<ndexia:ActivityAugmentation>
 									<lexslib:SameAsDigestReference lexslib:ref="OFFENSE_01" />
 								</ndexia:ActivityAugmentation>
+								<j:IncidentFactor>
+									<j:IncidentFactorText>I89</j:IncidentFactorText>
+								</j:IncidentFactor>
 							</ndexia:Offense>
 							<ndexia:EnforcementUnit>
 								<j:EnforcementUnitNumberIdentification>
@@ -403,6 +406,7 @@
 								<lexslib:SameAsDigestReference lexslib:ref="CITATION_01" />
 							</inc-ext:Citation>
 							<inc-ext:Vehicle>
+								<nc:ConveyanceRegistrationPlateCategoryText>PO</nc:ConveyanceRegistrationPlateCategoryText>
 								<inc-ext:VehicleHazardousMaterialIndicator>false</inc-ext:VehicleHazardousMaterialIndicator>
 								<lexslib:SameAsDigestReference lexslib:ref="VEHICLE_01" />
 							</inc-ext:Vehicle>
