@@ -175,6 +175,23 @@ public abstract class AbstractPersonSearchRequestProcessor {
             }
         }
         
+//        <SearchMetadata xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" NS1:id="OBO3">
+//	        <SearchRequestOnBehalfOfText>test</SearchRequestOnBehalfOfText>
+//	        <SearchPurposeText>Criminal Justice (C)</SearchPurposeText>
+//	    </SearchMetadata>
+        
+        String onBehalfOfText = XmlUtils.xPathStringSearch(document, "/psr-doc:PersonSearchRequest/psr:SearchMetadata/psr:SearchRequestOnBehalfOfText");
+        
+        if (StringUtils.isNotEmpty(onBehalfOfText)) {
+            personSearchRequest.setOnBehalfOf(onBehalfOfText);
+        }
+
+        String purposeText = XmlUtils.xPathStringSearch(document, "/psr-doc:PersonSearchRequest/psr:SearchMetadata/psr:SearchPurposeText");
+        
+        if (StringUtils.isNotEmpty(purposeText)) {
+            personSearchRequest.setPurpose(purposeText);
+        }
+        
         personSearchRequest.setSystemsToSearch(sourceSystemsList);
 
         log.debug("Person Search Request: " + personSearchRequest.toString());

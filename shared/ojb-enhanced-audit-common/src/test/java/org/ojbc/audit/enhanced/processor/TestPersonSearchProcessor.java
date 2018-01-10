@@ -97,7 +97,9 @@ public class TestPersonSearchProcessor {
 		assertEquals(2, personSearchRequest.getSystemsToSearch().size());
 		assertEquals("{system1}URI", personSearchRequest.getSystemsToSearch().get(0));
 		assertEquals("{system2}URI", personSearchRequest.getSystemsToSearch().get(1));
-
+		assertEquals("On Behalf Of", personSearchRequest.getOnBehalfOf());
+		assertEquals("This is the purpose", personSearchRequest.getPurpose());
+		
 		CamelContext ctx = new DefaultCamelContext(); 
 		    
     	//Create a new exchange
