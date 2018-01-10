@@ -2585,6 +2585,14 @@
       </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="ConveyanceRegistrationPlateCategoryText" type="nc:TextType" substitutionGroup="nc:ConveyanceRegistrationPlateCategory" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A kind of registration plate or license plate of a conveyance.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:name="ConveyanceRegistrationPlateCategory"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="ConveyanceRegistrationPlateIdentification" type="nc:IdentificationType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An identification on a metal plate fixed to a conveyance.</xsd:documentation>

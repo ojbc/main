@@ -494,6 +494,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:VehicleType">
 				<xsd:sequence>
+					<xsd:element ref="nc:ConveyanceRegistrationPlateCategoryText" minOccurs="0" />
 					<xsd:element ref="inc-ext:VehicleHazardousMaterialIndicator" minOccurs="0" />
 					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
 				</xsd:sequence>
