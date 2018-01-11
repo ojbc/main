@@ -95,6 +95,11 @@ public class EnhancedAuditDaoTest {
 		psr.setSsn("123-45-7890");
 		psr.setStateId("state");
 		psr.setUserInfofk(userInfoPk);
+		psr.setHeight(60);
+		psr.setHeightMin(50);
+		psr.setHeightMax(75);
+		psr.setSsn("999-99-9999");
+		
 		
 		Integer psrIdFromSave = enhancedAuditDao.savePersonSearchRequest(psr);
 		

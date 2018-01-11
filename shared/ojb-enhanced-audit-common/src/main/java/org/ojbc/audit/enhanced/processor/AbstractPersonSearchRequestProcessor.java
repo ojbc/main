@@ -112,6 +112,28 @@ public abstract class AbstractPersonSearchRequestProcessor {
                 personSearchRequest.setEyeCode(s);
             }
 
+            s = XmlUtils.xPathStringSearch(personNode, "nc:PersonHeightMeasure/nc:MeasureText");
+            
+            if (StringUtils.isNotEmpty(s))
+            {
+            	personSearchRequest.setHeight(Integer.valueOf(s));
+            }	
+            
+            s = XmlUtils.xPathStringSearch(personNode, "nc:PersonHeightMeasure/nc:MeasureRangeValue/nc:RangeMinimumValue");
+            
+            if (StringUtils.isNotEmpty(s))
+            {
+            	personSearchRequest.setHeightMin(Integer.valueOf(s));
+            }	
+
+            s = XmlUtils.xPathStringSearch(personNode, "nc:PersonHeightMeasure/nc:MeasureRangeValue/nc:RangeMaximumValue");
+            
+            if (StringUtils.isNotEmpty(s))
+            {
+            	personSearchRequest.setHeightMax(Integer.valueOf(s));
+            }	
+
+            
             String birthDateStartString = XmlUtils.xPathStringSearch(personNode, "psr:PersonBirthDateRange/nc:StartDate/nc:Date");
 
             String birthDateEndString = XmlUtils.xPathStringSearch(personNode, "psr:PersonBirthDateRange/nc:EndDate/nc:Date");
@@ -173,6 +195,23 @@ public abstract class AbstractPersonSearchRequestProcessor {
                     }		
                 }
             }
+        }
+        
+//        <SearchMetadata xmlns="http://ojbc.org/IEPD/Extensions/PersonSearchRequest/1.0" NS1:id="OBO3">
+//	        <SearchRequestOnBehalfOfText>test</SearchRequestOnBehalfOfText>
+//	        <SearchPurposeText>Criminal Justice (C)</SearchPurposeText>
+//	    </SearchMetadata>
+        
+        String onBehalfOfText = XmlUtils.xPathStringSearch(document, "/psr-doc:PersonSearchRequest/psr:SearchMetadata/psr:SearchRequestOnBehalfOfText");
+        
+        if (StringUtils.isNotEmpty(onBehalfOfText)) {
+            personSearchRequest.setOnBehalfOf(onBehalfOfText);
+        }
+
+        String purposeText = XmlUtils.xPathStringSearch(document, "/psr-doc:PersonSearchRequest/psr:SearchMetadata/psr:SearchPurposeText");
+        
+        if (StringUtils.isNotEmpty(purposeText)) {
+            personSearchRequest.setPurpose(purposeText);
         }
         
         personSearchRequest.setSystemsToSearch(sourceSystemsList);

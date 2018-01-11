@@ -596,8 +596,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         
         final String FEDERAL_RAPBACK_SUBSCRIPTION_INSERT="INSERT into PERSON_SEARCH_REQUEST "
         		+ "(DOB_START_DATE, RACE, EYE_COLOR,HAIR_COLOR,DRIVERS_LICENSE_NUMBER,DOB_END_DATE,ON_BEHALF_OF,FIRST_NAME_QUALIFIER_CODE_ID,SID,MIDDLE_NAME,"
-        		+ "LAST_NAME_QUALIFIER_CODE_ID,PURPOSE,LAST_NAME,FIRST_NAME,GENDER,MESSAGE_ID,USER_INFO_ID,DRIVERS_LICENSE_ISSUER,FBI_ID) "
-        		+ "values (?, ?, ?, ?, ?, ?,?, ?, ?,?, ?, ?, ?, ?, ?,?, ?, ?, ?)";
+        		+ "LAST_NAME_QUALIFIER_CODE_ID,PURPOSE,LAST_NAME,FIRST_NAME,GENDER,MESSAGE_ID,USER_INFO_ID,DRIVERS_LICENSE_ISSUER,FBI_ID, SSN, HEIGHT, HEIGHT_MIN, HEIGHT_MAX) "
+        		+ "values (?, ?, ?, ?, ?, ?,?, ?, ?,?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?,?,?)";
         
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -625,6 +625,11 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getUserInfofk(), ps, 17);
         	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getDriverLiscenseIssuer(), ps, 18);
         	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getFbiNumber(), ps, 19);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getSsn(), ps, 20);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getHeight(), ps, 21);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getHeightMin(), ps, 22);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getHeightMax(), ps, 23);
+        	            
         	            
         	            return ps;
         	        }
