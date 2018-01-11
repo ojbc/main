@@ -20,9 +20,13 @@
 <w:WantList w:release="3.1" w:product="NIEM" w:nillableDefault="true"
   xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
   xmlns:w="http://niem.gov/niem/wantlist/2.2" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/">
+  <w:Element w:name="nc:IdentificationCategoryText"
+    w:isReference="false" w:nillable="false"/>
   <w:Type w:name="nc:IdentificationType" w:isRequested="true">
     <w:ElementInType w:name="nc:IdentificationID" w:isReference="false"
       w:minOccurs="0" w:maxOccurs="unbounded"/>
+    <w:ElementInType w:name="nc:IdentificationCategory"
+      w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
     <w:ElementInType w:name="nc:IdentificationSourceText"
       w:isReference="false" w:minOccurs="0" w:maxOccurs="unbounded"/>
   </w:Type>
