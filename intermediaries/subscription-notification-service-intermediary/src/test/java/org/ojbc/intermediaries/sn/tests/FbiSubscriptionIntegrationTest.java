@@ -93,7 +93,9 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 		
 		String response = invokeRequest("fbiSubscribeSoapRequest.xml", notificationBrokerUrl);
 		
-		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));        
+		assertThat(response, containsString(SUBSCRIPTION_REFERENCE_ELEMENT_STRING));    
+		
+		Thread.sleep(3000);
 
 		//Query for subscription just added to confirm validation date
 		//DB Unit doesn't have good support for this
@@ -104,10 +106,10 @@ public class FbiSubscriptionIntegrationTest extends AbstractSubscriptionNotifica
 		List<Subscription> subscriptions = subscriptionSearchQueryDAO.queryForSubscription("{http://ojbc.org/wsn/topics}:person/arrest", "{http://demostate.gov/SystemNames/1.0}SystemA", "SYSTEM", subjectIdentifiers );
 		
 		//We should only get one result
-		assertEquals(1, subscriptions.size());
+		assertEquals(2, subscriptions.size());
 		
 		//Get the validation date from database
-		DateTime lastValidationDate = subscriptions.get(0).getLastValidationDate();
+		DateTime lastValidationDate = subscriptions.get(1).getLastValidationDate();
 		
 		//Add one year to the current date
 		DateTime todayPlusOneYear = new DateTime();
