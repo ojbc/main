@@ -139,6 +139,23 @@
 			<from uri="identificationResultsQueryResultsHandlerServiceEndpoint" />
 
 			<camel:to uri="bean:federatedQueryMessageProcessor?method=processFederatedResponse" />
+			
+			<camel:choice>
+				<camel:when>
+					<camel:simple>${properties:identificationResultsQueryIntermediary.dbEnancedAuditLog} == 'true'</camel:simple>
+					
+					<camel:doTry>
+						<camel:to uri="bean:queryResponseSQLLoggingProcessor?method=auditIdentificationQueryResponse"/>
+						
+				        <doCatch>
+				            <exception>java.lang.Exception</exception>
+				            <camel:log message="logging returned exception, handling and continuing: ${exception.message}"/>
+				        </doCatch>
+					</camel:doTry>
+				</camel:when>
+			</camel:choice>
+			
+			
 			<camel:log message="Calling Aggregator" />
 			<camel:to uri="direct:aggregateFederatedQuery" />
  		</route>
@@ -276,9 +293,13 @@
         <entry key="${identificationResultsQueryIntermediary.presentIdentificationResultsQueryResultEndpoint}" value="presentIdentificationResultsQueryResultServiceEndpoint"/>
   	</util:map>
   	
-  		<bean id="queryRequestSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.QueryRequestSQLProcessor">
+  	<bean id="queryRequestSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.QueryRequestSQLProcessor">
         <property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
         <property name="userInfoProcessor" ref="userInfoSQLProcessor"/>
+    </bean>
+
+  	<bean id="queryResponseSQLLoggingProcessor" class="org.ojbc.audit.enhanced.processor.IdentificationQueryResponseSQLProcessor">
+        <property name="enhancedAuditDAO" ref="enhancedAuditDAOImpl"/>
     </bean>
 
 	<bean id="userInfoSQLProcessor" class="org.ojbc.audit.enhanced.processor.UserInfoSQLProcessor">

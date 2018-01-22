@@ -327,6 +327,18 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 	public static final String NS_VEHICLE_CRASH_EXT = "http://ojbc.org/IEPD/Extensions/VehicleCrash/1.0";		
 	public static final String NS_PREFIX_VEHICLE_CRASH_EXT = "vc-ext";
+	
+	public static final String NS_WILDLIFE_LICENSE_QUERY_REQUEST_DOC = "http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryRequest/1.0";
+	public static final String NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_DOC = "wlq-req-doc";
+	
+	public static final String NS_WILDLIFE_LICENSE_QUERY_RESULT_EXT = "http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryResultsExtension/1.0";
+	public static final String NS_PREFIX_WILDLIFE_LICENSE_QUERY_RESULT_EXT = "wlq-res-ext";
+	
+	public static final String NS_WILDLIFE_LICENSE_QUERY_RESULT_EXCH_DOC = "http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0";		
+	public static final String NS_PREFIX_WILDLIFE_LICENSE_QUERY_RESULT_EXCH_DOC = "wlq-res-doc";
+
+	public static final String NS_WILDLIFE_LICENSE_QUERY_REQUEST_EXT = "http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryRequestExtension/1.0";
+	public static final String NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_EXT = "wlq-req-ext";
 
 	public static final String NS_ADAMS_CO_BOOKING_CODES_EXT = "http://ojbc.org/IEPD/Extensions/AdamsCounty/BookingCodes/1.0";
 	public static final String NS_PREFIX_ADAMS_CO_BOOKING_CODES_EXT = "ac-bkg-codes";
@@ -1619,8 +1631,20 @@ public final class OjbcNamespaceContext implements NamespaceContext {
 
 
 		prefixToUriMap.put(NS_PREFIX_HAWAII_ARREST_REPORT, NS_HAWAII_ARREST_REPORT);
-		uriToPrefixMap.put(NS_HAWAII_ARREST_REPORT, NS_PREFIX_HAWAII_ARREST_REPORT);	
-
+		uriToPrefixMap.put(NS_HAWAII_ARREST_REPORT, NS_PREFIX_HAWAII_ARREST_REPORT);
+		
+		prefixToUriMap.put(NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_DOC, NS_WILDLIFE_LICENSE_QUERY_REQUEST_DOC);
+		uriToPrefixMap.put(NS_WILDLIFE_LICENSE_QUERY_REQUEST_DOC, NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_DOC);		
+		
+		prefixToUriMap.put(NS_PREFIX_WILDLIFE_LICENSE_QUERY_RESULT_EXT, NS_WILDLIFE_LICENSE_QUERY_RESULT_EXT);
+		uriToPrefixMap.put(NS_WILDLIFE_LICENSE_QUERY_RESULT_EXT, NS_PREFIX_WILDLIFE_LICENSE_QUERY_RESULT_EXT);
+		
+		prefixToUriMap.put(NS_PREFIX_WILDLIFE_LICENSE_QUERY_RESULT_EXCH_DOC, NS_WILDLIFE_LICENSE_QUERY_RESULT_EXCH_DOC);
+		uriToPrefixMap.put(NS_WILDLIFE_LICENSE_QUERY_RESULT_EXCH_DOC, NS_PREFIX_WILDLIFE_LICENSE_QUERY_RESULT_EXCH_DOC);		
+				
+		prefixToUriMap.put(NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_EXT, NS_WILDLIFE_LICENSE_QUERY_REQUEST_EXT);
+		uriToPrefixMap.put(NS_WILDLIFE_LICENSE_QUERY_REQUEST_EXT, NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_EXT);
+		
 	}
 
 	@Override

@@ -18,6 +18,7 @@ package org.ojbc.audit.enhanced.dao;
 
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
@@ -42,6 +43,8 @@ public interface EnhancedAuditDAO {
 	public Integer saveIdentificationSearchRequest(IdentificationSearchRequest identificationSearchRequest);
 	
 	public Integer saveidentificationSearchResponse(IdentificationSearchResult identificationSearchResult);
+	
+	public Integer saveidentificationQueryResponse(IdentificationQueryResponse identificationQueryResponse);
 	
 	public Integer saveQueryRequest(QueryRequest queryRequest);
 	

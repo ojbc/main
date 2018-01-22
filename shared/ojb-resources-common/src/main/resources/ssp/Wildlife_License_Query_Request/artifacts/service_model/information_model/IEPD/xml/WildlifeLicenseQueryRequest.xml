@@ -22,7 +22,7 @@
 	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryRequest/1.0 ../xsd/WildlifeLicenseQueryRequest.xsd ">
 	<wlq-req-ext:WildlifeLicenseIdentification>
-		<nc:IdentificationID>Wildlife License record ID</nc:IdentificationID>
-		<nc:IdentificationSourceText>Wildlife License record source system</nc:IdentificationSourceText>
+		<nc:IdentificationID>Moses-12345</nc:IdentificationID>
+		<nc:IdentificationSourceText>{http://ojbc.org/Services/WSDL/Wildlife_License_Query_Request_Service/1.0}Person-Query-Service---Wildlife-License</nc:IdentificationSourceText>
 	</wlq-req-ext:WildlifeLicenseIdentification>
 </wlq-req-doc:WildlifeLicenseQueryRequest>

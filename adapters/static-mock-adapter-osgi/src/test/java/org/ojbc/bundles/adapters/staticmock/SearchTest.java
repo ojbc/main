@@ -58,7 +58,9 @@ public class SearchTest extends AbstractStaticMockTest {
         
         assertCorrectDocumentCount("src/test/resources/XpathTestSamples/CourtCase", staticMockQuery.getCourtCaseDocumentCount());
         
-        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/VehicleCrash", staticMockQuery.getVehicleCrashDocumentCount());        
+        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/VehicleCrash", staticMockQuery.getVehicleCrashDocumentCount());    
+        
+        assertCorrectDocumentCount("src/test/resources/XpathTestSamples/WildlifeLicense", staticMockQuery.getWildlifeLicenseDocumentCount());  
     }
 
     @Test
@@ -1412,7 +1414,7 @@ public class SearchTest extends AbstractStaticMockTest {
         NodeList nodes = XmlUtils.xPathNodeListSearch(searchResults, "psres-doc:PersonSearchResults/psres:PersonSearchResult");
         
         int nodeCount = nodes.getLength();
-        assertEquals(7, nodeCount);
+        assertEquals(8, nodeCount);
         
         Element criminalHistoryResult = null;
         Element warrantResult = null;

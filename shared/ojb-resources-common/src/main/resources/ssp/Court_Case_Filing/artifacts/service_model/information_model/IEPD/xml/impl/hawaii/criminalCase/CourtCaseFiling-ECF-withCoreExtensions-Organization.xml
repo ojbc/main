@@ -145,55 +145,26 @@
 	</ojb-crim-ext:CriminalCase>
 	<core:FilingConfidentialityIndicator>false</core:FilingConfidentialityIndicator>
 	<ojb-crim-ext:FilingLeadDocument s:id="_123456ABC.app.doc">
+		<nc:DocumentBinary>
+			<ojb-crim-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</ojb-crim-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 		<nc:DocumentCategoryName>Document Type</nc:DocumentCategoryName>
 		<nc:DocumentCategoryText>Document Category</nc:DocumentCategoryText>
 		<nc:DocumentDescriptionText>Appearance</nc:DocumentDescriptionText>
 		<nc:DocumentRelatedResourceText>D4355</nc:DocumentRelatedResourceText>
 		<nc:DocumentLanguageCode>eng</nc:DocumentLanguageCode>
-		<ecf:DocumentMetadata>
-			<j:RegisterActionDescriptionText />
-			<ecf:FilingAttorneyID />
-			<ecf:FilingPartyID />
-		</ecf:DocumentMetadata>
-		<ecf:DocumentRendition>
-			<ecf:DocumentRenditionMetadata>
-				<nc:DocumentBinary>
-					<nc:BinaryBase64Object>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</nc:BinaryBase64Object>
-				</nc:DocumentBinary>
-				<ecf:DocumentAttachment s:id="Attachment1">
-					<nc:BinaryDescriptionText>application/msword
-					</nc:BinaryDescriptionText>
-					<nc:BinaryLocationURI>cid://Payload1</nc:BinaryLocationURI>
-				</ecf:DocumentAttachment>
-			</ecf:DocumentRenditionMetadata>
-		</ecf:DocumentRendition>
 		<ojb-crim-ext:PreviouslyFiledDocketText>Docket Entry</ojb-crim-ext:PreviouslyFiledDocketText>
 		<ojb-crim-ext:DocumentPublicPartyViewingRestrictedIndicator>false</ojb-crim-ext:DocumentPublicPartyViewingRestrictedIndicator>
 		<ojb-crim-ext:DocumentPublicViewingRestrictedIndicator>true</ojb-crim-ext:DocumentPublicViewingRestrictedIndicator>
 	</ojb-crim-ext:FilingLeadDocument>
 	<ojb-crim-ext:FilingConnectedDocument s:id="_123456ABC.inf.doc">
+		<nc:DocumentBinary>
+			<ojb-crim-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</ojb-crim-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
 		<nc:DocumentCategoryName>Document Type</nc:DocumentCategoryName>
 		<nc:DocumentCategoryText>Document Category</nc:DocumentCategoryText>
 		<nc:DocumentDescriptionText>Information</nc:DocumentDescriptionText>
 		<nc:DocumentLanguageCode>eng</nc:DocumentLanguageCode>
-		<ecf:DocumentMetadata>
-			<j:RegisterActionDescriptionText />
-			<ecf:ParentDocumentReference s:ref="_123456ABC.app.doc" />
-			<ecf:FilingAttorneyID />
-			<ecf:FilingPartyID />
-		</ecf:DocumentMetadata>
-		<ecf:DocumentRendition>
-			<ecf:DocumentRenditionMetadata>
-				<nc:DocumentBinary>
-					<nc:BinaryBase64Object>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</nc:BinaryBase64Object>
-				</nc:DocumentBinary>
-				<ecf:DocumentAttachment s:id="Attachment2">
-					<nc:BinaryDescriptionText>application/msword
-					</nc:BinaryDescriptionText>
-					<nc:BinaryLocationURI>cid://Payload2</nc:BinaryLocationURI>
-				</ecf:DocumentAttachment>
-			</ecf:DocumentRenditionMetadata>
-		</ecf:DocumentRendition>
 		<ojb-crim-ext:PreviouslyFiledDocketText>Docket Entry</ojb-crim-ext:PreviouslyFiledDocketText>
 		<ojb-crim-ext:DocumentPublicPartyViewingRestrictedIndicator>false</ojb-crim-ext:DocumentPublicPartyViewingRestrictedIndicator>
 		<ojb-crim-ext:DocumentPublicViewingRestrictedIndicator>true</ojb-crim-ext:DocumentPublicViewingRestrictedIndicator>

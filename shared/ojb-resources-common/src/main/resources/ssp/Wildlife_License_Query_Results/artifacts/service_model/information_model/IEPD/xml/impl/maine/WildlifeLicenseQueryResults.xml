@@ -17,87 +17,84 @@
 
 -->
 <wlq-res-doc:WildlifeLicenseQueryResults xmlns:iad="http://ojbc.org/IEPD/Extensions/InformationAccessDenial/1.0"
-                                         xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/"
-                                         xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/"
-                                         xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-                                         xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-                                         xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-                                         xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/"
-                                         xmlns:wlq-res-doc="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0"
-                                         xmlns:wlq-res-ext="http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryResultsExtension/1.0"
-                                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                                         xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0 ../../../xsd/WildlifeLicenseQueryResults.xsd">
-   <wlq-res-ext:WildlifeLicenseReport structures:id="id1">
-      <intel:SystemIdentification>
-         <nc:IdentificationID>72306</nc:IdentificationID>
-         <nc:SystemName>MOSES</nc:SystemName>
-      </intel:SystemIdentification>
-      <nc:Person structures:id="d1e30">
-         <nc:PersonEyeColorText>BRN</nc:PersonEyeColorText>
-         <nc:PersonHairColorText>BRN</nc:PersonHairColorText>
-         <nc:PersonHeightMeasure>
-            <nc:MeasureValueText>60</nc:MeasureValueText>
-            <nc:LengthUnitCode>FOT</nc:LengthUnitCode>
-         </nc:PersonHeightMeasure>
-         <nc:PersonName>
-            <nc:PersonGivenName>JOHN</nc:PersonGivenName>
-            <nc:PersonMiddleName>E.</nc:PersonMiddleName>
-            <nc:PersonSurName>SMITH</nc:PersonSurName>
-         </nc:PersonName>
-         <j:PersonSexCode>M</j:PersonSexCode>
-         <nc:PersonSSNIdentification>
-            <nc:IdentificationID>000000000</nc:IdentificationID>
-         </nc:PersonSSNIdentification>
-         <nc:PersonWeightMeasure>
-            <nc:MeasureValueText>210</nc:MeasureValueText>
-            <nc:WeightUnitCode>LBR</nc:WeightUnitCode>
-         </nc:PersonWeightMeasure>
-      </nc:Person>
-      <nc:ContactInformation structures:id="d1e119">
-         <nc:ContactMailingAddress>
-            <nc:AddressSecondaryUnitText>BOX 345</nc:AddressSecondaryUnitText>
-            <nc:LocationStreet>
-               <nc:StreetFullText>4 PEACE PIPE TRL</nc:StreetFullText>
-            </nc:LocationStreet>
-            <nc:LocationCityName>MORRILL</nc:LocationCityName>
-            <j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
-            <nc:LocationCountryName>USA</nc:LocationCountryName>
-            <nc:LocationPostalCode>04952</nc:LocationPostalCode>
-            <nc:LocationPostalExtensionCode>3104</nc:LocationPostalExtensionCode>
-         </nc:ContactMailingAddress>
-      </nc:ContactInformation>
-      <nc:Location structures:id="d1e169">
-         <nc:Address>
-            <nc:LocationCityName>BELMONT</nc:LocationCityName>
-         </nc:Address>
-         <wlq-res-ext:GeoCode>27020</wlq-res-ext:GeoCode>
-      </nc:Location>
-      <nc:Location structures:id="d1e195">
-         <nc:Address>
-            <nc:AddressSecondaryUnitText>45</nc:AddressSecondaryUnitText>
-            <nc:LocationStreet>
-               <nc:StreetFullText>299 SEARSMONT RD</nc:StreetFullText>
-            </nc:LocationStreet>
-            <nc:LocationCityName>MORRILL</nc:LocationCityName>
-            <j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
-            <nc:LocationCountryName>USA</nc:LocationCountryName>
-            <nc:LocationPostalCode>04952</nc:LocationPostalCode>
-            <nc:LocationPostalExtensionCode>3104</nc:LocationPostalExtensionCode>
-         </nc:Address>
-      </nc:Location>
-      <nc:ContactInformationAssociation>
-         <nc:ContactEntity>
-            <nc:EntityPerson structures:ref="d1e30"/>
-         </nc:ContactEntity>
-         <nc:ContactInformation structures:ref="d1e119"/>
-      </nc:ContactInformationAssociation>
-      <nc:PersonResidenceAssociation>
-         <nc:Person structures:ref="d1e30"/>
-         <nc:Location structures:ref="d1e169"/>
-      </nc:PersonResidenceAssociation>
-      <wlq-res-ext:PersonSecondaryResidenceAssociation>
-         <nc:Person structures:ref="d1e30"/>
-         <nc:Location structures:ref="d1e195"/>
-      </wlq-res-ext:PersonSecondaryResidenceAssociation>
-   </wlq-res-ext:WildlifeLicenseReport>
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:intel="http://release.niem.gov/niem/domains/intelligence/3.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
+	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/" xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:unece="http://release.niem.gov/niem/codes/unece_rec20/3.0/"
+	xmlns:wlq-res-doc="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0" xmlns:wlq-res-ext="http://ojbc.org/IEPD/Extensions/WildlifeLicenseQueryResultsExtension/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/WildlifeLicenseQueryResults/1.0 ../../../xsd/WildlifeLicenseQueryResults.xsd">
+	<wlq-res-ext:WildlifeLicenseReport structures:id="id1">
+		<intel:SystemIdentification>
+			<nc:IdentificationID>72306</nc:IdentificationID>
+			<nc:SystemName>MOSES</nc:SystemName>
+		</intel:SystemIdentification>
+		<nc:Person structures:id="d1e30">
+			<nc:PersonBirthDate>
+				<nc:Date>2001-12-31</nc:Date>
+			</nc:PersonBirthDate>
+			<nc:PersonEyeColorText>BRN</nc:PersonEyeColorText>
+			<nc:PersonHairColorText>BRN</nc:PersonHairColorText>
+			<nc:PersonHeightMeasure>
+				<nc:MeasureValueText>60</nc:MeasureValueText>
+				<nc:LengthUnitCode>FOT</nc:LengthUnitCode>
+			</nc:PersonHeightMeasure>
+			<nc:PersonName>
+				<nc:PersonGivenName>JOHN</nc:PersonGivenName>
+				<nc:PersonMiddleName>E.</nc:PersonMiddleName>
+				<nc:PersonSurName>SMITH</nc:PersonSurName>
+			</nc:PersonName>
+			<j:PersonSexCode>M</j:PersonSexCode>
+			<nc:PersonSSNIdentification>
+				<nc:IdentificationID>000000000</nc:IdentificationID>
+			</nc:PersonSSNIdentification>
+			<nc:PersonWeightMeasure>
+				<nc:MeasureValueText>210</nc:MeasureValueText>
+				<nc:WeightUnitCode>LBR</nc:WeightUnitCode>
+			</nc:PersonWeightMeasure>
+		</nc:Person>
+		<nc:ContactInformation structures:id="d1e119">
+			<nc:ContactMailingAddress>
+				<nc:AddressSecondaryUnitText>BOX 345</nc:AddressSecondaryUnitText>
+				<nc:LocationStreet>
+					<nc:StreetFullText>4 PEACE PIPE TRL</nc:StreetFullText>
+				</nc:LocationStreet>
+				<nc:LocationCityName>MORRILL</nc:LocationCityName>
+				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
+				<nc:LocationCountryName>USA</nc:LocationCountryName>
+				<nc:LocationPostalCode>04952</nc:LocationPostalCode>
+				<nc:LocationPostalExtensionCode>3104</nc:LocationPostalExtensionCode>
+			</nc:ContactMailingAddress>
+		</nc:ContactInformation>
+		<nc:Location structures:id="d1e169">
+			<nc:Address>
+				<nc:LocationCityName>BELMONT</nc:LocationCityName>
+			</nc:Address>
+			<wlq-res-ext:GeoCode>27020</wlq-res-ext:GeoCode>
+		</nc:Location>
+		<nc:Location structures:id="d1e195">
+			<nc:Address>
+				<nc:AddressSecondaryUnitText>45</nc:AddressSecondaryUnitText>
+				<nc:LocationStreet>
+					<nc:StreetFullText>299 SEARSMONT RD</nc:StreetFullText>
+				</nc:LocationStreet>
+				<nc:LocationCityName>MORRILL</nc:LocationCityName>
+				<j:LocationStateNCICLISCode>ME</j:LocationStateNCICLISCode>
+				<nc:LocationCountryName>USA</nc:LocationCountryName>
+				<nc:LocationPostalCode>04952</nc:LocationPostalCode>
+				<nc:LocationPostalExtensionCode>3104</nc:LocationPostalExtensionCode>
+			</nc:Address>
+		</nc:Location>
+		<nc:ContactInformationAssociation>
+			<nc:ContactEntity>
+				<nc:EntityPerson structures:ref="d1e30" />
+			</nc:ContactEntity>
+			<nc:ContactInformation structures:ref="d1e119" />
+		</nc:ContactInformationAssociation>
+		<nc:PersonResidenceAssociation>
+			<nc:Person structures:ref="d1e30" />
+			<nc:Location structures:ref="d1e169" />
+		</nc:PersonResidenceAssociation>
+		<wlq-res-ext:PersonSecondaryResidenceAssociation>
+			<nc:Person structures:ref="d1e30" />
+			<nc:Location structures:ref="d1e195" />
+		</wlq-res-ext:PersonSecondaryResidenceAssociation>
+	</wlq-res-ext:WildlifeLicenseReport>
 </wlq-res-doc:WildlifeLicenseQueryResults>

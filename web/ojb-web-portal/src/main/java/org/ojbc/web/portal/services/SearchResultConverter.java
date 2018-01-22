@@ -39,6 +39,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import org.xml.sax.InputSource;
 
+import com.google.common.base.CharMatcher;
+
 @Service
 public class SearchResultConverter implements ApplicationContextAware {
 	private final Log log = LogFactory.getLog(this.getClass());
@@ -166,6 +168,9 @@ public class SearchResultConverter implements ApplicationContextAware {
 
 	
 	private String convertXml(String searchContent, org.springframework.core.io.Resource resource, Map<String, Object> params) {
+		
+			searchContent = CharMatcher.ascii().retainFrom(searchContent);
+		
 			return xsltTransformerService.transform(createSource(new ByteArrayInputStream(searchContent.getBytes())), createSourceAndSetSystemId(resource),params);
 	}
 

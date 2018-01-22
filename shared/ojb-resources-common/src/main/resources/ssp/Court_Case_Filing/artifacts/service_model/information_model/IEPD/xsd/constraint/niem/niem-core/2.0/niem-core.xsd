@@ -353,12 +353,15 @@
         <xsd:sequence>
           <xsd:element ref="nc:DocumentApplicationName" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentBinary" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DocumentCategoryDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentCategoryName" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentCategoryText" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DocumentCreationDate" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentEffectiveDate" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentFileControlID" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentFiledDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DocumentFormatText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentIdentification" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentInformationCutOffDate" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentPostDate" minOccurs="0" maxOccurs="unbounded"/>
@@ -366,6 +369,8 @@
           <xsd:element ref="nc:DocumentRelatedResourceText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentSequenceID" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentStatus" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DocumentTitleText" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DocumentAuthor" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentLanguage" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentSubmitter" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
@@ -1821,9 +1826,19 @@
       <xsd:documentation>A name of an application used to create and/or display an electronic document.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="DocumentAuthor" type="nc:EntityType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An entity primarily responsible for creating the intellectual content of the resource.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="DocumentBinary" type="nc:BinaryType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A binary encoding of the content of a document.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DocumentCategoryDescriptionText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A description of a kind of information in a document.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="DocumentCategoryName" type="nc:TextType" nillable="true">
@@ -1834,6 +1849,11 @@
   <xsd:element name="DocumentCategoryText" type="nc:TextType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A kind of document; a nature or genre of the content.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DocumentCreationDate" type="nc:DateType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A date a document was created.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="DocumentDescriptionText" type="nc:TextType" nillable="true">
@@ -1854,6 +1874,11 @@
   <xsd:element name="DocumentFiledDate" type="nc:DateType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A date a document was filed.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DocumentFormatText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A file format, content type, or physical format of a document.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="DocumentIdentification" type="nc:IdentificationType" nillable="true">
@@ -1912,6 +1937,11 @@
   <xsd:element name="DocumentSubmitter" type="nc:EntityType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An entity responsible for making the resource available.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DocumentTitleText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A name given to a document.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="DriverLicenseReference" type="s:ReferenceType">

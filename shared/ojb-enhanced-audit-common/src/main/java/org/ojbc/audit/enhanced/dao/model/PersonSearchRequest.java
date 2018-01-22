@@ -72,6 +72,12 @@ public class PersonSearchRequest {
 	
 	private Integer userInfofk;
 	
+	private Integer height;
+	
+	private Integer heightMin;
+	
+	private Integer heightMax;
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -267,4 +273,29 @@ public class PersonSearchRequest {
 	public void setPersonSearchRequestID(Integer personSearchRequestID) {
 		this.personSearchRequestID = personSearchRequestID;
 	}
+
+	public Integer getHeight() {
+		return height;
+	}
+
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
+
+	public Integer getHeightMax() {
+		return heightMax;
+	}
+
+	public void setHeightMax(Integer heightMax) {
+		this.heightMax = heightMax;
+	}
+
+	public Integer getHeightMin() {
+		return heightMin;
+	}
+
+	public void setHeightMin(Integer heightMin) {
+		this.heightMin = heightMin;
+	}
+
 }

@@ -62,6 +62,9 @@
 		<nc:SystemName>RapbackDataStore</nc:SystemName>
 	</intel:SystemIdentification>
 	<nc:EntityOrganization structures:id="ORG1">
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID>ID23457</nc:IdentificationID>
+		</nc:OrganizationIdentification>
 		<nc:OrganizationName>Agency ABC</nc:OrganizationName>
 		<j:OrganizationAugmentation>
 			<j:OrganizationORIIdentification>
