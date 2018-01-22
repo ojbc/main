@@ -16,10 +16,10 @@
  */
 package org.ojbc.adapters.analyticsstaging.custody.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import javax.annotation.Resource;
@@ -85,6 +85,10 @@ public class TestAnalyticalDatastoreDAOImpl {
 		int bookingPk = analyticalDatastoreDAO.saveBooking( booking );
 		assertEquals(1, bookingPk);
 		
+		LocalDateTime lastBookingDateTime = analyticalDatastoreDAO.getLastBookingDate();
+		assertNotNull(lastBookingDateTime);
+		log.info("Last Booking Date: " +  lastBookingDateTime.toString());
+		
 		analyticalDatastoreDAO.deleteBooking(bookingPk);
 		
 		Booking matchingBooking = analyticalDatastoreDAO.getBookingByBookingNumber("bookingNumber");
@@ -101,7 +105,7 @@ public class TestAnalyticalDatastoreDAOImpl {
 	}
 	
 	
-	protected Person getStaticPerson() {
+	public static Person getStaticPerson() {
 		Person person = new Person();
 		
 		person.setPersonRaceId(1);

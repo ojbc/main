@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!--
+OASIS takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this document or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any effort to identify any such rights. Information on OASIS's procedures with respect to rights in OASIS specifications can be found at the OASIS website. Copies of claims of rights made available for publication and any assurances of licenses to be made available, or the result of an attempt made to obtain a general license or permission for the use of such proprietary rights by implementors or users of this specification, can be obtained from the OASIS Executive Director.
+ 
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to OASIS, except as needed for the purpose of developing OASIS specifications, in which case the procedures for copyrights defined in the OASIS Intellectual Property Rights document must be followed, or as required to translate it into languages other than English. 
+
+The limited permissions granted above are perpetual and will not be revoked by OASIS or its successors or assigns. 
+
+This document and the information contained herein is provided on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+-->
+<xsd:schema xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CourtPolicyResponseMessage-4.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:digsig="http://www.w3.org/2000/09/xmldsig#" xmlns:mde="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:MajorDesignElementNameCode-4.0" xmlns:operation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:OperationNameCode-4.0" xmlns:a="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:AppInfo-4.0" targetNamespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CourtPolicyResponseMessage-4.0" version="4.0">
+	<xsd:annotation>
+		<xsd:documentation>CourtPolicyResponseMessage</xsd:documentation>
+		<xsd:appinfo>
+			<i:ConformantIndicator>true</i:ConformantIndicator>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../constraint/niem/niem-core/2.0/niem-core.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../constraint/niem/structures/2.0/structures.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/appinfo/2.0" schemaLocation="../constraint/niem/appinfo/2.0/appinfo.xsd"/>
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../constraint/niem/proxy/xsd/2.0/xsd.xsd"/>
+	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" schemaLocation="../common/ECF-4.0-CommonTypes.xsd"/>
+	<xsd:import namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:AppInfo-4.0" schemaLocation="../common/ECF-4.0-AppInfo.xsd"/>
+	<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="../common/xmldsig-core-schema.xsd"/>
+	<xsd:simpleType name="CaseTypeCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>A type of court case.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:enumeration value="Appellate">
+				<xsd:annotation>
+					<xsd:documentation>Appellate case type</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Bankruptcy">
+				<xsd:annotation>
+					<xsd:documentation>Bankruptcy case type</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Citation">
+				<xsd:annotation>
+					<xsd:documentation>Citation case type</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Civil">
+				<xsd:annotation>
+					<xsd:documentation>Civil case type</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Criminal">
+				<xsd:annotation>
+					<xsd:documentation>Criminal case type</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Domestic">
+				<xsd:annotation>
+					<xsd:documentation>Domestic case type</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Juvenile">
+				<xsd:annotation>
+					<xsd:documentation>Juvenile case type</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="CaseTypeCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A type of court case.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="CaseTypeCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="CourtCodelistType">
+		<xsd:annotation>
+			<xsd:documentation>A Genericode list of valid codes for an element in a particular court to be substituted for an ECF element.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ECFElementName"/>
+					<xsd:element ref="EffectiveDate"/>
+					<xsd:element ref="ExpirationDate" minOccurs="0"/>
+					<xsd:element ref="CourtCodelistURI"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CourtExtensionType">
+		<xsd:annotation>
+			<xsd:documentation>A schema that defines a court-specific data structure to be substituted for an ECF element.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="ECFElementName"/>
+					<xsd:element ref="CourtExtensionURI"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CourtPolicyQueryMessageType">
+		<xsd:annotation>
+			<xsd:documentation>A request for a court's Court Policy.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ecf:CaseFilingType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CourtPolicyResponseMessageType">
+		<xsd:annotation>
+			<xsd:documentation>The response to a request for a court's Court Policy.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="ecf:QueryResponseMessageType">
+				<xsd:sequence>
+					<xsd:element ref="PolicyVersionID"/>
+					<xsd:element ref="PolicyLastUpdateDate"/>
+					<xsd:element ref="RuntimePolicyParameters"/>
+					<xsd:element ref="DevelopmentPolicyParameters"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="DevelopmentPolicyParametersType">
+		<xsd:annotation>
+			<xsd:documentation>Within Court Policy, the policies that are accessed by a person or organization developing an applications or configuring an application to interact with a court for the purpose of structuring the interactions with that court. This information is needed once and is not accessed dynamically while interacting with the court.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="URLAttachmentSupportedIndicator"/>
+					<xsd:element ref="AcceptDocumentsRequiringFeesIndicator"/>
+					<xsd:element ref="AcceptConfidentialFilingsIndicator"/>
+					<xsd:element ref="AcceptMultipleLeadDocumentsIndicator"/>
+					<xsd:element ref="MaximumAllowedAttachmentSize" minOccurs="0"/>
+					<xsd:element ref="MaximumAllowedMessageSize" minOccurs="0"/>
+					<xsd:element ref="SupportedMessageProfileCode" maxOccurs="unbounded"/>
+					<xsd:element ref="SupportedSignatureProfileCode" maxOccurs="unbounded"/>
+					<xsd:element ref="SupportedOperationName" maxOccurs="unbounded"/>
+					<xsd:element ref="SupportedCaseType" maxOccurs="unbounded"/>
+					<xsd:element ref="CourtExtension" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="FilingFeesMayBeApplicableIndicator"/>
+					<xsd:element ref="EffectiveDate"/>
+					<xsd:element ref="ExpirationDate" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:simpleType name="MajorDesignElementNameCodeSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Name of a major design element.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:enumeration value="CourtRecord">
+				<xsd:annotation>
+					<xsd:documentation>CourtRecord MDE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FilingAssembly">
+				<xsd:annotation>
+					<xsd:documentation>FilingAssembly MDE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FilingReview">
+				<xsd:annotation>
+					<xsd:documentation>FilingReview MDE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Service">
+				<xsd:annotation>
+					<xsd:documentation>Service MDE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="MajorDesignElementNameCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Name of a major design element.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="MajorDesignElementNameCodeSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="OperationNameSimpleType">
+		<xsd:annotation>
+			<xsd:documentation>Name of an MDE operation.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:enumeration value="GetFeesCalculation">
+				<xsd:annotation>
+					<xsd:documentation>GetFeesCalculation query</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GetCase">
+				<xsd:annotation>
+					<xsd:documentation>GetCase query</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GetCaseList">
+				<xsd:annotation>
+					<xsd:documentation>GetFeesCaseList query</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GetDocument">
+				<xsd:annotation>
+					<xsd:documentation>GetDocument query</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GetFilingList">
+				<xsd:annotation>
+					<xsd:documentation>GetFilingList query</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GetFilingStatus">
+				<xsd:annotation>
+					<xsd:documentation>GetFilingStatus query</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GetPolicy">
+				<xsd:annotation>
+					<xsd:documentation>GetPolicy query</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GetServiceInformation">
+				<xsd:annotation>
+					<xsd:documentation>GetServiceInformation query</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NotifyFilingReview">
+				<xsd:annotation>
+					<xsd:documentation>NotifyFilingReview message</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="NotifyDocketing">
+				<xsd:annotation>
+					<xsd:documentation>NotifyDocketing message</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="RecordFiling">
+				<xsd:annotation>
+					<xsd:documentation>RecordFiling message</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ReviewFiling">
+				<xsd:annotation>
+					<xsd:documentation>ReviewFiling message</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="ServeFiling">
+				<xsd:annotation>
+					<xsd:documentation>ServeFiling message</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="OperationNameType">
+		<xsd:annotation>
+			<xsd:documentation>Name of an MDE operation.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="OperationNameSimpleType">
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="PublicKeyInformationType">
+		<xsd:annotation>
+			<xsd:documentation>Symmetric or asymmetric keys used to encrypt and decrypt, or verify signed messages or documents exchanged with the court.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="digsig:KeyInfo" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="RuntimePolicyParametersType">
+		<xsd:annotation>
+			<xsd:documentation>Within Court Policy, the policies that are accessed dynamically by applications interacting with a court.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="s:ComplexObjectType">
+				<xsd:sequence>
+					<xsd:element ref="PublicKeyInformation" minOccurs="0"/>
+					<xsd:element ref="CourtCodelist" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="AcceptDocumentsRequiringFeesIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Whether the court will accept electronic filing of documents requiring filing fees.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AcceptConfidentialFilingsIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Whether the court will accept electronic filing of documents for which the filer requests confidential or sealed treatment by the court.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AcceptMultipleLeadDocumentsIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Does court accept placing multiple lead documents in a single message</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtCodelist" type="CourtCodelistType">
+		<xsd:annotation>
+			<xsd:documentation>A Genericode list of valid codes for an element in a particular court to be substituted for an ECF element.  The 'code' column of the codelist includes the allowed values.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtCodelistURI" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A URI reference to a court-specific codelist defined in Genericode.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtExtension" type="CourtExtensionType">
+		<xsd:annotation>
+			<xsd:documentation>A schema that defines a court-specific data structure to be substituted for an ECF element..</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtExtensionURI" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A URI reference to a court-specific extension.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CourtPolicyResponseMessage" type="CourtPolicyResponseMessageType">
+		<xsd:annotation>
+			<xsd:documentation>The response to a request for a court's Court Policy.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DevelopmentPolicyParameters" type="DevelopmentPolicyParametersType">
+		<xsd:annotation>
+			<xsd:documentation>Within Court Policy, the policies that are accessed by a person or organization developing an applications or configuring an application to interact with a court for the purpose of structuring the interactions with that court. This information is needed once and is not accessed dynamically while interacting with the court.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ECFElementName" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>The name of an ECF element to be substituted by a court-specific codelist or extension.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EffectiveDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date on which a court code list or extension became or will become allowed.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ExpirationDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date on which a court code list or extension was or will be terminated.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FilingFeesMayBeApplicableIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Indicates whether fees may be required for some filings.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GetFeesCalculationSupportedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Indicates whether the e-filing system supports the GetFeesCalculation query.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GetCaseListSupportedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Indicates whether the e-filing system supports the GetCaseList query.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MajorDesignElementNameCode" type="MajorDesignElementNameCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Name of a major design element.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MaximumAllowedAttachmentSize" type="nc:MeasureType">
+		<xsd:annotation>
+			<xsd:documentation>The maximum allowed attachment size, in bytes. Does not appear if there is no maximum.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MaximumAllowedMessageSize" type="nc:MeasureType">
+		<xsd:annotation>
+			<xsd:documentation>Maximum allowed size of the Court Filing Message Stream, in bytes. Does not appear if there is no maximum.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PolicyLastUpdateDate" type="nc:DateType">
+		<xsd:annotation>
+			<xsd:documentation>The date on which a court's Court Policy was last revised.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PolicyVersionID" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>The version of court policy reported by this message. Up to the court to define the format of this, and describe in human-readable court policy.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PublicKeyInformation" type="PublicKeyInformationType">
+		<xsd:annotation>
+			<xsd:documentation>Symmetric or asymmetric keys used to encrypt and decrypt, or verify signed messages or documents exchanged with the court.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RuntimePolicyParameters" type="RuntimePolicyParametersType">
+		<xsd:annotation>
+			<xsd:documentation>Within Court Policy, the policies that are accessed dynamically by applications interacting with a court.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SupportedCaseType" type="CaseTypeCodeType">
+		<xsd:annotation>
+			<xsd:documentation>A structure containing indicators that signal support by the e-filing system for each ECF case type.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SupportedMessageProfileCode" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A message profile approved for use by the OASIS LegalXML Member Section Electronic Court Filing Technical Committee that is supported by this court.</xsd:documentation>
+			<xsd:appinfo>
+				<a:CourtPolicyDefinedCodeIndicator>true</a:CourtPolicyDefinedCodeIndicator>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SupportedOperationName" type="OperationNameType">
+		<xsd:annotation>
+			<xsd:documentation>Name of an MDE operation.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SupportedSignatureProfileCode" type="nc:TextType">
+		<xsd:annotation>
+			<xsd:documentation>A signature profile approved for use by the OASIS LegalXML Member Section Electronic Court Filing Technical Committee that is supported by this court.</xsd:documentation>
+			<xsd:appinfo>
+				<a:CourtPolicyDefinedCodeIndicator>true</a:CourtPolicyDefinedCodeIndicator>
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="URLAttachmentSupportedIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Whether court allows attachments via remote URLs.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

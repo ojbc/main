@@ -17,46 +17,52 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<xsd:schema xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
-	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../NIEM_2.0/niem-core/2.0/niem-core.xsd"/>
-	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd"/>
-	<xsd:import namespace="http://usdoj.gov/leisp/lexs/library/3.1" schemaLocation="../../lexs/library/3.1/library.xsd"/>
+<xsd:schema xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:inc-ext="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0"
+	xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:lexslib="http://usdoj.gov/leisp/lexs/library/3.1" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+	xmlns:xop="http://www.w3.org/2004/08/xop/include" targetNamespace="http://ojbc.org/IEPD/Extensions/IncidentReportStructuredPayload/1.0">
+	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="../../NIEM_2.0/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="../../NIEM_2.0/proxy/xsd/2.0/xsd.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="../../NIEM_2.0/niem-core/2.0/niem-core.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.0" schemaLocation="../../NIEM_2.0/domains/jxdm/4.0/jxdm.xsd" />
+	<xsd:import namespace="http://usdoj.gov/leisp/lexs/library/3.1" schemaLocation="../../lexs/library/3.1/library.xsd" />
+	<xsd:import namespace="http://www.w3.org/2004/08/xop/include" schemaLocation="../../include_schema.xsd" />
+	<xsd:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="../../xmime_schema.xsd" />
 	<xsd:annotation>
 		<xsd:documentation>Structured payload for the ext Incident Report
 		</xsd:documentation>
 	</xsd:annotation>
 	<xsd:complexType name="IncidentReportType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a report of an
-				incident.</xsd:documentation>
+			<xsd:documentation>A data type for a report of an incident.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:IncidentReportableToDistrictAttorneyIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:FormRevisionDate" minOccurs="0"/>
-					<xsd:element ref="inc-ext:Incident" minOccurs="0"/>
-					<xsd:element ref="inc-ext:Offense" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:DriverLicenseLocationAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:ChargeLocationAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:IncidentVictimPersonAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:IncidentSubjectPersonAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:IncidentSubject" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Location" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Arrest" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Victim" minOccurs="0" maxOccurs="unbounded"/>
-					<!-- Arrest-->
-					<xsd:element ref="nc:Document" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:RecordCategoryText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:DocumentRequestorDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Person" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Booking" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:Warrant" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="nc:LocationContactInformationAssociation" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="j:ActivityArrestAssociation" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="inc-ext:IncidentReportableToDistrictAttorneyIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:FormRevisionDate" minOccurs="0" />
+					<xsd:element ref="inc-ext:Incident" minOccurs="0" />
+					<xsd:element ref="inc-ext:Offense" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:DriverLicenseLocationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:ChargeLocationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentVictimPersonAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentSubjectPersonAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentSubject" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Location" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Arrest" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Victim" minOccurs="0" maxOccurs="unbounded" />
+					<!-- Arrest -->
+					<xsd:element ref="nc:Document" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:RecordCategoryText" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:DocumentRequestorDescriptionText" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Person" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Booking" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:Warrant" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:LocationContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:ActivityArrestAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:ChargeReferralReportDocumentRepresentation" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -68,19 +74,19 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:IncidentType">
 				<xsd:sequence>
-					<xsd:element ref="j:IncidentArrestMadeIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:IncidentCrimeSolvedIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:IncidentCitationIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:IncidentWarningIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:IncidentAutomobileTheftIndicator" minOccurs="0"/>
-					<xsd:element ref="j:IncidentCriminalIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:Charge" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:PropertyEvidence" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:IncidentCase" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:OfficerInCharge" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:IncidentCategory" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:IncidentNatureText" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="j:IncidentArrestMadeIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:IncidentCrimeSolvedIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:IncidentCitationIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:IncidentWarningIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:IncidentAutomobileTheftIndicator" minOccurs="0" />
+					<xsd:element ref="j:IncidentCriminalIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:Charge" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:PropertyEvidence" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentCase" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:OfficerInCharge" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentCategory" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:IncidentNatureText" minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -92,10 +98,10 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:OffenseViolatedStatute" minOccurs="0"/>
-					<xsd:element ref="inc-ext:OffenseModifier" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:OffenseCodeText" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="inc-ext:OffenseViolatedStatute" minOccurs="0" />
+					<xsd:element ref="inc-ext:OffenseModifier" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:OffenseCodeText" minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -107,7 +113,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:ChargeType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -119,7 +125,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:CaseType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:DispositionWaiver" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="inc-ext:DispositionWaiver" minOccurs="0" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -131,7 +137,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:TangibleItemType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -143,26 +149,27 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
-					<xsd:element ref="nc:LocationReference"/>
-					<xsd:element ref="nc:DriverLicenseReference"/>
+					<xsd:element ref="nc:LocationReference" />
+					<xsd:element ref="nc:DriverLicenseReference" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="ChargeLocationAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a relationship between a charge and a location where activity took place that resulted in the charge.</xsd:documentation>
+			<xsd:documentation>A data type for a relationship between a charge and a location where activity took place that resulted in the charge.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="nc:AssociationType">
 				<xsd:sequence>
-					<xsd:element ref="j:ChargeReference"/>
-					<xsd:element ref="nc:LocationReference"/>
+					<xsd:element ref="j:ChargeReference" />
+					<xsd:element ref="nc:LocationReference" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-	<xsd:element name="IncidentSubject" type="inc-ext:IncidentSubjectType"/>
+	<xsd:element name="IncidentSubject" type="inc-ext:IncidentSubjectType" />
 	<xsd:complexType name="IncidentSubjectType">
 		<xsd:annotation>
 			<xsd:documentation>A data type for a person, in the role of a subject, related to an incident.</xsd:documentation>
@@ -170,13 +177,13 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:SubjectType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference"/>
-					<xsd:element ref="inc-ext:SubjectBloodAlcoholContentNumber" minOccurs="0"/>
-					<xsd:element ref="inc-ext:SubjectIsOfInterestIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:SubjectStatusDescriptionText" minOccurs="0"/>
-					<xsd:element ref="inc-ext:SubjectViolatedProbationIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:SubjectActiveArrestWarrantIndicator" minOccurs="0"/>
-					<xsd:element ref="j:Citation" minOccurs="0"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" />
+					<xsd:element ref="inc-ext:SubjectBloodAlcoholContentNumber" minOccurs="0" />
+					<xsd:element ref="inc-ext:SubjectIsOfInterestIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:SubjectStatusDescriptionText" minOccurs="0" />
+					<xsd:element ref="inc-ext:SubjectViolatedProbationIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:SubjectActiveArrestWarrantIndicator" minOccurs="0" />
+					<xsd:element ref="j:Citation" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -188,8 +195,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:LocationType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:SpatialReferenceIdentification" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference"/>
+					<xsd:element ref="inc-ext:SpatialReferenceIdentification" minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -201,7 +208,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:ArrestType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -213,8 +220,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:VictimType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:VictimNarrativeText" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference"/>
+					<xsd:element ref="inc-ext:VictimNarrativeText" minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -223,8 +230,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityInvolvedPersonAssociationType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:PersonIncidentInvolvementAgeMeasure"/>
-					<xsd:element ref="lexslib:SameAsDigestReference"/>
+					<xsd:element ref="inc-ext:PersonIncidentInvolvementAgeMeasure" />
+					<xsd:element ref="lexslib:SameAsDigestReference" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -241,8 +248,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:EnforcementOfficialType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:OfficerSignatureImage" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference"/>
+					<xsd:element ref="inc-ext:OfficerSignatureImage" minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -254,10 +261,10 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:PersonType">
 				<xsd:sequence>
-					<xsd:element ref="j:PersonAugmentation" minOccurs="0"/>
-					<xsd:element ref="inc-ext:PersonDNACollectionRequiredIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:PersonDepartmentOfCorrectionsIdentification" minOccurs="0"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="j:PersonAugmentation" minOccurs="0" />
+					<xsd:element ref="inc-ext:PersonDNACollectionRequiredIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:PersonDepartmentOfCorrectionsIdentification" minOccurs="0" />
+					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -269,8 +276,8 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="nc:ContactEntityDescriptionText" maxOccurs="unbounded"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="nc:ContactEntityDescriptionText" maxOccurs="unbounded" />
+					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -282,19 +289,20 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:OrganizationType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:complexType name="BookingType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for an administrative step taken after an arrest subject is brought to a police station or detention facility.</xsd:documentation>
+			<xsd:documentation>A data type for an administrative step taken after an arrest subject is brought to a police station or detention facility.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:BookingType">
 				<xsd:sequence>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -306,10 +314,10 @@
 		<xsd:complexContent>
 			<xsd:extension base="j:WarrantType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:WarrantExtraditionRequestedIndicator" minOccurs="0"/>
-					<xsd:element ref="inc-ext:WarrantExtraditionTransportationInstructionsText" minOccurs="0"/>
-					<xsd:element ref="inc-ext:Bond" minOccurs="0" maxOccurs="unbounded"/>
-					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded"/>
+					<xsd:element ref="inc-ext:WarrantExtraditionRequestedIndicator" minOccurs="0" />
+					<xsd:element ref="inc-ext:WarrantExtraditionTransportationInstructionsText" minOccurs="0" />
+					<xsd:element ref="inc-ext:Bond" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="lexslib:SameAsDigestReference" maxOccurs="unbounded" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -326,7 +334,8 @@
 	</xsd:element>
 	<xsd:element name="IncidentReportableToDistrictAttorneyIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the details of the incident require that it must be reported to the district attorney, false otherwise</xsd:documentation>
+			<xsd:documentation>True if the details of the incident require that it must be reported to the district attorney, false otherwise
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="FormRevisionDate" type="niem-xsd:dateTime">
@@ -366,7 +375,7 @@
 	</xsd:element>
 	<xsd:element name="SubjectIsOfInterestIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the person is of interest,  false otherwise.</xsd:documentation>
+			<xsd:documentation>True if the person is of interest, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubjectStatusDescriptionText" type="nc:TextType">
@@ -381,7 +390,7 @@
 	</xsd:element>
 	<xsd:element name="SubjectActiveArrestWarrantIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if there is an active warrant for the Subject's arrest, false otherwise.  </xsd:documentation>
+			<xsd:documentation>True if there is an active warrant for the Subject's arrest, false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Location" type="inc-ext:LocationType">
@@ -406,7 +415,8 @@
 	</xsd:element>
 	<xsd:element name="ChargeLocationAssociation" type="inc-ext:ChargeLocationAssociationType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for a relationship between a charge and a location where activity took place that resulted in the charge.</xsd:documentation>
+			<xsd:documentation>A data type for a relationship between a charge and a location where activity took place that resulted in the charge.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OfficerSignatureImage" type="nc:ImageType">
@@ -426,7 +436,9 @@
 	</xsd:element>
 	<xsd:element name="SpatialReferenceIdentification" type="nc:IdentificationType">
 		<xsd:annotation>
-			<xsd:documentation>Aunique value used to unambiguously identify projected, unprojected, and local spatial coordinate system definitions. commonly referred to as SRID.</xsd:documentation>
+			<xsd:documentation>Aunique value used to unambiguously identify projected, unprojected, and local spatial coordinate system definitions.
+				commonly referred to as SRID.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:complexType name="IncidentCategoryCodeType">
@@ -436,7 +448,7 @@
 		</xsd:annotation>
 		<xsd:simpleContent>
 			<xsd:extension base="inc-ext:IncidentCategoryCodeSimpleType">
-				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup"/>
+				<xsd:attributeGroup ref="s:SimpleObjectAttributeGroup" />
 			</xsd:extension>
 		</xsd:simpleContent>
 	</xsd:complexType>
@@ -480,20 +492,23 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:OffenseModifierRepresentation" maxOccurs="unbounded"/>
-					<xsd:element ref="inc-ext:OffenseModifierDescriptionText" minOccurs="0"/>
+					<xsd:element ref="inc-ext:OffenseModifierRepresentation" maxOccurs="unbounded" />
+					<xsd:element ref="inc-ext:OffenseModifierDescriptionText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
-		<xsd:complexType name="BondType">
+	<xsd:complexType name="BondType">
 		<xsd:annotation>
-			<xsd:documentation>A data type for Details about an agreement between a bondsman and a subject in which a bondsman pays the subject's bail or portion of the bail in exchange for certain conditions, including the payment of a certain amount of money and the reappearance of the subject in court on the required date.</xsd:documentation>
+			<xsd:documentation>A data type for Details about an agreement between a bondsman and a subject in which a bondsman pays the subject's bail or
+				portion of the bail in exchange for certain conditions, including the payment of a certain amount of money and the reappearance of the
+				subject in court on the required date.
+			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
 			<xsd:extension base="j:BondType">
 				<xsd:sequence>
-					<xsd:element ref="inc-ext:BondCommentsText" minOccurs="0"/>
+					<xsd:element ref="inc-ext:BondCommentsText" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
 		</xsd:complexContent>
@@ -520,27 +535,27 @@
 	</xsd:element>
 	<xsd:element name="OffenseModifierRepresentation" abstract="true">
 		<xsd:annotation>
-			<xsd:documentation>An abstract representation of sub-category for an offense </xsd:documentation>
+			<xsd:documentation>An abstract representation of sub-category for an offense</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseModifierText" type="nc:TextType" substitutionGroup="inc-ext:OffenseModifierRepresentation">
 		<xsd:annotation>
-			<xsd:documentation>A text representation special classification of an offense. </xsd:documentation>
+			<xsd:documentation>A text representation special classification of an offense.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseCodeText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A records management system's representation of an offense code. </xsd:documentation>
+			<xsd:documentation>A records management system's representation of an offense code.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseModifierDescriptionText" type="nc:TextType">
 		<xsd:annotation>
-			<xsd:documentation>A description for a special classification of an offense. </xsd:documentation>
+			<xsd:documentation>A description for a special classification of an offense.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="OffenseModifier" type="inc-ext:OffenseModifierType">
 		<xsd:annotation>
-			<xsd:documentation>A special classification of an offense. </xsd:documentation>
+			<xsd:documentation>A special classification of an offense.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Offense" type="inc-ext:OffenseType">
@@ -590,7 +605,10 @@
 	</xsd:element>
 	<xsd:element name="Booking" type="inc-ext:BookingType">
 		<xsd:annotation>
-			<xsd:documentation>Details about an administrative step taken after an arrested subject is brought to a police station or detention facility, which involves entry of the subject's name and other relevant facts on the police "blotter", and which may also include photographing, fingerprinting, and the like.</xsd:documentation>
+			<xsd:documentation>Details about an administrative step taken after an arrested subject is brought to a police station or detention facility,
+				which involves entry of the subject's name and other relevant facts on the police "blotter", and which may also include photographing,
+				fingerprinting, and the like.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="Warrant" type="inc-ext:WarrantType">
@@ -598,8 +616,8 @@
 			<xsd:documentation>An authorization for an enforcement official to perform a specified action.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
-	<xsd:element name="RecordCategoryText" type="nc:TextType"/>
-	<xsd:element name="DocumentRequestorDescriptionText" type="nc:TextType"/>
+	<xsd:element name="RecordCategoryText" type="nc:TextType" />
+	<xsd:element name="DocumentRequestorDescriptionText" type="nc:TextType" />
 	<xsd:element name="PersonDNACollectionRequiredIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True of DNA must be collected for the person, false otherwise.</xsd:documentation>
@@ -612,7 +630,10 @@
 	</xsd:element>
 	<xsd:element name="Bond" type="inc-ext:BondType">
 		<xsd:annotation>
-			<xsd:documentation>Details about an agreement between a bondsman and a subject in which a bondsman pays the subject's bail or portion of the bail in exchange for certain conditions, including the payment of a certain amount of money and the reappearance of the subject in court on the required date.</xsd:documentation>
+			<xsd:documentation>Details about an agreement between a bondsman and a subject in which a bondsman pays the subject's bail or portion of the
+				bail in exchange for certain conditions, including the payment of a certain amount of money and the reappearance of the subject in court on
+				the required date.
+			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="BondCommentsText" type="nc:TextType">
@@ -630,4 +651,16 @@
 			<xsd:documentation>A set of instructions pertaining to picking up a person for extradition purposes.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
+	<xsd:element name="ChargeReferralReportDocument" type="nc:DocumentType" substitutionGroup="inc-ext:ChargeReferralReportDocumentRepresentation">
+		<xsd:annotation>
+			<xsd:documentation>An charge referral report related document.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChargeReferralReportDocumentRepresentation" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>A placeholder for an charge referral report document.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Base64BinaryObject" substitutionGroup="nc:BinaryObject" type="niem-xsd:base64Binary" xmime:expectedContentType="text/plain" />
 </xsd:schema>

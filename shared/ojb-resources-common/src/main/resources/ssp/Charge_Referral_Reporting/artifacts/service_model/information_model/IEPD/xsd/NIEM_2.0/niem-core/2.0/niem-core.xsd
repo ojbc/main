@@ -458,17 +458,22 @@
       <xsd:extension base="s:ComplexObjectType">
         <xsd:sequence>
           <xsd:element ref="nc:DocumentApplicationName" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DocumentBinary" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DocumentCategoryDescriptionText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentCategoryName" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentCreationDate" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:DocumentDescriptionText" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:DocumentDispositionInstructionText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentFileControlID" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:DocumentFiledDate" minOccurs="0" maxOccurs="unbounded"/>
+          <xsd:element ref="nc:DocumentFormatText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentIdentification" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:DocumentKeywordText" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:DocumentStatus" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentSummaryText" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentTitleText" minOccurs="0" maxOccurs="1"/>
           <xsd:element ref="nc:SecurityLevelText" minOccurs="0" maxOccurs="1"/>
+          <xsd:element ref="nc:DocumentAuthor" minOccurs="0" maxOccurs="unbounded"/>
           <xsd:element ref="nc:DocumentSubmitter" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
       </xsd:extension>
@@ -2606,6 +2611,21 @@
       <xsd:documentation>A name of an application used to create and/or display an electronic document.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
+  <xsd:element name="DocumentAuthor" type="nc:EntityType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>An entity primarily responsible for creating the intellectual content of the resource.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DocumentBinary" type="nc:BinaryType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A binary encoding of the content of a document.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DocumentCategoryDescriptionText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A description of a kind of information in a document.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="DocumentCategoryName" type="nc:TextType" nillable="true">
     <xsd:annotation>
       <xsd:documentation>A name of a category of information in a document.</xsd:documentation>
@@ -2642,6 +2662,16 @@
   <xsd:element name="DocumentFileControlID" type="niem-xsd:string" nillable="true">
     <xsd:annotation>
       <xsd:documentation>An identifier assigned to a document to locate it within a file control system.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DocumentFiledDate" type="nc:DateType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A date a document was filed.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DocumentFormatText" type="nc:TextType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A file format, content type, or physical format of a document.</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:element name="DocumentIdentification" type="nc:IdentificationType" nillable="true">

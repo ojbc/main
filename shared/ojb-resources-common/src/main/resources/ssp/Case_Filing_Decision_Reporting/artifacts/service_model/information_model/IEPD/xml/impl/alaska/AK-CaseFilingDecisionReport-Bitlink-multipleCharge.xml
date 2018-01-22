@@ -17,14 +17,10 @@
     Copyright 2012-2017 Open Justice Broker Consortium
 
 -->
-<cfd-doc:CaseFilingDecisionReport
-	xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0 ../../../xsd/CaseFilingDecisionReport.xsd"
-	xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0"
-	xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0"
-	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/"
-	xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
-	xmlns:structures="http://release.niem.gov/niem/structures/3.0/"
-	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
+<cfd-doc:CaseFilingDecisionReport xsi:schemaLocation="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0 ../../../xsd/CaseFilingDecisionReport.xsd"
+	xmlns:cfd-doc="http://ojbc.org/IEPD/Exchange/CaseFilingDecisionReport/1.0" xmlns:cfd-ext="http://ojbc.org/IEPD/Extensions/CaseFilingDecisionReportExtension/1.0"
+	xmlns:j="http://release.niem.gov/niem/domains/jxdm/5.1/" xmlns:nc="http://release.niem.gov/niem/niem-core/3.0/" xmlns:niem-xs="http://release.niem.gov/niem/proxy/xsd/3.0/"
+	xmlns:structures="http://release.niem.gov/niem/structures/3.0/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xop="http://www.w3.org/2004/08/xop/include"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<nc:DocumentCategoryText>Criminal Case Filing</nc:DocumentCategoryText>
 	<nc:DocumentCreationDate>
@@ -74,16 +70,11 @@
 					</j:StatuteCodeSectionIdentification>
 					<j:StatuteDescriptionText>CHILD NEGLECT</j:StatuteDescriptionText>
 				</j:ChargeStatute>
-				<j:ChargeText>The Municipality of Anchorage, by and through its
-					undersigned attorney, charges that on or about the 13th day of
-					October, 2016, at or near Anchorage, Alaska, Erin D Smith did
-					commit the offense of CHILD NEGLECT, to wit:Erin D Smith did
-					intentionally, knowingly, or recklessly cause or permit a child,
-					M.P., to be inadequately supervised due to the demonstrated
-					inability or unwillingness of the parent to provide care for the
-					child at the time due to intoxication, addiction, or other
-					circumstance, which is in violation of Anchorage Municipal Code
-					8.10.040.B.7
+				<j:ChargeText>The Municipality of Anchorage, by and through its undersigned attorney, charges that on or about the 13th day of October,
+					2016, at or near Anchorage, Alaska, Erin D Smith did commit the offense of CHILD NEGLECT, to wit:Erin D Smith did intentionally, knowingly,
+					or recklessly cause or permit a child, M.P., to be inadequately supervised due to the demonstrated inability or unwillingness of the parent
+					to provide care for the child at the time due to intoxication, addiction, or other circumstance, which is in violation of Anchorage
+					Municipal Code 8.10.040.B.7
 				</j:ChargeText>
 				<j:ChargeTrackingIdentification>
 					<nc:IdentificationID>CT4567</nc:IdentificationID>
@@ -116,9 +107,8 @@
 					<j:StatuteDescriptionText>CHILD ENDANGERMENT
 					</j:StatuteDescriptionText>
 				</j:ChargeStatute>
-				<j:ChargeText>The Municipality of Anchorage, by and through its
-					undersigned attorney, charges that on or about the 13th day of
-					October, 2016, at or near Anchorage, Alaska...
+				<j:ChargeText>The Municipality of Anchorage, by and through its undersigned attorney, charges that on or about the 13th day of October,
+					2016, at or near Anchorage, Alaska...
 				</j:ChargeText>
 				<j:ChargeTrackingIdentification>
 					<nc:IdentificationID>CT4643</nc:IdentificationID>
@@ -310,6 +300,31 @@
 			<nc:LocationPostalCode>32678</nc:LocationPostalCode>
 		</nc:Address>
 	</nc:Location>
+	<cfd-ext:CaseFilingDecisionAttachment>
+		<nc:DocumentBinary>
+			<cfd-ext:Base64BinaryObject>VGhpcyBpcyBhIGNyaW1pbmFsIGhpc3Rvcnk=</cfd-ext:Base64BinaryObject>
+		</nc:DocumentBinary>
+		<nc:DocumentCategoryDescriptionText>DocumentCategoryDescriptionText</nc:DocumentCategoryDescriptionText>
+		<nc:DocumentCreationDate>
+			<nc:DateTime>2001-12-28T12:00:00</nc:DateTime>
+		</nc:DocumentCreationDate>
+		<nc:DocumentDescriptionText>DocumentDescriptionText</nc:DocumentDescriptionText>
+		<nc:DocumentFiledDate>
+			<nc:DateTime>2001-12-31T12:00:00</nc:DateTime>
+		</nc:DocumentFiledDate>
+		<nc:DocumentFormatText>DocumentFormatText</nc:DocumentFormatText>
+		<nc:DocumentTitleText>DocumentTitleText</nc:DocumentTitleText>
+		<nc:DocumentAuthor>
+			<nc:EntityOrganization>
+				<nc:OrganizationName>Document Author Organization</nc:OrganizationName>
+			</nc:EntityOrganization>
+			<nc:EntityPerson>
+				<nc:PersonName>
+					<nc:PersonFullName>Joseph L Smith</nc:PersonFullName>
+				</nc:PersonName>
+			</nc:EntityPerson>
+		</nc:DocumentAuthor>
+	</cfd-ext:CaseFilingDecisionAttachment>
 	<nc:PersonResidenceAssociation>
 		<nc:Person structures:ref="Defendant_01" />
 		<nc:Location structures:ref="RES01" />

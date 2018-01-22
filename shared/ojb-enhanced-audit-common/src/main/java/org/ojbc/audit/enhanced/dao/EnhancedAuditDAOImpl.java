@@ -30,6 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
 import org.ojbc.audit.enhanced.dao.model.FirearmsQueryResponse;
+import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchReasonCodes;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchResult;
@@ -402,7 +403,7 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 		
         final String WARRANT_QUERY_RESULTS_INSERT="INSERT into WARRANT_QUERY_RESULTS "  
         		+ "(FIRST_NAME, MIDDLE_NAME, LAST_NAME, SID, FBI_ID, QUERY_REQUEST_ID, QUERY_RESULTS_ERROR_TEXT, QUERY_RESULTS_TIMEOUT_INDICATOR,QUERY_RESULTS_ERROR_INDICATOR,QUERY_RESULTS_ACCESS_DENIED_INDICATOR,SYSTEM_NAME,MESSAGE_ID) "
-        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
@@ -554,6 +555,40 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
 	}
 	
 	@Override
+	public Integer saveidentificationQueryResponse(
+			IdentificationQueryResponse identificationQueryResponse) {
+
+		log.debug("Inserting row into IDENTIFICATION_RESULTS_QUERY_DETAIL table : " + identificationQueryResponse.toString());
+		
+        final String IDENTIFICATION_QUERY_INSERT="INSERT into IDENTIFICATION_RESULTS_QUERY_DETAIL "
+        		+ "(QUERY_REQUEST_ID, PERSON_FIRST_NAME, PERSON_MIDDLE_NAME,PERSON_LAST_NAME,OCA,SID,FBI_ID,ID_DATE,OTN) "
+        		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+        	    new PreparedStatementCreator() {
+        	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+        	            PreparedStatement ps =
+        	                connection.prepareStatement(IDENTIFICATION_QUERY_INSERT, new String[] {"IDENTIFICATION_RESULTS_QUERY_DETAIL_ID"});
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getQueryRequestId(), ps, 1);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getPersonFirstName(), ps, 2);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getPersonMiddleName(), ps, 3);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getPersonLastName(), ps, 4);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getOca(), ps, 5);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getSid(), ps, 6);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getFbiId(), ps, 7);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getIdDate(), ps, 8);
+        	            DaoUtils.setPreparedStatementVariable(identificationQueryResponse.getOtn(), ps, 9);
+        	            
+        	            return ps;
+        	        }
+        	    },
+        	    keyHolder);
+
+         return keyHolder.getKey().intValue();	
+	}
+	
+	@Override
 	public Integer savePersonSearchRequest(
 			PersonSearchRequest personSearchRequest) {
 		
@@ -561,8 +596,8 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         
         final String FEDERAL_RAPBACK_SUBSCRIPTION_INSERT="INSERT into PERSON_SEARCH_REQUEST "
         		+ "(DOB_START_DATE, RACE, EYE_COLOR,HAIR_COLOR,DRIVERS_LICENSE_NUMBER,DOB_END_DATE,ON_BEHALF_OF,FIRST_NAME_QUALIFIER_CODE_ID,SID,MIDDLE_NAME,"
-        		+ "LAST_NAME_QUALIFIER_CODE_ID,PURPOSE,LAST_NAME,FIRST_NAME,GENDER,MESSAGE_ID,USER_INFO_ID,DRIVERS_LICENSE_ISSUER,FBI_ID) "
-        		+ "values (?, ?, ?, ?, ?, ?,?, ?, ?,?, ?, ?, ?, ?, ?,?, ?, ?, ?)";
+        		+ "LAST_NAME_QUALIFIER_CODE_ID,PURPOSE,LAST_NAME,FIRST_NAME,GENDER,MESSAGE_ID,USER_INFO_ID,DRIVERS_LICENSE_ISSUER,FBI_ID, SSN, HEIGHT, HEIGHT_MIN, HEIGHT_MAX) "
+        		+ "values (?, ?, ?, ?, ?, ?,?, ?, ?,?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?,?,?)";
         
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -590,6 +625,11 @@ public class EnhancedAuditDAOImpl implements EnhancedAuditDAO {
         	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getUserInfofk(), ps, 17);
         	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getDriverLiscenseIssuer(), ps, 18);
         	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getFbiNumber(), ps, 19);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getSsn(), ps, 20);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getHeight(), ps, 21);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getHeightMin(), ps, 22);
+        	            DaoUtils.setPreparedStatementVariable(personSearchRequest.getHeightMax(), ps, 23);
+        	            
         	            
         	            return ps;
         	        }

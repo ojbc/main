@@ -67,6 +67,8 @@ public class StaticMockQuery {
 	private static final String COURT_CASE_SAMPLES_DIRECTORY = "static-instances/CourtCase";
 
 	private static final String VEHICLE_CRASH_SAMPLES_DIRECTORY = "static-instances/VehicleCrash";
+	
+	private static final String WILDLIFE_LICENSE_SAMPLES_DIRECTORY = "static-instances/WildlifeLicense";
 
 	private static final String FIREARM_PROHIBITION_SAMPLES_DIRECTORY = "static-instances/FirearmProhibition";
 	
@@ -90,7 +92,11 @@ public class StaticMockQuery {
 	
 	public static final String VEHICLE_CRASH_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Vehicle-Crash";
 	
-	public static final String VEHICLE_CRASH_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Vehicle_Crash/1.0}Person-Query-Service---Vehicle-Crash";			
+	public static final String VEHICLE_CRASH_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Query_Service-Vehicle_Crash/1.0}Person-Query-Service---Vehicle-Crash";
+	
+	public static final String WILDLIFE_LICENSE_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/PersonSearchRequestService/1.0}SubmitPersonSearchRequest-Wildlife-Licensing";
+	
+	public static final String WILDLIFE_LICENSE_QUERY_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Wildlife_License_Query_Request_Service/1.0}Person-Query-Service---Wildlife-License";
 	
 	public static final String WARRANT_MOCK_ADAPTER_SEARCH_SYSTEM_ID = "{http://ojbc.org/Services/WSDL/Person_Search_Request_Service/Warrants/1.0}Submit-Person-Search---Warrants";
 	
@@ -140,6 +146,8 @@ public class StaticMockQuery {
 	
 	private ClasspathXmlDataSource vehicleCrashDataSource;
 	
+	private ClasspathXmlDataSource wildlifeLicenseDataSource;
+	
 	private ClasspathXmlDataSource firearmProhibitionDataSource;
 		
 	private OjbcNamespaceContext ojbcNamespaceContext = new OjbcNamespaceContext(); 
@@ -148,13 +156,14 @@ public class StaticMockQuery {
 		
 		this(CRIMINAL_HISTORY_PRODUCTION_SAMPLES_DIRECTORY, WARRANT_PRODUCTION_SAMPLES_DIRECTORY, INCIDENT_PRODUCTION_SAMPLES_DIRECTORY, 
 				FIREARM_PRODUCTION_SAMPLES_DIRECTORY, JUVENILE_HISTORY_SAMPLES_DIRECTORY, CUSTODY_SAMPLES_DIRECTORY, COURT_CASE_SAMPLES_DIRECTORY, 
-				VEHICLE_CRASH_SAMPLES_DIRECTORY, FIREARM_PROHIBITION_SAMPLES_DIRECTORY);
+				VEHICLE_CRASH_SAMPLES_DIRECTORY, WILDLIFE_LICENSE_SAMPLES_DIRECTORY, FIREARM_PROHIBITION_SAMPLES_DIRECTORY);
 	}
 
 	StaticMockQuery(String criminalHistorySampleInstanceDirectoryRelativePath, String warrantSampleInstanceDirectoryRelativePath, 
 			String incidentSampleInstanceDirectoryRelativePath, String firearmSampleInstanceDirectoryRelativePath,
 			String juvenileHistorySampleInstanceDirectoryRelativePath, String custodySampleDir, String courtCaseSampleDir, 
 			String vehicleCrashSampleDir, 
+			String wildlifeLicenseSampleDir,
 			String firearmProhibitionSampleDir) {
 		
 		criminalHistoryDataSource = new ClasspathXmlDataSource(criminalHistorySampleInstanceDirectoryRelativePath);
@@ -172,6 +181,8 @@ public class StaticMockQuery {
 		courtCaseDataSource = new ClasspathXmlDataSource(courtCaseSampleDir);
 		
 		vehicleCrashDataSource = new ClasspathXmlDataSource(vehicleCrashSampleDir);
+		
+		wildlifeLicenseDataSource = new ClasspathXmlDataSource(wildlifeLicenseSampleDir);
 		
 		firearmProhibitionDataSource = new ClasspathXmlDataSource(firearmProhibitionSampleDir);
 	}
@@ -211,6 +222,15 @@ public class StaticMockQuery {
 	 */
 	public int getVehicleCrashDocumentCount() throws Exception{
 		return vehicleCrashDataSource.getDocuments().size();
+	}
+	
+	/**
+	 * Gets the total number of available wildlife license documents
+	 * @return document count
+	 * @throws Exception
+	 */
+	public int getWildlifeLicenseDocumentCount() throws Exception{
+		return wildlifeLicenseDataSource.getDocuments().size();
 	}
 
 	/**
@@ -323,6 +343,17 @@ public class StaticMockQuery {
 					+ ":VehicleCrashIdentification/" + NS_PREFIX_NC_30 + ":IdentificationID");
 			break;
 		}
+		
+		case NS_WILDLIFE_LICENSE_QUERY_REQUEST_DOC + ":WildlifeLicenseQueryRequest":{
+			String xPath = NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_DOC + ":WildlifeLicenseQueryRequest/" + NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_EXT
+					+ ":WildlifeLicenseIdentification/" + NS_PREFIX_NC_30 + ":IdentificationSourceText";
+			LOG.info("System identification source text xPath: " + xPath);
+			systemElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, xPath);
+			systemIdElement = (Element) XmlUtils.xPathNodeSearch(queryRequestMessage, NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_DOC + ":WildlifeLicenseQueryRequest/" + NS_PREFIX_WILDLIFE_LICENSE_QUERY_REQUEST_EXT
+					+ ":WildlifeLicenseIdentification/" + NS_PREFIX_NC_30 + ":IdentificationID");
+			break;
+		}
+		
 		case NS_FIREARM_REGISTRATION_QUERY_REQUEST_DOC + ":PersonFirearmRegistrationRequest":{
 			String xPath = NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_DOC + ":PersonFirearmRegistrationRequest/" + NS_PREFIX_FIREARM_REGISTRATION_QUERY_REQUEST_EXT
 					+ ":PersonFirearmRegistrationIdentification/" + NS_PREFIX_NC + ":IdentificationSourceText";
@@ -401,6 +432,8 @@ public class StaticMockQuery {
 			return queryDocuments(documentId, courtCaseDataSource);
 		case VEHICLE_CRASH_QUERY_SYSTEM_ID:			
 			return queryDocuments(documentId, vehicleCrashDataSource);
+		case WILDLIFE_LICENSE_QUERY_SYSTEM_ID:			
+			return queryDocuments(documentId, wildlifeLicenseDataSource);
 		case FIREARM_PROHIBITION_QUERY_SYSTEM_ID:
 			return queryDocuments(documentId, firearmProhibitionDataSource);
 		default:
@@ -956,7 +989,10 @@ public class StaticMockQuery {
 				xPaths = getCourtCaseXPaths();
 				
 			}else if(NS_VEHICLE_CRASH_QUERY_RESULT_EXCH_DOC.equals(rootNamespace) && "VehicleCrashQueryResults".equals(rootLocalName)){
-				xPaths = getVehicleCrashXPaths();				
+				xPaths = getVehicleCrashXPaths();	
+				
+			}else if(NS_WILDLIFE_LICENSE_QUERY_RESULT_EXCH_DOC.equals(rootNamespace) && "WildlifeLicenseQueryResults".equals(rootLocalName)){
+				xPaths = getWildlifeLicenseXPaths();				
 				
 			}else if(NS_FIREARM_PURCHASE_PROHIBITION_QUERY_RESULTS.equals(rootNamespace) && "FirearmPurchaseProhibitionQueryResults".equals(rootLocalName)){
 				xPaths = getFirearmProhibitionXPaths();				
@@ -1784,6 +1820,8 @@ public class StaticMockQuery {
 			
 			String systemId = systemElement.getTextContent();
 			
+			LOG.info("System name to search: " + systemId);
+			
 			if (CRIMINAL_HISTORY_MOCK_ADAPTER_SEARCH_SYSTEM_ID.equals(systemId)) {
 				rDocList.addAll(personSearchCriminalHistoryDocuments(personSearchRequestMessage, baseDate));
 				
@@ -1807,6 +1845,9 @@ public class StaticMockQuery {
 				
 			}else if(VEHICLE_CRASH_SEARCH_SYSTEM_ID.equals(systemId)){
 				rDocList.addAll(personSearchVehicleCrashDocuments(personSearchRequestMessage, baseDate));
+				
+			}else if(WILDLIFE_LICENSE_SEARCH_SYSTEM_ID.equals(systemId)){
+				rDocList.addAll(personSearchWildlifeLicenseDocuments(personSearchRequestMessage, baseDate));
 				
 			}else if(FIREARM_PROHIBITION_SEARCH_SYSTEM_ID.equals(systemId)){
 				rDocList.addAll(personSearchFirearmProhibitionDocuments(personSearchRequestMessage, baseDate));
@@ -1853,6 +1894,10 @@ public class StaticMockQuery {
 		// loops through all VehicleCrashDetail docs in VehicleCrashDataSource, using VehicleCrashXPaths against them to pull their 
 		//	 vehicle values - and compares them against the same values in the personSearchRequestMessage
 		return personSearchDocumentsAsList(personSearchRequestMessage, baseDate, getVehicleCrashXPaths(), vehicleCrashDataSource);
+	}
+	
+	private List<IdentifiableDocumentWrapper> personSearchWildlifeLicenseDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception{
+		return personSearchDocumentsAsList(personSearchRequestMessage, baseDate, getWildlifeLicenseXPaths(), wildlifeLicenseDataSource);
 	}
 	
 	private List<IdentifiableDocumentWrapper> personSearchFirearmProhibitionDocuments(Document personSearchRequestMessage, DateTime baseDate) throws Exception{
@@ -2173,6 +2218,43 @@ public class StaticMockQuery {
 		return vehicleCrashDetailXpaths;				
 	}
 
+	private SearchValueXPaths getWildlifeLicenseXPaths() throws Exception{
+		
+		SearchValueXPaths wildlifeLicenseDetailXpaths = new SearchValueXPaths();				
+		
+		wildlifeLicenseDetailXpaths.ageXPath = null;		
+		wildlifeLicenseDetailXpaths.ssnXPath = "//nc30:Person/nc30:PersonSSNIdentification/nc30:IdentificationID";
+		wildlifeLicenseDetailXpaths.sidXPath = null;
+		wildlifeLicenseDetailXpaths.fbiXPath = null;
+		wildlifeLicenseDetailXpaths.sexXPath = "//nc30:Person/jxdm51:PersonSexCode";				
+		
+		wildlifeLicenseDetailXpaths.lastNameXPath = 
+				"//nc30:Person/nc30:PersonName/nc30:PersonSurName"; 
+						
+		wildlifeLicenseDetailXpaths.middleNameXPath = 
+				"//nc30:Person/nc30:PersonName/nc30:PersonMiddleName";		
+		
+		wildlifeLicenseDetailXpaths.firstNameXPath = 
+				"//nc30:Person/nc30:PersonName/nc30:PersonGivenName";
+		
+		wildlifeLicenseDetailXpaths.eyeColorXPath = "//nc30:Person/nc30:PersonEyeColorText";
+		wildlifeLicenseDetailXpaths.hairColorXPath = "//nc30:Person/nc30:PersonHairColorText";		
+		wildlifeLicenseDetailXpaths.raceXPath = null;
+						
+		// wildlifeLicenseDetailXpaths.birthdateXPath = "//nc30:Person[@s30:id=//jxdm51:LicenseDriver/nc30:RoleOfPerson/@s30:ref]/nc30:PersonBirthDate/nc30:Date";
+		
+		wildlifeLicenseDetailXpaths.heightXPath = "//nc30:Person/nc30:PersonHeightMeasure/nc30:MeasureValueText";
+		wildlifeLicenseDetailXpaths.weightXPath = "//nc30:Person/nc30:PersonWeightMeasure/nc30:MeasureValueText";	
+		
+		wildlifeLicenseDetailXpaths.searchSystemId = WILDLIFE_LICENSE_SEARCH_SYSTEM_ID;
+		
+		wildlifeLicenseDetailXpaths.systemName = "Wildlife Licensing";
+		
+		wildlifeLicenseDetailXpaths.recordType = "Wildlife Licensing";		
+		
+		return wildlifeLicenseDetailXpaths;				
+	}
+	
 	
 	private List<IdentifiableDocumentWrapper> courtCaseSearchDocumentsAsList(Document courtCaseSearchRequestMessage) 
 			throws Exception {

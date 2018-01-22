@@ -51,7 +51,7 @@ public class QueryRequestSQLProcessor extends AbstractQueryRequestProcessor {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("Unable to audit person search request: " + ExceptionUtils.getStackTrace(e));
+			log.error("Unable to audit person query request: " + ExceptionUtils.getStackTrace(e));
 		}
 		
 	}

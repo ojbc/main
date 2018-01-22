@@ -35,6 +35,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.audit.enhanced.dao.model.FederalRapbackSubscription;
+import org.ojbc.audit.enhanced.dao.model.IdentificationQueryResponse;
 import org.ojbc.audit.enhanced.dao.model.IdentificationSearchRequest;
 import org.ojbc.audit.enhanced.dao.model.PersonQueryCriminalHistoryResponse;
 import org.ojbc.audit.enhanced.dao.model.PersonSearchRequest;
@@ -94,6 +95,11 @@ public class EnhancedAuditDaoTest {
 		psr.setSsn("123-45-7890");
 		psr.setStateId("state");
 		psr.setUserInfofk(userInfoPk);
+		psr.setHeight(60);
+		psr.setHeightMin(50);
+		psr.setHeightMax(75);
+		psr.setSsn("999-99-9999");
+		
 		
 		Integer psrIdFromSave = enhancedAuditDao.savePersonSearchRequest(psr);
 		
@@ -229,6 +235,22 @@ public class EnhancedAuditDaoTest {
 		
 		assertNotNull(queryResponsePk);
 		
+		IdentificationQueryResponse identificationQueryResponse = new IdentificationQueryResponse();
+		
+		identificationQueryResponse.setQueryRequestId(queryPk);
+		identificationQueryResponse.setFbiId("123");
+		identificationQueryResponse.setIdDate(LocalDate.now());
+		identificationQueryResponse.setMessageId("123456");
+		identificationQueryResponse.setOca("oca");
+		identificationQueryResponse.setOtn("otn");
+		identificationQueryResponse.setPersonFirstName("first");
+		identificationQueryResponse.setPersonMiddleName("middle");
+		identificationQueryResponse.setPersonLastName("last");
+		identificationQueryResponse.setSid("A123");
+		
+		Integer identificationQueryResponsePk = enhancedAuditDao.saveidentificationQueryResponse(identificationQueryResponse);
+		
+		assertNotNull(identificationQueryResponsePk);
 		
 	}
 	

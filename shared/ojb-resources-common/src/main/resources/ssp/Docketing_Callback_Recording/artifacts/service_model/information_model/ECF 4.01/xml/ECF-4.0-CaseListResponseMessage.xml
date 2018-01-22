@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<CaseListResponseMessage xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CaseListResponseMessage-4.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CaseListResponseMessage-4.0 ../xsd/message/ECF-4.0-CaseListResponseMessage.xsd">
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>https://courts.wa.gov:8000</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
+	<j:CaseCourt>
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID>01</nc:IdentificationID>
+		</nc:OrganizationIdentification>
+		<j:CourtName>King County Superior Court</j:CourtName>
+	</j:CaseCourt>
+	<ecf:Error>
+		<ecf:ErrorCode>0</ecf:ErrorCode>
+		<ecf:ErrorText>No error</ecf:ErrorText>
+	</ecf:Error>
+	<civil:CivilCase xmlns:civil="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CivilCase-4.0" xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CivilCase-4.0 ../xsd/casetype/ECF-4.0-CivilCase.xsd">
+		<nc:ActivityStatus>
+			<nc:StatusText>Active</nc:StatusText>
+			<nc:StatusDate>
+				<nc:DateTime>2008-08-01T14:20:00Z</nc:DateTime>
+			</nc:StatusDate>
+			<nc:StatusDescriptionText>At trial</nc:StatusDescriptionText>
+		</nc:ActivityStatus>
+		<nc:CaseTitleText>In the Superior Courts of the State of Washington, John Smith vs. Bob Jones</nc:CaseTitleText>
+		<nc:CaseCategoryText>Smallclaims</nc:CaseCategoryText>
+		<nc:CaseTrackingID>KC-2008-1001</nc:CaseTrackingID>
+		<j:CaseAugmentation>
+			<j:CaseCourt>
+				<nc:OrganizationIdentification>
+					<nc:IdentificationID>01</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+				<j:CourtName>King County Superior Court</j:CourtName>
+			</j:CaseCourt>
+			<j:CaseInitiatingParty>
+				<ecf:EntityPerson>
+					<nc:PersonName>
+						<nc:PersonGivenName>John</nc:PersonGivenName>
+						<nc:PersonSurName>Smith</nc:PersonSurName>
+					</nc:PersonName>
+				</ecf:EntityPerson>
+			</j:CaseInitiatingParty>
+		</j:CaseAugmentation>
+		<ecf:CaseAugmentation>
+			<ecf:CaseShortTitleText>Smith vs. Jones</ecf:CaseShortTitleText>
+		</ecf:CaseAugmentation>
+		<ecf:CauseOfActionCode/>
+		<civil:ClassActionIndicator>false</civil:ClassActionIndicator>
+		<civil:JuryDemandIndicator>false</civil:JuryDemandIndicator>
+		<civil:ReliefTypeCode/>
+	</civil:CivilCase>
+</CaseListResponseMessage>

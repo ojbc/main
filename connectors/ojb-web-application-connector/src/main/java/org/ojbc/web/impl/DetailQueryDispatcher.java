@@ -35,6 +35,7 @@ import org.ojbc.processor.person.query.PersonToCustodySearchRequestProcessor;
 import org.ojbc.processor.person.query.PersonVehicleToIncidentSearchRequestProcessor;
 import org.ojbc.processor.person.query.VehicleCrashQueryRequestProcessor;
 import org.ojbc.processor.person.query.WarrantsRequestProcessor;
+import org.ojbc.processor.person.query.WildlifeLicensingRequestProcessor;
 import org.ojbc.web.DetailsQueryInterface;
 import org.ojbc.web.OJBCWebServiceURIs;
 import org.ojbc.web.model.person.query.DetailsRequest;
@@ -57,6 +58,9 @@ import org.w3c.dom.Element;
 public class DetailQueryDispatcher implements DetailsQueryInterface{
 
 	private static final Log log = LogFactory.getLog( DetailQueryDispatcher.class );
+
+	@Autowired(required=false)
+	private WildlifeLicensingRequestProcessor wildlifeLicensingRequestProcessor;
 	
 	@Autowired(required=false)
 	private WarrantsRequestProcessor warrantsRequestProcessor;
@@ -192,7 +196,13 @@ public class DetailQueryDispatcher implements DetailsQueryInterface{
 			
 			return firearmsPurchaseProhibitionRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
 			
-		} else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
+		} else if (OJBCWebServiceURIs.WILDLIFE_LICENSING.equals(requestIdSrcTxt)) {
+			
+			return wildlifeLicensingRequestProcessor.invokeRequest(request, federatedQueryID, samlToken);
+			
+		} 
+		
+		else if (requestIdSrcTxt.contains(OJBCWebServiceURIs.JUVENILE_HISTORY)) {
 			
 			log.info("Juvenile request query type: " + request.getQueryType());
 			

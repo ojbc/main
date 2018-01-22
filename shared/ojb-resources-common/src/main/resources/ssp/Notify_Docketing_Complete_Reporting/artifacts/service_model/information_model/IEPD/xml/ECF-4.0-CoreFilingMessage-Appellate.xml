@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<!-- This is an example instance document for the FilingReview Message for the Arizona Administartive Office of the Courts -->
+<!-- Litigant to Court (L2C) e-Filing, based on the CoreFilingMessage in the OASIS LegalXML Electronic Court Filing 4.0 specification.-->
+<!-- -->
+<!-- L2C-CoreFilingMessage-Example-001.xml -->
+<!-- -->
+<!-- This example illustrates a single lead document filing with two attached supplemental documents.-->
+<!-- The Lead Document is associated with a single Case; and each document has a single Document Type.-->
+<!-- -->
+<CoreFilingMessage xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:appellate="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:AppellateCase-4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0 ../xsd/message/ECF-4.0-CoreFilingMessage.xsd">
+	<nc:DocumentIdentification>
+		<nc:IdentificationID>001-f786e6d6-558c-448f-b249-067002d716a0</nc:IdentificationID>
+	</nc:DocumentIdentification>
+	<nc:DocumentInformationCutOffDate>
+		<nc:DateTime>2007-06-06T14:20:47.0Z</nc:DateTime>
+	</nc:DocumentInformationCutOffDate>
+	<nc:DocumentPostDate>
+		<nc:DateTime>2007-06-06T14:20:47.0Z</nc:DateTime>
+	</nc:DocumentPostDate>
+	<nc:DocumentSubmitter>
+		<ecf:EntityPerson s:id="Person1">
+			<nc:PersonName>
+				<nc:PersonNamePrefixText>Mr.</nc:PersonNamePrefixText>
+				<nc:PersonGivenName>Jonathan</nc:PersonGivenName>
+				<nc:PersonMiddleName>Richard</nc:PersonMiddleName>
+				<nc:PersonSurName>Registrant</nc:PersonSurName>
+				<nc:PersonNameSuffixText>Sr.</nc:PersonNameSuffixText>
+				<nc:PersonFullName>John R. Registrant Sr.</nc:PersonFullName>
+			</nc:PersonName>
+			<nc:PersonOtherIdentification>
+				<nc:IdentificationID>AZAOCEFM-12345: jregistrant@aol.com</nc:IdentificationID>
+				<nc:IdentificationSourceText>AZAOCEFM: ATTORNEY</nc:IdentificationSourceText>
+			</nc:PersonOtherIdentification>
+		</ecf:EntityPerson>
+	</nc:DocumentSubmitter>
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>https://efilingprovider.com:8000</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
+	<ecf:ElectronicServiceInformation>
+		<ecf:ServiceRecipientID>
+			<nc:IdentificationID>1031</nc:IdentificationID>
+			<nc:IdentificationCategoryText>ECFFilerID</nc:IdentificationCategoryText>
+		</ecf:ServiceRecipientID>
+		<ecf:ReceivingMDELocationID>
+			<nc:IdentificationID>https://eserviceprovider.com:8000</nc:IdentificationID>
+		</ecf:ReceivingMDELocationID>
+		<ecf:ReceivingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:ReceivingMDEProfileCode>
+	</ecf:ElectronicServiceInformation>
+	<appellate:AppellateCase xmlns:appellate="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:AppellateCase-4.0" xsi:schemaLocation="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:AppellateCase-4.0 ../xsd/casetype/ECF-4.0-AppellateCase.xsd">
+		<nc:CaseTitleText>State of Arizona v Jack Smith</nc:CaseTitleText>
+		<nc:CaseTrackingID>CR070123</nc:CaseTrackingID>
+		<j:CaseAugmentation>
+			<j:CaseCourt>
+				<nc:OrganizationIdentification>
+					<nc:IdentificationID>1</nc:IdentificationID>
+				</nc:OrganizationIdentification>
+				<j:CourtName>Arizona Supreme Court</j:CourtName>
+			</j:CaseCourt>
+			<j:CaseInitiatingAttorney>
+				<nc:RoleOfPersonReference s:ref="Person2"/>
+				<j:JudicialOfficialBarMembership>
+					<j:JudicialOfficialBarIdentification>
+						<nc:IdentificationID>23101</nc:IdentificationID>
+						<j:IdentificationJurisdictionNCICLISCode>AZ</j:IdentificationJurisdictionNCICLISCode>
+						<nc:IdentificationSourceText>State Bar of Arizona</nc:IdentificationSourceText>
+					</j:JudicialOfficialBarIdentification>
+				</j:JudicialOfficialBarMembership>
+			</j:CaseInitiatingAttorney>
+		</j:CaseAugmentation>
+		<ecf:CaseAugmentation>
+			<ecf:CaseParticipant>
+				<ecf:EntityPerson s:id="Person2">
+					<nc:PersonName>
+						<nc:PersonFullName>John R. Registrant Sr.</nc:PersonFullName>
+					</nc:PersonName>
+					<ecf:PersonAugmentation>
+						<nc:ContactInformation>
+							<nc:ContactTelephoneNumber>
+								<nc:FullTelephoneNumber>
+									<nc:TelephoneNumberFullID>6024561234</nc:TelephoneNumberFullID>
+								</nc:FullTelephoneNumber>
+							</nc:ContactTelephoneNumber>
+							<nc:ContactEmailID>jregistrant@aol.com</nc:ContactEmailID>
+							<nc:ContactMailingAddress>
+								<nc:StructuredAddress>
+									<nc:AddressDeliveryPointID>777</nc:AddressDeliveryPointID>
+									<nc:AddressSecondaryUnitText>Suite 507</nc:AddressSecondaryUnitText>
+									<nc:LocationStreet>
+										<nc:StreetPredirectionalText>W</nc:StreetPredirectionalText>
+										<nc:StreetName>Litigant Avenue</nc:StreetName>
+									</nc:LocationStreet>
+									<nc:LocationCityName>Flagstaff</nc:LocationCityName>
+									<nc:LocationCountyName>Coconino</nc:LocationCountyName>
+									<nc:LocationStateUSPostalServiceCode>AZ</nc:LocationStateUSPostalServiceCode>
+									<nc:LocationCountryFIPS10-4Code>US</nc:LocationCountryFIPS10-4Code>
+									<nc:LocationPostalCode>89007</nc:LocationPostalCode>
+								</nc:StructuredAddress>
+							</nc:ContactMailingAddress>
+						</nc:ContactInformation>
+					</ecf:PersonAugmentation>
+				</ecf:EntityPerson>
+				<ecf:CaseParticipantRoleCode/>
+			</ecf:CaseParticipant>
+			<ecf:CaseParticipant>
+				<ecf:EntityOrganization s:id="Organization1">
+					<nc:OrganizationName>Dewey, Cheatem and Howe</nc:OrganizationName>
+					<nc:OrganizationUnitName>Flagstaff Office</nc:OrganizationUnitName>
+				</ecf:EntityOrganization>
+				<ecf:CaseParticipantRoleCode/>
+			</ecf:CaseParticipant>
+			<ecf:CaseShortTitleText>State vs. Smith</ecf:CaseShortTitleText>
+			<ecf:PersonOrganizationAssociation>
+				<nc:PersonReference s:ref="Person1"/>
+				<nc:OrganizationReference s:ref="Organization1"/>
+				<ecf:EntityAssociationTypeCode>Employer</ecf:EntityAssociationTypeCode>
+			</ecf:PersonOrganizationAssociation>
+		</ecf:CaseAugmentation>
+	</appellate:AppellateCase>
+	<FilingConfidentialityIndicator>true</FilingConfidentialityIndicator>
+	<FilingLeadDocument s:id="Document1">
+		<nc:DocumentApplicationName>application/pdf</nc:DocumentApplicationName>
+		<nc:DocumentDescriptionText>Appellee's Reply Brief</nc:DocumentDescriptionText>
+		<nc:DocumentStatus>
+			<nc:StatusDescriptionText>SEALED</nc:StatusDescriptionText>
+		</nc:DocumentStatus>
+		<ecf:DocumentMetadata>
+			<j:RegisterActionDescriptionText>BR03</j:RegisterActionDescriptionText>
+			<ecf:FilingAttorneyID>
+				<nc:IdentificationID>AZ:231001</nc:IdentificationID>
+			</ecf:FilingAttorneyID>
+			<ecf:FilingPartyID>
+				<nc:IdentificationID>1</nc:IdentificationID>
+			</ecf:FilingPartyID>
+			<ecf:SpecialHandlingInstructions/>
+		</ecf:DocumentMetadata>
+		<ecf:DocumentRendition>
+			<ecf:DocumentSignature>
+				<ecf:SignatureProfileID>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:XMLSignature-1.0</ecf:SignatureProfileID>
+				<ecf:Signature>
+					<digsig:KeyInfo xmlns:digsig="http://www.w3.org/2000/09/xmldsig#" xsi:schemaLocation="http://www.w3.org/2000/09/xmldsig# ../xsd\common/xmldsig-core-schema.xsd">
+						<digsig:KeyName>FilerPublicKey</digsig:KeyName>
+					</digsig:KeyInfo>
+				</ecf:Signature>
+			</ecf:DocumentSignature>
+			<ecf:DocumentRenditionMetadata>
+				<ecf:DocumentAttachment s:id="Attachment1">
+					<nc:BinaryDescriptionText>application/pdf</nc:BinaryDescriptionText>
+					<nc:BinaryLocationURI>cid://Attachment1</nc:BinaryLocationURI>
+					<ecf:AttachmentSequenceID>1</ecf:AttachmentSequenceID>
+				</ecf:DocumentAttachment>
+				<ecf:DocumentAttachment s:id="Attachment2">
+					<nc:BinaryDescriptionText>application/pdf</nc:BinaryDescriptionText>
+					<nc:BinaryLocationURI>cid://Attachment2</nc:BinaryLocationURI>
+					<ecf:AttachmentSequenceID>2</ecf:AttachmentSequenceID>
+				</ecf:DocumentAttachment>
+				<ecf:ColorRelevantIndicator>false</ecf:ColorRelevantIndicator>
+				<ecf:RedactedIndicator>false</ecf:RedactedIndicator>
+			</ecf:DocumentRenditionMetadata>
+		</ecf:DocumentRendition>
+	</FilingLeadDocument>
+	<FilingConnectedDocument s:id="Document2">
+		<nc:DocumentApplicationName>Adobe PDF</nc:DocumentApplicationName>
+		<nc:DocumentDescriptionText>Appendix to Reply Brief</nc:DocumentDescriptionText>
+		<nc:DocumentSequenceID>1</nc:DocumentSequenceID>
+		<nc:DocumentStatus>
+			<nc:StatusDescriptionText>PUBLIC</nc:StatusDescriptionText>
+		</nc:DocumentStatus>
+		<ecf:DocumentMetadata>
+			<j:RegisterActionDescriptionText>AP01</j:RegisterActionDescriptionText>
+			<ecf:ParentDocumentReference s:ref="Document1"/>
+			<ecf:FilingAttorneyID>
+				<nc:IdentificationID>AZ:231001</nc:IdentificationID>
+			</ecf:FilingAttorneyID>
+			<ecf:FilingPartyID>
+				<nc:IdentificationID>1</nc:IdentificationID>
+			</ecf:FilingPartyID>
+			<ecf:SpecialHandlingInstructions/>
+		</ecf:DocumentMetadata>
+		<ecf:DocumentRendition>
+			<ecf:DocumentSignature>
+				<ecf:SignatureProfileID>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:XMLSignature-1.0</ecf:SignatureProfileID>
+			</ecf:DocumentSignature>
+			<ecf:DocumentRenditionMetadata>
+				<ecf:DocumentAttachment s:id="Attachment3">
+					<nc:BinaryDescriptionText>application/pdf</nc:BinaryDescriptionText>
+					<nc:BinaryLocationURI>cid://Attachmentt</nc:BinaryLocationURI>
+				</ecf:DocumentAttachment>
+				<ecf:ColorRelevantIndicator>false</ecf:ColorRelevantIndicator>
+				<ecf:RedactedIndicator>false</ecf:RedactedIndicator>
+			</ecf:DocumentRenditionMetadata>
+		</ecf:DocumentRendition>
+	</FilingConnectedDocument>
+	<FilingConnectedDocument s:id="Document3">
+		<nc:DocumentApplicationName>Adobe PDF</nc:DocumentApplicationName>
+		<nc:DocumentDescriptionText>Appendix to Reply Brief</nc:DocumentDescriptionText>
+		<nc:DocumentSequenceID>2</nc:DocumentSequenceID>
+		<nc:DocumentStatus>
+			<nc:StatusDescriptionText>PUBLIC</nc:StatusDescriptionText>
+		</nc:DocumentStatus>
+		<ecf:DocumentMetadata>
+			<j:RegisterActionDescriptionText>AP01</j:RegisterActionDescriptionText>
+			<ecf:ParentDocumentReference s:ref="Document1"/>
+			<ecf:FilingAttorneyID>
+				<nc:IdentificationID>AZ:231001</nc:IdentificationID>
+			</ecf:FilingAttorneyID>
+			<ecf:FilingPartyID>
+				<nc:IdentificationID>1</nc:IdentificationID>
+			</ecf:FilingPartyID>
+			<ecf:SpecialHandlingInstructions/>
+		</ecf:DocumentMetadata>
+		<ecf:DocumentRendition>
+			<ecf:DocumentSignature>
+				<ecf:SignatureProfileID>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:XMLSignature-1.0</ecf:SignatureProfileID>
+			</ecf:DocumentSignature>
+			<ecf:DocumentRenditionMetadata>
+				<ecf:DocumentAttachment s:id="Attachment4">
+					<nc:BinaryDescriptionText>application/pdf</nc:BinaryDescriptionText>
+					<nc:BinaryLocationURI>cid://Attachment4</nc:BinaryLocationURI>
+				</ecf:DocumentAttachment>
+				<ecf:ColorRelevantIndicator>false</ecf:ColorRelevantIndicator>
+				<ecf:RedactedIndicator>false</ecf:RedactedIndicator>
+			</ecf:DocumentRenditionMetadata>
+		</ecf:DocumentRendition>
+	</FilingConnectedDocument>
+</CoreFilingMessage>

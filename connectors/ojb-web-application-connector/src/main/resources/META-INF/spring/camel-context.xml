@@ -51,6 +51,19 @@
 			<camel:to uri="bean:personSearchRequestProcessor?method=updateMapWithResponse"/>
 	    </camel:route>
 	    
+	    <!-- Wildlife License Response Listener -->
+	    <camel:route id="personQueryWildlifeLicenseResultsServiceEndpointRoute" autoStartup="false">
+	    	<from uri="personQueryWildlifeLicenseResultsServiceEndpoint"/>
+	    	<camel:log message="Received response message - Wildlife License: ${body}" loggingLevel="INFO"/>
+
+	    	<!-- Get the WS-Addressing ID, set Camel header: federatedQueryRequestGUID -->
+			<camel:to uri="bean:wildlifeLicensingMessageProcessor?method=processRequestPayload" />
+			
+	    	<camel:convertBodyTo type="java.lang.String"/>
+	    	<camel:to uri="bean:wildlifeLicensingRequestProcessor?method=updateMapWithResponse"/>
+
+	    </camel:route>	    
+	    
 	    	        
 	    <!-- Criminal History Response Listener -->
 	    <camel:route id="personQueryResultsHandlerCriminalHistoryServiceRoute" autoStartup="false">

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Unless explicitly acquired and licensed from Licensor under another license, the contents of
+    this file are subject to the Reciprocal Public License ("RPL") Version 1.5, or subsequent
+    versions as allowed by the RPL, and You may not copy or use this file in either source code
+    or executable form, except in compliance with the terms and conditions of the RPL
+
+    All software distributed under the RPL is provided strictly on an "AS IS" basis, WITHOUT
+    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, AND LICENSOR HEREBY DISCLAIMS ALL SUCH
+    WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+    PARTICULAR PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. See the RPL for specific language
+    governing rights and limitations under the RPL.
+
+    http://opensource.org/licenses/RPL-1.5
+
+    Copyright 2012-2017 Open Justice Broker Consortium
+
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:a="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:AppInfo-4.0" targetNamespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:AppInfo-4.0" attributeFormDefault="qualified" version="1">
+	<xsd:annotation>
+		<xsd:documentation>ECF AppInfo</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="CodeListReference">
+		<xsd:annotation>
+			<xsd:documentation>References a genericode code list of acceptable values for an element.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="CanonicalURI" type="xsd:anyURI" use="required"/>
+			<xsd:attribute name="CanonicalVersionURI" type="xsd:anyURI" use="optional"/>
+			<xsd:attribute name="LocationURI" type="xsd:anyURI" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CourtPolicyDefinedCodeIndicator" type="xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Indicates a code list to be defined in court policy.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
