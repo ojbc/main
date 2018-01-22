@@ -171,6 +171,7 @@
 		<entry key="subscriptionsLink" value="#" />
 		<entry key="rapbackLink" value="#" />
 		<entry key="criminalIdLink" value="#" />
+		<entry key="adminLink" value="#" />
 		<entry key="helpLink" value="#" />
 		<entry key="privacyPolicyLink" value="http://local.gov/privacy-policies/" />
 		<entry key="faqLink" value="#" />
