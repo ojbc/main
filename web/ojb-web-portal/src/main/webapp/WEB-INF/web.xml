@@ -74,6 +74,9 @@
     <security-role>
         <role-name>AUTHZ_QUERY</role-name>
     </security-role>
+    <security-role>
+        <role-name>AUTHZ_ADMIN</role-name>
+    </security-role>
     <session-config>
         <session-timeout>120</session-timeout>
     </session-config>

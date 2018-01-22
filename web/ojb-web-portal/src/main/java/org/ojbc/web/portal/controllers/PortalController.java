@@ -91,6 +91,7 @@ public class PortalController implements ApplicationContextAware {
 	public static final String SUBSCRIPTIONS_LINK_ID = "subscriptionsLink";
 	public static final String RAPBACK_LINK_ID = "rapbackLink";
 	public static final String CRIMINAL_ID_LINK_ID = "criminalIdLink";
+	private static final String ADMIN_LINK_ID = "adminLink";
 	public static final String HELP_LINK_ID = "helpLink";
 	public static final String HELP_LINK_EXTERNAL_ID = "helpLinkExternal";
     public static final String PRIVACY_LINK_ID = "privacyPolicyLink";
@@ -103,12 +104,14 @@ public class PortalController implements ApplicationContextAware {
 	public static final String SUBSCRIPTION_LINK_TITLE = "Subscriptions";
 	public static final String RAPBACK_LINK_TITLE = "Applicant Rap Back";
 	public static final String CRIMINAL_ID_LINK_TITLE = "Criminal Identification";
+	public static final String ADMIN_LINK_TITLE = "Admin";
 	public static final String HELP_LINK_TITLE = "Help";
 	public static final String PRIVACY_LINK_TITLE = "Privacy Policies";
 	public static final String FAQ_LINK_TITLE = "Frequently Asked Questions";
 	public static final String SUGGESTIONFORM_LINK_TITLE = "Suggestions/ Report a Problem";
 	
 	private static final Log log = LogFactory.getLog(PortalController.class);
+
 
 	private XPath xPath;
 	
@@ -577,6 +580,7 @@ public class PortalController implements ApplicationContextAware {
 			leftMenuLinkTitles.put(SUBSCRIPTIONS_LINK_ID, SUBSCRIPTION_LINK_TITLE);
 			leftMenuLinkTitles.put(RAPBACK_LINK_ID, RAPBACK_LINK_TITLE);
 			leftMenuLinkTitles.put(CRIMINAL_ID_LINK_ID, CRIMINAL_ID_LINK_TITLE);
+			leftMenuLinkTitles.put(ADMIN_LINK_ID, ADMIN_LINK_TITLE);
 			leftMenuLinkTitles.put(HELP_LINK_ID, HELP_LINK_TITLE);
 			leftMenuLinkTitles.put(HELP_LINK_EXTERNAL_ID, HELP_LINK_TITLE);
 			leftMenuLinkTitles.put(PRIVACY_LINK_ID, PRIVACY_LINK_TITLE);

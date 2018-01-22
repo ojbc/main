@@ -83,6 +83,9 @@ public class PortalAuthenticationDetailsSource implements
     @Value("#{'${orisWithoutIncidentDetailAccess:}'.split(',')}")
     private List<String> orisWithoutIncidentDetailAccess;
     
+    @Value("#{'${fedIdsWithAdminAccess:}'.split(',')}")
+    private List<String> fedIdsWithAdminAccess;
+    
     @Value("${enableEnhancedAudit:false}")
     Boolean enableEnhancedAudit;
 
@@ -170,6 +173,14 @@ public class PortalAuthenticationDetailsSource implements
          * Check whether to grant other authorities only when PortalUser access is granted.  
          */
         if (grantedAuthorities.contains(rolePortalUser)) {
+        	
+        	/*
+        	 * Check whether to grant admin role.  
+        	 */
+        	if (fedIdsWithAdminAccess.contains(principal)){
+                grantedAuthorities.add(new SimpleGrantedAuthority(Authorities.AUTHZ_ADMIN.name()));
+        	}
+        	
         	String criminalJusticeEmployerIndicator = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.CriminalJusticeEmployerIndicator); 
         	String lawEnforcementEmployerIndicator = SamlTokenProcessor.getAttributeValue(samlAssertion, SamlAttribute.LawEnforcementEmployerIndicator);
 
