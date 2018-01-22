@@ -134,6 +134,11 @@ public class TestDatabaseLoad {
 
 		rs = conn.createStatement().executeQuery("select * from IDENTIFICATION_SUBJECT");
 		assertTrue(rs.next());
+		
+		rs = conn.createStatement().executeQuery("select count(*) as count from fbi_rap_back_subscription");
+		assertTrue(rs.next());
+		assertEquals(4,rs.getInt("count"));
+
 	}
 
 	@Test

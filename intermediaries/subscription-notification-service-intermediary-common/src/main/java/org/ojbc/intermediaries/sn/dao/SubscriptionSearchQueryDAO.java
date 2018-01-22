@@ -555,10 +555,10 @@ public class SubscriptionSearchQueryDAO {
 		this.jdbcTemplate.update(
 			buildPreparedInsertStatementCreator(
                 "insert into subscription ("
-                + "topic, startDate, endDate, subscribingSystemIdentifier, subscriptionOwner, "
+                + "topic, startDate, endDate, creationDate, subscribingSystemIdentifier, subscriptionOwner, "
                 + "subscriptionOwnerEmailAddress, subjectName, active, subscription_category_code, "
-                + "lastValidationDate, agency_case_number, ori) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
-                    fullyQualifiedTopic, startDate, endDate, request.getSystemName(), request.getSubscriptionOwner(), 
+                + "lastValidationDate, agency_case_number, ori) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
+                    fullyQualifiedTopic, startDate, endDate, creationDate, request.getSystemName(), request.getSubscriptionOwner(), 
                     request.getSubscriptionOwnerEmailAddress(), request.getSubjectName(), 1, request.getReasonCategoryCode(), 
                     creationDate, request.getAgencyCaseNumber(), request.getOri()
                 }), keyHolder);
