@@ -16,12 +16,12 @@
  */
 package org.ojbc.adapters.rapbackdatastore.dao;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -51,6 +51,7 @@ import org.ojbc.util.model.rapback.IdentificationTransactionState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
@@ -88,10 +89,19 @@ public class RapbackDAOImplTest {
     @Resource  
     private DataSource dataSource;  
 
+    //This is used to update database to achieve desired state for test
+    private JdbcTemplate jdbcTemplate;
+	
 	@Before
 	public void setUp() throws Exception {
 		assertNotNull(rapbackDAO);
 		assertNotNull(fbiSubscriptionDao);
+		
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		
+    	//We will use these subscriptions for our tests, update their validation dates so they aren't filtered out
+    	int rowsUpdated = this.jdbcTemplate.update("update subscription set validationDueDate = curdate()");
+    	assertEquals(8, rowsUpdated);
 	}
 	
 	@Test
@@ -310,6 +320,7 @@ public class RapbackDAOImplTest {
 		fbiRapbackSubscription.setRapbackOptOutInState(Boolean.FALSE);
 		fbiRapbackSubscription.setSubscriptionTerm("2");
 		fbiRapbackSubscription.setUcn("LI3456789");
+		fbiRapbackSubscription.setStateSubscriptionId(62725);
 		
 		rapbackDAO.saveFbiRapbackSubscription(fbiRapbackSubscription);
 		

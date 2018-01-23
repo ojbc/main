@@ -62,7 +62,7 @@ public class SubscriptionSearchQueryDAO {
 
     private static final String CIVIL_SUBSCRIPTION_REASON_CODE = "I";
 
-	private static final String BASE_QUERY_STRING = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, "
+	private static final String BASE_QUERY_STRING = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, "
 			+ "s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
 			+ "si.identifierName, s.subscription_category_code, s.agency_case_number, s.ori, "
 			+ "si.identifierValue, nm.notificationAddress, "
@@ -80,24 +80,16 @@ public class SubscriptionSearchQueryDAO {
     private SubscriptionResultsSetExtractor resultSetExtractor;
     private boolean baseNotificationsOnEventDate = true;
     private boolean fbiSubscriptionMember = false;
+    private ValidationDueDateStrategy validationDueDateStrategy = new DefaultValidationDueDateStrategy();
     
     public SubscriptionSearchQueryDAO() {
         resultSetExtractor = new SubscriptionResultsSetExtractor();
-        setValidationDueDateStrategy(new DefaultValidationDueDateStrategy());
         setGracePeriodStrategy(new DefaultGracePeriodStrategy());
         setValidationExemptionFilter(new DefaultValidationExemptionFilter());
     }
 
     public void setValidationExemptionFilter(ValidationExemptionFilter validationExemptionFilter) {
         resultSetExtractor.setValidationExemptionFilter(validationExemptionFilter);
-    }
-
-    public void setValidationDueDateStrategy(ValidationDueDateStrategy validationDueDateStrategy) {
-        resultSetExtractor.setValidationDueDateStrategy(validationDueDateStrategy);
-    }
-    
-    ValidationDueDateStrategy getValidationDueDateStrategy() {
-        return resultSetExtractor.getValidationDueDateStrategy();
     }
 
     public void setGracePeriodStrategy(GracePeriodStrategy gracePeriodStrategy) {
@@ -164,7 +156,7 @@ public class SubscriptionSearchQueryDAO {
 
 	public Subscription findSubscriptionByFbiSubscriptionId(String fbiRelatedSubscriptionId){
 		
-		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
+		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
                 + "s.ori, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
                 + "fbi_sub.* "
                 + "FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
@@ -181,7 +173,7 @@ public class SubscriptionSearchQueryDAO {
 
 	public Subscription findSubscriptionWithFbiInfoBySubscriptionId(String subscriptionId){
 		
-		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
+		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
                 + "si.identifierName, s.subscription_category_code, s.agency_case_number, s.ori, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
                 + "fbi_sub.* "
                 + "FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
@@ -413,6 +405,10 @@ public class SubscriptionSearchQueryDAO {
     	// allow nulls
     	Date endDate = getSqlDateFromString(request.getEndDateString());
     	
+    	//TODO: FIX ME!!!!  We need to calculate this date from a strategy
+    	//java.util.Date validationDueDate =  validationDueDateStrategy.getValidationDueDate(subscription);
+    	java.util.Date validationDueDate = creationDateTime.toDateTimeAtStartOfDay().toDate();
+    	
     	java.util.Date creationDate = creationDateTime.toDateTimeAtStartOfDay().toDate();
     	
     	
@@ -425,7 +421,7 @@ public class SubscriptionSearchQueryDAO {
     	if (subscriptions.size() == 0) {
     		
     		ret = saveSubscription(request, startDate,
-    				endDate, creationDate, fullyQualifiedTopic);    
+    				endDate, creationDate, validationDueDate, fullyQualifiedTopic);    
     	}
     	
     	// A subscriptions exists, let's update it
@@ -537,7 +533,7 @@ public class SubscriptionSearchQueryDAO {
 	}
 
 	private Number saveSubscription(SubscriptionRequest request, Date startDate, Date endDate,
-			java.util.Date creationDate, String fullyQualifiedTopic) {
+			java.util.Date creationDate, java.util.Date validationDueDate, String fullyQualifiedTopic) {
 		
 //		private Number saveSubscription(Map<String, String> subjectIdentifiers,
 //				Map<String, String> subscriptionProperties,
@@ -555,10 +551,10 @@ public class SubscriptionSearchQueryDAO {
 		this.jdbcTemplate.update(
 			buildPreparedInsertStatementCreator(
                 "insert into subscription ("
-                + "topic, startDate, endDate, creationDate, subscribingSystemIdentifier, subscriptionOwner, "
+                + "topic, startDate, endDate, creationDate, validationDueDate, subscribingSystemIdentifier, subscriptionOwner, "
                 + "subscriptionOwnerEmailAddress, subjectName, active, subscription_category_code, "
-                + "lastValidationDate, agency_case_number, ori) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
-                    fullyQualifiedTopic, startDate, endDate, creationDate, request.getSystemName(), request.getSubscriptionOwner(), 
+                + "lastValidationDate, agency_case_number, ori) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
+                    fullyQualifiedTopic, startDate, endDate, creationDate, validationDueDate, request.getSystemName(), request.getSubscriptionOwner(), 
                     request.getSubscriptionOwnerEmailAddress(), request.getSubjectName(), 1, request.getReasonCategoryCode(), 
                     creationDate, request.getAgencyCaseNumber(), request.getOri()
                 }), keyHolder);
@@ -841,6 +837,15 @@ public class SubscriptionSearchQueryDAO {
 
 	public void setFbiSubscriptionMember(boolean fbiSubscriptionMember) {
 		this.fbiSubscriptionMember = fbiSubscriptionMember;
+	}
+
+	public ValidationDueDateStrategy getValidationDueDateStrategy() {
+		return validationDueDateStrategy;
+	}
+
+	public void setValidationDueDateStrategy(
+			ValidationDueDateStrategy validationDueDateStrategy) {
+		this.validationDueDateStrategy = validationDueDateStrategy;
 	}
 
 }
