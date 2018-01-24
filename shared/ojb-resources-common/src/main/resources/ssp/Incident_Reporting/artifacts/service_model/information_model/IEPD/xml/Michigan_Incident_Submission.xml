@@ -33,8 +33,8 @@
 				</lexs:PDMessageMetadata>
 				<lexs:DataSubmitterMetadata>
 					<lexs:SystemIdentifier>
-						<lexs:ORI>12345678</lexs:ORI>
-						<nc:OrganizationName>Incident Reporting agency</nc:OrganizationName>
+						<lexs:ORI>MI2912900</lexs:ORI>
+						<nc:OrganizationName>Alma Police Department</nc:OrganizationName>
 						<lexs:SystemID />
 					</lexs:SystemIdentifier>
 					<lexs:SystemContact>
@@ -72,8 +72,8 @@
 						<lexs:DataItemStatus>Closed</lexs:DataItemStatus>
 						<lexs:DataOwnerMetadata>
 							<lexs:DataOwnerIdentifier>
-								<lexs:ORI>12345678</lexs:ORI>
-								<nc:OrganizationName>Incident Agency</nc:OrganizationName>
+								<lexs:ORI>MI2912900</lexs:ORI>
+								<nc:OrganizationName>Alma Police Department</nc:OrganizationName>
 								<lexs:SystemID>N-DEx Connector</lexs:SystemID>
 							</lexs:DataOwnerIdentifier>
 							<lexs:DataOwnerContact>
@@ -105,7 +105,7 @@
 						<lexsdigest:EntityActivity>
 							<nc:Activity s:id="Incident_1">
 								<nc:ActivityIdentification>
-									<nc:IdentificationID>I123456</nc:IdentificationID>
+									<nc:IdentificationID>17000819</nc:IdentificationID>
 								</nc:ActivityIdentification>
 								<nc:ActivityCategoryText>Incident</nc:ActivityCategoryText>
 								<nc:ActivityDateRange>
