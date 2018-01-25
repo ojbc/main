@@ -65,6 +65,7 @@ import org.ojbc.web.model.subscription.response.UnsubscriptionAccessDenialRespon
 import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
 import org.ojbc.web.model.subscription.response.common.SubscriptionResponse;
 import org.ojbc.web.model.subscription.response.common.SubscriptionResponseType;
+import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.ojbc.web.model.subscription.validation.SubscriptionValidationResponse;
 import org.ojbc.web.portal.controllers.PortalController.UserLogonInfo;
 import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
@@ -106,7 +107,7 @@ import org.xml.sax.InputSource;
 @Controller
 @Profile({"subscriptions", "standalone"})
 @RequestMapping("/subscriptions/*")
-@SessionAttributes({"subscription", "userLogonInfo", "rapsheetData"})
+@SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest"})
 public class SubscriptionsController {
 		
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
@@ -205,7 +206,13 @@ public class SubscriptionsController {
     }
     
     @RequestMapping("adminLandingPage")
-    public String faq(){
+    public String admingDefaultSearch(HttpServletRequest request,	        
+	        Map<String, Object> model){
+		Element samlElement = samlService.getSamlAssertion(request);
+		
+		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
+		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
+		
 	    return "subscriptions/admin/_adminLandingPage";
 	}
 
@@ -214,8 +221,15 @@ public class SubscriptionsController {
 	        Map<String, Object> model) {		
 								
 		Element samlElement = samlService.getSamlAssertion(request);
-		String searchId = getFederatedQueryId();
 		
+		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
+		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
+		
+		return "subscriptions/_subscriptionResults";
+	}
+
+	private void performSubscriptionSearch(Map<String, Object> model, Element samlElement,
+			SubscriptionSearchRequest subscriptionSearchRequest) {
 		String rawResults = null; 
 		
 		String informationMessage = "";
@@ -223,7 +237,7 @@ public class SubscriptionsController {
 		try{
 									
 			rawResults = subConfig.getSubscriptionSearchBean()
-					.invokeSubscriptionSearchRequest(searchId, samlElement);
+					.invokeSubscriptionSearchRequest(subscriptionSearchRequest, samlElement);
 												
 			userSession.setMostRecentSubscriptionSearchResult(rawResults);			
 			userSession.setSavedMostRecentSubscriptionSearchResult(null);
@@ -251,8 +265,7 @@ public class SubscriptionsController {
 													
 		model.put("subscriptionsContent", transformedResults);	
 		model.put("informationMessages", informationMessage);
-		
-		return "subscriptions/_subscriptionResults";
+		model.put("subscriptionSearchRequest", subscriptionSearchRequest);
 	}
 
 
@@ -1340,13 +1353,12 @@ public class SubscriptionsController {
 		
 		Element samlElement = samlService.getSamlAssertion(request);
 		
-		String searchId = getFederatedQueryId();
-		
 		String rawResults = null;
 		
+		SubscriptionSearchRequest subscriptionSearchRequest = (SubscriptionSearchRequest) model.get("subscriptionSearchRequest"); 
 		try{
 						
-			rawResults = subConfig.getSubscriptionSearchBean().invokeSubscriptionSearchRequest(searchId, samlElement);
+			rawResults = subConfig.getSubscriptionSearchBean().invokeSubscriptionSearchRequest(subscriptionSearchRequest, samlElement);
 						
 		}catch(Exception e){
 			

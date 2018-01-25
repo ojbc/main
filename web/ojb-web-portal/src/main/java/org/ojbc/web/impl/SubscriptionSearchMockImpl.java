@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.web.SubscriptionSearchInterface;
 import org.ojbc.web.WebUtils;
+import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.ojbc.web.portal.services.SearchResultConverter;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Element;
@@ -38,7 +39,7 @@ public class SubscriptionSearchMockImpl implements SubscriptionSearchInterface{
 	
 
 	@Override
-	public String invokeSubscriptionSearchRequest(String federatedQueryID,
+	public String invokeSubscriptionSearchRequest(SubscriptionSearchRequest request,
 			Element samlToken) throws Exception {
 
 		logger.info("in invokeSubscriptionSearchRequest()");
