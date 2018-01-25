@@ -51,6 +51,7 @@ import org.ojbc.intermediaries.sn.notification.filter.DefaultNotificationFilterS
 import org.ojbc.intermediaries.sn.notification.filter.DuplicateNotificationFilterStrategy;
 import org.ojbc.intermediaries.sn.topic.incident.IncidentNotificationProcessor;
 import org.ojbc.util.model.BooleanPropertyWrapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.subethamail.wiser.WiserMessage;
 
 @SuppressWarnings("deprecation")
@@ -67,9 +68,14 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
 	@Resource
 	protected AuditDAO auditDaoImpl;
 	
+    //This is used to update database to achieve desired state for test
+    private JdbcTemplate jdbcTemplate;
+	
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
+		
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 		
     	context.getRouteDefinition("sendToFbiEbtsAdapter").adviceWith(context, new AdviceWithRouteBuilder() {
     	    @Override
@@ -216,7 +222,12 @@ public class SubscriptionNotificationIntegrationTest extends AbstractSubscriptio
     }
 	
     @Test
-    public void notificationArrest_multipleSubscriptions() throws Exception {        
+    public void notificationArrest_multipleSubscriptions() throws Exception {
+    	
+    	//We will use these three subscriptions for our tests, update their validation dates so they aren't filtered out
+    	int rowsUpdated = this.jdbcTemplate.update("update subscription set validationDueDate = curdate() where id = 1 or id =3");
+    	assertEquals(2, rowsUpdated);
+    	
         notifyAndAssertBasics("notificationSoapRequest_A5008305.xml", "//notfm-exch:NotificationMessage/notfm-ext:NotifyingArrest/jxdm41:Arrest/nc:ActivityDate", 
                 "SID: A5008305", 6);
     }

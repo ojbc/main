@@ -36,6 +36,7 @@ public class Subscription {
 	private DateTime startDate;
 	private DateTime endDate;
 	private DateTime lastValidationDate;
+	private DateTime creationDate;
 	
     private String topic;
 	
@@ -232,6 +233,14 @@ public class Subscription {
 
 	public void setOri(String ori) {
 		this.ori = ori;
+	}
+
+	public DateTime getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
 	}
 
 }

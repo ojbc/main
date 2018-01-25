@@ -65,7 +65,7 @@
          <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
          <oirs-res-ext:SubscriptionValidation>
             <oirs-res-ext:SubscriptionValidationDueDate>
-               <nc30:Date>2016-09-18</nc30:Date>
+               <nc30:Date>2015-09-18</nc30:Date>
             </oirs-res-ext:SubscriptionValidationDueDate>
          </oirs-res-ext:SubscriptionValidation>
          <oirs-res-ext:SubscriptionIdentification>
@@ -125,7 +125,7 @@
          <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
          <oirs-res-ext:SubscriptionValidation>
             <oirs-res-ext:SubscriptionValidationDueDate>
-               <nc30:Date>2016-10-15</nc30:Date>
+               <nc30:Date>2015-10-15</nc30:Date>
             </oirs-res-ext:SubscriptionValidationDueDate>
          </oirs-res-ext:SubscriptionValidation>
          <oirs-res-ext:SubscriptionIdentification>
@@ -224,11 +224,7 @@
             </nc30:EndDate>
          </nc30:ActivityDateRange>
          <wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
-         <oirs-res-ext:SubscriptionValidation>
-            <oirs-res-ext:SubscriptionValidationDueDate>
-               <nc30:Date>2015-10-15</nc30:Date>
-            </oirs-res-ext:SubscriptionValidationDueDate>
-         </oirs-res-ext:SubscriptionValidation>
+         <oirs-res-ext:SubscriptionValidation/>
          <oirs-res-ext:SubscriptionIdentification>
             <nc30:IdentificationID>62723</nc30:IdentificationID>
          </oirs-res-ext:SubscriptionIdentification>
