@@ -39,6 +39,9 @@ public class SubscriptionSAMLTokenProcessor {
 	{
 		String samlFederationID = null;
 		String samlEmailAddress = null;
+		String samlFirstName = null;
+		String samlLastName = null;
+		String samlEmployerOri = null;
 		
 		try
 		{
@@ -76,6 +79,33 @@ public class SubscriptionSAMLTokenProcessor {
 						samlEmailAddress = attributeValueAsString;
 					}
 
+					if (attributeName.equals("gfipm:2.0:user:GivenName"))
+					{
+						XMLObject attributeValue = attribute.getAttributeValues().get(0);
+						String attributeValueAsString = attributeValue.getDOM().getTextContent();
+						log.debug(attributeValueAsString);
+						
+						samlFirstName = attributeValueAsString;
+					}
+					
+					if (attributeName.equals("gfipm:2.0:user:SurName"))
+					{
+						XMLObject attributeValue = attribute.getAttributeValues().get(0);
+						String attributeValueAsString = attributeValue.getDOM().getTextContent();
+						log.debug(attributeValueAsString);
+						
+						samlLastName = attributeValueAsString;
+					}
+
+					if (attributeName.equals("gfipm:2.0:user:EmployerORI"))
+					{
+						XMLObject attributeValue = attribute.getAttributeValues().get(0);
+						String attributeValueAsString = attributeValue.getDOM().getTextContent();
+						log.debug(attributeValueAsString);
+						
+						samlEmployerOri = attributeValueAsString;
+					}
+
 					
 				}	
 				
@@ -89,6 +119,21 @@ public class SubscriptionSAMLTokenProcessor {
 			if (StringUtils.isNotEmpty(samlEmailAddress))
 			{	
 				exchange.getIn().setHeader("saml_EmailAddress", samlEmailAddress);
+			}
+
+			if (StringUtils.isNotEmpty(samlFirstName))
+			{	
+				exchange.getIn().setHeader("saml_FirstName", samlFirstName);
+			}
+
+			if (StringUtils.isNotEmpty(samlLastName))
+			{	
+				exchange.getIn().setHeader("saml_LastName", samlLastName);
+			}
+
+			if (StringUtils.isNotEmpty(samlEmployerOri))
+			{	
+				exchange.getIn().setHeader("saml_EmployerOri", samlEmployerOri);
 			}
 
 		}	
