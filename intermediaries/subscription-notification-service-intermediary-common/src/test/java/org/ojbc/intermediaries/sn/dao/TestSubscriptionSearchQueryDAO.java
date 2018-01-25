@@ -83,6 +83,7 @@ import org.ojbc.intermediaries.sn.topic.rapback.FederalTriggeringEventCode;
 import org.ojbc.intermediaries.sn.topic.rapback.RapbackSubscriptionRequest;
 import org.ojbc.util.xml.XmlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -110,8 +111,14 @@ public class TestSubscriptionSearchQueryDAO {
 
 	private ValidationDueDateStrategy springConfiguredStrategy;
 
+    //This is used to update database to achieve desired state for test
+    private JdbcTemplate jdbcTemplate;
+	
 	@Before
 	public void setUp() {
+		
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+		
 		springConfiguredStrategy = subscriptionSearchQueryDAO
 				.getValidationDueDateStrategy();
 	}
@@ -128,6 +135,10 @@ public class TestSubscriptionSearchQueryDAO {
 
 	private void loadEmptyTestData() throws Exception {
 		loadTestData("src/test/resources/xmlInstances/dbUnit/emptySubscriptionDataSet.xml");
+	}
+
+	private void loadAgencyTestData() throws Exception {
+		loadTestData("src/test/resources/xmlInstances/dbUnit/agencyProfileDataSet.xml");
 	}
 
 	private void loadWildcardTestData() throws Exception {
@@ -163,6 +174,23 @@ public class TestSubscriptionSearchQueryDAO {
 				new FlatXmlDataSetBuilder().build(manualTestFile));
 	}
 
+	@Test
+	public void testRetrieveSubscriptionOwner() throws Exception
+	{
+		loadManualTestData();
+		
+		Integer agencyPk = subscriptionSearchQueryDAO.returnAgencyPkFromORI("123456789");
+		assertEquals(new Integer(1), agencyPk);
+		
+		Number subNumber = subscriptionSearchQueryDAO.saveSubscriptionOwner("Bill", "Bradley", "bill@bradley.com", "BillUniqueFederationId", "123456789");
+		
+		assertNotNull(subNumber);
+		
+		Integer subOwner = subscriptionSearchQueryDAO.returnSubscriptionOwnerFromFederationId("BillUniqueFederationId");
+		assertNotNull(subOwner);
+		
+	}
+	
 	@Test
 	public void testUpdateSubscriptionProperties() throws Exception
 	{
@@ -604,7 +632,7 @@ public class TestSubscriptionSearchQueryDAO {
 		Statement s = dataSource.getConnection().createStatement();
 
 		ResultSet rs = s
-				.executeQuery("select * from subscription where active=1");
+				.executeQuery("select s.topic, s.id, s.ACTIVE, s.subscribingSystemIdentifier, so.federation_id as subscriptionOwner from subscription s, subscription_owner so where s.subscription_owner_id=so.subscription_owner_id and active=1");
 
 		assertTrue(rs.next());
 		int id = rs.getInt("id");
@@ -683,6 +711,8 @@ public class TestSubscriptionSearchQueryDAO {
 
 		Statement s = dataSource.getConnection().createStatement();
 
+		s.execute("insert into AGENCY_PROFILE(AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR ) values ('A23456789', 'Demo Agency', true, false)");
+		
 		Map<String, String> subjectIds = new HashMap<String, String>();
 		subjectIds.put(SubscriptionNotificationConstants.SID, "1234");
 		subjectIds.put(
@@ -702,10 +732,15 @@ public class TestSubscriptionSearchQueryDAO {
 
 		SubscriptionRequest request = buildSubscriptionRequest(subjectIds,
 				subscriptionProperties);
+		
+		request.setSubscriptionOwnerOri("A23456789");
+		
 		LocalDate currentDate = new LocalDate();
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(request, currentDate).intValue();
 
-		rs = s.executeQuery("select * from subscription");
+		rs = s.executeQuery("select s.*, so.federation_id as subscriptionOwner, so.email_address as  subscriptionOwnerEmailAddress, ap.agency_ori as ori from subscription s, "
+				+ "subscription_owner so, agency_profile ap where  s.subscription_owner_id = so.subscription_owner_id"
+				+ " and ap.AGENCY_ID = so.AGENCY_ID");
 
 		int postRecordCount = 0;
 		while (rs.next()) {
@@ -735,7 +770,7 @@ public class TestSubscriptionSearchQueryDAO {
 				assertEquals("0123ABC", rs.getString("agency_case_number"));
 				assertEquals("SYSTEM", rs.getString("subscriptionOwner"));
 				assertEquals("ownerEmail@local.gov", rs.getString("subscriptionOwnerEmailAddress"));
-				assertEquals("1234567890", rs.getString("ori"));
+				assertEquals("A23456789", rs.getString("ori"));
 				
 			}
 		}
@@ -819,7 +854,10 @@ public class TestSubscriptionSearchQueryDAO {
         request.setSubscriptionQualifier("ABCDE"); 
         request.setReasonCategoryCode("CI");  
         request.setSubscriptionOwner("SYSTEM"); 
-        request.setSubscriptionOwnerEmailAddress("ownerEmail@local.gov"); 
+        request.setSubscriptionOwnerEmailAddress("ownerEmail@local.gov");
+        request.setSubscriptionOwnerOri("1234567890");
+        request.setSubscriptionOwnerFirstName("bill");
+        request.setSubscriptionOwnerLastName("smith");
         request.setAgencyCaseNumber("0123ABC");
         request.setOri("1234567890");
 		return request;
@@ -924,7 +962,7 @@ public class TestSubscriptionSearchQueryDAO {
 															// been an update
 															// not insert
 
-		rs = s.executeQuery("select * from subscription where id="
+		rs = s.executeQuery("select s.*, so.EMAIL_ADDRESS as subscriptionOwnerEmailAddress from subscription s, subscription_owner so where s.subscription_owner_id = so.subscription_owner_id and id="
 				+ subscriptionId);
 
 		recordCount = 0;
@@ -941,7 +979,7 @@ public class TestSubscriptionSearchQueryDAO {
 			assertTrue(lastValidationDate.isAfter(originalDate
 					.toDateTimeAtStartOfDay()));
 			assertEquals("0123ABC", rs.getString("agency_case_number"));
-			assertEquals("ownerEmail@local.gov", rs.getString("subscriptionOwnerEmailAddress"));
+			assertEquals("local1@local.gov", rs.getString("subscriptionOwnerEmailAddress"));
 		}
 
 		assertEquals(1, recordCount);
@@ -959,7 +997,7 @@ public class TestSubscriptionSearchQueryDAO {
 	public void testSubscribe_noExistingSubscriptionsForTopic()
 			throws Exception {
 
-		loadEmptyTestData();
+		loadAgencyTestData();
 
 		Map<String, String> subjectIds = new HashMap<String, String>();
 		subjectIds.put(SubscriptionNotificationConstants.SID, "1234");
@@ -1075,6 +1113,9 @@ public class TestSubscriptionSearchQueryDAO {
 	public void testSubscribe_noExistingCivilSubscriptions() throws Exception {
 
 		Statement s = dataSource.getConnection().createStatement();
+		
+		s.execute("insert into AGENCY_PROFILE(AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR ) values ('B23456789', 'Demo Agency', true, false)");
+		
 		ResultSet rs = s.executeQuery("select * from identification_transaction where TRANSACTION_NUMBER = '000001820140729014008339997'");
 		assertTrue(rs.next());
 		Date availableForSubscriptionStartDate = rs.getDate("AVAILABLE_FOR_SUBSCRIPTION_START_DATE");
@@ -1093,6 +1134,7 @@ public class TestSubscriptionSearchQueryDAO {
 
 		LocalDate currentDate = new LocalDate();
 		SubscriptionRequest request = buildSubscriptionRequest(subjectIds, null);
+		request.setSubscriptionOwnerOri("B23456789");
 		request.setTopic("{http://ojbc.org/wsn/topics}:person/arrest");
 		request.setStartDateString("2015-11-03");
 		request.setEndDateString("2016-11-02");

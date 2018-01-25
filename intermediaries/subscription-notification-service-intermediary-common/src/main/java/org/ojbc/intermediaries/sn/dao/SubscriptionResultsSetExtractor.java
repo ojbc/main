@@ -123,6 +123,8 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            	    subscription.setGracePeriod(null);
 	            	}
 	            	
+	            	subscription.setSubscriptionOwnerFk(rs.getInt("SUBSCRIPTION_OWNER_ID"));
+	            	
 	            	subscription.setSubscriptionOwner(rs.getString("subscriptionOwner"));
 	            	
 	            	subscription.setSubscriptionOwnerEmailAddress(rs.getString("subscriptionOwnerEmailAddress"));

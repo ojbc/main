@@ -46,6 +46,7 @@ import org.ojbc.intermediaries.sn.notification.NotificationRequest;
 import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 import org.ojbc.intermediaries.sn.util.NotificationBrokerUtils;
 import org.ojbc.util.xml.XmlUtils;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -63,14 +64,18 @@ public class SubscriptionSearchQueryDAO {
     private static final String CIVIL_SUBSCRIPTION_REASON_CODE = "I";
 
 	private static final String BASE_QUERY_STRING = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, "
-			+ "s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
-			+ "si.identifierName, s.subscription_category_code, s.agency_case_number, s.ori, "
+			+ "s.subscribingSystemIdentifier, s.subjectName, s.SUBSCRIPTION_OWNER_ID, "
+			+ "si.identifierName, s.subscription_category_code, s.agency_case_number, ap.agency_ori as ori, so.EMAIL_ADDRESS as subscriptionOwnerEmailAddress, so.FEDERATION_ID as subscriptionOwner, "
 			+ "si.identifierValue, nm.notificationAddress, "
 			+ "nm.notificationMechanismType, fs.* "
 			+ "FROM subscription s LEFT JOIN fbi_rap_back_subscription fs ON fs.subscription_id = s.id, "
 			+ "		notification_mechanism nm, "
-			+ "		subscription_subject_identifier si "
-			+ "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id ";
+			+ "		subscription_subject_identifier si, "
+			+ "		subscription_owner so, "
+			+ "		agency_profile ap "
+			+ "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id "
+			+ " and so.SUBSCRIPTION_OWNER_ID = s.SUBSCRIPTION_OWNER_ID"
+			+ " and ap.AGENCY_ID = so.AGENCY_ID";
 	
     private static final DateTimeFormatter DATE_FORMATTER_YYYY_MM_DD = DateTimeFormat.forPattern("yyyy-MM-dd");
     
@@ -107,7 +112,7 @@ public class SubscriptionSearchQueryDAO {
      */
     public List<Subscription> searchForSubscriptionsBySubscriptionOwner(@Header("saml_FederationID") String subscriptionOwner) {
 
-        String sqlQuery = BASE_QUERY_STRING + " and s.subscriptionOwner=? and s.active =1";
+        String sqlQuery = BASE_QUERY_STRING + " and so.FEDERATION_ID=? and s.active =1";
 
         List<Subscription> subscriptions = this.jdbcTemplate.query(sqlQuery, new Object[] {
             subscriptionOwner
@@ -123,7 +128,7 @@ public class SubscriptionSearchQueryDAO {
      */
     public int countSubscriptionsInSearch(@Header("saml_FederationID") String subscriptionOwner) {
 
-        String sqlQuery = "select count(*) from subscription where subscriptionOwner=? and active =1";
+        String sqlQuery = "select count(*) from subscription s, subscription_owner so where so.federation_id=? and active =1";
 
         int subscriptionCountForOwner = this.jdbcTemplate.queryForObject(sqlQuery, Integer.class, subscriptionOwner);
 
@@ -138,7 +143,7 @@ public class SubscriptionSearchQueryDAO {
      * @return the matching subscription
      */
     public Subscription queryForSubscription(@Header("saml_FederationID") String subscriptionOwner, @Header("subscriptionQueryId") String id) {
-        String sqlQuery = BASE_QUERY_STRING + " and s.subscriptionOwner=? and s.id=? and s.active = 1";
+        String sqlQuery = BASE_QUERY_STRING + " and so.federation_id=? and s.id=? and s.active = 1";
 
         List<Subscription> subscriptions = this.jdbcTemplate.query(sqlQuery, new Object[] {
             subscriptionOwner, id
@@ -156,12 +161,14 @@ public class SubscriptionSearchQueryDAO {
 
 	public Subscription findSubscriptionByFbiSubscriptionId(String fbiRelatedSubscriptionId){
 		
-		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
-                + "s.ori, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
-                + "fbi_sub.* "
-                + "FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
-                + "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id AND fbi_sub.subscription_id = s.id "
-                + "AND fbi_sub.FBI_SUBSCRIPTION_ID = ?";
+		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, so.federation_id as subscriptionOwner, so.email_address as subscriptionOwnerEmailAddress, s.subjectName, "
+                + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
+                + " fbi_sub.* "
+                + " FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, subscription_owner so, agency_profile ap, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
+                + " WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id AND fbi_sub.subscription_id = s.id "
+                + " AND so.subscription_owner_id = s.subscription_owner_id and so.agency_id=ap.agency_id "
+                + " AND fbi_sub.FBI_SUBSCRIPTION_ID = ?";
+		
         List<Subscription> subscriptions = this.jdbcTemplate.query(sql, resultSetExtractor, fbiRelatedSubscriptionId);
         
         Subscription subscription = DataAccessUtils.singleResult(subscriptions);
@@ -362,7 +369,7 @@ public class SubscriptionSearchQueryDAO {
         if (StringUtils.isNotBlank(owner))
         {
         	criteriaList.add(owner.trim());
-        	staticCriteria.append(" and s.subscriptionOwner = ?");
+        	staticCriteria.append(" and so.federation_id = ?");
         }	
         
         if (StringUtils.isNotBlank(topic))
@@ -432,9 +439,36 @@ public class SubscriptionSearchQueryDAO {
     		
     		long subscriptionID = subscriptions.get(0).getId();
     		
-    		updateSubscription(request.getSubjectName(), request.getSubscriptionOwner(),
-    				request.getSubscriptionOwnerEmailAddress(), startDate, endDate,
-    				creationDate, fullyQualifiedTopic, subscriptionID);
+    		String federationIdInDatabase = subscriptions.get(0).getSubscriptionOwner();
+    		
+    		Integer subscriptionOwnerPk = null;
+    		
+    		if (federationIdInDatabase.equals(request.getSubscriptionOwner()))
+    		{
+    			subscriptionOwnerPk = subscriptions.get(0).getSubscriptionOwnerFk();
+    		}
+    		else
+    		{	
+    			//This table has an entry for the owner 'SYSTEM' which is an automated subscription
+    			subscriptionOwnerPk = returnSubscriptionOwnerFromFederationId(request.getSubscriptionOwner());
+    			
+    			//Null subscription ID, add subscription owner to database
+    			if (subscriptionOwnerPk == null)
+    			{
+    				try {
+    					Number subscriptionOwnerNumber = saveSubscriptionOwner(request.getSubscriptionOwnerFirstName(), request.getSubscriptionOwnerLastName(), request.getSubscriptionOwnerEmailAddress(), request.getSubscriptionOwner(), request.getSubscriptionOwnerOri());
+    					subscriptionOwnerPk = subscriptionOwnerNumber.intValue();
+    					
+    				} catch (Exception e) {
+    					log.error("Unable to save subscription owner.  ORI does not exist");
+    					return null;
+    				}
+    			}	
+    			
+    		}	
+    		
+    		updateSubscription(request.getSubjectName(), startDate, endDate,
+    				creationDate, fullyQualifiedTopic, subscriptionID, subscriptionOwnerPk);
     		
     		updateEmailAddresses(new ArrayList<String>(request.getEmailAddresses()), subscriptionID);
     		
@@ -483,12 +517,11 @@ public class SubscriptionSearchQueryDAO {
 		return startDate;
 	}
 
-	private void updateSubscription(String offenderName, String subscriptionOwner,
-			String subscriptionOwnerEmailAddress, Date startDate, Date endDate,
-			java.util.Date creationDate, String fullyQualifiedTopic,
-			long subscriptionID) {
-		this.jdbcTemplate.update("update subscription set topic=?, startDate=?, endDate=?, subjectName=?, active=1, subscriptionOwner=?, subscriptionOwnerEmailAddress=?, lastValidationDate=? where id=?", new Object[] {
-		    fullyQualifiedTopic.trim(), startDate, endDate, offenderName.trim(), subscriptionOwner, subscriptionOwnerEmailAddress, creationDate, subscriptionID
+	private void updateSubscription(String offenderName, Date startDate, Date endDate,
+			java.util.Date lastValidationDate, String fullyQualifiedTopic,
+			long subscriptionID, Integer subscriptionOwnerFk) {
+		this.jdbcTemplate.update("update subscription set topic=?, startDate=?, endDate=?, subjectName=?, active=1, lastValidationDate=?, SUBSCRIPTION_OWNER_ID=? where id=?", new Object[] {
+		    fullyQualifiedTopic.trim(), startDate, endDate, offenderName.trim(), lastValidationDate, subscriptionOwnerFk, subscriptionID
 		});
 	}
 
@@ -532,6 +565,52 @@ public class SubscriptionSearchQueryDAO {
         });
 	}
 
+	Number saveSubscriptionOwner(String firstName, String lastName, String emailAddress, String federationId, String agencyOri) throws Exception {
+		
+		log.info("Inserting row into subscription owner table");
+		
+		Integer agencyPk = returnAgencyPkFromORI(agencyOri);
+		
+		if (agencyPk == null)
+		{
+			throw new IllegalStateException("Unable to find agency ORI in the agency table.");
+		}	
+
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		this.jdbcTemplate.update(
+			buildPreparedInsertStatementCreator(
+                "insert into SUBSCRIPTION_OWNER (FIRST_NAME, LAST_NAME, EMAIL_ADDRESS, FEDERATION_ID, AGENCY_ID) "
+                + "values (?, ?, ?, ?, ?)", new Object[] {
+                		firstName, lastName, emailAddress, federationId, agencyPk
+                }), keyHolder);
+
+		return keyHolder.getKey();
+	}
+
+	Integer returnAgencyPkFromORI(String ori)
+	{
+    	String sql = "SELECT AGENCY_ID from AGENCY_PROFILE where AGENCY_ORI=?";
+    	
+    	Integer agencyProfilePk = jdbcTemplate.queryForObject(sql, new Object[] {ori}, Integer.class);
+		
+		return agencyProfilePk;
+    	
+	}
+	
+	Integer returnSubscriptionOwnerFromFederationId(String federationId)
+	{
+    	String sql = "SELECT SUBSCRIPTION_OWNER_ID from SUBSCRIPTION_OWNER where FEDERATION_ID=?";
+    	
+    	Integer subscriptionOwnerPk = null;
+		try {
+			subscriptionOwnerPk = jdbcTemplate.queryForObject(sql, new Object[] {federationId}, Integer.class);
+		} catch (DataAccessException e) {
+			log.info("Unable to find existing subscription owner, insert new record.");
+		}
+		
+		return subscriptionOwnerPk;
+	}
+	
 	private Number saveSubscription(SubscriptionRequest request, Date startDate, Date endDate,
 			java.util.Date creationDate, java.util.Date validationDueDate, String fullyQualifiedTopic) {
 		
@@ -546,17 +625,31 @@ public class SubscriptionSearchQueryDAO {
 		Number ret;
 		
 		log.debug("Inserting row into subscription table");
+		
+		//This table has an entry for the owner 'SYSTEM' which is an automated subscription
+		Integer subscriptionOwnerPk = returnSubscriptionOwnerFromFederationId(request.getSubscriptionOwner());
+		
+		//Null subscription ID, add subscription owner to database
+		if (subscriptionOwnerPk == null)
+		{
+			try {
+				Number subscriptionOwnerNumber = saveSubscriptionOwner(request.getSubscriptionOwnerFirstName(), request.getSubscriptionOwnerLastName(), request.getSubscriptionOwnerEmailAddress(), request.getSubscriptionOwner(), request.getSubscriptionOwnerOri());
+				subscriptionOwnerPk = subscriptionOwnerNumber.intValue();
+				
+			} catch (Exception e) {
+				log.error("Unable to save subscription owner.  ORI does not exist");
+				return null;
+			}
+		}	
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		this.jdbcTemplate.update(
 			buildPreparedInsertStatementCreator(
                 "insert into subscription ("
-                + "topic, startDate, endDate, creationDate, validationDueDate, subscribingSystemIdentifier, subscriptionOwner, "
-                + "subscriptionOwnerEmailAddress, subjectName, active, subscription_category_code, "
-                + "lastValidationDate, agency_case_number, ori) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
-                    fullyQualifiedTopic, startDate, endDate, creationDate, validationDueDate, request.getSystemName(), request.getSubscriptionOwner(), 
-                    request.getSubscriptionOwnerEmailAddress(), request.getSubjectName(), 1, request.getReasonCategoryCode(), 
-                    creationDate, request.getAgencyCaseNumber(), request.getOri()
+                + "topic, startDate, endDate, creationDate, validationDueDate, subscribingSystemIdentifier, subjectName, active, subscription_category_code, "
+                + "lastValidationDate, agency_case_number, subscription_owner_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new Object[] {
+                    fullyQualifiedTopic, startDate, endDate, creationDate, validationDueDate, request.getSystemName(), 
+                    request.getSubjectName(), 1, request.getReasonCategoryCode(), creationDate, request.getAgencyCaseNumber(), subscriptionOwnerPk
                 }), keyHolder);
 
 		ret = keyHolder.getKey();
@@ -695,10 +788,10 @@ public class SubscriptionSearchQueryDAO {
             log.debug("unsubscribing auto subscription, not subscritpion system ID");
 
             Object[] criteriaArray = new Object[] {
-                fullyQualifiedTopic, systemName, subscriptionOwner
+                fullyQualifiedTopic, systemName
             };
             criteriaArray = ArrayUtils.addAll(criteriaArray, SubscriptionSearchQueryDAO.buildCriteriaArray(subjectIds));
-            String queryString = "update subscription s set s.active=0 where s.topic=? and s.subscribingSystemIdentifier=? and s.subscriptionOwner = ? and"
+            String queryString = "update subscription s set s.active=0 where s.topic=? and s.subscribingSystemIdentifier=? and"
                     + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIds.size());
 
             log.debug("Query String: " + queryString);
@@ -775,7 +868,7 @@ public class SubscriptionSearchQueryDAO {
     
     public List<String> getUniqueSubscriptionOwners()
     {
-    	String queryString = "SELECT distinct(subscriptionOwner) FROM subscription where subscriptionOwner <> 'SYSTEM' order by subscriptionOwner";
+    	String queryString = "SELECT distinct(FEDERATION_ID) as subscriptionOwner FROM SUBSCRIPTION_OWNER where FEDERATION_ID <> 'SYSTEM' order by FEDERATION_ID";
     	
     	List<String> subscriptionOwners = (List<String>) jdbcTemplate.queryForList(queryString, String.class);
     	
