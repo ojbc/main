@@ -91,15 +91,15 @@
 					<td colspan="8" class="detailsTitle">MAILING ADDRESS</td>
 				</tr>
 				<tr>
-					<td colspan="2" class="detailsLabel">UNIT</td>
-					<td colspan="6">
-						<xsl:value-of select="$mailingAddress/nc:AddressSecondaryUnitText" />
-					</td>
-				</tr>
-				<tr>
 					<td colspan="2" class="detailsLabel">STREET ADDRESS</td>
 					<td colspan="6">
 						<xsl:value-of select="$mailingAddress/nc:LocationStreet/nc:StreetFullText" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="detailsLabel">UNIT</td>
+					<td colspan="6">
+						<xsl:value-of select="$mailingAddress/nc:AddressSecondaryUnitText" />
 					</td>
 				</tr>
 				<tr>

@@ -26,4 +26,6 @@
   <uri name="http://niem.gov/niem/niem-core/2.0" uri="niem-core/2.0/niem-core.xsd"/>
   <uri name="http://niem.gov/niem/proxy/xsd/2.0" uri="proxy/xsd/2.0/xsd.xsd"/>
   <uri name="http://niem.gov/niem/structures/2.0" uri="structures/2.0/structures.xsd"/>
+  <uri name="http://reference.niem.gov/niem/specification/code-lists/4.0/code-lists-instance/" uri="utility/code-lists-spec/4.0/code-lists-instance.xsd"/>
+  <uri name="http://reference.niem.gov/niem/specification/code-lists/4.0/code-lists-schema-appinfo/" uri="utility/code-lists-spec/4.0/code-lists-schema-appinfo.xsd"/>
 </catalog>
