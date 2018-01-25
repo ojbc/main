@@ -40,6 +40,15 @@ $(function() {
 });
 
 ojbc = {
+	hideSearchBarButtons: function(){
+		var searchBarIsHidden = $('#searchBar').is(':hidden');
+		// hide the search bar so we can just show the subscriptions content	
+		if(!searchBarIsHidden){
+			// note can also use:  $('#id').hide();			
+			$('#searchBarButtonDiv').css("display", "none");
+		}	  
+
+	},
 	showLoadingPane: function(){
  		var loadingDiv =  $("#loadingAjaxPane");
  		var portalContentDiv = $("#portalContent");

@@ -204,6 +204,11 @@ public class SubscriptionsController {
         model.addAttribute("triggeringEventCodeMap", triggeringEventCodeMap);
     }
     
+    @RequestMapping("adminLandingPage")
+    public String faq(){
+	    return "subscriptions/admin/_adminLandingPage";
+	}
+
 	@RequestMapping(value = "subscriptionResults", method = RequestMethod.POST)
 	public String searchSubscriptions(HttpServletRequest request,	        
 	        Map<String, Object> model) {		

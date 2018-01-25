@@ -172,7 +172,7 @@
 		    ojbc.populatePortalContentFromUrl("#springUrl('/portal/faq')");
 					    
 		    return false;
-		})
+		});
     		 
 		$('#suggestionFormLink').click (function() {	    
 				
@@ -183,6 +183,18 @@
 		    ojbc.populateLeftBarContentFromUrl("#springUrl('/portal/landingLeftBar')");
 
 		    ojbc.populatePortalContentFromUrl("#springUrl('/suggestion/suggestionForm')");
+					    
+		    return false;
+		})
+    		 
+		$('#adminLink').click (function() {	    
+				
+		    $('#searchBarButtonDiv').css("display", "none");
+
+			//TODO possible refactor to avoid 2 ansync jquery ajax calls in a row
+		    ojbc.populateLeftBarContentFromUrl("#springUrl('/portal/landingLeftBar')");
+
+		    ojbc.populatePortalContentFromUrl("#springUrl('/subscriptions/adminLandingPage')");
 					    
 		    return false;
 		})
