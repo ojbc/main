@@ -18,9 +18,11 @@
 
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0"
-	targetNamespace="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.1"
-	xmlns:ssreq-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0" elementFormDefault="qualified">
+	targetNamespace="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0"
+	xmlns:j="http://niem.gov/niem/domains/jxdm/4.1" xmlns:ssreq-ext="http://ojbc.org/IEPD/Extensions/SubscriptionSearchRequest/1.0"
+	elementFormDefault="qualified">
 	<xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="Subset/niem/structures/2.0/structures.xsd" />
+	<xsd:import namespace="http://niem.gov/niem/niem-core/2.0" schemaLocation="Subset/niem/niem-core/2.0/niem-core.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/domains/jxdm/4.1" schemaLocation="Subset/niem/domains/jxdm/4.1/jxdm.xsd" />
 	<xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="Subset/niem/proxy/2.0/xsd.xsd" />
 	<xsd:complexType name="SubscriptionSearchRequestType">
@@ -31,7 +33,13 @@
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
 					<xsd:element ref="ssreq-ext:AdminSearchRequestIndicator" minOccurs="0" />
+					<xsd:element ref="ssreq-ext:SubscriptionActiveIndicator" minOccurs="0" />
 					<xsd:element ref="ssreq-ext:MaximumNumberSearchRecordsReturned" minOccurs="0" />
+					<xsd:element ref="ssreq-ext:SubscribedEntity" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="j:Organization" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:ContactInformation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="nc:PersonOrganizationAssociation" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="ssreq-ext:SubscribedEntityContactInformationAssociation" minOccurs="0" maxOccurs="unbounded" />
 					<xsd:element ref="ssreq-ext:FBISubscription" minOccurs="0" />
 				</xsd:sequence>
 			</xsd:extension>
@@ -51,9 +59,55 @@
 			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
+	<xsd:complexType name="SubscribedEntityType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for an entity in a subscription that wishes to be notified.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:EntityType" />
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SubscribedEntityReference" type="s:ReferenceType">
+		<xsd:annotation>
+			<xsd:documentation>A reference to entity in a subscription that wishes to be notified.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="SubscribedEntityContactInformationAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A data type for a relationship between a subscribed entity and contact information.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="nc:AssociationType">
+				<xsd:sequence>
+					<xsd:element ref="ssreq-ext:SubscribedEntityReference" />
+					<xsd:element ref="nc:ContactInformationReference" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="SubscribedEntity" type="ssreq-ext:SubscribedEntityType">
+		<xsd:annotation>
+			<xsd:documentation>An entity in a subscription that wishes to be notified.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscribedEntityContactInformationAssociation" type="ssreq-ext:SubscribedEntityContactInformationAssociationType">
+		<xsd:annotation>
+			<xsd:documentation>A relationship between a subscribed entity and contact information.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
 	<xsd:element name="AdminSearchRequestIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
 			<xsd:documentation>True if the request is an admin search request; false otherwise.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionActiveIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the request is searching for active subscriptions; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="MaximumNumberSearchRecordsReturned" type="niem-xsd:nonNegativeInteger">

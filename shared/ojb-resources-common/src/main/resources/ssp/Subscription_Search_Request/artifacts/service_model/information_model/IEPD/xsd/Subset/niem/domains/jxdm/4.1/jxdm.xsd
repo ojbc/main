@@ -28,6 +28,52 @@
   <xsd:import schemaLocation="../../../appinfo/2.1/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.1"/>
   <xsd:import schemaLocation="../../../niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0"/>
   <xsd:import schemaLocation="../../../structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0"/>
+  <xsd:complexType name="ActivityContactInformationAssociationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an association between an activity and contact information for that activity.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="AssociationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:AssociationType">
+        <xsd:sequence>
+          <xsd:element ref="nc:ContactInformationReference" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="OrganizationAugmentationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for additional information about an organization.</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/structures/2.0" i:name="AugmentationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="s:AugmentationType">
+        <xsd:sequence>
+          <xsd:element ref="j:OrganizationORIIdentification" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="OrganizationType">
+    <xsd:annotation>
+      <xsd:documentation>A data type for an applied augmentation for type nc:OrganizationType</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="OrganizationType"/>
+        <i2:AugmentedTypeIndicator>true</i2:AugmentedTypeIndicator>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="nc:OrganizationType">
+        <xsd:sequence>
+          <xsd:element ref="j:OrganizationAugmentation" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
   <xsd:complexType name="PersonAugmentationType">
     <xsd:annotation>
       <xsd:documentation>A data type for additional information about a person.</xsd:documentation>
@@ -59,6 +105,27 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:element name="Organization" type="j:OrganizationType" substitutionGroup="nc:Organization" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Applied augmentation for type nc:OrganizationType</xsd:documentation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="Organization"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="OrganizationAugmentation" type="j:OrganizationAugmentationType" substitutionGroup="s:Augmentation" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>Additional information about an organization.</xsd:documentation>
+      <xsd:appinfo>
+        <i:AppliesTo i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="OrganizationType"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="OrganizationORIIdentification" type="nc:IdentificationType" nillable="true">
+    <xsd:annotation>
+      <xsd:documentation>A unique identifier assigned to a justice-related organization by the federal government.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:element name="PersonAugmentation" type="j:PersonAugmentationType" substitutionGroup="s:Augmentation" nillable="true">
     <xsd:annotation>
       <xsd:documentation>Additional information about a person.</xsd:documentation>
