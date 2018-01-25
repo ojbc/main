@@ -325,8 +325,7 @@ public class TestSubscriptionSearchQueryDAO {
 		// with other tests...
 		StaticValidationDueDateStrategy validationDueDateStrategy = new StaticValidationDueDateStrategy();
 		validationDueDateStrategy.setValidDays(10);
-		StaticGracePeriodStrategy gracePeriodStrategy = new StaticGracePeriodStrategy(
-				validationDueDateStrategy);
+		StaticGracePeriodStrategy gracePeriodStrategy = new StaticGracePeriodStrategy();
 		gracePeriodStrategy.setGracePeriodDays(10);
 		SystemCollectionValidationExemptionFilter validationExemptionFilter = new SystemCollectionValidationExemptionFilter();
 		subscriptionSearchQueryDAO
@@ -371,8 +370,7 @@ public class TestSubscriptionSearchQueryDAO {
 		// with other tests...
 		StaticValidationDueDateStrategy validationDueDateStrategy = new StaticValidationDueDateStrategy();
 		validationDueDateStrategy.setValidDays(10);
-		StaticGracePeriodStrategy gracePeriodStrategy = new StaticGracePeriodStrategy(
-				validationDueDateStrategy);
+		StaticGracePeriodStrategy gracePeriodStrategy = new StaticGracePeriodStrategy();
 		gracePeriodStrategy.setGracePeriodDays(10);
 		subscriptionSearchQueryDAO
 				.setValidationDueDateStrategy(validationDueDateStrategy);
@@ -407,8 +405,7 @@ public class TestSubscriptionSearchQueryDAO {
 		// with other tests...
 		StaticValidationDueDateStrategy validationDueDateStrategy = new StaticValidationDueDateStrategy();
 		validationDueDateStrategy.setValidDays(10);
-		StaticGracePeriodStrategy gracePeriodStrategy = new StaticGracePeriodStrategy(
-				validationDueDateStrategy);
+		StaticGracePeriodStrategy gracePeriodStrategy = new StaticGracePeriodStrategy();
 		gracePeriodStrategy.setGracePeriodDays(10);
 		subscriptionSearchQueryDAO
 				.setValidationDueDateStrategy(validationDueDateStrategy);
@@ -425,10 +422,10 @@ public class TestSubscriptionSearchQueryDAO {
 		Interval gracePeriod = response.getGracePeriod();
 		assertEquals(10, Days
 				.daysBetween(lastValidationDate, validationDueDate).getDays());
-		assertEquals(2,
+		assertEquals(11,
 				Days.daysBetween(lastValidationDate, gracePeriod.getStart())
 						.getDays());
-		assertEquals(12,
+		assertEquals(21,
 				Days.daysBetween(lastValidationDate, gracePeriod.getEnd())
 						.getDays());
 
@@ -488,58 +485,6 @@ public class TestSubscriptionSearchQueryDAO {
 		assertEquals(1, subscriptions.size());
 		Subscription subscription = subscriptions.get(0);
 		assertEquals(2, subscription.getEmailAddressesToNotify().size());
-	}
-
-	@Test
-	@DirtiesContext
-	public void testSearchForSubscriptionsMatchingNotificationRequestWithStaticValidationDueDate()
-			throws Exception {
-
-		loadValidationDateTestData();
-
-		ArrestNotificationRequest request = TestNotificationBuilderUtil.returnArrestNotificationRequest("src/test/resources/xmlInstances/notificationSoapRequest_A5008305.xml");
-		DateTime eventDate = request.getNotificationEventDate();
-
-		// one subscription with default validation due date strategy
-		List<Subscription> subscriptions = subscriptionSearchQueryDAO
-				.searchForSubscriptionsMatchingNotificationRequest(request);
-		assertEquals(1, subscriptions.size());
-
-		DateTime lastValidationDate = subscriptions.get(0)
-				.getLastValidationDate();
-
-		// We use this field to calculate the validation due date for the
-		// strategy to test edge cases
-		Days daysBetweenTodayAndValidationDate = Days.daysBetween(
-				lastValidationDate, eventDate);
-
-		log.debug("Days between last validation date and today: "
-				+ daysBetweenTodayAndValidationDate.getDays());
-
-		StaticValidationDueDateStrategy staticValidationDueDateStrategy = new StaticValidationDueDateStrategy();
-
-		// Validation due date is day of event
-		staticValidationDueDateStrategy
-				.setValidDays(daysBetweenTodayAndValidationDate.getDays());
-		subscriptionSearchQueryDAO
-				.setValidationDueDateStrategy(staticValidationDueDateStrategy);
-		subscriptions = subscriptionSearchQueryDAO
-				.searchForSubscriptionsMatchingNotificationRequest(request);
-		assertEquals(1, subscriptions.size());
-
-		// Validation due date is day after event
-		staticValidationDueDateStrategy
-				.setValidDays(daysBetweenTodayAndValidationDate.getDays() + 1);
-		subscriptions = subscriptionSearchQueryDAO
-				.searchForSubscriptionsMatchingNotificationRequest(request);
-		assertEquals(1, subscriptions.size());
-
-		// Validation due date is day before event : failure!
-		staticValidationDueDateStrategy
-				.setValidDays(daysBetweenTodayAndValidationDate.getDays() - 1);
-		subscriptions = subscriptionSearchQueryDAO
-				.searchForSubscriptionsMatchingNotificationRequest(request);
-		assertEquals(0, subscriptions.size());
 	}
 
 	@Test

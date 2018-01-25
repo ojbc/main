@@ -48,7 +48,6 @@ import org.ojbc.adapters.rapbackdatastore.dao.model.CriminalInitialResults;
 import org.ojbc.adapters.rapbackdatastore.dao.model.IdentificationTransaction;
 import org.ojbc.adapters.rapbackdatastore.dao.model.Subject;
 import org.ojbc.intermediaries.sn.dao.Subscription;
-import org.ojbc.intermediaries.sn.dao.TopicMapValidationDueDateStrategy;
 import org.ojbc.intermediaries.sn.dao.rapback.FbiRapbackSubscription;
 import org.ojbc.intermediaries.sn.dao.rapback.ResultSender;
 import org.ojbc.intermediaries.sn.dao.rapback.SubsequentResults;
@@ -81,9 +80,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     @Autowired
 	private JdbcTemplate jdbcTemplate;
-    @Autowired
-    private TopicMapValidationDueDateStrategy validationDueDateStrategy;
-	
+    
     @Value("${rapbackDatastoreAdapter.civilIdlePeriod:60}")
     private Integer civilIdlePeriod;
     
@@ -395,7 +392,7 @@ public class RapbackDAOImpl implements RapbackDAO {
 		subscription.setLastValidationDate(toDateTime(rs.getDate("lastValidationDate")));
 		subscription.setActive(rs.getInt("active"));
 		subscription.setTopic(rs.getString("topic"));
-		subscription.setValidationDueDate(validationDueDateStrategy.getValidationDueDate(subscription));
+		subscription.setValidationDueDate(toDateTime(rs.getDate("validationDueDate")));
 		return subscription;
 	}
 

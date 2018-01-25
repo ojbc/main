@@ -128,9 +128,10 @@ public class TestDatabaseLoad {
 	public void testRapbackDatastore() throws Exception {
 
 		Connection conn = rapbackDataSource.getConnection();
-		ResultSet rs = conn.createStatement().executeQuery("select * from subscription");
+		ResultSet rs = conn.createStatement().executeQuery("select s.id, so.EMAIL_ADDRESS from subscription s, SUBSCRIPTION_OWNER so where s.SUBSCRIPTION_OWNER_ID=so.SUBSCRIPTION_OWNER_ID");
 		assertTrue(rs.next());
 		assertEquals(62720,rs.getInt("id"));
+		assertEquals("bill@local.gov",rs.getString("EMAIL_ADDRESS"));
 
 		rs = conn.createStatement().executeQuery("select * from IDENTIFICATION_SUBJECT");
 		assertTrue(rs.next());

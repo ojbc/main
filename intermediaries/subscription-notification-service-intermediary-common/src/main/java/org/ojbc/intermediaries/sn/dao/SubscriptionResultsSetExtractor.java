@@ -41,7 +41,6 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
     @SuppressWarnings("unused")
 	private static final Log log = LogFactory.getLog(SubscriptionResultsSetExtractor.class);
     
-    private ValidationDueDateStrategy validationDueDateStrategy;
     private GracePeriodStrategy gracePeriodStrategy;
     private ValidationExemptionFilter validationExemptionFilter;
 
@@ -51,14 +50,6 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 
     public void setValidationExemptionFilter(ValidationExemptionFilter validationExemptionFilter) {
         this.validationExemptionFilter = validationExemptionFilter;
-    }
-
-    public ValidationDueDateStrategy getValidationDueDateStrategy() {
-        return validationDueDateStrategy;
-    }
-
-    public void setValidationDueDateStrategy(ValidationDueDateStrategy validationDueDateStrategy) {
-        this.validationDueDateStrategy = validationDueDateStrategy;
     }
 
     public GracePeriodStrategy getGracePeriodStrategy() {
@@ -110,6 +101,28 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
                     	throw new IllegalStateException("Last validation date can not be null");
                     }	
                     
+                    Date creationDate = rs.getDate("creationDate");
+                    if (creationDate != null)
+                    {
+                        subscription.setCreationDate(new DateTime(creationDate));
+                    }
+                    else
+                    {
+                    	throw new IllegalStateException("Creation date can not be null");
+                    }	
+
+	            	if (validationExemptionFilter.requiresValidation(subscription)) {
+	                    Date validationDueDate = rs.getDate("validationDueDate");
+	                    if (validationDueDate != null)
+	                    {
+	                        subscription.setValidationDueDate(new DateTime(validationDueDate));
+	                        subscription.setGracePeriod(gracePeriodStrategy.getGracePeriod(subscription));
+	                    }   	            	
+	                } else {
+	            	    subscription.setValidationDueDate(null);
+	            	    subscription.setGracePeriod(null);
+	            	}
+	            	
 	            	subscription.setSubscriptionOwner(rs.getString("subscriptionOwner"));
 	            	
 	            	subscription.setSubscriptionOwnerEmailAddress(rs.getString("subscriptionOwnerEmailAddress"));
@@ -117,14 +130,6 @@ final class SubscriptionResultsSetExtractor implements ResultSetExtractor<List<S
 	            	subscription.setPersonFullName(rs.getString("subjectName"));
 	            	
 	            	subscription.setSubscriptionIdentifier(String.valueOf(id));
-	            	
-	            	if (validationExemptionFilter.requiresValidation(subscription)) {
-	            	    subscription.setValidationDueDate(validationDueDateStrategy.getValidationDueDate(subscription));
-	            	    subscription.setGracePeriod(gracePeriodStrategy.getGracePeriod(subscription));
-	            	} else {
-	            	    subscription.setValidationDueDate(null);
-	            	    subscription.setGracePeriod(null);
-	            	}
 	            	
 	            	subscription.setAgencyCaseNumber(rs.getString("agency_case_number"));
 	            	subscription.setOri(rs.getString("ori"));
