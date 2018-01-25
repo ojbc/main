@@ -31,6 +31,9 @@
 				<nc:PersonSurName>Manning</nc:PersonSurName>
 			</nc:PersonName>
 		</nc:EntityPerson>
+		<ssreq-ext:SubscribedEntityFederatedIdentification>
+			<nc:IdentificationID>7547FID</nc:IdentificationID>
+		</ssreq-ext:SubscribedEntityFederatedIdentification>
 	</ssreq-ext:SubscribedEntity>
 	<j:Organization s:id="SO01">
 		<j:OrganizationAugmentation>
