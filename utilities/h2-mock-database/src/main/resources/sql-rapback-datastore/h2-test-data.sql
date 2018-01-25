@@ -98,6 +98,7 @@ insert into job_title_privilege(job_title_id, identification_category_id) values
 insert into job_title_privilege(job_title_id, identification_category_id) values ('15', '1');
 
 insert into SUBSCRIPTION_OWNER(SUBSCRIPTION_OWNER_ID,FIRST_NAME, LAST_NAME, EMAIL_ADDRESS, FEDERATION_ID, AGENCY_ID) values ('1', 'bill', 'padmanabhan', 'bill@local.gov', 'OJBC:IDP:OJBC:USER:admin', '1');
+insert into SUBSCRIPTION_OWNER(SUBSCRIPTION_OWNER_ID,FIRST_NAME, LAST_NAME, EMAIL_ADDRESS, FEDERATION_ID, AGENCY_ID) values ('2', '', '', 'admin@local.gov', 'SYSTEM', '1');
 
 insert into subscription(id, topic, startDate, endDate, lastValidationDate, creationDate, subscribingSystemIdentifier,  subjectName, active, subscription_owner_id) values ('62720','{http://ojbc.org/wsn/topics}:person/incident', '2011-10-19', NULL, '2011-10-19', '2011-10-19','{http://demostate.gov/SystemNames/1.0}SystemC', 'MICHAEL Smith-Jones', '1','1');
 insert into subscription(id, topic, startDate, endDate, lastValidationDate, creationDate, subscribingSystemIdentifier,  subjectName, active, subscription_owner_id) values ('62721','{http://ojbc.org/wsn/topics}:person/incident', '2011-10-19', NULL, '2011-10-19', '2011-10-19','{http://demostate.gov/SystemNames/1.0}SystemC', 'MICHAEL Smith-Jones', '1','1');
