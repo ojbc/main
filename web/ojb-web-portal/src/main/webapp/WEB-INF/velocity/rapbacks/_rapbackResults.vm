@@ -53,6 +53,7 @@
 	
 	$(function() {
 		$( document ).tooltip();
+		$('#searchBarButtonDiv').hide();
 		
 		if ($("#searchResultsTable")){
 			numCols = $("#searchResultsTable").find('tr')[0].cells.length;

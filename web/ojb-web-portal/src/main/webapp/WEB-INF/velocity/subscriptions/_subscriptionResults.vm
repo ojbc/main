@@ -17,7 +17,8 @@
  <script type="text/javascript">
  
   $(function() {
-  
+  	$('#searchBarButtonDiv').hide();    		
+  	
 	$('#demogFilterInfo').on('click', '#filterClear', function(){    		
 		ojbc.clearSearchResultsFilterFields();
 		
@@ -177,15 +178,7 @@
   		).fail(ojbc.displayFailMessage);
   		return false;			  					  		                                                      
   	}); 
-    		
-	var searchBarIsHidden = $('#searchBar').is(':hidden');
-	
-	// hide the search bar so we can just show the subscriptions content	
-	if(!searchBarIsHidden){
-		// note can also use:  $('#id').hide();			
-		$('#searchBarButtonDiv').css("display", "none");
-	}	  
-    	  		
+
   });
     
 </script>
