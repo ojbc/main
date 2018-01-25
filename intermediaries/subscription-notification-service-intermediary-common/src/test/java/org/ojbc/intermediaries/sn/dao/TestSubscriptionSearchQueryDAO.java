@@ -711,8 +711,6 @@ public class TestSubscriptionSearchQueryDAO {
 
 		Statement s = dataSource.getConnection().createStatement();
 
-		s.execute("insert into AGENCY_PROFILE(AGENCY_ORI, AGENCY_NAME, FBI_SUBSCRIPTION_QUALIFICATION, CIVIL_AGENCY_INDICATOR ) values ('A23456789', 'Demo Agency', true, false)");
-		
 		Map<String, String> subjectIds = new HashMap<String, String>();
 		subjectIds.put(SubscriptionNotificationConstants.SID, "1234");
 		subjectIds.put(
@@ -733,7 +731,7 @@ public class TestSubscriptionSearchQueryDAO {
 		SubscriptionRequest request = buildSubscriptionRequest(subjectIds,
 				subscriptionProperties);
 		
-		request.setSubscriptionOwnerOri("A23456789");
+		request.setSubscriptionOwnerOri("123456789");
 		
 		LocalDate currentDate = new LocalDate();
 		int subscriptionId = subscriptionSearchQueryDAO.subscribe(request, currentDate).intValue();
@@ -769,8 +767,8 @@ public class TestSubscriptionSearchQueryDAO {
 						lastValidationDate.toDate());
 				assertEquals("0123ABC", rs.getString("agency_case_number"));
 				assertEquals("SYSTEM", rs.getString("subscriptionOwner"));
-				assertEquals("ownerEmail@local.gov", rs.getString("subscriptionOwnerEmailAddress"));
-				assertEquals("A23456789", rs.getString("ori"));
+				assertEquals("admin@local.gov", rs.getString("subscriptionOwnerEmailAddress"));
+				assertEquals("123456789", rs.getString("ori"));
 				
 			}
 		}
