@@ -51,6 +51,7 @@ import org.ojbc.web.model.incident.search.IncidentSearchRequestDomUtils;
 import org.ojbc.web.model.person.query.DetailsRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequest;
 import org.ojbc.web.model.person.search.PersonSearchRequestDomUtils;
+import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequest;
 import org.ojbc.web.model.vehicle.search.VehicleSearchRequestDomUtils;
 import org.w3c.dom.Document;
@@ -363,7 +364,7 @@ public class RequestMessageBuilderUtilities {
 		return sb.toString();
 	}
 	
-	public static Document createSubscriptionSearchRequest() throws Exception {
+	public static Document createSubscriptionSearchRequest(SubscriptionSearchRequest subscriptionSearchRequest) throws Exception {
 		Document doc = OJBCXMLUtils.createDocument();
 
         Element root = doc.createElementNS(OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST, "SubscriptionSearchRequest");

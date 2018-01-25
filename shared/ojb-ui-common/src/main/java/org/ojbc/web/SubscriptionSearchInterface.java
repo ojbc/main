@@ -16,11 +16,13 @@
  */
 package org.ojbc.web;
 
+import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
 import org.w3c.dom.Element;
+
 
 public interface SubscriptionSearchInterface {
 
-	public String invokeSubscriptionSearchRequest(String federatedQueryID,
+	public String invokeSubscriptionSearchRequest(SubscriptionSearchRequest request,
 			Element samlToken) throws Exception;
 
 }
