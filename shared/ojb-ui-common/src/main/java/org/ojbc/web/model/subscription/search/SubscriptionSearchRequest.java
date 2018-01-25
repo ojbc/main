@@ -29,82 +29,75 @@ public class SubscriptionSearchRequest implements Serializable{
 	private String ownerFirstName; 
 	private Boolean active;
 	private String subscriptionCategory;  
-	
+	private String sid; 
 
 	public SubscriptionSearchRequest() {
 		super();
 	}
-
 
 	public SubscriptionSearchRequest(boolean adminSearch) {
 		this();
 		this.adminSearch = adminSearch;
 	}
 
-
 	@Override
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 
-
 	public boolean isAdminSearch() {
 		return adminSearch;
 	}
-
 
 	public void setAdminSearch(boolean adminSearch) {
 		this.adminSearch = adminSearch;
 	}
 
-
 	public String getOwnerOri() {
 		return ownerOri;
 	}
-
 
 	public void setOwnerOri(String ownerOri) {
 		this.ownerOri = ownerOri;
 	}
 
-
 	public String getOwnerLastName() {
 		return ownerLastName;
 	}
-
 
 	public void setOwnerLastName(String ownerLastName) {
 		this.ownerLastName = ownerLastName;
 	}
 
-
 	public String getOwnerFirstName() {
 		return ownerFirstName;
 	}
-
 
 	public void setOwnerFirstName(String ownerFirstName) {
 		this.ownerFirstName = ownerFirstName;
 	}
 
-
 	public String getSubscriptionCategory() {
 		return subscriptionCategory;
 	}
-
 
 	public void setSubscriptionCategory(String subscriptionCategory) {
 		this.subscriptionCategory = subscriptionCategory;
 	}
 
-
 	public Boolean getActive() {
 		return active;
 	}
 
-
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
-	
+
+	public String getSid() {
+		return sid;
+	}
+
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
 }

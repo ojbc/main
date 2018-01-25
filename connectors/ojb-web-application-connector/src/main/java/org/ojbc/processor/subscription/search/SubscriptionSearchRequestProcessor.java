@@ -71,7 +71,7 @@ public class SubscriptionSearchRequestProcessor extends RequestResponseProcessor
 			}	
 			
 			if (samlToken == null)
-			{
+	      		{
 				throw new Exception("No SAML token provided. Unable to perform query.");
 			}	
 			
