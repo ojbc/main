@@ -68,6 +68,9 @@ public abstract class SubscriptionRequest {
 	private String reasonCategoryCode;
 	private String subscriptionOwner;
 	private String subscriptionOwnerEmailAddress;
+	private String subscriptionOwnerFirstName;
+	private String subscriptionOwnerLastName;
+	private String subscriptionOwnerOri;
 	private String ori;
 	
 	public String getSubscriptionOwnerEmailAddress() {
@@ -165,6 +168,9 @@ public abstract class SubscriptionRequest {
 		
 		subscriptionOwner = (String) message.getHeader("subscriptionOwner");
 		subscriptionOwnerEmailAddress = (String) message.getHeader("subscriptionOwnerEmailAddress");
+		subscriptionOwnerFirstName = (String) message.getHeader("subscriptionOwnerFirstName");
+		subscriptionOwnerLastName = (String) message.getHeader("subscriptionOwnerLastName");
+		subscriptionOwnerOri = (String) message.getHeader("subscriptionOwnerOri");
 		
 		// subjectIdentifiers intentionally left out - should be populated by derived class 
 		// subscriptionProperties intentionally left out - should be populated by derived class
@@ -285,6 +291,30 @@ public abstract class SubscriptionRequest {
 
 	public void setTopic(String topic) {
 		this.topic = topic;
+	}
+
+	public String getSubscriptionOwnerFirstName() {
+		return subscriptionOwnerFirstName;
+	}
+
+	public void setSubscriptionOwnerFirstName(String subscriptionOwnerFirstName) {
+		this.subscriptionOwnerFirstName = subscriptionOwnerFirstName;
+	}
+
+	public String getSubscriptionOwnerLastName() {
+		return subscriptionOwnerLastName;
+	}
+
+	public void setSubscriptionOwnerLastName(String subscriptionOwnerLastName) {
+		this.subscriptionOwnerLastName = subscriptionOwnerLastName;
+	}
+
+	public String getSubscriptionOwnerOri() {
+		return subscriptionOwnerOri;
+	}
+
+	public void setSubscriptionOwnerOri(String subscriptionOwnerOri) {
+		this.subscriptionOwnerOri = subscriptionOwnerOri;
 	}
 
 

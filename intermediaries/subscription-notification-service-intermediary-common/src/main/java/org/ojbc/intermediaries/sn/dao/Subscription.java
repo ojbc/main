@@ -48,6 +48,7 @@ public class Subscription {
 	private Set<String> emailAddressesToNotify;
 	private Map<String, String> subscriptionSubjectIdentifiers;
 	
+	private Integer subscriptionOwnerFk;
 	private String subscriptionOwner;
 	private String subscriptionOwnerEmailAddress;
 
@@ -241,6 +242,14 @@ public class Subscription {
 
 	public void setCreationDate(DateTime creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public Integer getSubscriptionOwnerFk() {
+		return subscriptionOwnerFk;
+	}
+
+	public void setSubscriptionOwnerFk(Integer subscriptionOwnerFk) {
+		this.subscriptionOwnerFk = subscriptionOwnerFk;
 	}
 
 }
