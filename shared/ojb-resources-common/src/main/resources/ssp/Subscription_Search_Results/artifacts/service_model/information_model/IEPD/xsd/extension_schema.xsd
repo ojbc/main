@@ -65,6 +65,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
+				<xsd:element ref="ssr-ext:SubscriptionActiveIndicator" minOccurs="0" />
 					<xsd:element ref="ssr-ext:SubscriptionFBIIdentification" />
 					<xsd:element ref="ssr-ext:SubscriptionReasonRepresentation" />
 					<xsd:element ref="ssr-ext:RapBackSubscriptionTermCode" minOccurs="0" />
@@ -128,6 +129,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="s:ComplexObjectType">
 				<xsd:sequence>
+					
 					<xsd:element ref="ssr-ext:Subscription" />
 					<xsd:element ref="ssr-ext:SourceSystemNameText" minOccurs="0" maxOccurs="1" />
 					<xsd:element ref="intel:SystemIdentifier" minOccurs="0" />
@@ -144,6 +146,7 @@
 		<xsd:complexContent>
 			<xsd:extension base="nc:ActivityType">
 				<xsd:sequence>
+				<xsd:element ref="ssr-ext:SubscriptionActiveIndicator" minOccurs="0" />
 					<xsd:element ref="ssr-ext:SubscriptionSubjectRepresentation" />
 					<xsd:element ref="wsn-br:Topic" />
 					<xsd:element ref="ssr-ext:SubscribedEntity" minOccurs="0" maxOccurs="unbounded" />
@@ -158,6 +161,11 @@
 		<xsd:annotation>
 			<xsd:documentation> A subscription.
 			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscriptionActiveIndicator" type="niem-xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>True if the subscription is active; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="SubscriptionValidation" type="ssr-ext:SubscriptionValidationType">
