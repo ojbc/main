@@ -88,10 +88,10 @@ public class TestSubscriptionModificationXMLProcessor {
     	
     	Document subscriptionModificationDoc = subModificationXMLProcessor.createOJBCsubscriptionModificationDocument(subscription);
     	
+    	XmlUtils.printNode(subscriptionModificationDoc);
+    	
 		Node subMsgNode = XmlUtils.xPathNodeSearch(subscriptionModificationDoc, "//smm:SubscriptionModificationMessage");
 		assertNotNull(subMsgNode);
-    	
-    	XmlUtils.printNode(subscriptionModificationDoc);
     	
 		Node subjectNode = XmlUtils.xPathNodeSearch(subMsgNode, "submsg-ext:Subject");
 		assertNotNull(subjectNode);

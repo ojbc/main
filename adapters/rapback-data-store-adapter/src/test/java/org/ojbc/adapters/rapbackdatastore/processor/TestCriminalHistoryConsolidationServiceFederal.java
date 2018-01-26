@@ -93,7 +93,7 @@ public class TestCriminalHistoryConsolidationServiceFederal {
     	assertEquals("Rap Back: UCN Consolidation by FBI: 1", notifications.get(1).getEmailSubject());
     	assertEquals("New UCN: 2 \n Old UCN: 1\n\nThe FBI's NGI System has consolidated the UCNs stated above. Our records show you have an active federal Rap Back subscription to one of these UCNs. Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to OpenFox/NCIC to run a query on the new UCN. A new arrest may or may not have occurred. You may receive another notification once the UCN is updated in CJIS-Hawaii.", notifications.get(1).getEmailBody());
 
-    	assertEquals("admin@local.gov", notifications.get(2).getEmailTo());
+    	assertEquals("bill@local.gov", notifications.get(2).getEmailTo());
     	assertEquals("Rap Back: UCN Consolidation by FBI: 1", notifications.get(2).getEmailSubject());
     	assertEquals("New UCN: 2 \n Old UCN: 1\n\nThe FBI's NGI System has consolidated the UCNs stated above. Our records show you have an active federal Rap Back subscription to one of these UCNs. Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to OpenFox/NCIC to run a query on the new UCN. A new arrest may or may not have occurred. You may receive another notification once the UCN is updated in CJIS-Hawaii.", notifications.get(2).getEmailBody());
 
@@ -125,7 +125,7 @@ public class TestCriminalHistoryConsolidationServiceFederal {
     	assertEquals("Rap Back: UCN Deleted by FBI: 2", notifications.get(1).getEmailSubject());
     	assertEquals("Deleted UCN:  2 \n This UCN has been deleted from the FBI's NGI System; you will no longer receive federal Rap Back notifications on this offender.  Should a new UCN be reassigned to this offender, a new federal Rap Back subscrition will automatically occur.  Please logon to the HIJIS Portal to update your subscription, if necessary.", notifications.get(1).getEmailBody());
 
-    	assertEquals("admin@local.gov", notifications.get(2).getEmailTo());
+    	assertEquals("bill@local.gov", notifications.get(2).getEmailTo());
     	assertEquals("Rap Back: UCN Deleted by FBI: 2", notifications.get(2).getEmailSubject());
     	assertEquals("Deleted UCN:  2 \n This UCN has been deleted from the FBI's NGI System; you will no longer receive federal Rap Back notifications on this offender.  Should a new UCN be reassigned to this offender, a new federal Rap Back subscrition will automatically occur.  Please logon to the HIJIS Portal to update your subscription, if necessary.", notifications.get(2).getEmailBody());
 
