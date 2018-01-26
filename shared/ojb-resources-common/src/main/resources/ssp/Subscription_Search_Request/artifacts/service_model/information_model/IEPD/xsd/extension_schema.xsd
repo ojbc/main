@@ -65,7 +65,11 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexContent>
-			<xsd:extension base="nc:EntityType" />
+			<xsd:extension base="nc:EntityType">
+				<xsd:sequence>
+					<xsd:element ref="ssreq-ext:SubscribedEntityFederatedIdentification" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
 		</xsd:complexContent>
 	</xsd:complexType>
 	<xsd:element name="SubscribedEntityReference" type="s:ReferenceType">
@@ -91,6 +95,12 @@
 	<xsd:element name="SubscribedEntity" type="ssreq-ext:SubscribedEntityType">
 		<xsd:annotation>
 			<xsd:documentation>An entity in a subscription that wishes to be notified.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SubscribedEntityFederatedIdentification" type="nc:IdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>A federation identification assigned to a subscribed entity.
 			</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
