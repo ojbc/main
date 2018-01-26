@@ -144,7 +144,7 @@ public class RapbackController {
 	}
     
 	@RequestMapping(value = "/rapbackResults", method = RequestMethod.POST)
-	public String searchForm(HttpServletRequest request, 
+	public String rapbackResults(HttpServletRequest request, 
 			@ModelAttribute("rapbackSearchRequest") IdentificationResultSearchRequest rapbackSearchRequest,        
 	        Map<String, Object> model) {		
 		

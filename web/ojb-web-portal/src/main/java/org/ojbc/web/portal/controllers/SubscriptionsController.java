@@ -47,6 +47,8 @@ import org.json.JSONObject;
 import org.ojbc.processor.subscription.subscribe.SubscriptionResponseProcessor;
 import org.ojbc.processor.subscription.validation.SubscriptionValidationResponseProcessor;
 import org.ojbc.util.helper.OJBCDateUtils;
+import org.ojbc.util.model.rapback.IdentificationResultCategory;
+import org.ojbc.util.model.rapback.IdentificationResultSearchRequest;
 import org.ojbc.util.xml.XmlUtils;
 import org.ojbc.util.xml.subscription.Subscription;
 import org.ojbc.util.xml.subscription.Unsubscription;
@@ -66,6 +68,7 @@ import org.ojbc.web.model.subscription.response.common.FaultableSoapResponse;
 import org.ojbc.web.model.subscription.response.common.SubscriptionResponse;
 import org.ojbc.web.model.subscription.response.common.SubscriptionResponseType;
 import org.ojbc.web.model.subscription.search.SubscriptionSearchRequest;
+import org.ojbc.web.model.subscription.search.SubscriptionStatus;
 import org.ojbc.web.model.subscription.validation.SubscriptionValidationResponse;
 import org.ojbc.web.portal.controllers.PortalController.UserLogonInfo;
 import org.ojbc.web.portal.controllers.config.PeopleControllerConfigInterface;
@@ -109,7 +112,8 @@ import org.xml.sax.InputSource;
 @RequestMapping("/subscriptions/*")
 @SessionAttributes({"subscription", "userLogonInfo", "rapsheetData", "subscriptionSearchRequest"})
 public class SubscriptionsController {
-		
+	private Log log = LogFactory.getLog(this.getClass());
+
 	public static final String ARREST_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/arrest";
 	public static final String RAPBACK_TOPIC_SUB_TYPE = "{http://ojbc.org/wsn/topics}:person/rapback";
 	public static final String RAPBACK_TOPIC_SUB_TYPE_CI = "{http://ojbc.org/wsn/topics}:person/rapback/ci";
@@ -195,9 +199,22 @@ public class SubscriptionsController {
 		
 	@Autowired
 	SubscriptionQueryResultsProcessor subQueryResultProcessor;
+	
+	private Map<String, String> subscriptionStatusMap = new HashMap<String, String>();
+	private Map<String, String> subscriptionPurposeMap = new HashMap<String, String>();
 
 	@ModelAttribute
     public void setupFormModelAttributes(Model model) {
+		
+		subscriptionPurposeValueToLabelMap.forEach((key, value) -> {
+			if (StringUtils.isNotBlank(key)){
+				subscriptionPurposeMap.put(key, value);
+			}
+		});
+		model.addAttribute("subscriptionPurposeMap", subscriptionPurposeMap);
+		Arrays.stream(SubscriptionStatus.values()).map(SubscriptionStatus::name)
+			.forEach(item -> subscriptionStatusMap.put(item, item));
+		model.addAttribute("subscriptionStatusMap", subscriptionStatusMap);
         model.addAttribute("subscriptionFilterProperties", subscriptionFilterProperties);
         model.addAttribute("vmDateTool", new DateTool());
         model.addAttribute("sidRegexForAddSubscription", sidRegexForAddSubscription);
@@ -215,6 +232,19 @@ public class SubscriptionsController {
 		
 	    return "subscriptions/admin/_adminLandingPage";
 	}
+    
+	@RequestMapping(value = "searchForm", method = RequestMethod.GET)
+	public String searchForm(@RequestParam(value = "resetForm", required = false) boolean resetForm,
+	        Map<String, Object> model) {
+		log.info("Presenting the search Form");
+		if (resetForm) {
+			SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest(true);
+			model.put("subscriptionSearchRequest", subscriptionSearchRequest);
+		} 
+
+		return "subscriptions/admin/_searchForm";
+	}
+
 
 	@RequestMapping(value = "subscriptionResults", method = RequestMethod.POST)
 	public String searchSubscriptions(HttpServletRequest request,	        

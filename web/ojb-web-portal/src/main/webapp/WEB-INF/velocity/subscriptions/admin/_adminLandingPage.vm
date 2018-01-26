@@ -18,15 +18,36 @@
 <script type="text/javascript">
  
 	$(function() {
+    	var reStyleButtonsBasedOnSelection = function() {
+    			// Make the selected search button blue, and the others gray
+    	        $(this).siblings().addClass('grayButton').removeClass('blueButton');
+				$(this).removeClass('grayButton').addClass('blueButton');
+    	};
+	
+		$('#adminButtons a:not(.ui-state-disabled)').click (reStyleButtonsBasedOnSelection);
+		
+    	$('#advancedAdminSearch').click (function() { 
+			return adminPage.populateSubsAdminContentContentFromUrl("#springUrl('/subscriptions/searchForm')")
+	    });
 	});
+	
+	adminPage = {
+		populateSubsAdminContentContentFromUrl : function(url) {
+			$.get(url, function(data) {	
+				$("#subsAdminContent").html(data);
+			}).fail(ojbc.displayFailMessage);
+			return false;
+		}
+	}
+	
 </script>
 
 <div id="searchResultsContainer" class="contentBox">
 
     <div id="searchResultsHeader"> 
         <p id="search-results-title">SUBSCRIPTIONS ADMIN</p>
-        <div style="float:right" >
-            <a id="defaultSubsAdminSearch" class="grayButton" >
+        <div id="adminButtons" style="float:right" >
+            <a id="advancedAdminSearch" class="grayButton" >
                 ADVANCED SEARCH
             </a>
             <a id="modifySubsOwnerInfo" class="grayButton ui-state-disabled" >
