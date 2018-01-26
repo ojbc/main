@@ -17,6 +17,8 @@
 package org.ojbc.intermediaries.sn.dao;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 
 /**
  * Interface for objects that compute a validation due date from a subscription
@@ -29,6 +31,6 @@ public interface ValidationDueDateStrategy {
      * @return the date on which the subscription must be validated
      * @throws Exception
      */
-    public DateTime getValidationDueDate(Subscription subscription);
+    public DateTime getValidationDueDate(SubscriptionRequest request, LocalDate creationDate);
 
 }
