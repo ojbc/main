@@ -33,8 +33,6 @@
 
 	<!-- needed cxf imports -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />	
-	<import resource="properties-context.xml"/>
-	<import resource="cxf-endpoints.xml"/>	
 
 	<camel:camelContext xmlns="http://camel.apache.org/schema/spring" id="ojb-fbi-ngi-mock-impl">
 
