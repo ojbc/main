@@ -17,14 +17,11 @@
 package org.ojbc.intermediaries.sn.topic.arrest;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.camel.Message;
 import org.apache.camel.impl.DefaultMessage;
@@ -32,6 +29,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.ojbc.intermediaries.sn.SubscriptionNotificationConstants;
 import org.ojbc.intermediaries.sn.exception.InvalidEmailAddressesException;
+import org.ojbc.intermediaries.sn.util.NotificationBrokerUtilsTest;
 import org.w3c.dom.Document;
 
 public class ArrestSubscriptionRequestTest {
@@ -56,7 +54,7 @@ public class ArrestSubscriptionRequestTest {
 	@Test
 	public void test() throws Exception {
 
-	    Document messageDocument = getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest.xml");
+	    Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest.xml");
         
         Message message = new DefaultMessage();
         
@@ -89,7 +87,7 @@ public class ArrestSubscriptionRequestTest {
 	@Test
 	public void testSubscriptionWithSidNameDOB() throws Exception {
 
-	    Document messageDocument = getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest_arrestWithSIDNameDOB.xml");
+	    Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest_arrestWithSIDNameDOB.xml");
         
         Message message = new DefaultMessage();
         message.setBody(messageDocument);
@@ -121,7 +119,7 @@ public class ArrestSubscriptionRequestTest {
 	@Test(expected=InvalidEmailAddressesException.class)
 	public void testEmailPatternFailure() throws Exception {
 		
-		Document messageDocument = getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest.xml");
+		Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest.xml");
         
         Message message = new DefaultMessage();
         message.setBody(messageDocument);
@@ -136,7 +134,7 @@ public class ArrestSubscriptionRequestTest {
 	@Test
 	public void testWithStartAndEndDate() throws Exception {
 
-	    Document messageDocument = getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequestWithStartAndEndDate.xml");
+	    Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequestWithStartAndEndDate.xml");
         
         Message message = new DefaultMessage();
         message.setBody(messageDocument);
@@ -166,7 +164,7 @@ public class ArrestSubscriptionRequestTest {
 	@Test(expected=Exception.class)
 	public void testWithEndDateBeforeStartDate() throws Exception {
 		
-		Document messageDocument = getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequestWithEndDateBeforeStartDate.xml");
+		Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequestWithEndDateBeforeStartDate.xml");
         
         Message message = new DefaultMessage();
         message.setBody(messageDocument);
@@ -179,7 +177,7 @@ public class ArrestSubscriptionRequestTest {
 	@Test
 	public void testWithSubscriptionSystemID() throws Exception {
 	    
-	    Document messageDocument = getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequestWithSubscriptionSystemID.xml");
+	    Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequestWithSubscriptionSystemID.xml");
 		
 	    Message message = new DefaultMessage();
 	    message.setBody(messageDocument);
@@ -209,7 +207,7 @@ public class ArrestSubscriptionRequestTest {
 	@Test
 	public void testWithDuplicateEmails() throws Exception {
 		
-		Document messageDocument = getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest_duplicateEmails.xml");
+		Document messageDocument = NotificationBrokerUtilsTest.getMessageBody("src/test/resources/xmlInstances/subscribeSoapRequest_duplicateEmails.xml");
         
         Message message = new DefaultMessage();
         message.setBody(messageDocument);
@@ -235,14 +233,5 @@ public class ArrestSubscriptionRequestTest {
 		
 	}
 	
-	private Document getMessageBody(String filePath) throws Exception {
-		File inputFile = new File(filePath);
 
-		DocumentBuilderFactory docBuilderFact = DocumentBuilderFactory.newInstance();
-		docBuilderFact.setNamespaceAware(true);
-		DocumentBuilder docBuilder = docBuilderFact.newDocumentBuilder();
-		Document document = docBuilder.parse(inputFile);
-		
-		return document;
-	}
 }

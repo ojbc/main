@@ -413,9 +413,15 @@ public class SubscriptionSearchQueryDAO {
     	// allow nulls
     	Date endDate = getSqlDateFromString(request.getEndDateString());
     	
-    	//TODO: FIX ME!!!!  We need to calculate this date from a strategy
-    	//java.util.Date validationDueDate =  validationDueDateStrategy.getValidationDueDate(subscription);
-    	java.util.Date validationDueDate = creationDateTime.toDateTimeAtStartOfDay().toDate();
+    	DateTime validationDueDateRet = validationDueDateStrategy.getValidationDueDate(request, creationDateTime);
+    	
+    	java.util.Date validationDueDate = null;
+    	
+    	
+    	if (validationDueDateRet != null)
+    	{	
+    		validationDueDate =  validationDueDateStrategy.getValidationDueDate(request, creationDateTime).toDate();
+    	}	
     	
     	java.util.Date creationDate = creationDateTime.toDateTimeAtStartOfDay().toDate();
     	

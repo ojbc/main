@@ -21,6 +21,8 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.ojbc.intermediaries.sn.subscription.SubscriptionRequest;
 
 /**
  * A due date strategy that determines the due date based on a fixed number of days from the last validated date.
@@ -70,7 +72,7 @@ public class StaticValidationDueDateStrategy implements ValidationDueDateStrateg
      * there is no validation due date.
      */
     @Override
-    public DateTime getValidationDueDate(Subscription subscription) {
+    public DateTime getValidationDueDate(SubscriptionRequest request, LocalDate creationDate)  {
     	
     	//If an exempt subscriber list is defined, see if the subscription owner is in that list.
     	//The 'exempt' subscription owner is allowed to have no validation due date
@@ -78,18 +80,20 @@ public class StaticValidationDueDateStrategy implements ValidationDueDateStrateg
 		{
 			//determine if submitting ORI exists in the list of authorized ORIs
 			for(String s:exemptSubscriptionOwners){
-				if(s.replaceAll("\\s","").equalsIgnoreCase(subscription.getSubscriptionOwner())){
+				if(s.replaceAll("\\s","").equalsIgnoreCase(request.getSubscriptionOwner())){
 					return null;
 				}
 			}
 		}	
     	
-        DateTime ret = null;
-        DateTime lastValidatedDate = subscription.getLastValidationDate();
-        if (lastValidatedDate != null) {
-            ret = lastValidatedDate.plusDays(validDays);
+		DateTime ret = null;
+
+        if (creationDate != null) {
+            ret = creationDate.plusDays(validDays).toDateTimeAtCurrentTime();
         }
+        
         return ret;
     }
+
 
 }
