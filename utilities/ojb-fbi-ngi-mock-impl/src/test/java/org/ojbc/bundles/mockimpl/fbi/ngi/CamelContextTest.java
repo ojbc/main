@@ -16,7 +16,7 @@
  */
 package org.ojbc.bundles.mockimpl.fbi.ngi;
 
-import org.apache.camel.test.junit4.CamelSpringJUnit4ClassRunner;
+import org.apache.camel.test.spring.CamelSpringJUnit4ClassRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +31,7 @@ import org.springframework.test.context.ContextConfiguration;
 public class CamelContextTest {
 	
 	@Test
-	public void testConextStartup(){
+	public void testApplicationStartup(){
 		
 		Assert.assertTrue(true);
 	}
