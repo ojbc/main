@@ -83,7 +83,7 @@ public class SubscriptionSAMLTokenProcessor {
 					{
 						XMLObject attributeValue = attribute.getAttributeValues().get(0);
 						String attributeValueAsString = attributeValue.getDOM().getTextContent();
-						log.debug(attributeValueAsString);
+						log.debug("First Name in SAML Token: " + attributeValueAsString);
 						
 						samlFirstName = attributeValueAsString;
 					}
@@ -92,7 +92,7 @@ public class SubscriptionSAMLTokenProcessor {
 					{
 						XMLObject attributeValue = attribute.getAttributeValues().get(0);
 						String attributeValueAsString = attributeValue.getDOM().getTextContent();
-						log.debug(attributeValueAsString);
+						log.debug("Last Name in SAML Token: " + attributeValueAsString);
 						
 						samlLastName = attributeValueAsString;
 					}
@@ -101,7 +101,7 @@ public class SubscriptionSAMLTokenProcessor {
 					{
 						XMLObject attributeValue = attribute.getAttributeValues().get(0);
 						String attributeValueAsString = attributeValue.getDOM().getTextContent();
-						log.debug(attributeValueAsString);
+						log.debug("ORI in SAML Token: " + attributeValueAsString);
 						
 						samlEmployerOri = attributeValueAsString;
 					}
