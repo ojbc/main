@@ -19,6 +19,10 @@ use rapback_datastore;
 
 insert into subscription_category(subscription_category_code, subscription_category_description) values('CI', 'Criminal Justice Investigative');
 insert into subscription_category(subscription_category_code, subscription_category_description) values('CS', 'Criminal Justice Supervision');
+insert into subscription_category(subscription_category_code, subscription_category_description) values('F', 'Firearms');
+insert into subscription_category(subscription_category_code, subscription_category_description) values('I', 'Volunteer, Child Care/School Employee, Non-Criminal Justice Employee and Licensing');
+insert into subscription_category(subscription_category_code, subscription_category_description) values('J', 'Criminal Justice Employee');
+insert into subscription_category(subscription_category_code, subscription_category_description) values('S', 'Security Clearance Information Act');
 
 insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('1', 'F', 'Firearms','CIVIL'); 
 insert into identification_category(identification_category_id, identification_category_code, identification_category_description, identification_category_type) values('2', 'I', 'Volunteer, Child Care/School Employee, Non-Criminal Justice Employment and Licensing', 'CIVIL'); 
