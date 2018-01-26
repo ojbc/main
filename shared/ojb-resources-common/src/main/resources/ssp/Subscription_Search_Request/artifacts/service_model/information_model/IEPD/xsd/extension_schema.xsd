@@ -117,7 +117,7 @@
 	</xsd:element>
 	<xsd:element name="SubscriptionActiveIndicator" type="niem-xsd:boolean">
 		<xsd:annotation>
-			<xsd:documentation>True if the request is searching for active subscriptions; false otherwise.</xsd:documentation>
+			<xsd:documentation>True if the subscription is active; false otherwise.</xsd:documentation>
 		</xsd:annotation>
 	</xsd:element>
 	<xsd:element name="MaximumNumberSearchRecordsReturned" type="niem-xsd:nonNegativeInteger">

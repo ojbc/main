@@ -33,6 +33,7 @@
 					<nc:Date>2016-03-12</nc:Date>
 				</nc:EndDate>
 			</nc:ActivityDateRange>
+			<ssr-ext:SubscriptionActiveIndicator>true</ssr-ext:SubscriptionActiveIndicator>
 			<ssr-ext:SubscriptionSubject>
 				<nc:RoleOfPersonReference s:ref="P001" />
 			</ssr-ext:SubscriptionSubject>
@@ -60,6 +61,7 @@
 					<nc:Date>2018-01-12</nc:Date>
 				</nc:EndDate>
 			</nc:ActivityDateRange>
+			<ssr-ext:SubscriptionActiveIndicator>true</ssr-ext:SubscriptionActiveIndicator>
 			<ssr-ext:SubscriptionSubject>
 				<nc:RoleOfPersonReference s:ref="P001" />
 			</ssr-ext:SubscriptionSubject>
@@ -87,6 +89,7 @@
 					<nc:Date>2018-02-12</nc:Date>
 				</nc:EndDate>
 			</nc:ActivityDateRange>
+			<ssr-ext:SubscriptionActiveIndicator>true</ssr-ext:SubscriptionActiveIndicator>
 			<ssr-ext:SubscriptionSubject>
 				<nc:RoleOfPersonReference s:ref="P001" />
 			</ssr-ext:SubscriptionSubject>
@@ -113,11 +116,11 @@
 				<nc:Date>2016-01-01</nc:Date>
 			</nc:EndDate>
 		</nc:ActivityDateRange>
+		<ssr-ext:SubscriptionActiveIndicator>true</ssr-ext:SubscriptionActiveIndicator>
 		<ssr-ext:SubscriptionFBIIdentification>
 			<nc:IdentificationID>1234567</nc:IdentificationID>
 		</ssr-ext:SubscriptionFBIIdentification>
-		<ssr-ext:CriminalSubscriptionReasonCode>CI
-		</ssr-ext:CriminalSubscriptionReasonCode>
+		<ssr-ext:CriminalSubscriptionReasonCode>CI</ssr-ext:CriminalSubscriptionReasonCode>
 	</ssr-ext:FBISubscription>
 	<ssr-ext:SubscribedEntity s:id="SE001">
 		<nc:EntityPerson>
@@ -141,6 +144,10 @@
 			<nc:PersonSurName>Schrute</nc:PersonSurName>
 		</nc:PersonName>
 		<j:PersonAugmentation>
+			<!-- sometimes called UCN -->
+			<j:PersonFBIIdentification>
+				<nc:IdentificationID>123456789</nc:IdentificationID>
+			</j:PersonFBIIdentification>
 			<j:PersonStateFingerprintIdentification>
 				<nc:IdentificationID>A1099109188</nc:IdentificationID>
 			</j:PersonStateFingerprintIdentification>

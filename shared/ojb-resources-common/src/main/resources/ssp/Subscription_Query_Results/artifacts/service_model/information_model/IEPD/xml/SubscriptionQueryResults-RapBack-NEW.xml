@@ -33,15 +33,40 @@
 					<nc:Date>2016-03-12</nc:Date>
 				</nc:EndDate>
 			</nc:ActivityDateRange>
-			<sqr-ext:SubscriptionActiveIndicator>false</sqr-ext:SubscriptionActiveIndicator>
+			<sqr-ext:SubscriptionActiveIndicator>true</sqr-ext:SubscriptionActiveIndicator>
 			<sqr-ext:SubscriptionRelatedCaseIdentification>
 				<nc:IdentificationID>0123ABC</nc:IdentificationID>
 			</sqr-ext:SubscriptionRelatedCaseIdentification>
+			<sqr-ext:FBISubscription>
+				<nc:ActivityDateRange>
+					<nc:StartDate>
+						<nc:Date>2015-01-01</nc:Date>
+					</nc:StartDate>
+					<nc:EndDate>
+						<nc:Date>2016-01-01</nc:Date>
+					</nc:EndDate>
+				</nc:ActivityDateRange>
+				<sqr-ext:SubscriptionFBIIdentification>
+					<nc:IdentificationID>1234567</nc:IdentificationID>
+				</sqr-ext:SubscriptionFBIIdentification>
+				<sqr-ext:CriminalSubscriptionReasonCode>CI</sqr-ext:CriminalSubscriptionReasonCode>
+				<sqr-ext:RapBackSubscriptionTermCode>5</sqr-ext:RapBackSubscriptionTermCode>
+				<sqr-ext:RapBackActivityNotificationFormatCode>1</sqr-ext:RapBackActivityNotificationFormatCode>
+				<sqr-ext:RapBackInStateOptOutIndicator>false
+				</sqr-ext:RapBackInStateOptOutIndicator>
+			</sqr-ext:FBISubscription>
 			<sqr-ext:SubscriptionSubject>
 				<nc:RoleOfPersonReference s:ref="P001" />
 			</sqr-ext:SubscriptionSubject>
 			<wsn-br:Topic Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">{http://ojbc.org/wsn/topics}:person/arrest</wsn-br:Topic>
-			<!-- sqr-ext:SubscribedEntity s:id="SE001" / -->
+			<sqr-ext:SubscribedEntity s:id="SE001">
+				<nc:EntityPerson>
+					<nc:PersonName>
+						<nc:PersonGivenName>Neil</nc:PersonGivenName>
+						<nc:PersonSurName>Manning</nc:PersonSurName>
+					</nc:PersonName>
+				</nc:EntityPerson>
+			</sqr-ext:SubscribedEntity>
 			<sqr-ext:SubscriptionOriginator>
 				<sqr-ext:SubscriptionOriginatorIdentification>
 					<nc:IdentificationID>HIJIS:IDP:HCJDC:USER:testfull@hcjdc.hawaii.gov
@@ -66,7 +91,8 @@
 					</nc:EndDate>
 				</sqr-ext:SubscriptionGracePeriodDateRange>
 			</sqr-ext:SubscriptionGracePeriod>
-			<sqr-ext:CriminalSubscriptionReasonCode>CI</sqr-ext:CriminalSubscriptionReasonCode>
+			<sqr-ext:CriminalSubscriptionReasonCode>CI
+			</sqr-ext:CriminalSubscriptionReasonCode>
 			<!-- OR sqr-ext:CivilSubscriptionReasonCode>I</sqr-ext:CivilSubscriptionReasonCode -->
 			<sqr-ext:TriggeringEvents>
 				<sqr-ext:FederalTriggeringEventCode>ARREST
@@ -94,14 +120,6 @@
 			<intel:SystemName>Subscriptions</intel:SystemName>
 		</intel:SystemIdentifier>
 	</sqr-ext:SubscriptionQueryResult>
-	<sqr-ext:SubscribedEntity s:id="SE001">
-		<nc:EntityPerson>
-			<nc:PersonName>
-				<nc:PersonGivenName>Neil</nc:PersonGivenName>
-				<nc:PersonSurName>Manning</nc:PersonSurName>
-			</nc:PersonName>
-		</nc:EntityPerson>
-	</sqr-ext:SubscribedEntity>
 	<sqr-ext:Person s:id="P001">
 		<nc:PersonBirthDate>
 			<nc:Date>1975-01-12</nc:Date>
