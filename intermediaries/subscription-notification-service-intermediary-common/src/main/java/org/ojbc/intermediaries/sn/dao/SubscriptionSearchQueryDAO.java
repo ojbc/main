@@ -180,10 +180,10 @@ public class SubscriptionSearchQueryDAO {
 
 	public Subscription findSubscriptionWithFbiInfoBySubscriptionId(String subscriptionId){
 		
-		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, s.subscriptionOwner, s.subscriptionOwnerEmailAddress, s.subjectName, "
-                + "si.identifierName, s.subscription_category_code, s.agency_case_number, s.ori, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
+		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, so.federation_id as subscriptionOwner, so.email_address as subscriptionOwnerEmailAddress, s.subjectName, "
+                + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
                 + "fbi_sub.* "
-                + "FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
+                + " FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, subscription_owner so, agency_profile ap, FBI_RAP_BACK_SUBSCRIPTION fbi_sub  "
                 + "WHERE nm.subscriptionId = s.id and si.subscriptionId = s.id AND fbi_sub.subscription_id = s.id "
                 + "AND s.id = ?";
         List<Subscription> subscriptions = this.jdbcTemplate.query(sql, resultSetExtractor, subscriptionId);
@@ -384,6 +384,7 @@ public class SubscriptionSearchQueryDAO {
 
         String queryString = BASE_QUERY_STRING + staticCriteria.toString()
                 + " and " + SubscriptionSearchQueryDAO.buildCriteriaSql(subjectIdentifiers.size());
+        queryString+= " order by subscriptionOwnerEmailAddress";
         ret = this.jdbcTemplate.query(queryString, criteriaArray, resultSetExtractor);
 
         return ret;
