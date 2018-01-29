@@ -229,7 +229,7 @@ public class SubscriptionsController {
 	        Map<String, Object> model){
 		Element samlElement = samlService.getSamlAssertion(request);
 		
-		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest();
+		SubscriptionSearchRequest subscriptionSearchRequest = new SubscriptionSearchRequest(true);
 		performSubscriptionSearch(model, samlElement, subscriptionSearchRequest);
 		
 	    return "subscriptions/admin/_adminLandingPage";
@@ -253,7 +253,6 @@ public class SubscriptionsController {
 			@ModelAttribute("subscriptionSearchRequest") @Valid SubscriptionSearchRequest subscriptionSearchRequest,
 	        BindingResult errors,
 	        Map<String, Object> model) {	
-//		subscriptionSearchRequestValidator.validate(subscriptionSearchRequest, errors);
 		if (errors.hasErrors()) {
 			model.put("errors", errors);
 			return "subscriptions/admin/_searchForm";

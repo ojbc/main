@@ -33,6 +33,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ojbc.util.camel.helper.OJBUtils;
@@ -366,24 +367,28 @@ public class RequestMessageBuilderUtilities {
 	}
 	
 	public static Document createSubscriptionSearchRequest(SubscriptionSearchRequest subscriptionSearchRequest) throws Exception {
+		log.info("Create Subscription search request for " + subscriptionSearchRequest); 
 		Document doc = OJBCXMLUtils.createDocument();
 
         Element root = doc.createElementNS(OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST, "SubscriptionSearchRequest");
         doc.appendChild(root);
-        root.setPrefix(OjbcNamespaceContext.NS_PREFIX_SUBSCRIPTION_SEARCH_REQUEST);
-        root.setPrefix(OjbcNamespaceContext.NS_PREFIX_SUBSCRIPTION_SEARCH_REQUEST_EXT);
-        root.setPrefix(OjbcNamespaceContext.NS_PREFIX_JXDM_41);
-        root.setPrefix(OjbcNamespaceContext.NS_PREFIX_NC);
+        root.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_SUBSCRIPTION_SEARCH_REQUEST, 
+                OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST);
+        root.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_SUBSCRIPTION_SEARCH_REQUEST_EXT, 
+        		OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT);
+        root.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_JXDM_41, 
+        		OjbcNamespaceContext.NS_JXDM_41);
+        root.setAttribute("xmlns:" + OjbcNamespaceContext.NS_PREFIX_NC, 
+        		OjbcNamespaceContext.NS_NC);
+
         
-        OJBC_NAMESPACE_CONTEXT.populateRootNamespaceDeclarations(root);
-        
-        if (subscriptionSearchRequest.isAdminSearch()){
+        if (subscriptionSearchRequest.getAdminSearch() != null){
         	Element adminSearchRequestIndicator = 
         			XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "AdminSearchRequestIndicator");
-        	adminSearchRequestIndicator.setTextContent("true");
+        	adminSearchRequestIndicator.setTextContent(BooleanUtils.toString(subscriptionSearchRequest.getAdminSearch(), "true", "false"));
         }
         
-        if (subscriptionSearchRequest.getStatus().size() == 1 ){
+        if (subscriptionSearchRequest.getStatus() != null && subscriptionSearchRequest.getStatus().size() == 1 ){
         	Element subscriptionActiveIndicator = 
         			XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "SubscriptionActiveIndicator");
         	
@@ -395,27 +400,28 @@ public class RequestMessageBuilderUtilities {
         	}
         }
         
-        if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerFirstName()) 
-        		|| StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerLastName())  ){
+        if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerFederatedId())
+        		|| StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerFirstName()) 
+        		|| StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerLastName())){
+        
         	Element subscribedEntity = 
         			XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "SubscribedEntity");
-        	Element entityPerson = 
-        			XmlUtils.appendElement(subscribedEntity, OjbcNamespaceContext.NS_NC, "EntityPerson");
-        	Element personName = 
-        			XmlUtils.appendElement(entityPerson, OjbcNamespaceContext.NS_NC, "PersonName");
         	
-        	if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerFirstName())){
-            	Element personGivenName = 
-            			XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC, "PersonGivenName");
-            	personGivenName.setTextContent(subscriptionSearchRequest.getOwnerFirstName());
-        	}
-        	if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerLastName())){
-        		Element personSurName = 
-        				XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC, "PersonSurName");
-        		personSurName.setTextContent(subscriptionSearchRequest.getOwnerLastName());
-        	}
+	        if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerFirstName()) 
+	        		|| StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerLastName())  ){
+	        	Element entityPerson = 
+	        			XmlUtils.appendElement(subscribedEntity, OjbcNamespaceContext.NS_NC, "EntityPerson");
+	        	appendPersonNameElement(entityPerson, subscriptionSearchRequest.getOwnerFirstName(), subscriptionSearchRequest.getOwnerLastName());
+	        }
+	        
+	        if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerFederatedId())){
+	        	Element federatedIdentification = 
+	        			XmlUtils.appendElement(subscribedEntity, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "SubscribedEntityFederatedIdentification");
+	        	Element identificationId = 
+	        			XmlUtils.appendElement(federatedIdentification, OjbcNamespaceContext.NS_NC, "IdentificationID");
+	        	identificationId.setTextContent(subscriptionSearchRequest.getOwnerFederatedId());
+	        }
         }
-        
         if (StringUtils.isNotBlank(subscriptionSearchRequest.getOwnerOri())){
         	Element organization = 
         			XmlUtils.appendElement(root, OjbcNamespaceContext.NS_JXDM_41, "Organization");
@@ -429,20 +435,38 @@ public class RequestMessageBuilderUtilities {
         }
 		
         if (StringUtils.isNotBlank(subscriptionSearchRequest.getSid())
-        		|| subscriptionSearchRequest.getSubscriptionCategories().size()>0){
+        		|| StringUtils.isNotBlank(subscriptionSearchRequest.getUcn())
+        		|| (subscriptionSearchRequest.getSubscriptionCategories() != null && 
+        			subscriptionSearchRequest.getSubscriptionCategories().size()>0)
+        		|| StringUtils.isNotBlank(subscriptionSearchRequest.getSubjectFirstName())
+        		|| StringUtils.isNotBlank(subscriptionSearchRequest.getSubjectLastName())){
         	Element fbiSubscription = 
         			XmlUtils.appendElement(root, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "FBISubscription");
         	
-        	if (StringUtils.isNotBlank(subscriptionSearchRequest.getSid())){
-        		Element subscriptionSubject = 
-        				XmlUtils.appendElement(fbiSubscription, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "SubscriptionSubject");
+        	Element subscriptionSubject = 
+        			XmlUtils.appendElement(fbiSubscription, OjbcNamespaceContext.NS_SUBSCRIPTION_SEARCH_REQUEST_EXT, "SubscriptionSubject");
+        	
+    		appendPersonNameElement(subscriptionSubject, subscriptionSearchRequest.getSubjectFirstName(), subscriptionSearchRequest.getSubjectLastName());
+        	
+        	if (StringUtils.isNotBlank(subscriptionSearchRequest.getSid())
+        			|| StringUtils.isNotBlank(subscriptionSearchRequest.getUcn())){
         		Element personAugmentation = 
         				XmlUtils.appendElement(subscriptionSubject, OjbcNamespaceContext.NS_JXDM_41, "PersonAugmentation");
-        		Element personStateFingerprintIdentification = 
-        				XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");
-                Element identificationID = XmlUtils.appendElement(personStateFingerprintIdentification, 
-                        OjbcNamespaceContext.NS_NC, "IdentificationID"); 
-                identificationID.setTextContent(subscriptionSearchRequest.getSid());
+        		if (StringUtils.isNotBlank(subscriptionSearchRequest.getUcn())){
+	        		Element personFBIIdentification = 
+	        				XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_41, "PersonFBIIdentification");
+	                Element identificationID = XmlUtils.appendElement(personFBIIdentification, 
+	                        OjbcNamespaceContext.NS_NC, "IdentificationID"); 
+	                identificationID.setTextContent(subscriptionSearchRequest.getUcn());
+        		}
+        		
+        		if (StringUtils.isNotBlank(subscriptionSearchRequest.getSid())){
+	        		Element personStateFingerprintIdentification = 
+	        				XmlUtils.appendElement(personAugmentation, OjbcNamespaceContext.NS_JXDM_41, "PersonStateFingerprintIdentification");
+	                Element identificationID = XmlUtils.appendElement(personStateFingerprintIdentification, 
+	                        OjbcNamespaceContext.NS_NC, "IdentificationID"); 
+	                identificationID.setTextContent(subscriptionSearchRequest.getSid());
+        		}
         	}
         	
         	for (String category : subscriptionSearchRequest.getSubscriptionCategories()){
@@ -451,8 +475,30 @@ public class RequestMessageBuilderUtilities {
         		criminalSubscriptionReasonCode.setTextContent(category);
         	}
         }
+        
 		return doc;
 
+	}
+
+	private static void appendPersonNameElement(
+			Element entityPerson, String firstName, String lastName) {
+    	if ( StringUtils.isNotBlank(firstName)
+        		|| StringUtils.isNotBlank(lastName)){
+
+			Element personName = 
+					XmlUtils.appendElement(entityPerson, OjbcNamespaceContext.NS_NC, "PersonName");
+			
+			if (StringUtils.isNotBlank(firstName)){
+				Element personGivenName = 
+						XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC, "PersonGivenName");
+				personGivenName.setTextContent(firstName);
+			}
+			if (StringUtils.isNotBlank(lastName)){
+				Element personSurName = 
+						XmlUtils.appendElement(personName, OjbcNamespaceContext.NS_NC, "PersonSurName");
+				personSurName.setTextContent(lastName);
+			}
+    	}
 	}
 
 	public static Document createSubscriptionQueryRequest(
