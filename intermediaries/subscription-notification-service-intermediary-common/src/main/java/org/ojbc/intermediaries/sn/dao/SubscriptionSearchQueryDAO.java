@@ -65,7 +65,8 @@ public class SubscriptionSearchQueryDAO {
 
 	private static final String BASE_QUERY_STRING = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, "
 			+ "s.subscribingSystemIdentifier, s.subjectName, s.SUBSCRIPTION_OWNER_ID, "
-			+ "si.identifierName, s.subscription_category_code, s.agency_case_number, ap.agency_ori as ori, so.EMAIL_ADDRESS as subscriptionOwnerEmailAddress, so.FEDERATION_ID as subscriptionOwner, "
+			+ "si.identifierName, s.subscription_category_code, s.agency_case_number, ap.agency_ori as ori, so.email_address as subscriptionOwnerEmailAddress, so.federation_id as subscriptionOwner, "
+			+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
 			+ "si.identifierValue, nm.notificationAddress, "
 			+ "nm.notificationMechanismType, fs.* "
 			+ "FROM subscription s LEFT JOIN fbi_rap_back_subscription fs ON fs.subscription_id = s.id, "
@@ -162,6 +163,7 @@ public class SubscriptionSearchQueryDAO {
 	public Subscription findSubscriptionByFbiSubscriptionId(String fbiRelatedSubscriptionId){
 		
 		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, so.federation_id as subscriptionOwner, so.email_address as subscriptionOwnerEmailAddress, s.subjectName, "
+				+ " so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
                 + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
                 + " fbi_sub.* "
                 + " FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, subscription_owner so, agency_profile ap, FBI_RAP_BACK_SUBSCRIPTION fbi_sub "
@@ -180,7 +182,10 @@ public class SubscriptionSearchQueryDAO {
 
 	public Subscription findSubscriptionWithFbiInfoBySubscriptionId(String subscriptionId){
 		
-		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, so.federation_id as subscriptionOwner, so.email_address as subscriptionOwnerEmailAddress, s.subjectName, "
+		String sql = "SELECT s.id, s.topic, s.startDate, s.endDate, s.lastValidationDate, s.validationDueDate, s.creationDate, s.subscribingSystemIdentifier, s.subjectName,  "
+				+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
+				+ "so.federation_id as subscriptionOwner, so.email_address as subscriptionOwnerEmailAddress, s.subjectName, "
+				+ "so.first_name as subscriptionOwnerFirstName, so.last_name as subscriptionOwnerLastName, "
                 + " s.SUBSCRIPTION_OWNER_ID, ap.agency_ori as ori, si.identifierName, s.subscription_category_code, s.agency_case_number, si.identifierValue, nm.notificationAddress, nm.notificationMechanismType, "
                 + "fbi_sub.* "
                 + " FROM subscription s, notification_mechanism nm, subscription_subject_identifier si, subscription_owner so, agency_profile ap, FBI_RAP_BACK_SUBSCRIPTION fbi_sub  "
