@@ -16,9 +16,7 @@
  */
 package org.ojbc.adapters.rapbackdatastore.processor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +30,7 @@ import org.apache.camel.impl.DefaultExchange;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ojbc.intermediaries.sn.dao.Subscription;
@@ -81,32 +80,31 @@ public class TestCriminalHistoryConsolidationServiceState {
     	
     	log.info("CH Notification: " + notifications.get(0));
 
-    	//TODO: emails keep coming back in different order. fix assertions
-    	//assertEquals("bill@local.gov", notifications.get(0).getEmailTo());
+    	assertThat(notifications.get(0).getEmailTo(), Matchers.anyOf(Matchers.is("bill@local.gov"),Matchers.is("email6@email.com"), Matchers.is("email105@email.com")));
     	assertEquals("Rap Back: SID Consolidation by HCJDC", notifications.get(0).getEmailSubject());
     	assertEquals("A123458 has been consolidated into A9999999.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on A9999999.  A new arrest may or may not have occurred.", notifications.get(0).getEmailBody());
 
-    	//assertEquals("email6@email.com", notifications.get(1).getEmailTo());
+    	assertThat(notifications.get(1).getEmailTo(), Matchers.anyOf(Matchers.is("bill@local.gov"),Matchers.is("email6@email.com"), Matchers.is("email105@email.com")));
     	assertEquals("Rap Back: SID Consolidation by HCJDC", notifications.get(1).getEmailSubject());
     	assertEquals("A123458 has been consolidated into A9999999.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on A9999999.  A new arrest may or may not have occurred.", notifications.get(1).getEmailBody());
 
-    	//assertEquals("bill@local.gov", notifications.get(2).getEmailTo());
+    	assertThat(notifications.get(2).getEmailTo(), Matchers.anyOf(Matchers.is("bill@local.gov"),Matchers.is("email6@email.com"), Matchers.is("email105@email.com")));
     	assertEquals("Rap Back: SID Consolidation by HCJDC", notifications.get(2).getEmailSubject());
     	assertEquals("A123458 has been consolidated into A9999999.  Our records show you have an active Rap Back subscription to one of these SIDs.  Please logon to the HIJIS portal to verify your subscription.  For the updated criminal history record information, logon to CJIS-Hawaii to run a query on A9999999.  A new arrest may or may not have occurred.", notifications.get(2).getEmailBody());
 
-    	//assertEquals("email6@email.com", notifications.get(3).getEmailTo());
+    	assertThat(notifications.get(3).getEmailTo(), Matchers.anyOf(Matchers.is("bill@local.gov"),Matchers.is("email6@email.com"), Matchers.is("email105@email.com")));
     	assertEquals("Rap Back: Federal Subscription Created: A123458", notifications.get(3).getEmailSubject());
     	assertEquals("SID: A9999999 \n UCN: 9222201\n\nThe UCN associated to this SID has been updated.  Our records show you have an active State Rap Back subscription associated with this offender.  A federal Rap Back subscription was automatically created on your behalf.  Please log onto the HIJIS portal to verify or update your subscription as necessary.  For the updated criminal history record information, logon to OpenFox/NCIC to run a query on this UCN.", notifications.get(3).getEmailBody());
 
-    	//assertEquals("email105@email.com", notifications.get(4).getEmailTo());
+    	assertThat(notifications.get(4).getEmailTo(), Matchers.anyOf(Matchers.is("bill@local.gov"),Matchers.is("email6@email.com"), Matchers.is("email105@email.com")));
     	assertEquals("Rap Back: Federal Subscription Created: A123458", notifications.get(4).getEmailSubject());
     	assertEquals("SID: A9999999 \n UCN: 9222201\n\nThe UCN associated to this SID has been updated.  Our records show you have an active State Rap Back subscription associated with this offender.  A federal Rap Back subscription was automatically created on your behalf.  Please log onto the HIJIS portal to verify or update your subscription as necessary.  For the updated criminal history record information, logon to OpenFox/NCIC to run a query on this UCN.", notifications.get(4).getEmailBody());
 
-    	//assertEquals("admin@local.gov", notifications.get(5).getEmailTo());
+    	assertThat(notifications.get(5).getEmailTo(), Matchers.anyOf(Matchers.is("bill@local.gov"),Matchers.is("email6@email.com"), Matchers.is("email105@email.com")));
     	assertEquals("Rap Back: Federal Subscription Created: A123458", notifications.get(5).getEmailSubject());
     	assertEquals("SID: A9999999 \n UCN: 9222201\n\nThe UCN associated to this SID has been updated.  Our records show you have an active State Rap Back subscription associated with this offender.  A federal Rap Back subscription was automatically created on your behalf.  Please log onto the HIJIS portal to verify or update your subscription as necessary.  For the updated criminal history record information, logon to OpenFox/NCIC to run a query on this UCN.", notifications.get(5).getEmailBody());
 
-    	//assertEquals("agencyemail@local.gov", notifications.get(6).getEmailTo());
+    	assertEquals("agencyemail@local.gov", notifications.get(6).getEmailTo());
     	assertEquals("Rap Back: Federal Subscription Created: A123458", notifications.get(6).getEmailSubject());
     	assertEquals("Agency: SID: A9999999 \n UCN: 9222201\n\nThe UCN associated to this SID has been updated.  Federal subscription added for user.", notifications.get(6).getEmailBody());
 
