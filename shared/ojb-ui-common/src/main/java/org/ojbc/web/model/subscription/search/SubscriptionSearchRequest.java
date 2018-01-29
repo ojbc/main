@@ -25,10 +25,11 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public class SubscriptionSearchRequest implements Serializable{
 	private static final long serialVersionUID = 6272003361243548121L;
-	private boolean adminSearch;
+	private Boolean adminSearch;
 	private String ownerOri; 
 	private String ownerLastName; 
 	private String ownerFirstName; 
+	private String ownerFederatedId; 
 	private String subjectLastName; 
 	private String subjectFirstName; 
 	private List<String> status = new ArrayList<>();
@@ -40,7 +41,7 @@ public class SubscriptionSearchRequest implements Serializable{
 		super();
 	}
 
-	public SubscriptionSearchRequest(boolean adminSearch) {
+	public SubscriptionSearchRequest(Boolean adminSearch) {
 		this();
 		this.adminSearch = adminSearch;
 	}
@@ -50,11 +51,11 @@ public class SubscriptionSearchRequest implements Serializable{
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 
-	public boolean isAdminSearch() {
+	public Boolean getAdminSearch() {
 		return adminSearch;
 	}
 
-	public void setAdminSearch(boolean adminSearch) {
+	public void setAdminSearch(Boolean adminSearch) {
 		this.adminSearch = adminSearch;
 	}
 
@@ -128,5 +129,13 @@ public class SubscriptionSearchRequest implements Serializable{
 
 	public void setSubscriptionCategories(List<String> subscriptionCategories) {
 		this.subscriptionCategories = subscriptionCategories;
+	}
+
+	public String getOwnerFederatedId() {
+		return ownerFederatedId;
+	}
+
+	public void setOwnerFederatedId(String ownerFederatedId) {
+		this.ownerFederatedId = ownerFederatedId;
 	}
 }

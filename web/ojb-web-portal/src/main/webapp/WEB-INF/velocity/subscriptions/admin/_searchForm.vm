@@ -71,7 +71,7 @@
             <div class="error"> $globalError.defaultMessage </div>
         #end
     #end
-	<input type="hidden" name="${status.expression}" value="ADVANCED" /><br>
+	#springFormHiddenInput("subscriptionSearchRequest.adminSearch")
   		<table>
   			<tr>
   				<td>
