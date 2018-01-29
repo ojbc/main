@@ -71,7 +71,7 @@ public class TestSubscriptionSearchQueryProcessor {
         subjectIdentifiers.put("dateOfBirth", "1960-10-02");
         subjectIdentifiers.put(SubscriptionNotificationConstants.SID, "A123456789");
         
-        Subscription subscriptionSearchResponse = returnSubscriptionSearchResponse("03/13/2013", "04/05/2014", TOPIC, "Joe", "Offender", "OJBC:IDP:OJBC:USER:admin", "61623",
+        Subscription subscriptionSearchResponse = returnSubscriptionSearchResponse("03/13/2013", "04/05/2014", TOPIC, "Joe", "Offender", "OJBC:IDP:OJBC:USER:admin", "ownerFirst", "ownerLast","61623",
                 "{http://demostate.gov/SystemNames/1.0}SystemC", emailAddresses, subjectIdentifiers, null);
 
         assertNotNull(subscriptionSearchResponse);
@@ -108,14 +108,14 @@ public class TestSubscriptionSearchQueryProcessor {
 
         
         Subscription subscriptionSearchResponse = returnSubscriptionSearchResponseWithNullValidation("03/13/2013", "04/05/2014", "{http://ojbc.org/wsn/topics}:person/incident",
-                "Joe", "Offender", "OJBC:IDP:OJBC:USER:admin", "61623", "{http://demostate.gov/SystemNames/1.0}SystemC",emailAddresses, subjectIdentifiers, subscriptionProperties,"");
+                "Joe", "Offender", "OJBC:IDP:OJBC:USER:admin", "ownerFirst", "ownerLast", "61623", "{http://demostate.gov/SystemNames/1.0}SystemC",emailAddresses, subjectIdentifiers, subscriptionProperties,"");
         
         
         assertNotNull(subscriptionSearchResponse);
         
         Document doc = processor.buildSubscriptionQueryResponseDoc(subscriptionSearchResponse);
 
-        XmlUtils.printNode(doc);
+        //XmlUtils.printNode(doc);
         
         //XmlUtils.validateInstance("ssp/Subscription_Search_Results/schema/information/Subscription_Search_Results_IEPD/xsd", 
         //      "Subset/niem", "exchange_schema.xsd", doc);
@@ -146,9 +146,6 @@ public class TestSubscriptionSearchQueryProcessor {
         String topic = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/wsn-br:Topic");
         assertEquals("{http://ojbc.org/wsn/topics}:person/incident",topic);
         
-        String subscribedEntityReference = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscribedEntity/@s:id");
-        assertEquals("SE0",subscribedEntityReference);
-        
         String subscriptionOwner = XmlUtils.xPathStringSearch(subscription, "sqr-ext:Subscription/sqr-ext:SubscriptionOriginator/sqr-ext:SubscriptionOriginatorIdentification/nc:IdentificationID");
         assertEquals("OJBC:IDP:OJBC:USER:admin",subscriptionOwner);
         
@@ -164,6 +161,15 @@ public class TestSubscriptionSearchQueryProcessor {
         
         String systemName = XmlUtils.xPathStringSearch(subscription, "intel:SystemIdentifier/intel:SystemName");
         assertEquals("Subscriptions",systemName);
+
+        String subscribedEntityReference = XmlUtils.xPathStringSearch(doc, "sqr:SubscriptionQueryResults/sqr-ext:SubscribedEntity/@s:id");
+        assertEquals("SE1",subscribedEntityReference);
+        
+        String ownerFirstName = XmlUtils.xPathStringSearch(doc, "sqr:SubscriptionQueryResults/sqr-ext:SubscribedEntity[@s:id='SE1']/nc:EntityPerson/nc:PersonName/nc:PersonGivenName");
+        assertEquals("ownerFirst", ownerFirstName);
+
+        String ownerLastName = XmlUtils.xPathStringSearch(doc, "sqr:SubscriptionQueryResults/sqr-ext:SubscribedEntity[@s:id='SE1']/nc:EntityPerson/nc:PersonName/nc:PersonSurName");
+        assertEquals("ownerLast", ownerLastName);
         
         String personReferenceId = XmlUtils.xPathStringSearch(doc, "sqr:SubscriptionQueryResults/sqr-ext:Person/@s:id");
         assertEquals("P1",personReferenceId);
@@ -223,7 +229,7 @@ public class TestSubscriptionSearchQueryProcessor {
         subjectIdentifiers.put("dateOfBirth", "1960-10-02");
         subjectIdentifiers.put(SubscriptionNotificationConstants.SID, "A123456789");
 
-        Subscription subscriptionSearchResponse = returnSubscriptionSearchResponse("03/13/2013", "04/05/2014", TOPIC, "Joe", "Offender", "OJBC:IDP:OJBC:USER:admin", "61623",
+        Subscription subscriptionSearchResponse = returnSubscriptionSearchResponse("03/13/2013", "04/05/2014", TOPIC, "Joe", "Offender", "OJBC:IDP:OJBC:USER:admin", "ownerFirst", "ownerLast","61623",
                 "{http://demostate.gov/SystemNames/1.0}SystemC", emailAddresses, subjectIdentifiers,null);
 
         assertNotNull(subscriptionSearchResponse);
@@ -255,7 +261,7 @@ public class TestSubscriptionSearchQueryProcessor {
         subjectIdentifiers.put("dateOfBirth", "1960-10-02");
         subjectIdentifiers.put(SubscriptionNotificationConstants.SID, "A123456789");
 
-        Subscription subscriptionSearchResponse = returnSubscriptionSearchResponseWithNullValidation("03/13/2013", "04/05/2014", TOPIC, "Joe", "Offender", "OJBC:IDP:OJBC:USER:admin", "61623",
+        Subscription subscriptionSearchResponse = returnSubscriptionSearchResponseWithNullValidation("03/13/2013", "04/05/2014", TOPIC, "Joe", "Offender", "OJBC:IDP:OJBC:USER:admin", "ownerFirst", "ownerLast", "61623",
                 "{http://demostate.gov/SystemNames/1.0}SystemC", emailAddresses, subjectIdentifiers, null,"");
 
         assertNotNull(subscriptionSearchResponse);
@@ -265,7 +271,7 @@ public class TestSubscriptionSearchQueryProcessor {
 
         Document doc = processor.buildSubscriptionSearchResponseDoc(subscriptionSearchResponseList);
 
-        XmlUtils.printNode(doc);
+        //XmlUtils.printNode(doc);
 
         // XmlUtils.validateInstance("ssp/Subscription_Search_Results/schema/information/Subscription_Search_Results_IEPD/xsd",
         // "Subset/niem", "exchange_schema.xsd", doc);
@@ -295,8 +301,14 @@ public class TestSubscriptionSearchQueryProcessor {
         String topic = XmlUtils.xPathStringSearch(subscription, "ssr-ext:Subscription/wsn-br:Topic");
         assertEquals(TOPIC, topic);
 
-        String subscribedEntityReference = XmlUtils.xPathStringSearch(subscription, "ssr-ext:Subscription/ssr-ext:SubscribedEntity/@s:id");
+        String subscribedEntityReference = XmlUtils.xPathStringSearch(doc, "ssr:SubscriptionSearchResults/ssr-ext:SubscribedEntity/@s:id");
         assertEquals("SE1", subscribedEntityReference);
+
+        String ownerFirstName = XmlUtils.xPathStringSearch(doc, "ssr:SubscriptionSearchResults/ssr-ext:SubscribedEntity[@s:id='SE1']/nc:EntityPerson/nc:PersonName/nc:PersonGivenName");
+        assertEquals("ownerFirst", ownerFirstName);
+
+        String ownerLastName = XmlUtils.xPathStringSearch(doc, "ssr:SubscriptionSearchResults/ssr-ext:SubscribedEntity[@s:id='SE1']/nc:EntityPerson/nc:PersonName/nc:PersonSurName");
+        assertEquals("ownerLast", ownerLastName);
 
         String subscriptionOwner = XmlUtils.xPathStringSearch(subscription, "ssr-ext:Subscription/ssr-ext:SubscriptionOriginator/ssr-ext:SubscriptionOriginatorIdentification/nc:IdentificationID");
         assertEquals("OJBC:IDP:OJBC:USER:admin", subscriptionOwner);
@@ -382,7 +394,7 @@ public class TestSubscriptionSearchQueryProcessor {
 
     }
 
-    private Subscription returnSubscriptionSearchResponseWithNullValidation(String startDate, String endDate, String topic, String firstName, String lastName, String subscriptionOwner,
+    private Subscription returnSubscriptionSearchResponseWithNullValidation(String startDate, String endDate, String topic, String firstName, String lastName, String subscriptionOwner, String subscriptionOwnerFirstName, String subscriptionOwnerLastName,
             String subscriptionIdentifier, String subscribingSystemIdentifier, LinkedHashSet<String> emailAddresses, HashMap<String, String> subscriptionSubjectIdentifiers, HashMap<String, String> subscriptionProperties, String agencyCaseNumber) {
 
         Subscription subscriptionSearchResponse = new Subscription();
@@ -399,6 +411,8 @@ public class TestSubscriptionSearchQueryProcessor {
         subscriptionSearchResponse.setPersonFirstName(firstName);
         subscriptionSearchResponse.setPersonLastName(lastName);
         subscriptionSearchResponse.setSubscriptionOwner(subscriptionOwner);
+        subscriptionSearchResponse.setSubscriptionOwnerFirstName(subscriptionOwnerFirstName);
+        subscriptionSearchResponse.setSubscriptionOwnerLastName(subscriptionOwnerLastName);
         subscriptionSearchResponse.setSubscriptionIdentifier(subscriptionIdentifier);
         subscriptionSearchResponse.setSubscribingSystemIdentifier(subscribingSystemIdentifier);
         subscriptionSearchResponse.setEmailAddressesToNotify(emailAddresses);
@@ -421,10 +435,10 @@ public class TestSubscriptionSearchQueryProcessor {
         return subscriptionSearchResponse;
     }
 
-    private Subscription returnSubscriptionSearchResponse(String startDate, String endDate, String topic, String firstName, String lastName, String subscriptionOwner,
+    private Subscription returnSubscriptionSearchResponse(String startDate, String endDate, String topic, String firstName, String lastName, String subscriptionOwner, String subscriptionOwnerFirstName,String subscriptionOwnerLastName,
             String subscriptionIdentifier, String subscribingSystemIdentifier, LinkedHashSet<String> emailAddresses, HashMap<String, String> subscriptionSubjectIdentifiers, HashMap<String, String> subscriptionProperties) {
 
-        Subscription subscriptionSearchResponse = returnSubscriptionSearchResponseWithNullValidation(startDate, endDate, topic, firstName, lastName, subscriptionOwner, subscriptionIdentifier, subscribingSystemIdentifier, emailAddresses, subscriptionSubjectIdentifiers, subscriptionProperties,"");
+        Subscription subscriptionSearchResponse = returnSubscriptionSearchResponseWithNullValidation(startDate, endDate, topic, firstName, lastName, subscriptionOwner, subscriptionOwnerFirstName, subscriptionOwnerLastName, subscriptionIdentifier, subscribingSystemIdentifier, emailAddresses, subscriptionSubjectIdentifiers, subscriptionProperties,"");
 
         DateTime startDateDate = subscriptionSearchResponse.getStartDate();
         DateTime validationDueDate = startDateDate.plusDays(365);
