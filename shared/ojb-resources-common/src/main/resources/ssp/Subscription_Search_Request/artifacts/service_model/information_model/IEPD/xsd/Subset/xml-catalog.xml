@@ -21,6 +21,7 @@
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
   <uri name="http://niem.gov/niem/appinfo/2.0" uri="appinfo/2.0/appinfo.xsd"/>
   <uri name="http://niem.gov/niem/appinfo/2.1" uri="appinfo/2.1/appinfo.xsd"/>
+  <uri name="http://niem.gov/niem/domains/intelligence/2.1" uri="domains/intelligence/2.1/intelligence.xsd"/>
   <uri name="http://niem.gov/niem/domains/jxdm/4.1" uri="domains/jxdm/4.1/jxdm.xsd"/>
   <uri name="http://niem.gov/niem/niem-core/2.0" uri="niem-core/2.0/niem-core.xsd"/>
   <uri name="http://niem.gov/niem/proxy/xsd/2.0" uri="proxy/xsd/2.0/xsd.xsd"/>
